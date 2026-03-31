@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PULSE — Performance Matrix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #060b18;
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 40px 24px;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .page-logo {
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      background: linear-gradient(90deg, #00d4ff, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .page-sub {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .edit-hint {
+      font-size: 0.72rem;
+      color: #64748b;
+      background: rgba(0,212,255,0.06);
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 8px;
+      padding: 8px 16px;
+      letter-spacing: 0.04em;
+    }
+    .edit-hint span { color: #00d4ff; font-weight: 600; }
+
+    /* ── MATRIX WRAPPER ── */
+    .matrix-wrap {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid rgba(0,212,255,0.15);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      margin-bottom: 24px;
+    }
+
+    /* ── TABLE ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    /* Header row */
+    thead tr th {
+      background: #0d1630;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #e2e8f0;
+      padding: 12px 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      white-space: nowrap;
+    }
+    thead tr th.th-missions {
+      text-align: left;
+      min-width: 110px;
+      color: #e2e8f0;
+      background: #0d1630;
+    }
+    thead tr th.th-missions-sub {
+      min-width: 60px;
+      background: #0d1630;
+    }
+    thead tr th.th-metric {
+      min-width: 80px;
+      cursor: text;
+      transition: background 0.15s;
+    }
+    thead tr th.th-metric:hover { background: #131e3a; }
+    thead tr th.th-metric:focus { outline: none; background: #131e3a; color: #00d4ff; }
+    thead tr th.th-total {
+      background: #0d1630;
+      min-width: 80px;
+    }
+
+    /* Body rows */
+    tbody tr td {
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 6px 10px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: text;
+      transition: background 0.15s;
+      min-width: 72px;
+    }
+    tbody tr td:focus { outline: none; }
+    tbody tr td:hover { background: rgba(255,255,255,0.03); }
+    tbody tr td:focus { background: rgba(0,212,255,0.07); }
+
+    /* Tier name cell */
+    td.td-tier {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      text-align: left;
+      background: #0d1630;
+      border-right: 1px solid rgba(255,255,255,0.12);
+      padding-left: 12px;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+    td.td-tier:focus { color: #00d4ff; background: #101c36; }
+
+    /* Row type label */
+    td.td-type {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.2);
+      white-space: nowrap;
+      min-width: 56px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Row stripe */
+    tr.row-target td { background: rgba(255,255,255,0.01); }
+    tr.row-points td { background: rgba(0,0,0,0.15); }
+    tr.row-target:hover td, tr.row-points:hover td { background: rgba(255,255,255,0.03); }
+    tr.row-target:hover td.td-tier, tr.row-points:hover td.td-tier,
+    tr.row-target:hover td.td-type, tr.row-points:hover td.td-type { background: #0d1630; }
+
+    /* Target label */
+    .lbl-target { color: #94a3b8; }
+
+    /* Points label — cyan (Peak) */
+    .lbl-points-blue { color: #00d4ff; }
+    td.val-blue { color: #00d4ff; }
+
+    /* Points label — yellow (Tier 5–2) */
+    .lbl-points-yellow { color: #eab308; }
+    td.val-yellow { color: #eab308; }
+
+    /* Points label — red (Tier 1 minimum) */
+    .lbl-points-red { color: #ef4444; }
+    td.val-red { color: #ef4444; }
+
+    /* Empty cell */
+    td.empty { color: rgba(255,255,255,0.1); cursor: default; }
+    td.empty:hover { background: transparent !important; }
+
+    /* Total cells */
+    td.td-total {
+      font-weight: 800;
+      background: rgba(0,0,0,0.3) !important;
+      border-left: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* ── LEVEL CARDS ── */
+    .level-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .level-card {
+      border-radius: 12px;
+      border: 2px solid;
+      padding: 18px 14px;
+      text-align: center;
+    }
+    .lc-1 { border-color: #ef4444; background: rgba(239,68,68,0.06); }
+    .lc-2 { border-color: #eab308; background: rgba(234,179,8,0.06); }
+    .lc-3 { border-color: #22c55e; background: rgba(34,197,94,0.06); }
+    .lc-4 { border-color: #00d4ff; background: rgba(0,212,255,0.06); }
+    .lc-5 { border-color: #a855f7; background: rgba(168,85,247,0.06); }
+
+    .lc-name {
+      font-size: 0.85rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .lc-1 .lc-name { color: #ef4444; }
+    .lc-2 .lc-name { color: #eab308; }
+    .lc-3 .lc-name { color: #22c55e; }
+    .lc-4 .lc-name { color: #00d4ff; }
+    .lc-5 .lc-name { color: #a855f7; }
+
+    .lc-bls {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #e2e8f0;
+      display: block;
+      min-height: 1.4em;
+    }
+    .lc-bonus {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      display: block;
+      margin-top: 6px;
+      min-height: 1.2em;
+    }
+
+    [contenteditable]:focus { outline: none; }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { height: 4px; width: 4px; }
+    ::-webkit-scrollbar-track { background: #060b18; }
+    ::-webkit-scrollbar-thumb { background: #00d4ff; border-radius: 2px; }
+
+    /* First-visit walkthrough (all screen sizes) */
+    .matrix-welcome {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0, 0, 0, 0.82);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: max(16px, env(safe-area-inset-top, 0px)) max(14px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(14px, env(safe-area-inset-left, 0px));
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .matrix-welcome.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .matrix-welcome-card {
+      background: #0a1025;
+      border: 1px solid rgba(0, 212, 255, 0.28);
+      border-radius: 20px;
+      padding: 28px 22px 22px;
+      max-width: 420px;
+      width: 100%;
+      margin: auto 0;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.65);
+      transform: scale(0.96);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .matrix-welcome.visible .matrix-welcome-card { transform: scale(1); }
+    .matrix-welcome-card h2 {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .matrix-welcome-card p {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .matrix-welcome-card ul {
+      margin: 0 0 18px 1rem;
+      padding: 0;
+      font-size: 0.84rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+    }
+    .matrix-welcome-card li { margin-bottom: 8px; }
+    .matrix-welcome-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .matrix-welcome-actions button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+    }
+    .matrix-welcome-primary {
+      background: linear-gradient(135deg, #00d4ff, #a855f7);
+      color: #fff;
+    }
+    .matrix-welcome-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      color: #94a3b8;
+    }
+    .matrix-help-btn {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      font-family: inherit;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 212, 255, 0.35);
+      background: rgba(0, 212, 255, 0.08);
+      color: #00d4ff;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .edit-hint { max-width: 100%; text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <div>
+      <div class="page-logo">PULSE</div>
+      <div class="page-sub">Performance Matrix</div>
+    </div>
+    <button type="button" class="matrix-help-btn" onclick="openMatrixWalkthroughModal()" aria-label="How this matrix works">How it works</button>
+    <div class="edit-hint">Click any cell to <span>edit</span> — all values are customizable. If columns don’t fit, scroll or swipe the table sideways.</div>
+  </div>
+
+  <!-- MATRIX TABLE -->
+  <div class="matrix-wrap">
+    <table id="matrix">
+      <thead>
+        <tr>
+          <th class="th-missions" contenteditable="true">Core Missions</th>
+          <th class="th-missions-sub"></th>
+          <th class="th-metric" contenteditable="true">BASE VAPS</th>
+          <th class="th-metric" contenteditable="true">SMARTPHONES</th>
+          <th class="th-metric" contenteditable="true">UPGRADES</th>
+          <th class="th-metric" contenteditable="true">INCREMENTAL SMARTPHONES</th>
+          <th class="th-metric" contenteditable="true">NEW ACTIVATIONS W/O WATCHES</th>
+          <th class="th-metric" contenteditable="true">CONSUMER INTERNET</th>
+          <th class="th-metric" contenteditable="true">VAPS/HR</th>
+          <th class="th-metric" contenteditable="true">VAPS/ PHONE</th>
+          <th class="th-total">TOTAL ACCY COMM</th>
+        </tr>
+      </thead>
+      <tbody id="matrix-body"></tbody>
+    </table>
+  </div>
+
+  <!-- LEVEL CARDS -->
+  <div class="level-row" id="level-row"></div>
+
+  <div id="matrix-welcome" class="matrix-welcome" aria-hidden="true">
+    <div class="matrix-welcome-card" role="dialog" aria-labelledby="matrix-welcome-title">
+      <div style="font-size:0.58rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#00d4ff;margin-bottom:8px;">Quick tour</div>
+      <h2 id="matrix-welcome-title">How this page works</h2>
+      <p>The performance matrix is fully interactive — use it like a spreadsheet.</p>
+      <ul>
+        <li><strong style="color:#e2e8f0;">Edit</strong> — click any tier name, header, target, or points cell to change it.</li>
+        <li><strong style="color:#e2e8f0;">Scroll</strong> — scroll or swipe the table horizontally to see all KPI columns.</li>
+        <li><strong style="color:#e2e8f0;">Totals</strong> — the right column sums numeric values in each row automatically.</li>
+        <li><strong style="color:#e2e8f0;">Levels</strong> — the cards below spell out BLS thresholds and bonus tiers; those labels are editable too.</li>
+      </ul>
+      <div class="matrix-welcome-actions">
+        <button type="button" class="matrix-welcome-primary" onclick="dismissMatrixWalkthroughModal(true)">Got it</button>
+        <a href="index.html#dashboard" class="matrix-welcome-secondary" style="text-align:center;text-decoration:none;display:block;padding:12px 18px;border-radius:10px;font-size:0.88rem;font-weight:600;">Full site demo →</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── DATA ──
+    // type: 'target' | 'points-blue' | 'points-yellow' | 'points-red'
+    // '' = empty cell, null = same tier name continuing
+    const MATRIX = [
+      {
+        tier: 'Peak',
+        rows: [
+          { label: 'Target',  type: 'target',        vals: ['1200', '',    '',    '',    '',    '',    '',    '',    '']    },
+          { label: 'Points',  type: 'points-blue',   vals: ['1000', '',    '',    '',    '',    '',    '',    '',    '']    },
+        ]
+      },
+      {
+        tier: 'Peak',
+        rows: [
+          { label: 'Target',  type: 'target',        vals: ['1005', '90',  '70',  '',    '',    '',    '',    '',    '']    },
+          { label: 'Points',  type: 'points-blue',   vals: ['725',  '725', '550', '',    '',    '',    '',    '',    '']    },
+        ]
+      },
+      {
+        tier: 'Tier 5',
+        rows: [
+          { label: 'Target',  type: 'target',        vals: ['700',  '65',  '58',  '24',  '24',  '9',   '',    '',    '']    },
+          { label: 'Points',  type: 'points-yellow', vals: ['500',  '500', '475', '475', '475', '440', '175', '175', '175'] },
+        ]
+      },
+      {
+        tier: 'Tier 4',
+        rows: [
+          { label: 'Target',  type: 'target',        vals: ['520',  '47',  '40',  '14',  '16',  '5',   '3.1', '13',  '1000'] },
+          { label: 'Points',  type: 'points-yellow', vals: ['400',  '400', '375', '350', '350', '310', '135', '135', '135']  },
+        ]
+      },
+      {
+        tier: 'Tier 3',
+        rows: [
+          { label: 'Target',  type: 'target',        vals: ['275',  '25',  '20',  '8',   '10',  '2',   '2.3', '11',  '650']  },
+          { label: 'Points',  type: 'points-yellow', vals: ['330',  '320', '310', '225', '225', '200', '75',  '75',  '75']   },
+        ]
+      },
+      {
+        tier: 'Tier 2',
+        rows: [
+          { label: 'Target',  type: 'target',        vals: ['220',  '20',  '16',  '4',   '6',   '1',   '1.9', '9',   '450']  },
+          { label: 'Points',  type: 'points-yellow', vals: ['275',  '255', '235', '90',  '90',  '75',  '50',  '50',  '50']   },
+        ]
+      },
+      {
+        tier: 'Tier 1',
+        rows: [
+          { label: 'Target',  type: 'target',        vals: ['150',  '15',  '8',   '2',   '3',   '0',   '1.7', '7',   '250']  },
+          { label: 'Target',  type: 'points-red',    vals: ['170',  '155', '110', '50',  '50',  '0',   '15',  '15',  '15']   },
+        ]
+      },
+    ];
+
+    const LEVELS = [
+      { name: 'LEVEL 1', bls: '0 BLS',    bonus: '',              cls: 'lc-1' },
+      { name: 'LEVEL 2', bls: '1200 BLS', bonus: 'Base + 7.5%',  cls: 'lc-2' },
+      { name: 'LEVEL 3', bls: '1850 BLS', bonus: 'Base + 15%',   cls: 'lc-3' },
+      { name: 'LEVEL 4', bls: '2275 BLS', bonus: 'Base + 22.5%', cls: 'lc-4' },
+      { name: 'LEVEL 5', bls: '2600 BLS', bonus: 'Base + 30%',   cls: 'lc-5' },
+    ];
+
+    // ── LABEL CLASSES ──
+    const TYPE_LABEL = {
+      'target':        'lbl-target',
+      'points-blue':   'lbl-points-blue',
+      'points-yellow': 'lbl-points-yellow',
+      'points-red':    'lbl-points-red',
+    };
+    const TYPE_VAL = {
+      'target':        '',
+      'points-blue':   'val-blue',
+      'points-yellow': 'val-yellow',
+      'points-red':    'val-red',
+    };
+
+    // ── BUILD TABLE ──
+    function buildMatrix() {
+      const tbody = document.getElementById('matrix-body');
+      tbody.innerHTML = '';
+
+      MATRIX.forEach((tier, ti) => {
+        tier.rows.forEach((row, ri) => {
+          const tr = document.createElement('tr');
+          tr.className = row.type === 'target' ? 'row-target' : 'row-points';
+
+          // Tier name cell (rowspan=2, only on first sub-row)
+          if (ri === 0) {
+            const tdTier = document.createElement('td');
+            tdTier.className = 'td-tier';
+            tdTier.rowSpan = tier.rows.length;
+            tdTier.contentEditable = 'true';
+            tdTier.textContent = tier.tier;
+            tr.appendChild(tdTier);
+          }
+
+          // Label cell
+          const tdLabel = document.createElement('td');
+          tdLabel.className = `td-type ${TYPE_LABEL[row.type]}`;
+          tdLabel.contentEditable = 'true';
+          tdLabel.textContent = row.label;
+          tr.appendChild(tdLabel);
+
+          // Value cells
+          row.vals.forEach((val, ci) => {
+            const td = document.createElement('td');
+            if (val === '') {
+              td.className = 'empty';
+              td.textContent = '';
+            } else {
+              td.className = TYPE_VAL[row.type];
+              td.contentEditable = 'true';
+              td.textContent = val;
+            }
+            tr.appendChild(td);
+          });
+
+          // Total cell (auto-sum of row values)
+          const tdTotal = document.createElement('td');
+          tdTotal.className = `td-total ${TYPE_VAL[row.type]}`;
+          tdTotal.id = `total-${ti}-${ri}`;
+          tdTotal.textContent = calcRowTotal(row.vals);
+          tr.appendChild(tdTotal);
+
+          tbody.appendChild(tr);
+        });
+      });
+
+      // Live recalc on edit
+      tbody.querySelectorAll('[contenteditable]').forEach(el => {
+        el.addEventListener('input', function() {
+          const tr = this.closest('tr');
+          recalcRowTotal(tr);
+        });
+      });
+    }
+
+    function calcRowTotal(vals) {
+      const sum = vals.reduce((acc, v) => {
+        const n = parseFloat(v);
+        return acc + (isNaN(n) ? 0 : n);
+      }, 0);
+      return sum > 0 ? sum.toLocaleString() : '';
+    }
+
+    function recalcRowTotal(tr) {
+      const cells = Array.from(tr.querySelectorAll('td')).filter(
+        td => !td.classList.contains('td-tier') &&
+              !td.classList.contains('td-type') &&
+              !td.classList.contains('td-total')
+      );
+      const sum = cells.reduce((acc, td) => {
+        const n = parseFloat(td.textContent);
+        return acc + (isNaN(n) ? 0 : n);
+      }, 0);
+      const totalCell = tr.querySelector('.td-total');
+      if (totalCell) totalCell.textContent = sum > 0 ? sum.toLocaleString() : '';
+    }
+
+    // ── BUILD LEVEL CARDS ──
+    function buildLevels() {
+      const wrap = document.getElementById('level-row');
+      wrap.innerHTML = '';
+      LEVELS.forEach(lv => {
+        const card = document.createElement('div');
+        card.className = `level-card ${lv.cls}`;
+        card.innerHTML = `
+          <div class="lc-name">${lv.name}</div>
+          <span class="lc-bls" contenteditable="true">${lv.bls}</span>
+          <span class="lc-bonus" contenteditable="true">${lv.bonus}</span>
+        `;
+        wrap.appendChild(card);
+      });
+    }
+
+    buildMatrix();
+    buildLevels();
+
+    const MATRIX_WALKTHROUGH_KEY = 'pulse_matrix_walkthrough_done';
+    const MATRIX_WALKTHROUGH_LEGACY_KEY = 'pulse_matrix_mobile_walkthrough_done';
+
+    function openMatrixWalkthroughModal() {
+      const el = document.getElementById('matrix-welcome');
+      if (!el) return;
+      el.classList.add('visible');
+      el.setAttribute('aria-hidden', 'false');
+    }
+
+    function dismissMatrixWalkthroughModal(saveDismissed) {
+      const el = document.getElementById('matrix-welcome');
+      if (el) {
+        el.classList.remove('visible');
+        el.setAttribute('aria-hidden', 'true');
+      }
+      if (saveDismissed) {
+        try {
+          localStorage.setItem(MATRIX_WALKTHROUGH_KEY, '1');
+          localStorage.removeItem(MATRIX_WALKTHROUGH_LEGACY_KEY);
+        } catch (e) {}
+      }
+    }
+
+    (function maybeShowMatrixWalkthrough() {
+      try {
+        if (localStorage.getItem(MATRIX_WALKTHROUGH_KEY) || localStorage.getItem(MATRIX_WALKTHROUGH_LEGACY_KEY)) return;
+        setTimeout(openMatrixWalkthroughModal, 450);
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
