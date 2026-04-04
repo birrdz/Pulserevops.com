@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://pulserevops.com/sitemap.xml
+
+# Disallow dashboard query param from being indexed as a separate URL
+Disallow: /?dashboard

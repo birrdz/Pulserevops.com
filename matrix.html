@@ -337,9 +337,21 @@
 <body>
 
   <div class="page-header">
-    <div>
-      <div class="page-logo">PULSE</div>
-      <div class="page-sub">Performance Matrix</div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div style="position:relative; display:inline-flex; align-items:center;">
+        <select onchange="(function(s){var v=s.value;s.selectedIndex=0;window.location.href=v;})(this)" style="appearance:none;-webkit-appearance:none;background:#060b18;border:1px solid rgba(0,212,255,0.2);border-radius:8px;color:#94a3b8;font-family:Inter,sans-serif;font-size:0.8rem;font-weight:600;padding:7px 32px 7px 12px;cursor:pointer;outline:none;min-width:160px;" aria-label="Navigate to section">
+          <option value="" disabled selected>Navigate to…</option>
+          <option value="index.html">← Back to Home</option>
+          <option value="dashboard.html">Performance Matrix</option>
+          <option value="plan-90.html">90-Day Plan</option>
+          <option value="schedule.html">Rep Schedule Calculator</option>
+        </select>
+        <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:#64748b;font-size:0.7rem;">▾</span>
+      </div>
+      <div>
+        <div class="page-logo">PULSE</div>
+        <div class="page-sub">My Dashboard — Performance Matrix</div>
+      </div>
     </div>
     <button type="button" class="matrix-help-btn" onclick="openMatrixWalkthroughModal()" aria-label="How this matrix works">How it works</button>
     <div class="edit-hint">Click any cell to <span>edit</span> — all values are customizable. If columns don’t fit, scroll or swipe the table sideways.</div>

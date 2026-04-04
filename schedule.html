@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PULSE — Rep Schedule Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #060b18;
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .page-logo {
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      background: linear-gradient(90deg, #00d4ff, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .page-sub {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .back-link {
+      font-size: 0.72rem;
+      color: #64748b;
+      background: rgba(0,212,255,0.06);
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 8px;
+      padding: 8px 16px;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .back-link:hover { color: #00d4ff; border-color: rgba(0,212,255,0.4); }
+
+    /* ── SECTION TITLE ── */
+    .section-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 10px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #0a1025;
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    /* ── SETTINGS ROW ── */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      align-items: end;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    input[type="time"],
+    input[type="number"],
+    input[type="text"],
+    select {
+      background: #060b18;
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 8px;
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 9px 12px;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus { outline: none; border-color: #00d4ff; }
+    input[type="number"] { -moz-appearance: textfield; }
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+    /* ── DAYS TOGGLE ── */
+    .days-toggle {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .day-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .day-btn.active {
+      background: rgba(0,212,255,0.12);
+      border-color: #00d4ff;
+      color: #00d4ff;
+    }
+
+    /* ── REP MANAGEMENT ── */
+    .rep-controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 9px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: linear-gradient(135deg, #00d4ff, #0099cc);
+      color: #060b18;
+    }
+    .btn-danger {
+      background: rgba(239,68,68,0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239,68,68,0.3);
+    }
+    .btn-ghost {
+      background: rgba(255,255,255,0.05);
+      color: #94a3b8;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn:hover { opacity: 0.85; }
+
+    /* ── REP LIST ── */
+    .rep-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .rep-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 10px 14px;
+      flex-wrap: wrap;
+    }
+    .rep-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .rep-name-input {
+      flex: 1;
+      min-width: 120px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0;
+      padding: 4px 0;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+    .rep-name-input:focus { border-bottom-color: #00d4ff; }
+    .rep-delete {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 1rem;
+      opacity: 0.4;
+      transition: opacity 0.15s;
+      padding: 0 4px;
+    }
+    .rep-delete:hover { opacity: 1; }
+
+    /* ── SCHEDULE GRID ── */
+    .schedule-scroll {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(0,212,255,0.12);
+    }
+    table.sched-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+    .sched-table th {
+      background: #0d1630;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,0.07);
+      text-align: center;
+      white-space: nowrap;
+    }
+    .sched-table th.th-rep {
+      text-align: left;
+      min-width: 140px;
+      color: #e2e8f0;
+    }
+    .sched-table td {
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 6px 8px;
+      vertical-align: middle;
+    }
+    .sched-table td.td-rep-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      background: #0d1630;
+      white-space: nowrap;
+      padding: 8px 14px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .shift-cell {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: nowrap;
+    }
+    .shift-cell input[type="time"] {
+      width: 90px;
+      font-size: 0.72rem;
+      padding: 5px 7px;
+      border-radius: 6px;
+      background: #060b18;
+      border-color: rgba(255,255,255,0.1);
+    }
+    .shift-cell input[type="time"]:focus { border-color: #00d4ff; }
+    .shift-sep {
+      font-size: 0.65rem;
+      color: #475569;
+      flex-shrink: 0;
+    }
+    .shift-off {
+      font-size: 0.65rem;
+      color: #374151;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 4px 8px;
+    }
+    td.td-off { background: rgba(0,0,0,0.2); cursor: default; }
+
+    /* shift hours badge */
+    .shift-hrs {
+      font-size: 0.62rem;
+      font-weight: 700;
+      border-radius: 5px;
+      padding: 2px 6px;
+      flex-shrink: 0;
+      margin-left: 2px;
+    }
+    .hrs-ok { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .hrs-warn { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .hrs-empty { display: none; }
+
+    /* ── TOTALS ROW ── */
+    .sched-table tr.totals-row td {
+      background: #0d1630;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding: 10px 8px;
+    }
+    .sched-table tr.totals-row td.td-rep-name {
+      color: #e2e8f0;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.62rem;
+    }
+
+    /* ── SUMMARY CARDS ── */
+    .summary-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .stat-card {
+      background: #0a1025;
+      border: 1px solid rgba(0,212,255,0.12);
+      border-radius: 12px;
+      padding: 18px 16px;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .val-cyan { color: #00d4ff; }
+    .val-green { color: #22c55e; }
+    .val-yellow { color: #eab308; }
+    .val-red { color: #ef4444; }
+    .val-purple { color: #a855f7; }
+
+    /* ── COVERAGE BAR ── */
+    .coverage-section { margin-top: 20px; }
+    .coverage-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .coverage-day {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      width: 28px;
+      flex-shrink: 0;
+    }
+    .coverage-bar-wrap {
+      flex: 1;
+      height: 28px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .coverage-segment {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      border-radius: 3px;
+    }
+    .coverage-bar-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .coverage-pct {
+      font-size: 0.72rem;
+      font-weight: 700;
+      width: 38px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .coverage-count {
+      font-size: 0.65rem;
+      color: #475569;
+      width: 60px;
+      flex-shrink: 0;
+    }
+
+    /* ── VALIDATION BANNER ── */
+    .warn-banner {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.78rem;
+      color: #ef4444;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .warn-banner.visible { display: block; }
+    .warn-banner strong { font-weight: 800; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { height: 4px; width: 4px; }
+    ::-webkit-scrollbar-track { background: #060b18; }
+    ::-webkit-scrollbar-thumb { background: #00d4ff; border-radius: 2px; }
+
+    @media (max-width: 600px) {
+      .page-header { flex-direction: column; }
+      body { padding: 24px 14px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <div class="page-logo">PULSE</div>
+    <div class="page-sub">Rep Schedule Calculator</div>
+  </div>
+  <div style="position:relative; display:inline-flex; align-items:center;">
+    <select onchange="(function(s){var v=s.value;s.selectedIndex=0;window.location.href=v;})(this)" style="appearance:none;-webkit-appearance:none;background:#060b18;border:1px solid rgba(0,212,255,0.2);border-radius:8px;color:#94a3b8;font-family:Inter,sans-serif;font-size:0.8rem;font-weight:600;padding:7px 32px 7px 12px;cursor:pointer;outline:none;min-width:160px;" aria-label="Navigate to section">
+      <option value="" disabled selected>Navigate to…</option>
+      <option value="index.html">← Back to Home</option>
+      <option value="dashboard.html">Performance Matrix</option>
+      <option value="plan-90.html">90-Day Plan</option>
+    </select>
+    <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:#64748b;font-size:0.7rem;">▾</span>
+  </div>
+</div>
+
+<!-- ── SETTINGS ── -->
+<div class="card">
+  <div class="section-label">Store Hours & Week Settings</div>
+  <div class="settings-grid">
+    <div class="field-group">
+      <div class="field-label">Store Open</div>
+      <input type="time" id="store-open" value="09:00" />
+    </div>
+    <div class="field-group">
+      <div class="field-label">Store Close</div>
+      <input type="time" id="store-close" value="21:00" />
+    </div>
+    <div class="field-group">
+      <div class="field-label">Min Shift (hrs)</div>
+      <input type="number" id="min-shift" value="6" min="1" max="24" style="color:#eab308" />
+    </div>
+    <div class="field-group">
+      <div class="field-label">Work Days</div>
+      <div class="days-toggle" id="days-toggle">
+        <button class="day-btn active" data-day="0">SUN</button>
+        <button class="day-btn active" data-day="1">MON</button>
+        <button class="day-btn active" data-day="2">TUE</button>
+        <button class="day-btn active" data-day="3">WED</button>
+        <button class="day-btn active" data-day="4">THU</button>
+        <button class="day-btn active" data-day="5">FRI</button>
+        <button class="day-btn active" data-day="6">SAT</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── REPS ── -->
+<div class="card">
+  <div class="section-label">Sales Reps</div>
+  <div class="rep-controls">
+    <button class="btn btn-primary" id="add-rep-btn">+ Add Rep</button>
+    <button class="btn btn-ghost" id="clear-all-btn">Clear Schedule</button>
+  </div>
+  <div class="rep-list" id="rep-list"></div>
+</div>
+
+<!-- ── SCHEDULE ── -->
+<div class="card" id="schedule-card">
+  <div class="section-label">Weekly Schedule</div>
+  <div id="warn-container">
+    <div class="warn-banner" id="warn-banner"></div>
+  </div>
+  <div class="schedule-scroll">
+    <table class="sched-table" id="sched-table">
+      <thead id="sched-head"></thead>
+      <tbody id="sched-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── SUMMARY ── -->
+<div class="card" id="summary-card">
+  <div class="section-label">Coverage Summary</div>
+  <div class="summary-row" id="summary-row"></div>
+  <div class="coverage-section">
+    <div class="section-label" style="margin-top:20px;margin-bottom:12px;">Daily Coverage</div>
+    <div id="coverage-bars"></div>
+  </div>
+</div>
+
+<script>
+  /* ──────────────────────────────────────────────
+     STATE
+  ────────────────────────────────────────────── */
+  const REP_COLORS = ['#00d4ff','#a855f7','#22c55e','#eab308','#f97316','#ec4899','#3b82f6','#14b8a6'];
+  const DAY_LABELS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+  let reps = []; // { id, name, shifts: { 0:{start,end}, 1:{start,end}, ... } }
+  let activeDays = [0,1,2,3,4,5,6];
+  let repIdSeq = 0;
+
+  /* ──────────────────────────────────────────────
+     HELPERS
+  ────────────────────────────────────────────── */
+  function timeToMins(t) {
+    if (!t) return null;
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + m;
+  }
+  function minsToTime(m) {
+    const h = Math.floor(m / 60);
+    const mm = m % 60;
+    return `${String(h).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;
+  }
+  function shiftHours(start, end) {
+    const s = timeToMins(start), e = timeToMins(end);
+    if (s === null || e === null || e <= s) return 0;
+    return (e - s) / 60;
+  }
+  function getMinShift() {
+    return parseFloat(document.getElementById('min-shift').value) || 6;
+  }
+  function getStoreOpen() { return document.getElementById('store-open').value || '09:00'; }
+  function getStoreClose() { return document.getElementById('store-close').value || '21:00'; }
+  function storeHoursPerDay() {
+    const s = timeToMins(getStoreOpen()), e = timeToMins(getStoreClose());
+    return s !== null && e !== null && e > s ? (e - s) / 60 : 0;
+  }
+  function repColor(id) {
+    const rep = reps.find(r => r.id === id);
+    if (!rep) return '#64748b';
+    return REP_COLORS[reps.indexOf(rep) % REP_COLORS.length];
+  }
+
+  /* ──────────────────────────────────────────────
+     DAY TOGGLE
+  ────────────────────────────────────────────── */
+  document.getElementById('days-toggle').addEventListener('click', e => {
+    const btn = e.target.closest('.day-btn');
+    if (!btn) return;
+    const day = parseInt(btn.dataset.day);
+    const idx = activeDays.indexOf(day);
+    if (idx === -1) { activeDays.push(day); activeDays.sort(); btn.classList.add('active'); }
+    else { activeDays.splice(idx, 1); btn.classList.remove('active'); }
+    renderAll();
+  });
+
+  /* ──────────────────────────────────────────────
+     REP MANAGEMENT
+  ────────────────────────────────────────────── */
+  function addRep(name) {
+    const id = ++repIdSeq;
+    reps.push({ id, name: name || `Rep ${id}`, shifts: {} });
+    renderRepList();
+    renderAll();
+  }
+  function deleteRep(id) {
+    reps = reps.filter(r => r.id !== id);
+    renderRepList();
+    renderAll();
+  }
+  function clearSchedule() {
+    reps.forEach(r => { r.shifts = {}; });
+    renderAll();
+  }
+
+  document.getElementById('add-rep-btn').addEventListener('click', () => addRep());
+  document.getElementById('clear-all-btn').addEventListener('click', clearSchedule);
+
+  function renderRepList() {
+    const list = document.getElementById('rep-list');
+    list.innerHTML = '';
+    reps.forEach((rep, i) => {
+      const color = REP_COLORS[i % REP_COLORS.length];
+      const row = document.createElement('div');
+      row.className = 'rep-row';
+      row.innerHTML = `
+        <div class="rep-dot" style="background:${color}"></div>
+        <input class="rep-name-input" type="text" value="${rep.name}" data-id="${rep.id}" />
+        <button class="rep-delete" data-id="${rep.id}" title="Remove rep">✕</button>
+      `;
+      list.appendChild(row);
+    });
+
+    list.querySelectorAll('.rep-name-input').forEach(inp => {
+      inp.addEventListener('input', e => {
+        const rep = reps.find(r => r.id === parseInt(e.target.dataset.id));
+        if (rep) { rep.name = e.target.value; renderAll(); }
+      });
+    });
+    list.querySelectorAll('.rep-delete').forEach(btn => {
+      btn.addEventListener('click', e => deleteRep(parseInt(e.target.dataset.id)));
+    });
+  }
+
+  /* ──────────────────────────────────────────────
+     SCHEDULE TABLE
+  ────────────────────────────────────────────── */
+  function renderScheduleTable() {
+    const head = document.getElementById('sched-head');
+    const body = document.getElementById('sched-body');
+    const minShift = getMinShift();
+    const warnings = [];
+
+    // Header
+    let headHtml = '<tr><th class="th-rep">Rep</th>';
+    activeDays.forEach(d => { headHtml += `<th>${DAY_LABELS[d]}</th>`; });
+    headHtml += '<th>Total Hrs</th></tr>';
+    head.innerHTML = headHtml;
+
+    // Body rows
+    let bodyHtml = '';
+    const dayTotals = {};
+    activeDays.forEach(d => { dayTotals[d] = 0; });
+    let grandTotal = 0;
+
+    reps.forEach((rep, i) => {
+      const color = REP_COLORS[i % REP_COLORS.length];
+      let repTotal = 0;
+      bodyHtml += `<tr><td class="td-rep-name"><span style="color:${color}">●</span> ${escHtml(rep.name)}</td>`;
+
+      activeDays.forEach(d => {
+        const shift = rep.shifts[d] || {};
+        const start = shift.start || '';
+        const end = shift.end || '';
+        const hrs = shiftHours(start, end);
+        if (hrs > 0) { repTotal += hrs; dayTotals[d] += hrs; }
+
+        // Validation
+        if (start && end) {
+          if (hrs < minShift) {
+            warnings.push(`${rep.name} — ${DAY_LABELS[d]}: ${hrs.toFixed(1)}h shift is below the ${minShift}h minimum.`);
+          }
+          const openMins = timeToMins(getStoreOpen()), closeMins = timeToMins(getStoreClose());
+          if (timeToMins(start) < openMins) warnings.push(`${rep.name} — ${DAY_LABELS[d]}: shift starts before store opens.`);
+          if (timeToMins(end) > closeMins) warnings.push(`${rep.name} — ${DAY_LABELS[d]}: shift ends after store closes.`);
+        }
+
+        let hrsBadge = '';
+        if (hrs > 0) {
+          const cls = hrs >= minShift ? 'hrs-ok' : 'hrs-warn';
+          hrsBadge = `<span class="shift-hrs ${cls}">${hrs % 1 === 0 ? hrs : hrs.toFixed(1)}h</span>`;
+        }
+
+        const storeOpen = getStoreOpen();
+        const storeClose = getStoreClose();
+        const defStart = start || storeOpen;
+        const defEnd = end || (start ? minsToTime(Math.min(timeToMins(start) + minShift * 60, timeToMins(storeClose))) : storeClose);
+
+        bodyHtml += `<td>
+          <div class="shift-cell">
+            <input type="time" class="shift-time" data-rep="${rep.id}" data-day="${d}" data-type="start"
+              value="${start}" min="${storeOpen}" max="${storeClose}" />
+            <span class="shift-sep">–</span>
+            <input type="time" class="shift-time" data-rep="${rep.id}" data-day="${d}" data-type="end"
+              value="${end}" min="${storeOpen}" max="${storeClose}" />
+            ${hrsBadge}
+          </div>
+        </td>`;
+      });
+
+      grandTotal += repTotal;
+      const repTotalFmt = repTotal % 1 === 0 ? repTotal : repTotal.toFixed(1);
+      bodyHtml += `<td style="text-align:center;font-weight:800;font-size:0.82rem;color:${color}">${repTotal > 0 ? repTotalFmt + 'h' : '—'}</td></tr>`;
+    });
+
+    // Totals row
+    if (reps.length > 0) {
+      bodyHtml += '<tr class="totals-row"><td class="td-rep-name">Daily Coverage</td>';
+      activeDays.forEach(d => {
+        const hrs = dayTotals[d];
+        const fmt = hrs % 1 === 0 ? hrs : hrs.toFixed(1);
+        bodyHtml += `<td style="color:${hrs > 0 ? '#00d4ff' : '#374151'}">${hrs > 0 ? fmt + 'h' : '—'}</td>`;
+      });
+      const gtFmt = grandTotal % 1 === 0 ? grandTotal : grandTotal.toFixed(1);
+      bodyHtml += `<td style="color:#a855f7">${grandTotal > 0 ? gtFmt + 'h' : '—'}</td></tr>`;
+    }
+
+    body.innerHTML = bodyHtml;
+
+    // Bind time inputs
+    body.querySelectorAll('.shift-time').forEach(inp => {
+      inp.addEventListener('change', e => {
+        const repId = parseInt(e.target.dataset.rep);
+        const day = parseInt(e.target.dataset.day);
+        const type = e.target.dataset.type;
+        const rep = reps.find(r => r.id === repId);
+        if (!rep) return;
+        if (!rep.shifts[day]) rep.shifts[day] = {};
+        rep.shifts[day][type] = e.target.value;
+        renderAll();
+      });
+    });
+
+    // Warnings banner
+    const banner = document.getElementById('warn-banner');
+    if (warnings.length > 0) {
+      banner.innerHTML = `<strong>⚠ Schedule Issues</strong><ul style="margin-top:6px;padding-left:16px">${warnings.map(w => `<li>${w}</li>`).join('')}</ul>`;
+      banner.classList.add('visible');
+    } else {
+      banner.classList.remove('visible');
+    }
+  }
+
+  /* ──────────────────────────────────────────────
+     SUMMARY & COVERAGE BARS
+  ────────────────────────────────────────────── */
+  function renderSummary() {
+    const storeHrs = storeHoursPerDay();
+    const totalStoreHrs = storeHrs * activeDays.length;
+
+    // Total scheduled hours
+    let totalScheduled = 0;
+    reps.forEach(rep => {
+      activeDays.forEach(d => {
+        const s = rep.shifts[d] || {};
+        totalScheduled += shiftHours(s.start || '', s.end || '');
+      });
+    });
+
+    // Days with at least 1 rep
+    let coveredDays = 0;
+    activeDays.forEach(d => {
+      const hasCoverage = reps.some(r => shiftHours((r.shifts[d]||{}).start||'', (r.shifts[d]||{}).end||'') > 0);
+      if (hasCoverage) coveredDays++;
+    });
+
+    // Average coverage overlap per hour
+    let peakReps = 0;
+    reps.forEach((rep, i) => {
+      const color = REP_COLORS[i % REP_COLORS.length];
+    });
+
+    const scheduledFmt = totalScheduled % 1 === 0 ? totalScheduled : totalScheduled.toFixed(1);
+
+    const summaryEl = document.getElementById('summary-row');
+    summaryEl.innerHTML = `
+      <div class="stat-card">
+        <div class="stat-value val-cyan">${reps.length}</div>
+        <div class="stat-label">Total Reps</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value val-purple">${activeDays.length}</div>
+        <div class="stat-label">Work Days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value val-cyan">${scheduledFmt}h</div>
+        <div class="stat-label">Scheduled Hours</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value ${coveredDays === activeDays.length ? 'val-green' : 'val-yellow'}">${coveredDays}/${activeDays.length}</div>
+        <div class="stat-label">Days Covered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value val-green">${storeHrs % 1 === 0 ? storeHrs : storeHrs.toFixed(1)}h</div>
+        <div class="stat-label">Store Hrs/Day</div>
+      </div>
+    `;
+
+    // Coverage bars
+    const barsEl = document.getElementById('coverage-bars');
+    if (activeDays.length === 0 || storeHrs === 0) { barsEl.innerHTML = ''; return; }
+
+    const openMins = timeToMins(getStoreOpen());
+    const closeMins = timeToMins(getStoreClose());
+    const windowMins = closeMins - openMins;
+
+    let barsHtml = '';
+    activeDays.forEach(d => {
+      // Build coverage segments per rep
+      let segmentsHtml = '';
+      let maxCoveredMins = 0;
+      const coveredSet = new Set();
+
+      reps.forEach((rep, i) => {
+        const shift = rep.shifts[d] || {};
+        const s = timeToMins(shift.start || '');
+        const e = timeToMins(shift.end || '');
+        if (s === null || e === null || e <= s) return;
+        const color = REP_COLORS[i % REP_COLORS.length];
+        const left = ((Math.max(s, openMins) - openMins) / windowMins) * 100;
+        const width = ((Math.min(e, closeMins) - Math.max(s, openMins)) / windowMins) * 100;
+        if (width <= 0) return;
+        segmentsHtml += `<div class="coverage-segment" style="left:${left}%;width:${width}%;background:${color};opacity:0.35;"></div>`;
+        // Count covered minutes
+        for (let m = Math.max(s, openMins); m < Math.min(e, closeMins); m++) coveredSet.add(m);
+      });
+
+      const coveredMins = coveredSet.size;
+      const pct = windowMins > 0 ? Math.round((coveredMins / windowMins) * 100) : 0;
+      const pctColor = pct >= 80 ? '#22c55e' : pct >= 50 ? '#eab308' : pct > 0 ? '#f97316' : '#374151';
+      const repCount = reps.filter(r => shiftHours((r.shifts[d]||{}).start||'', (r.shifts[d]||{}).end||'') > 0).length;
+
+      barsHtml += `
+        <div class="coverage-row">
+          <div class="coverage-day">${DAY_LABELS[d]}</div>
+          <div class="coverage-bar-wrap">
+            ${segmentsHtml}
+            <div class="coverage-bar-label">${getStoreOpen()} – ${getStoreClose()}</div>
+          </div>
+          <div class="coverage-pct" style="color:${pctColor}">${pct}%</div>
+          <div class="coverage-count">${repCount} rep${repCount !== 1 ? 's' : ''}</div>
+        </div>`;
+    });
+    barsEl.innerHTML = barsHtml;
+  }
+
+  /* ──────────────────────────────────────────────
+     RENDER ALL
+  ────────────────────────────────────────────── */
+  function renderAll() {
+    renderScheduleTable();
+    renderSummary();
+  }
+
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ──────────────────────────────────────────────
+     SETTINGS LISTENERS
+  ────────────────────────────────────────────── */
+  ['store-open','store-close','min-shift'].forEach(id => {
+    document.getElementById(id).addEventListener('change', renderAll);
+  });
+
+  /* ──────────────────────────────────────────────
+     INIT — seed 3 reps for demo
+  ────────────────────────────────────────────── */
+  addRep('Alex');
+  addRep('Jordan');
+  addRep('Morgan');
+</script>
+</body>
+</html>

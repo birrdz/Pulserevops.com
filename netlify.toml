@@ -1,0 +1,23 @@
+# Netlify configuration — always redirect to pulserevops.com
+# This ensures Google and all traffic indexes pulserevops.com, not the .netlify.app URL
+
+[functions]
+  directory = "netlify/functions"
+
+[build]
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "https://*.netlify.app/*"
+  to = "https://pulserevops.com/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Tell Google which domain is canonical
+    Link = "<https://pulserevops.com/>; rel=\"canonical\""
