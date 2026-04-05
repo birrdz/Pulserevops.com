@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Sales KPI Calculator: How to Set Rep Goals That Actually Drive Revenue | PULSE RevOps</title>
+  <meta name="description" content="Stop guessing on quota. Use this free sales KPI calculator to set rep goals backed by math — pipeline coverage, activity ratios, ramp time, and more. No login required." />
+  <meta name="keywords" content="free sales KPI calculator, how to set sales KPIs, RevOps tools free, sales rep goals, quota setting, pipeline coverage calculator, sales activity metrics, revenue operations tools, free sales tools online, sales performance metrics, KPI tracker sales, free business tools online, RevOps calculator, sales rep ramp time, gross profit calculator sales" />
+  <meta name="author" content="Kory White" />
+  <link rel="canonical" href="https://pulserevops.com/blog/free-sales-kpi-calculator.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Free Sales KPI Calculator: How to Set Rep Goals That Actually Drive Revenue" />
+  <meta property="og:description" content="Stop guessing on quota. Use this free sales KPI calculator to set rep goals backed by math — pipeline coverage, activity ratios, ramp time, and more." />
+  <meta property="og:url" content="https://pulserevops.com/blog/free-sales-kpi-calculator.html" />
+  <meta property="og:site_name" content="PULSE RevOps" />
+  <meta property="og:image" content="https://pulserevops.com/og-preview.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free Sales KPI Calculator: How to Set Rep Goals That Actually Drive Revenue" />
+  <meta name="twitter:description" content="Stop guessing on quota. Use this free sales KPI calculator — pipeline coverage, activity ratios, ramp time, and more. No login required." />
+
+  <!-- JSON-LD: BlogPosting -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Free Sales KPI Calculator: How to Set Rep Goals That Actually Drive Revenue",
+    "description": "Stop guessing on quota. Use this free sales KPI calculator to set rep goals backed by math — pipeline coverage, activity ratios, ramp time, and more.",
+    "author": {
+      "@type": "Person",
+      "name": "Kory White",
+      "url": "https://pulserevops.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "PULSE RevOps",
+      "url": "https://pulserevops.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://pulserevops.com/og-preview.png"
+      }
+    },
+    "datePublished": "2026-04-05",
+    "dateModified": "2026-04-05",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://pulserevops.com/blog/free-sales-kpi-calculator.html"
+    },
+    "keywords": "free sales KPI calculator, RevOps tools, sales rep goals, pipeline coverage, quota setting",
+    "articleSection": "Revenue Operations",
+    "wordCount": "1650",
+    "inLanguage": "en-US"
+  }
+  </script>
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulserevops.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://pulserevops.com/blog/" },
+      { "@type": "ListItem", "position": 3, "name": "Free Sales KPI Calculator", "item": "https://pulserevops.com/blog/free-sales-kpi-calculator.html" }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface2: #263248;
+      --accent: #f97316;
+      --accent2: #fb923c;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --green: #4ade80;
+      --border: rgba(255,255,255,0.08);
+      --max: 760px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 1rem;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,23,42,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      height: 58px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand {
+      font-size: 1.1rem; font-weight: 800; letter-spacing: 0.08em;
+      color: var(--accent); text-decoration: none; text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      font-weight: 600; letter-spacing: 0.04em; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent); color: #fff !important;
+      padding: 6px 14px; border-radius: 6px;
+    }
+    .nav-cta:hover { background: var(--accent2) !important; color: #fff !important; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 60%);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 1.5rem 3rem;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800; line-height: 1.2;
+      max-width: 700px; margin: 0 auto 1rem;
+    }
+    .hero-sub {
+      color: var(--muted); font-size: 1.05rem;
+      max-width: 580px; margin: 0 auto 1.75rem;
+    }
+    .hero-meta {
+      font-size: 0.78rem; color: var(--muted);
+      display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 4px; }
+
+    /* ARTICLE BODY */
+    article {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    article h2 {
+      font-size: 1.4rem; font-weight: 800;
+      color: var(--accent); margin: 2.5rem 0 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    article h3 {
+      font-size: 1.1rem; font-weight: 700;
+      margin: 1.75rem 0 0.5rem; color: var(--text);
+    }
+    article p { margin-bottom: 1.1rem; color: var(--text); }
+    article ul, article ol {
+      margin: 0.5rem 0 1.1rem 1.5rem; color: var(--text);
+    }
+    article li { margin-bottom: 0.45rem; }
+    article strong { color: #f8fafc; }
+    article a { color: var(--accent2); text-decoration: none; border-bottom: 1px solid rgba(251,146,60,0.3); transition: border-color 0.2s; }
+    article a:hover { border-color: var(--accent2); }
+
+    /* CALLOUT BOXES */
+    .callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .callout.green { border-left-color: var(--green); }
+    .callout-title {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+    }
+    .callout.green .callout-title { color: var(--green); }
+    .callout p { margin-bottom: 0; }
+
+    /* FORMULA BOX */
+    .formula {
+      background: #0d1929;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0 1.5rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.92rem;
+      color: var(--green);
+      overflow-x: auto;
+    }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; margin: 1rem 0 1.5rem; border-radius: 8px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: var(--surface); padding: 0.65rem 1rem;
+      text-align: left; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 0.65rem 1rem; font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* CTA CARDS */
+    .cta-card {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      margin: 2.5rem 0;
+    }
+    .cta-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text); }
+    .cta-card p { color: var(--muted); margin-bottom: 1.25rem; }
+    .btn {
+      display: inline-block;
+      background: var(--accent); color: #fff;
+      padding: 0.75rem 1.75rem; border-radius: 8px;
+      text-decoration: none; font-weight: 800;
+      font-size: 0.9rem; letter-spacing: 0.04em;
+      border-bottom: none; transition: background 0.2s, transform 0.15s;
+    }
+    .btn:hover { background: var(--accent2); transform: translateY(-1px); border-bottom: none; }
+    .btn-ghost {
+      background: transparent; color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+    .btn-ghost:hover { background: rgba(249,115,22,0.1); }
+
+    /* NEWSLETTER FORM */
+    .nl-form {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+      justify-content: center; margin-top: 0.25rem;
+    }
+    .nl-form input {
+      flex: 1; min-width: 200px; max-width: 320px;
+      background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px; padding: 0.7rem 1rem;
+      color: var(--text); font-size: 0.9rem; font-family: inherit;
+      outline: none; transition: border-color 0.2s;
+    }
+    .nl-form input:focus { border-color: var(--accent); }
+    .nl-form input::placeholder { color: var(--muted); }
+    #blog-nl-msg { font-size: 0.82rem; margin-top: 0.5rem; min-height: 1.2em; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--muted); text-decoration: none; border-bottom: none; }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 0.75rem; flex-wrap: wrap; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 2.5rem 1rem 2rem; }
+      article { padding: 2rem 1rem 3rem; }
+      .nav-links { gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="https://pulserevops.com/">PULSE RevOps</a>
+  <div class="nav-links">
+    <a href="https://pulserevops.com/blog/">Blog</a>
+    <a href="https://pulserevops.com/dashboard.html" class="nav-cta">Free Tools →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <p class="hero-eyebrow">Revenue Operations · Sales KPIs</p>
+  <h1>Free Sales KPI Calculator: How to Set Rep Goals That Actually Drive Revenue</h1>
+  <p class="hero-sub">Most quota models are built on gut feel and last year's spreadsheet. Here's how to set KPIs mathematically — and the free tool that does the math for you.</p>
+  <div class="hero-meta">
+    <span>✍️ Kory White</span>
+    <span>📅 April 5, 2026</span>
+    <span>⏱ 8 min read</span>
+    <span>🏷 RevOps · Sales KPIs · Free Tools</span>
+  </div>
+</header>
+
+<article>
+
+  <p>Every quarter the same conversation happens inside sales orgs: leadership wants higher numbers, reps push back that quotas are unrealistic, and RevOps sits in the middle trying to thread the needle with a model built in Excel two years ago that nobody fully trusts.</p>
+
+  <p>The root problem isn't motivation or market conditions. It's that most KPI targets are built backwards — from a revenue goal down to reps — without accounting for capacity, ramp time, pipeline coverage requirements, or activity math. The result is quotas that feel arbitrary because they <em>are</em> arbitrary.</p>
+
+  <p>This post walks through how to build a proper KPI model from the ground up. And if you want to skip the math and just run the numbers, the <a href="https://pulserevops.com/dashboard.html">free PULSE RevOps calculator</a> does it all in your browser — no login, no spreadsheet, nothing to install.</p>
+
+  <h2>Why Most Sales KPIs Break Down</h2>
+
+  <p>The classic top-down model looks like this: the business needs $5M in new ARR, the average deal is $50K, so you need 100 deals. Divide by the number of reps, done. Quota set.</p>
+
+  <p>Except it ignores everything that actually matters:</p>
+
+  <ul>
+    <li><strong>Win rate variance by rep tenure</strong> — a new hire closing 15% vs. a veteran at 30% aren't interchangeable</li>
+    <li><strong>Pipeline coverage requirements</strong> — 3x coverage is not universal; it depends on your average sales cycle and stage conversion rates</li>
+    <li><strong>Activity-to-pipeline ratios</strong> — if a rep needs $500K in pipeline but only generates $30K per qualified meeting, they need 17 QMs — is that achievable in a quarter?</li>
+    <li><strong>Ramp time dilution</strong> — a rep at month 2 of a 6-month ramp isn't contributing at full capacity; your model has to reflect that</li>
+    <li><strong>Gross profit, not just revenue</strong> — discounting to hit quota can destroy margin even when the number looks good</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-title">The Key Insight</div>
+    <p>A good KPI model starts with what one rep can realistically do in the time available, then scales up — not the other way around.</p>
+  </div>
+
+  <h2>The 5 KPIs That Actually Matter</h2>
+
+  <h3>1. Pipeline Coverage Ratio</h3>
+  <p>Pipeline coverage answers: how much open pipeline do I need for every $1 of quota? The standard rule of thumb is 3x — but that's only right if your win rate is around 33% and your average sales cycle fits neatly into a single quarter. Most companies need to calculate this for their actual numbers.</p>
+
+  <div class="formula">Pipeline Coverage = Quota Target ÷ Expected Win Rate</div>
+
+  <p>If a rep's quota is $300K and they close 25% of qualified pipeline, they need $1.2M in live pipeline at any given time. That's a very different planning assumption than 3x.</p>
+
+  <h3>2. Activity-to-Pipeline Conversion Rate</h3>
+  <p>This is where KPI models get grounded in reality. If you know how much pipeline each qualified meeting generates on average, you can work backwards to the number of calls, emails, and outreach touches required.</p>
+
+  <div class="formula">Required Activities = Pipeline Needed ÷ Pipeline per QM ÷ Meeting Conversion Rate</div>
+
+  <p>A rep who needs $1.2M in pipeline, generates $45K per qualified meeting, and books 1 meeting per 8 outreach touches needs ~267 quality touches per quarter. Is that 3 per day? 5? Run the math before setting the target.</p>
+
+  <h3>3. Ramp-Adjusted Capacity</h3>
+  <p>Ramp dilution is almost always undermodeled. A standard 6-month ramp with no step-up function assumes a rep is at 0% capacity for 6 months and then 100% on day 181. That's not how humans work.</p>
+
+  <p>A better model applies a step curve:</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Ramp Month</th><th>Capacity %</th><th>Effective Quota</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1–2</td><td>0%</td><td>$0</td></tr>
+        <tr><td>3</td><td>25%</td><td>$75K of $300K</td></tr>
+        <tr><td>4</td><td>50%</td><td>$150K of $300K</td></tr>
+        <tr><td>5</td><td>75%</td><td>$225K of $300K</td></tr>
+        <tr><td>6+</td><td>100%</td><td>$300K</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>If you have 3 reps all hired in the last 4 months, your real team capacity is nothing like 3 × full quota. Model it accurately or you'll miss plan for structural reasons you could have seen coming.</p>
+
+  <h3>4. Attainment Distribution (Not Just Average)</h3>
+  <p>Average quota attainment hides a lot. If 20% of reps hit 150%+ and 40% are below 60%, you have a concentration risk problem — and the average might look fine at 95%. Look at the distribution: p25, median, p75. That's where you find whether your quota model is calibrated or just lucky.</p>
+
+  <p>The <a href="https://pulserevops.com/dashboard.html">PULSE dashboard</a> calculates this distribution automatically from your rep data — no pivot tables needed.</p>
+
+  <h3>5. Gross Profit per Rep</h3>
+  <p>Revenue KPIs ignore discounting behavior. Two reps with identical quota attainment can have drastically different gross profit contributions depending on how aggressively they discount to close. If you're only tracking revenue, you're flying blind on margin.</p>
+
+  <div class="formula">Gross Profit per Rep = (Revenue × Avg Gross Margin %) − Rep Fully-Loaded Cost</div>
+
+  <p>A rep doing $300K at 60% gross margin and $120K fully-loaded cost generates $60K in gross profit. At 40% margin with 15% discounting to close? You might be paying a rep to lose money on deals. The <a href="https://pulserevops.com/dashboard.html">free gross profit calculator</a> surfaces this in seconds.</p>
+
+  <div class="callout green">
+    <div class="callout-title">Quick Reference: KPI Benchmarks</div>
+    <p>Pipeline coverage 3–4x · Win rate 20–35% (SMB), 15–25% (enterprise) · Ramp full capacity: 6–9 months · Gross margin target: 60–75% SaaS · Quota attainment median: aim for 55–65% of reps at 100%+</p>
+  </div>
+
+  <div class="cta-card">
+    <h3>Run Your Numbers Free — Right Now</h3>
+    <p>The PULSE RevOps dashboard calculates pipeline coverage, rep capacity, attainment distribution, and gross profit. No signup. No credit card. Runs in your browser.</p>
+    <a class="btn" href="https://pulserevops.com/dashboard.html">Open Free KPI Calculator →</a>
+  </div>
+
+  <h2>How to Build the Model in 4 Steps</h2>
+
+  <h3>Step 1: Anchor on Revenue Goal and Work Backwards</h3>
+  <p>Start with the business number — new ARR, new logos, expansion MRR, whatever your primary objective is. Convert it to deals needed using your current average contract value (ACV), then to pipeline needed using win rate, then to activities needed using pipeline conversion rates. This gives you a demand-side view of what the team needs to produce.</p>
+
+  <h3>Step 2: Build a Capacity Model by Rep</h3>
+  <p>For each rep, capture: start date (for ramp calculation), current ramp stage, average deal size, historical win rate, and available selling hours per week. Apply your ramp curve to get effective capacity. Sum the team. If demand exceeds capacity, you have a hiring gap — not a motivation gap.</p>
+
+  <h3>Step 3: Validate Against Activity Math</h3>
+  <p>Take the pipeline required per rep and divide by pipeline generated per activity. If the math requires 6 qualified meetings per week and your SDR team generates 2 per rep per week, you have a coverage problem. Adjust targets, headcount, or SDR ratio before locking quotas.</p>
+
+  <h3>Step 4: Set a Tiered Attainment Structure</h3>
+  <p>Don't just set a binary on/off quota. Build a ramp: 75% of quota = threshold (base comp protected), 100% = target, 120%+ = accelerator kicks in. This structure lets you calibrate incentives without resetting the entire model and keeps reps engaged even when they're trending below plan.</p>
+
+  <h2>Common Mistakes That Blow Up KPI Models</h2>
+
+  <ul>
+    <li><strong>Using last year's averages</strong> — market conditions, product mix, and ICP shift. Revalidate win rates and ACV each quarter.</li>
+    <li><strong>Ignoring seasonality</strong> — Q4 closes differently than Q2. Apply a seasonality multiplier or your pipeline coverage targets will be wrong half the year.</li>
+    <li><strong>Treating all pipeline equally</strong> — late-stage deals close at different rates than early-stage. Weight your pipeline by stage when calculating coverage.</li>
+    <li><strong>Setting quota without SDR input</strong> — if quota depends on inbound pipeline that SDRs can't generate, reps are set up to fail from day one.</li>
+    <li><strong>No feedback loop</strong> — a KPI model with no monthly review cycle drifts. Build a cadence: monthly attainment review, quarterly model recalibration.</li>
+  </ul>
+
+  <h2>Tools That Actually Help</h2>
+
+  <p>Most companies build these models in Google Sheets or Excel. That works, but it's slow, error-prone, and hard to share. There are a few categories of tools worth knowing:</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Tool Type</th><th>Best For</th><th>Cost</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>PULSE RevOps Dashboard</td><td>KPI calc, rep matrix, profit model — all free</td><td>Free</td></tr>
+        <tr><td>Google Sheets / Excel</td><td>Custom models, offline use</td><td>Free / $12+/mo</td></tr>
+        <tr><td>Clari / Gong Forecast</td><td>AI-assisted pipeline forecasting</td><td>$$$ enterprise</td></tr>
+        <tr><td>Salesforce CRM Analytics</td><td>Deep CRM-native reporting</td><td>$$$</td></tr>
+        <tr><td>Quota.com / Xactly</td><td>Incentive comp management at scale</td><td>$$$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>For most teams under 50 reps, the free tier of tools — including the <a href="https://pulserevops.com/dashboard.html">PULSE RevOps free tools</a> — will cover 90% of what you actually need day-to-day. Save the enterprise spend for when you've outgrown the basics.</p>
+
+  <h2>Final Thought: Math Doesn't Set Quotas — It Validates Them</h2>
+
+  <p>No KPI model eliminates judgment. Market shifts, rep tenure mixes, product changes, and macro conditions all require human interpretation. But the math gives you a floor. It tells you the minimum that's physically achievable given your inputs, and it exposes assumptions that leadership might rather not make explicit.</p>
+
+  <p>The best RevOps teams use models as a forcing function for honest conversation — not as a weapon to justify unrealistic targets and not as a shield to resist all accountability. Build the model, show your work, and let the numbers do the hard part.</p>
+
+  <div class="cta-card">
+    <h3>Try the Free PULSE RevOps Tools</h3>
+    <p>Sales KPI calculator, rep matrix, gross profit model, scheduling optimizer, and more — all free, all in your browser.</p>
+    <a class="btn" href="https://pulserevops.com/dashboard.html">Open Free Dashboard →</a>
+  </div>
+
+  <!-- Newsletter CTA -->
+  <div class="cta-card" style="background:linear-gradient(135deg,#1e293b,#0f2040);border-color:rgba(249,115,22,0.3);">
+    <h3>Get RevOps Tips in Your Inbox</h3>
+    <p>Short, practical revenue operations insights — quota models, pipeline math, comp structures. No fluff. Unsubscribe anytime.</p>
+    <form class="nl-form" onsubmit="handleBlogNewsletter(event)">
+      <input type="email" id="blog-nl-email" placeholder="your@email.com" required autocomplete="email" />
+      <button type="submit" class="btn" id="blog-nl-btn" style="flex-shrink:0;">Subscribe →</button>
+    </form>
+    <p id="blog-nl-msg" style="color:var(--muted);"></p>
+  </div>
+
+</article>
+
+<footer>
+  <div class="footer-links">
+    <a href="https://pulserevops.com/">Home</a>
+    <a href="https://pulserevops.com/dashboard.html">Free Tools</a>
+    <a href="https://pulserevops.com/blog/">Blog</a>
+    <a href="mailto:hello@pulserevops.com">Contact</a>
+  </div>
+  <p>© 2026 PULSE RevOps · Built by <strong>Kory White</strong> · Revenue Operations Tools, Free Online</p>
+  <p style="margin-top:0.35rem;font-size:0.72rem;">
+    Free sales KPI calculator · RevOps tools free · Sales rep quota model · Pipeline coverage calculator · Gross profit calculator
+  </p>
+</footer>
+
+<script>
+async function handleBlogNewsletter(e) {
+  e.preventDefault();
+  const email = document.getElementById('blog-nl-email').value.trim();
+  const msg = document.getElementById('blog-nl-msg');
+  const btn = document.getElementById('blog-nl-btn');
+  const input = document.getElementById('blog-nl-email');
+
+  btn.disabled = true;
+  btn.textContent = 'Subscribing...';
+
+  try {
+    const res = await fetch('/.netlify/functions/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source: 'blog-kpi-post' }),
+    });
+    const data = await res.json();
+    msg.style.color = '#4ade80';
+    msg.textContent = data.message === 'Already subscribed'
+      ? "✓ You're already on the list!"
+      : "✓ You're in! First issue coming soon.";
+    input.value = '';
+    input.disabled = true;
+    btn.textContent = 'Subscribed ✓';
+  } catch (err) {
+    msg.style.color = '#f87171';
+    msg.textContent = 'Something went wrong — try again in a moment.';
+    btn.disabled = false;
+    btn.textContent = 'Subscribe →';
+  }
+}
+</script>
+
+</body>
+</html>

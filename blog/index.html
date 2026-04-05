@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RevOps Blog — Sales KPIs, Pipeline Math & Free Tools | PULSE RevOps</title>
+  <meta name="description" content="Revenue operations insights from Kory White — quota modeling, pipeline coverage, sales KPI calculators, and free RevOps tools. Practical, no-fluff content for ops and sales leaders." />
+  <link rel="canonical" href="https://pulserevops.com/blog/" />
+  <meta property="og:title" content="RevOps Blog — Sales KPIs, Pipeline Math & Free Tools | PULSE RevOps" />
+  <meta property="og:description" content="Revenue operations insights from Kory White — quota modeling, pipeline coverage, sales KPI calculators, and free RevOps tools." />
+  <meta property="og:url" content="https://pulserevops.com/blog/" />
+  <meta property="og:type" content="website" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "PULSE RevOps Blog",
+    "description": "Revenue operations insights — quota modeling, pipeline coverage, sales KPI calculators, and free RevOps tools.",
+    "url": "https://pulserevops.com/blog/",
+    "author": { "@type": "Person", "name": "Kory White" },
+    "publisher": { "@type": "Organization", "name": "PULSE RevOps", "url": "https://pulserevops.com" }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f172a; --surface: #1e293b; --accent: #f97316; --text: #e2e8f0;
+      --muted: #94a3b8; --border: rgba(255,255,255,0.08);
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,23,42,0.95); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem; height: 58px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--accent); color: #fff !important; padding: 6px 14px; border-radius: 6px; }
+
+    .hero { padding: 3rem 1.5rem 2.5rem; text-align: center; border-bottom: 1px solid var(--border); }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .hero h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 0.75rem; }
+    .hero p { color: var(--muted); max-width: 520px; margin: 0 auto; }
+
+    .posts { max-width: 820px; margin: 0 auto; padding: 3rem 1.5rem; display: grid; gap: 1.5rem; }
+    .post-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.75rem; text-decoration: none; color: inherit; display: block;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .post-card:hover { border-color: rgba(249,115,22,0.4); transform: translateY(-2px); }
+    .post-tag { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .post-card h2 { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--text); }
+    .post-card p { color: var(--muted); font-size: 0.92rem; margin-bottom: 0.75rem; }
+    .post-meta { font-size: 0.75rem; color: var(--muted); display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.82rem; }
+    footer a { color: var(--muted); text-decoration: none; }
+    .footer-links { display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 0.75rem; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="https://pulserevops.com/">PULSE RevOps</a>
+  <div class="nav-links">
+    <a href="https://pulserevops.com/blog/">Blog</a>
+    <a href="https://pulserevops.com/dashboard.html" class="nav-cta">Free Tools →</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <p class="hero-eyebrow">Revenue Operations</p>
+  <h1>The PULSE RevOps Blog</h1>
+  <p>Quota math, pipeline models, KPI frameworks, and free tools for RevOps and sales leaders. No fluff.</p>
+</div>
+
+<div class="posts">
+  <a class="post-card" href="https://pulserevops.com/blog/free-sales-kpi-calculator.html">
+    <p class="post-tag">Sales KPIs · RevOps Tools</p>
+    <h2>Free Sales KPI Calculator: How to Set Rep Goals That Actually Drive Revenue</h2>
+    <p>Most quota models are built on gut feel and last year's spreadsheet. Here's how to set KPIs mathematically — and the free tool that does the math for you.</p>
+    <div class="post-meta">
+      <span>✍️ Kory White</span>
+      <span>📅 April 5, 2026</span>
+      <span>⏱ 8 min read</span>
+    </div>
+  </a>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="https://pulserevops.com/">Home</a>
+    <a href="https://pulserevops.com/dashboard.html">Free Tools</a>
+    <a href="https://pulserevops.com/blog/">Blog</a>
+    <a href="mailto:hello@pulserevops.com">Contact</a>
+  </div>
+  <p>© 2026 PULSE RevOps · Built by Kory White · Free RevOps Tools Online</p>
+</footer>
+
+</body>
+</html>
