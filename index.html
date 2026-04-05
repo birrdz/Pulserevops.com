@@ -3951,18 +3951,35 @@
     document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
 
     // ── NEWSLETTER ──
-    function handleNewsletterSubmit(e) {
+    async function handleNewsletterSubmit(e) {
       e.preventDefault();
-      const email = document.getElementById('nl-email').value;
-      const msg = document.getElementById('nl-msg');
-      // TODO: Replace this with your Mailchimp/Beehiiv/ConvertKit fetch call
-      // Example Mailchimp: fetch('https://your-mailchimp-url', { method:'POST', body: ... })
-      msg.style.color = '#4ade80';
-      msg.textContent = '✓ You\'re in! First issue coming soon.';
-      document.getElementById('nl-email').value = '';
-      document.getElementById('nl-email').disabled = true;
-      e.target.querySelector('button').disabled = true;
-      e.target.querySelector('button').textContent = 'Subscribed ✓';
+      const email = document.getElementById('nl-email').value.trim();
+      const msg   = document.getElementById('nl-msg');
+      const btn   = e.target.querySelector('button');
+      const input = document.getElementById('nl-email');
+      if (!email) return;
+      btn.disabled = true;
+      btn.textContent = 'Subscribing...';
+      try {
+        const res  = await fetch('/.netlify/functions/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: 'index' }),
+        });
+        const data = await res.json();
+        msg.style.color = '#4ade80';
+        msg.textContent = data.message === 'Already subscribed'
+          ? '✓ You\'re already on the list!'
+          : '✓ You\'re in! First issue coming soon.';
+        input.value = '';
+        input.disabled = true;
+        btn.textContent = 'Subscribed ✓';
+      } catch (err) {
+        msg.style.color = '#f87171';
+        msg.textContent = 'Something went wrong — try again in a moment.';
+        btn.disabled = false;
+        btn.textContent = 'Subscribe →';
+      }
     }
 
     // hero stat counters
