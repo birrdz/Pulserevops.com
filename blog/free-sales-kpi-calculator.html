@@ -71,14 +71,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #001829;
-      --surface: #003049;
-      --surface2: #004060;
-      --accent: #F77F00;
-      --accent2: #FCBF49;
+      --bg: #202124;
+      --surface: #303134;
+      --surface2: #3c4043;
+      --accent: #4285F4;
+      --accent2: #FBBC05;
       --text: #e2e8f0;
       --muted: #94a3b8;
-      --green: #4ade80;
+      --green: #34A853;
       --border: rgba(255,255,255,0.08);
       --max: 760px;
     }
@@ -96,7 +96,7 @@
     /* NAV */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(0,24,41,0.95);
+      background: rgba(32,33,36,0.95);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       padding: 0 1.5rem;
@@ -121,7 +121,7 @@
 
     /* HERO */
     .hero {
-      background: linear-gradient(135deg, #003049 0%, #001829 60%);
+      background: linear-gradient(135deg, #303134 0%, #202124 60%);
       border-bottom: 1px solid var(--border);
       padding: 3.5rem 1.5rem 3rem;
       text-align: center;
@@ -444,7 +444,7 @@
   </div>
 
   <!-- Newsletter CTA -->
-  <div class="cta-card" style="background:linear-gradient(135deg,#003049,#0f2040);border-color:rgba(249,115,22,0.3);">
+  <div class="cta-card" style="background:linear-gradient(135deg,#303134,#0f2040);border-color:rgba(249,115,22,0.3);">
     <h3>Get RevOps Tips in Your Inbox</h3>
     <p>Short, practical revenue operations insights — quota models, pipeline math, comp structures. No fluff. Unsubscribe anytime.</p>
     <form class="nl-form" onsubmit="handleBlogNewsletter(event)">
@@ -487,7 +487,7 @@ async function handleBlogNewsletter(e) {
       body: JSON.stringify({ email, source: 'blog-kpi-post' }),
     });
     const data = await res.json();
-    msg.style.color = '#4ade80';
+    msg.style.color = '#34A853';
     msg.textContent = data.message === 'Already subscribed'
       ? "✓ You're already on the list!"
       : "✓ You're in! First issue coming soon.";
