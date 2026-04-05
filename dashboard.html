@@ -224,12 +224,7 @@
     ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 2px; }
 
     /* ── CANVAS BG ── */
-    #particle-canvas {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
+    /* particle canvas removed */
 
     /* ── GLOW BLOBS ── */
     .blob {
@@ -2918,7 +2913,7 @@
 </head>
 <body>
 
-  <canvas id="particle-canvas"></canvas>
+  <!-- particle canvas removed -->
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
@@ -3087,6 +3082,11 @@
       <span style="font-size:1rem;">👁</span>
       <span id="total-visits" style="font-size:1.15rem; font-weight:900; color:#C4B5FD; letter-spacing:0.03em; min-width:30px;">—</span>
       <span style="font-size:0.72rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#64748b;">total unique visits</span>
+    </div>
+    <div id="visitor-cities-wrap" style="display:none; align-items:center; gap:8px; flex-wrap:wrap;">
+      <div style="width:1px; height:22px; background:rgba(255,255,255,0.08);"></div>
+      <span style="font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#64748b;">📍 Recent</span>
+      <div id="visitor-cities-list" style="display:flex; gap:6px; flex-wrap:wrap;"></div>
     </div>
   </div>
 
@@ -5141,71 +5141,7 @@
       animateDot();
     }
 
-    // ── PARTICLE CANVAS ──
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let W, H;
-
-    function resize() {
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    class Particle {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * W;
-        this.y = Math.random() * H;
-        this.size = Math.random() * 1.5 + 0.3;
-        this.speedX = (Math.random() - 0.5) * 0.3;
-        this.speedY = (Math.random() - 0.5) * 0.3;
-        this.opacity = Math.random() * 0.5 + 0.1;
-        const colors = ['0,212,255', '168,85,247', '236,72,153'];
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${this.color},${this.opacity})`;
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < 50; i++) particles.push(new Particle());
-
-    function connectParticles() {
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 100) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(232,113,10,${0.05 * (1 - dist / 100)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, W, H);
-      particles.forEach(p => { p.update(); p.draw(); });
-      connectParticles();
-      requestAnimationFrame(animate);
-    }
-    animate();
+    // particle canvas removed
 
     // ── NAVBAR SCROLL ──
     const navbar = document.getElementById('navbar');
@@ -11528,6 +11464,24 @@
       _showNavFlash(anchor, _doNav);
     }
     window.handleNavDropdown = handleNavDropdown;
+
+    // ── VISITOR CITIES (red font) ──────────────────────────────────────────
+    (function() {
+      fetch('/.netlify/functions/visitors')
+        .then(r => r.json())
+        .then(data => {
+          const cities = (data.cities || []).slice(0, 6);
+          if (!cities.length) return;
+          const wrap = document.getElementById('visitor-cities-wrap');
+          const list = document.getElementById('visitor-cities-list');
+          if (!wrap || !list) return;
+          list.innerHTML = cities.map(c =>
+            `<span style="font-size:0.72rem;font-weight:800;color:#EA4335;letter-spacing:0.04em;">${typeof c === 'string' ? c : c.city}</span>`
+          ).join('<span style="color:#444;font-size:0.7rem;">·</span>');
+          wrap.style.display = 'flex';
+        })
+        .catch(() => {});
+    })();
 
     // ── LIVE STATS COUNTER ──
     (function() {
