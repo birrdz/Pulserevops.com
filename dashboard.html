@@ -9632,12 +9632,25 @@
           }, 1500);
         }
       },
-      // ── 13. Coaching Action Items ───────────────────────────────────────────────
+      // ── 13. Service Fees ────────────────────────────────────────────────────────
+      {
+        selector: '#service-fees-section',
+        title: 'Step 14 — Service Fees',
+        desc: 'Fees are a great way to fund your entire back-of-house expense — share them with your frontline to get max results. Look for something that can go on the bill for $9.99 every month and offer extra value, like unlimited free appointment setting. Customers barely feel a $9.99 line item, but across hundreds of accounts it fully funds your support and admin layer. Set the fee amount, attach rate, and monthly units — PULSE calculates the exact bottom-line impact in real time.',
+        label: 'Step 14 of 21',
+        onShow: () => {
+          _schedTourTimer(() => {
+            const el = document.getElementById('service-fees-section');
+            if (el) tourScrollIntoView(el);
+          }, 300);
+        }
+      },
+      // ── 14. Coaching Action Items ───────────────────────────────────────────────
       {
         selector: '#coaching-section',
-        title: 'Step 14 — Coaching Action Items',
+        title: 'Step 15 — Coaching Action Items',
         desc: 'One focused coaching move per tier — not a task list. Tier 1 reps need urgent intervention, Tier 4 need a stretch challenge, Tier 5 need recognition not coaching. Every action is sourced from Gartner, Harvard Business Review, McKinsey, RAIN Group, Salesforce State of Sales, and the PULSE field methodology. Hit "Refresh Coaching" to rotate through 20 researched actions per tier.',
-        label: 'Step 14 of 20',
+        label: 'Step 15 of 21',
         onShow: () => {
           setTimeout(() => {
             const el = document.getElementById('coaching-section');
@@ -9649,12 +9662,12 @@
           }, 900);
         }
       },
-      // ── 14. Recruiting Calculator ───────────────────────────────────────────────
+      // ── 15. Recruiting Calculator ───────────────────────────────────────────────
       {
         selector: '#recruiting-calc-section',
-        title: 'Step 15 — Recruiting Calculator',
+        title: 'Step 16 — Recruiting Calculator',
         desc: 'Watch PULSE calculate a full recruiting plan live — target ARR, current ARR, quota per rep, ramp time, attrition rate, and timeline all go in, and the system outputs exactly how many hires you need, how many per month, and when first revenue impact hits. No spreadsheet, no guesswork. Somewhere a VP of Sales is still doing this in a tab that has 47 formulas and a prayer.',
-        label: 'Step 15 of 20',
+        label: 'Step 16 of 21',
         onShow: () => {
           setTimeout(() => {
             const el = document.getElementById('recruiting-calc-section');
@@ -9696,9 +9709,9 @@
       // ── 15. Rep Scheduling Matrix ───────────────────────────────────────────────
       {
         selector: '#sched-units-container',
-        title: 'Step 16 — Rep Scheduling Matrix',
+        title: 'Step 17 — Rep Scheduling Matrix',
         desc: 'Watch the math happen live. Monday\'s Gross Profit goal is $1,200. Your GP-per-shift rate is $200. PULSE divides instantly: $1,200 ÷ $200 = 6 shifts on Monday. Saturday shows $3,800 ÷ $200 = 19 shifts. Every day recalculates the moment you type. You can also upload your existing schedule spreadsheet and PULSE will auto-fill the GP values. Hit AI Optimize and PULSE redistributes shifts across your week based on where the GP is heaviest.',
-        label: 'Step 16 of 20',
+        label: 'Step 17 of 21',
         onShow: () => {
           // Fill in GP values day by day — watch shifts auto-calculate
           const GP_DEMO = [1200, 800, 1000, 1400, 2200, 3800, 2600];
@@ -9737,9 +9750,9 @@
       // ── 16. Not-To-Do List ──────────────────────────────────────────────────────
       {
         selector: '#not-to-do-section',
-        title: 'Step 17 — The Not-To-Do List',
+        title: 'Step 18 — The Not-To-Do List',
         desc: 'One principle that changes everything: protect your reps\' time for selling. Every non-selling task assigned to a rep is a deliberate trade-off — and most aren\'t worth it. Gartner research shows reps spend only 28% of their week actually selling. The other 72% is the opportunity.',
-        label: 'Step 17 of 20',
+        label: 'Step 18 of 21',
         onShow: () => {
           setTimeout(() => {
             const el = document.getElementById('not-to-do-section');
@@ -9750,9 +9763,9 @@
       // ── 17. Flash Challenges ────────────────────────────────────────────────────
       {
         selector: '#challenge-section',
-        title: 'Step 18 — Flash Challenges',
+        title: 'Step 19 — Flash Challenges',
         desc: 'Launch an instant competition to spike a specific KPI. Set the bonus points, a deadline, and a description — and your team is racing. Perfect for breaking mid-month slumps, reigniting urgency, or driving focus on a priority metric right now. Nothing motivates a sales floor like a leaderboard and a countdown. We didn\'t invent competition — we just gave it a scoreboard.',
-        label: 'Step 18 of 20',
+        label: 'Step 19 of 21',
         onShow: () => {
           const section = document.getElementById('challenge-section');
           if (section) tourScrollIntoView(section);
@@ -9790,9 +9803,9 @@
       // ── 18. 90-Day Plan ─────────────────────────────────────────────────────────
       {
         selector: '#plan-90',
-        title: 'Step 19 — 90-Day Revenue Plan',
+        title: 'Step 20 — 90-Day Revenue Plan',
         desc: 'The first 90 days set the trajectory. This section outlines the exact framework I use to ramp a new market, reset an underperforming team, or launch a new territory — structured in three 30-day phases: establish, build, and accelerate.',
-        label: 'Step 19 of 20',
+        label: 'Step 20 of 21',
         onShow: () => {
           setTimeout(() => {
             const el = document.getElementById('plan-90');
@@ -9803,9 +9816,9 @@
       // ── 19. Mobile Sync ─────────────────────────────────────────────────────────
       {
         selector: '#app-sync-section',
-        title: 'Step 20 — Mobile Team Sync',
-        desc: 'Enable real-time mobile updates so every rep on your team always knows their current score, bonus level, and active challenges — live, from their phone. No login required. When your reps can see the scoreboard in real time, they play harder. That\'s the whole playbook. You\'ve made it to Step 20 — your operations game will never be the same.',
-        label: 'Step 20 of 20',
+        title: 'Step 21 — Mobile Team Sync',
+        desc: 'Enable real-time mobile updates so every rep on your team always knows their current score, bonus level, and active challenges — live, from their phone. No login required. When your reps can see the scoreboard in real time, they play harder. That\'s the whole playbook. You\'ve made it to Step 21 — your operations game will never be the same.',
+        label: 'Step 21 of 21',
         last: true,
         onShow: () => {
           // 1. Scroll section into view
