@@ -2336,8 +2336,8 @@
     .tour-dots { display:flex; gap:6px; }
     .tour-dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.15); transition:background 0.2s; }
     .tour-dot.active { background:var(--cyan); }
-    .tour-btn-skip { background:none; border:none; color:var(--muted); font-size:0.8rem; cursor:pointer; font-family:inherit; padding:8px 0; transition:color 0.2s; }
-    .tour-btn-skip:hover { color:#e2e8f0; }
+    .tour-btn-skip { background:none; border:none; color:#f87171; font-size:0.78rem; font-weight:700; cursor:pointer; font-family:inherit; padding:8px 0; transition:color 0.2s; }
+    .tour-btn-skip:hover { color:#ef4444; }
     .tour-btn-back { background:none; border:1px solid rgba(255,255,255,0.12); border-radius:10px; color:var(--muted); font-size:0.8rem; font-weight:700; cursor:pointer; font-family:inherit; padding:7px 14px; transition:all 0.2s; }
     .tour-btn-back:hover { border-color:rgba(255,255,255,0.3); color:#e2e8f0; }
     .tour-btn-back:disabled { opacity:0.25; cursor:default; pointer-events:none; }
@@ -6875,7 +6875,7 @@
         <button class="tour-btn-back" id="tour-btn-back" onclick="goBackTour()" disabled>← Back</button>
         <button class="tour-btn-pause" id="tour-btn-pause" onclick="toggleTourPause()" title="Pause / Resume">⏸</button>
         <button class="narrator-btn" onclick="toggleMute()" title="Mute/unmute narrator" style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.35);border-radius:8px;color:#C4B5FD;font-size:0.72rem;font-weight:700;padding:5px 10px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all 0.2s;">🔊 Mute</button>
-        <button class="tour-btn-skip" onclick="dismissTour()">Skip</button>
+        <button class="tour-btn-skip" onclick="dismissTour()">■ Stop</button>
         <button class="tour-btn-next" id="tour-btn-next" onclick="advanceTour()">Next →</button>
       </div>
     </div>
@@ -8191,6 +8191,7 @@
     }
 
     function dismissTour() {
+      tourActive = false;
       clearTimeout(tourTimer);
       _clearCountdown();
       if (window.speechSynthesis) window.speechSynthesis.cancel();
@@ -8201,10 +8202,7 @@
       const hlEnd = document.getElementById('tour-highlight');
       if (hlEnd) {
         hlEnd.classList.remove('visible', 'tour-hl-fullstage');
-        hlEnd.style.minHeight = '';
-        hlEnd.style.right = '';
-        hlEnd.style.bottom = '';
-        hlEnd.style.animation = '';
+        hlEnd.removeAttribute('style');
       }
       const arrow = document.getElementById('tour-arrow');
       if (arrow) {
@@ -8213,11 +8211,20 @@
       }
       const ttEnd = document.getElementById('tour-tooltip');
       if (ttEnd) {
+        ttEnd.classList.remove('visible');
         ttEnd.style.opacity = '0';
         ttEnd.style.borderRadius = '';
       }
+      // Clean up any glow left on spotlight targets
+      try {
+        document.querySelectorAll('[style*="rgba(255,107,0"]').forEach(el => {
+          el.style.boxShadow = '';
+          el.style.borderRadius = '';
+          el.style.transition = '';
+          el.style.border = '';
+        });
+      } catch(e) {}
       document.body.classList.remove('tour-active');
-      tourActive = false;
       tourPaused = false;
       hideTourScorecard();
     }
