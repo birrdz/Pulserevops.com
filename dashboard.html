@@ -12614,11 +12614,44 @@
       [38.8000, -76.4200, 0.68], // Mid-Bay channel
       [38.5000, -76.3500, 0.65],
       [38.2500, -76.3000, 0.62],
-      [37.9000, -76.2000, 0.60], // Lower Bay heading toward VA
+      [37.9000, -76.2000, 0.65], // Lower Bay heading toward VA
       // ── Potomac River ────────────────────────────────────────────────────
-      [38.0500, -76.3300, 0.65], // Potomac mouth
-      [38.1200, -76.3800, 0.60],
-      [38.2000, -76.4200, 0.58],
+      [38.0500, -76.3300, 0.70], // Potomac mouth / Point Lookout
+      [38.1200, -76.3800, 0.65], // St. Mary's area
+      [38.2000, -76.4200, 0.60],
+      [38.3000, -76.5200, 0.58], // Upper Potomac / Cobb Island
+      // ── Patuxent River ────────────────────────────────────────────────────
+      [38.3100, -76.5600, 0.65], // Patuxent mouth / Solomons Island
+      [38.3500, -76.5000, 0.60],
+      // ── Rappahannock River (VA) ───────────────────────────────────────────
+      [37.5400, -76.2800, 0.72], // Rappahannock mouth
+      [37.5700, -76.3800, 0.68],
+      [37.6100, -76.4300, 0.62],
+      // ── York River (VA) ──────────────────────────────────────────────────
+      [37.2400, -76.4000, 0.70], // York River mouth / Yorktown
+      [37.2800, -76.5000, 0.65],
+      [37.3200, -76.5500, 0.60],
+      // ── James River (VA) ─────────────────────────────────────────────────
+      [37.0000, -76.3300, 0.68], // James River mouth / Hampton Roads
+      [37.0500, -76.4500, 0.65],
+      [37.1000, -76.5500, 0.60],
+      // ── Lower Bay / Hampton Roads ─────────────────────────────────────────
+      [37.1500, -76.1500, 0.75], // Lower Bay main channel
+      [37.2000, -76.0500, 0.72],
+      [37.3000, -76.0000, 0.68],
+      [37.4000, -76.0500, 0.65],
+      [37.5000, -76.1000, 0.68], // Mid lower Bay
+      [37.6000, -76.1500, 0.65],
+      [37.7000, -76.1500, 0.68], // Between Tangier and main shore
+      [36.9800, -76.1000, 0.60], // Near Cape Henry mouth
+      [37.0200, -76.0500, 0.58],
+      // ── Susquehanna Flats / Upper Bay ────────────────────────────────────
+      [39.4500, -76.0700, 0.60], // Susquehanna Flats
+      [39.5500, -76.0500, 0.55],
+      [39.6000, -76.1500, 0.50],
+      // ── Eastern Shore (DE/MD border area) ───────────────────────────────
+      [38.4500, -75.7500, 0.55], // Assawoman Bay / Isle of Wight
+      [38.1800, -75.7000, 0.52], // Chincoteague area (VA side)
     ];
 
     let _crabMap = null;
@@ -12681,11 +12714,15 @@
     }
 
     const SPOT_COORDS = {
-      'Tangier Sound':      [37.9800, -75.9800],
-      'Bay Bridge South':   [38.9943, -76.3822],
-      'Chester River Mouth':[39.0200, -76.3100],
+      'Tangier Sound':       [37.9800, -75.9800],
+      'Bay Bridge South':    [38.9943, -76.3822],
+      'Chester River Mouth': [39.0200, -76.3100],
       'Cambridge / Choptank':[38.7600, -76.2200],
-      'Kent Island Flats':  [38.9720, -76.3400],
+      'Kent Island Flats':   [38.9720, -76.3400],
+      'Solomons Island':     [38.3100, -76.5600],
+      'Lower Bay':           [37.1500, -76.1500],
+      'Rappahannock Mouth':  [37.5400, -76.2800],
+      'Pocomoke Sound':      [38.1000, -76.1200],
     };
 
     function _getBestSpot(tidalBoost) {
@@ -12759,16 +12796,23 @@
     const _lbl = (txt, color) =>
       `<div style="background:rgba(0,24,41,0.88);border:1px solid ${color};border-radius:6px;padding:3px 7px;font-size:0.62rem;font-weight:700;color:${color};white-space:nowrap;">${txt}</div>`;
 
+    // Full Chesapeake Bay bounds — Susquehanna mouth (N) to Cape Henry (S)
+    const BAY_BOUNDS = L.latLngBounds(
+      [36.89, -77.10], // SW — Cape Henry / Hampton Roads
+      [39.72, -75.72]  // NE — Susquehanna Flats / Elk River
+    );
+
     function _initMap() {
       if (_crabMap) return;
-      // Center on full Chesapeake Bay — from Baltimore to VA line
       _crabMap = L.map('crab-map', {
-        center: [38.4000, -76.2000],
-        zoom: 8,
         zoomControl: true,
         attributionControl: true,
         minZoom: 7,
+        maxZoom: 18,
       });
+
+      // Fit the whole Bay on init — adapts to any container height
+      _crabMap.fitBounds(BAY_BOUNDS, { padding: [10, 10] });
 
       // Dark tile
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -12782,17 +12826,26 @@
 
       // ── Location labels ──────────────────────────────────────────────────
       const labels = [
+        // Maryland / Upper Bay
+        [[39.5500, -76.0800], '🏞 Susquehanna Flats',  '#94a3b8'],
+        [[39.3200, -76.4700], '🏙 Baltimore',           '#94a3b8'],
         [[38.9943, -76.3822], '🌉 Bay Bridge',         '#06b6d4'],
         [[38.9760, -76.3300], '🏝 Kent Island',         '#22c55e'],
         [[39.0280, -76.2800], '🌊 Chester River',       '#60a5fa'],
         [[38.7600, -76.2200], '🦀 Cambridge',           '#f59e0b'],
-        [[38.7000, -76.1700], '⚓ Oxford',               '#a78bfa'],
+        [[38.7000, -76.1700], '⚓ Oxford',               '#c4b5fd'],
         [[38.5800, -76.2600], '🌿 Fishing Bay',         '#34d399'],
-        [[37.9800, -75.9800], '🦀 Tangier Sound',       '#ef4444'],
         [[38.2700, -75.9700], '🌊 Nanticoke River',     '#38bdf8'],
-        [[38.0500, -76.3300], '💧 Potomac Mouth',       '#fb923c'],
-        [[39.3200, -76.4700], '🏙 Baltimore',           '#94a3b8'],
         [[38.1000, -76.1200], '🦀 Pocomoke Sound',      '#f97316'],
+        [[37.9800, -75.9800], '🔴 Tangier Sound',       '#ef4444'],
+        [[38.3100, -76.5600], '⚓ Solomons Island',     '#fbbf24'],
+        [[38.0500, -76.3300], '💧 Potomac Mouth',       '#fb923c'],
+        // Virginia
+        [[37.5400, -76.2800], '🌊 Rappahannock R.',    '#818cf8'],
+        [[37.2400, -76.4000], '⚓ York River',          '#a5f3fc'],
+        [[37.0000, -76.3300], '🌊 James River',         '#86efac'],
+        [[37.1500, -76.1500], '🦀 Lower Bay',           '#fca5a5'],
+        [[36.9800, -76.1000], '🌊 Cape Henry',          '#e2e8f0'],
       ];
       labels.forEach(([pos, txt, color]) => {
         L.marker(pos, { icon: _mkLabel(_lbl(txt, color)) }).addTo(_crabMap);
@@ -13131,7 +13184,7 @@
     }
 
     .crab-map-el {
-      height: 420px;
+      height: 700px;
       width: 100%;
       background: #0a1628;
     }
@@ -13188,7 +13241,7 @@
     @media (max-width: 768px) {
       .jff-section { padding: 60px 0; }
       .crab-card { padding: 22px 18px; border-radius: 18px; }
-      .crab-map-el { height: 360px; }
+      .crab-map-el { height: 580px; }
       .crab-stats-bar { grid-template-columns: repeat(2, 1fr); }
     }
 
@@ -13204,8 +13257,8 @@
       /* Make Calibrate full-width and easy to tap */
       .crab-calibrate-btn { flex: 1; justify-content: center; font-size: 0.88rem; }
 
-      /* Map shorter on small screens */
-      .crab-map-el { height: 260px; }
+      /* Map on mobile — taller to show full Bay */
+      .crab-map-el { height: 480px; }
 
       /* Hide legend overlay — saves space, labels are on map already */
       .crab-legend { display: none; }
@@ -13220,7 +13273,7 @@
 
     /* ── Very small phones ──────────────────────────────────── */
     @media (max-width: 380px) {
-      .crab-map-el { height: 220px; }
+      .crab-map-el { height: 400px; }
       .crab-stats-bar { grid-template-columns: 1fr 1fr; }
     }
   </style>
