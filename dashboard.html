@@ -10649,7 +10649,9 @@
     // ── end PULSE GUY controller ─────────────────────────────────────────────
 
     function dismissTour() {
+      tourActive = false; // set first so all pending _schedTourTimer callbacks bail immediately
       clearTimeout(tourTimer);
+      _clearTourStepTimers();
       _clearCountdown();
       if (window.speechSynthesis) window.speechSynthesis.cancel();
       _lockedVoice = null; // reset so next tour session re-locks voice
@@ -10669,11 +10671,17 @@
       const hlEnd = document.getElementById('tour-highlight');
       if (hlEnd) {
         hlEnd.classList.remove('visible', 'tour-hl-fullstage');
-        hlEnd.style.minHeight = '';
-        hlEnd.style.right = '';
-        hlEnd.style.bottom = '';
-        hlEnd.style.animation = '';
+        hlEnd.removeAttribute('style'); // wipe all inline styles set by spotlight
       }
+      // Remove any inline glow styles left on the spotlight target
+      try {
+        document.querySelectorAll('[style*="tour-pulse"], [style*="rgba(255,107,0"]').forEach(el => {
+          el.style.boxShadow = '';
+          el.style.borderRadius = '';
+          el.style.transition = '';
+          el.style.border = '';
+        });
+      } catch(e) {}
       const arrow = document.getElementById('tour-arrow');
       if (arrow) {
         arrow.style.opacity = '0';
@@ -10685,7 +10693,6 @@
         ttEnd.style.borderRadius = '';
       }
       document.body.classList.remove('tour-active');
-      tourActive = false;
       tourPaused = false;
       hideTourScorecard();
     }
@@ -10925,7 +10932,8 @@
         tourScrollIntoView(target);
       });
 
-      setTimeout(() => {
+      _schedTourTimer(() => {
+        if (!tourActive) return;
         const hl = document.getElementById('tour-highlight');
         const tt = document.getElementById('tour-tooltip');
         if (!hl || !tt) {
@@ -10933,7 +10941,7 @@
           dismissTour();
           return;
         }
-        
+
         // Snap scroll to element instantly before measuring so rect is accurate
         try {
           const preRect = target.getBoundingClientRect();
@@ -10959,9 +10967,11 @@
         try { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(e) {}
 
         // Phase 2: zoom in — tight dark lightbox focused on exact element
-        setTimeout(() => {
+        _schedTourTimer(() => {
+          if (!tourActive) return;
           try { target.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
-          setTimeout(() => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
             const r = target.getBoundingClientRect();
             const pad = 14;
             hl.classList.remove('tour-hl-fullstage');
