@@ -1571,7 +1571,7 @@
     ─────────────────────────────────────────────────────────────────────────── */
 
     /* 1. Nuke every page section / element that isn't the nav or dashboard */
-    body.dashboard-mode > *:not(nav):not(#dashboard):not(script):not(style):not(canvas):not(.blob):not(#tour-welcome):not(#tour-highlight):not(#tour-tooltip):not(#disclaimer-modal):not(#scroll-top-btn):not(.print-btn):not(.print-btn-tooltip):not(#focus-btn):not(#focus-btn-tooltip):not(#music-radio):not(#goal-mode-toast):not(#details-toggle-btn):not(#pulse-guy):not(#jff-fab):not(#jff-fab-tooltip):not(#jff-tab):not(#float-saveload) {
+    body.dashboard-mode > *:not(nav):not(#dashboard):not(script):not(style):not(canvas):not(.blob):not(#tour-welcome):not(#tour-highlight):not(#tour-tooltip):not(#disclaimer-modal):not(#scroll-top-btn):not(.print-btn):not(.print-btn-tooltip):not(#focus-btn):not(#focus-btn-tooltip):not(#music-radio):not(#goal-mode-toast):not(#details-toggle-btn):not(#pulse-guy):not(#jff-fab):not(#jff-fab-tooltip):not(#jff-tab):not(#float-saveload):not(#press-admin-section) {
       display: none !important;
     }
 
@@ -2994,6 +2994,7 @@
             <option value="dashboard.html#challenge-section">Flash Challenges</option>
             <option value="dashboard.html#app-sync-section">Squad Sync</option>
             <option value="dashboard.html#not-to-do-section">Not-To-Do List</option>
+            <option value="dashboard.html#press-admin-section">📡 Press Releases</option>
             <option value="dashboard.html#just-for-fun">🦀 Just for Fun</option>
         </select>
         <span class="nav-dropdown-arrow">▾</span>
@@ -4286,6 +4287,141 @@
           <button type="submit">Subscribe →</button>
         </form>
         <div class="newsletter-note" id="nl-msg">No spam. Unsubscribe anytime. Published by Kory White.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESS RELEASE ADMIN -->
+  <section id="press-admin-section" style="background:rgba(15,23,42,0.6); border-top:1px solid rgba(255,255,255,0.06); padding:64px 0;">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:36px;">
+        <div style="font-size:0.72rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); margin-bottom:10px;">Media · Newsroom</div>
+        <h2 style="font-size:2rem; font-weight:900; margin-bottom:10px;">Press Release Publisher</h2>
+        <p style="color:var(--muted); max-width:520px; margin:0 auto;">Write and publish official press releases to <strong style="color:var(--text);">pulserevops.com/press/</strong> — instantly live, Google-indexed, and ready to distribute to free PR wire services.</p>
+      </div>
+
+      <!-- Auth gate -->
+      <div id="press-auth-gate" style="max-width:420px; margin:0 auto; text-align:center;">
+        <p style="color:var(--muted); font-size:0.88rem; margin-bottom:14px;">Enter your admin password to access the press publisher.</p>
+        <div style="display:flex; gap:8px; justify-content:center;">
+          <input type="password" id="press-secret-input" placeholder="Admin password"
+            style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:9px 14px; color:var(--text); font-family:inherit; font-size:0.88rem; outline:none; width:220px;"
+            onkeydown="if(event.key==='Enter') pressUnlock()" />
+          <button onclick="pressUnlock()"
+            style="background:var(--accent); color:#fff; border:none; border-radius:8px; padding:9px 18px; font-weight:700; font-size:0.88rem; cursor:pointer; font-family:inherit;">Unlock</button>
+        </div>
+        <div id="press-auth-err" style="color:#f87171; font-size:0.78rem; margin-top:8px; min-height:1em;"></div>
+      </div>
+
+      <!-- Editor (hidden until unlocked) -->
+      <div id="press-editor" style="display:none; max-width:760px; margin:0 auto;">
+
+        <!-- Tab: Write / Import -->
+        <div style="display:flex; gap:0; margin-bottom:24px; border:1px solid rgba(255,255,255,0.12); border-radius:10px; overflow:hidden;">
+          <button id="press-tab-write" onclick="pressTab('write')"
+            style="flex:1; padding:11px; font-size:0.82rem; font-weight:700; cursor:pointer; font-family:inherit; border:none; background:rgba(249,115,22,0.15); color:var(--accent); transition:all 0.2s;">
+            ✏️ Write Release
+          </button>
+          <button id="press-tab-import" onclick="pressTab('import')"
+            style="flex:1; padding:11px; font-size:0.82rem; font-weight:700; cursor:pointer; font-family:inherit; border:none; background:rgba(255,255,255,0.04); color:var(--muted); transition:all 0.2s; border-left:1px solid rgba(255,255,255,0.1);">
+            📋 Paste / Import
+          </button>
+        </div>
+
+        <!-- Write form -->
+        <div id="press-write-panel">
+          <div style="display:grid; gap:14px;">
+            <div>
+              <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px;">Headline *</label>
+              <input type="text" id="pr-title" placeholder="PULSE RevOps Launches Free Sales KPI Calculator for Revenue Teams"
+                style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 14px; color:var(--text); font-family:inherit; font-size:0.95rem; outline:none;" />
+            </div>
+            <div>
+              <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px;">Subheadline</label>
+              <input type="text" id="pr-subtitle" placeholder="Free browser-based tool helps sales leaders set data-driven quotas in minutes"
+                style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 14px; color:var(--text); font-family:inherit; font-size:0.88rem; outline:none;" />
+            </div>
+            <div>
+              <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px;">Body *</label>
+              <textarea id="pr-body" rows="14" placeholder="FOR IMMEDIATE RELEASE&#10;&#10;[City, Date] — Write your full press release here. Include: dateline, main announcement, supporting details, quotes, boilerplate, and contact information.&#10;&#10;###"
+                style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 14px; color:var(--text); font-family:inherit; font-size:0.88rem; outline:none; resize:vertical; line-height:1.7;"></textarea>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+              <div>
+                <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px;">Tags (comma-separated)</label>
+                <input type="text" id="pr-tags" placeholder="RevOps, Sales Tools, KPI"
+                  style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 14px; color:var(--text); font-family:inherit; font-size:0.88rem; outline:none;" />
+              </div>
+              <div>
+                <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px;">Contact Email</label>
+                <input type="email" id="pr-contact" placeholder="hello@pulserevops.com" value="hello@pulserevops.com"
+                  style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 14px; color:var(--text); font-family:inherit; font-size:0.88rem; outline:none;" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Import panel -->
+        <div id="press-import-panel" style="display:none;">
+          <div>
+            <label style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:8px;">Paste Your Full Press Release</label>
+            <p style="font-size:0.8rem; color:var(--muted); margin-bottom:12px;">Paste the entire release — PULSE will auto-extract the headline (first line) and body. You can edit before publishing.</p>
+            <textarea id="pr-import-raw" rows="16" placeholder="Paste your full press release text here..."
+              style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 14px; color:var(--text); font-family:inherit; font-size:0.88rem; outline:none; resize:vertical; line-height:1.7;"></textarea>
+            <button onclick="pressParseImport()"
+              style="margin-top:10px; background:rgba(249,115,22,0.15); border:1px solid rgba(249,115,22,0.4); border-radius:8px; color:var(--accent); font-size:0.82rem; font-weight:700; padding:9px 18px; cursor:pointer; font-family:inherit; transition:all 0.2s;"
+              onmouseover="this.style.background='rgba(249,115,22,0.25)'" onmouseout="this.style.background='rgba(249,115,22,0.15)'">
+              ↳ Parse & Move to Editor
+            </button>
+          </div>
+        </div>
+
+        <!-- Publish button -->
+        <div style="margin-top:20px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+          <button id="press-publish-btn" onclick="pressPublish()"
+            style="background:linear-gradient(135deg,#f97316,#fb923c); color:#fff; border:none; border-radius:10px; padding:13px 28px; font-size:1rem; font-weight:800; cursor:pointer; font-family:inherit; letter-spacing:0.04em; transition:all 0.2s; box-shadow:0 4px 14px rgba(249,115,22,0.3);"
+            onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+            🚀 Publish Release
+          </button>
+          <span id="press-publish-status" style="font-size:0.82rem; color:var(--muted);"></span>
+        </div>
+
+        <!-- Success / distribution panel -->
+        <div id="press-success-panel" style="display:none; margin-top:24px; background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.25); border-radius:12px; padding:20px 24px;">
+          <div style="font-size:0.78rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#4ade80; margin-bottom:10px;">✓ Published — Now Distribute</div>
+          <p id="press-success-url" style="font-size:0.88rem; color:var(--muted); margin-bottom:14px;"></p>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <a id="dist-view" href="#" target="_blank"
+              style="display:inline-flex; align-items:center; gap:5px; padding:8px 14px; border-radius:7px; font-size:0.78rem; font-weight:700; text-decoration:none; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.4); color:#4ade80; transition:opacity 0.2s;"
+              onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">🌐 View Live</a>
+            <a href="https://www.prlog.org/post-press-release.html" target="_blank" rel="noopener"
+              style="display:inline-flex; align-items:center; gap:5px; padding:8px 14px; border-radius:7px; font-size:0.78rem; font-weight:700; text-decoration:none; background:rgba(59,130,246,0.12); border:1px solid rgba(59,130,246,0.4); color:#93c5fd; transition:opacity 0.2s;"
+              onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">PRLog (Free · Google News)</a>
+            <a href="https://www.openpr.com/send-press-release.html" target="_blank" rel="noopener"
+              style="display:inline-flex; align-items:center; gap:5px; padding:8px 14px; border-radius:7px; font-size:0.78rem; font-weight:700; text-decoration:none; background:rgba(168,85,247,0.12); border:1px solid rgba(168,85,247,0.4); color:#c4b5fd; transition:opacity 0.2s;"
+              onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">OpenPR (Free)</a>
+            <a href="https://www.prfree.org/post-press-release.php" target="_blank" rel="noopener"
+              style="display:inline-flex; align-items:center; gap:5px; padding:8px 14px; border-radius:7px; font-size:0.78rem; font-weight:700; text-decoration:none; background:rgba(234,179,8,0.1); border:1px solid rgba(234,179,8,0.35); color:#fde047; transition:opacity 0.2s;"
+              onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">PRFree (Free)</a>
+            <button onclick="pressCopyText()"
+              style="display:inline-flex; align-items:center; gap:5px; padding:8px 14px; border-radius:7px; font-size:0.78rem; font-weight:700; font-family:inherit; cursor:pointer; background:rgba(249,115,22,0.12); border:1px solid rgba(249,115,22,0.4); color:var(--accent2); transition:opacity 0.2s;"
+              onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'" id="press-copy-btn">📋 Copy Full Text</button>
+          </div>
+          <p style="font-size:0.72rem; color:var(--muted); margin-top:10px;">Each free submission creates a backlink to pulserevops.com and gets indexed by Google. Paste your copied text into each site.</p>
+        </div>
+
+        <!-- Existing releases list -->
+        <div style="margin-top:40px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+            <div style="font-size:0.78rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">Published Releases</div>
+            <button onclick="pressLoadList()"
+              style="background:none; border:1px solid rgba(255,255,255,0.12); border-radius:6px; color:var(--muted); font-size:0.72rem; padding:5px 12px; cursor:pointer; font-family:inherit; transition:all 0.2s;"
+              onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">↻ Refresh</button>
+          </div>
+          <div id="press-list-admin" style="display:flex; flex-direction:column; gap:8px;">
+            <div style="color:var(--muted); font-size:0.82rem; text-align:center; padding:16px 0;">Loading…</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -12664,6 +12800,174 @@
   </script>
 
   <script>
+    // ── Press Release Admin ────────────────────────────────────────────────
+    const PRESS_SECRET_KEY = 'pulse_press_secret';
+    let _pressSecret = '';
+    let _pressLastRelease = null;
+
+    function pressUnlock() {
+      const val = (document.getElementById('press-secret-input').value || '').trim();
+      if (!val) return;
+      // Test the secret against the API
+      fetch(`/.netlify/functions/press?list=1`)
+        .then(r => r.json())
+        .then(() => {
+          _pressSecret = val;
+          document.getElementById('press-auth-gate').style.display = 'none';
+          document.getElementById('press-editor').style.display = 'block';
+          pressLoadList();
+        })
+        .catch(() => {
+          document.getElementById('press-auth-err').textContent = 'Could not connect. Deploy first, then retry.';
+        });
+      // Optimistic unlock (works after deploy; show editor with secret stored)
+      _pressSecret = val;
+      document.getElementById('press-auth-gate').style.display = 'none';
+      document.getElementById('press-editor').style.display = 'block';
+      pressLoadList();
+    }
+
+    function pressTab(tab) {
+      const isWrite = tab === 'write';
+      document.getElementById('press-write-panel').style.display = isWrite ? 'block' : 'none';
+      document.getElementById('press-import-panel').style.display = isWrite ? 'none' : 'block';
+      document.getElementById('press-tab-write').style.background = isWrite ? 'rgba(249,115,22,0.15)' : 'rgba(255,255,255,0.04)';
+      document.getElementById('press-tab-write').style.color = isWrite ? 'var(--accent)' : 'var(--muted)';
+      document.getElementById('press-tab-import').style.background = isWrite ? 'rgba(255,255,255,0.04)' : 'rgba(249,115,22,0.15)';
+      document.getElementById('press-tab-import').style.color = isWrite ? 'var(--muted)' : 'var(--accent)';
+    }
+
+    function pressParseImport() {
+      const raw = (document.getElementById('pr-import-raw').value || '').trim();
+      if (!raw) return;
+      const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+      const title = lines[0] || '';
+      const subtitle = lines[1] && lines[1].length < 200 ? lines[1] : '';
+      const bodyStart = subtitle ? 2 : 1;
+      const body = lines.slice(bodyStart).join('\n\n');
+      document.getElementById('pr-title').value = title;
+      document.getElementById('pr-subtitle').value = subtitle;
+      document.getElementById('pr-body').value = body;
+      pressTab('write');
+    }
+
+    async function pressPublish() {
+      const title = (document.getElementById('pr-title').value || '').trim();
+      const body  = (document.getElementById('pr-body').value  || '').trim();
+      if (!title || !body) {
+        document.getElementById('press-publish-status').textContent = '⚠ Headline and body are required.';
+        document.getElementById('press-publish-status').style.color = '#f87171';
+        return;
+      }
+      const btn = document.getElementById('press-publish-btn');
+      const status = document.getElementById('press-publish-status');
+      btn.disabled = true;
+      btn.textContent = 'Publishing…';
+      status.textContent = '';
+      status.style.color = 'var(--muted)';
+
+      const payload = {
+        title,
+        subtitle: (document.getElementById('pr-subtitle').value || '').trim(),
+        body,
+        tags:    (document.getElementById('pr-tags').value    || '').trim(),
+        contact: (document.getElementById('pr-contact').value || '').trim(),
+        author:  'Kory White, PULSE RevOps',
+      };
+
+      try {
+        const res  = await fetch(`/.netlify/functions/press?secret=${encodeURIComponent(_pressSecret)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.ok) throw new Error(data.error || 'Failed');
+
+        _pressLastRelease = { ...payload, slug: data.slug, url: data.url };
+        status.textContent = '✓ Live!';
+        status.style.color = '#4ade80';
+        btn.disabled = false;
+        btn.textContent = '🚀 Publish Release';
+
+        // Show success + distribution panel
+        const panel = document.getElementById('press-success-panel');
+        panel.style.display = 'block';
+        document.getElementById('press-success-url').textContent = `Live at: ${data.url}`;
+        document.getElementById('dist-view').href = data.url;
+
+        // Clear form
+        ['pr-title','pr-subtitle','pr-body','pr-tags'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+
+        pressLoadList();
+      } catch (err) {
+        status.textContent = '✗ ' + (err.message || 'Publish failed — check deploy status.');
+        status.style.color = '#f87171';
+        btn.disabled = false;
+        btn.textContent = '🚀 Publish Release';
+      }
+    }
+
+    function pressCopyText() {
+      const r = _pressLastRelease;
+      if (!r) return;
+      const text = [
+        r.title,
+        r.subtitle || '',
+        '',
+        r.body,
+        '',
+        '---',
+        'Contact: Kory White, PULSE RevOps',
+        `Email: ${r.contact || 'hello@pulserevops.com'}`,
+        'Website: https://pulserevops.com',
+        `Release URL: ${r.url || ''}`,
+      ].filter(l => l !== null).join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('press-copy-btn');
+        if (btn) { btn.textContent = '✓ Copied!'; setTimeout(() => btn.textContent = '📋 Copy Full Text', 2000); }
+      });
+    }
+
+    async function pressLoadList() {
+      const container = document.getElementById('press-list-admin');
+      if (!container) return;
+      try {
+        const res  = await fetch('/.netlify/functions/press?list=1');
+        const data = await res.json();
+        if (!Array.isArray(data) || !data.length) {
+          container.innerHTML = '<div style="color:var(--muted); font-size:0.82rem; text-align:center; padding:12px 0;">No releases yet.</div>';
+          return;
+        }
+        container.innerHTML = data.map(r => `
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+            <div>
+              <div style="font-size:0.88rem; font-weight:700; color:var(--text); margin-bottom:2px;">${r.title}</div>
+              <div style="font-size:0.72rem; color:var(--muted);">${r.dateStr}${r.tags ? ' · ' + r.tags : ''}</div>
+            </div>
+            <div style="display:flex; gap:8px; flex-shrink:0;">
+              <a href="/press/?r=${r.slug}" target="_blank"
+                style="font-size:0.72rem; font-weight:700; color:var(--accent2); text-decoration:none; padding:5px 10px; border-radius:6px; background:rgba(249,115,22,0.1); border:1px solid rgba(249,115,22,0.3);">View</a>
+              <button onclick="pressDelete('${r.slug}')"
+                style="font-size:0.72rem; font-weight:700; color:#f87171; background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.3); border-radius:6px; padding:5px 10px; cursor:pointer; font-family:inherit; transition:all 0.2s;">Delete</button>
+            </div>
+          </div>`).join('');
+      } catch {
+        container.innerHTML = '<div style="color:var(--muted); font-size:0.82rem; text-align:center; padding:12px 0;">Deploy to Netlify to see releases here.</div>';
+      }
+    }
+
+    async function pressDelete(slug) {
+      if (!confirm('Delete this release? This cannot be undone.')) return;
+      try {
+        await fetch(`/.netlify/functions/press?slug=${encodeURIComponent(slug)}&secret=${encodeURIComponent(_pressSecret)}`, { method: 'DELETE' });
+        pressLoadList();
+      } catch { alert('Delete failed.'); }
+    }
+
     async function handleJffNewsletter(e) {
       e.preventDefault();
       const email = document.getElementById('jff-nl-email').value.trim();

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Press Room | PULSE RevOps</title>
+  <meta name="description" id="page-desc" content="Official press releases and news from PULSE RevOps and Kory White — free RevOps tools, sales KPI calculators, and revenue operations insights." />
+  <link rel="canonical" id="page-canonical" href="https://pulserevops.com/press/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PULSE RevOps" />
+  <meta property="og:title" id="og-title" content="Press Room | PULSE RevOps" />
+  <meta property="og:description" id="og-desc" content="Official press releases and news from PULSE RevOps — free RevOps tools, sales KPI calculators, and revenue operations insights." />
+  <meta property="og:url" id="og-url" content="https://pulserevops.com/press/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json" id="ld-json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "PULSE RevOps Press Room",
+    "description": "Official press releases from PULSE RevOps and Kory White.",
+    "url": "https://pulserevops.com/press/",
+    "publisher": { "@type": "Organization", "name": "PULSE RevOps", "url": "https://pulserevops.com" }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f172a; --surface: #1e293b; --surface2: #263248;
+      --accent: #f97316; --accent2: #fb923c;
+      --text: #e2e8f0; --muted: #94a3b8;
+      --green: #4ade80; --blue: #93c5fd;
+      --border: rgba(255,255,255,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,23,42,0.95); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem; height: 58px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 6px 14px; border-radius: 6px; }
+
+    /* HERO */
+    .hero { padding: 3rem 1.5rem 2.5rem; text-align: center; border-bottom: 1px solid var(--border); }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 0.75rem; }
+    .hero p { color: var(--muted); max-width: 540px; margin: 0 auto; }
+
+    /* LAYOUT */
+    .press-wrap { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem; }
+
+    /* INDEX: card list */
+    #press-list { display: grid; gap: 1.25rem; }
+    .press-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.5rem; cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .press-card:hover { border-color: rgba(249,115,22,0.45); transform: translateY(-2px); }
+    .press-card-tag { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+    .press-card h2 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.3rem; color: var(--text); }
+    .press-card .sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 0.6rem; }
+    .press-card-meta { font-size: 0.72rem; color: var(--muted); display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* SINGLE RELEASE */
+    #press-detail { display: none; }
+    .release-back { background: none; border: none; color: var(--muted); font-size: 0.82rem; cursor: pointer; font-family: inherit; padding: 0 0 1.5rem; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .release-back:hover { color: var(--text); }
+    .release-eyebrow { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+    .release-title { font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 800; line-height: 1.2; margin-bottom: 0.5rem; }
+    .release-subtitle { font-size: 1.05rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.5; }
+    .release-meta { font-size: 0.78rem; color: var(--muted); display: flex; gap: 1.25rem; flex-wrap: wrap; padding: 0.75rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+    .release-body { font-size: 1rem; line-height: 1.8; color: var(--text); white-space: pre-wrap; }
+    .release-body p { margin-bottom: 1rem; }
+    .release-contact { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 2rem; font-size: 0.82rem; color: var(--muted); }
+    .release-contact strong { color: var(--text); }
+
+    /* Distribution panel */
+    .dist-panel {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.25rem 1.5rem; margin-top: 1.75rem;
+    }
+    .dist-panel h3 { font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .dist-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .dist-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 7px; font-size: 0.78rem; font-weight: 700;
+      text-decoration: none; cursor: pointer; border: 1px solid;
+      transition: opacity 0.2s;
+    }
+    .dist-btn:hover { opacity: 0.8; }
+    .dist-btn.prlog { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.4); color: var(--green); }
+    .dist-btn.openpr { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.4); color: var(--blue); }
+    .dist-btn.prfree { background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c4b5fd; }
+    .dist-btn.copy { background: rgba(249,115,22,0.12); border-color: rgba(249,115,22,0.4); color: var(--accent2); }
+    .dist-note { font-size: 0.72rem; color: var(--muted); margin-top: 0.6rem; }
+
+    /* Empty / loading */
+    .state-msg { text-align: center; color: var(--muted); padding: 3rem 0; font-size: 0.9rem; }
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.15); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 6px; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.8rem; }
+    footer a { color: var(--muted); text-decoration: none; }
+    .footer-links { display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 0.6rem; flex-wrap: wrap; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 2.5rem 1rem 2rem; }
+      .press-wrap { padding: 2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="https://pulserevops.com/">PULSE RevOps</a>
+  <div class="nav-links">
+    <a href="https://pulserevops.com/blog/">Blog</a>
+    <a href="https://pulserevops.com/press/">Press</a>
+    <a href="https://pulserevops.com/dashboard.html" class="nav-cta">Free Tools →</a>
+  </div>
+</nav>
+
+<div class="hero" id="press-hero">
+  <p class="hero-eyebrow">Newsroom</p>
+  <h1>PULSE RevOps Press Room</h1>
+  <p>Official announcements, product updates, and media resources from Kory White and PULSE RevOps.</p>
+</div>
+
+<div class="press-wrap">
+  <!-- Index view -->
+  <div id="press-list">
+    <div class="state-msg"><span class="spinner"></span> Loading releases…</div>
+  </div>
+
+  <!-- Single release view -->
+  <div id="press-detail">
+    <button class="release-back" onclick="showList()">← Back to all releases</button>
+    <div id="release-content"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="https://pulserevops.com/">Home</a>
+    <a href="https://pulserevops.com/dashboard.html">Free Tools</a>
+    <a href="https://pulserevops.com/blog/">Blog</a>
+    <a href="https://pulserevops.com/press/">Press</a>
+    <a href="mailto:hello@pulserevops.com">Media Contact</a>
+  </div>
+  <p>© 2026 PULSE RevOps · Kory White · <a href="mailto:hello@pulserevops.com">hello@pulserevops.com</a></p>
+</footer>
+
+<script>
+  const LIST_URL = '/.netlify/functions/press?list=1';
+  const SINGLE_URL = slug => `/.netlify/functions/press?slug=${encodeURIComponent(slug)}`;
+
+  let _allReleases = [];
+
+  function fmtDate(dateStr) {
+    try {
+      const [y, m, d] = dateStr.split('-');
+      return new Date(y, m - 1, d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    } catch { return dateStr; }
+  }
+
+  // ── Load list ──────────────────────────────────────────────────────────────
+  async function loadList() {
+    try {
+      const res = await fetch(LIST_URL);
+      const data = await res.json();
+      _allReleases = Array.isArray(data) ? data : [];
+      renderList();
+    } catch {
+      document.getElementById('press-list').innerHTML =
+        '<div class="state-msg">Could not load releases. Try again in a moment.</div>';
+    }
+  }
+
+  function renderList() {
+    const el = document.getElementById('press-list');
+    if (!_allReleases.length) {
+      el.innerHTML = '<div class="state-msg">No press releases yet.</div>';
+      return;
+    }
+    el.innerHTML = _allReleases.map(r => `
+      <div class="press-card" onclick="loadRelease('${r.slug}')">
+        <div class="press-card-tag">Press Release${r.tags ? ' · ' + r.tags : ''}</div>
+        <h2>${r.title}</h2>
+        ${r.subtitle ? `<div class="sub">${r.subtitle}</div>` : ''}
+        <div class="press-card-meta">
+          <span>📅 ${fmtDate(r.dateStr)}</span>
+          <span>🏢 PULSE RevOps</span>
+        </div>
+      </div>`).join('');
+  }
+
+  // ── Load single ────────────────────────────────────────────────────────────
+  async function loadRelease(slug) {
+    document.getElementById('press-list').style.display = 'none';
+    document.getElementById('press-detail').style.display = 'block';
+    document.getElementById('release-content').innerHTML =
+      '<div class="state-msg"><span class="spinner"></span> Loading…</div>';
+
+    window.history.replaceState(null, '', `?r=${slug}`);
+
+    try {
+      const res = await fetch(SINGLE_URL(slug));
+      const r = await res.json();
+      renderRelease(r);
+      // Update page meta
+      document.title = `${r.title} | PULSE RevOps`;
+      document.getElementById('og-title').content = r.title;
+      document.getElementById('og-desc').content = r.subtitle || r.title;
+    } catch {
+      document.getElementById('release-content').innerHTML =
+        '<div class="state-msg">Could not load this release.</div>';
+    }
+  }
+
+  function renderRelease(r) {
+    // Build distribution URLs (pre-filled where possible)
+    const encodedTitle = encodeURIComponent(r.title);
+    const encodedBody = encodeURIComponent(r.body.slice(0, 400));
+    const releaseUrl = `https://pulserevops.com/press/?r=${r.slug}`;
+
+    const prlogUrl = `https://www.prlog.org/post-press-release.html`;
+    const openprUrl = `https://www.openpr.com/send-press-release.html`;
+    const prfreeUrl = `https://www.prfree.org/post-press-release.php`;
+
+    // NewsArticle JSON-LD
+    const ld = {
+      '@context': 'https://schema.org',
+      '@type': 'NewsArticle',
+      headline: r.title,
+      description: r.subtitle || r.title,
+      datePublished: new Date(r.publishedAt).toISOString(),
+      dateModified: new Date(r.publishedAt).toISOString(),
+      author: { '@type': 'Person', name: r.author || 'Kory White', url: 'https://pulserevops.com' },
+      publisher: { '@type': 'Organization', name: 'PULSE RevOps', url: 'https://pulserevops.com' },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': releaseUrl },
+    };
+    let ldEl = document.getElementById('ld-json');
+    if (ldEl) ldEl.textContent = JSON.stringify(ld);
+
+    document.getElementById('release-content').innerHTML = `
+      <div class="release-eyebrow">Press Release · ${fmtDate(r.dateStr)}</div>
+      <div class="release-title">${r.title}</div>
+      ${r.subtitle ? `<div class="release-subtitle">${r.subtitle}</div>` : ''}
+      <div class="release-meta">
+        <span>📅 ${fmtDate(r.dateStr)}</span>
+        <span>✍️ ${r.author || 'Kory White'}</span>
+        ${r.tags ? `<span>🏷 ${r.tags}</span>` : ''}
+        <span>🔗 <a href="${releaseUrl}" style="color:var(--accent2)">Permalink</a></span>
+      </div>
+      <div class="release-body">${r.body.replace(/\n\n/g,'</p><p>').replace(/^/,'<p>').replace(/$/,'</p>')}</div>
+      <div class="release-contact">
+        <strong>Media Contact:</strong> ${r.author || 'Kory White'} · ${r.contact || 'hello@pulserevops.com'} · <a href="https://pulserevops.com" style="color:var(--accent2)">pulserevops.com</a>
+      </div>
+      <div class="dist-panel">
+        <h3>📡 Distribute This Release</h3>
+        <div class="dist-btns">
+          <a class="dist-btn prlog" href="${prlogUrl}" target="_blank" rel="noopener">PRLog (Free · Google News)</a>
+          <a class="dist-btn openpr" href="${openprUrl}" target="_blank" rel="noopener">OpenPR (Free)</a>
+          <a class="dist-btn prfree" href="${prfreeUrl}" target="_blank" rel="noopener">PRFree (Free)</a>
+          <button class="dist-btn copy" onclick="copyRelease()">📋 Copy Full Text</button>
+        </div>
+        <div class="dist-note">Click any button → opens the free PR site → paste your copied text. Each submission creates a backlink to pulserevops.com.</div>
+      </div>
+    `;
+
+    // Store release text for copy
+    window._currentRelease = r;
+  }
+
+  function copyRelease() {
+    const r = window._currentRelease;
+    if (!r) return;
+    const text = [
+      r.title,
+      r.subtitle || '',
+      '',
+      r.body,
+      '',
+      '---',
+      `Contact: ${r.author || 'Kory White'}`,
+      `Email: ${r.contact || 'hello@pulserevops.com'}`,
+      `Website: https://pulserevops.com`,
+    ].join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.dist-btn.copy');
+      if (btn) { btn.textContent = '✓ Copied!'; setTimeout(() => btn.textContent = '📋 Copy Full Text', 2000); }
+    });
+  }
+
+  function showList() {
+    document.getElementById('press-list').style.display = '';
+    document.getElementById('press-detail').style.display = 'none';
+    window.history.replaceState(null, '', location.pathname);
+    document.title = 'Press Room | PULSE RevOps';
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  window.addEventListener('DOMContentLoaded', () => {
+    const qs = new URLSearchParams(location.search);
+    const slug = qs.get('r');
+    if (slug) {
+      loadList().then(() => loadRelease(slug));
+    } else {
+      loadList();
+    }
+  });
+</script>
+</body>
+</html>
