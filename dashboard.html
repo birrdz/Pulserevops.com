@@ -1571,7 +1571,7 @@
     ─────────────────────────────────────────────────────────────────────────── */
 
     /* 1. Nuke every page section / element that isn't the nav or dashboard */
-    body.dashboard-mode > *:not(nav):not(#dashboard):not(script):not(style):not(canvas):not(.blob):not(#tour-welcome):not(#tour-highlight):not(#tour-tooltip):not(#disclaimer-modal):not(#scroll-top-btn):not(.print-btn):not(.print-btn-tooltip):not(#focus-btn):not(#focus-btn-tooltip):not(#music-radio):not(#goal-mode-toast):not(#details-toggle-btn):not(#pulse-guy):not(#jff-fab):not(#jff-fab-tooltip):not(#jff-tab) {
+    body.dashboard-mode > *:not(nav):not(#dashboard):not(script):not(style):not(canvas):not(.blob):not(#tour-welcome):not(#tour-highlight):not(#tour-tooltip):not(#disclaimer-modal):not(#scroll-top-btn):not(.print-btn):not(.print-btn-tooltip):not(#focus-btn):not(#focus-btn-tooltip):not(#music-radio):not(#goal-mode-toast):not(#details-toggle-btn):not(#pulse-guy):not(#jff-fab):not(#jff-fab-tooltip):not(#jff-tab):not(#float-saveload) {
       display: none !important;
     }
 
@@ -3027,6 +3027,40 @@
   </nav>
 
   <!-- JUST FOR FUN TAB — fixed below nav, always visible -->
+  <!-- Floating Save / Load widget — left side, always visible -->
+  <div id="float-saveload" style="
+      position:fixed; left:0; top:50%; transform:translateY(-50%);
+      z-index:9998;
+      display:flex; flex-direction:column; gap:0;
+      filter:drop-shadow(2px 2px 8px rgba(0,0,0,0.5));">
+    <button onclick="promptSaveProgress()" title="Save Progress" style="
+        background:rgba(34,197,94,0.18); border:1px solid rgba(34,197,94,0.5);
+        border-right:none; border-radius:0 8px 0 0;
+        color:#4ade80; font-size:0.68rem; font-weight:800;
+        letter-spacing:0.06em; text-transform:uppercase;
+        padding:10px 10px 10px 8px;
+        cursor:pointer; font-family:inherit; line-height:1; writing-mode:vertical-rl;
+        text-orientation:mixed; transform:rotate(180deg);
+        transition:background 0.2s;"
+      onmouseover="this.style.background='rgba(34,197,94,0.32)'"
+      onmouseout="this.style.background='rgba(34,197,94,0.18)'">
+      💾 Save
+    </button>
+    <button onclick="promptLoadProgress()" title="Load Progress" style="
+        background:rgba(59,130,246,0.18); border:1px solid rgba(59,130,246,0.5);
+        border-right:none; border-top:none; border-radius:0 0 8px 0;
+        color:#93c5fd; font-size:0.68rem; font-weight:800;
+        letter-spacing:0.06em; text-transform:uppercase;
+        padding:10px 10px 10px 8px;
+        cursor:pointer; font-family:inherit; line-height:1; writing-mode:vertical-rl;
+        text-orientation:mixed; transform:rotate(180deg);
+        transition:background 0.2s;"
+      onmouseover="this.style.background='rgba(59,130,246,0.32)'"
+      onmouseout="this.style.background='rgba(59,130,246,0.18)'">
+      🔓 Load
+    </button>
+  </div>
+
   <button id="jff-tab" onclick="document.getElementById('just-for-fun').scrollIntoView({behavior:'smooth',block:'start'})"
     style="position:fixed;top:58px;left:0;z-index:9999;
            background:#16a34a;color:#fff;border:none;
