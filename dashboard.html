@@ -2900,16 +2900,13 @@
   <!-- NAVBAR -->
   <nav id="navbar">
     <div class="nav-inner">
-      <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
-        <a href="#hero" style="text-decoration:none; display:flex; align-items:center; gap:10px;">
-          <div class="logo">
-            <div class="pulse-logo-block">
-              <span class="pulse-logo-wordmark" style="font-size:1.55rem;">PULSE</span>
-            </div>
+      <a href="#hero" style="text-decoration:none; display:flex; align-items:center; gap:10px;">
+        <div class="logo">
+          <div class="pulse-logo-block">
+            <span class="pulse-logo-wordmark" style="font-size:1.55rem;">PULSE</span>
           </div>
-        </a>
-        <button type="button" id="jff-nav-btn" onclick="document.getElementById('just-for-fun').scrollIntoView({behavior:'smooth',block:'start'})" style="background:#16a34a;border:none;border-radius:8px;color:#fff;font-size:0.68rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:7px 12px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;">🦀 Fun</button>
-      </div>
+        </div>
+      </a>
       <!-- GLOBAL INDUSTRY SELECTOR -->
       <div style="position:relative;display:flex;align-items:center;">
         <select id="global-industry-select" onchange="applyIndustryPreset(this.value)" style="appearance:none;-webkit-appearance:none;background:#0d1829;border:1px solid rgba(255,107,0,0.45);border-radius:8px;color:#e2e8f0;font-size:0.72rem;font-weight:700;letter-spacing:0.03em;padding:7px 28px 7px 10px;font-family:inherit;cursor:pointer;outline:none;min-width:140px;" aria-label="Select your industry to tailor all sections">
@@ -3003,6 +3000,19 @@
       </div>
     </div>
   </nav>
+
+  <!-- JUST FOR FUN TAB — fixed below nav, always visible -->
+  <button id="jff-tab" onclick="document.getElementById('just-for-fun').scrollIntoView({behavior:'smooth',block:'start'})"
+    style="position:fixed;top:58px;left:0;z-index:9999;
+           background:#16a34a;color:#fff;border:none;
+           border-radius:0 0 10px 0;
+           padding:7px 14px 7px 12px;
+           font-size:0.72rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;
+           cursor:pointer;font-family:inherit;
+           display:flex;align-items:center;gap:6px;
+           box-shadow:2px 2px 8px rgba(0,0,0,0.4);">
+    🦀 Just for Fun
+  </button>
 
   <!-- LIVE STATS BANNER -->
   <div id="stats-banner" style="background:rgba(6,11,24,0.92); border-bottom:1px solid rgba(255,255,255,0.07); padding:8px 16px; display:flex; justify-content:center; align-items:center; gap:24px; flex-wrap:wrap; position:sticky; top:72px; z-index:8900; backdrop-filter:blur(16px); width:100%; text-align:center; box-sizing:border-box;">
