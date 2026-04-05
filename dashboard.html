@@ -4494,7 +4494,9 @@
           </div>
           <div class="crab-stat-cell">
             <div class="crab-stat-label">Best Spot</div>
-            <div id="crab-best" class="crab-stat-val" style="color:var(--pink); font-size:0.8rem;">—</div>
+            <div id="crab-best" class="crab-stat-val" onclick="flyToBestSpot()" title="Click to fly to this spot"
+              style="color:var(--pink); font-size:0.8rem; cursor:pointer; text-decoration:underline dotted; text-underline-offset:3px; transition:opacity 0.2s;"
+              onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">—</div>
           </div>
         </div>
 
@@ -12678,6 +12680,14 @@
       return { label: 'Low', color: '#94a3b8' };
     }
 
+    const SPOT_COORDS = {
+      'Tangier Sound':      [37.9800, -75.9800],
+      'Bay Bridge South':   [38.9943, -76.3822],
+      'Chester River Mouth':[39.0200, -76.3100],
+      'Cambridge / Choptank':[38.7600, -76.2200],
+      'Kent Island Flats':  [38.9720, -76.3400],
+    };
+
     function _getBestSpot(tidalBoost) {
       const h = new Date().getHours();
       if (tidalBoost >= 1.2) return h < 12 ? 'Tangier Sound' : 'Bay Bridge South';
@@ -12685,6 +12695,14 @@
       if (tidalBoost >= 0.9) return 'Cambridge / Choptank';
       return 'Kent Island Flats';
     }
+
+    window.flyToBestSpot = function() {
+      const bestEl = document.getElementById('crab-best');
+      const spot = bestEl ? bestEl.textContent.trim() : '';
+      const coords = SPOT_COORDS[spot];
+      if (!coords || !_crabMap) return;
+      _crabMap.flyTo(coords, 11, { duration: 1.4 });
+    };
 
     function _updateInfoBar() {
       const tidal = _getTidalPhase();
