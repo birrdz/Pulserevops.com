@@ -71,11 +71,11 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0f172a;
-      --surface: #1e293b;
-      --surface2: #263248;
-      --accent: #f97316;
-      --accent2: #fb923c;
+      --bg: #001829;
+      --surface: #003049;
+      --surface2: #004060;
+      --accent: #F77F00;
+      --accent2: #FCBF49;
       --text: #e2e8f0;
       --muted: #94a3b8;
       --green: #4ade80;
@@ -96,7 +96,7 @@
     /* NAV */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(15,23,42,0.95);
+      background: rgba(0,24,41,0.95);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       padding: 0 1.5rem;
@@ -121,7 +121,7 @@
 
     /* HERO */
     .hero {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 60%);
+      background: linear-gradient(135deg, #003049 0%, #001829 60%);
       border-bottom: 1px solid var(--border);
       padding: 3.5rem 1.5rem 3rem;
       text-align: center;
@@ -444,7 +444,7 @@
   </div>
 
   <!-- Newsletter CTA -->
-  <div class="cta-card" style="background:linear-gradient(135deg,#1e293b,#0f2040);border-color:rgba(249,115,22,0.3);">
+  <div class="cta-card" style="background:linear-gradient(135deg,#003049,#0f2040);border-color:rgba(249,115,22,0.3);">
     <h3>Get RevOps Tips in Your Inbox</h3>
     <p>Short, practical revenue operations insights — quota models, pipeline math, comp structures. No fluff. Unsubscribe anytime.</p>
     <form class="nl-form" onsubmit="handleBlogNewsletter(event)">
