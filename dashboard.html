@@ -12805,23 +12805,19 @@
     let _pressSecret = '';
     let _pressLastRelease = null;
 
+    const _PRESS_DEFAULT = 'pulse-press-2025';
+
     function pressUnlock() {
       const val = (document.getElementById('press-secret-input').value || '').trim();
-      if (!val) return;
-      // Test the secret against the API
-      fetch(`/.netlify/functions/press?list=1`)
-        .then(r => r.json())
-        .then(() => {
-          _pressSecret = val;
-          document.getElementById('press-auth-gate').style.display = 'none';
-          document.getElementById('press-editor').style.display = 'block';
-          pressLoadList();
-        })
-        .catch(() => {
-          document.getElementById('press-auth-err').textContent = 'Could not connect. Deploy first, then retry.';
-        });
-      // Optimistic unlock (works after deploy; show editor with secret stored)
+      const errEl = document.getElementById('press-auth-err');
+      if (!val) { errEl.textContent = 'Enter your password.'; return; }
+      if (val !== _PRESS_DEFAULT) {
+        errEl.textContent = '✗ Incorrect password.';
+        document.getElementById('press-secret-input').value = '';
+        return;
+      }
       _pressSecret = val;
+      errEl.textContent = '';
       document.getElementById('press-auth-gate').style.display = 'none';
       document.getElementById('press-editor').style.display = 'block';
       pressLoadList();
