@@ -1582,7 +1582,7 @@
     ─────────────────────────────────────────────────────────────────────────── */
 
     /* 1. Nuke every page section / element that isn't the nav or dashboard */
-    body.dashboard-mode > *:not(nav):not(#dashboard):not(script):not(style):not(canvas):not(.blob):not(#tour-welcome):not(#tour-highlight):not(#tour-tooltip):not(#disclaimer-modal):not(#scroll-top-btn):not(.print-btn):not(.print-btn-tooltip):not(#focus-btn):not(#focus-btn-tooltip):not(#music-radio):not(#goal-mode-toast):not(#details-toggle-btn) {
+    body.dashboard-mode > *:not(nav):not(#dashboard):not(script):not(style):not(canvas):not(.blob):not(#tour-welcome):not(#tour-highlight):not(#tour-tooltip):not(#disclaimer-modal):not(#scroll-top-btn):not(.print-btn):not(.print-btn-tooltip):not(#focus-btn):not(#focus-btn-tooltip):not(#music-radio):not(#goal-mode-toast):not(#details-toggle-btn):not(#jff-tab) {
       display: none !important;
     }
 
@@ -2971,6 +2971,18 @@
     </div>
   </nav>
 
+  <!-- JUST FOR FUN TAB -->
+  <a id="jff-tab" href="dashboard.html#just-for-fun"
+    style="position:fixed;top:58px;left:0;z-index:9999;
+           background:#16a34a;color:#fff;text-decoration:none;
+           border-radius:0 0 10px 0;
+           padding:7px 14px 7px 12px;
+           font-size:0.72rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;
+           cursor:pointer;font-family:inherit;
+           display:flex;align-items:center;gap:6px;
+           box-shadow:2px 2px 8px rgba(0,0,0,0.4);">
+    🦀 Just for Fun
+  </a>
 
   <!-- HERO -->
   <section id="hero">
