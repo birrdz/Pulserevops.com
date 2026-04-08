@@ -11795,7 +11795,7 @@
       // Setup: create a free Firebase project at firebase.google.com, add a Realtime Database,
       // set rules to { ".read": true, ".write": true }, then paste your DB URL below.
       // Format: https://YOUR-PROJECT-default-rtdb.firebaseio.com
-      const FIREBASE_DB_URL = 'YOUR_FIREBASE_DB_URL';
+      const FIREBASE_DB_URL = 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
 
       if (FIREBASE_DB_URL && FIREBASE_DB_URL !== 'YOUR_FIREBASE_DB_URL') {
         const sessionId = Math.random().toString(36).slice(2) + Date.now().toString(36);
@@ -14803,7 +14803,7 @@
 
     // Firebase DB URL — set this once after creating your Firebase project
     // Go to console.firebase.google.com → Create project → Realtime Database → Copy URL
-    const FIREBASE_DB_URL = localStorage.getItem(SYNC_FB_KEY) || '';
+    const FIREBASE_DB_URL = localStorage.getItem(SYNC_FB_KEY) || 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
 
     function getSyncFirebaseUrl() {
       return localStorage.getItem(SYNC_FB_KEY) || '';
