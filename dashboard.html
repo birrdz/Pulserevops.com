@@ -10603,22 +10603,10 @@
           }, 3000);
         }
       },
-      // 6. Custom Workspace
+      // ═══ STEP 6 — WORKSPACE ═══
       { selector: '#ws-enter-btn', title: 'Custom Workspace',
-        desc: 'For the person who has 47 browser tabs open and feels personally attacked right now. Pop out any tool as a floating window. Drag it. Resize it. Feel like a Wall Street trader. Watch...',
-        label: 'Step 6 of 32',
-        onShow: () => {
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof wsEnter === 'function') wsEnter(); }, 1200);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            if (typeof wsPopOut === 'function') wsPopOut('rev-intel-section', 'Revenue Intelligence');
-          }, 2500);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            if (typeof wsPopOut === 'function') wsPopOut('coaching-section', 'Coaching');
-          }, 3500);
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof wsCloseAll === 'function') wsCloseAll(); }, 6000);
-        }
+        desc: 'Click Workspace to pop out any tool as a floating window. Drag it. Resize it. Open five at once. Build your own command center — like a trading floor for revenue.',
+        label: 'Step 6 of 32'
       },
       // ═══ SETUP ═══════════════════════════════════════════════════════════════════
       // 2. House Goals
