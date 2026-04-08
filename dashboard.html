@@ -5457,6 +5457,7 @@
         <button class="ri-btn-sm" onclick="riExportBackup()" title="Download all CRM data as a backup file">Backup</button>
         <button class="ri-btn-sm" onclick="document.getElementById('ri-restore-input').click()" title="Restore CRM data from a backup file">Restore</button>
         <input type="file" id="ri-restore-input" accept=".json" style="display:none" onchange="riRestoreBackup(event)">
+        <button class="ri-btn-sm" onclick="generateExecPDF()" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.3);color:#22c55e;">📄 Executive PDF</button>
         <button class="ri-btn-sm" onclick="riExportCSV()">Export CSV</button>
         <button class="ri-btn-sm" onclick="riClearAll()">Clear All</button>
       </div>
@@ -15110,6 +15111,146 @@
     renderDeals();
   })();
   </script>
+
+  <!-- EXECUTIVE PDF REPORT -->
+  <div id="exec-report-overlay" style="display:none;position:fixed;inset:0;z-index:99999;background:#fff;overflow-y:auto;"></div>
+  <script>
+  window.generateExecPDF = function() {
+    const deals = JSON.parse(localStorage.getItem('pulse_crm_deals') || '[]');
+    const STAGES = ['Lead','Discovery','Proposal','Negotiation','Closed Won','Closed Lost'];
+    const WEIGHTS = {'Lead':0.1,'Discovery':0.25,'Proposal':0.5,'Negotiation':0.75,'Closed Won':1,'Closed Lost':0};
+
+    const active = deals.filter(d => d.stage !== 'Closed Won' && d.stage !== 'Closed Lost');
+    const won = deals.filter(d => d.stage === 'Closed Won');
+    const lost = deals.filter(d => d.stage === 'Closed Lost');
+    const closed = won.length + lost.length;
+    const pipeline = active.reduce((s,d) => s + (parseFloat(d.value)||0), 0);
+    const totalWon = won.reduce((s,d) => s + (parseFloat(d.value)||0), 0);
+    const totalLost = lost.reduce((s,d) => s + (parseFloat(d.value)||0), 0);
+    const projected = active.reduce((s,d) => s + (parseFloat(d.value)||0) * (WEIGHTS[d.stage]||0), 0);
+    const winRate = closed > 0 ? Math.round((won.length/closed)*100) : 0;
+    const allVals = deals.filter(d => parseFloat(d.value)>0);
+    const avgDeal = allVals.length ? Math.round(allVals.reduce((s,d) => s+(parseFloat(d.value)||0), 0)/allVals.length) : 0;
+    const atRisk = active.filter(d => {
+      if (!d.lastActivity) return true;
+      return (Date.now() - new Date(d.lastActivity).getTime()) / 86400000 > 14;
+    });
+
+    const fmt = n => '$' + Math.round(n).toLocaleString();
+    const today = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+
+    // Stage breakdown
+    const stageRows = STAGES.filter(s => s !== 'Closed Lost').map(s => {
+      const sd = deals.filter(d => d.stage === s);
+      const val = sd.reduce((sum,d) => sum + (parseFloat(d.value)||0), 0);
+      return `<tr><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;">${s}</td><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;text-align:center;">${sd.length}</td><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;text-align:right;">${fmt(val)}</td></tr>`;
+    }).join('');
+
+    // Top deals
+    const topDeals = [...active].sort((a,b) => (parseFloat(b.value)||0) - (parseFloat(a.value)||0)).slice(0,5);
+    const topRows = topDeals.map(d => {
+      const risk = !d.lastActivity || (Date.now() - new Date(d.lastActivity).getTime())/86400000 > 14;
+      return `<tr><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;">${d.name||'Untitled'}</td><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;">${d.rep||'—'}</td><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;text-align:right;">${fmt(parseFloat(d.value)||0)}</td><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;">${d.stage}</td><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;color:${risk?'#dc2626':'#16a34a'};font-weight:700;">${risk?'AT RISK':'Healthy'}</td></tr>`;
+    }).join('');
+
+    // At-risk deals
+    const riskRows = atRisk.slice(0,5).map(d => {
+      const days = d.lastActivity ? Math.floor((Date.now() - new Date(d.lastActivity).getTime())/86400000) : '?';
+      return `<tr><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;">${d.name||'Untitled'}</td><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;">${d.rep||'—'}</td><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;text-align:right;">${fmt(parseFloat(d.value)||0)}</td><td style="padding:8px 12px;border-bottom:1px solid #eee;font-size:13px;color:#dc2626;font-weight:700;">${days} days silent</td></tr>`;
+    }).join('') || '<tr><td colspan="4" style="padding:12px;font-size:13px;color:#16a34a;">No at-risk deals — all deals have recent activity</td></tr>';
+
+    const overlay = document.getElementById('exec-report-overlay');
+    overlay.style.display = 'block';
+    overlay.innerHTML = `
+      <div style="max-width:800px;margin:0 auto;padding:48px 40px;font-family:Georgia,'Times New Roman',serif;color:#1a1a1a;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;border-bottom:3px solid #E8710A;padding-bottom:20px;">
+          <div>
+            <div style="font-size:28px;font-weight:900;letter-spacing:0.15em;color:#E8710A;font-family:Arial,sans-serif;">PULSE</div>
+            <div style="font-size:10px;letter-spacing:0.2em;color:#888;font-family:Arial,sans-serif;text-transform:uppercase;">Revenue in Rhythm</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:18px;font-weight:700;color:#1a1a1a;">Executive Summary</div>
+            <div style="font-size:12px;color:#666;">${today}</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;">
+          <div style="background:#f8f8f8;border-radius:8px;padding:16px;text-align:center;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#888;margin-bottom:4px;font-family:Arial,sans-serif;">Total Pipeline</div>
+            <div style="font-size:24px;font-weight:900;color:#1a1a1a;">${fmt(pipeline)}</div>
+            <div style="font-size:11px;color:#888;">${active.length} active deals</div>
+          </div>
+          <div style="background:#f8f8f8;border-radius:8px;padding:16px;text-align:center;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#888;margin-bottom:4px;font-family:Arial,sans-serif;">Projected Revenue</div>
+            <div style="font-size:24px;font-weight:900;color:#E8710A;">${fmt(projected + totalWon)}</div>
+            <div style="font-size:11px;color:#888;">weighted by stage</div>
+          </div>
+          <div style="background:#f8f8f8;border-radius:8px;padding:16px;text-align:center;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#888;margin-bottom:4px;font-family:Arial,sans-serif;">Win Rate</div>
+            <div style="font-size:24px;font-weight:900;color:${winRate>=50?'#16a34a':'#dc2626'};">${closed>0?winRate+'%':'—'}</div>
+            <div style="font-size:11px;color:#888;">${won.length}W / ${lost.length}L</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px;">
+          <div style="background:#f8f8f8;border-radius:8px;padding:16px;text-align:center;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#888;margin-bottom:4px;font-family:Arial,sans-serif;">Revenue Won</div>
+            <div style="font-size:20px;font-weight:900;color:#16a34a;">${fmt(totalWon)}</div>
+          </div>
+          <div style="background:#f8f8f8;border-radius:8px;padding:16px;text-align:center;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#888;margin-bottom:4px;font-family:Arial,sans-serif;">Revenue Lost</div>
+            <div style="font-size:20px;font-weight:900;color:#dc2626;">${fmt(totalLost)}</div>
+          </div>
+          <div style="background:#f8f8f8;border-radius:8px;padding:16px;text-align:center;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#888;margin-bottom:4px;font-family:Arial,sans-serif;">Avg Deal Size</div>
+            <div style="font-size:20px;font-weight:900;color:#1a1a1a;">${fmt(avgDeal)}</div>
+          </div>
+        </div>
+
+        <h2 style="font-size:16px;font-weight:700;color:#1a1a1a;border-bottom:1px solid #ddd;padding-bottom:8px;margin-bottom:12px;font-family:Arial,sans-serif;">Pipeline by Stage</h2>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:32px;">
+          <thead><tr style="background:#f0f0f0;"><th style="padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#666;font-family:Arial,sans-serif;">Stage</th><th style="padding:8px 12px;text-align:center;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#666;font-family:Arial,sans-serif;">Deals</th><th style="padding:8px 12px;text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#666;font-family:Arial,sans-serif;">Value</th></tr></thead>
+          <tbody>${stageRows}</tbody>
+        </table>
+
+        <h2 style="font-size:16px;font-weight:700;color:#1a1a1a;border-bottom:1px solid #ddd;padding-bottom:8px;margin-bottom:12px;font-family:Arial,sans-serif;">Top 5 Deals</h2>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:32px;">
+          <thead><tr style="background:#f0f0f0;"><th style="padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase;color:#666;font-family:Arial,sans-serif;">Deal</th><th style="padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase;color:#666;font-family:Arial,sans-serif;">Rep</th><th style="padding:8px 12px;text-align:right;font-size:11px;text-transform:uppercase;color:#666;font-family:Arial,sans-serif;">Value</th><th style="padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase;color:#666;font-family:Arial,sans-serif;">Stage</th><th style="padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase;color:#666;font-family:Arial,sans-serif;">Status</th></tr></thead>
+          <tbody>${topRows}</tbody>
+        </table>
+
+        <h2 style="font-size:16px;font-weight:700;color:#dc2626;border-bottom:1px solid #ddd;padding-bottom:8px;margin-bottom:12px;font-family:Arial,sans-serif;">⚠ At-Risk Deals (14+ Days No Activity)</h2>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:32px;">
+          <thead><tr style="background:#fef2f2;"><th style="padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase;color:#666;font-family:Arial,sans-serif;">Deal</th><th style="padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase;color:#666;font-family:Arial,sans-serif;">Rep</th><th style="padding:8px 12px;text-align:right;font-size:11px;text-transform:uppercase;color:#666;font-family:Arial,sans-serif;">Value</th><th style="padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase;color:#666;font-family:Arial,sans-serif;">Last Activity</th></tr></thead>
+          <tbody>${riskRows}</tbody>
+        </table>
+
+        <div style="border-top:2px solid #E8710A;padding-top:16px;margin-top:40px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:14px;font-weight:900;letter-spacing:0.12em;color:#E8710A;font-family:Arial,sans-serif;">PULSE</div>
+            <div style="font-size:9px;color:#999;font-family:Arial,sans-serif;">Revenue in Rhythm · pulserevops.com</div>
+          </div>
+          <div style="font-size:10px;color:#999;text-align:right;">
+            Generated ${today}<br>Confidential — for internal use only
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:32px;" class="no-print">
+          <button onclick="window.print()" style="padding:12px 32px;background:#E8710A;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:Arial,sans-serif;margin-right:12px;">Save as PDF / Print</button>
+          <button onclick="document.getElementById('exec-report-overlay').style.display='none'" style="padding:12px 24px;background:#eee;color:#333;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:Arial,sans-serif;">Close</button>
+        </div>
+      </div>
+    `;
+  };
+  </script>
+
+  <style>
+    @media print {
+      body > *:not(#exec-report-overlay) { display: none !important; }
+      #exec-report-overlay { position: static !important; display: block !important; }
+      .no-print { display: none !important; }
+    }
+  </style>
 
   <!-- AI COACH ENGINE -->
   <script>
