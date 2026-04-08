@@ -3261,43 +3261,17 @@
     }
 
     /* ══════════════════════════════════════════════
-       WORKSPACE MODE — FLOATING RESIZABLE PANELS
+       WORKSPACE — FLOATING RESIZABLE PANELS
        ══════════════════════════════════════════════ */
-    #ws-toolbar {
-      display: none; position: fixed; top: 56px; left: 0; right: 0; z-index: 98;
-      height: 36px; background: rgba(0,6,18,0.95);
-      border-bottom: 1px solid var(--border);
-      padding: 0 16px; align-items: center; gap: 8px;
-      font-family: inherit;
-    }
-    #ws-toolbar.active { display: flex; }
-    .ws-tool-btn {
-      padding: 4px 12px; font-size: 0.62rem; font-weight: 700; border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03);
-      color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s;
-      white-space: nowrap;
-    }
-    .ws-tool-btn:hover { border-color: var(--border); color: var(--text); background: rgba(232,113,10,0.06); }
-    .ws-tool-btn.ws-active { border-color: var(--cyan); color: var(--cyan); background: rgba(232,113,10,0.1); }
-    .ws-exit-btn {
-      margin-left: auto; padding: 4px 14px; font-size: 0.62rem; font-weight: 800;
-      border-radius: 6px; border: 1px solid rgba(239,68,68,0.3); background: rgba(239,68,68,0.06);
-      color: #ef4444; cursor: pointer; font-family: inherit; letter-spacing: 0.06em;
-    }
-    .ws-exit-btn:hover { background: rgba(239,68,68,0.15); }
-    #ws-canvas {
-      display: none; position: fixed; top: 92px; left: 0; right: 0; bottom: 0;
-      z-index: 97; overflow: auto; background: rgba(17,21,24,0.98);
-    }
-    #ws-canvas.active { display: block; }
     .ws-panel {
-      position: absolute; background: var(--bg); border: 1px solid var(--border);
-      border-radius: 14px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-      min-width: 320px; min-height: 200px; display: flex; flex-direction: column;
+      position: fixed; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden; box-shadow: 0 12px 48px rgba(0,0,0,0.6);
+      min-width: 340px; min-height: 220px; display: flex; flex-direction: column;
+      z-index: 500;
     }
     .ws-panel-header {
       display: flex; align-items: center; gap: 8px; padding: 8px 14px;
-      background: rgba(232,113,10,0.04); border-bottom: 1px solid var(--border);
+      background: rgba(232,113,10,0.06); border-bottom: 1px solid var(--border);
       cursor: grab; user-select: none; flex-shrink: 0;
     }
     .ws-panel-header:active { cursor: grabbing; }
@@ -3306,25 +3280,27 @@
       text-transform: uppercase; letter-spacing: 0.08em;
     }
     .ws-panel-close {
-      width: 20px; height: 20px; border-radius: 50%; border: none;
-      background: rgba(239,68,68,0.1); color: #ef4444; font-size: 0.7rem;
+      width: 22px; height: 22px; border-radius: 50%; border: none;
+      background: rgba(239,68,68,0.1); color: #ef4444; font-size: 0.75rem;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: background 0.15s;
     }
-    .ws-panel-close:hover { background: rgba(239,68,68,0.25); }
+    .ws-panel-close:hover { background: rgba(239,68,68,0.3); }
     .ws-panel-body {
-      flex: 1; overflow: auto; padding: 12px;
+      flex: 1; overflow: auto; padding: 14px;
     }
     .ws-panel-resize {
-      position: absolute; bottom: 0; right: 0; width: 18px; height: 18px;
+      position: absolute; bottom: 0; right: 0; width: 20px; height: 20px;
       cursor: nwse-resize; opacity: 0.3; transition: opacity 0.15s;
     }
-    .ws-panel-resize:hover { opacity: 0.7; }
+    .ws-panel-resize:hover { opacity: 0.8; }
     .ws-panel-resize::after {
       content: ''; position: absolute; bottom: 4px; right: 4px;
-      width: 8px; height: 8px; border-right: 2px solid var(--muted);
+      width: 10px; height: 10px; border-right: 2px solid var(--muted);
       border-bottom: 2px solid var(--muted);
     }
+    #ws-panel-container { position: fixed; inset: 0; z-index: 499; pointer-events: none; }
+    #ws-panel-container .ws-panel { pointer-events: all; }
     /* ── SYNC OVERLAY ── */
     #sync-overlay {
       display: none; position: fixed; inset: 0; z-index: 99998;
@@ -5501,22 +5477,8 @@
     </div>
   </div>
 
-  <!-- ── WORKSPACE TOOLBAR ── -->
-  <div id="ws-toolbar">
-    <span style="font-size:0.55rem;font-weight:800;color:var(--cyan);letter-spacing:0.12em;text-transform:uppercase;margin-right:8px;">WORKSPACE</span>
-    <button class="ws-tool-btn" onclick="wsOpen('rev-intel-section','Revenue Intelligence')">📊 CRM</button>
-    <button class="ws-tool-btn" onclick="wsOpen('house-goal-table','House Goals')">🎯 Goals</button>
-    <button class="ws-tool-btn" onclick="wsOpen('inline-matrix','Pulse Check')">💓 Pulse Check</button>
-    <button class="ws-tool-btn" onclick="wsOpen('profit-calc-section','Gross Profit')">💰 Profit</button>
-    <button class="ws-tool-btn" onclick="wsOpen('sched-matrix-section','Scheduling')">📅 Schedule</button>
-    <button class="ws-tool-btn" onclick="wsOpen('coaching-section','Coaching')">🎯 Coaching</button>
-    <button class="ws-tool-btn" onclick="wsOpen('recruiting-calc-section','Recruiting')">🧮 Recruiting</button>
-    <button class="ws-tool-btn" onclick="wsOpen('challenge-section','Lightning Rounds')">⚡ Lightning</button>
-    <button class="ws-exit-btn" onclick="wsExit()">✕ EXIT WORKSPACE</button>
-  </div>
-
-  <!-- ── WORKSPACE CANVAS ── -->
-  <div id="ws-canvas"></div>
+  <!-- ── WORKSPACE PANEL CONTAINER ── -->
+  <div id="ws-panel-container"></div>
 
   <!-- ── SYNC OVERLAY ── -->
   <div id="sync-overlay" onclick="if(event.target===this)closeSyncPanel()">
@@ -14895,103 +14857,119 @@
   <script>
   (function() {
     'use strict';
-    let _wsActive = false;
     let _wsPanelCount = 0;
+    let _wsZIndex = 500;
     const _wsOpenPanels = {};
 
+    const WS_TOOLS = [
+      { id: 'rev-intel-section', label: '📊 Revenue Intelligence' },
+      { id: 'house-goal-table', label: '🎯 House Goals' },
+      { id: 'inline-matrix', label: '💓 Pulse Check' },
+      { id: 'profit-calc-section', label: '💰 Gross Profit' },
+      { id: 'sched-matrix-section', label: '📅 Scheduling' },
+      { id: 'coaching-section', label: '🎯 Coaching' },
+      { id: 'recruiting-calc-section', label: '🧮 Recruiting' },
+      { id: 'challenge-section', label: '⚡ Lightning Rounds' },
+      { id: 'meeting-creator-section', label: '🎤 Meeting Creator' },
+    ];
+
+    // Workspace button opens a picker menu
     window.wsEnter = function() {
-      _wsActive = true;
-      document.getElementById('ws-toolbar').classList.add('active');
-      document.getElementById('ws-canvas').classList.add('active');
-      // Hide main page content
-      document.querySelectorAll('#dashboard, footer, #rev-intel-section').forEach(el => {
-        el.style.display = 'none';
-      });
+      let menu = document.getElementById('ws-picker-menu');
+      if (menu) { menu.remove(); return; } // toggle off
+
+      menu = document.createElement('div');
+      menu.id = 'ws-picker-menu';
+      menu.style.cssText = 'position:fixed;top:56px;left:50%;transform:translateX(-50%);z-index:99999;background:rgba(10,14,20,0.97);border:1px solid rgba(232,113,10,0.3);border-radius:12px;padding:8px 0;box-shadow:0 12px 48px rgba(0,0,0,0.6);min-width:240px;font-family:inherit;';
+
+      menu.innerHTML = '<div style="padding:6px 16px;font-size:0.55rem;font-weight:800;color:rgba(232,113,10,0.6);letter-spacing:0.12em;text-transform:uppercase;">Open as floating window</div>'
+        + WS_TOOLS.map(t => {
+          const open = !!_wsOpenPanels[t.id];
+          return '<div style="padding:8px 16px;font-size:0.78rem;color:' + (open ? 'rgba(226,232,240,0.3)' : '#EDE5D8') + ';cursor:' + (open ? 'default' : 'pointer') + ';transition:background 0.1s;" '
+            + (open ? '' : 'onmouseover="this.style.background=\'rgba(232,113,10,0.08)\'" onmouseout="this.style.background=\'transparent\'" onclick="wsPopOut(\'' + t.id + '\',\'' + t.label.replace(/'/g, '') + '\')"')
+            + '>' + t.label + (open ? ' <span style="font-size:0.6rem;color:rgba(34,197,94,0.6);">open</span>' : '') + '</div>';
+        }).join('')
+        + '<div style="border-top:1px solid rgba(255,255,255,0.04);margin-top:4px;padding:8px 16px;font-size:0.65rem;color:#ef4444;cursor:pointer;" onclick="wsCloseAll()">✕ Close all windows</div>';
+
+      document.body.appendChild(menu);
+
+      // Close menu on click outside
+      setTimeout(() => {
+        document.addEventListener('click', function _close(e) {
+          if (!e.target.closest('#ws-picker-menu') && !e.target.closest('#ws-enter-btn')) {
+            menu.remove();
+            document.removeEventListener('click', _close);
+          }
+        });
+      }, 50);
     };
 
-    window.wsExit = function() {
-      _wsActive = false;
-      document.getElementById('ws-toolbar').classList.remove('active');
-      document.getElementById('ws-canvas').classList.remove('active');
-      document.getElementById('ws-canvas').innerHTML = '';
-      _wsPanelCount = 0;
-      Object.keys(_wsOpenPanels).forEach(k => delete _wsOpenPanels[k]);
-      // Restore main page
-      document.querySelectorAll('#dashboard, footer, #rev-intel-section').forEach(el => {
-        el.style.display = '';
-      });
-    };
+    window.wsPopOut = function(sectionId, title) {
+      // Close picker
+      const menu = document.getElementById('ws-picker-menu');
+      if (menu) menu.remove();
 
-    window.wsOpen = function(sectionId, title) {
-      if (_wsOpenPanels[sectionId]) return; // already open
-      const canvas = document.getElementById('ws-canvas');
+      if (_wsOpenPanels[sectionId]) return;
+
       const source = document.getElementById(sectionId);
       if (!source) return;
 
       _wsPanelCount++;
+      _wsZIndex++;
       const panelId = 'ws-panel-' + _wsPanelCount;
-      const offsetX = 20 + (_wsPanelCount - 1) * 30;
-      const offsetY = 10 + (_wsPanelCount - 1) * 30;
+      const container = document.getElementById('ws-panel-container');
+
+      // Stagger position
+      const offsetX = 60 + ((_wsPanelCount - 1) % 4) * 40;
+      const offsetY = 80 + ((_wsPanelCount - 1) % 4) * 40;
 
       const panel = document.createElement('div');
       panel.className = 'ws-panel';
       panel.id = panelId;
-      panel.style.cssText = 'left:' + offsetX + 'px;top:' + offsetY + 'px;width:600px;height:450px;';
+      panel.style.cssText = 'left:' + offsetX + 'px;top:' + offsetY + 'px;width:650px;height:480px;z-index:' + _wsZIndex + ';';
 
-      panel.innerHTML = '<div class="ws-panel-header" data-panel="' + panelId + '">'
+      panel.innerHTML = '<div class="ws-panel-header">'
         + '<span class="ws-panel-title">' + title + '</span>'
-        + '<button class="ws-panel-close" onclick="wsClose(\'' + panelId + '\',\'' + sectionId + '\')" title="Close">✕</button>'
+        + '<button class="ws-panel-close" onclick="wsClosePanel(\'' + panelId + '\',\'' + sectionId + '\')" title="Close">✕</button>'
         + '</div>'
         + '<div class="ws-panel-body"></div>'
-        + '<div class="ws-panel-resize" data-panel="' + panelId + '"></div>';
+        + '<div class="ws-panel-resize"></div>';
 
-      canvas.appendChild(panel);
+      container.appendChild(panel);
       _wsOpenPanels[sectionId] = panelId;
 
-      // Clone content into panel
+      // Clone the actual section content
       const body = panel.querySelector('.ws-panel-body');
       const clone = source.cloneNode(true);
-      clone.style.display = 'block';
-      clone.style.padding = '0';
-      clone.style.border = 'none';
-      clone.style.borderRadius = '0';
-      clone.style.background = 'transparent';
-      clone.id = sectionId + '-ws-clone';
+      clone.style.cssText = 'display:block;padding:0;border:none;border-radius:0;background:transparent;position:relative;z-index:1;';
+      clone.id = sectionId + '-ws-clone-' + _wsPanelCount;
       body.appendChild(clone);
 
       // Bring to front on click
       panel.addEventListener('mousedown', () => {
-        canvas.querySelectorAll('.ws-panel').forEach(p => p.style.zIndex = '1');
-        panel.style.zIndex = '10';
+        _wsZIndex++;
+        panel.style.zIndex = _wsZIndex;
       });
 
-      // Drag
-      initDrag(panel);
-      // Resize
-      initResize(panel);
-
-      // Mark toolbar button as active
-      updateToolbarState();
+      // Init drag & resize
+      _initDrag(panel);
+      _initResize(panel);
     };
 
-    window.wsClose = function(panelId, sectionId) {
+    window.wsClosePanel = function(panelId, sectionId) {
       const panel = document.getElementById(panelId);
       if (panel) panel.remove();
       delete _wsOpenPanels[sectionId];
-      updateToolbarState();
     };
 
-    function updateToolbarState() {
-      document.querySelectorAll('.ws-tool-btn').forEach(btn => {
-        const onclick = btn.getAttribute('onclick') || '';
-        const match = onclick.match(/wsOpen\('([^']+)'/);
-        if (match) {
-          btn.classList.toggle('ws-active', !!_wsOpenPanels[match[1]]);
-        }
-      });
-    }
+    window.wsCloseAll = function() {
+      const menu = document.getElementById('ws-picker-menu');
+      if (menu) menu.remove();
+      document.querySelectorAll('.ws-panel').forEach(p => p.remove());
+      Object.keys(_wsOpenPanels).forEach(k => delete _wsOpenPanels[k]);
+    };
 
-    function initDrag(panel) {
+    function _initDrag(panel) {
       const header = panel.querySelector('.ws-panel-header');
       let dragging = false, startX, startY, origX, origY;
 
@@ -14999,12 +14977,12 @@
         if (e.target.closest('.ws-panel-close')) return;
         dragging = true;
         startX = e.clientX; startY = e.clientY;
-        origX = panel.offsetLeft; origY = panel.offsetTop;
+        const rect = panel.getBoundingClientRect();
+        origX = rect.left; origY = rect.top;
         document.addEventListener('mousemove', onMove);
         document.addEventListener('mouseup', onUp);
         e.preventDefault();
       });
-
       function onMove(e) {
         if (!dragging) return;
         panel.style.left = (origX + e.clientX - startX) + 'px';
@@ -15016,12 +14994,13 @@
         document.removeEventListener('mouseup', onUp);
       }
 
-      // Touch support
+      // Touch
       header.addEventListener('touchstart', (e) => {
         if (e.target.closest('.ws-panel-close')) return;
         const t = e.touches[0];
         dragging = true; startX = t.clientX; startY = t.clientY;
-        origX = panel.offsetLeft; origY = panel.offsetTop;
+        const rect = panel.getBoundingClientRect();
+        origX = rect.left; origY = rect.top;
       }, { passive: true });
       header.addEventListener('touchmove', (e) => {
         if (!dragging) return;
@@ -15032,7 +15011,7 @@
       header.addEventListener('touchend', () => { dragging = false; });
     }
 
-    function initResize(panel) {
+    function _initResize(panel) {
       const handle = panel.querySelector('.ws-panel-resize');
       let resizing = false, startX, startY, origW, origH;
 
@@ -15044,11 +15023,10 @@
         document.addEventListener('mouseup', onUp);
         e.preventDefault();
       });
-
       function onMove(e) {
         if (!resizing) return;
-        panel.style.width = Math.max(320, origW + e.clientX - startX) + 'px';
-        panel.style.height = Math.max(200, origH + e.clientY - startY) + 'px';
+        panel.style.width = Math.max(340, origW + e.clientX - startX) + 'px';
+        panel.style.height = Math.max(220, origH + e.clientY - startY) + 'px';
       }
       function onUp() {
         resizing = false;
