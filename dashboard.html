@@ -10636,11 +10636,17 @@
         desc: 'Each KPI can be a total or a percentage. Pro tip from the field — percentage goals backfire. Reps shrink volume to protect their rate. Always use totals.',
         label: 'Step 10 of 32'
       },
-      // 6. AI Goal Suggestions
+      // ═══ STEP 11 — AI GOAL SUGGESTIONS ═══
       { selector: '.ai-btn[onclick*="aiSuggestGoals"]', title: 'AI Goal Suggestions',
-        desc: 'Not sure where to start? AI analyzes benchmarks for your industry and rep count, then recommends a baseline.',
-        label: 'Step 6 of 32',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn(document.querySelector('.ai-btn[onclick*="aiSuggestGoals"]')); if (typeof aiSuggestGoals === 'function') aiSuggestGoals(); }, 800); }
+        desc: 'No idea what targets to set? Hit this button. AI analyzes benchmarks for your industry and rep count, then fills in a starting point. You adjust from there.',
+        label: 'Step 11 of 32',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            _tourFlashBtn(document.querySelector('.ai-btn[onclick*="aiSuggestGoals"]'));
+            if (typeof aiSuggestGoals === 'function') aiSuggestGoals();
+          }, 3000);
+        }
       },
       // 7. Locker Room + Import
       { selector: '.kpi-config-panel', title: 'Save, Load & Import',
