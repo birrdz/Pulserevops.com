@@ -9485,7 +9485,7 @@
       // Setup: create a free Firebase project at firebase.google.com, add a Realtime Database,
       // set rules to { ".read": true, ".write": true }, then paste your DB URL below.
       // Format: https://YOUR-PROJECT-default-rtdb.firebaseio.com
-      const FIREBASE_DB_URL = 'YOUR_FIREBASE_DB_URL';
+      const FIREBASE_DB_URL = 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
 
       if (FIREBASE_DB_URL && FIREBASE_DB_URL !== 'YOUR_FIREBASE_DB_URL') {
         const sessionId = Math.random().toString(36).slice(2) + Date.now().toString(36);
@@ -10362,25 +10362,64 @@
       track.innerHTML = html + html;
     }
 
-    // Step 1 — load city list immediately
-    fetch(API)
+    // ── FIREBASE-BACKED CITY TRACKER ──
+    const FB = 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
+
+    // Load existing cities from Firebase
+    fetch(FB + '/cities.json')
       .then(r => r.json())
       .then(data => {
-        if (data && typeof data.count !== 'undefined') setCount(data.count);
-        if (data && Array.isArray(data.cities)) buildTicker(data.cities, null);
+        if (!data) return;
+        const cities = Object.values(data).sort((a,b) => (b.ts||0) - (a.ts||0));
+        buildTicker(cities, null);
       })
       .catch(() => {});
 
-    // Step 2 — register visit with server-side geo lookup (no client-side API needed)
+    // Load visitor count from Firebase
+    fetch(FB + '/visitorCount.json')
+      .then(r => r.json())
+      .then(count => { if (count) setCount(count); })
+      .catch(() => {});
+
+    // Register this visit — detect city via ipwho.is (free, HTTPS, unlimited)
     if (!sessionStorage.getItem(SESSION_KEY)) {
       sessionStorage.setItem(SESSION_KEY, '1');
-      fetch(API + '?register=1')
+
+      // Increment visitor count
+      fetch(FB + '/visitorCount.json')
         .then(r => r.json())
-        .then(data => {
-          if (data.count) setCount(data.count);
-          const label = data.city || '';
-          if (label) try { sessionStorage.setItem('pulse_my_city', label); } catch(e) {}
-          if (data.cities) buildTicker(data.cities, label);
+        .then(count => {
+          const newCount = (parseInt(count) || 0) + 1;
+          fetch(FB + '/visitorCount.json', { method: 'PUT', body: JSON.stringify(newCount) });
+          setCount(newCount);
+        })
+        .catch(() => {});
+
+      // Detect city and save to Firebase
+      fetch('https://ipwho.is/')
+        .then(r => r.json())
+        .then(geo => {
+          const city = geo.city || '';
+          const region = geo.region || '';
+          if (!city) return;
+          const label = region ? city + ', ' + region : city;
+          try { sessionStorage.setItem('pulse_my_city', label); } catch(e) {}
+
+          // Save city to Firebase (keyed by city name to deduplicate)
+          const key = label.replace(/[.#$/\[\]]/g, '_');
+          fetch(FB + '/cities/' + key + '.json', {
+            method: 'PUT',
+            body: JSON.stringify({ city: label, ts: Date.now() })
+          }).then(() => {
+            // Reload all cities to update ticker
+            fetch(FB + '/cities.json')
+              .then(r => r.json())
+              .then(data => {
+                if (!data) return;
+                const cities = Object.values(data).sort((a,b) => (b.ts||0) - (a.ts||0));
+                buildTicker(cities, label);
+              });
+          }).catch(() => {});
         })
         .catch(() => {});
     }
@@ -10431,17 +10470,17 @@
     }
 
     // Hook into the existing visitor API
-    const API = '/.netlify/functions/visitors';
+    const FB_URL = 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
     const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
-    // Detect user's own city from the server-side register response
-    // (stored in sessionStorage by the geo ticker script above)
+    // Detect user's own city
     try { yourCity = sessionStorage.getItem('pulse_my_city') || null; } catch(e) {}
 
-    // Build toast queue from real visitor cities
-    fetch(API)
+    // Build toast queue from Firebase cities
+    fetch(FB_URL + '/cities.json')
       .then(r => r.json())
-      .then(({ cities }) => {
+      .then(data => {
+        const cities = data ? Object.values(data) : [];
         const now = Date.now();
         const normalised = cities.map(c => typeof c === 'string' ? { city: c, ts: 0 } : c);
         // Filter: recent visitors, not the current user
