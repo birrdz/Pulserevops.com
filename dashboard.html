@@ -3445,6 +3445,7 @@
             <option value="dashboard.html#app-sync-section">📱 Squad Sync</option>
             <option value="dashboard.html#meeting-creator-section">🎤 Sales Meeting Creator</option>
             <option value="dashboard.html#rev-intel-section">📊 Revenue Intelligence / CRM</option>
+            <option value="dashboard.html#pulse-mgmt-section">📋 Pulse MGMT</option>
             <option value="dashboard.html#team-speeches-section">🥂 Team Toasts & Speeches</option>
             <option value="dashboard.html#not-to-do-section">🚫 Not-To-Do List</option>
             <option value="dashboard.html#press-admin-section">📡 Press Releases</option>
@@ -5506,6 +5507,138 @@
       </div>
     </div>
   </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       PULSE MGMT — MANAGEMENT PLAYBOOK REFERENCE
+       ══════════════════════════════════════════════════════════ -->
+  <div id="pulse-mgmt-section" class="matrix-section-wrap" style="padding:28px 32px; position:relative; z-index:3; background:var(--bg); border:1px solid var(--border); border-radius:24px;">
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:8px; flex-wrap:wrap;">
+      <span style="font-size:1.1rem; font-weight:900; color:var(--text); letter-spacing:0.06em;">Pulse MGMT</span>
+      <span class="ri-badge">PLAYBOOK</span>
+      <span class="ri-badge" style="background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.3);color:#22c55e;">WHAT TO DO WHEN...</span>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:20px;line-height:1.6;">A sales leader in your pocket. Click any problem to see the fix.</p>
+
+    <!-- Search -->
+    <div style="margin-bottom:20px;">
+      <input type="text" id="mgmt-search" placeholder="Search… e.g. 'slump', 'turnover', 'internet', 'discount'" oninput="filterMgmt()" style="width:100%; padding:12px 18px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:12px; color:var(--text); font-size:0.85rem; font-family:inherit; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(232,113,10,0.6)'" onblur="this.style.borderColor='rgba(232,113,10,0.28)'" />
+    </div>
+
+    <!-- Category tabs -->
+    <div style="display:flex;gap:4px;margin-bottom:18px;flex-wrap:wrap;" id="mgmt-tabs"></div>
+
+    <!-- Q&A Cards — rendered by JS -->
+    <div id="mgmt-cards"></div>
+
+  </div><!-- /pulse-mgmt-section -->
+
+  <!-- PULSE MGMT ENGINE -->
+  <script>
+  (function(){
+    const MGMT_DATA = [
+      // ═══ PEOPLE ═══
+      {cat:'People',q:'Your best rep is in a slump',a:'Don\'t panic and don\'t pile on pressure. Pull them aside privately within 48 hours. Ask what changed — personal, burnout, or market? Reduce their admin load for 2 weeks. Set 3 micro-goals for the next 10 days, not the month. Pair them with a win — a warm lead or easy close — to rebuild momentum. If no improvement in 30 days, reassess role fit.'},
+      {cat:'People',q:'You can\'t control rep turnover',a:'You can\'t stop all turnover but you can slow it. Exit-interview every departure — find the pattern. Top 3 reasons reps leave: bad manager, unclear growth path, comp feels unfair. Fix those. Build a bench — always be recruiting so one departure doesn\'t break you. Cross-train so no single person owns a critical account. Accept 15-20% annual turnover as normal in sales — plan for it, don\'t react to it.'},
+      {cat:'People',q:'A toxic top performer is poisoning the culture',a:'Numbers don\'t excuse behavior. Document the toxicity (specific examples, dates). Private conversation: "Your numbers are great, your impact on the team is not." Give 2 weeks to change. If unchanged, let them go. The rest of the team already knows — they\'re watching to see if you have the courage. You\'ll lose one number and gain the trust of everyone else.'},
+      {cat:'People',q:'New hire is ramping too slowly',a:'The problem is almost never the person — it\'s the onboarding. Do you have a written 30/60/90 day plan with specific checkpoints? Assign a buddy (not their manager). Record your best rep\'s calls and make them required listening. Test knowledge weekly, not just at 90 days. If they\'re still behind after 60 days with good onboarding, it\'s a fit issue.'},
+      {cat:'People',q:'Rep avoids the phone and hides behind email',a:'Call anxiety is real and fixable. Don\'t shame it. Start with listen-only ride-alongs. Then practice scripts in pairs. Set a daily dial goal (just dials, not outcomes) and celebrate hitting it. First 100 calls are about reps getting comfortable, not closing. Build the habit, the skill follows.'},
+      {cat:'People',q:'Rep cherry-picks easy leads, ignores hard ones',a:'This is a system problem, not a character flaw. Enforce round-robin lead assignment. Track touch rates per lead source — make the data visible. If lead A gets 8 touches and lead B gets 1, that\'s coachable. Tie a small comp element to pipeline activity, not just closes.'},
+      {cat:'People',q:'Rep is sandbagging deals to next month',a:'Your comp plan is incentivizing this. Move to rolling 90-day averages instead of monthly resets. Remove cliff bonuses that reward timing over performance. Add accelerators for early-month closes. Make sandbagging unprofitable.'},
+      {cat:'People',q:'Veteran reps ignore new hires',a:'No incentive = no mentorship. Tie a mentor bonus to the new hire\'s 90-day performance. Public recognition for mentors. Rotate mentor assignments monthly. Make it part of the culture, not a favor.'},
+      {cat:'People',q:'Remote reps feel disconnected from the team',a:'Daily 10-minute video stand-up — cameras on, no exceptions. Shared Slack/Teams wins channel where every close gets posted. Include remote reps in ALL team events (virtual or fly them in quarterly). Pair remote reps with in-office buddies for weekly check-ins.'},
+      {cat:'People',q:'Manager plays favorites',a:'Remove opinion from the equation. Rank reps by data only (Pulse Check scores). Rotate 1-on-1 meeting order monthly. Make coaching notes visible to the team. If the data says Rep A is top, everyone sees why — no mystery, no favoritism.'},
+      {cat:'People',q:'Manager was promoted from top rep but can\'t lead',a:'Selling and leading are completely different skills. Pair them with an experienced manager mentor. Send them to leadership training (not sales training). Shift their metrics from personal production to team metrics. Give them 6 months with support before judging.'},
+      {cat:'People',q:'Manager avoids hard conversations',a:'Give them the script. Literally write it out. Role-play the conversation with a senior leader first. Set a 24-hour rule: once you identify an issue, the conversation happens within 24 hours. Avoiding it always makes it worse.'},
+      {cat:'People',q:'Cliques are forming and splitting the team',a:'Launch team-based challenges (Lightning Rounds) that shuffle the groups. Rotate seating/partners monthly. Shared team lunch when the whole group hits target. Create reasons to collaborate, not compete internally.'},
+      {cat:'People',q:'Your team blames marketing for bad leads',a:'Set up a weekly lead quality review with both sales and marketing in the room. Create a shared SLA: marketing commits to X qualified leads, sales commits to contacting within Y hours. Track and publish both metrics. Shared accountability kills finger-pointing.'},
+
+      // ═══ MONEY & COMP ═══
+      {cat:'Money & Comp',q:'Reps only care about commission and ignore process',a:'Your comp plan told them to. Add process KPIs to compensation: calls made, pipeline built, CRM hygiene score. Weight it 70% outcomes / 30% activity. Reps will do exactly what you pay them to do — pay for the right things.'},
+      {cat:'Money & Comp',q:'Team is demoralized after a comp plan change',a:'You communicated it wrong or it actually is unfair. Grandfather all existing deals under the old plan. Explain the "why" with data, not corporate speak. Give a 60-day transition where reps earn under whichever plan pays more. Rebuild trust through transparency.'},
+      {cat:'Money & Comp',q:'Top earners plateau and start coasting',a:'They hit the ceiling and stopped seeing a reason to push. Add accelerators above 120% attainment. Create a Presidents Club or exclusive tier. Publicly recognize overachievers. Give them a leadership role — run a training, mentor new hires. Bored top reps need a new challenge, not a bigger territory.'},
+      {cat:'Money & Comp',q:'Reps don\'t understand their own comp plan',a:'If they can\'t explain it in 30 seconds, it\'s too complex. Create a one-page summary with examples. Build a comp calculator they can plug numbers into. Review projected earnings monthly in 1-on-1s. Confused reps don\'t sell harder, they sell frustrated.'},
+      {cat:'Money & Comp',q:'Spiffs and bonuses are losing effectiveness',a:'You\'re using them too often and too predictably. Vary the timing (random drops), vary the reward (cash, experiences, time off, recognition), make them competitive (top 3 wins, not everyone). Scarcity creates urgency.'},
+      {cat:'Money & Comp',q:'Reps discount too aggressively to close deals',a:'Create a discount approval matrix — anything over 10% needs manager approval, over 20% needs director. Track average discount percentage by rep and make it visible. Reward full-price deals with a bonus. Reps discount because it\'s easy, not because it\'s necessary.'},
+
+      // ═══ PIPELINE & DEALS ═══
+      {cat:'Pipeline & Deals',q:'Pipeline is inflated and deals never actually close',a:'Your pipeline has no stage-gate discipline. Define specific exit criteria for each stage (Lead → Discovery → Proposal → Negotiation → Closed). Weekly pipeline scrub: any deal stale 30+ days gets flagged, 60+ days gets removed. Weighted pipeline (PULSE does this automatically) tells you the real number.'},
+      {cat:'Pipeline & Deals',q:'Deals stall at the proposal stage',a:'Two problems: no urgency and wrong stakeholder. Every proposal needs a mutual close plan with a deadline. Identify the economic buyer before you send the proposal, not after. Add an expiration date to every quote. Follow up within 48 hours, not "when they get back to you."'},
+      {cat:'Pipeline & Deals',q:'Win rate is dropping across the board',a:'Run a win/loss analysis on the last 20 closed deals. Categorize losses: Price? Product gap? Wrong buyer? Competitor? The fix depends on the cause. Update competitive battle cards. Run objection handling workshops on the top 3 loss reasons. This is usually a skill gap, not a market problem.'},
+      {cat:'Pipeline & Deals',q:'Forecast accuracy is terrible',a:'Stop relying on reps self-reporting. Weight pipeline by stage AND by activity recency — a deal with no activity in 14 days is not at 50% regardless of what the rep says. Use PULSE projected revenue instead of gut feel. Review forecast vs. actual monthly and hold people accountable for the gap.'},
+      {cat:'Pipeline & Deals',q:'No-shows on demos and meetings keep happening',a:'Your confirmation process is broken. Send automated reminders at 24 hours and 1 hour before. Add a calendar invite immediately (don\'t email a link later). Send a brief pre-call email with the agenda and one compelling hook. If no-show rate is over 20%, your lead qualification is the real problem.'},
+
+      // ═══ OPERATIONS & THINGS ═══
+      {cat:'Operations & Things',q:'The internet or systems go down during business hours',a:'Have a documented "outage playbook" that every rep knows. Step 1: hotspot from phone (every rep should have one ready). Step 2: switch to phone-only selling. Step 3: manager texts the team a 2-sentence plan within 5 minutes. The goal is zero panic, zero lost selling time. Practice this once a quarter.'},
+      {cat:'Operations & Things',q:'CRM data is garbage — nobody updates it',a:'Reps see no value in the CRM. Make it the source of their comp calculations — if it\'s not in the CRM, the deal doesn\'t count toward quota. Gamify data quality scores. Autofill wherever possible. A CRM that takes more than 60 seconds to update per deal will never get used.'},
+      {cat:'Operations & Things',q:'Too many tools and nobody uses any of them',a:'Audit everything. List every tool, who uses it, and what it does. Cut to 3 core tools maximum. Train on them weekly for 15 minutes. Remove access to abandoned tools — if it\'s optional, it\'s unused. One tool used well beats five used poorly.'},
+      {cat:'Operations & Things',q:'Reports take forever to build',a:'Data lives in 5 different places. Consolidate to a single dashboard (PULSE). Automate daily snapshots. Build self-serve reporting so managers don\'t wait for ops. If a report takes more than 5 minutes to pull, the system is broken.'},
+      {cat:'Operations & Things',q:'Meetings are eating all the selling time',a:'Gartner says reps sell only 28% of the week. Meetings are the #1 killer. Cap meetings at 25 minutes. Require a written agenda to book a meeting. Block 10am-2pm as no-meeting zones. Every meeting needs a clear decision or outcome, not just a "sync."'},
+      {cat:'Operations & Things',q:'Territory disputes between reps',a:'Document a territory map with named account lists. Rules of engagement in writing. Escalation process: if two reps claim the same deal, it goes to the manager who decides based on who had first meaningful contact. No exceptions, no politics.'},
+      {cat:'Operations & Things',q:'Onboarding new reps takes way too long',a:'If onboarding is tribal knowledge, it\'s broken. Build a 5-day bootcamp with day-by-day curriculum. Include recorded best calls, product cert test, CRM training, and shadow days. Certification test before going live. Target: productive by day 21, not day 90.'},
+
+      // ═══ LEADERSHIP & STRATEGY ═══
+      {cat:'Leadership & Strategy',q:'You\'re a new leader inheriting a broken team',a:'First 30 days: listen only. 1-on-1 with every person. Ask: what works, what doesn\'t, what would you change? Don\'t make a single structural change for 30 days. Days 31-60: fix the 2 biggest pain points everyone mentioned. Days 61-90: set your vision and new standards. People need to trust you before they\'ll follow you.'},
+      {cat:'Leadership & Strategy',q:'Multiple managers sending inconsistent messages',a:'Weekly manager sync — non-negotiable. One shared KPI dashboard everyone looks at (Pulse Check). Document every process. If two managers give different answers to the same question, the process doesn\'t exist yet. Write it down.'},
+      {cat:'Leadership & Strategy',q:'You\'re micromanaging and you know it',a:'Inspect the pipeline weekly, not daily. Coach the process, not the outcome. Set clear expectations once and let reps execute. Your job is to remove obstacles and develop people, not to close their deals for them. If you don\'t trust them, either train them or replace them — hovering does neither.'},
+      {cat:'Leadership & Strategy',q:'High manager turnover is destabilizing the team',a:'Managers leave for 3 reasons: burnout, no growth path, or bad culture above them. Reduce span of control (max 8-10 direct reports). Create clear promotion criteria. Monthly skip-level meetings so you know what\'s happening before they quit. Losing a manager costs you 6 months — invest in keeping them.'},
+      {cat:'Leadership & Strategy',q:'You need to fire someone and you\'re dreading it',a:'Delaying makes it worse for everyone — including them. Document the performance gap with specifics. Have the conversation in private, with HR present. Be direct: "This isn\'t working and here\'s why." Offer a clean exit with dignity. The rest of the team already knows this person isn\'t performing — they\'re watching how you handle it.'},
+      {cat:'Leadership & Strategy',q:'Nobody reads your emails or announcements',a:'Your communications are too long, too frequent, or too irrelevant. One email per week, max. 3 bullet points, not 3 paragraphs. Bold the action item. For urgent news, text or Slack — not email. If it\'s important, say it live first, then send the written follow-up.'},
+      {cat:'Leadership & Strategy',q:'You\'re not sure if your strategy is working',a:'Define 3 leading indicators and check them weekly. Lagging indicators (revenue) tell you what happened. Leading indicators (pipeline created, activity rates, conversion by stage) tell you what\'s about to happen. If leading indicators are green and revenue is red, be patient. If leading indicators are red, change course now — don\'t wait for revenue to confirm it.'},
+    ];
+
+    const CATS = [...new Set(MGMT_DATA.map(d => d.cat))];
+    let activeFilter = 'All';
+
+    function renderTabs() {
+      const el = document.getElementById('mgmt-tabs');
+      el.innerHTML = '<button class="mgmt-tab active" onclick="mgmtFilter(\'All\')">All</button>'
+        + CATS.map(c => '<button class="mgmt-tab" onclick="mgmtFilter(\'' + c + '\')">' + c + '</button>').join('');
+    }
+
+    function renderCards(filter, search) {
+      const el = document.getElementById('mgmt-cards');
+      const q = (search || '').toLowerCase();
+      let items = MGMT_DATA;
+      if (filter && filter !== 'All') items = items.filter(d => d.cat === filter);
+      if (q) items = items.filter(d => d.q.toLowerCase().includes(q) || d.a.toLowerCase().includes(q) || d.cat.toLowerCase().includes(q));
+
+      if (!items.length) {
+        el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--muted);font-size:0.82rem;">No results — try a different search</div>';
+        return;
+      }
+
+      el.innerHTML = items.map((d, i) => {
+        const id = 'mgmt-a-' + i;
+        return '<div class="mgmt-card" style="margin-bottom:6px;">'
+          + '<button onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'block\'?\'none\':\'block\';this.querySelector(\'.mgmt-arrow\').style.transform=this.nextElementSibling.style.display===\'block\'?\'rotate(90deg)\':\'rotate(0)\'" style="width:100%;display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;color:var(--text);font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;text-align:left;transition:all 0.15s;line-height:1.4;" onmouseover="this.style.borderColor=\'rgba(232,113,10,0.3)\';this.style.background=\'rgba(232,113,10,0.03)\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.06)\';this.style.background=\'rgba(255,255,255,0.02)\'">'
+          + '<span class="mgmt-arrow" style="color:#E8710A;font-size:0.65rem;transition:transform 0.2s;flex-shrink:0;">▶</span>'
+          + '<span style="flex:1;">What to do when ' + d.q.toLowerCase() + '</span>'
+          + '<span style="font-size:0.55rem;font-weight:800;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;">' + d.cat + '</span>'
+          + '</button>'
+          + '<div style="display:none;padding:16px 18px 16px 44px;font-size:0.78rem;color:rgba(226,232,240,0.75);line-height:1.8;border-left:2px solid rgba(232,113,10,0.2);margin-left:18px;margin-bottom:4px;">' + d.a + '</div>'
+          + '</div>';
+      }).join('');
+    }
+
+    window.mgmtFilter = function(cat) {
+      activeFilter = cat;
+      document.querySelectorAll('.mgmt-tab').forEach(t => t.classList.toggle('active', t.textContent === cat));
+      renderCards(cat, document.getElementById('mgmt-search')?.value);
+    };
+
+    window.filterMgmt = function() {
+      renderCards(activeFilter, document.getElementById('mgmt-search')?.value);
+    };
+
+    // Tab styles
+    const tabStyle = document.createElement('style');
+    tabStyle.textContent = '.mgmt-tab{padding:6px 14px;font-size:0.68rem;font-weight:700;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:var(--muted);cursor:pointer;font-family:inherit;transition:all 0.15s;}.mgmt-tab:hover{border-color:var(--border);color:var(--text);}.mgmt-tab.active{background:rgba(232,113,10,0.12);border-color:rgba(232,113,10,0.4);color:#E8710A;}';
+    document.head.appendChild(tabStyle);
+
+    renderTabs();
+    renderCards('All');
+  })();
+  </script>
 
   <footer>
     <div class="container">
@@ -10183,25 +10316,25 @@
       // 1. Revenue Intelligence & CRM
       { selector: '#rev-intel-section', title: 'Revenue Intelligence & CRM',
         desc: 'Your free built-in CRM. Add deals, import CSV/Excel, and PULSE auto-calculates projected revenue, win rates, funnel velocity, and deal risk. Sync live across all your devices. This is your command center.',
-        label: 'Step 1 of 29',
+        label: 'Step 1 of 30',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(); }, 800); }
       },
       // ═══ SETUP ═══════════════════════════════════════════════════════════════════
       // 2. House Goals
       { selector: '#house-goal-table', title: 'House Goal Setting',
         desc: 'Set your total monthly company targets for each KPI. PULSE auto-divides by rep count — watch the demo data fill in now.',
-        label: 'Step 2 of 29',
+        label: 'Step 2 of 30',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof runTourDemoData === 'function') runTourDemoData(); }, 1200); }
       },
       // 3. Team Size
       { selector: '#house-rep-count', title: 'Team Size',
         desc: 'Set your rep count. PULSE divides every house goal by this number instantly — fair, mathematical targets per rep.',
-        label: 'Step 3 of 29'
+        label: 'Step 3 of 30'
       },
       // 4. Industry Preset
       { selector: '#global-industry-select', title: 'Industry Preset',
         desc: 'Pick your industry and watch every KPI, benchmark, and AI suggestion recalibrate instantly. 35+ verticals supported.',
-        label: 'Step 4 of 29',
+        label: 'Step 4 of 30',
         onShow: () => { const sel = document.getElementById('global-industry-select'); if (!sel) return;
           ['solar','saas','insurance','realestate','healthcare'].forEach((ind, i) => {
             _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn(sel); sel.value = ind; sel.dispatchEvent(new Event('change', { bubbles: true })); }, 1000 + i * 1200);
@@ -10211,124 +10344,129 @@
       // 5. KPI Type Toggle
       { selector: '.kpi-type-select', title: 'Total vs. Percentage Goals',
         desc: 'Toggle each KPI between Total and Percentage. Pro tip: % goals backfire — reps shrink volume to protect their rate. Always use totals.',
-        label: 'Step 5 of 29'
+        label: 'Step 5 of 30'
       },
       // 6. AI Goal Suggestions
       { selector: '.ai-btn[onclick*="aiSuggestGoals"]', title: 'AI Goal Suggestions',
         desc: 'Not sure where to start? AI analyzes benchmarks for your industry and rep count, then recommends a baseline.',
-        label: 'Step 6 of 29',
+        label: 'Step 6 of 30',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn(document.querySelector('.ai-btn[onclick*="aiSuggestGoals"]')); if (typeof aiSuggestGoals === 'function') aiSuggestGoals(); }, 800); }
       },
       // 7. Locker Room + Import
       { selector: '.kpi-config-panel', title: 'Save, Load & Import',
         desc: 'Hit Save/Load to open the Locker Room — enter a 4-digit code to save or restore your setup. Import goals from CSV/Excel or download a template.',
-        label: 'Step 7 of 29'
+        label: 'Step 7 of 30'
       },
       // ═══ PULSE CHECK ═════════════════════════════════════════════════════════════
       // 8. Sync Toggle
       { selector: '#sync-toggle-wrap', title: 'Sync to Pulse Check',
         desc: 'One toggle bridges house goals to the Pulse Check. All 5 Rhythm Levels across every KPI populate automatically.',
-        label: 'Step 8 of 29',
+        label: 'Step 8 of 30',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; const tog = document.getElementById('sync-toggle-input'); if (tog && !tog.checked) tog.click(); }, 1000); }
       },
       // 9. Pulse Check
       { selector: '#inline-matrix', title: 'Pulse Check',
         desc: 'The engine. 5 Rhythm Levels per KPI, escalating targets, points per tier — all rolling into one total score. No cherry-picking.',
-        label: 'Step 9 of 29',
+        label: 'Step 9 of 30',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 600); }
       },
       // 10. Intensity Modes
       { selector: '#goal-mode-selector', title: 'Intensity Modes',
         desc: 'Push (+10%), Standard, or Ramp (−10%). One click scales every target up or down for aggressive months, new hires, or soft markets.',
-        label: 'Step 10 of 29'
+        label: 'Step 10 of 30'
       },
       // 11. End-of-Month Scoring
       { selector: '#inline-matrix', title: 'End-of-Month Scoring',
         desc: 'Month closes, PULSE scores every rep automatically. Each KPI maps to a tier, tiers earn points, points determine the bonus level.',
-        label: 'Step 11 of 29', managedTimer: true,
+        label: 'Step 11 of 30', managedTimer: true,
         onShow: () => { showTourScorecard(); }
       },
       // ═══ FORECASTING ═════════════════════════════════════════════════════════════
       // 12. AI Revenue Forecast
       { selector: '#ai-forecast-panel', title: 'AI Revenue Forecast',
         desc: 'Projected revenue, at-risk reps, and attainment likelihood — all based on your current targets.',
-        label: 'Step 12 of 29',
+        label: 'Step 12 of 30',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; const fp = document.getElementById('ai-forecast-panel'); if (fp) fp.style.display = 'block'; }, 400); }
       },
       // 13. Team Distribution
       { selector: '.tier-dist-wrap', title: 'Team Distribution',
         desc: 'See how your full team projects across all 5 tiers before the month starts. Coach proactively, not reactively.',
-        label: 'Step 13 of 29',
+        label: 'Step 13 of 30',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; try { if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 400); }
       },
       // ═══ FINANCIAL TOOLS ═════════════════════════════════════════════════════════
       // 14. Gross Profit Calculator
       { selector: '#profit-calc-section', title: 'Gross Profit Calculator',
         desc: 'Toggle each KPI between MRR and Per Unit Profit. PULSE calculates projected revenue in real time.',
-        label: 'Step 14 of 29'
+        label: 'Step 14 of 30'
       },
       // 15. Service Fees
       { selector: '#service-fees-section', title: 'Service Fees',
         desc: 'Add up to 5 service fees with attach rate and monthly units. PULSE calculates the exact bottom-line impact in real time.',
-        label: 'Step 15 of 29'
+        label: 'Step 15 of 30'
       },
       // 16. Recruiting Calculator
       { selector: '#recruiting-calc-section', title: 'Recruiting Calculator',
         desc: 'Enter target ARR, current ARR, quota, ramp time, and attrition. PULSE outputs exactly how many hires you need.',
-        label: 'Step 16 of 29'
+        label: 'Step 16 of 30'
       },
       // ═══ OPERATIONS ══════════════════════════════════════════════════════════════
       // 17. Rep Scheduling
       { selector: '#sched-matrix-section', title: 'Rep Scheduling Matrix',
         desc: 'The GP-per-shift rate is your "get out of bed" number — the minimum a rep must produce per shift to justify being there. PULSE divides daily GP by that rate to calculate shifts needed. AI Optimize redistributes across the week by revenue weight.',
-        label: 'Step 17 of 29'
+        label: 'Step 17 of 30'
       },
       // 18. Coaching
       { selector: '#coaching-section', title: 'Coaching Action Items',
         desc: 'One coaching move per Rhythm Level — sourced from Gartner, HBR, McKinsey, and PULSE field methodology.',
-        label: 'Step 18 of 29',
+        label: 'Step 18 of 30',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn('ai-coaching-btn'); if (typeof aiCoachingItems === 'function') aiCoachingItems(false); }, 800); }
       },
       // 19. 90-Day Plan
       { selector: '#plan-90', title: '90-Day Revenue Plan',
         desc: 'Three 30-day phases: establish, build, accelerate. The exact framework for ramping a new market or resetting a team.',
-        label: 'Step 19 of 29'
+        label: 'Step 19 of 30'
       },
       // 20. Not-To-Do List
       { selector: '#not-to-do-section', title: 'The Not-To-Do List',
         desc: 'Protect rep selling time. Gartner says reps sell only 28% of the week — every non-selling task you remove is revenue recovered.',
-        label: 'Step 20 of 29'
+        label: 'Step 20 of 30'
       },
       // ═══ ENGAGEMENT ══════════════════════════════════════════════════════════════
       // 21. Lightning Rounds
       { selector: '#challenge-section', title: 'Lightning Rounds',
         desc: 'Drop a time-boxed competition on any KPI with bonus Pulse Points. Perfect for mid-month energy spikes.',
-        label: 'Step 21 of 29'
+        label: 'Step 21 of 30'
       },
       // 22. Squad Sync
       { selector: '#app-sync-section', title: 'Squad Sync',
         desc: 'Real-time updates pushed to every rep\'s phone — scores, bonus levels, and active Lightning Rounds. No login required.',
-        label: 'Step 22 of 29'
+        label: 'Step 22 of 30'
       },
       // ═══ AI TOOLS ════════════════════════════════════════════════════════════════
       // 23. Sales Meeting Creator
       { selector: '#meeting-creator-section', title: 'Sales Meeting Creator',
         desc: 'AI generates a full 60–90 minute meeting script with timestamps, role plays, energy breaks, and memes.',
-        label: 'Step 23 of 29'
+        label: 'Step 23 of 30'
       },
       // 24. Toasts & Speeches
       { selector: '#team-speeches-section', title: 'Team Toasts & Speeches',
         desc: 'Generate custom toasts for any occasion — dinners, promotions, farewells. Pick the tone and AI writes it ready to read aloud.',
-        label: 'Step 24 of 29'
+        label: 'Step 24 of 30'
       },
       // ═══ NAVIGATION & EXTRAS ═════════════════════════════════════════════════════
       // 25. Press Releases
       { selector: '#press-admin-section', title: 'Press Release Builder',
         desc: 'Draft and publish professional press releases directly from PULSE. Fill in headline, date, body — publish or copy.',
-        label: 'Step 25 of 29'
+        label: 'Step 25 of 30'
+      },
+      // 26. Pulse MGMT
+      { selector: '#pulse-mgmt-section', title: 'Pulse MGMT — What To Do When...',
+        desc: 'A sales leader in your pocket. 35+ real-world problems organized by People, Money, Pipeline, Operations, and Leadership. Click any question to see the fix. Search for anything. This is your management playbook.',
+        label: 'Step 26 of 30'
       },
       // ═══ POWER FEATURES ═══════════════════════════════════════════════════════════
-      // 26. Workspace Mode
+      // 27. Workspace Mode
       { selector: '#ws-enter-btn', title: 'Custom Workspace',
         desc: 'Click Workspace to open a floating canvas where you can tile multiple tools side by side. Drag to reposition, resize from the corner, open as many panels as you need. Build your own command center.',
         label: 'Step 26 of 30'
@@ -10336,12 +10474,12 @@
       // 27. Live Sync
       { selector: '#sync-toggle-btn', title: 'Live Sync Across Devices',
         desc: 'Click Sync, enter a code, and your CRM data streams live to every device — desktop, phone, tablet. Add a deal on your laptop and it appears on your phone instantly. No app download, no login.',
-        label: 'Step 27 of 29'
+        label: 'Step 27 of 30'
       },
       // 28. Command Palette & Shortcuts
       { selector: 'nav', title: 'Power User Shortcuts',
         desc: 'Press Ctrl+K to open the Command Palette — search and jump to any tool instantly. Press ? to see all keyboard shortcuts. Press T for Tour, M for Music, F for Focus Mode. PULSE is built for speed.',
-        label: 'Step 28 of 29',
+        label: 'Step 28 of 30',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof openCmdPalette === 'function') openCmdPalette(); }, 1200); }
       },
       // 29. Just for Fun
@@ -14867,6 +15005,7 @@
 
     const WS_TOOLS = [
       { id: 'rev-intel-section', label: '📊 Revenue Intelligence' },
+      { id: 'pulse-mgmt-section', label: '📋 Pulse MGMT' },
       { id: 'house-goal-table', label: '🎯 House Goals' },
       { id: 'inline-matrix', label: '💓 Pulse Check' },
       { id: 'profit-calc-section', label: '💰 Gross Profit' },
