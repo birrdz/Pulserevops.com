@@ -5714,7 +5714,7 @@
   </div>
 
   <!-- ── AI COACH CHAT ── -->
-  <button id="ai-coach-fab" onclick="toggleCoach()" title="PULSE AI Coach — ask anything">🧠</button>
+  <button id="ai-coach-fab" onclick="toggleCoach()" title="PULSE AI Coach — ask anything">🦀</button>
   <div id="ai-coach-panel">
     <div class="coach-header">
       <span class="coach-header-dot"></span>
@@ -10628,7 +10628,26 @@
       // ═══ STEP 6 — WORKSPACE ═══
       { selector: '#ws-enter-btn', title: 'Custom Workspace',
         desc: 'Click Workspace to pop out any tool as a floating window. Drag it. Resize it. Open five at once. Build your own command center — like a trading floor for revenue.',
-        label: 'Step 6 of 32'
+        label: 'Step 6 of 32',
+        onShow: () => {
+          // Show fake floating window mockups
+          const windows = [
+            { title: '📊 CRM', x: '15%', y: '30%', w: 200, delay: 2000 },
+            { title: '💓 Pulse Check', x: '55%', y: '25%', w: 220, delay: 3500 },
+            { title: '💰 Profit', x: '35%', y: '55%', w: 180, delay: 5000 },
+          ];
+          windows.forEach(win => {
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const el = document.createElement('div');
+              el.style.cssText = 'position:fixed;left:' + win.x + ';top:' + win.y + ';z-index:99999;width:' + win.w + 'px;background:rgba(17,21,24,0.95);border:1px solid rgba(232,113,10,0.3);border-radius:10px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:scale(0.8);transition:all 0.5s ease;pointer-events:none;';
+              el.innerHTML = '<div style="padding:6px 10px;background:rgba(232,113,10,0.06);border-bottom:1px solid rgba(232,113,10,0.15);font-size:0.6rem;font-weight:800;color:#EDE5D8;display:flex;justify-content:space-between;"><span>' + win.title + '</span><span style="color:#ef4444;">✕</span></div><div style="padding:12px;height:60px;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.02) 0px,rgba(255,255,255,0.02) 8px,transparent 8px,transparent 16px);"></div>';
+              document.body.appendChild(el);
+              requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'scale(1)'; });
+              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'scale(0.9)'; setTimeout(() => el.remove(), 500); }, 6000);
+            }, win.delay);
+          });
+        }
       },
       // ═══ STEP 7 — HOUSE GOALS ═══
       { selector: '#house-goal-table', title: 'House Goal Setting',
@@ -11854,12 +11873,12 @@
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(880, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.08);
-        gain.gain.setValueAtTime(0.18, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+        osc.frequency.setValueAtTime(440, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(520, ctx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.04, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
         osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.35);
+        osc.stop(ctx.currentTime + 0.25);
       } catch(e) {}
     }
 
@@ -12111,8 +12130,8 @@
             bar.style.width = '100%';
           }));
         }
-        _startCountdown(4000);
-        tourTimer = setTimeout(advanceTour, 4000);
+        _startCountdown(1500);
+        tourTimer = setTimeout(advanceTour, 1500);
       }
       if (!_narratorMuted && window.speechSynthesis) {
         window.speechSynthesis.cancel();
