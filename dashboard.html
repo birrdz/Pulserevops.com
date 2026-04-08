@@ -10585,23 +10585,10 @@
         desc: 'See this brain icon? Click it anytime. Ask it anything — slumping reps, pipeline problems, comp plan questions, how to fire someone gracefully. It never sleeps and it never sugarcoats.',
         label: 'Step 3 of 32'
       },
-      // (CRM moved to Step 1)
-      // 4. Live Sync
-      { selector: '#sync-toggle-btn', title: 'Live Sync Across Devices',
-        desc: 'Enter a code. That\'s it. Your deals now exist on every device you own. Add a deal at your desk, check it on your phone in the parking lot. It\'s like magic, except it actually works.',
-        label: 'Step 4 of 32',
-        onShow: () => {
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            if (typeof openSyncPanel === 'function') openSyncPanel();
-          }, 1200);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const input = document.getElementById('sync-code-input');
-            if (input) _tourTypeField(input, 'ACME');
-          }, 2500);
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof closeSyncPanel === 'function') closeSyncPanel(); }, 5000);
-        }
+      // ═══ STEP 4 — LIVE SYNC ═══
+      { selector: '#sync-toggle-btn', title: 'Live Sync',
+        desc: 'See this Sync button? Enter a code and your deals stream to every device you own — laptop, phone, tablet. Add a deal at your desk, check it in the parking lot. Real-time. No app download.',
+        label: 'Step 4 of 32'
       },
       // 5. Pulse MGMT
       { selector: '#pulse-mgmt-section', title: 'Pulse MGMT — What To Do When...',
