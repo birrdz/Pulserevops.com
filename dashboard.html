@@ -10762,15 +10762,25 @@
         desc: 'Energy dying mid-month? Drop a Lightning Round. Pick a KPI, set a time window, attach bonus Pulse Points. Instant competition. Instant energy. The team will thank you — or hate you. Either way, they sell more.',
         label: 'Step 26 of 32',
         onShow: () => {
-          // Pulse the challenge section with an energy flash
-          const sec = document.getElementById('challenge-section');
-          if (!sec) return;
-          let flashes = 0;
-          const iv = setInterval(() => {
-            if (!tourActive || flashes > 5) { clearInterval(iv); if (sec) sec.style.boxShadow = ''; return; }
-            sec.style.boxShadow = flashes % 2 === 0 ? '0 0 30px rgba(232,113,10,0.4), inset 0 0 20px rgba(232,113,10,0.06)' : '';
-            flashes++;
-          }, 500);
+          // Show a fake Lightning Round launch card center screen
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const card = document.createElement('div');
+            card.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);z-index:99999;background:rgba(10,14,20,0.97);border:2px solid rgba(232,113,10,0.5);border-radius:16px;padding:24px 32px;font-family:inherit;box-shadow:0 16px 60px rgba(0,0,0,0.6),0 0 40px rgba(232,113,10,0.15);opacity:0;transition:all 0.5s ease;text-align:center;min-width:280px;';
+            card.innerHTML = '<div style="font-size:1.5rem;margin-bottom:6px;">⚡</div>'
+              + '<div style="font-size:0.6rem;font-weight:800;color:#E8710A;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;">Lightning Round Active</div>'
+              + '<div style="font-size:1.1rem;font-weight:900;color:#EDE5D8;margin-bottom:4px;">New Activations</div>'
+              + '<div style="font-size:0.72rem;color:#9A9088;margin-bottom:14px;">50 bonus Pulse Points · Ends in 2 hours</div>'
+              + '<div style="font-size:0.62rem;font-weight:700;color:#9A9088;margin-bottom:8px;">LEADERBOARD</div>'
+              + '<div style="text-align:left;font-size:0.75rem;line-height:2;color:#EDE5D8;">'
+              + '<div>🥇 <strong>Sarah</strong> <span style="float:right;color:#22c55e;">12 activations</span></div>'
+              + '<div>🥈 <strong>Mike</strong> <span style="float:right;color:#E8710A;">9 activations</span></div>'
+              + '<div>🥉 <strong>Carlos</strong> <span style="float:right;color:#9A9088;">7 activations</span></div>'
+              + '</div>';
+            document.body.appendChild(card);
+            requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = 'translate(-50%,-50%) scale(1)'; });
+            setTimeout(() => { card.style.opacity = '0'; card.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => card.remove(), 500); }, 8000);
+          }, 2000);
         }
       },
       // ═══ STEP 27 — SQUAD SYNC ═══
@@ -10778,25 +10788,23 @@
         desc: 'Scores, bonus levels, and active Lightning Rounds — pushed to every rep\'s phone in real time. They always know where they stand. No app download. No login. Just open PULSE.',
         label: 'Step 27 of 32',
         onShow: () => {
-          // Simulate a notification popping in
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const notif = document.createElement('div');
-            notif.style.cssText = 'position:fixed;top:80px;right:20px;z-index:99999;background:rgba(10,14,20,0.96);border:1px solid rgba(34,197,94,0.4);border-left:3px solid #22c55e;border-radius:10px;padding:12px 18px;font-size:0.78rem;color:#EDE5D8;font-family:inherit;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:translateX(20px);transition:all 0.4s ease;max-width:280px;';
-            notif.innerHTML = '<div style="font-size:0.55rem;font-weight:800;color:#22c55e;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Squad Sync</div>Sarah just hit Rhythm Level 4 — 2,850 Pulse Points';
-            document.body.appendChild(notif);
-            requestAnimationFrame(() => { notif.style.opacity = '1'; notif.style.transform = 'translateX(0)'; });
-            setTimeout(() => { notif.style.opacity = '0'; notif.style.transform = 'translateX(20px)'; setTimeout(() => notif.remove(), 500); }, 4000);
-          }, 2000);
-          // Second notification
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const notif2 = document.createElement('div');
-            notif2.style.cssText = 'position:fixed;top:80px;right:20px;z-index:99999;background:rgba(10,14,20,0.96);border:1px solid rgba(232,113,10,0.4);border-left:3px solid #E8710A;border-radius:10px;padding:12px 18px;font-size:0.78rem;color:#EDE5D8;font-family:inherit;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:translateX(20px);transition:all 0.4s ease;max-width:280px;';
-            notif2.innerHTML = '<div style="font-size:0.55rem;font-weight:800;color:#E8710A;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Lightning Round</div>⚡ New Activations — 2 hours remaining';
-            document.body.appendChild(notif2);
-            requestAnimationFrame(() => { notif2.style.opacity = '1'; notif2.style.transform = 'translateX(0)'; });
-            setTimeout(() => { notif2.style.opacity = '0'; notif2.style.transform = 'translateX(20px)'; setTimeout(() => notif2.remove(), 500); }, 4000);
+          // Stack of notifications sliding in
+          const notifs = [
+            { delay: 1500, color: '#22c55e', label: 'Score Update', msg: 'Sarah moved to Rhythm Level 4 — 2,850 Pulse Points', top: 80 },
+            { delay: 4000, color: '#E8710A', label: 'Lightning Round', msg: '⚡ New Activations — 2 hours remaining · 50 bonus pts', top: 130 },
+            { delay: 6500, color: '#60A5FA', label: 'Pipeline Alert', msg: 'Mike closed Acme Corp — $12,000 · Win rate now 68%', top: 180 },
+            { delay: 9000, color: '#22c55e', label: 'Leaderboard', msg: '🏆 Carlos overtook Taylor for #2 this month', top: 230 },
+          ];
+          notifs.forEach(n => {
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const el = document.createElement('div');
+              el.style.cssText = 'position:fixed;top:' + n.top + 'px;right:20px;z-index:99999;background:rgba(10,14,20,0.96);border:1px solid ' + n.color + '40;border-left:3px solid ' + n.color + ';border-radius:10px;padding:12px 18px;font-size:0.75rem;color:#EDE5D8;font-family:inherit;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:translateX(30px);transition:all 0.4s ease;max-width:300px;';
+              el.innerHTML = '<div style="font-size:0.52rem;font-weight:800;color:' + n.color + ';letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">' + n.label + '</div>' + n.msg;
+              document.body.appendChild(el);
+              requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translateX(0)'; });
+              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(30px)'; setTimeout(() => el.remove(), 500); }, 4500);
+            }, n.delay);
           }, 6000);
         }
       },
