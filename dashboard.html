@@ -3300,7 +3300,8 @@
       width: 10px; height: 10px; border-right: 2px solid var(--muted);
       border-bottom: 2px solid var(--muted);
     }
-    #ws-panel-container { position: fixed; inset: 0; z-index: 499; pointer-events: none; }
+    #ws-panel-container { position: fixed; inset: 0; z-index: 499; pointer-events: none; display: none; }
+    #ws-panel-container.active { display: block; pointer-events: all; background: #1a1d21; }
     #ws-panel-container .ws-panel { pointer-events: all; }
     /* ── SYNC OVERLAY ── */
     #sync-overlay {
@@ -15059,6 +15060,7 @@
       _wsZIndex++;
       const panelId = 'ws-panel-' + _wsPanelCount;
       const container = document.getElementById('ws-panel-container');
+      container.classList.add('active');
 
       // Stagger position
       const offsetX = 60 + ((_wsPanelCount - 1) % 4) * 40;
@@ -15101,6 +15103,9 @@
       const panel = document.getElementById(panelId);
       if (panel) panel.remove();
       delete _wsOpenPanels[sectionId];
+      if (!Object.keys(_wsOpenPanels).length) {
+        document.getElementById('ws-panel-container').classList.remove('active');
+      }
     };
 
     window.wsCloseAll = function() {
@@ -15108,6 +15113,7 @@
       if (menu) menu.remove();
       document.querySelectorAll('.ws-panel').forEach(p => p.remove());
       Object.keys(_wsOpenPanels).forEach(k => delete _wsOpenPanels[k]);
+      document.getElementById('ws-panel-container').classList.remove('active');
     };
 
     function _initDrag(panel) {
