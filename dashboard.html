@@ -3259,9 +3259,49 @@
       .ri-kanban { grid-template-columns: 1fr; }
       .ri-vitals { grid-template-columns: repeat(2, 1fr); }
     }
+    /* ── SYNC OVERLAY ── */
+    #sync-overlay {
+      display: none; position: fixed; inset: 0; z-index: 99998;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center;
+    }
+    #sync-overlay.open { display: flex; }
+    #sync-panel {
+      width: 400px; max-width: 92vw; background: rgba(10,14,20,0.97);
+      border: 1px solid var(--border); border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6); padding: 32px; font-family: inherit;
+    }
+    #sync-panel h3 {
+      margin: 0 0 6px; font-size: 1rem; font-weight: 900; color: var(--text);
+    }
+    #sync-panel .sync-sub {
+      font-size: 0.7rem; color: var(--muted); margin-bottom: 20px; line-height: 1.6;
+    }
+    .sync-code-input {
+      width: 100%; padding: 14px 18px; font-size: 1.4rem; font-weight: 900;
+      text-align: center; letter-spacing: 0.3em; background: rgba(0,0,0,0.4);
+      border: 1.5px solid var(--border); border-radius: 12px; color: var(--text);
+      font-family: inherit; outline: none; transition: border-color 0.2s;
+    }
+    .sync-code-input:focus { border-color: var(--cyan); }
+    .sync-code-input::placeholder { color: rgba(226,232,240,0.2); letter-spacing: 0.2em; font-size: 1rem; }
+    .sync-status {
+      margin-top: 12px; font-size: 0.72rem; font-weight: 700; min-height: 20px; text-align: center;
+    }
+    .sync-status.connected { color: #22c55e; }
+    .sync-status.error { color: #ef4444; }
+    .sync-status.syncing { color: var(--cyan); }
+    .sync-dot {
+      display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+      background: #22c55e; margin-right: 5px; animation: gtb-pulse 1.6s ease-in-out infinite;
+    }
+    .sync-dot.off { background: #ef4444; animation: none; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <!-- Firebase SDK for live CRM sync -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -5277,6 +5317,9 @@
       <span class="ri-badge">Predictive</span>
       <span class="ri-badge" style="background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.3);color:#22c55e;">CRM</span>
       <div style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <button class="ri-btn-sm" id="sync-toggle-btn" onclick="openSyncPanel()" title="Live sync across devices" style="display:flex;align-items:center;gap:5px;">
+          <span class="sync-dot off" id="sync-status-dot"></span> Sync
+        </button>
         <button class="ri-btn-sm" onclick="riExportBackup()" title="Download all CRM data as a backup file">Backup</button>
         <button class="ri-btn-sm" onclick="document.getElementById('ri-restore-input').click()" title="Restore CRM data from a backup file">Restore</button>
         <input type="file" id="ri-restore-input" accept=".json" style="display:none" onchange="riRestoreBackup(event)">
@@ -5387,6 +5430,29 @@
         <div style="font-size:0.72rem;font-weight:700;color:var(--text);margin-bottom:8px;">Or paste CSV data:</div>
         <textarea id="ri-paste-area" placeholder="Deal Name, Rep, Value, Stage, Date Added, Last Activity&#10;Acme Corp, John, 5000, Proposal, 2025-01-15, 2025-03-20" style="width:100%;height:100px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;color:var(--text);font-family:monospace;font-size:0.72rem;resize:vertical;outline:none;"></textarea>
         <button class="ri-btn-primary" onclick="riParsePaste()" style="margin-top:10px;">Import Pasted Data</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SYNC OVERLAY ── -->
+  <div id="sync-overlay" onclick="if(event.target===this)closeSyncPanel()">
+    <div id="sync-panel">
+      <h3>Live Sync</h3>
+      <div class="sync-sub">Enter a sync code to connect this device. Same code on your phone, laptop, or tablet — your deals sync instantly across all of them.</div>
+      <input class="sync-code-input" id="sync-code-input" type="text" maxlength="6" placeholder="SYNC CODE" autocomplete="off" spellcheck="false">
+      <div class="sync-status" id="sync-status-msg"></div>
+      <div style="display:flex;gap:10px;margin-top:18px;">
+        <button class="ri-btn-primary" onclick="startSync()" style="flex:1;">Connect</button>
+        <button class="ri-btn-sm" onclick="disconnectSync()" style="flex:1;" id="sync-disconnect-btn" disabled>Disconnect</button>
+      </div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.04);">
+        <div style="font-size:0.62rem;color:var(--muted);line-height:1.7;">
+          <strong style="color:var(--text);">How it works:</strong><br>
+          1. Pick any code (like a password — only you know it)<br>
+          2. Open PULSE on another device → enter the same code<br>
+          3. Your deals sync live — add on desktop, see on mobile instantly<br>
+          <span style="color:var(--cyan);">Your data is private — only accessible with your code.</span>
+        </div>
       </div>
     </div>
   </div>
@@ -14720,6 +14786,195 @@
     /* ─── INIT ─── */
     window.renderDeals = renderDeals;
     renderDeals();
+  })();
+  </script>
+
+  <!-- LIVE SYNC ENGINE -->
+  <script>
+  (function() {
+    'use strict';
+    const LS_KEY = 'pulse_crm_deals';
+    const SYNC_CODE_KEY = 'pulse_sync_code';
+    const SYNC_FB_KEY = 'pulse_sync_firebase_url';
+    let _syncRef = null;
+    let _syncActive = false;
+    let _syncPushing = false; // prevent echo loops
+
+    // Firebase DB URL — set this once after creating your Firebase project
+    // Go to console.firebase.google.com → Create project → Realtime Database → Copy URL
+    const FIREBASE_DB_URL = localStorage.getItem(SYNC_FB_KEY) || '';
+
+    function getSyncFirebaseUrl() {
+      return localStorage.getItem(SYNC_FB_KEY) || '';
+    }
+
+    function initFirebase(dbUrl) {
+      if (typeof firebase === 'undefined') return false;
+      const cfg = {
+        databaseURL: dbUrl,
+        apiKey: 'pulse-crm-sync',
+        projectId: 'pulse-crm'
+      };
+      if (!firebase.apps.length) {
+        firebase.initializeApp(cfg);
+      }
+      return true;
+    }
+
+    window.openSyncPanel = function() {
+      document.getElementById('sync-overlay').classList.add('open');
+      const saved = localStorage.getItem(SYNC_CODE_KEY);
+      if (saved) document.getElementById('sync-code-input').value = saved;
+
+      // If no Firebase URL configured, show setup prompt
+      const url = getSyncFirebaseUrl();
+      if (!url) {
+        setSyncStatus('Setup required — enter Firebase DB URL below', 'error');
+        // Add URL input if not present
+        if (!document.getElementById('sync-fb-url-input')) {
+          const panel = document.getElementById('sync-panel');
+          const div = document.createElement('div');
+          div.id = 'sync-fb-setup';
+          div.style.cssText = 'margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06);';
+          div.innerHTML = '<div style="font-size:0.65rem;font-weight:700;color:var(--cyan);margin-bottom:6px;">Firebase Setup (one time)</div>'
+            + '<input id="sync-fb-url-input" type="text" placeholder="https://your-project-default-rtdb.firebaseio.com" '
+            + 'style="width:100%;padding:10px 12px;font-size:0.72rem;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:monospace;outline:none;">'
+            + '<button onclick="saveSyncFirebaseUrl()" class="ri-btn-sm" style="margin-top:8px;width:100%;">Save Firebase URL</button>'
+            + '<div style="font-size:0.58rem;color:var(--muted);margin-top:6px;line-height:1.6;">'
+            + 'Go to <strong style="color:#FF8C1A;">console.firebase.google.com</strong> → Create project → '
+            + 'Build → Realtime Database → Create → Start in test mode → Copy the URL above</div>';
+          panel.appendChild(div);
+        }
+      }
+    };
+
+    window.saveSyncFirebaseUrl = function() {
+      const input = document.getElementById('sync-fb-url-input');
+      if (!input) return;
+      const url = input.value.trim();
+      if (!url || !url.includes('firebaseio.com')) {
+        setSyncStatus('Invalid URL — must end in firebaseio.com', 'error');
+        return;
+      }
+      localStorage.setItem(SYNC_FB_KEY, url);
+      setSyncStatus('Firebase URL saved! Now enter a sync code and connect.', 'connected');
+      const setup = document.getElementById('sync-fb-setup');
+      if (setup) setup.remove();
+    };
+
+    window.closeSyncPanel = function() {
+      document.getElementById('sync-overlay').classList.remove('open');
+    };
+
+    window.startSync = function() {
+      const code = document.getElementById('sync-code-input').value.trim().toUpperCase();
+      if (!code || code.length < 3) {
+        setSyncStatus('Enter at least 3 characters', 'error');
+        return;
+      }
+
+      const dbUrl = getSyncFirebaseUrl();
+      if (!dbUrl) {
+        setSyncStatus('Set up Firebase URL first (see below)', 'error');
+        return;
+      }
+
+      if (!initFirebase(dbUrl)) {
+        setSyncStatus('Firebase SDK not loaded — refresh and try again', 'error');
+        return;
+      }
+
+      localStorage.setItem(SYNC_CODE_KEY, code);
+      setSyncStatus('Connecting...', 'syncing');
+
+      try {
+        const db = firebase.database();
+        _syncRef = db.ref('crm/' + code);
+
+        // Push current local data first
+        const localDeals = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+        _syncPushing = true;
+        _syncRef.set({ deals: localDeals, lastUpdated: Date.now() }).then(() => {
+          _syncPushing = false;
+          _syncActive = true;
+          setSyncStatus('<span class="sync-dot"></span> Connected — syncing live', 'connected');
+          updateSyncDot(true);
+          document.getElementById('sync-disconnect-btn').disabled = false;
+
+          // Listen for remote changes
+          _syncRef.on('value', (snapshot) => {
+            if (_syncPushing) return; // skip our own writes
+            const data = snapshot.val();
+            if (data && Array.isArray(data.deals)) {
+              localStorage.setItem(LS_KEY, JSON.stringify(data.deals));
+              if (typeof renderDeals === 'function') renderDeals();
+            }
+          });
+
+          // Auto-close panel after connecting
+          setTimeout(() => closeSyncPanel(), 1500);
+        }).catch(err => {
+          _syncPushing = false;
+          setSyncStatus('Connection failed — check Firebase URL and rules', 'error');
+        });
+      } catch(e) {
+        setSyncStatus('Connection error: ' + e.message, 'error');
+      }
+    };
+
+    window.disconnectSync = function() {
+      if (_syncRef) {
+        _syncRef.off();
+        _syncRef = null;
+      }
+      _syncActive = false;
+      setSyncStatus('Disconnected', 'error');
+      updateSyncDot(false);
+      document.getElementById('sync-disconnect-btn').disabled = true;
+    };
+
+    function setSyncStatus(html, cls) {
+      const el = document.getElementById('sync-status-msg');
+      if (el) { el.innerHTML = html; el.className = 'sync-status ' + (cls || ''); }
+    }
+
+    function updateSyncDot(connected) {
+      const dot = document.getElementById('sync-status-dot');
+      if (dot) {
+        dot.className = connected ? 'sync-dot' : 'sync-dot off';
+      }
+      const btn = document.getElementById('sync-toggle-btn');
+      if (btn) {
+        const label = btn.childNodes[btn.childNodes.length - 1];
+        if (label) label.textContent = connected ? ' Synced' : ' Sync';
+      }
+    }
+
+    // Hook into deal saves to push to Firebase
+    const origSaveDeals = localStorage.setItem.bind(localStorage);
+    const _origSetItem = localStorage.setItem;
+    localStorage.setItem = function(key, value) {
+      _origSetItem.call(localStorage, key, value);
+      if (key === LS_KEY && _syncActive && _syncRef && !_syncPushing) {
+        _syncPushing = true;
+        try {
+          const deals = JSON.parse(value);
+          _syncRef.set({ deals: deals, lastUpdated: Date.now() }).then(() => {
+            _syncPushing = false;
+          }).catch(() => { _syncPushing = false; });
+        } catch(e) { _syncPushing = false; }
+      }
+    };
+
+    // Auto-reconnect if there's a saved sync code and Firebase URL
+    const savedCode = localStorage.getItem(SYNC_CODE_KEY);
+    const savedUrl = getSyncFirebaseUrl();
+    if (savedCode && savedUrl) {
+      setTimeout(() => {
+        document.getElementById('sync-code-input').value = savedCode;
+        startSync();
+      }, 2000);
+    }
   })();
   </script>
 
