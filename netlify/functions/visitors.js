@@ -17,20 +17,26 @@ function getClientIp(event) {
     || '';
 }
 
-// Server-side geo lookup using ip-api.com (free, no key, 45 req/min)
+// Server-side geo lookup — tries multiple free APIs for reliability
 async function lookupCity(ip) {
   if (!ip || ip === '127.0.0.1' || ip === '::1') return '';
+  // Try ipapi.co first (HTTPS, 1000/day free)
   try {
-    const res = await fetch(`http://ip-api.com/json/${ip}?fields=city,regionName`);
-    if (!res.ok) return '';
-    const data = await res.json();
-    const city = data.city || '';
-    const region = data.regionName || '';
-    if (!city) return '';
-    return region ? `${city}, ${region}` : city;
-  } catch (e) {
-    return '';
-  }
+    const res = await fetch(`https://ipapi.co/${ip}/json/`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.city) return data.region_code ? `${data.city}, ${data.region_code}` : data.city;
+    }
+  } catch (e) {}
+  // Fallback: ipwho.is (HTTPS, unlimited, no key)
+  try {
+    const res = await fetch(`https://ipwho.is/${ip}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.city) return data.region ? `${data.city}, ${data.region}` : data.city;
+    }
+  } catch (e) {}
+  return '';
 }
 
 exports.handler = async (event) => {
