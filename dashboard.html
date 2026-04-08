@@ -10619,13 +10619,15 @@
         desc: 'How many reps? Type it. PULSE divides every goal by this number instantly. Fair targets, zero debate.',
         label: 'Step 8 of 32'
       },
-      // 4. Industry Preset
-      { selector: '#global-industry-select', title: 'Industry Preset',
-        desc: 'Pick your industry and watch every KPI, benchmark, and AI suggestion recalibrate instantly. 35+ verticals supported.',
-        label: 'Step 4 of 32',
-        onShow: () => { const sel = document.getElementById('global-industry-select'); if (!sel) return;
+      // ═══ STEP 9 — INDUSTRY PRESET ═══
+      { selector: '#global-industry-select', title: 'Pick Your Industry',
+        desc: 'Select your industry and watch every KPI, benchmark, and AI suggestion recalibrate instantly. Solar, SaaS, healthcare, insurance — 35 verticals. Watch it cycle through a few.',
+        label: 'Step 9 of 32',
+        onShow: () => {
+          const sel = document.getElementById('global-industry-select');
+          if (!sel) return;
           ['solar','saas','insurance','realestate','healthcare'].forEach((ind, i) => {
-            _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn(sel); sel.value = ind; sel.dispatchEvent(new Event('change', { bubbles: true })); }, 1000 + i * 1200);
+            _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn(sel); sel.value = ind; sel.dispatchEvent(new Event('change', { bubbles: true })); }, 3000 + i * 2500);
           });
         }
       },
