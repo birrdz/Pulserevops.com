@@ -1,0 +1,38 @@
+{
+  "name": "PULSE RevOps",
+  "short_name": "PULSE",
+  "description": "Free Revenue Operations suite — KPI tracking, CRM, predictive analytics, and team management tools for sales teams and SMBs.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111518",
+  "theme_color": "#E8710A",
+  "orientation": "any",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "url": "/dashboard.html",
+      "description": "Open the PULSE Dashboard"
+    },
+    {
+      "name": "Revenue Intelligence",
+      "url": "/dashboard.html#rev-intel-section",
+      "description": "Open the CRM & Revenue Intelligence"
+    }
+  ]
+}
