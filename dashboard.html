@@ -10657,7 +10657,7 @@
       },
       // ═══ STEP 8 — TEAM SIZE ═══
       { selector: '#house-rep-count', title: 'Team Size',
-        desc: 'How many reps? Type it. PULSE divides every goal by this number instantly. Fair targets, zero debate.',
+        desc: ['How many reps? Type it. PULSE divides every goal by this number instantly. Fair targets, zero debate.','How many reps you got? PULSE does the division so nobody can argue about it. Math doesn\'t play favorites.','Type your rep count. PULSE splits the targets evenly. Finally, something at work that\'s actually fair.'][Math.floor(Math.random()*3)],
         label: 'Step 8 of 32'
       },
       // ═══ STEP 9 — INDUSTRY PRESET ═══
@@ -10704,7 +10704,7 @@
       },
       // ═══ STEP 14 — PULSE CHECK ═══
       { selector: '#inline-matrix', title: 'The Pulse Check',
-        desc: 'This is the engine. 5 Rhythm Levels per KPI. Escalating targets. Points per tier. One total score per rep. No cherry-picking, no hiding behind one good number.',
+        desc: ['This is the engine. 5 Rhythm Levels per KPI. Escalating targets. Points per tier. One total score per rep. No cherry-picking, no hiding behind one good number.','The Pulse Check. Where excuses go to die. 5 levels, every KPI scored, one total number. Your reps will either love it or pretend it doesn\'t exist.','Five Rhythm Levels. Every KPI. One score. The rep who says they\'re crushing it? This tells you if that\'s true.'][Math.floor(Math.random()*3)],
         label: 'Step 14 of 32',
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 2000);
@@ -10712,7 +10712,7 @@
       },
       // ═══ STEP 15 — INTENSITY MODES ═══
       { selector: '#goal-mode-selector', title: 'Intensity Modes',
-        desc: 'Push mode adds 10 percent to every target. Ramp mode drops 10 percent for new hires. Standard for everyone else. One click scales the whole board.',
+        desc: ['Push mode adds 10 percent to every target. Ramp mode drops 10 percent for new hires. Standard for everyone else. One click scales the whole board.','Feeling aggressive? Push mode. New hire struggling? Ramp mode. One click. Your HR department would need a committee and 3 meetings for this.','Three modes. Push for killers, Standard for steady, Ramp for rookies. One click changes every target on the board.'][Math.floor(Math.random()*3)],
         label: 'Step 15 of 32'
       },
       // ═══ STEP 16 — END-OF-MONTH SCORING ═══
@@ -10745,7 +10745,7 @@
       },
       // ═══ STEP 20 — SERVICE FEES ═══
       { selector: '#service-fees-section', title: 'Service Fees',
-        desc: 'Add service fees with attach rates and monthly units. PULSE shows you the exact bottom-line impact. Know what each fee is actually worth before you pitch it.',
+        desc: 'Service fees pay for back office support. At roughly 50 thousand per admin, how many admins are your fees actually paying for? Add your fees here and PULSE shows you the real bottom-line impact.',
         label: 'Step 20 of 32'
       },
       // ═══ STEP 21 — RECRUITING CALCULATOR ═══
@@ -10773,12 +10773,12 @@
       },
       // ═══ STEP 25 — NOT-TO-DO LIST ═══
       { selector: '#not-to-do-section', title: 'The Not-To-Do List',
-        desc: 'Your reps sell 28 percent of the week. The other 72 percent is meetings, admin, and busywork. This list identifies what to stop doing so your team can actually sell.',
+        desc: ['Your reps sell 28 percent of the week. The other 72 percent is meetings, admin, and busywork. This list identifies what to stop doing so your team can actually sell.','Gartner says reps sell 28 percent of the week. The other 72 percent? Meetings about meetings. This list fixes that.','The Not-To-Do List. Because sometimes the best way to increase revenue is to stop doing stupid stuff.'][Math.floor(Math.random()*3)],
         label: 'Step 25 of 32'
       },
       // ═══ STEP 26 — LIGHTNING ROUNDS ═══
       { selector: '#challenge-section', title: 'Lightning Rounds',
-        desc: 'Energy dying mid-month? Drop a Lightning Round. Pick a KPI, set a time window, attach bonus Pulse Points. Instant competition. Instant energy. The team will thank you — or hate you. Either way, they sell more.',
+        desc: ['Energy dying mid-month? Drop a Lightning Round. Pick a KPI, set a time window, attach bonus Pulse Points. The team will thank you — or hate you. Either way, they sell more.','It\'s 2 PM on a Tuesday. Nobody\'s selling. Drop a Lightning Round. Instant chaos. Instant revenue. You\'re welcome.','The mid-month energy killer is real. Lightning Rounds fix it. Pick a KPI, set a clock, watch your team turn into competitors.'][Math.floor(Math.random()*3)],
         label: 'Step 26 of 32',
         onShow: () => {
           // Show a fake Lightning Round launch card center screen
@@ -10867,7 +10867,7 @@
       },
       // ═══ STEP 32 — JUST FOR FUN ═══
       { selector: '#just-for-fun', title: 'Just for Fun',
-        desc: 'You made it. Every serious platform needs one thing that makes no sense. This is ours. Explore the crab heatmap. Don\'t ask why. Just enjoy it. Thanks for taking the tour — now go get in rhythm.',
+        desc: 'You made it. Every serious platform needs one thing that makes no sense. This is ours. Explore the crab heatmap. Don\'t ask why. Pro tip — click Install in your browser to download PULSE to your desktop. Thanks for taking the tour. Now go get in rhythm.',
         label: 'Finish', last: true
       }
     ];
