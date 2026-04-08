@@ -10760,12 +10760,10 @@
         desc: 'Need to announce something? Fill in the headline, date, and body. PULSE formats it as a professional press release. Publish it directly or copy and send it wherever you want.',
         label: 'Step 30 of 32'
       },
-      // ═══ POWER FEATURES ═══════════════════════════════════════════════════════════
-      // Command Palette & Shortcuts
+      // ═══ STEP 31 — KEYBOARD SHORTCUTS ═══
       { selector: 'nav', title: 'Power User Shortcuts',
-        desc: 'Press Ctrl+K to open the Command Palette — search and jump to any tool instantly. Press ? to see all keyboard shortcuts. PULSE is built for speed.',
-        label: 'Step 32 of 32',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof openCmdPalette === 'function') openCmdPalette(); }, 1200); }
+        desc: 'Press Control K to open the Command Palette and jump to any tool instantly. Press the question mark key to see all shortcuts. T for Tour. M for Music. F for Focus Mode. PULSE is built for speed.',
+        label: 'Step 31 of 32'
       },
       // Just for Fun
       { selector: '#just-for-fun', title: 'Just for Fun',
