@@ -301,11 +301,14 @@
     .nav-inner {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      max-width: 1200px;
+      gap: 6px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 16px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
+    .nav-inner::-webkit-scrollbar { height: 0; }
 
     .logo {
       display: flex;
@@ -1673,7 +1676,7 @@
     ─────────────────────────────────────────────────────────────────────────── */
 
     /* 1. Nuke every page section / element that isn't the nav or dashboard */
-    body.dashboard-mode > *:not(nav):not(#dashboard):not(script):not(style):not(canvas):not(.blob):not(#tour-welcome):not(#tour-highlight):not(#tour-tooltip):not(#disclaimer-modal):not(#scroll-top-btn):not(.print-btn):not(.print-btn-tooltip):not(#focus-btn):not(#focus-btn-tooltip):not(#music-radio):not(#goal-mode-toast):not(#details-toggle-btn):not(#pulse-guy):not(#jff-fab):not(#jff-fab-tooltip):not(#jff-tab):not(#float-saveload):not(#press-admin-section) {
+    body.dashboard-mode > *:not(nav):not(#dashboard):not(script):not(style):not(canvas):not(.blob):not(#tour-welcome):not(#tour-highlight):not(#tour-tooltip):not(#disclaimer-modal):not(#scroll-top-btn):not(.print-btn):not(.print-btn-tooltip):not(#focus-btn):not(#focus-btn-tooltip):not(#music-radio):not(#goal-mode-toast):not(#details-toggle-btn):not(#pulse-guy):not(#jff-fab):not(#jff-fab-tooltip):not(#jff-tab):not(#float-saveload):not(#press-admin-section):not(#ws-panel-container):not(#sync-overlay):not(#rev-intel-section):not(#ws-picker-menu) {
       display: none !important;
     }
 
