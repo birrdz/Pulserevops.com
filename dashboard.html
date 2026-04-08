@@ -10680,12 +10680,13 @@
         label: 'Step 16 of 32', managedTimer: true,
         onShow: () => { showTourScorecard(); }
       },
-      // ═══ FORECASTING ═════════════════════════════════════════════════════════════
-      // 12. AI Revenue Forecast
+      // ═══ STEP 17 — AI REVENUE FORECAST ═══
       { selector: '#ai-forecast-panel', title: 'AI Revenue Forecast',
-        desc: 'Projected revenue, at-risk reps, and attainment likelihood — all based on your current targets.',
-        label: 'Step 12 of 32',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; const fp = document.getElementById('ai-forecast-panel'); if (fp) fp.style.display = 'block'; }, 400); }
+        desc: 'PULSE looks at your targets and tells you what\'s actually going to happen. Projected revenue, at-risk reps, attainment likelihood. The number your board wants — before the month ends.',
+        label: 'Step 17 of 32',
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; const fp = document.getElementById('ai-forecast-panel'); if (fp) fp.style.display = 'block'; }, 2000);
+        }
       },
       // 13. Team Distribution
       { selector: '.tier-dist-wrap', title: 'Team Distribution',
