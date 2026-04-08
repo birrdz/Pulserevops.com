@@ -10567,12 +10567,130 @@
     }
 
     const TOUR_STEPS = [
-      // ═══ REVENUE INTELLIGENCE (Step 1) ═════════════════════════════════════════
-      // 1. Revenue Intelligence & CRM
-      { selector: '#rev-intel-section', title: 'Revenue Intelligence & CRM',
-        desc: 'Your free built-in CRM. Add deals, import CSV/Excel, and PULSE auto-calculates projected revenue, win rates, funnel velocity, and deal risk. Sync live across all your devices. This is your command center.',
+      // ═══ TEAM LOGIN (Step 1) ══════════════════════════════════════════════════
+      // 1. Team Login
+      { selector: '#team-nav-btn', title: 'Team Login — Your Command Center Starts Here',
+        desc: 'First things first — set up your team. Admins create a team with a private PIN, add reps to the roster, and control everything. Reps join with just a code and their name. Watch how it works...',
         label: 'Step 1 of 33',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            // Open the team panel to show it
+            if (typeof openTeamPanel === 'function') openTeamPanel();
+          }, 1200);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            // Switch to Create tab
+            if (typeof teamSwitchTab === 'function') teamSwitchTab('create');
+          }, 2800);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            // Type demo team name
+            const nameInput = document.getElementById('team-create-name');
+            if (nameInput) { nameInput.value = ''; _tourTypeField(nameInput, 'Acme Sales Team'); }
+          }, 3500);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            // Type demo code
+            const codeInput = document.getElementById('team-create-code');
+            if (codeInput) { codeInput.value = ''; _tourTypeField(codeInput, 'ACME'); }
+          }, 5000);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            // Type demo PIN
+            const pinInput = document.getElementById('team-create-pin');
+            if (pinInput) { pinInput.value = ''; _tourTypeField(pinInput, '1234'); }
+          }, 6200);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            // Flash the create button
+            const btn = document.querySelector('#team-tab-create .team-btn-primary');
+            if (btn) { btn.style.boxShadow = '0 0 20px rgba(232,113,10,0.6)'; setTimeout(() => { btn.style.boxShadow = ''; }, 1000); }
+          }, 7500);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            // Switch to Join tab to show rep view
+            if (typeof teamSwitchTab === 'function') teamSwitchTab('join');
+          }, 9000);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            // Close the panel
+            if (typeof closeTeamPanel === 'function') closeTeamPanel();
+          }, 11000);
+        }
+      },
+      // 2. AI Coach
+      { selector: '#ai-coach-fab', title: 'PULSE AI Coach',
+        desc: 'Your AI sales advisor — click the brain icon anytime. Ask anything: slumping reps, pipeline problems, comp plans, hiring. Watch it open...',
+        label: 'Step 2 of 33',
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof toggleCoach === 'function') toggleCoach(); }, 1000);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const input = document.getElementById('coach-input');
+            if (input) _tourTypeField(input, 'My best rep just quit. What do I do?');
+          }, 2200);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            // Flash send button
+            const btn = document.getElementById('coach-send');
+            if (btn) { btn.style.boxShadow = '0 0 20px rgba(232,113,10,0.6)'; setTimeout(() => btn.style.boxShadow = '', 1000); }
+          }, 5000);
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof toggleCoach === 'function') toggleCoach(); }, 7000);
+        }
+      },
+      // 3. Revenue Intelligence & CRM
+      { selector: '#rev-intel-section', title: 'Revenue Intelligence & CRM',
+        desc: 'Your free built-in CRM. Add deals, import CSV/Excel, and PULSE auto-calculates projected revenue, win rates, funnel velocity, and deal risk. Sync live across all your devices.',
+        label: 'Step 3 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(); }, 800); }
+      },
+      // 4. Live Sync
+      { selector: '#sync-toggle-btn', title: 'Live Sync Across Devices',
+        desc: 'Click Sync, enter a code, and your CRM data streams live to every device — desktop, phone, tablet. Add a deal on your laptop, it appears on your phone instantly.',
+        label: 'Step 4 of 33',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            if (typeof openSyncPanel === 'function') openSyncPanel();
+          }, 1200);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const input = document.getElementById('sync-code-input');
+            if (input) _tourTypeField(input, 'ACME');
+          }, 2500);
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof closeSyncPanel === 'function') closeSyncPanel(); }, 5000);
+        }
+      },
+      // 5. Pulse MGMT
+      { selector: '#pulse-mgmt-section', title: 'Pulse MGMT — What To Do When...',
+        desc: 'A sales leader in your pocket. 35+ real-world problems with instant fixes. Click any question to see the answer. Search for anything — "turnover", "slump", "discount".',
+        label: 'Step 5 of 33',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            // Click the first question to demo the expand
+            const firstQ = document.querySelector('#mgmt-cards .mgmt-card button');
+            if (firstQ) firstQ.click();
+          }, 1500);
+        }
+      },
+      // 6. Custom Workspace
+      { selector: '#ws-enter-btn', title: 'Custom Workspace',
+        desc: 'Open multiple tools as floating windows — drag, resize, tile side by side. Build your own command center. Watch...',
+        label: 'Step 6 of 33',
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof wsEnter === 'function') wsEnter(); }, 1200);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            if (typeof wsPopOut === 'function') wsPopOut('rev-intel-section', 'Revenue Intelligence');
+          }, 2500);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            if (typeof wsPopOut === 'function') wsPopOut('coaching-section', 'Coaching');
+          }, 3500);
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof wsCloseAll === 'function') wsCloseAll(); }, 6000);
+        }
       },
       // ═══ SETUP ═══════════════════════════════════════════════════════════════════
       // 2. House Goals
@@ -10715,40 +10833,14 @@
         desc: 'Draft and publish professional press releases directly from PULSE. Fill in headline, date, body — publish or copy.',
         label: 'Step 25 of 33'
       },
-      // 26. Team Login
-      { selector: '#team-nav-btn', title: 'Team Login',
-        desc: 'Create a team or join one. Admins set up the team with a private PIN, add reps to the roster, and see everyone\'s data. Reps enter the team code, pick their name, and see only their own deals and scorecard. Real team management — no app download needed.',
-        label: 'Step 26 of 33'
-      },
-      // 27. AI Coach
-      { selector: '#ai-coach-fab', title: 'PULSE AI Coach',
-        desc: 'Click the brain icon anytime to chat with your AI sales coach. Ask anything — slumping reps, pipeline problems, comp plan questions, hiring decisions. Powered by AI, trained on real sales leadership methodology.',
-        label: 'Step 26 of 33',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof toggleCoach === 'function') toggleCoach(); }, 1000); }
-      },
-      // 27. Pulse MGMT
-      { selector: '#pulse-mgmt-section', title: 'Pulse MGMT — What To Do When...',
-        desc: 'A sales leader in your pocket. 35+ real-world problems organized by People, Money, Pipeline, Operations, and Leadership. Click any question to see the fix. Search for anything. This is your management playbook.',
-        label: 'Step 26 of 33'
-      },
       // ═══ POWER FEATURES ═══════════════════════════════════════════════════════════
-      // 27. Workspace Mode
-      { selector: '#ws-enter-btn', title: 'Custom Workspace',
-        desc: 'Click Workspace to open a floating canvas where you can tile multiple tools side by side. Drag to reposition, resize from the corner, open as many panels as you need. Build your own command center.',
-        label: 'Step 26 of 33'
-      },
-      // 27. Live Sync
-      { selector: '#sync-toggle-btn', title: 'Live Sync Across Devices',
-        desc: 'Click Sync, enter a code, and your CRM data streams live to every device — desktop, phone, tablet. Add a deal on your laptop and it appears on your phone instantly. No app download, no login.',
-        label: 'Step 27 of 33'
-      },
-      // 28. Command Palette & Shortcuts
+      // Command Palette & Shortcuts
       { selector: 'nav', title: 'Power User Shortcuts',
-        desc: 'Press Ctrl+K to open the Command Palette — search and jump to any tool instantly. Press ? to see all keyboard shortcuts. Press T for Tour, M for Music, F for Focus Mode. PULSE is built for speed.',
-        label: 'Step 28 of 33',
+        desc: 'Press Ctrl+K to open the Command Palette — search and jump to any tool instantly. Press ? to see all keyboard shortcuts. PULSE is built for speed.',
+        label: 'Step 32 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof openCmdPalette === 'function') openCmdPalette(); }, 1200); }
       },
-      // 29. Just for Fun
+      // Just for Fun
       { selector: '#just-for-fun', title: 'Just for Fun',
         desc: 'Every great platform needs a little chaos. Explore the crab heatmap and enjoy the side of RevOps that doesn\'t take itself too seriously.',
         label: 'Finish', last: true
@@ -10780,6 +10872,23 @@
     function _clearTourStepTimers() {
       _tourStepTimers.forEach(clearTimeout);
       _tourStepTimers = [];
+    }
+    // Animate typing into an input field for tour demos
+    function _tourTypeField(el, text) {
+      let i = 0;
+      el.value = '';
+      el.style.borderColor = 'rgba(232,113,10,0.6)';
+      function tick() {
+        if (!tourActive) return;
+        if (i <= text.length) {
+          el.value = text.slice(0, i);
+          i++;
+          setTimeout(tick, 70);
+        } else {
+          el.style.borderColor = '';
+        }
+      }
+      tick();
     }
 
     function _startCountdown(ms) {
