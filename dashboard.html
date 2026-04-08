@@ -10717,11 +10717,13 @@
         desc: 'Every shift costs money. PULSE calculates the minimum a rep must produce per shift to justify being there. Enter daily gross profit and it tells you exactly how many shifts you need — and where to put them.',
         label: 'Step 22 of 32'
       },
-      // 18. Coaching
+      // ═══ STEP 23 — COACHING ═══
       { selector: '#coaching-section', title: 'Coaching Action Items',
-        desc: 'One coaching move per Rhythm Level — sourced from Gartner, HBR, McKinsey, and PULSE field methodology.',
-        label: 'Step 18 of 32',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn('ai-coaching-btn'); if (typeof aiCoachingItems === 'function') aiCoachingItems(false); }, 800); }
+        desc: 'One specific coaching move for each Rhythm Level. Not theory — real actions sourced from Gartner, HBR, McKinsey, and years in the field. Hit the AI button and it generates them for your industry.',
+        label: 'Step 23 of 32',
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn('ai-coaching-btn'); if (typeof aiCoachingItems === 'function') aiCoachingItems(false); }, 3000);
+        }
       },
       // 19. 90-Day Plan
       { selector: '#plan-90', title: '90-Day Revenue Plan',
