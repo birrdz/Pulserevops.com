@@ -7705,24 +7705,16 @@
     }
 
     const TOUR_STEPS = [
-      // ── The rest of tour steps live on dashboard.html ────────────────────────────
-      // (placeholder so advanceTour doesn't immediately dismiss)
+      // Skip straight to dashboard tour — no landing page step
       {
         selector: 'nav',
-        title: 'Opening Pulse Check…',
-        desc: 'Taking you to the full dashboard tour now.',
-        label: 'Loading…',
+        title: '',
+        desc: '',
+        label: '',
         customNarration: true,
         onShow: () => {
-          if (!_narratorMuted && window.speechSynthesis) {
-            window.speechSynthesis.cancel();
-            _withVoices(() => _doSpeak(
-              'Welcome to Pulse. Get in Rhythm. Now with a built-in CRM, predictive forecasting, pipeline tracking, and deal risk alerts. Real tools. No contracts. No credit card. No catch. Built by a CRO who has actually done it. Do you feel it?',
-              _tourStepAdvance
-            ));
-          } else {
-            if (_tourStepAdvance) _tourStepAdvance();
-          }
+          // Go directly to dashboard tour
+          window.location.href = 'dashboard.html?tour=1';
         }
       }
     ];
