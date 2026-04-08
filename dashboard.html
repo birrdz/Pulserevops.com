@@ -10688,11 +10688,13 @@
           _schedTourTimer(() => { if (!tourActive) return; const fp = document.getElementById('ai-forecast-panel'); if (fp) fp.style.display = 'block'; }, 2000);
         }
       },
-      // 13. Team Distribution
+      // ═══ STEP 18 — TEAM DISTRIBUTION ═══
       { selector: '.tier-dist-wrap', title: 'Team Distribution',
-        desc: 'See how your full team projects across all 5 tiers before the month starts. Coach proactively, not reactively.',
-        label: 'Step 13 of 32',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; try { if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 400); }
+        desc: 'Before the month even starts, see where your whole team is projected to land across all 5 Rhythm Levels. Spot problems early. Coach proactively instead of reacting at month-end.',
+        label: 'Step 18 of 32',
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 2000);
+        }
       },
       // ═══ FINANCIAL TOOLS ═════════════════════════════════════════════════════════
       // 14. Gross Profit Calculator
