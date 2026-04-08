@@ -10653,12 +10653,13 @@
         desc: 'Your progress saves automatically. Use the Locker Room to save with a 4-digit code — load it on any device. Or import your existing goals from a CSV or Excel file.',
         label: 'Step 12 of 32'
       },
-      // ═══ PULSE CHECK ═════════════════════════════════════════════════════════════
-      // 8. Sync Toggle
-      { selector: '#sync-toggle-wrap', title: 'Sync to Pulse Check',
-        desc: 'One toggle bridges house goals to the Pulse Check. All 5 Rhythm Levels across every KPI populate automatically.',
-        label: 'Step 8 of 32',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; const tog = document.getElementById('sync-toggle-input'); if (tog && !tog.checked) tog.click(); }, 1000); }
+      // ═══ STEP 13 — SYNC TO PULSE CHECK ═══
+      { selector: '#sync-toggle-wrap', title: 'Sync Goals to Pulse Check',
+        desc: 'One toggle. That\'s all it takes. Your house goals flow into the Pulse Check — 5 Rhythm Levels across every KPI, built automatically. Watch it sync.',
+        label: 'Step 13 of 32',
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; const tog = document.getElementById('sync-toggle-input'); if (tog && !tog.checked) tog.click(); }, 3000);
+        }
       },
       // 9. Pulse Check
       { selector: '#inline-matrix', title: 'Pulse Check',
