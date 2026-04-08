@@ -7199,7 +7199,7 @@
         <button class="narrator-btn" onclick="toggleMute()" style="flex-shrink:0;background:rgba(191,88,0,0.15);border:1px solid rgba(191,88,0,0.4);border-radius:20px;color:#FF8C1A;font-size:0.78rem;font-weight:700;padding:7px 14px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='rgba(191,88,0,0.28)'" onmouseout="this.style.background='rgba(191,88,0,0.15)'" title="Mute narrator">🔊 Mute</button>
       </div>
       <p style="font-size:0.95rem;color:#9A9088;line-height:1.8;margin-bottom:14px;"><strong style="color:#EDE5D8;">My free-to-play framework</strong> to help startups and SMBs save time, prevent mistakes, and start winning today. These are just a few of the things I learned along the way.</p>
-      <p style="font-size:0.9rem;color:#9A9088;line-height:1.75;margin-bottom:20px;">Consume as much as you want — save your progress — all I ask is you <strong style="color:#EDE5D8;">pay it forward.</strong> <span style="color:#E8710A;font-weight:700;">Feel the Pulse!</span></p>
+      <p style="font-size:0.9rem;color:#9A9088;line-height:1.75;margin-bottom:20px;">Consume as much as you want — save your progress — all I ask is you <strong style="color:#EDE5D8;">pay it forward.</strong> <span style="color:#E8710A;font-weight:700;">Do you feel it?</span></p>
       <p id="disclaimer-auto-hint" style="font-size:0.74rem;color:#6B6460;line-height:1.55;margin-bottom:18px;">Next step in <strong id="disclaimer-sec-left" style="color:#9A9088;font-weight:700;">10</strong>s — or continue now below.</p>
       <button onclick="dismissDisclaimer()" style="padding:14px 36px;border-radius:12px;border:none;background:linear-gradient(135deg,#BF5800,#bf5800);color:#fff;font-size:0.88rem;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:0.06em;transition:all 0.2s;box-shadow:0 0 24px rgba(191,88,0,0.3);">Got It — Show Me How It Works</button>
     </div>
@@ -7712,7 +7712,7 @@
           if (!_narratorMuted && window.speechSynthesis) {
             window.speechSynthesis.cancel();
             _withVoices(() => _doSpeak(
-              'Welcome to PulseRevOps dot com. My free-to-play framework to help startups and SMBs save time, prevent mistakes, and start winning today. These are just a few of the things I learned along the way. Consume as much as you want. All I ask is you pay it forward. Feel the Pulse!',
+              'Welcome to Pulse. Revenue in Rhythm. Now with a built-in CRM, predictive forecasting, pipeline tracking, and deal risk alerts. Real tools. No contracts. No credit card. No catch. Built by a CRO who has actually done it. Do you feel it?',
               _tourStepAdvance
             ));
           } else {
@@ -8361,7 +8361,7 @@
 
     // ── POPUP VOICE NARRATION ──
     const _NARRATOR_TEXT = 'Welcome to PulseRevOps dot com.';
-    const _MONOLOGUE_TEXT = "Welcome to PulseRevOps dot com. My free-to-play framework to help startups and SMBs save time, prevent mistakes, and start winning today. These are just a few of the things I learned along the way. Consume as much as you want. Save your progress. All I ask is you pay it forward. Feel the Pulse!";
+    const _MONOLOGUE_TEXT = "Welcome to Pulse. Revenue in Rhythm. Now with a built-in CRM, predictive forecasting, pipeline tracking, and deal risk alerts. Real tools. No contracts. No credit card. No catch. Built by a CRO who has actually done it. Do you feel it?";
 
     let _narratorMuted = false;
     let _narratorGestureQueued = false;
