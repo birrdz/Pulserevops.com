@@ -3303,6 +3303,75 @@
     #ws-panel-container { position: fixed; inset: 0; z-index: 499; pointer-events: none; display: none; }
     #ws-panel-container.active { display: block; pointer-events: all; background: #1a1d21; }
     #ws-panel-container .ws-panel { pointer-events: all; }
+    /* ── TEAM LOGIN SYSTEM ── */
+    #team-overlay {
+      display:none; position:fixed; inset:0; z-index:99997;
+      background:rgba(0,0,0,0.8); backdrop-filter:blur(10px);
+      align-items:center; justify-content:center;
+    }
+    #team-overlay.open { display:flex; }
+    #team-panel {
+      width:440px; max-width:92vw; background:rgba(10,14,20,0.98);
+      border:1px solid var(--border); border-radius:18px;
+      box-shadow:0 24px 80px rgba(0,0,0,0.6); padding:32px; font-family:inherit;
+    }
+    #team-panel h3 { margin:0 0 4px; font-size:1.1rem; font-weight:900; color:var(--text); }
+    #team-panel .team-sub { font-size:0.72rem; color:var(--muted); margin-bottom:20px; line-height:1.6; }
+    .team-tabs { display:flex; gap:2px; margin-bottom:20px; background:rgba(0,0,0,0.3); border-radius:10px; padding:3px; }
+    .team-tab {
+      flex:1; padding:9px 14px; font-size:0.75rem; font-weight:700; text-align:center;
+      cursor:pointer; border-radius:8px; color:var(--muted); transition:all 0.15s;
+      border:none; background:transparent; font-family:inherit;
+    }
+    .team-tab.active { background:rgba(232,113,10,0.15); color:#E8710A; }
+    .team-input {
+      width:100%; padding:12px 16px; background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08); border-radius:10px;
+      color:var(--text); font-size:0.85rem; font-family:inherit; outline:none;
+      transition:border-color 0.15s; margin-bottom:10px; box-sizing:border-box;
+    }
+    .team-input:focus { border-color:rgba(232,113,10,0.5); }
+    .team-input::placeholder { color:rgba(226,232,240,0.2); }
+    .team-input-label { font-size:0.65rem; font-weight:700; color:var(--muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em; }
+    .team-btn {
+      width:100%; padding:12px; border-radius:10px; font-size:0.85rem; font-weight:800;
+      cursor:pointer; font-family:inherit; border:none; transition:all 0.15s; margin-top:6px;
+    }
+    .team-btn-primary { background:linear-gradient(135deg,rgba(232,113,10,0.3),rgba(232,113,10,0.15)); color:#E8710A; border:1.5px solid rgba(232,113,10,0.5); }
+    .team-btn-primary:hover { background:linear-gradient(135deg,rgba(232,113,10,0.4),rgba(232,113,10,0.25)); }
+    .team-status { font-size:0.72rem; font-weight:700; min-height:20px; text-align:center; margin-top:10px; }
+    .team-status.ok { color:#22c55e; }
+    .team-status.err { color:#ef4444; }
+    /* Team bar when logged in */
+    #team-bar {
+      display:none; position:fixed; top:0; left:0; right:0; z-index:102;
+      height:26px; background:rgba(34,197,94,0.08);
+      border-bottom:1px solid rgba(34,197,94,0.2);
+      font-size:0.6rem; font-weight:700; color:#22c55e;
+      align-items:center; justify-content:center; gap:12px;
+      letter-spacing:0.06em;
+    }
+    #team-bar.active { display:flex; }
+    #team-bar .team-bar-name { color:var(--text); }
+    #team-bar .team-bar-role { color:#E8710A; text-transform:uppercase; letter-spacing:0.1em; font-size:0.55rem; }
+    #team-bar button {
+      background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+      border-radius:4px; color:var(--muted); font-size:0.55rem; padding:2px 8px;
+      cursor:pointer; font-family:inherit;
+    }
+    /* Admin roster */
+    .team-roster-item {
+      display:flex; align-items:center; gap:10px; padding:8px 12px;
+      background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05);
+      border-radius:8px; margin-bottom:4px;
+    }
+    .team-roster-name { flex:1; font-size:0.78rem; color:var(--text); font-weight:600; }
+    .team-roster-remove {
+      background:none; border:none; color:rgba(239,68,68,0.5); cursor:pointer;
+      font-size:0.7rem; padding:2px 6px;
+    }
+    .team-roster-remove:hover { color:#ef4444; }
+
     /* ── AI COACH CHAT ── */
     #ai-coach-fab {
       position: fixed; bottom: 24px; right: 24px; z-index: 998;
@@ -3590,6 +3659,7 @@
         </div>
       </div>
       <a id="dashboard-back-btn" href="index.html" style="display:none; align-items:center; gap:5px; padding:7px 13px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); color:#9A9088; font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; white-space:nowrap; transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='#EDE5D8'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.color='#9A9088'">← Full Site</a>
+      <button type="button" id="team-nav-btn" onclick="openTeamPanel()" title="Team Login — create or join a team" style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.35);border-radius:8px;color:#22c55e;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(34,197,94,0.2)'" onmouseout="this.style.background='rgba(34,197,94,0.08)'">👥 Team</button>
       <a href="index.html" title="Home" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:#9A9088;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='#EDE5D8'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.color='#9A9088'">🏠 Home</a>
       <button type="button" id="ws-enter-btn" onclick="wsEnter()" title="Open Workspace — drag, resize, and tile multiple tools" style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.35);border-radius:8px;color:#22c55e;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(34,197,94,0.2)'" onmouseout="this.style.background='rgba(34,197,94,0.08)'">⊞ Workspace</button>
       <button type="button" onclick="lockerOpen()" title="Locker Room" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Locker</button>
@@ -5565,6 +5635,80 @@
         <div style="font-size:0.72rem;font-weight:700;color:var(--text);margin-bottom:8px;">Or paste CSV data:</div>
         <textarea id="ri-paste-area" placeholder="Deal Name, Rep, Value, Stage, Date Added, Last Activity&#10;Acme Corp, John, 5000, Proposal, 2025-01-15, 2025-03-20" style="width:100%;height:100px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;color:var(--text);font-family:monospace;font-size:0.72rem;resize:vertical;outline:none;"></textarea>
         <button class="ri-btn-primary" onclick="riParsePaste()" style="margin-top:10px;">Import Pasted Data</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TEAM BAR (shown when logged in) ── -->
+  <div id="team-bar">
+    <span>Team: <span class="team-bar-name" id="team-bar-name">—</span></span>
+    <span class="team-bar-role" id="team-bar-role">—</span>
+    <span id="team-bar-user"></span>
+    <button onclick="teamLogout()">Leave</button>
+    <button onclick="openTeamPanel()" id="team-bar-manage" style="display:none;">Manage</button>
+  </div>
+
+  <!-- ── TEAM LOGIN OVERLAY ── -->
+  <div id="team-overlay" onclick="if(event.target===this)closeTeamPanel()">
+    <div id="team-panel">
+      <h3>Team Login</h3>
+      <div class="team-sub">Create a team or join an existing one. Admins see everything. Reps see their own data.</div>
+
+      <div class="team-tabs" id="team-tabs">
+        <button class="team-tab active" onclick="teamSwitchTab('join')">Join Team</button>
+        <button class="team-tab" onclick="teamSwitchTab('create')">Create Team</button>
+        <button class="team-tab" onclick="teamSwitchTab('admin')">Admin Login</button>
+      </div>
+
+      <!-- JOIN TAB -->
+      <div id="team-tab-join">
+        <div class="team-input-label">Team Code</div>
+        <input class="team-input" id="team-join-code" placeholder="e.g. ACME" autocomplete="off" spellcheck="false" style="text-transform:uppercase;">
+        <div class="team-input-label">Your Name</div>
+        <select class="team-input" id="team-join-name" style="cursor:pointer;">
+          <option value="">Loading roster...</option>
+        </select>
+        <button class="team-btn team-btn-primary" onclick="teamJoinAsRep()">Join as Rep</button>
+        <div class="team-status" id="team-join-status"></div>
+      </div>
+
+      <!-- CREATE TAB -->
+      <div id="team-tab-create" style="display:none;">
+        <div class="team-input-label">Team Name</div>
+        <input class="team-input" id="team-create-name" placeholder="e.g. ACME Sales" autocomplete="off">
+        <div class="team-input-label">Team Code (reps will use this)</div>
+        <input class="team-input" id="team-create-code" placeholder="e.g. ACME" autocomplete="off" spellcheck="false" style="text-transform:uppercase;" maxlength="12">
+        <div class="team-input-label">Admin PIN (only you know this)</div>
+        <input class="team-input" id="team-create-pin" type="password" placeholder="4-digit PIN" maxlength="4" inputmode="numeric">
+        <button class="team-btn team-btn-primary" onclick="teamCreate()">Create Team</button>
+        <div class="team-status" id="team-create-status"></div>
+      </div>
+
+      <!-- ADMIN TAB -->
+      <div id="team-tab-admin" style="display:none;">
+        <div class="team-input-label">Team Code</div>
+        <input class="team-input" id="team-admin-code" placeholder="e.g. ACME" autocomplete="off" spellcheck="false" style="text-transform:uppercase;">
+        <div class="team-input-label">Admin PIN</div>
+        <input class="team-input" id="team-admin-pin" type="password" placeholder="4-digit PIN" maxlength="4" inputmode="numeric">
+        <button class="team-btn team-btn-primary" onclick="teamAdminLogin()">Login as Admin</button>
+        <div class="team-status" id="team-admin-status"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ADMIN ROSTER PANEL (shown after admin login) ── -->
+  <div id="team-roster-overlay" style="display:none;position:fixed;inset:0;z-index:99996;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);align-items:center;justify-content:center;" onclick="if(event.target===this)this.style.display='none'">
+    <div style="width:420px;max-width:92vw;background:rgba(10,14,20,0.98);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.6);padding:28px;font-family:inherit;">
+      <h3 style="margin:0 0 4px;font-size:1rem;font-weight:900;color:var(--text);">Manage Roster</h3>
+      <div style="font-size:0.68rem;color:var(--muted);margin-bottom:16px;">Add or remove reps. They'll see their name when they join with the team code.</div>
+      <div id="team-roster-list" style="margin-bottom:14px;max-height:300px;overflow-y:auto;"></div>
+      <div style="display:flex;gap:8px;">
+        <input class="team-input" id="team-add-rep-input" placeholder="Rep name" style="margin-bottom:0;flex:1;">
+        <button class="team-btn team-btn-primary" onclick="teamAddRep()" style="width:auto;padding:10px 20px;">Add</button>
+      </div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.04);">
+        <div style="font-size:0.62rem;color:var(--muted);margin-bottom:6px;">Team Code for reps:</div>
+        <div id="team-roster-code" style="font-size:1.2rem;font-weight:900;letter-spacing:0.2em;color:#E8710A;"></div>
       </div>
     </div>
   </div>
@@ -10427,25 +10571,25 @@
       // 1. Revenue Intelligence & CRM
       { selector: '#rev-intel-section', title: 'Revenue Intelligence & CRM',
         desc: 'Your free built-in CRM. Add deals, import CSV/Excel, and PULSE auto-calculates projected revenue, win rates, funnel velocity, and deal risk. Sync live across all your devices. This is your command center.',
-        label: 'Step 1 of 31',
+        label: 'Step 1 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(); }, 800); }
       },
       // ═══ SETUP ═══════════════════════════════════════════════════════════════════
       // 2. House Goals
       { selector: '#house-goal-table', title: 'House Goal Setting',
         desc: 'Set your total monthly company targets for each KPI. PULSE auto-divides by rep count — watch the demo data fill in now.',
-        label: 'Step 2 of 31',
+        label: 'Step 2 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof runTourDemoData === 'function') runTourDemoData(); }, 1200); }
       },
       // 3. Team Size
       { selector: '#house-rep-count', title: 'Team Size',
         desc: 'Set your rep count. PULSE divides every house goal by this number instantly — fair, mathematical targets per rep.',
-        label: 'Step 3 of 31'
+        label: 'Step 3 of 33'
       },
       // 4. Industry Preset
       { selector: '#global-industry-select', title: 'Industry Preset',
         desc: 'Pick your industry and watch every KPI, benchmark, and AI suggestion recalibrate instantly. 35+ verticals supported.',
-        label: 'Step 4 of 31',
+        label: 'Step 4 of 33',
         onShow: () => { const sel = document.getElementById('global-industry-select'); if (!sel) return;
           ['solar','saas','insurance','realestate','healthcare'].forEach((ind, i) => {
             _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn(sel); sel.value = ind; sel.dispatchEvent(new Event('change', { bubbles: true })); }, 1000 + i * 1200);
@@ -10455,148 +10599,153 @@
       // 5. KPI Type Toggle
       { selector: '.kpi-type-select', title: 'Total vs. Percentage Goals',
         desc: 'Toggle each KPI between Total and Percentage. Pro tip: % goals backfire — reps shrink volume to protect their rate. Always use totals.',
-        label: 'Step 5 of 31'
+        label: 'Step 5 of 33'
       },
       // 6. AI Goal Suggestions
       { selector: '.ai-btn[onclick*="aiSuggestGoals"]', title: 'AI Goal Suggestions',
         desc: 'Not sure where to start? AI analyzes benchmarks for your industry and rep count, then recommends a baseline.',
-        label: 'Step 6 of 31',
+        label: 'Step 6 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn(document.querySelector('.ai-btn[onclick*="aiSuggestGoals"]')); if (typeof aiSuggestGoals === 'function') aiSuggestGoals(); }, 800); }
       },
       // 7. Locker Room + Import
       { selector: '.kpi-config-panel', title: 'Save, Load & Import',
         desc: 'Hit Save/Load to open the Locker Room — enter a 4-digit code to save or restore your setup. Import goals from CSV/Excel or download a template.',
-        label: 'Step 7 of 31'
+        label: 'Step 7 of 33'
       },
       // ═══ PULSE CHECK ═════════════════════════════════════════════════════════════
       // 8. Sync Toggle
       { selector: '#sync-toggle-wrap', title: 'Sync to Pulse Check',
         desc: 'One toggle bridges house goals to the Pulse Check. All 5 Rhythm Levels across every KPI populate automatically.',
-        label: 'Step 8 of 31',
+        label: 'Step 8 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; const tog = document.getElementById('sync-toggle-input'); if (tog && !tog.checked) tog.click(); }, 1000); }
       },
       // 9. Pulse Check
       { selector: '#inline-matrix', title: 'Pulse Check',
         desc: 'The engine. 5 Rhythm Levels per KPI, escalating targets, points per tier — all rolling into one total score. No cherry-picking.',
-        label: 'Step 9 of 31',
+        label: 'Step 9 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 600); }
       },
       // 10. Intensity Modes
       { selector: '#goal-mode-selector', title: 'Intensity Modes',
         desc: 'Push (+10%), Standard, or Ramp (−10%). One click scales every target up or down for aggressive months, new hires, or soft markets.',
-        label: 'Step 10 of 31'
+        label: 'Step 10 of 33'
       },
       // 11. End-of-Month Scoring
       { selector: '#inline-matrix', title: 'End-of-Month Scoring',
         desc: 'Month closes, PULSE scores every rep automatically. Each KPI maps to a tier, tiers earn points, points determine the bonus level.',
-        label: 'Step 11 of 31', managedTimer: true,
+        label: 'Step 11 of 33', managedTimer: true,
         onShow: () => { showTourScorecard(); }
       },
       // ═══ FORECASTING ═════════════════════════════════════════════════════════════
       // 12. AI Revenue Forecast
       { selector: '#ai-forecast-panel', title: 'AI Revenue Forecast',
         desc: 'Projected revenue, at-risk reps, and attainment likelihood — all based on your current targets.',
-        label: 'Step 12 of 31',
+        label: 'Step 12 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; const fp = document.getElementById('ai-forecast-panel'); if (fp) fp.style.display = 'block'; }, 400); }
       },
       // 13. Team Distribution
       { selector: '.tier-dist-wrap', title: 'Team Distribution',
         desc: 'See how your full team projects across all 5 tiers before the month starts. Coach proactively, not reactively.',
-        label: 'Step 13 of 31',
+        label: 'Step 13 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; try { if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 400); }
       },
       // ═══ FINANCIAL TOOLS ═════════════════════════════════════════════════════════
       // 14. Gross Profit Calculator
       { selector: '#profit-calc-section', title: 'Gross Profit Calculator',
         desc: 'Toggle each KPI between MRR and Per Unit Profit. PULSE calculates projected revenue in real time.',
-        label: 'Step 14 of 31'
+        label: 'Step 14 of 33'
       },
       // 15. Service Fees
       { selector: '#service-fees-section', title: 'Service Fees',
         desc: 'Add up to 5 service fees with attach rate and monthly units. PULSE calculates the exact bottom-line impact in real time.',
-        label: 'Step 15 of 31'
+        label: 'Step 15 of 33'
       },
       // 16. Recruiting Calculator
       { selector: '#recruiting-calc-section', title: 'Recruiting Calculator',
         desc: 'Enter target ARR, current ARR, quota, ramp time, and attrition. PULSE outputs exactly how many hires you need.',
-        label: 'Step 16 of 31'
+        label: 'Step 16 of 33'
       },
       // ═══ OPERATIONS ══════════════════════════════════════════════════════════════
       // 17. Rep Scheduling
       { selector: '#sched-matrix-section', title: 'Rep Scheduling Matrix',
         desc: 'The GP-per-shift rate is your "get out of bed" number — the minimum a rep must produce per shift to justify being there. PULSE divides daily GP by that rate to calculate shifts needed. AI Optimize redistributes across the week by revenue weight.',
-        label: 'Step 17 of 31'
+        label: 'Step 17 of 33'
       },
       // 18. Coaching
       { selector: '#coaching-section', title: 'Coaching Action Items',
         desc: 'One coaching move per Rhythm Level — sourced from Gartner, HBR, McKinsey, and PULSE field methodology.',
-        label: 'Step 18 of 31',
+        label: 'Step 18 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn('ai-coaching-btn'); if (typeof aiCoachingItems === 'function') aiCoachingItems(false); }, 800); }
       },
       // 19. 90-Day Plan
       { selector: '#plan-90', title: '90-Day Revenue Plan',
         desc: 'Three 30-day phases: establish, build, accelerate. The exact framework for ramping a new market or resetting a team.',
-        label: 'Step 19 of 31'
+        label: 'Step 19 of 33'
       },
       // 20. Not-To-Do List
       { selector: '#not-to-do-section', title: 'The Not-To-Do List',
         desc: 'Protect rep selling time. Gartner says reps sell only 28% of the week — every non-selling task you remove is revenue recovered.',
-        label: 'Step 20 of 31'
+        label: 'Step 20 of 33'
       },
       // ═══ ENGAGEMENT ══════════════════════════════════════════════════════════════
       // 21. Lightning Rounds
       { selector: '#challenge-section', title: 'Lightning Rounds',
         desc: 'Drop a time-boxed competition on any KPI with bonus Pulse Points. Perfect for mid-month energy spikes.',
-        label: 'Step 21 of 31'
+        label: 'Step 21 of 33'
       },
       // 22. Squad Sync
       { selector: '#app-sync-section', title: 'Squad Sync',
         desc: 'Real-time updates pushed to every rep\'s phone — scores, bonus levels, and active Lightning Rounds. No login required.',
-        label: 'Step 22 of 31'
+        label: 'Step 22 of 33'
       },
       // ═══ AI TOOLS ════════════════════════════════════════════════════════════════
       // 23. Sales Meeting Creator
       { selector: '#meeting-creator-section', title: 'Sales Meeting Creator',
         desc: 'AI generates a full 60–90 minute meeting script with timestamps, role plays, energy breaks, and memes.',
-        label: 'Step 23 of 31'
+        label: 'Step 23 of 33'
       },
       // 24. Toasts & Speeches
       { selector: '#team-speeches-section', title: 'Team Toasts & Speeches',
         desc: 'Generate custom toasts for any occasion — dinners, promotions, farewells. Pick the tone and AI writes it ready to read aloud.',
-        label: 'Step 24 of 31'
+        label: 'Step 24 of 33'
       },
       // ═══ NAVIGATION & EXTRAS ═════════════════════════════════════════════════════
       // 25. Press Releases
       { selector: '#press-admin-section', title: 'Press Release Builder',
         desc: 'Draft and publish professional press releases directly from PULSE. Fill in headline, date, body — publish or copy.',
-        label: 'Step 25 of 31'
+        label: 'Step 25 of 33'
       },
-      // 26. AI Coach
+      // 26. Team Login
+      { selector: '#team-nav-btn', title: 'Team Login',
+        desc: 'Create a team or join one. Admins set up the team with a private PIN, add reps to the roster, and see everyone\'s data. Reps enter the team code, pick their name, and see only their own deals and scorecard. Real team management — no app download needed.',
+        label: 'Step 26 of 33'
+      },
+      // 27. AI Coach
       { selector: '#ai-coach-fab', title: 'PULSE AI Coach',
         desc: 'Click the brain icon anytime to chat with your AI sales coach. Ask anything — slumping reps, pipeline problems, comp plan questions, hiring decisions. Powered by AI, trained on real sales leadership methodology.',
-        label: 'Step 26 of 31',
+        label: 'Step 26 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof toggleCoach === 'function') toggleCoach(); }, 1000); }
       },
       // 27. Pulse MGMT
       { selector: '#pulse-mgmt-section', title: 'Pulse MGMT — What To Do When...',
         desc: 'A sales leader in your pocket. 35+ real-world problems organized by People, Money, Pipeline, Operations, and Leadership. Click any question to see the fix. Search for anything. This is your management playbook.',
-        label: 'Step 26 of 31'
+        label: 'Step 26 of 33'
       },
       // ═══ POWER FEATURES ═══════════════════════════════════════════════════════════
       // 27. Workspace Mode
       { selector: '#ws-enter-btn', title: 'Custom Workspace',
         desc: 'Click Workspace to open a floating canvas where you can tile multiple tools side by side. Drag to reposition, resize from the corner, open as many panels as you need. Build your own command center.',
-        label: 'Step 26 of 31'
+        label: 'Step 26 of 33'
       },
       // 27. Live Sync
       { selector: '#sync-toggle-btn', title: 'Live Sync Across Devices',
         desc: 'Click Sync, enter a code, and your CRM data streams live to every device — desktop, phone, tablet. Add a deal on your laptop and it appears on your phone instantly. No app download, no login.',
-        label: 'Step 27 of 31'
+        label: 'Step 27 of 33'
       },
       // 28. Command Palette & Shortcuts
       { selector: 'nav', title: 'Power User Shortcuts',
         desc: 'Press Ctrl+K to open the Command Palette — search and jump to any tool instantly. Press ? to see all keyboard shortcuts. Press T for Tour, M for Music, F for Focus Mode. PULSE is built for speed.',
-        label: 'Step 28 of 31',
+        label: 'Step 28 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof openCmdPalette === 'function') openCmdPalette(); }, 1200); }
       },
       // 29. Just for Fun
@@ -11491,6 +11640,8 @@
       document.body.style.zoom = ''; // reset tour zoom
       tourPaused = false;
       hideTourScorecard();
+      // Show email capture after tour
+      setTimeout(() => { if (typeof showEmailCapture === 'function') showEmailCapture(); }, 2000);
     }
 
     let _focusOn = false;
@@ -15109,6 +15260,269 @@
     /* ─── INIT ─── */
     window.renderDeals = renderDeals;
     renderDeals();
+  })();
+  </script>
+
+  <!-- POST-TOUR EMAIL CAPTURE -->
+  <div id="email-capture-overlay" style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);align-items:center;justify-content:center;" onclick="if(event.target===this)closeEmailCapture()">
+    <div style="width:420px;max-width:92vw;background:rgba(10,14,20,0.98);border:1px solid var(--border);border-radius:18px;box-shadow:0 24px 80px rgba(0,0,0,0.6);padding:36px;text-align:center;font-family:inherit;">
+      <div style="font-size:2rem;margin-bottom:8px;">📊</div>
+      <h3 style="font-size:1.1rem;font-weight:900;color:var(--text);margin:0 0 6px;">Stay in the loop.</h3>
+      <p style="font-size:0.78rem;color:var(--muted);line-height:1.6;margin-bottom:20px;">Enter your email to get weekly pipeline insights, tips, and updates. We'll never spam you.</p>
+      <input id="email-capture-input" type="email" placeholder="you@company.com" style="width:100%;padding:14px 18px;background:rgba(255,255,255,0.03);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-size:0.9rem;font-family:inherit;outline:none;text-align:center;box-sizing:border-box;transition:border-color 0.15s;margin-bottom:12px;" onfocus="this.style.borderColor='rgba(232,113,10,0.5)'" onblur="this.style.borderColor='rgba(232,113,10,0.28)'" onkeydown="if(event.key==='Enter')submitEmailCapture()">
+      <button onclick="submitEmailCapture()" style="width:100%;padding:13px;background:linear-gradient(135deg,rgba(232,113,10,0.3),rgba(232,113,10,0.15));border:1.5px solid rgba(232,113,10,0.5);border-radius:12px;color:#E8710A;font-size:0.88rem;font-weight:800;cursor:pointer;font-family:inherit;transition:all 0.15s;margin-bottom:10px;">Check the Pulse</button>
+      <button onclick="closeEmailCapture()" style="background:none;border:none;color:var(--muted);font-size:0.72rem;cursor:pointer;font-family:inherit;">Maybe later</button>
+      <div id="email-capture-status" style="margin-top:10px;font-size:0.72rem;font-weight:700;min-height:18px;"></div>
+    </div>
+  </div>
+  <script>
+  window.showEmailCapture = function() {
+    if (localStorage.getItem('pulse_email_captured')) return;
+    document.getElementById('email-capture-overlay').style.display = 'flex';
+    setTimeout(() => document.getElementById('email-capture-input')?.focus(), 100);
+  };
+  window.closeEmailCapture = function() {
+    document.getElementById('email-capture-overlay').style.display = 'none';
+    localStorage.setItem('pulse_email_dismissed', Date.now().toString());
+  };
+  window.submitEmailCapture = function() {
+    const input = document.getElementById('email-capture-input');
+    const email = input.value.trim();
+    const status = document.getElementById('email-capture-status');
+    if (!email || !email.includes('@')) { status.innerHTML = '<span style="color:#ef4444;">Enter a valid email</span>'; return; }
+    // Save to Firebase
+    const FB = 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
+    const key = email.replace(/[.#$/\[\]@]/g, '_');
+    fetch(FB + '/emails/' + key + '.json', {
+      method: 'PUT',
+      body: JSON.stringify({ email, ts: Date.now() })
+    }).then(() => {
+      status.innerHTML = '<span style="color:#22c55e;">You\'re in! Check your inbox soon.</span>';
+      localStorage.setItem('pulse_email_captured', email);
+      setTimeout(closeEmailCapture, 2000);
+    }).catch(() => {
+      status.innerHTML = '<span style="color:#ef4444;">Error — try again</span>';
+    });
+  };
+  // Show after tour ends or skip, or after 60 seconds on site
+  if (!localStorage.getItem('pulse_email_captured') && !localStorage.getItem('pulse_email_dismissed')) {
+    setTimeout(showEmailCapture, 60000);
+  }
+  </script>
+
+  <!-- TEAM LOGIN ENGINE -->
+  <script>
+  (function() {
+    'use strict';
+    const FB = 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
+    const TEAM_LS = 'pulse_team_session';
+    let _teamSession = null; // { code, name, role, pin, teamName }
+
+    window.openTeamPanel = function() {
+      if (_teamSession && _teamSession.role === 'admin') {
+        openRosterPanel();
+        return;
+      }
+      document.getElementById('team-overlay').classList.add('open');
+    };
+
+    window.closeTeamPanel = function() {
+      document.getElementById('team-overlay').classList.remove('open');
+    };
+
+    window.teamSwitchTab = function(tab) {
+      ['join','create','admin'].forEach(t => {
+        document.getElementById('team-tab-' + t).style.display = t === tab ? 'block' : 'none';
+      });
+      document.querySelectorAll('.team-tab').forEach((btn, i) => {
+        btn.classList.toggle('active', ['join','create','admin'][i] === tab);
+      });
+    };
+
+    // ── CREATE TEAM ──
+    window.teamCreate = async function() {
+      const name = document.getElementById('team-create-name').value.trim();
+      const code = document.getElementById('team-create-code').value.trim().toUpperCase();
+      const pin = document.getElementById('team-create-pin').value.trim();
+      const status = document.getElementById('team-create-status');
+
+      if (!name || !code || !pin) { status.innerHTML = '<span class="err">Fill all fields</span>'; return; }
+      if (code.length < 3) { status.innerHTML = '<span class="err">Code must be 3+ characters</span>'; return; }
+      if (pin.length !== 4 || !/^\d{4}$/.test(pin)) { status.innerHTML = '<span class="err">PIN must be exactly 4 digits</span>'; return; }
+
+      // Check if team exists
+      try {
+        const existing = await fetch(FB + '/teams/' + code + '/name.json').then(r => r.json());
+        if (existing) { status.innerHTML = '<span class="err">Team code "' + code + '" already taken</span>'; return; }
+      } catch(e) {}
+
+      // Create team
+      await fetch(FB + '/teams/' + code + '.json', {
+        method: 'PUT',
+        body: JSON.stringify({ name, pin, created: Date.now(), reps: {} })
+      });
+
+      _teamSession = { code, name: 'Admin', role: 'admin', pin, teamName: name };
+      localStorage.setItem(TEAM_LS, JSON.stringify(_teamSession));
+      updateTeamBar();
+      closeTeamPanel();
+      status.innerHTML = '<span class="ok">Team created!</span>';
+
+      // Open roster to add reps
+      setTimeout(() => openRosterPanel(), 500);
+    };
+
+    // ── ADMIN LOGIN ──
+    window.teamAdminLogin = async function() {
+      const code = document.getElementById('team-admin-code').value.trim().toUpperCase();
+      const pin = document.getElementById('team-admin-pin').value.trim();
+      const status = document.getElementById('team-admin-status');
+
+      if (!code || !pin) { status.innerHTML = '<span class="err">Enter code and PIN</span>'; return; }
+
+      try {
+        const team = await fetch(FB + '/teams/' + code + '.json').then(r => r.json());
+        if (!team) { status.innerHTML = '<span class="err">Team not found</span>'; return; }
+        if (team.pin !== pin) { status.innerHTML = '<span class="err">Wrong PIN</span>'; return; }
+
+        _teamSession = { code, name: 'Admin', role: 'admin', pin, teamName: team.name };
+        localStorage.setItem(TEAM_LS, JSON.stringify(_teamSession));
+        updateTeamBar();
+        closeTeamPanel();
+        status.innerHTML = '<span class="ok">Welcome back, Admin</span>';
+      } catch(e) {
+        status.innerHTML = '<span class="err">Connection error</span>';
+      }
+    };
+
+    // ── JOIN AS REP ──
+    // Load roster when code is typed
+    let _joinDebounce = null;
+    document.getElementById('team-join-code')?.addEventListener('input', function() {
+      clearTimeout(_joinDebounce);
+      _joinDebounce = setTimeout(() => loadRosterForJoin(this.value.trim().toUpperCase()), 500);
+    });
+
+    async function loadRosterForJoin(code) {
+      const sel = document.getElementById('team-join-name');
+      if (!code || code.length < 3) { sel.innerHTML = '<option value="">Enter team code first</option>'; return; }
+
+      try {
+        const team = await fetch(FB + '/teams/' + code + '.json').then(r => r.json());
+        if (!team) { sel.innerHTML = '<option value="">Team not found</option>'; return; }
+
+        const reps = team.reps || {};
+        const names = Object.keys(reps);
+        if (!names.length) { sel.innerHTML = '<option value="">No reps added yet — ask your admin</option>'; return; }
+
+        sel.innerHTML = '<option value="">Select your name...</option>'
+          + names.map(n => '<option value="' + n + '">' + n + '</option>').join('');
+      } catch(e) {
+        sel.innerHTML = '<option value="">Connection error</option>';
+      }
+    }
+
+    window.teamJoinAsRep = function() {
+      const code = document.getElementById('team-join-code').value.trim().toUpperCase();
+      const name = document.getElementById('team-join-name').value;
+      const status = document.getElementById('team-join-status');
+
+      if (!code || !name) { status.innerHTML = '<span class="err">Select your team and name</span>'; return; }
+
+      // Fetch team name
+      fetch(FB + '/teams/' + code + '/name.json').then(r => r.json()).then(teamName => {
+        _teamSession = { code, name, role: 'rep', teamName: teamName || code };
+        localStorage.setItem(TEAM_LS, JSON.stringify(_teamSession));
+        updateTeamBar();
+        closeTeamPanel();
+        status.innerHTML = '<span class="ok">Welcome, ' + name + '!</span>';
+      }).catch(() => {
+        status.innerHTML = '<span class="err">Connection error</span>';
+      });
+    };
+
+    // ── ROSTER MANAGEMENT ──
+    function openRosterPanel() {
+      if (!_teamSession || _teamSession.role !== 'admin') return;
+      document.getElementById('team-roster-overlay').style.display = 'flex';
+      document.getElementById('team-roster-code').textContent = _teamSession.code;
+      loadRoster();
+    }
+    window.openRosterPanel = openRosterPanel;
+
+    async function loadRoster() {
+      const list = document.getElementById('team-roster-list');
+      try {
+        const reps = await fetch(FB + '/teams/' + _teamSession.code + '/reps.json').then(r => r.json());
+        if (!reps || !Object.keys(reps).length) {
+          list.innerHTML = '<div style="text-align:center;padding:16px;color:var(--muted);font-size:0.78rem;">No reps yet — add your team below</div>';
+          return;
+        }
+        list.innerHTML = Object.keys(reps).map(name =>
+          '<div class="team-roster-item">'
+          + '<span class="team-roster-name">' + name + '</span>'
+          + '<button class="team-roster-remove" onclick="teamRemoveRep(\'' + name.replace(/'/g, "\\'") + '\')">Remove</button>'
+          + '</div>'
+        ).join('');
+      } catch(e) {
+        list.innerHTML = '<div style="color:#ef4444;font-size:0.78rem;">Error loading roster</div>';
+      }
+    }
+
+    window.teamAddRep = async function() {
+      const input = document.getElementById('team-add-rep-input');
+      const name = input.value.trim();
+      if (!name || !_teamSession) return;
+
+      await fetch(FB + '/teams/' + _teamSession.code + '/reps/' + name + '.json', {
+        method: 'PUT',
+        body: JSON.stringify({ added: Date.now() })
+      });
+      input.value = '';
+      loadRoster();
+    };
+
+    window.teamRemoveRep = async function(name) {
+      if (!confirm('Remove ' + name + ' from the team?')) return;
+      await fetch(FB + '/teams/' + _teamSession.code + '/reps/' + name + '.json', { method: 'DELETE' });
+      loadRoster();
+    };
+
+    // ── TEAM BAR ──
+    function updateTeamBar() {
+      const bar = document.getElementById('team-bar');
+      if (!_teamSession) { bar.classList.remove('active'); return; }
+
+      bar.classList.add('active');
+      document.getElementById('team-bar-name').textContent = _teamSession.teamName || _teamSession.code;
+      document.getElementById('team-bar-role').textContent = _teamSession.role;
+      document.getElementById('team-bar-user').textContent = _teamSession.role === 'rep' ? _teamSession.name : '';
+      document.getElementById('team-bar-manage').style.display = _teamSession.role === 'admin' ? 'inline' : 'none';
+
+      // Shift nav down to make room for team bar
+      const nav = document.querySelector('nav');
+      if (nav) nav.style.top = '26px';
+    }
+
+    window.teamLogout = function() {
+      _teamSession = null;
+      localStorage.removeItem(TEAM_LS);
+      document.getElementById('team-bar').classList.remove('active');
+      const nav = document.querySelector('nav');
+      if (nav) nav.style.top = '0';
+    };
+
+    // ── AUTO-RESTORE SESSION ──
+    try {
+      const saved = JSON.parse(localStorage.getItem(TEAM_LS));
+      if (saved && saved.code && saved.role) {
+        _teamSession = saved;
+        updateTeamBar();
+      }
+    } catch(e) {}
+
+    // Expose session for other modules
+    window.getTeamSession = function() { return _teamSession; };
   })();
   </script>
 
