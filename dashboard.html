@@ -10799,11 +10799,12 @@
             _schedTourTimer(() => {
               if (!tourActive) return;
               const el = document.createElement('div');
-              el.style.cssText = 'position:fixed;top:' + n.top + 'px;right:20px;z-index:99999;background:rgba(10,14,20,0.96);border:1px solid ' + n.color + '40;border-left:3px solid ' + n.color + ';border-radius:10px;padding:12px 18px;font-size:0.75rem;color:#EDE5D8;font-family:inherit;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:translateX(30px);transition:all 0.4s ease;max-width:300px;';
+              const yOff = [-60, -20, 20, 60][notifs.indexOf(n)];
+              el.style.cssText = 'position:fixed;top:calc(50% + ' + yOff + 'px);left:50%;transform:translate(-50%,-50%) scale(0.9);z-index:99999;background:rgba(10,14,20,0.97);border:1px solid ' + n.color + '40;border-left:4px solid ' + n.color + ';border-radius:12px;padding:14px 22px;font-size:0.78rem;color:#EDE5D8;font-family:inherit;box-shadow:0 12px 48px rgba(0,0,0,0.6);opacity:0;transition:all 0.5s ease;max-width:320px;';
               el.innerHTML = '<div style="font-size:0.52rem;font-weight:800;color:' + n.color + ';letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">' + n.label + '</div>' + n.msg;
               document.body.appendChild(el);
-              requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translateX(0)'; });
-              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(30px)'; setTimeout(() => el.remove(), 500); }, 4500);
+              requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translate(-50%,-50%) scale(1)'; });
+              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => el.remove(), 500); }, 4500);
             }, n.delay);
           }, 6000);
         }
@@ -10824,7 +10825,7 @@
         label: 'Step 30 of 32'
       },
       // ═══ STEP 31 — KEYBOARD SHORTCUTS ═══
-      { selector: 'nav', title: 'Power User Shortcuts',
+      { selector: '#house-goal-table', title: 'Power User Shortcuts',
         desc: 'Press Control K to open the Command Palette and jump to any tool instantly. Press the question mark key to see all shortcuts. T for Tour. M for Music. F for Focus Mode. PULSE is built for speed.',
         label: 'Step 31 of 32',
         onShow: () => {
@@ -10834,8 +10835,8 @@
             _schedTourTimer(() => {
               if (!tourActive) return;
               const el = document.createElement('div');
-              const x = 10 + Math.random() * 70;
-              const y = 30 + Math.random() * 40;
+              const x = 15 + Math.random() * 60;
+              const y = 25 + Math.random() * 45;
               el.textContent = key;
               el.style.cssText = 'position:fixed;left:' + x + '%;top:' + y + '%;z-index:99999;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:6px 14px;font-size:0.85rem;font-weight:800;color:rgba(226,232,240,0.5);font-family:inherit;pointer-events:none;opacity:0;transform:scale(0.5);transition:all 0.4s ease;';
               document.body.appendChild(el);
