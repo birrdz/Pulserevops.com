@@ -10575,28 +10575,10 @@
           _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(); }, 2000);
         }
       },
-      // 2. Team Setup — opens panel over the CRM
-      { selector: '#rev-intel-section', title: 'Set Up Your Team',
-        desc: 'Click Team anytime to create or join. Admin picks a name, code, and PIN. Add reps. They enter the code, pick their name — done. Admin sees everything. Reps see only their data.',
-        label: 'Step 2 of 32',
-        onShow: () => {
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            if (typeof openTeamPanel === 'function') openTeamPanel();
-          }, 2000);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            if (typeof teamSwitchTab === 'function') teamSwitchTab('create');
-          }, 5000);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            if (typeof teamSwitchTab === 'function') teamSwitchTab('join');
-          }, 10000);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            if (typeof closeTeamPanel === 'function') closeTeamPanel();
-          }, 15000);
-        }
+      // ═══ STEP 2 — TEAM SETUP ═══
+      { selector: '#team-nav-btn', title: 'Build Your Team',
+        desc: 'This green button is your team HQ. Admin creates a team with a private PIN and adds reps to the roster. Reps join with just the team code — no signup, no passwords. Admin sees everyone. Reps see only their own scorecard and deals.',
+        label: 'Step 2 of 32'
       },
       // 3. AI Coach
       { selector: '#ai-coach-fab', title: 'PULSE AI Coach',
