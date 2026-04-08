@@ -10661,11 +10661,13 @@
           _schedTourTimer(() => { if (!tourActive) return; const tog = document.getElementById('sync-toggle-input'); if (tog && !tog.checked) tog.click(); }, 3000);
         }
       },
-      // 9. Pulse Check
-      { selector: '#inline-matrix', title: 'Pulse Check',
-        desc: 'The engine. The thing your reps will either love or pretend doesn\'t exist. 5 Rhythm Levels, escalating targets, points per tier — one total score. No cherry-picking. No hiding.',
-        label: 'Step 9 of 32',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 600); }
+      // ═══ STEP 14 — PULSE CHECK ═══
+      { selector: '#inline-matrix', title: 'The Pulse Check',
+        desc: 'This is the engine. 5 Rhythm Levels per KPI. Escalating targets. Points per tier. One total score per rep. No cherry-picking, no hiding behind one good number.',
+        label: 'Step 14 of 32',
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 2000);
+        }
       },
       // 10. Intensity Modes
       { selector: '#goal-mode-selector', title: 'Intensity Modes',
