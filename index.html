@@ -10357,7 +10357,7 @@
       track.innerHTML = html + html;
     }
 
-    // Step 1 — load real city list immediately (no side-effects)
+    // Step 1 — load city list immediately
     fetch(API)
       .then(r => r.json())
       .then(data => {
@@ -10366,37 +10366,19 @@
       })
       .catch(() => {});
 
-    // Step 2 — detect real city, post once per session
-    fetch('https://ipapi.co/json/')
-      .then(r => r.json())
-      .then(geo => {
-        const city  = geo.city || '';
-        const state = geo.region_code || '';
-        if (!city) return;
-        const label = state ? `${city}, ${state}` : city;
-
-        if (sessionStorage.getItem(SESSION_KEY)) {
-          // Already counted this session — just highlight city in ticker
-          fetch(API).then(r => r.json()).then(({ cities }) => buildTicker(cities, label)).catch(() => {});
-          return;
-        }
-        sessionStorage.setItem(SESSION_KEY, '1');
-
-        // Show new city immediately in ticker before API round-trip completes
-        buildTicker([{ city: label, ts: Date.now() }], label);
-
-        fetch(API, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ city: label }),
+    // Step 2 — register visit with server-side geo lookup (no client-side API needed)
+    if (!sessionStorage.getItem(SESSION_KEY)) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      fetch(API + '?register=1')
+        .then(r => r.json())
+        .then(data => {
+          if (data.count) setCount(data.count);
+          const label = data.city || '';
+          if (label) try { sessionStorage.setItem('pulse_my_city', label); } catch(e) {}
+          if (data.cities) buildTicker(data.cities, label);
         })
-          .then(r => r.json())
-          .then(({ count }) => { setCount(count); return fetch(API); })
-          .then(r => r.json())
-          .then(({ cities }) => buildTicker(cities, label))
-          .catch(() => {});
-      })
-      .catch(() => {});
+        .catch(() => {});
+    }
   })();
   </script>
 
@@ -10447,15 +10429,9 @@
     const API = '/.netlify/functions/visitors';
     const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
-    // Detect user's own city
-    fetch('https://ipapi.co/json/')
-      .then(r => r.json())
-      .then(geo => {
-        const city = geo.city || '';
-        const state = geo.region_code || '';
-        if (city) yourCity = state ? city + ', ' + state : city;
-      })
-      .catch(() => {});
+    // Detect user's own city from the server-side register response
+    // (stored in sessionStorage by the geo ticker script above)
+    try { yourCity = sessionStorage.getItem('pulse_my_city') || null; } catch(e) {}
 
     // Build toast queue from real visitor cities
     fetch(API)
