@@ -10567,11 +10567,13 @@
     }
 
     const TOUR_STEPS = [
-      // 1. Revenue Intelligence & CRM
-      { selector: '#rev-intel-section', title: 'Revenue Intelligence & CRM',
-        desc: 'A CRM that doesn\'t cost $300/month and doesn\'t require a PhD to set up. Add deals, import your spreadsheet, and PULSE tells you what\'s going to close and what\'s about to ghost you.',
+      // ═══ STEP 1 — THE HOOK ═══
+      { selector: '#rev-intel-section', title: 'Your Revenue Command Center',
+        desc: 'Free CRM. Predictive forecasting. Pipeline tracking. Deal risk alerts. Add deals or import a spreadsheet — PULSE does the rest. Watch the demo data load.',
         label: 'Step 1 of 32',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(); }, 800); }
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(); }, 2000);
+        }
       },
       // 2. Team Setup — opens panel over the CRM
       { selector: '#rev-intel-section', title: 'Set Up Your Team',
