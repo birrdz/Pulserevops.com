@@ -12246,14 +12246,21 @@
       }
       const hl = document.getElementById('tour-highlight');
       const tt = document.getElementById('tour-tooltip');
+      // Fade everything out
       if (hl) hl.style.opacity = '0';
-      if (tt) { tt.style.transition = 'opacity 0.25s ease'; tt.style.opacity = '0.3'; }
-      // Shorter gap + crossfade for smoother step-to-step feel
+      if (tt) { tt.style.transition = 'opacity 0.4s ease'; tt.style.opacity = '0'; }
+      document.body.style.transition = 'opacity 0.4s ease';
+      document.body.style.opacity = '0.15';
+      // Wait for fade out, jump to new position, fade back in
       setTimeout(() => {
         _tourTransitioning = false;
-        if (tt) { tt.style.transition = 'opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1)'; }
+        if (tt) { tt.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.25,0.1,0.25,1)'; }
         showTourStep(tourStep);
-      }, 300);
+        // Fade page back in after position jump
+        setTimeout(() => {
+          document.body.style.opacity = '1';
+        }, 100);
+      }, 450);
     }
 
     function enterMinimalMode() {
