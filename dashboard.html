@@ -16110,7 +16110,7 @@
     const FIREBASE_DB_URL = localStorage.getItem(SYNC_FB_KEY) || 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
 
     function getSyncFirebaseUrl() {
-      return localStorage.getItem(SYNC_FB_KEY) || '';
+      return localStorage.getItem(SYNC_FB_KEY) || 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
     }
 
     function initFirebase(dbUrl) {
@@ -16130,27 +16130,6 @@
       document.getElementById('sync-overlay').classList.add('open');
       const saved = localStorage.getItem(SYNC_CODE_KEY);
       if (saved) document.getElementById('sync-code-input').value = saved;
-
-      // If no Firebase URL configured, show setup prompt
-      const url = getSyncFirebaseUrl();
-      if (!url) {
-        setSyncStatus('Setup required — enter Firebase DB URL below', 'error');
-        // Add URL input if not present
-        if (!document.getElementById('sync-fb-url-input')) {
-          const panel = document.getElementById('sync-panel');
-          const div = document.createElement('div');
-          div.id = 'sync-fb-setup';
-          div.style.cssText = 'margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06);';
-          div.innerHTML = '<div style="font-size:0.65rem;font-weight:700;color:var(--cyan);margin-bottom:6px;">Firebase Setup (one time)</div>'
-            + '<input id="sync-fb-url-input" type="text" placeholder="https://your-project-default-rtdb.firebaseio.com" '
-            + 'style="width:100%;padding:10px 12px;font-size:0.72rem;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:monospace;outline:none;">'
-            + '<button onclick="saveSyncFirebaseUrl()" class="ri-btn-sm" style="margin-top:8px;width:100%;">Save Firebase URL</button>'
-            + '<div style="font-size:0.58rem;color:var(--muted);margin-top:6px;line-height:1.6;">'
-            + 'Go to <strong style="color:#FF8C1A;">console.firebase.google.com</strong> → Create project → '
-            + 'Build → Realtime Database → Create → Start in test mode → Copy the URL above</div>';
-          panel.appendChild(div);
-        }
-      }
     };
 
     window.saveSyncFirebaseUrl = function() {
