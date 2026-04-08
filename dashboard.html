@@ -5952,13 +5952,17 @@
       if (params.get('tour') === '1') {
         // Store state so tour knows it's cross-page
         try { sessionStorage.setItem('pulse_tour_active', '1'); } catch(e) {}
+        // Fade in smoothly from the landing page redirect
+        document.documentElement.style.opacity = '0';
+        document.documentElement.style.transition = 'opacity 0.6s ease';
         window.addEventListener('load', function() {
+          document.documentElement.style.opacity = '1';
           setTimeout(function() {
             // Start tour directly (skip welcome modal)
             if (typeof startTour === 'function') {
               startTour();
             }
-          }, 800);
+          }, 1000);
         });
       }
       // Auto-apply industry preset from URL param
@@ -10589,11 +10593,11 @@
             _schedTourTimer(() => {
               if (!tourActive) return;
               const el = document.createElement('div');
-              el.style.cssText = 'position:fixed;top:' + (140 + i * 10) + 'px;right:20px;z-index:99999;background:rgba(10,14,20,0.97);border:1px solid ' + c.color + '40;border-left:3px solid ' + c.color + ';border-radius:12px;padding:14px 20px;font-size:0.75rem;color:#EDE5D8;font-family:inherit;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:translateX(30px);transition:all 0.5s ease;max-width:240px;';
+              el.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);z-index:99999;background:rgba(10,14,20,0.97);border:1px solid ' + c.color + '40;border-left:4px solid ' + c.color + ';border-radius:14px;padding:20px 28px;font-size:0.82rem;color:#EDE5D8;font-family:inherit;box-shadow:0 12px 48px rgba(0,0,0,0.6);opacity:0;transition:all 0.5s ease;max-width:300px;';
               el.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><span style="font-size:1.2rem;">' + c.icon + '</span><span style="font-size:0.65rem;font-weight:800;color:' + c.color + ';letter-spacing:0.08em;text-transform:uppercase;">' + c.title + '</span></div><div style="line-height:1.7;color:#9A9088;">' + c.body + '</div>';
               document.body.appendChild(el);
-              requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translateX(0)'; });
-              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(30px)'; setTimeout(() => el.remove(), 500); }, 5000);
+              requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translate(-50%,-50%) scale(1)'; });
+              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => el.remove(), 500); }, 5000);
             }, 2000 + i * 5500);
           });
         }

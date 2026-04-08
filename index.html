@@ -7713,8 +7713,10 @@
         label: '',
         customNarration: true,
         onShow: () => {
-          // Go directly to dashboard tour
-          window.location.href = 'dashboard.html?tour=1';
+          // Fade out then go to dashboard tour
+          document.body.style.transition = 'opacity 0.6s ease';
+          document.body.style.opacity = '0';
+          setTimeout(() => { window.location.href = 'dashboard.html?tour=1'; }, 600);
         }
       }
     ];
@@ -9313,7 +9315,9 @@
       // Step 0 on index.html — Next button navigates to the dashboard tour
       if (tourStep === 0) {
         try { sessionStorage.setItem('pulse_tour_active', '1'); sessionStorage.setItem('pulse_tour_step', '0'); } catch(e) {}
-        window.location.href = 'dashboard.html?tour=1';
+        document.body.style.transition = 'opacity 0.6s ease';
+        document.body.style.opacity = '0';
+        setTimeout(() => { window.location.href = 'dashboard.html?tour=1'; }, 600);
         return;
       }
       hideTourScorecard();
