@@ -10786,7 +10786,7 @@
     let tourTimer = null;
     let _tourCountdownInterval = null;
     let _tourStepTimers = [];
-    const TOUR_STEP_DURATION = 22000; // ms per step — slow cadence so user can absorb each step
+    const TOUR_STEP_DURATION = 20000; // ms per step
 
     // Track a per-step setTimeout so it can be cancelled when user hits Next/Back
     function _schedTourTimer(fn, delay) {
@@ -12024,8 +12024,8 @@
             bar.style.width = '100%';
           }));
         }
-        _startCountdown(6000);
-        tourTimer = setTimeout(advanceTour, 6000);
+        _startCountdown(4000);
+        tourTimer = setTimeout(advanceTour, 4000);
       }
       if (!_narratorMuted && window.speechSynthesis) {
         window.speechSynthesis.cancel();
