@@ -2357,13 +2357,13 @@
       box-shadow: 0 0 0 9999px rgba(0,0,0,0.78),
                   0 0 0 3px rgba(232,113,10,0.7),
                   0 0 30px rgba(232,113,10,0.4);
-      transition: top 0.5s cubic-bezier(0.4,0,0.2,1),
-                  left 0.5s cubic-bezier(0.4,0,0.2,1),
-                  width 0.5s cubic-bezier(0.4,0,0.2,1),
-                  height 0.5s cubic-bezier(0.4,0,0.2,1),
-                  border-radius 0.5s cubic-bezier(0.4,0,0.2,1),
-                  box-shadow 0.5s cubic-bezier(0.4,0,0.2,1),
-                  opacity 0.35s;
+      transition: top 0.8s cubic-bezier(0.25,0.1,0.25,1),
+                  left 0.8s cubic-bezier(0.25,0.1,0.25,1),
+                  width 0.8s cubic-bezier(0.25,0.1,0.25,1),
+                  height 0.8s cubic-bezier(0.25,0.1,0.25,1),
+                  border-radius 0.8s cubic-bezier(0.25,0.1,0.25,1),
+                  box-shadow 0.8s cubic-bezier(0.25,0.1,0.25,1),
+                  opacity 0.5s ease;
       opacity: 0;
     }
     #tour-highlight.visible { opacity: 1; }
@@ -2401,8 +2401,8 @@
       max-height: calc(100vh - 132px);
       display: flex; flex-direction: column;
       box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 0 40px rgba(232,113,10,0.1);
-      transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
-      opacity: 0; pointer-events: none; overflow: hidden; transform: translateY(-6px);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25,0.1,0.25,1);
+      opacity: 0; pointer-events: none; overflow: hidden; transform: translateY(-8px);
     }
     #tour-drag-handle {
       flex-shrink: 0; display: flex; align-items: center; justify-content: center;
@@ -11971,9 +11971,15 @@
       const sl = document.getElementById('tour-step-label');
       const ti = document.getElementById('tour-title');
       const de = document.getElementById('tour-desc');
-      if (sl) sl.innerHTML = `<span class="tour-lock-icon">🔒</span> ${step.label}`;
-      if (ti) ti.textContent = step.title;
-      if (de) de.textContent = step.desc;
+      const body = document.getElementById('tour-tooltip-body');
+      // Smooth text transition — fade out, swap, fade in
+      if (body) { body.style.transition = 'opacity 0.3s'; body.style.opacity = '0'; }
+      setTimeout(() => {
+        if (sl) sl.innerHTML = `<span class="tour-lock-icon">🔒</span> ${step.label}`;
+        if (ti) ti.textContent = step.title;
+        if (de) de.textContent = step.desc;
+        if (body) body.style.opacity = '1';
+      }, 300);
 
       // Position tooltip (top-docked or user-positioned)
       if (tt) {
