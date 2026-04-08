@@ -10590,17 +10590,17 @@
         desc: 'See this Sync button? Enter a code and your deals stream to every device you own — laptop, phone, tablet. Add a deal at your desk, check it in the parking lot. Real-time. No app download.',
         label: 'Step 4 of 32'
       },
-      // 5. Pulse MGMT
-      { selector: '#pulse-mgmt-section', title: 'Pulse MGMT — What To Do When...',
-        desc: 'Every problem your manager never taught you how to handle. "My top rep is toxic." "Nobody updates the CRM." "The internet went down mid-pitch." 35+ scenarios, zero sugarcoating.',
+      // ═══ STEP 5 — PULSE MGMT ═══
+      { selector: '#pulse-mgmt-section', title: 'The Management Playbook',
+        desc: '35 real problems. Real fixes. What to do when your top rep goes toxic. When nobody updates the CRM. When the internet dies mid-pitch. Click any question — the answer drops down.',
         label: 'Step 5 of 32',
         onShow: () => {
+          // Expand first card so user sees the format
           _schedTourTimer(() => {
             if (!tourActive) return;
-            // Click the first question to demo the expand
-            const firstQ = document.querySelector('#mgmt-cards .mgmt-card button');
-            if (firstQ) firstQ.click();
-          }, 1500);
+            const card = document.querySelector('#mgmt-cards .mgmt-card button');
+            if (card) card.click();
+          }, 3000);
         }
       },
       // 6. Custom Workspace
