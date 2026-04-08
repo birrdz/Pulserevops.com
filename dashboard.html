@@ -10614,10 +10614,10 @@
         label: 'Step 7 of 32',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof runTourDemoData === 'function') runTourDemoData(); }, 2000); }
       },
-      // 3. Team Size
+      // ═══ STEP 8 — TEAM SIZE ═══
       { selector: '#house-rep-count', title: 'Team Size',
-        desc: ['Set your rep count. PULSE divides every house goal by this number instantly. Math doesn\'t play favorites.', 'How many reps you got? Type it. PULSE splits every goal evenly. Finally, something that\'s actually fair.', 'Rep count goes here. PULSE does division so your reps can\'t argue about it. You\'re welcome.'][Math.floor(Math.random()*3)],
-        label: 'Step 3 of 32'
+        desc: 'How many reps? Type it. PULSE divides every goal by this number instantly. Fair targets, zero debate.',
+        label: 'Step 8 of 32'
       },
       // 4. Industry Preset
       { selector: '#global-industry-select', title: 'Industry Preset',
