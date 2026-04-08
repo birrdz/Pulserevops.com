@@ -10568,47 +10568,26 @@
 
     const TOUR_STEPS = [
       // ═══ TEAM LOGIN (Step 1) ══════════════════════════════════════════════════
-      // 1. Team Login
-      { selector: '#team-nav-btn', title: 'Team Login — Your Command Center Starts Here',
-        desc: 'First things first — set up your team. Admins get the keys to the kingdom (a 4-digit PIN). Reps get... a code and their name. That\'s it. No 47-page onboarding doc. No IT ticket. Watch...',
-        label: 'Step 1 of 33',
+      { selector: '#team-nav-btn', title: 'Team Login',
+        desc: 'Set up your team in seconds. Admin creates a team, adds reps, shares a code. Reps join with one click. No signup. No IT department.',
+        label: 'Step 1 of 33', managedTimer: true,
         onShow: () => {
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            if (typeof openTeamPanel === 'function') openTeamPanel();
-          }, 2000);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            if (typeof teamSwitchTab === 'function') teamSwitchTab('create');
-          }, 4500);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const nameInput = document.getElementById('team-create-name');
-            if (nameInput) { nameInput.value = ''; _tourTypeField(nameInput, 'Acme Sales Team'); }
-          }, 6000);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const codeInput = document.getElementById('team-create-code');
-            if (codeInput) { codeInput.value = ''; _tourTypeField(codeInput, 'ACME'); }
-          }, 9000);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const pinInput = document.getElementById('team-create-pin');
-            if (pinInput) { pinInput.value = ''; _tourTypeField(pinInput, '1234'); }
-          }, 11000);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const btn = document.querySelector('#team-tab-create .team-btn-primary');
-            if (btn) { btn.style.boxShadow = '0 0 24px rgba(232,113,10,0.7)'; setTimeout(() => { btn.style.boxShadow = ''; }, 1500); }
-          }, 13500);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            if (typeof teamSwitchTab === 'function') teamSwitchTab('join');
-          }, 16000);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            if (typeof closeTeamPanel === 'function') closeTeamPanel();
-          }, 19000);
+          // Open panel
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof openTeamPanel === 'function') openTeamPanel(); }, 3000);
+          // Show Create tab
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof teamSwitchTab === 'function') teamSwitchTab('create'); }, 5500);
+          // Type team name
+          _schedTourTimer(() => { if (!tourActive) return; const el = document.getElementById('team-create-name'); if (el) { el.value = ''; _tourTypeField(el, 'Acme Sales'); } }, 7000);
+          // Type code
+          _schedTourTimer(() => { if (!tourActive) return; const el = document.getElementById('team-create-code'); if (el) { el.value = ''; _tourTypeField(el, 'ACME'); } }, 10000);
+          // Type PIN
+          _schedTourTimer(() => { if (!tourActive) return; const el = document.getElementById('team-create-pin'); if (el) { el.value = ''; _tourTypeField(el, '1234'); } }, 12500);
+          // Flash button
+          _schedTourTimer(() => { if (!tourActive) return; const btn = document.querySelector('#team-tab-create .team-btn-primary'); if (btn) { btn.style.boxShadow = '0 0 24px rgba(232,113,10,0.7)'; setTimeout(() => btn.style.boxShadow = '', 2000); } }, 15000);
+          // Show Join tab
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof teamSwitchTab === 'function') teamSwitchTab('join'); }, 18000);
+          // Close and advance
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof closeTeamPanel === 'function') closeTeamPanel(); setTimeout(() => { if (tourActive) advanceTour(); }, 1500); }, 22000);
         }
       },
       // 2. AI Coach
