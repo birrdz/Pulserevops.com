@@ -3601,6 +3601,7 @@
             <option value="dashboard.html#meeting-creator-section">🎤 Sales Meeting Creator</option>
             <option value="dashboard.html#rev-intel-section">📊 Revenue Intelligence / CRM</option>
             <option value="dashboard.html#pulse-mgmt-section">📋 Pulse MGMT</option>
+            <option value="dashboard.html#feedback-section">💬 Send Feedback</option>
             <option value="dashboard.html#team-speeches-section">🥂 Team Toasts & Speeches</option>
             <option value="dashboard.html#not-to-do-section">🚫 Not-To-Do List</option>
             <option value="dashboard.html#press-admin-section">📡 Press Releases</option>
@@ -5893,6 +5894,48 @@
     renderTabs();
     renderCards('All');
   })();
+  </script>
+
+  <!-- ══════════════════════════════════════════════
+       FEEDBACK BOX — private messages to admin
+       ══════════════════════════════════════════════ -->
+  <div id="feedback-section" class="matrix-section-wrap" style="padding:28px 32px; position:relative; z-index:3; background:var(--bg); border:1px solid var(--border); border-radius:24px;">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;flex-wrap:wrap;">
+      <span style="font-size:1.1rem;font-weight:900;color:var(--text);letter-spacing:0.06em;">Send Feedback</span>
+      <span class="ri-badge">PRIVATE</span>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">Questions, ideas, bugs, or just want to say what's up? This goes directly to Kory — nobody else sees it.</p>
+    <div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
+      <input id="fb-name" type="text" placeholder="Your name (optional)" style="flex:1;min-width:140px;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--text);font-size:0.82rem;font-family:inherit;outline:none;">
+      <input id="fb-email" type="email" placeholder="Email (optional — for reply)" style="flex:1;min-width:180px;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--text);font-size:0.82rem;font-family:inherit;outline:none;">
+    </div>
+    <textarea id="fb-message" placeholder="What's on your mind?" style="width:100%;height:100px;padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--text);font-size:0.82rem;font-family:inherit;outline:none;resize:vertical;box-sizing:border-box;"></textarea>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:10px;">
+      <button onclick="submitFeedback()" class="ri-btn-primary">Send to Kory</button>
+      <span id="fb-status" style="font-size:0.72rem;font-weight:700;min-height:18px;"></span>
+    </div>
+  </div>
+
+  <script>
+  window.submitFeedback = function() {
+    const name = document.getElementById('fb-name').value.trim();
+    const email = document.getElementById('fb-email').value.trim();
+    const msg = document.getElementById('fb-message').value.trim();
+    const status = document.getElementById('fb-status');
+    if (!msg) { status.innerHTML = '<span style="color:#ef4444;">Write something first</span>'; return; }
+    const FB = 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
+    const key = Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+    fetch(FB + '/feedback/' + key + '.json', {
+      method: 'PUT',
+      body: JSON.stringify({ name: name || 'Anonymous', email: email || '', message: msg, ts: Date.now(), page: window.location.href })
+    }).then(() => {
+      status.innerHTML = '<span style="color:#22c55e;">Sent! Thanks for the feedback.</span>';
+      document.getElementById('fb-message').value = '';
+      setTimeout(() => status.innerHTML = '', 4000);
+    }).catch(() => {
+      status.innerHTML = '<span style="color:#ef4444;">Error — try again</span>';
+    });
+  };
   </script>
 
   <footer>
@@ -10574,7 +10617,7 @@
       // ═══ STEP 1 — THE HOOK ═══
       { selector: '#rev-intel-section', title: 'Your Revenue Command Center',
         desc: 'Free CRM. Predictive forecasting. Pipeline tracking. Deal risk alerts. Add deals or import a spreadsheet — PULSE does the rest. Watch the demo data load.',
-        label: 'Step 1 of 32',
+        label: 'Step 1 of 34',
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(); }, 2000);
         }
@@ -10582,7 +10625,7 @@
       // ═══ STEP 2 — TEAM SETUP ═══
       { selector: '#team-nav-btn', title: 'Build Your Team',
         desc: 'This green button is your team HQ. Admin creates a team, adds reps, shares the code. Reps join in seconds. Watch the flow.',
-        label: 'Step 2 of 32',
+        label: 'Step 2 of 34',
         onShow: () => {
           const cards = [
             { icon: '🔐', title: 'Step A: Admin Creates Team', body: 'Team Name: <strong style="color:#E8710A;">Acme Sales</strong><br>Team Code: <strong style="color:#E8710A;">ACME</strong><br>Admin PIN: <strong style="color:#E8710A;">••••</strong>', color: '#E8710A' },
@@ -10605,17 +10648,17 @@
       // ═══ STEP 3 — AI COACH ═══
       { selector: '#ai-coach-fab', title: 'Your AI Sales Coach',
         desc: 'See the crab? Click it anytime. Ask it anything — slumping reps, pipeline problems, comp plan questions, how to fire someone gracefully. It never sleeps and it never sugarcoats.',
-        label: 'Step 3 of 32'
+        label: 'Step 3 of 34'
       },
       // ═══ STEP 4 — LIVE SYNC ═══
       { selector: '#sync-toggle-btn', title: 'Live Sync',
         desc: 'See this Sync button? Enter a code and your deals stream to every device you own — laptop, phone, tablet. Add a deal at your desk, check it in the parking lot. Real-time. No app download.',
-        label: 'Step 4 of 32'
+        label: 'Step 4 of 34'
       },
       // ═══ STEP 5 — PULSE MGMT ═══
       { selector: '#pulse-mgmt-section', title: 'The Management Playbook',
         desc: '35 real problems. Real fixes. What to do when your top rep goes toxic. When nobody updates the CRM. When the internet dies mid-pitch. Click any question — the answer drops down.',
-        label: 'Step 5 of 32',
+        label: 'Step 5 of 34',
         onShow: () => {
           // Expand first card so user sees the format
           _schedTourTimer(() => {
@@ -10625,10 +10668,34 @@
           }, 3000);
         }
       },
-      // ═══ STEP 6 — WORKSPACE ═══
+      // ═══ STEP 6 — DOWNLOAD PULSE ═══
+      { selector: 'nav', title: 'Download PULSE to Your Desktop',
+        desc: 'See that Install button in your browser\'s address bar? Click it and PULSE becomes a desktop app. Opens instantly, works offline, sits in your Start Menu or Dock. No app store needed.',
+        label: 'Step 6 of 34',
+        onShow: () => {
+          // Show a centered card explaining the install
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const el = document.createElement('div');
+            el.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);z-index:99999;background:rgba(10,14,20,0.97);border:1px solid rgba(232,113,10,0.4);border-radius:14px;padding:24px 32px;font-family:inherit;box-shadow:0 16px 60px rgba(0,0,0,0.6);opacity:0;transition:all 0.5s ease;text-align:center;max-width:320px;';
+            el.innerHTML = '<div style="font-size:2rem;margin-bottom:8px;">💻</div>'
+              + '<div style="font-size:0.65rem;font-weight:800;color:#E8710A;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;">Install as Desktop App</div>'
+              + '<div style="font-size:0.82rem;color:#EDE5D8;line-height:1.6;margin-bottom:12px;">Look for the <strong>Install</strong> icon in your address bar</div>'
+              + '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">'
+              + '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;font-size:0.68rem;color:#9A9088;"><span style="color:#22c55e;">✓</span> Works offline</div>'
+              + '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;font-size:0.68rem;color:#9A9088;"><span style="color:#22c55e;">✓</span> Opens instantly</div>'
+              + '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;font-size:0.68rem;color:#9A9088;"><span style="color:#22c55e;">✓</span> No app store</div>'
+              + '</div>';
+            document.body.appendChild(el);
+            requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translate(-50%,-50%) scale(1)'; });
+            setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => el.remove(), 500); }, 8000);
+          }, 2000);
+        }
+      },
+      // ═══ STEP 7 — WORKSPACE ═══
       { selector: '#ws-enter-btn', title: 'Custom Workspace',
         desc: 'Click Workspace to pop out any tool as a floating window. Drag it. Resize it. Open five at once. Build your own command center — like a trading floor for revenue.',
-        label: 'Step 6 of 32',
+        label: 'Step 6 of 34',
         onShow: () => {
           // Show fake floating window mockups
           const windows = [
@@ -10652,18 +10719,18 @@
       // ═══ STEP 7 — HOUSE GOALS ═══
       { selector: '#house-goal-table', title: 'House Goal Setting',
         desc: 'Set your company targets. PULSE divides them by rep count automatically — no spreadsheets, no arguments. Watch the demo data fill in now.',
-        label: 'Step 7 of 32',
+        label: 'Step 7 of 34',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof runTourDemoData === 'function') runTourDemoData(); }, 2000); }
       },
       // ═══ STEP 8 — TEAM SIZE ═══
       { selector: '#house-rep-count', title: 'Team Size',
         desc: ['How many reps? Type it. PULSE divides every goal by this number instantly. Fair targets, zero debate.','How many reps you got? PULSE does the division so nobody can argue about it. Math doesn\'t play favorites.','Type your rep count. PULSE splits the targets evenly. Finally, something at work that\'s actually fair.'][Math.floor(Math.random()*3)],
-        label: 'Step 8 of 32'
+        label: 'Step 8 of 34'
       },
       // ═══ STEP 9 — INDUSTRY PRESET ═══
       { selector: '#global-industry-select', title: 'Pick Your Industry',
         desc: 'Select your industry and watch every KPI, benchmark, and AI suggestion recalibrate instantly. Solar, SaaS, healthcare, insurance — 35 verticals. Watch it cycle through a few.',
-        label: 'Step 9 of 32',
+        label: 'Step 9 of 34',
         onShow: () => {
           const sel = document.getElementById('global-industry-select');
           if (!sel) return;
@@ -10675,12 +10742,12 @@
       // ═══ STEP 10 — KPI TYPE ═══
       { selector: '.kpi-type-select', title: 'Total vs. Percentage',
         desc: 'Each KPI can be a total or a percentage. Pro tip from the field — percentage goals backfire. Reps shrink volume to protect their rate. Always use totals.',
-        label: 'Step 10 of 32'
+        label: 'Step 10 of 34'
       },
       // ═══ STEP 11 — AI GOAL SUGGESTIONS ═══
       { selector: '.ai-btn[onclick*="aiSuggestGoals"]', title: 'AI Goal Suggestions',
         desc: 'No idea what targets to set? Hit this button. AI analyzes benchmarks for your industry and rep count, then fills in a starting point. You adjust from there.',
-        label: 'Step 11 of 32',
+        label: 'Step 11 of 34',
         onShow: () => {
           _schedTourTimer(() => {
             if (!tourActive) return;
@@ -10692,12 +10759,12 @@
       // ═══ STEP 12 — SAVE & IMPORT ═══
       { selector: '.kpi-config-panel', title: 'Save, Load & Import',
         desc: 'Your progress saves automatically. Use the Locker Room to save with a 4-digit code — load it on any device. Or import your existing goals from a CSV or Excel file.',
-        label: 'Step 12 of 32'
+        label: 'Step 12 of 34'
       },
       // ═══ STEP 13 — SYNC TO PULSE CHECK ═══
       { selector: '#sync-toggle-wrap', title: 'Sync Goals to Pulse Check',
         desc: 'One toggle. That\'s all it takes. Your house goals flow into the Pulse Check — 5 Rhythm Levels across every KPI, built automatically. Watch it sync.',
-        label: 'Step 13 of 32',
+        label: 'Step 13 of 34',
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; const tog = document.getElementById('sync-toggle-input'); if (tog && !tog.checked) tog.click(); }, 3000);
         }
@@ -10705,7 +10772,7 @@
       // ═══ STEP 14 — PULSE CHECK ═══
       { selector: '#inline-matrix', title: 'The Pulse Check',
         desc: ['This is the engine. 5 Rhythm Levels per KPI. Escalating targets. Points per tier. One total score per rep. No cherry-picking, no hiding behind one good number.','The Pulse Check. Where excuses go to die. 5 levels, every KPI scored, one total number. Your reps will either love it or pretend it doesn\'t exist.','Five Rhythm Levels. Every KPI. One score. The rep who says they\'re crushing it? This tells you if that\'s true.'][Math.floor(Math.random()*3)],
-        label: 'Step 14 of 32',
+        label: 'Step 14 of 34',
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 2000);
         }
@@ -10713,18 +10780,18 @@
       // ═══ STEP 15 — INTENSITY MODES ═══
       { selector: '#goal-mode-selector', title: 'Intensity Modes',
         desc: ['Push mode adds 10 percent to every target. Ramp mode drops 10 percent for new hires. Standard for everyone else. One click scales the whole board.','Feeling aggressive? Push mode. New hire struggling? Ramp mode. One click. Your HR department would need a committee and 3 meetings for this.','Three modes. Push for killers, Standard for steady, Ramp for rookies. One click changes every target on the board.'][Math.floor(Math.random()*3)],
-        label: 'Step 15 of 32'
+        label: 'Step 15 of 34'
       },
       // ═══ STEP 16 — END-OF-MONTH SCORING ═══
       { selector: '#inline-matrix', title: 'End-of-Month Scoring',
         desc: 'Month closes. PULSE scores every rep automatically. Each KPI maps to a Rhythm Level, levels earn Pulse Points, points determine the bonus tier. Watch the scorecard light up.',
-        label: 'Step 16 of 32', managedTimer: true,
+        label: 'Step 16 of 34', managedTimer: true,
         onShow: () => { showTourScorecard(); }
       },
       // ═══ STEP 17 — AI REVENUE FORECAST ═══
       { selector: '#ai-forecast-panel', title: 'AI Revenue Forecast',
         desc: 'PULSE looks at your targets and tells you what\'s actually going to happen. Projected revenue, at-risk reps, attainment likelihood. The number your board wants — before the month ends.',
-        label: 'Step 17 of 32',
+        label: 'Step 17 of 34',
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; const fp = document.getElementById('ai-forecast-panel'); if (fp) fp.style.display = 'block'; }, 2000);
         }
@@ -10732,7 +10799,7 @@
       // ═══ STEP 18 — TEAM DISTRIBUTION ═══
       { selector: '.tier-dist-wrap', title: 'Team Distribution',
         desc: 'Before the month even starts, see where your whole team is projected to land across all 5 Rhythm Levels. Spot problems early. Coach proactively instead of reacting at month-end.',
-        label: 'Step 18 of 32',
+        label: 'Step 18 of 34',
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; try { if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 2000);
         }
@@ -10741,27 +10808,27 @@
       // ═══ STEP 19 — GROSS PROFIT ═══
       { selector: '#profit-calc-section', title: 'Gross Profit Calculator',
         desc: 'How much money are you actually making? Toggle each KPI between monthly recurring revenue and per-unit profit. PULSE calculates projected gross profit in real time.',
-        label: 'Step 19 of 32'
+        label: 'Step 19 of 34'
       },
       // ═══ STEP 20 — SERVICE FEES ═══
       { selector: '#service-fees-section', title: 'Service Fees',
         desc: 'Service fees pay for back office support. At roughly 50 thousand per admin, how many admins are your fees actually paying for? Add your fees here and PULSE shows you the real bottom-line impact.',
-        label: 'Step 20 of 32'
+        label: 'Step 20 of 34'
       },
       // ═══ STEP 21 — RECRUITING CALCULATOR ═══
       { selector: '#recruiting-calc-section', title: 'Recruiting Calculator',
         desc: 'How many people do you need to hire? Enter your revenue target, current ARR, quota per rep, ramp time, and attrition. PULSE tells you the exact headcount. No guessing.',
-        label: 'Step 21 of 32'
+        label: 'Step 21 of 34'
       },
       // ═══ STEP 22 — REP SCHEDULING ═══
       { selector: '#sched-matrix-section', title: 'Rep Scheduling Matrix',
         desc: 'Every shift costs money. PULSE calculates the minimum a rep must produce per shift to justify being there. Enter daily gross profit and it tells you exactly how many shifts you need — and where to put them.',
-        label: 'Step 22 of 32'
+        label: 'Step 22 of 34'
       },
       // ═══ STEP 23 — COACHING ═══
       { selector: '#coaching-section', title: 'Coaching Action Items',
         desc: 'One specific coaching move for each Rhythm Level. Not theory — real actions sourced from Gartner, HBR, McKinsey, and years in the field. Hit the AI button and it generates them for your industry.',
-        label: 'Step 23 of 32',
+        label: 'Step 23 of 34',
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn('ai-coaching-btn'); if (typeof aiCoachingItems === 'function') aiCoachingItems(false); }, 3000);
         }
@@ -10769,17 +10836,17 @@
       // ═══ STEP 24 — 90-DAY PLAN ═══
       { selector: '#plan-90', title: '90-Day Revenue Plan',
         desc: 'Three phases. Days 1 through 30 — establish the foundation. Days 31 through 60 — build pipeline. Days 61 through 90 — accelerate and close. The exact playbook for ramping a new market or resetting a team.',
-        label: 'Step 24 of 32'
+        label: 'Step 24 of 34'
       },
       // ═══ STEP 25 — NOT-TO-DO LIST ═══
       { selector: '#not-to-do-section', title: 'The Not-To-Do List',
         desc: ['Your reps sell 28 percent of the week. The other 72 percent is meetings, admin, and busywork. This list identifies what to stop doing so your team can actually sell.','Gartner says reps sell 28 percent of the week. The other 72 percent? Meetings about meetings. This list fixes that.','The Not-To-Do List. Because sometimes the best way to increase revenue is to stop doing stupid stuff.'][Math.floor(Math.random()*3)],
-        label: 'Step 25 of 32'
+        label: 'Step 25 of 34'
       },
       // ═══ STEP 26 — LIGHTNING ROUNDS ═══
       { selector: '#challenge-section', title: 'Lightning Rounds',
         desc: ['Energy dying mid-month? Drop a Lightning Round. Pick a KPI, set a time window, attach bonus Pulse Points. The team will thank you — or hate you. Either way, they sell more.','It\'s 2 PM on a Tuesday. Nobody\'s selling. Drop a Lightning Round. Instant chaos. Instant revenue. You\'re welcome.','The mid-month energy killer is real. Lightning Rounds fix it. Pick a KPI, set a clock, watch your team turn into competitors.'][Math.floor(Math.random()*3)],
-        label: 'Step 26 of 32',
+        label: 'Step 26 of 34',
         onShow: () => {
           // Show a fake Lightning Round launch card center screen
           _schedTourTimer(() => {
@@ -10805,7 +10872,7 @@
       // ═══ STEP 27 — SQUAD SYNC ═══
       { selector: '#app-sync-section', title: 'Squad Sync',
         desc: 'Scores, bonus levels, and active Lightning Rounds — pushed to every rep\'s phone in real time. They always know where they stand. No app download. No login. Just open PULSE.',
-        label: 'Step 27 of 32',
+        label: 'Step 27 of 34',
         onShow: () => {
           // Stack of notifications sliding in
           const notifs = [
@@ -10831,22 +10898,22 @@
       // ═══ STEP 28 — SALES MEETING CREATOR ═══
       { selector: '#meeting-creator-section', title: 'Sales Meeting Creator',
         desc: 'Running a sales meeting without a script is like cooking without a recipe. AI builds a full 60 to 90 minute agenda — timestamps, role plays, energy breaks, even memes. Ready to present.',
-        label: 'Step 28 of 32'
+        label: 'Step 28 of 34'
       },
       // ═══ STEP 29 — TOASTS & SPEECHES ═══
       { selector: '#team-speeches-section', title: 'Team Toasts & Speeches',
         desc: 'Team dinner tonight? Rep just got promoted? Someone retiring? Pick the occasion, pick the tone, and AI writes a toast you can read word for word. You\'ll sound like you prepared for hours.',
-        label: 'Step 29 of 32'
+        label: 'Step 29 of 34'
       },
       // ═══ STEP 30 — PRESS RELEASES ═══
       { selector: '#press-admin-section', title: 'Press Release Builder',
         desc: 'Need to announce something? Fill in the headline, date, and body. PULSE formats it as a professional press release. Publish it directly or copy and send it wherever you want.',
-        label: 'Step 30 of 32'
+        label: 'Step 30 of 34'
       },
       // ═══ STEP 31 — KEYBOARD SHORTCUTS ═══
       { selector: '#house-goal-table', title: 'Power User Shortcuts',
         desc: 'Press Control K to open the Command Palette and jump to any tool instantly. Press the question mark key to see all shortcuts. T for Tour. M for Music. F for Focus Mode. PULSE is built for speed.',
-        label: 'Step 31 of 32',
+        label: 'Step 31 of 34',
         onShow: () => {
           // Flash keyboard shortcut keys across the screen
           const keys = ['Ctrl+K', '?', 'T', 'M', 'F', 'Ctrl+Z', 'Ctrl+S'];
@@ -10865,7 +10932,12 @@
           });
         }
       },
-      // ═══ STEP 32 — JUST FOR FUN ═══
+      // ═══ STEP 33 — FEEDBACK ═══
+      { selector: '#feedback-section', title: 'Send Feedback',
+        desc: 'Got an idea? Found a bug? Just want to say what\'s up? This box sends a private message directly to me. I read every single one.',
+        label: 'Step 33 of 34'
+      },
+      // ═══ STEP 34 — JUST FOR FUN ═══
       { selector: '#just-for-fun', title: 'Just for Fun',
         desc: 'You made it. Every serious platform needs one thing that makes no sense. This is ours. Explore the crab heatmap. Don\'t ask why. Pro tip — click Install in your browser to download PULSE to your desktop. Thanks for taking the tour. Now go get in rhythm.',
         label: 'Finish', last: true
