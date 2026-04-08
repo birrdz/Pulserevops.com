@@ -5267,7 +5267,10 @@
       <span class="ri-title">Revenue Intelligence</span>
       <span class="ri-badge">Predictive</span>
       <span class="ri-badge" style="background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.3);color:#22c55e;">CRM</span>
-      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <button class="ri-btn-sm" onclick="riExportBackup()" title="Download all CRM data as a backup file">Backup</button>
+        <button class="ri-btn-sm" onclick="document.getElementById('ri-restore-input').click()" title="Restore CRM data from a backup file">Restore</button>
+        <input type="file" id="ri-restore-input" accept=".json" style="display:none" onchange="riRestoreBackup(event)">
         <button class="ri-btn-sm" onclick="riExportCSV()">Export CSV</button>
         <button class="ri-btn-sm" onclick="riClearAll()">Clear All</button>
       </div>
@@ -6337,13 +6340,18 @@
       const schedUniversal = document.getElementById('sched-universal-toggle')?.checked || false;
       const schedUnivRate  = document.getElementById('sched-universal-gp-dealer')?.value || '200';
 
+      // ── CRM deals ────────────────────────────────────────────────────────────
+      let crmDeals = [];
+      try { crmDeals = JSON.parse(localStorage.getItem('pulse_crm_deals')) || []; } catch(e) {}
+
       return {
         version: 'v2',
         house:      { reps, kpis },
         matrix:     { tiers: matrixTiers, colLabels },
         profit:     { mrr: profitMrr, mode: profitValueMode || 'mrr', rowModes: profitRowModes },
         recruiting,
-        sched:      { units: schedUnitsData, universal: schedUniversal, univRate: schedUnivRate }
+        sched:      { units: schedUnitsData, universal: schedUniversal, univRate: schedUnivRate },
+        crm:        { deals: crmDeals }
       };
     }
 
@@ -6432,6 +6440,12 @@
             if (typeof schedCalcAllDays === 'function') schedCalcAllDays(`sched-unit-${_schedUnitCounter}`);
           });
         }
+      }
+
+      // ── CRM deals ────────────────────────────────────────────────────────────
+      if (data.crm && Array.isArray(data.crm.deals)) {
+        localStorage.setItem('pulse_crm_deals', JSON.stringify(data.crm.deals));
+        if (typeof renderDeals === 'function') renderDeals();
       }
 
       buildMatrix('inline-matrix-body');
@@ -14663,7 +14677,37 @@
       a.click();
     };
 
+    /* ─── BACKUP / RESTORE ─── */
+    window.riExportBackup = function() {
+      const deals = loadDeals();
+      if (!deals.length) { alert('No deals to backup'); return; }
+      const blob = new Blob([JSON.stringify({ pulse_crm: true, ts: Date.now(), deals }, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'pulse-crm-backup-' + new Date().toISOString().split('T')[0] + '.json';
+      a.click();
+    };
+
+    window.riRestoreBackup = function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        try {
+          const data = JSON.parse(ev.target.result);
+          if (!data.pulse_crm || !Array.isArray(data.deals)) { alert('Invalid backup file'); return; }
+          if (!confirm('This will replace all current deals with the backup (' + data.deals.length + ' deals). Continue?')) return;
+          saveDeals(data.deals);
+          renderDeals();
+          alert('Restored ' + data.deals.length + ' deals from backup!');
+        } catch(err) { alert('Could not read backup file'); }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    };
+
     /* ─── INIT ─── */
+    window.renderDeals = renderDeals;
     renderDeals();
   })();
   </script>
