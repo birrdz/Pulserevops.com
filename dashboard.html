@@ -290,7 +290,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      padding: 12px 0;
+      padding: 8px 0;
       background: rgba(6, 11, 24, 0.7);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -302,13 +302,11 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      max-width: 1400px;
+      max-width: 100%;
       margin: 0 auto;
-      padding: 0 16px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      padding: 0 12px;
+      flex-wrap: wrap;
     }
-    .nav-inner::-webkit-scrollbar { height: 0; }
 
     .logo {
       display: flex;
