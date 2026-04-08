@@ -10580,25 +10580,10 @@
         desc: 'This green button is your team HQ. Admin creates a team with a private PIN and adds reps to the roster. Reps join with just the team code — no signup, no passwords. Admin sees everyone. Reps see only their own scorecard and deals.',
         label: 'Step 2 of 32'
       },
-      // 3. AI Coach
-      { selector: '#ai-coach-fab', title: 'PULSE AI Coach',
-        desc: 'Meet your new favorite coworker — never sleeps, never complains, never steals your lunch from the fridge. Click the brain icon and ask it literally anything about sales. Watch...',
-        label: 'Step 2 of 32',
-        onShow: () => {
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof toggleCoach === 'function') toggleCoach(); }, 1000);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const input = document.getElementById('coach-input');
-            if (input) _tourTypeField(input, 'My best rep just quit. What do I do?');
-          }, 2200);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            // Flash send button
-            const btn = document.getElementById('coach-send');
-            if (btn) { btn.style.boxShadow = '0 0 20px rgba(232,113,10,0.6)'; setTimeout(() => btn.style.boxShadow = '', 1000); }
-          }, 5000);
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof toggleCoach === 'function') toggleCoach(); }, 7000);
-        }
+      // ═══ STEP 3 — AI COACH ═══
+      { selector: '#ai-coach-fab', title: 'Your AI Sales Coach',
+        desc: 'See this brain icon? Click it anytime. Ask it anything — slumping reps, pipeline problems, comp plan questions, how to fire someone gracefully. It never sleeps and it never sugarcoats.',
+        label: 'Step 3 of 32'
       },
       // (CRM moved to Step 1)
       // 4. Live Sync
