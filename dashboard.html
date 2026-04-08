@@ -15278,6 +15278,7 @@
   <script>
   window.showEmailCapture = function() {
     if (localStorage.getItem('pulse_email_captured')) return;
+    if (document.body.classList.contains('tour-active')) return; // don't interrupt tour
     document.getElementById('email-capture-overlay').style.display = 'flex';
     setTimeout(() => document.getElementById('email-capture-input')?.focus(), 100);
   };
