@@ -3259,6 +3259,72 @@
       .ri-kanban { grid-template-columns: 1fr; }
       .ri-vitals { grid-template-columns: repeat(2, 1fr); }
     }
+
+    /* ══════════════════════════════════════════════
+       WORKSPACE MODE — FLOATING RESIZABLE PANELS
+       ══════════════════════════════════════════════ */
+    #ws-toolbar {
+      display: none; position: fixed; top: 56px; left: 0; right: 0; z-index: 98;
+      height: 36px; background: rgba(0,6,18,0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 0 16px; align-items: center; gap: 8px;
+      font-family: inherit;
+    }
+    #ws-toolbar.active { display: flex; }
+    .ws-tool-btn {
+      padding: 4px 12px; font-size: 0.62rem; font-weight: 700; border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03);
+      color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .ws-tool-btn:hover { border-color: var(--border); color: var(--text); background: rgba(232,113,10,0.06); }
+    .ws-tool-btn.ws-active { border-color: var(--cyan); color: var(--cyan); background: rgba(232,113,10,0.1); }
+    .ws-exit-btn {
+      margin-left: auto; padding: 4px 14px; font-size: 0.62rem; font-weight: 800;
+      border-radius: 6px; border: 1px solid rgba(239,68,68,0.3); background: rgba(239,68,68,0.06);
+      color: #ef4444; cursor: pointer; font-family: inherit; letter-spacing: 0.06em;
+    }
+    .ws-exit-btn:hover { background: rgba(239,68,68,0.15); }
+    #ws-canvas {
+      display: none; position: fixed; top: 92px; left: 0; right: 0; bottom: 0;
+      z-index: 97; overflow: auto; background: rgba(17,21,24,0.98);
+    }
+    #ws-canvas.active { display: block; }
+    .ws-panel {
+      position: absolute; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      min-width: 320px; min-height: 200px; display: flex; flex-direction: column;
+    }
+    .ws-panel-header {
+      display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+      background: rgba(232,113,10,0.04); border-bottom: 1px solid var(--border);
+      cursor: grab; user-select: none; flex-shrink: 0;
+    }
+    .ws-panel-header:active { cursor: grabbing; }
+    .ws-panel-title {
+      flex: 1; font-size: 0.68rem; font-weight: 800; color: var(--text);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .ws-panel-close {
+      width: 20px; height: 20px; border-radius: 50%; border: none;
+      background: rgba(239,68,68,0.1); color: #ef4444; font-size: 0.7rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .ws-panel-close:hover { background: rgba(239,68,68,0.25); }
+    .ws-panel-body {
+      flex: 1; overflow: auto; padding: 12px;
+    }
+    .ws-panel-resize {
+      position: absolute; bottom: 0; right: 0; width: 18px; height: 18px;
+      cursor: nwse-resize; opacity: 0.3; transition: opacity 0.15s;
+    }
+    .ws-panel-resize:hover { opacity: 0.7; }
+    .ws-panel-resize::after {
+      content: ''; position: absolute; bottom: 4px; right: 4px;
+      width: 8px; height: 8px; border-right: 2px solid var(--muted);
+      border-bottom: 2px solid var(--muted);
+    }
     /* ── SYNC OVERLAY ── */
     #sync-overlay {
       display: none; position: fixed; inset: 0; z-index: 99998;
@@ -3458,6 +3524,7 @@
         </div>
       </div>
       <a id="dashboard-back-btn" href="index.html" style="display:none; align-items:center; gap:5px; padding:7px 13px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); color:#9A9088; font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; white-space:nowrap; transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='#EDE5D8'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.color='#9A9088'">← Full Site</a>
+      <button type="button" id="ws-enter-btn" onclick="wsEnter()" title="Open Workspace — drag, resize, and tile multiple tools" style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.35);border-radius:8px;color:#22c55e;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(34,197,94,0.2)'" onmouseout="this.style.background='rgba(34,197,94,0.08)'">⊞ Workspace</button>
       <button type="button" onclick="lockerOpen()" title="Locker Room" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Locker</button>
       <button type="button" class="nav-walkthrough-btn" onclick="openTourDirect()" title="Guided site walkthrough" aria-label="Open site walkthrough">Tour</button>
       <button type="button" id="admin-lock-btn" onclick="adminPromptPasscode()" title="Admin access" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Admin</button>
@@ -5433,6 +5500,23 @@
       </div>
     </div>
   </div>
+
+  <!-- ── WORKSPACE TOOLBAR ── -->
+  <div id="ws-toolbar">
+    <span style="font-size:0.55rem;font-weight:800;color:var(--cyan);letter-spacing:0.12em;text-transform:uppercase;margin-right:8px;">WORKSPACE</span>
+    <button class="ws-tool-btn" onclick="wsOpen('rev-intel-section','Revenue Intelligence')">📊 CRM</button>
+    <button class="ws-tool-btn" onclick="wsOpen('house-goal-table','House Goals')">🎯 Goals</button>
+    <button class="ws-tool-btn" onclick="wsOpen('inline-matrix','Pulse Check')">💓 Pulse Check</button>
+    <button class="ws-tool-btn" onclick="wsOpen('profit-calc-section','Gross Profit')">💰 Profit</button>
+    <button class="ws-tool-btn" onclick="wsOpen('sched-matrix-section','Scheduling')">📅 Schedule</button>
+    <button class="ws-tool-btn" onclick="wsOpen('coaching-section','Coaching')">🎯 Coaching</button>
+    <button class="ws-tool-btn" onclick="wsOpen('recruiting-calc-section','Recruiting')">🧮 Recruiting</button>
+    <button class="ws-tool-btn" onclick="wsOpen('challenge-section','Lightning Rounds')">⚡ Lightning</button>
+    <button class="ws-exit-btn" onclick="wsExit()">✕ EXIT WORKSPACE</button>
+  </div>
+
+  <!-- ── WORKSPACE CANVAS ── -->
+  <div id="ws-canvas"></div>
 
   <!-- ── SYNC OVERLAY ── -->
   <div id="sync-overlay" onclick="if(event.target===this)closeSyncPanel()">
@@ -10133,25 +10217,25 @@
       // 1. Revenue Intelligence & CRM
       { selector: '#rev-intel-section', title: 'Revenue Intelligence & CRM',
         desc: 'Your free built-in CRM. Add deals, import CSV/Excel, and PULSE auto-calculates projected revenue, win rates, funnel velocity, and deal risk. Sync live across all your devices. This is your command center.',
-        label: 'Step 1 of 28',
+        label: 'Step 1 of 29',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(); }, 800); }
       },
       // ═══ SETUP ═══════════════════════════════════════════════════════════════════
       // 2. House Goals
       { selector: '#house-goal-table', title: 'House Goal Setting',
         desc: 'Set your total monthly company targets for each KPI. PULSE auto-divides by rep count — watch the demo data fill in now.',
-        label: 'Step 2 of 28',
+        label: 'Step 2 of 29',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof runTourDemoData === 'function') runTourDemoData(); }, 1200); }
       },
       // 3. Team Size
       { selector: '#house-rep-count', title: 'Team Size',
         desc: 'Set your rep count. PULSE divides every house goal by this number instantly — fair, mathematical targets per rep.',
-        label: 'Step 3 of 28'
+        label: 'Step 3 of 29'
       },
       // 4. Industry Preset
       { selector: '#global-industry-select', title: 'Industry Preset',
         desc: 'Pick your industry and watch every KPI, benchmark, and AI suggestion recalibrate instantly. 35+ verticals supported.',
-        label: 'Step 4 of 28',
+        label: 'Step 4 of 29',
         onShow: () => { const sel = document.getElementById('global-industry-select'); if (!sel) return;
           ['solar','saas','insurance','realestate','healthcare'].forEach((ind, i) => {
             _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn(sel); sel.value = ind; sel.dispatchEvent(new Event('change', { bubbles: true })); }, 1000 + i * 1200);
@@ -10161,135 +10245,140 @@
       // 5. KPI Type Toggle
       { selector: '.kpi-type-select', title: 'Total vs. Percentage Goals',
         desc: 'Toggle each KPI between Total and Percentage. Pro tip: % goals backfire — reps shrink volume to protect their rate. Always use totals.',
-        label: 'Step 5 of 28'
+        label: 'Step 5 of 29'
       },
       // 6. AI Goal Suggestions
       { selector: '.ai-btn[onclick*="aiSuggestGoals"]', title: 'AI Goal Suggestions',
         desc: 'Not sure where to start? AI analyzes benchmarks for your industry and rep count, then recommends a baseline.',
-        label: 'Step 6 of 28',
+        label: 'Step 6 of 29',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn(document.querySelector('.ai-btn[onclick*="aiSuggestGoals"]')); if (typeof aiSuggestGoals === 'function') aiSuggestGoals(); }, 800); }
       },
       // 7. Locker Room + Import
       { selector: '.kpi-config-panel', title: 'Save, Load & Import',
         desc: 'Hit Save/Load to open the Locker Room — enter a 4-digit code to save or restore your setup. Import goals from CSV/Excel or download a template.',
-        label: 'Step 7 of 28'
+        label: 'Step 7 of 29'
       },
       // ═══ PULSE CHECK ═════════════════════════════════════════════════════════════
       // 8. Sync Toggle
       { selector: '#sync-toggle-wrap', title: 'Sync to Pulse Check',
         desc: 'One toggle bridges house goals to the Pulse Check. All 5 Rhythm Levels across every KPI populate automatically.',
-        label: 'Step 8 of 28',
+        label: 'Step 8 of 29',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; const tog = document.getElementById('sync-toggle-input'); if (tog && !tog.checked) tog.click(); }, 1000); }
       },
       // 9. Pulse Check
       { selector: '#inline-matrix', title: 'Pulse Check',
         desc: 'The engine. 5 Rhythm Levels per KPI, escalating targets, points per tier — all rolling into one total score. No cherry-picking.',
-        label: 'Step 9 of 28',
+        label: 'Step 9 of 29',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 600); }
       },
       // 10. Intensity Modes
       { selector: '#goal-mode-selector', title: 'Intensity Modes',
         desc: 'Push (+10%), Standard, or Ramp (−10%). One click scales every target up or down for aggressive months, new hires, or soft markets.',
-        label: 'Step 10 of 28'
+        label: 'Step 10 of 29'
       },
       // 11. End-of-Month Scoring
       { selector: '#inline-matrix', title: 'End-of-Month Scoring',
         desc: 'Month closes, PULSE scores every rep automatically. Each KPI maps to a tier, tiers earn points, points determine the bonus level.',
-        label: 'Step 11 of 28', managedTimer: true,
+        label: 'Step 11 of 29', managedTimer: true,
         onShow: () => { showTourScorecard(); }
       },
       // ═══ FORECASTING ═════════════════════════════════════════════════════════════
       // 12. AI Revenue Forecast
       { selector: '#ai-forecast-panel', title: 'AI Revenue Forecast',
         desc: 'Projected revenue, at-risk reps, and attainment likelihood — all based on your current targets.',
-        label: 'Step 12 of 28',
+        label: 'Step 12 of 29',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; const fp = document.getElementById('ai-forecast-panel'); if (fp) fp.style.display = 'block'; }, 400); }
       },
       // 13. Team Distribution
       { selector: '.tier-dist-wrap', title: 'Team Distribution',
         desc: 'See how your full team projects across all 5 tiers before the month starts. Coach proactively, not reactively.',
-        label: 'Step 13 of 28',
+        label: 'Step 13 of 29',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; try { if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 400); }
       },
       // ═══ FINANCIAL TOOLS ═════════════════════════════════════════════════════════
       // 14. Gross Profit Calculator
       { selector: '#profit-calc-section', title: 'Gross Profit Calculator',
         desc: 'Toggle each KPI between MRR and Per Unit Profit. PULSE calculates projected revenue in real time.',
-        label: 'Step 14 of 28'
+        label: 'Step 14 of 29'
       },
       // 15. Service Fees
       { selector: '#service-fees-section', title: 'Service Fees',
         desc: 'Add up to 5 service fees with attach rate and monthly units. PULSE calculates the exact bottom-line impact in real time.',
-        label: 'Step 15 of 28'
+        label: 'Step 15 of 29'
       },
       // 16. Recruiting Calculator
       { selector: '#recruiting-calc-section', title: 'Recruiting Calculator',
         desc: 'Enter target ARR, current ARR, quota, ramp time, and attrition. PULSE outputs exactly how many hires you need.',
-        label: 'Step 16 of 28'
+        label: 'Step 16 of 29'
       },
       // ═══ OPERATIONS ══════════════════════════════════════════════════════════════
       // 17. Rep Scheduling
       { selector: '#sched-matrix-section', title: 'Rep Scheduling Matrix',
         desc: 'The GP-per-shift rate is your "get out of bed" number — the minimum a rep must produce per shift to justify being there. PULSE divides daily GP by that rate to calculate shifts needed. AI Optimize redistributes across the week by revenue weight.',
-        label: 'Step 17 of 28'
+        label: 'Step 17 of 29'
       },
       // 18. Coaching
       { selector: '#coaching-section', title: 'Coaching Action Items',
         desc: 'One coaching move per Rhythm Level — sourced from Gartner, HBR, McKinsey, and PULSE field methodology.',
-        label: 'Step 18 of 28',
+        label: 'Step 18 of 29',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn('ai-coaching-btn'); if (typeof aiCoachingItems === 'function') aiCoachingItems(false); }, 800); }
       },
       // 19. 90-Day Plan
       { selector: '#plan-90', title: '90-Day Revenue Plan',
         desc: 'Three 30-day phases: establish, build, accelerate. The exact framework for ramping a new market or resetting a team.',
-        label: 'Step 19 of 28'
+        label: 'Step 19 of 29'
       },
       // 20. Not-To-Do List
       { selector: '#not-to-do-section', title: 'The Not-To-Do List',
         desc: 'Protect rep selling time. Gartner says reps sell only 28% of the week — every non-selling task you remove is revenue recovered.',
-        label: 'Step 20 of 28'
+        label: 'Step 20 of 29'
       },
       // ═══ ENGAGEMENT ══════════════════════════════════════════════════════════════
       // 21. Lightning Rounds
       { selector: '#challenge-section', title: 'Lightning Rounds',
         desc: 'Drop a time-boxed competition on any KPI with bonus Pulse Points. Perfect for mid-month energy spikes.',
-        label: 'Step 21 of 28'
+        label: 'Step 21 of 29'
       },
       // 22. Squad Sync
       { selector: '#app-sync-section', title: 'Squad Sync',
         desc: 'Real-time updates pushed to every rep\'s phone — scores, bonus levels, and active Lightning Rounds. No login required.',
-        label: 'Step 22 of 28'
+        label: 'Step 22 of 29'
       },
       // ═══ AI TOOLS ════════════════════════════════════════════════════════════════
       // 23. Sales Meeting Creator
       { selector: '#meeting-creator-section', title: 'Sales Meeting Creator',
         desc: 'AI generates a full 60–90 minute meeting script with timestamps, role plays, energy breaks, and memes.',
-        label: 'Step 23 of 28'
+        label: 'Step 23 of 29'
       },
       // 24. Toasts & Speeches
       { selector: '#team-speeches-section', title: 'Team Toasts & Speeches',
         desc: 'Generate custom toasts for any occasion — dinners, promotions, farewells. Pick the tone and AI writes it ready to read aloud.',
-        label: 'Step 24 of 28'
+        label: 'Step 24 of 29'
       },
       // ═══ NAVIGATION & EXTRAS ═════════════════════════════════════════════════════
       // 25. Press Releases
       { selector: '#press-admin-section', title: 'Press Release Builder',
         desc: 'Draft and publish professional press releases directly from PULSE. Fill in headline, date, body — publish or copy.',
-        label: 'Step 25 of 28'
+        label: 'Step 25 of 29'
       },
       // ═══ POWER FEATURES ═══════════════════════════════════════════════════════════
-      // 26. Live Sync
+      // 26. Workspace Mode
+      { selector: '#ws-enter-btn', title: 'Custom Workspace',
+        desc: 'Click Workspace to open a floating canvas where you can tile multiple tools side by side. Drag to reposition, resize from the corner, open as many panels as you need. Build your own command center.',
+        label: 'Step 26 of 30'
+      },
+      // 27. Live Sync
       { selector: '#sync-toggle-btn', title: 'Live Sync Across Devices',
         desc: 'Click Sync, enter a code, and your CRM data streams live to every device — desktop, phone, tablet. Add a deal on your laptop and it appears on your phone instantly. No app download, no login.',
-        label: 'Step 26 of 28'
+        label: 'Step 27 of 29'
       },
-      // 27. Command Palette & Shortcuts
+      // 28. Command Palette & Shortcuts
       { selector: 'nav', title: 'Power User Shortcuts',
         desc: 'Press Ctrl+K to open the Command Palette — search and jump to any tool instantly. Press ? to see all keyboard shortcuts. Press T for Tour, M for Music, F for Focus Mode. PULSE is built for speed.',
-        label: 'Step 27 of 28',
+        label: 'Step 28 of 29',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof openCmdPalette === 'function') openCmdPalette(); }, 1200); }
       },
-      // 28. Just for Fun
+      // 29. Just for Fun
       { selector: '#just-for-fun', title: 'Just for Fun',
         desc: 'Every great platform needs a little chaos. Explore the crab heatmap and enjoy the side of RevOps that doesn\'t take itself too seriously.',
         label: 'Finish', last: true
@@ -14799,6 +14888,174 @@
     /* ─── INIT ─── */
     window.renderDeals = renderDeals;
     renderDeals();
+  })();
+  </script>
+
+  <!-- WORKSPACE ENGINE -->
+  <script>
+  (function() {
+    'use strict';
+    let _wsActive = false;
+    let _wsPanelCount = 0;
+    const _wsOpenPanels = {};
+
+    window.wsEnter = function() {
+      _wsActive = true;
+      document.getElementById('ws-toolbar').classList.add('active');
+      document.getElementById('ws-canvas').classList.add('active');
+      // Hide main page content
+      document.querySelectorAll('#dashboard, footer, #rev-intel-section').forEach(el => {
+        el.style.display = 'none';
+      });
+    };
+
+    window.wsExit = function() {
+      _wsActive = false;
+      document.getElementById('ws-toolbar').classList.remove('active');
+      document.getElementById('ws-canvas').classList.remove('active');
+      document.getElementById('ws-canvas').innerHTML = '';
+      _wsPanelCount = 0;
+      Object.keys(_wsOpenPanels).forEach(k => delete _wsOpenPanels[k]);
+      // Restore main page
+      document.querySelectorAll('#dashboard, footer, #rev-intel-section').forEach(el => {
+        el.style.display = '';
+      });
+    };
+
+    window.wsOpen = function(sectionId, title) {
+      if (_wsOpenPanels[sectionId]) return; // already open
+      const canvas = document.getElementById('ws-canvas');
+      const source = document.getElementById(sectionId);
+      if (!source) return;
+
+      _wsPanelCount++;
+      const panelId = 'ws-panel-' + _wsPanelCount;
+      const offsetX = 20 + (_wsPanelCount - 1) * 30;
+      const offsetY = 10 + (_wsPanelCount - 1) * 30;
+
+      const panel = document.createElement('div');
+      panel.className = 'ws-panel';
+      panel.id = panelId;
+      panel.style.cssText = 'left:' + offsetX + 'px;top:' + offsetY + 'px;width:600px;height:450px;';
+
+      panel.innerHTML = '<div class="ws-panel-header" data-panel="' + panelId + '">'
+        + '<span class="ws-panel-title">' + title + '</span>'
+        + '<button class="ws-panel-close" onclick="wsClose(\'' + panelId + '\',\'' + sectionId + '\')" title="Close">✕</button>'
+        + '</div>'
+        + '<div class="ws-panel-body"></div>'
+        + '<div class="ws-panel-resize" data-panel="' + panelId + '"></div>';
+
+      canvas.appendChild(panel);
+      _wsOpenPanels[sectionId] = panelId;
+
+      // Clone content into panel
+      const body = panel.querySelector('.ws-panel-body');
+      const clone = source.cloneNode(true);
+      clone.style.display = 'block';
+      clone.style.padding = '0';
+      clone.style.border = 'none';
+      clone.style.borderRadius = '0';
+      clone.style.background = 'transparent';
+      clone.id = sectionId + '-ws-clone';
+      body.appendChild(clone);
+
+      // Bring to front on click
+      panel.addEventListener('mousedown', () => {
+        canvas.querySelectorAll('.ws-panel').forEach(p => p.style.zIndex = '1');
+        panel.style.zIndex = '10';
+      });
+
+      // Drag
+      initDrag(panel);
+      // Resize
+      initResize(panel);
+
+      // Mark toolbar button as active
+      updateToolbarState();
+    };
+
+    window.wsClose = function(panelId, sectionId) {
+      const panel = document.getElementById(panelId);
+      if (panel) panel.remove();
+      delete _wsOpenPanels[sectionId];
+      updateToolbarState();
+    };
+
+    function updateToolbarState() {
+      document.querySelectorAll('.ws-tool-btn').forEach(btn => {
+        const onclick = btn.getAttribute('onclick') || '';
+        const match = onclick.match(/wsOpen\('([^']+)'/);
+        if (match) {
+          btn.classList.toggle('ws-active', !!_wsOpenPanels[match[1]]);
+        }
+      });
+    }
+
+    function initDrag(panel) {
+      const header = panel.querySelector('.ws-panel-header');
+      let dragging = false, startX, startY, origX, origY;
+
+      header.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.ws-panel-close')) return;
+        dragging = true;
+        startX = e.clientX; startY = e.clientY;
+        origX = panel.offsetLeft; origY = panel.offsetTop;
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onUp);
+        e.preventDefault();
+      });
+
+      function onMove(e) {
+        if (!dragging) return;
+        panel.style.left = (origX + e.clientX - startX) + 'px';
+        panel.style.top = (origY + e.clientY - startY) + 'px';
+      }
+      function onUp() {
+        dragging = false;
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      }
+
+      // Touch support
+      header.addEventListener('touchstart', (e) => {
+        if (e.target.closest('.ws-panel-close')) return;
+        const t = e.touches[0];
+        dragging = true; startX = t.clientX; startY = t.clientY;
+        origX = panel.offsetLeft; origY = panel.offsetTop;
+      }, { passive: true });
+      header.addEventListener('touchmove', (e) => {
+        if (!dragging) return;
+        const t = e.touches[0];
+        panel.style.left = (origX + t.clientX - startX) + 'px';
+        panel.style.top = (origY + t.clientY - startY) + 'px';
+      }, { passive: true });
+      header.addEventListener('touchend', () => { dragging = false; });
+    }
+
+    function initResize(panel) {
+      const handle = panel.querySelector('.ws-panel-resize');
+      let resizing = false, startX, startY, origW, origH;
+
+      handle.addEventListener('mousedown', (e) => {
+        resizing = true;
+        startX = e.clientX; startY = e.clientY;
+        origW = panel.offsetWidth; origH = panel.offsetHeight;
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onUp);
+        e.preventDefault();
+      });
+
+      function onMove(e) {
+        if (!resizing) return;
+        panel.style.width = Math.max(320, origW + e.clientX - startX) + 'px';
+        panel.style.height = Math.max(200, origH + e.clientY - startY) + 'px';
+      }
+      function onUp() {
+        resizing = false;
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      }
+    }
   })();
   </script>
 
