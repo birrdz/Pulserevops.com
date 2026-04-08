@@ -10395,14 +10395,30 @@
         })
         .catch(() => {});
 
-      // Detect city and save to Firebase
-      fetch('https://ipwho.is/')
-        .then(r => r.json())
-        .then(geo => {
-          const city = geo.city || '';
-          const region = geo.region || '';
-          if (!city) return;
-          const label = region ? city + ', ' + region : city;
+      // Detect city — try multiple APIs for reliability
+      async function detectCity() {
+        // Try 1: ipwho.is
+        try {
+          const r1 = await fetch('https://ipwho.is/');
+          const g1 = await r1.json();
+          if (g1.city) return g1.region ? g1.city + ', ' + g1.region : g1.city;
+        } catch(e) {}
+        // Try 2: ipapi.co
+        try {
+          const r2 = await fetch('https://ipapi.co/json/');
+          const g2 = await r2.json();
+          if (g2.city) return g2.region_code ? g2.city + ', ' + g2.region_code : g2.city;
+        } catch(e) {}
+        // Try 3: freeipapi.com
+        try {
+          const r3 = await fetch('https://freeipapi.com/api/json');
+          const g3 = await r3.json();
+          if (g3.cityName) return g3.regionName ? g3.cityName + ', ' + g3.regionName : g3.cityName;
+        } catch(e) {}
+        return '';
+      }
+      detectCity().then(label => {
+          if (!label) return;
           try { sessionStorage.setItem('pulse_my_city', label); } catch(e) {}
 
           // Save city to Firebase (keyed by city name to deduplicate)
@@ -10420,8 +10436,7 @@
                 buildTicker(cities, label);
               });
           }).catch(() => {});
-        })
-        .catch(() => {});
+      }).catch(() => {});
     }
   })();
   </script>
