@@ -11602,11 +11602,11 @@
         const elH = el.offsetHeight;
         const offset = elH < viewH ? navH + (viewH - elH) / 2 : navH;
         const scrollTo = window.scrollY + el.getBoundingClientRect().top - offset;
-        window.scrollTo({ top: Math.max(0, scrollTo), behavior: 'smooth' });
+        window.scrollTo({ top: Math.max(0, scrollTo), behavior: 'instant' });
         _tourLockedScrollY = Math.max(0, scrollTo);
-        setTimeout(() => { if (tourActive) _tourScrollLocked = true; }, 800);
+        setTimeout(() => { if (tourActive) _tourScrollLocked = true; }, 200);
       } catch(e) {
-        try { el.scrollIntoView({ block: 'center' }); } catch(e2) {}
+        try { el.scrollIntoView({ block: 'center', behavior: 'instant' }); } catch(e2) {}
       }
     }
 
@@ -12143,10 +12143,9 @@
           const elH = target.offsetHeight;
           const offset = elH < viewH ? navH + (viewH - elH) / 2 : navH;
           const scrollTo = window.scrollY + target.getBoundingClientRect().top - offset;
-          window.scrollTo({ top: Math.max(0, scrollTo), behavior: 'smooth' });
-          // Lock scroll after smooth scroll settles
+          window.scrollTo({ top: Math.max(0, scrollTo), behavior: 'instant' });
           _tourLockedScrollY = Math.max(0, scrollTo);
-          setTimeout(() => { if (tourActive) _tourScrollLocked = true; }, 800);
+          setTimeout(() => { if (tourActive) _tourScrollLocked = true; }, 200);
         } catch(e) {}
       }
 
