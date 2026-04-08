@@ -10738,12 +10738,45 @@
       // ═══ STEP 26 — LIGHTNING ROUNDS ═══
       { selector: '#challenge-section', title: 'Lightning Rounds',
         desc: 'Energy dying mid-month? Drop a Lightning Round. Pick a KPI, set a time window, attach bonus Pulse Points. Instant competition. Instant energy. The team will thank you — or hate you. Either way, they sell more.',
-        label: 'Step 26 of 32'
+        label: 'Step 26 of 32',
+        onShow: () => {
+          // Pulse the challenge section with an energy flash
+          const sec = document.getElementById('challenge-section');
+          if (!sec) return;
+          let flashes = 0;
+          const iv = setInterval(() => {
+            if (!tourActive || flashes > 5) { clearInterval(iv); if (sec) sec.style.boxShadow = ''; return; }
+            sec.style.boxShadow = flashes % 2 === 0 ? '0 0 30px rgba(232,113,10,0.4), inset 0 0 20px rgba(232,113,10,0.06)' : '';
+            flashes++;
+          }, 500);
+        }
       },
       // ═══ STEP 27 — SQUAD SYNC ═══
       { selector: '#app-sync-section', title: 'Squad Sync',
         desc: 'Scores, bonus levels, and active Lightning Rounds — pushed to every rep\'s phone in real time. They always know where they stand. No app download. No login. Just open PULSE.',
-        label: 'Step 27 of 32'
+        label: 'Step 27 of 32',
+        onShow: () => {
+          // Simulate a notification popping in
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const notif = document.createElement('div');
+            notif.style.cssText = 'position:fixed;top:80px;right:20px;z-index:99999;background:rgba(10,14,20,0.96);border:1px solid rgba(34,197,94,0.4);border-left:3px solid #22c55e;border-radius:10px;padding:12px 18px;font-size:0.78rem;color:#EDE5D8;font-family:inherit;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:translateX(20px);transition:all 0.4s ease;max-width:280px;';
+            notif.innerHTML = '<div style="font-size:0.55rem;font-weight:800;color:#22c55e;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Squad Sync</div>Sarah just hit Rhythm Level 4 — 2,850 Pulse Points';
+            document.body.appendChild(notif);
+            requestAnimationFrame(() => { notif.style.opacity = '1'; notif.style.transform = 'translateX(0)'; });
+            setTimeout(() => { notif.style.opacity = '0'; notif.style.transform = 'translateX(20px)'; setTimeout(() => notif.remove(), 500); }, 4000);
+          }, 2000);
+          // Second notification
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const notif2 = document.createElement('div');
+            notif2.style.cssText = 'position:fixed;top:80px;right:20px;z-index:99999;background:rgba(10,14,20,0.96);border:1px solid rgba(232,113,10,0.4);border-left:3px solid #E8710A;border-radius:10px;padding:12px 18px;font-size:0.78rem;color:#EDE5D8;font-family:inherit;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:translateX(20px);transition:all 0.4s ease;max-width:280px;';
+            notif2.innerHTML = '<div style="font-size:0.55rem;font-weight:800;color:#E8710A;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Lightning Round</div>⚡ New Activations — 2 hours remaining';
+            document.body.appendChild(notif2);
+            requestAnimationFrame(() => { notif2.style.opacity = '1'; notif2.style.transform = 'translateX(0)'; });
+            setTimeout(() => { notif2.style.opacity = '0'; notif2.style.transform = 'translateX(20px)'; setTimeout(() => notif2.remove(), 500); }, 4000);
+          }, 6000);
+        }
       },
       // ═══ STEP 28 — SALES MEETING CREATOR ═══
       { selector: '#meeting-creator-section', title: 'Sales Meeting Creator',
@@ -10763,7 +10796,24 @@
       // ═══ STEP 31 — KEYBOARD SHORTCUTS ═══
       { selector: 'nav', title: 'Power User Shortcuts',
         desc: 'Press Control K to open the Command Palette and jump to any tool instantly. Press the question mark key to see all shortcuts. T for Tour. M for Music. F for Focus Mode. PULSE is built for speed.',
-        label: 'Step 31 of 32'
+        label: 'Step 31 of 32',
+        onShow: () => {
+          // Flash keyboard shortcut keys across the screen
+          const keys = ['Ctrl+K', '?', 'T', 'M', 'F', 'Ctrl+Z', 'Ctrl+S'];
+          keys.forEach((key, i) => {
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const el = document.createElement('div');
+              const x = 10 + Math.random() * 70;
+              const y = 30 + Math.random() * 40;
+              el.textContent = key;
+              el.style.cssText = 'position:fixed;left:' + x + '%;top:' + y + '%;z-index:99999;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:6px 14px;font-size:0.85rem;font-weight:800;color:rgba(226,232,240,0.5);font-family:inherit;pointer-events:none;opacity:0;transform:scale(0.5);transition:all 0.4s ease;';
+              document.body.appendChild(el);
+              requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'scale(1)'; });
+              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'scale(1.2)'; setTimeout(() => el.remove(), 400); }, 2000);
+            }, 1500 + i * 1200);
+          });
+        }
       },
       // ═══ STEP 32 — JUST FOR FUN ═══
       { selector: '#just-for-fun', title: 'Just for Fun',
