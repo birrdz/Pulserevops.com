@@ -556,10 +556,10 @@
     }
     .howto-dropdown-btn:hover, .howto-dropdown-wrap:hover .howto-dropdown-btn { background: rgba(232,113,10,0.2); }
     .howto-mega {
-      display: none; position: absolute; top: calc(100% + 6px); right: 0;
-      z-index: 9999; background: #1A2025; border: 1px solid rgba(232,113,10,0.3);
+      display: none; position: fixed; top: 52px; left: 50%; transform: translateX(-50%);
+      z-index: 99999; background: #1A2025; border: 1px solid rgba(232,113,10,0.3);
       border-radius: 12px; box-shadow: 0 16px 48px rgba(0,0,0,0.5);
-      padding: 1rem; width: 560px; max-height: 70vh; overflow-y: auto;
+      padding: 1rem; width: 560px; max-width: 95vw; max-height: 70vh; overflow-y: auto;
     }
     .howto-dropdown-wrap:hover .howto-mega, .howto-dropdown-wrap:focus-within .howto-mega { display: block; }
     .howto-mega-header {
