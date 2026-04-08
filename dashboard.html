@@ -10608,12 +10608,11 @@
         desc: 'Click Workspace to pop out any tool as a floating window. Drag it. Resize it. Open five at once. Build your own command center — like a trading floor for revenue.',
         label: 'Step 6 of 32'
       },
-      // ═══ SETUP ═══════════════════════════════════════════════════════════════════
-      // 2. House Goals
+      // ═══ STEP 7 — HOUSE GOALS ═══
       { selector: '#house-goal-table', title: 'House Goal Setting',
-        desc: 'Set the house goals. PULSE does the math so you don\'t have to argue about who got the "easy" targets. Watch the demo data fill in — no, that\'s not a ghost typing.',
-        label: 'Step 2 of 32',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof runTourDemoData === 'function') runTourDemoData(); }, 1200); }
+        desc: 'Set your company targets. PULSE divides them by rep count automatically — no spreadsheets, no arguments. Watch the demo data fill in now.',
+        label: 'Step 7 of 32',
+        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof runTourDemoData === 'function') runTourDemoData(); }, 2000); }
       },
       // 3. Team Size
       { selector: '#house-rep-count', title: 'Team Size',
