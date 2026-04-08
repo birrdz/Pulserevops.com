@@ -10570,58 +10570,50 @@
       // ═══ TEAM LOGIN (Step 1) ══════════════════════════════════════════════════
       // 1. Team Login
       { selector: '#team-nav-btn', title: 'Team Login — Your Command Center Starts Here',
-        desc: 'First things first — set up your team. Admins create a team with a private PIN, add reps to the roster, and control everything. Reps join with just a code and their name. Watch how it works...',
+        desc: 'First things first — set up your team. Admins get the keys to the kingdom (a 4-digit PIN). Reps get... a code and their name. That\'s it. No 47-page onboarding doc. No IT ticket. Watch...',
         label: 'Step 1 of 33',
         onShow: () => {
           _schedTourTimer(() => {
             if (!tourActive) return;
-            // Open the team panel to show it
             if (typeof openTeamPanel === 'function') openTeamPanel();
-          }, 1200);
+          }, 2000);
           _schedTourTimer(() => {
             if (!tourActive) return;
-            // Switch to Create tab
             if (typeof teamSwitchTab === 'function') teamSwitchTab('create');
-          }, 2800);
+          }, 4500);
           _schedTourTimer(() => {
             if (!tourActive) return;
-            // Type demo team name
             const nameInput = document.getElementById('team-create-name');
             if (nameInput) { nameInput.value = ''; _tourTypeField(nameInput, 'Acme Sales Team'); }
-          }, 3500);
+          }, 6000);
           _schedTourTimer(() => {
             if (!tourActive) return;
-            // Type demo code
             const codeInput = document.getElementById('team-create-code');
             if (codeInput) { codeInput.value = ''; _tourTypeField(codeInput, 'ACME'); }
-          }, 5000);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            // Type demo PIN
-            const pinInput = document.getElementById('team-create-pin');
-            if (pinInput) { pinInput.value = ''; _tourTypeField(pinInput, '1234'); }
-          }, 6200);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            // Flash the create button
-            const btn = document.querySelector('#team-tab-create .team-btn-primary');
-            if (btn) { btn.style.boxShadow = '0 0 20px rgba(232,113,10,0.6)'; setTimeout(() => { btn.style.boxShadow = ''; }, 1000); }
-          }, 7500);
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            // Switch to Join tab to show rep view
-            if (typeof teamSwitchTab === 'function') teamSwitchTab('join');
           }, 9000);
           _schedTourTimer(() => {
             if (!tourActive) return;
-            // Close the panel
-            if (typeof closeTeamPanel === 'function') closeTeamPanel();
+            const pinInput = document.getElementById('team-create-pin');
+            if (pinInput) { pinInput.value = ''; _tourTypeField(pinInput, '1234'); }
           }, 11000);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const btn = document.querySelector('#team-tab-create .team-btn-primary');
+            if (btn) { btn.style.boxShadow = '0 0 24px rgba(232,113,10,0.7)'; setTimeout(() => { btn.style.boxShadow = ''; }, 1500); }
+          }, 13500);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            if (typeof teamSwitchTab === 'function') teamSwitchTab('join');
+          }, 16000);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            if (typeof closeTeamPanel === 'function') closeTeamPanel();
+          }, 19000);
         }
       },
       // 2. AI Coach
       { selector: '#ai-coach-fab', title: 'PULSE AI Coach',
-        desc: 'Your AI sales advisor — click the brain icon anytime. Ask anything: slumping reps, pipeline problems, comp plans, hiring. Watch it open...',
+        desc: 'Meet your new favorite coworker — never sleeps, never complains, never steals your lunch from the fridge. Click the brain icon and ask it literally anything about sales. Watch...',
         label: 'Step 2 of 33',
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; if (typeof toggleCoach === 'function') toggleCoach(); }, 1000);
@@ -10641,13 +10633,13 @@
       },
       // 3. Revenue Intelligence & CRM
       { selector: '#rev-intel-section', title: 'Revenue Intelligence & CRM',
-        desc: 'Your free built-in CRM. Add deals, import CSV/Excel, and PULSE auto-calculates projected revenue, win rates, funnel velocity, and deal risk. Sync live across all your devices.',
+        desc: 'A CRM that doesn\'t cost $300/month and doesn\'t require a PhD to set up. Add deals, import your spreadsheet, and PULSE tells you what\'s going to close and what\'s about to ghost you.',
         label: 'Step 3 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(); }, 800); }
       },
       // 4. Live Sync
       { selector: '#sync-toggle-btn', title: 'Live Sync Across Devices',
-        desc: 'Click Sync, enter a code, and your CRM data streams live to every device — desktop, phone, tablet. Add a deal on your laptop, it appears on your phone instantly.',
+        desc: 'Enter a code. That\'s it. Your deals now exist on every device you own. Add a deal at your desk, check it on your phone in the parking lot. It\'s like magic, except it actually works.',
         label: 'Step 4 of 33',
         onShow: () => {
           _schedTourTimer(() => {
@@ -10664,7 +10656,7 @@
       },
       // 5. Pulse MGMT
       { selector: '#pulse-mgmt-section', title: 'Pulse MGMT — What To Do When...',
-        desc: 'A sales leader in your pocket. 35+ real-world problems with instant fixes. Click any question to see the answer. Search for anything — "turnover", "slump", "discount".',
+        desc: 'Every problem your manager never taught you how to handle. "My top rep is toxic." "Nobody updates the CRM." "The internet went down mid-pitch." 35+ scenarios, zero sugarcoating.',
         label: 'Step 5 of 33',
         onShow: () => {
           _schedTourTimer(() => {
@@ -10677,7 +10669,7 @@
       },
       // 6. Custom Workspace
       { selector: '#ws-enter-btn', title: 'Custom Workspace',
-        desc: 'Open multiple tools as floating windows — drag, resize, tile side by side. Build your own command center. Watch...',
+        desc: 'For the person who has 47 browser tabs open and feels personally attacked right now. Pop out any tool as a floating window. Drag it. Resize it. Feel like a Wall Street trader. Watch...',
         label: 'Step 6 of 33',
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; if (typeof wsEnter === 'function') wsEnter(); }, 1200);
@@ -10695,13 +10687,13 @@
       // ═══ SETUP ═══════════════════════════════════════════════════════════════════
       // 2. House Goals
       { selector: '#house-goal-table', title: 'House Goal Setting',
-        desc: 'Set your total monthly company targets for each KPI. PULSE auto-divides by rep count — watch the demo data fill in now.',
+        desc: 'Set the house goals. PULSE does the math so you don\'t have to argue about who got the "easy" targets. Watch the demo data fill in — no, that\'s not a ghost typing.',
         label: 'Step 2 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof runTourDemoData === 'function') runTourDemoData(); }, 1200); }
       },
       // 3. Team Size
       { selector: '#house-rep-count', title: 'Team Size',
-        desc: 'Set your rep count. PULSE divides every house goal by this number instantly — fair, mathematical targets per rep.',
+        desc: ['Set your rep count. PULSE divides every house goal by this number instantly. Math doesn\'t play favorites.', 'How many reps you got? Type it. PULSE splits every goal evenly. Finally, something that\'s actually fair.', 'Rep count goes here. PULSE does division so your reps can\'t argue about it. You\'re welcome.'][Math.floor(Math.random()*3)],
         label: 'Step 3 of 33'
       },
       // 4. Industry Preset
@@ -10739,13 +10731,13 @@
       },
       // 9. Pulse Check
       { selector: '#inline-matrix', title: 'Pulse Check',
-        desc: 'The engine. 5 Rhythm Levels per KPI, escalating targets, points per tier — all rolling into one total score. No cherry-picking.',
+        desc: 'The engine. The thing your reps will either love or pretend doesn\'t exist. 5 Rhythm Levels, escalating targets, points per tier — one total score. No cherry-picking. No hiding.',
         label: 'Step 9 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 600); }
       },
       // 10. Intensity Modes
       { selector: '#goal-mode-selector', title: 'Intensity Modes',
-        desc: 'Push (+10%), Standard, or Ramp (−10%). One click scales every target up or down for aggressive months, new hires, or soft markets.',
+        desc: 'Feeling aggressive? Push mode (+10%). New hire struggling? Ramp mode (−10%). Standard for everyone else. One click. Your HR department would need a committee and 3 meetings for this.',
         label: 'Step 10 of 33'
       },
       // 11. End-of-Month Scoring
@@ -10874,6 +10866,30 @@
       _tourStepTimers = [];
     }
     // Animate typing into an input field for tour demos
+    // Random walking critter across the screen during tour
+    function _tourCritter() {
+      if (!tourActive) return;
+      const critters = ['🦀', '🐛', '🐌', '🦎', '🐁'];
+      const el = document.createElement('div');
+      const c = critters[Math.floor(Math.random() * critters.length)];
+      const fromLeft = Math.random() > 0.5;
+      const y = 50 + Math.random() * 40; // 50-90% from top
+      el.textContent = c;
+      el.style.cssText = 'position:fixed;top:' + y + '%;' + (fromLeft ? 'left:-40px' : 'right:-40px') + ';z-index:99999;font-size:1.8rem;pointer-events:none;transition:all ' + (6 + Math.random() * 4) + 's linear;opacity:0.7;';
+      if (!fromLeft) el.style.transform = 'scaleX(-1)';
+      document.body.appendChild(el);
+      requestAnimationFrame(() => {
+        el.style[fromLeft ? 'left' : 'right'] = 'calc(100% + 40px)';
+      });
+      setTimeout(() => el.remove(), 12000);
+    }
+    // Schedule random critter appearances during tour
+    function _scheduleCritters() {
+      if (!tourActive) return;
+      const delay = 15000 + Math.random() * 30000; // 15-45 seconds
+      _schedTourTimer(() => { _tourCritter(); _scheduleCritters(); }, delay);
+    }
+
     function _tourTypeField(el, text) {
       let i = 0;
       el.value = '';
@@ -11786,6 +11802,7 @@
         tourStep = 0;
         buildTourDots();
         pgShow();
+        _scheduleCritters(); // start random critter walk-ons
         showTourStep(tourStep);
       } catch (err) {
         console.error('[PULSE tour] startTour failed:', err);
