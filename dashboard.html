@@ -10567,10 +10567,46 @@
     }
 
     const TOUR_STEPS = [
-      // 1. AI Coach
+      // 1. Team Setup
+      { selector: '#team-nav-btn', title: 'Step 1 — Set Up Your Team',
+        desc: 'Create your team. Pick a name, a code for your reps, and a private admin PIN. Then add your reps to the roster. They join with just the code.',
+        label: 'Step 1 of 33', managedTimer: true, customNarration: true,
+        onShow: () => {
+          let _animDone = false;
+          let _voiceDone = false;
+          function _tryAdvance() { if (_animDone && _voiceDone && tourActive) advanceTour(); }
+
+          // Narration
+          if (!_narratorMuted && window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            _withVoices(() => _doSpeak(
+              'Step 1. Set up your team. Pick a team name, a code for your reps, and a private admin PIN. Add your reps to the roster. They join with just the team code and their name. No signup. No passwords. No IT department required.',
+              () => { _voiceDone = true; _tryAdvance(); }
+            ));
+          } else {
+            _voiceDone = true;
+          }
+
+          // Animations — timed sequence
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof openTeamPanel === 'function') openTeamPanel(); }, 3000);
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof teamSwitchTab === 'function') teamSwitchTab('create'); }, 6000);
+          _schedTourTimer(() => { if (!tourActive) return; const el = document.getElementById('team-create-name'); if (el) { el.value = ''; _tourTypeField(el, 'Acme Sales'); } }, 8000);
+          _schedTourTimer(() => { if (!tourActive) return; const el = document.getElementById('team-create-code'); if (el) { el.value = ''; _tourTypeField(el, 'ACME'); } }, 12000);
+          _schedTourTimer(() => { if (!tourActive) return; const el = document.getElementById('team-create-pin'); if (el) { el.value = ''; _tourTypeField(el, '1234'); } }, 15000);
+          _schedTourTimer(() => { if (!tourActive) return; const btn = document.querySelector('#team-tab-create .team-btn-primary'); if (btn) { btn.style.boxShadow = '0 0 24px rgba(232,113,10,0.7)'; setTimeout(() => btn.style.boxShadow = '', 2000); } }, 18000);
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof teamSwitchTab === 'function') teamSwitchTab('join'); }, 21000);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            if (typeof closeTeamPanel === 'function') closeTeamPanel();
+            _animDone = true;
+            _tryAdvance();
+          }, 25000);
+        }
+      },
+      // 2. AI Coach
       { selector: '#ai-coach-fab', title: 'PULSE AI Coach',
         desc: 'Meet your new favorite coworker — never sleeps, never complains, never steals your lunch from the fridge. Click the brain icon and ask it literally anything about sales. Watch...',
-        label: 'Step 2 of 32',
+        label: 'Step 2 of 33',
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; if (typeof toggleCoach === 'function') toggleCoach(); }, 1000);
           _schedTourTimer(() => {
@@ -10590,13 +10626,13 @@
       // 3. Revenue Intelligence & CRM
       { selector: '#rev-intel-section', title: 'Revenue Intelligence & CRM',
         desc: 'A CRM that doesn\'t cost $300/month and doesn\'t require a PhD to set up. Add deals, import your spreadsheet, and PULSE tells you what\'s going to close and what\'s about to ghost you.',
-        label: 'Step 3 of 32',
+        label: 'Step 3 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(); }, 800); }
       },
       // 4. Live Sync
       { selector: '#sync-toggle-btn', title: 'Live Sync Across Devices',
         desc: 'Enter a code. That\'s it. Your deals now exist on every device you own. Add a deal at your desk, check it on your phone in the parking lot. It\'s like magic, except it actually works.',
-        label: 'Step 4 of 32',
+        label: 'Step 4 of 33',
         onShow: () => {
           _schedTourTimer(() => {
             if (!tourActive) return;
@@ -10613,7 +10649,7 @@
       // 5. Pulse MGMT
       { selector: '#pulse-mgmt-section', title: 'Pulse MGMT — What To Do When...',
         desc: 'Every problem your manager never taught you how to handle. "My top rep is toxic." "Nobody updates the CRM." "The internet went down mid-pitch." 35+ scenarios, zero sugarcoating.',
-        label: 'Step 5 of 32',
+        label: 'Step 5 of 33',
         onShow: () => {
           _schedTourTimer(() => {
             if (!tourActive) return;
@@ -10626,7 +10662,7 @@
       // 6. Custom Workspace
       { selector: '#ws-enter-btn', title: 'Custom Workspace',
         desc: 'For the person who has 47 browser tabs open and feels personally attacked right now. Pop out any tool as a floating window. Drag it. Resize it. Feel like a Wall Street trader. Watch...',
-        label: 'Step 6 of 32',
+        label: 'Step 6 of 33',
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; if (typeof wsEnter === 'function') wsEnter(); }, 1200);
           _schedTourTimer(() => {
@@ -10644,18 +10680,18 @@
       // 2. House Goals
       { selector: '#house-goal-table', title: 'House Goal Setting',
         desc: 'Set the house goals. PULSE does the math so you don\'t have to argue about who got the "easy" targets. Watch the demo data fill in — no, that\'s not a ghost typing.',
-        label: 'Step 2 of 32',
+        label: 'Step 2 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof runTourDemoData === 'function') runTourDemoData(); }, 1200); }
       },
       // 3. Team Size
       { selector: '#house-rep-count', title: 'Team Size',
         desc: ['Set your rep count. PULSE divides every house goal by this number instantly. Math doesn\'t play favorites.', 'How many reps you got? Type it. PULSE splits every goal evenly. Finally, something that\'s actually fair.', 'Rep count goes here. PULSE does division so your reps can\'t argue about it. You\'re welcome.'][Math.floor(Math.random()*3)],
-        label: 'Step 3 of 32'
+        label: 'Step 3 of 33'
       },
       // 4. Industry Preset
       { selector: '#global-industry-select', title: 'Industry Preset',
         desc: 'Pick your industry and watch every KPI, benchmark, and AI suggestion recalibrate instantly. 35+ verticals supported.',
-        label: 'Step 4 of 32',
+        label: 'Step 4 of 33',
         onShow: () => { const sel = document.getElementById('global-industry-select'); if (!sel) return;
           ['solar','saas','insurance','realestate','healthcare'].forEach((ind, i) => {
             _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn(sel); sel.value = ind; sel.dispatchEvent(new Event('change', { bubbles: true })); }, 1000 + i * 1200);
@@ -10665,127 +10701,127 @@
       // 5. KPI Type Toggle
       { selector: '.kpi-type-select', title: 'Total vs. Percentage Goals',
         desc: 'Toggle each KPI between Total and Percentage. Pro tip: % goals backfire — reps shrink volume to protect their rate. Always use totals.',
-        label: 'Step 5 of 32'
+        label: 'Step 5 of 33'
       },
       // 6. AI Goal Suggestions
       { selector: '.ai-btn[onclick*="aiSuggestGoals"]', title: 'AI Goal Suggestions',
         desc: 'Not sure where to start? AI analyzes benchmarks for your industry and rep count, then recommends a baseline.',
-        label: 'Step 6 of 32',
+        label: 'Step 6 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn(document.querySelector('.ai-btn[onclick*="aiSuggestGoals"]')); if (typeof aiSuggestGoals === 'function') aiSuggestGoals(); }, 800); }
       },
       // 7. Locker Room + Import
       { selector: '.kpi-config-panel', title: 'Save, Load & Import',
         desc: 'Hit Save/Load to open the Locker Room — enter a 4-digit code to save or restore your setup. Import goals from CSV/Excel or download a template.',
-        label: 'Step 7 of 32'
+        label: 'Step 7 of 33'
       },
       // ═══ PULSE CHECK ═════════════════════════════════════════════════════════════
       // 8. Sync Toggle
       { selector: '#sync-toggle-wrap', title: 'Sync to Pulse Check',
         desc: 'One toggle bridges house goals to the Pulse Check. All 5 Rhythm Levels across every KPI populate automatically.',
-        label: 'Step 8 of 32',
+        label: 'Step 8 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; const tog = document.getElementById('sync-toggle-input'); if (tog && !tog.checked) tog.click(); }, 1000); }
       },
       // 9. Pulse Check
       { selector: '#inline-matrix', title: 'Pulse Check',
         desc: 'The engine. The thing your reps will either love or pretend doesn\'t exist. 5 Rhythm Levels, escalating targets, points per tier — one total score. No cherry-picking. No hiding.',
-        label: 'Step 9 of 32',
+        label: 'Step 9 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 600); }
       },
       // 10. Intensity Modes
       { selector: '#goal-mode-selector', title: 'Intensity Modes',
         desc: 'Feeling aggressive? Push mode (+10%). New hire struggling? Ramp mode (−10%). Standard for everyone else. One click. Your HR department would need a committee and 3 meetings for this.',
-        label: 'Step 10 of 32'
+        label: 'Step 10 of 33'
       },
       // 11. End-of-Month Scoring
       { selector: '#inline-matrix', title: 'End-of-Month Scoring',
         desc: 'Month closes, PULSE scores every rep automatically. Each KPI maps to a tier, tiers earn points, points determine the bonus level.',
-        label: 'Step 11 of 32', managedTimer: true,
+        label: 'Step 11 of 33', managedTimer: true,
         onShow: () => { showTourScorecard(); }
       },
       // ═══ FORECASTING ═════════════════════════════════════════════════════════════
       // 12. AI Revenue Forecast
       { selector: '#ai-forecast-panel', title: 'AI Revenue Forecast',
         desc: 'Projected revenue, at-risk reps, and attainment likelihood — all based on your current targets.',
-        label: 'Step 12 of 32',
+        label: 'Step 12 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; const fp = document.getElementById('ai-forecast-panel'); if (fp) fp.style.display = 'block'; }, 400); }
       },
       // 13. Team Distribution
       { selector: '.tier-dist-wrap', title: 'Team Distribution',
         desc: 'See how your full team projects across all 5 tiers before the month starts. Coach proactively, not reactively.',
-        label: 'Step 13 of 32',
+        label: 'Step 13 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; try { if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 400); }
       },
       // ═══ FINANCIAL TOOLS ═════════════════════════════════════════════════════════
       // 14. Gross Profit Calculator
       { selector: '#profit-calc-section', title: 'Gross Profit Calculator',
         desc: 'Toggle each KPI between MRR and Per Unit Profit. PULSE calculates projected revenue in real time.',
-        label: 'Step 14 of 32'
+        label: 'Step 14 of 33'
       },
       // 15. Service Fees
       { selector: '#service-fees-section', title: 'Service Fees',
         desc: 'Add up to 5 service fees with attach rate and monthly units. PULSE calculates the exact bottom-line impact in real time.',
-        label: 'Step 15 of 32'
+        label: 'Step 15 of 33'
       },
       // 16. Recruiting Calculator
       { selector: '#recruiting-calc-section', title: 'Recruiting Calculator',
         desc: 'Enter target ARR, current ARR, quota, ramp time, and attrition. PULSE outputs exactly how many hires you need.',
-        label: 'Step 16 of 32'
+        label: 'Step 16 of 33'
       },
       // ═══ OPERATIONS ══════════════════════════════════════════════════════════════
       // 17. Rep Scheduling
       { selector: '#sched-matrix-section', title: 'Rep Scheduling Matrix',
         desc: 'The GP-per-shift rate is your "get out of bed" number — the minimum a rep must produce per shift to justify being there. PULSE divides daily GP by that rate to calculate shifts needed. AI Optimize redistributes across the week by revenue weight.',
-        label: 'Step 17 of 32'
+        label: 'Step 17 of 33'
       },
       // 18. Coaching
       { selector: '#coaching-section', title: 'Coaching Action Items',
         desc: 'One coaching move per Rhythm Level — sourced from Gartner, HBR, McKinsey, and PULSE field methodology.',
-        label: 'Step 18 of 32',
+        label: 'Step 18 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; _tourFlashBtn('ai-coaching-btn'); if (typeof aiCoachingItems === 'function') aiCoachingItems(false); }, 800); }
       },
       // 19. 90-Day Plan
       { selector: '#plan-90', title: '90-Day Revenue Plan',
         desc: 'Three 30-day phases: establish, build, accelerate. The exact framework for ramping a new market or resetting a team.',
-        label: 'Step 19 of 32'
+        label: 'Step 19 of 33'
       },
       // 20. Not-To-Do List
       { selector: '#not-to-do-section', title: 'The Not-To-Do List',
         desc: 'Protect rep selling time. Gartner says reps sell only 28% of the week — every non-selling task you remove is revenue recovered.',
-        label: 'Step 20 of 32'
+        label: 'Step 20 of 33'
       },
       // ═══ ENGAGEMENT ══════════════════════════════════════════════════════════════
       // 21. Lightning Rounds
       { selector: '#challenge-section', title: 'Lightning Rounds',
         desc: 'Drop a time-boxed competition on any KPI with bonus Pulse Points. Perfect for mid-month energy spikes.',
-        label: 'Step 21 of 32'
+        label: 'Step 21 of 33'
       },
       // 22. Squad Sync
       { selector: '#app-sync-section', title: 'Squad Sync',
         desc: 'Real-time updates pushed to every rep\'s phone — scores, bonus levels, and active Lightning Rounds. No login required.',
-        label: 'Step 22 of 32'
+        label: 'Step 22 of 33'
       },
       // ═══ AI TOOLS ════════════════════════════════════════════════════════════════
       // 23. Sales Meeting Creator
       { selector: '#meeting-creator-section', title: 'Sales Meeting Creator',
         desc: 'AI generates a full 60–90 minute meeting script with timestamps, role plays, energy breaks, and memes.',
-        label: 'Step 23 of 32'
+        label: 'Step 23 of 33'
       },
       // 24. Toasts & Speeches
       { selector: '#team-speeches-section', title: 'Team Toasts & Speeches',
         desc: 'Generate custom toasts for any occasion — dinners, promotions, farewells. Pick the tone and AI writes it ready to read aloud.',
-        label: 'Step 24 of 32'
+        label: 'Step 24 of 33'
       },
       // ═══ NAVIGATION & EXTRAS ═════════════════════════════════════════════════════
       // 25. Press Releases
       { selector: '#press-admin-section', title: 'Press Release Builder',
         desc: 'Draft and publish professional press releases directly from PULSE. Fill in headline, date, body — publish or copy.',
-        label: 'Step 25 of 32'
+        label: 'Step 25 of 33'
       },
       // ═══ POWER FEATURES ═══════════════════════════════════════════════════════════
       // Command Palette & Shortcuts
       { selector: 'nav', title: 'Power User Shortcuts',
         desc: 'Press Ctrl+K to open the Command Palette — search and jump to any tool instantly. Press ? to see all keyboard shortcuts. PULSE is built for speed.',
-        label: 'Step 32 of 32',
+        label: 'Step 32 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof openCmdPalette === 'function') openCmdPalette(); }, 1200); }
       },
       // Just for Fun
@@ -11369,7 +11405,7 @@
     }
 
     // ── POPUP VOICE NARRATION ──
-    const _NARRATOR_TEXT = 'Welcome to Pulse. Get in Rhythm. Your free CRM with predictive forecasting, pipeline tracking, and deal risk alerts. No contracts. No credit card. No catch. Built by a CRO who has actually done it. Get in Rhythm.';
+    const _NARRATOR_TEXT = 'Welcome to Pulse. Let\'s get busy.';
 
     let _narratorMuted = false;
     let _narratorGestureQueued = false;
