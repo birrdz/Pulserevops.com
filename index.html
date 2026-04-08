@@ -10315,11 +10315,17 @@
       return a;
     }
 
-    function fmt(n) { return Number(n).toLocaleString(); }
+    function fmt(n) {
+      const num = parseInt(n, 10);
+      return isNaN(num) ? '—' : num.toLocaleString();
+    }
 
     function setCount(n) {
       const el = document.getElementById('gtb-count');
-      if (el) el.textContent = fmt(n);
+      if (!el) return;
+      const num = parseInt(n, 10);
+      if (isNaN(num)) return; // don't overwrite with NaN
+      el.textContent = fmt(num);
     }
 
     const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -10354,9 +10360,9 @@
     // Step 1 — load real city list immediately (no side-effects)
     fetch(API)
       .then(r => r.json())
-      .then(({ count, cities }) => {
-        setCount(count);
-        buildTicker(cities, null);
+      .then(data => {
+        if (data && typeof data.count !== 'undefined') setCount(data.count);
+        if (data && Array.isArray(data.cities)) buildTicker(data.cities, null);
       })
       .catch(() => {});
 
