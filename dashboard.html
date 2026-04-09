@@ -2219,6 +2219,9 @@
     body.tour-active #logout-btn, body.tour-active .nav-cta .btn-ghost, body.tour-active .nav-cta .btn-primary { pointer-events: auto !important; }
     body.tour-active .nav-walkthrough-btn { pointer-events: none !important; opacity: 0.45; }
     body.tour-active #stats-banner { display: none !important; }
+    body.tour-active #just-for-fun { display: none !important; }
+    body.tour-active #jff-tab { display: none !important; }
+    body.tour-active .jff-section { display: none !important; }
     body.tour-active #inline-matrix { overflow-x: auto; overflow-y: visible; }
     /* Hide instruction/label text during tour — only matrices and calculations remain visible */
     body.tour-active .section-sub,
@@ -11322,7 +11325,13 @@
       // ═══ STEP 34 — JUST FOR FUN ═══
       { selector: '#just-for-fun', title: 'Just for Fun',
         desc: 'You made it. Every serious platform needs one thing that makes no sense. This is ours. Explore the crab heatmap. Don\'t ask why. Pro tip — click Install in your browser to download PULSE to your desktop. Thanks for taking the tour. Now go get in rhythm.',
-        label: 'Finish', last: true
+        label: 'Finish', last: true,
+        onShow: () => {
+          var jff = document.getElementById('just-for-fun');
+          if (jff) jff.style.display = 'block';
+          var tab = document.getElementById('jff-tab');
+          if (tab) tab.style.display = '';
+        }
       }
     ];
 
