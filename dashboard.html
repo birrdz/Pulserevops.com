@@ -3509,7 +3509,7 @@
 
     /* ── AI COACH CHAT ── */
     #ai-coach-fab {
-      position: fixed; bottom: 24px; right: 24px; z-index: 998;
+      position: fixed; bottom: 38px; right: 24px; z-index: 998;
       width: 52px; height: 52px; border-radius: 50%;
       background: linear-gradient(135deg, #E8710A, #BF5800);
       border: none; color: #fff; font-size: 1.3rem; cursor: pointer;
@@ -3801,7 +3801,15 @@
       <button type="button" onclick="lockerOpen()" title="Locker Room" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Locker</button>
       <button type="button" class="nav-walkthrough-btn" onclick="openTourDirect()" title="Guided site walkthrough" aria-label="Open site walkthrough">Tour</button>
       <button type="button" id="admin-lock-btn" onclick="adminPromptPasscode()" title="Admin access" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Admin</button>
-      <button type="button" onclick="if(typeof riSwitchTab==='function'){riSwitchTab('cards');var e=document.getElementById('rev-intel-section');if(e){e.scrollIntoView({behavior:'instant'});window.scrollBy(0,-60);}}" title="View Beats — hologram lead cards" style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.35);border-radius:8px;color:#fbbf24;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(251,191,36,0.2)'" onmouseout="this.style.background='rgba(251,191,36,0.08)'">💳 Beats</button>
+      <select onchange="if(this.value){riSwitchTab(this.value);var e=document.getElementById('rev-intel-section');if(e){e.scrollIntoView({behavior:'instant'});window.scrollBy(0,-60);}this.selectedIndex=0;}" style="padding:6px 10px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.35);border-radius:8px;color:#8B5CF6;font-size:0.68rem;font-weight:800;font-family:inherit;cursor:pointer;outline:none;letter-spacing:0.06em;" title="Rooms">
+        <option value="" disabled selected>🚪 Rooms</option>
+        <option value="cards">💳 Beats (Lead Cards)</option>
+        <option value="vibe">📣 Daily Vibe</option>
+        <option value="leaders">🏆 Hall of Heroes</option>
+        <option value="reps">👥 By Rep</option>
+        <option value="pipeline">🔄 Pipeline</option>
+        <option value="forecast">📈 Forecast</option>
+      </select>
       <button type="button" id="hc-toggle" onclick="toggleHoneycomb()" title="Toggle honeycomb background" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔲 BG</button>
       <select id="theme-select" onchange="pulseSetTheme(this.value)" style="min-width:100px;font-size:0.68rem;background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-family:inherit;padding:5px 8px;cursor:pointer;outline:none;" title="Accent color theme">
         <option value="orange">🟠 Orange</option>
@@ -3826,7 +3834,6 @@
           <option value="Classical Flow">🎼 Classical Flow</option>
           <option value="War March">⚔️ War March</option>
         </select>
-        <a href="https://app.minnect.com/expert/korywhite" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;border:1px solid rgba(232,113,10,0.35);background:rgba(232,113,10,0.08);color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">⚡ Minnect</a>
         <a href="https://calendly.com/korywhiterevops" target="_blank" class="btn-primary" style="display:inline-flex; align-items:center; gap:6px; white-space:nowrap; font-size:0.8rem; padding:8px 16px; text-decoration:none;">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Book a Call</a>
