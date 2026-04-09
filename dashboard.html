@@ -5999,7 +5999,7 @@
   </div>
 
   <!-- ── AI COACH CHAT ── -->
-  <button id="ai-coach-fab" onclick="toggleCoach()" title="PULSE AI Coach — ask anything" style="padding:0;overflow:hidden;background:#111518;"><img src="pulse-crab.jpg" style="width:110%;height:110%;object-fit:contain;border-radius:50%;margin:-5%;"></button>
+  <button id="ai-coach-fab" onclick="toggleCoach()" title="PULSE AI Coach — ask anything" style="padding:0;overflow:hidden;background:#111518;border:2px solid rgba(232,113,10,0.4);"><img src="pulse-crab.jpg" style="width:44px;height:44px;object-fit:contain;display:block;margin:auto;"></button>
   <div id="ai-coach-panel">
     <div class="coach-header">
       <span class="coach-header-dot"></span>
@@ -12614,8 +12614,10 @@
           step.title + '. ' + (step.desc || '').replace(/\n/g, ' '),
           _startStepTimer
         ));
-        // No fallback timer while narrator is active — wait for speech to finish
-        // User can always click Next to skip ahead
+        // Hard fallback — if narrator hangs, advance after max duration anyway
+        _schedTourTimer(() => {
+          if (tourActive && tourStep === _capturedIdx && !tourPaused) { window.speechSynthesis.cancel(); advanceTour(); }
+        }, TOUR_STEP_DURATION + 5000);
       } else if (!step.managedTimer) {
         // Narrator muted — use standard timer to auto-advance
         _schedTourTimer(() => {
