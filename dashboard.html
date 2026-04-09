@@ -6329,6 +6329,22 @@
       window._pulseStopMusic = () => { if (_stopFn) _stopFn(); };
       window._hbUnlockAudio = function() {}; // no-op — music starts from dropdown
 
+      // Auto-start music on first user interaction (browsers require a gesture)
+      var _musicAutoStarted = false;
+      function _autoStartMusic() {
+        if (_musicAutoStarted) return;
+        _musicAutoStarted = true;
+        var sel = document.getElementById('music-genre-select');
+        if (sel && sel.value === 'off') {
+          sel.value = 'War March';
+          playGenre('War March');
+        }
+        document.removeEventListener('click', _autoStartMusic);
+        document.removeEventListener('touchstart', _autoStartMusic);
+      }
+      document.addEventListener('click', _autoStartMusic, { once: true });
+      document.addEventListener('touchstart', _autoStartMusic, { once: true });
+
       // Game sounds (coin, levelup) — keep these
       window.playGameSound = function(type) {
         try {
