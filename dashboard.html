@@ -3381,14 +3381,14 @@
     .beat-card .beat-stat-val { font-size: 0.85rem; font-weight: 900; color: #EDE5D8; margin-top: 1px; }
     .beat-card .beat-contact { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.03); font-size: 0.6rem; color: rgba(154,144,136,0.6); }
     /* Tier border colors */
-    .beat-card.t-bronze { border-color: rgba(154,144,136,0.15); }
-    .beat-card.t-bronze:hover { border-color: rgba(154,144,136,0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(154,144,136,0.08); }
-    .beat-card.t-silver { border-color: rgba(232,113,10,0.15); }
-    .beat-card.t-silver:hover { border-color: rgba(232,113,10,0.45); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 24px rgba(232,113,10,0.1); }
-    .beat-card.t-gold { border-color: rgba(139,92,246,0.2); }
-    .beat-card.t-gold:hover { border-color: rgba(139,92,246,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(139,92,246,0.12); }
-    .beat-card.t-plat { border-color: rgba(251,191,36,0.2); }
-    .beat-card.t-plat:hover { border-color: rgba(251,191,36,0.55); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 40px rgba(251,191,36,0.12); }
+    .beat-card.t-bronze { border-color: rgba(205,127,50,0.2); }
+    .beat-card.t-bronze:hover { border-color: rgba(205,127,50,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(205,127,50,0.12); }
+    .beat-card.t-silver { border-color: rgba(192,192,192,0.2); }
+    .beat-card.t-silver:hover { border-color: rgba(192,192,192,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 24px rgba(192,192,192,0.12); }
+    .beat-card.t-gold { border-color: rgba(255,215,0,0.2); }
+    .beat-card.t-gold:hover { border-color: rgba(255,215,0,0.55); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(255,215,0,0.15); }
+    .beat-card.t-plat { border-color: rgba(229,228,226,0.2); }
+    .beat-card.t-plat:hover { border-color: rgba(229,228,226,0.55); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 40px rgba(229,228,226,0.15); }
     @media (max-width: 600px) { .beat-grid { grid-template-columns: 1fr; } }
     .ri-animate { animation: riFadeUp 0.5s ease forwards; }
     @media (max-width: 768px) {
@@ -10862,10 +10862,10 @@
             {top:'48%',left:'12%'}, {top:'45%',left:'58%'}
           ];
           var cards = [
-            {name:'Acme Corp',tier:'Bronze',val:'$3,200',color:'#9A9088',img:32},
-            {name:'TechFlow Inc',tier:'Silver',val:'$12,000',color:'#E8710A',img:47},
-            {name:'Summit',tier:'Gold',val:'$22,000',color:'#8B5CF6',img:15},
-            {name:'RedRock',tier:'Platinum',val:'$31,000',color:'#fbbf24',img:60}
+            {name:'Acme Corp',tier:'Bronze',val:'$3,200',color:'#CD7F32',img:32},
+            {name:'TechFlow Inc',tier:'Silver',val:'$12,000',color:'#C0C0C0',img:47},
+            {name:'Summit',tier:'Gold',val:'$22,000',color:'#FFD700',img:15},
+            {name:'RedRock',tier:'Platinum',val:'$31,000',color:'#E5E4E2',img:60}
           ];
           cards.forEach(function(c,i) {
             _schedTourTimer(function() {
@@ -15932,7 +15932,7 @@
       if (!el) return;
       if (!deals.length) { el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">No deals yet — add some or load demo data</div>'; return; }
 
-      var TC = {bronze:{c:'#9A9088',cls:'t-bronze'},silver:{c:'#E8710A',cls:'t-silver'},gold:{c:'#8B5CF6',cls:'t-gold'},plat:{c:'#fbbf24',cls:'t-plat'}};
+      var TC = {bronze:{c:'#CD7F32',cls:'t-bronze'},silver:{c:'#C0C0C0',cls:'t-silver'},gold:{c:'#FFD700',cls:'t-gold'},plat:{c:'#E5E4E2',cls:'t-plat'}};
       function getTier(v) { return v>=30000?TC.plat:v>=15000?TC.gold:v>=5000?TC.silver:TC.bronze; }
       var SC = {'Lead':'#9A9088','Discovery':'#3B82F6','Proposal':'#E8710A','Negotiation':'#8B5CF6','Closed Won':'#22c55e','Closed Lost':'#ef4444'};
 
