@@ -5999,7 +5999,7 @@
   </div>
 
   <!-- ── AI COACH CHAT ── -->
-  <button id="ai-coach-fab" onclick="toggleCoach()" title="PULSE AI Coach — ask anything" style="padding:0;overflow:hidden;background:#111518;border:2px solid rgba(232,113,10,0.4);"><img src="pulse-crab.jpg" style="width:44px;height:44px;object-fit:contain;display:block;margin:auto;"></button>
+  <button id="ai-coach-fab" onclick="toggleCoach()" title="PULSE AI Coach — ask anything" style="padding:4px;overflow:hidden;background:#111518;border:2px solid rgba(232,113,10,0.4);display:flex;align-items:center;justify-content:center;"><img src="pulse-crab.jpg" style="width:38px;height:38px;object-fit:contain;"></button>
   <div id="ai-coach-panel">
     <div class="coach-header">
       <span class="coach-header-dot"></span>
@@ -10968,10 +10968,11 @@
     const TOUR_STEPS = [
       // ═══ STEP 1 — CRM OVERVIEW ═══
       { selector: '#rev-intel-section', title: 'Your Revenue Command Center',
-        desc: 'PULSE tracks every deal, every rep, every dollar. Pipeline, forecasting, risk alerts — all in one place, all free. Watch the data load.',
-        label: 'Step 1 of 33',
+        desc: 'PULSE tracks every deal, every rep, every dollar. Pipeline, forecasting, risk alerts — all in one place, all free.',
+        label: 'Step 1 of 33', customNarration: true,
         onShow: () => {
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(true); }, 2000);
+          // Skip narration on step 1 to prevent hang — auto-advance via timer
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 8000);
         }
       },
       // ═══ STEP 2 — BEATS ═══
