@@ -3801,6 +3801,7 @@
       <button type="button" onclick="lockerOpen()" title="Locker Room" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Locker</button>
       <button type="button" class="nav-walkthrough-btn" onclick="openTourDirect()" title="Guided site walkthrough" aria-label="Open site walkthrough">Tour</button>
       <button type="button" id="admin-lock-btn" onclick="adminPromptPasscode()" title="Admin access" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Admin</button>
+      <button type="button" id="hc-toggle" onclick="toggleHoneycomb()" title="Toggle honeycomb background" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔲 BG</button>
       <select id="theme-select" onchange="pulseSetTheme(this.value)" style="min-width:100px;font-size:0.68rem;background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-family:inherit;padding:5px 8px;cursor:pointer;outline:none;" title="Accent color theme">
         <option value="orange">🟠 Orange</option>
         <option value="blue">🔵 Electric Blue</option>
@@ -16898,6 +16899,35 @@
         startSync();
       }, 2000);
     }
+  })();
+  </script>
+
+  <!-- HONEYCOMB TOGGLE -->
+  <script>
+  (function() {
+    var _hcOff = localStorage.getItem('pulse_hc_off') === '1';
+
+    function applyHC() {
+      var canvas = document.getElementById('honeycomb-bg');
+      var btn = document.getElementById('hc-toggle');
+      if (_hcOff) {
+        if (canvas) canvas.style.display = 'none';
+        document.body.style.background = '#1a1d21';
+        if (btn) btn.textContent = '🔲 Grey';
+      } else {
+        if (canvas) canvas.style.display = '';
+        document.body.style.background = '';
+        if (btn) btn.textContent = '🐝 Hive';
+      }
+    }
+
+    window.toggleHoneycomb = function() {
+      _hcOff = !_hcOff;
+      localStorage.setItem('pulse_hc_off', _hcOff ? '1' : '0');
+      applyHC();
+    };
+
+    applyHC();
   })();
   </script>
 
