@@ -3375,8 +3375,23 @@
       font-size: 1.6rem; font-weight: 900; color: #fff;
       background: linear-gradient(135deg, rgba(232,113,10,0.3), rgba(191,88,0,0.4));
       border: 2px solid rgba(232,113,10,0.3);
-      box-shadow: 0 4px 16px rgba(232,113,10,0.15);
-      text-transform: uppercase;
+      box-shadow: 0 4px 16px rgba(232,113,10,0.15), 0 0 12px rgba(232,113,10,0.1);
+      text-transform: uppercase; position: relative;
+    }
+    .holo-avatar img {
+      filter: saturate(0.3) brightness(1.3) contrast(1.1);
+      mix-blend-mode: luminosity;
+    }
+    .holo-avatar::after {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(232,113,10,0.15), transparent 50%, rgba(255,140,26,0.1));
+      pointer-events: none;
+    }
+    .holo-card:hover .holo-avatar img {
+      filter: saturate(0.4) brightness(1.4) contrast(1.15);
+    }
+    .holo-card:hover .holo-avatar {
+      box-shadow: 0 4px 20px rgba(232,113,10,0.3), 0 0 16px rgba(232,113,10,0.2);
     }
     .holo-name {
       text-align: center; font-size: 1rem; font-weight: 900; color: #EDE5D8;
@@ -5866,6 +5881,7 @@
           <div><div class="dd-field-label">Email</div><input class="dd-input" id="dd-email" placeholder="Email" onchange="ddSaveField('email',this.value)"></div>
           <div><div class="dd-field-label">Title / Role</div><input class="dd-input" id="dd-title" placeholder="Decision maker?" onchange="ddSaveField('title',this.value)"></div>
           <div><div class="dd-field-label">Source</div><input class="dd-input" id="dd-source" placeholder="Referral, cold call..." onchange="ddSaveField('source',this.value)"></div>
+          <div style="grid-column:span 2;"><div class="dd-field-label">Photo URL</div><input class="dd-input" id="dd-photo" placeholder="Paste LinkedIn photo URL or any image link" onchange="ddSaveField('photoUrl',this.value)"></div>
         </div>
       </div>
       <div class="dd-section">
@@ -10901,7 +10917,7 @@
             card.innerHTML = ''
               + '<div style="position:absolute;inset:0;background:linear-gradient(105deg,transparent 20%,rgba(232,113,10,0.04) 35%,rgba(255,255,255,0.08) 40%,rgba(232,113,10,0.03) 45%,transparent 55%,rgba(255,140,26,0.03) 65%,rgba(255,255,255,0.05) 70%,transparent 85%);background-size:200% 200%;animation:holoShimmerFast 2s ease-in-out infinite;pointer-events:none;z-index:2;border-radius:22px;"></div>'
               + '<div style="position:relative;z-index:1;padding:28px 24px;">'
-              + '<div style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:900;color:#fff;background:linear-gradient(135deg,rgba(232,113,10,0.35),rgba(191,88,0,0.45));border:2px solid rgba(232,113,10,0.4);box-shadow:0 8px 24px rgba(232,113,10,0.2);">AC</div>'
+              + '<div style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;overflow:hidden;border:2px solid rgba(232,113,10,0.4);box-shadow:0 8px 24px rgba(232,113,10,0.2),0 0 16px rgba(232,113,10,0.15);position:relative;"><img src="https://i.pravatar.cc/160?img=32" style="width:100%;height:100%;object-fit:cover;filter:saturate(0.3) brightness(1.3) contrast(1.1);mix-blend-mode:luminosity;" alt=""><div style="position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(232,113,10,0.2),transparent 50%,rgba(255,140,26,0.1));pointer-events:none;"></div></div>'
               + '<div style="text-align:center;font-size:1.4rem;font-weight:900;color:#EDE5D8;margin-bottom:4px;">Acme Corp</div>'
               + '<div style="text-align:center;font-size:0.75rem;color:#9A9088;margin-bottom:16px;">Sarah · VP Sales</div>'
               + '<div style="text-align:center;margin-bottom:16px;"><span style="display:inline-block;padding:4px 14px;border-radius:14px;font-size:0.65rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;background:rgba(232,113,10,0.12);color:#E8710A;border:1px solid rgba(232,113,10,0.3);">Proposal</span></div>'
@@ -10924,19 +10940,33 @@
             });
           }, 2000);
 
-          // Rotate the card slightly
+          // Full 3D spin to show the back
           _schedTourTimer(() => {
             if (!tourActive) return;
             const card = document.getElementById('tour-hero-card');
-            if (card) card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(-8deg)';
-          }, 5000);
+            if (card) {
+              card.style.transition = 'all 1.2s cubic-bezier(0.25,0.1,0.25,1)';
+              card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(180deg)';
+              // Show back face
+              const back = document.createElement('div');
+              back.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;backface-visibility:hidden;transform:rotateY(180deg);background:linear-gradient(135deg,rgba(20,24,32,0.95),rgba(10,14,20,0.98));border-radius:22px;z-index:3;';
+              back.innerHTML = '<div style="font-size:3rem;margin-bottom:12px;">🦀</div>'
+                + '<div style="font-size:1.8rem;font-weight:900;letter-spacing:0.2em;color:#E8710A;">PULSE</div>'
+                + '<div style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;color:#9A9088;margin-top:4px;">BEATS</div>'
+                + '<div style="width:60px;height:2px;background:linear-gradient(90deg,transparent,#E8710A,transparent);margin:16px 0;"></div>'
+                + '<div style="font-size:0.6rem;color:rgba(154,144,136,0.5);font-style:italic;">Get in Rhythm</div>';
+              card.appendChild(back);
+            }
+          }, 5500);
 
-          // Rotate back
+          // Spin back to front
           _schedTourTimer(() => {
             if (!tourActive) return;
             const card = document.getElementById('tour-hero-card');
-            if (card) card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(5deg)';
-          }, 7000);
+            if (card) {
+              card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(360deg)';
+            }
+          }, 8000);
 
           // Shrink and remove, switch to gallery
           _schedTourTimer(() => {
@@ -15906,6 +15936,7 @@
       document.getElementById('dd-email').value = d.email || '';
       document.getElementById('dd-title').value = d.title || '';
       document.getElementById('dd-source').value = d.source || '';
+      document.getElementById('dd-photo').value = d.photoUrl || '';
       // Show close section for active deals
       const closeSection = document.getElementById('dd-close-section');
       if (closeSection) closeSection.style.display = (d.stage !== 'Closed Won' && d.stage !== 'Closed Lost') ? 'block' : 'none';
@@ -16018,9 +16049,10 @@
         const age = d.dateAdded ? Math.floor((Date.now() - new Date(d.dateAdded).getTime()) / 86400000) : 0;
         const actCount = (d.activities || []).length;
 
+        const avatarUrl = d.photoUrl || ('https://i.pravatar.cc/128?u=' + encodeURIComponent(d.name || i));
         return '<div class="holo-card" onclick="openDealDetail(' + i + ')">'
           + '<div class="holo-card-inner">'
-          + '<div class="holo-avatar">' + initials + '</div>'
+          + '<div class="holo-avatar" style="overflow:hidden;"><img src="' + avatarUrl + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display=\'none\';this.parentElement.textContent=\'' + initials + '\'"></div>'
           + '<div class="holo-name">' + esc(d.name || 'Untitled') + '</div>'
           + '<div class="holo-subtitle">' + esc(d.rep || 'No rep') + (d.title ? ' · ' + esc(d.title) : '') + '</div>'
           + '<div style="text-align:center;margin-bottom:12px;">'
@@ -16064,7 +16096,7 @@
         return '<div class="holo-card">'
           + '<div class="holo-card-inner">'
           + '<div style="position:absolute;top:12px;right:14px;font-size:1.1rem;">' + medal + '</div>'
-          + '<div class="holo-avatar">' + initials + '</div>'
+          + '<div class="holo-avatar" style="overflow:hidden;"><img src="https://i.pravatar.cc/128?u=' + encodeURIComponent(name) + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display=\'none\';this.parentElement.textContent=\'' + initials + '\'"></div>'
           + '<div class="holo-name">' + esc(name) + '</div>'
           + '<div class="holo-subtitle">' + r.deals + ' deals · ' + r.active + ' active</div>'
           + '<div class="holo-stats">'
