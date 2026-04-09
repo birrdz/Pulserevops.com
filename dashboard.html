@@ -3305,6 +3305,116 @@
       border:1px solid rgba(255,255,255,0.08); border-radius:8px;
       color:var(--text); font-family:inherit; cursor:pointer; outline:none;
     }
+    /* ── HOLOGRAM CARDS ── */
+    .holo-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .holo-card {
+      position: relative; border-radius: 18px; overflow: hidden; cursor: pointer;
+      background: linear-gradient(135deg, rgba(20,24,32,0.9), rgba(10,14,20,0.95));
+      border: 1px solid rgba(232,113,10,0.15);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      transform-style: preserve-3d; perspective: 800px;
+    }
+    .holo-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 30px rgba(232,113,10,0.12);
+      border-color: rgba(232,113,10,0.4);
+    }
+    /* Holographic shimmer overlay */
+    .holo-card::before {
+      content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: linear-gradient(
+        105deg,
+        transparent 20%,
+        rgba(232,113,10,0.03) 30%,
+        rgba(255,255,255,0.06) 38%,
+        rgba(232,113,10,0.04) 42%,
+        transparent 50%,
+        rgba(255,140,26,0.02) 60%,
+        rgba(255,255,255,0.04) 68%,
+        transparent 80%
+      );
+      background-size: 200% 200%;
+      animation: holoShimmer 4s ease-in-out infinite;
+    }
+    .holo-card:hover::before {
+      animation: holoShimmerFast 1.5s ease-in-out infinite;
+      background: linear-gradient(
+        105deg,
+        transparent 15%,
+        rgba(232,113,10,0.06) 28%,
+        rgba(255,255,255,0.12) 36%,
+        rgba(232,113,10,0.08) 44%,
+        transparent 52%,
+        rgba(255,140,26,0.05) 62%,
+        rgba(255,255,255,0.08) 70%,
+        transparent 85%
+      );
+      background-size: 200% 200%;
+    }
+    @keyframes holoShimmer {
+      0% { background-position: 200% 50%; }
+      100% { background-position: -200% 50%; }
+    }
+    @keyframes holoShimmerFast {
+      0% { background-position: 200% 50%; }
+      100% { background-position: -200% 50%; }
+    }
+    /* Edge glow */
+    .holo-card::after {
+      content: ''; position: absolute; inset: -1px; z-index: 0; border-radius: 18px;
+      background: linear-gradient(135deg, rgba(232,113,10,0.2), transparent 40%, transparent 60%, rgba(232,113,10,0.15));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .holo-card:hover::after { opacity: 1; }
+    /* Card content */
+    .holo-card-inner { position: relative; z-index: 1; padding: 20px; }
+    .holo-avatar {
+      width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; font-weight: 900; color: #fff;
+      background: linear-gradient(135deg, rgba(232,113,10,0.3), rgba(191,88,0,0.4));
+      border: 2px solid rgba(232,113,10,0.3);
+      box-shadow: 0 4px 16px rgba(232,113,10,0.15);
+      text-transform: uppercase;
+    }
+    .holo-name {
+      text-align: center; font-size: 1rem; font-weight: 900; color: #EDE5D8;
+      margin-bottom: 2px; letter-spacing: 0.02em;
+    }
+    .holo-subtitle {
+      text-align: center; font-size: 0.65rem; color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .holo-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+    }
+    .holo-stat {
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 8px; padding: 8px 10px; text-align: center;
+    }
+    .holo-stat-label {
+      font-size: 0.48rem; font-weight: 700; color: rgba(154,144,136,0.6);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px;
+    }
+    .holo-stat-val { font-size: 0.85rem; font-weight: 900; color: #EDE5D8; }
+    .holo-stage-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 12px;
+      font-size: 0.55rem; font-weight: 800; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-top: 10px;
+    }
+    .holo-contact-row {
+      display: flex; align-items: center; gap: 6px; font-size: 0.65rem;
+      color: var(--muted); padding: 3px 0;
+    }
+    .holo-contact-icon { font-size: 0.7rem; width: 18px; text-align: center; }
+    .holo-risk-dot {
+      width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px;
+    }
+    @media (max-width: 600px) {
+      .holo-gallery { grid-template-columns: 1fr; }
+    }
+
     /* Risk Flags */
     .ri-risk-flag { display: inline-flex; align-items: center; gap: 4px; font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
     .ri-risk-flag.high { background: rgba(239,68,68,0.12); color: #ef4444; }
@@ -5645,6 +5755,7 @@
     <!-- TABS -->
     <div class="ri-tabs">
       <button class="ri-tab active" onclick="riSwitchTab('deals')">Deals</button>
+      <button class="ri-tab" onclick="riSwitchTab('cards')">Beats</button>
       <button class="ri-tab" onclick="riSwitchTab('pipeline')">Pipeline</button>
       <button class="ri-tab" onclick="riSwitchTab('reps')">By Rep</button>
       <button class="ri-tab" onclick="riSwitchTab('forecast')">Forecast</button>
@@ -5714,6 +5825,11 @@
         <textarea id="ri-paste-area" placeholder="Deal Name, Rep, Value, Stage, Date Added, Last Activity&#10;Acme Corp, John, 5000, Proposal, 2025-01-15, 2025-03-20" style="width:100%;height:100px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;color:var(--text);font-family:monospace;font-size:0.72rem;resize:vertical;outline:none;"></textarea>
         <button class="ri-btn-primary" onclick="riParsePaste()" style="margin-top:10px;">Import Pasted Data</button>
       </div>
+    <!-- TAB: HOLOGRAM CARDS -->
+    <div class="ri-tab-panel" id="ri-panel-cards">
+      <div class="holo-gallery" id="holo-gallery"></div>
+    </div>
+
     <!-- TAB: BY REP -->
     <div class="ri-tab-panel" id="ri-panel-reps">
       <div id="ri-rep-breakdown"></div>
@@ -15214,12 +15330,13 @@
     /* ─── TABS ─── */
     window.riSwitchTab = function(tab) {
       document.querySelectorAll('.ri-tab').forEach((t, i) => {
-        const tabs = ['deals','pipeline','reps','forecast','upload'];
+        const tabs = ['deals','cards','pipeline','reps','forecast','upload'];
         t.classList.toggle('active', tabs[i] === tab);
       });
       document.querySelectorAll('.ri-tab-panel').forEach(p => p.classList.remove('active'));
       const panel = document.getElementById('ri-panel-' + tab);
       if (panel) panel.classList.add('active');
+      if (tab === 'cards') renderHoloCards();
       if (tab === 'pipeline') renderKanban();
       if (tab === 'forecast') renderForecast();
       if (tab === 'reps') renderRepBreakdown();
@@ -15804,6 +15921,52 @@
       }).join('');
     }
 
+    /* ─── HOLOGRAM CARDS ─── */
+    function renderHoloCards() {
+      const deals = loadDeals();
+      const el = document.getElementById('holo-gallery');
+      if (!el) return;
+      if (!deals.length) { el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">No deals yet — add some or load demo data</div>'; return; }
+
+      const stageColors = {
+        'Lead': { bg: 'rgba(154,144,136,0.12)', color: '#9A9088', border: 'rgba(154,144,136,0.3)' },
+        'Discovery': { bg: 'rgba(59,130,246,0.12)', color: '#3B82F6', border: 'rgba(59,130,246,0.3)' },
+        'Proposal': { bg: 'rgba(232,113,10,0.12)', color: '#E8710A', border: 'rgba(232,113,10,0.3)' },
+        'Negotiation': { bg: 'rgba(139,92,246,0.12)', color: '#8B5CF6', border: 'rgba(139,92,246,0.3)' },
+        'Closed Won': { bg: 'rgba(34,197,94,0.12)', color: '#22c55e', border: 'rgba(34,197,94,0.3)' },
+        'Closed Lost': { bg: 'rgba(239,68,68,0.12)', color: '#ef4444', border: 'rgba(239,68,68,0.3)' },
+      };
+
+      el.innerHTML = deals.map((d, i) => {
+        const initials = (d.name || 'U').split(/[\s&]+/).map(w => w[0]).join('').substring(0,2).toUpperCase();
+        const risk = calcRisk(d);
+        const riskColor = risk === 'High' ? '#ef4444' : risk === 'Medium' ? '#eab308' : '#22c55e';
+        const sc = stageColors[d.stage] || stageColors['Lead'];
+        const age = d.dateAdded ? Math.floor((Date.now() - new Date(d.dateAdded).getTime()) / 86400000) : 0;
+        const actCount = (d.activities || []).length;
+
+        return '<div class="holo-card" onclick="openDealDetail(' + i + ')">'
+          + '<div class="holo-card-inner">'
+          + '<div class="holo-avatar">' + initials + '</div>'
+          + '<div class="holo-name">' + esc(d.name || 'Untitled') + '</div>'
+          + '<div class="holo-subtitle">' + esc(d.rep || 'No rep') + (d.title ? ' · ' + esc(d.title) : '') + '</div>'
+          + '<div style="text-align:center;margin-bottom:12px;">'
+          + '<span class="holo-stage-badge" style="background:' + sc.bg + ';color:' + sc.color + ';border:1px solid ' + sc.border + ';">' + (d.stage || 'Lead') + '</span>'
+          + '</div>'
+          + '<div class="holo-stats">'
+          + '<div class="holo-stat"><div class="holo-stat-label">Value</div><div class="holo-stat-val" style="color:#E8710A;">$' + fmtNum(parseFloat(d.value) || 0) + '</div></div>'
+          + '<div class="holo-stat"><div class="holo-stat-label">Age</div><div class="holo-stat-val">' + age + 'd</div></div>'
+          + '<div class="holo-stat"><div class="holo-stat-label">Risk</div><div class="holo-stat-val"><span class="holo-risk-dot" style="background:' + riskColor + ';"></span>' + risk + '</div></div>'
+          + '<div class="holo-stat"><div class="holo-stat-label">Activities</div><div class="holo-stat-val">' + actCount + '</div></div>'
+          + '</div>'
+          + (d.phone || d.email ? '<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.04);">'
+            + (d.phone ? '<div class="holo-contact-row"><span class="holo-contact-icon">📞</span>' + esc(d.phone) + '</div>' : '')
+            + (d.email ? '<div class="holo-contact-row"><span class="holo-contact-icon">📧</span>' + esc(d.email) + '</div>' : '')
+            + '</div>' : '')
+          + '</div></div>';
+      }).join('');
+    }
+
     /* ─── REP BREAKDOWN ─── */
     function renderRepBreakdown() {
       const deals = loadDeals();
@@ -15821,22 +15984,23 @@
       });
       const sorted = Object.entries(reps).sort((a, b) => (b[1].pipeline + b[1].won) - (a[1].pipeline + a[1].won));
       if (!sorted.length) { el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--muted);">No deals yet</div>'; return; }
-      el.innerHTML = sorted.map(([name, r]) => {
-        const total = r.pipeline + r.won;
+      el.innerHTML = '<div class="holo-gallery">' + sorted.map(([name, r], rank) => {
+        const initials = name.split(/\s+/).map(w => w[0]).join('').substring(0,2).toUpperCase();
         const winRate = (r.won + r.lost) > 0 ? Math.round(r.won / (r.won + r.lost) * 100) : 0;
-        return '<div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:8px;">'
-          + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
-          + '<div style="font-size:0.88rem;font-weight:800;color:var(--text);">' + name + '</div>'
-          + '<div style="font-size:0.65rem;color:var(--muted);">' + r.deals + ' deals</div>'
-          + '</div>'
-          + '<div style="display:flex;gap:16px;flex-wrap:wrap;">'
-          + '<div><div style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Pipeline</div><div style="font-size:1rem;font-weight:900;color:var(--text);">$' + fmtNum(r.pipeline) + '</div></div>'
-          + '<div><div style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Won</div><div style="font-size:1rem;font-weight:900;color:#22c55e;">$' + fmtNum(r.won) + '</div></div>'
-          + '<div><div style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Lost</div><div style="font-size:1rem;font-weight:900;color:#ef4444;">$' + fmtNum(r.lost) + '</div></div>'
-          + '<div><div style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Win Rate</div><div style="font-size:1rem;font-weight:900;color:' + (winRate >= 50 ? '#22c55e' : '#ef4444') + ';">' + (r.won + r.lost > 0 ? winRate + '%' : '—') + '</div></div>'
-          + '<div><div style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Active</div><div style="font-size:1rem;font-weight:900;color:#E8710A;">' + r.active + '</div></div>'
-          + '</div></div>';
-      }).join('');
+        const medal = rank === 0 ? '🥇' : rank === 1 ? '🥈' : rank === 2 ? '🥉' : '#' + (rank+1);
+        return '<div class="holo-card">'
+          + '<div class="holo-card-inner">'
+          + '<div style="position:absolute;top:12px;right:14px;font-size:1.1rem;">' + medal + '</div>'
+          + '<div class="holo-avatar">' + initials + '</div>'
+          + '<div class="holo-name">' + esc(name) + '</div>'
+          + '<div class="holo-subtitle">' + r.deals + ' deals · ' + r.active + ' active</div>'
+          + '<div class="holo-stats">'
+          + '<div class="holo-stat"><div class="holo-stat-label">Pipeline</div><div class="holo-stat-val">$' + fmtNum(r.pipeline) + '</div></div>'
+          + '<div class="holo-stat"><div class="holo-stat-label">Won</div><div class="holo-stat-val" style="color:#22c55e;">$' + fmtNum(r.won) + '</div></div>'
+          + '<div class="holo-stat"><div class="holo-stat-label">Lost</div><div class="holo-stat-val" style="color:#ef4444;">$' + fmtNum(r.lost) + '</div></div>'
+          + '<div class="holo-stat"><div class="holo-stat-label">Win Rate</div><div class="holo-stat-val" style="color:' + (winRate >= 50 ? '#22c55e' : '#ef4444') + ';">' + (r.won + r.lost > 0 ? winRate + '%' : '—') + '</div></div>'
+          + '</div></div></div>';
+      }).join('') + '</div>';
     }
 
     /* ─── INIT ─── */
