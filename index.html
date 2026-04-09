@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>window.location.replace('dashboard.html' + window.location.search + window.location.hash);</script>
+  <script>
+  // Only redirect to dashboard if no ?home param
+  if (!window.location.search.includes('home') && !window.location.search.includes('tour')) {
+    window.location.replace('dashboard.html' + window.location.search + window.location.hash);
+  }
+  </script>
 
   <!-- ═══════════════════════════════════════════════════════
        PRIMARY SEO — KORY WHITE | CHIEF REVENUE OFFICER | PULSE REVOPS
@@ -3331,7 +3336,7 @@
       <button id="dashboard-save-btn" onclick="promptSaveProgress()" style="display:none; align-items:center; gap:5px; padding:7px 13px; border-radius:8px; border:1px solid rgba(232,113,10,0.35); background:rgba(232,113,10,0.08); color:#E8710A; font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; font-family:inherit; white-space:nowrap; transition:all 0.2s;" onmouseover="this.style.background='rgba(232,113,10,0.18)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">💾 Save</button>
       <button id="dashboard-load-btn" onclick="promptLoadProgress()" style="display:none; align-items:center; gap:5px; padding:7px 13px; border-radius:8px; border:1px solid rgba(232,113,10,0.35); background:rgba(232,113,10,0.08); color:#E8710A; font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; font-family:inherit; white-space:nowrap; transition:all 0.2s;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔓 Load</button>
       <span id="dashboard-save-status" style="display:none; font-size:0.65rem; color:#a3e635; white-space:nowrap;"></span>
-      <a href="dashboard.html" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid rgba(34,197,94,0.35);background:rgba(34,197,94,0.08);color:#22c55e;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='rgba(34,197,94,0.2)'" onmouseout="this.style.background='rgba(34,197,94,0.08)'">📊 Dashboard</a>
+      <a href="dashboard.html" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid rgba(34,197,94,0.35);background:rgba(34,197,94,0.08);color:#22c55e;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='rgba(34,197,94,0.2)'" onmouseout="this.style.background='rgba(34,197,94,0.08)'">📊 CRM</a>
       <a href="dashboard.html#rev-intel-section" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid rgba(34,197,94,0.35);background:rgba(34,197,94,0.08);color:#22c55e;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='rgba(34,197,94,0.2)'" onmouseout="this.style.background='rgba(34,197,94,0.08)'">⊞ CRM</a>
       <button type="button" onclick="lockerOpen()" title="Locker Room — save &amp; load your progress" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Locker</button>
       <div class="howto-dropdown-wrap" id="nav-howto-wrap">
