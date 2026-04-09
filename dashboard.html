@@ -10886,7 +10886,17 @@
               setTimeout(function() { el.style.opacity = '0'; el.style.transform = 'scale(0.8)'; setTimeout(function(){el.remove();},500); }, 6000);
             }, 2000 + i * 2500);
           });
-          _schedTourTimer(function() { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 13000);
+          // Pause moment
+          _schedTourTimer(function() {
+            if (!tourActive) return;
+            var pause = document.createElement('div');
+            pause.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.5);z-index:99999;font-size:2.5rem;font-weight:900;color:#EDE5D8;text-align:center;opacity:0;transition:all 0.6s ease;pointer-events:none;text-shadow:0 0 40px rgba(232,113,10,0.3);';
+            pause.innerHTML = 'Pause.<br><span style="font-size:0.9rem;color:#9A9088;font-weight:600;">Yeah. That\'s free.</span>';
+            document.body.appendChild(pause);
+            requestAnimationFrame(function() { pause.style.opacity = '1'; pause.style.transform = 'translate(-50%,-50%) scale(1)'; });
+            setTimeout(function() { pause.style.opacity = '0'; setTimeout(function(){pause.remove();},500); }, 3000);
+          }, 12000);
+          _schedTourTimer(function() { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 16000);
         }
       },
       // (CRM moved to Step 1)
