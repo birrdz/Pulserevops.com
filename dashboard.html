@@ -10971,8 +10971,8 @@
         desc: 'PULSE tracks every deal, every rep, every dollar. Pipeline, forecasting, risk alerts — all in one place, all free.',
         label: 'Step 1 of 33', customNarration: true,
         onShow: () => {
-          // Skip narration on step 1 to prevent hang — auto-advance via timer
-          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 8000);
+          // Skip narration on step 1 — quick advance
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 3000);
         }
       },
       // ═══ STEP 2 — BEATS ═══
@@ -11359,7 +11359,7 @@
     let tourTimer = null;
     let _tourCountdownInterval = null;
     let _tourStepTimers = [];
-    const TOUR_STEP_DURATION = 5000; // ms per step
+    const TOUR_STEP_DURATION = 15000; // ms per step
 
     // Track a per-step setTimeout so it can be cancelled when user hits Next/Back
     function _schedTourTimer(fn, delay) {
