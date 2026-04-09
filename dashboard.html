@@ -5655,6 +5655,7 @@
        ══════════════════════════════════════════════════════════ -->
   <div id="rev-intel-section" class="matrix-section-wrap" style="padding:28px 32px;">
     <div class="ri-header">
+      <button onclick="window._unlockCRMScroll&&window._unlockCRMScroll();document.querySelectorAll('#hero,#features,#how,#about-kory,#newsletter,#cta,footer,.hb-divider,.heartbeat-fullwidth,#stats-banner,#feedback-section').forEach(function(e){e.style.display='';});window.scrollTo(0,0);" style="background:none;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:var(--muted);font-size:0.65rem;font-weight:700;padding:4px 10px;cursor:pointer;font-family:inherit;margin-right:8px;" title="Back to full site">← Full Site</button>
       <span class="ri-title">Revenue Intelligence</span>
       <span id="ri-logged-in" style="font-size:0.6rem;color:var(--muted);font-weight:600;"></span>
       <span class="ri-badge">Predictive</span>
@@ -5668,7 +5669,7 @@
         <input type="file" id="ri-restore-input" accept=".json" style="display:none" onchange="riRestoreBackup(event)">
         <button class="ri-btn-sm" onclick="generateExecPDF()" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.3);color:#22c55e;">📄 Executive PDF</button>
         <button class="ri-btn-sm" onclick="riExportCSV()">Export CSV</button>
-        <button class="ri-btn-sm" onclick="riClearAll()">Clear All</button>
+        <button class="ri-btn-sm" onclick="riClearAll()" style="color:#ef4444;border-color:rgba(239,68,68,0.3);">🗑 Clear All Deals</button>
       </div>
     </div>
 
@@ -16115,6 +16116,7 @@
         return '<div onclick="selectRep(\''+name.replace(/'/g,"\\'")+'\')" style="position:relative;border-radius:16px;cursor:pointer;background:linear-gradient(135deg,rgba(20,24,32,0.92),rgba(10,14,20,0.96));border:'+(selected?'2px solid rgba(232,113,10,0.7)':'1px solid rgba(232,113,10,0.2)')+';box-shadow:0 6px 24px rgba(0,0,0,0.4)'+(selected?',0 0 20px rgba(232,113,10,0.15)':'')+';overflow:hidden;transition:all 0.3s;" onmouseover="this.style.transform=\'translateY(-3px)\'" onmouseout="this.style.transform=\'\'">'
           +'<div style="position:absolute;inset:0;background:linear-gradient(105deg,transparent 25%,rgba(232,113,10,0.04) 38%,rgba(255,255,255,0.04) 42%,transparent 55%);background-size:200% 100%;animation:beatsShimmer 3s ease-in-out infinite;pointer-events:none;"></div>'
           +'<div style="position:absolute;top:10px;right:12px;font-size:1rem;z-index:2;">'+medal+'</div>'
+          +'<button onclick="event.stopPropagation();deleteRepFromCard(\''+name.replace(/'/g,"\\'")+'\')" style="position:absolute;top:10px;left:10px;width:20px;height:20px;border-radius:50%;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#ef4444;font-size:0.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;opacity:0.4;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4" title="Remove rep">✕</button>'
           +'<div style="position:relative;z-index:1;padding:18px 16px;">'
           +'<div style="width:56px;height:56px;border-radius:50%;margin:0 auto 10px;overflow:hidden;border:2px solid rgba(232,113,10,0.3);box-shadow:0 4px 14px rgba(232,113,10,0.15);"><img src="https://i.pravatar.cc/128?u='+encodeURIComponent(name)+'" style="width:100%;height:100%;object-fit:cover;filter:saturate(0.3) brightness(1.3);mix-blend-mode:luminosity;" onerror="this.outerHTML=\'<div style=padding:14px;text-align:center;font-size:1.2rem;font-weight:900;color:#fff>'+init+'</div>\'"></div>'
           +'<div style="text-align:center;font-size:0.95rem;font-weight:900;color:#EDE5D8;margin-bottom:2px;">'+esc(name)+'</div>'
@@ -16175,6 +16177,19 @@
     window.selectRep = function(name) {
       _selectedRep = (_selectedRep === name) ? null : name;
       renderRepBreakdown();
+    };
+    window.deleteRepFromCard = function(name) {
+      if (!confirm('Remove ' + name + ' from the roster?')) return;
+      var session = typeof getTeamSession === 'function' ? getTeamSession() : null;
+      if (session && session.code) {
+        fetch('https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app/teams/' + session.code + '/reps/' + name + '.json', { method: 'DELETE' })
+          .then(function() {
+            // Remove from local roster cache
+            if (window._rosterNames) window._rosterNames = window._rosterNames.filter(function(r){return r !== name});
+            renderRepBreakdown();
+            renderDeals();
+          });
+      }
     };
     window.assignDealToRep = function(idx, repName) {
       var deals = loadDeals();
