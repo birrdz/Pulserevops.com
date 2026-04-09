@@ -16035,6 +16035,7 @@
     };
 
     /* ─── REP BREAKDOWN ─── */
+    var _selectedRep = null;
     function renderRepBreakdown() {
       var deals = loadDeals();
       var el = document.getElementById('ri-rep-breakdown');
@@ -16042,8 +16043,9 @@
       var reps = {};
       deals.forEach(function(d) {
         var r = d.rep || 'Unassigned';
-        if (!reps[r]) reps[r] = {pipeline:0,won:0,lost:0,deals:0,active:0};
+        if (!reps[r]) reps[r] = {pipeline:0,won:0,lost:0,deals:0,active:0,dealList:[]};
         reps[r].deals++;
+        reps[r].dealList.push(d);
         var val = parseFloat(d.value)||0;
         if (d.stage==='Closed Won') reps[r].won += val;
         else if (d.stage==='Closed Lost') reps[r].lost += val;
@@ -16051,12 +16053,15 @@
       });
       var sorted = Object.entries(reps).sort(function(a,b){return (b[1].pipeline+b[1].won)-(a[1].pipeline+a[1].won)});
       if (!sorted.length) { el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--muted);">No deals yet</div>'; return; }
-      el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;">' + sorted.map(function(entry,rank) {
+
+      // Rep grid
+      var html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;">' + sorted.map(function(entry,rank) {
         var name = entry[0], r = entry[1];
         var init = name.split(/\s+/).map(function(w){return w[0]}).join('').substring(0,2).toUpperCase();
         var winRate = (r.won+r.lost)>0 ? Math.round(r.won/(r.won+r.lost)*100) : 0;
         var medal = rank===0?'🥇':rank===1?'🥈':rank===2?'🥉':'#'+(rank+1);
-        return '<div style="position:relative;border-radius:16px;background:linear-gradient(135deg,rgba(20,24,32,0.92),rgba(10,14,20,0.96));border:1px solid rgba(232,113,10,0.2);box-shadow:0 6px 24px rgba(0,0,0,0.4);overflow:hidden;transition:all 0.3s;" onmouseover="this.style.transform=\'translateY(-3px)\';this.style.borderColor=\'rgba(232,113,10,0.5)\'" onmouseout="this.style.transform=\'\';this.style.borderColor=\'rgba(232,113,10,0.2)\'">'
+        var selected = _selectedRep === name;
+        return '<div onclick="selectRep(\''+name.replace(/'/g,"\\'")+'\')" style="position:relative;border-radius:16px;cursor:pointer;background:linear-gradient(135deg,rgba(20,24,32,0.92),rgba(10,14,20,0.96));border:'+(selected?'2px solid rgba(232,113,10,0.7)':'1px solid rgba(232,113,10,0.2)')+';box-shadow:0 6px 24px rgba(0,0,0,0.4)'+(selected?',0 0 20px rgba(232,113,10,0.15)':'')+';overflow:hidden;transition:all 0.3s;" onmouseover="this.style.transform=\'translateY(-3px)\'" onmouseout="this.style.transform=\'\'">'
           +'<div style="position:absolute;inset:0;background:linear-gradient(105deg,transparent 25%,rgba(232,113,10,0.04) 38%,rgba(255,255,255,0.04) 42%,transparent 55%);background-size:200% 100%;animation:beatsShimmer 3s ease-in-out infinite;pointer-events:none;"></div>'
           +'<div style="position:absolute;top:10px;right:12px;font-size:1rem;z-index:2;">'+medal+'</div>'
           +'<div style="position:relative;z-index:1;padding:18px 16px;">'
@@ -16070,7 +16075,40 @@
           +'<div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);border-radius:7px;padding:7px;text-align:center;"><div style="font-size:0.42rem;font-weight:700;color:rgba(154,144,136,0.5);text-transform:uppercase;letter-spacing:0.1em;">Win Rate</div><div style="font-size:0.82rem;font-weight:900;color:'+(winRate>=50?'#22c55e':'#ef4444')+';">'+(r.won+r.lost>0?winRate+'%':'—')+'</div></div>'
           +'</div></div></div>';
       }).join('') + '</div>';
+
+      // Selected rep's deals
+      if (_selectedRep && reps[_selectedRep]) {
+        var repDeals = reps[_selectedRep].dealList;
+        html += '<div style="margin-top:24px;border-top:1px solid var(--border);padding-top:20px;">'
+          +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">'
+          +'<div style="font-size:0.88rem;font-weight:900;color:var(--text);">'+esc(_selectedRep)+'\'s Deals</div>'
+          +'<button onclick="_selectedRep=null;renderRepBreakdown();" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;color:var(--muted);font-size:0.65rem;padding:4px 10px;cursor:pointer;font-family:inherit;">✕ Close</button>'
+          +'</div>';
+        html += repDeals.map(function(d) {
+          var allDeals = loadDeals();
+          var idx = allDeals.indexOf(d);
+          if (idx === -1) { for (var j=0;j<allDeals.length;j++) { if (allDeals[j].id===d.id) { idx=j; break; } } }
+          var risk = calcRisk(d);
+          var rCol = risk==='High'?'#ef4444':risk==='Medium'?'#eab308':'#22c55e';
+          var val = parseFloat(d.value)||0;
+          return '<div onclick="openDealDetail('+idx+')" style="display:flex;align-items:center;gap:14px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.03);cursor:pointer;border-radius:6px;transition:background 0.15s;" onmouseover="this.style.background=\'rgba(232,113,10,0.03)\'" onmouseout="this.style.background=\'\'">'
+            +'<div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:1px solid rgba(232,113,10,0.2);flex-shrink:0;"><img src="'+(d.photoUrl||'https://i.pravatar.cc/72?u='+encodeURIComponent(d.name||''))+'" style="width:100%;height:100%;object-fit:cover;filter:saturate(0.3) brightness(1.3);mix-blend-mode:luminosity;" onerror="this.parentElement.style.background=\'rgba(232,113,10,0.2)\';this.style.display=\'none\'"></div>'
+            +'<div style="flex:1;min-width:0;">'
+            +'<div style="font-size:0.82rem;font-weight:700;color:var(--text);">'+esc(d.name||'Untitled')+'</div>'
+            +'<div style="font-size:0.65rem;color:var(--muted);">'+esc(d.stage||'Lead')+' · $'+fmtNum(val)+'</div>'
+            +'</div>'
+            +'<div style="font-size:0.6rem;font-weight:700;color:'+rCol+';">'+risk+'</div>'
+            +'</div>';
+        }).join('');
+        html += '</div>';
+      }
+
+      el.innerHTML = html;
     }
+    window.selectRep = function(name) {
+      _selectedRep = (_selectedRep === name) ? null : name;
+      renderRepBreakdown();
+    };
 
     /* ─── INIT ─── */
     window.renderDeals = renderDeals;
