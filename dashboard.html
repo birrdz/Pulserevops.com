@@ -3237,6 +3237,74 @@
       font-size: 0.55rem; color: #E8710A; font-weight: 700; white-space: nowrap;
     }
     .ri-chart-bar.projected { background: rgba(232,113,10,0.08); border: 1px dashed rgba(232,113,10,0.3); }
+    /* Deal Detail Modal */
+    #deal-detail-overlay {
+      display:none; position:fixed; inset:0; z-index:99998;
+      background:rgba(0,0,0,0.75); backdrop-filter:blur(8px);
+      align-items:center; justify-content:center;
+    }
+    #deal-detail-overlay.open { display:flex; }
+    #deal-detail-panel {
+      width:600px; max-width:95vw; max-height:85vh; overflow-y:auto;
+      background:rgba(10,14,20,0.98); border:1px solid var(--border);
+      border-radius:18px; box-shadow:0 24px 80px rgba(0,0,0,0.6);
+      font-family:inherit;
+    }
+    .dd-header {
+      padding:20px 24px 16px; border-bottom:1px solid rgba(255,255,255,0.04);
+      display:flex; align-items:flex-start; gap:14px;
+    }
+    .dd-header-info { flex:1; }
+    .dd-deal-name { font-size:1.1rem; font-weight:900; color:var(--text); margin-bottom:2px; }
+    .dd-deal-company { font-size:0.72rem; color:var(--muted); }
+    .dd-close {
+      width:28px; height:28px; border-radius:50%; border:none;
+      background:rgba(255,255,255,0.05); color:var(--muted); font-size:0.85rem;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+    }
+    .dd-close:hover { background:rgba(255,255,255,0.1); color:var(--text); }
+    .dd-section { padding:16px 24px; border-bottom:1px solid rgba(255,255,255,0.03); }
+    .dd-section:last-child { border-bottom:none; }
+    .dd-section-title {
+      font-size:0.58rem; font-weight:800; color:var(--muted); text-transform:uppercase;
+      letter-spacing:0.1em; margin-bottom:10px;
+    }
+    .dd-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .dd-field-label { font-size:0.58rem; color:rgba(154,144,136,0.6); margin-bottom:2px; text-transform:uppercase; letter-spacing:0.06em; }
+    .dd-field-val { font-size:0.82rem; color:var(--text); font-weight:600; }
+    .dd-input {
+      width:100%; padding:8px 12px; background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08); border-radius:8px;
+      color:var(--text); font-size:0.78rem; font-family:inherit; outline:none;
+      box-sizing:border-box;
+    }
+    .dd-input:focus { border-color:rgba(232,113,10,0.4); }
+    /* Activity buttons */
+    .dd-activity-btns { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+    .dd-activity-btn {
+      padding:6px 14px; border-radius:8px; font-size:0.68rem; font-weight:700;
+      border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03);
+      color:var(--muted); cursor:pointer; font-family:inherit; transition:all 0.15s;
+    }
+    .dd-activity-btn:hover { border-color:var(--border); color:var(--text); background:rgba(232,113,10,0.06); }
+    /* Timeline */
+    .dd-timeline { max-height:200px; overflow-y:auto; }
+    .dd-timeline-item {
+      display:flex; gap:10px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.03);
+      font-size:0.72rem;
+    }
+    .dd-timeline-item:last-child { border-bottom:none; }
+    .dd-timeline-icon { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.75rem; flex-shrink:0; }
+    .dd-timeline-body { flex:1; }
+    .dd-timeline-action { color:var(--text); font-weight:600; }
+    .dd-timeline-note { color:var(--muted); font-size:0.68rem; margin-top:2px; }
+    .dd-timeline-time { color:rgba(154,144,136,0.5); font-size:0.58rem; margin-top:2px; }
+    /* Rep filter */
+    .ri-rep-filter {
+      padding:4px 12px; font-size:0.68rem; background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08); border-radius:8px;
+      color:var(--text); font-family:inherit; cursor:pointer; outline:none;
+    }
     /* Risk Flags */
     .ri-risk-flag { display: inline-flex; align-items: center; gap: 4px; font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
     .ri-risk-flag.high { background: rgba(239,68,68,0.12); color: #ef4444; }
@@ -5578,23 +5646,32 @@
     <div class="ri-tabs">
       <button class="ri-tab active" onclick="riSwitchTab('deals')">Deals</button>
       <button class="ri-tab" onclick="riSwitchTab('pipeline')">Pipeline</button>
+      <button class="ri-tab" onclick="riSwitchTab('reps')">By Rep</button>
       <button class="ri-tab" onclick="riSwitchTab('forecast')">Forecast</button>
       <button class="ri-tab" onclick="riSwitchTab('upload')">Import</button>
     </div>
 
     <!-- TAB: DEALS (Mini CRM) -->
     <div class="ri-tab-panel active" id="ri-panel-deals">
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;">
+        <select class="ri-rep-filter" id="ri-rep-filter" onchange="renderDeals()">
+          <option value="">All Reps</option>
+        </select>
+        <input type="text" id="ri-deal-search" placeholder="Search deals..." oninput="renderDeals()" style="padding:6px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:var(--text);font-size:0.72rem;font-family:inherit;outline:none;flex:1;min-width:140px;">
+      </div>
       <table class="ri-deal-table">
         <thead>
           <tr>
-            <th style="width:20%">Deal / Company</th>
-            <th style="width:12%">Rep</th>
-            <th style="width:12%">Value</th>
-            <th style="width:14%">Stage</th>
-            <th style="width:12%">Date Added</th>
-            <th style="width:12%">Last Activity</th>
-            <th style="width:8%">Risk</th>
-            <th style="width:10%"></th>
+            <th style="width:18%">Deal / Company</th>
+            <th style="width:10%">Contact</th>
+            <th style="width:10%">Rep</th>
+            <th style="width:10%">Value</th>
+            <th style="width:12%">Stage</th>
+            <th style="width:10%">Date Added</th>
+            <th style="width:10%">Last Activity</th>
+            <th style="width:6%">Risk</th>
+            <th style="width:6%">Age</th>
+            <th style="width:8%"></th>
           </tr>
         </thead>
         <tbody id="ri-deal-body"></tbody>
@@ -5636,6 +5713,83 @@
         <div style="font-size:0.72rem;font-weight:700;color:var(--text);margin-bottom:8px;">Or paste CSV data:</div>
         <textarea id="ri-paste-area" placeholder="Deal Name, Rep, Value, Stage, Date Added, Last Activity&#10;Acme Corp, John, 5000, Proposal, 2025-01-15, 2025-03-20" style="width:100%;height:100px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;color:var(--text);font-family:monospace;font-size:0.72rem;resize:vertical;outline:none;"></textarea>
         <button class="ri-btn-primary" onclick="riParsePaste()" style="margin-top:10px;">Import Pasted Data</button>
+      </div>
+    <!-- TAB: BY REP -->
+    <div class="ri-tab-panel" id="ri-panel-reps">
+      <div id="ri-rep-breakdown"></div>
+    </div>
+
+    </div>
+  </div>
+
+  <!-- DEAL DETAIL MODAL -->
+  <div id="deal-detail-overlay" onclick="if(event.target===this)closeDealDetail()">
+    <div id="deal-detail-panel">
+      <div class="dd-header">
+        <div class="dd-header-info">
+          <div class="dd-deal-name" id="dd-name">—</div>
+          <div class="dd-deal-company" id="dd-company">—</div>
+        </div>
+        <button class="dd-close" onclick="closeDealDetail()">✕</button>
+      </div>
+      <div class="dd-section">
+        <div class="dd-section-title">Deal Info</div>
+        <div class="dd-grid">
+          <div><div class="dd-field-label">Value</div><div class="dd-field-val" id="dd-value">—</div></div>
+          <div><div class="dd-field-label">Stage</div><div class="dd-field-val" id="dd-stage">—</div></div>
+          <div><div class="dd-field-label">Rep</div><div class="dd-field-val" id="dd-rep">—</div></div>
+          <div><div class="dd-field-label">Deal Age</div><div class="dd-field-val" id="dd-age">—</div></div>
+          <div><div class="dd-field-label">Date Added</div><div class="dd-field-val" id="dd-date">—</div></div>
+          <div><div class="dd-field-label">Last Activity</div><div class="dd-field-val" id="dd-last">—</div></div>
+        </div>
+      </div>
+      <div class="dd-section">
+        <div class="dd-section-title">Contact</div>
+        <div class="dd-grid">
+          <div><div class="dd-field-label">Phone</div><input class="dd-input" id="dd-phone" placeholder="Phone" onchange="ddSaveField('phone',this.value)"></div>
+          <div><div class="dd-field-label">Email</div><input class="dd-input" id="dd-email" placeholder="Email" onchange="ddSaveField('email',this.value)"></div>
+          <div><div class="dd-field-label">Title / Role</div><input class="dd-input" id="dd-title" placeholder="Decision maker?" onchange="ddSaveField('title',this.value)"></div>
+          <div><div class="dd-field-label">Source</div><input class="dd-input" id="dd-source" placeholder="Referral, cold call..." onchange="ddSaveField('source',this.value)"></div>
+        </div>
+      </div>
+      <div class="dd-section">
+        <div class="dd-section-title">Log Activity</div>
+        <div class="dd-activity-btns">
+          <button class="dd-activity-btn" onclick="ddLogActivity('📞 Called')">📞 Called</button>
+          <button class="dd-activity-btn" onclick="ddLogActivity('📧 Emailed')">📧 Emailed</button>
+          <button class="dd-activity-btn" onclick="ddLogActivity('🤝 Met')">🤝 Met</button>
+          <button class="dd-activity-btn" onclick="ddLogActivity('💻 Demo')">💻 Demo</button>
+          <button class="dd-activity-btn" onclick="ddLogActivity('📝 Proposal Sent')">📝 Proposal</button>
+          <button class="dd-activity-btn" onclick="ddLogActivity('🔄 Follow-up')">🔄 Follow-up</button>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <input class="dd-input" id="dd-note-input" placeholder="Add a note..." style="flex:1;" onkeydown="if(event.key==='Enter')ddAddNote()">
+          <button class="ri-btn-sm" onclick="ddAddNote()">Add Note</button>
+        </div>
+      </div>
+      <div class="dd-section">
+        <div class="dd-section-title">Activity Timeline</div>
+        <div class="dd-timeline" id="dd-timeline">
+          <div style="text-align:center;color:var(--muted);font-size:0.72rem;padding:16px;">No activity yet</div>
+        </div>
+      </div>
+      <div class="dd-section" id="dd-close-section" style="display:none;">
+        <div class="dd-section-title">Close This Deal</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="ri-btn-primary" onclick="ddCloseDeal('Closed Won')" style="background:rgba(34,197,94,0.15);border-color:rgba(34,197,94,0.5);color:#22c55e;">✓ Won</button>
+          <button class="ri-btn-primary" onclick="ddCloseDeal('Closed Lost')" style="background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.5);color:#ef4444;">✗ Lost</button>
+        </div>
+        <div id="dd-loss-reason" style="display:none;margin-top:10px;">
+          <div class="dd-field-label" style="margin-bottom:6px;">Why was it lost?</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="dd-activity-btn" onclick="ddSetLossReason('Price')">💰 Price</button>
+            <button class="dd-activity-btn" onclick="ddSetLossReason('Timing')">⏰ Timing</button>
+            <button class="dd-activity-btn" onclick="ddSetLossReason('Competitor')">🏢 Competitor</button>
+            <button class="dd-activity-btn" onclick="ddSetLossReason('No Budget')">🚫 No Budget</button>
+            <button class="dd-activity-btn" onclick="ddSetLossReason('No Decision')">🤷 No Decision</button>
+            <button class="dd-activity-btn" onclick="ddSetLossReason('Product Gap')">🔧 Product Gap</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -15060,7 +15214,7 @@
     /* ─── TABS ─── */
     window.riSwitchTab = function(tab) {
       document.querySelectorAll('.ri-tab').forEach((t, i) => {
-        const tabs = ['deals','pipeline','forecast','upload'];
+        const tabs = ['deals','pipeline','reps','forecast','upload'];
         t.classList.toggle('active', tabs[i] === tab);
       });
       document.querySelectorAll('.ri-tab-panel').forEach(p => p.classList.remove('active'));
@@ -15068,35 +15222,62 @@
       if (panel) panel.classList.add('active');
       if (tab === 'pipeline') renderKanban();
       if (tab === 'forecast') renderForecast();
+      if (tab === 'reps') renderRepBreakdown();
     };
 
     /* ─── DEAL TABLE RENDERING ─── */
     function renderDeals() {
-      const deals = loadDeals();
+      const allDeals = loadDeals();
       const tbody = document.getElementById('ri-deal-body');
       if (!tbody) return;
 
+      // Update rep filter dropdown
+      const repFilter = document.getElementById('ri-rep-filter');
+      if (repFilter) {
+        const reps = [...new Set(allDeals.map(d => d.rep).filter(Boolean))].sort();
+        const curVal = repFilter.value;
+        repFilter.innerHTML = '<option value="">All Reps</option>' + reps.map(r => '<option' + (r===curVal?' selected':'') + '>' + r + '</option>').join('');
+      }
+
+      // Apply filters
+      const filterRep = repFilter?.value || '';
+      const searchQ = (document.getElementById('ri-deal-search')?.value || '').toLowerCase();
+      let deals = allDeals;
+      if (filterRep) deals = deals.filter(d => d.rep === filterRep);
+      if (searchQ) deals = deals.filter(d => (d.name||'').toLowerCase().includes(searchQ) || (d.rep||'').toLowerCase().includes(searchQ) || (d.stage||'').toLowerCase().includes(searchQ));
+
+      if (!allDeals.length) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:32px;color:var(--muted);font-size:0.78rem;">No deals yet — add one or import data to get started</td></tr>';
+        updateVitals(allDeals);
+        return;
+      }
       if (!deals.length) {
-        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--muted);font-size:0.78rem;">No deals yet — add one or import data to get started</td></tr>';
-        updateVitals(deals);
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:20px;color:var(--muted);font-size:0.78rem;">No deals match filter</td></tr>';
+        updateVitals(allDeals);
         return;
       }
 
       tbody.innerHTML = deals.map((d, i) => {
+        const realIdx = allDeals.indexOf(d);
         const risk = calcRisk(d);
         const riskCls = risk === 'High' ? 'high' : risk === 'Medium' ? 'medium' : 'low';
-        return '<tr>'
-          + '<td><input value="' + esc(d.name) + '" onchange="riUpdateDeal(' + i + ',\'name\',this.value)" placeholder="Deal name"></td>'
-          + '<td><input value="' + esc(d.rep) + '" onchange="riUpdateDeal(' + i + ',\'rep\',this.value)" placeholder="Rep"></td>'
-          + '<td><input type="number" value="' + (d.value||'') + '" onchange="riUpdateDeal(' + i + ',\'value\',this.value)" placeholder="$" style="width:90px"></td>'
-          + '<td><select onchange="riUpdateDeal(' + i + ',\'stage\',this.value)">' + STAGES.map(s => '<option' + (s===d.stage?' selected':'') + '>' + s + '</option>').join('') + '</select></td>'
-          + '<td><input type="date" value="' + (d.dateAdded||'') + '" onchange="riUpdateDeal(' + i + ',\'dateAdded\',this.value)"></td>'
-          + '<td><input type="date" value="' + (d.lastActivity||'') + '" onchange="riUpdateDeal(' + i + ',\'lastActivity\',this.value)"></td>'
+        const age = d.dateAdded ? Math.floor((Date.now() - new Date(d.dateAdded).getTime()) / 86400000) + 'd' : '—';
+        const contact = d.phone || d.email || '';
+        const contactDisplay = contact ? '<span style="color:var(--muted);font-size:0.65rem;">' + esc(contact).substring(0,15) + '</span>' : '<span style="color:rgba(154,144,136,0.3);font-size:0.65rem;">—</span>';
+        return '<tr style="cursor:pointer;" onclick="openDealDetail(' + realIdx + ')">'
+          + '<td><input value="' + esc(d.name) + '" onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'name\',this.value)" onclick="event.stopPropagation()" placeholder="Deal name"></td>'
+          + '<td>' + contactDisplay + '</td>'
+          + '<td><input value="' + esc(d.rep) + '" onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'rep\',this.value)" onclick="event.stopPropagation()" placeholder="Rep"></td>'
+          + '<td><input type="number" value="' + (d.value||'') + '" onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'value\',this.value)" onclick="event.stopPropagation()" placeholder="$" style="width:80px"></td>'
+          + '<td><select onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'stage\',this.value)" onclick="event.stopPropagation()">' + STAGES.map(s => '<option' + (s===d.stage?' selected':'') + '>' + s + '</option>').join('') + '</select></td>'
+          + '<td><input type="date" value="' + (d.dateAdded||'') + '" onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'dateAdded\',this.value)" onclick="event.stopPropagation()"></td>'
+          + '<td><input type="date" value="' + (d.lastActivity||'') + '" onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'lastActivity\',this.value)" onclick="event.stopPropagation()"></td>'
           + '<td><span class="ri-risk-flag ' + riskCls + '">' + risk + '</span></td>'
-          + '<td><button class="ri-btn-sm" onclick="riDeleteDeal(' + i + ')" style="color:#ef4444;border-color:rgba(239,68,68,0.3);">×</button></td>'
+          + '<td style="font-size:0.65rem;color:var(--muted);">' + age + '</td>'
+          + '<td><button class="ri-btn-sm" onclick="event.stopPropagation();riDeleteDeal(' + realIdx + ')" style="color:#ef4444;border-color:rgba(239,68,68,0.3);">×</button></td>'
           + '</tr>';
       }).join('');
-      updateVitals(deals);
+      updateVitals(allDeals);
     }
 
     function esc(s) { return (s||'').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
@@ -15197,7 +15378,11 @@
     };
 
     /* ─── DEMO DATA ─── */
-    window.riLoadDemo = function() {
+    window.riLoadDemo = function(skipConfirm) {
+      if (!skipConfirm) {
+        const existing = loadDeals();
+        if (existing.length > 0 && !confirm('This will replace your ' + existing.length + ' existing deals with demo data. Continue?')) return;
+      }
       const names = ['Acme Corp','TechFlow Inc','GreenLeaf LLC','Summit Partners','Apex Solutions','BlueStar Media','NovaTech','RedRock Ventures','PrimeHealth','DataDrive Co'];
       const reps = ['Sarah','Mike','Jess','Carlos','Taylor'];
       const demo = names.map((name, i) => {
@@ -15207,11 +15392,20 @@
         const lastDays = Math.floor(Math.random() * 20);
         const da = new Date(Date.now() - daysAgo * 86400000);
         const la = new Date(Date.now() - lastDays * 86400000);
+        const phones = ['555-0101','555-0202','555-0303','555-0404','555-0505','555-0606','555-0707','555-0808','555-0909','555-1010'];
+        const emails = ['john@acme.com','lisa@techflow.io','mark@greenleaf.co','anna@summit.com','dave@apex.io','kim@bluestar.com','raj@novatech.io','tom@redrock.vc','sara@primehealth.com','jen@datadrive.co'];
+        const titles = ['VP Sales','CTO','Owner','COO','Director','Marketing Lead','CEO','Partner','CMO','Head of Ops'];
+        const sources = ['Referral','LinkedIn','Cold Call','Website','Trade Show','Referral','Inbound','Partner','Conference','Website'];
         return {
           id: genId(), name: name, rep: reps[i % reps.length], value: val,
           stage: STAGES[stageIdx],
           dateAdded: da.toISOString().split('T')[0],
-          lastActivity: la.toISOString().split('T')[0]
+          lastActivity: la.toISOString().split('T')[0],
+          phone: phones[i], email: emails[i], title: titles[i], source: sources[i],
+          activities: [
+            { action: '📞 Called', ts: la.getTime() },
+            { action: '📧 Emailed', ts: la.getTime() - 86400000 * 3 },
+          ]
         };
       });
       saveDeals(demo);
@@ -15499,6 +15693,151 @@
       reader.readAsText(file);
       e.target.value = '';
     };
+
+    /* ─── DEAL DETAIL MODAL ─── */
+    let _ddIdx = -1;
+    window.openDealDetail = function(idx) {
+      const deals = loadDeals();
+      const d = deals[idx];
+      if (!d) return;
+      _ddIdx = idx;
+      document.getElementById('deal-detail-overlay').classList.add('open');
+      document.getElementById('dd-name').textContent = d.name || 'Untitled Deal';
+      document.getElementById('dd-company').textContent = d.rep ? 'Rep: ' + d.rep : '';
+      document.getElementById('dd-value').textContent = '$' + fmtNum(parseFloat(d.value) || 0);
+      document.getElementById('dd-stage').textContent = d.stage || '—';
+      document.getElementById('dd-rep').textContent = d.rep || '—';
+      document.getElementById('dd-date').textContent = d.dateAdded || '—';
+      document.getElementById('dd-last').textContent = d.lastActivity || '—';
+      const age = d.dateAdded ? Math.floor((Date.now() - new Date(d.dateAdded).getTime()) / 86400000) : 0;
+      document.getElementById('dd-age').textContent = age + ' days';
+      // Contact fields
+      document.getElementById('dd-phone').value = d.phone || '';
+      document.getElementById('dd-email').value = d.email || '';
+      document.getElementById('dd-title').value = d.title || '';
+      document.getElementById('dd-source').value = d.source || '';
+      // Show close section for active deals
+      const closeSection = document.getElementById('dd-close-section');
+      if (closeSection) closeSection.style.display = (d.stage !== 'Closed Won' && d.stage !== 'Closed Lost') ? 'block' : 'none';
+      document.getElementById('dd-loss-reason').style.display = 'none';
+      // Render timeline
+      renderTimeline(d);
+    };
+    window.closeDealDetail = function() {
+      document.getElementById('deal-detail-overlay').classList.remove('open');
+      _ddIdx = -1;
+    };
+    window.ddSaveField = function(field, val) {
+      if (_ddIdx < 0) return;
+      const deals = loadDeals();
+      if (deals[_ddIdx]) { deals[_ddIdx][field] = val; saveDeals(deals); }
+    };
+    window.ddLogActivity = function(action) {
+      if (_ddIdx < 0) return;
+      const deals = loadDeals();
+      const d = deals[_ddIdx];
+      if (!d) return;
+      if (!d.activities) d.activities = [];
+      d.activities.unshift({ action, ts: Date.now() });
+      d.lastActivity = today();
+      saveDeals(deals);
+      renderTimeline(d);
+      // Update last activity display
+      document.getElementById('dd-last').textContent = today();
+    };
+    window.ddAddNote = function() {
+      const input = document.getElementById('dd-note-input');
+      const note = input.value.trim();
+      if (!note || _ddIdx < 0) return;
+      const deals = loadDeals();
+      const d = deals[_ddIdx];
+      if (!d) return;
+      if (!d.activities) d.activities = [];
+      d.activities.unshift({ action: '📝 Note', note, ts: Date.now() });
+      d.lastActivity = today();
+      saveDeals(deals);
+      renderTimeline(d);
+      input.value = '';
+      document.getElementById('dd-last').textContent = today();
+    };
+    window.ddCloseDeal = function(stage) {
+      if (_ddIdx < 0) return;
+      if (stage === 'Closed Lost') {
+        document.getElementById('dd-loss-reason').style.display = 'block';
+        return;
+      }
+      const deals = loadDeals();
+      deals[_ddIdx].stage = stage;
+      deals[_ddIdx].lastActivity = today();
+      if (!deals[_ddIdx].activities) deals[_ddIdx].activities = [];
+      deals[_ddIdx].activities.unshift({ action: '🎉 Deal Won!', ts: Date.now() });
+      saveDeals(deals);
+      closeDealDetail();
+      renderDeals();
+    };
+    window.ddSetLossReason = function(reason) {
+      if (_ddIdx < 0) return;
+      const deals = loadDeals();
+      deals[_ddIdx].stage = 'Closed Lost';
+      deals[_ddIdx].lossReason = reason;
+      deals[_ddIdx].lastActivity = today();
+      if (!deals[_ddIdx].activities) deals[_ddIdx].activities = [];
+      deals[_ddIdx].activities.unshift({ action: '❌ Deal Lost — ' + reason, ts: Date.now() });
+      saveDeals(deals);
+      closeDealDetail();
+      renderDeals();
+    };
+    function renderTimeline(deal) {
+      const el = document.getElementById('dd-timeline');
+      const acts = deal.activities || [];
+      if (!acts.length) { el.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:0.72rem;padding:16px;">No activity yet — log a call or add a note</div>'; return; }
+      const icons = { '📞 Called': 'rgba(59,130,246,0.15)', '📧 Emailed': 'rgba(139,92,246,0.15)', '🤝 Met': 'rgba(34,197,94,0.15)', '💻 Demo': 'rgba(232,113,10,0.15)', '📝 Proposal Sent': 'rgba(234,179,8,0.15)', '🔄 Follow-up': 'rgba(154,144,136,0.15)', '📝 Note': 'rgba(255,255,255,0.05)' };
+      el.innerHTML = acts.map(a => {
+        const time = a.ts ? new Date(a.ts).toLocaleDateString() + ' ' + new Date(a.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+        return '<div class="dd-timeline-item">'
+          + '<div class="dd-timeline-icon" style="background:' + (icons[a.action] || 'rgba(255,255,255,0.05)') + ';">' + (a.action?.split(' ')[0] || '•') + '</div>'
+          + '<div class="dd-timeline-body">'
+          + '<div class="dd-timeline-action">' + (a.action || '') + '</div>'
+          + (a.note ? '<div class="dd-timeline-note">' + a.note + '</div>' : '')
+          + '<div class="dd-timeline-time">' + time + '</div>'
+          + '</div></div>';
+      }).join('');
+    }
+
+    /* ─── REP BREAKDOWN ─── */
+    function renderRepBreakdown() {
+      const deals = loadDeals();
+      const el = document.getElementById('ri-rep-breakdown');
+      if (!el) return;
+      const reps = {};
+      deals.forEach(d => {
+        const r = d.rep || 'Unassigned';
+        if (!reps[r]) reps[r] = { pipeline: 0, won: 0, lost: 0, deals: 0, active: 0 };
+        reps[r].deals++;
+        const val = parseFloat(d.value) || 0;
+        if (d.stage === 'Closed Won') reps[r].won += val;
+        else if (d.stage === 'Closed Lost') reps[r].lost += val;
+        else { reps[r].pipeline += val; reps[r].active++; }
+      });
+      const sorted = Object.entries(reps).sort((a, b) => (b[1].pipeline + b[1].won) - (a[1].pipeline + a[1].won));
+      if (!sorted.length) { el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--muted);">No deals yet</div>'; return; }
+      el.innerHTML = sorted.map(([name, r]) => {
+        const total = r.pipeline + r.won;
+        const winRate = (r.won + r.lost) > 0 ? Math.round(r.won / (r.won + r.lost) * 100) : 0;
+        return '<div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:8px;">'
+          + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
+          + '<div style="font-size:0.88rem;font-weight:800;color:var(--text);">' + name + '</div>'
+          + '<div style="font-size:0.65rem;color:var(--muted);">' + r.deals + ' deals</div>'
+          + '</div>'
+          + '<div style="display:flex;gap:16px;flex-wrap:wrap;">'
+          + '<div><div style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Pipeline</div><div style="font-size:1rem;font-weight:900;color:var(--text);">$' + fmtNum(r.pipeline) + '</div></div>'
+          + '<div><div style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Won</div><div style="font-size:1rem;font-weight:900;color:#22c55e;">$' + fmtNum(r.won) + '</div></div>'
+          + '<div><div style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Lost</div><div style="font-size:1rem;font-weight:900;color:#ef4444;">$' + fmtNum(r.lost) + '</div></div>'
+          + '<div><div style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Win Rate</div><div style="font-size:1rem;font-weight:900;color:' + (winRate >= 50 ? '#22c55e' : '#ef4444') + ';">' + (r.won + r.lost > 0 ? winRate + '%' : '—') + '</div></div>'
+          + '<div><div style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Active</div><div style="font-size:1rem;font-weight:900;color:#E8710A;">' + r.active + '</div></div>'
+          + '</div></div>';
+      }).join('');
+    }
 
     /* ─── INIT ─── */
     window.renderDeals = renderDeals;
