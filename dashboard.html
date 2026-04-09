@@ -10885,12 +10885,76 @@
 
     const TOUR_STEPS = [
       // ═══ STEP 1 — BEATS (THE HOOK) ═══
-      { selector: '#rev-intel-section', title: 'Beats — Your Leads, Visualized',
-        desc: 'Every lead gets a hologram card. Name, value, stage, risk, activity — all glowing on one card. This is your pipeline at a glance. Watch them load.',
-        label: 'Step 1 of 35',
+      { selector: '#rev-intel-section', title: 'Beats',
+        desc: 'Every lead. One card. Watch.',
+        label: 'Step 1 of 35', managedTimer: true,
         onShow: () => {
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(true); }, 1500);
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 3000);
+          // Load demo data silently
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(true); }, 500);
+
+          // Show a giant hero card center screen
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const card = document.createElement('div');
+            card.id = 'tour-hero-card';
+            card.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.3) rotateY(15deg);z-index:99999;width:340px;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,rgba(20,24,32,0.95),rgba(10,14,20,0.98));border:1.5px solid rgba(232,113,10,0.25);box-shadow:0 24px 80px rgba(0,0,0,0.7),0 0 60px rgba(232,113,10,0.1);opacity:0;transition:all 1s cubic-bezier(0.25,0.1,0.25,1);';
+            card.innerHTML = ''
+              + '<div style="position:absolute;inset:0;background:linear-gradient(105deg,transparent 20%,rgba(232,113,10,0.04) 35%,rgba(255,255,255,0.08) 40%,rgba(232,113,10,0.03) 45%,transparent 55%,rgba(255,140,26,0.03) 65%,rgba(255,255,255,0.05) 70%,transparent 85%);background-size:200% 200%;animation:holoShimmerFast 2s ease-in-out infinite;pointer-events:none;z-index:2;border-radius:22px;"></div>'
+              + '<div style="position:relative;z-index:1;padding:28px 24px;">'
+              + '<div style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:900;color:#fff;background:linear-gradient(135deg,rgba(232,113,10,0.35),rgba(191,88,0,0.45));border:2px solid rgba(232,113,10,0.4);box-shadow:0 8px 24px rgba(232,113,10,0.2);">AC</div>'
+              + '<div style="text-align:center;font-size:1.4rem;font-weight:900;color:#EDE5D8;margin-bottom:4px;">Acme Corp</div>'
+              + '<div style="text-align:center;font-size:0.75rem;color:#9A9088;margin-bottom:16px;">Sarah · VP Sales</div>'
+              + '<div style="text-align:center;margin-bottom:16px;"><span style="display:inline-block;padding:4px 14px;border-radius:14px;font-size:0.65rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;background:rgba(232,113,10,0.12);color:#E8710A;border:1px solid rgba(232,113,10,0.3);">Proposal</span></div>'
+              + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">'
+              + '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:0.5rem;font-weight:700;color:rgba(154,144,136,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px;">Value</div><div style="font-size:1.1rem;font-weight:900;color:#E8710A;">$8,500</div></div>'
+              + '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:0.5rem;font-weight:700;color:rgba(154,144,136,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px;">Risk</div><div style="font-size:1.1rem;font-weight:900;color:#22c55e;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:4px;"></span>Low</div></div>'
+              + '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:0.5rem;font-weight:700;color:rgba(154,144,136,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px;">Age</div><div style="font-size:1.1rem;font-weight:900;color:#EDE5D8;">23d</div></div>'
+              + '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:0.5rem;font-weight:700;color:rgba(154,144,136,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px;">Activity</div><div style="font-size:1.1rem;font-weight:900;color:#EDE5D8;">5</div></div>'
+              + '</div>'
+              + '<div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.04);">'
+              + '<div style="display:flex;align-items:center;gap:6px;font-size:0.7rem;color:#9A9088;padding:3px 0;"><span>📞</span> 555-0101</div>'
+              + '<div style="display:flex;align-items:center;gap:6px;font-size:0.7rem;color:#9A9088;padding:3px 0;"><span>📧</span> john@acme.com</div>'
+              + '</div>'
+              + '</div>';
+            document.body.appendChild(card);
+            // Animate in — big dramatic entrance
+            requestAnimationFrame(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(0deg)';
+            });
+          }, 2000);
+
+          // Rotate the card slightly
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const card = document.getElementById('tour-hero-card');
+            if (card) card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(-8deg)';
+          }, 5000);
+
+          // Rotate back
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const card = document.getElementById('tour-hero-card');
+            if (card) card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(5deg)';
+          }, 7000);
+
+          // Shrink and remove, switch to gallery
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const card = document.getElementById('tour-hero-card');
+            if (card) {
+              card.style.transform = 'translate(-50%,-50%) scale(0.5) rotateY(20deg)';
+              card.style.opacity = '0';
+              setTimeout(() => card.remove(), 800);
+            }
+            if (typeof riSwitchTab === 'function') riSwitchTab('cards');
+          }, 10000);
+
+          // Advance after gallery is visible
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            advanceTour();
+          }, 14000);
         }
       },
       // ═══ STEP 2 — CRM ═══
