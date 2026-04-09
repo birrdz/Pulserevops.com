@@ -3324,6 +3324,72 @@
     /* Animate in */
     @keyframes riFadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes beatsShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    /* ── BEATS CARDS ── */
+    .beat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .beat-card {
+      position: relative; border-radius: 20px; overflow: hidden; cursor: pointer;
+      background: linear-gradient(145deg, rgba(18,22,30,0.95), rgba(8,12,18,0.98));
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      backdrop-filter: blur(12px);
+    }
+    .beat-card:hover {
+      transform: translateY(-6px) scale(1.015);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+    .beat-card::before {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.03) 35%, rgba(255,255,255,0.07) 40%, transparent 50%);
+      background-size: 250% 100%; animation: beatsShimmer 4s ease-in-out infinite;
+      border-radius: 20px;
+    }
+    .beat-card:hover::before { animation-duration: 1.5s; }
+    .beat-card .beat-inner { position: relative; z-index: 2; padding: 22px 20px; }
+    .beat-card .beat-photo {
+      width: 68px; height: 68px; border-radius: 50%; margin: 0 auto 14px;
+      overflow: hidden; border: 2px solid rgba(255,255,255,0.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .beat-card .beat-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.25) brightness(1.4) contrast(1.15);
+      mix-blend-mode: luminosity;
+    }
+    .beat-card:hover .beat-photo img { filter: saturate(0.4) brightness(1.5) contrast(1.2); }
+    .beat-card:hover .beat-photo { border-color: rgba(255,255,255,0.15); box-shadow: 0 4px 24px rgba(0,0,0,0.5); }
+    .beat-card .beat-name { text-align: center; font-size: 1rem; font-weight: 900; color: #EDE5D8; margin-bottom: 2px; }
+    .beat-card .beat-sub { text-align: center; font-size: 0.62rem; color: rgba(154,144,136,0.7); margin-bottom: 12px; }
+    .beat-card .beat-tier {
+      position: absolute; top: 12px; right: 14px; font-size: 0.48rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; z-index: 3;
+    }
+    .beat-card .beat-stage {
+      display: block; text-align: center; margin-bottom: 14px;
+    }
+    .beat-card .beat-stage span {
+      display: inline-block; padding: 3px 12px; border-radius: 12px;
+      font-size: 0.52rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .beat-card .beat-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .beat-card .beat-stat {
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.03);
+      border-radius: 8px; padding: 8px; text-align: center;
+    }
+    .beat-card .beat-stat-lbl { font-size: 0.44rem; font-weight: 700; color: rgba(154,144,136,0.45); text-transform: uppercase; letter-spacing: 0.1em; }
+    .beat-card .beat-stat-val { font-size: 0.85rem; font-weight: 900; color: #EDE5D8; margin-top: 1px; }
+    .beat-card .beat-contact { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.03); font-size: 0.6rem; color: rgba(154,144,136,0.6); }
+    /* Tier border colors */
+    .beat-card.t-bronze { border-color: rgba(154,144,136,0.15); }
+    .beat-card.t-bronze:hover { border-color: rgba(154,144,136,0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(154,144,136,0.08); }
+    .beat-card.t-silver { border-color: rgba(232,113,10,0.15); }
+    .beat-card.t-silver:hover { border-color: rgba(232,113,10,0.45); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 24px rgba(232,113,10,0.1); }
+    .beat-card.t-gold { border-color: rgba(139,92,246,0.2); }
+    .beat-card.t-gold:hover { border-color: rgba(139,92,246,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(139,92,246,0.12); }
+    .beat-card.t-plat { border-color: rgba(251,191,36,0.2); }
+    .beat-card.t-plat:hover { border-color: rgba(251,191,36,0.55); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 40px rgba(251,191,36,0.12); }
+    @media (max-width: 600px) { .beat-grid { grid-template-columns: 1fr; } }
     .ri-animate { animation: riFadeUp 0.5s ease forwards; }
     @media (max-width: 768px) {
       .ri-kanban { grid-template-columns: 1fr; }
@@ -10788,10 +10854,39 @@
       },
       // ═══ STEP 2 — BEATS ═══
       { selector: '#rev-intel-section', title: 'Now meet Beats',
-        desc: 'Every lead becomes a hologram card. Bronze, Silver, Gold, Platinum — ranked by deal value. Hover any card to see the shimmer.',
+        desc: 'Every lead becomes a hologram card. Bronze. Silver. Gold. Platinum. Ranked by deal value.',
         label: 'Step 2 of 33',
         onShow: () => {
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 2000);
+          var positions = [
+            {top:'25%',left:'20%'}, {top:'20%',left:'60%'},
+            {top:'55%',left:'15%'}, {top:'50%',left:'65%'}
+          ];
+          var cards = [
+            {name:'Acme Corp',tier:'Bronze',val:'$3,200',color:'#9A9088',img:32},
+            {name:'TechFlow Inc',tier:'Silver',val:'$12,000',color:'#E8710A',img:47},
+            {name:'Summit',tier:'Gold',val:'$22,000',color:'#8B5CF6',img:15},
+            {name:'RedRock',tier:'Platinum',val:'$31,000',color:'#fbbf24',img:60}
+          ];
+          cards.forEach(function(c,i) {
+            _schedTourTimer(function() {
+              if (!tourActive) return;
+              var p = positions[i];
+              var el = document.createElement('div');
+              el.className = 'tour-beat-card';
+              el.style.cssText = 'position:fixed;top:'+p.top+';left:'+p.left+';z-index:99999;width:220px;border-radius:18px;background:linear-gradient(145deg,rgba(18,22,30,0.96),rgba(8,12,18,0.99));border:1px solid '+c.color+'35;box-shadow:0 12px 40px rgba(0,0,0,0.6),0 0 20px '+c.color+'15;opacity:0;transform:scale(0.5);transition:all 0.6s cubic-bezier(0.34,1.56,0.64,1);overflow:hidden;pointer-events:none;';
+              el.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,0.05) 40%,transparent 55%);background-size:250% 100%;animation:beatsShimmer 2s ease-in-out infinite;border-radius:18px;"></div>'
+                +'<div style="position:relative;z-index:1;padding:16px 14px;text-align:center;">'
+                +'<div style="position:absolute;top:8px;right:10px;font-size:0.45rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border-radius:5px;background:'+c.color+'20;color:'+c.color+';">'+c.tier+'</div>'
+                +'<div style="width:52px;height:52px;border-radius:50%;margin:0 auto 8px;overflow:hidden;border:2px solid '+c.color+'40;box-shadow:0 4px 16px rgba(0,0,0,0.4);"><img src="https://i.pravatar.cc/104?img='+c.img+'" style="width:100%;height:100%;object-fit:cover;filter:saturate(0.25) brightness(1.4);mix-blend-mode:luminosity;"></div>'
+                +'<div style="font-size:0.88rem;font-weight:900;color:#EDE5D8;">'+c.name+'</div>'
+                +'<div style="font-size:1rem;font-weight:900;color:'+c.color+';margin-top:4px;">'+c.val+'</div>'
+                +'</div>';
+              document.body.appendChild(el);
+              requestAnimationFrame(function() { el.style.opacity = '1'; el.style.transform = 'scale(1)'; });
+              setTimeout(function() { el.style.opacity = '0'; el.style.transform = 'scale(0.8)'; setTimeout(function(){el.remove();},500); }, 6000);
+            }, 2000 + i * 2500);
+          });
+          _schedTourTimer(function() { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 13000);
         }
       },
       // (CRM moved to Step 1)
@@ -15821,44 +15916,36 @@
       if (!el) return;
       if (!deals.length) { el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">No deals yet — add some or load demo data</div>'; return; }
 
-      var tierColors = {bronze:'#9A9088',silver:'#E8710A',gold:'#8B5CF6',platinum:'#fbbf24'};
-      function getTier(v) {
-        if (v >= 30000) return {n:'Platinum',c:tierColors.platinum};
-        if (v >= 15000) return {n:'Gold',c:tierColors.gold};
-        if (v >= 5000) return {n:'Silver',c:tierColors.silver};
-        return {n:'Bronze',c:tierColors.bronze};
-      }
-      var stColors = {'Lead':'#9A9088','Discovery':'#3B82F6','Proposal':'#E8710A','Negotiation':'#8B5CF6','Closed Won':'#22c55e','Closed Lost':'#ef4444'};
+      var TC = {bronze:{c:'#9A9088',cls:'t-bronze'},silver:{c:'#E8710A',cls:'t-silver'},gold:{c:'#8B5CF6',cls:'t-gold'},plat:{c:'#fbbf24',cls:'t-plat'}};
+      function getTier(v) { return v>=30000?TC.plat:v>=15000?TC.gold:v>=5000?TC.silver:TC.bronze; }
+      var SC = {'Lead':'#9A9088','Discovery':'#3B82F6','Proposal':'#E8710A','Negotiation':'#8B5CF6','Closed Won':'#22c55e','Closed Lost':'#ef4444'};
 
-      el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;">' + deals.map(function(d,i) {
-        var init = (d.name||'?').split(/[\s&]+/).map(function(w){return w[0]}).join('').substring(0,2).toUpperCase();
+      el.innerHTML = '<div class="beat-grid">' + deals.map(function(d,i) {
+        var init = (d.name||'?').split(/[\s&]+/).map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
         var v = parseFloat(d.value)||0;
         var t = getTier(v);
         var risk = calcRisk(d);
         var rCol = risk==='High'?'#ef4444':risk==='Medium'?'#eab308':'#22c55e';
         var age = d.dateAdded ? Math.floor((Date.now()-new Date(d.dateAdded).getTime())/86400000) : 0;
         var acts = (d.activities||[]).length;
-        var sc = stColors[d.stage]||'#9A9088';
-        var img = d.photoUrl || 'https://i.pravatar.cc/128?u='+encodeURIComponent(d.name||i);
+        var sc = SC[d.stage]||'#9A9088';
+        var tierName = t===TC.plat?'Platinum':t===TC.gold?'Gold':t===TC.silver?'Silver':'Bronze';
+        var img = d.photoUrl || 'https://i.pravatar.cc/136?u='+encodeURIComponent(d.name||i);
 
-        return '<div onclick="openDealDetail('+i+')" style="position:relative;border-radius:16px;cursor:pointer;background:linear-gradient(135deg,rgba(20,24,32,0.92),rgba(10,14,20,0.96));border:1px solid '+t.c+'30;box-shadow:0 6px 24px rgba(0,0,0,0.4);transition:all 0.3s;overflow:hidden;" onmouseover="this.style.transform=\'translateY(-3px) scale(1.01)\';this.style.boxShadow=\'0 12px 40px rgba(0,0,0,0.5),0 0 24px '+t.c+'20\';this.style.borderColor=\''+t.c+'60\'" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'0 6px 24px rgba(0,0,0,0.4)\';this.style.borderColor=\''+t.c+'30\'">'
-          +'<div style="position:absolute;inset:0;background:linear-gradient(105deg,transparent 25%,'+t.c+'08 38%,rgba(255,255,255,0.05) 42%,transparent 55%);background-size:200% 100%;animation:beatsShimmer 3s ease-in-out infinite;pointer-events:none;border-radius:16px;"></div>'
-          +'<div style="position:absolute;top:8px;right:10px;font-size:0.48rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;border-radius:5px;background:'+t.c+'18;color:'+t.c+';z-index:2;">'+t.n+'</div>'
-          +'<div style="position:relative;z-index:1;padding:18px 16px;">'
-          +'<div style="width:56px;height:56px;border-radius:50%;margin:0 auto 10px;overflow:hidden;border:2px solid '+t.c+'50;box-shadow:0 4px 14px '+t.c+'25;"><img src="'+img+'" style="width:100%;height:100%;object-fit:cover;filter:saturate(0.3) brightness(1.3);mix-blend-mode:luminosity;" onerror="this.outerHTML=\'<div style=padding:14px;text-align:center;font-size:1.2rem;font-weight:900;color:#fff>'+init+'</div>\'"></div>'
-          +'<div style="text-align:center;font-size:0.95rem;font-weight:900;color:#EDE5D8;margin-bottom:2px;">'+esc(d.name||'Untitled')+'</div>'
-          +'<div style="text-align:center;font-size:0.6rem;color:#9A9088;margin-bottom:10px;">'+esc(d.rep||'')+( d.title ? ' · '+esc(d.title) : '')+'</div>'
-          +'<div style="text-align:center;margin-bottom:10px;"><span style="display:inline-block;padding:3px 10px;border-radius:10px;font-size:0.5rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;background:'+sc+'18;color:'+sc+';border:1px solid '+sc+'30;">'+(d.stage||'Lead')+'</span></div>'
-          +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">'
-          +'<div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);border-radius:7px;padding:7px;text-align:center;"><div style="font-size:0.42rem;font-weight:700;color:rgba(154,144,136,0.5);text-transform:uppercase;letter-spacing:0.1em;">Value</div><div style="font-size:0.82rem;font-weight:900;color:'+t.c+';">$'+fmtNum(v)+'</div></div>'
-          +'<div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);border-radius:7px;padding:7px;text-align:center;"><div style="font-size:0.42rem;font-weight:700;color:rgba(154,144,136,0.5);text-transform:uppercase;letter-spacing:0.1em;">Risk</div><div style="font-size:0.82rem;font-weight:900;color:'+rCol+';"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:'+rCol+';margin-right:3px;"></span>'+risk+'</div></div>'
-          +'<div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);border-radius:7px;padding:7px;text-align:center;"><div style="font-size:0.42rem;font-weight:700;color:rgba(154,144,136,0.5);text-transform:uppercase;letter-spacing:0.1em;">Age</div><div style="font-size:0.82rem;font-weight:900;color:#EDE5D8;">'+age+'d</div></div>'
-          +'<div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);border-radius:7px;padding:7px;text-align:center;"><div style="font-size:0.42rem;font-weight:700;color:rgba(154,144,136,0.5);text-transform:uppercase;letter-spacing:0.1em;">Activity</div><div style="font-size:0.82rem;font-weight:900;color:#EDE5D8;">'+acts+'</div></div>'
+        return '<div class="beat-card '+t.cls+'" onclick="openDealDetail('+i+')">'
+          +'<div class="beat-tier" style="background:'+t.c+'18;color:'+t.c+';">'+tierName+'</div>'
+          +'<div class="beat-inner">'
+          +'<div class="beat-photo"><img src="'+img+'" onerror="this.parentElement.innerHTML=\'<div style=display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:1.4rem;font-weight:900;color:#fff;background:linear-gradient(135deg,'+t.c+'40,'+t.c+'20)>'+init+'</div>\'"></div>'
+          +'<div class="beat-name">'+esc(d.name||'Untitled')+'</div>'
+          +'<div class="beat-sub">'+esc(d.rep||'')+(d.title?' · '+esc(d.title):'')+'</div>'
+          +'<div class="beat-stage"><span style="background:'+sc+'15;color:'+sc+';border:1px solid '+sc+'30;">'+(d.stage||'Lead')+'</span></div>'
+          +'<div class="beat-stats">'
+          +'<div class="beat-stat"><div class="beat-stat-lbl">Value</div><div class="beat-stat-val" style="color:'+t.c+';">$'+fmtNum(v)+'</div></div>'
+          +'<div class="beat-stat"><div class="beat-stat-lbl">Risk</div><div class="beat-stat-val" style="color:'+rCol+';"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:'+rCol+';margin-right:3px;"></span>'+risk+'</div></div>'
+          +'<div class="beat-stat"><div class="beat-stat-lbl">Age</div><div class="beat-stat-val">'+age+'d</div></div>'
+          +'<div class="beat-stat"><div class="beat-stat-lbl">Activity</div><div class="beat-stat-val">'+acts+'</div></div>'
           +'</div>'
-          +(d.phone||d.email ? '<div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.04);font-size:0.6rem;color:#9A9088;">'
-            +(d.phone?'<div style="padding:2px 0;">📞 '+esc(d.phone)+'</div>':'')
-            +(d.email?'<div style="padding:2px 0;">📧 '+esc(d.email)+'</div>':'')
-            +'</div>':'')
+          +(d.phone||d.email?'<div class="beat-contact">'+(d.phone?'📞 '+esc(d.phone)+'<br>':'')+(d.email?'📧 '+esc(d.email):'')+'</div>':'')
           +'</div></div>';
       }).join('') + '</div>';
     }
