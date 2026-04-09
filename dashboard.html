@@ -3801,6 +3801,7 @@
       <button type="button" onclick="lockerOpen()" title="Locker Room" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Locker</button>
       <button type="button" class="nav-walkthrough-btn" onclick="openTourDirect()" title="Guided site walkthrough" aria-label="Open site walkthrough">Tour</button>
       <button type="button" id="admin-lock-btn" onclick="adminPromptPasscode()" title="Admin access" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Admin</button>
+      <button type="button" onclick="if(typeof riSwitchTab==='function'){riSwitchTab('cards');var e=document.getElementById('rev-intel-section');if(e){e.scrollIntoView({behavior:'instant'});window.scrollBy(0,-60);}}" title="View Beats — hologram lead cards" style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.35);border-radius:8px;color:#fbbf24;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(251,191,36,0.2)'" onmouseout="this.style.background='rgba(251,191,36,0.08)'">💳 Beats</button>
       <button type="button" id="hc-toggle" onclick="toggleHoneycomb()" title="Toggle honeycomb background" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔲 BG</button>
       <select id="theme-select" onchange="pulseSetTheme(this.value)" style="min-width:100px;font-size:0.68rem;background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-family:inherit;padding:5px 8px;cursor:pointer;outline:none;" title="Accent color theme">
         <option value="orange">🟠 Orange</option>
@@ -6230,7 +6231,7 @@
             setTimeout(function() {
               crm.scrollIntoView({ behavior: 'instant', block: 'start' });
               window.scrollBy(0, -60); // offset for nav
-            }, 100);
+            }, 500);
           }
         }
       });
@@ -15996,7 +15997,7 @@
         return '<div class="beat-card '+t.cls+'" onclick="openDealDetail('+i+')">'
           +'<div class="beat-tier" style="background:'+t.c+'18;color:'+t.c+';">'+tierName+'</div>'
           +'<div class="beat-inner">'
-          +'<div class="beat-photo"><img src="'+img+'" onerror="this.parentElement.innerHTML=\'<div style=display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:1.4rem;font-weight:900;color:#fff;background:linear-gradient(135deg,'+t.c+'40,'+t.c+'20)>'+init+'</div>\'"></div>'
+          +'<div class="beat-photo" style="position:relative;"><img src="'+img+'" onerror="this.parentElement.innerHTML=\'<div style=display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:1.4rem;font-weight:900;color:#fff;background:linear-gradient(135deg,'+t.c+'40,'+t.c+'20)>'+init+'</div>\'+\'<button onclick=event.stopPropagation();uploadBeatPhoto('+i+') style=position:absolute;bottom:-4px;right:-4px;width:22px;height:22px;border-radius:50%;background:rgba(232,113,10,0.9);border:none;color:#fff;font-size:0.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;>📷</button>\'"><button onclick="event.stopPropagation();uploadBeatPhoto('+i+')" style="position:absolute;bottom:-4px;right:-4px;width:22px;height:22px;border-radius:50%;background:rgba(232,113,10,0.9);border:none;color:#fff;font-size:0.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;">📷</button></div>'
           +'<div class="beat-name">'+esc(d.name||'Untitled')+'</div>'
           +'<div class="beat-sub">'+esc(d.rep||'')+(d.title?' · '+esc(d.title):'')+'</div>'
           +'<div class="beat-stage"><span style="background:'+sc+'15;color:'+sc+';border:1px solid '+sc+'30;">'+(d.stage||'Lead')+'</span></div>'
@@ -16010,6 +16011,28 @@
           +'</div></div>';
       }).join('') + '</div>';
     }
+
+    /* ─── PHOTO UPLOAD FOR BEATS ─── */
+    window.uploadBeatPhoto = function(dealIdx) {
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = function(e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+          var deals = loadDeals();
+          if (deals[dealIdx]) {
+            deals[dealIdx].photoUrl = ev.target.result;
+            saveDeals(deals);
+            renderHoloCards();
+          }
+        };
+        reader.readAsDataURL(file);
+      };
+      input.click();
+    };
 
     /* ─── REP BREAKDOWN ─── */
     function renderRepBreakdown() {
