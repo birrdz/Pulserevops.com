@@ -3320,6 +3320,22 @@
       box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 30px rgba(232,113,10,0.12);
       border-color: rgba(232,113,10,0.4);
     }
+    /* Value tiers */
+    .holo-card.tier-bronze { border-color: rgba(154,144,136,0.25); }
+    .holo-card.tier-bronze:hover { border-color: rgba(154,144,136,0.5); box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 20px rgba(154,144,136,0.1); }
+    .holo-card.tier-silver { border-color: rgba(232,113,10,0.25); }
+    .holo-card.tier-silver:hover { border-color: rgba(232,113,10,0.5); box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 24px rgba(232,113,10,0.15); }
+    .holo-card.tier-gold { border-color: rgba(139,92,246,0.3); }
+    .holo-card.tier-gold:hover { border-color: rgba(139,92,246,0.6); box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 30px rgba(139,92,246,0.2); }
+    .holo-card.tier-gold::before { background: linear-gradient(105deg,transparent 20%,rgba(139,92,246,0.04) 30%,rgba(255,255,255,0.08) 38%,rgba(139,92,246,0.05) 42%,transparent 50%,rgba(139,92,246,0.03) 60%,rgba(255,255,255,0.05) 68%,transparent 80%); background-size:200% 200%; }
+    .holo-card.tier-platinum { border-color: rgba(251,191,36,0.35); }
+    .holo-card.tier-platinum:hover { border-color: rgba(251,191,36,0.7); box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 40px rgba(251,191,36,0.2), 0 0 60px rgba(232,113,10,0.1); }
+    .holo-card.tier-platinum::before { background: linear-gradient(105deg,transparent 15%,rgba(251,191,36,0.06) 25%,rgba(255,255,255,0.12) 33%,rgba(139,92,246,0.05) 40%,rgba(232,113,10,0.04) 48%,transparent 55%,rgba(251,191,36,0.04) 62%,rgba(255,255,255,0.08) 70%,rgba(139,92,246,0.03) 78%,transparent 88%); background-size:200% 200%; }
+    .holo-tier-label { position:absolute;top:10px;right:12px;font-size:0.5rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:6px;z-index:3; }
+    .holo-tier-label.bronze { background:rgba(154,144,136,0.12);color:#9A9088; }
+    .holo-tier-label.silver { background:rgba(232,113,10,0.12);color:#E8710A; }
+    .holo-tier-label.gold { background:rgba(139,92,246,0.12);color:#8B5CF6; }
+    .holo-tier-label.platinum { background:rgba(251,191,36,0.12);color:#fbbf24; }
     /* Holographic shimmer overlay */
     .holo-card::before {
       content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
@@ -10908,83 +10924,79 @@
           // Load demo data silently
           _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(true); }, 500);
 
-          // Show a giant hero card center screen
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const card = document.createElement('div');
-            card.id = 'tour-hero-card';
-            card.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.3) rotateY(15deg);z-index:99999;width:340px;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,rgba(20,24,32,0.95),rgba(10,14,20,0.98));border:1.5px solid rgba(232,113,10,0.25);box-shadow:0 24px 80px rgba(0,0,0,0.7),0 0 60px rgba(232,113,10,0.1);opacity:0;transition:all 1s cubic-bezier(0.25,0.1,0.25,1);';
-            card.innerHTML = ''
-              + '<div style="position:absolute;inset:0;background:linear-gradient(105deg,transparent 20%,rgba(232,113,10,0.04) 35%,rgba(255,255,255,0.08) 40%,rgba(232,113,10,0.03) 45%,transparent 55%,rgba(255,140,26,0.03) 65%,rgba(255,255,255,0.05) 70%,transparent 85%);background-size:200% 200%;animation:holoShimmerFast 2s ease-in-out infinite;pointer-events:none;z-index:2;border-radius:22px;"></div>'
-              + '<div style="position:relative;z-index:1;padding:28px 24px;">'
-              + '<div style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;overflow:hidden;border:2px solid rgba(232,113,10,0.4);box-shadow:0 8px 24px rgba(232,113,10,0.2),0 0 16px rgba(232,113,10,0.15);position:relative;"><img src="https://i.pravatar.cc/160?img=32" style="width:100%;height:100%;object-fit:cover;filter:saturate(0.3) brightness(1.3) contrast(1.1);mix-blend-mode:luminosity;" alt=""><div style="position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(232,113,10,0.2),transparent 50%,rgba(255,140,26,0.1));pointer-events:none;"></div></div>'
-              + '<div style="text-align:center;font-size:1.4rem;font-weight:900;color:#EDE5D8;margin-bottom:4px;">Acme Corp</div>'
-              + '<div style="text-align:center;font-size:0.75rem;color:#9A9088;margin-bottom:16px;">Sarah · VP Sales</div>'
-              + '<div style="text-align:center;margin-bottom:16px;"><span style="display:inline-block;padding:4px 14px;border-radius:14px;font-size:0.65rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;background:rgba(232,113,10,0.12);color:#E8710A;border:1px solid rgba(232,113,10,0.3);">Proposal</span></div>'
-              + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">'
-              + '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:0.5rem;font-weight:700;color:rgba(154,144,136,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px;">Value</div><div style="font-size:1.1rem;font-weight:900;color:#E8710A;">$8,500</div></div>'
-              + '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:0.5rem;font-weight:700;color:rgba(154,144,136,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px;">Risk</div><div style="font-size:1.1rem;font-weight:900;color:#22c55e;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:4px;"></span>Low</div></div>'
-              + '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:0.5rem;font-weight:700;color:rgba(154,144,136,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px;">Age</div><div style="font-size:1.1rem;font-weight:900;color:#EDE5D8;">23d</div></div>'
-              + '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:0.5rem;font-weight:700;color:rgba(154,144,136,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px;">Activity</div><div style="font-size:1.1rem;font-weight:900;color:#EDE5D8;">5</div></div>'
-              + '</div>'
-              + '<div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.04);">'
-              + '<div style="display:flex;align-items:center;gap:6px;font-size:0.7rem;color:#9A9088;padding:3px 0;"><span>📞</span> 555-0101</div>'
-              + '<div style="display:flex;align-items:center;gap:6px;font-size:0.7rem;color:#9A9088;padding:3px 0;"><span>📧</span> john@acme.com</div>'
-              + '</div>'
+          // Show 4 cards — one per tier — cycling in center screen
+          const tourCards = [
+            { name:'Acme Corp', rep:'Sarah', title:'VP Sales', val:'$3,200', tier:'Bronze', border:'rgba(154,144,136,0.4)', color:'#9A9088', img:32 },
+            { name:'TechFlow Inc', rep:'Mike', title:'CTO', val:'$12,000', tier:'Silver', border:'rgba(232,113,10,0.4)', color:'#E8710A', img:47 },
+            { name:'Summit Partners', rep:'Carlos', title:'COO', val:'$22,000', tier:'Gold', border:'rgba(139,92,246,0.5)', color:'#8B5CF6', img:15 },
+            { name:'RedRock Ventures', rep:'Taylor', title:'Partner', val:'$31,000', tier:'Platinum', border:'rgba(251,191,36,0.5)', color:'#fbbf24', img:60 },
+          ];
+
+          function buildTourCard(c) {
+            return '<div style="position:absolute;inset:0;backface-visibility:hidden;border-radius:22px;overflow:hidden;">'
+              // Shimmer
+              + '<div style="position:absolute;inset:0;background:linear-gradient(105deg,transparent 20%,rgba(255,255,255,0.06) 35%,' + c.color + '15 42%,transparent 55%,rgba(255,255,255,0.04) 68%,transparent 80%);background-size:200% 200%;animation:holoShimmerFast 2s ease-in-out infinite;pointer-events:none;z-index:2;border-radius:22px;"></div>'
+              + '<div style="position:relative;z-index:1;padding:24px 20px;">'
+              // Tier label
+              + '<div style="position:absolute;top:10px;right:12px;font-size:0.5rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:6px;background:' + c.color + '20;color:' + c.color + ';">' + c.tier + '</div>'
+              // Avatar
+              + '<div style="width:72px;height:72px;border-radius:50%;margin:0 auto 12px;overflow:hidden;border:2px solid ' + c.border + ';box-shadow:0 6px 20px ' + c.color + '30;"><img src="https://i.pravatar.cc/144?img=' + c.img + '" style="width:100%;height:100%;object-fit:cover;filter:saturate(0.3) brightness(1.3) contrast(1.1);mix-blend-mode:luminosity;"><div style="position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,' + c.color + '25,transparent 50%);pointer-events:none;"></div></div>'
+              + '<div style="text-align:center;font-size:1.2rem;font-weight:900;color:#EDE5D8;margin-bottom:2px;">' + c.name + '</div>'
+              + '<div style="text-align:center;font-size:0.68rem;color:#9A9088;margin-bottom:14px;">' + c.rep + ' · ' + c.title + '</div>'
+              + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">'
+              + '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:0.45rem;font-weight:700;color:rgba(154,144,136,0.6);text-transform:uppercase;letter-spacing:0.1em;">Value</div><div style="font-size:0.95rem;font-weight:900;color:' + c.color + ';">' + c.val + '</div></div>'
+              + '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:0.45rem;font-weight:700;color:rgba(154,144,136,0.6);text-transform:uppercase;letter-spacing:0.1em;">Risk</div><div style="font-size:0.95rem;font-weight:900;color:#22c55e;">Low</div></div>'
+              + '</div></div></div>'
+              // BACK FACE
+              + '<div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);border-radius:22px;background:linear-gradient(135deg,rgba(20,24,32,0.98),rgba(10,14,20,0.99));display:flex;flex-direction:column;align-items:center;justify-content:center;">'
+              + '<div style="font-size:2.5rem;margin-bottom:10px;">🦀</div>'
+              + '<div style="font-size:1.6rem;font-weight:900;letter-spacing:0.2em;color:' + c.color + ';">PULSE</div>'
+              + '<div style="font-size:0.65rem;font-weight:800;letter-spacing:0.18em;color:#9A9088;margin-top:4px;">BEATS</div>'
+              + '<div style="width:50px;height:2px;background:linear-gradient(90deg,transparent,' + c.color + ',transparent);margin:14px 0;"></div>'
+              + '<div style="font-size:0.55rem;color:rgba(154,144,136,0.5);font-style:italic;">' + c.tier + '</div>'
               + '</div>';
-            document.body.appendChild(card);
-            // Animate in — big dramatic entrance
-            requestAnimationFrame(() => {
-              card.style.opacity = '1';
-              card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(0deg)';
-            });
-          }, 2000);
+          }
 
-          // Full 3D spin to show the back
+          tourCards.forEach((c, i) => {
+            const delay = 2000 + i * 4000;
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              // Remove previous card
+              const prev = document.getElementById('tour-hero-card');
+              if (prev) { prev.style.opacity = '0'; prev.style.transform = 'translate(-50%,-50%) scale(0.5)'; setTimeout(() => prev.remove(), 500); }
+
+              const card = document.createElement('div');
+              card.id = 'tour-hero-card';
+              card.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.3) rotateY(-20deg);transform-style:preserve-3d;z-index:99999;width:300px;height:420px;border-radius:22px;background:linear-gradient(135deg,rgba(20,24,32,0.95),rgba(10,14,20,0.98));border:1.5px solid ' + c.border + ';box-shadow:0 24px 80px rgba(0,0,0,0.7),0 0 40px ' + c.color + '20;opacity:0;transition:all 0.8s cubic-bezier(0.25,0.1,0.25,1);';
+              card.innerHTML = buildTourCard(c);
+              document.body.appendChild(card);
+              // Scale in
+              requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(0deg)'; });
+            }, delay);
+            // Flip to back
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const card = document.getElementById('tour-hero-card');
+              if (card) { card.style.transition = 'transform 1s cubic-bezier(0.25,0.1,0.25,1)'; card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(180deg)'; }
+            }, delay + 2000);
+            // Flip back to front
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const card = document.getElementById('tour-hero-card');
+              if (card) card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(360deg)';
+            }, delay + 3200);
+          });
+
+          // Remove last card and show gallery
           _schedTourTimer(() => {
             if (!tourActive) return;
             const card = document.getElementById('tour-hero-card');
-            if (card) {
-              card.style.transition = 'all 1.2s cubic-bezier(0.25,0.1,0.25,1)';
-              card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(180deg)';
-              // Show back face
-              const back = document.createElement('div');
-              back.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;backface-visibility:hidden;transform:rotateY(180deg);background:linear-gradient(135deg,rgba(20,24,32,0.95),rgba(10,14,20,0.98));border-radius:22px;z-index:3;';
-              back.innerHTML = '<div style="font-size:3rem;margin-bottom:12px;">🦀</div>'
-                + '<div style="font-size:1.8rem;font-weight:900;letter-spacing:0.2em;color:#E8710A;">PULSE</div>'
-                + '<div style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;color:#9A9088;margin-top:4px;">BEATS</div>'
-                + '<div style="width:60px;height:2px;background:linear-gradient(90deg,transparent,#E8710A,transparent);margin:16px 0;"></div>'
-                + '<div style="font-size:0.6rem;color:rgba(154,144,136,0.5);font-style:italic;">Get in Rhythm</div>';
-              card.appendChild(back);
-            }
-          }, 5500);
-
-          // Spin back to front
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const card = document.getElementById('tour-hero-card');
-            if (card) {
-              card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(360deg)';
-            }
-          }, 8000);
-
-          // Shrink and remove, switch to gallery
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const card = document.getElementById('tour-hero-card');
-            if (card) {
-              card.style.transform = 'translate(-50%,-50%) scale(0.5) rotateY(20deg)';
-              card.style.opacity = '0';
-              setTimeout(() => card.remove(), 800);
-            }
+            if (card) { card.style.opacity = '0'; card.style.transform = 'translate(-50%,-50%) scale(0.3)'; setTimeout(() => card.remove(), 600); }
             if (typeof riSwitchTab === 'function') riSwitchTab('cards');
-          }, 10000);
+          }, 19000);
 
-          // Advance after gallery is visible
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            advanceTour();
-          }, 14000);
+          // Advance
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 22000);
         }
       },
       // ═══ STEP 2 — CRM ═══
@@ -16041,6 +16053,13 @@
         'Closed Lost': { bg: 'rgba(239,68,68,0.12)', color: '#ef4444', border: 'rgba(239,68,68,0.3)' },
       };
 
+      function getValueTier(val) {
+        if (val >= 30000) return { cls: 'tier-platinum', label: 'Platinum', labelCls: 'platinum' };
+        if (val >= 15000) return { cls: 'tier-gold', label: 'Gold', labelCls: 'gold' };
+        if (val >= 5000)  return { cls: 'tier-silver', label: 'Silver', labelCls: 'silver' };
+        return { cls: 'tier-bronze', label: 'Bronze', labelCls: 'bronze' };
+      }
+
       el.innerHTML = deals.map((d, i) => {
         const initials = (d.name || 'U').split(/[\s&]+/).map(w => w[0]).join('').substring(0,2).toUpperCase();
         const risk = calcRisk(d);
@@ -16048,9 +16067,12 @@
         const sc = stageColors[d.stage] || stageColors['Lead'];
         const age = d.dateAdded ? Math.floor((Date.now() - new Date(d.dateAdded).getTime()) / 86400000) : 0;
         const actCount = (d.activities || []).length;
+        const val = parseFloat(d.value) || 0;
+        const tier = getValueTier(val);
 
         const avatarUrl = d.photoUrl || ('https://i.pravatar.cc/128?u=' + encodeURIComponent(d.name || i));
-        return '<div class="holo-card" onclick="openDealDetail(' + i + ')">'
+        return '<div class="holo-card ' + tier.cls + '" onclick="openDealDetail(' + i + ')">'
+          + '<span class="holo-tier-label ' + tier.labelCls + '">' + tier.label + '</span>'
           + '<div class="holo-card-inner">'
           + '<div class="holo-avatar" style="overflow:hidden;"><img src="' + avatarUrl + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display=\'none\';this.parentElement.textContent=\'' + initials + '\'"></div>'
           + '<div class="holo-name">' + esc(d.name || 'Untitled') + '</div>'
