@@ -10926,15 +10926,14 @@
       },
       // ═══ STEP 2 — BEATS (THE WOW) ═══
       { selector: '#rev-intel-section', title: 'Now meet Beats',
-        desc: 'Every lead becomes a hologram card. Bronze, Silver, Gold, Platinum — ranked by deal value. Watch.',
-        label: 'Step 2 of 33', managedTimer: true,
+        desc: 'Every lead becomes a hologram card. Bronze, Silver, Gold, Platinum — ranked by deal value.',
+        label: 'Step 2 of 33',
         onShow: () => {
+          // Switch to cards tab immediately
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 1500);
 
-          // Show 4 cards — one per tier — cycling in center screen
+          // Show one hero card center screen
           const tourCards = [
-            { name:'Acme Corp', rep:'Sarah', title:'VP Sales', val:'$3,200', tier:'Bronze', border:'rgba(154,144,136,0.4)', color:'#9A9088', img:32 },
-            { name:'TechFlow Inc', rep:'Mike', title:'CTO', val:'$12,000', tier:'Silver', border:'rgba(232,113,10,0.4)', color:'#E8710A', img:47 },
-            { name:'Summit Partners', rep:'Carlos', title:'COO', val:'$22,000', tier:'Gold', border:'rgba(139,92,246,0.5)', color:'#8B5CF6', img:15 },
             { name:'RedRock Ventures', rep:'Taylor', title:'Partner', val:'$31,000', tier:'Platinum', border:'rgba(251,191,36,0.5)', color:'#fbbf24', img:60 },
           ];
 
@@ -10963,46 +10962,35 @@
               + '</div>';
           }
 
-          tourCards.forEach((c, i) => {
-            const delay = 2000 + i * 4000;
-            _schedTourTimer(() => {
-              if (!tourActive) return;
-              // Remove previous card
-              const prev = document.getElementById('tour-hero-card');
-              if (prev) { prev.style.opacity = '0'; prev.style.transform = 'translate(-50%,-50%) scale(0.5)'; setTimeout(() => prev.remove(), 500); }
-
-              const card = document.createElement('div');
-              card.id = 'tour-hero-card';
-              card.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.3) rotateY(-20deg);transform-style:preserve-3d;z-index:99999;width:300px;height:420px;border-radius:22px;background:linear-gradient(135deg,rgba(20,24,32,0.95),rgba(10,14,20,0.98));border:1.5px solid ' + c.border + ';box-shadow:0 24px 80px rgba(0,0,0,0.7),0 0 40px ' + c.color + '20;opacity:0;transition:all 0.8s cubic-bezier(0.25,0.1,0.25,1);';
-              card.innerHTML = buildTourCard(c);
-              document.body.appendChild(card);
-              // Scale in
-              requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(0deg)'; });
-            }, delay);
-            // Flip to back
-            _schedTourTimer(() => {
-              if (!tourActive) return;
-              const card = document.getElementById('tour-hero-card');
-              if (card) { card.style.transition = 'transform 1s cubic-bezier(0.25,0.1,0.25,1)'; card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(180deg)'; }
-            }, delay + 2000);
-            // Flip back to front
-            _schedTourTimer(() => {
-              if (!tourActive) return;
-              const card = document.getElementById('tour-hero-card');
-              if (card) card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(360deg)';
-            }, delay + 3200);
-          });
-
-          // Remove last card and show gallery
+          // Show one platinum hero card
+          const c = tourCards[0];
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const card = document.createElement('div');
+            card.id = 'tour-hero-card';
+            card.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.3) rotateY(-20deg);transform-style:preserve-3d;z-index:99999;width:300px;height:420px;border-radius:22px;background:linear-gradient(135deg,rgba(20,24,32,0.95),rgba(10,14,20,0.98));border:1.5px solid ' + c.border + ';box-shadow:0 24px 80px rgba(0,0,0,0.7),0 0 40px ' + c.color + '20;opacity:0;transition:all 0.8s cubic-bezier(0.25,0.1,0.25,1);';
+            card.innerHTML = buildTourCard(c);
+            document.body.appendChild(card);
+            requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(0deg)'; });
+          }, 3000);
+          // Flip
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const card = document.getElementById('tour-hero-card');
+            if (card) { card.style.transition = 'transform 1s ease'; card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(180deg)'; }
+          }, 7000);
+          // Flip back
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const card = document.getElementById('tour-hero-card');
+            if (card) card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(360deg)';
+          }, 9000);
+          // Remove
           _schedTourTimer(() => {
             if (!tourActive) return;
             const card = document.getElementById('tour-hero-card');
             if (card) { card.style.opacity = '0'; card.style.transform = 'translate(-50%,-50%) scale(0.3)'; setTimeout(() => card.remove(), 600); }
-            if (typeof riSwitchTab === 'function') riSwitchTab('cards');
-          }, 19000);
-
-          // Advance
-          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 22000);
+          }, 12000);
         }
       },
       // (CRM moved to Step 1)
