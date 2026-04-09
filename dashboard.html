@@ -10884,20 +10884,21 @@
     }
 
     const TOUR_STEPS = [
-      // ═══ STEP 1 — THE HOOK ═══
-      { selector: '#rev-intel-section', title: 'Your Revenue Command Center',
-        desc: 'Free CRM. Predictive forecasting. Pipeline tracking. Deal risk alerts. Add deals or import a spreadsheet — PULSE does the rest. Watch the demo data load.',
+      // ═══ STEP 1 — BEATS (THE HOOK) ═══
+      { selector: '#rev-intel-section', title: 'Beats — Your Leads, Visualized',
+        desc: 'Every lead gets a hologram card. Name, value, stage, risk, activity — all glowing on one card. This is your pipeline at a glance. Watch them load.',
         label: 'Step 1 of 35',
         onShow: () => {
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(); }, 2000);
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(true); }, 1500);
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 3000);
         }
       },
-      // ═══ STEP 2 — BEATS ═══
-      { selector: '#rev-intel-section', title: 'Beats — Hologram Lead Cards',
-        desc: 'Every lead gets a hologram card. Name, value, stage, risk, contact info, activity count — all in one glowing card. Hover to see the shimmer. Click to open the full profile.',
+      // ═══ STEP 2 — CRM ═══
+      { selector: '#rev-intel-section', title: 'Your Revenue Command Center',
+        desc: 'Behind those cards is a full CRM. Deals table, pipeline kanban, predictive forecasting, rep breakdown — and it\'s all free. Click the Deals tab to see the data.',
         label: 'Step 2 of 35',
         onShow: () => {
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 2000);
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('deals'); }, 2000);
         }
       },
       // ═══ STEP 3 — TEAM SETUP ═══
