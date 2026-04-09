@@ -10967,49 +10967,54 @@
 
     const TOUR_STEPS = [
       // ═══ CRM BLOCK (Steps 1-8) ═══════════════════════════════════════════════
-      // 1. CRM Overview
-      { selector: '#rev-intel-section', title: 'Your Revenue Command Center',
-        desc: 'PULSE tracks every deal, every rep, every dollar. Pipeline, forecasting, risk alerts — all in one place, all free.',
+      // 1. Welcome to CRM
+      { selector: '#rev-intel-section', title: 'This Is Your CRM',
+        desc: 'This is home base. Everything about your customers, your deals, and your team lives right here. Think of it as the brain of your business. Let me show you around.',
         label: 'Step 1 of 33', customNarration: true,
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(true); }, 1000);
-          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 4000);
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 5000);
         }
       },
-      // 2. Deals Table
-      { selector: '#rev-intel-section', title: 'The Deals Table',
-        desc: 'Every deal in one view. Name, rep, value, stage, risk, age. Click any row to see the full deal profile — contact info, activity timeline, notes.',
+      // 2. Adding Leads
+      { selector: '#rev-intel-section', title: 'Adding Leads & Deals',
+        desc: 'This is where you add people you are trying to sell to. Click Add Deal to create a new lead. Type their name, assign a rep, enter the dollar amount, and pick their stage. You can also import leads from a spreadsheet using the Import tab.',
         label: 'Step 2 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('deals'); }, 1000); }
       },
-      // 3. Pipeline Kanban
-      { selector: '#rev-intel-section', title: 'Pipeline View',
-        desc: 'Drag deals between stages. Lead, Discovery, Proposal, Negotiation, Closed Won. See your whole pipeline at a glance.',
-        label: 'Step 3 of 33',
+      // 3. Deal Detail
+      { selector: '#rev-intel-section', title: 'Editing a Lead',
+        desc: 'Click any lead to open their full profile. Add their phone number, email, job title, and notes. Log every call, email, and meeting. Upload a photo. Track everything in one place — no more sticky notes.',
+        label: 'Step 3 of 33'
+      },
+      // 4. Pipeline
+      { selector: '#rev-intel-section', title: 'Your Pipeline',
+        desc: 'This shows where every deal sits in the sales process. Lead means they are brand new. Discovery means you are learning about them. Proposal means you sent a quote. Negotiation means you are working out terms. Closed Won means you got the deal. Drag cards between stages.',
+        label: 'Step 4 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); }, 1000); }
       },
-      // 4. By Rep
-      { selector: '#rev-intel-section', title: 'By Rep',
-        desc: 'See every rep on your roster with their pipeline, wins, losses, and win rate. Click a rep to see their deals. Assign unassigned deals right here.',
-        label: 'Step 4 of 33',
+      // 5. By Rep
+      { selector: '#rev-intel-section', title: 'Your Team',
+        desc: 'Every rep on your team, right here. See who is carrying the most pipeline, who is closing deals, and who needs help. Click a rep to see their deals. You can assign leads to reps from here.',
+        label: 'Step 5 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('reps'); }, 1000); }
       },
-      // 5. Hall of Heroes
-      { selector: '#rev-intel-section', title: 'Hall of Heroes',
-        desc: 'Leaderboards. 14 categories — gross profit, pipeline, win rate, deal count, activities, and more. Gold, silver, bronze for the top 3.',
-        label: 'Step 5 of 33',
+      // 6. Leaderboard
+      { selector: '#rev-intel-section', title: 'Hall of Heroes — Leaderboards',
+        desc: 'Who is number one? This leaderboard ranks your team across 14 different categories. Gross profit, pipeline, win rate, deal count, and more. Gold, silver, and bronze for the top three. Use the dropdown to switch between categories.',
+        label: 'Step 6 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('leaders'); }, 1000); }
       },
-      // 6. Daily Vibe
+      // 7. Daily Vibe
       { selector: '#rev-intel-section', title: 'The Daily Vibe',
-        desc: 'Company announcements, shoutouts, wins, challenges — post them here. They scroll across the bottom of the CRM so everyone sees them.',
-        label: 'Step 6 of 33',
+        desc: 'This is your team bulletin board. Post announcements, shoutouts, challenges, goals, or just hype up the team. Everything you post scrolls across the bottom of the screen so nobody misses it.',
+        label: 'Step 7 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('vibe'); }, 1000); }
       },
-      // 7. Forecast
+      // 8. Forecast
       { selector: '#rev-intel-section', title: 'Revenue Forecast',
-        desc: 'Monthly revenue chart with a projected next month. Win/loss breakdown. The narrative tells you what is actually going to happen.',
-        label: 'Step 7 of 33',
+        desc: 'This predicts how much money you will make. It looks at your deals, their stages, and their values, then calculates a projected revenue number. The chart shows your trend over time. The narrative at the bottom explains what is happening in plain English.',
+        label: 'Step 8 of 33',
         onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('forecast'); }, 1000); }
       },
       // 8. Beats Cards
