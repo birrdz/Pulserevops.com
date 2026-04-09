@@ -6132,7 +6132,7 @@
   <!-- ══════════════════════════════════════════════
        FEEDBACK BOX — private messages to admin
        ══════════════════════════════════════════════ -->
-  <div id="feedback-section" class="matrix-section-wrap" style="padding:28px 32px; position:relative; z-index:3; background:var(--bg); border:1px solid var(--border); border-radius:24px;">
+  <div id="feedback-section" class="matrix-section-wrap" style="padding:28px 32px; position:relative; z-index:3; background:var(--bg); border:1px solid var(--border); border-radius:24px; display:none;">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;flex-wrap:wrap;">
       <span style="font-size:1.1rem;font-weight:900;color:var(--text);letter-spacing:0.06em;">Send Feedback</span>
       <span class="ri-badge">PRIVATE</span>
@@ -6221,18 +6221,36 @@
 
   <script>
 
-    // ── AUTO-SCROLL TO CRM ON LOAD ──
-    // CRM is the main page — scroll to it immediately
+    // ── CRM IS THE ONLY VIEW — lock scroll to CRM section ──
     (function() {
       window.addEventListener('load', function() {
         const params = new URLSearchParams(window.location.search);
         if (!params.get('tour') && !window.location.hash) {
+          // Hide everything except nav, CRM, and essential overlays
+          document.querySelectorAll('#hero, #features, #how, #about-kory, #newsletter, #cta, footer, .hb-divider, .heartbeat-fullwidth, #stats-banner, #feedback-section, #pulse-mgmt-section').forEach(function(el) {
+            el.style.display = 'none';
+          });
+          // Scroll to CRM and lock scroll to CRM area
           const crm = document.getElementById('rev-intel-section');
           if (crm) {
             setTimeout(function() {
               crm.scrollIntoView({ behavior: 'instant', block: 'start' });
-              window.scrollBy(0, -60); // offset for nav
-            }, 500);
+              window.scrollBy(0, -60);
+              // Lock scroll — don't let user scroll above or below CRM
+              var locked = true;
+              window.addEventListener('scroll', function() {
+                if (!locked) return;
+                var crmRect = crm.getBoundingClientRect();
+                var navH = 90;
+                var crmTop = window.scrollY + crmRect.top - navH;
+                var crmBottom = crmTop + crm.offsetHeight - window.innerHeight + navH;
+                if (window.scrollY < crmTop) window.scrollTo(0, crmTop);
+                if (window.scrollY > crmBottom && crmBottom > crmTop) window.scrollTo(0, crmBottom);
+              });
+              // Unlock scroll during tour
+              window._unlockCRMScroll = function() { locked = false; };
+              window._lockCRMScroll = function() { locked = true; };
+            }, 300);
           }
         }
       });
@@ -15397,12 +15415,23 @@
       const tbody = document.getElementById('ri-deal-body');
       if (!tbody) return;
 
-      // Update rep filter dropdown
+      // Update rep filter dropdown — include roster reps from Firebase
       const repFilter = document.getElementById('ri-rep-filter');
       if (repFilter) {
-        const reps = [...new Set(allDeals.map(d => d.rep).filter(Boolean))].sort();
+        const dealReps = [...new Set(allDeals.map(d => d.rep).filter(Boolean))];
         const curVal = repFilter.value;
-        repFilter.innerHTML = '<option value="">All Reps</option>' + reps.map(r => '<option' + (r===curVal?' selected':'') + '>' + r + '</option>').join('');
+        // Also fetch roster reps
+        var _session = typeof getTeamSession === 'function' ? getTeamSession() : null;
+        if (_session && _session.code) {
+          fetch('https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app/teams/' + _session.code + '/reps.json')
+            .then(function(r){return r.json()}).then(function(roster) {
+              var allReps = [...new Set([...dealReps, ...(roster ? Object.keys(roster) : [])])].sort();
+              repFilter.innerHTML = '<option value="">All Reps</option>' + allReps.map(function(r){ return '<option' + (r===curVal?' selected':'') + '>' + r + '</option>'; }).join('');
+            }).catch(function(){});
+        } else {
+          const reps = dealReps.sort();
+          repFilter.innerHTML = '<option value="">All Reps</option>' + reps.map(r => '<option' + (r===curVal?' selected':'') + '>' + r + '</option>').join('');
+        }
       }
 
       // Apply filters
@@ -15433,7 +15462,7 @@
         return '<tr style="cursor:pointer;" onclick="openDealDetail(' + realIdx + ')">'
           + '<td><input value="' + esc(d.name) + '" onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'name\',this.value)" onclick="event.stopPropagation()" placeholder="Deal name"></td>'
           + '<td>' + contactDisplay + '</td>'
-          + '<td><input value="' + esc(d.rep) + '" onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'rep\',this.value)" onclick="event.stopPropagation()" placeholder="Rep"></td>'
+          + '<td><select onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'rep\',this.value)" onclick="event.stopPropagation()" style="width:100%"><option value=""' + (!d.rep?' selected':'') + '>—</option>' + (window._rosterNames||[]).map(function(r){return '<option'+(r===d.rep?' selected':'')+'>'+r+'</option>'}).join('') + (d.rep && (window._rosterNames||[]).indexOf(d.rep)===-1 ? '<option selected>'+esc(d.rep)+'</option>' : '') + '</select></td>'
           + '<td><input type="number" value="' + (d.value||'') + '" onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'value\',this.value)" onclick="event.stopPropagation()" placeholder="$" style="width:80px"></td>'
           + '<td><select onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'stage\',this.value)" onclick="event.stopPropagation()">' + STAGES.map(s => '<option' + (s===d.stage?' selected':'') + '>' + s + '</option>').join('') + '</select></td>'
           + '<td><input type="date" value="' + (d.dateAdded||'') + '" onchange="event.stopPropagation();riUpdateDeal(' + realIdx + ',\'dateAdded\',this.value)" onclick="event.stopPropagation()"></td>'
@@ -16156,6 +16185,20 @@
         renderDeals();
       }
     };
+
+    /* ─── LOAD ROSTER NAMES FOR REP DROPDOWN ─── */
+    window._rosterNames = [];
+    (function() {
+      var s = typeof getTeamSession === 'function' ? getTeamSession() : null;
+      if (s && s.code) {
+        fetch('https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app/teams/' + s.code + '/reps.json')
+          .then(function(r){return r.json()})
+          .then(function(roster) {
+            if (roster) window._rosterNames = Object.keys(roster).sort();
+            renderDeals(); // re-render with roster names in dropdowns
+          }).catch(function(){});
+      }
+    })();
 
     /* ─── INIT ─── */
     window.renderDeals = renderDeals;
