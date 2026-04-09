@@ -16042,6 +16042,8 @@
       var el = document.getElementById('ri-rep-breakdown');
       if (!el) return;
       var reps = {};
+
+      // Add deal data to reps
       deals.forEach(function(d) {
         var r = d.rep || 'Unassigned';
         if (!reps[r]) reps[r] = {pipeline:0,won:0,lost:0,deals:0,active:0,dealList:[]};
@@ -16052,6 +16054,25 @@
         else if (d.stage==='Closed Lost') reps[r].lost += val;
         else { reps[r].pipeline += val; reps[r].active++; }
       });
+
+      // Fetch roster reps from Firebase and add any missing ones (0 deals)
+      var session = typeof getTeamSession === 'function' ? getTeamSession() : null;
+      if (session && session.code) {
+        var FB = 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
+        fetch(FB + '/teams/' + session.code + '/reps.json').then(function(r){return r.json()}).then(function(roster) {
+          if (roster) {
+            Object.keys(roster).forEach(function(name) {
+              if (!reps[name]) reps[name] = {pipeline:0,won:0,lost:0,deals:0,active:0,dealList:[]};
+            });
+          }
+          _doRepRender(reps, deals, el);
+        }).catch(function() { _doRepRender(reps, deals, el); });
+      } else {
+        _doRepRender(reps, deals, el);
+      }
+    }
+
+    function _doRepRender(reps, deals, el) {
       var sorted = Object.entries(reps).sort(function(a,b){return (b[1].pipeline+b[1].won)-(a[1].pipeline+a[1].won)});
       if (!sorted.length) { el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--muted);">No deals yet</div>'; return; }
 
@@ -16101,6 +16122,22 @@
             +'<div style="font-size:0.6rem;font-weight:700;color:'+rCol+';">'+risk+'</div>'
             +'</div>';
         }).join('');
+        // Assign unassigned deals to this rep
+        var unassigned = deals.filter(function(d){ return !d.rep || d.rep === 'Unassigned'; });
+        if (unassigned.length) {
+          html += '<div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.04);">'
+            +'<div style="font-size:0.65rem;font-weight:700;color:var(--muted);margin-bottom:8px;">Assign unassigned deals to '+esc(_selectedRep)+':</div>';
+          html += unassigned.map(function(d) {
+            var allDeals = loadDeals();
+            var idx = -1;
+            for (var j=0;j<allDeals.length;j++) { if (allDeals[j].id===d.id) { idx=j; break; } }
+            return '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;border-bottom:1px solid rgba(255,255,255,0.02);">'
+              +'<span style="font-size:0.78rem;color:var(--text);">'+esc(d.name||'Untitled')+' · $'+fmtNum(parseFloat(d.value)||0)+'</span>'
+              +'<button onclick="event.stopPropagation();assignDealToRep('+idx+',\''+_selectedRep.replace(/'/g,"\\'")+'\')" style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:6px;color:#22c55e;font-size:0.62rem;font-weight:700;padding:4px 10px;cursor:pointer;font-family:inherit;">Assign</button>'
+              +'</div>';
+          }).join('');
+          html += '</div>';
+        }
         html += '</div>';
       }
 
@@ -16109,6 +16146,15 @@
     window.selectRep = function(name) {
       _selectedRep = (_selectedRep === name) ? null : name;
       renderRepBreakdown();
+    };
+    window.assignDealToRep = function(idx, repName) {
+      var deals = loadDeals();
+      if (deals[idx]) {
+        deals[idx].rep = repName;
+        saveDeals(deals);
+        renderRepBreakdown();
+        renderDeals();
+      }
     };
 
     /* ─── INIT ─── */
