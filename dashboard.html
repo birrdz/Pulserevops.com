@@ -10858,8 +10858,8 @@
         label: 'Step 2 of 33',
         onShow: () => {
           var positions = [
-            {top:'25%',left:'20%'}, {top:'20%',left:'60%'},
-            {top:'55%',left:'15%'}, {top:'50%',left:'65%'}
+            {top:'18%',left:'8%'}, {top:'15%',left:'55%'},
+            {top:'48%',left:'12%'}, {top:'45%',left:'58%'}
           ];
           var cards = [
             {name:'Acme Corp',tier:'Bronze',val:'$3,200',color:'#9A9088',img:32},
@@ -10873,13 +10873,19 @@
               var p = positions[i];
               var el = document.createElement('div');
               el.className = 'tour-beat-card';
-              el.style.cssText = 'position:fixed;top:'+p.top+';left:'+p.left+';z-index:99999;width:220px;border-radius:18px;background:linear-gradient(145deg,rgba(18,22,30,0.96),rgba(8,12,18,0.99));border:1px solid '+c.color+'35;box-shadow:0 12px 40px rgba(0,0,0,0.6),0 0 20px '+c.color+'15;opacity:0;transform:scale(0.5);transition:all 0.6s cubic-bezier(0.34,1.56,0.64,1);overflow:hidden;pointer-events:none;';
-              el.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,0.05) 40%,transparent 55%);background-size:250% 100%;animation:beatsShimmer 2s ease-in-out infinite;border-radius:18px;"></div>'
-                +'<div style="position:relative;z-index:1;padding:16px 14px;text-align:center;">'
-                +'<div style="position:absolute;top:8px;right:10px;font-size:0.45rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border-radius:5px;background:'+c.color+'20;color:'+c.color+';">'+c.tier+'</div>'
-                +'<div style="width:52px;height:52px;border-radius:50%;margin:0 auto 8px;overflow:hidden;border:2px solid '+c.color+'40;box-shadow:0 4px 16px rgba(0,0,0,0.4);"><img src="https://i.pravatar.cc/104?img='+c.img+'" style="width:100%;height:100%;object-fit:cover;filter:saturate(0.25) brightness(1.4);mix-blend-mode:luminosity;"></div>'
-                +'<div style="font-size:0.88rem;font-weight:900;color:#EDE5D8;">'+c.name+'</div>'
-                +'<div style="font-size:1rem;font-weight:900;color:'+c.color+';margin-top:4px;">'+c.val+'</div>'
+              el.style.cssText = 'position:fixed;top:'+p.top+';left:'+p.left+';z-index:99999;width:280px;border-radius:22px;background:linear-gradient(145deg,rgba(18,22,30,0.96),rgba(8,12,18,0.99));border:1.5px solid '+c.color+'40;box-shadow:0 16px 60px rgba(0,0,0,0.7),0 0 30px '+c.color+'18;opacity:0;transform:scale(0.5);transition:all 0.6s cubic-bezier(0.34,1.56,0.64,1);overflow:hidden;pointer-events:none;';
+              el.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(105deg,transparent 20%,rgba(255,255,255,0.06) 38%,'+c.color+'08 42%,transparent 55%);background-size:250% 100%;animation:beatsShimmer 2s ease-in-out infinite;border-radius:22px;"></div>'
+                +'<div style="position:relative;z-index:1;padding:24px 20px;text-align:center;">'
+                +'<div style="position:absolute;top:12px;right:14px;font-size:0.52rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:'+c.color+'20;color:'+c.color+';">'+c.tier+'</div>'
+                +'<div style="width:90px;height:90px;border-radius:50%;margin:0 auto 14px;overflow:hidden;border:2px solid '+c.color+'45;box-shadow:0 6px 24px '+c.color+'25;"><img src="https://i.pravatar.cc/180?img='+c.img+'" style="width:100%;height:100%;object-fit:cover;filter:saturate(0.25) brightness(1.4);mix-blend-mode:luminosity;"></div>'
+                +'<div style="font-size:1.15rem;font-weight:900;color:#EDE5D8;margin-bottom:4px;">'+c.name+'</div>'
+                +'<div style="font-size:0.65rem;color:#9A9088;margin-bottom:14px;">Rep · Decision Maker</div>'
+                +'<div style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.55rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;background:'+c.color+'15;color:'+c.color+';border:1px solid '+c.color+'30;margin-bottom:16px;">Proposal</div>'
+                +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">'
+                +'<div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);border-radius:8px;padding:10px;"><div style="font-size:0.42rem;font-weight:700;color:rgba(154,144,136,0.5);text-transform:uppercase;letter-spacing:0.1em;">Value</div><div style="font-size:1rem;font-weight:900;color:'+c.color+';">'+c.val+'</div></div>'
+                +'<div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);border-radius:8px;padding:10px;"><div style="font-size:0.42rem;font-weight:700;color:rgba(154,144,136,0.5);text-transform:uppercase;letter-spacing:0.1em;">Risk</div><div style="font-size:1rem;font-weight:900;color:#22c55e;">Low</div></div>'
+                +'</div>'
+                +'<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.04);font-size:0.62rem;color:rgba(154,144,136,0.6);">📞 555-0101<br>📧 contact@'+c.name.toLowerCase().replace(/\s/g,'')+'.com</div>'
                 +'</div>';
               document.body.appendChild(el);
               requestAnimationFrame(function() { el.style.opacity = '1'; el.style.transform = 'scale(1)'; });
