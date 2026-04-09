@@ -6218,6 +6218,23 @@
 
   <script>
 
+    // ── AUTO-SCROLL TO CRM ON LOAD ──
+    // CRM is the main page — scroll to it immediately
+    (function() {
+      window.addEventListener('load', function() {
+        const params = new URLSearchParams(window.location.search);
+        if (!params.get('tour') && !window.location.hash) {
+          const crm = document.getElementById('rev-intel-section');
+          if (crm) {
+            setTimeout(function() {
+              crm.scrollIntoView({ behavior: 'instant', block: 'start' });
+              window.scrollBy(0, -60); // offset for nav
+            }, 100);
+          }
+        }
+      });
+    })();
+
     // ── CROSS-PAGE TOUR: AUTO-RESUME ──
     // If URL has ?tour=1, auto-start tour after page load
     (function() {
