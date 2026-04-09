@@ -2219,6 +2219,8 @@
     body.tour-active #logout-btn, body.tour-active .nav-cta .btn-ghost, body.tour-active .nav-cta .btn-primary { pointer-events: auto !important; }
     body.tour-active .nav-walkthrough-btn { pointer-events: none !important; opacity: 0.45; }
     body.tour-active #stats-banner { display: none !important; }
+    @keyframes crabBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    body.tour-active #tour-crab-mascot { display: block !important; }
     body.tour-active #just-for-fun { display: none !important; }
     body.tour-active #jff-tab { display: none !important; }
     body.tour-active .jff-section { display: none !important; }
@@ -5666,6 +5668,7 @@
   <div id="rev-intel-section" class="matrix-section-wrap" style="padding:28px 32px;">
     <div class="ri-header">
       <button onclick="window._unlockCRMScroll&&window._unlockCRMScroll();document.querySelectorAll('#hero,#features,#how,#about-kory,#newsletter,#cta,footer,.hb-divider,.heartbeat-fullwidth,#stats-banner,#feedback-section').forEach(function(e){e.style.display='';});window.scrollTo(0,0);" style="background:none;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:var(--muted);font-size:0.65rem;font-weight:700;padding:4px 10px;cursor:pointer;font-family:inherit;margin-right:8px;" title="Back to full site">← Full Site</button>
+      <img src="pulse-crab.jpg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1px solid rgba(232,113,10,0.2);">
       <span class="ri-title">Revenue Intelligence</span>
       <span id="ri-logged-in" style="font-size:0.6rem;color:var(--muted);font-weight:600;"></span>
       <span class="ri-badge">Predictive</span>
@@ -5996,10 +5999,11 @@
   </div>
 
   <!-- ── AI COACH CHAT ── -->
-  <button id="ai-coach-fab" onclick="toggleCoach()" title="PULSE AI Coach — ask anything">🦀</button>
+  <button id="ai-coach-fab" onclick="toggleCoach()" title="PULSE AI Coach — ask anything" style="padding:0;overflow:hidden;"><img src="pulse-crab.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></button>
   <div id="ai-coach-panel">
     <div class="coach-header">
       <span class="coach-header-dot"></span>
+      <img src="pulse-crab.jpg" style="width:24px;height:24px;border-radius:50%;object-fit:cover;">
       <span class="coach-header-title">PULSE Coach</span>
       <span style="font-size:0.55rem;color:var(--muted);">AI-powered</span>
       <button class="coach-header-close" onclick="toggleCoach()">✕</button>
@@ -10465,9 +10469,12 @@
   <div id="tour-welcome">
     <div class="tour-welcome-card" style="text-align:left;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px;">
-        <div>
-          <h2 style="font-size:1.35rem;font-weight:900;color:#fff;margin:0 0 4px;line-height:1.3;">Welcome to PulseRevOps.com</h2>
-          <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#E8710A;margin:0;">Get in Rhythm.</p>
+        <div style="display:flex;align-items:center;gap:16px;flex:1;min-width:0;">
+          <img src="pulse-crab.jpg" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(232,113,10,0.3);box-shadow:0 4px 16px rgba(232,113,10,0.15);flex-shrink:0;">
+          <div style="min-width:0;">
+            <h2 style="font-size:1.35rem;font-weight:900;color:#fff;margin:0 0 4px;line-height:1.3;">Welcome to PulseRevOps.com</h2>
+            <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#E8710A;margin:0;">Get in Rhythm.</p>
+          </div>
         </div>
         <button class="narrator-btn" onclick="toggleMute()" style="flex-shrink:0;background:rgba(191,88,0,0.15);border:1px solid rgba(191,88,0,0.4);border-radius:20px;color:#FF8C1A;font-size:0.78rem;font-weight:700;padding:7px 14px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='rgba(191,88,0,0.28)'" onmouseout="this.style.background='rgba(191,88,0,0.15)'" title="Mute narrator">🔊 Mute</button>
       </div>
@@ -10557,7 +10564,9 @@
   <!-- GUIDED TOUR SPOTLIGHT & TOOLTIP -->
   <div id="tour-highlight"></div>
   <div id="tour-tooltip">
-    <div id="tour-drag-handle"></div>
+    <div id="tour-drag-handle" style="position:relative;">
+      <img src="pulse-crab.jpg" id="tour-crab-mascot" style="position:absolute;top:-30px;right:12px;width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid rgba(232,113,10,0.3);box-shadow:0 4px 12px rgba(232,113,10,0.15);animation:crabBob 2s ease-in-out infinite;display:none;">
+    </div>
     <div id="tour-resize-handle"></div>
     <div id="tour-tooltip-body">
       <div class="tour-step-label tour-lock-badge" id="tour-step-label"></div>
@@ -16258,7 +16267,7 @@
       var html = '';
       // Header
       html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">';
-      html += '<div style="display:flex;align-items:center;gap:12px;"><span style="font-size:1.8rem;">🏆</span><div><div style="font-size:1.1rem;font-weight:900;color:var(--text);">Hall of Heroes</div><div style="font-size:0.65rem;color:var(--muted);">'+cat.label+'</div></div></div>';
+      html += '<div style="display:flex;align-items:center;gap:12px;"><img src="pulse-crab.jpg" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,215,0,0.3);box-shadow:0 4px 16px rgba(255,215,0,0.1);"><div><div style="font-size:1.1rem;font-weight:900;color:var(--text);">Hall of Heroes</div><div style="font-size:0.65rem;color:var(--muted);">'+cat.label+'</div></div></div>';
       html += '<select onchange="_lbCategory=this.value;renderLeaderboard();" style="padding:8px 14px;background:#1A1F2B;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.78rem;font-family:inherit;cursor:pointer;outline:none;">';
       Object.keys(categories).forEach(function(k) {
         html += '<option value="'+k+'" style="background:#1A1F2B;color:#EDE5D8;"'+(k===_lbCategory?' selected':'')+'>'+categories[k].icon+' '+categories[k].label+'</option>';
