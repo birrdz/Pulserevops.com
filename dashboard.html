@@ -10932,8 +10932,11 @@
           // Switch to cards tab immediately
           _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 1500);
 
-          // Show one hero card center screen
+          // Show all 4 tier cards
           const tourCards = [
+            { name:'Acme Corp', rep:'Sarah', title:'VP Sales', val:'$3,200', tier:'Bronze', border:'rgba(154,144,136,0.4)', color:'#9A9088', img:32 },
+            { name:'TechFlow Inc', rep:'Mike', title:'CTO', val:'$12,000', tier:'Silver', border:'rgba(232,113,10,0.4)', color:'#E8710A', img:47 },
+            { name:'Summit Partners', rep:'Carlos', title:'COO', val:'$22,000', tier:'Gold', border:'rgba(139,92,246,0.5)', color:'#8B5CF6', img:15 },
             { name:'RedRock Ventures', rep:'Taylor', title:'Partner', val:'$31,000', tier:'Platinum', border:'rgba(251,191,36,0.5)', color:'#fbbf24', img:60 },
           ];
 
@@ -10962,35 +10965,28 @@
               + '</div>';
           }
 
-          // Show one platinum hero card
-          const c = tourCards[0];
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const card = document.createElement('div');
-            card.id = 'tour-hero-card';
-            card.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.3) rotateY(-20deg);transform-style:preserve-3d;z-index:99999;width:300px;height:420px;border-radius:22px;background:linear-gradient(135deg,rgba(20,24,32,0.95),rgba(10,14,20,0.98));border:1.5px solid ' + c.border + ';box-shadow:0 24px 80px rgba(0,0,0,0.7),0 0 40px ' + c.color + '20;opacity:0;transition:all 0.8s cubic-bezier(0.25,0.1,0.25,1);';
-            card.innerHTML = buildTourCard(c);
-            document.body.appendChild(card);
-            requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(0deg)'; });
-          }, 3000);
-          // Flip
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const card = document.getElementById('tour-hero-card');
-            if (card) { card.style.transition = 'transform 1s ease'; card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(180deg)'; }
-          }, 7000);
-          // Flip back
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const card = document.getElementById('tour-hero-card');
-            if (card) card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(360deg)';
-          }, 9000);
-          // Remove
+          // Cycle all 4 cards — 3s each
+          tourCards.forEach((c, i) => {
+            const t = 3000 + i * 3000;
+            // Show card
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const prev = document.getElementById('tour-hero-card');
+              if (prev) { prev.style.opacity = '0'; prev.style.transform = 'translate(-50%,-50%) scale(0.4) rotateY(30deg)'; setTimeout(() => prev.remove(), 400); }
+              const card = document.createElement('div');
+              card.id = 'tour-hero-card';
+              card.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.3) rotateY(-20deg);transform-style:preserve-3d;z-index:99999;width:280px;height:400px;border-radius:22px;background:linear-gradient(135deg,rgba(20,24,32,0.95),rgba(10,14,20,0.98));border:1.5px solid ' + c.border + ';box-shadow:0 24px 80px rgba(0,0,0,0.7),0 0 40px ' + c.color + '20;opacity:0;transition:all 0.6s cubic-bezier(0.25,0.1,0.25,1);';
+              card.innerHTML = buildTourCard(c);
+              document.body.appendChild(card);
+              requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = 'translate(-50%,-50%) scale(1) rotateY(0deg)'; });
+            }, t);
+          });
+          // Remove last card
           _schedTourTimer(() => {
             if (!tourActive) return;
             const card = document.getElementById('tour-hero-card');
-            if (card) { card.style.opacity = '0'; card.style.transform = 'translate(-50%,-50%) scale(0.3)'; setTimeout(() => card.remove(), 600); }
-          }, 12000);
+            if (card) { card.style.opacity = '0'; card.style.transform = 'translate(-50%,-50%) scale(0.3)'; setTimeout(() => card.remove(), 500); }
+          }, 15500);
         }
       },
       // (CRM moved to Step 1)
