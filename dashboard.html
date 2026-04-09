@@ -10966,17 +10966,54 @@
     }
 
     const TOUR_STEPS = [
-      // ═══ STEP 1 — CRM OVERVIEW ═══
+      // ═══ CRM BLOCK (Steps 1-8) ═══════════════════════════════════════════════
+      // 1. CRM Overview
       { selector: '#rev-intel-section', title: 'Your Revenue Command Center',
         desc: 'PULSE tracks every deal, every rep, every dollar. Pipeline, forecasting, risk alerts — all in one place, all free.',
         label: 'Step 1 of 33', customNarration: true,
         onShow: () => {
-          // Skip narration on step 1 — quick advance
-          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 3000);
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(true); }, 1000);
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 4000);
         }
       },
-      // ═══ STEP 2 — BEATS ═══
-      { selector: '#rev-intel-section', title: 'Now meet Beats',
+      // 2. Deals Table
+      { selector: '#rev-intel-section', title: 'The Deals Table',
+        desc: 'Every deal in one view. Name, rep, value, stage, risk, age. Click any row to see the full deal profile — contact info, activity timeline, notes.',
+        label: 'Step 2 of 33',
+        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('deals'); }, 1000); }
+      },
+      // 3. Pipeline Kanban
+      { selector: '#rev-intel-section', title: 'Pipeline View',
+        desc: 'Drag deals between stages. Lead, Discovery, Proposal, Negotiation, Closed Won. See your whole pipeline at a glance.',
+        label: 'Step 3 of 33',
+        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); }, 1000); }
+      },
+      // 4. By Rep
+      { selector: '#rev-intel-section', title: 'By Rep',
+        desc: 'See every rep on your roster with their pipeline, wins, losses, and win rate. Click a rep to see their deals. Assign unassigned deals right here.',
+        label: 'Step 4 of 33',
+        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('reps'); }, 1000); }
+      },
+      // 5. Hall of Heroes
+      { selector: '#rev-intel-section', title: 'Hall of Heroes',
+        desc: 'Leaderboards. 14 categories — gross profit, pipeline, win rate, deal count, activities, and more. Gold, silver, bronze for the top 3.',
+        label: 'Step 5 of 33',
+        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('leaders'); }, 1000); }
+      },
+      // 6. Daily Vibe
+      { selector: '#rev-intel-section', title: 'The Daily Vibe',
+        desc: 'Company announcements, shoutouts, wins, challenges — post them here. They scroll across the bottom of the CRM so everyone sees them.',
+        label: 'Step 6 of 33',
+        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('vibe'); }, 1000); }
+      },
+      // 7. Forecast
+      { selector: '#rev-intel-section', title: 'Revenue Forecast',
+        desc: 'Monthly revenue chart with a projected next month. Win/loss breakdown. The narrative tells you what is actually going to happen.',
+        label: 'Step 7 of 33',
+        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('forecast'); }, 1000); }
+      },
+      // 8. Beats Cards
+      { selector: '#rev-intel-section', title: 'Beats — Hologram Lead Cards',
         desc: 'Every lead becomes a hologram card. Bronze. Silver. Gold. Platinum. Ranked by deal value.',
         label: 'Step 2 of 33',
         onShow: () => {
