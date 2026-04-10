@@ -16235,6 +16235,207 @@
     // Load ticker on page load
     setTimeout(loadVibeTicker, 2000);
 
+    /* ═══════════════════════════════════════════════════════
+       AI-FIRST ENGINE — AUTO-INSIGHTS, SMART ALERTS, BRIEFING
+       ═══════════════════════════════════════════════════════ */
+
+    // ── AUTO-INSIGHTS — analyzes deals and posts to Daily Vibe ──
+    function runAutoInsights() {
+      var deals = loadDeals();
+      if (!deals.length) return;
+      var session = typeof getTeamSession === 'function' ? getTeamSession() : null;
+      var teamCode = session ? session.code : 'public';
+      var FB = 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
+      var lastRun = parseInt(localStorage.getItem('pulse_ai_insights_ts') || '0');
+      var now = Date.now();
+      // Only run once every 4 hours
+      if (now - lastRun < 4 * 3600000) return;
+      localStorage.setItem('pulse_ai_insights_ts', now.toString());
+
+      var insights = [];
+      var active = deals.filter(function(d){return d.stage!=='Closed Won' && d.stage!=='Closed Lost'});
+      var won = deals.filter(function(d){return d.stage==='Closed Won'});
+      var lost = deals.filter(function(d){return d.stage==='Closed Lost'});
+      var pipeline = active.reduce(function(s,d){return s+(parseFloat(d.value)||0)},0);
+      var totalWon = won.reduce(function(s,d){return s+(parseFloat(d.value)||0)},0);
+
+      // Stale deals
+      var stale = active.filter(function(d){
+        if (!d.lastActivity) return true;
+        return (now - new Date(d.lastActivity).getTime()) / 86400000 > 14;
+      });
+      if (stale.length > 0) {
+        insights.push({type:'⚠️ Alert', text: stale.length + ' deal' + (stale.length>1?'s':'') + ' have gone cold (no activity in 14+ days): ' + stale.map(function(d){return d.name||'Untitled'}).join(', ') + '. Time to follow up.'});
+      }
+
+      // Pipeline health
+      if (pipeline > 0) {
+        insights.push({type:'📊 Update', text: 'Active pipeline is $' + Math.round(pipeline).toLocaleString() + ' across ' + active.length + ' deals. ' + (won.length > 0 ? 'Revenue won so far: $' + Math.round(totalWon).toLocaleString() + '.' : 'No deals closed yet — keep pushing.')});
+      }
+
+      // Win rate
+      var closed = won.length + lost.length;
+      if (closed >= 2) {
+        var winRate = Math.round((won.length / closed) * 100);
+        if (winRate >= 60) insights.push({type:'🎉 Shoutout', text: 'Win rate is ' + winRate + '% — that is strong. Keep this momentum going.'});
+        else if (winRate < 40) insights.push({type:'⚠️ Alert', text: 'Win rate is only ' + winRate + '%. Review your last ' + lost.length + ' losses — is it pricing, timing, or competition?'});
+      }
+
+      // Top rep
+      var repTotals = {};
+      deals.forEach(function(d) {
+        var r = d.rep || 'Unassigned';
+        if (!repTotals[r]) repTotals[r] = 0;
+        if (d.stage === 'Closed Won') repTotals[r] += parseFloat(d.value) || 0;
+      });
+      var topRep = Object.entries(repTotals).sort(function(a,b){return b[1]-a[1]})[0];
+      if (topRep && topRep[1] > 0) {
+        insights.push({type:'🏆 Win', text: topRep[0] + ' leads the team with $' + Math.round(topRep[1]).toLocaleString() + ' in closed revenue. Hall of Heroes material.'});
+      }
+
+      // Rep with most at-risk
+      var repRisk = {};
+      stale.forEach(function(d) { var r = d.rep||'Unassigned'; repRisk[r] = (repRisk[r]||0) + 1; });
+      var worstRep = Object.entries(repRisk).sort(function(a,b){return b[1]-a[1]})[0];
+      if (worstRep && worstRep[1] >= 2) {
+        insights.push({type:'💡 Tip', text: worstRep[0] + ' has ' + worstRep[1] + ' stale deals. Schedule a 1-on-1 and review their pipeline together.'});
+      }
+
+      // Big deal alert
+      var bigDeals = active.filter(function(d){return (parseFloat(d.value)||0) >= 20000});
+      if (bigDeals.length > 0) {
+        insights.push({type:'🔥 Hype', text: bigDeals.length + ' deal' + (bigDeals.length>1?'s':'') + ' worth $20K+ in the pipeline: ' + bigDeals.map(function(d){return d.name + ' ($' + Math.round(parseFloat(d.value)).toLocaleString() + ')'}).join(', ') + '.'});
+      }
+
+      // Average deal age
+      var ages = active.map(function(d){return d.dateAdded ? Math.floor((now-new Date(d.dateAdded).getTime())/86400000) : 0}).filter(function(a){return a>0});
+      if (ages.length > 0) {
+        var avgAge = Math.round(ages.reduce(function(a,b){return a+b},0)/ages.length);
+        if (avgAge > 30) insights.push({type:'📊 Update', text: 'Average deal age is ' + avgAge + ' days. Deals older than 30 days have a significantly lower close rate. Consider pipeline cleanup.'});
+      }
+
+      // Post top 2 insights to Daily Vibe
+      insights.slice(0, 2).forEach(function(insight) {
+        var key = 'ai_' + now.toString(36) + Math.random().toString(36).slice(2,5);
+        fetch(FB + '/vibes/' + teamCode + '/' + key + '.json', {
+          method: 'PUT',
+          body: JSON.stringify({type: insight.type, text: insight.text, author: '🤖 PULSE AI', ts: now})
+        });
+      });
+    }
+    // Run auto-insights 5 seconds after page load
+    setTimeout(runAutoInsights, 5000);
+
+    // ── SMART NOTIFICATIONS — popup alerts for important events ──
+    function showSmartAlert(msg, color) {
+      var el = document.createElement('div');
+      el.style.cssText = 'position:fixed;top:80px;right:20px;z-index:99999;background:rgba(10,14,20,0.97);border:1px solid '+(color||'rgba(232,113,10,0.4)')+';border-left:3px solid '+(color||'#E8710A')+';border-radius:10px;padding:12px 18px;font-size:0.78rem;color:#EDE5D8;font-family:inherit;box-shadow:0 8px 32px rgba(0,0,0,0.5);max-width:320px;opacity:0;transform:translateX(20px);transition:all 0.4s ease;';
+      el.innerHTML = '<div style="font-size:0.52rem;font-weight:800;color:'+(color||'#E8710A')+';letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">🤖 PULSE AI</div>' + msg;
+      document.body.appendChild(el);
+      requestAnimationFrame(function(){el.style.opacity='1';el.style.transform='translateX(0)';});
+      setTimeout(function(){el.style.opacity='0';el.style.transform='translateX(20px)';setTimeout(function(){el.remove()},500)},6000);
+    }
+
+    function runSmartAlerts() {
+      var deals = loadDeals();
+      if (!deals.length) return;
+      var now = Date.now();
+      var lastAlert = parseInt(localStorage.getItem('pulse_smart_alert_ts') || '0');
+      if (now - lastAlert < 3600000) return; // max once per hour
+      localStorage.setItem('pulse_smart_alert_ts', now.toString());
+
+      var active = deals.filter(function(d){return d.stage!=='Closed Won'&&d.stage!=='Closed Lost'});
+      var stale = active.filter(function(d){return !d.lastActivity||(now-new Date(d.lastActivity).getTime())/86400000>14});
+
+      if (stale.length >= 3) {
+        setTimeout(function(){showSmartAlert(stale.length + ' deals need attention — no activity in 14+ days. Check the Deals tab.','#ef4444')},3000);
+      }
+
+      var highValue = active.filter(function(d){return (parseFloat(d.value)||0)>=15000 && d.stage==='Negotiation'});
+      if (highValue.length > 0) {
+        setTimeout(function(){showSmartAlert(highValue.length + ' high-value deal'+(highValue.length>1?'s':'')+' in Negotiation stage. These are close to closing — prioritize them.','#22c55e')},8000);
+      }
+    }
+    setTimeout(runSmartAlerts, 6000);
+
+    // ── AI DAILY BRIEFING — shows on CRM load ──
+    function showDailyBriefing() {
+      var deals = loadDeals();
+      if (!deals.length) return;
+      var lastBrief = localStorage.getItem('pulse_briefing_date');
+      var today = new Date().toISOString().split('T')[0];
+      if (lastBrief === today) return;
+      localStorage.setItem('pulse_briefing_date', today);
+
+      var active = deals.filter(function(d){return d.stage!=='Closed Won'&&d.stage!=='Closed Lost'});
+      var won = deals.filter(function(d){return d.stage==='Closed Won'});
+      var pipeline = active.reduce(function(s,d){return s+(parseFloat(d.value)||0)},0);
+      var totalWon = won.reduce(function(s,d){return s+(parseFloat(d.value)||0)},0);
+      var stale = active.filter(function(d){return !d.lastActivity||(Date.now()-new Date(d.lastActivity).getTime())/86400000>14});
+
+      var briefing = document.createElement('div');
+      briefing.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);z-index:99998;background:rgba(10,14,20,0.98);border:1px solid var(--border);border-radius:18px;box-shadow:0 24px 80px rgba(0,0,0,0.7);padding:32px;max-width:420px;width:90vw;opacity:0;transition:all 0.5s ease;font-family:inherit;';
+      briefing.innerHTML = '<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">'
+        +'<img src="pulse-crab.jpg" style="width:48px;height:48px;border-radius:12px;object-fit:contain;background:#fff;">'
+        +'<div><div style="font-size:1rem;font-weight:900;color:#EDE5D8;">Good ' + (new Date().getHours()<12?'morning':'afternoon') + '.</div>'
+        +'<div style="font-size:0.6rem;color:var(--muted);">Your daily briefing from PULSE AI</div></div></div>'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">'
+        +'<div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:0.45rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;">Pipeline</div><div style="font-size:1.1rem;font-weight:900;color:#E8710A;">$'+Math.round(pipeline).toLocaleString()+'</div></div>'
+        +'<div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:0.45rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;">Won</div><div style="font-size:1.1rem;font-weight:900;color:#22c55e;">$'+Math.round(totalWon).toLocaleString()+'</div></div>'
+        +'<div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:0.45rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;">Active Deals</div><div style="font-size:1.1rem;font-weight:900;color:#EDE5D8;">'+active.length+'</div></div>'
+        +'<div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:0.45rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;">At Risk</div><div style="font-size:1.1rem;font-weight:900;color:'+(stale.length>0?'#ef4444':'#22c55e')+';">'+stale.length+'</div></div>'
+        +'</div>'
+        +(stale.length > 0 ? '<div style="font-size:0.78rem;color:var(--muted);line-height:1.6;margin-bottom:12px;"><span style="color:#ef4444;font-weight:700;">⚠️ '+stale.length+' deal'+(stale.length>1?'s':'')+' need attention</span> — no activity in 14+ days.</div>' : '<div style="font-size:0.78rem;color:#22c55e;margin-bottom:12px;">✅ All deals are healthy. Keep it up.</div>')
+        +'<button onclick="this.parentElement.style.opacity=\'0\';setTimeout(function(){document.querySelector(\'[style*=pulse_briefing]\')?.remove()},400);this.parentElement.remove();" style="width:100%;padding:11px;background:linear-gradient(135deg,rgba(232,113,10,0.25),rgba(232,113,10,0.15));border:1.5px solid rgba(232,113,10,0.5);border-radius:10px;color:#E8710A;font-size:0.82rem;font-weight:800;cursor:pointer;font-family:inherit;">Got it — let\'s go</button>';
+      document.body.appendChild(briefing);
+      requestAnimationFrame(function(){briefing.style.opacity='1';briefing.style.transform='translate(-50%,-50%) scale(1)';});
+    }
+    // Show briefing 2 seconds after load (only once per day)
+    setTimeout(showDailyBriefing, 2000);
+
+    // ── PROACTIVE AI COACH — auto-suggest based on data ──
+    function proactiveCoachCheck() {
+      var deals = loadDeals();
+      if (!deals.length) return;
+      var lastCoach = parseInt(localStorage.getItem('pulse_proactive_coach_ts') || '0');
+      if (Date.now() - lastCoach < 8 * 3600000) return; // max every 8 hours
+      localStorage.setItem('pulse_proactive_coach_ts', Date.now().toString());
+
+      var active = deals.filter(function(d){return d.stage!=='Closed Won'&&d.stage!=='Closed Lost'});
+      var suggestions = [];
+
+      // No activity logging
+      var noActivity = active.filter(function(d){return !d.activities || d.activities.length === 0});
+      if (noActivity.length > active.length * 0.5) {
+        suggestions.push('Most of your deals have no logged activity. Start logging calls, emails, and meetings — it helps PULSE predict outcomes and keeps your team accountable.');
+      }
+
+      // Too many leads, not enough proposals
+      var leads = active.filter(function(d){return d.stage==='Lead'});
+      var proposals = active.filter(function(d){return d.stage==='Proposal'||d.stage==='Negotiation'});
+      if (leads.length > 5 && proposals.length < 2) {
+        suggestions.push('You have ' + leads.length + ' leads but only ' + proposals.length + ' in proposal or negotiation. Focus on moving leads forward — qualify faster, disqualify the dead ones.');
+      }
+
+      // Pipeline concentration
+      var reps = {};
+      active.forEach(function(d){var r=d.rep||'Unassigned';reps[r]=(reps[r]||0)+1});
+      var repEntries = Object.entries(reps);
+      if (repEntries.length > 1) {
+        var max = repEntries.sort(function(a,b){return b[1]-a[1]})[0];
+        if (max[1] > active.length * 0.6) {
+          suggestions.push(max[0] + ' is carrying ' + Math.round(max[1]/active.length*100) + '% of the pipeline. That is a risk — if they leave or slow down, your whole pipeline suffers. Distribute leads more evenly.');
+        }
+      }
+
+      if (suggestions.length > 0) {
+        setTimeout(function() {
+          showSmartAlert('<strong>Coach tip:</strong> ' + suggestions[0], '#8B5CF6');
+        }, 15000);
+      }
+    }
+    setTimeout(proactiveCoachCheck, 10000);
+
     /* ─── LEADERBOARD ─── */
     var _lbCategory = 'won';
     function renderLeaderboard() {
