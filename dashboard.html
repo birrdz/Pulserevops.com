@@ -10973,49 +10973,107 @@
         label: 'Step 1 of 33', customNarration: true,
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(true); }, 1000);
+          // Highlight the vitals cards
+          _tourSpotSequence([
+            {sel: '.ri-vital-card:nth-child(1)', label: 'Total Pipeline'},
+            {sel: '.ri-vital-card:nth-child(2)', label: 'Projected Revenue'},
+            {sel: '.ri-vital-card:nth-child(3)', label: 'Win Rate'},
+          ]);
           _schedTourTimer(() => { if (tourActive) advanceTour(); }, 5000);
         }
       },
       // 2. Adding Leads
       { selector: '#rev-intel-section', title: 'Adding Leads & Deals',
-        desc: 'This is where you add people you are trying to sell to. Click Add Deal to create a new lead. Type their name, assign a rep, enter the dollar amount, and pick their stage. You can also import leads from a spreadsheet using the Import tab.',
+        desc: 'This is where you add people you are trying to sell to. See the Add Deal button below? Click it to create a new lead. Type their name, assign a rep, enter the dollar amount, and pick their stage.',
         label: 'Step 2 of 33',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('deals'); }, 1000); }
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('deals'); }, 1000);
+          _tourSpotSequence([
+            {sel: '.ri-btn-primary[onclick*="riAddDeal"]', label: '← Click here to add a deal'},
+            {sel: '.ri-deal-table thead', label: 'Your deals appear here'},
+            {sel: '#ri-rep-filter', label: 'Filter by rep'},
+          ]);
+        }
       },
       // 3. Deal Detail
       { selector: '#rev-intel-section', title: 'Editing a Lead',
-        desc: 'Click any lead to open their full profile. Add their phone number, email, job title, and notes. Log every call, email, and meeting. Upload a photo. Track everything in one place — no more sticky notes.',
-        label: 'Step 3 of 33'
+        desc: 'Click any lead row to open their full profile. You will see their phone, email, title, and a full activity timeline. Log calls, emails, and meetings with one click. Add notes. Upload a photo.',
+        label: 'Step 3 of 33',
+        onShow: () => {
+          // Highlight the first deal row
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var row = document.querySelector('#ri-deal-body tr');
+            if (row) {
+              row.style.transition = 'all 0.4s';
+              row.style.boxShadow = '0 0 0 2px rgba(232,113,10,0.6), 0 0 16px rgba(232,113,10,0.2)';
+              row.style.background = 'rgba(232,113,10,0.04)';
+              _schedTourTimer(() => { row.style.boxShadow = ''; row.style.background = ''; }, 10000);
+            }
+          }, 2000);
+        }
       },
       // 4. Pipeline
       { selector: '#rev-intel-section', title: 'Your Pipeline',
-        desc: 'This shows where every deal sits in the sales process. Lead means they are brand new. Discovery means you are learning about them. Proposal means you sent a quote. Negotiation means you are working out terms. Closed Won means you got the deal. Drag cards between stages.',
+        desc: 'This shows where every deal sits. Lead, Discovery, Proposal, Negotiation, Closed Won. Drag any card from one column to another to move it through your sales process.',
         label: 'Step 4 of 33',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); }, 1000); }
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); }, 1000);
+          // Highlight pipeline columns
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            document.querySelectorAll('.ri-kanban-col').forEach(function(col, i) {
+              _schedTourTimer(() => {
+                if (!tourActive) return;
+                col.style.transition = 'all 0.3s';
+                col.style.boxShadow = '0 0 0 2px rgba(232,113,10,0.5), 0 0 16px rgba(232,113,10,0.15)';
+                setTimeout(() => { col.style.boxShadow = ''; }, 2000);
+              }, i * 800);
+            });
+          }, 2000);
+        }
       },
       // 5. By Rep
       { selector: '#rev-intel-section', title: 'Your Team',
-        desc: 'Every rep on your team, right here. See who is carrying the most pipeline, who is closing deals, and who needs help. Click a rep to see their deals. You can assign leads to reps from here.',
+        desc: 'Every rep on your team. See who is carrying the most pipeline, who is closing, and who needs help. Click any rep card to see their deals. The assign button lets you give leads to specific reps.',
         label: 'Step 5 of 33',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('reps'); }, 1000); }
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('reps'); }, 1000);
+          // Highlight first rep card
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var card = document.querySelector('#ri-rep-breakdown > div > div');
+            if (card) { card.style.boxShadow = '0 0 0 2px rgba(232,113,10,0.5), 0 0 20px rgba(232,113,10,0.15)'; _schedTourTimer(() => { card.style.boxShadow = ''; }, 8000); }
+          }, 3000);
+        }
       },
       // 6. Leaderboard
       { selector: '#rev-intel-section', title: 'Hall of Heroes — Leaderboards',
-        desc: 'Who is number one? This leaderboard ranks your team across 14 different categories. Gross profit, pipeline, win rate, deal count, and more. Gold, silver, and bronze for the top three. Use the dropdown to switch between categories.',
+        desc: 'Who is number one? Gold, silver, bronze for the top three. Use the dropdown in the top right to switch between 14 different categories — gross profit, win rate, deal count, and more.',
         label: 'Step 6 of 33',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('leaders'); }, 1000); }
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('leaders'); }, 1000);
+          // Highlight the category dropdown
+          _tourSpotElement('select[onchange*="_lbCategory"]', '← Switch categories here', 3000);
+        }
       },
       // 7. Daily Vibe
       { selector: '#rev-intel-section', title: 'The Daily Vibe',
-        desc: 'This is your team bulletin board. Post announcements, shoutouts, challenges, goals, or just hype up the team. Everything you post scrolls across the bottom of the screen so nobody misses it.',
+        desc: 'Your team bulletin board. See the Post Announcement button? Click it to share news, shoutouts, challenges, or goals. Everything you post also scrolls across the bottom ticker.',
         label: 'Step 7 of 33',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('vibe'); }, 1000); }
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('vibe'); }, 1000);
+          _tourSpotElement('button[onclick*="vibe-post-form"]', '← Post here', 3000);
+        }
       },
       // 8. Forecast
       { selector: '#rev-intel-section', title: 'Revenue Forecast',
-        desc: 'This predicts how much money you will make. It looks at your deals, their stages, and their values, then calculates a projected revenue number. The chart shows your trend over time. The narrative at the bottom explains what is happening in plain English.',
+        desc: 'This predicts your revenue. The chart shows your monthly trend. The bars show how much you closed each month, and the projected bar shows what is coming next. The narrative below explains it in plain English.',
         label: 'Step 8 of 33',
-        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('forecast'); }, 1000); }
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('forecast'); }, 1000);
+          _tourSpotElement('.ri-chart-wrap', 'Your forecast chart', 3000);
+        }
       },
       // 8. Beats Cards
       { selector: '#rev-intel-section', title: 'Beats — Hologram Lead Cards',
@@ -12401,6 +12459,47 @@
     }
 
     // ── Tour button-click visual flash ───────────────────────────────────────────
+    // Highlight a specific element with a glowing box + floating label
+    function _tourSpotElement(selector, label, delay) {
+      _schedTourTimer(function() {
+        if (!tourActive) return;
+        var el = typeof selector === 'string' ? document.querySelector(selector) : selector;
+        if (!el) return;
+        // Glow box
+        el.style.transition = 'box-shadow 0.4s, outline 0.4s';
+        el.style.boxShadow = '0 0 0 3px rgba(232,113,10,0.6), 0 0 20px rgba(232,113,10,0.3)';
+        el.style.outline = '2px solid rgba(232,113,10,0.5)';
+        el.style.outlineOffset = '3px';
+        el.style.borderRadius = el.style.borderRadius || '8px';
+        el.style.position = el.style.position || 'relative';
+        el.style.zIndex = '9600';
+        // Label
+        if (label) {
+          var lbl = document.createElement('div');
+          lbl.className = 'tour-spot-label';
+          lbl.style.cssText = 'position:absolute;top:-28px;left:50%;transform:translateX(-50%);z-index:9601;background:#E8710A;color:#fff;font-size:0.6rem;font-weight:800;padding:3px 10px;border-radius:6px;white-space:nowrap;pointer-events:none;box-shadow:0 4px 12px rgba(232,113,10,0.3);';
+          lbl.textContent = label;
+          el.style.position = 'relative';
+          el.appendChild(lbl);
+        }
+        // Clear after step ends
+        _schedTourTimer(function() {
+          el.style.boxShadow = '';
+          el.style.outline = '';
+          el.style.outlineOffset = '';
+          el.style.zIndex = '';
+          el.querySelectorAll('.tour-spot-label').forEach(function(l){l.remove()});
+        }, 12000);
+      }, delay || 2000);
+    }
+
+    // Highlight multiple elements in sequence
+    function _tourSpotSequence(items) {
+      items.forEach(function(item, i) {
+        _tourSpotElement(item.sel, item.label, 2000 + i * 3000);
+      });
+    }
+
     function _tourFlashBtn(btnOrId) {
       const btn = typeof btnOrId === 'string' ? document.getElementById(btnOrId) : btnOrId;
       if (!btn) return;
