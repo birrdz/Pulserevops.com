@@ -11438,9 +11438,10 @@
         label: 'Finish', last: true,
         onShow: () => {
           var jff = document.getElementById('just-for-fun');
-          if (jff) jff.style.display = 'block';
+          if (jff) { jff.style.display = 'block'; jff.style.cssText += ';display:block !important;'; }
           var tab = document.getElementById('jff-tab');
-          if (tab) tab.style.display = '';
+          if (tab) { tab.style.display = ''; tab.style.cssText += ';display:block !important;'; }
+          document.querySelectorAll('.jff-section').forEach(function(el){ el.style.cssText += ';display:block !important;'; });
         }
       }
     ];
