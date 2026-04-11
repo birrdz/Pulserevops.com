@@ -2,6 +2,8 @@
 // Set ANTHROPIC_API_KEY in Netlify environment variables
 // (Site settings → Environment variables → Add: ANTHROPIC_API_KEY = sk-ant-...)
 
+const https = require('https');
+
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -66,24 +68,40 @@ exports.handler = async (event) => {
     }
     messages.push({ role: 'user', content: message });
 
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 500,
-        system: SYSTEM_PROMPT,
-        messages,
-      }),
+    const payload = JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 500,
+      system: SYSTEM_PROMPT,
+      messages,
     });
 
-    if (!res.ok) {
-      const err = await res.text();
-      console.error('Claude API error:', err);
+    const data = await new Promise((resolve, reject) => {
+      const opts = {
+        hostname: 'api.anthropic.com',
+        path: '/v1/messages',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(payload),
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+        },
+      };
+      const req = https.request(opts, (res) => {
+        let body = '';
+        res.on('data', (chunk) => { body += chunk; });
+        res.on('end', () => {
+          try { resolve({ ok: res.statusCode === 200, data: JSON.parse(body), raw: body }); }
+          catch (e) { reject(new Error('Parse error: ' + body.slice(0, 200))); }
+        });
+      });
+      req.on('error', reject);
+      req.write(payload);
+      req.end();
+    });
+
+    if (!data.ok) {
+      console.error('Claude API error:', data.raw);
       return {
         statusCode: 200,
         headers: { ...CORS, 'Content-Type': 'application/json' },
@@ -91,8 +109,7 @@ exports.handler = async (event) => {
       };
     }
 
-    const data = await res.json();
-    const reply = data.content?.[0]?.text || "I didn't catch that. Try rephrasing your question.";
+    const reply = data.data.content?.[0]?.text || "I didn't catch that. Try rephrasing your question.";
 
     return {
       statusCode: 200,
