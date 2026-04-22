@@ -11878,59 +11878,84 @@
           }, 4400);
         }
       },
-      // 3. Deal Detail
+      // 3. Deal Detail — ghost-writer fills customer contact info + note
       { selector: '#rev-intel-section', title: 'Editing a Lead',
-        desc: 'Click any lead row to open their full profile. You will see their phone, email, title, and a full activity timeline. Log calls, emails, and meetings with one click. Add notes. Upload a photo.',
-        label: 'Step 3 of 39',
+        desc: 'Click any lead row to open their full profile. Watch PULSE open a deal, then ghost-type the contact info — phone, email, title, source — and drop a note into the activity timeline.',
+        label: 'Step 3 of 39', managedTimer: true,
         onShow: () => {
-          // Highlight the first deal row with pulsing ring + arrow
+          // Switch to the deals tab so the rows are visible
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riSwitchTab === 'function') riSwitchTab('deals'); } catch(e) {} }, 1000);
+          _tourSpotElement('#ri-deal-body tr', 'Watch this row open', 2200);
+          // Ghost-click the first row then fill customer fields in sequence
           _schedTourTimer(() => {
             if (!tourActive) return;
-            var row = document.querySelector('#ri-deal-body tr');
+            const row = document.querySelector('#ri-deal-body tr');
             if (row) {
-              row.style.transition = 'all 0.4s';
-              row.style.boxShadow = '0 0 0 2px rgba(232,113,10,0.6), 0 0 16px rgba(232,113,10,0.2)';
-              row.style.background = 'rgba(232,113,10,0.04)';
-              row.classList.add('tour-pulse-ring');
-              _schedTourTimer(() => { row.style.boxShadow = ''; row.style.background = ''; row.classList.remove('tour-pulse-ring'); }, 10000);
+              try { _tourGhostClick(row, { label: 'Open deal' }); } catch(e) {}
+              try { if (typeof openDealDetail === 'function') openDealDetail(0); } catch(e) {}
             }
-          }, 2000);
-          _tourArrowPointer('#ri-deal-body tr', 'left', 2000);
-          _tourArrowPointer('#ri-deal-body tr', 'right', 2000);
-          _tourSpotElement('#ri-deal-body tr', '← Click any row to open', 2500);
+          }, 3200);
+          // Wait for modal to render, then chain through the contact fields + note
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const phoneEl = document.getElementById('dd-phone');
+            if (!phoneEl) { advanceTour(); return; }
+            _tourGhostType(phoneEl, '(555) 214-0099', { speed: 65, onDone: function() {
+              const emailEl = document.getElementById('dd-email');
+              _tourGhostType(emailEl, 'procurement@acmecorp.com', { speed: 45, onDone: function() {
+                const titleEl = document.getElementById('dd-title');
+                _tourGhostType(titleEl, 'Director of Operations', { speed: 55, onDone: function() {
+                  const sourceEl = document.getElementById('dd-source');
+                  _tourGhostType(sourceEl, 'Inbound — Website', { speed: 55, onDone: function() {
+                    // Drop a note into the activity timeline
+                    const noteEl = document.getElementById('dd-note-input');
+                    if (noteEl) {
+                      _tourGhostType(noteEl, 'Demo booked for Thursday 2pm — bring solutions deck.', { speed: 35, onDone: function() {
+                        _schedTourTimer(function() {
+                          try { if (typeof ddAddNote === 'function') ddAddNote(); } catch(e) {}
+                        }, 600);
+                        _schedTourTimer(function() {
+                          try { if (typeof closeDealDetail === 'function') closeDealDetail(); } catch(e) {}
+                        }, 3000);
+                        _schedTourTimer(function() { if (tourActive) advanceTour(); }, 3800);
+                      }});
+                    } else {
+                      _schedTourTimer(function() { if (tourActive) advanceTour(); }, 1000);
+                    }
+                  }});
+                }});
+              }});
+            }});
+          }, 4600);
         }
       },
-      // 4. Pipeline
+      // 4. Pipeline — ghost card flows through every stage, no arrows
       { selector: '#rev-intel-section', title: 'Your Pipeline',
-        desc: 'This shows where every deal sits. Lead, Discovery, Proposal, Negotiation, Closed Won. Drag any card from one column to another to move it through your sales process.',
-        label: 'Step 4 of 39',
+        desc: 'This shows where every deal sits. Lead, Discovery, Proposal, Negotiation, Closed Won. Watch a deal travel through your pipeline — drag any real card from one column to another to move it through your sales process.',
+        label: 'Step 4 of 39', managedTimer: true,
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); }, 1000);
-          // Highlight pipeline columns left to right with arrows between
+          // Sequential column glow (no arrows — visual rhythm only)
           _schedTourTimer(() => {
             if (!tourActive) return;
-            var cols = document.querySelectorAll('.ri-kanban-col');
-            var stageNames = ['Lead','Discovery','Proposal','Negotiation','Closed Won'];
+            const cols = document.querySelectorAll('.ri-kanban-col');
             cols.forEach(function(col, i) {
               _schedTourTimer(() => {
                 if (!tourActive) return;
                 col.style.transition = 'all 0.3s';
                 col.style.boxShadow = '0 0 0 2px rgba(232,113,10,0.5), 0 0 16px rgba(232,113,10,0.15)';
                 col.classList.add('tour-pulse-ring');
-                // Add arrow between columns
-                if (i < cols.length - 1) {
-                  var rect = col.getBoundingClientRect();
-                  var arrow = document.createElement('div');
-                  arrow.className = 'tour-arrow-pointer';
-                  arrow.style.cssText = 'position:fixed;z-index:9999;font-size:3.5rem;color:#000;font-weight:900;pointer-events:none;text-shadow:0 0 8px rgba(0,0,0,0.3);-webkit-text-stroke:2px #000;top:'+(rect.top + rect.height/2 - 14)+'px;left:'+(rect.right + 2)+'px;animation:tourArrowBounceH 0.8s ease-in-out infinite;';
-                  arrow.textContent = '→';
-                  document.body.appendChild(arrow);
-                  _schedTourTimer(() => { if (arrow.parentNode) arrow.remove(); }, 3000);
-                }
                 _schedTourTimer(() => { col.style.boxShadow = ''; col.classList.remove('tour-pulse-ring'); }, 3000);
-              }, i * 1000);
+              }, i * 900);
             });
           }, 2000);
+          // Ghost deal card slides across every stage column — shows the journey visually
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            _tourPipelineFlow('Acme Corp — New Install', { onDone: function() {
+              _schedTourTimer(function() { if (tourActive) advanceTour(); }, 800);
+            }});
+          }, 7500);
         }
       },
       // 5. Beats Cards
@@ -12062,8 +12087,27 @@
       },
       // ═══ STEP 3 — AI COACH ═══
       { selector: '#ai-coach-fab', title: 'Your AI Sales Coach',
-        desc: 'See the crab? Click it anytime. Ask it anything — slumping reps, pipeline problems, comp plan questions, how to fire someone gracefully. It never sleeps and it never sugarcoats.',
-        label: 'Step 10 of 39'
+        desc: 'See the crab? Click it anytime. Ask it anything — slumping reps, pipeline problems, comp plan questions, how to fire someone gracefully. Watch PULSE open the coach and ghost-type a real question.',
+        label: 'Step 10 of 39', managedTimer: true,
+        onShow: () => {
+          // Ghost-click the crab FAB, open the coach panel, ghost-type a question, close it
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { _tourGhostClick('#ai-coach-fab', { label: 'Ask the Coach' }); } catch(e) {}
+            try { if (typeof toggleCoach === 'function') toggleCoach(); } catch(e) {}
+          }, 2000);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const input = document.getElementById('coach-input');
+            if (input) _tourGhostType(input, 'Sarah missed quota two months in a row — what do I say in the 1:1?', { speed: 40 });
+          }, 3400);
+          // Close coach after demo
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { if (typeof toggleCoach === 'function') toggleCoach(); } catch(e) {}
+          }, 10500);
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 11500);
+        }
       },
       // ═══ STEP 4 — LIVE SYNC ═══
       { selector: '#sync-toggle-btn', title: 'Live Sync',
@@ -12624,16 +12668,33 @@
           }, 6000);
         }
       },
-      // ═══ STEP 28 — SALES MEETING CREATOR ═══
+      // ═══ STEP 28 — SALES MEETING CREATOR — ghost-fill every field, then generate ═══
       { selector: '#meeting-creator-section', title: 'Sales Meeting Creator',
-        desc: 'Running a sales meeting without a script is like cooking without a recipe. Watch PULSE ghost-click the Generate Meeting button — AI builds a full 60 to 90 minute agenda with timestamps, role plays, energy breaks, even memes. Ready to read off and present to your team.',
-        label: 'Step 36 of 39',
+        desc: 'Running a sales meeting without a script is like cooking without a recipe. Watch PULSE ghost-type the team name and focus KPI, pick the meeting type and duration, then click Generate — AI builds a full agenda with timestamps, role plays, energy breaks, even memes.',
+        label: 'Step 36 of 39', managedTimer: true,
         onShow: () => {
+          // Chain: type → type → select → select → ghost-click generate
           _schedTourTimer(() => {
             if (!tourActive) return;
-            var btn = document.querySelector('#meeting-creator-section button[onclick*="generate"], #meeting-creator-section .ai-btn, #meeting-creator-section button');
-            if (btn) _tourGhostClick(btn, { label: 'Click: Generate Meeting', doClick: false });
-          }, 3000);
+            const nameEl = document.getElementById('mt-name');
+            if (!nameEl) { advanceTour(); return; }
+            _tourGhostType(nameEl, 'Sarah, Mike, Carlos, Taylor', { speed: 45, onDone: function() {
+              const kpiEl = document.getElementById('mt-kpi');
+              _tourGhostType(kpiEl, 'Close Rate + Pipeline Health', { speed: 50, onDone: function() {
+                const typeEl = document.getElementById('mt-type');
+                _tourGhostSelect(typeEl, 'Pipeline Review', { delay: 500, onDone: function() {
+                  const durEl = document.getElementById('mt-duration');
+                  _tourGhostSelect(durEl, '60', { delay: 500, onDone: function() {
+                    _schedTourTimer(function() {
+                      const btn = document.querySelector('#meeting-creator-section button[onclick*="generate"], #meeting-creator-section .ai-btn, #meeting-creator-section button');
+                      if (btn) _tourGhostClick(btn, { label: 'Click: Generate Meeting', doClick: false });
+                    }, 700);
+                    _schedTourTimer(function() { if (tourActive) advanceTour(); }, 3500);
+                  }});
+                }});
+              }});
+            }});
+          }, 2500);
         }
       },
       // ═══ STEP 29 — TOASTS & SPEECHES ═══
