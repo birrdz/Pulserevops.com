@@ -8292,25 +8292,27 @@
         return String(v);
       }
 
-      // Header row of KPI names — widths match the hex track below so labels sit above columns
-      html += '<div style="display:flex;gap:2px;margin-left:120px;margin-bottom:10px;padding:0 6px;justify-content:center;">';
+      // Header row of KPI names — mirrors hex row structure: invisible label placeholder + centered label track
+      html += '<div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px;">';
+      html += '<div style="width:110px;padding-right:14px;flex-shrink:0;"></div>';  // matches hex-row label column
+      html += '<div style="display:flex;gap:4px;flex:0 1 auto;justify-content:center;padding:0;">';
       kpiLabels.forEach(function(k) {
         html += '<div style="flex:1 1 0;min-width:52px;max-width:78px;text-align:center;font-size:0.54rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:rgba(237,229,216,0.7);line-height:1.2;overflow:hidden;text-overflow:ellipsis;padding:0 2px;">' + (k || '') + '</div>';
       });
-      html += '</div>';
+      html += '</div></div>';
 
       data.forEach(function(tier, ti) {
         // Get target values from the "target" rows in the DM model
         var targetRow = (tier.rows || []).find(function(r) { return r.type === 'target'; });
         var vals = targetRow ? targetRow.vals : [0,0,0,0,0,0,0,0,0];
         // No horizontal stagger — every tier row starts at the same x so columns align
-        html += '<div class="pulse-hex-row" style="display:flex;align-items:center;margin-bottom:6px;position:relative;">';
+        html += '<div class="pulse-hex-row" style="display:flex;align-items:center;justify-content:center;margin-bottom:6px;position:relative;">';
         html += '<div style="width:110px;text-align:right;padding-right:14px;font-size:0.7rem;font-weight:900;letter-spacing:0.06em;flex-shrink:0;">';
         html += '<div style="color:' + tierLabelColors[ti] + ';">LEVEL ' + (ti+1) + '</div>';
         html += '<div style="font-size:0.55rem;font-weight:800;color:rgba(237,229,216,0.5);letter-spacing:0.04em;margin-top:2px;text-transform:uppercase;">' + tierLabels[ti] + '</div>';
         html += '<div style="font-size:0.55rem;font-weight:700;color:rgba(237,229,216,0.35);margin-top:1px;">' + tierPoints[ti].toLocaleString() + ' pts</div>';
         html += '</div>';
-        html += '<div class="pulse-hex-track" style="display:flex;gap:4px;flex:1;min-width:0;justify-content:center;">';
+        html += '<div class="pulse-hex-track" style="display:flex;gap:4px;flex:0 1 auto;min-width:0;justify-content:center;">';
         vals.forEach(function(v, vi) {
           html += '<div class="pulse-hex" title="' + (kpiLabels[vi] || 'KPI ' + (vi+1)) + ' · Level ' + (ti+1) + ' · ' + v + '" ' +
             'style="flex:1 1 0;max-width:78px;min-width:52px;aspect-ratio:1/1.1;' +
@@ -8337,21 +8339,40 @@
       hc.innerHTML = html;
     }
 
-    // Auto-sync: any edit to a house-goal KPI name input re-renders the honeycomb so
-    // the right-side headers never drift from the left-side source of truth.
+    // Auto-sync: any edit to house-goal KPI names, goal VALUES, rep count, or type toggles
+    // re-syncs both matrixes (grid + honeycomb) + tier chart. Tour-safe: bails out while
+    // the tour is active so per-keystroke cascades during ghost-typing can't stall the tour.
     (function _wirePulseHoneycombAutoSync() {
       if (window._pulseHoneycombSyncWired) return;
       window._pulseHoneycombSyncWired = true;
       var _pulseHcSyncTimer = null;
-      document.addEventListener('input', function(e) {
-        var t = e.target;
-        if (!t || !t.id) return;
-        if (!/^house-kpi-lbl-\d+$/.test(t.id)) return;
+      function _maybeSync(t) {
+        if (!t) return false;
+        var id = t.id || '';
+        var cls = (t.className && typeof t.className === 'string') ? t.className : '';
+        if (/^house-kpi-lbl-\d+$/.test(id)) return true;      // KPI name inputs
+        if (/^house-goal-val-\d+$/.test(id)) return true;     // goal value inputs
+        if (id === 'house-rep-count') return true;            // team size
+        if (/house-goal-cell/.test(cls)) return true;         // contenteditable goal cells
+        if (/house-kpi-name/.test(cls)) return true;          // fallback for dynamic KPI name cells
+        return false;
+      }
+      function _fire() {
+        // Tour-safe: bail while the tour is active — tour's runTourDemoData explicitly drives
+        // these sync functions, and per-char cascades during ghost-typing stall the tour.
+        if (window.tourActive || window._tourStarting) return;
         clearTimeout(_pulseHcSyncTimer);
         _pulseHcSyncTimer = setTimeout(function() {
+          if (window.tourActive || window._tourStarting) return;
+          try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); } catch(err) {}
+          try { if (typeof recalcHouseAvgs === 'function') recalcHouseAvgs(); } catch(err) {}
           try { if (typeof pulseRenderHoneycomb === 'function') pulseRenderHoneycomb(); } catch(err) {}
-        }, 200);
-      });
+          try { if (typeof updateTierChart === 'function') updateTierChart(); } catch(err) {}
+        }, 180);
+      }
+      document.addEventListener('input', function(e) { if (_maybeSync(e.target)) _fire(); });
+      document.addEventListener('blur',  function(e) { if (_maybeSync(e.target)) _fire(); }, true);
+      document.addEventListener('keyup', function(e) { if (_maybeSync(e.target)) _fire(); });
     })();
 
     // Expose + wire up the view toggle
