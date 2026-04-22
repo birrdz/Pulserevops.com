@@ -11909,58 +11909,73 @@
           }, 300);
         }
       },
-      // ═══ STEP 2 — ADDING LEADS (rebuilt: cleaner pacing, all 4 fields + pipeline flow) ═══
+      // ═══ STEP 2 — ADDING LEADS (delete + readd clean: visible row, no jerk) ═══
       { selector: '#rev-intel-section', title: 'Adding Leads & Deals',
-        desc: 'This is where you add people you are trying to sell to. Watch PULSE click Add Deal, then ghost-type the deal name and dollar value — a new row appears in the table with the values typed out live.',
+        desc: 'This is where you add people you are trying to sell to. Watch PULSE click Add Deal — a new row appears at the bottom of the table, then the name and dollar value ghost-type in live.',
         label: 'Step 2 of 39', managedTimer: true,
         onShow: () => {
-          // Helper — grab the current last-child deal row's input by column index.
-          // Re-queried at each call because renderDeals() re-emits the tbody on every change.
-          const nameSel  = () => document.querySelector('#ri-deal-body tr:last-child td:nth-child(1) input');
-          const valSel   = () => document.querySelector('#ri-deal-body tr:last-child td:nth-child(4) input');
+          // Re-query each step since renderDeals() rewrites the tbody
+          const nameSel = () => document.querySelector('#ri-deal-body tr:last-child td:nth-child(1) input');
+          const valSel  = () => document.querySelector('#ri-deal-body tr:last-child td:nth-child(4) input');
 
-          // 1. Hop to the Deals tab
+          // 1. Switch to the Deals tab + give it a moment to render
           _schedTourTimer(() => {
             if (!tourActive) return;
             try { if (typeof riSwitchTab === 'function') riSwitchTab('deals'); } catch(e) {}
-          }, 800);
+          }, 700);
 
-          // 2. Spotlight the Add Deal button
-          _tourSpotElement('.ri-btn-primary[onclick*="riAddDeal"]', 'Add Deal', 2000);
+          // 2. Scroll the Add Deal button into clear view so user SEES the click happen
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const btn = document.querySelector('.ri-btn-primary[onclick*="riAddDeal"]');
+            if (btn) {
+              try { btn.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
+            }
+          }, 1500);
 
-          // 3. Ghost-cursor lands on Add Deal (visual only — doClick:false)
+          // 3. Ghost-cursor lands on Add Deal (visual only). doClick:false — we'll call
+          //    riAddDeal() explicitly so the row add doesn't happen twice.
           _schedTourTimer(() => {
             if (!tourActive) return;
             try { _tourGhostClick('.ri-btn-primary[onclick*="riAddDeal"]', { label: 'Add Deal', doClick: false }); } catch(e) {}
-          }, 3200);
+          }, 2800);
 
-          // 4. Actually add the row (once) — ~700ms after cursor lands
+          // 4. Actually add the row (single call), then immediately scroll the new row
+          //    into view so the user SEES the deal appear before we start typing.
           _schedTourTimer(() => {
             if (!tourActive) return;
             try { if (typeof riAddDeal === 'function') riAddDeal(); } catch(e) {}
-          }, 4000);
+            // Wait one frame for renderDeals(), then scroll + flash the new row
+            requestAnimationFrame(() => {
+              const row = document.querySelector('#ri-deal-body tr:last-child');
+              if (!row) return;
+              try { row.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
+              // Orange flash fade so the appearance of the new row is obvious
+              row.style.transition = 'background 1.2s ease-out';
+              row.style.background = 'rgba(255,140,26,0.22)';
+              setTimeout(() => { row.style.background = ''; }, 1500);
+            });
+          }, 3800);
 
-          // 5. Ghost-type deal NAME — single onDone chain (no nested selects that can fail
-          //    silently when roster is empty). Rep/stage still exist as editable cells for
-          //    the user; Step 2's job is to show the ghost-writer in action, not fill every
-          //    column.
+          // 5. Wait for render + scroll to settle, then ghost-type deal NAME
           _schedTourTimer(() => {
             if (!tourActive) return;
             const nameInput = nameSel();
             if (!nameInput) { _schedTourTimer(() => { if (tourActive) advanceTour(); }, 1000); return; }
             _tourGhostType(nameInput, 'Acme Corp — New Install', { speed: 55, onDone: function() {
-              // 6. Small breath, then ghost-type dollar VALUE on the SAME row
+              // 6. renderDeals() fires on the change event, wiping the tbody. Wait a beat
+              //    before querying again + ghost-type the $ value.
               _schedTourTimer(() => {
                 if (!tourActive) return;
                 const valInput = valSel();
                 if (!valInput) { _schedTourTimer(() => { if (tourActive) advanceTour(); }, 1000); return; }
                 _tourGhostType(valInput, '12000', { speed: 120, onDone: function() {
-                  // 7. Hold 2s on the populated row, then advance
-                  _schedTourTimer(() => { if (tourActive) advanceTour(); }, 2000);
+                  // 7. Hold 2.2s on the populated row, then advance
+                  _schedTourTimer(() => { if (tourActive) advanceTour(); }, 2200);
                 }});
-              }, 600);
+              }, 700);
             }});
-          }, 5200);
+          }, 5400);
         }
       },
       // 3. Deal Detail — ghost-writer fills customer contact info + note
