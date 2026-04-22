@@ -12161,9 +12161,10 @@
       },
       // (CRM moved to Step 1)
       // ═══ STEP 3 — TEAM SETUP ═══
+      // ═══ STEP 9 — BUILD YOUR TEAM (rebuilt: managedTimer, explicit advance after cards) ═══
       { selector: '#team-nav-btn', title: 'Build Your Team',
         desc: 'This green button is your team HQ. Admin creates a team, adds reps, shares the code. Reps join in seconds. Watch the flow.',
-        label: 'Step 9 of 39',
+        label: 'Step 9 of 39', managedTimer: true,
         onShow: () => {
           const cards = [
             { icon: '🔐', title: 'Step A: Admin Creates Team', body: 'Team Name: <strong style="color:#E8710A;">Acme Sales</strong><br>Team Code: <strong style="color:#E8710A;">ACME</strong><br>Admin PIN: <strong style="color:#E8710A;">••••</strong>', color: '#E8710A' },
@@ -12178,9 +12179,11 @@
               el.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><span style="font-size:1.2rem;">' + c.icon + '</span><span style="font-size:0.65rem;font-weight:800;color:' + c.color + ';letter-spacing:0.08em;text-transform:uppercase;">' + c.title + '</span></div><div style="line-height:1.7;color:#9A9088;">' + c.body + '</div>';
               document.body.appendChild(el);
               requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translate(-50%,-50%) scale(1)'; });
-              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => el.remove(), 500); }, 5000);
-            }, 2000 + i * 5500);
+              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => el.remove(), 500); }, 4500);
+            }, 2000 + i * 5000);
           });
+          // Advance after all 3 cards have shown + 1s breathing room
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 2000 + cards.length * 5000 + 1000);
         }
       },
       // ═══ STEP 10 — AI COACH (rebuilt: ghost-click crab, ghost-type Q, force-close) ═══
@@ -12219,12 +12222,11 @@
         label: 'Step 11 of 39'
       },
       // (Pulse MGMT removed from tour)
-      // ═══ STEP 6 — DOWNLOAD PULSE ═══
+      // ═══ STEP 12 — DOWNLOAD PULSE (rebuilt: managedTimer + explicit advance) ═══
       { selector: 'nav', title: 'Download PULSE to Your Desktop',
         desc: 'See that Install button in your browser\'s address bar? Click it and PULSE becomes a desktop app. Opens instantly, works offline, sits in your Start Menu or Dock. No app store needed.',
-        label: 'Step 12 of 39',
+        label: 'Step 12 of 39', managedTimer: true,
         onShow: () => {
-          // Show a centered card explaining the install
           _schedTourTimer(() => {
             if (!tourActive) return;
             const el = document.createElement('div');
@@ -12239,16 +12241,16 @@
               + '</div>';
             document.body.appendChild(el);
             requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translate(-50%,-50%) scale(1)'; });
-            setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => el.remove(), 500); }, 8000);
+            setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => el.remove(), 500); }, 7000);
           }, 2000);
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 10000);
         }
       },
-      // ═══ STEP 7 — WORKSPACE ═══
+      // ═══ STEP 13 — WORKSPACE (rebuilt: managedTimer + explicit advance) ═══
       { selector: '#ws-enter-btn', title: 'Custom Workspace',
         desc: 'Click Workspace to pop out any tool as a floating window. Drag it. Resize it. Open five at once. Build your own command center — like a trading floor for revenue.',
-        label: 'Step 13 of 39',
+        label: 'Step 13 of 39', managedTimer: true,
         onShow: () => {
-          // Show fake floating window mockups
           const windows = [
             { title: '📊 CRM', x: '15%', y: '30%', w: 200, delay: 2000 },
             { title: '💓 Pulse Check', x: '55%', y: '25%', w: 220, delay: 3500 },
@@ -12262,9 +12264,10 @@
               el.innerHTML = '<div style="padding:6px 10px;background:rgba(232,113,10,0.06);border-bottom:1px solid rgba(232,113,10,0.15);font-size:0.6rem;font-weight:800;color:#EDE5D8;display:flex;justify-content:space-between;"><span>' + win.title + '</span><span style="color:#ef4444;">✕</span></div><div style="padding:12px;height:60px;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.02) 0px,rgba(255,255,255,0.02) 8px,transparent 8px,transparent 16px);"></div>';
               document.body.appendChild(el);
               requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'scale(1)'; });
-              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'scale(0.9)'; setTimeout(() => el.remove(), 500); }, 6000);
+              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'scale(0.9)'; setTimeout(() => el.remove(), 500); }, 5500);
             }, win.delay);
           });
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 11500);
         }
       },
       // ═══ STEP 7 — HOUSE GOALS ═══
