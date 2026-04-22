@@ -12095,29 +12095,40 @@
           _schedTourTimer(function() { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 16000);
         }
       },
-      // 5. By Rep
+      // ═══ STEP 6 — YOUR TEAM (rebuilt, ghost-click + clean pacing) ═══
       { selector: '#rev-intel-section', title: 'Your Team',
-        desc: 'Every rep on your team. See who is carrying the most pipeline, who is closing, and who needs help. Click any rep card to see their deals. The assign button lets you give leads to specific reps.',
-        label: 'Step 6 of 39',
+        desc: 'Every rep on your team. See who is carrying the most pipeline, who is closing, and who needs help. Watch PULSE fan through each rep card, then ghost-click the top rep to show how you drill into their deals.',
+        label: 'Step 6 of 39', managedTimer: true,
         onShow: () => {
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('reps'); }, 1000);
-          // Highlight rep cards sequentially
+          // Hop to the reps tab
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riSwitchTab === 'function') riSwitchTab('reps'); } catch(e) {} }, 1000);
+          // Sequential rep-card glow — each card lights for 1.2s, then fades before the next
           _schedTourTimer(() => {
             if (!tourActive) return;
-            var cards = document.querySelectorAll('#ri-rep-breakdown > div > div');
+            const cards = document.querySelectorAll('#ri-rep-breakdown > div > div');
             cards.forEach(function(card, i) {
               _schedTourTimer(() => {
-                if (!tourActive) return;
-                card.style.transition = 'all 0.4s';
-                card.style.boxShadow = '0 0 0 2px rgba(232,113,10,0.5), 0 0 20px rgba(232,113,10,0.15)';
-                card.classList.add('tour-pulse-ring');
-                _schedTourTimer(() => { card.style.boxShadow = ''; card.classList.remove('tour-pulse-ring'); }, 3000);
-              }, i * 1500);
+                if (!tourActive || !card.isConnected) return;
+                card.style.transition = 'all 0.35s';
+                card.style.boxShadow = '0 0 0 2px rgba(232,113,10,0.55), 0 0 22px rgba(232,113,10,0.2)';
+                card.style.transform = 'translateY(-2px)';
+                _schedTourTimer(() => {
+                  card.style.boxShadow = '';
+                  card.style.transform = '';
+                }, 1200);
+              }, i * 1000);
             });
           }, 2000);
-          _tourArrowPointer('#ri-rep-breakdown > div > div', 'left', 2500);
-          _tourArrowPointer('#ri-rep-breakdown > div > div', 'right', 2500);
-          _tourSpotElement('#ri-rep-breakdown > div > div', '← Click to see their deals', 2500);
+          // Ghost-click the first rep card to show the drill-in interaction
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const firstCard = document.querySelector('#ri-rep-breakdown > div > div');
+            if (firstCard) {
+              try { _tourGhostClick(firstCard, { label: 'Click any rep', doClick: false }); } catch(e) {}
+            }
+          }, Math.max(3000, 2000 + (document.querySelectorAll('#ri-rep-breakdown > div > div').length || 0) * 1000));
+          // Advance after the sequence finishes
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 8500);
         }
       },
       // 6. Leaderboard
