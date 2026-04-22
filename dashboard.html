@@ -1936,8 +1936,11 @@
       text-transform: uppercase; color: #EDE5D8; padding: 11px 9px;
       border: 1px solid rgba(255,255,255,0.07); text-align: center; white-space: nowrap;
     }
-    .matrix-wrap thead tr th.th-missions { text-align: left; min-width: 100px; }
+    .matrix-wrap thead tr th.th-missions { text-align: left; min-width: 180px; }
     .matrix-wrap thead tr th.th-missions-sub { min-width: 56px; }
+    /* House goal rows: KPI name column needs to fit "Service Renewals", "Smart Home Bundle" etc. */
+    #house-goal-table .house-kpi-name { min-width: 180px; width: 180px; }
+    #house-goal-table .house-kpi-name input { font-size: 0.85rem !important; }
     .matrix-wrap thead tr th.th-metric { min-width: 76px; cursor: text; transition: background 0.15s; }
     .matrix-wrap thead tr th.th-metric:hover { background: #1A2025; }
     .matrix-wrap thead tr th.th-metric:focus { outline: none; background: #1A2025; color: #E8710A; }
@@ -2116,8 +2119,39 @@
     /* ── HOUSE GOAL TABLE ── */
     #house-goal-table { min-width: 400px; }
     #house-goal-table .house-kpi-name { text-align:left; font-size:0.75rem; font-weight:600; color:#EDE5D8; padding:10px 14px; }
-    #house-goal-table .house-goal-cell { font-size:0.82rem; color:#fff; }
-    #house-goal-table .house-goal-cell:focus { outline:none; background:rgba(232,113,10,0.07); }
+    /* Monthly House Goal column — where users TYPE their target numbers.
+       Visible dashed border + placeholder prompt so users know it's editable. */
+    #house-goal-table .house-goal-cell {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FF8C1A;
+      cursor: text;
+      background: rgba(232,113,10,0.06);
+      border: 1px dashed rgba(232,113,10,0.4);
+      border-radius: 6px;
+      padding: 6px 10px;
+      min-width: 90px;
+      min-height: 28px;
+      transition: all 0.2s;
+    }
+    #house-goal-table .house-goal-cell:hover {
+      background: rgba(232,113,10,0.12);
+      border-color: rgba(232,113,10,0.6);
+    }
+    #house-goal-table .house-goal-cell:focus {
+      outline: none;
+      background: rgba(232,113,10,0.14);
+      border: 1.5px solid #FF8C1A;
+      border-style: solid;
+      box-shadow: 0 0 0 3px rgba(232,113,10,0.2);
+    }
+    #house-goal-table .house-goal-cell:empty::before {
+      content: "click to type goal";
+      color: rgba(232,113,10,0.45);
+      font-weight: 500;
+      font-style: italic;
+      pointer-events: none;
+    }
     #house-goal-table .house-avg-cell { font-size:0.88rem; font-weight:800; color:#FF8C1A; }
     /* ── RHYTHM LEVEL DISTRIBUTION CHART ── */
     .tier-dist-wrap {
