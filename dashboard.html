@@ -12037,7 +12037,8 @@
           _schedTourTimer(() => {
             if (!tourActive) return;
             _tourPipelineFlow('Acme Corp — New Install', { onDone: function() {
-              _schedTourTimer(function() { if (tourActive) advanceTour(); }, 800);
+              // +10s hold after the card finishes its journey so user has time to read
+              _schedTourTimer(function() { if (tourActive) advanceTour(); }, 10800);
             }});
           }, 7500);
         }
@@ -14141,25 +14142,6 @@
         if (opts.onClick) opts.onClick();
         else if (opts.doClick !== false) { try { el.click(); } catch(e) {} }
       }, 600);
-    }
-
-    function _tourGhostSelect(selector, optionValue, opts) {
-      opts = opts || {};
-      const el = typeof selector === 'string' ? document.querySelector(selector) : selector;
-      if (!el || el.tagName !== 'SELECT') return;
-      // Cursor over dropdown
-      const rect = el.getBoundingClientRect();
-      _tourGhostCursor(rect.left + rect.width/2, rect.top + rect.height/2, opts.label || 'Select', 1600);
-      // Flash the select
-      const prevShadow = el.style.boxShadow;
-      el.style.transition = 'box-shadow 0.3s';
-      el.style.boxShadow = '0 0 0 3px rgba(232,113,10,0.6), 0 0 22px rgba(232,113,10,0.4)';
-      setTimeout(function() {
-        if (!tourActive) return;
-        el.value = optionValue;
-        el.dispatchEvent(new Event('change', { bubbles: true }));
-        setTimeout(function() { el.style.boxShadow = prevShadow; }, 800);
-      }, 1200);
     }
 
     // ── Tour lightbox helpers ─────────────────────────────────────────────────────
