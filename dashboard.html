@@ -12146,15 +12146,21 @@
       // 7. Forecast
       { selector: '#rev-intel-section', title: 'Revenue Forecast',
         desc: 'Your AI-powered crystal ball. The bar chart tracks monthly closed revenue — green bars are actual, the striped bar is projected. Hover any bar for the exact number. Below the chart, PULSE writes a plain-English narrative breaking down your trajectory, trends, and what to expect next month. It updates automatically as deals close or move stages.',
-        label: 'Step 8 of 39',
+        label: 'Step 8 of 39', managedTimer: true,
         onShow: () => {
           _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('forecast'); }, 1000);
+          // Zoom out the revenue intelligence section so the full forecast chart + narrative fit on screen
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { if (typeof pulseZoomSection === 'function') pulseZoomSection('rev-intel-section', 0.8); } catch(e) {}
+          }, 1600);
           _tourSpotElement('.ri-chart-wrap', 'Monthly revenue chart — hover bars for details', 3000);
-          _tourArrowPointer('.ri-chart-wrap', 'left', 3000);
-          _tourArrowPointer('.ri-chart-wrap', 'right', 3000);
           _tourSpotElement('#ri-forecast-narrative', 'AI writes your forecast narrative here', 6000);
-          _tourArrowPointer('#ri-forecast-narrative', 'left', 6000);
-          _tourArrowPointer('#ri-forecast-narrative', 'right', 6000);
+          // Reset the zoom when the step ends and advance
+          _schedTourTimer(() => {
+            try { if (typeof pulseZoomReset === 'function') pulseZoomReset(); } catch(e) {}
+            if (tourActive) advanceTour();
+          }, 12000);
         }
       },
       // (CRM moved to Step 1)
@@ -20700,6 +20706,77 @@
     applyLayout();
   }
   window.addEventListener('resize', applyLayout);
+})();
+</script>
+
+<!-- ── SECTION ZOOM WIDGET ──────────────────────────────────────────────
+     Floating ＋/− control bottom-right. Zooms the section most in view
+     (or the active tour step's target during a tour). Uses CSS zoom so
+     layout space resizes properly. Tour-safe. -->
+<div id="pulse-zoom-widget" style="position:fixed;bottom:110px;right:18px;z-index:99950;display:flex;flex-direction:column;gap:6px;background:rgba(17,21,24,0.92);border:1.5px solid rgba(232,113,10,0.45);border-radius:12px;padding:8px 6px;box-shadow:0 12px 36px rgba(0,0,0,0.6);backdrop-filter:blur(8px);font-family:inherit;">
+  <button onclick="pulseZoomStep(1)" title="Zoom in" style="width:36px;height:34px;background:rgba(232,113,10,0.15);border:1px solid rgba(232,113,10,0.5);border-radius:8px;color:#FF8C1A;font-size:1.1rem;font-weight:900;cursor:pointer;font-family:inherit;">＋</button>
+  <div id="pulse-zoom-level" style="text-align:center;font-size:0.58rem;font-weight:900;color:rgba(237,229,216,0.7);letter-spacing:0.08em;padding:2px 0;">100%</div>
+  <button onclick="pulseZoomStep(-1)" title="Zoom out" style="width:36px;height:34px;background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:1.1rem;font-weight:900;cursor:pointer;font-family:inherit;">−</button>
+  <button onclick="pulseZoomReset()" title="Reset zoom" style="width:36px;height:26px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:rgba(237,229,216,0.6);font-size:0.62rem;font-weight:800;cursor:pointer;font-family:inherit;">⟲</button>
+</div>
+<script>
+(function(){
+  var _zoomMap = new WeakMap();
+  function _currentTargetEl() {
+    try {
+      if (window.tourActive && typeof TOUR_STEPS !== 'undefined' && typeof tourStep === 'number') {
+        var step = TOUR_STEPS[tourStep];
+        if (step && step.selector) {
+          var el = document.querySelector(step.selector);
+          if (el) return el;
+        }
+      }
+    } catch(e) {}
+    var candidates = document.querySelectorAll('section[id], div[id$="-section"]');
+    var best = null, bestArea = 0;
+    candidates.forEach(function(el) {
+      var r = el.getBoundingClientRect();
+      var visibleTop = Math.max(0, r.top);
+      var visibleBottom = Math.min(window.innerHeight, r.bottom);
+      var visibleHeight = Math.max(0, visibleBottom - visibleTop);
+      if (visibleHeight > bestArea) { bestArea = visibleHeight; best = el; }
+    });
+    return best || document.body;
+  }
+  window.pulseZoomStep = function(delta) {
+    var el = _currentTargetEl();
+    if (!el) return;
+    var cur = _zoomMap.get(el) || 1;
+    cur = Math.max(0.5, Math.min(1.6, cur + delta * 0.1));
+    _zoomMap.set(el, cur);
+    el.style.zoom = String(cur);
+    var lbl = document.getElementById('pulse-zoom-level');
+    if (lbl) lbl.textContent = Math.round(cur * 100) + '%';
+    try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(e) {}
+  };
+  window.pulseZoomSection = function(sectionId, factor) {
+    // Programmatic zoom (used by tour steps). No-op outside tour bounds.
+    var el = document.getElementById(sectionId);
+    if (!el) return;
+    _zoomMap.set(el, factor);
+    el.style.zoom = String(factor);
+    var lbl = document.getElementById('pulse-zoom-level');
+    if (lbl) lbl.textContent = Math.round(factor * 100) + '%';
+  };
+  window.pulseZoomReset = function() {
+    var el = _currentTargetEl();
+    if (!el) return;
+    _zoomMap.delete(el);
+    el.style.zoom = '';
+    var lbl = document.getElementById('pulse-zoom-level');
+    if (lbl) lbl.textContent = '100%';
+  };
+  window.addEventListener('scroll', function() {
+    var el = _currentTargetEl();
+    var cur = _zoomMap.get(el) || 1;
+    var lbl = document.getElementById('pulse-zoom-level');
+    if (lbl) lbl.textContent = Math.round(cur * 100) + '%';
+  }, { passive: true });
 })();
 </script>
 
