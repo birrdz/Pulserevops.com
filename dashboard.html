@@ -12018,29 +12018,17 @@
         desc: 'This shows where every deal sits. Lead, Discovery, Proposal, Negotiation, Closed Won. Watch a deal travel through your pipeline — drag any real card from one column to another to move it through your sales process.',
         label: 'Step 4 of 39', managedTimer: true,
         onShow: () => {
+          // Switch to pipeline tab
           _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); }, 1000);
-          // Sequential column glow (no arrows — visual rhythm only)
-          _schedTourTimer(() => {
-            if (!tourActive) return;
-            const cols = document.querySelectorAll('.ri-kanban-col');
-            cols.forEach(function(col, i) {
-              _schedTourTimer(() => {
-                if (!tourActive) return;
-                col.style.transition = 'all 0.3s';
-                col.style.boxShadow = '0 0 0 2px rgba(232,113,10,0.5), 0 0 16px rgba(232,113,10,0.15)';
-                col.classList.add('tour-pulse-ring');
-                _schedTourTimer(() => { col.style.boxShadow = ''; col.classList.remove('tour-pulse-ring'); }, 3000);
-              }, i * 900);
-            });
-          }, 2000);
-          // Ghost deal card slides across every stage column — shows the journey visually
+          // Single synchronized ghost-card flow — the card carries the attention; columns
+          // glow as the card arrives. No separate pre-glow loop layered on top.
           _schedTourTimer(() => {
             if (!tourActive) return;
             _tourPipelineFlow('Acme Corp — New Install', { onDone: function() {
-              // +10s hold after the card finishes its journey so user has time to read
-              _schedTourTimer(function() { if (tourActive) advanceTour(); }, 10800);
+              // Hold 3s so user can read + absorb, then advance
+              _schedTourTimer(function() { if (tourActive) advanceTour(); }, 3000);
             }});
-          }, 7500);
+          }, 2200);
         }
       },
       // 5. Beats Cards
@@ -14079,45 +14067,78 @@
     }
 
     // Float a ghost deal card across the kanban columns, stage-by-stage.
+    // Synchronized pipeline-flow animation: ghost deal card slides through each kanban
+    // column, and the column it enters glows orange while the card is inside it.
+    // Cleaner than separate column-glow + card animations on top of each other.
     function _tourPipelineFlow(dealName, opts) {
       opts = opts || {};
       const stages = opts.stages || ['Lead','Discovery','Proposal','Negotiation','Closed Won'];
-      const cols = stages.map(function(s) {
-        return document.querySelector('.ri-kanban-col[data-stage="' + s + '"]');
-      });
-      if (!cols[0]) { if (opts.onDone) opts.onDone(); return; }
-      const _capturedIdx = tourStep;
-      const ghost = document.createElement('div');
-      ghost.className = 'tour-pipeline-ghost';
-      ghost.textContent = dealName;
-      const firstRect = cols[0].getBoundingClientRect();
-      ghost.style.cssText =
-        'position:fixed;z-index:99997;left:' + (firstRect.left + 10) + 'px;top:' + (firstRect.top + 46) + 'px;' +
-        'min-width:150px;max-width:220px;padding:10px 14px;background:rgba(232,113,10,0.14);' +
-        'border:1.5px solid #FF8C1A;border-radius:10px;color:#FFE0B0;font-weight:700;font-size:0.76rem;' +
-        'font-family:inherit;letter-spacing:0.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' +
-        'box-shadow:0 8px 28px rgba(232,113,10,0.5),0 0 24px rgba(232,113,10,0.35);' +
-        'transition:left 0.85s cubic-bezier(0.4,0,0.2,1), top 0.85s cubic-bezier(0.4,0,0.2,1), opacity 0.4s;' +
-        'pointer-events:none;opacity:0;transform:translateZ(0);';
-      document.body.appendChild(ghost);
-      requestAnimationFrame(function() { ghost.style.opacity = '1'; });
-      let stageIdx = 0;
-      function moveNext() {
-        if (!tourActive || tourStep !== _capturedIdx) { ghost.remove(); return; }
-        stageIdx++;
-        if (stageIdx >= cols.length || !cols[stageIdx]) {
-          _schedTourTimer(function() {
-            ghost.style.opacity = '0';
-            setTimeout(function() { ghost.remove(); if (opts.onDone) opts.onDone(); }, 500);
-          }, 900);
-          return;
-        }
-        const r = cols[stageIdx].getBoundingClientRect();
-        ghost.style.left = (r.left + 10) + 'px';
-        ghost.style.top  = (r.top + 46) + 'px';
-        _schedTourTimer(moveNext, opts.stagePause || 950);
+      // Ensure the kanban is actually rendered by trying multiple times if cols aren't ready.
+      function _getCols() {
+        return stages.map(function(s) {
+          return document.querySelector('.ri-kanban-col[data-stage="' + s + '"]');
+        });
       }
-      _schedTourTimer(moveNext, opts.startDelay || 700);
+      function _launch(cols) {
+        const _capturedIdx = tourStep;
+        const ghost = document.createElement('div');
+        ghost.className = 'tour-pipeline-ghost';
+        ghost.textContent = dealName;
+        const firstRect = cols[0].getBoundingClientRect();
+        ghost.style.cssText =
+          'position:fixed;z-index:99997;left:' + (firstRect.left + 12) + 'px;top:' + (firstRect.top + 52) + 'px;' +
+          'min-width:150px;max-width:220px;padding:11px 14px;background:rgba(232,113,10,0.18);' +
+          'border:1.5px solid #FF8C1A;border-radius:10px;color:#FFE0B0;font-weight:800;font-size:0.78rem;' +
+          'font-family:inherit;letter-spacing:0.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' +
+          'box-shadow:0 10px 32px rgba(232,113,10,0.55),0 0 28px rgba(232,113,10,0.4);' +
+          'transition:left 0.9s cubic-bezier(0.4,0,0.2,1), top 0.9s cubic-bezier(0.4,0,0.2,1), opacity 0.45s;' +
+          'pointer-events:none;opacity:0;transform:translateZ(0);will-change:left,top;';
+        document.body.appendChild(ghost);
+        function _glow(col, on) {
+          if (!col) return;
+          col.style.transition = 'box-shadow 0.35s, background 0.35s';
+          col.style.boxShadow = on ? '0 0 0 2px rgba(232,113,10,0.7), 0 0 28px rgba(232,113,10,0.3)' : '';
+          col.style.background = on ? 'rgba(232,113,10,0.06)' : '';
+        }
+        // Fade in + glow stage 0
+        requestAnimationFrame(function() { ghost.style.opacity = '1'; _glow(cols[0], true); });
+        let stageIdx = 0;
+        function moveNext() {
+          if (!tourActive || tourStep !== _capturedIdx) {
+            cols.forEach(function(c){ _glow(c, false); });
+            ghost.remove();
+            return;
+          }
+          _glow(cols[stageIdx], false);
+          stageIdx++;
+          if (stageIdx >= cols.length || !cols[stageIdx]) {
+            // Final fade-out — hold briefly on last stage, then dissolve
+            _schedTourTimer(function() {
+              ghost.style.opacity = '0';
+              setTimeout(function() {
+                ghost.remove();
+                cols.forEach(function(c){ _glow(c, false); });
+                if (opts.onDone) opts.onDone();
+              }, 500);
+            }, 900);
+            return;
+          }
+          _glow(cols[stageIdx], true);
+          const r = cols[stageIdx].getBoundingClientRect();
+          ghost.style.left = (r.left + 12) + 'px';
+          ghost.style.top  = (r.top + 52) + 'px';
+          _schedTourTimer(moveNext, opts.stagePause || 950);
+        }
+        _schedTourTimer(moveNext, opts.startDelay || 800);
+      }
+      // Poll briefly (up to 1.2s) for kanban cols — tab switch may not be done rendering yet
+      let tries = 0;
+      (function attempt() {
+        const cols = _getCols();
+        if (cols[0]) { _launch(cols); return; }
+        if (++tries < 6) setTimeout(attempt, 200);
+        else if (opts.onDone) opts.onDone();
+      })();
     }
 
     function _tourGhostCursor(x, y, label, holdMs) {
