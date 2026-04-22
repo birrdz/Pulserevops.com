@@ -2478,17 +2478,17 @@
       top: 80px !important;
       bottom: auto !important;
       left: auto !important;
-      right: 4px !important;
-      width: 220px !important;
-      max-width: min(220px, calc(100vw - 16px)) !important;
+      right: 14px !important;
+      width: 380px !important;
+      max-width: min(380px, calc(100vw - 28px)) !important;
       max-height: calc(100vh - 100px) !important;
       transform: none !important;
       border-radius: 16px !important;
-      background: rgba(17,21,24,0.95);
+      background: rgba(17,21,24,0.96);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(232,113,10,0.3) !important;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      border: 1.5px solid rgba(232,113,10,0.45) !important;
+      box-shadow: 0 12px 44px rgba(0, 0, 0, 0.6), 0 0 30px rgba(232,113,10,0.12);
       z-index: 10001 !important;
     }
     #tour-tooltip.tour-tooltip-docked .tour-footer {
@@ -2514,9 +2514,9 @@
     #tour-tooltip.tour-tooltip-docked #tour-tooltip-body {
       padding: 6px 16px 0;
     }
-    #tour-tooltip.tour-tooltip-docked .tour-title { font-size: 0.85rem; margin-bottom: 6px; }
-    #tour-tooltip.tour-tooltip-docked .tour-desc { font-size: 0.72rem; margin-bottom: 8px; line-height: 1.5; }
-    #tour-tooltip.tour-tooltip-docked .tour-step-label { margin-bottom: 4px; font-size: 0.5rem; }
+    #tour-tooltip.tour-tooltip-docked .tour-title { font-size: 1.05rem; margin-bottom: 8px; line-height: 1.25; }
+    #tour-tooltip.tour-tooltip-docked .tour-desc { font-size: 0.82rem; margin-bottom: 10px; line-height: 1.55; }
+    #tour-tooltip.tour-tooltip-docked .tour-step-label { margin-bottom: 6px; font-size: 0.58rem; }
     #tour-tooltip.tour-tooltip-docked .tour-footer { padding: 6px 12px 8px; flex-direction: column; gap: 6px; }
     #tour-tooltip.tour-tooltip-docked #tour-tooltip-body { padding: 8px 14px 0; }
     #tour-tooltip.tour-tooltip-docked #tour-drag-handle { padding: 4px 0 0; }
@@ -8377,17 +8377,17 @@
         return false;
       }
       function _fire() {
-        // Tour-safe: bail while the tour is active — tour's runTourDemoData explicitly drives
-        // these sync functions, and per-char cascades during ghost-typing stall the tour.
-        if (window.tourActive || window._tourStarting) return;
+        // During tour: use a LONG debounce (1200ms) instead of bailing outright.
+        // This prevents per-keystroke cascades during ghost-typing from stalling the tour
+        // while still letting the matrixes update at natural pauses between tour steps.
+        var debounce = (window.tourActive || window._tourStarting) ? 1200 : 180;
         clearTimeout(_pulseHcSyncTimer);
         _pulseHcSyncTimer = setTimeout(function() {
-          if (window.tourActive || window._tourStarting) return;
           try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); } catch(err) {}
           try { if (typeof recalcHouseAvgs === 'function') recalcHouseAvgs(); } catch(err) {}
           try { if (typeof pulseRenderHoneycomb === 'function') pulseRenderHoneycomb(); } catch(err) {}
           try { if (typeof updateTierChart === 'function') updateTierChart(); } catch(err) {}
-        }, 180);
+        }, debounce);
       }
       document.addEventListener('input', function(e) { if (_maybeSync(e.target)) _fire(); });
       document.addEventListener('blur',  function(e) { if (_maybeSync(e.target)) _fire(); }, true);
@@ -12187,28 +12187,34 @@
           });
         }
       },
-      // ═══ STEP 3 — AI COACH ═══
+      // ═══ STEP 10 — AI COACH (rebuilt: ghost-click crab, ghost-type Q, force-close) ═══
       { selector: '#ai-coach-fab', title: 'Your AI Sales Coach',
         desc: 'See the crab? Click it anytime. Ask it anything — slumping reps, pipeline problems, comp plan questions, how to fire someone gracefully. Watch PULSE open the coach and ghost-type a real question.',
         label: 'Step 10 of 39', managedTimer: true,
         onShow: () => {
-          // Ghost-click the crab FAB, open the coach panel, ghost-type a question, close it
+          // Ghost-click the crab FAB (visual cursor)
           _schedTourTimer(() => {
             if (!tourActive) return;
-            try { _tourGhostClick('#ai-coach-fab', { label: 'Ask the Coach' }); } catch(e) {}
-            try { if (typeof toggleCoach === 'function') toggleCoach(); } catch(e) {}
-          }, 2000);
+            try { _tourGhostClick('#ai-coach-fab', { label: 'Ask the Coach', doClick: false }); } catch(e) {}
+          }, 1500);
+          // Force-OPEN the coach panel (explicit, not toggle — prevents "already open" bugs)
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const panel = document.getElementById('ai-coach-panel');
+            if (panel && !panel.classList.contains('open')) panel.classList.add('open');
+          }, 2800);
+          // Ghost-type the question — wait for panel transition to settle
           _schedTourTimer(() => {
             if (!tourActive) return;
             const input = document.getElementById('coach-input');
             if (input) _tourGhostType(input, 'Sarah missed quota two months in a row — what do I say in the 1:1?', { speed: 40 });
-          }, 3400);
-          // Close coach after demo
+          }, 3600);
+          // Force-CLOSE (explicit remove, not toggle) so it reliably goes away no matter what
           _schedTourTimer(() => {
-            if (!tourActive) return;
-            try { if (typeof toggleCoach === 'function') toggleCoach(); } catch(e) {}
-          }, 10500);
-          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 11500);
+            const panel = document.getElementById('ai-coach-panel');
+            if (panel) panel.classList.remove('open');
+          }, 11500);
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 12200);
         }
       },
       // ═══ STEP 4 — LIVE SYNC ═══
@@ -12565,7 +12571,7 @@
       },
       // ═══ STEP 22 — REP SCHEDULING ═══
       { selector: '#sched-matrix-section', title: 'Rep Scheduling Matrix',
-        desc: 'Scheduling is math, not vibes. Take the average gross profit a rep produces per day. Divide it into the daily GP target you\'ve agreed they should hit just by showing up and doing average work. That ratio tells you the minimum number of reps you need on the floor that day. PULSE then slices those reps into 6-hour shifts across opening, mid-day, and closing windows — no doubles unless absolutely necessary.',
+        desc: 'Scheduling is math, not vibes. PULSE takes the average gross profit of that shift on that day and divides it by the agreed-upon "get out of bed" GP each rep owes you just for showing up. That ratio is the minimum number of reps you need on the floor that day. PULSE then slices them into 6-hour shifts across opening, mid-day, and closing windows — no doubles unless absolutely necessary.',
         label: 'Step 27 of 39',
         onShow: () => {
           _schedTourTimer(() => {
@@ -14280,6 +14286,19 @@
 
       // Always clear previous section glows before applying new ones
       if (typeof cleanupMatrixBonusDemo === 'function') cleanupMatrixBonusDemo();
+      // Close the AI Coach panel between steps unless THIS step's onShow opens it
+      // (prevents the crab from staying open after Step 10 "Ask the Coach" demo)
+      try {
+        const _coach = document.getElementById('ai-coach-panel');
+        if (_coach && _coach.classList.contains('open') && idx !== 9) {
+          _coach.classList.remove('open');
+        }
+      } catch(e) {}
+      // Reset any honeycomb zoom left over from a previous step
+      try {
+        const _rev = document.getElementById('rev-intel-section');
+        if (_rev && _rev.style.zoom && step.selector !== '#rev-intel-section') _rev.style.zoom = '';
+      } catch(e) {}
       // Reset fullstage zoom-out from previous step
       document.body.style.transform = '';
       document.body.style.transformOrigin = '';
