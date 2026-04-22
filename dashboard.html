@@ -11872,41 +11872,39 @@
 
     const TOUR_STEPS = [
       // ═══ CRM BLOCK (Steps 1-8) ═══════════════════════════════════════════════
-      // ═══ STEP 1 — WELCOME (rebuilt: narration + desc ghost-type + 3-vital spotlight) ═══
+      // ═══ STEP 1 — WELCOME (rebuilt shorter: ~12s narration, tighter copy) ═══
       { selector: '#rev-intel-section', title: 'Welcome to Pulse',
-        desc: "You aren't just looking at a CRM. You're looking at the central nervous system of your entire go-to-market strategy. In the world of Revenue Operations, good enough data is the silent killer of growth. We built Pulse because when your sales, marketing, and success teams vibrate at different frequencies, you lose more than deals — you lose momentum. Leads, pipeline, AI revenue forecasting, sales meetings, speeches — we did it all for you. We got you.",
+        desc: "Not just a CRM — the central nervous system of your entire go-to-market. Leads, pipeline, AI forecasting, meetings, speeches. We did it all. We got you.",
         label: 'Step 1 of 39', managedTimer: true, customNarration: true,
         onShow: () => {
-          // showTourStep's default ghostDesc fires and types the desc as the narration plays.
-          // Spotlight the three vital cards in sequence (Total Pipeline, Projected Revenue, Win Rate)
+          // 3-card spotlight sequence (Total Pipeline → Projected Revenue → Win Rate)
           _tourSpotSequence([
             {sel: '.ri-vital-card:nth-child(1)', label: 'Total Pipeline'},
             {sel: '.ri-vital-card:nth-child(2)', label: 'Projected Revenue'},
             {sel: '.ri-vital-card:nth-child(3)', label: 'Win Rate'},
           ]);
-          // Load demo data early so Steps 2+ have real rows to work with
-          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riLoadDemo === 'function') riLoadDemo(true); } catch(e) {} }, 4000);
-          // Narration — speaks the monologue and advances on natural end
+          // Load demo data right away so Steps 2+ have rows
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riLoadDemo === 'function') riLoadDemo(true); } catch(e) {} }, 1500);
+          // Short narration — advances on natural end (~12s) with 14s fallback if muted
           _schedTourTimer(() => {
             if (!tourActive) return;
-            // Audio muted or no speech API → hard advance at 28s so tour doesn't stall
             if (_narratorMuted || !window.speechSynthesis) {
-              _schedTourTimer(() => { if (tourActive) advanceTour(); }, 28000);
+              _schedTourTimer(() => { if (tourActive) advanceTour(); }, 13000);
               return;
             }
             try { window.speechSynthesis.cancel(); } catch(e) {}
-            const monologue = "Welcome to Pulse. You aren't just looking at a CRM. You're looking at the central nervous system of your entire go-to-market strategy. Good enough data is the silent killer of growth. When your sales, marketing, and success teams vibrate at different frequencies, you lose more than deals — you lose momentum. Leads, pipeline, AI revenue forecasting, sales meetings, speeches — we did it all for you. We got you.";
+            const monologue = "Welcome to Pulse. Not just a CRM — the central nervous system of your entire go-to-market. Leads, pipeline, AI forecasting, meetings, speeches. We did it all. We got you.";
             _withVoices(function() {
               _doSpeak(monologue, function() {
-                _schedTourTimer(() => { if (tourActive) advanceTour(); }, 800);
+                _schedTourTimer(() => { if (tourActive) advanceTour(); }, 600);
               });
-              // Absolute timeout so Step 1 can't stall the tour even if speech API hangs
+              // Absolute timeout — Step 1 never stalls the tour
               _schedTourTimer(() => {
                 if (tourActive && tourStep === 0) {
                   try { window.speechSynthesis.cancel(); } catch(e) {}
                   advanceTour();
                 }
-              }, 40000);
+              }, 18000);
             });
           }, 300);
         }
