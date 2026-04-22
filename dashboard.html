@@ -11872,46 +11872,43 @@
 
     const TOUR_STEPS = [
       // ═══ CRM BLOCK (Steps 1-8) ═══════════════════════════════════════════════
-      // 1. Welcome to Pulse — central nervous system intro (user's exact script)
-      // managedTimer: true so we drive narration + advance manually
-      // customNarration: true so showTourStep does NOT auto-narrate (we do it ourselves below)
+      // ═══ STEP 1 — WELCOME (rebuilt: narration + desc ghost-type + 3-vital spotlight) ═══
       { selector: '#rev-intel-section', title: 'Welcome to Pulse',
-        desc: "You aren't just looking at a CRM; you're looking at the central nervous system of your entire go-to-market strategy. In the world of Revenue Operations, good enough data is the silent killer of growth. We built Pulse because we know that when your sales, marketing, and success teams are vibrating at different frequencies, you lose more than just deals — you lose momentum. We literally have done it all for you: leads, pipeline, AI revenue forecasting, building sales meetings, writing speeches. We got you.",
+        desc: "You aren't just looking at a CRM. You're looking at the central nervous system of your entire go-to-market strategy. In the world of Revenue Operations, good enough data is the silent killer of growth. We built Pulse because when your sales, marketing, and success teams vibrate at different frequencies, you lose more than deals — you lose momentum. Leads, pipeline, AI revenue forecasting, sales meetings, speeches — we did it all for you. We got you.",
         label: 'Step 1 of 39', managedTimer: true, customNarration: true,
         onShow: () => {
-          // Ghost-writer desc handled by showTourStep default (adaptive speed for 550 chars).
-          // Spotlight the three vital cards (no heavy load)
+          // showTourStep's default ghostDesc fires and types the desc as the narration plays.
+          // Spotlight the three vital cards in sequence (Total Pipeline, Projected Revenue, Win Rate)
           _tourSpotSequence([
             {sel: '.ri-vital-card:nth-child(1)', label: 'Total Pipeline'},
             {sel: '.ri-vital-card:nth-child(2)', label: 'Projected Revenue'},
             {sel: '.ri-vital-card:nth-child(3)', label: 'Win Rate'},
           ]);
-          // NUCLEAR NARRATION: speak the full monologue directly and advance when done.
-          // Bypasses the standard narration path which was failing intermittently.
+          // Load demo data early so Steps 2+ have real rows to work with
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riLoadDemo === 'function') riLoadDemo(true); } catch(e) {} }, 4000);
+          // Narration — speaks the monologue and advances on natural end
           _schedTourTimer(() => {
-            if (!tourActive || _narratorMuted || !window.speechSynthesis) {
-              // Fall back to a hard 35s advance if narration can't run
-              _schedTourTimer(() => { if (tourActive) advanceTour(); }, 35000);
+            if (!tourActive) return;
+            // Audio muted or no speech API → hard advance at 28s so tour doesn't stall
+            if (_narratorMuted || !window.speechSynthesis) {
+              _schedTourTimer(() => { if (tourActive) advanceTour(); }, 28000);
               return;
             }
             try { window.speechSynthesis.cancel(); } catch(e) {}
-            var monologue = "Welcome to Pulse. You aren't just looking at a CRM. You're looking at the central nervous system of your entire go-to-market strategy. In the world of Revenue Operations, good enough data is the silent killer of growth. We built Pulse because we know that when your sales, marketing, and success teams are vibrating at different frequencies, you lose more than just deals. You lose momentum. We literally have done it all for you: leads, pipeline, AI revenue forecasting, building sales meetings, writing speeches. We got you.";
+            const monologue = "Welcome to Pulse. You aren't just looking at a CRM. You're looking at the central nervous system of your entire go-to-market strategy. Good enough data is the silent killer of growth. When your sales, marketing, and success teams vibrate at different frequencies, you lose more than deals — you lose momentum. Leads, pipeline, AI revenue forecasting, sales meetings, speeches — we did it all for you. We got you.";
             _withVoices(function() {
               _doSpeak(monologue, function() {
-                // On narration end: wait 1s then advance
-                _schedTourTimer(function() { if (tourActive) advanceTour(); }, 1000);
+                _schedTourTimer(() => { if (tourActive) advanceTour(); }, 800);
               });
-              // Belt-and-suspenders: if onEnd never fires for any reason, force advance at 45s
-              _schedTourTimer(function() {
+              // Absolute timeout so Step 1 can't stall the tour even if speech API hangs
+              _schedTourTimer(() => {
                 if (tourActive && tourStep === 0) {
                   try { window.speechSynthesis.cancel(); } catch(e) {}
                   advanceTour();
                 }
-              }, 45000);
+              }, 40000);
             });
-          }, 400);
-          // Delay demo data load until narration is well underway
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(true); }, 8000);
+          }, 300);
         }
       },
       // 2. Adding Leads — ghost-writer fills all 4 deal fields, then the deal travels the pipeline
@@ -11927,10 +11924,12 @@
             {sel: '.ri-deal-table thead', label: 'Your deals appear here'},
             {sel: '#ri-rep-filter', label: 'Filter by rep'},
           ]);
-          // Ghost-click the Add Deal button (visual cursor + create the row)
+          // Ghost-click the Add Deal button — cursor animation ONLY (doClick:false).
+          // riAddDeal() is called explicitly once below so we don't get double-adds
+          // from the cursor's real .click() event + this call both adding a row.
           _schedTourTimer(() => {
             if (!tourActive) return;
-            try { if (typeof _tourGhostClick === 'function') _tourGhostClick('.ri-btn-primary[onclick*="riAddDeal"]', { label: 'Add Deal' }); } catch(e) {}
+            try { if (typeof _tourGhostClick === 'function') _tourGhostClick('.ri-btn-primary[onclick*="riAddDeal"]', { label: 'Add Deal', doClick: false }); } catch(e) {}
             try { if (typeof riAddDeal === 'function') riAddDeal(); } catch(e) {}
           }, 3500);
           // Chain: name → rep → value → stage → switch to pipeline → flow ghost card across stages → advance
