@@ -12015,22 +12015,27 @@
           }, 4600);
         }
       },
-      // 4. Pipeline — ghost card flows through every stage, no arrows
+      // ═══ STEP 4 — YOUR PIPELINE (rebuilt: deal name travels every column, column glows match) ═══
       { selector: '#rev-intel-section', title: 'Your Pipeline',
-        desc: 'This shows where every deal sits. Lead, Discovery, Proposal, Negotiation, Closed Won. Watch a deal travel through your pipeline — drag any real card from one column to another to move it through your sales process.',
+        desc: 'This shows where every deal sits — Lead, Discovery, Proposal, Negotiation, Closed Won. Watch a named deal card travel every stage of your pipeline while each column glows as the deal arrives. Drag any real card from one column to another to move it through your sales process.',
         label: 'Step 4 of 39', managedTimer: true,
         onShow: () => {
-          // Switch to pipeline tab
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); }, 1000);
-          // Single synchronized ghost-card flow — the card carries the attention; columns
-          // glow as the card arrives. No separate pre-glow loop layered on top.
+          // 1. Switch to pipeline tab first — synchronized flow needs the kanban rendered
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); } catch(e) {} }, 800);
+          // 2. Wait for tab transition, then run the single synchronized card-flow animation.
+          //    _tourPipelineFlow glows the column as the card enters and fades it as the card
+          //    moves on — no separate pre-pulse loop layered on top.
           _schedTourTimer(() => {
             if (!tourActive) return;
-            _tourPipelineFlow('Acme Corp — New Install', { onDone: function() {
-              // Hold 3s so user can read + absorb, then advance
-              _schedTourTimer(function() { if (tourActive) advanceTour(); }, 3000);
-            }});
-          }, 2200);
+            _tourPipelineFlow('Acme Corp — New Install', {
+              startDelay: 600,       // brief settle after fade-in before first move
+              stagePause: 1100,      // slower pace so user reads the column label at each stop
+              onDone: function() {
+                // Hold 2.5s at Closed Won so user absorbs the endpoint, then advance
+                _schedTourTimer(() => { if (tourActive) advanceTour(); }, 2500);
+              }
+            });
+          }, 2400);
         }
       },
       // ═══ STEP 5 — BEATS CARDS (rebuilt: managedTimer + explicit advance) ═══
