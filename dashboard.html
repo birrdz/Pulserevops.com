@@ -8309,10 +8309,10 @@
 
       // Header row of KPI names — centered block with invisible label placeholder
       html += '<div style="display:flex;align-items:flex-end;justify-content:center;margin-bottom:10px;width:100%;">';
-      html += '<div style="width:110px;padding-right:14px;flex-shrink:0;"></div>';
+      html += '<div style="width:88px;padding-right:10px;flex-shrink:0;"></div>';
       html += '<div style="display:flex;gap:4px;flex:0 1 auto;justify-content:center;">';
       kpiLabels.forEach(function(k) {
-        html += '<div style="flex:0 0 74px;width:74px;text-align:center;font-size:0.54rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:rgba(237,229,216,0.75);line-height:1.2;overflow:hidden;text-overflow:ellipsis;padding:0 2px;">' + (k || '') + '</div>';
+        html += '<div style="flex:0 0 62px;width:62px;text-align:center;font-size:0.52rem;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:rgba(237,229,216,0.75);line-height:1.15;overflow:hidden;text-overflow:ellipsis;padding:0 2px;">' + (k || '') + '</div>';
       });
       html += '</div></div>';
 
@@ -8326,7 +8326,7 @@
         });
         // Row: label + centered hex track. Whole row centered as a unit.
         html += '<div class="pulse-hex-row" style="display:flex;align-items:center;justify-content:center;margin-bottom:6px;width:100%;">';
-        html += '<div style="width:110px;text-align:right;padding-right:14px;font-size:0.7rem;font-weight:900;letter-spacing:0.06em;flex-shrink:0;">';
+        html += '<div style="width:88px;text-align:right;padding-right:10px;font-size:0.64rem;font-weight:900;letter-spacing:0.04em;flex-shrink:0;">';
         html += '<div style="color:' + tierLabelColors[ti] + ';">LEVEL ' + (ti+1) + '</div>';
         html += '<div style="font-size:0.55rem;font-weight:800;color:rgba(237,229,216,0.5);letter-spacing:0.04em;margin-top:2px;text-transform:uppercase;">' + tierLabels[ti] + '</div>';
         html += '<div style="font-size:0.55rem;font-weight:700;color:rgba(237,229,216,0.35);margin-top:1px;">' + tierPoints[ti].toLocaleString() + ' pts</div>';
@@ -8334,15 +8334,15 @@
         html += '<div class="pulse-hex-track" style="display:flex;gap:4px;flex:0 1 auto;justify-content:center;">';
         vals.forEach(function(v, vi) {
           html += '<div class="pulse-hex" title="' + (kpiLabels[vi] || 'KPI ' + (vi+1)) + ' · Level ' + (ti+1) + ' · ' + v + '" ' +
-            'style="flex:0 0 74px;width:74px;height:82px;' +
+            'style="flex:0 0 62px;width:62px;height:68px;' +
             'clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);' +
             'background:' + tierColorCss[ti] + ';overflow:hidden;' +
             'display:flex;align-items:center;justify-content:center;flex-direction:column;' +
             'cursor:pointer;transition:transform 0.2s, filter 0.2s;position:relative;' +
             (ti === 4 ? 'box-shadow:0 0 18px rgba(255,140,26,0.35);' : '') +
             '" onmouseover="this.style.transform=\'scale(1.08)\';this.style.filter=\'brightness(1.2)\';this.style.zIndex=3;" onmouseout="this.style.transform=\'\';this.style.filter=\'\';this.style.zIndex=1;">';
-          html += '<span style="font-size:0.82rem;font-weight:900;color:#fff;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,0.8);padding:0 3px;text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;">' + _hcFmt(v) + '</span>';
-          html += '<span style="font-size:0.48rem;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:0.06em;margin-top:4px;text-transform:uppercase;text-shadow:0 1px 2px rgba(0,0,0,0.8);">' + ((ti+1)*10) + ' pts</span>';
+          html += '<span style="font-size:0.7rem;font-weight:900;color:#fff;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,0.8);padding:0 2px;text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;">' + _hcFmt(v) + '</span>';
+          html += '<span style="font-size:0.42rem;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:0.05em;margin-top:3px;text-transform:uppercase;text-shadow:0 1px 2px rgba(0,0,0,0.8);">' + ((ti+1)*10) + ' pts</span>';
           html += '</div>';
         });
         html += '</div>';
