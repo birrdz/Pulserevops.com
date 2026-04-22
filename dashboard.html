@@ -3989,8 +3989,7 @@
       <div class="nav-dropdown-wrap" id="nav-dropdown-wrap">
         <select class="nav-dropdown" id="nav-dropdown" onchange="handleNavDropdown(this)" aria-label="Navigate to section">
           <option value="" disabled selected>Navigate to…</option>
-          <option value="dashboard.html#house-goal-table">🏠 House Goal Setting</option>
-            <option value="dashboard.html#inline-matrix">💓 Pulse Check</option>
+          <option value="dashboard.html#house-goal-table">🏠💓 House Goals + Pulse Check</option>
             <option value="dashboard.html#tier-dist-section">📊 Rhythm Level Distribution</option>
             <option value="dashboard.html#profit-calc-section">💰 Gross Profit Calculator</option>
             <option value="dashboard.html#service-fees-section">💵 Service Fees</option>
@@ -14662,14 +14661,23 @@
     function handleNavDropdown(sel) {
       const val = sel.value;
       if (!val) return;
+      // Release the CRM scroll lock so user can actually scroll past the CRM section
+      try { if (typeof window._unlockCRMScroll === 'function') window._unlockCRMScroll(); } catch(e) {}
       // Delay reset so mobile native picker can close cleanly first
       setTimeout(() => { sel.selectedIndex = 0; }, 400);
 
       function _scrollTo(el) {
         if (!el) return;
-        // If element is hidden (dashboard mode), temporarily force it visible
-        if (el.offsetParent === null || getComputedStyle(el).display === 'none') {
-          el.style.setProperty('display', 'block', 'important');
+        // Force the target AND every ancestor visible so scroll lands on a painted element
+        var node = el;
+        while (node && node !== document.body) {
+          try {
+            var cs = getComputedStyle(node);
+            if (cs.display === 'none') node.style.setProperty('display', 'block', 'important');
+            if (cs.visibility === 'hidden') node.style.setProperty('visibility', 'visible', 'important');
+            if (cs.opacity === '0') node.style.setProperty('opacity', '1', 'important');
+          } catch(e) {}
+          node = node.parentElement;
         }
         const navH = 90;
         const top = window.scrollY + el.getBoundingClientRect().top - navH - 48;
