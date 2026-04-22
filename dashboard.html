@@ -12120,14 +12120,23 @@
         }
       },
       // 6. Leaderboard
+      // ═══ STEP 7 — HALL OF HEROES (rebuilt: ghost-cycles category dropdown, clean advance) ═══
       { selector: '#rev-intel-section', title: 'Hall of Heroes — Leaderboards',
-        desc: 'Who is number one? Gold, silver, bronze for the top three. Use the dropdown in the top right to switch between 14 different categories — gross profit, win rate, deal count, and more.',
-        label: 'Step 7 of 39',
+        desc: 'Who is number one? Gold, silver, bronze for the top three. Watch PULSE cycle the dropdown through a few of the 14 categories — gross profit, win rate, deal count, and more — so the leaderboard reshuffles in real time.',
+        label: 'Step 7 of 39', managedTimer: true,
         onShow: () => {
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('leaders'); }, 1000);
-          _tourSpotElement('select[onchange*="_lbCategory"]', '← Switch categories here', 3000);
-          _tourArrowPointer('select[onchange*="_lbCategory"]', 'left', 3000);
-          _tourArrowPointer('select[onchange*="_lbCategory"]', 'right', 3000);
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riSwitchTab === 'function') riSwitchTab('leaders'); } catch(e) {} }, 1000);
+          _tourSpotElement('select[onchange*="_lbCategory"]', 'Category dropdown', 2200);
+          // Ghost-cycle through 3 categories so the leaderboard visibly reshuffles
+          const cats = ['winRate', 'dealCount', 'grossProfit'];
+          cats.forEach(function(cat, i) {
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const sel = document.querySelector('select[onchange*="_lbCategory"]');
+              if (sel) _tourGhostSelect(sel, cat, { delay: 200, label: 'Category: ' + cat });
+            }, 3400 + i * 2200);
+          });
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 3400 + cats.length * 2200 + 1200);
         }
       },
       // 7. Forecast
