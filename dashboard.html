@@ -2502,6 +2502,9 @@
     .tour-step-label { font-size:0.58rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--cyan); margin-bottom:10px; }
     .tour-title { font-size:1.15rem; font-weight:800; color:#fff; margin-bottom:10px; line-height:1.3; }
     .tour-desc { font-size:0.88rem; color:#9A9088; line-height:1.65; margin-bottom:16px; }
+    /* Ghost-writer cursor — blinks at end of typed tour-desc while narration speaks */
+    @keyframes tour-desc-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+    .tour-desc-cursor { display:inline-block; margin-left:2px; color:#FF8C1A; font-weight:700; animation: tour-desc-blink 0.9s steps(2,end) infinite; }
     .tour-footer { flex-shrink: 0; display:flex; align-items:center; justify-content:space-between; padding: 12px 22px 14px; border-top: 1px solid rgba(255,255,255,0.06); background: #111518; }
     .tour-dots { display:flex; gap:6px; }
     .tour-dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.15); transition:background 0.2s, transform 0.2s; }
@@ -8196,16 +8199,40 @@
     // Reads from the existing #inline-matrix table cells so it's always in sync.
     // ═══════════════════════════════════════════════════════════════════════
     function pulseRenderHoneycomb() {
+      try { return _pulseRenderHoneycombImpl(); }
+      catch (err) {
+        console.error('[PULSE honeycomb] render failed — showing safe fallback:', err);
+        var hc = document.getElementById('inline-matrix-honeycomb');
+        if (hc) hc.innerHTML = '<div style="text-align:center;padding:24px;color:rgba(237,229,216,0.55);font-size:0.78rem;">Honeycomb view temporarily unavailable — enter KPI names + house goals on the left to refresh.</div>';
+      }
+    }
+    function _pulseRenderHoneycombImpl() {
       var hc = document.getElementById('inline-matrix-honeycomb');
       if (!hc) return;
       var table = document.getElementById('inline-matrix');
-      if (!table) return;
-      // Get column labels from the header
-      var headerCells = table.querySelectorAll('thead th.th-metric');
-      var kpiLabels = Array.from(headerCells).map(function(th) {
-        var span = th.querySelector('span');
-        return (span ? span.textContent : th.textContent).trim();
-      });
+      // Layered KPI label fallback: inline-matrix header > house-goal input > placeholder.
+      // Guarantees the right side never shows empty or generic "KPI 1…KPI 9" when real names exist.
+      var headerCells = table ? table.querySelectorAll('thead th.th-metric') : [];
+      var kpiLabels;
+      if (headerCells.length) {
+        kpiLabels = Array.from(headerCells).map(function(th, i) {
+          var span = th.querySelector('span');
+          var fromHeader = (span ? span.textContent : th.textContent || '').trim();
+          if (!fromHeader || /^KPI\s*\d+$/i.test(fromHeader)) {
+            var houseInput = document.getElementById('house-kpi-lbl-' + i);
+            var fromHouse = houseInput && houseInput.value ? houseInput.value.trim() : '';
+            if (fromHouse) return fromHouse;
+          }
+          return fromHeader || ('KPI ' + (i+1));
+        });
+      } else {
+        kpiLabels = [];
+        for (var _i = 0; _i < 9; _i++) {
+          var _houseInput = document.getElementById('house-kpi-lbl-' + _i);
+          var _v = _houseInput && _houseInput.value ? _houseInput.value.trim() : '';
+          kpiLabels.push(_v || ('KPI ' + (_i+1)));
+        }
+      }
       // Build 5 tier rows of hexagons from the editable matrix data (DM global)
       var data = (typeof DM !== 'undefined' && DM) ? DM : null;
       if (!data) { hc.innerHTML = '<div style="text-align:center;padding:20px;color:rgba(237,229,216,0.5);font-size:0.78rem;">Loading honeycomb view…</div>'; return; }
@@ -8265,6 +8292,24 @@
       html += '</div>';
       hc.innerHTML = html;
     }
+
+    // Auto-sync: any edit to a house-goal KPI name input re-renders the honeycomb so
+    // the right-side headers never drift from the left-side source of truth.
+    (function _wirePulseHoneycombAutoSync() {
+      if (window._pulseHoneycombSyncWired) return;
+      window._pulseHoneycombSyncWired = true;
+      var _pulseHcSyncTimer = null;
+      document.addEventListener('input', function(e) {
+        var t = e.target;
+        if (!t || !t.id) return;
+        if (!/^house-kpi-lbl-\d+$/.test(t.id)) return;
+        clearTimeout(_pulseHcSyncTimer);
+        _pulseHcSyncTimer = setTimeout(function() {
+          try { if (typeof pulseRenderHoneycomb === 'function') pulseRenderHoneycomb(); } catch(err) {}
+        }, 200);
+      });
+    })();
+
     // Expose + wire up the view toggle
     window.pulseMatrixSetView = function(mode) {
       var hc = document.getElementById('inline-matrix-honeycomb');
@@ -11750,6 +11795,7 @@
         desc: "You aren't just looking at a CRM; you're looking at the central nervous system of your entire go-to-market strategy. In the world of Revenue Operations, good enough data is the silent killer of growth. We built Pulse because we know that when your sales, marketing, and success teams are vibrating at different frequencies, you lose more than just deals — you lose momentum. We literally have done it all for you: leads, pipeline, AI revenue forecasting, building sales meetings, writing speeches. We got you.",
         label: 'Step 1 of 39', managedTimer: true, customNarration: true,
         onShow: () => {
+          // Ghost-writer desc handled by showTourStep default (adaptive speed for 550 chars).
           // Spotlight the three vital cards (no heavy load)
           _tourSpotSequence([
             {sel: '.ri-vital-card:nth-child(1)', label: 'Total Pipeline'},
@@ -11784,21 +11830,52 @@
           _schedTourTimer(() => { if (!tourActive) return; if (typeof riLoadDemo === 'function') riLoadDemo(true); }, 8000);
         }
       },
-      // 2. Adding Leads
+      // 2. Adding Leads — ghost-writer fills all 4 deal fields, then the deal travels the pipeline
       { selector: '#rev-intel-section', title: 'Adding Leads & Deals',
-        desc: 'This is where you add people you are trying to sell to. See the Add Deal button below? Click it to create a new lead. Type their name, assign a rep, enter the dollar amount, and pick their stage.',
-        label: 'Step 2 of 39',
+        desc: 'This is where you add people you are trying to sell to. Watch PULSE click Add Deal, then ghost-type every field — name, rep, dollar amount, stage — and follow the deal as it travels through your pipeline stages.',
+        label: 'Step 2 of 39', managedTimer: true,
         onShow: () => {
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('deals'); }, 1000);
+          // Ghost-writer desc handled by showTourStep default.
+          // Switch to the Deals tab so the Add Deal button is in view
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('deals'); }, 1200);
           _tourSpotSequence([
-            {sel: '.ri-btn-primary[onclick*="riAddDeal"]', label: '← Click here to add a deal'},
+            {sel: '.ri-btn-primary[onclick*="riAddDeal"]', label: 'Click here to add a deal'},
             {sel: '.ri-deal-table thead', label: 'Your deals appear here'},
             {sel: '#ri-rep-filter', label: 'Filter by rep'},
           ]);
-          _tourArrowPointer('.ri-btn-primary[onclick*="riAddDeal"]', 'left', 2000);
-          _tourArrowPointer('.ri-btn-primary[onclick*="riAddDeal"]', 'right', 2000);
-          _tourArrowPointer('#ri-rep-filter', 'left', 8000);
-          _tourArrowPointer('#ri-rep-filter', 'right', 8000);
+          // Ghost-click the Add Deal button (visual cursor + create the row)
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { if (typeof _tourGhostClick === 'function') _tourGhostClick('.ri-btn-primary[onclick*="riAddDeal"]', { label: 'Add Deal' }); } catch(e) {}
+            try { if (typeof riAddDeal === 'function') riAddDeal(); } catch(e) {}
+          }, 3500);
+          // Chain: name → rep → value → stage → switch to pipeline → flow ghost card across stages → advance
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const rowSel = '#ri-deal-body tr:last-child';
+            const nameInput = document.querySelector(rowSel + ' td:nth-child(1) input');
+            if (!nameInput) { advanceTour(); return; }
+            _tourGhostType(nameInput, 'Acme Corp — New Install', { speed: 50, onDone: function() {
+              const repSelect = document.querySelector(rowSel + ' td:nth-child(3) select');
+              _tourGhostSelect(repSelect, 'Sarah', { delay: 500, onDone: function() {
+                const valInput = document.querySelector(rowSel + ' td:nth-child(4) input');
+                _tourGhostType(valInput, '12000', { speed: 110, onDone: function() {
+                  const stageSelect = document.querySelector(rowSel + ' td:nth-child(5) select');
+                  _tourGhostSelect(stageSelect, 'Discovery', { delay: 500, onDone: function() {
+                    // Hop to pipeline kanban, then fly the deal card through each stage
+                    _schedTourTimer(function() {
+                      try { if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); } catch(e) {}
+                    }, 1100);
+                    _schedTourTimer(function() {
+                      _tourPipelineFlow('Acme Corp — New Install', { onDone: function() {
+                        _schedTourTimer(function() { if (tourActive) advanceTour(); }, 800);
+                      }});
+                    }, 2100);
+                  }});
+                }});
+              }});
+            }});
+          }, 4400);
         }
       },
       // 3. Deal Detail
@@ -13618,11 +13695,23 @@
         buildTourDots();
         pgShow();
         _scheduleCritters(); // start random critter walk-ons
+        console.log('[PULSE tour] startTour at idx', tourStep, '(' + TOUR_STEPS.length + ' total steps)');
         showTourStep(tourStep);
+        // Liveness watchdog — pop the escape hatch if tooltip never becomes visible
+        setTimeout(function() {
+          if (!tourActive) return;
+          const tt = document.getElementById('tour-tooltip');
+          const ttVisible = tt && (tt.classList.contains('visible') || parseFloat(tt.style.opacity || '0') > 0.1);
+          if (!ttVisible) {
+            console.warn('[PULSE tour] tooltip did not become visible within 4s — showing escape hatch');
+            _showTourEscapeHatch('Tour stuck — click to exit');
+          }
+        }, 4000);
       } catch (err) {
         console.error('[PULSE tour] startTour failed:', err);
         tourActive = false;
         document.body.classList.remove('tour-active');
+        _showTourEscapeHatch('startTour failed — click to reset');
       }
     }
 
@@ -13707,27 +13796,9 @@
     }
 
     // Bouncing arrow pointer that draws attention to a specific element
-    function _tourArrowPointer(selector, position, delay) {
-      _schedTourTimer(function() {
-        if (!tourActive) return;
-        var el = typeof selector === 'string' ? document.querySelector(selector) : selector;
-        if (!el) return;
-        var rect = el.getBoundingClientRect();
-        var arrow = document.createElement('div');
-        arrow.className = 'tour-arrow-pointer';
-        var pos = position || 'left';
-        var arrowChar = pos === 'left' ? '→' : pos === 'right' ? '←' : pos === 'top' ? '↓' : '↑';
-        var style = 'position:fixed;z-index:9999;font-size:3.5rem;color:#000;font-weight:900;pointer-events:none;text-shadow:0 0 8px rgba(0,0,0,0.3);-webkit-text-stroke:2px #000;';
-        if (pos === 'left') style += 'top:'+(rect.top + rect.height/2 - 16)+'px;left:'+(rect.left - 40)+'px;animation:tourArrowBounceH 0.8s ease-in-out infinite;';
-        else if (pos === 'right') style += 'top:'+(rect.top + rect.height/2 - 16)+'px;left:'+(rect.right + 8)+'px;animation:tourArrowBounceH 0.8s ease-in-out infinite;';
-        else if (pos === 'top') style += 'top:'+(rect.top - 36)+'px;left:'+(rect.left + rect.width/2 - 12)+'px;animation:tourArrowBounceV 0.8s ease-in-out infinite;';
-        else style += 'top:'+(rect.bottom + 4)+'px;left:'+(rect.left + rect.width/2 - 12)+'px;animation:tourArrowBounceV 0.8s ease-in-out infinite;';
-        arrow.style.cssText = style;
-        arrow.textContent = arrowChar;
-        document.body.appendChild(arrow);
-        _schedTourTimer(function() { if (arrow.parentNode) arrow.remove(); }, 10000);
-      }, delay || 2000);
-    }
+    // Arrow pointers are retired in favor of ghost-writer + glow spotlights.
+    // Kept as a no-op so existing call sites inside TOUR_STEPS don't error.
+    function _tourArrowPointer(/* selector, position, delay */) { /* disabled */ }
 
     function _tourFlashBtn(btnOrId) {
       const btn = typeof btnOrId === 'string' ? document.getElementById(btnOrId) : btnOrId;
@@ -13777,6 +13848,107 @@
         _schedTourTimer(tick, delayPer);
       }
       tick();
+    }
+
+    // Ghost-type text into the tour tooltip description. Streams char-by-char alongside speech.
+    // Set step.ghostDesc = true so showTourStep leaves #tour-desc empty and onShow drives it.
+    function _tourGhostTypeDesc(text, opts) {
+      opts = opts || {};
+      const el = document.getElementById('tour-desc');
+      if (!el) return;
+      text = String(text || '');
+      const delayPer = opts.speed || 28;
+      const _capturedIdx = tourStep;
+      el.textContent = '';
+      const cursor = document.createElement('span');
+      cursor.className = 'tour-desc-cursor';
+      cursor.textContent = '▌';
+      el.appendChild(cursor);
+      let i = 0;
+      function tick() {
+        if (!tourActive || tourStep !== _capturedIdx || !el.isConnected) { cursor.remove(); return; }
+        if (i >= text.length) {
+          if (opts.onDone) opts.onDone();
+          _schedTourTimer(function(){ cursor.remove(); }, opts.holdCursorMs || 2000);
+          return;
+        }
+        const ch = text.charAt(i++);
+        cursor.insertAdjacentText('beforebegin', ch);
+        _schedTourTimer(tick, delayPer);
+      }
+      tick();
+    }
+
+    // Ghost-select a value in a <select> — flash ring, pause, then set + fire change.
+    // Injects the option if missing so demos don't silently no-op.
+    function _tourGhostSelect(selector, value, opts) {
+      opts = opts || {};
+      const el = typeof selector === 'string' ? document.querySelector(selector) : selector;
+      if (!el) { if (opts.onDone) opts.onDone(); return; }
+      let hasOpt = false;
+      for (let i = 0; i < el.options.length; i++) {
+        if (el.options[i].value === value || el.options[i].text === value) { hasOpt = true; break; }
+      }
+      if (!hasOpt) {
+        const opt = document.createElement('option');
+        opt.value = value; opt.textContent = value;
+        el.appendChild(opt);
+      }
+      const prevShadow = el.style.boxShadow;
+      const prevTrans  = el.style.transition;
+      el.style.transition = 'box-shadow 0.25s';
+      el.style.boxShadow = '0 0 0 3px rgba(232,113,10,0.6), 0 0 18px rgba(232,113,10,0.3)';
+      try { el.focus(); } catch(e) {}
+      _schedTourTimer(function() {
+        if (!tourActive || !el.isConnected) return;
+        el.value = value;
+        el.dispatchEvent(new Event('input',  { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+        if (opts.onDone) opts.onDone();
+        setTimeout(function() { el.style.boxShadow = prevShadow; el.style.transition = prevTrans; }, 1200);
+      }, opts.delay || 700);
+    }
+
+    // Float a ghost deal card across the kanban columns, stage-by-stage.
+    function _tourPipelineFlow(dealName, opts) {
+      opts = opts || {};
+      const stages = opts.stages || ['Lead','Discovery','Proposal','Negotiation','Closed Won'];
+      const cols = stages.map(function(s) {
+        return document.querySelector('.ri-kanban-col[data-stage="' + s + '"]');
+      });
+      if (!cols[0]) { if (opts.onDone) opts.onDone(); return; }
+      const _capturedIdx = tourStep;
+      const ghost = document.createElement('div');
+      ghost.className = 'tour-pipeline-ghost';
+      ghost.textContent = dealName;
+      const firstRect = cols[0].getBoundingClientRect();
+      ghost.style.cssText =
+        'position:fixed;z-index:99997;left:' + (firstRect.left + 10) + 'px;top:' + (firstRect.top + 46) + 'px;' +
+        'min-width:150px;max-width:220px;padding:10px 14px;background:rgba(232,113,10,0.14);' +
+        'border:1.5px solid #FF8C1A;border-radius:10px;color:#FFE0B0;font-weight:700;font-size:0.76rem;' +
+        'font-family:inherit;letter-spacing:0.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' +
+        'box-shadow:0 8px 28px rgba(232,113,10,0.5),0 0 24px rgba(232,113,10,0.35);' +
+        'transition:left 0.85s cubic-bezier(0.4,0,0.2,1), top 0.85s cubic-bezier(0.4,0,0.2,1), opacity 0.4s;' +
+        'pointer-events:none;opacity:0;transform:translateZ(0);';
+      document.body.appendChild(ghost);
+      requestAnimationFrame(function() { ghost.style.opacity = '1'; });
+      let stageIdx = 0;
+      function moveNext() {
+        if (!tourActive || tourStep !== _capturedIdx) { ghost.remove(); return; }
+        stageIdx++;
+        if (stageIdx >= cols.length || !cols[stageIdx]) {
+          _schedTourTimer(function() {
+            ghost.style.opacity = '0';
+            setTimeout(function() { ghost.remove(); if (opts.onDone) opts.onDone(); }, 500);
+          }, 900);
+          return;
+        }
+        const r = cols[stageIdx].getBoundingClientRect();
+        ghost.style.left = (r.left + 10) + 'px';
+        ghost.style.top  = (r.top + 46) + 'px';
+        _schedTourTimer(moveNext, opts.stagePause || 950);
+      }
+      _schedTourTimer(moveNext, opts.startDelay || 700);
     }
 
     function _tourGhostCursor(x, y, label, holdMs) {
@@ -14014,7 +14186,21 @@
       setTimeout(() => {
         if (sl) sl.innerHTML = `<span class="tour-lock-icon">🔒</span> ${step.label}`;
         if (ti) ti.textContent = step.title;
-        if (de) de.textContent = step.desc;
+        // Ghost-writer is the default — desc streams char-by-char for every step.
+        // Set step.plainDesc = true to opt out (useful for very short or purely visual steps).
+        if (de) {
+          if (step.plainDesc) {
+            de.textContent = step.desc;
+          } else {
+            de.textContent = '';
+            const _descTxt = step.desc || '';
+            // Adaptive speed: longer descriptions type slower to pace with narration
+            const _descSpd = _descTxt.length > 400 ? 70 : _descTxt.length > 200 ? 42 : 30;
+            _schedTourTimer(function() {
+              if (tourActive) _tourGhostTypeDesc(_descTxt, { speed: _descSpd });
+            }, 120);
+          }
+        }
         if (body) body.style.opacity = '1';
       }, 300);
 
@@ -14119,18 +14305,74 @@
         } catch(e) {}
       }
 
-      // Fire onShow for dynamic content
+      // Fire onShow for dynamic content — wrapped so a throwing step can't brick the tour
       _schedTourTimer(() => {
         if (!tourActive) return;
-        if (step.onShow) step.onShow();
+        if (!step.onShow) return;
+        try { step.onShow(); }
+        catch (err) {
+          console.error('[PULSE tour] step ' + (idx+1) + ' onShow threw — continuing:', err);
+          _showTourEscapeHatch('Step ' + (idx+1) + ' had an error — click to exit tour');
+        }
       }, 300);
 
       // Apply glow + highlight background to target element
-      target.style.transition = 'box-shadow 0.4s ease, border-radius 0.4s ease, background 0.4s ease';
-      target.style.boxShadow = '0 0 0 4px #FF8C1A, 0 0 40px rgba(255,140,26,0.5), 0 0 80px rgba(255,140,26,0.2)';
-      target.style.borderRadius = '12px';
-      target.style.background = 'rgba(255,140,26,0.05)';
+      try {
+        target.style.transition = 'box-shadow 0.4s ease, border-radius 0.4s ease, background 0.4s ease';
+        target.style.boxShadow = '0 0 0 4px #FF8C1A, 0 0 40px rgba(255,140,26,0.5), 0 0 80px rgba(255,140,26,0.2)';
+        target.style.borderRadius = '12px';
+        target.style.background = 'rgba(255,140,26,0.05)';
+      } catch (err) { console.warn('[PULSE tour] glow apply failed:', err); }
+
+      console.log('[PULSE tour] showTourStep', idx+1, '→', step.title);
     }
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // TOUR EMERGENCY ESCAPE HATCH — always-on-top button that force-exits the
+    // tour regardless of the page's current visual state. Activates on any
+    // caught error and is always bound to ESC while the tour is active.
+    // ═══════════════════════════════════════════════════════════════════════
+    function _showTourEscapeHatch(label) {
+      let btn = document.getElementById('tour-escape-hatch');
+      if (!btn) {
+        btn = document.createElement('button');
+        btn.id = 'tour-escape-hatch';
+        btn.type = 'button';
+        btn.style.cssText = [
+          'position:fixed','top:12px','right:12px','z-index:2147483647',
+          'background:#ef4444','color:#fff','border:2px solid #fff',
+          'border-radius:10px','padding:10px 16px','font:800 0.78rem/1 Inter,sans-serif',
+          'cursor:pointer','box-shadow:0 6px 24px rgba(0,0,0,0.6)',
+          'letter-spacing:0.04em'
+        ].join(';') + ';';
+        btn.onclick = function() {
+          try { dismissTour(); } catch(e) { console.warn('[PULSE tour] dismissTour threw:', e); }
+          try {
+            window.tourActive = false;
+            document.body.classList.remove('tour-active','tour-scroll-lock');
+            document.body.style.zoom = '';
+            document.body.style.transform = '';
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            const hl = document.getElementById('tour-highlight');
+            if (hl) { hl.classList.remove('visible','tour-hl-fullstage'); hl.removeAttribute('style'); }
+            const tt = document.getElementById('tour-tooltip');
+            if (tt) { tt.classList.remove('visible'); tt.style.opacity = '0'; }
+            document.getElementById('tour-welcome')?.classList.remove('visible');
+          } catch(e) {}
+          btn.remove();
+        };
+        document.body.appendChild(btn);
+      }
+      btn.textContent = '✕ ' + (label || 'Exit Tour');
+    }
+    window._showTourEscapeHatch = _showTourEscapeHatch;
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape') return;
+      if (!window.tourActive) return;
+      const btn = document.getElementById('tour-escape-hatch');
+      if (btn) { btn.click(); return; }
+      try { dismissTour(); } catch(err) {}
+    }, true);
 
     function goBackTour() {
       if (tourStep <= 0) return;
