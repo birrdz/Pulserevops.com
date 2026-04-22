@@ -3295,30 +3295,63 @@
       letter-spacing: 0.1em; text-transform: uppercase;
     }
     /* Vitals Cards */
+    /* ── CLEAN-DIGITAL VITAL CARDS ───────────────────────────────────────────── */
     .ri-vitals {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px; margin-bottom: 28px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px; margin-bottom: 28px;
     }
     .ri-vital-card {
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-      border-radius: 12px; padding: 18px 20px; position: relative; overflow: hidden;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.008) 100%),
+        radial-gradient(circle at 100% 0%, rgba(232,113,10,0.05) 0%, transparent 50%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; padding: 16px 18px 18px; position: relative; overflow: hidden;
+      transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
     }
-    .ri-vital-card:hover { border-color: rgba(232,113,10,0.5); box-shadow: 0 0 20px rgba(232,113,10,0.06); }
-    .ri-vital-label { font-size: 0.6rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
-    .ri-vital-val { font-size: 1.6rem; font-weight: 900; color: var(--text); line-height: 1.1; }
-    .ri-vital-sub { font-size: 0.62rem; color: var(--muted); margin-top: 4px; }
-    .ri-vital-trend { font-size: 0.65rem; font-weight: 700; margin-top: 4px; }
+    /* Left accent stripe — thin orange line for identity, scales on hover */
+    .ri-vital-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(180deg, #FF8C1A, #E8710A);
+      opacity: 0.55; transition: opacity 0.18s ease, width 0.18s ease;
+    }
+    .ri-vital-card:hover {
+      border-color: rgba(232,113,10,0.4); transform: translateY(-1px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.012) 100%),
+        radial-gradient(circle at 100% 0%, rgba(232,113,10,0.08) 0%, transparent 50%);
+    }
+    .ri-vital-card:hover::before { opacity: 1; width: 3px; }
+    .ri-vital-label {
+      font-size: 0.56rem; font-weight: 700; color: rgba(237,229,216,0.55);
+      text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 8px;
+      font-feature-settings: 'ss01';
+    }
+    .ri-vital-val {
+      font-size: 1.75rem; font-weight: 700; color: var(--text); line-height: 1;
+      font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
+      font-family: 'SF Mono','JetBrains Mono','Inconsolata','Roboto Mono',ui-monospace,monospace;
+    }
+    .ri-vital-sub {
+      font-size: 0.62rem; color: rgba(237,229,216,0.45); margin-top: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+    .ri-vital-trend {
+      font-size: 0.62rem; font-weight: 600; margin-top: 6px; letter-spacing: 0.02em;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
     .ri-vital-trend.up { color: #22c55e; }
     .ri-vital-trend.down { color: #ef4444; }
-    .ri-vital-trend.flat { color: var(--muted); }
+    .ri-vital-trend.flat { color: rgba(237,229,216,0.45); }
+    .ri-vital-trend.up::before { content: '▲'; font-size: 0.58em; }
+    .ri-vital-trend.down::before { content: '▼'; font-size: 0.58em; }
+    .ri-vital-trend.flat::before { content: '—'; font-size: 0.85em; }
     .ri-vital-bar {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-      background: rgba(232,113,10,0.08);
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: rgba(255,255,255,0.04);
     }
     .ri-vital-bar-fill {
-      height: 100%; background: linear-gradient(90deg, #E8710A, #FF8C1A);
-      border-radius: 0 3px 0 0; transition: width 0.8s ease;
+      height: 100%; background: linear-gradient(90deg, #E8710A 0%, #FF8C1A 100%);
+      transition: width 0.8s cubic-bezier(0.25,0.1,0.25,1);
     }
     /* Upload Zone */
     .ri-upload-zone {
