@@ -11911,54 +11911,57 @@
           }, 300);
         }
       },
-      // 2. Adding Leads — ghost-writer fills all 4 deal fields, then the deal travels the pipeline
+      // ═══ STEP 2 — ADDING LEADS (rebuilt: cleaner pacing, all 4 fields + pipeline flow) ═══
       { selector: '#rev-intel-section', title: 'Adding Leads & Deals',
-        desc: 'This is where you add people you are trying to sell to. Watch PULSE click Add Deal, then ghost-type every field — name, rep, dollar amount, stage — and follow the deal as it travels through your pipeline stages.',
+        desc: 'This is where you add people you are trying to sell to. Watch PULSE click Add Deal, ghost-type every field — name, rep, dollar amount, stage — and follow the deal as it travels through your pipeline.',
         label: 'Step 2 of 39', managedTimer: true,
         onShow: () => {
-          // Ghost-writer desc handled by showTourStep default.
-          // Switch to the Deals tab so the Add Deal button is in view
-          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('deals'); }, 1200);
-          _tourSpotSequence([
-            {sel: '.ri-btn-primary[onclick*="riAddDeal"]', label: 'Click here to add a deal'},
-            {sel: '.ri-deal-table thead', label: 'Your deals appear here'},
-            {sel: '#ri-rep-filter', label: 'Filter by rep'},
-          ]);
-          // Ghost-click the Add Deal button — cursor animation ONLY (doClick:false).
-          // riAddDeal() is called explicitly once below so we don't get double-adds
-          // from the cursor's real .click() event + this call both adding a row.
+          // 1. Hop to the Deals tab
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riSwitchTab === 'function') riSwitchTab('deals'); } catch(e) {} }, 1000);
+          // 2. Quick spotlight on the Add Deal button (single spot, no 3-item sequence)
+          _tourSpotElement('.ri-btn-primary[onclick*="riAddDeal"]', 'Add Deal', 2200);
+          // 3. Ghost-cursor lands on Add Deal (visual only), then programmatically add the row
           _schedTourTimer(() => {
             if (!tourActive) return;
-            try { if (typeof _tourGhostClick === 'function') _tourGhostClick('.ri-btn-primary[onclick*="riAddDeal"]', { label: 'Add Deal', doClick: false }); } catch(e) {}
-            try { if (typeof riAddDeal === 'function') riAddDeal(); } catch(e) {}
+            try { _tourGhostClick('.ri-btn-primary[onclick*="riAddDeal"]', { label: 'Add Deal', doClick: false }); } catch(e) {}
           }, 3500);
-          // Chain: name → rep → value → stage → switch to pipeline → flow ghost card across stages → advance
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { if (typeof riAddDeal === 'function') riAddDeal(); } catch(e) {}
+          }, 4400);
+          // 4. Chain the four field fills — each waits for the previous via onDone
           _schedTourTimer(() => {
             if (!tourActive) return;
             const rowSel = '#ri-deal-body tr:last-child';
             const nameInput = document.querySelector(rowSel + ' td:nth-child(1) input');
             if (!nameInput) { advanceTour(); return; }
-            _tourGhostType(nameInput, 'Acme Corp — New Install', { speed: 50, onDone: function() {
-              const repSelect = document.querySelector(rowSel + ' td:nth-child(3) select');
-              _tourGhostSelect(repSelect, 'Sarah', { delay: 500, onDone: function() {
-                const valInput = document.querySelector(rowSel + ' td:nth-child(4) input');
-                _tourGhostType(valInput, '12000', { speed: 110, onDone: function() {
-                  const stageSelect = document.querySelector(rowSel + ' td:nth-child(5) select');
-                  _tourGhostSelect(stageSelect, 'Discovery', { delay: 500, onDone: function() {
-                    // Hop to pipeline kanban, then fly the deal card through each stage
-                    _schedTourTimer(function() {
-                      try { if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); } catch(e) {}
-                    }, 1100);
-                    _schedTourTimer(function() {
-                      _tourPipelineFlow('Acme Corp — New Install', { onDone: function() {
-                        _schedTourTimer(function() { if (tourActive) advanceTour(); }, 800);
-                      }});
-                    }, 2100);
-                  }});
+            _tourGhostType(nameInput, 'Acme Corp — New Install', { speed: 55, onDone: function() {
+              _schedTourTimer(() => {
+                const repSelect = document.querySelector(rowSel + ' td:nth-child(3) select');
+                _tourGhostSelect(repSelect, 'Sarah', { delay: 500, onDone: function() {
+                  _schedTourTimer(() => {
+                    const valInput = document.querySelector(rowSel + ' td:nth-child(4) input');
+                    _tourGhostType(valInput, '12000', { speed: 120, onDone: function() {
+                      _schedTourTimer(() => {
+                        const stageSelect = document.querySelector(rowSel + ' td:nth-child(5) select');
+                        _tourGhostSelect(stageSelect, 'Discovery', { delay: 500, onDone: function() {
+                          // 5. Hop to Pipeline, then synchronized card flow across stages
+                          _schedTourTimer(() => {
+                            try { if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); } catch(e) {}
+                          }, 1200);
+                          _schedTourTimer(() => {
+                            _tourPipelineFlow('Acme Corp — New Install', { onDone: function() {
+                              _schedTourTimer(() => { if (tourActive) advanceTour(); }, 1500);
+                            }});
+                          }, 2400);
+                        }});
+                      }, 400);
+                    }});
+                  }, 400);
                 }});
-              }});
+              }, 400);
             }});
-          }, 4400);
+          }, 5500);
         }
       },
       // 3. Deal Detail — ghost-writer fills customer contact info + note
@@ -12030,10 +12033,10 @@
           }, 2200);
         }
       },
-      // 5. Beats Cards
+      // ═══ STEP 5 — BEATS CARDS (rebuilt: managedTimer + explicit advance) ═══
       { selector: '#rev-intel-section', title: 'Beats — Hologram Lead Cards',
         desc: 'Every lead becomes a hologram card. Bronze. Silver. Gold. Platinum. Ranked by deal value.',
-        label: 'Step 5 of 39',
+        label: 'Step 5 of 39', managedTimer: true,
         onShow: () => {
           var positions = [
             {top:'18%',left:'8%'}, {top:'15%',left:'55%'},
@@ -12081,6 +12084,7 @@
             setTimeout(function() { pause.style.opacity = '0'; setTimeout(function(){pause.remove();},500); }, 3000);
           }, 12000);
           _schedTourTimer(function() { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 16000);
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 18500);
         }
       },
       // ═══ STEP 6 — YOUR TEAM (rebuilt, ghost-click + clean pacing) ═══
