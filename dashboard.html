@@ -20598,5 +20598,58 @@
   }
   </script>
 
+<!-- ── SIDE-BY-SIDE HOUSE GOALS × PULSE CHECK ──────────────────────────
+     Wraps the House Goal matrix-section-wrap and the Pulse Check
+     matrix-section-wrap in a single CSS grid so they sit on one screen. -->
+<script>
+(function() {
+  function applyLayout() {
+    // BAIL during tour — tour needs the original DOM order; reshuffling breaks step targets
+    if (window.tourActive || window._tourStarting) return;
+    try {
+      var existing = document.getElementById('unified-hg-pc-wrap');
+      var houseTable = document.getElementById('house-goal-table');
+      var honeycomb = document.getElementById('inline-matrix-honeycomb');
+      if (!houseTable || !honeycomb) return;
+      var houseWrap = houseTable.closest('.matrix-section-wrap');
+      var pulseWrap = honeycomb.closest('.matrix-section-wrap');
+      if (!houseWrap || !pulseWrap || houseWrap === pulseWrap) return;
+      if (!existing) {
+        var combo = document.createElement('div');
+        combo.id = 'unified-hg-pc-wrap';
+        combo.style.cssText = 'display:grid;gap:20px;align-items:start;margin:0 0 32px;width:100%;max-width:100%;min-width:0;overflow:hidden;';
+        houseWrap.parentNode.insertBefore(combo, houseWrap);
+        combo.appendChild(houseWrap);
+        combo.appendChild(pulseWrap);
+        existing = combo;
+      }
+      if (window.innerWidth >= 1600) {
+        existing.style.gridTemplateColumns = 'minmax(420px, 460px) 1fr';
+      } else if (window.innerWidth >= 1300) {
+        existing.style.gridTemplateColumns = 'minmax(380px, 410px) 1fr';
+      } else if (window.innerWidth >= 1000) {
+        existing.style.gridTemplateColumns = 'minmax(340px, 370px) 1fr';
+      } else {
+        existing.style.gridTemplateColumns = '1fr';
+      }
+      var pulseSectionWrap = honeycomb.closest('.matrix-section-wrap');
+      if (pulseSectionWrap) {
+        pulseSectionWrap.style.overflowX = 'auto';
+        pulseSectionWrap.style.minWidth = '0';
+        pulseSectionWrap.style.padding = '8px 6px';
+      }
+      honeycomb.style.minWidth = '0';
+      if (houseWrap) { houseWrap.style.padding = '14px 12px'; houseWrap.style.overflowX = 'auto'; houseWrap.style.minWidth = '0'; }
+    } catch(e) { console.warn('[PULSE] unified grid layout failed:', e); }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyLayout);
+  } else {
+    applyLayout();
+  }
+  window.addEventListener('resize', applyLayout);
+})();
+</script>
+
 </body>
 </html>
