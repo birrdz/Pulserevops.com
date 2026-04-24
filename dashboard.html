@@ -6176,12 +6176,55 @@
           <button class="ri-btn-sm" onclick="reportsRefresh()" title="Refresh all charts with latest CRM data">🔄 Refresh</button>
         </div>
       </div>
-      <p style="margin:0 0 18px 0;font-size:0.78rem;color:var(--muted);line-height:1.6;">Seven live dashboards: pipeline velocity, rep performance, win/loss, deal age, forecast trend, and activity quality. All charts auto-update as deals move through your CRM.</p>
+      <p style="margin:0 0 14px 0;font-size:0.78rem;color:var(--muted);line-height:1.6;">Fifteen live dashboards + a date-range filter: pipeline velocity, rep performance, win/loss, deal age, cycle time, coverage gauge, source mix, size distribution, momentum, activity quality, and top-10 deals. All charts filter by the selected range.</p>
+
+      <!-- ── DATE RANGE FILTER ─────────────────────────────────────────── -->
+      <div id="rpt-range-bar" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;margin-bottom:16px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:10px;">
+        <div style="font-size:0.58rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,229,216,0.55);">Range</div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <label style="font-size:0.62rem;color:rgba(237,229,216,0.55);">Start</label>
+          <input type="date" id="rpt-range-start" onchange="rptSetRange('custom')" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#EDE5D8;padding:5px 9px;font-size:0.72rem;font-family:inherit;outline:none;">
+          <label style="font-size:0.62rem;color:rgba(237,229,216,0.55);">End</label>
+          <input type="date" id="rpt-range-end"   onchange="rptSetRange('custom')" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#EDE5D8;padding:5px 9px;font-size:0.72rem;font-family:inherit;outline:none;">
+        </div>
+        <div style="display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;">
+          <button class="rpt-range-preset" onclick="rptSetRange('7d')"  style="background:rgba(232,113,10,0.1);border:1px solid rgba(232,113,10,0.35);border-radius:5px;color:#E8710A;font-size:0.64rem;font-weight:700;padding:5px 11px;cursor:pointer;font-family:inherit;">7D</button>
+          <button class="rpt-range-preset" onclick="rptSetRange('30d')" style="background:rgba(232,113,10,0.1);border:1px solid rgba(232,113,10,0.35);border-radius:5px;color:#E8710A;font-size:0.64rem;font-weight:700;padding:5px 11px;cursor:pointer;font-family:inherit;">30D</button>
+          <button class="rpt-range-preset" onclick="rptSetRange('90d')" style="background:rgba(232,113,10,0.1);border:1px solid rgba(232,113,10,0.35);border-radius:5px;color:#E8710A;font-size:0.64rem;font-weight:700;padding:5px 11px;cursor:pointer;font-family:inherit;">90D</button>
+          <button class="rpt-range-preset" onclick="rptSetRange('ytd')" style="background:rgba(232,113,10,0.1);border:1px solid rgba(232,113,10,0.35);border-radius:5px;color:#E8710A;font-size:0.64rem;font-weight:700;padding:5px 11px;cursor:pointer;font-family:inherit;">YTD</button>
+          <button class="rpt-range-preset rpt-range-active" onclick="rptSetRange('all')" style="background:rgba(232,113,10,0.25);border:1px solid rgba(232,113,10,0.6);border-radius:5px;color:#fff;font-size:0.64rem;font-weight:800;padding:5px 11px;cursor:pointer;font-family:inherit;">All Time</button>
+        </div>
+        <div id="rpt-range-summary" style="width:100%;font-size:0.68rem;color:rgba(237,229,216,0.6);font-variant-numeric:tabular-nums;">Showing <strong style="color:#FF8C1A;" id="rpt-range-count">—</strong> deals across <strong style="color:#FF8C1A;" id="rpt-range-label">all time</strong></div>
+      </div>
+
       <div id="warroom-empty-state" style="display:none;padding:48px 20px;text-align:center;color:var(--muted);font-size:0.85rem;border:1px dashed rgba(255,255,255,0.1);border-radius:12px;">
         <div style="font-size:2rem;margin-bottom:12px;opacity:0.5;">⚔</div>
         <div>No deals yet. Add deals or import data, then come back here.</div>
       </div>
       <div id="warroom-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;">
+        <!-- ── BIG METRIC CARDS (row 1) ────────────────────────────────── -->
+        <div class="rpt-card rpt-metric-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;justify-content:center;min-height:150px;">
+          <div style="font-size:0.58rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,229,216,0.55);margin-bottom:6px;">Total Pipeline Value</div>
+          <div id="rpt-metric-pipeline" style="font-size:2.1rem;font-weight:800;color:#EDE5D8;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;">—</div>
+          <div id="rpt-metric-pipeline-sub" style="font-size:0.64rem;color:rgba(237,229,216,0.5);margin-top:4px;">Open deals · weighted</div>
+        </div>
+        <div class="rpt-card rpt-metric-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;justify-content:center;min-height:150px;">
+          <div style="font-size:0.58rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,229,216,0.55);margin-bottom:6px;">Avg Cycle Time</div>
+          <div id="rpt-metric-cycle" style="font-size:2.1rem;font-weight:800;color:#EDE5D8;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;">—</div>
+          <div id="rpt-metric-cycle-sub" style="font-size:0.64rem;color:rgba(237,229,216,0.5);margin-top:4px;">Days from add → close (won)</div>
+        </div>
+        <div class="rpt-card rpt-metric-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;justify-content:center;min-height:150px;">
+          <div style="font-size:0.58rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,229,216,0.55);margin-bottom:6px;">Win Rate</div>
+          <div id="rpt-metric-winrate" style="font-size:2.1rem;font-weight:800;color:#22c55e;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;">—</div>
+          <div id="rpt-metric-winrate-sub" style="font-size:0.64rem;color:rgba(237,229,216,0.5);margin-top:4px;">Closed deals only</div>
+        </div>
+        <div class="rpt-card rpt-metric-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;justify-content:center;min-height:150px;">
+          <div style="font-size:0.58rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,229,216,0.55);margin-bottom:6px;">Deals Created</div>
+          <div id="rpt-metric-created" style="font-size:2.1rem;font-weight:800;color:#EDE5D8;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;">—</div>
+          <div id="rpt-metric-created-sub" style="font-size:0.64rem;color:rgba(237,229,216,0.5);margin-top:4px;">In range</div>
+        </div>
+
+        <!-- ── EXISTING CHARTS ──────────────────────────────────────────── -->
         <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
           <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Pipeline Funnel</div>
           <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">Deal count at each stage</div>
@@ -6204,7 +6247,7 @@
         </div>
         <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
           <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Revenue Trend</div>
-          <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">6-month closed-won + this month's projection</div>
+          <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">Closed-won per month in range</div>
           <div id="rpt-trend" style="width:100%;height:280px;"></div>
         </div>
         <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
@@ -6212,10 +6255,59 @@
           <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">5-axis radar per rep</div>
           <div id="rpt-radar" style="width:100%;height:280px;"></div>
         </div>
+
+        <!-- ── NEW CHARTS ───────────────────────────────────────────────── -->
+        <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Top Reps by Revenue</div>
+          <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">Closed-won $ per rep · top 10</div>
+          <div id="rpt-top-reps" style="width:100%;height:280px;"></div>
+        </div>
+        <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Deal Creation Velocity</div>
+          <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">New deals per week in range</div>
+          <div id="rpt-velocity" style="width:100%;height:280px;"></div>
+        </div>
+        <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Pipeline Coverage</div>
+          <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">Weighted open pipeline ÷ target · healthy ≥ 3×</div>
+          <div id="rpt-coverage" style="width:100%;height:280px;"></div>
+        </div>
+        <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Deal Size Distribution</div>
+          <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">How deal value is spread in range</div>
+          <div id="rpt-size-dist" style="width:100%;height:280px;"></div>
+        </div>
+        <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Win/Loss by Source</div>
+          <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">Which channels produce wins</div>
+          <div id="rpt-source" style="width:100%;height:280px;"></div>
+        </div>
+        <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Risk Distribution</div>
+          <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">Open deals by risk level</div>
+          <div id="rpt-risk" style="width:100%;height:280px;"></div>
+        </div>
+        <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Activity Mix</div>
+          <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">Calls · Emails · Meetings · Notes</div>
+          <div id="rpt-activity" style="width:100%;height:280px;"></div>
+        </div>
+        <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Stage Aging</div>
+          <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">Avg days open deals spend in each stage</div>
+          <div id="rpt-stage-aging" style="width:100%;height:280px;"></div>
+        </div>
+
+        <!-- ── WIDE CHARTS (full-row) ───────────────────────────────────── -->
         <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;grid-column:1/-1;">
           <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Loss Reason Breakdown</div>
           <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">Why closed-lost deals lost</div>
           <div id="rpt-loss" style="width:100%;height:260px;"></div>
+        </div>
+        <div class="rpt-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;grid-column:1/-1;">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:4px;">Top 10 Deals (Open or Won)</div>
+          <div style="font-size:0.64rem;color:var(--muted);margin-bottom:8px;">Biggest opportunities by $ value in range</div>
+          <div id="rpt-top-deals" style="width:100%;"></div>
         </div>
       </div>
     </div>
@@ -18123,15 +18215,88 @@
       catch(e) { return 0; }
     }
 
+    // ── DATE RANGE FILTER for War Room ────────────────────────────────
+    window._rptRange = { preset: 'all', start: null, end: null };
+
+    window.rptSetRange = function(preset) {
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      let start = null, end = today;
+      if (preset === '7d')       { start = new Date(today); start.setDate(start.getDate() - 7); }
+      else if (preset === '30d') { start = new Date(today); start.setDate(start.getDate() - 30); }
+      else if (preset === '90d') { start = new Date(today); start.setDate(start.getDate() - 90); }
+      else if (preset === 'ytd') { start = new Date(now.getFullYear(), 0, 1); }
+      else if (preset === 'custom') {
+        const s = document.getElementById('rpt-range-start')?.value;
+        const e = document.getElementById('rpt-range-end')?.value;
+        start = s ? new Date(s) : null;
+        end   = e ? new Date(e) : today;
+      } else {
+        start = null; end = null; // all time
+      }
+      window._rptRange = { preset, start, end };
+
+      // Update active state on preset buttons
+      document.querySelectorAll('.rpt-range-preset').forEach(b => {
+        b.classList.remove('rpt-range-active');
+        b.style.background = 'rgba(232,113,10,0.1)';
+        b.style.borderColor = 'rgba(232,113,10,0.35)';
+        b.style.color = '#E8710A';
+        b.style.fontWeight = '700';
+      });
+      if (preset !== 'custom') {
+        const active = document.querySelector(`.rpt-range-preset[onclick*="rptSetRange('${preset}')"]`);
+        if (active) {
+          active.classList.add('rpt-range-active');
+          active.style.background = 'rgba(232,113,10,0.25)';
+          active.style.borderColor = 'rgba(232,113,10,0.6)';
+          active.style.color = '#fff';
+          active.style.fontWeight = '800';
+        }
+      }
+      // Sync the date inputs to match preset
+      if (preset !== 'custom') {
+        const si = document.getElementById('rpt-range-start');
+        const ei = document.getElementById('rpt-range-end');
+        if (si) si.value = start ? start.toISOString().slice(0,10) : '';
+        if (ei) ei.value = end   ? end.toISOString().slice(0,10)   : '';
+      }
+
+      // Re-render all charts with the new range
+      if (typeof reportsRefresh === 'function') reportsRefresh();
+    };
+
+    function _rptFilterByRange(deals) {
+      const r = window._rptRange || { start: null, end: null };
+      if (!r.start && !r.end) return deals.slice();
+      return deals.filter(d => {
+        const ts = d.dateAdded ? new Date(d.dateAdded).getTime() : 0;
+        if (!ts) return false;
+        if (r.start && ts < r.start.getTime()) return false;
+        if (r.end && ts > (r.end.getTime() + 86400000)) return false;
+        return true;
+      });
+    }
+
     window.reportsRefresh = function() {
       if (typeof echarts === 'undefined') {
         console.warn('[reports] ECharts not loaded yet');
         return;
       }
-      var deals = (typeof loadDeals === 'function') ? loadDeals() : [];
-      var emptyEl = document.getElementById('reports-empty-state');
-      var gridEl = document.getElementById('reports-grid');
-      if (!deals.length) {
+      var allDeals = (typeof loadDeals === 'function') ? loadDeals() : [];
+      var deals = _rptFilterByRange(allDeals);
+      var emptyEl = document.getElementById('warroom-empty-state');
+      var gridEl = document.getElementById('warroom-grid');
+
+      // Update range summary badge
+      const r = window._rptRange || { preset: 'all', start: null, end: null };
+      const rangeLbl = { '7d':'last 7 days','30d':'last 30 days','90d':'last 90 days','ytd':'year to date','all':'all time','custom':'custom range' }[r.preset] || 'all time';
+      const labelEl = document.getElementById('rpt-range-label');
+      const countEl = document.getElementById('rpt-range-count');
+      if (labelEl) labelEl.textContent = rangeLbl;
+      if (countEl) countEl.textContent = deals.length.toLocaleString();
+
+      if (!allDeals.length) {
         if (emptyEl) emptyEl.style.display = 'block';
         if (gridEl) gridEl.style.display = 'none';
         return;
@@ -18139,6 +18304,9 @@
       if (emptyEl) emptyEl.style.display = 'none';
       if (gridEl) gridEl.style.display = 'grid';
 
+      // Big-metric cards
+      _rptUpdateMetrics(deals);
+      // Existing ECharts
       _rptRenderFunnel(deals);
       _rptRenderWinRate(deals);
       _rptRenderStageValue(deals);
@@ -18146,7 +18314,220 @@
       _rptRenderTrend(deals);
       _rptRenderRadar(deals);
       _rptRenderLoss(deals);
+      // New ECharts + list
+      _rptRenderTopReps(deals);
+      _rptRenderVelocity(deals);
+      _rptRenderCoverage(deals);
+      _rptRenderSizeDist(deals);
+      _rptRenderSource(deals);
+      _rptRenderRisk(deals);
+      _rptRenderActivity(deals);
+      _rptRenderStageAging(deals);
+      _rptRenderTopDeals(deals);
     };
+
+    // ── BIG METRIC CARDS ───────────────────────────────────────────────
+    function _rptUpdateMetrics(deals) {
+      const open = deals.filter(d => d.stage !== 'Closed Won' && d.stage !== 'Closed Lost');
+      const won  = deals.filter(d => d.stage === 'Closed Won');
+      const lost = deals.filter(d => d.stage === 'Closed Lost');
+      const STAGE_PROB = { 'Lead':0.1, 'Discovery':0.25, 'Proposal':0.5, 'Negotiation':0.75, 'Closed Won':1.0, 'Closed Lost':0 };
+      const weighted = open.reduce((sum, d) => sum + ((parseFloat(d.value)||0) * (STAGE_PROB[d.stage]||0.2)), 0);
+      const pipelineEl = document.getElementById('rpt-metric-pipeline');
+      if (pipelineEl) pipelineEl.textContent = _rptMoney(weighted);
+
+      // Avg cycle time = days from dateAdded → lastActivity for closed-won
+      let cycleDays = 0, cycleN = 0;
+      won.forEach(d => {
+        if (d.dateAdded && d.lastActivity) {
+          const dd = _rptDaysBetween(d.dateAdded, d.lastActivity);
+          if (dd > 0 && dd < 3650) { cycleDays += dd; cycleN++; }
+        }
+      });
+      const avgCycle = cycleN ? Math.round(cycleDays / cycleN) : 0;
+      const cycleEl = document.getElementById('rpt-metric-cycle');
+      if (cycleEl) cycleEl.textContent = avgCycle ? avgCycle + 'd' : '—';
+
+      // Win rate
+      const closed = won.length + lost.length;
+      const wr = closed ? Math.round(won.length / closed * 100) : 0;
+      const wrEl = document.getElementById('rpt-metric-winrate');
+      if (wrEl) { wrEl.textContent = closed ? wr + '%' : '—'; wrEl.style.color = wr >= 50 ? '#22c55e' : wr >= 30 ? '#eab308' : '#ef4444'; }
+
+      // Deals created in range
+      const createdEl = document.getElementById('rpt-metric-created');
+      if (createdEl) createdEl.textContent = deals.length.toLocaleString();
+    }
+
+    // ── NEW RENDERERS ──────────────────────────────────────────────────
+    function _rptRenderTopReps(deals) {
+      var c = _rptInit('rpt-top-reps'); if (!c) return;
+      var won = deals.filter(d => d.stage === 'Closed Won');
+      var byRep = {};
+      won.forEach(d => { const r = d.rep || '—'; byRep[r] = (byRep[r]||0) + (parseFloat(d.value)||0); });
+      var entries = Object.keys(byRep).map(r => ({ rep: r, val: byRep[r] })).sort((a,b) => b.val - a.val).slice(0, 10).reverse();
+      if (!entries.length) { c.setOption({ title: { text: 'No closed-won deals in range', left:'center', top:'center', textStyle:{color:'rgba(237,229,216,0.45)',fontSize:12,fontWeight:400} } }); return; }
+      c.setOption({ color: RPT_THEME.color, textStyle: RPT_THEME.textStyle, backgroundColor: 'transparent',
+        grid: { left: 100, right: 30, top: 20, bottom: 30 },
+        tooltip: { trigger: 'axis', formatter: p => p[0].name + ': ' + _rptMoney(p[0].value), backgroundColor:'rgba(10,14,20,0.95)', borderColor:'rgba(232,113,10,0.3)', textStyle:{color:'#EDE5D8'} },
+        xAxis: Object.assign({ type: 'value', axisLabel: { formatter: v => v >= 1000 ? '$'+(v/1000).toFixed(0)+'K' : '$'+v } }, RPT_AXIS),
+        yAxis: Object.assign({ type: 'category', data: entries.map(e=>e.rep) }, RPT_AXIS),
+        series: [{ type: 'bar', data: entries.map(e=>e.val), itemStyle: { color: '#FF8C1A', borderRadius: [0,3,3,0] } }]
+      });
+    }
+    function _rptRenderVelocity(deals) {
+      var c = _rptInit('rpt-velocity'); if (!c) return;
+      if (!deals.length) { c.setOption({ title:{text:'No deals in range',left:'center',top:'center',textStyle:{color:'rgba(237,229,216,0.45)',fontSize:12,fontWeight:400}} }); return; }
+      // Group by ISO week
+      var buckets = {};
+      deals.forEach(d => {
+        if (!d.dateAdded) return;
+        const dt = new Date(d.dateAdded);
+        const y = dt.getFullYear();
+        const firstJan = new Date(y, 0, 1);
+        const weekNo = Math.ceil(((dt - firstJan) / 86400000 + firstJan.getDay() + 1) / 7);
+        const key = y + '-W' + String(weekNo).padStart(2,'0');
+        buckets[key] = (buckets[key] || 0) + 1;
+      });
+      const weeks = Object.keys(buckets).sort();
+      c.setOption({ color:RPT_THEME.color, textStyle:RPT_THEME.textStyle, backgroundColor:'transparent',
+        grid:{left:40,right:20,top:20,bottom:40},
+        tooltip:{trigger:'axis',backgroundColor:'rgba(10,14,20,0.95)',borderColor:'rgba(232,113,10,0.3)',textStyle:{color:'#EDE5D8'}},
+        xAxis: Object.assign({type:'category',data:weeks,axisLabel:{fontSize:10,rotate:30}},RPT_AXIS),
+        yAxis: Object.assign({type:'value',minInterval:1},RPT_AXIS),
+        series:[{type:'line',smooth:true,data:weeks.map(w=>buckets[w]),areaStyle:{opacity:0.2},lineStyle:{width:2.5,color:'#FF8C1A'},itemStyle:{color:'#FF8C1A'}}]
+      });
+    }
+    function _rptRenderCoverage(deals) {
+      var c = _rptInit('rpt-coverage'); if (!c) return;
+      const STAGE_PROB = { 'Lead':0.1, 'Discovery':0.25, 'Proposal':0.5, 'Negotiation':0.75, 'Closed Won':1.0, 'Closed Lost':0 };
+      const open = deals.filter(d => d.stage !== 'Closed Won' && d.stage !== 'Closed Lost');
+      const weighted = open.reduce((sum,d) => sum + ((parseFloat(d.value)||0) * (STAGE_PROB[d.stage]||0.2)), 0);
+      // Target = average quarterly won × 3 (coverage = 3× target is healthy)
+      const won = deals.filter(d => d.stage === 'Closed Won');
+      const wonTotal = won.reduce((s,d) => s + (parseFloat(d.value)||0), 0);
+      const target = Math.max(wonTotal / 3, 10000); // fallback so coverage is computable
+      const coverage = weighted / target;
+      c.setOption({ backgroundColor:'transparent',
+        series:[{ type:'gauge', startAngle:220, endAngle:-40, min:0, max:5, splitNumber:5,
+          progress:{show:true,width:16},
+          axisLine:{lineStyle:{width:16,color:[[0.4,'#ef4444'],[0.6,'#eab308'],[1,'#22c55e']]}},
+          pointer:{length:'60%',width:5,itemStyle:{color:'#EDE5D8'}},
+          axisTick:{show:false},splitLine:{show:false},
+          axisLabel:{color:'rgba(237,229,216,0.6)',fontSize:10,distance:-22,formatter:v=>v+'×'},
+          detail:{valueAnimation:true,formatter:v=>v.toFixed(1)+'×',color:'#EDE5D8',fontSize:22,fontWeight:800,offsetCenter:[0,'70%']},
+          data:[{value: Math.min(coverage, 5), name:'Coverage'}]
+        }]
+      });
+    }
+    function _rptRenderSizeDist(deals) {
+      var c = _rptInit('rpt-size-dist'); if (!c) return;
+      const buckets = { '$0–5K':0, '$5–15K':0, '$15–50K':0, '$50–100K':0, '$100K+':0 };
+      deals.forEach(d => { const v = parseFloat(d.value)||0;
+        if (v < 5000) buckets['$0–5K']++;
+        else if (v < 15000) buckets['$5–15K']++;
+        else if (v < 50000) buckets['$15–50K']++;
+        else if (v < 100000) buckets['$50–100K']++;
+        else buckets['$100K+']++;
+      });
+      c.setOption({ color:RPT_THEME.color, textStyle:RPT_THEME.textStyle, backgroundColor:'transparent',
+        grid:{left:40,right:20,top:20,bottom:40},
+        tooltip:{trigger:'axis',backgroundColor:'rgba(10,14,20,0.95)',borderColor:'rgba(232,113,10,0.3)',textStyle:{color:'#EDE5D8'}},
+        xAxis: Object.assign({type:'category',data:Object.keys(buckets),axisLabel:{fontSize:10}},RPT_AXIS),
+        yAxis: Object.assign({type:'value',minInterval:1},RPT_AXIS),
+        series:[{type:'bar',data:Object.values(buckets),itemStyle:{color:'#FF8C1A',borderRadius:[3,3,0,0]}}]
+      });
+    }
+    function _rptRenderSource(deals) {
+      var c = _rptInit('rpt-source'); if (!c) return;
+      const closed = deals.filter(d => d.stage === 'Closed Won' || d.stage === 'Closed Lost');
+      if (!closed.length) { c.setOption({title:{text:'No closed deals in range',left:'center',top:'center',textStyle:{color:'rgba(237,229,216,0.45)',fontSize:12,fontWeight:400}}}); return; }
+      const bySrc = {};
+      closed.forEach(d => { const s = d.source || 'Unknown';
+        if (!bySrc[s]) bySrc[s] = { won:0, lost:0 };
+        if (d.stage === 'Closed Won') bySrc[s].won++; else bySrc[s].lost++;
+      });
+      const sources = Object.keys(bySrc);
+      c.setOption({ color:['#22c55e','#ef4444'], textStyle:RPT_THEME.textStyle, backgroundColor:'transparent',
+        legend:{data:['Won','Lost'],textStyle:{color:'#EDE5D8',fontSize:10},top:0},
+        grid:{left:40,right:20,top:30,bottom:40},
+        tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:'rgba(10,14,20,0.95)',borderColor:'rgba(232,113,10,0.3)',textStyle:{color:'#EDE5D8'}},
+        xAxis: Object.assign({type:'category',data:sources,axisLabel:{fontSize:10,interval:0,rotate:sources.length>4?20:0}},RPT_AXIS),
+        yAxis: Object.assign({type:'value',minInterval:1},RPT_AXIS),
+        series:[
+          { name:'Won', type:'bar', stack:'total', data: sources.map(s=>bySrc[s].won),  itemStyle:{color:'#22c55e'} },
+          { name:'Lost',type:'bar', stack:'total', data: sources.map(s=>bySrc[s].lost), itemStyle:{color:'#ef4444'} }
+        ]
+      });
+    }
+    function _rptRenderRisk(deals) {
+      var c = _rptInit('rpt-risk'); if (!c) return;
+      const open = deals.filter(d => d.stage !== 'Closed Won' && d.stage !== 'Closed Lost');
+      const counts = { 'High':0, 'Medium':0, 'Low':0 };
+      open.forEach(d => { const risk = (typeof calcRisk === 'function') ? calcRisk(d) : 'Low'; counts[risk] = (counts[risk]||0) + 1; });
+      const data = [
+        { name:'High', value:counts.High, itemStyle:{color:'#ef4444'} },
+        { name:'Medium', value:counts.Medium, itemStyle:{color:'#eab308'} },
+        { name:'Low', value:counts.Low, itemStyle:{color:'#22c55e'} }
+      ].filter(d=>d.value>0);
+      c.setOption({ textStyle:RPT_THEME.textStyle, backgroundColor:'transparent',
+        tooltip:{trigger:'item',backgroundColor:'rgba(10,14,20,0.95)',borderColor:'rgba(232,113,10,0.3)',textStyle:{color:'#EDE5D8'}},
+        legend:{bottom:0,textStyle:{color:'#EDE5D8',fontSize:10}},
+        series:[{type:'pie',radius:['45%','70%'],center:['50%','45%'],label:{color:'#EDE5D8',fontSize:11},data}]
+      });
+    }
+    function _rptRenderActivity(deals) {
+      var c = _rptInit('rpt-activity'); if (!c) return;
+      const counts = { 'Calls':0, 'Emails':0, 'Meetings':0, 'Notes':0 };
+      deals.forEach(d => {
+        (d.activities||[]).forEach(a => {
+          const act = (a.action || '').toLowerCase();
+          if (act.includes('call')) counts.Calls++;
+          else if (act.includes('email')) counts.Emails++;
+          else if (act.includes('meeting') || act.includes('demo')) counts.Meetings++;
+          else counts.Notes++;
+        });
+      });
+      const data = Object.keys(counts).map((k,i) => ({ name:k, value:counts[k], itemStyle:{color:['#60A5FA','#FF8C1A','#A78BFA','#94a3b8'][i]} })).filter(d=>d.value>0);
+      if (!data.length) { c.setOption({title:{text:'No activity logged yet',left:'center',top:'center',textStyle:{color:'rgba(237,229,216,0.45)',fontSize:12,fontWeight:400}}}); return; }
+      c.setOption({ textStyle:RPT_THEME.textStyle, backgroundColor:'transparent',
+        tooltip:{trigger:'item',backgroundColor:'rgba(10,14,20,0.95)',borderColor:'rgba(232,113,10,0.3)',textStyle:{color:'#EDE5D8'}},
+        legend:{bottom:0,textStyle:{color:'#EDE5D8',fontSize:10}},
+        series:[{type:'pie',radius:['45%','70%'],center:['50%','45%'],label:{color:'#EDE5D8',fontSize:11},data}]
+      });
+    }
+    function _rptRenderStageAging(deals) {
+      var c = _rptInit('rpt-stage-aging'); if (!c) return;
+      const stages = ['Lead','Discovery','Proposal','Negotiation'];
+      const open = deals.filter(d => stages.indexOf(d.stage) !== -1);
+      const now = Date.now();
+      const buckets = {};
+      stages.forEach(s => buckets[s] = []);
+      open.forEach(d => { if (d.dateAdded && buckets[d.stage]) buckets[d.stage].push(Math.floor((now - new Date(d.dateAdded).getTime())/86400000)); });
+      const avgs = stages.map(s => { const a = buckets[s]; return a.length ? Math.round(a.reduce((x,y)=>x+y,0)/a.length) : 0; });
+      c.setOption({ color:RPT_THEME.color, textStyle:RPT_THEME.textStyle, backgroundColor:'transparent',
+        grid:{left:40,right:20,top:20,bottom:40},
+        tooltip:{trigger:'axis',formatter:p=>p[0].name+': '+p[0].value+' days',backgroundColor:'rgba(10,14,20,0.95)',borderColor:'rgba(232,113,10,0.3)',textStyle:{color:'#EDE5D8'}},
+        xAxis: Object.assign({type:'category',data:stages,axisLabel:{fontSize:10}},RPT_AXIS),
+        yAxis: Object.assign({type:'value',minInterval:1,axisLabel:{formatter:'{value}d'}},RPT_AXIS),
+        series:[{type:'bar',data:avgs,itemStyle:{color:'#A78BFA',borderRadius:[3,3,0,0]}}]
+      });
+    }
+    function _rptRenderTopDeals(deals) {
+      const el = document.getElementById('rpt-top-deals'); if (!el) return;
+      const live = deals.filter(d => d.stage !== 'Closed Lost').sort((a,b) => (parseFloat(b.value)||0) - (parseFloat(a.value)||0)).slice(0,10);
+      if (!live.length) { el.innerHTML = '<div style="padding:20px 0;text-align:center;color:rgba(237,229,216,0.4);font-size:0.8rem;">No deals in range.</div>'; return; }
+      el.innerHTML = '<div style="display:grid;grid-template-columns:40px 1fr 120px 130px 110px;gap:10px;font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.5);padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.08);">' +
+        '<div>#</div><div>Deal</div><div>Rep</div><div>Stage</div><div style="text-align:right;">Value</div>' +
+        '</div>' +
+        live.map((d,i) => '<div style="display:grid;grid-template-columns:40px 1fr 120px 130px 110px;gap:10px;padding:9px 10px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.78rem;font-variant-numeric:tabular-nums;">' +
+          '<div style="color:rgba(237,229,216,0.4);font-weight:700;">' + (i+1) + '</div>' +
+          '<div style="color:#EDE5D8;font-weight:700;">' + (d.name || 'Untitled') + '</div>' +
+          '<div style="color:rgba(237,229,216,0.7);">' + (d.rep || '—') + '</div>' +
+          '<div style="color:rgba(237,229,216,0.7);">' + (d.stage || '—') + '</div>' +
+          '<div style="text-align:right;color:#FF8C1A;font-weight:800;">' + _rptMoney(parseFloat(d.value)||0) + '</div>' +
+          '</div>').join('');
+    }
 
     function _rptRenderFunnel(deals) {
       var c = _rptInit('rpt-funnel'); if (!c) return;
