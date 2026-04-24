@@ -130,6 +130,25 @@
   </div>
 </nav>
 
+<!-- ── PASSWORD GATE ─────────────────────────────────────────────────────
+     Hides the whole press room behind a 4444 prompt. Once unlocked, the
+     session is remembered until the tab closes (sessionStorage). -->
+<div id="press-gate" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:78vh;padding:40px 24px;text-align:center;font-family:'Segoe UI',system-ui,sans-serif;">
+  <div style="font-size:0.62rem;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Newsroom · Private</div>
+  <h1 style="font-size:clamp(1.6rem,4vw,2.4rem);color:#fff;margin-bottom:10px;letter-spacing:-0.01em;">Press Room</h1>
+  <p style="color:var(--muted);max-width:420px;margin:0 auto 26px;font-size:0.9rem;line-height:1.6;">Protected area. Enter the press-admin passcode to view published releases.</p>
+  <form id="press-gate-form" onsubmit="return pressGateUnlock(event)" style="display:flex;gap:8px;align-items:center;">
+    <input type="password" id="press-gate-input" placeholder="Passcode" autocomplete="off" autofocus
+           style="background:rgba(255,255,255,0.04);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#EDE5D8;padding:11px 14px;font-family:inherit;font-size:0.95rem;outline:none;width:180px;letter-spacing:0.2em;text-align:center;" />
+    <button type="submit"
+            style="background:var(--accent);border:1px solid var(--accent);border-radius:8px;color:#fff;font-size:0.85rem;font-weight:800;padding:11px 22px;cursor:pointer;font-family:inherit;letter-spacing:0.04em;">Unlock</button>
+  </form>
+  <div id="press-gate-err" style="height:20px;margin-top:12px;font-size:0.75rem;color:#ef4444;opacity:0;transition:opacity 0.2s;">Incorrect passcode.</div>
+  <a href="https://pulserevops.com/" style="margin-top:38px;font-size:0.72rem;color:var(--muted);text-decoration:underline;">← Back to PULSE RevOps</a>
+</div>
+
+<!-- ── REAL PRESS ROOM (hidden until gate is passed) ─────────────────────── -->
+<div id="press-protected" style="display:none;">
 <div class="hero" id="press-hero">
   <p class="hero-eyebrow">Newsroom</p>
   <h1>PULSE RevOps Press Room</h1>
@@ -148,6 +167,7 @@
     <div id="release-content"></div>
   </div>
 </div>
+</div>  <!-- end #press-protected -->
 
 <footer>
   <div class="footer-links">
@@ -309,15 +329,43 @@
     document.title = 'Press Room | PULSE RevOps';
   }
 
-  // ── Init ───────────────────────────────────────────────────────────────────
-  window.addEventListener('DOMContentLoaded', () => {
+  // ── Password gate ──────────────────────────────────────────────────────────
+  const PRESS_GATE_PIN = '4444';
+  const PRESS_GATE_KEY = 'pulse_press_unlocked';
+
+  window.pressGateUnlock = function(ev) {
+    if (ev) ev.preventDefault();
+    const input = document.getElementById('press-gate-input');
+    const err   = document.getElementById('press-gate-err');
+    if (!input) return false;
+    if (input.value === PRESS_GATE_PIN) {
+      try { sessionStorage.setItem(PRESS_GATE_KEY, '1'); } catch(e) {}
+      revealPressRoom();
+    } else {
+      if (err) { err.style.opacity = '1'; setTimeout(() => { err.style.opacity = '0'; }, 1800); }
+      input.value = ''; input.focus();
+    }
+    return false;
+  };
+
+  function revealPressRoom() {
+    const gate = document.getElementById('press-gate');
+    const real = document.getElementById('press-protected');
+    if (gate) gate.style.display = 'none';
+    if (real) real.style.display = 'block';
+    // Now fetch the list
     const qs = new URLSearchParams(location.search);
     const slug = qs.get('r');
-    if (slug) {
-      loadList().then(() => loadRelease(slug));
-    } else {
-      loadList();
-    }
+    if (slug) loadList().then(() => loadRelease(slug));
+    else loadList();
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  window.addEventListener('DOMContentLoaded', () => {
+    // If session already unlocked, skip the gate
+    let unlocked = false;
+    try { unlocked = sessionStorage.getItem(PRESS_GATE_KEY) === '1'; } catch(e) {}
+    if (unlocked) { revealPressRoom(); return; }
   });
 </script>
 </body>

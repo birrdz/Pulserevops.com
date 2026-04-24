@@ -7,6 +7,14 @@
 [build]
   functions = "netlify/functions"
 
+# ─── SCHEDULED FUNCTIONS ────────────────────────────────────────────────
+# Daily press-scraper: hits Anthropic API with web_search, pulls new
+# press mentions of Kory White / PULSE RevOps / The Executive Review,
+# dedupes against blob _index by URL hash, appends new entries.
+# Cron: 13:00 UTC = 9am ET. Adjust as needed.
+[functions."press-scrape"]
+  schedule = "0 13 * * *"
+
 [[redirects]]
   from = "https://*.netlify.app/*"
   to = "https://pulserevops.com/:splat"
