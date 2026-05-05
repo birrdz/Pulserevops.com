@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Telecom RevOps Playbook | PULSE RevOps</title>
+  <meta name="description" content="Operator-grade RevOps playbook for telecom resellers, MSPs, and authorized channel partners. Multi-site capacity math, hardware-vs-recurring comp design, the five red flags of channel margin leak — built by someone who scaled an authorized retail partner to $3B." />
+  <meta name="author" content="Kory White" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://pulserevops.com/how-tos/telecom.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Telecom RevOps Playbook | PULSE RevOps" />
+  <meta property="og:description" content="The multi-site reseller / MSP / authorized retailer playbook. Hardware-recurring comp math, churn-by-site, channel governance." />
+  <meta property="og:url" content="https://pulserevops.com/how-tos/telecom.html" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "Telecom RevOps — The Multi-Site Trap and How to Scale a Channel Business",
+        "description": "Operator-grade RevOps blueprint for telecom resellers, MSPs, and authorized retailers: multi-site capacity math, hardware-vs-recurring comp design, churn-by-site economics, and the five red flags of channel margin leak.",
+        "author": {"@type": "Person", "name": "Kory White", "url": "https://pulserevops.com"},
+        "publisher": {"@type": "Organization", "name": "PULSE RevOps", "url": "https://pulserevops.com"},
+        "url": "https://pulserevops.com/how-tos/telecom.html",
+        "keywords": "telecom RevOps, MSP, authorized retailer, multi-site management, hardware vs recurring revenue, channel margin, telecom comp design, Verizon partner, AT&T partner, T-Mobile partner",
+        "datePublished": "2026-04-29",
+        "dateModified": "2026-04-29"
+      },
+      {
+        "@type": "Dataset",
+        "name": "Telecom Reseller Hardware-vs-Recurring Revenue Reference",
+        "description": "Reference table mapping hardware/services revenue mix to gross margin, rep tenure, and churn-by-site economics across small (1-3 site), mid (4-15 site), and large (15+ site) authorized partners.",
+        "creator": {"@type": "Person", "name": "Kory White"},
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "isPartOf": "https://pulserevops.com/how-tos/telecom.html"
+      },
+      {
+        "@type": "ItemList",
+        "name": "Telecom Channel Red Flag Checklist",
+        "description": "Five operator-level signals that a telecom reseller / MSP is leaking margin to single-carrier dependency, weak comp design, or unmanaged churn.",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"More than 60% of revenue from a single carrier or vendor"},
+          {"@type":"ListItem","position":2,"name":"Hardware-to-services revenue ratio out of balance — under 25% or over 75% recurring"},
+          {"@type":"ListItem","position":3,"name":"Rep median tenure under 18 months at top quartile"},
+          {"@type":"ListItem","position":4,"name":"Multi-site discount stacking with no governance ladder"},
+          {"@type":"ListItem","position":5,"name":"Comp paid only on initial hardware sale, not ongoing recurring service"}
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #111518; --surface: #1A2025; --surface2: #242C32;
+      --accent: #E8710A; --accent2: #FF8C1A;
+      --text: #e2e8f0; --muted: #94a3b8;
+      --border: rgba(255,255,255,0.08);
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh; }
+    a { color: var(--accent2); }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(17,21,24,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; font-size: 0.85rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-weight: 600; }
+    .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 6px 14px; border-radius: 6px; }
+    .hero { background: linear-gradient(135deg, #1A2025 0%, #111518 60%); border-bottom: 1px solid var(--border); padding: 3.5rem 1.5rem 3rem; text-align: center; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.2; max-width: 720px; margin: 0 auto 1rem; }
+    .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 1.75rem; }
+
+    article { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    article h2 { font-size: 1.4rem; margin: 1.75rem 0 0.75rem; color: var(--text); }
+    article h3 { font-size: 1.1rem; margin: 1.25rem 0 0.5rem; color: var(--accent2); }
+    article p, article li { color: rgba(226,232,240,0.85); font-size: 0.98rem; line-height: 1.75; }
+    article ul, article ol { margin: 0.5rem 0 1rem 1.5rem; }
+    article li { margin-bottom: 0.4rem; }
+    article strong { color: #fff; }
+
+    .callout { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .callout-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .callout p { margin-bottom: 0; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1rem; text-align: center; }
+    .kpi-card .kpi-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .kpi-card .kpi-name { font-size: 1rem; font-weight: 800; color: var(--accent); }
+
+    .ops-section { margin: 2.25rem 0 2rem; }
+    .ops-eyebrow { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .ops-section h2 { margin-bottom: 0.6rem; }
+    .ops-lede { color: rgba(226,232,240,0.78); margin-bottom: 1rem; font-size: 1rem; }
+
+    .rev-math { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.9rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .rev-math caption { caption-side: top; text-align: left; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); padding: 0 0 8px; }
+    .rev-math th, .rev-math td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); text-align: right; }
+    .rev-math th:first-child, .rev-math td:first-child { text-align: left; }
+    .rev-math thead th { background: rgba(232,113,10,0.08); color: var(--accent); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid rgba(232,113,10,0.2); }
+    .rev-math tbody tr:last-child td { border-bottom: 0; }
+    .rev-math tbody tr.row-flag td { background: rgba(255,80,80,0.06); color: #ff8a8a; }
+    .rev-math tbody tr.row-target td { background: rgba(34,197,94,0.05); }
+    .rev-math .dim { color: var(--muted); font-weight: 500; }
+    .math-source { font-size: 0.72rem; color: var(--muted); margin-top: -0.5rem; margin-bottom: 1.5rem; font-style: italic; }
+
+    .trenches { background: rgba(232,113,10,0.05); border: 1px solid rgba(232,113,10,0.25); border-left: 4px solid var(--accent); border-radius: 10px; padding: 1.4rem 1.5rem; margin: 1.5rem 0; }
+    .trenches h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.85rem; }
+    .trenches .trench-item { padding: 12px 0; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+    .trenches .trench-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .trench-name { font-weight: 700; color: #fff; margin-bottom: 4px; font-size: 0.95rem; }
+    .trench-pain { color: rgba(226,232,240,0.78); font-size: 0.92rem; line-height: 1.65; }
+    .trench-pain em { color: #FFD740; font-style: normal; font-weight: 700; }
+
+    .red-flag-card { background: var(--surface); border: 1px solid rgba(255,80,80,0.3); border-left: 4px solid #ff5050; border-radius: 10px; padding: 1.4rem 1.5rem; margin: 1.5rem 0; }
+    .red-flag-card h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #ff5050; margin-bottom: 0.5rem; }
+    .red-flag-card .threshold { font-size: 0.85rem; color: rgba(255,180,180,0.85); margin-bottom: 1rem; font-style: italic; }
+    .rf-list { list-style: none; padding: 0; margin: 0; counter-reset: rf; }
+    .rf-list li { padding: 10px 0 10px 36px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(226,232,240,0.88); font-size: 0.95rem; line-height: 1.55; counter-increment: rf; }
+    .rf-list li::before { content: counter(rf); position: absolute; left: 0; top: 8px; width: 26px; height: 26px; border-radius: 6px; background: rgba(255,80,80,0.12); border: 1px solid rgba(255,80,80,0.4); color: #ff5050; font-weight: 800; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; }
+    .rf-list li:last-child { border-bottom: 0; }
+    .rf-list b { color: #fff; }
+
+    .cta-card { background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .cta-card p { color: var(--muted); margin-bottom: 1.25rem; }
+    .btn { display: inline-block; padding: 10px 22px; background: var(--accent); color: #fff !important; border-radius: 6px; text-decoration: none; font-weight: 700; margin: 0 6px; }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text) !important; }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.8rem; }
+    footer a { color: var(--muted); text-decoration: none; }
+    .footer-links { display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 0.6rem; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="https://pulserevops.com/">PULSE RevOps</a>
+  <div class="nav-links">
+    <a href="https://pulserevops.com/themachine">The Machine</a>
+    <a href="https://pulserevops.com/knowledge.html">Library</a>
+    <a href="https://pulserevops.com/dashboard.html" class="nav-cta">Free CRM</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">How To · Telecom · Resellers · MSPs · Channel Partners</div>
+  <h1>How to Manage and Scale Revenue in Telecom</h1>
+  <p class="hero-sub">A practical RevOps guide for telecom resellers, MSPs, and authorized channel partners — built by someone who spent 22 years inside one of Verizon's largest authorized retailers.</p>
+</section>
+
+<article>
+
+  <h2>Why This Industry Is Different</h2>
+  <p>Every industry has its own revenue physics, and telecom's is brutal. The carriers (Verizon, AT&T, T-Mobile) shift commission structures quarterly, change device subsidies without warning, and reward the channel partners who can move both <strong>hardware velocity AND recurring activations</strong> simultaneously. The reseller who treats those as one problem hits a wall by year three. The reseller who treats them as two interlocking systems scales past $20M ARR.</p>
+
+  <h2>The 9 KPIs That Matter Most</h2>
+  <p>Stop tracking everything. These nine metrics give you the clearest signal of channel health in a telecom reseller / MSP business:</p>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">KPI 1</div><div class="kpi-name">Activations / Rep / Day</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 2</div><div class="kpi-name">Hardware Attach Rate</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 3</div><div class="kpi-name">Recurring ARPU per Account</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 4</div><div class="kpi-name">90-Day Churn % by Site</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 5</div><div class="kpi-name">Carrier Mix %</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 6</div><div class="kpi-name">Commission Clawback %</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 7</div><div class="kpi-name">Rep Tenure Median</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 8</div><div class="kpi-name">Site-Level Gross Margin</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 9</div><div class="kpi-name">Multi-Line Account %</div></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Key Insight</div>
+    <p>The metric most reseller owners track wrong is <strong>activations per rep</strong>. The metric that actually predicts P&L health is <strong>multi-line account %</strong> — the share of accounts with 3+ lines or services bundled. Multi-line accounts churn at <em>roughly half the rate</em> of single-line accounts and carry double the lifetime gross margin.</p>
+  </div>
+
+  <section class="ops-section" id="multi-site-trap">
+    <div class="ops-eyebrow">⚠ The Operator Truth</div>
+    <h2>The Multi-Site Trap: Why Telecom Resellers Stall Between $5M and $20M ARR</h2>
+    <p class="ops-lede">Most struggling resellers think they have a recruiting problem. They don't. They have a <strong>site-level economics</strong> problem stacked on top of a <strong>comp-design</strong> problem. The owner is opening sites because that's how the carrier rep keeps offering bonus money, but each new site cannibalizes a percentage of the existing site's foot traffic, AND the rep comp plan still pays primarily on hardware activations — so reps don't sell connectivity hard enough to replace the recurring revenue lost to churn.</p>
+    <p class="ops-lede">Here is the math that should be on every reseller owner's wall:</p>
+
+    <table class="rev-math">
+      <caption>Channel P&L · Hardware-vs-Recurring Mix vs Margin and Rep Tenure</caption>
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Hardware / Recurring</th>
+          <th>Gross Margin</th>
+          <th>90-Day Churn</th>
+          <th>Rep Tenure (median)</th>
+          <th>Multi-Line %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-flag"><td>1–3 sites <span class="dim">(stuck under $5M)</span></td><td>72 / 28</td><td>14–18%</td><td>22–28%</td><td>9–14 months</td><td>under 22%</td></tr>
+        <tr><td>4–15 sites <span class="dim">(industry baseline)</span></td><td>58 / 42</td><td>21–26%</td><td>14–18%</td><td>15–22 months</td><td>30–42%</td></tr>
+        <tr class="row-target"><td>15+ sites <span class="dim">(top decile, $20M+)</span></td><td>45 / 55</td><td>28–34%</td><td>under 12%</td><td>26–36 months</td><td>50–62%</td></tr>
+      </tbody>
+    </table>
+    <p class="math-source">Composite of CTIA reseller channel data, NRMCA authorized-retailer P&L workshops, and 22 years of operating experience scaling Cellular Sales of Knoxville (Verizon's largest authorized partner) to $3B in revenue. Numbers are reference, not guarantees.</p>
+
+    <p class="ops-lede"><strong>The takeaway no carrier rep will tell you:</strong> the move from a 1-3 site shop to 4+ sites is not a real-estate problem — it is a <em>comp redesign</em> problem. At a 72/28 hardware-recurring mix you are betting your business on next quarter's device subsidy. At a 55/45 mix, half your revenue shows up before the foot traffic does, churn collapses, and rep tenure roughly doubles. Every percentage point of recurring revenue mix above 35% is roughly <strong>$22K of smoothed annual margin per site</strong>. Multiply by your fleet of stores and you've found the door out of the $5M–$20M dead zone.</p>
+  </section>
+
+  <div class="trenches">
+    <h3>🪵 Truth From the Trenches</h3>
+    <p class="ops-lede" style="margin-bottom:1rem;">If you've signed payroll for a multi-site telecom reseller, you've lived all three of these. Generic AI advice doesn't see them — only an operator who walked the showroom floors does.</p>
+
+    <div class="trench-item">
+      <div class="trench-name">The "stack-rank PM" who quietly underpays your high-tenure reps</div>
+      <div class="trench-pain">She owns the comp spreadsheet. She inherited it from her predecessor. She runs the ranking against the carrier's published bands every month. The spreadsheet has a hidden bug — high-tenure reps with established multi-line books are getting credit calculated on <em>activations alone</em>, not on the recurring service margin those activations produce. Those reps are silently making 12-18% less than the matrix says they should. They don't know yet. When they figure it out, they leave — and they take the multi-line book to a competitor. <em>Audit the comp spreadsheet against actual paystubs every quarter.</em></div>
+    </div>
+
+    <div class="trench-item">
+      <div class="trench-name">The shadow rep — your top performer in one territory who burns through every replacement after them</div>
+      <div class="trench-pain">She does $180K/quarter in personal activations. The site does $260K total. Three other reps have rotated through that store in 14 months. Each one looks at her board and quits in 90 days. She's not running them off — but the customer base she built will only ever talk to her, and the carrier doesn't credit "house leads" to anyone else. When she finally takes a vacation, the site does $40K that month. <em>Top performers in concentrated territories aren't the win they look like.</em> Build the rotation BEFORE she gets pregnant, takes a sabbatical, or gets recruited.</div>
+    </div>
+
+    <div class="trench-item">
+      <div class="trench-name">The hardware-only AE who never sells connectivity because installation only pays once</div>
+      <div class="trench-pain">He hits hardware quota every month. Devices fly off his counter. His attach rate on protection plans, hotspot accessories, and connected-home is 6%. The store average is 31%. Why? His comp plan pays $40 per device-only sale — the same as a fully-loaded multi-line activation. He's not lazy; he's optimizing rationally for the comp structure you wrote. <em>Comp pays on the behavior you reward.</em> Restructure: cap hardware-only sales at 60% of comp earnings; the rest must come from connectivity, accessories, or recurring service.</div>
+    </div>
+  </div>
+
+  <div class="red-flag-card" id="red-flag-audit">
+    <h3>🚩 The Telecom Channel Red Flag Audit</h3>
+    <div class="threshold">Check the boxes that apply. <strong>Three or more = the channel business is leaking margin you can recover before next carrier-bonus cycle — without opening another site.</strong></div>
+    <ol class="rf-list">
+      <li><b>More than 60% of revenue from a single carrier or vendor.</b> (Healthy diversified resellers run 40-55% from any one carrier. Single-carrier dependency is one bonus-rule change away from a 30% revenue cut.)</li>
+      <li><b>Hardware-to-services revenue ratio out of balance</b> — under 25% recurring or over 75% recurring. (Top-decile sits at 45-55% recurring. Below 25% means you're a phone-flipping shop. Above 75% means you've stopped acquiring new accounts.)</li>
+      <li><b>Rep median tenure under 18 months at the top quartile.</b> (You're losing the institutional knowledge that creates multi-line books. Audit the comp plan and the multi-line credit calculation immediately.)</li>
+      <li><b>Multi-site discount stacking with no governance ladder.</b> (Site managers cutting deals on their own authority means margin variance you can't model. Publish a band matrix per site type.)</li>
+      <li><b>Comp paid only on initial hardware sale, not on ongoing recurring service.</b> (Reps optimize for what comp rewards. Without recurring kickers, attach rate stays under 20% and churn stays above 18%.)</li>
+    </ol>
+  </div>
+
+  <h2>How to Use the PULSE Dashboard for Telecom</h2>
+  <p>The PULSE framework was designed to work across industries — here's how it maps to telecom resellers / MSPs:</p>
+  <ul>
+    <li><strong>Pulse Check:</strong> Score your reps weekly on multi-line attach rate, recurring ARPU per account, and 90-day retention — not just activations.</li>
+    <li><strong>Gross Profit Calculator:</strong> Model margin per site, per rep, per carrier mix. The site-level P&L is where most reseller blind spots live.</li>
+    <li><strong>Lightning Rounds:</strong> 15-minute weekly drills focused on multi-line bundling — the single highest-leverage rep-skill in the channel.</li>
+    <li><strong>Rep Scheduling Matrix:</strong> Protect prime foot-traffic hours (Sat 11am-3pm; weekday lunch). Reps in admin during peak windows are the fastest margin leak.</li>
+    <li><strong>Recruiting Calculator:</strong> Telecom rep ramp is 90-150 days to full productivity. Plan headcount additions 5 months ahead of carrier promo cycles.</li>
+  </ul>
+
+  <h2>Frequently Asked Questions</h2>
+  <div>
+    <div style="border-bottom:1px solid var(--border);padding:1.25rem 0;"><div style="font-weight:700;color:#fff;margin-bottom:0.5rem;">What multi-line attach rate should I target?</div><div style="color:var(--muted);">30%+ is industry baseline. Top-decile resellers run 50-62%. Below 22% means the comp plan or training is broken.</div></div>
+    <div style="border-bottom:1px solid var(--border);padding:1.25rem 0;"><div style="font-weight:700;color:#fff;margin-bottom:0.5rem;">How do I reduce 90-day churn?</div><div style="color:var(--muted);">Lock in the third line at the time of activation. Multi-line accounts (3+ services bundled) churn at roughly half the rate of single-line accounts. Make the bundle conversation mandatory at every activation, not optional.</div></div>
+    <div style="padding:1.25rem 0;"><div style="font-weight:700;color:#fff;margin-bottom:0.5rem;">When should I open a new site vs upgrade an existing one?</div><div style="color:var(--muted);">Upgrade existing sites until the top-quartile sites hit 88%+ utilization on prime hours. Opening a new site before that cannibalizes the existing fleet and dilutes per-site multi-line attach.</div></div>
+  </div>
+
+  <div class="cta-card">
+    <h3>Ready to Run This in PULSE?</h3>
+    <p>Open the free PULSE dashboard — no account required. Set goals, run your Pulse Check, model site-level margin in seconds.</p>
+    <a href="../dashboard.html" class="btn">Open the Dashboard →</a>
+    <a href="../themachine" class="btn btn-ghost">Ask The Machine</a>
+  </div>
+
+  <h2>More How-To's</h2>
+  <p>Browse industry guides at <a href="./">pulserevops.com/how-tos/</a> or read the operator-grade pillars at <a href="../pillars/deal-desk-architecture-scaled-governance">/pillars/</a>.</p>
+
+</article>
+
+<footer>
+  <div class="footer-links">
+    <a href="../">Home</a>
+    <a href="../dashboard.html">Dashboard</a>
+    <a href="../knowledge.html">Library</a>
+    <a href="./">How To's</a>
+    <a href="../privacy">Privacy</a>
+  </div>
+  <p>© 2026 PULSE RevOps — Free to use. Pay it forward.</p>
+</footer>
+
+<script src="/assets/visit-alert.js" defer></script>
+<script src="/assets/intent-beacon.js" defer></script>
+</body>
+</html>

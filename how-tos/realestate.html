@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Manage and Scale Revenue in Real Estate | PULSE RevOps</title>
+  <meta name="description" content="A practical RevOps guide for residential and commercial brokerage teams. KPIs, scaling strategies, and team management frameworks — powered by PULSE." />
+  <meta name="author" content="Kory White" />
+  <link rel="canonical" href="https://pulserevops.com/how-tos/realestate.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How to Manage and Scale Revenue in Real Estate" />
+  <meta property="og:description" content="A practical RevOps guide for residential and commercial brokerage teams. KPIs, scaling strategies, and team management frameworks — powered by PULSE." />
+  <meta property="og:url" content="https://pulserevops.com/how-tos/realestate.html" />
+  <meta property="og:site_name" content="PULSE RevOps" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "The Brokerage P&L Trap — Why Your Top 3 Agents Generate 70% of Revenue and Where the Margin Goes",
+        "description": "Operator-grade RevOps blueprint for residential brokerages: lead-source unit economics, the agent productivity distribution math, and the five red flags that separate brokerages that scale from the ones that quietly stall.",
+        "author": {"@type": "Person", "name": "Kory White", "url": "https://pulserevops.com"},
+        "publisher": {"@type": "Organization", "name": "PULSE RevOps", "url": "https://pulserevops.com"},
+        "url": "https://pulserevops.com/how-tos/realestate.html",
+        "keywords": "real estate RevOps, brokerage P&L, agent productivity, Zillow leads, BoomTown, kvCORE, Follow Up Boss, lead source ROI, agent ramp, GCI per agent",
+        "datePublished": "2026-04-29",
+        "dateModified": "2026-04-29"
+      },
+      {
+        "@type": "Dataset",
+        "name": "Brokerage Lead-Source Unit Economics Reference",
+        "description": "Lead source mapped to cost per lead, conversion rate, average commission, and net economics. Reference math for Zillow Premier Agent, Realtor.com Connections Plus, kvCORE-generated leads, BoomTown PPC, and organic referral.",
+        "creator": {"@type": "Person", "name": "Kory White"},
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "isPartOf": "https://pulserevops.com/how-tos/realestate.html",
+        "keywords": "lead source ROI, Zillow Premier Agent, kvCORE, BoomTown, Follow Up Boss, real estate CAC"
+      },
+      {
+        "@type": "ItemList",
+        "name": "Brokerage Red Flag Checklist",
+        "description": "Five operator-level signals that a residential brokerage is leaking margin to dead lead spend, agent split renegotiation, or top-producer concentration risk.",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Top 3 agents account for over 60% of total GCI"},
+          {"@type":"ListItem","position":2,"name":"Lead-source CAC over $400 with conversion under 2%"},
+          {"@type":"ListItem","position":3,"name":"New agent ramp longer than 180 days with no defined production milestones"},
+          {"@type":"ListItem","position":4,"name":"Average days on market more than 8 days above MLS median"},
+          {"@type":"ListItem","position":5,"name":"Agent split renegotiations happening reactively, not on a published ladder"}
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #111518; --surface: #1A2025; --surface2: #242C32;
+      --accent: #E8710A; --accent2: #FF8C1A;
+      --text: #e2e8f0; --muted: #94a3b8;
+      --border: rgba(255,255,255,0.08); --max: 760px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; font-size: 1rem; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(17,21,24,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--accent); color: #fff !important; padding: 6px 14px; border-radius: 6px; }
+    .nav-cta:hover { background: var(--accent2) !important; }
+    .hero { background: linear-gradient(135deg, #1A2025 0%, #111518 60%); border-bottom: 1px solid var(--border); padding: 3.5rem 1.5rem 3rem; text-align: center; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.2; max-width: 720px; margin: 0 auto 1rem; }
+    .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 1.75rem; }
+    .hero-meta { font-size: 0.78rem; color: var(--muted); display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+    article { max-width: var(--max); margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    article h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent); margin: 2.5rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+    article h3 { font-size: 1.1rem; font-weight: 700; margin: 1.75rem 0 0.5rem; color: var(--text); }
+    article p { margin-bottom: 1.1rem; color: var(--text); }
+    article ul, article ol { margin: 0.5rem 0 1.1rem 1.5rem; color: var(--text); }
+    article li { margin-bottom: 0.45rem; }
+    article strong { color: #f8fafc; }
+    article a { color: var(--accent2); text-decoration: none; border-bottom: 1px solid rgba(251,146,60,0.3); transition: border-color 0.2s; }
+    article a:hover { border-color: var(--accent2); }
+    .callout { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .callout-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .callout p { margin-bottom: 0; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1rem; text-align: center; }
+    .kpi-card .kpi-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .kpi-card .kpi-name { font-size: 1rem; font-weight: 800; color: var(--accent); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: var(--surface); border-radius: 0 8px 8px 0; font-style: italic; color: var(--muted); }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 1.25rem 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .faq-a { color: var(--muted); }
+    .cta-card { background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .cta-card p { color: var(--muted); margin-bottom: 1.25rem; }
+    .btn { display: inline-block; background: var(--accent); color: #fff; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.04em; border-bottom: none; transition: background 0.2s, transform 0.15s; margin: 0.25rem; }
+    .btn:hover { background: var(--accent2); transform: translateY(-1px); border-bottom: none; }
+    .btn-ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+    .btn-ghost:hover { background: rgba(232,113,10,0.1); }
+    /* NEWS FEED */
+    .news-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
+    .news-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .news-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .news-badge { font-size: 0.62rem; font-weight: 700; background: rgba(232,113,10,0.15); color: var(--accent); border: 1px solid rgba(232,113,10,0.3); border-radius: 20px; padding: 2px 8px; letter-spacing: 0.08em; }
+    #news-feed { list-style: none; margin: 0; padding: 0; }
+    #news-feed li { border-bottom: 1px solid var(--border); padding: 0.75rem 0; }
+    #news-feed li:last-child { border-bottom: none; padding-bottom: 0; }
+    #news-feed a { color: var(--text); font-size: 0.88rem; font-weight: 600; border-bottom: none; display: block; margin-bottom: 0.2rem; }
+    #news-feed a:hover { color: var(--accent2); }
+    #news-feed .news-meta { font-size: 0.72rem; color: var(--muted); }
+    #news-loading { color: var(--muted); font-size: 0.85rem; text-align: center; padding: 1rem 0; }
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.82rem; }
+    footer a { color: var(--muted); text-decoration: none; border-bottom: none; }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    @media (max-width: 600px) { .hero { padding: 2.5rem 1rem 2rem; } article { padding: 2rem 1rem 3rem; } .nav-links { gap: 0.75rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-brand">PULSE</a>
+  <div class="nav-links">
+    <a href="../dashboard.html">Dashboard</a>
+    <a href="../blog/">Blog</a>
+    <a href="./">How To&apos;s</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">How To&apos;s &mdash; Real Estate</p>
+  <h1>How to Manage and Scale Revenue in Real Estate</h1>
+  <p class="hero-sub">A practical framework for residential and commercial brokerage teams &mdash; built from real experience, not theory.</p>
+  <div class="hero-meta">
+    <span>&#128313; PULSE RevOps</span>
+    <span>&#128336; 8 min read</span>
+    <span>&#127775; Free to use</span>
+  </div>
+</section>
+
+<article>
+
+  <h2>Why This Industry Is Different</h2>
+  <p>Every industry has its own revenue physics. Real Estate businesses deal with specific buying cycles, customer expectations, and margin structures that generic sales advice can&apos;t address. This guide is built specifically for residential and commercial brokerage teams &mdash; with benchmarks, frameworks, and coaching cues that apply to your world.</p>
+
+    <h2>The 9 KPIs That Matter Most</h2>
+  <p>Stop tracking everything. These nine metrics give you the clearest signal of revenue health in Real Estate:</p>
+  <div class="kpi-grid" id="how-to-kpi-grid" data-industry="realestate">
+    <div class="kpi-card"><div class="kpi-label">KPI 1</div><div class="kpi-name">New Listings</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 2</div><div class="kpi-name">Buyer Contracts</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 3</div><div class="kpi-name">Closings</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 4</div><div class="kpi-name">Referrals</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 5</div><div class="kpi-name">Price Reductions</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 6</div><div class="kpi-name">Days on Market</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 7</div><div class="kpi-name">Avg Sale Price</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 8</div><div class="kpi-name">Avg Commission ($)</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 9</div><div class="kpi-name">GCI / Month</div></div>
+  </div>
+  <script>
+  // Daily-refreshed KPIs from the prewarm cron (industry-kpis-refresh-background).
+  // If the cron has cached fresh data for this industry, swap the cards in place.
+  (function(){
+    try {
+      var grid = document.getElementById('how-to-kpi-grid');
+      if (!grid) return;
+      var ind = grid.getAttribute('data-industry') || 'realestate';
+      var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+      var t = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 4000);
+      fetch('/.netlify/functions/industry-kpis?ind=' + encodeURIComponent(ind), ctrl ? { signal: ctrl.signal } : {})
+        .then(function(r){ clearTimeout(t); return r.ok ? r.json() : null; })
+        .then(function(d){
+          if (!d || !d.ok || !Array.isArray(d.kpis) || !d.kpis.length) return;
+          var real = d.kpis.filter(function(k){ return k && k.name && !/^KPI\s*\d+$/i.test(String(k.name).trim()); });
+          if (real.length < 3) return; // placeholder-only response, ignore
+          var html = real.slice(0, 9).map(function(k, i){
+            return '<div class="kpi-card"><div class="kpi-label">KPI ' + (i+1) + '</div><div class="kpi-name">' + (k.name || '').replace(/[<>]/g, '') + '</div></div>';
+          }).join('');
+          grid.innerHTML = html;
+        })
+        .catch(function(){ /* baked-in 9 stay visible */ });
+    } catch(e) {}
+  })();
+  </script>
+
+  <div class="callout">
+    <div class="callout-title">Key Insight</div>
+    <p>Gross Commission Income (GCI) is your top-line number, but transaction volume is your leading indicator. A healthy agent closes 12–24 transactions per year.</p>
+  </div>
+
+  <!-- LIVE INDUSTRY NEWS -->
+  <div class="news-section">
+    <div class="news-header">
+      <span class="news-title">&#128240; Real Estate Industry News</span>
+      <span class="news-badge">LIVE &bull; Updated Daily</span>
+    </div>
+    <ul id="news-feed"><li id="news-loading">Loading latest headlines&hellip;</li></ul>
+  </div>
+
+  <style>
+    .ops-section { margin: 2.25rem 0 2rem; }
+    .ops-eyebrow { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .ops-section h2 { margin-bottom: 0.6rem; }
+    .ops-lede { color: rgba(226,232,240,0.78); margin-bottom: 1rem; font-size: 1rem; }
+
+    .rev-math { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.9rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .rev-math caption { caption-side: top; text-align: left; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); padding: 0 0 8px; }
+    .rev-math th, .rev-math td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); text-align: right; }
+    .rev-math th:first-child, .rev-math td:first-child { text-align: left; }
+    .rev-math thead th { background: rgba(232,113,10,0.08); color: var(--accent); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid rgba(232,113,10,0.2); }
+    .rev-math tbody tr:last-child td { border-bottom: 0; }
+    .rev-math tbody tr.row-flag td { background: rgba(255,80,80,0.06); color: #ff8a8a; }
+    .rev-math tbody tr.row-target td { background: rgba(34,197,94,0.05); }
+    .rev-math .dim { color: var(--muted); font-weight: 500; }
+    .math-source { font-size: 0.72rem; color: var(--muted); margin-top: -0.5rem; margin-bottom: 1.5rem; font-style: italic; }
+
+    .trenches { background: rgba(232,113,10,0.05); border: 1px solid rgba(232,113,10,0.25); border-left: 4px solid var(--accent); border-radius: 10px; padding: 1.4rem 1.5rem; margin: 1.5rem 0; }
+    .trenches h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.85rem; }
+    .trenches .trench-item { padding: 12px 0; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+    .trenches .trench-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .trench-name { font-weight: 700; color: #fff; margin-bottom: 4px; font-size: 0.95rem; }
+    .trench-pain { color: rgba(226,232,240,0.78); font-size: 0.92rem; line-height: 1.65; }
+    .trench-pain em { color: #FFD740; font-style: normal; font-weight: 700; }
+
+    .red-flag-card { background: var(--surface); border: 1px solid rgba(255,80,80,0.3); border-left: 4px solid #ff5050; border-radius: 10px; padding: 1.4rem 1.5rem; margin: 1.5rem 0; }
+    .red-flag-card h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #ff5050; margin-bottom: 0.5rem; }
+    .red-flag-card .threshold { font-size: 0.85rem; color: rgba(255,180,180,0.85); margin-bottom: 1rem; font-style: italic; }
+    .rf-list { list-style: none; padding: 0; margin: 0; counter-reset: rf; }
+    .rf-list li { padding: 10px 0 10px 36px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(226,232,240,0.88); font-size: 0.95rem; line-height: 1.55; counter-increment: rf; }
+    .rf-list li::before { content: counter(rf); position: absolute; left: 0; top: 8px; width: 26px; height: 26px; border-radius: 6px; background: rgba(255,80,80,0.12); border: 1px solid rgba(255,80,80,0.4); color: #ff5050; font-weight: 800; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; }
+    .rf-list li:last-child { border-bottom: 0; }
+    .rf-list b { color: #fff; }
+  </style>
+
+  <section class="ops-section" id="brokerage-trap">
+    <div class="ops-eyebrow">⚠ The Operator Truth</div>
+    <h2>The Brokerage P&L Trap: Why Your Top 3 Agents Generate 70% of Revenue</h2>
+    <p class="ops-lede">Most struggling brokerages think they have a recruiting problem. They don't. They have a <strong>lead-source arithmetic</strong> problem AND a <strong>top-producer concentration</strong> problem stacked on top of each other. The brokerage owner is paying $400 per Zillow lead that converts at 1.4%, watching their top 3 agents generate 70% of total GCI, and wondering why the new agent class is bleeding cash 9 months in. Each leak compounds the next.</p>
+    <p class="ops-lede">Stop guessing. Run the actual lead-source unit economics:</p>
+
+    <table class="rev-math">
+      <caption>Lead-Source Unit Economics · Brokerage Reference</caption>
+      <thead>
+        <tr>
+          <th>Lead Source</th>
+          <th>Cost / Lead</th>
+          <th>Conversion %</th>
+          <th>Avg Commission</th>
+          <th>Effective CAC</th>
+          <th>Net per Lead</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-flag"><td>Zillow Premier Agent <span class="dim">(saturated zip)</span></td><td>$340–$520</td><td>1.2–1.8%</td><td>$8,400</td><td>$22,800</td><td><strong>($14,400)</strong></td></tr>
+        <tr><td>Realtor.com Connections+</td><td>$220–$380</td><td>1.6–2.4%</td><td>$8,200</td><td>$16,600</td><td>($8,400)</td></tr>
+        <tr><td>kvCORE / BoomTown PPC <span class="dim">(self-managed)</span></td><td>$60–$140</td><td>2.0–3.5%</td><td>$8,600</td><td>$3,800</td><td>$4,800</td></tr>
+        <tr><td>Geographic farming <span class="dim">(direct mail / hyperlocal)</span></td><td>$80–$160</td><td>2.8–4.2%</td><td>$9,400</td><td>$3,400</td><td>$6,000</td></tr>
+        <tr class="row-target"><td>Past-client referral <span class="dim">(systematized)</span></td><td>$0–$40</td><td>34–48%</td><td>$11,200</td><td>$80</td><td><strong>$11,120</strong></td></tr>
+      </tbody>
+    </table>
+    <p class="math-source">Composite of NAR Member Profile, kvCORE / BoomTown vendor benchmarks, Zillow Premier Agent disclosures, and 2024–2025 broker-owner P&L workshops. Numbers are reference, not guarantees. Conversion = closed transactions per lead.</p>
+
+    <p class="ops-lede"><strong>The takeaway no recruiting coach will tell you:</strong> Zillow Premier Agent in a saturated zip is a <em>negative-margin transaction</em> for the brokerage when you fully load the agent split, the desk fee subsidy, and the lead concierge cost. The brokerage funds those leads to keep top producers happy. The fix isn't to negotiate harder with Zillow — it's to <em>systematize past-client referral</em> at the brokerage level so every agent has a ratio book and a 12-touch annual cadence. That single move flips the entire P&L.</p>
+  </section>
+
+  <div class="trenches">
+    <h3>🪵 Truth From the Trenches</h3>
+    <p class="ops-lede" style="margin-bottom:1rem;">If you've signed an indie brokerage's 1099s, you've watched all three of these. Generic real-estate "scaling" advice doesn't see them.</p>
+
+    <div class="trench-item">
+      <div class="trench-name">The top producer who threatens to leave every September</div>
+      <div class="trench-pain">She drives 28% of GCI. Every fall, right before contract season, her assistant "casually" mentions she's "talking to" a competitor brokerage. You renegotiate her split from 70/30 to 80/20. Next September she does it again. This isn't market dynamics — it's a learned behavior, and you taught her. <em>Build a public production-tier ladder</em> with split tiers tied to GCI thresholds. Same rules for everyone. Renegotiation goes from annual hostage drama to a quarterly review.</div>
+    </div>
+
+    <div class="trench-item">
+      <div class="trench-name">The new agent who joined with "I have 50 contacts" and produced two deals in nine months</div>
+      <div class="trench-pain">She's a sweet person. She did the licensing course in April. She told you in the interview she had "a network." Eleven months in: 2 deals, both from her cousin and her cousin's neighbor. The desk fee subsidy you offered cost you $14,400. <em>The new-agent ramp is a system, not a vibe.</em> Every new hire needs a 90-day production milestone, a 180-day ladder, and an 11-month checkpoint where the brokerage reclaims any subsidy if production milestones aren't hit.</div>
+    </div>
+
+    <div class="trench-item">
+      <div class="trench-name">The Zillow lead bucket your team treats like a free vending machine</div>
+      <div class="trench-pain">You spend $14K/month on Zillow Premier Agent. Your three top producers grab the cream — return the meh leads to the pool. The pool sits. Cold-lead nurture? Inconsistent. By day 5, the lead is dead and you've burned $480 on it. <em>Lead distribution must follow a measurable speed-to-lead SLA</em> — 60-second initial response, 4 touches in 48 hours, or the lead returns to the pool with a strike against the agent. Most brokerages skip this and call lead spend "marketing."</div>
+    </div>
+  </div>
+
+  <div class="red-flag-card" id="red-flag-audit">
+    <h3>🚩 The Brokerage Red Flag Audit</h3>
+    <div class="threshold">Check the boxes that apply. <strong>Three or more = the brokerage is leaking margin you can recover this fiscal year — without recruiting another agent.</strong></div>
+    <ol class="rf-list">
+      <li><b>Top 3 agents account for over 60% of total GCI.</b> (Healthy concentration is under 45%. Above 70% is single-departure-event risk.)</li>
+      <li><b>Lead-source CAC over $400 with conversion under 2%.</b> (Saturated Zillow zips. Negative-margin lead spend. Audit and cut quarterly.)</li>
+      <li><b>New agent ramp longer than 180 days</b> with no defined production milestones at 90 / 180 / 365 days. (Top brokerages publish the ladder. New hires sign it.)</li>
+      <li><b>Average days on market more than 8 days above MLS median.</b> (Pricing accuracy problem, not a market problem. Listing-presentation training pays back fast.)</li>
+      <li><b>Agent split renegotiations happen reactively</b> — at threat-of-departure rather than on a published, tier-based ladder. (One reactive renegotiation breaks the comp plan for the whole roster.)</li>
+    </ol>
+  </div>
+
+  <h2>How to Use the PULSE Dashboard for Real Estate</h2>
+  <p>The PULSE framework was designed to work across industries &mdash; but here&apos;s how to apply it specifically to Real Estate:</p>
+  <ul>
+    <li><strong>Pulse Check:</strong> Use it to grade your reps on the metrics above. GCI and Transactions Closed should be your primary scoring columns.</li>
+    <li><strong>Gross Profit Calculator:</strong> Model your margin per deal, per rep, and per territory. Know your break-even unit economics cold.</li>
+    <li><strong>Lightning Rounds:</strong> Run weekly 15-minute sessions focused on the most common objections in Real Estate. Repetition builds reflex.</li>
+    <li><strong>Rep Scheduling Matrix:</strong> Protect high-value selling time. Most revenue losses in Real Estate come from reps in admin, not the field.</li>
+    <li><strong>Recruiting Calculator:</strong> Use it before you post a job. Know exactly how many reps you need to hit your number before you hire.</li>
+  </ul>
+
+  <h2>Frequently Asked Questions</h2>
+  <div>
+    <div class="faq-item"><div class="faq-q">How many transactions should an agent close per year?</div><div class="faq-a">12–24 is healthy for a full-time agent. Top producers do 36–60+.</div></div><div class="faq-item"><div class="faq-q">How do I reduce days on market?</div><div class="faq-a">Price it right in week 1. Reducing price later costs more time and net proceeds than pricing accurately up front.</div></div><div class="faq-item"><div class="faq-q">When should I hire a transaction coordinator?</div><div class="faq-a">Add a TC when any agent closes more than 20 transactions per year.</div></div>
+  </div>
+
+  <div class="cta-card">
+    <h3>Ready to Put This Into Practice?</h3>
+    <p>Open the free PULSE dashboard &mdash; no account required. Set your goals, run your Pulse Check, and start today.</p>
+    <a href="../dashboard.html" class="btn">Open the Dashboard &rarr;</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank" class="btn btn-ghost">Book a Free Call</a>
+  </div>
+
+  <h2>More How To&apos;s</h2>
+  <p>Browse guides for other industries at <a href="./">pulserevops.com/how-tos/</a>, or go back to the <a href="../blog/">PULSE Blog</a> for frameworks that apply across all industries.</p>
+
+</article>
+
+<footer>
+  <div class="footer-links">
+    <a href="../">Home</a>
+    <a href="../dashboard.html">Dashboard</a>
+    <a href="../blog/">Blog</a>
+    <a href="./">How To&apos;s</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank">Book a Call</a>
+  </div>
+  <p>&copy; 2026 PULSE RevOps &mdash; Free to use. Pay it forward.</p>
+</footer>
+
+<script>
+// Fetch live industry news via RSS-to-JSON (no API key required)
+(function() {
+  var query = encodeURIComponent('real+estate+market');
+  var feed = 'https://feeds.feedburner.com/TechCrunch'; // fallback
+  // Use rss2json.com free tier to pull Google News RSS
+  var url = 'https://api.rss2json.com/v1/api.json?rss_url=' +
+    encodeURIComponent('https://news.google.com/rss/search?q=' + query + '&hl=en-US&gl=US&ceid=US:en') +
+    '&api_key=public&count=5';
+
+  fetch(url)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var list = document.getElementById('news-feed');
+      if (!data.items || !data.items.length) {
+        list.innerHTML = '<li style="color:var(--muted);font-size:0.85rem;padding:0.5rem 0;">No recent headlines found. Check back soon.</li>';
+        return;
+      }
+      list.innerHTML = data.items.slice(0, 5).map(function(item) {
+        var date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : '';
+        var src = item.author || (item.source && item.source.name) || '';
+        return '<li><a href="' + item.link + '" target="_blank" rel="noopener">' + item.title + '</a>' +
+          '<span class="news-meta">' + (src ? src + ' &bull; ' : '') + date + '</span></li>';
+      }).join('');
+    })
+    .catch(function() {
+      var list = document.getElementById('news-feed');
+      list.innerHTML = '<li style="color:var(--muted);font-size:0.85rem;padding:0.5rem 0;">Headlines temporarily unavailable. <a href="https://news.google.com/search?q=real+estate+market" target="_blank">Search Google News</a></li>';
+    });
+})();
+</script>
+
+</body>
+</html>

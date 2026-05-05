@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Manage and Scale Revenue in HVAC / Home Services | PULSE RevOps</title>
+  <meta name="description" content="A practical RevOps guide for HVAC, plumbing, and home services sales teams. KPIs, scaling strategies, and team management frameworks — powered by PULSE." />
+  <meta name="author" content="Kory White" />
+  <link rel="canonical" href="https://pulserevops.com/how-tos/hvac.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How to Manage and Scale Revenue in HVAC / Home Services" />
+  <meta property="og:description" content="A practical RevOps guide for HVAC, plumbing, and home services sales teams. KPIs, scaling strategies, and team management frameworks — powered by PULSE." />
+  <meta property="og:url" content="https://pulserevops.com/how-tos/hvac.html" />
+  <meta property="og:site_name" content="PULSE RevOps" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "The $1M Ceiling — Why Your HVAC Fleet Stalls at 3 Trucks",
+        "description": "Operator-grade RevOps blueprint for HVAC contractors: technician revenue per truck, maintenance-contract density math, the seasonality smoothing curve, and the five red flags that signal a fleet leak.",
+        "author": {"@type": "Person", "name": "Kory White", "url": "https://pulserevops.com"},
+        "publisher": {"@type": "Organization", "name": "PULSE RevOps", "url": "https://pulserevops.com"},
+        "url": "https://pulserevops.com/how-tos/hvac.html",
+        "keywords": "HVAC RevOps, technician revenue, maintenance contracts, route density, callback rate, ServiceTitan, FieldEdge, ACCA, fleet capacity, shoulder season",
+        "datePublished": "2026-04-29",
+        "dateModified": "2026-04-29"
+      },
+      {
+        "@type": "Dataset",
+        "name": "HVAC Fleet Capacity & Routing Reference",
+        "description": "Three-tier reference table mapping fleet size to per-technician annual revenue, drive-time efficiency, maintenance-contract density, callback rate, and average ticket — the math behind the $1M-to-$3M HVAC owner-operator ceiling.",
+        "creator": {"@type": "Person", "name": "Kory White"},
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "isPartOf": "https://pulserevops.com/how-tos/hvac.html",
+        "keywords": "HVAC capacity, route density, technician revenue, maintenance contract, callback rate, average ticket"
+      },
+      {
+        "@type": "ItemList",
+        "name": "HVAC Fleet Leak Red Flag Checklist",
+        "description": "Five operator-level signals that an HVAC contractor is leaking margin to callbacks, drive time, and unsold maintenance contracts.",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Callback rate above 5% of completed jobs"},
+          {"@type":"ListItem","position":2,"name":"Maintenance contract density under 35% of active customer base"},
+          {"@type":"ListItem","position":3,"name":"Drive time greater than 25% of technician shift"},
+          {"@type":"ListItem","position":4,"name":"Unbilled shop time over 1 hour per technician per day"},
+          {"@type":"ListItem","position":5,"name":"Average residential service ticket under $450"}
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #111518; --surface: #1A2025; --surface2: #242C32;
+      --accent: #E8710A; --accent2: #FF8C1A;
+      --text: #e2e8f0; --muted: #94a3b8;
+      --border: rgba(255,255,255,0.08); --max: 760px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; font-size: 1rem; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(17,21,24,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--accent); color: #fff !important; padding: 6px 14px; border-radius: 6px; }
+    .nav-cta:hover { background: var(--accent2) !important; }
+    .hero { background: linear-gradient(135deg, #1A2025 0%, #111518 60%); border-bottom: 1px solid var(--border); padding: 3.5rem 1.5rem 3rem; text-align: center; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.2; max-width: 720px; margin: 0 auto 1rem; }
+    .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 1.75rem; }
+    .hero-meta { font-size: 0.78rem; color: var(--muted); display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+    article { max-width: var(--max); margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    article h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent); margin: 2.5rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+    article h3 { font-size: 1.1rem; font-weight: 700; margin: 1.75rem 0 0.5rem; color: var(--text); }
+    article p { margin-bottom: 1.1rem; color: var(--text); }
+    article ul, article ol { margin: 0.5rem 0 1.1rem 1.5rem; color: var(--text); }
+    article li { margin-bottom: 0.45rem; }
+    article strong { color: #f8fafc; }
+    article a { color: var(--accent2); text-decoration: none; border-bottom: 1px solid rgba(251,146,60,0.3); transition: border-color 0.2s; }
+    article a:hover { border-color: var(--accent2); }
+    .callout { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .callout-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .callout p { margin-bottom: 0; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1rem; text-align: center; }
+    .kpi-card .kpi-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .kpi-card .kpi-name { font-size: 1rem; font-weight: 800; color: var(--accent); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: var(--surface); border-radius: 0 8px 8px 0; font-style: italic; color: var(--muted); }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 1.25rem 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .faq-a { color: var(--muted); }
+    .cta-card { background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .cta-card p { color: var(--muted); margin-bottom: 1.25rem; }
+    .btn { display: inline-block; background: var(--accent); color: #fff; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.04em; border-bottom: none; transition: background 0.2s, transform 0.15s; margin: 0.25rem; }
+    .btn:hover { background: var(--accent2); transform: translateY(-1px); border-bottom: none; }
+    .btn-ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+    .btn-ghost:hover { background: rgba(232,113,10,0.1); }
+    /* NEWS FEED */
+    .news-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
+    .news-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .news-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .news-badge { font-size: 0.62rem; font-weight: 700; background: rgba(232,113,10,0.15); color: var(--accent); border: 1px solid rgba(232,113,10,0.3); border-radius: 20px; padding: 2px 8px; letter-spacing: 0.08em; }
+    #news-feed { list-style: none; margin: 0; padding: 0; }
+    #news-feed li { border-bottom: 1px solid var(--border); padding: 0.75rem 0; }
+    #news-feed li:last-child { border-bottom: none; padding-bottom: 0; }
+    #news-feed a { color: var(--text); font-size: 0.88rem; font-weight: 600; border-bottom: none; display: block; margin-bottom: 0.2rem; }
+    #news-feed a:hover { color: var(--accent2); }
+    #news-feed .news-meta { font-size: 0.72rem; color: var(--muted); }
+    #news-loading { color: var(--muted); font-size: 0.85rem; text-align: center; padding: 1rem 0; }
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.82rem; }
+    footer a { color: var(--muted); text-decoration: none; border-bottom: none; }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    @media (max-width: 600px) { .hero { padding: 2.5rem 1rem 2rem; } article { padding: 2rem 1rem 3rem; } .nav-links { gap: 0.75rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-brand">PULSE</a>
+  <div class="nav-links">
+    <a href="../dashboard.html">Dashboard</a>
+    <a href="../blog/">Blog</a>
+    <a href="./">How To&apos;s</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">How To&apos;s &mdash; HVAC / Home Services</p>
+  <h1>How to Manage and Scale Revenue in HVAC / Home Services</h1>
+  <p class="hero-sub">A practical framework for HVAC, plumbing, and home services sales teams &mdash; built from real experience, not theory.</p>
+  <div class="hero-meta">
+    <span>&#128313; PULSE RevOps</span>
+    <span>&#128336; 8 min read</span>
+    <span>&#127775; Free to use</span>
+  </div>
+</section>
+
+<article>
+
+  <h2>Why This Industry Is Different</h2>
+  <p>Every industry has its own revenue physics. HVAC / Home Services businesses deal with specific buying cycles, customer expectations, and margin structures that generic sales advice can&apos;t address. This guide is built specifically for HVAC, plumbing, and home services sales teams &mdash; with benchmarks, frameworks, and coaching cues that apply to your world.</p>
+
+    <h2>The 9 KPIs That Matter Most</h2>
+  <p>Stop tracking everything. These nine metrics give you the clearest signal of revenue health in HVAC / Home Services:</p>
+  <div class="kpi-grid" id="how-to-kpi-grid" data-industry="hvac">
+    <div class="kpi-card"><div class="kpi-label">KPI 1</div><div class="kpi-name">New System Sales</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 2</div><div class="kpi-name">Service Calls</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 3</div><div class="kpi-name">Maintenance Plans Sold</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 4</div><div class="kpi-name">Emergency Calls</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 5</div><div class="kpi-name">Referrals</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 6</div><div class="kpi-name">Avg Ticket ($)</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 7</div><div class="kpi-name">Parts Revenue</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 8</div><div class="kpi-name">Warranty Upsells</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 9</div><div class="kpi-name">Install Rate</div></div>
+  </div>
+  <script>
+  // Daily-refreshed KPIs from the prewarm cron (industry-kpis-refresh-background).
+  // If the cron has cached fresh data for this industry, swap the cards in place.
+  (function(){
+    try {
+      var grid = document.getElementById('how-to-kpi-grid');
+      if (!grid) return;
+      var ind = grid.getAttribute('data-industry') || 'hvac';
+      var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+      var t = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 4000);
+      fetch('/.netlify/functions/industry-kpis?ind=' + encodeURIComponent(ind), ctrl ? { signal: ctrl.signal } : {})
+        .then(function(r){ clearTimeout(t); return r.ok ? r.json() : null; })
+        .then(function(d){
+          if (!d || !d.ok || !Array.isArray(d.kpis) || !d.kpis.length) return;
+          var real = d.kpis.filter(function(k){ return k && k.name && !/^KPI\s*\d+$/i.test(String(k.name).trim()); });
+          if (real.length < 3) return; // placeholder-only response, ignore
+          var html = real.slice(0, 9).map(function(k, i){
+            return '<div class="kpi-card"><div class="kpi-label">KPI ' + (i+1) + '</div><div class="kpi-name">' + (k.name || '').replace(/[<>]/g, '') + '</div></div>';
+          }).join('');
+          grid.innerHTML = html;
+        })
+        .catch(function(){ /* baked-in 9 stay visible */ });
+    } catch(e) {}
+  })();
+  </script>
+
+  <div class="callout">
+    <div class="callout-title">Key Insight</div>
+    <p>Maintenance agreements are the annuity of the HVAC business. A customer on a service agreement calls you first, cancels less, and spends 2x more over their lifetime.</p>
+  </div>
+
+  <!-- LIVE INDUSTRY NEWS -->
+  <div class="news-section">
+    <div class="news-header">
+      <span class="news-title">&#128240; HVAC / Home Services Industry News</span>
+      <span class="news-badge">LIVE &bull; Updated Daily</span>
+    </div>
+    <ul id="news-feed"><li id="news-loading">Loading latest headlines&hellip;</li></ul>
+  </div>
+
+  <style>
+    .ops-section { margin: 2.25rem 0 2rem; }
+    .ops-eyebrow { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .ops-section h2 { margin-bottom: 0.6rem; }
+    .ops-lede { color: rgba(226,232,240,0.78); margin-bottom: 1rem; font-size: 1rem; }
+
+    /* Capacity & Routing Table */
+    .rev-math { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.9rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .rev-math caption { caption-side: top; text-align: left; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); padding: 0 0 8px; }
+    .rev-math th, .rev-math td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); text-align: right; }
+    .rev-math th:first-child, .rev-math td:first-child { text-align: left; }
+    .rev-math thead th { background: rgba(232,113,10,0.08); color: var(--accent); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid rgba(232,113,10,0.2); }
+    .rev-math tbody tr:last-child td { border-bottom: 0; }
+    .rev-math tbody tr.row-flag td { background: rgba(255,80,80,0.06); color: #ff8a8a; }
+    .rev-math tbody tr.row-target td { background: rgba(34,197,94,0.05); }
+    .rev-math .dim { color: var(--muted); font-weight: 500; }
+    .math-source { font-size: 0.72rem; color: var(--muted); margin-top: -0.5rem; margin-bottom: 1.5rem; font-style: italic; }
+
+    /* Seasonality Curve — pure CSS */
+    .season-curve { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem 1.2rem 1rem; margin: 1.25rem 0; }
+    .season-label { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .season-svg-wrap { position: relative; width: 100%; }
+    .season-svg-wrap svg { width: 100%; height: auto; max-height: 220px; display: block; }
+    .season-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; font-size: 0.78rem; }
+    .season-key { display: inline-flex; align-items: center; gap: 8px; color: rgba(226,232,240,0.78); }
+    .season-key .swatch { width: 14px; height: 3px; border-radius: 2px; }
+    .season-source { font-size: 0.72rem; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+    /* Trenches */
+    .trenches { background: rgba(232,113,10,0.05); border: 1px solid rgba(232,113,10,0.25); border-left: 4px solid var(--accent); border-radius: 10px; padding: 1.4rem 1.5rem; margin: 1.5rem 0; }
+    .trenches h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.85rem; }
+    .trenches .trench-item { padding: 12px 0; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+    .trenches .trench-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .trench-name { font-weight: 700; color: #fff; margin-bottom: 4px; font-size: 0.95rem; }
+    .trench-pain { color: rgba(226,232,240,0.78); font-size: 0.92rem; line-height: 1.65; }
+    .trench-pain em { color: #FFD740; font-style: normal; font-weight: 700; }
+
+    /* Red Flag */
+    .red-flag-card { background: var(--surface); border: 1px solid rgba(255,80,80,0.3); border-left: 4px solid #ff5050; border-radius: 10px; padding: 1.4rem 1.5rem; margin: 1.5rem 0; }
+    .red-flag-card h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #ff5050; margin-bottom: 0.5rem; }
+    .red-flag-card .threshold { font-size: 0.85rem; color: rgba(255,180,180,0.85); margin-bottom: 1rem; font-style: italic; }
+    .rf-list { list-style: none; padding: 0; margin: 0; counter-reset: rf; }
+    .rf-list li { padding: 10px 0 10px 36px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(226,232,240,0.88); font-size: 0.95rem; line-height: 1.55; counter-increment: rf; }
+    .rf-list li::before { content: counter(rf); position: absolute; left: 0; top: 8px; width: 26px; height: 26px; border-radius: 6px; background: rgba(255,80,80,0.12); border: 1px solid rgba(255,80,80,0.4); color: #ff5050; font-weight: 800; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; }
+    .rf-list li:last-child { border-bottom: 0; }
+    .rf-list b { color: #fff; }
+  </style>
+
+  <section class="ops-section" id="million-ceiling">
+    <div class="ops-eyebrow">⚠ The Operator Truth</div>
+    <h2>The $1M Ceiling: Why Your HVAC Fleet Stalls at 3 Trucks</h2>
+    <p class="ops-lede">Most HVAC contractors hit a wall between $1M and $3M in annual revenue. They don't have a marketing problem. They have a <strong>fleet arithmetic</strong> problem. The owner is still personally dispatching, route density is whatever Google Maps says that morning, and maintenance contracts are the thing nobody has time to sell because everyone is running emergency calls. Add a fourth truck and the wheels come off — callbacks spike, drive time eats the day, and the lead tech burns out by August.</p>
+    <p class="ops-lede">Here is the math that should be on every HVAC owner's office wall:</p>
+
+    <table class="rev-math">
+      <caption>Capacity & Routing · Revenue per Truck vs Maintenance Density</caption>
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Revenue / Tech / Year</th>
+          <th>Drive Time %</th>
+          <th>Maintenance Density</th>
+          <th>Callback Rate</th>
+          <th>Avg Service Ticket</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-flag"><td>1–2 trucks <span class="dim">(stuck under $1M)</span></td><td>$210K–$300K</td><td>32–40%</td><td>under 25%</td><td>6–9%</td><td>$320–$420</td></tr>
+        <tr><td>3–5 trucks <span class="dim">(industry baseline)</span></td><td>$350K–$420K</td><td>25–30%</td><td>35–45%</td><td>3–5%</td><td>$480–$560</td></tr>
+        <tr class="row-target"><td>6–10 trucks <span class="dim">(top decile, $3M+)</span></td><td>$500K–$650K</td><td>18–22%</td><td>50–65%</td><td>under 2%</td><td>$640–$780</td></tr>
+      </tbody>
+    </table>
+    <p class="math-source">Composite of ServiceTitan benchmark reports, ACCA Contractor of the Year financials, and HARDI distributor channel data (residential service / replacement, U.S. mainland, normalized for 2025–2026 ticket inflation). Numbers are reference, not guarantees.</p>
+
+    <p class="ops-lede"><strong>The takeaway no consultant will tell you:</strong> the move from 3 trucks to 6 trucks is not a marketing problem — it is a <em>maintenance-contract density</em> problem. At 35% density you are still a reactive shop. At 55% density, half your revenue shows up before the call comes in, the August burnout disappears, and you can route by zip-code cluster instead of by "whoever screams loudest." Every percentage point of maintenance density above 35% is roughly <strong>$28K of smoothed annual revenue per truck</strong>. Multiply by your fleet and you've found the door out of the $1M ceiling.</p>
+
+    <div class="season-curve">
+      <div class="season-label">📈 Seasonality Smoothing · Reactive Service vs Maintenance-Contract Revenue</div>
+      <div class="season-svg-wrap">
+        <svg viewBox="0 0 600 180" preserveAspectRatio="none" aria-label="Seasonality curve comparing reactive service revenue to maintenance-contract smoothed revenue across 12 months">
+          <defs>
+            <linearGradient id="reactive-grad" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#ff5050" stop-opacity="0.4" />
+              <stop offset="100%" stop-color="#ff5050" stop-opacity="0" />
+            </linearGradient>
+            <linearGradient id="smooth-grad" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#22c55e" stop-opacity="0.4" />
+              <stop offset="100%" stop-color="#22c55e" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <!-- grid -->
+          <g stroke="rgba(255,255,255,0.07)" stroke-width="1">
+            <line x1="0" y1="35"  x2="600" y2="35"  />
+            <line x1="0" y1="80"  x2="600" y2="80"  />
+            <line x1="0" y1="125" x2="600" y2="125" />
+          </g>
+          <!-- reactive curve: huge peaks in summer (Jul/Aug) and winter (Jan/Feb), valley in Apr-May & Oct-Nov -->
+          <path d="M0,90 C50,75 75,30 100,25 S150,55 175,90 S225,140 250,150 S300,140 325,120 S375,85 400,55 S450,25 475,30 S525,75 550,100 S590,115 600,115 L600,180 L0,180 Z" fill="url(#reactive-grad)"/>
+          <path d="M0,90 C50,75 75,30 100,25 S150,55 175,90 S225,140 250,150 S300,140 325,120 S375,85 400,55 S450,25 475,30 S525,75 550,100 S590,115 600,115" stroke="#ff5050" stroke-width="2" fill="none"/>
+          <!-- smoothed curve: gentle wave centered around 70 -->
+          <path d="M0,82 C50,76 100,68 175,72 S275,82 325,80 S425,68 475,72 S575,82 600,80 L600,180 L0,180 Z" fill="url(#smooth-grad)"/>
+          <path d="M0,82 C50,76 100,68 175,72 S275,82 325,80 S425,68 475,72 S575,82 600,80" stroke="#22c55e" stroke-width="2" fill="none"/>
+          <!-- month labels -->
+          <g fill="rgba(226,232,240,0.45)" font-size="10" font-family="JetBrains Mono, monospace" text-anchor="middle">
+            <text x="25"  y="175">JAN</text><text x="75"  y="175">FEB</text><text x="125" y="175">MAR</text>
+            <text x="175" y="175">APR</text><text x="225" y="175">MAY</text><text x="275" y="175">JUN</text>
+            <text x="325" y="175">JUL</text><text x="375" y="175">AUG</text><text x="425" y="175">SEP</text>
+            <text x="475" y="175">OCT</text><text x="525" y="175">NOV</text><text x="575" y="175">DEC</text>
+          </g>
+          <!-- shoulder annotations -->
+          <g fill="#ffd740" font-size="9" font-family="JetBrains Mono, monospace" font-weight="bold">
+            <text x="195" y="155">SHOULDER</text>
+            <text x="445" y="55">SHOULDER</text>
+          </g>
+        </svg>
+      </div>
+      <div class="season-legend">
+        <span class="season-key"><span class="swatch" style="background:#ff5050;"></span>Reactive service only — feast / famine</span>
+        <span class="season-key"><span class="swatch" style="background:#22c55e;"></span>50%+ maintenance-contract density — smoothed</span>
+      </div>
+      <div class="season-source">Reference curve · the gap between the two lines in April–May and October–November is the cash gap that kills under-capitalized contractors. Maintenance contracts collapse the gap.</div>
+    </div>
+  </section>
+
+  <div class="trenches">
+    <h3>🪵 Truth From the Trenches</h3>
+    <p class="ops-lede" style="margin-bottom:1rem;">If you've ridden the truck or signed the payroll for an HVAC shop, you've lived all three of these. Generic AI advice doesn't see them — only the owner who's stayed up Sunday night chasing payroll math does.</p>
+
+    <div class="trench-item">
+      <div class="trench-name">The burned-out lead tech who carried you in August</div>
+      <div class="trench-pain">He worked 11 days straight when the heat hit 99°F. He missed his daughter's birthday. He's the one who diagnoses the weird intermittent failure on the second visit, not the fifth. You can't afford to lose him — and you can't afford to keep working him this way. He doesn't want a raise. He wants <em>predictable Sundays.</em> Build the rotation now, not after he hands in the truck keys in September.</div>
+    </div>
+
+    <div class="trench-item">
+      <div class="trench-name">The shoulder-season cash gap nobody warned you about</div>
+      <div class="trench-pain">April. Mid-October. The phones stop ringing. Cooling season is over, heating hasn't started, and your ServiceTitan dashboard goes flat for six weeks. Payroll is fixed. Truck payments are fixed. Insurance renews mid-shoulder. <em>You watch the bank account every Friday wondering if you can hold</em> — and the temptation is to discount installs to fill the schedule, which compounds into next year's margin problem. Maintenance-contract revenue doesn't care what month it is. That's the door out.</div>
+    </div>
+
+    <div class="trench-item">
+      <div class="trench-name">The $20 capacitor that cost you a $1,500 day</div>
+      <div class="trench-pain">Tech rolls on a no-cool, diagnoses a bad capacitor, doesn't have the right MFD value on the truck. Drives 45 minutes to the supply house. Customer waits in the heat. Job that should have been a 90-minute call became a 4-hour call. Tech misses the next two appointments. One of them leaves a 2-star Google review. <em>Truck-stock par lists, weekly inventory checks, and a no-truck-leaves-without-the-top-25-SKUs rule</em> beat every dispatching software you can buy.</div>
+    </div>
+  </div>
+
+  <div class="red-flag-card" id="red-flag-audit">
+    <h3>🚩 The HVAC Fleet Leak Audit</h3>
+    <div class="threshold">Check the boxes that apply. <strong>Three or more = the fleet is leaking margin you can recover before next cooling season — without buying another truck.</strong></div>
+    <ol class="rf-list">
+      <li><b>Callback rate above 5%</b> of completed jobs. (Top-decile contractors run under 2%. Every callback is a paid-twice job and a Google-review risk.)</li>
+      <li><b>Maintenance contract density under 35%</b> of the active customer base. (Top-decile shops run 50–65%. This is the single biggest lever in the entire P&L.)</li>
+      <li><b>Drive time greater than 25%</b> of the technician shift. (Top-decile is under 20%. Every percentage point above 25% is roughly $14K of lost annual revenue per truck.)</li>
+      <li><b>Unbilled "shop time" over 1 hour per technician per day.</b> (Truck stocking, paperwork, parts runs — if it's not billable, it's tracked and capped.)</li>
+      <li><b>Average residential service ticket under $450.</b> (Industry baseline 2026 is $480–$560. Below $450 means techs are presenting like dispatchers, not advisors.)</li>
+    </ol>
+  </div>
+
+  <h2>How to Use the PULSE Dashboard for HVAC / Home Services</h2>
+  <p>The PULSE framework was designed to work across industries &mdash; but here&apos;s how to apply it specifically to HVAC / Home Services:</p>
+  <ul>
+    <li><strong>Pulse Check:</strong> Use it to grade your reps on the metrics above. Jobs Booked and Avg Ticket should be your primary scoring columns.</li>
+    <li><strong>Gross Profit Calculator:</strong> Model your margin per deal, per rep, and per territory. Know your break-even unit economics cold.</li>
+    <li><strong>Lightning Rounds:</strong> Run weekly 15-minute sessions focused on the most common objections in HVAC / Home Services. Repetition builds reflex.</li>
+    <li><strong>Rep Scheduling Matrix:</strong> Protect high-value selling time. Most revenue losses in HVAC / Home Services come from reps in admin, not the field.</li>
+    <li><strong>Recruiting Calculator:</strong> Use it before you post a job. Know exactly how many reps you need to hit your number before you hire.</li>
+  </ul>
+
+  <h2>Frequently Asked Questions</h2>
+  <div>
+    <div class="faq-item"><div class="faq-q">What avg ticket should I target?</div><div class="faq-a">$350–$600 avg ticket is healthy for service calls. System installs run $5K–$15K.</div></div><div class="faq-item"><div class="faq-q">How do I improve maintenance agreement attachment?</div><div class="faq-a">Make the maintenance agreement presentation a standard part of every dispatch — not optional.</div></div><div class="faq-item"><div class="faq-q">How many technicians do I need to scale?</div><div class="faq-a">1 install crew per 3 service techs is a common ratio. Adjust based on your install-to-service mix.</div></div>
+  </div>
+
+  <div class="cta-card">
+    <h3>Ready to Put This Into Practice?</h3>
+    <p>Open the free PULSE dashboard &mdash; no account required. Set your goals, run your Pulse Check, and start today.</p>
+    <a href="../dashboard.html" class="btn">Open the Dashboard &rarr;</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank" class="btn btn-ghost">Book a Free Call</a>
+  </div>
+
+  <h2>More How To&apos;s</h2>
+  <p>Browse guides for other industries at <a href="./">pulserevops.com/how-tos/</a>, or go back to the <a href="../blog/">PULSE Blog</a> for frameworks that apply across all industries.</p>
+
+</article>
+
+<footer>
+  <div class="footer-links">
+    <a href="../">Home</a>
+    <a href="../dashboard.html">Dashboard</a>
+    <a href="../blog/">Blog</a>
+    <a href="./">How To&apos;s</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank">Book a Call</a>
+  </div>
+  <p>&copy; 2026 PULSE RevOps &mdash; Free to use. Pay it forward.</p>
+</footer>
+
+<script>
+// Fetch live industry news via RSS-to-JSON (no API key required)
+(function() {
+  var query = encodeURIComponent('HVAC+home+services');
+  var feed = 'https://feeds.feedburner.com/TechCrunch'; // fallback
+  // Use rss2json.com free tier to pull Google News RSS
+  var url = 'https://api.rss2json.com/v1/api.json?rss_url=' +
+    encodeURIComponent('https://news.google.com/rss/search?q=' + query + '&hl=en-US&gl=US&ceid=US:en') +
+    '&api_key=public&count=5';
+
+  fetch(url)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var list = document.getElementById('news-feed');
+      if (!data.items || !data.items.length) {
+        list.innerHTML = '<li style="color:var(--muted);font-size:0.85rem;padding:0.5rem 0;">No recent headlines found. Check back soon.</li>';
+        return;
+      }
+      list.innerHTML = data.items.slice(0, 5).map(function(item) {
+        var date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : '';
+        var src = item.author || (item.source && item.source.name) || '';
+        return '<li><a href="' + item.link + '" target="_blank" rel="noopener">' + item.title + '</a>' +
+          '<span class="news-meta">' + (src ? src + ' &bull; ' : '') + date + '</span></li>';
+      }).join('');
+    })
+    .catch(function() {
+      var list = document.getElementById('news-feed');
+      list.innerHTML = '<li style="color:var(--muted);font-size:0.85rem;padding:0.5rem 0;">Headlines temporarily unavailable. <a href="https://news.google.com/search?q=HVAC+home+services" target="_blank">Search Google News</a></li>';
+    });
+})();
+</script>
+
+</body>
+</html>

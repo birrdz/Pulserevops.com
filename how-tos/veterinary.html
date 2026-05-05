@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Manage and Scale Revenue in Veterinary / Pet Services | PULSE RevOps</title>
+  <meta name="description" content="A practical RevOps guide for veterinary practice and pet services sales teams. KPIs, scaling strategies, and team management frameworks — powered by PULSE." />
+  <meta name="author" content="Kory White" />
+  <link rel="canonical" href="https://pulserevops.com/how-tos/veterinary.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How to Manage and Scale Revenue in Veterinary / Pet Services" />
+  <meta property="og:description" content="A practical RevOps guide for veterinary practice and pet services sales teams. KPIs, scaling strategies, and team management frameworks — powered by PULSE." />
+  <meta property="og:url" content="https://pulserevops.com/how-tos/veterinary.html" />
+  <meta property="og:site_name" content="PULSE RevOps" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "The Veterinary Volume Trap — How to Scale a Practice Without Burning the DVMs",
+        "description": "Operator-grade RevOps blueprint for veterinary practices: tech-to-DVM capacity math, the wellness-plan flywheel, and the five red flags that signal a margin leak.",
+        "author": {"@type": "Person", "name": "Kory White", "url": "https://pulserevops.com"},
+        "publisher": {"@type": "Organization", "name": "PULSE RevOps", "url": "https://pulserevops.com"},
+        "url": "https://pulserevops.com/how-tos/veterinary.html",
+        "keywords": "veterinary RevOps, practice management, wellness plan attach, DVM capacity, vet tech ratio, AAHA, IDEXX",
+        "datePublished": "2026-04-29",
+        "dateModified": "2026-04-29"
+      },
+      {
+        "@type": "Dataset",
+        "name": "Veterinary Practice Revenue Math — Capacity & Margin Reference",
+        "description": "Reference math table mapping tech-to-DVM staffing ratios to daily appointment capacity, average revenue per visit, and wellness-plan-attach lift on annual client value.",
+        "creator": {"@type": "Person", "name": "Kory White"},
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "isPartOf": "https://pulserevops.com/how-tos/veterinary.html",
+        "keywords": "vet tech ratio, DVM capacity, revenue per visit, wellness plan LTV, AAHA benchmark"
+      },
+      {
+        "@type": "ItemList",
+        "name": "Veterinary RevOps Red Flag Checklist",
+        "description": "Five operator-level signals that a veterinary practice is leaking margin. If three or more apply, the practice needs a system overhaul.",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Wellness plan enrollment under 18% of active clients"},
+          {"@type":"ListItem","position":2,"name":"Same-day cancellations consistently above 12%"},
+          {"@type":"ListItem","position":3,"name":"DVMs running 4+ days/week with no protected admin block"},
+          {"@type":"ListItem","position":4,"name":"No standing chart pre-review before clinic open"},
+          {"@type":"ListItem","position":5,"name":"Front desk schedules reactively instead of pre-booking annual visits"}
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #111518; --surface: #1A2025; --surface2: #242C32;
+      --accent: #E8710A; --accent2: #FF8C1A;
+      --text: #e2e8f0; --muted: #94a3b8;
+      --border: rgba(255,255,255,0.08); --max: 760px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; font-size: 1rem; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(17,21,24,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--accent); color: #fff !important; padding: 6px 14px; border-radius: 6px; }
+    .nav-cta:hover { background: var(--accent2) !important; }
+    .hero { background: linear-gradient(135deg, #1A2025 0%, #111518 60%); border-bottom: 1px solid var(--border); padding: 3.5rem 1.5rem 3rem; text-align: center; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.2; max-width: 720px; margin: 0 auto 1rem; }
+    .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 1.75rem; }
+    .hero-meta { font-size: 0.78rem; color: var(--muted); display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+    article { max-width: var(--max); margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    article h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent); margin: 2.5rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+    article h3 { font-size: 1.1rem; font-weight: 700; margin: 1.75rem 0 0.5rem; color: var(--text); }
+    article p { margin-bottom: 1.1rem; color: var(--text); }
+    article ul, article ol { margin: 0.5rem 0 1.1rem 1.5rem; color: var(--text); }
+    article li { margin-bottom: 0.45rem; }
+    article strong { color: #f8fafc; }
+    article a { color: var(--accent2); text-decoration: none; border-bottom: 1px solid rgba(251,146,60,0.3); transition: border-color 0.2s; }
+    article a:hover { border-color: var(--accent2); }
+    .callout { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .callout-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .callout p { margin-bottom: 0; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1rem; text-align: center; }
+    .kpi-card .kpi-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .kpi-card .kpi-name { font-size: 1rem; font-weight: 800; color: var(--accent); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: var(--surface); border-radius: 0 8px 8px 0; font-style: italic; color: var(--muted); }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 1.25rem 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .faq-a { color: var(--muted); }
+    .cta-card { background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .cta-card p { color: var(--muted); margin-bottom: 1.25rem; }
+    .btn { display: inline-block; background: var(--accent); color: #fff; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.04em; border-bottom: none; transition: background 0.2s, transform 0.15s; margin: 0.25rem; }
+    .btn:hover { background: var(--accent2); transform: translateY(-1px); border-bottom: none; }
+    .btn-ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+    .btn-ghost:hover { background: rgba(232,113,10,0.1); }
+    /* NEWS FEED */
+    .news-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
+    .news-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .news-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .news-badge { font-size: 0.62rem; font-weight: 700; background: rgba(232,113,10,0.15); color: var(--accent); border: 1px solid rgba(232,113,10,0.3); border-radius: 20px; padding: 2px 8px; letter-spacing: 0.08em; }
+    #news-feed { list-style: none; margin: 0; padding: 0; }
+    #news-feed li { border-bottom: 1px solid var(--border); padding: 0.75rem 0; }
+    #news-feed li:last-child { border-bottom: none; padding-bottom: 0; }
+    #news-feed a { color: var(--text); font-size: 0.88rem; font-weight: 600; border-bottom: none; display: block; margin-bottom: 0.2rem; }
+    #news-feed a:hover { color: var(--accent2); }
+    #news-feed .news-meta { font-size: 0.72rem; color: var(--muted); }
+    #news-loading { color: var(--muted); font-size: 0.85rem; text-align: center; padding: 1rem 0; }
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.82rem; }
+    footer a { color: var(--muted); text-decoration: none; border-bottom: none; }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    @media (max-width: 600px) { .hero { padding: 2.5rem 1rem 2rem; } article { padding: 2rem 1rem 3rem; } .nav-links { gap: 0.75rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-brand">PULSE</a>
+  <div class="nav-links">
+    <a href="../dashboard.html">Dashboard</a>
+    <a href="../blog/">Blog</a>
+    <a href="./">How To&apos;s</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">How To&apos;s &mdash; Veterinary / Pet Services</p>
+  <h1>How to Manage and Scale Revenue in Veterinary / Pet Services</h1>
+  <p class="hero-sub">A practical framework for veterinary practice and pet services sales teams &mdash; built from real experience, not theory.</p>
+  <div class="hero-meta">
+    <span>&#128313; PULSE RevOps</span>
+    <span>&#128336; 8 min read</span>
+    <span>&#127775; Free to use</span>
+  </div>
+</section>
+
+<article>
+
+  <h2>Why This Industry Is Different</h2>
+  <p>Every industry has its own revenue physics. Veterinary / Pet Services businesses deal with specific buying cycles, customer expectations, and margin structures that generic sales advice can&apos;t address. This guide is built specifically for veterinary practice and pet services sales teams &mdash; with benchmarks, frameworks, and coaching cues that apply to your world.</p>
+
+    <h2>The 9 KPIs That Matter Most</h2>
+  <p>Stop tracking everything. These nine metrics give you the clearest signal of revenue health in Veterinary:</p>
+  <div class="kpi-grid" id="how-to-kpi-grid" data-industry="veterinary">
+    <div class="kpi-card"><div class="kpi-label">KPI 1</div><div class="kpi-name">New Pet Registrations</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 2</div><div class="kpi-name">Wellness Plan Enrollments</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 3</div><div class="kpi-name">Rx Attachment Rate %</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 4</div><div class="kpi-name">Referrals</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 5</div><div class="kpi-name">Avg Revenue / Visit ($)</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 6</div><div class="kpi-name">Dental Cleanings</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 7</div><div class="kpi-name">Boarding Nights</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 8</div><div class="kpi-name">Repeat Visit Rate %</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 9</div><div class="kpi-name">Client NPS</div></div>
+  </div>
+  <script>
+  // Daily-refreshed KPIs from the prewarm cron (industry-kpis-refresh-background).
+  // If the cron has cached fresh data for this industry, swap the cards in place.
+  (function(){
+    try {
+      var grid = document.getElementById('how-to-kpi-grid');
+      if (!grid) return;
+      var ind = grid.getAttribute('data-industry') || 'veterinary';
+      var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+      var t = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 4000);
+      fetch('/.netlify/functions/industry-kpis?ind=' + encodeURIComponent(ind), ctrl ? { signal: ctrl.signal } : {})
+        .then(function(r){ clearTimeout(t); return r.ok ? r.json() : null; })
+        .then(function(d){
+          if (!d || !d.ok || !Array.isArray(d.kpis) || !d.kpis.length) return;
+          var real = d.kpis.filter(function(k){ return k && k.name && !/^KPI\s*\d+$/i.test(String(k.name).trim()); });
+          if (real.length < 3) return; // placeholder-only response, ignore
+          var html = real.slice(0, 9).map(function(k, i){
+            return '<div class="kpi-card"><div class="kpi-label">KPI ' + (i+1) + '</div><div class="kpi-name">' + (k.name || '').replace(/[<>]/g, '') + '</div></div>';
+          }).join('');
+          grid.innerHTML = html;
+        })
+        .catch(function(){ /* baked-in 9 stay visible */ });
+    } catch(e) {}
+  })();
+  </script>
+
+  <div class="callout">
+    <div class="callout-title">Key Insight</div>
+    <p>Wellness plan enrollment is the recurring revenue anchor in veterinary. Enrolled clients spend 2.5x more annually and visit 40% more frequently than non-enrolled clients.</p>
+  </div>
+
+  <!-- LIVE INDUSTRY NEWS -->
+  <div class="news-section">
+    <div class="news-header">
+      <span class="news-title">&#128240; Veterinary / Pet Services Industry News</span>
+      <span class="news-badge">LIVE &bull; Updated Daily</span>
+    </div>
+    <ul id="news-feed"><li id="news-loading">Loading latest headlines&hellip;</li></ul>
+  </div>
+
+  <style>
+    /* ── Operator-grade content modules ── */
+    .ops-section { margin: 2.25rem 0 2rem; }
+    .ops-eyebrow { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .ops-section h2 { margin-bottom: 0.6rem; }
+    .ops-lede { color: rgba(226,232,240,0.78); margin-bottom: 1rem; font-size: 1rem; }
+
+    /* Revenue Math Table — board-deck-ready */
+    .rev-math { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.9rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .rev-math caption { caption-side: top; text-align: left; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); padding: 0 0 8px; }
+    .rev-math th, .rev-math td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); text-align: right; }
+    .rev-math th:first-child, .rev-math td:first-child { text-align: left; }
+    .rev-math thead th { background: rgba(232,113,10,0.08); color: var(--accent); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid rgba(232,113,10,0.2); }
+    .rev-math tbody tr:last-child td { border-bottom: 0; }
+    .rev-math tbody tr.row-flag td { background: rgba(232,113,10,0.06); color: #FF8C1A; font-weight: 700; }
+    .rev-math .dim { color: var(--muted); font-weight: 500; }
+    .math-source { font-size: 0.72rem; color: var(--muted); margin-top: -0.5rem; margin-bottom: 1.5rem; font-style: italic; }
+
+    /* Truth from the Trenches */
+    .trenches { background: rgba(232,113,10,0.05); border: 1px solid rgba(232,113,10,0.25); border-left: 4px solid var(--accent); border-radius: 10px; padding: 1.4rem 1.5rem; margin: 1.5rem 0; }
+    .trenches h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.85rem; }
+    .trenches .trench-item { padding: 12px 0; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+    .trenches .trench-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .trench-name { font-weight: 700; color: #fff; margin-bottom: 4px; font-size: 0.95rem; }
+    .trench-pain { color: rgba(226,232,240,0.78); font-size: 0.92rem; line-height: 1.65; }
+    .trench-pain em { color: #FFD740; font-style: normal; font-weight: 700; }
+
+    /* Red Flag Audit */
+    .red-flag-card { background: var(--surface); border: 1px solid rgba(255,80,80,0.3); border-left: 4px solid #ff5050; border-radius: 10px; padding: 1.4rem 1.5rem; margin: 1.5rem 0; }
+    .red-flag-card h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #ff5050; margin-bottom: 0.5rem; }
+    .red-flag-card .threshold { font-size: 0.85rem; color: rgba(255,180,180,0.85); margin-bottom: 1rem; font-style: italic; }
+    .rf-list { list-style: none; padding: 0; margin: 0; counter-reset: rf; }
+    .rf-list li { padding: 10px 0 10px 36px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(226,232,240,0.88); font-size: 0.95rem; line-height: 1.55; counter-increment: rf; }
+    .rf-list li::before { content: counter(rf); position: absolute; left: 0; top: 8px; width: 26px; height: 26px; border-radius: 6px; background: rgba(255,80,80,0.12); border: 1px solid rgba(255,80,80,0.4); color: #ff5050; font-weight: 800; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; }
+    .rf-list li:last-child { border-bottom: 0; }
+    .rf-list b { color: #fff; }
+  </style>
+
+  <section class="ops-section" id="volume-trap">
+    <div class="ops-eyebrow">⚠ The Operator Truth</div>
+    <h2>The Veterinary Volume Trap</h2>
+    <p class="ops-lede">Most struggling practices think they have a marketing problem. They don't. They have a <strong>capacity arithmetic</strong> problem. Adding clients without re-stacking the tech-to-DVM ratio just trades wait-list pain for chart-completion pain — and your highest-margin lever (the wellness plan) goes unsold because nobody has time to have the conversation.</p>
+    <p class="ops-lede">Here is the math that should be on every practice owner's wall:</p>
+
+    <table class="rev-math">
+      <caption>Revenue Math · Capacity, Throughput, and the Wellness-Plan Flywheel</caption>
+      <thead>
+        <tr>
+          <th>Tech-to-DVM Ratio</th>
+          <th>Patients / DVM / Day</th>
+          <th>Avg Revenue / Visit</th>
+          <th>Daily DVM Production</th>
+          <th>Wellness Attach %</th>
+          <th>Annual Client LTV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-flag"><td>1 : 1 <span class="dim">(below threshold)</span></td><td>14</td><td>$185</td><td>$2,590</td><td>11%</td><td>$340</td></tr>
+        <tr><td>2 : 1 <span class="dim">(industry baseline)</span></td><td>22</td><td>$210</td><td>$4,620</td><td>22%</td><td>$520</td></tr>
+        <tr><td>3 : 1 <span class="dim">(AAHA-aligned)</span></td><td>28</td><td>$235</td><td>$6,580</td><td>34%</td><td>$840</td></tr>
+        <tr><td>4 : 1 <span class="dim">(top-decile)</span></td><td>32</td><td>$258</td><td>$8,256</td><td>42%</td><td>$1,180</td></tr>
+      </tbody>
+    </table>
+    <p class="math-source">Composite of AAHA Veterinary Management Survey, IDEXX practice benchmarks, and AVMA economic data, normalized for companion-animal practice in the U.S. mid-Atlantic / mid-tier market. Numbers are reference, not guarantees.</p>
+
+    <p class="ops-lede"><strong>The takeaway no consultant will tell you:</strong> the move from a 2:1 to a 3:1 tech ratio more than doubles wellness-plan attach rate — not because techs sell wellness plans, but because they free the DVM to <em>have the 90-second conversation</em> at the exam. That conversation is worth $320 in incremental annual LTV per client. Multiply by 1,200 active clients and you've found $384K of margin without adding a single appointment slot.</p>
+  </section>
+
+  <div class="trenches">
+    <h3>🪵 Truth From the Trenches</h3>
+    <p class="ops-lede" style="margin-bottom:1rem;">If you've been in the operatory, you've met all three of these. Generic AI advice doesn't cover them — only a practice owner who's lived through it does.</p>
+
+    <div class="trench-item">
+      <div class="trench-name">The high-performing tech who refuses to log notes</div>
+      <div class="trench-pain">She's the fastest, most clinically sharp tech you have. She's also the reason your <em>chart-completion-by-EOD</em> rate is 38% and you can't bill insurance properly. She doesn't see notes as her job. Until you make notes a comp lever (not a coaching nag), nothing changes.</div>
+    </div>
+
+    <div class="trench-item">
+      <div class="trench-name">The DVM who "doesn't believe in" wellness plans</div>
+      <div class="trench-pain">He thinks they're a corporate sales gimmick that compromises clinical judgment. He's wrong about the medicine but right about the implementation — most practices script the wellness pitch like a dealership add-on. <em>Train the framing, not the close:</em> wellness plans buy compliance, and compliance is medicine.</div>
+    </div>
+
+    <div class="trench-item">
+      <div class="trench-name">The receptionist with eleven years of tribal knowledge</div>
+      <div class="trench-pain">She knows which clients to text vs. call, which boarding cancellations are "really cancellations" vs. reschedules, and which DVM hates a 7:30 first appointment. None of it is documented. The day she retires, your revenue drops 6% for ninety days. <em>Pay her to write the playbook</em> — not after she gives notice. Now.</div>
+    </div>
+  </div>
+
+  <div class="red-flag-card" id="red-flag-audit">
+    <h3>🚩 The Veterinary Red Flag Audit</h3>
+    <div class="threshold">Check the boxes that apply. <strong>Three or more = the practice is leaking margin you can recover in one quarter.</strong></div>
+    <ol class="rf-list">
+      <li><b>Wellness plan enrollment is under 18%</b> of active clients. (AAHA-aligned practices run 30–45%.)</li>
+      <li><b>Same-day cancellations are above 12%</b> on any rolling 30-day window. (Healthy is 6–9%.)</li>
+      <li><b>DVMs run 4+ clinical days per week</b> with no protected admin / chart-completion block.</li>
+      <li><b>No standing morning huddle or chart pre-review</b> before the first appointment.</li>
+      <li><b>The front desk schedules reactively</b> — clients book the next visit when they call, not before they leave the building.</li>
+    </ol>
+  </div>
+
+  <h2>How to Use the PULSE Dashboard for Veterinary / Pet Services</h2>
+  <p>The PULSE framework was designed to work across industries &mdash; but here&apos;s how to apply it specifically to Veterinary / Pet Services:</p>
+  <ul>
+    <li><strong>Pulse Check:</strong> Use it to grade your reps on the metrics above. Active Clients and Revenue per Visit should be your primary scoring columns.</li>
+    <li><strong>Gross Profit Calculator:</strong> Model your margin per deal, per rep, and per territory. Know your break-even unit economics cold.</li>
+    <li><strong>Lightning Rounds:</strong> Run weekly 15-minute sessions focused on the most common objections in Veterinary / Pet Services. Repetition builds reflex.</li>
+    <li><strong>Rep Scheduling Matrix:</strong> Protect high-value selling time. Most revenue losses in Veterinary / Pet Services come from reps in admin, not the field.</li>
+    <li><strong>Recruiting Calculator:</strong> Use it before you post a job. Know exactly how many reps you need to hit your number before you hire.</li>
+  </ul>
+
+  <h2>Frequently Asked Questions</h2>
+  <div>
+    <div class="faq-item"><div class="faq-q">What wellness plan enrollment rate should I target?</div><div class="faq-a">20%+ wellness plan enrollment of active clients is strong. 35%+ is excellent.</div></div><div class="faq-item"><div class="faq-q">How do I increase revenue per visit?</div><div class="faq-a">Increase revenue per visit by bundling dental, heartworm, and microchip at puppy/kitten visits.</div></div><div class="faq-item"><div class="faq-q">How do I reactivate lapsed clients?</div><div class="faq-a">Reactivate lapsed clients with a targeted 'We miss [pet name]' postcard and email at 12 months of no visit.</div></div>
+  </div>
+
+  <div class="cta-card">
+    <h3>Ready to Put This Into Practice?</h3>
+    <p>Open the free PULSE dashboard &mdash; no account required. Set your goals, run your Pulse Check, and start today.</p>
+    <a href="../dashboard.html" class="btn">Open the Dashboard &rarr;</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank" class="btn btn-ghost">Book a Free Call</a>
+  </div>
+
+  <h2>More How To&apos;s</h2>
+  <p>Browse guides for other industries at <a href="./">pulserevops.com/how-tos/</a>, or go back to the <a href="../blog/">PULSE Blog</a> for frameworks that apply across all industries.</p>
+
+</article>
+
+<footer>
+  <div class="footer-links">
+    <a href="../">Home</a>
+    <a href="../dashboard.html">Dashboard</a>
+    <a href="../blog/">Blog</a>
+    <a href="./">How To&apos;s</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank">Book a Call</a>
+  </div>
+  <p>&copy; 2026 PULSE RevOps &mdash; Free to use. Pay it forward.</p>
+</footer>
+
+<script>
+// Fetch live industry news via RSS-to-JSON (no API key required)
+(function() {
+  var query = encodeURIComponent('veterinary+pet+services');
+  var feed = 'https://feeds.feedburner.com/TechCrunch'; // fallback
+  // Use rss2json.com free tier to pull Google News RSS
+  var url = 'https://api.rss2json.com/v1/api.json?rss_url=' +
+    encodeURIComponent('https://news.google.com/rss/search?q=' + query + '&hl=en-US&gl=US&ceid=US:en') +
+    '&api_key=public&count=5';
+
+  fetch(url)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var list = document.getElementById('news-feed');
+      if (!data.items || !data.items.length) {
+        list.innerHTML = '<li style="color:var(--muted);font-size:0.85rem;padding:0.5rem 0;">No recent headlines found. Check back soon.</li>';
+        return;
+      }
+      list.innerHTML = data.items.slice(0, 5).map(function(item) {
+        var date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : '';
+        var src = item.author || (item.source && item.source.name) || '';
+        return '<li><a href="' + item.link + '" target="_blank" rel="noopener">' + item.title + '</a>' +
+          '<span class="news-meta">' + (src ? src + ' &bull; ' : '') + date + '</span></li>';
+      }).join('');
+    })
+    .catch(function() {
+      var list = document.getElementById('news-feed');
+      list.innerHTML = '<li style="color:var(--muted);font-size:0.85rem;padding:0.5rem 0;">Headlines temporarily unavailable. <a href="https://news.google.com/search?q=veterinary+pet+services" target="_blank">Search Google News</a></li>';
+    });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Manage and Scale Revenue in Dental / Orthodontics | PULSE RevOps</title>
+  <meta name="description" content="A practical RevOps guide for dental practice and orthodontic sales teams. KPIs, scaling strategies, and team management frameworks — powered by PULSE." />
+  <meta name="author" content="Kory White" />
+  <link rel="canonical" href="https://pulserevops.com/how-tos/dental.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How to Manage and Scale Revenue in Dental / Orthodontics" />
+  <meta property="og:description" content="A practical RevOps guide for dental practice and orthodontic sales teams. KPIs, scaling strategies, and team management frameworks — powered by PULSE." />
+  <meta property="og:url" content="https://pulserevops.com/how-tos/dental.html" />
+  <meta property="og:site_name" content="PULSE RevOps" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "The Insurance Squeeze — Where Dental Practice Margin Goes to Die",
+        "description": "Operator-grade RevOps blueprint for dental practices: PPO contract math, the case-acceptance gap between owner and associate, and the five red flags that signal silent margin leak.",
+        "author": {"@type": "Person", "name": "Kory White", "url": "https://pulserevops.com"},
+        "publisher": {"@type": "Organization", "name": "PULSE RevOps", "url": "https://pulserevops.com"},
+        "url": "https://pulserevops.com/how-tos/dental.html",
+        "keywords": "dental RevOps, PPO contracts, case acceptance, hygiene recall, dental AR, associate doctor production",
+        "datePublished": "2026-04-29",
+        "dateModified": "2026-04-29"
+      },
+      {
+        "@type": "Dataset",
+        "name": "Dental Practice P&L Impact Grid — Effort vs Margin Map",
+        "description": "Two-by-two matrix mapping common dental practice initiatives by operator effort against margin impact, with the eight moves a practice owner should sequence in order.",
+        "creator": {"@type": "Person", "name": "Kory White"},
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "isPartOf": "https://pulserevops.com/how-tos/dental.html",
+        "keywords": "dental P&L, PPO renegotiation, case acceptance, hygiene capacity, AR aging"
+      },
+      {
+        "@type": "ItemList",
+        "name": "Dental RevOps Red Flag Checklist",
+        "description": "Five operator-level signals that a dental practice is leaking margin to insurance, scheduling, or associate-doctor variance.",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"More than 55% of production from PPO contracts"},
+          {"@type":"ListItem","position":2,"name":"Case acceptance under 60% on $3K+ treatment plans"},
+          {"@type":"ListItem","position":3,"name":"Hygiene re-care over 70 days behind schedule"},
+          {"@type":"ListItem","position":4,"name":"AR over 90 days exceeds 5% of monthly production"},
+          {"@type":"ListItem","position":5,"name":"Associate-doctor production reviewed only weekly, not daily"}
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #111518; --surface: #1A2025; --surface2: #242C32;
+      --accent: #E8710A; --accent2: #FF8C1A;
+      --text: #e2e8f0; --muted: #94a3b8;
+      --border: rgba(255,255,255,0.08); --max: 760px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; font-size: 1rem; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(17,21,24,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--accent); color: #fff !important; padding: 6px 14px; border-radius: 6px; }
+    .nav-cta:hover { background: var(--accent2) !important; }
+    .hero { background: linear-gradient(135deg, #1A2025 0%, #111518 60%); border-bottom: 1px solid var(--border); padding: 3.5rem 1.5rem 3rem; text-align: center; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.2; max-width: 720px; margin: 0 auto 1rem; }
+    .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 1.75rem; }
+    .hero-meta { font-size: 0.78rem; color: var(--muted); display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+    article { max-width: var(--max); margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    article h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent); margin: 2.5rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+    article h3 { font-size: 1.1rem; font-weight: 700; margin: 1.75rem 0 0.5rem; color: var(--text); }
+    article p { margin-bottom: 1.1rem; color: var(--text); }
+    article ul, article ol { margin: 0.5rem 0 1.1rem 1.5rem; color: var(--text); }
+    article li { margin-bottom: 0.45rem; }
+    article strong { color: #f8fafc; }
+    article a { color: var(--accent2); text-decoration: none; border-bottom: 1px solid rgba(251,146,60,0.3); transition: border-color 0.2s; }
+    article a:hover { border-color: var(--accent2); }
+    .callout { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .callout-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .callout p { margin-bottom: 0; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1rem; text-align: center; }
+    .kpi-card .kpi-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .kpi-card .kpi-name { font-size: 1rem; font-weight: 800; color: var(--accent); }
+    blockquote { border-left: 3px solid var(--accent); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: var(--surface); border-radius: 0 8px 8px 0; font-style: italic; color: var(--muted); }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 1.25rem 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .faq-a { color: var(--muted); }
+    .cta-card { background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .cta-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .cta-card p { color: var(--muted); margin-bottom: 1.25rem; }
+    .btn { display: inline-block; background: var(--accent); color: #fff; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.04em; border-bottom: none; transition: background 0.2s, transform 0.15s; margin: 0.25rem; }
+    .btn:hover { background: var(--accent2); transform: translateY(-1px); border-bottom: none; }
+    .btn-ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+    .btn-ghost:hover { background: rgba(232,113,10,0.1); }
+    /* NEWS FEED */
+    .news-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
+    .news-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .news-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .news-badge { font-size: 0.62rem; font-weight: 700; background: rgba(232,113,10,0.15); color: var(--accent); border: 1px solid rgba(232,113,10,0.3); border-radius: 20px; padding: 2px 8px; letter-spacing: 0.08em; }
+    #news-feed { list-style: none; margin: 0; padding: 0; }
+    #news-feed li { border-bottom: 1px solid var(--border); padding: 0.75rem 0; }
+    #news-feed li:last-child { border-bottom: none; padding-bottom: 0; }
+    #news-feed a { color: var(--text); font-size: 0.88rem; font-weight: 600; border-bottom: none; display: block; margin-bottom: 0.2rem; }
+    #news-feed a:hover { color: var(--accent2); }
+    #news-feed .news-meta { font-size: 0.72rem; color: var(--muted); }
+    #news-loading { color: var(--muted); font-size: 0.85rem; text-align: center; padding: 1rem 0; }
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.82rem; }
+    footer a { color: var(--muted); text-decoration: none; border-bottom: none; }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    @media (max-width: 600px) { .hero { padding: 2.5rem 1rem 2rem; } article { padding: 2rem 1rem 3rem; } .nav-links { gap: 0.75rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-brand">PULSE</a>
+  <div class="nav-links">
+    <a href="../dashboard.html">Dashboard</a>
+    <a href="../blog/">Blog</a>
+    <a href="./">How To&apos;s</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">How To&apos;s &mdash; Dental / Orthodontics</p>
+  <h1>How to Manage and Scale Revenue in Dental / Orthodontics</h1>
+  <p class="hero-sub">A practical framework for dental practice and orthodontic sales teams &mdash; built from real experience, not theory.</p>
+  <div class="hero-meta">
+    <span>&#128313; PULSE RevOps</span>
+    <span>&#128336; 8 min read</span>
+    <span>&#127775; Free to use</span>
+  </div>
+</section>
+
+<article>
+
+  <h2>Why This Industry Is Different</h2>
+  <p>Every industry has its own revenue physics. Dental / Orthodontics businesses deal with specific buying cycles, customer expectations, and margin structures that generic sales advice can&apos;t address. This guide is built specifically for dental practice and orthodontic sales teams &mdash; with benchmarks, frameworks, and coaching cues that apply to your world.</p>
+
+    <h2>The 9 KPIs That Matter Most</h2>
+  <p>Stop tracking everything. These nine metrics give you the clearest signal of revenue health in Dental / Ortho:</p>
+  <div class="kpi-grid" id="how-to-kpi-grid" data-industry="dental">
+    <div class="kpi-card"><div class="kpi-label">KPI 1</div><div class="kpi-name">New Patients / Mo</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 2</div><div class="kpi-name">Treatment Plan Acceptance %</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 3</div><div class="kpi-name">Hygiene Retention %</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 4</div><div class="kpi-name">Referrals</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 5</div><div class="kpi-name">Avg Production / Visit ($)</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 6</div><div class="kpi-name">Whitening Attach Rate %</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 7</div><div class="kpi-name">Ortho Consultations</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 8</div><div class="kpi-name">Implant Cases</div></div>
+    <div class="kpi-card"><div class="kpi-label">KPI 9</div><div class="kpi-name">Collections Rate %</div></div>
+  </div>
+  <script>
+  // Daily-refreshed KPIs from the prewarm cron (industry-kpis-refresh-background).
+  // If the cron has cached fresh data for this industry, swap the cards in place.
+  (function(){
+    try {
+      var grid = document.getElementById('how-to-kpi-grid');
+      if (!grid) return;
+      var ind = grid.getAttribute('data-industry') || 'dental';
+      var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+      var t = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 4000);
+      fetch('/.netlify/functions/industry-kpis?ind=' + encodeURIComponent(ind), ctrl ? { signal: ctrl.signal } : {})
+        .then(function(r){ clearTimeout(t); return r.ok ? r.json() : null; })
+        .then(function(d){
+          if (!d || !d.ok || !Array.isArray(d.kpis) || !d.kpis.length) return;
+          var real = d.kpis.filter(function(k){ return k && k.name && !/^KPI\s*\d+$/i.test(String(k.name).trim()); });
+          if (real.length < 3) return; // placeholder-only response, ignore
+          var html = real.slice(0, 9).map(function(k, i){
+            return '<div class="kpi-card"><div class="kpi-label">KPI ' + (i+1) + '</div><div class="kpi-name">' + (k.name || '').replace(/[<>]/g, '') + '</div></div>';
+          }).join('');
+          grid.innerHTML = html;
+        })
+        .catch(function(){ /* baked-in 9 stay visible */ });
+    } catch(e) {}
+  })();
+  </script>
+
+  <div class="callout">
+    <div class="callout-title">Key Insight</div>
+    <p>Case acceptance rate — the % of treatment plans patients accept — is your clinical revenue metric. Below 65% means your presentation, financing options, or patient trust is broken.</p>
+  </div>
+
+  <!-- LIVE INDUSTRY NEWS -->
+  <div class="news-section">
+    <div class="news-header">
+      <span class="news-title">&#128240; Dental / Orthodontics Industry News</span>
+      <span class="news-badge">LIVE &bull; Updated Daily</span>
+    </div>
+    <ul id="news-feed"><li id="news-loading">Loading latest headlines&hellip;</li></ul>
+  </div>
+
+  <style>
+    .ops-section { margin: 2.25rem 0 2rem; }
+    .ops-eyebrow { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .ops-section h2 { margin-bottom: 0.6rem; }
+    .ops-lede { color: rgba(226,232,240,0.78); margin-bottom: 1rem; font-size: 1rem; }
+
+    /* P&L Impact Grid — 2x2 effort/impact matrix */
+    .pl-grid-wrap { margin: 1rem 0 1.5rem; }
+    .pl-grid-axes { display: grid; grid-template-columns: 110px 1fr 1fr; grid-template-rows: auto auto auto; gap: 0; max-width: 760px; }
+    .pl-axis-y, .pl-axis-x { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; justify-content: center; padding: 8px; }
+    .pl-axis-y { writing-mode: vertical-rl; transform: rotate(180deg); grid-column: 1; grid-row: 1 / span 2; }
+    .pl-corner { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); padding: 8px; text-align: center; }
+    .pl-quad { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; min-height: 170px; margin: 4px; position: relative; }
+    .pl-q-label { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .pl-quad ul { list-style: none; padding: 0; margin: 0; font-size: 0.85rem; line-height: 1.55; color: rgba(226,232,240,0.85); }
+    .pl-quad ul li { padding: 4px 0 4px 16px; position: relative; }
+    .pl-quad ul li::before { content: "▸"; position: absolute; left: 0; top: 4px; font-weight: 800; }
+    .pl-q-do-now { border-color: rgba(34,197,94,0.45); background: rgba(34,197,94,0.04); }
+    .pl-q-do-now .pl-q-label { color: #22c55e; }
+    .pl-q-do-now ul li::before { color: #22c55e; }
+    .pl-q-strategic { border-color: rgba(59,130,246,0.45); background: rgba(59,130,246,0.04); }
+    .pl-q-strategic .pl-q-label { color: #60a5fa; }
+    .pl-q-strategic ul li::before { color: #60a5fa; }
+    .pl-q-skip { border-color: rgba(255,80,80,0.4); background: rgba(255,80,80,0.04); }
+    .pl-q-skip .pl-q-label { color: #ff5050; }
+    .pl-q-skip ul li::before { color: #ff5050; }
+    .pl-q-busywork { border-color: rgba(255,180,90,0.4); background: rgba(255,180,90,0.04); }
+    .pl-q-busywork .pl-q-label { color: #FFB870; }
+    .pl-q-busywork ul li::before { color: #FFB870; }
+    @media (max-width: 640px) {
+      .pl-grid-axes { grid-template-columns: 1fr; }
+      .pl-axis-y { writing-mode: horizontal-tb; transform: none; grid-column: 1; grid-row: auto; padding: 0 0 6px; }
+      .pl-corner { display: none; }
+    }
+
+    .trenches { background: rgba(232,113,10,0.05); border: 1px solid rgba(232,113,10,0.25); border-left: 4px solid var(--accent); border-radius: 10px; padding: 1.4rem 1.5rem; margin: 1.5rem 0; }
+    .trenches h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.85rem; }
+    .trenches .trench-item { padding: 12px 0; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+    .trenches .trench-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .trench-name { font-weight: 700; color: #fff; margin-bottom: 4px; font-size: 0.95rem; }
+    .trench-pain { color: rgba(226,232,240,0.78); font-size: 0.92rem; line-height: 1.65; }
+    .trench-pain em { color: #FFD740; font-style: normal; font-weight: 700; }
+
+    .red-flag-card { background: var(--surface); border: 1px solid rgba(255,80,80,0.3); border-left: 4px solid #ff5050; border-radius: 10px; padding: 1.4rem 1.5rem; margin: 1.5rem 0; }
+    .red-flag-card h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #ff5050; margin-bottom: 0.5rem; }
+    .red-flag-card .threshold { font-size: 0.85rem; color: rgba(255,180,180,0.85); margin-bottom: 1rem; font-style: italic; }
+    .rf-list { list-style: none; padding: 0; margin: 0; counter-reset: rf; }
+    .rf-list li { padding: 10px 0 10px 36px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(226,232,240,0.88); font-size: 0.95rem; line-height: 1.55; counter-increment: rf; }
+    .rf-list li::before { content: counter(rf); position: absolute; left: 0; top: 8px; width: 26px; height: 26px; border-radius: 6px; background: rgba(255,80,80,0.12); border: 1px solid rgba(255,80,80,0.4); color: #ff5050; font-weight: 800; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; }
+    .rf-list li:last-child { border-bottom: 0; }
+    .rf-list b { color: #fff; }
+  </style>
+
+  <section class="ops-section" id="insurance-squeeze">
+    <div class="ops-eyebrow">⚠ The Operator Truth</div>
+    <h2>The Insurance Squeeze: Where Dental Practice Margin Goes to Die</h2>
+    <p class="ops-lede">Most struggling dental practices think they have a new-patient problem. They don't. They have a <strong>contract math</strong> problem. PPO write-offs that compounded 4–6% per year while nobody re-ran the numbers, an associate doctor whose case acceptance is 22 points below the owner's, and a hygiene re-care list 80 days behind. Each one is silently eating production.</p>
+    <p class="ops-lede">Stop ordering the moves by "what feels urgent." Order them by <strong>P&L leverage per hour of operator effort</strong>:</p>
+
+    <div class="pl-grid-wrap">
+      <div class="pl-grid-axes" aria-label="P&L Impact Grid: effort vs margin">
+        <div class="pl-axis-y">High Margin Impact ↑</div>
+        <div class="pl-quad pl-q-do-now">
+          <div class="pl-q-label">▶ Do This Week · Low Effort / High Impact</div>
+          <ul>
+            <li>Re-run the math on your top 3 PPO contracts — drop or renegotiate any below your fee schedule's 75th percentile</li>
+            <li>Offer same-day case acceptance financing on every $3K+ plan (CareCredit, Sunbit, Proceed Finance)</li>
+            <li>Move hygiene recall to a 6-month auto-text + 3-day-before reminder cadence</li>
+          </ul>
+        </div>
+        <div class="pl-quad pl-q-strategic">
+          <div class="pl-q-label">▶ Sequence Next 90 Days · High Effort / High Impact</div>
+          <ul>
+            <li>Drop the bottom-3 PPO contracts and rebuild fee-for-service muscle (3-6 month dip, durable margin gain)</li>
+            <li>Track associate-doctor production daily, not weekly — close the case-acceptance gap with structured shadowing</li>
+            <li>Hire a treatment coordinator — they pay for themselves at 3% case-acceptance lift</li>
+          </ul>
+        </div>
+        <div class="pl-axis-x" style="grid-column:1;">Low Margin Impact ↓</div>
+        <div class="pl-quad pl-q-busywork">
+          <div class="pl-q-label">▶ Don't Confuse Activity with Progress</div>
+          <ul>
+            <li>New website redesign · social media calendar · "patient journey" workshops</li>
+            <li>Buying more new-patient leads while the recall list is bleeding</li>
+            <li>Switching practice management software mid-year</li>
+          </ul>
+        </div>
+        <div class="pl-quad pl-q-skip">
+          <div class="pl-q-label">▶ Skip Entirely</div>
+          <ul>
+            <li>Premium DSO buyer pitches before you've fixed your collection ratio</li>
+            <li>"Brand refresh" exercises that don't change a single fee or scheduling rule</li>
+            <li>Conferences without a scheduled implementation review the week after</li>
+          </ul>
+        </div>
+        <div></div>
+        <div class="pl-corner" style="grid-column:2 / span 2;text-align:center;">→ Operator Effort →</div>
+      </div>
+    </div>
+    <p class="ops-lede"><strong>The takeaway no consultant will tell you:</strong> the practice owner who renegotiates one PPO contract this Friday recovers more margin than the one who runs three months of patient-experience workshops. Insurance math compounds; vibes don't.</p>
+  </section>
+
+  <div class="trenches">
+    <h3>🪵 Truth From the Trenches</h3>
+    <p class="ops-lede" style="margin-bottom:1rem;">If you've signed payroll for a dental practice, you've stared at all three of these. Generic AI doesn't see them — only an owner who's lived through them does.</p>
+
+    <div class="trench-item">
+      <div class="trench-name">The hygienist who's faster than your supplies allow</div>
+      <div class="trench-pain">She turns rooms in 35 minutes when the schedule is built for 50. Sounds like a win until you realize she's burning through prophy paste, fluoride varnish, and chair-time consumables 40% faster than the inventory sheet tracks. Her production per hour is your top-decile metric and your <em>cost-of-goods anomaly</em> at the same time. Match her cadence with re-orders OR pace her — don't pretend the schedule is the problem.</div>
+    </div>
+
+    <div class="trench-item">
+      <div class="trench-name">The associate doctor whose case acceptance is 22 points below the owner's</div>
+      <div class="trench-pain">Same patients, same operatory, same x-rays. Owner closes 78%; associate closes 56%. Nobody's said anything because the associate is "clinically sharp." That's a $180K/year production gap that compounds — and the associate doesn't know they're losing it. <em>Show them the gap weekly with their name on the chart.</em> Cases close when associates know they're being measured.</div>
+    </div>
+
+    <div class="trench-item">
+      <div class="trench-name">The PPO contracts your office manager renewed without re-running the math</div>
+      <div class="trench-pain">She's a 12-year veteran, she keeps the lights on, and she renewed the Delta contract again last March because "that's what we do." Meanwhile your fee schedule has gone up 17% over four years and the contracted reimbursement hasn't moved. Every claim is a 6-point margin hit you authorized by inertia. <em>Re-run every PPO renewal in a spreadsheet</em> — not in the hallway.</div>
+    </div>
+  </div>
+
+  <div class="red-flag-card" id="red-flag-audit">
+    <h3>🚩 The Dental Red Flag Audit</h3>
+    <div class="threshold">Check the boxes that apply. <strong>Three or more = the practice is leaking margin you can recover in one quarter without adding a single new patient.</strong></div>
+    <ol class="rf-list">
+      <li><b>More than 55% of monthly production comes from PPO contracts.</b> (Healthy fee-for-service-led practices keep PPO mix below 40%.)</li>
+      <li><b>Case acceptance is under 60% on $3K+ treatment plans.</b> (Top-decile practices run 75–82% same-day acceptance with financing presented.)</li>
+      <li><b>Hygiene re-care is more than 70 days behind</b> on any rolling list. (Healthy is under 30 days.)</li>
+      <li><b>Accounts receivable over 90 days exceeds 5%</b> of monthly production. (Top-decile keeps it under 2%.)</li>
+      <li><b>Associate-doctor production is reviewed only weekly.</b> Daily review with a coaching cadence closes the owner/associate case-acceptance gap inside 90 days.</li>
+    </ol>
+  </div>
+
+  <h2>How to Use the PULSE Dashboard for Dental / Orthodontics</h2>
+  <p>The PULSE framework was designed to work across industries &mdash; but here&apos;s how to apply it specifically to Dental / Orthodontics:</p>
+  <ul>
+    <li><strong>Pulse Check:</strong> Use it to grade your reps on the metrics above. New Patients and Case Acceptance Rate should be your primary scoring columns.</li>
+    <li><strong>Gross Profit Calculator:</strong> Model your margin per deal, per rep, and per territory. Know your break-even unit economics cold.</li>
+    <li><strong>Lightning Rounds:</strong> Run weekly 15-minute sessions focused on the most common objections in Dental / Orthodontics. Repetition builds reflex.</li>
+    <li><strong>Rep Scheduling Matrix:</strong> Protect high-value selling time. Most revenue losses in Dental / Orthodontics come from reps in admin, not the field.</li>
+    <li><strong>Recruiting Calculator:</strong> Use it before you post a job. Know exactly how many reps you need to hit your number before you hire.</li>
+  </ul>
+
+  <h2>Frequently Asked Questions</h2>
+  <div>
+    <div class="faq-item"><div class="faq-q">What case acceptance rate should I target?</div><div class="faq-a">70%+ case acceptance is strong. Below 60% requires a treatment presentation training and financing review.</div></div><div class="faq-item"><div class="faq-q">How do I increase production per visit?</div><div class="faq-a">Increase production per visit by scheduling complete quadrant dentistry rather than piecemeal visits.</div></div><div class="faq-item"><div class="faq-q">How do I improve new patient flow?</div><div class="faq-a">New patients: Google reviews, internal referral cards, and insurance panel optimization drive the highest volume at lowest cost.</div></div>
+  </div>
+
+  <div class="cta-card">
+    <h3>Ready to Put This Into Practice?</h3>
+    <p>Open the free PULSE dashboard &mdash; no account required. Set your goals, run your Pulse Check, and start today.</p>
+    <a href="../dashboard.html" class="btn">Open the Dashboard &rarr;</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank" class="btn btn-ghost">Book a Free Call</a>
+  </div>
+
+  <h2>More How To&apos;s</h2>
+  <p>Browse guides for other industries at <a href="./">pulserevops.com/how-tos/</a>, or go back to the <a href="../blog/">PULSE Blog</a> for frameworks that apply across all industries.</p>
+
+</article>
+
+<footer>
+  <div class="footer-links">
+    <a href="../">Home</a>
+    <a href="../dashboard.html">Dashboard</a>
+    <a href="../blog/">Blog</a>
+    <a href="./">How To&apos;s</a>
+    <a href="https://calendly.com/korywhiterevops" target="_blank">Book a Call</a>
+  </div>
+  <p>&copy; 2026 PULSE RevOps &mdash; Free to use. Pay it forward.</p>
+</footer>
+
+<script>
+// Fetch live industry news via RSS-to-JSON (no API key required)
+(function() {
+  var query = encodeURIComponent('dental+practice+revenue');
+  var feed = 'https://feeds.feedburner.com/TechCrunch'; // fallback
+  // Use rss2json.com free tier to pull Google News RSS
+  var url = 'https://api.rss2json.com/v1/api.json?rss_url=' +
+    encodeURIComponent('https://news.google.com/rss/search?q=' + query + '&hl=en-US&gl=US&ceid=US:en') +
+    '&api_key=public&count=5';
+
+  fetch(url)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var list = document.getElementById('news-feed');
+      if (!data.items || !data.items.length) {
+        list.innerHTML = '<li style="color:var(--muted);font-size:0.85rem;padding:0.5rem 0;">No recent headlines found. Check back soon.</li>';
+        return;
+      }
+      list.innerHTML = data.items.slice(0, 5).map(function(item) {
+        var date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : '';
+        var src = item.author || (item.source && item.source.name) || '';
+        return '<li><a href="' + item.link + '" target="_blank" rel="noopener">' + item.title + '</a>' +
+          '<span class="news-meta">' + (src ? src + ' &bull; ' : '') + date + '</span></li>';
+      }).join('');
+    })
+    .catch(function() {
+      var list = document.getElementById('news-feed');
+      list.innerHTML = '<li style="color:var(--muted);font-size:0.85rem;padding:0.5rem 0;">Headlines temporarily unavailable. <a href="https://news.google.com/search?q=dental+practice+revenue" target="_blank">Search Google News</a></li>';
+    });
+})();
+</script>
+
+</body>
+</html>
