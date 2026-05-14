@@ -254,18 +254,8 @@
   </style>
 </head>
 <body>
-  <!-- ── Live polish progress bar — fixed at top of library page ────────
-       Shows what % of the library has been polished to 10/10. Updates
-       every 30s via the same status endpoint as the quality ticker. -->
-  <div id="polish-progress-bar" style="position:fixed;top:0;left:0;right:0;height:32px;z-index:9999;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(57,255,20,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#7BFF8F;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
-    <span style="font-weight:900;color:#39FF14;white-space:nowrap;">⚙ Polish Progress</span>
-    <div id="ppb-track" style="flex:1;height:8px;background:rgba(57,255,20,0.08);border:1px solid rgba(57,255,20,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
-      <div id="ppb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#39FF14 0%,#FFD740 100%);border-radius:99px;box-shadow:0 0 10px rgba(57,255,20,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
-    </div>
-    <span id="ppb-pct" style="font-weight:900;color:#FFD740;min-width:46px;text-align:right;">—%</span>
-    <span id="ppb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / — at 10/10</span>
-  </div>
-  <div id="index-progress-bar" style="position:fixed;top:32px;left:0;right:0;height:32px;z-index:9998;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(120,180,255,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#7BB6FF;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+  <!-- Polish Progress, Today's Goal, and Secret Agent bars removed per owner request 2026-05-13. -->
+  <div id="index-progress-bar" style="position:fixed;top:0;left:0;right:0;height:32px;z-index:9998;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(120,180,255,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#7BB6FF;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
     <span style="font-weight:900;color:#39A6FF;white-space:nowrap;">📡 Index Progress</span>
     <div id="ipb-track" style="flex:1;height:8px;background:rgba(57,166,255,0.08);border:1px solid rgba(57,166,255,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
       <div id="ipb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#39A6FF 0%,#7BB6FF 100%);border-radius:99px;box-shadow:0 0 10px rgba(57,166,255,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
@@ -273,31 +263,15 @@
     <span id="ipb-pct" style="font-weight:900;color:#7BB6FF;min-width:46px;text-align:right;">—%</span>
     <span id="ipb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / — indexed</span>
   </div>
-  <div id="daily-progress-bar" style="position:fixed;top:64px;left:0;right:0;height:32px;z-index:9997;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(255,179,71,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#FFB347;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
-    <span style="font-weight:900;color:#FFD740;white-space:nowrap;">📅 Today's Goal · 100</span>
-    <div id="dpb-track" style="flex:1;height:8px;background:rgba(255,179,71,0.08);border:1px solid rgba(255,179,71,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
-      <div id="dpb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#FF8C1A 0%,#FFD740 100%);border-radius:99px;box-shadow:0 0 10px rgba(255,179,71,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+  <div id="claude-opus-progress-bar" style="position:fixed;top:32px;left:0;right:0;height:32px;z-index:9995;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(255,107,107,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#FFB4B4;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+    <span style="font-weight:900;color:#FF6B6B;white-space:nowrap;">✶ Claude Opus · Bespoke Rewrites</span>
+    <div id="copb-track" style="flex:1;height:8px;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
+      <div id="copb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#FF6B6B 0%,#E63946 100%);border-radius:99px;box-shadow:0 0 10px rgba(255,107,107,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
     </div>
-    <span id="dpb-pct" style="font-weight:900;color:#FFD740;min-width:46px;text-align:right;">—%</span>
-    <span id="dpb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— answers added today</span>
+    <span id="copb-pct" style="font-weight:900;color:#FF6B6B;min-width:46px;text-align:right;">—%</span>
+    <span id="copb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / — rewritten · latest: —</span>
   </div>
-  <div id="seo-progress-bar" style="position:fixed;top:96px;left:0;right:0;height:32px;z-index:9996;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(180,120,255,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#B47BFF;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
-    <span style="font-weight:900;color:#C994FF;white-space:nowrap;">🎯 SEO Optimized</span>
-    <div id="spb-track" style="flex:1;height:8px;background:rgba(180,120,255,0.08);border:1px solid rgba(180,120,255,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
-      <div id="spb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#9C4DFF 0%,#E8B4FF 100%);border-radius:99px;box-shadow:0 0 10px rgba(180,120,255,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
-    </div>
-    <span id="spb-pct" style="font-weight:900;color:#E8B4FF;min-width:46px;text-align:right;">—%</span>
-    <span id="spb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / — at 10/10 + indexed</span>
-  </div>
-  <div id="fresh-progress-bar" style="position:fixed;top:128px;left:0;right:0;height:32px;z-index:9995;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(255,80,80,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#FF7B7B;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
-    <span style="font-weight:900;color:#FFB3B3;white-space:nowrap;">⚡ Fresh (≤30d)</span>
-    <div id="fpb-track" style="flex:1;height:8px;background:rgba(255,80,80,0.08);border:1px solid rgba(255,80,80,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
-      <div id="fpb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#FF4D4D 0%,#FFB3B3 100%);border-radius:99px;box-shadow:0 0 10px rgba(255,80,80,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
-    </div>
-    <span id="fpb-pct" style="font-weight:900;color:#FFB3B3;min-width:46px;text-align:right;">—%</span>
-    <span id="fpb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / — 10/10 polished in last 30 days</span>
-  </div>
-  <style>body { padding-top: 160px; } @media (max-width:640px) { #ppb-detail, #ipb-detail, #dpb-detail, #spb-detail, #fpb-detail { display:none !important; } #polish-progress-bar, #index-progress-bar, #daily-progress-bar, #seo-progress-bar, #fresh-progress-bar { gap:8px !important; padding:0 10px !important; font-size:0.55rem !important; } }</style>
+  <style>body { padding-top: 64px; } @media (max-width:640px) { #ipb-detail, #copb-detail { display:none !important; } #index-progress-bar, #claude-opus-progress-bar { gap:8px !important; padding:0 10px !important; font-size:0.55rem !important; } }</style>
   <canvas id="matrix-rain" aria-hidden="true"></canvas>
   <div class="matrix-scanlines" aria-hidden="true"></div>
   <div class="top">
@@ -327,47 +301,8 @@
   <!-- ── Live quality ticker ─────────────────────────────────────────────
        Real-time breakdown of where every entry sits on the 5→10 quality
        scale + polish-loop throughput. Refreshes every 30s. -->
-  <section id="quality-ticker" style="max-width:980px;margin:0 auto;padding:8px clamp(20px,5vw,56px) 14px;">
-    <div style="background:linear-gradient(180deg,rgba(28,18,10,0.85),rgba(14,9,5,0.92));border:1px solid rgba(255,179,71,0.35);border-radius:14px;padding:14px 18px;box-shadow:0 0 24px rgba(255,179,71,0.12);">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
-        <div style="font-size:0.66rem;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:#FFE34F;">◉ Live Quality Ticker</div>
-        <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,200,120,0.55);">refresh every 30s · <span id="qt-updated">—</span></div>
-      </div>
-      <div id="qt-row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;">
-        <div style="background:rgba(255,227,79,0.1);border:1px solid rgba(255,227,79,0.35);border-radius:10px;padding:10px;">
-          <div style="font-size:0.55rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,227,79,0.85);margin-bottom:4px;">In Library</div>
-          <div style="font-size:1.6rem;font-weight:900;color:#FFE34F;line-height:1;"><span id="qt-total">—</span></div>
-        </div>
-        <div style="background:rgba(255,140,26,0.12);border:1px solid rgba(255,140,26,0.4);border-radius:10px;padding:10px;">
-          <div style="font-size:0.55rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,180,90,0.95);margin-bottom:4px;">Polishing Queue</div>
-          <div style="font-size:1.6rem;font-weight:900;color:#FFB347;line-height:1;"><span id="qt-queue">—</span></div>
-        </div>
-        <div style="background:rgba(255,215,64,0.14);border:1px solid rgba(255,215,64,0.55);border-radius:10px;padding:10px;box-shadow:0 0 10px rgba(255,215,64,0.2);">
-          <div style="font-size:0.55rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,215,64,0.95);margin-bottom:4px;">✓ 10/10 Verified</div>
-          <div style="font-size:1.6rem;font-weight:900;color:#FFD740;line-height:1;"><span id="qt-verified">—</span></div>
-        </div>
-        <div style="background:rgba(255,179,71,0.1);border:1px solid rgba(255,179,71,0.35);border-radius:10px;padding:10px;">
-          <div style="font-size:0.55rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,200,120,0.85);margin-bottom:4px;">Indexing /hr</div>
-          <div style="font-size:1.6rem;font-weight:900;color:#FFB347;line-height:1;"><span id="qt-index-rate">—</span></div>
-        </div>
-        <div style="background:rgba(255,179,71,0.1);border:1px solid rgba(255,179,71,0.35);border-radius:10px;padding:10px;">
-          <div style="font-size:0.55rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,200,120,0.85);margin-bottom:4px;">Polished to 10/10 /hr</div>
-          <div style="font-size:1.6rem;font-weight:900;color:#FFB347;line-height:1;"><span id="qt-polish-rate">—</span></div>
-        </div>
-        <div style="background:rgba(255,215,64,0.12);border:1px solid rgba(255,215,64,0.45);border-radius:10px;padding:10px;box-shadow:0 0 8px rgba(255,215,64,0.18);">
-          <div style="font-size:0.55rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,215,64,0.95);margin-bottom:4px;">✓ Verified /hr</div>
-          <div style="font-size:1.6rem;font-weight:900;color:#FFD740;line-height:1;"><span id="qt-verified-rate">—</span></div>
-        </div>
-        <div id="qt-lastwrite-card" style="background:rgba(57,255,20,0.08);border:1px solid rgba(57,255,20,0.35);border-radius:10px;padding:10px;">
-          <div style="font-size:0.55rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(123,255,143,0.85);margin-bottom:4px;">Last Write</div>
-          <div style="font-size:1.05rem;font-weight:900;color:#7BFF8F;line-height:1.1;"><span id="qt-lastwrite">—</span></div>
-        </div>
-      </div>
-      <div id="qt-breakdown" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;font-size:0.62rem;font-weight:700;letter-spacing:0.06em;color:rgba(255,200,120,0.85);">
-        <!-- per-score-tier pills injected by JS: 5/10: 1,427 · 6/10: 0 · ... -->
-      </div>
-    </div>
-  </section>
+  <!-- Live Quality Ticker stats panel removed per owner request 2026-05-13. -->
+  <section id="quality-ticker" hidden></section>
   <script>
   (function(){
     var els = {
@@ -386,16 +321,7 @@
         .then(function(r){ return r.ok ? r.json() : null; })
         .then(function(d){
           if (!d || !d.ok) return;
-          // Top status bars — polish %, index %, daily-100 goal
-          var ppbFill = document.getElementById('ppb-fill');
-          var ppbPct  = document.getElementById('ppb-pct');
-          var ppbDet  = document.getElementById('ppb-detail');
-          if (ppbFill && d.library_total > 0) {
-            var pctNum = (d.ten_of_ten_count || 0) / d.library_total * 100;
-            ppbFill.style.width = Math.min(100, pctNum).toFixed(2) + '%';
-            if (ppbPct) ppbPct.textContent = pctNum.toFixed(1) + '%';
-            if (ppbDet) ppbDet.textContent = fmtNum(d.ten_of_ten_count) + ' / ' + fmtNum(d.library_total) + ' at 10/10';
-          }
+          // Only two top bars remain: Index Progress and Claude Opus · Bespoke Rewrites.
           var ipbFill = document.getElementById('ipb-fill');
           var ipbPct  = document.getElementById('ipb-pct');
           var ipbDet  = document.getElementById('ipb-detail');
@@ -406,42 +332,27 @@
             if (ipbPct) ipbPct.textContent = iPct.toFixed(1) + '%';
             if (ipbDet) ipbDet.textContent = fmtNum(iCount) + ' / ' + fmtNum(d.library_total) + ' indexed';
           }
-          var dpbFill = document.getElementById('dpb-fill');
-          var dpbPct  = document.getElementById('dpb-pct');
-          var dpbDet  = document.getElementById('dpb-detail');
-          if (dpbFill) {
-            var addedToday = d.added_today || 0;
-            var dPct = Math.min(100, addedToday) / 100 * 100;
-            dpbFill.style.width = Math.min(100, dPct).toFixed(2) + '%';
-            if (dpbPct) dpbPct.textContent = Math.round(dPct) + '%';
-            if (dpbDet) dpbDet.textContent = fmtNum(addedToday) + ' / 100 answers added today';
+          // Claude Opus · Bespoke Rewrites progress bar
+          var copbFill = document.getElementById('copb-fill');
+          var copbPct  = document.getElementById('copb-pct');
+          var copbDet  = document.getElementById('copb-detail');
+          if (copbFill) {
+            var co = d.claude_opus_progress || {};
+            var coTotal = co.total_library || d.library_total || 0;
+            var coDone = co.count || 0;
+            var coPct = coTotal > 0 ? (coDone / coTotal * 100) : 0;
+            copbFill.style.width = Math.min(100, coPct).toFixed(2) + '%';
+            if (copbPct) copbPct.textContent = coPct.toFixed(2) + '%';
+            if (copbDet) {
+              var lastStr = co.last_id ? ' · latest: ' + co.last_id : '';
+              copbDet.textContent = fmtNum(coDone) + ' / ' + fmtNum(coTotal) + ' rewritten' + lastStr;
+            }
           }
-          var spbFill = document.getElementById('spb-fill');
-          var spbPct  = document.getElementById('spb-pct');
-          var spbDet  = document.getElementById('spb-detail');
-          if (spbFill && d.library_total > 0) {
-            var seoCount = d.seo_optimized_count || 0;
-            var sPct = seoCount / d.library_total * 100;
-            spbFill.style.width = Math.min(100, sPct).toFixed(2) + '%';
-            if (spbPct) spbPct.textContent = sPct.toFixed(1) + '%';
-            if (spbDet) spbDet.textContent = fmtNum(seoCount) + ' / ' + fmtNum(d.library_total) + ' at 10/10 + indexed';
-          }
-          var fpbFill = document.getElementById('fpb-fill');
-          var fpbPct  = document.getElementById('fpb-pct');
-          var fpbDet  = document.getElementById('fpb-detail');
-          if (fpbFill) {
-            var fc = d.fresh_ten_count || 0;
-            var t10 = d.ten_of_ten_count || 0;
-            var fPct = t10 > 0 ? (fc / t10 * 100) : 0;
-            fpbFill.style.width = Math.min(100, fPct).toFixed(2) + '%';
-            if (fpbPct) fpbPct.textContent = fPct.toFixed(1) + '%';
-            if (fpbDet) fpbDet.textContent = fmtNum(fc) + ' / ' + fmtNum(t10) + ' polished in last 30d';
-          }
-          els.total.textContent = fmtNum(d.library_total);
-          els.queue.textContent = fmtNum(d.polishing_queue_depth);
-          els.verified.textContent = fmtNum(d.ten_of_ten_count);
-          els.indexRate.textContent = (d.run_rate_per_hour || 0).toFixed(1);
-          els.polishRate.textContent = (d.verified_rate_per_hour || 0).toFixed(1);
+          if (els.total) els.total.textContent = fmtNum(d.library_total);
+          if (els.queue) els.queue.textContent = fmtNum(d.polishing_queue_depth);
+          if (els.verified) els.verified.textContent = fmtNum(d.ten_of_ten_count);
+          if (els.indexRate) els.indexRate.textContent = (d.run_rate_per_hour || 0).toFixed(1);
+          if (els.polishRate) els.polishRate.textContent = (d.verified_rate_per_hour || 0).toFixed(1);
           if (els.verifiedRate) els.verifiedRate.textContent = (d.verified_rate_per_hour || 0).toFixed(1);
           // Last-write age — read most-recent ts from the index.
           var lastWriteEl = document.getElementById('qt-lastwrite');
@@ -473,14 +384,14 @@
             var tier = s >= 10 ? '#FFD740' : s >= 8 ? '#FFB347' : s >= 6 ? '#FF9D2E' : '#FF8C1A';
             pills += '<span style="display:inline-block;background:rgba(20,14,8,0.55);color:'+tier+';border:1px solid '+tier+';border-radius:99px;padding:2px 9px;">'+s+'/10: '+fmtNum(c)+' ('+pct+'%)</span>';
           }
-          els.breakdown.innerHTML = pills;
+          if (els.breakdown) els.breakdown.innerHTML = pills;
           var d2 = new Date();
-          els.updated.textContent = d2.toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+          if (els.updated) els.updated.textContent = d2.toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit', second:'2-digit'});
         })
         .catch(function(){});
     }
     refreshTicker();
-    setInterval(refreshTicker, 30000);
+    // Auto-refresh removed per owner request — visitor must reload manually.
   })();
   </script>
 
@@ -538,6 +449,12 @@
     <button id="starred-filter" type="button" style="display:none;background:rgba(255,215,64,0.12);border:1px solid rgba(255,215,64,0.45);border-radius:99px;color:#FFD740;font-family:inherit;font-size:0.74rem;font-weight:800;letter-spacing:0.08em;padding:6px 14px;margin-top:8px;cursor:pointer;text-transform:uppercase;">★ Starred · <span id="starred-count">0</span></button>
   </div>
 
+  <div role="note" aria-label="Polishing notice" style="max-width:980px;margin:14px auto 18px;padding:14px 18px;background:linear-gradient(135deg,rgba(255,140,26,0.10),rgba(255,215,64,0.06));border:1px solid rgba(255,140,26,0.45);border-radius:12px;color:#FFD7A8;font-size:0.82rem;line-height:1.55;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;">
+    <span style="display:inline-flex;align-items:center;gap:8px;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;font-size:0.68rem;color:#FFB347;"><span style="display:inline-block;width:10px;height:10px;background:#39FF14;border-radius:50%;box-shadow:0 0 8px rgba(57,255,20,0.85);animation:pulse-dot 1.6s ease-in-out infinite;"></span>Polishing in progress</span>
+    <span style="flex:1;min-width:240px;color:rgba(255,237,213,0.92);">Answers are actively being polished to 10/10. For best results, look for entries marked <strong style="color:#FFD740;">✓ Machine Certified · 10/10</strong>, or email <a href="mailto:kory@pulserevops.com?subject=Expedite%20to%2010%2F10" style="color:#FFD740;font-weight:800;text-decoration:underline;">kory@pulserevops.com</a> to fast-track your question to a finished 10/10.</span>
+  </div>
+  <style>@keyframes pulse-dot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.55; transform:scale(0.78); } }</style>
+
   <div class="lib" id="lib"></div>
 
   <div class="footer-note">
@@ -582,8 +499,9 @@
       }
     });
     var loadedFull  = {};   // id → full entry (lazy-loaded)
-    var renderLimit = 30;   // initial card cap; grows by 30 on "Load more"
+    var renderLimit = 30;   // legacy — initial card cap (kept for any old callers)
     var PAGE_SIZE   = 30;
+    var currentPage = 1;    // 1-indexed; reset to 1 on filter / search / tag change
 
     function escTxt(s) {
       return String(s).replace(/[&<>"']/g, function(c){
@@ -652,18 +570,14 @@
         }
         return true;
       });
-      // Sort: actively-polishing entries (6-9/10) first, then 10/10 verified,
-      // then 5/10 waiting; within each band newest q-id wins.
+      // Sort newest-first by q-id (descending). Latest writes appear at the
+      // top of the library so visitors see what was just added.
       filtered.sort(function(a, b){
-        var sa = typeof a.quality_score === 'number' ? a.quality_score : 5;
-        var sb = typeof b.quality_score === 'number' ? b.quality_score : 5;
-        var aPolishing = sa > 5 && sa < 10;
-        var bPolishing = sb > 5 && sb < 10;
-        if (aPolishing !== bPolishing) return aPolishing ? -1 : 1;
-        if (sa !== sb) return sb - sa;
         var aIsQ = /^q\d+$/.test(a.id || '');
         var bIsQ = /^q\d+$/.test(b.id || '');
         if (aIsQ && bIsQ) return parseInt(b.id.slice(1),10) - parseInt(a.id.slice(1),10);
+        if (aIsQ && !bIsQ) return -1;
+        if (!aIsQ && bIsQ) return 1;
         return (b.ts || 0) - (a.ts || 0);
       });
 
@@ -676,8 +590,34 @@
         return;
       }
 
-      var visible = filtered.slice(0, renderLimit);
-      var remaining = Math.max(0, filtered.length - visible.length);
+      // Pagination — slice by current page. Clamp currentPage to [1, totalPages].
+      var totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+      var pageStart = (currentPage - 1) * PAGE_SIZE;
+      var visible = filtered.slice(pageStart, pageStart + PAGE_SIZE);
+      var remaining = Math.max(0, filtered.length - (pageStart + visible.length));
+
+      // The cycle cron polishes the 5 newest q-IDs that are still <10/10 AND
+      // at least 24h old (matches the server-side picker — brand-new entries
+      // sit at 5/10 untouched for 24h to earn the polish ladder). Highlight
+      // moves automatically as entries hit 10/10 and the next eligible ones
+      // shift up the queue.
+      var polishingIds = (function(){
+        var COOLDOWN_MS = 24 * 60 * 60 * 1000;
+        var now = Date.now();
+        var pool = entries.filter(function(e){
+          if (!/^q\d+$/.test(e.id || '')) return false;
+          var s = typeof e.quality_score === 'number' ? e.quality_score : 5;
+          if (s >= 10) return false;
+          var age = now - (e.ts || 0);
+          return age >= COOLDOWN_MS;
+        });
+        pool.sort(function(a, b){ return parseInt(b.id.slice(1),10) - parseInt(a.id.slice(1),10); });
+        var s = new Set();
+        for (var i = 0; i < Math.min(5, pool.length); i++) s.add(pool[i].id);
+        return s;
+      })();
 
       var cardsHtml = visible.map(function(e){
         // Tag pills are clickable links to per-tag landing pages — multiplies
@@ -718,9 +658,16 @@
         var scoreLabel = score + '/10';
         var labelText = 'Current Quality';
         var scoreBg, scoreBorder, scoreText, scoreShadow;
-        // Score 5 = waiting (dim green). Score 6-9 = actively being polished
-        // (bright matrix green, glowing). Score 10 = verified (gold).
-        var isPolishing = score > 5 && score < 10;
+        // Bright green highlight ONLY for entries actually being worked on
+        // right now (modified by the cycle cron within the last 15 min).
+        // Includes freshly-written 5/10s that are queued as the next polish
+        // target — "just written + about to be polished" counts as active.
+        // Green highlight = "the cycle is actively working this one." Source of
+        // truth: it's one of the two newest non-10 q-IDs, which is exactly what
+        // pulse-cycle-tick-background polishes each fire. Stays green until the
+        // entry reaches 10/10, at which point it flips to gold and the next two
+        // newest non-10s inherit the green highlight on the next render.
+        var isPolishing = score < 10 && polishingIds.has(e.id);
         if (score >= 10) {
           scoreBg = 'linear-gradient(135deg,#FFD740,#E89F0A)';
           scoreBorder = '#FFD740'; scoreText = '#1a1208';
@@ -745,21 +692,19 @@
           : '<span title="Currently indexing — awaiting IndexNow confirmation" style="display:inline-block;color:#39FF14;font-family:Georgia,\'Times New Roman\',serif;font-style:italic;font-size:1rem;font-weight:900;line-height:1;margin-right:8px;padding:0 2px;vertical-align:middle;text-shadow:0 0 6px rgba(57,255,20,0.85),0 0 2px rgba(57,255,20,0.6);animation:pulsePolish 1.4s ease-in-out infinite;">I</span>';
         // Gold "S" — SEO Optimized: 10/10 verified AND indexed.
         // Cyan "F" — Fresh: 10/10 polished within last 30 days.
-        var isSeoOptimized = score >= 10 && e.was_indexed_at;
-        var isFresh = score >= 10 && (e.polished_at || 0) >= (Date.now() - 30 * 86400000);
+        // F (Fresh) and S (SEO Optimized) badges removed 2026-05-12 per owner —
+        // visual noise on 10/10 cards. Only the I (Indexed) badge stays.
+        var isSeoOptimized = false;
+        var isFresh = false;
         var seoBadge = isSeoOptimized
           ? '<span title="SEO Optimized — 10/10 verified + indexed" style="display:inline-block;color:#FFD740;font-family:Georgia,\'Times New Roman\',serif;font-style:italic;font-size:1rem;font-weight:900;line-height:1;margin-right:8px;padding:0 2px;vertical-align:middle;text-shadow:0 0 6px rgba(255,215,64,0.85),0 0 2px rgba(255,215,64,0.6);">S</span>'
           : '';
         // Currently-being-polished pill — only on entries between 5/10 and 10/10.
-        // Includes a rough ETA based on the 10-min/step cadence so the visitor
-        // knows when this entry is expected to reach 10/10.
-        var stepsLeft = isPolishing ? (10 - score) : 0;
-        var etaMin = stepsLeft * 10;
-        var etaText = etaMin >= 60 ? ('~' + (Math.round(etaMin / 6) / 10) + 'h to certified') : ('~' + etaMin + ' min to certified');
+        // The chunky animated progress bar below the question (healthBar) is the
+        // accurate visualization; the pill just announces the activity.
         var polishingPill = isPolishing
           ? '<span style="display:inline-block;background:linear-gradient(135deg,#00ff41,#00b830);color:#001405;padding:3px 10px;border-radius:99px;font-size:0.55rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;margin-right:4px;vertical-align:middle;border:1px solid #00ff41;box-shadow:0 0 12px rgba(0,255,65,0.7);animation:pulsePolish 1.6s ease-in-out infinite;">◉ Currently Polishing</span>'
             + '<span style="display:inline-block;background:linear-gradient(135deg,#39FF14,#00d040);color:#001405;padding:3px 10px;border-radius:99px;font-size:0.55rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;margin-right:4px;vertical-align:middle;border:1px solid #39FF14;box-shadow:0 0 10px rgba(57,255,20,0.6);animation:pulsePolish 1.6s ease-in-out infinite;animation-delay:0.4s;">⟳ Currently Indexing</span>'
-            + '<span style="display:inline-block;color:#7BFF8F;padding:3px 8px;font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-right:4px;vertical-align:middle;">' + etaText + '</span>'
           : '';
         var gtmBadge = labelPill
           + '<span class="iq-score-pill" style="display:inline-block;background:'+scoreBg+';color:'+scoreText+';padding:3px 10px;border-radius:99px;font-size:0.55rem;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;margin-right:4px;vertical-align:middle;border:1px solid '+scoreBorder+';box-shadow:'+scoreShadow+';">'+scoreLabel+'</span>'
@@ -775,28 +720,36 @@
           : (rc > 0
             ? '<span title="'+rc+' reads in last 7 days" style="display:inline-flex;align-items:center;gap:3px;background:rgba(232,113,10,0.10);border:1px solid rgba(232,113,10,0.35);color:rgba(255,140,26,0.85);padding:1px 8px;border-radius:99px;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;margin-right:6px;">🔥 '+rc+'</span>'
             : '<span title="0 reads in last 7 days" style="display:inline-flex;align-items:center;gap:3px;color:rgba(237,229,216,0.32);padding:1px 6px;font-size:0.58rem;font-weight:600;letter-spacing:0.08em;margin-right:6px;">○ 0</span>');
-        // Polish target gets a green glow + pulse. Verified 10/10 gets a
-        // permanent gold outline so visitors can spot fully-vetted answers
-        // at a glance — even after the polish loop has moved on.
+        // Three states: gold for verified 10/10, green for actively being
+        // worked on right now (cron touched in last 15 min), orange for
+        // everything else (default — preserves the orange-box look across
+        // the whole library so visitors see a consistent visual rhythm).
         var cardStyle = '';
         if (score >= 10) {
           cardStyle = ' style="border:2px solid #FFD740; background:linear-gradient(90deg, rgba(255,215,64,0.07), rgba(255,215,64,0.02) 60%); box-shadow:0 0 14px rgba(255,215,64,0.35);"';
         } else if (isPolishing) {
           cardStyle = ' style="border:2px solid #00ff41; background:linear-gradient(90deg, rgba(0,255,65,0.08), rgba(0,255,65,0.02) 60%); box-shadow:0 0 18px rgba(0,255,65,0.35);"';
-        } else if (isFeatured) {
-          cardStyle = ' style="border-left:3px solid var(--orange-bright); background:linear-gradient(90deg, rgba(232,113,10,0.06), transparent 45%);"';
+        } else {
+          cardStyle = ' style="border:2px solid #FF8C1A; background:linear-gradient(90deg, rgba(255,140,26,0.07), rgba(255,140,26,0.02) 60%); box-shadow:0 0 14px rgba(255,140,26,0.30);"';
         }
-        // Score progress bar — thin horizontal fill showing how close the
-        // entry is to verified 10/10. Hidden once the entry hits 10/10.
+        // Score progress bar — accurate fill showing exactly how close the entry
+        // is to verified 10/10 (score×10 = %). Replaces the prior "min to
+        // certified" pill which was a rough cycle-cadence guess. Bar pulses
+        // when the cycle is actively working this entry; idle but mid-walk
+        // entries get a static bar so you can see the in-progress state.
         var pct = Math.max(0, Math.min(100, score * 10));
         var barFillColor = isPolishing
-          ? 'linear-gradient(90deg,#00ff41,#39FF14)'
+          ? 'linear-gradient(90deg,#00ff41 0%,#39FF14 60%,#FFD740 100%)'
           : 'linear-gradient(90deg,rgba(123,255,143,0.55),rgba(57,255,20,0.7))';
-        var barShadow = isPolishing ? '0 0 6px rgba(0,255,65,0.55)' : 'none';
-        var healthBar = score >= 10
+        var barShadow = isPolishing ? '0 0 10px rgba(0,255,65,0.7)' : '0 0 4px rgba(57,255,20,0.25)';
+        var pulseAnim = isPolishing ? 'animation:pulsePolish 1.6s ease-in-out infinite;' : '';
+        var healthBar = (score >= 10)
           ? ''
-          : '<div title="Quality score: '+score+'/10" style="height:3px;background:rgba(57,255,20,0.12);border-radius:2px;margin:5px 0 2px;overflow:hidden;">'
-              + '<div style="height:100%;width:'+pct+'%;background:'+barFillColor+';box-shadow:'+barShadow+';transition:width 0.8s ease;"></div>'
+          : '<div style="display:flex;align-items:center;gap:10px;margin:8px 0 4px;">'
+              + '<div style="flex:1;height:8px;background:rgba(57,255,20,0.10);border:1px solid rgba(57,255,20,0.25);border-radius:99px;overflow:hidden;">'
+                + '<div style="height:100%;width:'+pct+'%;background:'+barFillColor+';box-shadow:'+barShadow+';transition:width 1.2s cubic-bezier(0.22,1,0.36,1);'+pulseAnim+'"></div>'
+              + '</div>'
+              + '<span style="font-size:0.62rem;font-weight:800;letter-spacing:0.10em;color:'+(isPolishing?'#39FF14':'rgba(123,255,143,0.75)')+';white-space:nowrap;">'+score+'/10 · '+pct+'%</span>'
             + '</div>';
         return '<div class="entry" data-id="'+e.id+'"'+cardStyle+'>'
           + '<div class="entry-question">'+escTxt(e.question)
@@ -809,11 +762,50 @@
           + '</div>';
       }).join('');
 
-      var loadMoreHtml = remaining > 0
-        ? '<button id="load-more" style="display:block;margin:24px auto 8px;padding:14px 32px;background:rgba(232,113,10,0.12);border:1px solid rgba(232,113,10,0.4);border-radius:10px;color:var(--orange-bright);font-family:inherit;font-size:0.78rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;cursor:pointer;transition:all 0.15s;">Load ' + Math.min(PAGE_SIZE, remaining) + ' more · ' + remaining + ' remaining</button>'
-        : (filtered.length > PAGE_SIZE ? '<div style="text-align:center;margin:24px 0 8px;"><div style="color:rgba(237,229,216,0.55);font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:14px;">— you reached the end · 2M+ answers in the machine —</div><button id="recycle-library" style="display:inline-block;padding:14px 32px;background:linear-gradient(180deg,#FF8C1A,#E8710A);border:none;border-radius:10px;color:#0a0a0a;font-family:inherit;font-size:0.78rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 10px rgba(232,113,10,0.4);">↻ Loop back · start over</button></div>' : '');
+      // Pagination bar — numbered pages with prev/next + first/last shortcuts.
+      // Shows: « ‹ 1 ... (cur-2) (cur-1) [cur] (cur+1) (cur+2) ... N › »
+      function buildPagerHtml(){
+        if (totalPages <= 1) return '';
+        var btn = function(label, page, opts){
+          opts = opts || {};
+          var disabled = !!opts.disabled;
+          var active = !!opts.active;
+          var bg = active
+            ? 'background:linear-gradient(135deg,#FF8C1A,#E8710A);color:#0a0a0a;border:1px solid #FF8C1A;'
+            : 'background:rgba(232,113,10,0.10);color:#FFD7A8;border:1px solid rgba(232,113,10,0.35);';
+          var dim = disabled ? 'opacity:0.35;cursor:not-allowed;' : 'cursor:pointer;';
+          var fw = active ? '900' : '700';
+          return '<button class="pager-btn" data-page="' + page + '"' + (disabled ? ' disabled' : '') +
+            ' style="' + bg + dim + 'min-width:38px;padding:8px 12px;border-radius:7px;font-family:inherit;font-size:0.78rem;font-weight:' + fw + ';letter-spacing:0.06em;margin:3px;">' +
+            label + '</button>';
+        };
+        // Build the visible page-number set — current ± 2, plus first & last.
+        var pages = new Set([1, totalPages]);
+        for (var i = currentPage - 2; i <= currentPage + 2; i++) {
+          if (i >= 1 && i <= totalPages) pages.add(i);
+        }
+        var sortedPages = Array.from(pages).sort(function(a,b){ return a - b; });
+        var pagesHtml = '';
+        var prev = 0;
+        sortedPages.forEach(function(p){
+          if (prev && p > prev + 1) {
+            pagesHtml += '<span style="display:inline-block;min-width:28px;text-align:center;color:rgba(237,229,216,0.4);font-size:0.78rem;margin:0 2px;">…</span>';
+          }
+          pagesHtml += btn(String(p), p, { active: p === currentPage });
+          prev = p;
+        });
+        return '<nav aria-label="Library pagination" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0;margin:28px 0 12px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.06);">' +
+          '<span style="color:rgba(237,229,216,0.55);font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;margin-right:12px;">Page ' + currentPage + ' / ' + totalPages + '</span>' +
+          btn('« First', 1, { disabled: currentPage === 1 }) +
+          btn('‹ Prev', Math.max(1, currentPage - 1), { disabled: currentPage === 1 }) +
+          pagesHtml +
+          btn('Next ›', Math.min(totalPages, currentPage + 1), { disabled: currentPage === totalPages }) +
+          btn('Last »', totalPages, { disabled: currentPage === totalPages }) +
+        '</nav>';
+      }
+      var pagerHtml = buildPagerHtml();
 
-      libEl.innerHTML = cardsHtml + loadMoreHtml;
+      libEl.innerHTML = cardsHtml + pagerHtml;
     }
 
     // Markdown-ish renderer matching pulse-new.html
@@ -962,15 +954,26 @@
     }
 
     libEl.addEventListener('click', function(e){
-      // Load more button — extend the visible window by PAGE_SIZE
+      // Pagination — jump to a specific page from the bottom pager.
+      var pagerBtn = e.target.closest && e.target.closest('.pager-btn');
+      if (pagerBtn && !pagerBtn.disabled) {
+        var p = parseInt(pagerBtn.getAttribute('data-page') || '1', 10);
+        if (!isNaN(p) && p >= 1) {
+          currentPage = p;
+          paint();
+          try { libEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(e2){}
+        }
+        return;
+      }
+      // Legacy load-more — kept for any old call sites; treats as "next page".
       if (e.target.id === 'load-more') {
-        renderLimit += PAGE_SIZE;
+        currentPage += 1;
         paint();
         return;
       }
       // Recycle button — reset paging to start, scroll to top of library
       if (e.target.id === 'recycle-library') {
-        renderLimit = PAGE_SIZE;
+        currentPage = 1;
         paint();
         try { libEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(e2){}
         return;
@@ -1110,11 +1113,11 @@
       if (!c) return;
       var t = c.dataset.tag;
       activeTag = (activeTag === t) ? null : t;
-      renderLimit = PAGE_SIZE;  // reset paging when filter changes
+      currentPage = 1;  // reset to first page when filter changes
       paint();
     });
     searchEl.addEventListener('input', function(){
-      renderLimit = PAGE_SIZE;  // reset paging when search changes
+      currentPage = 1;  // reset to first page when search changes
       paint();
     });
 
@@ -1244,13 +1247,7 @@
         .catch(function(){ /* silent */ });
     }
     loadEntries().then(function(){ loadTrending(); loadReadCounts(); });
-    // Auto-refresh card grid every 30s so the library reflects new writes /
-    // polish-score bumps without a manual reload.
-    setInterval(function(){
-      loadEntries().then(function(){ loadReadCounts(); });
-    }, 30000);
-    setInterval(loadTrending, 5 * 60 * 1000); // trending refresh every 5 min
-    setInterval(loadReadCounts, 60 * 1000);   // reads-counter refresh every 60s
+    // Auto-refresh removed per owner request — visitors reload manually.
   })();
   </script>
 
