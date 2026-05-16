@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>🏈 Fantasy Football · Top 300 · Pulse</title>
+<link rel="canonical" href="https://pulserevops.com/sports">
+<style>
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:0;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:linear-gradient(180deg,#050810 0%,#0c1729 100%);
+    color:#e5edff; min-height:100vh;
+  }
+  .gate {
+    max-width:420px; width:100%; margin:80px auto;
+    background:rgba(15,22,40,0.92);
+    border:1px solid rgba(120,180,255,0.35);
+    border-radius:16px; padding:36px 32px;
+    box-shadow:0 6px 32px rgba(0,0,0,0.65), 0 0 24px rgba(120,180,255,0.08);
+    text-align:center;
+  }
+  .gate h1 { margin:0 0 6px; font-size:1.4rem; font-weight:900; letter-spacing:0.18em; text-transform:uppercase; color:#7BB6FF; }
+  .gate .sub { font-size:0.78rem; letter-spacing:0.04em; color:rgba(180,210,255,0.6); margin-bottom:22px; }
+  .icon { font-size:2.4rem; margin-bottom:8px; }
+  input[type="password"] {
+    width:100%; padding:14px 16px;
+    font-size:1.4rem; font-family:'JetBrains Mono','Fira Code','Consolas',monospace;
+    text-align:center; letter-spacing:0.5em;
+    background:rgba(8,12,24,0.85); color:#7BB6FF;
+    border:1px solid rgba(120,180,255,0.45);
+    border-radius:10px; outline:none; margin-bottom:14px;
+  }
+  input[type="password"]:focus { border-color:#7BB6FF; box-shadow:0 0 12px rgba(120,180,255,0.4); }
+  button {
+    width:100%; padding:13px;
+    background:linear-gradient(135deg,#3b82f6,#1d4ed8);
+    color:#fff; font-weight:800; letter-spacing:0.16em; text-transform:uppercase;
+    font-size:0.78rem; border:none; border-radius:10px; cursor:pointer;
+    transition:transform 0.12s, box-shadow 0.12s;
+  }
+  button:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(59,130,246,0.45); }
+  .err { margin-top:10px; min-height:18px; font-size:0.75rem; color:#ff5b6b; letter-spacing:0.04em; }
+  .back {
+    display:inline-block; margin-top:18px;
+    font-size:0.65rem; letter-spacing:0.16em; text-transform:uppercase;
+    color:rgba(180,210,255,0.5); text-decoration:none;
+  }
+  .back:hover { color:#7BB6FF; }
+
+  #unlocked { display:none; max-width:1180px; margin:0 auto; padding:28px 22px 80px; }
+  .header {
+    display:flex; align-items:baseline; flex-wrap:wrap; gap:18px;
+    border-bottom:1px solid rgba(120,180,255,0.18); padding-bottom:16px; margin-bottom:22px;
+  }
+  .header h1 { margin:0; font-size:1.5rem; color:#7BB6FF; font-weight:900; letter-spacing:0.04em; }
+  .header .tag {
+    font-size:0.62rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase;
+    color:rgba(123,182,255,0.7); border:1px solid rgba(123,182,255,0.4);
+    border-radius:99px; padding:3px 10px;
+  }
+  .spec-bar {
+    display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px;
+    font-size:0.66rem; font-weight:700; letter-spacing:0.04em;
+  }
+  .spec-pill {
+    background:rgba(15,22,40,0.75); border:1px solid rgba(120,180,255,0.25);
+    border-radius:99px; padding:5px 11px; color:rgba(200,220,255,0.85);
+  }
+  .spec-pill b { color:#7BB6FF; }
+  .updated { font-size:0.7rem; color:rgba(180,210,255,0.55); margin-left:auto; }
+  .updated b { color:#7BFF8F; }
+
+  /* Movers */
+  .movers-row {
+    display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:24px;
+  }
+  @media (max-width:680px) { .movers-row { grid-template-columns:1fr; } }
+  .mover-card {
+    background:rgba(15,22,40,0.7); border:1px solid rgba(120,180,255,0.2);
+    border-radius:12px; padding:14px 16px;
+  }
+  .mover-card h3 {
+    margin:0 0 10px; font-size:0.7rem; font-weight:900;
+    letter-spacing:0.16em; text-transform:uppercase;
+  }
+  .mover-card.risers h3 { color:#7BFF8F; }
+  .mover-card.fallers h3 { color:#ff8a8a; }
+  .mover-row {
+    display:flex; gap:8px; align-items:baseline; font-size:0.8rem;
+    padding:4px 0; border-bottom:1px dashed rgba(120,180,255,0.08);
+  }
+  .mover-row:last-child { border-bottom:none; }
+  .mover-row .delta {
+    min-width:34px; font-family:'JetBrains Mono','Consolas',monospace; font-weight:800;
+    font-size:0.74rem;
+  }
+  .mover-row.up .delta { color:#7BFF8F; }
+  .mover-row.dn .delta { color:#ff8a8a; }
+  .mover-row .nm { flex:1; font-weight:600; color:#dbe7ff; }
+  .mover-row .pos {
+    font-size:0.6rem; font-weight:800; letter-spacing:0.06em;
+    color:rgba(180,210,255,0.5);
+  }
+
+  /* Filters */
+  .filters {
+    display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; align-items:center;
+  }
+  .pos-chip {
+    background:rgba(15,22,40,0.7); border:1px solid rgba(120,180,255,0.25);
+    border-radius:99px; padding:6px 12px;
+    font-size:0.66rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase;
+    color:rgba(200,220,255,0.75); cursor:pointer; transition:all 0.15s;
+  }
+  .pos-chip:hover { border-color:rgba(123,182,255,0.6); color:#7BB6FF; }
+  .pos-chip.active { background:rgba(59,130,246,0.2); border-color:#7BB6FF; color:#7BB6FF; }
+  .search-box {
+    background:rgba(8,12,24,0.85); border:1px solid rgba(120,180,255,0.25);
+    border-radius:8px; padding:8px 12px; color:#e5edff; font-size:0.85rem;
+    font-family:inherit; min-width:180px;
+    outline:none; transition:border-color 0.15s;
+  }
+  .search-box:focus { border-color:#7BB6FF; }
+
+  /* Table */
+  .table-wrap { background:rgba(15,22,40,0.5); border:1px solid rgba(120,180,255,0.18); border-radius:12px; overflow:hidden; }
+  table { width:100%; border-collapse:collapse; font-size:0.84rem; }
+  thead th {
+    text-align:left; padding:12px 12px; font-size:0.62rem; font-weight:800;
+    letter-spacing:0.14em; text-transform:uppercase; color:#7BB6FF;
+    background:rgba(15,22,40,0.95); border-bottom:1px solid rgba(120,180,255,0.25);
+    position:sticky; top:0; z-index:2;
+  }
+  tbody td { padding:10px 12px; border-bottom:1px solid rgba(120,180,255,0.07); }
+  tbody tr:hover { background:rgba(59,130,246,0.06); }
+  .rk { font-family:'JetBrains Mono','Consolas',monospace; font-weight:800; color:#7BB6FF; }
+  .pos-cell {
+    display:inline-block; font-size:0.6rem; font-weight:900; letter-spacing:0.08em;
+    padding:2px 7px; border-radius:5px; min-width:32px; text-align:center;
+  }
+  .pos-QB  { background:rgba(255,107,107,0.18); color:#ff8a8a; }
+  .pos-RB  { background:rgba(57,255,20,0.15); color:#7BFF8F; }
+  .pos-WR  { background:rgba(120,180,255,0.18); color:#7BB6FF; }
+  .pos-TE  { background:rgba(255,179,71,0.18); color:#FFB347; }
+  .pos-K   { background:rgba(180,180,180,0.18); color:#cfd5e0; }
+  .pos-DST { background:rgba(167,139,250,0.18); color:#C5B5FF; }
+  .nm-cell { font-weight:700; color:#e5edff; }
+  .team-cell { color:rgba(180,210,255,0.55); font-size:0.74rem; font-weight:600; }
+  .bye-cell { color:rgba(180,210,255,0.5); font-family:'JetBrains Mono','Consolas',monospace; font-size:0.74rem; }
+  .adp-cell { font-family:'JetBrains Mono','Consolas',monospace; font-size:0.78rem; color:rgba(220,230,255,0.85); }
+  .range-cell { font-family:'JetBrains Mono','Consolas',monospace; font-size:0.7rem; color:rgba(180,210,255,0.5); }
+  .delta-cell { font-family:'JetBrains Mono','Consolas',monospace; font-weight:700; font-size:0.78rem; }
+  .delta-up { color:#7BFF8F; }
+  .delta-dn { color:#ff8a8a; }
+  .delta-flat { color:rgba(180,210,255,0.35); }
+
+  .footnote {
+    margin-top:20px; padding:14px 18px;
+    background:rgba(15,22,40,0.5); border:1px solid rgba(120,180,255,0.15);
+    border-radius:10px; font-size:0.72rem; color:rgba(180,210,255,0.65);
+    line-height:1.6;
+  }
+  .footnote b { color:#7BB6FF; }
+  .footnote a { color:#7BB6FF; text-decoration:none; border-bottom:1px dotted rgba(120,180,255,0.4); }
+  .empty {
+    padding:60px 20px; text-align:center; color:rgba(180,210,255,0.5);
+    font-size:0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="icon">🏈</div>
+  <h1>Fantasy Football</h1>
+  <div class="sub">4-digit code required</div>
+  <form onsubmit="return checkPwd(event)">
+    <input type="password" id="pwd" maxlength="4" inputmode="numeric" autocomplete="off" autofocus placeholder="••••">
+    <button type="submit">Enter</button>
+    <div class="err" id="err"></div>
+  </form>
+  <a class="back" href="/">← back to pulse</a>
+</div>
+
+<div id="unlocked">
+  <div class="header">
+    <h1>🏈 Fantasy Football Top 300</h1>
+    <span class="tag">Daily Refresh</span>
+    <span class="updated" id="updated-stamp">Loading…</span>
+  </div>
+
+  <div class="spec-bar">
+    <span class="spec-pill"><b>10 teams</b> · standard scoring (no PPR)</span>
+    <span class="spec-pill">Starters: <b>QB / 2 RB / 2 WR / TE / FLEX / K / DST</b></span>
+    <span class="spec-pill" id="sources-pill">Sources: —</span>
+  </div>
+
+  <div class="movers-row" id="movers-row" style="display:none;">
+    <div class="mover-card risers">
+      <h3>▲ Risers (vs yesterday)</h3>
+      <div id="risers-list"></div>
+    </div>
+    <div class="mover-card fallers">
+      <h3>▼ Fallers (vs yesterday)</h3>
+      <div id="fallers-list"></div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <span class="pos-chip active" data-pos="ALL">All</span>
+    <span class="pos-chip" data-pos="QB">QB</span>
+    <span class="pos-chip" data-pos="RB">RB</span>
+    <span class="pos-chip" data-pos="WR">WR</span>
+    <span class="pos-chip" data-pos="TE">TE</span>
+    <span class="pos-chip" data-pos="K">K</span>
+    <span class="pos-chip" data-pos="DST">DST</span>
+    <input type="text" class="search-box" id="search-box" placeholder="Search player…">
+  </div>
+
+  <div class="table-wrap" id="table-wrap">
+    <div class="empty" id="empty-msg">Loading rankings…</div>
+  </div>
+
+  <div class="footnote" id="footnote"></div>
+
+  <a class="back" href="/">← back to pulse</a>
+</div>
+
+<script>
+(function(){
+  var state = { all: [], filtered: [], pos: 'ALL', search: '' };
+
+  function renderTable(rows) {
+    var wrap = document.getElementById('table-wrap');
+    if (!rows.length) {
+      wrap.innerHTML = '<div class="empty">No players match that filter.</div>';
+      return;
+    }
+    var html = '<table><thead><tr>'
+      + '<th>#</th><th>Player</th><th>Pos</th><th>Team</th><th>Bye</th>'
+      + '<th>ADP</th><th>Range</th><th>Δ</th>'
+      + '</tr></thead><tbody>';
+    rows.forEach(function(p){
+      var deltaCell = '<span class="delta-cell delta-flat">·</span>';
+      if (p.delta != null && p.delta !== 0) {
+        var cls = p.delta > 0 ? 'delta-up' : 'delta-dn';
+        var arrow = p.delta > 0 ? '▲' : '▼';
+        deltaCell = '<span class="delta-cell ' + cls + '">' + arrow + Math.abs(p.delta) + '</span>';
+      } else if (p.prev_rank === null || p.prev_rank === undefined) {
+        deltaCell = '<span class="delta-cell delta-flat">new</span>';
+      }
+      html += '<tr>'
+        + '<td class="rk">' + p.rank + '</td>'
+        + '<td class="nm-cell">' + escapeHtml(p.name) + '</td>'
+        + '<td><span class="pos-cell pos-' + p.pos + '">' + p.pos + '</span></td>'
+        + '<td class="team-cell">' + escapeHtml(p.team || '') + '</td>'
+        + '<td class="bye-cell">' + (p.bye || '—') + '</td>'
+        + '<td class="adp-cell">' + (p.adp_round_pick || (p.adp != null ? p.adp.toFixed(1) : '—')) + '</td>'
+        + '<td class="range-cell">' + (p.high && p.low ? p.high + '–' + p.low : '—') + '</td>'
+        + '<td>' + deltaCell + '</td>'
+        + '</tr>';
+    });
+    html += '</tbody></table>';
+    wrap.innerHTML = html;
+  }
+
+  function renderMovers(movers) {
+    if (!movers || (!movers.risers.length && !movers.fallers.length)) return;
+    document.getElementById('movers-row').style.display = 'grid';
+    function listHtml(arr, up) {
+      if (!arr.length) return '<div style="color:rgba(180,210,255,0.4);font-size:0.78rem;">No movement yet.</div>';
+      return arr.map(function(p){
+        var arrow = up ? '▲' : '▼';
+        var sign = up ? '+' : '';
+        return '<div class="mover-row ' + (up ? 'up' : 'dn') + '">'
+          + '<span class="delta">' + arrow + sign + p.delta + '</span>'
+          + '<span class="nm">' + escapeHtml(p.name) + '</span>'
+          + '<span class="pos">' + p.pos + ' · #' + p.rank + '</span>'
+          + '</div>';
+      }).join('');
+    }
+    document.getElementById('risers-list').innerHTML = listHtml(movers.risers, true);
+    document.getElementById('fallers-list').innerHTML = listHtml(movers.fallers, false);
+  }
+
+  function applyFilter() {
+    var rows = state.all;
+    if (state.pos !== 'ALL') rows = rows.filter(function(p){ return p.pos === state.pos; });
+    if (state.search) {
+      var q = state.search.toLowerCase();
+      rows = rows.filter(function(p){ return (p.name || '').toLowerCase().includes(q); });
+    }
+    state.filtered = rows;
+    renderTable(rows);
+  }
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, function(c){
+      return ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[c];
+    });
+  }
+
+  function fmtAge(ms) {
+    var s = Math.round((Date.now() - ms) / 1000);
+    if (s < 60) return s + 's ago';
+    var m = Math.round(s / 60);
+    if (m < 60) return m + 'm ago';
+    var h = Math.round(m / 60);
+    if (h < 24) return h + 'h ago';
+    return Math.round(h / 24) + 'd ago';
+  }
+
+  function load() {
+    fetch('/.netlify/functions/pulse-ff-list', { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (!d || !d.ok) {
+          document.getElementById('empty-msg').textContent =
+            d && d.reason ? d.reason : 'Rankings unavailable.';
+          document.getElementById('updated-stamp').innerHTML = 'Status: <b style="color:#ff8a8a;">offline</b>';
+          return;
+        }
+        state.all = d.rankings || [];
+        applyFilter();
+        renderMovers(d.movers);
+        // Updated stamp
+        document.getElementById('updated-stamp').innerHTML =
+          'Updated <b>' + fmtAge(d.generated_at) + '</b> · ' + d.date;
+        // Source pill
+        var srcs = d.sources_used || [];
+        document.getElementById('sources-pill').innerHTML = 'Sources: <b>' + srcs.join(' · ') + '</b>';
+        // Footnote
+        var meta = (d.source_meta && d.source_meta.ffc) || {};
+        document.getElementById('footnote').innerHTML =
+          '<b>Methodology:</b> consensus ADP from <a href="https://fantasyfootballcalculator.com/adp/standard/10-team/all" target="_blank">FantasyFootballCalculator</a> standard-scoring 10-team mock drafts ('
+          + (meta.total_drafts || '—') + ' drafts in window ' + (meta.window_start || '—') + ' → ' + (meta.window_end || '—')
+          + '). Δ column shows rank movement vs yesterday. Phase 2 will add ESPN / Yahoo / NFL.com / Sleeper / FantasyPros / KeepTradeCut for a true multi-source consensus + AI synthesis.';
+      })
+      .catch(function(){
+        document.getElementById('empty-msg').textContent = 'Failed to load rankings.';
+      });
+  }
+
+  // Filter chip click
+  document.querySelectorAll('.pos-chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      document.querySelectorAll('.pos-chip').forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      state.pos = chip.getAttribute('data-pos');
+      applyFilter();
+    });
+  });
+
+  // Search input
+  document.getElementById('search-box').addEventListener('input', function(e){
+    state.search = e.target.value.trim();
+    applyFilter();
+  });
+
+  load();
+  setInterval(load, 5 * 60 * 1000); // refresh every 5 min
+})();
+</script>
+
+<script>
+  function checkPwd(e) {
+    e.preventDefault();
+    var pwd = document.getElementById('pwd').value.trim();
+    if (pwd === '4444') {
+      try { sessionStorage.setItem('sports_unlocked', '1'); } catch(_){}
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('unlocked').style.display = 'block';
+    } else {
+      document.getElementById('err').textContent = '✗ wrong code';
+      document.getElementById('pwd').value = '';
+    }
+    return false;
+  }
+  try {
+    if (sessionStorage.getItem('sports_unlocked') === '1') {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('unlocked').style.display = 'block';
+    }
+  } catch(_){}
+</script>
+
+</body>
+</html>

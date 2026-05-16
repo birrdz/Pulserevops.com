@@ -60,6 +60,13 @@
 [functions."pulse-sports-fetch-background"]
   schedule = "0 14 * * *"
 
+# Fantasy Football daily — 06:07 UTC (~1:07 AM ET). Pulls 10-team standard
+# (non-PPR) ADP from FantasyFootballCalculator + (later) ESPN/Yahoo/NFL/Sleeper/
+# FantasyPros/KeepTradeCut. Aggregates → Top 300 + daily mover deltas. Powers
+# the rankings page at /sports.
+[functions."pulse-ff-daily"]
+  schedule = "7 6 * * *"
+
 # Sports settler — daily at 11:00 UTC (6am ET). Marks prior-day picks
 # win/loss from ESPN public scoreboard, updates lifetime + per-sport stats.
 [functions."pulse-sports-settle-background"]
