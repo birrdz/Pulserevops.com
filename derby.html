@@ -219,6 +219,7 @@
 <script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass }     from 'three/addons/postprocessing/RenderPass.js';
@@ -321,7 +322,6 @@ function decimalToAmerican(d) {
 // ──────────────────────────────────────────────────────────────────────
 let scene, camera, renderer, composer, clock;
 let trackGroup, horseMeshes = [], grandstandGroup;
-let cameraTargetMode = 'wide'; // 'wide' or 'lead'
 
 // Real horse GLB from three.js's public examples assets (CC0).
 // Pre-rigged with a gallop morph-target animation we'll drive via AnimationMixer.
@@ -381,9 +381,24 @@ function initThree() {
   });
   scene.add(new THREE.Mesh(skyGeo, skyMat));
 
-  // Environment map for nicer PBR reflections (RoomEnvironment is built in)
+  // Sky HDRI — real sunset/sunrise sky from three.js public assets (CC0).
+  // Loads async; default scene environment is RoomEnvironment until HDRI lands
+  // so the scene never looks broken during the load.
   const pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+  new RGBELoader().load(
+    'https://threejs.org/examples/textures/equirectangular/spruit_sunrise_1k.hdr',
+    (hdr) => {
+      hdr.mapping = THREE.EquirectangularReflectionMapping;
+      scene.environment = hdr;
+      scene.background = hdr;
+      // Tone down the SkySphere we added — HDRI background replaces it
+      const sky = scene.getObjectByName('skyDome');
+      if (sky) sky.visible = false;
+    },
+    undefined,
+    () => { /* fallback to RoomEnvironment if HDRI fails */ }
+  );
 
   // Bloom postprocessing — makes the jockey silks + finish line glow cinematically
   composer = new EffectComposer(renderer);
@@ -878,7 +893,6 @@ function startRace() {
   state.raceStartTime = performance.now();
   state.finished = [];
   state.horses.forEach(h => h.x = 0);
-  cameraTargetMode = 'lead';
   document.getElementById('leaderboard').style.display = 'block';
   document.getElementById('paddock').style.display = 'none';
   document.getElementById('result-banner').style.display = 'none';
@@ -938,7 +952,6 @@ window.__newRace = function() {
   state.raceNum++;
   generateHorses();
   buildHorses();
-  cameraTargetMode = 'wide';
   document.getElementById('leaderboard').style.display = 'none';
   document.getElementById('result-banner').style.display = 'none';
   document.getElementById('hud-race-num').textContent = state.raceNum;
@@ -1029,20 +1042,25 @@ function animate() {
       if (h.mesh) h.mesh.position.y = 0;
     }
   });
-  // Camera
-  if (cameraTargetMode === 'wide' || !state.raceActive) {
-    camera.position.lerp(new THREE.Vector3(0, 80, 180), 0.05);
-    camera.lookAt(0, 0, 0);
-  } else {
-    // Follow the leader
-    const sorted = state.horses.slice().sort((a,b) => b.x - a.x);
-    const lead = sorted[0];
-    if (lead && lead.mesh) {
-      const lp = lead.mesh.position;
-      // Offset behind & above
-      const target = new THREE.Vector3(lp.x - Math.cos(-lead.mesh.rotation.y) * 25, 22, lp.z + Math.sin(-lead.mesh.rotation.y) * 25);
-      camera.position.lerp(target, 0.06);
-      camera.lookAt(lp.x, 2, lp.z);
+  // ── SIDE-SCROLLER CAMERA — always perpendicular to the track at the pack's
+  // position, from a fixed outside-of-track offset. No mode switches.
+  // Pre-race the pack sits at the gates, so it parks at the start line.
+  {
+    const ref = state.raceActive
+      ? state.horses.slice().sort((a,b) => b.x - a.x)[0]  // lead during race
+      : state.horses[0];                                    // gate-3-ish pre-race
+    if (ref) {
+      const refX = state.raceActive ? ref.x : 0;
+      const tp = trackPosition(refX, Math.floor(N_HORSES/2));
+      // Outward normal (perpendicular to heading, pointing AWAY from oval center).
+      // heading is the tangent direction; rotate +π/2 for outward normal.
+      const nx = Math.sin(tp.heading);
+      const nz = -Math.cos(tp.heading);
+      const camDist = 38;   // distance from track to camera
+      const camHeight = 7;  // height above ground
+      const target = new THREE.Vector3(tp.x + nx * camDist, camHeight, tp.z + nz * camDist);
+      camera.position.lerp(target, state.raceActive ? 0.12 : 0.05);
+      camera.lookAt(tp.x, 2.5, tp.z);
     }
   }
   // Update leaderboard
