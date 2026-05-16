@@ -993,6 +993,39 @@
   })();
   </script>
 
+  <!-- Cited-In ticker — scrolling marquee of the major sources cross-referenced
+       across the library. Adds credibility cue without needing logos. Pure CSS
+       infinite scroll, items duplicated so the loop is seamless. -->
+  <div class="cite-ticker" aria-label="Sources cross-referenced by the library">
+    <div class="cite-ticker-label">Cited in / cross-referenced from</div>
+    <div class="cite-ticker-mask">
+      <div class="cite-ticker-track">
+        <span>BLS</span><span>IBISWorld</span><span>McKinsey</span><span>Harvard Business Review</span><span>SBA</span><span>NFIB</span><span>US Census Bureau</span><span>Bessemer Venture Partners</span><span>OpenView</span><span>Bridge Group</span><span>Pavilion</span><span>Carta</span><span>Stripe</span><span>Sequoia Capital</span><span>Andreessen Horowitz</span><span>Bain &amp; Company</span><span>BCG</span><span>Deloitte</span><span>Forrester</span><span>Gartner</span><span>Pew Research</span><span>Federal Reserve / FRED</span><span>IRS</span><span>Department of Labor</span><span>FTC</span><span>SEC</span><span>NAR</span><span>NAHB</span><span>Wall Street Journal</span><span>Bloomberg</span><span>PitchBook</span><span>Crunchbase</span><span>OSHA</span><span>EPA</span><span>CDC</span><span>FDA</span><span>HUD</span><span>CMS</span><span>FMCSA</span><span>IICRC</span>
+        <!-- duplicated for seamless wrap -->
+        <span>BLS</span><span>IBISWorld</span><span>McKinsey</span><span>Harvard Business Review</span><span>SBA</span><span>NFIB</span><span>US Census Bureau</span><span>Bessemer Venture Partners</span><span>OpenView</span><span>Bridge Group</span><span>Pavilion</span><span>Carta</span><span>Stripe</span><span>Sequoia Capital</span><span>Andreessen Horowitz</span><span>Bain &amp; Company</span><span>BCG</span><span>Deloitte</span><span>Forrester</span><span>Gartner</span><span>Pew Research</span><span>Federal Reserve / FRED</span><span>IRS</span><span>Department of Labor</span><span>FTC</span><span>SEC</span><span>NAR</span><span>NAHB</span><span>Wall Street Journal</span><span>Bloomberg</span><span>PitchBook</span><span>Crunchbase</span><span>OSHA</span><span>EPA</span><span>CDC</span><span>FDA</span><span>HUD</span><span>CMS</span><span>FMCSA</span><span>IICRC</span>
+      </div>
+    </div>
+  </div>
+  <style>
+    .cite-ticker { max-width:1080px; margin:8px auto 18px; padding:10px 0; background:rgba(15,22,40,0.55); border:1px solid rgba(255,215,64,0.18); border-radius:12px; overflow:hidden; }
+    .cite-ticker-label { font-size:0.6rem; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,215,64,0.6); text-align:center; margin-bottom:6px; }
+    .cite-ticker-mask { overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%); mask-image:linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%); }
+    .cite-ticker-track { display:flex; gap:0; width:fit-content; animation:citeScroll 90s linear infinite; will-change:transform; }
+    .cite-ticker-track:hover { animation-play-state:paused; }
+    .cite-ticker-track > span {
+      flex-shrink:0; padding:6px 18px 6px 14px;
+      font-size:0.74rem; font-weight:700; letter-spacing:0.04em;
+      color:rgba(255,237,213,0.78); white-space:nowrap;
+      position:relative;
+    }
+    .cite-ticker-track > span::after {
+      content:'·'; position:absolute; right:0; top:50%; transform:translateY(-50%);
+      color:rgba(255,215,64,0.45); font-weight:900;
+    }
+    @keyframes citeScroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .cite-ticker-track { animation:none; } }
+  </style>
+
   <div class="filter-bar">
     <input id="q-search" type="text" placeholder="Search the library — comp, ramp, win rate, vendor names…">
     <div class="tag-chips" id="tag-chips"></div>
