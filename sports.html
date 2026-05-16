@@ -104,6 +104,26 @@
     font-size:0.6rem; font-weight:800; letter-spacing:0.06em;
     color:rgba(180,210,255,0.5);
   }
+  .mover-card-row { border-bottom:1px dashed rgba(120,180,255,0.08); padding-bottom:6px; margin-bottom:2px; }
+  .mover-card-row:last-child { border-bottom:none; }
+  .mover-card-row .mover-row { border-bottom:none; padding-bottom:2px; }
+  .mover-reason {
+    margin-left:42px; font-size:0.68rem; color:rgba(180,210,255,0.55);
+    font-style:italic; line-height:1.3; padding-bottom:4px;
+  }
+  .mover-card.risers .mover-reason { color:rgba(123,255,143,0.5); }
+  .mover-card.fallers .mover-reason { color:rgba(255,138,138,0.6); }
+
+  /* Injury badges in rankings table */
+  .inj-badge {
+    display:inline-block; width:18px; height:18px; line-height:18px;
+    text-align:center; border-radius:4px;
+    font-size:0.62rem; font-weight:900; font-family:'JetBrains Mono','Consolas',monospace;
+    margin-left:6px; cursor:help; vertical-align:middle;
+  }
+  .inj-out   { background:rgba(255,107,107,0.25); color:#ff8a8a; border:1px solid rgba(255,107,107,0.5); }
+  .inj-doubt { background:rgba(255,179,71,0.22);  color:#FFB347; border:1px solid rgba(255,179,71,0.5); }
+  .inj-quest { background:rgba(255,215,64,0.18);  color:#FFD740; border:1px solid rgba(255,215,64,0.4); }
 
   /* Filters */
   .filters {
@@ -444,7 +464,7 @@
   </div>
 
   <div class="spec-bar">
-    <span class="spec-pill"><b>2026 season prep</b> · refreshing daily until kickoff</span>
+    <span class="spec-pill"><b>2026 season prep</b> · refreshing <b>twice daily</b> (1:07 AM + 1:07 PM ET)</span>
     <span class="spec-pill"><b>10 teams</b> · standard scoring (no PPR)</span>
     <span class="spec-pill">Starters: <b>QB / 2 RB / 2 WR / TE / FLEX / K / DST</b></span>
     <span class="spec-pill" id="sources-pill">Sources: —</span>
@@ -962,9 +982,16 @@
         btns = '<button class="row-btn row-btn-mine"  data-act="mine"  data-name="' + escapeAttr(p.name) + '">mine</button>'
              + '<button class="row-btn row-btn-taken" data-act="taken" data-name="' + escapeAttr(p.name) + '">taken</button>';
       }
+      var injuryBadge = '';
+      if (p.injury_status) {
+        var ic = p.injury_status === 'Out' || p.injury_status === 'IR' || p.injury_status === 'PUP' ? 'inj-out'
+               : p.injury_status === 'Doubtful' ? 'inj-doubt' : 'inj-quest';
+        var ititle = p.injury_status + (p.injury_body_part ? ' (' + p.injury_body_part + ')' : '');
+        injuryBadge = '<span class="inj-badge ' + ic + '" title="' + escapeAttr(ititle) + '">' + p.injury_status.slice(0,1) + '</span>';
+      }
       html += '<tr class="' + rowCls + '">'
         + '<td class="rk">' + p.rank + '</td>'
-        + '<td class="nm-cell">' + escapeHtml(p.name) + '</td>'
+        + '<td class="nm-cell">' + escapeHtml(p.name) + ' ' + injuryBadge + '</td>'
         + '<td><span class="pos-cell pos-' + p.pos + '">' + p.pos + '</span></td>'
         + '<td class="team-cell">' + escapeHtml(p.team || '') + '</td>'
         + '<td class="bye-cell">' + (p.bye || '—') + '</td>'
@@ -1008,10 +1035,14 @@
       return arr.map(function(p){
         var arrow = up ? '▲' : '▼';
         var sign = up ? '+' : '';
-        return '<div class="mover-row ' + (up ? 'up' : 'dn') + '">'
-          + '<span class="delta">' + arrow + sign + p.delta + '</span>'
-          + '<span class="nm">' + escapeHtml(p.name) + '</span>'
-          + '<span class="pos">' + p.pos + ' · #' + p.rank + '</span>'
+        var reasonHtml = p.reason ? '<div class="mover-reason">' + escapeHtml(p.reason) + '</div>' : '';
+        return '<div class="mover-card-row ' + (up ? 'up' : 'dn') + '">'
+          + '<div class="mover-row ' + (up ? 'up' : 'dn') + '">'
+          +   '<span class="delta">' + arrow + sign + p.delta + '</span>'
+          +   '<span class="nm">' + escapeHtml(p.name) + '</span>'
+          +   '<span class="pos">' + p.pos + ' · #' + p.rank + '</span>'
+          + '</div>'
+          + reasonHtml
           + '</div>';
       }).join('');
     }

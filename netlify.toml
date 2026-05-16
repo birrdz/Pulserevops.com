@@ -60,19 +60,19 @@
 [functions."pulse-sports-fetch-background"]
   schedule = "0 14 * * *"
 
-# Fantasy Football daily — 06:07 UTC (~1:07 AM ET). Pulls 10-team standard
-# (non-PPR) ADP from FantasyFootballCalculator + (later) ESPN/Yahoo/NFL/Sleeper/
-# FantasyPros/KeepTradeCut. Aggregates → Top 300 + daily mover deltas. Powers
-# the rankings page at /sports.
+# Fantasy Football refresh — TWICE daily at 06:07 UTC (~1:07 AM ET) +
+# 18:07 UTC (~1:07 PM ET). Pulls 10-team standard ADP from
+# FantasyFootballCalculator, enriches with Sleeper injury / depth-chart
+# data so the movers panel can explain WHY players moved. Computes day-
+# over-day deltas + top 10 risers/fallers. Powers /sports.
 [functions."pulse-ff-daily"]
-  schedule = "7 6 * * *"
+  schedule = "7 6,18 * * *"
 
-# Fantasy Football Monte Carlo sim — 06:17 UTC (~1:17 AM ET, 10 min after the
-# daily ADP fetch). Runs 1000 season simulations per player off ADP-derived
-# (mean, stdev) and writes positional-finish frequencies for the /sports
-# "Season Simulations" card.
+# Fantasy Football Monte Carlo sim — twice daily, 10 min after each ADP
+# refresh. Runs 1000 season simulations per player off ADP-derived
+# (mean, stdev) and writes positional-finish frequencies for /sports.
 [functions."pulse-ff-simulate"]
-  schedule = "17 6 * * *"
+  schedule = "17 6,18 * * *"
 
 # Sports settler — daily at 11:00 UTC (6am ET). Marks prior-day picks
 # win/loss from ESPN public scoreboard, updates lifetime + per-sport stats.

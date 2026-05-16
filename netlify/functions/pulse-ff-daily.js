@@ -41,6 +41,70 @@ function initStore() {
   return getStore({ name: STORE_NAME, siteID: SITE_ID, token: tok });
 }
 
+// Pulls every NFL player from Sleeper (their /v1/players/nfl returns a giant
+// blob — ~5MB) and builds a fast lookup map keyed by normalized name so we
+// can attach injury_status / depth_chart / news_updated to our top-200 ADP
+// players. This is the "why did this player move" data layer.
+async function fetchSleeperPlayerMap() {
+  try {
+    const r = await fetch('https://api.sleeper.app/v1/players/nfl', {
+      headers: { 'User-Agent': 'pulse-ff-daily/1.0' }
+    });
+    if (!r.ok) return {};
+    const all = await r.json();
+    const map = {};
+    const norm = s => String(s || '').toLowerCase().replace(/[^a-z]/g, '');
+    for (const k in all) {
+      const p = all[k];
+      if (!p || !p.full_name) continue;
+      // Only carry players in fantasy-relevant positions
+      const pos = (p.fantasy_positions && p.fantasy_positions[0]) || p.position;
+      if (!['QB','RB','WR','TE','K','DEF'].includes(pos)) continue;
+      const key = norm(p.full_name);
+      map[key] = {
+        sleeper_id: p.player_id,
+        team: p.team || null,
+        injury_status: p.injury_status || null,           // Questionable / Out / IR / PUP / Doubtful
+        injury_body_part: p.injury_body_part || null,
+        injury_notes: p.injury_notes || null,
+        practice: p.practice_participation || null,       // FP / LP / DNP
+        practice_description: p.practice_description || null,
+        depth_chart_order: p.depth_chart_order || null,   // 1 = starter
+        depth_chart_position: p.depth_chart_position || null,
+        team_changed_at: p.team_changed_at || null,
+        news_updated: p.news_updated || null,
+        status: p.status || null,                          // Active / Inactive
+      };
+    }
+    return map;
+  } catch (_e) {
+    return {};
+  }
+}
+
+function normalizeName(n) {
+  return String(n || '').toLowerCase().replace(/[^a-z]/g, '');
+}
+
+// Derive a short "why" string from injury + delta + depth chart context.
+function explainDelta(playerWithDelta, sleeperMeta) {
+  if (!sleeperMeta) return null;
+  const parts = [];
+  if (sleeperMeta.injury_status) {
+    let s = sleeperMeta.injury_status;
+    if (sleeperMeta.injury_body_part) s += ' (' + sleeperMeta.injury_body_part.toLowerCase() + ')';
+    parts.push(s);
+  }
+  if (sleeperMeta.depth_chart_order && sleeperMeta.depth_chart_order > 2 && (playerWithDelta.pos === 'RB' || playerWithDelta.pos === 'WR')) {
+    parts.push('depth-chart ' + sleeperMeta.depth_chart_order);
+  }
+  if (sleeperMeta.practice === 'DNP') parts.push('DNP');
+  if (sleeperMeta.team_changed_at && (Date.now() - sleeperMeta.team_changed_at < 14 * 86400000)) {
+    parts.push('recently traded → ' + (sleeperMeta.team || '?'));
+  }
+  return parts.length ? parts.join(' · ') : null;
+}
+
 async function fetchFFC() {
   // Try the upcoming NFL season first (this year + 1 if we're past March = next
   // season is "this calendar year"). Fall back to default (most recent complete
@@ -118,8 +182,21 @@ async function run() {
   // 4) compute deltas
   const withDeltas = computeDeltas(normalized, prevAgg);
 
+  // 4b) enrich with Sleeper injury / depth-chart context so movers can explain WHY
+  const sleeperMap = await fetchSleeperPlayerMap();
+  const enriched = withDeltas.map(p => {
+    const meta = sleeperMap[normalizeName(p.name)] || null;
+    const reason = meta ? explainDelta(p, meta) : null;
+    return Object.assign({}, p, {
+      injury_status: meta ? meta.injury_status : null,
+      injury_body_part: meta ? meta.injury_body_part : null,
+      depth_chart_order: meta ? meta.depth_chart_order : null,
+      reason,
+    });
+  });
+
   // 5) movers (top 10 risers / fallers among players ranked top-200)
-  const ranked200 = withDeltas.filter(p => p.rank <= 200);
+  const ranked200 = enriched.filter(p => p.rank <= 200);
   const risers  = ranked200.filter(p => (p.delta || 0) > 0).sort((a, b) => b.delta - a.delta).slice(0, 10);
   const fallers = ranked200.filter(p => (p.delta || 0) < 0).sort((a, b) => a.delta - b.delta).slice(0, 10);
 
@@ -143,8 +220,8 @@ async function run() {
         requested_year: ffcRaw._requested_year,
       },
     },
-    sources_used: ['FantasyFootballCalculator'],
-    rankings: withDeltas,
+    sources_used: ['FantasyFootballCalculator', 'Sleeper (injury / depth chart)'],
+    rankings: enriched,
     movers: { risers, fallers },
   };
 
