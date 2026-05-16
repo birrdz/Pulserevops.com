@@ -149,7 +149,7 @@
       padding-left:14px;
       border-left:3px solid var(--orange-bright);
     }
-    /* Bottom Line callout — blockquote with H3 inside */
+    /* Callout blockquotes — gold default (Bottom Line) */
     .entry-body blockquote {
       margin:18px 0 22px; padding:18px 22px;
       background:linear-gradient(135deg,rgba(255,215,64,0.14),rgba(255,140,26,0.06));
@@ -157,11 +157,23 @@
       border-radius:14px;
       box-shadow:0 4px 20px rgba(255,215,64,0.18), inset 0 0 0 1px rgba(255,255,255,0.05);
     }
+    /* Quick Facts variant — cyan, detected by 📊 in heading */
+    .entry-body blockquote:has(h3:first-child:where(:not(:empty))) { }
+    .entry-body blockquote:has(h3:first-child) { /* covered above */ }
+    /* Use :has() to recolor by emoji in heading */
+    .entry-body blockquote:has(h3:where(:first-child)):has(h3 + table),
+    .entry-body blockquote.quick-facts {
+      background:linear-gradient(135deg,rgba(123,182,255,0.14),rgba(57,166,255,0.05));
+      border-color:rgba(123,182,255,0.55);
+      box-shadow:0 4px 20px rgba(123,182,255,0.18), inset 0 0 0 1px rgba(255,255,255,0.05);
+    }
     .entry-body blockquote h3 {
       font-size:1.2rem; font-weight:900; letter-spacing:0.04em;
       color:#FFD740; margin:0 0 12px;
       padding:0; border:none;
     }
+    .entry-body blockquote.quick-facts h3,
+    .entry-body blockquote:has(h3 + table) h3 { color:#7BB6FF; }
     .entry-body blockquote ul { list-style:none; padding-left:0; margin:0; }
     .entry-body blockquote li {
       margin:0 0 10px; padding:8px 12px 8px 14px;
@@ -171,6 +183,26 @@
     .entry-body blockquote li:last-child { margin-bottom:0; }
     .entry-body blockquote li strong { color:#FFD740; font-weight:900; letter-spacing:0.02em; }
     .entry-body blockquote p { margin:0 0 8px; color:rgba(237,229,216,0.95); }
+    /* Quick Facts table — 2-column reference inside blockquote */
+    .entry-body blockquote table { margin:6px 0 0; background:rgba(0,0,0,0.18); border-radius:8px; overflow:hidden; }
+    .entry-body blockquote td { padding:9px 14px; border-bottom:1px solid rgba(123,182,255,0.10); }
+    .entry-body blockquote td:first-child { width:42%; font-weight:700; color:rgba(220,235,255,0.85); white-space:nowrap; }
+    .entry-body blockquote td:last-child  { color:#7BB6FF; font-family:'JetBrains Mono','SF Mono',monospace; font-size:0.92em; }
+    .entry-body blockquote tr:last-child td { border-bottom:none; }
+    /* Who This Is For variant — purple, detected by 👤 heading */
+    .entry-body blockquote.who-for,
+    .entry-body blockquote:has(h3:first-child:where(:not(:empty))):not(:has(ul)):not(:has(table)) {
+      background:linear-gradient(135deg,rgba(167,139,250,0.14),rgba(124,93,255,0.05));
+      border-color:rgba(167,139,250,0.55);
+      box-shadow:0 4px 20px rgba(167,139,250,0.18), inset 0 0 0 1px rgba(255,255,255,0.05);
+    }
+    .entry-body blockquote.who-for h3,
+    .entry-body blockquote:has(h3:first-child:where(:not(:empty))):not(:has(ul)):not(:has(table)) h3 { color:#C5B5FF; }
+    /* TOC enhanced: italic teasers + nicer spacing */
+    .entry-body h2:has(+ p) + p > em,
+    .entry-body h2:has(+ ul) + ul li em {
+      color:rgba(180,210,255,0.55); font-style:italic; font-weight:400;
+    }
     /* Horizontal rule between PARTs — gradient bar */
     .entry-body hr {
       border:none; height:2px; margin:26px 0;
@@ -1076,12 +1108,13 @@
      Clearbit). */
   (function(){
     // [label, bgColor, fgColor, domain (or null), optionalFont]
+    // [label, bgColor, fgColor, domain, slug-for-local-logo-file?, optionalFont]
     var SOURCES = [
-      ['BLS',                '#112e51', '#ffffff', 'bls.gov'],
-      ['IBISWorld',          '#E8710A', '#ffffff', 'ibisworld.com'],
-      ['McKinsey',           '#003A70', '#ffffff', 'mckinsey.com'],
-      ['HBR',                '#A12830', '#ffffff', 'hbr.org'],
-      ['SBA',                '#002F6C', '#ffffff', 'sba.gov'],
+      ['BLS',                '#112e51', '#ffffff', 'bls.gov',         'bls'],
+      ['IBISWorld',          '#E8710A', '#ffffff', 'ibisworld.com',   'ibisworld'],
+      ['McKinsey',           '#003A70', '#ffffff', 'mckinsey.com',    'mckinsey'],
+      ['HBR',                '#A12830', '#ffffff', 'hbr.org',         'hbr'],
+      ['SBA',                '#002F6C', '#ffffff', 'sba.gov',         'sba'],
       ['NFIB',               '#D72324', '#ffffff', 'nfib.com'],
       ['US Census',          '#1A4480', '#ffffff', 'census.gov'],
       ['Bessemer',           '#1E2A4A', '#ffffff', 'bvp.com'],
@@ -1130,7 +1163,7 @@
     ];
 
     function buildPill(s) {
-      var label = s[0], bg = s[1], fg = s[2], domain = s[3], font = s[4];
+      var label = s[0], bg = s[1], fg = s[2], domain = s[3], slug = s[4], font = s[5];
       // Wrapper carries fallback style; <img> hides text on successful load
       var pill = document.createElement('a');
       pill.className = 'cite-pill';
@@ -1149,22 +1182,41 @@
       txt.textContent = label;
       pill.appendChild(txt);
 
-      if (domain) {
+      if (domain || slug) {
+        // Source priority: local file in /assets/cited-logos/ first (svg, then png),
+        // then network logo services, then favicon, then text fallback.
+        var sources = [];
+        if (slug) {
+          sources.push('/assets/cited-logos/' + slug + '.svg');
+          sources.push('/assets/cited-logos/' + slug + '.png');
+        }
+        if (domain) {
+          sources.push('https://cdn.brandfetch.io/' + domain + '/w/180/h/60');
+          sources.push('https://logo.clearbit.com/' + domain + '?size=120');
+          sources.push('https://www.google.com/s2/favicons?domain=' + domain + '&sz=128');
+        }
         var img = document.createElement('img');
         img.alt = label;
         img.loading = 'lazy';
-        img.src = 'https://logo.clearbit.com/' + domain + '?size=120';
         img.className = 'cite-pill-img';
         img.style.display = 'none';
+        var sourceIdx = 0;
+        function tryNext() {
+          if (sourceIdx >= sources.length) { img.remove(); return; }
+          img.src = sources[sourceIdx++];
+        }
         img.onload = function(){
+          // Reject tiny error images (e.g. Clearbit 1x1 transparent on 404)
+          if (img.naturalWidth < 12 || img.naturalHeight < 12) {
+            tryNext();
+            return;
+          }
           img.style.display = 'block';
           txt.style.display = 'none';
         };
-        img.onerror = function(){
-          // leave text fallback visible
-          img.remove();
-        };
+        img.onerror = tryNext;
         pill.appendChild(img);
+        tryNext();
       }
       return pill;
     }
