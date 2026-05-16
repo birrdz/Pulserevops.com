@@ -1015,25 +1015,40 @@
     }
     .cite-rail.right .cite-rail-track { animation-name:railScrollReverse; }
     .cite-pill {
-      display:inline-block; flex-shrink:0;
-      padding:10px 8px; min-height:54px; width:80px;
-      font-size:0.78rem; font-weight:900; letter-spacing:0.04em;
-      text-align:center; line-height:1.15;
-      border-radius:8px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.08);
       display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; padding:8px 10px;
+      min-height:60px; width:96px;
+      border-radius:10px; overflow:hidden;
+      background:#ffffff;
+      box-shadow:0 2px 8px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.18);
+      pointer-events:auto;
+      text-decoration:none;
+      transition:transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .cite-pill:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(255,215,64,0.32); }
+    .cite-pill-img {
+      max-width:100%; max-height:44px; object-fit:contain;
+      filter:none;
+    }
+    .cite-pill-text {
+      display:flex; align-items:center; justify-content:center;
+      width:100%; height:44px;
+      font-size:0.74rem; font-weight:900; letter-spacing:0.04em;
+      line-height:1.15; text-align:center;
+      border-radius:6px; padding:0 6px;
     }
     @keyframes railScroll        { 0% { transform:translateY(0); } 100% { transform:translateY(-50%); } }
     @keyframes railScrollReverse { 0% { transform:translateY(-50%); } 100% { transform:translateY(0); } }
     @media (prefers-reduced-motion: reduce) { .cite-rail-track, .cite-ticker-track { animation:none; } }
     @media (max-width: 1100px) { .cite-rail { display:none; } }
 
-    /* Horizontal ticker — bigger, brand-colored pills */
+    /* Horizontal ticker — bigger logo pills */
     .cite-ticker-track .cite-pill {
-      width:auto; min-width:110px; height:46px; min-height:46px;
-      margin-right:10px;
-      font-size:0.9rem; padding:0 18px;
+      width:130px; min-width:130px; height:60px; min-height:60px;
+      margin-right:12px; padding:8px 12px;
     }
+    .cite-ticker-track .cite-pill-img { max-height:42px; }
+    .cite-ticker-track .cite-pill-text { height:42px; font-size:0.84rem; }
   </style>
 
   <!-- Cited-In ticker — horizontal scrolling marquee, big brand-colored pills,
@@ -1054,70 +1069,103 @@
   </style>
 
   <script>
-  /* Brand registry — each source carries its real-world brand colors (and an
-     iconic font where applicable). Used by both the horizontal ticker and the
-     two vertical side rails. */
+  /* Brand registry — each source has: short label, brand-colored text fallback
+     palette (bg, fg, optional font), AND a canonical domain so Clearbit Logo
+     API serves the real logo. Pill renders as <img> with onerror fallback to
+     the brand-colored text pill (gov + niche brands often don't resolve in
+     Clearbit). */
   (function(){
+    // [label, bgColor, fgColor, domain (or null), optionalFont]
     var SOURCES = [
-      ['BLS',                    '#112e51', '#ffffff'],
-      ['IBISWorld',              '#E8710A', '#ffffff'],
-      ['McKinsey',               '#003A70', '#ffffff'],
-      ['HBR',                    '#A12830', '#ffffff'],
-      ['SBA',                    '#002F6C', '#ffffff'],
-      ['NFIB',                   '#D72324', '#ffffff'],
-      ['US Census',              '#1A4480', '#ffffff'],
-      ['Bessemer',               '#1E2A4A', '#ffffff'],
-      ['OpenView',               '#26C281', '#0e0a06'],
-      ['Bridge Group',           '#0E5FAB', '#ffffff'],
-      ['Pavilion',               '#7c3aed', '#ffffff'],
-      ['Carta',                  '#3D71F1', '#ffffff'],
-      ['Stripe',                 '#635BFF', '#ffffff'],
-      ['Sequoia',                '#E63629', '#ffffff'],
-      ['a16z',                   '#1A1A1A', '#FF7900'],
-      ['Bain & Co.',             '#CC0000', '#ffffff'],
-      ['BCG',                    '#0F8754', '#ffffff'],
-      ['Deloitte',               '#86BC25', '#0e0a06'],
-      ['Forrester',              '#06243A', '#ffffff'],
-      ['Gartner',                '#00455B', '#ffffff'],
-      ['Pew Research',           '#A8242A', '#ffffff'],
-      ['Federal Reserve',        '#005243', '#ffffff'],
-      ['IRS',                    '#003366', '#ffffff'],
-      ['DOL',                    '#172B4D', '#ffffff'],
-      ['FTC',                    '#205493', '#ffffff'],
-      ['SEC',                    '#0B3D6E', '#ffffff'],
-      ['NAR',                    '#005EB8', '#ffffff'],
-      ['NAHB',                   '#003366', '#ffffff'],
-      ['WSJ',                    '#000000', '#ffffff', 'Georgia,"Times New Roman",serif'],
-      ['Bloomberg',              '#FE7300', '#000000'],
-      ['PitchBook',              '#FF671B', '#ffffff'],
-      ['Crunchbase',             '#146AFF', '#ffffff'],
-      ['OSHA',                   '#D03D2E', '#ffffff'],
-      ['EPA',                    '#1B6E3A', '#ffffff'],
-      ['CDC',                    '#005EB8', '#ffffff'],
-      ['FDA',                    '#1A4480', '#ffffff'],
-      ['HUD',                    '#243F8A', '#ffffff'],
-      ['CMS',                    '#005E8C', '#ffffff'],
-      ['FMCSA',                  '#1A2C50', '#ffffff'],
-      ['Y Combinator',           '#F26625', '#ffffff'],
-      ['KKR',                    '#0A2240', '#ffffff'],
-      ['Blackstone',             '#1A1A1A', '#ffffff'],
-      ['Reuters',                '#FF8000', '#000000'],
-      ['Forbes',                 '#000099', '#ffffff'],
-      ['Fortune',                '#B6131A', '#ffffff'],
-      ['FT',                     '#FCD0B1', '#33302E', 'Georgia,"Times New Roman",serif'],
-      ['NYT',                    '#000000', '#ffffff', 'Georgia,"Times New Roman",serif'],
-      ['Axios',                  '#0078D4', '#ffffff'],
-      ['Brookings',              '#003B5C', '#ffffff'],
-      ['NBER',                   '#5D3A8E', '#ffffff'],
+      ['BLS',                '#112e51', '#ffffff', 'bls.gov'],
+      ['IBISWorld',          '#E8710A', '#ffffff', 'ibisworld.com'],
+      ['McKinsey',           '#003A70', '#ffffff', 'mckinsey.com'],
+      ['HBR',                '#A12830', '#ffffff', 'hbr.org'],
+      ['SBA',                '#002F6C', '#ffffff', 'sba.gov'],
+      ['NFIB',               '#D72324', '#ffffff', 'nfib.com'],
+      ['US Census',          '#1A4480', '#ffffff', 'census.gov'],
+      ['Bessemer',           '#1E2A4A', '#ffffff', 'bvp.com'],
+      ['OpenView',           '#26C281', '#0e0a06', 'openviewpartners.com'],
+      ['Bridge Group',       '#0E5FAB', '#ffffff', 'bridgegroupinc.com'],
+      ['Pavilion',           '#7c3aed', '#ffffff', 'joinpavilion.com'],
+      ['Carta',              '#3D71F1', '#ffffff', 'carta.com'],
+      ['Stripe',             '#635BFF', '#ffffff', 'stripe.com'],
+      ['Sequoia',            '#E63629', '#ffffff', 'sequoiacap.com'],
+      ['a16z',               '#1A1A1A', '#FF7900', 'a16z.com'],
+      ['Bain & Co.',         '#CC0000', '#ffffff', 'bain.com'],
+      ['BCG',                '#0F8754', '#ffffff', 'bcg.com'],
+      ['Deloitte',           '#86BC25', '#0e0a06', 'deloitte.com'],
+      ['Forrester',          '#06243A', '#ffffff', 'forrester.com'],
+      ['Gartner',            '#00455B', '#ffffff', 'gartner.com'],
+      ['Pew Research',       '#A8242A', '#ffffff', 'pewresearch.org'],
+      ['Federal Reserve',    '#005243', '#ffffff', 'federalreserve.gov'],
+      ['IRS',                '#003366', '#ffffff', 'irs.gov'],
+      ['DOL',                '#172B4D', '#ffffff', 'dol.gov'],
+      ['FTC',                '#205493', '#ffffff', 'ftc.gov'],
+      ['SEC',                '#0B3D6E', '#ffffff', 'sec.gov'],
+      ['NAR',                '#005EB8', '#ffffff', 'nar.realtor'],
+      ['NAHB',               '#003366', '#ffffff', 'nahb.org'],
+      ['WSJ',                '#000000', '#ffffff', 'wsj.com',         'Georgia,"Times New Roman",serif'],
+      ['Bloomberg',          '#FE7300', '#000000', 'bloomberg.com'],
+      ['PitchBook',          '#FF671B', '#ffffff', 'pitchbook.com'],
+      ['Crunchbase',         '#146AFF', '#ffffff', 'crunchbase.com'],
+      ['OSHA',               '#D03D2E', '#ffffff', 'osha.gov'],
+      ['EPA',                '#1B6E3A', '#ffffff', 'epa.gov'],
+      ['CDC',                '#005EB8', '#ffffff', 'cdc.gov'],
+      ['FDA',                '#1A4480', '#ffffff', 'fda.gov'],
+      ['HUD',                '#243F8A', '#ffffff', 'hud.gov'],
+      ['CMS',                '#005E8C', '#ffffff', 'cms.gov'],
+      ['FMCSA',              '#1A2C50', '#ffffff', 'fmcsa.dot.gov'],
+      ['Y Combinator',       '#F26625', '#ffffff', 'ycombinator.com'],
+      ['KKR',                '#0A2240', '#ffffff', 'kkr.com'],
+      ['Blackstone',         '#1A1A1A', '#ffffff', 'blackstone.com'],
+      ['Reuters',            '#FF8000', '#000000', 'reuters.com'],
+      ['Forbes',             '#000099', '#ffffff', 'forbes.com'],
+      ['Fortune',            '#B6131A', '#ffffff', 'fortune.com'],
+      ['FT',                 '#FCD0B1', '#33302E', 'ft.com',          'Georgia,"Times New Roman",serif'],
+      ['NYT',                '#000000', '#ffffff', 'nytimes.com',     'Georgia,"Times New Roman",serif'],
+      ['Axios',              '#0078D4', '#ffffff', 'axios.com'],
+      ['Brookings',          '#003B5C', '#ffffff', 'brookings.edu'],
+      ['NBER',               '#5D3A8E', '#ffffff', 'nber.org'],
     ];
 
     function buildPill(s) {
-      var pill = document.createElement('span');
+      var label = s[0], bg = s[1], fg = s[2], domain = s[3], font = s[4];
+      // Wrapper carries fallback style; <img> hides text on successful load
+      var pill = document.createElement('a');
       pill.className = 'cite-pill';
-      pill.style.background = s[1];
-      pill.style.color = s[2];
-      if (s[3]) pill.style.fontFamily = s[3];
-      pill.textContent = s[0];
+      pill.target = '_blank';
+      pill.rel = 'noopener noreferrer';
+      if (domain) pill.href = 'https://' + domain;
+      pill.style.background = '#ffffff'; // white card for logos
+      pill.title = label;
+
+      // Text fallback (shown until image loads OR if image fails)
+      var txt = document.createElement('span');
+      txt.className = 'cite-pill-text';
+      txt.style.background = bg;
+      txt.style.color = fg;
+      if (font) txt.style.fontFamily = font;
+      txt.textContent = label;
+      pill.appendChild(txt);
+
+      if (domain) {
+        var img = document.createElement('img');
+        img.alt = label;
+        img.loading = 'lazy';
+        img.src = 'https://logo.clearbit.com/' + domain + '?size=120';
+        img.className = 'cite-pill-img';
+        img.style.display = 'none';
+        img.onload = function(){
+          img.style.display = 'block';
+          txt.style.display = 'none';
+        };
+        img.onerror = function(){
+          // leave text fallback visible
+          img.remove();
+        };
+        pill.appendChild(img);
+      }
       return pill;
     }
 
@@ -1125,14 +1173,12 @@
       if (!trackEl) return;
       var frag = document.createDocumentFragment();
       list.forEach(function(s){ frag.appendChild(buildPill(s)); });
-      // Duplicate for seamless wrap
       if (dup) list.forEach(function(s){ frag.appendChild(buildPill(s)); });
       trackEl.appendChild(frag);
     }
 
     document.addEventListener('DOMContentLoaded', function(){
       populate(document.getElementById('cite-ticker-track'), SOURCES, true);
-      // Split sources roughly in half for left + right rails for visual variety
       var half = Math.ceil(SOURCES.length / 2);
       populate(document.querySelector('#cite-rail-left .cite-rail-track'),  SOURCES.slice(0, half), true);
       populate(document.querySelector('#cite-rail-right .cite-rail-track'), SOURCES.slice(half),   true);
