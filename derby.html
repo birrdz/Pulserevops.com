@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>🐎 Derby · Pulse</title>
+<link rel="canonical" href="https://pulserevops.com/derby">
+<style>
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:0; overflow:hidden;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:linear-gradient(180deg,#04060d 0%,#0b1224 100%);
+    color:#e5edff; min-height:100vh; min-width:100vw;
+  }
+  .gate {
+    max-width:420px; width:100%; margin:80px auto;
+    background:rgba(15,22,40,0.92);
+    border:1px solid rgba(120,180,255,0.35);
+    border-radius:16px; padding:36px 32px;
+    box-shadow:0 6px 32px rgba(0,0,0,0.65), 0 0 24px rgba(120,180,255,0.08);
+    text-align:center;
+  }
+  .gate h1 { margin:0 0 6px; font-size:1.4rem; font-weight:900; letter-spacing:0.18em; text-transform:uppercase; color:#FFD740; }
+  .gate .sub { font-size:0.78rem; letter-spacing:0.04em; color:rgba(180,210,255,0.6); margin-bottom:22px; }
+  .icon { font-size:2.4rem; margin-bottom:8px; }
+  input[type="password"] {
+    width:100%; padding:14px 16px;
+    font-size:1.4rem; font-family:'JetBrains Mono','Fira Code','Consolas',monospace;
+    text-align:center; letter-spacing:0.5em;
+    background:rgba(8,12,24,0.85); color:#FFD740;
+    border:1px solid rgba(255,215,64,0.45);
+    border-radius:10px; outline:none; margin-bottom:14px;
+  }
+  input[type="password"]:focus { border-color:#FFD740; box-shadow:0 0 12px rgba(255,215,64,0.4); }
+  button {
+    width:100%; padding:13px;
+    background:linear-gradient(135deg,#E8710A,#BF5800);
+    color:#fff; font-weight:800; letter-spacing:0.16em; text-transform:uppercase;
+    font-size:0.78rem; border:none; border-radius:10px; cursor:pointer;
+    transition:transform 0.12s, box-shadow 0.12s;
+  }
+  button:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(232,113,10,0.45); }
+  .err { margin-top:10px; min-height:18px; font-size:0.75rem; color:#ff5b6b; }
+  .back { display:inline-block; margin-top:18px; font-size:0.65rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(180,210,255,0.5); text-decoration:none; }
+  .back:hover { color:#FFD740; }
+
+  #stage { position:fixed; inset:0; display:none; }
+  #three-canvas { width:100%; height:100%; display:block; }
+
+  /* HUD overlays */
+  .hud {
+    position:absolute; pointer-events:none;
+    font-family:'Inter',sans-serif; color:#e5edff;
+  }
+  .hud-top {
+    top:0; left:0; right:0; padding:16px 22px;
+    background:linear-gradient(180deg,rgba(4,6,13,0.85),rgba(4,6,13,0));
+    display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
+  }
+  .hud-top .title {
+    font-size:1.1rem; font-weight:900; letter-spacing:0.06em; color:#FFD740;
+    text-shadow:0 0 10px rgba(255,215,64,0.5);
+  }
+  .hud-top .stat { font-size:0.72rem; color:rgba(220,230,255,0.75); }
+  .hud-top .stat b { color:#FFD740; font-family:'JetBrains Mono','Consolas',monospace; }
+  .hud-top .right { margin-left:auto; pointer-events:auto; }
+  .hud-btn {
+    background:transparent; border:1px solid rgba(255,215,64,0.4); color:#FFD740;
+    border-radius:8px; padding:7px 14px; font-size:0.66rem; font-weight:800;
+    letter-spacing:0.14em; text-transform:uppercase; cursor:pointer; font-family:inherit;
+    transition:all 0.12s; width:auto;
+  }
+  .hud-btn:hover { background:rgba(255,215,64,0.1); }
+
+  .leaderboard {
+    position:absolute; top:80px; right:18px; pointer-events:none;
+    background:rgba(4,6,13,0.78); backdrop-filter:blur(8px);
+    border:1px solid rgba(255,215,64,0.25); border-radius:12px;
+    padding:12px 16px; min-width:220px; max-width:260px;
+  }
+  .leaderboard h3 {
+    margin:0 0 8px; font-size:0.62rem; font-weight:900;
+    letter-spacing:0.18em; text-transform:uppercase; color:#FFD740;
+  }
+  .lb-row {
+    display:flex; gap:8px; align-items:center;
+    padding:5px 0; border-bottom:1px dashed rgba(255,215,64,0.1);
+    font-size:0.78rem;
+  }
+  .lb-row:last-child { border-bottom:none; }
+  .lb-row .pos {
+    width:22px; text-align:center; font-family:'JetBrains Mono','Consolas',monospace;
+    font-weight:900; color:#FFD740;
+  }
+  .lb-row .color-chip {
+    width:14px; height:14px; border-radius:3px; flex-shrink:0;
+    border:1px solid rgba(255,255,255,0.2);
+  }
+  .lb-row .nm { flex:1; font-weight:700; color:#e5edff; }
+  .lb-row .gap { font-family:'JetBrains Mono','Consolas',monospace; font-size:0.7rem; color:rgba(180,210,255,0.6); }
+
+  .paddock {
+    position:absolute; left:50%; top:50%;
+    transform:translate(-50%,-50%); pointer-events:auto;
+    width:min(680px,92vw); max-height:90vh; overflow-y:auto;
+    background:rgba(4,6,13,0.92); backdrop-filter:blur(12px);
+    border:1px solid rgba(255,215,64,0.4); border-radius:18px;
+    padding:24px 28px;
+    box-shadow:0 12px 48px rgba(0,0,0,0.75), 0 0 30px rgba(255,215,64,0.12);
+  }
+  .paddock h2 { margin:0 0 6px; color:#FFD740; font-size:1.4rem; font-weight:900; letter-spacing:0.04em; text-align:center; }
+  .paddock .sub { text-align:center; color:rgba(180,210,255,0.6); font-size:0.74rem; margin-bottom:18px; }
+  .paddock .pot { text-align:center; font-size:0.78rem; color:#7BFF8F; margin-bottom:14px; font-weight:700; }
+  .paddock .pot b { font-family:'JetBrains Mono','Consolas',monospace; font-size:0.94rem; }
+
+  .horse-list { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+  .horse-row {
+    display:grid; grid-template-columns:24px 24px 1fr 60px 80px 100px;
+    gap:10px; align-items:center;
+    background:rgba(15,22,40,0.7); border:1px solid rgba(120,180,255,0.18);
+    border-radius:10px; padding:8px 12px;
+    transition:border-color 0.12s, background 0.12s;
+  }
+  .horse-row:hover { border-color:rgba(255,215,64,0.4); }
+  .horse-row.bet-on { border-color:#FFD740; background:rgba(255,215,64,0.08); }
+  .horse-row .num { font-family:'JetBrains Mono','Consolas',monospace; font-weight:900; color:#FFD740; text-align:center; }
+  .horse-row .swatch { width:18px; height:18px; border-radius:4px; border:1px solid rgba(255,255,255,0.2); }
+  .horse-row .name-cell { font-weight:700; color:#e5edff; }
+  .horse-row .name-cell small { display:block; font-size:0.66rem; font-weight:500; color:rgba(180,210,255,0.5); margin-top:1px; }
+  .horse-row .form { font-family:'JetBrains Mono','Consolas',monospace; font-size:0.72rem; color:rgba(180,210,255,0.6); text-align:center; }
+  .horse-row .odds { font-family:'JetBrains Mono','Consolas',monospace; font-weight:800; color:#FFD740; text-align:right; font-size:0.92rem; }
+  .horse-row .bet-controls { display:flex; gap:4px; align-items:center; justify-content:flex-end; }
+  .bet-input {
+    width:55px; padding:4px 6px; font-family:'JetBrains Mono','Consolas',monospace;
+    font-size:0.78rem; text-align:center;
+    background:rgba(8,12,24,0.85); color:#FFD740;
+    border:1px solid rgba(255,215,64,0.3); border-radius:5px;
+  }
+  .paddock-actions { display:flex; gap:10px; justify-content:center; }
+  .paddock-actions button {
+    width:auto; padding:11px 28px; font-size:0.74rem;
+  }
+  .btn-secondary {
+    background:transparent !important; border:1px solid rgba(180,210,255,0.3) !important;
+    color:rgba(220,230,255,0.85) !important;
+  }
+  .btn-secondary:hover { background:rgba(120,180,255,0.1) !important; box-shadow:none !important; }
+  .paddock .your-balance {
+    text-align:center; font-size:0.7rem; color:rgba(180,210,255,0.6); margin-bottom:6px;
+  }
+  .paddock .your-balance b { color:#FFD740; font-family:'JetBrains Mono','Consolas',monospace; }
+
+  .result-banner {
+    position:absolute; left:50%; bottom:40px; transform:translateX(-50%);
+    background:rgba(4,6,13,0.92); backdrop-filter:blur(10px);
+    border:2px solid #FFD740; border-radius:14px;
+    padding:18px 32px; text-align:center; pointer-events:auto;
+    box-shadow:0 12px 48px rgba(0,0,0,0.7), 0 0 30px rgba(255,215,64,0.3);
+  }
+  .result-banner .title {
+    font-size:0.7rem; font-weight:900; letter-spacing:0.2em; text-transform:uppercase;
+    color:#FFD740; margin-bottom:6px;
+  }
+  .result-banner .winner { font-size:1.6rem; font-weight:900; color:#fff; margin-bottom:8px; }
+  .result-banner .payout {
+    font-size:0.85rem; color:#7BFF8F; font-weight:700;
+    font-family:'JetBrains Mono','Consolas',monospace; margin-bottom:14px;
+  }
+  .result-banner .payout.loss { color:#ff8a8a; }
+  .result-banner button { width:auto; padding:9px 22px; font-size:0.7rem; }
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="icon">🐎</div>
+  <h1>Pulse Derby</h1>
+  <div class="sub">4-digit code required</div>
+  <form onsubmit="return checkPwd(event)">
+    <input type="password" id="pwd" maxlength="4" inputmode="numeric" autocomplete="off" autofocus placeholder="••••">
+    <button type="submit">Enter</button>
+    <div class="err" id="err"></div>
+  </form>
+  <a class="back" href="/sports">← back to sports</a>
+</div>
+
+<div id="stage">
+  <canvas id="three-canvas"></canvas>
+
+  <div class="hud hud-top" id="hud-top">
+    <span class="title">🐎 Pulse Derby</span>
+    <span class="stat">Bank <b id="hud-balance">$1,000</b></span>
+    <span class="stat">Race <b id="hud-race-num">1</b></span>
+    <span class="right">
+      <button class="hud-btn" id="btn-new-race">New Race</button>
+      <a href="/sports" class="hud-btn" style="text-decoration:none;display:inline-block;margin-left:8px;">← Sports</a>
+    </span>
+  </div>
+
+  <div class="leaderboard" id="leaderboard" style="display:none;">
+    <h3>Live Standings</h3>
+    <div id="lb-list"></div>
+  </div>
+
+  <div class="paddock" id="paddock"></div>
+  <div class="result-banner" id="result-banner" style="display:none;"></div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+// ════════════════════════════════════════════════════════════════════════
+// Pulse Derby — 3D horse race with stat-driven simulation + betting.
+//
+// Tech: Three.js (CDN, no build), procedural horse geometry, oval track
+// with banked turns. Each race is a Monte Carlo simulation: per-frame
+// speed = baseSpeed × stamina-curve × stochastic noise.
+// ════════════════════════════════════════════════════════════════════════
+
+const N_HORSES = 6;
+const TRACK_LEN = 1000; // virtual race distance (m)
+const TRACK_RADIUS = 60;
+const TRACK_STRAIGHT = 120;
+
+// Horse name generator — punchy, brand-friendly
+const NAMES_A = ['Pulse','Velocity','Phantom','Sterling','Atomic','Iron','Royal','Midnight','Comet','Apex','Lucky','Maverick','Crimson','Silver','Thunder','Vortex','Tycoon','Ember','Cobalt','Onyx'];
+const NAMES_B = ['Runner','Spirit','Blaze','Surge','Justice','Stride','Drift','Kicker','Heart','Vanguard','Spark','Crown','Talon','Reign','Bolt','Glory','Mirage','Quest','Halo','Echo'];
+function randomName() {
+  return NAMES_A[Math.floor(Math.random()*NAMES_A.length)] + ' ' + NAMES_B[Math.floor(Math.random()*NAMES_B.length)];
+}
+
+// Distinct vivid colors per gate
+const COLORS = [
+  0xFFD740, // gold
+  0x7BB6FF, // sky
+  0xff5b6b, // red
+  0x7BFF8F, // mint
+  0xC5B5FF, // lavender
+  0xFFB347, // orange
+  0xff80c8, // pink
+  0x39FF14, // neon green
+];
+
+// ──────────────────────────────────────────────────────────────────────
+// Game state
+// ──────────────────────────────────────────────────────────────────────
+const state = {
+  balance: loadBalance(),
+  raceNum: 1,
+  horses: [],
+  bets: {},     // horseId → wager
+  raceActive: false,
+  raceStartTime: 0,
+  finished: [],
+};
+
+function loadBalance() {
+  try { var v = parseInt(localStorage.getItem('derby_balance')); return isNaN(v) ? 1000 : v; } catch(_){ return 1000; }
+}
+function saveBalance() { try { localStorage.setItem('derby_balance', String(state.balance)); } catch(_){} }
+
+function generateHorses() {
+  state.horses = [];
+  for (let i = 0; i < N_HORSES; i++) {
+    // Stats — speed = base running speed (m/s), stamina = how well speed holds
+    // past 70% of race, luck = per-frame noise factor
+    const speed   = 14 + Math.random() * 4;       // 14-18 m/s base
+    const stamina = 0.55 + Math.random() * 0.4;   // 0.55-0.95
+    const luck    = 0.05 + Math.random() * 0.10;  // 0.05-0.15 noise σ
+    // Composite power score determines true ranking probability
+    const power = speed * (0.6 + 0.4 * stamina);
+    // Form — last 5 finishes (1=best)
+    const form = Array.from({length:5}, () => Math.ceil(Math.random()*6));
+    state.horses.push({
+      id: i, gate: i + 1, name: randomName(),
+      color: COLORS[i % COLORS.length],
+      speed, stamina, luck, power, form,
+      x: 0,        // distance traveled along track
+      lane: i,     // outer lane idx
+      mesh: null,
+    });
+  }
+  // Odds derived from power, normalized
+  const totalInvPower = state.horses.reduce((s,h) => s + 1/h.power, 0);
+  state.horses.forEach(h => {
+    const trueProb = (1/h.power) / totalInvPower;
+    // Add house edge of ~15%
+    const oddsDecimal = (1 / trueProb) * 0.85;
+    h.odds = oddsDecimal;
+    h.oddsAm = decimalToAmerican(oddsDecimal);
+  });
+  state.horses.sort((a,b) => a.odds - b.odds); // favorite first
+  state.horses.forEach((h, i) => h.displayOrder = i);
+  state.bets = {};
+  state.finished = [];
+}
+
+function decimalToAmerican(d) {
+  // d is decimal odds (e.g. 2.5 = +150 / 3.5 = +250 / 1.5 = -200)
+  if (d >= 2) return '+' + Math.round((d - 1) * 100);
+  return '-' + Math.round(100 / (d - 1));
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// Three.js scene
+// ──────────────────────────────────────────────────────────────────────
+let scene, camera, renderer, clock;
+let trackGroup, horseMeshes = [], grandstandGroup;
+let cameraTargetMode = 'wide'; // 'wide' or 'lead'
+
+function initThree() {
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0a1a2c);
+  scene.fog = new THREE.Fog(0x0a1a2c, 200, 600);
+
+  const canvas = document.getElementById('three-canvas');
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 80, 180);
+  camera.lookAt(0, 0, 0);
+
+  // Lighting — warm key light low (golden-hour) + cool fill from above
+  const sun = new THREE.DirectionalLight(0xffe4a0, 1.4);
+  sun.position.set(80, 100, 60);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.camera.left = -200;
+  sun.shadow.camera.right = 200;
+  sun.shadow.camera.top = 200;
+  sun.shadow.camera.bottom = -200;
+  scene.add(sun);
+
+  const fill = new THREE.HemisphereLight(0xbcd4ff, 0x2c4070, 0.6);
+  scene.add(fill);
+
+  // Sky
+  const skyGeo = new THREE.SphereGeometry(500, 32, 16);
+  const skyMat = new THREE.MeshBasicMaterial({
+    color: 0x1a2440, side: THREE.BackSide,
+  });
+  scene.add(new THREE.Mesh(skyGeo, skyMat));
+
+  buildTrack();
+  buildGrandstand();
+  buildHorses();
+
+  clock = new THREE.Clock();
+  window.addEventListener('resize', onResize);
+  animate();
+}
+
+function buildTrack() {
+  trackGroup = new THREE.Group();
+
+  // Infield (oval green)
+  const infieldShape = new THREE.Shape();
+  infieldShape.moveTo(-TRACK_STRAIGHT/2, -TRACK_RADIUS);
+  infieldShape.lineTo( TRACK_STRAIGHT/2, -TRACK_RADIUS);
+  infieldShape.absarc( TRACK_STRAIGHT/2, 0, TRACK_RADIUS, -Math.PI/2, Math.PI/2);
+  infieldShape.lineTo(-TRACK_STRAIGHT/2,  TRACK_RADIUS);
+  infieldShape.absarc(-TRACK_STRAIGHT/2, 0, TRACK_RADIUS, Math.PI/2, -Math.PI/2);
+  const infieldGeo = new THREE.ShapeGeometry(infieldShape);
+  const infieldMat = new THREE.MeshStandardMaterial({ color: 0x2d6a3e, roughness: 0.95 });
+  const infield = new THREE.Mesh(infieldGeo, infieldMat);
+  infield.rotation.x = -Math.PI/2;
+  infield.position.y = 0.05;
+  infield.receiveShadow = true;
+  trackGroup.add(infield);
+
+  // Track surface — slightly larger oval, dirt brown
+  const TRACK_WIDTH = 14;
+  const trackOuterShape = new THREE.Shape();
+  const oR = TRACK_RADIUS + TRACK_WIDTH;
+  trackOuterShape.moveTo(-TRACK_STRAIGHT/2, -oR);
+  trackOuterShape.lineTo( TRACK_STRAIGHT/2, -oR);
+  trackOuterShape.absarc( TRACK_STRAIGHT/2, 0, oR, -Math.PI/2, Math.PI/2);
+  trackOuterShape.lineTo(-TRACK_STRAIGHT/2,  oR);
+  trackOuterShape.absarc(-TRACK_STRAIGHT/2, 0, oR, Math.PI/2, -Math.PI/2);
+  const trackHole = new THREE.Path();
+  trackHole.moveTo(-TRACK_STRAIGHT/2, -TRACK_RADIUS);
+  trackHole.lineTo( TRACK_STRAIGHT/2, -TRACK_RADIUS);
+  trackHole.absarc( TRACK_STRAIGHT/2, 0, TRACK_RADIUS, -Math.PI/2, Math.PI/2);
+  trackHole.lineTo(-TRACK_STRAIGHT/2,  TRACK_RADIUS);
+  trackHole.absarc(-TRACK_STRAIGHT/2, 0, TRACK_RADIUS, Math.PI/2, -Math.PI/2);
+  trackOuterShape.holes.push(trackHole);
+  const trackGeo = new THREE.ShapeGeometry(trackOuterShape);
+  const trackMat = new THREE.MeshStandardMaterial({ color: 0x8b6035, roughness: 1.0 });
+  const track = new THREE.Mesh(trackGeo, trackMat);
+  track.rotation.x = -Math.PI/2;
+  track.position.y = 0.02;
+  track.receiveShadow = true;
+  trackGroup.add(track);
+
+  // Lane lines (white)
+  for (let lane = 1; lane < N_HORSES; lane++) {
+    const r = TRACK_RADIUS + (TRACK_WIDTH / N_HORSES) * lane;
+    const laneShape = new THREE.Shape();
+    laneShape.moveTo(-TRACK_STRAIGHT/2, -r);
+    laneShape.lineTo( TRACK_STRAIGHT/2, -r);
+    laneShape.absarc( TRACK_STRAIGHT/2, 0, r, -Math.PI/2, Math.PI/2);
+    laneShape.lineTo(-TRACK_STRAIGHT/2,  r);
+    laneShape.absarc(-TRACK_STRAIGHT/2, 0, r, Math.PI/2, -Math.PI/2);
+    const laneHole = new THREE.Path();
+    const ri = r - 0.15;
+    laneHole.moveTo(-TRACK_STRAIGHT/2, -ri);
+    laneHole.lineTo( TRACK_STRAIGHT/2, -ri);
+    laneHole.absarc( TRACK_STRAIGHT/2, 0, ri, -Math.PI/2, Math.PI/2);
+    laneHole.lineTo(-TRACK_STRAIGHT/2,  ri);
+    laneHole.absarc(-TRACK_STRAIGHT/2, 0, ri, Math.PI/2, -Math.PI/2);
+    laneShape.holes.push(laneHole);
+    const laneGeo = new THREE.ShapeGeometry(laneShape);
+    const laneMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.45 });
+    const laneMesh = new THREE.Mesh(laneGeo, laneMat);
+    laneMesh.rotation.x = -Math.PI/2;
+    laneMesh.position.y = 0.05;
+    trackGroup.add(laneMesh);
+  }
+
+  // Finish line — white stripe across all lanes at x=0 on the home stretch (z=-r)
+  const finishGeo = new THREE.PlaneGeometry(TRACK_WIDTH, 1.5);
+  const finishMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const finish = new THREE.Mesh(finishGeo, finishMat);
+  finish.rotation.x = -Math.PI/2;
+  finish.position.set(0, 0.06, -(TRACK_RADIUS + TRACK_WIDTH/2));
+  trackGroup.add(finish);
+
+  // Rail posts
+  for (let i = 0; i < 48; i++) {
+    const t = i / 48;
+    const pos = trackPosition(t * TRACK_LEN, 0);
+    const railGeo = new THREE.BoxGeometry(0.4, 1.0, 0.4);
+    const railMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
+    const post = new THREE.Mesh(railGeo, railMat);
+    post.position.set(pos.x, 0.5, pos.z + (pos.z < 0 ? -1 : 1) * (pos.z === 0 ? 0 : 0.5));
+    trackGroup.add(post);
+  }
+
+  scene.add(trackGroup);
+}
+
+function buildGrandstand() {
+  grandstandGroup = new THREE.Group();
+  // Big stylized box behind the finish line
+  const standGeo = new THREE.BoxGeometry(80, 14, 18);
+  const standMat = new THREE.MeshStandardMaterial({ color: 0x3a4a6a, roughness: 0.7 });
+  const stand = new THREE.Mesh(standGeo, standMat);
+  stand.position.set(0, 7, -(TRACK_RADIUS + 26));
+  stand.castShadow = true;
+  grandstandGroup.add(stand);
+  // Pulse-orange roof accent
+  const roofGeo = new THREE.BoxGeometry(82, 1, 18);
+  const roofMat = new THREE.MeshStandardMaterial({ color: 0xE8710A, emissive: 0xE8710A, emissiveIntensity: 0.3 });
+  const roof = new THREE.Mesh(roofGeo, roofMat);
+  roof.position.set(0, 14.5, -(TRACK_RADIUS + 26));
+  grandstandGroup.add(roof);
+  scene.add(grandstandGroup);
+}
+
+function buildHorses() {
+  // Clear any existing
+  horseMeshes.forEach(g => scene.remove(g));
+  horseMeshes = [];
+  state.horses.forEach(h => {
+    const g = new THREE.Group();
+
+    // Body
+    const bodyGeo = new THREE.BoxGeometry(2.4, 1.2, 1.0);
+    const bodyMat = new THREE.MeshStandardMaterial({ color: h.color, roughness: 0.6 });
+    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    body.position.y = 1.5;
+    body.castShadow = true;
+    g.add(body);
+
+    // Head
+    const headGeo = new THREE.BoxGeometry(0.8, 0.8, 0.7);
+    const head = new THREE.Mesh(headGeo, bodyMat);
+    head.position.set(1.3, 2.0, 0);
+    head.castShadow = true;
+    g.add(head);
+
+    // Mane (darker accent)
+    const maneGeo = new THREE.BoxGeometry(0.5, 0.5, 0.8);
+    const maneMat = new THREE.MeshStandardMaterial({ color: 0x202c3c });
+    const mane = new THREE.Mesh(maneGeo, maneMat);
+    mane.position.set(0.7, 2.0, 0);
+    g.add(mane);
+
+    // Jockey (small bright box on top in different color)
+    const jockeyGeo = new THREE.BoxGeometry(0.7, 0.7, 0.7);
+    const jockeyMat = new THREE.MeshStandardMaterial({ color: h.color, emissive: h.color, emissiveIntensity: 0.4 });
+    const jockey = new THREE.Mesh(jockeyGeo, jockeyMat);
+    jockey.position.set(-0.3, 2.4, 0);
+    jockey.castShadow = true;
+    g.add(jockey);
+
+    // Legs (4 boxes, animated phase-shifted)
+    const legPositions = [[0.9, 0, 0.4],[0.9, 0, -0.4],[-0.9, 0, 0.4],[-0.9, 0, -0.4]];
+    h._legs = [];
+    legPositions.forEach((p, i) => {
+      const legGeo = new THREE.BoxGeometry(0.3, 1.2, 0.3);
+      const leg = new THREE.Mesh(legGeo, bodyMat);
+      leg.position.set(p[0], 0.6, p[2]);
+      leg.castShadow = true;
+      g.add(leg);
+      h._legs.push(leg);
+    });
+
+    h.mesh = g;
+    scene.add(g);
+    horseMeshes.push(g);
+  });
+}
+
+// Parametric track position. d is distance along the path (m), laneOffset
+// pushes outward from center radius. Track total length = 2 * straight + 2π * R.
+function trackPosition(d, laneOffset) {
+  const R = TRACK_RADIUS + 1 + laneOffset * (12 / N_HORSES); // inner edge + lane shift
+  const halfStraight = TRACK_STRAIGHT / 2;
+  const arcLen = Math.PI * R;
+  const totalLen = 2 * TRACK_STRAIGHT + 2 * arcLen;
+  d = ((d % totalLen) + totalLen) % totalLen; // wrap
+  // Sequence: bottom straight (left→right) → right arc → top straight (right→left) → left arc
+  if (d < TRACK_STRAIGHT) {
+    return { x: -halfStraight + d, z: R, heading: 0 };
+  }
+  d -= TRACK_STRAIGHT;
+  if (d < arcLen) {
+    const angle = d / R - Math.PI/2; // from -π/2 (start) to π/2 (end)
+    return { x: halfStraight + R * Math.cos(angle), z: R * Math.sin(angle), heading: angle + Math.PI/2 };
+  }
+  d -= arcLen;
+  if (d < TRACK_STRAIGHT) {
+    return { x: halfStraight - d, z: -R, heading: Math.PI };
+  }
+  d -= TRACK_STRAIGHT;
+  const angle = d / R + Math.PI/2;
+  return { x: -halfStraight + R * Math.cos(angle), z: R * Math.sin(angle), heading: angle + Math.PI/2 };
+}
+
+function onResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// Race loop — frame-by-frame stat-driven simulation
+// ──────────────────────────────────────────────────────────────────────
+function startRace() {
+  state.raceActive = true;
+  state.raceStartTime = performance.now();
+  state.finished = [];
+  state.horses.forEach(h => h.x = 0);
+  cameraTargetMode = 'lead';
+  document.getElementById('leaderboard').style.display = 'block';
+  document.getElementById('paddock').style.display = 'none';
+  document.getElementById('result-banner').style.display = 'none';
+}
+
+function stepRace(dt) {
+  // dt in seconds
+  const T = (performance.now() - state.raceStartTime) / 1000;
+  state.horses.forEach(h => {
+    if (state.finished.includes(h.id)) return;
+    // Speed curve: base × stamina decay past midway × per-frame Gaussian noise
+    const progress = h.x / TRACK_LEN;
+    const fatigueFactor = progress < 0.5 ? 1.0 : 1.0 - (1 - h.stamina) * (progress - 0.5) * 1.5;
+    const noise = 1 + (Math.random() - 0.5) * 2 * h.luck;
+    const v = h.speed * Math.max(0.4, fatigueFactor) * noise;
+    h.x += v * dt;
+    if (h.x >= TRACK_LEN) {
+      state.finished.push(h.id);
+      h.finishTime = T;
+    }
+  });
+  if (state.finished.length === N_HORSES) endRace();
+}
+
+function endRace() {
+  state.raceActive = false;
+  const winnerId = state.finished[0];
+  const winner = state.horses.find(h => h.id === winnerId);
+  // Settle bets
+  let totalPayout = 0;
+  Object.keys(state.bets).forEach(hid => {
+    if (parseInt(hid) === winnerId) {
+      const bet = state.bets[hid];
+      const horse = state.horses.find(x => x.id === parseInt(hid));
+      totalPayout += Math.round(bet * horse.odds);
+    }
+  });
+  const totalWagered = Object.values(state.bets).reduce((s,v) => s+v, 0);
+  const net = totalPayout - totalWagered;
+  state.balance += totalPayout; // bets were already deducted at place-time
+  saveBalance();
+  // Show result banner
+  const rb = document.getElementById('result-banner');
+  const payoutCls = net > 0 ? 'payout' : net < 0 ? 'payout loss' : 'payout';
+  const payoutTxt = totalWagered === 0
+    ? 'No bets placed.'
+    : (net > 0 ? '+$' + net : (net < 0 ? '-$' + Math.abs(net) : 'Push'));
+  rb.innerHTML =
+      '<div class="title">Winner — Race ' + state.raceNum + '</div>'
+    + '<div class="winner" style="color:#' + winner.color.toString(16).padStart(6,'0') + ';">#' + winner.gate + ' ' + winner.name + '</div>'
+    + '<div class="' + payoutCls + '">' + payoutTxt + '</div>'
+    + '<button onclick="window.__newRace()">Run Another Race</button>';
+  rb.style.display = 'block';
+}
+
+window.__newRace = function() {
+  state.raceNum++;
+  generateHorses();
+  buildHorses();
+  cameraTargetMode = 'wide';
+  document.getElementById('leaderboard').style.display = 'none';
+  document.getElementById('result-banner').style.display = 'none';
+  document.getElementById('hud-race-num').textContent = state.raceNum;
+  renderPaddock();
+};
+
+function animate() {
+  const dt = clock.getDelta();
+  if (state.raceActive) stepRace(dt);
+  // Update horse mesh positions
+  state.horses.forEach(h => {
+    if (!h.mesh) return;
+    const p = trackPosition(h.x, h.lane);
+    h.mesh.position.set(p.x, 0, p.z);
+    h.mesh.rotation.y = -p.heading;
+    // Animate legs — bobbing gait
+    if (state.raceActive) {
+      const t = performance.now() * 0.01;
+      h._legs.forEach((leg, i) => {
+        leg.position.y = 0.6 + Math.sin(t + h.id + i * 1.5) * 0.15;
+      });
+    }
+  });
+  // Camera
+  if (cameraTargetMode === 'wide' || !state.raceActive) {
+    camera.position.lerp(new THREE.Vector3(0, 80, 180), 0.05);
+    camera.lookAt(0, 0, 0);
+  } else {
+    // Follow the leader
+    const sorted = state.horses.slice().sort((a,b) => b.x - a.x);
+    const lead = sorted[0];
+    if (lead && lead.mesh) {
+      const lp = lead.mesh.position;
+      // Offset behind & above
+      const target = new THREE.Vector3(lp.x - Math.cos(-lead.mesh.rotation.y) * 25, 22, lp.z + Math.sin(-lead.mesh.rotation.y) * 25);
+      camera.position.lerp(target, 0.06);
+      camera.lookAt(lp.x, 2, lp.z);
+    }
+  }
+  // Update leaderboard
+  if (state.raceActive) updateLeaderboard();
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+
+function updateLeaderboard() {
+  const sorted = state.horses.slice().sort((a, b) => b.x - a.x);
+  const leadX = sorted[0].x;
+  const html = sorted.map((h, i) => {
+    const gap = i === 0 ? '—' : (leadX - h.x).toFixed(1) + 'm';
+    return '<div class="lb-row">'
+      + '<span class="pos">' + (i+1) + '</span>'
+      + '<span class="color-chip" style="background:#' + h.color.toString(16).padStart(6,'0') + ';"></span>'
+      + '<span class="nm">' + escHtml(h.name) + '</span>'
+      + '<span class="gap">' + gap + '</span>'
+      + '</div>';
+  }).join('');
+  document.getElementById('lb-list').innerHTML = html;
+}
+
+function escHtml(s) { return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+
+// ──────────────────────────────────────────────────────────────────────
+// Paddock UI — pre-race betting
+// ──────────────────────────────────────────────────────────────────────
+function renderPaddock() {
+  document.getElementById('hud-balance').textContent = '$' + state.balance.toLocaleString();
+  document.getElementById('hud-race-num').textContent = state.raceNum;
+
+  const rows = state.horses.map(h => {
+    const bet = state.bets[h.id] || 0;
+    const formStr = h.form.map(f => f === 1 ? '🥇' : f).join(' ');
+    return '<div class="horse-row ' + (bet > 0 ? 'bet-on' : '') + '" data-id="' + h.id + '">'
+      + '<div class="num">' + h.gate + '</div>'
+      + '<div class="swatch" style="background:#' + h.color.toString(16).padStart(6,'0') + ';"></div>'
+      + '<div class="name-cell">' + escHtml(h.name) + '<small>spd ' + h.speed.toFixed(1) + ' · stam ' + h.stamina.toFixed(2) + '</small></div>'
+      + '<div class="form">' + formStr + '</div>'
+      + '<div class="odds">' + h.oddsAm + '</div>'
+      + '<div class="bet-controls">'
+      +   '<input class="bet-input" type="number" min="0" max="' + state.balance + '" step="10" value="' + bet + '" data-id="' + h.id + '">'
+      + '</div>'
+      + '</div>';
+  }).join('');
+
+  const wagered = Object.values(state.bets).reduce((s,v) => s+v, 0);
+  document.getElementById('paddock').innerHTML =
+      '<h2>🏁 Race ' + state.raceNum + ' — Paddock</h2>'
+    + '<div class="sub">6 horses · 1000m sprint · place bets, then send them off</div>'
+    + '<div class="your-balance">Bank <b>$' + state.balance.toLocaleString() + '</b></div>'
+    + '<div class="pot">Total wagered: <b>$' + wagered + '</b></div>'
+    + '<div class="horse-list">' + rows + '</div>'
+    + '<div class="paddock-actions">'
+    +   '<button class="btn-secondary" onclick="window.__skipBets()">Skip betting</button>'
+    +   '<button onclick="window.__sendThem()">🏇 Send them off</button>'
+    + '</div>';
+  document.getElementById('paddock').style.display = 'block';
+  // Wire bet inputs
+  document.querySelectorAll('.bet-input').forEach(inp => {
+    inp.addEventListener('change', e => {
+      const id = parseInt(inp.getAttribute('data-id'));
+      let v = Math.max(0, parseInt(inp.value) || 0);
+      const others = Object.entries(state.bets).filter(([k]) => parseInt(k) !== id).reduce((s,[,vv]) => s+vv, 0);
+      if (v + others > state.balance) v = state.balance - others;
+      state.bets[id] = v;
+      renderPaddock();
+    });
+  });
+}
+
+window.__skipBets = function() {
+  state.bets = {};
+  startRace();
+};
+window.__sendThem = function() {
+  const wagered = Object.values(state.bets).reduce((s,v) => s+v, 0);
+  if (wagered > state.balance) { alert('Bets exceed bank.'); return; }
+  state.balance -= wagered;
+  saveBalance();
+  startRace();
+};
+
+document.getElementById('btn-new-race').addEventListener('click', window.__newRace);
+
+// ──────────────────────────────────────────────────────────────────────
+// Boot
+// ──────────────────────────────────────────────────────────────────────
+function boot() {
+  initThree();
+  generateHorses();
+  buildHorses();
+  renderPaddock();
+}
+
+window.__bootDerby = boot;
+</script>
+
+<script>
+function checkPwd(e) {
+  e.preventDefault();
+  var pwd = document.getElementById('pwd').value.trim();
+  if (pwd === '4444') {
+    try { sessionStorage.setItem('sports_unlocked', '1'); } catch(_){}
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('stage').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    if (window.__bootDerby) window.__bootDerby();
+  } else {
+    document.getElementById('err').textContent = '✗ wrong code';
+    document.getElementById('pwd').value = '';
+  }
+  return false;
+}
+try {
+  if (sessionStorage.getItem('sports_unlocked') === '1') {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('stage').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ if (window.__bootDerby) window.__bootDerby(); }, 50);
+  }
+} catch(_){}
+</script>
+
+</body>
+</html>
