@@ -621,18 +621,175 @@ function buildStartGates() {
   scene.add(startGatesGroup);
 }
 
-// Builds each horse. Uses the loaded GLTF model when available (real animated
-// horse from three.js's public assets, CC0). Falls back to a much-improved
-// procedural horse if the model didn't load.
+// 80s/90s Konami arcade-mascot chibi horses. Big eyes, bouncy proportions,
+// bright primary colors with toon-outline (back-side hull) — the kind of
+// horse you'd see in a Track & Field cabinet or Castlevania II credits.
+// Realistic GLTF model is intentionally skipped per owner direction.
 function buildHorses() {
   horseMeshes.forEach(g => scene.remove(g));
   horseMeshes = [];
+  buildHorsesChibi();
+}
 
-  if (LOADED_HORSE && LOADED_HORSE_CLIP) {
-    buildHorsesFromModel();
-    return;
-  }
-  buildHorsesProcedural();
+// Outline helper — clones a mesh, scales slightly, paints black on back side
+// so it shows as a chunky cartoon outline around the silhouette.
+function addOutline(parent, mesh, thickness) {
+  const t = thickness != null ? thickness : 1.06;
+  const outline = new THREE.Mesh(
+    mesh.geometry,
+    new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide })
+  );
+  outline.scale.set(t, t, t);
+  outline.position.copy(mesh.position);
+  outline.rotation.copy(mesh.rotation);
+  parent.add(outline);
+  return outline;
+}
+
+function buildHorsesChibi() {
+  state.horses.forEach(h => {
+    const g = new THREE.Group();
+
+    // Bright flat color per gate, almost no roughness — Konami sprite vibe
+    const coatMat = new THREE.MeshLambertMaterial({ color: h.color, emissive: h.color, emissiveIntensity: 0.18 });
+    const darkMat = new THREE.MeshLambertMaterial({ color: 0x101820 });
+    const whiteMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const blackMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+
+    // ── Stout chibi BODY — fat cylinder oriented along X
+    const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.85, 1.2, 8, 14), coatMat);
+    body.rotation.z = Math.PI / 2;
+    body.position.set(-0.15, 1.5, 0);
+    body.castShadow = true;
+    g.add(body);
+    addOutline(g, body, 1.08);
+
+    // ── OVERSIZED HEAD — big round sphere (40% of body)
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.92, 18, 14), coatMat);
+    head.position.set(1.5, 2.25, 0);
+    head.castShadow = true;
+    g.add(head);
+    addOutline(g, head, 1.06);
+
+    // Snout — small protrusion
+    const snout = new THREE.Mesh(new THREE.CapsuleGeometry(0.32, 0.3, 6, 10), coatMat);
+    snout.rotation.z = Math.PI / 2;
+    snout.position.set(2.25, 2.1, 0);
+    g.add(snout);
+    addOutline(g, snout, 1.08);
+    // Nostril dots
+    [0.18, -0.18].forEach(zz => {
+      const n = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 6), blackMat);
+      n.position.set(2.55, 2.08, zz);
+      g.add(n);
+    });
+
+    // ── CARTOON EYES — huge white spheres with black pupils
+    const makeEye = (z) => {
+      const eye = new THREE.Mesh(new THREE.SphereGeometry(0.28, 14, 10), whiteMat);
+      eye.position.set(1.95, 2.45, z);
+      g.add(eye);
+      // Black outline ring
+      const ring = new THREE.Mesh(new THREE.SphereGeometry(0.31, 14, 10), new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide }));
+      ring.position.copy(eye.position);
+      g.add(ring);
+      // Pupil — small black dot in front
+      const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.13, 10, 8), blackMat);
+      pupil.position.set(2.13, 2.45, z + (z > 0 ? 0.05 : -0.05));
+      g.add(pupil);
+      // Sparkle (tiny white dot for cartoony shine)
+      const sparkle = new THREE.Mesh(new THREE.SphereGeometry(0.05, 6, 4), whiteMat);
+      sparkle.position.set(2.22, 2.52, z + (z > 0 ? 0.08 : -0.08));
+      g.add(sparkle);
+      return eye;
+    };
+    h._eyeL = makeEye( 0.55);
+    h._eyeR = makeEye(-0.55);
+
+    // ── EARS — floppy triangle cones on top of head
+    [0.45, -0.45].forEach(zz => {
+      const ear = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.55, 5), coatMat);
+      ear.position.set(1.35, 3.05, zz);
+      ear.rotation.z = zz > 0 ? -0.2 : 0.2;
+      g.add(ear);
+      addOutline(g, ear, 1.1);
+    });
+
+    // ── MANE — chunky dark spheres along the neck/back from head to body
+    [[1.15, 2.7, 0],[0.85, 2.55, 0],[0.55, 2.35, 0]].forEach(p => {
+      const tuft = new THREE.Mesh(new THREE.SphereGeometry(0.32, 10, 8), darkMat);
+      tuft.position.set(p[0], p[1], p[2]);
+      g.add(tuft);
+    });
+
+    // ── TAIL — fat dark sphere/teardrop hanging off rear
+    const tail = new THREE.Mesh(new THREE.SphereGeometry(0.35, 10, 8), darkMat);
+    tail.position.set(-1.5, 1.25, 0);
+    tail.scale.set(0.6, 1.2, 0.6);
+    g.add(tail);
+    h._tail = tail;
+
+    // ── JOCKEY — round body with happy helmet face
+    const jockBody = new THREE.Mesh(new THREE.SphereGeometry(0.55, 14, 10), coatMat);
+    jockBody.position.set(0.2, 2.6, 0);
+    jockBody.scale.set(1, 1.1, 0.9);
+    jockBody.castShadow = true;
+    g.add(jockBody);
+    addOutline(g, jockBody, 1.08);
+    const helmet = new THREE.Mesh(new THREE.SphereGeometry(0.42, 14, 10), coatMat);
+    helmet.position.set(0.2, 3.15, 0);
+    g.add(helmet);
+    addOutline(g, helmet, 1.08);
+    // Helmet visor
+    const visor = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.12, 0.62), darkMat);
+    visor.position.set(0.32, 3.13, 0);
+    g.add(visor);
+    // Gate number disc on helmet top — bright white disc
+    const numDisc = new THREE.Mesh(new THREE.CircleGeometry(0.22, 16), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+    numDisc.position.set(0.2, 3.55, 0);
+    numDisc.rotation.x = -Math.PI / 2;
+    g.add(numDisc);
+
+    // ── LEGS — 4 thick stubby cylinders, animated as squash-and-bounce
+    h._legs = [];
+    const legAnchors = [
+      { x:  0.55, z:  0.45, side: 'front-r' },
+      { x:  0.55, z: -0.45, side: 'front-l' },
+      { x: -0.55, z:  0.45, side: 'back-r'  },
+      { x: -0.55, z: -0.45, side: 'back-l'  },
+    ];
+    legAnchors.forEach((a, i) => {
+      const leg = new THREE.Group();
+      const part = new THREE.Mesh(new THREE.CapsuleGeometry(0.22, 0.7, 6, 8), coatMat);
+      part.position.y = -0.4;
+      leg.add(part);
+      addOutline(leg, part, 1.1);
+      // Hoof (dark cap)
+      const hoof = new THREE.Mesh(new THREE.SphereGeometry(0.28, 10, 8), darkMat);
+      hoof.position.y = -0.85;
+      hoof.scale.set(1, 0.55, 1);
+      leg.add(hoof);
+      leg.position.set(a.x, 1.0, a.z);
+      g.add(leg);
+      h._legs.push({ group: leg, phase: i * Math.PI / 2, anchor: a });
+    });
+
+    // ── GROUND LANE-COLOR DISC — chunky color ring under the horse
+    const ring = new THREE.Mesh(
+      new THREE.RingGeometry(1.0, 1.55, 24),
+      new THREE.MeshBasicMaterial({ color: h.color, transparent: true, opacity: 0.55, side: THREE.DoubleSide })
+    );
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.y = 0.08;
+    g.add(ring);
+
+    addDustTrail(h);
+
+    h.mesh = g;
+    h._isChibi = true;
+    scene.add(g);
+    horseMeshes.push(g);
+  });
 }
 
 function buildHorsesFromModel() {
@@ -996,21 +1153,24 @@ function animate() {
     const p = trackPosition(h.x, h.lane);
     h.mesh.position.set(p.x, 0, p.z);
     h.mesh.rotation.y = -p.heading;
-    // Procedural-leg gallop animation (only if procedural horses; loaded model
-    // is driven by AnimationMixer above).
+    // CHIBI gallop animation — exaggerated bounce + squash & stretch + leg pump
     if (state.raceActive && h._legs) {
-      const t = performance.now() * 0.018;
+      const t = performance.now() * 0.022;
       h._legs.forEach((leg, i) => {
-        // Pairs: FL+BR swing together, FR+BL swing together
-        const pair = (i === 0 || i === 3) ? 0 : Math.PI;
-        const swing = Math.sin(t * 2 + h.id * 0.7 + pair);
-        leg.group.position.y = 1.0 + Math.max(0, swing) * 0.35;
-        leg.group.rotation.x = -swing * 0.55; // forward/back swing
+        // Front-pair and back-pair alternate as one "two-legged" bounce
+        const pair = (leg.anchor.side.indexOf('front') === 0) ? 0 : Math.PI;
+        const swing = Math.sin(t * 2 + h.id * 0.5 + pair);
+        leg.group.position.y = 1.0 + Math.max(0, swing) * 0.45;
+        leg.group.rotation.x = -swing * 0.4;
       });
-      // Tail wags slightly with motion
-      if (h._tail) h._tail.rotation.z = -Math.PI/4 + Math.sin(t) * 0.12;
-      // Body bob — small vertical oscillation in sync with gait
-      h.mesh.position.y = Math.abs(Math.sin(t * 2 + h.id)) * 0.15;
+      // Tail wags expressively
+      if (h._tail) h._tail.rotation.z = Math.sin(t * 3) * 0.25;
+      // Body bounce — high vertical oscillation gives that bouncy chibi gait
+      h.mesh.position.y = Math.abs(Math.sin(t * 2 + h.id)) * 0.32;
+      // Random blink (eyes squish closed briefly)
+      const blink = Math.sin(t * 0.2 + h.id) > 0.97 ? 0.2 : 1.0;
+      if (h._eyeL) h._eyeL.scale.y = blink;
+      if (h._eyeR) h._eyeR.scale.y = blink;
       // Dust emission — eject one particle per frame at horse rear, fade & drift
       const dust = h._dust;
       if (dust) {
@@ -1153,11 +1313,7 @@ document.getElementById('btn-new-race').addEventListener('click', window.__newRa
 async function boot() {
   initThree();
   generateHorses();
-  // Show loading state
-  document.getElementById('paddock').innerHTML =
-    '<h2>🐎 Loading…</h2><div class="sub" style="text-align:center;color:rgba(180,210,255,0.7);">Downloading horse models from three.js asset library…</div>';
-  document.getElementById('paddock').style.display = 'block';
-  await loadHorseModel();
+  // No external model load — chibi character horses ship instantly.
   buildHorses();
   renderPaddock();
 }
