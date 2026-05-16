@@ -119,16 +119,16 @@
     .empty b { color:var(--orange-bright); }
     .entry {
       background:rgba(10,14,20,0.55); border:1px solid rgba(255,255,255,0.08);
-      border-radius:8px; padding:7px 14px; margin:4px 0;
+      border-radius:8px; padding:11px 16px; margin:6px 0;
       cursor:pointer; transition:all 0.15s;
     }
     .entry:hover { border-color:rgba(232,113,10,0.45); background:rgba(232,113,10,0.04); }
-    .entry-question { font-size:0.92rem; font-weight:700; color:var(--ink); margin:0 0 3px; line-height:1.25; }
+    .entry-question { font-size:1.05rem; font-weight:700; color:var(--ink); margin:0 0 3px; line-height:1.35; }
     .entry-badges { display:flex; flex-wrap:wrap; gap:3px; align-items:center; margin:0 0 3px; }
     .entry-meta { display:flex; gap:8px; flex-wrap:wrap; align-items:center; font-size:0.55rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(237,229,216,0.45); }
     .entry-tag { display:inline-block; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); color:rgba(237,229,216,0.65); padding:1px 6px; border-radius:999px; font-size:0.52rem; text-decoration:none; transition:all 0.12s; }
     a.entry-tag:hover { background:rgba(232,113,10,0.12); border-color:rgba(232,113,10,0.4); color:rgba(255,180,90,0.9); text-decoration:none; }
-    .entry-body { display:none; margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.08); font-size:0.95rem; line-height:1.7; color:rgba(237,229,216,0.9); }
+    .entry-body { display:none; margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.08); font-size:1.08rem; line-height:1.75; color:rgba(237,229,216,0.92); }
     .entry-body.show { display:block; }
     .entry-body h2, .entry-body h3 {
       font-size:0.78rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase;
@@ -216,6 +216,33 @@
       0%, 100% { box-shadow: 0 0 8px rgba(0,255,65,0.5); transform: scale(1); }
       50%      { box-shadow: 0 0 18px rgba(0,255,65,0.85); transform: scale(1.03); }
     }
+    /* LIVE in-flight card — overrides per-card inline border/glow so the entry
+       being actively polished by a Claude Opus subagent right now is visually
+       unmistakable. Up to 4 cards light up at once; rotates as agents finish. */
+    @keyframes liveInFlightPulse {
+      0%, 100% { box-shadow: 0 0 16px rgba(0,255,65,0.6), 0 0 32px rgba(0,255,65,0.25); border-color:#00ff41; }
+      50%      { box-shadow: 0 0 28px rgba(0,255,65,0.95), 0 0 48px rgba(0,255,65,0.4); border-color:#7BFF8F; }
+    }
+    .entry.is-live-polishing {
+      border: 2px solid #00ff41 !important;
+      background: linear-gradient(90deg, rgba(0,255,65,0.18), rgba(0,255,65,0.04) 60%) !important;
+      animation: liveInFlightPulse 1.4s ease-in-out infinite;
+      position: relative;
+    }
+    .entry.is-live-polishing::before {
+      content: '⚡ LIVE POLISH';
+      position: absolute;
+      top: -10px; right: 14px;
+      background: linear-gradient(135deg, #00ff41, #00C030);
+      color: #001405;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 0.56rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      box-shadow: 0 0 14px rgba(0,255,65,0.8);
+      z-index: 2;
+    }
     @media (max-width: 640px) {
       #matrix-status { bottom: 14px; right: 14px; padding: 7px 10px; font-size: 0.66rem; }
       #matrix-status .ms-sub { display: none; }
@@ -271,15 +298,496 @@
     <span id="copb-pct" style="font-weight:900;color:#FF6B6B;min-width:46px;text-align:right;">—%</span>
     <span id="copb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / — rewritten · latest: —</span>
   </div>
-  <style>body { padding-top: 64px; } @media (max-width:640px) { #ipb-detail, #copb-detail { display:none !important; } #index-progress-bar, #claude-opus-progress-bar { gap:8px !important; padding:0 10px !important; font-size:0.55rem !important; } }</style>
+  <!-- Rewrites/hour bar — shows pace of deep-rewrite-to-10K-words-and-repolish-to-10/10 cycle. -->
+  <div id="rewrites-rate-bar" style="position:fixed;top:64px;left:0;right:0;height:32px;z-index:9996;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(255,215,64,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#FFE9A0;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+    <span style="font-weight:900;color:#FFD740;white-space:nowrap;">⚡ Rewrites /hr</span>
+    <div id="rrb-track" style="flex:1;height:8px;background:rgba(255,215,64,0.08);border:1px solid rgba(255,215,64,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
+      <div id="rrb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#FFD740 0%,#FF8C1A 100%);border-radius:99px;box-shadow:0 0 10px rgba(255,215,64,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+    </div>
+    <span id="rrb-pace" style="font-weight:900;color:#FFD740;min-width:60px;text-align:right;">— /hr</span>
+    <span id="rrb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— rewrites last hour · 10K words + 10/10 polish</span>
+  </div>
+  <!-- 9K+ words bar — shows % of library that has crossed 9,000 words threshold. -->
+  <div id="nine-k-bar" style="position:fixed;top:96px;left:0;right:0;height:32px;z-index:9994;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(57,255,20,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#B6FFB4;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+    <span style="font-weight:900;color:#39FF14;white-space:nowrap;">📖 Answers ≥ 9K words</span>
+    <div id="nkb-track" style="flex:1;height:8px;background:rgba(57,255,20,0.08);border:1px solid rgba(57,255,20,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
+      <div id="nkb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#39FF14 0%,#00B830 100%);border-radius:99px;box-shadow:0 0 10px rgba(57,255,20,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+    </div>
+    <span id="nkb-pct" style="font-weight:900;color:#39FF14;min-width:46px;text-align:right;">—%</span>
+    <span id="nkb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / — entries past 9,000-word threshold</span>
+  </div>
+  <!-- "Hot Now" live activity bar — Krispy-Kreme style glowing status. Shows what the machine is doing RIGHT NOW. -->
+  <div id="hot-now-bar" onclick="location.href='/village'" title="Open the Village — every worker, live" style="position:fixed;top:128px;left:0;right:0;height:34px;z-index:9997;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(255,57,150,0.45);display:flex;align-items:center;justify-content:center;gap:14px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.64rem;letter-spacing:0.18em;text-transform:uppercase;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);overflow:hidden;cursor:pointer;">
+    <span id="hn-dot" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#FF3996;box-shadow:0 0 12px rgba(255,57,150,0.9),0 0 4px rgba(255,57,150,1);animation:hnPulse 1.4s ease-in-out infinite;"></span>
+    <span id="hn-label" style="color:#FF3996;font-weight:900;text-shadow:0 0 8px rgba(255,57,150,0.7);">HOT NOW</span>
+    <span id="hn-text" style="color:#FFE0EE;font-weight:700;">— checking —</span>
+    <span id="hn-target" style="color:#FFB4D4;opacity:0.85;font-weight:600;"></span>
+    <span style="color:#7BB6FF;opacity:0.85;font-weight:700;border:1px solid rgba(123,182,255,0.4);border-radius:99px;padding:1px 9px;white-space:nowrap;">◉ Live Map ▸</span>
+  </div>
+  <style>@keyframes hnPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.55;transform:scale(0.7);}} body { padding-top: 162px; } @media (max-width:640px) { #ipb-detail, #copb-detail, #rrb-detail, #nkb-detail { display:none !important; } #index-progress-bar, #claude-opus-progress-bar, #rewrites-rate-bar, #nine-k-bar, #hot-now-bar { gap:8px !important; padding:0 10px !important; font-size:0.55rem !important; } }</style>
+  <script>
+  (function(){
+    function refreshTopBars(){
+      fetch('/.netlify/functions/pulse-machine-library-list?status=1', { cache: 'no-store' })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+          if (!d || !d.ok) return;
+          var co = d.claude_opus_progress || {};
+          // Rewrites/hour bar
+          var rate = co.rewrites_per_hour || 0;
+          var lastHour = co.rewrites_last_hour || 0;
+          var rfill = document.getElementById('rrb-fill');
+          var rpace = document.getElementById('rrb-pace');
+          var rdetail = document.getElementById('rrb-detail');
+          var rpct = Math.min(100, (rate / 30) * 100);
+          if (rfill) rfill.style.width = rpct.toFixed(1) + '%';
+          if (rpace) rpace.textContent = rate.toFixed(1) + ' /hr';
+          if (rdetail) rdetail.textContent = lastHour + ' rewrites last hour · 10K words + 10/10 polish';
+          // 9K+ words bar
+          var nineK = co.nine_k_count || 0;
+          var totalLib = co.total_library || d.library_total || 1614;
+          var nfill = document.getElementById('nkb-fill');
+          var npct = document.getElementById('nkb-pct');
+          var ndetail = document.getElementById('nkb-detail');
+          var pctNum = totalLib > 0 ? (nineK / totalLib) * 100 : 0;
+          if (nfill) nfill.style.width = Math.min(100, pctNum).toFixed(2) + '%';
+          if (npct) npct.textContent = pctNum.toFixed(2) + '%';
+          if (ndetail) ndetail.textContent = nineK + ' / ' + totalLib + ' entries past 9,000-word threshold';
+        })
+        .catch(function(){});
+    }
+    refreshTopBars();
+    setInterval(refreshTopBars, 30000);
+  })();
+  </script>
+  <script>
+  (function(){
+    var label = document.getElementById('hn-label');
+    var text  = document.getElementById('hn-text');
+    var tgt   = document.getElementById('hn-target');
+    var dot   = document.getElementById('hn-dot');
+    function paintIdle(){
+      if (label) { label.textContent = 'IDLE'; label.style.color = '#7BB6FF'; label.style.textShadow = '0 0 8px rgba(123,182,255,0.6)'; }
+      if (dot)   { dot.style.background = '#7BB6FF'; dot.style.boxShadow = '0 0 10px rgba(123,182,255,0.6)'; }
+      if (text)  text.textContent = 'standing by';
+      if (tgt)   tgt.textContent = '';
+    }
+    function paintActive(action, target, score){
+      var actionMap = {
+        writing:   { color:'#FF3996', glow:'rgba(255,57,150,0.85)', label:'NOW WRITING' },
+        polishing: { color:'#FFB347', glow:'rgba(255,179,71,0.85)',  label:'NOW POLISHING' },
+        indexing:  { color:'#39FF14', glow:'rgba(57,255,20,0.85)',   label:'NOW INDEXING' },
+        auditing:  { color:'#B388FF', glow:'rgba(179,136,255,0.85)', label:'NOW AUDITING' },
+        idle:      { color:'#7BB6FF', glow:'rgba(123,182,255,0.6)',  label:'IDLE' },
+      };
+      var m = actionMap[action] || actionMap.writing;
+      if (label) { label.textContent = m.label; label.style.color = m.color; label.style.textShadow = '0 0 8px ' + m.glow; }
+      if (dot)   { dot.style.background = m.color; dot.style.boxShadow = '0 0 12px ' + m.glow + ',0 0 4px ' + m.color; }
+      var textMsg = action === 'writing' ? 'baseline + tldr + core + flow'
+                  : action === 'polishing' ? ('layer ' + (score || '?') + '/10')
+                  : action === 'indexing' ? 'pinging Bing / Yandex'
+                  : action === 'auditing' ? 'double-checking 10/10 entries'
+                  : action === 'idle' ? ('last finished ' + (target || ''))
+                  : '—';
+      if (text) text.textContent = textMsg;
+      if (tgt)  tgt.textContent = target ? ('· ' + target) : '';
+    }
+    // Live in-flight card highlight — paints a bright green glow on the cards
+    // for ids actively being rewritten right now by Claude Opus subagents (up
+    // to 4 in parallel). Rotates as agents finish and the next ones start.
+    function paintInFlightCards(ids){
+      var set = {};
+      (ids || []).forEach(function(id){ set[id] = 1; });
+      // Apply / remove on existing cards. Card render attaches data-id="qNNN".
+      var cards = document.querySelectorAll('.entry[data-id]');
+      for (var i = 0; i < cards.length; i++) {
+        var c = cards[i];
+        var id = c.getAttribute('data-id');
+        if (set[id]) c.classList.add('is-live-polishing');
+        else c.classList.remove('is-live-polishing');
+      }
+    }
+    function refresh(){
+      fetch('/.netlify/functions/pulse-machine-library-list?status=1', { cache: 'no-store' })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+          if (!d || !d.ok) return;
+          // Hot Now bar
+          var a = d.current_activity;
+          if (a) {
+            var ageMs = Date.now() - (a.ts || 0);
+            if (ageMs > 5 * 60 * 1000) paintActive('idle', a.target);
+            else paintActive(a.action || 'writing', a.target, a.score);
+          } else paintIdle();
+          // Live card highlights — rotate as agents start/finish
+          paintInFlightCards((d.in_flight && d.in_flight.ids) || []);
+        })
+        .catch(function(){ /* silent */ });
+    }
+    refresh();
+    setInterval(refresh, 4000);
+  })();
+  </script>
   <canvas id="matrix-rain" aria-hidden="true"></canvas>
   <div class="matrix-scanlines" aria-hidden="true"></div>
+  <!-- KWWW random background flash — pops up every 5-15 min at random position with low opacity.
+       Each fire picks a random "funny mode": clown nose, halloween, sunglasses, mustache, wizard,
+       money rain, devil horns, party, propeller, christmas, mind-blown, confetti, etc.
+       Plus random size (tiny pop / normal / huge takeover), random movement choreography
+       (drift / spin / bounce / shake / wiggle / swoop / sneak), and random hue rotation. -->
+  <style>
+    #kwww-stage{position:fixed;top:50%;left:50%;pointer-events:none;z-index:2;opacity:0;width:320px;
+      transform:translate(-50%,-50%) scale(0.95);transition:opacity 1.6s ease-in-out, transform 1.6s ease-in-out;}
+    #kwww-stage.kwww-swoop{transition:opacity 1.6s ease-in-out, transform 1.6s ease-in-out, left 4.2s ease-in-out, top 4.2s ease-in-out;}
+    #kwww-flash{display:block;width:100%;height:auto;filter:blur(0.4px);}
+    #kwww-deco{position:absolute;inset:0;font-size:0;line-height:1;pointer-events:none;}
+    #kwww-deco span{display:block;}
+    @keyframes kwww-wiggle{0%,100%{transform:translate(-50%,-50%) rotate(var(--kr,0deg)) scale(1);}25%{transform:translate(-50%,-50%) rotate(calc(var(--kr,0deg) + 6deg)) scale(1.03);}75%{transform:translate(-50%,-50%) rotate(calc(var(--kr,0deg) - 6deg)) scale(1.03);}}
+    @keyframes kwww-shake{0%,100%{transform:translate(-50%,-50%) rotate(var(--kr,0deg));}20%{transform:translate(calc(-50% + 6px),calc(-50% - 4px)) rotate(var(--kr,0deg));}40%{transform:translate(calc(-50% - 6px),calc(-50% + 4px)) rotate(var(--kr,0deg));}60%{transform:translate(calc(-50% + 5px),calc(-50% + 3px)) rotate(var(--kr,0deg));}80%{transform:translate(calc(-50% - 5px),calc(-50% - 3px)) rotate(var(--kr,0deg));}}
+    @keyframes kwww-bounce{0%,100%{transform:translate(-50%,-50%) rotate(var(--kr,0deg)) scale(1);}50%{transform:translate(-50%,-50%) rotate(var(--kr,0deg)) scale(1.14);}}
+    @keyframes kwww-spin{from{transform:translate(-50%,-50%) rotate(var(--kr,0deg)) scale(1);}to{transform:translate(-50%,-50%) rotate(calc(var(--kr,0deg) + 360deg)) scale(1);}}
+  </style>
+  <div id="kwww-stage" aria-hidden="true">
+    <img id="kwww-flash" src="/assets/kwww.jpg" alt="">
+    <div id="kwww-deco"></div>
+  </div>
+  <script>
+  (function(){
+    var stage = document.getElementById('kwww-stage');
+    var deco  = document.getElementById('kwww-deco');
+    if (!stage || !deco) return;
+
+    // ── Funny mode generators. Each returns absolute-positioned HTML overlay
+    //    sized in % so it scales with the stage container regardless of stage px size.
+    function abs(top, left, fs, content, extra){
+      return '<span style="position:absolute;top:'+top+';left:'+left+';transform:translate(-50%,-50%);font-size:'+fs+';'+(extra||'')+'">'+content+'</span>';
+    }
+    // Procedural mode helpers — generate themed overlays from emoji palettes.
+    // Each helper returns { html, tag } so we can do date-aware filtering on tag.
+    function single(em){ return function(s){ return abs('50%','50%',(s*0.55|0)+'px',em); }; }
+    function singleTop(em){ return function(s){ return abs('-2%','50%',(s*0.42|0)+'px',em); }; }
+    function trio(em){ return function(s){ var f=(s*0.28|0)+'px'; return abs('18%','18%',f,em)+abs('18%','82%',f,em)+abs('86%','50%',f,em); }; }
+    function quint(em){ return function(s){ var f=(s*0.24|0)+'px'; return abs('15%','15%',f,em)+abs('15%','85%',f,em)+abs('50%','50%',(s*0.32|0)+'px',em)+abs('85%','25%',f,em)+abs('85%','75%',f,em); }; }
+    function rain(arr){ return function(s){ var h=''; for(var i=0;i<12;i++){ h += abs((5+Math.random()*90)+'%',(5+Math.random()*90)+'%',(10+Math.random()*(s*0.2)|0)+'px',arr[i%arr.length]); } return h; }; }
+    function ring(em){ return function(s){ var f=(s*0.2|0)+'px'; var h=''; for(var i=0;i<10;i++){ var t=i*36*Math.PI/180; h += abs((50+45*Math.sin(t))+'%',(50+45*Math.cos(t))+'%',f,em); } return h; }; }
+    function pair(top, bottom){ return function(s){ return abs('15%','50%',(s*0.38|0)+'px',top)+abs('80%','50%',(s*0.38|0)+'px',bottom); }; }
+    function corners(em){ return function(s){ var f=(s*0.22|0)+'px'; return abs('10%','10%',f,em)+abs('10%','90%',f,em)+abs('90%','10%',f,em)+abs('90%','90%',f,em); }; }
+    function nose(color){ return function(s){ var n=(s*0.18|0); return '<span style="position:absolute;top:54%;left:50%;transform:translate(-50%,-50%);width:'+n+'px;height:'+n+'px;background:'+color+';border-radius:50%;box-shadow:0 0 14px '+color+'aa;"></span>'; }; }
+
+    // Tagged mode dictionary — `tag` enables date-aware seasonal biasing.
+    var modes = [
+      // CLOWN / CIRCUS
+      { tag:'clown',     fn: single('🤡') },
+      { tag:'clown',     fn: nose('#ff2d3a') },
+      { tag:'circus',    fn: pair('🤹','🎪') },
+      // GOOFY FACES
+      { tag:'goofy',     fn: single('😎') },
+      { tag:'goofy',     fn: single('🥸') },
+      { tag:'goofy',     fn: single('🤓') },
+      { tag:'goofy',     fn: single('🤪') },
+      { tag:'goofy',     fn: single('🥳') },
+      { tag:'goofy',     fn: single('🤯') },
+      { tag:'goofy',     fn: single('🫨') },
+      { tag:'goofy',     fn: single('🥴') },
+      { tag:'goofy',     fn: single('😵‍💫') },
+      { tag:'goofy',     fn: single('🤠') },
+      { tag:'goofy',     fn: single('🫡') },
+      { tag:'goofy',     fn: single('🤫') },
+      { tag:'goofy',     fn: single('🤥') },
+      { tag:'goofy',     fn: single('😴') },
+      { tag:'goofy',     fn: single('🤤') },
+      { tag:'goofy',     fn: single('🥺') },
+      { tag:'goofy',     fn: single('🤔') },
+      { tag:'goofy',     fn: single('😇') },
+      // HALLOWEEN (Oct)
+      { tag:'halloween', fn: function(s){ var f=(s*0.28|0)+'px'; return abs('15%','15%',f,'🎃')+abs('15%','85%',f,'👻')+abs('88%','50%',f,'🦇'); } },
+      { tag:'halloween', fn: single('🎃') },
+      { tag:'halloween', fn: single('👻') },
+      { tag:'halloween', fn: single('🧙') },
+      { tag:'halloween', fn: single('🧛') },
+      { tag:'halloween', fn: single('🧟') },
+      { tag:'halloween', fn: single('🧞') },
+      { tag:'halloween', fn: trio('🦇') },
+      { tag:'halloween', fn: trio('🕷️') },
+      { tag:'halloween', fn: trio('☠️') },
+      { tag:'halloween', fn: ring('🕸️') },
+      { tag:'halloween', fn: single('💀') },
+      // CHRISTMAS (Dec)
+      { tag:'christmas', fn: function(s){ var f=(s*0.4|0)+'px'; var f2=(s*0.18|0)+'px'; return abs('15%','50%',f,'🎅')+abs('30%','12%',f2,'❄️')+abs('60%','88%',f2,'❄️')+abs('85%','25%',f2,'❄️'); } },
+      { tag:'christmas', fn: single('🎄') },
+      { tag:'christmas', fn: single('🎅') },
+      { tag:'christmas', fn: single('🤶') },
+      { tag:'christmas', fn: single('🦌') },
+      { tag:'christmas', fn: single('🎁') },
+      { tag:'christmas', fn: quint('🎁') },
+      { tag:'christmas', fn: rain(['❄️','⛄','🎄','🎅','🎁','🦌']) },
+      { tag:'christmas', fn: single('⛄') },
+      { tag:'christmas', fn: single('🧝') },
+      // NEW YEAR (Jan / Dec)
+      { tag:'newyear',   fn: function(s){ var f=(s*0.35|0)+'px'; var f2=(s*0.22|0)+'px'; return abs('20%','50%',f,'🎉')+abs('55%','12%',f2,'🥂')+abs('55%','88%',f2,'🥂')+abs('85%','30%',f2,'🎊')+abs('85%','70%',f2,'🎊'); } },
+      { tag:'newyear',   fn: single('🎆') },
+      { tag:'newyear',   fn: rain(['🎉','🎊','🎆','🎇','✨']) },
+      // VALENTINES (Feb)
+      { tag:'valentine', fn: function(s){ var f=(s*0.22|0)+'px'; return abs('45%','30%',f,'❤️')+abs('45%','70%',f,'❤️')+abs('10%','85%',(s*0.3|0)+'px','💘')+abs('85%','15%',(s*0.3|0)+'px','💖'); } },
+      { tag:'valentine', fn: single('😍') },
+      { tag:'valentine', fn: single('🥰') },
+      { tag:'valentine', fn: single('💘') },
+      { tag:'valentine', fn: rain(['❤️','💖','💕','💗','💞','💓']) },
+      { tag:'valentine', fn: ring('💕') },
+      // ST PATRICKS (Mar)
+      { tag:'stpatrick', fn: single('🍀') },
+      { tag:'stpatrick', fn: single('☘️') },
+      { tag:'stpatrick', fn: trio('🍀') },
+      { tag:'stpatrick', fn: rain(['🍀','☘️','🌈','💚']) },
+      // EASTER (Apr)
+      { tag:'easter',    fn: single('🐰') },
+      { tag:'easter',    fn: single('🐣') },
+      { tag:'easter',    fn: quint('🥚') },
+      { tag:'easter',    fn: rain(['🐰','🐣','🥚','🌷','🌸']) },
+      // SUMMER / JULY 4 (Jul)
+      { tag:'july4',     fn: rain(['🎆','🎇','🇺🇸','⭐','✨']) },
+      { tag:'july4',     fn: single('🦅') },
+      { tag:'july4',     fn: single('🇺🇸') },
+      { tag:'summer',    fn: single('🌞') },
+      { tag:'summer',    fn: single('🏖️') },
+      { tag:'summer',    fn: single('🍉') },
+      // THANKSGIVING (Nov)
+      { tag:'thanks',    fn: single('🦃') },
+      { tag:'thanks',    fn: single('🥧') },
+      { tag:'thanks',    fn: trio('🍂') },
+      { tag:'thanks',    fn: rain(['🦃','🥧','🍂','🌽','🍁']) },
+      // OUTFITS / PROFESSIONS
+      { tag:'outfit',    fn: single('🤵') },
+      { tag:'outfit',    fn: single('👰') },
+      { tag:'outfit',    fn: single('👮') },
+      { tag:'outfit',    fn: single('👷') },
+      { tag:'outfit',    fn: single('💂') },
+      { tag:'outfit',    fn: single('🕵️') },
+      { tag:'outfit',    fn: single('👨‍⚕️') },
+      { tag:'outfit',    fn: single('👨‍🍳') },
+      { tag:'outfit',    fn: single('👨‍🚀') },
+      { tag:'outfit',    fn: single('👨‍🎤') },
+      { tag:'outfit',    fn: single('👨‍🎨') },
+      { tag:'outfit',    fn: single('👨‍⚖️') },
+      { tag:'outfit',    fn: single('👨‍🔬') },
+      { tag:'outfit',    fn: single('🥷') },
+      { tag:'outfit',    fn: single('🤴') },
+      { tag:'outfit',    fn: single('👸') },
+      { tag:'outfit',    fn: single('🧚') },
+      { tag:'outfit',    fn: single('🧜') },
+      { tag:'outfit',    fn: singleTop('👑') },
+      { tag:'outfit',    fn: singleTop('🎩') },
+      { tag:'outfit',    fn: singleTop('🧢') },
+      { tag:'outfit',    fn: singleTop('🪖') },
+      { tag:'outfit',    fn: singleTop('⛑️') },
+      { tag:'outfit',    fn: singleTop('🪄') },
+      { tag:'outfit',    fn: singleTop('🚁') }, // propeller
+      // SPORTS
+      { tag:'sports',    fn: single('⚽') },
+      { tag:'sports',    fn: single('🏀') },
+      { tag:'sports',    fn: single('🏈') },
+      { tag:'sports',    fn: single('⚾') },
+      { tag:'sports',    fn: single('🥎') },
+      { tag:'sports',    fn: single('🎾') },
+      { tag:'sports',    fn: single('🏐') },
+      { tag:'sports',    fn: single('🏉') },
+      { tag:'sports',    fn: single('🥊') },
+      { tag:'sports',    fn: rain(['⚽','🏀','🏈','⚾','🎾','🏐']) },
+      // ANIMALS
+      { tag:'animal',    fn: single('🐶') },
+      { tag:'animal',    fn: single('🐱') },
+      { tag:'animal',    fn: single('🐭') },
+      { tag:'animal',    fn: single('🦊') },
+      { tag:'animal',    fn: single('🐻') },
+      { tag:'animal',    fn: single('🐼') },
+      { tag:'animal',    fn: single('🐨') },
+      { tag:'animal',    fn: single('🦁') },
+      { tag:'animal',    fn: single('🐯') },
+      { tag:'animal',    fn: single('🐸') },
+      { tag:'animal',    fn: single('🐵') },
+      { tag:'animal',    fn: single('🦄') },
+      { tag:'animal',    fn: single('🐙') },
+      { tag:'animal',    fn: single('🦖') },
+      { tag:'animal',    fn: single('🐢') },
+      { tag:'animal',    fn: single('🦥') },
+      { tag:'animal',    fn: single('🦦') },
+      { tag:'animal',    fn: single('🦔') },
+      // FOOD
+      { tag:'food',      fn: single('🍕') },
+      { tag:'food',      fn: single('🍔') },
+      { tag:'food',      fn: single('🌮') },
+      { tag:'food',      fn: single('🍣') },
+      { tag:'food',      fn: single('🍦') },
+      { tag:'food',      fn: single('🍩') },
+      { tag:'food',      fn: single('🍌') },
+      { tag:'food',      fn: single('☕') },
+      { tag:'food',      fn: trio('🍕') },
+      { tag:'food',      fn: rain(['🍕','🍔','🌮','🍣','🍦','🍩','🍪']) },
+      // WEATHER
+      { tag:'weather',   fn: single('🌈') },
+      { tag:'weather',   fn: single('⛈️') },
+      { tag:'weather',   fn: single('☀️') },
+      { tag:'weather',   fn: single('🌪️') },
+      { tag:'weather',   fn: single('❄️') },
+      { tag:'weather',   fn: rain(['❄️','❄️','❄️']) },
+      { tag:'weather',   fn: rain(['💧','💧','💧','💧']) },
+      // SPACE
+      { tag:'space',     fn: single('🚀') },
+      { tag:'space',     fn: single('🛸') },
+      { tag:'space',     fn: single('👽') },
+      { tag:'space',     fn: single('👾') },
+      { tag:'space',     fn: single('🪐') },
+      { tag:'space',     fn: single('🌌') },
+      { tag:'space',     fn: rain(['⭐','🌟','💫','✨','🌠']) },
+      // MONEY
+      { tag:'money',     fn: rain(['💵','💰','🤑','💸','🪙']) },
+      { tag:'money',     fn: single('🤑') },
+      { tag:'money',     fn: single('💰') },
+      { tag:'money',     fn: corners('💵') },
+      // FIRE / HOT
+      { tag:'fire',      fn: ring('🔥') },
+      { tag:'fire',      fn: single('🔥') },
+      // PARTY
+      { tag:'party',     fn: function(s){ var f=(s*0.35|0)+'px'; var f2=(s*0.22|0)+'px'; return abs('20%','50%',f,'🎉')+abs('55%','12%',f2,'✨')+abs('55%','88%',f2,'✨')+abs('85%','30%',f2,'🎊')+abs('85%','70%',f2,'🎊'); } },
+      { tag:'party',     fn: rain(['🎉','🎊','🎈','🎁','✨']) },
+      { tag:'party',     fn: ring('🎈') },
+      // ABSURD / RANDOM
+      { tag:'absurd',    fn: single('🚽') },
+      { tag:'absurd',    fn: single('🧻') },
+      { tag:'absurd',    fn: single('🪤') },
+      { tag:'absurd',    fn: single('🦠') },
+      { tag:'absurd',    fn: single('🧠') },
+      { tag:'absurd',    fn: single('🫀') },
+      { tag:'absurd',    fn: single('👁️') },
+      { tag:'absurd',    fn: corners('❓') },
+      { tag:'absurd',    fn: trio('❗') },
+      { tag:'absurd',    fn: ring('✨') },
+      // MUSIC
+      { tag:'music',     fn: single('🎸') },
+      { tag:'music',     fn: single('🎷') },
+      { tag:'music',     fn: single('🎺') },
+      { tag:'music',     fn: single('🥁') },
+      { tag:'music',     fn: rain(['🎵','🎶','🎼','🎵','🎶']) },
+      // PROPS — just hats / accessories on top
+      { tag:'props',     fn: singleTop('🎓') },
+      { tag:'props',     fn: singleTop('🎀') },
+      { tag:'props',     fn: singleTop('🌹') },
+      { tag:'props',     fn: singleTop('🍕') },
+      // EYES / WATCHING
+      { tag:'eyes',      fn: single('👀') },
+      { tag:'eyes',      fn: trio('👁️') }
+    ];
+
+    // ── Date-aware biasing ────────────────────────────────────────────────
+    // We weight modes that match the current season so the background "knows"
+    // the holidays. Always falls back to the full library otherwise.
+    function seasonalTags(){
+      var m = new Date().getMonth(); // 0-11
+      var s = [];
+      // Heavy seasonal slot — biased toward calendar
+      if (m === 9)       s = ['halloween','halloween','halloween','goofy','animal'];
+      else if (m === 10) s = ['thanks','thanks','halloween','goofy','animal'];
+      else if (m === 11) s = ['christmas','christmas','christmas','newyear','goofy'];
+      else if (m === 0)  s = ['newyear','newyear','christmas','goofy','animal','weather'];
+      else if (m === 1)  s = ['valentine','valentine','goofy','animal'];
+      else if (m === 2)  s = ['stpatrick','stpatrick','goofy','weather','animal'];
+      else if (m === 3)  s = ['easter','easter','weather','goofy','animal'];
+      else if (m === 4)  s = ['spring','weather','animal','goofy','party'];
+      else if (m === 5)  s = ['summer','goofy','animal','party','food'];
+      else if (m === 6)  s = ['july4','july4','summer','goofy','animal'];
+      else if (m === 7)  s = ['summer','goofy','animal','food','party'];
+      else               s = ['weather','goofy','animal','outfit','sports'];
+      return s;
+    }
+    function pickMode(){
+      // 50% chance to bias seasonally, 50% pure random across full library
+      if (Math.random() < 0.5) {
+        var tags = seasonalTags();
+        var tag  = tags[Math.floor(Math.random()*tags.length)];
+        var pool = modes.filter(function(m){ return m.tag === tag; });
+        if (pool.length) return pool[Math.floor(Math.random()*pool.length)].fn;
+      }
+      return modes[Math.floor(Math.random()*modes.length)].fn;
+    }
+
+    var moves = ['drift','drift','drift','spin','bounce','shake','wiggle','swoop','tinypop','huge','sneak','sneak'];
+
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    function flash(){
+      var modeFn = pickMode();
+      var move   = pick(moves);
+      var size;
+      if      (move === 'tinypop') size = 70  + Math.random()*70;   // 70-140 tiny pop
+      else if (move === 'huge')    size = 580 + Math.random()*220;  // 580-800 takeover
+      else if (move === 'sneak')   size = 130 + Math.random()*120;  // 130-250 modest
+      else                         size = 200 + Math.random()*300;  // 200-500 normal
+
+      var top  = (8 + Math.random()*84);
+      var left = (8 + Math.random()*84);
+      if (move === 'sneak') { // hug an edge
+        var edge = Math.floor(Math.random()*4);
+        if (edge === 0) top  = 6  + Math.random()*8;
+        if (edge === 1) top  = 86 + Math.random()*8;
+        if (edge === 2) left = 6  + Math.random()*8;
+        if (edge === 3) left = 86 + Math.random()*8;
+      }
+      var rot  = (Math.random()*30 - 15).toFixed(1);
+      var hue  = Math.random() < 0.55 ? 'hue-rotate('+Math.floor(Math.random()*360)+'deg) ' : '';
+      var opacity = (move === 'huge') ? 0.16 : (move === 'tinypop' ? 0.34 : 0.26);
+      var holdMs  = (move === 'tinypop') ? 2200 : (move === 'huge' ? 3200 : 3800 + Math.random()*2800);
+
+      stage.classList.remove('kwww-swoop');
+      stage.style.animation = '';
+      stage.style.width  = size + 'px';
+      stage.style.top    = top  + '%';
+      stage.style.left   = left + '%';
+      stage.style.setProperty('--kr', rot + 'deg');
+      stage.style.transform = 'translate(-50%,-50%) rotate('+rot+'deg) scale(0.94)';
+      stage.style.filter = hue + 'blur(0.3px)';
+      deco.innerHTML = modeFn(size);
+
+      requestAnimationFrame(function(){
+        stage.style.opacity = opacity;
+        var dur = (move === 'shake' ? '900ms' : move === 'wiggle' ? '1400ms' : move === 'spin' ? (3000 + Math.random()*2000)+'ms' : move === 'bounce' ? '1100ms' : '1.6s');
+        if (move === 'spin')   stage.style.animation = 'kwww-spin '+dur+' linear infinite';
+        if (move === 'bounce') stage.style.animation = 'kwww-bounce '+dur+' ease-in-out infinite';
+        if (move === 'shake')  stage.style.animation = 'kwww-shake '+dur+' ease-in-out 2';
+        if (move === 'wiggle') stage.style.animation = 'kwww-wiggle '+dur+' ease-in-out infinite';
+        if (move === 'swoop') {
+          stage.classList.add('kwww-swoop');
+          stage.style.left = ((parseFloat(left) + (Math.random() < 0.5 ? 30 : -30) + 100) % 92 + 4) + '%';
+          stage.style.top  = ((parseFloat(top)  + (Math.random() < 0.5 ? 18 : -18) + 100) % 88 + 6) + '%';
+        }
+        if (move === 'drift' || move === 'tinypop' || move === 'huge' || move === 'sneak') {
+          stage.style.transform = 'translate(-50%,-50%) rotate('+rot+'deg) scale(1.03)';
+        }
+      });
+
+      setTimeout(function(){
+        stage.style.animation = '';
+        stage.style.opacity = '0';
+        stage.style.transform = 'translate(-50%,-50%) rotate('+rot+'deg) scale(0.88)';
+      }, holdMs);
+    }
+
+    function schedule(){
+      flash();
+      // Random 5-15 min until next pop
+      var nextMs = (5 + Math.random()*10) * 60 * 1000;
+      setTimeout(schedule, nextMs);
+    }
+    // First fire 25-55s after load so it doesn't compete with page paint.
+    setTimeout(schedule, 25000 + Math.random()*30000);
+  })();
+  </script>
   <div class="top">
     <div class="brand"><span class="dot"></span>Pulse · Knowledge Library</div>
     <div class="nav-links">
       <a href="/">Home</a>
       <a href="#today-strip">Library</a>
       <a href="/themachine">The Machine</a>
+      <a href="/agents" title="Live site map — watch every agent work in real time">◉ Live Map</a>
       <a href="/pillars/deal-desk-architecture-scaled-governance">Pillars</a>
       <a href="dashboard.html#crm">CRM</a>
       <a href="dashboard.html#warroom">War Room</a>
@@ -402,7 +910,7 @@
       <div style="font-size:0.66rem; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:var(--orange-bright);">◉ Today's research</div>
       <div style="font-size:0.62rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:rgba(237,229,216,0.4);">last updated <span id="today-last-update">—</span></div>
     </div>
-    <div id="today-list" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:8px;"></div>
+    <div id="today-list" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:8px; align-items:start;"></div>
   </section>
 
   <!-- Trending This Week — top entries by 7-day view counts. Hidden when no data. -->
@@ -411,7 +919,7 @@
       <div style="font-size:0.66rem; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:#FFD740;">🔥 Trending this week</div>
       <div style="font-size:0.62rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:rgba(237,229,216,0.4);">most-read · last 7 days</div>
     </div>
-    <div id="trending-list" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:8px;"></div>
+    <div id="trending-list" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:8px; align-items:start;"></div>
   </section>
 
   <!-- Indexing Queue button — opens /resume page where the full pending-index widget lives.
@@ -529,12 +1037,8 @@
         lastEl.textContent = mins < 60 ? (mins + 'm ago') : (Math.round(mins/60) + 'h ago');
       }
       listEl.innerHTML = todayItems.map(function(e){
-        var tagsHtml = (e.tags || []).slice(0,3).map(function(t){
-          return '<span style="display:inline-block;background:rgba(232,113,10,0.12);border:1px solid rgba(232,113,10,0.3);color:rgba(255,180,90,0.85);padding:2px 7px;border-radius:99px;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-right:4px;">'+escTxt(t)+'</span>';
-        }).join('');
         return '<button data-id="'+e.id+'" class="today-card" style="text-align:left;background:linear-gradient(160deg,rgba(232,113,10,0.06) 0%,rgba(10,14,20,0.55) 60%);border:1px solid rgba(232,113,10,0.25);border-radius:10px;padding:10px 12px;cursor:pointer;color:var(--ink);font-family:inherit;transition:all 0.15s;">'
           + '<div style="font-size:0.78rem;font-weight:600;line-height:1.35;margin-bottom:5px;">'+escTxt(e.question)+'</div>'
-          + '<div>'+tagsHtml+'</div>'
           + '</button>';
       }).join('');
     }
@@ -623,12 +1127,8 @@
         // Tag pills are clickable links to per-tag landing pages — multiplies
         // internal-link signal for SEO and lets visitors jump to a curated
         // cluster instead of just filtering the current page.
-        // Hide the cro-candidate-pitch + executive-outreach tags — internal organizing only.
-        var visibleTags = (e.tags || []).filter(function(t){ return t !== 'cro-candidate-pitch' && t !== 'executive-outreach'; });
-        var tagsHtml = visibleTags.slice(0,5).map(function(t){
-          var slug = String(t).toLowerCase().replace(/[^a-z0-9-]/g, '');
-          return '<a class="entry-tag" href="/knowledge/tag/'+slug+'" onclick="event.stopPropagation();">'+escTxt(t)+'</a>';
-        }).join('');
+        // Tags removed 2026-05-13 per owner — hyper-specific tags weren't useful as navigation.
+        var tagsHtml = '';
         var dateObj = new Date(e.ts);
         var date = dateObj.toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'})
                  + ' · '

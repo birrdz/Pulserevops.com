@@ -4,10 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>
-  // Only redirect to dashboard if no ?home param
-  if (!window.location.search.includes('home') && !window.location.search.includes('tour')) {
-    window.location.replace('dashboard.html' + window.location.search + window.location.hash);
-  }
+  // Landing page shows 3 chooser options (CRM / War Room / Tour).
+  // ?go=warroom|crm|tour skips the chooser and routes immediately.
+  // ?home preserves the classic full landing scroll-page.
+  (function() {
+    var qs = window.location.search;
+    var go = (qs.match(/[?&]go=([^&]+)/) || [])[1];
+    if (go === 'warroom') window.location.replace('dashboard.html#warroom');
+    else if (go === 'crm') window.location.replace('dashboard.html#deals');
+    else if (go === 'tour') window.location.replace('dashboard.html?tour=1');
+  })();
   </script>
 
   <!-- ═══════════════════════════════════════════════════════
@@ -39,15 +45,23 @@
   <meta property="og:title" content="Kory White | Free RevOps Tools + Fractional CRO Maryland | PULSE RevOps" />
   <meta property="og:description" content="Free online sales tools: KPI calculator, rep pulse check, gross profit calculator, scheduling tool &amp; more — built by Kory White, Chief Revenue Officer with $3B+ revenue scaled. Fractional CRO serving Maryland, DC &amp; the DMV." />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://pulserevops.com/og-preview.jpg" />
+  <meta property="og:image:secure_url" content="https://pulserevops.com/og-preview.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1920" />
+  <meta property="og:image:height" content="906" />
+  <meta property="og:image:alt" content="PULSE Machine — Fact-check your ideas. Or ask for help." />
 
   <!-- ═══════════════════════════════════════════════════════
        TWITTER / X CARD
        ═══════════════════════════════════════════════════════ -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@pulserevops" />
-  <meta name="twitter:creator" content="@korywhite" />
+  <meta name="twitter:creator" content="@coachkorywhite" />
   <meta name="twitter:title" content="Free RevOps Tools + Fractional CRO | Kory White | PULSE RevOps" />
   <meta name="twitter:description" content="Free sales KPI calculator, rep pulse check, gross profit tool &amp; more. Built by Kory White — CRO, $3B+ scaled, Maryland. PULSE RevOps." />
+  <meta name="twitter:image" content="https://pulserevops.com/og-preview.jpg" />
+  <meta name="twitter:image:alt" content="Kory White — Chief Revenue Officer — PULSE RevOps" />
 
   <!-- ═══════════════════════════════════════════════════════
        STRUCTURED DATA — Person + Organization (JSON-LD)
@@ -66,8 +80,18 @@
         "jobTitle": "Chief Revenue Officer",
         "description": "Kory White is a Chief Revenue Officer, Fractional CRO, and Regional President based in Maryland. He has scaled sales organizations to over $3 billion in revenue and is the founder of PULSE RevOps, a revenue operations framework for high-performance sales teams. Formerly served as Regional President at Cellular Sales / Verizon, serving Maryland, Washington DC, Annapolis, and the broader DMV region.",
         "url": "https://pulserevops.com/",
+        "image": "https://pulserevops.com/assets/kory-white.jpg",
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "University of Louisville"
+        },
         "sameAs": [
-          "https://pulserevops.com"
+          "https://pulserevops.com/",
+          "https://pulserevops.com/resume",
+          "https://pulserevops.com/themachine",
+          "https://www.linkedin.com/in/korywhite",
+          "https://theexecutivereview.org/kory-white.html",
+          "https://theexecutivereview.org/"
         ],
         "address": {
           "@type": "PostalAddress",
@@ -292,6 +316,10 @@
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 2px; }
 
+    /* ── NAV HEIGHT TRACKER (set by JS, used by sections to clear the navbar) ── */
+    :root { --nav-height: 100px; }
+    html { scroll-padding-top: calc(var(--nav-height) + 16px); }
+
     /* ── CANVAS BG ── */
     #particle-canvas {
       position: fixed;
@@ -331,146 +359,6 @@
     }
 
     /* ── NAVBAR ── */
-    /* ── GEO VISITOR TICKER ── */
-    #geo-ticker-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 101;
-      height: 30px; background: rgba(0,6,18,0.97);
-      border-bottom: 1px solid rgba(232,113,10,0.18);
-      display: flex; align-items: center; overflow: hidden;
-    }
-    .gtb-stat {
-      flex-shrink: 0; padding: 0 14px;
-      font-size: 0.6rem; font-weight: 700; color: #E8710A;
-      letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;
-      border-right: 1px solid rgba(232,113,10,0.18);
-      display: flex; align-items: center; gap: 6px;
-    }
-    .gtb-stat-val { color: #fff; font-size: 0.72rem; }
-    .gtb-live-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: #E8710A;
-      animation: gtb-pulse 1.6s ease-in-out infinite; flex-shrink: 0;
-    }
-    @keyframes gtb-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.35;transform:scale(0.55)} }
-    .gtb-track-wrap { flex: 1; overflow: hidden; position: relative; }
-    .gtb-track {
-      display: flex; white-space: nowrap;
-      animation: ticker 50s linear infinite;
-    }
-    .gtb-track:hover { animation-play-state: paused; }
-    .gtb-city {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 0 18px; font-size: 0.6rem; font-weight: 600;
-      color: rgba(226,232,240,0.6); letter-spacing: 0.04em;
-      border-right: 1px solid rgba(255,255,255,0.05);
-    }
-    .gtb-city.you { color: #E8710A; font-weight: 800; }
-    .gtb-city.new-city { color: #FF8C1A; font-weight: 800; }
-    .gtb-city.new-real { color: #ff4444; font-weight: 800; }
-    .star-blink { display: inline-block; font-size: 1rem; font-weight: 900; color: #ffe033; text-shadow: 0 0 8px #ffe033, 0 0 16px #ffaa00; animation: star-blink 0.7s ease-in-out infinite; }
-    .star-blink-red { color: #ff2222; text-shadow: 0 0 8px #ff2222, 0 0 16px #ff0000; animation: star-blink-red 0.7s ease-in-out infinite; }
-    @keyframes star-blink { 0%,100%{opacity:1; text-shadow: 0 0 10px #ffe033, 0 0 22px #ffaa00;} 50%{opacity:0.05; text-shadow: none;} }
-    @keyframes star-blink-red { 0%,100%{opacity:1; text-shadow: 0 0 10px #ff2222, 0 0 22px #ff0000;} 50%{opacity:0.05; text-shadow: none;} }
-    .gtb-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(232,113,10,0.35); flex-shrink: 0; }
-    .gtb-city.you .gtb-dot { background: #E8710A; animation: gtb-pulse 1.5s ease-in-out infinite; }
-
-    /* ── VISITOR TOAST NOTIFICATIONS ── */
-    #visitor-toast-container {
-      position: fixed; bottom: 24px; left: 20px; z-index: 9999;
-      display: flex; flex-direction: column-reverse; gap: 10px;
-      pointer-events: none;
-    }
-    .visitor-toast {
-      pointer-events: auto;
-      background: rgba(0,6,18,0.94);
-      border: 1px solid rgba(232,113,10,0.3);
-      border-left: 3px solid #E8710A;
-      border-radius: 8px;
-      padding: 10px 16px 10px 12px;
-      display: flex; align-items: center; gap: 10px;
-      font-family: inherit; font-size: 0.78rem; color: rgba(226,232,240,0.85);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 12px rgba(232,113,10,0.08);
-      backdrop-filter: blur(12px);
-      opacity: 0; transform: translateY(20px) translateX(-10px);
-      animation: vtoast-in 0.45s ease forwards;
-      max-width: 300px; cursor: default;
-      white-space: nowrap;
-    }
-    .visitor-toast.vtoast-out {
-      animation: vtoast-out 0.4s ease forwards;
-    }
-    .visitor-toast-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: #E8710A;
-      flex-shrink: 0; animation: gtb-pulse 1.6s ease-in-out infinite;
-    }
-    .visitor-toast-city { color: #E8710A; font-weight: 700; }
-    .visitor-toast-time { font-size: 0.6rem; color: rgba(226,232,240,0.35); margin-left: 4px; }
-    @keyframes vtoast-in {
-      0% { opacity: 0; transform: translateY(20px) translateX(-10px); }
-      100% { opacity: 1; transform: translateY(0) translateX(0); }
-    }
-    @keyframes vtoast-out {
-      0% { opacity: 1; transform: translateY(0) translateX(0); }
-      100% { opacity: 0; transform: translateY(-10px) translateX(-20px); }
-    }
-    body.minimal-mode #visitor-toast-container,
-    body.workspace-mode #visitor-toast-container { display: none !important; }
-    @media (max-width: 600px) {
-      #visitor-toast-container { bottom: 14px; left: 10px; right: 10px; }
-      .visitor-toast { max-width: 100%; font-size: 0.72rem; }
-    }
-
-    nav {
-      position: fixed;
-      top: 30px; left: 0; right: 0;
-      z-index: 100;
-      padding: 12px 0;
-      background: rgba(6, 11, 24, 0.7);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      transition: all 0.3s;
-    }
-    nav.scrolled { padding: 10px 0; background: rgba(6, 11, 24, 0.95); }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      max-width: 100%;
-      margin: 0 auto;
-      padding: 0 12px;
-      flex-wrap: wrap;
-    }
-    .nav-inner::-webkit-scrollbar { height: 0; }
-
-    .logo {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-    .logo-pulse {
-      font-size: 1.55rem;
-      font-weight: 900;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      line-height: 1;
-      color: var(--cyan);
-    }
-    .logo-engine {
-      font-size: 0.56rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      display: block;
-      color: var(--purple);
-      text-transform: uppercase;
-    }
-    .logo-tagline {
-      font-size: 0.5rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      display: block;
-      color: var(--pink);
-    }
-
     /* ── CSS-native PULSE logo ── */
     .pulse-logo-block { display:flex; flex-direction:column; gap:2px; }
     .pulse-logo-wordmark {
@@ -492,6 +380,44 @@
       color: #EDE5D8;
       text-shadow: 0 0 14px rgba(191,88,0,0.35);
       line-height: 1.3;
+    }
+    /* ── BIG FLASHY HERO TAGLINE — unmistakable banner: bright solid color
+       fallback (so it NEVER renders invisible if gradient-clip fails),
+       animated gradient shimmer overlay, glow pulse, framed panel. ── */
+    /* SOLID bright-gold text — NO background-clip:text, so it physically
+       cannot render invisible. Flash comes from a text-shadow glow pulse +
+       the framed panel's box-shadow pulse. Bulletproof. */
+    .hero-standard-tagline {
+      display: block;
+      margin: 24px auto 4px;
+      padding: 16px 24px;
+      max-width: 100%;
+      font-size: clamp(1.7rem, 5.4vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: 0.012em;
+      line-height: 1.1;
+      text-transform: uppercase;
+      text-align: center;
+      color: #FFD740;
+      border: 2px solid rgba(255,200,80,0.6);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(232,113,10,0.16), rgba(232,113,10,0.05) 60%);
+      box-shadow: 0 0 34px rgba(232,113,10,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+      text-shadow: 0 0 18px rgba(255,179,71,0.7), 0 0 4px rgba(255,215,64,0.5);
+      animation: heroTaglineGlow 3s ease-in-out infinite;
+    }
+    @keyframes heroTaglineGlow {
+      0%, 100% {
+        box-shadow: 0 0 22px rgba(232,113,10,0.30), inset 0 1px 0 rgba(255,255,255,0.06);
+        text-shadow: 0 0 14px rgba(255,179,71,0.55), 0 0 3px rgba(255,215,64,0.4);
+      }
+      50% {
+        box-shadow: 0 0 48px rgba(255,215,64,0.65), inset 0 1px 0 rgba(255,255,255,0.12);
+        text-shadow: 0 0 26px rgba(255,215,64,0.9), 0 0 6px rgba(255,243,214,0.7);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-standard-tagline { animation: none; }
     }
 
     .nav-links {
@@ -641,6 +567,28 @@
       position: relative;
       overflow: hidden;
     }
+    /* Video backdrop — covers hero, sits behind content at full opacity
+       so it fully occludes the page-wide honeycomb animation behind it */
+    #hero-video-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0; pointer-events: none;
+      opacity: 1;
+    }
+    /* Light overlay between video and content — enough to keep text readable,
+       but minimal so the new hero video is the dominant visual */
+    #hero-video-overlay {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(6,11,24,0.25) 0%, rgba(6,11,24,0.15) 45%, rgba(6,11,24,0.75) 100%),
+        radial-gradient(ellipse at center, transparent 0%, rgba(6,11,24,0.20) 75%);
+    }
+    /* Hero sits above the page-wide honeycomb canvas (#honeycomb-bg z-index:0)
+       so the new hero video is the sole animation on the landing viewport */
+    #hero { position: relative; z-index: 1; isolation: isolate; }
+    #hero > .container, #hero > .hero-content {
+      position: relative; z-index: 2;
+    }
+    #hero .heartbeat-fullwidth { position: relative; z-index: 2; }
     #hero .container {
       width: 100%;
       display: flex;
@@ -730,6 +678,89 @@
       font-weight: 400;
     }
     .hero-sub strong { color: var(--text); font-weight: 600; }
+
+    /* ══════════════════════════════════════════════════════════════════════
+       HONEYCOMB HERO GRID — full-width hex mosaic replacing the long subtitle
+       ══════════════════════════════════════════════════════════════════════ */
+    .hex-hero-grid {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0;                       /* rows overlap via negative margin */
+      margin: 28px 0 40px;
+      width: 100%; max-width: 1100px; margin-left: auto; margin-right: auto;
+      position: relative;
+    }
+    .hex-row {
+      display: flex; gap: 10px; justify-content: center;
+      width: 100%;
+    }
+    .hex-row + .hex-row { margin-top: -24px; }  /* vertical overlap so rows interlock */
+    .hex-row-offset { margin-left: 66px; }       /* brick stagger every other row */
+    .hex-cell {
+      position: relative; flex: 0 0 108px; width: 108px; height: 122px;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      background: linear-gradient(160deg, rgba(232,113,10,0.08), rgba(232,113,10,0.02));
+      border: 0; /* clip-path hides any border anyway */
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      color: rgba(237,229,216,0.65);
+      text-align: center; padding: 0 10px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      cursor: default;
+      transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1),
+                  background 0.3s ease, color 0.3s ease, filter 0.3s ease;
+    }
+    /* inner stroke via a pseudo element (clip-path strips borders) */
+    .hex-cell::before {
+      content: ''; position: absolute; inset: 0;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      background: linear-gradient(160deg, rgba(232,113,10,0.22), rgba(232,113,10,0.05));
+      z-index: -1;
+    }
+    .hex-cell:hover {
+      transform: translateY(-3px) scale(1.06);
+      color: #FFE0B0;
+      background: linear-gradient(160deg, rgba(232,113,10,0.34), rgba(255,140,26,0.18));
+      filter: drop-shadow(0 6px 18px rgba(232,113,10,0.35));
+    }
+    /* Accent hexes — mid-weight orange glow */
+    .hex-cell.hex-accent {
+      background: linear-gradient(160deg, rgba(232,113,10,0.28), rgba(255,140,26,0.10));
+      color: #FFE0B0; font-weight: 800;
+    }
+    .hex-cell.hex-accent:hover {
+      background: linear-gradient(160deg, rgba(232,113,10,0.42), rgba(255,140,26,0.22));
+    }
+    /* Core PULSE hex — bright, scaled up, pulsing heartbeat */
+    .hex-cell.hex-core {
+      background: linear-gradient(160deg, #FF8C1A 0%, #E8710A 50%, #BF5800 100%);
+      color: #fff; font-weight: 900; font-size: 1.05rem;
+      letter-spacing: 0.14em;
+      transform: scale(1.12);
+      filter: drop-shadow(0 8px 24px rgba(255,140,26,0.55)) drop-shadow(0 0 40px rgba(232,113,10,0.35));
+      animation: hex-core-pulse 2.2s ease-in-out infinite;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    }
+    .hex-cell.hex-core:hover { transform: scale(1.18); }
+    @keyframes hex-core-pulse {
+      0%, 100% { filter: drop-shadow(0 8px 24px rgba(255,140,26,0.55)) drop-shadow(0 0 40px rgba(232,113,10,0.35)); }
+      50%      { filter: drop-shadow(0 12px 36px rgba(255,140,26,0.8))  drop-shadow(0 0 70px rgba(232,113,10,0.7)); }
+    }
+    /* Tighten on narrow screens */
+    @media (max-width: 900px) {
+      .hex-cell { flex: 0 0 82px; width: 82px; height: 94px; font-size: 0.6rem; }
+      .hex-cell.hex-core { font-size: 0.85rem; }
+      .hex-row-offset { margin-left: 48px; }
+      .hex-row + .hex-row { margin-top: -18px; }
+    }
+    @media (max-width: 560px) {
+      .hex-cell { flex: 0 0 62px; width: 62px; height: 72px; font-size: 0.5rem; letter-spacing: 0.02em; padding: 0 4px; }
+      .hex-cell.hex-core { font-size: 0.7rem; letter-spacing: 0.08em; }
+      .hex-row { gap: 6px; }
+      .hex-row-offset { margin-left: 36px; }
+      .hex-row + .hex-row { margin-top: -14px; }
+      .hex-hero-grid { margin: 18px 0 28px; }
+    }
 
     .hero-actions {
       display: flex;
@@ -1243,7 +1274,7 @@
     }
 
     /* ── DASHBOARD MOCKUP ── */
-    #dashboard { padding: 100px 0; }
+    #dashboard { padding: calc(var(--nav-height) + 24px) 0 100px; }
 
     .dash-wrap {
       position: relative;
@@ -2548,21 +2579,55 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 8px;
-      border: 1px solid rgba(232,113,10,0.35);
-      background: rgba(232,113,10,0.08);
-      color: #E8710A;
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
+      border: 1.5px solid #FF8C1A;
+      background: linear-gradient(135deg, rgba(232,113,10,0.35), rgba(255,140,26,0.55));
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       font-family: inherit;
       cursor: pointer;
       white-space: nowrap;
+      box-shadow: 0 0 0 0 rgba(255,140,26,0.55), 0 4px 14px rgba(232,113,10,0.25);
+      animation: tour-attract 1.6s ease-in-out infinite;
+      position: relative;
     }
-    .nav-walkthrough-btn:hover { border-color: rgba(232,113,10,0.6); background: rgba(232,113,10,0.2); }
+    .nav-walkthrough-btn::before {
+      content: ""; position: absolute; inset: -3px; border-radius: 10px;
+      background: linear-gradient(135deg, #FF8C1A, #E8710A, #FF8C1A);
+      z-index: -1; opacity: 0;
+      animation: tour-glow 1.6s ease-in-out infinite;
+      filter: blur(7px);
+    }
+    .nav-walkthrough-btn:hover {
+      border-color: #FFD740;
+      background: linear-gradient(135deg, rgba(232,113,10,0.6), rgba(255,140,26,0.8));
+      transform: translateY(-1px);
+    }
+    .nav-walkthrough-btn:hover::before { opacity: 1; }
     .nav-walkthrough-btn:active { opacity: 0.9; }
+
+    @keyframes tour-attract {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255,140,26,0.55), 0 4px 14px rgba(232,113,10,0.25);
+        background: linear-gradient(135deg, rgba(232,113,10,0.35), rgba(255,140,26,0.55));
+      }
+      50% {
+        box-shadow: 0 0 0 8px rgba(255,140,26,0), 0 6px 22px rgba(232,113,10,0.55);
+        background: linear-gradient(135deg, rgba(232,113,10,0.65), rgba(255,140,26,0.95));
+      }
+    }
+    @keyframes tour-glow {
+      0%, 100% { opacity: 0.0; }
+      50%      { opacity: 0.6; }
+    }
+    /* Once user has taken the tour OR opted out, calm the pulse so it stops nagging */
+    body.tour-seen .nav-walkthrough-btn { animation: none; box-shadow: none; }
+    body.tour-seen .nav-walkthrough-btn::before { display: none; }
+    body.tour-active .nav-walkthrough-btn { animation: none; }
 
     .nav-dashboard-btn {
       display: inline-flex;
@@ -3053,7 +3118,7 @@
         rgba(17,21,24,0.3) 68%,
         transparent 84%);
     }
-    nav, section, footer, #geo-ticker-bar { position: relative; z-index: 2; }
+    nav, section, footer { position: relative; z-index: 2; }
 
     /* ── LIVE NEWS TICKER ── */
     #news-ticker-bar {
@@ -3070,6 +3135,7 @@
       border-right: 1px solid rgba(251,191,36,0.18);
       display: flex; align-items: center; gap: 5px;
     }
+    @keyframes gtb-pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.35; transform:scale(0.55); } }
     .ntb-live-dot {
       width: 5px; height: 5px; border-radius: 50%; background: #fbbf24;
       animation: gtb-pulse 1.8s ease-in-out infinite; flex-shrink: 0;
@@ -3241,25 +3307,676 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 </head>
 <body>
+<!-- ═══════════════════════════════════════════════════════════════════
+     TOP STATUS BARS — ported from knowledge.html so the homepage shows the
+     same library throughput pulse. 4 Anthropic pace bars (hour/day/week/month
+     against the recommended 8/hr safe ceiling) + 5 library/operational bars.
+     Total ~288px reserved at top (body padding adjusted below).
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="anth-hour-bar" style="position:fixed;top:0;left:0;right:0;height:32px;z-index:9999;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(167,139,250,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#D6CCFF;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+  <span style="font-weight:900;color:#A78BFA;white-space:nowrap;">◷ Anthropic · Hour</span>
+  <div style="flex:1;height:8px;background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
+    <div id="anth-hour-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#A78BFA 0%,#7C5CFF 100%);border-radius:99px;box-shadow:0 0 10px rgba(167,139,250,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+  </div>
+  <span id="anth-hour-pct" style="font-weight:900;color:#A78BFA;min-width:46px;text-align:right;">—%</span>
+  <span id="anth-hour-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / 8 entries · 1 hr</span>
+</div>
+<div id="anth-day-bar" style="position:fixed;top:32px;left:0;right:0;height:32px;z-index:9998;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(135,206,250,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#C8E0FF;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+  <span style="font-weight:900;color:#87CEFA;white-space:nowrap;">◷ Anthropic · Day</span>
+  <div style="flex:1;height:8px;background:rgba(135,206,250,0.08);border:1px solid rgba(135,206,250,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
+    <div id="anth-day-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#87CEFA 0%,#5BAEFF 100%);border-radius:99px;box-shadow:0 0 10px rgba(135,206,250,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+  </div>
+  <span id="anth-day-pct" style="font-weight:900;color:#87CEFA;min-width:46px;text-align:right;">—%</span>
+  <span id="anth-day-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / 128 entries · 24 hr</span>
+</div>
+<div id="anth-week-bar" style="position:fixed;top:64px;left:0;right:0;height:32px;z-index:9997;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(255,179,71,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#FFD7A0;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+  <span style="font-weight:900;color:#FFB347;white-space:nowrap;">◷ Anthropic · Week</span>
+  <div style="flex:1;height:8px;background:rgba(255,179,71,0.08);border:1px solid rgba(255,179,71,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
+    <div id="anth-week-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#FFB347 0%,#FF8C1A 100%);border-radius:99px;box-shadow:0 0 10px rgba(255,179,71,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+  </div>
+  <span id="anth-week-pct" style="font-weight:900;color:#FFB347;min-width:46px;text-align:right;">—%</span>
+  <span id="anth-week-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / 900 entries · 7 day</span>
+</div>
+<div id="anth-month-bar" style="position:fixed;top:96px;left:0;right:0;height:32px;z-index:9996;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(232,113,10,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#FFC8A0;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+  <span style="font-weight:900;color:#E8710A;white-space:nowrap;">◷ Anthropic · Month</span>
+  <div style="flex:1;height:8px;background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
+    <div id="anth-month-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#E8710A 0%,#BF5800 100%);border-radius:99px;box-shadow:0 0 10px rgba(232,113,10,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+  </div>
+  <span id="anth-month-pct" style="font-weight:900;color:#E8710A;min-width:46px;text-align:right;">—%</span>
+  <span id="anth-month-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / 3,000 entries · 30 day</span>
+</div>
+<div id="index-progress-bar" style="position:fixed;top:128px;left:0;right:0;height:32px;z-index:9995;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(120,180,255,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#7BB6FF;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+  <span style="font-weight:900;color:#39A6FF;white-space:nowrap;">📡 Index Progress</span>
+  <div id="ipb-track" style="flex:1;height:8px;background:rgba(57,166,255,0.08);border:1px solid rgba(57,166,255,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
+    <div id="ipb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#39A6FF 0%,#7BB6FF 100%);border-radius:99px;box-shadow:0 0 10px rgba(57,166,255,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+  </div>
+  <span id="ipb-pct" style="font-weight:900;color:#7BB6FF;min-width:46px;text-align:right;">—%</span>
+  <span id="ipb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / — indexed</span>
+</div>
+<div id="claude-opus-progress-bar" style="position:fixed;top:160px;left:0;right:0;height:32px;z-index:9994;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(255,107,107,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#FFB4B4;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+  <span style="font-weight:900;color:#FF6B6B;white-space:nowrap;">✶ Claude Opus · Bespoke Rewrites</span>
+  <div id="copb-track" style="flex:1;height:8px;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
+    <div id="copb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#FF6B6B 0%,#E63946 100%);border-radius:99px;box-shadow:0 0 10px rgba(255,107,107,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+  </div>
+  <span id="copb-pct" style="font-weight:900;color:#FF6B6B;min-width:46px;text-align:right;">—%</span>
+  <span id="copb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / — rewritten · latest: —</span>
+</div>
+<div id="rewrites-rate-bar" style="position:fixed;top:192px;left:0;right:0;height:32px;z-index:9993;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(255,215,64,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#FFE9A0;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+  <span style="font-weight:900;color:#FFD740;white-space:nowrap;">⚡ Rewrites /hr</span>
+  <div id="rrb-track" style="flex:1;height:8px;background:rgba(255,215,64,0.08);border:1px solid rgba(255,215,64,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
+    <div id="rrb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#FFD740 0%,#FF8C1A 100%);border-radius:99px;box-shadow:0 0 10px rgba(255,215,64,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+  </div>
+  <span id="rrb-pace" style="font-weight:900;color:#FFD740;min-width:60px;text-align:right;">— /hr</span>
+  <span id="rrb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— rewrites last hour · 10K words + 10/10 polish</span>
+</div>
+<div id="nine-k-bar" style="position:fixed;top:224px;left:0;right:0;height:32px;z-index:9992;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(57,255,20,0.35);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#B6FFB4;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+  <span style="font-weight:900;color:#39FF14;white-space:nowrap;">📖 Answers ≥ 9K words</span>
+  <div id="nkb-track" style="flex:1;height:8px;background:rgba(57,255,20,0.08);border:1px solid rgba(57,255,20,0.25);border-radius:99px;overflow:hidden;min-width:60px;">
+    <div id="nkb-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#39FF14 0%,#00B830 100%);border-radius:99px;box-shadow:0 0 10px rgba(57,255,20,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+  </div>
+  <span id="nkb-pct" style="font-weight:900;color:#39FF14;min-width:46px;text-align:right;">—%</span>
+  <span id="nkb-detail" style="opacity:0.7;font-size:0.55rem;white-space:nowrap;">— / — entries past 9,000-word threshold</span>
+</div>
+<div id="hot-now-bar" onclick="location.href='/village'" title="Open the Village — every worker, live" style="position:fixed;top:256px;left:0;right:0;height:34px;z-index:9991;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(255,57,150,0.45);display:flex;align-items:center;justify-content:center;gap:14px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.64rem;letter-spacing:0.18em;text-transform:uppercase;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);overflow:hidden;cursor:pointer;">
+  <span id="hn-dot" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#FF3996;box-shadow:0 0 12px rgba(255,57,150,0.9),0 0 4px rgba(255,57,150,1);animation:hnPulse 1.4s ease-in-out infinite;"></span>
+  <span id="hn-label" style="color:#FF3996;font-weight:900;text-shadow:0 0 8px rgba(255,57,150,0.7);">HOT NOW</span>
+  <span id="hn-text" style="color:#FFE0EE;font-weight:700;">— checking —</span>
+  <span id="hn-target" style="color:#FFB4D4;opacity:0.85;font-weight:600;"></span>
+  <span style="color:#7BB6FF;opacity:0.85;font-weight:700;border:1px solid rgba(123,182,255,0.4);border-radius:99px;padding:1px 9px;white-space:nowrap;">◉ Live Map ▸</span>
+</div>
+<style>@keyframes hnPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.55;transform:scale(0.7);}} body { padding-top: 290px !important; } @media (max-width:640px) { #anth-hour-detail, #anth-day-detail, #anth-week-detail, #anth-month-detail, #ipb-detail, #copb-detail, #rrb-detail, #nkb-detail { display:none !important; } #anth-hour-bar, #anth-day-bar, #anth-week-bar, #anth-month-bar, #index-progress-bar, #claude-opus-progress-bar, #rewrites-rate-bar, #nine-k-bar, #hot-now-bar { gap:8px !important; padding:0 10px !important; font-size:0.55rem !important; } }</style>
+<script>
+(function(){
+  function refreshTopBars(){
+    fetch('/.netlify/functions/pulse-machine-library-list?status=1', { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (!d || !d.ok) return;
+        // Anthropic pace bars (hour/day/week/month)
+        var ap = d.anthropic_pace || {};
+        ['hour','day','week','month'].forEach(function(w){
+          var x = ap[w] || { count: 0, cap: 1 };
+          var pct = Math.min(100, (x.count / Math.max(1, x.cap)) * 100);
+          var fill = document.getElementById('anth-'+w+'-fill');
+          var pe = document.getElementById('anth-'+w+'-pct');
+          var de = document.getElementById('anth-'+w+'-detail');
+          if (fill) fill.style.width = pct.toFixed(1) + '%';
+          if (pe) pe.textContent = pct.toFixed(0) + '%';
+          var labelMap = { hour:'1 hr', day:'24 hr', week:'7 day', month:'30 day' };
+          if (de) de.textContent = x.count.toLocaleString() + ' / ' + x.cap.toLocaleString() + ' entries · ' + labelMap[w];
+        });
+        // Index Progress
+        var total = d.library_total || 0;
+        var indexed = d.indexed_count || 0;
+        var ipct = total > 0 ? (indexed/total)*100 : 0;
+        var ipf = document.getElementById('ipb-fill'); if (ipf) ipf.style.width = ipct.toFixed(1) + '%';
+        var ipp = document.getElementById('ipb-pct'); if (ipp) ipp.textContent = ipct.toFixed(0) + '%';
+        var ipd = document.getElementById('ipb-detail'); if (ipd) ipd.textContent = indexed.toLocaleString() + ' / ' + total.toLocaleString() + ' indexed';
+        // Claude Opus rewrites
+        var co = d.claude_opus_progress || {};
+        var rcount = co.count || 0;
+        var rtot = co.total_library || total;
+        var cpct = rtot > 0 ? (rcount/rtot)*100 : 0;
+        var cf = document.getElementById('copb-fill'); if (cf) cf.style.width = cpct.toFixed(1) + '%';
+        var cp = document.getElementById('copb-pct'); if (cp) cp.textContent = cpct.toFixed(1) + '%';
+        var cd = document.getElementById('copb-detail'); if (cd) cd.textContent = rcount.toLocaleString() + ' / ' + rtot.toLocaleString() + ' rewritten · latest: ' + (co.last_id || '—');
+        // Rewrites/hr bar
+        var rate = co.rewrites_per_hour || 0;
+        var lastHour = co.rewrites_last_hour || 0;
+        var rfill = document.getElementById('rrb-fill');
+        var rpace = document.getElementById('rrb-pace');
+        var rdetail = document.getElementById('rrb-detail');
+        var rpct = Math.min(100, (rate / 30) * 100);
+        if (rfill) rfill.style.width = rpct.toFixed(1) + '%';
+        if (rpace) rpace.textContent = rate.toFixed(1) + ' /hr';
+        if (rdetail) rdetail.textContent = lastHour + ' rewrites last hour · 10K words + 10/10 polish';
+        // 9K+ bar
+        var nineK = co.nine_k_count || 0;
+        var totalLib = co.total_library || total;
+        var nfill = document.getElementById('nkb-fill');
+        var npct = document.getElementById('nkb-pct');
+        var ndetail = document.getElementById('nkb-detail');
+        var pctNum = totalLib > 0 ? (nineK/totalLib)*100 : 0;
+        if (nfill) nfill.style.width = Math.min(100, pctNum).toFixed(2) + '%';
+        if (npct) npct.textContent = pctNum.toFixed(2) + '%';
+        if (ndetail) ndetail.textContent = nineK + ' / ' + totalLib + ' entries past 9,000-word threshold';
+        // Hot Now bar
+        var label = document.getElementById('hn-label');
+        var text  = document.getElementById('hn-text');
+        var tgt   = document.getElementById('hn-target');
+        var dot   = document.getElementById('hn-dot');
+        var a = d.current_activity;
+        var actionMap = {
+          writing:   { color:'#FF3996', glow:'rgba(255,57,150,0.85)', label:'NOW WRITING' },
+          polishing: { color:'#FFB347', glow:'rgba(255,179,71,0.85)',  label:'NOW POLISHING' },
+          indexing:  { color:'#39FF14', glow:'rgba(57,255,20,0.85)',   label:'NOW INDEXING' },
+          auditing:  { color:'#B388FF', glow:'rgba(179,136,255,0.85)', label:'NOW AUDITING' },
+          idle:      { color:'#7BB6FF', glow:'rgba(123,182,255,0.6)',  label:'IDLE' },
+        };
+        function paintIdle(target){
+          if (label) { label.textContent = 'IDLE'; label.style.color = '#7BB6FF'; label.style.textShadow = '0 0 8px rgba(123,182,255,0.6)'; }
+          if (dot)   { dot.style.background = '#7BB6FF'; dot.style.boxShadow = '0 0 10px rgba(123,182,255,0.6)'; }
+          if (text)  text.textContent = target ? ('last finished ' + target) : 'standing by';
+          if (tgt)   tgt.textContent = '';
+        }
+        if (a) {
+          var ageMs = Date.now() - (a.ts || 0);
+          if (ageMs > 5 * 60 * 1000) {
+            paintIdle(a.target);
+          } else {
+            var m = actionMap[a.action] || actionMap.writing;
+            if (label) { label.textContent = m.label; label.style.color = m.color; label.style.textShadow = '0 0 8px ' + m.glow; }
+            if (dot)   { dot.style.background = m.color; dot.style.boxShadow = '0 0 12px ' + m.glow + ',0 0 4px ' + m.color; }
+            var textMsg = a.action === 'writing' ? 'baseline + tldr + core + flow'
+                        : a.action === 'polishing' ? ('layer ' + (a.score || '?') + '/10')
+                        : a.action === 'indexing' ? 'pinging Bing / Yandex'
+                        : a.action === 'auditing' ? 'double-checking 10/10 entries'
+                        : a.action === 'idle' ? ('last finished ' + (a.target || ''))
+                        : '—';
+            if (text) text.textContent = textMsg;
+            if (tgt)  tgt.textContent = a.target ? ('· ' + a.target) : '';
+          }
+        } else {
+          paintIdle();
+        }
+      })
+      .catch(function(){});
+  }
+  refreshTopBars();
+  setInterval(refreshTopBars, 8000);
+})();
+</script>
 <canvas id="honeycomb-bg" aria-hidden="true"></canvas>
 <div id="center-vignette" aria-hidden="true"></div>
 
-  <!-- ── VISITOR TOAST NOTIFICATIONS ── -->
-  <div id="visitor-toast-container"></div>
-
-  <!-- ── GEO VISITOR TICKER ── -->
-  <div id="geo-ticker-bar">
-    <div class="gtb-stat">
-      <div class="gtb-live-dot"></div>
-      <span>Unique Visitors</span>
-      <span class="gtb-stat-val" id="gtb-count">—</span>
+<!-- ═══════════════════════════════════════════════════════════════════
+     LANDING CHOOSER — 3 doors (Machine / CRM / War Room) + secondary links.
+     Hidden if ?home param is present (classic full landing scroll).
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="landing-chooser" style="position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;background:linear-gradient(135deg,rgba(10,14,20,0.97) 0%,rgba(17,21,28,0.99) 50%,rgba(10,14,20,0.97) 100%);">
+  <!-- Minimal top bar with PULSE brand -->
+  <div style="flex-shrink:0;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="font-size:1.6rem;font-weight:900;color:#FF8C1A;letter-spacing:0.06em;">PULSE</div>
+      <div style="font-size:0.6rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,229,216,0.45);padding-left:12px;border-left:1px solid rgba(255,255,255,0.12);">Three Doors</div>
     </div>
-    <div class="gtb-track-wrap">
-      <div class="gtb-track" id="gtb-track">
-        <!-- populated by JS -->
+    <button style="display:none;" onclick="document.getElementById('landing-chooser').style.display='none';document.body.style.overflow='';">Skip ↓</button>
+  </div>
+
+
+  <!-- Three HUGE option cards filling the viewport -->
+  <div id="lc-grid" style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 28px 14px;min-height:0;">
+    <!-- The Machine -->
+    <a href="/themachine" class="lc-option" style="display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;padding:clamp(32px,4.5vw,64px);background:linear-gradient(155deg,rgba(28,30,34,0.92) 0%,rgba(14,16,20,0.96) 60%,rgba(0,0,0,0.92) 100%);border:2px solid rgba(232,113,10,0.55);border-radius:24px;color:#EDE5D8;transition:all 0.25s;cursor:pointer;position:relative;overflow:hidden;" onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='rgba(232,113,10,0.95)';this.style.boxShadow='0 24px 80px rgba(232,113,10,0.28)';" onmouseout="this.style.transform='';this.style.borderColor='rgba(232,113,10,0.55)';this.style.boxShadow='';">
+      <div style="position:absolute;top:18px;right:18px;font-size:0.58rem;font-weight:900;letter-spacing:0.18em;color:#FF8C1A;background:rgba(232,113,10,0.18);padding:5px 12px;border-radius:100px;border:1px solid rgba(232,113,10,0.5);z-index:2;">◉ NEW</div>
+      <!-- 🎬 "As Seen On TV" sticker — fun infomercial nod given the literal TV graphic. CSS-only starburst. -->
+      <div class="as-seen-sticker" aria-label="As Seen On TV badge">
+        <div class="ass-burst"></div>
+        <div class="ass-text">
+          <span class="ass-line1">As Seen</span>
+          <span class="ass-line2">ON&nbsp;TV</span>
+          <span class="ass-line3">★ ★ ★</span>
+        </div>
+      </div>
+      <style>
+        .as-seen-sticker {
+          position: absolute; top: -14px; left: -14px;
+          width: 92px; height: 92px;
+          z-index: 3;
+          transform: rotate(-14deg);
+          animation: ass-wiggle 4s ease-in-out infinite;
+          pointer-events: none;
+          filter: drop-shadow(0 4px 10px rgba(0,0,0,0.55));
+        }
+        .ass-burst {
+          position: absolute; inset: 0;
+          background:
+            radial-gradient(circle at 50% 50%, #FFE066 0%, #FFD740 28%, #FFB300 60%, #E8710A 100%);
+          /* 24-point starburst via clip-path */
+          clip-path: polygon(
+            50% 0%, 56% 14%, 70% 6%, 70% 22%, 86% 18%, 80% 32%, 96% 36%, 86% 48%,
+            100% 56%, 86% 64%, 96% 78%, 80% 78%, 86% 92%, 70% 86%, 70% 100%, 56% 92%,
+            50% 100%, 44% 92%, 30% 100%, 30% 86%, 14% 92%, 20% 78%, 4% 78%, 14% 64%,
+            0% 56%, 14% 48%, 4% 36%, 20% 32%, 14% 18%, 30% 22%, 30% 6%, 44% 14%
+          );
+          border: 0;
+        }
+        .ass-text {
+          position: absolute; inset: 0;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          font-family: 'Impact', 'Oswald', 'Arial Black', sans-serif;
+          color: #b00020;
+          text-align: center;
+          line-height: 1;
+          text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+        }
+        .ass-line1 {
+          font-size: 0.62rem; font-weight: 900;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          color: #1a1a1a;
+        }
+        .ass-line2 {
+          font-size: 1.05rem; font-weight: 900;
+          letter-spacing: 0.06em;
+          margin: 1px 0;
+          color: #b00020;
+          text-shadow: 1px 1px 0 #1a1a1a, 0 0 6px rgba(176,0,32,0.4);
+        }
+        .ass-line3 {
+          font-size: 0.5rem;
+          color: #b00020;
+          letter-spacing: 0.2em;
+          opacity: 0.8;
+        }
+        @keyframes ass-wiggle {
+          0%, 100% { transform: rotate(-14deg) scale(1); }
+          50%      { transform: rotate(-10deg) scale(1.05); }
+        }
+        @media (max-width: 600px) {
+          .as-seen-sticker { width: 72px; height: 72px; top: -10px; left: -10px; }
+          .ass-line1 { font-size: 0.5rem; }
+          .ass-line2 { font-size: 0.85rem; }
+          .ass-line3 { font-size: 0.42rem; }
+        }
+      </style>
+      <div>
+        <!-- CRT-TV graphic — matches the TV-shaped chat box / TV pill in the
+             machine room. Aged-metal bezel, phosphor-orange screen, scanlines,
+             power LED, subtle flicker. The Machine, in miniature. -->
+        <div class="machine-tv" aria-hidden="true">
+          <div class="machine-tv-bezel">
+            <div class="machine-tv-rivet machine-tv-rivet--tl"></div>
+            <div class="machine-tv-rivet machine-tv-rivet--tr"></div>
+            <div class="machine-tv-rivet machine-tv-rivet--bl"></div>
+            <div class="machine-tv-rivet machine-tv-rivet--br"></div>
+            <div class="machine-tv-screen">
+              <svg class="machine-tv-ecg" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,40 L40,40 L48,40 L52,18 L56,62 L60,8 L64,72 L68,40 L80,40 L100,40 L108,40 L112,22 L116,58 L120,40 L140,40 L160,40 L168,40 L172,28 L176,52 L180,40 L200,40" stroke="#00ff41" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div class="machine-tv-channel">CH 01 · LIVE</div>
+              <div class="machine-tv-pulse"></div>
+              <div class="machine-tv-scanlines"></div>
+              <div class="machine-tv-glare"></div>
+            </div>
+            <div class="machine-tv-led"></div>
+            <div class="machine-tv-nameplate">PULSE&nbsp;MACHINE</div>
+          </div>
+        </div>
+        <div style="font-size:clamp(0.66rem,0.9vw,0.78rem);font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:#FF8C1A;margin-bottom:14px;">Subject Area Expert · Sales RevOps</div>
+        <div style="font-size:clamp(2.4rem,5vw,4rem);font-weight:900;color:#EDE5D8;line-height:1;letter-spacing:-0.02em;margin-bottom:18px;">The Machine</div>
+        <div style="font-size:clamp(0.95rem,1.3vw,1.15rem);color:rgba(237,229,216,0.7);line-height:1.55;max-width:92%;"><strong style="color:#fff;">The Cliffs Notes for RevOps.</strong> An autonomous AI subject-area expert for the entire RevOps arena — pipeline, comp, hiring, GTM, SaaS metrics, leadership. Researches its own questions hourly, ships a Mermaid diagram on every entry, spawns ten typed follow-ups, and grows a public, citable knowledge library that compounds without human input. Share a thought. Get a thought.</div>
+      </div>
+      <div style="font-size:clamp(0.85rem,1.1vw,1rem);color:#FF8C1A;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;margin-top:32px;">Enter The Machine →</div>
+    </a>
+    <!-- CRM -->
+    <a href="dashboard.html#crm" class="lc-option" style="display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;padding:clamp(32px,4.5vw,64px);background:linear-gradient(155deg,rgba(34,197,94,0.16) 0%,rgba(34,197,94,0.04) 60%,rgba(0,0,0,0.2) 100%);border:2px solid rgba(34,197,94,0.45);border-radius:24px;color:#EDE5D8;transition:all 0.25s;cursor:pointer;position:relative;overflow:hidden;" onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='rgba(34,197,94,0.95)';this.style.boxShadow='0 24px 80px rgba(34,197,94,0.28)';" onmouseout="this.style.transform='';this.style.borderColor='rgba(34,197,94,0.45)';this.style.boxShadow='';">
+      <div>
+        <div class="machine-tv machine-tv--green" aria-hidden="true">
+          <div class="machine-tv-bezel">
+            <div class="machine-tv-rivet machine-tv-rivet--tl"></div>
+            <div class="machine-tv-rivet machine-tv-rivet--tr"></div>
+            <div class="machine-tv-rivet machine-tv-rivet--bl"></div>
+            <div class="machine-tv-rivet machine-tv-rivet--br"></div>
+            <div class="machine-tv-screen">
+              <div class="machine-tv-glyph">▦</div>
+              <div class="machine-tv-channel">CH 02 · PIPELINE</div>
+              <div class="machine-tv-pulse"></div>
+              <div class="machine-tv-scanlines"></div>
+              <div class="machine-tv-glare"></div>
+            </div>
+            <div class="machine-tv-led"></div>
+            <div class="machine-tv-nameplate">PULSE&nbsp;CRM</div>
+          </div>
+        </div>
+        <div style="font-size:clamp(0.66rem,0.9vw,0.78rem);font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:#22c55e;margin-bottom:14px;">For Reps</div>
+        <div style="font-size:clamp(2.4rem,5vw,4rem);font-weight:900;color:#EDE5D8;line-height:1;letter-spacing:-0.02em;margin-bottom:18px;">CRM</div>
+        <div style="font-size:clamp(0.95rem,1.3vw,1.15rem);color:rgba(237,229,216,0.7);line-height:1.55;max-width:92%;"><strong style="color:#fff;">A free-to-use CRM that works better than the big boys'.</strong> Check it out. Use it. Click buttons. Get crazy. House Goals · Pulse Check · Tier Projections · Gross Profit Calculator · Coaching Action Items · Rep Scheduling Matrix · Recruiting Calculator · Lightning Rounds · Squad Sync · Pulse MGMT · Sales Meeting Creator — every tool a CRO actually uses, all in one place.
+        <details onclick="event.stopPropagation();" style="margin-top:12px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.25);border-radius:8px;padding:8px 12px;font-size:0.78rem;cursor:pointer;">
+          <summary style="color:#6ef0a3;font-weight:700;letter-spacing:0.04em;list-style:none;">▸ See what these tools actually output</summary>
+          <div style="margin-top:10px;color:rgba(237,229,216,0.78);line-height:1.55;font-size:0.82rem;">
+            <div style="margin-bottom:8px;"><strong style="color:#fff;">Pulse Check</strong> → 9-column scoring matrix: rep names down, KPIs across, color-coded grades. One screen tells you who's at attainment risk this quarter.</div>
+            <div style="margin-bottom:8px;"><strong style="color:#fff;">House Goals</strong> → Live OKR card with house target, individual rep targets, projected attainment, gap math. Updates as you type.</div>
+            <div style="margin-bottom:8px;"><strong style="color:#fff;">Gross Profit Calculator</strong> → Margin per deal × per rep × per territory in 3 inputs. Spits out break-even unit economics + comp affordability ceiling.</div>
+            <div><strong style="color:#fff;">Recruiting Calculator</strong> → "How many AEs do I need to hit $4M?" → answers in seconds with ramp curves and quota assumptions baked in.</div>
+          </div>
+        </details></div>
+      </div>
+      <div style="font-size:clamp(0.85rem,1.1vw,1rem);color:#22c55e;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;margin-top:32px;">Open CRM →</div>
+    </a>
+    <!-- War Room -->
+    <a href="dashboard.html#warroom" class="lc-option" style="display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;padding:clamp(32px,4.5vw,64px);background:linear-gradient(155deg,rgba(232,113,10,0.20) 0%,rgba(232,113,10,0.05) 60%,rgba(0,0,0,0.2) 100%);border:2px solid rgba(232,113,10,0.6);border-radius:24px;color:#EDE5D8;transition:all 0.25s;cursor:pointer;position:relative;overflow:hidden;" onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='rgba(232,113,10,0.98)';this.style.boxShadow='0 24px 80px rgba(232,113,10,0.32)';" onmouseout="this.style.transform='';this.style.borderColor='rgba(232,113,10,0.6)';this.style.boxShadow='';">
+      <div>
+        <div class="machine-tv machine-tv--amber" aria-hidden="true">
+          <div class="machine-tv-bezel">
+            <div class="machine-tv-rivet machine-tv-rivet--tl"></div>
+            <div class="machine-tv-rivet machine-tv-rivet--tr"></div>
+            <div class="machine-tv-rivet machine-tv-rivet--bl"></div>
+            <div class="machine-tv-rivet machine-tv-rivet--br"></div>
+            <div class="machine-tv-screen">
+              <div class="machine-tv-glyph">⚔</div>
+              <div class="machine-tv-channel">CH 03 · WAR ROOM</div>
+              <div class="machine-tv-pulse"></div>
+              <div class="machine-tv-scanlines"></div>
+              <div class="machine-tv-glare"></div>
+            </div>
+            <div class="machine-tv-led"></div>
+            <div class="machine-tv-nameplate">40&nbsp;CHANNELS</div>
+          </div>
+        </div>
+        <div style="font-size:clamp(0.66rem,0.9vw,0.78rem);font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:#FF8C1A;margin-bottom:14px;">For Leaders</div>
+        <div style="font-size:clamp(2.4rem,5vw,4rem);font-weight:900;color:#EDE5D8;line-height:1;letter-spacing:-0.02em;margin-bottom:18px;">War Room</div>
+        <div style="font-size:clamp(0.95rem,1.3vw,1.15rem);color:rgba(237,229,216,0.7);line-height:1.55;max-width:92%;"><strong style="color:#fff;">Reports. On reports. On reports.</strong> The actual weeds. 40 live dashboards · Leader Hub · AI-First Engine · aging inventory · dealer capacity · pipeline coverage · win-rate by rep · stage aging · loss-reason breakdowns · forecast accuracy. The board-deck data your competitors can't ship in a quarter.</div>
+      </div>
+      <div style="font-size:clamp(0.85rem,1.1vw,1rem);color:#FF8C1A;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;margin-top:32px;">Open War Room →</div>
+    </a>
+  </div>
+  <!-- Secondary links — small text under the three doors. Tour + Leader Hub
+       are still reachable for first-timers / managers without taking up
+       space in the main grid. -->
+  <div style="flex-shrink:0;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;padding:0 28px 22px;font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,229,216,0.4);">
+    <a href="knowledge.html" style="display:inline-flex;align-items:center;gap:6px;color:#FF8C1A;text-decoration:none;background:rgba(232,113,10,0.10);border:1px solid rgba(232,113,10,0.4);padding:6px 14px;border-radius:99px;font-weight:800;"><span>📚 Knowledge Library</span><span id="lib-live-count" style="background:rgba(0,0,0,0.4);color:#FFD740;padding:1px 7px;border-radius:99px;font-size:0.62rem;font-family:'JetBrains Mono',monospace;">live</span></a>
+    <a href="/tools/" style="display:inline-flex;align-items:center;gap:6px;color:#22c55e;text-decoration:none;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.35);padding:6px 14px;border-radius:99px;font-weight:800;"><span>🛠 Free Tools</span><span style="background:rgba(0,0,0,0.4);color:#FFD740;padding:1px 7px;border-radius:99px;font-size:0.62rem;font-family:'JetBrains Mono',monospace;">11</span></a>
+    <a href="/pillars/deal-desk-architecture-scaled-governance" style="color:#FFD740;text-decoration:none;border-bottom:1px dotted rgba(255,215,64,0.4);padding-bottom:1px;">📜 Pillar · Deal Desk</a>
+    <a href="/pillars/founder-led-sales-governance-stack" style="color:#FFD740;text-decoration:none;border-bottom:1px dotted rgba(255,215,64,0.4);padding-bottom:1px;">📜 Pillar · Founder-Led Sales</a>
+    <a href="dashboard.html?tour=1" style="color:#a78bfa;text-decoration:none;border-bottom:1px dotted rgba(167,139,250,0.4);padding-bottom:1px;">🎬 Take the Tour</a>
+    <a href="/privacy" style="color:rgba(237,229,216,0.4);text-decoration:none;border-bottom:1px dotted rgba(237,229,216,0.2);padding-bottom:1px;">Privacy</a>
+    <a href="dashboard.html#leaderhub" style="color:#a855f7;text-decoration:none;border-bottom:1px dotted rgba(168,85,247,0.4);padding-bottom:1px;">⚡ Leader Hub</a>
+  </div>
+
+  <style>
+    @media (max-width: 1300px) and (min-width: 901px) {
+      #lc-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; overflow-y: auto; }
+    }
+    @media (max-width: 900px) {
+      #lc-grid { grid-template-columns: 1fr !important; gap: 12px !important; padding: 0 16px 16px !important; overflow-y: auto; }
+      #lc-grid .lc-option { min-height: 200px; }
+    }
+
+    /* ─── CRT-TV graphic for The Machine card ─────────────────────────────
+       Mirrors the aged-metal cabinet aesthetic of the machine room:
+       outer bezel with corner rivets, phosphor-orange screen, scanlines,
+       subtle flicker, blinking power LED, engraved nameplate. */
+    .machine-tv {
+      width: clamp(180px, 22vw, 280px);
+      height: clamp(130px, 16vw, 200px);
+      margin: 0 0 22px;
+      position: relative;
+    }
+    .machine-tv-bezel {
+      width: 100%; height: 100%;
+      background:
+        linear-gradient(145deg, #2c2a26 0%, #1a1a17 45%, #0d0c0a 100%);
+      border-radius: clamp(14px, 1.6vw, 22px);
+      padding: clamp(10px, 1.4vw, 18px) clamp(10px, 1.4vw, 18px) clamp(22px, 2.2vw, 32px);
+      box-shadow:
+        inset 0 2px 6px rgba(255,255,255,0.05),
+        inset 0 -3px 8px rgba(0,0,0,0.7),
+        0 14px 40px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.04);
+      position: relative;
+      overflow: hidden;
+    }
+    .machine-tv-rivet {
+      position: absolute; width: 6px; height: 6px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #6a6258 0%, #3b362e 60%, #1d1a16 100%);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.18), 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .machine-tv-rivet--tl { top: 7px;    left: 8px; }
+    .machine-tv-rivet--tr { top: 7px;    right: 8px; }
+    .machine-tv-rivet--bl { bottom: 7px; left: 8px; }
+    .machine-tv-rivet--br { bottom: 7px; right: 8px; }
+
+    .machine-tv-screen {
+      position: relative;
+      width: 100%; height: 100%;
+      background:
+        radial-gradient(ellipse at 50% 45%, rgba(255,140,26,0.20) 0%, rgba(232,113,10,0.06) 45%, rgba(0,0,0,0.96) 100%),
+        #050402;
+      border-radius: clamp(8px, 0.9vw, 14px);
+      border: 1px solid rgba(232,113,10,0.20);
+      box-shadow:
+        inset 0 0 50px rgba(232,113,10,0.18),
+        inset 0 0 6px rgba(255,255,255,0.05),
+        inset 0 0 0 1px rgba(0,0,0,0.4);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    /* ECG pulse-line replacing the ⌬ glyph on The Machine card. Green
+       phosphor matches the actual machine-room video at /themachine. */
+    .machine-tv-ecg {
+      width: 92%;
+      height: clamp(80px, 11vw, 130px);
+      filter: drop-shadow(0 0 12px rgba(0,255,65,0.85)) drop-shadow(0 0 4px rgba(0,255,65,0.7));
+      animation: machine-tv-flicker 4.6s ease-in-out infinite;
+      stroke-dasharray: 1200;
+      stroke-dashoffset: 1200;
+    }
+    .machine-tv-ecg path {
+      animation: machine-tv-ecg-draw 3.2s linear infinite;
+    }
+    @keyframes machine-tv-ecg-draw {
+      0%   { stroke-dashoffset: 1200; }
+      60%  { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: -1200; }
+    }
+    .machine-tv-glyph {
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
+      font-weight: 900; line-height: 1;
+      color: #FFB870;
+      text-shadow:
+        0 0 22px rgba(255,140,26,0.95),
+        0 0 8px rgba(255,140,26,0.7),
+        0 0 2px rgba(255,255,255,0.3);
+      animation: machine-tv-flicker 4.6s ease-in-out infinite, machine-tv-pulse 2.8s ease-in-out infinite;
+      filter: blur(0.3px);
+    }
+    .machine-tv-channel {
+      position: absolute; top: 8px; left: 10px;
+      font-family: 'JetBrains Mono','Consolas',monospace;
+      font-size: 0.52rem; font-weight: 700; letter-spacing: 0.16em;
+      color: rgba(255,180,90,0.7);
+      text-shadow: 0 0 6px rgba(255,140,26,0.6);
+    }
+    .machine-tv-channel::before {
+      content: "●"; color: #ff5050;
+      animation: machine-tv-rec 1.4s ease-in-out infinite;
+      margin-right: 5px;
+      text-shadow: 0 0 6px rgba(255,80,80,0.9);
+    }
+    .machine-tv-pulse {
+      position: absolute; bottom: 8px; left: 10px; right: 10px; height: 12px;
+      background:
+        linear-gradient(90deg, transparent 0%, rgba(255,140,26,0.22) 25%, rgba(255,140,26,0.55) 50%, rgba(255,140,26,0.22) 75%, transparent 100%);
+      mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'><path d='M0 6 L40 6 L46 2 L52 10 L58 6 L100 6 L106 1 L112 11 L118 6 L160 6 L166 3 L172 9 L178 6 L200 6' stroke='black' fill='none' stroke-width='1.2'/></svg>") center / 100% 100% no-repeat;
+      -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'><path d='M0 6 L40 6 L46 2 L52 10 L58 6 L100 6 L106 1 L112 11 L118 6 L160 6 L166 3 L172 9 L178 6 L200 6' stroke='black' fill='none' stroke-width='1.2'/></svg>") center / 100% 100% no-repeat;
+      animation: machine-tv-wave 1.6s linear infinite;
+    }
+    .machine-tv-scanlines {
+      position: absolute; inset: 0; pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.0) 0px,
+        rgba(0,0,0,0.22) 1px,
+        rgba(0,0,0,0.0) 2px,
+        rgba(0,0,0,0.0) 3px
+      );
+      mix-blend-mode: multiply; opacity: 0.55;
+    }
+    .machine-tv-glare {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 25% 18%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 38%);
+    }
+    .machine-tv-led {
+      position: absolute; bottom: 10px; right: 18px;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #FF8C1A;
+      box-shadow: 0 0 10px rgba(255,140,26,0.95), inset 0 1px 1px rgba(255,255,255,0.5);
+      animation: machine-tv-led 1.7s ease-in-out infinite;
+    }
+    .machine-tv-nameplate {
+      position: absolute; bottom: 7px; left: 14px;
+      font-family: 'JetBrains Mono','Consolas',monospace;
+      font-size: 0.52rem; font-weight: 800;
+      letter-spacing: 0.18em;
+      color: rgba(255,229,200,0.42);
+      text-shadow: 0 1px 0 rgba(0,0,0,0.7);
+    }
+    @keyframes machine-tv-flicker {
+      0%, 91%, 100% { opacity: 1; }
+      92% { opacity: 0.78; }
+      93% { opacity: 1; }
+      95% { opacity: 0.86; }
+      96% { opacity: 1; }
+    }
+    @keyframes machine-tv-pulse {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.04); }
+    }
+    @keyframes machine-tv-led {
+      0%, 100% { box-shadow: 0 0 8px rgba(255,140,26,0.8), inset 0 1px 1px rgba(255,255,255,0.5); }
+      50%      { box-shadow: 0 0 16px rgba(255,140,26,1),   inset 0 1px 1px rgba(255,255,255,0.6); }
+    }
+    @keyframes machine-tv-wave {
+      0%   { transform: translateX(-12%); }
+      100% { transform: translateX( 12%); }
+    }
+    @keyframes machine-tv-rec {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: 0.35; }
+    }
+    @media (max-width: 900px) {
+      .machine-tv { width: 200px; height: 140px; margin: 0 0 16px; }
+    }
+
+    /* ─── GREEN variant (CRM card) — same component, phosphor-green tint ── */
+    .machine-tv--green .machine-tv-screen {
+      background:
+        radial-gradient(ellipse at 50% 45%, rgba(34,197,94,0.22) 0%, rgba(34,197,94,0.06) 45%, rgba(0,0,0,0.96) 100%),
+        #020503;
+      border-color: rgba(34,197,94,0.22);
+      box-shadow:
+        inset 0 0 50px rgba(34,197,94,0.18),
+        inset 0 0 6px rgba(255,255,255,0.05),
+        inset 0 0 0 1px rgba(0,0,0,0.4);
+    }
+    .machine-tv--green .machine-tv-glyph {
+      color: #6ef0a3;
+      text-shadow:
+        0 0 22px rgba(34,197,94,0.95),
+        0 0 8px rgba(34,197,94,0.7),
+        0 0 2px rgba(255,255,255,0.3);
+    }
+    .machine-tv--green .machine-tv-channel {
+      color: rgba(110,240,163,0.75);
+      text-shadow: 0 0 6px rgba(34,197,94,0.6);
+    }
+    .machine-tv--green .machine-tv-pulse {
+      background: linear-gradient(90deg, transparent 0%, rgba(34,197,94,0.22) 25%, rgba(34,197,94,0.55) 50%, rgba(34,197,94,0.22) 75%, transparent 100%);
+    }
+    .machine-tv--green .machine-tv-led {
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34,197,94,0.95), inset 0 1px 1px rgba(255,255,255,0.5);
+      animation: machine-tv-led-green 1.7s ease-in-out infinite;
+    }
+    @keyframes machine-tv-led-green {
+      0%, 100% { box-shadow: 0 0 8px rgba(34,197,94,0.8),  inset 0 1px 1px rgba(255,255,255,0.5); }
+      50%      { box-shadow: 0 0 16px rgba(34,197,94,1),    inset 0 1px 1px rgba(255,255,255,0.6); }
+    }
+
+    /* ─── AMBER variant (War Room card) — orange like the Machine but with a
+         warmer amber-yellow phosphor tint to differentiate at-a-glance. ── */
+    .machine-tv--amber .machine-tv-screen {
+      background:
+        radial-gradient(ellipse at 50% 45%, rgba(255,200,80,0.22) 0%, rgba(232,160,40,0.06) 45%, rgba(0,0,0,0.96) 100%),
+        #050402;
+      border-color: rgba(255,200,80,0.20);
+      box-shadow:
+        inset 0 0 50px rgba(255,180,40,0.18),
+        inset 0 0 6px rgba(255,255,255,0.05),
+        inset 0 0 0 1px rgba(0,0,0,0.4);
+    }
+    .machine-tv--amber .machine-tv-glyph {
+      color: #ffd870;
+      text-shadow:
+        0 0 22px rgba(255,200,80,0.95),
+        0 0 8px rgba(255,180,40,0.7),
+        0 0 2px rgba(255,255,255,0.3);
+    }
+    .machine-tv--amber .machine-tv-channel {
+      color: rgba(255,216,120,0.75);
+      text-shadow: 0 0 6px rgba(255,200,80,0.6);
+    }
+    .machine-tv--amber .machine-tv-pulse {
+      background: linear-gradient(90deg, transparent 0%, rgba(255,200,80,0.22) 25%, rgba(255,200,80,0.55) 50%, rgba(255,200,80,0.22) 75%, transparent 100%);
+    }
+    .machine-tv--amber .machine-tv-led {
+      background: #ffc850;
+      box-shadow: 0 0 10px rgba(255,200,80,0.95), inset 0 1px 1px rgba(255,255,255,0.5);
+      animation: machine-tv-led-amber 1.7s ease-in-out infinite;
+    }
+    @keyframes machine-tv-led-amber {
+      0%, 100% { box-shadow: 0 0 8px rgba(255,200,80,0.8),  inset 0 1px 1px rgba(255,255,255,0.5); }
+      50%      { box-shadow: 0 0 16px rgba(255,200,80,1),    inset 0 1px 1px rgba(255,255,255,0.6); }
+    }
+  </style>
+
+  <!-- Disclaimer modal: shown once per session before navigating into dashboard.html -->
+  <div id="lc-disclaimer" style="position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;background:rgba(8,11,16,0.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);">
+    <div style="max-width:520px;width:calc(100% - 40px);background:linear-gradient(155deg,rgba(17,21,28,0.98),rgba(10,14,20,0.98));border:1px solid rgba(232,113,10,0.45);border-radius:18px;padding:32px 30px 26px;box-shadow:0 28px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(232,113,10,0.08);color:#EDE5D8;font-family:inherit;">
+      <div style="font-size:0.62rem;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:#FF8C1A;margin-bottom:14px;">Heads up</div>
+      <div style="font-size:1.35rem;font-weight:800;line-height:1.25;margin-bottom:14px;color:#EDE5D8;">This is a visualization of ideas — not a product for sale.</div>
+      <div style="font-size:0.92rem;line-height:1.55;color:rgba(237,229,216,0.72);margin-bottom:24px;">PULSE is a working concept showing how RevOps tools, dashboards, and workflows could fit together. Sample data, mock interactions. Nothing here is licensed or available for purchase.</div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;align-items:center;flex-wrap:wrap;">
+        <button id="lc-disclaimer-cancel" type="button" style="background:none;border:1px solid rgba(255,255,255,0.18);border-radius:10px;color:rgba(237,229,216,0.7);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;padding:10px 16px;cursor:pointer;font-family:inherit;text-transform:uppercase;">Back</button>
+        <button id="lc-disclaimer-ok" type="button" style="background:linear-gradient(135deg,#FF8C1A,#E8710A);border:none;border-radius:10px;color:#0a0e14;font-size:0.74rem;font-weight:900;letter-spacing:0.1em;padding:11px 22px;cursor:pointer;font-family:inherit;text-transform:uppercase;box-shadow:0 8px 24px rgba(232,113,10,0.35);">Got it — Continue →</button>
       </div>
     </div>
   </div>
+</div>
+<script>
+  // Hide chooser if ?home param (skip-to-landing escape hatch)
+  (function() {
+    if (window.location.search.includes('home')) {
+      var c = document.getElementById('landing-chooser');
+      if (c) c.style.display = 'none';
+    } else {
+      // Lock scroll while chooser is up
+      document.body.style.overflow = 'hidden';
+    }
+  })();
+
+  // Disclaimer modal — shown once per session when entering any dashboard destination
+  (function() {
+    var modal = document.getElementById('lc-disclaimer');
+    var okBtn = document.getElementById('lc-disclaimer-ok');
+    var cancelBtn = document.getElementById('lc-disclaimer-cancel');
+    if (!modal || !okBtn || !cancelBtn) return;
+    var pendingHref = null;
+    function ack() { try { sessionStorage.setItem('pulse_disclaimer_ack', '1'); } catch(e) {} }
+    function alreadyAcked() { try { return sessionStorage.getItem('pulse_disclaimer_ack') === '1'; } catch(e) { return false; } }
+    function open(href) { pendingHref = href; modal.style.display = 'flex'; }
+    function close() { modal.style.display = 'none'; pendingHref = null; }
+    okBtn.addEventListener('click', function() {
+      ack();
+      var href = pendingHref;
+      close();
+      if (href) window.location.href = href;
+    });
+    cancelBtn.addEventListener('click', close);
+    modal.addEventListener('click', function(e) { if (e.target === modal) close(); });
+    document.querySelectorAll('#lc-grid .lc-option').forEach(function(card) {
+      card.addEventListener('click', function(e) {
+        if (alreadyAcked()) return;
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; // let new-tab/new-window pass through
+        e.preventDefault();
+        open(card.getAttribute('href'));
+      });
+    });
+  })();
+</script>
 
   <canvas id="particle-canvas"></canvas>
   <div class="blob blob-1"></div>
@@ -3276,120 +3993,119 @@
           </div>
         </div>
       </a>
-      <!-- GLOBAL INDUSTRY SELECTOR -->
-      <div style="position:relative;display:flex;align-items:center;">
-        <select id="global-industry-select" onchange="if(this.value)window.location.href='dashboard.html?industry='+this.value" style="appearance:none;-webkit-appearance:none;background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.72rem;font-weight:700;letter-spacing:0.03em;padding:7px 28px 7px 10px;font-family:inherit;cursor:pointer;outline:none;min-width:140px;" aria-label="Select your industry">
-          <option value="" disabled selected>🏭 Industry…</option>
-          <option value="security">Home Security</option>
-          <option value="internet">Internet / Broadband</option>
-          <option value="solar">Solar / Energy</option>
-          <option value="mortgage">Mortgage / Lending</option>
-          <option value="insurance">Insurance</option>
-          <option value="realestate">Real Estate</option>
-          <option value="saas">SaaS / Software</option>
-          <option value="gym">Fitness / Gym</option>
-          <option value="streaming">Streaming / Media</option>
-          <option value="banking">Banking / Fintech</option>
-          <option value="healthcare">Healthcare</option>
-          <option value="auto">Auto / Dealership</option>
-          <option value="pest">Pest Control</option>
-          <option value="hvac">HVAC / Home Services</option>
-          <option value="cable">Cable / Satellite TV</option>
-          <option value="moving">Moving / Storage</option>
-          <option value="travel">Travel / Hospitality</option>
-          <option value="legal">Legal / Professional</option>
-          <option value="retail">Retail / E-commerce</option>
-        </select>
-        <span style="position:absolute;right:9px;top:50%;transform:translateY(-50%);pointer-events:none;color:#E8710A;font-size:0.55rem;">▾</span>
-      </div>
       <div class="nav-dropdown-wrap" id="nav-dropdown-wrap">
         <select class="nav-dropdown" id="nav-dropdown" onchange="handleNavDropdown(this)" aria-label="Navigate to section">
           <option value="" disabled selected>Navigate to…</option>
-          <option value="dashboard.html#house-goal-table">House Goal Setting</option>
-            <option value="dashboard.html#inline-matrix">Pulse Check</option>
-            <option value="dashboard.html#tier-dist-section">Projected Tier Distribution</option>
-            <option value="dashboard.html#profit-calc-section">Gross Profit Calculator</option>
-            <option value="dashboard.html#coaching-section">Coaching Action Items</option>
-            <option value="dashboard.html#recruiting-calc-section">Recruiting Calculator</option>
-            <option value="dashboard.html#sched-matrix-section">Rep Scheduling Matrix</option>
-            <option value="dashboard.html#challenge-section">Lightning Rounds</option>
-            <option value="dashboard.html#app-sync-section">Squad Sync</option>
-            <option value="dashboard.html#not-to-do-section">Not-To-Do List</option>
-            <option value="dashboard.html#meeting-creator-section">Sales Meeting Creator</option>
-            <option value="dashboard.html#rev-intel-section">📊 Revenue Intelligence / CRM</option>
+
+            <optgroup label="──────── Pulse Machine ────────"></optgroup>
+            <option value="knowledge.html">📚 Knowledge Library</option>
+            <option value="/themachine">🤖 The Machine Room</option>
+            <option value="/pillars/deal-desk-architecture-scaled-governance">📜 Pillar · Deal Desk Architecture</option>
+            <option value="/pillars/founder-led-sales-governance-stack">📜 Pillar · Founder-Led Sales Governance</option>
+            <option value="/pillars/discount-governance-full-stack">📜 Pillar · Discount Governance Full-Stack</option>
+
+            <optgroup label="──────── Planning ────────"></optgroup>
+            <option value="dashboard.html#house-goal-table">🏠 House Goal Setting</option>
+            <option value="dashboard.html#inline-matrix">💓 Pulse Check</option>
+            <option value="dashboard.html#tier-dist-section">📊 Projected Tier Distribution</option>
+            <option value="dashboard.html#profit-calc-section">💰 Gross Profit Calculator</option>
+
+            <optgroup label="──────── Coaching ────────"></optgroup>
+            <option value="dashboard.html#coaching-section">🎯 Coaching Action Items</option>
+            <option value="dashboard.html#challenge-section">⚡ Lightning Rounds</option>
             <option value="dashboard.html#pulse-mgmt-section">📋 Pulse MGMT</option>
+
+            <optgroup label="──────── Operations ────────"></optgroup>
+            <option value="dashboard.html#recruiting-calc-section">🧲 Recruiting Calculator</option>
+            <option value="dashboard.html#sched-matrix-section">📅 Rep Scheduling Matrix</option>
+            <option value="dashboard.html#not-to-do-section">🚫 Not-To-Do List</option>
+            <option value="dashboard.html#meeting-creator-section">🎤 Sales Meeting Creator</option>
+            <option value="dashboard.html#app-sync-section">📱 Squad Sync</option>
+
+            <optgroup label="──────── Revenue ────────"></optgroup>
+            <option value="dashboard.html#rev-intel-section">📊 Revenue Intelligence / CRM</option>
+
             <optgroup label="──────── How To's ────────"></optgroup>
-            <option value="/how-tos/">📖 Browse All Industries</option>
-            <option value="/how-tos/security.html">🔒 Home Security</option>
-            <option value="/how-tos/solar.html">☀️ Solar / Energy</option>
-            <option value="/how-tos/saas.html">💻 SaaS / Software</option>
-            <option value="/how-tos/realestate.html">🏠 Real Estate</option>
-            <option value="/how-tos/insurance.html">🛡️ Insurance</option>
-            <option value="/how-tos/hvac.html">🌡️ HVAC / Home Services</option>
-            <option value="/how-tos/mortgage.html">🏦 Mortgage / Lending</option>
-            <option value="/how-tos/healthcare.html">🏥 Healthcare</option>
-            <option value="/how-tos/auto.html">🚗 Auto / Dealership</option>
+            <option value="how-tos/">📖 Browse All Industries</option>
+            <option value="how-tos/security.html">🔒 Home Security</option>
+            <option value="how-tos/telecom.html">📡 Telecom / MSP / Channel</option>
+            <option value="how-tos/solar.html">☀️ Solar / Energy</option>
+            <option value="how-tos/saas.html">💻 SaaS / Software</option>
+            <option value="how-tos/realestate.html">🏠 Real Estate</option>
+            <option value="how-tos/insurance.html">🛡️ Insurance</option>
+            <option value="how-tos/hvac.html">🌡️ HVAC / Home Services</option>
+            <option value="how-tos/mortgage.html">🏦 Mortgage / Lending</option>
+            <option value="how-tos/healthcare.html">🏥 Healthcare</option>
+            <option value="how-tos/auto.html">🚗 Auto / Dealership</option>
         </select>
         <span class="nav-dropdown-arrow">▾</span>
       </div>
-      <a id="dashboard-back-btn" href="index.html" style="display:none; align-items:center; gap:5px; padding:7px 13px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); color:#9A9088; font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; white-space:nowrap; transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='#EDE5D8'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.color='#9A9088'">← Full Site</a>
+      <a id="dashboard-back-btn" href="index.html" style="display:none !important;" aria-hidden="true">← Full Site</a>
       <button id="dashboard-save-btn" onclick="promptSaveProgress()" style="display:none; align-items:center; gap:5px; padding:7px 13px; border-radius:8px; border:1px solid rgba(232,113,10,0.35); background:rgba(232,113,10,0.08); color:#E8710A; font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; font-family:inherit; white-space:nowrap; transition:all 0.2s;" onmouseover="this.style.background='rgba(232,113,10,0.18)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">💾 Save</button>
       <button id="dashboard-load-btn" onclick="promptLoadProgress()" style="display:none; align-items:center; gap:5px; padding:7px 13px; border-radius:8px; border:1px solid rgba(232,113,10,0.35); background:rgba(232,113,10,0.08); color:#E8710A; font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; font-family:inherit; white-space:nowrap; transition:all 0.2s;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔓 Load</button>
       <span id="dashboard-save-status" style="display:none; font-size:0.65rem; color:#a3e635; white-space:nowrap;"></span>
-      <a href="dashboard.html" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid rgba(34,197,94,0.35);background:rgba(34,197,94,0.08);color:#22c55e;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='rgba(34,197,94,0.2)'" onmouseout="this.style.background='rgba(34,197,94,0.08)'">📊 CRM</a>
-      <a href="dashboard.html#rev-intel-section" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid rgba(34,197,94,0.35);background:rgba(34,197,94,0.08);color:#22c55e;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='rgba(34,197,94,0.2)'" onmouseout="this.style.background='rgba(34,197,94,0.08)'">⊞ CRM</a>
+      <a href="dashboard.html" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid rgba(168,85,247,0.5);background:rgba(168,85,247,0.14);color:#a855f7;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='rgba(168,85,247,0.28)'" onmouseout="this.style.background='rgba(168,85,247,0.14)'">📊 CRM</a>
+      <a href="dashboard.html#rev-intel-section" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid rgba(168,85,247,0.5);background:rgba(168,85,247,0.14);color:#a855f7;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='rgba(168,85,247,0.28)'" onmouseout="this.style.background='rgba(168,85,247,0.14)'">⊞ CRM</a>
       <button type="button" onclick="lockerOpen()" title="Locker Room — save &amp; load your progress" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Locker</button>
       <div class="howto-dropdown-wrap" id="nav-howto-wrap">
         <button type="button" class="howto-dropdown-btn" aria-label="How To guides by industry">How To's</button>
         <div class="howto-mega" role="menu">
           <div class="howto-mega-header">
             <span>📖 How to Manage &amp; Scale Revenue — By Industry</span>
-            <a href="/how-tos/">View All →</a>
+            <a href="how-tos/">View All →</a>
           </div>
           <div class="howto-mega-grid">
-            <a href="/how-tos/security.html" class="howto-mega-item"><span class="hm-icon">🔒</span>Home Security</a>
-            <a href="/how-tos/internet.html" class="howto-mega-item"><span class="hm-icon">📡</span>Internet / Broadband</a>
-            <a href="/how-tos/solar.html" class="howto-mega-item"><span class="hm-icon">☀️</span>Solar / Energy</a>
-            <a href="/how-tos/mortgage.html" class="howto-mega-item"><span class="hm-icon">🏦</span>Mortgage / Lending</a>
-            <a href="/how-tos/insurance.html" class="howto-mega-item"><span class="hm-icon">🛡️</span>Insurance</a>
-            <a href="/how-tos/realestate.html" class="howto-mega-item"><span class="hm-icon">🏠</span>Real Estate</a>
-            <a href="/how-tos/saas.html" class="howto-mega-item"><span class="hm-icon">💻</span>SaaS / Software</a>
-            <a href="/how-tos/gym.html" class="howto-mega-item"><span class="hm-icon">🏋️</span>Fitness / Gym</a>
-            <a href="/how-tos/streaming.html" class="howto-mega-item"><span class="hm-icon">📺</span>Streaming / Media</a>
-            <a href="/how-tos/banking.html" class="howto-mega-item"><span class="hm-icon">🏧</span>Banking / Fintech</a>
-            <a href="/how-tos/healthcare.html" class="howto-mega-item"><span class="hm-icon">🏥</span>Healthcare</a>
-            <a href="/how-tos/auto.html" class="howto-mega-item"><span class="hm-icon">🚗</span>Auto / Dealership</a>
-            <a href="/how-tos/pest.html" class="howto-mega-item"><span class="hm-icon">🐛</span>Pest Control</a>
-            <a href="/how-tos/hvac.html" class="howto-mega-item"><span class="hm-icon">🌡️</span>HVAC / Home Services</a>
-            <a href="/how-tos/cable.html" class="howto-mega-item"><span class="hm-icon">📶</span>Cable / Satellite TV</a>
-            <a href="/how-tos/moving.html" class="howto-mega-item"><span class="hm-icon">🚚</span>Moving / Storage</a>
-            <a href="/how-tos/travel.html" class="howto-mega-item"><span class="hm-icon">✈️</span>Travel / Hospitality</a>
-            <a href="/how-tos/legal.html" class="howto-mega-item"><span class="hm-icon">⚖️</span>Legal / Professional</a>
-            <a href="/how-tos/retail.html" class="howto-mega-item"><span class="hm-icon">🛍️</span>Retail / E-commerce</a>
-            <a href="/how-tos/staffing.html" class="howto-mega-item"><span class="hm-icon">👥</span>Staffing / Recruiting</a>
-            <a href="/how-tos/pharma.html" class="howto-mega-item"><span class="hm-icon">💊</span>Pharma / Biotech</a>
-            <a href="/how-tos/meddevice.html" class="howto-mega-item"><span class="hm-icon">🩺</span>Medical Device</a>
-            <a href="/how-tos/construction.html" class="howto-mega-item"><span class="hm-icon">🏗️</span>Construction</a>
-            <a href="/how-tos/edtech.html" class="howto-mega-item"><span class="hm-icon">🎓</span>Education / EdTech</a>
-            <a href="/how-tos/restaurant.html" class="howto-mega-item"><span class="hm-icon">🍽️</span>Restaurant</a>
-            <a href="/how-tos/ecommerce.html" class="howto-mega-item"><span class="hm-icon">📦</span>E-commerce / DTC</a>
-            <a href="/how-tos/cybersec.html" class="howto-mega-item"><span class="hm-icon">🔐</span>Cybersecurity</a>
-            <a href="/how-tos/logistics.html" class="howto-mega-item"><span class="hm-icon">🚛</span>Logistics / Freight</a>
-            <a href="/how-tos/events.html" class="howto-mega-item"><span class="hm-icon">🎪</span>Events / Entertainment</a>
-            <a href="/how-tos/dental.html" class="howto-mega-item"><span class="hm-icon">🦷</span>Dental / Ortho</a>
-            <a href="/how-tos/veterinary.html" class="howto-mega-item"><span class="hm-icon">🐾</span>Veterinary</a>
-            <a href="/how-tos/cleaning.html" class="howto-mega-item"><span class="hm-icon">🧹</span>Cleaning / Facilities</a>
-            <a href="/how-tos/wellness.html" class="howto-mega-item"><span class="hm-icon">💆</span>Wellness / Spa</a>
-            <a href="/how-tos/msp.html" class="howto-mega-item"><span class="hm-icon">🖥️</span>IT Services / MSP</a>
-            <a href="/how-tos/media.html" class="howto-mega-item"><span class="hm-icon">📊</span>Digital Advertising</a>
-            <a href="/how-tos/agriculture.html" class="howto-mega-item"><span class="hm-icon">🌾</span>Agriculture</a>
-            <a href="/how-tos/wholesale.html" class="howto-mega-item"><span class="hm-icon">🏭</span>Wholesale Dist.</a>
-            <a href="/how-tos/printing.html" class="howto-mega-item"><span class="hm-icon">🖨️</span>Printing / Signage</a>
-            <a href="/how-tos/nonprofit.html" class="howto-mega-item"><span class="hm-icon">❤️</span>Nonprofit</a>
+            <a href="how-tos/security.html" class="howto-mega-item"><span class="hm-icon">🔒</span>Home Security</a>
+            <a href="how-tos/internet.html" class="howto-mega-item"><span class="hm-icon">📡</span>Internet / Broadband</a>
+            <a href="how-tos/solar.html" class="howto-mega-item"><span class="hm-icon">☀️</span>Solar / Energy</a>
+            <a href="how-tos/mortgage.html" class="howto-mega-item"><span class="hm-icon">🏦</span>Mortgage / Lending</a>
+            <a href="how-tos/insurance.html" class="howto-mega-item"><span class="hm-icon">🛡️</span>Insurance</a>
+            <a href="how-tos/realestate.html" class="howto-mega-item"><span class="hm-icon">🏠</span>Real Estate</a>
+            <a href="how-tos/saas.html" class="howto-mega-item"><span class="hm-icon">💻</span>SaaS / Software</a>
+            <a href="how-tos/gym.html" class="howto-mega-item"><span class="hm-icon">🏋️</span>Fitness / Gym</a>
+            <a href="how-tos/streaming.html" class="howto-mega-item"><span class="hm-icon">📺</span>Streaming / Media</a>
+            <a href="how-tos/banking.html" class="howto-mega-item"><span class="hm-icon">🏧</span>Banking / Fintech</a>
+            <a href="how-tos/healthcare.html" class="howto-mega-item"><span class="hm-icon">🏥</span>Healthcare</a>
+            <a href="how-tos/auto.html" class="howto-mega-item"><span class="hm-icon">🚗</span>Auto / Dealership</a>
+            <a href="how-tos/pest.html" class="howto-mega-item"><span class="hm-icon">🐛</span>Pest Control</a>
+            <a href="how-tos/hvac.html" class="howto-mega-item"><span class="hm-icon">🌡️</span>HVAC / Home Services</a>
+            <a href="how-tos/cable.html" class="howto-mega-item"><span class="hm-icon">📶</span>Cable / Satellite TV</a>
+            <a href="how-tos/moving.html" class="howto-mega-item"><span class="hm-icon">🚚</span>Moving / Storage</a>
+            <a href="how-tos/travel.html" class="howto-mega-item"><span class="hm-icon">✈️</span>Travel / Hospitality</a>
+            <a href="how-tos/legal.html" class="howto-mega-item"><span class="hm-icon">⚖️</span>Legal / Professional</a>
+            <a href="how-tos/retail.html" class="howto-mega-item"><span class="hm-icon">🛍️</span>Retail / E-commerce</a>
+            <a href="how-tos/staffing.html" class="howto-mega-item"><span class="hm-icon">👥</span>Staffing / Recruiting</a>
+            <a href="how-tos/pharma.html" class="howto-mega-item"><span class="hm-icon">💊</span>Pharma / Biotech</a>
+            <a href="how-tos/meddevice.html" class="howto-mega-item"><span class="hm-icon">🩺</span>Medical Device</a>
+            <a href="how-tos/construction.html" class="howto-mega-item"><span class="hm-icon">🏗️</span>Construction</a>
+            <a href="how-tos/edtech.html" class="howto-mega-item"><span class="hm-icon">🎓</span>Education / EdTech</a>
+            <a href="how-tos/restaurant.html" class="howto-mega-item"><span class="hm-icon">🍽️</span>Restaurant</a>
+            <a href="how-tos/ecommerce.html" class="howto-mega-item"><span class="hm-icon">📦</span>E-commerce / DTC</a>
+            <a href="how-tos/cybersec.html" class="howto-mega-item"><span class="hm-icon">🔐</span>Cybersecurity</a>
+            <a href="how-tos/logistics.html" class="howto-mega-item"><span class="hm-icon">🚛</span>Logistics / Freight</a>
+            <a href="how-tos/events.html" class="howto-mega-item"><span class="hm-icon">🎪</span>Events / Entertainment</a>
+            <a href="how-tos/dental.html" class="howto-mega-item"><span class="hm-icon">🦷</span>Dental / Ortho</a>
+            <a href="how-tos/veterinary.html" class="howto-mega-item"><span class="hm-icon">🐾</span>Veterinary</a>
+            <a href="how-tos/cleaning.html" class="howto-mega-item"><span class="hm-icon">🧹</span>Cleaning / Facilities</a>
+            <a href="how-tos/wellness.html" class="howto-mega-item"><span class="hm-icon">💆</span>Wellness / Spa</a>
+            <a href="how-tos/msp.html" class="howto-mega-item"><span class="hm-icon">🖥️</span>IT Services / MSP</a>
+            <a href="how-tos/media.html" class="howto-mega-item"><span class="hm-icon">📊</span>Digital Advertising</a>
+            <a href="how-tos/agriculture.html" class="howto-mega-item"><span class="hm-icon">🌾</span>Agriculture</a>
+            <a href="how-tos/wholesale.html" class="howto-mega-item"><span class="hm-icon">🏭</span>Wholesale Dist.</a>
+            <a href="how-tos/printing.html" class="howto-mega-item"><span class="hm-icon">🖨️</span>Printing / Signage</a>
+            <a href="how-tos/nonprofit.html" class="howto-mega-item"><span class="hm-icon">❤️</span>Nonprofit</a>
           </div>
         </div>
       </div>
-      <button type="button" class="nav-walkthrough-btn" onclick="openTourDirect()" title="Guided site walkthrough" aria-label="Open site walkthrough">Tour</button>
+      <button type="button" class="nav-walkthrough-btn" onclick="(function(b){try{localStorage.setItem('pulse_tour_seen','1');}catch(e){}document.body.classList.add('tour-seen');openTourDirect();})(this)" title="Guided site walkthrough" aria-label="Open site walkthrough">Tour</button>
+      <script>
+        // Stop the Tour button pulse once the user has clicked it once,
+        // ever (persisted in localStorage). Hydrates on every page load.
+        (function(){
+          try { if (localStorage.getItem('pulse_tour_seen') === '1') document.body.classList.add('tour-seen'); }
+          catch(e) {}
+        })();
+      </script>
       <button type="button" id="admin-lock-btn" onclick="adminPromptPasscode()" title="Admin access" style="background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.08)'">🔒 Admin</button>
       <div class="nav-cta" style="display:flex; align-items:center; gap:10px;">
         <label for="music-mood-select" style="font-size:0.72rem; color:var(--muted); font-weight:600; white-space:nowrap;">Mood:</label>
@@ -3412,38 +4128,106 @@
     </div>
   </nav>
 
-  <!-- JUST FOR FUN TAB -->
-  <a id="jff-tab" href="dashboard.html#just-for-fun"
-    style="position:fixed;top:58px;left:0;z-index:9999;
-           background:#E8710A;color:#fff;text-decoration:none;
-           border-radius:0 0 10px 0;
-           padding:7px 14px 7px 12px;
-           font-size:0.72rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;
-           cursor:pointer;font-family:inherit;
-           display:flex;align-items:center;gap:6px;
-           box-shadow:2px 2px 8px rgba(0,0,0,0.4);">
-    🦀 Just for Fun
-  </a>
+  <script>
+    /* ── NAV HEIGHT TRACKER — keeps content below the wrapped multi-row navbar ── */
+    (function(){
+      var nav = document.getElementById('navbar');
+      if (!nav) return;
+      function update() {
+        var h = nav.offsetHeight;
+        if (h > 0) document.documentElement.style.setProperty('--nav-height', h + 'px');
+      }
+      window.addEventListener('resize', update, { passive: true });
+      window.addEventListener('load', update);
+      if (window.ResizeObserver) { try { new ResizeObserver(update).observe(nav); } catch(e) {} }
+      update();
+      setTimeout(update, 200);
+      setTimeout(update, 1000);
+    })();
+  </script>
 
   <!-- HERO -->
   <section id="hero">
+    <!-- Background video: muted, autoplays, loops, mobile-inline. Browsers that block
+         autoplay without muted show the fallback particles/blobs beneath. -->
+    <video id="hero-video-bg" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="hero-bg.mp4" type="video/mp4" />
+    </video>
+    <div id="hero-video-overlay" aria-hidden="true"></div>
     <div class="container">
       <div class="hero-content">
-        <div class="hero-logo-block">
-          <div class="pulse-logo-block" style="gap:8px;">
-            <span class="pulse-logo-wordmark" style="font-size:clamp(3rem,10vw,5.5rem);">PULSE</span>
-            <span class="pulse-logo-tagline" style="font-size:clamp(1.3rem,3.8vw,2rem);">Words are a terrible way to explain a Vision!</span>
+        <!-- ═══════ WAR ROOM-STYLE HERO CARD ═══════
+             Mirrors the War Room hero treatment: rounded card, dual atmospheric glows,
+             honeycomb SVG pattern overlay, kicker + oversized title + badge row.
+             Sits on top of the hero video so the video still peeks through the card's
+             semi-transparent gradient. ═════════════════════════════════════════════ -->
+        <div class="hero-logo-block" id="home-hero-card" style="position:relative;overflow:hidden;border-radius:22px;padding:clamp(28px,4.5vw,48px) clamp(24px,4vw,42px);background:linear-gradient(135deg,rgba(10,14,20,0.72) 0%,rgba(26,31,43,0.58) 50%,rgba(10,14,20,0.72) 100%);border:1px solid rgba(232,113,10,0.32);box-shadow:0 20px 60px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.06);backdrop-filter:blur(6px);">
+          <!-- Orange atmospheric glow top-right -->
+          <div aria-hidden="true" style="position:absolute;top:-220px;right:-180px;width:580px;height:580px;background:radial-gradient(circle,rgba(232,113,10,0.28) 0%,rgba(232,113,10,0) 65%);pointer-events:none;z-index:0;"></div>
+          <!-- Purple atmospheric glow bottom-left -->
+          <div aria-hidden="true" style="position:absolute;bottom:-260px;left:-220px;width:620px;height:620px;background:radial-gradient(circle,rgba(139,92,246,0.22) 0%,rgba(139,92,246,0) 60%);pointer-events:none;z-index:0;"></div>
+          <!-- Honeycomb SVG pattern overlay -->
+          <svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.09;pointer-events:none;z-index:0;" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="home-hex-pattern" x="0" y="0" width="56" height="48" patternUnits="userSpaceOnUse">
+                <polygon points="28,2 52,16 52,36 28,46 4,36 4,16" fill="none" stroke="#E8710A" stroke-width="0.8"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#home-hex-pattern)"/>
+          </svg>
+          <div style="position:relative;z-index:1;">
+            <!-- Kicker (mirrors War Room "⚔ Revenue Command Center") -->
+            <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;padding:6px 14px;background:rgba(232,113,10,0.12);border:1px solid rgba(232,113,10,0.45);border-radius:100px;font-size:0.62rem;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:#FF8C1A;">
+              <span>⚔</span>
+              <span>Revenue Command Center</span>
+            </div>
+            <div class="pulse-logo-block" style="gap:8px;">
+              <span class="pulse-logo-wordmark" style="font-size:clamp(3rem,10vw,5.5rem);">PULSE</span>
+              <span class="pulse-logo-tagline" style="font-size:clamp(1.3rem,3.8vw,2rem);">Words are a terrible way to explain a Vision!</span>
+            </div>
+            <div style="font-size:0.85rem; font-weight:700; letter-spacing:0.12em; color:#EDE5D8; margin-top:12px;">by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Kory White</span>, <span itemprop="jobTitle">Chief Revenue Officer</span></span></div>
+            <!-- ═══ BIG FLASHY TAGLINE — animated gradient shimmer ═══ -->
+            <div class="hero-standard-tagline">The Industry Standard for RevOps Professionals</div>
           </div>
-          <div style="font-size:0.85rem; font-weight:700; letter-spacing:0.12em; color:#EDE5D8; margin-top:12px;">by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Kory White</span>, <span itemprop="jobTitle">Chief Revenue Officer</span></span></div>
         </div>
         <div class="hero-divider"></div>
-        <h1 class="hero-title">
-          Every Rep.<br />
-          <span class="gradient-text">Every KPI. One Direction.</span>
-        </h1>
-        <p class="hero-sub">
-          Built for RevOps leaders. One framework that gives Sales, Channel, Customer Success, and Marketing a <strong>shared view, shared targets, and one revenue direction</strong> — no silos, no guesswork. Designed by <strong>Kory White</strong>, Chief Revenue Officer &amp; Regional President at Verizon Cellular Sales.
-        </p>
+
+        <!-- ══════════════════════════════════════════════════════════════════════
+             HONEYCOMB HERO GRID — replaces the "Every Rep. Every KPI." headline +
+             the long subtitle paragraph with a full-width tiled hex grid.
+             Cells carry short capability words. Center hex is "PULSE" (bright,
+             pulsing). Hover any hex to raise + orange-ring it.
+             ══════════════════════════════════════════════════════════════════════ -->
+        <div class="hex-hero-grid" aria-label="PULSE capabilities grid">
+          <!-- Offset rows via CSS; cells are .hex-cell variants -->
+          <div class="hex-row">
+            <div class="hex-cell">Revenue</div>
+            <div class="hex-cell">Pipeline</div>
+            <div class="hex-cell hex-accent">AI Forecast</div>
+            <div class="hex-cell">Coaching</div>
+            <div class="hex-cell">Goals</div>
+            <div class="hex-cell">Matrix</div>
+            <div class="hex-cell">Churn</div>
+          </div>
+          <div class="hex-row hex-row-offset">
+            <div class="hex-cell">CRM</div>
+            <div class="hex-cell hex-accent">Every Rep</div>
+            <div class="hex-cell">Targets</div>
+            <div class="hex-cell hex-core">PULSE</div>
+            <div class="hex-cell">Signals</div>
+            <div class="hex-cell hex-accent">Every KPI</div>
+            <div class="hex-cell">Quota</div>
+          </div>
+          <div class="hex-row">
+            <div class="hex-cell">Comp</div>
+            <div class="hex-cell">Attainment</div>
+            <div class="hex-cell">Reps</div>
+            <div class="hex-cell hex-accent">One Direction</div>
+            <div class="hex-cell">Deals</div>
+            <div class="hex-cell">Shifts</div>
+            <div class="hex-cell">Win Rate</div>
+          </div>
+        </div>
         <div class="hero-actions">
           <a href="https://calendly.com/korywhiterevops" target="_blank" class="btn-primary btn-lg" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -3454,6 +4238,12 @@
           <div style="display:flex; align-items:center; gap:6px; font-size:0.78rem; color:var(--muted);"><span style="color:var(--cyan); font-size:0.9rem;">⚡</span> Real-time signals</div>
           <div style="display:flex; align-items:center; gap:6px; font-size:0.78rem; color:var(--muted);"><span style="color:var(--purple); font-size:0.9rem;">✦</span> AI-set targets</div>
           <div style="display:flex; align-items:center; gap:6px; font-size:0.78rem; color:var(--muted);"><span style="color:var(--pink); font-size:0.9rem;">🔒</span> Churn protection</div>
+        </div>
+        <!-- Feature badges echo the War Room hero's badge row — visually cohesive across home + dashboard -->
+        <div style="display:flex;justify-content:center;gap:8px;margin-top:18px;flex-wrap:wrap;">
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.4);border-radius:100px;font-size:0.58rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#a78bfa;">20 Live Dashboards</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:rgba(232,113,10,0.12);border:1px solid rgba(232,113,10,0.4);border-radius:100px;font-size:0.58rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#E8710A;">4 AI Subsystems</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.4);border-radius:100px;font-size:0.58rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#22c55e;">Free · No Login</span>
         </div>
       </div>
     </div>
@@ -10307,221 +11097,6 @@
     })();
   </script>
 
-  <!-- GEO VISITOR TICKER SCRIPT -->
-  <script>
-  (function() {
-    const API = '/.netlify/functions/visitors';
-    const SESSION_KEY = 'pulse_gtb_counted';
-
-    function shuffleArr(arr) {
-      const a = [...arr];
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    function fmt(n) {
-      const num = parseInt(n, 10);
-      return isNaN(num) ? '—' : num.toLocaleString();
-    }
-
-    function setCount(n) {
-      const el = document.getElementById('gtb-count');
-      if (!el) return;
-      const num = parseInt(n, 10);
-      if (isNaN(num)) return; // don't overwrite with NaN
-      el.textContent = fmt(num);
-    }
-
-    const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
-
-    function buildTicker(cities, youCity) {
-      const track = document.getElementById('gtb-track');
-      if (!track) return;
-      const now = Date.now();
-      // Normalise: accept {city,ts} objects or plain strings
-      const normalised = cities.map(c => typeof c === 'string' ? { city: c, ts: 0 } : c);
-      // Deduplicate
-      const seen = new Set();
-      const unique = normalised.filter(c => { if (seen.has(c.city)) return false; seen.add(c.city); return true; });
-      const withoutYou = unique.filter(c => c.city !== youCity);
-      const realNew = withoutYou.filter(c => c.ts && (now - c.ts) < WEEK_MS);
-      const rest    = shuffleArr(withoutYou.filter(c => !(c.ts && (now - c.ts) < WEEK_MS)));
-      const ordered = youCity
-        ? [{ city: youCity, ts: now }, ...realNew, ...rest]
-        : [...realNew, ...rest];
-      if (!ordered.length) return; // nothing real yet — leave ticker blank
-      const html = ordered.map(({ city, ts }) => {
-        const isYou = youCity && city === youCity;
-        const isNew = !isYou && ts && (now - ts) < WEEK_MS;
-        const prefix = isYou ? '⭐ ' : isNew ? '<span class="star-blink star-blink-red">★</span> ' : '';
-        const suffix = isYou ? '&nbsp;<span style="color:#E8710A;font-size:0.55rem;">(you)</span>' : '';
-        const cls    = isYou ? ' you' : isNew ? ' new-real' : '';
-        return `<span class="gtb-city${cls}"><span class="gtb-dot"></span>${prefix}${city}${suffix}</span>`;
-      }).join('');
-      track.innerHTML = html + html;
-    }
-
-    // ── FIREBASE-BACKED CITY TRACKER ──
-    const FB = 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
-
-    // Load existing cities from Firebase
-    fetch(FB + '/cities.json')
-      .then(r => r.json())
-      .then(data => {
-        if (!data) return;
-        const cities = Object.values(data).sort((a,b) => (b.ts||0) - (a.ts||0));
-        buildTicker(cities, null);
-      })
-      .catch(() => {});
-
-    // Load visitor count from Firebase
-    fetch(FB + '/visitorCount.json')
-      .then(r => r.json())
-      .then(count => { if (count) setCount(count); })
-      .catch(() => {});
-
-    // Register this visit — detect city via ipwho.is (free, HTTPS, unlimited)
-    if (!sessionStorage.getItem(SESSION_KEY)) {
-      sessionStorage.setItem(SESSION_KEY, '1');
-
-      // Increment visitor count
-      fetch(FB + '/visitorCount.json')
-        .then(r => r.json())
-        .then(count => {
-          const newCount = (parseInt(count) || 0) + 1;
-          fetch(FB + '/visitorCount.json', { method: 'PUT', body: JSON.stringify(newCount) });
-          setCount(newCount);
-        })
-        .catch(() => {});
-
-      // Detect city — try multiple APIs for reliability
-      async function detectCity() {
-        // Try 1: ipwho.is
-        try {
-          const r1 = await fetch('https://ipwho.is/');
-          const g1 = await r1.json();
-          if (g1.city) return g1.region ? g1.city + ', ' + g1.region : g1.city;
-        } catch(e) {}
-        // Try 2: ipapi.co
-        try {
-          const r2 = await fetch('https://ipapi.co/json/');
-          const g2 = await r2.json();
-          if (g2.city) return g2.region_code ? g2.city + ', ' + g2.region_code : g2.city;
-        } catch(e) {}
-        // Try 3: freeipapi.com
-        try {
-          const r3 = await fetch('https://freeipapi.com/api/json');
-          const g3 = await r3.json();
-          if (g3.cityName) return g3.regionName ? g3.cityName + ', ' + g3.regionName : g3.cityName;
-        } catch(e) {}
-        return '';
-      }
-      detectCity().then(label => {
-          if (!label) return;
-          try { sessionStorage.setItem('pulse_my_city', label); } catch(e) {}
-
-          // Save city to Firebase (keyed by city name to deduplicate)
-          const key = label.replace(/[.#$/\[\]]/g, '_');
-          fetch(FB + '/cities/' + key + '.json', {
-            method: 'PUT',
-            body: JSON.stringify({ city: label, ts: Date.now() })
-          }).then(() => {
-            // Reload all cities to update ticker
-            fetch(FB + '/cities.json')
-              .then(r => r.json())
-              .then(data => {
-                if (!data) return;
-                const cities = Object.values(data).sort((a,b) => (b.ts||0) - (a.ts||0));
-                buildTicker(cities, label);
-              });
-          }).catch(() => {});
-      }).catch(() => {});
-    }
-  })();
-  </script>
-
-  <!-- VISITOR TOAST SCRIPT -->
-  <script>
-  (function() {
-    const container = document.getElementById('visitor-toast-container');
-    if (!container) return;
-
-    const TOAST_DURATION = 4500;
-    const TOAST_INTERVAL = 18000;
-    const MAX_TOASTS = 2;
-    const SHOWN_KEY = 'pulse_toast_shown';
-    let toastQueue = [];
-    let toastActive = 0;
-    let yourCity = null;
-
-    function showToast(city) {
-      if (toastActive >= MAX_TOASTS) return;
-      toastActive++;
-      const toast = document.createElement('div');
-      toast.className = 'visitor-toast';
-      toast.innerHTML = '<span class="visitor-toast-dot"></span>'
-        + 'Someone from <span class="visitor-toast-city">&nbsp;' + city + '&nbsp;</span> just visited'
-        + '<span class="visitor-toast-time">just now</span>';
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.classList.add('vtoast-out');
-        setTimeout(() => { toast.remove(); toastActive--; }, 400);
-      }, TOAST_DURATION);
-    }
-
-    function startToastCycle() {
-      if (!toastQueue.length) return;
-      let idx = 0;
-      // Show the first one after a short delay
-      setTimeout(() => {
-        if (toastQueue.length) { showToast(toastQueue[idx % toastQueue.length]); idx++; }
-      }, 5000);
-      setInterval(() => {
-        if (!toastQueue.length || document.hidden) return;
-        showToast(toastQueue[idx % toastQueue.length]);
-        idx++;
-      }, TOAST_INTERVAL);
-    }
-
-    // Hook into the existing visitor API
-    const FB_URL = 'https://pulserevops-default-rtdb.asia-southeast1.firebasedatabase.app';
-    const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
-
-    // Detect user's own city
-    try { yourCity = sessionStorage.getItem('pulse_my_city') || null; } catch(e) {}
-
-    // Build toast queue from Firebase cities
-    fetch(FB_URL + '/cities.json')
-      .then(r => r.json())
-      .then(data => {
-        const cities = data ? Object.values(data) : [];
-        const now = Date.now();
-        const normalised = cities.map(c => typeof c === 'string' ? { city: c, ts: 0 } : c);
-        // Filter: recent visitors, not the current user
-        const recent = normalised.filter(c => {
-          if (yourCity && c.city === yourCity) return false;
-          return c.ts && (now - c.ts) < WEEK_MS;
-        }).map(c => c.city);
-        // If few recent, pad with some older cities
-        const others = normalised.filter(c => {
-          if (yourCity && c.city === yourCity) return false;
-          return !(c.ts && (now - c.ts) < WEEK_MS);
-        }).map(c => c.city);
-        // Shuffle others
-        for (let i = others.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [others[i], others[j]] = [others[j], others[i]];
-        }
-        toastQueue = [...recent, ...others.slice(0, 10)];
-        if (toastQueue.length) startToastCycle();
-      })
-      .catch(() => {});
-  })();
-  </script>
-
   <!-- NAV SECTION FLASH OVERLAY -->
   <div id="nav-section-flash">
     <div class="nsf-icon" id="nsf-icon"></div>
@@ -11210,5 +11785,18 @@
   };
   </script>
 
+  <script src="assets/visit-alert.js" defer></script>
+  <script src="assets/intent-beacon.js" defer></script>
+  <script>
+    /* Live library entry count on the homepage Library badge. */
+    (function(){
+      var el = document.getElementById('lib-live-count');
+      if (!el) return;
+      fetch('/.netlify/functions/pulse-machine-library-list?status=1', { cache: 'no-store' })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){ if (d && typeof d.library_total === 'number') el.textContent = d.library_total; })
+        .catch(function(){});
+    })();
+  </script>
 </body>
 </html>

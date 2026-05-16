@@ -8,12 +8,111 @@
   functions = "netlify/functions"
 
 # ─── SCHEDULED FUNCTIONS ────────────────────────────────────────────────
-# Daily press-scraper: hits Anthropic API with web_search, pulls new
-# press mentions of Kory White / PULSE RevOps / The Executive Review,
-# dedupes against blob _index by URL hash, appends new entries.
-# Cron: 13:00 UTC = 9am ET. Adjust as needed.
-[functions."press-scrape"]
-  schedule = "0 13 * * *"
+# ALL CRONS DISABLED 2026-04-30 per owner request — "turn all spending off".
+# To re-enable a single cron: uncomment its [functions."..."] block + schedule.
+# To re-enable everything at once: revert this commit.
+#
+# Re-enabled 2026-05-01 — daily Apollo playbook generator (top 5 missing).
+# Cost cap: ~$1-2/day (5 Haiku calls × ~$0.20-0.40 each).
+# Apollo daily DISABLED 2026-05-07 — was using Anthropic API (~$1-2/day = ~$30-60/mo).
+# Re-enable once migrated to Groq free tier.
+# [functions."apollo-daily-publish-background"]
+#   schedule = "0 7 * * *"
+
+# Volume cron — Gemini Flash free-tier writer (pulse-volume-gemini).
+# DISABLED 2026-05-12 — replaced by pulse-cycle-tick-background which handles
+# write + index + polish in a single unified cron at 15-min cadence (96/day).
+# [functions."pulse-volume-gemini"]
+#   schedule = "0 * * * *"
+
+# Unified cycle — every 15 min: SELF-HEAL fakes → POLISH 5 newest non-10
+# entries (24h+ old) to 10/10. Writes disabled per owner request 2026-05-12.
+# 96 cycles/day × 5 polishes = up to 480 polishes/day. Internal-call cost
+# ~144 credits/mo, well inside $20 Pro budget.
+#
+# DISABLED 2026-05-14 per owner — this cron was re-baselining Claude Opus
+# bespoke rewrites back to quality_score:5 every 15 min (its "self-heal"
+# step treated freshly-written baseline entries as fakes). Library rewrites
+# are now driven manually via Claude Code; re-enable only if that changes.
+# [functions."pulse-cycle-tick-background"]
+#   schedule = "*/15 * * * *"
+
+# Quality auditor — runs hourly at :30 (offset from volume writer at :00).
+# Audits 20 entries/run × 24 = 480 audits/day. Mechanical checks are free
+# (logic only); Groq grader (free tier) fires at most 6 times per run for
+# entries already at 9+/10. Failures push to repair_queue.json for the
+# wake-loop to fix. $0 — no Anthropic spend.
+#
+# DISABLED 2026-05-14 per owner — secondary suspect in the qs-revert issue
+# (pushes "failing" entries to repair_queue.json). Disabled alongside the
+# unified cycle while library rewrites are Claude-Code-driven.
+# [functions."pulse-audit-background"]
+#   schedule = "30 * * * *"
+
+# IndexNow batch — every hour, pings Bing/Yandex/Seznam for new entries.
+# Bumped from 4h to 1h cadence 2026-05-06 because volume cron pushes 480/day +
+# /resume widget shows 60% of library still pending Google crawl.
+[functions."pulse-machine-indexnow-batch-background"]
+  schedule = "0 * * * *"
+
+# Sports picks — daily at 14:00 UTC (9am ET). Pulls odds from The Odds API,
+# synthesizes one bet per major sport. Requires ODDS_API_KEY env var.
+[functions."pulse-sports-fetch-background"]
+  schedule = "0 14 * * *"
+
+# Sports settler — daily at 11:00 UTC (6am ET). Marks prior-day picks
+# win/loss from ESPN public scoreboard, updates lifetime + per-sport stats.
+[functions."pulse-sports-settle-background"]
+  schedule = "0 11 * * *"
+
+# Weekly stale-touch — every Monday at 13:00 UTC (8am ET). Finds the 5 oldest
+# 10/10 entries by polished_at and refreshes their dateModified timestamps so
+# Google sees them as recently updated. Pure metadata bump, no body edit.
+# Fights "query deserves freshness" decay on aging entries.
+[functions."pulse-stale-touch-background"]
+  schedule = "0 13 * * 1"
+
+# Daily retro-linking — every day at 15:00 UTC (10am ET). For every 10/10
+# entry polished in the last 24h, finds up to 3 older 10/10 entries with
+# strong tag overlap and appends a "Recently Added — Related" link to the
+# new entry. Boosts internal-link discovery + crawl pathing.
+[functions."pulse-retro-link-background"]
+  schedule = "0 15 * * *"
+
+# Deep-queue publisher — every 10 minutes. Reads pre-written deep-dive entries
+# from _deep_queue.json (authored by Claude Code locally, never by cron AI) and
+# publishes one entry per fire through the 5→6→7→8→9→10 polish ladder. Pure
+# publish-only maintenance; no AI generation in this cron. When queue is empty,
+# function exits idle. Heartbeat → _deep_queue_heartbeat.json. To add entries
+# to the queue, run lab/deep-queue-add.js with the spec object(s). Schedule:
+# 144 fires/day; will idle until queue is populated.
+[functions."pulse-deep-queue-tick-background"]
+  schedule = "*/10 * * * *"
+
+# [functions."pulse-machine-research-background"]
+#   schedule = "*/30 * * * *"
+# [functions."pulse-machine-publish-prep-background"]
+#   schedule = "0 8 * * *"
+# [functions."pulse-machine-daily-recap-background"]
+#   schedule = "5 0 * * *"
+# [functions."pulse-machine-site-audit-background"]
+#   schedule = "0 9 * * *"
+# [functions."pulse-machine-rank-check-background"]
+#   schedule = "0 11 * * *"
+# [functions."pulse-machine-indexnow-batch-background"]
+#   schedule = "0 */4 * * *"
+# [functions."pulse-machine-evening-push-background"]
+#   schedule = "0 23 * * *"
+# [functions."pulse-machine-visual-audit-background"]
+#   schedule = "0 22 * * *"  # DISABLED 2026-05-04 — auto-fix used Anthropic API. Re-enable if needed.
+# [functions."press-scrape"]                     schedule = "0 13 * * *"
+# [functions."industry-kpis-refresh-background"] schedule = "0 9 * * *"
+# [functions."pulse-machine-learn-background"]   schedule = "0 * * * *"
+
+[[redirects]]
+  from = "/fresh"
+  to = "/.netlify/functions/fresh-hub"
+  status = 200
 
 [[redirects]]
   from = "https://*.netlify.app/*"
@@ -21,10 +120,194 @@
   status = 301
   force = true
 
+# Collapse www → apex (FB/LinkedIn sometimes hit www. variants)
+[[redirects]]
+  from = "https://www.pulserevops.com/*"
+  to = "https://pulserevops.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.pulserevops.com/*"
+  to = "https://pulserevops.com/:splat"
+  status = 301
+  force = true
+
+# ─── CLEAN-URL ALIASES — easy-to-share short URLs for DMs / business cards
+[[redirects]]
+  from = "/knowledge"
+  to = "/knowledge.html"
+  status = 200
+
+# /themachine/library — clean cold-pitch URL for the library
+[[redirects]]
+  from = "/themachine/library"
+  to = "/knowledge.html"
+  status = 200
+
+# /village (alias /agents) — The Village: a live, public visualization of
+# every Machine worker (writing / polishing / indexing / auditing) and a
+# direct count of how many are working the library right now.
+[[redirects]]
+  from = "/village"
+  to = "/agents.html"
+  status = 200
+[[redirects]]
+  from = "/agents"
+  to = "/agents.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
+
+# Owner-only Intent dashboard (whale-watch). Auth via ?key=pulsemachine.
+[[redirects]]
+  from = "/intent"
+  to = "/intent.html"
+  status = 200
+
+# /themachine — clean public URL for the Machine Room. File stays at
+# /pulse-new.html (no rename, no path-of-truth confusion). Old shares + Google
+# index entries 301 to the new canonical URL.
+[[redirects]]
+  from = "/pulse-new.html"
+  to = "/themachine"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/pulse-new"
+  to = "/themachine"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/themachine"
+  to = "/pulse-new.html"
+  status = 200
+
+# Public privacy policy
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+# /resume removed 2026-05-08 per owner — public site no longer surfaces the
+# resume page. The queue widget moved to a dedicated /queue route.
+[[redirects]]
+  from = "/queue"
+  to = "/queue.html"
+  status = 200
+
+# Secret /sports page — password-gated landing for the daily best-bets feature.
+# noindex,nofollow set in the page head; this redirect just gives a clean URL.
+[[redirects]]
+  from = "/sports"
+  to = "/sports.html"
+  status = 200
+
+# 319 Blue Bay Road listing — friendly clean URLs
+[[redirects]]
+  from = "/319-blue-bay-road-stevensville-md"
+  to = "/319-blue-bay-road-stevensville-md.html"
+  status = 200
+
+[[redirects]]
+  from = "/319-blue-bay-road"
+  to = "/319-blue-bay-road-stevensville-md.html"
+  status = 301
+
+[[redirects]]
+  from = "/home-for-sale"
+  to = "/319-blue-bay-road-stevensville-md.html"
+  status = 301
+
+# Kory White personal brand page — friendly clean URLs
+[[redirects]]
+  from = "/kory-white-maryland"
+  to = "/kory-white-maryland.html"
+  status = 200
+
+[[redirects]]
+  from = "/kory-white"
+  to = "/kory-white-maryland.html"
+  status = 301
+
+# Pretty URLs for pillar pages — /pillars/<slug> without .html
+[[redirects]]
+  from = "/pillars/:slug"
+  to = "/pillars/:slug.html"
+  status = 200
+
+# Dynamic library RSS — always reflects live blob state
+[[redirects]]
+  from = "/rss.xml"
+  to = "/.netlify/functions/pulse-machine-rss"
+  status = 200
+
+# Dynamic library sitemap (per-entry deep links)
+[[redirects]]
+  from = "/sitemap-knowledge.xml"
+  to = "/.netlify/functions/pulse-machine-sitemap"
+  status = 200
+
+# Tool landing pages — each PULSE dashboard tool gets its own SEO-indexable
+# URL. /tools/gross-profit-calculator → marketing-grade page with deep-link
+# to /dashboard.html#anchor.
+[[redirects]]
+  from = "/tools"
+  to = "/.netlify/functions/tools-page"
+  status = 200
+[[redirects]]
+  from = "/tools/"
+  to = "/.netlify/functions/tools-page"
+  status = 200
+[[redirects]]
+  from = "/tools/:slug"
+  to = "/.netlify/functions/tools-page?slug=:slug"
+  status = 200
+
+# Tag landing pages — each unique library tag gets its own SEO-indexable URL.
+# Aggregates entries with that tag + co-occurring tags + JSON-LD CollectionPage.
+# /knowledge/tag/discount-governance → curated cluster page.
+# Order matters: this MUST come before /knowledge/:id so the literal "tag"
+# segment doesn't get matched as an :id.
+[[redirects]]
+  from = "/knowledge/tag/:tag"
+  to = "/.netlify/functions/pulse-machine-tag?tag=:tag"
+  status = 200
+
+# Per-entry server-rendered pages — each library entry gets its own
+# indexable URL with full HTML, JSON-LD schema, OG cards.
+[[redirects]]
+  from = "/knowledge/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+
+[[redirects]]
+  from = "/press-kit"
+  to = "/press/press-kit.html"
+  status = 200
+
+[[redirects]]
+  from = "/press-kit/"
+  to = "/press/press-kit.html"
+  status = 200
+
+[[redirects]]
+  from = "/kit"
+  to = "/press/press-kit.html"
+  status = 200
+
+[[redirects]]
+  from = "/media"
+  to = "/press/press-kit.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options = "DENY"
+    X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     # Tell Google which domain is canonical

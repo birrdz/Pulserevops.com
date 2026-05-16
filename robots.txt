@@ -1,6 +1,29 @@
 User-agent: *
 Allow: /
 Sitemap: https://pulserevops.com/sitemap.xml
+Sitemap: https://pulserevops.com/sitemap-knowledge.xml
 
 # Disallow dashboard query param from being indexed as a separate URL
 Disallow: /?dashboard
+
+# Explicitly allowlist social / preview crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Discordbot
+Allow: /

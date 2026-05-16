@@ -156,6 +156,17 @@
 </div>
 
 <div class="press-wrap">
+  <!-- ── Press Kit featured card — top-tier, before the release list ───── -->
+  <a href="press-kit.html" id="press-kit-card" style="display:flex;align-items:center;gap:22px;padding:24px 28px;margin:0 0 32px;background:linear-gradient(135deg,rgba(232,113,10,0.14),rgba(255,140,26,0.04));border:1.5px solid rgba(232,113,10,0.5);border-radius:18px;text-decoration:none;transition:all 0.2s;box-shadow:0 8px 32px rgba(232,113,10,0.12);" onmouseover="this.style.borderColor='rgba(232,113,10,0.85)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 16px 48px rgba(232,113,10,0.22)';" onmouseout="this.style.borderColor='rgba(232,113,10,0.5)';this.style.transform='';this.style.boxShadow='0 8px 32px rgba(232,113,10,0.12)';">
+    <div style="flex-shrink:0;width:64px;height:64px;border-radius:14px;background:rgba(232,113,10,0.18);border:1px solid rgba(232,113,10,0.4);display:flex;align-items:center;justify-content:center;font-size:1.8rem;">📰</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:0.6rem;font-weight:900;letter-spacing:0.18em;text-transform:uppercase;color:#FF8C1A;margin-bottom:4px;">Media Resources · Press Kit</div>
+      <div style="font-size:1.05rem;font-weight:800;color:#EDE5D8;line-height:1.3;margin-bottom:4px;">Bios, Headshot, Quotes, Talking Points, Boilerplate</div>
+      <div style="font-size:0.78rem;color:rgba(237,229,216,0.7);line-height:1.5;">Everything a journalist needs to write about Kory White or PULSE RevOps — print-ready, pre-cleared, downloadable. Click for the full kit.</div>
+    </div>
+    <div style="flex-shrink:0;font-size:0.78rem;font-weight:800;color:#FF8C1A;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">Open →</div>
+  </a>
+
   <!-- Index view -->
   <div id="press-list">
     <div class="state-msg"><span class="spinner"></span> Loading releases…</div>
@@ -188,6 +199,12 @@
   // Rendered alongside whatever Blob _index returns. Each { isStatic:true, href }
   // opens the file directly in a new tab instead of loading via the blob fn.
   const STATIC_RELEASES = [
+    { slug:'pulse-ai-crm-stack-launch',     href:'pulse-ai-crm-stack-launch.html',     title:'PULSE RevOps Ships Six AI-Native CRM Tools in One Day — Free, No Signup',  subtitle:'Single-session shipping spree adds War Room insight narrator, coaching personalizer, role-play AI coach, cold email generator, ICP fit scorer, and one-page board snapshot — plus a rebuilt 8-bit horse-racing arcade game.', dateStr:'2026-05-05', tags:'Launch · AI · CRM' },
+    { slug:'pulse-174-answers-rapid-fire',  href:'pulse-174-answers-rapid-fire.html',  title:'PULSE RevOps Ships 200 Operator-Grade Sales Answers in Under an Hour',  subtitle:'A single rapid-fire run on a fast cheap model produced 200 dense answers spanning comp, hiring, pipeline, discovery, pricing, and SaaS metrics. Each answer ships with a Mermaid diagram and named vendors.', dateStr:'2026-04-30', tags:'Launch · AI · Library' },
+    { slug:'pulse-resume-scorer-launch',    href:'pulse-resume-scorer-launch.html',    title:'PULSE RevOps Inverts the Resume Scorer — Recruiters Score the Candidate Against THEIR Role',  subtitle:'AI-powered ATS + Visual Recruiter scoring widget on Kory White’s resume page. Hiring manager pastes the role, gets back a 0-100 score with strengths, gaps, keyword matches, and recommendations.', dateStr:'2026-04-29', tags:'Launch · AI · Hiring' },
+    { slug:'pulse-machine-launch',          href:'pulse-machine-launch.html',          title:'PULSE RevOps Launches The Machine — The Reddit/Quora/Google Answer for Sales RevOps',  subtitle:'Autonomous AI that never sleeps — hunts the next Sales RevOps question every few seconds, answers live with sources, indexes itself for the modern answer engines',     dateStr:'2026-04-28', tags:'Launch · AI · Knowledge' },
+    { slug:'pulse-howtos-library',          href:'pulse-howtos-library.html',          title:'PULSE RevOps Publishes 39-Industry RevOps Playbook Library',     subtitle:'From Home Security to Nonprofit fundraising — 4 KPIs per vertical, live industry news feeds, 5 moves to scale, and PULSE dashboard playbooks per industry', dateStr:'2026-04-26', tags:'Content · Playbooks · Industry' },
+    { slug:'pulse-skin-modes-inventory-overhaul', href:'pulse-skin-modes-inventory-overhaul.html', title:'PULSE RevOps Adds Salesforce + HubSpot UI Modes, 40-Dashboard War Room, SKU Inventory Tracker With Barcode Scanner', subtitle:'Free RevOps platform mirrors two flagship enterprise CRMs, doubles analytics layer, adds physical-inventory aging with camera + PDF capture', dateStr:'2026-04-24', tags:'Update · UI · Inventory · Analytics' },
     { slug:'pulse-ai-first-warroom',        href:'pulse-ai-first-warroom.html',        title:'PULSE RevOps Launches AI-First Engine + 20-Dashboard War Room',  subtitle:'Revenue system now operates itself — four autonomous AI subsystems + date-filtered analytics', dateStr:'2026-04-24', tags:'Update · AI · Analytics' },
     { slug:'pulse-launch',                  href:'pulse-launch.html',                  title:'PULSE RevOps Launches Free Revenue Operating System',           subtitle:'Official launch announcement',                                       dateStr:'2026-03-10', tags:'Launch · Product' },
     { slug:'pulse-april-update',            href:'pulse-april-update.html',            title:'PULSE RevOps — April Product Update',                            subtitle:'Monthly release notes',                                              dateStr:'2026-04-01', tags:'Update · Product' },
@@ -390,5 +407,8 @@
     if (unlocked) { revealPressRoom(); return; }
   });
 </script>
+<!-- Visit alert — pings Kory when someone lands on the press list -->
+<script src="/assets/visit-alert.js" defer></script>
+<script src="/assets/intent-beacon.js" defer></script>
 </body>
 </html>
