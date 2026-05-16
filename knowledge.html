@@ -993,9 +993,55 @@
   })();
   </script>
 
-  <!-- Cited-In ticker — scrolling marquee of the major sources cross-referenced
-       across the library. Adds credibility cue without needing logos. Pure CSS
-       infinite scroll, items duplicated so the loop is seamless. -->
+  <!-- Vertical cited-in side rails — scroll the full height of the viewport,
+       one on the left, one on the right (opposite direction). Pure CSS, fixed
+       position, pointer-events:none so they never block content interaction.
+       Subtle visual cue that the library is grounded in real sources. -->
+  <div class="cite-rail left" aria-hidden="true">
+    <div class="cite-rail-track">
+      <span>BLS</span><span>IBISWorld</span><span>McKinsey</span><span>Harvard Business Review</span><span>SBA</span><span>NFIB</span><span>US Census Bureau</span><span>Bessemer Venture Partners</span><span>OpenView</span><span>Bridge Group</span><span>Pavilion</span><span>Carta</span><span>Stripe</span><span>Sequoia Capital</span><span>Andreessen Horowitz</span><span>Bain &amp; Company</span><span>BCG</span><span>Deloitte</span><span>Forrester</span><span>Gartner</span><span>Pew Research</span><span>Federal Reserve</span><span>IRS</span><span>Department of Labor</span><span>FTC</span><span>SEC</span><span>NAR</span><span>NAHB</span><span>Wall Street Journal</span><span>Bloomberg</span><span>PitchBook</span><span>Crunchbase</span><span>OSHA</span><span>EPA</span><span>CDC</span><span>FDA</span><span>HUD</span><span>CMS</span><span>FMCSA</span><span>IICRC</span>
+      <span>BLS</span><span>IBISWorld</span><span>McKinsey</span><span>Harvard Business Review</span><span>SBA</span><span>NFIB</span><span>US Census Bureau</span><span>Bessemer Venture Partners</span><span>OpenView</span><span>Bridge Group</span><span>Pavilion</span><span>Carta</span><span>Stripe</span><span>Sequoia Capital</span><span>Andreessen Horowitz</span><span>Bain &amp; Company</span><span>BCG</span><span>Deloitte</span><span>Forrester</span><span>Gartner</span><span>Pew Research</span><span>Federal Reserve</span><span>IRS</span><span>Department of Labor</span><span>FTC</span><span>SEC</span><span>NAR</span><span>NAHB</span><span>Wall Street Journal</span><span>Bloomberg</span><span>PitchBook</span><span>Crunchbase</span><span>OSHA</span><span>EPA</span><span>CDC</span><span>FDA</span><span>HUD</span><span>CMS</span><span>FMCSA</span><span>IICRC</span>
+    </div>
+  </div>
+  <div class="cite-rail right" aria-hidden="true">
+    <div class="cite-rail-track">
+      <span>FRED</span><span>NRA</span><span>NRF</span><span>Bain Capital</span><span>KKR</span><span>Blackstone</span><span>Carlyle</span><span>Apollo</span><span>Vista</span><span>Thoma Bravo</span><span>Silver Lake</span><span>Insight Partners</span><span>Tiger Global</span><span>Coatue</span><span>NEA</span><span>Founders Fund</span><span>Y Combinator</span><span>Pitchbook</span><span>SaaStr</span><span>Forbes</span><span>Fortune</span><span>Inc.</span><span>Entrepreneur</span><span>FT</span><span>Reuters</span><span>NYT DealBook</span><span>Axios</span><span>Bisnow</span><span>Skift</span><span>Variety</span><span>FDIC</span><span>OCC</span><span>FAA</span><span>FCC</span><span>USDA</span><span>NIH</span><span>Pew</span><span>RAND</span><span>Brookings</span><span>NBER</span>
+      <span>FRED</span><span>NRA</span><span>NRF</span><span>Bain Capital</span><span>KKR</span><span>Blackstone</span><span>Carlyle</span><span>Apollo</span><span>Vista</span><span>Thoma Bravo</span><span>Silver Lake</span><span>Insight Partners</span><span>Tiger Global</span><span>Coatue</span><span>NEA</span><span>Founders Fund</span><span>Y Combinator</span><span>Pitchbook</span><span>SaaStr</span><span>Forbes</span><span>Fortune</span><span>Inc.</span><span>Entrepreneur</span><span>FT</span><span>Reuters</span><span>NYT DealBook</span><span>Axios</span><span>Bisnow</span><span>Skift</span><span>Variety</span><span>FDIC</span><span>OCC</span><span>FAA</span><span>FCC</span><span>USDA</span><span>NIH</span><span>Pew</span><span>RAND</span><span>Brookings</span><span>NBER</span>
+    </div>
+  </div>
+  <style>
+    .cite-rail {
+      position:fixed; top:170px; bottom:0; width:54px; z-index:3;
+      overflow:hidden; pointer-events:none;
+      -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+      mask-image:linear-gradient(to bottom, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+    }
+    .cite-rail.left  { left:0;  background:linear-gradient(90deg, rgba(8,12,24,0.78), rgba(8,12,24,0)); }
+    .cite-rail.right { right:0; background:linear-gradient(-90deg, rgba(8,12,24,0.78), rgba(8,12,24,0)); }
+    .cite-rail-track {
+      display:flex; flex-direction:column; gap:18px; padding:20px 0;
+      width:100%; will-change:transform;
+      animation:railScroll 60s linear infinite;
+    }
+    .cite-rail.right .cite-rail-track { animation-name:railScrollReverse; }
+    .cite-rail-track > span {
+      display:inline-block; flex-shrink:0;
+      font-size:0.62rem; font-weight:800; letter-spacing:0.14em;
+      color:rgba(255,215,64,0.45); text-transform:uppercase;
+      writing-mode:vertical-rl; transform:rotate(180deg);
+      text-align:center; padding:8px 0;
+      border-top:1px solid rgba(255,215,64,0.15);
+      border-bottom:1px solid rgba(255,215,64,0.15);
+      width:100%;
+    }
+    .cite-rail.right .cite-rail-track > span { color:rgba(123,182,255,0.45); border-color:rgba(123,182,255,0.18); }
+    @keyframes railScroll        { 0% { transform:translateY(0); } 100% { transform:translateY(-50%); } }
+    @keyframes railScrollReverse { 0% { transform:translateY(-50%); } 100% { transform:translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { .cite-rail-track { animation:none; } }
+    @media (max-width: 880px) { .cite-rail { display:none; } }
+  </style>
+
+  <!-- Cited-In ticker — horizontal scrolling marquee near the filter bar. -->
   <div class="cite-ticker" aria-label="Sources cross-referenced by the library">
     <div class="cite-ticker-label">Cited in / cross-referenced from</div>
     <div class="cite-ticker-mask">
