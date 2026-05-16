@@ -993,84 +993,152 @@
   })();
   </script>
 
-  <!-- Vertical cited-in side rails — scroll the full height of the viewport,
-       one on the left, one on the right (opposite direction). Pure CSS, fixed
-       position, pointer-events:none so they never block content interaction.
-       Subtle visual cue that the library is grounded in real sources. -->
-  <div class="cite-rail left" aria-hidden="true">
-    <div class="cite-rail-track">
-      <span>BLS</span><span>IBISWorld</span><span>McKinsey</span><span>Harvard Business Review</span><span>SBA</span><span>NFIB</span><span>US Census Bureau</span><span>Bessemer Venture Partners</span><span>OpenView</span><span>Bridge Group</span><span>Pavilion</span><span>Carta</span><span>Stripe</span><span>Sequoia Capital</span><span>Andreessen Horowitz</span><span>Bain &amp; Company</span><span>BCG</span><span>Deloitte</span><span>Forrester</span><span>Gartner</span><span>Pew Research</span><span>Federal Reserve</span><span>IRS</span><span>Department of Labor</span><span>FTC</span><span>SEC</span><span>NAR</span><span>NAHB</span><span>Wall Street Journal</span><span>Bloomberg</span><span>PitchBook</span><span>Crunchbase</span><span>OSHA</span><span>EPA</span><span>CDC</span><span>FDA</span><span>HUD</span><span>CMS</span><span>FMCSA</span><span>IICRC</span>
-      <span>BLS</span><span>IBISWorld</span><span>McKinsey</span><span>Harvard Business Review</span><span>SBA</span><span>NFIB</span><span>US Census Bureau</span><span>Bessemer Venture Partners</span><span>OpenView</span><span>Bridge Group</span><span>Pavilion</span><span>Carta</span><span>Stripe</span><span>Sequoia Capital</span><span>Andreessen Horowitz</span><span>Bain &amp; Company</span><span>BCG</span><span>Deloitte</span><span>Forrester</span><span>Gartner</span><span>Pew Research</span><span>Federal Reserve</span><span>IRS</span><span>Department of Labor</span><span>FTC</span><span>SEC</span><span>NAR</span><span>NAHB</span><span>Wall Street Journal</span><span>Bloomberg</span><span>PitchBook</span><span>Crunchbase</span><span>OSHA</span><span>EPA</span><span>CDC</span><span>FDA</span><span>HUD</span><span>CMS</span><span>FMCSA</span><span>IICRC</span>
-    </div>
-  </div>
-  <div class="cite-rail right" aria-hidden="true">
-    <div class="cite-rail-track">
-      <span>FRED</span><span>NRA</span><span>NRF</span><span>Bain Capital</span><span>KKR</span><span>Blackstone</span><span>Carlyle</span><span>Apollo</span><span>Vista</span><span>Thoma Bravo</span><span>Silver Lake</span><span>Insight Partners</span><span>Tiger Global</span><span>Coatue</span><span>NEA</span><span>Founders Fund</span><span>Y Combinator</span><span>Pitchbook</span><span>SaaStr</span><span>Forbes</span><span>Fortune</span><span>Inc.</span><span>Entrepreneur</span><span>FT</span><span>Reuters</span><span>NYT DealBook</span><span>Axios</span><span>Bisnow</span><span>Skift</span><span>Variety</span><span>FDIC</span><span>OCC</span><span>FAA</span><span>FCC</span><span>USDA</span><span>NIH</span><span>Pew</span><span>RAND</span><span>Brookings</span><span>NBER</span>
-      <span>FRED</span><span>NRA</span><span>NRF</span><span>Bain Capital</span><span>KKR</span><span>Blackstone</span><span>Carlyle</span><span>Apollo</span><span>Vista</span><span>Thoma Bravo</span><span>Silver Lake</span><span>Insight Partners</span><span>Tiger Global</span><span>Coatue</span><span>NEA</span><span>Founders Fund</span><span>Y Combinator</span><span>Pitchbook</span><span>SaaStr</span><span>Forbes</span><span>Fortune</span><span>Inc.</span><span>Entrepreneur</span><span>FT</span><span>Reuters</span><span>NYT DealBook</span><span>Axios</span><span>Bisnow</span><span>Skift</span><span>Variety</span><span>FDIC</span><span>OCC</span><span>FAA</span><span>FCC</span><span>USDA</span><span>NIH</span><span>Pew</span><span>RAND</span><span>Brookings</span><span>NBER</span>
-    </div>
-  </div>
+  <!-- Vertical cited-in side rails — brand-colored pills, full height,
+       opposite directions, populated by JS so each source carries its real
+       brand colors. Fixed, pointer-events:none, hidden on mobile. -->
+  <div class="cite-rail left"  id="cite-rail-left"  aria-hidden="true"><div class="cite-rail-track"></div></div>
+  <div class="cite-rail right" id="cite-rail-right" aria-hidden="true"><div class="cite-rail-track"></div></div>
   <style>
+    /* Vertical brand-pill side rails */
     .cite-rail {
-      position:fixed; top:170px; bottom:0; width:54px; z-index:3;
+      position:fixed; top:170px; bottom:0; width:96px; z-index:3;
       overflow:hidden; pointer-events:none;
-      -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
-      mask-image:linear-gradient(to bottom, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+      -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+      mask-image:linear-gradient(to bottom, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
     }
-    .cite-rail.left  { left:0;  background:linear-gradient(90deg, rgba(8,12,24,0.78), rgba(8,12,24,0)); }
-    .cite-rail.right { right:0; background:linear-gradient(-90deg, rgba(8,12,24,0.78), rgba(8,12,24,0)); }
+    .cite-rail.left  { left:0;  background:linear-gradient(90deg, rgba(8,12,24,0.85), rgba(8,12,24,0)); }
+    .cite-rail.right { right:0; background:linear-gradient(-90deg, rgba(8,12,24,0.85), rgba(8,12,24,0)); }
     .cite-rail-track {
-      display:flex; flex-direction:column; gap:18px; padding:20px 0;
+      display:flex; flex-direction:column; gap:10px; padding:14px 8px;
       width:100%; will-change:transform;
       animation:railScroll 60s linear infinite;
     }
     .cite-rail.right .cite-rail-track { animation-name:railScrollReverse; }
-    .cite-rail-track > span {
+    .cite-pill {
       display:inline-block; flex-shrink:0;
-      font-size:0.62rem; font-weight:800; letter-spacing:0.14em;
-      color:rgba(255,215,64,0.45); text-transform:uppercase;
-      writing-mode:vertical-rl; transform:rotate(180deg);
-      text-align:center; padding:8px 0;
-      border-top:1px solid rgba(255,215,64,0.15);
-      border-bottom:1px solid rgba(255,215,64,0.15);
-      width:100%;
+      padding:10px 8px; min-height:54px; width:80px;
+      font-size:0.78rem; font-weight:900; letter-spacing:0.04em;
+      text-align:center; line-height:1.15;
+      border-radius:8px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.08);
+      display:flex; align-items:center; justify-content:center;
     }
-    .cite-rail.right .cite-rail-track > span { color:rgba(123,182,255,0.45); border-color:rgba(123,182,255,0.18); }
     @keyframes railScroll        { 0% { transform:translateY(0); } 100% { transform:translateY(-50%); } }
     @keyframes railScrollReverse { 0% { transform:translateY(-50%); } 100% { transform:translateY(0); } }
-    @media (prefers-reduced-motion: reduce) { .cite-rail-track { animation:none; } }
-    @media (max-width: 880px) { .cite-rail { display:none; } }
+    @media (prefers-reduced-motion: reduce) { .cite-rail-track, .cite-ticker-track { animation:none; } }
+    @media (max-width: 1100px) { .cite-rail { display:none; } }
+
+    /* Horizontal ticker — bigger, brand-colored pills */
+    .cite-ticker-track .cite-pill {
+      width:auto; min-width:110px; height:46px; min-height:46px;
+      margin-right:10px;
+      font-size:0.9rem; padding:0 18px;
+    }
   </style>
 
-  <!-- Cited-In ticker — horizontal scrolling marquee near the filter bar. -->
+  <!-- Cited-In ticker — horizontal scrolling marquee, big brand-colored pills,
+       populated by the same JS that builds the side rails. -->
   <div class="cite-ticker" aria-label="Sources cross-referenced by the library">
-    <div class="cite-ticker-label">Cited in / cross-referenced from</div>
+    <div class="cite-ticker-label">📚 Cited in / cross-referenced from</div>
     <div class="cite-ticker-mask">
-      <div class="cite-ticker-track">
-        <span>BLS</span><span>IBISWorld</span><span>McKinsey</span><span>Harvard Business Review</span><span>SBA</span><span>NFIB</span><span>US Census Bureau</span><span>Bessemer Venture Partners</span><span>OpenView</span><span>Bridge Group</span><span>Pavilion</span><span>Carta</span><span>Stripe</span><span>Sequoia Capital</span><span>Andreessen Horowitz</span><span>Bain &amp; Company</span><span>BCG</span><span>Deloitte</span><span>Forrester</span><span>Gartner</span><span>Pew Research</span><span>Federal Reserve / FRED</span><span>IRS</span><span>Department of Labor</span><span>FTC</span><span>SEC</span><span>NAR</span><span>NAHB</span><span>Wall Street Journal</span><span>Bloomberg</span><span>PitchBook</span><span>Crunchbase</span><span>OSHA</span><span>EPA</span><span>CDC</span><span>FDA</span><span>HUD</span><span>CMS</span><span>FMCSA</span><span>IICRC</span>
-        <!-- duplicated for seamless wrap -->
-        <span>BLS</span><span>IBISWorld</span><span>McKinsey</span><span>Harvard Business Review</span><span>SBA</span><span>NFIB</span><span>US Census Bureau</span><span>Bessemer Venture Partners</span><span>OpenView</span><span>Bridge Group</span><span>Pavilion</span><span>Carta</span><span>Stripe</span><span>Sequoia Capital</span><span>Andreessen Horowitz</span><span>Bain &amp; Company</span><span>BCG</span><span>Deloitte</span><span>Forrester</span><span>Gartner</span><span>Pew Research</span><span>Federal Reserve / FRED</span><span>IRS</span><span>Department of Labor</span><span>FTC</span><span>SEC</span><span>NAR</span><span>NAHB</span><span>Wall Street Journal</span><span>Bloomberg</span><span>PitchBook</span><span>Crunchbase</span><span>OSHA</span><span>EPA</span><span>CDC</span><span>FDA</span><span>HUD</span><span>CMS</span><span>FMCSA</span><span>IICRC</span>
-      </div>
+      <div class="cite-ticker-track" id="cite-ticker-track"></div>
     </div>
   </div>
   <style>
-    .cite-ticker { max-width:1080px; margin:8px auto 18px; padding:10px 0; background:rgba(15,22,40,0.55); border:1px solid rgba(255,215,64,0.18); border-radius:12px; overflow:hidden; }
-    .cite-ticker-label { font-size:0.6rem; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,215,64,0.6); text-align:center; margin-bottom:6px; }
+    .cite-ticker { max-width:1080px; margin:8px auto 22px; padding:14px 0 16px; background:rgba(15,22,40,0.65); border:1px solid rgba(255,215,64,0.28); border-radius:14px; overflow:hidden; box-shadow:0 4px 18px rgba(0,0,0,0.35); }
+    .cite-ticker-label { font-size:0.66rem; font-weight:900; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,215,64,0.8); text-align:center; margin-bottom:10px; }
     .cite-ticker-mask { overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%); mask-image:linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%); }
-    .cite-ticker-track { display:flex; gap:0; width:fit-content; animation:citeScroll 90s linear infinite; will-change:transform; }
+    .cite-ticker-track { display:flex; align-items:center; gap:0; width:fit-content; animation:citeScroll 60s linear infinite; will-change:transform; }
     .cite-ticker-track:hover { animation-play-state:paused; }
-    .cite-ticker-track > span {
-      flex-shrink:0; padding:6px 18px 6px 14px;
-      font-size:0.74rem; font-weight:700; letter-spacing:0.04em;
-      color:rgba(255,237,213,0.78); white-space:nowrap;
-      position:relative;
-    }
-    .cite-ticker-track > span::after {
-      content:'·'; position:absolute; right:0; top:50%; transform:translateY(-50%);
-      color:rgba(255,215,64,0.45); font-weight:900;
-    }
     @keyframes citeScroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
-    @media (prefers-reduced-motion: reduce) { .cite-ticker-track { animation:none; } }
   </style>
+
+  <script>
+  /* Brand registry — each source carries its real-world brand colors (and an
+     iconic font where applicable). Used by both the horizontal ticker and the
+     two vertical side rails. */
+  (function(){
+    var SOURCES = [
+      ['BLS',                    '#112e51', '#ffffff'],
+      ['IBISWorld',              '#E8710A', '#ffffff'],
+      ['McKinsey',               '#003A70', '#ffffff'],
+      ['HBR',                    '#A12830', '#ffffff'],
+      ['SBA',                    '#002F6C', '#ffffff'],
+      ['NFIB',                   '#D72324', '#ffffff'],
+      ['US Census',              '#1A4480', '#ffffff'],
+      ['Bessemer',               '#1E2A4A', '#ffffff'],
+      ['OpenView',               '#26C281', '#0e0a06'],
+      ['Bridge Group',           '#0E5FAB', '#ffffff'],
+      ['Pavilion',               '#7c3aed', '#ffffff'],
+      ['Carta',                  '#3D71F1', '#ffffff'],
+      ['Stripe',                 '#635BFF', '#ffffff'],
+      ['Sequoia',                '#E63629', '#ffffff'],
+      ['a16z',                   '#1A1A1A', '#FF7900'],
+      ['Bain & Co.',             '#CC0000', '#ffffff'],
+      ['BCG',                    '#0F8754', '#ffffff'],
+      ['Deloitte',               '#86BC25', '#0e0a06'],
+      ['Forrester',              '#06243A', '#ffffff'],
+      ['Gartner',                '#00455B', '#ffffff'],
+      ['Pew Research',           '#A8242A', '#ffffff'],
+      ['Federal Reserve',        '#005243', '#ffffff'],
+      ['IRS',                    '#003366', '#ffffff'],
+      ['DOL',                    '#172B4D', '#ffffff'],
+      ['FTC',                    '#205493', '#ffffff'],
+      ['SEC',                    '#0B3D6E', '#ffffff'],
+      ['NAR',                    '#005EB8', '#ffffff'],
+      ['NAHB',                   '#003366', '#ffffff'],
+      ['WSJ',                    '#000000', '#ffffff', 'Georgia,"Times New Roman",serif'],
+      ['Bloomberg',              '#FE7300', '#000000'],
+      ['PitchBook',              '#FF671B', '#ffffff'],
+      ['Crunchbase',             '#146AFF', '#ffffff'],
+      ['OSHA',                   '#D03D2E', '#ffffff'],
+      ['EPA',                    '#1B6E3A', '#ffffff'],
+      ['CDC',                    '#005EB8', '#ffffff'],
+      ['FDA',                    '#1A4480', '#ffffff'],
+      ['HUD',                    '#243F8A', '#ffffff'],
+      ['CMS',                    '#005E8C', '#ffffff'],
+      ['FMCSA',                  '#1A2C50', '#ffffff'],
+      ['Y Combinator',           '#F26625', '#ffffff'],
+      ['KKR',                    '#0A2240', '#ffffff'],
+      ['Blackstone',             '#1A1A1A', '#ffffff'],
+      ['Reuters',                '#FF8000', '#000000'],
+      ['Forbes',                 '#000099', '#ffffff'],
+      ['Fortune',                '#B6131A', '#ffffff'],
+      ['FT',                     '#FCD0B1', '#33302E', 'Georgia,"Times New Roman",serif'],
+      ['NYT',                    '#000000', '#ffffff', 'Georgia,"Times New Roman",serif'],
+      ['Axios',                  '#0078D4', '#ffffff'],
+      ['Brookings',              '#003B5C', '#ffffff'],
+      ['NBER',                   '#5D3A8E', '#ffffff'],
+    ];
+
+    function buildPill(s) {
+      var pill = document.createElement('span');
+      pill.className = 'cite-pill';
+      pill.style.background = s[1];
+      pill.style.color = s[2];
+      if (s[3]) pill.style.fontFamily = s[3];
+      pill.textContent = s[0];
+      return pill;
+    }
+
+    function populate(trackEl, list, dup) {
+      if (!trackEl) return;
+      var frag = document.createDocumentFragment();
+      list.forEach(function(s){ frag.appendChild(buildPill(s)); });
+      // Duplicate for seamless wrap
+      if (dup) list.forEach(function(s){ frag.appendChild(buildPill(s)); });
+      trackEl.appendChild(frag);
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+      populate(document.getElementById('cite-ticker-track'), SOURCES, true);
+      // Split sources roughly in half for left + right rails for visual variety
+      var half = Math.ceil(SOURCES.length / 2);
+      populate(document.querySelector('#cite-rail-left .cite-rail-track'),  SOURCES.slice(0, half), true);
+      populate(document.querySelector('#cite-rail-right .cite-rail-track'), SOURCES.slice(half),   true);
+    });
+  })();
+  </script>
 
   <div class="filter-bar">
     <input id="q-search" type="text" placeholder="Search the library — comp, ramp, win rate, vendor names…">
