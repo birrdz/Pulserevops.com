@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Pulse · Admin</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E8710A' d='M3 12h3l2-7 4 14 2-7h7'/%3E%3C/svg%3E">
+  <style>
+    :root { --orange:#E8710A; --orange-bright:#FF8C1A; --green:#22c55e; --ink:#EDE5D8; --bg:#070a0f; --muted:rgba(237,229,216,0.5); }
+    * { box-sizing:border-box; }
+    html, body { margin:0; padding:0; min-height:100%; background:var(--bg); color:var(--ink); font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
+    body { padding:32px clamp(20px,5vw,56px); }
+    h1 { font-size:1.4rem; font-weight:900; letter-spacing:-0.01em; margin:0 0 4px; }
+    .sub { font-size:0.7rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); margin-bottom:24px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; max-width:1100px; }
+    .card {
+      background:linear-gradient(180deg, #1a1c20 0%, #131518 100%);
+      border:1px solid rgba(255,255,255,0.08); border-radius:12px;
+      padding:18px 20px;
+    }
+    .card-label { font-size:0.6rem; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+    .card-value { font-size:2rem; font-weight:900; color:#fff; line-height:1; margin-bottom:6px; }
+    .card-value.green { color:var(--green); }
+    .card-value.orange { color:var(--orange-bright); }
+    .card-value.small { font-size:0.95rem; font-weight:600; line-height:1.4; word-wrap:break-word; }
+    .card-foot { font-size:0.7rem; color:rgba(237,229,216,0.55); }
+    .section { max-width:1100px; margin:32px 0 0; }
+    .section h2 { font-size:0.7rem; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:var(--orange-bright); margin:0 0 12px; }
+    .row {
+      display:flex; gap:14px; align-items:center; padding:10px 14px;
+      background:rgba(10,14,20,0.55); border:1px solid rgba(255,255,255,0.08); border-radius:8px;
+      margin-bottom:6px;
+      font-size:0.88rem;
+    }
+    .row .ts { font-size:0.66rem; color:var(--muted); flex-shrink:0; min-width:80px; }
+    .row .q  { flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .row .tags { font-size:0.6rem; color:rgba(232,113,10,0.7); flex-shrink:0; }
+    .links { margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.06); font-size:0.78rem; color:var(--muted); }
+    .links a { color:var(--orange-bright); margin-right:18px; }
+    .gate {
+      max-width:420px; margin:80px auto; padding:32px;
+      background:rgba(10,14,20,0.55); border:1px solid rgba(255,255,255,0.08); border-radius:14px;
+      text-align:center;
+    }
+    .gate input {
+      width:100%; padding:10px 14px; border-radius:8px;
+      background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.12);
+      color:var(--ink); font-family:inherit; font-size:0.95rem; outline:none;
+      margin:14px 0;
+    }
+    .gate button {
+      width:100%; padding:10px; border-radius:8px; border:none;
+      background:linear-gradient(180deg, var(--orange-bright), var(--orange));
+      color:#0a0e14; font-family:inherit; font-size:0.78rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="gate" class="gate" style="display:none;">
+    <h1 style="margin-bottom:12px;">Pulse Admin</h1>
+    <div style="font-size:0.85rem;color:var(--muted);">Bookmark this URL with <code>?key=YOUR_TOKEN</code> appended.</div>
+    <input id="key-input" type="password" placeholder="paste admin key">
+    <button onclick="setKey()">Unlock</button>
+  </div>
+
+  <div id="dash" style="display:none;">
+    <h1>Pulse Machine — Live Status</h1>
+    <div class="sub" id="header-sub">loading…</div>
+
+    <div class="grid">
+      <div class="card"><div class="card-label">Library total</div><div class="card-value green" id="m-total">—</div><div class="card-foot">researched answers</div></div>
+      <div class="card"><div class="card-label">Added today</div><div class="card-value orange" id="m-today">—</div><div class="card-foot">cron runs since 00:00 UTC</div></div>
+      <div class="card"><div class="card-label">Queue depth</div><div class="card-value" id="m-queue">—</div><div class="card-foot">unanswered questions</div></div>
+      <div class="card"><div class="card-label">Spend today</div><div class="card-value orange" id="m-spend">—</div><div class="card-foot">est · cron only · cap $4/day</div></div>
+      <div class="card"><div class="card-label">Pending drafts</div><div class="card-value" id="m-drafts">—</div><div class="card-foot">pillar pages awaiting review</div></div>
+      <div class="card"><div class="card-label">Last research</div><div class="card-value small" id="m-last">—</div><div class="card-foot" id="m-last-when">—</div></div>
+    </div>
+
+    <div class="section">
+      <h2>Latest 8 answers in the library</h2>
+      <div id="recent-list"></div>
+    </div>
+
+    <div class="section">
+      <h2>Pending pillar drafts</h2>
+      <div id="drafts-list"><div style="color:var(--muted);font-style:italic;">none yet — daily cron at 08:00 UTC builds these as tags accumulate ≥5 answers</div></div>
+    </div>
+
+    <div class="section">
+      <h2>Snowball control</h2>
+      <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap; padding:14px 18px; background:rgba(10,14,20,0.55); border:1px solid rgba(255,255,255,0.08); border-radius:10px;">
+        <div style="font-size:0.78rem;">Status: <b id="pause-state" style="color:var(--green);">—</b></div>
+        <div style="flex:1;"></div>
+        <button id="btn-pause" type="button" style="padding:8px 16px; border-radius:6px; border:1px solid rgba(239,68,68,0.55); background:rgba(239,68,68,0.14); color:#ef4444; font-family:inherit; font-size:0.7rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; cursor:pointer;">⏸ Pause cron</button>
+        <button id="btn-resume" type="button" style="padding:8px 16px; border-radius:6px; border:1px solid rgba(34,197,94,0.55); background:rgba(34,197,94,0.14); color:var(--green); font-family:inherit; font-size:0.7rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; cursor:pointer;">▶ Resume</button>
+      </div>
+      <div style="font-size:0.7rem; color:var(--muted); margin-top:8px;">Pause halts the hourly research snowball without redeploying. Visitor Q&amp;A keeps working. Resume to restart.</div>
+    </div>
+
+    <div class="links">
+      <a href="https://pulserevops.com/knowledge.html" target="_blank">→ public library</a>
+      <a href="https://pulserevops.com/themachine" target="_blank">→ machine room</a>
+      <a href="https://console.anthropic.com/settings/billing" target="_blank">→ anthropic billing</a>
+      <a href="https://app.netlify.com/projects/pulserevops/logs/functions" target="_blank">→ function logs</a>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    'use strict';
+    var KEY_NAME = 'pulse_admin_key';
+    var EXPECTED = 'pulsemachine'; // token to grant access — change here if you want stricter
+
+    function getKey() {
+      var url = new URLSearchParams(location.search).get('key');
+      if (url) { try { localStorage.setItem(KEY_NAME, url); } catch(e){} return url; }
+      try { return localStorage.getItem(KEY_NAME); } catch(e) { return null; }
+    }
+    function setKey() {
+      var v = document.getElementById('key-input').value.trim();
+      if (!v) return;
+      try { localStorage.setItem(KEY_NAME, v); } catch(e){}
+      location.search = '?key=' + encodeURIComponent(v);
+    }
+    window.setKey = setKey;
+
+    var key = getKey();
+    if (key !== EXPECTED) {
+      document.getElementById('gate').style.display = 'block';
+      return;
+    }
+    document.getElementById('dash').style.display = 'block';
+
+    function fmtTime(ms) {
+      if (!ms) return '—';
+      var d = new Date(ms);
+      var mins = Math.round((Date.now() - ms) / 60000);
+      if (mins < 1) return 'just now';
+      if (mins < 60) return mins + 'm ago';
+      var hrs = Math.round(mins / 60);
+      if (hrs < 24) return hrs + 'h ago';
+      return d.toLocaleString();
+    }
+    function escTxt(s) { return String(s).replace(/[&<>"']/g, function(c){ return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]; }); }
+
+    function load() {
+      // Status + recent latest
+      Promise.all([
+        fetch('/.netlify/functions/pulse-machine-library-list?status=1').then(function(r){ return r.ok ? r.json() : null; }),
+        fetch('/.netlify/functions/pulse-machine-library-list?recent=8').then(function(r){ return r.ok ? r.json() : null; }),
+        fetch('/.netlify/functions/pulse-machine-library-list?staging=1').then(function(r){ return r.ok ? r.json() : null; }),
+      ]).then(function(arr){
+        var status = arr[0], recent = arr[1], staging = arr[2];
+        var s = (status && status.ok) ? status : null;
+        document.getElementById('header-sub').textContent =
+          (s ? ('day ' + (s.day || '—') + ' · ' + (s.runs_today || 0) + ' cron runs · ' + (s.queue_depth || 0) + ' queued') : 'no data yet');
+        document.getElementById('m-total').textContent  = s ? (s.library_total || 0) : '—';
+        document.getElementById('m-today').textContent  = s ? (s.added_today   || 0) : '—';
+        document.getElementById('m-queue').textContent  = s ? (s.queue_depth   || 0) : '—';
+        document.getElementById('m-spend').textContent  = s ? ('$' + (s.spend_today || 0).toFixed(3)) : '—';
+        document.getElementById('m-last').textContent   = (s && s.last_question) ? s.last_question : '—';
+        document.getElementById('m-last-when').textContent = (s && s.last_run_ms) ? fmtTime(s.last_run_ms) : '—';
+
+        var drafts = (staging && staging.drafts) || [];
+        document.getElementById('m-drafts').textContent = drafts.length;
+        var draftsListEl = document.getElementById('drafts-list');
+        if (drafts.length) {
+          draftsListEl.innerHTML = drafts.map(function(d){
+            return '<div class="row"><div class="ts">' + fmtTime(d.ts) + '</div>'
+              + '<div class="q"><b>' + escTxt(d.title || d.tag) + '</b> <span style="color:var(--muted);font-size:0.7rem;">/' + escTxt(d.slug || '') + '</span></div>'
+              + '<div class="tags">' + escTxt(d.tag || '') + '</div></div>';
+          }).join('');
+        }
+
+        var rEntries = (recent && recent.entries) || [];
+        document.getElementById('recent-list').innerHTML = rEntries.length
+          ? rEntries.map(function(e){
+              return '<div class="row"><div class="ts">' + fmtTime(e.ts) + '</div>'
+                + '<div class="q">' + escTxt(e.question) + '</div>'
+                + '<div class="tags">' + escTxt((e.tags || []).slice(0,2).join(' · ')) + '</div></div>';
+            }).join('')
+          : '<div style="color:var(--muted);font-style:italic;">no entries yet</div>';
+      }).catch(function(e) {
+        document.getElementById('header-sub').textContent = 'error loading status';
+      });
+    }
+    function refreshPause() {
+      fetch('/.netlify/functions/pulse-machine-admin?key=' + encodeURIComponent(EXPECTED))
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+          var el = document.getElementById('pause-state');
+          if (!d) { el.textContent = 'unknown'; el.style.color = 'var(--muted)'; return; }
+          if (d.paused) { el.textContent = 'PAUSED'; el.style.color = '#ef4444'; }
+          else { el.textContent = 'RUNNING'; el.style.color = 'var(--green)'; }
+        });
+    }
+    function setPause(action) {
+      fetch('/.netlify/functions/pulse-machine-admin?key=' + encodeURIComponent(EXPECTED), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: action }),
+      }).then(refreshPause);
+    }
+    document.getElementById('btn-pause').addEventListener('click', function(){ setPause('pause'); });
+    document.getElementById('btn-resume').addEventListener('click', function(){ setPause('resume'); });
+
+    load();
+    refreshPause();
+    setInterval(load, 30000); // refresh every 30s
+    setInterval(refreshPause, 60000);
+  })();
+  </script>
+</body>
+</html>

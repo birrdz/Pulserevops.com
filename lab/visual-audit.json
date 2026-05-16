@@ -1,0 +1,16 @@
+{
+  "audited_at": "2026-05-06T20:30:25.515Z",
+  "total": 1287,
+  "visual_ok": 1287,
+  "missing_visual_count": 0,
+  "broken_mermaid_count": 0,
+  "sources_ok": 1287,
+  "missing_sources_count": 0,
+  "low_sources_count": 0,
+  "broken_json_count": 0,
+  "missing_visual": [],
+  "broken_mermaid": [],
+  "missing_sources": [],
+  "low_sources": [],
+  "broken_json": []
+}

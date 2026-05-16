@@ -1,0 +1,208 @@
+{
+  "rules": "Salesforce deep-dive arc — Inner-Outer Arc play (general → nuance → fringe). Operator-grade voice, today-knowable answers, 12-18mo SEO front-running. Started 2026-05-02.",
+  "company": "Salesforce",
+  "started": "2026-05-02",
+  "used": [
+    {
+      "id": "q1509",
+      "question": "How does Salesforce hit its 2027 revenue target?"
+    },
+    {
+      "id": "q1510",
+      "question": "Will Salesforce maintain 9% growth into 2027?"
+    },
+    {
+      "id": "q1511",
+      "question": "Is Salesforce stock still a buy in 2027?"
+    },
+    {
+      "id": "q1512",
+      "question": "Why did Salesforce growth slow in 2025?"
+    },
+    {
+      "id": "q1513",
+      "question": "Can Salesforce keep margins above 30% post-Agentforce?"
+    },
+    {
+      "id": "q1514",
+      "question": "What is Salesforce AI strategy in 2027?"
+    },
+    {
+      "id": "q1515",
+      "question": "How does Salesforce compete against AI-native CRMs?"
+    },
+    {
+      "id": "q1516",
+      "question": "Is Agentforce actually working for Salesforce?"
+    },
+    {
+      "id": "q1517",
+      "question": "Should Salesforce kill Marketing Cloud Account Engagement Pardot?"
+    },
+    {
+      "id": "q1518",
+      "question": "How does Salesforce make money in 2027?"
+    },
+    {
+      "id": "q1519",
+      "question": "Why is Marc Benioff job on the line in 2027?"
+    },
+    {
+      "id": "q1520",
+      "question": "Salesforce vs HubSpot — which should you buy?"
+    },
+    {
+      "id": "q1521",
+      "question": "How does Salesforce defend Sales Cloud market share through 2027?"
+    },
+    {
+      "id": "q1522",
+      "question": "What is Salesforce net revenue retention in 2026?"
+    },
+    {
+      "id": "q1523",
+      "question": "How does Salesforce upmarket vs ServiceNow in 2027?"
+    },
+    {
+      "id": "q1524",
+      "question": "What should Salesforce do about Slack stagnation?"
+    },
+    {
+      "id": "q1525",
+      "question": "Will Tableau survive Microsoft Power BI plus AI through 2027?"
+    },
+    {
+      "id": "q1526",
+      "question": "Is MuleSoft still growing or melting at Salesforce?"
+    },
+    {
+      "id": "q1527",
+      "question": "Should Salesforce kill the per-seat pricing model?"
+    },
+    {
+      "id": "q1528",
+      "question": "How should Salesforce price Agentforce — per agent or per seat?"
+    },
+    {
+      "id": "q1529",
+      "question": "What is Salesforce developer-platform strategy through 2027?"
+    },
+    {
+      "id": "q1530",
+      "question": "How should Salesforce think about Snowflake partnership in 2027?"
+    },
+    {
+      "id": "q1531",
+      "question": "Why did Salesforce activist investors push for changes in 2024?"
+    },
+    {
+      "id": "q1532",
+      "question": "Is Salesforce mid-market push actually working in 2026?"
+    },
+    {
+      "id": "q1533",
+      "question": "What is the right Salesforce org structure for AI agents?"
+    },
+    {
+      "id": "q1534",
+      "question": "Should Salesforce sell off Slack?"
+    },
+    {
+      "id": "q1535",
+      "question": "What is Salesforce M&A strategy through 2028?"
+    },
+    {
+      "id": "q1536",
+      "question": "Should Salesforce acquire HubSpot?"
+    },
+    {
+      "id": "q1537",
+      "question": "What is the bear case for Salesforce 2027?"
+    },
+    {
+      "id": "q1538",
+      "question": "What is the bull case for Salesforce 2027?"
+    },
+    {
+      "id": "q1539",
+      "question": "How does Salesforce retain top sales talent in 2027?"
+    },
+    {
+      "id": "q1540",
+      "question": "Should I work for Salesforce in 2027?"
+    },
+    {
+      "id": "q1541",
+      "question": "Is a Salesforce AE role still good for my career in 2027?"
+    },
+    {
+      "id": "q1542",
+      "question": "What is Salesforce RevOps career path in 2027?"
+    },
+    {
+      "id": "q1543",
+      "question": "Should I learn Salesforce or HubSpot in 2027?"
+    },
+    {
+      "id": "q1544",
+      "question": "Is Salesforce certification worth it in 2027?"
+    },
+    {
+      "id": "q1545",
+      "question": "What is Salesforce gross margin trajectory through 2028?"
+    },
+    {
+      "id": "q1546",
+      "question": "How does Salesforce defend its 7,000+ AppExchange partners?"
+    },
+    {
+      "id": "q1547",
+      "question": "Should Salesforce launch a vertical-SaaS sub-brand in 2027?"
+    },
+    {
+      "id": "q1548",
+      "question": "What does Salesforce churn math look like under AI pressure?"
+    },
+    {
+      "id": "q1549",
+      "question": "How does Salesforce API strategy compare to AWS Bedrock?"
+    },
+    {
+      "id": "q1550",
+      "question": "What is Salesforce data-center strategy through 2027?"
+    },
+    {
+      "id": "q1551",
+      "question": "Should Salesforce launch its own foundation model?"
+    },
+    {
+      "id": "q1552",
+      "question": "How does Salesforce onboarding compare to AI-native CRMs?"
+    },
+    {
+      "id": "q1553",
+      "question": "What is the right Agentforce attach goal for 2027?"
+    },
+    {
+      "id": "q1554",
+      "question": "How should Salesforce price Tableau against Looker plus Power BI in 2027?"
+    },
+    {
+      "id": "q1555",
+      "question": "Should Salesforce launch its own AI agent marketplace?"
+    },
+    {
+      "id": "q1556",
+      "question": "What is Salesforce playbook for the next 0B in revenue?"
+    },
+    {
+      "id": "q1557",
+      "question": "How does Salesforce handle the cost of OpenAI plus Anthropic API spend at scale?"
+    },
+    {
+      "id": "q1558",
+      "question": "Should Salesforce acquire Sierra to win agentic customer support?"
+    }
+  ],
+  "remaining": []
+}

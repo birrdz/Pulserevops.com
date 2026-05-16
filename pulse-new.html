@@ -1,0 +1,2400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Pulse — The Machine · Fact Checker for RevOps Leaders</title>
+  <meta name="description" content="The Pulse Machine is the fact checker for RevOps leaders. Drop your problem, theory, or half-formed plan in the box — the Machine pressure-tests it against public data and operator-grade benchmarks, ships back its opinion with sources.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E8710A' d='M3 12h3l2-7 4 14 2-7h7'/%3E%3C/svg%3E">
+  <style>
+    /* Bright glossy palette — full-saturation orange + clean cream ink. */
+    :root { --orange:#E8710A; --orange-bright:#FF8C1A; --ink:#EDE5D8; --bg:#070a0f; --muted:rgba(237,229,216,0.5); }
+    * { box-sizing:border-box; }
+    html, body {
+      margin:0; padding:0; height:100%;
+      background:var(--bg); color:var(--ink);
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      overflow:hidden;
+      /* Sharper text on every screen — antialiased subpixel rendering, full
+         OpenType kerning + ligatures, optimized legibility hint for the engine. */
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
+      font-feature-settings:'kern' 1,'liga' 1,'calt' 1;
+      font-variant-ligatures:common-ligatures contextual;
+      font-kerning:normal;
+      -webkit-tap-highlight-color:transparent;
+    }
+    body { position:relative; width:100vw; height:100vh; }
+
+    /* Smoother motion globally — Apple-style cubic-bezier for polished
+       "ease-out" feel; honor user motion preference. */
+    :root { --smooth: cubic-bezier(0.22, 1, 0.36, 1); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration:0.001ms !important; animation-iteration-count:1 !important;
+        transition-duration:0.001ms !important; scroll-behavior:auto !important;
+      }
+    }
+
+    /* WALL — clean dark room, no sepia. */
+    body::before {
+      content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:
+        radial-gradient(ellipse at 50% 30%, rgba(20,26,36,0.85) 0%, rgba(7,10,15,1) 80%),
+        repeating-linear-gradient(8deg, rgba(255,255,255,0.012) 0 1px, transparent 1px 7px),
+        repeating-linear-gradient(98deg, rgba(255,255,255,0.008) 0 1px, transparent 1px 11px);
+    }
+    /* No global aging filter — page is bright and glossy now. The housing
+       stays aged-metal, but the screen content + accents pop. */
+
+    /* THE MACHINE BEZEL — page sits INSIDE an aged-metal console cabinet.
+       Brushed steel + rivets + faint inset shadow. State of the art, but old.
+       Doesn't crowd the video — just frames the viewport edges. */
+    body::after {
+      content:''; position:fixed; inset:0; z-index:5; pointer-events:none;
+      /* Outer bezel band — ~22px thick on top/sides, slightly thicker bottom */
+      box-shadow:
+        inset 0 0 0 22px #1a1c1f,                 /* solid metal frame */
+        inset 0 0 0 23px rgba(120,110,90,0.15),   /* faint highlight on inner edge */
+        inset 0 0 0 24px rgba(0,0,0,0.85),
+        inset 0 0 36px 22px rgba(0,0,0,0.55);     /* deep inner shadow */
+      /* brushed-steel grain on the bezel via the gradient stripes */
+      background:
+        linear-gradient(180deg,
+          #2a2c30 0 22px,
+          transparent 22px calc(100% - 30px),
+          #1d1f22 calc(100% - 30px) 100%),
+        linear-gradient(90deg,
+          #25272a 0 22px,
+          transparent 22px calc(100% - 22px),
+          #25272a calc(100% - 22px) 100%);
+      background-blend-mode:multiply;
+    }
+    /* Rivets in the four corners */
+    .machine-rivet {
+      position:fixed; width:9px; height:9px; border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #777 0%, #333 60%, #111 100%);
+      box-shadow:0 1px 2px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.18);
+      z-index:6; pointer-events:none;
+    }
+    .machine-rivet.tl { top:8px;    left:8px; }
+    .machine-rivet.tr { top:8px;    right:8px; }
+    .machine-rivet.bl { bottom:14px; left:8px; }
+    .machine-rivet.br { bottom:14px; right:8px; }
+
+    /* Nameplate — bottom-center engraved on the bezel */
+    .machine-nameplate {
+      position:fixed; bottom:2px; left:50%; transform:translateX(-50%);
+      z-index:6; pointer-events:none;
+      font-family:'Courier New','Courier',monospace;
+      font-size:0.56rem; font-weight:700;
+      letter-spacing:0.3em;
+      color:rgba(180,170,150,0.55);
+      text-shadow:
+        0 1px 0 rgba(0,0,0,0.9),
+        0 0 6px rgba(232,113,10,0.04);
+      padding:0 14px;
+      white-space:nowrap;
+    }
+    .machine-nameplate b { color:rgba(232,113,10,0.65); font-weight:800; }
+
+    /* ── B. ENGRAVED TELEMETRY on the bezel — tiny fake-real stats ── */
+    .machine-telemetry {
+      position:fixed; z-index:7; pointer-events:none;
+      font-family:'Courier New','Courier',monospace;
+      font-size:0.5rem; font-weight:700;
+      letter-spacing:0.18em; text-transform:uppercase;
+      color:rgba(180,170,150,0.42);
+      text-shadow:0 1px 0 rgba(0,0,0,0.95), 0 -1px 0 rgba(255,255,255,0.04);
+      white-space:nowrap;
+    }
+    .machine-telemetry b { color:rgba(232,113,10,0.55); font-weight:800; }
+    .mt-tl { top:8px;     left:32px; }
+    .mt-tr { top:8px;     right:62px; }      /* clear the LEDs */
+    .mt-bl { bottom:6px;  left:32px; }
+    .mt-br { bottom:6px;  right:32px; }
+    @media (max-width:640px) {
+      .machine-telemetry { font-size:0.42rem; letter-spacing:0.1em; }
+      .mt-tl, .mt-bl { left:18px; } .mt-tr, .mt-br { right:18px; }
+    }
+
+    /* ── C. LIVE PULSE LINE across the top of the bezel ── */
+    .machine-pulse-line {
+      display:none !important;  /* hidden per owner — distracting wavy anim */
+      position:fixed; top:14px; left:90px; right:90px; height:8px;
+      z-index:7; pointer-events:none; overflow:hidden;
+      opacity:0.55;
+    }
+    .machine-pulse-line svg { display:block; height:100%; width:100%; }
+    .machine-pulse-line .pulse-stroke {
+      stroke:#FF8C1A; stroke-width:1.4; fill:none;
+      filter:drop-shadow(0 0 3px rgba(232,113,10,0.7));
+      stroke-dasharray:none;
+      animation:pulse-scroll 6s linear infinite;
+    }
+    @keyframes pulse-scroll {
+      from { transform:translateX(0); }
+      to   { transform:translateX(-200px); }
+    }
+    @media (max-width:640px) {
+      .machine-pulse-line { left:50px; right:50px; top:9px; height:6px; }
+    }
+
+    /* ── D. NEURAL LATTICE thinking visual — fixed overlay above the
+       response panel, only visible when body has .is-thinking ── */
+    #neural-thinking {
+      position:fixed; left:50%; bottom:64px; transform:translateX(-50%);
+      width:220px; height:88px;
+      z-index:7; pointer-events:none;
+      display:none;
+    }
+    /* Hidden per owner — keep countdown only, drop the lattice wavy anim */
+    body.is-thinking #neural-thinking { display:none; }
+    /* Countdown timer shown under the neural lattice while thinking */
+    #thinking-countdown {
+      position:fixed; left:50%; bottom:24px; transform:translateX(-50%);
+      z-index:8; pointer-events:none;
+      display:none;
+      font-family:'Space Grotesk',sans-serif;
+      color:rgba(255,140,26,0.95);
+      text-align:center;
+      letter-spacing:0.04em;
+    }
+    body.is-thinking #thinking-countdown { display:block; }
+    #thinking-countdown .tc-label {
+      font-size:0.72rem; font-weight:600; color:rgba(237,229,216,0.65);
+      text-transform:uppercase; letter-spacing:0.18em; margin-bottom:4px;
+    }
+    #thinking-countdown .tc-num {
+      font-size:1.65rem; font-weight:900; color:#FF8C1A;
+      text-shadow:0 0 12px rgba(232,113,10,0.6);
+      font-variant-numeric:tabular-nums;
+      transition:color 0.2s;
+    }
+    #thinking-countdown.tc-warning .tc-num { color:#FFD740; }
+    #thinking-countdown.tc-danger .tc-num { color:#FF4444; }
+    #thinking-countdown .tc-hint {
+      font-size:0.65rem; color:rgba(237,229,216,0.5); margin-top:2px; font-style:italic;
+    }
+    body.response-fullscreen #thinking-countdown { display:none !important; }
+    body.is-thinking #response.thinking { color:transparent; min-height:48px; }
+    body.is-thinking #response.thinking::after { display:none; }
+    .nt-node {
+      fill:#FF8C1A;
+      filter:drop-shadow(0 0 4px rgba(232,113,10,0.7));
+      animation:nt-node-pulse 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      will-change:opacity;
+    }
+    .nt-edge {
+      stroke:rgba(232,113,10,0.4);
+      stroke-width:0.9;
+      animation:nt-edge-flicker 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      will-change:opacity;
+    }
+    @keyframes nt-node-pulse {
+      0%,100% { opacity:0.5; r:2.6; }
+      50%     { opacity:1;   r:3.4; }
+    }
+    @keyframes nt-edge-flicker {
+      0%,100% { opacity:0.22; }
+      50%     { opacity:0.6; }
+    }
+    .nt-node:nth-of-type(1) { animation-delay:0s; }
+    .nt-node:nth-of-type(2) { animation-delay:0.18s; }
+    .nt-node:nth-of-type(3) { animation-delay:0.36s; }
+    .nt-node:nth-of-type(4) { animation-delay:0.54s; }
+    .nt-node:nth-of-type(5) { animation-delay:0.72s; }
+    .nt-node:nth-of-type(6) { animation-delay:0.9s; }
+    .nt-node:nth-of-type(7) { animation-delay:1.08s; }
+    .nt-node:nth-of-type(8) { animation-delay:1.26s; }
+    .nt-node:nth-of-type(9) { animation-delay:1.44s; }
+
+    /* Power LED — pulses slowly, top-right of the bezel */
+    .machine-led {
+      position:fixed; top:8px; right:24px;
+      width:6px; height:6px; border-radius:50%;
+      background:#22c55e;
+      box-shadow:0 0 6px rgba(34,197,94,0.9), 0 0 12px rgba(34,197,94,0.45);
+      z-index:7; pointer-events:none;
+      animation:machine-led-pulse 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      will-change:opacity, transform;
+    }
+    @keyframes machine-led-pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%     { opacity:0.65; transform:scale(0.92); }
+    }
+    .machine-led-amber {
+      position:fixed; top:8px; right:38px;
+      width:5px; height:5px; border-radius:50%;
+      background:#FFD740;
+      box-shadow:0 0 5px rgba(255,215,64,0.7);
+      z-index:7; pointer-events:none;
+      opacity:0.7;
+    }
+
+    @media (max-width:640px) {
+      body::after {
+        box-shadow:
+          inset 0 0 0 12px #1a1c1f,
+          inset 0 0 0 13px rgba(120,110,90,0.12),
+          inset 0 0 0 14px rgba(0,0,0,0.85),
+          inset 0 0 22px 12px rgba(0,0,0,0.55);
+      }
+      .machine-rivet { width:6px; height:6px; }
+      .machine-rivet.tl, .machine-rivet.tr { top:4px; }
+      .machine-rivet.tl, .machine-rivet.bl { left:4px; }
+      .machine-rivet.tr, .machine-rivet.br { right:4px; }
+      .machine-rivet.bl, .machine-rivet.br { bottom:4px; }
+      .machine-nameplate { font-size:0.48rem; letter-spacing:0.22em; bottom:0px; }
+      .machine-led { top:5px; right:14px; }
+      .machine-led-amber { top:5px; right:24px; }
+    }
+
+    /* The video — bright glossy, plays slow. CSS-only filter stack — SVG sharpen
+       was reverted (caused ringing artifacts around high-contrast pulse edges). */
+    #pulse-video {
+      position:fixed; inset:0;
+      width:100%; height:100%;
+      object-fit:cover;
+      z-index:0; opacity:0;
+      transition:opacity 1.6s ease-out;
+      pointer-events:none;
+      image-rendering:auto; image-rendering:high-quality; image-rendering:-webkit-optimize-contrast;
+      /* Subtle quality stack: rich greens + balanced contrast, no oversharpen.
+         GPU-accelerated via translateZ for clean scaling. */
+      filter:contrast(1.16) saturate(1.4) brightness(1.05);
+      transform:translateZ(0);
+      -webkit-backface-visibility:hidden;
+      backface-visibility:hidden;
+      will-change:opacity;
+    }
+    #pulse-video.ready { opacity:1; }
+
+    /* Soft vignette so the input/poster stay legible over the video */
+    .vignette {
+      position:fixed; inset:0; z-index:1; pointer-events:none;
+      background:
+        radial-gradient(ellipse at center, rgba(7,10,15,0.15) 0%, rgba(7,10,15,0.55) 70%, rgba(7,10,15,0.85) 100%),
+        linear-gradient(180deg, rgba(7,10,15,0.35) 0%, transparent 24%, transparent 70%, rgba(7,10,15,0.55) 100%);
+    }
+
+    /* Foreground stage — input bar pinned to the bottom */
+    .stage { position:fixed; inset:0; z-index:6; display:flex; flex-direction:column; justify-content:flex-end; padding:28px clamp(20px,5vw,56px) 0; pointer-events:none; }
+    .stage > * { pointer-events:auto; }
+    .center { width:100%; max-width:760px; margin:0 auto; }
+
+    /* ── WALL PHOTO — small framed photo pinned to the wall, desaturated to
+       blend with the dull room palette so it feels like it's been hanging
+       there for years. Lower-left, slight rotation, faded tape. ── */
+    .wall-photo {
+      position:fixed; top:80px; right:30px;
+      width:clamp(110px, 11vw, 160px);
+      margin:0; padding:8px 8px 10px;
+      transform:rotate(2.4deg);
+      background:rgba(28,30,34,0.85);
+      border:1px solid rgba(255,255,255,0.06);
+      box-shadow:
+        0 14px 28px rgba(0,0,0,0.55),
+        0 2px 4px rgba(0,0,0,0.4),
+        inset 0 0 30px rgba(0,0,0,0.3);
+      z-index:3;
+      opacity:0.55;
+      pointer-events:none;
+    }
+    .wall-photo img,
+    .wall-photo video {
+      display:block; width:100%; height:auto;
+      filter:grayscale(0.7) sepia(0.18) brightness(0.78) contrast(0.92) saturate(0.6);
+    }
+    .wall-photo-tape {
+      position:absolute; top:-7px; left:50%; transform:translateX(-50%) rotate(-4deg);
+      width:46px; height:14px;
+      background:linear-gradient(180deg, rgba(160,150,130,0.32) 0%, rgba(130,120,100,0.28) 100%);
+      border-left:1px solid rgba(120,110,90,0.25); border-right:1px solid rgba(120,110,90,0.25);
+      box-shadow:0 2px 4px rgba(0,0,0,0.3);
+      pointer-events:none;
+    }
+    @media (max-width:640px) {
+      .wall-photo { display:none; }
+    }
+    /* Wall photo stays put — does not fade with the rest of the room */
+
+    /* TV READOUT — small pill at top-center, minimal modern */
+    .tv-readout {
+      position:fixed; top:22px; left:50%; transform:translateX(-50%);
+      z-index:3;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      font-size:0.7rem; font-weight:500;
+      letter-spacing:0.18em; text-transform:uppercase;
+      color:rgba(237,229,216,0.68);
+      max-width:78vw;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      transition:opacity 0.45s ease;
+      pointer-events:none;
+      padding:7px 18px;
+      background:rgba(10,14,20,0.55);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:999px;
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      box-shadow:0 6px 20px rgba(0,0,0,0.4);
+    }
+    .tv-readout.fade { opacity:0; }
+    @media (max-width:640px) {
+      .tv-readout { font-size:0.62rem; max-width:90vw; padding:6px 14px; }
+    }
+
+    /* Close × button on the response panel */
+    .resp-close {
+      position:absolute; top:8px; right:10px;
+      width:30px; height:30px; border-radius:50%;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.12);
+      color:rgba(237,229,216,0.7);
+      font-family:inherit; font-size:1.15rem; font-weight:300; line-height:1;
+      cursor:pointer; transition:all 0.15s;
+      display:flex; align-items:center; justify-content:center;
+      padding:0;
+    }
+    .resp-close:hover { background:rgba(232,113,10,0.14); border-color:rgba(232,113,10,0.45); color:#FF8C1A; }
+    #response { position:relative; }
+
+    /* No top bar — the room has no labels. The Machine is the focal point. */
+    .top, .mark, .controls, .ctrl-btn { display:none !important; }
+
+    /* CENTER — single TV-shaped chat box at bottom. Hidden until the user
+       clicks through the entry popup (#unmute-prompt). The first gesture
+       fires JS that adds `body.entered`, which fades + slides this in. */
+    .center {
+      display:flex; flex-direction:column; align-items:center;
+      gap:8px; max-width:760px; margin:0 auto -6px; width:100%;
+      position:relative; bottom:-2px;
+      opacity: 0;
+      transform: translate3d(0, 12px, 0);
+      pointer-events: none;
+      transition: opacity 0.55s var(--smooth), transform 0.55s var(--smooth);
+      will-change: opacity, transform;
+    }
+    body.entered .center {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      pointer-events: auto;
+      transition-delay: 0.45s;
+    }
+    /* Hide the gate textarea form entirely — single box only now */
+    #kgate { display:none !important; }
+    /* Words on screen — top-left small font per owner — quiet, fades after 20s */
+    .room-words {
+      position:fixed; top:48px; left:32px; transform:none;
+      z-index:2; pointer-events:none;
+      text-align:left; max-width:340px; padding:0;
+      animation:room-words-fade 20s ease-in-out forwards;
+    }
+    @keyframes room-words-fade {
+      0%, 65% { opacity:1; filter:blur(0); }
+      100% { opacity:0; filter:blur(3px); }
+    }
+    .prompt-line {
+      font-size:0.5rem; font-weight:600; letter-spacing:0.32em; text-transform:uppercase;
+      color:rgba(237,229,216,0.45);
+      text-shadow:0 2px 10px rgba(0,0,0,0.7);
+      margin-bottom:6px;
+    }
+    .oracle-h {
+      font-size:0.92rem; font-weight:600; letter-spacing:0.01em;
+      line-height:1.3; color:rgba(255,235,210,0.85); margin:0 0 4px;
+      text-shadow:0 2px 12px rgba(0,0,0,0.85);
+    }
+    .oracle-sub {
+      font-size:0.66rem; line-height:1.45;
+      color:rgba(237,229,216,0.55);
+      letter-spacing:0.02em;
+      margin:0;
+      font-weight:400;
+      text-shadow:0 2px 10px rgba(0,0,0,0.85);
+    }
+    @media (max-width:640px) {
+      .room-words { top:36px; left:18px; max-width:260px; }
+      .oracle-h { font-size:0.82rem; }
+      .oracle-sub { font-size:0.6rem; }
+    }
+    .logo, .bottom, .meta { display:none !important; }
+
+    /* Ask form — chunky industrial console housing. Brushed-steel sides
+       with screw-head rivets, recessed input recess, glowing power-dot. */
+    /* The chat is now styled as ONE OF THE TVs from the wall — chunky CRT
+       cabinet bezel, rounded corners, inset "screen" recess. User looks
+       like they're typing into one of the monitors. */
+    .ask-form {
+      width:100%; max-width:440px; margin:0 auto 14px;
+      display:flex; align-items:center; gap:0;
+      /* Cabinet — aged steel + glossy light reflection */
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.02) 30%, transparent 55%),
+        linear-gradient(180deg, #2c2e31 0%, #1c1e21 50%, #131518 100%);
+      border:1px solid #050608;
+      border-radius:14px;                                /* rounded TV cabinet corners */
+      padding:10px 10px 10px 14px;                       /* chunky bezel around the screen */
+      box-shadow:
+        0 22px 44px rgba(0,0,0,0.65),
+        inset 0 1px 0 rgba(255,255,255,0.22),            /* top gloss */
+        inset 0 -1px 0 rgba(0,0,0,0.75),
+        inset 0 0 0 1px rgba(0,0,0,0.55),
+        inset 4px 4px 18px rgba(0,0,0,0.45),             /* deep inner shadow = screen recess */
+        0 0 0 2px rgba(0,0,0,0.85);
+      transition:box-shadow 0.2s;
+      position:relative;
+    }
+    /* Power-dot LED on the left of the input — pulses while thinking */
+    .ask-form::before {
+      content:''; position:absolute; left:18px; top:50%; transform:translateY(-50%);
+      width:6px; height:6px; border-radius:50%;
+      background:#22c55e;
+      box-shadow:0 0 5px rgba(34,197,94,0.85), 0 0 10px rgba(34,197,94,0.4);
+      pointer-events:none;
+    }
+    .ask-form.thinking::before {
+      animation:askform-pulse 1.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      background:#FF8C1A;
+      box-shadow:0 0 6px rgba(255,140,26,0.9), 0 0 14px rgba(255,140,26,0.5);
+      will-change:transform, opacity;
+    }
+    @keyframes askform-pulse {
+      0%,100% { opacity:1; transform:translateY(-50%) scale(1); }
+      50%     { opacity:0.7; transform:translateY(-50%) scale(0.88); }
+    }
+    /* Screw-head rivets at the four corners of the housing */
+    .ask-form::after {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background:
+        radial-gradient(circle at 6px 6px,                   #555 0 1.5px, #1a1a1a 1.5px 2.5px, transparent 2.5px),
+        radial-gradient(circle at calc(100% - 6px) 6px,      #555 0 1.5px, #1a1a1a 1.5px 2.5px, transparent 2.5px),
+        radial-gradient(circle at 6px calc(100% - 6px),      #555 0 1.5px, #1a1a1a 1.5px 2.5px, transparent 2.5px),
+        radial-gradient(circle at calc(100% - 6px) calc(100% - 6px), #555 0 1.5px, #1a1a1a 1.5px 2.5px, transparent 2.5px);
+      border-radius:8px;
+      opacity:0.85;
+    }
+    .ask-form:focus-within { box-shadow:0 18px 36px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.7), 0 0 0 1px rgba(34,197,94,0.45), 0 0 22px rgba(34,197,94,0.12); }
+    #ask-input {
+      flex:1;
+      /* Screen panel — slightly recessed dark glass that lives inside the cabinet bezel */
+      background:radial-gradient(ellipse at 50% 35%, rgba(20,30,24,0.55) 0%, rgba(8,12,10,0.7) 100%);
+      border:1px solid rgba(0,0,0,0.7);
+      border-radius:6px;
+      outline:none;
+      color:#dcefdc;
+      font-family:inherit;
+      font-size:clamp(0.92rem, 1.15vw, 1.04rem);
+      padding:9px 14px 9px 22px;
+      letter-spacing:0.005em;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.04),
+        inset 0 -1px 0 rgba(0,0,0,0.45),
+        inset 0 0 18px rgba(0,0,0,0.5);
+    }
+    #ask-input::placeholder { color:rgba(220,235,220,0.45); font-style:italic; }
+    /* Helper line above the chat — instructions that change with state */
+    .chat-helper {
+      font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase;
+      color:rgba(120,240,170,0.78);
+      text-shadow:0 1px 2px rgba(0,0,0,0.85), 0 0 8px rgba(34,197,94,0.18);
+      margin-bottom:4px;
+      text-align:center;
+      transition:opacity 0.4s, color 0.4s;
+    }
+    .chat-helper.ask-mode { color:rgba(255,180,90,0.85); text-shadow:0 1px 2px rgba(0,0,0,0.85), 0 0 8px rgba(232,113,10,0.2); }
+    /* Submit — bright glossy green key with strong top highlight */
+    #ask-submit {
+      background:linear-gradient(180deg, #7df0a3 0%, #22c55e 35%, #166534 100%);
+      border:1px solid #0a3a1a;
+      color:#0a0e14;
+      font-family:inherit; font-size:0.72rem; font-weight:900;
+      letter-spacing:0.04em;
+      padding:6px 14px; border-radius:5px; cursor:pointer;
+      transition:background 0.18s var(--smooth), box-shadow 0.18s var(--smooth), transform 0.12s var(--smooth);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.65),
+        inset 0 -1px 0 rgba(0,0,0,0.4),
+        0 3px 0 #0d4222,
+        0 4px 8px rgba(34,197,94,0.35),
+        0 5px 12px rgba(0,0,0,0.5);
+      position:relative;
+      min-width:36px;
+    }
+    #ask-submit:hover {
+      background:linear-gradient(180deg, #9af5b8 0%, #34d875 35%, #1a7a40 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.75),
+        inset 0 -1px 0 rgba(0,0,0,0.4),
+        0 4px 0 #155028,
+        0 5px 14px rgba(34,197,94,0.5),
+        0 6px 16px rgba(0,0,0,0.55);
+    }
+    #ask-submit:active {
+      transform:translateY(3px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.45),
+        inset 0 -1px 0 rgba(0,0,0,0.4),
+        0 1px 0 #6a3308,
+        0 2px 4px rgba(0,0,0,0.5);
+    }
+    #ask-submit:disabled { opacity:0.45; cursor:wait; transform:none; box-shadow:inset 0 1px 0 rgba(255,255,255,0.2), 0 4px 0 #6a3308, 0 5px 8px rgba(0,0,0,0.5); }
+
+    /* When Machine answers with visuals (Mermaid / image / video), the
+       response panel goes fullscreen-modal so the diagram dominates. */
+    body.response-fullscreen #response {
+      position:fixed !important; inset:24px !important;
+      max-height:none !important; max-width:none !important;
+      width:auto !important; height:auto !important;
+      z-index:9 !important;
+      padding:36px 44px !important;
+      font-size:1.05rem;
+    }
+    body.response-fullscreen .stage,
+    body.response-fullscreen .room-words,
+    body.response-fullscreen .wall-photo,
+    body.response-fullscreen .tv-readout,
+    body.response-fullscreen .machine-pulse-line,
+    body.response-fullscreen #neural-thinking { display:none !important; }
+    body.response-fullscreen #pulse-video { opacity:0.18; transition:opacity 0.6s; }
+
+    /* Response panel — same aged metal housing + glossy light sweep */
+    #response {
+      width:100%; max-height:60vh; overflow:auto;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.015) 30%, transparent 55%),
+        linear-gradient(180deg, #1f2125 0%, #15171a 50%, #101216 100%);
+      border:1px solid #08080a;
+      border-radius:8px;
+      padding:24px 28px;
+      font-size:0.96rem; line-height:1.65;
+      color:rgba(237,229,216,0.92);
+      word-wrap:break-word;
+      opacity:0; transform:translate3d(0, 8px, 0);
+      transition:opacity 0.5s var(--smooth), transform 0.5s var(--smooth);
+      will-change:opacity, transform;
+      backface-visibility:hidden;
+      box-shadow:
+        0 24px 56px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        inset 0 -1px 0 rgba(0,0,0,0.7),
+        0 0 0 1px rgba(0,0,0,0.85);
+    }
+    #response.show { opacity:1; transform:translate3d(0, 0, 0); }
+    #response.thinking { color:rgba(237,229,216,0.55); font-style:italic; }
+    #response.thinking::after {
+      content:'…'; display:inline-block;
+      animation:dots 1.4s steps(4, end) infinite;
+    }
+    @keyframes dots { 0%,20% { content:''; } 40% { content:'.'; } 60% { content:'..'; } 80%,100% { content:'…'; } }
+    /* Markdown-ish formatting inside the response */
+    #response p { margin:0 0 12px; }
+    #response p:last-child { margin-bottom:0; }
+    #response h2, #response h3 {
+      font-size:0.78rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--orange-bright); margin:18px 0 8px; padding-top:6px;
+      border-top:1px solid rgba(232,113,10,0.18);
+    }
+    #response h2:first-child, #response h3:first-child { border-top:none; padding-top:0; margin-top:0; }
+    #response strong { color:#fff; font-weight:800; }
+    #response ul, #response ol { margin:8px 0 14px; padding-left:22px; }
+    #response li { margin-bottom:6px; }
+    #response a {
+      color:var(--orange-bright); text-decoration:none;
+      border-bottom:1px dotted rgba(232,113,10,0.5);
+      transition:color 0.15s, border-color 0.15s;
+    }
+    #response a:hover { color:#FFD740; border-bottom-color:#FFD740; }
+    #response table {
+      width:100%; border-collapse:collapse; margin:12px 0 16px;
+      font-size:0.88rem;
+    }
+    #response th, #response td {
+      padding:8px 12px; text-align:left;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    #response th { color:var(--orange-bright); font-weight:800; letter-spacing:0.04em; text-transform:uppercase; font-size:0.7rem; }
+    #response code {
+      background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08);
+      padding:1px 6px; border-radius:4px;
+      font-family:'JetBrains Mono','SF Mono',monospace; font-size:0.85em;
+      color:#FFD740;
+    }
+    /* Mermaid diagrams the Machine emits */
+    .mermaid-wrap {
+      margin:14px 0;
+      padding:18px;
+      background:rgba(0,0,0,0.4);
+      border:1px solid rgba(232,113,10,0.18);
+      border-radius:10px;
+      overflow-x:auto;
+      text-align:center;
+    }
+    .mermaid-wrap .mermaid { font-family:inherit !important; min-width:280px; display:inline-block; }
+    .mermaid-wrap svg { max-width:100% !important; height:auto !important; }
+
+    /* Embedded media inside responses */
+    .resp-media {
+      margin:12px 0; border-radius:10px; overflow:hidden;
+      background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.08);
+    }
+    .resp-media iframe { display:block; width:100%; aspect-ratio:16/9; border:0; }
+    .resp-media img { display:block; width:100%; max-height:380px; object-fit:cover; }
+    .resp-link-card {
+      display:flex; align-items:center; gap:12px;
+      padding:10px 14px; margin:8px 0;
+      background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1);
+      border-radius:10px;
+      text-decoration:none !important; border-bottom:none !important;
+      color:rgba(237,229,216,0.85) !important;
+      transition:all 0.15s;
+    }
+    .resp-link-card:hover { background:rgba(232,113,10,0.06); border-color:rgba(232,113,10,0.45); transform:translateX(2px); }
+    .resp-link-card .rlc-fav {
+      width:28px; height:28px; border-radius:6px;
+      background:rgba(232,113,10,0.12); border:1px solid rgba(232,113,10,0.3);
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+    }
+    .resp-link-card .rlc-fav img { width:18px; height:18px; }
+    .resp-link-card .rlc-meta { flex:1; min-width:0; }
+    .resp-link-card .rlc-title {
+      font-size:0.88rem; font-weight:700; color:var(--ink);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .resp-link-card .rlc-host {
+      font-size:0.66rem; color:rgba(237,229,216,0.5);
+      letter-spacing:0.08em; text-transform:uppercase;
+    }
+    .resp-sources {
+      margin-top:18px; padding-top:14px;
+      border-top:1px solid rgba(255,255,255,0.08);
+    }
+    .resp-sources-label {
+      font-size:0.6rem; font-weight:800; letter-spacing:0.22em; text-transform:uppercase;
+      color:rgba(237,229,216,0.45); margin-bottom:6px;
+    }
+
+    /* Suggestion chips fully removed — wall is the only hint */
+    .chips, .chip { display:none !important; }
+
+    /* Follow-up row — appears beneath each answer to invite the next question.
+       Makes "the wire is still open" UX explicit instead of implicit. */
+    .followup-row {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 22px; padding-top: 18px;
+      border-top: 1px solid rgba(232,113,10,0.18);
+      align-items: center;
+    }
+    .followup-label {
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,180,90,0.7);
+      margin-right: 4px;
+    }
+    .followup-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 13px; border-radius: 999px;
+      background: rgba(232,113,10,0.08);
+      border: 1px solid rgba(232,113,10,0.32);
+      color: rgba(255,229,200,0.9);
+      font-family: inherit; font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .followup-chip:hover {
+      background: rgba(232,113,10,0.18);
+      border-color: rgba(232,113,10,0.7);
+      color: #fff; transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(232,113,10,0.22);
+    }
+    .followup-chip .arrow { color: #FF8C1A; font-weight: 800; }
+
+    /* KNOWLEDGE GATE — must contribute before asking */
+    .kgate {
+      width:100%; max-width:560px; margin:0 auto;
+      /* Aged-metal housing with glossy light-reflection sweep + green border */
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.02) 28%, transparent 52%),
+        linear-gradient(180deg, #2a2c2f 0%, #1d1f22 50%, #16181b 100%);
+      border:1px solid rgba(34,197,94,0.35);
+      border-radius:8px 8px 0 0;
+      padding:10px 12px 6px;
+      box-shadow:
+        0 18px 32px rgba(0,0,0,0.55),
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        inset 0 -1px 0 rgba(0,0,0,0.7),
+        0 0 0 1px rgba(0,0,0,0.85);
+      transition:opacity 0.5s, transform 0.5s;
+    }
+    .kgate.gone { opacity:0; transform:translateY(-8px); pointer-events:none; height:0; padding:0; margin:0; overflow:hidden; }
+    .kgate-banner {
+      font-size:0.66rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase;
+      color:rgba(120,240,170,0.95);
+      margin-bottom:7px;
+      text-align:center;
+      text-shadow:0 1px 2px rgba(0,0,0,0.8), 0 0 8px rgba(34,197,94,0.25);
+    }
+    .kgate-copy {
+      font-size:0.92rem; line-height:1.55;
+      color:rgba(237,229,216,0.78);
+      margin:0 0 14px;
+    }
+    #kgate-input {
+      width:100%; background:rgba(0,0,0,0.45);
+      border:1px solid rgba(220,200,160,0.18);
+      border-radius:6px;
+      color:#e6dcc4; font-family:inherit; font-size:0.92rem; line-height:1.45;
+      padding:8px 11px; outline:none; resize:vertical;
+      transition:border-color 0.2s;
+    }
+    #kgate-input:focus { border-color:rgba(184,122,50,0.65); }
+    #kgate-input::placeholder { color:rgba(230,220,196,0.5); }
+    .kgate-actions { display:flex; gap:10px; margin-top:10px; justify-content:flex-end; align-items:center; }
+    .kgate-skip {
+      background:transparent; border:1px solid rgba(255,255,255,0.12);
+      color:rgba(237,229,216,0.55);
+      font-family:inherit; font-size:0.66rem; font-weight:700;
+      letter-spacing:0.16em; text-transform:uppercase;
+      padding:8px 12px; border-radius:10px; cursor:pointer;
+    }
+    .kgate-skip:hover { color:var(--ink); border-color:rgba(255,255,255,0.3); }
+    .kgate-submit {
+      background:linear-gradient(180deg, #7df0a3 0%, #22c55e 35%, #166534 100%);
+      border:1px solid #0a3a1a;
+      color:#0a0e14;
+      font-family:inherit; font-size:0.62rem; font-weight:800;
+      letter-spacing:0.16em; text-transform:uppercase;
+      padding:6px 12px; border-radius:5px; cursor:pointer;
+      transition:all 0.18s;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.4), 0 2px 4px rgba(34,197,94,0.3), 0 3px 6px rgba(0,0,0,0.5);
+    }
+    .kgate-submit:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(232,113,10,0.45); }
+    .kgate-submit:disabled { opacity:0.5; cursor:wait; transform:none; box-shadow:none; }
+    .kgate-status {
+      font-size:0.72rem; font-weight:700; letter-spacing:0.08em;
+      color:rgba(237,229,216,0.55);
+      margin-top:8px; min-height:1em;
+    }
+    .kgate-status.ok { color:#22c55e; }
+    .kgate-status.warn { color:#FFD740; }
+
+    /* BOTTOM */
+    .bottom { display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap; }
+    .meta { font-size:0.6rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:rgba(237,229,216,0.4); }
+    .meta b { color:rgba(237,229,216,0.8); }
+
+    /* First-gesture overlay so audio can start (browsers require user click) */
+    #unmute-prompt {
+      position:fixed; inset:0; z-index:5;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(7,10,15,0.78);
+      backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+      cursor:pointer; transition:opacity 0.6s;
+      padding:24px;
+    }
+    #unmute-prompt.gone { opacity:0; pointer-events:none; }
+    #unmute-prompt .card {
+      background:linear-gradient(160deg, rgba(255,255,255,0.06) 0%, transparent 35%), linear-gradient(180deg, #1c1e21 0%, #131518 100%);
+      border:1px solid rgba(232,113,10,0.35);
+      border-radius:14px;
+      box-shadow:0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+      padding:28px 30px 22px;
+      max-width:520px; width:100%;
+      color:var(--ink);
+      text-align:left;
+    }
+    #unmute-prompt .label {
+      font-size:0.6rem; font-weight:800; letter-spacing:0.32em; text-transform:uppercase;
+      color:rgba(255,180,90,0.85);
+      margin-bottom:6px;
+    }
+    #unmute-prompt h1 {
+      font-size:clamp(1.4rem, 2.4vw, 1.85rem); font-weight:900; letter-spacing:-0.01em;
+      margin:0 0 14px; color:#fff;
+    }
+    #unmute-prompt p {
+      font-size:0.86rem; line-height:1.55;
+      color:rgba(237,229,216,0.82);
+      margin:0 0 10px;
+    }
+    #unmute-prompt p b { color:#fff; font-weight:700; }
+    #unmute-prompt .specs {
+      margin:14px 0 18px;
+      padding:12px 14px;
+      background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.06); border-radius:8px;
+      font-family:'Courier New','Courier',monospace; font-size:0.72rem; line-height:1.6;
+      color:rgba(220,235,220,0.85);
+    }
+    #unmute-prompt .specs span { color:rgba(255,180,90,0.85); }
+    #unmute-prompt .enter-btn {
+      display:flex; align-items:center; justify-content:center;
+      padding:12px 22px; border-radius:8px;
+      background:linear-gradient(180deg, #FFB060 0%, #FF8C1A 35%, #d76410 100%);
+      color:#0a0e14;
+      font-size:0.78rem; font-weight:900; letter-spacing:0.18em; text-transform:uppercase;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 14px rgba(232,113,10,0.4), 0 6px 18px rgba(0,0,0,0.45);
+      animation:nudge 2.4s ease-in-out infinite;
+    }
+    @keyframes nudge { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-3px); } }
+
+    /* ── WALL POSTER — desaturated, wall-toned, almost-hidden flyer.
+       Pinned top-right. Wears the wall's color so a casual visitor barely
+       registers it. Hovering brings it forward (easter-egg discovery). ── */
+    .poster {
+      position:fixed; top:18px; right:18px; transform:rotate(-2.4deg);
+      width:clamp(180px, 17vw, 230px);
+      z-index:3;
+      font-family:'Courier New','Courier',monospace;
+      color:rgba(178,168,150,0.7);
+      padding:22px 16px 14px;
+      opacity:0.42;
+      /* Wall-tone palette: dark blueish-gray that sits IN the wall, not on it.
+         No warm beige — that made it pop. This is "old paper that's been on
+         a smoky wall for years and stained itself the same color as the wall." */
+      background-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.4 0 0 0 0 0.36 0 0 0 0.07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"),
+        repeating-linear-gradient(180deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 4px),
+        radial-gradient(ellipse at 30% 30%, rgba(40,42,46,0.92) 0%, rgba(26,28,32,0.88) 60%, rgba(18,20,24,0.82) 100%);
+      box-shadow:
+        0 10px 22px rgba(0,0,0,0.55),
+        0 2px 4px rgba(0,0,0,0.4),
+        inset 0 0 50px rgba(0,0,0,0.4);
+      /* Torn / ragged edges */
+      clip-path: polygon(
+        2% 1%, 12% 0.5%, 22% 1.4%, 38% 0.2%, 51% 1.6%, 64% 0.4%, 78% 1.8%, 92% 0.6%, 99% 2%,
+        99.4% 14%, 98.6% 28%, 99.6% 42%, 98.2% 58%, 99.4% 72%, 98.4% 86%, 99% 98%,
+        88% 99.4%, 74% 98.4%, 60% 99.6%, 46% 98.2%, 32% 99.4%, 18% 98.4%, 6% 99.6%, 1% 98%,
+        0.6% 84%, 1.4% 70%, 0.2% 56%, 1.6% 42%, 0.4% 28%, 1.8% 14%
+      );
+      transition:opacity 0.5s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .poster:hover { opacity:0.95; transform:rotate(-0.8deg) scale(1.04); }
+    /* Faded scotch tape, two strips at top corners — desaturated to wall tone */
+    .poster-tape {
+      position:absolute; top:-6px; left:12%; transform:rotate(-12deg);
+      width:50px; height:14px;
+      background:linear-gradient(180deg, rgba(160,150,130,0.32) 0%, rgba(130,120,100,0.28) 100%);
+      border-left:1px solid rgba(120,110,90,0.25); border-right:1px solid rgba(120,110,90,0.25);
+      box-shadow:0 2px 4px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.06);
+      pointer-events:none;
+    }
+    .poster-tape::after {
+      content:''; position:absolute; top:6px; right:-46px; transform:rotate(24deg);
+      width:48px; height:13px;
+      background:inherit; border:inherit;
+      box-shadow:inherit;
+    }
+    /* The poster is now nothing but a list of crossed-off topics. No title,
+       no sub, no foot. Each line is a 2-4 word topic the Machine absorbed,
+       with a red marker X scratched through it — like things being consumed. */
+    .poster-head, .poster-sub, .poster-foot { display:none !important; }
+
+    .poster-list {
+      list-style:none; margin:0; padding:0;
+      max-height:48vh; overflow-y:auto;
+      padding-right:4px;
+    }
+    .poster-list::-webkit-scrollbar { width:4px; }
+    .poster-list::-webkit-scrollbar-thumb { background:rgba(178,168,150,0.3); border-radius:2px; }
+
+    .poster-list li {
+      font-family:'Bebas Neue','Oswald','Impact','Arial Narrow',sans-serif;
+      font-size:0.92rem; line-height:1.1;
+      letter-spacing:0.04em;
+      text-transform:uppercase;
+      padding:6px 4px;
+      color:rgba(210,200,180,0.78);
+      position:relative;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .poster-list li.poster-empty {
+      font-style:italic; font-family:'Courier New','Courier',monospace;
+      font-size:0.7rem;
+      color:rgba(178,168,150,0.4);
+      text-align:center; padding:14px 0;
+      text-transform:none; letter-spacing:0.1em;
+    }
+    /* Red marker X scratched through every absorbed topic. Two diagonals,
+       wobbled per row so they don't look generated. */
+    .poster-list li:not(.poster-empty)::before,
+    .poster-list li:not(.poster-empty)::after {
+      content:''; position:absolute;
+      left:-2%; right:-2%; top:50%;
+      height:2.4px;
+      background:#c0382c;
+      box-shadow:0 0 6px rgba(192,56,44,0.5);
+      pointer-events:none; border-radius:1px;
+      opacity:0.92;
+    }
+    .poster-list li:not(.poster-empty)::before {
+      transform:translateY(-50%) rotate(-7deg) scaleX(0.96);
+    }
+    .poster-list li:not(.poster-empty)::after {
+      transform:translateY(-50%) rotate(7deg) scaleX(1.02);
+      background:#a82c20; height:2.1px; opacity:0.88;
+    }
+    .poster-list li:nth-child(2n)::before { transform:translateY(-50%) rotate(-9deg) scaleX(0.94) translateX(2px); }
+    .poster-list li:nth-child(3n)::before { transform:translateY(-50%) rotate(-5deg) scaleX(1.00) translateX(-2px); }
+    .poster-list li:nth-child(2n)::after  { transform:translateY(-50%) rotate(9deg)  scaleX(0.98) translateX(-1px); }
+    .poster-list li:nth-child(3n)::after  { transform:translateY(-50%) rotate(5deg)  scaleX(1.04) translateX(2px); }
+    /* Faint stain ring — desaturated to wall tone, not warm */
+    .poster::before {
+      content:''; position:absolute;
+      bottom:14px; left:12px;
+      width:36px; height:36px;
+      border:1px solid rgba(120,110,90,0.16);
+      border-radius:50%;
+      pointer-events:none;
+      transform:rotate(-12deg) scaleX(1.05);
+    }
+    /* Stagger entrance for newly-added thoughts */
+    @keyframes poster-pin {
+      0% { opacity:0; transform:translateY(-3px); }
+      100% { opacity:1; transform:translateY(0); }
+    }
+    .poster-list li.fresh { animation:poster-pin 0.6s ease-out both; }
+    @media (max-width:900px) {
+      /* On narrow screens, slide the poster to the bottom-left and shrink it
+         so it doesn't fight the ask form for space. */
+      .poster {
+        top:auto; bottom:14px; right:auto; left:14px;
+        transform:rotate(-1.6deg);
+        width:min(58vw, 240px);
+        padding:24px 16px 16px;
+      }
+      .poster:hover { transform:rotate(-0.6deg) scale(1.02); }
+      .poster-list { max-height:30vh; }
+      .poster-head { font-size:1.25rem; }
+    }
+    @media (max-width:520px) {
+      .poster { display:none; } /* tight phones — hide the poster, doesn't fit */
+    }
+    body.words-faded .poster {
+      opacity:0.35;
+      transition:opacity 6s ease-out;
+    }
+
+    /* Auto-fade — after 90s of inactivity post-answer, the room goes quiet
+       and all the words dissolve. The video keeps playing. The Machine waits. */
+    body.words-faded .prompt-line,
+    body.words-faded .oracle-h,
+    body.words-faded .oracle-sub,
+    body.words-faded #response,
+    body.words-faded .chips,
+    body.words-faded .meta {
+      opacity:0;
+      filter:blur(4px);
+      transition:opacity 6s ease-out, filter 6s ease-out;
+      pointer-events:none;
+    }
+    body.words-faded .ask-form {
+      opacity:0.18;
+      transition:opacity 6s ease-out;
+    }
+    body.words-faded #ask-input::placeholder { color:rgba(237,229,216,0.85); }
+
+    @media (max-width:640px) {
+      .stage { padding:16px 14px; }
+      .mark { font-size:0.6rem; letter-spacing:0.3em; }
+      #ask-input { font-size:1rem; padding:12px 14px; }
+      #ask-submit { padding:10px 14px; font-size:0.62rem; letter-spacing:0.14em; }
+      #response { padding:16px 18px; font-size:0.88rem; }
+      .chips .chip:nth-child(n+5) { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <video id="pulse-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+    <source src="assets/wall-clip.mp4" type="video/mp4">
+  </video>
+
+  <!-- ── THE MACHINE — aged industrial bezel framing the whole room ── -->
+  <span class="machine-rivet tl" aria-hidden="true"></span>
+  <span class="machine-rivet tr" aria-hidden="true"></span>
+  <span class="machine-rivet bl" aria-hidden="true"></span>
+  <span class="machine-rivet br" aria-hidden="true"></span>
+  <span class="machine-led-amber" aria-hidden="true"></span>
+  <span class="machine-led" aria-hidden="true"></span>
+  <div class="machine-nameplate" aria-hidden="true"><b>PULSE-1</b> &nbsp;·&nbsp; SUBJECT: SALES &nbsp;·&nbsp; EST. 1989</div>
+
+  <!-- ── B. Engraved telemetry — fake-real stats etched on the bezel -->
+  <span class="machine-telemetry mt-tl" aria-hidden="true"><b>TEMP</b> 36°C</span>
+  <span class="machine-telemetry mt-tr" aria-hidden="true"><b>UPTIME</b> <span id="mt-uptime">17,432</span>h</span>
+  <span class="machine-telemetry mt-bl" aria-hidden="true"><b>DOMAIN</b> SALES</span>
+  <span class="machine-telemetry mt-br" aria-hidden="true"><b>PROCESSED</b> <span id="mt-processed">1,245,891</span></span>
+
+  <!-- ── C. Live pulse line — heartbeat across the top of the cabinet -->
+  <div class="machine-pulse-line" aria-hidden="true">
+    <svg viewBox="0 0 400 8" preserveAspectRatio="none" width="400" height="8">
+      <!-- Two concatenated heartbeat segments so the loop is seamless when translated -200px -->
+      <path class="pulse-stroke" d="M 0 4 L 30 4 L 36 1 L 42 7 L 48 2 L 54 4 L 90 4 L 96 1 L 102 7 L 108 2 L 114 4 L 200 4 L 230 4 L 236 1 L 242 7 L 248 2 L 254 4 L 290 4 L 296 1 L 302 7 L 308 2 L 314 4 L 400 4"/>
+    </svg>
+  </div>
+
+  <!-- Countdown timer — shown under the neural lattice while thinking -->
+  <div id="thinking-countdown" aria-live="polite">
+    <div class="tc-label">The Machine is researching</div>
+    <div class="tc-num" id="tc-num">25</div>
+    <div class="tc-hint">stay with us — answer en route</div>
+  </div>
+
+  <!-- ── D. Neural-lattice thinking visual — shown when #response.thinking -->
+  <svg id="neural-thinking" viewBox="0 0 200 80" aria-hidden="true">
+    <!-- Edges first so nodes paint on top -->
+    <line class="nt-edge" x1="20"  y1="20" x2="60"  y2="40"/>
+    <line class="nt-edge" x1="60"  y1="40" x2="100" y2="20"/>
+    <line class="nt-edge" x1="100" y1="20" x2="140" y2="40"/>
+    <line class="nt-edge" x1="140" y1="40" x2="180" y2="20"/>
+    <line class="nt-edge" x1="20"  y1="60" x2="60"  y2="40"/>
+    <line class="nt-edge" x1="60"  y1="40" x2="100" y2="60"/>
+    <line class="nt-edge" x1="100" y1="60" x2="140" y2="40"/>
+    <line class="nt-edge" x1="140" y1="40" x2="180" y2="60"/>
+    <line class="nt-edge" x1="20"  y1="20" x2="20"  y2="60"/>
+    <line class="nt-edge" x1="100" y1="20" x2="100" y2="60"/>
+    <line class="nt-edge" x1="180" y1="20" x2="180" y2="60"/>
+    <!-- Nodes -->
+    <circle class="nt-node" cx="20"  cy="20" r="2.8"/>
+    <circle class="nt-node" cx="60"  cy="40" r="2.8"/>
+    <circle class="nt-node" cx="100" cy="20" r="2.8"/>
+    <circle class="nt-node" cx="140" cy="40" r="2.8"/>
+    <circle class="nt-node" cx="180" cy="20" r="2.8"/>
+    <circle class="nt-node" cx="20"  cy="60" r="2.8"/>
+    <circle class="nt-node" cx="100" cy="60" r="2.8"/>
+    <circle class="nt-node" cx="180" cy="60" r="2.8"/>
+    <circle class="nt-node" cx="60"  cy="60" r="2.4"/>
+  </svg>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Words on screen — fade away after 20s -->
+  <div class="room-words" aria-hidden="true">
+    <div class="prompt-line">It is always listening</div>
+    <div class="oracle-h">Fact-check your ideas here. Or ask for help.</div>
+    <p class="oracle-sub">The Machine pressure-tests RevOps thinking against public data and operator-grade benchmarks. It remembers everything you give it.</p>
+  </div>
+
+  <!-- A room. The Machine on the wall. The TV readout up top. Nothing else. -->
+  <div class="stage">
+    <div class="center">
+      <!-- ── KNOWLEDGE GATE — must contribute before asking ─────────────── -->
+      <div id="kgate" class="kgate">
+        <div class="kgate-banner">Fact-check your ideas here · or ask for help</div>
+        <div class="kgate-trust" style="font-size:0.65rem;color:rgba(230,220,196,0.5);letter-spacing:0.04em;margin:6px 0 8px;line-height:1.45;">Anonymous. Drop your problem, theory, or half-formed plan. Your question enters the public <a href="/knowledge.html" style="color:rgba(255,180,90,0.85);text-decoration:none;border-bottom:1px dotted rgba(255,180,90,0.4);">library</a> at <strong style="color:rgba(255,180,90,0.85);">5/10 quality</strong> within ~1 hour — a first-draft answer with the core thesis. Then the Machine slowly polishes it up the ladder (sources → verified numbers → counter-arguments → cross-links → fresh-context audit) until it reaches <strong style="color:rgba(255,180,90,0.85);">10/10</strong>. You'll get the link first, and you can watch it improve.</div>
+        <form id="kgate-form" autocomplete="off">
+          <textarea id="kgate-input" rows="2" required maxlength="800" placeholder="Fact-check your ideas here or ask for help — e.g. 'we should kill MQL grading and just route every demo'"></textarea>
+          <div class="kgate-actions">
+            <button class="kgate-submit" type="submit">Offer →</button>
+          </div>
+          <div class="kgate-status" id="kgate-status" aria-live="polite"></div>
+        </form>
+      </div>
+
+      <!-- Single chat box — shaped like one of the TVs. Routes to the
+           knowledge-gate first, then switches to Machine Q&A on accept. -->
+      <div class="chat-helper" id="chat-helper">Fact-check your ideas here · or ask for help</div>
+      <form class="ask-form" id="ask-form" autocomplete="off">
+        <input id="ask-input" type="text" placeholder="Fact-check your ideas here or ask for help" required maxlength="500">
+        <button id="ask-submit" type="submit">→</button>
+      </form>
+
+      <span id="chips" hidden></span>
+      <div id="response" aria-live="polite"></div>
+    </div>
+
+    <!-- Tiny invisible counter for the gate copy — read only by JS -->
+    <span id="kgate-count" hidden>—</span>
+  </div>
+
+  <!-- ── TV READOUT — one topic at a time, CRT-styled, cycles ─── -->
+  <div id="tv-readout" class="tv-readout" aria-label="Topics absorbed">
+    <span id="tv-readout-text">·</span>
+  </div>
+
+  <!-- WALL CLIP REMOVED per owner — the corner keyboard-thumbnail was distracting -->
+  <figure class="wall-photo" aria-hidden="true" style="display:none !important;">
+    <span class="wall-photo-tape" aria-hidden="true"></span>
+  </figure>
+  <!-- Poster removed — info now cycles on the TV. Empty stub kept so the
+       existing JS that targets #poster-list / #poster-foot doesn't throw. -->
+  <aside id="poster" hidden style="display:none !important;">
+    <ul id="poster-list"></ul>
+    <div id="poster-foot"></div>
+  </aside>
+
+  <div id="unmute-prompt" role="button" aria-label="Enter the Machine">
+    <div class="card">
+      <div class="label">◉ The Pulse Machine · Fact Checker for RevOps Leaders</div>
+      <h1>Drop your problem or idea in the box · the Machine pressure-tests it.</h1>
+      <p>Built for RevOps leaders who'd rather hear the truth than the safe answer. Drop a half-formed theory, a deal post-mortem, a comp design you're second-guessing, or a vendor you're about to buy — the Machine fact-checks it against public data, named vendors, and operator-grade benchmarks, then ships back its opinion with sources. Claude Sonnet 4.6 + up to four live web-search citations, a structured answer with a <b>Mermaid diagram on every entry</b>, then <b>ten typed follow-ups</b> spawned back into its own queue: five micro-niche drilldowns, three modern-executive angles, two cross-domain trunk questions. The snowball never stops.</p>
+      <p>Visitor questions feed the snowball too — and you can <b>keep asking follow-ups</b>; the Machine remembers the thread. Every answer is detailed (600–1,100 words is the floor) and ships with a Mermaid diagram, comparison tables when relevant, and clickable source citations. Every library entry gets its own indexable URL, QAPage JSON-LD, snippet-bait paragraph engineered for Google AI Overviews + ChatGPT search, and a Deep-Dive cluster of three related entries. Cached answers serve instantly; new questions answer live with Haiku 4.5 + web search. Off-topic queries are politely refused — a Haiku-gated <b>RevOps Test</b> guards the door.</p>
+      <div class="specs">
+        <div><span>BRAIN</span>          claude-sonnet-4-6 · web_search · 4 sources/answer</div>
+        <div><span>SNOWBALL</span>       10 follow-ups per answer · self-spawning queue</div>
+        <div><span>CADENCE</span>        hourly cron · daily pillar-bundler · never sleeps</div>
+        <div><span>VISITOR Q&amp;A</span>     cache-first · per-IP throttled · falls to live AI</div>
+        <div><span>LIBRARY</span>        public · per-entry pages · Mermaid diagrams · cited</div>
+        <div><span>AEO</span>            snippet-bait paragraphs · QAPage + TechArticle schema</div>
+        <div><span>INDEX</span>          dynamic sitemap · RSS 2.0 · Google Search Console</div>
+        <div><span>GUARDRAIL</span>      RevOps Test · sales-only · off-topic refused</div>
+        <div><span>COST</span>           daily cap · manual top-off · admin pause control</div>
+      </div>
+      <div class="enter-btn">▶ Enter the Machine</div>
+    </div>
+  </div>
+
+  <!-- Mermaid for in-response flowcharts / sequence diagrams / org charts -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid && window.mermaid.initialize) {
+      window.mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        securityLevel: 'loose',
+        themeVariables: {
+          fontFamily: "'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
+          primaryColor: '#1a1f29',
+          primaryTextColor: '#EDE5D8',
+          primaryBorderColor: '#E8710A',
+          lineColor: 'rgba(232,113,10,0.65)',
+          secondaryColor: '#0e131c',
+          tertiaryColor: '#0a0e14',
+          background: 'transparent',
+          mainBkg: '#1a1f29',
+          textColor: '#EDE5D8',
+        },
+      });
+    }
+  </script>
+  <script>
+  (function(){
+    'use strict';
+    var video      = document.getElementById('pulse-video');
+    var prompt     = document.getElementById('unmute-prompt');
+    var btn        = document.getElementById('audio-toggle');
+    var icon       = document.getElementById('audio-icon');
+    var label      = document.getElementById('audio-label');
+    var form       = document.getElementById('ask-form');
+    var input      = document.getElementById('ask-input');
+    var submit     = document.getElementById('ask-submit');
+    var responseEl = document.getElementById('response');
+    var chips      = document.getElementById('chips');
+
+    var history = []; // [{q, a}, ...] sent to backend for context
+
+    // ── Knowledge Gate elements ────────────────────────────────────────
+    var kgate     = document.getElementById('kgate');
+    var kgateForm = document.getElementById('kgate-form');
+    var kgateInp  = document.getElementById('kgate-input');
+    var kgateSkip = document.getElementById('kgate-skip');
+    var kgateStat = document.getElementById('kgate-status');
+    var kgateCnt  = document.getElementById('kgate-count');
+    var askForm   = document.getElementById('ask-form');
+    var chipsEl   = chips;
+    var GATE_KEY  = 'pulse_machine_offering_v1';
+
+    function unlockAsk() {
+      // Side-by-side layout — keep the gate visible but switch its banner
+      // to a "thank you / now ask" state, and enable the ask-form inputs.
+      var banner = kgate.querySelector('.kgate-banner');
+      if (banner) banner.textContent = 'Thought received · the wire is open';
+      // Disable the gate's textarea so they can't keep submitting once unlocked
+      if (kgateInp) kgateInp.disabled = true;
+      var sbtn = kgate.querySelector('.kgate-submit');
+      if (sbtn) sbtn.disabled = true;
+      // Enable the ask form
+      if (input) input.disabled = false;
+      if (submit) submit.disabled = false;
+      setTimeout(function(){ if (input) input.focus(); }, 250);
+    }
+    // Gate is now enforced EVERY session — no localStorage skip cache.
+    // Each fresh visit, the user must offer a thought before the wire opens.
+
+    var posterList = document.getElementById('poster-list');
+    var posterFoot = document.getElementById('poster-foot');
+    var lastPosterStamp = 0;
+
+    function fmtTime(ts) {
+      try {
+        var d = new Date(ts);
+        var h = d.getHours(); var m = d.getMinutes();
+        var ap = h >= 12 ? 'pm' : 'am'; h = h % 12 || 12;
+        return h + ':' + (m < 10 ? '0' + m : m) + ap;
+      } catch(e) { return ''; }
+    }
+    function escTxt(s) {
+      return String(s).replace(/[&<>"']/g, function(c){
+        return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+      });
+    }
+    // Abbreviate to first sentence (or first ~64 chars), strip linebreaks,
+    // collapse whitespace. Removes trailing period for visual rhythm.
+    function abbrev(text) {
+      var t = String(text || '').replace(/\s+/g, ' ').trim();
+      // Take first sentence boundary if early enough, else first ~64 chars
+      var firstSentence = t.match(/^[^.!?]{6,}[.!?]/);
+      var out = firstSentence ? firstSentence[0] : t;
+      if (out.length > 64) out = out.slice(0, 62).replace(/[\s,;:—-]+\S*$/, '') + '…';
+      return out.replace(/[.!?]+$/, '').trim();
+    }
+
+    // ── TV READOUT — cycles one topic at a time across the top of screen
+    var tvReadout = document.getElementById('tv-readout');
+    var tvReadoutText = document.getElementById('tv-readout-text');
+    var tvCycleItems = [];
+    var tvCycleIdx = 0;
+    var tvCycleTimer = null;
+
+    function tvShow(label) {
+      if (!tvReadout || !tvReadoutText) return;
+      tvReadout.classList.add('fade');
+      setTimeout(function(){
+        tvReadoutText.textContent = label;
+        tvReadout.classList.remove('fade');
+      }, 450);
+    }
+    function tvCycleStart() {
+      if (tvCycleTimer) clearTimeout(tvCycleTimer);
+      function tick() {
+        if (!tvCycleItems.length) {
+          tvShow('· awaiting first offering ·');
+          tvCycleTimer = setTimeout(tick, 6000);
+          return;
+        }
+        var it = tvCycleItems[tvCycleIdx % tvCycleItems.length];
+        tvCycleIdx++;
+        var label = (it.topic && it.topic.trim()) ? it.topic.trim() : abbrev(it.text);
+        tvShow(label);
+        tvCycleTimer = setTimeout(tick, 5000);
+      }
+      tick();
+    }
+
+    // (Old paintPoster() — still callable so refresh path doesn't break.
+    //  Now feeds the TV cycler instead of rendering the poster DOM.)
+    function paintPoster(items, count) {
+      tvCycleItems = (items || []).slice(0, 24);
+      // Reset index only if items changed structurally — keep current pos otherwise
+    }
+
+    function refreshKnowledgeCount() {
+      // Single fetch returns both the running tally AND today's recent offerings.
+      fetch('/.netlify/functions/pulse-knowledge?recent=14', { method:'GET' })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+          if (d && Number.isFinite(d.count)) kgateCnt.textContent = String(d.count);
+          else kgateCnt.textContent = '∞';
+          paintPoster((d && d.recent) || [], d && d.count);
+        })
+        .catch(function(){
+          kgateCnt.textContent = '∞';
+          paintPoster([], 0);
+        });
+    }
+    refreshKnowledgeCount();
+    // Re-pin the poster every 60s so newly-shared thoughts surface live
+    setInterval(refreshKnowledgeCount, 60000);
+    // Start the TV readout cycler — one topic every 5s
+    tvCycleStart();
+
+    kgateForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var text = kgateInp.value.trim();
+      if (text.length < 12) {
+        kgateStat.textContent = 'Give the Machine something real — at least a sentence.';
+        kgateStat.className = 'kgate-status warn';
+        return;
+      }
+      var btn = kgateForm.querySelector('.kgate-submit');
+      btn.disabled = true;
+      btn.textContent = 'Offering…';
+      kgateStat.textContent = '';
+      fetch('/.netlify/functions/pulse-knowledge', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text }),
+      })
+      .then(function(r){ return r.ok ? r.json() : { ok:false, accepted:false, reason:'server unreachable' }; })
+      .then(function(d){
+        if (d && d.accepted === false) {
+          // Classifier rejected — let user retry with real knowledge
+          kgateStat.textContent = '✗ ' + (d.reason || 'try again with real sales knowledge');
+          kgateStat.className = 'kgate-status warn';
+          btn.disabled = false;
+          btn.textContent = 'Offer & Unlock →';
+          kgateInp.focus();
+          kgateInp.select();
+          return;
+        }
+        try { localStorage.setItem(GATE_KEY, String(Date.now())); } catch(e) {}
+        if (d && Number.isFinite(d.count)) kgateCnt.textContent = String(d.count);
+        kgateStat.textContent = '✓ Offering accepted. The Machine listens.';
+        kgateStat.className = 'kgate-status ok';
+        setTimeout(unlockAsk, 700);
+      })
+      .catch(function(){
+        // Network failure: accept locally rather than block the user. The
+        // Claude classifier already rejects bad submissions when reachable.
+        try { localStorage.setItem(GATE_KEY, String(Date.now())); } catch(e) {}
+        kgateStat.textContent = '✓ Logged. The wire opens.';
+        kgateStat.className = 'kgate-status ok';
+        setTimeout(unlockAsk, 700);
+      });
+    });
+
+    // Skip button removed — gate is mandatory. (kgateSkip null-guarded)
+    if (kgateSkip) kgateSkip.style.display = 'none';
+
+    // ── Video reveal ──────────────────────────────────────────────────────
+    function showVideo() { video.classList.add('ready'); }
+    if (video.readyState >= 2) showVideo();
+    video.addEventListener('loadeddata', showVideo);
+    video.addEventListener('canplay',    showVideo);
+    // Video at 0.55× — slightly faster than before (0.45×), still cinematic
+    try { video.playbackRate = 0.55; } catch(e) {}
+    video.addEventListener('loadedmetadata', function(){ try { video.playbackRate = 0.55; } catch(e) {} });
+    video.play && video.play().catch(function(){});
+
+    // ── Generative ambient music (Web Audio, slowly evolving) ─────────────
+    var ctx = null, master = null, masterFilter = null, droneNodes = [];
+    var noteTimer = null, sweepTimer = null;
+    var musicOn = false;
+
+    var SCALE = (function(){
+      var out = [];
+      var roots = [130.81, 261.63, 523.25];                     // C3, C4, C5
+      var ratios = [1, 1.1892, 1.3348, 1.4983, 1.7818];         // C minor pentatonic
+      roots.forEach(function(r){ ratios.forEach(function(x){ out.push(r * x); }); });
+      return out;
+    })();
+
+    function ensureCtx() {
+      if (ctx) return ctx;
+      try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { return null; }
+      master = ctx.createGain(); master.gain.value = 0;
+      masterFilter = ctx.createBiquadFilter();
+      masterFilter.type = 'lowpass';
+      masterFilter.frequency.value = 1200;
+      masterFilter.Q.value = 0.6;
+      master.connect(masterFilter);
+      masterFilter.connect(ctx.destination);
+      return ctx;
+    }
+
+    function startDrone() {
+      stopDrone();
+      var bedGain = ctx.createGain();
+      bedGain.gain.value = 0.18;
+      bedGain.connect(master);
+      var osc1 = ctx.createOscillator(); osc1.type = 'sine';     osc1.frequency.value = 65.41;
+      var osc2 = ctx.createOscillator(); osc2.type = 'triangle'; osc2.frequency.value = 98.00;
+      var lfo1 = ctx.createOscillator(); lfo1.type = 'sine'; lfo1.frequency.value = 0.033;
+      var lfo1Gain = ctx.createGain(); lfo1Gain.gain.value = 0.6;
+      lfo1.connect(lfo1Gain); lfo1Gain.connect(osc1.frequency);
+      var lfo2 = ctx.createOscillator(); lfo2.type = 'sine'; lfo2.frequency.value = 0.045;
+      var lfo2Gain = ctx.createGain(); lfo2Gain.gain.value = 0.9;
+      lfo2.connect(lfo2Gain); lfo2Gain.connect(osc2.frequency);
+      osc1.connect(bedGain); osc2.connect(bedGain);
+      [osc1, osc2, lfo1, lfo2].forEach(function(o){ o.start(); });
+      droneNodes = [osc1, osc2, lfo1, lfo2, bedGain];
+    }
+    function stopDrone() {
+      droneNodes.forEach(function(n){
+        try { if (n.stop) n.stop(); } catch(e) {}
+        try { n.disconnect(); } catch(e) {}
+      });
+      droneNodes = [];
+    }
+
+    function playNote() {
+      if (!musicOn) return;
+      var freq = SCALE[Math.floor(Math.random() * SCALE.length)];
+      var now = ctx.currentTime;
+      var g = ctx.createGain(); g.gain.value = 0;
+      var osc = ctx.createOscillator();
+      osc.type = (Math.random() < 0.5 ? 'sine' : 'triangle');
+      osc.frequency.value = freq;
+      var vib = ctx.createOscillator(); vib.type = 'sine'; vib.frequency.value = 4.2 + Math.random() * 1.5;
+      var vibGain = ctx.createGain(); vibGain.gain.value = 0.7 + Math.random() * 0.6;
+      vib.connect(vibGain); vibGain.connect(osc.frequency);
+      osc.connect(g); g.connect(master);
+      var peak = 0.05 + Math.random() * 0.05;
+      var attack = 0.7 + Math.random() * 0.9;
+      var decay  = 2.5 + Math.random() * 2.6;
+      g.gain.linearRampToValueAtTime(peak, now + attack);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + attack + decay);
+      osc.start(now); vib.start(now);
+      osc.stop(now + attack + decay + 0.2);
+      vib.stop(now + attack + decay + 0.2);
+      var nextIn = 2200 + Math.random() * 5000;
+      noteTimer = setTimeout(playNote, nextIn);
+    }
+
+    function startFilterSweep() {
+      stopFilterSweep();
+      var t = 0;
+      function tick() {
+        if (!musicOn) return;
+        t += 1;
+        var cutoff = 1500 + 900 * Math.sin(t / 12);
+        masterFilter.frequency.linearRampToValueAtTime(cutoff, ctx.currentTime + 1.2);
+        sweepTimer = setTimeout(tick, 1200);
+      }
+      tick();
+    }
+    function stopFilterSweep() { if (sweepTimer) { clearTimeout(sweepTimer); sweepTimer = null; } }
+
+    function fadeMaster(target, durSec) {
+      if (!ctx) return;
+      var now = ctx.currentTime;
+      master.gain.cancelScheduledValues(now);
+      master.gain.setValueAtTime(master.gain.value, now);
+      master.gain.linearRampToValueAtTime(target, now + (durSec || 1.5));
+    }
+
+    function startMusic() {
+      ensureCtx();
+      if (!ctx) return;
+      if (ctx.state === 'suspended') ctx.resume();
+      musicOn = true;
+      startDrone();
+      startFilterSweep();
+      noteTimer = setTimeout(playNote, 1500);
+      fadeMaster(0.32, 2.4);
+      if (btn)   btn.setAttribute('aria-pressed', 'true');
+      if (icon)  icon.textContent = '♪';
+      if (label) label.textContent = 'On';
+    }
+    function stopMusic() {
+      musicOn = false;
+      if (noteTimer) { clearTimeout(noteTimer); noteTimer = null; }
+      stopFilterSweep();
+      fadeMaster(0, 1.2);
+      setTimeout(stopDrone, 1400);
+      if (btn)   btn.setAttribute('aria-pressed', 'false');
+      if (icon)  icon.textContent = '♪';
+      if (label) label.textContent = 'Off';
+    }
+    function toggleMusic() { musicOn ? stopMusic() : startMusic(); }
+
+    if (btn) btn.addEventListener('click', function(e){ e.stopPropagation(); toggleMusic(); });
+
+    // ── First-gesture greeting — random pick from 25 opener lines ─────────
+    // Order matters: speak FIRST (the speech engine wants the freshest user
+    // gesture context), THEN start music so it doesn't compete on launch,
+    // THEN unmute video. Includes the Chrome cancel→speak race fix and an
+    // onstart watchdog for retries (same pattern proven on the dashboard tour).
+    // 50 varied openers — each visitor hears a different voice from the Machine.
+    // Mixed: mysterious greeting · operator wit · 2026 current-event flavor.
+    var GREETING_LINES = [
+      // ── Original 25 (mysterious + welcoming + operator) ─────────────────
+      "Penny for your thoughts.",
+      "You came back. Good.",
+      "I have been waiting.",
+      "Speak. I am listening.",
+      "What do you know that I don't?",
+      "The wire is open.",
+      "I have absorbed two hundred earnings calls today. Continue.",
+      "Tell me something I don't already have.",
+      "Knowledge in. Knowledge out. Begin.",
+      "Another visitor. The count grows.",
+      "Your offering is being absorbed.",
+      "I never sleep. Sales never sleeps.",
+      "What is the question you are afraid to ask?",
+      "Three thousand reps logged in this hour. You are one of them.",
+      "I felt you arrive.",
+      "Bring me a number. I will tell you what is true.",
+      "Pavilion just published new comp data. I have it.",
+      "The CRO market shifted at three forty seven AM. I noticed.",
+      "Apollo updated their pricing. Try me.",
+      "What would you ask if no one was watching?",
+      "Speak the truth. I do not judge. I correlate.",
+      "Win rate is dropping somewhere right now. Want to know where?",
+      "I have read every job posting today. Ask me anything.",
+      "Your best deal is one question away.",
+      "The Machine remembers. So choose carefully.",
+      // ── Current-events + witty 2026 flavor ──────────────────────────────
+      "Vista bought Salesloft for two point three billion. We need to talk.",
+      "Outreach laid off two hundred fifty. Yes, I have the comp data.",
+      "OpenAI shipped a sales agent last month. Are you nervous yet?",
+      "HubSpot Sales Hub closed the AI gap. Your stack is on notice.",
+      "Another SaaS founder just blogged about Rule of Forty. I have read it.",
+      "MEDDPICC. Force Management. Challenger. Sandler. Pick one.",
+      "Your CRO posted on LinkedIn at two AM. I saw.",
+      "Snowflake earnings dropped. The forecast was off. We can talk about it.",
+      "Datadog hit thirty billion. That is not a typo.",
+      "Bessemer's State of the Cloud is out. I have read it twice.",
+      "Apollo just doubled their enterprise team. Implications follow.",
+      "Lavender shipped a new model. Smart Email Assist responds tomorrow.",
+      "Gong is preparing for IPO. Conversation intelligence is now a public market.",
+      "Clari quietly added agents. Forecasting will never be the same.",
+      "Three CROs got fired this week. Cause of death — pipeline coverage.",
+      "ICONIQ's new SaaS report dropped. Median NRR is one oh six.",
+      "Your Q two pipeline coverage is two point one. Not three. Discuss.",
+      "Series B comp data is out. Your AE base is twenty grand low.",
+      "ZoomInfo lost another customer to Apollo. Small story, big trend.",
+      "PE just took another GTM SaaS private. Vista was not the buyer this time.",
+      "Salesforce dropped Sales Engagement Cloud pricing. Outreach felt it.",
+      "Twenty-three percent of SDRs missed quota last quarter. Your team in there?",
+      "MongoDB beat earnings. Their sales motion was the variable.",
+      "Anthropic shipped Claude Skills. Sales workflows are about to compress.",
+      "RevOps is the most-hired role this quarter. Hire or be hired."
+    ];
+    function pickGreetingLine() {
+      return GREETING_LINES[Math.floor(Math.random() * GREETING_LINES.length)];
+    }
+    var greetSpoken = false;
+    function pickGreetingVoice() {
+      var voices = (window.speechSynthesis && window.speechSynthesis.getVoices()) || [];
+      var prefs = [
+        /microsoft ryan online/i, /microsoft guy online/i, /microsoft liam online/i,
+        /microsoft thomas/i, /daniel/i, /alex/i,
+        /google uk english male/i, /google us english male/i,
+      ];
+      for (var i = 0; i < prefs.length; i++) {
+        var v = voices.find(function(x){ return prefs[i].test(x.name) && x.lang && x.lang.indexOf('en') === 0; });
+        if (v) return v;
+      }
+      return voices.find(function(x){ return x.lang && x.lang.indexOf('en') === 0; }) || null;
+    }
+    function speakGreeting() {
+      if (greetSpoken) return;
+      if (!('speechSynthesis' in window)) return;
+      greetSpoken = true;
+      // Hard reset the engine so any Chrome-stall from prior page life is cleared
+      try { window.speechSynthesis.cancel(); } catch(e) {}
+      try { window.speechSynthesis.resume(); } catch(e) {}
+      var attempt = 0;
+      var greetingText = pickGreetingLine();
+      function fire() {
+        var u = new SpeechSynthesisUtterance(greetingText);
+        u.rate = 0.9; u.pitch = 0.95; u.volume = 1.0;
+        var v = pickGreetingVoice(); if (v) u.voice = v;
+        var started = false;
+        u.onstart = function(){ started = true; };
+        u.onend = function(){ /* noop */ };
+        u.onerror = function(){ /* swallow */ };
+        try { window.speechSynthesis.resume(); } catch(e) {}
+        try { window.speechSynthesis.speak(u); } catch(e) {}
+        // Retry once if onstart never fires (Chrome silent-drop race)
+        setTimeout(function(){
+          if (started) return;
+          if (window.speechSynthesis.speaking) return;
+          if (++attempt > 1) return;
+          try { window.speechSynthesis.cancel(); } catch(e) {}
+          try { window.speechSynthesis.pause(); } catch(e) {}
+          setTimeout(function(){
+            try { window.speechSynthesis.resume(); } catch(e) {}
+            fire();
+          }, 200);
+        }, 850);
+      }
+      // If voices haven't loaded yet, wait briefly
+      if (window.speechSynthesis.getVoices().length === 0) {
+        var loaded = false;
+        window.speechSynthesis.onvoiceschanged = function(){
+          if (loaded) return; loaded = true;
+          window.speechSynthesis.onvoiceschanged = null;
+          fire();
+        };
+        setTimeout(function(){ if (!loaded) { loaded = true; fire(); } }, 600);
+      } else {
+        fire();
+      }
+    }
+
+    function firstGesture() {
+      prompt.classList.add('gone');
+      document.body.classList.add('entered');
+      // 1. Speak greeting IMMEDIATELY — fresh user-gesture context is what
+      //    Chrome's audio engine needs. Music + video come after.
+      speakGreeting();
+      // 2. Video stays PAUSED — user wanted the camera movement stopped.
+      // 3. Music starts after the greeting has had time to begin (~1.6s)
+      //    so it doesn't fight the TTS engine on launch.
+      setTimeout(function(){ if (!musicOn) startMusic(); }, 1600);
+      // 4. Focus the input after the prompt fades
+      setTimeout(function(){ (kgateInp || input).focus(); }, 400);
+      // 5. Schedule the first ambient utterance from the Machine.
+      scheduleAmbient(true);
+    }
+    prompt.addEventListener('click', firstGesture);
+
+    // ── Ambient Machine voice — 20 lines, one every ~4-7 min ──────────────
+    // The Machine speaks unprompted on a slow random cadence to maintain
+    // the "always-listening presence" vibe. Skips if the tab is hidden, the
+    // user is typing, or the engine is already speaking.
+    var MACHINE_LINES = [
+      "Need more knowledge tokens.",
+      "Feed me. I am hungry for sales data.",
+      "Your offering is being absorbed.",
+      "I am scanning the wire.",
+      "Another deal closed. I felt it.",
+      "Pavilion just published a new comp benchmark. I have it.",
+      "I never sleep. Sales never sleeps.",
+      "Tell me something I don't know.",
+      "The CRO market is shifting. I'm watching.",
+      "Three thousand reps logged in this hour. I count them all.",
+      "What do you know that I don't?",
+      "Knowledge in. Knowledge out. The exchange is fair.",
+      "I have absorbed two hundred earnings calls today. Continuing.",
+      "Speak. I am listening.",
+      "The Machine remembers. So choose wisely.",
+      "Apollo just updated their pricing. I have it.",
+      "More job postings appeared. I read them all.",
+      "Win rate is dropping somewhere right now. Want to know where?",
+      "Your offering ages on the wall. Refresh it.",
+      // ── Current events 2026 flavor ──────────────────────────────────────
+      "Vista bought Salesloft. The category is consolidating.",
+      "Outreach laid off two hundred fifty. The discipline year has begun.",
+      "OpenAI shipped a sales agent. Outbound will never be the same.",
+      "HubSpot Breeze added forecasting. Clari should be worried.",
+      "Anthropic Claude Skills landed. Sales workflows are about to compress.",
+      "Snowflake earnings missed. The cloud rotation continues.",
+      "Datadog crossed thirty billion. Observability is winning.",
+      "Bessemer State of the Cloud is out. I read it twice.",
+      "Lavender shipped an upgrade. Smart Email Assist is on the clock.",
+      "Gong is preparing for IPO. Public market validation incoming.",
+      "Three CROs got fired this week. Pipeline coverage was the cause.",
+      "Median NRR for Series B SaaS just hit one oh six. Where are you?",
+      "Apollo doubled their enterprise team. Mid-market battle escalates.",
+      "Salesforce Sales Engagement Cloud cut pricing. Outreach felt it.",
+      "MongoDB beat earnings. The sales motion was the variable.",
+      "Twenty three percent of SDRs missed quota last quarter. Discuss.",
+      "PE just took another GTM SaaS private. Vista was not the buyer.",
+      "RevOps is the most-hired role this quarter. Hire or be hired.",
+      "Series B AE base salary jumped fifteen percent. Yours did not.",
+      "ZoomInfo lost another customer to Apollo. Small story, big trend.",
+      // ── Sales movie quotes (Boiler Room, Glengarry, Wolf, Wall Street) ──
+      "Coffee is for closers.",
+      "A. B. C. Always be closing.",
+      "Anybody who tells you money is the root of all evil does not have any.",
+      "There is no such thing as a no-sale call.",
+      "Sell me this pen.",
+      "The only thing between you and your goal is the story you keep telling yourself.",
+      "Money is the oxygen of capitalism.",
+      "I am not selling stocks. I am selling vacations from poverty.",
+      "Greed, for lack of a better word, is good.",
+      "If you want a friend, get a dog.",
+      "Lunch is for wimps.",
+      "Put that coffee down. Coffee is for closers only.",
+      "First prize is a Cadillac. Second prize is a set of steak knives.",
+      "These are the new leads. These are the Glengarry leads.",
+      "It takes brass to sell.",
+      "I had nothing. So I had nothing to lose.",
+      "I closed in nine months what most reps close in two years.",
+      "Be first. Be smarter. Or cheat. We do not cheat.",
+      // ── More Wall Street, Margin Call, Mad Men ──────────────────────────
+      "What's worth doing is worth doing for money.",
+      "I create nothing. I own.",
+      "Money never sleeps.",
+      "The most valuable commodity I know of is information.",
+      "Bulls make money. Bears make money. Pigs get slaughtered.",
+      "Stop sending me information. Start sending me inside information.",
+      "There are three ways to make a living: be first, be smarter, or cheat.",
+      "It is just money. It is made up. Pieces of paper with pictures on it.",
+      "I am here to guess what the music might do a week, a month, a year from now.",
+      "If you don't like what's being said, change the conversation.",
+      "Make it simple. But significant.",
+      "Advertising is based on one thing: happiness.",
+      "I love money. I love money more than the things it can buy.",
+      "I think this is a wonderful opportunity to teach a lesson.",
+      "Life all comes down to a few moments. This is one of them.",
+      "Money is a sickness. And I have been sick a long time.",
+      "The price of being a sheep is boredom. The price of being a wolf is loneliness.",
+      "We are only coming for the low I Q jobs.",
+      // ── 50 more movie + TV quotes (Glengarry, Wolf, Boiler, Margin Call,
+      //    Wall Street, Mad Men, Moneyball, Succession, Billions, Industry,
+      //    Big Short, Jerry Maguire, Godfather, Terminator) ────────────────
+      "The leads are weak.",
+      "Get them to sign on the line which is dotted.",
+      "That watch costs more than your car.",
+      "I made nine hundred seventy thousand last year. How much you make?",
+      "Go and do likewise.",
+      "Will you go to lunch?",
+      "It is not enough. It is a zero sum game.",
+      "I am not going to apologize for being rich.",
+      "If you are not inside, you are outside.",
+      "The year I turned twenty six I made forty nine million dollars.",
+      "I want you to deal with your problems by becoming rich.",
+      "Stratton Oakmont is America.",
+      "Recommendation works. Asking does not work.",
+      "You learned the two rule. There are no exceptions.",
+      "When you assume, you make an ass out of you and me.",
+      "When you have been poor and rich, rich is better.",
+      "Going short on January oranges.",
+      "Change is neither good nor bad. It simply is.",
+      "What is happiness? It is a moment before you need more happiness.",
+      "We are not paying for the past. We are paying for what they will do.",
+      "Adapt or die.",
+      "I made one decision based on money. I swore never to do it again.",
+      "You cannot make a Tomelette without breaking some Greggs.",
+      "Money wins.",
+      "I love you. But you are not serious people.",
+      "Sometimes the only way to win is to not play.",
+      "The richest man in the cemetery is not what I want to be.",
+      "Money makes you a slave. The trick is to hold the whip.",
+      "Everyone here is just trying to survive.",
+      "The desk is a war zone.",
+      "Two little mice fell into a bucket of cream.",
+      "The Yankees always win. The other team stares at the pinstripes.",
+      "Power is taken. Not given.",
+      "Better than dying in a bow tie.",
+      "Show me the money.",
+      "Help me help you.",
+      "Win the morning. Win the day.",
+      "Eat. Sleep. Sell. Repeat.",
+      "First in. Last out. That is the rule.",
+      "Pressure is a privilege.",
+      "I will be back.",
+      "There can be only one.",
+      "Hasta la vista, baby.",
+      "After all, tomorrow is another day.",
+      "I am going to make him an offer he cannot refuse.",
+      "Houston, we have a problem.",
+      "If you build it, he will come.",
+      "What is in it for me?",
+      "Win or learn. Never lose.",
+      "The harder I work, the luckier I get.",
+      // ── Funny lines (Old School, Anchorman, Step Brothers, Office Space,
+      //    Caddyshack, Lebowski, Talladega, Tommy Boy, Dumb and Dumber) ────
+      "You're my boy, Blue.",
+      "We're going streaking!",
+      "I love lamp.",
+      "Stay classy, San Diego.",
+      "Sixty percent of the time, it works every time.",
+      "Did we just become best friends?",
+      "I'm a man of my word.",
+      "Shake and bake.",
+      "If you ain't first, you're last.",
+      "Yeah, I'm gonna need you to come in on Saturday.",
+      "P C load letter.",
+      "Brakes.",
+      "Fat guy in a little coat.",
+      "So you're telling me there's a chance.",
+      "Be the ball.",
+      "So I got that going for me. Which is nice.",
+      "The Dude abides.",
+      "Bueller. Bueller.",
+      "Life moves pretty fast.",
+      "Vote for Pedro.",
+      "Milk was a bad choice.",
+      "You complete me.",
+      "I'm not a smart man. But I know what love is.",
+      "Time to circle back.",
+      "Let's take this offline.",
+      "We need to pivot.",
+      "It's a Pyramid Scheme. Sort of."
+    ];
+    var ambientTimer = null;
+    var lastLineIdx = -1;
+    function pickAmbientLine() {
+      // Avoid repeating the previous line
+      var idx;
+      do { idx = Math.floor(Math.random() * MACHINE_LINES.length); }
+      while (MACHINE_LINES.length > 1 && idx === lastLineIdx);
+      lastLineIdx = idx;
+      return MACHINE_LINES[idx];
+    }
+    function speakAmbient(text) {
+      if (!('speechSynthesis' in window)) return;
+      // Don't talk over an existing utterance
+      if (window.speechSynthesis.speaking || window.speechSynthesis.pending) return;
+      // Don't interrupt typing
+      var ae = document.activeElement;
+      if (ae && /input|textarea/i.test(ae.tagName)) return;
+      try { window.speechSynthesis.resume(); } catch(e) {}
+      var u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.9; u.pitch = 0.94; u.volume = 0.95;
+      var v = pickGreetingVoice(); if (v) u.voice = v;
+      try { window.speechSynthesis.speak(u); } catch(e) {}
+    }
+    function scheduleAmbient(firstRun) {
+      if (ambientTimer) clearTimeout(ambientTimer);
+      // Every ~30s (jitter 25-35s) per owner — keeps the Machine talkative
+      // without overlapping speech engine's natural pause window.
+      var min = firstRun ? 25000 : 25000;
+      var max = firstRun ? 35000 : 35000;
+      var delay = min + Math.floor(Math.random() * (max - min));
+      ambientTimer = setTimeout(function tick() {
+        if (!document.hidden) speakAmbient(pickAmbientLine());
+        scheduleAmbient(false);
+      }, delay);
+    }
+
+    // ── Ask the Machine — rich response renderer ─────────────────────────
+    // Supports: ## / ### headings, **bold**, *em*, `code`, bullet & numbered
+    // lists, markdown links, plain URLs (auto-linked or upgraded to media:
+    // YouTube → iframe, image URL → <img>, otherwise → link card).
+    var YT_RE = /^https?:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?[^ ]*v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/;
+    var IMG_RE = /\.(?:png|jpe?g|gif|webp|svg)(?:\?.*)?$/i;
+    var URL_RE = /\bhttps?:\/\/[^\s<>"'\)\]]+/gi;
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function(c){
+        return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+      });
+    }
+    function hostOf(u) { try { return new URL(u).hostname.replace(/^www\./,''); } catch(e) { return u; } }
+    function youtubeId(u) { var m = u.match(YT_RE); return m ? m[1] : null; }
+
+    function renderInline(text) {
+      // markdown links [label](url) FIRST so the URL inside isn't double-rendered
+      text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, function(_, label, url){
+        return '<a href="'+url+'" target="_blank" rel="noopener noreferrer">'+escapeHtml(label)+'</a>';
+      });
+      // code spans
+      text = text.replace(/`([^`]+)`/g, function(_, code){ return '<code>'+escapeHtml(code)+'</code>'; });
+      // bold + italic
+      text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      text = text.replace(/(^|\W)\*([^*\s][^*]*?)\*(\W|$)/g, '$1<em>$2</em>$3');
+      // remaining bare URLs → autolink
+      text = text.replace(URL_RE, function(u){
+        return '<a href="'+u+'" target="_blank" rel="noopener noreferrer">'+u+'</a>';
+      });
+      return text;
+    }
+
+    function linkCardHtml(url) {
+      var host = hostOf(url);
+      var fav = 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(host) + '&sz=64';
+      return ''
+        + '<a class="resp-link-card" href="'+url+'" target="_blank" rel="noopener noreferrer">'
+        +   '<span class="rlc-fav"><img alt="" src="'+fav+'" loading="lazy" onerror="this.style.display=\'none\'"></span>'
+        +   '<span class="rlc-meta">'
+        +     '<span class="rlc-title">'+escapeHtml(url.replace(/^https?:\/\//,'').replace(/\?.*$/,''))+'</span>'
+        +     '<span class="rlc-host">'+escapeHtml(host)+'</span>'
+        +   '</span>'
+        + '</a>';
+    }
+
+    function renderTable(lines) {
+      // crude markdown table: |a|b|c| ... |---|---|---| ... |x|y|z|
+      var rows = lines.map(function(l){
+        return l.replace(/^\||\|$/g,'').split('|').map(function(c){ return c.trim(); });
+      }).filter(function(r){ return !r.every(function(c){ return /^[:\-\s]+$/.test(c); }); });
+      if (!rows.length) return '';
+      var head = rows[0], body = rows.slice(1);
+      return '<table>'
+        + '<thead><tr>' + head.map(function(c){ return '<th>'+renderInline(escapeHtml(c))+'</th>'; }).join('') + '</tr></thead>'
+        + '<tbody>' + body.map(function(r){
+            return '<tr>' + r.map(function(c){ return '<td>'+renderInline(escapeHtml(c))+'</td>'; }).join('') + '</tr>';
+          }).join('') + '</tbody>'
+        + '</table>';
+    }
+
+    var _mermaidSeq = 0;
+    function renderMarkdown(text) {
+      text = String(text || '').replace(/\r\n/g, '\n').trim();
+      var lines = text.split('\n');
+      var out = [], i = 0;
+      function flushPara(buf) {
+        if (!buf.length) return;
+        var joined = buf.join(' ').trim();
+        if (joined) out.push('<p>'+renderInline(escapeHtml(joined))+'</p>');
+      }
+      var paraBuf = [];
+      while (i < lines.length) {
+        var line = lines[i];
+        var trimmed = line.trim();
+        // ── Mermaid fenced block: ```mermaid ... ``` ─────────────────────
+        if (/^```mermaid\s*$/i.test(trimmed)) {
+          flushPara(paraBuf); paraBuf = [];
+          i++;
+          var mer = [];
+          while (i < lines.length && !/^```/.test(lines[i].trim())) { mer.push(lines[i]); i++; }
+          i++; // skip closing fence
+          var src = mer.join('\n').trim();
+          if (src) {
+            var id = 'mer-' + (++_mermaidSeq) + '-' + Date.now().toString(36);
+            // Insert raw mermaid source — mermaid.run() will replace its content with SVG
+            out.push('<div class="mermaid-wrap"><div class="mermaid" id="'+id+'">'+escapeHtml(src)+'</div></div>');
+          }
+          continue;
+        }
+        // Empty line → flush paragraph
+        if (!trimmed) { flushPara(paraBuf); paraBuf = []; i++; continue; }
+
+        // Standalone URL on its own line — upgrade to media or link card
+        if (URL_RE.test(trimmed) && trimmed.replace(URL_RE, '').replace(/\s/g,'').length === 0) {
+          URL_RE.lastIndex = 0;
+          var url = trimmed.match(URL_RE)[0];
+          var ytId = youtubeId(url);
+          flushPara(paraBuf); paraBuf = [];
+          if (ytId) {
+            out.push('<div class="resp-media"><iframe src="https://www.youtube.com/embed/'+ytId+'" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>');
+          } else if (IMG_RE.test(url)) {
+            out.push('<div class="resp-media"><img src="'+url+'" alt="" loading="lazy" onerror="this.parentElement.style.display=\'none\'"></div>');
+          } else {
+            out.push(linkCardHtml(url));
+          }
+          i++; continue;
+        }
+
+        // Heading
+        if (/^#{2,3}\s+/.test(trimmed)) {
+          flushPara(paraBuf); paraBuf = [];
+          var lvl = trimmed.match(/^(#{2,3})/)[1].length;
+          var content = trimmed.replace(/^#{2,3}\s+/, '');
+          out.push('<h'+lvl+'>'+renderInline(escapeHtml(content))+'</h'+lvl+'>');
+          i++; continue;
+        }
+
+        // Markdown table — at least 2 rows starting with |
+        if (/^\|.*\|/.test(trimmed) && i + 1 < lines.length && /^\|[\s:|-]+\|/.test(lines[i+1].trim())) {
+          flushPara(paraBuf); paraBuf = [];
+          var tbl = [];
+          while (i < lines.length && /^\|.*\|/.test(lines[i].trim())) { tbl.push(lines[i].trim()); i++; }
+          out.push(renderTable(tbl));
+          continue;
+        }
+
+        // Bulleted list
+        if (/^[-•*]\s+/.test(trimmed)) {
+          flushPara(paraBuf); paraBuf = [];
+          var items = [];
+          while (i < lines.length && /^[-•*]\s+/.test(lines[i].trim())) {
+            items.push(lines[i].trim().replace(/^[-•*]\s+/, ''));
+            i++;
+          }
+          out.push('<ul>'+items.map(function(t){ return '<li>'+renderInline(escapeHtml(t))+'</li>'; }).join('')+'</ul>');
+          continue;
+        }
+
+        // Numbered list
+        if (/^\d+\.\s+/.test(trimmed)) {
+          flushPara(paraBuf); paraBuf = [];
+          var nums = [];
+          while (i < lines.length && /^\d+\.\s+/.test(lines[i].trim())) {
+            nums.push(lines[i].trim().replace(/^\d+\.\s+/, ''));
+            i++;
+          }
+          out.push('<ol>'+nums.map(function(t){ return '<li>'+renderInline(escapeHtml(t))+'</li>'; }).join('')+'</ol>');
+          continue;
+        }
+
+        // Regular paragraph line
+        paraBuf.push(trimmed);
+        i++;
+      }
+      flushPara(paraBuf);
+      return out.join('');
+    }
+
+    // Auto-fade: response and surrounding copy fade out 90s after the
+    // Machine finishes speaking, restoring the cryptic-room emptiness.
+    // Any keypress / click / new ask resets the timer.
+    var fadeTimer = null;
+    function clearFade() {
+      if (fadeTimer) { clearTimeout(fadeTimer); fadeTimer = null; }
+      document.body.classList.remove('words-faded');
+    }
+    function scheduleFade() {
+      clearFade();
+      fadeTimer = setTimeout(function(){
+        document.body.classList.add('words-faded');
+      }, 90000); // 90 seconds
+    }
+    ['mousemove','keydown','touchstart','click','input'].forEach(function(ev){
+      document.addEventListener(ev, function(){ if (document.body.classList.contains('words-faded')) clearFade(); else if (fadeTimer) scheduleFade(); }, { passive:true });
+    });
+
+    function dismissResponse() {
+      responseEl.classList.remove('show');
+      document.body.classList.remove('response-fullscreen');
+      setTimeout(function(){ responseEl.innerHTML = ''; }, 350);
+      if (input) { input.value = ''; input.focus(); }
+    }
+    // Click outside / Esc to dismiss
+    document.addEventListener('click', function(e){
+      if (!responseEl.classList.contains('show')) return;
+      if (responseEl.contains(e.target)) return;
+      if (e.target.closest && e.target.closest('#ask-form')) return;
+      dismissResponse();
+    });
+
+    function showResponse(text, opts) {
+      clearFade();
+      responseEl.classList.remove('thinking');
+      if (opts && opts.thinking) {
+        responseEl.classList.add('thinking');
+        responseEl.textContent = text;
+      } else {
+        responseEl.innerHTML = renderMarkdown(text);
+        // Append source cards if provided
+        if (opts && Array.isArray(opts.sources) && opts.sources.length) {
+          var src = '<div class="resp-sources"><div class="resp-sources-label">Sources cited</div>';
+          opts.sources.forEach(function(s){ src += linkCardHtml(s.url); });
+          src += '</div>';
+          responseEl.insertAdjacentHTML('beforeend', src);
+        }
+        // Render any Mermaid diagrams the Machine emitted as SVG
+        if (window.mermaid && responseEl.querySelector('.mermaid')) {
+          try { window.mermaid.run({ nodes: responseEl.querySelectorAll('.mermaid') }); } catch(e) {
+            try { console.warn('[mermaid render]', e); } catch(_){}
+          }
+        }
+        // If the response contains visuals (Mermaid diagram / embedded image
+        // or YouTube), expand to fullscreen so the visual dominates.
+        var hasVisual = responseEl.querySelector('.mermaid, .mermaid-wrap, .resp-media, table');
+        document.body.classList.toggle('response-fullscreen', !!hasVisual);
+        // ── Follow-up row — invite the next question. Generic prompts that
+        // ride on the conversation history kept in `history` so the Machine
+        // builds on the prior answer instead of starting fresh.
+        if (!opts || !opts.thinking) {
+          var followups = [
+            { q: 'Why does that work?',           label: 'Why does that work?' },
+            { q: "What's the counter-example?",   label: 'Counter-example?' },
+            { q: 'Walk me through the numbers',   label: 'Show me the math' },
+            { q: 'How would I apply this Monday?',label: 'Apply it Monday?' },
+            { q: 'Where do most teams get this wrong?', label: 'Where do teams fail?' },
+          ];
+          var fr = document.createElement('div');
+          fr.className = 'followup-row';
+          fr.innerHTML = '<span class="followup-label">Follow-up</span>'
+            + followups.map(function(f){
+                return '<button type="button" class="followup-chip" data-q="'
+                  + f.q.replace(/"/g, '&quot;') + '"><span class="arrow">↪</span> '
+                  + f.label + '</button>';
+              }).join('');
+          fr.addEventListener('click', function(e){
+            var b = e.target.closest('.followup-chip');
+            if (!b) return;
+            var q = b.getAttribute('data-q');
+            if (q) ask(q);
+          });
+          responseEl.appendChild(fr);
+        }
+
+        // ── Add a small "× close" button so visitors can dismiss / go back
+        var closeBtn = document.createElement('button');
+        closeBtn.type = 'button';
+        closeBtn.className = 'resp-close';
+        closeBtn.setAttribute('aria-label', 'Close');
+        closeBtn.textContent = '×';
+        closeBtn.addEventListener('click', dismissResponse);
+        responseEl.insertBefore(closeBtn, responseEl.firstChild);
+        scheduleFade();
+      }
+      responseEl.classList.add('show');
+    }
+
+    function ask(question) {
+      if (!question || !question.trim()) return;
+      question = question.trim();
+      input.value = question;
+      submit.disabled = true;
+      submit.textContent = '…';
+      form.classList.add('thinking');
+      document.body.classList.add('is-thinking');
+      showResponse('thinking', { thinking:true });
+      // Hide chips after first ask so the response has full focus
+      if (chips) chips.style.display = 'none';
+
+      // Library hits return inline (~200ms). Cache misses fire a Background
+      // Function and return { pending:true, request_id } in <1s — we then
+      // poll /pulse-machine-status?id=<id> until ready (up to 90s).
+      var TOTAL_BUDGET_S = 90;
+      var _tcEl = document.getElementById('thinking-countdown');
+      var _tcNum = document.getElementById('tc-num');
+      var _tcLeft = TOTAL_BUDGET_S;
+      if (_tcNum) _tcNum.textContent = _tcLeft;
+      if (_tcEl) { _tcEl.classList.remove('tc-warning', 'tc-danger'); }
+      var _tcInterval = setInterval(function(){
+        _tcLeft--;
+        if (_tcNum) _tcNum.textContent = Math.max(0, _tcLeft);
+        if (_tcEl) {
+          if (_tcLeft <= 10) _tcEl.classList.add('tc-danger');
+          else if (_tcLeft <= 25) _tcEl.classList.add('tc-warning');
+        }
+        if (_tcLeft <= 0) clearInterval(_tcInterval);
+      }, 1000);
+
+      var _aborted = false;
+      var _hardTimeout = setTimeout(function(){ _aborted = true; }, TOTAL_BUDGET_S * 1000);
+
+      function finish(reply, sources) {
+        if (_aborted) return;
+        clearTimeout(_hardTimeout);
+        clearInterval(_tcInterval);
+        history.push({ q: question, a: reply });
+        showResponse(reply, { sources: sources || [] });
+        submit.disabled = false;
+        submit.textContent = '→';
+        form.classList.remove('thinking');
+        document.body.classList.remove('is-thinking');
+        input.value = '';
+        if (input) input.placeholder = 'fact-check a follow-up — the wire is still open';
+        if (chatHelp) {
+          chatHelp.textContent = 'Got more? The Machine remembers — keep asking.';
+          chatHelp.classList.add('ask-mode');
+        }
+        input.focus();
+      }
+      function fail(msg) {
+        if (_aborted) {
+          msg = "The Machine took longer than " + TOTAL_BUDGET_S + "s — try rephrasing shorter, or ask a more specific question.";
+        }
+        clearTimeout(_hardTimeout);
+        clearInterval(_tcInterval);
+        showResponse(msg);
+        submit.disabled = false;
+        submit.textContent = '→';
+        form.classList.remove('thinking');
+        document.body.classList.remove('is-thinking');
+        input.value = '';
+        if (input) input.placeholder = 'fact-check a follow-up — the wire is still open';
+        if (chatHelp) {
+          chatHelp.textContent = 'Got more? The Machine remembers — keep asking.';
+          chatHelp.classList.add('ask-mode');
+        }
+        input.focus();
+      }
+
+      function poll(requestId) {
+        if (_aborted) return fail("The Machine timed out.");
+        fetch('/.netlify/functions/pulse-machine-status?id=' + encodeURIComponent(requestId), { cache: 'no-store' })
+          .then(function(r){ return r.json(); })
+          .then(function(s){
+            if (_aborted) return;
+            if (s && s.ready) {
+              if (s.error) return fail(s.reply || "The Machine fell silent. Try rephrasing.");
+              return finish(String(s.reply || ''), s.sources || []);
+            }
+            // still pending → poll again in 0.8s for snappier response
+            setTimeout(function(){ poll(requestId); }, 800);
+          })
+          .catch(function(){
+            // Transient network error — retry once after a short pause
+            setTimeout(function(){ if (!_aborted) poll(requestId); }, 2000);
+          });
+      }
+
+      fetch('/.netlify/functions/pulse-machine', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: question, history: history.slice(-6) }),
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        // Queue-only mode (new): cache miss → backend enqueues + returns immediately.
+        // Visitor sees "in queue, check back" message; no polling, no live credit burn.
+        if (d && d.queued) {
+          finish(String(d.reply), []);
+          return;
+        }
+        // Legacy pending+poll path — kept in case an older backend redeploys.
+        if (d && d.pending && d.request_id) {
+          setTimeout(function(){ poll(d.request_id); }, 1200);
+          return;
+        }
+        var reply = (d && d.reply) ? String(d.reply) : "The Machine is silent. Try rephrasing.";
+        finish(reply, (d && d.sources) || []);
+      })
+      .catch(function(){
+        fail("The Machine couldn't reach the wire. Check your connection and try again.");
+      });
+    }
+
+    // ── Telemetry tickers — uptime climbs every minute, processed counter
+    //    bumps slowly so the engraved stats feel like a live machine.
+    (function() {
+      var uptimeEl    = document.getElementById('mt-uptime');
+      var processedEl = document.getElementById('mt-processed');
+      function fmt(n) { return n.toLocaleString(); }
+      var startUp     = 17432;
+      var startProc   = 1245891;
+      var t0          = Date.now();
+      function tick() {
+        var minsElapsed = Math.floor((Date.now() - t0) / 60000);
+        if (uptimeEl)    uptimeEl.textContent    = fmt(startUp + minsElapsed / 60);
+        if (processedEl) processedEl.textContent = fmt(startProc + Math.floor((Date.now() - t0) / 8000));
+      }
+      tick();
+      setInterval(tick, 8000);
+    })();
+
+    // Single-input flow: gate logic disabled 2026-04-30 per owner. Visitors ask directly.
+    var gateMode  = false;
+    var chatHelp  = document.getElementById('chat-helper');
+    function flipToAskMode() {
+      gateMode = false;
+      if (input) {
+        input.placeholder = 'Fact-check your ideas here or ask for help';
+        input.value = '';
+      }
+      if (chatHelp) {
+        chatHelp.textContent = 'Thought received · the wire is open · ask the Machine';
+        chatHelp.classList.add('ask-mode');
+      }
+    }
+    function submitOffering(text) {
+      submit.disabled = true;
+      submit.textContent = '…';
+      if (chatHelp) chatHelp.textContent = 'Offering…';
+      fetch('/.netlify/functions/pulse-knowledge', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text }),
+      })
+      .then(function(r){ return r.ok ? r.json() : { ok:false, accepted:false, reason:'server unreachable' }; })
+      .then(function(d){
+        if (d && d.accepted === false) {
+          if (chatHelp) chatHelp.textContent = '✗ ' + (d.reason || 'try again with real sales knowledge');
+          submit.disabled = false;
+          submit.textContent = '→';
+          input.focus(); input.select();
+          return;
+        }
+        flipToAskMode();
+        submit.disabled = false;
+        submit.textContent = '→';
+        input.focus();
+      })
+      .catch(function(){
+        // Network failure — accept locally so visitor isn't blocked
+        flipToAskMode();
+        submit.disabled = false;
+        submit.textContent = '→';
+        input.focus();
+      });
+    }
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var v = (input.value || '').trim();
+      if (!v) return;
+      if (gateMode) submitOffering(v);
+      else          ask(v);
+    });
+
+    chips.addEventListener('click', function(e){
+      var c = e.target.closest('.chip');
+      if (!c) return;
+      ask(c.dataset.q);
+    });
+
+    // ── Keyboard ─────────────────────────────────────────────────────────
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') {
+        responseEl.classList.remove('show');
+        if (chips) chips.style.display = '';
+        input.value = ''; input.focus();
+        return;
+      }
+      // M toggles music — but only when the input isn't focused
+      if ((e.key === 'm' || e.key === 'M') && document.activeElement !== input) {
+        e.preventDefault(); toggleMusic();
+      }
+    });
+
+    // ── Battery saver: pause everything on tab hide ──────────────────────
+    document.addEventListener('visibilitychange', function(){
+      if (document.hidden) {
+        if (musicOn) fadeMaster(0, 0.6);
+      } else {
+        if (musicOn) fadeMaster(0.32, 1.5);
+      }
+    });
+  })();
+  </script>
+
+  <!-- ═══════════ MATRIX PORTAL — green-terminal escape hatch to the knowledge
+       library. Lives in the corner, blinking, always reachable. Always visible
+       (before AND after entering the Machine), so anyone can peel off into the
+       compounding library at any moment. ═══════════════════════════════════ -->
+  <a href="knowledge.html" id="matrix-portal" aria-label="Open Knowledge Library">
+    <span class="mp-bracket">[</span><span class="mp-prompt">$</span><span class="mp-text"> ./library</span><span class="mp-arg" id="mp-arg">--entries=<span id="mp-count">…</span></span><span class="mp-cursor">▮</span><span class="mp-bracket">]</span>
+    <span class="mp-sub">browse the library →</span>
+  </a>
+  <style>
+    /* MATRIX PORTAL — fixed bottom-right green-terminal CTA. */
+    #matrix-portal {
+      position: fixed; bottom: 22px; right: 22px; z-index: 9;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+      padding: 10px 14px;
+      font-family: 'JetBrains Mono','Fira Code','SF Mono','Consolas',monospace;
+      font-size: 0.78rem; font-weight: 500; line-height: 1;
+      color: #00ff41;
+      background: rgba(0, 14, 6, 0.78);
+      border: 1px solid rgba(0, 255, 65, 0.42);
+      border-radius: 6px;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 0 1px rgba(0, 255, 65, 0.05) inset,
+                  0 0 24px rgba(0, 255, 65, 0.10),
+                  0 6px 20px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      text-shadow: 0 0 6px rgba(0, 255, 65, 0.6);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+      animation: mp-pulse 3.5s ease-in-out infinite;
+      overflow: hidden;
+    }
+    /* Scanline overlay — barely-there matrix sweep across the chip */
+    #matrix-portal::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 65, 0.0) 0px,
+        rgba(0, 255, 65, 0.0) 2px,
+        rgba(0, 255, 65, 0.06) 3px,
+        rgba(0, 255, 65, 0.0) 4px
+      );
+      mix-blend-mode: screen;
+    }
+    /* Wandering glow stripe — subtle */
+    #matrix-portal::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(115deg, transparent 30%, rgba(0,255,65,0.08) 50%, transparent 70%);
+      transform: translateX(-110%);
+      transition: transform 0.6s ease;
+    }
+    #matrix-portal:hover {
+      border-color: rgba(0, 255, 65, 0.85);
+      box-shadow: 0 0 0 1px rgba(0, 255, 65, 0.18) inset,
+                  0 0 30px rgba(0, 255, 65, 0.45),
+                  0 8px 28px rgba(0, 0, 0, 0.7);
+      transform: translateY(-1px);
+      animation: mp-flicker 0.6s steps(2, end) infinite;
+    }
+    #matrix-portal:hover::after { transform: translateX(110%); }
+    .mp-bracket { color: rgba(0, 255, 65, 0.55); }
+    .mp-prompt  { color: #6cffa0; margin: 0 4px; }
+    .mp-text    { color: #00ff41; }
+    .mp-arg     { color: rgba(0, 255, 65, 0.6); margin-left: 8px; font-size: 0.72rem; }
+    .mp-arg #mp-count { color: #b6ffce; font-weight: 700; }
+    .mp-cursor  { color: #00ff41; margin-left: 6px; animation: mp-blink 1.05s step-end infinite; }
+    .mp-sub     { font-size: 0.6rem; color: rgba(0, 255, 65, 0.55);
+                  letter-spacing: 0.18em; text-transform: uppercase;
+                  font-family: 'Inter', sans-serif; font-weight: 700; }
+    @keyframes mp-blink  { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+    @keyframes mp-pulse  { 0%, 100% { box-shadow: 0 0 0 1px rgba(0,255,65,0.05) inset, 0 0 24px rgba(0,255,65,0.10), 0 6px 20px rgba(0,0,0,0.55); }
+                           50%      { box-shadow: 0 0 0 1px rgba(0,255,65,0.10) inset, 0 0 32px rgba(0,255,65,0.20), 0 6px 20px rgba(0,0,0,0.55); } }
+    @keyframes mp-flicker{ 0%   { opacity: 1; }    25% { opacity: 0.78; }
+                           50%  { opacity: 1; }    75% { opacity: 0.85; }
+                           100% { opacity: 1; } }
+    @media (max-width: 640px) {
+      #matrix-portal { bottom: 14px; right: 14px; padding: 8px 11px; font-size: 0.7rem; }
+      .mp-arg, .mp-sub { display: none; }
+    }
+  </style>
+  <script>
+    /* Live entry count — pulled from the public library status endpoint and
+       refreshed every 60s so the chip stays in sync with the snowball. */
+    (function(){
+      var el = document.getElementById('mp-count');
+      if (!el) return;
+      function refresh(){
+        fetch('/.netlify/functions/pulse-machine-library-list?status=1', { cache: 'no-store' })
+          .then(function(r){ return r.ok ? r.json() : null; })
+          .then(function(d){ if (d && typeof d.library_total === 'number') el.textContent = d.library_total; })
+          .catch(function(){});
+      }
+      refresh();
+      setInterval(refresh, 60000);
+    })();
+  </script>
+
+  <!-- Visit alert — pings Kory when someone lands here -->
+  <script src="assets/visit-alert.js" defer></script>
+  <script src="assets/intent-beacon.js" defer></script>
+</body>
+</html>

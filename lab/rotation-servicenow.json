@@ -1,0 +1,253 @@
+{
+  "rules": "ServiceNow deep-dive arc — Inner-Outer Arc play (general → nuance → fringe). Operator-grade voice, today-knowable answers, 12-18mo SEO front-running. Chained from Snowflake exhaustion. Started 2026-05-03.",
+  "company": "ServiceNow",
+  "started": "2026-05-03",
+  "used": [
+    {
+      "id": "q1608",
+      "question": "How does ServiceNow hit its 2027 revenue target?"
+    },
+    {
+      "id": "q1609",
+      "question": "Will ServiceNow beat Salesforce in enterprise workflow by 2027?"
+    },
+    {
+      "id": "q1610",
+      "question": "Is ServiceNow stock still a buy in 2027?"
+    },
+    {
+      "id": "q1611",
+      "question": "Why did ServiceNow growth decelerate (or hold) in 2025?"
+    },
+    {
+      "id": "q1612",
+      "question": "Can ServiceNow keep growing 20%+ into 2027?"
+    },
+    {
+      "id": "q1613",
+      "question": "What is ServiceNow AI strategy in 2027?"
+    },
+    {
+      "id": "q1614",
+      "question": "How does ServiceNow compete against AI-native workflow tools?"
+    },
+    {
+      "id": "q1615",
+      "question": "Is Now Assist working for ServiceNow?"
+    },
+    {
+      "id": "q1616",
+      "question": "Should ServiceNow kill its Pro+ pricing tier?"
+    },
+    {
+      "id": "q1617",
+      "question": "How does ServiceNow make money in 2027?"
+    },
+    {
+      "id": "q1618",
+      "question": "Why is Bill McDermott's job on the line in 2027?"
+    },
+    {
+      "id": "q1619",
+      "question": "ServiceNow vs Salesforce — which should you buy?"
+    },
+    {
+      "id": "q1620",
+      "question": "How does ServiceNow defend against Microsoft Power Platform?"
+    },
+    {
+      "id": "q1621",
+      "question": "What is ServiceNow net revenue retention in 2026?"
+    },
+    {
+      "id": "q1622",
+      "question": "How does ServiceNow upmarket without losing mid-market?"
+    },
+    {
+      "id": "q1623",
+      "question": "What should ServiceNow do about ITSM stagnation?"
+    },
+    {
+      "id": "q1624",
+      "question": "Will ServiceNow IRM beat Archer + LogicGate?"
+    },
+    {
+      "id": "q1625",
+      "question": "Is ServiceNow CRM good enough to replace Salesforce Service Cloud?"
+    },
+    {
+      "id": "q1626",
+      "question": "How does ServiceNow grow internationally without burning margin?"
+    },
+    {
+      "id": "q1627",
+      "question": "What is ServiceNow gross margin trajectory through 2028?"
+    },
+    {
+      "id": "q1628",
+      "question": "Should ServiceNow acquire a Loom-equivalent in 2027?"
+    },
+    {
+      "id": "q1629",
+      "question": "What is ServiceNow App Engine competitive moat against OutSystems?"
+    },
+    {
+      "id": "q1630",
+      "question": "Why did ServiceNow's stock drop after Now Assist launch?"
+    },
+    {
+      "id": "q1631",
+      "question": "How does ServiceNow price Now Assist without cannibalizing core?"
+    },
+    {
+      "id": "q1632",
+      "question": "Should ServiceNow launch a vertical-SaaS sub-brand?"
+    },
+    {
+      "id": "q1633",
+      "question": "How does ServiceNow ARPU change post-AI agent rollout?"
+    },
+    {
+      "id": "q1634",
+      "question": "Is ServiceNow CSM still strategic in 2027?"
+    },
+    {
+      "id": "q1635",
+      "question": "Should ServiceNow kill its CSM module?"
+    },
+    {
+      "id": "q1636",
+      "question": "What is ServiceNow data-center strategy through 2027?"
+    },
+    {
+      "id": "q1637",
+      "question": "How does ServiceNow defend its ServiceNow Store ecosystem?"
+    },
+    {
+      "id": "q1638",
+      "question": "Why is ServiceNow losing AE talent to AI-native competitors?"
+    },
+    {
+      "id": "q1639",
+      "question": "What does ServiceNow's 2025 RIF tell us about 2027?"
+    },
+    {
+      "id": "q1640",
+      "question": "Should I work for ServiceNow in 2027?"
+    },
+    {
+      "id": "q1641",
+      "question": "Is a ServiceNow AE role still good for my career in 2027?"
+    },
+    {
+      "id": "q1642",
+      "question": "Should I learn ServiceNow or Salesforce in 2027?"
+    },
+    {
+      "id": "q1643",
+      "question": "Is ServiceNow CSA certification worth it in 2027?"
+    },
+    {
+      "id": "q1644",
+      "question": "What is ServiceNow RevOps career path?"
+    },
+    {
+      "id": "q1645",
+      "question": "Will ServiceNow AEs hit quota in 2027?"
+    },
+    {
+      "id": "q1646",
+      "question": "How does ServiceNow pay its sales team?"
+    },
+    {
+      "id": "q1647",
+      "question": "Is ServiceNow's pricing model broken at the bottom?"
+    },
+    {
+      "id": "q1648",
+      "question": "What is ServiceNow's enterprise win-rate vs Salesforce in 2026?"
+    },
+    {
+      "id": "q1649",
+      "question": "How should ServiceNow rethink its workflow thesis for AI buyers?"
+    },
+    {
+      "id": "q1650",
+      "question": "What replaces traditional workflow if AI agents handle process orchestration?"
+    },
+    {
+      "id": "q1651",
+      "question": "Should ServiceNow pivot from platform-led to agent-led?"
+    },
+    {
+      "id": "q1652",
+      "question": "How does ServiceNow protect ARPU from churn in a recession?"
+    },
+    {
+      "id": "q1653",
+      "question": "What is ServiceNow's right org structure in 2027 — verticals or horizontals?"
+    },
+    {
+      "id": "q1654",
+      "question": "Should ServiceNow sell to private equity?"
+    },
+    {
+      "id": "q1655",
+      "question": "What is ServiceNow's M&A strategy through 2028?"
+    },
+    {
+      "id": "q1656",
+      "question": "Should ServiceNow acquire UiPath to win agent automation?"
+    },
+    {
+      "id": "q1657",
+      "question": "Should ServiceNow acquire Workato to compete in iPaaS?"
+    },
+    {
+      "id": "q1658",
+      "question": "What is the bear case for ServiceNow 2027?"
+    },
+    {
+      "id": "q1659",
+      "question": "What is the bull case for ServiceNow 2027?"
+    },
+    {
+      "id": "q1660",
+      "question": "How does ServiceNow's API strategy compare to Salesforce's?"
+    },
+    {
+      "id": "q1661",
+      "question": "Is ServiceNow's mobile app good enough in 2027?"
+    },
+    {
+      "id": "q1662",
+      "question": "How does ServiceNow's onboarding compare to Salesforce?"
+    },
+    {
+      "id": "q1663",
+      "question": "What does ServiceNow's churn math look like under AI pressure?"
+    },
+    {
+      "id": "q1664",
+      "question": "How should ServiceNow price Now Assist against Microsoft Copilot in 2027?"
+    },
+    {
+      "id": "q1665",
+      "question": "Should ServiceNow launch its own AI agent marketplace?"
+    },
+    {
+      "id": "q1666",
+      "question": "What is ServiceNow developer-platform strategy through 2027?"
+    },
+    {
+      "id": "q1667",
+      "question": "How does ServiceNow retain CRO talent in 2027?"
+    },
+    {
+      "id": "q1668",
+      "question": "What is ServiceNow's playbook for the next $5B in revenue?"
+    }
+  ],
+  "remaining": [],
+  "exhausted": "2026-05-03 — chained to Datadog (rotation-datadog.json)"
+}

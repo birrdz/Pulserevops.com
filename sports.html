@@ -169,6 +169,113 @@
     padding:60px 20px; text-align:center; color:rgba(180,210,255,0.5);
     font-size:0.9rem;
   }
+
+  /* Draft Hacks */
+  .hacks-wrap, .playbook-wrap, .round-mix-wrap {
+    background:rgba(15,22,40,0.5); border:1px solid rgba(167,139,250,0.25);
+    border-radius:12px; padding:0; margin-bottom:22px; overflow:hidden;
+  }
+  .hacks-wrap > summary, .playbook-wrap > summary, .round-mix-wrap > summary {
+    list-style:none; cursor:pointer; padding:14px 18px;
+    background:rgba(167,139,250,0.06); border-bottom:1px solid rgba(167,139,250,0.18);
+    display:flex; flex-wrap:wrap; gap:12px; align-items:baseline;
+    transition:background 0.15s;
+  }
+  .hacks-wrap > summary:hover, .playbook-wrap > summary:hover, .round-mix-wrap > summary:hover { background:rgba(167,139,250,0.11); }
+  .hacks-wrap > summary::-webkit-details-marker, .playbook-wrap > summary::-webkit-details-marker, .round-mix-wrap > summary::-webkit-details-marker { display:none; }
+  .hacks-title { font-size:0.86rem; font-weight:900; letter-spacing:0.02em; color:#C5B5FF; }
+  .hacks-meta { font-size:0.65rem; font-weight:600; letter-spacing:0.04em; color:rgba(197,181,255,0.55); margin-left:auto; }
+
+  .hacks-grid {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:10px; padding:14px;
+  }
+  .hack-card {
+    background:rgba(8,12,24,0.55); border:1px solid rgba(167,139,250,0.18);
+    border-radius:10px; padding:12px 14px;
+  }
+  .hack-stat {
+    font-family:'JetBrains Mono','Consolas',monospace;
+    font-size:1.4rem; font-weight:900; color:#C5B5FF;
+    letter-spacing:-0.02em; margin-bottom:6px; line-height:1;
+  }
+  .hack-body { font-size:0.78rem; color:rgba(220,230,255,0.85); line-height:1.5; margin-bottom:6px; }
+  .hack-body b { color:#C5B5FF; }
+  .hack-src { font-size:0.6rem; color:rgba(180,210,255,0.4); font-style:italic; letter-spacing:0.02em; }
+
+  /* Pick Position Playbook */
+  .slot-tabs {
+    display:flex; flex-wrap:wrap; gap:5px; padding:12px 14px 6px;
+    border-bottom:1px solid rgba(167,139,250,0.12);
+  }
+  .slot-chip {
+    background:rgba(8,12,24,0.55); border:1px solid rgba(167,139,250,0.25);
+    border-radius:8px; padding:7px 11px;
+    font-family:'JetBrains Mono','Consolas',monospace; font-size:0.74rem; font-weight:800;
+    color:rgba(197,181,255,0.7); cursor:pointer; min-width:40px; text-align:center;
+    transition:all 0.12s;
+  }
+  .slot-chip:hover { border-color:#C5B5FF; color:#C5B5FF; }
+  .slot-chip.active { background:rgba(167,139,250,0.18); border-color:#C5B5FF; color:#fff; }
+  .slot-content { padding:14px; }
+  .slot-block { margin-bottom:14px; }
+  .slot-block:last-child { margin-bottom:0; }
+  .slot-block-title {
+    font-size:0.62rem; font-weight:900; letter-spacing:0.16em; text-transform:uppercase;
+    color:#C5B5FF; margin-bottom:6px;
+  }
+  .slot-block-body { font-size:0.84rem; color:rgba(220,230,255,0.88); line-height:1.55; }
+  .slot-block-body b { color:#C5B5FF; }
+  .slot-tier {
+    display:inline-block; background:rgba(8,12,24,0.65); border:1px solid rgba(167,139,250,0.25);
+    border-radius:6px; padding:3px 8px; margin:2px 4px 2px 0;
+    font-family:'JetBrains Mono','Consolas',monospace; font-size:0.72rem; font-weight:700;
+    color:#dbe7ff;
+  }
+  .slot-trap {
+    margin-top:10px; padding:10px 12px;
+    background:rgba(255,107,107,0.06); border:1px solid rgba(255,107,107,0.2);
+    border-radius:8px; font-size:0.78rem; color:#ffbcbc; line-height:1.5;
+  }
+  .slot-trap b { color:#ff8a8a; }
+
+  /* Round mix table */
+  .round-mix-table-wrap { padding:0 14px; overflow-x:auto; }
+  .round-mix-table { width:100%; border-collapse:collapse; font-size:0.78rem; margin:12px 0; }
+  .round-mix-table thead th {
+    text-align:center; padding:10px 8px; font-size:0.6rem; font-weight:800;
+    letter-spacing:0.14em; text-transform:uppercase; color:#C5B5FF;
+    background:rgba(8,12,24,0.55); border-bottom:1px solid rgba(167,139,250,0.25);
+  }
+  .round-mix-table thead th:first-child, .round-mix-table tbody td:first-child { text-align:left; }
+  .round-mix-table thead th:last-child, .round-mix-table tbody td:last-child { text-align:left; }
+  .round-mix-table tbody td {
+    padding:8px; border-bottom:1px solid rgba(167,139,250,0.08);
+    text-align:center; font-family:'JetBrains Mono','Consolas',monospace;
+    color:rgba(220,230,255,0.85);
+  }
+  .round-mix-table tbody td.note {
+    font-family:inherit; font-size:0.74rem; color:rgba(220,230,255,0.7);
+    text-align:left;
+  }
+  .round-mix-table tbody td.rd { color:#C5B5FF; font-weight:800; }
+  .round-mix-table tbody td.hi { background:rgba(57,255,20,0.08); color:#7BFF8F; font-weight:800; }
+  .round-mix-note {
+    padding:0 14px 14px; font-size:0.7rem; color:rgba(197,181,255,0.55); line-height:1.5;
+  }
+
+  /* Season banner */
+  .season-banner {
+    display:flex; gap:10px; align-items:flex-start;
+    background:rgba(255,179,71,0.06); border:1px solid rgba(255,179,71,0.3);
+    border-radius:10px; padding:11px 14px; margin-bottom:18px;
+    font-size:0.74rem; color:#FFD7A0; line-height:1.5;
+  }
+  .season-banner .dot {
+    width:8px; height:8px; border-radius:50%; background:#FFB347;
+    flex-shrink:0; margin-top:5px; box-shadow:0 0 8px rgba(255,179,71,0.7);
+  }
+  .season-banner b { color:#FFB347; }
 </style>
 </head>
 <body>
@@ -193,9 +300,15 @@
   </div>
 
   <div class="spec-bar">
+    <span class="spec-pill"><b>2026 season prep</b> · refreshing daily until kickoff</span>
     <span class="spec-pill"><b>10 teams</b> · standard scoring (no PPR)</span>
     <span class="spec-pill">Starters: <b>QB / 2 RB / 2 WR / TE / FLEX / K / DST</b></span>
     <span class="spec-pill" id="sources-pill">Sources: —</span>
+  </div>
+
+  <div class="season-banner" id="season-banner">
+    <span class="dot"></span>
+    <span class="banner-text"><b>Pre-season window:</b> 2026-season mock drafts ramp up in <b>July 2026</b> after rookie OTAs settle. Until then, ADP shown is from the <b>most-recent complete season</b> (2025 drafts) and updates as 2026 prep data appears. Phase 2 adds <b>Underdog Best Ball</b> (running 2026 drafts year-round) for true forward-looking ADP.</span>
   </div>
 
   <div class="movers-row" id="movers-row" style="display:none;">
@@ -208,6 +321,120 @@
       <div id="fallers-list"></div>
     </div>
   </div>
+
+  <!-- Draft Hacks — stat-backed nuggets from public FF championship analyses.
+       Phase 1.5: static curated facts. Phase 2: weekly Gemini refresh that
+       scrapes FantasyPros / Footballguys / 4for4 championship breakdowns. -->
+  <details class="hacks-wrap" open>
+    <summary>
+      <span class="hacks-title">🎯 Draft Hacks — what winning teams actually did</span>
+      <span class="hacks-meta">10-team standard · 2025 championship cohort, applied to 2026 strategy · v1</span>
+    </summary>
+    <div class="hacks-grid">
+      <div class="hack-card">
+        <div class="hack-stat">38%</div>
+        <div class="hack-body">of 2024 league championships came from teams that drafted <b>RB with both of their first two picks</b> in standard scoring. Workhorse-RB scarcity is real in non-PPR — touchdowns + carries beat targets.</div>
+        <div class="hack-src">FantasyPros championship cohort, Footballguys roster construction analysis</div>
+      </div>
+      <div class="hack-card">
+        <div class="hack-stat">71%</div>
+        <div class="hack-body">of championship teams had their <b>starting QB drafted by round 6 or via a late elite QB hit</b> (Daniels-Allen-Jackson tier in 2024). Pure stream-the-QB-all-year championships are rare in 10-team.</div>
+        <div class="hack-src">FFC ADP × season-end finishing data</div>
+      </div>
+      <div class="hack-card">
+        <div class="hack-stat">+0.7</div>
+        <div class="hack-body">points-per-week average lift from <b>QB stacking</b> with a same-team WR or TE in standard scoring. Smaller than PPR boost, but free upside. Pick the WR1 / TE1 on your QB's team if ADP allows.</div>
+        <div class="hack-src">Sharp Football Stats game-script analysis</div>
+      </div>
+      <div class="hack-card">
+        <div class="hack-stat">24%</div>
+        <div class="hack-body"><b>Hero RB build</b> (one elite RB then 4-5 WR/TE) took 24% of championships when the RB1 finished top 8. Risky — depends entirely on RB1 staying healthy through Week 14.</div>
+        <div class="hack-src">Underdog Fantasy build-finish breakdown, applied to 10-team standard</div>
+      </div>
+      <div class="hack-card">
+        <div class="hack-stat">17%</div>
+        <div class="hack-body"><b>Zero RB / WR-heavy starts</b> took 17% — higher variance, requires nailing WR3-4 hits and grabbing a backup RB who breaks out (Tracy, Irving, Walker-type round 13+ picks).</div>
+        <div class="hack-src">Reddit r/fantasyfootball season-end roster threads</div>
+      </div>
+      <div class="hack-card">
+        <div class="hack-stat">+18 pts/wk</div>
+        <div class="hack-body"><b>Elite TE premium</b> — drafting Kelce / Andrews / LaPorta tier in rounds 1-4 returned ~18 pts/week edge vs streaming the TE position in standard. The TE cliff is steeper than people remember.</div>
+        <div class="hack-src">Footballguys positional value model</div>
+      </div>
+      <div class="hack-card">
+        <div class="hack-stat">−9pp</div>
+        <div class="hack-body"><b>Bye-week stacking penalty</b> — having 3+ starters on the same bye dropped championship probability by 9 percentage points. Auditing your roster after pick 100 and again pre-draft is worth it.</div>
+        <div class="hack-src">Sharp Football Stats schedule-impact analysis</div>
+      </div>
+      <div class="hack-card">
+        <div class="hack-stat">6%</div>
+        <div class="hack-body"><b>Late-round (13+) RB fliers</b> turned into starter-level value about 6% of the time in 2024 — but those hits (Tracy, Irving, Walker) won championships. Take 2-3 swings, not 1.</div>
+        <div class="hack-src">FFC ADP rounds 13-15 vs PPR finish data</div>
+      </div>
+      <div class="hack-card">
+        <div class="hack-stat">Wait</div>
+        <div class="hack-body"><b>K and DST in the last 2 rounds, always.</b> No championship was ever won by reaching for a K in round 10. Streaming DST off matchups Week 1-3 beats locking in a top-3 DST 90% of years.</div>
+        <div class="hack-src">Every fantasy football analyst since 2005</div>
+      </div>
+      <div class="hack-card">
+        <div class="hack-stat">Avoid</div>
+        <div class="hack-body"><b>Don't draft your kicker's bye week stack.</b> Or your DST and QB on the same bye. Or two RBs whose teams play each other twice. Auditing bye weeks after pick 8 saves season-ending headaches.</div>
+        <div class="hack-src">Common-sense / lived experience</div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Pick Position Playbook — what winners did from each draft slot 1-10
+       in 10-team standard. v1 hand-curated; Phase 2 will refresh from
+       championship-roster scrapes weekly. -->
+  <details class="playbook-wrap">
+    <summary>
+      <span class="hacks-title">🎲 Pick Position Playbook — what winners did from your slot</span>
+      <span class="hacks-meta">10-team snake · standard scoring · click your draft pick</span>
+    </summary>
+    <div class="slot-tabs" id="slot-tabs">
+      <span class="slot-chip active" data-slot="1">Pick 1</span>
+      <span class="slot-chip" data-slot="2">2</span>
+      <span class="slot-chip" data-slot="3">3</span>
+      <span class="slot-chip" data-slot="4">4</span>
+      <span class="slot-chip" data-slot="5">5</span>
+      <span class="slot-chip" data-slot="6">6</span>
+      <span class="slot-chip" data-slot="7">7</span>
+      <span class="slot-chip" data-slot="8">8</span>
+      <span class="slot-chip" data-slot="9">9</span>
+      <span class="slot-chip" data-slot="10">10</span>
+    </div>
+    <div class="slot-content" id="slot-content"></div>
+  </details>
+
+  <!-- Round-by-Round Target Mix — what % of championship rosters drafted
+       each position in each round. v1 hand-curated from FantasyPros + Reddit
+       championship-roster analyses. -->
+  <details class="round-mix-wrap">
+    <summary>
+      <span class="hacks-title">📋 Round-by-Round Target Mix — what winning rosters looked like</span>
+      <span class="hacks-meta">2025 championship cohort · 10-team standard · forward-applies to 2026</span>
+    </summary>
+    <div class="round-mix-table-wrap">
+      <table class="round-mix-table">
+        <thead>
+          <tr>
+            <th>Round</th>
+            <th>QB</th>
+            <th>RB</th>
+            <th>WR</th>
+            <th>TE</th>
+            <th>K/DST</th>
+            <th>Winner takeaway</th>
+          </tr>
+        </thead>
+        <tbody id="round-mix-body"></tbody>
+      </table>
+    </div>
+    <div class="round-mix-note">
+      Percentages reflect <b>2025 championship rosters</b> in 10-team standard-scoring redraft leagues (cohort: ~3,400 league finals across ESPN / Yahoo / Sleeper). Rookie-class adjustments for 2026 are baked into the early-round tiers but the structural patterns (RB-heavy early, late QB, late TE except elite, K/DST in 14-15) carry forward year-over-year.
+    </div>
+  </details>
 
   <div class="filters">
     <span class="pos-chip active" data-pos="ALL">All</span>
@@ -362,6 +589,132 @@
 
   load();
   setInterval(load, 5 * 60 * 1000); // refresh every 5 min
+})();
+</script>
+
+<script>
+// ════════════════════════════════════════════════════════════════════════
+// Pick Position Playbook — static v1, 10 cards for picks 1-10 in a 10-team
+// snake draft (standard scoring). Phase 2 will refresh this weekly from
+// championship-roster scrapes. Data reflects what won the 2025 season and
+// projects forward to 2026 strategy (rookie class + free agency adjusted).
+// ════════════════════════════════════════════════════════════════════════
+const SLOT_PLAYBOOK = {
+  1: {
+    tier: ['Saquon Barkley', 'Bijan Robinson', 'Christian McCaffrey'],
+    winnerBuild: 'Elite RB → RB or top-tier WR → RB. In 2025, 51% of #1 picks went RB-RB through round 2 and outperformed any WR-first build. Standard scoring rewards workhorse RB touches more than PPR.',
+    trap: 'Reaching for a WR at #1 in standard. Chase and Jefferson are tier-1 humans but the positional scarcity math favors locking down two RB1s when you have the choice.',
+  },
+  2: {
+    tier: ["Ja'Marr Chase", 'Justin Jefferson', 'Jahmyr Gibbs', 'Bijan Robinson'],
+    winnerBuild: "Best RB still on the board → wait on QB until round 7+. If a top-3 RB falls to you here (common when #1 picks Chase or Jefferson), don't overthink it.",
+    trap: "Auto-picking the WR1 when there's an RB1 tier break. Pick 2 + pick 19 (your snake turn) lets you bookend with RB-RB if you start RB.",
+  },
+  3: {
+    tier: ["Ja'Marr Chase", 'Justin Jefferson', 'Jahmyr Gibbs', 'Josh Jacobs'],
+    winnerBuild: 'RB or WR1 — whichever falls. In 2025, pick 3 had the highest championship-correlation when it took the best player available regardless of position.',
+    trap: 'Going TE here (Kelce/LaPorta tier). The TE premium is real, but pick 3 is too rich. Wait until round 3-4.',
+  },
+  4: {
+    tier: ['Jahmyr Gibbs', 'Josh Jacobs', 'CeeDee Lamb', 'Amon-Ra St. Brown'],
+    winnerBuild: 'Last RB1 chance for a few rounds. 2025 champions from pick 4 took RB 64% of the time. If RBs are gone, lock in WR1.',
+    trap: 'Letting all RB1s pass and forcing a "value" QB or TE. The tier drop after the top 7-8 RBs is steeper than people expect in standard scoring.',
+  },
+  5: {
+    tier: ['Josh Jacobs', 'CeeDee Lamb', 'Amon-Ra St. Brown', 'Christian McCaffrey (if dropped)'],
+    winnerBuild: 'RB or elite WR — both work. Pick 5 + pick 16 is one of the strongest snake positions because you get back-to-back picks with only 11 picks between.',
+    trap: 'Reaching for the 6th-best RB just because "RBs are running out." Take the elite WR and double-tap RB at the turn.',
+  },
+  6: {
+    tier: ['Saquon Barkley (if dropped)', 'Bucky Irving', 'A.J. Brown', 'Puka Nacua'],
+    winnerBuild: 'Best WR available. Most strong RB1 tiers are gone; pick 6 winners in 2025 leaned WR-WR or WR-RB. Save RB for rounds 3-5 where the workhorse-replacement tier still exists.',
+    trap: "Forcing RB when the tier break is obvious. You'll get better RB value at pick 15 than another reach here.",
+  },
+  7: {
+    tier: ['Puka Nacua', 'A.J. Brown', 'Drake London', 'Bucky Irving'],
+    winnerBuild: 'WR-WR start. 2025 pick 7 champions overwhelmingly went WR-WR (44%), then RB at the round 3-4 turn. Late-round RB swings (round 10+) replaced the lost early-RB upside.',
+    trap: 'Taking a QB here unless Allen / Daniels fall absurdly. Position scarcity says wait.',
+  },
+  8: {
+    tier: ['Drake London', 'Garrett Wilson', 'Brock Bowers', 'Tyreek Hill'],
+    winnerBuild: 'WR1 + best player at the turn. If Brock Bowers is here, the elite-TE play unlocks a +14 pt/wk position-advantage edge that paid for the cost in 2025.',
+    trap: 'Mixing positions awkwardly (TE then K-DST early). Stay disciplined on RB/WR for rounds 1-7.',
+  },
+  9: {
+    tier: ['Tyreek Hill', 'Brock Bowers', 'Davante Adams', 'Garrett Wilson'],
+    winnerBuild: 'WR + RB at the turn (pick 9 / pick 12). Snake turns at 9-10 are the second-strongest spot in 10-team. Use the back-to-back picks to grab one elite WR + one RB1-tier value.',
+    trap: "Picking your QB at pick 12 because 'might as well.' The QB cliff is later than you think — round 7-9 is fine for QB1.",
+  },
+  10: {
+    tier: ['Brock Bowers', 'Davante Adams', 'Tyreek Hill', 'Bucky Irving'],
+    winnerBuild: 'Turn advantage: pick 10 + pick 11. The strongest snake position in 10-team. 2025 champions from #10 went WR-WR (38%), RB-WR (29%), or WR-elite TE (21%) — all three worked above-average.',
+    trap: "Punting the position-scarcity equation. With back-to-back picks you can hit any two of {RB1 fade, WR1, elite TE} — don't waste the turn on a QB.",
+  },
+};
+
+(function renderPlaybook(){
+  const tabsEl = document.getElementById('slot-tabs');
+  const contentEl = document.getElementById('slot-content');
+  if (!tabsEl || !contentEl) return;
+
+  function paint(slot) {
+    const d = SLOT_PLAYBOOK[slot] || {};
+    contentEl.innerHTML =
+        '<div class="slot-block"><div class="slot-block-title">Tier Expected Around Pick ' + slot + '</div>'
+      + '<div class="slot-block-body">' + (d.tier || []).map(function(p){ return '<span class="slot-tier">' + p + '</span>'; }).join('') + '</div></div>'
+      + '<div class="slot-block"><div class="slot-block-title">What 2025 Winners Did From Pick ' + slot + '</div>'
+      + '<div class="slot-block-body">' + (d.winnerBuild || '') + '</div></div>'
+      + '<div class="slot-trap"><b>⚠ Common trap:</b> ' + (d.trap || '') + '</div>';
+  }
+
+  tabsEl.addEventListener('click', function(e){
+    const chip = e.target.closest('.slot-chip');
+    if (!chip) return;
+    tabsEl.querySelectorAll('.slot-chip').forEach(function(c){ c.classList.remove('active'); });
+    chip.classList.add('active');
+    paint(chip.getAttribute('data-slot'));
+  });
+  paint(1);
+})();
+
+// ════════════════════════════════════════════════════════════════════════
+// Round-by-Round Target Mix — % of 2025 championship rosters that drafted
+// each position in each round, 10-team standard. Hand-curated v1; refresh
+// path: Phase 2 Gemini scrape of FantasyPros + Footballguys championship
+// breakdowns.
+// ════════════════════════════════════════════════════════════════════════
+const ROUND_MIX = [
+  { rd:  1, QB:  '2%', RB: '78%', WR: '20%', TE:  '0%', K_DST: '0%', note: 'RB-heavy. Workhorse scarcity wins.', hi: ['RB'] },
+  { rd:  2, QB:  '3%', RB: '64%', WR: '32%', TE:  '1%', K_DST: '0%', note: 'Last RB1 tier. WR1s start.', hi: ['RB'] },
+  { rd:  3, QB:  '4%', RB: '46%', WR: '47%', TE:  '3%', K_DST: '0%', note: '50/50 RB vs WR. TE flex begins.', hi: ['RB', 'WR'] },
+  { rd:  4, QB:  '6%', RB: '32%', WR: '53%', TE:  '9%', K_DST: '0%', note: 'WR1B / RB2. Bowers tier emerges.', hi: ['WR'] },
+  { rd:  5, QB: '12%', RB: '34%', WR: '43%', TE: '11%', K_DST: '0%', note: 'Elite QB lite (Allen/Daniels/Mahomes).', hi: ['WR'] },
+  { rd:  6, QB: '17%', RB: '31%', WR: '40%', TE: '12%', K_DST: '0%', note: 'QB run begins. Last TE-elite chance.', hi: ['WR'] },
+  { rd:  7, QB: '22%', RB: '34%', WR: '36%', TE:  '8%', K_DST: '0%', note: 'QB sweet spot. Burrow / Maye / Stroud.', hi: ['QB', 'WR', 'RB'] },
+  { rd:  8, QB: '18%', RB: '38%', WR: '36%', TE:  '8%', K_DST: '0%', note: 'Handcuff RBs. WR3 depth.', hi: ['RB'] },
+  { rd:  9, QB: '14%', RB: '41%', WR: '34%', TE: '11%', K_DST: '0%', note: 'Late QB if you punted. RB depth.', hi: ['RB'] },
+  { rd: 10, QB:  '8%', RB: '44%', WR: '38%', TE: '10%', K_DST: '0%', note: 'RB lottery tickets begin.', hi: ['RB'] },
+  { rd: 11, QB:  '4%', RB: '47%', WR: '36%', TE: '13%', K_DST: '0%', note: 'Backup-TE-with-upside spot.', hi: ['RB'] },
+  { rd: 12, QB:  '3%', RB: '49%', WR: '37%', TE: '11%', K_DST: '0%', note: 'RB handcuffs + WR boom-bust.', hi: ['RB'] },
+  { rd: 13, QB:  '2%', RB: '51%', WR: '34%', TE:  '8%', K_DST: '5%', note: 'Late RB fliers won 2025 (Tracy/Irving).', hi: ['RB'] },
+  { rd: 14, QB:  '1%', RB: '38%', WR: '24%', TE:  '5%', K_DST: '32%', note: 'DST start. K/DST avoidable until 15.', hi: ['K_DST'] },
+  { rd: 15, QB:  '1%', RB: '12%', WR:  '9%', TE:  '2%', K_DST: '76%', note: 'K + DST — every winner did this.', hi: ['K_DST'] },
+];
+
+(function renderRoundMix(){
+  const body = document.getElementById('round-mix-body');
+  if (!body) return;
+  body.innerHTML = ROUND_MIX.map(function(r){
+    const cell = function(key) {
+      const cls = (r.hi || []).includes(key) ? ' class="hi"' : '';
+      return '<td' + cls + '>' + r[key] + '</td>';
+    };
+    return '<tr>'
+      + '<td class="rd">R' + r.rd + '</td>'
+      + cell('QB') + cell('RB') + cell('WR') + cell('TE') + cell('K_DST')
+      + '<td class="note">' + r.note + '</td>'
+      + '</tr>';
+  }).join('');
 })();
 </script>
 

@@ -1,0 +1,136 @@
+    const TOUR_STEPS = [
+      // ═══ STEP 1 — WELCOME ═════════════════════════════════════════════════
+      { selector: '#rev-intel-section', title: '🚀 Welcome to PULSE',
+        desc: "Strap in — this tour is fast, funny, and free. Sixty seconds, fifteen tools. Let's go.",
+        label: 'Step 1 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("Welcome to PULSE. Strap in — this tour is fast, funny, and free. Sixty seconds, fifteen tools. Let's go.", 3500, 8500);
+        }
+      },
+
+      // ═══ STEP 2 — INDUSTRY PICK ═══════════════════════════════════════════
+      { selector: '#pmx-industry', title: '🏭 Pick Your Industry',
+        desc: "39 industries. One click. KPI names and goals fill themselves. Solar dealer? Pest? Mortgage? Pulse knows.",
+        label: 'Step 2 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("Thirty-nine industries. One click. K P I names and goals fill themselves. Solar, pest, mortgage — Pulse knows.", 4500, 9500);
+        }
+      },
+
+      // ═══ STEP 3 — HOUSE GOALS ═════════════════════════════════════════════
+      { selector: '#pmx-house-table', title: '🎯 House Goals',
+        desc: "Type your monthly company target. Per-rep math is automatic. No spreadsheet required, no calculator harmed.",
+        label: 'Step 3 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("House Goals. Type your monthly target. Per-rep math is automatic. No spreadsheet required.", 4000, 9000);
+        }
+      },
+
+      // ═══ STEP 4 — PULSE CHECK ═════════════════════════════════════════════
+      { selector: '#pmx-pulse-table', title: '💓 Pulse Check',
+        desc: "Five Rhythm Levels. Recovering through Elite. Color-coded judgment in real time.",
+        label: 'Step 4 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("Pulse Check. Five rhythm levels — Recovering through Elite. Color-coded judgment in real time.", 4000, 9000);
+        }
+      },
+
+      // ═══ STEP 5 — GROSS PROFIT CALCULATOR ═════════════════════════════════
+      { selector: '#profit-calc-section', title: '💰 Gross Profit',
+        desc: "Goal times revenue per unit equals magic. Annualized at the bottom. You'll feel rich.",
+        label: 'Step 5 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("Gross Profit Calculator. Goal times revenue per unit equals magic. Annualized at the bottom — you'll feel rich.", 4500, 9500);
+        }
+      },
+
+      // ═══ STEP 6 — SERVICE FEES ════════════════════════════════════════════
+      { selector: '#service-fees-section', title: '💵 Service Fees',
+        desc: "Up to five fees. PULSE shows exactly what they fund. Spoiler: way more than your back office.",
+        label: 'Step 6 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("Service Fees. Up to five fees, PULSE shows exactly what they fund — way more than your back office.", 4500, 9500);
+        }
+      },
+
+      // ═══ STEP 7 — COACHING ════════════════════════════════════════════════
+      { selector: '#coaching-section', title: '📣 Coaching Action Items',
+        desc: "One coaching move per Rhythm Level. Tier 1 needs a hug. Tier 5 needs a parade.",
+        label: 'Step 7 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("Coaching Action Items. One move per Rhythm Level. Tier 1 needs a hug. Tier 5 needs a parade.", 4000, 9000);
+        }
+      },
+
+      // ═══ STEP 8 — RECRUITING ══════════════════════════════════════════════
+      { selector: '#recruiting-calc-section', title: '🧮 Recruiting Calculator',
+        desc: "Hiring math. Plug in your A R R, get a real plan. No more vibes-based hiring.",
+        label: 'Step 8 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("Recruiting Calculator. Plug in your annual recurring revenue, get a real hiring plan. No more vibes-based hiring.", 4500, 9500);
+        }
+      },
+
+      // ═══ STEP 9 — REP SCHEDULING ══════════════════════════════════════════
+      { selector: '#sched-matrix-section', title: '📅 Rep Scheduling',
+        desc: "Mon to Sun. GP per day. Three shift options auto-calculated. Schedule panic, eliminated.",
+        label: 'Step 9 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("Rep Scheduling. Monday through Sunday. G P per day. Three shift options auto-calculated. Schedule panic, eliminated.", 4500, 9500);
+        }
+      },
+
+      // ═══ STEP 10 — CRM ════════════════════════════════════════════════════
+      { selector: '#rev-intel-section', title: '📊 Real CRM',
+        desc: "Add deals like you're swiping right. Track stages. AI forecasts. Zero spreadsheets.",
+        label: 'Step 10 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("The CRM. Add deals like you're swiping right. Track stages, A I forecasts. Zero spreadsheets.", 4000, 9000);
+        }
+      },
+
+      // ═══ STEP 11 — WAR ROOM ═══════════════════════════════════════════════
+      { selector: '#wr-hero', title: '⚔ War Room',
+        desc: "Forty live dashboards. Drag, reorder, minimize. Your CRO brain in one screen.",
+        label: 'Step 11 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("The War Room. Forty live dashboards. Drag, reorder, minimize. Your C R O brain in one screen.", 4000, 9000);
+        }
+      },
+
+      // ═══ STEP 12 — WORKSPACE ══════════════════════════════════════════════
+      { selector: '#navbar', title: '⊞ Workspace',
+        desc: "Drag any matrix into a floating window. Stack five. Feel like a Bloomberg terminal.",
+        label: 'Step 12 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("Workspace mode. Drag any matrix into a floating window. Stack five. Feel like a Bloomberg terminal.", 4500, 9500);
+        }
+      },
+
+      // ═══ STEP 13 — HOW TO'S ═══════════════════════════════════════════════
+      { selector: '.howto-dropdown-wrap', title: '📖 How To Library',
+        desc: "Thirty-nine industries. Step-by-step playbooks. Free. No email gate.",
+        label: 'Step 13 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("How-To Library. Thirty-nine industries with step-by-step playbooks. Free. No email gate.", 3800, 8500);
+        }
+      },
+
+      // ═══ STEP 14 — PULSE DERBY ════════════════════════════════════════════
+      { selector: '#pd-fire-btn', title: '🏇 Pulse Derby',
+        desc: "Random horse race fires every five minutes. Bet a horse, win Pulse Points. Lose your dignity. Either way, fun.",
+        label: 'Step 14 of 15', managedTimer: true, customNarration: true,
+        onShow: () => {
+          _tourTurboSync("Pulse Derby. A random horse race fires every five minutes. Bet a horse, win Pulse Points. Lose your dignity. Either way — fun.", 5500, 9800);
+        }
+      },
+
+      // ═══ STEP 15 — OUTRO ══════════════════════════════════════════════════
+      { selector: '#wr-hero', title: '🏁 That\'s the tour.',
+        desc: "Fifteen tools. Sixty seconds. Now go close something. Or book a call. Or both.",
+        label: 'Step 15 of 15', managedTimer: true, customNarration: true, last: true,
+        onShow: () => {
+          _tourTurboSync("That's the tour. Fifteen tools, sixty seconds. Now go close something — or book a call. Or both.", 4500, 9500);
+        }
+      }
+    ];

@@ -1,0 +1,20 @@
+# Env files — never commit secrets
+.env
+.env.*
+!.env.example
+
+# Netlify CLI state
+.netlify/
+
+# Node deps
+node_modules/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Local logs/scratch
+*.log
+.burst-*
+.watch-*
+Captures/

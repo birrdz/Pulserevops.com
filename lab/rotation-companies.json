@@ -1,0 +1,1483 @@
+{
+  "rules": "Sub-$1B revenue startups / unicorns / post-unicorns with publicly-known revenue challenges. Pull from 'remaining', move to 'used' after each tick. Locked 2026-04-30.",
+  "used": [
+    {
+      "id": "q1171",
+      "company": "Peloton",
+      "note": "~$2.5B — too big in retrospect, kept"
+    },
+    {
+      "id": "q1172",
+      "company": "WeWork",
+      "note": "was unicorn — fits"
+    },
+    {
+      "id": "q1173",
+      "company": "Beyond Meat",
+      "note": "~$275M — fits"
+    },
+    {
+      "id": "q1174",
+      "company": "Stitch Fix",
+      "note": "~$1.3B — borderline, kept"
+    },
+    {
+      "id": "q1175",
+      "company": "Allbirds",
+      "note": "~$190M — fits"
+    },
+    {
+      "id": "q1176",
+      "company": "Rent the Runway",
+      "note": "~$300M — fits"
+    },
+    {
+      "id": "q1177",
+      "company": "Outdoor Voices",
+      "note": "~$50M private estimate — fits"
+    },
+    {
+      "id": "q1178",
+      "company": "The RealReal",
+      "note": "~$600M — fits"
+    },
+    {
+      "id": "q1179",
+      "company": "ThredUp",
+      "note": "~$300M — fits"
+    },
+    {
+      "id": "q1180",
+      "company": "Vimeo",
+      "note": "~$400M — fits"
+    },
+    {
+      "id": "q1181",
+      "company": "Eventbrite",
+      "note": "~$320M — fits"
+    },
+    {
+      "id": "q1182",
+      "company": "Bowery Farming",
+      "note": "private vertical-farm unicorn — fits"
+    },
+    {
+      "id": "q1183",
+      "company": "Vroom",
+      "note": "post-bankruptcy ecomm car retailer — fits"
+    },
+    {
+      "id": "q1184",
+      "company": "Bird",
+      "note": "post-bankruptcy micro-mobility unicorn — fits"
+    },
+    {
+      "id": "q1185",
+      "company": "Lime",
+      "note": "private micromobility unicorn ~$700M — fits"
+    },
+    {
+      "id": "q1186",
+      "company": "ClassPass",
+      "note": "Mindbody-owned fitness marketplace — fits"
+    },
+    {
+      "id": "q1187",
+      "company": "1stDibs",
+      "note": "luxury vintage marketplace ~$90M — fits"
+    },
+    {
+      "id": "q1188",
+      "company": "Casper",
+      "note": "DTC mattress, taken private 2022 — fits"
+    },
+    {
+      "id": "q1189",
+      "company": "PTC",
+      "note": "PRIORITY OUTREACH — Lisa Reilly EVP CPO contact via Apollo"
+    },
+    {
+      "id": "q1190",
+      "company": "Wells Fargo",
+      "note": "PRIORITY OUTREACH — Michelle Gasiorowski via Apollo"
+    },
+    {
+      "id": "q1191",
+      "company": "Meritage Homes",
+      "note": "PRIORITY OUTREACH — Javier Feliciano EVP CPO"
+    },
+    {
+      "id": "q1192",
+      "company": "Travelers",
+      "note": "PRIORITY OUTREACH — Joseph Dorman"
+    },
+    {
+      "id": "q1193",
+      "company": "Harris Health",
+      "note": "PRIORITY OUTREACH — Omar Reid EVP CPO"
+    },
+    {
+      "id": "q1194",
+      "company": "Amcor",
+      "note": "PRIORITY OUTREACH — Susana Suarez EVP CHRO"
+    },
+    {
+      "id": "q1195",
+      "company": "JPMorgan Chase",
+      "note": "PRIORITY OUTREACH — Michelle Kuranty + Anna Grzegorz"
+    },
+    {
+      "id": "q1196",
+      "company": "Salesforce",
+      "note": "PRIORITY OUTREACH — Andy Valenzuela EVP Global Rewards & COO ES"
+    },
+    {
+      "id": "q1197",
+      "company": "Surgery Partners",
+      "note": "PRIORITY OUTREACH — Danielle Burkhalter EVP CHRO"
+    },
+    {
+      "id": "q1198",
+      "company": "McKesson",
+      "note": "PRIORITY OUTREACH — Leann Smith EVP CHRO"
+    },
+    {
+      "id": "q1199",
+      "company": "Henry Ford Health",
+      "note": "PRIORITY OUTREACH — Nina Ramsey EVP CHRO"
+    },
+    {
+      "id": "q1200",
+      "company": "UBS",
+      "note": "PRIORITY OUTREACH — Jennifer Olmstead + Madlen Fejer + Gabriela Kieszkowska"
+    },
+    {
+      "id": "q1201",
+      "company": "Allianz",
+      "note": "PRIORITY OUTREACH — Franziska Mauermann + Katharina Agbali + Christopher Stang"
+    },
+    {
+      "id": "q1202",
+      "company": "Selfinvest",
+      "note": "PRIORITY OUTREACH — Kristian Damgard"
+    },
+    {
+      "id": "q1203",
+      "company": "Deutsche Bank",
+      "note": "PRIORITY OUTREACH — Emanuela Cox + Michael Nill"
+    },
+    {
+      "id": "q1204",
+      "company": "SAP",
+      "note": "PRIORITY OUTREACH — Corinna Quick"
+    },
+    {
+      "id": "q1205",
+      "company": "The New Network",
+      "note": "PRIORITY OUTREACH — Jennifer Wiens (recruitment firm — different angle)"
+    },
+    {
+      "id": "q1206",
+      "company": "Educated Solutions Corp",
+      "note": "PRIORITY OUTREACH — Mike Schmidt"
+    },
+    {
+      "id": "q1207",
+      "company": "Total Aviation Staffing",
+      "note": "PRIORITY OUTREACH — Sam Gentel"
+    },
+    {
+      "id": "q1208",
+      "company": "Chief",
+      "note": "PRIORITY OUTREACH — women's leadership network"
+    },
+    {
+      "id": "q1209",
+      "company": "Silent Beacon",
+      "note": "Bethesda MD — wearable personal safety / panic-button startup"
+    },
+    {
+      "id": "q1210",
+      "company": "ACG Systems Inc",
+      "note": "Annapolis MD — mission-critical wireless / LMR / tactical radio / air-to-ground for Defense/FAA/DHS/airlines · Motorola Gold Premier · Northrim Horizon-owned (Sept 2025) · CEO Thomas Montalbano (ex-Marine, McKinsey)"
+    },
+    {
+      "id": "q1211",
+      "company": "Tonal",
+      "note": "smart-home strength training, post-IPO stall, layoffs"
+    },
+    {
+      "id": "q1212",
+      "company": "Mirror (Lululemon)",
+      "note": "fitness mirror acquired by Lululemon, struggling subscription growth"
+    },
+    {
+      "id": "q1213",
+      "company": "Forward Health",
+      "note": "primary care startup, shut down 2024"
+    },
+    {
+      "id": "q1214",
+      "company": "Convoy",
+      "note": "freight tech unicorn, shut down 2023"
+    },
+    {
+      "id": "q1215",
+      "company": "Blackbird Health",
+      "note": "JOB-APP OUTREACH — behavioral health"
+    },
+    {
+      "id": "q1216",
+      "company": "M Booth",
+      "note": "JOB-APP OUTREACH — PR/marketing/comms agency"
+    },
+    {
+      "id": "q1217",
+      "company": "M Booth Health",
+      "note": "JOB-APP OUTREACH — health PR/comms"
+    },
+    {
+      "id": "q1218",
+      "company": "Leadership Connect",
+      "note": "JOB-APP OUTREACH — DC-based gov/leadership database/SaaS"
+    },
+    {
+      "id": "q1219",
+      "company": "Entrata",
+      "note": "JOB-APP OUTREACH — multifamily property mgmt SaaS"
+    },
+    {
+      "id": "q1220",
+      "company": "Accenture Infrastructure and Capital Projects",
+      "note": "JOB-APP OUTREACH — Accenture ANS subsidiary"
+    },
+    {
+      "id": "q1221",
+      "company": "MissionWired",
+      "note": "JOB-APP OUTREACH — political digital comms"
+    },
+    {
+      "id": "q1222",
+      "company": "Portage Point Partners",
+      "note": "JOB-APP OUTREACH — turnaround/restructuring advisory"
+    },
+    {
+      "id": "q1223",
+      "company": "Arts For Learning Maryland",
+      "note": "JOB-APP OUTREACH — arts education nonprofit"
+    },
+    {
+      "id": "q1224",
+      "company": "Story Cannabis",
+      "note": "JOB-APP OUTREACH — multi-state cannabis operator"
+    },
+    {
+      "id": "q1225",
+      "company": "SCS Financial",
+      "note": "JOB-APP OUTREACH — wealth management"
+    },
+    {
+      "id": "q1226",
+      "company": "GoodLeap",
+      "note": "JOB-APP OUTREACH — solar/sustainability fintech"
+    },
+    {
+      "id": "q1227",
+      "company": "Highwire",
+      "note": "JOB-APP OUTREACH — tech PR/comms agency"
+    },
+    {
+      "id": "q1228",
+      "company": "ProShares",
+      "note": "JOB-APP OUTREACH — ETF manager"
+    },
+    {
+      "id": "q1229",
+      "company": "Keeper Security",
+      "note": "JOB-APP OUTREACH — password mgmt / cybersec"
+    },
+    {
+      "id": "q1230",
+      "company": "NorthCoast Asset Management",
+      "note": "JOB-APP OUTREACH — investment manager"
+    },
+    {
+      "id": "q1231",
+      "company": "World Resources Institute",
+      "note": "JOB-APP OUTREACH — sustainability nonprofit (WRI)"
+    },
+    {
+      "id": "q1232",
+      "company": "Allworth Financial",
+      "note": "JOB-APP OUTREACH — wealth advisor RIA"
+    },
+    {
+      "id": "q1233",
+      "company": "Precision Medicine Group",
+      "note": "JOB-APP OUTREACH — PRECISIONAQ healthtech/CRO"
+    },
+    {
+      "id": "q1234",
+      "company": "Relay Graduate School of Education",
+      "note": "JOB-APP OUTREACH — edtech/teacher prep"
+    },
+    {
+      "id": "q1235",
+      "company": "SmartRent",
+      "note": "JOB-APP OUTREACH — smart-home/property tech"
+    },
+    {
+      "id": "q1236",
+      "company": "Green Thumb Industries",
+      "note": "JOB-APP OUTREACH — multi-state cannabis MSO"
+    },
+    {
+      "id": "q1237",
+      "company": "OPSWAT",
+      "note": "JOB-APP OUTREACH — IT/OT cybersec"
+    },
+    {
+      "id": "q1238",
+      "company": "Hawthorne Machinery",
+      "note": "JOB-APP OUTREACH — Caterpillar dealer"
+    },
+    {
+      "id": "q1239",
+      "company": "Forbes",
+      "note": "JOB-APP OUTREACH — media/publishing"
+    },
+    {
+      "id": "q1240",
+      "company": "Mindgrub",
+      "note": "JOB-APP OUTREACH — Baltimore digital agency"
+    },
+    {
+      "id": "q1241",
+      "company": "Consumer Reports",
+      "note": "JOB-APP OUTREACH — consumer testing nonprofit"
+    },
+    {
+      "id": "q1242",
+      "company": "Focus Financial Partners",
+      "note": "JOB-APP OUTREACH — RIA aggregator"
+    },
+    {
+      "id": "q1243",
+      "company": "Nava PBC",
+      "note": "JOB-APP OUTREACH — gov-tech / civic-tech public benefit"
+    },
+    {
+      "id": "q1244",
+      "company": "Bench Accounting",
+      "note": "bookkeeping SaaS, shut down 2024, revived"
+    },
+    {
+      "id": "q1245",
+      "company": "Carta",
+      "note": "cap-table SaaS, brokerage controversy"
+    },
+    {
+      "id": "q1246",
+      "company": "Brex",
+      "note": "corporate card / spend mgmt fintech"
+    },
+    {
+      "id": "q1247",
+      "company": "Ramp",
+      "note": "corporate card / spend mgmt fintech, fastest-growing competitor"
+    },
+    {
+      "id": "q1248",
+      "company": "Mercury",
+      "note": "startup banking / treasury fintech"
+    },
+    {
+      "id": "q1249",
+      "company": "Plaid",
+      "note": "fintech infrastructure / data network"
+    },
+    {
+      "id": "q1250",
+      "company": "Built Robotics",
+      "note": "construction-robotics startup"
+    },
+    {
+      "id": "q1251",
+      "company": "Luminar",
+      "note": "lidar / autonomous-vehicle sensor"
+    },
+    {
+      "id": "q1252",
+      "company": "Lordstown Motors",
+      "note": "Ohio EV-truck SPAC, Ch11 2023, IP sold to LandX"
+    },
+    {
+      "id": "q1253",
+      "company": "Faraday Future",
+      "note": "luxury EV, post-SPAC chaos, FX Super One launch"
+    },
+    {
+      "id": "q1254",
+      "company": "Fisker",
+      "note": "EV maker, Ch11 June 2024, Ocean SUV"
+    },
+    {
+      "id": "q1255",
+      "company": "Canoo",
+      "note": "lifestyle EV van, post-SPAC, multiple winddowns"
+    },
+    {
+      "id": "q1256",
+      "company": "Nikola",
+      "note": "hydrogen/BEV truck, Trevor Milton fraud, Ch11 Feb 2025"
+    },
+    {
+      "id": "q1257",
+      "company": "Tovala",
+      "note": "smart-oven meal-kit subscription"
+    },
+    {
+      "id": "q1258",
+      "company": "Notion",
+      "note": "productivity SaaS, AI pivot"
+    },
+    {
+      "id": "q1259",
+      "company": "Linear",
+      "note": "developer issue tracking SaaS, vs Jira/Asana"
+    },
+    {
+      "id": "q1260",
+      "company": "Hopper",
+      "note": "travel booking app, layoffs 2024, B2B HTS pivot"
+    },
+    {
+      "id": "q1261",
+      "company": "Olive AI",
+      "note": "healthcare AI/RPA unicorn, shut down 2023, IP sold"
+    },
+    {
+      "id": "q1262",
+      "company": "Pear Therapeutics",
+      "note": "digital therapeutics unicorn, Ch11 2023"
+    },
+    {
+      "id": "q1263",
+      "company": "Babylon Health",
+      "note": "telehealth unicorn, post-SPAC delisting 2023"
+    },
+    {
+      "id": "q1264",
+      "company": "Better.com",
+      "note": "online mortgage, Vishal Garg layoff scandal"
+    },
+    {
+      "id": "q1265",
+      "company": "Cazoo",
+      "note": "UK used-car ecomm, post-SPAC delisting 2024"
+    },
+    {
+      "id": "q1266",
+      "company": "Cedar",
+      "note": "healthcare patient billing fintech"
+    },
+    {
+      "id": "q1267",
+      "company": "Forge Global",
+      "note": "private-stock secondary marketplace"
+    },
+    {
+      "id": "q1268",
+      "company": "Lemonade",
+      "note": "AI insurance, post-IPO collapse"
+    },
+    {
+      "id": "q1269",
+      "company": "Root Insurance",
+      "note": "telematics auto insurance, post-IPO struggle"
+    },
+    {
+      "id": "q1270",
+      "company": "Hippo Insurance",
+      "note": "homeowners insurtech, post-SPAC reset"
+    },
+    {
+      "id": "q1271",
+      "company": "Doma",
+      "note": "title insurance / mortgage closing tech"
+    },
+    {
+      "id": "q1272",
+      "company": "ezCater",
+      "note": "corporate catering marketplace"
+    },
+    {
+      "id": "q1273",
+      "company": "OYO US",
+      "note": "budget hotel franchise / global expansion"
+    },
+    {
+      "id": "q1274",
+      "company": "Knotch",
+      "note": "content intelligence platform, layoffs 2024"
+    },
+    {
+      "id": "q1275",
+      "company": "Brandless",
+      "note": "DTC house-brand CPG, shut down 2020, revival"
+    },
+    {
+      "id": "q1276",
+      "company": "Munchery",
+      "note": "meal delivery, shut down 2019"
+    },
+    {
+      "id": "q1277",
+      "company": "Jet.com",
+      "note": "Walmart-acquired ecomm, sunset 2020"
+    },
+    {
+      "id": "q1278",
+      "company": "Washio",
+      "note": "on-demand laundry, shut down 2016"
+    },
+    {
+      "id": "q1279",
+      "company": "Quibi",
+      "note": "short-form mobile video, shut down 2020"
+    },
+    {
+      "id": "q1280",
+      "company": "Pearl Auto",
+      "note": "RearVision smart-camera, shut down 2017"
+    },
+    {
+      "id": "q1281",
+      "company": "Beepi",
+      "note": "P2P used-car marketplace, shut down 2017"
+    },
+    {
+      "id": "q1282",
+      "company": "Anki",
+      "note": "consumer robotics (Cozmo, Vector), shut down 2019, revived 2020"
+    },
+    {
+      "id": "q1283",
+      "company": "Juicero",
+      "note": "$400 Wi-Fi juice press, shut down 2017"
+    },
+    {
+      "id": "q1284",
+      "company": "Frank",
+      "note": "JPMorgan acquired student-aid fintech, fraud lawsuit"
+    },
+    {
+      "id": "q1285",
+      "company": "Hyperloop One",
+      "note": "Branson-backed hyperloop, shut down 2024"
+    },
+    {
+      "id": "q1286",
+      "company": "Trōv",
+      "note": "on-demand insurance, B2B pivot then shut down"
+    },
+    {
+      "id": "q1287",
+      "company": "Veev",
+      "note": "modular home-builder, shut down 2023"
+    },
+    {
+      "id": "q1288",
+      "company": "Theranos",
+      "note": "blood-testing fraud, Holmes conviction"
+    },
+    {
+      "id": "q1289",
+      "company": "Hooked Inc",
+      "note": "snap-fiction app, post-acquisition decline"
+    },
+    {
+      "id": "q1290",
+      "company": "23andMe",
+      "note": "consumer DNA testing, Ch11 2025, post-bankruptcy"
+    },
+    {
+      "id": "q1291",
+      "company": "Eargo",
+      "note": "DTC hearing aid, post-IPO collapse, taken private"
+    },
+    {
+      "id": "q1292",
+      "company": "Wish.com",
+      "note": "ContextLogic ecomm marketplace, post-IPO collapse"
+    },
+    {
+      "id": "q1293",
+      "company": "Olo",
+      "note": "restaurant SaaS, post-IPO challenges"
+    },
+    {
+      "id": "q1294",
+      "company": "Bench Accounting",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1295",
+      "company": "Carta",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1296",
+      "company": "Brex",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1297",
+      "company": "Ramp",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1298",
+      "company": "Mercury",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1299",
+      "company": "Plaid",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1300",
+      "company": "Built Robotics",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1301",
+      "company": "Luminar",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1302",
+      "company": "Lordstown Motors",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1303",
+      "company": "Faraday Future",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1304",
+      "company": "Fisker",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1305",
+      "company": "Canoo",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1306",
+      "company": "Nikola",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1307",
+      "company": "Tovala",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1308",
+      "company": "Notion",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1309",
+      "company": "Linear",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1310",
+      "company": "Hopper",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1311",
+      "company": "Olive AI",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1312",
+      "company": "Pear Therapeutics",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1313",
+      "company": "Babylon Health",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1314",
+      "company": "Better.com",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1315",
+      "company": "Cazoo",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1316",
+      "company": "Cedar",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1317",
+      "company": "Forge Global",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1318",
+      "company": "Lemonade",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1319",
+      "company": "Root Insurance",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1320",
+      "company": "Hippo Insurance",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1321",
+      "company": "Doma",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1322",
+      "company": "ezCater",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1323",
+      "company": "OYO US",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1324",
+      "company": "Trōv",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1325",
+      "company": "Veev",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1326",
+      "company": "Knotch",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1327",
+      "company": "Brandless",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1328",
+      "company": "Munchery",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1329",
+      "company": "Jet.com (history)",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1330",
+      "company": "Washio",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1331",
+      "company": "Quibi (history)",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1332",
+      "company": "Pearl Auto",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1333",
+      "company": "Beepi",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1334",
+      "company": "Anki",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1335",
+      "company": "Juicero",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1336",
+      "company": "Theranos (history)",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1337",
+      "company": "Vayner X subsidiaries",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1338",
+      "company": "Hooked Inc",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1339",
+      "company": "Frank (JPM)",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1340",
+      "company": "Hyperloop One",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1341",
+      "company": "Compass",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1342",
+      "company": "Convoy",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1343",
+      "company": "Houzz",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1344",
+      "company": "Flexport",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1345",
+      "company": "Birchbox",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1346",
+      "company": "Honest Co",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1347",
+      "company": "Greensky",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1348",
+      "company": "Chime",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1349",
+      "company": "Kabbage",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1350",
+      "company": "Affirm",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1351",
+      "company": "SoFi (history)",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1352",
+      "company": "Upstart",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1353",
+      "company": "Toast",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1354",
+      "company": "Marqeta",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1355",
+      "company": "Bill.com",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1356",
+      "company": "Outreach",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1357",
+      "company": "Gong",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1358",
+      "company": "ZoomInfo",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1359",
+      "company": "SmartRecruiters",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1360",
+      "company": "Greenhouse",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1361",
+      "company": "Lever",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1362",
+      "company": "Iterable",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1363",
+      "company": "Braze",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1364",
+      "company": "Amplitude",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1365",
+      "company": "Heap",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1366",
+      "company": "Mixpanel",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1367",
+      "company": "Segment",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1368",
+      "company": "Hightouch",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1369",
+      "company": "dbt Labs",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1370",
+      "company": "Fivetran",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1371",
+      "company": "Stitch (data)",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1372",
+      "company": "Cohere",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1373",
+      "company": "Inflection",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1374",
+      "company": "Adept",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1375",
+      "company": "Mistral",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1376",
+      "company": "Stability AI",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1377",
+      "company": "Humane AI Pin",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1378",
+      "company": "Rabbit R1",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1379",
+      "company": "Magic Leap",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1380",
+      "company": "Niantic",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1381",
+      "company": "Mythical Games",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1382",
+      "company": "Workato",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1383",
+      "company": "Tray.io",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1384",
+      "company": "Zapier",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1385",
+      "company": "Make.com",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1386",
+      "company": "Bubble",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1387",
+      "company": "Webflow",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1388",
+      "company": "Framer",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1389",
+      "company": "Vidyard",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1390",
+      "company": "Loom",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1391",
+      "company": "Tandem",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1392",
+      "company": "Vimeo Enterprise",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1393",
+      "company": "Calendly",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1394",
+      "company": "Doodle",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1395",
+      "company": "Lattice HR",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1396",
+      "company": "Culture Amp",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1397",
+      "company": "15Five",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1398",
+      "company": "Workhuman",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1399",
+      "company": "Kahoot",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1400",
+      "company": "Nearpod",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1401",
+      "company": "Top Hat",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1402",
+      "company": "Coursera B2B",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1403",
+      "company": "Skillsoft",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1404",
+      "company": "Pluralsight",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1405",
+      "company": "Udemy Business",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1406",
+      "company": "Degreed",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1407",
+      "company": "Cornerstone OnDemand",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1408",
+      "company": "Insider",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1409",
+      "company": "Pipedrive",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1410",
+      "company": "QuotaPath",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1411",
+      "company": "Gearset",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1412",
+      "company": "Aleph Alpha",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1413",
+      "company": "Zeta Global",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1414",
+      "company": "Rocket Money",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1415",
+      "company": "Healx",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1416",
+      "company": "DealHub.ai",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1417",
+      "company": "ConversionIQ.ai",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1418",
+      "company": "Navina",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1419",
+      "company": "hellocare.ai",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1420",
+      "company": "Token",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1421",
+      "company": "Volan.ai",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1422",
+      "company": "MyOutDesk",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1423",
+      "company": "Wellness Coach",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1424",
+      "company": "Sentynl Therapeutics",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1425",
+      "company": "Linarc",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1426",
+      "company": "streamline.auto",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1427",
+      "company": "Prosperity Organic Foods",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1428",
+      "company": "Feast & Fettle",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1429",
+      "company": "MyRacehorse",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1430",
+      "company": "YOURPAD",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1431",
+      "company": "MotorEnvy",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1432",
+      "company": "AIBODY",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1433",
+      "company": "Plurai",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1434",
+      "company": "Restaura",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1435",
+      "company": "REHQ",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1436",
+      "company": "Activate",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1437",
+      "company": "Kami",
+      "note": "sub-$1B distressed pick"
+    },
+    {
+      "id": "q1438",
+      "company": "81qd",
+      "note": "CRO-list batch"
+    },
+    {
+      "id": "q1439",
+      "company": "MT Newswires",
+      "note": "CRO-list batch"
+    },
+    {
+      "id": "q1440",
+      "company": "Empire Technologies",
+      "note": "CRO-list batch"
+    },
+    {
+      "id": "q1441",
+      "company": "COPC Inc",
+      "note": "CRO-list batch"
+    },
+    {
+      "id": "q1442",
+      "company": "AuditCo",
+      "note": "CRO-list batch"
+    },
+    {
+      "id": "q1443",
+      "company": "Cluep",
+      "note": "CRO-list batch"
+    },
+    {
+      "id": "q1444",
+      "company": "Choice Logistics",
+      "note": "CRO-list batch"
+    },
+    {
+      "id": "q1445",
+      "company": "OneVeracity",
+      "note": "CRO-list batch"
+    },
+    {
+      "id": "q1446",
+      "company": "TRSS",
+      "note": "CRO-list batch"
+    },
+    {
+      "id": "q1447",
+      "company": "PPA Tour",
+      "note": "CRO-list batch"
+    }
+  ],
+  "remaining": [
+    "Roryana Consulting",
+    "World Series of Poker",
+    "Recruiting Brands Corp",
+    "Boundless Learning",
+    "WorkWave",
+    "JamLoop",
+    "Distro",
+    "Metaprise.ai",
+    "B2Spin",
+    "PantherLabs",
+    "Profound Research",
+    "Apco Holdings",
+    "Window Nation",
+    "Docplanner",
+    "Ruby Labs",
+    "Welo Global",
+    "Jobgether",
+    "Semafor",
+    "United Tech",
+    "TrustedHousesitters",
+    "BURGA",
+    "Headlands Research",
+    "Heyrowan",
+    "Capstan Medical",
+    "PrescriberPoint",
+    "IntraFi",
+    "FoundersCard",
+    "Brillio",
+    "ExpressVPN",
+    "Greenlight",
+    "Adverum",
+    "Lexeo Therapeutics",
+    "Mineralys Therapeutics",
+    "Spyre Therapeutics",
+    "Cullinan Oncology",
+    "Vor BioPharma",
+    "Crescent Biopharma",
+    "ARTBIO",
+    "Retro",
+    "Lila Sciences",
+    "Kyverna Therapeutics",
+    "Docebo",
+    "Litmos",
+    "Articulate 360",
+    "Udacity",
+    "Pearson VUE",
+    "SkillJar",
+    "TalentLMS",
+    "Drift",
+    "Intercom",
+    "Zendesk segment",
+    "Front",
+    "Kustomer",
+    "Help Scout",
+    "Tidio",
+    "Crisp",
+    "Olark",
+    "LivePerson",
+    "Genesys Cloud"
+  ],
+  "skip_too_big": [
+    "Wayfair",
+    "Carvana",
+    "Opendoor",
+    "Compass",
+    "Etsy",
+    "Snap",
+    "Roblox",
+    "Coinbase",
+    "Robinhood",
+    "Affirm",
+    "Bumble",
+    "Match",
+    "Yelp",
+    "Pinterest",
+    "Hims & Hers",
+    "Grubhub",
+    "Instacart",
+    "DocuSign",
+    "Twilio",
+    "Zoom",
+    "Lyft",
+    "Chewy",
+    "Warby Parker",
+    "Rivian",
+    "Lucid",
+    "Spirit Airlines",
+    "Tupperware",
+    "Vox Media",
+    "BuzzFeed",
+    "Vice"
+  ]
+}

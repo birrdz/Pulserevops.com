@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Read(//tmp/**)",
+      "Bash(node -e ':*)",
+      "Bash(git stash *)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('c:/Users/koryj/website/dashboard.html','utf8'\\);const scripts=s.match\\(/<script[^>]*>[\\\\s\\\\S]*?<\\\\/script>/g\\)||[];let i=0;for\\(const sc of scripts\\){i++;const body=sc.replace\\(/^<script[^>]*>/,''\\).replace\\(/<\\\\/script>$/,''\\);try{new Function\\(body\\);}catch\\(e\\){console.log\\('Script #'+i+' \\(len '+body.length+'\\) ERROR:',e.message\\);}}console.log\\('checked',i,'scripts'\\);\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('c:/Users/koryj/website/dashboard.html','utf8'\\);const re=/<script\\([^>]*\\)>\\([\\\\s\\\\S]*?\\)<\\\\/script>/g;let m;let i=0;while\\(\\(m=re.exec\\(s\\)\\)\\){i++;const attrs=m[1]||'';if\\(/type=[\\\\\"']application\\\\/ld\\\\+json[\\\\\"']/.test\\(attrs\\)\\)continue;if\\(/\\\\bsrc=/.test\\(attrs\\)\\)continue;try{new Function\\(m[2]\\);}catch\\(e\\){console.log\\('Script #'+i+' ERROR:',e.message\\);}}console.log\\('scripts checked:',i\\);\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git ls-tree *)",
+      "Bash(grep -iE \"\\\\.\\(mp4|webm|mov|m4v\\)$\")",
+      "Bash(awk '$2 >= \"2026-04-15\" && $2 <= \"2026-04-19\"')",
+      "Bash(grep -iE \"^press/.*\\\\.html$\")",
+      "Bash(grep -iE \"press/.*\\\\.html$\")",
+      "Bash(grep -n \"^  <\\\\\\(section\\\\|div\\\\|nav\\\\|canvas\\\\|button\\\\|a \\\\|a$\\\\|main\\\\|aside\\\\|header\\\\|footer\\\\|article\\\\\\)\" c:/Users/koryj/website/dashboard.html)",
+      "Bash(BLOBS_PAT=nfp_yQGkBueTaGFWX3RB9MeH2k3vuLrVpSPne946 node lab/tail-to-head.js --only=q1113)",
+      "Bash(node -e \"const j = require\\('/c/Users/koryj/website/lab/cheap-100/q1147.json'\\); console.log\\('Valid JSON. ID:', j.id\\); console.log\\('Answer length:', j.answer.length\\); console.log\\('Has mermaid fence:', j.answer.includes\\('\\\\`\\\\`\\\\`mermaid'\\)\\);\")",
+      "Bash(grep -E '^q[0-9]+\\\\.json$')",
+      "WebSearch",
+      "Bash(node -e 'try { const j = JSON.parse\\(require\\(\"fs\"\\).readFileSync\\(\"lab/cheap-100/q1172.json\",\"utf8\"\\)\\); console.log\\(\"OK\", j.id\\); } catch\\(e\\) { console.error\\(\"BAD:\", e.message\\); }')",
+      "Bash(node -e \"const fs = require\\('fs'\\); JSON.parse\\(fs.readFileSync\\('/c/Users/koryj/website/lab/cheap-100/q1173.json', 'utf8'\\)\\); console.log\\('JSON valid'\\)\")",
+      "Bash(node -e \"const fs = require\\('fs'\\); JSON.parse\\(fs.readFileSync\\('C:\\\\\\\\Users\\\\\\\\koryj\\\\\\\\website\\\\\\\\lab\\\\\\\\cheap-100\\\\\\\\q1173.json', 'utf8'\\)\\); console.log\\('JSON valid'\\)\")",
+      "Bash(node -e \"const fs = require\\('fs'\\); JSON.parse\\(fs.readFileSync\\('/Users/koryj/website/lab/cheap-100/q1173.json', 'utf8'\\)\\); console.log\\('JSON valid'\\)\")",
+      "Bash(node -e 'try { const j = JSON.parse\\(require\\(\"fs\"\\).readFileSync\\(\"lab/cheap-100/q1173.json\",\"utf8\"\\)\\); console.log\\(\"OK\", j.id\\); } catch\\(e\\) { console.error\\(\"BAD:\", e.message\\); }')",
+      "Bash(node -e 'try { const j = JSON.parse\\(require\\(\"fs\"\\).readFileSync\\(\"lab/cheap-100/q1175.json\",\"utf8\"\\)\\); console.log\\(\"OK\", j.id\\); } catch\\(e\\) { console.error\\(\"BAD:\", e.message\\); }')",
+      "Bash(node -e ' *)",
+      "Bash(node -e 'try { const j = JSON.parse\\(require\\(\"fs\"\\).readFileSync\\(\"lab/cheap-100/q1179.json\",\"utf8\"\\)\\); console.log\\(\"OK\", j.id\\); } catch\\(e\\) { console.error\\(\"BAD:\", e.message\\); }')",
+      "Bash(npm ls *)",
+      "Bash(mermaid'\\).replace\\(/__FENCE__/g, ')",
+      "PowerShell($json = Get-Content \"C:\\\\Users\\\\koryj\\\\website\\\\lab\\\\cheap-100\\\\q1209.json\" -Raw; [void]\\($json | ConvertFrom-Json\\); $json.Length)",
+      "Bash(grep -oE 'Featured[^<]{0,40}')",
+      "Bash(grep -A 80 'In Layman.s Terms?\\\\\\\\\\\\\\\\?\\\\\\\\\\\\\\\\? — calls')",
+      "Bash(grep -n 'Couldn\\\\\\\\\\\\\\\\' /tmp/q1380.html)",
+      "PowerShell(Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\(\"C:\\\\Users\\\\koryj\\\\Downloads\\\\Screenshot 2026-05-01 035811.png\"\\); $jpgPath = \"C:\\\\Users\\\\koryj\\\\website\\\\og-preview.jpg\"; $encoders = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders\\(\\); $jpgEncoder = $encoders | Where-Object {$_.MimeType -eq 'image/jpeg'}; $params = New-Object System.Drawing.Imaging.EncoderParameters\\(1\\); $params.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter\\([System.Drawing.Imaging.Encoder]::Quality, 88L\\); $img.Save\\($jpgPath, $jpgEncoder, $params\\); $img.Dispose\\(\\); $info = Get-Item $jpgPath; \"Saved: $\\($info.FullName\\) — $\\($info.Length\\) bytes\")",
+      "Read(//c/Users/koryj/**)",
+      "Bash(env)",
+      "Bash(NETLIFY_AUTH_TOKEN=nfp_JSsTaZjcMASrsrXJRgt6yG4Zipnovvwia6f0 npx netlify deploy --prod --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482 --dir=c:/Users/koryj/website)",
+      "Bash(mkdir -p c:/Users/koryj/website/lab/quarantine)",
+      "Bash(mv q1115.json q1122.json q1151.json q1153.json q1156.json q340.json q341.json q342.json q343.json q344.json ../quarantine/)",
+      "Bash(NETLIFY_AUTH_TOKEN=nfp_JSsTaZjcMASrsrXJRgt6yG4Zipnovvwia6f0 npx netlify env:set BLOBS_PAT nfp_JSsTaZjcMASrsrXJRgt6yG4Zipnovvwia6f0 --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482)",
+      "Bash(powershell -Command \"Stop-Process -Id 37712 -Force\")"
+    ],
+    "additionalDirectories": [
+      "\\tmp"
+    ]
+  }
+}

@@ -1,0 +1,1178 @@
+    const TOUR_STEPS = [
+      // ═══ CRM BLOCK (Steps 1-8) ═══════════════════════════════════════════════
+      // ═══ STEP 1 — WELCOME (rebuilt shorter: ~12s narration, tighter copy) ═══
+      { selector: '#rev-intel-section', title: 'Welcome to Pulse',
+        desc: "Not just a CRM — the central nervous system of your entire go-to-market. Leads, pipeline, AI forecasting, meetings, speeches. We did it all. We got you.",
+        label: 'Step 1 of 46', managedTimer: true, customNarration: true,
+        onShow: () => {
+          // 3-card spotlight sequence (Total Pipeline → Projected Revenue → Win Rate)
+          _tourSpotSequence([
+            {sel: '.ri-vital-card:nth-child(1)', label: 'Total Pipeline'},
+            {sel: '.ri-vital-card:nth-child(2)', label: 'Projected Revenue'},
+            {sel: '.ri-vital-card:nth-child(3)', label: 'Win Rate'},
+          ]);
+          // Load demo data right away so Steps 2+ have rows
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riLoadDemo === 'function') riLoadDemo(true); } catch(e) {} }, 1500);
+          // Short narration — advances on natural end (~12s) with 14s fallback if muted
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            if (_narratorMuted || !window.speechSynthesis) {
+              _schedTourTimer(() => { if (tourActive) advanceTour(); }, 13000);
+              return;
+            }
+            try { window.speechSynthesis.cancel(); } catch(e) {}
+            const monologue = "Welcome to Pulse. Not just a CRM — the central nervous system of your entire go-to-market. Leads, pipeline, AI forecasting, meetings, speeches. We did it all. We got you.";
+            _withVoices(function() {
+              _doSpeak(monologue, function() {
+                _schedTourTimer(() => { if (tourActive) advanceTour(); }, 2600);
+              });
+              // Absolute timeout — Step 1 never stalls the tour
+              _schedTourTimer(() => {
+                if (tourActive && tourStep === 0) {
+                  try { window.speechSynthesis.cancel(); } catch(e) {}
+                  advanceTour();
+                }
+              }, 18000);
+            });
+          }, 300);
+        }
+      },
+      // ═══ NEW — QUICK-NAV PILLS ═══
+      { selector: '#quick-nav-pills', title: 'One-Tap Navigation',
+        desc: 'See those pills top-left — Home and CRM are one click from every screen. No matter how deep you go into reports, schedule, or War Room, you jump back in one tap.',
+        label: 'Step 2 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const pills = document.querySelector('#quick-nav-pills');
+            if (pills) {
+              pills.style.transition = 'box-shadow 0.6s, transform 0.6s';
+              pills.style.boxShadow = '0 0 0 4px rgba(232,113,10,0.55), 0 0 40px rgba(232,113,10,0.35)';
+              pills.style.transform = 'scale(1.08)';
+            }
+            _schedTourTimer(() => {
+              if (pills) { pills.style.boxShadow = ''; pills.style.transform = ''; }
+              if (tourActive) advanceTour();
+            }, 14000);
+          }, 400);
+        }
+      },
+      // ═══ STEP 2 — ADDING LEADS (fixed timers, single scroll, hard renderDeals buffers) ═══
+      { selector: '#rev-intel-section', title: 'Adding Leads & Deals',
+        desc: 'This is where you add people you are trying to sell to. Watch PULSE click Add Deal — a new row appears at the bottom of the table, then the name and dollar value ghost-type in live.',
+        label: 'Step 3 of 46', managedTimer: true,
+        onShow: () => {
+          // Re-query each step since renderDeals() rewrites the tbody
+          const nameSel = () => document.querySelector('#ri-deal-body tr:last-child td:nth-child(1) input');
+          const valSel  = () => document.querySelector('#ri-deal-body tr:last-child td:nth-child(4) input');
+
+          // T = 0 → 500ms: switch to Deals tab
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { if (typeof riSwitchTab === 'function') riSwitchTab('deals'); } catch(e) {}
+          }, 500);
+
+          // T = 1400ms: ONE smooth scroll to bring the Add Deal button into view.
+          //             900ms after tab switch gives the panel time to paint.
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const btn = document.querySelector('.ri-btn-primary[onclick*="riAddDeal"]');
+            if (btn) { try { btn.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {} }
+          }, 1400);
+
+          // T = 2800ms: ghost-cursor lands on Add Deal (1.4s after scroll kicked off).
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { _tourGhostClick('.ri-btn-primary[onclick*="riAddDeal"]', { label: 'Add Deal', doClick: false }); } catch(e) {}
+          }, 2800);
+
+          // T = 4200ms: riAddDeal() fires. Cursor animation has finished, scroll is settled.
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { if (typeof riAddDeal === 'function') riAddDeal(); } catch(e) {}
+          }, 4200);
+
+          // T = 4500ms: 300ms after the row is added, scroll it into view + flash orange.
+          //             Separate _schedTourTimer tick instead of requestAnimationFrame nest —
+          //             avoids racing with renderDeals()'s own layout work.
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const row = document.querySelector('#ri-deal-body tr:last-child');
+            if (!row) return;
+            try { row.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
+            row.style.transition = 'background 1s ease-out';
+            row.style.background = 'rgba(255,140,26,0.22)';
+            _schedTourTimer(() => { if (row.isConnected) row.style.background = ''; }, 1400);
+          }, 4500);
+
+          // T = 6000ms: start ghost-typing the NAME — 1.5s after scroll-to-new-row kicked off
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const nameInput = nameSel();
+            if (!nameInput) { _schedTourTimer(() => { if (tourActive) advanceTour(); }, 3000); return; }
+            _tourGhostType(nameInput, 'Acme Corp — New Install', { speed: 55, onDone: function() {
+              // renderDeals() fires on the change event at end-of-type and wipes tbody.
+              // Wait 900ms so the re-render fully settles before we query the value input.
+              _schedTourTimer(() => {
+                if (!tourActive) return;
+                const valInput = valSel();
+                if (!valInput) { _schedTourTimer(() => { if (tourActive) advanceTour(); }, 3000); return; }
+                _tourGhostType(valInput, '12000', { speed: 120, onDone: function() {
+                  // Hold 5s on the fully-populated row (extended) before advance
+                  _schedTourTimer(() => { if (tourActive) advanceTour(); }, 7000);
+                }});
+              }, 900);
+            }});
+          }, 6000);
+        }
+      },
+      // 3. Deal Detail — ghost-writer fills customer contact info + note
+      { selector: '#rev-intel-section', title: 'Editing a Lead',
+        desc: 'Click any lead row to open their full profile. Watch PULSE open a deal, then ghost-type the contact info — phone, email, title, source — and drop a note into the activity timeline.',
+        label: 'Step 4 of 46', managedTimer: true,
+        onShow: () => {
+          // Switch to the deals tab so the rows are visible
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riSwitchTab === 'function') riSwitchTab('deals'); } catch(e) {} }, 1000);
+          _tourSpotElement('#ri-deal-body tr', 'Watch this row open', 2200);
+          // Ghost-click the first row then fill customer fields in sequence
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const row = document.querySelector('#ri-deal-body tr');
+            if (row) {
+              try { _tourGhostClick(row, { label: 'Open deal' }); } catch(e) {}
+              try { if (typeof openDealDetail === 'function') openDealDetail(0); } catch(e) {}
+            }
+          }, 3200);
+          // Wait for modal to render, then chain through the contact fields + note
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const phoneEl = document.getElementById('dd-phone');
+            if (!phoneEl) { advanceTour(); return; }
+            _tourGhostType(phoneEl, '(555) 214-0099', { speed: 65, onDone: function() {
+              const emailEl = document.getElementById('dd-email');
+              _tourGhostType(emailEl, 'procurement@acmecorp.com', { speed: 45, onDone: function() {
+                const titleEl = document.getElementById('dd-title');
+                _tourGhostType(titleEl, 'Director of Operations', { speed: 55, onDone: function() {
+                  const sourceEl = document.getElementById('dd-source');
+                  _tourGhostType(sourceEl, 'Inbound — Website', { speed: 55, onDone: function() {
+                    // Drop a note into the activity timeline
+                    const noteEl = document.getElementById('dd-note-input');
+                    if (noteEl) {
+                      _tourGhostType(noteEl, 'Demo booked for Thursday 2pm — bring solutions deck.', { speed: 35, onDone: function() {
+                        _schedTourTimer(function() {
+                          try { if (typeof ddAddNote === 'function') ddAddNote(); } catch(e) {}
+                        }, 600);
+                        _schedTourTimer(function() {
+                          try { if (typeof closeDealDetail === 'function') closeDealDetail(); } catch(e) {}
+                        }, 3000);
+                        _schedTourTimer(function() { if (tourActive) advanceTour(); }, 5800);
+                      }});
+                    } else {
+                      _schedTourTimer(function() { if (tourActive) advanceTour(); }, 3000);
+                    }
+                  }});
+                }});
+              }});
+            }});
+          }, 4600);
+        }
+      },
+      // ═══ STEP 4 — YOUR PIPELINE (rebuilt: deal name travels every column, column glows match) ═══
+      { selector: '#rev-intel-section', title: 'Your Pipeline',
+        desc: 'This shows where every deal sits — Lead, Discovery, Proposal, Negotiation, Closed Won. Watch a named deal card travel every stage of your pipeline while each column glows as the deal arrives. Drag any real card from one column to another to move it through your sales process.',
+        label: 'Step 5 of 46', managedTimer: true,
+        onShow: () => {
+          // 1. Switch to pipeline tab first — synchronized flow needs the kanban rendered
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riSwitchTab === 'function') riSwitchTab('pipeline'); } catch(e) {} }, 800);
+          // 2. Wait for tab transition, then run the single synchronized card-flow animation.
+          //    _tourPipelineFlow glows the column as the card enters and fades it as the card
+          //    moves on — no separate pre-pulse loop layered on top.
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            _tourPipelineFlow('Acme Corp — New Install', {
+              startDelay: 600,       // brief settle after fade-in before first move
+              stagePause: 1100,      // slower pace so user reads the column label at each stop
+              onDone: function() {
+                // Hold 2.5s at Closed Won so user absorbs the endpoint, then advance
+                _schedTourTimer(() => { if (tourActive) advanceTour(); }, 4500);
+              }
+            });
+          }, 2400);
+        }
+      },
+      // ═══ STEP 5 — BEATS CARDS (rebuilt: managedTimer + explicit advance) ═══
+      { selector: '#rev-intel-section', title: 'Beats — Hologram Lead Cards',
+        desc: 'Every lead becomes a hologram card. Bronze. Silver. Gold. Platinum. Ranked by deal value.',
+        label: 'Step 6 of 46', managedTimer: true,
+        onShow: () => {
+          var positions = [
+            {top:'18%',left:'8%'}, {top:'15%',left:'55%'},
+            {top:'48%',left:'12%'}, {top:'45%',left:'58%'}
+          ];
+          var cards = [
+            {name:'Acme Corp',tier:'Bronze',val:'$3,200',color:'#CD7F32',img:32},
+            {name:'TechFlow Inc',tier:'Silver',val:'$12,000',color:'#C0C0C0',img:47},
+            {name:'Summit',tier:'Gold',val:'$22,000',color:'#FFD700',img:15},
+            {name:'RedRock',tier:'Platinum',val:'$31,000',color:'#E5E4E2',img:60}
+          ];
+          cards.forEach(function(c,i) {
+            _schedTourTimer(function() {
+              if (!tourActive) return;
+              var p = positions[i];
+              var el = document.createElement('div');
+              el.className = 'tour-beat-card';
+              el.style.cssText = 'position:fixed;top:'+p.top+';left:'+p.left+';z-index:99999;width:280px;border-radius:22px;background:linear-gradient(145deg,rgba(18,22,30,0.96),rgba(8,12,18,0.99));border:2px solid '+c.color+'70;box-shadow:0 16px 60px rgba(0,0,0,0.7),0 0 40px '+c.color+'30;opacity:0;transform:scale(0.5);transition:all 0.6s cubic-bezier(0.34,1.56,0.64,1);overflow:hidden;pointer-events:none;';
+              el.innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(105deg,transparent 20%,rgba(255,255,255,0.06) 38%,'+c.color+'08 42%,transparent 55%);background-size:250% 100%;animation:beatsShimmer 2s ease-in-out infinite;border-radius:22px;"></div>'
+                +'<div style="position:relative;z-index:1;padding:24px 20px;text-align:center;">'
+                +'<div style="position:absolute;top:12px;right:14px;font-size:0.52rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:'+c.color+'20;color:'+c.color+';">'+c.tier+'</div>'
+                +'<div style="width:90px;height:90px;border-radius:50%;margin:0 auto 14px;overflow:hidden;border:2px solid '+c.color+'45;box-shadow:0 6px 24px '+c.color+'25;"><img src="https://i.pravatar.cc/180?img='+c.img+'" style="width:100%;height:100%;object-fit:cover;filter:saturate(0.25) brightness(1.4);mix-blend-mode:luminosity;"></div>'
+                +'<div style="font-size:1.15rem;font-weight:900;color:#EDE5D8;margin-bottom:4px;">'+c.name+'</div>'
+                +'<div style="font-size:0.65rem;color:#9A9088;margin-bottom:14px;">Rep · Decision Maker</div>'
+                +'<div style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.55rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;background:'+c.color+'15;color:'+c.color+';border:1px solid '+c.color+'30;margin-bottom:16px;">Proposal</div>'
+                +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">'
+                +'<div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);border-radius:8px;padding:10px;"><div style="font-size:0.42rem;font-weight:700;color:rgba(154,144,136,0.5);text-transform:uppercase;letter-spacing:0.1em;">Value</div><div style="font-size:1rem;font-weight:900;color:'+c.color+';">'+c.val+'</div></div>'
+                +'<div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.04);border-radius:8px;padding:10px;"><div style="font-size:0.42rem;font-weight:700;color:rgba(154,144,136,0.5);text-transform:uppercase;letter-spacing:0.1em;">Risk</div><div style="font-size:1rem;font-weight:900;color:#22c55e;">Low</div></div>'
+                +'</div>'
+                +'<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.04);font-size:0.62rem;color:rgba(154,144,136,0.6);">📞 555-0101<br>📧 contact@'+c.name.toLowerCase().replace(/\s/g,'')+'.com</div>'
+                +'</div>';
+              document.body.appendChild(el);
+              requestAnimationFrame(function() { el.style.opacity = '1'; el.style.transform = 'scale(1)'; });
+              setTimeout(function() { el.style.opacity = '0'; el.style.transform = 'scale(0.8)'; setTimeout(function(){el.remove();},500); }, 6000);
+            }, 2000 + i * 2500);
+          });
+          // Pause moment
+          _schedTourTimer(function() {
+            if (!tourActive) return;
+            var pause = document.createElement('div');
+            pause.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.5);z-index:99999;font-size:2.5rem;font-weight:900;color:#EDE5D8;text-align:center;opacity:0;transition:all 0.6s ease;pointer-events:none;text-shadow:0 0 40px rgba(232,113,10,0.3);';
+            pause.innerHTML = 'Pause.<br><span style="font-size:0.9rem;color:#9A9088;font-weight:600;">Yeah. That\'s free.</span>';
+            document.body.appendChild(pause);
+            requestAnimationFrame(function() { pause.style.opacity = '1'; pause.style.transform = 'translate(-50%,-50%) scale(1)'; });
+            setTimeout(function() { pause.style.opacity = '0'; setTimeout(function(){pause.remove();},500); }, 3000);
+          }, 12000);
+          _schedTourTimer(function() { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('cards'); }, 16000);
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 18500);
+        }
+      },
+      // ═══ STEP 6 — YOUR TEAM (rebuilt, ghost-click + clean pacing) ═══
+      { selector: '#rev-intel-section', title: 'Your Team',
+        desc: 'Every rep on your team. See who is carrying the most pipeline, who is closing, and who needs help. Watch PULSE fan through each rep card, then ghost-click the top rep to show how you drill into their deals.',
+        label: 'Step 7 of 46', managedTimer: true,
+        onShow: () => {
+          // Hop to the reps tab
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riSwitchTab === 'function') riSwitchTab('reps'); } catch(e) {} }, 1000);
+          // Sequential rep-card glow — each card lights for 1.2s, then fades before the next
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const cards = document.querySelectorAll('#ri-rep-breakdown > div > div');
+            cards.forEach(function(card, i) {
+              _schedTourTimer(() => {
+                if (!tourActive || !card.isConnected) return;
+                card.style.transition = 'all 0.35s';
+                card.style.boxShadow = '0 0 0 2px rgba(232,113,10,0.55), 0 0 22px rgba(232,113,10,0.2)';
+                card.style.transform = 'translateY(-2px)';
+                _schedTourTimer(() => {
+                  card.style.boxShadow = '';
+                  card.style.transform = '';
+                }, 1200);
+              }, i * 1000);
+            });
+          }, 2000);
+          // Ghost-click the first rep card to show the drill-in interaction
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const firstCard = document.querySelector('#ri-rep-breakdown > div > div');
+            if (firstCard) {
+              try { _tourGhostClick(firstCard, { label: 'Click any rep', doClick: false }); } catch(e) {}
+            }
+          }, Math.max(3000, 2000 + (document.querySelectorAll('#ri-rep-breakdown > div > div').length || 0) * 1000));
+          // Advance after the sequence finishes
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 8500);
+        }
+      },
+      // 6. Leaderboard
+      // ═══ STEP 7 — HALL OF HEROES (rebuilt: ghost-cycles category dropdown, clean advance) ═══
+      { selector: '#rev-intel-section', title: 'Hall of Heroes — Leaderboards',
+        desc: 'Who is number one? Gold, silver, bronze for the top three. Watch PULSE cycle the dropdown through a few of the 14 categories — gross profit, win rate, deal count, and more — so the leaderboard reshuffles in real time.',
+        label: 'Step 8 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof riSwitchTab === 'function') riSwitchTab('leaders'); } catch(e) {} }, 1000);
+          _tourSpotElement('select[onchange*="_lbCategory"]', 'Category dropdown', 2200);
+          // Ghost-cycle through 3 categories so the leaderboard visibly reshuffles
+          const cats = ['winRate', 'dealCount', 'grossProfit'];
+          cats.forEach(function(cat, i) {
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const sel = document.querySelector('select[onchange*="_lbCategory"]');
+              if (sel) _tourGhostSelect(sel, cat, { delay: 200, label: 'Category: ' + cat });
+            }, 3400 + i * 2200);
+          });
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 3400 + cats.length * 2200 + 1200);
+        }
+      },
+      // 7. Forecast
+      { selector: '#rev-intel-section', title: 'Revenue Forecast',
+        desc: 'Your AI-powered crystal ball. The bar chart tracks monthly closed revenue — green bars are actual, the striped bar is projected. Hover any bar for the exact number. Below the chart, PULSE writes a plain-English narrative breaking down your trajectory, trends, and what to expect next month. It updates automatically as deals close or move stages.',
+        label: 'Step 9 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof riSwitchTab === 'function') riSwitchTab('forecast'); }, 1000);
+          // Zoom out the revenue intelligence section so the full forecast chart + narrative fit on screen
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { if (typeof pulseZoomSection === 'function') pulseZoomSection('rev-intel-section', 0.8); } catch(e) {}
+          }, 1600);
+          _tourSpotElement('.ri-chart-wrap', 'Monthly revenue chart — hover bars for details', 3000);
+          _tourSpotElement('#ri-forecast-narrative', 'AI writes your forecast narrative here', 6000);
+          // Reset the zoom when the step ends and advance
+          _schedTourTimer(() => {
+            try { if (typeof pulseZoomReset === 'function') pulseZoomReset(); } catch(e) {}
+            if (tourActive) advanceTour();
+          }, 12000);
+        }
+      },
+      // (CRM moved to Step 1)
+      // ═══ NEW — WAR ROOM (zoomed-out overview, scrolling unlocked) ═══
+      { selector: '#rev-intel-section', title: 'War Room — 20 Live Dashboards',
+        desc: 'Scroll around freely — the grid is zoomed out so you can see the entire twenty-dashboard War Room at once. Pipeline velocity, win rate by source, rep heatmaps, cohort analysis, stage-conversion funnels, deal-age distribution, SKU aging and more. Every chart honors the date range you control up top.',
+        label: 'Step 10 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { if (typeof riSwitchTab === 'function') riSwitchTab('warroom'); } catch(e) {}
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const grid = document.querySelector('#warroom-grid');
+              const hero = document.querySelector('#wr-hero');
+              if (grid) {
+                // Zoom out so the whole grid fits in the viewport
+                grid.style.transition = 'transform 0.6s ease-out, transform-origin 0s';
+                grid.style.transformOrigin = 'top center';
+                grid.style.transform = 'scale(0.55)';
+                grid.style.width = '181%';        // Compensate for scale so layout doesn't shrink
+                grid.style.marginBottom = '-44%'; // Pull bottom up so full-page scroll bounds stay sane
+                grid.dataset.tourZoomed = '1';
+                // Resize ECharts so they re-layout cleanly at the scaled size
+                setTimeout(function() {
+                  grid.querySelectorAll('[id^="rpt-"]').forEach(function(el) {
+                    try { var inst = echarts.getInstanceByDom(el); if (inst) inst.resize(); } catch(err) {}
+                  });
+                }, 700);
+                grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+              // Unlock scrolling for this step — user is encouraged to explore
+              _tourScrollLocked = false;
+              // Extended timer (20s) so the viewer has time to scroll around
+              _schedTourTimer(() => {
+                // Restore normal zoom + scroll lock before advancing
+                if (grid && grid.dataset.tourZoomed === '1') {
+                  grid.style.transform = '';
+                  grid.style.width = '';
+                  grid.style.marginBottom = '';
+                  grid.dataset.tourZoomed = '';
+                  setTimeout(function() {
+                    grid.querySelectorAll('[id^="rpt-"]').forEach(function(el) {
+                      try { var inst = echarts.getInstanceByDom(el); if (inst) inst.resize(); } catch(err) {}
+                    });
+                  }, 300);
+                }
+                _tourLockedScrollY = window.scrollY;
+                _tourScrollLocked = true;
+                if (tourActive) advanceTour();
+              }, 20000);
+            }, 1400);
+          }, 400);
+        }
+      },
+      // ═══ NEW — AI-FIRST ENGINE ═══
+      { selector: '#rev-intel-section', title: 'AI-First Engine',
+        desc: 'Four autonomous subsystems run in the background. Auto-Insights every four hours, Smart Alerts hourly, Daily Briefing each morning, Proactive Coach every eight hours. Everything they do lands in the AI Activity Log. Watch PULSE open it now.',
+        label: 'Step 11 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { if (typeof toggleAILog === 'function') toggleAILog(); } catch(e) {}
+            _schedTourTimer(() => {
+              try { if (typeof toggleAILog === 'function') toggleAILog(); } catch(e) {}
+              if (tourActive) advanceTour();
+            }, 7000);
+          }, 400);
+        }
+      },
+      // ═══ NEW — AGING INVENTORY REPORT ═══
+      { selector: '#aging-inventory-report', title: 'Aging Inventory Report',
+        desc: 'One-click visibility into stuck deals. Tap any chip — 15, 30, 45, 55, 60, 70, 85, 90 days — and PULSE instantly lists every open deal older than that threshold, with rep, stage, dollar value, and age. The total dollars-stuck headline tells leaders at a glance how much pipeline is decaying.',
+        label: 'Step 12 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { if (typeof riSwitchTab === 'function') riSwitchTab('warroom'); } catch(e) {}
+            _schedTourTimer(() => {
+              const sec = document.getElementById('aging-inventory-report');
+              if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              _schedTourTimer(() => {
+                if (!tourActive) return;
+                try { airSetThreshold(30); } catch(e) {}
+                _schedTourTimer(() => { if (!tourActive) return; try { airSetThreshold(60); } catch(e) {} }, 2200);
+                _schedTourTimer(() => { if (!tourActive) return; try { airSetThreshold(90); } catch(e) {} }, 4400);
+                _schedTourTimer(() => { if (tourActive) advanceTour(); }, 9500);
+              }, 1200);
+            }, 1200);
+          }, 400);
+        }
+      },
+      // ═══ NEW — LEADER HUB ═══
+      { selector: '#leader-hub-section', title: 'Leader Hub',
+        desc: 'The War Room is for getting in the weeds. The Leader Hub is the same data, organized — what to focus on right now, sales action, coaching needs, recruiting gap, upcoming meetings, and an alert feed that updates every thirty seconds. Press L from anywhere to come back.',
+        label: 'Step 13 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { if (typeof navigateToPage === 'function') navigateToPage('leaderhub'); } catch(e) {}
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              try { if (typeof lhRefresh === 'function') lhRefresh(); } catch(e) {}
+              _schedTourTimer(() => { if (tourActive) advanceTour(); }, 9000);
+            }, 1400);
+          }, 400);
+        }
+      },
+      // ═══ STEP 3 — TEAM SETUP ═══
+      // ═══ STEP 9 — BUILD YOUR TEAM (rebuilt: managedTimer, explicit advance after cards) ═══
+      { selector: '#team-nav-btn', title: 'Build Your Team',
+        desc: 'This green button is your team HQ. Admin creates a team, adds reps, shares the code. Reps join in seconds. Watch the flow.',
+        label: 'Step 14 of 46', managedTimer: true,
+        onShow: () => {
+          const cards = [
+            { icon: '🔐', title: 'Step A: Admin Creates Team', body: 'Team Name: <strong style="color:#E8710A;">Acme Sales</strong><br>Team Code: <strong style="color:#E8710A;">ACME</strong><br>Admin PIN: <strong style="color:#E8710A;">••••</strong>', color: '#E8710A' },
+            { icon: '👥', title: 'Step B: Admin Adds Reps', body: '<span style="color:#22c55e;">✓</span> Sarah<br><span style="color:#22c55e;">✓</span> Mike<br><span style="color:#22c55e;">✓</span> Carlos<br><span style="color:#22c55e;">✓</span> Taylor', color: '#22c55e' },
+            { icon: '📱', title: 'Step C: Rep Joins', body: 'Code: <strong style="color:#E8710A;">ACME</strong><br>Name: <strong style="color:#E8710A;">Sarah</strong><br><br><span style="color:#22c55e;font-weight:700;">✓ Sees only her deals & scorecard</span>', color: '#60A5FA' },
+          ];
+          cards.forEach((c, i) => {
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const el = document.createElement('div');
+              el.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);z-index:99999;background:rgba(10,14,20,0.97);border:1px solid ' + c.color + '40;border-left:4px solid ' + c.color + ';border-radius:14px;padding:20px 28px;font-size:0.82rem;color:#EDE5D8;font-family:inherit;box-shadow:0 12px 48px rgba(0,0,0,0.6);opacity:0;transition:all 0.5s ease;max-width:300px;';
+              el.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><span style="font-size:1.2rem;">' + c.icon + '</span><span style="font-size:0.65rem;font-weight:800;color:' + c.color + ';letter-spacing:0.08em;text-transform:uppercase;">' + c.title + '</span></div><div style="line-height:1.7;color:#9A9088;">' + c.body + '</div>';
+              document.body.appendChild(el);
+              requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translate(-50%,-50%) scale(1)'; });
+              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => el.remove(), 500); }, 4500);
+            }, 2000 + i * 5000);
+          });
+          // Advance after all 3 cards have shown + 1s breathing room
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 2000 + cards.length * 5000 + 1000);
+        }
+      },
+      // ═══ STEP 10 — AI COACH (rebuilt: ghost-click crab, ghost-type Q, force-close) ═══
+      { selector: '#ai-coach-fab', title: 'Your AI Sales Coach',
+        desc: 'See the crab? Click it anytime. Ask it anything — slumping reps, pipeline problems, comp plan questions, how to fire someone gracefully. Watch PULSE open the coach and ghost-type a real question.',
+        label: 'Step 15 of 46', managedTimer: true,
+        onShow: () => {
+          // Ghost-click the crab FAB (visual cursor)
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            try { _tourGhostClick('#ai-coach-fab', { label: 'Ask the Coach', doClick: false }); } catch(e) {}
+          }, 1500);
+          // Force-OPEN the coach panel (explicit, not toggle — prevents "already open" bugs)
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const panel = document.getElementById('ai-coach-panel');
+            if (panel && !panel.classList.contains('open')) panel.classList.add('open');
+          }, 2800);
+          // Ghost-type the question — wait for panel transition to settle
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const input = document.getElementById('coach-input');
+            if (input) _tourGhostType(input, 'Sarah missed quota two months in a row — what do I say in the 1:1?', { speed: 40 });
+          }, 3600);
+          // Force-CLOSE (explicit remove, not toggle) so it reliably goes away no matter what
+          _schedTourTimer(() => {
+            const panel = document.getElementById('ai-coach-panel');
+            if (panel) panel.classList.remove('open');
+          }, 11500);
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 12200);
+        }
+      },
+      // ═══ STEP 4 — LIVE SYNC ═══
+      { selector: '#sync-toggle-btn', title: 'Live Sync',
+        desc: 'See this Sync button? Enter a code and your deals stream to every device you own — laptop, phone, tablet. Add a deal at your desk, check it in the parking lot. Real-time. No app download.',
+        label: 'Step 16 of 46'
+      },
+      // (Pulse MGMT removed from tour)
+      // ═══ STEP 12 — DOWNLOAD PULSE (rebuilt: managedTimer + explicit advance) ═══
+      { selector: 'nav', title: 'Download PULSE to Your Desktop',
+        desc: 'See that Install button in your browser\'s address bar? Click it and PULSE becomes a desktop app. Opens instantly, works offline, sits in your Start Menu or Dock. No app store needed.',
+        label: 'Step 17 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const el = document.createElement('div');
+            el.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);z-index:99999;background:rgba(10,14,20,0.97);border:1px solid rgba(232,113,10,0.4);border-radius:14px;padding:24px 32px;font-family:inherit;box-shadow:0 16px 60px rgba(0,0,0,0.6);opacity:0;transition:all 0.5s ease;text-align:center;max-width:320px;';
+            el.innerHTML = '<div style="font-size:2rem;margin-bottom:8px;">💻</div>'
+              + '<div style="font-size:0.65rem;font-weight:800;color:#E8710A;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;">Install as Desktop App</div>'
+              + '<div style="font-size:0.82rem;color:#EDE5D8;line-height:1.6;margin-bottom:12px;">Look for the <strong>Install</strong> icon in your address bar</div>'
+              + '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">'
+              + '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;font-size:0.68rem;color:#9A9088;"><span style="color:#22c55e;">✓</span> Works offline</div>'
+              + '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;font-size:0.68rem;color:#9A9088;"><span style="color:#22c55e;">✓</span> Opens instantly</div>'
+              + '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;font-size:0.68rem;color:#9A9088;"><span style="color:#22c55e;">✓</span> No app store</div>'
+              + '</div>';
+            document.body.appendChild(el);
+            requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translate(-50%,-50%) scale(1)'; });
+            setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => el.remove(), 500); }, 7000);
+          }, 2000);
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 10000);
+        }
+      },
+      // ═══ STEP 13 — WORKSPACE (rebuilt: managedTimer + explicit advance) ═══
+      { selector: '#ws-enter-btn', title: 'Custom Workspace',
+        desc: 'Click Workspace to pop out any tool as a floating window. Drag it. Resize it. Open five at once. Build your own command center — like a trading floor for revenue.',
+        label: 'Step 18 of 46', managedTimer: true,
+        onShow: () => {
+          const windows = [
+            { title: '📊 CRM', x: '15%', y: '30%', w: 200, delay: 2000 },
+            { title: '💓 Pulse Check', x: '55%', y: '25%', w: 220, delay: 3500 },
+            { title: '💰 Profit', x: '35%', y: '55%', w: 180, delay: 5000 },
+          ];
+          windows.forEach(win => {
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const el = document.createElement('div');
+              el.style.cssText = 'position:fixed;left:' + win.x + ';top:' + win.y + ';z-index:99999;width:' + win.w + 'px;background:rgba(17,21,24,0.95);border:1px solid rgba(232,113,10,0.3);border-radius:10px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:scale(0.8);transition:all 0.5s ease;pointer-events:none;';
+              el.innerHTML = '<div style="padding:6px 10px;background:rgba(232,113,10,0.06);border-bottom:1px solid rgba(232,113,10,0.15);font-size:0.6rem;font-weight:800;color:#EDE5D8;display:flex;justify-content:space-between;"><span>' + win.title + '</span><span style="color:#ef4444;">✕</span></div><div style="padding:12px;height:60px;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.02) 0px,rgba(255,255,255,0.02) 8px,transparent 8px,transparent 16px);"></div>';
+              document.body.appendChild(el);
+              requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'scale(1)'; });
+              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'scale(0.9)'; setTimeout(() => el.remove(), 500); }, 5500);
+            }, win.delay);
+          });
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 11500);
+        }
+      },
+      // ═══ NEW — COMBINED HOUSE GOALS x PULSE CHECK ═══
+      { selector: '#house-goal-table', title: 'House Goals x Pulse Check — Side by Side',
+        desc: 'On a widescreen monitor, House Goals and Pulse Check sit side by side on one view. Set your monthly goals on the left — watch them divide into Rhythm Levels for every rep on the right. One screen. Zero context-switching. The next steps walk you through both.',
+        label: 'Step 19 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const h = document.getElementById('house-goal-table');
+            if (h) h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            _schedTourTimer(() => { if (tourActive) advanceTour(); }, 8500);
+          }, 400);
+        }
+      },
+      // ═══ STEP 7 — HOUSE GOALS ═══
+      { selector: '#house-goal-table', title: 'House Goal Setting',
+        desc: 'Set your company targets. PULSE divides them by rep count automatically — no spreadsheets, no arguments. Watch the demo data fill in now.',
+        label: 'Step 20 of 46',
+        onShow: () => { _schedTourTimer(() => { if (!tourActive) return; if (typeof runTourDemoData === 'function') runTourDemoData(); }, 2000); }
+      },
+      // ═══ STEP 8 — TEAM SIZE ═══
+      { selector: '#house-rep-count', title: 'Team Size',
+        desc: 'How many reps? Watch PULSE ghost-type a 12 into the Team Size field. As soon as the number lands, every house goal in the matrix instantly divides by twelve — fair targets for every rep, zero debate, no spreadsheets.',
+        label: 'Step 21 of 46',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            _tourGhostType('#house-rep-count', '12', { speed: 220 });
+          }, 2500);
+        }
+      },
+      // ═══ STEP 9 — INDUSTRY PRESET ═══
+      { selector: '#global-industry-select', title: 'Pick Your Industry',
+        desc: 'Select your industry and watch every KPI, benchmark, and AI suggestion recalibrate instantly. Watch PULSE cycle through five verticals — solar, SaaS, insurance, real estate, and healthcare — with a ghost cursor picking each one. 35 verticals total live in the dropdown.',
+        label: 'Step 22 of 46',
+        onShow: () => {
+          var inds = ['solar','saas','insurance','realestate','healthcare'];
+          var labels = ['Click: Solar','Click: SaaS','Click: Insurance','Click: Real Estate','Click: Healthcare'];
+          inds.forEach(function(ind, i) {
+            _schedTourTimer(function() {
+              if (!tourActive) return;
+              _tourGhostSelect('#global-industry-select', ind, { label: labels[i] });
+            }, 2500 + i * 2800);
+          });
+        }
+      },
+      // ═══ STEP 10 — KPI TYPE ═══
+      { selector: '.kpi-type-select', title: 'Total vs. Percentage',
+        desc: 'Each KPI can be a total or a percentage. Pro tip from the field — percentage goals backfire. Reps shrink volume to protect their rate. Always use totals.',
+        label: 'Step 23 of 46'
+      },
+      // ═══ STEP 11 — AI GOAL SUGGESTIONS ═══
+      { selector: '.ai-btn[onclick*="aiSuggestGoals"]', title: 'AI Goal Suggestions',
+        desc: 'No idea what targets to set? Watch PULSE ghost-click the AI Suggest Goals button for you. In a moment, every house goal field will populate with an intelligent starting point — pulled from industry benchmarks, your rep count, and real-world performance curves. You still adjust from there, but you never start from zero.',
+        label: 'Step 24 of 46',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            _tourGhostClick('.ai-btn[onclick*="aiSuggestGoals"]', {
+              label: 'Click: AI Suggest',
+              onClick: function() { if (typeof aiSuggestGoals === 'function') aiSuggestGoals(); }
+            });
+          }, 2500);
+        }
+      },
+      // ═══ STEP 12 — SAVE & IMPORT ═══
+      { selector: '.kpi-config-panel', title: 'Save, Load & Import',
+        desc: 'Your progress saves automatically as you work. Watch PULSE ghost-click the Save to Locker button — you can stash your entire setup with a 4-digit code and load it on any device in seconds. Or import your existing goals from a CSV or Excel file with one click.',
+        label: 'Step 25 of 46',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var saveBtn = document.querySelector('.kpi-config-panel button[onclick*="saveProgress"], .kpi-config-panel button[onclick*="openLocker"], .kpi-config-panel button');
+            if (saveBtn) _tourGhostClick(saveBtn, { label: 'Click: Save', doClick: false });
+          }, 2800);
+        }
+      },
+      // ═══ PULSE CHECK MATRIX ═══
+      { selector: '#inline-matrix', title: 'The Pulse Check',
+        desc: 'Your house goals just became 5 escalating tiers per KPI — automatically. No spreadsheets, no manual entry. Each KPI has a column. Each row is a level. The matrix syncs live with your house goals: change a goal, the tiers redistribute. This is what your reps actually get measured against.',
+        label: 'Step 26 of 46',
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof syncHouseToMatrix === 'function') syncHouseToMatrix(); } catch(e) {} }, 1500);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var rows = document.querySelectorAll('#inline-matrix-body tr.row-target');
+            rows.forEach(function(row, i) {
+              _schedTourTimer(function() {
+                if (!tourActive) return;
+                row.style.transition = 'all 0.4s';
+                row.style.boxShadow = '0 0 0 2px rgba(232,113,10,0.55), 0 0 18px rgba(232,113,10,0.18)';
+                row.style.background = 'rgba(232,113,10,0.05)';
+                _schedTourTimer(function() { row.style.boxShadow = ''; row.style.background = ''; }, 1800);
+              }, i * 800);
+            });
+          }, 3000);
+        }
+      },
+      // ═══ END-OF-MONTH SCORING ═══
+      { selector: '#inline-matrix', title: 'End-of-Month Scoring',
+        desc: 'Month closes. PULSE walks one rep through every KPI, left to right. Each card shows what tier she hit and the points she earned. Watch the running total climb. The total maps to a Rhythm Level and a commission tier. No spreadsheets. No debate.',
+        label: 'Step 27 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 38000);
+          var KPIS = [
+            { name:'New Acts',      tier:'Tier 4', pts:400, color:'#a855f7' },
+            { name:'Camera Pkgs',   tier:'Tier 4', pts:400, color:'#a855f7' },
+            { name:'Smart Home',    tier:'Tier 3', pts:250, color:'#eab308' },
+            { name:'Commercial',    tier:'Tier 2', pts:140, color:'#f97316' },
+            { name:'Referrals',     tier:'Tier 3', pts:250, color:'#eab308' },
+            { name:'Upgrades',      tier:'Tier 3', pts:250, color:'#14b8a6' },
+            { name:'Avg Contract',  tier:'Tier 3', pts:250, color:'#eab308' },
+            { name:'Cancellations', tier:'Tier 2', pts:140, color:'#ec4899' },
+            { name:'Churn Rate',    tier:'Tier 1', pts:45,  color:'#14b8a6' }
+          ];
+          var overlay = document.createElement('div');
+          overlay.id = 'tour-eom-overlay';
+          overlay.style.cssText = 'position:fixed;inset:0;z-index:99980;background:radial-gradient(ellipse at center,rgba(8,12,18,0.94),rgba(0,0,0,0.97));backdrop-filter:blur(8px);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity 0.5s ease;pointer-events:none;font-family:inherit;padding:20px;';
+          var head = document.createElement('div');
+          head.style.cssText = 'text-align:center;margin-bottom:18px;';
+          head.innerHTML = '<div style="font-size:0.62rem;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:#E8710A;margin-bottom:6px;">End of Month · Sarah</div>'
+            + '<div style="font-size:1.4rem;font-weight:900;color:#EDE5D8;text-shadow:0 0 24px rgba(232,113,10,0.4);">Scoring all 9 KPIs</div>';
+          overlay.appendChild(head);
+          var rowWrap = document.createElement('div');
+          rowWrap.style.cssText = 'display:flex;gap:10px;flex-wrap:nowrap;justify-content:center;max-width:96vw;overflow-x:auto;padding:8px 4px 16px;';
+          var boxes = [];
+          KPIS.forEach(function(k) {
+            var box = document.createElement('div');
+            box.style.cssText = 'flex:0 0 auto;width:108px;background:linear-gradient(160deg,rgba(17,21,24,0.96),rgba(8,12,18,0.98));border:1.5px solid ' + k.color + '40;border-radius:12px;padding:14px 10px;text-align:center;opacity:0;transform:translateY(20px) scale(0.85);transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);';
+            box.innerHTML = '<div style="font-size:0.58rem;font-weight:800;color:rgba(237,229,216,0.65);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;line-height:1.2;min-height:28px;display:flex;align-items:center;justify-content:center;">' + k.name + '</div>'
+              + '<div style="display:inline-block;font-size:0.55rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:' + k.color + '20;color:' + k.color + ';margin-bottom:8px;">' + k.tier + '</div>'
+              + '<div style="font-size:1.25rem;font-weight:900;color:' + k.color + ';line-height:1;">+' + k.pts + '</div>'
+              + '<div style="font-size:0.5rem;color:rgba(237,229,216,0.4);margin-top:2px;letter-spacing:0.08em;">PLS</div>';
+            rowWrap.appendChild(box);
+            boxes.push({el: box, k: k});
+          });
+          overlay.appendChild(rowWrap);
+          var totalWrap = document.createElement('div');
+          totalWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:6px;opacity:0;transition:opacity 0.5s ease;';
+          totalWrap.innerHTML = '<div style="font-size:0.58rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,229,216,0.6);">Running Total</div>'
+            + '<div id="tour-eom-total" style="font-size:3rem;font-weight:900;color:#22c55e;line-height:1;text-shadow:0 0 30px rgba(34,197,94,0.5);">0 PLS</div>'
+            + '<div id="tour-eom-level" style="font-size:0.78rem;font-weight:700;color:rgba(237,229,216,0.7);min-height:22px;"></div>';
+          overlay.appendChild(totalWrap);
+          document.body.appendChild(overlay);
+          requestAnimationFrame(function() { overlay.style.opacity = '1'; totalWrap.style.opacity = '1'; });
+          var running = 0;
+          boxes.forEach(function(b, i) {
+            _schedTourTimer(function() {
+              if (!tourActive) return;
+              b.el.style.opacity = '1';
+              b.el.style.transform = 'translateY(0) scale(1)';
+              b.el.style.boxShadow = '0 12px 40px ' + b.k.color + '40, 0 0 24px ' + b.k.color + '30';
+              var from = running;
+              running += b.k.pts;
+              var to = running;
+              var t0 = performance.now();
+              var totalEl = document.getElementById('tour-eom-total');
+              (function tick(now) {
+                if (!totalEl) return;
+                var p = Math.min((now - t0) / 1500, 1);
+                totalEl.textContent = Math.round(from + (to - from) * p).toLocaleString() + ' PLS';
+                if (p < 1) requestAnimationFrame(tick);
+              })(performance.now());
+            }, 1200 + i * 3400);
+          });
+          _schedTourTimer(function() {
+            if (!tourActive) return;
+            var lvl = document.getElementById('tour-eom-level');
+            if (lvl) lvl.textContent = '2,125 PLS → Level 3 unlocked · Base + 15% commission';
+          }, 1200 + boxes.length * 3400 + 800);
+          _schedTourTimer(function() {
+            overlay.style.opacity = '0';
+            setTimeout(function() { if (overlay.parentNode) overlay.remove(); }, 600);
+          }, 36500);
+        }
+      },
+      // ═══ TEAM DISTRIBUTION ═══
+      { selector: '.tier-dist-wrap', title: 'Team Distribution',
+        desc: 'Now zoom out. Where does the whole team land across the 5 levels? Spot the bulge — too many at the bottom means a coaching problem, too many at the top means your goals are too soft. Adjust before the month even starts.',
+        label: 'Step 28 of 46',
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; try { if (typeof updateTierChart === 'function') updateTierChart(); } catch(e) {} }, 1500);
+        }
+      },
+      // ═══ AI REVENUE FORECAST ═══
+      { selector: '#ai-forecast-panel', title: 'AI Revenue Forecast',
+        desc: 'PULSE looks at your targets and tells you what\'s actually going to happen. Projected revenue, at-risk reps, attainment likelihood. The number your board wants — before the month ends.',
+        label: 'Step 29 of 46',
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; const fp = document.getElementById('ai-forecast-panel'); if (fp) fp.style.display = 'block'; }, 2000);
+        }
+      },
+      // ═══ FINANCIAL TOOLS ═════════════════════════════════════════════════════════
+      // ═══ STEP 24 — GROSS PROFIT (rebuilt: managedTimer + explicit advance) ═══
+      { selector: '#profit-calc-section', title: 'Gross Profit Calculator',
+        desc: 'How much money are you actually making? Here is the exact math PULSE runs. For every KPI, it takes your house goal and multiplies it by the profit per unit. Watch PULSE ghost-type 450 into the first KPI field, then show the stacked breakdown — 100 activations times 450 dollars each equals 45,000 dollars on just one KPI. PULSE stacks every KPI together for your total monthly projected gross profit. This is the number your CFO wants.',
+        label: 'Step 30 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var input = document.querySelector('#profit-calc-section input[type="number"]');
+            if (input) _tourGhostType(input, '450', { speed: 180 });
+          }, 3500);
+          // Honeycomb flow — hex pulses on each KPI row then flies into Total Revenue
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var rows = document.querySelectorAll('#profit-matrix-body tr');
+            var totalCell = document.getElementById('profit-total-rev');
+            if (!rows.length || !totalCell) return;
+            if (!document.getElementById('tour-hex-kf')) {
+              var kf = document.createElement('style');
+              kf.id = 'tour-hex-kf';
+              kf.textContent = '@keyframes tourHexPulse{0%,100%{transform:translate(-50%,-50%) scale(1);filter:drop-shadow(0 0 6px rgba(232,113,10,0.6))}50%{transform:translate(-50%,-50%) scale(1.18);filter:drop-shadow(0 0 16px rgba(232,113,10,0.95))}}@keyframes tourTotalPop{0%{transform:scale(1)}50%{transform:scale(1.22);filter:drop-shadow(0 0 18px rgba(34,197,94,0.9))}100%{transform:scale(1)}}';
+              document.head.appendChild(kf);
+            }
+            var tRect = totalCell.getBoundingClientRect();
+            var tx = tRect.left + tRect.width / 2;
+            var ty = tRect.top + tRect.height / 2;
+            rows.forEach(function(row, i) {
+              _schedTourTimer(function() {
+                if (!tourActive) return;
+                var r = row.getBoundingClientRect();
+                var sx = r.left + 24;
+                var sy = r.top + r.height / 2;
+                var hex = document.createElement('div');
+                hex.style.cssText = 'position:fixed;left:' + sx + 'px;top:' + sy + 'px;width:34px;height:38px;z-index:99995;pointer-events:none;transform:translate(-50%,-50%);background:linear-gradient(145deg,#FFB366,#E8710A);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);animation:tourHexPulse 0.9s ease-in-out infinite;transition:left 0.85s cubic-bezier(0.55,0.05,0.2,1),top 0.85s cubic-bezier(0.55,0.05,0.2,1),opacity 0.3s ease,width 0.85s ease,height 0.85s ease;';
+                document.body.appendChild(hex);
+                // Pulse in place, then fly to total
+                _schedTourTimer(function() {
+                  hex.style.left = tx + 'px';
+                  hex.style.top = ty + 'px';
+                  hex.style.width = '22px';
+                  hex.style.height = '25px';
+                }, 700);
+                _schedTourTimer(function() {
+                  hex.style.opacity = '0';
+                  totalCell.style.animation = 'tourTotalPop 0.55s ease-out';
+                  _schedTourTimer(function() { totalCell.style.animation = ''; }, 600);
+                  _schedTourTimer(function() { if (hex.parentNode) hex.remove(); }, 400);
+                }, 1550);
+              }, i * 550);
+            });
+          }, 4800);
+          // Floating calculation card — same pattern as the Rep Scheduling break-even card
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var card = document.createElement('div');
+            card.className = 'tour-gp-result-card';
+            card.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.85);z-index:99990;background:linear-gradient(160deg,rgba(17,21,24,0.98),rgba(8,12,18,0.98));border:1.5px solid rgba(232,113,10,0.5);border-radius:16px;padding:26px 32px;min-width:360px;box-shadow:0 24px 80px rgba(0,0,0,0.75),0 0 50px rgba(232,113,10,0.2);font-family:inherit;color:#EDE5D8;opacity:0;transition:all 0.55s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none;';
+            card.innerHTML =
+              '<div style="font-size:0.56rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#E8710A;margin-bottom:6px;">Live Calculation</div>' +
+              '<div style="font-size:1.1rem;font-weight:900;margin-bottom:16px;">Monthly Gross Profit</div>' +
+              '<div style="display:flex;flex-direction:column;gap:8px;font-size:0.82rem;">' +
+                '<div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);">' +
+                  '<span style="color:rgba(237,229,216,0.7);">New Activations <span style="color:rgba(237,229,216,0.4);font-size:0.72rem;">(100 × $450)</span></span>' +
+                  '<span style="font-weight:800;color:#EDE5D8;">$45,000</span>' +
+                '</div>' +
+                '<div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);">' +
+                  '<span style="color:rgba(237,229,216,0.7);">Upgrades <span style="color:rgba(237,229,216,0.4);font-size:0.72rem;">(40 × $280)</span></span>' +
+                  '<span style="font-weight:800;color:#EDE5D8;">$11,200</span>' +
+                '</div>' +
+                '<div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);">' +
+                  '<span style="color:rgba(237,229,216,0.7);">Cross-Sell <span style="color:rgba(237,229,216,0.4);font-size:0.72rem;">(60 × $125)</span></span>' +
+                  '<span style="font-weight:800;color:#EDE5D8;">$7,500</span>' +
+                '</div>' +
+                '<div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);">' +
+                  '<span style="color:rgba(237,229,216,0.7);">Renewals MRR <span style="color:rgba(237,229,216,0.4);font-size:0.72rem;">(25 × $180 × 12)</span></span>' +
+                  '<span style="font-weight:800;color:#EDE5D8;">$54,000</span>' +
+                '</div>' +
+                '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:14px 16px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.35);border-radius:10px;">' +
+                  '<div>' +
+                    '<div style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#22c55e;">Total Monthly GP</div>' +
+                    '<div style="font-size:0.68rem;color:rgba(237,229,216,0.6);margin-top:2px;">Sum of all KPI contributions</div>' +
+                  '</div>' +
+                  '<div style="font-size:1.7rem;font-weight:900;color:#22c55e;line-height:1;">$117,700</div>' +
+                '</div>' +
+                '<div style="font-size:0.7rem;color:rgba(237,229,216,0.55);margin-top:6px;text-align:center;font-style:italic;">Annualized: $1.41M · Keep-rate, not top-line.</div>' +
+              '</div>';
+            document.body.appendChild(card);
+            requestAnimationFrame(function() { card.style.opacity = '1'; card.style.transform = 'translate(-50%,-50%) scale(1)'; });
+            setTimeout(function() {
+              card.style.opacity = '0';
+              card.style.transform = 'translate(-50%,-50%) scale(0.9)';
+              setTimeout(function() { card.remove(); }, 600);
+            }, 9000);
+          }, 7000);
+          // Advance after the calc card fades out + 2s breath (ghost-type 3.5s +
+          // hex-flow ~5s + calc card shows 7s + 9s hold = ~16s. Add 2s buffer.)
+          _schedTourTimer(() => { if (tourActive) advanceTour(); }, 17500);
+        }
+      },
+      // ═══ STEP 25 — SERVICE FEES (rebuilt: managedTimer + explicit advance) ═══
+      { selector: '#service-fees-section', title: 'Service Fees',
+        desc: 'Service fees pay for back office support. At roughly 50 thousand per admin, how many admins are your fees actually paying for? Watch PULSE ghost-type 25 into the first fee field — a 25 dollar monthly service fee across your customer base adds up fast. PULSE shows you the bottom-line impact in real time.',
+        label: 'Step 31 of 46',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var input = document.querySelector('#service-fees-section input[type="number"]');
+            if (input) _tourGhostType(input, '25', { speed: 260 });
+          }, 3000);
+        }
+      },
+      // ═══ STEP 21 — RECRUITING CALCULATOR ═══
+      { selector: '#recruiting-calc-section', title: 'Recruiting Calculator',
+        desc: 'How many people do you need to hire? Watch PULSE ghost-type a 5 million dollar revenue target into the calculator. Factor in your current ARR, quota per rep, ramp time, and attrition, and PULSE tells you the exact headcount you need to hit that number. No guessing, no over-hiring, no panic-hiring in Q4.',
+        label: 'Step 32 of 46',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var input = document.querySelector('#recruiting-calc-section input[type="number"]');
+            if (input) _tourGhostType(input, '5000000', { speed: 150 });
+          }, 3000);
+        }
+      },
+      // ═══ STEP 22 — REP SCHEDULING ═══
+      { selector: '#sched-matrix-section', title: 'Rep Scheduling Matrix',
+        desc: 'Scheduling is math, not vibes. PULSE takes the average gross profit of that shift on that day and divides it by the agreed-upon "get out of bed" GP each rep owes you just for showing up. That ratio is the minimum number of reps you need on the floor that day. PULSE then slices them into 6-hour shifts across opening, mid-day, and closing windows — no doubles unless absolutely necessary.',
+        label: 'Step 33 of 46',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var input = document.querySelector('#sched-matrix-section .sched-gpd-input, #sched-matrix-section input[type="number"]');
+            if (input) _tourGhostType(input, '400', { speed: 240 });
+          }, 3500);
+          // Two-panel breakdown: math on the left, shift schedule on the right
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var card = document.createElement('div');
+            card.className = 'tour-shift-result-card';
+            card.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.85);z-index:99990;display:flex;gap:18px;align-items:stretch;font-family:inherit;color:#EDE5D8;opacity:0;transition:all 0.55s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none;max-width:94vw;';
+            // LEFT PANEL — the math
+            var left = document.createElement('div');
+            left.style.cssText = 'background:linear-gradient(160deg,rgba(17,21,24,0.98),rgba(8,12,18,0.98));border:1.5px solid rgba(232,113,10,0.5);border-radius:16px;padding:26px 30px;min-width:340px;box-shadow:0 24px 80px rgba(0,0,0,0.75),0 0 50px rgba(232,113,10,0.2);';
+            left.innerHTML =
+              '<div style="font-size:0.56rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#E8710A;margin-bottom:6px;">Live Calculation</div>' +
+              '<div style="font-size:1.1rem;font-weight:900;margin-bottom:16px;">Minimum Reps For The Day</div>' +
+              '<div style="display:flex;flex-direction:column;gap:10px;font-size:0.82rem;">' +
+                '<div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);">' +
+                  '<span style="color:rgba(237,229,216,0.7);">Daily team GP target</span>' +
+                  '<span style="font-weight:900;color:#FF8C1A;">$2,000</span>' +
+                '</div>' +
+                '<div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);">' +
+                  '<span style="color:rgba(237,229,216,0.7);">Avg GP per rep / day</span>' +
+                  '<span style="font-weight:800;color:#EDE5D8;">$400</span>' +
+                '</div>' +
+                '<div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);">' +
+                  '<span style="color:rgba(237,229,216,0.55);font-size:0.72rem;font-style:italic;">(showing up · average work)</span>' +
+                  '<span></span>' +
+                '</div>' +
+                '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:14px 16px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.35);border-radius:10px;">' +
+                  '<div>' +
+                    '<div style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#22c55e;">Min Reps Needed</div>' +
+                    '<div style="font-size:0.7rem;color:rgba(237,229,216,0.6);margin-top:2px;">$2,000 ÷ $400</div>' +
+                  '</div>' +
+                  '<div style="font-size:2.2rem;font-weight:900;color:#22c55e;line-height:1;">5 reps</div>' +
+                '</div>' +
+                '<div style="font-size:0.7rem;color:rgba(237,229,216,0.55);margin-top:6px;text-align:center;font-style:italic;">Anything fewer and you\'re short. Anything more is fat.</div>' +
+              '</div>';
+            // RIGHT PANEL — shift breakdown
+            var right = document.createElement('div');
+            right.style.cssText = 'background:linear-gradient(160deg,rgba(17,21,24,0.98),rgba(8,12,18,0.98));border:1.5px solid rgba(96,165,250,0.45);border-radius:16px;padding:26px 28px;min-width:300px;box-shadow:0 24px 80px rgba(0,0,0,0.75),0 0 50px rgba(96,165,250,0.18);';
+            var shifts = [
+              { rep:'Sarah',  window:'Open',    time:'9:00 AM – 3:00 PM',  color:'#60A5FA' },
+              { rep:'Mike',   window:'Open',    time:'9:00 AM – 3:00 PM',  color:'#60A5FA' },
+              { rep:'Carlos', window:'Mid',     time:'11:00 AM – 5:00 PM', color:'#22c55e' },
+              { rep:'Taylor', window:'Close',   time:'3:00 PM – 9:00 PM',  color:'#a855f7' },
+              { rep:'Jordan', window:'Close',   time:'3:00 PM – 9:00 PM',  color:'#a855f7' }
+            ];
+            var rightHTML = '<div style="font-size:0.56rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#60A5FA;margin-bottom:6px;">Shift Breakdown</div>' +
+              '<div style="font-size:1.1rem;font-weight:900;margin-bottom:16px;">5 Reps · 6-Hour Shifts</div>' +
+              '<div style="display:flex;flex-direction:column;gap:8px;font-size:0.78rem;">';
+            shifts.forEach(function(s) {
+              rightHTML += '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);border-left:3px solid ' + s.color + ';border-radius:8px;">' +
+                '<div style="flex:0 0 60px;font-weight:800;color:#EDE5D8;">' + s.rep + '</div>' +
+                '<div style="flex:0 0 50px;font-size:0.55rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:' + s.color + ';">' + s.window + '</div>' +
+                '<div style="flex:1;text-align:right;font-size:0.74rem;color:rgba(237,229,216,0.75);font-variant-numeric:tabular-nums;">' + s.time + '</div>' +
+                '</div>';
+            });
+            rightHTML += '</div>' +
+              '<div style="margin-top:14px;padding:10px 14px;background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.3);border-radius:10px;font-size:0.7rem;color:rgba(237,229,216,0.75);text-align:center;">' +
+                '<strong style="color:#60A5FA;">Coverage:</strong> 9 AM – 9 PM · Zero doubles · Ideal load' +
+              '</div>';
+            right.innerHTML = rightHTML;
+            card.appendChild(left);
+            card.appendChild(right);
+            document.body.appendChild(card);
+            requestAnimationFrame(function() { card.style.opacity = '1'; card.style.transform = 'translate(-50%,-50%) scale(1)'; });
+            setTimeout(function() {
+              card.style.opacity = '0';
+              card.style.transform = 'translate(-50%,-50%) scale(0.9)';
+              setTimeout(function() { card.remove(); }, 600);
+            }, 11000);
+          }, 7000);
+        }
+      },
+      // ═══ STEP 23 — COACHING ═══
+      { selector: '#coaching-section', title: 'Coaching Action Items',
+        desc: 'One specific coaching move for each Rhythm Level — real actions sourced from Gartner, HBR, McKinsey, and years in the field. Watch PULSE ghost-click the AI Coaching button and watch it generate personalized coaching moves for every tier, tailored to your industry, instantly.',
+        label: 'Step 34 of 46',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var btn = document.getElementById('ai-coaching-btn') || document.querySelector('#coaching-section .ai-btn');
+            if (btn) _tourGhostClick(btn, {
+              label: 'Click: Generate',
+              doClick: false,
+              onClick: function() { if (typeof aiCoachingItems === 'function') aiCoachingItems(false); }
+            });
+          }, 2800);
+        }
+      },
+      // ═══ STEP 24 — 90-DAY PLAN ═══
+      { selector: '#plan-90', title: '90-Day Revenue Plan',
+        desc: 'Three phases. Days 1 through 30 — establish the foundation. Days 31 through 60 — build pipeline. Days 61 through 90 — accelerate and close. The exact playbook for ramping a new market or resetting a team.',
+        label: 'Step 35 of 46'
+      },
+      // ═══ NEW — INVENTORY TRACKER ═══
+      { selector: '#inventory-section', title: 'Inventory Tracker',
+        desc: 'Track every SKU by vendor and received date. PULSE color-codes age — green under 30 days, orange 30 to 60, red 60 to 90, crimson 90 plus. Hit any filter chip to see only stale stock. Import vendor CSVs or add SKUs manually. Built for leaders who run physical inventory alongside their sales pipeline.',
+        label: 'Step 36 of 46', managedTimer: true,
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const sec = document.getElementById('inventory-section');
+            if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              // Ghost-load demo if empty
+              try {
+                var rows = JSON.parse(localStorage.getItem('pulse_inventory_skus_v1') || '[]');
+                if (!rows.length && typeof invLoadDemo === 'function') invLoadDemo();
+              } catch(e) {}
+              _schedTourTimer(() => {
+                if (!tourActive) return;
+                try { invSetFilter(30); } catch(e) {}
+                _schedTourTimer(() => { if (!tourActive) return; try { invSetFilter(60); } catch(e) {} }, 2200);
+                _schedTourTimer(() => { if (!tourActive) return; try { invSetFilter(90); } catch(e) {} }, 4400);
+                _schedTourTimer(() => { if (!tourActive) return; try { invSetFilter(0); } catch(e) {} }, 6200);
+                _schedTourTimer(() => { if (tourActive) advanceTour(); }, 8400);
+              }, 1200);
+            }, 1400);
+          }, 400);
+        }
+      },
+      // ═══ STEP 25 — NOT-TO-DO LIST ═══
+      { selector: '#not-to-do-section', title: 'The Not-To-Do List',
+        desc: ['Your reps sell 28 percent of the week. The other 72 percent is meetings, admin, and busywork. This list identifies what to stop doing so your team can actually sell.','Gartner says reps sell 28 percent of the week. The other 72 percent? Meetings about meetings. This list fixes that.','The Not-To-Do List. Because sometimes the best way to increase revenue is to stop doing stupid stuff.'][Math.floor(Math.random()*3)],
+        label: 'Step 37 of 46'
+      },
+      // ═══ FIXATOR — Autonomous AI resolver ═══
+      { selector: '#fixator-btn', title: 'Fixator — Autonomous AI Mode',
+        desc: 'See the Fixator button in the top nav? This is PULSE\'s autopilot. Watch PULSE ghost-click it now — the authorization modal will slide in with the full list of what the AI is permitted to operate. When Fixator is on, it auto-resolves revenue bottlenecks without asking: re-routing stale leads, fixing data errors, rebalancing pipelines, tuning alert thresholds. When it\'s off, the AI still predicts issues but requires your approval.',
+        label: 'Step 38 of 46',
+        onShow: () => {
+          _tourArrowPointer('#fixator-btn', 'left', 2500);
+          _tourArrowPointer('#fixator-btn', 'right', 2500);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            _tourGhostClick('#fixator-btn', {
+              label: 'Click: Fixator',
+              doClick: false,
+              onClick: function() {
+                // Show the modal but auto-dismiss after 6s so the tour keeps flowing
+                var modal = document.getElementById('fixator-modal');
+                if (modal) {
+                  modal.style.display = 'flex';
+                  _schedTourTimer(function() { if (modal) modal.style.display = 'none'; }, 6000);
+                }
+              }
+            });
+          }, 3000);
+        }
+      },
+      // ═══ MONTH-AHEAD GOALS — Smart suggestion engine ═══
+      { selector: '#monthly-goals-section', title: 'Month-Ahead Goal Setting',
+        desc: 'Every admin sets next month\'s goals by the last day of the current month. This screen does the math for you. Watch PULSE ghost-type a 15 into the growth factor, then ghost-click Apply All Suggestions — every rep gets their smart target populated instantly, using the formula: three-month rolling average plus same month last year, divided by two, times your growth. When you\'re within 7 days of month-end you also get a login banner nudging you to come here.',
+        label: 'Step 39 of 46',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            _tourGhostType('#mg-growth-factor', '15', { speed: 240 });
+          }, 2200);
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var btn = document.querySelector('button[onclick="mgApplyAllSuggestions()"]');
+            if (btn) _tourGhostClick(btn, { label: 'Click: Apply All Suggestions' });
+          }, 4500);
+        }
+      },
+      // ═══ REPORTS — ECharts deep-dive analytics ═══
+      { selector: '#reports-section', title: 'Deep-Dive Reports',
+        desc: 'Seven live dashboards that auto-update from your CRM. Pipeline Funnel shows where deals drop off. Win Rate by Rep is color-coded — green above 60 percent, red below 40. Pipeline Value by Stage shows where your dollars are sitting. Deal Age Distribution flags stalled deals in the 60-plus-day bucket in red. Revenue Trend plots 6 months of closed-won plus next month\'s projection. Rep Quality Scorecard is a radar chart across five axes: pipeline volume, win rate, deal size, velocity, and activity. And the Loss Reason Breakdown shows exactly why you\'re losing deals. Every chart is interactive — hover for tooltips, click to drill in.',
+        label: 'Step 40 of 46',
+        onShow: () => {
+          _schedTourTimer(() => { if (!tourActive) return; if (typeof reportsRefresh === 'function') reportsRefresh(); }, 2000);
+        }
+      },
+      // ═══ STEP 26 — LIGHTNING ROUNDS ═══
+      { selector: '#challenge-section', title: 'Lightning Rounds',
+        desc: ['Energy dying mid-month? Drop a Lightning Round. Pick a KPI, set a time window, attach bonus Pulse Points. The team will thank you — or hate you. Either way, they sell more.','It\'s 2 PM on a Tuesday. Nobody\'s selling. Drop a Lightning Round. Instant chaos. Instant revenue. You\'re welcome.','The mid-month energy killer is real. Lightning Rounds fix it. Pick a KPI, set a clock, watch your team turn into competitors.'][Math.floor(Math.random()*3)],
+        label: 'Step 41 of 46',
+        onShow: () => {
+          // Show a fake Lightning Round launch card center screen
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const card = document.createElement('div');
+            card.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);z-index:99999;background:rgba(10,14,20,0.97);border:2px solid rgba(232,113,10,0.5);border-radius:16px;padding:24px 32px;font-family:inherit;box-shadow:0 16px 60px rgba(0,0,0,0.6),0 0 40px rgba(232,113,10,0.15);opacity:0;transition:all 0.5s ease;text-align:center;min-width:280px;';
+            card.innerHTML = '<div style="font-size:1.5rem;margin-bottom:6px;">⚡</div>'
+              + '<div style="font-size:0.6rem;font-weight:800;color:#E8710A;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;">Lightning Round Active</div>'
+              + '<div style="font-size:1.1rem;font-weight:900;color:#EDE5D8;margin-bottom:4px;">New Activations</div>'
+              + '<div style="font-size:0.72rem;color:#9A9088;margin-bottom:14px;">50 bonus Pulse Points · Ends in 2 hours</div>'
+              + '<div style="font-size:0.62rem;font-weight:700;color:#9A9088;margin-bottom:8px;">LEADERBOARD</div>'
+              + '<div style="text-align:left;font-size:0.75rem;line-height:2;color:#EDE5D8;">'
+              + '<div>🥇 <strong>Sarah</strong> <span style="float:right;color:#22c55e;">12 activations</span></div>'
+              + '<div>🥈 <strong>Mike</strong> <span style="float:right;color:#E8710A;">9 activations</span></div>'
+              + '<div>🥉 <strong>Carlos</strong> <span style="float:right;color:#9A9088;">7 activations</span></div>'
+              + '</div>';
+            document.body.appendChild(card);
+            requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = 'translate(-50%,-50%) scale(1)'; });
+            setTimeout(() => { card.style.opacity = '0'; card.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => card.remove(), 500); }, 8000);
+          }, 2000);
+        }
+      },
+      // ═══ STEP 27 — SQUAD SYNC ═══
+      { selector: '#app-sync-section', title: 'Squad Sync',
+        desc: 'Scores, bonus levels, and active Lightning Rounds — pushed to every rep\'s phone in real time. They always know where they stand. No app download. No login. Just open PULSE.',
+        label: 'Step 42 of 46',
+        onShow: () => {
+          // Stack of notifications sliding in
+          const notifs = [
+            { delay: 1500, color: '#22c55e', label: 'Score Update', msg: 'Sarah moved to Rhythm Level 4 — 2,850 Pulse Points', top: 80 },
+            { delay: 4000, color: '#E8710A', label: 'Lightning Round', msg: '⚡ New Activations — 2 hours remaining · 50 bonus pts', top: 130 },
+            { delay: 6500, color: '#60A5FA', label: 'Pipeline Alert', msg: 'Mike closed Acme Corp — $12,000 · Win rate now 68%', top: 180 },
+            { delay: 9000, color: '#22c55e', label: 'Leaderboard', msg: '🏆 Carlos overtook Taylor for #2 this month', top: 230 },
+          ];
+          notifs.forEach(n => {
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const el = document.createElement('div');
+              const yOff = [-60, -20, 20, 60][notifs.indexOf(n)];
+              el.style.cssText = 'position:fixed;top:calc(50% + ' + yOff + 'px);left:50%;transform:translate(-50%,-50%) scale(0.9);z-index:99999;background:rgba(10,14,20,0.97);border:1px solid ' + n.color + '40;border-left:4px solid ' + n.color + ';border-radius:12px;padding:14px 22px;font-size:0.78rem;color:#EDE5D8;font-family:inherit;box-shadow:0 12px 48px rgba(0,0,0,0.6);opacity:0;transition:all 0.5s ease;max-width:320px;';
+              el.innerHTML = '<div style="font-size:0.52rem;font-weight:800;color:' + n.color + ';letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">' + n.label + '</div>' + n.msg;
+              document.body.appendChild(el);
+              requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translate(-50%,-50%) scale(1)'; });
+              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translate(-50%,-50%) scale(0.9)'; setTimeout(() => el.remove(), 500); }, 4500);
+            }, n.delay);
+          }, 6000);
+        }
+      },
+      // ═══ STEP 28 — SALES MEETING CREATOR — ghost-fill every field, then generate ═══
+      { selector: '#meeting-creator-section', title: 'Sales Meeting Creator',
+        desc: 'Running a sales meeting without a script is like cooking without a recipe. Watch PULSE ghost-type the team name and focus KPI, pick the meeting type and duration, then click Generate — AI builds a full agenda with timestamps, role plays, energy breaks, even memes.',
+        label: 'Step 43 of 46', managedTimer: true,
+        onShow: () => {
+          // Chain: type → type → select → select → ghost-click generate
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            const nameEl = document.getElementById('mt-name');
+            if (!nameEl) { advanceTour(); return; }
+            _tourGhostType(nameEl, 'Sarah, Mike, Carlos, Taylor', { speed: 45, onDone: function() {
+              const kpiEl = document.getElementById('mt-kpi');
+              _tourGhostType(kpiEl, 'Close Rate + Pipeline Health', { speed: 50, onDone: function() {
+                const typeEl = document.getElementById('mt-type');
+                _tourGhostSelect(typeEl, 'Pipeline Review', { delay: 500, onDone: function() {
+                  const durEl = document.getElementById('mt-duration');
+                  _tourGhostSelect(durEl, '60', { delay: 500, onDone: function() {
+                    _schedTourTimer(function() {
+                      const btn = document.querySelector('#meeting-creator-section button[onclick*="generate"], #meeting-creator-section .ai-btn, #meeting-creator-section button');
+                      if (btn) _tourGhostClick(btn, { label: 'Click: Generate Meeting', doClick: false });
+                    }, 700);
+                    _schedTourTimer(function() { if (tourActive) advanceTour(); }, 5500);
+                  }});
+                }});
+              }});
+            }});
+          }, 2500);
+        }
+      },
+      // ═══ STEP 29 — TOASTS & SPEECHES ═══
+      { selector: '#team-speeches-section', title: 'Team Toasts & Speeches',
+        desc: 'Team dinner tonight? Rep just got promoted? Someone retiring? Pick the occasion, pick the tone, and AI writes a toast you can read word for word. You\'ll sound like you prepared for hours.',
+        label: 'Step 44 of 46'
+      },
+      // ═══ STEP 30 — PRESS RELEASES ═══
+      { selector: '#press-admin-section', title: 'Press Release Builder',
+        desc: 'Need to announce something? Watch PULSE ghost-type a headline into the builder — fill in the date and body and PULSE formats it as a professional press release instantly. Publish directly to your press room or copy the full text and send it wherever you want.',
+        label: 'Step 45 of 46',
+        onShow: () => {
+          _schedTourTimer(() => {
+            if (!tourActive) return;
+            var input = document.querySelector('#press-admin-section input[type="text"], #press-admin-section input:not([type="hidden"])');
+            if (input) _tourGhostType(input, 'PULSE RevOps Launches Autonomous Fixator Mode', { speed: 60 });
+          }, 2800);
+        }
+      },
+      // ═══ STEP 31 — KEYBOARD SHORTCUTS ═══
+      { selector: '#house-goal-table', title: 'Power User Shortcuts',
+        desc: 'Press Control K to open the Command Palette and jump to any tool instantly. Press the question mark key to see all shortcuts. T for Tour. M for Music. F for Focus Mode. PULSE is built for speed.',
+        label: 'Step 46 of 46',
+        onShow: () => {
+          // Flash keyboard shortcut keys across the screen
+          const keys = ['Ctrl+K', '?', 'T', 'M', 'F', 'Ctrl+Z', 'Ctrl+S'];
+          keys.forEach((key, i) => {
+            _schedTourTimer(() => {
+              if (!tourActive) return;
+              const el = document.createElement('div');
+              const x = 15 + Math.random() * 60;
+              const y = 25 + Math.random() * 45;
+              el.textContent = key;
+              el.style.cssText = 'position:fixed;left:' + x + '%;top:' + y + '%;z-index:99999;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:6px 14px;font-size:0.85rem;font-weight:800;color:rgba(226,232,240,0.5);font-family:inherit;pointer-events:none;opacity:0;transform:scale(0.5);transition:all 0.4s ease;';
+              document.body.appendChild(el);
+              requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'scale(1)'; });
+              setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'scale(1.2)'; setTimeout(() => el.remove(), 400); }, 2000);
+            }, 1500 + i * 1200);
+          });
+        }
+      },
+      // ═══ STEP 34 — JUST FOR FUN ═══
+      { selector: '#just-for-fun', title: 'Just for Fun',
+        desc: 'You made it. Every serious platform needs one thing that makes no sense. This is ours. Explore the crab heatmap. Don\'t ask why. Pro tip — click Install in your browser to download PULSE to your desktop. Thanks for taking the tour. Now go get in rhythm.',
+        label: 'Finish', last: true,
+        onShow: () => {
+          var jff = document.getElementById('just-for-fun');
+          if (jff) { jff.style.display = 'block'; jff.style.cssText += ';display:block !important;'; }
+          var tab = document.getElementById('jff-tab');
+          if (tab) { tab.style.display = ''; tab.style.cssText += ';display:block !important;'; }
+          document.querySelectorAll('.jff-section').forEach(function(el){ el.style.cssText += ';display:block !important;'; });
+        }
+      }
+    ];

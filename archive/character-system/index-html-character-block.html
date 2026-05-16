@@ -1,0 +1,367 @@
+  <style>
+    .lc-char-label{display:none !important;}
+    .lc-char .lc-char-avatar { opacity: 0.85; transition: opacity 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
+    .lc-char.active .lc-char-avatar,
+    .lc-char:hover .lc-char-avatar,
+    .lc-char:focus-visible .lc-char-avatar { opacity: 1; }
+  </style>
+
+  <!-- Large character preview (translucent backdrop, shown on hover/click) -->
+  <div id="lc-char-preview" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity 0.35s ease;z-index:1;">
+    <img id="lc-char-preview-img" src="" alt="" decoding="async" loading="eager" style="max-width:min(960px,82vw);max-height:88vh;width:auto;height:auto;filter:drop-shadow(0 36px 72px rgba(0,0,0,0.65));transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);">
+  </div>
+
+  <!-- Character selection row -->
+  <div id="lc-character-row" style="flex-shrink:0;padding:6px 32px 18px;display:flex;align-items:center;gap:18px;border-bottom:1px solid rgba(255,255,255,0.06);position:relative;z-index:2;">
+    <div style="display:none;">Pick Your Character</div>
+    <div id="lc-character-list" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
+      <button class="lc-char active" data-char="malewhite" data-name="Male White" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.15),rgba(0,0,0,0.4));border:2px solid #FF8C1A;box-shadow:0 0 0 3px rgba(232,113,10,0.18),0 4px 14px rgba(232,113,10,0.3);transition:all 0.2s;">
+          <img src="assets/characters/malewhite.png" alt="Male White" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#FF8C1A;">Male White</div>
+      </button>
+      <button class="lc-char" data-char="femalewhite" data-name="Female White" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(236,72,153,0.18),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/femalewhite.png" alt="Female White" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Female White</div>
+      </button>
+      <button class="lc-char" data-char="blackmale" data-name="Black Male" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(56,189,248,0.18),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/blackmale.png" alt="Black Male" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Black Male</div>
+      </button>
+      <button class="lc-char" data-char="blackfemale" data-name="Black Female" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(168,85,247,0.18),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/blackfemale.png" alt="Black Female" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Black Female</div>
+      </button>
+      <button class="lc-char" data-char="asianmale" data-name="Asian Male" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(34,197,94,0.18),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/asianmale.png" alt="Asian Male" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Asian Male</div>
+      </button>
+      <button class="lc-char" data-char="asianfemale" data-name="Asian Female" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(251,191,36,0.18),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/asianfemale.png" alt="Asian Female" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Asian Female</div>
+      </button>
+      <button class="lc-char" data-char="detective" data-name="Detective" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(180,140,90,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/detective.png" alt="Detective" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Detective</div>
+      </button>
+      <button class="lc-char" data-char="detectivefemale" data-name="Detective Female" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(180,140,90,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/detectivefemale.png" alt="Detective Female" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Detective Female</div>
+      </button>
+      <button class="lc-char" data-char="frankenstein" data-name="Frankenstein" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(46,111,58,0.25),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/frankenstein.png" alt="Frankenstein" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Frankenstein</div>
+      </button>
+      <button class="lc-char" data-char="frankensteinfemale" data-name="Bride" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(46,111,58,0.25),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/frankensteinfemale.png" alt="Bride of Frankenstein" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Bride</div>
+      </button>
+      <button class="lc-char" data-char="santa" data-name="Santa" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(220,38,38,0.25),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/santa.png" alt="Santa" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Santa</div>
+      </button>
+      <button class="lc-char" data-char="mrsclaus" data-name="Mrs. Claus" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(220,38,38,0.25),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/mrsclaus.png" alt="Mrs. Claus" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Mrs. Claus</div>
+      </button>
+      <button class="lc-char" data-char="werewolf" data-name="Werewolf" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(120,80,40,0.28),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/werewolf.png" alt="Werewolf" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Werewolf</div>
+      </button>
+      <button class="lc-char" data-char="aristovampire" data-name="Aristo Vampire" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(157,28,46,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/aristovampire.png" alt="Aristo Vampire" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Aristo Vampire</div>
+      </button>
+      <button class="lc-char" data-char="aristovampirefemale" data-name="Aristo Vampire Female" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(157,28,46,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/aristovampirefemale.png" alt="Aristo Vampire Female" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Aristo Vampire Female</div>
+      </button>
+      <button class="lc-char" data-char="snowman" data-name="Snowman" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(56,189,248,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/snowman.png" alt="Snowman" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Snowman</div>
+      </button>
+      <button class="lc-char" data-char="snowmanlong" data-name="Snowman Long" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(56,189,248,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/snowmanlong.png" alt="Snowman Long" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Snowman Long</div>
+      </button>
+      <button class="lc-char" data-char="ballplayer" data-name="Ballplayer" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(30,64,175,0.25),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/ballplayer.png" alt="Ballplayer" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Ballplayer</div>
+      </button>
+      <button class="lc-char" data-char="ballplayerfemale" data-name="Ballplayer Female" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(30,64,175,0.25),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/ballplayerfemale.png" alt="Ballplayer Female" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Ballplayer Female</div>
+      </button>
+      <button class="lc-char" data-char="ballcoach" data-name="Ball Coach" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(30,64,175,0.25),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/ballcoach.png" alt="Ball Coach" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Ball Coach</div>
+      </button>
+      <button class="lc-char" data-char="ballcoachfemale" data-name="Ball Coach Female" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(30,64,175,0.25),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/ballcoachfemale.png" alt="Ball Coach Female" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Ball Coach Female</div>
+      </button>
+      <button class="lc-char" data-char="char11" data-name="Fighter 11" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char11.png" alt="Fighter 11" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 11</div>
+      </button>
+      <button class="lc-char" data-char="char15" data-name="Fighter 15" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char15.png" alt="Fighter 15" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 15</div>
+      </button>
+      <button class="lc-char" data-char="char16" data-name="Fighter 16" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char16.png" alt="Fighter 16" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 16</div>
+      </button>
+      <button class="lc-char" data-char="char17" data-name="Fighter 17" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char17.png" alt="Fighter 17" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 17</div>
+      </button>
+      <button class="lc-char" data-char="char19" data-name="Fighter 19" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char19.png" alt="Fighter 19" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 19</div>
+      </button>
+      <button class="lc-char" data-char="char20" data-name="Fighter 20" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char20.png" alt="Fighter 20" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 20</div>
+      </button>
+      <button class="lc-char" data-char="char21" data-name="Fighter 21" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char21.png" alt="Fighter 21" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 21</div>
+      </button>
+      <button class="lc-char" data-char="char22" data-name="Fighter 22" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char22.png" alt="Fighter 22" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 22</div>
+      </button>
+      <button class="lc-char" data-char="char23" data-name="Fighter 23" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char23.png" alt="Fighter 23" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 23</div>
+      </button>
+      <button class="lc-char" data-char="char24" data-name="Fighter 24" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char24.png" alt="Fighter 24" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 24</div>
+      </button>
+      <button class="lc-char" data-char="char28" data-name="Fighter 28" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char28.png" alt="Fighter 28" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 28</div>
+      </button>
+      <button class="lc-char" data-char="char29" data-name="Fighter 29" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char29.png" alt="Fighter 29" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 29</div>
+      </button>
+      <button class="lc-char" data-char="char31" data-name="Fighter 31" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char31.png" alt="Fighter 31" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 31</div>
+      </button>
+      <button class="lc-char" data-char="char35" data-name="Fighter 35" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char35.png" alt="Fighter 35" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 35</div>
+      </button>
+      <button class="lc-char" data-char="char37" data-name="Fighter 37" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char37.png" alt="Fighter 37" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 37</div>
+      </button>
+      <button class="lc-char" data-char="char38" data-name="Fighter 38" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char38.png" alt="Fighter 38" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 38</div>
+      </button>
+      <button class="lc-char" data-char="char39" data-name="Fighter 39" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char39.png" alt="Fighter 39" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 39</div>
+      </button>
+      <button class="lc-char" data-char="char40" data-name="Fighter 40" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char40.png" alt="Fighter 40" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 40</div>
+      </button>
+      <button class="lc-char" data-char="char41" data-name="Fighter 41" onclick="lcSelectCharacter(this)" style="display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">
+        <div class="lc-char-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,rgba(232,113,10,0.22),rgba(0,0,0,0.4));border:2px solid rgba(255,255,255,0.18);transition:all 0.2s;">
+          <img src="assets/characters/char41.png" alt="Fighter 41" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="lc-char-label" style="font-size:0.56rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.4);">Fighter 41</div>
+      </button>
+    </div>
+  </div>
+  <script>
+    (function(){
+      const preview = document.getElementById('lc-char-preview');
+      const previewImg = document.getElementById('lc-char-preview-img');
+      let hoverHideTimer = null;
+      let selectedSrc = null;
+      const BACKDROP_OPACITY = '0.18';
+      const HOVER_OPACITY    = '0.4';
+      function setPreviewSrc(src) {
+        if (!previewImg || !src) return;
+        if (previewImg.src !== src) {
+          previewImg.src = src;
+          previewImg.style.transform = 'scale(0.96)';
+          requestAnimationFrame(() => { previewImg.style.transform = 'scale(1)'; });
+        }
+      }
+      function showPreview(src) {
+        if (!preview || !previewImg || !src) return;
+        if (hoverHideTimer) { clearTimeout(hoverHideTimer); hoverHideTimer = null; }
+        setPreviewSrc(src);
+        preview.style.opacity = HOVER_OPACITY;
+      }
+      function hidePreview() {
+        if (!preview) return;
+        hoverHideTimer = setTimeout(() => {
+          if (selectedSrc) { setPreviewSrc(selectedSrc); preview.style.opacity = BACKDROP_OPACITY; }
+          else { preview.style.opacity = '0'; }
+        }, 120);
+      }
+      function setBackdrop(src) {
+        selectedSrc = src;
+        if (!preview || !previewImg || !src) return;
+        setPreviewSrc(src);
+        preview.style.opacity = BACKDROP_OPACITY;
+      }
+      let prevActive = document.querySelector('.lc-char.active');
+      window.lcSelectCharacter = function(btn) {
+        if (btn === prevActive) {
+          const img = btn.querySelector('img');
+          if (img && img.src) setBackdrop(img.src);
+          return;
+        }
+        if (prevActive) {
+          prevActive.classList.remove('active');
+          const pav = prevActive.querySelector('.lc-char-avatar');
+          if (pav) { pav.style.borderColor = 'rgba(255,255,255,0.18)'; pav.style.boxShadow = ''; }
+        }
+        btn.classList.add('active');
+        const av = btn.querySelector('.lc-char-avatar');
+        if (av) { av.style.borderColor = '#FF8C1A'; av.style.boxShadow = '0 0 0 3px rgba(232,113,10,0.18),0 4px 14px rgba(232,113,10,0.3)'; }
+        prevActive = btn;
+        try { localStorage.setItem('pulse_character', btn.dataset.char); } catch(e) {}
+        const img = btn.querySelector('img');
+        if (img && img.src) {
+          if (hoverHideTimer) { clearTimeout(hoverHideTimer); hoverHideTimer = null; }
+          setBackdrop(img.src);
+        }
+      };
+      document.querySelectorAll('.lc-char').forEach(btn => {
+        const img = btn.querySelector('img');
+        if (!img) return;
+        btn.addEventListener('mouseenter', () => showPreview(img.src));
+        btn.addEventListener('mouseleave', hidePreview);
+        btn.addEventListener('focus', () => showPreview(img.src));
+        btn.addEventListener('blur', hidePreview);
+      });
+      try {
+        const saved = localStorage.getItem('pulse_character');
+        const btn = saved
+          ? document.querySelector('.lc-char[data-char="' + saved + '"]')
+          : document.querySelector('.lc-char.active');
+        if (btn) {
+          const img = btn.querySelector('img');
+          if (img && img.src) setBackdrop(img.src);
+        }
+      } catch(e) {}
+
+      // ── Preload + decode all character preview PNGs after first paint so
+      //    hover/click transitions are instant. Each PNG is 6-8MB; without
+      //    this the first hover stalls while the image fetches and decodes.
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(preloadCharacters, { timeout: 1500 });
+      } else {
+        setTimeout(preloadCharacters, 800);
+      }
+      function preloadCharacters() {
+        document.querySelectorAll('.lc-char img').forEach(function(thumb, i) {
+          if (!thumb.src) return;
+          // Stagger so we don't saturate the network with parallel large fetches
+          setTimeout(function() {
+            var p = new Image();
+            if (p.decode) {
+              p.src = thumb.src;
+              p.decode().catch(function(){});
+            } else {
+              p.src = thumb.src;
+            }
+          }, i * 80);
+        });
+      }
+
+      // Snappier UI: drop the per-hover scale animation that triggers a
+      // re-decode of the large backdrop PNG every time
+      if (typeof setPreviewSrc === 'function') {
+        // already defined; nothing to do
+      }
+    })();
+  </script>

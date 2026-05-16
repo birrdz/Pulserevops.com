@@ -1,0 +1,205 @@
+{
+  "rules": "Snowflake deep-dive arc — Inner-Outer Arc play (general → nuance → fringe). Operator-grade voice, today-knowable answers, 12-18mo SEO front-running. Started 2026-05-02.",
+  "company": "Snowflake",
+  "started": "2026-05-02",
+  "used": [
+    {
+      "id": "q1559",
+      "question": "How does Snowflake hit its 2027 revenue target?"
+    },
+    {
+      "id": "q1560",
+      "question": "Will Snowflake maintain 25%+ growth into 2027?"
+    },
+    {
+      "id": "q1561",
+      "question": "Is Snowflake stock still a buy in 2027?"
+    },
+    {
+      "id": "q1562",
+      "question": "Why did Snowflake growth slow in 2024-25?"
+    },
+    {
+      "id": "q1563",
+      "question": "Can Snowflake compete with Databricks in 2027?"
+    },
+    {
+      "id": "q1564",
+      "question": "What is Snowflake AI strategy in 2027?"
+    },
+    {
+      "id": "q1565",
+      "question": "How does Snowflake compete against AI-native data platforms?"
+    },
+    {
+      "id": "q1566",
+      "question": "Is Cortex AI working for Snowflake?"
+    },
+    {
+      "id": "q1567",
+      "question": "Should Snowflake kill its consumption-only pricing model?"
+    },
+    {
+      "id": "q1568",
+      "question": "How does Snowflake make money in 2027?"
+    },
+    {
+      "id": "q1569",
+      "question": "Why is Sridhar Ramaswamy job on the line in 2027?"
+    },
+    {
+      "id": "q1570",
+      "question": "Snowflake vs Databricks — which should you buy?"
+    },
+    {
+      "id": "q1571",
+      "question": "How does Snowflake defend against open-source data lakes (Iceberg)?"
+    },
+    {
+      "id": "q1572",
+      "question": "What is Snowflake net revenue retention in 2026?"
+    },
+    {
+      "id": "q1573",
+      "question": "Should Snowflake acquire Streamlit deeper or sunset it?"
+    },
+    {
+      "id": "q1574",
+      "question": "What should Snowflake do about Slack-style stagnation in horizontal apps?"
+    },
+    {
+      "id": "q1575",
+      "question": "Will Snowflake survive the AWS Redshift + Microsoft Fabric squeeze through 2027?"
+    },
+    {
+      "id": "q1576",
+      "question": "Is Snowpark working at scale in 2026?"
+    },
+    {
+      "id": "q1577",
+      "question": "Should Snowflake kill the credit-based pricing for AI workloads?"
+    },
+    {
+      "id": "q1578",
+      "question": "How should Snowflake price Cortex agents — per query or per outcome?"
+    },
+    {
+      "id": "q1579",
+      "question": "What is Snowflake developer-platform strategy through 2027?"
+    },
+    {
+      "id": "q1580",
+      "question": "How should Snowflake think about Salesforce Data Cloud partnership in 2027?"
+    },
+    {
+      "id": "q1581",
+      "question": "Why did Snowflake security incidents in 2024 matter for the 2027 thesis?"
+    },
+    {
+      "id": "q1582",
+      "question": "Is Snowflake mid-market push actually working in 2026?"
+    },
+    {
+      "id": "q1583",
+      "question": "What is the right Snowflake org structure for AI agents?"
+    },
+    {
+      "id": "q1584",
+      "question": "Should Snowflake acquire Hightouch or Census?"
+    },
+    {
+      "id": "q1585",
+      "question": "What is Snowflake M&A strategy through 2028?"
+    },
+    {
+      "id": "q1586",
+      "question": "Should Snowflake acquire Fivetran?"
+    },
+    {
+      "id": "q1587",
+      "question": "What is the bear case for Snowflake 2027?"
+    },
+    {
+      "id": "q1588",
+      "question": "What is the bull case for Snowflake 2027?"
+    },
+    {
+      "id": "q1589",
+      "question": "How does Snowflake retain top sales talent in 2027?"
+    },
+    {
+      "id": "q1590",
+      "question": "Should I work for Snowflake in 2027?"
+    },
+    {
+      "id": "q1591",
+      "question": "Is a Snowflake AE role still good for my career in 2027?"
+    },
+    {
+      "id": "q1592",
+      "question": "What is Snowflake RevOps career path in 2027?"
+    },
+    {
+      "id": "q1593",
+      "question": "Is Snowflake certification worth it in 2027?"
+    },
+    {
+      "id": "q1594",
+      "question": "What is Snowflake gross margin trajectory through 2028?"
+    },
+    {
+      "id": "q1595",
+      "question": "How does Snowflake defend its Marketplace partners?"
+    },
+    {
+      "id": "q1596",
+      "question": "Should Snowflake launch a vertical-data sub-brand in 2027?"
+    },
+    {
+      "id": "q1597",
+      "question": "What does Snowflake churn math look like under AI pressure?"
+    },
+    {
+      "id": "q1598",
+      "question": "How does Snowflake compute pricing compare to BigQuery and Redshift?"
+    },
+    {
+      "id": "q1599",
+      "question": "What is Snowflake data-region strategy through 2027?"
+    },
+    {
+      "id": "q1600",
+      "question": "Should Snowflake launch its own foundation model?"
+    },
+    {
+      "id": "q1601",
+      "question": "How does Snowflake onboarding compare to Databricks?"
+    },
+    {
+      "id": "q1602",
+      "question": "What is the right Cortex attach goal for 2027?"
+    },
+    {
+      "id": "q1603",
+      "question": "How should Snowflake price Streamlit against PowerBI?"
+    },
+    {
+      "id": "q1604",
+      "question": "Should Snowflake launch its own AI agent marketplace?"
+    },
+    {
+      "id": "q1605",
+      "question": "What is Snowflake playbook for the next 5B in revenue?"
+    },
+    {
+      "id": "q1606",
+      "question": "How does Snowflake handle the cost of Anthropic + OpenAI inference at scale?"
+    },
+    {
+      "id": "q1607",
+      "question": "Should Snowflake acquire Coalesce.io or dbt Labs?"
+    }
+  ],
+  "remaining": [],
+  "exhausted": "2026-05-03 — chained to ServiceNow (rotation-servicenow.json)"
+}

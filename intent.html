@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intent · Pulse RevOps Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E8710A' d='M3 12h3l2-7 4 14 2-7h7'/%3E%3C/svg%3E">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #070a0f; color: #EDE5D8; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; }
+    a { color: #FF8C1A; text-decoration: none; }
+    .top { padding: 22px clamp(20px, 4vw, 36px); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .brand { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.32em; text-transform: uppercase; }
+    .brand .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #00ff41; margin-right: 12px; box-shadow: 0 0 10px rgba(0,255,65,0.7); animation: pulse 1.6s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .nav-links { display: flex; gap: 16px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+    .nav-links a { color: rgba(237,229,216,0.6); }
+    .nav-links a:hover { color: #FF8C1A; }
+
+    main { max-width: 1280px; margin: 0 auto; padding: 28px clamp(20px, 4vw, 36px) 64px; }
+    h1 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 900; letter-spacing: -0.01em; margin: 0 0 6px; }
+    .sub { font-size: 0.78rem; color: rgba(237,229,216,0.55); margin-bottom: 24px; letter-spacing: 0.04em; }
+
+    .gate { max-width: 380px; margin: 60px auto 0; padding: 28px; background: rgba(0, 14, 6, 0.78); border: 1px solid rgba(0, 255, 65, 0.42); border-radius: 12px; text-align: center; font-family: 'JetBrains Mono', 'Consolas', monospace; }
+    .gate h2 { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #00ff41; margin: 0 0 14px; }
+    .gate input { width: 100%; padding: 11px 14px; background: rgba(0,0,0,0.5); border: 1px solid rgba(0,255,65,0.4); border-radius: 6px; color: #00ff41; font-family: inherit; font-size: 0.9rem; outline: none; text-align: center; letter-spacing: 0.18em; }
+    .gate input:focus { border-color: rgba(0,255,65,0.85); }
+    .gate button { margin-top: 12px; padding: 11px 26px; background: rgba(0,255,65,0.18); border: 1px solid rgba(0,255,65,0.55); border-radius: 6px; color: #00ff41; font-family: inherit; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; }
+    .gate button:hover { background: rgba(0,255,65,0.28); }
+
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0 0 28px; }
+    .stat { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 16px 18px; }
+    .stat-l { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(237,229,216,0.5); margin-bottom: 6px; }
+    .stat-n { font-size: 1.8rem; font-weight: 900; color: #FF8C1A; line-height: 1; }
+    @media (max-width: 600px) { .stats { grid-template-columns: 1fr 1fr; } }
+
+    .panels { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; }
+    @media (max-width: 900px) { .panels { grid-template-columns: 1fr; } }
+
+    .panel { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; }
+    .panel h2 { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #FF8C1A; padding: 14px 18px; margin: 0; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(232,113,10,0.05); }
+
+    .top-list { padding: 8px 0; max-height: 540px; overflow-y: auto; }
+    .top-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .top-row:last-child { border-bottom: 0; }
+    .top-name { font-size: 0.92rem; color: #fff; font-weight: 600; }
+    .top-count { font-size: 0.78rem; color: #FF8C1A; font-weight: 800; padding: 2px 9px; border-radius: 99px; background: rgba(232,113,10,0.12); border: 1px solid rgba(232,113,10,0.32); font-family: 'JetBrains Mono', monospace; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    th { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,229,216,0.55); background: rgba(255,255,255,0.02); }
+    td { color: rgba(237,229,216,0.85); white-space: nowrap; max-width: 240px; overflow: hidden; text-overflow: ellipsis; }
+    td.company { color: #fff; font-weight: 600; }
+    td.path { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: rgba(255,180,90,0.85); }
+    td.geo, td.ua { font-size: 0.78rem; color: rgba(237,229,216,0.55); }
+    td.time { font-size: 0.74rem; color: rgba(237,229,216,0.5); font-family: 'JetBrains Mono', monospace; }
+    .empty { padding: 40px 20px; text-align: center; color: rgba(237,229,216,0.45); font-style: italic; }
+
+    .recent-wrap { max-height: 700px; overflow: auto; }
+    .refresh { font-size: 0.66rem; color: rgba(237,229,216,0.4); padding: 10px 18px; background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+    .refresh button { background: none; border: 1px solid rgba(255,255,255,0.12); color: rgba(237,229,216,0.7); padding: 5px 12px; border-radius: 6px; font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; cursor: pointer; font-family: inherit; }
+    .refresh button:hover { border-color: rgba(232,113,10,0.5); color: #FF8C1A; }
+  </style>
+</head>
+<body>
+
+<div class="top">
+  <div class="brand"><span class="dot"></span>Intent · Whale Watch</div>
+  <div class="nav-links">
+    <a href="/admin?key=pulsemachine">⚙ Admin</a>
+    <a href="/knowledge.html">📚 Library</a>
+    <a href="/">Home</a>
+  </div>
+</div>
+
+<main>
+  <div id="gate" class="gate" style="display:none;">
+    <h2>// Owner Access</h2>
+    <p style="font-size:0.74rem;color:rgba(0,255,65,0.7);margin:0 0 14px;letter-spacing:0.06em;">Enter the admin key to view today's whales.</p>
+    <input id="key-input" type="password" placeholder="•••••••••••" autocomplete="off">
+    <button onclick="enter()">Enter →</button>
+  </div>
+
+  <div id="dash" style="display:none;">
+    <h1>Intent · Who's in the Room</h1>
+    <div class="sub">Real B2B accounts that hit pulserevops.com — last 7 days. Bots filtered. Residential traffic excluded. Refreshes every 60s.</div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-l">Today</div><div class="stat-n" id="s-today">—</div></div>
+      <div class="stat"><div class="stat-l">7 Days</div><div class="stat-n" id="s-week">—</div></div>
+      <div class="stat"><div class="stat-l">Companies (7d)</div><div class="stat-n" id="s-companies">—</div></div>
+    </div>
+
+    <div class="panels">
+      <div class="panel">
+        <h2>🟠 Top Companies — 7 days</h2>
+        <div class="top-list" id="top-companies">
+          <div class="empty">No company hits yet. Bots are filtered, so it can take a few real visits to populate.</div>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>📡 Recent Hits</h2>
+        <div class="recent-wrap">
+          <table>
+            <thead><tr><th>Time</th><th>Company</th><th>Path</th><th>Geo</th><th>UA</th></tr></thead>
+            <tbody id="recent-rows">
+              <tr><td colspan="5" class="empty">Waiting for data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="refresh">
+          <span id="refresh-stamp">—</span>
+          <button onclick="load()">↻ Refresh now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  var KEY_PARAM = new URLSearchParams(location.search).get('key');
+  var key = KEY_PARAM || '';
+
+  function fmtTime(ts) {
+    if (!ts) return '—';
+    var d = new Date(ts);
+    var diffMin = Math.floor((Date.now() - ts) / 60000);
+    if (diffMin < 1) return 'just now';
+    if (diffMin < 60) return diffMin + 'm ago';
+    if (diffMin < 1440) return Math.floor(diffMin / 60) + 'h ago';
+    return d.toLocaleDateString();
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  }
+
+  window.enter = function() {
+    var v = document.getElementById('key-input').value.trim();
+    if (!v) return;
+    key = v;
+    location.href = '/intent?key=' + encodeURIComponent(v);
+  };
+
+  window.load = function() {
+    if (!key) return;
+    fetch('/.netlify/functions/intent-list?key=' + encodeURIComponent(key) + '&limit=200', { cache: 'no-store' })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (!d.ok) {
+          document.getElementById('gate').style.display = 'block';
+          document.getElementById('dash').style.display = 'none';
+          return;
+        }
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('dash').style.display = 'block';
+        document.getElementById('s-today').textContent = d.total_today || 0;
+        document.getElementById('s-week').textContent = d.total_week || 0;
+        document.getElementById('s-companies').textContent = (d.top_companies || []).length;
+
+        var topEl = document.getElementById('top-companies');
+        if (d.top_companies && d.top_companies.length) {
+          topEl.innerHTML = d.top_companies.map(function(c){
+            return '<div class="top-row"><span class="top-name">' + esc(c.name) + '</span><span class="top-count">' + c.count + '</span></div>';
+          }).join('');
+        } else {
+          topEl.innerHTML = '<div class="empty">No company hits yet. Could be: no IPINFO_TOKEN env var set, or no real visits since deploy.</div>';
+        }
+
+        var rowsEl = document.getElementById('recent-rows');
+        if (d.recent && d.recent.length) {
+          rowsEl.innerHTML = d.recent.map(function(r){
+            var geo = [r.city, r.region, r.country].filter(Boolean).join(', ');
+            return '<tr>'
+              + '<td class="time">' + fmtTime(r.ts) + '</td>'
+              + '<td class="company">' + esc(r.company || '<span style="color:rgba(237,229,216,0.4);font-style:italic;font-weight:400;">unknown</span>') + (r.domain ? ' <span style="color:rgba(255,140,26,0.55);font-size:0.72rem;font-weight:400;">' + esc(r.domain) + '</span>' : '') + '</td>'
+              + '<td class="path">' + esc(r.path || '/') + '</td>'
+              + '<td class="geo">' + esc(geo || '—') + '</td>'
+              + '<td class="ua">' + esc(r.ua_summary || '—') + '</td>'
+              + '</tr>';
+          }).join('');
+        } else {
+          rowsEl.innerHTML = '<tr><td colspan="5" class="empty">No recent hits.</td></tr>';
+        }
+        document.getElementById('refresh-stamp').textContent = 'Updated ' + new Date().toLocaleTimeString();
+      })
+      .catch(function(){
+        document.getElementById('refresh-stamp').textContent = 'Refresh failed — retrying in 60s';
+      });
+  };
+
+  if (key) {
+    load();
+    setInterval(load, 60000);
+  } else {
+    document.getElementById('gate').style.display = 'block';
+  }
+})();
+</script>
+
+</body>
+</html>

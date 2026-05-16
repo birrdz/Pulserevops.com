@@ -1,0 +1,384 @@
+      <!-- ═══════════════════════════════════════════════════════════════════
+           HOUSE GOALS + PULSE CHECK — minimal stub matrices (post-nuke)
+           Both stacked vertically. Self-contained init below. IDs prefixed
+           with pmx- to avoid conflict with the legacy JS that targets old IDs.
+           ═══════════════════════════════════════════════════════════════════ -->
+
+      <!-- STEP 1 — HOUSE GOALS -->
+      <div id="pmx-house-header" style="text-align:center; margin: 32px 0 24px; scroll-margin-top: 200px;">
+        <div class="section-label" style="font-size:1rem; color:var(--purple);">Step 1</div>
+        <h2 class="section-title" style="font-size:clamp(2.2rem,5vw,3.2rem); margin-top:10px;">House Goals</h2>
+        <p class="section-sub" style="margin: 16px auto 0; font-size:1.05rem; max-width:600px; color:#9A9088;">Enter monthly company targets. Per-rep auto-computes from rep count.</p>
+      </div>
+      <div class="matrix-section-wrap" style="margin-bottom: 56px;">
+        <div style="display:flex; gap:14px; align-items:center; padding:14px 24px; flex-wrap:wrap; border-bottom:1px solid rgba(255,255,255,0.06);">
+          <label style="font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgba(237,229,216,0.7);">Reps:</label>
+          <input type="number" id="pmx-reps" min="1" value="10" style="width:80px; padding:6px 10px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:#EDE5D8; font-family:inherit; font-size:0.9rem; font-weight:700;">
+          <label style="font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgba(237,229,216,0.7); margin-left:8px;">Industry:</label>
+          <div style="position:relative; display:flex; align-items:center;">
+            <select id="pmx-industry" aria-label="Pick an industry to auto-fill KPI names + monthly goals across House Goals and Pulse Check"
+              style="appearance:none;-webkit-appearance:none;background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.4);border-radius:6px;color:#FF8C1A;font-size:0.78rem;font-weight:700;padding:6px 28px 6px 10px;font-family:inherit;cursor:pointer;outline:none;min-width:200px;">
+              <option value="" disabled selected>🏭 Pick an industry…</option>
+              <option value="security">🔒 Home Security</option>
+              <option value="internet">📡 Internet / Broadband</option>
+              <option value="solar">☀️ Solar / Energy</option>
+              <option value="mortgage">🏦 Mortgage / Lending</option>
+              <option value="insurance">🛡️ Insurance</option>
+              <option value="realestate">🏠 Real Estate</option>
+              <option value="saas">💻 SaaS / Software</option>
+              <option value="gym">🏋️ Fitness / Gym</option>
+              <option value="streaming">📺 Streaming / Media</option>
+              <option value="banking">🏧 Banking / Fintech</option>
+              <option value="healthcare">🏥 Healthcare</option>
+              <option value="auto">🚗 Auto / Dealership</option>
+              <option value="pest">🐛 Pest Control</option>
+              <option value="hvac">🌡️ HVAC / Home Services</option>
+              <option value="cable">📶 Cable / Satellite TV</option>
+              <option value="moving">🚚 Moving / Storage</option>
+              <option value="travel">✈️ Travel / Hospitality</option>
+              <option value="legal">⚖️ Legal / Professional</option>
+              <option value="retail">🛍️ Retail / E-commerce</option>
+              <optgroup label="─────────────────"></optgroup>
+              <option value="staffing">👥 Staffing / Recruiting</option>
+              <option value="pharma">💊 Pharmaceutical / Biotech</option>
+              <option value="meddevice">🩺 Medical Device</option>
+              <option value="construction">🏗️ Construction</option>
+              <option value="edtech">🎓 Education / EdTech</option>
+              <option value="restaurant">🍽️ Restaurant</option>
+              <option value="ecommerce">📦 E-commerce / DTC</option>
+              <option value="cybersec">🔐 Cybersecurity</option>
+              <option value="logistics">🚛 Logistics / Freight</option>
+              <option value="events">🎪 Events / Entertainment</option>
+              <option value="dental">🦷 Dental / Ortho</option>
+              <option value="veterinary">🐾 Veterinary</option>
+              <option value="cleaning">🧹 Cleaning / Facilities</option>
+              <option value="wellness">💆 Wellness / Spa</option>
+              <option value="msp">🖥️ IT Services / MSP</option>
+              <option value="media">📊 Digital Advertising</option>
+              <option value="agriculture">🌾 Agriculture</option>
+              <option value="wholesale">🏭 Wholesale Distribution</option>
+              <option value="printing">🖨️ Printing / Signage</option>
+              <option value="nonprofit">❤️ Nonprofit</option>
+            </select>
+            <span style="position:absolute;right:9px;top:50%;transform:translateY(-50%);pointer-events:none;color:#FF8C1A;font-size:0.55rem;">▾</span>
+          </div>
+          <button id="pmx-sync" style="margin-left:auto; background:rgba(255,140,26,0.10); border:1px solid rgba(255,140,26,0.5); border-radius:6px; color:#FF8C1A; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; cursor:pointer; font-family:inherit;" title="Clear all manual Pulse Check overrides → re-derive from House Goals">↻ Sync</button>
+          <button id="pmx-reset" style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.4); border-radius:6px; color:#ef4444; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; cursor:pointer; font-family:inherit;">Reset</button>
+        </div>
+        <div class="matrix-wrap" style="overflow-x:auto;">
+          <table id="pmx-house-table" style="width:100%; border-collapse:collapse; min-width:560px;">
+            <thead>
+              <tr>
+                <th style="text-align:left; padding:14px 18px; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">KPI</th>
+                <th style="text-align:left; padding:14px 14px; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">Type</th>
+                <th style="text-align:right; padding:14px 18px; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">Monthly Goal</th>
+                <th style="text-align:right; padding:14px 18px; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">Per Rep</th>
+              </tr>
+            </thead>
+            <tbody id="pmx-house-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- STEP 2 — PULSE CHECK -->
+      <div id="pmx-pulse-header" style="text-align:center; margin: 0 0 24px; scroll-margin-top: 200px;">
+        <div class="section-label" style="font-size:1rem; color:var(--purple);">Step 2</div>
+        <h2 class="section-title" style="font-size:clamp(2.2rem,5vw,3.2rem); margin-top:10px;">Pulse Check</h2>
+        <p class="section-sub" style="margin: 16px auto 0; font-size:1.05rem; max-width:600px; color:#9A9088;">Per-rep targets across 5 Rhythm Levels. Edit any cell.</p>
+      </div>
+      <div class="matrix-section-wrap" style="margin-bottom: 32px;">
+        <div class="matrix-wrap" style="overflow-x:auto;">
+          <table id="pmx-pulse-table" style="width:100%; border-collapse:collapse; min-width:780px;">
+            <thead>
+              <tr>
+                <th style="text-align:left; padding:14px 18px; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800; min-width:120px;">Rhythm Level</th>
+                <th class="pmx-kpi-h" data-i="0" style="text-align:center; padding:14px 8px; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">KPI 1</th>
+                <th class="pmx-kpi-h" data-i="1" style="text-align:center; padding:14px 8px; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">KPI 2</th>
+                <th class="pmx-kpi-h" data-i="2" style="text-align:center; padding:14px 8px; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">KPI 3</th>
+                <th class="pmx-kpi-h" data-i="3" style="text-align:center; padding:14px 8px; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">KPI 4</th>
+                <th class="pmx-kpi-h" data-i="4" style="text-align:center; padding:14px 8px; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">KPI 5</th>
+                <th class="pmx-kpi-h" data-i="5" style="text-align:center; padding:14px 8px; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">KPI 6</th>
+                <th class="pmx-kpi-h" data-i="6" style="text-align:center; padding:14px 8px; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">KPI 7</th>
+                <th class="pmx-kpi-h" data-i="7" style="text-align:center; padding:14px 8px; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">KPI 8</th>
+                <th class="pmx-kpi-h" data-i="8" style="text-align:center; padding:14px 8px; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(237,229,216,0.55); border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">KPI 9</th>
+                <th style="text-align:right; padding:14px 18px; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:#FFD740; border-bottom:1px solid rgba(255,255,255,0.08); font-weight:800;">Total</th>
+              </tr>
+            </thead>
+            <tbody id="pmx-pulse-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Self-contained init for the new stub matrices — persists to localStorage -->
+      <script>
+      (function(){
+        var KPI_COUNT = 9;
+        var TIERS = ['Recovering','Building','Steady','Strong','Elite'];
+        var TIER_COLORS = ['#ef4444','#FF8C1A','#FFD740','#22c55e','#a855f7'];
+        // Pulse Check cells = (per-rep target × tier weight). Auto-syncs from House Goals.
+        var TIER_WEIGHTS = [0.5, 0.75, 1.0, 1.2, 1.5];
+        var KEY = 'pulse_simple_matrix_v1';
+        var data;
+        try { data = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e) {}
+        if (!data) data = {};
+        if (!Array.isArray(data.kpis) || data.kpis.length !== KPI_COUNT) {
+          data.kpis = [];
+          for (var i = 0; i < KPI_COUNT; i++) data.kpis.push({ name: 'KPI '+(i+1), type: 'total', goal: 0 });
+        }
+        // Manual overrides: keyed "ti,ki" → user-entered value (preserved across re-renders)
+        if (!data.overrides || typeof data.overrides !== 'object') data.overrides = {};
+        function save() { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e) {} }
+
+        function fmtNum(n) {
+          if (!n && n !== 0) return '—';
+          if (n === 0) return '—';
+          return n % 1 === 0 ? n.toFixed(0) : n.toFixed(1);
+        }
+
+        function renderHouse() {
+          var tbody = document.getElementById('pmx-house-body');
+          if (!tbody) return;
+          var reps = parseFloat((document.getElementById('pmx-reps')||{}).value) || 1;
+          var html = '';
+          for (var i = 0; i < KPI_COUNT; i++) {
+            var k = data.kpis[i];
+            var perRep = k.goal ? (k.goal / reps).toFixed(1) : '—';
+            html += '<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">'
+              + '<td style="padding:10px 18px;"><input value="'+(k.name||'').replace(/"/g,'&quot;')+'" data-h-name="'+i+'" style="width:100%;background:transparent;border:none;color:#EDE5D8;font-family:inherit;font-size:0.85rem;font-weight:700;outline:none;"></td>'
+              + '<td style="padding:10px 14px;"><select data-h-type="'+i+'" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:4px;color:#EDE5D8;font-family:inherit;font-size:0.78rem;padding:4px 8px;cursor:pointer;"><option value="total"'+(k.type==='total'?' selected':'')+'>Total</option><option value="pct"'+(k.type==='pct'?' selected':'')+'>%</option></select></td>'
+              + '<td style="padding:10px 18px;text-align:right;"><input type="number" inputmode="decimal" value="'+(k.goal||'')+'" placeholder="—" data-h-goal="'+i+'" style="width:120px;text-align:right;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.10);border-radius:4px;color:#EDE5D8;font-family:inherit;font-size:0.88rem;font-weight:700;padding:6px 10px;outline:none;"></td>'
+              + '<td style="padding:10px 18px;text-align:right;color:#FF8C1A;font-weight:800;font-variant-numeric:tabular-nums;font-size:0.95rem;">'+perRep+'</td>'
+              + '</tr>';
+          }
+          tbody.innerHTML = html;
+        }
+
+        // Compute the derived (auto-synced) value for a cell
+        function derivedCell(ti, ki, reps) {
+          var goal = (data.kpis[ki] && data.kpis[ki].goal) || 0;
+          if (!goal) return 0;
+          return (goal / reps) * TIER_WEIGHTS[ti];
+        }
+
+        // Pulse Check: auto-syncs from House Goals, but cells with manual overrides stay sticky
+        function renderPulse() {
+          // Sync KPI column headers from House Goals
+          for (var i = 0; i < KPI_COUNT; i++) {
+            var th = document.querySelector('.pmx-kpi-h[data-i="'+i+'"]');
+            if (th) th.textContent = (data.kpis[i] && data.kpis[i].name) || ('KPI '+(i+1));
+          }
+          var tbody = document.getElementById('pmx-pulse-body');
+          if (!tbody) return;
+          var reps = parseFloat((document.getElementById('pmx-reps')||{}).value) || 1;
+          var html = '';
+          for (var ti = 0; ti < 5; ti++) {
+            var weight = TIER_WEIGHTS[ti];
+            var rowTotal = 0;
+            html += '<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">'
+              + '<td style="padding:12px 18px;font-weight:800;color:'+TIER_COLORS[ti]+';font-size:0.88rem;letter-spacing:0.04em;">'
+              + TIERS[ti]
+              + ' <span style="font-size:0.6rem;color:rgba(237,229,216,0.45);font-weight:700;margin-left:6px;">×'+weight+'</span></td>';
+            for (var ki = 0; ki < KPI_COUNT; ki++) {
+              var goal = (data.kpis[ki] && data.kpis[ki].goal) || 0;
+              var key = ti+','+ki;
+              var hasOverride = Object.prototype.hasOwnProperty.call(data.overrides, key);
+              var derived = derivedCell(ti, ki, reps);
+              var cellValue = hasOverride ? (parseFloat(data.overrides[key]) || 0) : derived;
+              if (goal || hasOverride) rowTotal += cellValue;
+              var displayVal = (cellValue || hasOverride) ? fmtNum(cellValue) : '';
+              var borderColor = hasOverride ? 'rgba(255,140,26,0.55)' : 'rgba(255,255,255,0.08)';
+              var bgColor = hasOverride ? 'rgba(255,140,26,0.08)' : 'rgba(255,255,255,0.04)';
+              var color = hasOverride ? '#FF8C1A' : (goal?'#EDE5D8':'rgba(237,229,216,0.3)');
+              html += '<td style="padding:6px 4px;"><input type="number" inputmode="decimal" '
+                + 'value="'+displayVal+'" '
+                + 'placeholder="'+(goal?fmtNum(derived):'—')+'" '
+                + 'data-p="'+key+'" '
+                + 'title="'+(hasOverride?'manual override · click Sync to clear':'auto-synced from House Goals')+'" '
+                + 'style="width:100%;text-align:center;font-weight:700;color:'+color+';background:'+bgColor+';border:1px solid '+borderColor+';border-radius:4px;font-family:inherit;font-size:0.82rem;padding:6px 4px;outline:none;font-variant-numeric:tabular-nums;">'
+                + '</td>';
+            }
+            html += '<td style="padding:12px 18px;text-align:right;font-weight:900;color:#FFD740;font-variant-numeric:tabular-nums;font-size:1rem;" data-pulse-row-total="'+ti+'">'+fmtNum(rowTotal)+'</td>'
+              + '</tr>';
+          }
+          tbody.innerHTML = html;
+        }
+
+        function recomputeRowTotal(ti) {
+          var reps = parseFloat((document.getElementById('pmx-reps')||{}).value) || 1;
+          var sum = 0;
+          for (var ki = 0; ki < KPI_COUNT; ki++) {
+            var key = ti+','+ki;
+            var hasOverride = Object.prototype.hasOwnProperty.call(data.overrides, key);
+            sum += hasOverride ? (parseFloat(data.overrides[key]) || 0) : derivedCell(ti, ki, reps);
+          }
+          var totalCell = document.querySelector('[data-pulse-row-total="'+ti+'"]');
+          if (totalCell) totalCell.textContent = fmtNum(sum);
+        }
+
+        document.addEventListener('input', function(e){
+          var t = e.target; if (!t || !t.dataset) return;
+          if (t.dataset.hName !== undefined) {
+            data.kpis[+t.dataset.hName].name = t.value;
+            renderPulse(); save();
+          } else if (t.dataset.hGoal !== undefined) {
+            data.kpis[+t.dataset.hGoal].goal = parseFloat(t.value) || 0;
+            // Update only the per-rep cell in House (preserve focus)
+            var reps = parseFloat((document.getElementById('pmx-reps')||{}).value) || 1;
+            var row = t.closest('tr');
+            if (row) {
+              var perRepCell = row.children[3];
+              if (perRepCell) perRepCell.textContent = data.kpis[+t.dataset.hGoal].goal ? (data.kpis[+t.dataset.hGoal].goal / reps).toFixed(1) : '—';
+            }
+            // Pulse Check is derived → re-render to sync
+            renderPulse();
+            save();
+          } else if (t.id === 'pmx-reps') {
+            renderHouse();
+            renderPulse();
+          } else if (t.dataset.p !== undefined) {
+            // Pulse cell manual override — store and update only the row total (preserve focus)
+            var key = t.dataset.p;
+            var raw = t.value.trim();
+            if (raw === '') {
+              delete data.overrides[key];
+              // Restyle the cell back to derived
+              t.style.color = 'rgba(237,229,216,0.3)';
+              t.style.background = 'rgba(255,255,255,0.04)';
+              t.style.borderColor = 'rgba(255,255,255,0.08)';
+              t.title = 'auto-synced from House Goals';
+            } else {
+              data.overrides[key] = parseFloat(raw) || 0;
+              t.style.color = '#FF8C1A';
+              t.style.background = 'rgba(255,140,26,0.08)';
+              t.style.borderColor = 'rgba(255,140,26,0.55)';
+              t.title = 'manual override · click Sync to clear';
+            }
+            recomputeRowTotal(+key.split(',')[0]);
+            save();
+          }
+        });
+        // Helpers used by both live-search and offline-preset fill paths
+        function _pmxApplyKpiList(items, reps) {
+          var rateRe = /\brate\b|\b%\b|score|\bnps\b|\bratio\b|\bpct\b|\bcancel\b|\bchurn\b|attrit|retention|conversion|coverage|abandon|lapse|disconnect|reprint|claim|no.show|readmission|occupancy|fill.rate|utiliz|penetration|win.*rate|reten/i;
+          for (var i = 0; i < KPI_COUNT; i++) {
+            var k = items[i] || {};
+            var name = k.name || ('KPI ' + (i + 1));
+            var perRep = Number.isFinite(+k.perRep) ? +k.perRep : (Number.isFinite(+k.goal) ? +k.goal : 0);
+            var isRate = (typeof k.isRate === 'boolean') ? k.isRate : (rateRe.test(name) || (perRep <= 100 && /rate|%|score|nps|pct|ratio/i.test(name)));
+            data.kpis[i].name = name;
+            data.kpis[i].type = isRate ? 'pct' : 'total';
+            data.kpis[i].goal = isRate ? perRep : Math.round(perRep * reps);
+          }
+          data.overrides = {};
+          save();
+          renderHouse();
+          renderPulse();
+        }
+
+        function _pmxFallbackToPreset(ind, reps) {
+          var presets = (typeof INDUSTRY_PRESETS !== 'undefined') ? INDUSTRY_PRESETS : window.INDUSTRY_PRESETS;
+          var bench   = (typeof INDUSTRY_GOAL_BENCHMARKS !== 'undefined') ? INDUSTRY_GOAL_BENCHMARKS : window.INDUSTRY_GOAL_BENCHMARKS;
+          if (!presets || !presets[ind]) return;
+          var p = presets[ind];
+          var b = (bench && bench[ind]) || [];
+          var items = [];
+          for (var i = 0; i < KPI_COUNT; i++) {
+            items.push({
+              name: (p.kpis && p.kpis[i]) || ('KPI ' + (i + 1)),
+              perRep: b[i] != null ? +b[i] : 0,
+              isRate: undefined, // let the heuristic decide in _pmxApplyKpiList
+            });
+          }
+          _pmxApplyKpiList(items, reps);
+        }
+
+        function _pmxSetIndustryStatus(msg, color) {
+          var sel = document.getElementById('pmx-industry');
+          if (!sel || !sel.parentElement) return;
+          var statusId = 'pmx-industry-status';
+          var el = document.getElementById(statusId);
+          if (!msg) { if (el) el.remove(); return; }
+          if (!el) {
+            el = document.createElement('span');
+            el.id = statusId;
+            el.style.cssText = 'font-size:0.66rem;font-weight:700;letter-spacing:0.06em;margin-left:8px;font-family:inherit;';
+            sel.parentElement.appendChild(el);
+          }
+          el.textContent = msg;
+          el.style.color = color || 'rgba(237,229,216,0.6)';
+        }
+
+        document.addEventListener('change', function(e){
+          var t = e.target; if (!t) return;
+          if (t.dataset && t.dataset.hType !== undefined) {
+            data.kpis[+t.dataset.hType].type = t.value;
+            save();
+          } else if (t.id === 'pmx-industry') {
+            var ind = t.value;
+            if (!ind) return;
+            var label = (t.options[t.selectedIndex] && t.options[t.selectedIndex].textContent) || ind;
+            var reps = parseFloat((document.getElementById('pmx-reps')||{}).value) || 1;
+            // 1) Live search via Netlify Function — pulls current 2025-2026 KPI
+            //    benchmarks via Claude web_search. Falls back to local presets
+            //    if the function isn't reachable (e.g. file:// preview or 503).
+            _pmxSetIndustryStatus('🔎 Searching current ' + label.replace(/^[\W\s]+/, '').trim() + ' KPIs…', '#FF8C1A');
+            // Client-side timeout — abort if the function takes longer than 9s
+            // (Netlify free-plan limit is 10s; Claude+web_search often blows
+            // through that). On abort we fall back to local INDUSTRY_PRESETS.
+            // Cache hits return in ~100ms. Cache misses do a live web_search
+            // (10–30s) which always loses against this client timeout — that's
+            // intentional. The daily prewarm cron is the only way fresh KPIs
+            // make it into cache; user-facing behavior stays instant.
+            var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+            var timeoutId = setTimeout(function() { if (ctrl) ctrl.abort(); }, 4000);
+            fetch('/.netlify/functions/industry-kpis?ind=' + encodeURIComponent(ind)
+                  + '&label=' + encodeURIComponent(label.replace(/^[\W\s]+/, '').trim()),
+                  ctrl ? { signal: ctrl.signal } : {})
+              .then(function(r) { clearTimeout(timeoutId); return r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)); })
+              .then(function(d) {
+                if (!d || !d.ok || !Array.isArray(d.kpis) || !d.kpis.length) throw new Error('no kpis');
+                // Guard: if every returned name looks like the function's
+                // placeholder ("KPI 1", "KPI 2", ...), the live search came
+                // back empty/unparseable — fall back to local preset instead
+                // of rendering 9 empty rows.
+                var realCount = d.kpis.filter(function(k) {
+                  return k && k.name && !/^KPI\s*\d+$/i.test(String(k.name).trim());
+                }).length;
+                if (realCount < 3) throw new Error('placeholder KPIs only');
+                _pmxApplyKpiList(d.kpis, reps);
+                var src = d.source === 'cache' ? 'cached' : 'live';
+                _pmxSetIndustryStatus('✓ ' + realCount + ' KPIs (' + src + ' · ' + (d.asOf || '') + ')', '#22c55e');
+                setTimeout(function() { _pmxSetIndustryStatus('', ''); }, 4000);
+              })
+              .catch(function(err) {
+                clearTimeout(timeoutId);
+                console.warn('[pmx-industry] live search failed, falling back to preset:', err && err.message);
+                _pmxFallbackToPreset(ind, reps);
+                var msg = (err && err.name === 'AbortError') ? '⏱ live search timed out — using preset' : '• offline preset';
+                _pmxSetIndustryStatus(msg, 'rgba(237,229,216,0.7)');
+                setTimeout(function() { _pmxSetIndustryStatus('', ''); }, 4000);
+              });
+          }
+        });
+        document.addEventListener('click', function(e){
+          if (!e.target) return;
+          if (e.target.id === 'pmx-sync') {
+            // Clear all manual overrides → cells re-derive from House Goals
+            data.overrides = {};
+            save();
+            renderPulse();
+          } else if (e.target.id === 'pmx-reset') {
+            if (confirm('Reset all House Goals + Pulse Check overrides?')) {
+              data.kpis = [];
+              for (var i = 0; i < KPI_COUNT; i++) data.kpis.push({ name: 'KPI '+(i+1), type: 'total', goal: 0 });
+              data.overrides = {};
+              save(); renderHouse(); renderPulse();
+            }
+          }
+        });
+
+        function init(){ renderHouse(); renderPulse(); }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+        else init();
+      })();
+      </script>

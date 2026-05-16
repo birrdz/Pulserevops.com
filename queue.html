@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Indexing Queue · Pulse RevOps</title>
+<link rel="canonical" href="https://pulserevops.com/queue">
+<style>
+  body {
+    margin:0; padding:0;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:linear-gradient(180deg,#080604 0%,#1a0e08 100%);
+    color:#FFD8A8;
+    min-height:100vh;
+  }
+  main {
+    max-width:760px; margin:0 auto;
+    padding:48px clamp(20px,5vw,56px);
+  }
+  h1 {
+    font-size:1.4rem; font-weight:800; letter-spacing:0.18em;
+    text-transform:uppercase; color:#E8710A; margin:0 0 8px;
+  }
+  .sub { font-size:0.78rem; color:rgba(255,180,90,0.55); margin-bottom:28px; letter-spacing:0.04em; }
+  .panel {
+    background:rgba(15,18,22,0.96);
+    border:1px solid rgba(232,113,10,0.4);
+    border-radius:14px;
+    padding:22px 24px;
+    box-shadow:0 6px 22px rgba(0,0,0,0.55);
+  }
+  .stat-row { display:flex; align-items:baseline; gap:10px; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid rgba(232,113,10,0.25); }
+  .stat-num { font-size:2.4rem; font-weight:900; color:#FFD8A8; line-height:1; }
+  .stat-label { font-size:0.78rem; color:rgba(255,180,90,0.7); }
+  ol { margin:0; padding-left:1.6em; line-height:1.6; font-size:1rem; }
+  ol li { margin-bottom:8px; color:#FFD8A8; }
+  ol li a { color:#FFD8A8; text-decoration:none; }
+  ol li a:hover { color:#FFB347; text-decoration:underline; }
+  .back { display:inline-block; margin-top:24px; font-size:0.74rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,140,26,0.7); text-decoration:none; border-bottom:1px dotted rgba(255,140,26,0.4); }
+  .back:hover { color:#FFB347; }
+</style>
+</head>
+<body>
+<main>
+  <h1>◉ Indexing Queue</h1>
+  <div class="sub">Library entries published in the last 14 days, pending Google crawl confirmation.</div>
+  <div class="panel">
+    <div class="stat-row">
+      <span class="stat-num" id="iq-count">…</span>
+      <span class="stat-label">in 14-day window · <span id="iq-meta">…</span></span>
+    </div>
+    <ol id="iq-list"></ol>
+  </div>
+  <a class="back" href="/knowledge.html">← back to library</a>
+</main>
+<script>
+(function(){
+  var count = document.getElementById('iq-count');
+  var meta  = document.getElementById('iq-meta');
+  var list  = document.getElementById('iq-list');
+  function fmt(n){ return (n||0).toLocaleString('en-US'); }
+  function refresh(){
+    fetch('/.netlify/functions/index-queue', { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (!d || !d.ok) { meta.textContent = 'unavailable'; return; }
+        count.textContent = fmt(d.queue_count);
+        meta.textContent = fmt(d.queue_count) + ' of ' + fmt(d.total_library) + ' library total';
+        list.innerHTML = '';
+        (d.queue || []).forEach(function(e, i){
+          var li = document.createElement('li');
+          li.style.marginBottom = '10px';
+          li.style.color = '#FFD8A8';
+          if (i === 0) {
+            li.style.padding = '10px 12px';
+            li.style.marginLeft = '-22px';
+            li.style.paddingLeft = '20px';
+            li.style.border = '2px solid #00ff41';
+            li.style.borderRadius = '8px';
+            li.style.background = 'linear-gradient(90deg, rgba(0,255,65,0.10), rgba(0,255,65,0.02) 70%)';
+            li.style.boxShadow = '0 0 14px rgba(0,255,65,0.4)';
+            li.style.listStyle = 'none';
+            var nextPill = document.createElement('div');
+            nextPill.textContent = '◉ NEXT TO INDEX';
+            nextPill.style.cssText = 'display:inline-block;background:#00ff41;color:#001405;padding:2px 10px;border-radius:99px;font-size:0.62rem;font-weight:900;letter-spacing:0.16em;margin-bottom:6px;box-shadow:0 0 8px rgba(0,255,65,0.55);';
+            li.appendChild(nextPill);
+            li.appendChild(document.createElement('br'));
+          }
+          var a = document.createElement('a');
+          a.href = '/knowledge/' + e.id;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = e.question || e.id;
+          if (i === 0) a.style.fontWeight = '700';
+          a.style.color = i === 0 ? '#7BFF8F' : '#FFD8A8';
+          li.appendChild(a);
+          if (e.ts) {
+            var dObj = new Date(e.ts);
+            var ts = document.createElement('div');
+            ts.textContent = dObj.toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'})
+                           + ' · '
+                           + dObj.toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit'});
+            ts.style.fontSize = '0.78rem';
+            ts.style.color = i === 0 ? 'rgba(123,255,143,0.75)' : 'rgba(255,180,90,0.6)';
+            ts.style.marginTop = '3px';
+            li.appendChild(ts);
+          }
+          list.appendChild(li);
+        });
+      })
+      .catch(function(){ meta.textContent = 'unavailable'; });
+  }
+  refresh();
+  setInterval(refresh, 30000);
+})();
+</script>
+</body>
+</html>

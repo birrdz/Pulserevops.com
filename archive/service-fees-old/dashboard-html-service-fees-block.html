@@ -1,0 +1,107 @@
+      <div id="service-fees-section" class="matrix-section-wrap" style="padding:28px 32px;">
+        <div style="margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <button onclick="sfCalculate()" id="sf-calc-btn" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(232,113,10,0.2),rgba(232,113,10,0.12));border:1.5px solid rgba(232,113,10,0.55);border-radius:10px;color:#E8710A;font-size:0.82rem;font-weight:800;padding:10px 24px;cursor:pointer;font-family:inherit;letter-spacing:0.04em;transition:all 0.2s;" onmouseover="this.style.background='linear-gradient(135deg,rgba(232,113,10,0.32),rgba(232,113,10,0.2))'" onmouseout="this.style.background='linear-gradient(135deg,rgba(232,113,10,0.2),rgba(232,113,10,0.12))'">✦ Calculate</button>
+          <button id="sf-add-btn" onclick="sfAddFee()" style="background:rgba(232,113,10,0.1);border:1.5px solid rgba(232,113,10,0.4);border-radius:10px;color:#E8710A;font-size:0.78rem;font-weight:700;padding:9px 20px;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(232,113,10,0.2)'" onmouseout="this.style.background='rgba(232,113,10,0.1)'">+ Add Service Fee</button>
+          <!-- AI fee suggestion -->
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-left:auto;">
+            <select id="sf-industry-select" style="appearance:none;background:rgba(191,88,0,0.08);border:1px solid rgba(191,88,0,0.35);border-radius:8px;color:#FF8C1A;font-size:0.72rem;font-weight:700;padding:8px 28px 8px 12px;font-family:inherit;cursor:pointer;outline:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c084fc'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 10px center;" onchange="sfIndustryChange()">
+              <option value="" disabled selected>Select industry…</option>
+              <option value="security">Home Security / Alarm</option>
+              <option value="internet">Internet / Broadband</option>
+              <option value="solar">Solar / Energy</option>
+              <option value="mortgage">Mortgage / Lending</option>
+              <option value="insurance">Insurance</option>
+              <option value="realestate">Real Estate</option>
+              <option value="saas">SaaS / Software</option>
+              <option value="gym">Fitness / Gym</option>
+              <option value="streaming">Streaming / Media</option>
+              <option value="banking">Banking / Fintech</option>
+              <option value="healthcare">Healthcare / Medical</option>
+              <option value="auto">Auto / Dealership</option>
+              <option value="pest">Pest Control</option>
+              <option value="hvac">HVAC / Home Services</option>
+              <option value="cable">Cable / Satellite TV</option>
+              <option value="moving">Moving / Storage</option>
+              <option value="travel">Travel / Hospitality</option>
+              <option value="legal">Legal / Professional</option>
+              <option value="retail">Retail / E-commerce</option>
+              <optgroup label="─────────────────"></optgroup>
+              <option value="staffing">Staffing / Recruiting</option>
+              <option value="pharma">Pharmaceutical / Biotech</option>
+              <option value="meddevice">Medical Device / Equipment</option>
+              <option value="construction">Construction / Contracting</option>
+              <option value="edtech">Education / EdTech</option>
+              <option value="restaurant">Restaurant / Food Service</option>
+              <option value="ecommerce">E-commerce / DTC</option>
+              <option value="cybersec">Cybersecurity / IT Security</option>
+              <option value="logistics">Logistics / Freight</option>
+              <option value="events">Events / Entertainment</option>
+              <option value="dental">Dental / Orthodontics</option>
+              <option value="veterinary">Veterinary / Pet Services</option>
+              <option value="cleaning">Cleaning / Facilities</option>
+              <option value="wellness">Wellness / Spa / Beauty</option>
+              <option value="msp">IT Services / MSP</option>
+              <option value="media">Digital Advertising / Media</option>
+              <option value="agriculture">Agriculture / Farm Supply</option>
+              <option value="wholesale">Wholesale Distribution</option>
+              <option value="printing">Printing / Signage</option>
+              <option value="nonprofit">Nonprofit / Fundraising</option>
+            </select>
+            <button onclick="sfAiSuggest()" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(191,88,0,0.18),rgba(236,72,153,0.1));border:1px solid rgba(191,88,0,0.5);border-radius:8px;color:#FF8C1A;font-size:0.72rem;font-weight:800;padding:8px 16px;cursor:pointer;font-family:inherit;letter-spacing:0.04em;transition:all 0.2s;" onmouseover="this.style.background='linear-gradient(135deg,rgba(191,88,0,0.3),rgba(236,72,153,0.18))'" onmouseout="this.style.background='linear-gradient(135deg,rgba(191,88,0,0.18),rgba(236,72,153,0.1))'">✦ AI Suggest Fee</button>
+          </div>
+        </div>
+        <!-- AI suggestion result -->
+        <div id="sf-ai-result" style="display:none;margin-bottom:16px;padding:14px 18px;background:rgba(191,88,0,0.06);border:1px solid rgba(191,88,0,0.22);border-radius:12px;">
+          <div style="font-size:0.55rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#BF5800;margin-bottom:8px;">✦ AI Fee Suggestion</div>
+          <div id="sf-ai-content" style="font-size:0.82rem;color:#EDE5D8;line-height:1.6;"></div>
+          <button onclick="sfApplyAiSuggestion()" style="margin-top:10px;background:rgba(191,88,0,0.15);border:1px solid rgba(191,88,0,0.4);border-radius:8px;color:#FF8C1A;font-size:0.72rem;font-weight:800;padding:7px 18px;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(191,88,0,0.25)'" onmouseout="this.style.background='rgba(191,88,0,0.15)'">→ Apply to New Row</button>
+        </div>
+        <!-- Back-office headcount + default attachment rate inputs -->
+        <div style="margin-bottom:20px; padding:16px 20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <label style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#9A9088;"># of Back-Office Employees</label>
+            <input id="sf-back-office-count" type="number" min="0" placeholder="e.g. 3" oninput="sfRecalc()" style="width:120px; background:rgba(255,255,255,0.06); border:1px solid rgba(232,113,10,0.3); border-radius:8px; color:#EDE5D8; font-family:inherit; font-size:1rem; font-weight:700; padding:8px 12px; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(232,113,10,0.7)'" onblur="this.style.borderColor='rgba(232,113,10,0.3)'" />
+          </div>
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <label style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#9A9088;">Default Attachment Rate</label>
+            <div style="position:relative; display:inline-flex; align-items:center;">
+              <input id="sf-attach-rate" type="number" min="0" max="100" step="1" placeholder="e.g. 65" oninput="sfApplyAttachRate(this.value)" style="width:120px; background:rgba(255,255,255,0.06); border:1px solid rgba(232,113,10,0.3); border-radius:8px; color:#EDE5D8; font-family:inherit; font-size:1rem; font-weight:700; padding:8px 28px 8px 12px; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(232,113,10,0.7)'" onblur="this.style.borderColor='rgba(232,113,10,0.3)'" />
+              <span style="position:absolute; right:10px; top:50%; transform:translateY(-50%); pointer-events:none; color:#9A9088; font-size:0.85rem; font-weight:700;">%</span>
+            </div>
+            <div style="font-size:0.6rem; color:#6B6460; margin-top:2px;">% of sales that include each fee</div>
+          </div>
+          <div style="font-size:0.75rem; color:#6B6460; line-height:1.6; flex:1; min-width:200px;">
+            PULSE assumes <strong style="color:#9A9088;">$50,000/year per back-office employee</strong>.<br>
+            After you calculate fees, see what % of that cost your fees already cover.
+          </div>
+          <div id="sf-backoffice-result" style="display:none; text-align:center; padding:10px 18px; background:rgba(232,113,10,0.06); border:1px solid rgba(232,113,10,0.2); border-radius:10px; min-width:180px;">
+            <div style="font-size:0.55rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#E8710A; margin-bottom:4px;">Back-Office Funded by Fees</div>
+            <div id="sf-backoffice-pct" style="font-size:1.6rem; font-weight:900; color:#E8710A;">—%</div>
+            <div id="sf-backoffice-detail" style="font-size:0.65rem; color:#9A9088; margin-top:3px;"></div>
+          </div>
+        </div>
+        <div id="sf-fees-wrap" style="display:flex; flex-direction:column; gap:16px;"></div>
+        <!-- Summary bar -->
+        <div id="sf-summary" style="display:none; margin-top:24px; background:rgba(232,113,10,0.06); border:1px solid rgba(232,113,10,0.25); border-radius:14px; padding:20px 24px;">
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#E8710A;margin-bottom:14px;">Total Service Fee Impact</div>
+          <div style="display:flex;gap:0;flex-wrap:wrap;align-items:stretch;">
+            <div style="flex:1;min-width:110px;padding:8px 16px;border-right:1px solid rgba(255,255,255,0.07);text-align:center;">
+              <div style="font-size:0.6rem;color:var(--muted);margin-bottom:3px;">Monthly Fee Revenue</div>
+              <div style="font-size:1.5rem;font-weight:900;color:#E8710A;" id="sf-total-rev">$—</div>
+            </div>
+            <div style="flex:1;min-width:110px;padding:8px 16px;border-right:1px solid rgba(255,255,255,0.07);text-align:center;">
+              <div style="font-size:0.6rem;color:var(--muted);margin-bottom:3px;">Annual Impact</div>
+              <div style="font-size:1.5rem;font-weight:900;color:#E8710A;" id="sf-total-annual">$—</div>
+            </div>
+            <div style="flex:1;min-width:110px;padding:8px 16px;border-right:1px solid rgba(255,255,255,0.07);text-align:center;">
+              <div style="font-size:0.6rem;color:var(--muted);margin-bottom:3px;">Fees Collected / Mo</div>
+              <div style="font-size:1.5rem;font-weight:900;color:#EDE5D8;" id="sf-total-collected">—</div>
+            </div>
+            <div style="flex:1;min-width:130px;padding:8px 16px;text-align:center;">
+              <div style="font-size:0.6rem;color:var(--muted);margin-bottom:4px;">Bottom Line Verdict</div>
+              <div style="font-size:0.88rem;font-weight:800;line-height:1.4;" id="sf-verdict">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+

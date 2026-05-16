@@ -1,0 +1,147 @@
+{
+  "rules": "College athletic programs by conference. NIL + revenue lens. Start SEC alphabetical, then Big Ten, Big 12, ACC, then mid-major D1, then drop to D2/D3/NAIA/JUCO/HBCU. Started 2026-05-01.",
+  "used": [
+    {
+      "id": "q1448",
+      "school": "Alabama",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1449",
+      "school": "Arkansas",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1450",
+      "school": "Auburn",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1451",
+      "school": "Florida",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1452",
+      "school": "Georgia",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1453",
+      "school": "Kentucky",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1454",
+      "school": "LSU",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1455",
+      "school": "Mississippi State",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1456",
+      "school": "Missouri",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1457",
+      "school": "Ole Miss",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1458",
+      "school": "Oklahoma",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1459",
+      "school": "South Carolina",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1460",
+      "school": "Tennessee",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1461",
+      "school": "Texas",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1462",
+      "school": "Texas A&M",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1463",
+      "school": "Vanderbilt",
+      "conference": "SEC"
+    },
+    {
+      "id": "q1464",
+      "school": "Illinois",
+      "conference": "Big Ten"
+    },
+    {
+      "id": "q1465",
+      "school": "Indiana",
+      "conference": "Big Ten"
+    }
+  ],
+  "remaining": [
+    "Iowa",
+    "Maryland",
+    "Michigan",
+    "Michigan State",
+    "Minnesota",
+    "Nebraska",
+    "Northwestern",
+    "Ohio State",
+    "Oregon",
+    "Penn State",
+    "Purdue",
+    "Rutgers",
+    "UCLA",
+    "USC",
+    "Washington",
+    "Wisconsin",
+    "Arizona",
+    "Arizona State",
+    "Baylor",
+    "BYU",
+    "Cincinnati",
+    "Colorado",
+    "Houston",
+    "Iowa State",
+    "Kansas",
+    "Kansas State",
+    "Oklahoma State",
+    "TCU",
+    "Texas Tech",
+    "UCF",
+    "Utah",
+    "West Virginia",
+    "Boston College",
+    "California",
+    "Clemson",
+    "Duke",
+    "Florida State",
+    "Georgia Tech",
+    "Louisville",
+    "Miami",
+    "NC State",
+    "North Carolina",
+    "Notre Dame",
+    "Pitt",
+    "SMU",
+    "Stanford",
+    "Syracuse",
+    "Virginia",
+    "Virginia Tech",
+    "Wake Forest"
+  ]
+}

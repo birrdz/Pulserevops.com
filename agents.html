@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PULSE · The Village — every worker, live</title>
+<meta name="robots" content="noindex,follow" />
+<meta name="description" content="A living little town where every autonomous worker in the PULSE library walks building to building in real time — writing, polishing, indexing and auditing." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --bg:#080b10;
+    --orange:#E8710A;
+    --c-writing:#FF3996;
+    --c-polishing:#FFB347;
+    --c-indexing:#39FF14;
+    --c-auditing:#B388FF;
+    --c-idle:#7BB6FF;
+    --hud:#cfe3ff;
+  }
+  html,body{height:100%;}
+  body{
+    background:var(--bg);
+    color:var(--hud);
+    font-family:'Inter',sans-serif;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  #city{position:fixed;inset:0;display:block;z-index:0;}
+  /* scanlines + vignette over the canvas — matches the Machine Room look */
+  .scanlines{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,0.16) 3px,rgba(0,0,0,0) 4px);
+    mix-blend-mode:multiply;opacity:0.5;}
+  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(ellipse 78% 78% at 50% 50%,transparent 40%,rgba(4,6,10,0.5) 80%,rgba(4,6,10,0.92) 100%);}
+
+  .mono{font-family:'JetBrains Mono','SF Mono',monospace;}
+
+  /* ── TOP HUD ───────────────────────────────────────────── */
+  #top-hud{
+    position:fixed;top:0;left:0;right:0;z-index:5;
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    padding:10px 16px;
+    background:linear-gradient(180deg,rgba(8,11,16,0.96),rgba(8,11,16,0.55));
+    border-bottom:1px solid rgba(232,113,10,0.28);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  }
+  .brand{display:flex;align-items:center;gap:9px;font-weight:900;letter-spacing:0.16em;
+    text-transform:uppercase;font-size:0.72rem;color:#fff;white-space:nowrap;}
+  .brand .spark{font-size:0.95rem;filter:drop-shadow(0 0 6px rgba(232,113,10,0.9));}
+  .brand b{background:linear-gradient(90deg,#FF8C1A,#E8710A);-webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;background-clip:text;}
+  .conn{display:flex;align-items:center;gap:6px;font-size:0.56rem;letter-spacing:0.14em;
+    text-transform:uppercase;color:#7d8aa0;margin-left:auto;white-space:nowrap;}
+  .conn .dot{width:8px;height:8px;border-radius:50%;background:#39FF14;
+    box-shadow:0 0 9px rgba(57,255,20,0.9);animation:blink 1.6s ease-in-out infinite;}
+  .conn.sim .dot{background:#FFB347;box-shadow:0 0 9px rgba(255,179,71,0.9);}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.35}}
+  .back-link{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;
+    color:#7d8aa0;text-decoration:none;border:1px solid rgba(255,255,255,0.12);
+    padding:5px 11px;border-radius:7px;transition:all .15s;white-space:nowrap;}
+  .back-link:hover{color:#fff;border-color:var(--orange);}
+
+  .chips{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{background:rgba(15,22,34,0.8);border:1px solid rgba(120,150,200,0.16);
+    border-radius:9px;padding:5px 11px;display:flex;flex-direction:column;gap:1px;min-width:64px;}
+  .chip .k{font-size:0.5rem;letter-spacing:0.16em;text-transform:uppercase;color:#6f7e96;}
+  .chip .v{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:0.92rem;color:#fff;line-height:1.1;}
+  .chip .v.accent{color:var(--orange);}
+  .chip .v.green{color:var(--c-indexing);}
+  .chip .v.amber{color:var(--c-polishing);}
+
+  /* ── LEFT PANEL — assembly line ────────────────────────── */
+  .panel{
+    position:fixed;z-index:5;
+    background:rgba(8,11,16,0.82);
+    border:1px solid rgba(120,150,200,0.16);
+    border-radius:13px;
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+    box-shadow:0 14px 50px rgba(0,0,0,0.5);
+  }
+  .panel h3{font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--orange);padding:11px 14px 8px;font-weight:900;}
+  #line-panel{left:16px;top:84px;width:212px;padding-bottom:10px;}
+  .slot{display:flex;align-items:center;gap:9px;padding:7px 14px;}
+  .slot .ico{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;
+    justify-content:center;font-size:0.78rem;flex-shrink:0;
+    border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.03);}
+  .slot .nm{font-size:0.66rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#8b99b0;}
+  .slot .sub{font-size:0.5rem;color:#5d6a80;letter-spacing:0.04em;}
+  .slot.active .nm{color:#fff;}
+  .slot.active .ico{box-shadow:0 0 0 1px currentColor,0 0 16px -2px currentColor;}
+  .slot.done .ico{opacity:0.4;}
+  .slot.done .nm{color:#54607a;}
+  .line-conn{width:1px;height:9px;background:rgba(120,150,200,0.25);margin-left:26px;}
+  #line-next{margin:8px 14px 2px;font-size:0.54rem;letter-spacing:0.1em;
+    text-transform:uppercase;color:#6f7e96;}
+  #line-next b{color:var(--orange);font-family:'JetBrains Mono',monospace;}
+
+  /* ── RIGHT PANEL — activity feed ───────────────────────── */
+  #feed-panel{right:16px;top:84px;width:248px;max-height:46vh;display:flex;flex-direction:column;}
+  #feed{overflow:hidden;padding:0 4px 10px;flex:1;}
+  .ev{display:flex;gap:8px;padding:5px 10px;align-items:flex-start;
+    border-left:2px solid transparent;animation:evIn .35s ease;}
+  @keyframes evIn{from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:none}}
+  .ev .tg{font-family:'JetBrains Mono',monospace;font-size:0.5rem;font-weight:800;
+    letter-spacing:0.08em;padding:1px 5px;border-radius:4px;flex-shrink:0;margin-top:1px;}
+  .ev .tx{font-size:0.62rem;color:#aab6ca;line-height:1.45;}
+  .ev .tx b{color:#fff;}
+  .ev .tm{font-family:'JetBrains Mono',monospace;font-size:0.46rem;color:#5d6a80;margin-left:auto;flex-shrink:0;}
+
+  /* ── LEGEND ────────────────────────────────────────────── */
+  #legend{right:16px;bottom:74px;width:248px;padding:9px 12px;}
+  #legend .row{display:flex;gap:12px 14px;flex-wrap:wrap;}
+  .lg{display:flex;align-items:center;gap:5px;font-size:0.54rem;letter-spacing:0.05em;
+    text-transform:uppercase;color:#8b99b0;}
+  .lg i{width:9px;height:9px;border-radius:50%;display:block;}
+  .lg i.amb{background:#5d6a80;}
+
+  /* ── BOTTOM TICKER ─────────────────────────────────────── */
+  #ticker{
+    position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:5;
+    display:flex;align-items:center;gap:13px;
+    padding:9px 20px;border-radius:13px;
+    background:rgba(8,11,16,0.9);border:1px solid rgba(232,113,10,0.3);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+    box-shadow:0 14px 50px rgba(0,0,0,0.55);max-width:min(620px,92vw);
+  }
+  #ticker .pulse{width:11px;height:11px;border-radius:50%;flex-shrink:0;
+    background:var(--c-writing);box-shadow:0 0 14px var(--c-writing);
+    animation:tickPulse 1.3s ease-in-out infinite;}
+  @keyframes tickPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(0.55);opacity:0.5}}
+  #ticker .st{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:0.66rem;
+    letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap;}
+  #ticker .det{font-size:0.66rem;color:#9aa7bc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  #ticker .det b{color:#fff;font-family:'JetBrains Mono',monospace;}
+
+  @media (max-width:880px){
+    #line-panel,#feed-panel,#legend{display:none;}
+    #top-hud{gap:9px;padding:8px 11px;}
+    .chip{min-width:54px;padding:4px 8px;}
+    .chip .v{font-size:0.78rem;}
+  }
+</style>
+</head>
+<body>
+<canvas id="city"></canvas>
+<div class="scanlines"></div>
+<div class="vignette"></div>
+
+<!-- TOP HUD -->
+<div id="top-hud">
+  <div class="brand"><span class="spark">⚡</span> PULSE <b>· THE VILLAGE</b></div>
+  <div class="chips" id="chips">
+    <div class="chip" style="background:rgba(232,113,10,0.16);border:1px solid rgba(232,113,10,0.5);box-shadow:0 0 14px rgba(232,113,10,0.25);"><span class="k">Workers live</span><span class="v accent" id="c-workers">—</span></div>
+    <div class="chip"><span class="k">Library</span><span class="v accent" id="c-total">—</span></div>
+    <div class="chip"><span class="k">+ Today</span><span class="v" id="c-today">—</span></div>
+    <div class="chip"><span class="k">Run rate</span><span class="v" id="c-run">—</span></div>
+    <div class="chip"><span class="k">Rewrites/hr</span><span class="v amber" id="c-rw">—</span></div>
+    <div class="chip"><span class="k">≥ 9K words</span><span class="v green" id="c-9k">—</span></div>
+    <div class="chip"><span class="k">10 / 10</span><span class="v" id="c-ten">—</span></div>
+    <div class="chip"><span class="k">Indexed</span><span class="v green" id="c-idx">—</span></div>
+  </div>
+  <div class="conn" id="conn"><span class="dot"></span><span id="conn-label">connecting…</span></div>
+  <a class="back-link" href="/knowledge">← Library</a>
+</div>
+
+<!-- LEFT — ASSEMBLY LINE -->
+<div class="panel" id="line-panel">
+  <h3>◉ Loop · assembly line</h3>
+  <div id="line-slots"></div>
+  <div id="line-next">next: <b id="line-next-val">—</b></div>
+</div>
+
+<!-- RIGHT — ACTIVITY FEED -->
+<div class="panel" id="feed-panel">
+  <h3>◉ Live activity feed</h3>
+  <div id="feed"></div>
+</div>
+
+<!-- LEGEND -->
+<div class="panel" id="legend">
+  <div class="row">
+    <span class="lg"><i style="background:var(--c-writing)"></i>Writing</span>
+    <span class="lg"><i style="background:var(--c-polishing)"></i>Polishing</span>
+    <span class="lg"><i style="background:var(--c-indexing)"></i>Indexing</span>
+    <span class="lg"><i style="background:var(--c-auditing)"></i>Auditing</span>
+    <span class="lg"><i style="background:var(--c-idle)"></i>Idle</span>
+    <span class="lg"><i class="amb"></i>Townsfolk</span>
+  </div>
+</div>
+
+<!-- BOTTOM TICKER -->
+<div id="ticker">
+  <span class="pulse" id="tick-pulse"></span>
+  <span class="st" id="tick-status">BOOTING</span>
+  <span class="det" id="tick-detail">waking the village…</span>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  // ── palette ──────────────────────────────────────────────
+  var COL = {
+    writing:'#FF3996', polishing:'#FFB347', indexing:'#39FF14',
+    auditing:'#B388FF', idle:'#7BB6FF', orange:'#E8710A'
+  };
+  var ACTION_LABEL = {
+    writing:'NOW WRITING', polishing:'NOW POLISHING', indexing:'NOW INDEXING',
+    auditing:'NOW AUDITING', idle:'IDLE'
+  };
+
+  // ── canvas setup ─────────────────────────────────────────
+  var cv = document.getElementById('city');
+  var ctx = cv.getContext('2d');
+  var W = 0, H = 0, DPR = 1;
+  var offCanvas = null;
+
+  // ── the town — an isometric grid of little buildings ─────
+  // grid is GW×GH cells; iso() maps a grid coord to the screen.
+  var GW = 15, GH = 15;
+  var TW = 30, TH = 15, ORIGIN_X = 0, ORIGIN_Y = 0;   // resolved in layout()
+
+  // every workshop the workers walk between. footprints + a "door" cell
+  // (on the front/south side so a worker standing there is never hidden).
+  var BUILDINGS = {
+    RESEARCH: { x0:1,  y0:1,  x1:3,  y1:3,  h:46, col:COL.idle,      label:'RESEARCH', sign:'gather' },
+    WRITER:   { x0:11, y0:1,  x1:13, y1:3,  h:58, col:COL.writing,   label:'WRITER',   sign:'draft'  },
+    AUDITOR:  { x0:1,  y0:6,  x1:3,  y1:8,  h:48, col:COL.auditing,  label:'AUDITOR',  sign:'verify' },
+    LIBRARY:  { x0:6,  y0:6,  x1:9,  y1:9,  h:84, col:COL.orange,    label:'LIBRARY',  sign:'core', core:true },
+    INDEXER:  { x0:1,  y0:11, x1:3,  y1:13, h:50, col:COL.indexing,  label:'INDEXER',  sign:'ping'   },
+    POLISHER: { x0:11, y0:11, x1:13, y1:13, h:52, col:COL.polishing, label:'POLISHER', sign:'polish' },
+    BREAK:    { x0:6,  y0:0,  x1:8,  y1:1,  h:40, col:'#8FB7E8',     label:'BREAK ROOM', sign:'rest', rest:true }
+  };
+  // door cell each worker walks to (grid coords, may be fractional)
+  var DOORS = {
+    RESEARCH:{ gx:4,   gy:4   }, WRITER:{ gx:12,  gy:4   },
+    AUDITOR: { gx:3.7, gy:9   }, LIBRARY:{ gx:7.5, gy:10.4 },
+    INDEXER: { gx:2,   gy:14  }, POLISHER:{ gx:12, gy:14  },
+    BREAK:   { gx:7,   gy:2.4 }
+  };
+  // streets drawn on the ground between doors
+  var STREETS = [
+    ['LIBRARY','RESEARCH'],['LIBRARY','WRITER'],['LIBRARY','AUDITOR'],
+    ['LIBRARY','INDEXER'],['LIBRARY','POLISHER'],['RESEARCH','WRITER'],
+    ['LIBRARY','BREAK']
+  ];
+  // the path a working critter walks, by action — a loop of building keys
+  var ROUTES = {
+    writing:   ['RESEARCH','WRITER','LIBRARY'],
+    polishing: ['LIBRARY','POLISHER','LIBRARY'],
+    indexing:  ['LIBRARY','INDEXER','LIBRARY'],
+    auditing:  ['LIBRARY','AUDITOR','LIBRARY'],
+    idle:      ['BREAK']
+  };
+  var BUILDING_KEYS = Object.keys(BUILDINGS);
+
+  function iso(gx,gy){
+    return { x: ORIGIN_X + (gx - gy) * TW, y: ORIGIN_Y + (gx + gy) * TH };
+  }
+  function doorPt(key){ var d = DOORS[key] || DOORS.LIBRARY; return d; }
+
+  function layout(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W * DPR; cv.height = H * DPR;
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    // fit the whole diamond between the top HUD and the bottom ticker
+    var span = GW + GH;
+    TW = Math.min((W * 0.92) / span, (H * 0.66) / span * 2);
+    TW = Math.max(14, TW);
+    TH = TW / 2;
+    ORIGIN_X = W / 2;
+    ORIGIN_Y = (H - span * TH) / 2 + 30;
+    buildTown();
+  }
+
+  // ── static town floor — ground tiles, streets, lamps ─────
+  function buildTown(){
+    offCanvas = document.createElement('canvas');
+    offCanvas.width = W*DPR; offCanvas.height = H*DPR;
+    var o = offCanvas.getContext('2d');
+    o.setTransform(DPR,0,0,DPR,0,0);
+
+    // ground diamond tiles — dark circuit floor
+    for (var gx=0; gx<GW; gx++){
+      for (var gy=0; gy<GH; gy++){
+        var a = iso(gx,gy), b = iso(gx+1,gy), c = iso(gx+1,gy+1), d = iso(gx,gy+1);
+        var shade = 0.045 + ((gx+gy)%2) * 0.022;
+        o.beginPath();
+        o.moveTo(a.x,a.y); o.lineTo(b.x,b.y); o.lineTo(c.x,c.y); o.lineTo(d.x,d.y); o.closePath();
+        o.fillStyle = 'rgba(28,40,58,'+shade.toFixed(3)+')';
+        o.fill();
+        o.strokeStyle = 'rgba(90,130,180,0.07)';
+        o.lineWidth = 1;
+        o.stroke();
+      }
+    }
+
+    // streets — glowing walkways door to door
+    STREETS.forEach(function(s){
+      var A = iso(doorPt(s[0]).gx, doorPt(s[0]).gy);
+      var B = iso(doorPt(s[1]).gx, doorPt(s[1]).gy);
+      o.lineCap = 'round';
+      o.strokeStyle = 'rgba(120,160,210,0.10)';
+      o.lineWidth = Math.max(7, TW*0.34);
+      o.beginPath(); o.moveTo(A.x,A.y); o.lineTo(B.x,B.y); o.stroke();
+      o.strokeStyle = 'rgba(160,195,240,0.22)';
+      o.lineWidth = 1.4;
+      o.beginPath(); o.moveTo(A.x,A.y); o.lineTo(B.x,B.y); o.stroke();
+    });
+
+    // a few lamp posts to give the town texture
+    var lamps = [[5,3],[9.5,2.6],[4.4,11.6],[10.8,8.4],[7.6,4.6],[2.6,7],[12.4,9.6]];
+    lamps.forEach(function(L){
+      var p = iso(L[0],L[1]);
+      o.strokeStyle = 'rgba(150,170,200,0.35)';
+      o.lineWidth = 1.5;
+      o.beginPath(); o.moveTo(p.x,p.y); o.lineTo(p.x,p.y-14); o.stroke();
+      var g = o.createRadialGradient(p.x,p.y-15,0,p.x,p.y-15,9);
+      g.addColorStop(0,'rgba(255,210,140,0.85)');
+      g.addColorStop(1,'rgba(255,210,140,0)');
+      o.fillStyle = g;
+      o.beginPath(); o.arc(p.x,p.y-15,9,0,Math.PI*2); o.fill();
+      o.fillStyle = '#FFD79A';
+      o.beginPath(); o.arc(p.x,p.y-15,1.8,0,Math.PI*2); o.fill();
+    });
+  }
+
+  // ── state from the API (with a self-driving sim fallback) ──
+  var sim = false;
+  var state = {
+    library_total: 1614, added_today: 0, run_rate_per_hour: 0,
+    rewrites_per_hour: 0, nine_k_count: 0, ten_of_ten_count: 0,
+    indexed_count: 0, current_activity: null, in_flight_ids: [],
+    in_flight_workers: [],
+    next_slot:'POLISH', current_slot:1, next_delay_seconds:300,
+    loop_pattern:['WRITE','POLISH','POLISH','INDEX','INDEX'],
+    polish_target_id:null, polish_target_score:null
+  };
+  var simClock = { lastWrite: Date.now(), action:'writing', target:'q9552', score:7, slot:1 };
+
+  function simTick(){
+    // gently evolve a believable machine so the village is alive offline too
+    var actions = ['writing','polishing','polishing','indexing','auditing'];
+    if (Math.random() < 0.06){
+      simClock.action = actions[(Math.random()*actions.length)|0];
+      simClock.target = 'q' + (9400 + ((Math.random()*260)|0));
+      simClock.score = 6 + ((Math.random()*4)|0);
+      if (simClock.action === 'writing'){
+        state.library_total += 1; state.added_today += 1;
+        pushEvent('WRITE', 'New entry <b>'+simClock.target+'</b> committed to the library');
+      } else if (simClock.action === 'indexing'){
+        state.indexed_count = Math.min(state.library_total, state.indexed_count+1);
+      } else if (simClock.action === 'polishing' && Math.random()<0.5){
+        state.nine_k_count = Math.min(state.library_total, state.nine_k_count+1);
+        if (Math.random()<0.4) state.ten_of_ten_count++;
+      }
+    }
+    state.run_rate_per_hour = +(8 + Math.random()*6).toFixed(1);
+    state.rewrites_per_hour = +(10 + Math.random()*14).toFixed(1);
+    var nf = 1 + ((Math.random()*4)|0);
+    var ids = [];
+    for (var i=0;i<nf;i++) ids.push('q'+(9400+((Math.random()*260)|0)));
+    state.in_flight_ids = ids;
+    state.current_activity = { action:simClock.action, target:simClock.target, score:simClock.score, ts:Date.now() };
+    var pat = ['POLISH','POLISH','INDEX','INDEX','WRITE'];
+    simClock.slot = (simClock.slot % 5) + 1;
+    state.current_slot = simClock.slot;
+    state.next_slot = pat[simClock.slot-1];
+    state.next_delay_seconds = [300,300,120,120,60][simClock.slot-1];
+  }
+
+  function applyData(d){
+    var prevTotal = state.library_total;
+    var prevAct = state.current_activity ? state.current_activity.action : null;
+    state.library_total = d.library_total || state.library_total;
+    state.added_today = d.added_today || 0;
+    state.run_rate_per_hour = d.run_rate_per_hour || 0;
+    state.ten_of_ten_count = d.ten_of_ten_count || 0;
+    state.indexed_count = d.indexed_count || 0;
+    var co = d.claude_opus_progress || {};
+    state.rewrites_per_hour = co.rewrites_per_hour || 0;
+    state.nine_k_count = co.nine_k_count || 0;
+    state.next_slot = d.next_slot || state.next_slot;
+    state.current_slot = d.current_slot || state.current_slot;
+    state.next_delay_seconds = d.next_delay_seconds || state.next_delay_seconds;
+    if (Array.isArray(d.loop_pattern)) state.loop_pattern = d.loop_pattern;
+    state.polish_target_id = d.polish_target_id || null;
+    state.polish_target_score = d.polish_target_score || null;
+    var a = d.current_activity;
+    if (a){
+      var age = Date.now() - (a.ts || 0);
+      state.current_activity = (age > 5*60*1000)
+        ? { action:'idle', target:a.target, ts:a.ts }
+        : a;
+    } else state.current_activity = { action:'idle' };
+    state.in_flight_ids = (d.in_flight && d.in_flight.ids) || [];
+    // per-worker live stage — drop entries from a crashed agent (>10 min stale)
+    state.in_flight_workers = ((d.in_flight && d.in_flight.workers) || [])
+      .filter(function(w){ return w && w.id && (Date.now() - (w.ts || 0)) < 10*60*1000; });
+    // narrate the changes into the feed
+    if (state.library_total > prevTotal){
+      pushEvent('WRITE','Library grew to <b>'+state.library_total.toLocaleString()+'</b> entries');
+    }
+    var nowAct = state.current_activity.action;
+    if (nowAct !== prevAct && nowAct !== 'idle'){
+      pushEvent(nowAct.toUpperCase().slice(0,6),
+        ACTION_LABEL[nowAct].replace('NOW ','')+' <b>'+(state.current_activity.target||'…')+'</b>');
+    }
+  }
+
+  function poll(){
+    fetch('/.netlify/functions/pulse-machine-library-list?status=1',{cache:'no-store'})
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (!d || !d.ok) throw new Error('bad payload');
+        if (sim){ pushEvent('SYNC','Reconnected to the live machine'); }
+        sim = false; setConn(false);
+        applyData(d);
+        syncAgents();
+        renderHud();
+      })
+      .catch(function(){
+        if (!sim){ sim = true; setConn(true); pushEvent('SYNC','Live feed unreachable — running local simulation'); }
+        simTick(); syncAgents(); renderHud();
+      });
+  }
+
+  function setConn(isSim){
+    var c = document.getElementById('conn');
+    var l = document.getElementById('conn-label');
+    if (isSim){ c.classList.add('sim'); l.textContent = 'simulation mode'; }
+    else { c.classList.remove('sim'); l.textContent = 'live · synced'; }
+  }
+
+  // ── critters — the little guys walking the village ───────
+  // workers (agents[]) are a direct, live representation of the machine's
+  // in-flight workers. townsfolk[] are dim ambient locals — they just keep
+  // the town feeling alive and are NOT counted as workers.
+  var agents = [];
+  var townsfolk = [];
+  var sparks = [];
+
+  function makeCritter(opts){
+    var route = opts.route;
+    var start = doorPt(route[0]);
+    return {
+      id: opts.id, action: opts.action, col: opts.col, route: route,
+      seg: 0, t: 0, mode: 'walk',
+      workT: 0, workDur: opts.workDur,
+      phase: Math.random()*6.28,
+      speed: opts.speed, size: opts.size,
+      lane: opts.lane || 0,
+      ambient: !!opts.ambient,
+      gx: start.gx, gy: start.gy
+    };
+  }
+  function makeWorker(id, action, idx, n){
+    return makeCritter({
+      id:id, action:action, col: COL[action] || COL.idle,
+      route: (ROUTES[action] || ROUTES.idle).slice(),
+      workDur: 1.1 + Math.random()*0.9,
+      speed: 1.15 + Math.random()*0.5, size: 9,
+      lane: (idx - (n-1)/2) * 0.55, ambient:false
+    });
+  }
+  function shuffled(arr){ arr = arr.slice(); for (var i=arr.length-1;i>0;i--){ var j=(Math.random()*(i+1))|0; var t=arr[i]; arr[i]=arr[j]; arr[j]=t; } return arr; }
+  function seedTownsfolk(){
+    townsfolk = [];
+    for (var i=0;i<5;i++){
+      townsfolk.push(makeCritter({
+        id:'local', action:'idle', col:'#5d6a80',
+        route: shuffled(BUILDING_KEYS).slice(0,4),
+        workDur: 0.6 + Math.random()*1.0,
+        speed: 0.5 + Math.random()*0.45, size: 6,
+        lane: (Math.random()-0.5)*1.4, ambient:true
+      }));
+    }
+  }
+
+  function syncAgents(){
+    var act = (state.current_activity && state.current_activity.action) || 'idle';
+    var onBreak = false;
+    // roster — one {id, action, score} per live worker. Each critter mirrors
+    // ITS OWN job, so 4 parallel subagents can each be on a different entry at
+    // a different stage (one writing, three polishing at 6/8/9, …).
+    var roster;
+    if (state.in_flight_workers.length){
+      // preferred path — backend ships per-worker stage
+      roster = state.in_flight_workers.slice(0,4).map(function(w){
+        return { id: w.id || 'q—', action: w.action || 'idle', score: w.score };
+      });
+    } else if (state.in_flight_ids.length){
+      // legacy payload — flat id list, one shared action across the crew
+      roster = state.in_flight_ids.slice(0,4).map(function(id){
+        return { id:id, action:act };
+      });
+    } else if (act !== 'idle' && state.current_activity){
+      // active, but no parallel list — one worker is on the job
+      roster = [{ id: state.current_activity.target || state.polish_target_id || 'q—',
+                  action: act, score: state.current_activity.score }];
+    } else {
+      // nothing running — the whole crew clocks into the Break Room.
+      // (Honest live count of *working* critters is 0; the crew of 4 is the
+      //  designed parallel capacity, visibly waiting for the next run.)
+      onBreak = true;
+      roster = [{id:'crew-1'},{id:'crew-2'},{id:'crew-3'},{id:'crew-4'}];
+    }
+
+    var n = roster.length;
+    var sig = (onBreak ? 'break' : 'live') + '|' +
+      roster.map(function(r){ return r.id + ':' + (r.action||'idle'); }).join(',');
+    if (sig === agents._sig) return;
+    agents._sig = sig;
+    // preserve critters across polls so they don't teleport
+    var byId = {}; agents.forEach(function(a){ byId[a.id] = a; });
+    var bd = doorPt('BREAK');
+    agents = roster.map(function(r,i){
+      var ra = onBreak ? 'idle' : (r.action || 'idle');
+      var ex = byId[r.id];
+      if (ex && !!ex.onBreak === onBreak){
+        // only re-route when this worker's own stage actually changed
+        if (ex.action !== ra){
+          ex.route = onBreak ? ['BREAK'] : (ROUTES[ra] || ROUTES.idle).slice();
+          if (ex.seg >= ex.route.length) ex.seg = 0;
+        }
+        ex.action = ra;
+        ex.score = r.score;
+        ex.col = onBreak ? '#8FB7E8' : (COL[ra] || COL.idle);
+        ex.lane = (i - (n-1)/2) * 0.55;
+        return ex;
+      }
+      var w = makeWorker(r.id, ra, i, n);
+      w.score = r.score;
+      w.onBreak = onBreak;
+      if (onBreak){
+        w.col = '#8FB7E8';
+        w.route = ['BREAK'];
+        w.restSpot = { gx: bd.gx + (i-1.5)*0.95, gy: bd.gy + (i%2)*0.8 - 0.2 };
+        w.gx = bd.gx + (i-1.5)*0.95; w.gy = bd.gy - 1.7;   // stroll in from below
+        w.mode = 'walk';
+      }
+      return w;
+    });
+  }
+
+  // advance a critter one frame along its route
+  function stepCritter(c, dt){
+    if (c.onBreak){
+      // amble to a spot in the Break Room, then just chill
+      var R = c.restSpot || doorPt('BREAK');
+      var dgx = R.gx - c.gx, dgy = R.gy - c.gy;
+      var d = Math.hypot(dgx, dgy);
+      if (d > 0.06){
+        var step = 0.65 * dt;
+        c.gx += dgx/d * Math.min(step, d);
+        c.gy += dgy/d * Math.min(step, d);
+        c.mode = 'walk'; c.phase += dt * 5;
+      } else {
+        c.mode = 'rest'; c.workT += dt; c.phase += dt * 1.3;
+      }
+      return;
+    }
+    if (c.mode === 'walk'){
+      var A = doorPt(c.route[c.seg]);
+      var B = doorPt(c.route[(c.seg+1) % c.route.length]);
+      var dgx = B.gx - A.gx, dgy = B.gy - A.gy;
+      var len = Math.hypot(dgx,dgy) || 1;
+      var px = -dgy/len, py = dgx/len;          // perpendicular = walking lane
+      c.t += (c.speed / len) * dt;
+      c.phase += dt * c.speed * 7;
+      if (c.t >= 1){
+        c.t = 1; c.mode = 'work'; c.workT = 0;
+        c.gx = B.gx + px*c.lane; c.gy = B.gy + py*c.lane;
+        c.atKey = c.route[(c.seg+1) % c.route.length];
+      } else {
+        c.gx = A.gx + dgx*c.t + px*c.lane;
+        c.gy = A.gy + dgy*c.t + py*c.lane;
+      }
+    } else {                                    // working at a building
+      c.workT += dt;
+      c.phase += dt * 4;
+      if (!c.ambient && Math.random() < dt*6){
+        var sp = iso(c.gx, c.gy);
+        sparks.push({ x:sp.x + (Math.random()-0.5)*12, y:sp.y - c.size*1.6,
+          vy:-16 - Math.random()*16, life:1, col:c.col });
+      }
+      if (c.workT >= c.workDur){
+        c.mode = 'walk'; c.t = 0;
+        c.seg = (c.seg + 1) % c.route.length;
+      }
+    }
+  }
+
+  // ── activity feed ────────────────────────────────────────
+  var feedEvents = [];
+  var TAG_COL = { WRITE:COL.writing, POLISH:COL.polishing, INDEX:COL.indexing,
+    AUDIT:COL.auditing, SYNC:COL.idle, WRITIN:COL.writing };
+  function pushEvent(tag, text){
+    feedEvents.unshift({ tag:tag, text:text, ts:Date.now() });
+    if (feedEvents.length > 26) feedEvents.pop();
+    renderFeed();
+  }
+  function renderFeed(){
+    var f = document.getElementById('feed');
+    if (!f) return;
+    f.innerHTML = feedEvents.slice(0,16).map(function(e){
+      var c = TAG_COL[e.tag] || COL.idle;
+      var ago = Math.round((Date.now()-e.ts)/1000);
+      var tm = ago < 60 ? ago+'s' : Math.round(ago/60)+'m';
+      return '<div class="ev" style="border-left-color:'+c+'">'
+        + '<span class="tg" style="color:'+c+';background:'+c+'22">'+e.tag+'</span>'
+        + '<span class="tx">'+e.text+'</span>'
+        + '<span class="tm">'+tm+'</span></div>';
+    }).join('');
+  }
+  setInterval(renderFeed, 5000);
+
+  // ── HUD render ───────────────────────────────────────────
+  function fmt(n){ return (n||0).toLocaleString('en-US'); }
+  function renderHud(){
+    var live = agents.filter(function(a){ return !a.onBreak && a.action !== 'idle'; });
+    var working = live.length;
+    document.getElementById('c-workers').textContent =
+      working > 0 ? working + (working === 1 ? ' worker' : ' workers')
+                  : '0 · on break';
+    document.getElementById('c-total').textContent = fmt(state.library_total);
+    document.getElementById('c-today').textContent = '+' + fmt(state.added_today);
+    document.getElementById('c-run').textContent   = (state.run_rate_per_hour||0).toFixed(1)+'/hr';
+    document.getElementById('c-rw').textContent    = (state.rewrites_per_hour||0).toFixed(1)+'/hr';
+    var nkPct = state.library_total > 0 ? (state.nine_k_count/state.library_total*100) : 0;
+    document.getElementById('c-9k').textContent    = nkPct.toFixed(1)+'%';
+    document.getElementById('c-ten').textContent   = fmt(state.ten_of_ten_count);
+    var idxPct = state.library_total > 0 ? (state.indexed_count/state.library_total*100) : 0;
+    document.getElementById('c-idx').textContent   = idxPct.toFixed(0)+'%';
+
+    // assembly line
+    var pat = state.loop_pattern || ['WRITE','POLISH','POLISH','INDEX','INDEX'];
+    var icoMap = { WRITE:'✎', POLISH:'✦', INDEX:'⟲', AUDIT:'◎' };
+    var colMap = { WRITE:COL.writing, POLISH:COL.polishing, INDEX:COL.indexing, AUDIT:COL.auditing };
+    var slots = document.getElementById('line-slots');
+    var cur = state.current_slot || 1;
+    slots.innerHTML = pat.map(function(s,i){
+      var cls = 'slot' + (i+1===cur ? ' active' : (i+1<cur ? ' done' : ''));
+      var col = colMap[s] || COL.idle;
+      var conn = i < pat.length-1 ? '<div class="line-conn"></div>' : '';
+      return '<div class="'+cls+'" style="color:'+col+'">'
+        + '<div class="ico">'+(icoMap[s]||'•')+'</div>'
+        + '<div><div class="nm">'+s+'</div><div class="sub">slot '+(i+1)+'</div></div></div>'
+        + conn;
+    }).join('');
+    document.getElementById('line-next-val').textContent =
+      (state.next_slot||'—') + ' · ' + (state.next_delay_seconds||0) + 's';
+
+    // ticker — with parallel workers, summarise the crew; otherwise the
+    // classic single-job detail line.
+    var tp = document.getElementById('tick-pulse');
+    var st = document.getElementById('tick-status');
+    if (live.length > 1){
+      var byAct = {};
+      live.forEach(function(w){ byAct[w.action] = (byAct[w.action]||0) + 1; });
+      var parts = Object.keys(byAct).map(function(k){
+        return byAct[k] + ' ' + k;
+      });
+      tp.style.background = COL.orange;
+      tp.style.boxShadow = '0 0 14px ' + COL.orange;
+      st.textContent = live.length + ' WORKERS LIVE';
+      st.style.color = COL.orange;
+      st.style.textShadow = '0 0 9px ' + COL.orange + 'aa';
+      document.getElementById('tick-detail').innerHTML =
+        parts.join(' · ') + ' — ' +
+        live.map(function(w){
+          return '<b>' + w.id + (w.score ? ' ' + w.score + '/10' : '') + '</b>';
+        }).join(' ');
+    } else {
+      var a = (live.length === 1)
+        ? { action: live[0].action, target: live[0].id, score: live[0].score }
+        : (state.current_activity || { action:'idle' });
+      var col = COL[a.action] || COL.idle;
+      tp.style.background = col;
+      tp.style.boxShadow = '0 0 14px '+col;
+      st.textContent = ACTION_LABEL[a.action] || 'IDLE';
+      st.style.color = col;
+      st.style.textShadow = '0 0 9px '+col+'aa';
+      var det = '';
+      if (a.action === 'writing')      det = 'baseline → tldr → core → flow · <b>'+(a.target||'…')+'</b>';
+      else if (a.action === 'polishing') det = 'quality layer <b>'+(a.score||state.polish_target_score||'?')+'/10</b> · <b>'+(a.target||state.polish_target_id||'…')+'</b>';
+      else if (a.action === 'indexing')  det = 'pinging Bing / Yandex / IndexNow · <b>'+(a.target||'…')+'</b>';
+      else if (a.action === 'auditing')  det = 're-checking 10/10 entries · <b>'+(a.target||'…')+'</b>';
+      else det = 'crew clocked out — all <b>4</b> resting in the Break Room';
+      document.getElementById('tick-detail').innerHTML = det;
+    }
+  }
+
+  // ── small helpers ────────────────────────────────────────
+  function hexA(hex, a){
+    var h = hex.replace('#','');
+    var r = parseInt(h.substr(0,2),16), g = parseInt(h.substr(2,2),16), b = parseInt(h.substr(4,2),16);
+    return 'rgba('+r+','+g+','+b+','+a+')';
+  }
+  function shade(hex, amt){   // amt > 0 lightens, amt < 0 darkens
+    var h = hex.replace('#','');
+    var r = parseInt(h.substr(0,2),16), g = parseInt(h.substr(2,2),16), b = parseInt(h.substr(4,2),16);
+    if (amt >= 0){ r += (255-r)*amt; g += (255-g)*amt; b += (255-b)*amt; }
+    else { r *= (1+amt); g *= (1+amt); b *= (1+amt); }
+    return 'rgb('+(r|0)+','+(g|0)+','+(b|0)+')';
+  }
+
+  // ── draw one isometric building ──────────────────────────
+  function drawBuilding(b, tm){
+    var col = b.col, h = b.h * (TW/30);   // scale height with tile size
+    // base footprint corners
+    var n = iso(b.x0,   b.y0),   e = iso(b.x1+1, b.y0);
+    var s = iso(b.x1+1, b.y1+1), w = iso(b.x0,   b.y1+1);
+    var nT = {x:n.x,y:n.y-h}, eT = {x:e.x,y:e.y-h}, sT = {x:s.x,y:s.y-h}, wT = {x:w.x,y:w.y-h};
+
+    // soft ground pool
+    var pool = ctx.createRadialGradient(s.x,s.y,2, s.x,s.y, (e.x-w.x)*0.75);
+    pool.addColorStop(0, hexA(col, b.core?0.22:0.13));
+    pool.addColorStop(1, hexA(col, 0));
+    ctx.fillStyle = pool;
+    ctx.beginPath();
+    ctx.ellipse((n.x+s.x)/2,(n.y+s.y)/2,(e.x-w.x)*0.62,(s.y-n.y)*0.62,0,0,Math.PI*2);
+    ctx.fill();
+
+    // left & right side faces (dark, faintly tinted)
+    ctx.beginPath(); ctx.moveTo(w.x,w.y); ctx.lineTo(s.x,s.y); ctx.lineTo(sT.x,sT.y); ctx.lineTo(wT.x,wT.y); ctx.closePath();
+    ctx.fillStyle = shade(col,-0.80); ctx.fill();
+    ctx.fillStyle = hexA(col,0.10);   ctx.fill();
+    ctx.beginPath(); ctx.moveTo(s.x,s.y); ctx.lineTo(e.x,e.y); ctx.lineTo(eT.x,eT.y); ctx.lineTo(sT.x,sT.y); ctx.closePath();
+    ctx.fillStyle = shade(col,-0.66); ctx.fill();
+    ctx.fillStyle = hexA(col,0.10);   ctx.fill();
+    // top face
+    ctx.beginPath(); ctx.moveTo(nT.x,nT.y); ctx.lineTo(eT.x,eT.y); ctx.lineTo(sT.x,sT.y); ctx.lineTo(wT.x,wT.y); ctx.closePath();
+    ctx.fillStyle = shade(col,-0.42); ctx.fill();
+    ctx.fillStyle = hexA(col,0.16);   ctx.fill();
+
+    // windows — small flickering lights on the two visible faces
+    var wins = b.wins || (b.wins = (function(){
+      var arr = [], cols = (b.x1-b.x0+1), rows = Math.max(1, Math.round(h/14));
+      for (var fx=0; fx<2; fx++) for (var u=0;u<cols;u++) for (var v=0;v<rows;v++)
+        if (Math.random()<0.55) arr.push({ f:fx, u:(u+0.5)/cols, v:(v+0.5)/rows,
+          ph:Math.random()*6.28, sp:0.6+Math.random()*1.8, on:Math.random()<0.7 });
+      return arr;
+    })());
+    wins.forEach(function(win){
+      var P0 = win.f===0 ? w : s, P1 = win.f===0 ? s : e;
+      var bx = P0.x + (P1.x-P0.x)*win.u, by = P0.y + (P1.y-P0.y)*win.u;
+      var wy = by - h*win.v - h*0.08;
+      var fl = win.on ? (0.35 + 0.65*Math.abs(Math.sin(tm*win.sp + win.ph))) : 0.06;
+      ctx.fillStyle = hexA(col, 0.25 + fl*0.6);
+      ctx.fillRect(bx-1.6, wy-1.6, 3.2, 3.2);
+    });
+
+    // neon edges — the glowing outline
+    ctx.save();
+    ctx.shadowColor = col; ctx.shadowBlur = b.core ? 16 : 9;
+    ctx.strokeStyle = hexA(col, b.core ? 0.95 : 0.78);
+    ctx.lineWidth = b.core ? 2.2 : 1.5;
+    ctx.beginPath();
+    ctx.moveTo(nT.x,nT.y); ctx.lineTo(eT.x,eT.y); ctx.lineTo(sT.x,sT.y); ctx.lineTo(wT.x,wT.y); ctx.closePath();
+    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(e.x,e.y); ctx.lineTo(eT.x,eT.y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(s.x,s.y); ctx.lineTo(sT.x,sT.y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(w.x,w.y); ctx.lineTo(wT.x,wT.y); ctx.stroke();
+    ctx.restore();
+
+    // rooftop beacon
+    var beat = 0.5 + 0.5*Math.sin(tm*(b.core?1.7:2.4) + b.x0);
+    var bcx = sT.x, bcy = nT.y - 4;
+    var topCx = (nT.x+sT.x)/2, topCy = (nT.y+sT.y)/2;
+    var bg = ctx.createRadialGradient(topCx,topCy,0, topCx,topCy, (b.core?26:15)+beat*8);
+    bg.addColorStop(0, hexA(col, 0.5+beat*0.4));
+    bg.addColorStop(1, hexA(col, 0));
+    ctx.fillStyle = bg;
+    ctx.beginPath(); ctx.arc(topCx,topCy,(b.core?26:15)+beat*8,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.shadowColor = col; ctx.shadowBlur = 10;
+    ctx.beginPath(); ctx.arc(topCx,topCy, b.core?3.4:2.2, 0, Math.PI*2); ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // floating sign
+    var signY = topCy - (b.core ? 30 : 20);
+    if (b.core){
+      ctx.font = '900 ' + Math.round(15*(TW/30)+6) + 'px JetBrains Mono, monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(4,6,10,0.92)';
+      ctx.strokeText(fmt(state.library_total), topCx, signY);
+      ctx.fillStyle = '#fff'; ctx.fillText(fmt(state.library_total), topCx, signY);
+      ctx.font = '900 8px Inter, sans-serif';
+      ctx.fillStyle = hexA(col,0.95);
+      ctx.fillText('LIBRARY · CORE', topCx, signY+13);
+    } else {
+      ctx.font = '900 9px Inter, sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.lineWidth = 3.5; ctx.strokeStyle = 'rgba(4,6,10,0.9)';
+      ctx.strokeText(b.label, topCx, signY);
+      ctx.fillStyle = hexA(col,0.95); ctx.fillText(b.label, topCx, signY);
+    }
+  }
+
+  // ── draw one little walking critter ──────────────────────
+  function drawCritter(c, tm){
+    var p = iso(c.gx, c.gy);
+    var col = c.col;
+    var sz = c.size * (TW/30) * 1.0;
+    var walking = c.mode === 'walk';
+    var bob = c.onBreak ? Math.abs(Math.sin(tm*1.3 + c.phase)) * (sz*0.15)
+            : walking  ? Math.abs(Math.sin(c.phase)) * (sz*0.32)
+                       : Math.abs(Math.sin(c.workT*7)) * (sz*0.28);
+    var bx = p.x, by = p.y - bob - sz*1.15;     // body centre
+
+    // shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.34)';
+    ctx.beginPath(); ctx.ellipse(p.x, p.y, sz*1.15, sz*0.42, 0, 0, Math.PI*2); ctx.fill();
+
+    // legs — 2 per side, swinging when walking
+    ctx.strokeStyle = c.ambient ? 'rgba(120,135,160,0.8)' : shade(col,-0.45);
+    ctx.lineWidth = Math.max(1, sz*0.2); ctx.lineCap = 'round';
+    for (var li=0; li<4; li++){
+      var side = li < 2 ? -1 : 1;
+      var swing = Math.sin(c.phase + (li%2)*Math.PI) * (walking ? 1 : 0.12);
+      var lx0 = bx + side*sz*0.45;
+      var ly0 = by + sz*0.45;
+      var lx1 = lx0 + side*sz*0.45 + swing*sz*0.4;
+      var ly1 = p.y - bob*0.25;
+      ctx.beginPath(); ctx.moveTo(lx0,ly0); ctx.lineTo(lx1,ly1); ctx.stroke();
+    }
+
+    // antennae
+    ctx.strokeStyle = c.ambient ? 'rgba(150,165,190,0.7)' : col;
+    ctx.lineWidth = Math.max(0.8, sz*0.1);
+    for (var ai=0; ai<2; ai++){
+      var sd = ai ? 1 : -1;
+      var a0x = bx + sd*sz*0.28, a0y = by - sz*0.55;
+      var a1x = a0x + sd*sz*0.5, a1y = a0y - sz*0.7 + Math.sin(c.phase*0.7 + ai)*1.4;
+      ctx.beginPath(); ctx.moveTo(a0x,a0y); ctx.quadraticCurveTo(a0x+sd*sz*0.5,a0y, a1x,a1y); ctx.stroke();
+      ctx.fillStyle = c.ambient ? 'rgba(150,165,190,0.9)' : col;
+      ctx.beginPath(); ctx.arc(a1x,a1y, sz*0.16, 0, Math.PI*2); ctx.fill();
+    }
+
+    // body — a little rounded bug
+    var grd = ctx.createRadialGradient(bx-sz*0.3, by-sz*0.4, 1, bx, by, sz*1.25);
+    grd.addColorStop(0, c.ambient ? '#7d8aa0' : shade(col,0.35));
+    grd.addColorStop(1, c.ambient ? '#454f63' : col);
+    ctx.fillStyle = grd;
+    ctx.strokeStyle = 'rgba(0,0,0,0.5)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.ellipse(bx, by, sz*1.0, sz*0.86, 0, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    // back seam
+    ctx.strokeStyle = 'rgba(0,0,0,0.28)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(bx, by-sz*0.8); ctx.lineTo(bx, by+sz*0.7); ctx.stroke();
+
+    // glowing payload pip on the back (workers only)
+    if (!c.ambient){
+      ctx.save();
+      ctx.shadowColor = col; ctx.shadowBlur = 9;
+      ctx.fillStyle = '#fff';
+      ctx.beginPath(); ctx.arc(bx, by - sz*0.42, sz*0.3, 0, Math.PI*2); ctx.fill();
+      ctx.restore();
+    }
+
+    // eyes
+    ctx.fillStyle = '#fff';
+    ctx.beginPath(); ctx.arc(bx - sz*0.3, by - sz*0.04, sz*0.15, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(bx + sz*0.3, by - sz*0.04, sz*0.15, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#0a0d12';
+    ctx.beginPath(); ctx.arc(bx - sz*0.27, by - sz*0.02, sz*0.07, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(bx + sz*0.33, by - sz*0.02, sz*0.07, 0, Math.PI*2); ctx.fill();
+
+    // cute per-worker "thought bubble" — what this one is actually doing
+    if (!c.ambient){
+      var BUBBLE = { writing:'✍️', polishing:'✨', indexing:'📡', auditing:'🔍',
+                     idle: c.onBreak ? '☕' : '💤' };
+      var emo = BUBBLE[c.action] || '•';
+      var puff = Math.sin(tm*2 + c.phase) * 1.6;
+      ctx.font = Math.max(11, Math.round(sz*1.25)) + 'px sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(emo, bx + sz*1.25, by - sz*1.05 + puff);
+    }
+
+    // floating q-id label — only for real workers on a real job. Polishing
+    // workers also show their live quality rung, so you can read each
+    // critter's exact job + stage straight off the canvas.
+    if (!c.ambient && !c.onBreak){
+      var lbl = c.id + (c.action === 'polishing' && c.score ? ' · ' + c.score + '/10' : '');
+      ctx.font = '800 9px JetBrains Mono, monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+      ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(4,6,10,0.92)';
+      ctx.strokeText(lbl, bx, by - sz*1.5);
+      ctx.fillStyle = col;
+      ctx.fillText(lbl, bx, by - sz*1.5);
+    }
+  }
+
+  // ── main draw loop ───────────────────────────────────────
+  var t0 = performance.now();
+  function frame(now){
+    var dt = Math.min((now - t0)/1000, 0.05); t0 = now;
+    var tm = now/1000;
+
+    ctx.clearRect(0,0,W,H);
+    if (offCanvas) ctx.drawImage(offCanvas, 0,0, W, H);
+
+    // buildings — back to front
+    var bSorted = BUILDING_KEYS.slice().sort(function(a,b){
+      return (BUILDINGS[a].x0+BUILDINGS[a].y0) - (BUILDINGS[b].x0+BUILDINGS[b].y0);
+    });
+    bSorted.forEach(function(k){ drawBuilding(BUILDINGS[k], tm); });
+
+    // ambient townsfolk — behind the workers, sorted by depth
+    townsfolk.forEach(function(c){ stepCritter(c, dt); });
+    townsfolk.slice().sort(function(a,b){ return (a.gx+a.gy)-(b.gx+b.gy); })
+      .forEach(function(c){ drawCritter(c, tm); });
+
+    // workers — always drawn last so you can always see them
+    agents.forEach(function(c){ stepCritter(c, dt); });
+    agents.slice().sort(function(a,b){ return (a.gx+a.gy)-(b.gx+b.gy); })
+      .forEach(function(c){ drawCritter(c, tm); });
+
+    // work sparks
+    for (var i=sparks.length-1; i>=0; i--){
+      var s = sparks[i];
+      s.y += s.vy*dt; s.vy += 26*dt; s.life -= dt*1.4;
+      if (s.life <= 0){ sparks.splice(i,1); continue; }
+      ctx.globalAlpha = Math.max(0, s.life);
+      ctx.fillStyle = s.col;
+      ctx.beginPath(); ctx.arc(s.x, s.y, 1.6, 0, Math.PI*2); ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  // ── boot ─────────────────────────────────────────────────
+  window.addEventListener('resize', function(){ layout(); });
+  layout();
+  seedTownsfolk();
+  pushEvent('SYNC','The Village is online — counting workers…');
+  poll();
+  setInterval(poll, 4000);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

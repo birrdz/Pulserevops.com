@@ -1,0 +1,749 @@
+{
+  "rules": "Apollo daily — companies in your Apollo outreach pipeline with no library playbook yet. Refreshed daily by /.netlify/functions/apollo-today. Same format as company-revenue-fix.",
+  "source": "Apollo recent contacts (last 24h)",
+  "generated_at": "2026-05-01T11:22:53.239Z",
+  "used": [
+    {
+      "id": "q1476",
+      "company": "Goodwin Recruiting",
+      "domain": "goodwinrecruiting.com",
+      "contact_count": 50
+    },
+    {
+      "id": "q1477",
+      "company": "LanceSoft, Inc.",
+      "domain": "lancesoft.com",
+      "contact_count": 45
+    },
+    {
+      "id": "q1478",
+      "company": "CFS",
+      "domain": "cfstaffing.com",
+      "contact_count": 38
+    },
+    {
+      "id": "q1479",
+      "company": "CyberCoders",
+      "domain": "cybercoders.com",
+      "contact_count": 33
+    },
+    {
+      "id": "q1480",
+      "company": "Aston Carter",
+      "domain": "astoncarter.com",
+      "contact_count": 31
+    }
+  ],
+  "remaining": [
+    {
+      "company": "W3Global",
+      "domain": "w3global.com",
+      "contact_count": 13,
+      "sample_contact": {
+        "name": "Natasha Harper",
+        "title": "Recruiter",
+        "email": "natasha.harper@w3global.com"
+      }
+    },
+    {
+      "company": "The Intersect Group",
+      "domain": "theintersectgroup.com",
+      "contact_count": 12,
+      "sample_contact": {
+        "name": "Griff Conti",
+        "title": "Senior Executive Recruiter",
+        "email": "gconti@theintersectgroup.com"
+      }
+    },
+    {
+      "company": "Experis",
+      "domain": "experis.com",
+      "contact_count": 9,
+      "sample_contact": {
+        "name": "Sherilee K",
+        "title": "Executive Recruiter",
+        "email": ""
+      }
+    },
+    {
+      "company": "Hirewell",
+      "domain": "hirewell.com",
+      "contact_count": 9,
+      "sample_contact": {
+        "name": "Sarah Rodden",
+        "title": "Recruiter",
+        "email": "srodden@hirewell.com"
+      }
+    },
+    {
+      "company": "Bradsby Group",
+      "domain": "bradsbygroup.com",
+      "contact_count": 9,
+      "sample_contact": {
+        "name": "Jacob Deitz",
+        "title": "Recruiter",
+        "email": "jdeitz@bradsbygroup.com"
+      }
+    },
+    {
+      "company": "Motion Recruitment",
+      "domain": "motionrecruitment.com",
+      "contact_count": 8,
+      "sample_contact": {
+        "name": "Calista Merrick",
+        "title": "Senior Executive Recruiter",
+        "email": ""
+      }
+    },
+    {
+      "company": "eTeam",
+      "domain": "eteam.com",
+      "contact_count": 8,
+      "sample_contact": {
+        "name": "Himanshu Tiwary",
+        "title": "Recruiter",
+        "email": "htiwary@eteaminc.com"
+      }
+    },
+    {
+      "company": "Jobot",
+      "domain": "jobot.com",
+      "contact_count": 6,
+      "sample_contact": {
+        "name": "Caitlin Pohl",
+        "title": "Principal Recruiter - Accounting & Finance",
+        "email": "caitlin.pohl@jobot.com"
+      }
+    },
+    {
+      "company": "Ultimate Staffing",
+      "domain": "ultimatestaffing.com",
+      "contact_count": 6,
+      "sample_contact": {
+        "name": "Youshaf Irewhum",
+        "title": "Executive Recruiter",
+        "email": ""
+      }
+    },
+    {
+      "company": "SnapDragon Associates, LLC",
+      "domain": "snapdragonassociates.com",
+      "contact_count": 6,
+      "sample_contact": {
+        "name": "Taylor Ribeiro",
+        "title": "Executive Recruiter",
+        "email": "taylor@wildlife.la"
+      }
+    },
+    {
+      "company": "Verkada",
+      "domain": "verkada.com",
+      "contact_count": 6,
+      "sample_contact": {
+        "name": "Izzy Bacon",
+        "title": "Marketing Recruiter",
+        "email": "izzy.bacon@verkada.com"
+      }
+    },
+    {
+      "company": "gpac",
+      "domain": "gogpac.com",
+      "contact_count": 5,
+      "sample_contact": {
+        "name": "Danielle Sands",
+        "title": "Director",
+        "email": "danielle.sands@gogpac.com"
+      }
+    },
+    {
+      "company": "Ledgent",
+      "domain": "ledgent.com",
+      "contact_count": 5,
+      "sample_contact": {
+        "name": "Taralea Holland",
+        "title": "Executive Recruiter",
+        "email": ""
+      }
+    },
+    {
+      "company": "Net2Source (N2S)",
+      "domain": "net2source.com",
+      "contact_count": 4,
+      "sample_contact": {
+        "name": "Manali Verma",
+        "title": "IT Recruiter",
+        "email": "verma.manali@net2source.com"
+      }
+    },
+    {
+      "company": "VLink Inc",
+      "domain": "vlinkinfo.com",
+      "contact_count": 4,
+      "sample_contact": {
+        "name": "Bhumika Gairola",
+        "title": "IT Recruiter",
+        "email": "bhumika.gairola@vlinkinfo.com"
+      }
+    },
+    {
+      "company": "Integrated Resources, Inc ( IRI )",
+      "domain": "irionline.com",
+      "contact_count": 4,
+      "sample_contact": {
+        "name": "Shivani Verma",
+        "title": "Recruiter Executive",
+        "email": "shivani.verma@irionline.com"
+      }
+    },
+    {
+      "company": "Open Systems Technologies",
+      "domain": "opensystemstech.com",
+      "contact_count": 3,
+      "sample_contact": {
+        "name": "Daniel Kolic",
+        "title": "Senior Executive Recruiter @ Open Systems Technologies",
+        "email": "dkolic@opensystemstech.com"
+      }
+    },
+    {
+      "company": "LaSalle Network",
+      "domain": "thelasallenetwork.com",
+      "contact_count": 3,
+      "sample_contact": {
+        "name": "Mike Zerihun",
+        "title": "Executive Recruiter",
+        "email": "mzerihun@thelasallenetwork.com"
+      }
+    },
+    {
+      "company": "Tekskills Inc.",
+      "domain": "tekskillsinc.com",
+      "contact_count": 3,
+      "sample_contact": {
+        "name": "Latha C",
+        "title": "IT Recruiter",
+        "email": "latha.c@tekskills.in"
+      }
+    },
+    {
+      "company": "Miratech",
+      "domain": "miratechgroup.com",
+      "contact_count": 3,
+      "sample_contact": {
+        "name": "Yuliia Savchenko",
+        "title": "Senior Recruiter | Admin & Executive Hiring",
+        "email": "yuliia.savchenko@miratechgroup.com"
+      }
+    },
+    {
+      "company": "AccruePartners",
+      "domain": "accruepartners.com",
+      "contact_count": 3,
+      "sample_contact": {
+        "name": "Smitha Khimji",
+        "title": "Internal Recruiter",
+        "email": "skhimji@accruepartners.com"
+      }
+    },
+    {
+      "company": "Atrium",
+      "domain": "atriumglobal.com",
+      "contact_count": 3,
+      "sample_contact": {
+        "name": "Nicole Fossani",
+        "title": "Recruiter",
+        "email": "nfossani@atriumworks.com"
+      }
+    },
+    {
+      "company": "Burnett Specialists Staffing | Recruiting",
+      "domain": "burnettspecialists.com",
+      "contact_count": 3,
+      "sample_contact": {
+        "name": "Jennifer Gibbs",
+        "title": "Direct Hire Recruiter",
+        "email": "jenniferg@burnettspecialists.com"
+      }
+    },
+    {
+      "company": "Nelson Connects",
+      "domain": "nelsonconnects.com",
+      "contact_count": 3,
+      "sample_contact": {
+        "name": "Rebecca Longenecker",
+        "title": "Executive Recruiter",
+        "email": "rlongenecker@nelsonconnects.com"
+      }
+    },
+    {
+      "company": "LocumTenens.com",
+      "domain": "locumtenens.com",
+      "contact_count": 3,
+      "sample_contact": {
+        "name": "Shaquanta Caldwell",
+        "title": "Associate Account Executive Recruiter",
+        "email": "scaldwell@locumtenens.com"
+      }
+    },
+    {
+      "company": "10Pearls",
+      "domain": "10pearls.com",
+      "contact_count": 2,
+      "sample_contact": {
+        "name": "Luisa Maria Londono",
+        "title": "People Attraction Specialist | Recruiter",
+        "email": "luisa.londono@10pearls.com"
+      }
+    },
+    {
+      "company": "Xoriant",
+      "domain": "xoriant.com",
+      "contact_count": 2,
+      "sample_contact": {
+        "name": "Srikala Elpula",
+        "title": "Executive Recruiter",
+        "email": "srikala.elpula@xoriant.com"
+      }
+    },
+    {
+      "company": "Mondo",
+      "domain": "mondo.com",
+      "contact_count": 2,
+      "sample_contact": {
+        "name": "Ginny Easley",
+        "title": "Executive Director of Recruiting Operations",
+        "email": ""
+      }
+    },
+    {
+      "company": "TRUGlobal",
+      "domain": "truglobal.com",
+      "contact_count": 2,
+      "sample_contact": {
+        "name": "Anushka Gupta",
+        "title": "IT Recruiter",
+        "email": "anushka.g@truglobal.com"
+      }
+    },
+    {
+      "company": "Calsoft",
+      "domain": "calsoftinc.com",
+      "contact_count": 2,
+      "sample_contact": {
+        "name": "Sahana J",
+        "title": "Recruiter",
+        "email": "sahana.j@calsoftinc.com"
+      }
+    },
+    {
+      "company": "Solugenix",
+      "domain": "solugenix.com",
+      "contact_count": 2,
+      "sample_contact": {
+        "name": "Sucharitha Bandari",
+        "title": "Associate Recruiter",
+        "email": "sucharitha.bandari@solugenix.com"
+      }
+    },
+    {
+      "company": "Samba TV",
+      "domain": "",
+      "contact_count": 2,
+      "sample_contact": {
+        "name": "Alex Kirk",
+        "title": "GTM Recruiter",
+        "email": "alex.kirk@samba.tv"
+      }
+    },
+    {
+      "company": "Harness",
+      "domain": "harness.io",
+      "contact_count": 2,
+      "sample_contact": {
+        "name": "Audrey Teoh",
+        "title": "VP, Global Talent Acquisition & Programs",
+        "email": "audrey.teoh@harness.io"
+      }
+    },
+    {
+      "company": "micro1",
+      "domain": "micro1.ai",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Camila Farias",
+        "title": "Core Recruiter",
+        "email": "camila@micro1.ai"
+      }
+    },
+    {
+      "company": "Glean",
+      "domain": "glean.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Bastobee Borsaikia",
+        "title": "Talent Scout",
+        "email": "bastobee.borsaikia@glean.com"
+      }
+    },
+    {
+      "company": "Salas O'Brien",
+      "domain": "salasobrien.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "David Fall",
+        "title": "Engineering Recruiter",
+        "email": "david.fall@salasobrien.com"
+      }
+    },
+    {
+      "company": "Datasite",
+      "domain": "datasite.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Kacie Lansing",
+        "title": "Recruiter",
+        "email": "kacie.lansing@datasite.com"
+      }
+    },
+    {
+      "company": "Medix™",
+      "domain": "medixteam.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Lily Canjura",
+        "title": "Recruiter",
+        "email": ""
+      }
+    },
+    {
+      "company": "The Launch Collective",
+      "domain": "thelaunchcollective.io",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Randee May",
+        "title": "Member",
+        "email": "randee.may@weka.io"
+      }
+    },
+    {
+      "company": "Acara Solutions, An Aleron Company",
+      "domain": "acarasolutions.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Lanee' Davis",
+        "title": "Recruiter",
+        "email": "davisl@acarasolutions.com"
+      }
+    },
+    {
+      "company": "Xsolla",
+      "domain": "xsolla.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Aleksandra Muravskaya",
+        "title": "UX Researcher-recruiter",
+        "email": "a.muravskaya@xsolla.com"
+      }
+    },
+    {
+      "company": "Accommodations Plus International",
+      "domain": "apiglobalsolutions.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Allison Nigro",
+        "title": "Recruiter",
+        "email": "allison.nigro@apiglobalsolutions.com"
+      }
+    },
+    {
+      "company": "Ibotta",
+      "domain": "ibotta.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Kayla Trimble",
+        "title": "Senior Vice President, Talent Acquisition & Compensation",
+        "email": "kayla.trimble@ibotta.com"
+      }
+    },
+    {
+      "company": "Model N",
+      "domain": "modeln.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Krishna Sama",
+        "title": "Principal Recruiter -Talent Acquisition",
+        "email": "ksama@modeln.com"
+      }
+    },
+    {
+      "company": "ZRG Careers",
+      "domain": "zrgpartners.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Pooja Gupta",
+        "title": "Recruiter & Talent Sourcer",
+        "email": "pgupta@hubrecruiting.com"
+      }
+    },
+    {
+      "company": "Noor Staffing Group",
+      "domain": "noorstaffing.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Julius Guardialao",
+        "title": "Recruiter",
+        "email": "jguardialao@noorstaffing.com"
+      }
+    },
+    {
+      "company": "Zenoti",
+      "domain": "zenoti.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Purva Pandit",
+        "title": "Vice President Talent",
+        "email": "purvap@zenoti.com"
+      }
+    },
+    {
+      "company": "CivicMinds, Inc",
+      "domain": "civicminds.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Simran Negi",
+        "title": "Recruiter",
+        "email": ""
+      }
+    },
+    {
+      "company": "Career Group",
+      "domain": "careergroupcompanies.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Aishah Ayomide",
+        "title": "Executive Recruiter",
+        "email": "aayomide@careergroupcompanies.com"
+      }
+    },
+    {
+      "company": "Crusoe",
+      "domain": "crusoe.ai",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Alex Hirsch",
+        "title": "Staff Recruiter",
+        "email": "ahirsch@crusoe.ai"
+      }
+    },
+    {
+      "company": "Newfire Global Partners",
+      "domain": "newfireglobal.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Newfire Partners",
+        "title": "IT Recruiter",
+        "email": "grosa@newfireglobal.com"
+      }
+    },
+    {
+      "company": "The TemPositions Group of Companies",
+      "domain": "tempositions.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Erin Lynch",
+        "title": "Recruiter",
+        "email": "elynch@tempositions.com"
+      }
+    },
+    {
+      "company": "eSentire",
+      "domain": "esentire.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Scott Jamieson",
+        "title": "Recruiter",
+        "email": "scott.jamieson@esentire.com"
+      }
+    },
+    {
+      "company": "Adastra",
+      "domain": "adastracorp.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Terezia Kunakova",
+        "title": "IT Recruiter & Employer Branding Specialist",
+        "email": "terezia.kunakova@adastragrp.com"
+      }
+    },
+    {
+      "company": "CornerStone Staffing",
+      "domain": "cornerstonestaffing.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Eva Reyes",
+        "title": "Recruiter",
+        "email": "evar@cornerstonestaffing.com"
+      }
+    },
+    {
+      "company": "Armada",
+      "domain": "armada.ai",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Akshay Raj",
+        "title": "Recruiter",
+        "email": "v-akshay.raj@armada.ai"
+      }
+    },
+    {
+      "company": "Enverus",
+      "domain": "enverus.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Carlos Rosa",
+        "title": "Recruiter",
+        "email": "carlos.rosa@enverus.com"
+      }
+    },
+    {
+      "company": "insightsoftware",
+      "domain": "insightsoftware.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Sean Casey",
+        "title": "Recruiter",
+        "email": "sean.casey@insightsoftware.com"
+      }
+    },
+    {
+      "company": "Solvd, Inc.",
+      "domain": "solvd.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Candela Rocca",
+        "title": "IT Recruiter",
+        "email": "crocca@solvd.com"
+      }
+    },
+    {
+      "company": "Shield AI",
+      "domain": "shield.ai",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Matt Sullivan",
+        "title": "Staff Recruiter",
+        "email": "matt.sullivan@shield.ai"
+      }
+    },
+    {
+      "company": "Optimum Healthcare IT",
+      "domain": "optimumhit.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Lyle Gardner",
+        "title": "Recruiter, Sales Associate",
+        "email": "ggardner@optimumhit.com"
+      }
+    },
+    {
+      "company": "Creative Circle",
+      "domain": "creativecircle.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Lucy D'Angelo",
+        "title": "Recruiter, Enterprise Delivery Hub",
+        "email": "ldangelo@creativecircle.com"
+      }
+    },
+    {
+      "company": "SmartBear",
+      "domain": "smartbear.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Lindsey Buonocore",
+        "title": "VP, Talent Acquisition",
+        "email": "lindsey.buonocore@smartbear.com"
+      }
+    },
+    {
+      "company": "The Knot Worldwide",
+      "domain": "theknotww.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Maite Aristides",
+        "title": "Recruiter | Latam & USA",
+        "email": "maristides@theknotww.com"
+      }
+    },
+    {
+      "company": "Quinnox",
+      "domain": "quinnox.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Kajal Badsiwal",
+        "title": "IT Recruiter",
+        "email": "kajalb@quinnox.com"
+      }
+    },
+    {
+      "company": "Tandym Group",
+      "domain": "tandymgroup.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Luke Sales",
+        "title": "Associate Recruiter",
+        "email": "luke.sales@tandymgroup.com"
+      }
+    },
+    {
+      "company": "Sprout Social, Inc.",
+      "domain": "sproutsocial.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Klaudia Kordzikowska",
+        "title": "People & IT Recruiter",
+        "email": "klaudia.kordzikowska@sproutsocial.com"
+      }
+    },
+    {
+      "company": "Cognite",
+      "domain": "cognite.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Astha Apurva",
+        "title": "Candidate Experience Specialist",
+        "email": "astha.apurva@cognite.com"
+      }
+    },
+    {
+      "company": "Quantum Metric",
+      "domain": "quantummetric.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Karl Betua",
+        "title": "Recruiter/Sourcer",
+        "email": "kbetua@quantummetric.com"
+      }
+    },
+    {
+      "company": "Cresta",
+      "domain": "cresta.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "William Lubahn",
+        "title": "GTM Recruiter",
+        "email": "will.lubahn@cresta.ai"
+      }
+    },
+    {
+      "company": "Saviynt",
+      "domain": "saviynt.com",
+      "contact_count": 1,
+      "sample_contact": {
+        "name": "Ranjini Tp",
+        "title": "Staff Recruiter",
+        "email": "ranjini.tp@saviynt.com"
+      }
+    }
+  ]
+}

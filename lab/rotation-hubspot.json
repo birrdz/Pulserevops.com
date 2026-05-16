@@ -1,0 +1,106 @@
+{
+  "rules": "HubSpot deep-dive arc — hit one company from every angle (general → nuance → fringe) until out of ideas. Each question operator-grade, today-knowable, same library structure. Started 2026-05-01.",
+  "company": "HubSpot",
+  "started": "2026-05-01",
+  "used": [
+    {
+      "id": "q1497",
+      "question": "How does HubSpot hit its 2027 revenue target?"
+    },
+    {
+      "id": "q1498",
+      "question": "Will HubSpot beat Salesforce in mid-market by 2027?"
+    },
+    {
+      "id": "q1499",
+      "question": "Is HubSpot still a buy in 2027?"
+    },
+    {
+      "id": "q1500",
+      "question": "Why did HubSpot's customer growth slow in 2025?"
+    },
+    {
+      "id": "q1501",
+      "question": "Can HubSpot keep growing 20% YoY into 2027?"
+    },
+    {
+      "id": "q1502",
+      "question": "What's HubSpot's AI strategy in 2027?"
+    },
+    {
+      "id": "q1503",
+      "question": "How does HubSpot compete against AI-native CRMs?"
+    },
+    {
+      "id": "q1504",
+      "question": "Is Breeze AI working for HubSpot?"
+    },
+    {
+      "id": "q1505",
+      "question": "Should HubSpot kill its Free CRM tier?"
+    },
+    {
+      "id": "q1506",
+      "question": "How does HubSpot make money in 2027?"
+    },
+    {
+      "id": "q1507",
+      "question": "Why is Yamini Rangan's job on the line in 2027?"
+    },
+    {
+      "id": "q1508",
+      "question": "HubSpot vs Salesforce — which should you buy?"
+    }
+  ],
+  "remaining": [
+    "How does HubSpot defend against Attio and Day.ai?",
+    "What's HubSpot's net revenue retention in 2026?",
+    "How does HubSpot upmarket without losing SMB?",
+    "What should HubSpot do about Marketing Hub stagnation?",
+    "Will Service Hub overtake Zendesk by 2028?",
+    "Is HubSpot Sales Hub good enough to replace Outreach?",
+    "How does HubSpot grow internationally without burning margin?",
+    "What's HubSpot's gross margin trajectory through 2028?",
+    "Should HubSpot acquire a Loom-equivalent in 2027?",
+    "What's HubSpot Operations Hub's competitive moat against Workato?",
+    "Why did HubSpot's stock drop after Breeze launch?",
+    "How does HubSpot price Breeze AI without cannibalizing core?",
+    "Should HubSpot launch a vertical-SaaS sub-brand?",
+    "How does HubSpot's ARPU change post-Breeze rollout?",
+    "Is HubSpot's CMS Hub still strategic in 2027?",
+    "Should HubSpot kill its CMS Hub?",
+    "What's HubSpot's data-center strategy through 2027?",
+    "How does HubSpot defend its 12,000-app marketplace?",
+    "Why is HubSpot losing AE talent to AI-native competitors?",
+    "What does HubSpot's 2025 RIF tell us about 2027?",
+    "Should I work for HubSpot in 2027?",
+    "Is a HubSpot AE role still good for my career in 2027?",
+    "Should I learn HubSpot or Salesforce in 2027?",
+    "Is HubSpot certification worth it in 2027?",
+    "What's HubSpot's RevOps career path?",
+    "Will HubSpot AEs hit quota in 2027?",
+    "How does HubSpot pay its sales team?",
+    "Is HubSpot's customer-tier model broken at the bottom?",
+    "What's HubSpot's enterprise win-rate vs Salesforce in 2026?",
+    "How should HubSpot rethink its inbound thesis for AI buyers?",
+    "What replaces inbound marketing if AI agents handle research?",
+    "Should HubSpot pivot from marketing-led to product-led?",
+    "How does HubSpot protect SMB ARPU from churn in a recession?",
+    "What's HubSpot's right org structure in 2027 — pods or hubs?",
+    "Should HubSpot sell to private equity?",
+    "What's HubSpot's M&A strategy through 2028?",
+    "Should HubSpot acquire Salesloft to win enterprise?",
+    "Should HubSpot acquire Drift to compete in AI agents?",
+    "What's the bear case for HubSpot 2027?",
+    "What's the bull case for HubSpot 2027?",
+    "How does HubSpot's API strategy compare to Salesforce's?",
+    "Is HubSpot's mobile app good enough in 2027?",
+    "How does HubSpot's onboarding compare to PLG-native CRMs?",
+    "What does HubSpot's churn math look like under AI pressure?",
+    "How should HubSpot price Service Hub against Intercom + Zendesk in 2027?",
+    "Should HubSpot launch its own AI agent marketplace?",
+    "What's HubSpot's developer-platform strategy through 2027?",
+    "How does HubSpot retain CRO talent in 2027?",
+    "What's HubSpot's playbook for the next $1B in revenue?"
+  ]
+}

@@ -1,0 +1,249 @@
+{
+  "rules": "Datadog deep-dive arc — Inner-Outer Arc play (general → nuance → fringe). Operator-grade voice, today-knowable answers, 12-18mo SEO front-running. Chained from ServiceNow exhaustion. Started 2026-05-03.",
+  "company": "Datadog",
+  "started": "2026-05-03",
+  "used": [
+    {
+      "id": "q1669",
+      "question": "How does Datadog hit its 2027 revenue target?"
+    },
+    {
+      "id": "q1670",
+      "question": "Will Datadog beat Splunk in observability by 2027?"
+    },
+    {
+      "id": "q1671",
+      "question": "Is Datadog stock still a buy in 2027?"
+    },
+    {
+      "id": "q1672",
+      "question": "Why did Datadog growth slow in 2024-25?"
+    },
+    {
+      "id": "q1673",
+      "question": "Can Datadog keep growing 20%+ into 2027?"
+    },
+    {
+      "id": "q1674",
+      "question": "What is Datadog AI strategy in 2027?"
+    },
+    {
+      "id": "q1675",
+      "question": "How does Datadog compete against AI-native observability tools?"
+    },
+    {
+      "id": "q1676",
+      "question": "Is Bits AI working for Datadog?"
+    },
+    {
+      "id": "q1677",
+      "question": "How does Datadog make money in 2027?"
+    },
+    {
+      "id": "q1678",
+      "question": "Why is Olivier Pomel's job on the line in 2027?"
+    },
+    {
+      "id": "q1679",
+      "question": "Datadog vs Splunk — which should you buy?"
+    },
+    {
+      "id": "q1680",
+      "question": "How does Datadog defend against Microsoft Sentinel + Azure Monitor?"
+    },
+    {
+      "id": "q1681",
+      "question": "What is Datadog net revenue retention in 2026?"
+    },
+    {
+      "id": "q1682",
+      "question": "How does Datadog upmarket without losing mid-market?"
+    },
+    {
+      "id": "q1683",
+      "question": "What should Datadog do about APM stagnation?"
+    },
+    {
+      "id": "q1684",
+      "question": "Will Datadog Cloud SIEM beat Splunk + Sentinel?"
+    },
+    {
+      "id": "q1685",
+      "question": "Is Datadog Cloud Cost Management worth buying?"
+    },
+    {
+      "id": "q1686",
+      "question": "How does Datadog grow internationally without burning margin?"
+    },
+    {
+      "id": "q1687",
+      "question": "What is Datadog gross margin trajectory through 2028?"
+    },
+    {
+      "id": "q1688",
+      "question": "Should Datadog acquire a Loom-equivalent in 2027?"
+    },
+    {
+      "id": "q1689",
+      "question": "What is Datadog competitive moat against New Relic + Dynatrace?"
+    },
+    {
+      "id": "q1690",
+      "question": "Why did Datadog stock drop after Bits AI launch?"
+    },
+    {
+      "id": "q1691",
+      "question": "How does Datadog price Bits AI without cannibalizing core?"
+    },
+    {
+      "id": "q1692",
+      "question": "Should Datadog launch a vertical-observability sub-brand?"
+    },
+    {
+      "id": "q1693",
+      "question": "How does Datadog ARPU change post-AI agent rollout?"
+    },
+    {
+      "id": "q1694",
+      "question": "Is Datadog Logs still strategic in 2027?"
+    },
+    {
+      "id": "q1695",
+      "question": "Should Datadog kill its Real User Monitoring module?"
+    },
+    {
+      "id": "q1696",
+      "question": "What is Datadog data-center strategy through 2027?"
+    },
+    {
+      "id": "q1697",
+      "question": "How does Datadog defend its Marketplace ecosystem?"
+    },
+    {
+      "id": "q1698",
+      "question": "Why is Datadog losing engineering talent to AI-native competitors?"
+    },
+    {
+      "id": "q1699",
+      "question": "What does Datadog 2025 RIF tell us about 2027?"
+    },
+    {
+      "id": "q1700",
+      "question": "Should I work for Datadog in 2027?"
+    },
+    {
+      "id": "q1701",
+      "question": "Is a Datadog AE role still good for my career in 2027?"
+    },
+    {
+      "id": "q1702",
+      "question": "Should I learn Datadog or Splunk in 2027?"
+    },
+    {
+      "id": "q1703",
+      "question": "Is Datadog certification worth it in 2027?"
+    },
+    {
+      "id": "q1704",
+      "question": "What is Datadog RevOps career path?"
+    },
+    {
+      "id": "q1705",
+      "question": "Will Datadog AEs hit quota in 2027?"
+    },
+    {
+      "id": "q1706",
+      "question": "How does Datadog pay its sales team?"
+    },
+    {
+      "id": "q1707",
+      "question": "Is Datadog pricing model broken at the bottom?"
+    },
+    {
+      "id": "q1708",
+      "question": "What is Datadog enterprise win-rate vs Splunk in 2026?"
+    },
+    {
+      "id": "q1709",
+      "question": "How should Datadog rethink its observability thesis for AI buyers?"
+    },
+    {
+      "id": "q1710",
+      "question": "What replaces traditional monitoring if AI agents handle telemetry triage?"
+    },
+    {
+      "id": "q1711",
+      "question": "Should Datadog pivot from agent-based to agentless?"
+    },
+    {
+      "id": "q1712",
+      "question": "How does Datadog protect ARPU from churn in a recession?"
+    },
+    {
+      "id": "q1713",
+      "question": "What is Datadog's right org structure in 2027?"
+    },
+    {
+      "id": "q1714",
+      "question": "Should Datadog sell to private equity?"
+    },
+    {
+      "id": "q1715",
+      "question": "What is Datadog M&A strategy through 2028?"
+    },
+    {
+      "id": "q1716",
+      "question": "Should Datadog acquire Honeycomb to win observability?"
+    },
+    {
+      "id": "q1717",
+      "question": "Should Datadog acquire Grafana to compete against open-source?"
+    },
+    {
+      "id": "q1718",
+      "question": "What is the bear case for Datadog 2027?"
+    },
+    {
+      "id": "q1719",
+      "question": "What is the bull case for Datadog 2027?"
+    },
+    {
+      "id": "q1720",
+      "question": "How does Datadog API strategy compare to Splunk?"
+    },
+    {
+      "id": "q1721",
+      "question": "Is Datadog mobile app good enough in 2027?"
+    },
+    {
+      "id": "q1722",
+      "question": "How does Datadog onboarding compare to Splunk?"
+    },
+    {
+      "id": "q1723",
+      "question": "What does Datadog churn math look like under AI pressure?"
+    },
+    {
+      "id": "q1724",
+      "question": "How should Datadog price Bits AI against Microsoft Copilot in 2027?"
+    },
+    {
+      "id": "q1725",
+      "question": "Should Datadog launch its own AI agent marketplace?"
+    },
+    {
+      "id": "q1726",
+      "question": "What is Datadog developer-platform strategy through 2027?"
+    },
+    {
+      "id": "q1727",
+      "question": "How does Datadog retain CRO talent in 2027?"
+    },
+    {
+      "id": "q1728",
+      "question": "What is Datadog playbook for the next $5B in revenue?"
+    }
+  ],
+  "remaining": [],
+  "exhausted": "2026-05-04 — chained to Outreach (rotation-outreach.json)"
+}

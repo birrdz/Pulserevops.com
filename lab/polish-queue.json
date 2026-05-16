@@ -1,0 +1,6876 @@
+{
+  "built_at": "2026-05-04T01:11:37.274Z",
+  "total": 697,
+  "queue": [
+    {
+      "id": "q1900",
+      "question": "How do you transition a founder-led senior-tech workshop business out of one-time fees into a $25/mo recurring-revenue subscription with Family Proxy Billing and a Life Alert-style safety integration (RapidSOS + 3-way alert chain)?",
+      "srcCount": 1,
+      "tags": ["senior-tech-gtm", "context-rich", "client-pitch", "subscription-pivot"]
+    },
+    {
+      "id": "q1901",
+      "question": "How do you transition a founder-led senior-tech workshop business into a scalable recurring-revenue model?",
+      "srcCount": 0,
+      "tags": ["senior-tech-gtm", "no-context", "client-pitch"]
+    },
+    {
+      "id": "q1464",
+      "question": "How'd you fix Illinois's NIL & athletic revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1463",
+      "question": "How'd you fix Vanderbilt's NIL & athletic revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1462",
+      "question": "How'd you fix Texas A&M's NIL & athletic revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "texas-am",
+        "aggies",
+        "sec-football"
+      ]
+    },
+    {
+      "id": "q1461",
+      "question": "How'd you fix Texas's NIL & athletic revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1459",
+      "question": "How'd you fix South Carolina's NIL & athletic revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1458",
+      "question": "How'd you fix Oklahoma's NIL & athletic revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1457",
+      "question": "How'd you fix Ole Miss's NIL & athletic revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1456",
+      "question": "How'd you fix Missouri's NIL & athletic revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1455",
+      "question": "How'd you fix Mississippi State's NIL & athletic revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1454",
+      "question": "How'd you fix LSU's NIL & athletic revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1446",
+      "question": "How'd you fix TRSS's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "trss",
+        "gov-intel",
+        "risk-intelligence"
+      ]
+    },
+    {
+      "id": "q1443",
+      "question": "How'd you fix Cluep's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "cluep",
+        "adtech",
+        "mobile-ads"
+      ]
+    },
+    {
+      "id": "q1442",
+      "question": "How'd you fix AuditCo's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "auditco",
+        "audit-tech",
+        "grc"
+      ]
+    },
+    {
+      "id": "q1429",
+      "question": "How'd you fix MyRacehorse's revenue issues in 2026?",
+      "srcCount": 4,
+      "tags": [
+        "myracehorse",
+        "fractional-ownership",
+        "sports-investment"
+      ]
+    },
+    {
+      "id": "q1426",
+      "question": "How'd you fix streamline.auto's revenue issues in 2026?",
+      "srcCount": 4,
+      "tags": [
+        "streamline-auto",
+        "dealer-tech",
+        "automotive-saas"
+      ]
+    },
+    {
+      "id": "q1423",
+      "question": "How'd you fix Wellness Coach's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "wellness-coach",
+        "corporate-wellness",
+        "mental-health"
+      ]
+    },
+    {
+      "id": "q1421",
+      "question": "How'd you fix Volan.ai's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "volan-ai",
+        "ai-sdr",
+        "sales-enablement"
+      ]
+    },
+    {
+      "id": "q1419",
+      "question": "How'd you fix hellocare.ai's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "hellocare-ai",
+        "healthcare-ai",
+        "virtual-care"
+      ]
+    },
+    {
+      "id": "q1418",
+      "question": "How'd you fix Navina's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "navina",
+        "healthcare-ai",
+        "value-based-care"
+      ]
+    },
+    {
+      "id": "q1382",
+      "question": "How'd you fix Workato's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "workato",
+        "ipaas",
+        "integration"
+      ]
+    },
+    {
+      "id": "q1373",
+      "question": "How'd you fix Inflection AI's revenue issues in 2026?",
+      "srcCount": 4,
+      "tags": [
+        "inflection-ai",
+        "llm",
+        "enterprise-ai"
+      ]
+    },
+    {
+      "id": "q1365",
+      "question": "How'd you fix Heap's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1362",
+      "question": "How'd you fix Iterable's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "iterable",
+        "marketing-automation",
+        "customer-engagement"
+      ]
+    },
+    {
+      "id": "q1350",
+      "question": "How'd you fix Affirm's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1335",
+      "question": "How'd you fix Juicero's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "juicero",
+        "dtc",
+        "iot"
+      ]
+    },
+    {
+      "id": "q1321",
+      "question": "How'd you fix Doma's revenue issues in 2026?",
+      "srcCount": 4,
+      "tags": [
+        "doma",
+        "title-insurance",
+        "insurtech"
+      ]
+    },
+    {
+      "id": "q1295",
+      "question": "How'd you fix Carta's revenue issues in 2026?",
+      "srcCount": 4,
+      "tags": [
+        "carta",
+        "cap-table",
+        "saas"
+      ]
+    },
+    {
+      "id": "q1292",
+      "question": "How'd you fix Wish.com's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "wish-com",
+        "contextlogic",
+        "revenue-fix"
+      ]
+    },
+    {
+      "id": "q1291",
+      "question": "How'd you fix Eargo's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "eargo",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1290",
+      "question": "How'd you fix 23andMe's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "23andme",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1289",
+      "question": "How'd you fix Hooked Inc's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "hooked",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1288",
+      "question": "How'd you fix Theranos's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "theranos",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1286",
+      "question": "How'd you fix Trōv's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "trov",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1285",
+      "question": "How'd you fix Hyperloop One's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "hyperloop-one",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1284",
+      "question": "How'd you fix Frank's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "frank-fintech",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1283",
+      "question": "How'd you fix Juicero's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "juicero",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1282",
+      "question": "How'd you fix Anki's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "anki",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1281",
+      "question": "How'd you fix Beepi's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "beepi",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1280",
+      "question": "How'd you fix Pearl Auto's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "pearl-auto",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1279",
+      "question": "How'd you fix Quibi's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "quibi",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1278",
+      "question": "How'd you fix Washio's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "washio",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1277",
+      "question": "How'd you fix Jet.com's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "jet-com",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1276",
+      "question": "How'd you fix Munchery's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "munchery",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1275",
+      "question": "How'd you fix Brandless's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "brandless",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1273",
+      "question": "How'd you fix OYO US's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "oyo",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1272",
+      "question": "How'd you fix ezCater's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "ezcater",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1270",
+      "question": "How'd you fix Hippo Insurance's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "hippo-insurance",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1269",
+      "question": "How'd you fix Root Insurance's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "root-insurance",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1268",
+      "question": "How'd you fix Lemonade's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "lemonade",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1267",
+      "question": "How'd you fix Forge Global's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "forge-global",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1265",
+      "question": "How'd you fix Cazoo's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "cazoo",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1264",
+      "question": "How'd you fix Better.com's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "better-com",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1263",
+      "question": "How'd you fix Babylon Health's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "babylon-health",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1258",
+      "question": "How'd you fix Notion's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "notion",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1257",
+      "question": "How'd you fix Tovala's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "tovala",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1256",
+      "question": "How'd you fix Nikola's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "nikola",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1255",
+      "question": "How'd you fix Canoo's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "canoo",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1254",
+      "question": "How'd you fix Fisker's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "fisker",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1253",
+      "question": "How'd you fix Faraday Future's revenue issues in 2026?",
+      "srcCount": 4,
+      "tags": [
+        "faraday-future",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1252",
+      "question": "How'd you fix Lordstown Motors' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "lordstown-motors",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1247",
+      "question": "How'd you fix Ramp's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "ramp",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1246",
+      "question": "How'd you fix Brex's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "brex",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1245",
+      "question": "How'd you fix Carta's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "carta",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1244",
+      "question": "How'd you fix Bench Accounting's revenue issues in 2026?",
+      "srcCount": 4,
+      "tags": [
+        "bench-accounting",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1243",
+      "question": "How'd you fix Nava PBC's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "nava-pbc",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1242",
+      "question": "How'd you fix Focus Financial Partners' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "focus-financial-partners",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1241",
+      "question": "How'd you fix Consumer Reports' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "consumer-reports",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1239",
+      "question": "How'd you fix Forbes' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "forbes",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1238",
+      "question": "How'd you fix Hawthorne Machinery's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "hawthorne-machinery",
+        "hawthorne-cat",
+        "revenue-fix"
+      ]
+    },
+    {
+      "id": "q1237",
+      "question": "How'd you fix OPSWAT's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "opswat",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1236",
+      "question": "How'd you fix Green Thumb Industries' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "green-thumb-industries",
+        "gti",
+        "revenue-fix"
+      ]
+    },
+    {
+      "id": "q1235",
+      "question": "How'd you fix SmartRent's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "smartrent",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1234",
+      "question": "How'd you fix Relay Graduate School of Education's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "relay-graduate-school",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1233",
+      "question": "How'd you fix Precision Medicine Group's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "precision-medicine-group",
+        "precisionaq",
+        "revenue-fix"
+      ]
+    },
+    {
+      "id": "q1232",
+      "question": "How'd you fix Allworth Financial's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "allworth-financial",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1231",
+      "question": "How'd you fix World Resources Institute's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "world-resources-institute",
+        "wri",
+        "revenue-fix"
+      ]
+    },
+    {
+      "id": "q1230",
+      "question": "How'd you fix NorthCoast Asset Management's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "northcoast-asset-management",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1229",
+      "question": "How'd you fix Keeper Security's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "keeper-security",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1228",
+      "question": "How'd you fix ProShares' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "proshares",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1227",
+      "question": "How'd you fix Highwire's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "highwire",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1226",
+      "question": "How'd you fix GoodLeap's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "goodleap",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1225",
+      "question": "How'd you fix SCS Financial's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "scs-financial",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1224",
+      "question": "How'd you fix Story Cannabis' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "story-cannabis",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1223",
+      "question": "How'd you fix Arts For Learning Maryland's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "arts-for-learning-maryland",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1222",
+      "question": "How'd you fix Portage Point Partners' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "portage-point-partners",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1221",
+      "question": "How'd you fix MissionWired's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "missionwired",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1220",
+      "question": "How'd you fix Accenture Infrastructure and Capital Projects' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "accenture",
+        "infrastructure-capital-projects",
+        "revenue-fix"
+      ]
+    },
+    {
+      "id": "q1219",
+      "question": "How'd you fix Entrata's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "entrata",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1218",
+      "question": "How'd you fix Leadership Connect's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "leadership-connect",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1217",
+      "question": "How'd you fix M Booth Health's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "m-booth-health",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1215",
+      "question": "How'd you fix Blackbird Health's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "blackbird-health",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1214",
+      "question": "How'd you fix Convoy's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "convoy",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1212",
+      "question": "How'd you fix Mirror's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "mirror",
+        "lululemon-studio",
+        "revenue-fix"
+      ]
+    },
+    {
+      "id": "q1211",
+      "question": "How'd you fix Tonal's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "tonal",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1210",
+      "question": "How'd you fix ACG Systems' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "acg-systems",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1209",
+      "question": "How'd you fix Silent Beacon's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "silent-beacon",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1208",
+      "question": "How'd you fix Chief's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "chief",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1207",
+      "question": "How'd you fix Total Aviation Staffing's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "total-aviation-staffing",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1206",
+      "question": "How'd you fix Educated Solutions Corp's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "cro-candidate-pitch",
+        "executive-outreach",
+        "revenue-fix"
+      ]
+    },
+    {
+      "id": "q1204",
+      "question": "How'd you fix SAP's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "cro-candidate-pitch",
+        "executive-outreach",
+        "revenue-fix"
+      ]
+    },
+    {
+      "id": "q1203",
+      "question": "How'd you fix Deutsche Bank's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "deutsche-bank",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1202",
+      "question": "How'd you fix Selfinvest's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "selfinvest",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1201",
+      "question": "How'd you fix Allianz's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "cro-candidate-pitch",
+        "executive-outreach",
+        "revenue-fix"
+      ]
+    },
+    {
+      "id": "q1200",
+      "question": "How'd you fix UBS' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "**",
+        "cro-candidate-pitch",
+        "executive-outreach"
+      ]
+    },
+    {
+      "id": "q1199",
+      "question": "How'd you fix Henry Ford Health's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "henry-ford-health",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1197",
+      "question": "How'd you fix Surgery Partners' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "surgery-partners",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1196",
+      "question": "How'd you fix Salesforce's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "cro-candidate-pitch",
+        "executive-outreach",
+        "revenue-fix"
+      ]
+    },
+    {
+      "id": "q1195",
+      "question": "How'd you fix JPMorgan Chase's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "jpmorgan-chase",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1194",
+      "question": "How'd you fix Amcor's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "** amcor",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1193",
+      "question": "How'd you fix Harris Health's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": "har"
+    },
+    {
+      "id": "q1192",
+      "question": "How'd you fix Travelers' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "travelers",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1190",
+      "question": "How'd you fix Wells Fargo's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "wells-fargo",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1182",
+      "question": "How'd you fix Bowery Farming's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "bowery-farming",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1181",
+      "question": "How'd you fix Eventbrite's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "eventbrite",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1180",
+      "question": "How'd you fix Vimeo's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "vimeo",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1179",
+      "question": "How'd you fix ThredUp's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "thredup",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1178",
+      "question": "How'd you fix The RealReal's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "the-realreal",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1177",
+      "question": "How'd you fix Outdoor Voices' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "outdoor-voices",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1175",
+      "question": "How'd you fix Allbirds' revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "allbirds",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1173",
+      "question": "How'd you fix Beyond Meat's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "beyond-meat",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1172",
+      "question": "How'd you fix WeWork's revenue issues in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "wework",
+        "revenue-fix",
+        "turnaround"
+      ]
+    },
+    {
+      "id": "q1170",
+      "question": "How should a CRO structure renewal forecasts differently from new-business pipeline to predict cash retention?",
+      "srcCount": 0,
+      "tags": [
+        "renewals",
+        "forecasting",
+        "churn"
+      ]
+    },
+    {
+      "id": "q1169",
+      "question": "What's the optimal membership mix and pricing ladder to maximize boxing gym revenue without commoditizing the brand?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1168",
+      "question": "How do you run a win-loss program internally without hiring an outside firm — and what's the trade-off?",
+      "srcCount": 0,
+      "tags": [
+        "win-loss",
+        "competitive-intel",
+        "customer-feedback"
+      ]
+    },
+    {
+      "id": "q1167",
+      "question": "What's the right monthly tuition rate for a competitive dance studio's recreational program, and how do you balance recreational vs competitive revenue?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1165",
+      "question": "What's the right hourly rate to charge for K-12 math tutoring, and how do you structure packages to lock in retention?",
+      "srcCount": 0,
+      "tags": [
+        "K-12-tutoring",
+        "pricing-strategy",
+        "package-structure"
+      ]
+    },
+    {
+      "id": "q1164",
+      "question": "What's the right way to handle a POC where the customer keeps asking for more features mid-trial?",
+      "srcCount": 0,
+      "tags": [
+        "sales-engineering",
+        "poc-management",
+        "scope-creep"
+      ]
+    },
+    {
+      "id": "q1163",
+      "question": "What's the right mix of weekday corporate events vs weekend private bookings for a 4,000 sq ft party venue?",
+      "srcCount": 0,
+      "tags": [
+        "venue-operations",
+        "revenue-mix",
+        "event-booking"
+      ]
+    },
+    {
+      "id": "q1162",
+      "question": "What's the right discount-approval matrix when AEs need 20% off to close 70% of mid-market deals?",
+      "srcCount": 0,
+      "tags": [
+        "deal-desk",
+        "discount-approval",
+        "margin-protection"
+      ]
+    },
+    {
+      "id": "q1161",
+      "question": "What's the right per-event price for a 4-hour photo booth rental, and what add-ons drive the highest margin?",
+      "srcCount": 0,
+      "tags": [
+        "photo-booth",
+        "pricing",
+        "margins"
+      ]
+    },
+    {
+      "id": "q1160",
+      "question": "What's the right way to set up sales-ops dashboards so reps don't game the metrics?",
+      "srcCount": 0,
+      "tags": [
+        "dashboards",
+        "sales-ops",
+        "metrics"
+      ]
+    },
+    {
+      "id": "q1159",
+      "question": "What's the right management fee percentage for a vacation rental management company, and what services need to be included to justify it?",
+      "srcCount": 0,
+      "tags": [
+        "vacation-rental-management",
+        "pricing-strategy",
+        "owner-operators"
+      ]
+    },
+    {
+      "id": "q1158",
+      "question": "What's the right SDR daily activity volume in 2026 — calls, emails, LinkedIn touches?",
+      "srcCount": 0,
+      "tags": [
+        "sdr-activity",
+        "prospecting-volume",
+        "outbound-strategy"
+      ]
+    },
+    {
+      "id": "q1157",
+      "question": "What's the right monthly retainer for a bookkeeping firm to charge a 10-employee small business, and how do you avoid scope creep?",
+      "srcCount": 0,
+      "tags": [
+        "bookkeeping-retainer",
+        "scope-creep",
+        "pricing-strategy"
+      ]
+    },
+    {
+      "id": "q1155",
+      "question": "What's the realistic per-return pricing for an independent tax prep firm, and how do you scale beyond seasonal income?",
+      "srcCount": 0,
+      "tags": [
+        "tax-pricing",
+        "independent-prep",
+        "seasonal-revenue"
+      ]
+    },
+    {
+      "id": "q1154",
+      "question": "What's the right way to add a second sales manager when the first one is overworked but the team is only 8 reps?",
+      "srcCount": 0,
+      "tags": [
+        "sales-management",
+        "org-scaling",
+        "manager-split"
+      ]
+    },
+    {
+      "id": "q1152",
+      "question": "What's the right way to recover a deal where your champion got promoted out of the buying role mid-cycle?",
+      "srcCount": 0,
+      "tags": [
+        "champion-transition",
+        "deal-recovery",
+        "buying-committee"
+      ]
+    },
+    {
+      "id": "q1150",
+      "question": "How do you coach a brand-new manager who was promoted from top IC last quarter and is still trying to close their old deals?",
+      "srcCount": 0,
+      "tags": [
+        "sales-coaching",
+        "manager-transition",
+        "individual-contributor"
+      ]
+    },
+    {
+      "id": "q1149",
+      "question": "How many residential lawn-care accounts can a one-truck two-man crew realistically maintain in a 5-day week, and what's the route density that makes it work?",
+      "srcCount": 0,
+      "tags": [
+        "lawn-care",
+        "crew-capacity",
+        "route-density"
+      ]
+    },
+    {
+      "id": "q1148",
+      "question": "What's the right way to run a sales-tech RFP when 4 vendors all claim the same feature parity?",
+      "srcCount": 4,
+      "tags": [
+        "sales-tech-evaluation",
+        "rfp",
+        "vendor-selection"
+      ]
+    },
+    {
+      "id": "q1147",
+      "question": "How many cars per day can a one-truck mobile detailer realistically do, and what's the per-car gross profit?",
+      "srcCount": 0,
+      "tags": [
+        "mobile-detailing",
+        "one-truck-operations",
+        "gross-profit"
+      ]
+    },
+    {
+      "id": "q1146",
+      "question": "How do you read CAC payback when half your sales motion is PLG and half is enterprise outbound?",
+      "srcCount": 3,
+      "tags": [
+        "CAC payback",
+        "PLG",
+        "enterprise sales"
+      ]
+    },
+    {
+      "id": "q1145",
+      "question": "What's the realistic monthly revenue per vending machine on a typical 20-machine route, and what makes the difference between $500/mo and $1,500/mo locations?",
+      "srcCount": 0,
+      "tags": [
+        "vending-route-revenue",
+        "machine-location-analytics",
+        "monthly-per-unit-math"
+      ]
+    },
+    {
+      "id": "q1144",
+      "question": "What's the right way to split a sales team between SMB and mid-market when reps don't want to give up bigger accounts?",
+      "srcCount": 0,
+      "tags": [
+        "market-segmentation",
+        "quota-design",
+        "compensation-strategy"
+      ]
+    },
+    {
+      "id": "q1143",
+      "question": "What's the realistic court utilization rate for a 6-court indoor pickleball facility, and how does pricing affect it?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1141",
+      "question": "What's the right monthly membership price for an indoor climbing gym in a mid-size city, and how does it scale with route changes?",
+      "srcCount": 0,
+      "tags": [
+        "climbing-gym-pricing",
+        "membership-revenue",
+        "route-setting-cadence"
+      ]
+    },
+    {
+      "id": "q1138",
+      "question": "What's the right way to do a follow-up after a demo when the buyer says \"we'll get back to you\"?",
+      "srcCount": 0,
+      "tags": [
+        "demo-follow-up",
+        "buyer-engagement",
+        "demo-cadence"
+      ]
+    },
+    {
+      "id": "q1137",
+      "question": "How many dogs per day can one groomer realistically handle, and what determines the ceiling?",
+      "srcCount": 0,
+      "tags": [
+        "grooming",
+        "capacity-planning",
+        "small-business-ops"
+      ]
+    },
+    {
+      "id": "q1136",
+      "question": "How do you handle a discovery call where the buyer brings 6 stakeholders and you only planned for 1?",
+      "srcCount": 0,
+      "tags": [
+        "discovery-calls",
+        "stakeholder-management",
+        "deal-structure"
+      ]
+    },
+    {
+      "id": "q1134",
+      "question": "What's the right way to clean up a pipeline that has 60% deals older than 90 days?",
+      "srcCount": 0,
+      "tags": [
+        "pipeline-hygiene",
+        "qualification",
+        "stale-deals"
+      ]
+    },
+    {
+      "id": "q1133",
+      "question": "How do you maximize revenue per axe-throwing lane on a Saturday night, and what session structure works best?",
+      "srcCount": 0,
+      "tags": [
+        "axe-throwing",
+        "revenue-per-lane",
+        "saturday-night"
+      ]
+    },
+    {
+      "id": "q1132",
+      "question": "What's the right way to interview an AE candidate when you don't have a pipeline they can role-play against?",
+      "srcCount": 0,
+      "tags": [
+        "hiring",
+        "interview-design",
+        "qualification"
+      ]
+    },
+    {
+      "id": "q1131",
+      "question": "What's the realistic break-even cup count per day for a 1200-square-foot coffee shop, and how long does it take to reach it?",
+      "srcCount": 0,
+      "tags": [
+        "coffee-shop",
+        "break-even",
+        "unit-economics"
+      ]
+    },
+    {
+      "id": "q1129",
+      "question": "What's the realistic gross daily revenue for a food truck at a regular lunch spot, and how does it compare to event days?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1128",
+      "question": "How do you tell if your sales messaging is broken vs your reps just delivering it badly?",
+      "srcCount": 0,
+      "tags": [
+        "messaging",
+        "positioning",
+        "sales-execution"
+      ]
+    },
+    {
+      "id": "q1127",
+      "question": "Should I open a 9-hole or 18-hole mini-golf course in a tourist town, and what's the throughput math?",
+      "srcCount": 0,
+      "tags": [
+        "mini-golf",
+        "throughput-math",
+        "9-hole-vs-18-hole"
+      ]
+    },
+    {
+      "id": "q1126",
+      "question": "How long should a sales playbook actually be — 5 pages, 25, or a living wiki?",
+      "srcCount": 0,
+      "tags": [
+        "sales-playbook",
+        "playbook-design",
+        "enablement"
+      ]
+    },
+    {
+      "id": "q1125",
+      "question": "What's the realistic occupancy rate I need to break even on a 300-unit self-storage facility, and how long does it take to get there?",
+      "srcCount": 0,
+      "tags": [
+        "occupancy-math",
+        "self-storage-operations",
+        "breakeven-timeline"
+      ]
+    },
+    {
+      "id": "q1124",
+      "question": "What's the right way to handle a renewal where the customer wants to drop seats by 40% but stay on the same tier?",
+      "srcCount": 0,
+      "tags": [
+        "renewal-compression",
+        "seat-reduction",
+        "expansion-within-footprint"
+      ]
+    },
+    {
+      "id": "q1123",
+      "question": "What's the realistic monthly cash flow for an unattended laundromat, and what kills it the fastest?",
+      "srcCount": 0,
+      "tags": [
+        "unattended-laundromat",
+        "cash-flow",
+        "machine-downtime"
+      ]
+    },
+    {
+      "id": "q1120",
+      "question": "How do you run a profitable roller rink in 2026 — what session schedule maximizes revenue per square foot?",
+      "srcCount": 0,
+      "tags": [
+        "roller-rink",
+        "revenue-per-sqft",
+        "session-scheduling"
+      ]
+    },
+    {
+      "id": "q1119",
+      "question": "What's the realistic profit margin for a 12-lane bowling alley in a mid-size US town, and what drives it up or down?",
+      "srcCount": 0,
+      "tags": [
+        "bowling-alley",
+        "profit-margin",
+        "owner-operator"
+      ]
+    },
+    {
+      "id": "q1117",
+      "question": "What's the right ratio of training content to motivation content at a sales kickoff for a 50-rep org?",
+      "srcCount": 0,
+      "tags": [
+        "sales-kickoff",
+        "training-strategy",
+        "50-person-org"
+      ]
+    },
+    {
+      "id": "q1114",
+      "question": "What's the right way to personalize a cold email at scale when you have 200 prospects per SDR per week?",
+      "srcCount": 0,
+      "tags": [
+        "outbound",
+        "personalization",
+        "cold-email"
+      ]
+    },
+    {
+      "id": "q1113",
+      "question": "How do you diagnose whether your churn is a product problem or a customer-success problem?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q1112",
+      "question": "What's the right way to scale a sales team from 10 to 30 reps in 9 months without crushing win rate?",
+      "srcCount": 0,
+      "tags": [
+        "scaling",
+        "hiring",
+        "sales-ops"
+      ]
+    },
+    {
+      "id": "q1111",
+      "question": "How do you handle a deal where the buyer's procurement adds 12 redlines you've never seen before in week 11 of the cycle?",
+      "srcCount": 0,
+      "tags": [
+        "deal-mechanics",
+        "procurement",
+        "legal"
+      ]
+    },
+    {
+      "id": "q1109",
+      "question": "What's the right way to evaluate Apollo vs ZoomInfo for a 20-rep outbound team in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "apollo",
+        "zoominfo",
+        "outbound"
+      ]
+    },
+    {
+      "id": "q1108",
+      "question": "What's the right way to read magic number when your sales motion is shifting from inbound-heavy to outbound-heavy?",
+      "srcCount": 0,
+      "tags": [
+        "magic-number",
+        "saas-metrics",
+        "sales-motion"
+      ]
+    },
+    {
+      "id": "q1107",
+      "question": "How do you segment your TAM by ICP-fit when you have 50,000 named accounts and only 30 reps?",
+      "srcCount": 4,
+      "tags": [
+        "market-segmentation",
+        "icp",
+        "fit-scoring"
+      ]
+    },
+    {
+      "id": "q1102",
+      "question": "How do you tell if your pipeline coverage is over-stuffed with deals that won't close versus genuinely fat?",
+      "srcCount": 0,
+      "tags": [
+        "pipeline-hygiene",
+        "forecast-accuracy",
+        "deal-velocity"
+      ]
+    },
+    {
+      "id": "q1101",
+      "question": "What's the right way to assess sales-leader candidates for cultural fit beyond the standard \"values\" interview?",
+      "srcCount": 0,
+      "tags": [
+        "sales-leadership",
+        "hiring",
+        "cultural-fit"
+      ]
+    },
+    {
+      "id": "q1100",
+      "question": "How do you know when your sales-ops function has outgrown a single contributor and needs to split into specialized roles?",
+      "srcCount": 4,
+      "tags": [
+        "sales-operations",
+        "team-structure",
+        "hiring"
+      ]
+    },
+    {
+      "id": "q849",
+      "question": "How do you formalize sales feedback into product requirements without creating bottlenecks?",
+      "srcCount": 4,
+      "tags": [
+        "feedback-loop",
+        "product-requirements",
+        "sales-ops"
+      ]
+    },
+    {
+      "id": "q834",
+      "question": "How do deal-desk and finance teams align on discount authority and deal structuring?",
+      "srcCount": 0,
+      "tags": [
+        "deal-desk",
+        "finance-partnership",
+        "discount-governance"
+      ]
+    },
+    {
+      "id": "q819",
+      "question": "How do you select the 5-7 KPIs that actually matter for investor board decks without drowning in vanity metrics?",
+      "srcCount": 0,
+      "tags": [
+        "investor-relations",
+        "board-decks",
+        "kpi-selection"
+      ]
+    },
+    {
+      "id": "q804",
+      "question": "How do you assess sales leadership compatibility during M&A diligence before the deal closes?",
+      "srcCount": 3,
+      "tags": []
+    },
+    {
+      "id": "q790",
+      "question": "When should we hire the second-line sales manager, and what's the right span of control?",
+      "srcCount": 2,
+      "tags": [
+        "sales-management",
+        "org-structure",
+        "mid-market"
+      ]
+    },
+    {
+      "id": "q789",
+      "question": "How do we organize territory assignments across AE segments when sales leaders report different coverage gaps?",
+      "srcCount": 2,
+      "tags": [
+        "territory-design",
+        "segment-build",
+        "coverage-ops"
+      ]
+    },
+    {
+      "id": "q775",
+      "question": "How do we organize account segmentation triggers when moving from founder-led to AE-led at $5–10M ARR?",
+      "srcCount": 3,
+      "tags": [
+        "segmentation",
+        "account-routing",
+        "tier-architecture"
+      ]
+    },
+    {
+      "id": "q774",
+      "question": "When should we hire our first account executive if revenue is $5M ARR and the founder is still closing?",
+      "srcCount": 3,
+      "tags": [
+        "first-ae-hire",
+        "founder-handoff",
+        "sales-ramp"
+      ]
+    },
+    {
+      "id": "q760",
+      "question": "How should a new CRO structure their first 90 days?",
+      "srcCount": 0,
+      "tags": [
+        "CRO-onboarding",
+        "first-90-days",
+        "phase-gate"
+      ]
+    },
+    {
+      "id": "q759",
+      "question": "What are the top 3 red flags when evaluating a replacement CRO candidate?",
+      "srcCount": 0,
+      "tags": [
+        "CRO-hiring",
+        "P&L-accountability",
+        "quota-carry"
+      ]
+    },
+    {
+      "id": "q747",
+      "question": "What's the playbook for communicating comp plan changes to your board & investors?",
+      "srcCount": 4,
+      "tags": [
+        "investor-relations",
+        "board-communication",
+        "comp-change"
+      ]
+    },
+    {
+      "id": "q746",
+      "question": "How do you handle grandfathering rules when legacy reps depart?",
+      "srcCount": 3,
+      "tags": [
+        "grandfather-rules",
+        "rep-departure",
+        "handoff"
+      ]
+    },
+    {
+      "id": "q744",
+      "question": "How do you structure a mid-year comp plan change without triggering mass attrition?",
+      "srcCount": 4,
+      "tags": [
+        "comp-strategy",
+        "attrition-risk",
+        "change-management"
+      ]
+    },
+    {
+      "id": "q731",
+      "question": "What quota credit policies prevent gaming while rewarding split deals, expansions, and net-new accounts?",
+      "srcCount": 0,
+      "tags": [
+        "quota-credit",
+        "split-deals",
+        "expansion-credit"
+      ]
+    },
+    {
+      "id": "q730",
+      "question": "How do you design a capacity model that accounts for rep tenure, training ramp, and territory variance?",
+      "srcCount": 0,
+      "tags": [
+        "capacity-model",
+        "tenure-ramp",
+        "territory-variance"
+      ]
+    },
+    {
+      "id": "q729",
+      "question": "What's the difference between top-down and bottom-up quota models, and when should a RevOps leader use each?",
+      "srcCount": 0,
+      "tags": [
+        "quota-model",
+        "top-down",
+        "bottom-up"
+      ]
+    },
+    {
+      "id": "q717",
+      "question": "At what team size does a sales manager's job fundamentally change?",
+      "srcCount": 3,
+      "tags": [
+        "team-scaling",
+        "manager-growth",
+        "organizational-design"
+      ]
+    },
+    {
+      "id": "q716",
+      "question": "How do I build a deal-coaching practice that scales?",
+      "srcCount": 2,
+      "tags": [
+        "deal-coaching",
+        "scaling",
+        "pipeline-reviews"
+      ]
+    },
+    {
+      "id": "q715",
+      "question": "What's the first-90-day plan for a sales manager taking over a team?",
+      "srcCount": 2,
+      "tags": [
+        "first-90-days",
+        "sales-manager",
+        "onboarding"
+      ]
+    },
+    {
+      "id": "q714",
+      "question": "How do I move from closing deals as an IC to coaching reps on deal closure?",
+      "srcCount": 2,
+      "tags": [
+        "ic-to-manager",
+        "deal-coaching",
+        "first-90-days"
+      ]
+    },
+    {
+      "id": "q702",
+      "question": "How do we build a cohort analysis dashboard that shows which customer vintages are most profitable and which will churn?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q701",
+      "question": "What board-level metrics should we report on attribution and pipeline sourcing? How often?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q700",
+      "question": "What's the math for source-of-pipeline in a land-expand-renew motion? How do we separate sourced ARR from internal growth?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q699",
+      "question": "How do we map multi-touch attribution to our sales compensation plan without over-crediting pipeline touches?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q688",
+      "question": "How do we coordinate ABM campaigns between marketing and sales so neither team goes rogue with a prospect?",
+      "srcCount": 4,
+      "tags": [
+        "abm",
+        "account-based-marketing",
+        "sales-marketing-sync"
+      ]
+    },
+    {
+      "id": "q687",
+      "question": "What content should marketing create to help sales close specific deal types, and how do we avoid shipping content sales never reads?",
+      "srcCount": 4,
+      "tags": [
+        "sales-enablement",
+        "content-strategy",
+        "meddpicc"
+      ]
+    },
+    {
+      "id": "q686",
+      "question": "How should marketing staff deals when sales says they're too early and need more nurture, but the deal keeps stalling?",
+      "srcCount": 3,
+      "tags": [
+        "deal-stall",
+        "sales-marketing-teamwork",
+        "qualification"
+      ]
+    },
+    {
+      "id": "q685",
+      "question": "What's the minimum viable ICP agreement before sales and marketing stop arguing about 'bad' leads?",
+      "srcCount": 3,
+      "tags": [
+        "icp",
+        "lead-quality",
+        "fit-criteria"
+      ]
+    },
+    {
+      "id": "q675",
+      "question": "What PLG-to-sales handoff KPIs matter most to forecast revenue impact?",
+      "srcCount": 1,
+      "tags": [
+        "plg-kpi",
+        "handoff-metrics",
+        "conversion-funnel"
+      ]
+    },
+    {
+      "id": "q674",
+      "question": "How do we structure sales-assist motions for accounts that plateau in self-serve adoption?",
+      "srcCount": 1,
+      "tags": [
+        "sales-assist-motion",
+        "plateau-recovery",
+        "siloed-adoption"
+      ]
+    },
+    {
+      "id": "q673",
+      "question": "Which product behaviors indicate mid-market PLG accounts are ready for land-and-expand sales cycles?",
+      "srcCount": 1,
+      "tags": [
+        "mid-market-plg",
+        "land-expand-readiness",
+        "expansion-signals"
+      ]
+    },
+    {
+      "id": "q672",
+      "question": "What are the design rules for free tier seat limits, feature gates, and API quotas that trigger expansion motions?",
+      "srcCount": 1,
+      "tags": [
+        "tier-design",
+        "seat-limits",
+        "api-quotas"
+      ]
+    },
+    {
+      "id": "q671",
+      "question": "How do we calculate freemium-to-paid conversion CAC payback when self-serve acquisition cost is near-zero?",
+      "srcCount": 1,
+      "tags": [
+        "freemium-cac",
+        "payback-period",
+        "cohort-economics"
+      ]
+    },
+    {
+      "id": "q670",
+      "question": "What PQL scoring rules convert freemium users to MQL status for sales outreach?",
+      "srcCount": 1,
+      "tags": [
+        "pql-scoring",
+        "mql-conversion",
+        "freemium-qualification"
+      ]
+    },
+    {
+      "id": "q669",
+      "question": "How do we model expansion revenue from self-serve users in the first 90 days?",
+      "srcCount": 2,
+      "tags": [
+        "plg-expansion",
+        "freemium-math",
+        "90-day-cohort"
+      ]
+    },
+    {
+      "id": "q658",
+      "question": "EdTech vertical: How should you pitch differently to K-12 vs. higher-ed institutions, given admin buy-in vs. faculty gatekeeping?",
+      "srcCount": 0,
+      "tags": [
+        "edtech",
+        "k-12",
+        "higher-education"
+      ]
+    },
+    {
+      "id": "q657",
+      "question": "DevTools sales to engineering orgs: Why do technical evaluations take 4x longer than expected, and how should you compress the proof cycle?",
+      "srcCount": 0,
+      "tags": [
+        "devtools",
+        "engineering-sales",
+        "technical-eval"
+      ]
+    },
+    {
+      "id": "q656",
+      "question": "Security/infosec software has procurement via procurement officers, not buyers—how do you restructure discovery to account for this gating?",
+      "srcCount": 0,
+      "tags": [
+        "security-software",
+        "procurement",
+        "contract-review"
+      ]
+    },
+    {
+      "id": "q655",
+      "question": "How does fintech sales-motion differ when selling embedded vs. standalone—and what changes for B2B2C compensation models?",
+      "srcCount": 0,
+      "tags": [
+        "fintech",
+        "embedded-payments",
+        "b2b2c"
+      ]
+    },
+    {
+      "id": "q654",
+      "question": "What differentiates healthcare SaaS sales cycles from horizontal SaaS—and how should clinical adoption factor into your forecast?",
+      "srcCount": 0,
+      "tags": [
+        "healthcare-saas",
+        "clinical-governance",
+        "sales-cycle"
+      ]
+    },
+    {
+      "id": "q645",
+      "question": "What are CMMC requirements and how do they gate defense contractor sales?",
+      "srcCount": 3,
+      "tags": [
+        "CMMC",
+        "DoD-contracts",
+        "cyber-compliance"
+      ]
+    },
+    {
+      "id": "q644",
+      "question": "What sales team specialization model works best for federal-focused SaaS vendors?",
+      "srcCount": 3,
+      "tags": [
+        "sales-specialization",
+        "federal-org-design",
+        "procurement-expertise"
+      ]
+    },
+    {
+      "id": "q643",
+      "question": "How do federal procurement cycles differ from commercial sales cycles and what timeline should you model?",
+      "srcCount": 3,
+      "tags": [
+        "procurement-cycle",
+        "federal-timeline",
+        "RFP"
+      ]
+    },
+    {
+      "id": "q642",
+      "question": "What are IDIQ contracts and why are they the preferred federal vehicle for recurring SaaS spend?",
+      "srcCount": 3,
+      "tags": [
+        "IDIQ",
+        "government-contracts",
+        "pricing-certainty"
+      ]
+    },
+    {
+      "id": "q641",
+      "question": "What is the prime-sub partnership model and why do most federal deals flow through prime contractors?",
+      "srcCount": 3,
+      "tags": [
+        "prime-contractor",
+        "subcontractor-model",
+        "federal-partnerships"
+      ]
+    },
+    {
+      "id": "q640",
+      "question": "How do GSA Schedule contracts function as the primary SaaS distribution channel for federal accounts?",
+      "srcCount": 3,
+      "tags": [
+        "GSA-Schedule",
+        "federal-distribution",
+        "MAS"
+      ]
+    },
+    {
+      "id": "q639",
+      "question": "What is FedRAMP and why is it the gatekeeping layer for SaaS sales to federal agencies?",
+      "srcCount": 3,
+      "tags": [
+        "FedRAMP",
+        "federal-gating",
+        "cloud-authorization"
+      ]
+    },
+    {
+      "id": "q629",
+      "question": "How do you get executive sponsors and C-suite buyers aligned on a multi-year contract when each renewal is uncertain?",
+      "srcCount": 4,
+      "tags": [
+        "executive-alignment",
+        "contract-structure",
+        "renewal-strategy"
+      ]
+    },
+    {
+      "id": "q628",
+      "question": "How do you build a multi-year account expansion plan when buyers want to see 18-month value but you have 3-year thinking?",
+      "srcCount": 3,
+      "tags": [
+        "account-planning",
+        "multi-year-expansion",
+        "buyer-alignment"
+      ]
+    },
+    {
+      "id": "q627",
+      "question": "When ABM and sales ops collide on account priorities, how do you resolve which accounts get heavy resourcing?",
+      "srcCount": 3,
+      "tags": [
+        "abm-operations",
+        "account-prioritization",
+        "scoring-matrix"
+      ]
+    },
+    {
+      "id": "q626",
+      "question": "How many people should staff an account team for a $50M-revenue target? What roles?",
+      "srcCount": 3,
+      "tags": [
+        "account-staffing",
+        "team-structure",
+        "account-team-roles"
+      ]
+    },
+    {
+      "id": "q625",
+      "question": "What's the difference between ABM-style account selection and traditional patch-based territory assignment?",
+      "srcCount": 3,
+      "tags": [
+        "account-selection",
+        "abm-strategy",
+        "territory-model"
+      ]
+    },
+    {
+      "id": "q624",
+      "question": "How do you size a named-account territory when existing accounts already cover 70% of TAM?",
+      "srcCount": 3,
+      "tags": [
+        "territory-sizing",
+        "nam-account-mapping",
+        "expansion-planning"
+      ]
+    },
+    {
+      "id": "q616",
+      "question": "How should SEs prepare discovery calls to align with AE discovery and reduce wheel-spinning?",
+      "srcCount": 0,
+      "tags": [
+        "discovery",
+        "SE_AE_alignment",
+        "MEDDPICC"
+      ]
+    },
+    {
+      "id": "q615",
+      "question": "What career path framework prevents your best SEs from burning out or leaving for AE roles?",
+      "srcCount": 0,
+      "tags": [
+        "career_path",
+        "retention",
+        "burnout"
+      ]
+    },
+    {
+      "id": "q614",
+      "question": "How do you prevent POC scope creep when customers keep asking 'can you just...'?",
+      "srcCount": 0,
+      "tags": [
+        "POC_scope",
+        "feature_creep",
+        "scope_management"
+      ]
+    },
+    {
+      "id": "q613",
+      "question": "What's the ideal POC timeline and success criteria to avoid feature requests disguised as trials?",
+      "srcCount": 0,
+      "tags": [
+        "POC_management",
+        "timeline",
+        "success_metrics"
+      ]
+    },
+    {
+      "id": "q612",
+      "question": "How do you design demo flows that convert skeptics without revealing pricing?",
+      "srcCount": 0,
+      "tags": [
+        "demo_design",
+        "conversion",
+        "objection_handling"
+      ]
+    },
+    {
+      "id": "q611",
+      "question": "What interview framework identifies SEs who can both code and coach?",
+      "srcCount": 0,
+      "tags": [
+        "hiring",
+        "SE_interview",
+        "system_design"
+      ]
+    },
+    {
+      "id": "q610",
+      "question": "How should SE comp align with AE OTE to maintain role clarity?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "SE_comp",
+        "AE_comp"
+      ]
+    },
+    {
+      "id": "q609",
+      "question": "What SE headcount ratio produces optimal deal velocity without bottlenecking?",
+      "srcCount": 0,
+      "tags": [
+        "SE_headcount",
+        "AE_ratio",
+        "deal_velocity"
+      ]
+    },
+    {
+      "id": "q596",
+      "question": "How do you design SLA tiers that operators can execute without constant escalation?",
+      "srcCount": 0,
+      "tags": [
+        "deal-desk",
+        "sla-management",
+        "support"
+      ]
+    },
+    {
+      "id": "q595",
+      "question": "What's the difference between discount governance and discount controls?",
+      "srcCount": 0,
+      "tags": [
+        "deal-desk",
+        "governance",
+        "controls"
+      ]
+    },
+    {
+      "id": "q594",
+      "question": "How should deal-desk approval authority be structured to prevent pricing hero-culture?",
+      "srcCount": 0,
+      "tags": [
+        "deal-desk",
+        "governance",
+        "pricing"
+      ]
+    },
+    {
+      "id": "q587",
+      "question": "How do you measure inbound lead quality without waiting 90 days for close rates to surface?",
+      "srcCount": 0,
+      "tags": [
+        "lead-quality",
+        "early-signals",
+        "engagement-velocity"
+      ]
+    },
+    {
+      "id": "q586",
+      "question": "What is an inbound qualification framework, and which one actually works (BANT, MEDDPICC, Sandler, etc.)?",
+      "srcCount": 0,
+      "tags": [
+        "qualification-framework",
+        "MEDDPICC",
+        "Challenger"
+      ]
+    },
+    {
+      "id": "q585",
+      "question": "How do you calculate the cost per marketing-qualified opportunity (MQO) and know if you're spending too much?",
+      "srcCount": 0,
+      "tags": [
+        "MQO",
+        "cost-per-opportunity",
+        "CAC"
+      ]
+    },
+    {
+      "id": "q584",
+      "question": "What does lead routing by fit score versus round-robin actually change in conversion metrics?",
+      "srcCount": 0,
+      "tags": [
+        "lead-routing",
+        "fit-score",
+        "round-robin"
+      ]
+    },
+    {
+      "id": "q583",
+      "question": "How do you audit marketing-sourced pipeline quality and spot rotten SQL sources?",
+      "srcCount": 0,
+      "tags": [
+        "pipeline-quality",
+        "SQL-sources",
+        "source-audit"
+      ]
+    },
+    {
+      "id": "q582",
+      "question": "What is the MEDDPICC approach to inbound qualification, and how does it speed SQL→opportunity conversion?",
+      "srcCount": 0,
+      "tags": [
+        "MEDDPICC",
+        "qualification",
+        "inbound-discovery"
+      ]
+    },
+    {
+      "id": "q581",
+      "question": "How do you calculate response-time SLA for inbound and prove it's driving conversion?",
+      "srcCount": 0,
+      "tags": [
+        "response-time",
+        "SLA",
+        "inbound-conversion"
+      ]
+    },
+    {
+      "id": "q580",
+      "question": "What should your MQL-to-SQL conversion rate be, and how do you know if you're below market?",
+      "srcCount": 0,
+      "tags": [
+        "conversion-rate",
+        "MQL-to-SQL",
+        "OpenView"
+      ]
+    },
+    {
+      "id": "q579",
+      "question": "How do you calculate the actual payback period on a dedicated lead-routing system when MQL volume stays flat?",
+      "srcCount": 0,
+      "tags": [
+        "lead-routing",
+        "MQL-to-SQL",
+        "payback-period"
+      ]
+    },
+    {
+      "id": "q556",
+      "question": "How do you write sales messaging that works in a crowded buyer journey where prospects see 50+ vendor claims daily?",
+      "srcCount": 0,
+      "tags": [
+        "pattern-breaking",
+        "messaging-clarity",
+        "challenger-methodology"
+      ]
+    },
+    {
+      "id": "q555",
+      "question": "How do you stress-test messaging against your actual buyer personas?",
+      "srcCount": 0,
+      "tags": [
+        "messaging-validation",
+        "buyer-interviews",
+        "stress-testing"
+      ]
+    },
+    {
+      "id": "q554",
+      "question": "What's the difference between value prop and positioning, and does it matter operationally?",
+      "srcCount": 0,
+      "tags": [
+        "positioning",
+        "value-prop",
+        "differentiation"
+      ]
+    },
+    {
+      "id": "q553",
+      "question": "How do you craft persona-specific messaging without sounding fragmented?",
+      "srcCount": 0,
+      "tags": [
+        "persona-messaging",
+        "narrative-consistency",
+        "value-prop-clarity"
+      ]
+    },
+    {
+      "id": "q552",
+      "question": "What's the fastest way to map competitor positioning and find your gap?",
+      "srcCount": 0,
+      "tags": [
+        "competitive-positioning",
+        "positioning-mapping",
+        "openview"
+      ]
+    },
+    {
+      "id": "q551",
+      "question": "When should you pivot from horizontal (all verticals) to vertical-specific positioning?",
+      "srcCount": 0,
+      "tags": [
+        "vertical-positioning",
+        "market-concentration",
+        "win-rate-analysis"
+      ]
+    },
+    {
+      "id": "q550",
+      "question": "How do you test messaging-market fit before scaling a campaign?",
+      "srcCount": 0,
+      "tags": [
+        "messaging-market-fit",
+        "hypothesis-testing",
+        "campaign-testing"
+      ]
+    },
+    {
+      "id": "q549",
+      "question": "What makes a value-prop framework work when 80% of vendors claim the same benefit?",
+      "srcCount": 0,
+      "tags": [
+        "value-prop",
+        "persona-messaging",
+        "quantification"
+      ]
+    },
+    {
+      "id": "q540",
+      "question": "How do you design playbook governance without turning it into a legal document nobody reads?",
+      "srcCount": 1,
+      "tags": [
+        "playbook-governance",
+        "version-control",
+        "metrics-transparency"
+      ]
+    },
+    {
+      "id": "q539",
+      "question": "What drives playbook adoption if your reps think the playbook is trash?",
+      "srcCount": 1,
+      "tags": [
+        "adoption-velocity",
+        "playbook-legitimacy",
+        "rep-engagement"
+      ]
+    },
+    {
+      "id": "q538",
+      "question": "How do deal stage rituals prevent deals from stalling in qualification limbo?",
+      "srcCount": 2,
+      "tags": [
+        "deal-stage-rituals",
+        "pipeline-governance",
+        "pavilion"
+      ]
+    },
+    {
+      "id": "q537",
+      "question": "What's the anatomy of a repeatable demo flow that keeps deal momentum without custom pivots?",
+      "srcCount": 2,
+      "tags": [
+        "demo-design",
+        "buyer-personas",
+        "proof-assets"
+      ]
+    },
+    {
+      "id": "q536",
+      "question": "How do you build objection script libraries that reps actually reference mid-call?",
+      "srcCount": 1,
+      "tags": [
+        "objection-scripts",
+        "call-coaching",
+        "audio-playbooks"
+      ]
+    },
+    {
+      "id": "q535",
+      "question": "What makes a persona-based play stick versus collect dust in your playbook library?",
+      "srcCount": 2,
+      "tags": [
+        "persona-plays",
+        "objection-handling",
+        "force-management"
+      ]
+    },
+    {
+      "id": "q534",
+      "question": "How do you architect segment-specific playbooks without fragmenting your GTM engine?",
+      "srcCount": 1,
+      "tags": [
+        "segment-architecture",
+        "playbook-design",
+        "gtm-scalability"
+      ]
+    },
+    {
+      "id": "q528",
+      "question": "What support ticket patterns signal imminent churn vs. healthy escalations?",
+      "srcCount": 0,
+      "tags": [
+        "support-signals",
+        "ticket-analysis",
+        "customer-engagement"
+      ]
+    },
+    {
+      "id": "q527",
+      "question": "How should you weight financial health signals like payment delays and usage-to-ARR ratio?",
+      "srcCount": 0,
+      "tags": [
+        "payment-health",
+        "financial-signals",
+        "utilization-analysis"
+      ]
+    },
+    {
+      "id": "q526",
+      "question": "What is a leading product adoption signal and how should it be weighted in health scoring?",
+      "srcCount": 0,
+      "tags": [
+        "product-adoption",
+        "feature-usage",
+        "module-breadth"
+      ]
+    },
+    {
+      "id": "q525",
+      "question": "How do you measure and improve health-score model accuracy?",
+      "srcCount": 0,
+      "tags": [
+        "health-score-accuracy",
+        "model-validation",
+        "precision-recall"
+      ]
+    },
+    {
+      "id": "q524",
+      "question": "What outreach sequence and messaging works best for win-back campaigns?",
+      "srcCount": 0,
+      "tags": [
+        "win-back-campaign",
+        "outreach-sequence",
+        "customer-reactivation"
+      ]
+    },
+    {
+      "id": "q523",
+      "question": "How do you categorize and score churn types (product, price, competitor, organizational)?",
+      "srcCount": 0,
+      "tags": [
+        "churn-taxonomy",
+        "customer-segmentation",
+        "win-back-strategy"
+      ]
+    },
+    {
+      "id": "q522",
+      "question": "When should a CSM initiate a save play for at-risk accounts?",
+      "srcCount": 0,
+      "tags": [
+        "save-play-timing",
+        "customer-retention",
+        "renewal-strategy"
+      ]
+    },
+    {
+      "id": "q521",
+      "question": "What CSM behaviors and red flags indicate a customer is at high risk to churn?",
+      "srcCount": 0,
+      "tags": [
+        "csm-playbook",
+        "churn-red-flags",
+        "customer-success"
+      ]
+    },
+    {
+      "id": "q520",
+      "question": "What product-usage signals most reliably predict 6-month churn in B2B SaaS?",
+      "srcCount": 0,
+      "tags": [
+        "churn-prediction",
+        "product-usage",
+        "early-warning"
+      ]
+    },
+    {
+      "id": "q519",
+      "question": "How should we structure a customer health score that tracks both product engagement and commercial indicators?",
+      "srcCount": 0,
+      "tags": [
+        "health-score",
+        "product-adoption",
+        "churn-prevention"
+      ]
+    },
+    {
+      "id": "q512",
+      "question": "How do you prevent the 'surprise objection at contract' problem in renewals?",
+      "srcCount": 2,
+      "tags": [
+        "objection-archaeology",
+        "surprise-prevention",
+        "stakeholder-mapping"
+      ]
+    },
+    {
+      "id": "q511",
+      "question": "What renewal negotiation framework prevents feature creep and keeps closure timelines tight?",
+      "srcCount": 4,
+      "tags": [
+        "meddpicc-renewal",
+        "negotiation-framework",
+        "feature-creep-prevention"
+      ]
+    },
+    {
+      "id": "q510",
+      "question": "How should a CRO build a renewal forecast model that actually predicts pipeline?",
+      "srcCount": 2,
+      "tags": [
+        "renewal-forecasting",
+        "pipeline-prediction",
+        "health-scoring"
+      ]
+    },
+    {
+      "id": "q509",
+      "question": "Which leading indicators predict renewal churn before the renewal conversation starts?",
+      "srcCount": 3,
+      "tags": [
+        "churn-prediction",
+        "renewal-leading-indicators",
+        "early-warning"
+      ]
+    },
+    {
+      "id": "q508",
+      "question": "What multi-year renewal incentive structures work for B2B SaaS without killing quarterly revenue?",
+      "srcCount": 3,
+      "tags": [
+        "multi-year",
+        "renewal-incentives",
+        "revenue-recognition"
+      ]
+    },
+    {
+      "id": "q507",
+      "question": "How do you calculate discount math for at-risk renewals without destroying margin?",
+      "srcCount": 1,
+      "tags": [
+        "discount-math",
+        "margin-protection",
+        "ltv-recovery"
+      ]
+    },
+    {
+      "id": "q506",
+      "question": "What's the anatomy of a high-win-rate save play and when should it trigger?",
+      "srcCount": 3,
+      "tags": [
+        "save-plays",
+        "churn-reversal",
+        "renewal-negotiation"
+      ]
+    },
+    {
+      "id": "q505",
+      "question": "How should an AE and CSM divide ownership during a renewal cycle to prevent deal friction?",
+      "srcCount": 2,
+      "tags": [
+        "ae-csm-handoff",
+        "renewal-ownership",
+        "split-stack"
+      ]
+    },
+    {
+      "id": "q504",
+      "question": "What renewal cadence should a SaaS company operate on to maximize land-expand-renew velocity?",
+      "srcCount": 3,
+      "tags": [
+        "renewal-cadence",
+        "land-expand-renew",
+        "csm-rhythm"
+      ]
+    },
+    {
+      "id": "q492",
+      "question": "What automation replaces a dedicated reference manager at 50+ references?",
+      "srcCount": 0,
+      "tags": [
+        "automation",
+        "references",
+        "pavilion"
+      ]
+    },
+    {
+      "id": "q491",
+      "question": "What reference cadence prevents burnout while maximizing call volume?",
+      "srcCount": 0,
+      "tags": [
+        "references",
+        "cadence",
+        "fatigue"
+      ]
+    },
+    {
+      "id": "q490",
+      "question": "How do I scale a reference program from 5 to 50 references without breaking the bank?",
+      "srcCount": 0,
+      "tags": [
+        "references",
+        "scaling",
+        "advocacy"
+      ]
+    },
+    {
+      "id": "q489",
+      "question": "What's the math on recruiting customers into a reference program?",
+      "srcCount": 0,
+      "tags": [
+        "references",
+        "recruitment",
+        "advocacy"
+      ]
+    },
+    {
+      "id": "q488",
+      "question": "How do we apply Challenger, Sandler, and other sales methodologies to strengthen win-loss discovery and competitive positioning?",
+      "srcCount": 0,
+      "tags": [
+        "sales-methodology",
+        "challenger",
+        "sandler"
+      ]
+    },
+    {
+      "id": "q487",
+      "question": "What does a complete win-loss program maturity model look like, and how do we move through it?",
+      "srcCount": 0,
+      "tags": [
+        "maturity-model",
+        "program-scale",
+        "investment-strategy"
+      ]
+    },
+    {
+      "id": "q486",
+      "question": "How do we build a competitive taxonomy that scales across multiple deal types and buyer personas?",
+      "srcCount": 0,
+      "tags": [
+        "competitive-taxonomy",
+        "segmentation",
+        "competitive-analysis"
+      ]
+    },
+    {
+      "id": "q485",
+      "question": "How should competitive intelligence from win-loss inform sales messaging and positioning updates?",
+      "srcCount": 0,
+      "tags": [
+        "win-loss-messaging",
+        "positioning",
+        "marketing-messaging"
+      ]
+    },
+    {
+      "id": "q484",
+      "question": "What role does MEDDPICC and sales methodology play in win-loss interview quality?",
+      "srcCount": 0,
+      "tags": [
+        "meddpicc",
+        "sales-methodology",
+        "interview-training"
+      ]
+    },
+    {
+      "id": "q483",
+      "question": "How do we use competitive intelligence from win-loss to guide product roadmap prioritization?",
+      "srcCount": 0,
+      "tags": [
+        "competitive-roadmap",
+        "product-prioritization",
+        "feature-analysis"
+      ]
+    },
+    {
+      "id": "q482",
+      "question": "How do we avoid common pitfalls in win-loss program design and execution?",
+      "srcCount": 0,
+      "tags": [
+        "win-loss-pitfalls",
+        "program-design",
+        "operational-excellence"
+      ]
+    },
+    {
+      "id": "q481",
+      "question": "What metrics should we track to measure win-loss program ROI and health?",
+      "srcCount": 0,
+      "tags": [
+        "win-loss-metrics",
+        "program-health",
+        "roi-measurement"
+      ]
+    },
+    {
+      "id": "q480",
+      "question": "How do win-loss interviews refine ICP targeting and segment strategy?",
+      "srcCount": 0,
+      "tags": [
+        "icp-refinement",
+        "segment-strategy",
+        "buyer-profiling"
+      ]
+    },
+    {
+      "id": "q479",
+      "question": "How do we execute take-out campaigns that convert competitive losses into wins on the second touch?",
+      "srcCount": 0,
+      "tags": [
+        "competitive-campaigns",
+        "take-out-strategy",
+        "prospect-reengagement"
+      ]
+    },
+    {
+      "id": "q478",
+      "question": "How do we design competitive battlecards that actually change rep behavior in the field?",
+      "srcCount": 0,
+      "tags": [
+        "battlecards",
+        "competitive-intelligence",
+        "sales-enablement"
+      ]
+    },
+    {
+      "id": "q477",
+      "question": "What taxonomy structure prevents win-loss insights from becoming a junk drawer?",
+      "srcCount": 0,
+      "tags": [
+        "taxonomy",
+        "win-loss-data",
+        "categorization"
+      ]
+    },
+    {
+      "id": "q476",
+      "question": "At what interview frequency should we trigger product/GTM pivots based on win-loss data?",
+      "srcCount": 0,
+      "tags": [
+        "win-loss-frequency",
+        "pattern-recognition",
+        "roadmap-prioritization"
+      ]
+    },
+    {
+      "id": "q475",
+      "question": "What criteria should we use to select a third-party win-loss vendor vs. running the program in-house?",
+      "srcCount": 0,
+      "tags": [
+        "win-loss-vendor",
+        "third-party-research",
+        "pavilion"
+      ]
+    },
+    {
+      "id": "q474",
+      "question": "How should we structure win-loss interview design to uncover the specific objections that lose deals?",
+      "srcCount": 0,
+      "tags": [
+        "win-loss-research",
+        "interview-design",
+        "competitive-intelligence"
+      ]
+    },
+    {
+      "id": "q467",
+      "question": "What's the playbook for integrating ramps and new hires into kickoff events?",
+      "srcCount": 0,
+      "tags": [
+        "ramp-integration",
+        "new-hire-onboarding",
+        "kickoff-design"
+      ]
+    },
+    {
+      "id": "q466",
+      "question": "How do you communicate new compensation changes at kickoff without derailing momentum?",
+      "srcCount": 0,
+      "tags": [
+        "compensation-strategy",
+        "kickoff-communication",
+        "manager-coaching"
+      ]
+    },
+    {
+      "id": "q465",
+      "question": "What location choice maximizes attendance and post-event deal impact?",
+      "srcCount": 0,
+      "tags": [
+        "kickoff-location",
+        "venue-selection",
+        "travel-logistics"
+      ]
+    },
+    {
+      "id": "q464",
+      "question": "How do you design kickoff content for AEs vs. SDRs vs. managers?",
+      "srcCount": 0,
+      "tags": [
+        "content-segmentation",
+        "role-specific-training",
+        "aes-sdrs-managers"
+      ]
+    },
+    {
+      "id": "q463",
+      "question": "What's the optimal frequency for sales kickoffs given forecast cycles?",
+      "srcCount": 0,
+      "tags": [
+        "kickoff-frequency",
+        "forecast-cycle",
+        "annual-calendar"
+      ]
+    },
+    {
+      "id": "q462",
+      "question": "How do you measure kickoff ROI in a way that sticks to forecasts?",
+      "srcCount": 0,
+      "tags": [
+        "kickoff-roi",
+        "measurement-framework",
+        "pipeline-velocity"
+      ]
+    },
+    {
+      "id": "q461",
+      "question": "What post-SKO reinforcement system keeps behavior change from collapsing?",
+      "srcCount": 0,
+      "tags": [
+        "post-kickoff-coaching",
+        "reinforcement-cadence",
+        "adoption-tracking"
+      ]
+    },
+    {
+      "id": "q460",
+      "question": "How do you structure in-person vs. virtual kickoffs for maximum engagement?",
+      "srcCount": 0,
+      "tags": [
+        "in-person-events",
+        "virtual-kickoff",
+        "hybrid-model"
+      ]
+    },
+    {
+      "id": "q459",
+      "question": "What are the core design pillars for a high-ROI sales kickoff?",
+      "srcCount": 0,
+      "tags": [
+        "kickoff-design",
+        "roe-measurement",
+        "sales-alignment"
+      ]
+    },
+    {
+      "id": "q452",
+      "question": "How do I design partner and channel strategies specific to each region without over-distributing?",
+      "srcCount": 0,
+      "tags": [
+        "channel-strategy",
+        "EMEA",
+        "APAC"
+      ]
+    },
+    {
+      "id": "q451",
+      "question": "What's the revenue forecasting methodology when cycles vary 6+ weeks between regions?",
+      "srcCount": 0,
+      "tags": [
+        "forecasting",
+        "EMEA",
+        "APAC"
+      ]
+    },
+    {
+      "id": "q450",
+      "question": "How do I structure AE compensation across regions with different cost-of-living and market rates?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "EMEA",
+        "APAC"
+      ]
+    },
+    {
+      "id": "q449",
+      "question": "What are the deal-stage dynamics and negotiation patterns specific to APAC/EMEA buyer psychology?",
+      "srcCount": 0,
+      "tags": [
+        "deal-dynamics",
+        "negotiation",
+        "APAC"
+      ]
+    },
+    {
+      "id": "q448",
+      "question": "How do I design regional GTM and messaging that doesn't just translate the US playbook?",
+      "srcCount": 0,
+      "tags": [
+        "GTM",
+        "regional-strategy",
+        "EMEA"
+      ]
+    },
+    {
+      "id": "q447",
+      "question": "What's the multi-language sales infrastructure for APAC/EMEA without hiring 10 extra support people?",
+      "srcCount": 0,
+      "tags": [
+        "localization",
+        "multi-language",
+        "APAC"
+      ]
+    },
+    {
+      "id": "q446",
+      "question": "How do I model FX risk when scaling revenue across 4+ currency zones?",
+      "srcCount": 0,
+      "tags": [
+        "FX-risk",
+        "EMEA",
+        "APAC"
+      ]
+    },
+    {
+      "id": "q445",
+      "question": "What's the hiring formula for local Account Executives in unfamiliar APAC/EMEA markets?",
+      "srcCount": 0,
+      "tags": [
+        "hiring",
+        "APAC",
+        "EMEA"
+      ]
+    },
+    {
+      "id": "q444",
+      "question": "How do I stage regional market entry for EMEA without creating dependency bottlenecks?",
+      "srcCount": 0,
+      "tags": [
+        "EMEA",
+        "market-entry",
+        "phased-ramp"
+      ]
+    },
+    {
+      "id": "q433",
+      "question": "How do we size and manage Marketing Development Funds without them becoming partner slush?",
+      "srcCount": 0,
+      "tags": [
+        "MDF",
+        "partner-marketing",
+        "accountability"
+      ]
+    },
+    {
+      "id": "q432",
+      "question": "What's the fastest partner enablement curriculum to get partners selling within 30 days?",
+      "srcCount": 0,
+      "tags": [
+        "partner-enablement",
+        "30-day-ramp",
+        "role-play"
+      ]
+    },
+    {
+      "id": "q431",
+      "question": "How do we run co-sell motions without bottlenecking at account executive capacity?",
+      "srcCount": 0,
+      "tags": [
+        "co-sell",
+        "AE-capacity",
+        "partner-qualification"
+      ]
+    },
+    {
+      "id": "q430",
+      "question": "What deal-share compensation model keeps partners hungry without cannibalizing direct?",
+      "srcCount": 0,
+      "tags": [
+        "deal-share",
+        "partner-commission",
+        "attribution-window"
+      ]
+    },
+    {
+      "id": "q429",
+      "question": "How do we build a tiered partner program that rewards scale without collapsing margin?",
+      "srcCount": 0,
+      "tags": [
+        "partner-tiering",
+        "margin-protection",
+        "MDF"
+      ]
+    },
+    {
+      "id": "q425",
+      "question": "How do you calculate 'true' LTV when you have variable churn by cohort age, and some customers never expand?",
+      "srcCount": 0,
+      "tags": [
+        "LTV",
+        "cohort-analysis",
+        "churn-modeling"
+      ]
+    },
+    {
+      "id": "q424",
+      "question": "What metrics should you include in a board-ready unit economics dashboard, and in what order?",
+      "srcCount": 0,
+      "tags": [
+        "board-dashboard",
+        "unit-economics",
+        "SaaS-metrics"
+      ]
+    },
+    {
+      "id": "q423",
+      "question": "How should you forecast financial health when you have multi-year contracts with holdbacks and payment delays?",
+      "srcCount": 0,
+      "tags": [
+        "cash-forecasting",
+        "multi-year-contracts",
+        "holdbacks"
+      ]
+    },
+    {
+      "id": "q422",
+      "question": "What's the relationship between CAC, MRR, and sales cycle length, and how do you optimize the trade-off?",
+      "srcCount": 0,
+      "tags": [
+        "CAC",
+        "MRR",
+        "sales-cycle"
+      ]
+    },
+    {
+      "id": "q421",
+      "question": "How do you explain negative churn (expansion revenue) to board auditors who think NRR >100% is impossible?",
+      "srcCount": 0,
+      "tags": [
+        "NRR",
+        "negative-churn",
+        "expansion-revenue"
+      ]
+    },
+    {
+      "id": "q420",
+      "question": "What is 'burn multiple' and when should you worry about yours vs. celebrate it?",
+      "srcCount": 0,
+      "tags": [
+        "burn-multiple",
+        "cash-efficiency",
+        "unit-economics"
+      ]
+    },
+    {
+      "id": "q419",
+      "question": "How do you model CAC for usage-based pricing when you have no upfront contract value?",
+      "srcCount": 0,
+      "tags": [
+        "CAC",
+        "usage-based-pricing",
+        "unit-economics"
+      ]
+    },
+    {
+      "id": "q418",
+      "question": "What's the 'Magic Number' in SaaS, how do you calculate it, and why does it matter more than CAC?",
+      "srcCount": 0,
+      "tags": [
+        "Magic-Number",
+        "S&M-efficiency",
+        "CAC"
+      ]
+    },
+    {
+      "id": "q417",
+      "question": "What does the Rule of 40 actually measure, and how do you explain it when your growth + profit score misses?",
+      "srcCount": 0,
+      "tags": [
+        "Rule-of-40",
+        "unit-economics",
+        "profitability"
+      ]
+    },
+    {
+      "id": "q416",
+      "question": "How do you separate NRR, GRR, and logo retention when board auditors ask which is 'real'?",
+      "srcCount": 0,
+      "tags": [
+        "NRR",
+        "GRR",
+        "logo-retention"
+      ]
+    },
+    {
+      "id": "q415",
+      "question": "What's the difference between LTV and CLV, and which one matters for SaaS board reporting?",
+      "srcCount": 0,
+      "tags": [
+        "LTV",
+        "CLV",
+        "board-metrics"
+      ]
+    },
+    {
+      "id": "q414",
+      "question": "How do you calculate true CAC payback period when you have multi-quarter sales cycles?",
+      "srcCount": 0,
+      "tags": [
+        "CAC",
+        "payback-period",
+        "unit-economics"
+      ]
+    },
+    {
+      "id": "q407",
+      "question": "How do we measure whether our Salesforce config is over-engineered or leaving money on table?",
+      "srcCount": 3,
+      "tags": [
+        "salesforce-audit",
+        "over-engineering",
+        "config-complexity"
+      ]
+    },
+    {
+      "id": "q405",
+      "question": "Build a custom CRM vs. buy Salesforce Enterprise—what's the real long-term cost delta?",
+      "srcCount": 3,
+      "tags": [
+        "build-vs-buy",
+        "custom-crm",
+        "salesforce-roi"
+      ]
+    },
+    {
+      "id": "q403",
+      "question": "Tech consolidation: when does cutting tools actually save money, versus creating blind spots?",
+      "srcCount": 3,
+      "tags": [
+        "tech-consolidation",
+        "platform-evaluation",
+        "cost-vs-visibility"
+      ]
+    },
+    {
+      "id": "q402",
+      "question": "How do we know if Clari forecasting is actually more accurate, or just more confident?",
+      "srcCount": 2,
+      "tags": [
+        "clari",
+        "forecasting-accuracy",
+        "deal-momentum"
+      ]
+    },
+    {
+      "id": "q401",
+      "question": "Does Gong ROI really justify $200k+ annual spend, or is it a confidence placebo?",
+      "srcCount": 4,
+      "tags": [
+        "gong",
+        "sales-coaching",
+        "conversation-intelligence"
+      ]
+    },
+    {
+      "id": "q400",
+      "question": "Outreach vs. Salesloft vs. Apollo—which one actually pays for itself in our stack?",
+      "srcCount": 4,
+      "tags": [
+        "outreach-vs-salesloft",
+        "apollo",
+        "tool-stack"
+      ]
+    },
+    {
+      "id": "q399",
+      "question": "How do we evaluate Salesforce admin overhead versus revenue impact—what metrics matter?",
+      "srcCount": 3,
+      "tags": [
+        "salesforce-admin",
+        "cost-analysis",
+        "roc-metric"
+      ]
+    },
+    {
+      "id": "q395",
+      "question": "When should we hire a dedicated sales enablement manager vs keeping it under ops?",
+      "srcCount": 3,
+      "tags": [
+        "enablement-hiring",
+        "ops-scaling",
+        "sales-training"
+      ]
+    },
+    {
+      "id": "q394",
+      "question": "What should a sales ops data governance framework include to prevent CRM from becoming a junk drawer?",
+      "srcCount": 3,
+      "tags": [
+        "data-governance",
+        "CRM-hygiene",
+        "data-ownership"
+      ]
+    },
+    {
+      "id": "q393",
+      "question": "How do we operationalize sales methodology (MEDDPICC, Challenger, Sandler) without killing rep morale?",
+      "srcCount": 3,
+      "tags": [
+        "sales-methodology",
+        "MEDDPICC",
+        "Challenger"
+      ]
+    },
+    {
+      "id": "q392",
+      "question": "What's the ops playbook for managing commission disputes and compensation appeals?",
+      "srcCount": 3,
+      "tags": [
+        "compensation-disputes",
+        "comp-governance",
+        "resolution-process"
+      ]
+    },
+    {
+      "id": "q391",
+      "question": "How do we measure and improve forecast accuracy beyond activity metrics?",
+      "srcCount": 3,
+      "tags": [
+        "forecast-accuracy",
+        "pipeline-quality",
+        "deal-velocity"
+      ]
+    },
+    {
+      "id": "q390",
+      "question": "How do we build a realistic 12-month ops roadmap that aligns with sales execution?",
+      "srcCount": 3,
+      "tags": [
+        "roadmap-planning",
+        "strategic-priorities",
+        "reactive-capacity"
+      ]
+    },
+    {
+      "id": "q389",
+      "question": "Build vs buy: when should we custom-build vs adopt vendor platforms for sales ops infrastructure?",
+      "srcCount": 3,
+      "tags": [
+        "build-vs-buy",
+        "vendor-selection",
+        "infrastructure"
+      ]
+    },
+    {
+      "id": "q388",
+      "question": "How should sales ops and IT split responsibilities to avoid territorial conflict?",
+      "srcCount": 3,
+      "tags": [
+        "ops-IT-alignment",
+        "RACI-matrix",
+        "responsibility-split"
+      ]
+    },
+    {
+      "id": "q387",
+      "question": "When is it time to hire your first, second, and third ops hire?",
+      "srcCount": 3,
+      "tags": [
+        "hiring-roadmap",
+        "ops-team-growth",
+        "ARR-milestones"
+      ]
+    },
+    {
+      "id": "q386",
+      "question": "What's the modern territory design framework—account clustering vs geographic vs vertical-based?",
+      "srcCount": 3,
+      "tags": [
+        "territory-design",
+        "account-clustering",
+        "vertical-specialization"
+      ]
+    },
+    {
+      "id": "q385",
+      "question": "How do we right-size rep capacity and assign quota without guessing?",
+      "srcCount": 3,
+      "tags": [
+        "capacity-planning",
+        "quota-assignment",
+        "territory-design"
+      ]
+    },
+    {
+      "id": "q384",
+      "question": "What's the ROI framework for building CRM hygiene programs, and when should we stop investing?",
+      "srcCount": 3,
+      "tags": [
+        "CRM-hygiene",
+        "ROI-framework",
+        "data-quality"
+      ]
+    },
+    {
+      "id": "q381",
+      "question": "What metrics should managers track to measure their own coaching effectiveness?",
+      "srcCount": 0,
+      "tags": [
+        "manager-metrics",
+        "coaching-effectiveness",
+        "rep-development"
+      ]
+    },
+    {
+      "id": "q380",
+      "question": "How do you structure ramp coaching differently for new hires vs. plateaued reps?",
+      "srcCount": 0,
+      "tags": [
+        "ramp-coaching",
+        "new-hire-onboarding",
+        "plateau-intervention"
+      ]
+    },
+    {
+      "id": "q379",
+      "question": "What are the top 5 coaching blunders that kill rep development?",
+      "srcCount": 0,
+      "tags": [
+        "coaching-mistakes",
+        "manager-habits",
+        "feedback-quality"
+      ]
+    },
+    {
+      "id": "q378",
+      "question": "How do you prevent reps from becoming permanently plateau at year 2-3 (the danger zone)?",
+      "srcCount": 0,
+      "tags": [
+        "plateau-prevention",
+        "year2-3",
+        "territory-strategy"
+      ]
+    },
+    {
+      "id": "q377",
+      "question": "How do you build a repeatable sales coaching framework that survives manager turnover?",
+      "srcCount": 0,
+      "tags": [
+        "coaching-framework",
+        "manager-training",
+        "documentation"
+      ]
+    },
+    {
+      "id": "q376",
+      "question": "When should you transition a high-performing IC into a manager role, and what's the trap?",
+      "srcCount": 0,
+      "tags": [
+        "IC-to-manager",
+        "manager-transition",
+        "coaching-readiness"
+      ]
+    },
+    {
+      "id": "q375",
+      "question": "How do you coach reps through objection handling without accepting excuses?",
+      "srcCount": 0,
+      "tags": [
+        "objection-handling",
+        "sales-methodology",
+        "challenger-sale"
+      ]
+    },
+    {
+      "id": "q374",
+      "question": "What should happen in a post-call debrief to lock in rep behavior change?",
+      "srcCount": 0,
+      "tags": [
+        "post-call-debrief",
+        "behavior-coaching",
+        "skill-development"
+      ]
+    },
+    {
+      "id": "q373",
+      "question": "How should reps prepare for and run effective discovery conversations to close faster?",
+      "srcCount": 0,
+      "tags": [
+        "discovery",
+        "MEDDPICC",
+        "sales-methodology"
+      ]
+    },
+    {
+      "id": "q372",
+      "question": "What core manager skills separate competent sales leaders from top performers?",
+      "srcCount": 0,
+      "tags": [
+        "manager-skills",
+        "forecast-accuracy",
+        "pipeline-management"
+      ]
+    },
+    {
+      "id": "q371",
+      "question": "How do you diagnose when a rep has hit plateau vs. when they need a behavior change?",
+      "srcCount": 0,
+      "tags": [
+        "plateau-diagnosis",
+        "behavior-change",
+        "performance-gaps"
+      ]
+    },
+    {
+      "id": "q370",
+      "question": "What's the difference between deal coaching and life coaching in a sales manager context?",
+      "srcCount": 0,
+      "tags": [
+        "deal-coaching",
+        "life-coaching",
+        "manager-skills"
+      ]
+    },
+    {
+      "id": "q369",
+      "question": "How should managers structure 1:1 cadence for maximum coaching impact without overwhelming reps?",
+      "srcCount": 0,
+      "tags": [
+        "1:1-cadence",
+        "coaching",
+        "manager-effectiveness"
+      ]
+    },
+    {
+      "id": "q364",
+      "question": "What onboarding ramp timeline should you bake into hiring decisions for different career stages?",
+      "srcCount": 1,
+      "tags": [
+        "ramp-timeline",
+        "onboarding-duration",
+        "SDR-ramp"
+      ]
+    },
+    {
+      "id": "q363",
+      "question": "How do you assess sales interview candidates for resilience and adaptability to process changes?",
+      "srcCount": 1,
+      "tags": [
+        "resilience",
+        "adaptability",
+        "process-change"
+      ]
+    },
+    {
+      "id": "q362",
+      "question": "How do MEDDPICC and Challenger frameworks guide interview questions to assess deal methodology maturity?",
+      "srcCount": 2,
+      "tags": [
+        "MEDDPICC",
+        "Challenger-framework",
+        "deal-methodology"
+      ]
+    },
+    {
+      "id": "q361",
+      "question": "What coachability signals during interviews predict hiring success and identify candidates who will reject feedback?",
+      "srcCount": 1,
+      "tags": [
+        "coachability",
+        "feedback-receptiveness",
+        "hiring-signals"
+      ]
+    },
+    {
+      "id": "q360",
+      "question": "How do you calibrate interview expectations for different sales stages (SDR vs AE vs Sales Engineer)?",
+      "srcCount": 1,
+      "tags": [
+        "role-expectations",
+        "sales-stages",
+        "SDR-hiring"
+      ]
+    },
+    {
+      "id": "q359",
+      "question": "What reference check questions expose false quota claims and predict actual ramp performance?",
+      "srcCount": 1,
+      "tags": [
+        "reference-checks",
+        "quota-verification",
+        "ramp-patterns"
+      ]
+    },
+    {
+      "id": "q358",
+      "question": "How do you structure an interview panel to remove individual bias and enforce decision discipline?",
+      "srcCount": 1,
+      "tags": [
+        "panel-structure",
+        "bias-reduction",
+        "veto-rules"
+      ]
+    },
+    {
+      "id": "q357",
+      "question": "What role-play scenarios most accurately predict ramp success for AEs and SDRs?",
+      "srcCount": 1,
+      "tags": [
+        "role-play-design",
+        "scenario-mapping",
+        "objection-handling"
+      ]
+    },
+    {
+      "id": "q356",
+      "question": "How do working interviews (sales simulations) separate role-players from closers?",
+      "srcCount": 1,
+      "tags": [
+        "working-interviews",
+        "sales-simulations",
+        "objection-handling"
+      ]
+    },
+    {
+      "id": "q355",
+      "question": "What quota-attainment signal patterns predict first-year sales rep success during final interview stages?",
+      "srcCount": 2,
+      "tags": [
+        "quota-attainment",
+        "ramp-velocity",
+        "reference-checks"
+      ]
+    },
+    {
+      "id": "q354",
+      "question": "How do you design a sales interview scorecard that calibrates objectively across multiple evaluators?",
+      "srcCount": 2,
+      "tags": [
+        "interview-design",
+        "scorecard-calibration",
+        "inter-rater-agreement"
+      ]
+    },
+    {
+      "id": "q339",
+      "question": "How should we design a 3-tier SaaS pricing structure when competitor tiers blur together?",
+      "srcCount": 4,
+      "tags": [
+        "saas-pricing",
+        "tier-design",
+        "pricing-psychology"
+      ]
+    },
+    {
+      "id": "q334",
+      "question": "Sales team is asking for a price concession to close, but the deal is already at margin. How do we say no while keeping the deal alive?",
+      "srcCount": 0,
+      "tags": [
+        "price-defense",
+        "margin-protection",
+        "discount-request"
+      ]
+    },
+    {
+      "id": "q333",
+      "question": "Procurement pivots from our champion to a competing vendor at the final hour. How do we win back momentum?",
+      "srcCount": 0,
+      "tags": [
+        "last-minute-pivot",
+        "procurement-intervention",
+        "stakeholder-discovery"
+      ]
+    },
+    {
+      "id": "q332",
+      "question": "The CRO says they'll adopt our tool, but their team will use a competitor internally anyway. How do we prevent a multi-vendor install that ruins our ROI?",
+      "srcCount": 0,
+      "tags": [
+        "adoption-blocker",
+        "multi-vendor-risk",
+        "tool-friction"
+      ]
+    },
+    {
+      "id": "q331",
+      "question": "Executive sponsor is blocking procurement because they want a custom feature we can't build in their timeline. How do we move them without feature bloat?",
+      "srcCount": 0,
+      "tags": [
+        "executive-blocker",
+        "feature-request",
+        "custom-development"
+      ]
+    },
+    {
+      "id": "q330",
+      "question": "A champion keeps slipping the demo (slip-then-slip). How do we know when to move to a new contact or escalate around them?",
+      "srcCount": 0,
+      "tags": [
+        "slip-then-slip",
+        "champion-vetting",
+        "authority-qualification"
+      ]
+    },
+    {
+      "id": "q329",
+      "question": "Legal team wants 60+ days to review terms, creating deployment risk. How do we move them without conceding core deal terms?",
+      "srcCount": 0,
+      "tags": [
+        "legal-objection",
+        "contract-negotiation",
+        "procurement-acceleration"
+      ]
+    },
+    {
+      "id": "q328",
+      "question": "Security blockers from the procurement/legal team are delaying close. How do we move past SOC 2, penetration testing, and audit compliance?",
+      "srcCount": 0,
+      "tags": [
+        "security-objection",
+        "SOC-2-compliance",
+        "penetration-testing"
+      ]
+    },
+    {
+      "id": "q327",
+      "question": "A competitor undercut us by 40% in the final round. How do we win without matching their price?",
+      "srcCount": 0,
+      "tags": [
+        "competitor-undercut",
+        "price-defense",
+        "total-cost-of-ownership"
+      ]
+    },
+    {
+      "id": "q326",
+      "question": "How do we counter the build-vs-buy objection when their engineering team insists they can build this internally in 6 months?",
+      "srcCount": 0,
+      "tags": [
+        "build-vs-buy",
+        "engineering-objection",
+        "opportunity-cost"
+      ]
+    },
+    {
+      "id": "q325",
+      "question": "What's the playbook when a buyer says they have no budget but still wants a demo and proof of concept?",
+      "srcCount": 0,
+      "tags": [
+        "no-budget-objection",
+        "qualification",
+        "pain-quantification"
+      ]
+    },
+    {
+      "id": "q324",
+      "question": "How do we overcome a prospect's price compression objection when they've already found a cheaper alternative in their RFP process?",
+      "srcCount": 0,
+      "tags": [
+        "price-compression",
+        "objection-handling",
+        "outcome-framing"
+      ]
+    },
+    {
+      "id": "q320",
+      "question": "How do you discover and map the \"power dynamic\" before it kills your deal?",
+      "srcCount": 1,
+      "tags": [
+        "power-dynamic",
+        "decision-committee",
+        "stakeholder-influence"
+      ]
+    },
+    {
+      "id": "q319",
+      "question": "What metrics tell you if your discovery conversations are actually working?",
+      "srcCount": 1,
+      "tags": [
+        "discovery-metrics",
+        "MEDDPICC",
+        "sales-operations"
+      ]
+    },
+    {
+      "id": "q318",
+      "question": "How do you handle the prospect who says \"just show us a demo\" instead of discovery?",
+      "srcCount": 1,
+      "tags": [
+        "discovery-objection",
+        "demo-readiness",
+        "prospect-impatience"
+      ]
+    },
+    {
+      "id": "q317",
+      "question": "What questions reveal a prospect's buying committee that they haven't told you about?",
+      "srcCount": 1,
+      "tags": [
+        "hidden-committee",
+        "decision-committee",
+        "vendor-switch"
+      ]
+    },
+    {
+      "id": "q316",
+      "question": "How do you qualify a prospect on implementation readiness without showing the product?",
+      "srcCount": 2,
+      "tags": [
+        "implementation-readiness",
+        "MEDDPICC",
+        "sponsor"
+      ]
+    },
+    {
+      "id": "q315",
+      "question": "What's the difference between a pain-stacking discovery and a compliance-box discovery?",
+      "srcCount": 2,
+      "tags": [
+        "pain-stacking",
+        "discovery-call",
+        "compliance-box"
+      ]
+    },
+    {
+      "id": "q314",
+      "question": "How do you design follow-up questions that uncover hidden pain instead of leading the prospect?",
+      "srcCount": 2,
+      "tags": [
+        "discovery-questions",
+        "uncovering-pain",
+        "sandler"
+      ]
+    },
+    {
+      "id": "q313",
+      "question": "What's the ideal talk-to-listen ratio on a discovery call, and how do you measure it?",
+      "srcCount": 1,
+      "tags": [
+        "talk-listen-ratio",
+        "discovery-call",
+        "bridge-group"
+      ]
+    },
+    {
+      "id": "q311",
+      "question": "What's the best alternative to BANT when BANT breaks down, and when do you switch?",
+      "srcCount": 2,
+      "tags": [
+        "BANT",
+        "MEDDPICC",
+        "qualification"
+      ]
+    },
+    {
+      "id": "q310",
+      "question": "When should you disqualify a prospect during discovery, and what's the signal?",
+      "srcCount": 1,
+      "tags": [
+        "disqualification",
+        "discovery-call",
+        "economic-buyer"
+      ]
+    },
+    {
+      "id": "q308",
+      "question": "How do post-close analytics identify which forecast assumptions were right and which were wrong?",
+      "srcCount": 0,
+      "tags": [
+        "forecast-audit",
+        "post-quarter-analysis",
+        "assumption-validation"
+      ]
+    },
+    {
+      "id": "q307",
+      "question": "What rapid-response forecasting adjustments should you make when market conditions shift mid-quarter?",
+      "srcCount": 0,
+      "tags": [
+        "mid-quarter-forecasting",
+        "market-shocks",
+        "rapid-response"
+      ]
+    },
+    {
+      "id": "q306",
+      "question": "How should forecast models handle multi-year deals that straddle revenue recognition boundaries?",
+      "srcCount": 0,
+      "tags": [
+        "multi-year-deals",
+        "revenue-recognition",
+        "tcv-vs-arr"
+      ]
+    },
+    {
+      "id": "q305",
+      "question": "How do you build confidence bands around forecast numbers to communicate uncertainty to the board?",
+      "srcCount": 0,
+      "tags": [
+        "confidence-intervals",
+        "forecast-bands",
+        "probability-reporting"
+      ]
+    },
+    {
+      "id": "q304",
+      "question": "What deal pacing model prevents end-of-quarter ramp-and-stall cycles?",
+      "srcCount": 0,
+      "tags": [
+        "deal-pacing",
+        "close-distribution",
+        "quarter-rhythm"
+      ]
+    },
+    {
+      "id": "q303",
+      "question": "How should forecast precision account for seasonal buying patterns and macro headwinds?",
+      "srcCount": 0,
+      "tags": [
+        "seasonality",
+        "quarterly-patterns",
+        "forecast-adjustment"
+      ]
+    },
+    {
+      "id": "q302",
+      "question": "What CRM hygiene rules prevent forecast garbage-in-garbage-out failures?",
+      "srcCount": 0,
+      "tags": [
+        "crm-hygiene",
+        "data-quality",
+        "forecast-foundation"
+      ]
+    },
+    {
+      "id": "q301",
+      "question": "How do competitive threat signals (RFP issuance, multi-threaded deals, price escalations) degrade forecast confidence?",
+      "srcCount": 0,
+      "tags": [
+        "competitive-intelligence",
+        "forecast-adjustment",
+        "rfp-tracking"
+      ]
+    },
+    {
+      "id": "q300",
+      "question": "What does a healthy pipeline-to-quota ratio reveal about forecast reliability?",
+      "srcCount": 0,
+      "tags": [
+        "pipeline-coverage",
+        "quota-ratio",
+        "forecast-reliability"
+      ]
+    },
+    {
+      "id": "q299",
+      "question": "How should end-of-quarter math handle deals that straddle close window boundaries?",
+      "srcCount": 0,
+      "tags": [
+        "close-date-rules",
+        "commit-cutoff",
+        "eaq-forecasting"
+      ]
+    },
+    {
+      "id": "q298",
+      "question": "What board reporting KPIs should forecast precision feed directly into quarterly performance?",
+      "srcCount": 0,
+      "tags": [
+        "board-reporting",
+        "forecast-metrics",
+        "kpi-tracking"
+      ]
+    },
+    {
+      "id": "q297",
+      "question": "How do AI forecasting tools improve on manual rep estimates and reduce board variance?",
+      "srcCount": 0,
+      "tags": [
+        "ai-forecasting",
+        "forecast-accuracy",
+        "rep-bias"
+      ]
+    },
+    {
+      "id": "q296",
+      "question": "Why do commit, best-case, and pipeline forecasts require different closing velocity assumptions?",
+      "srcCount": 0,
+      "tags": [
+        "forecast-methodology",
+        "commit-forecast",
+        "best-case"
+      ]
+    },
+    {
+      "id": "q295",
+      "question": "What slip prediction indicators show deals moving outside forecast window?",
+      "srcCount": 0,
+      "tags": [
+        "slip-prediction",
+        "deal-velocity",
+        "forecast-risk"
+      ]
+    },
+    {
+      "id": "q294",
+      "question": "How do probability weighting models prevent pipeline inflation in forecast accuracy?",
+      "srcCount": 0,
+      "tags": [
+        "forecast-accuracy",
+        "probability-weighting",
+        "pipeline-inflation"
+      ]
+    },
+    {
+      "id": "q290",
+      "question": "How do you use Challenger Selling principles to reframe procurement objections as growth opportunities instead of cost-cutting?",
+      "srcCount": 0,
+      "tags": [
+        "challenger-selling",
+        "procurement",
+        "objection-handling"
+      ]
+    },
+    {
+      "id": "q289",
+      "question": "What's the playbook for staying ahead of procurement's data processing addendum (DPA) delay tactic?",
+      "srcCount": 0,
+      "tags": [
+        "DPA",
+        "GDPR",
+        "CCPA"
+      ]
+    },
+    {
+      "id": "q288",
+      "question": "How do you position pricing concessions as 'scope creep trades' vs. 'discounts' in multi-year procurement?",
+      "srcCount": 0,
+      "tags": [
+        "pricing",
+        "negotiation",
+        "scope-trade"
+      ]
+    },
+    {
+      "id": "q287",
+      "question": "How do you negotiate MSA indemnification and insurance minimums without handing the economic loss to the vendor?",
+      "srcCount": 0,
+      "tags": [
+        "MSA",
+        "indemnification",
+        "insurance"
+      ]
+    },
+    {
+      "id": "q286",
+      "question": "What's the MEDDPICC framework for qualifying an enterprise procurement process before you invest legal time?",
+      "srcCount": 0,
+      "tags": [
+        "MEDDPICC",
+        "qualification",
+        "enterprise-sales"
+      ]
+    },
+    {
+      "id": "q285",
+      "question": "How do you diagnose if a stalled deal is stuck on budget, authority, or procurement delay, and what's the unlock for each?",
+      "srcCount": 0,
+      "tags": [
+        "deal-stall",
+        "diagnosis",
+        "budget"
+      ]
+    },
+    {
+      "id": "q284",
+      "question": "What's the sequence for getting executive sponsorship aligned before deal stall explodes into budget carry-forward?",
+      "srcCount": 0,
+      "tags": [
+        "executive-sponsorship",
+        "deal-stall",
+        "budget-cycle"
+      ]
+    },
+    {
+      "id": "q283",
+      "question": "How do you price a deal that has a hidden multi-year volume commitment embedded in the procurement language?",
+      "srcCount": 0,
+      "tags": [
+        "pricing",
+        "procurement",
+        "hidden-commits"
+      ]
+    },
+    {
+      "id": "q282",
+      "question": "When does a security review become the actual deal blocker vs. a checkbox procurement uses as cover?",
+      "srcCount": 0,
+      "tags": [
+        "security-review",
+        "CISO",
+        "procurement"
+      ]
+    },
+    {
+      "id": "q281",
+      "question": "How do multi-year contract economics force reps to compress year-one value capture differently than annual deals?",
+      "srcCount": 0,
+      "tags": [
+        "multi-year",
+        "contract-economics",
+        "expansion"
+      ]
+    },
+    {
+      "id": "q280",
+      "question": "What's the playbook for breaking a 90-day RFP response cycle into operational sprints?",
+      "srcCount": 0,
+      "tags": [
+        "RFP",
+        "sales-ops",
+        "sprints"
+      ]
+    },
+    {
+      "id": "q279",
+      "question": "How do you map stakeholder power vs. interest in an enterprise MSA negotiation before legal even touches it?",
+      "srcCount": 0,
+      "tags": [
+        "stakeholder-mapping",
+        "MSA",
+        "enterprise-deals"
+      ]
+    },
+    {
+      "id": "q278",
+      "question": "How do we fix comp comp when we've created a monster—reps gaming deals, inflating pipelines, sandbagging, and comp costs are 45% of revenue instead of 15%?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "comp-reset",
+        "broken-plans"
+      ]
+    },
+    {
+      "id": "q277",
+      "question": "How do we structure performance-based comp (quotas + bonuses + accelerators) to encourage team selling over individual heroics?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "team-selling",
+        "bonus-design"
+      ]
+    },
+    {
+      "id": "q276",
+      "question": "How do we comp reps during a major product pivot or repositioning when quota expectations are uncertain?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "product-pivot",
+        "quota-transition"
+      ]
+    },
+    {
+      "id": "q275",
+      "question": "How do we design comp for deal teams (AE + SA + Sales Engineer) where all three touch the deal but at different stages?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "deal-teams",
+        "commission-splits"
+      ]
+    },
+    {
+      "id": "q274",
+      "question": "What edge-case comp problems arise with multi-currency or international reps, and how do we fix them?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "international",
+        "multi-currency"
+      ]
+    },
+    {
+      "id": "q273",
+      "question": "How do we transition comp plans when we move from transactional (AE closes everything) to land-and-expand (AE closes, CSM expands)?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "comp-transition",
+        "land-and-expand"
+      ]
+    },
+    {
+      "id": "q272",
+      "question": "What comp structure works for reps selling to different customer segments with vastly different deal sizes (SMB vs. Enterprise)?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "segment-comp",
+        "quota-design"
+      ]
+    },
+    {
+      "id": "q271",
+      "question": "How do we comp reps on expansion/upsell deals when they're working alongside a CSM or account manager?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "expansion",
+        "split-commission"
+      ]
+    },
+    {
+      "id": "q270",
+      "question": "What's the difference between a clawback and a true-up, and when does each apply?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "clawback",
+        "true-up"
+      ]
+    },
+    {
+      "id": "q269",
+      "question": "How do we adjust comp when a product changes pricing mid-year and reps' quotas become misaligned?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "pricing-changes",
+        "quota-adjustments"
+      ]
+    },
+    {
+      "id": "q268",
+      "question": "What's the right approach to hybrid comp (base + commission + SPIFFs) when we have multiple sales roles (AE, Solutions Consultant, Sales Dev)?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "hybrid-comp",
+        "sales-ops"
+      ]
+    },
+    {
+      "id": "q267",
+      "question": "How do we design MBO bonuses (Management by Objectives) that don't kill commission math?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "mbo",
+        "bonus-design"
+      ]
+    },
+    {
+      "id": "q266",
+      "question": "How do we handle comp when a rep transfers between territories, and does their old quota still apply?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "territory-transfer",
+        "quota"
+      ]
+    },
+    {
+      "id": "q265",
+      "question": "When do we pay a draw to an AE, and when does it become a tab they have to pay back?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "draws",
+        "clawback"
+      ]
+    },
+    {
+      "id": "q264",
+      "question": "How do we design commission accelerators that actually change rep behavior without blowing the cap?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "accelerators",
+        "commission-design"
+      ]
+    },
+    {
+      "id": "q262",
+      "question": "What's the right way to measure an enablement function's actual impact on revenue versus just course-completion rates?",
+      "srcCount": 0,
+      "tags": [
+        "enablement",
+        "revenue-attribution",
+        "sales-ops"
+      ]
+    },
+    {
+      "id": "q261",
+      "question": "How do you structure win-back outreach for prospects who went silent after demo (60-90 days dark)?",
+      "srcCount": 0,
+      "tags": [
+        "win-back",
+        "outreach-cadence",
+        "demo-follow-up"
+      ]
+    },
+    {
+      "id": "q260",
+      "question": "What's the right way to handle a deal where the buyer's lawyer is hostile and adversarial from the first redline?",
+      "srcCount": 0,
+      "tags": [
+        "negotiation",
+        "legal-redline",
+        "deal-risk"
+      ]
+    },
+    {
+      "id": "q259",
+      "question": "How do you compensate a sales rep who lands a strategic-but-low-ARR logo (e.g. brand-name reference customer)?",
+      "srcCount": 4,
+      "tags": [
+        "comp-strategy",
+        "quota-credit",
+        "strategic-logos"
+      ]
+    },
+    {
+      "id": "q257",
+      "question": "How do you tell if your sales playbook needs an update or just better adoption (vs scrapping for a new one)?",
+      "srcCount": 0,
+      "tags": [
+        "playbook",
+        "sales-execution",
+        "adoption"
+      ]
+    },
+    {
+      "id": "q256",
+      "question": "What's the right approach to pricing localization in different regions (FX, taxes, willingness-to-pay)?",
+      "srcCount": 0,
+      "tags": [
+        "pricing",
+        "localization",
+        "willingness-to-pay"
+      ]
+    },
+    {
+      "id": "q255",
+      "question": "How do you structure a sales advisory board for a $20M ARR company — who to invite, how often to meet, what to share?",
+      "srcCount": 4,
+      "tags": [
+        "sales-leadership",
+        "advisory-board",
+        "crm-strategy"
+      ]
+    },
+    {
+      "id": "q254",
+      "question": "What's the right way to roll out a new pricing model without breaking existing customer contracts and trust?",
+      "srcCount": 0,
+      "tags": [
+        "pricing-strategy",
+        "customer-retention",
+        "contract-management"
+      ]
+    },
+    {
+      "id": "q253",
+      "question": "How do you handle deal-attribution disputes between marketing and sales (first-touch vs last-touch vs multi-touch)?",
+      "srcCount": 0,
+      "tags": [
+        "deal-attribution",
+        "first-touch",
+        "last-touch"
+      ]
+    },
+    {
+      "id": "q252",
+      "question": "When should sales operations own the CRM versus IT — and what's the handoff model?",
+      "srcCount": 0,
+      "tags": [
+        "CRM ownership",
+        "sales operations",
+        "IT partnership"
+      ]
+    },
+    {
+      "id": "q250",
+      "question": "What signals from product usage and CSM notes predict a renewal will require a discount to close?",
+      "srcCount": 0,
+      "tags": [
+        "renewal",
+        "churn-risk",
+        "discount-prevention"
+      ]
+    },
+    {
+      "id": "q247",
+      "question": "How do you scale a customer reference program past 10-15 active references without burning out your champions?",
+      "srcCount": 0,
+      "tags": [
+        "customer-references",
+        "reference-program",
+        "b2b-sales"
+      ]
+    },
+    {
+      "id": "q246",
+      "question": "What's the right way to share customer health data with reps without overwhelming them with dashboards?",
+      "srcCount": 0,
+      "tags": [
+        "customer-health",
+        "dashboard-design",
+        "csm"
+      ]
+    },
+    {
+      "id": "q243",
+      "question": "How do you compensate a sales manager whose reps overperform — pay them on team total or on personal stretch goals?",
+      "srcCount": 0,
+      "tags": [
+        "sales-management",
+        "compensation",
+        "sales-ops"
+      ]
+    },
+    {
+      "id": "q242",
+      "question": "What's the right way to staff a renewals team — dedicated CSM, AE-led, or hybrid by segment?",
+      "srcCount": 4,
+      "tags": [
+        "renewals",
+        "staffing",
+        "csm"
+      ]
+    },
+    {
+      "id": "q241",
+      "question": "How do you handle a buyer who insists on monthly contracts when your standard is annual?",
+      "srcCount": 0,
+      "tags": [
+        "contract-terms",
+        "pricing-strategy",
+        "deal-closing"
+      ]
+    },
+    {
+      "id": "q240",
+      "question": "When should a sales team start running formal win-loss interviews — at $5M ARR, $20M, or only when win rate drops?",
+      "srcCount": 0,
+      "tags": [
+        "win-loss",
+        "customer-feedback",
+        "sales-operations"
+      ]
+    },
+    {
+      "id": "q239",
+      "question": "What's the right way to compensate channel partners in a co-sell motion (referral fee, deal-share, hybrid)?",
+      "srcCount": 3,
+      "tags": [
+        "channel-partner-compensation",
+        "co-sell-motion",
+        "partner-revenue-share"
+      ]
+    },
+    {
+      "id": "q238",
+      "question": "How do you measure SE (sales engineer) ROI without making them feel like commodities?",
+      "srcCount": 0,
+      "tags": [
+        "sales-engineering",
+        "ROI-measurement",
+        "compensation-strategy"
+      ]
+    },
+    {
+      "id": "q237",
+      "question": "What's the right way to handle a deal where the buyer wants a 6-month free pilot?",
+      "srcCount": 3,
+      "tags": [
+        "pilot-pricing",
+        "deal-structuring",
+        "free-trial-risks"
+      ]
+    },
+    {
+      "id": "q236",
+      "question": "How do you tell if a deal stage is too early to commit to forecast (commit vs best-case vs pipeline)?",
+      "srcCount": 0,
+      "tags": [
+        "forecast-accuracy",
+        "deal-stages",
+        "sales-ops"
+      ]
+    },
+    {
+      "id": "q235",
+      "question": "What's the right way to sunset a sales-tech tool the team has gotten comfortable with but isn't producing ROI?",
+      "srcCount": 0,
+      "tags": [
+        "sales-ops",
+        "tool-selection",
+        "process-change"
+      ]
+    },
+    {
+      "id": "q234",
+      "question": "How do you structure SDR-to-AE handoff to prevent dropped leads?",
+      "srcCount": 4,
+      "tags": [
+        "sdrtoadhandoff",
+        "leaddrop",
+        "handoffgap"
+      ]
+    },
+    {
+      "id": "q233",
+      "question": "What's the right way to forecast deal slippage in the last week of the quarter?",
+      "srcCount": 3,
+      "tags": [
+        "q-end-ops",
+        "forecast",
+        "slippage"
+      ]
+    },
+    {
+      "id": "q232",
+      "question": "How do you build a sales accelerator program for stuck mid-tenure reps (12-24 months in seat, plateaued at 70-80%)?",
+      "srcCount": 0,
+      "tags": [
+        "sales-coaching",
+        "mid-tenure",
+        "ramp"
+      ]
+    },
+    {
+      "id": "q231",
+      "question": "When does a sales org need a chief of staff for the CRO function — at $20M ARR, $50M, or $100M+?",
+      "srcCount": 0,
+      "tags": [
+        "cro-staffing",
+        "sales-ops",
+        "50m-arr"
+      ]
+    },
+    {
+      "id": "q230",
+      "question": "How do you measure whether sales coaching is actually changing rep behavior versus just feeling good in the moment?",
+      "srcCount": 0,
+      "tags": [
+        "sales-coaching-roi",
+        "behavior-lock-in",
+        "rep-velocity"
+      ]
+    },
+    {
+      "id": "q229",
+      "question": "What's the best way to run a competitive take-out campaign against an entrenched vendor with 3+ years of customer history?",
+      "srcCount": 0,
+      "tags": [
+        "competitive-strategy",
+        "account-based-selling",
+        "contract-buyout"
+      ]
+    },
+    {
+      "id": "q228",
+      "question": "How do you tell if your sales tech stack is actually being adopted or just being paid for every month?",
+      "srcCount": 0,
+      "tags": [
+        "sales-tech-adoption",
+        "crm-roi",
+        "stack-bloat"
+      ]
+    },
+    {
+      "id": "q227",
+      "question": "What's the right cadence for revisiting territory carve-outs as the company grows — annually, after every quota change, or only when reps complain?",
+      "srcCount": 0,
+      "tags": [
+        "territory-alignment",
+        "quota-cadence",
+        "sales-ops"
+      ]
+    },
+    {
+      "id": "q226",
+      "question": "How do you onboard a new CRO so they don't blow up the existing comp plan in their first 30 days?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q225",
+      "question": "When should a sales leader fire a high-performer for cultural reasons (toxicity, manipulation, undermining peers)?",
+      "srcCount": 0,
+      "tags": [
+        "culture",
+        "high-performer",
+        "termination"
+      ]
+    },
+    {
+      "id": "q224",
+      "question": "What's the right way to handle territory disputes between AEs without killing morale?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q223",
+      "question": "How do you compensate for product-led trials that an SDR sourced but an AE closed — full credit to whom?",
+      "srcCount": 0,
+      "tags": [
+        "product-led-trials",
+        "comp-split",
+        "sdr-ae-alignment"
+      ]
+    },
+    {
+      "id": "q222",
+      "question": "What signals tell you a competitor is about to undercut you on price in an active deal?",
+      "srcCount": 0,
+      "tags": [
+        "price-defense",
+        "deal-signals",
+        "competitor-tactics"
+      ]
+    },
+    {
+      "id": "q221",
+      "question": "How do you build a real ICP scoring model that reps actually use to filter inbound leads instead of working everything?",
+      "srcCount": 0,
+      "tags": [
+        "icp-scoring",
+        "lead-qualification",
+        "sales-ops"
+      ]
+    },
+    {
+      "id": "q220",
+      "question": "What's the right approach to running deal-room collaboration with buyers — Slack Connect, shared Notion, or stay on email?",
+      "srcCount": 0,
+      "tags": [
+        "deal-room",
+        "slack-connect",
+        "notion"
+      ]
+    },
+    {
+      "id": "q219",
+      "question": "How do you tell if your reported win rate is a real number or a CRM-hygiene illusion (reps closing-lost stale deals)?",
+      "srcCount": 0,
+      "tags": [
+        "win-rate-audit",
+        "crm-hygiene",
+        "deal-age"
+      ]
+    },
+    {
+      "id": "q218",
+      "question": "When does adding a sales operations BDR (admin assistant for reps) actually free up real selling time?",
+      "srcCount": 0,
+      "tags": [
+        "sales-ops",
+        "bdr-hiring",
+        "cro-ops"
+      ]
+    },
+    {
+      "id": "q217",
+      "question": "What's the right way to handle a deal where the buyer wants to talk to your CEO every week?",
+      "srcCount": 0,
+      "tags": [
+        "escalation",
+        "sales-strategy",
+        "ceo-involvement"
+      ]
+    },
+    {
+      "id": "q216",
+      "question": "How do you decide which sales metrics to put on the wall (public) versus keep private to managers?",
+      "srcCount": 0,
+      "tags": [
+        "metrics-transparency",
+        "dashboard-design",
+        "sales-ops"
+      ]
+    },
+    {
+      "id": "q215",
+      "question": "How do you forecast a fast-growing rep who has no historical attainment baseline to model against?",
+      "srcCount": 0,
+      "tags": [
+        "forecasting",
+        "ramp",
+        "cohort"
+      ]
+    },
+    {
+      "id": "q214",
+      "question": "What signals from a CRM tell you a deal is about to slip 30+ days before it actually does?",
+      "srcCount": 0,
+      "tags": [
+        "deal-slip",
+        "crm-signals",
+        "buyer-engagement"
+      ]
+    },
+    {
+      "id": "q213",
+      "question": "How do you tell if your sales playbook is being actively followed versus sitting forgotten in a Notion page?",
+      "srcCount": 0,
+      "tags": [
+        "playbook-adoption",
+        "call-intelligence",
+        "deal-velocity"
+      ]
+    },
+    {
+      "id": "q212",
+      "question": "What's the right way to measure a sales kickoff's actual impact on next quarter's results, not just satisfaction scores?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q211",
+      "question": "When does a sales org need its own dedicated lawyer/contracts person versus borrowing from corporate legal?",
+      "srcCount": 0,
+      "tags": [
+        "sales-legal",
+        "contract-velocity",
+        "arr-milestones"
+      ]
+    },
+    {
+      "id": "q210",
+      "question": "How do you handle a buyer who keeps requesting custom legal terms that slow every deal in their pipeline?",
+      "srcCount": 0,
+      "tags": [
+        "legal",
+        "contracts",
+        "deal-velocity"
+      ]
+    },
+    {
+      "id": "q209",
+      "question": "What's the right way to compensate sales engineers in a complex deal cycle — flat salary, deal-attached bonuses, or team commission?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q208",
+      "question": "How do you build a deal-desk function from scratch in a 30-rep org without slowing every deal down?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q207",
+      "question": "What's the best playbook for re-engaging customers who churned 6-12 months ago?",
+      "srcCount": 0,
+      "tags": [
+        "win-back-playbook",
+        "churn-recovery",
+        "customer-reactivation"
+      ]
+    },
+    {
+      "id": "q206",
+      "question": "When should a startup invest in its first sales operations hire instead of adding another rep?",
+      "srcCount": 0,
+      "tags": [
+        "sales-ops-hiring",
+        "first-ops-role",
+        "rev-ops-timing"
+      ]
+    },
+    {
+      "id": "q205",
+      "question": "How do you measure sales-marketing alignment in a way that's actually actionable, not just dashboarded?",
+      "srcCount": 0,
+      "tags": [
+        "sales-marketing-alignment",
+        "lead-quality-scoring",
+        "sales-ramp"
+      ]
+    },
+    {
+      "id": "q204",
+      "question": "What's the right way to comp a new product launch — separate quota carve-out or rolled into existing AE quota?",
+      "srcCount": 0,
+      "tags": [
+        "quota-design",
+        "product-launch",
+        "commission-structure"
+      ]
+    },
+    {
+      "id": "q203",
+      "question": "How do you decide between hiring one senior AE versus two junior AEs at the same total comp cost?",
+      "srcCount": 0,
+      "tags": []
+    },
+    {
+      "id": "q202",
+      "question": "What's the right way to set quota for a brand-new product line with no historical data?",
+      "srcCount": 0,
+      "tags": [
+        "quota-setting",
+        "new-product",
+        "sales-planning"
+      ]
+    },
+    {
+      "id": "q201",
+      "question": "How do you tell if your sales team needs a system change versus a coaching change?",
+      "srcCount": 0,
+      "tags": [
+        "diagnosis",
+        "system-vs-coaching",
+        "performance-gaps"
+      ]
+    },
+    {
+      "id": "q200",
+      "question": "What's the right ratio of email to LinkedIn to phone in a cadence?",
+      "srcCount": 0,
+      "tags": [
+        "multi-channel",
+        "outbound-cadence",
+        "prospecting"
+      ]
+    },
+    {
+      "id": "q199",
+      "question": "How do I get reply rates above 5% on cold email?",
+      "srcCount": 0,
+      "tags": [
+        "cold-email",
+        "reply-rate",
+        "personalization"
+      ]
+    },
+    {
+      "id": "q198",
+      "question": "What's the right outbound cadence in 2026 — touches, channels, days?",
+      "srcCount": 0,
+      "tags": [
+        "outbound-cadence",
+        "cold-email",
+        "prospecting"
+      ]
+    },
+    {
+      "id": "q197",
+      "question": "How do I run a quarterly business review that drives expansion?",
+      "srcCount": 0,
+      "tags": [
+        "qbr",
+        "business-review",
+        "expansion"
+      ]
+    },
+    {
+      "id": "q196",
+      "question": "What signals from product usage predict churn 90 days out?",
+      "srcCount": 0,
+      "tags": [
+        "churn-prediction",
+        "product-usage",
+        "early-warning"
+      ]
+    },
+    {
+      "id": "q195",
+      "question": "How do I tell the difference between price-sensitive churn and value-failure churn?",
+      "srcCount": 0,
+      "tags": [
+        "churn-diagnosis",
+        "value-failure",
+        "price-sensitivity"
+      ]
+    },
+    {
+      "id": "q194",
+      "question": "What's the right discount to offer to save a churning customer?",
+      "srcCount": 0,
+      "tags": [
+        "discount-strategy",
+        "pricing",
+        "renewal-negotiation"
+      ]
+    },
+    {
+      "id": "q193",
+      "question": "When should AE vs CSM own the renewal conversation?",
+      "srcCount": 0,
+      "tags": [
+        "renewal",
+        "ae-csm-collaboration",
+        "customer-success"
+      ]
+    },
+    {
+      "id": "q192",
+      "question": "How do I structure a saves play for a customer who's considering churn?",
+      "srcCount": 0,
+      "tags": [
+        "saves-play",
+        "churn-recovery",
+        "retention"
+      ]
+    },
+    {
+      "id": "q191",
+      "question": "What's the right cadence for renewal conversations — 90, 120, 180 days out?",
+      "srcCount": 0,
+      "tags": [
+        "renewal-cadence",
+        "customer-success",
+        "expansion"
+      ]
+    },
+    {
+      "id": "q190",
+      "question": "How do I get reps to surface churn risk early enough to save it?",
+      "srcCount": 0,
+      "tags": [
+        "churn-prevention",
+        "retention",
+        "csa-collaboration"
+      ]
+    },
+    {
+      "id": "q189",
+      "question": "What's the right way to handle Security review with limited resources?",
+      "srcCount": 0,
+      "tags": [
+        "security-review",
+        "compliance",
+        "deal-structure"
+      ]
+    },
+    {
+      "id": "q188",
+      "question": "How do I sell into Legal / Compliance without losing momentum?",
+      "srcCount": 0,
+      "tags": [
+        "legal-compliance",
+        "contract-negotiation",
+        "deal-structure"
+      ]
+    },
+    {
+      "id": "q187",
+      "question": "When should I escalate to my CEO talking to their CEO?",
+      "srcCount": 0,
+      "tags": [
+        "ceo-escalation",
+        "sales-leadership",
+        "political-navigation"
+      ]
+    },
+    {
+      "id": "q186",
+      "question": "How do I handle a buying committee where two stakeholders disagree?",
+      "srcCount": 0,
+      "tags": [
+        "buying-committee",
+        "conflict-resolution",
+        "stakeholder-alignment"
+      ]
+    },
+    {
+      "id": "q185",
+      "question": "What's the right way to navigate IT vs business stakeholders?",
+      "srcCount": 0,
+      "tags": [
+        "stakeholder-navigation",
+        "it-gatekeeper",
+        "technical-fit"
+      ]
+    },
+    {
+      "id": "q184",
+      "question": "How do I get the CFO involved in a deal without losing my champion?",
+      "srcCount": 0,
+      "tags": [
+        "cfo-engagement",
+        "stakeholder-alignment",
+        "deal-acceleration"
+      ]
+    },
+    {
+      "id": "q183",
+      "question": "What's the right way to multithread a deal with a single champion?",
+      "srcCount": 0,
+      "tags": [
+        "multithreading",
+        "buying-committee",
+        "deal-structure"
+      ]
+    },
+    {
+      "id": "q182",
+      "question": "How do I identify the real economic buyer in a complex deal?",
+      "srcCount": 0,
+      "tags": [
+        "deal-structure",
+        "meddpicc",
+        "economic-buyer"
+      ]
+    },
+    {
+      "id": "q181",
+      "question": "How do I fire a rep without triggering legal exposure?",
+      "srcCount": 0,
+      "tags": [
+        "termination",
+        "legal-compliance",
+        "pip"
+      ]
+    },
+    {
+      "id": "q180",
+      "question": "What do I do when my number-one rep just resigned with no notice?",
+      "srcCount": 0,
+      "tags": [
+        "attrition",
+        "high-performer",
+        "resignation"
+      ]
+    },
+    {
+      "id": "q179",
+      "question": "How do you rebuild trust after a missed quarter?",
+      "srcCount": 0,
+      "tags": [
+        "trust",
+        "credibility",
+        "missed-quarter"
+      ]
+    },
+    {
+      "id": "q178",
+      "question": "What's the right way to break bad news to the sales team?",
+      "srcCount": 0,
+      "tags": [
+        "communication",
+        "bad-news",
+        "team-dynamics"
+      ]
+    },
+    {
+      "id": "q177",
+      "question": "How do I handle a customer who threatens public escalation?",
+      "srcCount": 0,
+      "tags": [
+        "customer-escalation",
+        "crisis-management",
+        "retention"
+      ]
+    },
+    {
+      "id": "q176",
+      "question": "What do I do when the CRO and CMO can't agree on lead handoff?",
+      "srcCount": 0,
+      "tags": [
+        "cross-functional",
+        "marketing-sales-alignment",
+        "lead-quality"
+      ]
+    },
+    {
+      "id": "q175",
+      "question": "How do you reset a sales team that's lost its mojo?",
+      "srcCount": 0,
+      "tags": [
+        "morale",
+        "team-culture",
+        "quota-reset"
+      ]
+    },
+    {
+      "id": "q174",
+      "question": "What's the right way to fire a sales leader who isn't working out?",
+      "srcCount": 0,
+      "tags": [
+        "firing",
+        "performance-management",
+        "sales-leadership"
+      ]
+    },
+    {
+      "id": "q173",
+      "question": "How do I handle a mass exodus of reps after a comp change?",
+      "srcCount": 0,
+      "tags": [
+        "compensation",
+        "retention",
+        "team-dynamics"
+      ]
+    },
+    {
+      "id": "q172",
+      "question": "What do I do when the board wants 200% growth but my team is at 40%?",
+      "srcCount": 0,
+      "tags": [
+        "board-dynamics",
+        "growth-expectations",
+        "quota-setting"
+      ]
+    },
+    {
+      "id": "q171",
+      "question": "When should I introduce specialized roles (SDR / AE / CSM / SE)?",
+      "srcCount": 0,
+      "tags": [
+        "organizational-structure",
+        "specialization",
+        "roles"
+      ]
+    },
+    {
+      "id": "q170",
+      "question": "What's the right way to onboard 10 reps in 30 days?",
+      "srcCount": 0,
+      "tags": [
+        "onboarding",
+        "new-hires",
+        "30-day-ramp"
+      ]
+    },
+    {
+      "id": "q169",
+      "question": "How do you maintain win rate while doubling rep count?",
+      "srcCount": 0,
+      "tags": [
+        "win-rate",
+        "sales-process",
+        "playbook"
+      ]
+    },
+    {
+      "id": "q168",
+      "question": "What breaks first when you hire reps faster than you can train them?",
+      "srcCount": 0,
+      "tags": [
+        "hiring-cadence",
+        "onboarding",
+        "deal-quality"
+      ]
+    },
+    {
+      "id": "q167",
+      "question": "How do I split a single sales team into segment-based teams?",
+      "srcCount": 0,
+      "tags": [
+        "segmentation",
+        "sales-org",
+        "team-structure"
+      ]
+    },
+    {
+      "id": "q166",
+      "question": "When does a $5M ARR company need a CRO vs VP Sales?",
+      "srcCount": 0,
+      "tags": [
+        "cro",
+        "vp-sales",
+        "revenue-leadership"
+      ]
+    },
+    {
+      "id": "q165",
+      "question": "What's the right way to transition from inbound-only to outbound?",
+      "srcCount": 0,
+      "tags": [
+        "outbound",
+        "sales-motion",
+        "sdrs"
+      ]
+    },
+    {
+      "id": "q164",
+      "question": "How do I scale from 5 reps to 25 without losing culture?",
+      "srcCount": 0,
+      "tags": [
+        "scaling",
+        "culture",
+        "hiring"
+      ]
+    },
+    {
+      "id": "q163",
+      "question": "When does a startup need its first sales manager?",
+      "srcCount": 0,
+      "tags": [
+        "sales-management",
+        "hiring-cadence",
+        "team-scaling"
+      ]
+    },
+    {
+      "id": "q162",
+      "question": "How do you transition from founder-led to first VP of Sales?",
+      "srcCount": 0,
+      "tags": [
+        "founder-transition",
+        "vp-sales",
+        "organizational-change"
+      ]
+    },
+    {
+      "id": "q161",
+      "question": "What new SaaS metrics are board members asking about in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "board-metrics",
+        "magic-number",
+        "cac-payback"
+      ]
+    },
+    {
+      "id": "q160",
+      "question": "Which sales-tech companies just announced layoffs and what does it mean?",
+      "srcCount": 0,
+      "tags": [
+        "sales-tech-layoffs",
+        "margin-compression",
+        "hiring-trends"
+      ]
+    },
+    {
+      "id": "q159",
+      "question": "What's the most-discussed sales play on LinkedIn this month?",
+      "srcCount": 0,
+      "tags": [
+        "linkedin-sales-trends",
+        "account-based-selling",
+        "sales-plays-2026"
+      ]
+    },
+    {
+      "id": "q158",
+      "question": "Which sales podcasts are getting the most engagement right now?",
+      "srcCount": 0,
+      "tags": [
+        "sales-podcasts",
+        "content-marketing",
+        "thought-leadership"
+      ]
+    },
+    {
+      "id": "q157",
+      "question": "What's the latest comp benchmark from Pavilion / Bridge Group?",
+      "srcCount": 0,
+      "tags": [
+        "sales-compensation",
+        "pavilion-benchmark",
+        "quota-attainment"
+      ]
+    },
+    {
+      "id": "q156",
+      "question": "Which CROs have moved roles in the last 90 days that signal something?",
+      "srcCount": 0,
+      "tags": [
+        "cro-moves",
+        "gtm-signals",
+        "talent-analysis"
+      ]
+    },
+    {
+      "id": "q155",
+      "question": "What's the latest median CAC payback for Series B SaaS?",
+      "srcCount": 0,
+      "tags": [
+        "cac-payback",
+        "series-b-metrics",
+        "sales-unit-economics"
+      ]
+    },
+    {
+      "id": "q154",
+      "question": "Which AI sales tools are actually moving the needle this quarter?",
+      "srcCount": 0,
+      "tags": [
+        "ai-sales-tools",
+        "gong-chorus",
+        "intent-detection"
+      ]
+    },
+    {
+      "id": "q153",
+      "question": "What sales-leadership job titles are growing fastest on LinkedIn?",
+      "srcCount": 0,
+      "tags": [
+        "sales-leadership",
+        "cro-growth",
+        "revenue-operations"
+      ]
+    },
+    {
+      "id": "q152",
+      "question": "Which sales-tech vendors are getting acquired most often in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "sales-tech-ma",
+        "consolidation",
+        "territory-planning"
+      ]
+    },
+    {
+      "id": "q151",
+      "question": "What's the sales motion for vertical SaaS vs horizontal SaaS?",
+      "srcCount": 0,
+      "tags": [
+        "vertical-saas",
+        "industry-focus",
+        "sales-motion"
+      ]
+    },
+    {
+      "id": "q150",
+      "question": "How do you build pipeline in a regulated industry like banking?",
+      "srcCount": 0,
+      "tags": [
+        "regulated-sales",
+        "compliance-pipeline",
+        "banking-saas"
+      ]
+    },
+    {
+      "id": "q149",
+      "question": "What's the right way to sell to a government/federal buyer?",
+      "srcCount": 0,
+      "tags": [
+        "federal-sales",
+        "gsa-schedule",
+        "government-procurement"
+      ]
+    },
+    {
+      "id": "q148",
+      "question": "How does sales differ in a marketplace business vs a SaaS?",
+      "srcCount": 0,
+      "tags": [
+        "marketplace-sales",
+        "two-sided-supply",
+        "supplier-recruitment"
+      ]
+    },
+    {
+      "id": "q147",
+      "question": "What's the right comp structure for a partner/reseller channel?",
+      "srcCount": 0,
+      "tags": [
+        "reseller-margins",
+        "channel-strategy",
+        "deal-registration"
+      ]
+    },
+    {
+      "id": "q146",
+      "question": "How do I sell into private equity-backed portfolio companies?",
+      "srcCount": 0,
+      "tags": [
+        "private-equity",
+        "portfolio-companies",
+        "pe-sales"
+      ]
+    },
+    {
+      "id": "q145",
+      "question": "What's unique about selling AI products in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "ai-sales-2026",
+        "roi-math",
+        "hallucination-audit"
+      ]
+    },
+    {
+      "id": "q144",
+      "question": "How do you sell developer tools to a developer audience?",
+      "srcCount": 0,
+      "tags": [
+        "developer-tools",
+        "product-led",
+        "free-tier"
+      ]
+    },
+    {
+      "id": "q143",
+      "question": "What's the right go-to-market for a security/SOC2 product?",
+      "srcCount": 0,
+      "tags": [
+        "security-gtm",
+        "soc2-sales",
+        "ciso-buying"
+      ]
+    },
+    {
+      "id": "q142",
+      "question": "How does sales motion differ for healthcare SaaS vs general B2B?",
+      "srcCount": 0,
+      "tags": [
+        "healthcare-saas",
+        "hipaa-compliance",
+        "clinical-validation"
+      ]
+    },
+    {
+      "id": "q141",
+      "question": "What KPIs matter most for a fintech sales team?",
+      "srcCount": 0,
+      "tags": [
+        "fintech-kpi",
+        "compliance-sales",
+        "days-to-fund"
+      ]
+    },
+    {
+      "id": "q140",
+      "question": "How do I respond to 'we're going to build this internally'?",
+      "srcCount": 0,
+      "tags": [
+        "build-vs-buy",
+        "objection-handling",
+        "competitive-positioning"
+      ]
+    },
+    {
+      "id": "q139",
+      "question": "What's the right way to run a multi-vendor RFP I'm responding to?",
+      "srcCount": 0,
+      "tags": [
+        "rfp-strategy",
+        "vendor-comparison",
+        "champion-advocacy"
+      ]
+    },
+    {
+      "id": "q138",
+      "question": "When does it make sense to fly to a customer mid-deal?",
+      "srcCount": 0,
+      "tags": [
+        "customer-visits",
+        "deal-stage",
+        "travel-strategy"
+      ]
+    },
+    {
+      "id": "q137",
+      "question": "How do I handle a Master Services Agreement that conflicts with our terms?",
+      "srcCount": 0,
+      "tags": [
+        "msa-negotiation",
+        "legal-terms",
+        "vendor-management"
+      ]
+    },
+    {
+      "id": "q136",
+      "question": "What's the right way to engage Procurement vs the buyer?",
+      "srcCount": 0,
+      "tags": [
+        "procurement-engagement",
+        "contract-negotiation",
+        "buyer-vs-procurement"
+      ]
+    },
+    {
+      "id": "q135",
+      "question": "How do I price an enterprise deal with an unknown user count?",
+      "srcCount": 0,
+      "tags": [
+        "enterprise-pricing",
+        "user-count",
+        "pilot-pricing"
+      ]
+    },
+    {
+      "id": "q134",
+      "question": "What's the typical enterprise sales cycle in 2026 and how to compress it?",
+      "srcCount": 0,
+      "tags": [
+        "enterprise-sales-cycle",
+        "deal-velocity",
+        "compression-strategy"
+      ]
+    },
+    {
+      "id": "q133",
+      "question": "How do I structure an enterprise pilot that converts to a paid contract?",
+      "srcCount": 0,
+      "tags": [
+        "pilot-programs",
+        "enterprise-sales",
+        "conversion-strategy"
+      ]
+    },
+    {
+      "id": "q132",
+      "question": "When should I bring in the CEO on an enterprise deal?",
+      "srcCount": 0,
+      "tags": [
+        "executive-engagement",
+        "ceo-involvement",
+        "enterprise-closing"
+      ]
+    },
+    {
+      "id": "q131",
+      "question": "What's the right way to map an enterprise org chart in CRM?",
+      "srcCount": 0,
+      "tags": [
+        "crm-strategy",
+        "org-chart-mapping",
+        "stakeholder-tracking"
+      ]
+    },
+    {
+      "id": "q130",
+      "question": "How do I navigate a 14-stakeholder enterprise deal?",
+      "srcCount": 0,
+      "tags": [
+        "enterprise-sales",
+        "stakeholder-mapping",
+        "champion-alignment"
+      ]
+    },
+    {
+      "id": "q129",
+      "question": "What's the difference between a great IC and a great manager?",
+      "srcCount": 0,
+      "tags": [
+        "career-path",
+        "individual-contributor",
+        "management"
+      ]
+    },
+    {
+      "id": "q128",
+      "question": "How do I diagnose whether a rep needs coaching, training, or termination?",
+      "srcCount": 0,
+      "tags": [
+        "performance-diagnosis",
+        "coaching-vs-training",
+        "termination"
+      ]
+    },
+    {
+      "id": "q127",
+      "question": "What's the right cadence for sales training in a 30-rep org?",
+      "srcCount": 0,
+      "tags": [
+        "sales-training",
+        "skill-development",
+        "cadence"
+      ]
+    },
+    {
+      "id": "q126",
+      "question": "How do I run a sales kickoff that actually changes behavior?",
+      "srcCount": 0,
+      "tags": [
+        "sales-kickoff",
+        "behavior-change",
+        "team-engagement"
+      ]
+    },
+    {
+      "id": "q125",
+      "question": "What metrics tell me a sales manager isn't going to scale past 8 reps?",
+      "srcCount": 0,
+      "tags": [
+        "manager-potential",
+        "scaling",
+        "team-structure"
+      ]
+    },
+    {
+      "id": "q124",
+      "question": "How do I coach managers to coach their reps (vs sell deals for them)?",
+      "srcCount": 0,
+      "tags": [
+        "manager-coaching",
+        "team-development",
+        "sales-leadership"
+      ]
+    },
+    {
+      "id": "q123",
+      "question": "What's the right way to put a rep on a PIP without burning the relationship?",
+      "srcCount": 0,
+      "tags": [
+        "performance-improvement-plan",
+        "coaching",
+        "termination"
+      ]
+    },
+    {
+      "id": "q122",
+      "question": "How do I handle a top rep who's threatening to leave?",
+      "srcCount": 0,
+      "tags": [
+        "retention",
+        "top-performer",
+        "compensation"
+      ]
+    },
+    {
+      "id": "q121",
+      "question": "When does a sales manager need to step in on a deal vs let the AE run it?",
+      "srcCount": 0,
+      "tags": [
+        "sales-management",
+        "deal-ownership",
+        "intervention-cadence"
+      ]
+    },
+    {
+      "id": "q120",
+      "question": "How do I build a culture of accountability without micromanaging?",
+      "srcCount": 0,
+      "tags": [
+        "accountability",
+        "culture",
+        "management"
+      ]
+    },
+    {
+      "id": "q119",
+      "question": "What's the right format for a weekly one-on-one with an AE?",
+      "srcCount": 0,
+      "tags": [
+        "1-on-1-meetings",
+        "sales-coaching",
+        "rep-management"
+      ]
+    },
+    {
+      "id": "q118",
+      "question": "How do I coach a tenured rep who's plateaued at 80% attainment?",
+      "srcCount": 0,
+      "tags": [
+        "rep-coaching",
+        "performance-management",
+        "sales-coaching"
+      ]
+    },
+    {
+      "id": "q117",
+      "question": "How do I evaluate buying vs building sales-data infrastructure?",
+      "srcCount": 0,
+      "tags": [
+        "buy-vs-build",
+        "data-infrastructure",
+        "analytics"
+      ]
+    },
+    {
+      "id": "q116",
+      "question": "What's the right territory design for a 30-rep mid-market team?",
+      "srcCount": 0,
+      "tags": [
+        "territory-design",
+        "sales-territories",
+        "quota-fairness"
+      ]
+    },
+    {
+      "id": "q115",
+      "question": "When should I hire a head of RevOps?",
+      "srcCount": 0,
+      "tags": [
+        "revops",
+        "head-of-revops",
+        "hiring"
+      ]
+    },
+    {
+      "id": "q114",
+      "question": "What's the right capacity-planning model for a 50-rep org?",
+      "srcCount": 0,
+      "tags": [
+        "capacity-planning",
+        "headcount-planning",
+        "hiring-model"
+      ]
+    },
+    {
+      "id": "q113",
+      "question": "How do I clean a CRM that has 5 years of bad data?",
+      "srcCount": 0,
+      "tags": [
+        "crm-cleanup",
+        "data-quality",
+        "salesforce-dedup"
+      ]
+    },
+    {
+      "id": "q112",
+      "question": "What attribution model works for a multi-touch enterprise sales motion?",
+      "srcCount": 0,
+      "tags": [
+        "attribution-model",
+        "multi-touch",
+        "enterprise-sales"
+      ]
+    },
+    {
+      "id": "q111",
+      "question": "When does Gong pay for itself in coaching ROI?",
+      "srcCount": 0,
+      "tags": [
+        "gong",
+        "call-recording",
+        "sales-coaching"
+      ]
+    },
+    {
+      "id": "q110",
+      "question": "How do I evaluate Outreach vs Salesloft vs Apollo for outbound cadences?",
+      "srcCount": 0,
+      "tags": [
+        "outreach",
+        "salesloft",
+        "apollo"
+      ]
+    },
+    {
+      "id": "q109",
+      "question": "What's the right CRM hygiene policy that reps actually follow?",
+      "srcCount": 0,
+      "tags": [
+        "crm-hygiene",
+        "salesforce-adoption",
+        "deal-management"
+      ]
+    },
+    {
+      "id": "q108",
+      "question": "When should I add a forecasting tool like Clari vs use Salesforce reports?",
+      "srcCount": 0,
+      "tags": [
+        "clari",
+        "forecasting",
+        "salesforce"
+      ]
+    },
+    {
+      "id": "q107",
+      "question": "What's a realistic sales tech stack for a $20M ARR SaaS in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "sales-tech-stack",
+        "salesforce",
+        "outreach"
+      ]
+    },
+    {
+      "id": "q106",
+      "question": "What's the right ARR-per-employee benchmark for efficient SaaS?",
+      "srcCount": 0,
+      "tags": [
+        "arr-per-employee",
+        "headcount-efficiency",
+        "saas-metrics"
+      ]
+    },
+    {
+      "id": "q105",
+      "question": "How do I calculate LTV when expansion is meaningful?",
+      "srcCount": 0,
+      "tags": [
+        "ltv",
+        "customer-lifetime-value",
+        "nrr"
+      ]
+    },
+    {
+      "id": "q104",
+      "question": "What's an acceptable churn rate for SMB SaaS vs enterprise?",
+      "srcCount": 0,
+      "tags": [
+        "churn-rate",
+        "customer-retention",
+        "smb-saas"
+      ]
+    },
+    {
+      "id": "q103",
+      "question": "How do I track burn multiple alongside efficiency metrics?",
+      "srcCount": 0,
+      "tags": [
+        "burn-multiple",
+        "profitability",
+        "efficiency-metrics"
+      ]
+    },
+    {
+      "id": "q102",
+      "question": "What's the difference between expansion ARR and net new ARR for forecasting?",
+      "srcCount": 0,
+      "tags": [
+        "expansion-arr",
+        "net-new-arr",
+        "forecasting"
+      ]
+    },
+    {
+      "id": "q101",
+      "question": "How do I measure sales efficiency at different ARR scales?",
+      "srcCount": 0,
+      "tags": [
+        "cac-payback",
+        "magic-number",
+        "arr-benchmarks"
+      ]
+    },
+    {
+      "id": "q100",
+      "question": "What's a good magic number for a public SaaS company?",
+      "srcCount": 0,
+      "tags": [
+        "magic-number",
+        "saas-metrics",
+        "efficiency"
+      ]
+    },
+    {
+      "id": "q99",
+      "question": "How is the Rule of 40 actually computed and why does it matter?",
+      "srcCount": 0,
+      "tags": [
+        "rule-of-40",
+        "saas-metrics",
+        "unit-economics"
+      ]
+    },
+    {
+      "id": "q98",
+      "question": "What's the right CAC payback target — 12, 18, 24 months?",
+      "srcCount": 0,
+      "tags": [
+        "cac-payback",
+        "unit-economics",
+        "cash-flow"
+      ]
+    },
+    {
+      "id": "q97",
+      "question": "How do I calculate true gross retention vs net retention?",
+      "srcCount": 0,
+      "tags": [
+        "retention-metrics",
+        "gross-retention",
+        "net-retention"
+      ]
+    },
+    {
+      "id": "q96",
+      "question": "What's a good NRR for Series B SaaS in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "net-retention",
+        "series-b",
+        "saas-metrics"
+      ]
+    },
+    {
+      "id": "q95",
+      "question": "How do I build a federal / public-sector motion from scratch?",
+      "srcCount": 0,
+      "tags": [
+        "federal-sales",
+        "government-gtm",
+        "public-sector"
+      ]
+    },
+    {
+      "id": "q94",
+      "question": "What's the right ratio of inbound to outbound pipeline at $20M ARR?",
+      "srcCount": 0,
+      "tags": [
+        "pipeline-mix",
+        "demand-generation",
+        "sales-operations"
+      ]
+    },
+    {
+      "id": "q93",
+      "question": "When does PLG break and need a sales overlay?",
+      "srcCount": 0,
+      "tags": [
+        "product-led-growth",
+        "sales-overlay",
+        "go-to-market"
+      ]
+    },
+    {
+      "id": "q92",
+      "question": "How do I structure a partner/channel motion alongside direct sales?",
+      "srcCount": 0,
+      "tags": [
+        "channel-sales",
+        "partner-program",
+        "go-to-market"
+      ]
+    },
+    {
+      "id": "q91",
+      "question": "What's a realistic CAC payback for SMB vs mid-market vs enterprise?",
+      "srcCount": 0,
+      "tags": [
+        "unit-economics",
+        "cac-payback",
+        "saas-metrics"
+      ]
+    },
+    {
+      "id": "q90",
+      "question": "How do I evaluate whether a new vertical is worth the GTM investment?",
+      "srcCount": 0,
+      "tags": [
+        "vertical-expansion",
+        "market-entry",
+        "unit-economics"
+      ]
+    },
+    {
+      "id": "q89",
+      "question": "What's the trigger to launch an enterprise motion separate from mid-market?",
+      "srcCount": 0,
+      "tags": [
+        "enterprise-sales",
+        "sales-org-design",
+        "go-to-market"
+      ]
+    },
+    {
+      "id": "q88",
+      "question": "When should I split my sales org by segment vs region?",
+      "srcCount": 0,
+      "tags": [
+        "sales-org-design",
+        "segmentation",
+        "scaling-sales"
+      ]
+    },
+    {
+      "id": "q87",
+      "question": "How do I decide between vertical-by-vertical vs horizontal expansion?",
+      "srcCount": 0,
+      "tags": [
+        "market-expansion",
+        "vertical-strategy",
+        "horizontal-expansion"
+      ]
+    },
+    {
+      "id": "q86",
+      "question": "What's the right way to expand from SMB to mid-market without breaking SMB?",
+      "srcCount": 0,
+      "tags": [
+        "market-expansion",
+        "smb-ops",
+        "mid-market-sales"
+      ]
+    },
+    {
+      "id": "q85",
+      "question": "How do I segment ICP for a $10M ARR mid-market SaaS?",
+      "srcCount": 0,
+      "tags": [
+        "icp-segmentation",
+        "mid-market",
+        "sales-strategy"
+      ]
+    },
+    {
+      "id": "q84",
+      "question": "What's the right pricing strategy for a freemium → paid conversion?",
+      "srcCount": 0,
+      "tags": [
+        "freemium-strategy",
+        "conversion-pricing",
+        "product-pricing"
+      ]
+    },
+    {
+      "id": "q83",
+      "question": "Should onboarding fees be one-time or amortized into ARR?",
+      "srcCount": 0,
+      "tags": [
+        "revenue-recognition",
+        "unit-economics",
+        "nrr-integrity"
+      ]
+    },
+    {
+      "id": "q82",
+      "question": "How do I price for international vs domestic deals?",
+      "srcCount": 0,
+      "tags": [
+        "international-pricing",
+        "geo-expansion",
+        "ppp-pricing"
+      ]
+    },
+    {
+      "id": "q81",
+      "question": "What's the right list price vs effective price ratio for SaaS?",
+      "srcCount": 0,
+      "tags": [
+        "pricing-strategy",
+        "saas-economics",
+        "margin-defense"
+      ]
+    },
+    {
+      "id": "q80",
+      "question": "How do I roll out a 15% price increase without churning the base?",
+      "srcCount": 0,
+      "tags": [
+        "price-increase",
+        "customer-retention",
+        "renewal-strategy"
+      ]
+    },
+    {
+      "id": "q79",
+      "question": "When does it make sense to introduce an enterprise tier?",
+      "srcCount": 0,
+      "tags": [
+        "enterprise-tier",
+        "saas-growth",
+        "customer-segmentation"
+      ]
+    },
+    {
+      "id": "q78",
+      "question": "How do I price a security/compliance feature — bundled or upsell?",
+      "srcCount": 0,
+      "tags": [
+        "security-pricing",
+        "compliance",
+        "trust-signals"
+      ]
+    },
+    {
+      "id": "q77",
+      "question": "What's the right number of pricing tiers for B2B SaaS — 3, 4, 5?",
+      "srcCount": 0,
+      "tags": [
+        "pricing-tiers",
+        "tier-architecture",
+        "saas-pricing"
+      ]
+    },
+    {
+      "id": "q76",
+      "question": "When should I move from per-seat to usage-based pricing?",
+      "srcCount": 0,
+      "tags": [
+        "pricing-model",
+        "usage-based",
+        "per-seat"
+      ]
+    },
+    {
+      "id": "q75",
+      "question": "How do I structure a multi-year discount that doesn't erode price floors?",
+      "srcCount": 0,
+      "tags": [
+        "multi-year-contracts",
+        "discount-structure",
+        "pricing-discipline"
+      ]
+    },
+    {
+      "id": "q74",
+      "question": "What's the right discount ceiling I should let AEs offer without approval?",
+      "srcCount": 0,
+      "tags": [
+        "discount-policy",
+        "sales-compensation",
+        "margin-discipline"
+      ]
+    },
+    {
+      "id": "q73",
+      "question": "How do I price an add-on SKU when my base product is underpriced?",
+      "srcCount": 0,
+      "tags": [
+        "pricing-tiers",
+        "add-on-strategy",
+        "arpu-growth"
+      ]
+    },
+    {
+      "id": "q72",
+      "question": "What's the right move when a deal slips two quarters in a row?",
+      "srcCount": 0,
+      "tags": [
+        "deal-slippage",
+        "champion-strength",
+        "momentum-loss"
+      ]
+    },
+    {
+      "id": "q71",
+      "question": "How do I handle a security review that looks like it'll kill the deal?",
+      "srcCount": 0,
+      "tags": [
+        "security-reviews",
+        "it-alignment",
+        "compliance"
+      ]
+    },
+    {
+      "id": "q70",
+      "question": "What's the right play when the champion gets reassigned mid-deal?",
+      "srcCount": 0,
+      "tags": [
+        "champion-transition",
+        "deal-continuity",
+        "executive-sponsorship"
+      ]
+    },
+    {
+      "id": "q69",
+      "question": "How do you respond when procurement insists on a 90-day legal review?",
+      "srcCount": 0,
+      "tags": [
+        "procurement",
+        "legal-review",
+        "contract-acceleration"
+      ]
+    },
+    {
+      "id": "q68",
+      "question": "What's the best move when the buyer says 'circle back next quarter'?",
+      "srcCount": 0,
+      "tags": [
+        "deal-timing",
+        "stall-recovery",
+        "pipeline-management"
+      ]
+    },
+    {
+      "id": "q67",
+      "question": "How do you handle 'your competitor is 30% cheaper'?",
+      "srcCount": 0,
+      "tags": [
+        "competitive-pricing",
+        "value-vs-cost",
+        "feature-comparison"
+      ]
+    },
+    {
+      "id": "q66",
+      "question": "What's the right way to respond to 'send me a proposal'?",
+      "srcCount": 0,
+      "tags": [
+        "proposal-motion",
+        "closing-conversation",
+        "discovery-questions"
+      ]
+    },
+    {
+      "id": "q65",
+      "question": "How do I disarm 'we need to think about it' without being pushy?",
+      "srcCount": 0,
+      "tags": [
+        "objection-handling",
+        "buying-process",
+        "deal-momentum"
+      ]
+    },
+    {
+      "id": "q64",
+      "question": "What's the best response to 'we don't have budget right now'?",
+      "srcCount": 0,
+      "tags": [
+        "budget-objections",
+        "deal-timing",
+        "roi-framing"
+      ]
+    },
+    {
+      "id": "q63",
+      "question": "How do you handle 'we already have a tool for that'?",
+      "srcCount": 0,
+      "tags": [
+        "competitive-positioning",
+        "buyer-psychology",
+        "gap-analysis"
+      ]
+    },
+    {
+      "id": "q62",
+      "question": "When does a 'champion' actually become a champion vs a contact?",
+      "srcCount": 0,
+      "tags": [
+        "champion-identification",
+        "buying-committee",
+        "deal-momentum"
+      ]
+    },
+    {
+      "id": "q61",
+      "question": "How do I run multi-stakeholder demos without losing the room?",
+      "srcCount": 0,
+      "tags": [
+        "multi-stakeholder-buying",
+        "deal-dynamics",
+        "demo-pacing"
+      ]
+    },
+    {
+      "id": "q60",
+      "question": "What signals on a demo predict a closed-won deal?",
+      "srcCount": 0,
+      "tags": [
+        "demo-signals",
+        "buying-signals",
+        "close-prediction"
+      ]
+    },
+    {
+      "id": "q59",
+      "question": "How do I get a prospect to introduce me to the economic buyer?",
+      "srcCount": 0,
+      "tags": [
+        "economic-buyer",
+        "stakeholder-mapping",
+        "deal-acceleration"
+      ]
+    },
+    {
+      "id": "q58",
+      "question": "What's the framework for handling 'send me pricing' on call one?",
+      "srcCount": 0,
+      "tags": [
+        "pricing-objection",
+        "sales-methodology",
+        "deal-control"
+      ]
+    },
+    {
+      "id": "q57",
+      "question": "Should demos be live or recorded for first calls?",
+      "srcCount": 0,
+      "tags": [
+        "demo-strategy",
+        "discovery-first",
+        "sales-methodology"
+      ]
+    },
+    {
+      "id": "q56",
+      "question": "How do I train reps to ask better follow-up questions?",
+      "srcCount": 0,
+      "tags": [
+        "sales-coaching",
+        "discovery-training",
+        "follow-up-questions"
+      ]
+    },
+    {
+      "id": "q55",
+      "question": "What's the most underrated discovery question in B2B SaaS?",
+      "srcCount": 0,
+      "tags": [
+        "discovery-questions",
+        "stakeholder-mapping",
+        "end-user"
+      ]
+    },
+    {
+      "id": "q54",
+      "question": "How do you disqualify a deal early without offending the prospect?",
+      "srcCount": 0,
+      "tags": [
+        "deal-disqualification",
+        "qualification-rules",
+        "ae-coaching"
+      ]
+    },
+    {
+      "id": "q53",
+      "question": "When should the AE bring in a sales engineer — first call or second?",
+      "srcCount": 0,
+      "tags": [
+        "se-involvement",
+        "sales-process",
+        "deal-qualification"
+      ]
+    },
+    {
+      "id": "q52",
+      "question": "What's the right ratio of talking to listening on a discovery call?",
+      "srcCount": 0,
+      "tags": [
+        "discovery-call",
+        "active-listening",
+        "ae-coaching"
+      ]
+    },
+    {
+      "id": "q51",
+      "question": "How long should a first discovery call be — 20, 30, 45 minutes?",
+      "srcCount": 0,
+      "tags": [
+        "discovery-call",
+        "first-meeting",
+        "ae-coaching"
+      ]
+    },
+    {
+      "id": "q50",
+      "question": "What discovery questions separate top-quartile reps from the rest?",
+      "srcCount": 0,
+      "tags": [
+        "discovery-questions",
+        "ae-coaching",
+        "sales-training"
+      ]
+    },
+    {
+      "id": "q49",
+      "question": "How do I build a real bottom-up forecast in a 50-rep org?",
+      "srcCount": 0,
+      "tags": [
+        "forecasting",
+        "sales-ops",
+        "bottom-up"
+      ]
+    },
+    {
+      "id": "q48",
+      "question": "What's the most reliable way to predict end-of-quarter shortfall?",
+      "srcCount": 0,
+      "tags": [
+        "eoy-forecast",
+        "forecast-accuracy",
+        "cro-ops"
+      ]
+    },
+    {
+      "id": "q47",
+      "question": "How do I recover a mid-stage deal that's gone dark for 3 weeks?",
+      "srcCount": 0,
+      "tags": [
+        "deal-recovery",
+        "ae-coaching",
+        "prospecting"
+      ]
+    },
+    {
+      "id": "q46",
+      "question": "What's the right conversion rate from SQL to closed-won at our stage?",
+      "srcCount": 0,
+      "tags": [
+        "sql-conversion",
+        "sales-metrics",
+        "lead-quality"
+      ]
+    },
+    {
+      "id": "q45",
+      "question": "When does aging pipeline become unrecoverable — 60 days, 90, 120?",
+      "srcCount": 0,
+      "tags": [
+        "pipeline-health",
+        "deal-age",
+        "forecast-accuracy"
+      ]
+    },
+    {
+      "id": "q44",
+      "question": "How do I measure rep activity without falling into vanity metrics?",
+      "srcCount": 0,
+      "tags": [
+        "rep-metrics",
+        "sales-kpis",
+        "activity-tracking"
+      ]
+    },
+    {
+      "id": "q43",
+      "question": "What's a good leading indicator that pipeline is about to weaken?",
+      "srcCount": 0,
+      "tags": [
+        "pipeline-health",
+        "leading-indicators",
+        "forecast-accuracy"
+      ]
+    },
+    {
+      "id": "q42",
+      "question": "How do I get reps to log accurate next steps in CRM?",
+      "srcCount": 0,
+      "tags": [
+        "cta-discipline",
+        "forecast-discipline",
+        "ae-coaching"
+      ]
+    },
+    {
+      "id": "q41",
+      "question": "What's the right cadence for one-on-one deal reviews with AEs?",
+      "srcCount": 0,
+      "tags": [
+        "ae-coaching",
+        "deal-reviews",
+        "forecast-accuracy"
+      ]
+    },
+    {
+      "id": "q40",
+      "question": "How do I diagnose why my win rate is dropping this quarter?",
+      "srcCount": 0,
+      "tags": [
+        "win-rate-diagnostic",
+        "sales-operations",
+        "forecasting"
+      ]
+    },
+    {
+      "id": "q39",
+      "question": "What deal-stage definitions actually drive forecast accuracy?",
+      "srcCount": 0,
+      "tags": [
+        "deal-stages",
+        "sales-process",
+        "forecasting"
+      ]
+    },
+    {
+      "id": "q38",
+      "question": "How do you forecast when half the pipeline is single-threaded?",
+      "srcCount": 0,
+      "tags": [
+        "forecasting",
+        "pipeline-quality",
+        "single-threaded"
+      ]
+    },
+    {
+      "id": "q37",
+      "question": "What's a good pipeline coverage ratio for forecasting accuracy?",
+      "srcCount": 0,
+      "tags": [
+        "pipeline-coverage",
+        "forecasting",
+        "sales-metrics"
+      ]
+    },
+    {
+      "id": "q36",
+      "question": "How do I tell the difference between a stalled deal and a dead deal?",
+      "srcCount": 0,
+      "tags": [
+        "pipeline-management",
+        "deal-stage",
+        "forecasting"
+      ]
+    },
+    {
+      "id": "q35",
+      "question": "What's the median win rate for mid-market SaaS in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "win-rate",
+        "sales-metrics",
+        "benchmarking"
+      ]
+    },
+    {
+      "id": "q34",
+      "question": "How do I run a 25-minute pipeline review that's actually useful?",
+      "srcCount": 0,
+      "tags": [
+        "pipeline-review",
+        "coaching",
+        "sales-management"
+      ]
+    },
+    {
+      "id": "q33",
+      "question": "What's the right interview signal for sales coaching ability?",
+      "srcCount": 0,
+      "tags": [
+        "coaching-ability",
+        "interview-signal",
+        "vp-sales"
+      ]
+    },
+    {
+      "id": "q32",
+      "question": "How do you onboard a CRO who's never sold your product category before?",
+      "srcCount": 0,
+      "tags": [
+        "cro-onboarding",
+        "new-leadership",
+        "category-change"
+      ]
+    },
+    {
+      "id": "q31",
+      "question": "What references should I always check on a senior sales hire?",
+      "srcCount": 0,
+      "tags": [
+        "references",
+        "senior-hiring",
+        "vp-sales"
+      ]
+    },
+    {
+      "id": "q30",
+      "question": "How do you handle a star rep who's toxic to the team?",
+      "srcCount": 0,
+      "tags": [
+        "toxic-rep",
+        "performance-management",
+        "culture"
+      ]
+    },
+    {
+      "id": "q29",
+      "question": "When do I fire a rep who's missing quota — month 3 or month 6?",
+      "srcCount": 0,
+      "tags": [
+        "performance-management",
+        "firing-timeline",
+        "pip"
+      ]
+    },
+    {
+      "id": "q28",
+      "question": "What's the cost of a bad sales hire — fully loaded?",
+      "srcCount": 0,
+      "tags": [
+        "hiring-cost",
+        "bad-hire",
+        "cost-analysis"
+      ]
+    },
+    {
+      "id": "q27",
+      "question": "How do I tell if a candidate is going to flame out at our stage?",
+      "srcCount": 0,
+      "tags": [
+        "hiring",
+        "sales-hiring",
+        "candidate-eval"
+      ]
+    },
+    {
+      "id": "q26",
+      "question": "Should a first sales hire come from a competitor or from outside the space?",
+      "srcCount": 0,
+      "tags": [
+        "first-sales-hire",
+        "hiring",
+        "competitor-hires"
+      ]
+    },
+    {
+      "id": "q25",
+      "question": "What's the right manager-to-rep span — 6, 8, 10?",
+      "srcCount": 0,
+      "tags": [
+        "management",
+        "org-design",
+        "span-of-control"
+      ]
+    },
+    {
+      "id": "q24",
+      "question": "When should I hire my first sales-enablement person?",
+      "srcCount": 0,
+      "tags": [
+        "sales-enablement",
+        "hiring",
+        "onboarding"
+      ]
+    },
+    {
+      "id": "q23",
+      "question": "How long should the working interview / role-play be in an AE loop?",
+      "srcCount": 0,
+      "tags": [
+        "ae-hiring",
+        "working-interview",
+        "role-play"
+      ]
+    },
+    {
+      "id": "q22",
+      "question": "What red flags should I look for in a CRO candidate's track record?",
+      "srcCount": 0,
+      "tags": [
+        "cro",
+        "hiring",
+        "red-flags"
+      ]
+    },
+    {
+      "id": "q21",
+      "question": "How do I structure a sales-leadership interview for VP Sales candidates?",
+      "srcCount": 0,
+      "tags": [
+        "vp-sales",
+        "hiring",
+        "interview-process"
+      ]
+    },
+    {
+      "id": "q20",
+      "question": "What's the difference between hunters and farmers and when to hire each?",
+      "srcCount": 0,
+      "tags": [
+        "hiring",
+        "hunters-farmers",
+        "sales-strategy"
+      ]
+    },
+    {
+      "id": "q19",
+      "question": "How do I score rep candidates beyond just past quota attainment?",
+      "srcCount": 0,
+      "tags": [
+        "hiring",
+        "evaluation",
+        "reps"
+      ]
+    },
+    {
+      "id": "q18",
+      "question": "What's the right SDR-to-AE ratio at a $5M ARR seed-stage company?",
+      "srcCount": 0,
+      "tags": [
+        "hiring",
+        "sdr",
+        "ae"
+      ]
+    },
+    {
+      "id": "q17",
+      "question": "How long should AE ramp realistically take in mid-market SaaS?",
+      "srcCount": 0,
+      "tags": [
+        "ramp",
+        "ae",
+        "timeline"
+      ]
+    },
+    {
+      "id": "q16",
+      "question": "What signals predict whether a sales rep will hit quota in 12 months?",
+      "srcCount": 0,
+      "tags": [
+        "hiring",
+        "prediction",
+        "early-signals"
+      ]
+    },
+    {
+      "id": "q15",
+      "question": "How do you adjust comp when a rep inherits a large existing book?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "inherited-book",
+        "quota"
+      ]
+    },
+    {
+      "id": "q14",
+      "question": "What's the OTE breakdown for inside vs field sales at $30k ACV?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "inside-sales",
+        "field-sales"
+      ]
+    },
+    {
+      "id": "q13",
+      "question": "How do you comp a hybrid AE/CSM who handles expansion in their book?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "hybrid-roles",
+        "ae-csm"
+      ]
+    },
+    {
+      "id": "q12",
+      "question": "What's the typical CRO base salary in NYC vs SF vs remote in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "cro",
+        "salary"
+      ]
+    },
+    {
+      "id": "q11",
+      "question": "How should comp scale across territories with vastly different TAM?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "territories",
+        "quota"
+      ]
+    },
+    {
+      "id": "q10",
+      "question": "What's the right SPIFF cadence to drive end-of-quarter pipeline pull-in?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "spiff",
+        "incentives"
+      ]
+    },
+    {
+      "id": "q09",
+      "question": "How do I build a comp clawback policy that's enforceable and fair?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "clawback",
+        "enforcement"
+      ]
+    },
+    {
+      "id": "q08",
+      "question": "Should I pay SDRs on demos booked or only on demos held + qualified?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "sdr",
+        "demos"
+      ]
+    },
+    {
+      "id": "q07",
+      "question": "What's the median pay mix for a VP Sales at Series B SaaS?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "vp-sales",
+        "series-b"
+      ]
+    },
+    {
+      "id": "q06",
+      "question": "How do I cap or uncap commission without de-motivating top performers?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "commission",
+        "cap"
+      ]
+    },
+    {
+      "id": "q05",
+      "question": "What accelerator multiples are typical past 100% of quota for SaaS AEs?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "accelerators",
+        "ae"
+      ]
+    },
+    {
+      "id": "q04",
+      "question": "How do I design ramp comp that doesn't punish reps in their first 90 days?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "ramp",
+        "ae"
+      ]
+    },
+    {
+      "id": "q03",
+      "question": "What's the right base-to-variable split for a CRO running a $50M ARR business?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "cro",
+        "executive"
+      ]
+    },
+    {
+      "id": "q02",
+      "question": "How should I structure SDR commission to discourage gaming MQL counts?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "sdrs",
+        "lead-quality"
+      ]
+    },
+    {
+      "id": "q01",
+      "question": "What's a fair OTE for an enterprise AE selling $100k+ ACV deals in 2026?",
+      "srcCount": 0,
+      "tags": [
+        "comp",
+        "ote",
+        "enterprise-ae"
+      ]
+    }
+  ]
+}

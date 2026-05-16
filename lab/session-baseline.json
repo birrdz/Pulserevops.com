@@ -1,0 +1,6 @@
+{
+  "session_started_at": "2026-04-30T11:50:00Z",
+  "session_start_processed": 600,
+  "session_start_posted": 683,
+  "note": "Baseline for the 'this session' counter shown each drip tick. Set when /loop session began on 2026-04-30. Reset by writing this file."
+}

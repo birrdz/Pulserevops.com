@@ -1,0 +1,26 @@
+      <!-- GLOBAL INDUSTRY SELECTOR -->
+      <div style="position:relative;display:flex;align-items:center;">
+        <select id="global-industry-select" onchange="if(this.value)window.location.href='dashboard.html?industry='+this.value" style="appearance:none;-webkit-appearance:none;background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.72rem;font-weight:700;letter-spacing:0.03em;padding:7px 28px 7px 10px;font-family:inherit;cursor:pointer;outline:none;min-width:140px;" aria-label="Select your industry">
+          <option value="" disabled selected>🏭 Industry…</option>
+          <option value="security">🔒 Home Security</option>
+          <option value="internet">📡 Internet / Broadband</option>
+          <option value="solar">☀️ Solar / Energy</option>
+          <option value="mortgage">🏦 Mortgage / Lending</option>
+          <option value="insurance">🛡️ Insurance</option>
+          <option value="realestate">🏠 Real Estate</option>
+          <option value="saas">💻 SaaS / Software</option>
+          <option value="gym">🏋️ Fitness / Gym</option>
+          <option value="streaming">📺 Streaming / Media</option>
+          <option value="banking">🏧 Banking / Fintech</option>
+          <option value="healthcare">🏥 Healthcare</option>
+          <option value="auto">🚗 Auto / Dealership</option>
+          <option value="pest">🐛 Pest Control</option>
+          <option value="hvac">🌡️ HVAC / Home Services</option>
+          <option value="cable">📶 Cable / Satellite TV</option>
+          <option value="moving">🚚 Moving / Storage</option>
+          <option value="travel">✈️ Travel / Hospitality</option>
+          <option value="legal">⚖️ Legal / Professional</option>
+          <option value="retail">🛍️ Retail / E-commerce</option>
+        </select>
+        <span style="position:absolute;right:9px;top:50%;transform:translateY(-50%);pointer-events:none;color:#E8710A;font-size:0.55rem;">▾</span>
+      </div>

@@ -42,12 +42,25 @@ function initStore() {
 }
 
 async function fetchFFC() {
-  const url = 'https://fantasyfootballcalculator.com/api/v1/adp/standard?teams=10&position=all';
-  const r = await fetch(url, { headers: { 'User-Agent': 'pulse-ff-daily/1.0' } });
-  if (!r.ok) throw new Error('FFC HTTP ' + r.status);
-  const j = await r.json();
-  if (j.status !== 'Success') throw new Error('FFC status ' + j.status);
-  return j;
+  // Try the upcoming NFL season first (this year + 1 if we're past March = next
+  // season is "this calendar year"). Fall back to default (most recent complete
+  // season) when upcoming-season mock drafts haven't started yet.
+  const now = new Date();
+  const upcomingSeason = now.getMonth() >= 2 ? now.getFullYear() : now.getFullYear() - 1;
+  for (const year of [upcomingSeason, '']) {
+    const qs = year ? '?teams=10&position=all&year=' + year : '?teams=10&position=all';
+    const url = 'https://fantasyfootballcalculator.com/api/v1/adp/standard' + qs;
+    try {
+      const r = await fetch(url, { headers: { 'User-Agent': 'pulse-ff-daily/1.0' } });
+      if (!r.ok) continue;
+      const j = await r.json();
+      if (j.status !== 'Success') continue;
+      if (!Array.isArray(j.players) || j.players.length === 0) continue;
+      j._requested_year = year || 'default';
+      return j;
+    } catch (_) { /* try next */ }
+  }
+  throw new Error('FFC: no usable ADP for any candidate year');
 }
 
 function normalizeFFC(j) {
@@ -127,6 +140,7 @@ async function run() {
         total_drafts: ffcRaw.meta && ffcRaw.meta.total_drafts,
         window_start: ffcRaw.meta && ffcRaw.meta.start_date,
         window_end: ffcRaw.meta && ffcRaw.meta.end_date,
+        requested_year: ffcRaw._requested_year,
       },
     },
     sources_used: ['FantasyFootballCalculator'],

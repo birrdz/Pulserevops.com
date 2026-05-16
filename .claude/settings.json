@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node *)",
+      "Bash(npx *)",
+      "Bash(curl *)",
+      "Bash(BLOBS_PAT=* *)",
+      "Bash(npm install *)",
+      "Bash(npm i *)",
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git show*)",
+      "Bash(git branch*)",
+      "Bash(git add *)",
+      "Bash(powershell -Command \"Stop-Process -Id 36516 -Force\")",
+      "Bash(awk '/window\\\\.navigateToPage = function/,/^    \\\\};$/{print NR\": \"$0; if\\($0~/^    \\\\};$/\\)exit}' c:/Users/koryj/website/dashboard.html)",
+      "Bash(where soffice *)",
+      "Bash(powershell -Command \"Get-Command -Name 'winword' -ErrorAction SilentlyContinue; \\(Get-ItemProperty 'HKLM:\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\App Paths\\\\winword.exe' -ErrorAction SilentlyContinue\\).'\\(default\\)'\")",
+      "Bash(powershell -Command ' *)",
+      "Bash(grep -B1 -A3 \"from = \\\\\"/themachine\\\\\"$\\\\|from = \\\\\"/themachine\\\\\"\" c:/Users/koryj/website/netlify.toml)",
+      "PowerShell(netlify deploy --prod --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482 --message=\"Pulse Machine: async/background refactor - kills 10s timeout for visitor questions\" 2>&1)",
+      "PowerShell(npx --yes netlify-cli deploy --prod --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482 --message=\"Pulse Machine async/background refactor\" 2>&1)",
+      "PowerShell($env:NETLIFY_AUTH_TOKEN=\"nfp_JSsTaZjcMASrsrXJRgt6yG4Zipnovvwia6f0\"; npx --yes netlify-cli deploy --prod --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482 --message=\"Pulse Machine async/background refactor\" 2>&1 | Select-Object -Last 60)",
+      "PowerShell($body = @{ message = \"How should a $50M ARR SaaS company restructure its sales comp plan in 2027 if NRR drops below 105%?\"; history = @\\(\\) } | ConvertTo-Json -Compress; $r = Invoke-RestMethod -Uri \"https://pulserevops.com/.netlify/functions/pulse-machine\" -Method POST -ContentType \"application/json\" -Body $body; $r | ConvertTo-Json -Depth 5)",
+      "PowerShell($id = \"rq_mos08uwmsuszuvju\"; $url = \"https://pulserevops.com/.netlify/functions/pulse-machine-status?id=$id\"; for \\($i=1; $i -le 40; $i++\\) { $r = Invoke-RestMethod -Uri $url; $line = \"[poll $i] ready=$\\($r.ready\\) status=$\\($r.status\\)\"; if \\($r.ready\\) { $line += \" elapsed=$\\($r.elapsed_ms\\)ms reply_len=$\\($r.reply.Length\\) sources=$\\($r.sources.Count\\)\" }; Write-Output $line; if \\($r.ready\\) { break }; Start-Sleep -Seconds 2 })",
+      "PowerShell($r = Invoke-WebRequest -Uri \"https://pulserevops.com/knowledge/q1731\" -UseBasicParsing; $html = $r.Content; \"status=$\\($r.StatusCode\\) size=$\\($html.Length\\)\"; \"has_mermaid=$\\($html -match '```mermaid' -or $html -match 'class=\\\\\"mermaid'\\)\"; \"has_table=$\\($html -match '<table'\\)\"; \"title=$\\([regex]::Match\\($html, '<title>\\(.+?\\)</title>'\\).Groups[1].Value\\)\")",
+      "PowerShell($body = @{ message = \"What is the comp plan for an SDR at a Series B SaaS in 2027?\"; history = @\\(\\) } | ConvertTo-Json -Compress; try { $r = Invoke-RestMethod -Uri \"https://pulserevops.com/.netlify/functions/pulse-machine\" -Method POST -ContentType \"application/json\" -Body $body -TimeoutSec 15; \"REPLY-MODE: $\\($r | ConvertTo-Json -Depth 3\\)\" } catch { \"ERR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell($r = Invoke-WebRequest -Uri \"https://pulserevops.com/pulse-new.html\" -UseBasicParsing; $h = $r.Content; \"size=$\\($h.Length\\)\"; if \\($h -match 'd\\\\.pending'\\) { \"POLL-LOGIC: PRESENT\" } else { \"POLL-LOGIC: MISSING - old client deployed\" }; if \\($h -match 'pulse-machine-status'\\) { \"STATUS-FETCH: PRESENT\" } else { \"STATUS-FETCH: MISSING\" })",
+      "PowerShell($r = Invoke-WebRequest -Uri \"https://pulserevops.com/.netlify/functions/pulse-machine-library-list?status=1\" -UseBasicParsing; $j = $r.Content | ConvertFrom-Json; $polished = \\($j.entries | Where-Object { $_.polished_at }\\).Count; $total = $j.entries.Count; \"polished=$polished total=$total\")",
+      "PowerShell($r = Invoke-WebRequest -Uri \"https://pulserevops.com/.netlify/functions/pulse-machine-library-list?limit=10\" -UseBasicParsing -ErrorAction SilentlyContinue; if \\($r\\) { $j = $r.Content | ConvertFrom-Json; \"total=$\\($j.entries.Count\\) polished=$\\(\\($j.entries | Where-Object polished_at\\).Count\\)\" } else { Invoke-WebRequest -Uri \"https://pulserevops.com/.netlify/functions/pulse-machine-library-list\" -UseBasicParsing | Select-Object -ExpandProperty Content | Select-Object -First 600 })",
+      "PowerShell($env:NETLIFY_AUTH_TOKEN=\"nfp_JSsTaZjcMASrsrXJRgt6yG4Zipnovvwia6f0\"; npx --yes netlify-cli deploy --prod --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482 --message=\"Machine 2 hero anim + 10/10 RevOps IQ Verified burnt-orange badge\" 2>&1 | Select-Object -Last 10)",
+      "PowerShell($env:NETLIFY_AUTH_TOKEN=\"nfp_JSsTaZjcMASrsrXJRgt6yG4Zipnovvwia6f0\"; npx --yes netlify-cli deploy --prod --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482 --message=\"Machine 3 hero anim — visual A/B vs Machine 2\" 2>&1 | Select-Object -Last 8)",
+      "PowerShell($env:NETLIFY_AUTH_TOKEN=\"nfp_JSsTaZjcMASrsrXJRgt6yG4Zipnovvwia6f0\"; npx --yes netlify-cli deploy --prod --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482 --message=\"Machine sub-30s + auto-library promote + anim polish \\(0.55x, sharper, more saturation\\)\" 2>&1 | Select-Object -Last 8)",
+      "PowerShell($body = @{ message = \"How does a 100-rep RevOps team build SDR comp accelerators in 2027?\"; history = @\\(\\) } | ConvertTo-Json -Compress; $r1 = Invoke-RestMethod -Uri \"https://pulserevops.com/.netlify/functions/pulse-machine\" -Method POST -ContentType \"application/json\" -Body $body; $id = $r1.request_id; \"REQ_ID=$id\"; $start = Get-Date; for \\($i=1; $i -le 60; $i++\\) { $r = Invoke-RestMethod -Uri \"https://pulserevops.com/.netlify/functions/pulse-machine-status?id=$id\"; if \\($r.ready\\) { $elapsed = \\(Get-Date\\) - $start; \"READY in $\\([int]$elapsed.TotalSeconds\\)s | bg_elapsed=$\\($r.elapsed_ms\\)ms | reply_len=$\\($r.reply.Length\\) | sources=$\\($r.sources.Count\\)\"; break }; Start-Sleep -Seconds 1 })",
+      "PowerShell($env:NETLIFY_AUTH_TOKEN=\"nfp_JSsTaZjcMASrsrXJRgt6yG4Zipnovvwia6f0\"; npx --yes netlify-cli deploy --prod --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482 --message=\"Hero anim image quality: SVG sharpen filter + GPU translateZ + tighter contrast\" 2>&1 | Select-Object -Last 6)",
+      "PowerShell($env:NETLIFY_AUTH_TOKEN=\"nfp_JSsTaZjcMASrsrXJRgt6yG4Zipnovvwia6f0\"; npx --yes netlify-cli deploy --prod --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482 --message=\"REVERT bad SVG sharpen \\(caused ringing\\) — clean CSS filter only\" 2>&1 | Select-Object -Last 6)"
+    ]
+  }
+}

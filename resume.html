@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kory J. White — Resume | Chief Revenue Officer</title>
+  <meta name="description" content="Kory J. White — 22-year revenue executive. Architected $200M+ ARR markets, back-to-back 112% quota attainment, key leader during scaling to $3B in revenue. Currently exploring senior CRO / VP Sales engagements.">
+  <meta name="author" content="Kory J. White">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://pulserevops.com/resume">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Kory J. White — Chief Revenue Officer">
+  <meta property="og:description" content="22-year revenue leader. $200M+ ARR markets architect. Back-to-back 112% quota attainment. Architect of PULSE RevOps + 'The Machine' autonomous AI.">
+  <meta property="og:url" content="https://pulserevops.com/resume">
+  <meta property="og:image" content="https://pulserevops.com/assets/kory-white.jpg">
+  <meta property="profile:first_name" content="Kory">
+  <meta property="profile:last_name" content="White">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kory J. White — Chief Revenue Officer">
+  <meta name="twitter:description" content="22-year revenue leader. $200M+ ARR markets. Architect of PULSE RevOps + The Machine.">
+  <meta name="twitter:image" content="https://pulserevops.com/assets/kory-white.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Kory J. White",
+    "givenName": "Kory",
+    "familyName": "White",
+    "jobTitle": "Chief Revenue Officer",
+    "image": "https://pulserevops.com/assets/kory-white.jpg",
+    "url": "https://pulserevops.com/resume",
+    "worksFor": {"@type": "Organization", "name": "PULSE RevOps", "url": "https://pulserevops.com"},
+    "alumniOf": {"@type": "CollegeOrUniversity", "name": "University of Louisville"},
+    "sameAs": [
+      "https://pulserevops.com",
+      "https://theexecutivereview.org/",
+      "https://www.linkedin.com/in/korywhite"
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E8710A' d='M3 12h3l2-7 4 14 2-7h7'/%3E%3C/svg%3E">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0d12; --surface: #12161c; --surface2: #1A2025;
+      --accent: #E8710A; --accent2: #FF8C1A; --gold: #FFD740;
+      --text: #EDE5D8; --muted: #94a3b8; --green: #22c55e;
+      --border: rgba(255,255,255,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh; position: relative; }
+
+    /* ── MACHINE VIBES — animated honeycomb canvas + scanlines + ECG accent ── */
+    #honeycomb-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.35; }
+    #scanlines { position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0px, rgba(0,0,0,0.18) 1px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 4px);
+      mix-blend-mode: multiply; opacity: 0.5; }
+    #vignette { position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(ellipse 60% 70% at 50% 30%, rgba(10,13,18,0.0) 0%, rgba(10,13,18,0.55) 60%, rgba(10,13,18,0.92) 100%); }
+    nav, main, footer { position: relative; z-index: 3; }
+
+    /* ECG accent line above the preview */
+    .ecg-divider {
+      width: 100%; height: 24px; margin: 8px 0 -4px;
+      filter: drop-shadow(0 0 8px rgba(0,255,65,0.7));
+      stroke-dasharray: 1200; stroke-dashoffset: 1200;
+      animation: ecg-flicker 4.6s ease-in-out infinite;
+    }
+    .ecg-divider path { animation: ecg-draw 3.2s linear infinite; }
+    @keyframes ecg-draw { 0% { stroke-dashoffset: 1200; } 60% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1200; } }
+    @keyframes ecg-flicker { 0%, 91%, 100% { opacity: 1; } 92% { opacity: 0.78; } 93% { opacity: 1; } 95% { opacity: 0.86; } 96% { opacity: 1; } }
+
+    /* "Live · Researched by The Machine" badge top-right of nav */
+    .machine-badge {
+      position: absolute; top: 12px; right: 16px; z-index: 4;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 10px; border-radius: 99px;
+      font-family: 'JetBrains Mono', 'Consolas', monospace;
+      font-size: 0.58rem; font-weight: 800; letter-spacing: 0.16em;
+      color: #00ff41; background: rgba(0,14,6,0.78);
+      border: 1px solid rgba(0,255,65,0.4);
+      box-shadow: 0 0 12px rgba(0,255,65,0.18);
+      pointer-events: none;
+    }
+    .machine-badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #00ff41;
+      box-shadow: 0 0 8px #00ff41; animation: badge-pulse 1.4s ease-in-out infinite; }
+    @keyframes badge-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @media (max-width: 640px) { .machine-badge { display: none; } }
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,13,18,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-size: 1.05rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; font-size: 0.85rem; }
+    .nav-links a { color: var(--muted); font-weight: 600; }
+    .nav-links a:hover { color: var(--text); }
+
+    main { max-width: 880px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+
+    .hero {
+      display: grid; grid-template-columns: 160px 1fr; gap: 32px; align-items: center;
+      padding: 2rem; background: linear-gradient(155deg, var(--surface), var(--surface2));
+      border: 1px solid var(--border); border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 640px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 1.5rem; }
+    }
+    .hero img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); box-shadow: 0 0 0 6px rgba(232,113,10,0.12), 0 12px 32px rgba(0,0,0,0.5); }
+    @media (max-width: 640px) { .hero img { width: 120px; height: 120px; margin: 0 auto; } }
+    .hero h1 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; line-height: 1.1; color: #fff; margin-bottom: 4px; }
+    .hero .role { font-size: 1.05rem; color: var(--accent2); font-weight: 700; letter-spacing: 0.04em; margin-bottom: 10px; }
+    .hero .meta { font-size: 0.82rem; color: var(--muted); }
+    .hero .meta b { color: var(--text); font-weight: 600; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 0 0 2rem; }
+    @media (max-width: 640px) { .stats { grid-template-columns: 1fr 1fr; } }
+    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; text-align: center; }
+    .stat-n { font-family: 'Playfair Display', Georgia, serif; font-size: 1.6rem; font-weight: 800; color: var(--accent2); line-height: 1; }
+    .stat-l { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 2rem 0; padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; align-items: center; justify-content: center; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: 10px; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.2s; }
+    .btn-primary { background: var(--accent); color: #fff !important; border: 1px solid var(--accent2); box-shadow: 0 8px 22px rgba(232,113,10,0.32); }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); text-decoration: none; }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text) !important; }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent2) !important; text-decoration: none; }
+
+    .preview { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; margin-bottom: 2rem; }
+    .preview-bar { padding: 12px 18px; background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .preview-bar .live { color: var(--green); display: inline-flex; align-items: center; gap: 6px; }
+    .preview-bar .live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: pulse 1.6s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .preview iframe { width: 100%; height: 760px; border: 0; background: #1a1a1a; display: block; }
+    @media (max-width: 640px) { .preview iframe { height: 540px; } }
+    .resume-pages { background: #1a1a1a; padding: 8px; display: flex; flex-direction: column; gap: 10px; }
+    .resume-pages img { width: 100%; height: auto; display: block; border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); background: #fff; }
+    /* On wider screens, let the resume preview break out wider than the body
+       column so the type is easier to read. Tiered by viewport — bigger
+       monitors get more zoom. */
+    @media (min-width: 1040px) {
+      .preview { margin-left: -140px; margin-right: -140px; }
+      .resume-pages { padding: 6px; gap: 8px; }
+    }
+    @media (min-width: 1280px) {
+      .preview { margin-left: -200px; margin-right: -200px; }
+    }
+    @media (min-width: 1480px) {
+      .preview { margin-left: -260px; margin-right: -260px; }
+    }
+    @media (min-width: 1700px) {
+      .preview { margin-left: -320px; margin-right: -320px; }
+    }
+    @media (max-width: 640px) { .resume-pages { padding: 6px; gap: 6px; } }
+
+    .section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem 1.8rem; margin-bottom: 1rem; }
+    .section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.2rem; font-weight: 700; color: var(--accent2); margin-bottom: 12px; }
+    .section p { color: rgba(237,229,216,0.85); font-size: 0.98rem; }
+    .section p strong { color: #fff; }
+    .section ul { margin: 8px 0 0 22px; }
+    .section li { margin-bottom: 6px; color: rgba(237,229,216,0.85); }
+
+    .web-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .web-link { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--surface2); border: 1px solid var(--border); border-radius: 99px; color: var(--text); font-size: 0.82rem; font-weight: 600; transition: all 0.2s; }
+    .web-link:hover { border-color: var(--accent); color: var(--accent2); text-decoration: none; }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.78rem; margin-top: 2rem; }
+    footer a { color: var(--muted); }
+    .footer-links { display: flex; gap: 18px; justify-content: center; margin-bottom: 8px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+<canvas id="honeycomb-bg" aria-hidden="true"></canvas>
+<div id="vignette" aria-hidden="true"></div>
+<div id="scanlines" aria-hidden="true"></div>
+<div class="machine-badge">⌬ Tracked by The Machine</div>
+
+<!-- ── INDEX QUEUE WIDGET (top-right) ─────────────────────────────────── -->
+<div id="iq-root" style="position:fixed; top:170px; right:18px; z-index:50; font-family:'JetBrains Mono', ui-monospace, monospace;">
+  <button id="iq-toggle" type="button" aria-expanded="false" style="all:unset; cursor:pointer; display:block; padding:14px 18px; background:rgba(15,18,22,0.92); backdrop-filter:blur(8px); border:1px solid rgba(232,113,10,0.45); border-radius:12px; min-width:260px; box-shadow:0 6px 22px rgba(0,0,0,0.45); color:#FFB46A;">
+    <div style="font-size:0.78rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:#E8710A; margin-bottom:8px;">◉ Indexing Queue</div>
+    <div style="display:flex; align-items:baseline; gap:8px; line-height:1.1;">
+      <span id="iq-count" style="font-size:2rem; font-weight:800; color:#FFD8A8;">…</span>
+      <span style="font-size:0.8rem; color:rgba(255,180,90,0.7);">in 14-day index window</span>
+    </div>
+    <div id="iq-meta" style="font-size:0.72rem; color:rgba(255,180,90,0.6); margin-top:8px; letter-spacing:0.04em;">click to view</div>
+  </button>
+  <div id="iq-panel" hidden style="margin-top:10px; padding:18px 20px; background:rgba(15,18,22,0.96); backdrop-filter:blur(8px); border:1px solid rgba(232,113,10,0.45); border-radius:12px; min-width:380px; max-width:480px; max-height:65vh; overflow-y:auto; box-shadow:0 6px 22px rgba(0,0,0,0.55); font-size:1.05rem; color:#FFB46A;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(232,113,10,0.25);">
+      <span style="font-size:0.95rem; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:#E8710A;">Pending Index</span>
+      <span id="iq-summary" style="font-size:0.9rem; color:rgba(255,180,90,0.75);">…</span>
+    </div>
+    <ol id="iq-list" style="margin:0; padding-left:1.6em; line-height:1.6; font-size:1rem;"></ol>
+  </div>
+</div>
+<script>
+(function(){
+  var toggle = document.getElementById('iq-toggle');
+  var panel = document.getElementById('iq-panel');
+  var count = document.getElementById('iq-count');
+  var meta = document.getElementById('iq-meta');
+  var summary = document.getElementById('iq-summary');
+  var list = document.getElementById('iq-list');
+
+  function fmt(n){ return (n||0).toLocaleString('en-US'); }
+
+  function refresh(){
+    fetch('/.netlify/functions/index-queue', { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (!d || !d.ok) { meta.textContent = 'unavailable'; return; }
+        count.textContent = fmt(d.queue_count);
+        meta.textContent = fmt(d.total_library) + ' total · ' + d.window_days + 'd window';
+        summary.textContent = fmt(d.queue_count) + ' of ' + fmt(d.total_library);
+        list.innerHTML = '';
+        (d.queue || []).forEach(function(e, i){
+          var li = document.createElement('li');
+          li.style.marginBottom = '8px';
+          li.style.color = '#FFD8A8';
+          // The first item is the most recently submitted to IndexNow — the
+          // entry going to Google next. Highlight with the same matrix-green
+          // outline used for the active polish target on the library page.
+          if (i === 0) {
+            li.style.padding = '8px 10px';
+            li.style.marginLeft = '-22px';
+            li.style.paddingLeft = '20px';
+            li.style.border = '2px solid #00ff41';
+            li.style.borderRadius = '8px';
+            li.style.background = 'linear-gradient(90deg, rgba(0,255,65,0.10), rgba(0,255,65,0.02) 70%)';
+            li.style.boxShadow = '0 0 12px rgba(0,255,65,0.35)';
+            li.style.listStyle = 'none';
+            var nextPill = document.createElement('div');
+            nextPill.textContent = '◉ NEXT TO INDEX';
+            nextPill.style.cssText = 'display:inline-block;background:#00ff41;color:#001405;padding:2px 9px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;margin-bottom:5px;box-shadow:0 0 8px rgba(0,255,65,0.55);';
+            li.appendChild(nextPill);
+            li.appendChild(document.createElement('br'));
+          }
+          var a = document.createElement('a');
+          a.href = '/answer/' + e.id;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = e.question || e.id;
+          a.style.color = i === 0 ? '#7BFF8F' : '#FFD8A8';
+          a.style.textDecoration = 'none';
+          if (i === 0) a.style.fontWeight = '700';
+          li.appendChild(a);
+          if (e.ts) {
+            var dObj = new Date(e.ts);
+            var ts = document.createElement('div');
+            ts.textContent = dObj.toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'})
+                           + ' · '
+                           + dObj.toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit'});
+            ts.style.fontSize = '0.78rem';
+            ts.style.color = i === 0 ? 'rgba(123,255,143,0.75)' : 'rgba(255,180,90,0.65)';
+            ts.style.marginTop = '2px';
+            li.appendChild(ts);
+          }
+          list.appendChild(li);
+        });
+      })
+      .catch(function(){ meta.textContent = 'unavailable'; });
+  }
+
+  toggle.addEventListener('click', function(){
+    var open = !panel.hidden;
+    panel.hidden = open;
+    toggle.setAttribute('aria-expanded', String(!open));
+  });
+
+  refresh();
+  setInterval(refresh, 60000);
+})();
+</script>
+<style>
+@media (max-width: 640px) {
+  #iq-root { top: 8px !important; right: 8px !important; }
+  #iq-toggle { padding: 7px 10px !important; min-width: 0 !important; }
+  #iq-toggle #iq-count { font-size: 1.05rem !important; }
+  #iq-panel { max-width: calc(100vw - 24px); }
+  #iq-toggle #iq-meta { display: none; }
+}
+</style>
+
+<nav>
+  <a class="nav-brand" href="https://pulserevops.com/">PULSE RevOps</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/themachine">The Machine</a>
+    <a href="/knowledge.html">Library</a>
+    <a href="/press/">Press</a>
+  </div>
+</nav>
+
+<main>
+
+  <div class="hero">
+    <img src="/assets/kory-white.jpg" alt="Kory J. White">
+    <div>
+      <h1>Kory J. White</h1>
+      <div class="role">Chief Revenue Officer · Architect of PULSE RevOps</div>
+      <div class="meta"><b>Stevensville, MD</b> · <b>22 years</b> commercial leadership · <b>University of Louisville</b></div>
+      <div class="meta" style="margin-top:8px;">📧 <a href="mailto:koryjordanwhite@gmail.com">koryjordanwhite@gmail.com</a> · 📱 (443) 761-2012 · <a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener">LinkedIn</a></div>
+      <div class="meta" style="margin-top:6px;">🌐 <a href="https://pulserevops.com" target="_blank" rel="noopener">pulserevops.com</a> &nbsp;·&nbsp; 📰 <a href="https://theexecutivereview.org/" target="_blank" rel="noopener">theexecutivereview.org</a></div>
+      <a href="https://theexecutivereview.org/kory-white.html" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:14px;margin-top:14px;padding:12px 22px;background:linear-gradient(135deg,rgba(255,215,64,0.14),rgba(232,113,10,0.08));border:1.5px solid rgba(255,215,64,0.55);border-radius:14px;text-decoration:none;box-shadow:0 6px 22px rgba(255,215,64,0.12);">
+        <span style="font-family:'Playfair Display',Georgia,serif;font-size:2.1rem;font-weight:900;color:#FFD740;line-height:1;letter-spacing:-0.02em;">#9</span>
+        <span style="display:flex;flex-direction:column;line-height:1.2;">
+          <span style="font-size:0.6rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#FF8C1A;">Top Trending</span>
+          <span style="font-size:1.05rem;font-weight:800;color:#fff;letter-spacing:0.01em;">Up &amp; Coming CRO</span>
+          <span style="font-size:0.7rem;font-weight:600;color:rgba(237,229,216,0.65);margin-top:2px;">TheExecutiveReview.org · April 2026 ↗</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n">$200M+</div><div class="stat-l">ARR Markets Built</div></div>
+    <div class="stat"><div class="stat-n">112%</div><div class="stat-l">Back-to-Back Quota</div></div>
+    <div class="stat"><div class="stat-n">200+</div><div class="stat-l">Person Org Led</div></div>
+    <div class="stat"><div class="stat-n">$3B</div><div class="stat-l">Enterprise Scale</div></div>
+  </div>
+
+  <div class="actions">
+    <a class="btn btn-primary" href="/assets/kory-white-resume.pdf" download="Kory_White_Resume.pdf">⬇ Download PDF</a>
+    <a class="btn btn-ghost" href="/assets/kory-white-resume.docx" download="Kory_White_Resume.docx">📄 Download Word (.docx)</a>
+    <button class="btn btn-ghost" type="button" id="upload-resume-btn" style="cursor:pointer;font-family:inherit;">📤 Upload Your Resume</button>
+    <a class="btn btn-ghost" href="https://calendly.com/korywhiterevops" target="_blank" rel="noopener">📅 Book a Call</a>
+    <input type="file" id="upload-resume-input" accept=".pdf,.docx,.doc,.txt" style="display:none;">
+    <script>
+      (function(){
+        var btn = document.getElementById('upload-resume-btn');
+        var input = document.getElementById('upload-resume-input');
+        if (!btn || !input) return;
+        btn.addEventListener('click', function(){ input.click(); });
+        input.addEventListener('change', function(){
+          var f = input.files && input.files[0];
+          if (!f) return;
+          // Stash in sessionStorage + scroll the role-scorer section into view
+          // so the visitor can run a comparison against the role they care about.
+          try { sessionStorage.setItem('uploaded_resume_name', f.name); } catch(e){}
+          var note = document.createElement('div');
+          note.style.cssText = 'margin-top:14px;padding:12px 16px;background:rgba(232,113,10,0.12);border:1px solid rgba(232,113,10,0.45);border-radius:8px;color:#FFD7A8;font-size:0.86rem;text-align:center;';
+          note.innerHTML = '✓ Got <b>' + (f.name || 'your resume') + '</b> — scroll down + describe the role to score it against the job you are hiring for.';
+          btn.parentNode.appendChild(note);
+          // Auto-scroll to the role-scorer
+          var scorer = document.querySelector('[data-section="role-scorer"]') || document.querySelector('.optional-section') || document.querySelector('input[name="role"]');
+          if (scorer) scorer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setTimeout(function(){ if (note && note.parentNode) note.parentNode.removeChild(note); }, 12000);
+        });
+      })();
+    </script>
+  </div>
+
+  <!-- ─── AI Resume Scorer ─────────────────────────────────────────────
+       Collapsed by default so the resume page reads clean. Recruiters
+       curious about scoring expand it on demand. Powered by Haiku 4.5
+       via /resume-score. Rate-limited per IP. ────────────────────── -->
+  <details style="margin:0 0 1.5rem;">
+    <summary style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 18px;background:rgba(232,113,10,0.06);border:1px solid rgba(232,113,10,0.25);border-radius:10px;cursor:pointer;list-style:none;font-size:0.78rem;color:rgba(237,229,216,0.85);transition:all 0.15s;">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><span style="font-size:0.62rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#FF8C1A;">⌬ Optional</span><span>Hiring for a specific role? Score this resume against it →</span></span>
+      <span style="font-size:0.7rem;color:rgba(237,229,216,0.55);">expand</span>
+    </summary>
+  <div id="scorer" style="background:linear-gradient(155deg,rgba(20,25,32,0.85),rgba(10,13,18,0.55));border:1px solid rgba(232,113,10,0.35);border-top:none;border-radius:0 0 14px 14px;padding:22px 26px 24px;margin-top:-1px;">
+    <div style="font-size:0.86rem;color:rgba(237,229,216,0.72);line-height:1.5;margin-bottom:18px;max-width:640px;">Type the role you're hiring for. Get an honest score from two lenses — how the resume passes ATS keyword filters, and how a senior recruiter reacts in the 5-second scan. Powered by Claude Haiku 4.5. Free, rate-limited.</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div style="grid-column:1/3;">
+        <label style="display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.5);margin-bottom:5px;">Role *</label>
+        <input id="scorer-role" type="text" placeholder="e.g. Chief Revenue Officer, Series B SaaS, $20M ARR" maxlength="200" style="width:100%;padding:10px 12px;background:#0a0d12;border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#EDE5D8;font-family:inherit;font-size:0.92rem;outline:none;" onfocus="this.style.borderColor='rgba(232,113,10,0.55)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+      </div>
+      <div>
+        <label style="display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.5);margin-bottom:5px;">Industry</label>
+        <input id="scorer-industry" type="text" placeholder="SaaS, Telecom, B2B…" maxlength="80" style="width:100%;padding:10px 12px;background:#0a0d12;border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#EDE5D8;font-family:inherit;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='rgba(232,113,10,0.55)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+      </div>
+      <div>
+        <label style="display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.5);margin-bottom:5px;">Years required</label>
+        <input id="scorer-years" type="text" placeholder="10+, 15+, etc." maxlength="20" style="width:100%;padding:10px 12px;background:#0a0d12;border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#EDE5D8;font-family:inherit;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='rgba(232,113,10,0.55)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+      </div>
+      <div style="grid-column:1/3;">
+        <label style="display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.5);margin-bottom:5px;">Key skills / requirements (optional, comma-separated)</label>
+        <textarea id="scorer-skills" rows="2" maxlength="400" placeholder="e.g. SaaS metrics, MEDDPICC, Salesforce admin, comp design, board reporting" style="width:100%;padding:10px 12px;background:#0a0d12;border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#EDE5D8;font-family:inherit;font-size:0.88rem;outline:none;resize:vertical;" onfocus="this.style.borderColor='rgba(232,113,10,0.55)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"></textarea>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <button class="scorer-btn" data-mode="ats" type="button" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:linear-gradient(135deg,#E8710A,#FF8C1A);border:1px solid #FF8C1A;border-radius:9px;color:#fff;font-family:inherit;font-weight:800;letter-spacing:0.06em;font-size:0.82rem;cursor:pointer;text-transform:uppercase;">📊 ATS Score</button>
+      <button class="scorer-btn" data-mode="recruiter" type="button" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:transparent;border:1px solid rgba(255,255,255,0.18);border-radius:9px;color:#EDE5D8;font-family:inherit;font-weight:700;letter-spacing:0.06em;font-size:0.82rem;cursor:pointer;text-transform:uppercase;">👀 Recruiter Score</button>
+      <span id="scorer-status" style="font-size:0.74rem;color:rgba(237,229,216,0.5);"></span>
+    </div>
+
+    <div id="scorer-result" style="display:none;margin-top:18px;padding:18px 20px;background:#0a0d12;border:1px solid rgba(255,255,255,0.08);border-radius:10px;"></div>
+  </div>
+  </details>
+
+  <script>
+    (function(){
+      var btns = document.querySelectorAll('.scorer-btn');
+      var status = document.getElementById('scorer-status');
+      var result = document.getElementById('scorer-result');
+      function esc(s) { return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+      function scoreColor(n) { return n >= 85 ? '#22c55e' : n >= 70 ? '#FFD740' : n >= 50 ? '#FF8C1A' : '#ef4444'; }
+      function render(d) {
+        var color = scoreColor(d.score);
+        var lensLabel = d.scoreType === 'ats' ? 'ATS Score' : 'Recruiter Score';
+        var lensIcon = d.scoreType === 'ats' ? '📊' : '👀';
+        var html = ''
+          + '<div style="display:flex;align-items:center;gap:18px;margin-bottom:14px;flex-wrap:wrap;">'
+          +   '<div style="position:relative;width:88px;height:88px;border-radius:50%;background:conic-gradient(' + color + ' ' + (d.score*3.6) + 'deg,rgba(255,255,255,0.08) 0);display:flex;align-items:center;justify-content:center;">'
+          +     '<div style="width:70px;height:70px;border-radius:50%;background:#0a0d12;display:flex;align-items:center;justify-content:center;">'
+          +       '<div style="font-size:1.5rem;font-weight:900;color:' + color + ';font-variant-numeric:tabular-nums;">' + d.score + '</div>'
+          +     '</div>'
+          +   '</div>'
+          +   '<div style="flex:1;min-width:180px;">'
+          +     '<div style="font-size:0.62rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:' + color + ';margin-bottom:4px;">' + lensIcon + ' ' + lensLabel + ' · vs "' + esc(d.role.slice(0,80)) + '"</div>'
+          +     '<div style="font-size:0.94rem;color:#fff;font-weight:600;line-height:1.45;">' + esc(d.summary) + '</div>'
+          +   '</div>'
+          + '</div>';
+        if (d.strengths && d.strengths.length) {
+          html += '<div style="font-size:0.62rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#22c55e;margin:14px 0 6px;">Strengths</div>'
+                + '<ul style="margin:0 0 10px 18px;padding:0;color:rgba(237,229,216,0.85);font-size:0.86rem;line-height:1.6;">'
+                + d.strengths.map(function(s){ return '<li>'+esc(s)+'</li>'; }).join('')
+                + '</ul>';
+        }
+        if (d.gaps && d.gaps.length) {
+          html += '<div style="font-size:0.62rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#FFD740;margin:14px 0 6px;">Gaps</div>'
+                + '<ul style="margin:0 0 10px 18px;padding:0;color:rgba(237,229,216,0.85);font-size:0.86rem;line-height:1.6;">'
+                + d.gaps.map(function(s){ return '<li>'+esc(s)+'</li>'; }).join('')
+                + '</ul>';
+        }
+        if (d.top_keyword_matches && d.top_keyword_matches.length) {
+          html += '<div style="font-size:0.62rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,229,216,0.55);margin:14px 0 6px;">Top keyword matches</div>'
+                + '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">'
+                + d.top_keyword_matches.map(function(k){ return '<span style="background:rgba(232,113,10,0.12);border:1px solid rgba(232,113,10,0.3);color:#FF8C1A;padding:3px 10px;border-radius:99px;font-size:0.72rem;font-weight:600;">'+esc(k)+'</span>'; }).join('')
+                + '</div>';
+        }
+        if (d.recommendations && d.recommendations.length) {
+          html += '<div style="font-size:0.62rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#a78bfa;margin:14px 0 6px;">To boost the score</div>'
+                + '<ul style="margin:0 0 10px 18px;padding:0;color:rgba(237,229,216,0.78);font-size:0.84rem;line-height:1.6;">'
+                + d.recommendations.map(function(s){ return '<li>'+esc(s)+'</li>'; }).join('')
+                + '</ul>';
+        }
+        html += '<div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);font-size:0.7rem;color:rgba(237,229,216,0.45);">Scored by Claude Haiku 4.5 against this resume. Score is heuristic — meaningful but not authoritative. Want to discuss? <a href="https://calendly.com/korywhiterevops" target="_blank" rel="noopener" style="color:#FF8C1A;font-weight:700;">Book a call</a>.</div>';
+        result.innerHTML = html;
+        result.style.display = 'block';
+      }
+      btns.forEach(function(b){
+        b.addEventListener('click', function(){
+          var role = document.getElementById('scorer-role').value.trim();
+          if (role.length < 3) { status.textContent = '↑ enter a role first'; status.style.color = '#FFD740'; return; }
+          var mode = b.dataset.mode;
+          status.textContent = (mode === 'ats' ? '📊 ATS' : '👀 Recruiter') + ' scoring · ~12s';
+          status.style.color = '#FF8C1A';
+          btns.forEach(function(x){ x.disabled = true; x.style.opacity = '0.55'; x.style.cursor = 'wait'; });
+          fetch('/.netlify/functions/resume-score', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              scoreType: mode,
+              role: role,
+              industry: document.getElementById('scorer-industry').value.trim(),
+              yearsRequired: document.getElementById('scorer-years').value.trim(),
+              keySkills: document.getElementById('scorer-skills').value.trim(),
+            }),
+          }).then(function(r){ return r.json(); }).then(function(d){
+            btns.forEach(function(x){ x.disabled = false; x.style.opacity = ''; x.style.cursor = ''; });
+            if (!d.ok) { status.textContent = '× ' + (d.error || 'scorer error — try again'); status.style.color = '#ef4444'; return; }
+            status.textContent = '✓ scored';
+            status.style.color = '#22c55e';
+            render(d);
+            result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }).catch(function(){
+            btns.forEach(function(x){ x.disabled = false; x.style.opacity = ''; x.style.cursor = ''; });
+            status.textContent = '× network error — try again';
+            status.style.color = '#ef4444';
+          });
+        });
+      });
+    })();
+  </script>
+
+  <svg class="ecg-divider" viewBox="0 0 800 24" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,12 L120,12 L130,5 L138,19 L146,3 L154,21 L162,12 L300,12 L320,12 L328,7 L336,17 L344,12 L500,12 L520,12 L530,4 L538,20 L546,12 L800,12" stroke="#00ff41" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+  <div class="preview">
+    <div class="preview-bar">
+      <span>Resume · Live PDF · always the latest version</span>
+      <span class="live">Live</span>
+    </div>
+    <div class="resume-pages" style="background:#1a1a1a;padding:0;">
+      <object data="/assets/kory-white-resume.pdf#view=FitH&zoom=75&toolbar=1&navpanes=0&scrollbar=1" type="application/pdf" width="100%" style="height:1400px;display:block;border:0;">
+        <iframe src="/assets/kory-white-resume.pdf#view=FitH&zoom=75" style="width:100%;height:1400px;border:0;display:block;" title="Kory White Resume PDF"></iframe>
+        <p style="color:#fff;padding:20px;">Your browser cannot display the embedded PDF. <a href="/assets/kory-white-resume.pdf" style="color:#FF8C1A;">Download the PDF</a> instead.</p>
+      </object>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>About</h2>
+    <p>Chief Revenue Officer with a 22-year track record of scaling high-performance commercial organizations. Career spent at Cellular Sales of Knoxville — Verizon's largest authorized retail partner — rising to <strong>Regional President and Managing Partner</strong>. Architected $200M+ ARR markets from zero, delivered back-to-back <strong>112% quota attainment</strong> across 200-person teams, and served as a key leader during the enterprise's scaling to <strong>$3 billion in revenue</strong>.</p>
+    <p style="margin-top:10px;">Architect of <a href="https://pulserevops.com">PULSE RevOps</a> — a free, public revenue operating system — and <a href="https://pulserevops.com/themachine">"The Machine"</a>, an autonomous AI subject-matter expert built exclusively for the Sales RevOps domain. Currently exploring senior revenue leadership engagements.</p>
+  </div>
+
+  <div class="section">
+    <h2>Around the Web</h2>
+    <div class="web-links">
+      <a class="web-link" href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="web-link" href="https://pulserevops.com" target="_blank" rel="noopener">PULSE RevOps ↗</a>
+      <a class="web-link" href="https://theexecutivereview.org/" target="_blank" rel="noopener">The Executive Review ↗</a>
+      <a class="web-link" href="https://pulserevops.com/press/" target="_blank" rel="noopener">Press Coverage ↗</a>
+      <a class="web-link" href="https://pulserevops.com/themachine" target="_blank" rel="noopener">The Machine (live AI) ↗</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/themachine">The Machine</a>
+    <a href="/knowledge.html">Library</a>
+    <a href="/press/">Press</a>
+    <a href="/privacy">Privacy</a>
+  </div>
+  <p>© 2026 Kory J. White · <a href="mailto:koryjordanwhite@gmail.com">koryjordanwhite@gmail.com</a></p>
+</footer>
+
+<!-- Tracking — visit-alert pings Kory on every view, intent-beacon resolves
+     visitor company via IPinfo. URL params (?v=cro-pitch, ?v=board, etc.) get
+     captured in the path field of the intent record. -->
+<script src="/assets/visit-alert.js" defer></script>
+<script src="/assets/intent-beacon.js" defer></script>
+
+<!-- Honeycomb canvas — same pattern as the press release pages -->
+<script>
+(function(){
+  var c = document.getElementById('honeycomb-bg'); if (!c) return;
+  var ctx = c.getContext('2d'), R = window.innerWidth < 600 ? 22 : 34, hH = 0, cols = 0, rows = 0, fm = {};
+  function hexP(cx, cy) { ctx.beginPath(); for (var i = 0; i < 6; i++) { var a = (i*60-30)*Math.PI/180; if (i===0) ctx.moveTo(cx+R*Math.cos(a), cy+R*Math.sin(a)); else ctx.lineTo(cx+R*Math.cos(a), cy+R*Math.sin(a)); } ctx.closePath(); }
+  function resize() { R = window.innerWidth < 600 ? 22 : 34; c.width = window.innerWidth; c.height = window.innerHeight; hH = Math.sqrt(3)*R; cols = Math.ceil(c.width/(R*1.5))+3; rows = Math.ceil(c.height/hH)+3; }
+  function gf(col, row) { var k = col+','+row; if (!fm[k]) { var s = ((col*31+row*17+1000)%100+100)%100; fm[k] = { b: s<15?0.5+Math.random()*0.5:Math.random()*0.15, t: s<15?0.5+Math.random()*0.5:Math.random()*0.15, sp: 0.005+Math.random()*0.02 }; } var f = fm[k]; f.b += (f.t-f.b)*f.sp; if (Math.abs(f.b-f.t)<0.01) { f.t = Math.random()<0.3?0.4+Math.random()*0.6:Math.random()*0.12; f.sp = 0.004+Math.random()*0.018; } return f.b; }
+  function frame() { ctx.clearRect(0,0,c.width,c.height); for (var col = -1; col < cols; col++) { for (var row = -1; row < rows; row++) { var cx = col*R*1.5, cy = row*hH+(col%2!==0?hH/2:0), b = gf(col,row); hexP(cx,cy); ctx.shadowColor = '#FF8C1A'; ctx.shadowBlur = b>0.4?20:5; ctx.strokeStyle = 'rgba(232,113,10,'+(0.06+b*0.55).toFixed(2)+')'; ctx.lineWidth = b>0.4?1.4:0.9; ctx.stroke(); } } requestAnimationFrame(frame); }
+  resize(); window.addEventListener('resize', resize); frame();
+})();
+</script>
+
+</body>
+</html>

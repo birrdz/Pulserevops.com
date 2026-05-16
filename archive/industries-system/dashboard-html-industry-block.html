@@ -1,0 +1,51 @@
+      <!-- GLOBAL INDUSTRY SELECTOR -->
+      <div style="position:relative;display:flex;align-items:center;">
+        <select id="global-industry-select" onchange="applyIndustryPreset(this.value)" style="appearance:none;-webkit-appearance:none;background:rgba(232,113,10,0.08);border:1px solid rgba(232,113,10,0.35);border-radius:8px;color:#E8710A;font-size:0.72rem;font-weight:700;letter-spacing:0.03em;padding:7px 28px 7px 10px;font-family:inherit;cursor:pointer;outline:none;min-width:140px;" aria-label="Select your industry to tailor all sections">
+          <option value="" disabled selected>🏭 Industry…</option>
+          <option value="security">🔒 Home Security</option>
+          <option value="internet">📡 Internet / Broadband</option>
+          <option value="solar">☀️ Solar / Energy</option>
+          <option value="mortgage">🏦 Mortgage / Lending</option>
+          <option value="insurance">🛡️ Insurance</option>
+          <option value="realestate">🏠 Real Estate</option>
+          <option value="saas">💻 SaaS / Software</option>
+          <option value="gym">🏋️ Fitness / Gym</option>
+          <option value="streaming">📺 Streaming / Media</option>
+          <option value="banking">🏧 Banking / Fintech</option>
+          <option value="healthcare">🏥 Healthcare</option>
+          <option value="auto">🚗 Auto / Dealership</option>
+          <option value="pest">🐛 Pest Control</option>
+          <option value="hvac">🌡️ HVAC / Home Services</option>
+          <option value="cable">📶 Cable / Satellite TV</option>
+          <option value="moving">🚚 Moving / Storage</option>
+          <option value="travel">✈️ Travel / Hospitality</option>
+          <option value="legal">⚖️ Legal / Professional</option>
+          <option value="retail">🛍️ Retail / E-commerce</option>
+          <optgroup label="─────────────────"></optgroup>
+          <option value="staffing">👥 Staffing / Recruiting</option>
+          <option value="pharma">💊 Pharmaceutical / Biotech</option>
+          <option value="meddevice">🩺 Medical Device / Equipment</option>
+          <option value="construction">🏗️ Construction / Contracting</option>
+          <option value="edtech">🎓 Education / EdTech</option>
+          <option value="restaurant">🍽️ Restaurant / Food Service</option>
+          <option value="ecommerce">📦 E-commerce / DTC</option>
+          <option value="cybersec">🔐 Cybersecurity / IT Security</option>
+          <option value="logistics">🚛 Logistics / Freight</option>
+          <option value="events">🎪 Events / Entertainment</option>
+          <option value="dental">🦷 Dental / Orthodontics</option>
+          <option value="veterinary">🐾 Veterinary / Pet Services</option>
+          <option value="cleaning">🧹 Cleaning / Facilities</option>
+          <option value="wellness">💆 Wellness / Spa / Beauty</option>
+          <option value="msp">🖥️ IT Services / MSP</option>
+          <option value="media">📊 Digital Advertising / Media</option>
+          <option value="agriculture">🌾 Agriculture / Farm Supply</option>
+          <option value="wholesale">🏭 Wholesale Distribution</option>
+          <option value="printing">🖨️ Printing / Signage</option>
+          <option value="nonprofit">❤️ Nonprofit / Fundraising</option>
+        </select>
+        <span style="position:absolute;right:9px;top:50%;transform:translateY(-50%);pointer-events:none;color:#E8710A;font-size:0.55rem;">▾</span>
+      </div>
+      <button id="ai-goal-set-btn" type="button" onclick="aiGoalSet()" title="Randomize industry preset — fills KPI names + numeric goals across House Goals and Pulse Check"
+        style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(168,85,247,0.18),rgba(232,113,10,0.16));border:1px solid rgba(168,85,247,0.5);border-radius:8px;color:#c084fc;font-size:0.7rem;font-weight:800;letter-spacing:0.06em;padding:7px 12px;cursor:pointer;font-family:inherit;text-transform:uppercase;transition:all 0.2s;"
+        onmouseover="this.style.background='linear-gradient(135deg,rgba(168,85,247,0.32),rgba(232,113,10,0.26))'"
+        onmouseout="this.style.background='linear-gradient(135deg,rgba(168,85,247,0.18),rgba(232,113,10,0.16))'">✦ AI Goal Set</button>

@@ -1,0 +1,134 @@
+  <!-- ═══════════════════════════════════════════════════════════════════
+       AVATAR PICKER — minimal "Select Your Fighter" panel
+       Click to select; selection saved to localStorage.pulse_avatar.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div id="avatar-picker-wrap" style="background:linear-gradient(180deg, rgba(6,11,24,0.92), rgba(10,15,28,0.85)); border-bottom:1px solid rgba(232,113,10,0.22); padding:18px 24px; display:flex; justify-content:center; align-items:center; gap:28px; flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div style="font-family:'Bebas Neue', 'Oswald', sans-serif; font-size:1.3rem; letter-spacing:0.16em; color:#FF8C1A; text-shadow:0 0 14px rgba(232,113,10,0.55); line-height:1;">▸ SELECT YOUR FIGHTER</div>
+      <span style="font-size:0.58rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,229,216,0.45);">click to lock in</span>
+    </div>
+    <div id="avatar-options" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+      <button class="avatar-option" data-avatar="turtle" data-name="Shell-Shock Juggernaut" data-path="Wild Path" style="background:radial-gradient(ellipse 70% 40% at 50% 100%, rgba(168,85,247,0.45), rgba(5,7,10,0.85) 70%); border:2px solid rgba(168,85,247,0.45); border-radius:14px; padding:8px 14px 10px; cursor:pointer; font-family:inherit; transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease; display:flex; flex-direction:column; align-items:center; gap:4px; min-width:170px;">
+        <img src="/assets/avatars/turtle.png" alt="Shell-Shock Juggernaut" style="width:140px; height:74px; object-fit:contain; display:block; filter:drop-shadow(0 6px 12px rgba(0,0,0,0.6)) drop-shadow(0 0 10px rgba(168,85,247,0.4));">
+        <span style="display:none;">Shell-Shock Juggernaut</span>
+        <span style="display:none;">⚔ Wild Path</span>
+      </button>
+    </div>
+  </div>
+  <!-- ═══ Bottom-left character backdrop — translucent fighter from the index character picker.
+       Reads localStorage.pulse_character (e.g. "malewhite", "ballplayerfemale"); resolves to
+       assets/characters/<id>.png. Mirrors the index landing-chooser backdrop (opacity 0.32)
+       but smaller and anchored to the bottom-left so it sits like a watermark across screens. ═══ -->
+  <div id="dash-char-backdrop" style="display:none; position:fixed; right:18px; top:70%; transform:translateY(-50%); z-index:9000; pointer-events:none; opacity:0; transition:opacity 0.45s ease;">
+    <img id="dash-char-backdrop-img" src="" alt="" style="width:clamp(440px, 44vw, 720px); height:auto; display:block; filter:drop-shadow(0 24px 48px rgba(0,0,0,0.55));">
+  </div>
+  <script>
+  (function(){
+    var frame = document.getElementById('dash-char-backdrop');
+    var img = document.getElementById('dash-char-backdrop-img');
+    if (!frame || !img) return;
+    var DEFAULT_CHAR = 'malewhite';
+    function load() {
+      var id = '';
+      try { id = localStorage.getItem('pulse_character') || ''; } catch(e) {}
+      if (!id || !/^[a-zA-Z0-9_-]+$/.test(id)) id = DEFAULT_CHAR;
+      img.onload = function(){ frame.style.opacity = '0.14'; };
+      img.onerror = function(){
+        if (id !== DEFAULT_CHAR) { id = DEFAULT_CHAR; img.src = 'assets/characters/' + id + '.png'; }
+        else { frame.style.opacity = '0'; }
+      };
+      img.src = 'assets/characters/' + id + '.png';
+    }
+    load();
+    window.addEventListener('storage', function(e){ if (e.key === 'pulse_character') load(); });
+    window.addEventListener('hashchange', load);
+  })();
+  </script>
+
+  <!-- Floating top-right pill — shows the currently-selected avatar on every page -->
+  <div id="avatar-pill" style="position:fixed; top:8px; right:14px; z-index:99999; display:none; align-items:center; gap:9px; padding:5px 14px 5px 6px; background:rgba(8,11,18,0.92); border:1.5px solid rgba(168,85,247,0.55); border-radius:100px; box-shadow:0 4px 18px rgba(0,0,0,0.6), 0 0 22px rgba(168,85,247,0.35); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); cursor:pointer; transition:transform 0.18s ease, box-shadow 0.18s ease;" title="Click to change fighter">
+    <img id="avatar-pill-img" src="" alt="" style="width:52px; height:28px; object-fit:contain; flex-shrink:0; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.6));">
+    <span id="avatar-pill-name" style="display:none;">—</span>
+  </div>
+
+  <script>
+  (function(){
+    var KEY = 'pulse_avatar';
+
+    function getOption(id) {
+      return id ? document.querySelector('.avatar-option[data-avatar="' + id + '"]') : null;
+    }
+    function updatePill(id) {
+      var pill = document.getElementById('avatar-pill');
+      var opt = getOption(id);
+      if (!pill) return;
+      if (!opt) { pill.style.display = 'none'; return; }
+      var img = opt.querySelector('img');
+      var nameEl = document.getElementById('avatar-pill-name');
+      var imgEl = document.getElementById('avatar-pill-img');
+      if (imgEl && img) imgEl.src = img.src;
+      if (nameEl) nameEl.textContent = opt.dataset.name || '';
+      pill.style.display = 'flex';
+    }
+    function applySelection(id) {
+      document.querySelectorAll('.avatar-option').forEach(function(b){
+        var sel = b.dataset.avatar === id;
+        b.classList.toggle('selected', sel);
+        if (sel) {
+          b.style.borderColor = '#a855f7';
+          b.style.transform = 'translateY(-2px) scale(1.04)';
+          b.style.boxShadow = '0 0 0 3px rgba(168,85,247,0.25), 0 0 28px rgba(168,85,247,0.5), 0 8px 18px rgba(0,0,0,0.6)';
+        } else {
+          b.style.borderColor = 'rgba(168,85,247,0.45)';
+          b.style.transform = '';
+          b.style.boxShadow = '';
+        }
+      });
+      updatePill(id);
+    }
+
+    document.addEventListener('click', function(e){
+      // Click on the pill itself → scroll to picker
+      var pill = e.target && e.target.closest && e.target.closest('#avatar-pill');
+      if (pill) {
+        var picker = document.getElementById('avatar-picker-wrap');
+        if (picker) picker.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      // Click on an avatar option → select
+      var btn = e.target && e.target.closest && e.target.closest('.avatar-option');
+      if (!btn) return;
+      try { localStorage.setItem(KEY, btn.dataset.avatar); } catch(e){}
+      applySelection(btn.dataset.avatar);
+    });
+    document.addEventListener('mouseover', function(e){
+      var btn = e.target && e.target.closest && e.target.closest('.avatar-option');
+      if (btn && !btn.classList.contains('selected')) {
+        btn.style.transform = 'translateY(-2px)';
+        btn.style.boxShadow = '0 6px 16px rgba(0,0,0,0.5)';
+      }
+      var pill = e.target && e.target.closest && e.target.closest('#avatar-pill');
+      if (pill) {
+        pill.style.transform = 'translateY(-1px) scale(1.03)';
+        pill.style.boxShadow = '0 6px 22px rgba(0,0,0,0.7), 0 0 28px rgba(168,85,247,0.55)';
+      }
+    });
+    document.addEventListener('mouseout', function(e){
+      var btn = e.target && e.target.closest && e.target.closest('.avatar-option');
+      if (btn && !btn.classList.contains('selected')) {
+        btn.style.transform = '';
+        btn.style.boxShadow = '';
+      }
+      var pill = e.target && e.target.closest && e.target.closest('#avatar-pill');
+      if (pill) {
+        pill.style.transform = '';
+        pill.style.boxShadow = '0 4px 18px rgba(0,0,0,0.6), 0 0 22px rgba(168,85,247,0.35)';
+      }
+    });
+
+    try {
+      var saved = localStorage.getItem(KEY);
+      if (saved) applySelection(saved);
+    } catch(e) {}
+  })();
+  </script>

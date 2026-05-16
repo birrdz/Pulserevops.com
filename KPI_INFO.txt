@@ -1,0 +1,13 @@
+KPI_COUNT from originalFile:
+  wrap.appendChild(d);
+      });
+    }
+
+    const KPI_COUNT = 9;
+    // ── TIER → LEVEL CONNECTING LINES ──
+    function drawTierLines() {
+      const wrap = document.getElementById('inline-matrix')?.closest('.matrix-section-wrap');
+      if (!wrap) 
+
+================================================================================
+
