@@ -1092,9 +1092,131 @@
            knowledge-gate first, then switches to Machine Q&A on accept. -->
       <div class="chat-helper" id="chat-helper">Fact-check your ideas here · or ask for help</div>
       <form class="ask-form" id="ask-form" autocomplete="off">
-        <input id="ask-input" type="text" placeholder="Fact-check your ideas here or ask for help" required maxlength="500">
+        <input id="ask-input" type="text" placeholder="Type a question — top matches from the library appear instantly" required maxlength="500">
         <button id="ask-submit" type="submit">→</button>
       </form>
+
+      <!-- Search-first results panel — surfaces top-20 matching library
+           entries as the visitor types. The existing ask-form still works as
+           a fallback ("Ask Pulse anyway") when nothing in the library fits. -->
+      <div id="ms-panel" hidden>
+        <div id="ms-header">
+          <span id="ms-count">0 matches</span>
+          <button id="ms-ask-anyway" type="button">Ask Pulse anyway →</button>
+        </div>
+        <div id="ms-results"></div>
+        <div id="ms-empty" hidden>No library matches — hit <b>Ask Pulse anyway</b> to generate a fresh answer.</div>
+      </div>
+      <style>
+        #ms-panel { margin:14px auto 0; max-width:680px; padding:14px 16px; background:rgba(8,12,24,0.85); border:1px solid rgba(34,197,94,0.35); border-radius:12px; box-shadow:0 6px 22px rgba(0,0,0,0.55); }
+        #ms-header { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+        #ms-count { font-size:0.66rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:rgba(123,255,143,0.85); }
+        #ms-ask-anyway { margin-left:auto; background:linear-gradient(180deg,#FF8C1A,#E8710A); border:none; color:#0a0a0a; padding:8px 14px; border-radius:8px; font-family:inherit; font-size:0.7rem; font-weight:900; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; box-shadow:0 2px 6px rgba(232,113,10,0.4); }
+        #ms-ask-anyway:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(232,113,10,0.55); }
+        #ms-results { display:flex; flex-direction:column; gap:6px; max-height:54vh; overflow-y:auto; }
+        .ms-row { display:flex; align-items:baseline; gap:10px; padding:9px 12px; background:rgba(15,22,40,0.7); border:1px solid rgba(255,255,255,0.06); border-radius:8px; text-decoration:none; color:inherit; cursor:pointer; transition:border-color 0.12s, background 0.12s; }
+        .ms-row:hover { border-color:rgba(255,215,64,0.5); background:rgba(15,22,40,0.95); }
+        .ms-row .ms-rank { font-family:'JetBrains Mono','Consolas',monospace; font-size:0.68rem; color:rgba(123,255,143,0.6); min-width:22px; }
+        .ms-row .ms-q { flex:1; font-size:0.88rem; color:#e5edff; line-height:1.35; }
+        .ms-row .ms-badge { font-size:0.58rem; font-weight:900; letter-spacing:0.12em; color:#FFD740; background:rgba(255,215,64,0.12); border:1px solid rgba(255,215,64,0.4); border-radius:99px; padding:2px 7px; white-space:nowrap; }
+        .ms-row .ms-tags { font-size:0.62rem; color:rgba(180,210,255,0.55); }
+        #ms-empty { padding:14px; color:rgba(255,237,213,0.7); text-align:center; }
+        #ms-empty b { color:#FF8C1A; }
+        @media (max-width:680px) { #ms-panel { margin:10px 12px 0; } #ms-results { max-height:42vh; } }
+      </style>
+      <script>
+      (function(){
+        var input    = document.getElementById('ask-input');
+        var panel    = document.getElementById('ms-panel');
+        var resultsEl= document.getElementById('ms-results');
+        var emptyEl  = document.getElementById('ms-empty');
+        var countEl  = document.getElementById('ms-count');
+        var anywayBtn= document.getElementById('ms-ask-anyway');
+        var form     = document.getElementById('ask-form');
+        if (!input || !panel || !form) return;
+
+        var STOP = { the:1, a:1, an:1, of:1, for:1, to:1, in:1, on:1, at:1, by:1, with:1, and:1, or:1, is:1, are:1, what:1, how:1, why:1, when:1, who:1, do:1, does:1, you:1, your:1, my:1, i:1, me:1, we:1, can:1, should:1, would:1, will:1 };
+        function tokens(s) {
+          return String(s || '').toLowerCase().replace(/[^a-z0-9 ]+/g,' ').split(/\s+/).filter(function(t){ return t && t.length > 2 && !STOP[t]; });
+        }
+
+        var INDEX = null;          // cached library index
+        var FETCHING = false;
+        function loadIndex(cb) {
+          if (INDEX) return cb(INDEX);
+          if (FETCHING) return;
+          FETCHING = true;
+          fetch('/.netlify/functions/pulse-machine-library-list?recent=2000', { cache: 'force-cache' })
+            .then(function(r){ return r.ok ? r.json() : null; })
+            .then(function(d){
+              INDEX = (d && Array.isArray(d.entries)) ? d.entries : (d && Array.isArray(d.items) ? d.items : []);
+              FETCHING = false;
+              cb(INDEX);
+            })
+            .catch(function(){ FETCHING = false; INDEX = []; cb(INDEX); });
+        }
+
+        function score(entry, qtoks) {
+          if (!qtoks.length) return 0;
+          var qtxt = String(entry.question || '').toLowerCase();
+          var tagSet = (entry.tags || []).map(function(t){ return String(t).toLowerCase(); }).join(' ');
+          var s = 0;
+          qtoks.forEach(function(t){
+            if (qtxt.indexOf(t) !== -1) s += 5;            // title match (heavy)
+            if (tagSet.indexOf(t) !== -1) s += 3;          // tag match
+          });
+          // Phrase boost — full query string appears in question
+          var phrase = qtoks.join(' ');
+          if (phrase.length > 6 && qtxt.indexOf(phrase) !== -1) s += 8;
+          // 10/10 quality nudge — prefer polished answers
+          if ((entry.quality_score || 0) >= 10) s += 2;
+          // Slight bias to newer entries
+          if (entry.ts) s += Math.min(2, (Date.now() - entry.ts) > 0 ? 0 : 2);
+          return s;
+        }
+
+        var debounceT = null;
+        function onInput() {
+          clearTimeout(debounceT);
+          debounceT = setTimeout(runSearch, 180);
+        }
+        function runSearch() {
+          var q = (input.value || '').trim();
+          if (q.length < 2) { panel.hidden = true; return; }
+          loadIndex(function(entries){
+            var qtoks = tokens(q);
+            if (!qtoks.length) { panel.hidden = true; return; }
+            var ranked = entries.map(function(e){ return { e:e, s:score(e, qtoks) }; })
+              .filter(function(x){ return x.s > 0; })
+              .sort(function(a,b){ return b.s - a.s; })
+              .slice(0, 20);
+            panel.hidden = false;
+            countEl.textContent = ranked.length + ' match' + (ranked.length === 1 ? '' : 'es') + ' in the library';
+            emptyEl.hidden = ranked.length > 0;
+            resultsEl.innerHTML = ranked.map(function(x, i){
+              var qs = x.e.quality_score || 0;
+              var badge = qs >= 10 ? '<span class="ms-badge">✓ 10/10</span>' : (qs >= 7 ? '<span class="ms-badge" style="color:#FFB347;border-color:rgba(255,179,71,0.45);background:rgba(255,179,71,0.10);">'+qs+'/10</span>' : '');
+              var tags = (x.e.tags || []).slice(0, 3).map(function(t){ return '#'+t; }).join(' ');
+              return '<a class="ms-row" href="/knowledge.html#'+encodeURIComponent(x.e.id)+'" target="_blank">'
+                + '<span class="ms-rank">'+(i+1)+'</span>'
+                + '<span class="ms-q">' + escapeHtml(x.e.question || '(untitled)') + '<br><span class="ms-tags">'+escapeHtml(tags)+'</span></span>'
+                + badge
+                + '</a>';
+            }).join('');
+          });
+        }
+        function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+
+        input.addEventListener('input', onInput);
+        input.addEventListener('focus', function(){ if (input.value.trim().length >= 2) runSearch(); });
+        anywayBtn.addEventListener('click', function(){
+          // Trigger the existing ask-form submission (live AI answer)
+          panel.hidden = true;
+          if (typeof form.requestSubmit === 'function') form.requestSubmit();
+          else form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+        });
+      })();
+      </script>
 
       <span id="chips" hidden></span>
       <div id="response" aria-live="polite"></div>
