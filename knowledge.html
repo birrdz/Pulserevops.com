@@ -1025,167 +1025,30 @@
   })();
   </script>
 
-  <!-- Side rails removed per owner — only the horizontal ticker remains. -->
-  <style>
-    /* Vertical brand-pill side rails */
-    .cite-rail {
-      position:fixed; top:170px; bottom:0; width:96px; z-index:3;
-      overflow:hidden; pointer-events:none;
-      -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
-      mask-image:linear-gradient(to bottom, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
-    }
-    .cite-rail.left  { left:0;  background:linear-gradient(90deg, rgba(8,12,24,0.85), rgba(8,12,24,0)); }
-    .cite-rail.right { right:0; background:linear-gradient(-90deg, rgba(8,12,24,0.85), rgba(8,12,24,0)); }
-    .cite-rail-track {
-      display:flex; flex-direction:column; gap:10px; padding:14px 8px;
-      width:100%; will-change:transform;
-      animation:railScroll 60s linear infinite;
-    }
-    .cite-rail.right .cite-rail-track { animation-name:railScrollReverse; }
-    .cite-pill {
-      display:flex; align-items:center; justify-content:center;
-      flex-shrink:0; padding:8px 10px;
-      min-height:60px; width:96px;
-      border-radius:10px; overflow:hidden;
-      background:#ffffff;
-      box-shadow:0 2px 8px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.18);
-      pointer-events:auto;
-      text-decoration:none;
-      transition:transform 0.18s ease, box-shadow 0.18s ease;
-    }
-    .cite-pill:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(255,215,64,0.32); }
-    .cite-pill-img {
-      max-width:100%; max-height:44px; object-fit:contain;
-      filter:none;
-    }
-    .cite-pill-text {
-      display:flex; align-items:center; justify-content:center;
-      width:100%; height:44px;
-      font-size:0.74rem; font-weight:900; letter-spacing:0.04em;
-      line-height:1.15; text-align:center;
-      border-radius:6px; padding:0 6px;
-    }
-    @keyframes railScroll        { 0% { transform:translateY(0); } 100% { transform:translateY(-50%); } }
-    @keyframes railScrollReverse { 0% { transform:translateY(-50%); } 100% { transform:translateY(0); } }
-    @media (prefers-reduced-motion: reduce) { .cite-rail-track, .cite-ticker-track { animation:none; } }
-    @media (max-width: 1100px) { .cite-rail { display:none; } }
+    <!-- Cited-in ticker removed. New minimal ticker below. -->
 
-    /* Horizontal ticker — bigger logo pills */
-    .cite-ticker-track .cite-pill {
-      width:130px; min-width:130px; height:60px; min-height:60px;
-      margin-right:12px; padding:8px 12px;
-    }
-    .cite-ticker-track .cite-pill-img { max-height:42px; }
-    .cite-ticker-track .cite-pill-text { height:42px; font-size:0.84rem; }
-  </style>
-
-  <!-- Cited-In ticker — horizontal scrolling marquee, big brand-colored pills,
-       populated by the same JS that builds the side rails. -->
-  <div class="cite-ticker" aria-label="Sources cross-referenced by the library">
-    <div class="cite-ticker-label">📚 Cited in / cross-referenced from</div>
-    <div class="cite-ticker-mask">
-      <div class="cite-ticker-track" id="cite-ticker-track"></div>
+  <!-- Minimal ticker: single McKinsey logo for now. -->
+  <div class="new-ticker" aria-label="Cited in">
+    <div class="new-ticker-label">Cited in</div>
+    <div class="new-ticker-mask">
+      <div class="new-ticker-track">
+        <a class="new-ticker-item" href="https://mckinsey.com" target="_blank" rel="noopener noreferrer" title="McKinsey"><img src="/assets/cited-logos/mckinsey.png" alt="McKinsey"></a>
+        <a class="new-ticker-item" href="https://mckinsey.com" target="_blank" rel="noopener noreferrer" title="McKinsey"><img src="/assets/cited-logos/mckinsey.png" alt="McKinsey"></a>
+      </div>
     </div>
   </div>
   <style>
-    .cite-ticker { max-width:1080px; margin:8px auto 22px; padding:14px 0 16px; background:rgba(15,22,40,0.65); border:1px solid rgba(255,215,64,0.28); border-radius:14px; overflow:hidden; box-shadow:0 4px 18px rgba(0,0,0,0.35); }
-    .cite-ticker-label { font-size:0.66rem; font-weight:900; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,215,64,0.8); text-align:center; margin-bottom:10px; }
-    .cite-ticker-mask { overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%); mask-image:linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%); }
-    .cite-ticker-track { display:flex; align-items:center; gap:0; width:fit-content; animation:citeScroll 60s linear infinite; will-change:transform; }
-    .cite-ticker-track:hover { animation-play-state:paused; }
-    @keyframes citeScroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+    .new-ticker { max-width:1080px; margin:8px auto 22px; padding:14px 0 16px; background:rgba(15,22,40,0.65); border:1px solid rgba(255,215,64,0.28); border-radius:14px; overflow:hidden; box-shadow:0 4px 18px rgba(0,0,0,0.35); }
+    .new-ticker-label { font-size:0.66rem; font-weight:900; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,215,64,0.8); text-align:center; margin-bottom:10px; }
+    .new-ticker-mask { overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%); mask-image:linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%); }
+    .new-ticker-track { display:flex; align-items:center; gap:36px; width:fit-content; padding:0 24px; animation:newScroll 18s linear infinite; will-change:transform; }
+    .new-ticker-track:hover { animation-play-state:paused; }
+    .new-ticker-item { display:flex; align-items:center; justify-content:center; padding:8px 18px; background:#fff; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.45); height:60px; min-width:140px; transition:transform 0.18s ease; }
+    .new-ticker-item:hover { transform:translateY(-2px); }
+    .new-ticker-item img { max-height:44px; max-width:180px; object-fit:contain; display:block; }
+    @keyframes newScroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .new-ticker-track { animation:none; } }
   </style>
-
-  <script>
-  /* Brand registry — each source has: short label, brand-colored text fallback
-     palette (bg, fg, optional font), AND a canonical domain so Clearbit Logo
-     API serves the real logo. Pill renders as <img> with onerror fallback to
-     the brand-colored text pill (gov + niche brands often don't resolve in
-     Clearbit). */
-  (function(){
-    // [label, bgColor, fgColor, domain (or null), optionalFont]
-    // [label, bgColor, fgColor, domain, slug-for-local-logo-file?, optionalFont]
-    // Trimmed to 5 confirmed sources with locally-hosted logos.
-    var SOURCES = [
-      ['BLS',        '#112e51', '#ffffff', 'bls.gov',       'bls'],
-      ['IBISWorld',  '#E8710A', '#ffffff', 'ibisworld.com', 'ibisworld'],
-      ['McKinsey',   '#003A70', '#ffffff', 'mckinsey.com',  'mckinsey'],
-      ['HBR',        '#A12830', '#ffffff', 'hbr.org',       'hbr'],
-      ['SBA',        '#002F6C', '#ffffff', 'sba.gov',       'sba'],
-    ];
-
-    function buildPill(s) {
-      var label = s[0], bg = s[1], fg = s[2], domain = s[3], slug = s[4], font = s[5];
-      // Wrapper carries fallback style; <img> hides text on successful load
-      var pill = document.createElement('a');
-      pill.className = 'cite-pill';
-      pill.target = '_blank';
-      pill.rel = 'noopener noreferrer';
-      if (domain) pill.href = 'https://' + domain;
-      pill.style.background = '#ffffff'; // white card for logos
-      pill.title = label;
-
-      // Text fallback (shown until image loads OR if image fails)
-      var txt = document.createElement('span');
-      txt.className = 'cite-pill-text';
-      txt.style.background = bg;
-      txt.style.color = fg;
-      if (font) txt.style.fontFamily = font;
-      txt.textContent = label;
-      pill.appendChild(txt);
-
-      if (domain || slug) {
-        // Source priority: local file in /assets/cited-logos/ first (svg, then png),
-        // then network logo services, then favicon, then text fallback.
-        var sources = [];
-        if (slug) {
-          sources.push('/assets/cited-logos/' + slug + '.svg');
-          sources.push('/assets/cited-logos/' + slug + '.png');
-        }
-        if (domain) {
-          sources.push('https://cdn.brandfetch.io/' + domain + '/w/180/h/60');
-          sources.push('https://logo.clearbit.com/' + domain + '?size=120');
-          sources.push('https://www.google.com/s2/favicons?domain=' + domain + '&sz=128');
-        }
-        var img = document.createElement('img');
-        img.alt = label;
-        img.loading = 'lazy';
-        img.className = 'cite-pill-img';
-        img.style.display = 'none';
-        var sourceIdx = 0;
-        function tryNext() {
-          if (sourceIdx >= sources.length) { img.remove(); return; }
-          img.src = sources[sourceIdx++];
-        }
-        img.onload = function(){
-          // Reject tiny error images (e.g. Clearbit 1x1 transparent on 404)
-          if (img.naturalWidth < 12 || img.naturalHeight < 12) {
-            tryNext();
-            return;
-          }
-          img.style.display = 'block';
-          txt.style.display = 'none';
-        };
-        img.onerror = tryNext;
-        pill.appendChild(img);
-        tryNext();
-      }
-      return pill;
-    }
-
-    function populate(trackEl, list, dup) {
-      if (!trackEl) return;
-      var frag = document.createDocumentFragment();
-      list.forEach(function(s){ frag.appendChild(buildPill(s)); });
-      if (dup) list.forEach(function(s){ frag.appendChild(buildPill(s)); });
-      trackEl.appendChild(frag);
-    }
-
-    document.addEventListener('DOMContentLoaded', function(){
-      populate(document.getElementById('cite-ticker-track'), SOURCES, true);
-    });
-  })();
-  </script>
 
   <div class="filter-bar">
     <input id="q-search" type="text" placeholder="Search the library — comp, ramp, win rate, vendor names…">
