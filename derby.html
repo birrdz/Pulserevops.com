@@ -211,12 +211,18 @@
 <script type="importmap">
 {
   "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+    "three":      "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
   }
 }
 </script>
 <script type="module">
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass }     from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 // ════════════════════════════════════════════════════════════════════════
 // Pulse Derby — 3D horse race with stat-driven simulation + betting.
@@ -313,9 +319,30 @@ function decimalToAmerican(d) {
 // ──────────────────────────────────────────────────────────────────────
 // Three.js scene
 // ──────────────────────────────────────────────────────────────────────
-let scene, camera, renderer, clock;
+let scene, camera, renderer, composer, clock;
 let trackGroup, horseMeshes = [], grandstandGroup;
 let cameraTargetMode = 'wide'; // 'wide' or 'lead'
+
+// Real horse GLB from three.js's public examples assets (CC0).
+// Pre-rigged with a gallop morph-target animation we'll drive via AnimationMixer.
+let LOADED_HORSE = null;
+let LOADED_HORSE_CLIP = null;
+async function loadHorseModel() {
+  const url = 'https://threejs.org/examples/models/gltf/Horse.glb';
+  return new Promise((resolve) => {
+    const loader = new GLTFLoader();
+    loader.load(url, (gltf) => {
+      LOADED_HORSE = gltf.scene;
+      LOADED_HORSE_CLIP = gltf.animations && gltf.animations[0] ? gltf.animations[0] : null;
+      // The original mesh is enormous — base scale to fit our 2-3m horse footprint.
+      // It also faces +Z by default; we'll rotate clones to face +X to match our track.
+      resolve(true);
+    }, undefined, (err) => {
+      console.warn('horse model load failed, using procedural fallback', err);
+      resolve(false);
+    });
+  });
+}
 
 function initThree() {
   scene = new THREE.Scene();
@@ -354,8 +381,19 @@ function initThree() {
   });
   scene.add(new THREE.Mesh(skyGeo, skyMat));
 
+  // Environment map for nicer PBR reflections (RoomEnvironment is built in)
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+
+  // Bloom postprocessing — makes the jockey silks + finish line glow cinematically
+  composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.55, 0.6, 0.9);
+  composer.addPass(bloom);
+
   buildTrack();
   buildGrandstand();
+  buildStartGates();
   buildHorses();
 
   clock = new THREE.Clock();
@@ -454,70 +492,344 @@ function buildTrack() {
 
 function buildGrandstand() {
   grandstandGroup = new THREE.Group();
-  // Big stylized box behind the finish line
-  const standGeo = new THREE.BoxGeometry(80, 14, 18);
-  const standMat = new THREE.MeshStandardMaterial({ color: 0x3a4a6a, roughness: 0.7 });
-  const stand = new THREE.Mesh(standGeo, standMat);
-  stand.position.set(0, 7, -(TRACK_RADIUS + 26));
-  stand.castShadow = true;
-  grandstandGroup.add(stand);
-  // Pulse-orange roof accent
-  const roofGeo = new THREE.BoxGeometry(82, 1, 18);
-  const roofMat = new THREE.MeshStandardMaterial({ color: 0xE8710A, emissive: 0xE8710A, emissiveIntensity: 0.3 });
-  const roof = new THREE.Mesh(roofGeo, roofMat);
-  roof.position.set(0, 14.5, -(TRACK_RADIUS + 26));
+  // Tiered stands — 3 rows of bleachers at increasing height behind the finish
+  const standZ = -(TRACK_RADIUS + 22);
+  for (let row = 0; row < 4; row++) {
+    const tier = new THREE.Mesh(
+      new THREE.BoxGeometry(90, 2.5, 4.5),
+      new THREE.MeshStandardMaterial({ color: 0x3a4a6a, roughness: 0.85 })
+    );
+    tier.position.set(0, 1.5 + row * 2.2, standZ - row * 3.0);
+    tier.castShadow = true;
+    tier.receiveShadow = true;
+    grandstandGroup.add(tier);
+  }
+  // Roof — slanted, with pulse-orange accent strip glowing under it
+  const roof = new THREE.Mesh(
+    new THREE.BoxGeometry(94, 0.6, 22),
+    new THREE.MeshStandardMaterial({ color: 0x1a2238, roughness: 0.6 })
+  );
+  roof.position.set(0, 12.5, standZ - 4);
+  roof.rotation.x = -0.18;
   grandstandGroup.add(roof);
+  const roofLight = new THREE.Mesh(
+    new THREE.BoxGeometry(92, 0.3, 1.5),
+    new THREE.MeshBasicMaterial({ color: 0xE8710A })
+  );
+  roofLight.position.set(0, 11.4, standZ + 5);
+  grandstandGroup.add(roofLight);
+
+  // Crowd — many small bobbing boxes in 5 rows across the bleachers
+  const crowd = new THREE.Group();
+  const crowdColors = [0xff5b6b, 0x7BB6FF, 0xFFD740, 0x7BFF8F, 0xC5B5FF, 0xFFB347, 0xff80c8, 0xffffff, 0x39FF14, 0xE8710A];
+  for (let row = 0; row < 4; row++) {
+    const y = 3.0 + row * 2.2;
+    const z = standZ - row * 3.0 + 1.4;
+    const count = 60 - row * 4;
+    for (let i = 0; i < count; i++) {
+      const x = -42 + (84 / count) * i + (Math.random() - 0.5) * 0.8;
+      const head = new THREE.Mesh(
+        new THREE.BoxGeometry(0.45, 0.7, 0.45),
+        new THREE.MeshStandardMaterial({ color: crowdColors[Math.floor(Math.random()*crowdColors.length)], roughness: 0.8 })
+      );
+      head.position.set(x, y, z);
+      head._bobPhase = Math.random() * Math.PI * 2;
+      head._bobBase = y;
+      crowd.add(head);
+    }
+  }
+  grandstandGroup.add(crowd);
+  grandstandGroup._crowd = crowd;
+
+  // Stadium light poles — 4 around the track
+  const polePositions = [
+    [-TRACK_STRAIGHT/2 - 20, 0,  TRACK_RADIUS + 25],
+    [ TRACK_STRAIGHT/2 + 20, 0,  TRACK_RADIUS + 25],
+    [-TRACK_STRAIGHT/2 - 20, 0, -TRACK_RADIUS - 25],
+    [ TRACK_STRAIGHT/2 + 20, 0, -TRACK_RADIUS - 25],
+  ];
+  polePositions.forEach(p => {
+    const pole = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.3, 0.3, 28, 8),
+      new THREE.MeshStandardMaterial({ color: 0x222a3e })
+    );
+    pole.position.set(p[0], 14, p[2]);
+    grandstandGroup.add(pole);
+    // Light head — emissive box, gives the impression of a stadium spotlight
+    const lightHead = new THREE.Mesh(
+      new THREE.BoxGeometry(1.8, 1.0, 1.8),
+      new THREE.MeshBasicMaterial({ color: 0xfff4d4 })
+    );
+    lightHead.position.set(p[0], 28, p[2]);
+    grandstandGroup.add(lightHead);
+    // Actual point light from each pole for ambient bath
+    const pl = new THREE.PointLight(0xfff0c4, 0.5, 250, 1.5);
+    pl.position.set(p[0], 27, p[2]);
+    grandstandGroup.add(pl);
+  });
+
   scene.add(grandstandGroup);
 }
 
+// Start gates — 6 numbered boxes at the start line that animate up (open) when race begins
+let startGatesGroup = null;
+function buildStartGates() {
+  if (startGatesGroup) scene.remove(startGatesGroup);
+  startGatesGroup = new THREE.Group();
+  // Position: at the start of the bottom straight (x = -TRACK_STRAIGHT/2, z varies by lane)
+  for (let i = 0; i < N_HORSES; i++) {
+    const lanePos = trackPosition(0, i);
+    const gate = new THREE.Group();
+    const frame = new THREE.Mesh(
+      new THREE.BoxGeometry(0.4, 3.5, 0.4),
+      new THREE.MeshStandardMaterial({ color: 0x9a9a9a, metalness: 0.6, roughness: 0.4 })
+    );
+    frame.position.y = 1.75;
+    gate.add(frame);
+    const door = new THREE.Mesh(
+      new THREE.BoxGeometry(0.1, 2.2, 1.6),
+      new THREE.MeshStandardMaterial({ color: 0x222a3e, roughness: 0.7 })
+    );
+    door.position.set(0, 1.5, 0.9);
+    gate.add(door);
+    // Numbered plate (top of frame)
+    const plate = new THREE.Mesh(
+      new THREE.BoxGeometry(0.6, 0.6, 0.6),
+      new THREE.MeshStandardMaterial({ color: 0xFFD740, emissive: 0xFFD740, emissiveIntensity: 0.4 })
+    );
+    plate.position.y = 3.8;
+    gate.add(plate);
+    gate.position.set(lanePos.x - 1.5, 0, lanePos.z);
+    gate._closed = true;
+    startGatesGroup.add(gate);
+  }
+  scene.add(startGatesGroup);
+}
+
+// Builds each horse. Uses the loaded GLTF model when available (real animated
+// horse from three.js's public assets, CC0). Falls back to a much-improved
+// procedural horse if the model didn't load.
 function buildHorses() {
-  // Clear any existing
   horseMeshes.forEach(g => scene.remove(g));
   horseMeshes = [];
+
+  if (LOADED_HORSE && LOADED_HORSE_CLIP) {
+    buildHorsesFromModel();
+    return;
+  }
+  buildHorsesProcedural();
+}
+
+function buildHorsesFromModel() {
+  state.horses.forEach(h => {
+    const g = new THREE.Group();
+    // Clone the loaded horse and rescale to ~2.8m long
+    const horse = LOADED_HORSE.clone(true);
+    horse.traverse(n => { if (n.isMesh) { n.castShadow = true; n.receiveShadow = true; }});
+    horse.scale.setScalar(0.018);
+    horse.rotation.y = Math.PI / 2; // face +X (along track direction)
+    horse.position.y = 0;
+    g.add(horse);
+
+    // AnimationMixer for built-in gallop morph clip
+    const mixer = new THREE.AnimationMixer(horse);
+    const action = mixer.clipAction(LOADED_HORSE_CLIP);
+    action.play();
+    action.paused = true; // unpause + speed up when race starts
+    h._mixer = mixer;
+    h._action = action;
+
+    // Saddle blanket overlay in gate color (small floating colored slab on back —
+    // makes each horse identifiable in a dark race without recoloring the model)
+    const blanketMat = new THREE.MeshStandardMaterial({ color: h.color, emissive: h.color, emissiveIntensity: 0.4, roughness: 0.45 });
+    const blanket = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.18, 1.1), blanketMat);
+    blanket.position.set(0.0, 2.0, 0);
+    blanket.castShadow = true;
+    g.add(blanket);
+
+    // Jockey on top of blanket — torso + helmet
+    const jockeyBody = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.85, 0.55), blanketMat);
+    jockeyBody.position.set(0.1, 2.6, 0);
+    jockeyBody.castShadow = true;
+    g.add(jockeyBody);
+    const helmet = new THREE.Mesh(new THREE.SphereGeometry(0.32, 14, 10), blanketMat);
+    helmet.position.set(0.1, 3.18, 0);
+    helmet.castShadow = true;
+    g.add(helmet);
+    // White gate number plate
+    const plate = new THREE.Mesh(
+      new THREE.BoxGeometry(0.4, 0.16, 0.4),
+      new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 0.45 })
+    );
+    plate.position.set(-0.2, 2.1, 0.6);
+    g.add(plate);
+
+    // Ground lane-color glow ring directly under the horse — visible from above
+    const ringGeo = new THREE.RingGeometry(1.0, 1.4, 24);
+    const ringMat = new THREE.MeshBasicMaterial({ color: h.color, transparent: true, opacity: 0.6, side: THREE.DoubleSide });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.y = 0.08;
+    g.add(ring);
+
+    // Dust trail particles (same as procedural — kept)
+    addDustTrail(h);
+
+    h.mesh = g;
+    h._modelGroup = horse;
+    scene.add(g);
+    horseMeshes.push(g);
+  });
+}
+
+function addDustTrail(h) {
+  const dustGeo = new THREE.BufferGeometry();
+  const N = 60;
+  const dustPos = new Float32Array(N * 3);
+  const dustLife = new Float32Array(N);
+  for (let k = 0; k < N; k++) { dustPos[k*3+1] = -100; dustLife[k] = 0; }
+  dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+  const dust = new THREE.Points(dustGeo, new THREE.PointsMaterial({
+    color: 0xc9a677, size: 0.95, transparent: true, opacity: 0.6, sizeAttenuation: true, depthWrite: false,
+  }));
+  scene.add(dust);
+  h._dust = { points: dust, life: dustLife, next: 0 };
+}
+
+function buildHorsesProcedural() {
   state.horses.forEach(h => {
     const g = new THREE.Group();
 
-    // Body
-    const bodyGeo = new THREE.BoxGeometry(2.4, 1.2, 1.0);
-    const bodyMat = new THREE.MeshStandardMaterial({ color: h.color, roughness: 0.6 });
-    const body = new THREE.Mesh(bodyGeo, bodyMat);
-    body.position.y = 1.5;
-    body.castShadow = true;
-    g.add(body);
+    // Coat color material (slight roughness — looks like real coat under sun)
+    const coat = new THREE.MeshStandardMaterial({ color: 0x6b3a1a, roughness: 0.75, metalness: 0.04 });
+    // Most horses are brown/bay/chestnut — but we still want each gate distinct.
+    // Solution: coat = horse-realistic color, but blanket/saddle pad + jockey silks
+    // = the bright gate color. Gives visual ID without making horses look like crayons.
+    const bayPalette = [0x5a2e12, 0x6b3a1a, 0x4a2810, 0x7a4520, 0x3a2010, 0x8a5028, 0x2e1808, 0x6e4528];
+    coat.color.setHex(bayPalette[h.id % bayPalette.length]);
 
-    // Head
-    const headGeo = new THREE.BoxGeometry(0.8, 0.8, 0.7);
-    const head = new THREE.Mesh(headGeo, bodyMat);
-    head.position.set(1.3, 2.0, 0);
+    const accent = new THREE.MeshStandardMaterial({ color: h.color, roughness: 0.5, metalness: 0.1, emissive: h.color, emissiveIntensity: 0.18 });
+    const dark = new THREE.MeshStandardMaterial({ color: 0x0e0a06, roughness: 0.7 });
+
+    // ── Body — long, slightly tapered (using two stacked boxes for taper feel)
+    const torso = new THREE.Mesh(new THREE.BoxGeometry(2.8, 1.05, 0.95), coat);
+    torso.position.y = 1.55;
+    torso.castShadow = true;
+    g.add(torso);
+    // Rump cap (shorter, taller, slightly higher — gives that horse haunch shape)
+    const rump = new THREE.Mesh(new THREE.BoxGeometry(0.95, 1.2, 0.9), coat);
+    rump.position.set(-1.0, 1.6, 0);
+    rump.castShadow = true;
+    g.add(rump);
+    // Chest cap (front of torso, slightly forward-protruding)
+    const chest = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.15, 0.95), coat);
+    chest.position.set(1.05, 1.55, 0);
+    chest.castShadow = true;
+    g.add(chest);
+
+    // ── Saddle blanket (bright gate color, lays on the horse's back)
+    const blanket = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.12, 1.05), accent);
+    blanket.position.set(0.2, 2.15, 0);
+    blanket.castShadow = true;
+    g.add(blanket);
+
+    // ── Neck — angled up and forward from shoulders (~45°)
+    const neck = new THREE.Mesh(new THREE.BoxGeometry(0.55, 1.3, 0.55), coat);
+    neck.position.set(1.65, 2.25, 0);
+    neck.rotation.z = Math.PI / 5; // tilt forward
+    neck.castShadow = true;
+    g.add(neck);
+
+    // ── Head (wedge — thinner front, taller back)
+    const head = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.45, 0.45), coat);
+    head.position.set(2.4, 2.85, 0);
+    head.rotation.z = -0.15;
     head.castShadow = true;
     g.add(head);
+    // Muzzle (smaller, lighter)
+    const muzzle = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.3, 0.36), coat);
+    muzzle.position.set(2.8, 2.7, 0);
+    g.add(muzzle);
 
-    // Mane (darker accent)
-    const maneGeo = new THREE.BoxGeometry(0.5, 0.5, 0.8);
-    const maneMat = new THREE.MeshStandardMaterial({ color: 0x202c3c });
-    const mane = new THREE.Mesh(maneGeo, maneMat);
-    mane.position.set(0.7, 2.0, 0);
-    g.add(mane);
-
-    // Jockey (small bright box on top in different color)
-    const jockeyGeo = new THREE.BoxGeometry(0.7, 0.7, 0.7);
-    const jockeyMat = new THREE.MeshStandardMaterial({ color: h.color, emissive: h.color, emissiveIntensity: 0.4 });
-    const jockey = new THREE.Mesh(jockeyGeo, jockeyMat);
-    jockey.position.set(-0.3, 2.4, 0);
-    jockey.castShadow = true;
-    g.add(jockey);
-
-    // Legs (4 boxes, animated phase-shifted)
-    const legPositions = [[0.9, 0, 0.4],[0.9, 0, -0.4],[-0.9, 0, 0.4],[-0.9, 0, -0.4]];
-    h._legs = [];
-    legPositions.forEach((p, i) => {
-      const legGeo = new THREE.BoxGeometry(0.3, 1.2, 0.3);
-      const leg = new THREE.Mesh(legGeo, bodyMat);
-      leg.position.set(p[0], 0.6, p[2]);
-      leg.castShadow = true;
-      g.add(leg);
-      h._legs.push(leg);
+    // ── Ears (two small triangular boxes on head top)
+    [0.18, -0.18].forEach(z => {
+      const ear = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.28, 4), coat);
+      ear.position.set(2.25, 3.15, z);
+      g.add(ear);
     });
+
+    // ── Mane — dark slab along the neck top
+    const mane = new THREE.Mesh(new THREE.BoxGeometry(0.18, 1.15, 0.62), dark);
+    mane.position.set(1.6, 2.4, 0);
+    mane.rotation.z = Math.PI / 5;
+    g.add(mane);
+    // Forelock between the ears
+    const forelock = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.18, 0.4), dark);
+    forelock.position.set(2.1, 3.08, 0);
+    g.add(forelock);
+
+    // ── Tail — angled-down dark slab from rear
+    const tail = new THREE.Mesh(new THREE.BoxGeometry(0.18, 1.1, 0.4), dark);
+    tail.position.set(-1.55, 1.45, 0);
+    tail.rotation.z = -Math.PI / 4;
+    g.add(tail);
+    h._tail = tail;
+
+    // ── Jockey — body torso (silk color) + helmet (silk color) + arms forward
+    const jockeyBody = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.85, 0.55), accent);
+    jockeyBody.position.set(0.4, 2.85, 0);
+    jockeyBody.castShadow = true;
+    g.add(jockeyBody);
+    const helmet = new THREE.Mesh(new THREE.SphereGeometry(0.34, 14, 10), accent);
+    helmet.position.set(0.4, 3.45, 0);
+    helmet.castShadow = true;
+    g.add(helmet);
+    // Helmet visor (thin dark strip)
+    const visor = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.1, 0.55), dark);
+    visor.position.set(0.5, 3.4, 0);
+    g.add(visor);
+    // Arms reaching for reins
+    const arm = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.18, 0.18), accent);
+    arm.position.set(1.0, 2.85, 0);
+    arm.rotation.z = -0.25;
+    g.add(arm);
+
+    // Gate-number plate on the saddle pad (small bright cube — readable from above)
+    const numPlate = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.15, 0.4), new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 0.4 }));
+    numPlate.position.set(0.1, 2.25, 0.58);
+    g.add(numPlate);
+
+    // ── Legs — 4 thin tall legs, with upper + lower segments for a proper joint
+    h._legs = [];
+    // Order: front-left, front-right, back-left, back-right
+    const legAnchors = [
+      { x:  1.0, z:  0.32 }, // FL
+      { x:  1.0, z: -0.32 }, // FR
+      { x: -0.85, z:  0.32 }, // BL
+      { x: -0.85, z: -0.32 }, // BR
+    ];
+    legAnchors.forEach((a, i) => {
+      const legGroup = new THREE.Group();
+      // Upper leg
+      const upper = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.85, 0.28), coat);
+      upper.position.y = -0.45;
+      upper.castShadow = true;
+      legGroup.add(upper);
+      // Lower leg (hoof segment, slightly darker)
+      const lower = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.8, 0.24), coat);
+      lower.position.y = -1.25;
+      lower.castShadow = true;
+      legGroup.add(lower);
+      // Hoof — small dark cap
+      const hoof = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.16, 0.3), dark);
+      hoof.position.y = -1.7;
+      legGroup.add(hoof);
+      legGroup.position.set(a.x, 1.0, a.z);
+      g.add(legGroup);
+      h._legs.push({ group: legGroup, phase: i * Math.PI / 2 });
+    });
+
+    addDustTrail(h);
 
     h.mesh = g;
     scene.add(g);
@@ -555,6 +867,7 @@ function onResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  if (composer) composer.setSize(window.innerWidth, window.innerHeight);
 }
 
 // ──────────────────────────────────────────────────────────────────────
@@ -635,18 +948,85 @@ window.__newRace = function() {
 function animate() {
   const dt = clock.getDelta();
   if (state.raceActive) stepRace(dt);
+  // Drive built-in horse model gallop animation if present
+  state.horses.forEach(h => {
+    if (h._mixer) {
+      if (state.raceActive) {
+        h._action.paused = false;
+        // Speed the gait with the horse's actual speed (cosmetic but feels right)
+        h._mixer.timeScale = 1.0 + (h.speed - 14) * 0.18;
+      } else {
+        h._action.paused = true;
+      }
+      h._mixer.update(dt);
+    }
+  });
+  // Bob the crowd
+  if (grandstandGroup && grandstandGroup._crowd) {
+    const t = performance.now() * 0.003;
+    grandstandGroup._crowd.children.forEach((c, i) => {
+      if (c._bobBase != null) c.position.y = c._bobBase + Math.sin(t + c._bobPhase) * 0.18;
+    });
+  }
+  // Open the start gates over the first second of the race
+  if (startGatesGroup) {
+    const sinceStart = state.raceActive ? (performance.now() - state.raceStartTime) / 1000 : -1;
+    startGatesGroup.children.forEach((gate, i) => {
+      const target = (sinceStart >= 0 && sinceStart < 1.5) ? sinceStart * 4 : (sinceStart >= 1.5 ? 6 : 0);
+      const door = gate.children[1];
+      if (door) door.position.y = 1.5 + target;
+    });
+  }
   // Update horse mesh positions
   state.horses.forEach(h => {
     if (!h.mesh) return;
     const p = trackPosition(h.x, h.lane);
     h.mesh.position.set(p.x, 0, p.z);
     h.mesh.rotation.y = -p.heading;
-    // Animate legs — bobbing gait
-    if (state.raceActive) {
-      const t = performance.now() * 0.01;
+    // Procedural-leg gallop animation (only if procedural horses; loaded model
+    // is driven by AnimationMixer above).
+    if (state.raceActive && h._legs) {
+      const t = performance.now() * 0.018;
       h._legs.forEach((leg, i) => {
-        leg.position.y = 0.6 + Math.sin(t + h.id + i * 1.5) * 0.15;
+        // Pairs: FL+BR swing together, FR+BL swing together
+        const pair = (i === 0 || i === 3) ? 0 : Math.PI;
+        const swing = Math.sin(t * 2 + h.id * 0.7 + pair);
+        leg.group.position.y = 1.0 + Math.max(0, swing) * 0.35;
+        leg.group.rotation.x = -swing * 0.55; // forward/back swing
       });
+      // Tail wags slightly with motion
+      if (h._tail) h._tail.rotation.z = -Math.PI/4 + Math.sin(t) * 0.12;
+      // Body bob — small vertical oscillation in sync with gait
+      h.mesh.position.y = Math.abs(Math.sin(t * 2 + h.id)) * 0.15;
+      // Dust emission — eject one particle per frame at horse rear, fade & drift
+      const dust = h._dust;
+      if (dust) {
+        const pos = dust.points.geometry.attributes.position.array;
+        // Spawn new particle behind horse
+        const rearX = h.mesh.position.x - Math.cos(-h.mesh.rotation.y) * 1.6;
+        const rearZ = h.mesh.position.z + Math.sin(-h.mesh.rotation.y) * 1.6;
+        const idx = dust.next % 60;
+        pos[idx*3]   = rearX + (Math.random()-0.5) * 0.3;
+        pos[idx*3+1] = 0.3 + Math.random() * 0.2;
+        pos[idx*3+2] = rearZ + (Math.random()-0.5) * 0.3;
+        dust.life[idx] = 1.0;
+        dust.next++;
+        // Fade & drift all particles
+        for (let k = 0; k < 60; k++) {
+          if (dust.life[k] > 0) {
+            dust.life[k] -= dt * 0.85;
+            pos[k*3+1] += dt * 0.6; // rise as it dissipates
+          } else if (pos[k*3+1] > -50) {
+            pos[k*3+1] = -100; // park off-screen
+          }
+        }
+        dust.points.geometry.attributes.position.needsUpdate = true;
+        dust.points.material.opacity = 0.55;
+      }
+    } else if (h._legs) {
+      // Idle: legs at rest, body steady (procedural horses only)
+      h._legs.forEach(leg => { leg.group.position.y = 1.0; leg.group.rotation.x = 0; });
+      if (h.mesh) h.mesh.position.y = 0;
     }
   });
   // Camera
@@ -667,7 +1047,7 @@ function animate() {
   }
   // Update leaderboard
   if (state.raceActive) updateLeaderboard();
-  renderer.render(scene, camera);
+  if (composer) composer.render(); else renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
 
@@ -752,9 +1132,14 @@ document.getElementById('btn-new-race').addEventListener('click', window.__newRa
 // ──────────────────────────────────────────────────────────────────────
 // Boot
 // ──────────────────────────────────────────────────────────────────────
-function boot() {
+async function boot() {
   initThree();
   generateHorses();
+  // Show loading state
+  document.getElementById('paddock').innerHTML =
+    '<h2>🐎 Loading…</h2><div class="sub" style="text-align:center;color:rgba(180,210,255,0.7);">Downloading horse models from three.js asset library…</div>';
+  document.getElementById('paddock').style.display = 'block';
+  await loadHorseModel();
   buildHorses();
   renderPaddock();
 }
