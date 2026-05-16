@@ -343,6 +343,83 @@
     line-height:1.5; border-top:1px solid rgba(57,255,20,0.12); margin-top:10px;
   }
   .sims-note b { color:#7BFF8F; }
+
+  /* Draft Tracker */
+  .draft-tracker {
+    background:linear-gradient(135deg,rgba(57,255,20,0.05),rgba(120,180,255,0.05));
+    border:1px solid rgba(57,255,20,0.4); border-radius:14px;
+    padding:18px 20px; margin-bottom:22px;
+  }
+  .dt-header {
+    display:flex; flex-wrap:wrap; gap:14px; align-items:baseline;
+    border-bottom:1px solid rgba(57,255,20,0.18); padding-bottom:12px; margin-bottom:14px;
+  }
+  .dt-header h2 { margin:0; font-size:1.05rem; color:#7BFF8F; font-weight:900; letter-spacing:0.02em; }
+  .dt-controls { margin-left:auto; display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  .dt-stat { font-size:0.7rem; color:rgba(220,230,255,0.7); font-weight:600; }
+  .dt-stat b { color:#7BFF8F; font-family:'JetBrains Mono','Consolas',monospace; font-size:0.85rem; margin-right:4px; }
+  .dt-reset {
+    background:transparent; border:1px solid rgba(255,107,107,0.4); color:#ff8a8a;
+    border-radius:6px; padding:5px 11px; font-size:0.6rem; font-weight:800;
+    letter-spacing:0.16em; text-transform:uppercase; cursor:pointer;
+  }
+  .dt-reset:hover { background:rgba(255,107,107,0.12); }
+
+  .dt-recommend {
+    background:rgba(8,12,24,0.6); border:1px solid rgba(57,255,20,0.3);
+    border-radius:10px; padding:14px 16px; margin-bottom:14px;
+  }
+  .dt-rec-label { font-size:0.6rem; font-weight:900; letter-spacing:0.18em; text-transform:uppercase; color:rgba(123,255,143,0.7); margin-bottom:6px; }
+  .dt-rec-player { font-size:1.4rem; font-weight:900; color:#7BFF8F; line-height:1.2; margin-bottom:6px; }
+  .dt-rec-reason { font-size:0.78rem; color:rgba(220,230,255,0.75); line-height:1.5; }
+  .dt-rec-reason b { color:#7BFF8F; }
+
+  .dt-roster {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(125px,1fr));
+    gap:8px;
+  }
+  .dt-slot {
+    background:rgba(8,12,24,0.55); border:1px solid rgba(120,180,255,0.2);
+    border-radius:8px; padding:8px 10px; min-height:54px;
+  }
+  .dt-slot.filled { border-color:rgba(57,255,20,0.4); background:rgba(57,255,20,0.05); }
+  .dt-slot-label {
+    font-size:0.6rem; font-weight:900; letter-spacing:0.14em; text-transform:uppercase;
+    color:rgba(180,210,255,0.55); margin-bottom:3px;
+  }
+  .dt-slot.filled .dt-slot-label { color:#7BFF8F; }
+  .dt-slot-player { font-size:0.78rem; font-weight:700; color:#e5edff; line-height:1.25; }
+  .dt-slot-empty { font-size:0.75rem; color:rgba(180,210,255,0.4); font-style:italic; }
+
+  /* Row buttons + drafted styling */
+  .row-btns { display:flex; gap:4px; }
+  .row-btn {
+    border:1px solid; background:transparent; cursor:pointer;
+    border-radius:5px; padding:3px 7px; font-size:0.6rem; font-weight:800;
+    letter-spacing:0.1em; text-transform:uppercase; transition:all 0.12s;
+  }
+  .row-btn-mine { border-color:rgba(57,255,20,0.4); color:#7BFF8F; }
+  .row-btn-mine:hover { background:rgba(57,255,20,0.12); }
+  .row-btn-taken { border-color:rgba(180,210,255,0.3); color:rgba(180,210,255,0.7); }
+  .row-btn-taken:hover { background:rgba(180,210,255,0.08); }
+  .row-btn-undo { border-color:rgba(255,107,107,0.4); color:#ff8a8a; padding:3px 6px; font-size:0.62rem; }
+  .row-btn-undo:hover { background:rgba(255,107,107,0.12); }
+  tr.row-mine td { background:rgba(57,255,20,0.06); }
+  tr.row-mine .nm-cell::before { content:'★ '; color:#7BFF8F; }
+  tr.row-taken td { opacity:0.4; text-decoration:line-through; }
+  tr.row-taken .row-btn { text-decoration:none; opacity:1.5; }
+
+  /* Load more */
+  .load-more-row { text-align:center; padding:18px 12px !important; background:rgba(15,22,40,0.7); }
+  .load-more-btn {
+    background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff;
+    border:none; border-radius:8px; padding:10px 26px;
+    font-weight:800; letter-spacing:0.14em; text-transform:uppercase;
+    font-size:0.72rem; cursor:pointer;
+    transition:transform 0.12s, box-shadow 0.12s;
+  }
+  .load-more-btn:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(59,130,246,0.45); }
+  .load-more-meta { font-size:0.65rem; color:rgba(180,210,255,0.5); margin-top:6px; }
 </style>
 </head>
 <body>
@@ -523,6 +600,29 @@
     </div>
   </details>
 
+  <!-- My Draft Tracker — fill your roster as you pick, mark other teams'
+       picks as "taken" so the page narrows to actually-available players.
+       Recommendation engine reads your roster + what's still on the board
+       and surfaces who to draft next. State persists in localStorage. -->
+  <div class="draft-tracker">
+    <div class="dt-header">
+      <h2>🎯 My Draft — live recommendation engine</h2>
+      <div class="dt-controls">
+        <span class="dt-stat"><b id="dt-mine-count">0</b> on my roster</span>
+        <span class="dt-stat"><b id="dt-taken-count">0</b> off the board</span>
+        <button class="dt-reset" id="dt-reset">Reset draft</button>
+      </div>
+    </div>
+
+    <div class="dt-recommend" id="dt-recommend">
+      <div class="dt-rec-label">Recommended next pick</div>
+      <div class="dt-rec-player" id="dt-rec-player">—</div>
+      <div class="dt-rec-reason" id="dt-rec-reason">Mark your first pick and the engine will surface options based on what's left on the board and what your roster still needs.</div>
+    </div>
+
+    <div class="dt-roster" id="dt-roster"></div>
+  </div>
+
   <div class="filters">
     <span class="pos-chip active" data-pos="ALL">All</span>
     <span class="pos-chip" data-pos="QB">QB</span>
@@ -545,7 +645,273 @@
 
 <script>
 (function(){
-  var state = { all: [], filtered: [], pos: 'ALL', search: '' };
+  var state = { all: [], filtered: [], pos: 'ALL', search: '', visibleCount: 100 };
+
+  // ──────────────────────────────────────────────────────────────────────
+  // Draft tracker state — persists in localStorage so refreshes don't wipe.
+  // Two sets:
+  //   mine[]   = players I drafted (also in taken)
+  //   taken[]  = ANY player off the board (mine + opponents')
+  // ──────────────────────────────────────────────────────────────────────
+  var DRAFT_KEY = 'pulse_ff_draft_v1';
+  var draft = loadDraft();
+
+  function loadDraft() {
+    try {
+      var raw = localStorage.getItem(DRAFT_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch(_) {}
+    return { mine: [], taken: [] };
+  }
+  function saveDraft() {
+    try { localStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); } catch(_) {}
+  }
+  function isMine(name)  { return draft.mine.indexOf(name)  !== -1; }
+  function isTaken(name) { return draft.taken.indexOf(name) !== -1; }
+  function takePlayer(name, mine) {
+    if (draft.taken.indexOf(name) === -1) draft.taken.push(name);
+    if (mine && draft.mine.indexOf(name) === -1) draft.mine.push(name);
+    saveDraft();
+    refreshAfterDraftChange();
+  }
+  function undoPlayer(name) {
+    draft.taken = draft.taken.filter(function(n){ return n !== name; });
+    draft.mine  = draft.mine.filter(function(n){ return n !== name; });
+    saveDraft();
+    refreshAfterDraftChange();
+  }
+  function resetDraft() {
+    if (!confirm('Clear all draft picks (mine + taken)?')) return;
+    draft = { mine: [], taken: [] };
+    saveDraft();
+    state.visibleCount = 100;
+    refreshAfterDraftChange();
+  }
+
+  function refreshAfterDraftChange() {
+    document.getElementById('dt-mine-count').textContent = draft.mine.length;
+    document.getElementById('dt-taken-count').textContent = draft.taken.length;
+    renderRoster();
+    renderRecommendation();
+    applyFilter(); // re-render table
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // Roster model — 10-team standard starters + 6 bench. FLEX accepts RB/WR/TE.
+  // ──────────────────────────────────────────────────────────────────────
+  var ROSTER_SLOTS = [
+    { id:'QB',   label:'QB',   accept:['QB'] },
+    { id:'RB1',  label:'RB1',  accept:['RB'] },
+    { id:'RB2',  label:'RB2',  accept:['RB'] },
+    { id:'WR1',  label:'WR1',  accept:['WR'] },
+    { id:'WR2',  label:'WR2',  accept:['WR'] },
+    { id:'TE',   label:'TE',   accept:['TE'] },
+    { id:'FLEX', label:'FLEX', accept:['RB','WR','TE'] },
+    { id:'K',    label:'K',    accept:['K'] },
+    { id:'DST',  label:'DST',  accept:['DST'] },
+    { id:'BN1',  label:'BN1',  accept:['QB','RB','WR','TE'] },
+    { id:'BN2',  label:'BN2',  accept:['QB','RB','WR','TE'] },
+    { id:'BN3',  label:'BN3',  accept:['QB','RB','WR','TE'] },
+    { id:'BN4',  label:'BN4',  accept:['QB','RB','WR','TE'] },
+    { id:'BN5',  label:'BN5',  accept:['QB','RB','WR','TE'] },
+    { id:'BN6',  label:'BN6',  accept:['QB','RB','WR','TE'] },
+  ];
+
+  function fillRosterSlots() {
+    // Greedy fill: walk my drafted order, place each into the FIRST slot it fits.
+    var slots = ROSTER_SLOTS.map(function(s){ return Object.assign({ player:null }, s); });
+    draft.mine.forEach(function(name){
+      var p = byName(name);
+      if (!p) return;
+      for (var i = 0; i < slots.length; i++) {
+        if (!slots[i].player && slots[i].accept.indexOf(p.pos) !== -1) {
+          slots[i].player = p;
+          break;
+        }
+      }
+    });
+    return slots;
+  }
+
+  function byName(name) {
+    for (var i = 0; i < state.all.length; i++) if (state.all[i].name === name) return state.all[i];
+    return null;
+  }
+
+  function renderRoster() {
+    var slots = fillRosterSlots();
+    document.getElementById('dt-roster').innerHTML = slots.map(function(s){
+      var filled = !!s.player;
+      var body = filled
+        ? '<div class="dt-slot-player">' + escapeHtml(s.player.name) + '<br><span style="color:rgba(180,210,255,0.5);font-size:0.7rem;">' + escapeHtml(s.player.pos + ' · ' + s.player.team) + '</span></div>'
+        : '<div class="dt-slot-empty">empty</div>';
+      return '<div class="dt-slot ' + (filled ? 'filled' : '') + '">'
+        + '<div class="dt-slot-label">' + s.label + '</div>'
+        + body + '</div>';
+    }).join('');
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // Recommendation engine — pick the highest-ADP available player who
+  // fills your top remaining need. Standard scoring priority:
+  //   RB1/RB2 > WR1/WR2 > elite TE > FLEX > QB > BN > K > DST
+  // With tier-break awareness (recommend the position with the steepest
+  // drop from "best available" to "2nd-best available").
+  // ──────────────────────────────────────────────────────────────────────
+  var POS_PRIORITY = ['RB','WR','TE','QB','K','DST'];
+
+  function bestAvailableAt(pos) {
+    for (var i = 0; i < state.all.length; i++) {
+      var p = state.all[i];
+      if (p.pos === pos && !isTaken(p.name)) return p;
+    }
+    return null;
+  }
+  function nthAvailableAt(pos, n) {
+    var c = 0;
+    for (var i = 0; i < state.all.length; i++) {
+      var p = state.all[i];
+      if (p.pos === pos && !isTaken(p.name)) {
+        if (++c === n) return p;
+      }
+    }
+    return null;
+  }
+
+  function rosterNeeds() {
+    var slots = fillRosterSlots();
+    var counts = { QB:0, RB:0, WR:0, TE:0, K:0, DST:0 };
+    draft.mine.forEach(function(name){
+      var p = byName(name);
+      if (p && counts.hasOwnProperty(p.pos)) counts[p.pos]++;
+    });
+    var startersFilled = { QB:0, RB:0, WR:0, TE:0, K:0, DST:0, FLEX:0 };
+    slots.forEach(function(s){
+      if (!s.player) return;
+      if (s.id === 'FLEX') startersFilled.FLEX++;
+      else if (startersFilled.hasOwnProperty(s.id)) startersFilled[s.id]++;
+      else if (s.id.indexOf('RB') === 0) startersFilled.RB++;
+      else if (s.id.indexOf('WR') === 0) startersFilled.WR++;
+    });
+    return { posCounts: counts, startersFilled: startersFilled, totalDrafted: draft.mine.length };
+  }
+
+  function recommend() {
+    if (!state.all.length) return null;
+    var needs = rosterNeeds();
+    var totalDrafted = needs.totalDrafted;
+    var posCounts = needs.posCounts;
+
+    // Required starter counts at each position (10-team standard, w/ FLEX flexibility)
+    var REQUIRED = { QB:1, RB:2, WR:2, TE:1, K:1, DST:1 };
+    // Compute "remaining starter need" per position. FLEX is satisfied by any
+    // extra RB/WR/TE above the required count.
+    var need = {};
+    POS_PRIORITY.forEach(function(p){
+      need[p] = Math.max(0, REQUIRED[p] - (posCounts[p] || 0));
+    });
+    // Did the user satisfy FLEX yet? FLEX needs total RB+WR+TE >= 5 (2+2+1+flex)
+    var flexFilled = ((posCounts.RB || 0) + (posCounts.WR || 0) + (posCounts.TE || 0)) >= 5;
+
+    // Pick the highest-need position with available player.
+    // Rules:
+    //  1) If any starter slot is unfilled, prefer that position
+    //  2) Within starter slots, weight RB > WR > TE > QB > K > DST
+    //  3) Don't recommend K/DST until round 14+ (totalDrafted >= 13)
+    //  4) If all starters + FLEX done, recommend best bench depth player
+    //     (RB or WR with highest upside)
+    //  5) Tier-break tiebreaker: if two positions both need filling, pick
+    //     the one where (best - 2nd best) is largest (steepest cliff).
+    var candidates = [];
+    POS_PRIORITY.forEach(function(p){
+      if (need[p] > 0) {
+        var best = bestAvailableAt(p);
+        if (best) {
+          // Suppress K/DST until late
+          if ((p === 'K' || p === 'DST') && totalDrafted < 13) return;
+          candidates.push({ pos: p, player: best, priority: POS_PRIORITY.indexOf(p) });
+        }
+      }
+    });
+
+    // No starter needs? Recommend FLEX or best bench
+    if (!candidates.length) {
+      if (!flexFilled) {
+        ['RB','WR','TE'].forEach(function(p){
+          var best = bestAvailableAt(p);
+          if (best) candidates.push({ pos: p, player: best, priority: POS_PRIORITY.indexOf(p) });
+        });
+      } else {
+        // Pure bench — best available regardless of position (excluding K/DST already)
+        for (var i = 0; i < state.all.length; i++) {
+          var p = state.all[i];
+          if (!isTaken(p.name) && p.pos !== 'K' && p.pos !== 'DST') {
+            candidates.push({ pos: p.pos, player: p, priority: 99 });
+            break;
+          }
+        }
+      }
+    }
+
+    if (!candidates.length) return null;
+
+    // Sort: priority asc, then tier-break (best - 2nd-best) desc, then ADP asc
+    candidates.sort(function(a, b){
+      if (a.priority !== b.priority) return a.priority - b.priority;
+      var aSecond = nthAvailableAt(a.pos, 2);
+      var bSecond = nthAvailableAt(b.pos, 2);
+      var aBreak = aSecond ? (aSecond.rank - a.player.rank) : 0;
+      var bBreak = bSecond ? (bSecond.rank - b.player.rank) : 0;
+      if (aBreak !== bBreak) return bBreak - aBreak;
+      return a.player.rank - b.player.rank;
+    });
+
+    var top = candidates[0];
+    return {
+      player: top.player,
+      pos: top.pos,
+      reason: buildReason(top, needs, candidates),
+    };
+  }
+
+  function buildReason(top, needs, candidates) {
+    var pos = top.pos;
+    var posCounts = needs.posCounts;
+    var totalDrafted = needs.totalDrafted;
+    var second = nthAvailableAt(pos, 2);
+    var tierBreak = second ? (second.rank - top.player.rank) : 0;
+
+    var parts = [];
+    parts.push('You have <b>' + (posCounts[pos] || 0) + ' ' + pos + '</b>' + (posCounts[pos] === 1 ? '' : 's') + ' on your roster.');
+    if (totalDrafted === 0) {
+      parts.push('Round 1 in standard scoring rewards locking in a workhorse RB or alpha WR — ' + escapeHtml(top.player.name) + ' is the best ' + pos + ' on the board.');
+    } else if (tierBreak >= 8) {
+      parts.push('Tier break alert: the next ' + pos + ' (' + escapeHtml(second.name) + ') is <b>' + tierBreak + ' picks lower</b>. Grab ' + escapeHtml(top.player.name) + ' before the cliff.');
+    } else if (candidates.length > 1) {
+      var alt = candidates[1];
+      parts.push('Close call vs. ' + escapeHtml(alt.player.name) + ' (' + alt.pos + ') — engine picked ' + pos + ' because your starter slot is still open.');
+    } else {
+      parts.push(escapeHtml(top.player.name) + ' is the best available ' + pos + ' and fills a starter slot.');
+    }
+    if (totalDrafted >= 12 && pos !== 'K' && pos !== 'DST') {
+      parts.push('Save K + DST for the last 2 rounds.');
+    }
+    return parts.join(' ');
+  }
+
+  function renderRecommendation() {
+    var rec = recommend();
+    if (!rec) {
+      document.getElementById('dt-rec-player').textContent = 'Roster complete — nothing left to recommend';
+      document.getElementById('dt-rec-reason').textContent = 'You filled all 15 slots. Good luck this season.';
+      return;
+    }
+    document.getElementById('dt-rec-player').innerHTML =
+      escapeHtml(rec.player.name) + ' <span style="color:rgba(180,210,255,0.55);font-size:0.85rem;font-weight:600;">(' + rec.player.pos + ' · ' + rec.player.team + ' · ADP ' + rec.player.adp_round_pick + ')</span>';
+    document.getElementById('dt-rec-reason').innerHTML = rec.reason;
+  }
+
+  document.getElementById('dt-reset').addEventListener('click', resetDraft);
 
   function renderTable(rows) {
     var wrap = document.getElementById('table-wrap');
@@ -553,11 +919,31 @@
       wrap.innerHTML = '<div class="empty">No players match that filter.</div>';
       return;
     }
+
+    // Show only the visible window of NON-drafted players, plus all drafted
+    // ones interleaved at their natural position. "Load more" reveals more
+    // non-drafted rows until everyone is shown.
+    var availableShown = 0;
+    var shownRows = [];
+    for (var i = 0; i < rows.length; i++) {
+      var p = rows[i];
+      var taken = isTaken(p.name);
+      if (taken) {
+        shownRows.push(p); // always show drafted in-place if they're in the visible range
+      } else {
+        if (availableShown >= state.visibleCount) break;
+        shownRows.push(p);
+        availableShown++;
+      }
+    }
+    var totalAvailableInFilter = rows.filter(function(p){ return !isTaken(p.name); }).length;
+    var moreAvailable = totalAvailableInFilter - availableShown;
+
     var html = '<table><thead><tr>'
       + '<th>#</th><th>Player</th><th>Pos</th><th>Team</th><th>Bye</th>'
-      + '<th>ADP</th><th>Range</th><th>Δ</th>'
+      + '<th>ADP</th><th>Δ</th><th>Pick</th>'
       + '</tr></thead><tbody>';
-    rows.forEach(function(p){
+    shownRows.forEach(function(p){
       var deltaCell = '<span class="delta-cell delta-flat">·</span>';
       if (p.delta != null && p.delta !== 0) {
         var cls = p.delta > 0 ? 'delta-up' : 'delta-dn';
@@ -566,20 +952,53 @@
       } else if (p.prev_rank === null || p.prev_rank === undefined) {
         deltaCell = '<span class="delta-cell delta-flat">new</span>';
       }
-      html += '<tr>'
+      var mine  = isMine(p.name);
+      var taken = isTaken(p.name);
+      var rowCls = mine ? 'row-mine' : taken ? 'row-taken' : '';
+      var btns;
+      if (taken) {
+        btns = '<button class="row-btn row-btn-undo" data-act="undo" data-name="' + escapeAttr(p.name) + '">undo</button>';
+      } else {
+        btns = '<button class="row-btn row-btn-mine"  data-act="mine"  data-name="' + escapeAttr(p.name) + '">mine</button>'
+             + '<button class="row-btn row-btn-taken" data-act="taken" data-name="' + escapeAttr(p.name) + '">taken</button>';
+      }
+      html += '<tr class="' + rowCls + '">'
         + '<td class="rk">' + p.rank + '</td>'
         + '<td class="nm-cell">' + escapeHtml(p.name) + '</td>'
         + '<td><span class="pos-cell pos-' + p.pos + '">' + p.pos + '</span></td>'
         + '<td class="team-cell">' + escapeHtml(p.team || '') + '</td>'
         + '<td class="bye-cell">' + (p.bye || '—') + '</td>'
         + '<td class="adp-cell">' + (p.adp_round_pick || (p.adp != null ? p.adp.toFixed(1) : '—')) + '</td>'
-        + '<td class="range-cell">' + (p.high && p.low ? p.high + '–' + p.low : '—') + '</td>'
         + '<td>' + deltaCell + '</td>'
+        + '<td><div class="row-btns">' + btns + '</div></td>'
         + '</tr>';
     });
+    if (moreAvailable > 0) {
+      html += '<tr><td colspan="8" class="load-more-row">'
+        + '<button class="load-more-btn" id="load-more-btn">Load more (' + moreAvailable + ' available)</button>'
+        + '<div class="load-more-meta">Showing top ' + availableShown + ' of ' + totalAvailableInFilter + ' available. ' + (rows.length - totalAvailableInFilter) + ' already drafted in this filter.</div>'
+        + '</td></tr>';
+    }
     html += '</tbody></table>';
     wrap.innerHTML = html;
+
+    // Wire row buttons
+    wrap.querySelectorAll('.row-btn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        var act = btn.getAttribute('data-act');
+        var name = btn.getAttribute('data-name');
+        if (act === 'mine')       takePlayer(name, true);
+        else if (act === 'taken') takePlayer(name, false);
+        else if (act === 'undo')  undoPlayer(name);
+      });
+    });
+    var lm = document.getElementById('load-more-btn');
+    if (lm) lm.addEventListener('click', function(){
+      state.visibleCount += 50;
+      applyFilter();
+    });
   }
+  function escapeAttr(s) { return String(s || '').replace(/"/g, '&quot;'); }
 
   function renderMovers(movers) {
     if (!movers || (!movers.risers.length && !movers.fallers.length)) return;
@@ -638,7 +1057,7 @@
           return;
         }
         state.all = d.rankings || [];
-        applyFilter();
+        refreshAfterDraftChange(); // paints roster + recommendation + table
         renderMovers(d.movers);
         // Updated stamp
         document.getElementById('updated-stamp').innerHTML =
@@ -724,17 +1143,23 @@
 // championship-roster scrapes. Data reflects what won the 2025 season and
 // projects forward to 2026 strategy (rookie class + free agency adjusted).
 // ════════════════════════════════════════════════════════════════════════
+// v2: incorporates 2026 NFL Draft results (Apr 2026). Notable rookies in
+// 2026 landing spots: Jeremiyah Love (ARI RB, #3 overall — top-5 RB upside),
+// Carnell Tate (TEN WR, #4 overall with Cam Ward — true WR1 role),
+// Jordyn Tyson (NO WR, top-10), Makai Lemon (PHI WR), KC Concepcion
+// (CLE WR), Omar Cooper Jr. (NYJ WR), Fernando Mendoza (LV QB),
+// Ty Simpson (LAR QB, #13 overall — Stafford heir).
 const SLOT_PLAYBOOK = {
-  1:  { firstPick: 'RB', firstPickRate: '78%', tier: ['Saquon Barkley','Bijan Robinson','Christian McCaffrey'], winnerBuild: 'Elite RB → RB or top-tier WR → RB. In 2025, 51% of #1 picks went RB-RB through round 2 and outperformed any WR-first build. Standard scoring rewards workhorse RB touches more than PPR.', trap: 'Reaching for a WR at #1 in standard. Chase and Jefferson are tier-1 humans but the positional scarcity math favors locking down two RB1s when you have the choice.' },
-  2:  { firstPick: 'RB', firstPickRate: '64%', tier: ["Ja'Marr Chase",'Justin Jefferson','Jahmyr Gibbs','Bijan Robinson'], winnerBuild: "Best RB still on the board → wait on QB until round 7+. If a top-3 RB falls to you here (common when #1 picks Chase or Jefferson), don't overthink it.", trap: "Auto-picking the WR1 when there's an RB1 tier break. Pick 2 + pick 19 (your snake turn) lets you bookend with RB-RB if you start RB." },
-  3:  { firstPick: 'RB or WR', firstPickRate: '52/44%', tier: ["Ja'Marr Chase",'Justin Jefferson','Jahmyr Gibbs','Josh Jacobs'], winnerBuild: 'RB or WR1 — whichever falls. In 2025, pick 3 had the highest championship-correlation when it took the best player available regardless of position.', trap: 'Going TE here (Kelce/LaPorta tier). The TE premium is real, but pick 3 is too rich. Wait until round 3-4.' },
-  4:  { firstPick: 'RB', firstPickRate: '64%', tier: ['Jahmyr Gibbs','Josh Jacobs','CeeDee Lamb','Amon-Ra St. Brown'], winnerBuild: 'Last RB1 chance for a few rounds. 2025 champions from pick 4 took RB 64% of the time. If RBs are gone, lock in WR1.', trap: 'Letting all RB1s pass and forcing a "value" QB or TE. The tier drop after the top 7-8 RBs is steeper than people expect in standard scoring.' },
-  5:  { firstPick: 'RB or WR', firstPickRate: '50/45%', tier: ['Josh Jacobs','CeeDee Lamb','Amon-Ra St. Brown','Christian McCaffrey (if dropped)'], winnerBuild: 'RB or elite WR — both work. Pick 5 + pick 16 is one of the strongest snake positions because you get back-to-back picks with only 11 picks between.', trap: 'Reaching for the 6th-best RB just because "RBs are running out." Take the elite WR and double-tap RB at the turn.' },
-  6:  { firstPick: 'WR', firstPickRate: '54%', tier: ['Saquon Barkley (if dropped)','Bucky Irving','A.J. Brown','Puka Nacua'], winnerBuild: 'Best WR available. Most strong RB1 tiers are gone; pick 6 winners in 2025 leaned WR-WR or WR-RB. Save RB for rounds 3-5 where the workhorse-replacement tier still exists.', trap: "Forcing RB when the tier break is obvious. You'll get better RB value at pick 15 than another reach here." },
-  7:  { firstPick: 'WR', firstPickRate: '58%', tier: ['Puka Nacua','A.J. Brown','Drake London','Bucky Irving'], winnerBuild: 'WR-WR start. 2025 pick 7 champions overwhelmingly went WR-WR (44%), then RB at the round 3-4 turn. Late-round RB swings (round 10+) replaced the lost early-RB upside.', trap: 'Taking a QB here unless Allen / Daniels fall absurdly. Position scarcity says wait.' },
-  8:  { firstPick: 'WR', firstPickRate: '61%', tier: ['Drake London','Garrett Wilson','Brock Bowers','Tyreek Hill'], winnerBuild: 'WR1 + best player at the turn. If Brock Bowers is here, the elite-TE play unlocks a +14 pt/wk position-advantage edge that paid for the cost in 2025.', trap: 'Mixing positions awkwardly (TE then K-DST early). Stay disciplined on RB/WR for rounds 1-7.' },
-  9:  { firstPick: 'WR', firstPickRate: '57%', tier: ['Tyreek Hill','Brock Bowers','Davante Adams','Garrett Wilson'], winnerBuild: 'WR + RB at the turn (pick 9 / pick 12). Snake turns at 9-10 are the second-strongest spot in 10-team. Use the back-to-back picks to grab one elite WR + one RB1-tier value.', trap: "Picking your QB at pick 12 because 'might as well.' The QB cliff is later than you think — round 7-9 is fine for QB1." },
-  10: { firstPick: 'WR or TE', firstPickRate: '52/24%', tier: ['Brock Bowers','Davante Adams','Tyreek Hill','Bucky Irving'], winnerBuild: 'Turn advantage: pick 10 + pick 11. The strongest snake position in 10-team. 2025 champions from #10 went WR-WR (38%), RB-WR (29%), or WR-elite TE (21%) — all three worked above-average.', trap: "Punting the position-scarcity equation. With back-to-back picks you can hit any two of {RB1 fade, WR1, elite TE} — don't waste the turn on a QB." },
+  1:  { firstPick: 'RB', firstPickRate: '78%', tier: ['Saquon Barkley','Bijan Robinson','Jeremiyah Love (ARI rookie)','Christian McCaffrey'], winnerBuild: 'Elite RB → RB or top-tier WR → RB. In 2025, 51% of #1 picks went RB-RB through round 2. Standard scoring rewards workhorse RB touches more than PPR. 2026 wrinkle: Love going #3 overall to ARI puts him in the round-1 rookie-RB conversation if you trust the landing spot.', trap: 'Reaching for a WR at #1 in standard. Chase and Jefferson are tier-1 humans but the positional scarcity math favors locking down two RB1s when you have the choice.' },
+  2:  { firstPick: 'RB', firstPickRate: '64%', tier: ["Ja'Marr Chase",'Justin Jefferson','Jahmyr Gibbs','Bijan Robinson','Jeremiyah Love (ARI)'], winnerBuild: "Best RB still on the board → wait on QB until round 7+. If a top-3 RB falls to you here (common when #1 picks Chase or Jefferson), don't overthink it.", trap: "Auto-picking the WR1 when there's an RB1 tier break. Pick 2 + pick 19 (your snake turn) lets you bookend with RB-RB if you start RB." },
+  3:  { firstPick: 'RB or WR', firstPickRate: '52/44%', tier: ["Ja'Marr Chase",'Justin Jefferson','Jahmyr Gibbs','Jeremiyah Love (ARI)','Josh Jacobs'], winnerBuild: 'RB or WR1 — whichever falls. 2025 pick 3 winners took BPA regardless of position. With Love on the board, the rookie-RB rule of thumb (discount one tier for unproven workload) keeps him just behind the established RB1s.', trap: 'Going TE here (Kelce/LaPorta tier). The TE premium is real, but pick 3 is too rich. Wait until round 3-4.' },
+  4:  { firstPick: 'RB', firstPickRate: '64%', tier: ['Jahmyr Gibbs','Josh Jacobs','Jeremiyah Love (ARI)','CeeDee Lamb','Amon-Ra St. Brown'], winnerBuild: 'Last RB1 chance for a few rounds. 2025 champions from pick 4 took RB 64% of the time. With Love in this tier post-2026-draft, the RB depth at this slot just got a real shot in the arm.', trap: 'Letting all RB1s pass and forcing a "value" QB or TE. The tier drop after the top 7-8 RBs is steeper than people expect in standard scoring.' },
+  5:  { firstPick: 'RB or WR', firstPickRate: '50/45%', tier: ['Josh Jacobs','CeeDee Lamb','Amon-Ra St. Brown','Christian McCaffrey (if dropped)','Carnell Tate (TEN rookie)'], winnerBuild: 'RB or elite WR — both work. Pick 5 + pick 16 is one of the strongest snake positions. 2026 wrinkle: Tate landing at #4 overall to TEN with Cam Ward is a true alpha WR1 role that could lift him to round 2-3 ADP by August.', trap: 'Reaching for the 6th-best RB just because "RBs are running out." Take the elite WR and double-tap RB at the turn.' },
+  6:  { firstPick: 'WR', firstPickRate: '54%', tier: ['Saquon Barkley (if dropped)','Bucky Irving','A.J. Brown','Puka Nacua','Carnell Tate (TEN)'], winnerBuild: 'Best WR available. Most strong RB1 tiers are gone; pick 6 winners in 2025 leaned WR-WR or WR-RB. Save RB for rounds 3-5 where the workhorse-replacement tier still exists.', trap: "Forcing RB when the tier break is obvious. You'll get better RB value at pick 15 than another reach here." },
+  7:  { firstPick: 'WR', firstPickRate: '58%', tier: ['Puka Nacua','A.J. Brown','Drake London','Bucky Irving','Carnell Tate (TEN)','Jordyn Tyson (NO)'], winnerBuild: 'WR-WR start. 2025 pick 7 champions overwhelmingly went WR-WR (44%). With 2026 rookies Tate and Tyson both in alpha roles, this slot has more late-round-2 WR options than 2025 did.', trap: 'Taking a QB here unless Allen / Daniels fall absurdly. Position scarcity says wait.' },
+  8:  { firstPick: 'WR', firstPickRate: '61%', tier: ['Drake London','Garrett Wilson','Brock Bowers','Tyreek Hill','Jordyn Tyson (NO)'], winnerBuild: 'WR1 + best player at the turn. If Brock Bowers is here, the elite-TE play unlocks a +14 pt/wk position-advantage edge that paid for the cost in 2025. Tyson is the 2026-draft wildcard who could outscore his ADP.', trap: 'Mixing positions awkwardly (TE then K-DST early). Stay disciplined on RB/WR for rounds 1-7.' },
+  9:  { firstPick: 'WR', firstPickRate: '57%', tier: ['Tyreek Hill','Brock Bowers','Davante Adams','Garrett Wilson','Makai Lemon (PHI rookie)'], winnerBuild: 'WR + RB at the turn (pick 9 / pick 12). Snake turns at 9-10 are the second-strongest spot in 10-team. Lemon to PHI is interesting — Eagles traded up for him as a potential A.J. Brown replacement; rookie-discount him but watch ADP.', trap: "Picking your QB at pick 12 because 'might as well.' The QB cliff is later than you think — round 7-9 is fine for QB1." },
+  10: { firstPick: 'WR or TE', firstPickRate: '52/24%', tier: ['Brock Bowers','Davante Adams','Tyreek Hill','Bucky Irving','Makai Lemon (PHI)','KC Concepcion (CLE)'], winnerBuild: 'Turn advantage: pick 10 + pick 11. The strongest snake position in 10-team. 2025 champions from #10 went WR-WR (38%), RB-WR (29%), or WR-elite TE (21%). 2026 rookie WRs at the back-end of round 1 give you upside-pick options for the turn.', trap: "Punting the position-scarcity equation. With back-to-back picks you can hit any two of {RB1 fade, WR1, elite TE} — don't waste the turn on a QB." },
 };
 
 (function renderPlaybook(){
