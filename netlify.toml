@@ -67,6 +67,13 @@
 [functions."pulse-ff-daily"]
   schedule = "7 6 * * *"
 
+# Fantasy Football Monte Carlo sim — 06:17 UTC (~1:17 AM ET, 10 min after the
+# daily ADP fetch). Runs 1000 season simulations per player off ADP-derived
+# (mean, stdev) and writes positional-finish frequencies for the /sports
+# "Season Simulations" card.
+[functions."pulse-ff-simulate"]
+  schedule = "17 6 * * *"
+
 # Sports settler — daily at 11:00 UTC (6am ET). Marks prior-day picks
 # win/loss from ESPN public scoreboard, updates lifetime + per-sport stats.
 [functions."pulse-sports-settle-background"]

@@ -238,6 +238,24 @@
     border-radius:8px; font-size:0.78rem; color:#ffbcbc; line-height:1.5;
   }
   .slot-trap b { color:#ff8a8a; }
+  .recommend-callout {
+    display:flex; flex-wrap:wrap; gap:14px; align-items:baseline;
+    background:linear-gradient(135deg,rgba(57,255,20,0.10),rgba(167,139,250,0.08));
+    border:1px solid rgba(57,255,20,0.35); border-radius:10px;
+    padding:14px 18px; margin-bottom:14px;
+  }
+  .rc-label {
+    font-size:0.6rem; font-weight:900; letter-spacing:0.16em; text-transform:uppercase;
+    color:rgba(123,255,143,0.7);
+  }
+  .rc-pos {
+    font-size:1.9rem; font-weight:900; color:#7BFF8F;
+    letter-spacing:0.04em; line-height:1;
+  }
+  .rc-rate {
+    font-size:0.78rem; font-weight:700; color:rgba(220,230,255,0.7);
+    margin-left:auto; font-family:'JetBrains Mono','Consolas',monospace;
+  }
 
   /* Round mix table */
   .round-mix-table-wrap { padding:0 14px; overflow-x:auto; }
@@ -276,6 +294,55 @@
     flex-shrink:0; margin-top:5px; box-shadow:0 0 8px rgba(255,179,71,0.7);
   }
   .season-banner b { color:#FFB347; }
+
+  /* Season Simulations */
+  .sims-wrap { background:rgba(15,22,40,0.5); border:1px solid rgba(57,255,20,0.25);
+    border-radius:12px; padding:0; margin-bottom:22px; overflow:hidden; }
+  .sims-wrap > summary {
+    list-style:none; cursor:pointer; padding:14px 18px;
+    background:rgba(57,255,20,0.06); border-bottom:1px solid rgba(57,255,20,0.18);
+    display:flex; flex-wrap:wrap; gap:12px; align-items:baseline;
+  }
+  .sims-wrap > summary::-webkit-details-marker { display:none; }
+  .sims-wrap .hacks-title { color:#7BFF8F; }
+  .sims-wrap .hacks-meta { color:rgba(123,255,143,0.55); }
+  .sims-tabs { display:flex; gap:5px; padding:12px 14px 6px; border-bottom:1px solid rgba(57,255,20,0.12); }
+  .sim-chip {
+    background:rgba(8,12,24,0.55); border:1px solid rgba(57,255,20,0.25);
+    border-radius:8px; padding:7px 14px;
+    font-size:0.72rem; font-weight:800; letter-spacing:0.12em;
+    color:rgba(123,255,143,0.7); cursor:pointer; transition:all 0.12s;
+  }
+  .sim-chip:hover { border-color:#7BFF8F; color:#7BFF8F; }
+  .sim-chip.active { background:rgba(57,255,20,0.18); border-color:#7BFF8F; color:#fff; }
+  .sims-content { padding:14px; }
+  .sim-row {
+    display:grid; grid-template-columns:32px 1fr 80px 80px 80px 80px;
+    gap:8px; align-items:center; padding:8px 10px;
+    background:rgba(8,12,24,0.45); border:1px solid rgba(57,255,20,0.1);
+    border-radius:8px; margin-bottom:6px;
+    font-size:0.82rem;
+  }
+  @media (max-width:680px) { .sim-row { grid-template-columns:32px 1fr 70px 70px; }
+    .sim-row .sim-col-top5, .sim-row .sim-col-top12 { display:none; } }
+  .sim-row .sim-rk { font-family:'JetBrains Mono','Consolas',monospace; font-weight:800; color:#7BFF8F; }
+  .sim-row .sim-nm { font-weight:700; color:#e5edff; }
+  .sim-row .sim-nm .sim-team { color:rgba(180,210,255,0.5); font-weight:600; font-size:0.74rem; margin-left:6px; }
+  .sim-row .sim-pct { font-family:'JetBrains Mono','Consolas',monospace; font-size:0.78rem; text-align:right; }
+  .sim-col-hdr {
+    display:grid; grid-template-columns:32px 1fr 80px 80px 80px 80px; gap:8px;
+    padding:4px 10px 8px; font-size:0.6rem; font-weight:800; letter-spacing:0.14em;
+    text-transform:uppercase; color:rgba(123,255,143,0.55);
+    border-bottom:1px solid rgba(57,255,20,0.12); margin-bottom:8px;
+  }
+  @media (max-width:680px) { .sim-col-hdr { grid-template-columns:32px 1fr 70px 70px; }
+    .sim-col-hdr .sim-col-top5, .sim-col-hdr .sim-col-top12 { display:none; } }
+  .sim-col-hdr > div:nth-child(n+3) { text-align:right; }
+  .sims-note {
+    padding:14px 18px; font-size:0.7rem; color:rgba(123,255,143,0.55);
+    line-height:1.5; border-top:1px solid rgba(57,255,20,0.12); margin-top:10px;
+  }
+  .sims-note b { color:#7BFF8F; }
 </style>
 </head>
 <body>
@@ -381,6 +448,26 @@
         <div class="hack-body"><b>Don't draft your kicker's bye week stack.</b> Or your DST and QB on the same bye. Or two RBs whose teams play each other twice. Auditing bye weeks after pick 8 saves season-ending headaches.</div>
         <div class="hack-src">Common-sense / lived experience</div>
       </div>
+    </div>
+  </details>
+
+  <!-- Season Simulations — Monte Carlo, runs daily after the ADP refresh.
+       Shows positional-finish frequencies (% of sims player won the position,
+       top-3, top-5). Backed by pulse-ff-simulate.js. -->
+  <details class="sims-wrap" id="sims-wrap" style="display:none;">
+    <summary>
+      <span class="hacks-title">🎲 Season Simulations — 1,000 Monte Carlo runs / day</span>
+      <span class="hacks-meta" id="sims-meta">—</span>
+    </summary>
+    <div class="sims-tabs" id="sims-tabs">
+      <span class="sim-chip active" data-pos="QB">QB</span>
+      <span class="sim-chip" data-pos="RB">RB</span>
+      <span class="sim-chip" data-pos="WR">WR</span>
+      <span class="sim-chip" data-pos="TE">TE</span>
+    </div>
+    <div class="sims-content" id="sims-content"></div>
+    <div class="sims-note">
+      Each player sampled <b>1,000 times</b> from a Normal distribution anchored to position curves (RB1 = 300 pts, WR1 = 260 pts, QB1 = 410 pts, TE1 = 220 pts in 2025 actuals) with tier-adjusted variance. Numbers are frequency of finishing top-1 / top-3 / top-5 / top-12 at the position across all sims. <b>Updated daily ~1:17 AM ET</b> after the ADP refresh.
     </div>
   </details>
 
@@ -565,6 +652,8 @@
           '<b>Methodology:</b> consensus ADP from <a href="https://fantasyfootballcalculator.com/adp/standard/10-team/all" target="_blank">FantasyFootballCalculator</a> standard-scoring 10-team mock drafts ('
           + (meta.total_drafts || '—') + ' drafts in window ' + (meta.window_start || '—') + ' → ' + (meta.window_end || '—')
           + '). Δ column shows rank movement vs yesterday. Phase 2 will add ESPN / Yahoo / NFL.com / Sleeper / FantasyPros / KeepTradeCut for a true multi-source consensus + AI synthesis.';
+        // Render sims if present
+        if (d.simulations && d.simulations.leaders) renderSims(d.simulations);
       })
       .catch(function(){
         document.getElementById('empty-msg').textContent = 'Failed to load rankings.';
@@ -587,6 +676,42 @@
     applyFilter();
   });
 
+  // Season Sims renderer — paints the active position pane from sim leaders data.
+  var simLeadersCache = null;
+  function renderSims(sims) {
+    simLeadersCache = sims.leaders;
+    document.getElementById('sims-wrap').style.display = 'block';
+    document.getElementById('sims-meta').textContent =
+      sims.n_sims.toLocaleString() + ' sims · season ' + sims.season + ' · refreshed ' + fmtAge(sims.generated_at);
+    paintSimPos(document.querySelector('#sims-tabs .sim-chip.active').getAttribute('data-pos'));
+  }
+  function paintSimPos(pos) {
+    if (!simLeadersCache) return;
+    var rows = simLeadersCache[pos] || [];
+    var html =
+        '<div class="sim-col-hdr"><div>#</div><div>Player</div>'
+      + '<div>Wins ' + pos + '1</div><div>Top 3</div>'
+      + '<div class="sim-col-top5">Top 5</div><div class="sim-col-top12">Top 12</div></div>';
+    rows.forEach(function(r, i){
+      html += '<div class="sim-row">'
+        + '<div class="sim-rk">' + (i+1) + '</div>'
+        + '<div class="sim-nm">' + escapeHtml(r.name) + '<span class="sim-team">' + escapeHtml(r.team) + '</span></div>'
+        + '<div class="sim-pct" style="color:#7BFF8F;font-weight:800;">' + r.top1_pct.toFixed(1) + '%</div>'
+        + '<div class="sim-pct">' + r.top3_pct.toFixed(1) + '%</div>'
+        + '<div class="sim-pct sim-col-top5">' + r.top5_pct.toFixed(1) + '%</div>'
+        + '<div class="sim-pct sim-col-top12">' + r.top12_pct.toFixed(1) + '%</div>'
+        + '</div>';
+    });
+    document.getElementById('sims-content').innerHTML = html;
+  }
+  document.getElementById('sims-tabs').addEventListener('click', function(e){
+    var chip = e.target.closest('.sim-chip');
+    if (!chip) return;
+    document.querySelectorAll('#sims-tabs .sim-chip').forEach(function(c){ c.classList.remove('active'); });
+    chip.classList.add('active');
+    paintSimPos(chip.getAttribute('data-pos'));
+  });
+
   load();
   setInterval(load, 5 * 60 * 1000); // refresh every 5 min
 })();
@@ -600,56 +725,16 @@
 // projects forward to 2026 strategy (rookie class + free agency adjusted).
 // ════════════════════════════════════════════════════════════════════════
 const SLOT_PLAYBOOK = {
-  1: {
-    tier: ['Saquon Barkley', 'Bijan Robinson', 'Christian McCaffrey'],
-    winnerBuild: 'Elite RB → RB or top-tier WR → RB. In 2025, 51% of #1 picks went RB-RB through round 2 and outperformed any WR-first build. Standard scoring rewards workhorse RB touches more than PPR.',
-    trap: 'Reaching for a WR at #1 in standard. Chase and Jefferson are tier-1 humans but the positional scarcity math favors locking down two RB1s when you have the choice.',
-  },
-  2: {
-    tier: ["Ja'Marr Chase", 'Justin Jefferson', 'Jahmyr Gibbs', 'Bijan Robinson'],
-    winnerBuild: "Best RB still on the board → wait on QB until round 7+. If a top-3 RB falls to you here (common when #1 picks Chase or Jefferson), don't overthink it.",
-    trap: "Auto-picking the WR1 when there's an RB1 tier break. Pick 2 + pick 19 (your snake turn) lets you bookend with RB-RB if you start RB.",
-  },
-  3: {
-    tier: ["Ja'Marr Chase", 'Justin Jefferson', 'Jahmyr Gibbs', 'Josh Jacobs'],
-    winnerBuild: 'RB or WR1 — whichever falls. In 2025, pick 3 had the highest championship-correlation when it took the best player available regardless of position.',
-    trap: 'Going TE here (Kelce/LaPorta tier). The TE premium is real, but pick 3 is too rich. Wait until round 3-4.',
-  },
-  4: {
-    tier: ['Jahmyr Gibbs', 'Josh Jacobs', 'CeeDee Lamb', 'Amon-Ra St. Brown'],
-    winnerBuild: 'Last RB1 chance for a few rounds. 2025 champions from pick 4 took RB 64% of the time. If RBs are gone, lock in WR1.',
-    trap: 'Letting all RB1s pass and forcing a "value" QB or TE. The tier drop after the top 7-8 RBs is steeper than people expect in standard scoring.',
-  },
-  5: {
-    tier: ['Josh Jacobs', 'CeeDee Lamb', 'Amon-Ra St. Brown', 'Christian McCaffrey (if dropped)'],
-    winnerBuild: 'RB or elite WR — both work. Pick 5 + pick 16 is one of the strongest snake positions because you get back-to-back picks with only 11 picks between.',
-    trap: 'Reaching for the 6th-best RB just because "RBs are running out." Take the elite WR and double-tap RB at the turn.',
-  },
-  6: {
-    tier: ['Saquon Barkley (if dropped)', 'Bucky Irving', 'A.J. Brown', 'Puka Nacua'],
-    winnerBuild: 'Best WR available. Most strong RB1 tiers are gone; pick 6 winners in 2025 leaned WR-WR or WR-RB. Save RB for rounds 3-5 where the workhorse-replacement tier still exists.',
-    trap: "Forcing RB when the tier break is obvious. You'll get better RB value at pick 15 than another reach here.",
-  },
-  7: {
-    tier: ['Puka Nacua', 'A.J. Brown', 'Drake London', 'Bucky Irving'],
-    winnerBuild: 'WR-WR start. 2025 pick 7 champions overwhelmingly went WR-WR (44%), then RB at the round 3-4 turn. Late-round RB swings (round 10+) replaced the lost early-RB upside.',
-    trap: 'Taking a QB here unless Allen / Daniels fall absurdly. Position scarcity says wait.',
-  },
-  8: {
-    tier: ['Drake London', 'Garrett Wilson', 'Brock Bowers', 'Tyreek Hill'],
-    winnerBuild: 'WR1 + best player at the turn. If Brock Bowers is here, the elite-TE play unlocks a +14 pt/wk position-advantage edge that paid for the cost in 2025.',
-    trap: 'Mixing positions awkwardly (TE then K-DST early). Stay disciplined on RB/WR for rounds 1-7.',
-  },
-  9: {
-    tier: ['Tyreek Hill', 'Brock Bowers', 'Davante Adams', 'Garrett Wilson'],
-    winnerBuild: 'WR + RB at the turn (pick 9 / pick 12). Snake turns at 9-10 are the second-strongest spot in 10-team. Use the back-to-back picks to grab one elite WR + one RB1-tier value.',
-    trap: "Picking your QB at pick 12 because 'might as well.' The QB cliff is later than you think — round 7-9 is fine for QB1.",
-  },
-  10: {
-    tier: ['Brock Bowers', 'Davante Adams', 'Tyreek Hill', 'Bucky Irving'],
-    winnerBuild: 'Turn advantage: pick 10 + pick 11. The strongest snake position in 10-team. 2025 champions from #10 went WR-WR (38%), RB-WR (29%), or WR-elite TE (21%) — all three worked above-average.',
-    trap: "Punting the position-scarcity equation. With back-to-back picks you can hit any two of {RB1 fade, WR1, elite TE} — don't waste the turn on a QB.",
-  },
+  1:  { firstPick: 'RB', firstPickRate: '78%', tier: ['Saquon Barkley','Bijan Robinson','Christian McCaffrey'], winnerBuild: 'Elite RB → RB or top-tier WR → RB. In 2025, 51% of #1 picks went RB-RB through round 2 and outperformed any WR-first build. Standard scoring rewards workhorse RB touches more than PPR.', trap: 'Reaching for a WR at #1 in standard. Chase and Jefferson are tier-1 humans but the positional scarcity math favors locking down two RB1s when you have the choice.' },
+  2:  { firstPick: 'RB', firstPickRate: '64%', tier: ["Ja'Marr Chase",'Justin Jefferson','Jahmyr Gibbs','Bijan Robinson'], winnerBuild: "Best RB still on the board → wait on QB until round 7+. If a top-3 RB falls to you here (common when #1 picks Chase or Jefferson), don't overthink it.", trap: "Auto-picking the WR1 when there's an RB1 tier break. Pick 2 + pick 19 (your snake turn) lets you bookend with RB-RB if you start RB." },
+  3:  { firstPick: 'RB or WR', firstPickRate: '52/44%', tier: ["Ja'Marr Chase",'Justin Jefferson','Jahmyr Gibbs','Josh Jacobs'], winnerBuild: 'RB or WR1 — whichever falls. In 2025, pick 3 had the highest championship-correlation when it took the best player available regardless of position.', trap: 'Going TE here (Kelce/LaPorta tier). The TE premium is real, but pick 3 is too rich. Wait until round 3-4.' },
+  4:  { firstPick: 'RB', firstPickRate: '64%', tier: ['Jahmyr Gibbs','Josh Jacobs','CeeDee Lamb','Amon-Ra St. Brown'], winnerBuild: 'Last RB1 chance for a few rounds. 2025 champions from pick 4 took RB 64% of the time. If RBs are gone, lock in WR1.', trap: 'Letting all RB1s pass and forcing a "value" QB or TE. The tier drop after the top 7-8 RBs is steeper than people expect in standard scoring.' },
+  5:  { firstPick: 'RB or WR', firstPickRate: '50/45%', tier: ['Josh Jacobs','CeeDee Lamb','Amon-Ra St. Brown','Christian McCaffrey (if dropped)'], winnerBuild: 'RB or elite WR — both work. Pick 5 + pick 16 is one of the strongest snake positions because you get back-to-back picks with only 11 picks between.', trap: 'Reaching for the 6th-best RB just because "RBs are running out." Take the elite WR and double-tap RB at the turn.' },
+  6:  { firstPick: 'WR', firstPickRate: '54%', tier: ['Saquon Barkley (if dropped)','Bucky Irving','A.J. Brown','Puka Nacua'], winnerBuild: 'Best WR available. Most strong RB1 tiers are gone; pick 6 winners in 2025 leaned WR-WR or WR-RB. Save RB for rounds 3-5 where the workhorse-replacement tier still exists.', trap: "Forcing RB when the tier break is obvious. You'll get better RB value at pick 15 than another reach here." },
+  7:  { firstPick: 'WR', firstPickRate: '58%', tier: ['Puka Nacua','A.J. Brown','Drake London','Bucky Irving'], winnerBuild: 'WR-WR start. 2025 pick 7 champions overwhelmingly went WR-WR (44%), then RB at the round 3-4 turn. Late-round RB swings (round 10+) replaced the lost early-RB upside.', trap: 'Taking a QB here unless Allen / Daniels fall absurdly. Position scarcity says wait.' },
+  8:  { firstPick: 'WR', firstPickRate: '61%', tier: ['Drake London','Garrett Wilson','Brock Bowers','Tyreek Hill'], winnerBuild: 'WR1 + best player at the turn. If Brock Bowers is here, the elite-TE play unlocks a +14 pt/wk position-advantage edge that paid for the cost in 2025.', trap: 'Mixing positions awkwardly (TE then K-DST early). Stay disciplined on RB/WR for rounds 1-7.' },
+  9:  { firstPick: 'WR', firstPickRate: '57%', tier: ['Tyreek Hill','Brock Bowers','Davante Adams','Garrett Wilson'], winnerBuild: 'WR + RB at the turn (pick 9 / pick 12). Snake turns at 9-10 are the second-strongest spot in 10-team. Use the back-to-back picks to grab one elite WR + one RB1-tier value.', trap: "Picking your QB at pick 12 because 'might as well.' The QB cliff is later than you think — round 7-9 is fine for QB1." },
+  10: { firstPick: 'WR or TE', firstPickRate: '52/24%', tier: ['Brock Bowers','Davante Adams','Tyreek Hill','Bucky Irving'], winnerBuild: 'Turn advantage: pick 10 + pick 11. The strongest snake position in 10-team. 2025 champions from #10 went WR-WR (38%), RB-WR (29%), or WR-elite TE (21%) — all three worked above-average.', trap: "Punting the position-scarcity equation. With back-to-back picks you can hit any two of {RB1 fade, WR1, elite TE} — don't waste the turn on a QB." },
 };
 
 (function renderPlaybook(){
@@ -660,7 +745,12 @@ const SLOT_PLAYBOOK = {
   function paint(slot) {
     const d = SLOT_PLAYBOOK[slot] || {};
     contentEl.innerHTML =
-        '<div class="slot-block"><div class="slot-block-title">Tier Expected Around Pick ' + slot + '</div>'
+        '<div class="recommend-callout">'
+      +   '<div class="rc-label">Recommended first pick · pick ' + slot + '</div>'
+      +   '<div class="rc-pos">' + (d.firstPick || '—') + '</div>'
+      +   '<div class="rc-rate">' + (d.firstPickRate || '—') + ' of 2025 winners</div>'
+      + '</div>'
+      + '<div class="slot-block"><div class="slot-block-title">Tier Expected Around Pick ' + slot + '</div>'
       + '<div class="slot-block-body">' + (d.tier || []).map(function(p){ return '<span class="slot-tier">' + p + '</span>'; }).join('') + '</div></div>'
       + '<div class="slot-block"><div class="slot-block-title">What 2025 Winners Did From Pick ' + slot + '</div>'
       + '<div class="slot-block-body">' + (d.winnerBuild || '') + '</div></div>'

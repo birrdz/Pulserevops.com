@@ -25,6 +25,20 @@ exports.handler = async (event) => {
     if (!latest) {
       return { statusCode: 200, headers: CORS, body: JSON.stringify({ ok: false, reason: 'rankings not yet generated' }) };
     }
+    // Attach simulation summary if available — small payload, used by the
+    // "Season Simulations" card on /sports.
+    try {
+      const sims = await store.get('simulations/_latest.json', { type: 'json' });
+      if (sims && sims.ok) {
+        latest.simulations = {
+          generated_at: sims.generated_at,
+          n_sims: sims.n_sims,
+          season: sims.season,
+          method: sims.method,
+          leaders: sims.leaders,
+        };
+      }
+    } catch (_) { /* sims optional */ }
     return { statusCode: 200, headers: CORS, body: JSON.stringify(latest) };
   } catch (e) {
     return { statusCode: 200, headers: CORS, body: JSON.stringify({ ok: false, error: e.message }) };
