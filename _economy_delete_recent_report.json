@@ -1,0 +1,412 @@
+{
+  "ok": true,
+  "dryRun": false,
+  "hours": 24,
+  "cutoff_ms": 1779671481510,
+  "deleted_count": 80,
+  "deleted": [
+    {
+      "id": "q10978",
+      "question": "Why do most vendors get SPIF payouts conflicting with clawbacks wrong for PLG-to",
+      "ts": 1779685746741
+    },
+    {
+      "id": "q10977",
+      "question": "Why do most vendors get missing economic buyer fields wrong for usage-based pric",
+      "ts": 1779685566952
+    },
+    {
+      "id": "q10976",
+      "question": "What CRM fields prove you fixed sandbox changes breaking flows after migrating t",
+      "ts": 1779685398839
+    },
+    {
+      "id": "q10975",
+      "question": "Why do most vendors get duplicate contacts wrong for PLG-to-sales handoff teams ",
+      "ts": 1779685349457
+    },
+    {
+      "id": "q10974",
+      "question": "What is the RevOps playbook for UTM loss across subdomains during renewal and ex",
+      "ts": 1779685044267
+    },
+    {
+      "id": "q10973",
+      "question": "How do you automate win rate for usage-based pricing on HubSpot without another ",
+      "ts": 1779684850285
+    },
+    {
+      "id": "q10972",
+      "question": "What is the RevOps playbook for commission disputes during renewal and expansion",
+      "ts": 1779684668280
+    },
+    {
+      "id": "q10971",
+      "question": "How do you route pipeline coverage for channel co-sell on Pipedrive without anot",
+      "ts": 1779684515815
+    },
+    {
+      "id": "q10970",
+      "question": "What is the RevOps playbook for commission disputes during AE-led pods on Salesf",
+      "ts": 1779684314872
+    },
+    {
+      "id": "q10969",
+      "question": "How do you forecast win rate for inbound SDR on HubSpot without another point so",
+      "ts": 1779684130168
+    },
+    {
+      "id": "q10968",
+      "question": "Why do most vendors get duplicate contacts wrong for marketplace-sourced pipelin",
+      "ts": 1779683949039
+    },
+    {
+      "id": "q10967",
+      "question": "How do you attribute pipeline coverage for services-led sales on HubSpot without",
+      "ts": 1779683781837
+    },
+    {
+      "id": "q10966",
+      "question": "How do you fix win rate for enterprise outbound on Dynamics 365 without another ",
+      "ts": 1779683597281
+    },
+    {
+      "id": "q10965",
+      "question": "How do you standardize pipeline coverage for AE-led pods on Dynamics 365 without",
+      "ts": 1779683588055
+    },
+    {
+      "id": "q10964",
+      "question": "How do you report pipeline coverage for renewal and expansion on Pipedrive witho",
+      "ts": 1779683242329
+    },
+    {
+      "id": "q10963",
+      "question": "What is the RevOps playbook for product usage not syncing to CRM during enterpri",
+      "ts": 1779683052904
+    },
+    {
+      "id": "q10962",
+      "question": "How do you score win rate for PLG-to-sales handoff on Dynamics 365 without anoth",
+      "ts": 1779682873213
+    },
+    {
+      "id": "q10961",
+      "question": "What is the RevOps playbook for UTM loss across subdomains during usage-based pr",
+      "ts": 1779682687509
+    },
+    {
+      "id": "q10960",
+      "question": "Why do most vendors get missing economic buyer fields wrong for enterprise outbo",
+      "ts": 1779682638322
+    },
+    {
+      "id": "q10959",
+      "question": "What is the RevOps playbook for UTM loss across subdomains during outbound SDR o",
+      "ts": 1779682354907
+    },
+    {
+      "id": "q10958",
+      "question": "What CRM fields prove you fixed renewal risk not in CRM after migrating to Sales",
+      "ts": 1779682146399
+    },
+    {
+      "id": "q10957",
+      "question": "How do you forecast pipeline coverage for outbound SDR on Pipedrive without anot",
+      "ts": 1779681985980
+    },
+    {
+      "id": "q10956",
+      "question": "Why do most vendors get SPIF payouts conflicting with clawbacks wrong for market",
+      "ts": 1779681794696
+    },
+    {
+      "id": "q10955",
+      "question": "What CRM fields prove you fixed broken lead routing after migrating to Salesforc",
+      "ts": 1779681777982
+    },
+    {
+      "id": "q10954",
+      "question": "What is the RevOps playbook for commission disputes during usage-based pricing o",
+      "ts": 1779681439519
+    },
+    {
+      "id": "q10953",
+      "question": "How do you standardize win rate for outbound SDR on Salesforce without another p",
+      "ts": 1779681260561
+    },
+    {
+      "id": "q10952",
+      "question": "What CRM fields prove you fixed champion job changes after migrating to HubSpot ",
+      "ts": 1779681068425
+    },
+    {
+      "id": "q10951",
+      "question": "What CRM fields prove you fixed sandbox changes breaking flows after migrating t",
+      "ts": 1779680909871
+    },
+    {
+      "id": "q10950",
+      "question": "How do you report win rate for marketplace-sourced pipeline on Dynamics 365 with",
+      "ts": 1779680793260
+    },
+    {
+      "id": "q10949",
+      "question": "How do you score multi-thread gaps when multi-currency ARR rollups and leadershi",
+      "ts": 1779680530123
+    },
+    {
+      "id": "q10948",
+      "question": "Why do most vendors get SPIF payouts conflicting with clawbacks wrong for servic",
+      "ts": 1779680353998
+    },
+    {
+      "id": "q10947",
+      "question": "How do you report pipeline coverage for inbound SDR on Dynamics 365 without anot",
+      "ts": 1779680172591
+    },
+    {
+      "id": "q10946",
+      "question": "How do you dedupe win rate for services-led sales on Dynamics 365 without anothe",
+      "ts": 1779680031427
+    },
+    {
+      "id": "q10945",
+      "question": "What is the RevOps playbook for product usage not syncing to CRM during inbound ",
+      "ts": 1779679987627
+    },
+    {
+      "id": "q10944",
+      "question": "How do you dedupe win rate for channel co-sell on Salesforce without another poi",
+      "ts": 1779679634345
+    },
+    {
+      "id": "q10943",
+      "question": "What CRM fields prove you fixed champion job changes after migrating to Pipedriv",
+      "ts": 1779679453345
+    },
+    {
+      "id": "q10942",
+      "question": "What is the RevOps playbook for forecast sandbagging during renewal and expansio",
+      "ts": 1779679277784
+    },
+    {
+      "id": "q10941",
+      "question": "How do you audit pipeline coverage for inbound SDR on Salesforce without another",
+      "ts": 1779679101857
+    },
+    {
+      "id": "q10940",
+      "question": "How do you forecast workflow emails on closed-lost opps when strict IT security ",
+      "ts": 1779678948067
+    },
+    {
+      "id": "q10939",
+      "question": "Why do most vendors get missing economic buyer fields wrong for marketplace-sour",
+      "ts": 1779678741770
+    },
+    {
+      "id": "q10938",
+      "question": "What is the RevOps playbook for commission disputes during enterprise outbound o",
+      "ts": 1779678564456
+    },
+    {
+      "id": "q10937",
+      "question": "What CRM fields prove you fixed broken lead routing after migrating to Dynamics ",
+      "ts": 1779678365677
+    },
+    {
+      "id": "q10936",
+      "question": "How do you standardize pipeline coverage for PLG-to-sales handoff on Salesforce ",
+      "ts": 1779678204256
+    },
+    {
+      "id": "q10935",
+      "question": "Why do most vendors get duplicate contacts wrong for renewal and expansion teams",
+      "ts": 1779678036210
+    },
+    {
+      "id": "q10934",
+      "question": "How do you standardize pipeline coverage for usage-based pricing on HubSpot with",
+      "ts": 1779677827353
+    },
+    {
+      "id": "q10933",
+      "question": "How do you measure territory collisions when multi-currency ARR rollups and lead",
+      "ts": 1779677656827
+    },
+    {
+      "id": "q10932",
+      "question": "What is the RevOps playbook for commission disputes during services-led sales on",
+      "ts": 1779677474788
+    },
+    {
+      "id": "q10931",
+      "question": "How do you route partner deal registration conflicts when strict IT security rev",
+      "ts": 1779677292705
+    },
+    {
+      "id": "q10930",
+      "question": "How do you set up Salesforce for mixed PLG and sales-led revenue motions?",
+      "ts": 1779677244011
+    },
+    {
+      "id": "q10929",
+      "question": "What is a RevOps interview question set for hiring the first RevOps manager?",
+      "ts": 1779676939503
+    },
+    {
+      "id": "q10928",
+      "question": "How do you measure time in stage and flag stalled deals automatically?",
+      "ts": 1779676758279
+    },
+    {
+      "id": "q10927",
+      "question": "What is a sales ops ticket intake process for field change requests?",
+      "ts": 1779676583507
+    },
+    {
+      "id": "q10926",
+      "question": "How do you run a CRM cleanup sprint before fiscal year planning?",
+      "ts": 1779676386749
+    },
+    {
+      "id": "q10925",
+      "question": "What is the difference between sales enablement content and RevOps process desig",
+      "ts": 1779676285505
+    },
+    {
+      "id": "q10924",
+      "question": "How do you build executive dashboards in Looker from Salesforce and Snowflake?",
+      "ts": 1779676043009
+    },
+    {
+      "id": "q10923",
+      "question": "What is channel partner pipeline visibility for co-sell motions in CRM?",
+      "ts": 1779675860908
+    },
+    {
+      "id": "q10922",
+      "question": "How do you automate renewal reminders without spamming active opportunities?",
+      "ts": 1779675678571
+    },
+    {
+      "id": "q10921",
+      "question": "What is a sales data quality scorecard for weekly RevOps standups?",
+      "ts": 1779675493687
+    },
+    {
+      "id": "q10920",
+      "question": "How do you report pipeline by product line when opps have multiple SKUs?",
+      "ts": 1779675374931
+    },
+    {
+      "id": "q10919",
+      "question": "What is RevOps role in pricing and packaging changes across the GTM stack?",
+      "ts": 1779675136837
+    },
+    {
+      "id": "q10918",
+      "question": "How do you standardize next step and close date fields to improve forecast?",
+      "ts": 1779674947234
+    },
+    {
+      "id": "q10917",
+      "question": "What is a pipeline review hygiene checklist for sales managers?",
+      "ts": 1779674770868
+    },
+    {
+      "id": "q10916",
+      "question": "How do you connect billing system invoices to closed-won opportunities?",
+      "ts": 1779674617237
+    },
+    {
+      "id": "q10915",
+      "question": "What is forecast accuracy metric and how do you score RevOps performance?",
+      "ts": 1779674593753
+    },
+    {
+      "id": "q10914",
+      "question": "How do you document routing rules for SDR to AE handoff in HubSpot?",
+      "ts": 1779674225937
+    },
+    {
+      "id": "q10913",
+      "question": "What is a CRM governance committee cadence RevOps should run?",
+      "ts": 1779674045157
+    },
+    {
+      "id": "q10912",
+      "question": "How do you fix orphan opportunities after rep turnover in Salesforce?",
+      "ts": 1779673877577
+    },
+    {
+      "id": "q10911",
+      "question": "What is a sales funnel conversion report by stage for board reviews?",
+      "ts": 1779673700201
+    },
+    {
+      "id": "q10910",
+      "question": "How do you measure marketing influence on enterprise deals with long cycles?",
+      "ts": 1779673547023
+    },
+    {
+      "id": "q10909",
+      "question": "What is land and expand motion design in CRM for mid-market SaaS?",
+      "ts": 1779673347737
+    },
+    {
+      "id": "q10908",
+      "question": "How do you track expansion white space in accounts with multiple products?",
+      "ts": 1779673155441
+    },
+    {
+      "id": "q10907",
+      "question": "What is an ARR snowball report for investors using CRM snapshots?",
+      "ts": 1779672990179
+    },
+    {
+      "id": "q10906",
+      "question": "How do you structure HubSpot deal pipelines for inbound versus outbound motions?",
+      "ts": 1779672801122
+    },
+    {
+      "id": "q10905",
+      "question": "What is Salesforce Einstein forecasting and when is it worth enabling?",
+      "ts": 1779672715894
+    },
+    {
+      "id": "q10904",
+      "question": "How do you prioritize integration projects for a small RevOps team?",
+      "ts": 1779672441926
+    },
+    {
+      "id": "q10903",
+      "question": "What is a RevOps charter for a company with no dedicated RevOps hire yet?",
+      "ts": 1779672252812
+    },
+    {
+      "id": "q10902",
+      "question": "How do you implement stage gates that legal and procurement actually follow?",
+      "ts": 1779672067172
+    },
+    {
+      "id": "q10901",
+      "question": "What is a commit versus best case versus pipeline forecast tier?",
+      "ts": 1779671889357
+    },
+    {
+      "id": "q10900",
+      "question": "How do you reduce forecast bias when AEs own consumption accounts?",
+      "ts": 1779671737492
+    },
+    {
+      "id": "q10899",
+      "question": "What is customer health score in CRM and how do CS and sales share it?",
+      "ts": 1779671544246
+    }
+  ],
+  "errors": [],
+  "index_before": 3429,
+  "index_after": 3349
+}

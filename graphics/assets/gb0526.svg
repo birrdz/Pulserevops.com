@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.lbl{font-family:'Inter','Segoe UI',system-ui,sans-serif;fill:var(--ink);font-weight:700;}
+.sub{font-family:'Inter','Segoe UI',system-ui,sans-serif;fill:var(--ink);font-weight:500;}
+.hd{font-family:'Inter','Segoe UI',system-ui,sans-serif;fill:var(--c3);font-weight:800;}
+.day{font-family:'Inter','Segoe UI',system-ui,sans-serif;fill:var(--c2);font-weight:800;}
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c3)"/>
+<stop offset="1" stop-color="var(--c1)"/>
+</linearGradient>
+<linearGradient id="final" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c4b)"/>
+<stop offset="1" stop-color="var(--c4)"/>
+</linearGradient>
+<marker id="arr" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto">
+<path d="M0,0 L12,6 L0,12 z" fill="var(--c1)"/>
+</marker>
+</defs>
+<rect width="1584" height="396" fill="url(#bg)"/>
+<text x="50" y="56" class="hd" font-size="30">Renewal Process Flow</text>
+<text x="50" y="84" class="sub" font-size="18" fill="var(--c3)" opacity="0.85">180 days out to signed renewal — five gated checkpoints</text>
+
+<!-- Connecting track -->
+<line x1="180" y1="240" x2="1404" y2="240" stroke="var(--c1)" stroke-width="4" stroke-dasharray="2 8" opacity="0.5"/>
+
+<!-- Stage 1: 180-day risk review -->
+<g>
+<rect x="80" y="140" width="240" height="200" rx="18" fill="url(#card)" stroke="var(--c2)" stroke-width="2"/>
+<circle cx="200" cy="210" r="38" fill="var(--ink)" opacity="0.08"/>
+<text x="200" y="222" class="day" font-size="28" text-anchor="middle">180d</text>
+<text x="200" y="278" class="lbl" font-size="22" text-anchor="middle">Risk Review</text>
+<text x="200" y="304" class="sub" font-size="16" text-anchor="middle">Health score</text>
+<text x="200" y="324" class="sub" font-size="16" text-anchor="middle">+ exec sponsor</text>
+</g>
+<line x1="320" y1="240" x2="370" y2="240" stroke="var(--c1)" stroke-width="4" marker-end="url(#arr)"/>
+
+<!-- Stage 2: 90-day value check -->
+<g>
+<rect x="380" y="140" width="240" height="200" rx="18" fill="url(#card)" stroke="var(--c2)" stroke-width="2"/>
+<circle cx="500" cy="210" r="38" fill="var(--ink)" opacity="0.08"/>
+<text x="500" y="222" class="day" font-size="28" text-anchor="middle">90d</text>
+<text x="500" y="278" class="lbl" font-size="22" text-anchor="middle">Value Check</text>
+<text x="500" y="304" class="sub" font-size="16" text-anchor="middle">QBR + ROI</text>
+<text x="500" y="324" class="sub" font-size="16" text-anchor="middle">recap delivered</text>
+</g>
+<line x1="620" y1="240" x2="670" y2="240" stroke="var(--c1)" stroke-width="4" marker-end="url(#arr)"/>
+
+<!-- Stage 3: 60-day proposal -->
+<g>
+<rect x="680" y="140" width="240" height="200" rx="18" fill="url(#card)" stroke="var(--c2)" stroke-width="2"/>
+<circle cx="800" cy="210" r="38" fill="var(--ink)" opacity="0.08"/>
+<text x="800" y="222" class="day" font-size="28" text-anchor="middle">60d</text>
+<text x="800" y="278" class="lbl" font-size="22" text-anchor="middle">Proposal</text>
+<text x="800" y="304" class="sub" font-size="16" text-anchor="middle">Pricing, terms,</text>
+<text x="800" y="324" class="sub" font-size="16" text-anchor="middle">expansion lines</text>
+</g>
+<line x1="920" y1="240" x2="970" y2="240" stroke="var(--c1)" stroke-width="4" marker-end="url(#arr)"/>
+
+<!-- Stage 4: 30-day close -->
+<g>
+<rect x="980" y="140" width="240" height="200" rx="18" fill="url(#card)" stroke="var(--c2)" stroke-width="2"/>
+<circle cx="1100" cy="210" r="38" fill="var(--ink)" opacity="0.08"/>
+<text x="1100" y="222" class="day" font-size="28" text-anchor="middle">30d</text>
+<text x="1100" y="278" class="lbl" font-size="22" text-anchor="middle">Close</text>
+<text x="1100" y="304" class="sub" font-size="16" text-anchor="middle">Redlines + legal</text>
+<text x="1100" y="324" class="sub" font-size="16" text-anchor="middle">+ procurement</text>
+</g>
+<line x1="1220" y1="240" x2="1270" y2="240" stroke="var(--c4)" stroke-width="4" marker-end="url(#arr)"/>
+
+<!-- Stage 5: Signed renewal -->
+<g>
+<rect x="1280" y="140" width="240" height="200" rx="18" fill="url(#final)" stroke="var(--c4)" stroke-width="3"/>
+<circle cx="1400" cy="210" r="38" fill="var(--ink)" opacity="0.10"/>
+<path d="M1380 210 L1395 225 L1422 198" stroke="var(--ink)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1400" y="278" class="lbl" font-size="22" text-anchor="middle">Signed Renewal</text>
+<text x="1400" y="304" class="sub" font-size="16" text-anchor="middle">Countersigned +</text>
+<text x="1400" y="324" class="sub" font-size="16" text-anchor="middle">booked to ARR</text>
+</g>
+
+<!-- Footer tick labels -->
+<text x="200" y="372" class="sub" font-size="14" fill="var(--c3)" text-anchor="middle" opacity="0.7">Step 1</text>
+<text x="500" y="372" class="sub" font-size="14" fill="var(--c3)" text-anchor="middle" opacity="0.7">Step 2</text>
+<text x="800" y="372" class="sub" font-size="14" fill="var(--c3)" text-anchor="middle" opacity="0.7">Step 3</text>
+<text x="1100" y="372" class="sub" font-size="14" fill="var(--c3)" text-anchor="middle" opacity="0.7">Step 4</text>
+<text x="1400" y="372" class="sub" font-size="14" fill="var(--c4b)" text-anchor="middle" opacity="0.85">Outcome</text>
+</svg>

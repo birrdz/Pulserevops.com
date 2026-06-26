@@ -1,0 +1,113 @@
+QUESTION: What are Arizona Wildcats men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Arizona men's basketball enters 2026-27 as reigning Big 12 regular-season and tournament champion, fresh off a 36-3 Final Four run under Tommy Lloyd, who just signed a five-year extension through 2031. The 2027 NIL reality is clear: Arizona Assist Club, now led by Tucson businessman Paul Volpe after Matt King moved to UA's president of basketball operations role, must raise north of three million dollars to defend the program's elite-roster status. With Koa Peat and Brayden Burries projected NBA Draft picks, Tobe Awaka and Anthony Dell'Orso out of eligibility, and freshmen Dwayne Aristode and Sidi Gueye transferring, the roster is being rebuilt around point guards J.J. Mandaquit from Washington and Derek Dixon from North Carolina, returning forward Ivan Kharchenkov, returning center Motiejus Krivas, five-star Caleb Holt, and four-star Cameron Holmes from Goodyear Millennium. The strategy is to use the Final Four halo, the Big 12 media windfall, and the McKale Center brand to compound NIL inflows while the House revenue-share cap forces every program to choose where to spend.
+
+**TL;DR:** Arizona MBB needs roughly four to five million dollars in combined NIL and revenue-share to keep its 2025-26 elite tier, and the Lloyd extension plus Final Four run is the leverage Wildcat NIL is using to get there.
+
+```mermaid
+flowchart TD
+    A[Wildcat NIL ecosystem] --> B[Arizona Assist Club]
+    A --> C[5980 Fund nonprofit arm]
+    A --> D[Desert Takeover football side]
+    B --> E[Cats Club tier 100 per year]
+    B --> F[Century Cats 10000 per year]
+    B --> G[Corporate Cats brand deals]
+    B --> H[Wildcat Village 3000 per year]
+    I[Big 12 media revenue] --> J[Revenue share pool to athletes]
+    K[McKale Center brand] --> L[Final Four halo 2026]
+    L --> M[Recruiting leverage]
+    J --> N[2026-27 roster build]
+    H --> N
+    F --> N
+    E --> N
+    M --> N
+    N --> O[Defend Big 12 title]
+    N --> P[Final Four pursuit 2027]
+    O --> P
+    P --> Q[NBA Draft pipeline]
+    Q --> A
+```
+
+## 1. Where Arizona Stands — 2027 NIL Math
+
+The 2025-26 season produced the financial leverage Arizona needed. Lloyd's group finished 36-3, won the Big 12 regular-season title outright with a 16-2 mark, beat Houston 79-74 in the Big 12 tournament final, and made the West Region final before losing 91-73 to Michigan in the national semifinal. Lloyd was named Naismith National Coach of the Year and Big 12 Coach of the Year, then signed an extension through 2031 with increased assistant pay and a larger buyout tied to any Big 12 head-coaching opening. That track record is now Arizona Assist Club's primary sales pitch, and donors are responding.
+
+The math behind the 2026-27 roster build comes from two stacked sources. First, the on-campus revenue-share pool under the House settlement framework, which every Big 12 program is now allocating across sports. Second, the third-party NIL collective dollars routed through Arizona Assist Club, which Matt King previously said tracked "100 percent on par" with peer elite programs even before the Final Four run. With Caleb Love's NIL valuation having been pegged at roughly 812,000 dollars at his peak, the going rate for a returning star plus a five-star like Caleb Holt plus two high-major transfer point guards puts the realistic 2026-27 ceiling well past three million dollars in collective spend.
+
+| Bucket | 2026-27 estimate | Source |
+|---|---|---|
+| Rev-share to MBB | 2.5M to 3.0M | House framework allocation |
+| Arizona Assist collective | 3.0M+ | King 2024 baseline plus Final Four halo |
+| Brand and apparel NIL | 0.5M to 1.0M | Nike, Tucson businesses |
+| Wildcat Village memberships | 0.3M+ | 3000 per year tier scale |
+| Total addressable 2027 budget | 6.3M to 7.8M | Stacked sources |
+
+## 2. Real 2027 Strategy — 5 Moves
+
+**Move 1: Productize the Final Four halo.** Arizona Assist Club should ship a "Road to Indy" membership tier this summer that bundles Wildcat Village event access, signed Final Four memorabilia, and a road-game travel package. The 2001 Final Four is the previous reference point, so the 25-year gap is the emotional hook donor messaging needs.
+
+**Move 2: Lock in the rebuilt backcourt.** J.J. Mandaquit and Derek Dixon are the new floor leaders. Mandaquit averaged 5.2 points and 3.2 assists at Washington but profiles as a long-term system fit; Dixon brings North Carolina pedigree. Front-loading their NIL deals through Tucson auto, real-estate, and healthcare sponsors stabilizes the position group before fall practice.
+
+**Move 3: Use Motiejus Krivas and Ivan Kharchenkov as anchor tenants.** Both returning players are exactly the multi-year continuity story Arizona Assist needs to tell donors who are tired of one-and-done churn. Build their personal brands as a marketing flywheel.
+
+**Move 4: Lean on Paul Volpe's Tucson business network.** With Matt King now inside the athletic department as president of basketball operations and Volpe running the collective, the legal separation between school and collective stays clean while the relationships compound. Corporate Cats tier is the channel.
+
+**Move 5: Make Caleb Holt the 2026-27 NIL face.** A five-star shooting guard from Prolific Prep is the cleanest national-marketing asset on the roster. Pair him with Cameron Holmes for an in-state Arizona story and shoot the brand campaign before opening night.
+
+## 3. Top 3 Risks
+
+**Risk 1: Roster turnover gravity.** With Peat and Burries headed to the NBA Draft, Awaka and Dell'Orso out of eligibility, and Aristode plus Gueye in the portal, Arizona is rebuilding most of its rotation. Even with the Mandaquit and Dixon adds and the Holt and Holmes commits, the experience curve flattens scoring efficiency in November and December. NIL dollars cannot buy chemistry, and a slow start would dent the Final Four halo Arizona Assist Club is selling. Lloyd has navigated this before, but the cushion is thin in a Big 12 stacked with Houston, Iowa State, and a hungry Kansas.
+
+**Risk 2: Collective revenue stalling under rev-share competition.** The House settlement framework pulls dollars into on-campus revenue-share pools, which can cannibalize traditional collective giving if donors assume "the school is paying them now." Arizona Assist Club has to reframe its pitch from "we pay players" to "we close the gap that rev-share cannot fill," especially for true-NIL endorsement work. If the messaging lags, the 3.0M-plus collective target slips by Q4 2026.
+
+**Risk 3: Big 12 media and travel drag.** Arizona's first two Big 12 seasons exposed real travel cost and time-zone scheduling friction. If the conference media rights renegotiation underdelivers or if non-revenue sports require deeper cross-subsidies, the MBB rev-share slice shrinks. That forces Arizona Assist Club to fundraise harder into a donor base already stretched across football's Desert Takeover and Olympic-sport collectives.
+
+```mermaid
+flowchart TD
+    A[2026-27 roster build] --> B[Returning core]
+    A --> C[Transfers in]
+    A --> D[Freshmen]
+    B --> E[Motiejus Krivas senior C]
+    B --> F[Ivan Kharchenkov F]
+    C --> G[J.J. Mandaquit PG from Washington]
+    C --> H[Derek Dixon G from North Carolina]
+    D --> I[Caleb Holt five star SG]
+    D --> J[Cameron Holmes four star]
+    K[Departures] --> L[Koa Peat NBA Draft]
+    K --> M[Brayden Burries NBA Draft]
+    K --> N[Tobe Awaka eligibility]
+    K --> O[Anthony Dell Orso eligibility]
+    K --> P[Aristode and Gueye transfer]
+    E --> Q[Defend Big 12 title]
+    F --> Q
+    G --> Q
+    H --> Q
+    I --> Q
+    J --> Q
+    Q --> R[2027 Final Four pursuit]
+```
+
+## FAQ
+
+**Q: Who runs the Arizona NIL collective in 2026?**
+A: Tucson businessman Paul Volpe took over leadership of Arizona Assist Club after Matt King left to become UA's president of basketball operations. The legal separation between the athletic department and the collective is required under current NCAA rules, so King's move clarified the org chart rather than blurring it.
+
+**Q: How much does Arizona need for its 2026-27 MBB roster?**
+A: Realistically three to four million dollars in collective spend on top of an estimated 2.5 to 3.0 million in on-campus revenue-share allocation, putting the total addressable MBB compensation pool somewhere between six and eight million dollars for the season. That is the price of staying in the Final Four conversation.
+
+**Q: How long is Tommy Lloyd locked in?**
+A: Lloyd signed a contract extension through the 2031 season in April 2026. The deal increased assistant-coach pay and added a larger buyout specifically tied to any Big 12 head-coaching opening, which is the conference structure he would be most likely to leave for if he left at all.
+
+## Sources
+
+- [University of Arizona Athletics — Lloyd extension through 2031](https://arizonawildcats.com/news/2026/4/3/mens-basketball-arizona-head-mens-basketball-coach-tommy-lloyd-agree-to-contract-extension-through-2031-season.aspx)
+- [Arizona Desert Swarm — Lloyd Naismith Coach of the Year 2026](https://www.azdesertswarm.com/basketball/78179/arizona-wildcats-mens-basketball-tommy-lloyd-naismith-coach-award-2026-final-four-big12)
+- [Arizona Desert Swarm — Lloyd contract details and buyout](https://www.azdesertswarm.com/basketball/78392/arizona-wildcats-mens-basketball-tommy-lloyd-contract-extension-salary-assistants-buyout-big12-2031)
+- [Big 12 Conference — Arizona wins regular-season title](https://big12sports.com/news/2026/3/3/arizona-wins-big-12-mens-basketball-regular-season-title.aspx)
+- [Wikipedia — 2025-26 Arizona Wildcats men's basketball](https://en.wikipedia.org/wiki/2025%E2%80%9326_Arizona_Wildcats_men%27s_basketball_team)
+- [On3 — Arizona Assist Club collective profile](https://www.on3.com/nil/collectives/arizona-assist-club-30/)
+- [Tucson.com — Matt King to president of basketball operations](https://tucson.com/sports/college/basketball/wildcats/men/pascoe/article_e485eb88-6c64-11ef-999d-9fd8cdaecac8.html)
+- [Sports Illustrated — Arizona transfer portal tracker 2026-27](https://www.si.com/college/arizona/wildcats-transfer-portal-tracker-additions-departures-updated-roster-2026-2027)

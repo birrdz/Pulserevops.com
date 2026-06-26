@@ -1,0 +1,17 @@
+[img-today] cutoff = Fri Jun 26 2026 00:00:00 GMT-0400 (Eastern Daylight Time) (ts>=1782446400000)
+[img-today] pass 1: today-pending=0 {}
+[img-today] pass 2: today-pending=0 {}
+[img-today] pass 3: today-pending=0 {}
+[img-today] pass 4: today-pending=2 {"ik":2}
+[img-today] pass 5: today-pending=0 {}
+[img-today] pass 6: today-pending=1 {"ik":1}
+[img-today] pass 7: today-pending=0 {}
+[img-today] pass 8: today-pending=0 {}
+[img-today] pass 9: today-pending=2 {"ik":2}
+[img-today] pass 10: today-pending=0 {}
+[img-today] pass 11: today-pending=1 {"ik":1}
+[img-today] pass 12: today-pending=0 {}
+[img-today] pass 13: today-pending=0 {}
+[img-today] pass 14: today-pending=1 {"ik":1}
+[img-today] pass 15: today-pending=0 {}
+[img-today] pass 16: today-pending=1 {"ik":1}

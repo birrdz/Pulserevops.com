@@ -1,0 +1,84 @@
+QUESTION: What are BYU Cougars men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+BYU Cougars men's basketball enters the 2026-27 NIL cycle as a verified national contender that just lost its franchise centerpiece. AJ Dybantsa, the projected No. 1 pick in the 2026 NBA Draft, is gone, and head coach Kevin Young must rebuild a roster that finally cracked the Sweet 16 in 2025-26 for only the third time in program history. The strategy is no longer about announcing arrival. It is about proving the Dybantsa era was a system, not a one-time recruiting miracle. BYU's 2027 NIL needs sort cleanly into four buckets: a star wing creator to replace Dybantsa's shot-creation gravity, a true rim-protecting five who can survive Big 12 physicality, a transfer-portal point guard with two years of high-major reps, and a developmental stretch four built for Young's NBA spacing concepts. The Royal Blue Collective, BYU's first officially endorsed NIL arm with backing from 875 donors across 30-plus states supporting 300-plus athletes on 13 teams, has to deliver a roster valuation in the $9 million to $11 million range to stay competitive with Houston, Kansas, and Arizona in the Big 12 cap-adjacent era. The pitch sells itself: a former Phoenix Suns associate head coach running NBA spacing, a Sweet 16 program on the rise, Fanatics-grade national distribution proved out by Dybantsa's eight-figure deal, and a fan economy that already moves merchandise in volume through theroyalblue.co. The execution risk is real, but the foundation is the strongest BYU has ever assembled.
+
+## Why The 2027 Cycle Is Different
+
+The 2026-27 cycle is the first post-Dybantsa cycle, and that distinction matters more than any single signing. Dybantsa's reported $4 million-plus NIL valuation, anchored by Nike, Red Bull, and the Fanatics exclusive, single-handedly reset what BYU's collective ceiling looked like to outside agents. Once he declared for the draft after the loss to Houston in the Big 12 quarterfinals, every recruit and every transfer started asking the same question: was that the Royal Blue ceiling, or the Royal Blue floor? Kevin Young's answer at the NBA Combine in May 2026 was unambiguous. He framed Dybantsa as the proof of concept, not the peak, and pointed at the program's ability to run NBA sets, develop pros on a four-year accelerated track, and stack Final Four-caliber pieces around future stars. That answer needs roster receipts by November 2026, which means the Royal Blue's 2027 board has to close in the spring and summer windows on at least one McDonald's All-American level wing and two power-conference transfers with verified production.
+
+```mermaid
+flowchart TD
+    A[2027 NIL Strategy] --> B[Star Wing Creator]
+    A --> C[Rim-Protecting Five]
+    A --> D[High-Major Point Guard]
+    A --> E[Stretch Four Developmental]
+    B --> F[Royal Blue Top Tier 2.0M+]
+    C --> G[Big 12 Physicality Need]
+    D --> H[Portal Two-Year Vet]
+    E --> I[NBA Spacing Fit]
+    F --> J[Total Cap 9-11M]
+    G --> J
+    H --> J
+    I --> J
+```
+
+## The Revenue-Share Cap Reshapes The BYU Model
+
+BYU's 2027 spending happens inside the new House settlement framework, which lets schools pay athletes directly from a pool of roughly $20.5M in year one, escalating about 4% annually. For a Big 12 program with a major football operation, men's basketball gets a slice of that capped pool rather than the whole thing — which is exactly why the Royal Blue Collective's third-party deals remain essential rather than redundant. Genuine endorsement deals do not count against the cap, so the strategic move for BYU is to fund the basketball revenue-share allocation as a salary floor and use the collective to stack legitimate, NIL Go-compliant brand deals on top. Every collective deal of $600 or more now passes NIL Go, the Deloitte-run clearinghouse that screens for fair-market value, which is one more reason BYU's Fanatics relationship matters: a real national-distribution partner produces deals that survive clearinghouse review, while pure booster cash increasingly does not.
+
+## Position-By-Position NIL Targets
+
+The star wing slot is the marquee allocation and should carry roughly 20 to 25 percent of the total roster valuation, in the $2.0 million to $2.5 million range. This is the Dybantsa replacement slot in spirit if not in name, and the realistic candidate pool sits between top-ten high school prospects from the 2026 class and one-and-done-caliber transfers from mid-major Sweet 16 rosters. The pitch is identical to the one that landed Dybantsa: Young's NBA pedigree, a guaranteed primary creator role, Fanatics-tier distribution, and a Big 12 platform that delivers 18-plus televised games against tournament teams. The rim-protecting five is the second priority and the most underweighted position in BYU history. Houston pushed BYU around physically in the Big 12 quarterfinal loss, and Young's NBA spacing concepts only work if the five can guard ball screens at the level and finish above the rim on the other end. A $1.2 million to $1.5 million NIL package for a proven Big 12 or SEC transfer center is the right number.
+
+## The Point Guard And Stretch Four Equation
+
+Point guard is where the 2026-27 roster nearly cratered, and 2027 cannot repeat the mistake of leaning on a freshman lead. The target profile is a junior or senior transfer with at least 60 starts at a power-conference program, a true assist-to-turnover ratio north of 2.0, and the on-ball defensive chops to switch one through three in Young's NBA sets. The NIL cost lands between $700,000 and $900,000, which is fair market for a two-year veteran point guard in the current Big 12. The stretch four is the developmental swing piece and the position where Young's NBA background creates the most leverage. He can credibly promise an international or sophomore-transfer four-man that BYU will play him at the five in small-ball lineups, run him off pin-down actions like an NBA wing, and prep him for a second-round draft slot inside two years. That pitch lands at $500,000 to $700,000 and gives the Royal Blue an asymmetric development bet that does not crowd out the wing or the five financially.
+
+## Royal Blue Collective Execution
+
+The Royal Blue Collective's operational task in 2026-27 is to convert one-time Dybantsa-era donors into recurring monthly subscribers. The 875-donor base is a strong floor but a thin ceiling next to Texas Tech's Matador Club or Kansas's Mass Street Collective, both of which run subscription tiers in the five figures monthly. The collective needs to launch a tiered membership system with a $25 entry tier, a $250 mid tier, and a $2,500 founders tier, with the goal of doubling the donor count to 1,750 by tip-off in November 2026. Fanatics distribution unlocked by the Dybantsa partnership is a structural advantage BYU has not fully monetized at the roster level. The collective should negotiate a roster-wide jersey royalty pool with Fanatics that flows directly into player NIL accounts, on top of individual deals, which would let BYU advertise a true floor compensation number to recruits.
+
+```mermaid
+flowchart TD
+    A[Royal Blue 2027 Execution] --> B[Donor Doubling 875 to 1750]
+    A --> C[Tiered Subscription Launch]
+    A --> D[Fanatics Roster Pool]
+    A --> E[Big 12 Cap Alignment]
+    B --> F[Recurring Monthly Revenue]
+    C --> G[25 / 250 / 2500 Tiers]
+    D --> H[Floor Compensation Pitch]
+    E --> I[9-11M Roster Valuation]
+    F --> J[Sustainable 2027 Roster]
+    G --> J
+    H --> J
+    I --> J
+```
+
+## The Honor Code Premium
+
+The often-ignored variable in any BYU NIL conversation is the Honor Code, which narrows the recruiting funnel relative to every other Big 12 program. Young has handled this with NBA-style pragmatism, pitching the Honor Code as a feature for recruits who want a structured environment and acknowledging openly that it shrinks the addressable pool. The Royal Blue's 2027 response should be to overpay slightly at the top of the market for cultural fits. Paying 10 to 15 percent above market for a recruit who is genuinely aligned with the BYU environment is cheaper long-term than paying market for a recruit who transfers out after one semester. The Dybantsa signing proved the top of the market is reachable. The 2027 roster will prove whether the model is repeatable, and the Royal Blue Collective's ability to execute on tiered fundraising, Fanatics-pool negotiation, and cultural-premium pricing is the variable that decides whether BYU stays in the Sweet 16 conversation or slides back to NCAA bubble territory.
+
+## Replacing Star Gravity Without A Star
+
+The hardest 2027 strategic question is basketball, not money: how does a roster replace the shot-creation gravity of a projected No. 1 pick? Dybantsa drew double-teams that opened the floor for everyone else, and no single signing replicates that. Young's answer is structural rather than personnel-driven. Rather than spending the entire star-wing budget on one prospect and hoping he replicates Dybantsa's gravity, the smarter 2027 allocation buys a high-floor creator at $2.0M-$2.5M and pairs him with a genuinely elite shooting big and a pass-first veteran point guard, so the offense generates spacing from system and personnel balance instead of one player's individual draw. This is the NBA principle Young brought from Phoenix: an offense that survives a star's off night because the spacing and ball movement are schemed, not improvised. For the collective, it means resisting the temptation to blow the budget on a single name and instead funding three complementary pieces that compound — a discipline that is harder to sell to donors who want another Dybantsa headline but produces a more durable roster.
+
+## Frequently Asked Questions
+
+**Does the revenue-share cap mean BYU can no longer offer NIL deals like the one that landed AJ Dybantsa?**
+
+No — but the structure changed. Dybantsa's reported $4M-plus package was largely genuine third-party endorsement money from Nike, Red Bull, and Fanatics, and that kind of real brand deal does not count against the House settlement revenue-share cap. What changed is that any collective- or booster-funded deal of $600 or more now must clear NIL Go, the Deloitte-run clearinghouse that checks whether the payment matches the athlete's true market value. So BYU can still land an eight-figure-caliber recruit, but the money has to come from legitimate national brand partnerships rather than disguised booster cash. BYU's Fanatics relationship is a genuine competitive edge precisely because it produces the kind of real, nationally distributed deals that survive clearinghouse review.
+
+**How does the Honor Code actually affect BYU's NIL recruiting in 2027?**
+
+It narrows the pool of recruits BYU can realistically pursue, which changes the math on how the Royal Blue Collective should spend. Because BYU's environment is not a fit for every elite prospect, the program competes for a smaller subset of the top market, and losing one of those targets is more costly than it would be for a school with an unlimited funnel. Kevin Young's strategy treats this as a reason to pay a 10-15 percent premium for recruits who are genuinely aligned with BYU's culture, on the logic that retention is cheaper than replacement — a recruit who fits and stays four years is a better dollar than a market-rate recruit who transfers out after one semester. The Honor Code is a constraint, but BYU's 2027 plan turns it into a retention-and-culture argument rather than treating it purely as a recruiting liability.
+
+Sources:
+- [BYU coach Kevin Young discusses AJ Dybantsa at the NBA Combine - Deseret News](https://www.deseret.com/sports/2026/05/12/kevin-young-aj-dybantsa-nba-draft-combine-espn-interview/)
+- [BYU Athletics Endorses The Royal Blue NIL Collective - KSL Sports](https://kslsports.com/496852/byu-athletics-nil-collective-the-royal-blue-big-12/)
+- [The Royal Blue Collective](https://www.royalbluecollective.org)
+- [Evaluating Kevin Young's First Two Seasons at BYU - SI](https://www.si.com/college/byu/basketball/evaluating-kevin-young-s-first-two-seasons-at-byu)
+- [AJ Dybantsa Lands Massive Fanatics NIL Deal - Athlon Sports](https://athlonsports.com/college/byu-cougars/aj-dybantsa-lands-massive-fanatics-nil-deal-elevates-byu-basketball-buzz-)
+- [House v. NCAA settlement and revenue sharing explained - ESPN](https://www.espn.com/college-sports/story/_/id/45417406/house-settlement-explained-college-sports-revenue-sharing)

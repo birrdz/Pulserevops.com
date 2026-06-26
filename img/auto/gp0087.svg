@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="How do you build a vertical SaaS for electrical contractors go-to-market motion in 2027?">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1b34"/><stop offset="1" stop-color="#13294f"/></linearGradient>
+<radialGradient id="glow" cx="0.78" cy="0.4" r="0.55"><stop offset="0" stop-color="#ff7a45" stop-opacity="0.22"/><stop offset="1" stop-color="#ff7a45" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<rect width="1200" height="630" fill="url(#glow)"/>
+<g opacity="0.5"><line x1="0" y1="0" x2="1200" y2="0" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="90" x2="1200" y2="90" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="180" x2="1200" y2="180" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="270" x2="1200" y2="270" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="360" x2="1200" y2="360" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="450" x2="1200" y2="450" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="540" x2="1200" y2="540" stroke="#1c3358" stroke-width="1"/></g>
+<path d="M755 150 L1115 150 L1075 214 L795 214 Z" fill="#ff7a45" opacity="0.45"/><path d="M795 228 L1075 228 L1035 292 L835 292 Z" fill="#ff7a45" opacity="0.5900000000000001"/><path d="M835 306 L1035 306 L995 370 L875 370 Z" fill="#ff7a45" opacity="0.73"/><path d="M875 384 L995 384 L955 448 L915 448 Z" fill="#ff7a45" opacity="0.8700000000000001"/><path d="M935 470 l0 36 m-14 -16 l14 16 l14 -16" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+<g transform="translate(60,70)"><circle cx="14" cy="14" r="14" fill="#ff7a45"/><circle cx="14" cy="14" r="14" fill="none" stroke="#ffffff" stroke-opacity="0.4" stroke-width="2"/><rect x="8" y="26" width="12" height="7" rx="2" fill="#0b1b34"/></g>
+<text x="92" y="84" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#ff7a45">PULSE · GTM PLAYBOOKS</text>
+<text x="90" y="216" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#ffffff">How do you build a</text><text x="90" y="274" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#ffffff">vertical SaaS for</text><text x="90" y="332" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#ffffff">electrical contractors</text><text x="90" y="390" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#ffffff">go-to-market motion in…</text>
+<rect x="90" y="520" width="120" height="5" rx="2.5" fill="#ff7a45"/>
+<text x="90" y="572" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#9fb3d4">pulserevops.com</text>
+</svg>

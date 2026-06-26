@@ -1,0 +1,27 @@
+{
+  "id": "q448",
+  "question": "How do I design regional GTM and messaging that doesn't just translate the US playbook?",
+  "tick": 226,
+  "outline": [
+    "Why Translated Playbooks Fail: The Localization Trap",
+    "Diagnosing Region-Market Fit Before You Expand",
+    "The Buyer-Context Map: What Actually Changes By Region",
+    "Designing The Regional GTM Operating Model",
+    "Localizing The Value Proposition, Not Just The Words",
+    "Messaging Architecture: Core Promise Versus Regional Proof",
+    "Channel And Motion Selection By Region",
+    "Pricing, Packaging, And Procurement Norms",
+    "The Regional Content And Demand Engine",
+    "Staffing, Partners, And The Build-Versus-Buy Decision",
+    "Regional Sales Process And Deal-Stage Adaptation",
+    "RevOps Instrumentation: Comparable Metrics Across Regions",
+    "Governance: Global Consistency Versus Local Autonomy",
+    "The 90-Day Regional Launch Sequence",
+    "Common Failure Modes And How To Catch Them Early"
+  ],
+  "blocks": {
+    "block1": [0, 1, 2, 3, 4],
+    "block2": [5, 6, 7, 8, 9],
+    "block3": [10, 11, 12, 13, 14]
+  }
+}

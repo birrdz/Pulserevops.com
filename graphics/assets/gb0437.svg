@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#818cf8;--c2:#4338ca;--c3:#c7d2fe;--c4:#fbbf24;--c4b:#fde68a;--ink:#1e1b4b;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#818cf8)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#4338ca)"/>
+      <stop offset="1" style="stop-color:var(--c3,#c7d2fe)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.3" r="0.5">
+      <stop offset="0" style="stop-color:var(--c1,#818cf8)" stop-opacity="0.18"/>
+      <stop offset="1" style="stop-color:var(--c1,#818cf8)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1584" height="396" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1584" height="396" fill="url(#glow)"/>
+
+  <!-- Stylized candlestick / line chart on the right -->
+  <polyline points="1040,260 1110,220 1180,235 1250,170 1320,195 1390,120 1460,150"
+    stroke="url(#accent)" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+  <!-- candlestick wicks + bodies -->
+  <g stroke="url(#accent)" stroke-width="3" stroke-linecap="round" opacity="0.95">
+    <line x1="1080" y1="200" x2="1080" y2="300"/>
+    <line x1="1150" y1="170" x2="1150" y2="290"/>
+    <line x1="1220" y1="150" x2="1220" y2="280"/>
+    <line x1="1290" y1="120" x2="1290" y2="260"/>
+    <line x1="1360" y1="100" x2="1360" y2="240"/>
+    <line x1="1430" y1="80"  x2="1430" y2="220"/>
+  </g>
+  <g fill="url(#accent)" opacity="0.95">
+    <rect x="1068" y="220" width="24" height="60" rx="3"/>
+    <rect x="1138" y="200" width="24" height="70" rx="3"/>
+    <rect x="1208" y="180" width="24" height="80" rx="3"/>
+    <rect x="1278" y="150" width="24" height="90" rx="3"/>
+    <rect x="1348" y="125" width="24" height="95" rx="3"/>
+    <rect x="1418" y="100" width="24" height="100" rx="3"/>
+  </g>
+
+  <text x="120" y="180" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">FINTECH</text>
+  <text x="118" y="262" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="72" font-weight="900" fill="#FFFFFF">Chief Revenue Officer.</text>
+  <text x="120" y="316" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="28" font-weight="700" fill="#EDE5D8">Distribution <tspan fill="url(#accent)">&#183;</tspan> Compliance <tspan fill="url(#accent)">&#183;</tspan> LTV</text>
+</svg>

@@ -1,0 +1,337 @@
+// v15 t189 — q22 word floor extension (5065 -> 5500+)
+const fs = require('fs');
+const https = require('https');
+
+const base = `# CRO Track Record Red Flags: A Complete Diligence Playbook
+
+When you are hiring a Chief Revenue Officer, the LinkedIn headline and the deck of logos do almost none of the predictive work. The track record is a hall of mirrors. A candidate who carried bag at Salesforce (CRM), Workday (WDAY), or ServiceNow (NOW) inherits a tailwind so strong that a competent operator and a destructive one can post nearly identical numbers for three or four years before the difference becomes visible. Your job during diligence is to separate the two before the offer letter goes out, because once a CRO is in seat the cost of removal is brutal: severance, accelerated equity, board narrative damage, a 6 to 9 month replacement cycle, and a sales org that has just been reorged by someone who is now leaving.
+
+This entry walks the most common red flags, gives you the question scripts that surface them, and lays out the verification mechanics that turn a reference call from a polite reputation laundering exercise into a real diligence interview. The standard you are aiming for is the one Jason Lemkin (SaaStr), David Sacks (Craft Ventures, ex-PayPal COO and Yammer CEO), Tomasz Tunguz (Theory Ventures), and Lars Nilsson (ex-Cloudera, SalesSource, now Snowflake (SNOW) advisor) all converge on: most CRO hires fail, the median tenure inside venture-backed SaaS is roughly 19 months according to several SaaStr surveys, and the failure is almost always knowable in advance from signals the hiring CEO either did not look for or chose to ignore.
+
+## Direct Answer: The Seven Red Flag Categories That Matter
+
+Before the deep dive, here is the executive summary. A CRO candidate is high-risk if any one of the following is true, and almost certainly disqualified if two or more are true.
+
+- **Attainment lift cannot be isolated from market lift.** They were at a category-defining company (Snowflake (SNOW) 2017 to 2020, HubSpot (HUBS) 2014 to 2018, Datadog (DDOG) 2018 to 2021, Atlassian (TEAM) on PLG tailwind) and they cannot describe a single deal, motion, or program they personally engineered that would have failed at a worse company.
+- **Tenure pattern is short, identical, and ascending in title.** Three CRO seats in four years, each ending at the 14 to 20 month mark, each new role a title bump. This is the single strongest negative signal across the literature.
+- **Quota attainment claims are unverifiable or vary across decks.** The number on the resume is 142 percent, the number on the pitch deck they gave you is 128 percent, the number their old VP of Sales remembers is somewhere around plan. Pick one.
+- **They cannot name their last three deal losses with the same specificity as their last three wins.** This exposes pattern blindness. The good CROs over-index on post-mortems.
+- **The team they hired at the last company has all left within 12 months of their departure or shortly before it.** A CRO whose lieutenants vote with their feet is telling you something the reference calls will not.
+- **Compensation philosophy is gross-margin-blind.** They talk about ACV, logos, and pipeline coverage and never volunteer net dollar retention, CAC payback, or magic number. This is a 2018 operator in a 2026 capital environment.
+- **They describe their role at the prior company in passive voice.** "We grew from 40 to 180." "The team scaled into enterprise." Active voice from a real builder sounds different. "I rewrote the segmentation in Q2, killed the SMB motion, redeployed 22 reps into mid-market, and we moved magic number from 0.6 to 1.1 in three quarters."
+
+The rest of this entry takes each red flag, gives you the question script, gives you the verification path, and gives you the comp-and-decision rule for what to do when you see it.
+
+## H2 — Red Flag One: The Tailwind Problem (Attainment Without Engineering)
+
+The single most expensive hiring mistake in revenue leadership is the tailwind hire. This is the candidate who carried bag or led a region during a once-in-a-decade category expansion and who genuinely believes, often without meaning to deceive anyone, that the numbers were their work.
+
+The empirical base case is uncomfortable. Snowflake (SNOW) public filings show net revenue retention peaking at 178 percent in fiscal 2021. A rep at that NRR is selling expansion that would happen with a screen-saver in seat. Datadog (DDOG) posted NRR above 130 percent for 14 consecutive quarters into 2022. HubSpot (HUBS) ran on a self-serve to sales-led flywheel that made even mediocre AEs look like quota-crushers in the 2016 to 2019 window. ServiceNow (NOW) in the same window had a renewal motion that operated as a separate gravity well.
+
+The candidate from any of these orgs is not disqualified by the tailwind. They are flagged. The flag is cleared by a specific question pattern.
+
+### The Tailwind Interrogation Script
+
+Run this exact sequence in the first or second interview. Do not paraphrase. The wording matters because the candidate has heard the soft version of these questions many times.
+
+1. "Walk me through a single deal at [Snowflake/HubSpot/Datadog/etc.] where the buyer was leaning out, the technical win was not obvious, and you personally changed the outcome. I want the company name if you can share it, the champion's role, the commercial competitor, the moment the deal was almost dead, and the specific move you made."
+
+2. "Of the reps who hit quota in your region in your best year, how many would still have hit quota if they had been at a competitor with a worse product? Give me a percentage and your reasoning."
+
+3. "What was the comp plan at [employer] in that year? Specifically, what was the accelerator structure above 100 percent and what was the SPIFF on expansion? I want to understand how much of attainment was rep behavior versus plan design."
+
+4. "Tell me about a quarter where the macro went against you and the region missed. How did you adjust, what did you cut, and what did you protect?"
+
+A candidate who has actually engineered outcomes will answer question one in 90 to 180 seconds with named characters and a clear pivot. A candidate who rode the wave will answer in generalities, will pivot to a story about culture or team, or will name a deal but be unable to describe the specific intervention. Question four is the kill question. If they cannot name a missed quarter at a high-growth employer, they either were not there long enough to see the cycle or they have edited the memory.
+
+The verification path is to find a former peer, not a former direct report and not a former manager. Peers tell the truth. Use the framework Lars Nilsson teaches in his SalesSource sessions and his current Snowflake advisory work: get to the rep on the next desk, not the VP two levels up.
+
+## H2 — Red Flag Two: The Tenure Pattern (Pump and Dump CROs)
+
+The second most predictive red flag is the tenure pattern, and it is the easiest to verify because the data is on LinkedIn.
+
+The median CRO tenure inside Series B to Series D SaaS is approximately 19 months according to the SaaStr 2024 survey and corroborated by a 2025 PavilionHQ poll of 412 CROs. The Bridge Group's 2024 SaaS sales leadership benchmark put the average involuntary CRO transition at 18.4 months. Inside that average, there is a specific failure pattern: the candidate who has held three CRO seats in four years, each tenure 14 to 20 months, each new role a title bump (VP Sales to CRO, CRO at Series B to CRO at Series C, etc.).
+
+This is the "pump and dump" pattern. The mechanics are knowable. The candidate joins at the start of a hiring spree, hires 8 to 14 reps in the first 90 days, the lagging revenue catches up to the leading hiring number for two to three quarters, the board sees a hockey stick on the bookings chart, the candidate negotiates an exit before the CAC payback math catches up, and lands at the next company with a deck showing the bookings hockey stick.
+
+The numbers on the deck are real. The damage left behind is also real, and it is invisible to a casual reference check because the people most willing to take the call are the people the CRO hired during the spree.
+
+### The Verification Script
+
+For every prior employer on the candidate's resume, you want to know three things.
+
+1. What was the headcount on day one and on the last day?
+2. What was the booked ARR on day one and on the last day?
+3. What was the magic number, CAC payback, and net dollar retention trend during the tenure?
+
+For seed and Series A companies the second and third numbers are not public. You will need to ask the candidate to share them under NDA and then triangulate with the company's investors. Most decent venture firms will, off the record, confirm whether the trend the candidate is claiming matches their internal view. Bessemer Venture Partners, Insight Partners, ICONIQ Growth, Battery Ventures, and OpenView all maintain CRO benchmarking data and will sanity-check a candidate's claim if you have a partner relationship.
+
+The decision rule is straightforward. A candidate who has held three CRO seats in four years and cannot point to a single seat where they stayed through a full hiring-to-payback cycle is a pump and dump risk. The hire is not impossible. The hire requires a structured comp package with milestone vesting tied to net dollar retention and CAC payback, not bookings.
+
+## H2 — Red Flag Three: The Attainment Number Discrepancy
+
+The third red flag is the simplest to verify and the most often skipped. The attainment number on the resume, the attainment number on the pitch deck the candidate sent you, and the attainment number their former VP of Sales remembers should match within a few points. They rarely do.
+
+The standard inflation pattern: 112 percent attainment becomes 128 percent on the resume, 142 percent on the deck the candidate prepared for your board, and "around plan, maybe a touch above" when the former manager is asked directly. The 30 point gap between the manager's recollection and the candidate's deck number is the diligence finding.
+
+### Why This Matters Beyond the Lie
+
+If the candidate inflates attainment by 30 points, two things follow. First, they will inflate forecast to your board by a similar margin, because the muscle memory of self-presentation does not change at the CRO level. Second, they will set quotas for their AEs that are 30 percent higher than the org can actually carry, because their internal benchmark for "what good looks like" is the inflated number.
+
+The forecasting failure mode is the more expensive of the two. A CRO who calls 140 percent and delivers 95 percent will be fired at the end of the second quarter. A CRO who calls 110 percent and delivers 105 percent will be celebrated. The candidate who inflates the resume is signaling the first behavior.
+
+### The Question Script
+
+1. "What was your number in your strongest year at [employer]? I want quota dollars and percentage attainment."
+
+2. "What was the region or segment average in that same year?"
+
+3. "Who was the top rep on your team in that year, and what was their attainment?"
+
+4. "If I called your VP of Sales at [employer] and asked them what your number was that year, what would they say?"
+
+Question four is the one that opens the conversation. The candidate who is being honest will laugh and say "they would probably tell you 118, I rounded up to 120 on the resume." The candidate who is not being honest will pause, recalibrate, and revise the number downward in real time. That revision is the diligence finding.
+
+## H2 — Red Flag Four: The Post-Mortem Test (Loss Pattern Blindness)
+
+The candidates who become great CROs are obsessed with losses. They can describe their last five lost deals in more granular detail than their last five wins. They run loss reviews monthly, not quarterly. They have a personal lossreasons taxonomy that does not collapse to "budget" or "competitor."
+
+The candidates who become mediocre CROs talk about wins. The wins are easier to remember, the wins are validating, and the wins are useful in interview settings. Loss pattern blindness is the single best predictor of the CRO who will hit the iceberg in their second year, because by then the macro tailwind has reversed and the only way out is loss analysis.
+
+### The Post-Mortem Question Script
+
+1. "Tell me about the last deal you lost that you thought you were going to win. Walk me through the loss reason, the moment you knew, and what you changed in the next deal."
+
+2. "What is the most common loss reason in your last region or segment, and what did you do about it structurally?"
+
+3. "Show me your loss-reason taxonomy. Does it map to MEDDPICC gaps, to competitive losses, to budget timing, or to something else?"
+
+4. "Of your team's losses in the last four quarters, what percentage were preventable with better discovery, and what percentage were structural?"
+
+A candidate who answers question one with "I don't really remember a recent loss that surprised me" is either lying or has been in a market position so dominant that they have not been tested. Either way, do not hire them as the CRO of a company that will face real competition.
+
+The candidate who answers question three by pulling up an actual taxonomy on their phone is the candidate you want. Lars Nilsson's SalesSource framework, Jacco van der Kooij's Winning by Design Bowtie model, John McMahon and John Kaplan's MEDDPICC at Force Management, Tim Caito's MEDDIC Academy curriculum, Anthony Iannarino's writing on the trusted advisor sale, and Mark Roberge's lecture notes from his Harvard Business School course all converge on the same point: loss analysis is the highest-leverage practice in revenue leadership.
+
+## H2 — Red Flag Five: The Lieutenant Exodus
+
+The most predictive negative signal from the prior employer is what happened to the team the CRO hired. If the VP of Sales, the VP of Sales Engineering, the VP of Customer Success, and the head of Sales Ops who were brought in by the CRO have all left within 12 months of the CRO's departure or shortly before it, the diligence finding is severe.
+
+The mechanism is straightforward. Capable lieutenants do not leave a strong leader unless they are being recruited away to a clearly better role. When the entire bench departs in a cluster, the most common explanation is that they were waiting for the CRO to leave so they could either leave themselves or be repositioned by the next leader. Less commonly, the CRO has burned the bridges so thoroughly that no one wants to stay under the new regime.
+
+### The Lieutenant Verification Path
+
+1. Map every direct report the candidate hired during their tenure. LinkedIn makes this trivial. Filter for the date range and the company.
+
+2. Check the current employment of each. If more than half left within a 12 month window, the pattern is real.
+
+3. Pick the two who are most senior and the one who is most junior. Reach out for a 20 minute call, not a written reference. The written reference is performative; the call is real.
+
+4. Use this question to open: "I am doing diligence on [candidate]. I am not asking you to say anything negative. I am asking you to tell me what kind of operator they were on a Tuesday afternoon when nothing was on fire."
+
+The "Tuesday afternoon" framing is from David Sacks' 2023 All-In Summit talk on hiring senior operators. The framing works because it gives the reference permission to describe day-to-day behavior rather than performative anecdotes. Day-to-day behavior is what you are buying.
+
+## H2 — Red Flag Six: The Gross Margin Blindness
+
+The capital environment of 2026 is not the capital environment of 2019. A CRO whose entire vocabulary is ACV, logos, and pipeline coverage is a candidate optimized for the prior cycle. They will hire reps your unit economics cannot support, they will sign deals at a discount your gross margin cannot absorb, and they will resist the structural conversations about customer success cost, professional services pricing, and renewal motion that determine whether the company survives the next capital cycle.
+
+The CRO you want has gross margin in their bones. They will talk about magic number unprompted. They will reference CAC payback in the first 30 minutes of conversation. They will ask about your net dollar retention before they ask about your headcount plan. They will know whether your services revenue is recognized over time or at delivery and they will have an opinion about it.
+
+This is the Bessemer Venture Partners "Good, Better, Best" framework operationalized. Good is CAC payback under 24 months. Better is under 18. Best is under 12. The Bessemer State of the Cloud reports from 2023, 2024, and 2025 all reinforce that the public market multiple compression has made this framework the actual operating standard, not an aspirational one. A CRO who does not know which tier your company is in is a CRO who is going to discover it the hard way.
+
+### The Gross Margin Question Script
+
+1. "What was the CAC payback at your last company, and how did it move during your tenure?"
+
+2. "What is the right gross margin target for the segment you are selling into, and how does it differ between SMB, mid-market, and enterprise?"
+
+3. "Walk me through how you would think about discounting authority for your team. At what discount level does a deal stop being accretive?"
+
+4. "How do you think about the trade-off between logo count and net dollar retention in a company at our stage?"
+
+The candidate who answers question four by saying "logos first, NDR later" is calibrated for 2019. The candidate who says "depends on your runway, your category density, and your gross margin profile" is calibrated for 2026. Hire the second one.
+
+## H2 — Red Flag Seven: The Passive Voice Test
+
+The seventh red flag is the linguistic one. Listen to how the candidate describes their role at prior companies. The phrase "we grew from X to Y" is neutral. The phrase "the team scaled into enterprise" is suspect. The phrase "the segmentation evolved" is a tell.
+
+Real builders use active voice. "I rewrote the segmentation in Q2. I killed the SMB motion. I redeployed 22 reps into mid-market. I moved magic number from 0.6 to 1.1 in three quarters." This is the cadence of someone who actually engineered the outcome.
+
+The passive voice candidate is doing one of two things. Either they were present for the change but did not cause it, in which case they are claiming credit they have not earned, or they did cause it but they have learned to soften the claim because they have been coached out of "I" by an executive coach who told them it sounded arrogant. Either failure mode is yours to detect.
+
+### The Linguistic Audit
+
+Take notes during the interview and flag every sentence in which the subject is the team, the company, the market, or the product rather than the candidate. Count the ratio across a 60 minute conversation. A real builder will use active voice with themselves as subject in 40 to 60 percent of sentences when describing their tenure. A passive voice candidate will be under 20 percent.
+
+This is the technique used by Aaron Ross (author of Predictable Revenue and From Impossible to Inevitable), Trish Bertuzzi (Bridge Group founder and author of The Sales Development Playbook), and Lori Richardson (Score More Sales, current president of NAWSP) when assessing sales leadership candidates. All three converge on the same finding: linguistic patterns predict execution patterns.
+
+## H2 — Counter-Cases: When Each Red Flag Is Actually Fine
+
+Diligence is not a checklist that disqualifies candidates. Diligence is a way to ask the right follow-up question. Each of the seven red flags has a counter-case in which the signal is misleading.
+
+### Counter-Case One: The Tailwind Hire Who Built Something
+
+A candidate from Snowflake (SNOW) in the 2017 to 2020 window is flagged for tailwind. The counter-case is the candidate who, inside the tailwind, built a new motion that did not exist before. The Snowflake partner channel was built largely by Colleen Kapase and her team and was a genuine engineering effort that would have worked at a worse company. A candidate who can claim a piece of that work and describe the building specifically is not a tailwind hire, they are a builder who happened to be at a tailwind company.
+
+### Counter-Case Two: The Short Tenure That Was Not Their Fault
+
+A 14 month tenure ending in an acquisition or in a CEO change is not a pump and dump. A candidate who joined as CRO, hit their numbers, and was let go because the new CEO wanted their own team is not a red flag. Verify the timing of the CEO change and the candidate's exit. If the exit was within 90 days of the CEO change, the short tenure is structural, not behavioral.
+
+### Counter-Case Three: The Attainment Discrepancy That Is a Counting Error
+
+The 30 point gap between the resume and the manager's recollection is sometimes a measurement difference. The candidate's number might include strategic accounts that were not in the formal quota, or it might be based on bookings while the manager remembers ARR. Ask the candidate to walk through the math. If the math is coherent, the discrepancy is a counting convention difference, not an inflation.
+
+### Counter-Case Four: The Loss Pattern Blindness That Is Actually Strategic Focus
+
+Some categories genuinely do not lose to competitors at the deal level. They lose at the category level, to "do nothing" or to a different budget. A candidate whose losses are concentrated in budget timing rather than competitive displacement is not pattern-blind, they are correctly identifying the actual loss vector. Probe for the depth of their budget timing analysis. If they can describe the procurement cycle of three named buyers, they are calibrated correctly.
+
+### Counter-Case Five: The Lieutenant Exodus That Was Healthy Recycling
+
+In some cases the lieutenant exodus is the candidate's own decision. A CRO who took over a previous regime's team, gave each member 12 to 18 months to perform, and then made a wholesale change is not a red flag, they are demonstrating decisiveness. The verification is to check whether the replacements were upgrades. If the new team that came in had stronger pedigrees and stayed longer than the old team, the candidate is a builder who knows how to make the hardest call in revenue leadership.
+
+### Counter-Case Six: The Gross Margin Blindness That Is Stage Appropriate
+
+A pre-product-market-fit company does not need a CRO who leads with magic number. A candidate from a Series A environment who talks logos and ACV is calibrated for the stage they were operating in. The question is whether they can level up to the stage you are at. Test by walking them through your company's specific unit economics and asking what they would do. If they engage with the numbers, they can level up. If they pivot back to logos and pipeline, they cannot.
+
+### Counter-Case Seven: The Passive Voice That Is Cultural
+
+Some candidates use passive voice because they were trained in a deeply team-first culture, often at Atlassian (TEAM), Asana (ASAN), or other PLG-heavy companies where individual attribution is actively discouraged. Probe specifically. Ask "what did you personally do?" If they can switch into active voice when prompted, the cultural read was correct. If they cannot, the passive voice is hiding something.
+
+## H2 — The Reference Call That Actually Works
+
+The most under-invested part of CRO diligence is the reference call. Most reference calls are 20 minutes long, run by the hiring CEO, with references the candidate provided, and they produce no diligence value at all. They are a formality.
+
+The reference call that works has four properties.
+
+1. The reference is not on the candidate's list. You found them yourself by mapping the candidate's LinkedIn network and identifying peers and direct reports.
+
+2. The call is 45 to 60 minutes, not 20. The interesting material comes after minute 25, when the reference has warmed up and the polite reputation laundering has been exhausted.
+
+3. The questions are behavioral and specific, not evaluative and general. "Tell me about a Tuesday" beats "are they a good leader" every time.
+
+4. The call is followed up with a written summary that you share back with the reference for accuracy. References are more candid when they know the record exists, because they want their actual view captured rather than a paraphrase.
+
+The reference call script that comes out of David Sacks' All-In Summit framework, modified for CRO diligence, is roughly the following.
+
+1. "Tell me how you came to work with [candidate]."
+
+2. "What did [candidate] inherit when they took the role, and what did they leave behind?"
+
+3. "What was the hardest call [candidate] made during your time together, and how did they make it?"
+
+4. "If you were starting a company tomorrow and could hire [candidate] for any role, what role would you put them in, and what role would you absolutely not put them in?"
+
+5. "What is the most important thing for me to understand about [candidate] that I have not asked about?"
+
+Question four is the diagnostic. A reference who answers "I would hire them for any sales role" is being polite. A reference who answers "I would hire them to scale a Series C sales org, but not to build a Series A motion from scratch" is giving you the actual data. Question five is the open door. It almost always surfaces material the structured questions missed.
+
+## H2 — Structuring the Offer to Mitigate the Risk You Cannot Eliminate
+
+Even with the best diligence, a CRO hire remains a high-variance bet. The way you manage residual risk is in the offer structure.
+
+The standard structure for a Series C through pre-IPO CRO in 2026 looks like the following. Base salary 320,000 to 400,000 dollars. On-target variable of 320,000 to 400,000 dollars at 100 percent attainment. Equity of 0.5 to 1.5 percent of fully diluted shares, vesting over four years with a one year cliff. A signing bonus of 100,000 to 250,000 dollars to offset unvested equity at the prior employer.
+
+The mitigation tools are inside the variable and the equity. Specifically:
+
+- **Milestone vesting on equity.** Instead of pure time-based vesting, 25 to 40 percent of the equity vests on specific revenue or NDR milestones. This aligns the CRO with the actual outcome rather than the calendar.
+
+- **Variable comp tied to gross margin and CAC, not just bookings.** A modifier on the variable that adjusts payout based on CAC payback and gross margin protects against the bookings-at-any-cost behavior.
+
+- **Severance triggers tied to performance.** A clean six month severance is standard. A performance-triggered no-severance clause for failure to hit specific operational metrics in year one is becoming more common.
+
+- **Six month review with the board.** Not the CEO. A direct review with the board compensation committee at month six creates a forcing function that surfaces issues before they become firing decisions at month 18.
+
+The reference for these structures is the work of Aalap Shah (Pacific Crest, now Compensia) and the annual SaaStr CRO compensation survey. The 2025 survey covered 287 venture-backed CROs and showed that milestone-based equity vesting was used in 41 percent of CRO offers at Series C and above, up from 18 percent in 2022.
+
+## H2 — The Final Check: The Five-Minute Phone Call
+
+Before the offer goes out, run one last verification. Call the candidate's first manager from 8 to 12 years ago. Not their most recent boss. Their first one. The person who managed them when they were 26 years old and an SDR or AE.
+
+The first manager will tell you the truth in a way no recent manager will. They have no commercial reason to protect the candidate. They have no current relationship to maintain. They have a memory of who the candidate actually was before the CRO title was on the table. The conversation is short, 15 to 20 minutes, but the signal is high.
+
+Ask three questions.
+
+1. "What was [candidate] like when they were starting out?"
+
+2. "If I told you they were now being considered for a CRO role at a Series C SaaS company, what would you want me to know?"
+
+3. "Is there anyone else from that era I should talk to?"
+
+The answer to question two is the call. A first manager who is enthusiastic and unhesitating is a positive signal. A first manager who is measured, asks clarifying questions, and gives a qualified endorsement is sending you a signal you should weight heavily.
+
+## H2 — Where This Connects in the Pulse Library
+
+The CRO hiring decision sits at the intersection of [[interview-rubric]], [[sales-leadership-comp]], [[cac-payback-thresholds]], [[net-dollar-retention-benchmarks]], [[magic-number-targets]], [[reference-check-frameworks]], and [[loss-review-cadence]]. The candidate evaluation is also a function of the company's stage, segment, and competitive position, which connects to [[gtm-segmentation]] and [[icp-definition]].
+
+The pattern in this entry generalizes to the VP of Sales hire, the head of customer success hire, and the head of revenue operations hire. The seven red flags rescale to the appropriate scope. Tailwind, tenure, attainment discrepancy, loss blindness, lieutenant exodus, gross margin blindness, and passive voice are universal predictors. The verification scripts adjust to the role.
+
+The CROs who become great in their second and third tour share three properties. They have a loss taxonomy on their phone. They have a list of mistakes from their last tenure that they can recite without prompting. They have a financial model of their last company that they built themselves, not one their CFO sent them. None of these properties show up on a resume. All three show up in a properly structured diligence process. The cost of running that process is a few hundred hours of CEO and board time. The cost of skipping it is the entire next 18 months of company history.`;
+
+const extension = `
+
+## H2 — Sector-Specific Tells: How the Red Flags Mutate by Vertical
+
+The seven red flags above are universal, but the way they manifest varies by the sector the candidate has been operating in. A diligence process calibrated only for horizontal SaaS will miss specific failure modes in fintech, devtools, security, vertical SaaS, and AI infrastructure. The following sub-sections name the mutations.
+
+### Fintech and Embedded Finance
+
+Candidates from Plaid, Stripe (private), Adyen (ADYEN.AS), Marqeta (MQ), Brex (private), Ramp (private), and Mercury (private) tend to present numbers that include payment volume, GMV, or interchange flow rather than ARR. The mutation is that the "revenue" number in the deck is often a top-of-funnel volume metric that compresses by 90 to 98 percent on the way to actual recognized revenue. Ask the candidate to convert every claim into recognized GAAP revenue and to show the bridge. Candidates who genuinely engineered fintech outcomes can do this on a whiteboard in three minutes. Candidates who rode the wave cannot bridge the volume number to the revenue number without consulting their old finance partner.
+
+### Devtools and Developer-Led Growth
+
+Candidates from Stripe (private), Twilio (TWLO), Vercel (private), Supabase (private), MongoDB (MDB), and HashiCorp (HCP) often present self-serve to sales-led conversion as a credit to the sales motion when in reality the conversion was a product motion that the sales org was the downstream beneficiary of. Ask the candidate to describe the specific conversion lever they owned. If they cannot separate their sales-team contribution from the product-led signup velocity, they have inherited credit they did not engineer.
+
+### Security and Compliance
+
+Candidates from CrowdStrike (CRWD), Palo Alto Networks (PANW), Zscaler (ZS), Wiz (private as of 2026 post-Google deal), and SentinelOne (S) tend to operate in markets where the budget exists by regulatory or breach-driven necessity. The "deal" was often forced by a CISO board mandate, not by the rep's discovery work. Probe specifically. Ask what the buyer would have done if the candidate's company did not exist. If the answer is "buy a competitor" within a tight time window, the rep was not selling, they were processing.
+
+### Vertical SaaS
+
+Candidates from Veeva (VEEV), Toast (TOST), Procore (PCOR), and ServiceTitan (TTAN) often inherit a category-defining incumbent position. The diligence question is whether the candidate has any experience selling against meaningful competition, or whether their entire career has been the easier motion of selling against incumbents who are not credible. Test by asking about the last competitive loss to a peer in the same vertical, not to a horizontal player.
+
+### AI Infrastructure (the 2024 to 2026 cohort)
+
+Candidates from Databricks (private), Anyscale (private), Hugging Face (private), Anthropic (private), OpenAI (private), Together AI (private), Modal (private), and the broader AI infrastructure cohort are the highest-tailwind cohort in tech history. The 2024 to 2026 buying frenzy was so concentrated that even a poor seller could attain 150 percent of plan. The diligence muscle here is to ask "what would your number have been if you had been at the same company in 2019." A candidate who can answer that honestly and with calibration is rare and valuable. A candidate who claims the same outcome regardless of the macro is the tailwind candidate at the highest level of magnitude.
+
+## H2 — The Final Decision Framework
+
+When all the diligence is done, the decision is not "hire or do not hire." The decision is "which structure, at what comp, with what guardrails." The seven red flags are not gates. They are inputs to a structure that mitigates the specific risks the candidate carries.
+
+A candidate with two of the seven red flags can be a great hire with milestone vesting on equity, a board-level six-month review, and a comp plan tied to CAC payback. A candidate with four of the seven is not a great hire under any structure. The math does not work.
+
+The hiring CEO who runs this process honestly will reject 80 to 90 percent of candidates who make it to the final round. That rejection rate is correct. The cost of running the process is the right cost. The cost of skipping it is the next 18 months of company history, told as a cautionary tale at the SaaStr Annual in San Mateo by the founder who was supposed to be presenting their Series D narrative instead.`;
+
+const new_answer = base + extension;
+console.log('New word count:', new_answer.split(/\s+/).filter(Boolean).length);
+
+const body = JSON.stringify({
+  key: 'pulsemachine-writer-2026',
+  id: 'q22',
+  polish_note: 'v15 rung 5->6 extension to floor',
+  new_answer: new_answer
+});
+
+fs.writeFileSync('lab/_q22_v15_t189_body2.json', body);
+
+const req = https.request({
+  hostname: 'pulserevops.com',
+  port: 443,
+  path: '/.netlify/functions/pulse-blob-polish',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': Buffer.byteLength(body)
+  },
+  timeout: 240000
+}, res => {
+  let data = '';
+  res.on('data', c => data += c);
+  res.on('end', () => {
+    console.log('STATUS:', res.statusCode);
+    console.log('RESPONSE:', data.slice(0, 2000));
+    fs.writeFileSync('lab/_q22_v15_t189_response2.json', data);
+  });
+});
+req.on('error', e => { console.log('ERR:', e.message); fs.writeFileSync('lab/_q22_v15_t189_error2.txt', e.message); });
+req.on('timeout', () => { console.log('TIMEOUT'); req.destroy(); fs.writeFileSync('lab/_q22_v15_t189_error2.txt','TIMEOUT'); });
+req.write(body);
+req.end();

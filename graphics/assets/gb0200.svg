@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <style>svg{--c1:#2dd4bf;--c2:#0f766e;--c3:#99f6e4;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130f;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0f17"/><stop offset="1" stop-color="#0f172a"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF8C1A"/><stop offset="0.5" stop-color="#E8710A"/><stop offset="1" stop-color="var(--c3,#FFD740)"/></linearGradient>
+  </defs>
+  <rect x="40" y="40" width="720" height="720" rx="80" fill="url(#bg)" stroke="#1e293b" stroke-width="4"/>
+  <rect x="549" y="374" width="52" height="52" rx="10" fill="url(#accent)" transform="rotate(0 575 400)"/><rect x="498" y="498" width="52" height="52" rx="10" fill="url(#accent)" transform="rotate(45 524 524)"/><rect x="374" y="549" width="52" height="52" rx="10" fill="url(#accent)" transform="rotate(90 400 575)"/><rect x="250" y="498" width="52" height="52" rx="10" fill="url(#accent)" transform="rotate(135 276 524)"/><rect x="199" y="374" width="52" height="52" rx="10" fill="url(#accent)" transform="rotate(180 225 400)"/><rect x="250" y="250" width="52" height="52" rx="10" fill="url(#accent)" transform="rotate(225 276 276)"/><rect x="374" y="199" width="52" height="52" rx="10" fill="url(#accent)" transform="rotate(270 400 225)"/><rect x="498" y="250" width="52" height="52" rx="10" fill="url(#accent)" transform="rotate(315 524 276)"/><circle cx="400" cy="400" r="135" fill="url(#accent)"/><circle cx="400" cy="400" r="64" fill="#0b0f17"/>
+</svg>

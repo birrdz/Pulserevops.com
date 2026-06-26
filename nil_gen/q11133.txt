@@ -1,0 +1,114 @@
+QUESTION: What are Gonzaga Bulldogs men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Gonzaga's 2027 NIL playbook is a values-led, donor-engineered counterpunch to power-conference checkbooks: the Zags Collective (alumni-founded by Matt Santangelo and Shaniqua Nilles, GM Derek Raivio, powered by Blueprint Sports) pairs with the university's revenue-sharing pool and basketball GM Kurt Bambauer to fund a roster that survives the program's 2026-27 jump from the West Coast Conference into the rebuilt Pac-12. On3 already ranks Gonzaga No. 18 in average NIL valuation among college basketball programs, and the priorities are surgical: retain Braden Huff, Davis Fogle, and Mario Saint-Supery; integrate Houston transfer Isiah Harwell and a No. 15-ranked freshman class headlined by Jack Kayil, Luca Foster, and Sam Funches; backfill rim protection and shooting after a record six portal departures; and convert Mark Few's 2026 Naismith Hall of Fame induction into a once-in-a-generation donor moment.
+
+## 1. The 2027 Context: A New League, A New Math
+
+Gonzaga is not a normal mid-major anymore, and 2026-27 is the inflection. After 40-plus years in the WCC, the Zags join the relaunched Pac-12 alongside Oregon State, Washington State, Texas State, San Diego State, Colorado State, Utah State, Fresno State, and Boise State. The league reset means tougher Quad 1 opportunities, real television leverage, and — critically — bigger revenue-share distributions flowing back into the athletic department. That money compounds with NIL because revenue sharing covers the floor of player compensation while collective dollars fund the ceiling.
+
+The financial backdrop is the House v. NCAA settlement, approved in June 2025, which lets schools pay athletes directly from a pool of roughly $20.5M in year one, escalating about 4% annually. For a basketball-first school like Gonzaga, the strategic question is the inverse of what a football power faces: Gonzaga can plausibly devote a larger share of its capped pool to men's basketball than a school splitting the same cap across a 100-man football roster. That is the structural edge a hoops-centric athletic department carries into the revenue-share era, and Bambauer's front office is built to exploit it.
+
+The 2025-26 team finished 31-4, won a share of the WCC regular season, took the conference tournament, and earned the program's 28th NCAA berth. Few has now made the dance every year of his tenure. That résumé is the single most valuable asset Gonzaga sells to donors and recruits, and 2027 strategy treats it as both a moat and a recruiting pitch.
+
+### 1.1 Roster Reality After the Portal Bloodbath
+
+Six Zags entered the transfer portal — Emmanuel Innocenti, Braeden Smith, Steele Venters, Ismaila Diagne, Joaquim Arauz-Moore, and Cade Orness — the most in program history. Add five departing seniors who started 79 combined games and produced 51.2% of last year's scoring, and Gonzaga must replace more than half of its offense before tip-off. Six roster spots remained open after the spring portal window, with publicly identified holes at center and shooting guard. NIL is the lever that closes those holes.
+
+### 1.2 Why The Pac-12 Move Raises The Stakes
+
+The WCC was a league Gonzaga could dominate on talent alone; the rebuilt Pac-12 is not. Facing San Diego State, Boise State, and Utah State — programs that have made deep NCAA runs of their own — means Gonzaga's roster margin for error shrinks, and so does its NIL margin for error. A blown center signing in the WCC cost a few regular-season games; the same miss in the new Pac-12 could cost an at-large bid. The 2027 strategy therefore front-loads certainty: pay to retain known production before gambling collective dollars on unproven portal upside.
+
+## 2. The Funding Stack
+
+Gonzaga's 2027 model layers three buckets so no single source breaks if a donor cools off or a portal price spikes overnight.
+
+```mermaid
+flowchart TD
+    A[Zags Collective<br/>Blueprint Sports backbone] --> D[Player Compensation Pool]
+    B[University Revenue Share<br/>Pac-12 distribution] --> D
+    C[Direct NIL Deals<br/>local + national brands] --> D
+    D --> E[Retention<br/>Huff, Fogle, Saint-Supery]
+    D --> F[Portal Fills<br/>center + shooting guard]
+    D --> G[High School Class<br/>Kayil, Foster, Funches]
+    E --> H[2027 Pac-12 Roster]
+    F --> H
+    G --> H
+```
+
+### 2.1 The Zags Collective
+
+Founded by ex-Zags Santangelo and Nilles and run day-to-day by GM Derek Raivio, the Zags Collective is the donor-facing engine. Its "Match Madness" fundraiser during the men's and women's Sweet Sixteen runs proved the collective can convert tournament adrenaline into recurring giving. The collective also formalized a partnership with Gonzaga Nation to broaden reach beyond Spokane, plugging into the program's national alumni and superfan base. Crucially, every Zags Collective deal over $600 now has to clear NIL Go, the Deloitte-run clearinghouse, which screens collective payments for fair-market value — so the collective's emphasis on real appearances and brand work, not flat cash, is now a compliance requirement as much as a values statement.
+
+### 2.2 University Revenue Share
+
+Bambauer, hired specifically to run a pro-style front office, treats the revenue-share allocation as the salary cap and the collective as the bonus pool. That separation lets the program offer rookie-scale "guaranteed" compensation through the university while reserving collective dollars for high-leverage portal closes and retention raises. Because the revenue share is paid directly by the school and counts against the cap, while genuine third-party deals do not, Bambauer's job is to maximize the legitimate third-party layer so Gonzaga's true spending power exceeds its capped number — the same arbitrage every serious program is now running.
+
+### 2.3 Direct NIL Deals
+
+Spokane has a deep small-business sponsor network — auto dealerships, restaurants, regional banks — and the marketing office stacks those local deals on top of national apparel and trading-card placements. For a kid choosing between Gonzaga and a Big 12 offer, the local-deal density matters because the dollars are real and the appearance opportunities are short drives, not flights. These deals also have the advantage of clearing the NIL Go review cleanly, because they are exactly what the clearinghouse was designed to approve: real businesses paying real athletes for real promotional work.
+
+## 3. The 2027 Strategic Priorities
+
+### 3.1 Retention Before Recruitment
+
+Braden Huff is the keystone. He chose to return rather than test the portal, and a 2027 NIL package that pays him like a top-15 frontcourt player nationally is the single best dollar Gonzaga can spend. Davis Fogle and Mario Saint-Supery are the next tier — both rising sophomores who passed on portal exits and now command sophomore retention deals that scale with minutes and production milestones.
+
+### 3.2 Closing Two Specific Holes
+
+Bambauer and Few publicly need a rim protector and a shooter. The portal market for proven 7-footers in 2026 ran north of $1M at the top end, and Gonzaga has been linked to a 7'2 ACC transfer center. The collective's job for the next six months is not to chase volume but to be able to write one or two checks that finish those two spots without disrupting the locker-room pay scale.
+
+### 3.3 Protecting the High School Pipeline
+
+The 2026 freshman class — Jack Kayil (Germany U19, 11.1 PPG / 6.6 APG), Luca Foster (ESPN No. 37, elite shooter), and Sam Funches (Mississippi Mr. Basketball, 7'0) — ranked No. 15 nationally and was the only non-power class in the top 25. Holding that class together while bigger schools backchannel last-minute NIL counters is itself a 2027 priority.
+
+## 4. The Few Premium
+
+Mark Few enters the 2026-27 season as a Naismith Hall of Famer (Class of 2026, enshrined August 14-15 in Springfield). That changes the donor conversation. The collective's pitch is no longer "help us keep up" — it is "fund the final chapter of a Hall of Fame coach taking a non-power program into a power conference." That narrative converts.
+
+```mermaid
+flowchart TD
+    A[Mark Few<br/>2026 Hall of Fame] --> B[Donor Narrative Reset]
+    C[Pac-12 Entry<br/>2026-27] --> B
+    D[31-4 Season<br/>28th NCAA berth] --> B
+    B --> E[Zags Collective<br/>Match Madness model]
+    B --> F[Major Donor Asks<br/>multi-year pledges]
+    E --> G[2027 NIL Pool]
+    F --> G
+    G --> H[Retain Huff core]
+    G --> I[Close center + SG]
+    G --> J[Lock 2027 recruiting class]
+```
+
+The Hall of Fame narrative also has a practical fundraising function: it justifies the multi-year pledge. Donors who write a single tournament-season check are useful but volatile; donors who commit three-year pledges give Bambauer the budgeting certainty to offer recruits multi-year deals that out-compete one-year Power Four offers. Few's enshrinement is the emotional hook that converts one-time givers into pledge-tier donors, and that conversion is worth more to the 2027 roster than any single signing.
+
+## 5. Risks To Watch
+
+Three risks could break the 2027 plan. First, a Huff midseason injury or portal flirt would force an emergency collective raise that drains the contingency budget. Second, the Pac-12 media-rights deal underdelivering would shrink the revenue-share base and push more weight onto donors. Third, House settlement implementation changes could redefine which NIL dollars count against the cap or tighten NIL Go review so collective deals get compressed toward lower valuations, forcing Bambauer to rewrite contracts mid-cycle. The Zags' hedge is a deeper-than-usual collective board, a GM with pro-front-office instincts, and a coach whose name now opens doors that were previously locked.
+
+## 6. Bottom Line
+
+Gonzaga's 2027 NIL strategy is not about outspending Kentucky or Duke. It is about being the most efficient dollar in college basketball: a Hall of Fame coach, a top-20 NIL valuation, a top-15 recruiting class, a credible revenue-share floor, and a collective designed to write one or two roster-finishing checks instead of fifteen mediocre ones. If Bambauer hits the center and the shooting guard, the Zags walk into the Pac-12 as a top-15 preseason team — and the funding model becomes the template every non-power program studies next.
+
+## 7. Frequently Asked Questions
+
+**Can a basketball-first school like Gonzaga actually fund a competitive roster under the same cap as football powers?**
+
+Yes, and arguably more easily than a football school. The House settlement gives every opted-in school the same roughly $20.5M revenue-share ceiling, but how a school splits that pool is its own choice. A program like Ohio State or Alabama must spread the bulk of its cap across a 100-plus-man football roster, leaving men's basketball a relatively thin slice. Gonzaga, with no FBS football program, can direct a far larger share of its capped pool to men's basketball, then stack collective and direct NIL deals on top. That structural advantage is exactly why a non-power school can credibly enter the rebuilt Pac-12 as a top-15 team: the cap math favors the sport the school actually prioritizes.
+
+**Why does the Zags Collective emphasize real appearances and charity work instead of just paying players cash?**
+
+Two reasons, one cultural and one regulatory. Culturally, the collective was founded by former Zags who built a values-led model that ties athlete pay to community work and genuine brand partnerships. Regulatorily, the House settlement now requires every collective deal of $600 or more to pass NIL Go, the Deloitte-operated clearinghouse, which checks whether the payment matches the athlete's true endorsement value and can void deals that look like disguised pay-for-play. Because the Zags Collective already structures deals around real appearances, real local sponsors, and real charity activations, more of its deals survive that review intact than a collective built on flat cash transfers. In 2027, the model that was once just a values choice has become a compliance advantage.
+
+## Sources
+
+- Gonzaga University Athletics — Few Named to 2026 Naismith Hall of Fame Class
+- SI / Gonzaga Bulldogs On SI — 2026-27 roster tracker, transfer portal updates, recruiting class rankings
+- The Slipper Still Fits — Gonzaga NIL situation, transfer portal tracker
+- Blueprint Sports — Zags Collective Match Madness fundraiser
+- Spokesman-Review — Pac-12 transfer tracker, 2026-27 league context
+- 247Sports / ESPN — Gonzaga 2026 recruiting class commits and rankings
+- On3 — College basketball NIL average valuation rankings
+- NCAA / ESPN — House v. NCAA settlement and revenue-sharing explainer

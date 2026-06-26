@@ -1,0 +1,13 @@
+{
+  "tick": "214",
+  "agent": "C",
+  "target_id": "q161",
+  "question": "What new SaaS metrics are board members asking about in 2026?",
+  "rank_picked": "1st-oldest (index 0) of 1210 filtered entries, ts=1714381200000",
+  "word_count_before": 0,
+  "word_count_after": 9069,
+  "post_http_status": 200,
+  "post_response": {"ok": true, "id": "q161", "quality_score": 10, "format_v": "2026-05", "gold_format": true, "from": 10, "to": 10},
+  "gold_format_flag": true,
+  "polish_note": "Gold-format rewrite v15.2 t214-C: format_v 2026-05, all 10 gold elements"
+}

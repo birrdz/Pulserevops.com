@@ -1,0 +1,106 @@
+QUESTION: What are Ole Miss Rebels football's 2027 NIL needs and strategy under the new head coach?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Ole Miss enters 2027 with a $35.2 million roster valuation, a new head coach in Pete Golding, and a Grove Collective that just survived the most violent leadership transition in modern SEC history. Lane Kiffin walked out the door for LSU on November 30, 2025, hours after the Rebels clinched their first College Football Playoff berth, and Ole Miss elevated defensive coordinator Pete Golding to the permanent job that same week. Athletic director Keith Carter denied Kiffin the chance to coach the playoff run, and the Grove Collective was forced to re-paper roughly two dozen NIL deals in a single weekend. The 2027 strategy is now built around three priorities: lock in quarterback Trinidad Chambliss or Walker Howard with a market-resetting NIL package, fund a defense-first roster that matches Golding's identity, and protect the No. 2-ranked 2026 transfer portal class through a second offseason where rival collectives will absolutely come knocking.
+
+## TL;DR
+
+Ole Miss finished the 2025 season ranked sixth among SEC programs in roster valuation at $35.2 million and eleventh nationally, with the Grove Collective serving as the operational backbone. Golding inherited 27 incoming transfers, including Auburn quarterback Deuce Knight and returning Louisiana QB Walker Howard, plus nine four-star additions weighted toward the secondary and defensive line. The 2027 NIL plan centers on a quarterback room anchor deal, a defensive-trenches reinvestment thesis that mirrors Golding's Alabama pedigree, and retention bonuses for the holdover skill players who watched their head coach leave mid-playoff. The Rebels will not outspend Texas or Georgia, but they can outmaneuver them by paying for fit instead of stars.
+
+```mermaid
+flowchart TD
+    A[Lane Kiffin departs for LSU<br/>November 30 2025] --> B[Pete Golding elevated<br/>to permanent head coach]
+    B --> C[Grove Collective re-papers<br/>roster NIL agreements]
+    C --> D[2026 Transfer Portal Class<br/>ranked No. 2 nationally]
+    D --> E[27 incoming transfers<br/>21 outgoing players]
+    E --> F[2027 NIL Strategy<br/>three pillar approach]
+    F --> G[Pillar 1: Quarterback<br/>anchor package]
+    F --> H[Pillar 2: Defensive trenches<br/>reinvestment]
+    F --> I[Pillar 3: Retention bonuses<br/>for holdover skill]
+    G --> J[Roster valuation target<br/>40 million by August 2027]
+    H --> J
+    I --> J
+```
+
+## 1. The Quarterback Anchor Deal Defines Everything
+
+Ole Miss cannot rebuild the post-Kiffin identity without a publicly known, fully funded starting quarterback by July 2027. The Grove Collective spent the spring of 2026 navigating a three-way room that included Trinidad Chambliss, whose eligibility for another season remains officially unresolved, Auburn transfer Deuce Knight, and Walker Howard, who returned to Oxford from Louisiana after committing directly to Golding. The 2027 plan requires picking one name and pouring approximately $2.5 million to $3.5 million into a single deal, both to reward production and to signal market discipline to every receiver and offensive lineman watching how the Rebels handle their most important contract.
+
+Chambliss is the obvious anchor candidate if the NCAA grants the additional year. His public NIL announcement during the 2025 season already established him as a marketable face, and his familiarity with the system Kiffin built reduces the schematic risk under new offensive coordinator hires. If Chambliss does not return, Walker Howard becomes the strategic choice because his commitment was made directly to Golding rather than inherited from Kiffin, which carries cultural weight inside a building still healing from the November exit.
+
+| Quarterback Scenario | Estimated 2027 NIL Package | Strategic Logic |
+|---|---|---|
+| Chambliss returns with extra year | $3.0M to $3.5M | Production proven, marketing already built, lowest schematic risk |
+| Howard wins starting job | $2.2M to $2.8M | Direct Golding commitment, cultural reset, longer runway |
+| Knight wins starting job | $2.0M to $2.5M | Auburn pedigree, youngest option, requires development investment |
+
+The decision must be made by spring 2027 because the receiver room and offensive line will price their own deals against whoever wears the starting helmet, and a delayed quarterback announcement creates retention risk across every other position group.
+
+## 2. Defensive Trenches Match Golding's Identity
+
+Pete Golding spent five seasons as Nick Saban's defensive coordinator at Alabama from 2018 through 2022 before joining Ole Miss in the same role, and the 2026 transfer portal class already reflected his fingerprints. Nine four-star additions arrived with the heaviest concentration in the secondary and defensive line, exactly the position groups that defined the Saban era and that Kiffin's offensive-leaning roster construction historically underfunded. The 2027 NIL strategy will continue this rebalancing by allocating a larger share of the Grove Collective budget toward defensive tackles, edge rushers, and safeties.
+
+This is not just a personnel preference. It is a financial efficiency argument. Defensive line and secondary deals at Ole Miss have historically run below quarterback and receiver pricing despite being equally critical to SEC competitiveness, which means each marginal dollar invested in those rooms produces more on-field value than another skill-position upgrade. Golding has publicly described his recruiting approach as trajectory over tradition, telling reporters that Ole Miss recruits based on trajectory and emphasizing tough, competitive players who love football, which translates directly into the kind of unflashy lineman deals that compound over a full season.
+
+The four-star safety commitment Ole Miss landed during the spring underscored the pattern. Rather than chasing a single headline transfer, the staff layered multiple mid-tier defensive deals that built depth instead of star power. Expect 2027 to extend this pattern with at least three new defensive line deals in the $400,000 to $700,000 range and a continued emphasis on portal experience over high school projection in the secondary.
+
+## 3. Retention Bonuses Protect the Holdover Skill Players
+
+The most overlooked piece of the post-Kiffin NIL plan is the retention layer for players who chose to stay rather than follow their head coach to Baton Rouge. Yahoo Sports reported that multiple Ole Miss assistants followed Kiffin to LSU in 2026, and rival collectives spent the entire winter calling Oxford skill players to test whether their NIL deals were enforceable under the new staff. The Grove Collective responded by quietly issuing what amount to retention bonuses, structured as performance-tied addenda to existing contracts, with milestones tied to spring practice attendance, summer workout participation, and season-opening roster status.
+
+```mermaid
+flowchart TD
+    A[Holdover Skill Player<br/>under Kiffin contract] --> B[Spring 2026<br/>retention addendum issued]
+    B --> C[Spring practice<br/>attendance milestone]
+    C --> D[Summer workout<br/>participation milestone]
+    D --> E[Season-opening<br/>roster status bonus]
+    E --> F[Mid-season<br/>production trigger]
+    F --> G[2027 base contract<br/>renegotiation window]
+    G --> H[Long-term roster<br/>stability achieved]
+    A --> I[Rival collective<br/>tampering attempts]
+    I --> J[Grove Collective<br/>counter-offer protocol]
+    J --> G
+```
+
+The 2027 extension of this approach will formalize what the spring scramble improvised. Expect the Grove Collective to publish standardized retention tier language, tied to position group and class year, that gives players clear earning paths without requiring panic negotiations every time a competing program calls. Ole Miss cannot match Texas dollar for dollar, but it can offer contract certainty that the bigger budgets often fail to deliver.
+
+## 4. Funding the $35.2 Million Roster Under the New Cap
+
+The post-Kiffin NIL plan does not exist in a vacuum — it runs inside the House v. NCAA settlement framework that took effect July 1, 2025, which lets opted-in schools share roughly $20.5 million directly with athletes across all sports. For an SEC football program like Ole Miss, that direct revenue-share pool funds the bulk of the football roster, with the Grove Collective layering third-party NIL on top to reach the $35.2 million total valuation that ranked the Rebels sixth in the SEC and eleventh nationally entering 2026. The strategic consequence of the cap is that Ole Miss can no longer simply outspend on stars; every opt-in SEC rival operates under the identical $20.5 million ceiling, so the differentiator becomes how cleanly and creatively the Grove Collective stacks third-party deals above the cap line.
+
+This is where the settlement's NIL Go clearinghouse — the Deloitte-run review that vets third-party deals above $600 for fair-market value — directly shapes Golding's strategy. The retention addenda the Grove Collective improvised during the Kiffin-exit weekend, with milestones tied to spring practice attendance and season-opening roster status, are exactly the kind of documented, deliverable-based agreements that survive a fair-market-value review. A quarterback anchor deal in the $2.5-3.5 million range cannot all run through opaque collective payments anymore; a meaningful share has to be revenue-share base plus legitimate endorsement work, which is why Golding's public emphasis on trajectory over tradition doubles as a compliance posture — unflashy, deliverable-heavy deals clear NIL Go with far less friction than headline booster bags.
+
+The defensive-trenches reinvestment thesis also benefits from the cap math. Because edge rushers and defensive linemen price below quarterbacks and receivers on the open market, each revenue-share dollar spent in the front seven buys more cap-efficient on-field value, letting Ole Miss build a Golding-identity defense without exhausting the pool on a single skill position. The 2027 target of pushing the roster valuation toward $40 million by August assumes the Grove Collective grows its third-party layer through Oxford-area businesses and national brand activations while the university maxes its football share of the revenue-share cap. Hitting $40 million while staying clean through NIL Go is the real operational test of the post-Kiffin front office.
+
+## FAQ
+
+**Who is Ole Miss head coach for 2027?** Pete Golding, who was elevated from defensive coordinator to permanent head coach in early December 2025 after Lane Kiffin departed for LSU.
+
+**What is the Ole Miss 2026 roster valuation?** Approximately $35.2 million according to CFO data, sixth among SEC programs and eleventh nationally.
+
+**How did Ole Miss finish in the 2026 transfer portal rankings?** The Rebels finished No. 2 nationally with 27 incoming transfers, including quarterbacks Deuce Knight from Auburn and Walker Howard from Louisiana.
+
+**What is the Grove Collective?** Ole Miss's NIL collective, established in 2021 immediately after the NCAA approved name, image, and likeness compensation, and considered one of the earliest fully operational SEC collectives.
+
+**Will Trinidad Chambliss return in 2027?** His eligibility for an additional year remains officially unresolved, but Ole Miss has expressed optimism about his chances of playing another season.
+
+**What is Pete Golding's recruiting philosophy?** Trajectory over tradition, with a stated preference for tough, competitive players who love football and a balanced approach between portal experience and high school development.
+
+**How does the revenue-share cap affect Ole Miss's NIL spending?**
+Under the House settlement effective July 1, 2025, opt-in schools share roughly $20.5 million directly with athletes across all sports, with football taking the dominant share. The Grove Collective layers third-party NIL on top to reach the $35.2 million total roster valuation. Because every SEC rival shares the same cap, Ole Miss competes on how cleanly it stacks third-party deals, not on raw cap room.
+
+**What is NIL Go and why does it matter for the Grove Collective?**
+NIL Go is the Deloitte-run clearinghouse created by the House settlement that reviews third-party NIL deals above $600 for fair-market value. The Grove Collective's retention addenda and deliverable-based endorsement deals are structured to clear this review, which is why Golding's trajectory-over-tradition, deliverable-heavy approach also functions as a compliance strategy.
+
+## Sources
+
+- [The Lane Kiffin LSU Ole Miss Saga - The Ringer](https://www.theringer.com/2025/12/01/college-football/lane-kiffin-lsu-ole-miss-college-football)
+- [Lane Kiffin leaving Ole Miss for LSU - CBS Sports](https://www.cbssports.com/college-football/news/lsu-hires-lane-kiffin-head-coach-ole-miss/)
+- [Ole Miss elevates Pete Golding to head coach - CBS Sports](https://www.cbssports.com/college-football/news/ole-miss-hires-pete-golding-head-coach-lane-kiffin-lsu/)
+- [Inside Ole Miss landmark NIL victories after Kiffin exit - CBS Sports](https://www.cbssports.com/college-football/news/ole-miss-roster-stronger-portal-king-lane-kiffin-exit/)
+- [What is the 2026 Ole Miss roster valuation - On3](https://www.on3.com/teams/ole-miss-rebels/news/what-is-the-estimated-valuation-for-the-2026-ole-miss-football-roster/)
+- [Ole Miss 2026 Transfer Portal Tracker - The Rebel Walk](https://therebelwalk.com/2026/01/ole-miss-football-transfer-portal-tracker-2026/)
+- [Pete Golding spring presser - The Rebel Walk](https://therebelwalk.com/2026/03/inside-ole-miss-head-coach-pete-goldings-first-spring-presser-chambliss-tampering-and-a-new-look-roster/)
+- [Ole Miss assistants following Kiffin to LSU - Yahoo Sports](https://sports.yahoo.com/articles/ole-miss-football-coaches-following-110408976.html)

@@ -1,0 +1,82 @@
+{
+  "ladder": [
+    {
+      "rung": 1,
+      "target": 6,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "id": "q212",
+        "quality_score": 6,
+        "from": 5,
+        "polished": false
+      }
+    },
+    {
+      "rung": 2,
+      "target": 7,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "id": "q212",
+        "quality_score": 7,
+        "from": 6,
+        "polished": false
+      }
+    },
+    {
+      "rung": 3,
+      "target": 8,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "id": "q212",
+        "quality_score": 8,
+        "from": 7,
+        "polished": false
+      }
+    },
+    {
+      "rung": 4,
+      "target": 9,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "id": "q212",
+        "quality_score": 9,
+        "from": 8,
+        "polished": false
+      }
+    },
+    {
+      "rung": 5,
+      "target": 10,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "id": "q212",
+        "quality_score": 10,
+        "from": 9,
+        "polished": true
+      }
+    }
+  ],
+  "polish_events": {
+    "http_200": 5,
+    "http_413": 0,
+    "http_504": 0,
+    "http_other": 0
+  },
+  "final": {
+    "qs": 10,
+    "format_v": "2026-05",
+    "idx_qs": 10,
+    "idx_format_v": "2026-05",
+    "raw_words": 8926,
+    "clean_words": 8823
+  },
+  "probes": {
+    "hit": 42,
+    "total": 42
+  }
+}

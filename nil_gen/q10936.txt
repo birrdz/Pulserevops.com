@@ -1,0 +1,107 @@
+QUESTION: What are BYU Cougars football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+BYU Cougars football enters 2027 with the most unusual NIL story in the Power Four. Head coach Kalani Sitake, fresh off a re-upped long-term extension signed in December 2025 after Penn State pursued him, is entering year 12 in Provo with a quarterback room built around returning starter Bear Bachmeier, who threw for 3,033 yards and ran for 527 more as a true freshman in 2025 while leading the Cougars to 12 wins, an 8-1 Big 12 record, and a conference title game appearance against Texas Tech. The Royal Blue Collective, BYU's officially endorsed NIL arm and the only collective in college football compensating all 123 players on a football roster, is the engine — but it is also the program's biggest reputational liability after 2026 reports surfaced that Royal Blue allegedly delayed payouts, slashed salaries mid-cycle, and used NIL contracts as leverage on certain players. BYU's 2027 NIL strategy must thread three needles at once: re-recruit Bachmeier against an SEC market that will offer him $4M-plus, repair Royal Blue's payment infrastructure before high school recruits and their families notice, and lean harder on the LDS donor diaspora and Built4Life alumni mentorship channels that no other Big 12 school can replicate.
+
+**TL;DR:** BYU's 2027 NIL needs are roughly $22M-26M total roster spend, a Royal Blue payment-trust rebuild, and a Bachmeier retention package north of $3.5M — funded by the LDS donor network, Big 12 media revenue, and the Built4Life alumni-business pipeline.
+
+```mermaid
+flowchart TD
+  A[BYU 2027 NIL Ecosystem] --> B[Royal Blue Collective]
+  A --> C[LDS Community Boosters]
+  A --> D[Big 12 Media Revenue]
+  A --> E[LaVell Edwards Stadium Gate]
+  B --> F[All 123 Football Players Paid]
+  B --> G[Built4Life Alumni Mentorship]
+  C --> H[Faith-Aligned Donor Diaspora]
+  C --> I[Utah and Idaho Business Owners]
+  D --> J[Estimated 31M to 33M Per Year]
+  E --> K[63000 Capacity Premium Seats]
+  F --> L[Bachmeier Retention 3.5M Plus]
+  G --> M[Business Mentor Network]
+  H --> N[Faith Family Pursuits Messaging]
+  L --> O[2027 Roster Floor 22M]
+  M --> O
+  N --> O
+  J --> O
+  K --> O
+  O --> P[Compete With Texas Tech 28M Portal Spend]
+```
+
+## 1. Where BYU Stands — 2027 NIL Math
+
+BYU's 2026 roster spend, per industry estimates triangulated from On3 and Royal Blue's own disclosures, sits in the $18M-20M range — strong for a program that joined the Big 12 only in 2023, but materially behind Texas Tech's roughly $28M portal-heavy spend that bought the 2025 conference title. The Cougars' approach has been the inverse of Tech's: continuity over splashy transfers, with Sitake keeping returning starters in Provo rather than replacing them through the portal. That worked in 2025. Whether it works in 2027 against an SEC-style spending arms race is the open question.
+
+The 2027 floor is roughly $22M-26M. Bachmeier alone will require a retention package in the $3.5M-4.5M range to keep SEC offers at bay through his junior year. The rest of the roster — 122 additional scholarship and walk-on players who Royal Blue has publicly committed to compensating — needs an average of roughly $150K-180K per player, weighted heavily toward the offensive line, secondary, and edge rushers that BYU has historically lost to bigger checkbooks.
+
+| Bucket | 2027 Need | Funding Source |
+|---|---|---|
+| Bachmeier retention | $3.5M-4.5M | Royal Blue + targeted major donors |
+| Starting 22 (excl. QB) | $9M-11M | Royal Blue base + Big 12 media share |
+| Depth and developmental | $4M-5M | Royal Blue community tiers |
+| Portal targets (5-7 players) | $3M-4M | One-time donor strikes |
+| Recruiting class of 2027 | $2.5M-3M | Faith-community giving + Built4Life |
+| **Total** | **$22M-27.5M** | Blended |
+
+The math is achievable. The execution risk is Royal Blue's payment operations, not the fundraising itself.
+
+## 2. Real 2027 Strategy — 5 Moves
+
+**Move 1: Fix Royal Blue's payment operations publicly.** The 2026 athletic-business reporting that Royal Blue missed and delayed payments is recruiting poison. BYU should publish a quarterly payment-transparency report — players paid on time, average days to payment, dispute resolution timeline — before the 2027 portal window opens in December. Credibility is recruited, not promised.
+
+**Move 2: Bachmeier retention package signed by August 2026.** Bear Bachmeier's market value after a 3,033-yard freshman season climbs every game he plays. Lock a multi-year deal before the 2026 season opens so SEC programs cannot pry during the year. A backloaded structure with NIL guarantees plus Built4Life equity placements signals long-term commitment.
+
+**Move 3: Lean into the LDS-donor moat.** No Big 12 rival has BYU's faith-community fundraising base. Royal Blue should formalize "faith, family, life's pursuits" giving tiers — quarterly stake-level giving drives, alumni ward captains, and ward-house events — that turn a passive donor base into a recurring-revenue NIL machine. Recurring monthly giving smooths Royal Blue's cash flow problem.
+
+**Move 4: Built4Life as a real recruiting asset.** Most NIL pitches are dollars. BYU's differentiator is the Built4Life alumni-business mentorship pipeline — real founders, real equity introductions, real internships. Productize it for recruits: a written guarantee that every scholarship player gets matched with three mentor introductions per year in their stated career field.
+
+**Move 5: Notre Dame and Big 12 marquee weaponization.** The 2026 Notre Dame-BYU game is a $2M-3M NIL-marketing event by itself. Sell the matchup to national brands — pickup trucks, energy drinks, faith-aligned consumer goods — as a sponsored player-feature package. Use the Big 12's 16-team scale to bundle BYU appearances across Texas, Arizona, and Florida markets that LDS communities already occupy.
+
+## 3. Top 3 Risks
+
+**Risk 1: Royal Blue's payment-trust collapse.** This is the single biggest 2027 risk. The 2026 reports that Royal Blue used NIL payments as leverage and slashed salaries mid-cycle have already reached recruiting circles. If even one high-profile transfer publicly accuses Royal Blue of bad faith during 2026 — say, after the Big 12 title race ends — the 2027 recruiting class will collapse and current players will enter the portal. BYU's competitive advantage is trust within the LDS community; eroding it nationally erodes it locally. Mitigation: hire an independent ombudsman for player disputes and publish outcomes.
+
+**Risk 2: Bachmeier price escalation outruns Royal Blue's capacity.** If Bachmeier throws for 3,500-plus yards in 2026 and BYU wins the Big 12, his open-market value clears $5M. Royal Blue's tiered community-giving model is not built for single-player $5M strikes — it is built for broad participation. BYU may need to create a separate "Quarterback Fund" with major-donor sole sponsorship to keep him without cannibalizing the rest of the roster.
+
+**Risk 3: Sitake succession ambiguity.** The December 2025 extension calmed the Penn State noise, but Sitake is in year 12 and the contract length specifics matter for 2028-2030 recruiting cycles. Recruits ask about coaching continuity, and SEC programs will use any ambiguity against BYU. The athletic department should publicly communicate a coaching-tree succession plan — likely tied to offensive coordinator Aaron Roderick or a designated heir — to neutralize that attack vector before the 2027 cycle begins.
+
+```mermaid
+flowchart TD
+  A[BYU 2027 NIL Strategy] --> B[Move 1 Fix Royal Blue Payments]
+  A --> C[Move 2 Sign Bachmeier By August]
+  A --> D[Move 3 LDS Donor Moat]
+  A --> E[Move 4 Built4Life As Recruiting Asset]
+  A --> F[Move 5 Notre Dame Marquee Sales]
+  B --> G[Quarterly Transparency Report]
+  C --> H[Backloaded Multi Year Deal]
+  D --> I[Recurring Monthly Stake Giving]
+  E --> J[Three Mentor Intros Per Year]
+  F --> K[National Brand Bundles]
+  G --> L[Recruiting Class 2027 Lands]
+  H --> L
+  I --> L
+  J --> L
+  K --> L
+  L --> M[Big 12 Title Contender Through 2028]
+```
+
+## FAQ
+
+**Q: How does BYU's NIL spend compare to Texas Tech and other Big 12 leaders?** BYU's estimated 2026 roster spend sits at $18M-20M, roughly $8M-10M behind Texas Tech's portal-heavy 2025 build that produced the conference title. BYU's strategy is to close that gap not with portal raids but with retention, faith-community donor recurring revenue, and Built4Life mentorship — a slower but more sustainable model that has produced 24 wins over the 2024-25 seasons.
+
+**Q: Will Bear Bachmeier actually stay at BYU through 2027?** Probably yes, but the price keeps climbing. Bachmeier is a believing member of the LDS faith community, which matters for retention beyond dollars alone, and his family has signaled comfort in Provo. SEC offers in the $4M-5M range will arrive after the 2026 season; BYU needs his retention deal signed before the 2026 opener to remove the temptation entirely.
+
+**Q: Is Royal Blue's payment scandal a one-off or a structural problem?** Structural, but fixable. The all-123-players-paid model is operationally complex — payroll, contracts, tax forms, dispute resolution — and Royal Blue scaled the promise faster than the back-office infrastructure. The fix is professional payroll operations, an independent ombudsman, and quarterly public transparency reporting. None of that is exotic; all of it requires the BYU athletic department to publicly own the problem rather than treat it as Royal Blue's alone.
+
+## Sources
+
+- [BYU football: The impact of Kalani Sitake's re-upped contract — Deseret News](https://www.deseret.com/sports/2026/05/21/byu-cougars-coach-kalani-sitake-revised-contract/)
+- [Kalani Sitake sticking with BYU amid Penn State interest — ESPN](https://www.espn.com/college-football/story/_/id/47180286/kelani-sitake-remain-head-coach-byu-sources-say)
+- [The Royal Blue to pay every player on BYU's 123-man roster — 247Sports](https://247sports.com/college/byu/Article/byu-football-royal-blue-collective-215063332/)
+- [BYU Football Players Allege Missed, Late Payments by School's NIL Collective — Athletic Business](https://www.athleticbusiness.com/operations/article/15738540/byu-football-players-allege-missed-late-payments-by-schools-nil-collective)
+- [Return of starting QB Bear Bachmeier has expectations soaring — Deseret News](https://www.deseret.com/sports/2026/04/08/byu-cougars-football-depth-chart-offense-2026-post-spring-bachmeier-bear/)
+- [Texas Tech beats BYU for Big 12 title — ESPN](https://www.espn.com/college-football/story/_/id/47225496/texas-tech-byu-big-12-title-likely-cfp-first-round-bye)
+- [Highly Impactful 2025 Football Season Among BYU's Best Ever — BYU Athletics](https://byucougars.com/news/2026/01/29/highly-impactful-2025-football-season-among-byus-best-ever)
+- [Officially licensed collective of BYU Athletics launches — byucougars.com](https://byucougars.com/story/athletics/1302354/officially-licensed-collective-byu-athletics-launches)

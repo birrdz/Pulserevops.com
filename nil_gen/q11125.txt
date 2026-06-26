@@ -1,0 +1,84 @@
+QUESTION: What are SMU Mustangs football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+# What are SMU Mustangs football's 2027 NIL needs and strategy?
+
+**Direct Answer:** SMU Mustangs football enters the 2027 cycle as a wealthy outlier that still has to fight for every star. Head coach Rhett Lashlee, locked in through 2032 after a contract extension that swatted away Arkansas overtures, leads a program that finished ACC runner-up and reached the College Football Playoff in its first year of league membership. The Boulevard Collective, founded by Dallas heavyweights Chris Kleinert of Hunt Realty Investments and Kyle Miller of Silver Hill Energy Partners, pays football and basketball players a flat $36,000 each and pumps roughly $3.5 million annually into the roster. Mustang Partners handles brand deals, licensing, and commercial NIL, while the Mustang Club funnels donor loyalty points back into the Student-Athlete Benefit Fund. For 2027, the priorities are clear: keep paying every scholarship player a true revenue-share floor under the new House settlement framework, layer Boulevard Collective dollars on top for difference-makers at quarterback, edge, offensive tackle, and cornerback, and weaponize Dallas-Fort Worth corporate access to out-earn ACC peers on commercial NIL. SMU does not need more money in the building; it needs sharper allocation, retention deals for the 2025 freshman class, and a portal war chest aimed at proven Power Four starters.
+
+## Why SMU's NIL Position Is Stronger Than Most ACC Peers
+
+SMU sits on a financial foundation that very few mid-tier ACC programs can match. The Boulevard Collective's $3.5 million annual payout, distributed at $36,000 per football and basketball player, gives Lashlee a guaranteed floor that recruits can underwrite a year of college on before a single commercial deal closes. Chris Kleinert and Kyle Miller, the Dallas business leaders driving the collective, have signaled that the $36,000 number is a starting line, not a ceiling. Mustang Partners, the athletic department's commercial arm, layers brand partnerships, trademark and licensing income, and deal facilitation on top of the collective base, which means a returning starter can stack a Boulevard check, a rev-share allocation, and a corporate endorsement into a single calendar year. Add the Mustang Club's loyalty-points engine, which rewards every donor dollar that touches the Student-Athlete Benefit Fund, and SMU has built a four-channel funding stack at a time when most ACC programs still operate one collective and a hopeful prayer.
+
+It is worth remembering how SMU got here. To join the ACC in 2024, the program agreed to forgo its full share of conference television revenue for the first nine years of membership — a sacrifice underwritten by the same Dallas donor class that funds Boulevard. That decision, reported widely when the ACC invitation landed, signaled that SMU's boosters were prepared to spend their way into relevance rather than wait for media checks. The same appetite now flows into NIL. A program willing to leave tens of millions in TV money on the table to gain access is, by definition, a program whose donors will fund a roster.
+
+The catch is geography and conference math. SMU plays in the ACC now, against Clemson, Miami, Florida State, and a resurgent Louisville, and recruits against SEC and Big Ten budgets in the same Texas zip codes. The 2027 strategy has to assume that Texas, Texas A&M, Oklahoma, and LSU will offer comparable or larger packages to elite DFW prospects. SMU wins by being faster, more transparent, and more flexible than the bluebloods, not by outspending them on every name.
+
+## 2027 Position-Group Needs
+
+```mermaid
+flowchart TD
+    A[2027 SMU NIL Allocation] --> B[Tier 1 Premium]
+    A --> C[Tier 2 Difference Makers]
+    A --> D[Tier 3 Roster Floor]
+    B --> B1[Quarterback portal anchor]
+    B --> B2[Edge rusher pair]
+    B --> B3[Left tackle protector]
+    C --> C1[Outside cornerbacks]
+    C --> C2[Slot receiver dynamo]
+    C --> C3[Interior offensive line]
+    D --> D1[Boulevard 36K base for all]
+    D --> D2[House settlement rev-share]
+    D --> D3[Mustang Partners commercial layer]
+```
+
+Quarterback is the single biggest 2027 line item. Lashlee's offense has run through veteran transfer arms since he took over in 2022, and the 2027 portal cycle will demand a proven Power Four starter willing to take a one-year, high-six-figure Boulevard package layered with DFW corporate endorsements. Edge rusher comes next, where ACC line-of-scrimmage play has exposed every team that cannot generate a four-man rush, and SMU should target a pair, not a single piece, to give the defensive staff a rotation. Left tackle is the third premium slot, because protecting the new quarterback investment is non-negotiable. Outside cornerback, slot receiver, and interior offensive line round out the difference-maker tier where Boulevard funds should buy retention of current Mustangs before the December portal window opens.
+
+The under-budgeted line is the 2025 freshman class. SMU's first full ACC recruiting cycle landed several developmental prospects who, by 2027, will be redshirt sophomores entering their first meaningful playing time — and their first portal temptation. Every program that reached the Playoff becomes a poaching target, and a 21-year-old who breaks out in 2026 will have his phone lit up by SEC collectives in December. The 2027 plan has to reserve seven-figure aggregate retention money specifically for this group, because losing three home-developed starters to outbound transfers costs more than any single portal acquisition.
+
+## The Lashlee Retention Premium
+
+Lashlee's extension through 2032, reported by ESPN and On3 after Arkansas circled, changed the recruiting pitch entirely. A 17-year-old picking SMU in 2027 now knows the head coach who recruited him will still be on the sideline when he is a redshirt senior. That continuity has measurable NIL value. Recruits in Lashlee's first two cycles routinely cited his Auburn offensive coordinator pedigree and his willingness to install transfer quarterbacks immediately as decision factors. Locking him in through 2032 lets SMU sell a six-year development arc, which is a story SEC programs with annual coaching speculation cannot tell as cleanly. Lashlee's record at SMU — the 2023 American Conference title, the undefeated 2024 regular season, and the ACC runner-up finish with a Playoff berth — gives the pitch documented receipts.
+
+## Mustang Partners and the Commercial NIL Edge
+
+SMU's commercial NIL play is the most underrated piece of the 2027 strategy. Mustang Partners exists specifically to convert Dallas corporate access into player paychecks that do not count against the House settlement cap. Hunt Realty, Silver Hill Energy, and the broader Highland Park donor network give Mustang Partners a Rolodex that most ACC schools cannot replicate. A starting quarterback in 2027 should expect commercial deals with at least three DFW brands stacked on top of his collective base and his rev-share allocation. Mustang Partners also handles trademark and licensing, which means jersey and apparel revenue can flow back to roster stars without collective fundraising pressure.
+
+The House settlement adds a compliance layer SMU must navigate carefully here. Any third-party NIL deal of $600 or more now routes through the NIL Go clearinghouse run by Deloitte under the College Sports Commission, which evaluates whether a deal reflects fair market value and a legitimate business purpose. For most programs that is a hurdle. For SMU it is closer to an advantage, because Mustang Partners deals with real Fortune-tier DFW brands are exactly the kind of defensible, genuine commercial activations the clearinghouse is designed to approve — unlike thinly disguised pay-for-play that other collectives are now scrambling to legitimize.
+
+## Strategic Flow for the 2027 Cycle
+
+```mermaid
+flowchart TD
+    A[January 2027 Portal Open] --> B[Identify Tier 1 Needs]
+    B --> C[Boulevard Collective Sets Offer Range]
+    C --> D[Mustang Partners Builds Commercial Stack]
+    D --> E[Lashlee Closes On Campus]
+    E --> F[Mustang Club Donors Activated]
+    F --> G[House Settlement Rev-Share Layer Applied]
+    G --> H[Signed Deal With Three Income Streams]
+    H --> I[Retention Conversation Begins Month One]
+```
+
+The 2027 calendar starts with a January portal sweep where Lashlee's staff identifies the three to five Tier 1 needs identified above. Boulevard sets the collective offer range, Mustang Partners pre-builds a commercial stack worth six figures, and Lashlee closes in person on the Hilltop. Mustang Club donors activate around official visits with loyalty-point matching, and the House settlement revenue-share allocation lands on top as the contractual baseline. The deal that gets signed is a three-channel package, not a single check, which is the structural advantage SMU should press relentlessly against ACC peers still running collective-only models. Retention conversations begin in month one, because the 2028 portal will hunt every Mustang who outperforms his deal.
+
+## The Gerald J. Ford Stadium Factor
+
+SMU's home environment shapes the recruiting ceiling and the donor pipeline alike. Gerald J. Ford Stadium, on-campus in University Park, holds roughly 32,000 — small by SEC standards, but the program completed a major end-zone enhancement and continues to invest in premium hospitality precisely to grow per-seat donor revenue rather than raw capacity. The intimacy is a feature in recruiting: a packed, modern, on-campus stadium ringed by Highland Park wealth tells a 17-year-old he will play in front of the exact corporate decision-makers who can sign his commercial deals. For 2027, the strategy is to keep converting that proximity into NIL — every premium-seat holder is a potential Mustang Partners brand connection or Mustang Club loyalty-point donor, which is a conversion math no rural SEC campus can replicate.
+
+## Bottom Line
+
+SMU's 2027 NIL strategy is not a fundraising question. The money exists, the donor class is committed, and the head coach is signed through 2032. The strategy is allocation: pay every player the $36,000 Boulevard base, layer rev-share on top, target Tier 1 dollars at quarterback, edge, and left tackle, and use Mustang Partners to convert Dallas corporate access into commercial deals that no ACC peer can match. The Mustang Club's loyalty-point engine quietly underwrites the whole stack by making every booster gift to the Student-Athlete Benefit Fund a points-bearing transaction, which keeps the donor pipeline flowing year after year rather than depending on one-time capital campaigns. Execute that layered approach and SMU competes for an ACC title without ever pretending to be SEC-rich, while building the kind of multi-channel athlete income profile that turns Hilltop signees into multi-year Mustangs instead of one-year portal rentals.
+
+## FAQ
+
+**Q: How much does the Boulevard Collective actually pay SMU players?**
+A: Boulevard distributes roughly $3.5 million annually, paying football and basketball scholarship players a flat $36,000 base each. Founders Chris Kleinert and Kyle Miller have described that figure as a floor, with difference-makers stacking additional collective and commercial money on top.
+
+**Q: Does SMU's House settlement revenue share replace the Boulevard Collective?**
+A: No. Revenue share is a separate, capped, school-paid channel that sits underneath the collective and commercial layers. SMU's edge is stacking all three — rev-share floor, Boulevard base, and Mustang Partners commercial deals — into a single athlete package, rather than relying on any one rail.
+
+**Q: Why did SMU give up ACC television money, and how does that affect NIL?**
+A: SMU agreed to forgo its full ACC TV distribution for its first nine years to secure the invitation, a sacrifice funded by its Dallas donor base. That same donor appetite is what makes the Boulevard Collective and Mustang Partners viable, signaling boosters who will fund a roster rather than wait on media revenue.
+
+**Q: What is SMU's biggest 2027 roster risk?**
+A: Outbound attrition from the 2025 freshman class. Reaching the Playoff turned SMU's home-developed sophomores into national poaching targets, so the 2027 plan must reserve dedicated retention money before the December portal window, not just chase incoming portal stars.

@@ -1,0 +1,91 @@
+QUESTION: What are NC State Wolfpack football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+NC State Wolfpack football enters the 2027 NIL cycle with a clear identity problem and an even clearer solution. Dave Doeren, returning for his 15th season after surviving a 7-5 2025 campaign and a hot-seat winter, must convert the One Pack NIL collective — the merged entity that absorbed Pack of Wolves and Savage Wolves in early 2026 — into a true rev-share-plus-collective hybrid that can actually compete in the post-House settlement ACC. The 2027 NIL strategy hinges on five pillars: re-signing quarterback CJ Bailey to a market-rate extension before the December 2026 portal window, rebuilding the offensive and defensive lines through transfer portal NIL packages averaging $400-600K per starter, leveraging the Raleigh tech and biotech corporate corridor for true brand deals rather than pay-for-play, defending the in-state recruiting border against UNC and Duke, and finally cracking the top half of the ACC revenue-share distribution table. None of this happens without One Pack hitting roughly $14-16 million in football-specific commitments for the 2027 cycle, a number that would put NC State in the second tier of ACC spenders behind Clemson, Miami, and Florida State but ahead of Wake Forest, Syracuse, and Boston College.
+
+## How NC State's NIL Engine Actually Works in 2027
+
+```mermaid
+flowchart TD
+    A[NC State Fan and Corporate Dollars] --> B[One Pack NIL Collective]
+    A --> C[University Rev-Share Pool ~20.5M Cap]
+    B --> D[Savage Wolves Football Sub-Brand]
+    C --> E[Football Allocation ~75 Percent of Cap]
+    D --> F[Roster Retention and Portal Acquisition]
+    E --> F
+    F --> G[CJ Bailey QB1 Extension]
+    F --> H[OL and DL Portal Packages]
+    F --> I[High-School Class of 2027 Signing Bonuses]
+    G --> J[ACC Top-Half Finish 2027]
+    H --> J
+    I --> J
+```
+
+The flow above reflects the actual post-House settlement plumbing. Athletic director Boo Corrigan publicly considered shuttering all collectives after the July 2025 settlement took effect, but ultimately kept One Pack alive as a coordination layer rather than the primary funding channel. That distinction matters. The university's direct revenue-share pool, capped at roughly $20.5 million across all sports in year one and escalating about 4% annually toward $22 million-plus by the 2027-28 cycle, now handles the base compensation for scholarship athletes. One Pack stacks on top of that with true NIL deals — appearances, autograph signings, corporate sponsorships, and brand partnerships routed through Blueprint Sports, the third-party management firm that runs the collective's back office.
+
+For 2027, the football allocation from the rev-share pool will likely sit around $15-16 million, or roughly 75% of the total cap, which is the industry norm. One Pack needs to add another $8-10 million in football-specific deals on top of that to reach competitive parity. The Savage Wolves sub-brand, preserved during the merger specifically because football donors wanted a dedicated lane, is the vehicle for that stacked layer.
+
+## The NIL Go Clearinghouse Changes The Stacking Game
+
+The single most important rule change for One Pack's 2027 strategy is the one fans understand the least. Under the settlement, every booster- or collective-funded deal worth $600 or more must be submitted to NIL Go, the Deloitte-operated clearinghouse running under the new College Sports Commission, which evaluates whether the payment matches a "fair market value" range for the athlete's genuine endorsement reach. A deal that looks like disguised pay-for-play — a backup lineman getting $300K for two social posts — can be flagged and blocked. This is why NC State's 2027 emphasis on the Research Triangle's real corporate base is not a branding talking point; it is a compliance necessity. Deals anchored to actual companies with actual deliverables (a regional bank running a Bailey ad campaign, a biotech firm sponsoring a recruiting-content series) clear the clearinghouse cleanly. Pure collective handouts increasingly do not. One Pack's competitive edge in 2027 will be sourcing legitimate corporate deals faster than rivals who built their model on undisclosed booster cash.
+
+## The CJ Bailey Problem
+
+Every NC State NIL conversation in 2027 starts and ends with CJ Bailey. The returning quarterback, who Doeren explicitly cited as a reason for his own commitment to a 15th season, will be a redshirt junior with two years of starting experience and a full grasp of the offense. He is also a free agent every December under the current portal rules, and Power Four programs with cleaner depth charts will offer him $2-2.5 million guaranteed to transfer.
+
+NC State has to match or exceed that number. A realistic Bailey package for 2027 looks like $1.8-2.2 million in combined rev-share and One Pack deals, with the collective side weighted toward genuine endorsement work — a Raleigh-area car dealership group, a regional pharmacy chain, a biotech recruiting firm, and the standard appearance and camp circuit. Bailey's willingness to do real work for his money, rather than treating NIL as pure salary, is part of why the program can stretch the dollars further than rivals who are paying portal mercenaries — and part of why his deals are far likelier to clear NIL Go review intact.
+
+## Trench Warfare and the Portal Math
+
+The 2025 season exposed NC State's lines on both sides of the ball. Doeren's February 2026 staff shakeup, including changes to the offensive and defensive line rooms, signaled that the trenches are the 2027 NIL priority after Bailey. The math is brutal but knowable: a starting Power Four offensive lineman from the portal now costs $400-600K per year, and a proven interior defensive lineman runs $500-750K. NC State needs at least three portal linemen and probably four to be competitive against the ACC's better fronts.
+
+That is a $2-2.8 million line-of-scrimmage portal budget, on top of Bailey's extension, before a single high-school recruit is signed. One Pack's 2027 campaign cannot be a "rally the base" donor drive. It has to be a sustained, segmented corporate sales effort across the Research Triangle's tech, biotech, banking, and real estate sectors, with named-gift levels that mirror what fundraising professionals use for capital campaigns.
+
+## The In-State Recruiting Wall
+
+```mermaid
+flowchart TD
+    A[Class of 2027 NC High School Talent] --> B{NIL Offer Comparison}
+    B -->|UNC Bill Belichick Bump| C[Chapel Hill]
+    B -->|Duke Manny Diaz Premium| D[Durham]
+    B -->|NC State One Pack Package| E[Raleigh]
+    B -->|SEC Out-of-State| F[Tennessee Georgia South Carolina]
+    E --> G[Signing Bonus 75K to 250K]
+    E --> H[Year-One Rev-Share 100K to 300K]
+    E --> I[Local Brand Deal Pipeline]
+    G --> J[Wolfpack 2027 Signing Class]
+    H --> J
+    I --> J
+```
+
+UNC's Bill Belichick experiment, now entering its third season, distorted the in-state recruiting market in 2025 and 2026 by attaching a celebrity premium to every Tar Heel offer. Duke under Manny Diaz has used Cameron Indoor-adjacent academic prestige and aggressive NIL bidding to take recruits NC State historically locked down. The Wolfpack's 2027 class needs to hold the line on roughly 12-15 in-state offers and convert at least eight of them, which means One Pack has to offer signing-bonus structures in the $75-250K range plus visible local brand pipelines that the celebrity-coach schools cannot replicate.
+
+The pitch to a Raleigh-area four-star is straightforward: you can be a face in Chapel Hill or a face in Raleigh, but in Raleigh your face is on a billboard for a company your uncle works at, and the deal renews every year you produce. That is the kind of pitch a tightly coordinated collective can make when it has a real corporate sales team behind it — and, critically, it is exactly the kind of deal NIL Go is designed to approve, because it is genuine endorsement work with a real brand counterparty rather than a thinly disguised recruiting inducement.
+
+## The Corporate Sales Layer One Pack Has To Build
+
+The single biggest organizational gap inside One Pack heading into 2027 is the absence of a dedicated corporate sales staff that treats Wolfpack athletes the way a sports agency treats clients. Blueprint Sports handles back-office mechanics — contracts, compliance, payment processing, tax documentation, NIL Go submissions — but the collective still relies heavily on volunteer donor advocates to source corporate deals. That model worked in 2023 and 2024 when the entire industry was improvising. It does not work in a 2027 environment where Clemson and Miami have full-time NIL business development teams pitching local and regional companies five days a week.
+
+A realistic 2027 fix looks like three full-time One Pack employees: a corporate sales lead targeting Research Triangle Park firms, a brand-deal manager working with individual athletes on their personal pipelines, and a donor-engagement coordinator running the high-net-worth alumni circuit. That staffing layer costs roughly $400-500K in overhead but should unlock $3-4 million in incremental annual revenue. It is the highest-leverage organizational investment available, and it does not require waiting on a settlement amendment or a coaching change to execute.
+
+## The ACC Revenue Distribution Wrinkle
+
+NC State's 2027 budget is not only about what One Pack raises and what the cap allows — it is shaped by where the Atlantic Coast Conference sits financially relative to the SEC and Big Ten. The ACC's per-school media distributions trail those two leagues by a wide margin, which is the structural reason Clemson and Florida State spent years litigating their grant-of-rights exit fights. The settlement the conference reached with those schools introduced a partial brand-and-viewership-based "success initiative" pool that rewards programs that draw television audiences and win on the field. For NC State, that creates a real 2027 incentive: a nine-win season that draws ratings does not just help recruiting morale, it can move the program up the conference's variable distribution tier and put incremental dollars into the same athletic budget that funds the revenue-share pool. The NIL strategy and the on-field results compound each other more directly in the ACC than in the flat-distribution Big Ten.
+
+## The 2027 Bottom Line
+
+NC State's 2027 NIL strategy is not about outspending Clemson or Miami. It is about getting to roughly $23-25 million in combined football spending — rev-share plus collective — without breaking the academic-side budget or alienating the donor base that funds the rest of the athletic department. Hit that number, retain Bailey, win the trench portal, hold the in-state line, build out the corporate sales layer, and the Wolfpack walks into 2027 with a credible nine-win ceiling and a path to the expanded College Football Playoff. Miss any one of those pillars and Doeren's 15th season looks a lot like his 14th, which looked a lot like his 13th. The margin is real but it is thin, and the next eight months of fundraising will decide it.
+
+## Frequently Asked Questions
+
+**Why did NC State almost shut down its collective after the House settlement?**
+
+Because the settlement made the original collective model partly redundant and partly risky. Once schools could pay athletes directly through the revenue-share cap, the collective's old job — being the only legal channel for athlete money — disappeared. Athletic director Boo Corrigan weighed shutting One Pack down entirely because keeping a collective alive creates compliance exposure: every booster-funded deal over $600 now has to pass NIL Go fair-market-value review, and a collective that mishandles that can draw penalties. NC State ultimately kept One Pack as a coordination and corporate-sales layer that stacks legitimate third-party deals on top of the capped revenue share, rather than as the primary money pipe it used to be. The bet is that a smaller, cleaner, corporate-focused collective is worth more in 2027 than a large pay-for-play one that risks clearinghouse rejection.
+
+**How much does NC State actually need to spend on football to compete in the ACC?**
+
+The working target is roughly $23-25 million in total football spending for the 2027 cycle, combining about $15-16 million from the school's revenue-share allocation with another $8-10 million in third-party deals raised through One Pack. That figure would place NC State in the ACC's second spending tier — clearly behind Clemson, Miami, and Florida State, but ahead of Wake Forest, Syracuse, and Boston College. The single largest line item inside that budget is the CJ Bailey quarterback extension at $1.8-2.2 million, followed by a $2-2.8 million offensive-and-defensive-line portal budget. The number is achievable for NC State's donor and corporate base, but only if One Pack builds a full-time corporate sales function rather than relying on volunteer donor drives.
+
+Sources: gopack.com, ESPN, On3, 247Sports, The News & Observer, Blueprint Sports, NCAA House settlement filings

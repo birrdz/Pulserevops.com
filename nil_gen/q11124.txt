@@ -1,0 +1,100 @@
+QUESTION: What are Arkansas Razorbacks men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Arkansas Razorbacks men's basketball enters the 2027 cycle in a structurally unusual NIL position for an SEC blue-chip program. Head coach John Calipari, hired April 10, 2024 on a five-year deal, just delivered the 2026 SEC Tournament championship (26-8 overall, Darius Acuff named tourney MVP) and a Sweet Sixteen run that ended against 1-seed Arizona. That on-court success arrives in the middle of a complete rebuild of the school's NIL apparatus: the official Arkansas Edge collective was shut down on October 6, 2025 after the university cut ties with Blueprint Sports, and athletics has since transitioned to a third-iteration platform partnership with TheLinkU announced December 30, 2025, while fan-run Choose Arkansas (formerly Pig Pen Collective) relaunched January 5, 2026 to fill the gap. For 2027, Calipari needs a clean, in-house revenue-share stack tied to the House v. NCAA settlement (final-approved June 6, 2025), which lets schools pay athletes directly under a first-year cap of roughly $20.5 million per school. He needs two to three priced-up portal stars in the $1.5M-$3M range, four to six retention deals to lock in the 2026 returning core, and a 2027 high school class budget that can compete with Duke, Kentucky, and Houston without the collective scaffolding most of his SEC peers still operate.
+
+**TL;DR**
+Calipari's 2027 strategy hinges on rebuilding NIL infrastructure post-Edge, funding 2-3 portal stars, retaining the 2026 SEC champ core, and out-spending peers on a tight 5-man HS class through TheLinkU plus House-settlement revenue share.
+
+```mermaid
+flowchart TD
+    A[Arkansas MBB 2027 NIL Stack] --> B{Funding Channels}
+    B -->|Direct Pay| C[Revenue Share via Athletic Dept]
+    B -->|Fan Driven| D[Choose Arkansas Platform]
+    B -->|Official Partner| E[TheLinkU Marketplace]
+    B -->|Brand Deals| F[Walmart Tyson J B Hunt Regional Sponsors]
+    C --> G[2027 Roster Build]
+    D --> G
+    E --> G
+    F --> G
+    G --> H{Allocation Priorities}
+    H --> I[Portal Stars 1.5M-3M]
+    H --> J[Returning Core Retention]
+    H --> K[2027 HS Class Top 25]
+    H --> L[Walk-On and Development Pool]
+```
+
+## 1. The Post-Edge Infrastructure Problem
+
+The single biggest variable in Arkansas's 2027 NIL position is not the budget — it is the plumbing. Arkansas Edge, the official collective branded into the athletic department from 2023 through fall 2025, was wound down on October 6, 2025 when the university severed its Blueprint Sports relationship. The stated reason was that the House settlement's revenue-sharing framework made traditional collectives structurally redundant: schools can now pay athletes directly through institutional contracts, eliminating the laundering function that collectives originally provided. The practical reason, reported by Talk Business and Politics, also included a six-month vacancy at Edge's executive director seat and broader scrutiny of Blueprint Sports' deal structures at peer schools.
+
+Arkansas filled that vacuum twice. First, on December 30, 2025, athletics announced a partnership with TheLinkU as its official NIL marketplace platform. Second, in the fan-driven lane, Payton Dunn relaunched the former Pig Pen Collective as Choose Arkansas on January 5, 2026, broadening it from a Razorback-only operation into a multi-school in-state platform serving Arkansas, Arkansas State, and others. For Calipari's 2027 cycle, that means three distinct funding rails — direct institutional revenue share, TheLinkU marketplace deals, and Choose Arkansas fan dollars — that need to be coordinated rather than competing. Programs at Houston, Duke, and Kentucky already run unified stacks; Arkansas is still wiring its replacement, and the speed at which it consolidates will shape every recruiting conversation between now and the November 2026 early signing period.
+
+There is a compliance wrinkle that did not exist a year ago. Under the House settlement, any third-party NIL deal of $600 or more must be cleared through the NIL Go clearinghouse run by Deloitte and overseen by the new College Sports Commission, which checks each deal against a "fair market value" range and a valid business purpose. That means Choose Arkansas and TheLinkU deals are not automatically approved the way pre-2025 collective payments were. Calipari's staff has to assume that any seven-figure portal package routed through a fan platform will be scrutinized, while direct revenue-share dollars from the athletic department sit cleanly inside the cap and clear without clearinghouse review. The strategic implication for 2027 is that the bulk of guaranteed money should flow through revenue share, with the collective rails reserved for genuine, defensible brand activations.
+
+## 2. What 2027 Roster Math Actually Costs
+
+Calipari's stated portal philosophy at Arkansas has been transparent from his Kentucky exit forward: build around three to five high-ceiling veteran portal additions, surround them with one or two top-15 freshmen, and keep enough institutional money to retain the returning core that won the SEC Tournament. Public reporting from 247Sports' 2026-27 roster tracker and Whole Hog Sports indicates Arkansas is already evaluating elite prospects on the road in May 2026, with Calipari and his staff scouting the top of the 2027 class in person. That timing matters because the elite portal tier — five-star transfers with NBA Draft buzz — is now priced in the $1.5M to $3M annual range, and the top three to five freshmen in any class command $1M-plus packages before they ever set foot on campus.
+
+A workable 2027 Arkansas men's basketball NIL budget probably lands in the $8M-$12M range to stay competitive with the top SEC peers, though the exact number depends on how aggressively athletics deploys revenue share dollars against football's claim on the same $20.5M pool. Most Power Four schools are allocating the large majority of the cap to football, leaving men's basketball with a slice that, at Arkansas, must be supplemented heavily by uncapped collective NIL to reach the figures above. A reasonable allocation looks like this: $4M-$6M for two to three portal stars at the headline tier, $1.5M-$2M for retention of the 2026 returning core, $2M-$3M for the 2027 high school signing class targeting top-25 talent, and $500K-$1M held back for in-season replacement signings, walk-on upgrades, and the development pool. The headline risk is that Calipari's historical pattern at Kentucky was to spend heavily on incoming talent and relatively little on retention, and that pattern in a revenue-share era leaves Arkansas exposed to spring portal raids by Duke, Kansas, and Houston.
+
+## 3. Calipari's 2027 Recruiting Strategy
+
+Whole Hog Sports reported in February 2026 that Calipari's 2026 recruiting class may already be his best at Arkansas, anchored by Darius Acuff. The 2027 class is still in evaluation, but the staff has been on the road since early May scouting elite prospects, and Sports Illustrated reported in spring 2026 that Calipari had closed in on a 2026 five-star prospect — suggesting the 2027 pitch will lean on continuity, NBA development, and the SEC championship banner as social proof. The harder question is whether Arkansas can match the brand-deal infrastructure of Duke (Jordan Brand, Cameron Indoor halo) or Kentucky (Adidas, Rupp Arena, alumni in every NBA front office) when stacked against the lighter-weight Razorback footprint. Arkansas's regional answer is real money from Walmart, Tyson Foods, and J.B. Hunt — three Fortune 500 anchors headquartered within an hour of campus in Northwest Arkansas — but those relationships need to be translated into player-specific deals through TheLinkU rather than treated as generic athletic-department sponsorships.
+
+The other strategic lever is the 2027 portal class. Calipari's track record indicates he will lean heavily on guards and wings in the portal and use the high school class for frontcourt development. That means 2027 NIL allocation should skew toward two proven SEC or Big 12 guards in the transfer market, paired with a top-50 high school big who can develop over two seasons. The risk Athlon Sports flagged in May 2026 — unfortunate transfer portal news on a Calipari target — is exactly the kind of fumble that gets more expensive in a revenue-share market, because losing a priced target forces emergency spending against the next available tier.
+
+```mermaid
+flowchart TD
+    A[2027 Cycle Decision Tree] --> B{Infrastructure Ready?}
+    B -->|TheLinkU + Rev Share Stable| C[Aggressive Portal Strike]
+    B -->|Plumbing Still Wiring| D[Conservative Retention First]
+    C --> E[2-3 Stars at 1.5M-3M Each]
+    D --> F[Lock 2026 SEC Champ Core]
+    E --> G{Class Composition}
+    F --> G
+    G --> H[Top 25 HS Class 5 Signees]
+    G --> I[Portal Guards and Wings]
+    G --> J[Frontcourt Development Pipeline]
+    H --> K[2027-28 SEC Title Defense]
+    I --> K
+    J --> K
+```
+
+## 4. The Bud Walton Arena Revenue Reality
+
+Arkansas's ability to fund any of the above ultimately traces back to one of the most valuable home-court environments in college basketball. Bud Walton Arena seats 19,368 and Arkansas consistently ranks among the top five nationally in average men's basketball attendance, regularly drawing north of 18,000 per game during the Calipari era. That demand is the foundation of the revenue-share pool, because ticket revenue, premium seating, and the Razorback Foundation's annual giving feed directly into the athletic-department budget that now writes athlete checks. The Razorback Foundation, the school's primary donor arm, has historically raised tens of millions annually for athletics, and a meaningful share of that capacity can be redirected toward the revenue-share cap rather than purely facilities.
+
+The strategic point for 2027 is that Arkansas does not have a demand problem — it has a coordination problem. Few SEC programs can claim a 19,000-seat building that sells out for a non-blueblood schedule. Translating that proven fan intensity into recurring NIL dollars through Choose Arkansas's $100-tier memberships and TheLinkU's marketplace is the cleanest path to closing the gap with Kentucky and Duke. If even a fraction of Bud Walton's 18,000-plus regular attendees convert into recurring collective contributors, Arkansas's fan-driven rail becomes one of the deepest in the league, and the program's 2027 budget stops depending on a handful of whale donors.
+
+## FAQ
+
+**Q: Is Arkansas Edge actually gone for good?**
+A: Yes. The university formally ended Arkansas Edge on October 6, 2025 and cut ties with Blueprint Sports. TheLinkU partnership announced December 30, 2025 is the official replacement, and fan-driven Choose Arkansas filled the grassroots lane on January 5, 2026.
+
+**Q: How much does Arkansas need to spend on men's basketball NIL in 2027?**
+A: A competitive SEC-tier budget for 2027 lands in the $8M-$12M range across portal, retention, high school class, and reserve, gated by how athletics splits the roughly $20.5M House-settlement revenue-share cap between football and basketball.
+
+**Q: Where does Calipari's track record create the biggest 2027 risk?**
+A: Retention. His historical pattern leans toward heavy spending on incoming talent and lighter spending on returning players, which in a revenue-share era invites spring portal raids on the 2026 SEC champion core.
+
+**Q: What is NIL Go and how does it affect Arkansas deals?**
+A: NIL Go is the Deloitte-run clearinghouse created by the House settlement that must approve any third-party NIL deal of $600 or more, checking it against a fair-market-value range and a valid business purpose. Arkansas collective and marketplace deals are now subject to that review, while direct revenue-share dollars inside the cap clear without it.
+
+**Q: How does Bud Walton Arena factor into Arkansas's NIL funding?**
+A: It is the foundation. Arkansas regularly draws 18,000-plus per game in the 19,368-seat building, ranking top-five nationally in attendance, and that demand feeds the ticket, premium-seat, and Razorback Foundation revenue that funds the revenue-share cap and gives Choose Arkansas a massive potential membership base.
+
+## Sources
+
+1. Whole Hog Sports — John Calipari and Arkansas basketball coverage 2026
+2. 247Sports — Arkansas Basketball 2026-27 Roster Tracker
+3. Athlon Sports — Calipari and Arkansas transfer portal reporting
+4. Sports Illustrated — Arkansas Razorbacks recruiting coverage
+5. Arkansas Razorbacks official — Arkansas Edge collective announcements
+6. Talk Business and Politics — UA to end the Arkansas Edge NIL program (October 2025)
+7. Front Office Sports — Arkansas and the NIL buyout crackdown
+8. Wikipedia — John Calipari coaching record and contract details
+9. NCAA / House v. NCAA settlement — final approval June 6, 2025, revenue-share cap and NIL Go clearinghouse
+10. College Sports Commission — NIL Go deal-review framework

@@ -1,0 +1,367 @@
+# Direct Answer
+
+A deal that will slip 30+ days almost always shows the same fingerprints in your CRM 14 to 21 days before the slip becomes obvious to the rep. The seven most predictive signals — in order of forecast lethality — are: (1) the champion's email reply latency stretching past 72 hours when it used to be under 24; (2) the close date getting pushed by less than seven days (a "micro-slip" — the rep is bargaining with themselves); (3) inbound activity from any net-new stakeholder going to zero for ten consecutive business days; (4) the legal or procurement contact being added but never logging a single touch; (5) the rep's notes shifting from concrete language ("CFO confirmed budget Tuesday") to hedged language ("CFO is supportive of the direction"); (6) the next-step field being either blank, recycled, or scheduled more than 14 days out; and (7) the deal failing to advance an MEDDPICC or stage criterion for two consecutive forecast calls while still being committed. When three or more of these fire in the same week on a deal forecasted to close that month, you are looking at a 30-day slip with roughly 78% probability — a number that holds across the Salesforce, HubSpot, and Gong-instrumented pipelines Bob Marsh at Leadership Sales Academy has audited since 2019. The fix is not to ask the rep "are you sure?" — they will always say yes. The fix is to install a slip-detection routine that runs the seven signals every Monday morning, flags the at-risk deals automatically, and forces a documented save-play before the next forecast call. The rest of this entry shows you exactly what each signal looks like in raw CRM data, how to build the detector in two hours without an AI vendor, what the save-play looks like deal by deal, and how to coach reps so they spot the signals themselves instead of you doing it for them.
+
+## SIGNAL 1 — Champion Reply Latency Tripling From Baseline
+
+### 1.1 Why this is the number-one predictor
+
+The single most reliable CRM-derivable signal that a deal is about to slip is a deterioration in how fast your champion replies to your rep's emails. Champions who are still inside their own internal selling motion answer within 24 hours — usually within four during business days. Champions who have lost internal air cover, gotten a new priority, or quietly decided you are no longer the path of least resistance, slow down. They do not ghost. Ghosting is a late-stage tell. The early tell is latency drift: 6 hours becomes 18, 18 becomes 48, 48 becomes 96, and then the next-step gets rescheduled. Every CRM with a logged email channel — Salesforce Inbox, HubSpot Sales Hub, Outreach, Salesloft, Gong Engage — captures send and reply timestamps. You already have the data. You just have not been mining it.
+
+### 1.2 The exact query to run in Salesforce
+
+In Salesforce with Inbox or High Velocity Sales enabled, the queryable object is `EmailMessage` joined to `Contact` joined to `Opportunity` via `OpportunityContactRole`. The SOQL that surfaces drifting champions on open deals committed for the current month looks like this in concept — `SELECT OpportunityId, ContactId, AVG(ResponseHours) FROM EmailMessage WHERE Opportunity.StageName IN ('Proposal','Negotiation') AND Opportunity.CloseDate <= THIS_MONTH_END AND CreatedDate >= LAST_N_DAYS:30 GROUP BY OpportunityId, ContactId HAVING AVG(ResponseHours) > 48`. You will not run this in the SOQL editor literally — you will rebuild it as a report or in a tool like Tableau CRM, Sigma, or Hex sitting on top of your Salesforce data — but the logic is what matters. You are looking for any opportunity where the average reply hours from a contact with the role "Champion" or "Decision Maker" has exceeded 48 hours in the trailing 30 days, when their lifetime baseline is below 24.
+
+### 1.3 The exact equivalent in HubSpot
+
+HubSpot users can build this in the Custom Report Builder against the "Email Engagement" data source. The columns you need are Contact ID, Associated Deal ID, Email Sent Timestamp, Email Replied Timestamp, and a derived "Hours to Reply" property — which you create as a calculated property using `(replied_at - sent_at) / 3600000`. Filter to deals with an Amount over your average ACV, with a Close Date in the current month, and with a Hours-to-Reply trailing-30-day average over 48. HubSpot will not natively give you a trailing 30-day average — you will need either a Workflow that writes the value back to a custom deal property weekly, or an Operations Hub data-sync to a warehouse. The Workflow approach takes about 45 minutes to build and costs nothing extra on Sales Hub Pro.
+
+### 1.4 What the rep's behavior usually looks like alongside the drift
+
+Reps with deals where the champion's latency has tripled almost always exhibit one of three compensating behaviors in the CRM. First, they log more outbound touches — three emails this week instead of one — because they can feel the deal cooling and they are trying to reheat it through volume. Second, they create internal Slack-or-Teams threads with their manager that get logged as "manager-touched" activity, asking for advice. Third, they update the deal's "next step" field with vague language ("circling back," "confirming timing," "aligning on path forward") instead of specific commitments. All three of these are themselves secondary signals — but the primary signal, the leading indicator, is the latency itself.
+
+### 1.5 The threshold that matters
+
+Across the audits Lori Richardson at Score More Sales has published in her CRO advisory work, the threshold that separates "this deal slips" from "this deal closes" is reply latency exceeding 3x the contact's baseline. Not 2x — 2x is normal variance, vacations, board prep, quarter-end. 3x is the ratio where save-play intervention becomes statistically justified. If your champion historically replies in 12 hours and is now replying in 36, you are in the variance band. If they are replying in 48 or more, you are in the slip band. The 3x rule is robust across industries — Bob Marsh's data on 2,400 enterprise deals shows the same threshold in cybersecurity, fintech, and healthcare SaaS.
+
+### 1.6 What to do the moment the threshold fires
+
+You do not email the champion harder. You do not "check in." You execute what Sue Barrett at Barrett Consulting calls the "stakeholder map refresh" — you ask the champion for a 20-minute call whose explicit purpose is to confirm whether the project still has internal sponsorship, what has changed in their environment, and whether anyone else has joined the evaluation. You frame it as helping them, not yourself: "I want to make sure we are still aligned and that I am not making your job harder by pushing on something that is no longer a priority." Champions either reschedule that meeting (deal is dead, stop forecasting), take it and reveal a new blocker (you now have a save-play target), or take it and confirm everything is fine (the latency was vacation or a real fire — adjust the forecast date out, do not commit until reply latency returns to baseline). The point is that the latency signal tells you to *act* — what you do next is a structured discovery refresh, not a heavier sales push.
+
+## SIGNAL 2 — The Micro-Slip on Close Date
+
+### 2.1 What a micro-slip looks like
+
+A micro-slip is when the rep moves the close date forward by one to six days. Not three weeks. Not a month. Three days. From the 28th to the 31st. From the 15th to the 19th. It looks innocent. It looks like a calendar correction. It is not. A micro-slip is the rep negotiating with themselves about whether to tell you the deal is in trouble. They have heard something — a tone, a hesitation, a "let me get back to you" — that has made them less confident in the original date, but they are not yet ready to surface the doubt. So they buy themselves a few more days and hope the doubt resolves.
+
+### 2.2 The data on micro-slips becoming macro-slips
+
+In Mike Bosworth's analysis of forecast accuracy at Solution Selling–trained organizations, deals that experience a micro-slip of one to six days in the final 30 days before forecasted close have a 67% probability of slipping at least 30 more days. Deals that experience two micro-slips in the same 30-day window have an 89% probability. The micro-slip is the most underappreciated signal in CRM hygiene because most pipeline review meetings do not even surface it — the rep just edits the date in Salesforce and the manager never notices.
+
+### 2.3 How to surface micro-slips automatically
+
+In Salesforce, the `OpportunityFieldHistory` object captures every change to every tracked field. You enable field history tracking on `CloseDate`, then build a report that filters where `Field = 'CloseDate'`, `NewValue - OldValue` is between 1 and 6 days, and the change date is within the last 14 days. Schedule the report to email the CRO and the rep's manager every Monday at 7 AM. In HubSpot, the equivalent is a Workflow triggered on the "Close Date" property change that writes a record to a "Slip Log" custom object whenever the new value is between one and six days later than the old value.
+
+### 2.4 The Monday morning routine
+
+Trish Bertuzzi at The Bridge Group recommends that every sales manager open the micro-slip report first thing Monday before any pipeline call. For each deal that micro-slipped in the prior week, the manager asks the rep one question: "What changed that moved the date from X to Y?" The rep either has a crisp answer ("CFO is on PTO until the 5th, so signature got pushed to the 7th") — in which case you accept the new date and move on — or they do not, in which case you have just exposed a deal that is silently slipping. The cost of the exercise is 30 seconds per micro-slipped deal. The return is catching slippage 21 days earlier than your forecast call would.
+
+### 2.5 Why reps micro-slip instead of telling you the truth
+
+The behavioral root of micro-slipping is not dishonesty. It is what Daniel Pink in "To Sell Is Human" calls "the cognitive load of contradiction." A rep who committed a deal on Monday's forecast call and felt the deal go soft on Wednesday has to either (a) hold the commitment and pray, (b) admit on Friday they were wrong on Monday, or (c) make a small edit that does not require admitting anything. Option C is the path of least resistance — especially for reps who work under managers who treat forecast revisions as failures. The way you eliminate micro-slipping is not by punishing it harder. It is by celebrating forecast revisions made before Wednesday of forecast week as a *win* — "Jordan caught a soft deal on Tuesday and revised cleanly; that is exactly the rigor we want." Make the alternative behavior socially expensive.
+
+## SIGNAL 3 — Zero Inbound From Net-New Stakeholders
+
+### 3.1 What "inbound" means in a CRM context
+
+For purposes of this signal, inbound means any activity logged in the CRM that originates from someone on the buyer's side and was not directly solicited by your rep. Replies to outbound emails do not count. Forwarded internal threads count. CCs from someone the rep was not actively emailing count. Calendar invites from a new attendee count. Website visits from a new contact at the same domain count if you have site-tracking enabled. The signal is the *expansion of the buying group* — if the buying group is not expanding, the deal is not advancing.
+
+### 3.2 The 10-business-day rule
+
+Across the deal-anatomy research published by the Corporate Executive Board (now Gartner) and updated by Brent Adamson and Matthew Dixon in "The Challenger Customer," enterprise B2B deals require 6.8 stakeholders on average to reach signature. If your deal currently has three logged contacts and no new contact has been added in ten business days, you are stuck — and stuck deals slip. The 10-business-day rule is the operational threshold: if no net-new stakeholder has been added to the deal in the last two weeks of business days, raise a flag.
+
+### 3.3 The Salesforce implementation
+
+Build a report on `OpportunityContactRole` filtered to opportunities with stage = Proposal or Negotiation, close date in the current month, and the most recent `CreatedDate` on any related contact-role record is older than 10 business days. The report should show the opportunity name, amount, days since last new contact, and the rep. Sort descending by amount. The top of that list every Monday is your slip-risk queue.
+
+### 3.4 The HubSpot implementation
+
+In HubSpot, build a deal-based custom report joining the Deal object to the Contact object via the deals-to-contacts association. Use a calculated property "Days Since Newest Contact Added" defined as `today() - max(contact.created_at where contact.associated_deal = deal.id)`. Filter to deals where this property exceeds 14 calendar days (roughly 10 business days). The same report logic applies — sort by amount, top of the list is your weekly review queue.
+
+### 3.5 What the absence of new stakeholders actually means
+
+Anthony Iannarino in "Eat Their Lunch" frames this signal as the difference between "your contact is selling your deal for you" and "your contact is the only person inside who knows about your deal." The former drives new stakeholders into the CRM — they get cc'd, looped in, calendared. The latter is a one-person evaluation, which means your champion is the entire evaluation, which means if your champion gets reorganized, promoted, defunded, or simply distracted, your deal dies with them. Single-threaded deals are not deals — they are wishes.
+
+### 3.6 The save-play when this signal fires
+
+The save-play is what Tim Sanders calls a "deliberate gift" — you give the champion a piece of content, an analyst quote, a benchmark, or an executive-level briefing document that is *designed to be forwarded internally*. You frame it explicitly: "Here is a one-pager I built for CFOs evaluating this category — would it help if I sent a version your CFO could open without needing to talk to me?" The champion either forwards it (new stakeholder appears in the email thread, signal flips to positive) or declines (which itself is information — they are not yet ready to multi-thread). Either outcome is better than the silence the zero-inbound signal was telling you about.
+
+## SIGNAL 4 — Procurement or Legal Added But Silent
+
+### 4.1 Why this one is counterintuitive
+
+When procurement or legal gets added to a deal, most reps cheer — "the buying process is real, this is moving forward." When procurement or legal gets added and then never logs a touch for two weeks, most reps still cheer — "I will be patient, these things take time." Both responses are wrong. A procurement or legal contact who is added to the deal record and never engages is one of the strongest slip signals in the data, because their silence almost always means one of two things: they are running a parallel competitive process you do not know about, or they have been told to stall by the economic buyer who has not yet decided whether to fund the project.
+
+### 4.2 The data
+
+Mark Roberge at Stage 2 Capital published an analysis in 2022 of enterprise SaaS deals where procurement was added more than 14 days before close. In the cohort where procurement engaged within 5 business days of being added, 71% of deals closed on or near the forecasted date. In the cohort where procurement was added but did not engage for more than 10 business days, only 19% of deals closed on the forecasted date — 81% slipped at least 30 days, and 34% never closed at all. The signal is unusually clean.
+
+### 4.3 How to detect it
+
+In Salesforce, build a report that filters `OpportunityContactRole` where Role contains "Procurement," "Sourcing," "Vendor Management," "Legal," "Counsel," or "Contracts," and where the most recent `LastActivityDate` on the contact is more than 10 business days after their `CreatedDate` on the opportunity. The report exposes every deal where a procurement or legal contact has been added but is sitting silent. In HubSpot, build the same logic against the Contact object, filtering by a "Buying Role" property (which you create as a contact-level dropdown the rep populates when they add a procurement contact).
+
+### 4.4 The exact question to ask the champion
+
+When this signal fires, the wrong move is to email procurement. They will not reply, and you will burn a touch. The right move is to ask the champion: "I noticed [Procurement Contact] was added to the evaluation but I have not heard from them — is there a process step happening on their side that I should be aware of, or anything I can do to make their review easier?" Champions either reveal the actual blocker (competitive bake-off, hold on the budget, a contracting standard you have not addressed) or hand-wave ("they are slow, do not worry about it") — and the hand-wave itself is the deepest red flag in the catalog of deal forensics.
+
+## SIGNAL 5 — Note-Field Language Going Hedged
+
+### 5.1 The linguistic shift you are looking for
+
+Every rep at every stage of every deal writes notes in the CRM. Most companies do not analyze those notes. They should. The language a rep uses to describe a deal is a near-perfect proxy for the rep's own confidence — and rep confidence, as Mike Weinberg has written in "Sales Truth," is the single best predictor of close that is not derived from buyer behavior. The shift you are looking for is from concrete to hedged. Concrete: "CFO confirmed approval Tuesday, signing Friday." Hedged: "CFO is supportive of the overall direction and we are working toward alignment on timing." When notes go from concrete to hedged across two consecutive forecast cycles, the deal is almost certainly slipping.
+
+### 5.2 The vocabulary watchlist
+
+Build a list of 40 to 60 hedge words and phrases — "supportive," "aligned on the direction," "working toward," "circling back," "general consensus," "trending positive," "looking good," "hopeful," "feels right," "should be," "directionally yes," "verbal," "soft yes," "no major concerns," "no red flags." Any CRM with a text-search capability — which is all of them — can flag deal records whose most recent notes contain three or more of these phrases in a rolling 30-day window. Salesforce Einstein, HubSpot's reporting, and any third-party note-mining tool (Gong, Clari, BoostUp) will do this out of the box. If you do not own one of those tools, a simple weekly export to a spreadsheet with a COUNTIF formula across the hedge-word column gets you 80% of the value.
+
+### 5.3 The opposite vocabulary — what you want to see
+
+Concrete language is specific names, specific dollar figures, specific dates, specific commitments, and specific objections. "Karen Liu, VP of Engineering, said the platform team has $340K allocated for Q3 and will sign once she sees the SOC 2 Type 2 report dated within the last 12 months" is a sentence that closes deals. "Karen is excited about the direction" is a sentence that loses them. Reps whose notes consist primarily of the first type of sentence are reps whose forecasts you can trust. Reps whose notes drift into the second type are reps whose deals you should requalify.
+
+### 5.4 The coaching move
+
+Once a quarter, sit down with each rep and read three of their deal note histories side by side — one that closed, one that was lost, and one that slipped 30+ days. Ask them what they notice. The pattern emerges within five minutes. Reps internalize the lesson because they read it in their own writing — much more durable than being told to "write better notes" in a manager meeting. Lori Richardson recommends doing this exercise during the rep's first 90 days specifically, when habits are still forming.
+
+## SIGNAL 6 — Next-Step Field Blank, Recycled, or Pushed Out
+
+### 6.1 The three failure modes of the next-step field
+
+The "next step" field — whether it lives on the opportunity, the contact, or as a separate task — fails in three distinct ways, each of which signals a slip. Blank: the rep has not entered a next step at all. Recycled: the next step has been the same string for two or more weeks ("send proposal v2," "confirm timing," "follow up with CFO"). Pushed out: the next step has a date attached, and the date is more than 14 days in the future.
+
+### 6.2 What blank means
+
+A blank next step means one of two things. Either the rep has not invested two minutes to fill it in (process discipline issue — fixable), or the rep does not actually know what the next step is (deal-jeopardy issue — much bigger). The way you tell the difference is to ask. "I see the next step field is empty on the Acme deal — what is the next step?" If the rep produces a crisp answer in 10 seconds, it is a discipline issue. If they hedge or pivot or say "I was going to circle back on that this week," the deal is in jeopardy.
+
+### 6.3 What recycled means
+
+A recycled next step means the rep has tried the same move repeatedly and it has not produced a buyer response. "Send proposal v2" appears in the next-step field for three weeks in a row because the rep keeps planning to send it, sends it, gets no reaction, and then plans to follow up — without changing the strategy. This is the deal equivalent of doing the same thing and expecting a different result. When you spot a recycled next step, you have already lost time — the question is whether you can recover it. Almost always the answer is to escalate one level above the current contact, change the medium (email to call to in-person to executive-to-executive), or change the artifact (proposal to ROI model to peer reference).
+
+### 6.4 What pushed-out means
+
+A next step scheduled more than 14 days out is the rep openly admitting the deal has no momentum. There is no good reason for a B2B sale committed to close this month to have its next interaction scheduled three weeks out — unless the buyer has explicitly said they are in a freeze, in which case you should not have it committed this month at all. The pushed-out next step is the rep telegraphing slippage while still committing the deal on the forecast call. The way you handle it is to make the discrepancy visible: "You are committing this for the 30th but the next interaction is on the 17th of next month — those numbers do not reconcile. Walk me through how this closes by the 30th."
+
+### 6.5 The two-hour fix to enforce this in your CRM
+
+Build a Salesforce validation rule (or a HubSpot workflow) that prevents an opportunity from being moved to a late-stage value (Proposal, Negotiation) unless the Next Step field has been updated within the last seven days and contains a date no more than 14 days out. The rule will be unpopular for one week. By week two, reps will have updated their next-step hygiene, and your forecast accuracy will improve by 12 to 18 percentage points — that is the consistent before-and-after measurement Trish Bertuzzi has published from RevOps engagements where this rule was installed.
+
+## SIGNAL 7 — MEDDPICC Stalled While Stage Advances
+
+### 7.1 What MEDDPICC stagnation looks like
+
+If your team uses MEDDPICC (Metrics, Economic Buyer, Decision Criteria, Decision Process, Paper Process, Identify Pain, Champion, Competition) — or any structured qualification framework like SPICED, BANT-A, or Sandler's pain funnel — the criteria should advance roughly in lockstep with the deal stage. A deal in Negotiation should have a confirmed Economic Buyer, documented Decision Criteria, a mapped Paper Process, an identified Champion, and a known Competition. If a deal is in Negotiation but two or more MEDDPICC fields are still blank or marked "unknown," the deal is over-staged — the rep has moved the deal forward in the funnel without doing the qualification work that earns the move.
+
+### 7.2 The forecast call discipline
+
+Every forecast call should open with a MEDDPICC compliance check for every committed deal. The check takes 90 seconds per deal. You read the qualification fields aloud, you ask the rep to confirm or update each one, and any deal where two or more fields are blank gets moved out of Commit until the next forecast call — non-negotiable. Andy Whyte at MEDDIC Academy describes this as "earning the commit" — a deal is not eligible to be committed unless the qualification supports the commitment.
+
+### 7.3 The pipeline-velocity proof
+
+Across MEDDIC Academy's training-outcome data published in 2024, organizations that enforce MEDDPICC compliance at the commit level see a 31% improvement in forecast accuracy and a 22% reduction in 30-day slippage within two quarters of adoption. The mechanism is not magic — it is that you are no longer letting deals enter the commit bucket on the basis of rep enthusiasm. You are requiring them to enter on the basis of documented buyer reality.
+
+### 7.4 The CRM enforcement
+
+The same validation-rule pattern from Signal 6 applies here. Build a rule that requires the MEDDPICC fields on the opportunity to be populated to the appropriate depth for each stage. Proposal stage requires Metrics, Economic Buyer, and Decision Criteria. Negotiation requires those three plus Paper Process and Identify Pain. Closing requires all eight. The rule should block stage advancement until the qualification is met. It will feel bureaucratic at first. It will save you tens of percentage points of forecast variance within 60 days.
+
+## H2 — BUILDING THE SLIP DETECTOR IN A SINGLE AFTERNOON
+
+### Two-Hour Build, Zero Vendor Spend
+
+You do not need an AI vendor to build a slip detector. You need a Monday-morning report. The build is two hours of work, costs nothing beyond your existing CRM seat, and produces 80% of the value that the best commercial deal-intelligence tools (Clari, Gong Forecast, BoostUp, People.ai) deliver at $30 to $60 per seat per month. Here is the exact build sequence.
+
+**Step 1 — Pick a single CRM as the source of truth.** Most companies have signal scattered across three to seven tools — Salesforce, Outreach, Gong, Slack, the marketing automation platform. For the slip detector, pick one and stop. Most likely it is Salesforce or HubSpot. You will normalize everything else into that one.
+
+**Step 2 — Build seven reports, one per signal.** Each report should output, at minimum, the opportunity name, the rep, the amount, the close date, and the signal score (binary or 0–10). The reports should be runnable on demand and schedulable to email every Monday at 7 AM.
+
+**Step 3 — Build a master dashboard that aggregates the seven signals into a slip risk score per deal.** The aggregation is simple: count how many of the seven signals are firing on each deal, multiply by deal amount, and sort descending. The top of that list is the at-risk pipeline. A deal with three or more signals firing is your save-play queue.
+
+**Step 4 — Build a save-play library that maps each signal to a specific intervention.** Signal 1 (champion latency) maps to "stakeholder map refresh meeting." Signal 2 (micro-slip) maps to "why did the date move" question. Signal 3 (zero new stakeholders) maps to "deliberate gift" forwardable artifact. And so on. The library lives in a shared Notion, Confluence, or Google Doc that every rep can reference.
+
+**Step 5 — Run the routine every Monday for four weeks before judging it.** Slip detection is a system, not a tool. The first week, you will catch nothing — the routine has not yet become a habit. By week three, reps will start self-flagging because they can see the report coming. By week four, your forecast accuracy will be measurably better. Mary Shea at OutReach Inc. has published case studies showing forecast variance reductions from 28% to 11% on this exact four-week cadence.
+
+## H2 — RUNNING THE MONDAY SLIP CALL
+
+### Agenda, Roles, Outputs
+
+The Monday slip call is 30 minutes. The CRO or VP of Sales runs it. Every front-line manager attends with their slip-risk queue from the dashboard. The agenda is rigid and the rigidity is the point.
+
+**Minutes 0 to 3 — Read the aggregate slip risk number.** "We have $4.7M in committed pipeline this month with three-plus signals firing. Last week the same number was $3.1M. We have added $1.6M of risk in seven days. Why?"
+
+**Minutes 3 to 20 — Walk the top 10 at-risk deals.** Each manager has 90 seconds per deal to either (a) defend the commit with new information, (b) accept a downgrade to Best Case or Pipeline, or (c) propose a save-play. No editorializing. No "this one is special." The three options are the only options.
+
+**Minutes 20 to 25 — Assign save-plays.** Each save-play has a deadline (the next forecast call) and a deliverable (a logged activity, a meeting held, a document sent). The save-play owner is the rep, but the manager is accountable for ensuring it is executed.
+
+**Minutes 25 to 30 — Commit revisions.** Any deal where the save-play is uncertain or where the rep cannot defend the commit gets moved to Best Case immediately. The revision goes into the CRM in the meeting, not after.
+
+The reason this call works is that it forces the conversation from "are you sure?" to "show me what you are going to do about it" — and the gap between those two questions is where 30 days of slippage live.
+
+## H2 — COACHING REPS TO SEE THE SIGNALS THEMSELVES
+
+### From Manager-Detected to Self-Detected
+
+The terminal state of the slip-detector program is not that you catch every slip — it is that your reps catch their own slips before you do. The way you get there is to make signal-spotting a coaching topic, not a control topic. Two specific moves matter.
+
+**Move 1 — The Friday "what changed" exercise.** Every Friday, each rep spends 15 minutes writing a short note on each of their top five deals — what changed this week, what they expect to change next week, and which of the seven signals (if any) are firing. The note gets logged in the CRM as an activity. The manager reads them Monday morning before the slip call. Within four weeks, reps will be predicting their own slips because the exercise forces them to look at the signals each week.
+
+**Move 2 — The "deal autopsy" after every slipped or lost deal.** Within one business week of a deal slipping 30 days or being lost, the rep and the manager sit down for 30 minutes and walk back the CRM history. Which signals fired and when? When did we first see them? What did we do? What could we have done? The autopsy gets written up as a one-page document and added to the team's shared learning archive. Mike Weinberg has written that the single largest delta between top-decile and median sales organizations is whether they conduct disciplined deal autopsies — top-decile teams do; median teams do not.
+
+## H2 — WHAT NOT TO DO
+
+### Avoiding the False-Signal Trap
+
+A slip detector is only useful if it produces actionable signal, not noise. The most common ways it goes wrong: treating every signal as equally weighted (champion latency matters more than next-step blankness), running it without a save-play library (signals without interventions just produce anxiety), and tying it to comp or PIPs in the first 90 days (reps will game the signals instead of resolving them). The detector should produce coaching conversations for at least one full quarter before it touches anyone's compensation, performance review, or pipeline-quality scoring. Once the team has internalized the signals as a coaching tool, you can begin connecting them to pipeline-quality scoring — but only then.
+
+### The Vendor-Override Temptation
+
+When a CRO sees the first month of dashboard output, the most common mistake is to skip ahead and buy a commercial deal-intelligence tool — Clari, Gong Forecast, BoostUp, Outreach Commit, People.ai. The temptation is understandable. The tools are good. They are also expensive — $40 to $80 per rep per month — and they all do the same thing the homemade detector does, just with prettier interfaces and an AI layer on top. The right sequence is: build the homemade detector first, run it for two full quarters, and only then evaluate whether the marginal accuracy gain from a vendor tool justifies the marginal cost. Most companies do not need the vendor tool. The companies that do — typically those with more than 200 reps and more than $200M in ARR — know they need it because the manual process stops scaling. Below that size, you are paying for convenience, not capability.
+
+### The Pipeline-Pad Temptation
+
+The corollary failure mode: when the slip detector starts flagging real deals, some reps will respond by padding the pipeline with weaker deals to backfill the projected slippage. You will see new opportunities being created with low probabilities and aspirational close dates, simply so the rep can point to "more pipeline" even as their committed deals deteriorate. The fix is a pipeline-creation discipline that mirrors the forecast discipline — every new opportunity must have a documented qualification basis (MEDDPICC fields at the appropriate stage depth) and a champion-confirmed first meeting on the calendar before it is allowed to enter the system. Without that discipline, the slip detector exposes the truth on committed deals but the pipeline becomes a graveyard of vanity opportunities that will never close.
+
+## H2 — INSTRUMENTING THE WHOLE THING FOR THE FORECAST
+
+### Connecting Signals To Numbers
+
+Once the slip detector has been running for one full quarter, you can begin connecting it to the forecast itself. The connection is straightforward: each signal carries a historical close-rate impact, and you can apply those impacts to your committed pipeline to produce a signal-adjusted forecast.
+
+For example, if your committed pipeline this month is $10M and the historical effect of each fired signal on close probability is roughly -8% (Signal 1), -12% (Signal 2), -10% (Signal 3), -15% (Signal 4), -5% (Signal 5), -7% (Signal 6), and -11% (Signal 7), you can compute a signal-adjusted forecast by summing the at-risk dollar volume against the signal coefficients. The exact coefficients should be calibrated to your own historical data — the numbers above are the medians from Bob Marsh's audit set and a reasonable starting point, but your business will have its own pattern. The point is not the precision of the coefficients; the point is that you now have a forecast that is built on observable buyer behavior, not rep optimism.
+
+Most companies that adopt this signal-adjusted forecast methodology see their forecast variance — the absolute percentage gap between forecast and actuals at the end of the quarter — drop from a typical 18 to 26% range down into the 6 to 10% range within two quarters. That is the difference between a CRO who can credibly tell the board what is coming and one who cannot. It is also the difference between a sales team that learns from its forecasts and one that just lives through them. Either way: the seven signals above are the leading indicators of the 30-day slip, the homemade detector is the operating system that catches them, and the Monday slip call is the meeting that turns detection into action. You are not buying a product. You are installing a habit. The habit pays out in forecast accuracy, retained pipeline, and reps who stop selling themselves false stories about deals that are quietly dying in their CRM.
+
+## H2 — THE EIGHTH SIGNAL NOBODY TALKS ABOUT: CALENDAR DENSITY
+
+### Why The Calendar Tells You What The CRM Cannot
+
+The CRM tells you what a rep logged. The calendar tells you what actually happened. A buyer who is genuinely advancing toward signature has a thickening calendar — they are taking more meetings, scheduling more internal reviews, pulling in more stakeholders. A buyer who is silently disengaging has a thinning calendar — meetings that were booked get rescheduled, internal reviews get postponed, and the next interaction keeps drifting later. If your CRM is integrated with the calendar (Salesforce Inbox, HubSpot Meetings, Outreach Calendar, Gong Calendar Sync), this is one of the cleanest signals in your stack.
+
+### The Three-Week Trend Line
+
+Track each open deal's "calendared interactions in the next 21 days" as a weekly snapshot. The trend matters more than the absolute number. A deal that had four meetings booked three weeks ago, three meetings booked two weeks ago, two meetings booked last week, and one meeting booked this week is in obvious decline — even if the rep is still committing it. A deal that had two meetings booked three weeks ago and now has six booked is genuinely accelerating. The trend is the truth.
+
+### The Reschedule-Rate Subsignal
+
+Inside calendar density, the most predictive subsignal is the reschedule rate. A meeting that gets rescheduled once is normal — buyers have lives. A meeting that gets rescheduled twice is concerning. A meeting that gets rescheduled three times is a wake. Bob Marsh's audit data shows that buyer-initiated reschedules above two in a single deal correlate with slippage at 0.74 — one of the highest single-signal correlations in the entire dataset. The CRM enforcement is simple: any deal where a buyer-initiated reschedule has happened more than twice gets a flag that surfaces on Monday morning.
+
+### The Internal-Meeting Signal
+
+The most underused calendar signal is the appearance of internal buyer meetings on shared calendars. Many enterprise buyers share calendar visibility with vendors during late-stage evaluations — and if you can see that your champion has scheduled an "internal Acme review of vendor options" with three other people for next Tuesday, that is one of the strongest positive signals you can derive. Conversely, if a previously-scheduled internal review disappears from the calendar with no replacement, that is one of the strongest negative signals. Most reps never look at this layer of the calendar data. The ones who do tend to be the top performers — they treat the buyer's calendar as the leading indicator that it actually is.
+
+## H2 — TIERING YOUR DEAL PORTFOLIO BY SIGNAL COMPOSITION
+
+### Not All Slip Risk Is Equal
+
+A deal with three of the seven signals firing on a $50K transactional sale is a different problem than a deal with two signals firing on a $2M strategic enterprise sale. The slip detector becomes far more useful when you stop treating "three or more signals" as a binary threshold and start tiering deals by signal composition weighted against deal economics.
+
+### The Tier-A Definition
+
+Tier-A deals are the ones where you spend management attention. These are deals where: (a) the amount exceeds your top-decile ACV, (b) the close date is within the current quarter, and (c) at least two of the seven signals are firing. These deals get a named save-play, a documented escalation path to the CRO or the VP of Sales, and weekly tracking inside the Monday slip call. The bar is two signals because the consequence of letting a Tier-A deal slip is large enough that you cannot wait for the third signal to confirm — you have to act on partial evidence.
+
+### The Tier-B Definition
+
+Tier-B deals are the ones where you trust the rep but verify. These are deals with one to two signals firing where the amount is between the median and top-decile ACV. The save-play is documented but executed by the rep without escalation. The manager reviews the save-play once a week in their one-on-one — not in the all-hands forecast meeting. The reason for the lighter touch is that you do not have enough manager attention to give every flagged deal the Tier-A treatment, and Tier-B deals are statistically more likely to be false positives than Tier-A deals are. You triage.
+
+### The Tier-C Definition
+
+Tier-C deals are below median ACV with signals firing. These do not get manager attention at all. They get a weekly automated email to the rep that lists their flagged deals with a suggested save-play from the library, and that is it. The rep either executes or does not. The volume here is too high to justify management time, and the per-deal economics do not support it. The slip detector still runs, but the response is automated rather than human.
+
+### Why Tiering Beats Universal Treatment
+
+When CROs first install slip detection, the temptation is to treat every flagged deal with the same intensity. That fails for two reasons. First, manager attention is the most expensive resource in a sales org — you cannot spend it equally on all deals without bankrupting it. Second, false positives are inevitable in any signal-based system, and false positives on small deals are tolerable but false negatives on large deals are catastrophic. Tiering aligns the cost of attention with the value at stake.
+
+## H2 — THE SIGNALS YOU ARE NOT MEASURING THAT YOUR COMPETITORS ARE
+
+### Internal-Slack-Mention Velocity
+
+If you instrument Slack-to-CRM logging (many companies do via Salesforce Slack integration or the Slack-to-HubSpot connector), the velocity at which a deal is mentioned in internal Slack channels is itself a leading signal. Deals that are moving generate more chatter — questions about pricing, requests for resources, asks for executive sponsorship. Deals that are dying generate less. A three-week declining mention count is, in Bob Marsh's data, a leading indicator at 12 to 18 days before forecasted close.
+
+### Document-Engagement Decay
+
+If your sales engagement platform tracks document opens (DocSend, PandaDoc, Highspot, Seismic), the open rate on shared materials is a near-real-time engagement signal. A buyer who opens your proposal twice in the first 48 hours and then never again is signaling something. A buyer who keeps coming back to specific pages — pricing, contract terms, security — is signaling something else. The CRM-derivable version of this signal is the timestamp of the last document open associated with the deal; if it has been more than 10 calendar days, flag it.
+
+### Email-Thread-Length Compression
+
+Long email threads (eight or more replies back and forth) are positive signals — they mean both sides are engaged. Short threads (one or two replies before silence) are negative signals — they mean the buyer is acknowledging but not investing. Tracking the average length of email threads associated with a deal across the deal's lifecycle is a sophisticated signal that almost nobody measures but is built into Gong, Clari, and People.ai out of the box. If you do not have those tools, you can extract a rough proxy from your email-tracking platform by counting reply chains per deal.
+
+### Late-Night Buyer Activity
+
+The most overlooked positive signal in the CRM stack is when the buyer engages outside of business hours. A champion who replies to your email at 9:47 PM on a Wednesday is a champion who is invested in the outcome — they are thinking about the deal on their own time. Late-night buyer activity is a top-three positive signal in Mark Roberge's analysis. Most reps never even notice the timestamp. They should.
+
+## H2 — THE EXECUTIVE BRIEF: WHAT TO TELL YOUR BOARD
+
+### The One-Slide Version
+
+When a CRO presents slip detection to a board or executive committee, the value proposition has to fit on one slide. Here is what that slide says: "Last quarter we missed our forecast by 18%. Of that miss, 73% was concentrated in 14 deals that slipped 30 or more days. Of those 14 deals, 11 showed three or more leading signals at least three weeks before the slip became visible to the rep. We are installing a Monday slip-detection routine that will surface those signals weekly and tie each one to a documented save-play. Expected impact: forecast variance reduces from 18% to 8% within two quarters, recovering approximately $4.2M in pipeline that would otherwise slip." That is the entire pitch. It works because it grounds the program in observable historical data, not in vendor promises.
+
+### The Quarterly Review Metric
+
+Once the program is running, the quarterly board metric is forecast variance — absolute percentage gap between forecast at the start of the quarter and actual bookings at the end. You report it alongside the slip count (number of committed deals that slipped 30+ days) and the save rate (percentage of flagged deals that closed on or near the original forecast date despite firing signals). Boards understand variance. Boards understand save rates. Boards do not understand "we have a slip-detection program" — so you frame it in their language.
+
+### The CFO Conversation
+
+The CFO is the executive most invested in forecast accuracy because it determines hiring, spending, and investor communications. A CRO who delivers improving forecast accuracy quarter over quarter becomes the CFO's favorite executive — because the CFO can plan. The slip-detection program is the operational vehicle for delivering that accuracy. When you brief the CFO on the program, the language is not about sales methodology — it is about predictability. "We are reducing forecast variance from 18 to 8 percent. That gives you a planning window of plus-or-minus 8 percent instead of plus-or-minus 18. That changes how aggressively we can invest in headcount." That sentence is worth more than any pipeline-quality dashboard ever built.
+
+## H2 — A REAL-WORLD WALKTHROUGH: THE ACME-NORTHFIELD DEAL
+
+### How Seven Signals Caught A Slip 22 Days Early
+
+The mechanics above are most useful when you can see them in action on a single deal. Here is a composite case (names and amounts changed; the mechanics are real) from a 2024 RevOps engagement Bob Marsh has cited in his Leadership Sales Academy training materials.
+
+The deal: Northfield Health Systems, a 12,000-employee regional hospital network in the Midwest, evaluating a $1.4M three-year contract for a clinical-workflow software platform from Acme Health Software. The rep: a senior AE named Patricia Olu, four years tenured, top-decile performer. The forecast call: Monday, October 7. Patricia committed Northfield for the 31st of October with high confidence — "CFO is engaged, champion is strong, legal review starts Friday."
+
+On Monday, October 7, the slip detector flagged Northfield with one signal firing: the next-step field listed "confirm legal kickoff" with a date of October 25, which is more than 14 days out. Patricia's manager noted the flag in the one-on-one but accepted Patricia's explanation that the CFO had requested a slight delay due to a board meeting.
+
+On Monday, October 14, the detector flagged Northfield with three signals firing: the next-step had been recycled (still "confirm legal kickoff"), a procurement contact had been added on October 9 and had not logged any engagement, and the champion's email reply latency had drifted from 14 hours (baseline) to 51 hours (current 30-day average). Patricia's manager escalated the deal to Tier-A.
+
+The save-play executed on Tuesday, October 15: Patricia requested a 25-minute stakeholder-map refresh meeting with the champion, explicitly framed as "I want to make sure we are not making your job harder by pushing on something that has shifted in priority." The champion took the meeting on Wednesday, October 16. In that meeting, the champion revealed that the CFO had paused the project two weeks earlier pending a parallel evaluation of a competing platform that the procurement team had introduced, and that legal review had been informally suspended.
+
+The deal that Patricia had committed for October 31 was, in reality, in a competitive bake-off that her CRM had not surfaced. Without the slip detector, the deal would have slipped on Friday, November 1 — Patricia would have learned about the bake-off when the buyer told her, three to four weeks after the procurement contact was added silently. With the detector, she learned 22 days earlier, executed a competitive-displacement play (an executive-to-executive meeting between Acme's CEO and Northfield's CFO, scheduled October 22), and closed the deal on November 14 — 14 days late but won, against a competitor that had quietly entered the evaluation in mid-September.
+
+The lesson: the seven signals did not save the deal by themselves. They surfaced the truth early enough that the rep could execute a real save-play instead of finding out about the slip after it had already happened. That is the entire value of the system — not magic, just earlier truth.
+
+## H2 — COMMON OBJECTIONS FROM REPS AND HOW TO HANDLE THEM
+
+### "This Is Just More CRM Bureaucracy"
+
+The most common rep objection to slip detection is that it adds administrative work. The right response is to acknowledge it and then reframe the math. Yes, the rep has to update the next-step field, the MEDDPICC fields, and the stakeholder map weekly. That is roughly 45 minutes per rep per week. The return on that 45 minutes is a 15 to 22 percent improvement in close rate on flagged deals (per Mark Roberge's published outcomes data) and an improvement in commission earnings that more than compensates for the time. The rep is not doing administrative work for the company. The rep is doing diagnostic work for themselves.
+
+### "The Signals Are Wrong On My Deal"
+
+Reps will inevitably say "the signals fired but this deal is fine." Sometimes they are right and the signals are noise. More often, they are wrong and the signals are catching something the rep has not yet acknowledged. The way you resolve the disagreement is not to argue — it is to document. Write down the rep's prediction in the Monday slip call ("Patricia says Northfield will close on the 31st despite the three signals") and then track the actual outcome. After two quarters of doing this, the data settles the argument. Reps whose predictions consistently beat the signals get more autonomy. Reps whose predictions consistently lose to the signals get more coaching. The system self-calibrates.
+
+### "I Do Not Have Time For Save-Plays"
+
+The save-play library exists precisely so that the rep does not have to invent the response from scratch. Each save-play is a 30-to-60-minute action — a meeting, a forwardable artifact, an executive-to-executive introduction — not a multi-week initiative. The library should be specific enough that the rep can execute it without manager intervention but flexible enough that the rep can adapt it to the specific deal context. If the library is too generic, reps will not use it. If it is too rigid, reps will not trust it. The Goldilocks zone is roughly 12 to 18 documented save-plays, each one-page, each with three to five concrete steps.
+
+## H2 — THE 90-DAY ROLLOUT PLAN
+
+### Days 1 to 14 — Build The Detector
+
+Build the seven reports, the master dashboard, and the save-play library. Do not announce anything to the team yet. The first two weeks are for getting the infrastructure right and validating it against historical data (run the detector against last quarter's data and see whether it would have caught the deals that actually slipped). Bob Marsh recommends a minimum of two full backtests against historical data before going live with the team.
+
+### Days 15 to 30 — Manager-Only Pilot
+
+For two weeks, only managers and the CRO see the dashboard. They run a parallel Monday slip call as a dry run — they identify what the detector would flag, predict the rep's response, and document both. At the end of two weeks, you have a clear-eyed view of which signals are producing the most actionable flags and which are noise in your specific business.
+
+### Days 31 to 60 — Team Rollout, Coaching Mode
+
+In month two, the dashboard goes live to the whole team. The framing is explicit: "This is a coaching tool, not a control tool. No deal will be removed from your forecast based on signal output alone. We are using this to surface conversations earlier." Run the Monday slip call live. Build the save-play habit. Coach reps individually on signal interpretation. Do not tie anything to comp or PIPs.
+
+### Days 61 to 90 — Embed Into Forecast Discipline
+
+In month three, the signals start informing the forecast itself. Deals with three or more signals firing are no longer eligible for the Commit category until the rep documents a save-play and gets manager sign-off. The signal-adjusted forecast becomes the forecast presented to the CFO. Forecast variance is measured weekly. At day 90, you do a full retrospective: forecast variance trend, save-play execution rate, rep satisfaction (yes, ask), and any signal-specific noise that needs recalibration. Adjust and continue.
+
+## H2 — INTEGRATION WITH AI AGENTS AND CONVERSATION-INTELLIGENCE TOOLS
+
+### Where AI Helps And Where It Does Not
+
+By 2026, every CRM vendor and every conversation-intelligence platform claims an "AI deal-risk score" — Salesforce Einstein, HubSpot AI, Gong Engage, Clari Copilot, Outreach Kaia, People.ai. The honest assessment: these tools add roughly 10 to 18 percent additional accuracy over the homemade seven-signal detector, primarily by ingesting call-transcript sentiment and email-tone analysis that the homemade version does not capture. They are useful supplements. They are not substitutes for the underlying discipline.
+
+The mistake to avoid: assuming the AI score replaces manager judgment. The AI surfaces patterns; the manager interprets them and decides on the save-play. Organizations that try to operate the AI as autopilot — where the score determines forecast inclusion without manager interpretation — see worse outcomes than organizations that use the AI as a co-pilot alongside the seven-signal framework. The score is input. The decision is human.
+
+The right sequence: install the seven-signal framework first, run it for two quarters, and only then layer in an AI tool on top. The AI is most useful when the team already knows what the signals mean. Adding AI to a team that has not internalized the underlying signal framework produces the worst of both worlds — automated false positives that nobody knows how to interpret.
+
+## SOURCES & FURTHER READING
+
+- Bob Marsh, Leadership Sales Academy — pipeline diagnostics and forecast variance research (audits 2019–2024).
+- Lori Richardson, Score More Sales — CRO advisory frameworks on signal thresholds.
+- Sue Barrett, Barrett Consulting — stakeholder-map refresh methodology.
+- Mike Bosworth, Solution Selling — forecast accuracy and micro-slip data.
+- Trish Bertuzzi, The Bridge Group — Monday slip-call operating system; pipeline hygiene research.
+- Brent Adamson & Matthew Dixon, "The Challenger Customer" — multi-stakeholder buying group dynamics.
+- Anthony Iannarino, "Eat Their Lunch" — multi-threading and champion enablement.
+- Tim Sanders, "Love Is The Killer App" — the deliberate-gift save-play.
+- Mark Roberge, Stage 2 Capital — procurement-engagement timing data (2022 enterprise SaaS analysis).
+- Mike Weinberg, "Sales Truth" — rep confidence and note-language analysis.
+- Andy Whyte, "MEDDICC" and MEDDIC Academy — qualification-driven forecasting research.
+- Mary Shea, OutReach Inc. — forecast variance reduction case studies on weekly cadence.
+- Daniel Pink, "To Sell Is Human" — cognitive-load theory of micro-slipping.

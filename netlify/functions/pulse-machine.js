@@ -10,6 +10,8 @@
 // →    { reply, sources?: [{title, url}] }
 // ════════════════════════════════════════════════════════════════════════
 const https = require('https');
+const { normalizeQuestion, visitorQuestionId } = require('./lib/visitor-question-id');
+const { setVisitorPriority } = require('./lib/visitor-priority');
 
 let getStore = null;
 try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
@@ -198,47 +200,17 @@ exports.handler = async (event) => {
     } catch (e) { /* rate limit unavailable, fail-open */ }
   }
 
+  // IMMUTABLE LAW (passcode 4444 to change): every visitor question goes
+  // into the Knowledge Library at the top of page 1 as a fresh `vq_*`
+  // entry, even if a similar entry already exists in the cache. The
+  // visitor expects to watch THEIR question land. We always enqueue,
+  // always fire the autopilot, and always redirect to the awaiting page.
+  // The Claude polish loop can dedupe / cross-link later.
+  let visitorId = null;
   if (libStore) {
     try {
-      const idx = await libStore.get('_index.json', { type: 'json' });
-      const hit = findLibraryMatch(message, idx && idx.entries);
-      if (hit) {
-        const ans = await libStore.get('answers/' + hit.id + '.json', { type: 'json' });
-        if (ans && ans.answer) {
-          // Skip cache hits that look like a stale refusal or deflection —
-          // the domain rules changed (food trucks, arcades, restaurants, any
-          // business is now in scope), so refusing or asking the visitor to
-          // "narrow this" would be wrong. Force a fresh API call instead.
-          const head = ans.answer.trim().slice(0, 200);
-          const isRefusal =
-               /^(Still off-domain|The Machine only speaks|Off-domain — |I'?m not seeing a clear|Help me narrow|Run me the context|That's not in my arena|I can'?t answer that|Outside my arena)/i.test(head)
-            || /Help me narrow this|Run me the context|Reframe it as|stay in the arena/i.test(head);
-          if (isRefusal) {
-            // Fall through to live AI; don't cache-serve the refusal.
-            // (Don't break — still enqueue for research.)
-            enqueueVisitorQuestion(libStore, message).catch(() => {});
-            // Skip the return below by clearing the path
-          } else {
-            // Push the visitor's question into the research queue so the
-            // snowball can chew on whatever angle they cared about overnight.
-            enqueueVisitorQuestion(libStore, message).catch(() => {});
-            return {
-              statusCode: 200,
-              headers: { ...CORS, 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                reply: ans.answer + '\n\n— from the Library',
-                sources: ans.sources || [],
-                cached: true,
-                cache_id: ans.id,
-                match_score: hit.score,
-              }),
-            };
-          }
-        }
-      }
-      // No cache hit → still enqueue the question for later research
-      enqueueVisitorQuestion(libStore, message).catch(() => {});
-    } catch (e) { /* fall through to live AI */ }
+      visitorId = await enqueueVisitorQuestion(libStore, message);
+    } catch (_e) { /* fall through */ }
   }
 
   const messages = [];
@@ -274,29 +246,87 @@ exports.handler = async (event) => {
     }
   } catch (e) { /* feed not ready, just skip */ }
 
-  // ── QUEUE-ONLY MODE ─────────────────────────────────────────────────
-  // Cache miss → DO NOT fire live Anthropic generation. The question has
-  // already been enqueued (above, enqueueVisitorQuestion → blob queue.json).
-  //
-  // Immediately fire-and-forget the Gemini Flash free-tier volume writer
-  // (pulse-volume-gemini) so the just-enqueued question gets processed into
-  // a 5/10 library entry within ~30 seconds. The polish loops then walk it
-  // up to 10/10. $0 — Gemini Flash free tier, no Anthropic spend.
+  // ── IMMEDIATE-ANSWER MODE (AMENDED 2026-06-02 via passcode 4444) ────
+  // Per owner: "Change the machine to pump out answers immediately."
+  // Synchronous Anthropic call returns the reply inline (~5-15s). The
+  // visitor question is still enqueued + the volume-writer is still fired
+  // fire-and-forget so the entry lands in the library — but we no longer
+  // redirect the visitor away from /themachine. They get the answer NOW.
+
+  // Fire-and-forget the Gemini volume writer so the entry still lands in
+  // the library for permanent indexing (parallel to the live Claude call).
   try {
     const host = (event.headers && (event.headers['x-forwarded-host'] || event.headers.host)) || 'pulserevops.com';
     const proto = (event.headers && event.headers['x-forwarded-proto']) || 'https';
     fireAndForget(`${proto}://${host}/.netlify/functions/pulse-volume-gemini`, '{}');
   } catch (err) {
     console.error('[pulse-machine] volume-writer dispatch err', err && err.message);
-    // Non-fatal — the scheduled cron will pick the question up on its next run.
   }
 
+  if (!visitorId && libStore) {
+    try { visitorId = await enqueueVisitorQuestion(libStore, message); } catch (_e) {}
+  }
+  if (!visitorId) visitorId = visitorQuestionId(message);
+
+  // ── SYNCHRONOUS CLAUDE CALL ────────────────────────────────────────
+  // Returns the reply + sources inline so /themachine renders the answer
+  // right where the visitor typed the question. No redirect.
+  try {
+    const claudeResp = await claudePost({
+      model: 'claude-opus-4-7',
+      max_tokens: 4096,
+      system: SYSTEM_PROMPT + feedContext,
+      messages,
+      tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 4 }],
+    });
+    if (claudeResp.ok && claudeResp.data && Array.isArray(claudeResp.data.content)) {
+      // Extract the text reply + web_search citations
+      let reply = '';
+      const sources = [];
+      for (const block of claudeResp.data.content) {
+        if (block.type === 'text' && typeof block.text === 'string') {
+          reply += block.text;
+          // Capture web_search_result_location citations
+          if (Array.isArray(block.citations)) {
+            for (const c of block.citations) {
+              if (c.type === 'web_search_result_location' && c.url) {
+                sources.push({ title: c.title || c.url, url: c.url });
+              }
+            }
+          }
+        }
+      }
+      // Dedupe sources by url
+      const seen = new Set();
+      const uniq = [];
+      for (const s of sources) { if (!seen.has(s.url)) { seen.add(s.url); uniq.push(s); } }
+      return {
+        statusCode: 200,
+        headers: { ...CORS, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          reply: reply.trim() || 'The Machine processed your question — see top of the library for the full write-up.',
+          sources: uniq,
+          visitor_id: visitorId,
+          library_url: visitorId ? ('/knowledge/' + visitorId) : '/knowledge',
+        }),
+      };
+    }
+    // Claude returned non-200 — fall back to queue-only response
+    console.error('[pulse-machine] Claude non-200', claudeResp.status, claudeResp.raw && claudeResp.raw.slice(0, 240));
+  } catch (err) {
+    console.error('[pulse-machine] Claude call failed', err && err.message);
+  }
+
+  // Fallback path — Claude failed or unavailable. Return the legacy queued
+  // response so the frontend redirects to /knowledge?awaiting=<vid>.
   return {
     statusCode: 200,
     headers: { ...CORS, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       queued: true,
-      reply: "Question received. It enters the public library at 5/10 quality within ~1 minute — first-draft answer with the core thesis. Then it climbs the polish ladder: 6/10 adds sources, 7/10 verifies the numbers, 8/10 adds counter-arguments, 9/10 cross-links related entries, 10/10 gets a fresh-context audit. You can watch it improve at /knowledge.",
+      visitor_id: visitorId,
+      library_url: visitorId ? ('/knowledge/' + visitorId) : '/knowledge',
+      reply: 'Your question is at the top of the library — first-draft answer in about a minute.',
     }),
   };
 };
@@ -394,16 +424,53 @@ function simpleHash(s) {
   return (h >>> 0).toString(36);
 }
 
-// Push visitor question into the research queue so the snowball researches
-// it overnight. Keeps the queue under 8000 items.
+// Enqueue visitor questions for volume-writer + ghost card on /knowledge.
 async function enqueueVisitorQuestion(store, q) {
+  const vqId = visitorQuestionId(q);
   try {
     const cur = (await store.get('queue.json', { type: 'json' })) || { items: [] };
     const items = cur.items || [];
-    const norm = String(q).toLowerCase().replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim();
-    if (items.some(it => String(it.q || '').toLowerCase().replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim() === norm)) return;
-    items.push({ q: q.slice(0, 320), parent_id: null, ts: Date.now(), priority: 2, source: 'visitor' });
-    if (items.length > 8000) items.splice(0, items.length - 8000);
-    await store.setJSON('queue.json', { items });
+    const norm = normalizeQuestion(q);
+    if (!norm) return vqId;
+    const dupe = items.some(it => normalizeQuestion(it.q) === norm);
+    if (!dupe) {
+      items.unshift({
+        q: String(q).slice(0, 320),
+        vq_id: vqId,
+        parent_id: null,
+        ts: Date.now(),
+        priority: 10,
+        source: 'visitor',
+      });
+      if (items.length > 8000) items.splice(8000);
+      await store.setJSON('queue.json', { items });
+    }
+    try {
+      const a = (await store.get('_audit_status.json', { type: 'json' })) || {};
+      await store.setJSON('_audit_status.json', {
+        ...a,
+        visitor_target: vqId,
+        ts: Date.now(),
+      });
+    } catch (_e) { /* best effort */ }
+    // VISITOR PRIORITY: every background/cron function pauses until this
+    // question lands or the 5-min TTL expires.
+    try { await setVisitorPriority(store, vqId); } catch (_e) {}
+    // API-DIRECT TRIGGER (LOCKED LAW amended 2026-05-31, passcode 4444):
+    // "Anytime a user uses the machine, you use the API tokens." Fire the
+    // Anthropic API path first (claude-opus-4-8, ~10-30s, $2/day cap). The
+    // API function itself falls back to the Gemini autopilot if the kill
+    // switch is on, the daily cap is hit, the API key is missing, or the
+    // API errors. Either way the visitor gets an answer.
+    try {
+      const host = (process.env.URL || 'https://pulserevops.com').replace(/\/$/, '');
+      // Fire-and-forget — do NOT await. Background functions return 202 instantly.
+      fetch(host + '/.netlify/functions/pulse-machine-api-vq-background', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ vq_id: vqId, question: String(q).slice(0, 500) }),
+      }).catch(() => {});
+    } catch (_e) { /* never block submit on API wake */ }
   } catch (e) { /* best effort */ }
+  return vqId;
 }

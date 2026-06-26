@@ -1,0 +1,191 @@
+[
+  {
+    "pillar": "ai",
+    "entries": 200,
+    "seoStamped": 114,
+    "hubSync": "yes",
+    "sitemap": "yes",
+    "sampleUrl": "https://pulserevops.com/ai-infrastructure/ai0200",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "aq",
+    "entries": 442,
+    "seoStamped": 442,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/aquariums/aq0450",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "bt",
+    "entries": 400,
+    "seoStamped": 113,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/boats/bt0400",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "bs",
+    "entries": 311,
+    "seoStamped": 0,
+    "hubSync": "yes",
+    "sitemap": "hub-only",
+    "sampleUrl": "https://pulserevops.com/sales-book-summaries/bs311",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "bo",
+    "entries": 203,
+    "seoStamped": 0,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/buildouts/bo0225",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "cg",
+    "entries": 247,
+    "seoStamped": 38,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/coaching/cg0593",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "co",
+    "entries": 72,
+    "seoStamped": 0,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/collectibles/co0074",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "dn",
+    "entries": 141,
+    "seoStamped": 23,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/dining/dn0159",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "er",
+    "entries": 653,
+    "seoStamped": 84,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/electronic-reviews/er0778",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "st",
+    "entries": 545,
+    "seoStamped": 47,
+    "hubSync": "partial:kw+CollectionPage+jsonLd",
+    "sitemap": "yes",
+    "sampleUrl": "https://pulserevops.com/sales-trainings/st0590",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "rs",
+    "entries": 104,
+    "seoStamped": 54,
+    "hubSync": "partial:kw+CollectionPage+jsonLd",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/resorts/rs0222",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "ca",
+    "entries": 973,
+    "seoStamped": 973,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/cars/ca0973",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "hf",
+    "entries": 31,
+    "seoStamped": 31,
+    "hubSync": "yes",
+    "sitemap": "yes",
+    "sampleUrl": "https://pulserevops.com/highschool-football-recruiting/hf0036",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "cl",
+    "entries": 50,
+    "seoStamped": 0,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/clubs/cl0050",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "gm",
+    "entries": 50,
+    "seoStamped": 0,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/gaming/gm0046",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "ga",
+    "entries": 50,
+    "seoStamped": 0,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/gatherings/ga0009",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "ev",
+    "entries": 50,
+    "seoStamped": 0,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/events/ev0014",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "es",
+    "entries": 146,
+    "seoStamped": 96,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/estates/es0283",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "gp",
+    "entries": 391,
+    "seoStamped": 0,
+    "hubSync": "yes",
+    "sitemap": "yes",
+    "sampleUrl": "https://pulserevops.com/go-to-market-playbooks/gp0391",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "ra",
+    "entries": 505,
+    "seoStamped": 0,
+    "hubSync": "partial:kw+CollectionPage+jsonLd",
+    "sitemap": "yes",
+    "sampleUrl": "https://pulserevops.com/revenue-architecture/ra0444",
+    "samplePass": "pass"
+  },
+  {
+    "pillar": "fr",
+    "entries": 1033,
+    "seoStamped": 0,
+    "hubSync": "yes",
+    "sitemap": "http-404",
+    "sampleUrl": "https://pulserevops.com/franchises/fr1024",
+    "samplePass": "pass"
+  }
+]

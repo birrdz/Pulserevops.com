@@ -1,0 +1,529 @@
+### Direct Answer
+
+A realistic, well-run unattended (card- or coin-operated) laundromat in a 1,800-2,400 square foot store with 18-28 washers and 20-32 dryers generates **$22,000-$48,000 in gross monthly revenue** and throws off **$6,500-$16,000 in monthly owner cash flow (seller's discretionary earnings) after every operating cost except the owner's own labor**. The single fastest killer is not theft, not water bills, and not competition: it is **machine downtime that goes unnoticed because nobody is in the store** — a bank of dead dryers on a Saturday silently vaporizes 25-40% of a weekend's revenue, and the unattended owner often does not learn about it until the next bill cycle. The second fastest killer is **utility cost creep** (water, sewer, gas, electric) that is never repriced into vend rates, slowly eroding a 60%+ margin down to a break-even crawl.
+
+**TLDR**
+
+- **Revenue band:** $22K-$48K/month gross for a healthy small-format store; turns-per-day (TPD) is the master metric — 2.5-4.5 turns is healthy, below 2.0 is a problem, above 5.0 risks queueing churn.
+- **Cash flow band:** $6.5K-$16K/month SDE on a store with no on-site attendant; expense ratio runs 62-72% of revenue, leaving a 28-38% owner-cash margin.
+- **Fastest killer #1 — silent machine downtime.** Unattended means nobody reports a dead dryer. Remote monitoring + a same-day service SLA is the single highest-ROI defense.
+- **Fastest killer #2 — un-repriced utilities.** Water/sewer/gas inflation of 5-9%/year compounds; owners who do not raise vend prices every 12-18 months watch margin evaporate.
+- **Fastest killer #3 — card/payment system failure.** A frozen kiosk or dead card reader on a cashless store is a 100% revenue stoppage until fixed.
+- **Other killers:** lease term expiration without renewal, a new competitor with a fresh equipment fleet, neighborhood demographic shifts, and deferred maintenance compounding into a fleet-wide replacement cliff.
+- **What protects cash flow:** remote IoT monitoring, a tight preventive-maintenance calendar, ancillary revenue (wash-dry-fold, vending, ATM), and disciplined annual vend-rate reviews.
+- **Buy-side rule of thumb:** value a laundromat at **3.5x-5.5x SDE** or **55-75x net monthly cash flow**, and never buy on revenue multiples alone — they hide downtime and deferred capex.
+
+---
+
+## 1. The Honest Revenue Model: What an Unattended Laundromat Actually Earns
+
+### 1.1 The store archetype this answer assumes
+
+Before any number means anything, you have to fix the store you are picturing. The laundromat industry spans everything from a 600-square-foot, eight-machine corner box to a 6,000-square-foot, multi-attendant superstore with a cafe. This answer assumes the most common acquisition target for an owner-operator or semi-absentee investor:
+
+- **Footprint:** 1,800-2,400 square feet of retail space.
+- **Equipment:** 18-28 washers (a mix of 20 lb, 30 lb, 40 lb, 60 lb capacities) and 20-32 dryers (typically stacked 30 lb pockets).
+- **Staffing:** unattended, or attended only for limited cleaning/restock hours — no full-time on-site labor.
+- **Payments:** coin, card (loyalty cards or open-loop credit), or hybrid; increasingly app-based.
+- **Demographics:** a trade area with a high renter percentage, multi-family housing density, and median household income roughly $35K-$75K — the band where in-unit laundry is least common.
+
+A store like this is the workhorse of the self-service laundry sector. Everything below — revenue, expenses, cash flow, and the killers — is calibrated to it. A superstore with attendants, a drop-off counter doing six figures of wash-dry-fold, and a delivery fleet is a different and frankly more durable business, and we flag those differences explicitly in the Counter-Case section.
+
+Why does the archetype matter so much? Because the laundromat business is one of the few small-business categories where the *physics of the asset* — square footage, machine count, plumbing capacity, gas-meter sizing, and lease geometry — determines the revenue ceiling far more than operator skill does. A brilliant operator running a 12-machine box in a thin trade area cannot out-execute their way to $40K of monthly gross; the building will not produce the turns. Conversely, a mediocre operator in a 28-machine store in a renter-dense corridor can stumble into a $30K month. This is the opposite of, say, a consulting practice, where skill is nearly everything. For a laundromat, **the asset sets the band and the operator sets where in the band you land.** That single fact frames every number in this answer: the ranges are wide because the assets are diverse, and your job as an owner or buyer is first to identify which band your specific physical store can support, and only then to ask how good the operations are.
+
+One more calibration note before the numbers. The term "unattended" is used loosely in the industry, and it covers a spectrum rather than a binary. A *truly* unattended store has no employee ever on site — cleaning is done by the owner or a contracted service on a route, and there is no drop-off counter. A *semi-attended* store has an attendant present for a slice of the day (often 8 AM-2 PM) primarily to handle wash-dry-fold drop-offs and restocking, and runs self-service-only the rest of the time. This entry's cash-flow bands assume the truly unattended or lightly semi-attended end of that spectrum, because that is where the killer hierarchy in Section 4 bites hardest. The more attendant hours you add, the more the economics shift toward the attended model described in the Counter-Case.
+
+### 1.2 Gross revenue: the realistic band
+
+A healthy small-format unattended store in this archetype generates **$22,000-$48,000 in gross monthly revenue**. The width of that band is not sloppiness — it is the real spread you see across markets, and where a given store lands depends on five variables:
+
+| Driver | Weak store | Average store | Strong store |
+|---|---|---|---|
+| **Turns per day (per machine)** | 1.8-2.4 | 2.8-3.6 | 4.0-5.0 |
+| **Vend price (avg per wash)** | $2.75-$3.50 | $4.00-$5.00 | $5.50-$7.50 |
+| **Washer count** | 14-18 | 20-26 | 26-32 |
+| **Ancillary revenue %** | 0-3% | 5-12% | 15-30% |
+| **Trade-area density** | low / car-dependent | moderate | high renter density |
+
+The single most important number in that table is **turns per day (TPD)** — the count of complete wash cycles a given machine runs in 24 hours. TPD is the master KPI of laundromat economics because it is the one figure that simultaneously reflects demand, machine reliability, pricing, and queueing efficiency. A store with 22 washers averaging 3.2 TPD at a $4.25 blended vend price produces roughly:
+
+22 washers x 3.2 turns x $4.25 x 30 days = **$8,976/month in wash revenue**
+
+Dryers typically add another 60-90% on top of wash revenue (customers run multiple dry cycles), so washer-plus-dryer self-service revenue lands near **$14,000-$16,000/month**. Add wash-dry-fold, vending, and ancillary income, and the store clears the low-$20Ks. A strong store at 4.2 TPD with higher vend prices and a meaningful wash-dry-fold operation pushes past $40K.
+
+It is worth slowing down on the dryer-revenue relationship because newcomers consistently underestimate it. A customer who runs one washer load does not run one dryer cycle — they typically run one to two dryer cycles per wash load, because commercial dryers are timed-vend and most customers buy a little extra time to be sure their clothes are fully dry. The result is that dryer revenue, despite dryers being cheaper per cycle than washers, tracks at 60-90% of wash revenue. This has a strategic implication: **dryer availability is a revenue multiplier, not a convenience.** A store with plenty of washers but too few dryers creates a bottleneck where customers finish washing, find no dryer, and either wait (occupying floor space and souring on the store) or leave with wet clothes. The healthiest stores run a dryer-to-washer ratio in the range of 1.1:1 to 1.5:1 by pocket count, deliberately over-providing dry capacity so it is never the constraint. When you evaluate a store's revenue, look not just at total machine count but at the *balance* — an imbalanced fleet caps revenue in a way the raw machine count hides.
+
+The vend-price variable in the driver table also deserves a closer look, because "average vend price" is a blended figure across machine sizes, and the blend matters. A store's washers are not all the same capacity: a typical fleet mixes 20 lb machines (vend around $3.00-$4.50), 30 lb machines ($4.50-$6.00), 40 lb machines ($6.00-$8.00), and one or two 60-80 lb giant machines ($9.00-$14.00) used for comforters and bulk loads. The large machines earn dramatically more revenue per square foot of floor space and per gallon of water, because a 60 lb machine does not use 3x the water of a 20 lb machine — it uses closer to 2x while charging 3x. **Right-sizing the machine mix toward larger capacities is one of the highest-leverage revenue moves available**, and it is covered in the sibling entry q1130 on equipment mix.
+
+### 1.3 The revenue mix breakdown
+
+Self-service vend is the core, but the revenue mix of a well-run store is more diversified than newcomers expect:
+
+| Revenue stream | Share of gross (typical) | Margin character |
+|---|---|---|
+| **Self-service washers** | 35-45% | Highest margin; pure utilization play |
+| **Self-service dryers** | 25-35% | High margin; gas cost is the variable |
+| **Wash-dry-fold (WDF)** | 5-30% | Labor-heavy; lower margin but sticky |
+| **Soap / vending / sundries** | 2-6% | High margin, low absolute dollars |
+| **ATM / change machine surcharge** | 0.5-2% | Near-pure margin |
+| **Other (lockers, kiosks, ads)** | 0-3% | Opportunistic |
+
+A purely unattended store will under-index on wash-dry-fold because WDF requires labor. That is the central trade-off of the unattended model: you shed the largest expense line (on-site staff) but you also forfeit the highest-growth, highest-stickiness revenue stream. We will return to this tension repeatedly.
+
+Consider why wash-dry-fold is so strategically valuable, and therefore why forfeiting it is a real cost and not a free lunch. Self-service revenue is fundamentally a *commodity utilization* business — the customer buys a machine-cycle, the switching cost is essentially zero, and loyalty is a function of convenience and machine availability. Wash-dry-fold is different in kind. A WDF customer is buying a *service outcome* — clean, folded, packaged laundry — and once they have integrated that into their weekly routine, the switching cost is meaningful: they would have to find a new provider, re-establish trust, and change a habit. WDF customers also spend far more per transaction (a typical WDF order is $25-$60 versus a $6-$12 self-service visit), visit more predictably, and are far less price-sensitive. A store that builds a real WDF book is building an annuity inside a utilization business. The pure unattended model, by definition, cannot easily do this, and that is the single largest reason the *durable* top of the unattended cash-flow band sits below the top of the attended-store band. An owner choosing the unattended model should make that choice consciously, understanding they are trading growth ceiling and customer stickiness for labor-free simplicity.
+
+There is a partial workaround worth flagging now and revisiting in Section 6: **the limited-hours hybrid.** A store can run self-service-only for the bulk of its operating day and staff a single attendant for a 4-6 hour window — say, mid-morning through early afternoon — purely to receive and process wash-dry-fold drop-offs. This captures a slice of the WDF annuity without importing a full attended-store labor structure. It is the most common way sophisticated unattended owners thread the needle, and it shifts the store partway along the spectrum described in Section 1.1.
+
+### 1.4 Why revenue alone lies to you
+
+A broker's listing will lead with gross revenue because gross revenue is the flattering number. It is also the number most contaminated by the two fastest killers in this entire answer. Two stores can both report "$32,000/month gross" and be radically different businesses:
+
+- **Store A** runs at 3.4 TPD with 96% machine uptime, vend prices refreshed nine months ago, utilities at 19% of revenue.
+- **Store B** runs at 4.6 TPD on a fleet where six of 26 machines are intermittently dead — its "real" demand would support far more revenue, but downtime caps it; meanwhile utilities are at 31% of revenue because vend prices have not moved in four years.
+
+Store A is healthy and has headroom. Store B is a store in decline wearing a healthy revenue number as a costume. The only way to tell them apart is to go below the revenue line — into TPD per machine, uptime logs, and the utility-to-revenue ratio. This is why every experienced operator and every disciplined buyer treats revenue as a starting question, not an answer. For the deeper buy-side mechanics, see the sibling entry **q1124 — How do you do real diligence on a laundromat before you buy it?**
+
+There is a second, subtler way revenue lies — and it specifically traps buyers. Laundromat sellers know their store is being valued on cash flow, and a meaningful minority of sellers will *manufacture* a strong revenue number in the months before listing. The two classic tactics are **deferring all maintenance** (so the repair line looks artificially low and the fleet runs hot right up until the sale) and **temporarily juicing collections** by, for example, the owner running their own and friends' laundry through the machines, or simply overstating coin-collection figures that, in a cash business, can be very hard to independently verify. The defense against the first tactic is a physical inspection of every machine and a review of the actual age of the fleet. The defense against the second is to **never accept the seller's stated revenue at face value** — instead, install your own monitoring or do a multi-week supervised collection during diligence, cross-check against water-utility consumption (water usage is extremely hard to fake and correlates tightly with real wash volume), and reconcile against tax returns. A store whose claimed revenue does not match its metered water consumption is a store telling you a story. The water meter is the single best lie detector in laundromat diligence, because every wash cycle consumes a known, measurable quantity of water, and the municipal meter does not care what the seller says.
+
+---
+
+## 2. The Expense Stack: Where the Money Actually Goes
+
+### 2.1 The full operating expense breakdown
+
+Cash flow is revenue minus expenses, so the expense stack is half the story. Here is the realistic operating cost structure for the unattended small-format archetype, expressed as a percentage of gross revenue:
+
+| Expense line | % of gross (typical) | Notes |
+|---|---|---|
+| **Rent (NNN lease)** | 18-28% | The single biggest swing factor; below 20% is healthy |
+| **Water & sewer** | 8-14% | Sewer often costs more than water itself |
+| **Gas (dryers + water heating)** | 6-11% | Highly seasonal and commodity-exposed |
+| **Electric** | 3-6% | Lighting, motors, controls, A/C |
+| **Repairs & maintenance** | 4-9% | Rises sharply as a fleet ages |
+| **Insurance** | 2-4% | Liability, property, business interruption |
+| **Card/payment processing & fees** | 2-5% | The cashless tax |
+| **Loan service / equipment financing** | 0-15% | Zero if owned free and clear |
+| **Cleaning / attendant (limited hours)** | 3-8% | "Unattended" still needs cleaning |
+| **Misc (alarm, internet, supplies, marketing)** | 2-5% | Small lines that add up |
+
+Sum the operating lines (excluding loan service and the owner's own labor) and a healthy unattended store runs an **expense ratio of 62-72% of gross revenue**, leaving an owner-cash margin of **28-38%**. That margin is the headline reason laundromats attract investors: few small businesses with this little day-to-day labor demand sustain a 30%+ cash margin.
+
+It is worth naming the structural reason the margin holds up. Most of a laundromat's expense base is *fixed or semi-fixed* — rent, insurance, the alarm, the internet connection, the base utility hookup charges, and the cleaning service do not change much whether the store does $25K or $40K of monthly revenue. Only utilities-by-consumption and payment processing scale meaningfully with volume. This creates powerful **operating leverage**: once a store covers its fixed nut, incremental revenue drops to the bottom line at a very high rate — often 60-75 cents of every additional dollar. That is the mathematical engine behind the strong-store scenario in Section 3.4, where a higher-revenue store shows *lower* expense percentages across nearly every line. It is also the reason the weak store in Section 3.2 is so dangerous: below the fixed-cost coverage point, operating leverage runs in reverse, and every lost dollar of revenue costs the owner far more than a dollar of cash flow. Operating leverage is a friend on the way up and a predator on the way down, and the unattended owner needs to know which side of the coverage point their store sits on.
+
+A note on what is *deliberately excluded* from the operating expense table above. Two items are left out because including them in the operating ratio would muddy the comparison: the **owner's own labor** (excluded so that SDE is comparable across stores regardless of how absentee the owner is) and **debt service** (excluded because it reflects the buyer's financing choices, not the store's operating health). Both are real costs and both must be subtracted before you arrive at the cash that actually lands in a pocket — they are handled explicitly in Section 3 and the Counter-Case. A third item, the **replacement reserve**, is technically not an operating expense at all (it is a capital provision) but it is so consistently ignored that we treat it as a hard line throughout this answer.
+
+### 2.2 The utility triple — water, sewer, gas
+
+Utilities are the expense category that separates a laundromat from almost every other retail business, and they deserve their own dissection because **utility cost creep is the #2 fastest killer of cash flow.**
+
+- **Water and sewer** together typically run 8-14% of gross. The trap is sewer: many municipalities bill sewer as a multiple of metered water, so a store using 400,000 gallons a month can pay more for the privilege of disposing of the water than for the water itself. Some jurisdictions offer a **deduct meter** (a separate meter for water that goes into product and evaporates rather than down the drain) that can cut the sewer bill 15-30% — a sophisticated operator installs one; an unattended absentee owner often never knows it exists.
+- **Gas** runs 6-11% and powers both the dryers and, in most stores, the central water heater. Gas is commodity-exposed, so a cold winter plus a price spike can move this line 3-4 percentage points in a single quarter. High-efficiency dryers and a well-tuned water heater are not luxuries; they are margin defense.
+- **Electric** is the smallest of the three at 3-6%, but LED retrofits and high-efficiency motors still pay back inside 18-30 months.
+
+The lethal pattern is simple. Utility rates inflate 5-9% per year in most US markets. Vend prices, left alone, do not. A store that holds its $4.00 wash price for four years while water, sewer, and gas climb 25-35% cumulatively will see its 32% cash margin compressed toward 18-22% — a near-halving of owner cash flow with zero change in customer count. The defense is mechanical and unglamorous: **a vend-price review every 12-18 months**, indexed to utility inflation. The sibling entry **q1128 — How and when should a laundromat raise its vend prices?** covers the customer-retention mechanics of doing this without churn.
+
+### 2.3 Rent and the lease — the silent valuation lever
+
+Rent at 18-28% of gross is the largest single expense and the one most resistant to operator skill — you cannot out-hustle a bad lease. Two structural lease facts dominate laundromat cash flow:
+
+1. **Remaining term.** Laundromat equipment is heavy, plumbed, gas-fed, and effectively immovable without a five-figure relocation cost. A store with three years left on its lease and no renewal option is a depreciating asset regardless of its current cash flow, because the landlord holds total leverage at renewal. Healthy stores carry **10+ years of secured term** (base plus options).
+2. **Escalation clauses.** A 3% annual rent escalator compounds; over a 10-year term it lifts rent roughly 34%. If vend prices do not rise in lockstep, the escalator alone slowly transfers the store's margin to the landlord.
+
+A buyer who ignores the lease and buys on cash flow alone is buying a number with an expiration date.
+
+### 2.4 The maintenance line and the capex cliff
+
+Repairs and maintenance shows as 4-9% of gross on the operating statement, but that line systematically understates the true cost of keeping a fleet alive, because it excludes **capital replacement.** Commercial laundry equipment is durable — a Speed Queen or Dexter washer can run 15-25 years — but it does not last forever, and the failure curve is not linear. A fleet bought all at once ages all at once, producing a **capex cliff**: years 1-10 of low repair cost, then years 12-18 of escalating repairs, then a wall where multiple machines need replacement in the same 24-month window. New commercial washers run roughly $1,200-$5,000 each installed depending on capacity; dryers $3,500-$9,000 per stacked unit. Re-equipping a 50-machine store is a $150K-$300K event.
+
+The disciplined operator funds a **replacement reserve** — typically 5-8% of gross set aside monthly — so the cliff becomes a budgeted glide path. The absentee owner who treats the maintenance line as the whole maintenance cost is, in effect, borrowing from the next owner and calling it cash flow.
+
+The capex-cliff problem has a counterintuitive solution that experienced multi-store operators use: **stagger the fleet.** Instead of replacing all 26 washers in one heroic, store-closing, $200K weekend, the operator replaces three to five machines a year on a rolling basis. This does several things at once. It smooths the capital requirement into a predictable annual figure the replacement reserve can comfortably fund. It keeps the *average* age of the fleet low, which means the repair line never spikes and the store never looks dated to a competitor's customers. It avoids the revenue disruption of a full re-equipment. And it means the store always has a mix of equipment ages, so a single bad model-year or a single manufacturing defect never takes out the whole fleet at once. The downside of staggering is that you forgo the volume discount of a bulk equipment purchase and you live permanently with a visually mixed fleet. For most unattended owners, the smoothness is worth it. A buyer evaluating a store should specifically ask for the **fleet age distribution** — not just "how old are the machines" but "what is the spread" — because an all-same-age fleet is a dated capex cliff waiting to be inherited, while a well-staggered fleet is evidence of a disciplined prior owner.
+
+Here is a simple way to think about the true monthly cost of keeping a fleet alive:
+
+| Cost component | Where it shows up | Typical monthly figure (Scenario B store) |
+|---|---|---|
+| Routine repairs (parts, labor) | Operating statement, R&M line | $1,500-$2,200 |
+| Preventive maintenance (planned) | Operating statement, R&M line | $300-$600 |
+| Replacement reserve (capital) | Below the line — usually ignored | $1,600-$2,600 |
+| **True all-in fleet cost** | **Sum of the above** | **$3,400-$5,400** |
+
+The gap between the operating-statement R&M line and the true all-in fleet cost is, almost exactly, the amount by which an undisciplined seller's stated cash flow is overstated.
+
+---
+
+## 3. Realistic Monthly Cash Flow: Three Worked Scenarios
+
+### 3.1 How to read these scenarios
+
+Cash flow for a laundromat is most honestly expressed as **seller's discretionary earnings (SDE)** — revenue minus all operating expenses, but before the owner's own labor, before debt service, and before a replacement reserve. SDE is the number a buyer underwrites and the number an owner-operator actually lives on. Below are three fully worked scenarios spanning the realistic range.
+
+### 3.2 Scenario A — the weak store (decline risk)
+
+| Line | Monthly $ | % of gross |
+|---|---|---|
+| Gross revenue | $21,000 | 100% |
+| Rent (NNN) | $5,460 | 26% |
+| Water & sewer | $2,940 | 14% |
+| Gas | $2,310 | 11% |
+| Electric | $1,050 | 5% |
+| Repairs & maintenance | $1,680 | 8% |
+| Insurance | $735 | 3.5% |
+| Payment processing | $840 | 4% |
+| Cleaning (limited) | $1,260 | 6% |
+| Misc | $1,050 | 5% |
+| **Total operating expense** | **$17,325** | **82.5%** |
+| **SDE (owner cash flow)** | **$3,675** | **17.5%** |
+
+This store is not making money in any meaningful sense. After the owner's time and a replacement reserve, it is at or below break-even. The symptoms are textbook: rent too high as a share of gross, utilities un-repriced and out of control, and TPD likely below 2.2. It is a turnaround candidate or a teardown, not a stabilized cash-flow asset.
+
+### 3.3 Scenario B — the average healthy store
+
+| Line | Monthly $ | % of gross |
+|---|---|---|
+| Gross revenue | $33,000 | 100% |
+| Rent (NNN) | $6,930 | 21% |
+| Water & sewer | $3,630 | 11% |
+| Gas | $2,640 | 8% |
+| Electric | $1,485 | 4.5% |
+| Repairs & maintenance | $1,980 | 6% |
+| Insurance | $990 | 3% |
+| Payment processing | $1,155 | 3.5% |
+| Cleaning (limited) | $1,650 | 5% |
+| Misc | $1,320 | 4% |
+| **Total operating expense** | **$23,760** | **72%** |
+| **SDE (owner cash flow)** | **$9,240** | **28%** |
+
+This is the realistic center of the distribution: a roughly $33K/month gross store throwing off **$9,200/month in owner cash flow**, a 28% margin. Net of a 6% replacement reserve ($1,980) the durable, fully-honest free cash flow is closer to **$7,260/month**, or about $87K annualized — a genuine semi-absentee income for an owner who handles vendor coordination and bookkeeping but is not physically present.
+
+### 3.4 Scenario C — the strong store
+
+| Line | Monthly $ | % of gross |
+|---|---|---|
+| Gross revenue | $46,000 | 100% |
+| Rent (NNN) | $8,280 | 18% |
+| Water & sewer | $4,140 | 9% |
+| Gas | $3,220 | 7% |
+| Electric | $1,840 | 4% |
+| Repairs & maintenance | $2,300 | 5% |
+| Insurance | $1,150 | 2.5% |
+| Payment processing | $1,610 | 3.5% |
+| Cleaning (limited) | $2,300 | 5% |
+| Misc | $1,610 | 3.5% |
+| **Total operating expense** | **$26,450** | **57.5%** |
+| **SDE (owner cash flow)** | **$19,550** | **42.5%** |
+
+The strong store carries a meaningful wash-dry-fold operation and ancillary revenue, which is why gross is higher and why several percentage lines (rent, utilities, insurance) shrink as a share of gross — fixed and semi-fixed costs are spread over a larger base. Even after a generous 7% reserve, durable cash flow lands near **$16,300/month**. Note the qualifier: a store doing real WDF volume is no longer purely unattended. That is the structural ceiling of the pure unattended model and the reason the realistic top of the *unattended* band is closer to $16K than $20K.
+
+### 3.5 The synthesized cash-flow band
+
+Pulling the three scenarios together, the honest answer to "what's the realistic monthly cash flow" is:
+
+| Store quality | Gross/month | SDE/month | SDE margin | Durable FCF (post-reserve) |
+|---|---|---|---|---|
+| Weak / decline | $18K-$23K | $3K-$5K | 15-22% | ~$1K-$3K |
+| Average healthy | $28K-$36K | $7K-$11K | 26-32% | $5.5K-$9K |
+| Strong | $40K-$52K | $14K-$21K | 38-45% | $11K-$17K |
+
+For the unattended small-format archetype this entry is built around, **plan on $6,500-$16,000 of monthly owner cash flow** for a store you would actually want to own — and treat anything outside that band as a signal to dig harder, not as a windfall or a disaster to accept at face value.
+
+### 3.6 Seasonality and the monthly-average trap
+
+Every figure in the three scenarios is a *monthly average*, and the word "average" is doing quiet but important work. Laundromat revenue is seasonal and weekly-cyclical, and an owner who budgets to the average without understanding the swing will be repeatedly surprised.
+
+The **weekly cycle** is pronounced: weekends — particularly Saturday and Sunday mornings — can produce two to three times the per-hour revenue of a Tuesday afternoon. This is why downtime *on a weekend* (Killer #1) is so much more destructive than the same downtime mid-week, and why preventive maintenance and machine checks should always be timed to land before the weekend, not after.
+
+The **seasonal cycle** is real but more moderate. In most US markets, the heaviest laundry months are the colder months (heavier clothing, more layers, comforters and bedding cycling through), and the lightest stretch is often late summer. In markets with strong seasonal population swings — college towns, tourist regions, agricultural-labor areas — the seasonal swing can be far larger, occasionally 30-50% peak-to-trough. A store in a steady residential corridor might see only a 10-15% seasonal swing.
+
+| Period | Typical revenue vs. monthly average |
+|---|---|
+| Weekend mornings | +120% to +200% per hour |
+| Weekday mid-day | -30% to -50% per hour |
+| Peak season (often winter) | +8% to +20% per month |
+| Trough season (often late summer) | -8% to -20% per month |
+| College-town / tourist swing | up to +/- 40% per month |
+
+The practical lessons are three. First, **never underwrite an acquisition on a single strong month** — get at least 12, ideally 24, months of data so the seasonal pattern is visible. Second, **manage cash to the trough, not the average** — the replacement reserve and a working-capital cushion exist partly so a soft summer does not force a bad decision. Third, **time interventions to the cycle** — vend-price increases land best heading into peak season when customers are least price-attentive, and machine maintenance should always precede the weekend peak.
+
+---
+
+## 4. What Kills It Fastest: The Killer Hierarchy
+
+The question has two halves, and the second half — what kills cash flow fastest — is where unattended laundromats differ most sharply from attended ones. The defining feature of the unattended model is the absence of a human who notices problems. Every killer below is amplified by that absence.
+
+### 4.1 The killer-hierarchy diagram
+
+```mermaid
+flowchart TD
+  A[Unattended Laundromat Cash Flow] --> B[Killer 1: Silent Machine Downtime]
+  A --> C[Killer 2: Un-repriced Utility Creep]
+  A --> D[Killer 3: Payment System Failure]
+  A --> E[Killer 4: Lease / Rent Shock]
+  A --> F[Killer 5: New Competitor Fleet]
+  A --> G[Killer 6: Deferred-Maintenance Capex Cliff]
+  B --> H[Lost turns nobody reports]
+  C --> I[Margin erodes 30 to 18 pct]
+  D --> J[100 pct revenue stoppage]
+  E --> K[Asset value to zero at renewal]
+  F --> L[Demand migrates to new machines]
+  G --> M[Fleet-wide replacement event]
+  H --> N[Defense: IoT monitoring plus SLA]
+  I --> O[Defense: 12-18 month vend review]
+  J --> P[Defense: redundancy plus alerts]
+  K --> Q[Defense: 10 plus year secured term]
+  L --> R[Defense: reinvest before they arrive]
+  M --> S[Defense: funded replacement reserve]
+```
+
+### 4.2 Killer #1 — Silent machine downtime (the fastest killer)
+
+This is the killer that is genuinely *specific* to the unattended model, and it is the fastest because it destroys revenue continuously and invisibly.
+
+In an attended store, a dead dryer is reported within minutes — the attendant sees the "out of order" reality, calls the technician, and the loss window is hours. In an unattended store, a dead dryer is reported by no one. The machine simply sits cold. Customers who wanted it either wait, use a competitor, or leave with wet clothes and a bad memory. The owner, not being present, often does not discover the problem until they next visit — which for a true absentee owner might be a week, or until the collection numbers come in light.
+
+Run the math on a single bank of dead dryers over one weekend:
+
+| Factor | Value |
+|---|---|
+| Dead dryers | 6 of 28 |
+| Peak weekend turns lost per machine | 9 |
+| Lost dryer cycles (Sat + Sun) | ~108 |
+| Avg dryer vend | $3.25 |
+| Direct lost dryer revenue | ~$351 |
+| Knock-on lost wash revenue (customers leave entirely) | ~$300-$600 |
+| **Total weekend hit from one downtime event** | **$650-$950** |
+
+One unnoticed weekend downtime event costs roughly the same as a full month's insurance premium. Three or four such events a quarter — entirely plausible on an aging fleet with no monitoring — quietly erase 5-10% of annual revenue, and because it is the *highest-margin* revenue (the marginal cost of a wash cycle is near zero), it erases a disproportionate share of *cash flow*.
+
+The defense is the single highest-ROI investment available to an unattended owner: **remote IoT monitoring.** Modern coin/card systems and aftermarket IoT modules report per-machine cycle counts, fault codes, and idle anomalies to a dashboard and a phone alert. Pair monitoring with a **same-day service SLA** from a local technician, and the downtime loss window collapses from days to hours. For the full operating playbook on running an unattended store remotely, see the sibling entry **q1126 — How do you actually run a laundromat without being there?**
+
+Let us put a return-on-investment figure on monitoring, because it is genuinely the most important capital allocation an unattended owner makes. A whole-store IoT monitoring retrofit — modules on every machine plus the dashboard subscription — typically costs in the range of $2,000-$6,000 up front plus a modest monthly service fee, and many modern payment systems include the monitoring capability natively at no extra hardware cost. Against that, recall that a single unnoticed weekend downtime event costs $650-$950, and an unmonitored aging fleet plausibly suffers three to five such events a quarter. If monitoring catches even half of those events early — collapsing a two-day loss into a two-hour loss — it pays for itself inside the first quarter and then delivers pure margin protection indefinitely. There is no other single investment in the unattended laundromat playbook with a comparable payback profile. An owner who hesitates on monitoring to save $4,000 is, in effect, choosing to gamble $8,000-$15,000 of annual revenue against it.
+
+Monitoring also delivers a second, less obvious benefit: it converts the store's biggest *information* disadvantage into an advantage. The whole structural weakness of the unattended model is the absence of a human who notices things. IoT monitoring is, quite literally, a synthetic attendant for the one job that matters most — watching the machines. It cannot fold laundry or greet a customer, but it can notice a dead machine faster and more reliably than a human attendant ever would, and it never takes a day off. Framed that way, monitoring is not an expense to be minimized; it is the technology that makes the unattended model viable in the first place.
+
+There is one failure mode of monitoring worth flagging: **alert fatigue.** A poorly configured system that fires a notification for every minor event trains the owner to ignore alerts, at which point the system is worth nothing. The discipline is to configure alerts narrowly — a machine that has not run a cycle in an abnormally long window during peak hours, a hard fault code, a collections figure that deviates beyond a threshold — and to *act* on every alert that does fire. A monitoring system is only as good as the owner's habit of responding to it.
+
+### 4.3 Killer #2 — Un-repriced utility creep
+
+Covered in depth in Section 2.2, this is the *slowest-acting* of the fast killers but the most certain. It is a fast killer in the sense that it is always running, never pauses, and compounds. A store that ignores vend pricing for four years can lose a third of its cash margin without losing a single customer. The defense — a disciplined 12-18 month vend-price review — is the cheapest defense on this entire list, costing nothing but attention. The sibling entry **q1128** covers the how.
+
+### 4.4 Killer #3 — Payment system failure
+
+A cashless or card-primary store has concentrated its entire revenue intake into one or two pieces of electronics: the value-transfer kiosk and the per-machine card readers. When the kiosk freezes, the network drops, or a firmware update misfires, the store does not lose *some* revenue — on a fully cashless store it loses *all* revenue until the system is restored, and again, unattended means nobody notices for hours.
+
+| Payment model | Failure exposure | Mitigation |
+|---|---|---|
+| Coin only | Low (mechanical, distributed) | Theft is the real risk, not stoppage |
+| Card / loyalty card | Moderate | Kiosk redundancy; alerts on transaction volume |
+| Open-loop credit / app | Moderate-high | Network monitoring; offline fallback mode |
+| Fully cashless, single kiosk | High | Second kiosk or coin fallback strongly advised |
+
+The defense is redundancy and alerting: a transaction-volume alert that fires when intake drops to zero for an unusual window, and ideally a fallback payment path so a single failure is a degradation, not a shutdown.
+
+The payment-failure killer has grown in importance precisely because the industry has, sensibly, moved away from coins. Coins have real drawbacks — they invite theft, they require physical collection and counting, they offer no transaction data, and customers increasingly do not carry them. Card and app systems solve all of that. But every benefit of going cashless comes paired with a concentration of failure risk. A coin store has a *distributed, mechanical* revenue-collection system: if one coin mechanism jams, 25 other machines keep earning. A fully cashless store with a single value-loading kiosk has a *centralized, electronic* one: if the kiosk goes down, every machine in the building goes idle simultaneously. The unattended cashless owner has therefore not eliminated risk; they have *traded* a chronic, low-grade risk (coin theft, covered as a minor item under Killer hierarchy) for an acute, high-grade one (total revenue stoppage). The right response is not to retreat to coins — it is to engineer redundancy: a second kiosk, an app-based payment path that works even if the kiosk is down, or a coin fallback on the machines themselves, plus the zero-volume alert that turns a silent multi-hour outage into an immediate phone notification.
+
+### 4.5 Killer #4 — Lease and rent shock
+
+Discussed in Section 2.3. A lease running out of term, or a renewal negotiated from a position of weakness, can take the asset's value to zero independent of cash flow. This killer is slow to arrive but catastrophic on impact, and it cannot be fixed by operating skill. The defense is structural and must be handled at acquisition: secure **10+ years of term** including options, cap escalators, and ideally negotiate a right of first refusal.
+
+### 4.6 Killer #5 — A new competitor with a fresh fleet
+
+Laundry is a convenience-and-experience purchase within a tight geographic radius. When a new store opens within a 1-2 mile trade area with a clean, bright, fully modern equipment fleet, app payments, and good lighting, demand migrates — not all of it, but the marginal, price-and-experience-sensitive customers, and those are the ones whose turns sit at the top of your TPD. An aging unattended store that has under-invested for a decade is acutely exposed here.
+
+The defense is to not be the tired store: reinvest steadily so your fleet, lighting, security, and payment experience are never a full equipment generation behind. The capex cliff (Killer #6) and competitive vulnerability are the same problem viewed from two angles.
+
+### 4.7 Killer #6 — The deferred-maintenance capex cliff
+
+Detailed in Section 2.4. Treating the operating maintenance line as the whole maintenance cost lets an owner report inflated cash flow for years, until the fleet hits the wall and demands a $150K-$300K re-equipment in a compressed window. The defense is a funded replacement reserve of 5-8% of gross, treated as a non-negotiable expense rather than discretionary cash flow.
+
+### 4.8 The killer hierarchy summarized
+
+| Rank | Killer | Speed | Severity | Specific to unattended? | Primary defense |
+|---|---|---|---|---|---|
+| 1 | Silent machine downtime | Fast, continuous | High | Yes — strongly | IoT monitoring + same-day SLA |
+| 2 | Un-repriced utility creep | Slow, compounding | High | No, but unmonitored | 12-18 month vend review |
+| 3 | Payment system failure | Instant when it hits | High (cashless) | Amplified by unattended | Redundancy + zero-volume alerts |
+| 4 | Lease / rent shock | Slow, then total | Catastrophic | No | 10+ year secured term |
+| 5 | New competitor fleet | Gradual | Moderate-high | No | Steady reinvestment |
+| 6 | Deferred-maintenance cliff | Very slow, then sudden | High | No | Funded 5-8% replacement reserve |
+
+---
+
+## 5. The Metrics That Predict Cash Flow Before It Breaks
+
+### 5.1 Turns per day — the master KPI
+
+Everything in laundromat economics traces back to **turns per day (TPD)** — the count of complete cycles a machine runs per 24 hours. TPD is the master KPI because it is simultaneously a demand signal, a reliability signal, a pricing signal, and a queueing signal.
+
+| TPD band | Interpretation | Action |
+|---|---|---|
+| Below 2.0 | Under-demanded or under-priced; possible decline | Investigate trade area, marketing, pricing |
+| 2.0-2.8 | Soft but viable | Look for utilization upside |
+| 2.8-4.0 | Healthy core operating range | Optimize mix and ancillary revenue |
+| 4.0-5.0 | Strong; demand-rich | Consider capacity expansion |
+| Above 5.0 | Capacity-constrained | Add machines or risk queueing churn |
+
+A subtle and important point: very high TPD is not automatically good. Above roughly 5.0, customers regularly arrive to find no available machine, and a meaningful share of them leave and do not come back. The store *looks* maxed out on paper while quietly bleeding the exact customers a TPD reading cannot see. High TPD is a signal to add capacity, not a trophy.
+
+### 5.2 The KPI dashboard every unattended owner should watch
+
+| KPI | Healthy target | Why it matters | Check frequency |
+|---|---|---|---|
+| Turns per day (fleet avg) | 2.8-4.5 | Master utilization metric | Weekly |
+| Machine uptime % | 96%+ | Directly defends against Killer #1 | Daily (via IoT) |
+| Utility cost / gross revenue | Below 25% | Defends against Killer #2 | Monthly |
+| Rent / gross revenue | Below 22% | Lease-health indicator | At lease review |
+| Revenue per square foot / year | $90-$200+ | Cross-store benchmark | Quarterly |
+| Ancillary revenue % of gross | 8%+ | Diversification and stickiness | Monthly |
+| Replacement reserve funded | 5-8% of gross | Defends against Killer #6 | Monthly |
+| Collections variance vs. expected | Within +/- 8% | Early theft/downtime signal | Weekly |
+
+### 5.3 Reading collections variance as an early-warning system
+
+For an unattended owner, **collections variance** — the gap between expected and actual revenue intake — is the closest thing to a smoke detector. A week that comes in light by 15-20% with no weather or seasonal explanation is almost always one of three things: a machine-downtime event, a payment-system fault, or theft. The owner who reconciles collections weekly catches all three within days; the owner who reconciles monthly catches them within weeks, after the damage compounds. This is the operational habit that turns the unattended model from fragile into durable.
+
+---
+
+## 6. Defending and Growing Cash Flow
+
+### 6.1 The defensive layer — protect what you have
+
+1. **Install remote IoT monitoring on every machine.** This is the single highest-ROI move for an unattended store. It collapses the downtime loss window from days to hours and turns collections reconciliation from guesswork into data.
+2. **Run a preventive-maintenance calendar.** Lint and exhaust cleaning, belt and bearing inspection, water-valve and drain checks on a fixed schedule. Preventive maintenance is the cheap version of the capex cliff.
+3. **Review vend prices every 12-18 months.** Index increases to utility inflation. The sibling entry **q1128** covers doing this without churn.
+4. **Fund the replacement reserve as a hard expense.** 5-8% of gross, untouchable. The capex cliff becomes a glide path.
+5. **Secure the lease before it becomes a problem.** Renew early, from strength, with 10+ years of term.
+
+### 6.2 The growth layer — expand the cash flow
+
+1. **Add wash-dry-fold — carefully.** WDF is the highest-growth revenue stream but it imports labor and breaks the pure unattended model. The hybrid answer is limited-hours attendant coverage for WDF drop-off windows only.
+2. **Optimize the machine mix.** Larger-capacity washers (40-60 lb) earn more per square foot and serve comforter/bulk customers competitors often cannot.
+3. **Layer in ancillary revenue.** Vending, an ATM, a soap kiosk, and well-placed advertising are near-pure-margin dollars.
+4. **Build a loyalty program.** App-based loyalty raises visit frequency and switching costs — direct insulation against Killer #5.
+5. **Improve the experience cheaply.** LED lighting, security cameras, fresh paint, and reliable Wi-Fi cost little and lift both TPD and competitive resilience.
+
+### 6.3 The defend-versus-grow priority
+
+For most unattended owners, the defensive layer should be fully built before the growth layer is touched. A store losing 8% of revenue to downtime and 10 margin points to utility creep does not have a growth problem — it has a leak problem, and pouring growth into a leaking bucket is the most common mistake new laundromat owners make.
+
+---
+
+## 7. Counter-Case: When This Answer Does Not Apply
+
+Every number and every killer above is calibrated to the unattended small-format archetype defined in Section 1.1. The framework breaks, in part or in whole, in the following situations — and applying it anyway will lead you wrong.
+
+### 7.1 The attended superstore
+
+A 4,000-6,000 square foot store with full-time attendants, a serious wash-dry-fold and pickup-delivery operation, and a cafe or kids' area is a different business. Its revenue can be 2-4x the archetype, its margins are *lower* (labor is now a 15-25% line), and crucially its **#1 killer is not silent downtime** — an attended store reports downtime in minutes. For the superstore, the fastest killer shifts to **labor management and WDF operational quality.** Do not apply the unattended killer hierarchy to an attended store.
+
+### 7.2 Stores in extreme-cost or extreme-cheap utility markets
+
+The expense percentages assume mainstream US utility costs. In a few high-cost coastal water markets, water and sewer alone can exceed 20% of gross, which compresses the entire cash-flow band downward and makes the deduct meter and high-efficiency equipment mandatory rather than optional. Conversely, a handful of low-cost markets allow margins above the bands shown. Always reprice the expense stack to the specific municipality.
+
+### 7.3 Brand-new or fully re-equipped stores
+
+A store with a fleet of brand-new machines has effectively pre-paid the capex cliff and will not face Killer #6 for a decade. Its repair line will run at the low end, and a buyer should expect to pay a premium that reflects that deferred-capex savings — but should also verify the equipment is genuinely new, not refurbished.
+
+### 7.4 Route-style or micro-format operations
+
+Apartment-complex laundry rooms, hotel and institutional contracts, and tiny six-machine corner stores follow different economics — often contract-based, often with revenue-share leases, often without the trade-area dynamics that drive TPD. The TPD framework still applies conceptually, but the revenue and cash-flow bands do not.
+
+### 7.5 Distressed turnaround acquisitions
+
+If you are deliberately buying the Scenario A weak store *as a turnaround*, the killers above become your opportunity list, and the cash-flow math should be run on the *post-stabilization* store, not the as-is store — with an explicit, separately budgeted turnaround capital plan. The sibling entry **q1124** on laundromat diligence covers underwriting a turnaround honestly.
+
+### 7.6 When financing dominates the picture
+
+Every SDE figure above is before debt service. A highly leveraged acquisition can convert a healthy $9,200/month SDE store into a thin or negative *free* cash flow position after loan payments. If financing is a major part of your structure, the binding constraint is the **debt-service coverage ratio**, not SDE, and the cash-flow question must be re-asked net of debt.
+
+---
+
+## 8. Frequently Asked Follow-Ups
+
+### 8.1 Is a laundromat really "passive income"?
+
+No — semi-absentee is the honest label. An unattended store still demands vendor coordination, collections reconciliation, maintenance scheduling, lease management, and competitive vigilance. The owner who treats it as truly passive is the owner most exposed to every killer in Section 4. Budget 5-15 hours a week for an unattended store you run well.
+
+### 8.2 How is a laundromat valued for sale?
+
+The standard frame is a multiple of SDE, typically **3.5x-5.5x**, or equivalently **55-75x net monthly cash flow.** The multiple rises with secured lease term, fleet age, demonstrated TPD, and revenue diversification, and falls with short leases, old equipment, and concentration risk. Never accept a revenue-multiple valuation — it is the number that hides downtime and the capex cliff.
+
+### 8.3 Coin, card, or fully cashless?
+
+Each has a different risk profile (see Section 4.4). Cashless reduces theft and improves data but concentrates failure risk into the kiosk and network. The pragmatic modern answer for an unattended store is a card- or app-primary system *with* a coin or secondary fallback, plus zero-volume alerting.
+
+### 8.4 How fast can cash flow recover after a killer hits?
+
+It depends on the killer. Downtime and payment failures recover within days once fixed. Utility creep recovers over one or two vend-review cycles. A lost lease or a capex cliff may not recover at all without major capital. This is exactly why the killer hierarchy is ordered by *speed and severity* — the fast, recoverable killers are the ones monitoring solves, and the slow, unrecoverable ones are the ones you must solve at acquisition.
+
+### 8.5 What is the single most important habit?
+
+Weekly collections reconciliation against expected revenue. It is free, it takes thirty minutes, and it catches the three fastest killers — downtime, payment failure, and theft — before they compound.
+
+### 8.6 How many machines should a first store have?
+
+For a first acquisition, the 20-28 washer archetype this entry describes is close to ideal — large enough to clear the fixed-cost coverage point and sustain a healthy cash margin, small enough that a single owner can manage vendors, collections, and maintenance without it becoming a second full-time job. A store much smaller than 14-16 washers struggles to cover fixed costs and leaves the owner working hard for thin cash flow; a store much larger than 35-40 machines typically needs an attendant and tips into the attended model. Buy into the band where the operating leverage works for you.
+
+### 8.7 What does it actually take to improve a weak store?
+
+A Scenario A weak store can usually be moved toward Scenario B economics, but rarely with a single lever. The realistic playbook is sequential: first stop the bleeding (install monitoring, fix every dead machine, reconcile collections), then reprice (a disciplined vend increase indexed to utilities), then reduce controllable costs (LED retrofit, deduct meter if available, renegotiate the cleaning contract), and only then invest in growth (machine-mix upgrades, limited-hours WDF, loyalty program). Each stage funds the next. The mistake is to start with the growth investment while the store is still leaking — that is pouring water into a bucket with a hole in it.
+
+### 8.8 Is the cash truly recession-resistant?
+
+Self-service laundry is genuinely *defensive* — people must wash clothes regardless of the economic cycle, and in a downturn some customers actually *shift toward* laundromats as in-unit machines break and are not replaced or as households move to rental housing. But "defensive" is not "immune." A recession can soften wash-dry-fold demand (a discretionary service), can pressure a trade area's overall population, and can make customers more price-sensitive, which constrains vend-price increases. The honest summary: laundromat cash flow is more recession-resistant than most small businesses, which is a real part of its appeal, but it is not a bond.
+
+---
+
+## 9. Bottom Line
+
+A realistic unattended small-format laundromat generates **$22,000-$48,000 in monthly gross revenue** and **$6,500-$16,000 in monthly owner cash flow**, at a 28-38% cash margin — a genuinely attractive return for a business with so little daily labor. But that cash flow is fragile in a specific, structural way: the unattended model trades away the human who notices problems. The fastest killer is therefore **silent machine downtime**, followed by **un-repriced utility creep** and **payment-system failure** — and all three are amplified by the absence of an attendant. The owners who keep their cash flow are not the ones with the best locations; they are the ones who install monitoring, reconcile collections weekly, reprice vend rates on schedule, fund a replacement reserve, and secure the lease. Do those five things and the unattended laundromat earns its reputation as a durable semi-absentee cash machine. Skip them and it earns its other reputation — as a store that looked great in the listing and bled out quietly because nobody was there to watch.
+
+---
+
+### Related Library Entries
+
+- **q1124 — How do you do real diligence on a laundromat before you buy it?**
+- **q1126 — How do you actually run a laundromat without being there?**
+- **q1128 — How and when should a laundromat raise its vend prices?**
+- **q1130 — What's the right equipment mix for a new laundromat?**
+- **q1132 — Coin vs. card vs. cashless: which payment model for a laundromat?**
+- **q1135 — What's the right dog-to-staff ratio for a daycare facility?** (sibling owner-operator economics)
+
+---
+
+### Sources
+
+1. Coin Laundry Association — Industry benchmarking and operating statistics.
+2. American Coin-Op — Self-service laundry revenue and expense surveys.
+3. PlanetLaundry — Operating cost and turns-per-day reporting.
+4. Speed Queen Investor / Alliance Laundry Systems — Commercial equipment lifecycle data.
+5. Dexter Laundry — Commercial washer and dryer durability specifications.
+6. Continental Girbau — Equipment cost and efficiency documentation.
+7. IBISWorld — US Laundromats & Dry-Cleaning Services industry report.
+8. BizBuySell — Laundromat listing valuation multiples and SDE data.
+9. US Bureau of Labor Statistics — Utility price index series (water, sewer, gas).
+10. US Energy Information Administration — Commercial natural gas price trends.
+11. SBA — Small business acquisition financing and DSCR guidance.
+12. National Association of Realtors — Commercial lease term and escalation norms.
+13. Cents (Laundry POS) — IoT machine-monitoring product documentation.
+14. CCI (Card Concepts Inc.) — Laundromat payment-system whitepapers.
+15. ESD / SpyderWash — Card and mobile payment system reliability data.
+16. Laundromat Resource — Owner-operator interviews and cash-flow case studies.
+17. Investing in Laundromats (industry podcast) — Acquisition and turnaround case studies.
+18. Coin Laundry Association — Vend pricing survey and trends.
+19. PlanetLaundry — Water deduct-meter cost-savings analysis.
+20. American Coin-Op — Equipment replacement cost benchmarks.
+21. EPA WaterSense — Commercial water-efficiency program data.
+22. ENERGY STAR — Commercial laundry equipment efficiency ratings.
+23. Alliance Laundry Systems — Annual industry trend report.
+24. Multi-Housing Laundry Association — Route and contract laundry economics.
+25. Texas / California municipal utility tariff schedules — Water and sewer rate structures.
+26. NFIB — Small business operating cost surveys.
+27. Deloitte — Retail real estate lease trend analysis.
+28. JLL — Retail rent and NNN cost benchmarking.
+29. Coin Laundry Association — Theft and loss-prevention guidance.
+30. American Coin-Op — Wash-dry-fold operational benchmarking.
+31. PlanetLaundry — Laundromat security and surveillance best practices.
+32. Speed Queen — Total cost of ownership analysis for commercial laundry.
+33. BizBuySell Insight Report — Small business transaction multiples by sector.
+34. SCORE — Mentorship guidance on laundromat acquisition and operations.

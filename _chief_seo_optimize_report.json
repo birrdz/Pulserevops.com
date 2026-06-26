@@ -1,0 +1,73 @@
+{
+  "ok": true,
+  "dryRun": false,
+  "matchCount": 367,
+  "stats": {
+    "updated": 367,
+    "unchanged": 0,
+    "missing": 0,
+    "indexnow_ok": 367,
+    "indexnow_fail": 0
+  },
+  "keywordPhrases": 200,
+  "hubPing": null,
+  "hubUrls": [
+    "https://pulserevops.com/knowledge",
+    "https://pulserevops.com/knowledge.html"
+  ],
+  "sample": [
+    {
+      "id": "q03",
+      "ok": true,
+      "changed": true,
+      "tagCount": 24,
+      "keywordCount": 217,
+      "faqCount": 2,
+      "url": "https://pulserevops.com/knowledge/q03"
+    },
+    {
+      "id": "q07",
+      "ok": true,
+      "changed": true,
+      "tagCount": 165,
+      "keywordCount": 215,
+      "faqCount": 2,
+      "url": "https://pulserevops.com/knowledge/q07"
+    },
+    {
+      "id": "q08",
+      "ok": true,
+      "changed": true,
+      "tagCount": 162,
+      "keywordCount": 221,
+      "faqCount": 6,
+      "url": "https://pulserevops.com/knowledge/q08"
+    },
+    {
+      "id": "q12",
+      "ok": true,
+      "changed": true,
+      "tagCount": 162,
+      "keywordCount": 217,
+      "faqCount": 2,
+      "url": "https://pulserevops.com/knowledge/q12"
+    },
+    {
+      "id": "q17",
+      "ok": true,
+      "changed": true,
+      "tagCount": 28,
+      "keywordCount": 215,
+      "faqCount": 2,
+      "url": "https://pulserevops.com/knowledge/q17"
+    }
+  ],
+  "lastIds": [
+    "q12974",
+    "q13093",
+    "q13246",
+    "q13332",
+    "q13437"
+  ],
+  "finishedAt": "2026-06-22T20:47:10.784Z"
+}

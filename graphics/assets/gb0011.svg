@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <style>svg{--c1:#fb923c;--c2:#ea580c;--c3:#fed7aa;--c4:#22d3ee;--c4b:#a5f3fc;--ink:#1a0a03;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1080" y2="1350" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/>
+      <stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.18" r="0.6">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.16"/>
+      <stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="step" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/>
+      <stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <linearGradient id="win" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c4,#22d3ee)"/>
+      <stop offset="1" style="stop-color:var(--c4,#0ea5b7)"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="1350" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1080" height="1350" fill="url(#glow)"/>
+
+<text x="540" y="150" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="26" font-weight="700" letter-spacing="8" fill="#94a3b8">SALES PROCESS</text>
+  <text x="540" y="222" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="56" font-weight="900" fill="#FFFFFF">Lead <tspan fill="url(#accent)">&#8594;</tspan> Close: The Sales Cycle</text>
+
+<rect x="290" y="300" width="500" height="130" rx="24" fill="#111a2b" stroke="url(#step)" stroke-width="3"/>
+  <text x="540" y="358" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Lead</text>
+  <text x="540" y="398" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="500" fill="#94a3b8">A new contact enters your pipeline</text>
+<line x1="540" y1="436" x2="540" y2="478" stroke="url(#step)" stroke-width="5" stroke-linecap="round"/>
+  <polygon points="540,494 528,470 552,470" fill="var(--c3,#FFD740)"/>
+
+<rect x="290" y="500" width="500" height="130" rx="24" fill="#111a2b" stroke="url(#step)" stroke-width="3"/>
+  <text x="540" y="558" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Discovery</text>
+  <text x="540" y="598" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="500" fill="#94a3b8">Uncover needs, pain and fit</text>
+  <line x1="540" y1="636" x2="540" y2="678" stroke="url(#step)" stroke-width="5" stroke-linecap="round"/>
+  <polygon points="540,694 528,670 552,670" fill="var(--c3,#FFD740)"/>
+
+<rect x="290" y="700" width="500" height="130" rx="24" fill="#111a2b" stroke="url(#step)" stroke-width="3"/>
+  <text x="540" y="758" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Demo</text>
+  <text x="540" y="798" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="500" fill="#94a3b8">Show the solution mapped to their goals</text>
+  <line x1="540" y1="836" x2="540" y2="878" stroke="url(#step)" stroke-width="5" stroke-linecap="round"/>
+  <polygon points="540,894 528,870 552,870" fill="var(--c3,#FFD740)"/>
+
+<rect x="290" y="900" width="500" height="130" rx="24" fill="#111a2b" stroke="url(#step)" stroke-width="3"/>
+  <text x="540" y="958" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Proposal</text>
+  <text x="540" y="998" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="500" fill="#94a3b8">Deliver pricing, terms and next steps</text>
+  <line x1="540" y1="1036" x2="540" y2="1078" stroke="url(#win)" stroke-width="5" stroke-linecap="round"/>
+  <polygon points="540,1094 528,1070 552,1070" fill="var(--c4,#22d3ee)"/>
+
+<rect x="290" y="1100" width="500" height="130" rx="24" fill="#0e2730" stroke="url(#win)" stroke-width="3"/>
+  <text x="540" y="1158" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Closed-Won</text>
+  <text x="540" y="1198" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="500" fill="var(--c4,#22d3ee)">Deal signed and revenue booked</text>
+
+</svg>

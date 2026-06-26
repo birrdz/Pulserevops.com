@@ -1,0 +1,44 @@
+{
+  "started": "2026-06-09",
+  "goal": "Write 1 Q&A per pillar across 10 pillars, 1 at a time, repeat 250 cycles then stop.",
+  "rotation": ["knowledge", "sports_nil", "revenue_architecture", "gtm_playbooks", "industry_kpis", "tech_stacks", "sales_trainings", "book_summaries", "electronic_reviews", "franchises"],
+  "writers": {
+    "knowledge": "_write_q.js",
+    "sports_nil": "_write_nil.js",
+    "revenue_architecture": "_write_ra.js",
+    "gtm_playbooks": "_write_gp.js",
+    "industry_kpis": "_write_ik.js",
+    "tech_stacks": "_write_tk.js",
+    "sales_trainings": "_write_st.js",
+    "book_summaries": "_write_bs.js",
+    "electronic_reviews": "_write_er.js",
+    "franchises": "_write_fr.js"
+  },
+  "next_ids": {
+    "q": 12847,
+    "ra": 346,
+    "gp": 379,
+    "ik": 456,
+    "tk": 331,
+    "st": 486,
+    "bs": 299,
+    "er": 343,
+    "fr": 624
+  },
+  "total_entries_target": 250,
+  "total_cycles": 25,
+  "entries_done": 40,
+  "current_cycle": 5,
+  "current_pillar_index": 0,
+  "dedup_verify_note": "IMPORTANT: the Jaccard dedup checker over-flags shared template boilerplate. The REAL test is whether the specific topic/industry word already exists - grep the live library-list for that word in the pillar prefix before writing (e.g. restaurant ik0401 existed but was hidden behind boilerplate matches). Used so far - ik: hvac/dental/law-firm/funeral-home. tk: med-spa/pest-control/landscaping/self-storage. ra: vertical-saas/plg/professional-services/insurance-agency. st: objections/discovery/cold-calling/multithreading. bs: gap-selling/spin/never-split-the-difference/fanatical-prospecting. er: headsets/webcams/laptops/earbuds. fr: tropical-smoothie/crumbl/daves-hot-chicken/spavia. gp: usage-pricing/mid-to-enterprise/product-line-launch/international. q: forecast-model/comp-plans/sales-cycle/sales-marketing-alignment. nil: texas/duke/lsu/uconn-wbb. RECOVERY: if state stale, recompute next IDs from live library-list max per prefix.",
+  "banned_word_note": "The word 'landscape' is BANNED and trips even on org names (e.g. National Association of Landscape Professionals). Avoid it entirely. Other banned: delve, tapestry, holistic, in today's, ever-evolving, synergy, paradigm shift, game-changer, cutting-edge, state-of-the-art, seamless integration, drive growth, unlock, needless to say, it's worth noting, it's important to note.",
+  "dedup_note": "Run _marathon_dedup.js <prefix> for non-q entries; _economy_q_dedupe_check.js for q/nil. Template-boilerplate matches across industries are NOT dups; same-topic+same-year IS (e.g. Jersey Mike's fr0006 exists). fr pillar deep (620+) - pick less-common real franchises.",
+  "entries_published": [
+    "c1: q12839, q12840(nil), ra342, gp375, ik452, tk327, st482, bs295, er339, fr620",
+    "c2: q12841, q12842(nil), ra343, gp376, ik453, tk328, st483, bs296, er340, fr621",
+    "c3: q12843, q12844(nil), ra344, gp377, ik454, tk329, st484, bs297, er341, fr622"
+  ],
+  "recipe": "Pre-grade every draft with node -e gradeEntry before publishing. Floor pillars need DENSE prose (grader counts ~0.65x of visual length): ra/gp/er=1800, ik/bs/st=1500, q/tk/fr=1100. KPI(ik) needs BOTH a TL;DR blockquote AND a Direct Answer header. st has a HARD reject below 1500. er needs 10 numbered product H2s + both BEST OVERALL + BEST VALUE pills. Every entry: 2 mermaids (er=1+), FAQ 4+, Sources 5+, 3+ named companies, no banned phrases, review-keyword footer line. Topics framed 2027.",
+  "notes": "Floor pillars (ra/gp/er=1800, ik/bs/st=1500) count raw tokens incl mermaid/markdown; write ~1900/1600 tokens to clear cleanly. KPI needs a Direct Answer header in addition to TL;DR. st has a HARD floor gate. fr indexnow ping 404s (not whitelisted) but entry publishes fine.",
+  "last_updated": "2026-06-09"
+}

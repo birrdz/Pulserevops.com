@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <style>svg{--c1:#6ee7b7;--c2:#10b981;--c3:#d1fae5;--c4:#60a5fa;--c4b:#bfdbfe;--ink:#03130d;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1080" y2="1350" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/>
+      <stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.18" r="0.6">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.16"/>
+      <stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="badge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/>
+      <stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="1350" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1080" height="1350" fill="url(#glow)"/>
+
+<text x="540" y="150" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="26" font-weight="700" letter-spacing="8" fill="#94a3b8">PIPELINE HEALTH</text>
+  <text x="540" y="222" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="56" font-weight="900" fill="#FFFFFF">5 Stages of a Healthy Pipeline</text>
+
+<g>
+    <rect x="76" y="312" width="928" height="150" rx="20" fill="#111a2b" stroke="#1f2a3d" stroke-width="2"/>
+    <circle cx="178" cy="387" r="52" fill="url(#badge)"/>
+    <text x="178" y="406" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="52" font-weight="900" fill="#0b0f17">1</text>
+    <text x="268" y="378" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Prospect</text>
+    <text x="268" y="420" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="23" font-weight="500" fill="#94a3b8">Identify and source fit-right accounts to pursue</text>
+  </g>
+
+<g>
+    <rect x="76" y="490" width="928" height="150" rx="20" fill="#111a2b" stroke="#1f2a3d" stroke-width="2"/>
+    <circle cx="178" cy="565" r="52" fill="url(#badge)"/>
+    <text x="178" y="584" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="52" font-weight="900" fill="#0b0f17">2</text>
+    <text x="268" y="556" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Qualify</text>
+    <text x="268" y="598" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="23" font-weight="500" fill="#94a3b8">Confirm budget, need, authority and timing</text>
+  </g>
+
+<g>
+    <rect x="76" y="668" width="928" height="150" rx="20" fill="#111a2b" stroke="#1f2a3d" stroke-width="2"/>
+    <circle cx="178" cy="743" r="52" fill="url(#badge)"/>
+    <text x="178" y="762" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="52" font-weight="900" fill="#0b0f17">3</text>
+    <text x="268" y="734" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Propose</text>
+    <text x="268" y="776" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="23" font-weight="500" fill="#94a3b8">Present a tailored solution and clear pricing</text>
+  </g>
+
+<g>
+    <rect x="76" y="846" width="928" height="150" rx="20" fill="#111a2b" stroke="#1f2a3d" stroke-width="2"/>
+    <circle cx="178" cy="921" r="52" fill="url(#badge)"/>
+    <text x="178" y="940" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="52" font-weight="900" fill="#0b0f17">4</text>
+    <text x="268" y="912" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Negotiate</text>
+    <text x="268" y="954" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="23" font-weight="500" fill="#94a3b8">Align on terms, handle objections, build consensus</text>
+  </g>
+
+<g>
+    <rect x="76" y="1024" width="928" height="150" rx="20" fill="#111a2b" stroke="#1f2a3d" stroke-width="2"/>
+    <circle cx="178" cy="1099" r="52" fill="url(#badge)"/>
+    <text x="178" y="1118" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="52" font-weight="900" fill="#0b0f17">5</text>
+    <text x="268" y="1090" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Close</text>
+    <text x="268" y="1132" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="23" font-weight="500" fill="#94a3b8">Sign, hand off cleanly and book the revenue</text>
+  </g>
+
+</svg>

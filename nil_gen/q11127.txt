@@ -1,0 +1,92 @@
+QUESTION: What are Virginia Tech Hokies football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Virginia Tech enters its 2027 NIL cycle with a once-in-a-generation reset: James Franklin, fired by Penn State in October 2025, was hired as head coach on November 17, 2025, after the school dismissed Brent Pry following an 0-3 start (including a 45-26 home loss to Old Dominion that drew loud halftime boos). Franklin then brought Pry back as defensive coordinator — believed to be unprecedented in college football. Franklin's 2026 portal class brought 27 newcomers, headlined by Penn State imports Ethan Grunkemeyer at quarterback and tight end Luke Reynolds, while a $20.5 million NIL ecosystem anchored by The Hokie Way, Triumph NIL, Hot Route Marketing, and Commonwealth NIL retained $13.4 million worth of football talent. The 2027 NIL strategy must do four things at once: convert the Franklin hire into elite high school commitments (the class already sits No. 14 nationally behind five-star-trajectory quarterback Peter Bourque and four-star interior lineman Kaden Buchanan), build a sustainable revenue-share runway through the proposed Hokie Ventures, LLC athletics entity, protect the 2026 roster from poaching after a Year One bump, and re-engage a fan base that watched the program go 16-24 over four years before the fall.
+
+## The Coaching Reset That Changes Every NIL Conversation
+
+Every 2027 Virginia Tech NIL pitch now starts with a Franklin slide. He arrives with a 104-win Penn State resume, multiple New Year's Six bowls, and a College Football Playoff appearance — credentials no Hokies coach has carried into a recruiting living room since the Frank Beamer era. Franklin has been explicit that NIL will not be the tip of the spear. In his introductory media availability he said the program won't lead with money, that he wants young men who choose Virginia Tech because it's where they want to be, but acknowledged the team has to be competitive with what other schools are offering. He framed the rebuild as "transformational, not transactional."
+
+That phrase is doing a lot of work. It signals to donors that contributions will be deployed against a player-development thesis rather than as bidding-war chips, and it signals to recruits that the Hokies want career arcs, not one-year mercenaries. Pry's return as defensive coordinator reinforces the continuity message — institutional knowledge of the building, the players, and the Blacksburg recruiting footprint stays intact while the head-coach ceiling rises dramatically. For NIL operators, the practical effect is that messaging shifts from "match our offer" to "join the Franklin development pipeline," which is a more durable sales motion in a revenue-share era where on-field value has to justify cap allocations.
+
+```mermaid
+flowchart TD
+    A[2025: Pry fired<br/>0-3 start, ODU loss] --> B[Nov 17 2025:<br/>James Franklin hired]
+    B --> C[Pry returns as DC<br/>unprecedented move]
+    C --> D[27-player portal class<br/>Grunkemeyer, Reynolds]
+    D --> E[2027 class climbs to<br/>No. 14 nationally]
+    E --> F[Bourque QB commit<br/>Buchanan OL commit]
+    F --> G[NIL pitch: transformation<br/>not transactional]
+```
+
+## The 2027 Roster Needs Driving Cap Allocation
+
+The portal haul filled the most painful 2026 holes — quarterback, tight end, and skill depth — but 2027 needs are now visible. Quarterback succession is the headline. Grunkemeyer is the immediate starter, but the room behind him is thin, which is why landing Peter Bourque, the No. 80 overall player and No. 7 quarterback in the 2027 class out of Tabor Academy, was the single most important non-portal win of the cycle. Bourque's NIL package has to be structured as a developmental deal with escalators tied to playing time, not a flat headline number, because the cap will need flexibility for an edge-rusher class behind him.
+
+Offensive line is the second pillar. Kaden Buchanan, the 6-foot-4, 330-pound interior lineman from Friendship Christian in Tennessee, became the first 2027 OL commit, picking the Hokies over Kentucky and NC State. Franklin's Penn State offenses ran through veteran interior play, and replicating that requires at least four more 2027 line commitments at a per-player NIL cost competitive with SEC and Big Ten finalists. Edge rusher is the third pillar — Alexander Taylor's March 2026 commitment opened the position, but the depth chart needs two more pass-rushers given the ACC's offensive-tackle arms race.
+
+Wide receiver retention is the under-discussed cap line. Ayden Greene was the headline returner from the 2025 roster, and his 2027 redshirt-senior year will require a renewal at market rate before he hits the portal himself. Running backs Marcellous Hawkins and Jeffrey Overton Jr. fall into the same retention bucket. Lose any of the three and the 2027 offense regresses below 2026 baseline regardless of how the freshman class hits.
+
+## The Collective Architecture and Hokie Ventures Pivot
+
+Virginia Tech's NIL infrastructure is unusually plural. Triumph NIL runs a subscription model that pipes monthly fan revenue directly to football and Olympic-sport athletes via meet-and-greets, podcasts, and video shoutouts. The Hokie Way operates as a 501(c)(3) nonprofit channeling charitable giving into NIL deliverables. Commonwealth NIL, affiliated with Gentry Locke Attorneys out of Roanoke, Richmond, and Lynchburg, hosts events and special sales focused on Virginia donors. Hot Route Marketing handles agency-style brand work. Total ecosystem value sits near $20.5 million, with football accounting for the $13.4 million retention figure.
+
+The decisive 2027 move is Hokie Ventures, LLC — the athletics-related entity the Board of Visitors voted on May 23, 2026. The structure consolidates revenue-share, sponsorship inventory, and licensing under a single corporate roof aligned with the post-House settlement landscape. Practically, it means future NIL spend can be coordinated against athletic-department revenue-share caps — the roughly $20.5 million per-school first-year ceiling created by the settlement — instead of running as a parallel collective system, which is the operational gap that hurt Pry-era recruiting against ACC peers Clemson and Miami.
+
+The consolidation also matters for clearinghouse compliance. Since June 2025, every third-party NIL deal of $600 or more must pass through the Deloitte-run NIL Go system, which screens for fair-market value and legitimate business purpose. A fragmented four-collective model multiplies the points where a deal can stall in review; a single Hokie Ventures spine standardizes how Triumph subscriptions, Hokie Way charitable activations, and Commonwealth events are documented and submitted. For a program rebuilding credibility, the difference between deals that clear cleanly and deals that get flagged is the difference between closing a recruit in December and losing him while paperwork churns.
+
+```mermaid
+flowchart TD
+    A[Donor & Subscription Inflows] --> B[Hokie Ventures LLC<br/>BOV approved May 2026]
+    A --> C[Triumph NIL<br/>fan subscriptions]
+    A --> D[The Hokie Way<br/>501c3 charitable]
+    A --> E[Commonwealth NIL<br/>Gentry Locke events]
+    B --> F[Revenue-Share Cap<br/>post-House settlement]
+    C --> F
+    D --> F
+    E --> F
+    F --> G[Football Cap Lines]
+    G --> H[QB room: Grunkemeyer<br/>+ Bourque dev deal]
+    G --> I[OL build: Buchanan<br/>+ 4 more 2027 OL]
+    G --> J[Retention: Greene,<br/>Hawkins, Overton]
+```
+
+## In-State Recruiting and the Triangle Defense
+
+A 2027 NIL plan that ignores Virginia high school football loses to Clemson, Miami, and Tennessee on every contested visit weekend. The Pry-era Hokies lost ground inside the 757 and Northern Virginia to ACC and SEC raiders who out-organized the in-state collective response. Franklin's first move was to assign Pry, as DC, the relationship role in Tidewater and Richmond — territory Pry knows from his assistant years. The pitch in those rooms now reads differently: a Penn State-tier head coach, a coordinator with local roots, and a Hokie Ventures cap that can write a competitive offer without the "trust the collective" disclaimer the prior staff was forced to deliver.
+
+The Triangle defense is internal shorthand for three-way coverage of Virginia, the Mid-Atlantic prep corridor, and Franklin's Pennsylvania-New Jersey pipeline. Buchanan's Tennessee commitment proved the staff can win out-of-region battles, and Bourque's Massachusetts commitment proved the Franklin brand travels in New England. The discipline question is whether the 2027 cap holds those geographic edges without inflating per-player averages beyond what Hokie Ventures can fund through 2028 and 2029.
+
+## The Lane Stadium Asset Franklin Inherits
+
+One advantage Franklin did not have to build is Virginia Tech's home environment. Lane Stadium seats roughly 65,000 and "Enter Sandman" — the Metallica entrance the Hokies have run since 2000, complete with the visibly shaking stands — is consistently rated among the best entrances in all of sports. That is not nostalgia; it is recruiting and fundraising leverage. A prospect who takes an official visit on a night game leaves having felt an atmosphere that few campuses can match, and the same passion is the raw material Triumph NIL needs to convert into recurring subscriptions. For 2027, the strategy is to schedule top targets' visits around the loudest home dates and to translate the resulting fan fervor into the monthly small-dollar memberships that give Hokie Ventures a dependable floor — exactly the kind of broad, sticky donor base the prior staff never fully activated.
+
+## The Strategic Verdict for 2027
+
+The Franklin hire converted Virginia Tech from a discount-rack ACC program into a credible NIL destination overnight, but credibility does not close five-star rooms. The 2027 strategy that wins pairs the new coach's development brand with a Hokie Ventures cap flexible enough to fund a quarterback succession deal, four-plus offensive linemen, two edge rushers, and three skill renewals — without breaking the "transformational not transactional" donor narrative. The math works if Hokie Ventures consolidates the four collectives into a single revenue-share spine, if Bourque and Buchanan anchor recruiting pipelines that lower the average cost per commit, and if Greene, Hawkins, and Overton sign retention deals before December. Miss any leg and the 2027 class regresses from a No. 14 ceiling into the ACC's middle tier — the gravity well Franklin was hired to escape.
+
+## FAQ
+
+**Q: Why is bringing Brent Pry back as defensive coordinator significant for NIL?**
+A: It preserves institutional continuity at the exact moment the head-coach ceiling rises. Pry knows the building, the current players, and the Virginia recruiting footprint, which lets Franklin pair a Penn State-tier brand with local relationships. For NIL, that continuity supports a "join the pipeline" pitch and protects in-state recruiting that a total staff turnover would have surrendered.
+
+**Q: What is Hokie Ventures, LLC and why does it matter for 2027?**
+A: It is the athletics-related corporate entity the Board of Visitors approved on May 23, 2026, to consolidate revenue-share, sponsorship, and licensing under one roof. It lets Virginia Tech coordinate spending against the roughly $20.5 million House-settlement cap and standardize NIL Go clearinghouse compliance, replacing the fragmented four-collective model that hurt Pry-era recruiting.
+
+**Q: How big is Virginia Tech's NIL operation right now?**
+A: The full ecosystem sits near $20.5 million across Triumph NIL, The Hokie Way, Commonwealth NIL, and Hot Route Marketing, with football alone accounting for a reported $13.4 million in retained talent value heading into Franklin's first full cycle.
+
+**Q: What is Virginia Tech's biggest 2027 roster risk?**
+A: Retention of its breakout 2026 contributors — receiver Ayden Greene and running backs Marcellous Hawkins and Jeffrey Overton Jr. A strong Franklin debut makes those players portal targets, so the 2027 cap must reserve market-rate renewals before December or the offense regresses regardless of incoming recruits.
+
+## Sources
+
+1. Virginia Tech Athletics — James Franklin hiring announcement (November 17, 2025)
+2. ESPN / On3 — Franklin hired, Pry retained as defensive coordinator
+3. 247Sports — Virginia Tech 2027 recruiting class and commitments (Bourque, Buchanan, Taylor)
+4. On3 / Rivals — Virginia Tech NIL ecosystem and collective profiles
+5. Virginia Tech Board of Visitors — Hokie Ventures, LLC approval (May 23, 2026)
+6. House v. NCAA settlement — revenue-share cap and NIL Go clearinghouse (final approval June 6, 2025)
+7. Roanoke Times — Virginia Tech football coaching change and roster coverage

@@ -1,0 +1,188 @@
+# Economy queue — DONE|question after posted (100 RevOps topics)
+DONE|How do you use Claude to extract and map unstructured call notes to CRM custom objects?
+DONE|How do you trigger Apollo.io sequences based on specific product usage telemetry?
+DONE|How do you deploy a custom RevOps dashboard architecture on Netlify?
+DONE|How do you train LLMs on proprietary sales methodologies for internal coaching bots?
+DONE|How do you automate deduplication of Apollo contacts before CRM sync without third-party tools?
+DONE|How do you use AI to mathematically analyze lost deal reasons across hundreds of transcripts?
+DONE|How do you use generative AI to write highly localized outbound sequences at scale?
+DONE|How do you build automated workflows for updating CRM contact roles from meeting summaries?
+DONE|How do you build predictive churn models using unstructured customer support tickets?
+DONE|How do you bypass native integration limits between AI dialers and legacy CRMs?
+DONE|How do you run a fractional CRO onboarding checklist in the first 30 days of an engagement?
+DONE|How do you structure equity vesting and performance bonuses for fractional CROs?
+DONE|How do you bridge the operational gap between founder-led sales and a new fractional CRO?
+DONE|How do you set clear SLA boundaries between a fractional executive and an outsourced marketing agency?
+DONE|How do you handle legal and operational considerations when sharing playbooks across non-competing clients?
+DONE|How do you measure leading indicators for fractional CRO ROI in the first 90 days?
+DONE|How do you identify transition triggers from fractional revenue leadership to a full-time hire?
+DONE|How do you build a scalable syndicate model for sharing Go-To-Market resources?
+DONE|How do you restructure a misaligned sales compensation plan mid-year as a revenue leader?
+DONE|How do you manage RevOps change management when leadership is only present two days a week?
+DONE|How do you define Pulse metrics for real-time Go-To-Market execution visibility?
+DONE|How do you apply baseball On-Base Percentage philosophy to SDR pipeline generation?
+DONE|How do you measure sales cycle velocity by tracking duration in micro-stages?
+DONE|How do you calculate the true cost of a free trial motion vs a pilot program?
+DONE|How do you correlate executive sponsor involvement with deal size and velocity?
+DONE|How do you track the decay rate of Marketing Qualified Leads by cohort week?
+DONE|How do you analyze the impact of specific legal redlines on sales cycle length?
+DONE|How do you measure conversion from targeted direct mail campaigns to enterprise meetings?
+DONE|How do you track the friction score of a B2B contract signature process?
+DONE|How do you correlate sales rep tenure and prior industry experience with product line success?
+DONE|How do you build scalable sales enablement frameworks without relying on gut feeling?
+DONE|How do you create playbooks for standardizing Mutual Action Plans natively in the CRM?
+DONE|How do you transition veteran sales teams from relationship selling to data-driven execution?
+DONE|How do you align marketing collateral taxonomy with sales enablement platforms?
+DONE|How do you structure a weekly forecast call focused on deal strategy not pipeline reading?
+DONE|How do you measure pipeline impact of a localized sales training rollout?
+DONE|How do you create dynamic battle cards that update from competitor news feeds?
+DONE|How do you develop a certification program that measures pitch comprehension not video completion?
+DONE|How do you standardize the pre-sales engineering handoff to customer success?
+DONE|How do you design curriculum for continuous revenue operations education?
+DONE|How do you structure double-trigger commission payouts for complex M&A scenarios?
+DONE|How do you model commission clawbacks for multi-year consumption-based enterprise contracts?
+DONE|How do you design quota relief policies for reps facing prolonged non-sales technical delays?
+DONE|How do you set territory routing rules for hybrid inbound/outbound SDRs to prevent cherry-picking?
+DONE|How do you decouple Customer Success compensation from direct renewal quotas?
+DONE|How do you design temporary Spiff structures that drive adoption of new CRM fields?
+DONE|How do you transition a sales floor from ARR-based to usage-based compensation?
+DONE|How do you calculate On-Target Earnings ratios for specialized technical sales engineers?
+DONE|How do you benchmark equity vs cash compensation for a first dedicated RevOps hire?
+DONE|How do you structure variable comp for channel partners who co-sell rather than resell?
+DONE|How do you build multi-touch attribution for 18-month B2B enterprise sales cycles?
+DONE|How do you structure CRM campaigns to measure revenue impact of dark social?
+DONE|How do you calculate CAC payback for hybrid PLG and sales-led motions?
+DONE|How do you establish Blended CAC vs Paid CAC benchmarks for Series B B2B SaaS?
+DONE|How do you track and attribute offline event interactions in a digital revenue waterfall?
+DONE|How do you bridge attribution between self-serve trial users and enterprise procurement upgrades?
+DONE|How do you run cohort analysis to isolate B2B expansion revenue by acquisition channel?
+DONE|How do you build a unified lead-to-revenue lifecycle without default CRM lifecycle stages?
+DONE|How do you calculate weighted pipeline value when sales cycles vary by more than six months?
+DONE|How do you map lead status to opportunity stages after a company merger?
+DONE|How do you standardize free-text job titles in legacy CRMs using fuzzy matching?
+DONE|How do you write an enforceable SLA for data entry between marketing and sales?
+DONE|How do you audit automated CRM workflow rules to prevent infinite loops and API limits?
+DONE|How do you archive inactive contacts without losing historical activity timelines?
+DONE|How do you establish a cross-functional data dictionary for revenue metrics before an IPO?
+DONE|How do you reset baseline metrics when historical CRM data is fundamentally flawed?
+DONE|How do you restrict field-level CRM visibility without breaking integration user permissions?
+DONE|How do you design a territory hierarchy that handles mid-year rep reassignments cleanly?
+DONE|How do you quantify the financial cost of bad CRM data in enterprise B2B?
+DONE|How do you create a sandbox testing protocol for RevOps infrastructure changes?
+DONE|How do you decouple gross retention from net revenue retention to find hidden churn?
+DONE|How do you operationalize customer health scores beyond login frequency and NPS?
+DONE|How do you automate data aggregation for Quarterly Business Reviews?
+DONE|How do you set CRM early warning alerts for champion departures or title changes?
+DONE|How do you map white space in enterprise accounts for expansion campaigns?
+DONE|How do you operationalize a customer reference program natively in the CRM?
+DONE|How do you track cost-to-serve enterprise customers against ARR margin?
+DONE|How do you automate workflow triggers from implementation to adoption phases?
+DONE|How do you re-engage ghosted renewals without automatic discounting?
+DONE|How do you analyze churn root causes when CRM says budget but telemetry disagrees?
+DONE|How do you adjust CRM forecast categories based on historical stage slip rates?
+DONE|How do you build forecasting models for consumption-based pricing tiers?
+DONE|How do you identify systemic sandbagging using historical closing patterns?
+DONE|How do you build a bottoms-up forecast for a net-new outbound motion?
+DONE|How do you reconcile top-down board goals with bottom-up pipeline reality?
+DONE|How do you triangulate forecasts between manager commits and ML predictions?
+DONE|How do you define pipeline coverage ratios for enterprise vs high-velocity sales?
+DONE|How do you strip happy ears from the sales pipeline before board reporting?
+DONE|How do you forecast impact of a planned price increase on pipeline velocity?
+DONE|How do you model revenue delay from switching payment processors or billing systems?
+DONE|How do you set up PLG billing infrastructure between payment gateways and CRMs?
+DONE|How do you migrate from legacy CPQ to modern tools with zero sales floor downtime?
+DONE|How do you capture UTM parameters in hidden form fields across complex subdomains?
+DONE|How do you build automated de-dup workflows that merge activity history safely?
+DONE|How do you track multi-currency exchange rates in historical closed-won reporting?
+DONE|How do you align RevOps when acquiring a business with a different GTM motion?
+DONE|How do you operationalize state-specific sales tax exemption tracking in the CRM?
+DONE|How do you track non-standard MSA clauses that impact renewals?
+DONE|How do you create a unified customer communication view across support outbound and marketing tools?
+DONE|How do you develop an offboarding protocol that re-routes sequences and pipeline when a rep leaves?
+
+# Economy batch +25 (May 2026) — post with: node _economy_post_25.js
+DONE|How do you route inbound partner referrals without breaking attribution in Salesforce?
+DONE|How do you measure RevOps team ROI when finance only recognizes bookings?
+DONE|How do you govern AI-generated email copy in regulated industries?
+DONE|How do you sync product-qualified leads from Snowflake to HubSpot nightly?
+DONE|How do you design a single source of truth for ARR after multiple acquisitions?
+DONE|How do you prevent SDRs from creating duplicate accounts during territory splits?
+DONE|How do you score deal risk using CRM fields instead of rep gut feel?
+DONE|How do you operationalize MEDDPICC scoring without overwhelming AEs?
+DONE|How do you rebuild pipeline hygiene after a CRM migration rollback?
+DONE|How do you attribute expansion revenue to customer success vs sales overlays?
+DONE|How do you standardize discovery call outcomes in Gong to CRM fields?
+DONE|How do you measure time-to-first-meeting after PLG signup spikes?
+DONE|How do you enforce quote approval workflows in CPQ without slowing velocity?
+DONE|How do you track competitive win rates when reps skip loss reasons?
+DONE|How do you model capacity planning for SDR hiring against pipeline targets?
+DONE|How do you reduce Salesforce API consumption from enrichment tools?
+DONE|How do you validate marketing campaign member influence on closed-won?
+DONE|How do you structure RevOps OKRs that tie to net revenue retention?
+DONE|How do you document integration failure playbooks for revenue-critical syncs?
+DONE|How do you segment customers for renewal risk using product usage tiers?
+DONE|How do you align billing system customer IDs with CRM account hierarchies?
+DONE|How do you run executive QBR decks from live CRM data not screenshots?
+DONE|How do you detect CRM stage regression automatically for forecast alerts?
+DONE|How do you prioritize data steward tickets without blocking sales reps?
+DONE|How do you sunset legacy reports when leadership still bookmarks them?
+
+# Economy batch +10 (May 2026) — Google long-tail RevOps
+DONE|How do you fix forecast sandbagging in Salesforce when reps keep deals in early stages?
+DONE|How do you route PLG free-trial signups to AE pods in HubSpot without duplicate ownership?
+DONE|How do you reconcile usage-based consumption with CRM ARR fields after a pricing model change?
+DONE|How do you run mid-quarter commission true-up when overlay and core AE splits change?
+DONE|How do you alert RevOps when champion contacts leave the buyer domain on open opportunities?
+DONE|How do you measure procurement stall days by opportunity stage in Dynamics 365?
+DONE|How do you prevent duplicate Outreach enrollments after Salesforce account merges?
+DONE|How do you map Gong call outcomes to required Salesforce loss reason picklists without rep revolt?
+DONE|How do you redesign territory assignments mid-year without reassigning closed-won accounts?
+DONE|How do you recover marketing UTM attribution when demo checkout strips query parameters?
+
+# Economy batch +10 (May 2026) — batch 2
+DONE|How do you build a RevOps data dictionary for Salesforce custom fields without a data engineer?
+DONE|How do you score renewal risk from product usage tiers synced nightly into HubSpot?
+DONE|How do you enforce mutual action plan completion before legal review in enterprise deals?
+DONE|How do you calculate true pipeline coverage when usage-based deals have variable ACV?
+DONE|How do you audit CRM picklist drift quarterly without freezing sales rep workflows?
+DONE|How do you route marketplace-sourced leads to partners without breaking Salesforce campaign attribution?
+DONE|How do you model SDR capacity when inbound demo volume spikes 40 percent month over month?
+DONE|How do you detect when reps skip MEDDPICC fields on Commit-stage opportunities automatically?
+DONE|How do you align NetSuite invoice IDs with Salesforce account hierarchies for board ARR reporting?
+DONE|How do you run win-loss interviews into structured CRM fields without a dedicated analyst?
+
+# Economy batch +10 (May 2026) — batch 3
+DONE|How do you stop SDRs from booking meetings on accounts owned by another rep in Salesforce?
+DONE|How do you weight forecast categories when consumption deals have not hit usage minimums yet?
+DONE|How do you sync Stripe subscription changes to HubSpot deal amount without breaking renewal forecasting?
+DONE|How do you prove marketing sourced pipeline when Salesforce campaign influence is disabled?
+DONE|How do you standardize next-step fields so pipeline reviews do not become status theater?
+DONE|How do you track multi-thread depth on enterprise deals using only native CRM contact roles?
+DONE|How do you reduce Salesforce API errors from nightly enrichment jobs without turning off sync?
+DONE|How do you define when a deal should leave Commit after legal stalls more than 30 days?
+DONE|How do you compare board-ready ARR waterfall exports from CRM vs billing system?
+DONE|How do you onboard a new AE onto mid-quarter territory without re-opening closed opportunities
+
+# Economy batch +10 (May 2026) — Palantir / RevOps
+DONE|How do you integrate Salesforce opportunity data into Palantir Foundry for account planning?
+DONE|How do you run RevOps when the buyer treats Palantir Foundry as the system of record instead of CRM?
+DONE|How do you attribute channel revenue when co-selling with Palantir on federal enterprise deals?
+DONE|How do you forecast pipeline when Palantir AIP pilots extend evaluation cycles by 90 days?
+DONE|How do you map MEDDPICC fields when the economic buyer only engages through Palantir Gotham workflows?
+DONE|How do you prevent duplicate outreach when your team and Palantir field teams target the same agency?
+DONE|How do you sync product usage telemetry from Palantir Foundry into HubSpot for expansion plays?
+DONE|How do you structure commission splits on deals where Palantir is the prime and you are a sub?
+DONE|How do you measure win rate against Palantir as incumbent in competitive enterprise RFPs?
+DONE|How do you design CRM hygiene rules when defense buyers prohibit storing data outside Palantir?
+
+# Economy batch +10 (May 2026) — Palantir / RevOps batch 2
+DONE|How do you qualify federal opportunities when Palantir already holds the platform award?
+DONE|How do you log deal intelligence in Salesforce when Palantir Foundry is the buyer mandated analytics layer?
+DONE|How do you run QBR pipeline reviews when Palantir AIP proof of concepts delay stage progression?
+DONE|How do you route inbound leads from Palantir partner marketplace without breaking partner registration rules?
+DONE|How do you model quota credit when Palantir delivers the platform and you sell the application layer?
+DONE|How do you track competitive displacement signals when Palantir Foundry expands into your product category?
+DONE|How do you standardize RFP response fields when Palantir Gotham is listed as mandatory integration?
+DONE|How do you reconcile bookings when Palantir prime contract timing drives your sub revenue recognition?
+DONE|How do you train AEs on co-sell motions with Palantir federal account executives without channel conflict?
+DONE|How do you measure expansion revenue from Palantir Foundry ontology objects synced to CRM health scores?

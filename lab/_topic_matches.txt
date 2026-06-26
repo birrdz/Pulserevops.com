@@ -1,0 +1,171 @@
+﻿q02	How should I structure SDR commission to discourage gaming MQL counts?
+q08	Should I pay SDRs on demos booked or only on demos held + qualified?
+q102	What's the difference between expansion ARR and net new ARR for forecasting?
+q107	What's a realistic sales tech stack for a $20M ARR SaaS in 2026?
+q108	When should I add a forecasting tool like Clari vs use Salesforce reports?
+q110	How do I evaluate Outreach vs Salesloft vs Apollo for outbound cadences?
+q1108	What's the right way to read magic number when your sales motion is shifting from inbound-heavy to outbound-heavy?
+q1109	What's the right way to evaluate Apollo vs ZoomInfo for a 20-rep outbound team in 2026?
+q111	When does Gong pay for itself in coaching ROI?
+q1114	What's the right way to personalize a cold email at scale when you have 200 prospects per SDR per week?
+q1146	How do you read CAC payback when half your sales motion is PLG and half is enterprise outbound?
+q1148	What's the right way to run a sales-tech RFP when 4 vendors all claim the same feature parity?
+q115	When should I hire a head of RevOps?
+q1158	What's the right SDR daily activity volume in 2026 â calls, emails, LinkedIn touches?
+q1357	How'd you fix Gong's revenue issues in 2026?
+q1358	How'd you fix ZoomInfo's revenue issues in 2026?
+q139	What's the right way to run a multi-vendor RFP I'm responding to?
+q1409	How'd you fix Pipedrive's revenue issues in 2026?
+q1466	Why did my SDR team get eliminated?
+q1472	My SDR team became Pipeline Architects â what does that mean?
+q1508	HubSpot vs Salesforce â which should you buy?
+q1520	Salesforce vs HubSpot â which should you buy?
+q1542	What is Salesforce RevOps career path in 2027?
+q1570	Snowflake vs Databricks â which should you buy?
+q1592	What is Snowflake RevOps career path in 2027?
+q1619	ServiceNow vs Salesforce â which should you buy?
+q1644	What is ServiceNow RevOps career path?
+q1648	What is ServiceNow's enterprise win-rate vs Salesforce in 2026?
+q165	What's the right way to transition from inbound-only to outbound?
+q1679	Datadog vs Splunk â which should you buy?
+q1704	What is Datadog RevOps career path?
+q171	When should I introduce specialized roles (SDR / AE / CSM / SE)?
+q1730	Will Outreach beat Salesloft in sales engagement by 2027?
+q1739	Outreach vs Salesloft â which should you buy?
+q1744	Will Outreach Kaia win conversation intelligence vs Gong?
+q1745	Is Outreach Commit forecasting worth buying?
+q1749	What is Outreach competitive moat against Salesloft + Apollo?
+q1762	Should I learn Outreach or Salesloft in 2027?
+q1764	What is Outreach RevOps career path?
+q1768	What is Outreach enterprise win-rate vs Salesloft in 2026?
+q1770	What replaces sales sequences if AI agents handle outbound?
+q1780	How does Outreach API strategy compare to Salesloft?
+q1782	How does Outreach onboarding compare to Salesloft?
+q1789	How does Salesloft hit its 2027 revenue target post-Vista?
+q1790	Will Salesloft beat Outreach in mid-market sales engagement by 2027?
+q1791	Is Salesloft worth buying in 2027?
+q1792	How is Vista's playbook reshaping Salesloft through 2027?
+q1793	Can Salesloft keep growing 15%+ post-Vista acquisition?
+q1794	What is Salesloft AI strategy in 2027?
+q1795	How does Salesloft compete against AI-native sequencing tools?
+q1796	Is Salesloft Cadence still relevant in 2027?
+q1797	How does Salesloft make money in 2027?
+q1798	Who is the post-Vista Salesloft CEO and what is their mandate?
+q1799	Salesloft vs Outreach â which should you buy?
+q18	What's the right SDR-to-AE ratio at a $5M ARR seed-stage company?
+q1800	How does Salesloft defend against HubSpot Sales Hub bundling?
+q1801	What is Salesloft net revenue retention in 2026?
+q1802	How does Salesloft win the HubSpot CRM customer base?
+q1803	What should Salesloft do about the Drift acquisition value?
+q1804	Will Salesloft conversation marketing beat Drift standalone competitors?
+q1805	Is Salesloft Pipeline AI worth buying vs Clari?
+q1806	How does Salesloft grow internationally without Vista cost-cutting?
+q1807	What is Salesloft gross margin trajectory through 2028?
+q1808	Should Salesloft acquire a video tool in 2027?
+q1809	What is Salesloft competitive moat against Outreach + Apollo?
+q1810	Why did Vista acquire Salesloft for $2.3B?
+q1811	How does Salesloft price Cadence + Drift bundle in 2026?
+q1812	Should Salesloft launch a vertical-revenue sub-brand?
+q1813	How does Salesloft ARPU change post-Vista discount strategy?
+q1814	Should Salesloft kill its mobile app?
+q1815	What is Salesloft data-center strategy through 2027?
+q1816	How does Salesloft defend its integration ecosystem?
+q1817	Why is Salesloft losing AE talent to AI-native competitors?
+q1818	What does Salesloft 2024 Vista RIF tell us about 2027?
+q1819	Should I work for Salesloft post-Vista in 2027?
+q1820	Is a Salesloft AE role still good for my career in 2027?
+q1821	Should I learn Salesloft or Outreach in 2027?
+q1822	Is Salesloft certification worth it in 2027?
+q1823	What is Salesloft RevOps career path?
+q1824	Will Salesloft AEs hit quota in 2027?
+q1825	How does Salesloft pay its sales team post-Vista?
+q1826	Is Salesloft pricing model broken at the bottom?
+q1827	What is Salesloft enterprise win-rate vs Outreach in 2026?
+q1828	How should Salesloft rethink its sequencing thesis for AI buyers?
+q1829	What replaces Salesloft Cadence if AI agents handle outbound?
+q1830	Should Salesloft pivot from sequencing to AI orchestration?
+q1831	How does Salesloft protect ARPU from churn under Vista discipline?
+q1832	What is Salesloft right org structure post-Vista in 2027?
+q1833	How does Vista exit Salesloft â IPO or strategic acquisition?
+q1834	Is Salesloft Cadence still strategic in 2027?
+q1835	What is Salesloft M&A strategy under Vista through 2028?
+q1836	Should Salesloft acquire Lavender to win AI email?
+q1837	Should Salesloft acquire Apollo to compete in lead-gen?
+q1838	What is the bear case for Salesloft 2027?
+q1839	What is the bull case for Salesloft 2027?
+q1840	How does Salesloft API strategy compare to Outreach?
+q1841	Is Salesloft mobile app good enough in 2027?
+q1842	How does Salesloft onboarding compare to Outreach?
+q1843	What does Salesloft churn math look like under Vista pressure?
+q1844	How does Salesloft hit its 2027 revenue target post-Vista?
+q1845	Will Salesloft beat Outreach in mid-market sales engagement by 2027?
+q1846	Is Salesloft worth buying in 2027?
+q1847	How is Vista's playbook reshaping Salesloft through 2027?
+q1848	Can Salesloft keep growing 15%+ post-Vista acquisition?
+q1849	What is Salesloft AI strategy in 2027?
+q1850	How does Salesloft compete against AI-native sequencing tools?
+q1851	Is Salesloft Cadence still relevant in 2027?
+q1852	How does Salesloft make money in 2027?
+q1853	Who is the post-Vista Salesloft CEO and what is their mandate?
+q1854	Salesloft vs Outreach - which should you buy?
+q1855	How does Salesloft defend against HubSpot Sales Hub bundling?
+q1856	What is Salesloft net revenue retention in 2026?
+q1857	How does Salesloft win the HubSpot CRM customer base?
+q1858	What should Salesloft do about the Drift acquisition value?
+q1859	Will Salesloft conversation marketing beat Drift standalone competitors?
+q1860	Is Salesloft Pipeline AI worth buying vs Clari?
+q1861	How does Salesloft grow internationally without Vista cost-cutting?
+q1864	What is Salesloft gross margin trajectory through 2028?
+q1865	Should Salesloft acquire a video tool in 2027?
+q1866	Should Gong acquire Chorus to consolidate conversation intelligence?
+q1870	What replaces RevOps stack if AI agents replace SDRs natively?
+q1871	Should ZoomInfo acquire Apollo in 2027?
+q1872	Workato vs 11x â which should you buy?
+q1873	What replaces cold outbound if AI agents handle outbound?
+q1874	Snowflake vs Clari â which should you buy?
+q1876	ZoomInfo vs Datadog â which should you buy?
+q1879	Outreach vs HubSpot â which should you buy?
+q1880	What replaces manual forecasting if AI agents replace SDRs natively?
+q1883	What replaces cold outbound if AI agents handle pipeline forecasting?
+q1884	Should Gong acquire Outreach to bundle conversation+sequencing?
+q1886	HubSpot vs Snowflake â which should you buy?
+q1891	Outreach vs MongoDB â which should you buy?
+q1895	How should Hightouch price pipeline analytics against ZoomInfo equivalent?
+q1898	What replaces RevOps stack if AI agents auto-coach reps?
+q1899	What replaces SDR teams if AI agents replace SDRs natively?
+q1902	How should ServiceNow price forecasting against Datadog equivalent?
+q1903	What replaces Airtable's sequencing if AI agents handle outbound?
+q1906	Outreach vs Salesloft â which should you buy in 2027?
+q1908	What replaces Apollo sequencing if AI agents handle outbound in 2027?
+q1910	Should Gong acquire Avoma in 2027?
+q1916	What replaces ZoomInfo sequencing if AI agents handle outbound in 2027?
+q1927	What replaces Salesforce sequencing if AI agents handle outbound?
+q198	What's the right outbound cadence in 2026 â touches, channels, days?
+q223	How do you compensate for product-led trials that an SDR sourced but an AE closed â full credit to whom?
+q228	How do you tell if your sales tech stack is actually being adopted or just being paid for every month?
+q234	How do you structure SDR-to-AE handoff to prevent dropped leads?
+q280	What's the playbook for breaking a 90-day RFP response cycle into operational sprints?
+q297	How do AI forecasting tools improve on manual rep estimates and reduce board variance?
+q301	How do competitive threat signals (RFP issuance, multi-threaded deals, price escalations) degrade forecast confidence?
+q307	What rapid-response forecasting adjustments should you make when market conditions shift mid-quarter?
+q324	How do we overcome a prospect's price compression objection when they've already found a cheaper alternative in their RFP process?
+q357	What role-play scenarios most accurately predict ramp success for AEs and SDRs?
+q360	How do you calibrate interview expectations for different sales stages (SDR vs AE vs Sales Engineer)?
+q37	What's a good pipeline coverage ratio for forecasting accuracy?
+q400	Outreach vs. Salesloft vs. Apolloâwhich one actually pays for itself in our stack?
+q401	Does Gong ROI really justify $200k+ annual spend, or is it a confidence placebo?
+q402	How do we know if Clari forecasting is actually more accurate, or just more confident?
+q451	What's the revenue forecasting methodology when cycles vary 6+ weeks between regions?
+q464	How do you design kickoff content for AEs vs. SDRs vs. managers?
+q729	What's the difference between top-down and bottom-up quota models, and when should a RevOps leader use each?
+q94	What's the right ratio of inbound to outbound pipeline at $20M ARR?
+q9510	At what ARR threshold should a Salesforce admin be a full-time hire vs a contractor vs an AE-level RevOps generalist?
+q9511	What is the right Salesforce permission set architecture for a 30-rep team that does not break governance when an SDR gets promoted to AE?
+q9544	For a founder-led B2B SaaS org scaling from $5M to $25M ARR, what's the clearest signal that the founder should hire RevOps instead of doing a full CPQ overhaul â and when does it switch the other way?
+q9545	How should a CRO think about the sequencing of RevOps hiring, CPQ governance, and sales process standardization when scaling a multi-regional or multi-segment sales team?
+q9549	How should RevOps teams think about governance philosophy as a leading indicator of go-to-market maturity and expansion readiness, separate from operational compliance requirements?
+st0004	Cold Call Openers That Don't Get Hung Up On: The First 13 Seconds That Decide Every Outbound Call â a 60-Minute Sales Training
+vq_16e1i2q	What's the right SDR to AE ratio for a Series C SaaS in 2027?
+vq_1uh7n7i	How does an outbound SDR team scale from 10 to 50 reps in 12 months?
+vq_e7ea71	What's the best RevOps strategy going today in 2027?
+vq_f39mgd	What's your favorite RevOps thing â the single highest-leverage practice?

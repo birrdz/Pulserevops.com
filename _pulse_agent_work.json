@@ -1,0 +1,35 @@
+{
+  "updatedAt": "2026-06-23T05:23:06.287Z",
+  "sessions": [
+    {
+      "label": "Agent status email upgrade",
+      "agent": "cursor-agent",
+      "status": "running",
+      "done": 6,
+      "total": 7,
+      "failed": 0,
+      "lastItems": [
+        "module",
+        "status-loop",
+        "rule"
+      ],
+      "detail": "Wiring setAgentWork into 15-min emails",
+      "startedAt": "2026-06-23T03:07:40.106Z",
+      "updatedAt": "2026-06-23T03:07:40.106Z"
+    },
+    {
+      "label": "15-min status email loop",
+      "agent": "status-email-loop",
+      "status": "running",
+      "done": 10,
+      "total": 0,
+      "failed": 0,
+      "lastItems": [
+        "tick-10"
+      ],
+      "detail": "Tick #10 — aggregating cron, sprints, pillar SEO, agent sessions",
+      "startedAt": "2026-06-23T03:07:50.925Z",
+      "updatedAt": "2026-06-23T05:23:06.287Z"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "tick": "206a",
+  "agent": "A",
+  "target_id": "q08",
+  "qs_before": 10,
+  "word_count": 9094,
+  "format_v_before": null,
+  "format_v_after": "2026-05",
+  "gold_format": true,
+  "from": 10,
+  "to": 10,
+  "posted_at": "2026-05-20T01:19:10.581Z",
+  "question": "Should I pay SDRs on demos booked or only on demos held + qualified?"
+}

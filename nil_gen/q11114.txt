@@ -1,0 +1,81 @@
+QUESTION: What are Baylor Bears men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+# What are Baylor Bears men's basketball's 2027 NIL needs and strategy?
+
+## Direct Answer
+
+Baylor enters the 2026-27 cycle with a settled franchise coach, a mid-tier Big 12 NIL budget, and a roster that has been gutted and rebuilt every spring since the transfer portal opened. Scott Drew rejected the North Carolina opening in April 2026 and signed a long-term extension to remain in Waco, where he has coached since 2003, won the 2021 national championship, and is closing in on 500 career victories across 23 seasons. That continuity is the single most valuable asset the collective has to sell. To compete with Houston, Kansas, Iowa State, and the new revenue-sharing cap structure, Baylor needs roughly 6.2 to 6.8 million dollars in combined revenue share plus NIL for the 2026-27 men's basketball roster, with priority dollars flowing to a high-major lead guard, a stretch four, and a rim-protecting five. The strategy is to lean on Drew's stability, the Foster Pavilion home-court premium, and a faith-aligned donor base that responds well to character-first recruiting pitches rather than pure auction bidding.
+
+## The Coaching Stability Premium
+
+Most Big 12 programs have spent the last three offseasons either changing coaches or fending off poach attempts with seven-figure raises. Baylor just did the latter. When Drew turned down Chapel Hill in April 2026, the athletic department locked in continuity at a position where continuity is now a recruiting currency on par with cash. Parents of five-star prospects ask two questions before they ask about the bag. They ask whether the coach will still be there in three years, and they ask whether the development pipeline produces pros. Drew can credibly answer yes to both. His Baylor program has produced eighteen NBA Draft picks since 2017, including the entire 2021 title backcourt, and his career win total places him in the top thirty active Division I coaches. The NIL pitch deck for 2027 prospects should lead with that résumé, not with dollar figures. Houston can outbid Baylor on raw money. Baylor wins when it sells a four-year arc under one staff, in one system, with one player-development philosophy.
+
+```flowchart TD
+A[Scott Drew rejects UNC<br/>April 2026 extension signed] --> B[Continuity premium<br/>top 30 active wins]
+A --> C[2021 national title<br/>development credibility]
+B --> D[Recruit parents first<br/>stability over cash]
+C --> D
+D --> E[High major lead guard<br/>priority one signing]
+D --> F[Stretch four pickup<br/>portal targeted]
+D --> G[Rim protecting five<br/>international scout pipeline]
+E --> H[2026-27 roster cap<br/>6.5 million blended]
+F --> H
+G --> H
+```
+
+## Roster Holes Driving the 2027 Budget
+
+The December 2025 roster update confirmed that Baylor lost three starters to the portal and one to the draft, leaving Drew with a returning core of two rotation guards and one frontcourt piece. That math sets the priority list. The lead-guard slot is the most expensive line item because the Big 12 is a guard-driven league and every contending roster in the conference is paying its primary ball-handler between 1.4 and 2.2 million dollars on the open portal market. Baylor should budget 1.8 million for that position alone, structured as a one-year deal with mutual options, because the alternative is starting a sophomore against Kansas in January. The stretch-four slot is the second priority because Drew's offensive system requires a true pick-and-pop threat to space the floor for downhill drives, and the program has not had a reliable one since the 2021 championship roster. Expect that contract to land between 900,000 and 1.2 million. The rim-protecting five is the third priority and the most volatile line because the international market for older centers has compressed prices, and Baylor's history of pulling from West Africa and the Balkans gives the staff a legitimate pipeline advantage. Budget 700,000 to 1 million there, with a portion structured as relocation and family-travel benefits rather than straight compensation.
+
+## The Foster Pavilion and Revenue Share Math
+
+Foster Pavilion opened in January 2024 and has changed the donor conversation in Waco. Premium-seat revenue, courtside table sales, and the new club-level inventory generate operating income that flows directly into the athletic department, which under the House settlement framework can now share roughly 20.5 million dollars across all sports starting in the 2025-26 academic year. Men's basketball typically receives between 18 and 24 percent of the revenue-share pool at a football-first school like Baylor, which puts the rev-share component for the basketball roster at approximately 4.1 to 4.9 million for 2026-27. The collective then layers an additional 1.8 to 2.4 million on top through third-party NIL deals, donor-funded appearance fees, and the Opendorse marketplace that Baylor has integrated with since 2023. That blended structure is the strategic edge. Programs that try to run pure rev-share or pure collective will lose the flexibility to reward outperformance mid-season, and Baylor's hybrid model lets the staff add a bonus tier when a player exceeds preseason projections.
+
+## Donor Base and Brand Alignment
+
+The Bear Foundation and the affiliated NIL advisory council were both built around a giving culture that responds to mission alignment, not just wins. That is a feature, not a bug, when the rest of the conference is racing toward transactional bidding. Baylor's donor pitch for 2027 should emphasize character-fit recruiting, faith-based programming for student-athletes, and the Waco community-integration model that has produced the lowest portal-departure rate among returning starters in the Big 12 over the last two cycles. Translating that into NIL dollars means structuring deals around real deliverables. A player signs an appearance contract with a regional bank, attends three community events per semester, and receives a guaranteed monthly payment plus a performance bonus tied to academic and on-court benchmarks. That structure protects the donor, generates real marketing value for the business partner, and produces the kind of paper trail that survives an IRS audit of the collective's 501(c)(4) status.
+
+```flowchart TD
+A[Foster Pavilion revenue<br/>premium seat growth] --> B[Athletic department pool<br/>20.5 million rev share]
+B --> C[Men's basketball slice<br/>18 to 24 percent]
+C --> D[Rev share component<br/>4.1 to 4.9 million]
+E[Bear Foundation donors<br/>faith aligned base] --> F[Collective layer<br/>1.8 to 2.4 million]
+F --> G[Opendorse marketplace<br/>third party deals]
+D --> H[Blended 2026-27 budget<br/>6.2 to 6.8 million]
+G --> H
+H --> I[Hybrid flexibility<br/>mid season bonuses]
+I --> J[Big 12 competitive<br/>roster locked]
+```
+
+## High School Recruiting and the 2027 Class
+
+The transfer portal will continue to dominate roster construction, but Baylor cannot abandon high school recruiting and expect to sustain a top-twenty program. The 2027 class for the Bears currently includes verbal interest from two top-fifty national prospects, and Drew has historically converted Texas-based top-100 players at a rate well above his peers in the state. The NIL pitch to a high school junior is different from the pitch to a transfer. A four-year prospect needs to see a multi-year compensation structure with escalators, a name-brand collective partner who will still be writing checks in 2030, and a development plan that maps to a specific draft window. Baylor should publish a standardized high school NIL term sheet that starts at 250,000 dollars in the freshman year, escalates to 600,000 by the junior year, and includes a guaranteed exit bonus if the player declares early for the draft. That structure gives parents a written floor, gives the collective a predictable annual obligation, and gives Drew a recruiting tool that Houston and Kansas have not yet matched in writing.
+
+## The Revenue-Share Cap and NIL Go Compliance
+
+The 2026-27 cycle is the first full season operating under the House v. NCAA settlement, which took effect July 1, 2025 and lets opted-in schools share roughly 20.5 million dollars directly with athletes across all sports. For Baylor, a football-first program where men's basketball historically receives an 18-to-24 percent slice of the pool, that direct-pay bucket is the new foundation under the roster, sitting beneath the Bear Foundation collective layer rather than replacing it. The strategic implication is that Drew's staff now negotiates with two checkbooks at once: a university-controlled revenue-share allocation that is stable year to year, and a collective layer that flexes with donor enthusiasm. Programs that understand the difference structure their best players' deals with a high revenue-share base for stability and a collective top-up for upside, which is exactly the hybrid model Baylor has been building toward.
+
+The settlement also created NIL Go, the Deloitte-administered clearinghouse that reviews third-party NIL deals above 600 dollars to confirm they reflect fair-market value instead of disguised recruiting inducements. This is where Baylor's mission-aligned donor culture becomes a compliance advantage rather than a quaint relic. When a Bear Foundation deal is structured around real deliverables — a regional bank endorsement with three documented community appearances, a camp instruction contract, an autograph session with verified attendance — it clears the fair-market-value review cleanly because the marketing value is genuine. Collectives that built their model on opaque booster payments now face friction that Baylor's deliverable-first structure largely avoids. Drew's recruiting pitch for 2027 should make this explicit to parents: the compensation here is contractually documented, clears the clearinghouse, and carries no risk of a deal being voided mid-season for failing fair-market-value scrutiny.
+
+The cap parity is the sobering counterpoint. Every opt-in Big 12 rival — Houston, Kansas, Iowa State, Arizona — operates under the identical 20.5 million dollar ceiling, so Baylor cannot buy its way to the top of the conference inside the cap. The differentiator reverts to what it has always been in Waco: continuity under Drew, a development pipeline that produces NBA picks, a faith-aligned donor base that funds clean third-party deals, and the Foster Pavilion premium-seat revenue that keeps the collective layer healthy. Cap room is now table stakes. Execution on retention, development, and compliance is the edge.
+
+## What Wins Look Like
+
+The honest benchmark for the 2026-27 season is a top-four Big 12 finish, a return to the second weekend of the NCAA tournament, and the retention of at least two of the three priority signings into a 2027-28 senior core. Drew does not need to chase a second national title every spring to justify the spend. He needs a program that develops pros, retains character-fit returners, and converts the Foster Pavilion home schedule into a 14-2 or better record. If the collective hits the 6.5 million blended target and the staff executes the lead-guard signing by mid-June, Baylor will enter November as a projected top-fifteen team with a realistic ceiling of a Big 12 regular-season title and an Elite Eight floor. That is the NIL strategy. Pay for stability, recruit to mission, and let Drew do what he has done for 23 years.
+
+## FAQ
+
+**Did Scott Drew leave Baylor for North Carolina?**
+No. Drew rejected the North Carolina opening in April 2026 and signed a long-term extension to stay in Waco, where he has coached since 2003 and won the 2021 national championship.
+
+**How much of Baylor's revenue-share pool goes to men's basketball?**
+At a football-first school like Baylor, men's basketball typically receives 18 to 24 percent of the roughly 20.5 million dollar pool, which puts the rev-share component for the basketball roster at approximately 4.1 to 4.9 million for 2026-27, before the collective layer.
+
+**What is Baylor's total 2026-27 basketball NIL budget?**
+A blended 6.2 to 6.8 million dollars combining the revenue-share allocation (4.1 to 4.9 million) with the Bear Foundation collective layer (1.8 to 2.4 million) delivered through donor deals and the Opendorse marketplace.
+
+**Why does Baylor emphasize coaching stability in recruiting?**
+Because under the current portal era, continuity is itself a recruiting currency. Parents of elite prospects ask whether the coach will still be there in three years and whether the program produces pros; Drew's 23-year tenure, 2021 title, and eighteen NBA Draft picks since 2017 answer both, which lets Baylor sell a four-year arc that one-and-done-driven rivals cannot match.
+
+Sources: Baylor Athletics, Waco Today April 2026 reporting, House settlement framework, Opendorse Baylor marketplace, Baylor Bear Foundation 2025-26 benefits documentation.

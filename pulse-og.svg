@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="PULSE — The #1 Source of Truth for RevOps Leaders">
+  <rect width="1200" height="630" fill="#FAF8F4"/>
+  <rect x="28" y="28" width="1144" height="574" rx="28" fill="#ffffff" stroke="rgba(20,20,30,.08)"/>
+  <g transform="translate(600,250)">
+    <g transform="translate(-330,-58)">
+      <path d="M0 58 L150 58 L176 16 L202 100 L228 58 L286 58 L320 -48 L354 58 L372 58 L398 182 L426 58 L500 58"
+            fill="none" stroke="#E25C29" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <text x="220" y="78" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="150" font-weight="800" letter-spacing="10" fill="#E25C29">PULSE</text>
+  </g>
+  <text x="600" y="400" text-anchor="middle" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="40" font-weight="800" fill="#16161D">Every RevOps Answer. One Free Library.</text>
+  <text x="600" y="452" text-anchor="middle" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="24" font-weight="600" fill="#55576A">11 pillars · Operator-grade · Built by Kory White, CRO</text>
+  <text x="600" y="540" text-anchor="middle" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="22" font-weight="700" fill="#E25C29">pulserevops.com</text>
+</svg>

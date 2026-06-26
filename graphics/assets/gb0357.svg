@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#a3e635;--c2:#65a30d;--c3:#d9f99d;--c4:#22d3ee;--c4b:#a5f3fc;--ink:#0d1403;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse"><stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/><stop offset="1" style="stop-color:var(--bg2,#0f172a)"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/><stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/><stop offset="1" style="stop-color:var(--c3,#FFD740)"/></linearGradient>
+    <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--c4,#22d3ee)"/><stop offset="1" style="stop-color:var(--c4b,#67e8f9)"/></linearGradient>
+    <radialGradient id="glow" cx="0.7" cy="0.25" r="0.6"><stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.18"/><stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1584" height="396" fill="url(#bg)"/>
+  <rect width="1584" height="396" fill="url(#glow)"/>
+  <rect x="64" y="60" width="1456" height="276" rx="28" fill="#0b0f17" opacity="0.55" stroke="url(#accent)" stroke-width="2"/>
+  <text x="110" y="150" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="url(#accent)">OPEN TO WORK</text>
+  <text x="108" y="211" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="67" font-weight="900" fill="#FFFFFF">Available for fractional CRO work.</text>
+  <text x="110" y="308" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="28" font-weight="700" fill="#EDE5D8">Strategy <tspan fill="url(#accent)">&#183;</tspan> Systems <tspan fill="url(#accent)">&#183;</tspan> Pipeline</text>
+
+</svg>

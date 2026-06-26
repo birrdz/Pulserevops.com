@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>
+svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.bg1{fill:var(--bg1,#0b0f17);}
+.bg2{fill:var(--bg2,#0f172a);}
+.title{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:800;fill:var(--c3);}
+.sub{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:600;fill:var(--c4b);}
+.stage{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:800;fill:var(--ink);}
+.metric{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:700;fill:var(--ink);opacity:0.85;}
+.pct{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:800;fill:var(--c4);}
+.note{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:600;fill:var(--c3);}
+.flow{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:700;fill:var(--c1);}
+.tag{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:700;fill:var(--ink);}
+</style>
+<defs>
+<linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="funnelGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c3)" stop-opacity="0.95"/>
+<stop offset="1" stop-color="var(--c1)" stop-opacity="0.95"/>
+</linearGradient>
+</defs>
+<rect class="bg1" width="1584" height="396" fill="url(#bgGrad)"/>
+
+<text class="title" x="48" y="50" font-size="26">PLG Conversion Funnel</text>
+<text class="sub" x="48" y="78" font-size="16">Self-serve path from anonymous visitor to expansion revenue</text>
+
+<!-- Self-serve emphasis banner -->
+<rect x="1180" y="30" width="360" height="56" rx="12" fill="var(--c4)" opacity="0.18" stroke="var(--c4)" stroke-width="2"/>
+<circle cx="1212" cy="58" r="10" fill="var(--c4)"/>
+<text class="note" x="1232" y="54" font-size="14" font-weight="800" fill="var(--c4)">SELF-SERVE EMPHASIS</text>
+<text class="sub" x="1232" y="72" font-size="12">No sales touch until PQL — product does the selling</text>
+
+<!-- Stage 1: Visitor -->
+<g transform="translate(60,120)">
+<polygon points="0,0 240,0 220,180 20,180" fill="url(#funnelGrad)" stroke="var(--c2)" stroke-width="2"/>
+<text class="stage" x="120" y="60" font-size="22" text-anchor="middle">VISITOR</text>
+<text class="metric" x="120" y="88" font-size="15" text-anchor="middle">100,000 / mo</text>
+<text class="metric" x="120" y="110" font-size="13" text-anchor="middle">SEO • Content • Ads</text>
+<rect x="40" y="130" width="160" height="32" rx="6" fill="var(--ink)" opacity="0.85"/>
+<text class="pct" x="120" y="151" font-size="16" text-anchor="middle">100%</text>
+</g>
+
+<!-- Stage 2: Signup -->
+<g transform="translate(310,130)">
+<polygon points="0,0 220,0 200,160 20,160" fill="url(#funnelGrad)" stroke="var(--c2)" stroke-width="2"/>
+<text class="stage" x="110" y="56" font-size="22" text-anchor="middle">SIGNUP</text>
+<text class="metric" x="110" y="82" font-size="15" text-anchor="middle">5,000 / mo</text>
+<text class="metric" x="110" y="102" font-size="13" text-anchor="middle">Free tier • No CC</text>
+<rect x="35" y="118" width="140" height="28" rx="6" fill="var(--ink)" opacity="0.85"/>
+<text class="pct" x="105" y="138" font-size="15" text-anchor="middle">5%</text>
+</g>
+
+<!-- Stage 3: Activation -->
+<g transform="translate(540,140)">
+<polygon points="0,0 200,0 180,140 20,140" fill="url(#funnelGrad)" stroke="var(--c2)" stroke-width="2"/>
+<text class="stage" x="100" y="52" font-size="20" text-anchor="middle">ACTIVATION</text>
+<text class="metric" x="100" y="76" font-size="14" text-anchor="middle">3,000 / mo</text>
+<text class="metric" x="100" y="94" font-size="12" text-anchor="middle">"Aha" moment hit</text>
+<rect x="30" y="106" width="130" height="26" rx="6" fill="var(--ink)" opacity="0.85"/>
+<text class="pct" x="95" y="125" font-size="14" text-anchor="middle">60%</text>
+</g>
+
+<!-- Stage 4: PQL -->
+<g transform="translate(750,150)">
+<polygon points="0,0 180,0 160,120 20,120" fill="url(#funnelGrad)" stroke="var(--c2)" stroke-width="2"/>
+<text class="stage" x="90" y="46" font-size="20" text-anchor="middle">PQL</text>
+<text class="metric" x="90" y="68" font-size="13" text-anchor="middle">900 / mo</text>
+<text class="metric" x="90" y="84" font-size="11" text-anchor="middle">Hit usage threshold</text>
+<rect x="25" y="92" width="120" height="22" rx="6" fill="var(--ink)" opacity="0.85"/>
+<text class="pct" x="85" y="109" font-size="13" text-anchor="middle">30%</text>
+</g>
+
+<!-- Stage 5: Paid -->
+<g transform="translate(942,160)">
+<polygon points="0,0 160,0 140,100 20,100" fill="url(#funnelGrad)" stroke="var(--c2)" stroke-width="2"/>
+<text class="stage" x="80" y="40" font-size="19" text-anchor="middle">PAID</text>
+<text class="metric" x="80" y="60" font-size="13" text-anchor="middle">270 / mo</text>
+<text class="metric" x="80" y="76" font-size="11" text-anchor="middle">CC entered • Plan upgrade</text>
+<rect x="20" y="82" width="100" height="22" rx="6" fill="var(--ink)" opacity="0.85"/>
+<text class="pct" x="70" y="99" font-size="13" text-anchor="middle">30%</text>
+</g>
+
+<!-- Stage 6: Expansion -->
+<g transform="translate(1115,170)">
+<polygon points="0,0 140,0 120,80 20,80" fill="url(#funnelGrad)" stroke="var(--c2)" stroke-width="2"/>
+<text class="stage" x="70" y="34" font-size="17" text-anchor="middle">EXPANSION</text>
+<text class="metric" x="70" y="52" font-size="12" text-anchor="middle">110 / mo</text>
+<rect x="15" y="60" width="90" height="18" rx="5" fill="var(--ink)" opacity="0.85"/>
+<text class="pct" x="60" y="74" font-size="12" text-anchor="middle">40%</text>
+</g>
+
+<!-- Arrows between stages -->
+<g fill="var(--c4)">
+<polygon points="278,210 296,200 296,220"/>
+<polygon points="516,215 534,205 534,225"/>
+<polygon points="724,215 742,206 742,225"/>
+<polygon points="918,213 936,205 936,224"/>
+<polygon points="1090,213 1108,205 1108,224"/>
+</g>
+
+<!-- Bottom row: motion / mechanism labels -->
+<g transform="translate(60,316)">
+<rect x="0" y="0" width="240" height="60" rx="10" fill="var(--c1)" opacity="0.15" stroke="var(--c1)" stroke-width="1.5"/>
+<text class="flow" x="120" y="22" font-size="13" text-anchor="middle">DEMAND GEN</text>
+<text class="sub" x="120" y="42" font-size="11" text-anchor="middle">Organic content + community</text>
+</g>
+<g transform="translate(310,316)">
+<rect x="0" y="0" width="220" height="60" rx="10" fill="var(--c1)" opacity="0.15" stroke="var(--c1)" stroke-width="1.5"/>
+<text class="flow" x="110" y="22" font-size="13" text-anchor="middle">FRICTIONLESS</text>
+<text class="sub" x="110" y="42" font-size="11" text-anchor="middle">Email-only signup, instant access</text>
+</g>
+<g transform="translate(540,316)">
+<rect x="0" y="0" width="200" height="60" rx="10" fill="var(--c1)" opacity="0.15" stroke="var(--c1)" stroke-width="1.5"/>
+<text class="flow" x="100" y="22" font-size="13" text-anchor="middle">TIME-TO-VALUE</text>
+<text class="sub" x="100" y="42" font-size="11" text-anchor="middle">Onboarding &lt; 10 minutes</text>
+</g>
+<g transform="translate(750,316)">
+<rect x="0" y="0" width="180" height="60" rx="10" fill="var(--c4)" opacity="0.22" stroke="var(--c4)" stroke-width="1.5"/>
+<text class="flow" x="90" y="22" font-size="13" text-anchor="middle" fill="var(--c4)">SALES ASSIST</text>
+<text class="sub" x="90" y="42" font-size="11" text-anchor="middle">First human touch — PLS motion</text>
+</g>
+<g transform="translate(942,316)">
+<rect x="0" y="0" width="160" height="60" rx="10" fill="var(--c1)" opacity="0.15" stroke="var(--c1)" stroke-width="1.5"/>
+<text class="flow" x="80" y="22" font-size="13" text-anchor="middle">SELF-SERVE BUY</text>
+<text class="sub" x="80" y="42" font-size="11" text-anchor="middle">In-app upgrade</text>
+</g>
+<g transform="translate(1115,316)">
+<rect x="0" y="0" width="140" height="60" rx="10" fill="var(--c1)" opacity="0.15" stroke="var(--c1)" stroke-width="1.5"/>
+<text class="flow" x="70" y="22" font-size="13" text-anchor="middle">NRR ENGINE</text>
+<text class="sub" x="70" y="42" font-size="11" text-anchor="middle">Seat + usage growth</text>
+</g>
+
+<!-- Right-side conversion summary -->
+<g transform="translate(1290,120)">
+<rect x="0" y="0" width="250" height="256" rx="14" fill="var(--ink)" opacity="0.45" stroke="var(--c2)" stroke-width="1.5"/>
+<text class="note" x="20" y="34" font-size="15" fill="var(--c3)">END-TO-END</text>
+<text class="title" x="20" y="78" font-size="44" fill="var(--c4)">0.27%</text>
+<text class="sub" x="20" y="102" font-size="12">Visitor → Paid conversion</text>
+
+<line x1="20" y1="118" x2="230" y2="118" stroke="var(--c2)" stroke-width="1" opacity="0.5"/>
+
+<text class="sub" x="20" y="142" font-size="12">PQL → Paid</text>
+<text class="pct" x="230" y="142" font-size="14" text-anchor="end">30%</text>
+
+<text class="sub" x="20" y="166" font-size="12">Free → PQL</text>
+<text class="pct" x="230" y="166" font-size="14" text-anchor="end">18%</text>
+
+<text class="sub" x="20" y="190" font-size="12">Activation rate</text>
+<text class="pct" x="230" y="190" font-size="14" text-anchor="end">60%</text>
+
+<text class="sub" x="20" y="214" font-size="12">Net Revenue Retention</text>
+<text class="pct" x="230" y="214" font-size="14" text-anchor="end">125%</text>
+
+<rect x="20" y="226" width="210" height="22" rx="6" fill="var(--c4)" opacity="0.25"/>
+<text class="tag" x="125" y="241" font-size="11" text-anchor="middle" fill="var(--c4)">CAC payback ≤ 12 months</text>
+</g>
+
+</svg>

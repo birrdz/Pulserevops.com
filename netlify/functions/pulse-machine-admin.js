@@ -38,7 +38,7 @@ function authed(event) {
 
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers: CORS, body: '' };
-  if (!authed(event)) return { statusCode: 401, headers: CORS, body: JSON.stringify({ error: 'unauthorized' }) };
+  if (!authed(event)) return { statusCode: 404, headers: CORS, body: JSON.stringify({ error: 'not found' }) };
 
   const store = initStore();
   if (!store) return { statusCode: 200, headers: CORS, body: JSON.stringify({ ok: false, reason: 'no store' }) };

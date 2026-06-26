@@ -1,0 +1,116 @@
+2026-06-26T21:00:59.363Z [forever] supervisor started; target=8730
+2026-06-26T21:01:01.757Z [forever] W=1913/8730 queue_remaining=29
+2026-06-26T21:01:01.758Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:01:04.284Z [forever] launching writer pass
+OK ai0309 1931w
+OK ai0310 2615w
+OK ai0311 2089w
+OK ai0312 1899w
+OK ai0313 1980w
+OK ai0315 2125w
+OK ai0314 1851w
+OK ai0316 1954w
+OK ai0317 1827w
+OK ai0319 1929w
+OK ai0318 1676w
+OK ai0320 1832w
+OK ai0321 2314w
+OK ai0322 2381w
+OK ai0324 2009w
+OK ai0323 2308w
+OK ai0326 2026w
+OK ai0325 2316w
+OK ai0327 1902w
+OK ai0328 1923w
+OK ai0329 1924w
+OK ai0330 1851w
+OK ai0331 2020w
+OK ai0332 1901w
+OK ai0333 1983w
+OK ai0334 1842w
+OK ai0335 2016w
+OK ai0336 2370w
+OK ai0337 1831w
+{"done":29,"fail":0}
+2026-06-26T21:17:03.103Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:17:03.104Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:17:05.103Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:17:17.482Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:17:17.483Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:17:19.599Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:17:33.380Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:17:33.381Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:17:35.648Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:17:48.578Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:17:48.578Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:17:50.510Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:18:03.442Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:18:03.443Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:18:05.694Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:18:18.841Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:18:18.841Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:18:21.206Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:18:33.981Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:18:33.981Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:18:35.826Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:18:48.738Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:18:48.738Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:18:51.206Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:19:03.473Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:19:03.474Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:19:05.677Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:19:18.803Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:19:18.803Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:19:20.810Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:19:35.078Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:19:35.078Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:19:37.328Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:19:49.804Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:19:49.805Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:19:51.784Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:20:03.895Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:20:03.896Z [forever] queue low — loading next ~500
+[refill] PILLAR-BY-PILLAR active pillar = ai (0 pillar def)
+DONE: appended 0 titles; queue now 117
+2026-06-26T21:20:07.163Z [forever] launching writer pass
+{"done":0,"fail":0}
+2026-06-26T21:20:20.406Z [forever] W=1942/8730 queue_remaining=0
+2026-06-26T21:20:20.407Z [forever] queue low — loading next ~500

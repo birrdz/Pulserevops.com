@@ -1,0 +1,110 @@
+QUESTION: What are Iowa State Cyclones men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Iowa State Cyclones men's basketball enters the 2026-27 NIL cycle from the strongest position in program history. Head coach T.J. Otzelberger just signed a ten-year extension through June 2036 at roughly six million dollars per year after a 29-8 season, a 16-0 start, a 91-42 Big 12 Tournament demolition of Arizona State, and a Sweet Sixteen exit to Tennessee in the Midwest Regional Semifinal. The Cyclones earned a two seed, beat Kentucky by nineteen, and posted regular-season wins over number one Purdue, number two Houston, number nine Kansas, and number fifteen St. John's. The We Will Collective, founded in April 2022 by former Cyclone football player Connor Greene, channels 501(c)(3) donor dollars exclusively to men's basketball and football, and that focus is what lets Ames punch above weight in a Big 12 stacked with Houston, Kansas, BYU, and Arizona. Five transfers are already in for 2026-27: Leon Bond III from Northern Iowa, Jaquan Johnson from Bradley, Taj Manning from Kansas State, Ryan Prather Jr. from Robert Morris, and Tre Singleton from Northwestern. Milan Momcilovic, the best three-point shooter in program history, entered the portal during his NBA Draft process. The 2027 NIL math is not about affording a roster, it is about whether We Will plus the new revenue-share pool can keep a top-fifteen rotation in Hilton Coliseum for a fifth straight tournament run.
+
+**TL;DR** Iowa State enters 2027 with a ten-year-locked head coach, a Sweet Sixteen roster reload, a focused We Will Collective, and a Hilton Coliseum sellout base — the NIL job is depth and shooting, not survival.
+
+```mermaid
+flowchart TD
+    A[Iowa State NIL Ecosystem 2027] --> B[We Will Collective 501c3]
+    A --> C[Big 12 Media Share 2026]
+    A --> D[Hilton Coliseum Sellouts]
+    A --> E[Cyclone Alumni Donor Base]
+    B --> F[MBB Football Only Focus]
+    C --> G[Revenue Share Pool House Settlement]
+    D --> H[Premium Suite NIL Activations]
+    E --> I[Major Gifts CYTown Build]
+    F --> J[2026-27 Roster Build]
+    G --> J
+    H --> J
+    I --> J
+    J --> K[Replace Momcilovic Shooting]
+    J --> L[Five Transfers In Bond Johnson Manning Prather Singleton]
+    J --> M[Develop Otzelberger Defensive Identity]
+    K --> N[2027 Final Four Pursuit]
+    L --> N
+    M --> N
+    N --> O[Otzelberger 10 Year Extension Through 2036]
+```
+
+## 1. Where Iowa State Stands — 2027 NIL Math
+
+The We Will Collective is the front door, and it is narrow on purpose. Funds currently flow only to men's basketball and football, which means basketball is sharing the pot with one other revenue sport instead of competing with twelve. That concentration is the single biggest reason a school with Iowa State's enrollment can keep Otzelberger's program in the top fifteen. Post-House settlement revenue sharing adds another roughly twenty point five million dollar institutional pool to be split across sports, and Iowa State's split — like most power-conference peers — is expected to push the majority toward football and men's basketball. Stack the We Will money on top of the revenue-share allocation and you get a 2026-27 basketball NIL plus rev-share envelope that should clear the eight-figure mark for the roster, not counting marketplace deals individual players cut on their own.
+
+| Bucket | Source | 2026-27 Estimate | Use |
+|---|---|---|---|
+| We Will Collective | Donor 501(c)(3) | Mid seven figures | Roster retention plus transfer add |
+| Revenue Share (Rev-Share) | Institutional, House settlement | Multi-million MBB allocation | Direct player payments |
+| Cyclone Club Major Gifts | Athletic dept fundraising | Eight figures across all sports | Facilities, scholarships, support |
+| Marketplace NIL Deals | Local businesses, national brands | Player-by-player | Individual endorsements |
+| Big 12 Media Share | Conference distribution | Roughly 40-plus million school-wide | General athletics budget |
+
+The honest framing for fans: Iowa State is not Texas Tech or Arkansas in raw collective dollars, but the program does not need to be. It needs enough to hold a top-five Big 12 rotation, and the math says it has that for 2026-27.
+
+## 2. Real 2027 Strategy — 5 Moves
+
+**Move 1 — Lock the Otzelberger bet.** The ten-year extension through 2036 at roughly six million per year already happened, and it is the single most valuable NIL move Iowa State will make this decade. Coaching stability is itself a recruiting pitch, and Otzelberger turning down North Carolina rumors publicly is now a sales line.
+
+**Move 2 — Replace Momcilovic without panicking.** Milan Momcilovic led the nation in three-point percentage and three-point makes as a junior before declaring for the draft and entering the portal. The five-man transfer class — Leon Bond III, who started all thirty-six games at Northern Iowa and averaged 11.9 points and 4.7 rebounds, plus Johnson, Manning, Prather, and Singleton — is built to spread shooting across the roster rather than reproduce one elite gunner.
+
+**Move 3 — Use the Big 12 Tournament moment.** The 91-42 win over Arizona State and the Sweet Sixteen run are NIL marketing assets, not just trophies. Every donor pitch in the May through August window should lead with that highlight reel.
+
+**Move 4 — Concentrate, do not diversify.** We Will explicitly funds football and basketball only. Resist pressure to broaden the collective in 2027 — the focus is the moat.
+
+**Move 5 — Build CYTown revenue around the roster.** The CYTown development around Hilton Coliseum is the long-term donor and premium-seat engine. Tie 2027 NIL pitches to suite buyers and CYTown founding members so the basketball collective gets a recurring revenue lane, not just annual gifts.
+
+## 3. Top 3 Risks
+
+**Risk 1 — Shooting cliff.** Losing Milan Momcilovic, the best three-point shooter in program history and the national leader in three-point makes and percentage as a junior, is a real basketball risk before it is an NIL risk. Bond, Johnson, Manning, Prather, and Singleton are good players, but none arrived with a clear forty-five-percent three-point profile. If the new rotation cannot space the floor in Hilton, the Cyclones go from Sweet Sixteen ceiling to second-round exit, and donor enthusiasm tracks tournament wins.
+
+**Risk 2 — Coaching poach attempt round two.** Otzelberger said in March that any speculation about other jobs is not true and signed the ten-year extension shortly after. North Carolina filled its job and moved on, but the next blueblood opening — Kentucky, Indiana, UCLA in a future cycle — will test the extension. Buyouts can be paid, and a poach would unwind the entire 2027 NIL pitch, since "Otzelberger stability" is the headline.
+
+**Risk 3 — Big 12 arms race compression.** Houston, BYU, Kansas, Arizona, and Texas Tech are all spending hard on basketball NIL inside the same league. If two or three push collective spending another twenty to thirty percent year over year, Iowa State has to match or lose rotation depth. We Will is efficient, but efficiency does not beat raw dollars in a portal bidding war for a proven Big 12 starter.
+
+```mermaid
+flowchart TD
+    R[2027 Risk Map Iowa State MBB] --> R1[Shooting Cliff Post Momcilovic]
+    R --> R2[Coaching Poach Round Two]
+    R --> R3[Big 12 NIL Compression]
+    R1 --> M1[Mitigation Spread Shooting Across Five Transfers]
+    R2 --> M2[Mitigation 10 Year Extension Plus Public NC Denial]
+    R3 --> M3[Mitigation We Will Concentrated Funding Plus CYTown Revenue]
+    M1 --> W[2027 Win Condition Sweet 16 Floor]
+    M2 --> W
+    M3 --> W
+    W --> F[Final Four Pursuit 2027 2028]
+```
+
+## FAQ
+
+**Q: How much NIL money does Iowa State basketball actually have for 2026-27?** A: Public collective figures are not disclosed, but the We Will Collective concentrates on men's basketball and football only, and the House settlement revenue-share pool adds direct institutional payments. Together, the basketball envelope is comfortably in eight figures across collective plus rev-share, enough to retain core minutes and add five transfers.
+
+**Q: Is Otzelberger actually staying long-term?** A: Yes, by contract. He signed a ten-year extension through June 30, 2036 at approximately six million dollars per year after the 2025-26 Sweet Sixteen run, and he publicly denied North Carolina interest in March 2026. The extension is the closest thing to a guarantee that exists in college basketball coaching.
+
+**Q: Who replaces Milan Momcilovic's shooting?** A: No single player. The 2026-27 plan spreads the three-point load across Leon Bond III from Northern Iowa, Jaquan Johnson from Bradley, Taj Manning from Kansas State, Ryan Prather Jr. from Robert Morris, and Tre Singleton from Northwestern, plus returning rotation pieces. The bet is breadth over a single elite shooter.
+
+## Sizing the House-Settlement Bucket for a Basketball-First Budget
+
+Iowa State is a useful case study in what the House v. NCAA settlement does to a school that is genuinely basketball-first. The settlement, approved by Judge Claudia Wilken on June 6, 2025 and effective July 1, 2025, lets each school pay athletes directly from a pool that opened near $20.5 million for 2025-26, capped at 22% of average Power Four athletic revenue and projected to rise toward $32.9 million by the early 2030s. At most Power Four schools football swallows 70% or more of that pool, but Iowa State's revenue mix and its program priorities let T.J. Otzelberger argue for a larger-than-typical men's basketball slice — and that internal allocation fight is the single most important off-court decision the athletic department makes each year.
+
+The strategic point is that the We Will Collective no longer has to carry the full freight. Direct revenue-share dollars now form the base of every retention and transfer package, and the collective becomes the targeted top-up for the players whose open-market price runs ahead of what the cap line alone can cover. For a roster built on breadth rather than one superstar — Leon Bond III, Jaquan Johnson, Taj Manning, Ryan Prather Jr., and Tre Singleton spreading the scoring load — that two-layer model is actually a budgeting advantage, because the cap can fund a deep, evenly paid rotation while collective money is reserved for the one or two priority retentions that move the win total.
+
+The compliance layer is real money discipline, not paperwork. Every collective deal above $600 must clear NIL Go, the Deloitte-operated clearinghouse that checks each third-party contract for fair-market value and a genuine business purpose; deals that read as pay-for-play can be denied or pushed to arbitration, with the College Sports Commission, the power-conference enforcement body, handling enforcement. We Will Collective contracts built as legitimate endorsement and appearance work clear that review cleanly, which keeps Iowa State's transfer commitments from stalling mid-window. The programs that treat NIL Go as routine keep their roster builds on schedule; the ones that treat it as an obstacle lose recruiting weeks they cannot get back.
+
+**Q: How does Iowa State decide how much of the revenue-share cap goes to basketball?** A: It is an internal athletic-department allocation. The settlement created a school-paid pool near $20.5 million for 2025-26, rising toward a projected $32.9 million by the early 2030s. Football takes the majority at most schools, but Iowa State's basketball-first identity and Otzelberger's results let the program argue for a larger men's basketball slice than typical, which underwrites a deep, evenly paid rotation rather than a single star contract.
+
+**Q: Why does a breadth-based roster fit the cap-plus-collective model so well?** A: Because the revenue-share cap can fund a wide rotation at moderate, even pay levels, while We Will Collective dollars are saved for the one or two priority retentions whose open-market value runs ahead of the cap. With scoring spread across five incoming transfers rather than concentrated in one elite shooter, Iowa State avoids the cap-crunch that hits programs forced to bid the entire pool against a single player.
+
+## Sources
+
+- Iowa State Athletics — Otzelberger Agrees to 10-Year Contract Extension, cyclones.com, April 29, 2026
+- ESPN — Iowa State's Otzelberger agrees to 10-year extension, raise
+- Wikipedia — 2025-26 Iowa State Cyclones men's basketball team
+- Iowa State Athletics — Dancing Again! Cyclones Earn 25th NCAA Tournament Bid, March 15, 2026
+- Iowa State Athletics — Cyclones Crush Sun Devils in Historic Big 12 Tournament Win, March 11, 2026
+- We Will Collective — wewillcollective.com
+- Iowa State Daily — Buy the chain, but be smart: NIL in Cyclone Athletics
+- Sports Illustrated — Iowa State Basketball Adds Two More Players From Transfer Portal

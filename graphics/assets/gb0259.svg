@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#fbbf24;--c2:#d97706;--c3:#fde68a;--c4:#fb7185;--c4b:#fecdd3;--ink:#1a1203;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse"><stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/><stop offset="1" style="stop-color:var(--bg2,#0f172a)"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/><stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/><stop offset="1" style="stop-color:var(--c3,#FFD740)"/></linearGradient>
+    <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--c4,#22d3ee)"/><stop offset="1" style="stop-color:var(--c4b,#67e8f9)"/></linearGradient>
+    <radialGradient id="glow" cx="0.85" cy="0.3" r="0.5"><stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.18"/><stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1584" height="396" fill="url(#bg)"/>
+  <rect width="1584" height="396" fill="url(#glow)"/>
+  <rect x="0" y="0" width="26" height="396" fill="url(#accent)"/>
+  <text x="130" y="150" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">FRACTIONAL CRO</text>
+  <text x="128" y="220" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="76" font-weight="900" fill="#FFFFFF">Revenue leadership, on demand.</text>
+  <text x="130" y="330" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="30" font-weight="700" fill="#EDE5D8">Strategy <tspan fill="url(#accent)">&#183;</tspan> Systems <tspan fill="url(#accent)">&#183;</tspan> Pipeline</text>
+
+</svg>

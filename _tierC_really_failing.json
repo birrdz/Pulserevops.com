@@ -1,0 +1,677 @@
+[
+  {
+    "id": "st233",
+    "score": 9,
+    "words": 1741,
+    "missing": [
+      "sources_five_plus",
+      "faq_five_plus",
+      "heavy_bold_formatting"
+    ]
+  },
+  {
+    "id": "st208",
+    "score": 8,
+    "words": 1631,
+    "missing": [
+      "faq_section",
+      "sources_section",
+      "h2_six_plus",
+      "sources_five_plus"
+    ]
+  },
+  {
+    "id": "st203",
+    "score": 8,
+    "words": 1712,
+    "missing": [
+      "faq_section",
+      "sources_section",
+      "h2_six_plus",
+      "sources_five_plus"
+    ]
+  },
+  {
+    "id": "st182",
+    "score": 8,
+    "words": 1739,
+    "missing": [
+      "faq_section",
+      "sources_section",
+      "h2_six_plus",
+      "sources_five_plus"
+    ]
+  },
+  {
+    "id": "st179",
+    "score": 10,
+    "words": 1406,
+    "missing": [
+      "word_count_floor",
+      "sources_five_plus"
+    ]
+  },
+  {
+    "id": "st167",
+    "score": 9,
+    "words": 1409,
+    "missing": [
+      "word_count_floor",
+      "h2_six_plus",
+      "sources_five_plus"
+    ]
+  },
+  {
+    "id": "st140",
+    "score": 6,
+    "words": 1769,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st139",
+    "score": 6,
+    "words": 1778,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st138",
+    "score": 6,
+    "words": 1778,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st137",
+    "score": 6,
+    "words": 1790,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st136",
+    "score": 6,
+    "words": 1787,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st135",
+    "score": 6,
+    "words": 1759,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st134",
+    "score": 6,
+    "words": 1757,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st133",
+    "score": 6,
+    "words": 1779,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st132",
+    "score": 6,
+    "words": 1799,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st131",
+    "score": 6,
+    "words": 1759,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st130",
+    "score": 6,
+    "words": 1810,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st129",
+    "score": 6,
+    "words": 1778,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st128",
+    "score": 6,
+    "words": 1808,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st127",
+    "score": 6,
+    "words": 1779,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st126",
+    "score": 6,
+    "words": 1789,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st125",
+    "score": 6,
+    "words": 1769,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st124",
+    "score": 6,
+    "words": 1801,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st123",
+    "score": 6,
+    "words": 1777,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st122",
+    "score": 6,
+    "words": 1779,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st121",
+    "score": 6,
+    "words": 1779,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st120",
+    "score": 6,
+    "words": 1787,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st119",
+    "score": 6,
+    "words": 1790,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st118",
+    "score": 6,
+    "words": 1709,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st117",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st116",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st115",
+    "score": 6,
+    "words": 1697,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st114",
+    "score": 6,
+    "words": 1708,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st113",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st112",
+    "score": 6,
+    "words": 1708,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st111",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st110",
+    "score": 6,
+    "words": 1708,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st109",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st108",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st107",
+    "score": 6,
+    "words": 1708,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st106",
+    "score": 6,
+    "words": 1708,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st105",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st104",
+    "score": 6,
+    "words": 1708,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st103",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st102",
+    "score": 6,
+    "words": 1699,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st101",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st100",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st99",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st98",
+    "score": 6,
+    "words": 1700,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st97",
+    "score": 6,
+    "words": 1699,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st96",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st95",
+    "score": 6,
+    "words": 1699,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st94",
+    "score": 6,
+    "words": 1698,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st93",
+    "score": 6,
+    "words": 1746,
+    "missing": [
+      "direct_answer",
+      "two_mermaids",
+      "faq_section",
+      "sources_section"
+    ]
+  },
+  {
+    "id": "st0038",
+    "score": 9,
+    "words": 9338,
+    "missing": [
+      "faq_section",
+      "sources_five_plus",
+      "faq_five_plus"
+    ]
+  },
+  {
+    "id": "st0035",
+    "score": 8,
+    "words": 9642,
+    "missing": [
+      "faq_section",
+      "sources_section",
+      "sources_five_plus",
+      "faq_five_plus"
+    ]
+  },
+  {
+    "id": "st0032",
+    "score": 8,
+    "words": 9102,
+    "missing": [
+      "faq_section",
+      "sources_section",
+      "sources_five_plus",
+      "faq_five_plus"
+    ]
+  },
+  {
+    "id": "st0021",
+    "score": 8,
+    "words": 10400,
+    "missing": [
+      "faq_section",
+      "sources_section",
+      "sources_five_plus",
+      "faq_five_plus"
+    ]
+  },
+  {
+    "id": "st0017",
+    "score": 8,
+    "words": 7038,
+    "missing": [
+      "faq_section",
+      "sources_section",
+      "sources_five_plus",
+      "faq_five_plus"
+    ]
+  },
+  {
+    "id": "st0013",
+    "score": 9,
+    "words": 11070,
+    "missing": [
+      "faq_section",
+      "sources_section",
+      "sources_five_plus"
+    ]
+  },
+  {
+    "id": "st0011",
+    "score": 7,
+    "words": 11322,
+    "missing": [
+      "direct_answer",
+      "faq_section",
+      "sources_section",
+      "sources_five_plus"
+    ]
+  },
+  {
+    "id": "st0008",
+    "score": 9,
+    "words": 10548,
+    "missing": [
+      "faq_section",
+      "sources_section",
+      "sources_five_plus"
+    ]
+  }
+]

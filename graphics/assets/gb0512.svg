@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;} .lbl{font-family:-apple-system,Segoe UI,Roboto,sans-serif;fill:var(--ink);text-anchor:middle;font-weight:700} .sub{font-family:-apple-system,Segoe UI,Roboto,sans-serif;fill:var(--ink);text-anchor:middle;font-weight:500;opacity:.85} .ttl{font-family:-apple-system,Segoe UI,Roboto,sans-serif;fill:var(--c3);text-anchor:middle;font-weight:800;letter-spacing:.5px}</style>
+<rect width="1584" height="396" fill="var(--bg1,#0b0f17)"/>
+<rect x="0" y="0" width="1584" height="396" fill="url(#bgGrad)"/>
+<defs>
+<linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--bg1,#0b0f17)"/><stop offset="1" stop-color="var(--bg2,#0f172a)"/></linearGradient>
+<linearGradient id="croGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c4)"/><stop offset="1" stop-color="var(--c4b)"/></linearGradient>
+<linearGradient id="vpGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c1)"/><stop offset="1" stop-color="var(--c2)"/></linearGradient>
+</defs>
+<text x="792" y="40" class="ttl" font-size="22">ENTERPRISE SAAS SALES ORG</text>
+
+<!-- CRO node (top center) -->
+<rect x="692" y="62" width="200" height="56" rx="10" fill="url(#croGrad)" stroke="var(--ink)" stroke-width="2"/>
+<text x="792" y="88" class="lbl" font-size="20">CHIEF REVENUE</text>
+<text x="792" y="108" class="lbl" font-size="20">OFFICER</text>
+
+<!-- Connector lines from CRO down to 5 lieutenants -->
+<path d="M792 118 L792 150" stroke="var(--c3)" stroke-width="2" fill="none"/>
+<path d="M180 150 L1404 150" stroke="var(--c3)" stroke-width="2" fill="none"/>
+<path d="M180 150 L180 178" stroke="var(--c3)" stroke-width="2" fill="none"/>
+<path d="M486 150 L486 178" stroke="var(--c3)" stroke-width="2" fill="none"/>
+<path d="M792 150 L792 178" stroke="var(--c3)" stroke-width="2" fill="none"/>
+<path d="M1098 150 L1098 178" stroke="var(--c3)" stroke-width="2" fill="none"/>
+<path d="M1404 150 L1404 178" stroke="var(--c3)" stroke-width="2" fill="none"/>
+
+<!-- Five director-level boxes -->
+<rect x="80" y="178" width="200" height="50" rx="8" fill="url(#vpGrad)" stroke="var(--ink)" stroke-width="2"/>
+<text x="180" y="200" class="lbl" font-size="18">REGIONAL VP</text>
+<text x="180" y="220" class="lbl" font-size="14">East / West / EMEA</text>
+
+<rect x="386" y="178" width="200" height="50" rx="8" fill="url(#vpGrad)" stroke="var(--ink)" stroke-width="2"/>
+<text x="486" y="200" class="lbl" font-size="18">VP SALES ENG.</text>
+<text x="486" y="220" class="lbl" font-size="14">Solution Architects</text>
+
+<rect x="692" y="178" width="200" height="50" rx="8" fill="url(#vpGrad)" stroke="var(--ink)" stroke-width="2"/>
+<text x="792" y="200" class="lbl" font-size="18">VP CUSTOMER</text>
+<text x="792" y="220" class="lbl" font-size="14">SUCCESS</text>
+
+<rect x="998" y="178" width="200" height="50" rx="8" fill="url(#vpGrad)" stroke="var(--ink)" stroke-width="2"/>
+<text x="1098" y="200" class="lbl" font-size="18">VP REVOPS</text>
+<text x="1098" y="220" class="lbl" font-size="14">Systems / Analytics</text>
+
+<rect x="1304" y="178" width="200" height="50" rx="8" fill="url(#vpGrad)" stroke="var(--ink)" stroke-width="2"/>
+<text x="1404" y="200" class="lbl" font-size="18">VP ENABLEMENT</text>
+<text x="1404" y="220" class="lbl" font-size="14">Training / Onboarding</text>
+
+<!-- Connectors to IC layer -->
+<path d="M180 228 L180 258" stroke="var(--c3)" stroke-width="2" fill="none"/>
+<path d="M486 228 L486 258" stroke="var(--c3)" stroke-width="2" fill="none"/>
+<path d="M792 228 L792 258" stroke="var(--c3)" stroke-width="2" fill="none"/>
+<path d="M1098 228 L1098 258" stroke="var(--c3)" stroke-width="2" fill="none"/>
+<path d="M1404 228 L1404 258" stroke="var(--c3)" stroke-width="2" fill="none"/>
+
+<!-- IC / Bench layer -->
+<rect x="60" y="258" width="240" height="88" rx="8" fill="var(--c3)" stroke="var(--ink)" stroke-width="2"/>
+<text x="180" y="282" class="lbl" font-size="16">NAMED-ACCOUNT AEs</text>
+<text x="180" y="304" class="sub" font-size="13">8-12 reps per region</text>
+<text x="180" y="322" class="sub" font-size="13">$1.2M-$1.8M quota</text>
+<text x="180" y="340" class="sub" font-size="13">5-15 Fortune accounts</text>
+
+<rect x="366" y="258" width="240" height="88" rx="8" fill="var(--c3)" stroke="var(--ink)" stroke-width="2"/>
+<text x="486" y="282" class="lbl" font-size="16">SE BENCH</text>
+<text x="486" y="304" class="sub" font-size="13">1:2 SE-to-AE ratio</text>
+<text x="486" y="322" class="sub" font-size="13">Demo / POC / Security</text>
+<text x="486" y="340" class="sub" font-size="13">Technical close partner</text>
+
+<rect x="672" y="258" width="240" height="88" rx="8" fill="var(--c3)" stroke="var(--ink)" stroke-width="2"/>
+<text x="792" y="282" class="lbl" font-size="16">CSMs + RENEWALS</text>
+<text x="792" y="304" class="sub" font-size="13">1:8 CSM-to-account</text>
+<text x="792" y="322" class="sub" font-size="13">NRR ownership 110%+</text>
+<text x="792" y="340" class="sub" font-size="13">Expansion qualified</text>
+
+<rect x="978" y="258" width="240" height="88" rx="8" fill="var(--c3)" stroke="var(--ink)" stroke-width="2"/>
+<text x="1098" y="282" class="lbl" font-size="16">REVOPS POD</text>
+<text x="1098" y="304" class="sub" font-size="13">SFDC / Gong / Clari</text>
+<text x="1098" y="322" class="sub" font-size="13">Forecast + Comp + Terr.</text>
+<text x="1098" y="340" class="sub" font-size="13">Deal Desk + Pricing</text>
+
+<rect x="1284" y="258" width="240" height="88" rx="8" fill="var(--c3)" stroke="var(--ink)" stroke-width="2"/>
+<text x="1404" y="282" class="lbl" font-size="16">ENABLEMENT TEAM</text>
+<text x="1404" y="304" class="sub" font-size="13">MEDDPICC / Command</text>
+<text x="1404" y="322" class="sub" font-size="13">Ramp 90/180 day</text>
+<text x="1404" y="340" class="sub" font-size="13">Content + Coaching</text>
+
+<text x="792" y="378" class="sub" font-size="14" fill="var(--c3)">CRO span: 5 direct reports - IC count scales 80-300+ depending on ARR stage</text>
+</svg>

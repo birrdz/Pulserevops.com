@@ -1,0 +1,101 @@
+QUESTION: What are Alabama Crimson Tide men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+# What are Alabama Crimson Tide men's basketball's 2027 NIL needs and strategy?
+
+## Direct Answer
+
+Alabama's 2027 NIL strategy is built around one anchor and one ambition: keep Nate Oats happy through his $7.25M extension that runs to 2032, and convert the Yea Alabama collective's simplified two-tier membership engine into a transfer-portal war chest big enough to land elite guard play, stretch-five shooting, and a true rim-protecting center. The Crimson Tide just made their first Final Four in program history under Oats, and the NIL math now has to match the on-court ceiling. Yea Alabama collapsed five tiers into a $5 Rookie and $25 Veteran structure to drive raw membership volume, and that broad base needs to feed a basketball-specific donor stack that targets roughly $6M-$8M in basketball-only NIL spend for 2026-27 — competitive with the top of the SEC but not yet at Duke or Kentucky's reported ceilings. The plays that follow are how Alabama gets there.
+
+## 1. Lock the Oats Era Into Every Donor Pitch
+
+Greg Byrne's April 2026 announcement that Oats had agreed to a contract extension through 2032 at $7.25M per year is the single most powerful fundraising tool the program has. North Carolina fired Hubert Davis, Oats' name surfaced in Chapel Hill, and Alabama responded by making him the fourth-highest-paid coach in college basketball. That story sells.
+
+**1.1 The seven-year runway.** Donors hate giving to a program that might lose its head coach in 18 months. The 2032 extension wipes that objection off the table for every Yea Alabama solicitation through the 2027 cycle. Basketball lead asks should open with the runway, not the roster.
+
+**1.2 The Final Four halo.** Oats' .700 winning percentage, two SEC regular season titles, two SEC Tournament titles, five Sweet 16 appearances, and the program's first Final Four create a tangible "we are a basketball school now" narrative that mid-major donors and football-first alumni both understand.
+
+**1.3 Coach-led collective events.** Oats needs to headline at least four Yea Alabama basketball-only events between June and October 2026 — Birmingham, Huntsville, Mobile, and a Nashville satellite to pull SEC corporate money. Football has dominated the calendar; basketball gets parity in 2026-27 or it loses portal battles to Auburn and Tennessee. Each event should pair Oats with one current player and one Final Four alum to give donors a past-present-future arc they can write checks against.
+
+**1.4 The Byrne factor.** Athletic Director Greg Byrne publicly shut down the UNC rumors within hours, and that visible institutional commitment matters to donors who lived through coaching exits at other programs. Byrne should appear on stage with Oats at every major event to underline that the administration, not just the head coach, is all-in on basketball.
+
+## 2. Roster Construction: What Oats Actually Said at Regions Tradition
+
+Oats publicly updated 2026-27 roster construction at the Regions Tradition event, and Alabama has already added Cole Cloer from NC State as its third transfer portal acquisition. That signals the build is well underway but not finished. The NIL allocation needs to track three specific holes.
+
+**2.1 Lead guard who can survive SEC ball pressure.** Oats' offense lives at 75-plus possessions per game. Cloer adds shooting, but the 2027 roster still needs an alpha point guard who can break pressure and play 32 minutes. Market rate for that profile in the 2026 portal is $1.2M-$1.8M.
+
+**2.2 Stretch-five who can shoot 36% from three.** Alabama's five-out spacing demands a big who pulls a rim protector out of the paint. That archetype runs $800K-$1.1M and is the single hardest position to source.
+
+**2.3 True rim protector behind the stretch-five.** Final Four runs in 2025 and 2026 exposed Alabama's vulnerability to elite interior scoring. A 6'10"-plus shot-blocker at $600K-$900K rounds out the rotation and is the most overlooked NIL line item in most Alabama booster pitches.
+
+## 3. Yea Alabama: Turning Two Tiers Into Eight-Figure Basketball Spend
+
+Yea Alabama's September 30 rollout collapsed five tiers into $5 Rookie and $25 Veteran levels. Rookie unlocks the exclusive message board plus Alabama Athletics content, breaking news, and announcements. Veteran adds player shoutouts and expanded features. The simplification was a volume play — get more members, then segment them later.
+
+**3.1 Basketball-designated giving.** Yea Alabama needs a basketball-only sub-fund inside the Veteran tier with a visible thermometer. Football crowds out basketball when funds are pooled. A separate visible target — call it $6M for 2026-27 hoops — is how membership volume converts to elite portal closes.
+
+**3.2 Player-shoutout monetization for basketball.** The Veteran-tier shoutout feature is currently underused for basketball. Each scholarship player should be running two shoutouts per month during season, three in postseason, with revenue share flowing to the player's individual NIL deal. That builds player loyalty against poach attempts from Arkansas and LSU.
+
+**3.3 Membership-to-major-gift ladder.** Veteran tier members at $25 are a prospect pool, not a destination. Yea Alabama needs a quiet $5K, $25K, and $100K basketball circle layered on top of the public tiers, with Oats-hosted dinners as the close mechanic.
+
+```mermaid
+flowchart TD
+    A[Yea Alabama Rookie 5 dollar tier] --> B[Veteran 25 dollar tier]
+    B --> C[Basketball-only sub-fund]
+    C --> D[5K Circle]
+    C --> E[25K Circle]
+    C --> F[100K Circle]
+    D --> G[Portal lead guard 1.2 to 1.8M]
+    E --> H[Stretch five 800K to 1.1M]
+    F --> I[Rim protector 600K to 900K]
+    G --> J[2026-27 SEC contender roster]
+    H --> J
+    I --> J
+```
+
+## 4. Defending the House Settlement Cap and Revenue-Share Era
+
+The House settlement revenue-share era reshapes how every SEC program splits its cap between football and basketball. Alabama football will consume the majority, but basketball's Final Four credential gives Oats real leverage to argue for a larger basketball slice than peer programs allocate.
+
+**4.1 The 22% rule of thumb.** The House v. NCAA settlement, given final approval by Judge Claudia Wilken in June 2025, set a first-year revenue-share cap near $20.5 million per school, escalating roughly four percent annually. Across SEC programs sharing internal projections publicly, basketball is averaging roughly 18-20% of that rev-share pool, with football taking the bulk. Alabama should target 22% based on Final Four equity, which translates roughly to a $4.5M-$5M rev-share line for hoops on top of collective NIL. That carve-out fight happens in Byrne's budget meetings in late 2026, and Oats' newly extended contract plus the program's first Final Four banner are his two strongest arguments for a bigger basketball slice than peer SEC schools allocate.
+
+**4.2 Stacking rev-share plus Yea Alabama.** Players see one number. The rev-share contract plus the Yea Alabama deal plus individual brand NIL is the offer sheet. Alabama's competitive advantage is making that stack legible and predictable at the visit, not haggling line-by-line in July.
+
+**4.3 The Cloer template.** Cole Cloer's commitment, announced through Yea Alabama, is the public template for how Alabama wants every 2027 portal close to look — the collective brands the announcement, the rev-share is implicit, and the message-board ecosystem amplifies it within 24 hours.
+
+## 5. The NIL Go Clearinghouse and Compliance Reality
+
+Every Alabama deal above $600 now has to clear NIL Go, the Deloitte-run clearinghouse created under the College Sports Commission to certify that third-party NIL agreements reflect genuine fair-market value rather than disguised pay-for-play. For Yea Alabama, this changes how the collective documents deliverables. A $1.5M lead-guard agreement that is really a salary will draw scrutiny; the same dollar figure backed by autograph sessions, social posts for real Birmingham and Huntsville sponsors, camp appearances, and merchandise tie-ins clears review. Alabama's competitive task in 2027 is paperwork discipline as much as fundraising: the collective should pre-package fair-market deliverable bundles for each tier so that a recruit's offer survives clearinghouse review without renegotiation in July. Programs that treat NIL Go as an afterthought risk having committed deals voided mid-cycle, which is exactly the kind of instability the Oats 2032 extension was meant to eliminate.
+
+## 6. The 2027 NIL Playbook in One Diagram
+
+```mermaid
+flowchart TD
+    A[Oats extension to 2032] --> B[Donor confidence reset]
+    B --> C[Basketball event calendar June to October 2026]
+    C --> D[Yea Alabama basketball sub-fund]
+    D --> E[Membership ladder to major gifts]
+    E --> F[Rev-share 22 percent target]
+    F --> G[Portal stack lead guard]
+    F --> H[Portal stack stretch five]
+    F --> I[Portal stack rim protector]
+    G --> K[2026-27 SEC contender]
+    H --> K
+    I --> K
+    K --> L[2027 Final Four push]
+```
+
+## Bottom Line
+
+Alabama's 2027 NIL needs are concrete and ranked: a $1.5M lead guard, a $1M stretch-five, and an $800K rim protector layered on top of a Yea Alabama membership engine that just got simpler and a coaching contract that just got longer. The strategy writes itself from there — sell the 2032 runway hard, carve a visible basketball-only sub-fund out of the new two-tier collective, push internal rev-share allocation to 22%, document fair-market deliverables for every deal so NIL Go cannot void them, and make the Cloer-style branded announcement the public template for every close from June through October. Do those things on schedule and Alabama is firmly back in the Final Four conversation in 2027.
+
+## Frequently Asked Questions
+
+**How does Nate Oats' $7.25M extension change Alabama's NIL fundraising?**
+The extension through 2032 removes the single biggest objection donors raise before writing large checks: the fear that the head coach leaves and the roster they funded scatters. With North Carolina having pursued Oats after firing Hubert Davis, Alabama's quick move to make him the fourth-highest-paid coach in the sport signals institutional permanence. Every Yea Alabama lead ask through the 2027 cycle should open with that seven-year runway, because a multi-year NIL commitment to a recruit is far easier to sell when the program can credibly promise the coach, scheme, and development pipeline will still be there for the length of the deal.
+
+**Why does basketball need its own Yea Alabama sub-fund instead of the general pool?**
+Because at a football-first SEC school, a pooled collective will always route the majority of dollars to football, and basketball's specific needs get starved even in a Final Four year. A visible, basketball-only sub-fund with its own fundraising thermometer — targeting roughly $6M for 2026-27 hoops — lets Oats point donors at a concrete number tied directly to landing a $1.2M-$1.8M lead guard, an $800K-$1.1M stretch-five, and a $600K-$900K rim protector. Earmarked giving also converts the high-volume $25 Veteran membership base into a prospect pipeline for the quiet $5K, $25K, and $100K basketball circles that actually close elite portal targets.
+
+Sources: rolltide.com (Oats extension through 2032), abc3340.com ($7.25M contract approval), si.com (Regions Tradition roster construction), yea-alabama.com (collective overview), yellowhammernews.com (two-tier membership changes), sports.yahoo.com (Cole Cloer portal acquisition).

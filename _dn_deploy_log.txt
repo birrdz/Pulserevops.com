@@ -1,0 +1,1675 @@
+﻿node.exe : npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (npm warn Unknow...version of npm.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[project.ts]: detectFrameworks
+[project.ts]: detectBuildSystem
+[project.ts]: detectWorkspaces
+[project.ts]: detectPackageManager
+[project.ts]: detectFrameworksInPath - undefined
+ΓÇï
+> Initial build environment
+config: C:\Users\koryj\website\netlify.toml
+context: dev
+cwd: C:\Users\koryj\website
+featureFlags: []
+mode: cli
+repositoryRoot: C:\Users\koryj\website
+siteId: a2b74b30-a1ac-40e2-9622-aebfc2feb482
+ΓÇï
+> UI build settings
+baseRelDir: false
+plugins:
+  - inputs: {}
+    package: "@netlify/plugin-lighthouse"
+ΓÇï
+> Resolved build environment
+branch: main
+buildDir: C:\Users\koryj\website
+configPath: C:\Users\koryj\website\netlify.toml
+context: dev
+env:
+  - ALERT_FROM_EMAIL
+  - ALERT_TO_EMAIL
+  - anthrokey
+  - ANTHROPIC_API_KEY
+  - ANTHROPIC_API_KEY2
+  - BLOBS_PAT
+  - ds1
+  - GROQ_API_KEY
+  - IPINFO_TOKEN
+  - pulsenetworkpressscraper
+  - resendapikey
+  - SERPER_API_KEY
+  - DEPLOY_ID
+  - BUILD_ID
+  - ACCOUNT_ID
+  - NETLIFY_LOCAL
+  - HEAD
+  - COMMIT_REF
+  - CACHED_COMMIT_REF
+  - PULL_REQUEST
+  - LANG
+  - LANGUAGE
+  - LC_ALL
+  - GATSBY_TELEMETRY_DISABLED
+  - NEXT_TELEMETRY_DISABLED
+ΓÇï
+> Resolved config
+build:
+  edge_functions: C:\Users\koryj\website\netlify\edge-functions
+  publish: C:\Users\koryj\website
+  publishOrigin: default
+functions:
+  pulse-backfill-images-background:
+    timeout: 120
+  pulse-economy-polish:
+    timeout: 26
+  pulse-economy-polish-background:
+    timeout: 900
+  pulse-machine-og:
+    included_files:
+      - node_modules/@resvg/resvg-wasm/index_bg.wasm
+  pulse-quality-audit-background:
+    schedule: "* * * * *"
+    timeout: 60
+  pulse-year-accuracy-audit-background:
+    schedule: "*/5 * * * *"
+    timeout: 60
+functionsDirectory: C:\Users\koryj\website\netlify\functions
+headers:
+  - for: /graphics/assets/*
+    values:
+      Cache-Control: public, max-age=300, must-revalidate
+      Content-Disposition: attachment
+  - for: /.netlify/functions/*
+    values:
+      X-Robots-Tag: noindex, nofollow
+  - for: /og/*
+    values:
+      X-Robots-Tag: noindex, nofollow
+  - for: /*.json
+    values:
+      X-Robots-Tag: noindex, nofollow
+  - for: /.netlify/functions/pulse-machine-sitemap
+    values:
+      Cache-Control: public, max-age=600
+      X-Robots-Tag: noindex
+  - for: /assets/nav-loader.js
+    values:
+      Cache-Control: public, max-age=300, must-revalidate
+  - for: /assets/visit-alert.js
+    values:
+      Cache-Control: public, max-age=300, must-revalidate
+  - for: /knowledge.html
+    values:
+      Cache-Control: public, max-age=0, must-revalidate
+  - for: /knowledge
+    values:
+      Cache-Control: public, max-age=0, must-revalidate
+  - for: /*
+    values:
+      Link: <https://pulserevops.com/>; rel="canonical"
+      Referrer-Policy: strict-origin-when-cross-origin
+      X-Content-Type-Options: nosniff
+      X-Frame-Options: SAMEORIGIN
+  - for: /js/*
+    values:
+      Cache-Control: public, max-age=600, stale-while-revalidate=86400
+  - for: /css/*
+    values:
+      Cache-Control: public, max-age=600, stale-while-revalidate=86400
+  - for: /*.svg
+    values:
+      Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  - for: /*.png
+    values:
+      Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  - for: /*.jpg
+    values:
+      Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  - for: /*.webp
+    values:
+      Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  - for: /*.woff2
+    values:
+      Cache-Control: public, max-age=2592000, immutable
+headersOrigin: config
+plugins:
+  - inputs: {}
+    origin: ui
+    package: "@netlify/plugin-lighthouse"
+redirects:
+  - from: /sitemap-sales-trainings.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=st
+  - from: /sitemap-industry-kpis.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=ik
+  - from: /sitemap-tech-stacks.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=tk
+  - from: /sitemap-graphics.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=gb
+  - from: /sitemap-book-summaries.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=bs
+  - from: /sitemap-electronic-reviews.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=er
+  - from: /sitemap-revenue-architecture.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=ra
+  - from: /sitemap-go-to-market-playbooks.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=gp
+  - from: /sitemap-franchises.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=fr
+  - from: /sitemap-cars.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=ca
+  - from: /sitemap-towns.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=tn
+  - from: /sitemap-schools.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=sc
+  - from: /sitemap-nightlife.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=nl
+  - from: /sitemap-dining.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=dn
+  - from: /sitemap-boats.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=bt
+  - from: /sitemap-movies.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=mv
+  - from: /sitemap-coaching.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=cg
+  - from: /sitemap-wellness.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=wl
+  - from: /sitemap-drills.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=dr
+  - from: /sitemap-travel.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=tv
+  - from: /sitemap-resorts.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=rs
+  - from: /sitemap-estates.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=es
+  - from: /sitemap-collectibles.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=co
+  - from: /sitemap-aquariums.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=aq
+  - from: /sitemap-highschool-football-recruiting.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=hf
+  - from: /sitemap-ai-infrastructure.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=ai
+  - from: /sitemap-clubs.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=cl
+  - from: /sitemap-living.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=lv
+  - from: /sitemap-events.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=ev
+  - from: /sitemap-style.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=sy
+  - from: /sitemap-gatherings.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=ga
+  - from: /sitemap-gaming.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=gm
+  - from: /sitemap-skills.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=sk
+  - from: /sitemap-speeches.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=sp
+  - from: /sitemap-knowledge-live.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-sitemap?pillar=q
+  - from: /q:id
+    status: 301
+    to: /knowledge/q:id
+  - from: /reps/*
+    status: 410
+    to: /.netlify/functions/pulse-gone
+  - from: /cities/*
+    status: 410
+    to: /.netlify/functions/pulse-gone
+  - from: /teams/*
+    status: 410
+    to: /.netlify/functions/pulse-gone
+  - from: /emails/*
+    status: 410
+    to: /.netlify/functions/pulse-gone
+  - from: /feedback/*
+    status: 410
+    to: /.netlify/functions/pulse-gone
+  - from: /vibes/*
+    status: 410
+    to: /.netlify/functions/pulse-gone
+  - from: /fresh
+    status: 410
+    to: /.netlify/functions/pulse-gone
+  - from: /hr
+    status: 410
+    to: /.netlify/functions/pulse-gone
+  - from: /10
+    status: 410
+    to: /.netlify/functions/pulse-gone
+  - from: /feed.xml
+    status: 410
+    to: /.netlify/functions/pulse-gone
+  - force: true
+    from: /dashboard.html
+    status: 301
+    to: /dashboard
+  - from: /knowledge/:id/reviews
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+  - from: /knowledge/:id/review
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+  - from: /sales-trainings/:id/reviews
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=training&view=reviews
+  - from: /sales-trainings/:id/review
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=training&view=reviews
+  - from: /industry-kpis/:id/reviews
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=kpi&view=reviews
+  - from: /industry-kpis/:id/review
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=kpi&view=reviews
+  - from: /tech-stacks/:id/reviews
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=techstack&view=reviews
+  - from: /tech-stacks/:id/review
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=techstack&view=reviews
+  - from: /graphics/:id/reviews
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=graphic&view=reviews
+  - from: /graphics/:id/review
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=graphic&view=reviews
+  - from: /sales-book-summaries/:id/reviews
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=booksummary&view=reviews
+  - from: /sales-book-summaries/:id/review
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=booksummary&view=reviews
+  - from: /electronic-reviews/:id/reviews
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=electronicreview&view=reviews
+  - from: /electronic-reviews/:id/review
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=electronicreview&view=reviews
+  - from: /revenue-architecture/:id/reviews
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=revenuearchitecture&view=reviews
+  - from: /revenue-architecture/:id/review
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=revenuearchitecture&view=reviews
+  - from: /go-to-market-playbooks/:id/reviews
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=gtmplaybook&view=reviews
+  - from: /go-to-market-playbooks/:id/review
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=gtmplaybook&view=reviews
+  - from: /franchises/:id/reviews
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=franchise&view=reviews
+  - from: /franchises/:id/review
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&kind=franchise&view=reviews
+  - from: /knowledge/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=knowledge
+  - from: /sales-trainings/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=sales-trainings
+  - from: /industry-kpis/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=industry-kpis
+  - from: /tech-stacks/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=tech-stacks
+  - from: /graphics/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=graphics
+  - from: /sales-book-summaries/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=sales-book-summaries
+  - from: /electronic-reviews/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=electronic-reviews
+  - from: /revenue-architecture/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=revenue-architecture
+  - from: /go-to-market-playbooks/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=go-to-market-playbooks
+  - from: /dashboard/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=dashboard
+  - from: /matrix/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=matrix
+  - from: /schedule/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=schedule
+  - from: /plan-90/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=plan-90
+  - from: /bins/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=bins
+  - from: /answers/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=answers
+  - force: true
+    from: /resume/reviews
+    status: 301
+    to: /kory-white-maryland
+  - from: /machine/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=machine
+  - from: /home/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?page=home
+  - from: /tools/:slug/reviews
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?tools_slug=:slug
+  - from: /tools/:slug/review
+    status: 200
+    to: /.netlify/functions/pulse-static-reviews?tools_slug=:slug
+  - from: /reviews/:id
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+  - from: /review/:id
+    status: 200
+    to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+  - from: /sitemap-reviews.xml
+    status: 200
+    to: /.netlify/functions/pulse-machine-reviews-sitemap
+  - from: /reviews
+    status: 200
+    to: /.netlify/functions/pulse-reviews-hub
+  - from: /reviews/
+    status: 200
+    to: /.netlify/functions/pulse-reviews-hub
+  - from: /api/pulse-signal
+    status: 200
+    to: /.netlify/functions/pulse-innovation-signals
+  - from: /fresh
+    status: 200
+    to: /.netlify/functions/fresh-hub
+  - force: true
+    from: https://*.netlify.app/*
+    status: 301
+    to: https://pulserevops.com/:splat
+  - force: true
+    from: https://www.pulserevops.com/*
+    status: 301
+    to: https://pulserevops.com/:splat
+  - force: true
+    from: http://www.pulserevops.com/*
+    status: 301
+    to: https://pulserevops.com/:splat
+  - from: /knowledge
+    status: 200
+    to: /knowledge.html
+  - from: /knowledge-library
+    status: 200
+    to: /knowledge.html
+  - from: /knowledge-library/
+    status: 200
+    to: /knowledge.html
+redirectsOrigin: config
+[project.ts]: getBuildSettings
+[project.ts]: detectFrameworks
+[get-build-settings.ts] getBuildSettings for baseDirectory: 
+ΓÇï
+Netlify Build                                                 
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓÇï
+> Version
+  @netlify/build 35.15.0
+ΓÇï
+> Flags
+  accountId: 69c4ac4424a4a98ca91de40b
+  debug: true
+  deployId: 6a395bb775f4257ba812d0c2
+  edgeFunctionsBootstrapURL: https://v2-17-1--edge.netlify.com/bootstrap/index-combined.ts
+  featureFlags:
+    - netlify_build_db_setup
+  mode: cli
+  siteId: a2b74b30-a1ac-40e2-9622-aebfc2feb482
+  skewProtectionToken: 3de14a06218062b32b648e344db569c3a3e12fcc535da2b3bae5934bb689a901366133393562623737356634323537626138313264306332
+ΓÇï
+> Current directory
+  C:\Users\koryj\website
+ΓÇï
+> Config file
+  C:\Users\koryj\website\netlify.toml
+ΓÇï
+> Resolved config
+  build:
+    edge_functions: C:\Users\koryj\website\netlify\edge-functions
+    publish: C:\Users\koryj\website
+    publishOrigin: default
+  functions:
+    pulse-backfill-images-background:
+      timeout: 120
+    pulse-economy-polish:
+      timeout: 26
+    pulse-economy-polish-background:
+      timeout: 900
+    pulse-machine-og:
+      included_files:
+        - node_modules/@resvg/resvg-wasm/index_bg.wasm
+    pulse-quality-audit-background:
+      schedule: "* * * * *"
+      timeout: 60
+    pulse-year-accuracy-audit-background:
+      schedule: "*/5 * * * *"
+      timeout: 60
+  functionsDirectory: C:\Users\koryj\website\netlify\functions
+  headers:
+    - for: /graphics/assets/*
+      values:
+        Cache-Control: public, max-age=300, must-revalidate
+        Content-Disposition: attachment
+    - for: /.netlify/functions/*
+      values:
+        X-Robots-Tag: noindex, nofollow
+    - for: /og/*
+      values:
+        X-Robots-Tag: noindex, nofollow
+    - for: /*.json
+      values:
+        X-Robots-Tag: noindex, nofollow
+    - for: /.netlify/functions/pulse-machine-sitemap
+      values:
+        Cache-Control: public, max-age=600
+        X-Robots-Tag: noindex
+    - for: /assets/nav-loader.js
+      values:
+        Cache-Control: public, max-age=300, must-revalidate
+    - for: /assets/visit-alert.js
+      values:
+        Cache-Control: public, max-age=300, must-revalidate
+    - for: /knowledge.html
+      values:
+        Cache-Control: public, max-age=0, must-revalidate
+    - for: /knowledge
+      values:
+        Cache-Control: public, max-age=0, must-revalidate
+    - for: /*
+      values:
+        Link: <https://pulserevops.com/>; rel="canonical"
+        Referrer-Policy: strict-origin-when-cross-origin
+        X-Content-Type-Options: nosniff
+        X-Frame-Options: SAMEORIGIN
+    - for: /js/*
+      values:
+        Cache-Control: public, max-age=600, stale-while-revalidate=86400
+    - for: /css/*
+      values:
+        Cache-Control: public, max-age=600, stale-while-revalidate=86400
+    - for: /*.svg
+      values:
+        Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+    - for: /*.png
+      values:
+        Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+    - for: /*.jpg
+      values:
+        Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+    - for: /*.webp
+      values:
+        Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+    - for: /*.woff2
+      values:
+        Cache-Control: public, max-age=2592000, immutable
+  headersOrigin: config
+  plugins:
+    - inputs: {}
+      origin: ui
+      package: "@netlify/plugin-lighthouse"
+  redirects:
+    - from: /sitemap-sales-trainings.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=st
+    - from: /sitemap-industry-kpis.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ik
+    - from: /sitemap-tech-stacks.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=tk
+    - from: /sitemap-graphics.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=gb
+    - from: /sitemap-book-summaries.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=bs
+    - from: /sitemap-electronic-reviews.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=er
+    - from: /sitemap-revenue-architecture.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ra
+    - from: /sitemap-go-to-market-playbooks.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=gp
+    - from: /sitemap-franchises.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=fr
+    - from: /sitemap-cars.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ca
+    - from: /sitemap-towns.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=tn
+    - from: /sitemap-schools.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=sc
+    - from: /sitemap-nightlife.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=nl
+    - from: /sitemap-dining.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=dn
+    - from: /sitemap-boats.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=bt
+    - from: /sitemap-movies.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=mv
+    - from: /sitemap-coaching.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=cg
+    - from: /sitemap-wellness.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=wl
+    - from: /sitemap-drills.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=dr
+    - from: /sitemap-travel.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=tv
+    - from: /sitemap-resorts.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=rs
+    - from: /sitemap-estates.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=es
+    - from: /sitemap-collectibles.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=co
+    - from: /sitemap-aquariums.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=aq
+    - from: /sitemap-highschool-football-recruiting.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=hf
+    - from: /sitemap-ai-infrastructure.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ai
+    - from: /sitemap-clubs.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=cl
+    - from: /sitemap-living.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=lv
+    - from: /sitemap-events.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ev
+    - from: /sitemap-style.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=sy
+    - from: /sitemap-gatherings.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ga
+    - from: /sitemap-gaming.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=gm
+    - from: /sitemap-skills.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=sk
+    - from: /sitemap-speeches.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=sp
+    - from: /sitemap-knowledge-live.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=q
+    - from: /q:id
+      status: 301
+      to: /knowledge/q:id
+    - from: /reps/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /cities/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /teams/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /emails/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /feedback/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /vibes/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /fresh
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /hr
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /10
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /feed.xml
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - force: true
+      from: /dashboard.html
+      status: 301
+      to: /dashboard
+    - from: /knowledge/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+    - from: /knowledge/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+    - from: /sales-trainings/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=training&view=reviews
+    - from: /sales-trainings/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=training&view=reviews
+    - from: /industry-kpis/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=kpi&view=reviews
+    - from: /industry-kpis/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=kpi&view=reviews
+    - from: /tech-stacks/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=techstack&view=reviews
+    - from: /tech-stacks/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=techstack&view=reviews
+    - from: /graphics/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=graphic&view=reviews
+    - from: /graphics/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=graphic&view=reviews
+    - from: /sales-book-summaries/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=booksummary&view=reviews
+    - from: /sales-book-summaries/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=booksummary&view=reviews
+    - from: /electronic-reviews/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=electronicreview&view=reviews
+    - from: /electronic-reviews/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=electronicreview&view=reviews
+    - from: /revenue-architecture/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=revenuearchitecture&view=reviews
+    - from: /revenue-architecture/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=revenuearchitecture&view=reviews
+    - from: /go-to-market-playbooks/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=gtmplaybook&view=reviews
+    - from: /go-to-market-playbooks/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=gtmplaybook&view=reviews
+    - from: /franchises/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=franchise&view=reviews
+    - from: /franchises/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=franchise&view=reviews
+    - from: /knowledge/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=knowledge
+    - from: /sales-trainings/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=sales-trainings
+    - from: /industry-kpis/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=industry-kpis
+    - from: /tech-stacks/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=tech-stacks
+    - from: /graphics/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=graphics
+    - from: /sales-book-summaries/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=sales-book-summaries
+    - from: /electronic-reviews/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=electronic-reviews
+    - from: /revenue-architecture/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=revenue-architecture
+    - from: /go-to-market-playbooks/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=go-to-market-playbooks
+    - from: /dashboard/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=dashboard
+    - from: /matrix/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=matrix
+    - from: /schedule/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=schedule
+    - from: /plan-90/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=plan-90
+    - from: /bins/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=bins
+    - from: /answers/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=answers
+    - force: true
+      from: /resume/reviews
+      status: 301
+      to: /kory-white-maryland
+    - from: /machine/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=machine
+    - from: /home/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=home
+    - from: /tools/:slug/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?tools_slug=:slug
+    - from: /tools/:slug/review
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?tools_slug=:slug
+    - from: /reviews/:id
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+    - from: /review/:id
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+    - from: /sitemap-reviews.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-reviews-sitemap
+    - from: /reviews
+      status: 200
+      to: /.netlify/functions/pulse-reviews-hub
+    - from: /reviews/
+      status: 200
+      to: /.netlify/functions/pulse-reviews-hub
+    - from: /api/pulse-signal
+      status: 200
+      to: /.netlify/functions/pulse-innovation-signals
+    - from: /fresh
+      status: 200
+      to: /.netlify/functions/fresh-hub
+    - force: true
+      from: https://*.netlify.app/*
+      status: 301
+      to: https://pulserevops.com/:splat
+    - force: true
+      from: https://www.pulserevops.com/*
+      status: 301
+      to: https://pulserevops.com/:splat
+    - force: true
+      from: http://www.pulserevops.com/*
+      status: 301
+      to: https://pulserevops.com/:splat
+    - from: /knowledge
+      status: 200
+      to: /knowledge.html
+    - from: /knowledge-library
+      status: 200
+      to: /knowledge.html
+    - from: /knowledge-library/
+      status: 200
+      to: /knowledge.html
+  redirectsOrigin: config
+ΓÇï
+> Context
+  production
+ΓÇï
+> Available plugins
+   - @21yunbox/netlify-plugin-21yunbox-deploy-to-china-cdn@1.0.7
+   - @algolia/netlify-plugin-crawler@1.0.0
+   - @bharathvaj/netlify-plugin-airbrake@1.0.2
+   - @chiselstrike/netlify-plugin@0.1.0
+   - @commandbar/netlify-plugin-commandbar@0.0.4
+   - @helloample/netlify-plugin-replace@1.1.4
+   - @netlify/angular-runtime@4.0.0
+   - @netlify/feature-package-pilot@0.1.11
+   - @netlify/plugin-angular-universal@1.0.1
+   - @netlify/plugin-contentful-buildtime@0.0.3
+   - @netlify/plugin-emails@1.1.1
+   - @netlify/plugin-gatsby@3.8.4
+   - @netlify/plugin-lighthouse@6.0.1
+   - @netlify/plugin-nextjs@5.7.0-ipx.0
+   - @netlify/plugin-sitemap@0.8.1
+   - @newrelic/netlify-plugin@1.0.2
+   - @sentry/netlify-build-plugin@1.1.1
+   - @snaplet/netlify-preview-database-plugin@2.0.0
+   - @takeshape/netlify-plugin-takeshape@1.0.0
+   - @vgs/netlify-plugin-vgs@0.0.2
+   - netlify-build-plugin-dareboost@1.2.1
+   - netlify-build-plugin-debugbear@1.0.6
+   - netlify-build-plugin-perfbeacon@1.0.3
+   - netlify-build-plugin-speedcurve@2.0.0
+   - netlify-deployment-hours-plugin@0.0.10
+   - netlify-plugin-a11y@0.0.12
+   - netlify-plugin-add-instagram@0.2.2
+   - netlify-plugin-algolia-index@0.3.0
+   - netlify-plugin-amp-server-side-rendering@1.0.2
+   - netlify-plugin-brand-guardian@1.0.1
+   - netlify-plugin-build-logger@1.0.3
+   - netlify-plugin-bundle-env@0.2.2
+   - netlify-plugin-cache-nextjs@1.4.0
+   - netlify-plugin-cecil-cache@0.3.3
+   - netlify-plugin-checklinks@4.1.1
+   - netlify-plugin-chromium@1.1.4
+   - netlify-plugin-cloudinary@1.17.0
+   - netlify-plugin-contextual-env@0.3.0
+   - netlify-plugin-cypress@2.2.0
+   - netlify-plugin-debug-cache@1.0.4
+   - netlify-plugin-encrypted-files@0.0.5
+   - netlify-plugin-fetch-feeds@0.2.3
+   - netlify-plugin-flutter@1.1.0
+   - netlify-plugin-formspree@1.0.1
+   - netlify-plugin-gatsby-cache@0.3.0
+   - netlify-plugin-get-env-vars@1.0.0
+   - netlify-plugin-ghost-inspector@1.0.1
+   - netlify-plugin-ghost-markdown@3.1.0
+   - netlify-plugin-gmail@1.1.0
+   - netlify-plugin-gridsome-cache@1.0.3
+   - netlify-plugin-hashfiles@4.0.2
+   - netlify-plugin-html-validate@1.0.0
+   - netlify-plugin-hugo-cache-resources@0.2.1
+   - netlify-plugin-image-optim@0.4.0
+   - netlify-plugin-inline-critical-css@2.0.0
+   - netlify-plugin-inline-functions-env@1.0.8
+   - netlify-plugin-inline-source@1.0.4
+   - netlify-plugin-inngest@1.0.0
+   - netlify-plugin-is-website-vulnerable@2.0.3
+   - netlify-plugin-jekyll-cache@1.0.0
+   - netlify-plugin-js-obfuscator@1.0.20
+   - netlify-plugin-minify-html@0.3.1
+   - netlify-plugin-next-dynamic@1.0.9
+   - netlify-plugin-nimbella@2.1.0
+   - netlify-plugin-no-more-404@0.0.15
+   - netlify-plugin-nx-skip-build@0.0.7
+   - netlify-plugin-pagewatch@1.0.4
+   - netlify-plugin-playwright-cache@0.0.1
+   - netlify-plugin-prerender-spa@1.0.1
+   - netlify-plugin-prisma-provider@0.3.0
+   - netlify-plugin-pushover@0.1.1
+   - netlify-plugin-qawolf@1.2.0
+   - netlify-plugin-rss@0.0.8
+   - netlify-plugin-search-index@0.1.5
+   - netlify-plugin-snyk@1.2.0
+   - netlify-plugin-stepzen@1.0.4
+   - netlify-plugin-subfont@6.0.0
+   - netlify-plugin-submit-sitemap@0.4.0
+   - netlify-plugin-to-all-events@1.3.1
+   - netlify-plugin-use-env-in-runtime@1.2.1
+   - netlify-plugin-visual-diff@2.0.0
+   - netlify-plugin-webmentions@1.1.0
+   - netlify-purge-cloudflare-on-deploy@1.2.0
+   - strapi-plugin-netlify-deployments@2.0.1
+Used compatible version '6.0.1' for plugin '@netlify/plugin-lighthouse' (pinned version is 6)
+ΓÇï
+> Loading plugins
+   - @netlify/plugin-lighthouse@6.0.1 from Netlify app (pinned 6, latest 6.0.1, expected 6.0.1, compatible 6.0.1)
+ΓÇï
+Functions bundling                                            
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓÇï
+Packaging Functions from netlify\functions directory:
+ - ai-coach.js
+ - apollo-coverage.js
+ - apollo-daily-publish-background.js
+ - apollo-debug.js
+ - apollo-today.js
+ - backfill-tags.js
+ - cold-email-gen.js
+ - dashboard-narrative.js
+ - email-open-webhook.js
+ - entry-feedback.js
+ - entry-view.js
+ - icp-fit-scorer.js
+ - index-queue.js
+ - indexnow-ping.js
+ - indexnow-status.js
+ - industry-kpis-refresh-background.js
+ - industry-kpis.js
+ - intent-list.js
+ - intent-track.js
+ - laymanize.js
+ - lead-enrich.js
+ - mermaid-audit-fix-background.js
+ - press-scrape.js
+ - press.js
+ - pulse-activity-feed.js
+ - pulse-audit-background.js
+ - pulse-audit-tick.js
+ - pulse-backfill-images-background.js
+ - pulse-blob-polish.js
+ - pulse-blob-reset-scores.js
+ - pulse-blob-seo-tick.js
+ - pulse-blob-stamp-all-indexed.js
+ - pulse-blob-writer.js
+ - pulse-books-leaderboard.js
+ - pulse-cleanup-status.js
+ - pulse-click-notify.js
+ - pulse-cro-economy-tick-background.js
+ - pulse-cro-lead.js
+ - pulse-cron-log.js
+ - pulse-cycle-tick-background.js
+ - pulse-deep-queue-tick-background.js
+ - pulse-deploy-scheduled-background.js
+ - pulse-economy-polish-background.js
+ - pulse-economy-polish.js
+ - pulse-ff-daily.js
+ - pulse-ff-list.js
+ - pulse-ff-simulate.js
+ - pulse-franchise-leaderboard.js
+ - pulse-gone.js
+ - pulse-grader-groq.js
+ - pulse-grader-improvement.js
+ - pulse-indexnow-target.js
+ - pulse-innovation-signals.js
+ - pulse-innovation-tick-background.js
+ - pulse-install-track.js
+ - pulse-knowledge.js
+ - pulse-leaderboard-page.js
+ - pulse-library-pulse.js
+ - pulse-library-snapshot-background.js
+ - pulse-machine-admin.js
+ - pulse-machine-api-vq-background.js
+ - pulse-machine-async-background.js
+ - pulse-machine-audit-list.js
+ - pulse-machine-daily-recap-background.js
+ - pulse-machine-entry.js
+ - pulse-machine-evening-push-background.js
+ - pulse-machine-feed.js
+ - pulse-machine-indexnow-batch-background.js
+ - pulse-machine-learn-background.js
+ - pulse-machine-library-list.js
+ - pulse-machine-mermaid-check.js
+ - pulse-machine-og.js
+ - pulse-machine-publish-prep-background.js
+ - pulse-machine-questions.js
+ - pulse-machine-rank-check-background.js
+ - pulse-machine-rank-view.js
+ - pulse-machine-research-background.js
+ - pulse-machine-reviews-sitemap.js
+ - pulse-machine-rss.js
+ - pulse-machine-site-audit-background.js
+ - pulse-machine-sitemap.js
+ - pulse-machine-status.js
+ - pulse-machine-tag.js
+ - pulse-machine-visitor-autopilot-background.js
+ - pulse-machine-visual-audit-background.js
+ - pulse-machine.js
+ - pulse-max-plan-status.js
+ - pulse-my-content.js
+ - pulse-nightly-seo-sweep-background.js
+ - pulse-nightly-seo-sweep-status.js
+ - pulse-owner-notify.js
+ - pulse-pillar-counts.js
+ - pulse-pillar-leaderboard.js
+ - pulse-pillar-totals-cron.js
+ - pulse-pillar-totals.js
+ - pulse-progress-notify.js
+ - pulse-proofread.js
+ - pulse-quality-audit-background.js
+ - pulse-quality-audit-pillar-status.js
+ - pulse-quality-audit-status.js
+ - pulse-report-12h.js
+ - pulse-report-24h.js
+ - pulse-report-hourly.js
+ - pulse-retro-link-background.js
+ - pulse-reviews-hub.js
+ - pulse-sponsor-inquiry.js
+ - pulse-sports-fetch-background.js
+ - pulse-sports-list.js
+ - pulse-sports-settle-background.js
+ - pulse-stale-touch-background.js
+ - pulse-static-reviews.js
+ - pulse-subscribe-relay.js
+ - pulse-tickers-cron.js
+ - pulse-tickers.js
+ - pulse-tool-save.js
+ - pulse-tools-sitemap.js
+ - pulse-top-viewed-cron.js
+ - pulse-top10-weekly-refresh-background.js
+ - pulse-trending-supersweep.js
+ - pulse-visitor-needs-human.js
+ - pulse-volume-gemini.js
+ - pulse-vote.js
+ - pulse-year-accuracy-audit-background.js
+ - queue-seed.js
+ - resume-score.js
+ - roleplay-coach.js
+ - social-cut.js
+ - staging-update.js
+ - subscribe.js
+ - tools-page.js
+ - visit-alert.js
+ - visitor-alert.js
+ - voice-translate.js
+ - warroom-report.js
+ - whoami.js
+ - _stats.js
+ΓÇï
+{"msg":"Functions bundling completed","bundlers":["zisi"],"bundlerCounts":{"zisi":136},"fallbackCount":0,"warningsCount":0,"functions":[{"name":"ai-coach","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"apollo-coverage","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"apollo-daily-publish-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"apollo-debug","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"apollo-today","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"backfill-tags","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"cold-email-gen","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"dashboard-narrative","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"email-open-webhook","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"entry-feedback","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"entry-view","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"icp-fit-scorer","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"index-queue","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"indexnow-ping","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"indexnow-status","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"industry-kpis-refresh-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"industry-kpis","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"intent-list","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"intent-track","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"laymanize","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"lead-enrich","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"mermaid-audit-fix-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"press-scrape","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"press","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-activity-feed","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-audit-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-audit-tick","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-backfill-images-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-blob-polish","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-blob-reset-scores","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-blob-seo-tick","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-blob-stamp-all-indexed","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-blob-writer","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-books-leaderboard","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-cleanup-status","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-click-notify","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-cro-economy-tick-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-cro-lead","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-cron-log","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-cycle-tick-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-deep-queue-tick-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-deploy-scheduled-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-economy-polish-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-economy-polish","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-ff-daily","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-ff-list","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-ff-simulate","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-franchise-leaderboard","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-gone","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-grader-groq","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-grader-improvement","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-indexnow-target","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-innovation-signals","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-innovation-tick-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-install-track","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-knowledge","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-leaderboard-page","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-library-pulse","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-library-snapshot-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-admin","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-api-vq-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-async-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-audit-list","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-daily-recap-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-entry","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-evening-push-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-feed","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-indexnow-batch-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-learn-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-library-list","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-mermaid-check","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-og","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-publish-prep-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-questions","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-rank-check-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-rank-view","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-research-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-reviews-sitemap","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-rss","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-site-audit-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-sitemap","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-status","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-tag","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-visitor-autopilot-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine-visual-audit-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-machine","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-max-plan-status","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-my-content","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-nightly-seo-sweep-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-nightly-seo-sweep-status","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-owner-notify","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-pillar-counts","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-pillar-leaderboard","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-pillar-totals-cron","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-pillar-totals","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-progress-notify","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-proofread","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-quality-audit-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-quality-audit-pillar-status","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-quality-audit-status","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-report-12h","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-report-24h","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-report-hourly","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-retro-link-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-reviews-hub","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-sponsor-inquiry","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-sports-fetch-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-sports-list","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-sports-settle-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-stale-touch-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-static-reviews","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-subscribe-relay","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-tickers-cron","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-tickers","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-tool-save","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-tools-sitemap","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-top-viewed-cron","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-top10-weekly-refresh-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-trending-supersweep","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-visitor-needs-human","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-volume-gemini","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-vote","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"pulse-year-accuracy-audit-background","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"queue-seed","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"resume-score","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"roleplay-coach","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"social-cut","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"staging-update","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"subscribe","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"tools-page","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"visit-alert","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"visitor-alert","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"voice-translate","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"warroom-report","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"whoami","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false},{"name":"_stats","runtime":"js","bundler":"zisi","hadFallback":false,"hadWarnings":false}]}
+ΓÇï
+(Functions bundling completed in 1.9s)
+Build step duration: Functions bundling completed in 1907ms
+ΓÇï
+Edge Functions bundling                                       
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓÇï
+Packaging Edge Functions from netlify\edge-functions directory:
+ - pulse-edge-guard
+Local version of types is up-to-date: 6a3947c86e7be400083636ea
+getBinaryVersion failed Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,
+ΓÇï
+operable program or batch file. Error: Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,
+ΓÇï
+operable program or batch file.
+    at makeError (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/node_modules/execa/lib/error.js:60:11)
+    at handlePromise (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/node_modules/execa/index.js:124:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async DenoBridge.getBinaryVersion (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:68:32)
+    at async DenoBridge.getGlobalBinary (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:103:24)
+    at async DenoBridge.getBinaryPath (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:141:28)
+    at async DenoBridge.run (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:170:38)
+    at async getRequiredSourceFiles (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/formats/tarball.js:159:28)
+    at async bundle (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/formats/tarball.js:23:28)
+    at async file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bundler.js:75:24
+No globalVersion or semver not satisfied. globalVersion: undefined, versionRange: ^2.4.2
+Using cached Deno CLI from C:\Users\koryj\AppData\Roaming\netlify\Config\deno-cli\deno.exe
+getBinaryVersion failed Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,
+ΓÇï
+operable program or batch file. Error: Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,
+ΓÇï
+operable program or batch file.
+    at makeError (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/node_modules/execa/lib/error.js:60:11)
+    at handlePromise (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/node_modules/execa/index.js:124:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async DenoBridge.getBinaryVersion (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:68:32)
+    at async DenoBridge.getGlobalBinary (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:103:24)
+    at async DenoBridge.getBinaryPath (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:141:28)
+    at async DenoBridge.run (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:170:38)
+    at async bundle (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/formats/tarball.js:81:5)
+    at async file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bundler.js:75:24
+    at async bundle (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bundler.js:94:17)
+No globalVersion or semver not satisfied. globalVersion: undefined, versionRange: ^2.4.2
+Using cached Deno CLI from C:\Users\koryj\AppData\Roaming\netlify\Config\deno-cli\deno.exe
+getBinaryVersion failed Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,
+ΓÇï
+operable program or batch file. Error: Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,
+ΓÇï
+operable program or batch file.
+    at makeError (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/node_modules/execa/lib/error.js:60:11)
+    at handlePromise (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/node_modules/execa/index.js:124:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async DenoBridge.getBinaryVersion (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:68:32)
+    at async DenoBridge.getGlobalBinary (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:103:24)
+    at async DenoBridge.getBinaryPath (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:141:28)
+    at async DenoBridge.run (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:170:38)
+    at async bundle (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/formats/eszip.js:33:9)
+    at async bundle (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bundler.js:105:18)
+    at async coreStep (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/build/lib/plugins_core/edge_functions/index.js:74:30)
+No globalVersion or semver not satisfied. globalVersion: undefined, versionRange: ^2.4.2
+Using cached Deno CLI from C:\Users\koryj\AppData\Roaming\netlify\Config\deno-cli\deno.exe
+getBinaryVersion failed Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,
+ΓÇï
+operable program or batch file. Error: Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,
+ΓÇï
+operable program or batch file.
+    at makeError (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/node_modules/execa/lib/error.js:60:11)
+    at handlePromise (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/node_modules/execa/index.js:124:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async DenoBridge.getBinaryVersion (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:68:32)
+    at async DenoBridge.getGlobalBinary (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:103:24)
+    at async DenoBridge.getBinaryPath (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:141:28)
+    at async getFunctionConfig (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/config.js:41:49)
+    at async file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bundler.js:197:28
+    at async Promise.allSettled (index 0)
+    at async getFunctionConfigs (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bundler.js:196:21)
+No globalVersion or semver not satisfied. globalVersion: undefined, versionRange: ^2.4.2
+getBinaryVersion failed Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,
+ΓÇï
+operable program or batch file. Error: Command failed with exit code 1: deno --version
+'deno' is not recognized as an internal or external command,
+ΓÇï
+operable program or batch file.
+    at makeError (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/node_modules/execa/lib/error.js:60:11)
+    at handlePromise (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/node_modules/execa/index.js:124:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async DenoBridge.getBinaryVersion (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:68:32)
+    at async DenoBridge.getGlobalBinary (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:103:24)
+    at async DenoBridge.getBinaryPath (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:141:28)
+    at async DenoBridge.run (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bridge.js:170:38)
+    at async getFunctionConfig (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/config.js:46:42)
+    at async file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/edge-bundler/dist/node/bundler.js:197:28
+    at async Promise.allSettled (index 0)
+No globalVersion or semver not satisfied. globalVersion: undefined, versionRange: ^2.4.2
+Using cached Deno CLI from C:\Users\koryj\AppData\Roaming\netlify\Config\deno-cli\deno.exe
+Dry run: Eszip and tarball bundle generated successfully.
+Edge Functions manifest: {"bundles":[{"asset":"1a00366feab8eeb0f9fea6bb18fd20079d5fafebedb98f05d1dec1a567bed232.tar.gz","format":"tar"},{"asset":"44be2c29f46ca2db47641eb5596cfb6946fbe0ee4966a637f2fe3c0510aa6402.eszip","format":"eszip2"}],"routes":[{"function":"pulse-edge-guard","pattern":"^/\\.netlify/functions/pulse-(.*)/?$","excluded_patterns":[],"path":"/.netlify/functions/pulse-*"}],"post_cache_routes":[],"bundler_version":"14.10.3","layers":[],"import_map":"netlify:import-map","function_config":{},"bundling_timing":{"tarball_ms":187}}
+ΓÇï
+(Edge Functions bundling completed in 1.1s)
+Build step duration: Edge Functions bundling completed in 1190ms
+
+Deploying to Netlify
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+Deploy path:        C:\Users\koryj\website
+Functions path:     C:\Users\koryj\website\netlify\functions
+Configuration path: C:\Users\koryj\website\netlify.toml
+
+Γáï Uploading blobs to deploy store...
+
+ΓêÜ Finished uploading blobs to deploy store
+Γáï Hashing files...
+Γáï Looking for a functions cache...
+ΓêÜ Deploying functions from cache (use --skip-functions-cache to override)
+ΓêÜ Finished hashing 11326 files, 136 functions and edge functions
+Γáï CDN diffing files...
+ΓêÜ CDN requesting 4 files and 0 functions
+Γáï Uploading 4 files
+ ┬╗   Warning: JSONHTTPError: no records matched 422
+ ┬╗   Warning: 
+{
+  "name": "JSONHTTPError",
+  "status": 422,
+  "json": {
+    "code": 422,
+    "message": "no records matched"
+  }
+}
+
+Build step duration: options.onEnd completed in 7ms
+ΓÇï
+Internal error during "options.onPostBuild"                   
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓÇï
+  Error message
+  JSONHTTPError: Unprocessable Entity
+ΓÇï
+  Error location
+  During options.onPostBuild
+      at parseResponse (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/api/lib/methods/response.js:34:39)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async callMethod (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/@netlify/api/lib/methods/index.js:26:28)
+      at async tryUpload (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/netlify-cli/dist/utils/deploy/upload-files.js:80:29)
+ΓÇï
+  Error properties
+  {
+    name: [32m'JSONHTTPError'[39m,
+    status: [33m422[39m,
+    json: { code: [33m422[39m, message: [32m'no records matched'[39m }
+  }
+ΓÇï
+  Resolved config
+  build:
+    edge_functions: C:\Users\koryj\website\netlify\edge-functions
+    publish: C:\Users\koryj\website
+    publishOrigin: default
+  functions:
+    pulse-backfill-images-background:
+      timeout: 120
+    pulse-economy-polish:
+      timeout: 26
+    pulse-economy-polish-background:
+      timeout: 900
+    pulse-machine-og:
+      included_files:
+        - node_modules/@resvg/resvg-wasm/index_bg.wasm
+    pulse-quality-audit-background:
+      schedule: "* * * * *"
+      timeout: 60
+    pulse-year-accuracy-audit-background:
+      schedule: "*/5 * * * *"
+      timeout: 60
+  functionsDirectory: C:\Users\koryj\website\netlify\functions
+  headers:
+    - for: /graphics/assets/*
+      values:
+        Cache-Control: public, max-age=300, must-revalidate
+        Content-Disposition: attachment
+    - for: /.netlify/functions/*
+      values:
+        X-Robots-Tag: noindex, nofollow
+    - for: /og/*
+      values:
+        X-Robots-Tag: noindex, nofollow
+    - for: /*.json
+      values:
+        X-Robots-Tag: noindex, nofollow
+    - for: /.netlify/functions/pulse-machine-sitemap
+      values:
+        Cache-Control: public, max-age=600
+        X-Robots-Tag: noindex
+    - for: /assets/nav-loader.js
+      values:
+        Cache-Control: public, max-age=300, must-revalidate
+    - for: /assets/visit-alert.js
+      values:
+        Cache-Control: public, max-age=300, must-revalidate
+    - for: /knowledge.html
+      values:
+        Cache-Control: public, max-age=0, must-revalidate
+    - for: /knowledge
+      values:
+        Cache-Control: public, max-age=0, must-revalidate
+    - for: /*
+      values:
+        Link: <https://pulserevops.com/>; rel="canonical"
+        Referrer-Policy: strict-origin-when-cross-origin
+        X-Content-Type-Options: nosniff
+        X-Frame-Options: SAMEORIGIN
+    - for: /js/*
+      values:
+        Cache-Control: public, max-age=600, stale-while-revalidate=86400
+    - for: /css/*
+      values:
+        Cache-Control: public, max-age=600, stale-while-revalidate=86400
+    - for: /*.svg
+      values:
+        Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+    - for: /*.png
+      values:
+        Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+    - for: /*.jpg
+      values:
+        Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+    - for: /*.webp
+      values:
+        Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+    - for: /*.woff2
+      values:
+        Cache-Control: public, max-age=2592000, immutable
+  headersOrigin: config
+  plugins:
+    - inputs: {}
+      origin: ui
+      package: "@netlify/plugin-lighthouse"
+  redirects:
+    - from: /sitemap-sales-trainings.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=st
+    - from: /sitemap-industry-kpis.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ik
+    - from: /sitemap-tech-stacks.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=tk
+    - from: /sitemap-graphics.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=gb
+    - from: /sitemap-book-summaries.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=bs
+    - from: /sitemap-electronic-reviews.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=er
+    - from: /sitemap-revenue-architecture.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ra
+    - from: /sitemap-go-to-market-playbooks.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=gp
+    - from: /sitemap-franchises.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=fr
+    - from: /sitemap-cars.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ca
+    - from: /sitemap-towns.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=tn
+    - from: /sitemap-schools.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=sc
+    - from: /sitemap-nightlife.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=nl
+    - from: /sitemap-dining.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=dn
+    - from: /sitemap-boats.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=bt
+    - from: /sitemap-movies.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=mv
+    - from: /sitemap-coaching.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=cg
+    - from: /sitemap-wellness.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=wl
+    - from: /sitemap-drills.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=dr
+    - from: /sitemap-travel.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=tv
+    - from: /sitemap-resorts.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=rs
+    - from: /sitemap-estates.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=es
+    - from: /sitemap-collectibles.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=co
+    - from: /sitemap-aquariums.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=aq
+    - from: /sitemap-highschool-football-recruiting.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=hf
+    - from: /sitemap-ai-infrastructure.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ai
+    - from: /sitemap-clubs.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=cl
+    - from: /sitemap-living.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=lv
+    - from: /sitemap-events.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ev
+    - from: /sitemap-style.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=sy
+    - from: /sitemap-gatherings.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=ga
+    - from: /sitemap-gaming.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=gm
+    - from: /sitemap-skills.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=sk
+    - from: /sitemap-speeches.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=sp
+    - from: /sitemap-knowledge-live.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-sitemap?pillar=q
+    - from: /q:id
+      status: 301
+      to: /knowledge/q:id
+    - from: /reps/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /cities/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /teams/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /emails/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /feedback/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /vibes/*
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /fresh
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /hr
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /10
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - from: /feed.xml
+      status: 410
+      to: /.netlify/functions/pulse-gone
+    - force: true
+      from: /dashboard.html
+      status: 301
+      to: /dashboard
+    - from: /knowledge/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+    - from: /knowledge/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+    - from: /sales-trainings/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=training&view=reviews
+    - from: /sales-trainings/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=training&view=reviews
+    - from: /industry-kpis/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=kpi&view=reviews
+    - from: /industry-kpis/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=kpi&view=reviews
+    - from: /tech-stacks/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=techstack&view=reviews
+    - from: /tech-stacks/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=techstack&view=reviews
+    - from: /graphics/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=graphic&view=reviews
+    - from: /graphics/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=graphic&view=reviews
+    - from: /sales-book-summaries/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=booksummary&view=reviews
+    - from: /sales-book-summaries/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=booksummary&view=reviews
+    - from: /electronic-reviews/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=electronicreview&view=reviews
+    - from: /electronic-reviews/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=electronicreview&view=reviews
+    - from: /revenue-architecture/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=revenuearchitecture&view=reviews
+    - from: /revenue-architecture/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=revenuearchitecture&view=reviews
+    - from: /go-to-market-playbooks/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=gtmplaybook&view=reviews
+    - from: /go-to-market-playbooks/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=gtmplaybook&view=reviews
+    - from: /franchises/:id/reviews
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=franchise&view=reviews
+    - from: /franchises/:id/review
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&kind=franchise&view=reviews
+    - from: /knowledge/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=knowledge
+    - from: /sales-trainings/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=sales-trainings
+    - from: /industry-kpis/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=industry-kpis
+    - from: /tech-stacks/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=tech-stacks
+    - from: /graphics/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=graphics
+    - from: /sales-book-summaries/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=sales-book-summaries
+    - from: /electronic-reviews/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=electronic-reviews
+    - from: /revenue-architecture/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=revenue-architecture
+    - from: /go-to-market-playbooks/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=go-to-market-playbooks
+    - from: /dashboard/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=dashboard
+    - from: /matrix/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=matrix
+    - from: /schedule/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=schedule
+    - from: /plan-90/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=plan-90
+    - from: /bins/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=bins
+    - from: /answers/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=answers
+    - force: true
+      from: /resume/reviews
+      status: 301
+      to: /kory-white-maryland
+    - from: /machine/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=machine
+    - from: /home/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?page=home
+    - from: /tools/:slug/reviews
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?tools_slug=:slug
+    - from: /tools/:slug/review
+      status: 200
+      to: /.netlify/functions/pulse-static-reviews?tools_slug=:slug
+    - from: /reviews/:id
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+    - from: /review/:id
+      status: 200
+      to: /.netlify/functions/pulse-machine-entry?id=:id&view=reviews
+    - from: /sitemap-reviews.xml
+      status: 200
+      to: /.netlify/functions/pulse-machine-reviews-sitemap
+    - from: /reviews
+      status: 200
+      to: /.netlify/functions/pulse-reviews-hub
+    - from: /reviews/
+      status: 200
+      to: /.netlify/functions/pulse-reviews-hub
+    - from: /api/pulse-signal
+      status: 200
+      to: /.netlify/functions/pulse-innovation-signals
+    - from: /fresh
+      status: 200
+      to: /.netlify/functions/fresh-hub
+    - force: true
+      from: https://*.netlify.app/*
+      status: 301
+      to: https://pulserevops.com/:splat
+    - force: true
+      from: https://www.pulserevops.com/*
+      status: 301
+      to: https://pulserevops.com/:splat
+    - force: true
+      from: http://www.pulserevops.com/*
+      status: 301
+      to: https://pulserevops.com/:splat
+    - from: /knowledge
+      status: 200
+      to: /knowledge.html
+    - from: /knowledge-library
+      status: 200
+      to: /knowledge.html
+    - from: /knowledge-library/
+      status: 200
+      to: /knowledge.html
+  redirectsOrigin: config
+ ┬╗   Warning: Error: Error while running build
+ ┬╗       at toError (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/n
+pm/_npx/da5c1b6ea715e8b4/node_modules/netlify-cli/dist/utils/command-helpers.js:144:16)
+ ┬╗       at logAndThrowError (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344
+f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/netlify-cli/dist/utils/command-helpers.js:150:17)
+ ┬╗       at handleBuild (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0
+cf/npm/_npx/da5c1b6ea715e8b4/node_modules/netlify-cli/dist/commands/deploy/deploy.js:552:9)
+ ┬╗       at async deploy (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e
+0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/netlify-cli/dist/commands/deploy/deploy.js:1038:13)
+ ┬╗       at async BaseCommand.<anonymous> (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4
+a5aab1dc7e344f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/netlify-cli/dist/commands/deploy/index.js:107:5)
+ ┬╗       at async BaseCommand.parseAsync (C:\Users\koryj\AppData\Local\Temp\cursor-sandbox-cache\f2028871f4f4a5aab1dc7
+e344f83e0cf\npm\_npx\da5c1b6ea715e8b4\node_modules\commander\lib\command.js:1092:5)
+ ┬╗       at async runProgram (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344
+f83e0cf/npm/_npx/da5c1b6ea715e8b4/node_modules/netlify-cli/dist/utils/run-program.js:13:9)
+ ┬╗       at async main (file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0c
+f/npm/_npx/da5c1b6ea715e8b4/node_modules/netlify-cli/bin/run.js:75:5)
+ ┬╗       at async file:///C:/Users/koryj/AppData/Local/Temp/cursor-sandbox-cache/f2028871f4f4a5aab1dc7e344f83e0cf/npm/
+_npx/da5c1b6ea715e8b4/node_modules/netlify-cli/bin/run.js:86:1

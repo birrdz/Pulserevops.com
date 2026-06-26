@@ -1,0 +1,37 @@
+{
+  "tick": "212",
+  "agent": "C",
+  "mode": "boost",
+  "target_id": "q171",
+  "question": "When should I introduce specialized roles (SDR / AE / CSM / SE)?",
+  "rank_picked": "1st-oldest (index 0) of 1218 filtered entries, ts ASC",
+  "ts": 1714381200000,
+  "word_count_before": 1200,
+  "word_count_after": 9706,
+  "post_http_status": 200,
+  "post_response": {"ok": true, "id": "q171", "quality_score": 10, "format_v": "2026-05", "gold_format": true, "from": 10, "to": 10},
+  "gold_format": true,
+  "gold_elements_verified": {
+    "1_direct_answer_header": true,
+    "2_tldr_block": true,
+    "3_h2_banners": 20,
+    "4_numbered_subsections": 56,
+    "5_bold_in_bullets": 20,
+    "6_tickers": true,
+    "7_mermaid_diagrams": 1,
+    "8_pipe_tables": 16,
+    "9_counter_case_section": true,
+    "10_cross_links": 10,
+    "10_sources": 33
+  },
+  "artifacts": [
+    "lab/_gold_v15_t212c_library.json",
+    "lab/_gold_v15_t212c_pick.js",
+    "lab/_gold_v15_t212c_pick.json",
+    "lab/_gold_v15_t212c_q171_current.json",
+    "lab/_gold_v15_t212c_answer.md",
+    "lab/_gold_v15_t212c_payload.json",
+    "lab/_gold_v15_t212c_resp.json",
+    "lab/_gold_v15_t212c_summary.json"
+  ]
+}

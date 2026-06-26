@@ -1,0 +1,27 @@
+const fs = require('fs');
+const body = fs.readFileSync('C:/Users/koryj/website/lab/_gold_q1935_v2.md', 'utf8');
+const wc = body.trim().split(/\s+/).length;
+console.log('Word count:', wc);
+console.log('1. Direct Answer H3 at top:', body.startsWith('### Direct Answer'));
+console.log('2. TL;DR present:', /\*\*TL;DR/.test(body));
+console.log('3. H2 banners:', (body.match(/^## /gm) || []).length);
+const subs = [...body.matchAll(/^### (\d+)\.(\d+)/gm)].map(m => m[1] + '.' + m[2]);
+console.log('4. Subsections:', subs.join(' '));
+let ok = true; const secs = {};
+subs.forEach(s => { const p = s.split('.'); (secs[p[0]] = secs[p[0]] || []).push(+p[1]); });
+for (const k in secs) { let exp = 1; for (const n of secs[k]) { if (n !== exp) { ok = false; console.log('  SEQ ISSUE sec', k, 'at', n); } exp++; } }
+console.log('   Sequential no-gap no-dup:', ok);
+console.log('5. Bold present:', /\*\*/.test(body));
+console.log('6. Tickers:', (body.match(/(NYSE|NASDAQ):/g) || []).length);
+console.log('7. Mermaid blocks:', (body.match(/```mermaid/g) || []).length, '| flowchart TD:', /flowchart TD/.test(body));
+const badnode = [...body.matchAll(/\[[^\]]*[%/][^\]]*\]/g)];
+console.log('   Mermaid/label bad chars [% or /]:', badnode.length);
+console.log('8. Pipe table rows:', (body.match(/^\|.*\|\s*$/gm) || []).length);
+console.log('9. Counter-Case section:', /^## 23\. Counter-Case/m.test(body));
+const links = (body.match(/\(q\d+\)/g) || []);
+const uniq = [...new Set(links)].sort();
+console.log('10. Cross-link occurrences:', links.length, '| unique:', uniq.length, '::', uniq.join(' '));
+console.log('    Comma-grouped:', /\(q\d+\s*,/.test(body));
+console.log('    Wiki brackets:', /\[\[q/.test(body));
+console.log('    Leading-zero ids:', /\(q0/.test(body));
+console.log('    Citations:', (body.match(/^\d+\. /gm) || []).length);

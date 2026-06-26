@@ -1,0 +1,19 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 442,
+ "changed": 0,
+ "keywordPhrases": 200,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 429,
+   "bing": 429,
+   "yandex": 200
+  }
+ },
+ "hubUrls": [
+  "https://pulserevops.com/aquariums"
+ ]
+}

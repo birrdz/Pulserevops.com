@@ -1,0 +1,28 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 200,
+ "changed": 91,
+ "keywordPhrases": 200,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 429,
+   "bing": 429,
+   "yandex": 200
+  }
+ },
+ "hubUrls": [
+  "https://pulserevops.com/ai-infrastructure"
+ ],
+ "sample": {
+  "id": "ai0001",
+  "ok": true,
+  "changed": false,
+  "tagCount": 210,
+  "keywordCount": 217,
+  "url": "https://pulserevops.com/ai-infrastructure/ai0001",
+  "indexnow": null
+ }
+}

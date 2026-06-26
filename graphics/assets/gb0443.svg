@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#22d3ee;--c2:#0891b2;--c3:#67e8f9;--c4:#fbbf24;--c4b:#fde68a;--ink:#021a22;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#22d3ee)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#0891b2)"/>
+      <stop offset="1" style="stop-color:var(--c3,#67e8f9)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.3" r="0.5">
+      <stop offset="0" style="stop-color:var(--c1,#22d3ee)" stop-opacity="0.22"/>
+      <stop offset="1" style="stop-color:var(--c1,#22d3ee)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1584" height="396" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1584" height="396" fill="url(#glow)"/>
+
+  <!-- Decorative MEDDICC chip strip on the right (7 letters) -->
+  <g font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-weight="900" font-size="36" text-anchor="middle">
+    <g>
+      <rect x="970" y="170" width="68" height="68" rx="12" fill="var(--ink,#021a22)" stroke="url(#accent)" stroke-width="3"/>
+      <text x="1004" y="216" fill="#FFFFFF">M</text>
+    </g>
+    <g>
+      <rect x="1050" y="170" width="68" height="68" rx="12" fill="var(--ink,#021a22)" stroke="url(#accent)" stroke-width="3"/>
+      <text x="1084" y="216" fill="#FFFFFF">E</text>
+    </g>
+    <g>
+      <rect x="1130" y="170" width="68" height="68" rx="12" fill="var(--ink,#021a22)" stroke="url(#accent)" stroke-width="3"/>
+      <text x="1164" y="216" fill="#FFFFFF">D</text>
+    </g>
+    <g>
+      <rect x="1210" y="170" width="68" height="68" rx="12" fill="var(--ink,#021a22)" stroke="url(#accent)" stroke-width="3"/>
+      <text x="1244" y="216" fill="#FFFFFF">D</text>
+    </g>
+    <g>
+      <rect x="1290" y="170" width="68" height="68" rx="12" fill="var(--ink,#021a22)" stroke="url(#accent)" stroke-width="3"/>
+      <text x="1324" y="216" fill="#FFFFFF">I</text>
+    </g>
+    <g>
+      <rect x="1370" y="170" width="68" height="68" rx="12" fill="var(--ink,#021a22)" stroke="url(#accent)" stroke-width="3"/>
+      <text x="1404" y="216" fill="#FFFFFF">C</text>
+    </g>
+    <g>
+      <rect x="1450" y="170" width="68" height="68" rx="12" fill="var(--ink,#021a22)" stroke="url(#accent)" stroke-width="3"/>
+      <text x="1484" y="216" fill="#FFFFFF">C</text>
+    </g>
+  </g>
+
+  <text x="120" y="180" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">QUALIFY EVERY DEAL</text>
+  <text x="118" y="262" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="64" font-weight="900" fill="#FFFFFF">MEDDICC Practitioner.</text>
+  <text x="120" y="316" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="28" font-weight="700" fill="#EDE5D8">Metrics <tspan fill="url(#accent)">&#183;</tspan> Economic Buyer <tspan fill="url(#accent)">&#183;</tspan> Champion</text>
+</svg>

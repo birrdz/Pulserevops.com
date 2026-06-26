@@ -1,0 +1,30 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 138,
+ "changed": 116,
+ "keywordPhrases": 220,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 200,
+   "bing": 200,
+   "yandex": 200
+  }
+ },
+ "hubUrls": [
+  "https://pulserevops.com/resorts"
+ ],
+ "sample": {
+  "id": "rs0001",
+  "ok": true,
+  "changed": true,
+  "tagCount": 454,
+  "keywordCount": 253,
+  "url": "https://pulserevops.com/resorts/rs0001",
+  "indexnow": {
+   "ok": false
+  }
+ }
+}

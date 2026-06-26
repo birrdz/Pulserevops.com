@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+    .bg1{fill:var(--bg1,#0b0f17)}
+    .bg2{fill:var(--bg2,#0f172a)}
+    .title{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:800;fill:var(--c3)}
+    .sub{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:500;fill:var(--c3);opacity:.75}
+    .node{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:700;fill:var(--ink)}
+    .nodeLight{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:700;fill:var(--c3)}
+    .pill{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:600;fill:var(--ink);font-size:18px}
+    .meta{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:500;fill:var(--c3);opacity:.85;font-size:18px}
+    .edge{stroke:var(--c1);stroke-width:3;fill:none;stroke-linecap:round}
+    .edgeWarn{stroke:var(--c4);stroke-width:3;fill:none;stroke-linecap:round}
+    .edgeAlert{stroke:#ef4444;stroke-width:3;fill:none;stroke-linecap:round}
+  </style>
+
+  <!-- backgrounds -->
+  <rect class="bg1" width="1584" height="396"/>
+  <rect class="bg2" x="0" y="0" width="1584" height="396" opacity=".55"/>
+
+  <!-- subtle grid accent -->
+  <g opacity=".08" stroke="var(--c1)" stroke-width="1">
+    <line x1="0" y1="99" x2="1584" y2="99"/>
+    <line x1="0" y1="198" x2="1584" y2="198"/>
+    <line x1="0" y1="297" x2="1584" y2="297"/>
+  </g>
+
+  <!-- header -->
+  <text class="title" x="48" y="60" font-size="30">Renewal Risk Decision Tree</text>
+  <text class="sub" x="48" y="90" font-size="19">Score health, route action, save revenue.</text>
+
+  <!-- root node: Renewal Account -->
+  <g>
+    <rect x="60" y="160" width="220" height="100" rx="14" fill="var(--c2)" stroke="var(--c1)" stroke-width="2"/>
+    <text class="nodeLight" x="170" y="200" text-anchor="middle" font-size="22">Renewal</text>
+    <text class="nodeLight" x="170" y="226" text-anchor="middle" font-size="22">Account</text>
+    <text class="meta" x="170" y="250" text-anchor="middle">Health score in</text>
+  </g>
+
+  <!-- edges from root to 3 branches -->
+  <path class="edge" d="M280 180 C 360 180, 380 130, 480 130"/>
+  <path class="edge" d="M280 210 C 360 210, 380 210, 480 210"/>
+  <path class="edgeAlert" d="M280 240 C 360 240, 380 290, 480 290"/>
+
+  <!-- branch labels on edges -->
+  <g>
+    <rect x="320" y="108" width="120" height="32" rx="16" fill="var(--c1)"/>
+    <text class="pill" x="380" y="130" text-anchor="middle">Healthy</text>
+
+    <rect x="320" y="194" width="120" height="32" rx="16" fill="var(--c4)"/>
+    <text class="pill" x="380" y="216" text-anchor="middle">At-risk</text>
+
+    <rect x="320" y="272" width="160" height="32" rx="16" fill="#ef4444"/>
+    <text class="pill" x="400" y="294" text-anchor="middle" fill="#fff">Likely-churn</text>
+  </g>
+
+  <!-- branch 1: Healthy -> Auto-renew -->
+  <g>
+    <rect x="480" y="92" width="280" height="78" rx="14" fill="var(--c3)" stroke="var(--c1)" stroke-width="2"/>
+    <text class="node" x="620" y="124" text-anchor="middle" font-size="22">Auto-renew</text>
+    <text class="node" x="620" y="150" text-anchor="middle" font-size="18" opacity=".8">No-touch path</text>
+  </g>
+
+  <!-- branch 2: At-risk -> CS intervention -->
+  <g>
+    <rect x="480" y="172" width="280" height="78" rx="14" fill="var(--c4b)" stroke="var(--c4)" stroke-width="2"/>
+    <text class="node" x="620" y="204" text-anchor="middle" font-size="22">CS Intervention</text>
+    <text class="node" x="620" y="230" text-anchor="middle" font-size="18" opacity=".8">QBR + adoption plan</text>
+  </g>
+
+  <!-- branch 3: Likely-churn -> Save play -->
+  <g>
+    <rect x="480" y="252" width="280" height="78" rx="14" fill="#fecaca" stroke="#ef4444" stroke-width="2"/>
+    <text class="node" x="620" y="284" text-anchor="middle" font-size="22">Save Play</text>
+    <text class="node" x="620" y="310" text-anchor="middle" font-size="18" opacity=".8">Exec sponsor + discount</text>
+  </g>
+
+  <!-- edges to outcomes -->
+  <path class="edge" d="M760 131 L 870 131"/>
+  <path class="edgeWarn" d="M760 211 L 870 211"/>
+  <path class="edgeAlert" d="M760 291 L 870 291"/>
+
+  <!-- outcome 1: Renewed -->
+  <g>
+    <rect x="870" y="92" width="320" height="78" rx="14" fill="var(--c2)" stroke="var(--c1)" stroke-width="2"/>
+    <text class="nodeLight" x="1030" y="124" text-anchor="middle" font-size="22">Renewed + Expansion</text>
+    <text class="nodeLight" x="1030" y="150" text-anchor="middle" font-size="18" opacity=".85">NRR &gt; 110%</text>
+  </g>
+
+  <!-- outcome 2: Renewed flat -->
+  <g>
+    <rect x="870" y="172" width="320" height="78" rx="14" fill="var(--c4)" stroke="var(--c4b)" stroke-width="2"/>
+    <text class="node" x="1030" y="204" text-anchor="middle" font-size="22">Renewed Flat</text>
+    <text class="node" x="1030" y="230" text-anchor="middle" font-size="18" opacity=".85">NRR ~100%</text>
+  </g>
+
+  <!-- outcome 3: Churn or Save -->
+  <g>
+    <rect x="870" y="252" width="320" height="78" rx="14" fill="#ef4444" stroke="#fecaca" stroke-width="2"/>
+    <text class="nodeLight" x="1030" y="284" text-anchor="middle" font-size="22" fill="#fff">Save or Churn</text>
+    <text class="nodeLight" x="1030" y="310" text-anchor="middle" font-size="18" fill="#fff" opacity=".9">Split decision</text>
+  </g>
+
+  <!-- right-side metric panel -->
+  <g>
+    <rect x="1240" y="92" width="300" height="238" rx="16" fill="none" stroke="var(--c1)" stroke-width="2" opacity=".6"/>
+    <text class="title" x="1260" y="124" font-size="20">Health Signals</text>
+
+    <circle cx="1268" cy="158" r="7" fill="var(--c1)"/>
+    <text class="meta" x="1284" y="163">Product usage trend</text>
+
+    <circle cx="1268" cy="190" r="7" fill="var(--c4)"/>
+    <text class="meta" x="1284" y="195">Exec sponsor active</text>
+
+    <circle cx="1268" cy="222" r="7" fill="#ef4444"/>
+    <text class="meta" x="1284" y="227">Support ticket spike</text>
+
+    <circle cx="1268" cy="254" r="7" fill="var(--c3)"/>
+    <text class="meta" x="1284" y="259">NPS / CSAT delta</text>
+
+    <circle cx="1268" cy="286" r="7" fill="var(--c2)"/>
+    <text class="meta" x="1284" y="291">Contract value vs. ARR</text>
+
+    <text class="sub" x="1260" y="318" font-size="15">Weighted score routes the branch</text>
+  </g>
+
+  <!-- footer caption -->
+  <text class="sub" x="48" y="364" font-size="16">Renewal Risk Decision Tree: Healthy to Auto-renew, At-risk to CS intervention, Likely-churn to Save play.</text>
+</svg>

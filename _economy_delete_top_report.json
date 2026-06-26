@@ -1,0 +1,512 @@
+{
+  "ok": true,
+  "dryRun": false,
+  "countRequested": 100,
+  "deleted_count": 100,
+  "idRange": "q10798..q10898",
+  "deleted": [
+    {
+      "id": "q10898",
+      "ts": 1779671348424,
+      "question": "How do you build renewal forecasting separate from new business pipeline?"
+    },
+    {
+      "id": "q10897",
+      "ts": 1779671164087,
+      "question": "What is a sales compensation dispute process tied to CRM opportunity splits?"
+    },
+    {
+      "id": "q10896",
+      "ts": 1779671138858,
+      "question": "How do you handle multi-currency opportunities for ARR reporting?"
+    },
+    {
+      "id": "q10895",
+      "ts": 1779671000749,
+      "question": "What is a parent account hierarchy for global rollups in Salesforce?"
+    },
+    {
+      "id": "q10894",
+      "ts": 1779670634410,
+      "question": "How do you align marketing UTM strategy with opportunity source fields?"
+    },
+    {
+      "id": "q10893",
+      "ts": 1779670448968,
+      "question": "What is product-led sales assist and how do you score PQLs in the CRM?"
+    },
+    {
+      "id": "q10892",
+      "ts": 1779670268985,
+      "question": "How do you operationalize outbound territory books with Apollo and Salesforce?"
+    },
+    {
+      "id": "q10891",
+      "ts": 1779670086328,
+      "question": "What is inbound lead SLA and how do you alert when routing fails?"
+    },
+    {
+      "id": "q10890",
+      "ts": 1779669962485,
+      "question": "How do you measure SDR productivity beyond meetings booked?"
+    },
+    {
+      "id": "q10889",
+      "ts": 1779669750889,
+      "question": "What is a sales methodology rollout that RevOps can actually enforce in CRM?"
+    },
+    {
+      "id": "q10888",
+      "ts": 1779669556798,
+      "question": "How do you run win loss analysis with structured CRM reason codes?"
+    },
+    {
+      "id": "q10887",
+      "ts": 1779669378697,
+      "question": "What is Dynamics 365 sales pipeline setup for mixed channel GTM?"
+    },
+    {
+      "id": "q10886",
+      "ts": 1779669187781,
+      "question": "How do you migrate from Pipedrive to HubSpot without losing pipeline history?"
+    },
+    {
+      "id": "q10885",
+      "ts": 1779669183977,
+      "question": "What is a data dictionary for Salesforce and who maintains it in RevOps?"
+    },
+    {
+      "id": "q10884",
+      "ts": 1779668842834,
+      "question": "How do you prevent closed-lost opportunities from receiving automated emails?"
+    },
+    {
+      "id": "q10883",
+      "ts": 1779668658995,
+      "question": "What is Gong conversation intelligence tied to opportunities in RevOps?"
+    },
+    {
+      "id": "q10882",
+      "ts": 1779668481486,
+      "question": "How do you integrate Outreach sequences with Salesforce activity reporting?"
+    },
+    {
+      "id": "q10881",
+      "ts": 1779668296076,
+      "question": "What is multi-threading in enterprise deals and how do you score it in fields?"
+    },
+    {
+      "id": "q10880",
+      "ts": 1779668150090,
+      "question": "How do you detect champion job changes and trigger plays from CRM?"
+    },
+    {
+      "id": "q10879",
+      "ts": 1779667927848,
+      "question": "What is ramp quota for new AEs and how do you model it in comp tools?"
+    },
+    {
+      "id": "q10878",
+      "ts": 1779667746705,
+      "question": "How do you design SPIFs without breaking the main commission plan?"
+    },
+    {
+      "id": "q10877",
+      "ts": 1779667726663,
+      "question": "What is a sales kickoff quota planning process RevOps should own?"
+    },
+    {
+      "id": "q10876",
+      "ts": 1779667574830,
+      "question": "How do you build a board-ready ARR waterfall from CRM and billing data?"
+    },
+    {
+      "id": "q10875",
+      "ts": 1779667389539,
+      "question": "What is pipeline generation versus pipeline creation in RevOps metrics?"
+    },
+    {
+      "id": "q10874",
+      "ts": 1779667038378,
+      "question": "How do you calculate sales cycle length by stage in Salesforce reports?"
+    },
+    {
+      "id": "q10873",
+      "ts": 1779666856271,
+      "question": "What is a renewal opportunity type and how do you separate expansion from churn "
+    },
+    {
+      "id": "q10872",
+      "ts": 1779666664775,
+      "question": "How do you manage pricing exceptions and discount approvals in CPQ?"
+    },
+    {
+      "id": "q10871",
+      "ts": 1779666508318,
+      "question": "What is an opportunity team and how do you set default credit splits?"
+    },
+    {
+      "id": "q10870",
+      "ts": 1779666405578,
+      "question": "How do you fix broken Marketo to Salesforce sync for campaign members?"
+    },
+    {
+      "id": "q10869",
+      "ts": 1779666133020,
+      "question": "what is lifecycle stage definition for MQL SQL SAL in HubSpot?"
+    },
+    {
+      "id": "q10868",
+      "ts": 1779665958991,
+      "question": "how do you audit CRM required fields without slowing AEs down?"
+    },
+    {
+      "id": "q10867",
+      "ts": 1779665791850,
+      "question": "what is a sales ops dashboard versus a RevOps operating cadence?"
+    },
+    {
+      "id": "q10866",
+      "ts": 1779665594148,
+      "question": "how do you forecast usage true-ups and minimum commits in Salesforce?"
+    },
+    {
+      "id": "q10865",
+      "ts": 1779665414050,
+      "question": "what is consumption pricing pipeline hygiene for ramp deals?"
+    },
+    {
+      "id": "q10864",
+      "ts": 1779665226048,
+      "question": "how do you attribute partner-sourced revenue without double-counting pipeline?"
+    },
+    {
+      "id": "q10863",
+      "ts": 1779665055979,
+      "question": "what is partner deal registration and how do you prevent channel conflict in CRM"
+    },
+    {
+      "id": "q10862",
+      "ts": 1779664881219,
+      "question": "how do you run QBR pipeline reviews with executive-ready Salesforce reports?"
+    },
+    {
+      "id": "q10861",
+      "ts": 1779664694570,
+      "question": "what is a sales capacity model and how do RevOps build headcount plans?"
+    },
+    {
+      "id": "q10860",
+      "ts": 1779664547710,
+      "question": "how do you measure win rate by segment without polluting stages?"
+    },
+    {
+      "id": "q10859",
+      "ts": 1779664348551,
+      "question": "what is sales velocity and which CRM metrics feed the formula?"
+    },
+    {
+      "id": "q10858",
+      "ts": 1779664144058,
+      "question": "how do you operationalize BANT versus MEDDPICC without checkbox theater?"
+    },
+    {
+      "id": "q10857",
+      "ts": 1779663971624,
+      "question": "what is an ideal customer profile field strategy in Salesforce for outbound team"
+    },
+    {
+      "id": "q10856",
+      "ts": 1779663932040,
+      "question": "how do you build a lead score that SDRs trust in HubSpot?"
+    },
+    {
+      "id": "q10855",
+      "ts": 1779663788908,
+      "question": "what is weighted pipeline and when should RevOps stop using it?"
+    },
+    {
+      "id": "q10854",
+      "ts": 1779663429902,
+      "question": "how do you track renewal risk in the CRM when finance uses NetSuite?"
+    },
+    {
+      "id": "q10853",
+      "ts": 1779663249298,
+      "question": "what is customer success handoff to sales for renewals and expansion in Gainsigh"
+    },
+    {
+      "id": "q10852",
+      "ts": 1779663071238,
+      "question": "how do you integrate Snowflake product usage data into Salesforce for expansion "
+    },
+    {
+      "id": "q10851",
+      "ts": 1779662901760,
+      "question": "what is a RevOps tech stack for a Series B company with no data engineer?"
+    },
+    {
+      "id": "q10850",
+      "ts": 1779662777453,
+      "question": "how do you reconcile marketing sourced pipeline with sales accepted opportunitie"
+    },
+    {
+      "id": "q10849",
+      "ts": 1779662533270,
+      "question": "what is forecast category hygiene and how do you stop stage inflation?"
+    },
+    {
+      "id": "q10848",
+      "ts": 1779662356720,
+      "question": "how do you standardize opportunity products in Salesforce for usage-based pricin"
+    },
+    {
+      "id": "q10847",
+      "ts": 1779662183230,
+      "question": "what is sales enablement versus RevOps and where should process ownership live?"
+    },
+    {
+      "id": "q10846",
+      "ts": 1779662023207,
+      "question": "how do you hand off product-qualified leads from PLG to sales in HubSpot?"
+    },
+    {
+      "id": "q10845",
+      "ts": 1779661984539,
+      "question": "what is a mutual action plan and which CRM fields prove it is being used?"
+    },
+    {
+      "id": "q10844",
+      "ts": 1779661630473,
+      "question": "how do you handle commission splits and clawbacks in Salesforce with a CPQ quote"
+    },
+    {
+      "id": "q10843",
+      "ts": 1779661471811,
+      "question": "what is territory design for enterprise AEs and how do you avoid overlap in CRM?"
+    },
+    {
+      "id": "q10842",
+      "ts": 1779661278422,
+      "question": "how do you calculate CAC payback and magic number for a SaaS GTM team?"
+    },
+    {
+      "id": "q10841",
+      "ts": 1779661090563,
+      "question": "what is NRR and GRR and how do you report net revenue retention in a board deck?"
+    },
+    {
+      "id": "q10840",
+      "ts": 1779660954790,
+      "question": "how do you run a weekly forecast call with commit upside and pipeline categories"
+    },
+    {
+      "id": "q10839",
+      "ts": 1779660743407,
+      "question": "what is sandbagging in sales forecasting and how do RevOps leaders reduce it?"
+    },
+    {
+      "id": "q10838",
+      "ts": 1779660547587,
+      "question": "how do you model multi-touch attribution when marketing uses HubSpot and sales u"
+    },
+    {
+      "id": "q10837",
+      "ts": 1779660388882,
+      "question": "what is lead routing and how do you automate it in HubSpot without breaking SLAs"
+    },
+    {
+      "id": "q10836",
+      "ts": 1779660193900,
+      "question": "how do you fix duplicate contacts and accounts in Salesforce after an acquisitio"
+    },
+    {
+      "id": "q10835",
+      "ts": 1779660032043,
+      "question": "what is MEDDPICC and how do you operationalize it in Salesforce fields?"
+    },
+    {
+      "id": "q10834",
+      "ts": 1779659830593,
+      "question": "how do you design sales stages in HubSpot that match how buyers actually buy?"
+    },
+    {
+      "id": "q10833",
+      "ts": 1779659662444,
+      "question": "what is the difference between bookings ARR and billings in RevOps reporting?"
+    },
+    {
+      "id": "q10832",
+      "ts": 1779659476300,
+      "question": "how do you calculate quota attainment and report it in the CRM?"
+    },
+    {
+      "id": "q10831",
+      "ts": 1779659302072,
+      "question": "what is sales pipeline coverage and what ratio should RevOps target?"
+    },
+    {
+      "id": "q10830",
+      "ts": 1779659173267,
+      "question": "how do you build a sales forecast in Salesforce for a mid-market SaaS company?"
+    },
+    {
+      "id": "q10829",
+      "ts": 1779658937947,
+      "question": "what does a revenue operations team do in B2B SaaS?"
+    },
+    {
+      "id": "q10828",
+      "ts": 1779658880988,
+      "question": "what is RevOps and how is it different from sales operations?"
+    },
+    {
+      "id": "q10827",
+      "ts": 1779658746314,
+      "question": "what CRM fields prove you fixed sandbox changes breaking flows after migrating t"
+    },
+    {
+      "id": "q10826",
+      "ts": 1779658588360,
+      "question": "how do you automate pipeline coverage for enterprise outbound on Dynamics 365 wi"
+    },
+    {
+      "id": "q10825",
+      "ts": 1779658386512,
+      "question": "what is a data center lease versus license model for revenue recognition handoff"
+    },
+    {
+      "id": "q10824",
+      "ts": 1779658354159,
+      "question": "what is a data center broker channel and how partner registration works in CRM?"
+    },
+    {
+      "id": "q10823",
+      "ts": 1779658032121,
+      "question": "what is GPU colocation for AI workloads and how high-density deals change pipeli"
+    },
+    {
+      "id": "q10822",
+      "ts": 1779657860167,
+      "question": "what is a data center campus expansion motion and how multi-site opps roll up?"
+    },
+    {
+      "id": "q10821",
+      "ts": 1779657666813,
+      "question": "what is a meet-me room in colocation sales and why channel partners source deals"
+    },
+    {
+      "id": "q10820",
+      "ts": 1779657494783,
+      "question": "what is a data center capacity reservation and how it differs from booked ARR?"
+    },
+    {
+      "id": "q10819",
+      "ts": 1779657453807,
+      "question": "what is a colocation master service agreement and how RevOps handles amendments?"
+    },
+    {
+      "id": "q10818",
+      "ts": 1779657133447,
+      "question": "what is a data center N+1 redundancy tier and how it affects deal cycle length?"
+    },
+    {
+      "id": "q10817",
+      "ts": 1779656955315,
+      "question": "what is cabinet kW pricing in colocation and how quotes flow into Salesforce?"
+    },
+    {
+      "id": "q10816",
+      "ts": 1779656778320,
+      "question": "what is a data center SLA in enterprise contracts and how renewals hit CRM?"
+    },
+    {
+      "id": "q10815",
+      "ts": 1779656773733,
+      "question": "what is edge data center colocation and how it differs from core campus deals?"
+    },
+    {
+      "id": "q10814",
+      "ts": 1779656604559,
+      "question": "what is a build-to-suit data center contract and how RevOps tracks multi-year ra"
+    },
+    {
+      "id": "q10813",
+      "ts": 1779656236782,
+      "question": "what is power density and cooling capacity in data center capacity sales?"
+    },
+    {
+      "id": "q10812",
+      "ts": 1779656051200,
+      "question": "what is a data center interconnection (IX) and how it shows up in enterprise CRM"
+    },
+    {
+      "id": "q10811",
+      "ts": 1779655870804,
+      "question": "what is a carrier hotel in data center interconnect and partner-sourced pipeline"
+    },
+    {
+      "id": "q10810",
+      "ts": 1779655687664,
+      "question": "what is PUE in data center operations and why enterprise procurement asks about "
+    },
+    {
+      "id": "q10809",
+      "ts": 1779655554154,
+      "question": "what is cross-connect revenue in data center and carrier-neutral facility sales?"
+    },
+    {
+      "id": "q10808",
+      "ts": 1779655327865,
+      "question": "what is a hyperscaler data center deal and how RevOps should model it in CRM?"
+    },
+    {
+      "id": "q10807",
+      "ts": 1779655144279,
+      "question": "what is colocation and how is it different from hyperscale cloud in a B2B sales "
+    },
+    {
+      "id": "q10806",
+      "ts": 1779654965731,
+      "question": "what is a data center and how colocation providers sell capacity to enterprise b"
+    },
+    {
+      "id": "q10805",
+      "ts": 1779654794599,
+      "question": "How do you what is wholesale data center leasing versus retail colocation for sa"
+    },
+    {
+      "id": "q10803",
+      "ts": 1779654429782,
+      "question": "How do you attribute CHIEF membership renewals to NRR in Salesforce during AE-le"
+    },
+    {
+      "id": "q10802",
+      "ts": 1779654264218,
+      "question": "How do you operationalize CHIEF executive introduction requests handoffs in Zoho"
+    },
+    {
+      "id": "q10801",
+      "ts": 1779654077969,
+      "question": "How do you attribute CHIEF women's leadership network sponsorship to bookings vs"
+    },
+    {
+      "id": "q10800",
+      "ts": 1779653889843,
+      "question": "How do you prove CHIEF chapter-based community GTM improved pipeline coverage in"
+    },
+    {
+      "id": "q10799",
+      "ts": 1779653817551,
+      "question": "How do you attribute CHIEF private peer advisory referrals to bookings vs billin"
+    },
+    {
+      "id": "q10798",
+      "ts": 1779653545335,
+      "question": "How do you operationalize CHIEF private peer advisory referrals handoffs in HubS"
+    }
+  ],
+  "errors": [],
+  "index_before": 3349,
+  "index_after": 3249
+}

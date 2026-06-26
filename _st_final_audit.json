@@ -1,0 +1,321 @@
+{
+  "pass": 399,
+  "fail": 28,
+  "total": 427,
+  "pass_pct": 93.44262295081968,
+  "avg_words": 3115.063231850117,
+  "missing_modes": {
+    "word_count_floor": 4,
+    "sources_five_plus": 28,
+    "faq_section": 24,
+    "faq_five_plus": 24,
+    "sources_section": 15,
+    "direct_answer": 11,
+    "two_mermaids": 1
+  },
+  "failures": [
+    {
+      "id": "st183",
+      "score": 10,
+      "words": 1267,
+      "missing": [
+        "word_count_floor",
+        "sources_five_plus"
+      ]
+    },
+    {
+      "id": "st177",
+      "score": 10,
+      "words": 1484,
+      "missing": [
+        "word_count_floor",
+        "sources_five_plus"
+      ]
+    },
+    {
+      "id": "st154",
+      "score": 10,
+      "words": 1419,
+      "missing": [
+        "word_count_floor",
+        "sources_five_plus"
+      ]
+    },
+    {
+      "id": "st153",
+      "score": 10,
+      "words": 1439,
+      "missing": [
+        "word_count_floor",
+        "sources_five_plus"
+      ]
+    },
+    {
+      "id": "st0047",
+      "score": 9,
+      "words": 10198,
+      "missing": [
+        "faq_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0045",
+      "score": 9,
+      "words": 9213,
+      "missing": [
+        "faq_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0043",
+      "score": 9,
+      "words": 10008,
+      "missing": [
+        "faq_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0041",
+      "score": 9,
+      "words": 9659,
+      "missing": [
+        "faq_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0040",
+      "score": 9,
+      "words": 9301,
+      "missing": [
+        "faq_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0037",
+      "score": 9,
+      "words": 10131,
+      "missing": [
+        "faq_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0036",
+      "score": 9,
+      "words": 9830,
+      "missing": [
+        "faq_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0034",
+      "score": 8,
+      "words": 9206,
+      "missing": [
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0033",
+      "score": 8,
+      "words": 9089,
+      "missing": [
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0030",
+      "score": 9,
+      "words": 10374,
+      "missing": [
+        "faq_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0029",
+      "score": 8,
+      "words": 10297,
+      "missing": [
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0028",
+      "score": 7,
+      "words": 10212,
+      "missing": [
+        "direct_answer",
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0027",
+      "score": 6,
+      "words": 7918,
+      "missing": [
+        "direct_answer",
+        "two_mermaids",
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0026",
+      "score": 7,
+      "words": 9658,
+      "missing": [
+        "direct_answer",
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0024",
+      "score": 7,
+      "words": 10445,
+      "missing": [
+        "direct_answer",
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0023",
+      "score": 7,
+      "words": 10008,
+      "missing": [
+        "direct_answer",
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0020",
+      "score": 8,
+      "words": 10400,
+      "missing": [
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0019",
+      "score": 7,
+      "words": 10506,
+      "missing": [
+        "direct_answer",
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0015",
+      "score": 7,
+      "words": 10467,
+      "missing": [
+        "direct_answer",
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0007",
+      "score": 7,
+      "words": 10479,
+      "missing": [
+        "direct_answer",
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0005",
+      "score": 7,
+      "words": 8628,
+      "missing": [
+        "direct_answer",
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0004",
+      "score": 7,
+      "words": 9623,
+      "missing": [
+        "direct_answer",
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0003",
+      "score": 7,
+      "words": 9639,
+      "missing": [
+        "direct_answer",
+        "faq_section",
+        "sources_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    },
+    {
+      "id": "st0001",
+      "score": 9,
+      "words": 9782,
+      "missing": [
+        "faq_section",
+        "sources_five_plus",
+        "faq_five_plus"
+      ]
+    }
+  ]
+}

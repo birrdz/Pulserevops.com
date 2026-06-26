@@ -10,36 +10,60 @@
        Google Search Console / Bing Webmaster. -->
 
   <!-- Core pages -->
-  <url><loc>https://pulserevops.com/</loc><lastmod>2026-04-28</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://pulserevops.com/dashboard.html</loc><lastmod>2026-04-28</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://pulserevops.com/</loc><lastmod>2026-05-26</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://pulserevops.com/derby/</loc><lastmod>2026-05-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://pulserevops.com/themachine</loc><lastmod>2026-04-29</lastmod><changefreq>daily</changefreq><priority>0.95</priority></url>
+  <url><loc>https://pulserevops.com/my-content</loc><lastmod>2026-06-02</lastmod><changefreq>monthly</changefreq><priority>0.88</priority></url>
   <url><loc>https://pulserevops.com/knowledge.html</loc><lastmod>2026-04-28</lastmod><changefreq>hourly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pulserevops.com/sales-trainings</loc><lastmod>2026-05-17</lastmod><changefreq>hourly</changefreq><priority>0.92</priority></url>
+  <url><loc>https://pulserevops.com/industry-kpis</loc><lastmod>2026-05-24</lastmod><changefreq>hourly</changefreq><priority>0.92</priority></url>
   <url><loc>https://pulserevops.com/answers.html</loc><lastmod>2026-04-30</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://pulserevops.com/bins.html</loc><lastmod>2026-04-30</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>https://pulserevops.com/blog/</loc><lastmod>2026-04-28</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/press/</loc><lastmod>2026-04-27</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pulserevops.com/matrix.html</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://pulserevops.com/schedule.html</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://pulserevops.com/privacy.html</loc><lastmod>2026-04-27</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://pulserevops.com/plan-90.html</loc><lastmod>2026-04-27</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://pulserevops.com/resume</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/press/pulse-ai-crm-stack-launch.html</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/press/pulse-resume-scorer-launch.html</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- Personal brand + property pages — owner authority signals -->
-  <url><loc>https://pulserevops.com/kory-white-maryland</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/kory-white-maryland</loc><lastmod>2026-06-21</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://pulserevops.com/fractional-cro</loc><lastmod>2026-06-21</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://pulserevops.com/fractional-cro-maryland-dc</loc><lastmod>2026-06-21</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://pulserevops.com/cro-syndicate-team</loc><lastmod>2026-06-21</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://pulserevops.com/highschool-football-recruiting</loc><lastmod>2026-06-21</lastmod><changefreq>weekly</changefreq><priority>0.92</priority></url>
   <url><loc>https://pulserevops.com/319-blue-bay-road-stevensville-md</loc><lastmod>2026-05-05</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
-  <!-- PULSE tool landing pages — each dashboard section indexable independently -->
-  <url><loc>https://pulserevops.com/tools/</loc><lastmod>2026-04-29</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://pulserevops.com/tools/gross-profit-calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/tools/service-fees</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/tools/house-goals</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/tools/pulse-check</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/tools/pulse-matrix</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/tools/coaching</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/tools/recruiting-calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/tools/rep-scheduling</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/tools/lead-enricher</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/tools/revenue-intelligence</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://pulserevops.com/tools/war-room</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <!-- PULSE tool landing pages (sync via node scripts/sync-tools-sitemap.js) -->
+  <url><loc>https://pulserevops.com/tools/</loc><lastmod>2026-05-25</lastmod><changefreq>weekly</changefreq><priority>0.92</priority></url>
+  <url><loc>https://pulserevops.com/tools/90-day-revenue-plan</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/coaching</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/crm-beats</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pulserevops.com/tools/crm-deals</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pulserevops.com/tools/crm-forecast</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pulserevops.com/tools/crm-leaders</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pulserevops.com/tools/crm-pipeline</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pulserevops.com/tools/crm-reps</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pulserevops.com/tools/gross-profit-calculator</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/guided-tour</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/house-goals</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/how-to-library</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/inventory-tracker</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/lead-enricher</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pulserevops.com/tools/leader-hub</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pulserevops.com/tools/lightning-rounds</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/locker-room</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/not-to-do-list</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/pulse-check</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/pulse-derby</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/pulse-matrix</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/recruiting-calculator</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/rep-scheduling</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/revenue-intelligence</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pulserevops.com/tools/sales-meeting-creator</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/service-fees</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/squad-sync</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/team-toasts</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/tier-distribution</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/tools/war-room</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 
   <!-- Operator-grade pillar pages (drafted by The Machine, human-reviewed) -->
   <url><loc>https://pulserevops.com/pillars/deal-desk-architecture-scaled-governance.html</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
@@ -47,63 +71,9 @@
   <url><loc>https://pulserevops.com/pillars/discount-governance-full-stack.html</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
 
   <!-- Telecom how-to (added 2026-04-29 in response to intent signal) -->
-  <url><loc>https://pulserevops.com/how-tos/telecom.html</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- How-To's industry playbook library -->
-  <url><loc>https://pulserevops.com/how-tos/</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/security.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/internet.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/solar.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/mortgage.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/insurance.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/realestate.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/saas.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/gym.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/streaming.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/banking.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/healthcare.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/auto.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/pest.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/hvac.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/cable.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/moving.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/travel.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/legal.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/retail.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/staffing.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/pharma.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/meddevice.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/construction.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/edtech.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/restaurant.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/ecommerce.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/cybersec.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/logistics.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/events.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/dental.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/veterinary.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/cleaning.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/wellness.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/msp.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/media.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/agriculture.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/wholesale.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/printing.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
-  <url><loc>https://pulserevops.com/how-tos/nonprofit.html</loc><lastmod>2026-04-26</lastmod><priority>0.7</priority></url>
 
   <!-- Press releases -->
-  <url><loc>https://pulserevops.com/press/pulse-howtos-library.html</loc><lastmod>2026-04-26</lastmod><priority>0.6</priority></url>
-  <url><loc>https://pulserevops.com/press/pulse-skin-modes-inventory-overhaul.html</loc><lastmod>2026-04-24</lastmod><priority>0.6</priority></url>
-  <url><loc>https://pulserevops.com/press/pulse-ai-first-warroom.html</loc><lastmod>2026-04-24</lastmod><priority>0.6</priority></url>
-  <url><loc>https://pulserevops.com/press/pulse-leader-hub-launch.html</loc><lastmod>2026-04-15</lastmod><priority>0.6</priority></url>
-  <url><loc>https://pulserevops.com/press/pulse-fixator-launch.html</loc><lastmod>2026-04-10</lastmod><priority>0.6</priority></url>
-  <url><loc>https://pulserevops.com/press/pulse-ai-writer-suite.html</loc><lastmod>2026-04-05</lastmod><priority>0.6</priority></url>
-  <url><loc>https://pulserevops.com/press/pulse-april-update.html</loc><lastmod>2026-04-01</lastmod><priority>0.5</priority></url>
-  <url><loc>https://pulserevops.com/press/executive-review-spotlight.html</loc><lastmod>2026-04-01</lastmod><priority>0.5</priority></url>
-  <url><loc>https://pulserevops.com/press/executive-review-ranking.html</loc><lastmod>2026-04-01</lastmod><priority>0.5</priority></url>
-  <url><loc>https://pulserevops.com/press/annapolis-tech-news-interview.html</loc><lastmod>2026-03-25</lastmod><priority>0.5</priority></url>
-  <url><loc>https://pulserevops.com/press/revenue-architect-spotlight.html</loc><lastmod>2026-03-20</lastmod><priority>0.5</priority></url>
-  <url><loc>https://pulserevops.com/press/pulse-launch.html</loc><lastmod>2026-03-10</lastmod><priority>0.5</priority></url>
-  <url><loc>https://pulserevops.com/press/press-kit.html</loc><lastmod>2026-03-10</lastmod><priority>0.4</priority></url>
 
 </urlset>

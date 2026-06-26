@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#a78bfa;--c2:#7c3aed;--c3:#d8b4fe;--c4:#f472b6;--c4b:#fbcfe8;--ink:#120726;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse"><stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/><stop offset="1" style="stop-color:var(--bg2,#0f172a)"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/><stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/><stop offset="1" style="stop-color:var(--c3,#FFD740)"/></linearGradient>
+    <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--c4,#22d3ee)"/><stop offset="1" style="stop-color:var(--c4b,#67e8f9)"/></linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.7"><stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.18"/><stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1584" height="396" fill="url(#bg)"/>
+  <rect width="1584" height="396" fill="url(#glow)"/>
+  <polyline points="0,50 444,50 507,61 610,20 713,71 792,50 1014,50 1077,61 1180,20 1283,71 1362,50 1584,50" stroke="url(#accent2)" fill="none" stroke-width="2" opacity="0.10"/>
+  <polyline points="0,128 444,128 507,139 610,98 713,149 792,128 1014,128 1077,139 1180,98 1283,149 1362,128 1584,128" stroke="url(#accent2)" fill="none" stroke-width="2" opacity="0.10"/>
+  <polyline points="0,206 444,206 507,217 610,176 713,227 792,206 1014,206 1077,217 1180,176 1283,227 1362,206 1584,206" stroke="url(#accent2)" fill="none" stroke-width="2" opacity="0.10"/>
+  <polyline points="0,284 444,284 507,295 610,254 713,305 792,284 1014,284 1077,295 1180,254 1283,305 1362,284 1584,284" stroke="url(#accent2)" fill="none" stroke-width="2" opacity="0.10"/>
+  <polyline points="0,362 444,362 507,373 610,332 713,383 792,362 1014,362 1077,373 1180,332 1283,383 1362,362 1584,362" stroke="url(#accent2)" fill="none" stroke-width="2" opacity="0.10"/>
+  <polyline points="0,198 444,198 507,220 610,134 713,243 792,198 1014,198 1077,220 1180,134 1283,243 1362,198 1584,198" stroke="url(#accent)" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  <rect x="564.5" y="160" width="455" height="81" rx="40" fill="#0b0f17" opacity="0.6" stroke="url(#accent)" stroke-width="2"/>
+  <text x="792" y="210" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="42" font-weight="800" fill="#FFFFFF">Process scales.</text>
+
+</svg>

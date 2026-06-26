@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#a3e635;--c2:#65a30d;--c3:#d9f99d;--c4:#a3e635;--c4b:#d9f99d;--ink:#172a04;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#a3e635)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#65a30d)"/>
+      <stop offset="1" style="stop-color:var(--c3,#d9f99d)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.3" r="0.5">
+      <stop offset="0" style="stop-color:var(--c1,#a3e635)" stop-opacity="0.18"/>
+      <stop offset="1" style="stop-color:var(--c1,#a3e635)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1584" height="396" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1584" height="396" fill="url(#glow)"/>
+  
+  <g transform="translate(1280,198)" stroke="url(#accent)" fill="none" stroke-width="2.5" opacity="0.95">
+    <circle cx="-110" cy="-60" r="14" fill="url(#accent)"/>
+    <circle cx="-110" cy="0" r="14" fill="url(#accent)"/>
+    <circle cx="-110" cy="60" r="14" fill="url(#accent)"/>
+    <circle cx="0" cy="-90" r="14" fill="url(#accent)"/>
+    <circle cx="0" cy="-30" r="14" fill="url(#accent)"/>
+    <circle cx="0" cy="30" r="14" fill="url(#accent)"/>
+    <circle cx="0" cy="90" r="14" fill="url(#accent)"/>
+    <circle cx="110" cy="-40" r="14" fill="url(#accent)"/>
+    <circle cx="110" cy="40" r="14" fill="url(#accent)"/>
+    <line x1="-110" y1="-60" x2="0" y2="-90"/>
+    <line x1="-110" y1="-60" x2="0" y2="-30"/>
+    <line x1="-110" y1="0" x2="0" y2="-30"/>
+    <line x1="-110" y1="0" x2="0" y2="30"/>
+    <line x1="-110" y1="60" x2="0" y2="30"/>
+    <line x1="-110" y1="60" x2="0" y2="90"/>
+    <line x1="0" y1="-90" x2="110" y2="-40"/>
+    <line x1="0" y1="-30" x2="110" y2="-40"/>
+    <line x1="0" y1="30" x2="110" y2="40"/>
+    <line x1="0" y1="90" x2="110" y2="40"/>
+  </g>
+
+  <text x="120" y="180" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">SYNTHETIC DATA</text>
+  <text x="118" y="262" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="72" font-weight="900" fill="#FFFFFF">Data Generator.</text>
+  <text x="120" y="316" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="28" font-weight="700" fill="#EDE5D8">Gretel <tspan fill="url(#accent)">&#183;</tspan> Tonic <tspan fill="url(#accent)">&#183;</tspan> Synthesia <tspan fill="url(#accent)">&#183;</tspan> DSPy</text>
+</svg>

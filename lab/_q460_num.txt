@@ -1,0 +1,170 @@
+
+
+const num = `
+
+## 📊 Numbers Block
+
+### Hybrid SKO Engagement Benchmarks (2025-2026)
+
+| Metric | Value | Source |
+|---|---|---|
+| Engagement uplift (well-designed hybrid SKO vs in-person-only or virtual-only) | +18% to +32% | Bizzabo + Cvent + ON24 + Whova |
+| Regional team inclusion + first-year retention improvement (hub-and-spoke regional satellite vs primary-venue-only) | +12% to +25% | Pavilion + Bizzabo |
+| Slido / Mentimeter response rates in-person vs virtual | 60-85% in-person vs 25-45% virtual | Bizzabo Virtual Event Engagement Index |
+| Breakout-room participation in-person vs virtual | 75-90% in-person vs 35-55% virtual | Bizzabo + ON24 |
+| Post-session NPS in-person vs virtual | 45-65 in-person vs 15-35 virtual | Bizzabo |
+| Day-2 engagement cliff for virtual-only multi-day SKO | -40% to -60% engagement decline from Day 1 to Day 3 | Bizzabo Virtual Event Engagement Index 2021-2022 |
+| Virtual session optimal duration | 45-60 min vs 90 min in-person (40-50% shorter) | ON24 Webinar Benchmarks |
+| Virtual Q&A participation | 15-25% virtual vs 35-55% in-person (20-30 pp decline) | ON24 |
+| Virtual networking session participation | 25-40% virtual vs 75-90% in-person hallway-track (50 pp decline) | ON24 + Whova |
+| Whova hybrid networking app participation uplift | 25-40% baseline → 55-75% with Whova | Whova research |
+| Hub-and-spoke regional satellite engagement parity vs primary venue | 75-90% (with trained local facilitator) vs 25-40% (without) | Bizzabo |
+| ROI on cumulative hybrid SKO investment (well-designed) | 5-12x | Calculated from Bizzabo / Cvent / Pavilion |
+| Methodology retention at 90/180 days (hybrid SKO + Mindtickle reinforcement vs no reinforcement) | +18% to +32% | Mindtickle State of Sales Readiness |
+| Content utilization (hybrid SKO + Highspot post-event delivery) | +15% to +25% | Highspot State of Sales Enablement |
+| Deal velocity (hybrid SKO + always-on enablement) | +10% to +18% | Highspot + Mindtickle |
+| First-year retention uplift (hybrid + regional satellite vs primary-venue-only) | +8 to +18 pp | Pavilion State of Sales Onboarding |
+| Scope-3 carbon footprint reduction (hub-and-spoke regional satellite vs single-venue global-fly-in) | 65-85% reduction | Cvent ESG benchmarks |
+| Cost-per-attendee in-person fully-loaded | $1,500-$4,500 | Cvent Annual Event Benchmark |
+| Cost-per-attendee virtual | $50-$200 | Cvent + ON24 |
+| Cost-per-attendee regional satellite | $500-$1,500 | Cvent |
+| Hybrid production stack cost (well-managed) | $50K-$300K | Cvent + Encore |
+| Hybrid production stack cost (poorly managed double-build) | $400K-$900K | Cvent + industry consensus |
+| Organizations running hybrid SKO post-2023 | >75% of $50M+ ARR B2B SaaS | Pavilion State of Sales Onboarding |
+| Organizations running hybrid SKO pre-COVID (2019) | <30% | Pavilion |
+| Organizations investing in trained regional satellite facilitators | <35% | Bizzabo |
+| Organizations measuring engagement metrics by format tier | <40% | Sales Enablement PRO |
+| Organizations measuring cumulative hybrid SKO ROI by tier | <30% | Sales Enablement PRO |
+| Organizations deploying hybrid networking apps (Whova) | <50% | Pavilion |
+| Organizations deploying engagement instrumentation (Slido / Mentimeter) | <60% | Pavilion |
+
+### Per-Tier Hybrid SKO Investment Decomposition (500-attendee organization, 300 in-person + 200 virtual + 5 regional satellite hubs)
+
+| Tier | Event Type | Attendees | Per-Attendee Cost | Tier Total |
+|---|---|---|---|---|
+| Tier 1 | In-person mainstage (Days 1-3, primary venue) | 300 | $1,500-$4,500 | $450K-$1.35M |
+| Tier 2 | Virtual breakout extension (Days 4-5, ON24/Bevy/Zoom Events) | 200 | $50-$200 + platform | $10K-$40K |
+| Tier 3 | Hub-and-spoke regional satellite venues (3-8 hubs) | (distributed) | $25K-$95K per hub | $125K-$475K |
+| Tier 4-5 | Async prework + post-SKO reinforcement infrastructure (Mindtickle + Highspot + SalesHood) | All attendees | -- | $85K-$285K |
+| AV production | Hybrid production stack (LED walls + multi-cam + redundant streaming) | -- | -- | $50K-$300K |
+| Total cumulative hybrid SKO investment | -- | -- | -- | $720K-$2.45M |
+
+### Format-to-Content Mapping Matrix
+
+| Content Block | Format | Why |
+|---|---|---|
+| CEO/CRO strategic narrative | Tier 1 In-Person Mainstage | High-bandwidth + emotional resonance + executive presence |
+| Company culture + history | Tier 1 In-Person Mainstage | Culture absorption requires physical presence + cross-role mixing |
+| Club / President's Club celebration | Tier 1 In-Person Mainstage | Emotional recognition + gala dinner + executive recognition |
+| Comp plan reveal | Tier 1 In-Person Mainstage | Anxiety-inducing content requires immediate Q&A + emotional management |
+| Product roadmap unveil | Tier 1 In-Person Mainstage | High-stakes narrative + CPO/CTO presence + competitive context |
+| Methodology partner instructor-led role-play | Tier 1 In-Person Mainstage | Cross-role role-play + peer observation requires in-person |
+| Cross-role hallway-track networking | Tier 1 In-Person Mainstage | Informal cross-role mixing + tribal-knowledge transfer |
+| Customer panel + success stories | Tier 1 In-Person Mainstage | Customer presence + production aesthetics |
+| Role-specific functional deep-dives (AE territory, SDR sequence, Manager coaching) | Tier 2 Virtual Breakout | Scales better through virtual with dedicated role-track moderators |
+| Named-account workshops | Tier 2 Virtual Breakout | Scales through virtual with account team moderators |
+| Regional segment specialization (EMEA/APAC/LATAM) | Tier 2 Virtual Breakout | Scales through virtual with regional facilitators |
+| Comp plan Q&A (granular) | Tier 2 Virtual Breakout | Granular Q&A with CFO + RevOps (after Tier 1 reveal) |
+| Product certification + role-play certification | Tier 2 Virtual Breakout | Scales through virtual + LMS reinforcement |
+| Tooling deep-dives (Salesforce/HubSpot/Gong/Outreach) | Tier 2 Virtual Breakout | Scales through virtual + recorded for async consumption |
+| Product baseline certification | Tier 4 Async Prework | LMS-deliverable foundational content |
+| Methodology baseline (MEDDICC, Command of the Message, outbound craft) | Tier 4 Async Prework | LMS-deliverable foundational content |
+| Competitive battlecard baseline | Tier 4 Async Prework | LMS-deliverable foundational content |
+| Comp plan literacy | Tier 4 Async Prework | LMS-deliverable foundational content |
+| Pre-SKO assessment | Tier 4 Async Prework | LMS-based 80% certification gate |
+| Regional simulcast + local facilitator-led discussion | Tier 3 Regional Satellite | Distributed in-person experience for regional teams |
+| Regional Club celebration + regional happy hour | Tier 3 Regional Satellite | Regional engagement parity with primary venue |
+| Role-specific spaced-repetition micro-learning (5-10 min daily) | Tier 5 Post-SKO Reinforcement | Counters Ebbinghaus 50-80% knowledge loss within 1 week |
+| Weekly manager 1:1 reinforcement | Tier 5 Post-SKO Reinforcement | Manager-led methodology reinforcement |
+| Monthly methodology micro-sessions | Tier 5 Post-SKO Reinforcement | Methodology partner-led 60-min virtual sessions |
+| Gong conversation intelligence coaching | Tier 5 Post-SKO Reinforcement | Manager-led call review + automated methodology pattern detection |
+
+### Engagement Instrumentation by Tier and Format
+
+| Tier | Format | Target Slido Response Rate | Target Breakout Participation | Target Post-Session NPS |
+|---|---|---|---|---|
+| Tier 1 | In-person mainstage | 60-85% | 75-90% | 45-65 |
+| Tier 2 | Virtual breakout | 25-45% | 35-55% | 15-35 |
+| Tier 3 | Regional satellite (trained facilitator) | 50-75% | 65-85% | 35-55 |
+| Tier 3 | Regional satellite (untrained facilitator) | 15-30% | 25-40% | 5-25 |
+| Tier 4 | Async prework | -- (80% certification gate) | -- | -- (LMS scoring) |
+| Tier 5 | Post-SKO reinforcement | -- | -- | -- (Mindtickle retention scoring) |
+
+### Virtual Platform Vendor Stack Pricing (Tier 2 + Tier 3 Simulcast Infrastructure)
+
+| Platform Category | Vendor | Annual Investment | Coverage |
+|---|---|---|---|
+| Hybrid event management | Bizzabo | $25K-$185K annually | Hybrid event management + attendee tracking + engagement analytics |
+| Hybrid event management | Cvent | $35K-$285K annually | Enterprise event management + venue sourcing + supplier management |
+| Hybrid event management | Hopin / RingCentral Events | varying RingCentral UC pricing | Consolidated hybrid platform post-2023 |
+| Virtual event platform | ON24 | $25K-$185K annually | Virtual sessions + webinar analytics + lead capture |
+| Virtual event platform | Bevy | $15K-$95K annually | Community-driven virtual + chapter-based |
+| Virtual event platform | Zoom Events | $15K-$125K annually | Zoom-native hybrid + UC integration |
+| Virtual event platform | Microsoft Teams Live Events | M365 E5 / Teams Premium varying | Microsoft-native + compliance-mandated orgs |
+| Virtual event platform | Webex Events | Cisco UC varying | Cisco-native + telecom-vertical orgs |
+| Hybrid networking | Whova | $5K-$45K per event | Attendee directory + 1:1 meeting scheduling + cross-hub messaging |
+| Hybrid networking | Brella | $5K-$45K per event | AI-powered networking + matchmaking |
+| Hybrid networking | Grip | $5K-$45K per event | AI-powered matchmaking + networking |
+| Live polling | Slido (Cisco-owned) | $5K-$25K annually | Live polling + Q&A (canonical engagement instrumentation) |
+| Live polling | Mentimeter | $5K-$25K annually | Live polling + presentation engagement |
+| Live polling | Pigeonhole Live | $5K-$25K annually | Q&A + polling |
+| Live polling | Poll Everywhere | $5K-$25K annually | Live polling |
+| AV production | Encore | $50K-$300K per event | LED walls + multi-cam + professional production + hybrid Q&A queuing |
+| AV production | Freeman / PSAV | $50K-$300K per event | Event production + experience design |
+| AV production | Hargrove | $50K-$300K per event | Event production + design |
+| AV production | GES | $50K-$300K per event | Event production |
+| LMS / async prework | Mindtickle | $35K-$285K annually | Sales readiness + spaced-repetition micro-learning |
+| LMS / async prework | Highspot | $25K-$185K annually | Sales enablement content + buyer engagement |
+| LMS / async prework | SalesHood | $15K-$95K annually | SKO + cohort-based onboarding |
+| LMS / async prework | Seismic | $25K-$185K annually | Content + Lessonly LMS |
+| Total hybrid SKO tech stack | All vendors | $185K-$685K annual + $50K-$300K per event AV | Full canonical stack |
+
+### Notable B2B SaaS Hybrid SKO Case Study Investments
+
+| Company | Hybrid Pattern | Annual Cumulative Hybrid SKO Investment |
+|---|---|---|
+| Salesforce | Dreamforce hybrid (Moscone + Salesforce+ + regional satellite) + internal hybrid SKO (Las Vegas/SF + virtual + 5+ hubs) | $50M-$200M+ |
+| Microsoft | Microsoft Build hybrid + Microsoft Ready internal hybrid (Modern Workplace + Azure + Dynamics) | $50M-$200M+ |
+| ServiceNow | ServiceNow Knowledge hybrid + World Forum hybrid + internal hybrid | $15M-$40M |
+| Adobe | MAX customer-event hybrid + internal hybrid SKO | $15M-$40M |
+| Snowflake | Snowflake Summit hybrid (Las Vegas + virtual + 4+ hubs) + internal hybrid SKO | $10M-$30M |
+| HubSpot | Inbound Hybrid (Boston + virtual + regional) + internal hybrid SKO + HubSpot Academy always-on | $5M-$15M |
+| Atlassian | Distributed-first hybrid SKO + Atlassian Team customer hybrid (async-first + condensed in-person) | $5M-$15M |
+| Datadog | Internal hybrid SKO (SF + virtual + 3+ hubs) | $5M-$15M |
+| Workday | Workday Rising customer-event hybrid + internal hybrid | $5M-$15M |
+| Zoom | Zoomtopia customer-event hybrid + internal hybrid (Zoom Events native) | $5M-$15M |
+| DocuSign | Momentum customer-event + internal hybrid + Tier 5 new-hire kickoffs | $5M-$15M |
+| Okta | Oktane customer-event + internal hybrid | $5M-$15M |
+| Cloudflare | Connect customer-event + internal hybrid | $3M-$10M |
+| GitLab | All-remote handbook async-first hybrid SKO + GitLab Connect hybrid (6-8 week async + 1-2 day in-person) | $2M-$8M |
+
+### COVID 2020-2022 Forced-Virtual Era → 2023+ Hybrid Pivot Timeline
+
+| Year | Phase | Industry Pattern |
+|---|---|---|
+| 2019 (pre-COVID) | In-person dominant | <30% of $50M+ ARR B2B SaaS run hybrid; in-person-only dominant; Bizzabo + Cvent leaders |
+| 2020 (COVID lockdown) | Forced-virtual pivot | Salesforce World Tour Reimagined + HubSpot Inbound Virtual + Snowflake Summit virtual + Microsoft Build virtual; Hopin + ON24 + Zoom Events growth |
+| 2021 (continued COVID) | Virtual maturation | Day-2 engagement cliff documented; Bizzabo Virtual Event Engagement Index research; virtual session optimal duration 45-60 min established |
+| 2022 (transition) | Hybrid experimentation | First hybrid pivots; engagement instrumentation maturation; Whova hybrid networking growth |
+| 2023 (hybrid pivot) | Hybrid dominant | Salesforce Dreamforce hybrid + HubSpot Inbound Hybrid + Snowflake Summit hybrid + Microsoft Build hybrid; Hopin acquired by RingCentral; Run The World pivot to community |
+| 2024-2026 (hybrid maturity) | Hybrid canonical | >75% of $50M+ ARR B2B SaaS run hybrid SKO; engagement instrumentation + cross-format integration + regional satellite + async prework + post-SKO reinforcement canonical |
+| 2027 (hybrid optimization) | Engagement optimization | Format-content mapping discipline + cumulative hybrid SKO ROI measurement + Scope-3 carbon accounting + multi-tier reinforcement infrastructure |
+
+### Hybrid SKO Failure Mode Prevention Checklist
+
+| Failure Mode | Symptom | Mitigation |
+|---|---|---|
+| Virtual breakout dead-air | Silent breakouts + 35-55% participation vs 75-90% in-person | Dedicated role-track moderator + structured icebreaker + Slido polling + async pre-breakout warm-up + 45-60 min optimal duration |
+| Multi-screen fatigue | Day-2 engagement cliff 40-60% decline | Limit virtual SKO to 2 days max + 4-6 hours/day + frequent breaks + supplement with async LMS + post-SKO reinforcement |
+| In-person FOMO for remote attendees | Virtual attendees as second-class + retention erosion | Large-screen pinned virtual cohorts + dedicated virtual moderator + cross-format Slido polling + hybrid Q&A queue + cross-format Slack channels |
+| AV failure cascades | Single-point-of-failure cascading to total event collapse | Redundant AV infrastructure + on-site production team + backup virtual platform + redundant streaming + 3-rehearsal minimum |
+| Cost-creep on hybrid double-build | Production cost balloons from $50K-$300K to $400K-$900K | Single integrated production design + shared content + shared methodology partner + clearly demarcated format blocks (not parallel builds) |
+| Weak regional facilitators | Regional engagement collapse to 25-40% | Invest $5K-$25K per satellite for trained local facilitator + regional happy hour design + facilitator pre-event training |
+| Format-content mismatch | Strategic narrative virtual + functional breakouts in-person mainstage | Enforce canonical format-content mapping (in-person mainstage = strategic + culture; virtual breakouts = functional; async = foundational) |
+| No async prework | In-person + virtual time wasted on foundational content | 4-week pre-SKO LMS modules via Mindtickle + 80% certification gate covering product / methodology / competitive baseline |
+| No post-SKO reinforcement | 80%+ knowledge loss within 6 months per Ebbinghaus | 90-day spaced-repetition via Mindtickle (1-day/3-day/1-week/2-week/1-month/3-month) + weekly manager 1:1 + monthly methodology |
+| Engagement instrumentation absent | Faith-based hybrid SKO + inability to optimize | Slido / Mentimeter / Whova / Bizzabo / Cvent / ON24 / Mindtickle measurement infrastructure |
+| Regional satellite afterthought | Inferior regional engagement (25-40% vs 75-90%) | Regional satellite as first-class experience + trained local facilitator + regional happy hour + cross-hub Whova + cross-hub Slido |
+| Run-of-show under-rehearsal | AV failure during live event + speaker stumbles + cross-format breakdowns | 3+ full-cast rehearsals before live hybrid SKO including AV production + virtual platform + regional facilitators + engagement instrumentation testing |
+
+`;

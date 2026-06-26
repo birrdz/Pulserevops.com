@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;} .lbl{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;fill:var(--ink);text-anchor:middle} .ttl{font-family:Inter,system-ui,sans-serif;font-weight:800;text-anchor:middle}</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--bg1,#0b0f17)"/><stop offset="1" stop-color="var(--bg2,#0f172a)"/></linearGradient>
+<linearGradient id="vp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c4)"/><stop offset="1" stop-color="var(--c4b)"/></linearGradient>
+<linearGradient id="ae" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c1)"/><stop offset="1" stop-color="var(--c2)"/></linearGradient>
+<linearGradient id="sdr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c3)"/><stop offset="1" stop-color="var(--c1)"/></linearGradient>
+<linearGradient id="rev" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c4b)"/><stop offset="1" stop-color="var(--c3)"/></linearGradient>
+</defs>
+<rect width="1584" height="396" fill="url(#bg)"/>
+<text x="792" y="34" class="ttl" font-size="20" fill="var(--c4b)">Series A SaaS Sales Org — VP Sales + 4 AEs + 2 SDRs + 1 RevOps</text>
+
+<!-- Lines: VP to AEs -->
+<path d="M 792 110 L 792 150 L 264 150 L 264 200" stroke="var(--c1)" stroke-width="2.5" fill="none"/>
+<path d="M 792 150 L 528 150 L 528 200" stroke="var(--c1)" stroke-width="2.5" fill="none"/>
+<path d="M 792 150 L 792 200" stroke="var(--c1)" stroke-width="2.5" fill="none"/>
+<path d="M 792 150 L 1056 150 L 1056 200" stroke="var(--c1)" stroke-width="2.5" fill="none"/>
+<path d="M 792 150 L 1320 150 L 1320 200" stroke="var(--c4) " stroke-width="2.5" fill="none"/>
+
+<!-- Lines: AEs to SDRs (SDRs report to VP via AE pool; show dotted to AE group) -->
+<path d="M 264 290 L 264 320 L 528 320 L 528 290" stroke="var(--c3)" stroke-width="2" fill="none" stroke-dasharray="6 5"/>
+<path d="M 792 290 L 792 320 L 1056 320 L 1056 290" stroke="var(--c3)" stroke-width="2" fill="none" stroke-dasharray="6 5"/>
+
+<!-- SDR feeder lines down -->
+<path d="M 396 320 L 396 340" stroke="var(--c3)" stroke-width="2" fill="none"/>
+<path d="M 924 320 L 924 340" stroke="var(--c3)" stroke-width="2" fill="none"/>
+
+<!-- VP Sales box -->
+<rect x="672" y="50" width="240" height="60" rx="10" fill="url(#vp)" stroke="var(--ink)" stroke-width="2"/>
+<text x="792" y="78" class="ttl" font-size="20">VP Sales</text>
+<text x="792" y="98" class="lbl" font-size="14">Head of Revenue</text>
+
+<!-- AE boxes -->
+<g>
+<rect x="174" y="200" width="180" height="90" rx="10" fill="url(#ae)" stroke="var(--ink)" stroke-width="2"/>
+<text x="264" y="232" class="ttl" font-size="18" fill="var(--ink)">AE 1</text>
+<text x="264" y="254" class="lbl" font-size="13">Account Executive</text>
+<text x="264" y="274" class="lbl" font-size="13">Mid-Market</text>
+</g>
+<g>
+<rect x="438" y="200" width="180" height="90" rx="10" fill="url(#ae)" stroke="var(--ink)" stroke-width="2"/>
+<text x="528" y="232" class="ttl" font-size="18" fill="var(--ink)">AE 2</text>
+<text x="528" y="254" class="lbl" font-size="13">Account Executive</text>
+<text x="528" y="274" class="lbl" font-size="13">Mid-Market</text>
+</g>
+<g>
+<rect x="702" y="200" width="180" height="90" rx="10" fill="url(#ae)" stroke="var(--ink)" stroke-width="2"/>
+<text x="792" y="232" class="ttl" font-size="18" fill="var(--ink)">AE 3</text>
+<text x="792" y="254" class="lbl" font-size="13">Account Executive</text>
+<text x="792" y="274" class="lbl" font-size="13">Commercial</text>
+</g>
+<g>
+<rect x="966" y="200" width="180" height="90" rx="10" fill="url(#ae)" stroke="var(--ink)" stroke-width="2"/>
+<text x="1056" y="232" class="ttl" font-size="18" fill="var(--ink)">AE 4</text>
+<text x="1056" y="254" class="lbl" font-size="13">Account Executive</text>
+<text x="1056" y="274" class="lbl" font-size="13">Commercial</text>
+</g>
+
+<!-- RevOps box -->
+<g>
+<rect x="1230" y="200" width="180" height="90" rx="10" fill="url(#rev)" stroke="var(--ink)" stroke-width="2"/>
+<text x="1320" y="232" class="ttl" font-size="18">RevOps</text>
+<text x="1320" y="254" class="lbl" font-size="13">Systems + Forecast</text>
+<text x="1320" y="274" class="lbl" font-size="13">CRM / Reporting</text>
+</g>
+
+<!-- SDR boxes -->
+<g>
+<rect x="306" y="340" width="180" height="46" rx="8" fill="url(#sdr)" stroke="var(--ink)" stroke-width="2"/>
+<text x="396" y="362" class="ttl" font-size="16">SDR 1</text>
+<text x="396" y="379" class="lbl" font-size="12">Outbound — Pairs AE 1/2</text>
+</g>
+<g>
+<rect x="834" y="340" width="180" height="46" rx="8" fill="url(#sdr)" stroke="var(--ink)" stroke-width="2"/>
+<text x="924" y="362" class="ttl" font-size="16">SDR 2</text>
+<text x="924" y="379" class="lbl" font-size="12">Outbound — Pairs AE 3/4</text>
+</g>
+
+<!-- Legend -->
+<g transform="translate(40,346)">
+<rect x="0" y="0" width="14" height="14" rx="3" fill="url(#vp)" stroke="var(--ink)"/>
+<text x="20" y="12" font-family="Inter,sans-serif" font-size="12" fill="var(--c4b)">Leadership</text>
+<rect x="100" y="0" width="14" height="14" rx="3" fill="url(#ae)" stroke="var(--ink)"/>
+<text x="120" y="12" font-family="Inter,sans-serif" font-size="12" fill="var(--c4b)">Quota-carrying</text>
+<rect x="220" y="0" width="14" height="14" rx="3" fill="url(#sdr)" stroke="var(--ink)"/>
+<text x="240" y="12" font-family="Inter,sans-serif" font-size="12" fill="var(--c4b)">Pipeline gen</text>
+</g>
+<text x="40" y="376" font-family="Inter,sans-serif" font-size="11" fill="var(--c3)">Solid line = direct report  ·  Dashed line = pairing/coverage</text>
+</svg>

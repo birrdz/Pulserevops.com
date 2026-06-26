@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.bg1{fill:var(--bg1,#0b0f17);}
+.bg2{fill:var(--bg2,#0f172a);}
+.label{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;fill:var(--c3);}
+.title{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-weight:700;fill:var(--c3);}
+.tick{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-weight:600;fill:var(--c3);}
+.value{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-weight:800;fill:var(--c4);}
+.subtitle{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;fill:var(--c1);}
+</style>
+
+<defs>
+<linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="100%" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="dangerGrad" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0%" stop-color="#7f1d1d"/>
+<stop offset="100%" stop-color="#b91c1c"/>
+</linearGradient>
+<linearGradient id="warnGrad" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0%" stop-color="#b91c1c"/>
+<stop offset="100%" stop-color="var(--c4)"/>
+</linearGradient>
+<linearGradient id="safeGrad" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0%" stop-color="var(--c4)"/>
+<stop offset="50%" stop-color="var(--c1)"/>
+<stop offset="100%" stop-color="var(--c2)"/>
+</linearGradient>
+<linearGradient id="overGrad" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0%" stop-color="var(--c2)"/>
+<stop offset="100%" stop-color="#0f766e"/>
+</linearGradient>
+<radialGradient id="needleHub" cx="0.5" cy="0.5" r="0.5">
+<stop offset="0%" stop-color="var(--c4b)"/>
+<stop offset="100%" stop-color="var(--c2)"/>
+</radialGradient>
+</defs>
+
+<rect class="bg1" width="1584" height="396" fill="url(#bgGrad)"/>
+
+<text class="title" x="60" y="58" font-size="32">Pipeline Coverage Gauge</text>
+<text class="subtitle" x="60" y="92" font-size="20">Current quarter coverage vs. quota target</text>
+
+<!-- LEFT GAUGE: 3x (danger) -->
+<g transform="translate(264,260)">
+<text class="label" x="0" y="-180" font-size="22" text-anchor="middle" font-weight="700">3x COVERAGE</text>
+<text class="label" x="0" y="-156" font-size="16" text-anchor="middle">Below safe zone</text>
+
+<!-- Arc segments: 180deg arc from (-140,0) to (140,0), radius 140 -->
+<!-- Danger zone 0x-2.5x: 180deg to 135deg -->
+<path d="M -140,0 A 140,140 0 0,1 -98.99,-98.99" fill="none" stroke="url(#dangerGrad)" stroke-width="34"/>
+<!-- Warn zone 2.5x-3x: 135deg to 108deg -->
+<path d="M -98.99,-98.99 A 140,140 0 0,1 -43.26,-133.14" fill="none" stroke="url(#warnGrad)" stroke-width="34"/>
+<!-- Safe zone 3x-5x: 108deg to 36deg (HIGHLIGHTED) -->
+<path d="M -43.26,-133.14 A 140,140 0 0,1 113.27,-82.27" fill="none" stroke="url(#safeGrad)" stroke-width="38"/>
+<!-- Over zone 5x+: 36deg to 0deg -->
+<path d="M 113.27,-82.27 A 140,140 0 0,1 140,0" fill="none" stroke="url(#overGrad)" stroke-width="34"/>
+
+<!-- Tick marks and labels -->
+<g class="tick" font-size="18" text-anchor="middle">
+<line x1="-168" y1="0" x2="-148" y2="0" stroke="var(--c3)" stroke-width="2"/>
+<text x="-178" y="6" text-anchor="end">0x</text>
+<line x1="-118.79" y1="-118.79" x2="-104.65" y2="-104.65" stroke="var(--c3)" stroke-width="2"/>
+<text x="-128" y="-122">2.5x</text>
+<line x1="-51.91" y1="-159.77" x2="-45.74" y2="-140.78" stroke="var(--c4)" stroke-width="3"/>
+<text x="-54" y="-168" fill="var(--c4)">3x</text>
+<line x1="51.91" y1="-159.77" x2="45.74" y2="-140.78" stroke="var(--c1)" stroke-width="3"/>
+<text x="54" y="-168" fill="var(--c1)">4x</text>
+<line x1="135.94" y1="-98.74" x2="119.78" y2="-87.0" stroke="var(--c1)" stroke-width="3"/>
+<text x="146" y="-100" fill="var(--c1)">5x</text>
+<line x1="168" y1="0" x2="148" y2="0" stroke="var(--c3)" stroke-width="2"/>
+<text x="178" y="6" text-anchor="start">6x+</text>
+</g>
+
+<!-- Needle pointing to 3x (108deg) -->
+<g transform="rotate(-72)">
+<polygon points="-6,0 6,0 0,-128" fill="var(--c4)" stroke="var(--ink)" stroke-width="1"/>
+</g>
+<circle cx="0" cy="0" r="14" fill="url(#needleHub)" stroke="var(--ink)" stroke-width="2"/>
+
+<!-- Value readout -->
+<text class="value" x="0" y="48" font-size="46" text-anchor="middle" fill="var(--c4)">3.0x</text>
+<text class="label" x="0" y="74" font-size="14" text-anchor="middle">$2.4M pipe / $800K quota</text>
+</g>
+
+<!-- CENTER GAUGE: 4x (safe / target) -->
+<g transform="translate(792,260)">
+<text class="label" x="0" y="-180" font-size="22" text-anchor="middle" font-weight="700" fill="var(--c1)">4x COVERAGE</text>
+<text class="subtitle" x="0" y="-156" font-size="16" text-anchor="middle">Inside safe zone — target</text>
+
+<path d="M -140,0 A 140,140 0 0,1 -98.99,-98.99" fill="none" stroke="url(#dangerGrad)" stroke-width="34"/>
+<path d="M -98.99,-98.99 A 140,140 0 0,1 -43.26,-133.14" fill="none" stroke="url(#warnGrad)" stroke-width="34"/>
+<path d="M -43.26,-133.14 A 140,140 0 0,1 113.27,-82.27" fill="none" stroke="url(#safeGrad)" stroke-width="38"/>
+<path d="M 113.27,-82.27 A 140,140 0 0,1 140,0" fill="none" stroke="url(#overGrad)" stroke-width="34"/>
+
+<!-- Safe-zone glow highlight -->
+<path d="M -43.26,-133.14 A 140,140 0 0,1 113.27,-82.27" fill="none" stroke="var(--c1)" stroke-width="4" opacity="0.45"/>
+<path d="M -43.26,-133.14 A 140,140 0 0,1 113.27,-82.27" fill="none" stroke="var(--c3)" stroke-width="2" opacity="0.8" stroke-dasharray="4 6"/>
+
+<g class="tick" font-size="18" text-anchor="middle">
+<line x1="-168" y1="0" x2="-148" y2="0" stroke="var(--c3)" stroke-width="2"/>
+<text x="-178" y="6" text-anchor="end">0x</text>
+<line x1="-118.79" y1="-118.79" x2="-104.65" y2="-104.65" stroke="var(--c3)" stroke-width="2"/>
+<text x="-128" y="-122">2.5x</text>
+<line x1="-51.91" y1="-159.77" x2="-45.74" y2="-140.78" stroke="var(--c4)" stroke-width="3"/>
+<text x="-54" y="-168" fill="var(--c4)">3x</text>
+<line x1="51.91" y1="-159.77" x2="45.74" y2="-140.78" stroke="var(--c1)" stroke-width="3"/>
+<text x="54" y="-168" fill="var(--c1)">4x</text>
+<line x1="135.94" y1="-98.74" x2="119.78" y2="-87.0" stroke="var(--c1)" stroke-width="3"/>
+<text x="146" y="-100" fill="var(--c1)">5x</text>
+<line x1="168" y1="0" x2="148" y2="0" stroke="var(--c3)" stroke-width="2"/>
+<text x="178" y="6" text-anchor="start">6x+</text>
+</g>
+
+<!-- Needle pointing to 4x (72deg from horizontal) -->
+<g transform="rotate(0)">
+<polygon points="-6,0 6,0 0,-128" fill="var(--c1)" stroke="var(--ink)" stroke-width="1"/>
+</g>
+<circle cx="0" cy="0" r="14" fill="url(#needleHub)" stroke="var(--ink)" stroke-width="2"/>
+
+<text class="value" x="0" y="48" font-size="46" text-anchor="middle" fill="var(--c1)">4.0x</text>
+<text class="label" x="0" y="74" font-size="14" text-anchor="middle">$3.2M pipe / $800K quota</text>
+</g>
+
+<!-- RIGHT GAUGE: 5x (over safe) -->
+<g transform="translate(1320,260)">
+<text class="label" x="0" y="-180" font-size="22" text-anchor="middle" font-weight="700" fill="var(--c2)">5x COVERAGE</text>
+<text class="subtitle" x="0" y="-156" font-size="16" text-anchor="middle">Edge of safe — strong</text>
+
+<path d="M -140,0 A 140,140 0 0,1 -98.99,-98.99" fill="none" stroke="url(#dangerGrad)" stroke-width="34"/>
+<path d="M -98.99,-98.99 A 140,140 0 0,1 -43.26,-133.14" fill="none" stroke="url(#warnGrad)" stroke-width="34"/>
+<path d="M -43.26,-133.14 A 140,140 0 0,1 113.27,-82.27" fill="none" stroke="url(#safeGrad)" stroke-width="38"/>
+<path d="M 113.27,-82.27 A 140,140 0 0,1 140,0" fill="none" stroke="url(#overGrad)" stroke-width="34"/>
+
+<g class="tick" font-size="18" text-anchor="middle">
+<line x1="-168" y1="0" x2="-148" y2="0" stroke="var(--c3)" stroke-width="2"/>
+<text x="-178" y="6" text-anchor="end">0x</text>
+<line x1="-118.79" y1="-118.79" x2="-104.65" y2="-104.65" stroke="var(--c3)" stroke-width="2"/>
+<text x="-128" y="-122">2.5x</text>
+<line x1="-51.91" y1="-159.77" x2="-45.74" y2="-140.78" stroke="var(--c4)" stroke-width="3"/>
+<text x="-54" y="-168" fill="var(--c4)">3x</text>
+<line x1="51.91" y1="-159.77" x2="45.74" y2="-140.78" stroke="var(--c1)" stroke-width="3"/>
+<text x="54" y="-168" fill="var(--c1)">4x</text>
+<line x1="135.94" y1="-98.74" x2="119.78" y2="-87.0" stroke="var(--c1)" stroke-width="3"/>
+<text x="146" y="-100" fill="var(--c1)">5x</text>
+<line x1="168" y1="0" x2="148" y2="0" stroke="var(--c3)" stroke-width="2"/>
+<text x="178" y="6" text-anchor="start">6x+</text>
+</g>
+
+<!-- Needle pointing to 5x (36deg) -->
+<g transform="rotate(54)">
+<polygon points="-6,0 6,0 0,-128" fill="var(--c2)" stroke="var(--ink)" stroke-width="1"/>
+</g>
+<circle cx="0" cy="0" r="14" fill="url(#needleHub)" stroke="var(--ink)" stroke-width="2"/>
+
+<text class="value" x="0" y="48" font-size="46" text-anchor="middle" fill="var(--c2)">5.0x</text>
+<text class="label" x="0" y="74" font-size="14" text-anchor="middle">$4.0M pipe / $800K quota</text>
+</g>
+
+<!-- Bottom legend -->
+<g transform="translate(60,352)">
+<rect x="0" y="0" width="22" height="14" fill="#b91c1c" rx="2"/>
+<text class="label" x="30" y="12" font-size="15">Danger &lt;3x</text>
+<rect x="160" y="0" width="22" height="14" fill="var(--c4)" rx="2"/>
+<text class="label" x="190" y="12" font-size="15">Warn 2.5-3x</text>
+<rect x="330" y="0" width="22" height="14" fill="var(--c1)" rx="2"/>
+<text class="label" x="360" y="12" font-size="15">Safe 3x-5x (target band)</text>
+<rect x="580" y="0" width="22" height="14" fill="var(--c2)" rx="2"/>
+<text class="label" x="610" y="12" font-size="15">Over 5x (sandbag risk)</text>
+<text class="label" x="900" y="12" font-size="15" fill="var(--c3)">Formula: Open pipeline $ / remaining quota $ = coverage ratio</text>
+</g>
+</svg>

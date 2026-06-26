@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;} .lbl{font-family:-apple-system,'Segoe UI',sans-serif;fill:var(--ink);} .lite{fill:#e6fff5;font-family:-apple-system,'Segoe UI',sans-serif;}</style>
+<defs>
+<linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="baseG" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)"/>
+<stop offset="1" stop-color="var(--c2)"/>
+</linearGradient>
+<linearGradient id="varG" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c3)"/>
+<stop offset="1" stop-color="var(--c1)"/>
+</linearGradient>
+<linearGradient id="accG" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c4b)"/>
+<stop offset="1" stop-color="var(--c4)"/>
+</linearGradient>
+</defs>
+<rect width="1584" height="396" fill="url(#bgGrad)"/>
+<text x="48" y="58" class="lite" font-size="28" font-weight="700">SDR Comp Structure Breakdown</text>
+<text x="48" y="86" class="lite" font-size="18" opacity="0.75">Total On-Target Earnings (OTE): $80,000</text>
+
+<!-- Stacked horizontal bar -->
+<g transform="translate(48,120)">
+<rect x="0" y="0" width="900" height="80" rx="10" fill="#10221a" stroke="var(--c2)" stroke-opacity="0.4"/>
+<!-- Base 62.5% of 900 = 562.5 -->
+<rect x="0" y="0" width="562" height="80" rx="10" fill="url(#baseG)"/>
+<!-- Variable 30/80 = 37.5% = 337.5, start at 562 -->
+<rect x="562" y="0" width="338" height="80" fill="url(#varG)"/>
+<rect x="893" y="0" width="7" height="80" fill="var(--c2)" opacity="0.6"/>
+<!-- Labels inside -->
+<text x="280" y="40" class="lbl" font-size="22" font-weight="700" text-anchor="middle">Base Salary</text>
+<text x="280" y="66" class="lbl" font-size="20" text-anchor="middle">$50,000  (62.5%)</text>
+<text x="731" y="40" class="lbl" font-size="22" font-weight="700" text-anchor="middle">Variable</text>
+<text x="731" y="66" class="lbl" font-size="20" text-anchor="middle">$30,000  (37.5%)</text>
+</g>
+
+<!-- Accelerators tail beyond OTE -->
+<g transform="translate(960,120)">
+<rect x="0" y="0" width="220" height="80" rx="10" fill="url(#accG)"/>
+<text x="110" y="38" class="lbl" font-size="20" font-weight="700" text-anchor="middle">Accelerators</text>
+<text x="110" y="64" class="lbl" font-size="18" text-anchor="middle">1.5x–2.0x over 100%</text>
+</g>
+
+<!-- OTE callout -->
+<g transform="translate(1210,108)">
+<rect x="0" y="0" width="326" height="104" rx="14" fill="#10221a" stroke="var(--c1)" stroke-width="2"/>
+<text x="163" y="40" class="lite" font-size="22" font-weight="700" text-anchor="middle">Total OTE</text>
+<text x="163" y="80" fill="var(--c1)" font-family="-apple-system,'Segoe UI',sans-serif" font-size="40" font-weight="800" text-anchor="middle">$80,000</text>
+</g>
+
+<!-- Bottom row: three breakdown cards -->
+<g transform="translate(48,240)">
+<rect x="0" y="0" width="480" height="124" rx="12" fill="#10221a" stroke="var(--c2)" stroke-opacity="0.5"/>
+<rect x="0" y="0" width="8" height="124" rx="4" fill="var(--c2)"/>
+<text x="28" y="36" class="lite" font-size="20" font-weight="700">Base $50K</text>
+<text x="28" y="64" class="lite" font-size="17" opacity="0.85">Fixed pay, semi-monthly</text>
+<text x="28" y="88" class="lite" font-size="17" opacity="0.85">Covers cost-of-living + ramp</text>
+<text x="28" y="112" class="lite" font-size="17" opacity="0.85">Paid regardless of quota</text>
+</g>
+
+<g transform="translate(540,240)">
+<rect x="0" y="0" width="480" height="124" rx="12" fill="#10221a" stroke="var(--c1)" stroke-opacity="0.6"/>
+<rect x="0" y="0" width="8" height="124" rx="4" fill="var(--c1)"/>
+<text x="28" y="36" class="lite" font-size="20" font-weight="700">Variable $30K</text>
+<text x="28" y="64" class="lite" font-size="17" opacity="0.85">$1,500 / SQL accepted (20/qtr)</text>
+<text x="28" y="88" class="lite" font-size="17" opacity="0.85">Paid monthly on attainment</text>
+<text x="28" y="112" class="lite" font-size="17" opacity="0.85">100% = quota hit</text>
+</g>
+
+<g transform="translate(1032,240)">
+<rect x="0" y="0" width="504" height="124" rx="12" fill="#10221a" stroke="var(--c4)" stroke-opacity="0.7"/>
+<rect x="0" y="0" width="8" height="124" rx="4" fill="var(--c4)"/>
+<text x="28" y="36" class="lite" font-size="20" font-weight="700">Accelerators (above quota)</text>
+<text x="28" y="64" class="lite" font-size="17" opacity="0.85">101–125%: 1.5x per SQL</text>
+<text x="28" y="88" class="lite" font-size="17" opacity="0.85">126%+: 2.0x per SQL</text>
+<text x="28" y="112" class="lite" font-size="17" opacity="0.85">Uncapped — top reps clear $110K</text>
+</g>
+</svg>

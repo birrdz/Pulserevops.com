@@ -1,0 +1,31 @@
+v15.2 gold-format conversion — tick 216, agent A
+================================================
+Target id:        q429
+Question:         How do we build a tiered partner program that rewards scale without collapsing margin?
+Rank picked:      index 0 (1st-newest of 1,202 filtered entries, ts=1779050302506)
+Filtered pool:    1,202 entries from 1,743 total
+Word count:       9,315 words (target 9,200-9,800; floor 9,000 PASS; cap 10,500 PASS)
+Payload size:     59,155 bytes (well under 413 limit)
+
+POST result:
+  HTTP status:    200
+  Response body:  {"ok":true,"id":"q429","quality_score":10,"format_v":"2026-05","gold_format":true,"from":10,"to":10}
+  gold_format:    true
+
+Gold elements (all 10 present):
+  1. Direct Answer header  - yes (H3 + 3-sentence summary)
+  2. TLDR block            - yes
+  3. H2 banner headers     - yes (11 H2 sections)
+  4. Numbered subsections  - yes
+  5. Bold-in-bullets       - yes
+  6. Named operators+tickers - yes (HUBST, SNOW, CRWD, DDOG, NOW, MSFT, CRM, TEAM, TWLO, OKTA, WDAY, ZM)
+  7. Mermaid diagram       - yes (1)
+  8. Pipe tables           - yes (20+ tables)
+  9. Counter-Case section  - yes (Section 9)
+  10. Cross-links + Sources - yes (5 sibling links: q422, q423, q431, q444, q429; 34 citations)
+
+Artifacts:
+  _gold_v15_t216a_library.json   - downloaded library
+  _gold_v15_t216a_answer.md      - the rewrite
+  _gold_v15_t216a_payload.json   - POST payload
+  _gold_v15_t216a_report.txt     - this report

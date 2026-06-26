@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>
+svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.bg1{fill:var(--bg1,#0b0f17);}
+.bg2{fill:var(--bg2,#0f172a);}
+.title{font-family:'Segoe UI',system-ui,sans-serif;font-weight:700;font-size:30px;fill:var(--c3);letter-spacing:1px;}
+.sub{font-family:'Segoe UI',system-ui,sans-serif;font-weight:500;font-size:18px;fill:var(--c4b);}
+.stage{font-family:'Segoe UI',system-ui,sans-serif;font-weight:700;font-size:22px;fill:var(--ink);text-anchor:middle;}
+.meta{font-family:'Segoe UI',system-ui,sans-serif;font-weight:600;font-size:13px;fill:var(--c3);text-anchor:middle;letter-spacing:1px;}
+.kpi{font-family:'Segoe UI',system-ui,sans-serif;font-weight:600;font-size:14px;fill:var(--c4b);text-anchor:middle;}
+.arrow{fill:var(--c4);}
+.divider{stroke:var(--c2);stroke-width:1;opacity:0.4;}
+</style>
+
+<defs>
+<linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="s1" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)"/>
+<stop offset="1" stop-color="var(--c2)"/>
+</linearGradient>
+<linearGradient id="s2" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)"/>
+<stop offset="1" stop-color="var(--c2)"/>
+</linearGradient>
+<linearGradient id="s3" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c3)"/>
+<stop offset="1" stop-color="var(--c1)"/>
+</linearGradient>
+<linearGradient id="s4" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c4)"/>
+<stop offset="1" stop-color="var(--c2)"/>
+</linearGradient>
+<linearGradient id="s5" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c4b)"/>
+<stop offset="1" stop-color="var(--c4)"/>
+</linearGradient>
+<linearGradient id="s6" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c4)"/>
+<stop offset="1" stop-color="var(--c4b)"/>
+</linearGradient>
+</defs>
+
+<rect width="1584" height="396" fill="url(#bgGrad)"/>
+
+<text x="50" y="50" class="title">CUSTOMER LIFECYCLE FUNNEL</text>
+<text x="50" y="78" class="sub">Acquire → Onboard → Adopt → Expand → Renew → Advocate</text>
+
+<g transform="translate(50,120)">
+
+<polygon points="0,30 230,30 220,200 10,200" fill="url(#s1)" stroke="var(--c2)" stroke-width="2"/>
+<text x="115" y="110" class="stage">ACQUIRE</text>
+<text x="115" y="135" class="meta">STAGE 01</text>
+<text x="115" y="230" class="kpi">CAC · MQL → SQL</text>
+<text x="115" y="250" class="kpi">Pipeline Coverage</text>
+
+<polygon points="245,30 240,200 252,200 260,30" fill="var(--c4)" opacity="0.85"/>
+<polygon points="252,90 268,115 252,140" class="arrow"/>
+
+<polygon points="275,30 490,30 478,200 287,200" fill="url(#s2)" stroke="var(--c2)" stroke-width="2"/>
+<text x="383" y="110" class="stage">ONBOARD</text>
+<text x="383" y="135" class="meta">STAGE 02</text>
+<text x="383" y="230" class="kpi">Time-to-Value</text>
+<text x="383" y="250" class="kpi">Activation Rate</text>
+
+<polygon points="505,30 498,200 512,200 522,30" fill="var(--c4)" opacity="0.85"/>
+<polygon points="512,90 528,115 512,140" class="arrow"/>
+
+<polygon points="537,30 730,30 716,200 551,200" fill="url(#s3)" stroke="var(--c2)" stroke-width="2"/>
+<text x="633" y="110" class="stage" style="fill:var(--ink);">ADOPT</text>
+<text x="633" y="135" class="meta" style="fill:var(--c2);">STAGE 03</text>
+<text x="633" y="230" class="kpi">Feature Adoption</text>
+<text x="633" y="250" class="kpi">DAU/WAU · NPS</text>
+
+<polygon points="745,30 736,200 752,200 762,30" fill="var(--c4)" opacity="0.85"/>
+<polygon points="752,90 768,115 752,140" class="arrow"/>
+
+<polygon points="777,30 950,30 934,200 791,200" fill="url(#s4)" stroke="var(--c2)" stroke-width="2"/>
+<text x="863" y="110" class="stage">EXPAND</text>
+<text x="863" y="135" class="meta">STAGE 04</text>
+<text x="863" y="230" class="kpi">NRR · Upsell ARR</text>
+<text x="863" y="250" class="kpi">Seat Expansion</text>
+
+<polygon points="965,30 954,200 970,200 982,30" fill="var(--c4)" opacity="0.85"/>
+<polygon points="970,90 986,115 970,140" class="arrow"/>
+
+<polygon points="997,30 1150,30 1132,200 1011,200" fill="url(#s5)" stroke="var(--c2)" stroke-width="2"/>
+<text x="1073" y="110" class="stage" style="fill:var(--ink);">RENEW</text>
+<text x="1073" y="135" class="meta" style="fill:var(--c2);">STAGE 05</text>
+<text x="1073" y="230" class="kpi">GRR · Logo Retention</text>
+<text x="1073" y="250" class="kpi">Renewal Rate</text>
+
+<polygon points="1165,30 1152,200 1168,200 1182,30" fill="var(--c4)" opacity="0.85"/>
+<polygon points="1168,90 1184,115 1168,140" class="arrow"/>
+
+<polygon points="1197,30 1330,30 1308,200 1219,200" fill="url(#s6)" stroke="var(--c2)" stroke-width="2"/>
+<text x="1263" y="110" class="stage" style="fill:var(--ink);">ADVOCATE</text>
+<text x="1263" y="135" class="meta" style="fill:var(--c2);">STAGE 06</text>
+<text x="1263" y="230" class="kpi">Referrals · Reviews</text>
+<text x="1263" y="250" class="kpi">Case Studies</text>
+
+</g>
+
+<line x1="50" y1="340" x2="1380" y2="340" class="divider"/>
+
+<g transform="translate(50,360)">
+<circle cx="6" cy="6" r="5" fill="var(--c1)"/>
+<text x="20" y="11" class="kpi" style="text-anchor:start;">Top-of-Funnel</text>
+<circle cx="206" cy="6" r="5" fill="var(--c3)"/>
+<text x="220" y="11" class="kpi" style="text-anchor:start;">Mid-Funnel Value Realization</text>
+<circle cx="546" cy="6" r="5" fill="var(--c4)"/>
+<text x="560" y="11" class="kpi" style="text-anchor:start;">Growth & Retention</text>
+<circle cx="806" cy="6" r="5" fill="var(--c4b)"/>
+<text x="820" y="11" class="kpi" style="text-anchor:start;">Bottom-of-Funnel Advocacy</text>
+</g>
+
+</svg>

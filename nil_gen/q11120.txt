@@ -1,0 +1,113 @@
+QUESTION: What are Ohio State Buckeyes men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Ohio State Buckeyes men's basketball enters the 2027 NIL cycle with a clear mandate: stabilize Jake Diebler's program after a 21-12 NCAA Tournament return, fund a starting five capable of finishing top-four in the Big Ten, and prove the new Buckeye Sports Group (BSG) revenue-share machine can outbid Indiana, Michigan, and Purdue for in-state and Midwest blue-chip talent. Total 2027 cap allocation lands near $7.5M-$8.5M for men's basketball, split between a $5.2M revenue-share slice and roughly $2.5M-$3M in external collective dollars routed through THE Foundation and the legacy 1870 Society. The strategy is barbell-shaped: pay one $2M alpha guard, pay two $1.2M frontcourt anchors, and fill the bench through portal value plays at $250K-$400K. Below is the full architecture.
+
+## H2: The Coaching Stability Variable
+
+Diebler was named Ohio State's 15th head coach on March 17, 2024 after serving as interim following Chris Holtmann's mid-season dismissal. His 2025-26 squad finished 21-12, earned a No. 8 seed, and lost to TCU in the round of 64. President Ted Carter publicly backed Diebler after that loss, removing the hot-seat narrative that would have crushed 2027 recruiting. That endorsement matters: NIL collectives historically refuse to commit seven-figure packages to programs with sub-twelve-month coaching certainty. Diebler buying time means The Foundation can write multi-year deals.
+
+### Subsection 1: What Donors Need to Hear
+
+Donors writing $50K-plus checks want three things — a coach contract through 2029, a defined revenue-share floor, and a recruiting board with names. Diebler's staff has reportedly held closed-door sessions with the BSG board walking through exactly that, and the message has moved roughly $4M in soft commitments into the 2027 pool. The pitch deck leans heavily on Diebler's video-coordinator-to-head-coach arc inside the building since 2014, which signals continuity even after Holtmann's exit. That internal-hire stability story is the single most repeated line in every Foundation donor dinner held since the TCU loss, and it has visibly slowed the small-donor attrition that hit the program in early 2025.
+
+## H2: The BSG Revenue-Share Architecture
+
+Ohio State launched Buckeye Sports Group in June 2025 alongside Learfield as the in-house NIL and revenue-share vehicle following the House v. NCAA settlement. The Learfield partnership extension announced in January 2026 deepened that integration. BSG now handles institutional rev-share payments while THE Foundation and The 1870 Society serve in an advisory capacity and continue collecting recurring subscriptions that flow into the unified pool.
+
+### Subsection 2: The Cap Math
+
+The athletic department's $20.5M House settlement cap allocates roughly 25% — about $5.2M — to men's basketball for 2026-27. That figure is the floor, not the ceiling. Outside collective dollars stack on top legally as third-party endorsement contracts, provided they clear the NIL Go clearinghouse for "fair-market" valuation. That $20.5M cap is itself the first-year number from the House settlement Judge Claudia Wilken approved in June 2025, and it rises roughly four percent per year, so Ohio State's internal basketball line should climb with it through the 2027 cycle rather than stay flat.
+
+```mermaid
+flowchart TD
+    A[Ohio State 2027 MBB NIL Pool ~$8.0M] --> B[BSG Rev-Share $5.2M]
+    A --> C[THE Foundation $1.8M]
+    A --> D[1870 Society $1.0M]
+    B --> E[Roster Salaries 13 scholarships]
+    C --> F[Portal Strike Fund]
+    D --> G[Local Endorsement Deals]
+    E --> H[Alpha Guard $2.0M]
+    E --> I[Two Bigs $1.2M each]
+    E --> J[Role Players $250K-$400K]
+    F --> K[Mid-Major Transfers]
+    G --> L[Columbus Restaurants and Auto]
+```
+
+## H2: Position-by-Position 2027 Needs
+
+Diebler returns Bruce Thornton's heir at point guard, but loses size and shooting. The 2027 build prioritizes a true rim-protecting five, a switchable four who can shoot 36%-plus from three, and a combo guard who can take 18 shots a night when defenses load up on the lead handler.
+
+### Subsection 3: The Alpha Guard ($2M Tier)
+
+Targets in this bucket: a portal All-American-caliber guard or a top-15 high school combo. Realistic 2027 names that have surfaced in Columbus reporting include a McDonald's All-American out of Ohio whose family has direct ties to former Buckeye Cardale Jones — one of THE Foundation's co-founders alongside Brian Schottenstein. That relationship is a structural advantage Indiana cannot replicate.
+
+### Subsection 4: The Frontcourt ($1.2M Tier x2)
+
+Ohio State's 2025-26 frontcourt got punished on the offensive glass in Big Ten play. The fix is two stretch-fives or a true five plus a hybrid four. BSG has earmarked roughly $2.4M for this position group, with a portal-first philosophy — the program has had more success buying 22-year-old transfers than developing 18-year-olds at the five.
+
+### Subsection 5: The Bench ($250K-$400K Tier)
+
+Six to eight roster spots fall in the value-play band. Diebler's staff has built a reputation for finding mid-major shooters and developmental bigs at sub-$400K, which preserves cap room for the top of the roster. This is where THE Foundation's charitable-deduction structure — every donor dollar flows directly to athletes while donors claim the tax write-off — provides margin that Michigan's collective cannot match. The Foundation supported more than 100 student-athletes across football and basketball in its first year of operation, and that operational muscle memory now feeds bench-tier basketball deals at speed. The value band is also where the Columbus market itself becomes an asset: local restaurant groups, the city's large auto-dealer network, and regional brands give bench players real endorsement inventory that clears NIL Go as genuine fair-market work, which lets BSG keep more rev-share dry powder pointed at the top of the roster.
+
+## H2: The 15-Scholarship Roster Math
+
+The House settlement also replaced sport-by-sport scholarship limits with roster caps, moving men's basketball from 13 scholarships to a 15-player maximum. For Ohio State that means two additional fully fundable contracts per cycle, and the strategic question is whether to spend those slots on developmental upside or veteran insurance. The smart 2027 play is one of each — a high-school developmental big who sits behind the two $1.2M frontcourt anchors, plus a veteran portal guard who can step in if the alpha goes down. Funding the full 15 matters because in the Big Ten the bottom of every contending rotation is now paid; a roster with two unfunded walk-on-tier spots is a roster that loses depth battles in February. BSG should budget the expanded headcount into the 2027 cap from the start rather than treating slots 14 and 15 as afterthoughts, because that is exactly where Indiana and Michigan have been quietly adding rotation-quality bodies.
+
+## H2: The Big Ten Competitive Picture
+
+Indiana under Darian DeVries is sitting on roughly $9M for 2027 after a major Cook family infusion. Michigan's Champions Circle is in the $7M range. Purdue stays in the $5M-$6M zone but punches above weight with continuity. Illinois under Brad Underwood runs near $5M and leans on international and portal pipelines. Ohio State's $8M target puts it in the top-three Big Ten range — enough to compete, not enough to bully. The practical reading is that Ohio State can win any single recruitment it concentrates on but cannot win three simultaneous bidding wars against Indiana, which is why sequencing offers and closing the alpha guard first matters more than total pool size.
+
+```mermaid
+flowchart TD
+    A[Big Ten 2027 MBB NIL Estimates] --> B[Indiana $9.0M]
+    A --> C[Ohio State $8.0M]
+    A --> D[Michigan $7.0M]
+    A --> E[Purdue $5.5M]
+    A --> F[Illinois $5.0M]
+    C --> G[Strategy Top Heavy]
+    B --> H[Strategy Balanced]
+    D --> I[Strategy Stars Plus Vets]
+    E --> J[Strategy Continuity]
+    G --> K[2027 Goal Big Ten Top 4]
+    H --> K
+    I --> K
+    J --> K
+```
+
+## H2: Execution Risks
+
+Three risks dominate Diebler's 2027 plan. First, NIL Go clearinghouse rejections — if collective deals get flagged as above fair-market, money disappears mid-cycle and roster pieces walk. Second, donor fatigue after the 2024 football championship pull on Foundation reserves. Third, a slow start to 2026-27 that resurrects the hot-seat narrative and freezes 2027 commitments. The mitigation playbook: lock contracts before November, diversify donor base beyond the Schottenstein orbit, and schedule two buy-games to bank early wins.
+
+## H2: What Success Looks Like in 2027
+
+A successful 2027 cycle for Ohio State delivers a top-four Big Ten finish, a returning starting lineup with two-year NIL contracts, and a recruiting class ranked top-eight nationally. Hit those three, and the program is positioned for a 2028 Final Four run with Diebler at the helm and BSG operating at scale. Miss two of three, and the conversation in Columbus shifts back to the head-coaching seat heading into 2028. The 2027 NIL cycle is the bridge between Diebler's stabilization year and the program's championship window — every dollar deployed this offseason carries that weight, and every donor introduction made between June and August 2026 sets the ceiling for what the roster looks like by the time Big Ten media day opens in October.
+
+## H2: Frequently Asked Questions
+
+**Why is Ohio State's roughly $8M basketball pool considered top-three in the Big Ten but not enough to dominate?**
+Because the top of the conference has pulled away. Indiana's roughly $9M for 2027, fueled by a major Cook family infusion, and Michigan's Champions Circle near $7M put the ceiling higher than Ohio State can match dollar-for-dollar. Ohio State's $8M figure — built from a roughly $5.2M BSG rev-share line plus $2.5M-$3M in THE Foundation and 1870 Society collective dollars — is enough to win a four-player core auction but not enough to outbid Indiana on every contested target. That is why the strategy is barbell-shaped: concentrate on one $2M alpha guard and two $1.2M bigs, then win the margins on bench value plays where Diebler's staff has a real track record.
+
+**What does the NIL Go clearinghouse mean for Ohio State's collective deals?**
+NIL Go, run by Deloitte under the College Sports Commission, reviews third-party NIL agreements of $600 and up to confirm they reflect genuine fair-market value rather than disguised pay-for-play. For Ohio State it means THE Foundation and 1870 Society deals have to be backed by real deliverables — Columbus restaurant and auto-dealer endorsements, appearances, content — or risk rejection that pulls money out mid-cycle and lets roster pieces walk. The Foundation's charitable-deduction structure and its history supporting 100-plus athletes give it the documentation muscle to clear review, which is itself a competitive edge over collectives that have leaned on thinly disguised salary payments.
+
+Sources: ohiostatebuckeyes.com, frontofficesports.com, on3.com, thefoundationohio.com, learfield.com, news.osu.edu, foxsports.com, thelantern.com.
+
+## FAQ
+
+**What is the Buckeye Sports Group and how does it differ from THE Foundation?**
+BSG is the in-house NIL and revenue-share vehicle Ohio State launched in June 2025 with Learfield, deepened by a January 2026 partnership extension. It handles the institutional revenue-share payments — about $5.2M of the $20.5M House cap for men's basketball — while THE Foundation and the 1870 Society now serve in an advisory role and keep collecting recurring subscriptions that stack on top as third-party endorsement deals.
+
+**Why does Jake Diebler's job security matter so much to the 2027 plan?**
+NIL collectives historically refuse to commit seven-figure, multi-year packages to programs with sub-twelve-month coaching certainty. After the 21-12 season and round-of-64 loss to TCU, President Ted Carter publicly backed Diebler, which removed the hot-seat narrative and let THE Foundation write multi-year deals. That endorsement reportedly moved roughly $4M in soft commitments into the 2027 pool.
+
+**How does the barbell roster-spend strategy work?**
+The plan pays one $2M alpha guard, two $1.2M frontcourt anchors, and fills six to eight bench spots through portal value plays at $250K-$400K. Diebler's staff has a track record of finding mid-major shooters and developmental bigs under $400K, which preserves cap room for the top of the roster while Columbus restaurant and auto-dealer endorsements give bench players real NIL Go-defensible inventory.
+
+**What changed with the move to a 15-player roster cap?**
+The House settlement replaced the 13-scholarship limit with a 15-player roster cap, giving Ohio State two additional fully fundable contracts. The smart 2027 play is one developmental high-school big behind the two frontcourt anchors plus a veteran portal guard as insurance — funding all 15 matters because the bottom of every Big Ten contender's rotation is now paid, and unfunded slots lose depth battles in February.
+
+**Where does Ohio State's $8M pool rank against Big Ten rivals?**
+It sits top-three but cannot dominate. Indiana under Darian DeVries is near $9M after a Cook family infusion, Michigan's Champions Circle is around $7M, Purdue runs $5M-$6M on continuity, and Illinois near $5M. Ohio State can win any single recruitment it concentrates on but cannot win three simultaneous bidding wars against Indiana, which makes sequencing offers and closing the alpha guard first more important than raw pool size.

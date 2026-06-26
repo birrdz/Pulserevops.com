@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <style>svg{--c1:#FFD740;--c2:#b8860b;--c3:#fff3c4;--c4:#e8710a;--c4b:#ffb066;--ink:#1a1403;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/><stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/><stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/><stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c4,#22d3ee)"/><stop offset="1" style="stop-color:var(--c4b,#67e8f9)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.32" r="0.55">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.16"/><stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#glow)"/>
+  <text x="960" y="300" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="34" font-weight="800" letter-spacing="14" fill="url(#accent)">WEEKLY</text>
+  <text x="960" y="576" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="124" font-weight="900" fill="#FFFFFF">Forecast Call</text>
+  <polyline points="700,676 846,676 866,701 900,606 934,725 960,676 1033,676 1054,701 1087,606 1121,725 1147,676 1220,676" stroke="url(#accent)" fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  <text x="960" y="792" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="700" fill="#EDE5D8">Commit <tspan fill="url(#accent)">&#183;</tspan> Best Case <tspan fill="url(#accent)">&#183;</tspan> Pipeline</text>
+
+</svg>

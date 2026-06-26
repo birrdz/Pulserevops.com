@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <style>svg{--c1:#94a3b8;--c2:#475569;--c3:#cbd5e1;--c4:#38bdf8;--c4b:#bae6fd;--ink:#0b1220;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1080" y2="1350" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/><stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/><stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/><stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c4,#22d3ee)"/><stop offset="1" style="stop-color:var(--c4b,#67e8f9)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.16" r="0.6">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.16"/><stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1350" fill="url(#bg)"/>
+  <rect width="1080" height="1350" fill="url(#glow)"/>
+  <text x="540" y="150" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="26" font-weight="700" letter-spacing="8" fill="#94a3b8">TEAM HEALTH</text>
+  <text x="540" y="226" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="56" font-weight="900" fill="#FFFFFF">5 Dysfunctions of a Team</text>
+  <g>
+    <rect x="76" y="300" width="928" height="164" rx="20" fill="#111a2b" stroke="#1f2a3d" stroke-width="2"/>
+    <circle cx="178" cy="382" r="52" fill="url(#accent)"/>
+    <text x="178" y="401" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="52" font-weight="900" fill="#0b0f17">1</text>
+    <text x="268" y="374" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Absence of Trust</text>
+    <text x="268" y="411" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="23" font-weight="500" fill="#94a3b8">Build vulnerability-based trust</text>
+  </g>
+  <g>
+    <rect x="76" y="480" width="928" height="164" rx="20" fill="#111a2b" stroke="#1f2a3d" stroke-width="2"/>
+    <circle cx="178" cy="562" r="52" fill="url(#accent)"/>
+    <text x="178" y="581" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="52" font-weight="900" fill="#0b0f17">2</text>
+    <text x="268" y="554" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Fear of Conflict</text>
+    <text x="268" y="591" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="23" font-weight="500" fill="#94a3b8">Welcome productive debate</text>
+  </g>
+  <g>
+    <rect x="76" y="660" width="928" height="164" rx="20" fill="#111a2b" stroke="#1f2a3d" stroke-width="2"/>
+    <circle cx="178" cy="742" r="52" fill="url(#accent)"/>
+    <text x="178" y="761" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="52" font-weight="900" fill="#0b0f17">3</text>
+    <text x="268" y="734" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Lack of Commitment</text>
+    <text x="268" y="771" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="23" font-weight="500" fill="#94a3b8">Get real buy-in</text>
+  </g>
+  <g>
+    <rect x="76" y="840" width="928" height="164" rx="20" fill="#111a2b" stroke="#1f2a3d" stroke-width="2"/>
+    <circle cx="178" cy="922" r="52" fill="url(#accent)"/>
+    <text x="178" y="941" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="52" font-weight="900" fill="#0b0f17">4</text>
+    <text x="268" y="914" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Avoiding Accountability</text>
+    <text x="268" y="951" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="23" font-weight="500" fill="#94a3b8">Hold the standard</text>
+  </g>
+  <g>
+    <rect x="76" y="1020" width="928" height="164" rx="20" fill="#111a2b" stroke="#1f2a3d" stroke-width="2"/>
+    <circle cx="178" cy="1102" r="52" fill="url(#accent)"/>
+    <text x="178" y="1121" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="52" font-weight="900" fill="#0b0f17">5</text>
+    <text x="268" y="1094" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="40" font-weight="800" fill="#FFFFFF">Inattention to Results</text>
+    <text x="268" y="1131" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="23" font-weight="500" fill="#94a3b8">Win as a team</text>
+  </g>
+
+</svg>

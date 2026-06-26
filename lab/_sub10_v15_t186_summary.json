@@ -1,0 +1,29 @@
+{
+  "tick": "t186",
+  "mode": "v15-one-rung",
+  "id": "q25",
+  "question": "What's the right manager-to-rep span — 6, 8, 10?",
+  "tags": ["management", "org-design", "span-of-control", "coaching", "team-scaling"],
+  "from_qs": 5,
+  "to_qs": 6,
+  "word_count": 5692,
+  "body_chars": 33896,
+  "payload_bytes": 34387,
+  "endpoint_response": {"ok": true, "id": "q25", "quality_score": 6, "from": 5, "polished": false},
+  "http_code": 200,
+  "time_total_s": 1.941,
+  "elapsed_e2e_s": 2,
+  "throttle": "none",
+  "deploy": "none",
+  "format_v": "2026-05",
+  "live_verified_in_library_list": true,
+  "library_total_entries": 1743,
+  "artifacts": [
+    "lab/_sub10_v15_t186.json",
+    "lab/_sub10_v15_t186_q25_walk.md",
+    "lab/_sub10_v15_t186_q25_payload.json",
+    "lab/_sub10_v15_t186_q25_response.json",
+    "lab/_sub10_v15_t186_summary.json"
+  ],
+  "notes": "Library state at t186 shows all 1,743 non-10 entries at qs=5 (no qs=6/7/8/9 candidates exist). Newest qs=5 entry q25 was picked (q26 skipped per t185 rule). Walk landed cleanly in 1.94s e2e."
+}

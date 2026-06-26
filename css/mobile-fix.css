@@ -1,0 +1,112 @@
+/* PULSE mobile-fix overlay — applies to /dashboard, /crm + tools-page output.
+ * Targets the highest-impact mobile breakage points without rewriting the
+ * 30K-line dashboard:
+ *   - tables overflow horizontally inside a scrollable wrapper
+ *   - multi-column grids collapse to single column under 640px
+ *   - tappable controls hit the 40px+ touch-target floor
+ *   - sticky headers + iOS Safari notch handled
+ *   - hard prevent body horizontal-scroll
+ */
+
+html, body { max-width: 100%; overflow-x: hidden; }
+
+@media (max-width: 760px) {
+  /* Force any wide grid into a single column on phones */
+  [class*="grid"][style*="repeat("],
+  .about-grid,
+  .kpi-grid,
+  .calc-grid,
+  .rev-intel-grid,
+  .dash-grid,
+  .tile-grid,
+  .pillar-grid,
+  .stat-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  /* Tables — wrap horizontally inside their parent rather than blowing out */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    white-space: nowrap;
+  }
+  table th, table td {
+    padding: 8px 10px !important;
+    font-size: 12.5px !important;
+  }
+
+  /* Tap targets — buttons + form controls should hit 40px+ */
+  button:not(.tiny):not(.pip-close):not(.search-clear):not(.mc-rm-btn),
+  .btn, .cta, .fb-btn, .dl-btn, .share-btn, input[type="submit"], select {
+    min-height: 40px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+  input[type="text"], input[type="email"], input[type="number"],
+  input[type="search"], textarea, select {
+    font-size: 16px !important; /* prevents iOS Safari auto-zoom on focus */
+  }
+
+  /* Headers — wrap nav properly, never overflow */
+  header, .hdr, .nav, .topbar, .top-nav {
+    flex-wrap: wrap !important;
+    row-gap: 8px !important;
+  }
+
+  /* Padding compression — reclaim screen real estate */
+  .section, section, .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Hero / banner blocks tighten */
+  .hero, [class*="hero"] {
+    padding-top: 32px !important;
+    padding-bottom: 24px !important;
+  }
+  h1, .h1 { font-size: clamp(28px, 7vw, 38px) !important; line-height: 1.1 !important; }
+  h2, .h2 { font-size: clamp(22px, 5vw, 30px) !important; line-height: 1.15 !important; }
+
+  /* Charts + canvases shouldn't force horizontal scroll */
+  canvas, svg.chart, .chart-container, [class*="chart"] {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Iframes resize */
+  iframe {
+    max-width: 100% !important;
+  }
+
+  /* Sticky bars — allow safe-area inset for notched iPhones */
+  .sticky-bar, .bottom-bar, .footer-bar {
+    padding-bottom: env(safe-area-inset-bottom, 12px) !important;
+  }
+
+  /* Horizontal shelves: cards 75% viewport-width so two peek */
+  .shelf > .pc, .shelf > .card, .horizontal-scroll > * {
+    min-width: 75vw !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Sidebars collapse under content */
+  aside, .sidebar, .side-nav {
+    width: 100% !important;
+    position: static !important;
+    margin-bottom: 16px !important;
+  }
+}
+
+/* Notch / safe-area handling for top sticky headers (PWA) */
+header.hdr, .topbar, .nav-top {
+  padding-top: env(safe-area-inset-top, 0) !important;
+}
+
+/* Wrap any element marked .responsive-table-wrap */
+.responsive-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}

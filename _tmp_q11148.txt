@@ -1,0 +1,78 @@
+![Illinois athletics logo](https://static.wixstatic.com/media/8487dd_50c5670fe5a74adba10757c7af409340~mv2.jpg/v1/fill/w_400,h_400,fp_0.50_0.50,q_90/8487dd_50c5670fe5a74adba10757c7af409340~mv2.jpg)
+
+## Direct Answer
+
+Illinois Fighting Illini football's 2027 NIL strategy must replace three-year starting quarterback Luke Altmyer's departure to the NFL, consolidate ICON for Illini's distribution credibility after reporting only about $99,000 reaching athletes against $1.5 million publicly raised between February 2023 and October 2024, and operate at roughly the $15 million annual NIL budget that Power 4 peers now treat as the table-stakes floor. Head coach Bret Bielema, working off a six-year deal that runs through 2030 and 37 wins across his first five seasons, has built Illinois into a Big Ten program credible enough to recruit at a national level, but the program enters 2027 needing a quarterback room rebuild, a defensive coordinator transition after Aaron Henry's exit to Notre Dame, and an NIL operation that can fund a 26-man front-seven rotation without bleeding the skill-position pool dry. The strategy is straightforward: lock the QB1 in revenue-share dollars first, distribute the remainder through trench-heavy collective deals that match Bielema's pro-style scheme, and fix ICON's pass-through transparency before donor fatigue does it for them.
+
+## How the Roster Shapes the 2027 NIL Ask
+
+Bielema's program is built on a Wisconsin-style identity, which means the NIL board is weighted differently than at an Air Raid or spread-option school. The quarterback opening created by Luke Altmyer's NFL move is the single largest 2027 dollar item, and Bielema has signaled in spring availability that scheme fit matters more to him than the spring game itself, which tells the collective exactly what kind of QB to fund: a play-action, under-center operator who can run the program's tight-end-heavy concepts rather than a pure transfer-portal scrambler. That distinction is a NIL decision as much as a football one, because the pool of QBs who fit the scheme is smaller and therefore more expensive on a per-player basis.
+
+The second roster pressure point is the front seven. Defensive coordinator Aaron Henry's departure to Marcus Freeman's Notre Dame staff opens a scheme question that the new coordinator will resolve in 2027, and whichever direction the new hire takes, Illinois needs to fund interior defensive linemen and off-ball linebackers at a level competitive with Michigan, Ohio State, and Penn State. Bielema's last five NFL Drafts have produced linemen on both sides of the ball, which is the recruiting pitch the collective should be selling: development, draft capital, and a coach with a six-year runway who will not be re-recruiting his own roster in year two.
+
+The third pressure is wide receiver depth behind returning bodies like redshirt freshman Brayden Trimble, who is now healthy. Wide receiver is the position where mid-tier NIL offers are most likely to flip a recruit late, and Illinois cannot afford to lose a target in December because a SEC collective added $40,000 in January.
+
+```flowchart TD
+    A[2027 Illinois NIL Budget ~ $15M] --> B[QB1 Replacement for Altmyer]
+    A --> C[Front Seven Rebuild]
+    A --> D[WR Depth Behind Trimble]
+    A --> E[OL Continuity]
+    B --> F[Pro-Style Fit Premium]
+    C --> G[New DC Scheme Hire]
+    D --> H[Late-Cycle Flip Defense]
+    E --> I[Bielema 5-Draft Pipeline]
+    F --> J[Revenue Share + Collective Stack]
+    G --> J
+    H --> J
+    I --> J
+```
+
+## ICON for Illini and the Transparency Problem
+
+The collective layer is where Illinois has the most repair work to do before 2027 signing day. ICON for Illini is the primary collective, structured to pay athletes for community service and fan-facing appearances in the Champaign-Urbana area. The reporting gap between the $1.5 million figure announced at ICON's 2023 launch and the roughly $99,000 that actually reached athletes through October 2024, with $75,000 of that going to football, is a credibility wound that competing collectives at Indiana, Iowa, and Minnesota will use against Illinois in living-room visits. Even if the gap is explained by operating costs, restricted donations, and timing, the recruit's parents do not read footnotes. The 2027 fix is a quarterly distribution disclosure published on the ICON site showing dollars in, dollars out, and dollars to football specifically.
+
+The second collective fix is segmentation. Illinois needs a clearly labeled football-only fund inside ICON, or a sibling 501(c)(7) club model similar to the NIL Club platform that Illinois State and Northern Illinois already use for their football rosters. Roster-wide club dues, even at $25 to $50 per fan per month, create a recurring revenue floor that does not depend on a handful of large donors and that scales with fan enthusiasm rather than booster mood after a loss to Indiana.
+
+## How the House Settlement Rewrote the Rules
+
+The legal backdrop that governs every line of Illinois's 2027 board is the House v. NCAA settlement, granted final approval by Judge Claudia Wilken in June 2025 and taking effect July 1, 2025. The settlement created a backward-looking damages fund of roughly $2.8 billion paid to former athletes over ten years, and a forward-looking permission for schools to share revenue directly with current athletes for the first time. The first-year revenue-share cap was set at approximately $20.5 million per school, a figure pegged to 22 percent of the average Power 4 athletic department's media, ticket, and sponsorship revenue, and that cap is scheduled to rise roughly four percent annually, which puts the 2027-28 ceiling near $22 million to $23 million per school. Illinois, like every Big Ten member, has opted in, which is why the program is now writing direct athletic-department checks on top of collective money.
+
+The second structural change is NIL Go, the Deloitte-run clearinghouse routed through the new College Sports Commission. Any third-party NIL deal of $600 or more must be submitted to NIL Go, which evaluates whether the payment reflects a valid business purpose and falls within a defined compensation range for the athlete's market value. The intent is to separate genuine endorsement money from disguised pay-for-play. For Illinois, this means ICON deals and any booster-funded arrangement now carry a compliance dimension that did not exist in 2023, and the program's NIL staff has to be able to defend every six-figure football deal as a real commercial transaction. A program that builds clean, documentable deals now will recruit against schools that get flagged or clawed back later.
+
+## House Settlement, Revenue Share, and the $15M Floor
+
+The post-House revenue-share environment means Illinois is now writing direct athletic-department checks to athletes in addition to whatever ICON and ancillary collectives distribute. Industry reporting puts most Power 4 programs at roughly $15 million in total NIL plus revenue-share spend, and Illinois is in that band. The strategic question for 2027 is allocation: how much of that $15 million is school revenue share that lives inside the athletic department's cap, and how much is collective money that sits outside it. Bielema's staff has been pushing for a higher collective-side ratio so that revenue-share dollars can be concentrated on QB1, the two starting tackles, and the EDGE rusher, while collective dollars handle the middle 60 of the roster.
+
+Roughly 75 percent of a football program's revenue-share allocation typically flows to football at schools that play in the Big Ten, with the remainder split across men's and women's basketball and Olympic sports, a split Illinois must manage carefully given Brad Underwood's basketball program is a national-tournament fixture competing for the same internal dollars. The trench-first logic is sound: an under-center, pro-style offense lives and dies on offensive-line continuity, so the two returning tackles and the interior line are higher-leverage retention targets than a fourth wide receiver. Spending revenue-share cap money on positions that are cheap on the open market is the most common allocation error, and Illinois's advantage is a coach who knows precisely which positions move the win total.
+
+```flowchart TD
+    A[Recruit Family Visit] --> B{Trust ICON Numbers?}
+    B -->|Yes| C[Sign with Illinois]
+    B -->|No| D[Visit Iowa or Minnesota]
+    C --> E[Revenue Share Locked]
+    C --> F[Collective Deal Stacked]
+    E --> G[On Campus January 2027]
+    F --> G
+    D --> H[Lost Recruit]
+    G --> I[Bielema 2027 Roster Built]
+    H --> J[Backfill from Portal]
+    J --> I
+```
+
+## What the 2027 Strategy Looks Like in Practice
+
+The execution sequence for 2027 is sequential, not parallel. First, name the QB1 by July 2026 and route the largest single revenue-share contract to that player so the rest of the offense recruits itself around a known starter. Second, publish the ICON distribution dashboard before the early signing period in December 2026 so that on-the-fence recruits and their parents have a number to point at. Third, fund the new defensive coordinator's scheme with two priority transfers at the position group that scheme depends on most, whether that is interior defensive line for a four-down front or stand-up edge for a three-down look. Fourth, launch a low-dollar roster-wide club product at the start of the 2026 season to build the recurring-revenue base that will fund the back half of the 2027 board.
+
+Bielema's pitch has always been development, NFL pipeline, and Big Ten credibility under a coach who is not leaving. The 2027 NIL strategy has to convert that pitch into a clean dollar number on a one-page sheet that a 17-year-old's family can read in five minutes. The football is in place. The financial plumbing is the work.
+
+## Frequently Asked Questions
+
+**How much can Illinois actually pay athletes directly in 2027 under the revenue-share cap?**
+
+The House settlement's first-year cap was approximately $20.5 million per school for 2025-26, rising about four percent annually, which puts the 2027-28 ceiling in the $22 million to $23 million range across all sports. Football typically claims around 75 percent of that pool at Big Ten schools, so Illinois can plausibly direct roughly $16 million to $17 million of direct revenue-share money to football, with ICON and other collective dollars stacked on top for deals that clear NIL Go review.
+
+**Why is replacing Luke Altmyer such a large NIL line item rather than just a depth-chart question?**
+
+Altmyer was a multi-year starter whose departure to the NFL removes the single most scheme-critical player on the roster, and Bielema's under-center, play-action offense narrows the viable replacement pool to QBs who can operate that system rather than any available portal arm. A smaller qualified pool means higher per-player cost, so the quarterback is both the most important football decision and the most expensive single contract on the 2027 board, which is why the strategy front-loads it.
+
+Sources: fightingillini.com Bret Bielema bio; thechampaignroom.com on the 2026 defensive coordinator opening and Aaron Henry's departure to Notre Dame; profootballnetwork.com on the Illinois QB race and Luke Altmyer's NFL move; en.wikipedia.org 2026 Illinois Fighting Illini football team; iconforillini.com; propublica.org reporting on ICON distribution figures; illinoisloyalty.com on Power 4 NIL budgets near $15M; nilclub.com Illinois State and Northern Illinois football pages; 247sports.com on Brayden Trimble; ncaa.org and apnews.com on the House v. NCAA settlement, the $20.5M revenue-share cap, and the NIL Go clearinghouse.

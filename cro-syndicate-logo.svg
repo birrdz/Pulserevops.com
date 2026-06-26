@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 300" role="img" aria-label="CRO Syndicate">
+  <rect width="1100" height="300" rx="22" fill="#16161D"/>
+  <g transform="translate(70,92)">
+    <circle cx="40" cy="58" r="40" fill="none" stroke="#E0571F" stroke-width="10"/>
+    <path d="M40 24 v68 M14 41 h52" stroke="#E0571F" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <g font-family="'Plus Jakarta Sans','Trebuchet MS',Verdana,sans-serif">
+    <text x="170" y="150" font-size="92" font-weight="800" letter-spacing="2" fill="#FFFFFF">CRO <tspan fill="#E0571F">SYNDICATE</tspan></text>
+    <text x="172" y="205" font-size="33" font-weight="600" letter-spacing="3" fill="#B9BAC6">FRACTIONAL &amp; INTERIM REVENUE LEADERS</text>
+  </g>
+</svg>

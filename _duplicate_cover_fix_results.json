@@ -1,0 +1,123 @@
+{
+  "generatedAt": "2026-06-22T22:43:21.053Z",
+  "dry": false,
+  "totalJobs": 2888,
+  "processed": 5,
+  "fixed": 5,
+  "failed": 0,
+  "failures": [],
+  "sample": [
+    {
+      "id": "ik0005",
+      "keeper": "ik0004",
+      "oldUrl": "https://www.netsuite.com/portal/assets/img/business-articles/accounting-software/infographic-accounting-sales-kpis.jpg",
+      "newUrl": "https://images.ctfassets.net/lzny33ho1g45/3URc6nwfRnB8MrLBWsFH1O/6480114cb8e14bf1e8fe8bc881d3f3b2/key-performance-indicators-examples-key-kpis-by-category.webp",
+      "via": "ddg:key sales KPIs Commercial Architecture Engineering Firm industry:2",
+      "indexNow": {
+        "ok": true,
+        "status": 200
+      }
+    },
+    {
+      "id": "ik0007",
+      "keeper": "ik0004",
+      "oldUrl": "https://www.netsuite.com/portal/assets/img/business-articles/accounting-software/infographic-accounting-sales-kpis.jpg",
+      "newUrl": "https://www.slideteam.net/media/catalog/product/cache/1280x720/k/p/kpi_dashboard_to_predict_insurance_claims_navigating_the_future_of_insurance_data_analytics_ss_slide01.jpg",
+      "via": "ddg:key sales KPIs Commercial Insurance Brokerage industry:2",
+      "indexNow": {
+        "ok": true,
+        "status": 200
+      }
+    },
+    {
+      "id": "ik0010",
+      "keeper": "ik0004",
+      "oldUrl": "https://www.netsuite.com/portal/assets/img/business-articles/accounting-software/infographic-accounting-sales-kpis.jpg",
+      "newUrl": "https://www.manageengine.com/products/service-desk-msp/images/msp-metrics-dashboard.png.png",
+      "via": "ddg:key sales KPIs Commercial Services MSP industry:3",
+      "indexNow": {
+        "ok": true,
+        "status": 200
+      }
+    },
+    {
+      "id": "ik0011",
+      "keeper": "ik0004",
+      "oldUrl": "https://www.netsuite.com/portal/assets/img/business-articles/accounting-software/infographic-accounting-sales-kpis.jpg",
+      "newUrl": "https://www.socoselling.com/wp-content/uploads/2019/04/sales-kpis_thumbnail-01.png",
+      "via": "ddg:key sales KPIs Commercial Management Consulting industry:4",
+      "indexNow": {
+        "ok": true,
+        "status": 200
+      }
+    },
+    {
+      "id": "ik0012",
+      "keeper": "ik0004",
+      "oldUrl": "https://www.netsuite.com/portal/assets/img/business-articles/accounting-software/infographic-accounting-sales-kpis.jpg",
+      "newUrl": "https://media.licdn.com/dms/image/v2/D4D12AQH4Q_vItE_X5g/article-cover_image-shrink_720_1280/B4DZZTXVn8H4AI-/0/1745155357264?e=2147483647&v=beta&t=zpIxSkCKTuD4nGEFv19hMLsvCi50egdbwhwzIHlU10g",
+      "via": "ddg:key sales KPIs Commercial Accounting CPA Firm industry:5",
+      "indexNow": {
+        "ok": true,
+        "status": 200
+      }
+    }
+  ],
+  "results": [
+    {
+      "id": "ik0005",
+      "keeper": "ik0004",
+      "oldUrl": "https://www.netsuite.com/portal/assets/img/business-articles/accounting-software/infographic-accounting-sales-kpis.jpg",
+      "newUrl": "https://images.ctfassets.net/lzny33ho1g45/3URc6nwfRnB8MrLBWsFH1O/6480114cb8e14bf1e8fe8bc881d3f3b2/key-performance-indicators-examples-key-kpis-by-category.webp",
+      "via": "ddg:key sales KPIs Commercial Architecture Engineering Firm industry:2",
+      "indexNow": {
+        "ok": true,
+        "status": 200
+      }
+    },
+    {
+      "id": "ik0007",
+      "keeper": "ik0004",
+      "oldUrl": "https://www.netsuite.com/portal/assets/img/business-articles/accounting-software/infographic-accounting-sales-kpis.jpg",
+      "newUrl": "https://www.slideteam.net/media/catalog/product/cache/1280x720/k/p/kpi_dashboard_to_predict_insurance_claims_navigating_the_future_of_insurance_data_analytics_ss_slide01.jpg",
+      "via": "ddg:key sales KPIs Commercial Insurance Brokerage industry:2",
+      "indexNow": {
+        "ok": true,
+        "status": 200
+      }
+    },
+    {
+      "id": "ik0010",
+      "keeper": "ik0004",
+      "oldUrl": "https://www.netsuite.com/portal/assets/img/business-articles/accounting-software/infographic-accounting-sales-kpis.jpg",
+      "newUrl": "https://www.manageengine.com/products/service-desk-msp/images/msp-metrics-dashboard.png.png",
+      "via": "ddg:key sales KPIs Commercial Services MSP industry:3",
+      "indexNow": {
+        "ok": true,
+        "status": 200
+      }
+    },
+    {
+      "id": "ik0011",
+      "keeper": "ik0004",
+      "oldUrl": "https://www.netsuite.com/portal/assets/img/business-articles/accounting-software/infographic-accounting-sales-kpis.jpg",
+      "newUrl": "https://www.socoselling.com/wp-content/uploads/2019/04/sales-kpis_thumbnail-01.png",
+      "via": "ddg:key sales KPIs Commercial Management Consulting industry:4",
+      "indexNow": {
+        "ok": true,
+        "status": 200
+      }
+    },
+    {
+      "id": "ik0012",
+      "keeper": "ik0004",
+      "oldUrl": "https://www.netsuite.com/portal/assets/img/business-articles/accounting-software/infographic-accounting-sales-kpis.jpg",
+      "newUrl": "https://media.licdn.com/dms/image/v2/D4D12AQH4Q_vItE_X5g/article-cover_image-shrink_720_1280/B4DZZTXVn8H4AI-/0/1745155357264?e=2147483647&v=beta&t=zpIxSkCKTuD4nGEFv19hMLsvCi50egdbwhwzIHlU10g",
+      "via": "ddg:key sales KPIs Commercial Accounting CPA Firm industry:5",
+      "indexNow": {
+        "ok": true,
+        "status": 200
+      }
+    }
+  ]
+}

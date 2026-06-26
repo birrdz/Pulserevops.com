@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;} .lbl{font-family:Inter,Segoe UI,Arial,sans-serif;fill:var(--c3);} .ink{font-family:Inter,Segoe UI,Arial,sans-serif;fill:var(--ink);font-weight:700;} .title{font-family:Inter,Segoe UI,Arial,sans-serif;fill:var(--c4b);font-weight:800;} .axis{stroke:var(--c3);stroke-width:1.5;opacity:0.55;} .grid{stroke:var(--c3);stroke-width:1;opacity:0.15;stroke-dasharray:4 6;} .step{stroke:var(--c1);stroke-width:5;fill:none;stroke-linejoin:miter;stroke-linecap:butt;} .accel{stroke:var(--c4);stroke-width:5;fill:none;} .kicker{stroke:var(--c4);stroke-width:2;stroke-dasharray:6 6;opacity:0.7;}</style>
+<defs>
+<linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--bg1,#0b0f17)"/><stop offset="100%" stop-color="var(--bg2,#0f172a)"/></linearGradient>
+<linearGradient id="fillBase" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--c1)" stop-opacity="0.35"/><stop offset="100%" stop-color="var(--c1)" stop-opacity="0.04"/></linearGradient>
+<linearGradient id="fillKick" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--c4)" stop-opacity="0.45"/><stop offset="100%" stop-color="var(--c4)" stop-opacity="0.06"/></linearGradient>
+</defs>
+<rect width="1584" height="396" fill="url(#bgGrad)"/>
+<text x="48" y="46" class="title" font-size="22">Comp Plan Accelerator Curve</text>
+<text x="48" y="72" class="lbl" font-size="16" opacity="0.85">Payout multiplier vs % of quota attainment — kicker thresholds at 100% / 120% / 150%</text>
+
+<!-- Plot area: x 120..1500 (1380 wide), y 110..330 (220 tall) -->
+<!-- Y axis grid + labels: multipliers 0x..3x -->
+<line x1="120" y1="330" x2="1500" y2="330" class="axis"/>
+<line x1="120" y1="110" x2="120" y2="330" class="axis"/>
+
+<!-- horizontal grid lines for 0x, 1x, 1.5x, 2x, 3x -->
+<line x1="120" y1="330" x2="1500" y2="330" class="grid"/>
+<line x1="120" y1="257" x2="1500" y2="257" class="grid"/>
+<line x1="120" y1="220" x2="1500" y2="220" class="grid"/>
+<line x1="120" y1="184" x2="1500" y2="184" class="grid"/>
+<line x1="120" y1="110" x2="1500" y2="110" class="grid"/>
+
+<text x="108" y="335" class="lbl" font-size="18" text-anchor="end">0x</text>
+<text x="108" y="262" class="lbl" font-size="18" text-anchor="end">1x</text>
+<text x="108" y="225" class="lbl" font-size="18" text-anchor="end">1.5x</text>
+<text x="108" y="189" class="lbl" font-size="18" text-anchor="end">2x</text>
+<text x="108" y="115" class="lbl" font-size="18" text-anchor="end">3x</text>
+
+<!-- X axis labels: 0, 50%, 100%, 120%, 150%, 200% -->
+<!-- 0%=120, 50%=465, 100%=810, 120%=948, 150%=1155, 200%=1500 -->
+<line x1="810" y1="110" x2="810" y2="330" class="kicker"/>
+<line x1="948" y1="110" x2="948" y2="330" class="kicker"/>
+<line x1="1155" y1="110" x2="1155" y2="330" class="kicker"/>
+
+<text x="120" y="358" class="lbl" font-size="18" text-anchor="middle">0%</text>
+<text x="465" y="358" class="lbl" font-size="18" text-anchor="middle">50%</text>
+<text x="810" y="358" class="lbl" font-size="18" text-anchor="middle">100%</text>
+<text x="948" y="358" class="lbl" font-size="18" text-anchor="middle">120%</text>
+<text x="1155" y="358" class="lbl" font-size="18" text-anchor="middle">150%</text>
+<text x="1500" y="358" class="lbl" font-size="18" text-anchor="middle">200%</text>
+<text x="810" y="382" class="lbl" font-size="16" text-anchor="middle" opacity="0.8">% of Quota Attainment</text>
+
+<!-- Filled base region under 1x portion (0% -> 100%) -->
+<path d="M 120 330 L 120 257 L 810 257 L 810 330 Z" fill="url(#fillBase)"/>
+<!-- Filled kicker region (100% -> 200%) -->
+<path d="M 810 330 L 810 220 L 948 220 L 948 184 L 1155 184 L 1155 110 L 1500 110 L 1500 330 Z" fill="url(#fillKick)"/>
+
+<!-- Step function path (base) -->
+<path class="step" d="M 120 257 L 810 257 L 810 220"/>
+<!-- Step function (accelerators) -->
+<path class="accel" d="M 810 220 L 948 220 L 948 184 L 1155 184 L 1155 110 L 1500 110"/>
+
+<!-- Threshold dots -->
+<circle cx="810" cy="257" r="7" fill="var(--c1)" stroke="var(--ink)" stroke-width="2"/>
+<circle cx="810" cy="220" r="7" fill="var(--c4)" stroke="var(--ink)" stroke-width="2"/>
+<circle cx="948" cy="184" r="7" fill="var(--c4)" stroke="var(--ink)" stroke-width="2"/>
+<circle cx="1155" cy="110" r="7" fill="var(--c4)" stroke="var(--ink)" stroke-width="2"/>
+
+<!-- Kicker callout boxes -->
+<g>
+<rect x="688" y="120" width="120" height="64" rx="10" fill="var(--c4)" stroke="var(--ink)" stroke-width="2"/>
+<text x="748" y="146" class="ink" font-size="20" text-anchor="middle">KICKER 1</text>
+<text x="748" y="170" class="ink" font-size="18" text-anchor="middle">100% → 1.5x</text>
+</g>
+<g>
+<rect x="888" y="84" width="120" height="64" rx="10" fill="var(--c4)" stroke="var(--ink)" stroke-width="2"/>
+<text x="948" y="110" class="ink" font-size="20" text-anchor="middle">KICKER 2</text>
+<text x="948" y="134" class="ink" font-size="18" text-anchor="middle">120% → 2x</text>
+</g>
+<g>
+<rect x="1180" y="138" width="170" height="64" rx="10" fill="var(--c4)" stroke="var(--ink)" stroke-width="2"/>
+<text x="1265" y="164" class="ink" font-size="20" text-anchor="middle">KICKER 3</text>
+<text x="1265" y="188" class="ink" font-size="18" text-anchor="middle">150% → 3x</text>
+</g>
+
+<!-- Base label -->
+<g>
+<rect x="320" y="200" width="200" height="46" rx="8" fill="var(--c2)" stroke="var(--ink)" stroke-width="2"/>
+<text x="420" y="230" class="ink" font-size="18" text-anchor="middle">BASE: 1x on-target</text>
+</g>
+
+<!-- Legend -->
+<g transform="translate(48,330)">
+<line x1="0" y1="-292" x2="28" y2="-292" class="step"/>
+<text x="36" y="-287" class="lbl" font-size="16">Base payout (0–100%)</text>
+<line x1="220" y1="-292" x2="248" y2="-292" class="accel"/>
+<text x="256" y="-287" class="lbl" font-size="16">Accelerator (above 100%)</text>
+</g>
+</svg>

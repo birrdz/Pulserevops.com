@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 810" role="img" aria-label="Pulse Sports">
+  <rect width="1440" height="810" fill="#EBE9DE"/>
+  <defs>
+    <pattern id="stripeSp" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="30" height="30" fill="#166534"/><rect y="15" width="30" height="15" fill="#06250F"/>
+    </pattern>
+    <clipPath id="cup"><path d="M470 360 H650 C648 520 600 600 560 612 C520 600 472 520 470 360 Z"/></clipPath>
+  </defs>
+  <rect x="450" y="350" width="220" height="290" fill="url(#stripeSp)" clip-path="url(#cup)"/>
+  <g fill="none" stroke="#166534" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M470 360 H650 C648 520 600 600 560 612 C520 600 472 520 470 360 Z"/>   <!-- cup -->
+    <path d="M470 392 C420 392 410 470 470 500"/>    <!-- left handle -->
+    <path d="M650 392 C700 392 710 470 650 500"/>    <!-- right handle -->
+    <path d="M560 612 V660"/>                          <!-- stem -->
+    <path d="M500 712 H620 L606 660 H514 Z"/>          <!-- base -->
+    <path d="M455 712 H665"/>                          <!-- ground -->
+  </g>
+  <path d="M560 408 l16 33 36 5 -26 25 6 36 -32 -17 -32 17 6 -36 -26 -25 36 -5 Z" fill="#EBE9DE" stroke="#166534" stroke-width="6" stroke-linejoin="round"/>
+  <g font-family="'Plus Jakarta Sans','Trebuchet MS',Verdana,sans-serif" font-weight="800" letter-spacing="-2">
+    <text x="850" y="452" font-size="156" fill="#E3C9B8">Pulse</text><text x="844" y="446" font-size="156" fill="#166534">Pulse</text>
+    <text x="850" y="636" font-size="156" fill="#E3C9B8">Sports</text><text x="844" y="630" font-size="156" fill="#166534">Sports</text>
+  </g>
+</svg>

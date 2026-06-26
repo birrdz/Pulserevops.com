@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#fbbf24;--c2:#d97706;--c3:#fde68a;--c4:#fbbf24;--c4b:#fde68a;--ink:#2a1a02;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#fbbf24)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#d97706)"/>
+      <stop offset="1" style="stop-color:var(--c3,#fde68a)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.3" r="0.5">
+      <stop offset="0" style="stop-color:var(--c1,#fbbf24)" stop-opacity="0.18"/>
+      <stop offset="1" style="stop-color:var(--c1,#fbbf24)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1584" height="396" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1584" height="396" fill="url(#glow)"/>
+  
+  <g transform="translate(1280,198)" stroke="url(#accent)" fill="none" stroke-width="4">
+    <polygon points="0,-100 87,-50 87,50 0,100 -87,50 -87,-50"/>
+    <polygon points="0,-65 56,-32 56,32 0,65 -56,32 -56,-32" opacity="0.7"/>
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" fill="url(#accent)" opacity="0.95"/>
+  </g>
+
+  <text x="120" y="180" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">ICP DISCIPLINE</text>
+  <text x="118" y="262" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="72" font-weight="900" fill="#FFFFFF">Say No to Win More.</text>
+  <text x="120" y="316" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="28" font-weight="700" fill="#EDE5D8">Fit <tspan fill="url(#accent)">&#183;</tspan> Pain <tspan fill="url(#accent)">&#183;</tspan> Power <tspan fill="url(#accent)">&#183;</tspan> Buy Cycle</text>
+</svg>

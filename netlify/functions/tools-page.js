@@ -12,174 +12,8 @@
 // "rep scheduling matrix", "service fees calculator").
 // ════════════════════════════════════════════════════════════════════════
 
-const SITE = 'https://pulserevops.com';
-
-const TOOLS = {
-  'gross-profit-calculator': {
-    name: 'Gross Profit Calculator',
-    icon: '💰',
-    anchor: '#profit-calc-section',
-    short: 'Free SaaS gross profit calculator. Model margin per KPI, per rep, per territory — KPI count × revenue-per-unit, totals roll up to monthly + annualized revenue.',
-    keywords: ['gross profit calculator', 'saas margin calculator', 'kpi revenue calculator', 'sales gross profit', 'free gp calculator'],
-    body: [
-      'Most "gross profit calculators" online ask for two numbers and spit out a margin %. That isn\'t how operators think about gross profit. The PULSE Gross Profit Calculator works the way a CRO actually models the business: each KPI line gets its own monthly count and revenue-per-unit, totals roll up to monthly and annualized GP, and the whole thing syncs with House Goals so changing your goals updates margin in real time.',
-      'Use it to model the gross profit impact of changing comp accelerators, adding a new service line, or removing a low-margin SKU before you commit. Built for sales leaders running $1M–$200M ARR commercial operations.',
-      'Free. No login, no credit card, no email gate. Pull your KPI names directly from House Goals or input them manually. Reset and re-model in 30 seconds.',
-    ],
-    related_tools: ['house-goals', 'pulse-check', 'recruiting-calculator'],
-    related_tags: ['comp-design', 'saas-gtm', 'forecast-accuracy'],
-  },
-
-  'service-fees': {
-    name: 'Service Fees Calculator',
-    icon: '💵',
-    anchor: '#service-fees-section',
-    short: 'Free service-fees revenue calculator. Add up to 5 fees, set per-fee attach rates and back-office cost — see what % of overhead the fees actually cover.',
-    keywords: ['service fees calculator', 'attach rate calculator', 'recurring revenue calculator', 'back office cost coverage', 'service fee model'],
-    body: [
-      'Service fees are the most under-modeled revenue stream in B2B sales. Most CFOs treat them as a line item; most CROs ignore them entirely. They shouldn\'t. A 65% attach rate on a $9.99 fee across 1,800 monthly units is $140K/month — often more than a junior AE\'s full quota and almost always enough to fully fund the back-office headcount that supports them.',
-      'The PULSE Service Fees Calculator lets you model up to 5 fees with their own amounts and attach rates, set a default attach rate that pre-fills new rows, and configure your back-office headcount. The output: monthly fee revenue, annualized, and the % of back-office cost the fees already cover. Use it before you ask the CFO for approval to add another back-office hire.',
-      'Free. No login. Saves nothing server-side — your model lives in the browser.',
-    ],
-    related_tools: ['gross-profit-calculator', 'house-goals'],
-    related_tags: ['pricing-strategy', 'revops', 'comp-design'],
-  },
-
-  'house-goals': {
-    name: 'House Goals (Month-Ahead Goal Setting)',
-    icon: '🏠',
-    anchor: '#monthly-goals-section',
-    short: 'Free month-ahead goal-setting tool. PULSE suggests a smart target per rep using ((3-month avg + same month last year) ÷ 2) × growth factor. Adjust, lock, ship.',
-    keywords: ['monthly sales goal calculator', 'rep goal setting tool', 'sales target calculator', 'house goals tool', 'sales quota planning'],
-    body: [
-      'Most monthly goal-setting is a guess. Or it\'s last month + 5%. Or it\'s the board number divided by headcount. None of those produce a goal that\'s both fair to the rep and accountable to the P&L. House Goals uses a defensible formula: <strong>((3-month average + same month last year) ÷ 2) × growth factor</strong>. That blends recent momentum with seasonal reality, then lets you tune the growth factor by rep, by team, or by segment.',
-      'Apply All Suggestions to populate every rep\'s next-month goal at once. Carry Over Current pulls forward the existing month if you want a holdback period. Submit & Lock freezes the goals for the upcoming period — visible to reps, locked from edits, paired with the Pulse Check scoring matrix to keep effort and outcome in sync.',
-      'Goals only get set once per month. The window opens automatically; the countdown badge tells you when. Free, browser-only, no account required.',
-    ],
-    related_tools: ['pulse-check', 'pulse-matrix', 'gross-profit-calculator'],
-    related_tags: ['sales-leadership', 'forecast-accuracy', 'cro-playbook'],
-  },
-
-  'pulse-check': {
-    name: 'Pulse Check (Rep Scoring Matrix)',
-    icon: '◉',
-    anchor: '#inline-matrix',
-    short: 'Free rep-scoring matrix. Score every rep on the metrics that matter — attainment, activity, hygiene, coachability — into one defensible pulse number.',
-    keywords: ['rep scoring tool', 'sales performance matrix', 'sales rep scorecard', 'pulse check tool', 'rep accountability tool'],
-    body: [
-      'Most rep scorecards collapse into one of two failure modes: a single attainment number that ignores effort, or a 14-column dashboard that nobody reads. Pulse Check is the third option — a 5-to-7-metric scoring matrix where you weight what matters, score each rep on a consistent 1–5, and produce one composite Pulse number that\'s defensible in a comp conversation, a PIP, or a board QBR.',
-      'Use it weekly during pipeline review, monthly for comp committee, or quarterly for promotions. The matrix forces the operator (you) to commit to what "good" looks like before scoring — which is the opposite of most performance reviews where the criteria materialize after the fact.',
-      'Free. No login. Pairs with House Goals via the locked combined Pulse Matrix view (password-protected for owners) where goal-setting and scoring sit side-by-side for full team accountability.',
-    ],
-    related_tools: ['pulse-matrix', 'coaching', 'house-goals'],
-    related_tags: ['sales-leadership', 'cro-playbook', 'performance-management'],
-  },
-
-  'pulse-matrix': {
-    name: 'Pulse Matrix (Combined Goals × Scoring)',
-    icon: '⌬',
-    anchor: '#inline-matrix',
-    short: 'The locked combined House Goals × Pulse Check view. Goal-setting and rep-scoring side-by-side for end-to-end team accountability.',
-    keywords: ['pulse matrix', 'sales accountability matrix', 'rep goal scoring tool', 'combined goals scoring', 'sales leader matrix'],
-    body: [
-      'Most leaders run goal-setting and rep-scoring in separate spreadsheets. The result: goals get set with one mental model, performance gets scored with another, and the two never meet until comp time when nobody remembers why the goal was the goal in the first place. Pulse Matrix fixes that by locking the two views together — every rep\'s next-month goal sits beside their current Pulse Check score, the comp conversation has all the context in one frame, and there\'s no "we set the goal high because…" argument.',
-      'This is the locked combined view. It exists for owners who want a single source of truth for "what we said the rep would do" and "what the rep actually did." Modifications require a password — once the matrix is set, it stays set, because that\'s the whole point.',
-      'Free, browser-only. The password gate is intentional — keeps the spreadsheet from getting "tweaked" mid-quarter.',
-    ],
-    related_tools: ['house-goals', 'pulse-check', 'coaching'],
-    related_tags: ['sales-leadership', 'forecast-accuracy', 'cro-playbook'],
-  },
-
-  'coaching': {
-    name: 'AI Sales Coaching',
-    icon: '🎯',
-    anchor: '#coaching-section',
-    short: 'Free AI-driven sales coaching. Surface the highest-impact coaching opportunity for each rep based on their recent activity, attainment, and pipeline shape.',
-    keywords: ['ai sales coaching', 'sales rep coaching tool', 'rep development tool', 'sales manager coaching', 'free coaching tool'],
-    body: [
-      'Most sales-coaching tools cost $80-$150/seat/month and deliver advice no manager would actually give. PULSE Coaching is different — it analyzes a rep\'s recent week (calls made, demos held, deals advanced, deals slipped) and surfaces the single highest-impact behavioral change that would shift their next two weeks.',
-      'Designed for managers who don\'t want to read 300 words to find the action. Every coaching output is one specific behavior, one observable metric, one timeline. Use it before your weekly 1:1.',
-      'Free. No login required for the basic coaching prompt. Pairs with Pulse Check so the coaching point and the score row reinforce each other.',
-    ],
-    related_tools: ['pulse-check', 'pulse-matrix', 'rep-scheduling'],
-    related_tags: ['sales-leadership', 'rep-development', 'cro-playbook'],
-  },
-
-  'recruiting-calculator': {
-    name: 'Recruiting Calculator',
-    icon: '🎓',
-    anchor: '#recruiting-calc-section',
-    short: 'Free recruiting calculator. Tell it your monthly attainment goal, ramp time, and current rep capacity — it tells you exactly how many reps you need to hire, and when.',
-    keywords: ['sales recruiting calculator', 'rep hiring calculator', 'sales capacity calculator', 'sdr ae hiring model', 'free recruiting tool'],
-    body: [
-      'Most "how many reps do I need" calculators ignore the two factors that actually matter: ramp time and current capacity utilization. PULSE Recruiting Calculator builds those in. You input your monthly goal, the average ramp curve (typically 60-90 days to 80% productivity for mid-market AEs), and your current team\'s utilization. It outputs how many reps you need to hire — and when each one needs to start so they\'re ramped before the goal hits.',
-      'Use it before the next board meeting when the CRO asks "do we have enough capacity to hit Q3?" The honest answer almost always involves hiring 2-4 weeks earlier than feels comfortable.',
-      'Free, browser-only. No saved state — every model is a fresh planning session.',
-    ],
-    related_tools: ['gross-profit-calculator', 'house-goals', 'rep-scheduling'],
-    related_tags: ['hiring', 'gtm-scaling', 'cro-playbook'],
-  },
-
-  'rep-scheduling': {
-    name: 'Rep Scheduling Matrix',
-    icon: '🕒',
-    anchor: '#sched-matrix-section',
-    short: 'Free rep scheduling tool. Calculate how many shifts you actually need this week to hit the GP target — auto-distributes by day, protects high-value selling hours.',
-    keywords: ['sales rep scheduling tool', 'shift calculator', 'sales coverage planner', 'rep capacity scheduler', 'free scheduling matrix'],
-    body: [
-      'Sales scheduling is usually either "everyone works the same week" (wasteful) or "the manager picks favorites" (toxic). Rep Scheduling Matrix is the operator-grade middle path: input the weekly gross-profit target, the matrix calculates how many shifts you need at your average GP-per-shift, then auto-distributes them across the seven days of the week.',
-      'Designed around a healthy schedule by default — 6-hour shifts, 4.5 days/week, doubles only when the math forces it. The output isn\'t just shift counts; it\'s a daily breakdown showing how many people you need on Monday vs Saturday, which reveals coverage holes before they hit your numbers.',
-      'Free, browser-only. Pulls revenue benchmarks from House Goals if connected.',
-    ],
-    related_tools: ['recruiting-calculator', 'gross-profit-calculator', 'pulse-check'],
-    related_tags: ['gtm-operations', 'sales-leadership', 'capacity-planning'],
-  },
-
-  'lead-enricher': {
-    name: 'Lead Enricher',
-    icon: '🔍',
-    anchor: '#lead-enricher-section',
-    short: 'Free lead enricher. Drop in an IP, domain, or company name — get the full firmographic profile (industry, size, tech stack, intent signals).',
-    keywords: ['lead enrichment tool', 'free lead enricher', 'company lookup tool', 'b2b lead enrichment', 'ip-to-company lookup'],
-    body: [
-      'Most lead-enrichment tools cost $1-$5 per record and gate the data behind 14-day trials. PULSE Lead Enricher is free for ad-hoc use — drop a website URL, a company name, or an IP address from your visitor logs and get back the firmographic profile: industry, employee count, location, and (where available) tech stack and intent signals.',
-      'Use it for one-off prospect research before a discovery call, for whale-watch (figure out which company just visited your site), or for territory planning when you\'re trying to size a new vertical.',
-      'Free for ad-hoc lookups. Powered by IPinfo + first-party intent data when the visitor comes from your own site.',
-    ],
-    related_tools: ['revenue-intelligence', 'pulse-check'],
-    related_tags: ['outbound', 'prospecting', 'revops'],
-  },
-
-  'revenue-intelligence': {
-    name: 'Revenue Intelligence (CRM)',
-    icon: '📊',
-    anchor: '#rev-intel-section',
-    short: 'The free PULSE CRM. Deals, pipeline, forecast, leaders, beats — operator-grade revenue intelligence without the Salesforce bill.',
-    keywords: ['free crm', 'revenue intelligence platform', 'sales pipeline tool', 'free salesforce alternative', 'pulse crm'],
-    body: [
-      'PULSE Revenue Intelligence is a full operator-grade CRM that runs entirely in your browser — no servers, no logins, no per-seat fees. Deals, pipeline by stage, forecast roll-up, leader-board for reps, and "beats" (the daily activity rhythm that separates the top quartile from the bottom).',
-      'Built by a 22-year revenue executive who got tired of paying $175/seat/month for Salesforce features 95% of mid-market teams never use. Designed around the metrics that actually drive forecast accuracy — and pairs natively with House Goals, Pulse Check, and the coaching surface so the same data point lights up everywhere it should.',
-      'Free, browser-only, your data stays on your device. No vendor lock-in, no migration risk, no lose-the-CRM-when-you-cancel.',
-    ],
-    related_tools: ['lead-enricher', 'war-room', 'pulse-matrix'],
-    related_tags: ['crm-hygiene', 'pipeline-management', 'forecast-accuracy', 'salesforce'],
-  },
-
-  'war-room': {
-    name: 'War Room',
-    icon: '⚔',
-    anchor: '#warroom',
-    short: 'The PULSE War Room. Reports on reports on reports — every leadership view, every rep, every deal, in one operational command center.',
-    keywords: ['sales war room', 'revops command center', 'sales leadership dashboard', 'sales operations war room', 'sales meeting tool'],
-    body: [
-      'Most "executive dashboards" are read-only summaries that get printed for the QBR and forgotten. The War Room is the opposite — an operational command surface where pipeline, deals, reps, leaders, and forecast all live together, each clickable, each drill-downable, each driving the next decision.',
-      'Built for the moment between Tuesday\'s pipeline meeting and Friday\'s board call when you have 90 minutes to figure out if you\'re going to hit the number. The War Room shows you which deals to push, which reps to call, which leaders to lean on, which forecast assumptions are getting fragile — all in one room, no tab-switching, no spreadsheet exports.',
-      'Free. Press <kbd>L</kbd> from any sub-room to return to the War Room.',
-    ],
-    related_tools: ['revenue-intelligence', 'pulse-matrix', 'coaching'],
-    related_tags: ['sales-leadership', 'forecast-accuracy', 'pipeline-management'],
-  },
-};
+const { SITE, TOOLS, liveDashboardUrl } = require('./lib/pulse-tools-registry');
+const { pulseOrgLogoImageObject } = require('./lib/pulse-brand');
 
 function escHtml(s) {
   return String(s || '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
@@ -197,10 +31,23 @@ exports.handler = async (event) => {
     if (m) slug = m[1].toLowerCase();
   }
 
+  // Pulse Tools library pillar — /tools/tl#### entries are library entries, not
+  // interactive calculator pages. Delegate them to the entry renderer so they
+  // share the full answer template (Direct Answer + Top-10 tools + FAQ).
+  if (/^tl\d+$/i.test(slug)) {
+    const entry = require('./pulse-machine-entry');
+    return entry.handler({
+      ...event,
+      path: '/tools/' + slug,
+      queryStringParameters: { ...(event.queryStringParameters || {}), id: slug },
+    }, {});
+  }
+
   // Index mode: /tools/ (no slug) renders a grid of all tools
   if (!slug) {
-    const idxUrl = SITE + '/tools/';
-    const idxDesc = 'All PULSE tools — free, browser-only, no login. Gross profit calculator, rep scheduling matrix, house goals, pulse check rep scoring, recruiting calculator, lead enricher, full revenue intelligence CRM, war room.';
+    const idxUrl = SITE + '/calculators';
+    const n = Object.keys(TOOLS).length;
+    const idxDesc = 'All ' + n + ' PULSE tools — free CRM, War Room, Leader Hub, pipeline rooms, calculators, guided tour, and operator dashboards. Browser-only, no login.';
     const idxLd = {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
@@ -221,6 +68,28 @@ exports.handler = async (event) => {
         <div style="font-size:0.66rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(34,197,94,0.85);">Free · No login · Open ↗</div>
       </a>`).join('');
 
+    // Pulse Tools how-to library — the tl#### Q&A entries (formula + Top-10 tools).
+    let tlSection = '';
+    try {
+      const { getStore } = require('@netlify/blobs');
+      let store;
+      try { store = getStore('pulse-machine-library'); }
+      catch (e) { store = getStore({ name: 'pulse-machine-library', siteID: process.env.SITE_ID || 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.NETLIFY_BLOBS_TOKEN || process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN }); }
+      const idx = (await store.get('_index.json', { type: 'json' })) || { entries: [] };
+      const tl = idx.entries.filter(e => e && /^tl\d+$/i.test(e.id)).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+      if (tl.length) {
+        const links = tl.map(e => `
+          <a href="/tools/${escAttr(e.id)}" style="display:block;background:rgba(20,25,32,0.5);border:1px solid rgba(255,255,255,0.07);border-left:3px solid #39A6FF;border-radius:10px;padding:16px 18px;text-decoration:none;color:inherit;">
+            <div style="font-size:0.95rem;font-weight:700;color:#EDE5D8;line-height:1.4;">${escHtml(e.question || e.id)}</div>
+            <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(57,166,255,0.85);margin-top:8px;">Method + Top 10 tools ↗</div>
+          </a>`).join('');
+        tlSection = `
+          <h2 style="font-size:1.5rem;font-weight:900;color:#fff;margin:52px 0 6px;">Pulse Tools — Operator How-To Library</h2>
+          <p class="lead" style="margin-bottom:22px;">${tl.length} answers that show you the actual method (the formula + a worked example) <b>and</b> the top 10 real tools that solve it — calculate reps, forecast revenue, predict churn, and more.</p>
+          <div class="grid">${links}</div>`;
+      }
+    } catch (e) { tlSection = ''; }
+
     const idxHtml = `<!doctype html>
 <html lang="en"><head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -233,7 +102,7 @@ exports.handler = async (event) => {
   <meta property="og:title" content="PULSE Tools — Free RevOps Operator Tools">
   <meta property="og:description" content="${escAttr(idxDesc)}">
   <meta property="og:url" content="${idxUrl}">
-  <meta property="og:image" content="${SITE}/assets/PULSELINKEDINBG.jpg">
+  <meta property="og:image" content="${SITE}/pulse-og.png">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E8710A' d='M3 12h3l2-7 4 14 2-7h7'/%3E%3C/svg%3E">
   <script type="application/ld+json">${JSON.stringify(idxLd)}</script>
   <style>
@@ -247,9 +116,10 @@ exports.handler = async (event) => {
   </style></head><body>
   <div class="top"><span><a href="/">PULSE REVOPS</a></span><span><a href="/dashboard.html">🛠 Free CRM</a> · <a href="/knowledge.html">📚 Library</a> · <a href="/themachine">The Machine</a></span></div>
   <main>
-    <h1>PULSE Tools</h1>
+    <h1>Free Sales &amp; RevOps Tools — Operator-Grade Calculators &amp; Dashboards</h1>
     <p class="lead">${escHtml(idxDesc)} Built by a 22-year revenue executive — free, browser-only, no login required.</p>
     <div class="grid">${cards}</div>
+    ${tlSection}
   </main>
   <div class="footer-note">All tools free · No login, no card, no email gate · <a href="/privacy">Privacy</a></div>
   <script src="/assets/visit-alert.js" defer></script>
@@ -273,7 +143,11 @@ exports.handler = async (event) => {
 
   const t = TOOLS[slug];
   const url = SITE + '/tools/' + slug;
-  const liveUrl = SITE + '/dashboard.html' + t.anchor;
+  const liveUrl = t.openUrl || liveDashboardUrl(t);
+  const robotsMeta = t.noindex ? 'noindex, follow' : 'index, follow, max-snippet:-1, max-image-preview:large';
+  // Single-option pages: the Pulse Check matrix opens straight to the live tool —
+  // no secondary "See all tools" button, no "Operators also use" cross-sell.
+  const matrixOnly = slug === 'pulse-matrix' || slug === 'pulse-check';
 
   // Related tool cards
   const related = (t.related_tools || []).filter(s => TOOLS[s]).map(s => ({ slug: s, ...TOOLS[s] }));
@@ -301,7 +175,7 @@ exports.handler = async (event) => {
       '@id': SITE + '/#korywhite',
       name: 'Kory White',
       jobTitle: 'Chief Revenue Officer',
-      url: SITE + '/resume',
+      
       sameAs: [
         'https://www.linkedin.com/in/korywhite',
         'https://theexecutivereview.org/kory-white.html',
@@ -312,6 +186,7 @@ exports.handler = async (event) => {
       '@id': SITE + '/#organization',
       name: 'Pulse RevOps',
       url: SITE,
+      logo: pulseOrgLogoImageObject(),
       founder: { '@id': SITE + '/#korywhite' },
     },
   };
@@ -320,22 +195,34 @@ exports.handler = async (event) => {
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>${escHtml(t.name)} — Free ${escHtml(t.name)} · PULSE</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <link rel="stylesheet" href="/css/mobile-fix.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#FF6B30" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#09090F" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PULSE">
+  <link rel="apple-touch-icon" href="/icon-192.svg">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.svg">
+  <title>Free ${escHtml(t.name)} — Sales &amp; RevOps Tool | PULSE</title>
   <meta name="description" content="${escAttr(t.short)}">
-  <meta name="keywords" content="${escAttr(t.keywords.join(', '))}">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="keywords" content="${escAttr(t.keywords.join(', '))}, free RevOps tools, free sales tools, PULSE RevOps">
+  <meta name="author" content="Pulse RevOps · Kory White">
+  <meta name="robots" content="${robotsMeta}">
   <link rel="canonical" href="${url}">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="${escAttr(t.name + ' · PULSE')}">
+  <meta property="og:title" content="${escAttr('Free ' + t.name + ' — Sales & RevOps Tool | PULSE')}">
   <meta property="og:description" content="${escAttr(t.short)}">
   <meta property="og:url" content="${url}">
   <meta property="og:site_name" content="Pulse RevOps">
-  <meta property="og:image" content="${SITE}/assets/PULSELINKEDINBG.jpg">
+  <meta property="og:image" content="${SITE}/pulse-og.png">
+  <meta property="og:image:alt" content="${escAttr(t.name + ' — free Pulse RevOps tool')}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${escAttr(t.name + ' · PULSE')}">
+  <meta name="twitter:title" content="${escAttr('Free ' + t.name + ' | PULSE RevOps')}">
   <meta name="twitter:description" content="${escAttr(t.short)}">
-  <meta name="twitter:image" content="${SITE}/assets/PULSELINKEDINBG.jpg">
+  <meta name="twitter:image" content="${SITE}/pulse-og.png">
+  <meta name="twitter:image:alt" content="${escAttr(t.name + ' — free Pulse RevOps tool')}">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E8710A' d='M3 12h3l2-7 4 14 2-7h7'/%3E%3C/svg%3E">
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
   <style>
@@ -375,8 +262,8 @@ exports.handler = async (event) => {
     <span class="price-tag">Free · No login · No card</span>
     <p class="lead">${escHtml(t.short)}</p>
     <div class="cta-row">
-      <a class="cta-primary" href="${escAttr(liveUrl)}">Open the live tool ↗</a>
-      <a class="cta-ghost" href="/dashboard.html">See all PULSE tools →</a>
+      <a class="cta-primary" href="${escAttr(liveUrl)}">${matrixOnly ? 'Open the Pulse Check matrix ↗' : 'Open the live tool ↗'}</a>
+      ${matrixOnly ? '' : `<a class="cta-ghost" href="/dashboard.html">See all PULSE tools →</a>`}
     </div>
 
     <div class="body">
@@ -388,8 +275,8 @@ exports.handler = async (event) => {
       <div style="margin-bottom:24px;">${tagLinksHtml}</div>
     ` : ''}
 
-    <div class="section-h">Operators also use</div>
-    <div class="related-grid">${relatedHtml}</div>
+    ${matrixOnly ? '' : `<div class="section-h">Operators also use</div>
+    <div class="related-grid">${relatedHtml}</div>`}
 
     <div style="margin:36px 0 0;padding:24px 28px;background:linear-gradient(155deg,rgba(232,113,10,0.08),rgba(10,13,18,0.4));border:1px solid rgba(232,113,10,0.25);border-radius:14px;text-align:center;">
       <div style="font-size:0.7rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#FF8C1A;margin-bottom:10px;">⌬ Built by an operator, free for operators</div>
@@ -400,7 +287,7 @@ exports.handler = async (event) => {
   <div class="footer-note">
     Free PULSE tool · No login, no card, no email gate
     <div style="margin-top:8px;font-size:0.66rem;letter-spacing:0.06em;text-transform:none;color:rgba(237,229,216,0.45);line-height:1.6;">
-      Built by <a href="/resume" style="color:rgba(255,140,26,0.85);font-weight:700;">Kory White</a> — 22-year revenue executive, architect of PULSE RevOps · <a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://theexecutivereview.org/kory-white.html" target="_blank" rel="noopener">Featured on TheExecutiveReview</a> · <a href="/privacy">Privacy</a>
+      Built by <span style="color:rgba(255,140,26,0.85);font-weight:700;">Kory White</span> — 22-year revenue executive, architect of PULSE RevOps · <a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://theexecutivereview.org/kory-white.html" target="_blank" rel="noopener">Featured on TheExecutiveReview</a> · <a href="/privacy">Privacy</a>
     </div>
   </div>
   <script src="/assets/visit-alert.js" defer></script>
@@ -418,5 +305,6 @@ exports.handler = async (event) => {
   };
 };
 
-// Export the registry so the sitemap function can read it
+// Re-export registry for sitemap / IndexNow scripts
 exports.TOOLS = TOOLS;
+exports.liveDashboardUrl = liveDashboardUrl;

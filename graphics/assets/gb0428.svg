@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#60a5fa;--c2:#2563eb;--c3:#93c5fd;--c4:#22d3ee;--c4b:#a5f3fc;--ink:#03142e;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/>
+      <stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.3" r="0.5">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.18"/>
+      <stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1584" height="396" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1584" height="396" fill="url(#glow)"/>
+
+  <!-- Magnifying glass decorative element on the right -->
+  <g transform="translate(1280,198)" fill="none" stroke="url(#accent)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.95">
+    <circle cx="0" cy="0" r="92"/>
+    <line x1="68" y1="68" x2="142" y2="142"/>
+    <line x1="-38" y1="-10" x2="38" y2="-10" opacity="0.55"/>
+    <line x1="-30" y1="14" x2="30" y2="14" opacity="0.55"/>
+    <line x1="-22" y1="38" x2="22" y2="38" opacity="0.55"/>
+  </g>
+
+  <text x="120" y="180" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">SALES MANAGEMENT</text>
+  <text x="118" y="262" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="76" font-weight="900" fill="#FFFFFF">Inspect with rigor.</text>
+  <text x="120" y="316" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="28" font-weight="700" fill="#EDE5D8">Decide with conviction <tspan fill="url(#accent)">&#183;</tspan> Coach the gap</text>
+</svg>

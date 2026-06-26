@@ -1,0 +1,587 @@
+[
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for React Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Vue.js Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Angular Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Svelte Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Next.js Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Tailwind CSS in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for CSS and Styling in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Responsive Web Design in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Animations in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Frontend Debugging in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Component Libraries in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Design Systems in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Typography in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Dark Mode Design in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Single-Page Apps in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Node.js Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Python Web Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for PHP Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Ruby on Rails Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Django Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Laravel Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Express.js Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for REST API Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for GraphQL Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Backend Debugging in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Serverless Functions in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Microservices Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Authentication and Login in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Webhook Integration in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Real-Time Web Apps in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Full-Stack Web Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for WordPress Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Shopify Store Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Webflow Sites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Wix Websites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Squarespace Websites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Headless CMS Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Drupal Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Static Site Generation in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Jamstack Sites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for E-commerce Websites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Online Store Building in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Payment Integration in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Product Page Design in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Shopping Cart Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Subscription Billing in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Checkout Optimization in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Landing Page Design in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Wireframing in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Prototyping in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for UI Mockups in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Color Palette Generation in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Favicon and Icon Design in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Hero Section Design in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Form Design in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Navigation and Menu Design in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Illustration in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Copywriting in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Blog Writing for Websites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for UX Microcopy in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Meta Description Writing in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Image Alt Text in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Content Planning in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for FAQ Page Writing in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Performance Optimization in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Core Web Vitals in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Image Optimization in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Lazy Loading in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Caching in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Bundle Size Optimization in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Speed Testing in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Accessibility in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Accessibility Audits in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Screen Reader Testing in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Color Contrast Checking in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Technical SEO in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for On-Page SEO in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Schema Markup in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Sitemap Generation in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Analytics in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Keyword Research for Websites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Testing and QA in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for End-to-End Testing in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Unit Testing in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Visual Regression Testing in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Cross-Browser Testing in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Deployment in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for CI/CD for Web Apps in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Docker for Web Apps in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Hosting Management in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Domain and DNS Management in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for SSL and HTTPS Setup in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Monitoring in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Uptime Monitoring in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Error Tracking in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Application Security in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Vulnerability Scanning in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Bot and Spam Protection in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website A/B Testing in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Heatmaps and Session Recording in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Lead Capture Forms in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Pop-up Optimization in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Portfolio Websites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for SaaS Landing Pages in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Real Estate Websites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Restaurant Websites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Membership Sites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Online Course Platforms in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Directory Websites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Booking and Appointment Sites in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Chatbots in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Localization in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Progressive Web Apps in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Browser Extension Development in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Migration in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Website Redesign in 2027",
+  "kind": "top10"
+ },
+ {
+  "prefix": "ai",
+  "title": "The 10 Best AI Tools for Web Code Refactoring in 2027",
+  "kind": "top10"
+ }
+]

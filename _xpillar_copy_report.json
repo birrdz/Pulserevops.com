@@ -1,0 +1,43 @@
+{
+  "from": "rs",
+  "to": "tv",
+  "dry": false,
+  "requested": 4,
+  "copied": 4,
+  "dryOk": 0,
+  "skipped": 0,
+  "newIndexSize": 20088,
+  "firstId": "tv0282",
+  "lastId": "tv0285",
+  "results": [
+    {
+      "srcId": "rs0196",
+      "destId": "tv0282",
+      "ok": true,
+      "title": "Top 10 All-Inclusive Resorts in Malaysia",
+      "url": "https://pulserevops.com/travel/tv0282"
+    },
+    {
+      "srcId": "rs0182",
+      "destId": "tv0283",
+      "ok": true,
+      "title": "Top 10 All-Inclusive Resorts in Amalfi Coast",
+      "url": "https://pulserevops.com/travel/tv0283"
+    },
+    {
+      "srcId": "rs0178",
+      "destId": "tv0284",
+      "ok": true,
+      "title": "Top 10 All-Inclusive Resorts in Santorini",
+      "url": "https://pulserevops.com/travel/tv0284"
+    },
+    {
+      "srcId": "rs0176",
+      "destId": "tv0285",
+      "ok": true,
+      "title": "Top 10 All-Inclusive Resorts in French Polynesia",
+      "url": "https://pulserevops.com/travel/tv0285"
+    }
+  ],
+  "at": "2026-06-26T04:47:32.267Z"
+}

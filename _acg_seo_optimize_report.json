@@ -1,0 +1,633 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 34,
+ "changed": 34,
+ "keywordPhrases": 200,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 429,
+   "bing": 429,
+   "yandex": 200
+  }
+ },
+ "hubUrls": [
+  "https://pulserevops.com/knowledge.html"
+ ],
+ "results": [
+  {
+   "id": "q11110",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11110",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11111",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 213,
+   "url": "https://pulserevops.com/knowledge/q11111",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11112",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11112",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11109",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11109",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11107",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11107",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11108",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11108",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11106",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11106",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11105",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11105",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11104",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11104",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11102",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11102",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11101",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11101",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11103",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 215,
+   "url": "https://pulserevops.com/knowledge/q11103",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11099",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11099",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11098",
+   "ok": true,
+   "changed": true,
+   "tagCount": 210,
+   "keywordCount": 217,
+   "url": "https://pulserevops.com/knowledge/q11098",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11100",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11100",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11096",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 213,
+   "url": "https://pulserevops.com/knowledge/q11096",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11097",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 213,
+   "url": "https://pulserevops.com/knowledge/q11097",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11095",
+   "ok": true,
+   "changed": true,
+   "tagCount": 210,
+   "keywordCount": 217,
+   "url": "https://pulserevops.com/knowledge/q11095",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11093",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 215,
+   "url": "https://pulserevops.com/knowledge/q11093",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11092",
+   "ok": true,
+   "changed": true,
+   "tagCount": 210,
+   "keywordCount": 218,
+   "url": "https://pulserevops.com/knowledge/q11092",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11094",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 215,
+   "url": "https://pulserevops.com/knowledge/q11094",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11090",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 215,
+   "url": "https://pulserevops.com/knowledge/q11090",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11091",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 213,
+   "url": "https://pulserevops.com/knowledge/q11091",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11089",
+   "ok": true,
+   "changed": true,
+   "tagCount": 210,
+   "keywordCount": 222,
+   "url": "https://pulserevops.com/knowledge/q11089",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11088",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 215,
+   "url": "https://pulserevops.com/knowledge/q11088",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11086",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q11086",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11087",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 229,
+   "url": "https://pulserevops.com/knowledge/q11087",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11063",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 229,
+   "url": "https://pulserevops.com/knowledge/q11063",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11062",
+   "ok": true,
+   "changed": true,
+   "tagCount": 211,
+   "keywordCount": 218,
+   "url": "https://pulserevops.com/knowledge/q11062",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11061",
+   "ok": true,
+   "changed": true,
+   "tagCount": 210,
+   "keywordCount": 216,
+   "url": "https://pulserevops.com/knowledge/q11061",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q11015",
+   "ok": true,
+   "changed": true,
+   "tagCount": 346,
+   "keywordCount": 218,
+   "url": "https://pulserevops.com/knowledge/q11015",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q2130",
+   "ok": true,
+   "changed": true,
+   "tagCount": 220,
+   "keywordCount": 218,
+   "url": "https://pulserevops.com/knowledge/q2130",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q1404",
+   "ok": true,
+   "changed": true,
+   "tagCount": 222,
+   "keywordCount": 214,
+   "url": "https://pulserevops.com/knowledge/q1404",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  },
+  {
+   "id": "q1210",
+   "ok": true,
+   "changed": true,
+   "tagCount": 220,
+   "keywordCount": 215,
+   "url": "https://pulserevops.com/knowledge/q1210",
+   "indexnow": {
+    "ok": true,
+    "pings": {
+     "indexnow_org": 429,
+     "bing": 429,
+     "yandex": 200,
+     "naver": 200,
+     "seznam": 200
+    }
+   }
+  }
+ ]
+}

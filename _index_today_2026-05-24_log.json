@@ -1,0 +1,38 @@
+{
+  "day": "2026-05-24",
+  "count": 708,
+  "range": [
+    "q9740",
+    "q10447"
+  ],
+  "seoSpotFail": 0,
+  "sitemapListed": 708,
+  "indexnow": [
+    {
+      "chunk": "1-400",
+      "engines": {
+        "api.indexnow.org": 200,
+        "www.bing.com": 200,
+        "yandex.com": 202,
+        "searchadvisor.naver.com": 403,
+        "search.seznam.cz": 403
+      }
+    },
+    {
+      "chunk": "401-708",
+      "engines": {
+        "api.indexnow.org": 200,
+        "www.bing.com": 200,
+        "yandex.com": 202,
+        "searchadvisor.naver.com": 403,
+        "search.seznam.cz": 403
+      }
+    }
+  ],
+  "stamped": 0,
+  "google": {
+    "ok": false,
+    "reason": "no_google_credentials"
+  },
+  "ts": 1779660114015
+}

@@ -1,0 +1,71 @@
+QUESTION: What are Texas Longhorns men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+Texas Longhorns men's basketball enters the 2026-27 season at an inflection point that makes the 2027 NIL build the most consequential roster cycle of the Sean Miller era. Miller, a 20-year head coaching veteran hired ahead of 2025-26 to replace Rodney Terry after Terry was fired following a First Four loss to Miller's own Xavier squad in the 2025 NCAA Tournament, has already demonstrated he can move money fast in the portal. His first Texas portal class brought in Xavier forward Dailyn Swain, St. John's guard Simeon Wilcher, Purdue forward Camden Heide, Florida Atlantic center Matas Vokietaitis, Xavier forward Lassina Traore, and TCU four-star power forward David Punch, with returners Tramon Mark, Jordan Pope, and Chendell Weaver re-upping. The bill for that haul is real, and the 2027 class plus the 2026-27 portal refresh will land squarely on top of it. Understanding Texas's leverage and exposure heading into 2027 means understanding the engine paying for it.
+
+## The Funding Reality Heading Into 2027
+
+The Texas One Fund, the Longhorn-focused NIL collective now operating as the official fan subscription service of Texas Athletics, distributed $11.7 million to student-athletes across all 21 men's and women's programs in its most recent reporting cycle. Its partnership with Ouro extends an NIL deal offer to every Texas student-athlete and layers in financial literacy training, and its first-of-its-kind deal with the Jake Paul and Joe Montana creator platform Passes activates 40 athletes across multiple sports. Stacked on top of that collective layer, Texas can now pay athletes directly under the NCAA's revenue-sharing model at up to $20.5 million per school per year, the result of the House settlement framework reshaping college athletics. The practical effect for basketball is that Texas walks into 2027 with two checkbooks: a rev-share allocation set by the athletic department and a collective layer driven by donor and subscription dollars. Miller's job is to make the basketball slice of both pots stretch across one starting five he must keep and one elite freshman class he must land.
+
+It helps to be precise about how the $20.5 million figure was set. The House v. NCAA settlement, granted final approval by Judge Claudia Wilken in June 2025, allows each school to share roughly 22 percent of average power-conference athletic revenue directly with athletes, which produced a first-year pool capped near $20.5 million. That cap escalates by approximately four percent annually under the agreement, so Texas's 2027-28 ceiling is already projected closer to $22 million. The settlement also routed $2.8 billion in back-pay damages to former athletes over a decade, which means athletic departments like Texas are absorbing a back-pay assessment at the same time they fund forward-looking rev-share. Every dollar Miller secures for basketball is therefore contested not just by football, but by the department's obligation to fund the settlement itself.
+
+```mermaid
+flowchart TD
+    A[Texas One Fund collective $11.7M distributed] --> D[Texas MBB 2027 Cap Stack]
+    B[House rev-share up to $20.5M school cap] --> D
+    C[Ouro and Passes platform NIL deals] --> D
+    D --> E[Retain 2026-27 core]
+    D --> F[Sign 2027 freshman class]
+    D --> G[2026-27 portal refresh]
+    E --> H[On-court 2026-27 results]
+    F --> H
+    G --> H
+    H --> I[2027 recruiting leverage]
+```
+
+## The Roster Needs Miller Must Solve
+
+Three positional needs define Texas's 2027 NIL strategy. The first is true point guard. Texas lost top-100 2026 point guard Neiko Mundey to Texas A&M in the cycle just completed, a miss that exposes the program's biggest 2027 vulnerability if Wilcher and Pope both move on. The second is wing scoring and shot creation. Miller landed Austin Goosby in the 2026 class, ranked the No. 2 small forward in the country, the No. 1 player in Texas, and a top-20 overall recruit by ESPN, plus 6-foot-5 wing Bo Ogden, so the cupboard is not bare. But losing top-35 recruit Elijah Williams to Baylor in that same cycle showed the in-state battle is live, and 2027 must close at least one elite Texas wing to keep momentum. The third is frontcourt size, the very thing Miller said he wanted to covet in his first portal class. Vokietaitis returns as the anchor, but his eligibility runway is short. Texas needs a 2027 freshman big who can develop behind him or a portal center who arrives ready in 2026-27 so the 2027 class can swing for upside rather than need.
+
+## How the 2027 NIL Strategy Should Actually Run
+
+The smart playbook for Miller and the Texas One Fund running into 2027 is a three-tranche allocation. Tranche one is retention: lock Goosby and Ogden plus any breakout 2025-26 freshman into multi-year NIL agreements before competing programs can pry. Tranche two is the targeted high-school class, with a clear top-board of one elite point guard, one rim-protecting big, and one secondary wing. Texas does not need a top-three national class to compete in the SEC; it needs the right three or four pieces around a returning veteran core. Tranche three is the 2026-27 portal, which is where Miller has already proven he can outwork the field. Holding back rev-share dry powder for May and June 2027 portal moves is the lever that turns a good Texas team into a Final Four team. Across all three tranches, the Texas One Fund's broad-base subscription model and the Ouro and Passes activations matter because they convert NIL from a few big donor checks into a recurring revenue stream Miller's staff can forecast and pitch against.
+
+```mermaid
+flowchart TD
+    A[2027 NIL Strategy] --> B[Tranche 1 Retention]
+    A --> C[Tranche 2 High School Class]
+    A --> D[Tranche 3 2026-27 Portal]
+    B --> B1[Multi-year deals for Goosby and Ogden]
+    B --> B2[Lock breakout returners]
+    C --> C1[Elite point guard target]
+    C --> C2[Rim-protecting big]
+    C --> C3[Secondary wing]
+    D --> D1[Reserve dry powder for May-June 2027]
+    D --> D2[Size-first portal philosophy]
+    B1 --> E[Final Four ceiling for 2027-28]
+    C1 --> E
+    D1 --> E
+```
+
+## The NIL Go Clearinghouse Variable
+
+Any 2027 Texas build now runs through NIL Go, the Deloitte-operated clearinghouse stood up under the College Sports Commission to vet third-party NIL deals of $600 and above for fair-market value. For a collective like the Texas One Fund, this is the single biggest operational change since the settlement took effect. A deal that the clearinghouse flags as compensation-for-play rather than genuine endorsement can be rejected, which means the days of a booster simply wiring a recruit's family are functionally over for above-board programs. Texas's advantage here is real: the Ouro financial-literacy tie-in and the Passes creator activations are exactly the kind of legitimate, deliverable-backed brand work that clears fair-market scrutiny, because the athlete is producing content and appearing for actual companies. Programs leaning on thinly disguised pay-for-play collectives face more rejections; Texas's blended model of rev-share plus genuine endorsement is structurally better positioned to survive NIL Go review through the 2027 cycle.
+
+## The SEC Pressure Test
+
+The SEC remains the most expensive basketball conference in the country, and Texas's 2027 build does not happen in a vacuum. Texas A&M just outbid Texas for Mundey, Baylor pulled Williams out of state from a different conference, and Kentucky, Arkansas, Tennessee, and Auburn are all running collective stacks that comfortably clear what Texas distributed last cycle when basketball's share is isolated from the broader 21-sport pot. The Longhorns' edge is the breadth of the Texas One Fund subscription base, the in-state recruiting footprint Goosby's commitment validated, and Miller's portal reputation built over 20 head coaching seasons. The risk is that football's share of the rev-share cap, which at Texas is the largest in the country by program revenue, leaves basketball with a smaller carve-out than peer SEC programs that lean less heavily on football. Miller's leverage with athletic director Chris Del Conte in late 2026 budget conversations may matter more to 2027 NIL outcomes than any single recruiting visit, and that conversation will be shaped by what Texas's 2025-26 record looks like in March.
+
+The other under-discussed pressure point is roster math under the new House settlement scholarship limit. Basketball moved to a 15-player scholarship maximum, which compresses NIL dollars across more spots than the previous 13. For Texas that means roughly two additional contracts per cycle, and at the going SEC rate for a credible rotation piece those slots represent six to seven figures Miller did not have to budget under the old cap. The 2027 strategy has to account for this expanded headcount or the program ends up with two underpaid walk-on-tier guards in a league where the bottom of every other rotation is being paid like a starter elsewhere.
+
+## The Bottom Line for 2027
+
+Texas men's basketball in 2027 needs a true point guard, one elite frontcourt piece, and a wing to pair with Goosby, funded by a layered cap stack of Texas One Fund collective dollars and House-settlement rev-share. Miller has already proven the portal piece in his first cycle. The high-school class and the in-house retention conversations are where the 2027 NIL strategy gets won or lost, and the expanded 15-scholarship math means depth pieces cannot be ignored the way they could be two years ago. If the Texas One Fund holds its $11-plus million distribution pace, the Ouro and Passes platform deals continue to broaden the activation base for athletes who are not headline names, and basketball's rev-share carve-out clears industry midpoint, the Longhorns have a credible path to a top-three SEC finish and a deep March run in 2027-28. If either lever slips, Miller will be selling a developmental story in a conference that does not reward patience, against in-state rivals A&M and Baylor who have already shown they will pay above market to take Texas's recruits. The 2027 cycle is Miller's first true referendum at Texas, and the NIL build under him will decide whether Year Three is a Sweet Sixteen ceiling or a banner conversation.
+
+## Frequently Asked Questions
+
+**How much of Texas's $20.5 million revenue-share cap goes to men's basketball?**
+Texas has not published an exact basketball carve-out, but power-conference programs with football-first revenue profiles typically allocate the large majority of the $20.5 million cap to football and direct a smaller slice to basketball than peer hoops-first schools. Because Texas's football program generates the most revenue in the country, basketball's internal percentage is a live budget fight, and Sean Miller's leverage with athletic director Chris Del Conte in late-2026 budget talks will hinge on the team's 2025-26 results. Collective dollars from the Texas One Fund stack on top of whatever rev-share basketball is allocated, which is why the collective layer matters so much to the 2027 build.
+
+**Does the House settlement scholarship change actually help or hurt Texas basketball recruiting?**
+It does both. The move to a 15-player scholarship maximum lets Texas carry deeper, fully scholarshipped rosters and eliminates the old walk-on tier, which is a recruiting positive. But every one of those expanded spots is now a paid contract in an SEC market where even end-of-bench rotation players command real money. For Texas, the two additional slots per cycle represent six- to seven-figure obligations that did not exist under the old 13-scholarship cap, so the depth advantage only materializes if Miller and the Texas One Fund budget for the full 15 rather than spending out at the top of the roster and leaving the bottom underfunded.

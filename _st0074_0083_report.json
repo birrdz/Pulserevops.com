@@ -1,0 +1,138 @@
+{
+  "created": [
+    {
+      "id": "st0074",
+      "url": "https://pulserevops.com/sales-trainings/st0074",
+      "chars": 1828,
+      "inSitemap": true,
+      "indexTarget": {}
+    },
+    {
+      "id": "st0075",
+      "url": "https://pulserevops.com/sales-trainings/st0075",
+      "chars": 1628,
+      "inSitemap": true,
+      "indexTarget": {}
+    },
+    {
+      "id": "st0076",
+      "url": "https://pulserevops.com/sales-trainings/st0076",
+      "chars": 1368,
+      "inSitemap": true,
+      "indexTarget": {}
+    },
+    {
+      "id": "st0077",
+      "url": "https://pulserevops.com/sales-trainings/st0077",
+      "chars": 1358,
+      "inSitemap": true,
+      "indexTarget": {}
+    },
+    {
+      "id": "st0078",
+      "url": "https://pulserevops.com/sales-trainings/st0078",
+      "chars": 1351,
+      "inSitemap": true,
+      "indexTarget": {}
+    },
+    {
+      "id": "st0079",
+      "url": "https://pulserevops.com/sales-trainings/st0079",
+      "chars": 1403,
+      "inSitemap": true,
+      "indexTarget": {}
+    },
+    {
+      "id": "st0080",
+      "url": "https://pulserevops.com/sales-trainings/st0080",
+      "chars": 1336,
+      "inSitemap": true,
+      "indexTarget": {}
+    },
+    {
+      "id": "st0081",
+      "url": "https://pulserevops.com/sales-trainings/st0081",
+      "chars": 1304,
+      "inSitemap": true,
+      "indexTarget": {}
+    },
+    {
+      "id": "st0082",
+      "url": "https://pulserevops.com/sales-trainings/st0082",
+      "chars": 1308,
+      "inSitemap": true,
+      "indexTarget": {}
+    },
+    {
+      "id": "st0083",
+      "url": "https://pulserevops.com/sales-trainings/st0083",
+      "chars": 1203,
+      "inSitemap": true,
+      "indexTarget": {}
+    }
+  ],
+  "seo": [
+    {
+      "id": "st0074",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "id": "st0075",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "id": "st0076",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "id": "st0077",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "id": "st0078",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "id": "st0079",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "id": "st0080",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "id": "st0081",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "id": "st0082",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "id": "st0083",
+      "status": 200,
+      "ok": true
+    }
+  ],
+  "index": [
+    {
+      "batch": {
+        "api.indexnow.org": 200,
+        "www.bing.com": 200,
+        "yandex.com": 202,
+        "searchadvisor.naver.com": 403,
+        "search.seznam.cz": 403
+      }
+    }
+  ],
+  "errors": []
+}

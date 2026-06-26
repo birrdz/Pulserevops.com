@@ -1,0 +1,82 @@
+OK q9770 How do you define Pulse metrics for real-time Go-To-Market e
+OK q9772 How do you apply baseball On-Base Percentage philosophy to S
+OK q9774 How do you measure sales cycle velocity by tracking duration
+OK q9776 How do you calculate the true cost of a free trial motion vs
+OK q9778 How do you correlate executive sponsor involvement with deal
+OK q9780 How do you track the decay rate of Marketing Qualified Leads
+OK q9782 How do you analyze the impact of specific legal redlines on 
+OK q9784 How do you measure conversion from targeted direct mail camp
+OK q9786 How do you track the friction score of a B2B contract signat
+OK q9788 How do you correlate sales rep tenure and prior industry exp
+OK q9790 How do you build scalable sales enablement frameworks withou
+OK q9792 How do you create playbooks for standardizing Mutual Action 
+OK q9794 How do you transition veteran sales teams from relationship 
+OK q9796 How do you align marketing collateral taxonomy with sales en
+OK q9798 How do you structure a weekly forecast call focused on deal 
+OK q9799 How do you measure pipeline impact of a localized sales trai
+OK q9801 How do you create dynamic battle cards that update from comp
+OK q9802 How do you develop a certification program that measures pit
+OK q9803 How do you standardize the pre-sales engineering handoff to 
+OK q9804 How do you design curriculum for continuous revenue operatio
+OK q9806 How do you structure double-trigger commission payouts for c
+OK q9808 How do you model commission clawbacks for multi-year consump
+OK q9810 How do you design quota relief policies for reps facing prol
+OK q9812 How do you set territory routing rules for hybrid inbound/ou
+OK q9814 How do you decouple Customer Success compensation from direc
+OK q9816 How do you design temporary Spiff structures that drive adop
+OK q9818 How do you transition a sales floor from ARR-based to usage-
+OK q9820 How do you calculate On-Target Earnings ratios for specializ
+OK q9822 How do you benchmark equity vs cash compensation for a first
+OK q9825 How do you structure variable comp for channel partners who 
+OK q9827 How do you build multi-touch attribution for 18-month B2B en
+OK q9829 How do you structure CRM campaigns to measure revenue impact
+OK q9831 How do you calculate CAC payback for hybrid PLG and sales-le
+OK q9833 How do you establish Blended CAC vs Paid CAC benchmarks for 
+OK q9835 How do you track and attribute offline event interactions in
+OK q9837 How do you bridge attribution between self-serve trial users
+OK q9839 How do you run cohort analysis to isolate B2B expansion reve
+OK q9841 How do you build a unified lead-to-revenue lifecycle without
+OK q9843 How do you calculate weighted pipeline value when sales cycl
+OK q9845 How do you map lead status to opportunity stages after a com
+OK q9847 How do you standardize free-text job titles in legacy CRMs u
+OK q9849 How do you write an enforceable SLA for data entry between m
+OK q9851 How do you audit automated CRM workflow rules to prevent inf
+OK q9853 How do you archive inactive contacts without losing historic
+OK q9855 How do you establish a cross-functional data dictionary for 
+OK q9857 How do you reset baseline metrics when historical CRM data i
+OK q9859 How do you restrict field-level CRM visibility without break
+OK q9861 How do you design a territory hierarchy that handles mid-yea
+OK q9863 How do you quantify the financial cost of bad CRM data in en
+OK q9865 How do you create a sandbox testing protocol for RevOps infr
+OK q9867 How do you decouple gross retention from net revenue retenti
+OK q9869 How do you operationalize customer health scores beyond logi
+OK q9871 How do you automate data aggregation for Quarterly Business 
+OK q9873 How do you set CRM early warning alerts for champion departu
+OK q9875 How do you map white space in enterprise accounts for expans
+OK q9877 How do you operationalize a customer reference program nativ
+OK q9879 How do you track cost-to-serve enterprise customers against 
+OK q9881 How do you automate workflow triggers from implementation to
+OK q9883 How do you re-engage ghosted renewals without automatic disc
+OK q9885 How do you analyze churn root causes when CRM says budget bu
+OK q9887 How do you adjust CRM forecast categories based on historica
+OK q9889 How do you build forecasting models for consumption-based pr
+OK q9891 How do you identify systemic sandbagging using historical cl
+OK q9893 How do you build a bottoms-up forecast for a net-new outboun
+OK q9895 How do you reconcile top-down board goals with bottom-up pip
+OK q9897 How do you triangulate forecasts between manager commits and
+OK q9899 How do you define pipeline coverage ratios for enterprise vs
+OK q9901 How do you strip happy ears from the sales pipeline before b
+OK q9903 How do you forecast impact of a planned price increase on pi
+OK q9905 How do you model revenue delay from switching payment proces
+OK q9907 How do you set up PLG billing infrastructure between payment
+OK q9909 How do you migrate from legacy CPQ to modern tools with zero
+OK q9911 How do you capture UTM parameters in hidden form fields acro
+OK q9912 How do you build automated de-dup workflows that merge activ
+OK q9913 How do you track multi-currency exchange rates in historical
+OK q9914 How do you align RevOps when acquiring a business with a dif
+OK q9915 How do you operationalize state-specific sales tax exemption
+OK q9916 How do you track non-standard MSA clauses that impact renewa
+OK q9917 How do you create a unified customer communication view acro
+OK q9918 How do you develop an offboarding protocol that re-routes se
+
+SUMMARY posted=80 failed=0 next_id=q9919

@@ -1,0 +1,27 @@
+{
+  "tick": "213-B",
+  "agent": "v15.2 gold-format conversion agent B",
+  "target_id": "q414",
+  "question": "How do you calculate true CAC payback period when you have multi-quarter sales cycles?",
+  "rank_picked": "2nd-newest (index 1) of filtered list",
+  "filtered_count": 1214,
+  "original_word_count": 1,
+  "new_word_count": 9437,
+  "post_http_status": 200,
+  "post_response": {"ok": true, "id": "q414", "quality_score": 10, "format_v": "2026-05", "gold_format": true, "from": 10, "to": 10},
+  "gold_format": true,
+  "gold_elements": {
+    "direct_answer_header": true,
+    "tldr_block": true,
+    "h2_banners": 10,
+    "numbered_subsections": true,
+    "bold_in_bullets": true,
+    "named_operators_tickers": "CRM, HUBS, SNOW, DDOG, TWLO, MDB",
+    "mermaid_diagram": 1,
+    "pipe_tables": 19,
+    "counter_case_section": "Section 7",
+    "crosslinks": "q416, q417, q419, q429",
+    "citations": 33
+  },
+  "artifact": "lab/_gold_v15_t213b_q414.md"
+}

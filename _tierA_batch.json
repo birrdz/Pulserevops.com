@@ -1,0 +1,248 @@
+[
+  {
+    "id": "st430",
+    "body_path": "C:/Users/koryj/st430_answer.md",
+    "question": "AI Legal Tools Selling to the General Counsel — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st429",
+    "body_path": "C:/Users/koryj/st429_answer.md",
+    "question": "AI Recruiting Selling to the CHRO — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st428",
+    "body_path": "C:/Users/koryj/st428_answer.md",
+    "question": "AI Customer Support Selling to the VP of Customer Experience — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st427",
+    "body_path": "C:/Users/koryj/st427_answer.md",
+    "question": "AI Sales Coaching Selling to the CRO — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st426",
+    "body_path": "C:/Users/koryj/st426_answer.md",
+    "question": "AI Document Intelligence Selling to the RPA/Automation Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st425",
+    "body_path": "C:/Users/koryj/st425_answer.md",
+    "question": "AI Translation API Selling to the Localization Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st424",
+    "body_path": "C:/Users/koryj/st424_answer.md",
+    "question": "AI Music Generation Selling to the Content Creator Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st423",
+    "body_path": "C:/Users/koryj/st423_answer.md",
+    "question": "AI Video Generation Selling to the Video Production Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st422",
+    "body_path": "C:/Users/koryj/st422_answer.md",
+    "question": "AI Image Generation Selling to the Creative Director — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st421",
+    "body_path": "C:/Users/koryj/st421_answer.md",
+    "question": "TTS Voice AI Selling to the Voice Product Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st420",
+    "body_path": "C:/Users/koryj/st420_answer.md",
+    "question": "Speech-to-Text API Selling to the Voice Platform Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st419",
+    "body_path": "C:/Users/koryj/st419_answer.md",
+    "question": "Computer Vision API Selling to the ML Platform Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st418",
+    "body_path": "C:/Users/koryj/st418_answer.md",
+    "question": "AI Coding Tools Selling to the VP of Engineering — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st417",
+    "body_path": "C:/Users/koryj/st417_answer.md",
+    "question": "AI Eval Platform Selling to the AI Engineering Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st416",
+    "body_path": "C:/Users/koryj/st416_answer.md",
+    "question": "AI Agent Framework Selling to the Head of Platform Engineering — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st415",
+    "body_path": "C:/Users/koryj/st415_answer.md",
+    "question": "Synthetic Data Selling to the Head of Data Science — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st414",
+    "body_path": "C:/Users/koryj/st414_answer.md",
+    "question": "Embeddings API Selling to the ML Engineer — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st413",
+    "body_path": "C:/Users/koryj/st413_answer.md",
+    "question": "Fine-Tuning Platform Selling to the ML Platform Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st412",
+    "body_path": "C:/Users/koryj/st412_answer.md",
+    "question": "AI Safety / Red Team Services Selling to the CISO — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st411",
+    "body_path": "C:/Users/koryj/st411_answer.md",
+    "question": "GPU Cloud Selling to the VP of AI Infrastructure — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st410",
+    "body_path": "C:/Users/koryj/st410_answer.md",
+    "question": "GenAI Platform Selling to the Enterprise CIO — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st409",
+    "body_path": "C:/Users/koryj/st409_answer.md",
+    "question": "AI Observability Platform Selling to the VP of AI Engineering — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st408",
+    "body_path": "C:/Users/koryj/st408_answer.md",
+    "question": "Vector Database Selling to the ML Platform CTO — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st407",
+    "body_path": "C:/Users/koryj/st407_answer.md",
+    "question": "LLM API Selling to the Head of AI Engineering — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st406",
+    "body_path": "C:/Users/koryj/st406_answer.md",
+    "question": "Post-Quantum Cryptography (PQC) Crypto-Agility Selling to the CISO and Chief Cryptographer — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st405",
+    "body_path": "C:/Users/koryj/st405_answer.md",
+    "question": "Hardware Security Module (HSM) Selling to the CISO and Cryptography Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st404",
+    "body_path": "C:/Users/koryj/st404_answer.md",
+    "question": "OT/ICS Security Selling to the Plant Manager and CISO — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st403",
+    "body_path": "C:/Users/koryj/st403_answer.md",
+    "question": "Mobile Threat Defense (MTD) Selling to the CISO and Endpoint Management Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st402",
+    "body_path": "C:/Users/koryj/st402_answer.md",
+    "question": "CNAPP Selling to the Cloud Security Architect — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st401",
+    "body_path": "C:/Users/koryj/st401_answer.md",
+    "question": "Bot Mitigation Selling to the Head of E-Commerce and CISO — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st400",
+    "body_path": "C:/Users/koryj/st400_answer.md",
+    "question": "API Security Selling to the Head of Platform Engineering — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st399",
+    "body_path": "C:/Users/koryj/st399_answer.md",
+    "question": "DevSecOps Tooling Selling to the Head of Platform Engineering — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st398",
+    "body_path": "C:/Users/koryj/st398_answer.md",
+    "question": "GRC Platform Selling to the CISO and Chief Compliance Officer — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st397",
+    "body_path": "C:/Users/koryj/st397_answer.md",
+    "question": "Incident Response (IR) Retainer Selling to the CISO and General Counsel — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st396",
+    "body_path": "C:/Users/koryj/st396_answer.md",
+    "question": "SOC-as-a-Service (SOCaaS) Selling to the Mid-Market CIO — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st395",
+    "body_path": "C:/Users/koryj/st395_answer.md",
+    "question": "Threat Intelligence Selling to the SOC Manager and CTI Lead — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st394",
+    "body_path": "C:/Users/koryj/st394_answer.md",
+    "question": "Endpoint Detection and Response (EDR) Selling to the CISO — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st393",
+    "body_path": "C:/Users/koryj/st393_answer.md",
+    "question": "Data Loss Prevention (DLP) Selling to the CISO and Chief Privacy Officer — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st392",
+    "body_path": "C:/Users/koryj/st392_answer.md",
+    "question": "Email Security Selling Against Phishing and BEC — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st391",
+    "body_path": "C:/Users/koryj/st391_answer.md",
+    "question": "Cloud Security Posture Management (CSPM) Selling to the Cloud Architect — 60-Min Training",
+    "note": "tierA-bodyfill"
+  },
+  {
+    "id": "st390",
+    "body_path": "C:/Users/koryj/st390_answer.md",
+    "question": "Privileged Access Management (PAM) Selling to the CISO — 60-Min Training",
+    "note": "tierA-bodyfill"
+  }
+]

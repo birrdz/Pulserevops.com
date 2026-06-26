@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.title{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:24px;fill:var(--c4b)}
+.sub{font-family:'Inter',system-ui,sans-serif;font-weight:500;font-size:14px;fill:var(--c3);opacity:0.85}
+.klabel{font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:13px;fill:var(--c3);letter-spacing:1px}
+.kval{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:34px;fill:var(--c4b)}
+.kunit{font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:18px;fill:var(--c1)}
+.delta{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:13px;fill:var(--c1)}
+.deltaDown{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:13px;fill:var(--c4)}
+.axis{font-family:'Inter',system-ui,sans-serif;font-weight:500;font-size:11px;fill:var(--c3);opacity:0.7}
+.pipelabel{font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:12px;fill:var(--ink)}
+</style>
+<defs>
+<linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--bg1, #0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2, #0f172a)"/>
+</linearGradient>
+<linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c2)" stop-opacity="0.18"/>
+<stop offset="1" stop-color="var(--c2)" stop-opacity="0.04"/>
+</linearGradient>
+<linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)" stop-opacity="0.35"/>
+<stop offset="1" stop-color="var(--c1)" stop-opacity="0"/>
+</linearGradient>
+</defs>
+
+<rect width="1584" height="396" fill="url(#bgGrad)"/>
+
+<!-- Header -->
+<text x="40" y="48" class="title">Customer Success KPI Dashboard</text>
+<text x="40" y="70" class="sub">Q3 2027 — Live Health Snapshot</text>
+<g transform="translate(1380,38)">
+<circle cx="0" cy="0" r="6" fill="var(--c1)"/>
+<circle cx="0" cy="0" r="6" fill="var(--c1)" opacity="0.4"><animate attributeName="r" values="6;12;6" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/></circle>
+<text x="14" y="5" class="sub">live</text>
+</g>
+
+<!-- KPI Cards row -->
+<!-- Card 1: NRR -->
+<g transform="translate(40,96)">
+<rect width="240" height="118" rx="10" fill="url(#cardGrad)" stroke="var(--c2)" stroke-width="1"/>
+<text x="18" y="28" class="klabel">NRR</text>
+<text x="18" y="74" class="kval">118<tspan class="kunit">%</tspan></text>
+<text x="18" y="98" class="delta">▲ +6.2 pp QoQ</text>
+<!-- mini sparkline -->
+<polyline points="140,90 158,82 176,86 194,72 212,76 222,60" fill="none" stroke="var(--c1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="140,90 158,82 176,86 194,72 212,76 222,60 222,108 140,108" fill="url(#sparkFill)"/>
+</g>
+
+<!-- Card 2: GRR -->
+<g transform="translate(296,96)">
+<rect width="240" height="118" rx="10" fill="url(#cardGrad)" stroke="var(--c2)" stroke-width="1"/>
+<text x="18" y="28" class="klabel">GRR</text>
+<text x="18" y="74" class="kval">94<tspan class="kunit">%</tspan></text>
+<text x="18" y="98" class="delta">▲ +1.4 pp QoQ</text>
+<polyline points="140,84 158,80 176,76 194,78 212,70 222,66" fill="none" stroke="var(--c1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="140,84 158,80 176,76 194,78 212,70 222,66 222,108 140,108" fill="url(#sparkFill)"/>
+</g>
+
+<!-- Card 3: NPS -->
+<g transform="translate(552,96)">
+<rect width="240" height="118" rx="10" fill="url(#cardGrad)" stroke="var(--c2)" stroke-width="1"/>
+<text x="18" y="28" class="klabel">NPS</text>
+<text x="18" y="74" class="kval">62</text>
+<text x="18" y="98" class="delta">▲ +8 pts QoQ</text>
+<polyline points="140,92 158,86 176,78 194,82 212,70 222,58" fill="none" stroke="var(--c1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="140,92 158,86 176,78 194,82 212,70 222,58 222,108 140,108" fill="url(#sparkFill)"/>
+</g>
+
+<!-- Card 4: Time-to-Value -->
+<g transform="translate(808,96)">
+<rect width="240" height="118" rx="10" fill="url(#cardGrad)" stroke="var(--c2)" stroke-width="1"/>
+<text x="18" y="28" class="klabel">TIME-TO-VALUE</text>
+<text x="18" y="74" class="kval">19<tspan class="kunit"> days</tspan></text>
+<text x="18" y="98" class="delta">▼ -4 days QoQ</text>
+<polyline points="140,70 158,76 176,74 194,82 212,86 222,92" fill="none" stroke="var(--c1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="140,70 158,76 176,74 194,82 212,86 222,92 222,108 140,108" fill="url(#sparkFill)"/>
+</g>
+
+<!-- Card 5: Health Score (gauge) -->
+<g transform="translate(1064,96)">
+<rect width="240" height="118" rx="10" fill="url(#cardGrad)" stroke="var(--c2)" stroke-width="1"/>
+<text x="18" y="28" class="klabel">HEALTH SCORE</text>
+<!-- gauge -->
+<g transform="translate(60,92)">
+<path d="M -42,0 A 42,42 0 0,1 42,0" fill="none" stroke="var(--c2)" stroke-width="9" stroke-linecap="round" opacity="0.35"/>
+<path d="M -42,0 A 42,42 0 0,1 30,-29.4" fill="none" stroke="var(--c1)" stroke-width="9" stroke-linecap="round"/>
+<text x="0" y="-4" text-anchor="middle" class="kval">82</text>
+</g>
+<text x="130" y="62" class="delta">▲ +5 QoQ</text>
+<text x="130" y="84" class="axis">Healthy: 71%</text>
+<text x="130" y="100" class="axis">At-risk: 29%</text>
+</g>
+
+<!-- Card 6: Expansion Pipeline -->
+<g transform="translate(40,230)">
+<rect width="240" height="130" rx="10" fill="url(#cardGrad)" stroke="var(--c2)" stroke-width="1"/>
+<text x="18" y="28" class="klabel">EXPANSION PIPELINE</text>
+<text x="18" y="72" class="kval">$4.8<tspan class="kunit">M</tspan></text>
+<text x="18" y="96" class="delta">▲ +22% QoQ</text>
+<text x="18" y="116" class="axis">128 open opps · 41% covered</text>
+</g>
+
+<!-- Trend chart NRR/GRR -->
+<g transform="translate(296,230)">
+<rect width="496" height="130" rx="10" fill="url(#cardGrad)" stroke="var(--c2)" stroke-width="1"/>
+<text x="18" y="26" class="klabel">NRR / GRR — TRAILING 8 QUARTERS</text>
+<!-- axis lines -->
+<line x1="20" y1="110" x2="478" y2="110" stroke="var(--c3)" stroke-opacity="0.2" stroke-width="1"/>
+<line x1="20" y1="80" x2="478" y2="80" stroke="var(--c3)" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="2,3"/>
+<line x1="20" y1="55" x2="478" y2="55" stroke="var(--c3)" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="2,3"/>
+<!-- NRR line -->
+<polyline points="40,90 100,86 160,80 220,76 280,72 340,66 400,60 460,52" fill="none" stroke="var(--c1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="40,90 100,86 160,80 220,76 280,72 340,66 400,60 460,52 460,110 40,110" fill="url(#sparkFill)" opacity="0.7"/>
+<!-- GRR line -->
+<polyline points="40,98 100,96 160,94 220,92 280,90 340,88 400,86 460,82" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,3"/>
+<!-- markers -->
+<g fill="var(--c1)"><circle cx="40" cy="90" r="3"/><circle cx="100" cy="86" r="3"/><circle cx="160" cy="80" r="3"/><circle cx="220" cy="76" r="3"/><circle cx="280" cy="72" r="3"/><circle cx="340" cy="66" r="3"/><circle cx="400" cy="60" r="3"/><circle cx="460" cy="52" r="4"/></g>
+<!-- x-labels -->
+<g class="axis"><text x="40" y="124" text-anchor="middle">Q4·25</text><text x="100" y="124" text-anchor="middle">Q1·26</text><text x="160" y="124" text-anchor="middle">Q2·26</text><text x="220" y="124" text-anchor="middle">Q3·26</text><text x="280" y="124" text-anchor="middle">Q4·26</text><text x="340" y="124" text-anchor="middle">Q1·27</text><text x="400" y="124" text-anchor="middle">Q2·27</text><text x="460" y="124" text-anchor="middle">Q3·27</text></g>
+<!-- legend -->
+<g transform="translate(330,40)"><rect x="0" y="-8" width="14" height="3" fill="var(--c1)"/><text x="20" y="-3" class="axis">NRR</text><rect x="60" y="-8" width="14" height="3" fill="var(--c4)"/><text x="80" y="-3" class="axis">GRR</text></g>
+</g>
+
+<!-- Health Score distribution / Expansion funnel -->
+<g transform="translate(808,230)">
+<rect width="240" height="130" rx="10" fill="url(#cardGrad)" stroke="var(--c2)" stroke-width="1"/>
+<text x="18" y="26" class="klabel">HEALTH DISTRIBUTION</text>
+<!-- segmented bar -->
+<g transform="translate(18,46)">
+<rect x="0" y="0" width="120" height="22" fill="var(--c1)" rx="3"/>
+<rect x="122" y="0" width="44" height="22" fill="var(--c4)" rx="3"/>
+<rect x="168" y="0" width="36" height="22" fill="var(--c2)" rx="3"/>
+<text x="60" y="16" text-anchor="middle" class="pipelabel">Green 58%</text>
+<text x="144" y="16" text-anchor="middle" class="pipelabel">Yel 22%</text>
+<text x="186" y="16" text-anchor="middle" class="pipelabel">Red 20%</text>
+</g>
+<!-- legend rows -->
+<g transform="translate(18,80)">
+<circle cx="6" cy="6" r="5" fill="var(--c1)"/><text x="18" y="10" class="axis">Green · adoption ≥ 70%, NPS ≥ 50</text>
+<circle cx="6" cy="22" r="5" fill="var(--c4)"/><text x="18" y="26" class="axis">Yellow · adoption 40-69% or stalled</text>
+<circle cx="6" cy="38" r="5" fill="var(--c2)"/><text x="18" y="42" class="axis">Red · churn risk, exec involvement</text>
+</g>
+</g>
+
+<!-- Expansion funnel -->
+<g transform="translate(1064,230)">
+<rect width="240" height="130" rx="10" fill="url(#cardGrad)" stroke="var(--c2)" stroke-width="1"/>
+<text x="18" y="26" class="klabel">EXPANSION FUNNEL</text>
+<!-- horizontal bars -->
+<g transform="translate(18,42)">
+<rect x="0" y="0" width="204" height="14" rx="3" fill="var(--c1)"/>
+<text x="100" y="11" text-anchor="middle" class="pipelabel">Identified · $12.4M</text>
+<rect x="0" y="22" width="156" height="14" rx="3" fill="var(--c1)" opacity="0.85"/>
+<text x="78" y="33" text-anchor="middle" class="pipelabel">Qualified · $8.1M</text>
+<rect x="0" y="44" width="100" height="14" rx="3" fill="var(--c4)"/>
+<text x="50" y="55" text-anchor="middle" class="pipelabel">Proposal · $4.8M</text>
+<rect x="0" y="66" width="56" height="14" rx="3" fill="var(--c4b)"/>
+<text x="28" y="77" text-anchor="middle" class="pipelabel">Closed · $2.1M</text>
+</g>
+</g>
+
+<!-- Right column: trend chart already at 296,230 spans width — second one moved -->
+<!-- Bottom strip: time-to-value bar -->
+<g transform="translate(1304,96)">
+<rect width="240" height="264" rx="10" fill="url(#cardGrad)" stroke="var(--c2)" stroke-width="1"/>
+<text x="18" y="28" class="klabel">TIME-TO-VALUE BY SEGMENT</text>
+<g transform="translate(20,52)">
+<text x="0" y="10" class="axis">Enterprise</text>
+<rect x="86" y="0" width="120" height="12" rx="3" fill="var(--c2)" opacity="0.6"/>
+<rect x="86" y="0" width="92" height="12" rx="3" fill="var(--c1)"/>
+<text x="210" y="10" class="axis">28d</text>
+
+<text x="0" y="42" class="axis">Mid-Market</text>
+<rect x="86" y="32" width="120" height="12" rx="3" fill="var(--c2)" opacity="0.6"/>
+<rect x="86" y="32" width="74" height="12" rx="3" fill="var(--c1)"/>
+<text x="210" y="42" class="axis">19d</text>
+
+<text x="0" y="74" class="axis">SMB</text>
+<rect x="86" y="64" width="120" height="12" rx="3" fill="var(--c2)" opacity="0.6"/>
+<rect x="86" y="64" width="44" height="12" rx="3" fill="var(--c1)"/>
+<text x="210" y="74" class="axis">11d</text>
+
+<text x="0" y="106" class="axis">PLG self-serve</text>
+<rect x="86" y="96" width="120" height="12" rx="3" fill="var(--c2)" opacity="0.6"/>
+<rect x="86" y="96" width="18" height="12" rx="3" fill="var(--c1)"/>
+<text x="210" y="106" class="axis">4d</text>
+</g>
+<text x="20" y="186" class="klabel">TARGET</text>
+<text x="20" y="212" class="kval">≤ 21<tspan class="kunit"> days blended</tspan></text>
+<text x="20" y="236" class="delta">▲ on track Q3·27</text>
+</g>
+
+</svg>

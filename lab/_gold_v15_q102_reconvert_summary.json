@@ -1,0 +1,43 @@
+{
+  "task": "v15.2 gold-format RE-CONVERSION of q102",
+  "id": "q102",
+  "question": "What's the difference between expansion ARR and net new ARR for forecasting?",
+  "reason": "prior gold body failed QA at 3,121 words with only 4 of 10 gold elements",
+  "word_count_final": 9329,
+  "word_count_floor": 9000,
+  "word_count_cap": 10500,
+  "word_count_target": "9200-9800",
+  "in_range": true,
+  "post": {
+    "endpoint": "pulse-blob-polish",
+    "http_status": 200,
+    "response": {"ok": true, "id": "q102", "quality_score": 10, "format_v": "2026-05", "gold_format": true, "from": 10, "to": 10},
+    "posts_made": 1
+  },
+  "gold_elements": {
+    "1_direct_answer_h3": {"present": true, "count": 1},
+    "2_tldr_block": {"present": true, "count": 1},
+    "3_h2_banners": {"present": true, "count": 12},
+    "4_numbered_subsections": {"present": true, "count": 60},
+    "5_bold_in_bullets": {"present": true},
+    "6_named_operators_with_tickers": {"present": true, "examples": ["Snowflake (SNOW)", "Datadog (DDOG)", "HubSpot (HUBS)", "Asana (ASAN)", "Salesforce (CRM)", "monday.com (MNDY)", "ZoomInfo (ZI)", "Klaviyo (KVYO)", "MongoDB (MDB)"]},
+    "7_mermaid_diagram": {"present": true, "count": 1},
+    "8_pipe_tables": {"present": true, "count": 21, "requirement": "6+"},
+    "9_counter_case_section": {"present": true, "location": "Banner 10"},
+    "10_cross_links_and_sources": {"present": true, "cross_links": 8, "sources": 40, "requirement": "5+ links, 30+ citations"}
+  },
+  "all_10_elements_met": true,
+  "artifacts": [
+    "_gold_v15_q102_reconvert_answer.md",
+    "_gold_v15_q102_reconvert_payload.json",
+    "_gold_v15_q102_reconvert_response.txt",
+    "_gold_v15_q102_reconvert_summary.json"
+  ],
+  "constraints_respected": {
+    "no_anthropic_api": true,
+    "no_gemini_api": true,
+    "no_subagents": true,
+    "no_deploy": true,
+    "composed_by_self": true
+  }
+}

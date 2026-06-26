@@ -10,6 +10,93 @@
 let getStore = null;
 try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
 
+const { normalizeQuestion, visitorQuestionId } = require('./lib/visitor-question-id');
+
+function mapListEntry(e) {
+  return {
+    id: e.id,
+    question: e.question,
+    // Cap tags in the LIST projection. Some pillars (e.g. tl/tools) carry a
+    // 60+ keyword SEO block per entry; returning all of them for an entire
+    // pillar (655 tl rows) blew past Netlify's 6 MB function response limit
+    // (Function.ResponseSizeTooLarge) and the pillar grid rendered EMPTY.
+    // Functional + pillar + sports tags always lead the array, so the first
+    // ~20 preserve client search / sports tag-filter; SEO keywords live on the
+    // rendered entry page meta (from the blob), not this index API.
+    tags: (e.tags || []).slice(0, 20),
+    ts: e.ts,
+    polished_at: e.polished_at || null,
+    quality_score: typeof e.quality_score === 'number' ? e.quality_score : 5,
+    was_indexed_at: e.was_indexed_at || null,
+    pending: !!e.pending,
+    has_answer: e.has_answer !== false,
+    source: e.source || null,
+    // pinned_until: when API-direct visitor answers land, they pin to top
+    // of the library list with a "FRESH" pill for a 24h window. Frontend
+    // uses this to render a distinct border-color + tag.
+    pinned_until: e.pinned_until || null,
+  };
+}
+
+/** Visitor queue ghosts only when there is not yet a published answer blob. */
+async function mergeVisitorQueue(store, entries, limit) {
+  const capped = Math.min(limit, 25000);
+  const indexIds = new Set();
+  const indexNormQ = new Set();
+  for (const e of entries) {
+    if (e && e.id) indexIds.add(e.id);
+    const n = normalizeQuestion(e && e.question);
+    if (n) indexNormQ.add(n);
+  }
+
+  let queue = { items: [] };
+  try {
+    queue = (await store.get('queue.json', { type: 'json' })) || { items: [] };
+  } catch (_e) {}
+
+  const ghosts = [];
+  const items = queue.items || [];
+  for (let i = 0; i < items.length && ghosts.length < 48; i++) {
+    const item = items[i];
+    const q = item && item.q ? String(item.q).trim() : '';
+    if (!q) continue;
+    const id = item.vq_id || visitorQuestionId(q);
+    if (indexIds.has(id)) continue;
+    const norm = normalizeQuestion(q);
+    if (norm && indexNormQ.has(norm)) continue;
+
+    let hasAnswer = false;
+    try {
+      const blob = await store.get('answers/' + id + '.json', { type: 'json' });
+      hasAnswer = !!(blob && blob.answer && String(blob.answer).trim().length > 200);
+    } catch (_e) {}
+    if (hasAnswer) continue;
+
+    ghosts.push({
+      id,
+      question: q,
+      tags: ['visitor-asked'],
+      ts: item.ts || Date.now(),
+      pending: true,
+      has_answer: false,
+      source: 'visitor',
+      quality_score: 5,
+    });
+    indexIds.add(id);
+    if (norm) indexNormQ.add(norm);
+  }
+
+  const published = entries.map((e) => ({
+    ...e,
+    pending: false,
+    has_answer: true,
+    source: e.source || 'library',
+  }));
+
+  // Published newest-first on page 1; visitor ghosts after (not blocking q####).
+  return published.concat(ghosts).slice(0, capped);
+}
+
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
@@ -322,13 +409,30 @@ exports.handler = async (event) => {
           //            drives the Village (/agents.html) so each critter walks
           //            the building matching ITS OWN job.
           in_flight: await (async () => {
+            const ACTIVE_MS = 15 * 60 * 1000;
+            const now = Date.now();
+            const isActive = (w) =>
+              w && w.id && (w.action === 'polishing' || w.action === 'writing') && now - (w.ts || 0) < ACTIVE_MS;
             try {
-              const a = await store.get('_in_flight.json', { type: 'json' });
-              if (!a) return { ids: [], workers: [], ts: 0 };
-              // Guard against stale state from a crashed agent — older than
-              // 30 min = abandoned.
-              if (Date.now() - (a.ts || 0) > 30 * 60 * 1000) return { ids: [], workers: [], ts: a.ts || 0 };
-              return { ids: a.ids || [], workers: a.workers || [], ts: a.ts || 0 };
+              const a = await store.get('_in_flight.json', { type: 'json' }) || {};
+              let workers = (a.workers || []).filter(isActive);
+              const activity = await store.get('_current_activity.json', { type: 'json' });
+              if (
+                activity &&
+                activity.target &&
+                (activity.action === 'polishing' || activity.action === 'writing') &&
+                now - (activity.ts || 0) < ACTIVE_MS &&
+                !workers.some((w) => w.id === activity.target)
+              ) {
+                workers = workers.concat([{
+                  id: activity.target,
+                  action: activity.action,
+                  score: activity.score ?? null,
+                  ts: activity.ts || now,
+                }]);
+              }
+              workers = workers.slice(0, 8);
+              return { ids: workers.map((w) => w.id), workers, ts: a.ts || now };
             } catch (_e) { return { ids: [], workers: [], ts: 0 }; }
           })(),
           seo_optimized_count: seoOptimizedCount,
@@ -379,20 +483,99 @@ exports.handler = async (event) => {
   }
 
   // ── List recent (with optional tag filter) ──────────────────────────
-  // Cap raised to 5000 so /knowledge.html can render the full library
+  // Cap raised to 12000 so /knowledge.html can render the full library
   // (was 60 — caused empty grid when all top-60 were today's entries).
-  const limit = Math.max(1, Math.min(5000, parseInt(params.recent, 10) || 24));
+  const limit = Math.max(1, Math.min(20000, parseInt(params.recent, 10) || 24));
   const tag   = params.tag ? String(params.tag).toLowerCase().trim() : null;
+  // pillar filter: training → only st#### entries, kpi → only ik#### entries,
+  // knowledge → only q#### entries. Filters by ID prefix because that's
+  // authoritative regardless of tag drift.
+  const pillar = params.pillar ? String(params.pillar).toLowerCase().trim() : null;
+  const PILLAR_ID_RX = {
+    // named aliases (legacy)
+    training:  /^st\d+$/,
+    kpi:       /^ik\d+$/,
+    knowledge: /^q\d+$/,
+    tech:      /^tk\d+$/,
+    graphics:  /^gb\d+$/,
+    book:      /^bs\d+$/,
+    review:    /^er\d+$/,
+    revarch:   /^ra\d+$/,
+    gtm:       /^gp\d+$/,
+    // short codes (what window.PILLAR_DEFAULT / pillar-page.js sends)
+    q:/^q\d+$/, st:/^st\d+$/, ik:/^ik\d+$/, tk:/^tk\d+$/, gb:/^gb\d+$/, bs:/^bs\d+$/,
+    er:/^er\d+$/, ra:/^ra\d+$/, gp:/^gp\d+$/, fr:/^fr\d+$/, ca:/^ca\d+$/, tn:/^tn\d+$/,
+    sc:/^sc\d+$/, nl:/^nl\d+$/, dn:/^dn\d+$/, bt:/^bt\d+$/, mv:/^mv\d+$/, wl:/^wl\d+$/,
+    dr:/^dr\d+$/, tv:/^tv\d+$/, rs:/^rs\d+$/, es:/^es\d+$/, cl:/^cl\d+$/, lv:/^lv\d+$/,
+    ev:/^ev\d+$/, sy:/^sy\d+$/, ga:/^ga\d+$/, gm:/^gm\d+$/, sk:/^sk\d+$/, sp:/^sp\d+$/,
+    tl:/^tl\d+$/, cg:/^cg\d+$/, co:/^co\d+$/, ai:/^ai\d+$/, bo:/^bo\d+$/, cd:/^cd\d+$/, aq:/^aq\d+$/, hf:/^hf\d+$/,
+    pt:/^pt\d+$/, sw:/^sw\d+$/, ed:/^ed\d+$/,
+  };
+  // MERGED CATEGORIES (owner IA redesign 2026-06-23): collapse the 37 pillars into
+  // a handful of "My Thoughts on…" categories. ?cat=<key> returns all member pillars.
+  const CATEGORY_PILLARS = {
+    revenue:  ['q','ra','gp'],
+    coaching: ['st','cg'],
+    metrics:  ['ik'],
+    ai:       ['sw','ai','tk'],
+    gear:     ['tl','er'],
+    books:    ['bs'],
+    travel:   ['rs','tv'],
+    nightlife:['dn','nl','cl','ev','ga'],
+    living:   ['tn','lv','sc'],
+    property: ['es','bo','fr'],
+    machines: ['ca','bt'],
+    pets:     ['pt','aq'],
+    style:    ['sy','wl'],
+    culture:  ['mv','gm','co','sp','sk','hf'],
+    editorials:['ed'],
+  };
+  const cat = params.cat ? String(params.cat).toLowerCase().trim() : null;
   let meta    = null;
 
   try {
     const idx = (await store.get('_index.json', { type: 'json' })) || { entries: [] };
     let entries = (idx.entries || []).slice();
     if (tag) entries = entries.filter(e => Array.isArray(e.tags) && e.tags.includes(tag));
-    // Sort newest-first by q-ID (descending). Latest writes appear at the top
-    // of the library so visitors see what was just added. Non-q-IDs fall back
-    // to ts desc.
+    if (cat === 'editorials' || cat === 'mythoughts' || cat === 'thoughts') {
+      // MY THOUGHTS (owner 2026-06-25): the single home, and FOR NOW it surfaces the
+      // WHOLE library (everything is searchable) — entries get upgraded to long-form
+      // stories in place over time. No filter: leave `entries` as the full set; the
+      // page loads it in mini mode and runs predictive search client-side.
+      /* intentionally no filter — show everything */
+    } else if (cat && CATEGORY_PILLARS[cat]) {
+      const rxs = CATEGORY_PILLARS[cat].map(p => PILLAR_ID_RX[p]).filter(Boolean);
+      entries = entries.filter(e => e && e.id && rxs.some(rx => rx.test(e.id)));
+    } else if (pillar && PILLAR_ID_RX[pillar]) {
+      entries = entries.filter(e => e && e.id && PILLAR_ID_RX[pillar].test(e.id));
+      // Trainings pillar: exclude NIL-themed st#### entries (the old st1-st140
+      // batch was college-NIL "GTM playbook" content tagged nil/nil-gtm; the
+      // sales-trainings page is for generic 1-hr sales meetings only).
+      if (pillar === 'training' || pillar === 'st') {
+        entries = entries.filter(e => {
+          const tags = Array.isArray(e.tags) ? e.tags : [];
+          if (tags.includes('nil') || tags.includes('nil-gtm') || tags.includes('nil-2027')) return false;
+          return true;
+        });
+      }
+    }
+    // Sort priority (top → bottom):
+    //   1. pinned_until > now (fresh API-direct visitor answers — 24h window)
+    //   2. visitor-asked vq_* IDs (newest-ts first)
+    //   3. q#### IDs (newest numeric first)
+    //   4. everything else by ts desc
+    const nowSort = Date.now();
     entries.sort((a, b) => {
+      const aPinned = (a.pinned_until || 0) > nowSort;
+      const bPinned = (b.pinned_until || 0) > nowSort;
+      if (aPinned && bPinned) return (b.pinned_until || 0) - (a.pinned_until || 0);
+      if (aPinned && !bPinned) return -1;
+      if (!aPinned && bPinned) return 1;
+      const aIsVQ = /^vq_/i.test(a.id);
+      const bIsVQ = /^vq_/i.test(b.id);
+      if (aIsVQ && bIsVQ) return (b.ts || 0) - (a.ts || 0);
+      if (aIsVQ && !bIsVQ) return -1;
+      if (!aIsVQ && bIsVQ) return 1;
       const aIsQ = /^q\d+$/.test(a.id);
       const bIsQ = /^q\d+$/.test(b.id);
       if (aIsQ && bIsQ) return parseInt(b.id.slice(1), 10) - parseInt(a.id.slice(1), 10);
@@ -400,7 +583,52 @@ exports.handler = async (event) => {
       if (!aIsQ && bIsQ) return 1;
       return (b.ts || 0) - (a.ts || 0);
     });
-    entries = entries.slice(0, limit);
+
+    // Per owner 2026-05-26: push entries tagged "negative-leaning" out of the
+    // top of the library and into the middle band. Keeps the first impression
+    // on page 1 positive-leaning while still surfacing the critical takes for
+    // visitors who scroll. Only applies when NOT filtering to a specific tag.
+    if (!tag) {
+      const isNeg = e => Array.isArray(e.tags) && e.tags.includes('negative-leaning');
+      const negatives = entries.filter(isNeg);
+      const positives = entries.filter(e => !isNeg(e));
+      if (negatives.length && positives.length) {
+        const insertAt = Math.floor(positives.length / 2);
+        entries = positives.slice(0, insertAt).concat(negatives).concat(positives.slice(insertAt));
+      }
+    }
+
+    // Full filtered count (after tag/pillar filter, before merge/slice) so
+    // callers can read a count cheaply with recent=1 instead of pulling the
+    // whole pillar (was the 7.6MB homepage payload bug).
+    const matched = entries.length;
+    // Compact "mini" mode: id + question only, no visitor-ghost merge / blob
+    // reads. Lets the homepage search load the WHOLE library cheaply for
+    // autocomplete + Enter keyword search, avoiding the 502s that large
+    // full-record `recent` requests hit (payload/memory).
+    if (params.mini === '1' || params.mini === 'true') {
+      const slim = entries.slice(0, Math.min(limit, 20000)).map(e => ({ id: e.id, question: e.question }));
+      return {
+        statusCode: 200,
+        headers: { ...CORS, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ok: true, total: (idx.entries || []).length, matched, returned: slim.length, entries: slim }),
+      };
+    }
+    // SAFE CAP for FULL records: the synchronous function 502s when the JSON
+    // body gets too big (~2000+ full records). At 14.8k+ entries, callers asking
+    // recent=12000 used to crash → EMPTY listings + dead homepage search site-wide.
+    // Cap full-record responses to a safe size; use mini=1 for whole-library needs.
+    const SAFE_FULL = 1200;
+    const safeLimit = Math.min(limit, SAFE_FULL);
+    // Skip visitor-queue ghosts when a pillar filter is applied — they don't
+    // belong on the per-pillar listing pages (trainings / KPIs / etc).
+    if (!pillar && !cat) {
+      entries = await mergeVisitorQueue(store, entries, safeLimit);
+    } else {
+      // Honor `recent` for pillar queries too (previously unsliced → returned
+      // the entire pillar regardless of limit).
+      entries = entries.slice(0, safeLimit);
+    }
     try { meta = (await store.get('_meta.json', { type: 'json' })) || null; } catch (_e) {}
     return {
       statusCode: 200,
@@ -408,8 +636,9 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         ok: true,
         total: (idx.entries || []).length,
+        matched: matched,
         returned: entries.length,
-        entries: entries.map(e => ({ id: e.id, question: e.question, tags: e.tags || [], ts: e.ts, polished_at: e.polished_at || null, quality_score: typeof e.quality_score === 'number' ? e.quality_score : 5, was_indexed_at: e.was_indexed_at || null })),
+        entries: entries.map(mapListEntry),
         meta: meta && { spend_today: meta.spend_today || 0, runs_today: meta.runs_today || 0, last_run: meta.last_run || null },
       }),
     };

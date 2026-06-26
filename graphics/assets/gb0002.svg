@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#2dd4bf;--c2:#0f766e;--c3:#99f6e4;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130f;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/>
+      <stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.72" cy="0.7" r="0.55">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.16"/>
+      <stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1584" height="396" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1584" height="396" fill="url(#glow)"/>
+
+<polyline points="700,90 880,90 920,90 952,34 985,150 1020,90 1210,90 1248,90 1284,52 1320,128 1356,90 1520,90"
+    stroke="url(#accent)" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+
+<text x="700" y="172" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">FRACTIONAL CRO</text>
+  <text x="698" y="252" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="62" font-weight="900" fill="#FFFFFF">Sales strategy, systems &amp; pipeline.</text>
+  <text x="700" y="308" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="30" font-weight="700" fill="url(#accent)">Without the full-time hire.</text>
+
+</svg>

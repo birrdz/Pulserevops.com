@@ -1,0 +1,142 @@
+{
+  "audited_at": "2026-05-25T21:20:35.243Z",
+  "library": {
+    "knowledge": {
+      "total": 3038,
+      "indexed_stamp": 3038,
+      "missing_stamp": 0,
+      "pct_indexed": 100
+    },
+    "training": {
+      "total": 119,
+      "indexed_stamp": 119,
+      "missing_stamp": 0,
+      "pct_indexed": 100
+    },
+    "kpi": {
+      "total": 290,
+      "indexed_stamp": 290,
+      "missing_stamp": 0,
+      "pct_indexed": 100
+    }
+  },
+  "missing_index_total": 0,
+  "missing_index_sample": [],
+  "static_pages": {
+    "total": 105,
+    "tools_sitemap": 32,
+    "seo_fail": [
+      {
+        "url": "https://pulserevops.com/derby/",
+        "status": 200,
+        "missing": [
+          "h1"
+        ]
+      },
+      {
+        "url": "https://pulserevops.com/themachine",
+        "status": 200,
+        "missing": [
+          "jsonLd"
+        ]
+      },
+      {
+        "url": "https://pulserevops.com/bins.html",
+        "status": 200,
+        "missing": [
+          "jsonLd"
+        ]
+      },
+      {
+        "url": "https://pulserevops.com/press/",
+        "status": 200,
+        "missing": [
+          "metaDesc",
+          "canonical"
+        ]
+      }
+    ],
+    "seo_sample_ok": 36
+  },
+  "sitemap_spot": {
+    "q1": true,
+    "st0073": true,
+    "ik0001": true,
+    "st113": true
+  },
+  "fix_run": null,
+  "seo_spot_library": [
+    {
+      "id": "st113",
+      "url": "https://pulserevops.com/sales-trainings/st113",
+      "status": 200,
+      "seoOk": true,
+      "missing": [],
+      "inSitemap": true,
+      "was_indexed_at": true
+    },
+    {
+      "id": "st112",
+      "url": "https://pulserevops.com/sales-trainings/st112",
+      "status": 200,
+      "seoOk": true,
+      "missing": [],
+      "inSitemap": true,
+      "was_indexed_at": true
+    },
+    {
+      "id": "st111",
+      "url": "https://pulserevops.com/sales-trainings/st111",
+      "status": 200,
+      "seoOk": true,
+      "missing": [],
+      "inSitemap": true,
+      "was_indexed_at": true
+    },
+    {
+      "id": "ik0290",
+      "url": "https://pulserevops.com/industry-kpis/ik0290",
+      "status": 200,
+      "seoOk": true,
+      "missing": [],
+      "inSitemap": true,
+      "was_indexed_at": true
+    },
+    {
+      "id": "ik0289",
+      "url": "https://pulserevops.com/industry-kpis/ik0289",
+      "status": 200,
+      "seoOk": true,
+      "missing": [],
+      "inSitemap": true,
+      "was_indexed_at": true
+    },
+    {
+      "id": "ik0288",
+      "url": "https://pulserevops.com/industry-kpis/ik0288",
+      "status": 200,
+      "seoOk": true,
+      "missing": [],
+      "inSitemap": true,
+      "was_indexed_at": true
+    },
+    {
+      "id": "q1163",
+      "url": "https://pulserevops.com/knowledge/q1163",
+      "status": 200,
+      "seoOk": true,
+      "missing": [],
+      "inSitemap": true,
+      "was_indexed_at": true
+    },
+    {
+      "id": "q214",
+      "url": "https://pulserevops.com/knowledge/q214",
+      "status": 200,
+      "seoOk": true,
+      "missing": [],
+      "inSitemap": true,
+      "was_indexed_at": true
+    }
+  ]
+}

@@ -1,0 +1,1502 @@
+[
+ {
+  "id": "cg0201",
+  "title": "How do you coach an SDR who books meetings that never show up?",
+  "slug": "how-do-you-coach-an-sdr-who-books"
+ },
+ {
+  "id": "cg0202",
+  "title": "How do you coach a BDR to research accounts before reaching out?",
+  "slug": "how-do-you-coach-a-bdr-to-research"
+ },
+ {
+  "id": "cg0203",
+  "title": "How do you coach an AE who inherited a messy pipeline?",
+  "slug": "how-do-you-coach-an-ae-who-inherited"
+ },
+ {
+  "id": "cg0204",
+  "title": "How do you coach an account manager to grow existing accounts?",
+  "slug": "how-do-you-coach-an-account-manager-to"
+ },
+ {
+  "id": "cg0205",
+  "title": "How do you coach a CSM to spot expansion opportunities?",
+  "slug": "how-do-you-coach-a-csm-to-spot"
+ },
+ {
+  "id": "cg0206",
+  "title": "How do you coach a sales engineer to sell, not just demo?",
+  "slug": "how-do-you-coach-a-sales-engineer-to"
+ },
+ {
+  "id": "cg0207",
+  "title": "How do you coach a channel rep to manage partners, not end users?",
+  "slug": "how-do-you-coach-a-channel-rep-to"
+ },
+ {
+  "id": "cg0208",
+  "title": "How do you coach an inside sales rep to sound consultative on the phone?",
+  "slug": "how-do-you-coach-an-inside-sales-rep"
+ },
+ {
+  "id": "cg0209",
+  "title": "How do you coach a field rep to use their time in-territory well?",
+  "slug": "how-do-you-coach-a-field-rep-to"
+ },
+ {
+  "id": "cg0210",
+  "title": "How do you coach an enterprise AE to navigate a buying committee?",
+  "slug": "how-do-you-coach-an-enterprise-ae-to"
+ },
+ {
+  "id": "cg0211",
+  "title": "How do you coach an SMB rep to move fast without cutting corners?",
+  "slug": "how-do-you-coach-an-smb-rep-to"
+ },
+ {
+  "id": "cg0212",
+  "title": "How do you coach a mid-market rep stepping up from SMB deals?",
+  "slug": "how-do-you-coach-a-mid-market-rep"
+ },
+ {
+  "id": "cg0213",
+  "title": "How do you coach a full-cycle rep to balance prospecting and closing?",
+  "slug": "how-do-you-coach-a-full-cycle-rep"
+ },
+ {
+  "id": "cg0214",
+  "title": "How do you coach an overlay specialist who doesn't own the quota?",
+  "slug": "how-do-you-coach-an-overlay-specialist-who"
+ },
+ {
+  "id": "cg0215",
+  "title": "How do you coach a renewals rep to protect revenue without discounting?",
+  "slug": "how-do-you-coach-a-renewals-rep-to"
+ },
+ {
+  "id": "cg0216",
+  "title": "How do you coach a rep moving from SMB to enterprise selling?",
+  "slug": "how-do-you-coach-a-rep-moving-from"
+ },
+ {
+  "id": "cg0217",
+  "title": "How do you coach a hunter to handle account management duties?",
+  "slug": "how-do-you-coach-a-hunter-to-handle"
+ },
+ {
+  "id": "cg0218",
+  "title": "How do you coach a farmer rep to start hunting new logos?",
+  "slug": "how-do-you-coach-a-farmer-rep-to"
+ },
+ {
+  "id": "cg0219",
+  "title": "How do you coach a partner manager to drive sourced pipeline?",
+  "slug": "how-do-you-coach-a-partner-manager-to"
+ },
+ {
+  "id": "cg0220",
+  "title": "How do you coach a solutions consultant to qualify deals earlier?",
+  "slug": "how-do-you-coach-a-solutions-consultant-to"
+ },
+ {
+  "id": "cg0221",
+  "title": "How do you coach reps to actually use MEDDIC on every deal?",
+  "slug": "how-do-you-coach-reps-to-actually-use"
+ },
+ {
+  "id": "cg0222",
+  "title": "How do you coach a rep to find the economic buyer in MEDDPICC?",
+  "slug": "how-do-you-coach-a-rep-to-find"
+ },
+ {
+  "id": "cg0223",
+  "title": "How do you coach reps to run a Challenger 'teach' moment?",
+  "slug": "how-do-you-coach-reps-to-run-a"
+ },
+ {
+  "id": "cg0224",
+  "title": "How do you coach reps to use SPIN questions in discovery?",
+  "slug": "how-do-you-coach-reps-to-use-spin"
+ },
+ {
+  "id": "cg0225",
+  "title": "How do you coach reps on the Sandler up-front contract?",
+  "slug": "how-do-you-coach-reps-on-the-sandler"
+ },
+ {
+  "id": "cg0226",
+  "title": "How do you coach reps to deliver a Command of the Message pitch?",
+  "slug": "how-do-you-coach-reps-to-deliver-a"
+ },
+ {
+  "id": "cg0227",
+  "title": "How do you coach reps to sell on business value, not features?",
+  "slug": "how-do-you-coach-reps-to-sell-on"
+ },
+ {
+  "id": "cg0228",
+  "title": "How do you coach reps to use GAP selling to create urgency?",
+  "slug": "how-do-you-coach-reps-to-use-gap"
+ },
+ {
+  "id": "cg0229",
+  "title": "How do you coach reps to qualify out bad deals faster?",
+  "slug": "how-do-you-coach-reps-to-qualify-out"
+ },
+ {
+  "id": "cg0230",
+  "title": "How do you coach reps to identify a champion versus a coach?",
+  "slug": "how-do-you-coach-reps-to-identify-a"
+ },
+ {
+  "id": "cg0231",
+  "title": "How do you coach reps to map the full buying committee?",
+  "slug": "how-do-you-coach-reps-to-map-the"
+ },
+ {
+  "id": "cg0232",
+  "title": "How do you coach reps to quantify pain in dollars?",
+  "slug": "how-do-you-coach-reps-to-quantify-pain"
+ },
+ {
+  "id": "cg0233",
+  "title": "How do you coach reps to tie discovery to metrics that matter?",
+  "slug": "how-do-you-coach-reps-to-tie-discovery"
+ },
+ {
+  "id": "cg0234",
+  "title": "How do you coach reps to use the JOLT method on indecisive buyers?",
+  "slug": "how-do-you-coach-reps-to-use-the"
+ },
+ {
+  "id": "cg0235",
+  "title": "How do you coach a rep to run a discovery call that earns a second meeting?",
+  "slug": "how-do-you-coach-a-rep-to-run"
+ },
+ {
+  "id": "cg0236",
+  "title": "How do you coach a rep who asks surface-level discovery questions?",
+  "slug": "how-do-you-coach-a-rep-who-asks"
+ },
+ {
+  "id": "cg0237",
+  "title": "How do you coach a rep to uncover the buyer's compelling event?",
+  "slug": "how-do-you-coach-a-rep-to-uncover"
+ },
+ {
+  "id": "cg0238",
+  "title": "How do you coach a rep to slow down and listen on discovery calls?",
+  "slug": "how-do-you-coach-a-rep-to-slow"
+ },
+ {
+  "id": "cg0239",
+  "title": "How do you coach a rep to ask better follow-up questions?",
+  "slug": "how-do-you-coach-a-rep-to-ask"
+ },
+ {
+  "id": "cg0240",
+  "title": "How do you coach a rep to qualify budget without being awkward?",
+  "slug": "how-do-you-coach-a-rep-to-qualify"
+ },
+ {
+  "id": "cg0241",
+  "title": "How do you coach a rep to confirm decision process early?",
+  "slug": "how-do-you-coach-a-rep-to-confirm"
+ },
+ {
+  "id": "cg0242",
+  "title": "How do you coach a rep to disqualify a deal that won't close?",
+  "slug": "how-do-you-coach-a-rep-to-disqualify"
+ },
+ {
+  "id": "cg0243",
+  "title": "How do you coach a rep who takes every buyer's word at face value?",
+  "slug": "how-do-you-coach-a-rep-who-takes"
+ },
+ {
+  "id": "cg0244",
+  "title": "How do you coach a rep to dig into the cost of inaction?",
+  "slug": "how-do-you-coach-a-rep-to-dig"
+ },
+ {
+  "id": "cg0245",
+  "title": "How do you coach a rep to surface hidden objections in discovery?",
+  "slug": "how-do-you-coach-a-rep-to-surface"
+ },
+ {
+  "id": "cg0246",
+  "title": "How do you coach a rep to set a clear next step on every call?",
+  "slug": "how-do-you-coach-a-rep-to-set"
+ },
+ {
+  "id": "cg0247",
+  "title": "How do you coach a rep to tailor a demo to the buyer's use case?",
+  "slug": "how-do-you-coach-a-rep-to-tailor"
+ },
+ {
+  "id": "cg0248",
+  "title": "How do you coach a rep who demos every feature instead of the relevant ones?",
+  "slug": "how-do-you-coach-a-rep-who-demos"
+ },
+ {
+  "id": "cg0249",
+  "title": "How do you coach a rep to handle a technical objection mid-demo?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0250",
+  "title": "How do you coach a rep to run a demo with a mixed technical and business audience?",
+  "slug": "how-do-you-coach-a-rep-to-run"
+ },
+ {
+  "id": "cg0251",
+  "title": "How do you coach a rep to set up a proof of concept that closes?",
+  "slug": "how-do-you-coach-a-rep-to-set"
+ },
+ {
+  "id": "cg0252",
+  "title": "How do you coach a rep to bring in a sales engineer at the right time?",
+  "slug": "how-do-you-coach-a-rep-to-bring"
+ },
+ {
+  "id": "cg0253",
+  "title": "How do you coach a rep to turn a demo request into real discovery first?",
+  "slug": "how-do-you-coach-a-rep-to-turn"
+ },
+ {
+  "id": "cg0254",
+  "title": "How do you coach a rep to handle a 'just send me a demo' request?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0255",
+  "title": "How do you coach a rep to recap a demo so it moves the deal?",
+  "slug": "how-do-you-coach-a-rep-to-recap"
+ },
+ {
+  "id": "cg0256",
+  "title": "How do you coach a rep to demo confidently when the product has gaps?",
+  "slug": "how-do-you-coach-a-rep-to-demo"
+ },
+ {
+  "id": "cg0257",
+  "title": "How do you coach a rep to handle the 'you're too expensive' objection?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0258",
+  "title": "How do you coach a rep to respond when a buyer says 'we use a competitor'?",
+  "slug": "how-do-you-coach-a-rep-to-respond"
+ },
+ {
+  "id": "cg0259",
+  "title": "How do you coach a rep to handle 'we have no budget right now'?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0260",
+  "title": "How do you coach a rep to respond to 'send me some information'?",
+  "slug": "how-do-you-coach-a-rep-to-respond"
+ },
+ {
+  "id": "cg0261",
+  "title": "How do you coach a rep to handle 'we're happy with what we have'?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0262",
+  "title": "How do you coach a rep to deal with 'call me back next quarter'?",
+  "slug": "how-do-you-coach-a-rep-to-deal"
+ },
+ {
+  "id": "cg0263",
+  "title": "How do you coach a rep to handle 'I need to talk to my boss'?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0264",
+  "title": "How do you coach a rep to respond to 'we're building this in-house'?",
+  "slug": "how-do-you-coach-a-rep-to-respond"
+ },
+ {
+  "id": "cg0265",
+  "title": "How do you coach a rep to handle 'we tried something like this before'?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0266",
+  "title": "How do you coach a rep to respond when a buyer goes silent?",
+  "slug": "how-do-you-coach-a-rep-to-respond"
+ },
+ {
+  "id": "cg0267",
+  "title": "How do you coach a rep to handle objections without getting defensive?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0268",
+  "title": "How do you coach a rep to surface the real objection behind the stall?",
+  "slug": "how-do-you-coach-a-rep-to-surface"
+ },
+ {
+  "id": "cg0269",
+  "title": "How do you coach a rep to handle a security or compliance objection?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0270",
+  "title": "How do you coach a rep to respond to 'your company is too small'?",
+  "slug": "how-do-you-coach-a-rep-to-respond"
+ },
+ {
+  "id": "cg0271",
+  "title": "How do you coach a rep to hold price under pressure?",
+  "slug": "how-do-you-coach-a-rep-to-hold"
+ },
+ {
+  "id": "cg0272",
+  "title": "How do you coach a rep who discounts at the first sign of resistance?",
+  "slug": "how-do-you-coach-a-rep-who-discounts"
+ },
+ {
+  "id": "cg0273",
+  "title": "How do you coach a rep to trade concessions instead of giving them away?",
+  "slug": "how-do-you-coach-a-rep-to-trade"
+ },
+ {
+  "id": "cg0274",
+  "title": "How do you coach a rep to handle a procurement-led negotiation?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0275",
+  "title": "How do you coach a rep to defend value when undercut by a competitor?",
+  "slug": "how-do-you-coach-a-rep-to-defend"
+ },
+ {
+  "id": "cg0276",
+  "title": "How do you coach a rep to negotiate multi-year contracts?",
+  "slug": "how-do-you-coach-a-rep-to-negotiate"
+ },
+ {
+  "id": "cg0277",
+  "title": "How do you coach a rep to avoid end-of-quarter discount panic?",
+  "slug": "how-do-you-coach-a-rep-to-avoid"
+ },
+ {
+  "id": "cg0278",
+  "title": "How do you coach a rep to walk away from a bad deal?",
+  "slug": "how-do-you-coach-a-rep-to-walk"
+ },
+ {
+  "id": "cg0279",
+  "title": "How do you coach a rep to anchor pricing early in the deal?",
+  "slug": "how-do-you-coach-a-rep-to-anchor"
+ },
+ {
+  "id": "cg0280",
+  "title": "How do you coach a rep to handle a 'give me your best price' demand?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0281",
+  "title": "How do you coach a rep to negotiate with a professional buyer?",
+  "slug": "how-do-you-coach-a-rep-to-negotiate"
+ },
+ {
+  "id": "cg0282",
+  "title": "How do you coach a rep to sell value when the buyer only cares about price?",
+  "slug": "how-do-you-coach-a-rep-to-sell"
+ },
+ {
+  "id": "cg0283",
+  "title": "How do you coach a rep to protect margin on renewals?",
+  "slug": "how-do-you-coach-a-rep-to-protect"
+ },
+ {
+  "id": "cg0284",
+  "title": "How do you coach a rep who's afraid to ask for the sale?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0285",
+  "title": "How do you coach a rep to create urgency without being pushy?",
+  "slug": "how-do-you-coach-a-rep-to-create"
+ },
+ {
+  "id": "cg0286",
+  "title": "How do you coach a rep to run an effective close plan?",
+  "slug": "how-do-you-coach-a-rep-to-run"
+ },
+ {
+  "id": "cg0287",
+  "title": "How do you coach a rep to handle a deal that keeps slipping?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0288",
+  "title": "How do you coach a rep to get a verbal commitment before paperwork?",
+  "slug": "how-do-you-coach-a-rep-to-get"
+ },
+ {
+  "id": "cg0289",
+  "title": "How do you coach a rep to close a deal stuck in legal?",
+  "slug": "how-do-you-coach-a-rep-to-close"
+ },
+ {
+  "id": "cg0290",
+  "title": "How do you coach a rep to reach the signature step faster?",
+  "slug": "how-do-you-coach-a-rep-to-reach"
+ },
+ {
+  "id": "cg0291",
+  "title": "How do you coach a rep to handle a last-minute new stakeholder?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0292",
+  "title": "How do you coach a rep to ask for the close on the first call when it fits?",
+  "slug": "how-do-you-coach-a-rep-to-ask"
+ },
+ {
+  "id": "cg0293",
+  "title": "How do you coach a rep to recover a deal that went dark at the finish line?",
+  "slug": "how-do-you-coach-a-rep-to-recover"
+ },
+ {
+  "id": "cg0294",
+  "title": "How do you coach a rep to use a compelling event to drive a close date?",
+  "slug": "how-do-you-coach-a-rep-to-use"
+ },
+ {
+  "id": "cg0295",
+  "title": "How do you coach a rep to confirm the buyer's signing process early?",
+  "slug": "how-do-you-coach-a-rep-to-confirm"
+ },
+ {
+  "id": "cg0296",
+  "title": "How do you coach a rep to build a prospecting list that converts?",
+  "slug": "how-do-you-coach-a-rep-to-build"
+ },
+ {
+  "id": "cg0297",
+  "title": "How do you coach a rep to personalize outreach at scale?",
+  "slug": "how-do-you-coach-a-rep-to-personalize"
+ },
+ {
+  "id": "cg0298",
+  "title": "How do you coach a rep to leave voicemails that get callbacks?",
+  "slug": "how-do-you-coach-a-rep-to-leave"
+ },
+ {
+  "id": "cg0299",
+  "title": "How do you coach a rep to open a cold call without getting hung up on?",
+  "slug": "how-do-you-coach-a-rep-to-open"
+ },
+ {
+  "id": "cg0300",
+  "title": "How do you coach a rep to use LinkedIn for social selling?",
+  "slug": "how-do-you-coach-a-rep-to-use"
+ },
+ {
+  "id": "cg0301",
+  "title": "How do you coach a rep to book meetings with senior executives?",
+  "slug": "how-do-you-coach-a-rep-to-book"
+ },
+ {
+  "id": "cg0302",
+  "title": "How do you coach a rep to handle a gatekeeper?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0303",
+  "title": "How do you coach a rep to write a subject line that gets opened?",
+  "slug": "how-do-you-coach-a-rep-to-write"
+ },
+ {
+  "id": "cg0304",
+  "title": "How do you coach a rep to run a multichannel outbound sequence?",
+  "slug": "how-do-you-coach-a-rep-to-run"
+ },
+ {
+  "id": "cg0305",
+  "title": "How do you coach a rep to re-engage cold leads from last year?",
+  "slug": "how-do-you-coach-a-rep-to-re"
+ },
+ {
+  "id": "cg0306",
+  "title": "How do you coach a rep to ask for referrals from happy customers?",
+  "slug": "how-do-you-coach-a-rep-to-ask"
+ },
+ {
+  "id": "cg0307",
+  "title": "How do you coach a rep to turn inbound leads into qualified meetings?",
+  "slug": "how-do-you-coach-a-rep-to-turn"
+ },
+ {
+  "id": "cg0308",
+  "title": "How do you coach a rep to research a prospect in five minutes?",
+  "slug": "how-do-you-coach-a-rep-to-research"
+ },
+ {
+  "id": "cg0309",
+  "title": "How do you coach a rep to handle rejection on the phones?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0310",
+  "title": "How do you coach a rep to hit their daily activity numbers?",
+  "slug": "how-do-you-coach-a-rep-to-hit"
+ },
+ {
+  "id": "cg0311",
+  "title": "How do you coach a rep to book meetings at a trade show or event?",
+  "slug": "how-do-you-coach-a-rep-to-book"
+ },
+ {
+  "id": "cg0312",
+  "title": "How do you coach a rep to warm up an account before reaching out?",
+  "slug": "how-do-you-coach-a-rep-to-warm"
+ },
+ {
+  "id": "cg0313",
+  "title": "How do you coach a rep to use a trigger event in their outreach?",
+  "slug": "how-do-you-coach-a-rep-to-use"
+ },
+ {
+  "id": "cg0314",
+  "title": "How do you coach a rep to keep their CRM up to date?",
+  "slug": "how-do-you-coach-a-rep-to-keep"
+ },
+ {
+  "id": "cg0315",
+  "title": "How do you coach a rep to forecast deals honestly?",
+  "slug": "how-do-you-coach-a-rep-to-forecast"
+ },
+ {
+  "id": "cg0316",
+  "title": "How do you coach a rep who has happy ears about every deal?",
+  "slug": "how-do-you-coach-a-rep-who-has"
+ },
+ {
+  "id": "cg0317",
+  "title": "How do you coach a rep to build enough pipeline to hit quota?",
+  "slug": "how-do-you-coach-a-rep-to-build"
+ },
+ {
+  "id": "cg0318",
+  "title": "How do you coach a rep to prioritize the deals most likely to close?",
+  "slug": "how-do-you-coach-a-rep-to-prioritize"
+ },
+ {
+  "id": "cg0319",
+  "title": "How do you coach a rep to run a clean pipeline review?",
+  "slug": "how-do-you-coach-a-rep-to-run"
+ },
+ {
+  "id": "cg0320",
+  "title": "How do you coach a rep to set accurate close dates?",
+  "slug": "how-do-you-coach-a-rep-to-set"
+ },
+ {
+  "id": "cg0321",
+  "title": "How do you coach a rep to manage twenty deals at once?",
+  "slug": "how-do-you-coach-a-rep-to-manage"
+ },
+ {
+  "id": "cg0322",
+  "title": "How do you coach a rep to advance every deal to a clear next step?",
+  "slug": "how-do-you-coach-a-rep-to-advance"
+ },
+ {
+  "id": "cg0323",
+  "title": "How do you coach a rep to qualify deals out of the forecast?",
+  "slug": "how-do-you-coach-a-rep-to-qualify"
+ },
+ {
+  "id": "cg0324",
+  "title": "How do you coach a rep to read buying signals in the data?",
+  "slug": "how-do-you-coach-a-rep-to-read"
+ },
+ {
+  "id": "cg0325",
+  "title": "How do you coach a rep to use deal stages consistently?",
+  "slug": "how-do-you-coach-a-rep-to-use"
+ },
+ {
+  "id": "cg0326",
+  "title": "How do you coach a rep to spot a deal that's actually dead?",
+  "slug": "how-do-you-coach-a-rep-to-spot"
+ },
+ {
+  "id": "cg0327",
+  "title": "How do you coach a rep to log call notes that are actually useful?",
+  "slug": "how-do-you-coach-a-rep-to-log"
+ },
+ {
+  "id": "cg0328",
+  "title": "How do you coach a rep who talks too much on sales calls?",
+  "slug": "how-do-you-coach-a-rep-who-talks"
+ },
+ {
+  "id": "cg0329",
+  "title": "How do you coach a rep who single-threads every deal?",
+  "slug": "how-do-you-coach-a-rep-who-single"
+ },
+ {
+  "id": "cg0330",
+  "title": "How do you coach a rep who won't follow the sales process?",
+  "slug": "how-do-you-coach-a-rep-who-won"
+ },
+ {
+  "id": "cg0331",
+  "title": "How do you coach a rep who's great in person but weak on video calls?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0332",
+  "title": "How do you coach a rep who chases small, easy deals?",
+  "slug": "how-do-you-coach-a-rep-who-chases"
+ },
+ {
+  "id": "cg0333",
+  "title": "How do you coach a rep who's inconsistent month to month?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0334",
+  "title": "How do you coach a rep who resists every piece of feedback?",
+  "slug": "how-do-you-coach-a-rep-who-resists"
+ },
+ {
+  "id": "cg0335",
+  "title": "How do you coach a rep who's smart but lazy on activity?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0336",
+  "title": "How do you coach a rep who's a hard worker but low on skill?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0337",
+  "title": "How do you coach a rep who oversells and creates churn?",
+  "slug": "how-do-you-coach-a-rep-who-oversells"
+ },
+ {
+  "id": "cg0338",
+  "title": "How do you coach a rep who won't ask for the next meeting?",
+  "slug": "how-do-you-coach-a-rep-who-won"
+ },
+ {
+  "id": "cg0339",
+  "title": "How do you coach a rep who gets nervous talking to executives?",
+  "slug": "how-do-you-coach-a-rep-who-gets"
+ },
+ {
+  "id": "cg0340",
+  "title": "How do you coach a rep who builds great rapport but no urgency?",
+  "slug": "how-do-you-coach-a-rep-who-builds"
+ },
+ {
+  "id": "cg0341",
+  "title": "How do you coach a rep who skips qualification to chase the demo?",
+  "slug": "how-do-you-coach-a-rep-who-skips"
+ },
+ {
+  "id": "cg0342",
+  "title": "How do you coach a rep who avoids the phone and hides in email?",
+  "slug": "how-do-you-coach-a-rep-who-avoids"
+ },
+ {
+  "id": "cg0343",
+  "title": "How do you coach a rep who's defensive in pipeline reviews?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0344",
+  "title": "How do you coach a rep who never asks for help until it's too late?",
+  "slug": "how-do-you-coach-a-rep-who-never"
+ },
+ {
+  "id": "cg0345",
+  "title": "How do you coach a rep who's coasting after a big year?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0346",
+  "title": "How do you coach a rep whose deals always slip to next quarter?",
+  "slug": "how-do-you-coach-a-rep-whose-deals"
+ },
+ {
+  "id": "cg0347",
+  "title": "How do you coach a rep who can't tell a good deal from a bad one?",
+  "slug": "how-do-you-coach-a-rep-who-can"
+ },
+ {
+  "id": "cg0348",
+  "title": "How do you coach a rep who relies only on inbound leads?",
+  "slug": "how-do-you-coach-a-rep-who-relies"
+ },
+ {
+  "id": "cg0349",
+  "title": "How do you coach a rep who's afraid to talk about money?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0350",
+  "title": "How do you coach a rep who agrees in the 1:1 but never changes?",
+  "slug": "how-do-you-coach-a-rep-who-agrees"
+ },
+ {
+  "id": "cg0351",
+  "title": "How do you coach a rep who's technically strong but can't build rapport?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0352",
+  "title": "How do you coach a rep who lets buyers control the whole process?",
+  "slug": "how-do-you-coach-a-rep-who-lets"
+ },
+ {
+  "id": "cg0353",
+  "title": "How do you coach a rep who won't multithread into the C-suite?",
+  "slug": "how-do-you-coach-a-rep-who-won"
+ },
+ {
+  "id": "cg0354",
+  "title": "How do you coach a rep who gives up after one 'no'?",
+  "slug": "how-do-you-coach-a-rep-who-gives"
+ },
+ {
+  "id": "cg0355",
+  "title": "How do you coach a rep who over-promises to close the deal?",
+  "slug": "how-do-you-coach-a-rep-who-over"
+ },
+ {
+  "id": "cg0356",
+  "title": "How do you coach a rep who's disorganized and misses follow-ups?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0357",
+  "title": "How do you coach a new sales hire through their first week?",
+  "slug": "how-do-you-coach-a-new-sales-hire"
+ },
+ {
+  "id": "cg0358",
+  "title": "How do you coach a new rep to their first closed deal?",
+  "slug": "how-do-you-coach-a-new-rep-to"
+ },
+ {
+  "id": "cg0359",
+  "title": "How do you build a 30-60-90 ramp plan for a new AE?",
+  "slug": "how-do-you-build-a-30-60-90"
+ },
+ {
+  "id": "cg0360",
+  "title": "How do you coach a new rep on your product's competitive landscape?",
+  "slug": "how-do-you-coach-a-new-rep-on"
+ },
+ {
+  "id": "cg0361",
+  "title": "How do you coach a new rep to learn the buyer's industry fast?",
+  "slug": "how-do-you-coach-a-new-rep-to"
+ },
+ {
+  "id": "cg0362",
+  "title": "How do you coach an experienced hire who's used to a different process?",
+  "slug": "how-do-you-coach-an-experienced-hire-who"
+ },
+ {
+  "id": "cg0363",
+  "title": "How do you coach a new rep to shadow calls effectively?",
+  "slug": "how-do-you-coach-a-new-rep-to"
+ },
+ {
+  "id": "cg0364",
+  "title": "How do you know if a new rep is going to make it?",
+  "slug": "how-do-you-know-if-a-new-rep"
+ },
+ {
+  "id": "cg0365",
+  "title": "How do you coach a new rep who's ramping slower than expected?",
+  "slug": "how-do-you-coach-a-new-rep-who"
+ },
+ {
+  "id": "cg0366",
+  "title": "How do you coach a career-changer with no sales background?",
+  "slug": "how-do-you-coach-a-career-changer-with"
+ },
+ {
+  "id": "cg0367",
+  "title": "How do you coach a new manager's first hire through onboarding?",
+  "slug": "how-do-you-coach-a-new-manager-s"
+ },
+ {
+  "id": "cg0368",
+  "title": "How do you coach a new rep to pass their certification?",
+  "slug": "how-do-you-coach-a-new-rep-to"
+ },
+ {
+  "id": "cg0369",
+  "title": "How do you set first-90-day milestones that actually predict success?",
+  "slug": "how-do-you-set-first-90-day-milestones"
+ },
+ {
+  "id": "cg0370",
+  "title": "How do you coach a new rep to handle their first tough objection?",
+  "slug": "how-do-you-coach-a-new-rep-to"
+ },
+ {
+  "id": "cg0371",
+  "title": "How do you coach a recent grad on professional sales habits?",
+  "slug": "how-do-you-coach-a-recent-grad-on"
+ },
+ {
+  "id": "cg0372",
+  "title": "How do you coach a rep out of a sales slump?",
+  "slug": "how-do-you-coach-a-rep-out-of"
+ },
+ {
+  "id": "cg0373",
+  "title": "How do you coach a rep who's lost their confidence?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0374",
+  "title": "How do you coach a rep who's burned out?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0375",
+  "title": "How do you coach a rep who's afraid of failing publicly?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0376",
+  "title": "How do you coach a rep who takes rejection personally?",
+  "slug": "how-do-you-coach-a-rep-who-takes"
+ },
+ {
+  "id": "cg0377",
+  "title": "How do you coach a rep whose head isn't in the game?",
+  "slug": "how-do-you-coach-a-rep-whose-head"
+ },
+ {
+  "id": "cg0378",
+  "title": "How do you coach a rep through a personal hard time?",
+  "slug": "how-do-you-coach-a-rep-through-a"
+ },
+ {
+  "id": "cg0379",
+  "title": "How do you coach a rep who's lost motivation after a missed quarter?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0380",
+  "title": "How do you coach a rep to build mental resilience?",
+  "slug": "how-do-you-coach-a-rep-to-build"
+ },
+ {
+  "id": "cg0381",
+  "title": "How do you coach a rep who's anxious before big calls?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0382",
+  "title": "How do you coach a rep to manage their energy through a long quarter?",
+  "slug": "how-do-you-coach-a-rep-to-manage"
+ },
+ {
+  "id": "cg0383",
+  "title": "How do you coach a rep who's comparing themselves to top performers?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0384",
+  "title": "How do you coach a rep who's thinking about quitting?",
+  "slug": "how-do-you-coach-a-rep-who-s"
+ },
+ {
+  "id": "cg0385",
+  "title": "How do you coach a rep to bounce back from a lost deal?",
+  "slug": "how-do-you-coach-a-rep-to-bounce"
+ },
+ {
+  "id": "cg0386",
+  "title": "How do you keep a rep motivated when they're behind on quota?",
+  "slug": "how-do-you-keep-a-rep-motivated-when"
+ },
+ {
+  "id": "cg0387",
+  "title": "How do you coach a top performer who thinks they don't need coaching?",
+  "slug": "how-do-you-coach-a-top-performer-who"
+ },
+ {
+  "id": "cg0388",
+  "title": "How do you coach a veteran rep set in their ways?",
+  "slug": "how-do-you-coach-a-veteran-rep-set"
+ },
+ {
+  "id": "cg0389",
+  "title": "How do you keep your best rep from leaving?",
+  "slug": "how-do-you-keep-your-best-rep-from"
+ },
+ {
+  "id": "cg0390",
+  "title": "How do you coach a top rep to scale their playbook to the team?",
+  "slug": "how-do-you-coach-a-top-rep-to"
+ },
+ {
+  "id": "cg0391",
+  "title": "How do you coach a high performer to take on more responsibility?",
+  "slug": "how-do-you-coach-a-high-performer-to"
+ },
+ {
+  "id": "cg0392",
+  "title": "How do you coach a top rep who's become arrogant?",
+  "slug": "how-do-you-coach-a-top-rep-who"
+ },
+ {
+  "id": "cg0393",
+  "title": "How do you coach a star rep to mentor junior reps?",
+  "slug": "how-do-you-coach-a-star-rep-to"
+ },
+ {
+  "id": "cg0394",
+  "title": "How do you challenge a top performer who's plateaued?",
+  "slug": "how-do-you-challenge-a-top-performer-who"
+ },
+ {
+  "id": "cg0395",
+  "title": "How do you coach a tenured rep through a product or market shift?",
+  "slug": "how-do-you-coach-a-tenured-rep-through"
+ },
+ {
+  "id": "cg0396",
+  "title": "How do you coach a top rep to stop relying on one big account?",
+  "slug": "how-do-you-coach-a-top-rep-to"
+ },
+ {
+  "id": "cg0397",
+  "title": "How do you structure a weekly 1:1 that reps look forward to?",
+  "slug": "how-do-you-structure-a-weekly-1-1"
+ },
+ {
+  "id": "cg0398",
+  "title": "How do you run a call review that changes behavior?",
+  "slug": "how-do-you-run-a-call-review-that"
+ },
+ {
+  "id": "cg0399",
+  "title": "How do you build a sales coaching scorecard?",
+  "slug": "how-do-you-build-a-sales-coaching-scorecard"
+ },
+ {
+  "id": "cg0400",
+  "title": "How do you set up a role-play program reps don't dread?",
+  "slug": "how-do-you-set-up-a-role-play"
+ },
+ {
+  "id": "cg0401",
+  "title": "How do you run group coaching without it feeling like a lecture?",
+  "slug": "how-do-you-run-group-coaching-without-it"
+ },
+ {
+  "id": "cg0402",
+  "title": "How do you build a peer coaching program on your team?",
+  "slug": "how-do-you-build-a-peer-coaching-program"
+ },
+ {
+  "id": "cg0403",
+  "title": "How do you coach reps asynchronously across time zones?",
+  "slug": "how-do-you-coach-reps-asynchronously-across-time"
+ },
+ {
+  "id": "cg0404",
+  "title": "How do you give coaching feedback right after a live call?",
+  "slug": "how-do-you-give-coaching-feedback-right-after"
+ },
+ {
+  "id": "cg0405",
+  "title": "How do you run a win-loss review that the whole team learns from?",
+  "slug": "how-do-you-run-a-win-loss-review"
+ },
+ {
+  "id": "cg0406",
+  "title": "How do you use call recordings to coach at scale?",
+  "slug": "how-do-you-use-call-recordings-to-coach"
+ },
+ {
+  "id": "cg0407",
+  "title": "How do you build a coaching cadence for a team of ten reps?",
+  "slug": "how-do-you-build-a-coaching-cadence-for"
+ },
+ {
+  "id": "cg0408",
+  "title": "How do you coach when you have no time in your calendar?",
+  "slug": "how-do-you-coach-when-you-have-no"
+ },
+ {
+  "id": "cg0409",
+  "title": "How do you decide which reps to spend your coaching time on?",
+  "slug": "how-do-you-decide-which-reps-to-spend"
+ },
+ {
+  "id": "cg0410",
+  "title": "How do you run a deal review without taking over the deal?",
+  "slug": "how-do-you-run-a-deal-review-without"
+ },
+ {
+  "id": "cg0411",
+  "title": "How do you build a library of best-practice call snippets?",
+  "slug": "how-do-you-build-a-library-of-best"
+ },
+ {
+  "id": "cg0412",
+  "title": "How do you certify reps on a new pitch or product?",
+  "slug": "how-do-you-certify-reps-on-a-new"
+ },
+ {
+  "id": "cg0413",
+  "title": "How do you coach reps using a call-scoring rubric?",
+  "slug": "how-do-you-coach-reps-using-a-call"
+ },
+ {
+  "id": "cg0414",
+  "title": "How do you make coaching stick between 1:1s?",
+  "slug": "how-do-you-make-coaching-stick-between-1"
+ },
+ {
+  "id": "cg0415",
+  "title": "How do you run a skills bootcamp for the whole team?",
+  "slug": "how-do-you-run-a-skills-bootcamp-for"
+ },
+ {
+  "id": "cg0416",
+  "title": "How do you coach reps to self-assess their own calls?",
+  "slug": "how-do-you-coach-reps-to-self-assess"
+ },
+ {
+  "id": "cg0417",
+  "title": "How do you coach a frontline manager to become a great coach?",
+  "slug": "how-do-you-coach-a-frontline-manager-to"
+ },
+ {
+  "id": "cg0418",
+  "title": "How do you teach a new sales manager to run their first 1:1?",
+  "slug": "how-do-you-teach-a-new-sales-manager"
+ },
+ {
+  "id": "cg0419",
+  "title": "How do you coach a manager who promotes their reps' deals too optimistically?",
+  "slug": "how-do-you-coach-a-manager-who-promotes"
+ },
+ {
+  "id": "cg0420",
+  "title": "How do you coach a manager who's still selling instead of leading?",
+  "slug": "how-do-you-coach-a-manager-who-s"
+ },
+ {
+  "id": "cg0421",
+  "title": "How do you coach a manager to hold reps accountable without micromanaging?",
+  "slug": "how-do-you-coach-a-manager-to-hold"
+ },
+ {
+  "id": "cg0422",
+  "title": "How do you coach a manager to have a hard performance conversation?",
+  "slug": "how-do-you-coach-a-manager-to-have"
+ },
+ {
+  "id": "cg0423",
+  "title": "How do you coach a manager whose team is missing quota?",
+  "slug": "how-do-you-coach-a-manager-whose-team"
+ },
+ {
+  "id": "cg0424",
+  "title": "How do you coach a manager to forecast their team accurately?",
+  "slug": "how-do-you-coach-a-manager-to-forecast"
+ },
+ {
+  "id": "cg0425",
+  "title": "How do you coach a manager to delegate instead of doing it themselves?",
+  "slug": "how-do-you-coach-a-manager-to-delegate"
+ },
+ {
+  "id": "cg0426",
+  "title": "How do you coach a manager to build their own coaching cadence?",
+  "slug": "how-do-you-coach-a-manager-to-build"
+ },
+ {
+  "id": "cg0427",
+  "title": "How do you coach a second-line leader to develop their managers?",
+  "slug": "how-do-you-coach-a-second-line-leader"
+ },
+ {
+  "id": "cg0428",
+  "title": "How do you coach a manager to run an effective team meeting?",
+  "slug": "how-do-you-coach-a-manager-to-run"
+ },
+ {
+  "id": "cg0429",
+  "title": "How do you coach a manager who avoids conflict with their reps?",
+  "slug": "how-do-you-coach-a-manager-who-avoids"
+ },
+ {
+  "id": "cg0430",
+  "title": "How do you coach a newly promoted manager who's coaching former peers?",
+  "slug": "how-do-you-coach-a-newly-promoted-manager"
+ },
+ {
+  "id": "cg0431",
+  "title": "How do you coach a manager to read their team's leading indicators?",
+  "slug": "how-do-you-coach-a-manager-to-read"
+ },
+ {
+  "id": "cg0432",
+  "title": "How do you prove the ROI of sales coaching to leadership?",
+  "slug": "how-do-you-prove-the-roi-of-sales"
+ },
+ {
+  "id": "cg0433",
+  "title": "How do you build a culture where reps want to be coached?",
+  "slug": "how-do-you-build-a-culture-where-reps"
+ },
+ {
+  "id": "cg0434",
+  "title": "How do you track coaching activity without it becoming busywork?",
+  "slug": "how-do-you-track-coaching-activity-without-it"
+ },
+ {
+  "id": "cg0435",
+  "title": "How do you tie coaching to specific revenue outcomes?",
+  "slug": "how-do-you-tie-coaching-to-specific-revenue"
+ },
+ {
+  "id": "cg0436",
+  "title": "How do you benchmark your team's coaching against the best teams?",
+  "slug": "how-do-you-benchmark-your-team-s-coaching"
+ },
+ {
+  "id": "cg0437",
+  "title": "How do you use leading indicators to focus your coaching?",
+  "slug": "how-do-you-use-leading-indicators-to-focus"
+ },
+ {
+  "id": "cg0438",
+  "title": "How do you set coaching goals for each rep on the team?",
+  "slug": "how-do-you-set-coaching-goals-for-each"
+ },
+ {
+  "id": "cg0439",
+  "title": "How do you know when coaching isn't the answer?",
+  "slug": "how-do-you-know-when-coaching-isn-t"
+ },
+ {
+  "id": "cg0440",
+  "title": "How do you build a coaching scorecard for your managers?",
+  "slug": "how-do-you-build-a-coaching-scorecard-for"
+ },
+ {
+  "id": "cg0441",
+  "title": "How do you get executive buy-in for a coaching program?",
+  "slug": "how-do-you-get-executive-buy-in-for"
+ },
+ {
+  "id": "cg0442",
+  "title": "How do you sustain a coaching habit when the quarter gets busy?",
+  "slug": "how-do-you-sustain-a-coaching-habit-when"
+ },
+ {
+  "id": "cg0443",
+  "title": "How do you coach reps to use AI tools without losing their selling skills?",
+  "slug": "how-do-you-coach-reps-to-use-ai"
+ },
+ {
+  "id": "cg0444",
+  "title": "How do you coach reps to sell in a tighter 2027 budget environment?",
+  "slug": "how-do-you-coach-reps-to-sell-in"
+ },
+ {
+  "id": "cg0445",
+  "title": "How do you coach reps to navigate longer 2027 buying cycles?",
+  "slug": "how-do-you-coach-reps-to-navigate-longer"
+ },
+ {
+  "id": "cg0446",
+  "title": "How do you coach a hybrid team that's part remote, part in-office?",
+  "slug": "how-do-you-coach-a-hybrid-team-that"
+ },
+ {
+  "id": "cg0447",
+  "title": "How do you coach reps to sell to a larger buying committee?",
+  "slug": "how-do-you-coach-reps-to-sell-to"
+ },
+ {
+  "id": "cg0448",
+  "title": "How do you coach reps to use AI call summaries to improve faster?",
+  "slug": "how-do-you-coach-reps-to-use-ai"
+ },
+ {
+  "id": "cg0449",
+  "title": "How do you coach reps to handle 'we're cutting costs this year'?",
+  "slug": "how-do-you-coach-reps-to-handle-we"
+ },
+ {
+  "id": "cg0450",
+  "title": "How do you coach reps to multithread when buyers keep changing?",
+  "slug": "how-do-you-coach-reps-to-multithread-when"
+ },
+ {
+  "id": "cg0451",
+  "title": "How do you coach reps to sell value in a down market?",
+  "slug": "how-do-you-coach-reps-to-sell-value"
+ },
+ {
+  "id": "cg0452",
+  "title": "How do you coach reps to use AI for research and personalization?",
+  "slug": "how-do-you-coach-reps-to-use-ai"
+ },
+ {
+  "id": "cg0453",
+  "title": "How do you coach a fully remote sales team to stay sharp?",
+  "slug": "how-do-you-coach-a-fully-remote-sales"
+ },
+ {
+  "id": "cg0454",
+  "title": "How do you coach reps to handle deals with more approval layers?",
+  "slug": "how-do-you-coach-reps-to-handle-deals"
+ },
+ {
+  "id": "cg0455",
+  "title": "How do you coach reps when deal sizes are shrinking?",
+  "slug": "how-do-you-coach-reps-when-deal-sizes"
+ },
+ {
+  "id": "cg0456",
+  "title": "How do you coach reps to sell into a no-decision market?",
+  "slug": "how-do-you-coach-reps-to-sell-into"
+ },
+ {
+  "id": "cg0457",
+  "title": "How do you coach reps to use conversation intelligence tools well?",
+  "slug": "how-do-you-coach-reps-to-use-conversation"
+ },
+ {
+  "id": "cg0458",
+  "title": "How do you coach reps to adapt when the ICP shifts mid-year?",
+  "slug": "how-do-you-coach-reps-to-adapt-when"
+ },
+ {
+  "id": "cg0459",
+  "title": "How do you coach reps to compete against a free or cheaper tool?",
+  "slug": "how-do-you-coach-reps-to-compete-against"
+ },
+ {
+  "id": "cg0460",
+  "title": "How do you coach reps to keep buyers engaged in a long evaluation?",
+  "slug": "how-do-you-coach-reps-to-keep-buyers"
+ },
+ {
+  "id": "cg0461",
+  "title": "How do you coach reps to sell during a company reorg?",
+  "slug": "how-do-you-coach-reps-to-sell-during"
+ },
+ {
+  "id": "cg0462",
+  "title": "How do you coach reps to handle procurement adding new hurdles?",
+  "slug": "how-do-you-coach-reps-to-handle-procurement"
+ },
+ {
+  "id": "cg0463",
+  "title": "How do you coach a rep to run a better quarterly business review?",
+  "slug": "how-do-you-coach-a-rep-to-run"
+ },
+ {
+  "id": "cg0464",
+  "title": "How do you coach a rep to expand a single-product account?",
+  "slug": "how-do-you-coach-a-rep-to-expand"
+ },
+ {
+  "id": "cg0465",
+  "title": "How do you coach a rep to reduce churn in their book of business?",
+  "slug": "how-do-you-coach-a-rep-to-reduce"
+ },
+ {
+  "id": "cg0466",
+  "title": "How do you coach a rep to win back a lost customer?",
+  "slug": "how-do-you-coach-a-rep-to-win"
+ },
+ {
+  "id": "cg0467",
+  "title": "How do you coach a rep to handle a renewal that's at risk?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0468",
+  "title": "How do you coach a rep to sell a price increase to existing customers?",
+  "slug": "how-do-you-coach-a-rep-to-sell"
+ },
+ {
+  "id": "cg0469",
+  "title": "How do you coach a rep to cross-sell a second product line?",
+  "slug": "how-do-you-coach-a-rep-to-cross"
+ },
+ {
+  "id": "cg0470",
+  "title": "How do you coach a rep to build a business case for the buyer's CFO?",
+  "slug": "how-do-you-coach-a-rep-to-build"
+ },
+ {
+  "id": "cg0471",
+  "title": "How do you coach a rep to present to a board or executive team?",
+  "slug": "how-do-you-coach-a-rep-to-present"
+ },
+ {
+  "id": "cg0472",
+  "title": "How do you coach a rep to handle a competitive bake-off?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0473",
+  "title": "How do you coach a rep to respond to an RFP strategically?",
+  "slug": "how-do-you-coach-a-rep-to-respond"
+ },
+ {
+  "id": "cg0474",
+  "title": "How do you coach a rep to build champions inside an account?",
+  "slug": "how-do-you-coach-a-rep-to-build"
+ },
+ {
+  "id": "cg0475",
+  "title": "How do you coach a rep to recover a stalled enterprise deal?",
+  "slug": "how-do-you-coach-a-rep-to-recover"
+ },
+ {
+  "id": "cg0476",
+  "title": "How do you coach a rep to sell through a partner or reseller?",
+  "slug": "how-do-you-coach-a-rep-to-sell"
+ },
+ {
+  "id": "cg0477",
+  "title": "How do you coach a rep to handle a deal with a long pilot phase?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0478",
+  "title": "How do you coach a rep to manage a deal across multiple regions?",
+  "slug": "how-do-you-coach-a-rep-to-manage"
+ },
+ {
+  "id": "cg0479",
+  "title": "How do you coach a rep to keep momentum over a long sales cycle?",
+  "slug": "how-do-you-coach-a-rep-to-keep"
+ },
+ {
+  "id": "cg0480",
+  "title": "How do you coach a rep to handle a buyer who ghosts after the proposal?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0481",
+  "title": "How do you coach a rep to qualify an inbound enterprise lead?",
+  "slug": "how-do-you-coach-a-rep-to-qualify"
+ },
+ {
+  "id": "cg0482",
+  "title": "How do you coach a rep to turn a small pilot into a full rollout?",
+  "slug": "how-do-you-coach-a-rep-to-turn"
+ },
+ {
+  "id": "cg0483",
+  "title": "How do you coach a rep to sell to a skeptical technical buyer?",
+  "slug": "how-do-you-coach-a-rep-to-sell"
+ },
+ {
+  "id": "cg0484",
+  "title": "How do you coach a rep to handle a buyer who wants everything in writing?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0485",
+  "title": "How do you coach a rep to manage a deal when the champion leaves?",
+  "slug": "how-do-you-coach-a-rep-to-manage"
+ },
+ {
+  "id": "cg0486",
+  "title": "How do you coach a rep to navigate a deal with competing internal priorities?",
+  "slug": "how-do-you-coach-a-rep-to-navigate"
+ },
+ {
+  "id": "cg0487",
+  "title": "How do you coach a rep to sell a complex solution simply?",
+  "slug": "how-do-you-coach-a-rep-to-sell"
+ },
+ {
+  "id": "cg0488",
+  "title": "How do you coach a rep to handle a buyer who keeps moving the goalposts?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0489",
+  "title": "How do you coach a rep to close a deal before the buyer's budget expires?",
+  "slug": "how-do-you-coach-a-rep-to-close"
+ },
+ {
+  "id": "cg0490",
+  "title": "How do you coach a rep to handle a deal that needs board approval?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0491",
+  "title": "How do you coach a rep to sell a new product with no track record?",
+  "slug": "how-do-you-coach-a-rep-to-sell"
+ },
+ {
+  "id": "cg0492",
+  "title": "How do you coach a rep to re-engage a deal that stalled for months?",
+  "slug": "how-do-you-coach-a-rep-to-re"
+ },
+ {
+  "id": "cg0493",
+  "title": "How do you coach a rep to handle a buyer who only talks to your competitor?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0494",
+  "title": "How do you coach a rep to sell into an account that already churned once?",
+  "slug": "how-do-you-coach-a-rep-to-sell"
+ },
+ {
+  "id": "cg0495",
+  "title": "How do you coach a rep to run a tight trial or evaluation period?",
+  "slug": "how-do-you-coach-a-rep-to-run"
+ },
+ {
+  "id": "cg0496",
+  "title": "How do you coach a rep to get a meeting with the real decision maker?",
+  "slug": "how-do-you-coach-a-rep-to-get"
+ },
+ {
+  "id": "cg0497",
+  "title": "How do you coach a rep to handle a deal where the buyer has no urgency?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ },
+ {
+  "id": "cg0498",
+  "title": "How do you coach a rep to sell a platform instead of a point solution?",
+  "slug": "how-do-you-coach-a-rep-to-sell"
+ },
+ {
+  "id": "cg0499",
+  "title": "How do you coach a rep to keep a deal alive through a budget freeze?",
+  "slug": "how-do-you-coach-a-rep-to-keep"
+ },
+ {
+  "id": "cg0500",
+  "title": "How do you coach a rep to handle a buyer who wants a custom build?",
+  "slug": "how-do-you-coach-a-rep-to-handle"
+ }
+]

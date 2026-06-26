@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;} .t{font-family:'Inter','Segoe UI',system-ui,sans-serif;fill:var(--ink);} .ttl{font-weight:800;} .sub{font-weight:500;opacity:.85;} .lbl{font-weight:700;} .num{font-weight:800;} .crit{font-weight:500;}</style>
+<defs>
+<linearGradient id="bgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--bg1,#0b0f17)"/><stop offset="1" stop-color="var(--bg2,#0f172a)"/></linearGradient>
+<linearGradient id="stG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--c1)"/><stop offset="1" stop-color="var(--c2)"/></linearGradient>
+<linearGradient id="acG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c4b)"/><stop offset="1" stop-color="var(--c4)"/></linearGradient>
+</defs>
+<rect width="1584" height="396" fill="url(#bgG)"/>
+<g opacity=".08"><circle cx="120" cy="60" r="180" fill="var(--c1)"/><circle cx="1480" cy="340" r="200" fill="var(--c4)"/></g>
+<text x="48" y="58" class="t ttl" font-size="30" fill="var(--c3)">SaaS Sales Cycle — 6 Stages</text>
+<text x="48" y="86" class="t sub" font-size="16" fill="var(--c3)">Average days in stage and exit criteria to advance</text>
+<text x="1536" y="58" class="t lbl" font-size="14" fill="var(--c4)" text-anchor="end">TOTAL ~88 DAYS</text>
+<text x="1536" y="78" class="t sub" font-size="12" fill="var(--c3)" text-anchor="end">prospect → closed-won</text>
+
+<!-- Arrow chevron pipeline -->
+<g transform="translate(36,118)">
+<!-- Stage 1: Prospect -->
+<g>
+<path d="M0,0 L220,0 L250,70 L220,140 L0,140 L30,70 Z" fill="url(#stG)" opacity=".92"/>
+<text x="125" y="38" class="t lbl" font-size="20" fill="var(--ink)" text-anchor="middle">1 · PROSPECT</text>
+<text x="125" y="78" class="t num" font-size="34" fill="var(--ink)" text-anchor="middle">7 days</text>
+<text x="125" y="108" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">ICP fit + intent</text>
+<text x="125" y="124" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">signal confirmed</text>
+</g>
+<!-- Stage 2: Qualify -->
+<g transform="translate(252,0)">
+<path d="M0,0 L220,0 L250,70 L220,140 L0,140 L30,70 Z" fill="url(#stG)" opacity=".82"/>
+<text x="125" y="38" class="t lbl" font-size="20" fill="var(--ink)" text-anchor="middle">2 · QUALIFY</text>
+<text x="125" y="78" class="t num" font-size="34" fill="var(--ink)" text-anchor="middle">10 days</text>
+<text x="125" y="108" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">MEDDPICC pass</text>
+<text x="125" y="124" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">+ budget surfaced</text>
+</g>
+<!-- Stage 3: Discover -->
+<g transform="translate(504,0)">
+<path d="M0,0 L220,0 L250,70 L220,140 L0,140 L30,70 Z" fill="url(#stG)" opacity=".74"/>
+<text x="125" y="38" class="t lbl" font-size="20" fill="var(--ink)" text-anchor="middle">3 · DISCOVER</text>
+<text x="125" y="78" class="t num" font-size="34" fill="var(--ink)" text-anchor="middle">14 days</text>
+<text x="125" y="108" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">pain quantified</text>
+<text x="125" y="124" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">+ champion signed</text>
+</g>
+<!-- Stage 4: Demo -->
+<g transform="translate(756,0)">
+<path d="M0,0 L220,0 L250,70 L220,140 L0,140 L30,70 Z" fill="url(#stG)" opacity=".66"/>
+<text x="125" y="38" class="t lbl" font-size="20" fill="var(--ink)" text-anchor="middle">4 · DEMO</text>
+<text x="125" y="78" class="t num" font-size="34" fill="var(--ink)" text-anchor="middle">17 days</text>
+<text x="125" y="108" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">tailored demo</text>
+<text x="125" y="124" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">+ POC scoped</text>
+</g>
+<!-- Stage 5: Propose -->
+<g transform="translate(1008,0)">
+<path d="M0,0 L220,0 L250,70 L220,140 L0,140 L30,70 Z" fill="url(#stG)" opacity=".58"/>
+<text x="125" y="38" class="t lbl" font-size="20" fill="var(--ink)" text-anchor="middle">5 · PROPOSE</text>
+<text x="125" y="78" class="t num" font-size="34" fill="var(--ink)" text-anchor="middle">19 days</text>
+<text x="125" y="108" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">pricing + MSA</text>
+<text x="125" y="124" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">+ economic buyer</text>
+</g>
+<!-- Stage 6: Close -->
+<g transform="translate(1260,0)">
+<path d="M0,0 L220,0 L250,70 L220,140 L0,140 L30,70 Z" fill="url(#acG)"/>
+<text x="125" y="38" class="t lbl" font-size="20" fill="var(--ink)" text-anchor="middle">6 · CLOSE</text>
+<text x="125" y="78" class="t num" font-size="34" fill="var(--ink)" text-anchor="middle">21 days</text>
+<text x="125" y="108" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">redlines done</text>
+<text x="125" y="124" class="t crit" font-size="13" fill="var(--ink)" text-anchor="middle">+ signature</text>
+</g>
+</g>
+
+<!-- Stage progress / conversion row -->
+<g transform="translate(36,290)">
+<text x="0" y="0" class="t lbl" font-size="14" fill="var(--c3)">STAGE-TO-STAGE CONVERSION</text>
+<g transform="translate(0,16)">
+<rect x="0" y="0" width="1512" height="14" rx="7" fill="var(--c2)" opacity=".25"/>
+<rect x="0" y="0" width="1512" height="14" rx="7" fill="url(#stG)" opacity=".55"/>
+<g class="t num" font-size="13" fill="var(--c4b)">
+<text x="125" y="40" text-anchor="middle">62%</text>
+<text x="377" y="40" text-anchor="middle">48%</text>
+<text x="629" y="40" text-anchor="middle">71%</text>
+<text x="881" y="40" text-anchor="middle">55%</text>
+<text x="1133" y="40" text-anchor="middle">40%</text>
+<text x="1385" y="40" text-anchor="middle">68%</text>
+</g>
+</g>
+</g>
+
+<!-- Footer key -->
+<g transform="translate(36,360)">
+<circle cx="6" cy="-4" r="6" fill="var(--c4)"/>
+<text x="20" y="0" class="t sub" font-size="13" fill="var(--c3)">Exit criteria = gate to advance · benchmarks reflect mid-market SaaS ($25K-$150K ACV)</text>
+<text x="1548" y="0" class="t sub" font-size="13" fill="var(--c3)" text-anchor="end">Win rate end-to-end ≈ 4.5%</text>
+</g>
+</svg>

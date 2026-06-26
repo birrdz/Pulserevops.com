@@ -1,0 +1,19 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 400,
+ "changed": 0,
+ "keywordPhrases": 200,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 0,
+   "bing": 429,
+   "yandex": 200
+  }
+ },
+ "hubUrls": [
+  "https://pulserevops.com/boats"
+ ]
+}

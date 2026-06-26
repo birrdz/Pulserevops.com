@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="m1" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)"/>
+<stop offset="1" stop-color="var(--c2)"/>
+</linearGradient>
+<linearGradient id="m2" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)" stop-opacity="0.85"/>
+<stop offset="1" stop-color="var(--c2)" stop-opacity="0.85"/>
+</linearGradient>
+<linearGradient id="m3" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c3)"/>
+<stop offset="1" stop-color="var(--c1)"/>
+</linearGradient>
+<linearGradient id="m4" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c4b)"/>
+<stop offset="1" stop-color="var(--c4)"/>
+</linearGradient>
+</defs>
+<rect width="1584" height="396" fill="url(#bg)"/>
+
+<!-- Title -->
+<text x="60" y="56" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="28" font-weight="700" fill="var(--c3)">AE Ramp Comp Timeline</text>
+<text x="60" y="84" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" fill="var(--c3)" opacity="0.75">Guarantee step-down: Months 1–4 to fully variable in Month 5</text>
+
+<!-- Axis baseline -->
+<line x1="100" y1="320" x2="1484" y2="320" stroke="var(--c3)" stroke-width="2" opacity="0.45"/>
+
+<!-- Y-axis ticks -->
+<g font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="var(--c3)" opacity="0.6">
+<line x1="100" y1="140" x2="1484" y2="140" stroke="var(--c3)" stroke-width="1" stroke-dasharray="4 6" opacity="0.25"/>
+<line x1="100" y1="185" x2="1484" y2="185" stroke="var(--c3)" stroke-width="1" stroke-dasharray="4 6" opacity="0.25"/>
+<line x1="100" y1="230" x2="1484" y2="230" stroke="var(--c3)" stroke-width="1" stroke-dasharray="4 6" opacity="0.25"/>
+<line x1="100" y1="275" x2="1484" y2="275" stroke="var(--c3)" stroke-width="1" stroke-dasharray="4 6" opacity="0.25"/>
+<text x="60" y="145" text-anchor="end">100%</text>
+<text x="60" y="190" text-anchor="end">75%</text>
+<text x="60" y="235" text-anchor="end">50%</text>
+<text x="60" y="280" text-anchor="end">25%</text>
+<text x="60" y="325" text-anchor="end">0%</text>
+</g>
+
+<!-- Month 1: 100% -->
+<rect x="160" y="140" width="240" height="180" rx="8" fill="url(#m1)" stroke="var(--ink)" stroke-width="2"/>
+<text x="280" y="120" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="22" font-weight="700" fill="var(--c1)" text-anchor="middle">Month 1</text>
+<text x="280" y="220" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="44" font-weight="800" fill="var(--ink)" text-anchor="middle">100%</text>
+<text x="280" y="252" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="600" fill="var(--ink)" text-anchor="middle">Guarantee</text>
+<text x="280" y="290" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="var(--ink)" text-anchor="middle" opacity="0.8">Full OTE paid</text>
+
+<!-- Month 2: 75% -->
+<rect x="440" y="185" width="240" height="135" rx="8" fill="url(#m2)" stroke="var(--ink)" stroke-width="2"/>
+<text x="560" y="165" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="22" font-weight="700" fill="var(--c1)" text-anchor="middle">Month 2</text>
+<text x="560" y="245" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="40" font-weight="800" fill="var(--ink)" text-anchor="middle">75%</text>
+<text x="560" y="275" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="600" fill="var(--ink)" text-anchor="middle">Guarantee</text>
+<text x="560" y="302" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="var(--ink)" text-anchor="middle" opacity="0.8">+ earned commission</text>
+
+<!-- Month 3: 50% -->
+<rect x="720" y="230" width="240" height="90" rx="8" fill="url(#m3)" stroke="var(--ink)" stroke-width="2"/>
+<text x="840" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="22" font-weight="700" fill="var(--c1)" text-anchor="middle">Month 3</text>
+<text x="840" y="275" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="36" font-weight="800" fill="var(--ink)" text-anchor="middle">50%</text>
+<text x="840" y="302" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="16" font-weight="600" fill="var(--ink)" text-anchor="middle">Guarantee</text>
+
+<!-- Month 4: 25% -->
+<rect x="1000" y="275" width="240" height="45" rx="8" fill="url(#m4)" stroke="var(--ink)" stroke-width="2"/>
+<text x="1120" y="255" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="22" font-weight="700" fill="var(--c4)" text-anchor="middle">Month 4</text>
+<text x="1120" y="305" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="800" fill="var(--ink)" text-anchor="middle">25% Guarantee</text>
+
+<!-- Month 5+: 0% / Full variable -->
+<rect x="1280" y="316" width="204" height="6" rx="3" fill="var(--c4)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="1382" y="255" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="22" font-weight="700" fill="var(--c4)" text-anchor="middle">Month 5+</text>
+<text x="1382" y="285" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="800" fill="var(--c4b)" text-anchor="middle">0%</text>
+<text x="1382" y="308" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" font-weight="600" fill="var(--c4b)" text-anchor="middle">Fully variable</text>
+
+<!-- Step-down arrows -->
+<g stroke="var(--c1)" stroke-width="2" fill="none" opacity="0.7">
+<path d="M 400 150 L 440 195" marker-end="url(#arr)"/>
+<path d="M 680 195 L 720 240" marker-end="url(#arr)"/>
+<path d="M 960 240 L 1000 285" marker-end="url(#arr)"/>
+<path d="M 1240 290 L 1280 318" marker-end="url(#arr)"/>
+</g>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+<path d="M0,0 L10,5 L0,10 z" fill="var(--c1)"/>
+</marker>
+</defs>
+
+<!-- Footer note -->
+<text x="60" y="370" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="var(--c3)" opacity="0.6">Bars show guaranteed % of OTE variable; earned commission stacks on top from Month 1.</text>
+</svg>

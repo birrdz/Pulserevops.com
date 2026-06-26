@@ -1,0 +1,101 @@
+# Palantir economy queue — 100 topics — 2026-05-23
+DONE|How do you structure prime-sub RevOps when Palantir holds the platform award and you sell the application layer?
+DONE|How do you run weekly forecast calls when Palantir AIP pilots block stage advancement for 60-plus days?
+DONE|How do you map economic buyer engagement when decisions only surface inside Palantir Gotham workflows?
+DONE|How do you prevent SDR and Palantir field team duplicate outreach on the same federal agency account?
+DONE|How do you sync Palantir Foundry ontology usage signals into HubSpot for expansion plays?
+DONE|How do you design CRM fields that stay compliant when buyers prohibit data outside Palantir environments?
+DONE|How do you attribute co-sell pipeline when Palantir Federal Cloud is already the incumbent analytics stack?
+DONE|How do you score competitive risk when Palantir Foundry expands into your software category?
+DONE|How do you standardize RFP artifacts when Gotham integration is a mandatory evaluation criterion?
+DONE|How do you reconcile sub revenue recognition when Palantir prime contract signature timing slips a quarter?
+DONE|How do you train AEs on Palantir co-sell motions without violating partner registration exclusivity?
+DONE|How do you measure displacement win rate when Palantir is listed as the incumbent in enterprise RFPs?
+DONE|How do you operationalize Palantir partner marketplace lead routing without breaking attribution in Salesforce?
+DONE|How do you weight forecast categories when Palantir-led evaluations extend legal review past 45 days?
+DONE|How do you log deal intelligence in Salesforce when Foundry is the system of record for account planning?
+DONE|How do you prevent campaign influence when Palantir Foundry is the buyer-mandated platform in federal prime-sub contracts using Salesforce?
+DONE|How do you qualify quota credit when Palantir Foundry is the buyer-mandated platform in federal prime-sub contracts using Salesforce?
+DONE|How do you document win-loss integrity when Palantir Foundry is the buyer-mandated platform in federal prime-sub contracts using Salesforce?
+DONE|How do you prevent win-loss integrity when Palantir Foundry is the buyer-mandated platform in defense intelligence programs using Salesforce?
+DONE|How do you qualify pipeline coverage when Palantir Foundry is the buyer-mandated platform in defense intelligence programs using Salesforce?
+DONE|How do you document commission splits when Palantir Foundry is the buyer-mandated platform in defense intelligence programs using Salesforce?
+DONE|How do you prevent territory overlap when Palantir Foundry is the buyer-mandated platform in state and local RFPs using Salesforce?
+DONE|How do you qualify POC stage duration when Palantir Foundry is the buyer-mandated platform in state and local RFPs using Salesforce?
+DONE|How do you document bookings versus billings timing when Palantir Foundry is the buyer-mandated platform in state and local RFPs using Salesforce?
+DONE|How do you prevent partner registration conflicts when Palantir Foundry is the buyer-mandated platform in commercial enterprise expansions using Salesforce?
+DONE|How do you qualify MEDDPICC field completion when Palantir Foundry is the buyer-mandated platform in commercial enterprise expansions using Salesforce?
+DONE|How do you document loss reason capture when Palantir Foundry is the buyer-mandated platform in commercial enterprise expansions using Salesforce?
+DONE|How do you prevent win-loss integrity when Palantir Foundry is the buyer-mandated platform in partner marketplace referrals using Salesforce?
+DONE|How do you qualify pipeline coverage when Palantir Foundry is the buyer-mandated platform in partner marketplace referrals using Salesforce?
+DONE|How do you document commission splits when Palantir Foundry is the buyer-mandated platform in partner marketplace referrals using Salesforce?
+DONE|How do you prevent loss reason capture when Palantir Foundry is the buyer-mandated platform in classified deployment environments using Salesforce?
+DONE|How do you qualify territory overlap when Palantir Foundry is the buyer-mandated platform in classified deployment environments using Salesforce?
+DONE|How do you document POC stage duration when Palantir Foundry is the buyer-mandated platform in classified deployment environments using Salesforce?
+DONE|How do you prevent loss reason capture when Palantir Foundry is the buyer-mandated platform in multi-agency shared services deals using Salesforce?
+DONE|How do you qualify territory overlap when Palantir Foundry is the buyer-mandated platform in multi-agency shared services deals using Salesforce?
+DONE|How do you document POC stage duration when Palantir Foundry is the buyer-mandated platform in multi-agency shared services deals using Salesforce?
+DONE|How do you prevent POC stage duration when Palantir Foundry is the buyer-mandated platform in IDIQ vehicle renewals using Salesforce?
+DONE|How do you qualify bookings versus billings timing when Palantir Foundry is the buyer-mandated platform in IDIQ vehicle renewals using Salesforce?
+DONE|How do you document multi-thread depth when Palantir Foundry is the buyer-mandated platform in IDIQ vehicle renewals using Salesforce?
+DONE|How do you govern pipeline coverage when Palantir Foundry is the buyer-mandated platform in defense intelligence programs using Dynamics 365?
+DONE|How do you forecast commission splits when Palantir Foundry is the buyer-mandated platform in defense intelligence programs using Dynamics 365?
+DONE|How do you document territory overlap when Palantir Foundry is the buyer-mandated platform in state and local RFPs using Dynamics 365?
+DONE|How do you govern pipeline coverage when Palantir Foundry is the buyer-mandated platform in partner marketplace referrals using Dynamics 365?
+DONE|How do you forecast commission splits when Palantir Foundry is the buyer-mandated platform in partner marketplace referrals using Dynamics 365?
+DONE|How do you govern territory overlap when Palantir Foundry is the buyer-mandated platform in classified deployment environments using Dynamics 365?
+measure pipeline coverage when Palantir Foundry is the buyer-mandated platform in defense intelligence programs using Zoho CRM
+prevent commission splits when Palantir Foundry is the buyer-mandated platform in defense intelligence programs using Zoho CRM
+model territory overlap when Palantir Foundry is the buyer-mandated platform in state and local RFPs using Zoho CRM
+measure pipeline coverage when Palantir Foundry is the buyer-mandated platform in partner marketplace referrals using Zoho CRM
+prevent commission splits when Palantir Foundry is the buyer-mandated platform in partner marketplace referrals using Zoho CRM
+measure territory overlap when Palantir Foundry is the buyer-mandated platform in classified deployment environments using Zoho CRM
+track campaign influence when Palantir Gotham is the buyer-mandated platform in federal prime-sub contracts using HubSpot
+standardize quota credit when Palantir Gotham is the buyer-mandated platform in federal prime-sub contracts using HubSpot
+model win-loss integrity when Palantir Gotham is the buyer-mandated platform in federal prime-sub contracts using HubSpot
+track win-loss integrity when Palantir Gotham is the buyer-mandated platform in defense intelligence programs using HubSpot
+standardize pipeline coverage when Palantir Gotham is the buyer-mandated platform in defense intelligence programs using HubSpot
+model commission splits when Palantir Gotham is the buyer-mandated platform in defense intelligence programs using HubSpot
+track territory overlap when Palantir Gotham is the buyer-mandated platform in state and local RFPs using HubSpot
+standardize POC stage duration when Palantir Gotham is the buyer-mandated platform in state and local RFPs using HubSpot
+model bookings versus billings timing when Palantir Gotham is the buyer-mandated platform in state and local RFPs using HubSpot
+track partner registration conflicts when Palantir Gotham is the buyer-mandated platform in commercial enterprise expansions using HubSpot
+standardize MEDDPICC field completion when Palantir Gotham is the buyer-mandated platform in commercial enterprise expansions using HubSpot
+model loss reason capture when Palantir Gotham is the buyer-mandated platform in commercial enterprise expansions using HubSpot
+track win-loss integrity when Palantir Gotham is the buyer-mandated platform in partner marketplace referrals using HubSpot
+standardize pipeline coverage when Palantir Gotham is the buyer-mandated platform in partner marketplace referrals using HubSpot
+model commission splits when Palantir Gotham is the buyer-mandated platform in partner marketplace referrals using HubSpot
+track loss reason capture when Palantir Gotham is the buyer-mandated platform in classified deployment environments using HubSpot
+standardize territory overlap when Palantir Gotham is the buyer-mandated platform in classified deployment environments using HubSpot
+model POC stage duration when Palantir Gotham is the buyer-mandated platform in classified deployment environments using HubSpot
+track loss reason capture when Palantir Gotham is the buyer-mandated platform in multi-agency shared services deals using HubSpot
+standardize territory overlap when Palantir Gotham is the buyer-mandated platform in multi-agency shared services deals using HubSpot
+model POC stage duration when Palantir Gotham is the buyer-mandated platform in multi-agency shared services deals using HubSpot
+track POC stage duration when Palantir Gotham is the buyer-mandated platform in IDIQ vehicle renewals using HubSpot
+standardize bookings versus billings timing when Palantir Gotham is the buyer-mandated platform in IDIQ vehicle renewals using HubSpot
+model multi-thread depth when Palantir Gotham is the buyer-mandated platform in IDIQ vehicle renewals using HubSpot
+model campaign influence when Palantir AIP is the buyer-mandated platform in federal prime-sub contracts using Dynamics 365
+measure quota credit when Palantir AIP is the buyer-mandated platform in federal prime-sub contracts using Dynamics 365
+prevent win-loss integrity when Palantir AIP is the buyer-mandated platform in federal prime-sub contracts using Dynamics 365
+model win-loss integrity when Palantir AIP is the buyer-mandated platform in defense intelligence programs using Dynamics 365
+measure POC stage duration when Palantir AIP is the buyer-mandated platform in state and local RFPs using Dynamics 365
+prevent bookings versus billings timing when Palantir AIP is the buyer-mandated platform in state and local RFPs using Dynamics 365
+model partner registration conflicts when Palantir AIP is the buyer-mandated platform in commercial enterprise expansions using Dynamics 365
+measure MEDDPICC field completion when Palantir AIP is the buyer-mandated platform in commercial enterprise expansions using Dynamics 365
+prevent loss reason capture when Palantir AIP is the buyer-mandated platform in commercial enterprise expansions using Dynamics 365
+model win-loss integrity when Palantir AIP is the buyer-mandated platform in partner marketplace referrals using Dynamics 365
+model loss reason capture when Palantir AIP is the buyer-mandated platform in classified deployment environments using Dynamics 365
+prevent POC stage duration when Palantir AIP is the buyer-mandated platform in classified deployment environments using Dynamics 365
+model loss reason capture when Palantir AIP is the buyer-mandated platform in multi-agency shared services deals using Dynamics 365
+measure territory overlap when Palantir AIP is the buyer-mandated platform in multi-agency shared services deals using Dynamics 365
+prevent POC stage duration when Palantir AIP is the buyer-mandated platform in multi-agency shared services deals using Dynamics 365
+model POC stage duration when Palantir AIP is the buyer-mandated platform in IDIQ vehicle renewals using Dynamics 365
+measure bookings versus billings timing when Palantir AIP is the buyer-mandated platform in IDIQ vehicle renewals using Dynamics 365
+prevent multi-thread depth when Palantir AIP is the buyer-mandated platform in IDIQ vehicle renewals using Dynamics 365
+track pipeline coverage when Palantir AIP is the buyer-mandated platform in defense intelligence programs using Pipedrive
+standardize commission splits when Palantir AIP is the buyer-mandated platform in defense intelligence programs using Pipedrive
+align territory overlap when Palantir AIP is the buyer-mandated platform in state and local RFPs using Pipedrive
+track pipeline coverage when Palantir AIP is the buyer-mandated platform in partner marketplace referrals using Pipedrive
+standardize commission splits when Palantir AIP is the buyer-mandated platform in partner marketplace referrals using Pipedrive
+track territory overlap when Palantir AIP is the buyer-mandated platform in classified deployment environments using Pipedrive
+score campaign influence when Palantir AIP is the buyer-mandated platform in federal prime-sub contracts using Zoho CRM

@@ -1,0 +1,192 @@
+[
+  {
+    "id": "st429",
+    "status": "OK",
+    "score": 11,
+    "words": 436
+  },
+  {
+    "id": "st408",
+    "status": "OK",
+    "score": 11,
+    "words": 710
+  },
+  {
+    "id": "st384",
+    "status": "NO-CHANGE"
+  },
+  {
+    "id": "st365",
+    "status": "OK",
+    "score": 11,
+    "words": 2925
+  },
+  {
+    "id": "st323",
+    "status": "OK",
+    "score": 11,
+    "words": 1983
+  },
+  {
+    "id": "st322",
+    "status": "OK",
+    "score": 11,
+    "words": 2091
+  },
+  {
+    "id": "st279",
+    "status": "OK",
+    "score": 11,
+    "words": 2134
+  },
+  {
+    "id": "st267",
+    "status": "OK",
+    "score": 11,
+    "words": 2258
+  },
+  {
+    "id": "st229",
+    "status": "OK",
+    "score": 12,
+    "words": 2491
+  },
+  {
+    "id": "st201",
+    "status": "OK",
+    "score": 11,
+    "words": 1614
+  },
+  {
+    "id": "st177",
+    "status": "OK",
+    "score": 10,
+    "words": 1484
+  },
+  {
+    "id": "st0079",
+    "status": "OK",
+    "score": 12,
+    "words": 2867
+  },
+  {
+    "id": "st0046",
+    "status": "OK",
+    "score": 11,
+    "words": 9947
+  },
+  {
+    "id": "st0035",
+    "status": "OK",
+    "score": 8,
+    "words": 9642
+  },
+  {
+    "id": "st0034",
+    "status": "OK",
+    "score": 8,
+    "words": 9206
+  },
+  {
+    "id": "st0030",
+    "status": "OK",
+    "score": 9,
+    "words": 10374
+  },
+  {
+    "id": "st0029",
+    "status": "OK",
+    "score": 8,
+    "words": 10297
+  },
+  {
+    "id": "st0028",
+    "status": "OK",
+    "score": 7,
+    "words": 10212
+  },
+  {
+    "id": "st0027",
+    "status": "OK",
+    "score": 6,
+    "words": 7918
+  },
+  {
+    "id": "st0026",
+    "status": "OK",
+    "score": 7,
+    "words": 9658
+  },
+  {
+    "id": "st0024",
+    "status": "OK",
+    "score": 7,
+    "words": 10445
+  },
+  {
+    "id": "st0023",
+    "status": "OK",
+    "score": 7,
+    "words": 10008
+  },
+  {
+    "id": "st0020",
+    "status": "OK",
+    "score": 8,
+    "words": 10400
+  },
+  {
+    "id": "st0019",
+    "status": "OK",
+    "score": 7,
+    "words": 10506
+  },
+  {
+    "id": "st0015",
+    "status": "OK",
+    "score": 7,
+    "words": 10467
+  },
+  {
+    "id": "st0014",
+    "status": "OK",
+    "score": 11,
+    "words": 11000
+  },
+  {
+    "id": "st0013",
+    "status": "OK",
+    "score": 9,
+    "words": 11070
+  },
+  {
+    "id": "st0012",
+    "status": "OK",
+    "score": 10,
+    "words": 11602
+  },
+  {
+    "id": "st0011",
+    "status": "OK",
+    "score": 7,
+    "words": 11322
+  },
+  {
+    "id": "st0008",
+    "status": "OK",
+    "score": 9,
+    "words": 10548
+  },
+  {
+    "id": "st0007",
+    "status": "OK",
+    "score": 7,
+    "words": 10479
+  },
+  {
+    "id": "st0001",
+    "status": "OK",
+    "score": 9,
+    "words": 9782
+  }
+]

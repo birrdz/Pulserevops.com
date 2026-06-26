@@ -1,0 +1,16 @@
+{
+  "tick": "205b",
+  "agent": "B",
+  "picked_id": "q178",
+  "picked_ts": 1714381200000,
+  "picked_quality_score_before": 10,
+  "picked_format_v_before": null,
+  "picked_question": "What's the right way to break bad news to the sales team?",
+  "picked_tags": ["communication","bad-news","team-dynamics","leadership","crisis","transparency"],
+  "eligible_count": 1113,
+  "total_items": 1743,
+  "word_count": 9396,
+  "endpoint": "https://pulserevops.com/.netlify/functions/pulse-blob-polish",
+  "response": {"ok":true,"id":"q178","quality_score":10,"format_v":"2026-05","gold_format":true,"from":10,"to":10},
+  "http_status": 200
+}

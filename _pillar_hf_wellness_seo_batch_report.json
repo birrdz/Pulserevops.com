@@ -1,0 +1,205 @@
+{
+  "ok": true,
+  "dry": false,
+  "generateOnly": false,
+  "batch": [
+    "hf",
+    "ik",
+    "lv",
+    "mv",
+    "ra",
+    "sc",
+    "sk",
+    "sp",
+    "sy",
+    "tk",
+    "tl",
+    "tn",
+    "tv",
+    "wl"
+  ],
+  "restack": [
+    "nl",
+    "rs",
+    "er",
+    "st"
+  ],
+  "results": [
+    {
+      "prefix": "hf",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "hf",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "ik",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "ik",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "lv",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "lv",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "mv",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "mv",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "ra",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "ra",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "sc",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "sc",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "sk",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "sk",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "sp",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "sp",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "sy",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "sy",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "tk",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "tk",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "tl",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "tl",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "tn",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "tn",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "tv",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "tv",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "wl",
+      "step": "generate",
+      "ok": true,
+      "phrases": 200
+    },
+    {
+      "prefix": "wl",
+      "step": "sync+optimize",
+      "ok": true
+    },
+    {
+      "prefix": "nl",
+      "step": "restack",
+      "ok": true
+    },
+    {
+      "prefix": "rs",
+      "step": "restack",
+      "ok": true
+    },
+    {
+      "prefix": "er",
+      "step": "restack",
+      "ok": true
+    },
+    {
+      "prefix": "st",
+      "step": "restack",
+      "ok": true
+    }
+  ],
+  "done": 18,
+  "total": 18
+}

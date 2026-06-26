@@ -40,7 +40,11 @@ exports.handler = async (event) => {
   if (body.key !== KEY) return { statusCode: 401, headers: corsHeaders(), body: JSON.stringify({ ok: false, reason: 'bad key' }) };
 
   const { id, polish_note, set_score } = body;
-  if (!id || !/^q\d+$/.test(id)) return { statusCode: 400, headers: corsHeaders(), body: JSON.stringify({ ok: false, reason: 'bad id (must be qNNNN)' }) };
+  // Accept knowledge-library ids (qNNNN), sales-training ids (stNNNN),
+  // industry-KPI ids (ikNNNN — the Industry KPIs content pillar), and
+  // visitor-asked questions (vq_xxxxx — queue-hash-suffixed). Visitor
+  // questions render under /knowledge/vq_* and live in the same blob store.
+  if (!id || !/^(?:q\d+|st\d+|ik\d+|vq_[a-z0-9]+)$/i.test(id)) return { statusCode: 400, headers: corsHeaders(), body: JSON.stringify({ ok: false, reason: 'bad id (must be qNNNN, stNNNN, ikNNNN, or vq_xxxx)' }) };
   if (!polish_note || polish_note.length < 8) return { statusCode: 400, headers: corsHeaders(), body: JSON.stringify({ ok: false, reason: 'polish_note required (min 8 chars)' }) };
 
   const tok = process.env.BLOBS_PAT;
@@ -69,6 +73,36 @@ exports.handler = async (event) => {
     newScore = Math.round(set_score);
   } else {
     if (currentScore >= 10) {
+      // v15.2 gold-format pathway: qs=10 entries can still receive a fresh
+      // body + format_v stamp (the gold-format conversion) without a qs bump.
+      // Requires new_answer ≥800 chars AND format_v string. Logs a polish
+      // event with from=10, to=10 so the live map + activity feed surface it.
+      const goldNewAnswer = typeof body.new_answer === 'string' ? body.new_answer : '';
+      const goldFormatV   = typeof body.format_v === 'string' ? body.format_v : '';
+      if (goldNewAnswer.length >= 800 && goldFormatV.length > 0) {
+        const tsGold = Date.now();
+        const goldHistory = Array.isArray(entry.polish_history) ? entry.polish_history.slice() : [];
+        goldHistory.push({ ts: tsGold, from: 10, to: 10, note: polish_note || 'gold-format' });
+        const goldEntry = { ...entry, answer: goldNewAnswer, format_v: goldFormatV, polish_history: goldHistory, polished_at: tsGold };
+        delete goldEntry.baseline_answer_v5;
+        await store.setJSON('answers/' + id + '.json', goldEntry);
+        // Mirror format_v to index
+        const idxG = (await store.get('_index.json', { type: 'json' })) || { entries: [] };
+        const iG = (idxG.entries || []).findIndex(e => e.id === id);
+        if (iG >= 0) {
+          idxG.entries[iG] = { ...idxG.entries[iG], format_v: goldFormatV, last_modified_ms: tsGold };
+          await store.setJSON('_index.json', idxG);
+        }
+        // Log polish event so live map + activity feed see it
+        try {
+          const evsG = (await store.get('_polish_events.json', { type: 'json' })) || { events: [] };
+          evsG.events.push({ ts: tsGold, id, from: 10, to: 10, note: polish_note || 'gold-format' });
+          if (evsG.events.length > 1000) evsG.events = evsG.events.slice(-1000);
+          await store.setJSON('_polish_events.json', evsG);
+        } catch (_e) {}
+        return { statusCode: 200, headers: { ...corsHeaders(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ok: true, id, quality_score: 10, format_v: goldFormatV, gold_format: true, from: 10, to: 10 }) };
+      }
       return { statusCode: 200, headers: { ...corsHeaders(), 'Content-Type': 'application/json' },
         body: JSON.stringify({ ok: true, id, quality_score: 10, message: 'already at 10/10' }) };
     }
@@ -92,6 +126,47 @@ exports.handler = async (event) => {
     if (newAnswer.trim() === (entry.answer || '').trim()) {
       return { statusCode: 400, headers: corsHeaders(), body: JSON.stringify({
         ok: false, reason: 'new_answer is identical to current entry answer — substantive bump requires real content changes',
+      }) };
+    }
+  }
+
+  // ── Word-cap guard (added 2026-05-18) ──────────────────────────────────
+  // Hard server-side cap to stop bloated drafts from landing in the blob.
+  // q9670 + q9671 both overshot to 14-16K because the polish-helper passes
+  // new_answer straight through with no length check — agents would write
+  // a clean baseline, then ADD content at each ladder rung, and the final
+  // 10/10 answer would be 50%+ over target. This rejects writes that
+  // exceed the format-appropriate cap. Cap is tag-driven: format tags
+  // (60-min-meeting / 2-hour-deep-dive / etc.) bump the limit for longer
+  // sales-training formats; absent any format tag, q-IDs cap at 10,500
+  // and st-IDs cap at 11,000 (small buffer for the 60-min default).
+  if (typeof body.new_answer === 'string' && body.new_answer.length >= 800) {
+    const tags = Array.isArray(body.tags) ? body.tags
+               : Array.isArray(entry.tags) ? entry.tags : [];
+    const FORMAT_CAPS = {
+      '60-min-meeting':     10500,
+      '2-hour-deep-dive':   16000,
+      'half-day-workshop':  22000,
+      'full-day-training':  30000,
+      '2-day-offsite':      45000,
+      '1-week-bootcamp':    70000,
+    };
+    const isTraining = /^st\d+$/i.test(id) || tags.indexOf('sales-training') !== -1;
+    let wordCap;
+    const formatTag = tags.find(t => FORMAT_CAPS[t] !== undefined);
+    if (formatTag)        wordCap = FORMAT_CAPS[formatTag];
+    else if (isTraining)  wordCap = 11000;  // default sales-training cap
+    else                  wordCap = 10500;  // q-entry cap
+    const wordCount = body.new_answer.trim().split(/\s+/).length;
+    if (wordCount > wordCap) {
+      return { statusCode: 413, headers: corsHeaders(), body: JSON.stringify({
+        ok: false,
+        reason: 'new_answer is ' + wordCount + ' words; exceeds hard cap of ' + wordCap
+              + (formatTag ? ' for format "' + formatTag + '"' : ' (default for ' + (isTraining ? 'sales-training' : 'q-entry') + ')')
+              + '. Trim, then resubmit. Length must match scope — do not pad ladder rungs with new sections.',
+        word_count: wordCount,
+        word_cap: wordCap,
+        over_by: wordCount - wordCap,
       }) };
     }
   }
@@ -161,13 +236,16 @@ exports.handler = async (event) => {
     await store.setJSON('_polish_events.json', evs);
   } catch (_e) {}
 
-  // Trigger IndexNow re-ping immediately so the polished body is re-crawled
-  // by Bing/Yandex/Seznam right away — not waiting on the hourly batch.
-  // Fire-and-forget; failure here doesn't block the polish response.
-  try {
-    fetch('https://pulserevops.com/.netlify/functions/pulse-machine-indexnow-batch-background', { method: 'POST' })
-      .catch(() => {});
-  } catch (_e) {}
+  // IndexNow re-ping: only when the entry reaches 10/10 (was: every ladder
+  // step, which fired 5× per polish and burned function invocations). The
+  // scheduled batch handles intermediate states; the final-state ping here
+  // matches what Google/Bing actually want to know about.
+  if (newScore >= 10) {
+    try {
+      fetch('https://pulserevops.com/.netlify/functions/pulse-machine-indexnow-batch-background', { method: 'POST' })
+        .catch(() => {});
+    } catch (_e) {}
+  }
 
   return {
     statusCode: 200,

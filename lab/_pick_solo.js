@@ -1,0 +1,23 @@
+const fs = require('fs');
+const d = JSON.parse(fs.readFileSync('C:/Users/koryj/website/lab/_liblist_solo.json', 'utf8'));
+const arr = Array.isArray(d) ? d : (d.entries || d.items || []);
+const skip = new Set(['q445','q433','q418','q446','q448','q447','q460','q449','q450','q461','q462','q451']);
+const elig = arr.filter(e => {
+  if (!e || typeof e.id !== 'string') return false;
+  const m = e.id.match(/^q(\d+)$/);
+  if (!m) return false;
+  const n = parseInt(m[1], 10);
+  if (!(e.quality_score >= 10)) return false;
+  if (e.format_v === '2026-05') return false;
+  if (n >= 9501) return false;
+  if (n >= 1946 && n <= 1954) return false;
+  if ((e.tags || []).includes('sales-training')) return false;
+  if (skip.has(e.id)) return false;
+  return true;
+});
+elig.sort((a, b) => (b.ts || 0) - (a.ts || 0));
+console.log('eligible=' + elig.length);
+elig.slice(0, 16).forEach((e, i) => console.log(i + '  ' + e.id + '  ts=' + e.ts + '  qs=' + e.quality_score + '  fv=' + e.format_v + '  | ' + (e.question || '').slice(0, 75)));
+const t = elig[11];
+console.log('\nTARGET index 11 => ' + t.id);
+fs.writeFileSync('C:/Users/koryj/website/lab/_target_solo.json', JSON.stringify(t, null, 2));

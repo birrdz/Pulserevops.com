@@ -40,6 +40,7 @@
   .back { display:inline-block; margin-top:24px; font-size:0.74rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,140,26,0.7); text-decoration:none; border-bottom:1px dotted rgba(255,140,26,0.4); }
   .back:hover { color:#FFB347; }
 </style>
+  <script defer src="/pulse-max-plan-widget.js"></script>
 </head>
 <body>
 <main>
@@ -60,6 +61,20 @@
   var meta  = document.getElementById('iq-meta');
   var list  = document.getElementById('iq-list');
   function fmt(n){ return (n||0).toLocaleString('en-US'); }
+  function entryEmoji(entry){
+    var id = String((entry && (entry.id || entry)) || '').toLowerCase();
+    if (/^st\d/.test(id)) return '🎓';
+    if (/^ik\d/.test(id)) return '📊';
+    if (/^tk\d/.test(id)) return '🧰';
+    if (/^gb\d/.test(id)) return '🎨';
+    if (/^bs\d/.test(id)) return '📖';
+    if (/^er\d/.test(id)) return '📺';
+    if (/^ra\d/.test(id)) return '📐';
+    if (/^gp\d/.test(id)) return '📘';
+    if (/^q\d/.test(id))  return '📚';
+    if (/^vq/.test(id))   return '📚';
+    return '📄';
+  }
   function refresh(){
     fetch('/.netlify/functions/index-queue', { cache: 'no-store' })
       .then(function(r){ return r.ok ? r.json() : null; })
@@ -91,7 +106,7 @@
           a.href = '/knowledge/' + e.id;
           a.target = '_blank';
           a.rel = 'noopener';
-          a.textContent = e.question || e.id;
+          a.textContent = entryEmoji(e) + ' ' + (e.question || e.id);
           if (i === 0) a.style.fontWeight = '700';
           a.style.color = i === 0 ? '#7BFF8F' : '#FFD8A8';
           li.appendChild(a);
@@ -115,5 +130,6 @@
   setInterval(refresh, 30000);
 })();
 </script>
+<script src="/js/pulse-lead-track.js" defer></script>
 </body>
 </html>

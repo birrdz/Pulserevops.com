@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 810" role="img" aria-label="Pulse Tools">
+  <rect width="1440" height="810" fill="#EBE9DE"/>
+  <!-- Line-art calculator icon (matches the outline style of the other pillar marks) -->
+  <g fill="none" stroke="#52525B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="262" y="300" width="250" height="300" rx="30"/>
+    <rect x="296" y="336" width="182" height="78" rx="14"/>
+    <path d="M309 378 h30 l13 -28 17 54 13 -36 h33" stroke-width="7"/>
+  </g>
+  <g fill="#52525B">
+    <circle cx="328" cy="468" r="14"/><circle cx="387" cy="468" r="14"/><circle cx="446" cy="468" r="14"/>
+    <circle cx="328" cy="524" r="14"/><circle cx="387" cy="524" r="14"/><circle cx="446" cy="524" r="14"/>
+    <circle cx="328" cy="580" r="14"/><circle cx="387" cy="580" r="14"/><circle cx="446" cy="580" r="14"/>
+  </g>
+  <!-- Stacked wordmark with a soft warm drop shadow -->
+  <g font-family="'Plus Jakarta Sans','Trebuchet MS',Verdana,Geneva,sans-serif" font-weight="800" font-size="172" letter-spacing="-3">
+    <text x="748" y="375" fill="#E3C4B2">Pulse</text>
+    <text x="741" y="368" fill="#52525B">Pulse</text>
+    <text x="748" y="572" fill="#E3C4B2">Tools</text>
+    <text x="741" y="565" fill="#52525B">Tools</text>
+  </g>
+  <!-- Sparkle, bottom-right -->
+  <path d="M1392 716 C1395 740 1399 744 1423 747 C1399 750 1395 754 1392 778 C1389 754 1385 750 1361 747 C1385 744 1389 740 1392 716 Z" fill="#52525B"/>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>
+svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.bg{fill:var(--bg1,#0b0f17);}
+.bg2{fill:var(--bg2,#0f172a);}
+.title{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-size:22px;font-weight:700;fill:var(--c3);}
+.stage{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-size:20px;font-weight:700;fill:var(--ink);}
+.count{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-size:26px;font-weight:800;fill:var(--ink);}
+.sub{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-size:14px;font-weight:600;fill:var(--ink);opacity:0.78;}
+.ratio{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-size:18px;font-weight:800;fill:var(--c4);}
+.ratiolabel{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-size:12px;font-weight:600;fill:var(--c4b);}
+.legend{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-size:14px;font-weight:600;fill:var(--c3);}
+</style>
+
+<rect class="bg" x="0" y="0" width="1584" height="396"/>
+<rect class="bg2" x="24" y="24" width="1536" height="348" rx="14" fill-opacity="0.55"/>
+
+<text class="title" x="56" y="64">SDR-to-AE Funnel — Cold Outreach to Handoff</text>
+<text class="legend" x="56" y="86" opacity="0.75">Conversion ratios from prospecting to qualified AE pipeline</text>
+
+<defs>
+  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="var(--c1)"/>
+    <stop offset="1" stop-color="var(--c2)"/>
+  </linearGradient>
+  <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="var(--c1)" stop-opacity="0.92"/>
+    <stop offset="1" stop-color="var(--c2)" stop-opacity="0.95"/>
+  </linearGradient>
+</defs>
+
+<!-- Stage 1: Cold Outreach (widest trapezoid) -->
+<polygon points="80,130 360,130 340,310 100,310" fill="url(#g1)" stroke="var(--c3)" stroke-width="2"/>
+<text class="stage" x="220" y="170" text-anchor="middle">Cold Outreach</text>
+<text class="count" x="220" y="220" text-anchor="middle">10,000</text>
+<text class="sub" x="220" y="248" text-anchor="middle">touches / month</text>
+<text class="sub" x="220" y="270" text-anchor="middle">email · call · LinkedIn</text>
+
+<!-- Ratio 1 -->
+<text class="ratio" x="400" y="210" text-anchor="middle">12%</text>
+<text class="ratiolabel" x="400" y="230" text-anchor="middle">reply rate</text>
+<path d="M 360,220 L 440,220" stroke="var(--c4)" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+<!-- Stage 2: Connect -->
+<polygon points="440,150 660,150 645,290 455,290" fill="url(#g1)" stroke="var(--c3)" stroke-width="2"/>
+<text class="stage" x="550" y="186" text-anchor="middle">Connect</text>
+<text class="count" x="550" y="232" text-anchor="middle">1,200</text>
+<text class="sub" x="550" y="258" text-anchor="middle">conversations</text>
+
+<!-- Ratio 2 -->
+<text class="ratio" x="700" y="210" text-anchor="middle">25%</text>
+<text class="ratiolabel" x="700" y="230" text-anchor="middle">book rate</text>
+<path d="M 660,220 L 740,220" stroke="var(--c4)" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+<!-- Stage 3: Discovery -->
+<polygon points="740,170 920,170 905,270 755,270" fill="url(#g2)" stroke="var(--c3)" stroke-width="2"/>
+<text class="stage" x="830" y="202" text-anchor="middle">Discovery</text>
+<text class="count" x="830" y="240" text-anchor="middle">300</text>
+<text class="sub" x="830" y="260" text-anchor="middle">meetings held</text>
+
+<!-- Ratio 3 -->
+<text class="ratio" x="960" y="210" text-anchor="middle">40%</text>
+<text class="ratiolabel" x="960" y="230" text-anchor="middle">qualified</text>
+<path d="M 920,220 L 1000,220" stroke="var(--c4)" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+<!-- Stage 4: SQL -->
+<polygon points="1000,185 1150,185 1138,255 1012,255" fill="url(#g2)" stroke="var(--c3)" stroke-width="2"/>
+<text class="stage" x="1075" y="215" text-anchor="middle">SQL</text>
+<text class="count" x="1075" y="245" text-anchor="middle">120</text>
+
+<!-- Ratio 4 -->
+<text class="ratio" x="1190" y="210" text-anchor="middle">75%</text>
+<text class="ratiolabel" x="1190" y="230" text-anchor="middle">accepted</text>
+<path d="M 1150,220 L 1230,220" stroke="var(--c4)" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+<!-- Stage 5: AE Handoff (narrowest) -->
+<polygon points="1230,195 1360,195 1350,245 1240,245" fill="var(--c4)" stroke="var(--c3)" stroke-width="2"/>
+<text class="stage" x="1295" y="222" text-anchor="middle" fill="var(--ink)">AE Handoff</text>
+<text class="count" x="1295" y="252" text-anchor="middle" fill="var(--ink)" font-size="20" dy="-2">90</text>
+
+<!-- End-to-end ratio callout -->
+<rect x="1395" y="180" width="148" height="80" rx="10" fill="var(--c2)" stroke="var(--c3)" stroke-width="2"/>
+<text class="ratiolabel" x="1469" y="204" text-anchor="middle" fill="var(--c3)" font-size="13">End-to-end</text>
+<text x="1469" y="232" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="22" font-weight="800" fill="var(--c3)">0.9%</text>
+<text class="ratiolabel" x="1469" y="252" text-anchor="middle" fill="var(--c4b)" font-size="11">touch → AE</text>
+
+<defs>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 Z" fill="var(--c4)"/>
+  </marker>
+</defs>
+
+<!-- Footer labels -->
+<text class="legend" x="56" y="346" opacity="0.7">SDR-owned stages</text>
+<rect x="200" y="335" width="14" height="14" fill="url(#g1)" rx="2"/>
+<text class="legend" x="222" y="346" opacity="0.7">Qualification</text>
+<rect x="320" y="335" width="14" height="14" fill="url(#g2)" rx="2"/>
+<text class="legend" x="342" y="346" opacity="0.7">AE-owned</text>
+<rect x="420" y="335" width="14" height="14" fill="var(--c4)" rx="2"/>
+</svg>

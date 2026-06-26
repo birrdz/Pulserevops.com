@@ -1,0 +1,126 @@
+QUESTION: What are Marquette Golden Eagles men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Marquette men's basketball enters the 2027 cycle off a deflating 12-20 finish in 2025-26, with Shaka Smart under contract through 2030, freshman Nigel James Jr. returning as reigning Big East Freshman of the Year, and a Be The Difference NIL collective that signs every scholarship player but now must scale roughly two to three times to keep pace with Big East rivals St. John's, UConn, and Villanova. The 2027 play is a private-school, donor-network, basketball-only one: lean on Travis Diener, Steve Novak, and Rob Jackson to convert Milwaukee and Chicago alumni into recurring six-figure backers, retain James Jr. at market, and add two ready-now portal pieces at guard and frontcourt. Marquette will not win an arms race on dollars, but it can win on stability and culture.
+
+**TL;DR:** Marquette's 2027 NIL play is retain James Jr., scale Be The Difference to $5-6M, and use Smart's no-agents culture to land two transfer portal upgrades while peer Big East programs overspend.
+
+```mermaid
+flowchart TD
+    A[Marquette Donor Base] --> B[Be The Difference NIL]
+    C[Milwaukee Alumni] --> B
+    D[Chicago Alumni] --> B
+    E[Diener Novak Jackson] --> B
+    F[Fiserv Forum Gameday] --> G[Revenue Pool]
+    H[Big East Media Deal] --> G
+    I[Marquette Athletics Budget] --> G
+    B --> J[Roster Construction 2027]
+    G --> J
+    J --> K[Retain Nigel James Jr]
+    J --> L[Portal Guard Add]
+    J --> M[Portal Frontcourt Add]
+    K --> N[Big East Contender]
+    L --> N
+    M --> N
+    N --> O[NCAA Tournament Return]
+    O --> P[Sweet 16 or Better]
+```
+
+## 1. Where Marquette Stands — Shaka Smart Era 2027 NIL Math
+
+The honest read on Marquette right now is that the 2025-26 season was the worst of the Shaka Smart era. The Golden Eagles finished 12-20 after Smart admitted he believed in the returning group too much and largely ignored the spring 2025 transfer portal. Three scholarship spots opened this April when guards Sean Jones and Tre Norman entered the portal and Zaide Lowery left mid-season. Redshirt freshman Sheek Pearson followed in late April. That is four roster holes for a head coach who is still owed four more years on the extension that runs through the conclusion of the 2029-30 season.
+
+The NIL infrastructure underneath Smart is genuinely good for a private school. Be The Difference NIL launched in May 2022 and was the first major collective to sign every scholarship player on both the men's and women's rosters. It is a registered Wisconsin 501(c)(3) run by former Marquette players Travis Diener, Rob Jackson, and Steve Novak, with athletic department NIL General Manager Madison Dunker handling brand and athlete integration. Smart has been outspoken that Marquette players do not need outside agents because the collective and the school work together.
+
+The math problem is scale. Marquette is a private institution that does not disclose financial details, but industry estimates published by NIL trackers put basketball-only NIL spend at roughly $2-3M for the 2025-26 cycle. Big East peers St. John's and UConn are widely reported to be in the $6-10M range for basketball alone, and Villanova is rebuilding aggressively in the portal. The Big East media rights deal — recently extended with Fox and NBC — pays out less per school than the SEC or Big Ten contracts that fund the new revenue-sharing pools at football-driven programs, so Marquette cannot simply backfill the gap from broadcast checks. Athletic department revenue lands in the $90-100M zone, with basketball as the only marquee-revenue sport. To stay competitive in 2027, Be The Difference needs to roughly double its annual flow.
+
+| Lever | Marquette 2027 | Top peer |
+| --- | --- | --- |
+| Basketball NIL pool (est) | $2.5M | $8M St. John's |
+| Returning Big East FOY | Yes, Nigel James Jr | No |
+| Head coach contract end | 2030 | Varies |
+| Collective founded | 2022 | 2022 avg |
+| Revenue-share runway | Basketball-led private | Football-led public |
+
+## 2. The House Settlement and the Private-School Basketball-Only Wrinkle
+
+The single biggest rule change facing every program in 2027 is the House v. NCAA settlement, given final approval by Judge Claudia Wilken on June 6, 2025 and effective July 1, 2025. It lets each Division I school pay athletes directly out of a capped pool — about $20.5M for the first year, set at 22 percent of average power-conference athletic revenue and rising roughly 4 percent annually. It also replaced scholarship limits with roster limits (15 for men's basketball) and routed all third-party deals of $600 or more through Deloitte's "NIL Go" clearinghouse, overseen by the new College Sports Commission, which screens for a valid business purpose and a fair-market compensation range.
+
+For a football-driven public school, that $20.5M cap gets eaten mostly by football. For Marquette — which has no FBS football — the calculus inverts in a way that is quietly favorable: nearly the entire rev-share allocation a school chooses to fund can be steered toward basketball. Big East programs that opt into the settlement can place a far larger share of their cap behind a single sport than an SEC school splitting the same pool across an 85-man football roster. That does not erase the dollar gap with St. John's or UConn, but it reframes the 2027 fight: Marquette's competition is other basketball-first schools allocating the same way, not the raw revenue totals of Texas or Ohio State. The strategic task is to combine whatever rev-share dollars the school commits with Be The Difference collective NIL that can clear NIL Go — appearance deals, Milwaukee business activations, camps, and autograph sessions, all of which read as legitimate business purpose rather than disguised pay-for-play.
+
+## 3. Real 2027 Strategy — 5 Moves
+
+**Move 1 — Lock down Nigel James Jr at market.** James Jr. won Big East Freshman of the Year averaging 16.4 points, 3.4 rebounds, 4.9 assists, and 1.9 steals. He is the foundational piece. Be The Difference should deliver a 2026-27 package in the $700K-$1M range, well above the average BFOY retention deal, paired with a real brand build through Milwaukee businesses.
+
+**Move 2 — Two portal targets, ready-now.** With four open scholarships, Marquette needs one experienced combo guard and one stretch four. Smart has publicly admitted he must be more active in the portal this cycle. The collective should pre-commit two specific NIL packages in the $400-600K range that recruiters can quote on the first phone call.
+
+**Move 3 — Diener-Novak-Jackson alumni tour.** The three Marquette legends running Be The Difference are the program's single biggest fundraising advantage. A targeted 2027 push through Milwaukee corporate donors and Chicago alumni — leveraging Fiserv Forum gameday hospitality — can add $1.5-2M per year without growing the donor count.
+
+**Move 4 — Milwaukee community NIL deals.** Marquette has already used NIL to engage local nonprofits and businesses, and that authentic Milwaukee story differentiates from the bidding-war perception around peer collectives. Doubling the volume of community-tied brand deals for every scholarship player turns NIL into recruiting collateral — and these deals are exactly the kind NIL Go is designed to approve.
+
+**Move 5 — Sell the stability story.** Smart is signed through 2030. Madison Dunker is in place. Be The Difference has a four-year track record. In a market where collectives collapse and coaches leave, Marquette's pitch in 2027 is that the contract and the culture are real.
+
+## 4. Top 3 Risks
+
+**Risk 1 — Big East arms race outpaces fundraising.** If St. John's, UConn, and Villanova each push basketball NIL above $8M while Marquette flattens at $3M, even retaining James Jr. will not be enough to stay in the NCAA tournament conversation. The widening gap shows up in portal recruiting, where the second and third offer in a player's stack now routinely exceeds Marquette's top number.
+
+**Risk 2 — A second sub-.500 season undermines the donor case.** Be The Difference grew during the 2022-23 Big East title run. Another 12-20 campaign in 2026-27 would test donor patience and could trigger a tougher fundraising year right when the program needs scale. The collective's volunteer leadership group is exposed if results slip.
+
+**Risk 3 — James Jr. is targeted by a deep-pocketed program.** A returning Big East Freshman of the Year is exactly the player NIL-aggressive programs chase if Marquette wavers on his package. Losing him would erase the recruiting narrative and the on-court ceiling at once. Smart has to close that deal before any other domino moves.
+
+## 5. The 2027 Retention-First Math That Actually Works
+
+The cheapest player to sign is the one already on the roster, and that is doubly true for a school that cannot win bidding wars. A workable 2027 model puts 60-65 percent of Marquette's basketball NIL pool into retention rather than acquisition: a franchise tier for James Jr. near $1M, a starter tier of $400-600K for two or three returning rotation pieces, and a development tier of $100-200K for the rest, with opportunity-NIL and community deals filling out the roster. That allocation matters because the transfer portal punishes programs that let their own talent reach the open market — a returning starter who hits the portal costs a rival a premium to acquire but costs Marquette nothing extra to keep. Retain first, then spend the remaining 35 percent on the two surgical portal hits. The programs that thrived in the first two post-settlement cycles were not always the highest spenders; they were the ones who lost the fewest of their own contributors. For Marquette, with a stable coach signed through 2030 and a collective with a four-year track record, retention is the lever the donor base can be sold on most credibly.
+
+```mermaid
+flowchart TD
+    A[2025-26 Season 12-20] --> B[Smart Self-Critique]
+    B --> C[Spring 2026 Portal Pivot]
+    C --> D[Retain James Jr]
+    C --> E[Add Combo Guard]
+    C --> F[Add Stretch Four]
+    G[Be The Difference Scale Up] --> D
+    G --> E
+    G --> F
+    H[Milwaukee Donor Push] --> G
+    I[Chicago Alumni Push] --> G
+    J[Smart Contract Through 2030] --> K[Stability Pitch]
+    K --> G
+    D --> L[2026-27 Season]
+    E --> L
+    F --> L
+    L --> M[NCAA Tournament Bid]
+    L --> N[Donor Confidence Restored]
+    N --> O[2027-28 Scaling]
+```
+
+## FAQ
+
+**Q: How much does Be The Difference NIL spend annually on Marquette men's basketball?**
+A: Marquette does not disclose figures because it is a private school, but industry NIL trackers estimate basketball-only spend in the $2-3M range for 2025-26. The collective signs every scholarship player and is run by former Marquette players Diener, Novak, and Jackson, with a 501(c)(3) structure that emphasizes recurring donor flow.
+
+**Q: Is Shaka Smart still the Marquette head coach in 2027?**
+A: Yes. Smart signed a contract extension in June 2023 that runs through the conclusion of the 2029-30 season after winning the 2022-23 Big East regular season and tournament titles. His contract is one of the longest active runways for any high-major head coach.
+
+**Q: Who is Marquette's best returning player for 2026-27?**
+A: Freshman guard Nigel James Jr., who won Big East Freshman of the Year averaging 16.4 points, 3.4 rebounds, 4.9 assists, and 1.9 steals per game. Retaining him at market-rate NIL is the single highest-leverage move for the 2027 cycle.
+
+**Q: Does the House settlement rev-share cap help or hurt a non-football school like Marquette?**
+A: On balance it helps the allocation math. The roughly $20.5M first-year cap is the most a school may pay athletes directly, and a school without FBS football can steer a far larger share of that pool toward basketball than an SEC or Big Ten school splitting it across a full football roster. It does not close the raw dollar gap with the richest programs, but it lets Marquette concentrate its commitment behind its one marquee sport.
+
+**Q: Will the NIL Go clearinghouse limit Be The Difference deals?**
+A: It changes how deals must be structured, not the ceiling. Any third-party NIL deal of $600 or more must clear Deloitte's NIL Go platform for a valid business purpose and fair-market range, with the College Sports Commission enforcing. Be The Difference's model — community business activations, appearances, autographs, and camps tied to real Milwaukee partners — is well suited to pass, which is an advantage over collectives that relied on opaque booster payments.
+
+## Sources
+
+- On3 — Marquette collective signs entire men's, women's basketball rosters to NIL deals
+- Jeff Borzello, ESPN — Big East portal cycle coverage
+- The Athletic — Marquette beat coverage 2025-26 season
+- Sports Business Journal — Big East media rights and revenue-share landscape
+- USA Today NCAA Finances database — Marquette athletic department revenue
+- 247Sports Marquette — 2026 commits and transfer portal tracking
+- Front Office Sports — Shaka Smart telling players they do not need agents at Marquette
+- Milwaukee Journal Sentinel — Marquette basketball offseason coverage
+- AP/Reuters — House v. NCAA settlement final approval (June 6, 2025), revenue-share cap, and NIL Go / College Sports Commission clearinghouse

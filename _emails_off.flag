@@ -1,0 +1,4 @@
+All automated emails CANCELLED by owner on 2026-06-26 PM ("cancel all automated emails").
+While this file exists, _campaign_status_email.js, _email_monitor.js, and the _handoff_hourly.js
+email send all no-op. The handoff doc still refreshes; only outbound email is suppressed.
+DELETE this file to re-enable automated emails.

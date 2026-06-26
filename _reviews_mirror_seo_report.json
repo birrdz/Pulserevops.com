@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "dryRun": false,
+  "keywordFile": "_reviews_mirror_keyword_phrases.json",
+  "keywordCount": 216,
+  "inventory": {
+    "total": 14380,
+    "er": 663,
+    "tagged": 4637,
+    "title": 23,
+    "mirror": 9057,
+    "stWithReviews": 551,
+    "qWithReviews": 2429,
+    "ikWithReviews": 1,
+    "staticPages": 12
+  },
+  "updated": 99,
+  "skipped": 14281,
+  "indexnowOk": 9000,
+  "erPing": {
+    "ok": true,
+    "count": 1326,
+    "pings": {
+      "indexnow_org": 429,
+      "bing": 429,
+      "yandex": 200
+    }
+  },
+  "hubSync": {
+    "ok": true,
+    "page": "electronic-reviews.html"
+  },
+  "staticPing": {
+    "ok": true,
+    "count": 13,
+    "pings": {
+      "indexnow_org": 429,
+      "bing": 429,
+      "yandex": 200
+    }
+  },
+  "reviewsBatchPing": {
+    "ok": true,
+    "count": 9000,
+    "pings": {
+      "indexnow_org": 429,
+      "bing": 429,
+      "yandex": 200
+    }
+  },
+  "seoVerify": [
+    {
+      "label": "er entry",
+      "url": "https://pulserevops.com/electronic-reviews/er0793",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "inSitemap": false
+    },
+    {
+      "label": "er reviews mirror",
+      "url": "https://pulserevops.com/electronic-reviews/er0793/reviews",
+      "status": 200,
+      "seo": false,
+      "missing": [
+        "canonical"
+      ],
+      "inSitemap": false
+    },
+    {
+      "label": "electronic-reviews hub",
+      "url": "https://pulserevops.com/electronic-reviews",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "inSitemap": false
+    }
+  ],
+  "deploy": {
+    "ok": null,
+    "skipped": true
+  },
+  "sampleUrls": [
+    "https://pulserevops.com/electronic-reviews/er0793",
+    "https://pulserevops.com/electronic-reviews/er0793/reviews",
+    "https://pulserevops.com/electronic-reviews"
+  ],
+  "completedAt": "2026-06-22T22:40:51.792Z"
+}

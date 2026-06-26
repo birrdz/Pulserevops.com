@@ -1,0 +1,106 @@
+# The Buying-Process Map
+
+**A 60-Minute Team Working Session Where Every Rep Reverse-Engineers the Prospect's Actual Internal Approval Path So Deals Stop Dying at Invisible Steps Nobody Saw Coming**
+
+## Why Run This Session
+
+Reps obsess over their own sales process. They know exactly what stage a deal is in on *their* side. But the deal does not close on their side — it closes on the *buyer's* side, and most reps have no idea what the buyer's side actually looks like.
+
+That is why deals slip. The rep thinks the deal is "in legal" or "with procurement," but cannot answer the basic questions: How many approval steps are left? Who signs at each one? How long does each step historically take? Is there a security review? A board meeting that only happens once a quarter? A budget cycle that resets in two weeks?
+
+When a rep cannot answer those questions, the forecast is fiction. A deal "closing this month" is really a deal closing whenever a procurement queue the rep never knew about decides to clear it.
+
+This session fixes that. Every rep takes one real, late-stage deal and builds a step-by-step map of the buyer's *actual* internal buying process — every approval, every owner, every typical duration — and walks out knowing exactly where the deal can die and what to do about it.
+
+## What Reps Will Walk Out With
+
+- A completed Buying-Process Map for one real, late-stage deal: every internal step from "verbal yes" to "signed and paid"
+- A named owner and a realistic duration for each step
+- A list of the steps they currently cannot see — the blind spots that kill forecasts
+- The exact discovery questions that surface a hidden buying process
+- A revised, defensible close date based on the buyer's process, not the rep's hope
+
+## Who Should Be in the Room
+
+The full sales team, the sales manager facilitating, and ideally someone from sales operations or deal desk who has watched many deals cross the finish line and knows where they typically stall. Every rep must bring **one real deal in late stage** — verbal interest exists, but it is not signed. No early-stage deals; the map only matters once buying is genuinely on the table.
+
+## Before the Meeting (Manager Prep — 15 Minutes)
+
+1. Ask every rep to pick one real late-stage deal and have its CRM record and last few call notes open.
+2. Print or share the Buying-Process Map worksheet (the step table below).
+3. Pull two or three of your own deals that slipped a quarter because of an invisible step — a surprise security review, a procurement freeze, a missed budget window — as teaching examples.
+4. Have a whiteboard or shared doc ready for the live build.
+
+## The 60-Minute Agenda
+
+This session runs 0:00 to 1:00. The agenda blocks below sum to exactly 60 minutes.
+
+### Block 1 — Frame the Invisible Killer (0:00-0:06, 6 minutes)
+
+Open with a slipped deal of your own. Walk the room through it: "We forecast this for March. It closed in July. Here is the step we never saw — a quarterly security council that only meets once every 90 days." Establish the session's single rule: **a deal you cannot map is a deal you cannot forecast.**
+
+### Block 2 — Teach the Buying-Process Map (0:06-0:17, 11 minutes)
+
+Walk the team through the seven step-types that appear in almost every B2B buying process. Not every deal has all seven, but every rep must check for each:
+
+1. **Solution confirmation** — the buyer's internal agreement that your solution is the choice.
+2. **Business case / approval** — a written justification that an approver signs off on.
+3. **Budget verification** — confirming the money exists in this period, not next.
+4. **Technical / security review** — IT, InfoSec, or compliance vetting; often the longest hidden step.
+5. **Legal / contract review** — redlines, MSA negotiation, terms.
+6. **Procurement / purchasing** — vendor onboarding, competitive quotes, PO issuance.
+7. **Final signature & kickoff** — who physically signs, and what triggers payment.
+
+For each step, the rep needs three things: **the owner** (a named person), **the typical duration**, and **the trigger** (what has to happen for the step to start). A step with no named owner is a blind spot.
+
+### Block 3 — Solo Build on a Real Deal (0:17-0:34, 17 minutes)
+
+Each rep fills out the Buying-Process Map worksheet for their chosen deal. They write down what they actually know, and — critically — circle every step where they cannot name the owner or estimate the duration. Those circles are the deliverable. Manager and the deal-desk partner circulate, challenge soft assumptions, and ask the killer question on every deal: "Says who? Who told you that step takes a week?"
+
+### Block 4 — Pair Pressure-Test (0:34-0:47, 13 minutes)
+
+Reps pair up. One plays the buyer's procurement lead; the other walks their map and defends each step's owner and timeline. The procurement player attacks: "We have a three-bid policy — did you know that?" "Our legal queue is six weeks right now." "That budget line is frozen until the new fiscal year." Then swap. Every surprise the procurement player lands becomes a blind spot the rep must close.
+
+### Block 5 — Build the Discovery Questions (0:47-0:56, 9 minutes)
+
+As a group, list the questions that surface a hidden buying process — for example: "Walk me through what happens internally after you say yes." "Who has signed a contract like this before, and what did they have to go through?" "Has a deal like this ever needed security or legal review here?" "When does your budget period end?" Each rep writes the three questions they will ask on their deal's next call.
+
+### Block 6 — Commit and Close (0:56-1:00, 4 minutes)
+
+Each rep states out loud: their deal, the number of buying steps still ahead, their single biggest blind spot, and a revised close date based on the map. Manager records every revised date for the next forecast call.
+
+**Agenda check: 6 + 11 + 17 + 13 + 9 + 4 = 60 minutes.**
+
+## The Buying-Process Map Worksheet
+
+| Buying Step | Owner (Named Person) | Trigger to Start | Typical Duration | Blind Spot? |
+|---|---|---|---|---|
+| Solution confirmation | ______ | ______ | ______ | Y / N |
+| Business case / approval | ______ | ______ | ______ | Y / N |
+| Budget verification | ______ | ______ | ______ | Y / N |
+| Technical / security review | ______ | ______ | ______ | Y / N |
+| Legal / contract review | ______ | ______ | ______ | Y / N |
+| Procurement / purchasing | ______ | ______ | ______ | Y / N |
+| Final signature & kickoff | ______ | ______ | ______ | Y / N |
+| **Total realistic time-to-close** | | | **______ days** | |
+
+## How to Use the Map With the Buyer
+
+The map is not a private rep document — its full power comes from building it *with* the buyer:
+
+1. **Ask the buyer to walk you through it.** "After you say yes, what actually happens next on your side?" A buyer who narrates their own process is a buyer who has just told you every step you need to manage.
+2. **Confirm durations, do not assume them.** A rep's guess of "a week for legal" against the buyer's reality of "six weeks right now" is the entire gap between a hit and a missed forecast.
+3. **Turn the map into a mutual action plan.** Once you and the buyer agree on the steps, attach a date to each one and confirm it in writing. The map becomes the close plan.
+4. **Re-map when the deal changes.** A new stakeholder, a bigger contract value, or a fiscal-year boundary can add steps. Treat the map as living, not a one-time exercise.
+
+## Manager Coaching Notes
+
+- **Blind spots are the deliverable.** A rep who maps all seven steps perfectly learned nothing. A rep who circles three steps they cannot see just found the three reasons their deal will slip. Reward honesty about the unknowns.
+- **"Says who?" on every duration.** Reps fill in timelines from optimism, not evidence. Every duration must trace to something the buyer actually said. If it does not, it is a blind spot.
+- **Tie the map to the forecast.** Any late-stage deal without a buying-process map is not really a committed deal — it is a hope with a date attached. Treat it that way in the pipeline review.
+- **Watch for the missing security review.** The single most common deal-killer is an unmapped IT or InfoSec review that adds four to eight weeks. Make every rep explicitly confirm whether one exists.
+- **Re-run quarterly.** Buying processes change as buyers reorganize and budgets cycle. Make this a standing quarterly working session.
+
+## The Bottom Line
+
+A deal does not close when the rep is ready. It closes when the buyer's last internal approval clears. Reps who cannot name those approvals are forecasting blind — and blind forecasts are why the quarter that looked safe in week two falls apart in week twelve. This session gives every rep a step-by-step map of the buyer's real process, a list of the steps they still cannot see, and the questions to close those gaps — so the next time a rep says a deal is "closing this month," they can prove it.

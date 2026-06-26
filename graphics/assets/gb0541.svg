@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="track" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="var(--c2)" stop-opacity="0.35"/>
+<stop offset="0.5" stop-color="var(--c1)" stop-opacity="0.85"/>
+<stop offset="1" stop-color="var(--c4)" stop-opacity="0.85"/>
+</linearGradient>
+</defs>
+<rect width="1584" height="396" fill="url(#bg)"/>
+
+<!-- Title -->
+<text x="56" y="48" font-family="Inter,system-ui,sans-serif" font-size="24" font-weight="700" fill="var(--c3)">12-TOUCH SEQUENCE</text>
+<text x="56" y="76" font-family="Inter,system-ui,sans-serif" font-size="18" fill="var(--c4b)" opacity="0.85">Email / Phone / LinkedIn / Video over 4 weeks</text>
+
+<!-- Week labels -->
+<g font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="var(--c3)">
+<text x="200" y="118" text-anchor="middle">WEEK 1</text>
+<text x="540" y="118" text-anchor="middle">WEEK 2</text>
+<text x="880" y="118" text-anchor="middle">WEEK 3</text>
+<text x="1220" y="118" text-anchor="middle">WEEK 4</text>
+</g>
+
+<!-- Week dividers -->
+<g stroke="var(--c2)" stroke-opacity="0.4" stroke-dasharray="4 6">
+<line x1="370" y1="100" x2="370" y2="360"/>
+<line x1="710" y1="100" x2="710" y2="360"/>
+<line x1="1050" y1="100" x2="1050" y2="360"/>
+</g>
+
+<!-- Main timeline track -->
+<rect x="60" y="218" width="1464" height="10" rx="5" fill="url(#track)"/>
+
+<!-- Channel legend -->
+<g font-family="Inter,system-ui,sans-serif" font-size="18" font-weight="600">
+<g transform="translate(60,355)">
+<circle cx="10" cy="0" r="9" fill="var(--c1)"/>
+<text x="28" y="6" fill="var(--c3)">Email</text>
+</g>
+<g transform="translate(180,355)">
+<rect x="2" y="-9" width="18" height="18" rx="3" fill="var(--c4)"/>
+<text x="28" y="6" fill="var(--c3)">Phone</text>
+</g>
+<g transform="translate(310,355)">
+<polygon points="11,-10 22,9 0,9" fill="var(--c2)"/>
+<text x="28" y="6" fill="var(--c3)">LinkedIn</text>
+</g>
+<g transform="translate(450,355)">
+<path d="M0,-8 L18,0 L0,8 Z" fill="var(--c4b)"/>
+<text x="28" y="6" fill="var(--c3)">Video</text>
+</g>
+</g>
+
+<!-- Touchpoints: 12 touches spaced across 1464 px (from x=80 to x=1504) -->
+<!-- T1 Email Day 1 -->
+<g transform="translate(120,223)">
+<line x1="0" y1="0" x2="0" y2="-55" stroke="var(--c1)" stroke-width="2"/>
+<circle cx="0" cy="-65" r="18" fill="var(--c1)" stroke="var(--ink)" stroke-width="2"/>
+<text x="0" y="-60" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">1</text>
+<text x="0" y="-95" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Email</text>
+<text x="0" y="25" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 1</text>
+</g>
+
+<!-- T2 LinkedIn Day 2 -->
+<g transform="translate(240,223)">
+<line x1="0" y1="0" x2="0" y2="45" stroke="var(--c2)" stroke-width="2"/>
+<polygon points="0,65 -16,40 16,40" fill="var(--c2)" stroke="var(--ink)" stroke-width="2"/>
+<text x="0" y="95" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">LinkedIn</text>
+<text x="0" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 2</text>
+</g>
+
+<!-- T3 Phone Day 3 -->
+<g transform="translate(330,223)">
+<line x1="0" y1="0" x2="0" y2="-55" stroke="var(--c4)" stroke-width="2"/>
+<rect x="-18" y="-83" width="36" height="36" rx="5" fill="var(--c4)" stroke="var(--ink)" stroke-width="2"/>
+<text x="0" y="-60" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">3</text>
+<text x="0" y="-95" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Phone</text>
+<text x="0" y="25" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 3</text>
+</g>
+
+<!-- T4 Video Day 5 -->
+<g transform="translate(440,223)">
+<line x1="0" y1="0" x2="0" y2="45" stroke="var(--c4b)" stroke-width="2"/>
+<path d="M-18,50 L18,68 L-18,86 Z" fill="var(--c4b)" stroke="var(--ink)" stroke-width="2"/>
+<text x="0" y="113" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Video</text>
+<text x="0" y="135" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 5</text>
+</g>
+
+<!-- WEEK 2 -->
+<!-- T5 Email Day 8 -->
+<g transform="translate(560,223)">
+<line x1="0" y1="0" x2="0" y2="-55" stroke="var(--c1)" stroke-width="2"/>
+<circle cx="0" cy="-65" r="18" fill="var(--c1)" stroke="var(--ink)" stroke-width="2"/>
+<text x="0" y="-60" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">5</text>
+<text x="0" y="-95" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Email</text>
+<text x="0" y="25" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 8</text>
+</g>
+
+<!-- T6 Phone Day 10 -->
+<g transform="translate(660,223)">
+<line x1="0" y1="0" x2="0" y2="45" stroke="var(--c4)" stroke-width="2"/>
+<rect x="-18" y="50" width="36" height="36" rx="5" fill="var(--c4)" stroke="var(--ink)" stroke-width="2"/>
+<text x="0" y="73" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">6</text>
+<text x="0" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Phone</text>
+<text x="0" y="130" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 10</text>
+</g>
+
+<!-- T7 LinkedIn Day 12 -->
+<g transform="translate(780,223)">
+<line x1="0" y1="0" x2="0" y2="-55" stroke="var(--c2)" stroke-width="2"/>
+<polygon points="0,-85 -16,-60 16,-60" fill="var(--c2)" stroke="var(--ink)" stroke-width="2"/>
+<text x="0" y="-95" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">LinkedIn</text>
+<text x="0" y="25" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 12</text>
+</g>
+
+<!-- WEEK 3 -->
+<!-- T8 Video Day 15 -->
+<g transform="translate(880,223)">
+<line x1="0" y1="0" x2="0" y2="45" stroke="var(--c4b)" stroke-width="2"/>
+<path d="M-18,50 L18,68 L-18,86 Z" fill="var(--c4b)" stroke="var(--ink)" stroke-width="2"/>
+<text x="0" y="113" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Video</text>
+<text x="0" y="135" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 15</text>
+</g>
+
+<!-- T9 Email Day 17 -->
+<g transform="translate(980,223)">
+<line x1="0" y1="0" x2="0" y2="-55" stroke="var(--c1)" stroke-width="2"/>
+<circle cx="0" cy="-65" r="18" fill="var(--c1)" stroke="var(--ink)" stroke-width="2"/>
+<text x="0" y="-60" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">9</text>
+<text x="0" y="-95" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Email</text>
+<text x="0" y="25" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 17</text>
+</g>
+
+<!-- T10 Phone Day 19 -->
+<g transform="translate(1100,223)">
+<line x1="0" y1="0" x2="0" y2="45" stroke="var(--c4)" stroke-width="2"/>
+<rect x="-22" y="50" width="44" height="36" rx="5" fill="var(--c4)" stroke="var(--ink)" stroke-width="2"/>
+<text x="0" y="73" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">10</text>
+<text x="0" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Phone</text>
+<text x="0" y="130" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 19</text>
+</g>
+
+<!-- WEEK 4 -->
+<!-- T11 LinkedIn Day 23 -->
+<g transform="translate(1280,223)">
+<line x1="0" y1="0" x2="0" y2="-55" stroke="var(--c2)" stroke-width="2"/>
+<polygon points="0,-85 -16,-60 16,-60" fill="var(--c2)" stroke="var(--ink)" stroke-width="2"/>
+<text x="0" y="-95" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">LinkedIn</text>
+<text x="0" y="25" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 23</text>
+</g>
+
+<!-- T12 Email "Breakup" Day 28 -->
+<g transform="translate(1450,223)">
+<line x1="0" y1="0" x2="0" y2="45" stroke="var(--c1)" stroke-width="2"/>
+<circle cx="0" cy="65" r="22" fill="var(--c1)" stroke="var(--ink)" stroke-width="3"/>
+<text x="0" y="71" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">12</text>
+<text x="0" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c4)">Breakup</text>
+<text x="0" y="130" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" fill="var(--c4b)">Day 28</text>
+</g>
+
+<!-- Touch number labels for those without (T1, T2, T4, T7, T8, T11) embedded above -->
+<g font-family="Inter,sans-serif" font-size="14" font-weight="800" fill="var(--ink)">
+<text x="120" y="159" text-anchor="middle"></text>
+</g>
+
+<!-- T2 number -->
+<text x="240" y="273" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">2</text>
+<!-- T4 number -->
+<text x="440" y="274" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">4</text>
+<!-- T7 number -->
+<text x="780" y="148" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">7</text>
+<!-- T8 number -->
+<text x="880" y="291" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">8</text>
+<!-- T11 number -->
+<text x="1280" y="148" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="800" fill="var(--ink)">11</text>
+
+<!-- Footer metric -->
+<text x="1524" y="48" text-anchor="end" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="var(--c4)">4 weeks · 12 touches · 4 channels</text>
+</svg>

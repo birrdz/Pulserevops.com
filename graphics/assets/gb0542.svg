@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="rootGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)"/>
+<stop offset="1" stop-color="var(--c2)"/>
+</linearGradient>
+<linearGradient id="aeGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c3)"/>
+<stop offset="1" stop-color="var(--c1)"/>
+</linearGradient>
+<linearGradient id="mgrGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c4b)"/>
+<stop offset="1" stop-color="var(--c4)"/>
+</linearGradient>
+<linearGradient id="vpGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c4)"/>
+<stop offset="1" stop-color="var(--c2)"/>
+</linearGradient>
+</defs>
+<rect width="1584" height="396" fill="url(#bg)"/>
+
+<!-- Title -->
+<text x="40" y="44" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" font-weight="700" fill="var(--c3)">PRICING DISCOUNT DECISION TREE</text>
+<text x="40" y="68" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="14" font-weight="500" fill="var(--c3)" opacity="0.75">Approval routing by discount percentage</text>
+
+<!-- Root Node: Deal Submitted -->
+<rect x="60" y="160" width="220" height="80" rx="14" fill="url(#rootGrad)" stroke="var(--c3)" stroke-width="2"/>
+<text x="170" y="195" text-anchor="middle" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="20" font-weight="700" fill="var(--ink)">Deal Submitted</text>
+<text x="170" y="218" text-anchor="middle" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="14" font-weight="500" fill="var(--ink)" opacity="0.75">Discount requested?</text>
+
+<!-- Trunk to decision -->
+<path d="M280 200 L370 200" fill="none" stroke="var(--c1)" stroke-width="3"/>
+
+<!-- Decision Diamond -->
+<polygon points="490,140 590,200 490,260 390,200" fill="var(--c2)" stroke="var(--c3)" stroke-width="2"/>
+<text x="490" y="195" text-anchor="middle" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Discount</text>
+<text x="490" y="217" text-anchor="middle" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Percent?</text>
+
+<!-- Branches: three lines splitting from diamond right edge -->
+<!-- Top branch < 10% -->
+<path d="M590 200 L720 100" fill="none" stroke="var(--c1)" stroke-width="3"/>
+<text x="635" y="135" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="18" font-weight="700" fill="var(--c1)">&lt; 10%</text>
+<!-- Middle branch 10-20% -->
+<path d="M590 200 L720 200" fill="none" stroke="var(--c4)" stroke-width="3"/>
+<text x="625" y="190" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="18" font-weight="700" fill="var(--c4)">10 - 20%</text>
+<!-- Bottom branch > 20% -->
+<path d="M590 200 L720 300" fill="none" stroke="var(--c4)" stroke-width="3"/>
+<text x="635" y="290" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="18" font-weight="700" fill="var(--c4)">&gt; 20%</text>
+
+<!-- AE Approves Card (top) -->
+<rect x="720" y="60" width="320" height="100" rx="14" fill="url(#aeGrad)" stroke="var(--c1)" stroke-width="2"/>
+<text x="740" y="92" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="20" font-weight="800" fill="var(--ink)">AE APPROVES</text>
+<text x="740" y="118" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="14" font-weight="600" fill="var(--ink)">Auto-approve in CRM</text>
+<text x="740" y="138" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="14" font-weight="500" fill="var(--ink)" opacity="0.8">Same-day quote release</text>
+<circle cx="1010" cy="110" r="22" fill="var(--ink)" opacity="0.15"/>
+<text x="1010" y="118" text-anchor="middle" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" font-weight="800" fill="var(--ink)">1</text>
+
+<!-- Manager Approves Card (middle) -->
+<rect x="720" y="160" width="320" height="100" rx="14" fill="url(#mgrGrad)" stroke="var(--c4)" stroke-width="2"/>
+<text x="740" y="192" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="20" font-weight="800" fill="var(--ink)">MANAGER APPROVES</text>
+<text x="740" y="218" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="14" font-weight="600" fill="var(--ink)">Sales Manager sign-off</text>
+<text x="740" y="238" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="14" font-weight="500" fill="var(--ink)" opacity="0.8">SLA: 24 hours</text>
+<circle cx="1010" cy="210" r="22" fill="var(--ink)" opacity="0.15"/>
+<text x="1010" y="218" text-anchor="middle" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" font-weight="800" fill="var(--ink)">2</text>
+
+<!-- VP Approves Card (bottom) -->
+<rect x="720" y="260" width="320" height="100" rx="14" fill="url(#vpGrad)" stroke="var(--c2)" stroke-width="2"/>
+<text x="740" y="292" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="20" font-weight="800" fill="var(--ink)">VP APPROVES</text>
+<text x="740" y="318" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="14" font-weight="600" fill="var(--ink)">VP of Sales + Finance</text>
+<text x="740" y="338" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="14" font-weight="500" fill="var(--ink)" opacity="0.8">SLA: 48 hours, deal review</text>
+<circle cx="1010" cy="310" r="22" fill="var(--ink)" opacity="0.15"/>
+<text x="1010" y="318" text-anchor="middle" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" font-weight="800" fill="var(--ink)">3</text>
+
+<!-- Outcome arrows -->
+<path d="M1040 110 L1100 110" fill="none" stroke="var(--c1)" stroke-width="3" marker-end="url(#arrow1)"/>
+<path d="M1040 210 L1100 210" fill="none" stroke="var(--c4)" stroke-width="3" marker-end="url(#arrow2)"/>
+<path d="M1040 310 L1100 310" fill="none" stroke="var(--c2)" stroke-width="3" marker-end="url(#arrow3)"/>
+<defs>
+<marker id="arrow1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--c1)"/></marker>
+<marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--c4)"/></marker>
+<marker id="arrow3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--c2)"/></marker>
+</defs>
+
+<!-- Outcome / Result Panel -->
+<rect x="1110" y="60" width="440" height="300" rx="16" fill="var(--ink)" opacity="0.35" stroke="var(--c3)" stroke-width="1.5"/>
+<text x="1130" y="95" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="18" font-weight="700" fill="var(--c3)">OUTCOMES &amp; GUARDRAILS</text>
+
+<!-- Row 1 -->
+<circle cx="1140" cy="135" r="8" fill="var(--c1)"/>
+<text x="1158" y="140" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="15" font-weight="700" fill="var(--c3)">Fast lane: 70% of deals</text>
+<text x="1158" y="160" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="13" font-weight="500" fill="var(--c3)" opacity="0.8">Quote &lt; 1 hour, no escalation</text>
+
+<!-- Row 2 -->
+<circle cx="1140" cy="195" r="8" fill="var(--c4)"/>
+<text x="1158" y="200" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="15" font-weight="700" fill="var(--c3)">Manager lane: ~25%</text>
+<text x="1158" y="220" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="13" font-weight="500" fill="var(--c3)" opacity="0.8">Margin defense, comp guard</text>
+
+<!-- Row 3 -->
+<circle cx="1140" cy="255" r="8" fill="var(--c2)"/>
+<text x="1158" y="260" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="15" font-weight="700" fill="var(--c3)">Exec lane: ~5%</text>
+<text x="1158" y="280" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="13" font-weight="500" fill="var(--c3)" opacity="0.8">Strategic only, board-visible</text>
+
+<!-- Footer note -->
+<rect x="1130" y="305" width="400" height="40" rx="8" fill="var(--c2)" opacity="0.5"/>
+<text x="1330" y="330" text-anchor="middle" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="13" font-weight="600" fill="var(--c3)">All exceptions logged &#8594; quarterly margin review</text>
+
+<!-- Tier ladder visual on the left -->
+<g transform="translate(60,275)">
+<rect x="0" y="0" width="220" height="14" rx="4" fill="var(--c1)"/>
+<rect x="0" y="20" width="170" height="14" rx="4" fill="var(--c4)"/>
+<rect x="0" y="40" width="90" height="14" rx="4" fill="var(--c2)"/>
+<text x="0" y="80" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="500" fill="var(--c3)" opacity="0.7">Volume of deals by approval tier</text>
+</g>
+
+</svg>

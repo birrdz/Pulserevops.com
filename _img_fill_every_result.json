@@ -1,0 +1,11 @@
+{
+ "prefixes": [
+  "q"
+ ],
+ "processed": 294,
+ "fixed": 294,
+ "failed": 0,
+ "skipped": 7027,
+ "cacheHits": 131,
+ "ddgCalls": 163
+}

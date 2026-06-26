@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;font-family:'Segoe UI',system-ui,sans-serif;}
+.bg{fill:var(--bg1,#0b0f17);}
+.panel{fill:var(--bg2,#0f172a);stroke:var(--c2);stroke-width:1.5;rx:10;}
+.title{fill:var(--c3);font-size:18px;font-weight:700;letter-spacing:0.5px;}
+.h1{fill:var(--c1);font-size:24px;font-weight:800;}
+.lbl{fill:var(--c3);font-size:14px;font-weight:600;}
+.val{fill:var(--c4b);font-size:14px;font-weight:700;}
+.big{fill:var(--c4);font-size:38px;font-weight:800;}
+.sub{fill:var(--c3);font-size:12px;opacity:0.8;}
+.gridline{stroke:var(--c2);stroke-width:0.5;opacity:0.3;}
+</style>
+<rect class="bg" width="1584" height="396"/>
+
+<!-- Header -->
+<text x="32" y="42" class="h1">PIPELINE HEALTH DASHBOARD</text>
+<rect x="32" y="54" width="280" height="3" fill="var(--c1)"/>
+<text x="32" y="78" class="sub">Coverage • Stages • Aging • Forecast</text>
+
+<!-- Panel 1: Coverage Ratio -->
+<rect x="32" y="100" width="360" height="270" rx="10" fill="var(--bg2,#0f172a)" stroke="var(--c2)" stroke-width="1.5"/>
+<text x="52" y="130" class="title">COVERAGE RATIO</text>
+<rect x="52" y="138" width="60" height="2" fill="var(--c4)"/>
+
+<!-- Gauge arc -->
+<g transform="translate(212,260)">
+<path d="M -120 0 A 120 120 0 0 1 120 0" fill="none" stroke="var(--ink)" stroke-width="22" opacity="0.4"/>
+<path d="M -120 0 A 120 120 0 0 1 -42.4 -112.3" fill="none" stroke="var(--c4)" stroke-width="22" stroke-linecap="round"/>
+<path d="M -42.4 -112.3 A 120 120 0 0 1 42.4 -112.3" fill="none" stroke="var(--c1)" stroke-width="22" stroke-linecap="round"/>
+<path d="M 42.4 -112.3 A 120 120 0 0 1 120 0" fill="none" stroke="var(--c2)" stroke-width="22" stroke-linecap="round"/>
+<text x="0" y="-30" text-anchor="middle" class="big">3.2x</text>
+<text x="0" y="-8" text-anchor="middle" class="sub">target: 3.0x</text>
+<!-- needle -->
+<line x1="0" y1="0" x2="60" y2="-104" stroke="var(--c3)" stroke-width="3" stroke-linecap="round"/>
+<circle cx="0" cy="0" r="8" fill="var(--c3)"/>
+</g>
+<text x="92" y="350" class="lbl">1x</text>
+<text x="200" y="350" class="lbl" text-anchor="middle">3x</text>
+<text x="328" y="350" class="lbl" text-anchor="end">5x</text>
+
+<!-- Panel 2: Deal Stages -->
+<rect x="412" y="100" width="380" height="270" rx="10" fill="var(--bg2,#0f172a)" stroke="var(--c2)" stroke-width="1.5"/>
+<text x="432" y="130" class="title">DEAL STAGES</text>
+<rect x="432" y="138" width="60" height="2" fill="var(--c4)"/>
+
+<!-- Funnel stages -->
+<g transform="translate(432,158)">
+<!-- Prospect -->
+<polygon points="0,0 340,0 320,32 20,32" fill="var(--c3)" opacity="0.85"/>
+<text x="170" y="22" text-anchor="middle" fill="var(--ink)" font-size="14" font-weight="700">PROSPECT  •  $4.8M</text>
+<!-- Qualify -->
+<polygon points="20,38 320,38 300,70 40,70" fill="var(--c1)"/>
+<text x="170" y="60" text-anchor="middle" fill="var(--ink)" font-size="14" font-weight="700">QUALIFY  •  $3.2M</text>
+<!-- Demo -->
+<polygon points="40,76 300,76 280,108 60,108" fill="var(--c2)"/>
+<text x="170" y="98" text-anchor="middle" fill="var(--c3)" font-size="14" font-weight="700">DEMO  •  $2.1M</text>
+<!-- Proposal -->
+<polygon points="60,114 280,114 260,146 80,146" fill="var(--c4)"/>
+<text x="170" y="136" text-anchor="middle" fill="var(--ink)" font-size="14" font-weight="700">PROPOSAL  •  $1.4M</text>
+<!-- Negotiate -->
+<polygon points="80,152 260,152 240,184 100,184" fill="var(--c4b)"/>
+<text x="170" y="174" text-anchor="middle" fill="var(--ink)" font-size="14" font-weight="700">NEGOTIATE  •  $820K</text>
+<!-- Close -->
+<polygon points="100,190 240,190 220,210 120,210" fill="var(--c1)"/>
+<text x="170" y="205" text-anchor="middle" fill="var(--ink)" font-size="13" font-weight="800">CLOSE  •  $510K</text>
+</g>
+
+<!-- Panel 3: Aging Buckets -->
+<rect x="812" y="100" width="380" height="270" rx="10" fill="var(--bg2,#0f172a)" stroke="var(--c2)" stroke-width="1.5"/>
+<text x="832" y="130" class="title">AGING BUCKETS</text>
+<rect x="832" y="138" width="60" height="2" fill="var(--c4)"/>
+
+<!-- bars -->
+<g transform="translate(852,160)">
+<!-- 0-30 -->
+<text x="0" y="20" class="lbl">0–30d</text>
+<rect x="80" y="6" width="180" height="20" fill="var(--c1)"/>
+<text x="270" y="22" class="val">$2.4M</text>
+<!-- 31-60 -->
+<text x="0" y="56" class="lbl">31–60d</text>
+<rect x="80" y="42" width="130" height="20" fill="var(--c3)"/>
+<text x="270" y="58" class="val">$1.7M</text>
+<!-- 61-90 -->
+<text x="0" y="92" class="lbl">61–90d</text>
+<rect x="80" y="78" width="80" height="20" fill="var(--c4)"/>
+<text x="270" y="94" class="val">$960K</text>
+<!-- 91-120 -->
+<text x="0" y="128" class="lbl">91–120d</text>
+<rect x="80" y="114" width="50" height="20" fill="var(--c4b)"/>
+<text x="270" y="130" class="val">$540K</text>
+<!-- 120+ STALE -->
+<text x="0" y="164" class="lbl">120d+</text>
+<rect x="80" y="150" width="28" height="20" fill="#dc2626"/>
+<text x="270" y="166" class="val">$310K</text>
+<text x="120" y="166" fill="#dc2626" font-size="12" font-weight="800">STALE</text>
+</g>
+
+<!-- median age callout -->
+<rect x="852" y="338" width="320" height="22" rx="4" fill="var(--ink)" opacity="0.5"/>
+<text x="868" y="354" class="lbl">Median Age:</text>
+<text x="960" y="354" class="val">47 days</text>
+<text x="1060" y="354" class="sub">▲ 6d vs Q-1</text>
+
+<!-- Panel 4: Forecast Categories -->
+<rect x="1212" y="100" width="340" height="270" rx="10" fill="var(--bg2,#0f172a)" stroke="var(--c2)" stroke-width="1.5"/>
+<text x="1232" y="130" class="title">FORECAST CATEGORIES</text>
+<rect x="1232" y="138" width="60" height="2" fill="var(--c4)"/>
+
+<!-- stacked horizontal -->
+<g transform="translate(1232,158)">
+<!-- Commit -->
+<rect x="0" y="0" width="300" height="36" fill="var(--c1)" rx="3"/>
+<text x="14" y="23" fill="var(--ink)" font-size="14" font-weight="800">COMMIT</text>
+<text x="286" y="23" text-anchor="end" fill="var(--ink)" font-size="14" font-weight="800">$1.2M</text>
+<!-- Best Case -->
+<rect x="0" y="46" width="240" height="36" fill="var(--c3)" rx="3"/>
+<text x="14" y="69" fill="var(--ink)" font-size="14" font-weight="800">BEST CASE</text>
+<text x="226" y="69" text-anchor="end" fill="var(--ink)" font-size="14" font-weight="800">$2.1M</text>
+<!-- Pipeline -->
+<rect x="0" y="92" width="200" height="36" fill="var(--c4)" rx="3"/>
+<text x="14" y="115" fill="var(--ink)" font-size="14" font-weight="800">PIPELINE</text>
+<text x="186" y="115" text-anchor="end" fill="var(--ink)" font-size="14" font-weight="800">$3.4M</text>
+<!-- Omitted -->
+<rect x="0" y="138" width="120" height="36" fill="var(--c4b)" rx="3" opacity="0.7"/>
+<text x="14" y="161" fill="var(--ink)" font-size="14" font-weight="800">OMITTED</text>
+<text x="106" y="161" text-anchor="end" fill="var(--ink)" font-size="14" font-weight="800">$640K</text>
+<!-- Closed Won -->
+<rect x="0" y="184" width="160" height="20" fill="var(--c2)" rx="3"/>
+<text x="14" y="199" fill="var(--c3)" font-size="12" font-weight="800">CLOSED-WON  $890K</text>
+</g>
+
+<!-- footer KPI strip -->
+<g transform="translate(32,360)">
+<text x="0" y="14" class="sub">QUOTA $4.0M</text>
+<text x="140" y="14" class="sub">ATTAIN 72%</text>
+<text x="280" y="14" class="sub">WIN RATE 28%</text>
+<text x="430" y="14" class="sub">AVG DEAL $84K</text>
+<text x="580" y="14" class="sub">CYCLE 64d</text>
+</g>
+</svg>

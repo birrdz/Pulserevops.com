@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF">
+<title>Book a Trip — Everything PULSE Knows About Your City — Pulse</title>
+<meta name="description" content="Tell PULSE where you're going and instantly pull up everything we've written for that city — dining, nightlife, towns, schools, and more.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://pulserevops.com/trip">
+<meta property="og:title" content="Book a Trip — Everything PULSE Knows About Your City">
+<meta property="og:description" content="Tell PULSE where you're going and instantly pull up everything we've written for that city.">
+<meta property="og:url" content="https://pulserevops.com/trip">
+<meta property="og:image" content="https://pulserevops.com/pulse-og.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PULSE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pulserevops.com/pulse-og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--orange:#E25C29;--od:#C44E1F;--ink:#16161D;--ink2:#55576A;--ink3:#8A8BA0;--bg:#fff;--soft:#FAF8F4;--line:rgba(20,20,30,.10)}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+.hdr{display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;padding:16px 22px}
+.hdr a.brand{display:flex;align-items:center;gap:8px;text-decoration:none}
+.hdr .live{display:inline-flex;align-items:center;gap:5px;background:rgba(226,92,41,.10);border:1px solid rgba(226,92,41,.30);color:var(--orange);font-size:10px;font-weight:800;letter-spacing:1.2px;padding:4px 10px;border-radius:20px}
+.hdr .name{color:var(--orange);font-weight:900;font-size:20px;letter-spacing:1px}
+.hdr .adv{color:var(--orange);font-size:12px;font-weight:800;text-decoration:none}
+.hero{max-width:880px;margin:0 auto;padding:30px 22px 8px;text-align:center}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(226,92,41,.08);border:1px solid rgba(226,92,41,.28);color:var(--orange);font-size:11px;font-weight:800;letter-spacing:1.4px;padding:6px 14px;border-radius:20px;text-transform:uppercase;margin-bottom:18px}
+.hero h1{font-size:clamp(30px,6vw,56px);font-weight:900;letter-spacing:-1.5px;line-height:1.05}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero p{margin:14px auto 0;max-width:620px;color:var(--ink2);font-size:16px}
+.searchwrap{max-width:620px;margin:26px auto 0;display:flex;gap:10px}
+#city{flex:1;background:#fff;border:2px solid var(--line);border-radius:14px;padding:16px 18px;font:700 17px 'Plus Jakarta Sans',sans-serif;color:var(--ink);outline:none}
+#city:focus{border-color:var(--orange)}
+#go{background:var(--orange);color:#fff;border:none;border-radius:14px;padding:0 26px;font:800 16px 'Plus Jakarta Sans',sans-serif;cursor:pointer;white-space:nowrap}
+#go:hover{background:var(--od)}
+.suggest{margin:14px auto 0;max-width:620px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{background:var(--soft);border:1px solid var(--line);border-radius:99px;padding:7px 14px;font-size:13px;font-weight:700;color:var(--ink2);cursor:pointer}
+.chip:hover{border-color:var(--orange);color:var(--orange)}
+.results{max-width:1080px;margin:30px auto 60px;padding:0 22px}
+.status{text-align:center;color:var(--ink3);font-weight:700;padding:20px}
+.group{margin-top:28px}
+.group h2{font-size:18px;font-weight:900;letter-spacing:-.3px;display:flex;align-items:center;gap:9px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+.group h2 .ct{margin-left:auto;font-size:12px;color:var(--ink3);font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.card{display:block;background:#fff;border:2px solid #141414;border-radius:14px;padding:15px 16px;text-decoration:none;color:var(--ink);transition:transform .12s,box-shadow .15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(20,20,30,.10)}
+.card .t{font-weight:800;font-size:14.5px;line-height:1.3}
+.card .m{margin-top:7px;font-size:11px;color:var(--orange);font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.footer{text-align:center;color:var(--ink3);font-size:12px;padding:30px 22px 50px}
+.footer a{color:var(--orange);text-decoration:none}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a href="/" class="brand"><span class="live"><span></span>LIVE</span><span class="name">PULSE</span></a>
+  <a href="/sponsor" class="adv">✦ Advertise</a>
+</header>
+<section class="hero">
+  <div class="eyebrow"><span>✈️</span> Book a Trip</div>
+  <h1>Tell us where you're going. <em>We'll pull up everything.</em></h1>
+  <p>Type a city and PULSE instantly gathers every ranking we've written for it — dining, nightlife, towns, schools, and more — in one place.</p>
+  <div class="searchwrap">
+    <input id="city" type="search" placeholder="Where are you headed? e.g. Chicago, Austin, Miami…" autocomplete="off">
+    <button id="go">Show me everything</button>
+  </div>
+  <div style="margin-top:12px"><button id="geo" class="chip" style="font-weight:800;border-color:var(--orange);color:var(--orange)">📍 Use my location</button> <span id="geomsg" style="font-size:12px;color:var(--ink3)"></span></div>
+  <div class="suggest" id="suggest"></div>
+</section>
+<div class="results" id="results"></div>
+<div class="footer">© 2025 Kory White · <a href="/">PULSE</a> · <a href="/knowledge">Browse the full library</a></div>
+<script>
+(function(){
+  var PMAP={
+    q:['/knowledge/','📚 Knowledge'], st:['/sales-trainings/','🎓 Trainings'], ik:['/industry-kpis/','📊 KPIs'],
+    tk:['/tech-stacks/','🧰 Tech Stacks'], bs:['/sales-book-summaries/','📖 Books'], er:['/electronic-reviews/','⭐ Reviews'],
+    ra:['/revenue-architecture/','🏗️ Revenue'], gp:['/go-to-market-playbooks/','🗺️ Playbooks'], fr:['/franchises/','🏪 Franchises'],
+    ca:['/cars/','🚗 Cars'], tn:['/towns/','🏘️ Towns'], sc:['/schools/','🏫 Schools'], nl:['/nightlife/','🌃 Nightlife'],
+    dn:['/dining/','🍽️ Dining'], bt:['/boats/','⛵ Boats'], mv:['/movies/','🎬 Movies'], wl:['/wellness/','🧘 Wellness'],
+    dr:['/drills/','🛠 Drills'], tv:['/travel/','✈️ Travel'], rs:['/resorts/','🌴 Resorts'], es:['/estates/','🏡 Estates'],
+    cl:['/clubs/','⛳ Clubs'], lv:['/living/','🛋 Living'], ev:['/events/','🎟 Events'], sy:['/style/','👗 Style'],
+    ga:['/gatherings/','🥂 Gatherings'], gm:['/gaming/','🎮 Gaming']
+  };
+  var ALL=null;
+  var results=document.getElementById('results'), input=document.getElementById('city');
+  function pref(id){var m=String(id).match(/^([a-z]+)/);return m?m[1]:'';}
+  function status(t){results.innerHTML='<div class="status">'+t+'</div>';}
+  function load(cb){
+    if(ALL){cb();return;}
+    status('Loading the library…');
+    fetch('/.netlify/functions/pulse-machine-library-list?recent=12000').then(function(r){return r.json();}).then(function(d){
+      var items=Array.isArray(d)?d:(d.entries||d.items||[]);
+      ALL=items.map(function(e){return {id:e.id,title:e.question||e.title||''};}).filter(function(e){return e.id&&e.title;});
+      cb();
+    }).catch(function(){status('Could not load the library. Please try again.');});
+  }
+  function search(city){
+    city=(city||'').trim();
+    if(!city){status('Type a city to begin.');return;}
+    load(function(){
+      var needle=city.toLowerCase();
+      var hits=ALL.filter(function(e){return e.title.toLowerCase().indexOf(needle)>=0;});
+      if(!hits.length){status('No entries yet for “'+city+'”. Try a bigger nearby city — we add new cities constantly.');return;}
+      var groups={};
+      hits.forEach(function(e){var p=pref(e.id);if(!PMAP[p])return;(groups[p]=groups[p]||[]).push(e);});
+      var order=Object.keys(groups).sort(function(a,b){return groups[b].length-groups[a].length;});
+      var html='<div class="status" style="color:#16161D;font-size:18px;">Everything PULSE knows about <strong style="color:#E25C29">'+city+'</strong> · '+hits.length+' entries</div>';
+      order.forEach(function(p){
+        var cfg=PMAP[p], list=groups[p];
+        html+='<div class="group"><h2>'+cfg[1]+'<span class="ct">'+list.length+'</span></h2><div class="grid">';
+        list.forEach(function(e){html+='<a class="card" href="'+cfg[0]+e.id+'"><div class="t">'+e.title.replace(/</g,'&lt;')+'</div><div class="m">'+cfg[1].replace(/^\S+\s/,'')+'</div></a>';});
+        html+='</div></div>';
+      });
+      results.innerHTML=html;
+    });
+  }
+  document.getElementById('go').addEventListener('click',function(){search(input.value);history.replaceState(null,'','/trip?city='+encodeURIComponent(input.value.trim()));});
+  input.addEventListener('keydown',function(e){if(e.key==='Enter'){search(input.value);history.replaceState(null,'','/trip?city='+encodeURIComponent(input.value.trim()));}});
+  var sug=['Chicago','Austin','Miami','Nashville','New Orleans','Charleston','San Diego','Denver','Boston','Savannah'];
+  var sc=document.getElementById('suggest');
+  sug.forEach(function(c){var b=document.createElement('span');b.className='chip';b.textContent=c;b.onclick=function(){input.value=c;search(c);history.replaceState(null,'','/trip?city='+encodeURIComponent(c));};sc.appendChild(b);});
+  // ── Geolocation: detect current city and pull everything nearby ──
+  var geoBtn=document.getElementById('geo'), geoMsg=document.getElementById('geomsg');
+  geoBtn.addEventListener('click',function(){
+    if(!navigator.geolocation){geoMsg.textContent='Location not supported on this device.';return;}
+    geoMsg.textContent='Locating…';
+    navigator.geolocation.getCurrentPosition(function(pos){
+      var la=pos.coords.latitude, lo=pos.coords.longitude;
+      fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+la+'&longitude='+lo+'&localityLanguage=en')
+        .then(function(r){return r.json();}).then(function(d){
+          var city=d.city||d.locality||d.principalSubdivision||'';
+          if(!city){geoMsg.textContent='Could not pin your city — type it in.';return;}
+          geoMsg.textContent='📍 '+city;
+          input.value=city; search(city);
+          history.replaceState(null,'','/trip?city='+encodeURIComponent(city));
+        }).catch(function(){geoMsg.textContent='Could not look up your city — type it in.';});
+    },function(err){
+      geoMsg.textContent=(err && err.code===1)?'Location permission denied — type a city instead.':'Could not get your location — type a city instead.';
+    },{enableHighAccuracy:false,timeout:9000,maximumAge:600000});
+  });
+
+  var qp=new URLSearchParams(location.search).get('city');
+  if(qp){input.value=qp;search(qp);} else {status('Type a city, tap a suggestion, or use 📍 your location.');}
+})();
+</script>
+<script src="/js/pulse-lead-track.js" defer></script>
+</body>
+</html>

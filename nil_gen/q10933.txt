@@ -1,0 +1,107 @@
+QUESTION: What are Indiana Hoosiers football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Indiana enters 2027 as defending national champion after a 16-0 season capped by a 27-21 win over Miami in the January 19, 2026 CFP National Championship. Curt Cignetti, fresh off back-to-back Big Ten Coach of the Year honors and an eight-year, $105.6 million extension signed in October 2025, is no longer rebuilding — he is defending. The 2027 NIL job is inverted from the 2024-2025 underdog playbook. Indiana must pay champion prices to keep portal stars like Nick Marsh and Joe Brunner, replace Heisman-winning quarterback Fernando Mendoza, and fully fund the $20.5 million revenue-share pool that took effect July 1, 2025. Mark Cuban remains the financial keystone after back-to-back major donations Cignetti personally secured, but one billionaire alumnus cannot underwrite a dynasty. The 2027 strategy stacks the rev-share cap on offensive line and quarterback, converts championship attention into recurring booster revenue rather than one-time spikes, and uses Cignetti's portal track record as the primary closer for 2027 and 2028 high-school classes. The risk profile has flipped — Indiana is now the team being raided.
+
+**TL;DR:** Indiana's 2027 NIL job is dynasty maintenance — fully fund the $20.5M rev-share pool, retain Marsh and Brunner, replace Mendoza at QB, and turn Cuban's spotlight into a recurring booster base before SEC schools price-raid the champion roster.
+
+```mermaid
+flowchart TD
+    A[Indiana 2027 NIL Ecosystem] --> B[Revenue Share Pool 20.5M]
+    A --> C[Mark Cuban Lead Donor]
+    A --> D[Booster Collective Base]
+    A --> E[Cignetti Closer Effect]
+    B --> F[QB Replacement Slot]
+    B --> G[OL Retention Brunner]
+    B --> H[WR Retention Marsh]
+    C --> I[Portal Strike Fund]
+    D --> J[Recurring Monthly Giving]
+    E --> K[2027 HS Class]
+    E --> L[Transfer Portal 2027]
+    F --> M[Hoover or Portal QB1]
+    I --> L
+    J --> B
+    K --> N[Top 25 Class Goal]
+    L --> N
+```
+
+## 1. Where Indiana Stands — Cignetti Era 2027 NIL Math
+
+Indiana's 2027 NIL position is the strongest in program history and the most expensive. The athletic department has committed to fully funding the $20.5 million revenue-share allocation permitted under the House settlement framework that took effect July 1, 2025, with football receiving the dominant share — industry comparables put football's slice at roughly $14-15 million of that pool. Layered on top sits the Hoosiers For Good collective and the broader donor network Cignetti rebuilt from scratch after arriving in November 2023. The Cuban donations, secured by Cignetti personally from an alumnus who had never previously given to IU athletics, function as a strategic strike fund rather than baseline operating capital. The baseline is the rev-share pool plus recurring booster giving; Cuban money is the closer.
+
+The 2027 cost structure is dictated by three retention priorities. First is offensive line continuity around Joe Brunner, the 6-foot-5, 318-pound Wisconsin transfer who allowed three quarterback hits and zero sacks across more than 1,500 career snaps at left guard — a market-rate left guard at the champion tier now commands $1.5-2 million annually. Second is wide receiver Nick Marsh, the Michigan State transfer who led the Spartans in catches, yards, and touchdowns and is appearing on early 2027 NFL Draft first-round boards; that profile prices at $1.8-2.5 million for a final college season. Third is the quarterback room, where Mendoza's Heisman departure leaves TCU transfer Josh Hoover as the presumptive QB1 at a price point likely north of $2 million.
+
+| Roster Slot | 2027 Market Range | Indiana Priority | Funding Source |
+|-------------|-------------------|------------------|----------------|
+| QB1 (Hoover or portal) | $2.0-3.0M | Critical | Rev-share + Cuban |
+| WR1 (Marsh retention) | $1.8-2.5M | Critical | Rev-share |
+| LG (Brunner retention) | $1.5-2.0M | High | Rev-share |
+| DE (Osunsanmi) | $800K-1.2M | High | Rev-share |
+| 2027 HS class top-25 | $4-6M total | Strategic | Collective |
+| Portal strike fund | $3-5M | Flex | Cuban + boosters |
+
+## 2. Real 2027 Strategy — 5 Moves
+
+The first move is locking the offensive line for two seasons, not one. Brunner is the anchor, and Indiana should extend his NIL agreement through the 2027 season immediately rather than negotiating annually — champion programs that let interior linemen test the portal lose them to SEC schools willing to bid 30 percent over market. The second move is solving the quarterback question publicly and early. Hoover arrived from TCU with starting experience, and Indiana benefits from naming him QB1 in spring practice rather than running an open competition that signals instability to recruits and donors. The third move is monetizing the championship attention into recurring revenue. The MacArthur Bowl, the Mendoza Heisman, and the 16-0 banner generate a one-time donation spike; the strategic job is converting that spike into monthly recurring booster commitments before the news cycle moves on. Hoosiers For Good and the IU athletic department should be running a 90-day post-championship recurring-giving push targeting $5 million in annualized recurring commitments.
+
+The fourth move is using Cignetti himself as the primary recruiting closer for the 2027 high school class. His pitch — Indiana is going to keep winning, and we will pay you what you are worth — now lands with championship credibility behind it. The 2027 class target should be top-25 nationally, a level Indiana has never reached, with a focus on offensive line and defensive front because skill-position depth is the easier portal fix. The fifth move is building portal-defense intelligence. Every SEC compliance office and collective now knows which Indiana stars are on one-year deals, and the December 2026 portal window will be the most aggressive raid attempt in program history. Indiana needs a named portal-defense lead, a tampering-evidence protocol, and a Cuban-funded counter-offer fund ready to deploy within 48 hours of any tampering signal.
+
+## 3. Top 3 Risks
+
+The first risk is QB transition variance. Mendoza was the offense — Heisman winner, championship game MVP-tier passer, and the player every recruit was watching when they committed. Hoover is a capable replacement, but the gap between Heisman QB and good-Big-Ten QB is wider than the rev-share cap can paper over. A 9-3 or 10-2 regular season in 2027 would be a normal result for most programs and a disaster for Indiana's recruiting narrative, because the entire portal and high-school pitch is built on Cignetti's undefeated-coach aura. Insurance against this risk is a credible QB2 in the room and a willingness to make a QB change by mid-October if Hoover struggles.
+
+The second risk is collective fatigue. The Cuban donations are extraordinary but not contractually recurring, and the post-championship donor spike will decay on a predictable curve. If Hoosiers For Good does not convert the championship moment into a recurring giving base of at least 5,000 monthly donors, the 2028 rev-share pool will feel underfunded even if it nominally matches 2027. Champion programs that depend on one billionaire are one estate-planning decision away from a budget crisis.
+
+The third risk is SEC and Big Ten poaching. Ohio State, Michigan, Texas, Georgia, and Oregon all know the contract expirations of every Indiana starter. The December 2026 and December 2027 portal windows will be coordinated raid attempts, and Indiana has never defended a champion roster before. The portal-defense muscle memory — counter-offer speed, family relationships, retention bonuses — lags the portal-attack muscle Cignetti built on the way up.
+
+```mermaid
+flowchart TD
+    R[2027 Risk Stack] --> R1[QB Transition Variance]
+    R --> R2[Collective Fatigue]
+    R --> R3[SEC Poaching]
+    R1 --> M1[Name QB1 Early]
+    R1 --> M2[Credible QB2]
+    R2 --> M3[Recurring Giving Push]
+    R2 --> M4[Diversify Beyond Cuban]
+    R3 --> M5[Portal Defense Lead]
+    R3 --> M6[Counter Offer Fund 48hr]
+    M1 --> W[2027 Win Probability]
+    M3 --> W
+    M5 --> W
+```
+
+## 4. The 2027 Recruiting and Retention Calendar
+
+Indiana's 2027 NIL execution is bound to a fixed calendar, and missing a window is how champions lose rosters. The first pressure point is the December 2026 winter transfer portal window, which under current NCAA rules opens roughly the first week after conference championship weekend and runs about ten days. This is the window in which SEC and peer Big Ten collectives will test every Indiana starter whose deal expires after the 2026 season, so Hoosiers For Good must have retention extensions for Brunner and Marsh signed before the window opens, not during it. The second pressure point is the spring evaluation and signing period for the 2027 high-school class, where Cignetti's championship credibility has the shortest shelf life — recruits commit on momentum, and a title banner unveiled in fall 2026 carries the most weight with juniors deciding in early 2027.
+
+The retention math is unforgiving at the champion tier. Indiana's rev-share pool of $20.5 million is the same ceiling every fully participating House-settlement school operates under, which means Indiana cannot simply outspend Ohio State or Oregon inside the cap — every cap-compliant program has identical room. The differentiator becomes third-party NIL stacked on top of rev-share: legitimate endorsement deals with Indianapolis and Bloomington businesses, national brand activations tied to the championship, and the Cuban-funded strike fund for emergency counter-offers. The strategic principle is that the cap is a floor for competition, not a ceiling on creativity, and the program that builds the deepest legitimate third-party market wins the marginal recruit. Indiana should target a third-party NIL layer of at least $5-7 million annually on top of the rev-share football allocation, converting championship brand equity into durable athlete earning power that the cap alone cannot deliver.
+
+## FAQ
+
+**Q: Is Curt Cignetti staying at Indiana through 2027?**
+A: Yes. Cignetti signed an eight-year, $105.6 million extension in October 2025 averaging $13.2 million annually, the buyout makes a midstream move uneconomical for any suitor, and he has publicly stated Indiana is going to keep winning.
+
+**Q: How much of Indiana's $20.5 million rev-share pool goes to football?**
+A: Industry comparables suggest $14-15 million, roughly 70 percent of the total allocation, consistent with how Big Ten peers are dividing the House settlement pool.
+
+**Q: Who replaces Fernando Mendoza at quarterback?**
+A: TCU transfer Josh Hoover is the presumptive QB1, with the open competition window closing in spring 2027 practice if Indiana follows the early-naming strategy.
+
+**Q: When does Indiana face its biggest portal-raid risk?**
+A: The December 2026 transfer portal window, which opens the first week after conference championship weekend and runs roughly ten days. Retention extensions for Brunner and Marsh should be signed before that window opens, not negotiated during it.
+
+**Q: Can Indiana outspend SEC schools under the revenue-share cap?**
+A: No. The $20.5 million House-settlement cap is identical for every fully participating school, so no program can outspend another inside it. Indiana's edge comes from stacking legitimate third-party NIL, targeted at $5-7 million annually on top of the football rev-share allocation, plus the Cuban-funded counter-offer fund.
+
+## Sources
+
+- [Curt Cignetti Wikipedia](https://en.wikipedia.org/wiki/Curt_Cignetti)
+- [Cignetti $100M-plus contract details, Indiana Daily Student](https://www.idsnews.com/article/2026/03/indiana-football-head-coach-curt-cignetti-new-contract-review)
+- [Indiana defeats Miami CFP National Championship, NCAA.com](https://www.ncaa.com/live-updates/football/fbs/indiana-defeats-miami-win-college-football-playoff-national-championship-game)
+- [2026 CFP National Championship recap, College Football Playoff](https://collegefootballplayoff.com/sports/2026/1/27/NCG-recap.aspx)
+- [Indiana football Mark Cuban NIL donation, CBS Sports](https://www.cbssports.com/college-football/news/indiana-football-mark-cuban-nil-donation-transfer-portal/)
+- [Indiana NIL cost national championship, Mountain West Connection](https://www.mwcconnection.com/college-football-playoffs/79374/indiana-hoosiers-nil-cost-national-championship-college-football)
+- [Indiana football transfer portal tracker, On3](https://www.on3.com/teams/indiana-hoosiers/news/indiana-football-transfer-portal-tracker/)
+- [Indiana NFF MacArthur Bowl recognition, National Football Foundation](https://footballfoundation.org/news/2026/1/20/football-indiana-recognized-as-recipient-of-iconic-nff-macarthur-bowl.aspx)

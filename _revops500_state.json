@@ -1,0 +1,9 @@
+{
+  "nextBatch": 4,
+  "lastId": 9883,
+  "batchesCompleted": 3,
+  "lastLoopAt": "2026-05-23T22:21:59.623Z",
+  "cancelled": true,
+  "cancelledAt": "2026-05-24T00:00:00.000Z",
+  "cancelReason": "owner cancelled all cadences"
+}

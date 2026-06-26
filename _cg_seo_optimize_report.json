@@ -1,0 +1,19 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 209,
+ "changed": 0,
+ "keywordPhrases": 300,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 429,
+   "bing": 429,
+   "yandex": 200
+  }
+ },
+ "hubUrls": [
+  "https://pulserevops.com/coaching"
+ ]
+}

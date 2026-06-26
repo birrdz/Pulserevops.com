@@ -1,0 +1,30 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 82,
+ "changed": 53,
+ "keywordPhrases": 300,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 200,
+   "bing": 200,
+   "yandex": 200
+  }
+ },
+ "hubUrls": [
+  "https://pulserevops.com/sales-trainings"
+ ],
+ "sample": {
+  "id": "st0505",
+  "ok": true,
+  "changed": true,
+  "tagCount": 533,
+  "keywordCount": 334,
+  "url": "https://pulserevops.com/sales-trainings/st0505",
+  "indexnow": {
+   "ok": false
+  }
+ }
+}

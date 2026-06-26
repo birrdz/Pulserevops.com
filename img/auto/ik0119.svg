@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="What are the key sales KPIs for the Commercial Fertility Clinic industry in 2027?">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1b34"/><stop offset="1" stop-color="#13294f"/></linearGradient>
+<radialGradient id="glow" cx="0.78" cy="0.4" r="0.55"><stop offset="0" stop-color="#f5a623" stop-opacity="0.22"/><stop offset="1" stop-color="#f5a623" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<rect width="1200" height="630" fill="url(#glow)"/>
+<g opacity="0.5"><line x1="0" y1="0" x2="1200" y2="0" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="90" x2="1200" y2="90" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="180" x2="1200" y2="180" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="270" x2="1200" y2="270" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="360" x2="1200" y2="360" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="450" x2="1200" y2="450" stroke="#1c3358" stroke-width="1"/><line x1="0" y1="540" x2="1200" y2="540" stroke="#1c3358" stroke-width="1"/></g>
+<rect x="770" y="324" width="50" height="146" rx="7" fill="#f5a623" opacity="0.55"/><rect x="850" y="296" width="50" height="174" rx="7" fill="#f5a623" opacity="0.64"/><rect x="930" y="240" width="50" height="230" rx="7" fill="#f5a623" opacity="0.73"/><rect x="1010" y="268" width="50" height="202" rx="7" fill="#f5a623" opacity="0.8200000000000001"/><rect x="1090" y="268" width="50" height="202" rx="7" fill="#f5a623" opacity="0.91"/><path d="M770 470 L1090 470" stroke="#5b6b8c" stroke-width="3" stroke-linecap="round"/><polyline points="795,306 875,278 955,222 1035,250 1115,250" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+<g transform="translate(60,70)"><circle cx="14" cy="14" r="14" fill="#f5a623"/><circle cx="14" cy="14" r="14" fill="none" stroke="#ffffff" stroke-opacity="0.4" stroke-width="2"/><rect x="8" y="26" width="12" height="7" rx="2" fill="#0b1b34"/></g>
+<text x="92" y="84" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#f5a623">PULSE · INDUSTRY KPIS</text>
+<text x="90" y="216" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#ffffff">What are the key sales</text><text x="90" y="274" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#ffffff">KPIs for the Commercial</text><text x="90" y="332" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#ffffff">Fertility Clinic</text><text x="90" y="390" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#ffffff">industry in 2027?</text>
+<rect x="90" y="520" width="120" height="5" rx="2.5" fill="#f5a623"/>
+<text x="90" y="572" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#9fb3d4">pulserevops.com</text>
+</svg>

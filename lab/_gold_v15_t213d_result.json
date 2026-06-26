@@ -1,0 +1,27 @@
+{
+  "tick": "213-D",
+  "agent": "v15.2 gold-format conversion agent D",
+  "target_id": "q164",
+  "question": "How do I scale from 5 reps to 25 without losing culture?",
+  "rank_picked": "2nd-oldest of filtered list (index 1)",
+  "ts": 1714381200000,
+  "filtered_count": 1214,
+  "word_count_before": 0,
+  "word_count_after": 9663,
+  "post_http_status": 200,
+  "post_response": {"ok": true, "id": "q164", "quality_score": 10, "format_v": "2026-05", "gold_format": true, "from": 10, "to": 10},
+  "gold_format": true,
+  "format_v": "2026-05",
+  "gold_elements": {
+    "direct_answer_header": true,
+    "tldr_block": true,
+    "h2_banners": true,
+    "numbered_subsections": true,
+    "bold_in_bullets": true,
+    "named_operators_tickers": true,
+    "mermaid_diagram": true,
+    "pipe_tables": "13+",
+    "counter_case": true,
+    "cross_links_and_sources": "7 cross-links, 34 citations"
+  }
+}

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>
+svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.bg1{fill:var(--bg1,#0b0f17);}
+.bg2{fill:var(--bg2,#0f172a);}
+.title{font:700 28px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;fill:var(--c3);}
+.sub{font:500 16px system-ui,sans-serif;fill:var(--c3);opacity:.75;}
+.stage{font:700 19px system-ui,sans-serif;fill:var(--ink);}
+.stagealt{font:700 19px system-ui,sans-serif;fill:var(--c3);}
+.lbl{font:600 13px system-ui,sans-serif;fill:var(--c3);opacity:.85;}
+.owner{font:600 12px system-ui,sans-serif;fill:var(--c4b);letter-spacing:.5px;}
+.band{font:700 14px system-ui,sans-serif;fill:var(--c3);letter-spacing:1px;}
+</style>
+
+<rect class="bg1" width="1584" height="396"/>
+<rect class="bg2" x="0" y="0" width="1584" height="74"/>
+
+<text class="title" x="48" y="46">Lead-to-Cash Process Map</text>
+<text class="sub" x="48" y="66">MQL → SAL → SQL → Demo → Proposal → Negotiation → Closed → Provisioned → Renewed</text>
+
+<text class="band" x="48" y="108">MARKETING</text>
+<line x1="156" y1="103" x2="430" y2="103" stroke="var(--c2)" stroke-width="2"/>
+<text class="band" x="448" y="108">SALES</text>
+<line x1="514" y1="103" x2="1070" y2="103" stroke="var(--c2)" stroke-width="2"/>
+<text class="band" x="1088" y="108">DELIVERY &amp; SUCCESS</text>
+<line x1="1278" y1="103" x2="1536" y2="103" stroke="var(--c2)" stroke-width="2"/>
+
+<defs>
+<linearGradient id="gA" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="var(--c1)"/>
+<stop offset="1" stop-color="var(--c2)"/>
+</linearGradient>
+<linearGradient id="gB" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="var(--c4)"/>
+<stop offset="1" stop-color="var(--c2)"/>
+</linearGradient>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+<path d="M0,0 L10,5 L0,10 z" fill="var(--c4)"/>
+</marker>
+</defs>
+
+<!-- 9 chevron stages -->
+<g>
+<!-- MQL -->
+<path d="M48,160 L186,160 L210,202 L186,244 L48,244 L72,202 Z" fill="url(#gA)" stroke="var(--c3)" stroke-width="1.5"/>
+<text class="stage" x="129" y="200" text-anchor="middle">MQL</text>
+<text class="stage" x="129" y="222" text-anchor="middle" font-size="13" font-weight="600">Marketing Qualified</text>
+
+<!-- SAL -->
+<path d="M214,160 L352,160 L376,202 L352,244 L214,244 L238,202 Z" fill="url(#gA)" stroke="var(--c3)" stroke-width="1.5" opacity=".92"/>
+<text class="stage" x="295" y="200" text-anchor="middle">SAL</text>
+<text class="stage" x="295" y="222" text-anchor="middle" font-size="13" font-weight="600">Sales Accepted</text>
+
+<!-- SQL -->
+<path d="M380,160 L518,160 L542,202 L518,244 L380,244 L404,202 Z" fill="url(#gA)" stroke="var(--c3)" stroke-width="1.5" opacity=".84"/>
+<text class="stage" x="461" y="200" text-anchor="middle">SQL</text>
+<text class="stage" x="461" y="222" text-anchor="middle" font-size="13" font-weight="600">Sales Qualified</text>
+
+<!-- Demo -->
+<path d="M546,160 L684,160 L708,202 L684,244 L546,244 L570,202 Z" fill="url(#gB)" stroke="var(--c3)" stroke-width="1.5"/>
+<text class="stage" x="627" y="200" text-anchor="middle">DEMO</text>
+<text class="stage" x="627" y="222" text-anchor="middle" font-size="13" font-weight="600">Discovery + Demo</text>
+
+<!-- Proposal -->
+<path d="M712,160 L850,160 L874,202 L850,244 L712,244 L736,202 Z" fill="url(#gB)" stroke="var(--c3)" stroke-width="1.5" opacity=".92"/>
+<text class="stage" x="793" y="200" text-anchor="middle">PROPOSAL</text>
+<text class="stage" x="793" y="222" text-anchor="middle" font-size="13" font-weight="600">Quote + Scope</text>
+
+<!-- Negotiation -->
+<path d="M878,160 L1016,160 L1040,202 L1016,244 L878,244 L902,202 Z" fill="url(#gB)" stroke="var(--c3)" stroke-width="1.5" opacity=".84"/>
+<text class="stage" x="959" y="200" text-anchor="middle">NEGOTIATE</text>
+<text class="stage" x="959" y="222" text-anchor="middle" font-size="13" font-weight="600">Redlines + Approvals</text>
+
+<!-- Closed -->
+<path d="M1044,160 L1182,160 L1206,202 L1182,244 L1044,244 L1068,202 Z" fill="var(--c4)" stroke="var(--c3)" stroke-width="1.5"/>
+<text class="stage" x="1125" y="200" text-anchor="middle">CLOSED</text>
+<text class="stage" x="1125" y="222" text-anchor="middle" font-size="13" font-weight="600">Signed + Booked</text>
+
+<!-- Provisioned -->
+<path d="M1210,160 L1348,160 L1372,202 L1348,244 L1210,244 L1234,202 Z" fill="url(#gA)" stroke="var(--c3)" stroke-width="1.5"/>
+<text class="stage" x="1291" y="200" text-anchor="middle">PROVISIONED</text>
+<text class="stage" x="1291" y="222" text-anchor="middle" font-size="13" font-weight="600">Activated + Live</text>
+
+<!-- Renewed -->
+<path d="M1376,160 L1514,160 L1538,202 L1514,244 L1376,244 L1400,202 Z" fill="url(#gA)" stroke="var(--c3)" stroke-width="1.5" opacity=".92"/>
+<text class="stage" x="1457" y="200" text-anchor="middle">RENEWED</text>
+<text class="stage" x="1457" y="222" text-anchor="middle" font-size="13" font-weight="600">Expanded ARR</text>
+</g>
+
+<!-- Owner rail -->
+<g>
+<text class="owner" x="129" y="278" text-anchor="middle">OWNER: MARKETING</text>
+<text class="owner" x="295" y="278" text-anchor="middle">OWNER: SDR</text>
+<text class="owner" x="461" y="278" text-anchor="middle">OWNER: AE</text>
+<text class="owner" x="627" y="278" text-anchor="middle">OWNER: AE + SE</text>
+<text class="owner" x="793" y="278" text-anchor="middle">OWNER: AE + DEAL DESK</text>
+<text class="owner" x="959" y="278" text-anchor="middle">OWNER: AE + LEGAL</text>
+<text class="owner" x="1125" y="278" text-anchor="middle">OWNER: REVOPS</text>
+<text class="owner" x="1291" y="278" text-anchor="middle">OWNER: CSM + ONBOARDING</text>
+<text class="owner" x="1457" y="278" text-anchor="middle">OWNER: CSM + AM</text>
+</g>
+
+<!-- SLA / handoff metrics -->
+<g>
+<text class="lbl" x="129" y="312" text-anchor="middle">Score &gt; 70</text>
+<text class="lbl" x="295" y="312" text-anchor="middle">Accept &lt; 24h</text>
+<text class="lbl" x="461" y="312" text-anchor="middle">BANT + Champion</text>
+<text class="lbl" x="627" y="312" text-anchor="middle">Tech fit + ROI</text>
+<text class="lbl" x="793" y="312" text-anchor="middle">MSA + Order Form</text>
+<text class="lbl" x="959" y="312" text-anchor="middle">Discount &lt; 15%</text>
+<text class="lbl" x="1125" y="312" text-anchor="middle">CRM = Closed-Won</text>
+<text class="lbl" x="1291" y="312" text-anchor="middle">TTL &lt; 14 days</text>
+<text class="lbl" x="1457" y="312" text-anchor="middle">NRR &gt; 115%</text>
+</g>
+
+<!-- Funnel / flow base line -->
+<line x1="48" y1="346" x2="1538" y2="346" stroke="var(--c2)" stroke-width="1" stroke-dasharray="4 4" opacity=".6"/>
+
+<!-- Loopback arrow: Renewed -> Demo (expansion) -->
+<path d="M1457,358 C1457,378 627,388 627,358" fill="none" stroke="var(--c4)" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+<text class="lbl" x="1042" y="384" text-anchor="middle" fill="var(--c4b)">Expansion loop — Renewed accounts re-enter at Demo for upsell / cross-sell</text>
+
+</svg>

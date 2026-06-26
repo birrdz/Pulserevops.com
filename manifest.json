@@ -1,38 +1,28 @@
 {
-  "name": "PULSE RevOps",
+  "name": "Pulse RevOps — Every RevOps Answer",
   "short_name": "PULSE",
-  "description": "Free Revenue Operations suite — KPI tracking, CRM, predictive analytics, and team management tools for sales teams and SMBs.",
-  "start_url": "/",
+  "description": "6,400+ operator-grade RevOps answers, sales trainings, industry KPIs, tech stacks, book summaries, electronic reviews, revenue architecture, GTM playbooks, and graphics. Save anything with a 4-digit passcode — no login.",
+  "start_url": "/?utm_source=pwa",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#111518",
-  "theme_color": "#E8710A",
-  "orientation": "any",
-  "categories": ["business", "productivity"],
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "background_color": "#EBE9DE",
+  "theme_color": "#C0531F",
+  "orientation": "portrait-primary",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "education"],
   "icons": [
-    {
-      "src": "/icon-192.svg",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icon-512.svg",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/pulse-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ],
-  "screenshots": [],
   "shortcuts": [
-    {
-      "name": "Dashboard",
-      "url": "/dashboard.html",
-      "description": "Open the PULSE Dashboard"
-    },
-    {
-      "name": "Revenue Intelligence",
-      "url": "/dashboard.html#rev-intel-section",
-      "description": "Open the CRM & Revenue Intelligence"
-    }
+    { "name": "Knowledge Library", "short_name": "Library", "url": "/knowledge?utm_source=pwa_shortcut", "description": "6,400+ operator-grade RevOps answers" },
+    { "name": "My Content",        "short_name": "My Content", "url": "/my-content?utm_source=pwa_shortcut", "description": "Your saved answers (4-digit passcode)" },
+    { "name": "Industry KPIs",     "short_name": "KPIs",    "url": "/industry-kpis?utm_source=pwa_shortcut", "description": "The right 9 KPIs per industry" },
+    { "name": "GTM Playbooks",     "short_name": "GTM",     "url": "/go-to-market-playbooks?utm_source=pwa_shortcut", "description": "Industry-level GTM playbooks" }
   ]
 }

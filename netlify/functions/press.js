@@ -28,7 +28,11 @@ exports.handler = async (event) => {
   }
 
   try {
-    const store = getStore('press-releases');
+    const tok = process.env.BLOBS_PAT || process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
+    const sid = process.env.NETLIFY_SITE_ID || 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
+    const store = (tok && sid)
+      ? getStore({ name: 'press-releases', siteID: sid, token: tok })
+      : getStore('press-releases');
     const qs = event.queryStringParameters || {};
 
     // ── GET single release by slug ───────────────────────────────────────────

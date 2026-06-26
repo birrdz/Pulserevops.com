@@ -1,0 +1,716 @@
+{
+  "total_st": 427,
+  "walked": 427,
+  "bailout_at": null,
+  "pass_count": 34,
+  "fail_count": 393,
+  "pass_pct": "8.0",
+  "template_conformance_pct": "67.4",
+  "failure_modes": [
+    {
+      "reason": "few-real-vendors",
+      "count": 292,
+      "examples": [
+        "st431",
+        "st430",
+        "st429",
+        "st428",
+        "st426"
+      ]
+    },
+    {
+      "reason": "no-analyst-citation",
+      "count": 217,
+      "examples": [
+        "st431",
+        "st430",
+        "st429",
+        "st428",
+        "st427"
+      ]
+    },
+    {
+      "reason": "under-1500-words",
+      "count": 114,
+      "examples": [
+        "st431",
+        "st430",
+        "st429",
+        "st428",
+        "st427"
+      ]
+    },
+    {
+      "reason": "missing-numbered-h2",
+      "count": 104,
+      "examples": [
+        "st233",
+        "st232",
+        "st231",
+        "st230",
+        "st229"
+      ]
+    },
+    {
+      "reason": "no-faq",
+      "count": 91,
+      "examples": [
+        "st208",
+        "st203",
+        "st182",
+        "st140",
+        "st139"
+      ]
+    },
+    {
+      "reason": "no-sources",
+      "count": 81,
+      "examples": [
+        "st208",
+        "st203",
+        "st182",
+        "st140",
+        "st139"
+      ]
+    },
+    {
+      "reason": "no-direct-answer",
+      "count": 63,
+      "examples": [
+        "st140",
+        "st139",
+        "st138",
+        "st137",
+        "st136"
+      ]
+    },
+    {
+      "reason": "low-bold",
+      "count": 51,
+      "examples": [
+        "st431",
+        "st430",
+        "st429",
+        "st428",
+        "st427"
+      ]
+    },
+    {
+      "reason": "under-2-mermaids",
+      "count": 50,
+      "examples": [
+        "st168",
+        "st140",
+        "st139",
+        "st138",
+        "st137"
+      ]
+    },
+    {
+      "reason": "generic-mermaid",
+      "count": 50,
+      "examples": [
+        "st168",
+        "st140",
+        "st139",
+        "st138",
+        "st137"
+      ]
+    },
+    {
+      "reason": "generic-boilerplate",
+      "count": 49,
+      "examples": [
+        "st302",
+        "st261",
+        "st259",
+        "st140",
+        "st139"
+      ]
+    },
+    {
+      "reason": "qs-under-10",
+      "count": 48,
+      "examples": [
+        "st140",
+        "st139",
+        "st138",
+        "st137",
+        "st136"
+      ]
+    },
+    {
+      "reason": "banned-phrase",
+      "count": 32,
+      "examples": [
+        "st429",
+        "st408",
+        "st384",
+        "st365",
+        "st323"
+      ]
+    }
+  ],
+  "best_shaped": [
+    {
+      "id": "st0006",
+      "words": 8652,
+      "vendors": 16,
+      "analysts": 7,
+      "prices": 39,
+      "numberedH2": 6,
+      "bold": 277
+    },
+    {
+      "id": "st0080",
+      "words": 2122,
+      "vendors": 10,
+      "analysts": 5,
+      "prices": 3,
+      "numberedH2": 6,
+      "bold": 54
+    },
+    {
+      "id": "st219",
+      "words": 1608,
+      "vendors": 9,
+      "analysts": 2,
+      "prices": 10,
+      "numberedH2": 6,
+      "bold": 66
+    },
+    {
+      "id": "st0083",
+      "words": 2838,
+      "vendors": 10,
+      "analysts": 5,
+      "prices": 6,
+      "numberedH2": 6,
+      "bold": 31
+    },
+    {
+      "id": "st0081",
+      "words": 2523,
+      "vendors": 10,
+      "analysts": 4,
+      "prices": 7,
+      "numberedH2": 6,
+      "bold": 35
+    }
+  ],
+  "worst_shaped": [
+    {
+      "id": "st424",
+      "words": 230,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st421",
+      "words": 230,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st426",
+      "words": 235,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st430",
+      "words": 238,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st428",
+      "words": 241,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    }
+  ],
+  "sample_first_30": [
+    {
+      "id": "st431",
+      "pass": false,
+      "words": 256,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 22,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st430",
+      "pass": false,
+      "words": 238,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 22,
+      "vendors": 1,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st429",
+      "pass": false,
+      "words": 252,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 23,
+      "vendors": 1,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "banned:holistic",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st428",
+      "pass": false,
+      "words": 241,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 22,
+      "vendors": 2,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st427",
+      "pass": false,
+      "words": 243,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 22,
+      "vendors": 9,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st426",
+      "pass": false,
+      "words": 235,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 22,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st425",
+      "pass": false,
+      "words": 243,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 22,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st424",
+      "pass": false,
+      "words": 230,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 22,
+      "vendors": 1,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st423",
+      "pass": false,
+      "words": 251,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 22,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st422",
+      "pass": false,
+      "words": 244,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 21,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st421",
+      "pass": false,
+      "words": 230,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 22,
+      "vendors": 1,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st420",
+      "pass": false,
+      "words": 247,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 24,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st419",
+      "pass": false,
+      "words": 251,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 22,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st418",
+      "pass": false,
+      "words": 273,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 22,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st417",
+      "pass": false,
+      "words": 242,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 21,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st416",
+      "pass": false,
+      "words": 279,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 27,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st415",
+      "pass": false,
+      "words": 344,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 40,
+      "vendors": 3,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st414",
+      "pass": false,
+      "words": 275,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 26,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "low-bold",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st413",
+      "pass": false,
+      "words": 348,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 36,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st412",
+      "pass": false,
+      "words": 352,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 37,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st411",
+      "pass": false,
+      "words": 355,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 37,
+      "vendors": 0,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st410",
+      "pass": false,
+      "words": 375,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 39,
+      "vendors": 4,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st409",
+      "pass": false,
+      "words": 400,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 40,
+      "vendors": 1,
+      "analysts": 0,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors",
+        "no-analyst-citation"
+      ]
+    },
+    {
+      "id": "st408",
+      "pass": false,
+      "words": 475,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 47,
+      "vendors": 0,
+      "analysts": 1,
+      "reasons": [
+        "under-1500-words",
+        "banned:landscape",
+        "few-real-vendors"
+      ]
+    },
+    {
+      "id": "st407",
+      "pass": false,
+      "words": 555,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 44,
+      "vendors": 1,
+      "analysts": 1,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors"
+      ]
+    },
+    {
+      "id": "st406",
+      "pass": false,
+      "words": 923,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 78,
+      "vendors": 2,
+      "analysts": 1,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors"
+      ]
+    },
+    {
+      "id": "st405",
+      "pass": false,
+      "words": 923,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 77,
+      "vendors": 2,
+      "analysts": 1,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors"
+      ]
+    },
+    {
+      "id": "st404",
+      "pass": false,
+      "words": 950,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 76,
+      "vendors": 2,
+      "analysts": 2,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors"
+      ]
+    },
+    {
+      "id": "st403",
+      "pass": false,
+      "words": 925,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 74,
+      "vendors": 2,
+      "analysts": 2,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors"
+      ]
+    },
+    {
+      "id": "st402",
+      "pass": false,
+      "words": 942,
+      "mermaids": 2,
+      "numberedH2": 6,
+      "bold": 80,
+      "vendors": 3,
+      "analysts": 2,
+      "reasons": [
+        "under-1500-words",
+        "few-real-vendors"
+      ]
+    }
+  ]
+}

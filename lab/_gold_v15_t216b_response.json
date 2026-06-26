@@ -1,0 +1,24 @@
+{
+  "tick": "216-B",
+  "target_id": "q422",
+  "question": "What's the relationship between CAC, MRR, and sales cycle length, and how do you optimize the trade-off?",
+  "rank_picked": "index 1 (2nd-newest of 1202 filtered, ts DESC)",
+  "word_count_before": 0,
+  "word_count_after": 9251,
+  "http_status": 200,
+  "response_body": {"ok": true, "id": "q422", "quality_score": 10, "format_v": "2026-05", "gold_format": true, "from": 10, "to": 10},
+  "gold_format": true,
+  "gold_elements_verified": {
+    "direct_answer": true,
+    "tldr": true,
+    "h2_banners": 19,
+    "numbered_subsections": 54,
+    "bold_in_bullets": true,
+    "named_operators_with_tickers": ["SNOW", "TWLO", "DDOG", "MDB", "HUBS", "CRM", "TEAM"],
+    "mermaid_diagrams": 1,
+    "pipe_tables": 15,
+    "counter_case_section": true,
+    "cross_links": ["q423", "q429", "q431", "q444"],
+    "citations": 34
+  }
+}

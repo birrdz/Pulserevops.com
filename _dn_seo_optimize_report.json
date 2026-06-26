@@ -1,0 +1,28 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 118,
+ "changed": 0,
+ "keywordPhrases": 500,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 429,
+   "bing": 429,
+   "yandex": 200
+  }
+ },
+ "hubUrls": [
+  "https://pulserevops.com/dining"
+ ],
+ "sample": {
+  "id": "dn0001",
+  "ok": true,
+  "changed": false,
+  "tagCount": 512,
+  "keywordCount": 519,
+  "url": "https://pulserevops.com/dining/dn0001",
+  "indexnow": null
+ }
+}

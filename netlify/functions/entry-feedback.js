@@ -17,7 +17,7 @@ exports.handler = async (event) => {
   if (event.httpMethod === 'GET') {
     // Read-only: return tally for the entry
     const id = (event.queryStringParameters || {}).id;
-    if (!id || !/^v?q[a-z0-9_]*\d+$/i.test(String(id))) {
+    if (!id || !/^(vq_[a-z0-9]+|[a-z]{1,5}\d+)$/i.test(String(id))) {
       return { statusCode: 400, body: JSON.stringify({ ok: false, reason: 'bad id' }) };
     }
     const store = initBlob('pulse-machine-feedback');
@@ -37,7 +37,7 @@ exports.handler = async (event) => {
   catch (e) { return { statusCode: 400, body: JSON.stringify({ ok: false, reason: 'bad json' }) }; }
   const id = String(body.id || '').trim();
   const vote = String(body.vote || '').toLowerCase();
-  if (!id || !/^v?q[a-z0-9_]*\d+$/i.test(id) || (vote !== 'yes' && vote !== 'no')) {
+  if (!id || !/^(vq_[a-z0-9]+|[a-z]{1,5}\d+)$/i.test(id) || (vote !== 'yes' && vote !== 'no')) {
     return { statusCode: 400, body: JSON.stringify({ ok: false, reason: 'id + vote(yes|no) required' }) };
   }
   const store = initBlob('pulse-machine-feedback');

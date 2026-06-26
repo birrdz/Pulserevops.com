@@ -1,0 +1,504 @@
+{
+  "items": [
+    {
+      "id": "q12847",
+      "title": "What is the ideal RevOps org structure for a $50M ARR company in 2027?",
+      "tags": "revops-team,org-design"
+    },
+    {
+      "id": "q12848",
+      "title": "Should RevOps report to the CRO, CFO, or COO in 2027?",
+      "tags": "revops-team,reporting-structure"
+    },
+    {
+      "id": "q12849",
+      "title": "How do you write a RevOps charter that executives actually use in 2027?",
+      "tags": "revops-process,charter"
+    },
+    {
+      "id": "q12850",
+      "title": "What RevOps metrics should you report to the board in 2027?",
+      "tags": "metrics,board-reporting"
+    },
+    {
+      "id": "q12851",
+      "title": "How do you calculate and improve pipeline coverage ratio in 2027?",
+      "tags": "pipeline,pipeline-coverage"
+    },
+    {
+      "id": "q12852",
+      "title": "How do you build a lead scoring model that sales trusts in 2027?",
+      "tags": "lead-scoring,marketing-ops"
+    },
+    {
+      "id": "q12853",
+      "title": "How do you fix a leaky sales funnel in 2027?",
+      "tags": "funnel,conversion"
+    },
+    {
+      "id": "q12854",
+      "title": "How do you set sales quotas fairly in 2027?",
+      "tags": "quotas,sales-comp"
+    },
+    {
+      "id": "q12855",
+      "title": "How do you design sales territories in 2027?",
+      "tags": "territories,territory-design"
+    },
+    {
+      "id": "q12856",
+      "title": "How do you reduce CRM data decay in 2027?",
+      "tags": "crm,data-quality"
+    },
+    {
+      "id": "q12857",
+      "title": "How do you run a CRM data hygiene program in 2027?",
+      "tags": "crm,data-quality,data-hygiene"
+    },
+    {
+      "id": "q12858",
+      "title": "How do you measure and improve sales rep productivity in 2027?",
+      "tags": "productivity,sales-efficiency"
+    },
+    {
+      "id": "q12859",
+      "title": "How do you build a deal desk in 2027?",
+      "tags": "deal-desk,deal-process"
+    },
+    {
+      "id": "q12860",
+      "title": "How do you streamline the quote-to-cash process in 2027?",
+      "tags": "quote-to-cash,cpq"
+    },
+    {
+      "id": "q12861",
+      "title": "How do you choose a CPQ tool in 2027?",
+      "tags": "cpq,tech-stack"
+    },
+    {
+      "id": "q12862",
+      "title": "How do you reduce churn with RevOps in 2027?",
+      "tags": "churn,retention,customer-success"
+    },
+    {
+      "id": "q12863",
+      "title": "How do you build a customer health score in 2027?",
+      "tags": "customer-success,health-score"
+    },
+    {
+      "id": "q12864",
+      "title": "How do you operationalize net revenue retention in 2027?",
+      "tags": "nrr,retention,metrics"
+    },
+    {
+      "id": "q12865",
+      "title": "How do you build a renewals process that prevents surprise churn in 2027?",
+      "tags": "renewals,customer-success"
+    },
+    {
+      "id": "q12866",
+      "title": "How do you forecast renewals accurately in 2027?",
+      "tags": "renewals,forecasting"
+    },
+    {
+      "id": "q12867",
+      "title": "How do you measure customer acquisition cost correctly in 2027?",
+      "tags": "cac,unit-economics"
+    },
+    {
+      "id": "q12868",
+      "title": "How do you improve your LTV to CAC ratio in 2027?",
+      "tags": "ltv-cac,unit-economics"
+    },
+    {
+      "id": "q12869",
+      "title": "How do you calculate the CAC payback period in 2027?",
+      "tags": "cac-payback,unit-economics"
+    },
+    {
+      "id": "q12870",
+      "title": "How do you build a marketing attribution model in 2027?",
+      "tags": "attribution,marketing-ops"
+    },
+    {
+      "id": "q12871",
+      "title": "Is multi-touch attribution still worth it in 2027?",
+      "tags": "attribution,marketing-ops"
+    },
+    {
+      "id": "q12872",
+      "title": "How do you measure marketing-sourced vs sales-sourced pipeline in 2027?",
+      "tags": "pipeline,attribution"
+    },
+    {
+      "id": "q12873",
+      "title": "How do you run an effective pipeline review meeting in 2027?",
+      "tags": "pipeline,sales-process"
+    },
+    {
+      "id": "q12874",
+      "title": "How do you implement MEDDICC across a sales team in 2027?",
+      "tags": "sales-methodology,meddicc"
+    },
+    {
+      "id": "q12875",
+      "title": "Which sales methodology should you standardize on in 2027?",
+      "tags": "sales-methodology"
+    },
+    {
+      "id": "q12876",
+      "title": "How do you build a sales enablement function in 2027?",
+      "tags": "enablement,sales-enablement"
+    },
+    {
+      "id": "q12877",
+      "title": "How do you onboard new sales reps faster in 2027?",
+      "tags": "onboarding,enablement"
+    },
+    {
+      "id": "q12878",
+      "title": "How do you reduce ramp time for new AEs in 2027?",
+      "tags": "ramp-time,onboarding"
+    },
+    {
+      "id": "q12879",
+      "title": "How do you build a win-loss analysis program in 2027?",
+      "tags": "win-loss,competitive-intel"
+    },
+    {
+      "id": "q12880",
+      "title": "How do you operationalize competitive intelligence in 2027?",
+      "tags": "competitive-intel"
+    },
+    {
+      "id": "q12881",
+      "title": "How do you set up RevOps for a PLG company in 2027?",
+      "tags": "plg,product-led-growth"
+    },
+    {
+      "id": "q12882",
+      "title": "How do you blend product-led and sales-led growth in 2027?",
+      "tags": "plg,hybrid-gtm"
+    },
+    {
+      "id": "q12883",
+      "title": "How do you score and route product-qualified leads in 2027?",
+      "tags": "pql,plg,lead-routing"
+    },
+    {
+      "id": "q12884",
+      "title": "How do you build a lead routing system in 2027?",
+      "tags": "lead-routing,marketing-ops"
+    },
+    {
+      "id": "q12885",
+      "title": "How do you reduce speed-to-lead in 2027?",
+      "tags": "speed-to-lead,inbound"
+    },
+    {
+      "id": "q12886",
+      "title": "How do you structure an SDR team in 2027?",
+      "tags": "sdr,pipeline-generation"
+    },
+    {
+      "id": "q12887",
+      "title": "How do you set SDR quotas and comp in 2027?",
+      "tags": "sdr,sales-comp"
+    },
+    {
+      "id": "q12888",
+      "title": "How do you measure outbound effectiveness in 2027?",
+      "tags": "outbound,pipeline-generation"
+    },
+    {
+      "id": "q12889",
+      "title": "How do you build an ICP that actually improves win rates in 2027?",
+      "tags": "icp,targeting"
+    },
+    {
+      "id": "q12890",
+      "title": "How do you do account scoring for ABM in 2027?",
+      "tags": "abm,account-scoring"
+    },
+    {
+      "id": "q12891",
+      "title": "How do you operationalize account-based marketing in 2027?",
+      "tags": "abm,marketing-ops"
+    },
+    {
+      "id": "q12892",
+      "title": "How do you align sales and customer success in 2027?",
+      "tags": "alignment,customer-success"
+    },
+    {
+      "id": "q12893",
+      "title": "How do you build a customer handoff process from sales to CS in 2027?",
+      "tags": "handoff,customer-success"
+    },
+    {
+      "id": "q12894",
+      "title": "How do you design a RevOps tech stack in 2027?",
+      "tags": "tech-stack,systems"
+    },
+    {
+      "id": "q12895",
+      "title": "How do you consolidate an overgrown sales tech stack in 2027?",
+      "tags": "tech-stack,consolidation"
+    },
+    {
+      "id": "q12896",
+      "title": "How do you evaluate and buy RevOps software in 2027?",
+      "tags": "tech-stack,procurement"
+    },
+    {
+      "id": "q12897",
+      "title": "How do you calculate ROI on a new sales tool in 2027?",
+      "tags": "tech-stack,roi"
+    },
+    {
+      "id": "q12898",
+      "title": "How do you migrate CRM platforms without losing data in 2027?",
+      "tags": "crm,migration"
+    },
+    {
+      "id": "q12899",
+      "title": "How do you implement a data warehouse for RevOps in 2027?",
+      "tags": "data-warehouse,data-stack"
+    },
+    {
+      "id": "q12900",
+      "title": "Do you need a revenue data platform in 2027?",
+      "tags": "data-platform,data-stack"
+    },
+    {
+      "id": "q12901",
+      "title": "How do you build a single source of truth for revenue data in 2027?",
+      "tags": "data,source-of-truth"
+    },
+    {
+      "id": "q12902",
+      "title": "How do you set up revenue reporting dashboards in 2027?",
+      "tags": "dashboards,reporting"
+    },
+    {
+      "id": "q12903",
+      "title": "How do you measure sales velocity in 2027?",
+      "tags": "sales-velocity,metrics"
+    },
+    {
+      "id": "q12904",
+      "title": "How do you improve average deal size in 2027?",
+      "tags": "deal-size,pricing"
+    },
+    {
+      "id": "q12905",
+      "title": "How do you build a usage-based pricing model in 2027?",
+      "tags": "pricing,usage-based"
+    },
+    {
+      "id": "q12906",
+      "title": "How do you operationalize a pricing change in 2027?",
+      "tags": "pricing,operations"
+    },
+    {
+      "id": "q12907",
+      "title": "How do you reduce discounting across a sales team in 2027?",
+      "tags": "discounting,margin"
+    },
+    {
+      "id": "q12908",
+      "title": "How do you build a sales commission audit process in 2027?",
+      "tags": "commissions,sales-comp"
+    },
+    {
+      "id": "q12909",
+      "title": "How do you handle commission disputes in 2027?",
+      "tags": "commissions,sales-comp"
+    },
+    {
+      "id": "q12910",
+      "title": "How do you forecast new business pipeline in 2027?",
+      "tags": "forecasting,pipeline"
+    },
+    {
+      "id": "q12911",
+      "title": "What forecasting cadence should RevOps run in 2027?",
+      "tags": "forecasting,cadence"
+    },
+    {
+      "id": "q12912",
+      "title": "How do you reduce forecast slippage in 2027?",
+      "tags": "forecasting,slippage"
+    },
+    {
+      "id": "q12913",
+      "title": "How do you build a bottoms-up revenue model in 2027?",
+      "tags": "revenue-model,planning"
+    },
+    {
+      "id": "q12914",
+      "title": "How do you run annual GTM planning in 2027?",
+      "tags": "gtm-planning,planning"
+    },
+    {
+      "id": "q12915",
+      "title": "How do you build a capacity model for sales hiring in 2027?",
+      "tags": "capacity-planning,hiring"
+    },
+    {
+      "id": "q12916",
+      "title": "How do you model headcount for a revenue plan in 2027?",
+      "tags": "headcount,planning"
+    },
+    {
+      "id": "q12917",
+      "title": "How do you measure and reduce sales rep attrition in 2027?",
+      "tags": "attrition,retention"
+    },
+    {
+      "id": "q12918",
+      "title": "How do you build a sales career ladder in 2027?",
+      "tags": "career-ladder,enablement"
+    },
+    {
+      "id": "q12919",
+      "title": "How do you operationalize AI agents in RevOps in 2027?",
+      "tags": "ai,ai-agents"
+    },
+    {
+      "id": "q12920",
+      "title": "Which RevOps tasks should you automate with AI in 2027?",
+      "tags": "ai,automation"
+    },
+    {
+      "id": "q12921",
+      "title": "How do you measure ROI on AI in sales in 2027?",
+      "tags": "ai,roi"
+    },
+    {
+      "id": "q12922",
+      "title": "How do you govern AI use across a revenue team in 2027?",
+      "tags": "ai,governance"
+    },
+    {
+      "id": "q12923",
+      "title": "How do you keep CRM data clean when reps use AI note-takers in 2027?",
+      "tags": "ai,crm,data-quality"
+    },
+    {
+      "id": "q12924",
+      "title": "How do you build a RevOps automation roadmap in 2027?",
+      "tags": "automation,roadmap"
+    },
+    {
+      "id": "q12925",
+      "title": "How do you document RevOps processes so they scale in 2027?",
+      "tags": "documentation,process"
+    },
+    {
+      "id": "q12926",
+      "title": "How do you run a RevOps quarterly business review in 2027?",
+      "tags": "qbr,process"
+    },
+    {
+      "id": "q12927",
+      "title": "How do you build a deal scoring model to predict close in 2027?",
+      "tags": "deal-scoring,forecasting"
+    },
+    {
+      "id": "q12928",
+      "title": "How do you identify and fix pipeline bottlenecks in 2027?",
+      "tags": "pipeline,bottlenecks"
+    },
+    {
+      "id": "q12929",
+      "title": "How do you measure conversion rates at each funnel stage in 2027?",
+      "tags": "conversion,funnel"
+    },
+    {
+      "id": "q12930",
+      "title": "How do you set up closed-loop reporting between marketing and sales in 2027?",
+      "tags": "reporting,alignment"
+    },
+    {
+      "id": "q12931",
+      "title": "How do you build a lead-to-revenue waterfall in 2027?",
+      "tags": "waterfall,funnel"
+    },
+    {
+      "id": "q12932",
+      "title": "How do you operationalize intent data in 2027?",
+      "tags": "intent-data,marketing-ops"
+    },
+    {
+      "id": "q12933",
+      "title": "How do you build a churn early-warning system in 2027?",
+      "tags": "churn,early-warning"
+    },
+    {
+      "id": "q12934",
+      "title": "How do you run a customer expansion playbook in 2027?",
+      "tags": "expansion,upsell"
+    },
+    {
+      "id": "q12935",
+      "title": "How do you measure and improve gross revenue retention in 2027?",
+      "tags": "grr,retention"
+    },
+    {
+      "id": "q12936",
+      "title": "How do you structure incentives for upsell and cross-sell in 2027?",
+      "tags": "incentives,expansion"
+    },
+    {
+      "id": "q12937",
+      "title": "How do you build a partner and channel ops function in 2027?",
+      "tags": "channel,partner-ops"
+    },
+    {
+      "id": "q12938",
+      "title": "How do you measure partner-sourced revenue in 2027?",
+      "tags": "channel,partner-ops"
+    },
+    {
+      "id": "q12939",
+      "title": "How do you onboard a RevOps analyst in 2027?",
+      "tags": "hiring,onboarding"
+    },
+    {
+      "id": "q12940",
+      "title": "What skills should you hire for in a RevOps analyst in 2027?",
+      "tags": "hiring,skills"
+    },
+    {
+      "id": "q12941",
+      "title": "How do you prove the ROI of the RevOps function itself in 2027?",
+      "tags": "revops-roi,value"
+    },
+    {
+      "id": "q12942",
+      "title": "How do you prioritize the RevOps backlog in 2027?",
+      "tags": "prioritization,backlog"
+    },
+    {
+      "id": "q12943",
+      "title": "How do you run RevOps as an internal service team in 2027?",
+      "tags": "revops-process,service"
+    },
+    {
+      "id": "q12944",
+      "title": "How do you prevent shadow spreadsheets from undermining RevOps in 2027?",
+      "tags": "data,governance"
+    },
+    {
+      "id": "q12945",
+      "title": "How do you build a deal approval workflow in 2027?",
+      "tags": "deal-process,approvals"
+    },
+    {
+      "id": "q12946",
+      "title": "How do you handle a sales reorg without losing pipeline in 2027?",
+      "tags": "reorg,change-management"
+    }
+  ]
+}

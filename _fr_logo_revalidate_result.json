@@ -1,0 +1,10 @@
+{
+ "total": 1033,
+ "checked": 1033,
+ "ok": 995,
+ "broken": 38,
+ "fixed": 38,
+ "noReplace": 0,
+ "fail": 0,
+ "stillBroken": []
+}

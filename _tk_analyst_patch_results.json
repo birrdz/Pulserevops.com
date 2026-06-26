@@ -1,0 +1,14 @@
+{
+  "ok": [
+    {
+      "id": "tk0001",
+      "ok": true,
+      "at": "core-stack",
+      "score": 12,
+      "wc": 2647,
+      "banned": 0
+    }
+  ],
+  "skipped": [],
+  "failed": []
+}

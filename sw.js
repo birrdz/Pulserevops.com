@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pulse-v1';
+const CACHE_NAME = 'pulse-v2-20260607';
 const PRECACHE = [
   '/',
   '/index.html',
@@ -26,16 +26,18 @@ self.addEventListener('activate', e => {
   );
 });
 
-// Fetch — network-first with cache fallback
+// Fetch — network-first with cache fallback.
+// SKIP Netlify Functions entirely — they're dynamic data endpoints (leaderboard,
+// trending, library list, etc.) and must always hit network for fresh results.
+// Caching them was leaving stale "Loading…" states on the homepage.
 self.addEventListener('fetch', e => {
-  // Skip non-GET and cross-origin
   if (e.request.method !== 'GET') return;
   if (!e.request.url.startsWith(self.location.origin)) return;
+  if (e.request.url.includes('/.netlify/functions/')) return; // never SW-cache function calls
 
   e.respondWith(
     fetch(e.request)
       .then(res => {
-        // Cache successful responses
         if (res.ok) {
           const clone = res.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));

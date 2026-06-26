@@ -1,0 +1,96 @@
+QUESTION: What are Purdue Boilermakers men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Purdue Boilermakers men's basketball enters 2026-27 in a rare position for the revenue-share era: a top-five preseason team that already retained its core and now needs NIL dollars to do one thing — pay the development tax on the players who chose loyalty over the portal. The Boilermaker Alliance collective folded effective June 30, 2025 when House v. NCAA went live, so the NIL function is now run inside athletics through revenue-share contracts plus a thin layer of marketing-based deals. The 2026 reality is post-Edey, post-Final-Four-run, and post-Braden-Smith — Smith, Fletcher Loyer, and Trey Kaufman-Renn all completed eligibility after the Elite Eight loss in March 2026 and graduated. Matt Painter (501-224 at Purdue entering 2025-26, his 500th career win came November 17, 2025) returns the rest of the rotation. Omer Mayer, C.J. Cox, Gicarri Harris, and 7-foot-3 center Daniel Jacobsen all came back. The 2026 recruiting class — Indiana Mr. Basketball Luke Ertel, fellow four-star guard Jacob Webber, four-star center Sinan Huan, and forward Rivers Knight — ranks No. 7 nationally per 247Sports. Princeton transfer Caden Pierce, the 2024 Ivy League Player of the Year, fills the stretch-four void. The 2027 NIL ask is roughly $5.8M to $6.5M across the scholarship 13, with the program leaning on academic prestige, NBA development receipts (Edey, Jaden Ivey, Carsen Edwards, now Smith projected as a Boston Celtics second-rounder at pick 40), and a deeply embedded West Lafayette donor base to close gaps that flashier SEC programs will out-bid on cash alone.
+
+**TL;DR:** Painter kept the band together; the 2027 NIL job is paying the loyalty tax — about $6M to lock in Mayer, Jacobsen, Pierce, and the No. 7 class against SEC poaching, with the collective dead and revenue-share running the room.
+
+```mermaid
+flowchart TD
+  A[Purdue NIL Ecosystem 2027] --> B[Revenue Share Pool]
+  A --> C[Marketing NIL Deals]
+  A --> D[Donor Major Gifts]
+  B --> E[Painter Allocates 70 Percent to MBB]
+  C --> F[Teamworks Wallet Platform]
+  C --> G[Indianapolis Corporate Roster]
+  D --> H[Mackey Society and John Purdue Club]
+  E --> I[Retain Mayer Jacobsen Pierce]
+  F --> J[Cox Harris Ertel Brand Deals]
+  G --> K[Cummins Eli Lilly Salesforce]
+  H --> L[Bridge Gap Above 20M Cap]
+  I --> M[2027 Title Window]
+  J --> M
+  K --> M
+  L --> M
+```
+
+## 1. Where Purdue Stands — Painter Era 2027 NIL Math
+
+Purdue opened 2025-26 ranked No. 1 in the country for the first time in school history and finished as Big Ten Tournament champions before losing in the Elite Eight. That résumé matters because it locked in a price floor: every returning Boilermaker now has a verified, on-court, deep-tournament tape that other schools can model against. Painter's NIL math has to acknowledge that floor while staying inside the House v. NCAA rev-share cap of roughly $20.5M for athletics in year one, which Purdue is publicly committed to spending at the maximum. Football typically takes 65-70 percent, leaving men's basketball with roughly $5.5M to $6M in direct rev-share, with another $1-2M in compliant marketing NIL through Teamworks Wallet and the Indianapolis corporate roster (Eli Lilly, Cummins, Salesforce Indianapolis, Old National Bank). The Boilermaker Alliance shutdown removed roughly $3-4M in annual collective dollars, but most of those donors rotated into John Purdue Club premium tiers or Mackey Society pledges that now route through the athletic department as compliant inducements.
+
+| 2027 NIL Bucket | Estimated $ | Source |
+|---|---|---|
+| Rev-share to MBB roster | $5.5M-$6.0M | Athletic dept. allocation |
+| Marketing NIL deals | $1.0M-$1.5M | Teamworks Wallet + corporate |
+| Donor major gifts (compliant) | $0.6M-$0.8M | John Purdue Club premium |
+| **Total MBB NIL pool** | **$7.1M-$8.3M** | Combined |
+| Per-scholarship average | $545K-$640K | 13 scholarships |
+| Star-tier (Mayer, Jacobsen) | $1.2M-$1.6M | Top-of-roster |
+
+The math is tight but workable — it puts Purdue at roughly the 12th to 15th richest MBB program nationally, behind Arkansas, Kentucky, Duke, Kansas, North Carolina, and the SEC top tier, but ahead of every other Big Ten program except Michigan and Indiana.
+
+## 2. Real 2027 Strategy — 5 Moves
+
+**Move 1: Front-load Omer Mayer and Daniel Jacobsen.** Mayer is the heir apparent to the Smith point-guard chair. Jacobsen is a 7-foot-3 rim protector who lost most of 2024-25 to a tibia injury but flashed elite vertical spacing as a freshman. Pay them $1.2M-$1.6M each on multi-year rev-share locks to remove SEC tampering risk before October. **Move 2: Use Caden Pierce as the marketing face.** A Princeton transfer with a 3.5 GPA and Ivy POY hardware is a brand-deal magnet for the Indianapolis biotech and consulting roster — get him three $75K corporate deals (Lilly, Cummins, an Indy bank) by November. **Move 3: Lock the 2026 class on three-year deals.** Luke Ertel (Indiana Mr. Basketball, No. 14 in school history to win it) is the in-state retention play; Jacob Webber, Sinan Huan, and Rivers Knight need three-year frameworks at $300K-$450K to prevent year-two portal exits. **Move 4: Sell the development receipt.** Edey, Ivey, Carsen Edwards, and now Braden Smith (projected Celtics pick 40) are the proof. Lead every recruiting pitch with the line: at Purdue, you get drafted, you get a degree, and you get paid — in that order. **Move 5: Pre-fund the 2027 portal.** Reserve $1.5M-$2M of unallocated rev-share for two veteran portal additions in spring 2027 — a stretch-five backup behind Jacobsen and a wing scorer to replace Loyer's spacing.
+
+## 3. Top 3 Risks
+
+**Risk 1 — SEC poaching of the 2026 class.** Indiana Mr. Basketball Luke Ertel will get a $1M-plus offer from Kentucky, Arkansas, or Tennessee inside the first 10 games if Purdue is rolling. Same for any breakout from Huan or Webber. Purdue cannot match SEC top-end cash, so contracts need multi-year buyout language and family-resource clauses (housing, education trusts) that Painter's staff delivers better than bidding-war programs. Mitigation: lock the 2026 class to three-year deals before October with year-two and year-three retention bonuses.
+
+**Risk 2 — Daniel Jacobsen health.** A 7-foot-3 center with a prior tibia injury is the highest-leverage health risk. If Jacobsen misses 2026-27, the frontcourt collapses from elite to merely good and the retention case for Mayer, Pierce, and the freshmen weakens. Mitigation: carry a $400K-$500K disability insurance line, recruit a $600K portal backup five in May 2026, and pre-budget an immediate portal raid if he goes down before December.
+
+**Risk 3 — Painter succession ambiguity.** Painter is 55 with 500 career wins and a Naismith track. Every offseason brings NBA whispers. If he departs after 2026-27, the NIL ecosystem — built on his recruiting brand and donor relationships — resets. Mitigation: AD Mike Bobinski extends Painter through 2030 in summer 2026, names an in-house successor, and writes succession language into rev-share deals so departures do not trigger portal exit clauses.
+
+```mermaid
+flowchart TD
+  N[2027 Risk Matrix] --> O[SEC Poaching]
+  N --> P[Jacobsen Health]
+  N --> Q[Painter Succession]
+  O --> R[Three Year Deals With Buyouts]
+  O --> S[Family Resource Clauses]
+  P --> T[Disability Insurance Line]
+  P --> U[Portal Backup Five]
+  Q --> V[Extend Painter Through 2030]
+  Q --> W[Name In House Successor]
+  R --> X[Roster Stability 2027]
+  S --> X
+  T --> X
+  U --> X
+  V --> X
+  W --> X
+  X --> Y[Final Four Window Open]
+```
+
+## FAQ
+
+**Q: Did the Boilermaker Alliance shut down?**
+A: Yes. The Boilermaker Alliance collective ceased NIL activities effective June 30, 2025 when the House v. NCAA revenue-share era began. The roughly $3-4M in annual collective dollars rotated into John Purdue Club premium tiers and athletic-department rev-share, so the money largely persisted but the legal structure changed.
+
+**Q: Are Braden Smith and Fletcher Loyer coming back for 2026-27?**
+A: No. Smith, Loyer, and Trey Kaufman-Renn all completed four-year eligibility windows in spring 2026 and graduated. The proposed NCAA five-for-five eligibility rule would not grant them an additional year because their eligibility ended before its effective date. Smith is projected to go pick 40 to Boston in the 2026 NBA Draft.
+
+**Q: How does Purdue's NIL pool compare to Indiana and Michigan?**
+A: Purdue's combined $7.1M-$8.3M for men's basketball is roughly even with Michigan and trails Indiana, which is reportedly above $10M after a 2025-26 booster surge. All three Big Ten programs are out-spent by Kentucky, Arkansas, Duke, and Kansas at the top of the national market.
+
+## Sources
+
+- [Matt Painter — Purdue Boilermakers Official Athletics](https://purduesports.com/sports/mens-basketball/roster/season/2025-26/staff/matt-painter)
+- [Boilermaker Alliance to fold, signaling shift in Purdue NIL strategy — On3](https://www.on3.com/teams/purdue-boilermakers/news/boilermaker-alliance-to-fold-signaling-shift-in-purdue-nil-strategy/)
+- [Where Purdue's Four Seniors Rank Among 2026 Top-100 NBA Draft Prospects — SI](https://www.si.com/college/purdue/basketball/where-purdue-four-seniors-rank-among-2026-top-100-nba-draft-prospects)
+- [Purdue Basketball 2026-27 Roster Tracker — SI](https://www.si.com/college/purdue/basketball/purdue-basketball-2026-27-roster-tracker)
+- [Matt Painter wins 500th at Purdue as Boilermakers advance — ESPN](https://www.espn.com/mens-college-basketball/story/_/id/48280202/matt-painter-wins-500th-purdue-boilermakers-advance)
+- [Teamworks Wallet Elevates Purdue's NIL Landscape](https://teamworks.com/blog/wallet-elevates-purdue/)
+- [Purdue men's basketball takes on roster refresh — Purdue Exponent](https://www.purdueexponent.org/sports/mens/basketball/purdue-mens-basketball-2026-2027-class-of-2026-freshmen/article_1daea639-e4d2-4f20-80ca-c0c2ce85e796.html)
+- [Daniel Jacobsen — Purdue Boilermakers Roster](https://purduesports.com/sports/mens-basketball/roster/player/daniel-jacobsen)

@@ -1,0 +1,33 @@
+{
+  "id": "q425",
+  "question": "How do you calculate 'true' LTV when you have variable churn by cohort age, and some customers never expand?",
+  "tags": [
+    "ltv",
+    "cohort-analysis",
+    "survival-analysis",
+    "kaplan-meier",
+    "saas-metrics",
+    "unit-economics",
+    "customer-lifetime-value",
+    "nrr",
+    "grr",
+    "churn",
+    "segment-analysis",
+    "bayesian",
+    "markov-chain",
+    "chartmogul",
+    "maxio",
+    "iconiq",
+    "bessemer",
+    "openview",
+    "asc-606",
+    "board-reporting"
+  ],
+  "ts": 1779046753791,
+  "polished_at": 1779046850698,
+  "quality_score": 10,
+  "was_indexed_at": null,
+  "format_v": null,
+  "pending": false,
+  "source": null
+}

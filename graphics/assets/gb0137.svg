@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <style>svg{--c1:#fb7185;--c2:#e11d48;--c3:#fda4af;--c4:#fbbf24;--c4b:#fde68a;--ink:#1f0510;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1080" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/><stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/><stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/><stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c4,#22d3ee)"/><stop offset="1" style="stop-color:var(--c4b,#67e8f9)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.16"/><stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#glow)"/>
+  <text x="540" y="280" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="240" font-weight="900" fill="url(#accent)" opacity="0.9">&#8220;</text>
+  <text x="540" y="418" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="92" font-weight="800" fill="#FFFFFF" letter-spacing="-1">Price is what</text>
+  <text x="540" y="525" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="92" font-weight="800" fill="#FFFFFF" letter-spacing="-1">you pay.</text>
+  <text x="540" y="632" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="92" font-weight="800" fill="#FFFFFF" letter-spacing="-1">Value is what</text>
+  <text x="540" y="738" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="92" font-weight="800" fill="url(#accent)" letter-spacing="-1">you get.</text>
+  <polyline points="360,829 461,829 475,846 499,781 522,863 540,829 590,829 605,846 628,781 652,863 670,829 720,829" stroke="url(#accent)" fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+
+</svg>

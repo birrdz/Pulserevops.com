@@ -1,0 +1,26 @@
+answer blobs: 20637
+  scanned 1000 / 20637 | flagged 1000
+  scanned 2000 / 20637 | flagged 2000
+  scanned 3000 / 20637 | flagged 3000
+  scanned 4000 / 20637 | flagged 3807
+  scanned 5000 / 20637 | flagged 4590
+  scanned 6000 / 20637 | flagged 5590
+  scanned 7000 / 20637 | flagged 6590
+  scanned 8000 / 20637 | flagged 7590
+  scanned 9000 / 20637 | flagged 8590
+  scanned 10000 / 20637 | flagged 9589
+  scanned 11000 / 20637 | flagged 10586
+  scanned 12000 / 20637 | flagged 11586
+  scanned 13000 / 20637 | flagged 12586
+  scanned 14000 / 20637 | flagged 13586
+  scanned 15000 / 20637 | flagged 14586
+  scanned 16000 / 20637 | flagged 15586
+  scanned 17000 / 20637 | flagged 16586
+  scanned 18000 / 20637 | flagged 17444
+  scanned 19000 / 20637 | flagged 18428
+  scanned 20000 / 20637 | flagged 19341
+
+=== SCAN COMPLETE ===
+scanned: 20637 | flagged: 19870
+issue counts: {"UNRENDERED_TOKEN":8897,"DOUBLE_SPACE":16482,"SPACE_BEFORE_PUNCT":9148,"HEADER_NOSPACE":4236,"STALE_YEAR":3586,"CHAR_REPEAT":4574,"BANNED_PHRASE":276,"JS_LEAK":142,"HTML_ENTITY":22,"BOM":5,"MERMAID_UNCLOSED":2,"BROKEN_IMG":842,"MOJIBAKE":12,"DUP_LINE":2}
+queue written: _audit_fix_queue.json

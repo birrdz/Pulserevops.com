@@ -1,0 +1,1502 @@
+[
+  {
+    "id": "es0051",
+    "title": "Top 10 Luxury Neighborhoods in Miami",
+    "slug": "estate-luxury-neighborhoods-miami"
+  },
+  {
+    "id": "es0052",
+    "title": "Top 10 Luxury Neighborhoods in Atlanta",
+    "slug": "estate-luxury-neighborhoods-atlanta"
+  },
+  {
+    "id": "es0053",
+    "title": "Top 10 Luxury Neighborhoods in Houston",
+    "slug": "estate-luxury-neighborhoods-houston"
+  },
+  {
+    "id": "es0054",
+    "title": "Top 10 Luxury Neighborhoods in Austin",
+    "slug": "estate-luxury-neighborhoods-austin"
+  },
+  {
+    "id": "es0055",
+    "title": "Top 10 Luxury Neighborhoods in Phoenix",
+    "slug": "estate-luxury-neighborhoods-phoenix"
+  },
+  {
+    "id": "es0056",
+    "title": "Top 10 Luxury Neighborhoods in Scottsdale",
+    "slug": "estate-luxury-neighborhoods-scottsdale"
+  },
+  {
+    "id": "es0057",
+    "title": "Top 10 Luxury Neighborhoods in Denver",
+    "slug": "estate-luxury-neighborhoods-denver"
+  },
+  {
+    "id": "es0058",
+    "title": "Top 10 Luxury Neighborhoods in Seattle",
+    "slug": "estate-luxury-neighborhoods-seattle"
+  },
+  {
+    "id": "es0059",
+    "title": "Top 10 Luxury Neighborhoods in San Diego",
+    "slug": "estate-luxury-neighborhoods-san-diego"
+  },
+  {
+    "id": "es0060",
+    "title": "Top 10 Luxury Neighborhoods in San Francisco",
+    "slug": "estate-luxury-neighborhoods-san-francisco"
+  },
+  {
+    "id": "es0061",
+    "title": "Top 10 Luxury Neighborhoods in Nashville",
+    "slug": "estate-luxury-neighborhoods-nashville"
+  },
+  {
+    "id": "es0062",
+    "title": "Top 10 Luxury Neighborhoods in Charlotte",
+    "slug": "estate-luxury-neighborhoods-charlotte"
+  },
+  {
+    "id": "es0063",
+    "title": "Top 10 Luxury Neighborhoods in Las Vegas",
+    "slug": "estate-luxury-neighborhoods-las-vegas"
+  },
+  {
+    "id": "es0064",
+    "title": "Top 10 Luxury Neighborhoods in Boston",
+    "slug": "estate-luxury-neighborhoods-boston"
+  },
+  {
+    "id": "es0065",
+    "title": "Top 10 Luxury Neighborhoods in Washington DC",
+    "slug": "estate-luxury-neighborhoods-washington-dc"
+  },
+  {
+    "id": "es0066",
+    "title": "Top 10 Luxury Neighborhoods in Chicago",
+    "slug": "estate-luxury-neighborhoods-chicago"
+  },
+  {
+    "id": "es0067",
+    "title": "Top 10 Luxury Neighborhoods in Naples Florida",
+    "slug": "estate-luxury-neighborhoods-naples-florida"
+  },
+  {
+    "id": "es0068",
+    "title": "Top 10 Luxury Neighborhoods in Palm Beach",
+    "slug": "estate-luxury-neighborhoods-palm-beach"
+  },
+  {
+    "id": "es0069",
+    "title": "Top 10 Luxury Neighborhoods in Aspen",
+    "slug": "estate-luxury-neighborhoods-aspen"
+  },
+  {
+    "id": "es0070",
+    "title": "Top 10 Luxury Neighborhoods in Park City Utah",
+    "slug": "estate-luxury-neighborhoods-park-city-utah"
+  },
+  {
+    "id": "es0071",
+    "title": "Top 10 Luxury Neighborhoods in New York City",
+    "slug": "estate-luxury-neighborhoods-new-york-city"
+  },
+  {
+    "id": "es0072",
+    "title": "Top 10 Luxury Neighborhoods in Brooklyn",
+    "slug": "estate-luxury-neighborhoods-brooklyn"
+  },
+  {
+    "id": "es0073",
+    "title": "Top 10 Luxury Neighborhoods in San Antonio",
+    "slug": "estate-luxury-neighborhoods-san-antonio"
+  },
+  {
+    "id": "es0074",
+    "title": "Top 10 Luxury Neighborhoods in Tampa",
+    "slug": "estate-luxury-neighborhoods-tampa"
+  },
+  {
+    "id": "es0075",
+    "title": "Top 10 Luxury Neighborhoods in Orlando",
+    "slug": "estate-luxury-neighborhoods-orlando"
+  },
+  {
+    "id": "es0076",
+    "title": "Top 10 Luxury Neighborhoods in Raleigh",
+    "slug": "estate-luxury-neighborhoods-raleigh"
+  },
+  {
+    "id": "es0077",
+    "title": "Top 10 Luxury Neighborhoods in Salt Lake City",
+    "slug": "estate-luxury-neighborhoods-salt-lake-city"
+  },
+  {
+    "id": "es0078",
+    "title": "Top 10 Luxury Neighborhoods in Boise",
+    "slug": "estate-luxury-neighborhoods-boise"
+  },
+  {
+    "id": "es0079",
+    "title": "Top 10 Luxury Neighborhoods in Portland Oregon",
+    "slug": "estate-luxury-neighborhoods-portland-oregon"
+  },
+  {
+    "id": "es0080",
+    "title": "Top 10 Luxury Neighborhoods in Minneapolis",
+    "slug": "estate-luxury-neighborhoods-minneapolis"
+  },
+  {
+    "id": "es0081",
+    "title": "Top 10 Luxury Neighborhoods in Detroit",
+    "slug": "estate-luxury-neighborhoods-detroit"
+  },
+  {
+    "id": "es0082",
+    "title": "Top 10 Luxury Neighborhoods in Cleveland",
+    "slug": "estate-luxury-neighborhoods-cleveland"
+  },
+  {
+    "id": "es0083",
+    "title": "Top 10 Luxury Neighborhoods in Pittsburgh",
+    "slug": "estate-luxury-neighborhoods-pittsburgh"
+  },
+  {
+    "id": "es0084",
+    "title": "Top 10 Luxury Neighborhoods in Baltimore",
+    "slug": "estate-luxury-neighborhoods-baltimore"
+  },
+  {
+    "id": "es0085",
+    "title": "Top 10 Luxury Neighborhoods in Richmond",
+    "slug": "estate-luxury-neighborhoods-richmond"
+  },
+  {
+    "id": "es0086",
+    "title": "Top 10 Luxury Neighborhoods in Savannah",
+    "slug": "estate-luxury-neighborhoods-savannah"
+  },
+  {
+    "id": "es0087",
+    "title": "Top 10 Luxury Neighborhoods in Charleston",
+    "slug": "estate-luxury-neighborhoods-charleston"
+  },
+  {
+    "id": "es0088",
+    "title": "Top 10 Luxury Neighborhoods in Jacksonville",
+    "slug": "estate-luxury-neighborhoods-jacksonville"
+  },
+  {
+    "id": "es0089",
+    "title": "Top 10 Luxury Neighborhoods in Fort Lauderdale",
+    "slug": "estate-luxury-neighborhoods-fort-lauderdale"
+  },
+  {
+    "id": "es0090",
+    "title": "Top 10 Luxury Neighborhoods in Santa Barbara",
+    "slug": "estate-luxury-neighborhoods-santa-barbara"
+  },
+  {
+    "id": "es0091",
+    "title": "Top 10 Luxury Neighborhoods in Palm Springs",
+    "slug": "estate-luxury-neighborhoods-palm-springs"
+  },
+  {
+    "id": "es0092",
+    "title": "Top 10 Luxury Neighborhoods in Boulder",
+    "slug": "estate-luxury-neighborhoods-boulder"
+  },
+  {
+    "id": "es0093",
+    "title": "Top 10 Luxury Neighborhoods in Colorado Springs",
+    "slug": "estate-luxury-neighborhoods-colorado-springs"
+  },
+  {
+    "id": "es0094",
+    "title": "Top 10 Luxury Neighborhoods in Honolulu",
+    "slug": "estate-luxury-neighborhoods-honolulu"
+  },
+  {
+    "id": "es0095",
+    "title": "Top 10 Luxury Neighborhoods in Kauai",
+    "slug": "estate-luxury-neighborhoods-kauai"
+  },
+  {
+    "id": "es0096",
+    "title": "Top 10 Luxury Neighborhoods in Maui",
+    "slug": "estate-luxury-neighborhoods-maui"
+  },
+  {
+    "id": "es0097",
+    "title": "Top 10 Best Places to Buy a Home in California",
+    "slug": "estate-buy-home-california"
+  },
+  {
+    "id": "es0098",
+    "title": "Top 10 Best Places to Buy a Home in Arizona",
+    "slug": "estate-buy-home-arizona"
+  },
+  {
+    "id": "es0099",
+    "title": "Top 10 Best Places to Buy a Home in Colorado",
+    "slug": "estate-buy-home-colorado"
+  },
+  {
+    "id": "es0100",
+    "title": "Top 10 Best Places to Buy a Home in Georgia",
+    "slug": "estate-buy-home-georgia"
+  },
+  {
+    "id": "es0101",
+    "title": "Top 10 Best Places to Buy a Home in South Carolina",
+    "slug": "estate-buy-home-south-carolina"
+  },
+  {
+    "id": "es0102",
+    "title": "Top 10 Best Places to Buy a Home in North Carolina",
+    "slug": "estate-buy-home-north-carolina"
+  },
+  {
+    "id": "es0103",
+    "title": "Top 10 Best Places to Buy a Home in Nevada",
+    "slug": "estate-buy-home-nevada"
+  },
+  {
+    "id": "es0104",
+    "title": "Top 10 Best Places to Buy a Home in Idaho",
+    "slug": "estate-buy-home-idaho"
+  },
+  {
+    "id": "es0105",
+    "title": "Top 10 Best Places to Buy a Home in Montana",
+    "slug": "estate-buy-home-montana"
+  },
+  {
+    "id": "es0106",
+    "title": "Top 10 Best Places to Buy a Home in Virginia",
+    "slug": "estate-buy-home-virginia"
+  },
+  {
+    "id": "es0107",
+    "title": "Top 10 Best Places to Buy a Home in Washington State",
+    "slug": "estate-buy-home-washington-state"
+  },
+  {
+    "id": "es0108",
+    "title": "Top 10 Best Places to Buy a Home in Oregon",
+    "slug": "estate-buy-home-oregon"
+  },
+  {
+    "id": "es0109",
+    "title": "Top 10 Best Places to Buy a Home in Alabama",
+    "slug": "estate-buy-home-alabama"
+  },
+  {
+    "id": "es0110",
+    "title": "Top 10 Best Places to Buy a Home in Kentucky",
+    "slug": "estate-buy-home-kentucky"
+  },
+  {
+    "id": "es0111",
+    "title": "Top 10 Best Places to Buy a Home in Michigan",
+    "slug": "estate-buy-home-michigan"
+  },
+  {
+    "id": "es0112",
+    "title": "Top 10 Best Places to Buy a Home in Utah",
+    "slug": "estate-buy-home-utah"
+  },
+  {
+    "id": "es0113",
+    "title": "Top 10 Best Places to Buy a Home in New Mexico",
+    "slug": "estate-buy-home-new-mexico"
+  },
+  {
+    "id": "es0114",
+    "title": "Top 10 Best Places to Buy a Home in Wyoming",
+    "slug": "estate-buy-home-wyoming"
+  },
+  {
+    "id": "es0115",
+    "title": "Top 10 Best Places to Buy a Home in Maine",
+    "slug": "estate-buy-home-maine"
+  },
+  {
+    "id": "es0116",
+    "title": "Top 10 Best Places to Buy a Home in New Hampshire",
+    "slug": "estate-buy-home-new-hampshire"
+  },
+  {
+    "id": "es0117",
+    "title": "Top 10 Gated Communities in Arizona",
+    "slug": "estate-gated-arizona"
+  },
+  {
+    "id": "es0118",
+    "title": "Top 10 Gated Communities in Colorado",
+    "slug": "estate-gated-colorado"
+  },
+  {
+    "id": "es0119",
+    "title": "Top 10 Gated Communities in Georgia",
+    "slug": "estate-gated-georgia"
+  },
+  {
+    "id": "es0120",
+    "title": "Top 10 Gated Communities in South Carolina",
+    "slug": "estate-gated-south-carolina"
+  },
+  {
+    "id": "es0121",
+    "title": "Top 10 Gated Communities in North Carolina",
+    "slug": "estate-gated-north-carolina"
+  },
+  {
+    "id": "es0122",
+    "title": "Top 10 Gated Communities in Nevada",
+    "slug": "estate-gated-nevada"
+  },
+  {
+    "id": "es0123",
+    "title": "Top 10 Gated Communities in Idaho",
+    "slug": "estate-gated-idaho"
+  },
+  {
+    "id": "es0124",
+    "title": "Top 10 Gated Communities in Montana",
+    "slug": "estate-gated-montana"
+  },
+  {
+    "id": "es0125",
+    "title": "Top 10 Gated Communities in Virginia",
+    "slug": "estate-gated-virginia"
+  },
+  {
+    "id": "es0126",
+    "title": "Top 10 Gated Communities in Washington State",
+    "slug": "estate-gated-washington-state"
+  },
+  {
+    "id": "es0127",
+    "title": "Top 10 Gated Communities in Oregon",
+    "slug": "estate-gated-oregon"
+  },
+  {
+    "id": "es0128",
+    "title": "Top 10 Gated Communities in Alabama",
+    "slug": "estate-gated-alabama"
+  },
+  {
+    "id": "es0129",
+    "title": "Top 10 Gated Communities in Kentucky",
+    "slug": "estate-gated-kentucky"
+  },
+  {
+    "id": "es0130",
+    "title": "Top 10 Gated Communities in Michigan",
+    "slug": "estate-gated-michigan"
+  },
+  {
+    "id": "es0131",
+    "title": "Top 10 Gated Communities in Texas",
+    "slug": "estate-gated-texas"
+  },
+  {
+    "id": "es0132",
+    "title": "Top 10 Gated Communities in Tennessee",
+    "slug": "estate-gated-tennessee"
+  },
+  {
+    "id": "es0133",
+    "title": "Top 10 Gated Communities in Utah",
+    "slug": "estate-gated-utah"
+  },
+  {
+    "id": "es0134",
+    "title": "Top 10 Gated Communities in New Mexico",
+    "slug": "estate-gated-new-mexico"
+  },
+  {
+    "id": "es0135",
+    "title": "Top 10 Master-Planned Communities in California",
+    "slug": "estate-master-planned-california"
+  },
+  {
+    "id": "es0136",
+    "title": "Top 10 Master-Planned Communities in Arizona",
+    "slug": "estate-master-planned-arizona"
+  },
+  {
+    "id": "es0137",
+    "title": "Top 10 Master-Planned Communities in Colorado",
+    "slug": "estate-master-planned-colorado"
+  },
+  {
+    "id": "es0138",
+    "title": "Top 10 Master-Planned Communities in Georgia",
+    "slug": "estate-master-planned-georgia"
+  },
+  {
+    "id": "es0139",
+    "title": "Top 10 Master-Planned Communities in South Carolina",
+    "slug": "estate-master-planned-south-carolina"
+  },
+  {
+    "id": "es0140",
+    "title": "Top 10 Master-Planned Communities in North Carolina",
+    "slug": "estate-master-planned-north-carolina"
+  },
+  {
+    "id": "es0141",
+    "title": "Top 10 Master-Planned Communities in Nevada",
+    "slug": "estate-master-planned-nevada"
+  },
+  {
+    "id": "es0142",
+    "title": "Top 10 Master-Planned Communities in Idaho",
+    "slug": "estate-master-planned-idaho"
+  },
+  {
+    "id": "es0143",
+    "title": "Top 10 Master-Planned Communities in Montana",
+    "slug": "estate-master-planned-montana"
+  },
+  {
+    "id": "es0144",
+    "title": "Top 10 Master-Planned Communities in Virginia",
+    "slug": "estate-master-planned-virginia"
+  },
+  {
+    "id": "es0145",
+    "title": "Top 10 Master-Planned Communities in Washington State",
+    "slug": "estate-master-planned-washington-state"
+  },
+  {
+    "id": "es0146",
+    "title": "Top 10 Master-Planned Communities in Oregon",
+    "slug": "estate-master-planned-oregon"
+  },
+  {
+    "id": "es0147",
+    "title": "Top 10 Master-Planned Communities in Alabama",
+    "slug": "estate-master-planned-alabama"
+  },
+  {
+    "id": "es0148",
+    "title": "Top 10 Master-Planned Communities in Kentucky",
+    "slug": "estate-master-planned-kentucky"
+  },
+  {
+    "id": "es0149",
+    "title": "Top 10 Master-Planned Communities in Michigan",
+    "slug": "estate-master-planned-michigan"
+  },
+  {
+    "id": "es0150",
+    "title": "Top 10 Golf Course Communities in California",
+    "slug": "estate-golf-california"
+  },
+  {
+    "id": "es0151",
+    "title": "Top 10 Golf Course Communities in Arizona",
+    "slug": "estate-golf-arizona"
+  },
+  {
+    "id": "es0152",
+    "title": "Top 10 Golf Course Communities in Colorado",
+    "slug": "estate-golf-colorado"
+  },
+  {
+    "id": "es0153",
+    "title": "Top 10 Golf Course Communities in Georgia",
+    "slug": "estate-golf-georgia"
+  },
+  {
+    "id": "es0154",
+    "title": "Top 10 Golf Course Communities in South Carolina",
+    "slug": "estate-golf-south-carolina"
+  },
+  {
+    "id": "es0155",
+    "title": "Top 10 Golf Course Communities in North Carolina",
+    "slug": "estate-golf-north-carolina"
+  },
+  {
+    "id": "es0156",
+    "title": "Top 10 Golf Course Communities in Nevada",
+    "slug": "estate-golf-nevada"
+  },
+  {
+    "id": "es0157",
+    "title": "Top 10 Golf Course Communities in Idaho",
+    "slug": "estate-golf-idaho"
+  },
+  {
+    "id": "es0158",
+    "title": "Top 10 Golf Course Communities in Montana",
+    "slug": "estate-golf-montana"
+  },
+  {
+    "id": "es0159",
+    "title": "Top 10 Golf Course Communities in Virginia",
+    "slug": "estate-golf-virginia"
+  },
+  {
+    "id": "es0160",
+    "title": "Top 10 Golf Course Communities in Washington State",
+    "slug": "estate-golf-washington-state"
+  },
+  {
+    "id": "es0161",
+    "title": "Top 10 Golf Course Communities in Oregon",
+    "slug": "estate-golf-oregon"
+  },
+  {
+    "id": "es0162",
+    "title": "Top 10 55-Plus Communities in California",
+    "slug": "estate-55plus-california"
+  },
+  {
+    "id": "es0163",
+    "title": "Top 10 55-Plus Communities in Arizona",
+    "slug": "estate-55plus-arizona"
+  },
+  {
+    "id": "es0164",
+    "title": "Top 10 55-Plus Communities in Colorado",
+    "slug": "estate-55plus-colorado"
+  },
+  {
+    "id": "es0165",
+    "title": "Top 10 55-Plus Communities in Georgia",
+    "slug": "estate-55plus-georgia"
+  },
+  {
+    "id": "es0166",
+    "title": "Top 10 55-Plus Communities in South Carolina",
+    "slug": "estate-55plus-south-carolina"
+  },
+  {
+    "id": "es0167",
+    "title": "Top 10 55-Plus Communities in North Carolina",
+    "slug": "estate-55plus-north-carolina"
+  },
+  {
+    "id": "es0168",
+    "title": "Top 10 55-Plus Communities in Nevada",
+    "slug": "estate-55plus-nevada"
+  },
+  {
+    "id": "es0169",
+    "title": "Top 10 55-Plus Communities in Idaho",
+    "slug": "estate-55plus-idaho"
+  },
+  {
+    "id": "es0170",
+    "title": "Top 10 55-Plus Communities in Montana",
+    "slug": "estate-55plus-montana"
+  },
+  {
+    "id": "es0171",
+    "title": "Top 10 55-Plus Communities in Virginia",
+    "slug": "estate-55plus-virginia"
+  },
+  {
+    "id": "es0172",
+    "title": "Top 10 Waterfront Communities in California",
+    "slug": "estate-waterfront-california"
+  },
+  {
+    "id": "es0173",
+    "title": "Top 10 Waterfront Communities in Arizona",
+    "slug": "estate-waterfront-arizona"
+  },
+  {
+    "id": "es0174",
+    "title": "Top 10 Waterfront Communities in Colorado",
+    "slug": "estate-waterfront-colorado"
+  },
+  {
+    "id": "es0175",
+    "title": "Top 10 Waterfront Communities in Georgia",
+    "slug": "estate-waterfront-georgia"
+  },
+  {
+    "id": "es0176",
+    "title": "Top 10 Waterfront Communities in South Carolina",
+    "slug": "estate-waterfront-south-carolina"
+  },
+  {
+    "id": "es0177",
+    "title": "Top 10 Waterfront Communities in North Carolina",
+    "slug": "estate-waterfront-north-carolina"
+  },
+  {
+    "id": "es0178",
+    "title": "Top 10 Waterfront Communities in Nevada",
+    "slug": "estate-waterfront-nevada"
+  },
+  {
+    "id": "es0179",
+    "title": "Top 10 Waterfront Communities in Idaho",
+    "slug": "estate-waterfront-idaho"
+  },
+  {
+    "id": "es0180",
+    "title": "Top 10 Waterfront Communities in Montana",
+    "slug": "estate-waterfront-montana"
+  },
+  {
+    "id": "es0181",
+    "title": "Top 10 Waterfront Communities in Virginia",
+    "slug": "estate-waterfront-virginia"
+  },
+  {
+    "id": "es0182",
+    "title": "Top 10 Best Places to Retire in California",
+    "slug": "estate-retire-california"
+  },
+  {
+    "id": "es0183",
+    "title": "Top 10 Best Places to Retire in Arizona",
+    "slug": "estate-retire-arizona"
+  },
+  {
+    "id": "es0184",
+    "title": "Top 10 Best Places to Retire in Colorado",
+    "slug": "estate-retire-colorado"
+  },
+  {
+    "id": "es0185",
+    "title": "Top 10 Best Places to Retire in Georgia",
+    "slug": "estate-retire-georgia"
+  },
+  {
+    "id": "es0186",
+    "title": "Top 10 Best Places to Retire in South Carolina",
+    "slug": "estate-retire-south-carolina"
+  },
+  {
+    "id": "es0187",
+    "title": "Top 10 Best Places to Retire in North Carolina",
+    "slug": "estate-retire-north-carolina"
+  },
+  {
+    "id": "es0188",
+    "title": "Top 10 Best Places to Retire in Nevada",
+    "slug": "estate-retire-nevada"
+  },
+  {
+    "id": "es0189",
+    "title": "Top 10 Best Places to Retire in Idaho",
+    "slug": "estate-retire-idaho"
+  },
+  {
+    "id": "es0190",
+    "title": "Top 10 Waterfront Estates in Miami",
+    "slug": "estate-waterfront-estates-miami"
+  },
+  {
+    "id": "es0191",
+    "title": "Top 10 Waterfront Estates in Atlanta",
+    "slug": "estate-waterfront-estates-atlanta"
+  },
+  {
+    "id": "es0192",
+    "title": "Top 10 Waterfront Estates in Houston",
+    "slug": "estate-waterfront-estates-houston"
+  },
+  {
+    "id": "es0193",
+    "title": "Top 10 Waterfront Estates in Austin",
+    "slug": "estate-waterfront-estates-austin"
+  },
+  {
+    "id": "es0194",
+    "title": "Top 10 Waterfront Estates in Phoenix",
+    "slug": "estate-waterfront-estates-phoenix"
+  },
+  {
+    "id": "es0195",
+    "title": "Top 10 Waterfront Estates in Scottsdale",
+    "slug": "estate-waterfront-estates-scottsdale"
+  },
+  {
+    "id": "es0196",
+    "title": "Top 10 Waterfront Estates in Denver",
+    "slug": "estate-waterfront-estates-denver"
+  },
+  {
+    "id": "es0197",
+    "title": "Top 10 Waterfront Estates in Seattle",
+    "slug": "estate-waterfront-estates-seattle"
+  },
+  {
+    "id": "es0198",
+    "title": "Top 10 Waterfront Estates in San Diego",
+    "slug": "estate-waterfront-estates-san-diego"
+  },
+  {
+    "id": "es0199",
+    "title": "Top 10 Waterfront Estates in San Francisco",
+    "slug": "estate-waterfront-estates-san-francisco"
+  },
+  {
+    "id": "es0200",
+    "title": "Top 10 Waterfront Estates in Nashville",
+    "slug": "estate-waterfront-estates-nashville"
+  },
+  {
+    "id": "es0201",
+    "title": "Top 10 Waterfront Estates in Charlotte",
+    "slug": "estate-waterfront-estates-charlotte"
+  },
+  {
+    "id": "es0202",
+    "title": "Top 10 Golf Course Communities in Miami",
+    "slug": "estate-golf-course-communities-miami"
+  },
+  {
+    "id": "es0203",
+    "title": "Top 10 Golf Course Communities in Atlanta",
+    "slug": "estate-golf-course-communities-atlanta"
+  },
+  {
+    "id": "es0204",
+    "title": "Top 10 Golf Course Communities in Houston",
+    "slug": "estate-golf-course-communities-houston"
+  },
+  {
+    "id": "es0205",
+    "title": "Top 10 Golf Course Communities in Austin",
+    "slug": "estate-golf-course-communities-austin"
+  },
+  {
+    "id": "es0206",
+    "title": "Top 10 Golf Course Communities in Phoenix",
+    "slug": "estate-golf-course-communities-phoenix"
+  },
+  {
+    "id": "es0207",
+    "title": "Top 10 Golf Course Communities in Scottsdale",
+    "slug": "estate-golf-course-communities-scottsdale"
+  },
+  {
+    "id": "es0208",
+    "title": "Top 10 Golf Course Communities in Denver",
+    "slug": "estate-golf-course-communities-denver"
+  },
+  {
+    "id": "es0209",
+    "title": "Top 10 Golf Course Communities in Seattle",
+    "slug": "estate-golf-course-communities-seattle"
+  },
+  {
+    "id": "es0210",
+    "title": "Top 10 Golf Course Communities in San Diego",
+    "slug": "estate-golf-course-communities-san-diego"
+  },
+  {
+    "id": "es0211",
+    "title": "Top 10 Golf Course Communities in San Francisco",
+    "slug": "estate-golf-course-communities-san-francisco"
+  },
+  {
+    "id": "es0212",
+    "title": "Top 10 Golf Course Communities in Nashville",
+    "slug": "estate-golf-course-communities-nashville"
+  },
+  {
+    "id": "es0213",
+    "title": "Top 10 Golf Course Communities in Charlotte",
+    "slug": "estate-golf-course-communities-charlotte"
+  },
+  {
+    "id": "es0214",
+    "title": "Top 10 Gated Communities in Miami",
+    "slug": "estate-gated-communities-miami"
+  },
+  {
+    "id": "es0215",
+    "title": "Top 10 Gated Communities in Atlanta",
+    "slug": "estate-gated-communities-atlanta"
+  },
+  {
+    "id": "es0216",
+    "title": "Top 10 Gated Communities in Houston",
+    "slug": "estate-gated-communities-houston"
+  },
+  {
+    "id": "es0217",
+    "title": "Top 10 Gated Communities in Austin",
+    "slug": "estate-gated-communities-austin"
+  },
+  {
+    "id": "es0218",
+    "title": "Top 10 Gated Communities in Phoenix",
+    "slug": "estate-gated-communities-phoenix"
+  },
+  {
+    "id": "es0219",
+    "title": "Top 10 Gated Communities in Scottsdale",
+    "slug": "estate-gated-communities-scottsdale"
+  },
+  {
+    "id": "es0220",
+    "title": "Top 10 Gated Communities in Denver",
+    "slug": "estate-gated-communities-denver"
+  },
+  {
+    "id": "es0221",
+    "title": "Top 10 Gated Communities in Seattle",
+    "slug": "estate-gated-communities-seattle"
+  },
+  {
+    "id": "es0222",
+    "title": "Top 10 Gated Communities in San Diego",
+    "slug": "estate-gated-communities-san-diego"
+  },
+  {
+    "id": "es0223",
+    "title": "Top 10 Gated Communities in San Francisco",
+    "slug": "estate-gated-communities-san-francisco"
+  },
+  {
+    "id": "es0224",
+    "title": "Top 10 Gated Communities in Nashville",
+    "slug": "estate-gated-communities-nashville"
+  },
+  {
+    "id": "es0225",
+    "title": "Top 10 Gated Communities in Charlotte",
+    "slug": "estate-gated-communities-charlotte"
+  },
+  {
+    "id": "es0226",
+    "title": "Top 10 Master-Planned Communities in Miami",
+    "slug": "estate-master-planned-communities-miami"
+  },
+  {
+    "id": "es0227",
+    "title": "Top 10 Master-Planned Communities in Atlanta",
+    "slug": "estate-master-planned-communities-atlanta"
+  },
+  {
+    "id": "es0228",
+    "title": "Top 10 Master-Planned Communities in Houston",
+    "slug": "estate-master-planned-communities-houston"
+  },
+  {
+    "id": "es0229",
+    "title": "Top 10 Master-Planned Communities in Austin",
+    "slug": "estate-master-planned-communities-austin"
+  },
+  {
+    "id": "es0230",
+    "title": "Top 10 Master-Planned Communities in Phoenix",
+    "slug": "estate-master-planned-communities-phoenix"
+  },
+  {
+    "id": "es0231",
+    "title": "Top 10 Master-Planned Communities in Scottsdale",
+    "slug": "estate-master-planned-communities-scottsdale"
+  },
+  {
+    "id": "es0232",
+    "title": "Top 10 Master-Planned Communities in Denver",
+    "slug": "estate-master-planned-communities-denver"
+  },
+  {
+    "id": "es0233",
+    "title": "Top 10 Master-Planned Communities in Seattle",
+    "slug": "estate-master-planned-communities-seattle"
+  },
+  {
+    "id": "es0234",
+    "title": "Top 10 Master-Planned Communities in San Diego",
+    "slug": "estate-master-planned-communities-san-diego"
+  },
+  {
+    "id": "es0235",
+    "title": "Top 10 Master-Planned Communities in San Francisco",
+    "slug": "estate-master-planned-communities-san-francisco"
+  },
+  {
+    "id": "es0236",
+    "title": "Top 10 Master-Planned Communities in Nashville",
+    "slug": "estate-master-planned-communities-nashville"
+  },
+  {
+    "id": "es0237",
+    "title": "Top 10 Master-Planned Communities in Charlotte",
+    "slug": "estate-master-planned-communities-charlotte"
+  },
+  {
+    "id": "es0238",
+    "title": "Top 10 55-Plus Communities in Miami",
+    "slug": "estate-55-plus-communities-miami"
+  },
+  {
+    "id": "es0239",
+    "title": "Top 10 55-Plus Communities in Atlanta",
+    "slug": "estate-55-plus-communities-atlanta"
+  },
+  {
+    "id": "es0240",
+    "title": "Top 10 55-Plus Communities in Houston",
+    "slug": "estate-55-plus-communities-houston"
+  },
+  {
+    "id": "es0241",
+    "title": "Top 10 55-Plus Communities in Austin",
+    "slug": "estate-55-plus-communities-austin"
+  },
+  {
+    "id": "es0242",
+    "title": "Top 10 55-Plus Communities in Phoenix",
+    "slug": "estate-55-plus-communities-phoenix"
+  },
+  {
+    "id": "es0243",
+    "title": "Top 10 55-Plus Communities in Scottsdale",
+    "slug": "estate-55-plus-communities-scottsdale"
+  },
+  {
+    "id": "es0244",
+    "title": "Top 10 55-Plus Communities in Denver",
+    "slug": "estate-55-plus-communities-denver"
+  },
+  {
+    "id": "es0245",
+    "title": "Top 10 55-Plus Communities in Seattle",
+    "slug": "estate-55-plus-communities-seattle"
+  },
+  {
+    "id": "es0246",
+    "title": "Top 10 55-Plus Communities in San Diego",
+    "slug": "estate-55-plus-communities-san-diego"
+  },
+  {
+    "id": "es0247",
+    "title": "Top 10 55-Plus Communities in San Francisco",
+    "slug": "estate-55-plus-communities-san-francisco"
+  },
+  {
+    "id": "es0248",
+    "title": "Top 10 55-Plus Communities in Nashville",
+    "slug": "estate-55-plus-communities-nashville"
+  },
+  {
+    "id": "es0249",
+    "title": "Top 10 55-Plus Communities in Charlotte",
+    "slug": "estate-55-plus-communities-charlotte"
+  },
+  {
+    "id": "es0250",
+    "title": "Top 10 Lake Communities in Miami",
+    "slug": "estate-lake-communities-miami"
+  },
+  {
+    "id": "es0251",
+    "title": "Top 10 Lake Communities in Atlanta",
+    "slug": "estate-lake-communities-atlanta"
+  },
+  {
+    "id": "es0252",
+    "title": "Top 10 Lake Communities in Houston",
+    "slug": "estate-lake-communities-houston"
+  },
+  {
+    "id": "es0253",
+    "title": "Top 10 Lake Communities in Austin",
+    "slug": "estate-lake-communities-austin"
+  },
+  {
+    "id": "es0254",
+    "title": "Top 10 Lake Communities in Phoenix",
+    "slug": "estate-lake-communities-phoenix"
+  },
+  {
+    "id": "es0255",
+    "title": "Top 10 Lake Communities in Scottsdale",
+    "slug": "estate-lake-communities-scottsdale"
+  },
+  {
+    "id": "es0256",
+    "title": "Top 10 Lake Communities in Denver",
+    "slug": "estate-lake-communities-denver"
+  },
+  {
+    "id": "es0257",
+    "title": "Top 10 Lake Communities in Seattle",
+    "slug": "estate-lake-communities-seattle"
+  },
+  {
+    "id": "es0258",
+    "title": "Top 10 Lake Communities in San Diego",
+    "slug": "estate-lake-communities-san-diego"
+  },
+  {
+    "id": "es0259",
+    "title": "Top 10 Lake Communities in San Francisco",
+    "slug": "estate-lake-communities-san-francisco"
+  },
+  {
+    "id": "es0260",
+    "title": "Top 10 Lake Communities in Nashville",
+    "slug": "estate-lake-communities-nashville"
+  },
+  {
+    "id": "es0261",
+    "title": "Top 10 Lake Communities in Charlotte",
+    "slug": "estate-lake-communities-charlotte"
+  },
+  {
+    "id": "es0262",
+    "title": "Top 10 Beach Towns in Miami",
+    "slug": "estate-beach-towns-miami"
+  },
+  {
+    "id": "es0263",
+    "title": "Top 10 Beach Towns in Atlanta",
+    "slug": "estate-beach-towns-atlanta"
+  },
+  {
+    "id": "es0264",
+    "title": "Top 10 Beach Towns in Houston",
+    "slug": "estate-beach-towns-houston"
+  },
+  {
+    "id": "es0265",
+    "title": "Top 10 Beach Towns in Austin",
+    "slug": "estate-beach-towns-austin"
+  },
+  {
+    "id": "es0266",
+    "title": "Top 10 Beach Towns in Phoenix",
+    "slug": "estate-beach-towns-phoenix"
+  },
+  {
+    "id": "es0267",
+    "title": "Top 10 Beach Towns in Scottsdale",
+    "slug": "estate-beach-towns-scottsdale"
+  },
+  {
+    "id": "es0268",
+    "title": "Top 10 Beach Towns in Denver",
+    "slug": "estate-beach-towns-denver"
+  },
+  {
+    "id": "es0269",
+    "title": "Top 10 Beach Towns in Seattle",
+    "slug": "estate-beach-towns-seattle"
+  },
+  {
+    "id": "es0270",
+    "title": "Top 10 Beach Towns in San Diego",
+    "slug": "estate-beach-towns-san-diego"
+  },
+  {
+    "id": "es0271",
+    "title": "Top 10 Beach Towns in San Francisco",
+    "slug": "estate-beach-towns-san-francisco"
+  },
+  {
+    "id": "es0272",
+    "title": "Top 10 Beach Towns in Nashville",
+    "slug": "estate-beach-towns-nashville"
+  },
+  {
+    "id": "es0273",
+    "title": "Top 10 Beach Towns in Charlotte",
+    "slug": "estate-beach-towns-charlotte"
+  },
+  {
+    "id": "es0274",
+    "title": "Top 10 Mountain Towns in Miami",
+    "slug": "estate-mountain-towns-miami"
+  },
+  {
+    "id": "es0275",
+    "title": "Top 10 Mountain Towns in Atlanta",
+    "slug": "estate-mountain-towns-atlanta"
+  },
+  {
+    "id": "es0276",
+    "title": "Top 10 Mountain Towns in Houston",
+    "slug": "estate-mountain-towns-houston"
+  },
+  {
+    "id": "es0277",
+    "title": "Top 10 Mountain Towns in Austin",
+    "slug": "estate-mountain-towns-austin"
+  },
+  {
+    "id": "es0278",
+    "title": "Top 10 Mountain Towns in Phoenix",
+    "slug": "estate-mountain-towns-phoenix"
+  },
+  {
+    "id": "es0279",
+    "title": "Top 10 Mountain Towns in Scottsdale",
+    "slug": "estate-mountain-towns-scottsdale"
+  },
+  {
+    "id": "es0280",
+    "title": "Top 10 Mountain Towns in Denver",
+    "slug": "estate-mountain-towns-denver"
+  },
+  {
+    "id": "es0281",
+    "title": "Top 10 Mountain Towns in Seattle",
+    "slug": "estate-mountain-towns-seattle"
+  },
+  {
+    "id": "es0282",
+    "title": "Top 10 Mountain Towns in San Diego",
+    "slug": "estate-mountain-towns-san-diego"
+  },
+  {
+    "id": "es0283",
+    "title": "Top 10 Mountain Towns in San Francisco",
+    "slug": "estate-mountain-towns-san-francisco"
+  },
+  {
+    "id": "es0284",
+    "title": "Top 10 Mountain Towns in Nashville",
+    "slug": "estate-mountain-towns-nashville"
+  },
+  {
+    "id": "es0285",
+    "title": "Top 10 Mountain Towns in Charlotte",
+    "slug": "estate-mountain-towns-charlotte"
+  },
+  {
+    "id": "es0286",
+    "title": "Top 10 Ski Towns in Miami",
+    "slug": "estate-ski-towns-miami"
+  },
+  {
+    "id": "es0287",
+    "title": "Top 10 Ski Towns in Atlanta",
+    "slug": "estate-ski-towns-atlanta"
+  },
+  {
+    "id": "es0288",
+    "title": "Top 10 Ski Towns in Houston",
+    "slug": "estate-ski-towns-houston"
+  },
+  {
+    "id": "es0289",
+    "title": "Top 10 Ski Towns in Austin",
+    "slug": "estate-ski-towns-austin"
+  },
+  {
+    "id": "es0290",
+    "title": "Top 10 Ski Towns in Phoenix",
+    "slug": "estate-ski-towns-phoenix"
+  },
+  {
+    "id": "es0291",
+    "title": "Top 10 Ski Towns in Scottsdale",
+    "slug": "estate-ski-towns-scottsdale"
+  },
+  {
+    "id": "es0292",
+    "title": "Top 10 Ski Towns in Denver",
+    "slug": "estate-ski-towns-denver"
+  },
+  {
+    "id": "es0293",
+    "title": "Top 10 Ski Towns in Seattle",
+    "slug": "estate-ski-towns-seattle"
+  },
+  {
+    "id": "es0294",
+    "title": "Top 10 Ski Towns in San Diego",
+    "slug": "estate-ski-towns-san-diego"
+  },
+  {
+    "id": "es0295",
+    "title": "Top 10 Ski Towns in San Francisco",
+    "slug": "estate-ski-towns-san-francisco"
+  },
+  {
+    "id": "es0296",
+    "title": "Top 10 Ski Towns in Nashville",
+    "slug": "estate-ski-towns-nashville"
+  },
+  {
+    "id": "es0297",
+    "title": "Top 10 Ski Towns in Charlotte",
+    "slug": "estate-ski-towns-charlotte"
+  },
+  {
+    "id": "es0298",
+    "title": "Top 10 Equestrian Communities in Miami",
+    "slug": "estate-equestrian-communities-miami"
+  },
+  {
+    "id": "es0299",
+    "title": "Top 10 Equestrian Communities in Atlanta",
+    "slug": "estate-equestrian-communities-atlanta"
+  },
+  {
+    "id": "es0300",
+    "title": "Top 10 Equestrian Communities in Houston",
+    "slug": "estate-equestrian-communities-houston"
+  },
+  {
+    "id": "es0301",
+    "title": "Top 10 Equestrian Communities in Austin",
+    "slug": "estate-equestrian-communities-austin"
+  },
+  {
+    "id": "es0302",
+    "title": "Top 10 Equestrian Communities in Phoenix",
+    "slug": "estate-equestrian-communities-phoenix"
+  },
+  {
+    "id": "es0303",
+    "title": "Top 10 Equestrian Communities in Scottsdale",
+    "slug": "estate-equestrian-communities-scottsdale"
+  },
+  {
+    "id": "es0304",
+    "title": "Top 10 Equestrian Communities in Denver",
+    "slug": "estate-equestrian-communities-denver"
+  },
+  {
+    "id": "es0305",
+    "title": "Top 10 Equestrian Communities in Seattle",
+    "slug": "estate-equestrian-communities-seattle"
+  },
+  {
+    "id": "es0306",
+    "title": "Top 10 Equestrian Communities in San Diego",
+    "slug": "estate-equestrian-communities-san-diego"
+  },
+  {
+    "id": "es0307",
+    "title": "Top 10 Equestrian Communities in San Francisco",
+    "slug": "estate-equestrian-communities-san-francisco"
+  },
+  {
+    "id": "es0308",
+    "title": "Top 10 Equestrian Communities in Nashville",
+    "slug": "estate-equestrian-communities-nashville"
+  },
+  {
+    "id": "es0309",
+    "title": "Top 10 Equestrian Communities in Charlotte",
+    "slug": "estate-equestrian-communities-charlotte"
+  },
+  {
+    "id": "es0310",
+    "title": "Top 10 Vineyard Estates in Miami",
+    "slug": "estate-vineyard-estates-miami"
+  },
+  {
+    "id": "es0311",
+    "title": "Top 10 Vineyard Estates in Atlanta",
+    "slug": "estate-vineyard-estates-atlanta"
+  },
+  {
+    "id": "es0312",
+    "title": "Top 10 Vineyard Estates in Houston",
+    "slug": "estate-vineyard-estates-houston"
+  },
+  {
+    "id": "es0313",
+    "title": "Top 10 Vineyard Estates in Austin",
+    "slug": "estate-vineyard-estates-austin"
+  },
+  {
+    "id": "es0314",
+    "title": "Top 10 Vineyard Estates in Phoenix",
+    "slug": "estate-vineyard-estates-phoenix"
+  },
+  {
+    "id": "es0315",
+    "title": "Top 10 Vineyard Estates in Scottsdale",
+    "slug": "estate-vineyard-estates-scottsdale"
+  },
+  {
+    "id": "es0316",
+    "title": "Top 10 Vineyard Estates in Denver",
+    "slug": "estate-vineyard-estates-denver"
+  },
+  {
+    "id": "es0317",
+    "title": "Top 10 Vineyard Estates in Seattle",
+    "slug": "estate-vineyard-estates-seattle"
+  },
+  {
+    "id": "es0318",
+    "title": "Top 10 Vineyard Estates in San Diego",
+    "slug": "estate-vineyard-estates-san-diego"
+  },
+  {
+    "id": "es0319",
+    "title": "Top 10 Vineyard Estates in San Francisco",
+    "slug": "estate-vineyard-estates-san-francisco"
+  },
+  {
+    "id": "es0320",
+    "title": "Top 10 Vineyard Estates in Nashville",
+    "slug": "estate-vineyard-estates-nashville"
+  },
+  {
+    "id": "es0321",
+    "title": "Top 10 Vineyard Estates in Charlotte",
+    "slug": "estate-vineyard-estates-charlotte"
+  },
+  {
+    "id": "es0322",
+    "title": "Top 10 Luxury Condos in Miami",
+    "slug": "estate-luxury-condos-miami"
+  },
+  {
+    "id": "es0323",
+    "title": "Top 10 Luxury Condos in Atlanta",
+    "slug": "estate-luxury-condos-atlanta"
+  },
+  {
+    "id": "es0324",
+    "title": "Top 10 Luxury Condos in Houston",
+    "slug": "estate-luxury-condos-houston"
+  },
+  {
+    "id": "es0325",
+    "title": "Top 10 Luxury Condos in Austin",
+    "slug": "estate-luxury-condos-austin"
+  },
+  {
+    "id": "es0326",
+    "title": "Top 10 Luxury Condos in Phoenix",
+    "slug": "estate-luxury-condos-phoenix"
+  },
+  {
+    "id": "es0327",
+    "title": "Top 10 Luxury Condos in Scottsdale",
+    "slug": "estate-luxury-condos-scottsdale"
+  },
+  {
+    "id": "es0328",
+    "title": "Top 10 Luxury Condos in Denver",
+    "slug": "estate-luxury-condos-denver"
+  },
+  {
+    "id": "es0329",
+    "title": "Top 10 Luxury Condos in Seattle",
+    "slug": "estate-luxury-condos-seattle"
+  },
+  {
+    "id": "es0330",
+    "title": "Top 10 Luxury Condos in San Diego",
+    "slug": "estate-luxury-condos-san-diego"
+  },
+  {
+    "id": "es0331",
+    "title": "Top 10 Luxury Condos in San Francisco",
+    "slug": "estate-luxury-condos-san-francisco"
+  },
+  {
+    "id": "es0332",
+    "title": "Top 10 Luxury Condos in Nashville",
+    "slug": "estate-luxury-condos-nashville"
+  },
+  {
+    "id": "es0333",
+    "title": "Top 10 Luxury Condos in Charlotte",
+    "slug": "estate-luxury-condos-charlotte"
+  },
+  {
+    "id": "es0334",
+    "title": "Top 10 Luxury High-Rises in Miami",
+    "slug": "estate-luxury-high-rises-miami"
+  },
+  {
+    "id": "es0335",
+    "title": "Top 10 Luxury High-Rises in Atlanta",
+    "slug": "estate-luxury-high-rises-atlanta"
+  },
+  {
+    "id": "es0336",
+    "title": "Top 10 Luxury High-Rises in Houston",
+    "slug": "estate-luxury-high-rises-houston"
+  },
+  {
+    "id": "es0337",
+    "title": "Top 10 Luxury High-Rises in Austin",
+    "slug": "estate-luxury-high-rises-austin"
+  },
+  {
+    "id": "es0338",
+    "title": "Top 10 Luxury High-Rises in Phoenix",
+    "slug": "estate-luxury-high-rises-phoenix"
+  },
+  {
+    "id": "es0339",
+    "title": "Top 10 Luxury High-Rises in Scottsdale",
+    "slug": "estate-luxury-high-rises-scottsdale"
+  },
+  {
+    "id": "es0340",
+    "title": "Top 10 Luxury High-Rises in Denver",
+    "slug": "estate-luxury-high-rises-denver"
+  },
+  {
+    "id": "es0341",
+    "title": "Top 10 Luxury High-Rises in Seattle",
+    "slug": "estate-luxury-high-rises-seattle"
+  },
+  {
+    "id": "es0342",
+    "title": "Top 10 Luxury High-Rises in San Diego",
+    "slug": "estate-luxury-high-rises-san-diego"
+  },
+  {
+    "id": "es0343",
+    "title": "Top 10 Luxury High-Rises in San Francisco",
+    "slug": "estate-luxury-high-rises-san-francisco"
+  },
+  {
+    "id": "es0344",
+    "title": "Top 10 Luxury High-Rises in Nashville",
+    "slug": "estate-luxury-high-rises-nashville"
+  },
+  {
+    "id": "es0345",
+    "title": "Top 10 Luxury High-Rises in Charlotte",
+    "slug": "estate-luxury-high-rises-charlotte"
+  },
+  {
+    "id": "es0346",
+    "title": "Top 10 Custom Home Builders in Miami",
+    "slug": "estate-custom-home-builders-miami"
+  },
+  {
+    "id": "es0347",
+    "title": "Top 10 Custom Home Builders in Atlanta",
+    "slug": "estate-custom-home-builders-atlanta"
+  },
+  {
+    "id": "es0348",
+    "title": "Top 10 Custom Home Builders in Houston",
+    "slug": "estate-custom-home-builders-houston"
+  },
+  {
+    "id": "es0349",
+    "title": "Top 10 Custom Home Builders in Austin",
+    "slug": "estate-custom-home-builders-austin"
+  },
+  {
+    "id": "es0350",
+    "title": "Top 10 Custom Home Builders in Phoenix",
+    "slug": "estate-custom-home-builders-phoenix"
+  }
+]

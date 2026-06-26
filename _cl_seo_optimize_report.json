@@ -1,0 +1,37 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 50,
+ "changed": 50,
+ "keywordPhrases": 200,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 0,
+   "bing": 429,
+   "yandex": 200
+  }
+ },
+ "hubUrls": [
+  "https://pulserevops.com/clubs"
+ ],
+ "sample": {
+  "id": "cl0001",
+  "ok": true,
+  "changed": true,
+  "tagCount": 215,
+  "keywordCount": 219,
+  "url": "https://pulserevops.com/clubs/cl0001",
+  "indexnow": {
+   "ok": true,
+   "pings": {
+    "indexnow_org": 429,
+    "bing": 429,
+    "yandex": 200,
+    "naver": 200,
+    "seznam": 200
+   }
+  }
+ }
+}

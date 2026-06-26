@@ -1,0 +1,70 @@
+/* ===========================================================================
+   PULSE — Warm Editorial Theme (sitewide unify, owner 2026-06-23)
+   One shared sheet linked into every public page. Uses !important so it wins
+   over each page's existing (light) inline styles regardless of load order.
+   Matches /editorials + /thoughts: warm near-black, Fraunces headings,
+   amber/gold accents. Per-pillar accent hue (--orange) is intentionally NOT
+   overridden — the striped per-pillar logo/vibe color LAW stays intact; only
+   the canvas, surfaces, type and chrome are unified.
+   =========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,800;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+  /* Re-point the pillar-template design tokens to the warm-dark palette.
+     Pages that read var(--bg)/var(--card)/var(--t1) reskin automatically. */
+  --bg:#15110d !important; --s1:#1d1711 !important; --s2:#1d1711 !important;
+  --card:#221a13 !important; --cardh:#2a2017 !important;
+  --bdr:rgba(203,161,53,.16) !important; --bdrh:rgba(200,130,30,.45) !important;
+  --t1:#ECE3D2 !important; --t2:#A99B86 !important; --t3:#7d7060 !important;
+  --line:rgba(203,161,53,.18) !important;
+  --gold:#CBA135; --amber:#C8821E; --wine:#8C2D3C; --cream:#ECE3D2;
+}
+
+html,body{
+  background-color:#15110d !important;
+  background-image:radial-gradient(1200px 500px at 80% -10%,rgba(200,130,30,.10),transparent),
+                   radial-gradient(900px 400px at 0% 0%,rgba(140,45,60,.10),transparent) !important;
+  color:#ECE3D2 !important;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif !important;
+}
+
+/* Headings → Fraunces serif, cream/gold. */
+h1,h2,h3,.hero h1,.hdr-name,.pbf-word,.kbf-word{font-family:'Fraunces',Georgia,serif !important;}
+h1,.hero h1{color:#ECE3D2 !important;}
+h2,h3{color:#CBA135 !important;}
+.hero h1 em,em.gold{color:#CBA135 !important;font-style:italic !important;}
+
+a{color:#CBA135;}
+
+/* ── Pillar-template chrome (hdr/filters/grid/card/footer) ───────────────── */
+.hdr{background:rgba(21,17,13,.92) !important;border-bottom:1px solid rgba(203,161,53,.14) !important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);}
+.hdr-name{color:#ECE3D2 !important;}
+.hdr-cta{background:linear-gradient(135deg,#C8821E,#9c5e12) !important;color:#1a1208 !important;border:none !important;}
+.search-input{background:#1d1711 !important;border:1px solid rgba(203,161,53,.18) !important;color:#ECE3D2 !important;}
+.search-input::placeholder{color:#7d7060 !important;}
+.search-clear{background:rgba(203,161,53,.10) !important;color:#ECE3D2 !important;}
+.filters,.filter-chip{color:#A99B86 !important;}
+.filter-chip{background:rgba(203,161,53,.05) !important;border:1px solid rgba(203,161,53,.14) !important;}
+.filter-chip.is-active{background:#C8821E !important;color:#1a1208 !important;border-color:#C8821E !important;}
+.statusbar,.statusbar strong{color:#ECE3D2 !important;}
+.filter-count{color:#A99B86 !important;}
+
+.card{background:#221a13 !important;border:1px solid rgba(203,161,53,.14) !important;}
+.card:hover{box-shadow:0 12px 30px rgba(0,0,0,.5) !important;border-color:rgba(200,130,30,.42) !important;}
+.card-q,.card-top{color:#ECE3D2 !important;}
+.card-meta{color:#A99B86 !important;border-top:1px solid rgba(203,161,53,.10) !important;}
+.card-id,.card-date{color:#7d7060 !important;}
+.card-cta{color:#CBA135 !important;}
+.card-pillar{color:#C8821E !important;background:rgba(200,130,30,.10) !important;border:1px solid rgba(200,130,30,.30) !important;}
+.empty{color:#A99B86 !important;}
+
+.pager button{background:rgba(203,161,53,.05) !important;border:1px solid rgba(203,161,53,.14) !important;color:#ECE3D2 !important;}
+.pager button.is-active{background:#C8821E !important;color:#1a1208 !important;border-color:#C8821E !important;}
+
+.footer{background:#1d1711 !important;border-top:1px solid rgba(203,161,53,.14) !important;color:#A99B86 !important;}
+.footer-copy{color:#7d7060 !important;}
+.footer-pillars span,.footer-pill{background:rgba(203,161,53,.05) !important;border:1px solid rgba(203,161,53,.12) !important;color:#A99B86 !important;}
+.footer-pillars strong{color:#ECE3D2 !important;}
+
+.hero-eyebrow{background:rgba(200,130,30,.10) !important;border:1px solid rgba(200,130,30,.30) !important;color:#C8821E !important;}
+.hero-counts strong{color:#CBA135 !important;}

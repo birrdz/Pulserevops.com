@@ -1,0 +1,22 @@
+{
+  "tick": "v15.2 t210 Agent A",
+  "target_id": "q05",
+  "question": "What accelerator multiples are typical past 100% of quota for SaaS AEs?",
+  "rank": "#1 newest eligible (q01 already polished per prior _gold_q01_response.json; excluded as stale-list dup)",
+  "qs_before": 10,
+  "format_v_before": null,
+  "word_count": 9492,
+  "char_count": 59277,
+  "post_status": 200,
+  "response": {
+    "ok": true,
+    "id": "q05",
+    "quality_score": 10,
+    "format_v": "2026-05",
+    "gold_format": true,
+    "from": 10,
+    "to": 10
+  },
+  "gold_format": true,
+  "posted_at": "2026-05-20T01:53:51.776Z"
+}

@@ -237,7 +237,7 @@ exports.handler = async (event) => {
   const machineAuthor = {
     "@type": "Organization",
     "@id": SITE + "/#themachine",
-    "name": "Pulse RevOps · The Machine",
+    "name": "Pulse",
     "url": SITE + "/themachine",
     "description": "Autonomous AI knowledge engine for Sales RevOps. Researches one operator question every 30 minutes with Claude Sonnet 4.6 + live web search."
   };
@@ -257,7 +257,7 @@ exports.handler = async (event) => {
   const publisherOrg = {
     "@type": "Organization",
     "@id": SITE + "/#organization",
-    "name": "Pulse RevOps",
+    "name": "Pulse",
     "url": SITE,
     "founder": koryEditor,
     "logo": { "@type": "ImageObject", "url": SITE + "/og-preview.jpg" }
@@ -423,7 +423,7 @@ exports.handler = async (event) => {
   <meta property="og:title" content="${escAttr(title)}">
   <meta property="og:description" content="${escAttr(desc)}">
   <meta property="og:url" content="${url}">
-  <meta property="og:site_name" content="Pulse RevOps">
+  <meta property="og:site_name" content="Pulse">
   <meta property="og:image" content="${SITE}/og-preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escAttr(title)}">
@@ -1302,6 +1302,46 @@ exports.handler = async (event) => {
     document.addEventListener('keydown', function(e){
       if (e.key === 'Escape') window.hideIQHelp();
     });
+  </script>
+
+  <!-- PULSE BUILD: live campaign-progress dashboard (site-wide) -->
+  <div id="pulse-build-dash" style="position:fixed;right:16px;bottom:16px;z-index:99999;width:310px;max-width:92vw;background:rgba(20,16,12,0.96);color:#ECE3D2;border:1px solid rgba(203,161,53,.3);border-radius:14px;box-shadow:0 10px 34px rgba(0,0,0,.45);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:13px;overflow:hidden">
+    <div onclick="this.parentNode.classList.toggle('pbd-collapsed')" style="cursor:pointer;padding:11px 14px;background:linear-gradient(135deg,#C8821E,#8C2D3C);color:#fff;font-weight:800;display:flex;justify-content:space-between;align-items:center">
+      <span>🛠️ PULSE BUILD — live</span><span id="pbd-toggle" style="font-size:11px;opacity:.85">▾</span>
+    </div>
+    <div class="pbd-body" style="padding:12px 14px">
+      <div style="font-weight:700;margin-bottom:1px">✍️ Writing (gap-fill Q&amp;As)</div>
+      <div style="display:flex;justify-content:space-between"><span id="pbd-w-txt">…</span><b id="pbd-w-pct" style="color:#7CCF6A"></b></div>
+      <div style="background:#322a20;border-radius:6px;height:9px;margin:3px 0 11px;overflow:hidden"><div id="pbd-w-bar" style="background:#7CCF6A;height:9px;width:0%;transition:width .6s"></div></div>
+      <div style="font-weight:700;margin-bottom:1px">🖼️ Images (DuckDuckGo)</div>
+      <div style="display:flex;justify-content:space-between"><span id="pbd-i-txt">…</span><b id="pbd-i-pct" style="color:#CBA135"></b></div>
+      <div style="background:#322a20;border-radius:6px;height:9px;margin:3px 0 11px;overflow:hidden"><div id="pbd-i-bar" style="background:#CBA135;height:9px;width:0%;transition:width .6s"></div></div>
+      <div id="pbd-visitors" style="color:#A99B86;margin-bottom:9px"></div>
+      <div id="pbd-pillars" style="max-height:168px;overflow:auto;font-size:12px;border-top:1px solid rgba(203,161,53,.15);padding-top:8px"></div>
+      <div style="color:#7d7060;font-size:10px;margin-top:8px">auto-updates every 5 min · <span id="pbd-time"></span></div>
+    </div>
+  </div>
+  <style>#pulse-build-dash.pbd-collapsed .pbd-body{display:none}#pulse-build-dash.pbd-collapsed #pbd-toggle{transform:rotate(180deg);display:inline-block}</style>
+  <script>
+  (function(){
+    function pct(n,d){return d?Math.min(100,Math.round(n/d*100)):0;}
+    function g(id){return document.getElementById(id);}
+    async function load(){
+      try{
+        var r=await fetch('/.netlify/functions/pulse-progress',{cache:'no-store'});
+        var d=await r.json(); var T=d.target||8730;
+        g('pbd-w-txt').textContent=(d.written||0).toLocaleString()+' of '+T.toLocaleString();
+        g('pbd-w-pct').textContent=pct(d.written,T)+'%'; g('pbd-w-bar').style.width=pct(d.written,T)+'%';
+        g('pbd-i-txt').textContent=(d.imgDone||0).toLocaleString()+' of '+T.toLocaleString();
+        g('pbd-i-pct').textContent=pct(d.imgDone,T)+'%'; g('pbd-i-bar').style.width=pct(d.imgDone,T)+'%';
+        g('pbd-visitors').innerHTML='👥 <b>'+(d.visits||0).toLocaleString()+'</b> visitors today · '+(d.clicks||0)+' clicks';
+        var ph='';(d.pillars||[]).forEach(function(p){var pc=pct(p.written,p.gap);ph+='<div style="margin:5px 0"><div style="display:flex;justify-content:space-between"><span>'+p.name+'</span><span style="color:#A99B86">'+p.written+'/'+p.gap+'</span></div><div style="background:#322a20;border-radius:4px;height:5px;overflow:hidden"><div style="background:#C8821E;height:5px;width:'+pc+'%"></div></div></div>';});
+        g('pbd-pillars').innerHTML=ph||'<span style="color:#7d7060">warming up…</span>';
+        g('pbd-time').textContent=new Date().toLocaleTimeString();
+      }catch(e){}
+    }
+    load(); setInterval(load,300000);
+  })();
   </script>
 </body>
 </html>`;

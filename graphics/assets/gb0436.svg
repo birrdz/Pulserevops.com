@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#34d399;--c2:#047857;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#022c22;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#34d399)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#047857)"/>
+      <stop offset="1" style="stop-color:var(--c3,#a7f3d0)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.3" r="0.5">
+      <stop offset="0" style="stop-color:var(--c1,#34d399)" stop-opacity="0.18"/>
+      <stop offset="1" style="stop-color:var(--c1,#34d399)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1584" height="396" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1584" height="396" fill="url(#glow)"/>
+
+  <!-- Pulse-heart line with medical plus on the right -->
+  <polyline points="1040,198 1130,198 1160,198 1185,150 1210,250 1235,120 1260,270 1285,198 1340,198"
+    stroke="url(#accent)" fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+  <g transform="translate(1400,198)" stroke="url(#accent)" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.95">
+    <line x1="0" y1="-48" x2="0" y2="48"/>
+    <line x1="-48" y1="0" x2="48" y2="0"/>
+  </g>
+  <circle cx="1400" cy="198" r="76" stroke="url(#accent)" stroke-width="3" fill="none" opacity="0.45"/>
+
+  <text x="120" y="180" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">HEALTHCARE</text>
+  <text x="118" y="262" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="72" font-weight="900" fill="#FFFFFF">RevOps Leader.</text>
+  <text x="120" y="316" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="28" font-weight="700" fill="#EDE5D8">Compliance <tspan fill="url(#accent)">&#183;</tspan> Cycle time <tspan fill="url(#accent)">&#183;</tspan> Net Revenue</text>
+</svg>

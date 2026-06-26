@@ -1,0 +1,208 @@
+{
+ "started": "2026-06-22T21:40:24.991Z",
+ "finished": "2026-06-22T23:32:02.453Z",
+ "results": [
+  {
+   "prefix": "ra",
+   "path": "/revenue-architecture",
+   "exit": 0,
+   "elapsedSec": 1433,
+   "targets": 331,
+   "fixed": 331,
+   "improved": 330,
+   "addedImgs": 2208
+  },
+  {
+   "prefix": "gp",
+   "path": "/go-to-market-playbooks",
+   "exit": 0,
+   "elapsedSec": 1432,
+   "targets": 299,
+   "fixed": 299,
+   "improved": 299,
+   "addedImgs": 2040
+  },
+  {
+   "prefix": "bs",
+   "path": "/sales-book-summaries",
+   "exit": 0,
+   "elapsedSec": 882,
+   "targets": 168,
+   "fixed": 168,
+   "improved": 165,
+   "addedImgs": 1125
+  },
+  {
+   "prefix": "st",
+   "path": "/sales-trainings",
+   "exit": 0,
+   "elapsedSec": 121,
+   "targets": 18,
+   "fixed": 18,
+   "improved": 18,
+   "addedImgs": 86
+  },
+  {
+   "prefix": "hf",
+   "path": "/highschool-football-recruiting",
+   "exit": 0,
+   "elapsedSec": 25,
+   "targets": 5,
+   "fixed": 4,
+   "improved": 0,
+   "addedImgs": 0
+  },
+  {
+   "prefix": "q",
+   "path": "/knowledge",
+   "exit": 1,
+   "elapsedSec": 2057
+  },
+  {
+   "prefix": "er",
+   "path": "/electronic-reviews",
+   "exit": 1,
+   "elapsedSec": 84,
+   "targets": 13,
+   "fixed": 13,
+   "improved": 10,
+   "addedImgs": 13
+  },
+  {
+   "prefix": "ca",
+   "path": "/cars",
+   "exit": 1,
+   "elapsedSec": 118,
+   "targets": 256,
+   "fixed": 249,
+   "improved": 216,
+   "addedImgs": 2018
+  },
+  {
+   "prefix": "tl",
+   "path": "/tools",
+   "exit": 1,
+   "elapsedSec": 87,
+   "targets": 150,
+   "fixed": 150,
+   "improved": 150,
+   "addedImgs": 1500
+  },
+  {
+   "prefix": "sc",
+   "path": "/schools",
+   "exit": 1,
+   "elapsedSec": 47,
+   "targets": 200,
+   "fixed": 200,
+   "improved": 200,
+   "addedImgs": 1991
+  },
+  {
+   "prefix": "bt",
+   "path": "/boats",
+   "exit": 1,
+   "elapsedSec": 57,
+   "targets": 5,
+   "fixed": 0,
+   "improved": 0,
+   "addedImgs": 0
+  },
+  {
+   "prefix": "ik",
+   "path": "/industry-kpis",
+   "exit": 1,
+   "elapsedSec": 63
+  },
+  {
+   "prefix": "dn",
+   "path": "/dining",
+   "exit": 1,
+   "elapsedSec": 35,
+   "targets": 3,
+   "fixed": 0,
+   "improved": 0,
+   "addedImgs": 0
+  },
+  {
+   "prefix": "ai",
+   "path": "/ai-infrastructure",
+   "exit": 1,
+   "elapsedSec": 34,
+   "targets": 2,
+   "fixed": 0,
+   "improved": 0,
+   "addedImgs": 0
+  },
+  {
+   "prefix": "cl",
+   "path": "/clubs",
+   "exit": 1,
+   "elapsedSec": 18,
+   "targets": 50,
+   "fixed": 50,
+   "improved": 50,
+   "addedImgs": 498
+  },
+  {
+   "prefix": "nl",
+   "path": "/nightlife",
+   "exit": 1,
+   "elapsedSec": 28,
+   "targets": 100,
+   "fixed": 100,
+   "improved": 100,
+   "addedImgs": 998
+  },
+  {
+   "prefix": "ga",
+   "path": "/gatherings",
+   "exit": 1,
+   "elapsedSec": 20,
+   "targets": 50,
+   "fixed": 50,
+   "improved": 50,
+   "addedImgs": 499
+  },
+  {
+   "prefix": "gm",
+   "path": "/gaming",
+   "exit": 1,
+   "elapsedSec": 18,
+   "targets": 50,
+   "fixed": 50,
+   "improved": 50,
+   "addedImgs": 499
+  },
+  {
+   "prefix": "ev",
+   "path": "/events",
+   "exit": 1,
+   "elapsedSec": 98,
+   "targets": 50,
+   "fixed": 50,
+   "improved": 50,
+   "addedImgs": 499
+  },
+  {
+   "prefix": "wl",
+   "path": "/wellness",
+   "exit": 1,
+   "elapsedSec": 18,
+   "targets": 50,
+   "fixed": 50,
+   "improved": 50,
+   "addedImgs": 499
+  },
+  {
+   "prefix": "tn",
+   "path": "/towns",
+   "exit": 1,
+   "elapsedSec": 23,
+   "targets": 100,
+   "fixed": 100,
+   "improved": 100,
+   "addedImgs": 999
+  }
+ ]
+}

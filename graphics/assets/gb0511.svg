@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.bg1{fill:var(--bg1,#0b0f17);}
+.bg2{fill:var(--bg2,#0f172a);}
+.title{fill:var(--c3);font-family:Inter,Arial,sans-serif;font-weight:800;font-size:22px;}
+.sub{fill:var(--c4b);font-family:Inter,Arial,sans-serif;font-weight:600;font-size:14px;}
+.boxA{fill:var(--c2);stroke:var(--c1);stroke-width:2;}
+.boxB{fill:var(--c1);stroke:var(--c3);stroke-width:2;}
+.boxC{fill:var(--c3);stroke:var(--c1);stroke-width:1.5;}
+.boxD{fill:var(--c4);stroke:var(--c4b);stroke-width:1.5;}
+.boxE{fill:var(--c4b);stroke:var(--c4);stroke-width:1.5;}
+.lbl-d{fill:var(--ink);font-family:Inter,Arial,sans-serif;font-weight:700;font-size:13px;text-anchor:middle;}
+.lbl-l{fill:#fff;font-family:Inter,Arial,sans-serif;font-weight:700;font-size:14px;text-anchor:middle;}
+.lbl-s{fill:var(--ink);font-family:Inter,Arial,sans-serif;font-weight:600;font-size:11px;text-anchor:middle;}
+.lbl-i{fill:var(--ink);font-family:Inter,Arial,sans-serif;font-weight:800;font-size:15px;text-anchor:middle;}
+.line{stroke:var(--c1);stroke-width:1.6;fill:none;opacity:.85;}
+.lineA{stroke:var(--c4);stroke-width:2;fill:none;}
+.cap{fill:var(--c3);font-family:Inter,Arial,sans-serif;font-weight:700;font-size:11px;text-anchor:middle;}
+</style>
+<rect class="bg1" width="1584" height="396"/>
+<rect class="bg2" x="16" y="16" width="1552" height="364" rx="14"/>
+
+<text class="title" x="40" y="50">Series B SaaS Sales Org Chart</text>
+<text class="sub" x="40" y="72">VP Sales | 2 Sales Managers | 10 AEs | 6 SDRs | 1 SE | RevOps Team</text>
+
+<!-- VP Sales -->
+<rect class="boxA" x="700" y="92" width="184" height="48" rx="8"/>
+<text class="lbl-l" x="792" y="114">VP of Sales</text>
+<text class="lbl-l" x="792" y="131" style="font-size:11px;font-weight:600;opacity:.92">Head of Revenue</text>
+
+<!-- Trunk down -->
+<path class="lineA" d="M792 140 L792 158"/>
+<!-- Bus to SM1, SM2, SE, RevOps -->
+<path class="lineA" d="M260 158 L1320 158"/>
+<path class="lineA" d="M260 158 L260 188"/>
+<path class="lineA" d="M620 158 L620 188"/>
+<path class="lineA" d="M964 158 L964 188"/>
+<path class="lineA" d="M1320 158 L1320 188"/>
+
+<!-- Sales Manager 1 (East) -->
+<rect class="boxB" x="168" y="188" width="184" height="44" rx="7"/>
+<text class="lbl-l" x="260" y="208">Sales Manager</text>
+<text class="lbl-l" x="260" y="224" style="font-size:11px;font-weight:600;opacity:.92">East | 5 AEs + 3 SDRs</text>
+
+<!-- Sales Manager 2 (West) -->
+<rect class="boxB" x="528" y="188" width="184" height="44" rx="7"/>
+<text class="lbl-l" x="620" y="208">Sales Manager</text>
+<text class="lbl-l" x="620" y="224" style="font-size:11px;font-weight:600;opacity:.92">West | 5 AEs + 3 SDRs</text>
+
+<!-- Sales Engineer -->
+<rect class="boxD" x="872" y="188" width="184" height="44" rx="7"/>
+<text class="lbl-i" x="964" y="208">Sales Engineer</text>
+<text class="lbl-s" x="964" y="224">Shared | Demos &amp; POCs</text>
+
+<!-- RevOps Team -->
+<rect class="boxD" x="1228" y="188" width="184" height="44" rx="7"/>
+<text class="lbl-i" x="1320" y="208">RevOps Team</text>
+<text class="lbl-s" x="1320" y="224">3 ppl | Ops + Analytics + Enablement</text>
+
+<!-- Down to reports -->
+<path class="line" d="M260 232 L260 252"/>
+<path class="line" d="M620 232 L620 252"/>
+
+<!-- AEs row -->
+<!-- East AEs: 5 -->
+<g>
+  <path class="line" d="M70 252 L450 252"/>
+  <path class="line" d="M70 252 L70 268"/>
+  <path class="line" d="M165 252 L165 268"/>
+  <path class="line" d="M260 252 L260 268"/>
+  <path class="line" d="M355 252 L355 268"/>
+  <path class="line" d="M450 252 L450 268"/>
+</g>
+<!-- West AEs: 5 -->
+<g>
+  <path class="line" d="M430 252 L810 252"/>
+  <path class="line" d="M430 252 L430 268"/>
+  <path class="line" d="M525 252 L525 268"/>
+  <path class="line" d="M620 252 L620 268"/>
+  <path class="line" d="M715 252 L715 268"/>
+  <path class="line" d="M810 252 L810 268"/>
+</g>
+
+<!-- AE boxes (10) -->
+<g>
+  <rect class="boxC" x="32" y="268" width="76" height="34" rx="6"/><text class="lbl-d" x="70" y="290">AE 1</text>
+  <rect class="boxC" x="127" y="268" width="76" height="34" rx="6"/><text class="lbl-d" x="165" y="290">AE 2</text>
+  <rect class="boxC" x="222" y="268" width="76" height="34" rx="6"/><text class="lbl-d" x="260" y="290">AE 3</text>
+  <rect class="boxC" x="317" y="268" width="76" height="34" rx="6"/><text class="lbl-d" x="355" y="290">AE 4</text>
+  <rect class="boxC" x="412" y="268" width="76" height="34" rx="6"/><text class="lbl-d" x="450" y="290">AE 5</text>
+  <rect class="boxC" x="392" y="268" width="76" height="34" rx="6" opacity="0"/>
+  <rect class="boxC" x="487" y="268" width="76" height="34" rx="6"/><text class="lbl-d" x="525" y="290">AE 6</text>
+  <rect class="boxC" x="582" y="268" width="76" height="34" rx="6"/><text class="lbl-d" x="620" y="290">AE 7</text>
+  <rect class="boxC" x="677" y="268" width="76" height="34" rx="6"/><text class="lbl-d" x="715" y="290">AE 8</text>
+  <rect class="boxC" x="772" y="268" width="76" height="34" rx="6"/><text class="lbl-d" x="810" y="290">AE 9</text>
+  <rect class="boxC" x="867" y="268" width="76" height="34" rx="6"/><text class="lbl-d" x="905" y="290">AE 10</text>
+</g>
+<!-- bridge line to AE10 (under West manager extended) -->
+<path class="line" d="M810 252 L905 252"/>
+<path class="line" d="M905 252 L905 268"/>
+
+<!-- SDR row label band -->
+<text class="cap" x="260" y="324">East SDRs (3) | feed East AEs</text>
+<text class="cap" x="620" y="324">West SDRs (3) | feed West AEs</text>
+
+<!-- SDR boxes (6) -->
+<g>
+  <rect class="boxE" x="118" y="332" width="86" height="34" rx="6"/><text class="lbl-d" x="161" y="354">SDR 1</text>
+  <rect class="boxE" x="217" y="332" width="86" height="34" rx="6"/><text class="lbl-d" x="260" y="354">SDR 2</text>
+  <rect class="boxE" x="316" y="332" width="86" height="34" rx="6"/><text class="lbl-d" x="359" y="354">SDR 3</text>
+  <rect class="boxE" x="478" y="332" width="86" height="34" rx="6"/><text class="lbl-d" x="521" y="354">SDR 4</text>
+  <rect class="boxE" x="577" y="332" width="86" height="34" rx="6"/><text class="lbl-d" x="620" y="354">SDR 5</text>
+  <rect class="boxE" x="676" y="332" width="86" height="34" rx="6"/><text class="lbl-d" x="719" y="354">SDR 6</text>
+</g>
+
+<!-- Right-side legend / callout box -->
+<rect class="boxC" x="980" y="252" width="572" height="114" rx="10" opacity=".95"/>
+<text class="lbl-i" x="1266" y="278">Series B Sales Org | 22 Headcount</text>
+<text class="lbl-s" x="1266" y="298">VP Sales (1) | Sales Managers (2) | Account Executives (10)</text>
+<text class="lbl-s" x="1266" y="316">SDRs (6) | Sales Engineer (1) | RevOps Team (3 included above)</text>
+<text class="lbl-s" x="1266" y="338">Ratio: 1 SM per 5 AEs | 1 SDR per ~1.7 AEs | 1 SE shared org-wide</text>
+<text class="lbl-s" x="1266" y="356">Typical at $15-40M ARR | Quota $750K-1M AE | Ramp 4-6 months</text>
+</svg>

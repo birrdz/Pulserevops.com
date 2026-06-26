@@ -1,0 +1,27 @@
+TOTAL=1743
+q1987 | OK :: How do you start an embroidery business in 2027?
+q1965 | OK :: How do you start a party rental business in 2027?
+q1958 | OK :: How do you start a personal training business in 2027?
+q1959 | OK :: How do you start a bookkeeping business in 2027?
+q1960 | OK :: How do you start a vacation rental business in 2027?
+q1955 | OK :: How do you start a courier delivery business in 2027?
+q1946 | OK :: How do you start a roofing business in 2027?
+q1947 | OK :: How do you start a daycare business in 2027?
+q1967 | OK :: How do you start a photo booth rental business in 2027?
+q1968 | OK :: How do you start a wedding venue business in 2027?
+q1970 | OK :: How do you start a kayak rental business in 2027?
+q1971 | OK :: How do you start a dog walking business in 2027?
+q1962 | OK :: How do you start a glamping site business in 2027?
+q1963 | OK :: How do you start an RV rental business in 2027?
+q1964 | OK :: How do you start a boat rental business in 2027?
+q1956 | OK :: How do you start a property management business in 2027?
+q1949 | OK :: How do you start a wedding photography business in 2027?
+q1961 | OK :: How do you start an Airbnb arbitrage business in 2027?
+q1969 | OK :: How do you start a self-storage business in 2027?
+q9501 | OK :: A company sells $100 group workshops teaching older adults how to use technology â phones, iPads, email. The model has had real if modest traction but has hit a friction point that's capping further growth. What's the right next move?
+q9502 | OK :: How do you scale a workshop-led senior tech-training business in 2027 â what's the proven path past the single-operator ceiling?
+q9601 | OK :: How do you start a food truck business in 2027?
+q9701 | MISSING
+q9702 | MISSING
+q9801 | MISSING
+q1959b | MISSING

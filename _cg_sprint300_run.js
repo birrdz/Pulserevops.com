@@ -1,4 +1,6 @@
-// Generate + publish cg0518–cg0817 (300 coaching Top-10 entries).
+// Generate + publish cg0518–cg0817 (300 coaching entries).
+// PILLAR LAW: cg#### is 1:1 Top-10 + Q&A — see .cursor/rules/coaching-pillar-mix.mdc.
+// This sprint queue is Top-10-heavy legacy; new queues should alternate entryKind: 'top10' | 'qa'.
 // Usage: node _cg_sprint300_run.js [startId] [--limit=N] [--dry-run]
 // Image pipeline: DDG-slow (sequential via _write_cg.js) — expect ~2–5 min/entry for Top-10 covers + product cards.
 const fs = require('fs');

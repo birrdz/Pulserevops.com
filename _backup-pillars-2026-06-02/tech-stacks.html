@@ -1,0 +1,479 @@
+<!doctype html>
+<!-- TECH-STACKS-CRON-CHANGELOG
+     Tech-Stacks hub page changes. Newest at top.
+     - 2026-05-28 — Pillar plumbing created. /tech-stacks hub mirrors the
+       /industry-kpis pillar exactly: tag "tech-stack", id pattern tk####,
+       clean URL /tech-stacks/<id>, renderer kind=stack. Search, auto-refresh.
+       No pillar auditor bar (no tech-stack auditor yet). Edit on disk, will
+       ship at next scheduled deploy.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#E8710A" />
+  <meta name="color-scheme" content="dark" />
+  <title>Tech Stacks — Recommended Software Stack by Industry | Pulse RevOps</title>
+  <meta name="keywords" content="industry software stack, business tech stack by industry, recommended software stack, best software for business, SaaS stack by industry, RevOps tech stack, CRM by industry, business operating software, software stack 2027, app stack by industry, pipeline software, BI tools, finance software, operations software, functional layer software stack">
+  <meta name="author" content="Pulse RevOps · The Machine">
+  <meta name="description" content="The recommended full operating software stack to run a business in each industry in 2027 — the actual apps and platforms, by functional layer. By Kory White." />
+  <link rel="canonical" href="https://pulserevops.com/tech-stacks" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Pulse RevOps" />
+  <meta property="og:title" content="Tech Stacks — recommended software stack, by industry" />
+  <meta property="og:description" content="The actual software and apps you need to run a business in your industry — pipeline, BI, finance, ops, by functional layer. Built for operators who need a stack, not a slide." />
+  <meta property="og:url" content="https://pulserevops.com/tech-stacks" />
+  <meta property="og:image" content="https://pulserevops.com/og-cover.png" />
+  <meta property="og:image:alt" content="Pulse Tech Stacks — recommended software stack, by industry" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@coachkorywhite" />
+  <meta name="twitter:creator" content="@coachkorywhite" />
+  <meta name="twitter:title" content="Tech Stacks — recommended software stack, by industry" />
+  <meta name="twitter:description" content="The actual software and apps you need to run a business in your industry — pipeline, BI, finance, ops, by functional layer." />
+  <meta name="twitter:image" content="https://pulserevops.com/og-cover.png" />
+
+  <link rel="alternate" type="application/atom+xml" title="Pulse Library — Atom feed" href="/feed.xml" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://pulserevops.com/#website",
+        "url": "https://pulserevops.com/",
+        "name": "Pulse RevOps",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": { "@type": "EntryPoint", "urlTemplate": "https://pulserevops.com/tech-stacks?q={search_term_string}" },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://pulserevops.com/#org",
+        "name": "Pulse RevOps",
+        "url": "https://pulserevops.com/",
+        "logo": "https://pulserevops.com/favicon.svg"
+      },
+      {
+        "@type": "CollectionPage",
+        "name": "Pulse Tech Stacks",
+        "description": "A growing library of recommended software stacks — the actual apps and platforms to run a business in each industry, organized by functional layer. New stacks ship continuously.",
+        "url": "https://pulserevops.com/tech-stacks",
+        "isPartOf": { "@id": "https://pulserevops.com/#website" },
+        "publisher": { "@id": "https://pulserevops.com/#org" },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulserevops.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Tech Stacks", "item": "https://pulserevops.com/tech-stacks" }
+          ]
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Prefetch sibling pillar pages so cross-nav loads from cache -->
+  <link rel="prefetch" href="/knowledge" as="document">
+  <link rel="prefetch" href="/sales-trainings" as="document">
+  <link rel="prefetch" href="/industry-kpis" as="document">
+  <link rel="prefetch" href="/dashboard" as="document">
+  <link rel="prefetch" href="/" as="document">
+
+  <style>
+    :root {
+      --bg: #070a0f;
+      --bg-2: #0e1218;
+      --bg-3: #161b25;
+      --ink: #EDE5D8;
+      --ink-dim: rgba(237,229,216,0.65);
+      --ink-faint: rgba(237,229,216,0.42);
+      --orange: #E8710A;
+      --orange-bright: #FF8C1A;
+      --gold: #FFD740;
+      --green: #22c55e;
+      --purple: #a78bfa;
+      --line: rgba(255,255,255,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif; line-height: 1.55; }
+    a { color: var(--orange-bright); text-decoration: none; }
+    a:hover { color: var(--gold); }
+
+    /* ── Top nav ───────────────────────────────────────────────────── */
+    .topnav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(7,10,15,0.92);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 20px;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    }
+    .topnav .brand { font-weight: 900; letter-spacing: 0.08em; color: var(--ink); font-size: 0.84rem; }
+    .topnav .brand .dot { color: var(--orange-bright); }
+    .topnav nav { display: flex; gap: 14px; flex-wrap: wrap; }
+    .topnav nav a {
+      font-size: 0.74rem; font-weight: 700; letter-spacing: 0.04em;
+      color: var(--ink-dim); padding: 6px 10px; border-radius: 6px;
+    }
+    .topnav nav a:hover { background: rgba(255,140,26,0.08); color: var(--ink); }
+    .topnav nav a.active { background: rgba(232,113,10,0.18); color: var(--gold); border: 1px solid rgba(232,113,10,0.45); }
+
+    /* ── Hero ──────────────────────────────────────────────────────── */
+    .hero {
+      max-width: 1200px; margin: 0 auto; padding: 56px 24px 28px;
+      position: relative; overflow: hidden;
+    }
+    .hero .eyebrow {
+      font-size: 0.58rem; font-weight: 900; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--orange-bright); margin-bottom: 8px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4.4vw, 3.2rem); font-weight: 900; line-height: 1.05;
+      letter-spacing: -0.02em; margin: 0 0 14px; color: var(--ink);
+    }
+    .hero h1 .accent {
+      background: linear-gradient(90deg, var(--orange-bright), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero .lede {
+      max-width: 760px; font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+      color: var(--ink-dim); line-height: 1.6; margin-bottom: 22px;
+    }
+    .hero .stats {
+      display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px;
+    }
+    .hero .stat {
+      background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px 16px; display: flex; flex-direction: column; gap: 2px;
+    }
+    .hero .stat .n { font-size: 1.3rem; font-weight: 900; color: var(--gold); font-variant-numeric: tabular-nums; }
+    .hero .stat .l { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+
+    /* ── Search bar ────────────────────────────────────────────────── */
+    .search-row {
+      max-width: 1200px; margin: 0 auto; padding: 8px 24px 24px;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .search-row input {
+      flex: 1; min-width: 280px;
+      background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px;
+      color: var(--ink); font-family: inherit; font-size: 0.95rem;
+      padding: 12px 16px; outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .search-row input:focus {
+      border-color: rgba(232,113,10,0.7);
+      box-shadow: 0 0 0 3px rgba(232,113,10,0.18);
+    }
+    .search-row .kbd-hint {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .search-row .kbd-hint kbd {
+      background: rgba(0,0,0,0.4); border: 1px solid rgba(255,140,26,0.3);
+      border-radius: 3px; padding: 1px 6px; color: #FFB46A; font-family: inherit; font-weight: 800;
+    }
+
+    /* ── Grid ──────────────────────────────────────────────────────── */
+    .grid-wrap { max-width: 1200px; margin: 0 auto; padding: 4px 24px 60px; }
+    .grid {
+      display: grid; gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    }
+    .card {
+      background: linear-gradient(160deg, var(--bg-2) 0%, var(--bg-3) 100%);
+      border: 1px solid var(--line); border-radius: 14px;
+      padding: 20px 20px 18px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: transform 0.18s ease-out, border-color 0.18s ease-out, box-shadow 0.18s ease-out;
+      position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: linear-gradient(180deg, var(--orange) 0%, var(--orange-bright) 50%, var(--gold) 100%);
+      opacity: 0.7;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(232,113,10,0.55);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(232,113,10,0.25);
+    }
+    .card .meta-row {
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .card .meta-row .duration {
+      background: rgba(232,113,10,0.12); border: 1px solid rgba(232,113,10,0.4);
+      color: var(--orange-bright); padding: 3px 8px; border-radius: 99px;
+    }
+    .card .meta-row .qs10 {
+      background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.4);
+      color: var(--green); padding: 3px 8px; border-radius: 99px;
+    }
+    .card .meta-row .qs-progress {
+      background: rgba(255,215,64,0.1); border: 1px solid rgba(255,215,64,0.35);
+      color: var(--gold); padding: 3px 8px; border-radius: 99px;
+    }
+    .card h3 {
+      margin: 0; font-size: 1.05rem; font-weight: 800; line-height: 1.3;
+      color: var(--ink); letter-spacing: -0.01em;
+    }
+    .card h3 a { color: inherit; }
+    .card h3 a:hover { color: var(--gold); }
+    .card .tags {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      font-size: 0.62rem; font-weight: 700;
+    }
+    .card .tags .tag {
+      background: rgba(168,139,250,0.1); border: 1px solid rgba(168,139,250,0.3);
+      color: var(--purple); padding: 2px 8px; border-radius: 99px;
+    }
+    .card .footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: auto; padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-size: 0.72rem; color: var(--ink-faint);
+    }
+    .card .footer .open {
+      color: var(--orange-bright); font-weight: 800; letter-spacing: 0.04em;
+    }
+    .card .footer .open::after { content: " →"; }
+
+    /* ── Empty / loading states ────────────────────────────────────── */
+    .state {
+      max-width: 760px; margin: 80px auto; padding: 40px 28px;
+      text-align: center; color: var(--ink-dim);
+      background: var(--bg-2); border: 1px dashed var(--line); border-radius: 14px;
+    }
+    .state h2 { color: var(--ink); margin-top: 0; font-weight: 800; }
+    .state .pulse-dot {
+      display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--orange-bright); margin-right: 8px;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:0.4;transform:scale(0.85)} 50%{opacity:1;transform:scale(1.1)} }
+
+    /* ── About strip ───────────────────────────────────────────────── */
+    .about {
+      max-width: 1200px; margin: 8px auto 0; padding: 28px 24px;
+      border-top: 1px solid var(--line);
+    }
+    .about h2 {
+      font-size: 0.62rem; font-weight: 900; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin: 0 0 14px;
+    }
+    .about p { color: var(--ink-dim); max-width: 780px; line-height: 1.65; }
+    .about ul { color: var(--ink-dim); padding-left: 22px; max-width: 780px; }
+    .about li { margin-bottom: 6px; }
+
+    footer {
+      max-width: 1200px; margin: 0 auto; padding: 28px 24px 40px;
+      border-top: 1px solid var(--line);
+      font-size: 0.72rem; color: var(--ink-faint);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    footer a { color: var(--ink-dim); }
+    footer a:hover { color: var(--gold); }
+  </style>
+  <script defer src="/pulse-max-plan-widget.js"></script>
+</head>
+<body>
+
+  <div class="topnav">
+    <span class="brand">PULSE<span class="dot">.</span> RevOps</span>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/knowledge">Knowledge Library</a>
+      <a href="/sales-trainings">Sales Trainings</a>
+      <a href="/industry-kpis">Industry KPIs</a>
+      <a href="/tech-stacks" class="active">Tech Stacks</a>
+      <a href="/sales-book-summaries">Book Summaries</a>
+      <a href="/graphics">Graphics</a>
+      <a href="/electronic-reviews">Electronic Reviews</a>
+      <a href="/revenue-architecture">Revenue Architecture</a>
+      <a href="/go-to-market-playbooks">GTM Playbooks</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/themachine">The Machine</a>
+    </nav>
+  </div>
+
+  <section class="hero">
+    <h1 style="font-size:clamp(3rem,7vw,5.5rem);font-weight:900;letter-spacing:-0.02em;line-height:0.95;margin:0 0 18px;background:linear-gradient(135deg,#FF8C1A 0%,#E8710A 50%,#FFD740 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 48px rgba(232,113,10,0.28);">Tech Stacks by Industry</h1>
+    <div class="eyebrow">🧰 The Pulse Tech Stacks Library</div>
+    <h2 style="font-size:clamp(1.4rem,2.4vw,2rem);font-weight:800;line-height:1.2;margin:8px 0 14px;color:#EDE5D8;">The actual <span class="accent">software and apps</span> you need to run a business in your industry — pipeline, BI, finance, ops, by layer.</h2>
+    <p class="lede">
+      Every industry runs on a different stack. A SaaS team wires up a CRM, a product analytics tool, billing, and a data warehouse; an HVAC operation runs field service software, dispatch, and QuickBooks; an agency lives in a project tool, time tracking, and a proposal platform. This library is one recommended stack per industry — the actual apps and platforms to run the business in 2027, organized by functional layer: pipeline, BI, finance, operations, and the glue between them. No generic "top 10 tools" listicles. Pull a stack, see exactly what to buy and how the layers connect, and stand up your operating system. New stacks ship continuously.
+    </p>
+    <div class="stats">
+      <div class="stat"><span class="n" id="tk-count">—</span><span class="l">stacks live</span></div>
+      <div class="stat"><span class="n" id="tk-fresh">—</span><span class="l">added this week</span></div>
+      <div class="stat"><span class="n">By layer</span><span class="l">per stack</span></div>
+      <div class="stat"><span class="n">$0</span><span class="l">paywall</span></div>
+    </div>
+  </section>
+
+  <div class="search-row">
+    <input type="search" id="tk-search" placeholder="Search tech stacks — industry, app, layer…" aria-label="Search tech stacks" />
+    <span class="kbd-hint">press <kbd>/</kbd> to focus · <kbd>Esc</kbd> to clear</span>
+  </div>
+
+  <main class="grid-wrap">
+    <div id="tk-grid" class="grid" aria-live="polite"></div>
+    <div id="tk-state" class="state" style="display:none;">
+      <span class="pulse-dot"></span><strong>First industry tech stacks being authored right now.</strong>
+      <p style="margin-top:14px;">The Pulse Machine is publishing the first stacks in the background. Refresh in a minute or two — the cards will appear here automatically. (You can also drop into <a href="/knowledge">the Knowledge Library</a> in the meantime.)</p>
+    </div>
+  </main>
+
+  <section class="about">
+    <h2>What's inside every Pulse tech stack</h2>
+    <p>Each entry is a complete, industry-specific software stack. The same fixed structure every time:</p>
+    <ul>
+      <li><strong>The stack by functional layer</strong> — pipeline / CRM, BI &amp; analytics, finance &amp; billing, operations, and the glue, not a generic alphabetical tool dump</li>
+      <li><strong>The actual apps to buy</strong> — named platforms and products that real operators in this industry run, with what each one is for</li>
+      <li><strong>What good looks like</strong> — the default pick, the budget pick, and the enterprise pick for each layer</li>
+      <li><strong>How the layers connect</strong> — the integrations and data flow that make the stack work as one system instead of silos</li>
+      <li><strong>Rough cost</strong> — ballpark monthly spend so you can size the stack to your stage</li>
+      <li><strong>The one-page stack map</strong> — printable summary with every layer and its recommended app in one place</li>
+    </ul>
+    <p>Use them as-is, swap in your preferred tools, or stack several layers into a full operating system. They're free, indexed, and built to be linked.</p>
+  </section>
+
+  <footer>
+    <span>© Pulse RevOps · Built by <a href="/kory-white">Kory White</a></span>
+    <span>
+      <a href="/feed.xml">Atom feed</a> ·
+      <a href="/knowledge">Knowledge Library</a> ·
+      <a href="/sales-trainings">Sales Trainings</a> ·
+      <a href="/industry-kpis">Industry KPIs</a> ·
+      <a href="/sales-book-summaries">Book Summaries</a> ·
+      <a href="/graphics">Graphics</a> ·
+      <a href="/electronic-reviews">Electronic Reviews</a> ·
+      <a href="/revenue-architecture">Revenue Architecture</a> ·
+      <a href="/go-to-market-playbooks">GTM Playbooks</a> ·
+      <a href="/themachine">The Machine</a>
+    </span>
+  </footer>
+
+  <script>
+    (function(){
+      var GRID = document.getElementById('tk-grid');
+      var STATE = document.getElementById('tk-state');
+      var COUNT = document.getElementById('tk-count');
+      var FRESH = document.getElementById('tk-fresh');
+      var SEARCH = document.getElementById('tk-search');
+      var ALL = [];
+
+      function isStack(e){
+        // Pillar membership = tk#### ID only. The 'tech-stack' TAG is also used
+        // as a content topic on general Q&A, so tag-based inclusion pollutes the
+        // hub with non-pillar questions. The ID prefix is the authoritative marker.
+        return /^tk\d/.test(String(e && e.id || '').toLowerCase());
+      }
+      function tagsLine(tags){
+        if (!Array.isArray(tags) || !tags.length) return '';
+        return tags.filter(function(t){ return t && t !== 'tech-stack'; }).slice(0, 3)
+          .map(function(t){ return '<span class="tag">' + t + '</span>'; }).join('');
+      }
+      function fmtTs(ts){
+        if (!ts) return '';
+        var d = new Date(ts);
+        if (isNaN(d.getTime())) return '';
+        var now = Date.now();
+        var diff = now - ts;
+        if (diff < 60000) return 'just now';
+        if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+        if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+        if (diff < 7 * 86400000) return Math.floor(diff / 86400000) + 'd ago';
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+      function card(e){
+        var CARD_STYLE = ' style="border:2px solid rgba(255,140,26,0.42); background:linear-gradient(90deg, rgba(255,140,26,0.055), rgba(10,14,20,0.02) 60%); box-shadow:0 0 12px rgba(255,140,26,0.14);"';
+        var dur = '<span class="duration">By layer</span>';
+        var tsLabel = fmtTs(e.polished_at || e.ts);
+        var tsHtml = tsLabel ? '<span style="opacity:0.65;font-size:0.7rem;margin-left:8px;">· ' + tsLabel + '</span>' : '';
+        return '<article class="card"' + CARD_STYLE + '>'
+          + '<div class="meta-row">' + dur + '<span>' + (e.id || '') + tsHtml + '</span></div>'
+          + '<h3><a href="/tech-stacks/' + e.id + '">' + escapeHtml(e.question || '(untitled)') + '</a></h3>'
+          + '<div class="tags">' + tagsLine(e.tags) + '</div>'
+          + '<div class="footer"><span>Pulse Tech Stack · apps + layers + cost</span><span class="open">Open stack</span></div>'
+          + '</article>';
+      }
+      function escapeHtml(s){
+        return String(s).replace(/[&<>"']/g, function(c){
+          return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+        });
+      }
+      function render(list){
+        if (!list || !list.length){
+          GRID.innerHTML = '';
+          STATE.style.display = 'block';
+          return;
+        }
+        STATE.style.display = 'none';
+        GRID.innerHTML = list.map(card).join('');
+      }
+      function filterAndRender(){
+        var q = (SEARCH.value || '').toLowerCase().trim();
+        if (!q) return render(ALL);
+        var sNoSpace = q.replace(/\s+/g, '');
+        var f = ALL.filter(function(e){
+          var idLc = String(e.id || '').toLowerCase();
+          // ID match — handles "tk0001", "0001", "tk00" partial, "1" etc.
+          if (sNoSpace === idLc) return true;
+          if (/^\d{1,6}$/.test(sNoSpace)) {
+            var idDigits = idLc.replace(/^(tk|ik|q|st|vq_?)/, '');
+            if (idDigits === sNoSpace) return true;
+            if (parseInt(idDigits, 10) === parseInt(sNoSpace, 10)) return true;
+            if (idDigits.startsWith(sNoSpace)) return true;
+          }
+          var prefixedMatch = sNoSpace.match(/^(tk|ik|q|st|vq_?)(\w+)$/);
+          if (prefixedMatch && idLc.startsWith(prefixedMatch[1] + prefixedMatch[2])) return true;
+          var hay = ((e.question || '') + ' ' + (e.tags || []).join(' ') + ' ' + idLc).toLowerCase();
+          return hay.indexOf(q) >= 0;
+        });
+        render(f);
+      }
+      function load(){
+        fetch('/.netlify/functions/pulse-machine-library-list?recent=5000', { cache: 'no-store' })
+          .then(function(r){ return r.json(); })
+          .then(function(j){
+            ALL = (j.entries || []).filter(isStack);
+            ALL.sort(function(a,b){
+              return (b.polished_at || b.ts || 0) - (a.polished_at || a.ts || 0);
+            });
+            COUNT.textContent = ALL.length;
+            var wk = Date.now() - 7*86400000;
+            FRESH.textContent = ALL.filter(function(e){ return (e.ts || 0) >= wk; }).length;
+            filterAndRender();
+          })
+          .catch(function(){
+            STATE.style.display = 'block';
+          });
+      }
+      SEARCH.addEventListener('input', filterAndRender);
+      SEARCH.addEventListener('keydown', function(e){
+        if (e.key === 'Escape'){ SEARCH.value = ''; filterAndRender(); SEARCH.blur(); }
+      });
+      document.addEventListener('keydown', function(e){
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        var t = e.target, tag = (t && t.tagName || '').toUpperCase();
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || (t && t.isContentEditable)) return;
+        if (e.key === '/'){ e.preventDefault(); SEARCH.focus(); SEARCH.select(); }
+      });
+      load();
+      setInterval(load, 60000);
+    })();
+  </script>
+
+  <script src="/assets/nav-loader.js" defer></script>
+</body>
+</html>

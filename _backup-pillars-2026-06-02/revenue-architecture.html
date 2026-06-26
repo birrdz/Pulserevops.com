@@ -1,0 +1,445 @@
+<!doctype html>
+<!-- REVENUE-ARCHITECTURE HUB
+     8th pillar. Operator-grade essays on GTM design, pipeline math, comp + org
+     architecture, segmentation, motion design. Strategic CRO-tier content
+     (Jacco van der Kooij / Winning by Design / Bridge Group / SaaStr / Pavilion
+     territory). Pattern: tag "revenue-architecture", id prefix ra####, clean
+     URL /revenue-architecture/<id>, renderer kind=revenuearchitecture.
+     Search, auto-refresh. Modeled on /electronic-reviews.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9400030516632657" crossorigin="anonymous"></script>
+  <meta name="theme-color" content="#10B981" />
+  <meta name="color-scheme" content="dark" />
+  <title>Revenue Architecture — GTM Design, Pipeline Math, Comp + Org Architecture · Pulse</title>
+  <meta name="keywords" content="revenue architecture, GTM design, pipeline math, comp design, quota design, sales org structure, RevOps tech stack, segmentation, ICP, channel architecture, motion design, CAC LTV, fractional CRO, CRO playbook, Jacco van der Kooij, Winning by Design, Bridge Group, SaaStr, Pavilion, revenue operations, sales operations, go-to-market, GTM strategy, conversion architecture, pipeline coverage, sales capacity model, ramp model, attainment, churn architecture, NRR, GRR, expansion motion, PLG, sales-led, hybrid motion, enterprise SaaS, mid-market SaaS, SMB SaaS, CRO essays" />
+  <meta name="author" content="Pulse RevOps · The Machine" />
+  <meta name="description" content="Operator-grade essays on GTM design, pipeline math, comp + org architecture for CROs and revenue leaders. Free, deep, opinionated." />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <link rel="canonical" href="https://pulserevops.com/revenue-architecture" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Pulse RevOps" />
+  <meta property="og:title" content="Revenue Architecture — GTM Design, Pipeline Math, Comp + Org Architecture" />
+  <meta property="og:description" content="Operator-grade essays on GTM design, pipeline math, comp + org architecture for CROs and revenue leaders. Free, deep, opinionated." />
+  <meta property="og:url" content="https://pulserevops.com/revenue-architecture" />
+  <meta property="og:image" content="https://pulserevops.com/og-cover.png" />
+  <meta property="og:image:alt" content="Pulse Revenue Architecture — Operator essays for CROs and revenue leaders" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@coachkorywhite" />
+  <meta name="twitter:creator" content="@coachkorywhite" />
+  <meta name="twitter:title" content="Revenue Architecture — GTM Design, Pipeline Math, Comp + Org Architecture" />
+  <meta name="twitter:description" content="Operator-grade essays on GTM design, pipeline math, comp + org architecture for CROs and revenue leaders." />
+  <meta name="twitter:image" content="https://pulserevops.com/og-cover.png" />
+
+  <link rel="alternate" type="application/atom+xml" title="Pulse Library — Atom feed" href="/feed.xml" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://pulserevops.com/#website",
+        "url": "https://pulserevops.com/",
+        "name": "Pulse RevOps",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": { "@type": "EntryPoint", "urlTemplate": "https://pulserevops.com/revenue-architecture?q={search_term_string}" },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://pulserevops.com/#org",
+        "name": "Pulse RevOps",
+        "url": "https://pulserevops.com/",
+        "logo": "https://pulserevops.com/favicon.svg"
+      },
+      {
+        "@type": "CollectionPage",
+        "name": "Pulse Revenue Architecture (Operator Essays)",
+        "description": "A growing library of operator-grade essays on GTM design, pipeline math, comp + org architecture, segmentation, and motion design — built for CROs, fractional CROs, and revenue leaders.",
+        "url": "https://pulserevops.com/revenue-architecture",
+        "isPartOf": { "@id": "https://pulserevops.com/#website" },
+        "publisher": { "@id": "https://pulserevops.com/#org" },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Pulse", "item": "https://pulserevops.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Revenue Architecture", "item": "https://pulserevops.com/revenue-architecture" }
+          ]
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="prefetch" href="/knowledge" as="document">
+  <link rel="prefetch" href="/sales-trainings" as="document">
+  <link rel="prefetch" href="/industry-kpis" as="document">
+  <link rel="prefetch" href="/tech-stacks" as="document">
+  <link rel="prefetch" href="/sales-book-summaries" as="document">
+  <link rel="prefetch" href="/graphics" as="document">
+  <link rel="prefetch" href="/electronic-reviews" as="document">
+  <link rel="prefetch" href="/" as="document">
+
+  <style>
+    :root {
+      --bg: #070a0f; --bg-2: #0e1218; --bg-3: #161b25;
+      --ink: #EDE5D8; --ink-dim: rgba(237,229,216,0.65); --ink-faint: rgba(237,229,216,0.42);
+      --emerald: #10B981; --emerald-bright: #34D399; --gold: #FFD740;
+      --green: #22c55e; --purple: #a78bfa;
+      --line: rgba(255,255,255,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif; line-height: 1.55; }
+    a { color: var(--emerald-bright); text-decoration: none; }
+    a:hover { color: var(--gold); }
+
+    .topnav { position: sticky; top: 0; z-index: 50; background: rgba(7,10,15,0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding: 12px 20px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .topnav .brand { font-weight: 900; letter-spacing: 0.08em; color: var(--ink); font-size: 0.84rem; }
+    .topnav .brand .dot { color: var(--emerald-bright); }
+    .topnav nav { display: flex; gap: 14px; flex-wrap: wrap; }
+    .topnav nav a { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.04em; color: var(--ink-dim); padding: 6px 10px; border-radius: 6px; }
+    .topnav nav a:hover { background: rgba(16,185,129,0.08); color: var(--ink); }
+    .topnav nav a.active { background: rgba(16,185,129,0.18); color: var(--gold); border: 1px solid rgba(16,185,129,0.45); }
+
+    .hero { max-width: 1200px; margin: 0 auto; padding: 56px 24px 28px; position: relative; overflow: hidden; }
+    .hero .eyebrow { font-size: 0.58rem; font-weight: 900; letter-spacing: 0.22em; text-transform: uppercase; color: var(--emerald-bright); margin-bottom: 8px; }
+    .hero h1 { font-size: clamp(2rem, 4.4vw, 3.2rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 14px; color: var(--ink); }
+    .hero h1 .accent { background: linear-gradient(90deg, var(--emerald-bright), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero .lede { max-width: 760px; font-size: clamp(0.95rem, 1.4vw, 1.08rem); color: var(--ink-dim); line-height: 1.6; margin-bottom: 22px; }
+    .hero .stats { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+    .hero .stat { background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; }
+    .hero .stat .n { font-size: 1.3rem; font-weight: 900; color: var(--gold); font-variant-numeric: tabular-nums; }
+    .hero .stat .l { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+
+    .search-row { max-width: 1200px; margin: 0 auto; padding: 8px 24px 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .search-row input { flex: 1; min-width: 280px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; color: var(--ink); font-family: inherit; font-size: 0.95rem; padding: 12px 16px; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+    .search-row input:focus { border-color: rgba(16,185,129,0.7); box-shadow: 0 0 0 3px rgba(16,185,129,0.18); }
+    .search-row .kbd-hint { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
+    .search-row .kbd-hint kbd { background: rgba(0,0,0,0.4); border: 1px solid rgba(52,211,153,0.3); border-radius: 3px; padding: 1px 6px; color: #6EE7B7; font-family: inherit; font-weight: 800; }
+
+    .grid-wrap { max-width: 1200px; margin: 0 auto; padding: 4px 24px 60px; }
+    .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+    .card { background: linear-gradient(160deg, var(--bg-2) 0%, var(--bg-3) 100%); border: 1px solid var(--line); border-radius: 14px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 10px; transition: transform 0.18s ease-out, border-color 0.18s ease-out, box-shadow 0.18s ease-out; position: relative; overflow: hidden; }
+    .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--emerald) 0%, var(--emerald-bright) 50%, var(--gold) 100%); opacity: 0.7; }
+    .card:hover { transform: translateY(-2px); border-color: rgba(16,185,129,0.55); box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(16,185,129,0.25); }
+    .card .meta-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+    .card .meta-row .duration { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.4); color: var(--emerald-bright); padding: 3px 8px; border-radius: 99px; }
+    .card h3 { margin: 0; font-size: 1.05rem; font-weight: 800; line-height: 1.3; color: var(--ink); letter-spacing: -0.01em; }
+    .card h3 a { color: inherit; }
+    .card h3 a:hover { color: var(--gold); }
+    .card .subtitle { font-size: 0.82rem; line-height: 1.45; color: var(--ink-dim); margin-top: 2px; }
+    .card .tags { display: flex; gap: 6px; flex-wrap: wrap; font-size: 0.62rem; font-weight: 700; }
+    .card .tags .tag { background: rgba(168,139,250,0.1); border: 1px solid rgba(168,139,250,0.3); color: var(--purple); padding: 2px 8px; border-radius: 99px; }
+    .card .footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); font-size: 0.72rem; color: var(--ink-faint); }
+    .card .footer .open { color: var(--emerald-bright); font-weight: 800; letter-spacing: 0.04em; }
+    .card .footer .open::after { content: " →"; }
+
+    .state { max-width: 760px; margin: 80px auto; padding: 40px 28px; text-align: center; color: var(--ink-dim); background: var(--bg-2); border: 1px dashed var(--line); border-radius: 14px; }
+    .state h2 { color: var(--ink); margin-top: 0; font-weight: 800; }
+    .state .pulse-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--emerald-bright); margin-right: 8px; animation: pulse 1.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:0.4;transform:scale(0.85)} 50%{opacity:1;transform:scale(1.1)} }
+
+    .about { max-width: 1200px; margin: 8px auto 0; padding: 28px 24px; border-top: 1px solid var(--line); }
+    .about h2 { font-size: 0.62rem; font-weight: 900; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin: 0 0 14px; }
+    .about p { color: var(--ink-dim); max-width: 780px; line-height: 1.65; }
+    .about ul { color: var(--ink-dim); padding-left: 22px; max-width: 780px; }
+    .about li { margin-bottom: 6px; }
+
+    footer { max-width: 1200px; margin: 0 auto; padding: 28px 24px 40px; border-top: 1px solid var(--line); font-size: 0.72rem; color: var(--ink-faint); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    footer a { color: var(--ink-dim); }
+    footer a:hover { color: var(--gold); }
+  </style>
+  <script defer src="/pulse-max-plan-widget.js"></script>
+</head>
+<body>
+
+  <div class="topnav">
+    <span class="brand">PULSE<span class="dot">.</span> RevOps</span>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/knowledge">Knowledge Library</a>
+      <a href="/sales-trainings">Sales Trainings</a>
+      <a href="/industry-kpis">Industry KPIs</a>
+      <a href="/tech-stacks">Tech Stacks</a>
+      <a href="/sales-book-summaries">Book Summaries</a>
+      <a href="/graphics">Graphics</a>
+      <a href="/electronic-reviews">Electronic Reviews</a>
+      <a href="/revenue-architecture" class="active">Revenue Architecture</a>
+      <a href="/go-to-market-playbooks">GTM Playbooks</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/themachine">The Machine</a>
+    </nav>
+  </div>
+
+  <section class="hero">
+    <h1 style="font-size:clamp(3rem,7vw,5.5rem);font-weight:900;letter-spacing:-0.02em;line-height:0.95;margin:0 0 18px;background:linear-gradient(135deg,#34D399 0%,#10B981 50%,#FFD740 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 48px rgba(16,185,129,0.28);">Revenue Architecture</h1>
+    <div class="eyebrow">📐 Operator Essays &middot; GTM Design · Pipeline Math · Comp + Org</div>
+    <h2 style="font-size:clamp(1.4rem,2.4vw,2rem);font-weight:800;line-height:1.2;margin:8px 0 14px;color:#EDE5D8;">Operator-grade essays on <span class="accent">GTM design, pipeline math, comp + org architecture, segmentation, motion design</span> — built for CROs, fractional CROs, and revenue leaders.</h2>
+    <p class="lede">
+      Not blog posts. Not vendor white papers. Operator essays — the kind you'd hand a new CRO on day one. How to architect a go-to-market motion from scratch. How to derive the pipeline-coverage ratio your model actually needs (not the lazy 3x rule). How to design a comp plan that pays for the behavior you want and not the behavior you'll regret in Q3. How to slice segmentation so ICP doesn't drift into "anyone with a pulse and a budget." How to choose between sales-led, product-led, and hybrid motion when your CAC payback is sliding. How to build a sales org chart that scales past 30 reps without collapsing into 4-layer middle management. Written from the inside — Jacco van der Kooij, Winning by Design, Bridge Group, SaaStr, Pavilion territory — opinionated, defensible, free.
+    </p>
+    <div class="stats">
+      <div class="stat"><span class="n" id="ra-count">—</span><span class="l">essays live</span></div>
+      <div class="stat"><span class="n" id="ra-fresh">—</span><span class="l">added this week</span></div>
+      <div class="stat"><span class="n">CRO-tier</span><span class="l">depth</span></div>
+      <div class="stat"><span class="n">$0</span><span class="l">paywall</span></div>
+    </div>
+  </section>
+
+  <div class="search-row">
+    <input type="search" id="ra-search" placeholder="Search essays — GTM, pipeline, comp, quota, ICP, motion…" aria-label="Search revenue architecture essays" />
+    <span class="kbd-hint">press <kbd>/</kbd> to focus &middot; <kbd>Esc</kbd> to clear</span>
+  </div>
+
+  <main class="grid-wrap">
+    <div id="ra-grid" class="grid" aria-live="polite"></div>
+    <div id="ra-state" class="state" style="display:none;">
+      <span class="pulse-dot"></span><strong>First Revenue Architecture essays being authored right now.</strong>
+      <p style="margin-top:14px;">The Pulse Machine is publishing the first Revenue Architecture essays in the background. Refresh in a minute or two — the cards will appear here automatically. (You can also drop into <a href="/knowledge">the Knowledge Library</a> in the meantime.)</p>
+    </div>
+  </main>
+
+  <section class="about">
+    <h2>What lives here</h2>
+    <p>Revenue Architecture is the strategic CRO desk of Pulse — long-form essays on how to actually design a modern go-to-market machine. The recurring topics:</p>
+    <ul>
+      <li><strong>GTM design</strong> — sales-led vs product-led vs hybrid, when to switch motions, how to sequence land/expand/upsell, where channel + partner fits</li>
+      <li><strong>Pipeline math</strong> — coverage ratios derived from real win-rate and cycle-time, capacity planning, ramp modeling, attainment distributions, forecast accuracy</li>
+      <li><strong>Conversion architecture</strong> — stage-by-stage conversion math, where pipeline actually leaks, MQL→SQL→SAO→CW conversion floors, exit criteria that hold</li>
+      <li><strong>Comp + quota design</strong> — OTE benchmarks by motion, accelerator structure, SPIFFs that don't backfire, quota relief, plan economics that survive comp committee</li>
+      <li><strong>Sales org structure</strong> — pod vs hunter-farmer vs segment-aligned, span of control, manager:rep ratio, when to split AE/AM/CSM, how to layer enterprise</li>
+      <li><strong>Segmentation + ICP</strong> — firmographic + technographic + behavioral signals, tiering, account scoring, how to keep ICP from drifting under pipeline pressure</li>
+      <li><strong>Motion design + unit economics</strong> — CAC payback, LTV:CAC, magic number, Rule of 40, net retention architecture, expansion motion design</li>
+      <li><strong>RevOps tech stack</strong> — CRM + engagement + intel + enablement + forecasting stack architecture, where to consolidate, where to specialize, integration patterns</li>
+      <li><strong>Channel architecture</strong> — direct vs partner vs marketplace, conflict resolution, deal registration, MDF, partner-sourced vs partner-influenced pipeline</li>
+      <li><strong>Fractional CRO playbooks</strong> — 30/60/90 plans, diagnostic frameworks, the audits that actually surface root cause, board-ready reporting</li>
+    </ul>
+    <p>Use them to architect a function from scratch, repair a broken motion mid-flight, or pressure-test a plan before you take it to the board. Every essay is opinionated, defensible, and citation-backed — the goal is to be the resource a sitting CRO would actually keep open in a tab.</p>
+  </section>
+
+  <footer>
+    <span>© Pulse RevOps · Built by <a href="/kory-white">Kory White</a></span>
+    <span>
+      <a href="/feed.xml">Atom feed</a> ·
+      <a href="/knowledge">Knowledge Library</a> ·
+      <a href="/sales-trainings">Sales Trainings</a> ·
+      <a href="/industry-kpis">Industry KPIs</a> ·
+      <a href="/tech-stacks">Tech Stacks</a> ·
+      <a href="/sales-book-summaries">Book Summaries</a> ·
+      <a href="/graphics">Graphics</a> ·
+      <a href="/electronic-reviews">Electronic Reviews</a> ·
+      <a href="/revenue-architecture">Revenue Architecture</a> ·
+      <a href="/go-to-market-playbooks">GTM Playbooks</a> ·
+      <a href="/themachine">The Machine</a>
+    </span>
+  </footer>
+
+  <script>
+    (function(){
+      var GRID = document.getElementById('ra-grid');
+      var STATE = document.getElementById('ra-state');
+      var COUNT = document.getElementById('ra-count');
+      var FRESH = document.getElementById('ra-fresh');
+      var SEARCH = document.getElementById('ra-search');
+      var ALL = [];
+
+      function isRevenueArchitecture(e){
+        // Pillar membership = ra#### ID OR tag === 'revenue-architecture'. ID prefix is authoritative.
+        if (/^ra\d/.test(String(e && e.id || '').toLowerCase())) return true;
+        var tags = (e && e.tags) || [];
+        return Array.isArray(tags) && tags.indexOf('revenue-architecture') >= 0;
+      }
+      function tagsLine(tags){
+        if (!Array.isArray(tags) || !tags.length) return '';
+        return tags.filter(function(t){ return t && t !== 'revenue-architecture' && t !== 'essay' && t !== 'cro' && t !== 'gtm'; }).slice(0, 3)
+          .map(function(t){ return '<span class="tag">' + t + '</span>'; }).join('');
+      }
+      function fmtTs(ts){
+        if (!ts) return '';
+        var d = new Date(ts);
+        if (isNaN(d.getTime())) return '';
+        var now = Date.now();
+        var diff = now - ts;
+        if (diff < 60000) return 'just now';
+        if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+        if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+        if (diff < 7 * 86400000) return Math.floor(diff / 86400000) + 'd ago';
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+      // Pull a short subtitle from the first ~140 chars of the body (graceful fallback to '').
+      // Strips HTML tags, markdown headers/emphasis, and collapses whitespace.
+      function extractSubtitle(e){
+        var body = String((e && (e.body || e.answer || e.content)) || '');
+        if (!body) return '';
+        var clean = body
+          .replace(/<[^>]+>/g, ' ')         // strip HTML
+          .replace(/^#+\s.*$/gm, ' ')       // strip markdown headers
+          .replace(/^\s*[-*+]\s+/gm, ' ')   // strip list bullets
+          .replace(/[*_`>]/g, '')           // strip emphasis chars
+          .replace(/!\[[^\]]*\]\([^\)]*\)/g, ' ') // strip images
+          .replace(/\[([^\]]+)\]\([^\)]*\)/g, '$1') // unwrap links
+          .replace(/\s+/g, ' ')
+          .trim();
+        if (!clean) return '';
+        if (clean.length <= 140) return clean;
+        var cut = clean.slice(0, 140);
+        var lastSpace = cut.lastIndexOf(' ');
+        if (lastSpace > 80) cut = cut.slice(0, lastSpace);
+        return cut + '…';
+      }
+      // Category-icon map — keyed by topic tags for revenue architecture essays.
+      // Falls back to scanning the title for keywords, then defaults to 📐.
+      var CATEGORY_ICONS = {
+        // GTM motion & strategy
+        'gtm': '🗺️', 'gtm-design': '🗺️', 'gtm-strategy': '🗺️', 'go-to-market': '🗺️',
+        'sales-led': '🤝', 'product-led': '🧪', 'plg': '🧪', 'hybrid-motion': '🔀',
+        'motion-design': '🔀', 'land-and-expand': '🌱', 'expansion-motion': '📈',
+        'enterprise-motion': '🏛️', 'mid-market-motion': '🏢', 'smb-motion': '🏠',
+        // pipeline & forecasting
+        'pipeline': '🪈', 'pipeline-math': '🧮', 'pipeline-coverage': '🪣',
+        'forecast': '🔮', 'forecasting': '🔮', 'capacity-planning': '📊',
+        'ramp-model': '📈', 'attainment': '🎯', 'win-rate': '🏆', 'cycle-time': '⏱️',
+        // conversion architecture
+        'conversion': '🔄', 'funnel': '🪶', 'conversion-architecture': '🪜',
+        'mql': '🪜', 'sql': '🪜', 'sao': '🪜', 'stage-conversion': '🪜',
+        // comp + quota
+        'comp': '💰', 'comp-design': '💰', 'compensation': '💰', 'ote': '💰',
+        'quota': '🎯', 'quota-design': '🎯', 'accelerators': '🚀', 'spiffs': '🎁',
+        // org structure
+        'org-design': '🧱', 'sales-org': '🧱', 'org-structure': '🧱',
+        'pod-structure': '🧩', 'hunter-farmer': '🎯', 'span-of-control': '📐',
+        'manager-ratio': '👥', 'enablement': '🎓',
+        // ICP + segmentation
+        'icp': '🎯', 'segmentation': '🧬', 'firmographic': '🏢', 'technographic': '💻',
+        'account-scoring': '🔢', 'tiering': '🪜',
+        // unit economics
+        'cac': '💵', 'ltv': '💎', 'cac-payback': '⏳', 'ltv-cac': '⚖️',
+        'magic-number': '✨', 'rule-of-40': '🎚️', 'unit-economics': '🧮',
+        'nrr': '📈', 'grr': '🛡️', 'net-retention': '📈',
+        // tech stack + revops
+        'revops': '⚙️', 'sales-ops': '⚙️', 'tech-stack': '🧰', 'crm': '🗂️',
+        'engagement': '✉️', 'intelligence': '🧠', 'forecasting-tool': '🔮',
+        // channel + partner
+        'channel': '🛣️', 'partner': '🤝', 'channel-architecture': '🛣️',
+        'marketplace': '🛒', 'deal-registration': '📜', 'mdf': '💵',
+        // fractional CRO
+        'fractional-cro': '🧭', 'cro-playbook': '📘', '30-60-90': '📅',
+        'diagnostic': '🩺', 'audit': '🔍', 'board-reporting': '📊',
+        // churn
+        'churn': '🚪', 'retention': '🛡️', 'expansion': '📈', 'cs': '💚',
+        // pricing & packaging
+        'pricing': '🏷️', 'packaging': '📦', 'pricing-strategy': '🏷️',
+        // misc
+        'kpi': '📊', 'metric': '📊', 'reporting': '📊', 'dashboard': '📊',
+        'discovery': '🔎', 'demo': '🎬', 'closing': '🤝', 'negotiation': '🤝',
+      };
+      function categoryIcon(e){
+        var tags = (e && e.tags) || [];
+        // Topic tag is typically the last tag added by the writer
+        for (var i = tags.length - 1; i >= 0; i--){
+          var t = String(tags[i] || '').toLowerCase();
+          if (CATEGORY_ICONS[t]) return CATEGORY_ICONS[t];
+        }
+        // Fallback — scan title for keywords
+        var title = String((e && e.question) || '').toLowerCase();
+        var keys = Object.keys(CATEGORY_ICONS);
+        for (var j = 0; j < keys.length; j++){
+          if (title.indexOf(keys[j].replace(/-/g, ' ')) >= 0) return CATEGORY_ICONS[keys[j]];
+        }
+        return '📐';
+      }
+      function card(e){
+        var CARD_STYLE = ' style="border:2px solid rgba(52,211,153,0.42); background:linear-gradient(90deg, rgba(52,211,153,0.055), rgba(10,14,20,0.02) 60%); box-shadow:0 0 12px rgba(16,185,129,0.14);"';
+        var icon = categoryIcon(e);
+        var iconHtml = '<span class="cat-icon" style="display:inline-block;font-size:1.4rem;margin-right:8px;vertical-align:middle;line-height:1;">' + icon + '</span>';
+        var dur = '<span class="duration">Essay</span>';
+        var tsLabel = fmtTs(e.polished_at || e.ts);
+        var tsHtml = tsLabel ? '<span style="opacity:0.65;font-size:0.7rem;margin-left:8px;">· ' + tsLabel + '</span>' : '';
+        var subtitle = extractSubtitle(e);
+        var subtitleHtml = subtitle ? '<div class="subtitle">' + escapeHtml(subtitle) + '</div>' : '';
+        return '<article class="card"' + CARD_STYLE + '>'
+          + '<div class="meta-row">' + dur + '<span>' + (e.id || '') + tsHtml + '</span></div>'
+          + '<h3>' + iconHtml + '<a href="/revenue-architecture/' + e.id + '">' + escapeHtml(e.question || '(untitled)') + '</a></h3>'
+          + subtitleHtml
+          + '<div class="tags">' + tagsLine(e.tags) + '</div>'
+          + '<div class="footer"><span>Operator essay · pipeline math + architecture · deep dive</span><span class="open">Open essay</span></div>'
+          + '</article>';
+      }
+      function escapeHtml(s){
+        return String(s).replace(/[&<>"']/g, function(c){
+          return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+        });
+      }
+      function render(list){
+        if (!list || !list.length){
+          GRID.innerHTML = '';
+          STATE.style.display = 'block';
+          return;
+        }
+        STATE.style.display = 'none';
+        GRID.innerHTML = list.map(card).join('');
+      }
+      function filterAndRender(){
+        var q = (SEARCH.value || '').toLowerCase().trim();
+        if (!q) return render(ALL);
+        var sNoSpace = q.replace(/\s+/g, '');
+        var f = ALL.filter(function(e){
+          var idLc = String(e.id || '').toLowerCase();
+          if (sNoSpace === idLc) return true;
+          if (/^\d{1,6}$/.test(sNoSpace)) {
+            var idDigits = idLc.replace(/^(ra|er|bs|tk|ik|q|st|vq_?)/, '');
+            if (idDigits === sNoSpace) return true;
+            if (parseInt(idDigits, 10) === parseInt(sNoSpace, 10)) return true;
+            if (idDigits.startsWith(sNoSpace)) return true;
+          }
+          var prefixedMatch = sNoSpace.match(/^(ra|er|bs|tk|ik|q|st|vq_?)(\w+)$/);
+          if (prefixedMatch && idLc.startsWith(prefixedMatch[1] + prefixedMatch[2])) return true;
+          var hay = ((e.question || '') + ' ' + (e.tags || []).join(' ') + ' ' + idLc).toLowerCase();
+          return hay.indexOf(q) >= 0;
+        });
+        render(f);
+      }
+      function load(){
+        fetch('/.netlify/functions/pulse-machine-library-list?recent=5000', { cache: 'no-store' })
+          .then(function(r){ return r.json(); })
+          .then(function(j){
+            ALL = (j.entries || []).filter(isRevenueArchitecture);
+            ALL.sort(function(a,b){
+              return (b.polished_at || b.ts || 0) - (a.polished_at || a.ts || 0);
+            });
+            COUNT.textContent = ALL.length;
+            var wk = Date.now() - 7*86400000;
+            FRESH.textContent = ALL.filter(function(e){ return (e.ts || 0) >= wk; }).length;
+            filterAndRender();
+          })
+          .catch(function(){
+            STATE.style.display = 'block';
+          });
+      }
+      SEARCH.addEventListener('input', filterAndRender);
+      SEARCH.addEventListener('keydown', function(e){
+        if (e.key === 'Escape'){ SEARCH.value = ''; filterAndRender(); SEARCH.blur(); }
+      });
+      document.addEventListener('keydown', function(e){
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        var t = e.target, tag = (t && t.tagName || '').toUpperCase();
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || (t && t.isContentEditable)) return;
+        if (e.key === '/'){ e.preventDefault(); SEARCH.focus(); SEARCH.select(); }
+      });
+      load();
+      setInterval(load, 60000);
+    })();
+  </script>
+
+  <script src="/assets/nav-loader.js" defer></script>
+</body>
+</html>

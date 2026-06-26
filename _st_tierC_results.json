@@ -1,0 +1,416 @@
+[
+  {
+    "id": "st233",
+    "status": "OK",
+    "score": 11,
+    "words": 2452
+  },
+  {
+    "id": "st208",
+    "status": "OK",
+    "score": 10,
+    "words": 2339
+  },
+  {
+    "id": "st203",
+    "status": "OK",
+    "score": 10,
+    "words": 2429
+  },
+  {
+    "id": "st182",
+    "status": "OK",
+    "score": 10,
+    "words": 2455
+  },
+  {
+    "id": "st179",
+    "status": "OK",
+    "score": 11,
+    "words": 1796
+  },
+  {
+    "id": "st167",
+    "status": "OK",
+    "score": 11,
+    "words": 1811
+  },
+  {
+    "id": "st140",
+    "status": "OK",
+    "score": 12,
+    "words": 2356
+  },
+  {
+    "id": "st139",
+    "status": "OK",
+    "score": 12,
+    "words": 2366
+  },
+  {
+    "id": "st138",
+    "status": "OK",
+    "score": 12,
+    "words": 2372
+  },
+  {
+    "id": "st137",
+    "status": "OK",
+    "score": 12,
+    "words": 2378
+  },
+  {
+    "id": "st136",
+    "status": "OK",
+    "score": 12,
+    "words": 2379
+  },
+  {
+    "id": "st135",
+    "status": "OK",
+    "score": 12,
+    "words": 2347
+  },
+  {
+    "id": "st134",
+    "status": "OK",
+    "score": 12,
+    "words": 2347
+  },
+  {
+    "id": "st133",
+    "status": "OK",
+    "score": 12,
+    "words": 2366
+  },
+  {
+    "id": "st132",
+    "status": "OK",
+    "score": 12,
+    "words": 2383
+  },
+  {
+    "id": "st131",
+    "status": "OK",
+    "score": 12,
+    "words": 2346
+  },
+  {
+    "id": "st130",
+    "status": "OK",
+    "score": 12,
+    "words": 2391
+  },
+  {
+    "id": "st129",
+    "status": "OK",
+    "score": 12,
+    "words": 2372
+  },
+  {
+    "id": "st128",
+    "status": "OK",
+    "score": 12,
+    "words": 2396
+  },
+  {
+    "id": "st127",
+    "status": "OK",
+    "score": 12,
+    "words": 2371
+  },
+  {
+    "id": "st126",
+    "status": "OK",
+    "score": 12,
+    "words": 2377
+  },
+  {
+    "id": "st125",
+    "status": "OK",
+    "score": 12,
+    "words": 2359
+  },
+  {
+    "id": "st124",
+    "status": "OK",
+    "score": 12,
+    "words": 2388
+  },
+  {
+    "id": "st123",
+    "status": "OK",
+    "score": 12,
+    "words": 2361
+  },
+  {
+    "id": "st122",
+    "status": "OK",
+    "score": 12,
+    "words": 2366
+  },
+  {
+    "id": "st121",
+    "status": "OK",
+    "score": 12,
+    "words": 2360
+  },
+  {
+    "id": "st120",
+    "status": "OK",
+    "score": 12,
+    "words": 2373
+  },
+  {
+    "id": "st119",
+    "status": "OK",
+    "score": 12,
+    "words": 2378
+  },
+  {
+    "id": "st118",
+    "status": "OK",
+    "score": 12,
+    "words": 2301
+  },
+  {
+    "id": "st117",
+    "status": "OK",
+    "score": 12,
+    "words": 2286
+  },
+  {
+    "id": "st116",
+    "status": "OK",
+    "score": 12,
+    "words": 2288
+  },
+  {
+    "id": "st115",
+    "status": "OK",
+    "score": 12,
+    "words": 2284
+  },
+  {
+    "id": "st114",
+    "status": "OK",
+    "score": 12,
+    "words": 2292
+  },
+  {
+    "id": "st113",
+    "status": "OK",
+    "score": 12,
+    "words": 2285
+  },
+  {
+    "id": "st112",
+    "status": "OK",
+    "score": 12,
+    "words": 2289
+  },
+  {
+    "id": "st111",
+    "status": "OK",
+    "score": 12,
+    "words": 2284
+  },
+  {
+    "id": "st110",
+    "status": "OK",
+    "score": 12,
+    "words": 2288
+  },
+  {
+    "id": "st109",
+    "status": "OK",
+    "score": 12,
+    "words": 2290
+  },
+  {
+    "id": "st108",
+    "status": "OK",
+    "score": 12,
+    "words": 2286
+  },
+  {
+    "id": "st107",
+    "status": "OK",
+    "score": 12,
+    "words": 2298
+  },
+  {
+    "id": "st106",
+    "status": "OK",
+    "score": 12,
+    "words": 2295
+  },
+  {
+    "id": "st105",
+    "status": "OK",
+    "score": 12,
+    "words": 2282
+  },
+  {
+    "id": "st104",
+    "status": "OK",
+    "score": 12,
+    "words": 2295
+  },
+  {
+    "id": "st103",
+    "status": "OK",
+    "score": 12,
+    "words": 2279
+  },
+  {
+    "id": "st102",
+    "status": "OK",
+    "score": 12,
+    "words": 2285
+  },
+  {
+    "id": "st101",
+    "status": "OK",
+    "score": 12,
+    "words": 2278
+  },
+  {
+    "id": "st100",
+    "status": "OK",
+    "score": 12,
+    "words": 2287
+  },
+  {
+    "id": "st99",
+    "status": "OK",
+    "score": 12,
+    "words": 2283
+  },
+  {
+    "id": "st98",
+    "status": "OK",
+    "score": 12,
+    "words": 2292
+  },
+  {
+    "id": "st97",
+    "status": "OK",
+    "score": 12,
+    "words": 2287
+  },
+  {
+    "id": "st96",
+    "status": "OK",
+    "score": 12,
+    "words": 2292
+  },
+  {
+    "id": "st95",
+    "status": "OK",
+    "score": 12,
+    "words": 2287
+  },
+  {
+    "id": "st94",
+    "status": "OK",
+    "score": 12,
+    "words": 2290
+  },
+  {
+    "id": "st93",
+    "status": "OK",
+    "score": 12,
+    "words": 2334
+  },
+  {
+    "id": "st0038",
+    "status": "OK",
+    "score": 11,
+    "words": 9779
+  },
+  {
+    "id": "st0035",
+    "status": "OK",
+    "score": 12,
+    "words": 10090
+  },
+  {
+    "id": "st0032",
+    "status": "OK",
+    "score": 12,
+    "words": 9569
+  },
+  {
+    "id": "st0021",
+    "status": "OK",
+    "score": 12,
+    "words": 10852
+  },
+  {
+    "id": "st0017",
+    "status": "OK",
+    "score": 12,
+    "words": 11445
+  },
+  {
+    "id": "st0013",
+    "status": "OK",
+    "score": 12,
+    "words": 11519
+  },
+  {
+    "id": "st0011",
+    "status": "OK",
+    "score": 12,
+    "words": 11855
+  },
+  {
+    "id": "st0008",
+    "status": "OK",
+    "score": 12,
+    "words": 10996
+  },
+  {
+    "id": "st0031",
+    "status": "OK",
+    "score": 11,
+    "words": 9735
+  },
+  {
+    "id": "st0025",
+    "status": "OK",
+    "score": 12,
+    "words": 11022
+  },
+  {
+    "id": "st0022",
+    "status": "OK",
+    "score": 12,
+    "words": 10903
+  },
+  {
+    "id": "st0018",
+    "status": "OK",
+    "score": 12,
+    "words": 11434
+  },
+  {
+    "id": "st0016",
+    "status": "OK",
+    "score": 12,
+    "words": 11022
+  },
+  {
+    "id": "st0010",
+    "status": "OK",
+    "score": 12,
+    "words": 10962
+  },
+  {
+    "id": "st0009",
+    "status": "OK",
+    "score": 12,
+    "words": 13260
+  }
+]

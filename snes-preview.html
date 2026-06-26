@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PULSE — Super NES (16-bit) Hero Mockups (PREVIEW ONLY)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#04050a;color:#e8e8f0;font-family:system-ui,sans-serif}
+  .note{max-width:920px;margin:0 auto;padding:26px 20px 6px;text-align:center}
+  .note h1{font-family:'Press Start 2P',monospace;font-size:15px;color:#FFD24A;line-height:1.7;margin:0 0 10px;text-shadow:3px 3px 0 #7a3b00}
+  .note p{color:#9aa;font-size:13px;line-height:1.5;margin:6px 0}
+  .opt-label{max-width:1180px;margin:48px auto 0;padding:0 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .opt-label .tag{font-family:'Press Start 2P',monospace;font-size:11px;color:#1a1140;background:#FFD24A;padding:8px 12px;box-shadow:3px 3px 0 #000}
+  .opt-label .desc{font-size:12.5px;color:#8a8ba6}
+  .stage{max-width:1180px;margin:14px auto;overflow:hidden;border-radius:6px}
+
+  /* shared hero scaffold */
+  .hero{padding:48px 22px 52px;text-align:center;position:relative}
+  .hero h2{margin:0 0 18px;line-height:1.45}
+  .hero h2 em{font-style:normal}
+  .lead{max-width:720px;margin:0 auto 24px;line-height:1.7}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:24px}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:980px;margin:0 auto 22px}
+  .meta{font-size:11px;letter-spacing:.5px}
+
+  /* 16-bit beveled panel helper (light top-left, dark bottom-right + cast shadow) */
+  .bevel{position:relative}
+
+  /* ============ OPTION A — JRPG Menu (Final Fantasy / Zelda dialogue box) ============ */
+  #a{background:radial-gradient(circle at 50% -10%,#26307a 0%,#0c1030 70%,#05061a 100%)}
+  #a .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:1px;color:#9fd0ff;background:#15246e;border:3px solid #fff;box-shadow:inset -3px -3px 0 #0a1750,inset 3px 3px 0 #3a5cc8,4px 4px 0 rgba(0,0,0,.5);padding:9px 13px;margin-bottom:22px}
+  #a h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#FFFFFF;text-shadow:3px 3px 0 #1a3aa0,6px 6px 0 #000}
+  #a h2 em{color:#FFD24A;text-shadow:3px 3px 0 #8a4500,6px 6px 0 #000}
+  #a .lead{font-family:'VT323',monospace;font-size:23px;color:#cfe0ff}
+  #a .cta{text-decoration:none;font-family:'Press Start 2P',monospace;font-size:11px;padding:15px 19px;color:#fff;background:#1d2d86;border:3px solid #fff;box-shadow:inset -4px -4px 0 #0c1a5e,inset 4px 4px 0 #4364d6,5px 5px 0 rgba(0,0,0,.55)}
+  #a .cta.primary{background:#FFB000;color:#3a1d00;box-shadow:inset -4px -4px 0 #a86d00,inset 4px 4px 0 #ffd566,5px 5px 0 rgba(0,0,0,.55)}
+  #a .pill{text-decoration:none;font-family:'Press Start 2P',monospace;font-size:9px;color:#dce8ff;background:#16216a;border:2px solid #6f8de0;box-shadow:inset -2px -2px 0 #0c1550,inset 2px 2px 0 #3552b8;padding:9px 11px}
+  #a .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#9fd0ff}
+  #a .meta b{color:#FFD24A}
+
+  /* ============ OPTION B — Super Mario World (bright sky) ============ */
+  #b{background:linear-gradient(#5fc0ff 0%,#8fd6ff 45%,#b9e8a0 78%,#6cae3a 100%)}
+  #b .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:1px;color:#7a3b00;background:#fff;border:3px solid #7a3b00;box-shadow:4px 4px 0 rgba(0,0,0,.25);padding:9px 13px;margin-bottom:22px}
+  #b h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#fff;text-shadow:3px 3px 0 #e2231a,6px 6px 0 #7a0d08}
+  #b h2 em{color:#FFD800;text-shadow:3px 3px 0 #e2231a,6px 6px 0 #7a0d08}
+  #b .lead{font-family:'VT323',monospace;font-size:23px;color:#143d6b;font-weight:700}
+  #b .cta{text-decoration:none;font-family:'Press Start 2P',monospace;font-size:11px;padding:15px 19px;color:#3a1d00;background:#FFD800;border:3px solid #7a3b00;box-shadow:inset -3px -3px 0 #c79a00,inset 3px 3px 0 #fff0a0,5px 5px 0 rgba(0,0,0,.35)}
+  #b .cta.primary{background:#e2231a;color:#fff;box-shadow:inset -3px -3px 0 #8a0d08,inset 3px 3px 0 #ff7a6e,5px 5px 0 rgba(0,0,0,.35)}
+  #b .pill{text-decoration:none;font-family:'Silkscreen',monospace;font-weight:700;font-size:11px;color:#143d6b;background:#fff;border:2px solid #143d6b;box-shadow:3px 3px 0 rgba(0,0,0,.25);padding:9px 11px}
+  #b .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#143d6b}
+  #b .meta b{color:#e2231a}
+
+  /* ============ OPTION C — Zelda: A Link to the Past (earthy gold/green) ============ */
+  #c{background:linear-gradient(#1d3a1e 0%,#274d24 50%,#16280f 100%)}
+  #c .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:1px;color:#1d3a1e;background:#d9b44a;border:3px solid #f4e3a1;box-shadow:inset -3px -3px 0 #9c7e2a,inset 3px 3px 0 #fff4c0,4px 4px 0 rgba(0,0,0,.5);padding:9px 13px;margin-bottom:22px}
+  #c h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#F4E3A1;text-shadow:3px 3px 0 #6b4a12,6px 6px 0 #000}
+  #c h2 em{color:#7ed957;text-shadow:3px 3px 0 #1d5a18,6px 6px 0 #000}
+  #c .lead{font-family:'VT323',monospace;font-size:23px;color:#e8dcae}
+  #c .cta{text-decoration:none;font-family:'Press Start 2P',monospace;font-size:11px;padding:15px 19px;color:#2a2008;background:#d9b44a;border:3px solid #f4e3a1;box-shadow:inset -4px -4px 0 #9c7e2a,inset 4px 4px 0 #fff4c0,5px 5px 0 rgba(0,0,0,.5)}
+  #c .cta.primary{background:#4e7a2a;color:#f4ffe0;border:3px solid #9be86a;box-shadow:inset -4px -4px 0 #2d4a14,inset 4px 4px 0 #7ed957,5px 5px 0 rgba(0,0,0,.5)}
+  #c .pill{text-decoration:none;font-family:'Press Start 2P',monospace;font-size:9px;color:#2a2008;background:#d9b44a;border:2px solid #9c7e2a;box-shadow:inset 2px 2px 0 #fff4c0;padding:9px 11px}
+  #c .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#d9b44a}
+  #c .meta b{color:#7ed957}
+
+  /* ============ OPTION D — PULSE 16-bit (brand dark + orange, beveled) ============ */
+  #d{background:radial-gradient(circle at 50% -10%,#2a1505 0%,#0c0e14 65%,#06080d 100%)}
+  #d .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:1px;color:#4ADE80;background:#0d2417;border:3px solid #2c6b3f;box-shadow:inset -3px -3px 0 #07150d,inset 3px 3px 0 #3a8a52,4px 4px 0 rgba(0,0,0,.55);padding:9px 13px;margin-bottom:22px}
+  #d h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#EEEEF5;text-shadow:3px 3px 0 #5a1e08,6px 6px 0 #000}
+  #d h2 em{color:#FF6B30;text-shadow:3px 3px 0 #7a2204,6px 6px 0 #000}
+  #d .lead{font-family:'VT323',monospace;font-size:23px;color:#B7B8CC}
+  #d .cta{text-decoration:none;font-family:'Press Start 2P',monospace;font-size:11px;padding:15px 19px;color:#EEEEF5;background:#1a2233;border:3px solid #38465f;box-shadow:inset -4px -4px 0 #0c121e,inset 4px 4px 0 #2e3c54,5px 5px 0 rgba(0,0,0,.55)}
+  #d .cta.primary{background:#FF6B30;color:#1a0d04;border:3px solid #ffb088;box-shadow:inset -4px -4px 0 #a83d12,inset 4px 4px 0 #ff9a6a,5px 5px 0 rgba(0,0,0,.55)}
+  #d .pill{text-decoration:none;font-family:'Press Start 2P',monospace;font-size:9px;color:#EEEEF5;background:#161c28;border:2px solid #38465f;box-shadow:inset -2px -2px 0 #0c121e,inset 2px 2px 0 #2e3c54;padding:9px 11px}
+  #d .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#FFB870}
+  #d .meta b{color:#FF6B30}
+
+  .foot{text-align:center;padding:40px 20px 70px;color:#888;font-family:'VT323',monospace;font-size:19px}
+  .blink{animation:bl 1s steps(1) infinite}
+  @keyframes bl{50%{opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="note">
+  <h1>PULSE · SUPER NES (16-BIT) HERO MOCKUPS</h1>
+  <p>Preview only — your live site is untouched. Four 16-bit SNES treatments of the real homepage hero, with beveled JRPG-menu panels and layered drop-shadows. Scroll to compare ↓ <span class="blink">_</span></p>
+</div>
+
+<!-- A -->
+<div class="opt-label"><span class="tag">OPTION A</span><span class="desc">JRPG Menu — Final Fantasy / Zelda dialogue-box panels, royal blue + gold, beveled edges. Premium &amp; classy.</span></div>
+<div class="stage"><section class="hero" id="a">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,767</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<!-- B -->
+<div class="opt-label"><span class="tag">OPTION B</span><span class="desc">Super Mario World — bright sky-to-grass gradient, red/yellow blocks. Most playful &amp; high-energy.</span></div>
+<div class="stage"><section class="hero" id="b">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,767</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<!-- C -->
+<div class="opt-label"><span class="tag">OPTION C</span><span class="desc">Zelda: A Link to the Past — earthy green + ornate gold trim. Adventurous &amp; warm.</span></div>
+<div class="stage"><section class="hero" id="c">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,767</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<!-- D -->
+<div class="opt-label"><span class="tag">OPTION D</span><span class="desc">PULSE 16-bit — your real brand dark + orange/green, but with full SNES beveled panels. On-brand &amp; safest.</span></div>
+<div class="stage"><section class="hero" id="d">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,767</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<div class="foot">— end of mockups — tell me A / B / C / D (or a mix) and I'll build it for real <span class="blink">█</span></div>
+
+<script src="/js/pulse-lead-track.js" defer></script>
+</body>
+</html>

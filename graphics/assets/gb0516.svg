@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.tile{fill:var(--bg2,#0f172a);stroke:var(--c1);stroke-width:2;}
+.tile-accent{fill:none;stroke:var(--c2);stroke-width:1.5;opacity:0.5;}
+.label{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:20px;font-weight:600;fill:var(--c3);letter-spacing:1px;}
+.value{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:48px;font-weight:800;fill:var(--c1);}
+.unit{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:22px;font-weight:600;fill:var(--c4b);}
+.delta{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:16px;font-weight:600;fill:var(--c4);}
+.title{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:26px;font-weight:800;fill:var(--c3);letter-spacing:2px;}
+.sub{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:18px;font-weight:500;fill:var(--c4b);opacity:0.85;}
+.spark{fill:none;stroke:var(--c1);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.sparkfill{fill:var(--c2);opacity:0.18;}
+.dot{fill:var(--c4);}
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="tileGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)" stop-opacity="0.08"/>
+<stop offset="1" stop-color="var(--c2)" stop-opacity="0.02"/>
+</linearGradient>
+</defs>
+
+<rect width="1584" height="396" fill="url(#bg)"/>
+
+<!-- Header bar -->
+<rect x="48" y="28" width="1488" height="56" rx="8" fill="var(--ink)" opacity="0.4" stroke="var(--c1)" stroke-width="1" stroke-opacity="0.4"/>
+<circle cx="74" cy="56" r="6" fill="var(--c1)"/>
+<circle cx="94" cy="56" r="6" fill="var(--c4)" opacity="0.6"/>
+<circle cx="114" cy="56" r="6" fill="var(--c3)" opacity="0.4"/>
+<text x="148" y="64" class="title">SAAS KPI DASHBOARD</text>
+<text x="430" y="64" class="sub">Core 6 — Quarterly Snapshot</text>
+<text x="1480" y="64" class="sub" text-anchor="end">Q4 2026</text>
+
+<!-- Tile 1: ARR -->
+<rect x="48" y="108" width="232" height="244" rx="10" class="tile"/>
+<rect x="48" y="108" width="232" height="244" rx="10" fill="url(#tileGrad)"/>
+<rect x="48" y="108" width="232" height="6" rx="3" fill="var(--c1)"/>
+<text x="68" y="148" class="label">ARR</text>
+<text x="68" y="218" class="value">$48.2</text>
+<text x="68" y="248" class="unit">million</text>
+<text x="68" y="286" class="delta">▲ +32% YoY</text>
+<polyline class="sparkfill" points="68,330 88,322 108,318 128,310 148,298 168,302 188,290 208,278 228,272 248,260 248,346 68,346"/>
+<polyline class="spark" points="68,330 88,322 108,318 128,310 148,298 168,302 188,290 208,278 228,272 248,260"/>
+<circle cx="248" cy="260" r="3.5" class="dot"/>
+
+<!-- Tile 2: NRR -->
+<rect x="296" y="108" width="232" height="244" rx="10" class="tile"/>
+<rect x="296" y="108" width="232" height="244" rx="10" fill="url(#tileGrad)"/>
+<rect x="296" y="108" width="232" height="6" rx="3" fill="var(--c1)"/>
+<text x="316" y="148" class="label">NRR</text>
+<text x="316" y="218" class="value">118%</text>
+<text x="316" y="248" class="unit">net retention</text>
+<text x="316" y="286" class="delta">▲ +6 pts QoQ</text>
+<!-- Donut -->
+<circle cx="476" cy="316" r="26" fill="none" stroke="var(--ink)" stroke-width="6" opacity="0.5"/>
+<circle cx="476" cy="316" r="26" fill="none" stroke="var(--c1)" stroke-width="6" stroke-dasharray="163.4 200" transform="rotate(-90 476 316)" stroke-linecap="round"/>
+<text x="476" y="322" class="label" text-anchor="middle" style="font-size:14px;">118</text>
+
+<!-- Tile 3: GRR -->
+<rect x="544" y="108" width="232" height="244" rx="10" class="tile"/>
+<rect x="544" y="108" width="232" height="244" rx="10" fill="url(#tileGrad)"/>
+<rect x="544" y="108" width="232" height="6" rx="3" fill="var(--c1)"/>
+<text x="564" y="148" class="label">GRR</text>
+<text x="564" y="218" class="value">94%</text>
+<text x="564" y="248" class="unit">gross retention</text>
+<text x="564" y="286" class="delta">▲ +2 pts QoQ</text>
+<!-- Horizontal bar -->
+<rect x="564" y="316" width="192" height="14" rx="7" fill="var(--ink)" opacity="0.5"/>
+<rect x="564" y="316" width="180" height="14" rx="7" fill="var(--c1)"/>
+<text x="564" y="346" class="sub" style="font-size:13px;">target: 90%</text>
+
+<!-- Tile 4: CAC Payback -->
+<rect x="792" y="108" width="232" height="244" rx="10" class="tile"/>
+<rect x="792" y="108" width="232" height="244" rx="10" fill="url(#tileGrad)"/>
+<rect x="792" y="108" width="232" height="6" rx="3" fill="var(--c4)"/>
+<text x="812" y="148" class="label" style="fill:var(--c4b);">CAC PAYBACK</text>
+<text x="812" y="218" class="value" style="fill:var(--c4);">14.2</text>
+<text x="812" y="248" class="unit">months</text>
+<text x="812" y="286" class="delta">▼ -2.1 mo QoQ</text>
+<!-- Bars -->
+<rect x="812" y="316" width="22" height="26" rx="3" fill="var(--c4)" opacity="0.4"/>
+<rect x="842" y="306" width="22" height="36" rx="3" fill="var(--c4)" opacity="0.55"/>
+<rect x="872" y="312" width="22" height="30" rx="3" fill="var(--c4)" opacity="0.7"/>
+<rect x="902" y="298" width="22" height="44" rx="3" fill="var(--c4)" opacity="0.85"/>
+<rect x="932" y="290" width="22" height="52" rx="3" fill="var(--c4)"/>
+<rect x="962" y="278" width="22" height="64" rx="3" fill="var(--c1)"/>
+
+<!-- Tile 5: Rule of 40 -->
+<rect x="1040" y="108" width="232" height="244" rx="10" class="tile"/>
+<rect x="1040" y="108" width="232" height="244" rx="10" fill="url(#tileGrad)"/>
+<rect x="1040" y="108" width="232" height="6" rx="3" fill="var(--c1)"/>
+<text x="1060" y="148" class="label">RULE OF 40</text>
+<text x="1060" y="218" class="value">47</text>
+<text x="1060" y="248" class="unit">growth + margin</text>
+<text x="1060" y="286" class="delta">▲ +5 vs target</text>
+<!-- Stacked bar -->
+<rect x="1060" y="316" width="192" height="20" rx="4" fill="var(--ink)" opacity="0.5"/>
+<rect x="1060" y="316" width="130" height="20" rx="4" fill="var(--c1)"/>
+<rect x="1190" y="316" width="55" height="20" fill="var(--c4)"/>
+<text x="1062" y="330" class="sub" style="font-size:11px;fill:var(--ink);font-weight:800;">32% growth</text>
+<text x="1192" y="330" class="sub" style="font-size:11px;fill:var(--ink);font-weight:800;">15% mgn</text>
+
+<!-- Tile 6: Magic Number -->
+<rect x="1288" y="108" width="248" height="244" rx="10" class="tile"/>
+<rect x="1288" y="108" width="248" height="244" rx="10" fill="url(#tileGrad)"/>
+<rect x="1288" y="108" width="248" height="6" rx="3" fill="var(--c1)"/>
+<text x="1308" y="148" class="label">MAGIC NUMBER</text>
+<text x="1308" y="218" class="value">1.3</text>
+<text x="1308" y="248" class="unit">sales efficiency</text>
+<text x="1308" y="286" class="delta">▲ +0.2 QoQ</text>
+<!-- Gauge arc -->
+<path d="M 1310 340 A 80 80 0 0 1 1470 340" fill="none" stroke="var(--ink)" stroke-width="10" opacity="0.5" stroke-linecap="round"/>
+<path d="M 1310 340 A 80 80 0 0 1 1452 296" fill="none" stroke="var(--c1)" stroke-width="10" stroke-linecap="round"/>
+<circle cx="1452" cy="296" r="5" class="dot"/>
+<text x="1310" y="358" class="sub" style="font-size:11px;">0.5</text>
+<text x="1462" y="358" class="sub" style="font-size:11px;" text-anchor="end">2.0</text>
+
+<!-- Footer ticks -->
+<g opacity="0.4">
+<line x1="48" y1="372" x2="1536" y2="372" stroke="var(--c2)" stroke-width="1"/>
+<circle cx="48" cy="372" r="3" fill="var(--c1)"/>
+<circle cx="544" cy="372" r="3" fill="var(--c1)"/>
+<circle cx="1040" cy="372" r="3" fill="var(--c1)"/>
+<circle cx="1536" cy="372" r="3" fill="var(--c1)"/>
+</g>
+</svg>

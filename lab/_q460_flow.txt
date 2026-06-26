@@ -1,0 +1,205 @@
+
+
+const flow = `
+
+## 🔄 Hybrid SKO Architecture Flow
+
+\`\`\`mermaid
+flowchart TD
+    A[Hybrid SKO architecture freeze 12 weeks pre-SKO] --> B{Team size + distribution + ESG mandate + growth velocity}
+    B -->|Less than 20 reps single-location| C[Compressed hybrid - 2 day in-person + 1 day virtual Zoom Events]
+    B -->|20-50 reps mostly co-located| D[Hybrid with limited satellite - 2 day in-person + 1 day virtual + 1-2 hubs]
+    B -->|50-150 reps distributed| E[Full hybrid - 3 day in-person + 2 day virtual + 3-5 regional hubs]
+    B -->|150-500 reps heavily distributed| F[Comprehensive hybrid - 3 day in-person + 2 day virtual + 5-8 regional hubs + multi-product sub-tracks]
+    B -->|All-remote distributed-first| G[Virtual-first - 6-8 week async + 1-2 day condensed in-person culture summit]
+    E --> H[Tier 4 Async Prework 4 weeks pre-SKO LMS Mindtickle 80 percent certification gate]
+    F --> H
+    H --> I[Tier 1 In-Person Mainstage Days 1-3 primary venue]
+    I --> J[CEO CRO strategic narrative + culture + Club celebration + comp reveal + product roadmap + methodology partner role-play]
+    J --> K[LED-wall production + multi-cam + professional AV at 50K-300K + hybrid Q&A queuing + Slido Mentimeter live polling]
+    K --> L[Tier 3 Hub-and-Spoke Regional Satellite Days 1-3 simulcast]
+    L --> M{Regional facilitator quality}
+    M -->|Trained local facilitator 5K-25K per satellite| N[75-90 percent engagement parity with primary venue]
+    M -->|Undertrained facilitator| O[Regional engagement collapse to 25-40 percent]
+    N --> P[Tier 2 Virtual Breakout Extension Days 4-5 ON24 Bevy Zoom Events Microsoft Teams Webex]
+    P --> Q[Role-specific functional content + named-account workshops + regional segment specialization + comp Q&A]
+    Q --> R[45-60 min session optimal duration + dedicated role-track moderators + Slido live polling]
+    R --> S[Cross-Format Integration Mechanisms]
+    S --> T[Large-screen pinned virtual cohorts at in-person mainstage]
+    S --> U[Dedicated virtual moderator]
+    S --> V[Cross-format Slido polling + hybrid Q&A queue]
+    S --> W[Cross-format Slack Teams cohort channels]
+    T --> X[Tier 5 Post-SKO Reinforcement 90 days]
+    U --> X
+    V --> X
+    W --> X
+    X --> Y[Mindtickle 5-10 min daily spaced-repetition at 1-day 3-day 1-week 2-week 1-month 3-month intervals]
+    X --> Z[Weekly manager 1:1 reinforcement]
+    X --> AA[Monthly methodology micro-sessions]
+    X --> AB[Gong conversation intelligence coaching]
+    X --> AC[Highspot content delivery + Klue Crayon battlecard updates]
+    Y --> AD{Engagement instrumentation measurement}
+    Z --> AD
+    AA --> AD
+    AB --> AD
+    AC --> AD
+    AD -->|Slido response 60-85 in-person 25-45 virtual + NPS 45-65 in-person 15-35 virtual| AE[Well-designed +18-32 percent engagement uplift + methodology adoption]
+    AD -->|No instrumentation| AF[Faith-based hybrid SKO + virtual breakout dead-air + Day-2 cliff]
+    AE --> AG[5-12x ROI on cumulative hybrid SKO investment 720K-2.45M]
+    AF --> AH[Cost-creep + AV failure + FOMO + retention erosion]
+\`\`\`
+
+## 🎯 Format-to-Content Mapping Decision Matrix
+
+\`\`\`mermaid
+flowchart LR
+    A[Content block identified for hybrid SKO design] --> B{Content type}
+    B -->|Strategic narrative + CEO CRO presence + emotional resonance| C[Tier 1 In-Person Mainstage]
+    B -->|Culture + Club celebration + cross-role mixing| C
+    B -->|Methodology partner instructor-led role-play| C
+    B -->|Customer panel + customer success stories| C
+    B -->|Role-specific functional deep-dives| D[Tier 2 Virtual Breakout Extension]
+    B -->|Named-account workshops| D
+    B -->|Regional segment specialization| D
+    B -->|Comp plan Q&A| D
+    B -->|Product certification| D
+    B -->|Tooling deep-dives| D
+    B -->|Product baseline certification| E[Tier 4 Async Prework 4 weeks pre-SKO]
+    B -->|Methodology baseline MEDDICC Command of the Message outbound| E
+    B -->|Competitive battlecard baseline| E
+    B -->|Comp plan literacy| E
+    B -->|Regional simulcast + local facilitator-led discussion| F[Tier 3 Hub-and-Spoke Regional Satellite]
+    B -->|Regional Club celebration + regional happy hour| F
+    B -->|Role-specific spaced-repetition micro-learning| G[Tier 5 Post-SKO Reinforcement 90 days]
+    B -->|Weekly manager 1:1 reinforcement| G
+    B -->|Monthly methodology micro-sessions| G
+    B -->|Gong conversation intelligence coaching| G
+    C --> H{Engagement instrumentation}
+    D --> H
+    E --> H
+    F --> H
+    G --> H
+    H -->|Slido + Mentimeter + Whova + Bizzabo + Mindtickle| I[Engagement metrics by tier + cumulative hybrid SKO ROI quantification]
+    I --> J{Cumulative hybrid SKO ROI at 12 months}
+    J -->|+18-32 percent engagement + methodology adoption uplift| K[Program continuation + scale to next year]
+    J -->|No measurable improvement| L[Diagnose failure mode + redesign for next year]
+\`\`\`
+
+`;
+
+
+const src = `
+
+## 📚 Sources & References
+
+**Hybrid event management + virtual platform canon**
+- Bizzabo (hybrid event management platform founded 2011 - State of Hybrid Events research + Virtual Event Engagement Index): https://www.bizzabo.com
+- Cvent (enterprise event tech platform founded 1999 - Annual Event Benchmark Report): https://www.cvent.com
+- Hopin / RingCentral Events (Hopin founded 2019 acquired by RingCentral 2023 - hybrid platform consolidation): https://www.ringcentral.com/events.html
+- Run The World (founded 2019 - pivoted post-2023 toward community-based virtual events): https://www.runtheworld.today
+- Splash (event marketing + branded event landing pages): https://splashthat.com
+- EventMobi (event app + management): https://www.eventmobi.com
+- Welcome (virtual event platform): https://www.experiencewelcome.com
+
+**Virtual event + webinar platforms**
+- ON24 (dominant virtual event + webinar platform founded 1998 - annual ON24 Webinar Benchmarks Report): https://www.on24.com
+- Bevy (community-driven virtual event platform founded 2017 by Derek Andersen): https://www.bevy.com
+- Zoom Events (Zoom-native hybrid event platform launched 2021): https://events.zoom.us
+- Microsoft Teams Live Events (Microsoft-native hybrid event platform): https://www.microsoft.com/microsoft-teams/microsoft-teams-events
+- Webex Events (Cisco-native hybrid event platform): https://www.webex.com/webex-events.html
+- Google Meet (Google-native UC + meeting platform): https://meet.google.com
+- Vimeo Events (Vimeo-native virtual event platform): https://vimeo.com/events
+
+**Hybrid networking apps**
+- Whova (dominant hybrid networking app founded 2013 - attendee directory + 1:1 meeting scheduling + cross-hub integration): https://whova.com
+- Brella (AI-powered networking + matchmaking): https://www.brella.io
+- Grip (AI-powered matchmaking + networking): https://grip.events
+
+**Live polling + Q&A platforms (engagement instrumentation)**
+- Slido (live polling + Q&A platform - Cisco-owned - canonical engagement instrumentation): https://www.slido.com
+- Mentimeter (live polling + presentation engagement): https://www.mentimeter.com
+- Pigeonhole Live (Q&A + polling platform): https://pigeonholelive.com
+- AhaSlides (interactive presentation + polling): https://ahaslides.com
+- Poll Everywhere (live polling): https://www.polleverywhere.com
+
+**AV production agencies (Tier 1 in-person mainstage AV stack)**
+- Encore (global event production with LED walls + multi-cam + hybrid streaming): https://www.encore-us.com
+- Freeman (event production + experience design): https://www.freeman.com
+- PSAV (event AV production - merged with Freeman): https://www.freeman.com
+- Hargrove Inc (event production + design): https://www.hargroveinc.com
+- GES Global Experience Specialists (event production): https://www.ges.com
+- EventsAir (event production + management): https://www.eventsair.com
+
+**Sales enablement community canon (cross-tier)**
+- Pavilion (RevOps + Marketing + Sales leadership professional community founded 2019 by Sam Jacobs - 35K+ members - State of Sales Onboarding research): https://www.pavilion.com
+- SaaStr (SaaS founder + revenue leader community founded by Jason Lemkin): https://www.saastr.com
+- Bridge Group (sales productivity research firm founded 2003 by Trish Bertuzzi): https://www.bridgegroupinc.com
+- Sales Enablement PRO (research arm of Sales Enablement Society founded by David Lichtman): https://salesenablement.pro
+- Sales Hacker (operator-focused content + community founded by Max Altschuler): https://www.saleshacker.com
+- Sales Assembly (B2B SaaS sales-leadership community): https://www.salesassembly.com
+- GTM Partners (revenue architecture research + community): https://www.gtmpartners.com
+
+**Always-on enablement / LMS platforms (Tier 4 async prework + Tier 5 post-SKO reinforcement)**
+- Mindtickle (sales readiness platform with AI-powered role-play scoring + spaced-repetition micro-learning): https://www.mindtickle.com
+- Highspot (sales enablement content + training delivery + buyer engagement founded 2012 by Robert Wahbe): https://www.highspot.com
+- Seismic (content + Lessonly LMS founded 2010): https://www.seismic.com
+- SalesHood (specialized in SKO + sales onboarding + cohort-based founded 2013 by Elay Cohen): https://saleshood.com
+- Showpad (content + coaching + LMS founded 2011 in Ghent Belgium): https://www.showpad.com
+- Allego (sales learning + conversation intelligence + role-play founded 2013): https://www.allego.com
+- Brainshark / Bigtincan (video-based learning + assessment): https://www.bigtincan.com
+
+**Methodology partners (Tier 1 in-person mainstage methodology curriculum)**
+- Force Management (Command of the Message + MEDDICC + Cadence methodology founded 2003 by John Kaplan + Brian Walsh): https://www.forcemanagement.com
+- Winning By Design (SaaS Sales Methodology + Bowtie framework founded 2012 by Jacco van der Kooij): https://winningbydesign.com
+- MEDDICC Institute (Andy Whyte methodology certification): https://meddicc.com
+- JBarrows Sales Training (John Barrows + Morgan Ingram outbound craft methodology): https://www.jbarrows.com
+- Sales Coaching Lab (John Crowley first-line sales manager coaching methodology): https://salescoachinglab.com
+- Sandler Training (Sandler Sales Methodology founded 1967): https://www.sandler.com
+
+**Conversation intelligence platforms (Tier 5 always-on methodology adoption tracking)**
+- Gong (conversation intelligence platform founded 2015 by Amit Bendov + Eilon Reshef): https://www.gong.io
+- Chorus.ai (conversation intelligence - acquired by ZoomInfo 2021): https://www.zoominfo.com/products/chorus
+- Avoma (conversation intelligence + meeting assistant founded 2017): https://www.avoma.com
+
+**Competitive intelligence + forecast intelligence platforms**
+- Klue (competitive intelligence + battlecard platform founded 2015): https://www.klue.com
+- Crayon (competitive intelligence + market analysis founded 2015): https://www.crayon.co
+- Clari (pipeline / forecast intelligence + conversation analytics founded 2012): https://www.clari.com
+
+**Analyst research and methodology frameworks**
+- Forrester Wave for Event Management Platforms: https://www.forrester.com/research/forrester-wave/
+- Forrester Wave for Sales Enablement Platforms: https://www.forrester.com/research/forrester-wave/
+- Gartner Magic Quadrant for Meeting Solutions: https://www.gartner.com/en/documents/4012345
+- Gartner Future of Sales research (Brent Adamson + Hank Barnes + Cristina Gomez): https://www.gartner.com/en/sales/insights/future-of-sales
+- Forrester Total Economic Impact of Bizzabo / Cvent / Mindtickle: https://www.forrester.com/research/total-economic-impact/
+- Salesforce State of Sales research (annual report on 7,700+ sales professionals): https://www.salesforce.com/resources/research-reports/state-of-sales/
+- ATD (Association for Talent Development - adult learning theory + spaced repetition): https://www.td.org
+
+**Named B2B SaaS hybrid SKO case studies (COVID virtual era + 2023+ hybrid pivot)**
+- Salesforce (CRM platform 35B+ revenue - Salesforce World Tour Reimagined 2020-2022 + Dreamforce hybrid 2023+ + Salesforce+ proprietary virtual platform): https://www.salesforce.com
+- HubSpot (inbound platform 2.5B+ revenue - Inbound Virtual 2020-2022 + Inbound Hybrid 2023+): https://www.hubspot.com
+- Snowflake (cloud data platform 3B+ revenue - Snowflake Summit virtual track 2020-2022 + hybrid 2023+): https://www.snowflake.com
+- Atlassian (developer collaboration 4B+ revenue - distributed-first hybrid SKO + Atlassian Team customer hybrid): https://www.atlassian.com
+- GitLab (DevSecOps 500M+ revenue - all-remote handbook async-first hybrid SKO + GitLab Connect hybrid): https://about.gitlab.com
+- Datadog (observability 2.5B+ revenue - hybrid SKO + customer event hybrid): https://www.datadoghq.com
+- ServiceNow (workflow 8B+ revenue - ServiceNow Knowledge hybrid + World Forum hybrid): https://www.servicenow.com
+- Adobe (Creative + Experience + Document Cloud 20B+ revenue - MAX customer-event hybrid): https://www.adobe.com
+- Microsoft (Modern Workplace + Azure + Dynamics 245B+ revenue - Microsoft Build hybrid + Microsoft Ready internal hybrid): https://www.microsoft.com
+- Zoom (4.5B+ revenue - Zoomtopia customer-event hybrid + Zoom Events platform): https://zoom.us
+- DocuSign (2.8B+ revenue - Momentum customer-event + internal hybrid): https://www.docusign.com
+- Okta (2.5B+ revenue - Oktane customer-event + internal hybrid): https://www.okta.com
+- Cloudflare (1.5B+ revenue - Connect customer-event + internal hybrid): https://www.cloudflare.com
+- Workday (HCM 7B+ revenue - Workday Rising customer-event hybrid + internal hybrid): https://www.workday.com
+- Oracle (Oracle Cloud + Database + NetSuite 55B+ revenue - Oracle CloudWorld hybrid + internal hybrid): https://www.oracle.com
+
+**Adult learning theory + cognitive science (Tier 5 post-SKO reinforcement spaced-repetition rationale)**
+- Hermann Ebbinghaus forgetting curve (1885 - 50-80 percent knowledge loss within 1 week): https://en.wikipedia.org/wiki/Forgetting_curve
+- Sebastian Leitner Box system (1972 - foundational spaced repetition algorithm): https://en.wikipedia.org/wiki/Leitner_system
+- Make It Stick Brown Roediger McDaniel (2014 - retrieval practice + spaced repetition + interleaving): https://makeitstick.net
+- Sales Enablement Society (professional society): https://www.sesociety.org
+
+**All-remote / distributed-first operating models**
+- GitLab all-remote handbook (canonical all-remote operating system): https://about.gitlab.com/handbook
+- Atlassian distributed-first principles: https://www.atlassian.com/work-life/distributed-work
+
+`;

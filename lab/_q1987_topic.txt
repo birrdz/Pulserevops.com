@@ -1,0 +1,102 @@
+q9664 | How do you start a microbrewery (craft brewery) business in 2027?
+q9638 | How does a CRO design the ideal pipeline review meeting in 2027?
+q9606 | How do you start a craft distillery business in 2027?
+q9596 | How do you start a vinyl wrap shop business in 2027?
+q9593 | How do you start a custom welding fabrication business in 2027?
+q9591 | How do you start a 3D printed custom parts business in 2027?
+q9590 | How do you start a custom embroidery shop business in 2027?
+q9589 | How do you start a print-on-demand merch business in 2027?
+q9551 | How does discount-authority governance differ between a founder selling to direct enterprise customers vs one managing a channel or VAR partnership?
+q9544 | For a founder-led B2B SaaS org scaling from $5M to $25M ARR, what's the clearest signal that the founder should hire RevOps instead of doing a full CPQ overhaul â and when does it switch the other way?
+q9540 | What's the right moment to hire a VP Sales â after you've locked in founder-led sales behaviors across your first cohort, or should you hire a VP Sales earlier to help design and enforce those behaviors?
+q9538 | What's the relationship between a founder's sales background and the discount governance readiness threshold â do product founders delay the signal longer?
+q9530 | What's the right deal desk org design philosophy for a founder-led B2B SaaS company planning to scale from $5M to $50M ARR â should deal desk be a single generalist role or pre-built for a later bifurcation?
+q9525 | How do you measure whether a rep comp redesign actually improved deal quality vs just hitting revenue number through the same old discounting behavior?
+q9521 | Should territory reassignment decisions be owned by the manager, the CRO, or a cross-functional panel including finance, and how does that governance choice affect retention outcomes?
+q9518 | What is the right way to compute true gross retention vs net retention when half your customers are on multi-year contracts with annual escalators?
+q1994 | How do you start a woodworking shop business in 2027?
+q1993 | How do you start a vinyl decals business in 2027?
+q1992 | How do you start a custom apparel business in 2027?
+q1991 | How do you start a sublimation printing business in 2027?
+q1988 | How do you start a screen printing business in 2027?
+q1987 | How do you start an embroidery business in 2027?
+q1985 | How do you start a 3D printing service business in 2027?
+q1953 | How do you start an Etsy shop business in 2027?
+q1857 | How does Salesloft win the HubSpot CRM customer base?
+q1802 | How does Salesloft win the HubSpot CRM customer base?
+q1558 | Should Salesforce acquire Sierra to win agentic customer support?
+q1500 | Why did HubSpot's customer growth slow in 2025?
+q1484 | Why did my entire support team become Customer Success Engineers?
+q1481 | We just outsourced customer success to AI â what's next?
+q1164 | What's the right way to handle a POC where the customer keeps asking for more features mid-trial?
+q1139 | How do you know when to refresh or replace an escape room theme â by month count, repeat-customer ratio, or review trend?
+q1124 | What's the right way to handle a renewal where the customer wants to drop seats by 40% but stay on the same tier?
+q1113 | How do you diagnose whether your churn is a product problem or a customer-success problem?
+q789 | How do we organize territory assignments across AE segments when sales leaders report different coverage gaps?
+q730 | How do you design a capacity model that accounts for rep tenure, training ramp, and territory variance?
+q702 | How do we build a cohort analysis dashboard that shows which customer vintages are most profitable and which will churn?
+q672 | What are the design rules for free tier seat limits, feature gates, and API quotas that trigger expansion motions?
+q625 | What's the difference between ABM-style account selection and traditional patch-based territory assignment?
+q614 | How do you prevent POC scope creep when customers keep asking 'can you just...'?
+q612 | How do you design demo flows that convert skeptics without revealing pricing?
+q596 | How do you design SLA tiers that operators can execute without constant escalation?
+q553 | How do you craft persona-specific messaging without sounding fragmented?
+q540 | How do you design playbook governance without turning it into a legal document nobody reads?
+q537 | What's the anatomy of a repeatable demo flow that keeps deal momentum without custom pivots?
+q528 | What support ticket patterns signal imminent churn vs. healthy escalations?
+q527 | How should you weight financial health signals like payment delays and usage-to-ARR ratio?
+q526 | What is a leading product adoption signal and how should it be weighted in health scoring?
+q521 | What CSM behaviors and red flags indicate a customer is at high risk to churn?
+q520 | What product-usage signals most reliably predict 6-month churn in B2B SaaS?
+q519 | How should we structure a customer health score that tracks both product engagement and commercial indicators?
+q489 | What's the math on recruiting customers into a reference program?
+q482 | How do we avoid common pitfalls in win-loss program design and execution?
+q478 | How do we design competitive battlecards that actually change rep behavior in the field?
+q474 | How should we structure win-loss interview design to uncover the specific objections that lose deals?
+q464 | How do you design kickoff content for AEs vs. SDRs vs. managers?
+q459 | What are the core design pillars for a high-ROI sales kickoff?
+q452 | How do I design partner and channel strategies specific to each region without over-distributing?
+q448 | How do I design regional GTM and messaging that doesn't just translate the US playbook?
+q425 | How do you calculate 'true' LTV when you have variable churn by cohort age, and some customers never expand?
+q405 | Build a custom CRM vs. buy Salesforce Enterpriseâwhat's the real long-term cost delta?
+q389 | Build vs buy: when should we custom-build vs adopt vendor platforms for sales ops infrastructure?
+q386 | What's the modern territory design frameworkâaccount clustering vs geographic vs vertical-based?
+q385 | How do we right-size rep capacity and assign quota without guessing?
+q361 | What coachability signals during interviews predict hiring success and identify candidates who will reject feedback?
+q355 | What quota-attainment signal patterns predict first-year sales rep success during final interview stages?
+q354 | How do you design a sales interview scorecard that calibrates objectively across multiple evaluators?
+q339 | How should we design a 3-tier SaaS pricing structure when competitor tiers blur together?
+q331 | Executive sponsor is blocking procurement because they want a custom feature we can't build in their timeline. How do we move them without feature bloat?
+q314 | How do you design follow-up questions that uncover hidden pain instead of leading the prospect?
+q310 | When should you disqualify a prospect during discovery, and what's the signal?
+q301 | How do competitive threat signals (RFP issuance, multi-threaded deals, price escalations) degrade forecast confidence?
+q280 | What's the playbook for breaking a 90-day RFP response cycle into operational sprints?
+q275 | How do we design comp for deal teams (AE + SA + Sales Engineer) where all three touch the deal but at different stages?
+q272 | What comp structure works for reps selling to different customer segments with vastly different deal sizes (SMB vs. Enterprise)?
+q267 | How do we design MBO bonuses (Management by Objectives) that don't kill commission math?
+q264 | How do we design commission accelerators that actually change rep behavior without blowing the cap?
+q259 | How do you compensate a sales rep who lands a strategic-but-low-ARR logo (e.g. brand-name reference customer)?
+q254 | What's the right way to roll out a new pricing model without breaking existing customer contracts and trust?
+q251 | How do you design a sales contest that doesn't tank pipeline quality after it ends?
+q250 | What signals from product usage and CSM notes predict a renewal will require a discount to close?
+q247 | How do you scale a customer reference program past 10-15 active references without burning out your champions?
+q246 | What's the right way to share customer health data with reps without overwhelming them with dashboards?
+q245 | How do you tell if your sales process actually matches how customers buy versus how you think they buy?
+q229 | What's the best way to run a competitive take-out campaign against an entrenched vendor with 3+ years of customer history?
+q222 | What signals tell you a competitor is about to undercut you on price in an active deal?
+q214 | What signals from a CRM tell you a deal is about to slip 30+ days before it actually does?
+q210 | How do you handle a buyer who keeps requesting custom legal terms that slow every deal in their pipeline?
+q207 | What's the best playbook for re-engaging customers who churned 6-12 months ago?
+q196 | What signals from product usage predict churn 90 days out?
+q194 | What's the right discount to offer to save a churning customer?
+q192 | How do I structure a saves play for a customer who's considering churn?
+q180 | What do I do when my number-one rep just resigned with no notice?
+q177 | How do I handle a customer who threatens public escalation?
+q156 | Which CROs have moved roles in the last 90 days that signal something?
+q138 | When does it make sense to fly to a customer mid-deal?
+q116 | What's the right territory design for a 30-rep mid-market team?
+q70 | What's the right play when the champion gets reassigned mid-deal?
+q60 | What signals on a demo predict a closed-won deal?
+q33 | What's the right interview signal for sales coaching ability?
+q16 | What signals predict whether a sales rep will hit quota in 12 months?
+q04 | How do I design ramp comp that doesn't punish reps in their first 90 days?

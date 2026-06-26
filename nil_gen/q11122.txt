@@ -1,0 +1,78 @@
+QUESTION: What are Iowa State Cyclones football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Iowa State Cyclones football enters 2027 navigating one of the most consequential transitions in program history: Matt Campbell departed in December 2025 to become Penn State's head coach after a decade in Ames, and Jimmy Rogers — the former Washington State head coach — now leads the Cyclones. The NIL strategy required to stabilize and elevate this roster runs through the We Will Collective (transitioning into the We Will Fund inside the ISU Foundation), Executive Director Tyler Blum's $12M-plus fundraising base from 10,000-plus donors, and a Cyclone Sports Properties machine bolstered by the Elite Casino Resorts partnership announced in June 2025. The 2027 needs are clear: retain the offensive line and tight end room that defined Campbell-era identity, win a quarterback war in the portal, hold the top-50 high school class Campbell signed before leaving, and deploy charitable-tied NIL deals that fit a 501(c)(3) structure built around the Jack Trice "I will" legacy.
+
+## The Coaching Transition Reframes Every NIL Conversation
+
+When Campbell accepted the Penn State job on December 5, 2025, Iowa State did not just lose a coach — it lost the central retention argument that the We Will Collective had leaned on for three recruiting cycles. Donors gave because Campbell stayed. Players signed because Campbell developed offensive linemen and tight ends into pros. Jimmy Rogers inherits a program that finished inside the top-50 recruiting rankings under Campbell's final class, but every signee now has a transfer portal window and every returning starter has a market price. The 2027 NIL strategy must therefore front-load retention spending in January and February 2027, before spring practice exposes any roster doubt to competing collectives at Penn State, Missouri, and Kansas State who will target Cyclone holdovers as known commodities.
+
+Rogers brings a defensive identity and a Group-of-Five resourcefulness from his Washington State and South Dakota State runs, which fits a Big 12 program that has never been able to outspend Texas Tech or Oklahoma State on raw dollars. The collective's job is to convert Rogers's developmental pitch into deals that pay incrementally — base value at signing, escalators at production milestones — so the cap stretches across a fifty-plus-scholarship operating roster rather than collapsing onto five marquee names.
+
+There is also a narrative reset to manage. The Cyclone Fanatic reporting from December 2025 noted that Campbell navigated a "drastically changed" recruiting market to land his final top-50 class, which means Rogers walks into a freshman group that was sold on a different head coach, a different scheme, and a different developmental promise. The We Will Fund will need to underwrite individual sit-down meetings with every signee in the first ninety days of 2027 — flights, hotels, family visits, charity-activation introductions — to convert each kid's "I signed for Campbell" hesitation into "I am staying for Rogers" commitment. That logistical spending is small in dollar terms but enormous in retention return.
+
+## Position-by-Position NIL Needs for 2027
+
+```mermaid
+flowchart TD
+    A[2027 Iowa State NIL Allocation] --> B[Retention Tier]
+    A --> C[Portal Tier]
+    A --> D[High School Tier]
+    B --> B1[Offensive Line<br/>top priority]
+    B --> B2[Tight End Room]
+    B --> B3[Veteran Safeties]
+    C --> C1[Starting QB<br/>Power-4 experience]
+    C --> C2[Edge Rusher<br/>double-digit sack profile]
+    C --> C3[Slot WR]
+    D --> D1[Hold Campbell-era<br/>top-50 commits]
+    D --> D2[Iowa borders<br/>preferred-walk-on pipeline]
+```
+
+Quarterback is the headline need. Rocco Becht's eligibility timeline means Rogers must either extend him with a true Big 12-market deal or identify a portal bridge starter who can run a pro-style attack in year one. Realistic 2027 QB market value at a program of Iowa State's stature sits between $800,000 and $1.4M annually, and the We Will Fund will need a single anchor donor — likely surfaced through the Elite Casino Resorts partnership network — to underwrite the gap above standard collective contributions.
+
+Offensive line retention is the second pillar. Iowa State developed three NFL Draft picks along the front under Campbell, and the 2027 returning unit projects two multi-year starters who will be portal targets. Lineman NIL deals in the $250,000-$450,000 band, structured with charitable work tied to Ames-area food banks and youth football clinics, fit the 501(c)(3) framework cleanly and keep the cap predictable.
+
+Edge rusher is the third pillar and the most likely portal swing. Rogers's defensive background means he will spend aggressively on a proven pass rusher, and the collective should reserve at least one $600,000-tier slot for a transfer with 8-plus career sacks. The tight end room — a Campbell signature that produced Charlie Kolar and Chase Allen as NFL contributors — needs $150,000-$225,000 retention deals stacked across two veterans and one redshirt sophomore so the position group does not get poached as a unit by Penn State's incoming staff.
+
+## The We Will Fund Transition and Its Strategic Implications
+
+The most underappreciated 2027 story is structural. The We Will Collective is transitioning its members into the We Will Fund housed inside the Iowa State University Foundation. That move shifts NIL dollars onto a 501(c)(3) charitable-giving rail with tax-deductible donor treatment, integrates the Cyclone Sports Properties revenue machine directly with athlete payments, and lets Blum's team underwrite multi-year deals against a foundation balance sheet rather than month-to-month fundraising.
+
+The strategic implication for 2027 is that Iowa State can offer something most peer collectives cannot: a guaranteed multi-year deal backed by an endowment-style fund, paired with charitable work that satisfies the IRS public-benefit test. Recruits comparing offers from a private LLC collective at a peer school will see Iowa State's structure as more stable, more tax-efficient for the donors who power it, and more aligned with the Jack Trice legacy that defines the program's identity.
+
+```mermaid
+flowchart TD
+    E[Donor Dollar Enters We Will Fund] --> F[ISU Foundation<br/>501c3 Treatment]
+    F --> G[Athlete NIL Deal<br/>multi-year guarantee]
+    G --> H[Charitable Activation]
+    H --> I[Community Hours<br/>Ames + statewide]
+    F --> J[Cyclone Sports Properties<br/>Elite Casino Resorts]
+    J --> K[Sponsorship Revenue<br/>shared pool]
+    K --> G
+    I --> L[Tax-Deductible<br/>Donor Receipt]
+    L --> E
+```
+
+The Elite Casino Resorts partnership announced in June 2025 between the We Will Collective and Cyclone Sports Properties is the under-the-radar competitive lever. Casino partners bring two things peer collectives lack — high-margin marketing budgets tied to gameday foot traffic, and the kind of recurring sponsorship inventory that funds multi-year guarantees instead of one-off recruiting bonuses. Rogers's staff should treat Elite Casino Resorts dollars as the dedicated quarterback and edge-rusher funding source, kept separate from the donor-pool retention budget so the two streams do not cannibalize each other during the spring portal window.
+
+## Revenue-Share and the NIL Go Clearinghouse in the Big 12
+
+The House v. NCAA settlement that took final approval in June 2025 lets Iowa State pay athletes directly from a school-wide pool capped near $20.5 million in its first year, escalating roughly four percent annually. Most Big 12 programs push 70 to 75 percent of that cap into football, which for Iowa State points to a football rev-share line in the $14M-$15M range layered beneath whatever the We Will Fund stacks on top. The strategic catch is that every collective deal of $600 or more now passes through NIL Go, the Deloitte-run clearinghouse that certifies third-party NIL agreements as fair-market rather than disguised pay-for-play. Iowa State's 501(c)(3) charitable structure is actually an advantage here: deals tied to genuine community hours at Ames food banks and youth clinics produce documented, deliverable-backed agreements that clear review more cleanly than thin booster payments. Rogers's compliance and collective staff should pre-build those deliverable packages for the quarterback and edge-rusher targets so a marquee deal cannot be voided mid-cycle by a clearinghouse flag.
+
+## The 2027 Calendar
+
+December 2026 through February 2027 is the retention window. Rogers's staff must lock the offensive line, tight ends, and veteran safeties before the post-bowl portal opens fully. March through May 2027 is the portal-attack window for quarterback and edge rusher, with the Elite Casino Resorts partnership funding the marquee deal. June through August 2027 is community-activation season, where the 501(c)(3) charitable hours get logged and donor receipts get cut. September through November 2027 is performance escalator season, where production milestones release the second halves of structured contracts.
+
+## Bottom Line
+
+Iowa State's 2027 NIL strategy is a structural advantage masquerading as a transition crisis. The Campbell departure hurts retention messaging in the short term, but Jimmy Rogers inherits a $12M-plus collective with 10,000-plus donors, a brand-new ISU Foundation fund structure, a recurring sponsor partner in Elite Casino Resorts, and an executive director in Tyler Blum who has already proven the fundraising model at scale. Spend the retention tier in January, win the portal at quarterback and edge by April, hold the high school class through signing day, and the Cyclones enter Rogers's first full recruiting cycle with the most stable NIL operation in the Big 12 outside the Texas schools.
+
+## Frequently Asked Questions
+
+**How damaging is the Matt Campbell departure to Iowa State's NIL fundraising?**
+Short-term it removes the central pitch — for three cycles donors and recruits bought into Campbell's stability and his record developing offensive linemen and tight ends into NFL players. But the structural assets survive him: a $12M-plus collective base from over 10,000 donors, the We Will Fund's move inside the ISU Foundation, the Elite Casino Resorts sponsorship, and Tyler Blum's proven fundraising operation. The real 2027 risk is not the dollar total, it is timing. If Rogers's staff fails to front-load retention spending in January and February before the post-bowl portal opens, rival collectives at Penn State, Missouri, and Kansas State will pick off known Cyclone starters, and that is a far bigger threat than the loss of Campbell's name on the marketing.
+
+**Why is moving the collective into the ISU Foundation a recruiting advantage?**
+Housing NIL dollars in the We Will Fund inside the Iowa State University Foundation puts them on a 501(c)(3) charitable-giving rail, which gives donors tax-deductible treatment and lets the program underwrite multi-year guarantees against a foundation balance sheet instead of month-to-month fundraising. A recruit weighing an offer from a private LLC collective at a peer school sees Iowa State's version as more stable and more durable. It also pairs cleanly with NIL Go compliance, because charitable activations — community hours at Ames food banks and youth football clinics — create the documented, real-deliverable record the clearinghouse wants to see, lowering the odds a deal gets flagged and voided.

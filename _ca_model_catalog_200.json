@@ -1,0 +1,3828 @@
+{
+  "title": "200 Automotive Variations: Model, Type, and Decade",
+  "generated_at": "2026-06-22T06:23:36.588Z",
+  "total": 200,
+  "body_types": 13,
+  "type_labels": {
+    "sedans_compact_mid": "Compact & Mid-Size Sedan",
+    "sedans_fullsize_luxury": "Full-Size & Luxury Sedan",
+    "suvs_compact_crossover": "Compact SUV & Crossover",
+    "suvs_midsize": "Mid-Size SUV",
+    "suvs_fullsize_3row": "Full-Size & 3-Row SUV",
+    "pickup_trucks": "Pickup Truck",
+    "electric_vehicles": "Electric Vehicle",
+    "hybrid_plug_in": "Hybrid & Plug-In Hybrid",
+    "sports_performance": "Sports & Performance",
+    "minivans": "Minivan",
+    "hatchbacks_wagons": "Hatchback & Wagon",
+    "coupes_convertibles": "Coupe & Convertible",
+    "off_road_specialty": "Off-Road & Specialty SUV"
+  },
+  "by_type": {
+    "Compact & Mid-Size Sedan": [
+      {
+        "model": "Toyota Camry",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Honda Accord",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Honda Civic",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Corolla",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Nissan Altima",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Hyundai Sonata",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Hyundai Elantra",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Kia K5",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Kia Forte",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mazda Mazda3",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mazda Mazda6",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volkswagen Jetta",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Subaru Legacy",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Subaru Impreza",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Nissan Sentra",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Tesla Model 3",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Crown",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Dodge Charger",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Subaru WRX",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volkswagen Passat",
+        "type": "sedans_compact_mid",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Full-Size & Luxury Sedan": [
+      {
+        "model": "BMW 3 Series",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "BMW 5 Series",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mercedes-Benz C-Class",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mercedes-Benz E-Class",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Audi A4",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Audi A6",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Lexus ES",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Lexus IS",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Genesis G70",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Genesis G80",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Cadillac CT5",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Lincoln Continental",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chrysler 300",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volvo S60",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volvo S90",
+        "type": "sedans_fullsize_luxury",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Compact SUV & Crossover": [
+      {
+        "model": "Toyota RAV4",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Honda CR-V",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Nissan Rogue",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Hyundai Tucson",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Kia Sportage",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mazda CX-5",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mazda CX-30",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mazda CX-50",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Subaru Forester",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Subaru Crosstrek",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volkswagen Tiguan",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volkswagen Taos",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Equinox",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "GMC Terrain",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford Escape",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford Bronco Sport",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Honda HR-V",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Corolla Cross",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Hyundai Kona",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Kia Seltos",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Jeep Compass",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Nissan Kicks",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mitsubishi Outlander Sport",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Buick Encore GX",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Honda Prologue",
+        "type": "suvs_compact_crossover",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Mid-Size SUV": [
+      {
+        "model": "Toyota Highlander",
+        "type": "suvs_midsize",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Honda Pilot",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Kia Telluride",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Hyundai Palisade",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Jeep Grand Cherokee",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota 4Runner",
+        "type": "suvs_midsize",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Honda Passport",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Nissan Murano",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford Edge",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford Explorer",
+        "type": "suvs_midsize",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Blazer",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Traverse",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volkswagen Atlas",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Hyundai Santa Fe",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Kia Sorento",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Nissan Pathfinder",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Dodge Durango",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "BMW X3",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mercedes-Benz GLC",
+        "type": "suvs_midsize",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Audi Q5",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volvo XC60",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Lincoln Nautilus",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Acura MDX",
+        "type": "suvs_midsize",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Grand Highlander",
+        "type": "suvs_midsize",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Genesis GV70",
+        "type": "suvs_midsize",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Full-Size & 3-Row SUV": [
+      {
+        "model": "Chevrolet Tahoe",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Suburban",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "GMC Yukon",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Cadillac Escalade",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford Expedition",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Jeep Wagoneer",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Sequoia",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Land Cruiser",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Lexus LX",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Lincoln Navigator",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Nissan Armada",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Lexus GX",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Lexus TX",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Subaru Ascent",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Buick Enclave",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Infiniti QX80",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "BMW X7",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mercedes-Benz GLS",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Audi Q7",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Rivian R1S",
+        "type": "suvs_fullsize_3row",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Pickup Truck": [
+      {
+        "model": "Ford F-150",
+        "type": "pickup_trucks",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Silverado 1500",
+        "type": "pickup_trucks",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "GMC Sierra 1500",
+        "type": "pickup_trucks",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ram 1500",
+        "type": "pickup_trucks",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Tundra",
+        "type": "pickup_trucks",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Tacoma",
+        "type": "pickup_trucks",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford Ranger",
+        "type": "pickup_trucks",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Colorado",
+        "type": "pickup_trucks",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "GMC Canyon",
+        "type": "pickup_trucks",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Nissan Frontier",
+        "type": "pickup_trucks",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford Maverick",
+        "type": "pickup_trucks",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Hyundai Santa Cruz",
+        "type": "pickup_trucks",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Tesla Cybertruck",
+        "type": "pickup_trucks",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford F-150 Lightning",
+        "type": "pickup_trucks",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Silverado EV",
+        "type": "pickup_trucks",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Rivian R1T",
+        "type": "pickup_trucks",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford F-250 Super Duty",
+        "type": "pickup_trucks",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ram 2500",
+        "type": "pickup_trucks",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Jeep Gladiator",
+        "type": "pickup_trucks",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Honda Ridgeline",
+        "type": "pickup_trucks",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Electric Vehicle": [
+      {
+        "model": "Tesla Model Y",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Tesla Model S",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Tesla Model X",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford Mustang Mach-E",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Hyundai Ioniq 5",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Hyundai Ioniq 6",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Kia EV6",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Bolt EUV",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Bolt EV",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Nissan Leaf",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volkswagen ID.4",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Blazer EV",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Equinox EV",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Cadillac Lyriq",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "BMW iX",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "BMW i4",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mercedes-Benz EQS",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Lucid Air",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Polestar 2",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "GMC Hummer EV",
+        "type": "electric_vehicles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Hybrid & Plug-In Hybrid": [
+      {
+        "model": "Toyota Prius",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Prius Prime",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota RAV4 Hybrid",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Camry Hybrid",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Honda Accord Hybrid",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Honda CR-V Hybrid",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Hyundai Tucson Hybrid",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Kia Sorento PHEV",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford Escape Hybrid",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Lexus RX Hybrid",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "BMW X5 xDrive50e",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Jeep Wrangler 4xe",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mitsubishi Outlander PHEV",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Kia Niro",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Sienna Hybrid",
+        "type": "hybrid_plug_in",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Sports & Performance": [
+      {
+        "model": "Chevrolet Corvette",
+        "type": "sports_performance",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford Mustang",
+        "type": "sports_performance",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Camaro",
+        "type": "sports_performance",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Dodge Challenger",
+        "type": "sports_performance",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mazda MX-5 Miata",
+        "type": "sports_performance",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota GR Supra",
+        "type": "sports_performance",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Porsche 911",
+        "type": "sports_performance",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Porsche Cayman",
+        "type": "sports_performance",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Porsche Boxster",
+        "type": "sports_performance",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "BMW M3",
+        "type": "sports_performance",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Nissan Z",
+        "type": "sports_performance",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota GR86",
+        "type": "sports_performance",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Subaru BRZ",
+        "type": "sports_performance",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Minivan": [
+      {
+        "model": "Honda Odyssey",
+        "type": "minivans",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Sienna",
+        "type": "minivans",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chrysler Pacifica",
+        "type": "minivans",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Kia Carnival",
+        "type": "minivans",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mercedes-Benz Metris",
+        "type": "minivans",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Toyota Sienna Woodland",
+        "type": "minivans",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chrysler Pacifica PHEV",
+        "type": "minivans",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Hatchback & Wagon": [
+      {
+        "model": "Volkswagen Golf GTI",
+        "type": "hatchbacks_wagons",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volkswagen Golf R",
+        "type": "hatchbacks_wagons",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Hyundai Veloster",
+        "type": "hatchbacks_wagons",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Honda Fit",
+        "type": "hatchbacks_wagons",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mazda Mazda3 Hatchback",
+        "type": "hatchbacks_wagons",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "MINI Cooper",
+        "type": "hatchbacks_wagons",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volvo V60",
+        "type": "hatchbacks_wagons",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Volkswagen Golf Alltrack",
+        "type": "hatchbacks_wagons",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Coupe & Convertible": [
+      {
+        "model": "Ford Mustang Convertible",
+        "type": "coupes_convertibles",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Camaro Convertible",
+        "type": "coupes_convertibles",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Chevrolet Corvette Convertible",
+        "type": "coupes_convertibles",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "BMW 4 Series",
+        "type": "coupes_convertibles",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mercedes-Benz CLE",
+        "type": "coupes_convertibles",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Audi A5",
+        "type": "coupes_convertibles",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Jaguar F-Type",
+        "type": "coupes_convertibles",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mercedes-AMG SL",
+        "type": "coupes_convertibles",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Lexus LC",
+        "type": "coupes_convertibles",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      }
+    ],
+    "Off-Road & Specialty SUV": [
+      {
+        "model": "Jeep Wrangler",
+        "type": "off_road_specialty",
+        "decades": [
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Ford Bronco",
+        "type": "off_road_specialty",
+        "decades": [
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      {
+        "model": "Mercedes-Benz G-Class",
+        "type": "off_road_specialty",
+        "decades": [
+          "2010s",
+          "2020s"
+        ]
+      }
+    ]
+  },
+  "flat": [
+    {
+      "model": "Toyota Camry",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda Accord",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda Civic",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Corolla",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Nissan Altima",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Hyundai Sonata",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Hyundai Elantra",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Kia K5",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Kia Forte",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mazda Mazda3",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mazda Mazda6",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volkswagen Jetta",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Subaru Legacy",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Subaru Impreza",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Nissan Sentra",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Tesla Model 3",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Crown",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Dodge Charger",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Subaru WRX",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volkswagen Passat",
+      "type": "sedans_compact_mid",
+      "typeLabel": "Compact & Mid-Size Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "BMW 3 Series",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "BMW 5 Series",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mercedes-Benz C-Class",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mercedes-Benz E-Class",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Audi A4",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Audi A6",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Lexus ES",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Lexus IS",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Genesis G70",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Genesis G80",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Cadillac CT5",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Lincoln Continental",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chrysler 300",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volvo S60",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volvo S90",
+      "type": "sedans_fullsize_luxury",
+      "typeLabel": "Full-Size & Luxury Sedan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota RAV4",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda CR-V",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Nissan Rogue",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Hyundai Tucson",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Kia Sportage",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mazda CX-5",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mazda CX-30",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mazda CX-50",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Subaru Forester",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Subaru Crosstrek",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volkswagen Tiguan",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volkswagen Taos",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Equinox",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "GMC Terrain",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Escape",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Bronco Sport",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda HR-V",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Corolla Cross",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Hyundai Kona",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Kia Seltos",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Jeep Compass",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Nissan Kicks",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mitsubishi Outlander Sport",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Buick Encore GX",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda Prologue",
+      "type": "suvs_compact_crossover",
+      "typeLabel": "Compact SUV & Crossover",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Highlander",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda Pilot",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Kia Telluride",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Hyundai Palisade",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Jeep Grand Cherokee",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota 4Runner",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda Passport",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Nissan Murano",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Edge",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Explorer",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Blazer",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Traverse",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volkswagen Atlas",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Hyundai Santa Fe",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Kia Sorento",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Nissan Pathfinder",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Dodge Durango",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "BMW X3",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mercedes-Benz GLC",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Audi Q5",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volvo XC60",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Lincoln Nautilus",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Acura MDX",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Grand Highlander",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Genesis GV70",
+      "type": "suvs_midsize",
+      "typeLabel": "Mid-Size SUV",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Tahoe",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Suburban",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "GMC Yukon",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Cadillac Escalade",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Expedition",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Jeep Wagoneer",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Sequoia",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Land Cruiser",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Lexus LX",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Lincoln Navigator",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Nissan Armada",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Lexus GX",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Lexus TX",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Subaru Ascent",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Buick Enclave",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Infiniti QX80",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "BMW X7",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mercedes-Benz GLS",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Audi Q7",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Rivian R1S",
+      "type": "suvs_fullsize_3row",
+      "typeLabel": "Full-Size & 3-Row SUV",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford F-150",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Silverado 1500",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "GMC Sierra 1500",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ram 1500",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Tundra",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Tacoma",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Ranger",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Colorado",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "GMC Canyon",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Nissan Frontier",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Maverick",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Hyundai Santa Cruz",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Tesla Cybertruck",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford F-150 Lightning",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Silverado EV",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Rivian R1T",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford F-250 Super Duty",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ram 2500",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Jeep Gladiator",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda Ridgeline",
+      "type": "pickup_trucks",
+      "typeLabel": "Pickup Truck",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Tesla Model Y",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Tesla Model S",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Tesla Model X",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Mustang Mach-E",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Hyundai Ioniq 5",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Hyundai Ioniq 6",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Kia EV6",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Bolt EUV",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Bolt EV",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Nissan Leaf",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volkswagen ID.4",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Blazer EV",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Equinox EV",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Cadillac Lyriq",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "BMW iX",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "BMW i4",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mercedes-Benz EQS",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Lucid Air",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Polestar 2",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "GMC Hummer EV",
+      "type": "electric_vehicles",
+      "typeLabel": "Electric Vehicle",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Prius",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Prius Prime",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota RAV4 Hybrid",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Camry Hybrid",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda Accord Hybrid",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda CR-V Hybrid",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Hyundai Tucson Hybrid",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Kia Sorento PHEV",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Escape Hybrid",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Lexus RX Hybrid",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "BMW X5 xDrive50e",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Jeep Wrangler 4xe",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mitsubishi Outlander PHEV",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Kia Niro",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Sienna Hybrid",
+      "type": "hybrid_plug_in",
+      "typeLabel": "Hybrid & Plug-In Hybrid",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Corvette",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Mustang",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Camaro",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Dodge Challenger",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mazda MX-5 Miata",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota GR Supra",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Porsche 911",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Porsche Cayman",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Porsche Boxster",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "BMW M3",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Nissan Z",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota GR86",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Subaru BRZ",
+      "type": "sports_performance",
+      "typeLabel": "Sports & Performance",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda Odyssey",
+      "type": "minivans",
+      "typeLabel": "Minivan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Sienna",
+      "type": "minivans",
+      "typeLabel": "Minivan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chrysler Pacifica",
+      "type": "minivans",
+      "typeLabel": "Minivan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Kia Carnival",
+      "type": "minivans",
+      "typeLabel": "Minivan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mercedes-Benz Metris",
+      "type": "minivans",
+      "typeLabel": "Minivan",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Toyota Sienna Woodland",
+      "type": "minivans",
+      "typeLabel": "Minivan",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chrysler Pacifica PHEV",
+      "type": "minivans",
+      "typeLabel": "Minivan",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volkswagen Golf GTI",
+      "type": "hatchbacks_wagons",
+      "typeLabel": "Hatchback & Wagon",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volkswagen Golf R",
+      "type": "hatchbacks_wagons",
+      "typeLabel": "Hatchback & Wagon",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Hyundai Veloster",
+      "type": "hatchbacks_wagons",
+      "typeLabel": "Hatchback & Wagon",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Honda Fit",
+      "type": "hatchbacks_wagons",
+      "typeLabel": "Hatchback & Wagon",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mazda Mazda3 Hatchback",
+      "type": "hatchbacks_wagons",
+      "typeLabel": "Hatchback & Wagon",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "MINI Cooper",
+      "type": "hatchbacks_wagons",
+      "typeLabel": "Hatchback & Wagon",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volvo V60",
+      "type": "hatchbacks_wagons",
+      "typeLabel": "Hatchback & Wagon",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Volkswagen Golf Alltrack",
+      "type": "hatchbacks_wagons",
+      "typeLabel": "Hatchback & Wagon",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Mustang Convertible",
+      "type": "coupes_convertibles",
+      "typeLabel": "Coupe & Convertible",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Camaro Convertible",
+      "type": "coupes_convertibles",
+      "typeLabel": "Coupe & Convertible",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Chevrolet Corvette Convertible",
+      "type": "coupes_convertibles",
+      "typeLabel": "Coupe & Convertible",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "BMW 4 Series",
+      "type": "coupes_convertibles",
+      "typeLabel": "Coupe & Convertible",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mercedes-Benz CLE",
+      "type": "coupes_convertibles",
+      "typeLabel": "Coupe & Convertible",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Audi A5",
+      "type": "coupes_convertibles",
+      "typeLabel": "Coupe & Convertible",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Jaguar F-Type",
+      "type": "coupes_convertibles",
+      "typeLabel": "Coupe & Convertible",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mercedes-AMG SL",
+      "type": "coupes_convertibles",
+      "typeLabel": "Coupe & Convertible",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Lexus LC",
+      "type": "coupes_convertibles",
+      "typeLabel": "Coupe & Convertible",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Jeep Wrangler",
+      "type": "off_road_specialty",
+      "typeLabel": "Off-Road & Specialty SUV",
+      "decades": [
+        "1990s",
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Ford Bronco",
+      "type": "off_road_specialty",
+      "typeLabel": "Off-Road & Specialty SUV",
+      "decades": [
+        "2000s",
+        "2010s",
+        "2020s"
+      ]
+    },
+    {
+      "model": "Mercedes-Benz G-Class",
+      "type": "off_road_specialty",
+      "typeLabel": "Off-Road & Specialty SUV",
+      "decades": [
+        "2010s",
+        "2020s"
+      ]
+    }
+  ],
+  "schema_item_list_id": "https://pulserevops.com/cars#model-catalog-200"
+}

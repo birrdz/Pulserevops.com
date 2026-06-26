@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#6ee7b7;--c2:#10b981;--c3:#d1fae5;--c4:#60a5fa;--c4b:#bfdbfe;--ink:#03130d;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/><stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/><stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/><stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c4,#22d3ee)"/><stop offset="1" style="stop-color:var(--c4b,#67e8f9)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.8" cy="0.28" r="0.55">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.16"/><stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1584" height="396" fill="url(#bg)"/>
+  <rect width="1584" height="396" fill="url(#glow)"/>
+  <polyline points="900,86 1074,86 1098,106 1139,30 1179,125 1210,86 1297,86 1322,106 1362,30 1402,125 1433,86 1520,86" stroke="url(#accent)" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+  <text x="90" y="150" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">REVENUE OPERATIONS</text>
+  <text x="88" y="222" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="78" font-weight="900" fill="#FFFFFF">I run the revenue engine.</text>
+  <text x="90" y="330" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="30" font-weight="700" fill="#EDE5D8">Systems <tspan fill="url(#accent)">&#183;</tspan> Data <tspan fill="url(#accent)">&#183;</tspan> Forecast</text>
+
+</svg>

@@ -1,0 +1,112 @@
+QUESTION: What are South Carolina Gamecocks football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+South Carolina Gamecocks football enters the 2027 NIL cycle in a precarious but recoverable position. Head coach Shane Beamer returns for his sixth season after a 4-8 finish in 2025, with athletic director Jeremiah Donati publicly backing him but Sports Illustrated and 247Sports openly speculating that another losing record ends his tenure. The 2027 NIL strategy has to do two jobs: stabilize the roster Beamer just retained (quarterback LaNorris Sellers, edge rusher Dylan Stewart, and the small group of returning starters worth market rate) and rebuild the depth chart that bled out during the portal window. Garnet Trust, the official collective established in November 2021, remains the financial engine, but South Carolina sat in the bottom fourth of the SEC for NIL funding in the 2024 cycle. With the House settlement revenue-share cap of roughly $20.5 million per school — $18 million realistically available after the scholarship and Alston carve-outs — the program now coordinates revenue-share dollars and Garnet Trust NIL deals as two separate buckets, which is where 247Sports flagged confusion around Donati's disbursement plan.
+
+**TL;DR**
+Beamer returns under pressure. Keep Sellers and Stewart at top-of-market, fill three roster holes via portal NIL, close the SEC funding gap before the 2027 class commits.
+
+```mermaid
+flowchart TD
+    A[South Carolina 2027 NIL Plan] --> B{Two Budget Buckets}
+    B -->|Revenue Share ~$18M cap| C[Roster-Wide Salary Pool]
+    B -->|Garnet Trust NIL| D[Star Retention + Portal Closers]
+    C --> E[Position Group Floors]
+    D --> F[Sellers QB1 Hold]
+    D --> G[Stewart Edge Hold]
+    D --> H[Portal Targets: OL, CB, WR]
+    E --> I[2027 Signing Class Locked]
+    F --> I
+    G --> I
+    H --> I
+    I --> J{Beamer Job Security}
+    J -->|7+ wins 2026| K[Continuity Into 2027]
+    J -->|Sub-.500 2026| L[Coaching Change Risk]
+```
+
+## 1. The Beamer Pressure Cooker And Why It Sets NIL Strategy
+
+Every NIL decision South Carolina makes in 2027 runs through one reality: Shane Beamer is coaching for his job. Sports Illustrated's coverage was explicit that experts warn Beamer could be fired after the 2026 season, and the 247Sports longform framed his return as a one-year referendum rather than a vote of confidence. Donati confirmed Beamer would return but has been measured in public comments. That matters for NIL because collectives, agents, and players read those signals. A wavering coach is harder to retain stars under and harder to convince portal targets to sign with below market rate.
+
+The practical effect is that South Carolina cannot run a balanced, patient NIL plan in 2027. The program overweights retention on the handful of returning starters whose names move the needle — Sellers and Stewart most obviously — and overweights portal spending on positions where the depth chart fell apart in 2025. A more stable program could spread dollars evenly. Beamer's program cannot, because if he loses Sellers to the portal or fails to plug the offensive line, the season is decided before September.
+
+There is a cost dimension to coaching uncertainty that does not show up in any collective budget. Buyout math now shadows every NIL conversation: Beamer's contract carries a multi-million-dollar buyout that the athletic department would owe if it fires him, which is real money that competes for the same donor attention Garnet Trust needs. Boosters who might write a six-figure NIL check instead start asking whether their dollars are funding a roster or a severance. The 2027 messaging challenge is to firewall the NIL pitch from the job-security narrative — to tell donors their Garnet Trust gift goes directly to player contracts that survive any coaching change, which is factually true and the strongest counter to wait-and-see giving.
+
+## 2. The Garnet Trust Engine And The SEC Funding Gap
+
+Garnet Trust was one of the first NIL collectives in the country when it launched in November 2021, and it has since matured into a full-time operation with three employees and an intern bench. Its public mission frames NIL as a fan-and-business pipeline that pays athletes for media appearances, autographs, endorsements, and event work. The membership drive announced jointly with the athletic department was designed to widen the donor base, and On3 reported updated member benefits aimed at converting casual Gamecocks fans into recurring contributors.
+
+The problem is the starting line. South Carolina sat in the bottom quartile of SEC NIL funding for the 2024 football season, and that gap does not close in a single year. Georgia, Alabama, Texas, Texas A&M, LSU, and Tennessee all outspend Garnet Trust by a comfortable margin, and Ole Miss and Auburn have closed in from below. For 2027, Garnet Trust's job is not to match SEC ceilings — it cannot — but to clear an SEC floor high enough that the program retains its top six to eight players and lands portal closers at three priority positions. The SI report on a "massive NIL deal" for Dylan Stewart, alongside the LaNorris Sellers Garnet Trust signing, suggests the collective is already concentrating dollars where the strategy demands.
+
+South Carolina's structural fundraising advantage is its fan base. Williams-Brice Stadium seats just over 77,000 and the Gamecocks routinely fill it, and the program's "Sandstorm" pregame is one of the most recognizable atmospheres in the sport. That passion is latent NIL capacity. The 2027 task is to convert raw attendance into recurring monthly Garnet Trust memberships the way Iowa, Ohio State, and Texas A&M have converted theirs — small-dollar volume that compounds into a dependable floor rather than depending on a few whale donors who can disappear when the team loses.
+
+## 3. The Two-Bucket Math: Revenue Share Versus NIL
+
+The House settlement era split the budget into two pools South Carolina now coordinates. Each opted-in school works under a roughly $20.5 million revenue-share cap across all sports, with South Carolina counting scholarship increases and Alston academic awards against that total, leaving roughly $18 million in actual revenue-share spending power. NIL deals through Garnet Trust do not count against that cap, but since June 2025 any third-party deal of $600 or more must clear the Deloitte-run NIL Go clearinghouse for fair-market value and a valid business purpose. That is the strategic opening and the new friction at once. The revenue-share bucket pays a roster-wide salary structure that clears cleanly. The NIL bucket pays for players who command true market premiums on top of it — quarterback, premier edge, and a small number of leverage skill positions — but each of those deals now faces clearinghouse review.
+
+The 247Sports Donati critique captures the real risk: if the two buckets are not clearly explained to players and agents, the program loses negotiations it should win. Stars want to know which bucket their number comes from, whether it stacks, whether it is guaranteed, what happens at year-end, and now whether a collective deal will survive NIL Go review. A clear written framework with explicit stacking and clearinghouse-compliance rules is the biggest non-monetary lever available in 2027.
+
+## 4. The 2027 Signing Class And Portal Priorities
+
+The 2027 high school class commits in a window where Beamer's seat heat will either have cooled or boiled over. Either way, South Carolina has to walk into living rooms with a credible pitch: Sellers playing in front of the recruit's position group, a defined NIL number for the recruit's tier, and a coaching-continuity story the family can believe. The portal closes the rest of the gap. Priority positions, based on the post-2025 roster bleed, are offensive line, cornerback, and a vertical-threat wide receiver. Each portal target should arrive with a two-bucket offer sheet that beats their current school by a margin large enough to overcome the inertia of staying put.
+
+The in-state recruiting battle is the quieter front. South Carolina produces a steady stream of SEC-caliber talent, but Clemson, Georgia, and increasingly Tennessee raid the same high schools in Columbia, Greenville, and the Lowcountry. A 2027 NIL plan that lets Clemson out-organize Garnet Trust inside the state's borders loses the cheapest recruits available — the ones who grew up Gamecocks fans and need only a market-rate offer plus a continuity story to stay home. Protecting the in-state pipeline costs less per commit than winning a national bidding war, and it is where Beamer's program has historically been strongest.
+
+```mermaid
+flowchart TD
+    A[2027 Roster Build] --> B[Returning Stars]
+    A --> C[Portal Closers]
+    A --> D[HS Signing Class]
+    B --> E[Sellers QB]
+    B --> F[Stewart EDGE]
+    C --> G[Offensive Line]
+    C --> H[Cornerback]
+    C --> I[Vertical WR]
+    D --> J[Position Group Floors]
+    E --> K{Combined Cap Allocation}
+    F --> K
+    G --> K
+    H --> K
+    I --> K
+    J --> K
+    K --> L[2027 Depth Chart Locked]
+    L --> M{Beamer Year 7 Outcome}
+```
+
+## FAQ
+
+**Q: How much NIL money retains LaNorris Sellers through 2027?**
+A: His Garnet Trust number is not public, but the SEC market for a top-15 returning QB1 sits well into seven figures combined across revenue-share salary and collective NIL. South Carolina has to operate near that range or risk a portal exit.
+
+**Q: Can Garnet Trust catch the top-half SEC collectives?**
+A: Not in a single cycle. The gap to Georgia, Alabama, and Texas closes over years, not months. The realistic 2027 target is clearing the SEC median floor.
+
+**Q: What happens to NIL commitments if Beamer is fired after 2026?**
+A: Garnet Trust contracts are with the players, so existing deals survive a coaching change. The bigger risk is recruits factoring coaching uncertainty into whether they sign at all.
+
+**Q: Does the House settlement cap limit Garnet Trust?**
+A: No. The cap applies only to direct school-to-athlete revenue share. Collective NIL deals remain uncapped, though since June 2025 any deal of $600 or more must clear the NIL Go clearinghouse, which is why two-bucket coordination matters more in 2027.
+
+**Q: What is South Carolina's untapped NIL advantage?**
+A: Its fan base. Williams-Brice Stadium seats more than 77,000 and routinely sells out, giving Garnet Trust a massive potential pool of recurring small-dollar members. Converting that attendance into monthly memberships is the cleanest path to closing the SEC funding gap without relying on a few large donors.
+
+**Q: How much does Beamer's buyout affect the 2027 NIL picture?**
+A: Indirectly but meaningfully. Beamer's multi-million-dollar buyout competes with NIL for donor attention, since boosters weigh whether their dollars fund a roster or a potential severance. The counter is messaging that Garnet Trust gifts go straight to player contracts that survive any coaching change.
+
+## Sources
+
+1. Sports Illustrated — Shane Beamer Will Return As South Carolina's Head Coach in 2026
+2. Sports Illustrated — Why South Carolina's Shane Beamer is Under Immense Pressure During the 2026 Season
+3. Sports Illustrated — Experts Warn South Carolina Head Coach Shane Beamer Could Be Fired After 2026 Season
+4. Sports Illustrated — South Carolina Gamecocks Working on Massive NIL Deal for Dylan Stewart
+5. On3 — Shane Beamer will return as South Carolina football coach in 2026
+6. On3 — South Carolina and Garnet Trust announce new member drive and plans for updated member benefits
+7. 247Sports — Donati has a plan, but dollar disbursement dialogue make little sense
+8. 247Sports — Three Gamecocks sign new NIL deals with Garnet Trust
+9. 247Sports — South Carolina NIL Update (Garnet Trust, transfer portal, revenue share)
+10. 247Sports — LaNorris Sellers signs NIL deal with Garnet Trust
+11. Garnet Trust — Official NIL collective site and About page
+12. University of South Carolina Athletics — Shane Beamer coach profile
+13. House v. NCAA settlement — revenue-share cap and NIL Go clearinghouse (final approval June 6, 2025)

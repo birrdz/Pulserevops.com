@@ -1,0 +1,86 @@
+QUESTION: HS football NIL — the hype, the reality, and why most recruiting services oversell it in 2027
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+# HS football NIL — the hype, the reality, and why most recruiting services oversell it in 2027
+
+![HS football NIL — the hype, the reality, and why most recruiting services oversell it in 2](https://pulserevops.com/img/auto/q11077.svg)
+
+## Direct Answer
+
+The high school football NIL market in 2027 is a mirage built on top of a much smaller, much messier pile of cash than the headlines suggest. A handful of five-star prospects do sign real seven-figure revenue-share deals, but the vast majority of "NIL recruits" never see a fraction of what their advisors, collectives, or paid recruiting services promised. Most agencies selling NIL preparation, "valuation," exposure packages, or collective introductions are pricing parents off the assumption that the Felix Ojo $5.1 million Texas Tech outcome is the floor. It is not the floor. It is the ceiling, and even that ceiling is full of asterisks: 1099 tax liability, agent commissions, clawback clauses, and verbal-only side deals that vanish the second a kid stops being recruitable. Families should treat almost every unsolicited NIL pitch as a sales motion, not a financial plan.
+
+## Why the headline numbers are misleading
+
+When a 17-year-old "signs a $2 million deal," the number reported is almost always the gross, multi-year, fully-vested, best-case figure. Strip out the structure and the real cash hitting a high school senior's bank account in year one is dramatically smaller. Booster collectives front-load language, not money. National brand endorsements, the part that actually pays in real dollars, account for a tiny slice of total NIL flow at the prep level, and they cluster almost entirely on the top fifty national prospects. Everyone outside that band is competing for local, perishable, performance-contingent dollars that recruiting services rarely disclose in their pitch decks. The total addressable pool of genuine high-school NIL cash, once you exclude booster fluff and unsigned letters of intent, is far smaller than the ecosystem of vendors built around it would ever admit on a sales call.
+
+The federal tax picture compounds the illusion. NIL athletes are 1099 independent contractors. That means a 15.3 percent self-employment hit before any income tax, no employer withholding, and quarterly estimated payments that catch families off guard in April. Layer in a 15 to 20 percent agent commission, a percentage to whichever marketing shop "built" the personal brand, and the headline number can shrink by 35 to 45 percent before a single dollar funds a college bank account. Add state income tax in places like California, North Carolina, or Georgia and the gap between the headline and the deposit widens further. Most families discover this in the second year, when the IRS sends a love letter about underpayment penalties and the recruiting consultant who quoted the gross figure has long since stopped returning calls.
+
+## The recruiting-service problem
+
+A second industry has grown on top of NIL itself: services that sell "valuations," "exposure," "brand building," "collective introductions," and "negotiation support" to high school families. Most of these vendors are not registered, not licensed, not bonded, and not accountable. ESPN reporting in 2026 documented an entire shadow tier of street agents, former players, trainers, and self-styled connectors who insert themselves between athletes and collectives with no oversight from any national body. The same dynamic has metastasized into the parent-facing side, where $300 to $3,000 packages promise "NIL readiness" deliverables that are functionally a glossy PDF and a few Instagram graphics.
+
+```mermaid
+flowchart TD
+    A[High school athlete] --> B[Recruiting service pitch]
+    B --> C[Promised NIL valuation]
+    B --> D[Promised collective intros]
+    B --> E[Promised brand deals]
+    C --> F[Algorithmic guess, not contract]
+    D --> G[Cold email, rarely returned]
+    E --> H[Local barter or no response]
+    F --> I[Family pays fee, gets PDF]
+    G --> I
+    H --> I
+    I --> J[Net cash to athlete: $0]
+```
+
+The marketing language is engineered to feel concrete. Words like "valuation" and "market rate" are borrowed from finance, but no governing body certifies an NIL valuation, and no exchange clears NIL contracts. A "valuation" is an opinion, often produced by the same vendor selling the package. Compare that to a public-equity comp sheet or a SaaS revenue multiple, where the underlying data is auditable: there is no analog here. The number is invented to justify the fee, and the fee is justified by the number. The circularity is the product.
+
+## What actually moves the money
+
+Three factors, in order, drive real NIL dollars at the high school level: composite ranking, position scarcity, and the program-specific revenue-share budget post-House settlement. Nothing else materially matters. Not Instagram followers. Not a "personal brand consultant." Not a highlight reel edited by a $1,200 service. Anonymous program GMs interviewed by Athlon Sports in 2026 confirmed that rankings quietly drive every offer band, with five-stars in the $1M-plus tier, high four-stars in the $300K-$800K tier, and most three-stars receiving cost-of-attendance plus token NIL well under $50,000 annually. Freshman quarterback offers in 2026 reportedly compressed from a $500,000 prior-cycle norm down to $200,000 for comparable profiles, a 60 percent haircut driven by rev-share caps.
+
+```mermaid
+flowchart TD
+    A[Composite ranking] --> B{Tier?}
+    B -->|Five-star top 50| C[Real seven-figure deal possible]
+    B -->|High four-star| D[Mid six figures, mostly collective]
+    B -->|Mid four-star| E[Low six figures, heavily conditional]
+    B -->|Three-star| F[Token NIL, sub $50K]
+    C --> G[Agent + tax + clawback cuts 35-45 percent]
+    D --> G
+    E --> H[Most never paid in full]
+    F --> I[Often replaced by cost-of-attendance]
+    G --> J[Actual year-one cash]
+    H --> J
+    I --> J
+```
+
+The brutal truth is that the rankings determine the band, the band determines the offer, and the offer arrives whether or not the family hired an NIL service. Paying a consultant does not move a kid up a tier, and no credible evidence suggests it ever has.
+
+## The clawback and enforcement gap
+
+Even when a real number is signed, the contracts in 2027 are tighter than they were in 2023. Programs and collectives have learned. Most deals now contain performance triggers, transfer clawbacks, conduct clauses, and academic floors. A recruit who flips schools, gets injured, or loses a depth-chart battle can see the back half of their deal evaporate. None of this nuance shows up in the recruiting-service pitch, which quotes the gross headline and ignores the structure entirely. Families should assume that any deal under five-star valuation will pay roughly half of what is quoted, after all conditions and deductions, and they should plan accordingly. The collectives that survived the first wave of NIL chaos now write contracts that look more like venture term sheets than endorsement letters, with vesting schedules, milestone gates, and explicit language about depth chart performance. A young athlete signing one of these documents without a sport-specialized attorney is signing something they almost certainly do not understand, and the recruiting service that introduced the deal has no fiduciary duty to flag it.
+
+## What a sober family should do
+
+Treat NIL as a bonus, not a salary. Verify every promise in writing, with a sport-law attorney, not the agent who stands to take 20 percent. Ask the program directly for the rev-share allocation rather than relying on a third party's "valuation." Ignore Instagram-follower metrics as a predictor. Assume the first-year cash will be 50 to 65 percent of the gross headline. And recognize that recruiting services, with rare exceptions, are not aligned with the athlete; they are aligned with their own conversion funnel.
+
+The Pulse RevOps Library tracks this kind of asymmetric-information market because the same patterns repeat across coaching, consulting, and SaaS sales: a thin layer of real outcomes at the top, a thick layer of marketing language in the middle, and a long tail of families paying for the illusion of access. NIL in 2027 is, structurally, no different. The fix is the same fix it has always been: verify the number, read the contract, and trust the ranking before you trust the pitch. If a recruiting service cannot show you a signed, executed, post-tax outcome from a family of comparable ranking and position, then the service is selling hope, not access. Hope is the most expensive thing a high-school family can buy in this market, and almost no one writes the refund check when it does not pay off.
+
+## FAQ
+
+**Is the Felix Ojo $5.1 million Texas Tech deal a realistic benchmark for my kid?**
+No. That kind of outcome is the ceiling, not the floor, and even it carries asterisks like 1099 tax liability, agent commissions, and clawback clauses. Real seven-figure deals cluster on five-star prospects in roughly the top fifty nationally. Everyone outside that band competes for local, perishable, performance-contingent dollars that recruiting services rarely disclose in their pitch.
+
+**How much of a quoted NIL headline number actually reaches the athlete in year one?**
+Plan on 50 to 65 percent of the gross. Athletes are 1099 contractors, so a 15.3 percent self-employment hit lands before income tax, with no withholding and surprise quarterly estimates. Add a 15 to 20 percent agent commission, a marketing-shop cut, and state income tax, and the headline can shrink 35 to 45 percent before any college bank account is funded.
+
+**Is an NIL "valuation" from a recruiting service a real number?**
+No. No governing body certifies NIL valuations and no exchange clears NIL contracts, so a "valuation" is an opinion, often produced by the same vendor selling the package. Unlike an equity comp sheet or SaaS revenue multiple, the underlying data is not auditable. The number is invented to justify the fee, and the fee is justified by the number.
+
+**What actually determines how much NIL money a recruit gets?**
+Three factors in order: composite ranking, position scarcity, and the program's post-House rev-share budget. Five-stars can reach the $1M-plus tier, high four-stars roughly $300K to $800K, and most three-stars get cost-of-attendance plus token NIL under $50,000 a year. Instagram followers, brand consultants, and edited highlight reels do not move a kid up a tier.
+
+**Why are 2027 NIL contracts riskier to sign than earlier ones?**
+Programs and collectives have learned, so most deals now carry performance triggers, transfer clawbacks, conduct clauses, and academic floors that read more like venture term sheets than endorsement letters. A recruit who flips schools, gets injured, or loses a depth-chart battle can watch the back half evaporate. Sign nothing under five-star valuation expecting more than about half the quoted figure, and only with a sport-law attorney rather than the agent taking 20 percent.

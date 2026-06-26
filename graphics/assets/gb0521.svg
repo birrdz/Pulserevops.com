@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="100%" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="gap" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="var(--c4)" stop-opacity="0.55"/>
+<stop offset="100%" stop-color="var(--c4b)" stop-opacity="0.10"/>
+</linearGradient>
+<linearGradient id="actLine" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0%" stop-color="var(--c1)"/>
+<stop offset="100%" stop-color="var(--c2)"/>
+</linearGradient>
+</defs>
+<rect width="1584" height="396" fill="url(#bg)"/>
+
+<!-- Title -->
+<text x="56" y="50" font-family="Inter,system-ui,sans-serif" font-size="26" font-weight="700" fill="var(--c3)">Forecast Accuracy Trend</text>
+<text x="56" y="78" font-family="Inter,system-ui,sans-serif" font-size="18" fill="var(--c4b)" opacity="0.85">Commit vs Actual across 8 quarters — gap shading shows forecast error</text>
+
+<!-- Legend -->
+<g font-family="Inter,system-ui,sans-serif" font-size="18" fill="var(--c3)">
+<rect x="1060" y="38" width="22" height="4" fill="url(#actLine)"/>
+<text x="1090" y="46">Actual</text>
+<line x1="1170" y1="40" x2="1192" y2="40" stroke="var(--c4)" stroke-width="3" stroke-dasharray="6 5"/>
+<text x="1200" y="46">Commit</text>
+<rect x="1290" y="32" width="22" height="14" fill="url(#gap)"/>
+<text x="1320" y="46">Gap</text>
+<text x="1380" y="46" fill="var(--c1)" font-weight="700">Target 95%</text>
+</g>
+
+<!-- Plot frame: x 100..1500, y 110..330  (height 220, width 1400) -->
+<!-- Y axis grid + labels: 70% (y=330), 80% (y=275), 90% (y=220), 100% (y=165), 110% (y=110)  -> scale: 1% = 5.5px -->
+<g stroke="var(--c3)" stroke-opacity="0.18" stroke-width="1">
+<line x1="100" y1="110" x2="1500" y2="110"/>
+<line x1="100" y1="165" x2="1500" y2="165"/>
+<line x1="100" y1="220" x2="1500" y2="220"/>
+<line x1="100" y1="275" x2="1500" y2="275"/>
+<line x1="100" y1="330" x2="1500" y2="330"/>
+</g>
+<g font-family="Inter,system-ui,sans-serif" font-size="18" fill="var(--c3)" text-anchor="end" opacity="0.85">
+<text x="92" y="116">110%</text>
+<text x="92" y="171">100%</text>
+<text x="92" y="226">90%</text>
+<text x="92" y="281">80%</text>
+<text x="92" y="336">70%</text>
+</g>
+
+<!-- Target 95% line: 95 -> y = 110 + (110-95)*5.5 = 110 + 82.5 = 192.5 -->
+<line x1="100" y1="192" x2="1500" y2="192" stroke="var(--c1)" stroke-width="2" stroke-dasharray="2 6" opacity="0.7"/>
+<text x="1500" y="186" font-family="Inter,system-ui,sans-serif" font-size="16" fill="var(--c1)" text-anchor="end" font-weight="600">95% Target</text>
+
+<!-- X axis baseline -->
+<line x1="100" y1="330" x2="1500" y2="330" stroke="var(--c3)" stroke-opacity="0.5" stroke-width="2"/>
+
+<!-- 8 quarter x positions: 200, 380, 560, 740, 920, 1100, 1280, 1460 -->
+<!-- Data:
+Q1'25 commit 100, actual 78  -> c=110, a=231
+Q2'25 commit 100, actual 82  -> c=110, a=209
+Q3'25 commit 100, actual 85  -> c=110, a=192.5
+Q4'25 commit 100, actual 88  -> c=110, a=176
+Q1'26 commit 100, actual 91  -> c=110, a=159.5
+Q2'26 commit 100, actual 93  -> c=110, a=148.5
+Q3'26 commit 100, actual 96  -> c=110, a=132
+Q4'26 commit 100, actual 97  -> c=110, a=126.5
+-->
+
+<!-- Gap shading: polygon between commit (top) and actual (bottom) -->
+<path d="M200,110 L380,110 L560,110 L740,110 L920,110 L1100,110 L1280,110 L1460,110
+L1460,126.5 L1280,132 L1100,148.5 L920,159.5 L740,176 L560,192.5 L380,209 L200,231 Z"
+fill="url(#gap)"/>
+
+<!-- Commit line (dashed) -->
+<polyline points="200,110 380,110 560,110 740,110 920,110 1100,110 1280,110 1460,110"
+fill="none" stroke="var(--c4)" stroke-width="3" stroke-dasharray="8 6"/>
+
+<!-- Actual line (solid gradient) -->
+<polyline points="200,231 380,209 560,192.5 740,176 920,159.5 1100,148.5 1280,132 1460,126.5"
+fill="none" stroke="url(#actLine)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+<!-- Commit dots -->
+<g fill="var(--c4)">
+<circle cx="200" cy="110" r="5"/>
+<circle cx="380" cy="110" r="5"/>
+<circle cx="560" cy="110" r="5"/>
+<circle cx="740" cy="110" r="5"/>
+<circle cx="920" cy="110" r="5"/>
+<circle cx="1100" cy="110" r="5"/>
+<circle cx="1280" cy="110" r="5"/>
+<circle cx="1460" cy="110" r="5"/>
+</g>
+
+<!-- Actual dots -->
+<g fill="var(--c1)" stroke="var(--ink)" stroke-width="1.5">
+<circle cx="200" cy="231" r="7"/>
+<circle cx="380" cy="209" r="7"/>
+<circle cx="560" cy="192.5" r="7"/>
+<circle cx="740" cy="176" r="7"/>
+<circle cx="920" cy="159.5" r="7"/>
+<circle cx="1100" cy="148.5" r="7"/>
+<circle cx="1280" cy="132" r="7"/>
+<circle cx="1460" cy="126.5" r="7"/>
+</g>
+
+<!-- Actual value labels above dots -->
+<g font-family="Inter,system-ui,sans-serif" font-size="18" font-weight="700" fill="var(--c1)" text-anchor="middle">
+<text x="200" y="255">78%</text>
+<text x="380" y="233">82%</text>
+<text x="560" y="216">85%</text>
+<text x="740" y="200">88%</text>
+<text x="920" y="183">91%</text>
+<text x="1100" y="172">93%</text>
+<text x="1280" y="156">96%</text>
+<text x="1460" y="150">97%</text>
+</g>
+
+<!-- Quarter labels (x axis) -->
+<g font-family="Inter,system-ui,sans-serif" font-size="18" fill="var(--c3)" text-anchor="middle">
+<text x="200" y="360">Q1 '25</text>
+<text x="380" y="360">Q2 '25</text>
+<text x="560" y="360">Q3 '25</text>
+<text x="740" y="360">Q4 '25</text>
+<text x="920" y="360">Q1 '26</text>
+<text x="1100" y="360">Q2 '26</text>
+<text x="1280" y="360">Q3 '26</text>
+<text x="1460" y="360">Q4 '26</text>
+</g>
+
+<!-- Bottom footer stats -->
+<g font-family="Inter,system-ui,sans-serif" font-size="18" fill="var(--c4b)">
+<text x="56" y="386" font-weight="700" fill="var(--c1)">+19 pts</text>
+<text x="140" y="386">accuracy gain over 8 quarters</text>
+<text x="500" y="386" font-weight="700" fill="var(--c4)">22 pt</text>
+<text x="540" y="386">starting gap</text>
+<text x="720" y="386" font-weight="700" fill="var(--c1)">3 pt</text>
+<text x="752" y="386">current gap</text>
+<text x="900" y="386" font-weight="700" fill="var(--c1)">target hit Q3 '26</text>
+</g>
+</svg>

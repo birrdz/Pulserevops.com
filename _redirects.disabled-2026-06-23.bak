@@ -1,0 +1,13 @@
+# Static redirects file (processed WITHOUT a full build, unlike netlify.toml).
+# Added 2026-06-23 for the new Pets + Software pillars because the site's
+# onPostBuild plugin is failing, blocking full builds that would process new
+# netlify.toml [[redirects]]. _redirects is read from the publish dir at deploy,
+# so these route via `netlify deploy --no-build`. Merged before netlify.toml.
+/pets/:id/reviews   /.netlify/functions/pulse-machine-entry?id=:id&kind=pet&view=reviews   200
+/pets/:id/review    /.netlify/functions/pulse-machine-entry?id=:id&kind=pet&view=reviews   200
+/pets/:id           /.netlify/functions/pulse-machine-entry?id=:id&kind=pet                200
+/pets               /pets.html                                                              200
+/software/:id/reviews  /.netlify/functions/pulse-machine-entry?id=:id&kind=software&view=reviews  200
+/software/:id/review   /.netlify/functions/pulse-machine-entry?id=:id&kind=software&view=reviews  200
+/software/:id          /.netlify/functions/pulse-machine-entry?id=:id&kind=software         200
+/software              /software.html                                                       200

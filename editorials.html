@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#15110d">
+<title>Pulse Editorials — The Operator's Take, by Kory White (CRO)</title>
+<meta name="description" content="Pulse Editorials: long-form, first-person opinion pieces from Kory White, a Chief Revenue Officer with 25 years in the field. The stories behind the questions — same facts, told my way.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://pulserevops.com/editorials">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,800;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#15110d;--bg2:#1d1711;--panel:#221a13;--cream:#ECE3D2;--muted:#A99B86;--faint:#7d7060;--amber:#C8821E;--gold:#CBA135;--wine:#8C2D3C;--line:rgba(203,161,53,.18)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--cream);font-family:'Inter',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+body{background-image:radial-gradient(1200px 500px at 80% -10%,rgba(200,130,30,.10),transparent),radial-gradient(900px 400px at 0% 0%,rgba(140,45,60,.10),transparent)}
+a{color:inherit;text-decoration:none}.serif{font-family:'Fraunces',Georgia,serif}
+.topbar{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:16px clamp(18px,5vw,56px);border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(21,17,13,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);z-index:30}
+.brand{display:inline-flex;align-items:center;gap:9px;font-family:'Fraunces',serif;font-weight:900;font-size:1.25rem;color:var(--cream)}
+.brand img{height:26px;filter:drop-shadow(0 0 7px rgba(203,161,53,.55))}.brand b{color:var(--gold)}
+.topbar nav{display:flex;gap:18px;flex-wrap:wrap;font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.topbar nav a{color:var(--muted)}.topbar nav a:hover{color:var(--gold)}
+.topbar .cro{margin-left:auto;background:linear-gradient(135deg,var(--amber),#9c5e12);color:#1a1208;font-weight:800;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 16px;border-radius:99px}
+.hero{max-width:1120px;margin:0 auto;padding:56px clamp(18px,5vw,56px) 14px;display:flex;gap:30px;align-items:center;flex-wrap:wrap}
+.hero img.me{width:104px;height:104px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);box-shadow:0 0 0 6px rgba(203,161,53,.10),0 12px 40px rgba(0,0,0,.5)}
+.hero .who{flex:1;min-width:280px}
+.hero .eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.hero h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.3rem,6vw,3.8rem);line-height:1.03;color:var(--cream)}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero p{font-size:1.12rem;color:var(--muted);max-width:680px;margin-top:14px}
+.rule{max-width:1120px;margin:6px auto 0;padding:0 clamp(18px,5vw,56px)}.rule hr{border:0;border-top:1px solid var(--line);margin:18px 0 0}
+.count{max-width:1120px;margin:22px auto 0;padding:0 clamp(18px,5vw,56px);font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--faint)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;max-width:1120px;margin:12px auto 0;padding:0 clamp(18px,5vw,56px) 72px}
+.card{position:relative;display:block;padding:22px 22px 18px;background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:15px;overflow:hidden;transition:transform .14s,box-shadow .14s,border-color .14s}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--gold),var(--wine))}
+.card:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(0,0,0,.45);border-color:rgba(203,161,53,.42)}
+.card .k{font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}
+.card .t{font-family:'Fraunces',serif;font-weight:700;font-size:1.16rem;line-height:1.28;margin:8px 0 0;color:var(--cream)}
+.loading{color:var(--faint);padding:30px clamp(18px,5vw,56px);font-style:italic;max-width:1120px;margin:0 auto}
+footer{border-top:1px solid var(--line);max-width:1120px;margin:0 auto;padding:30px clamp(18px,5vw,56px);color:var(--faint);font-size:.8rem}
+footer a{color:var(--amber);font-weight:700}
+/* "Search the stories" — editorial, non-digital: no box, just a serif italic line
+   under a fleuron ornament. Feels like a masthead, not a form field. */
+.storysearch{max-width:1120px;margin:30px auto 4px;padding:0 clamp(18px,5vw,56px);display:flex;align-items:baseline;gap:14px}
+.storysearch .ss-ico{font-family:'Fraunces',serif;font-size:1.7rem;line-height:1;color:var(--gold);opacity:.85;flex:0 0 auto}
+.storysearch input{flex:1;min-width:0;background:transparent;border:0;border-bottom:1.5px solid var(--line);outline:none;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:clamp(1.1rem,2.4vw,1.55rem);color:var(--cream);padding:6px 2px 10px;transition:border-color .25s}
+.storysearch input::placeholder{color:var(--faint);font-style:italic}
+.storysearch input:focus{border-bottom-color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="/" class="brand"><img src="/pulse-logo.svg" alt="" onerror="this.style.display='none'">PULSE<b>.</b></a>
+  <nav><a href="/thoughts">My Thoughts</a><a href="/editorials">Editorials</a><a href="/about">About</a><a href="/kory-white">Kory White</a><a href="/contact">Contact</a></nav>
+  <a href="/fractional-cro" class="cro">⚡ Hire a Fractional CRO</a>
+</div>
+<div class="hero">
+  <img class="me" src="/assets/kory-white.jpg" alt="Kory White, Chief Revenue Officer">
+  <div class="who">
+    <div class="eyebrow">Pulse Editorials · By Kory White · CRO · 25 Years</div>
+    <h1 class="serif">The Operator's <em>Take</em>.</h1>
+    <p>Long-form, first-person opinion — the stories behind the questions. Same hard facts as the reference library, told the way I'd tell them over a glass of something good. No hedging, no "voice of God." Just what I think, and why.</p>
+  </div>
+</div>
+<div class="storysearch"><span class="ss-ico" aria-hidden="true">&#10086;</span><input id="storysearch" type="search" placeholder="Search the stories&hellip;" autocomplete="off" aria-label="Search editorials by title"></div>
+<div class="rule"><hr></div>
+<div class="count" id="count">Loading the latest…</div>
+<div class="grid" id="grid"></div>
+<div class="loading" id="loading">Pouring…</div>
+<footer>© 2026 Kory White · PULSE · <a href="/thoughts">My Thoughts</a> · <a href="/about">About</a> · <a href="/contact">Contact</a> · <a href="/privacy">Privacy</a></footer>
+<script>
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function title(x){return String(x.question||x.id).replace(/^My Thoughts:\s*/i,'');}
+var ALL=[];
+function render(list){
+  document.getElementById('grid').innerHTML=list.map(function(x){return '<a class="card" href="/knowledge/'+x.id+'"><div class="k">The Operator’s Take</div><div class="t serif">'+esc(title(x))+'</div></a>';}).join('')||'<p style="color:#A99B86;padding:0 clamp(18px,5vw,56px)">No stories match that — try another word.</p>';
+}
+function setCount(n,total){var c=document.getElementById('count');c.textContent=(n===total)?(total+' editorial'+(total===1?'':'s')+' and counting'):(n+' of '+total+' stories');}
+fetch('/.netlify/functions/pulse-machine-library-list?cat=editorials&recent=3000',{cache:'default'}).then(function(r){return r.json();}).then(function(j){
+  ALL=(j&&j.entries)||[];
+  document.getElementById('loading').style.display='none';
+  setCount(ALL.length,ALL.length);
+  render(ALL);
+}).catch(function(){document.getElementById('loading').textContent='Could not load — please retry.';});
+(function(){var box=document.getElementById('storysearch');if(!box)return;box.addEventListener('input',function(){
+  var q=box.value.trim().toLowerCase();
+  if(!q){render(ALL);setCount(ALL.length,ALL.length);return;}
+  var f=ALL.filter(function(x){return title(x).toLowerCase().indexOf(q)>-1;});
+  render(f);setCount(f.length,ALL.length);
+});})();
+</script>
+</body>
+</html>

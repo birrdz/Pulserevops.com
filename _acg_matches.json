@@ -1,0 +1,621 @@
+{
+  "count": 34,
+  "matches": [
+    {
+      "id": "q1210",
+      "question": "How'd you fix ACG Systems' revenue issues in 2026?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q1210",
+      "matchIn": [
+        "question",
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "revenue-fix",
+        "turnaround",
+        "federal-lmr",
+        "air-to-ground",
+        "tactical-radio",
+        "defense",
+        "aviation"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q1404",
+      "question": "How'd you fix Pluralsight's revenue issues in 2026?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q1404",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "pluralsight",
+        "dev-training",
+        "edtech",
+        "drip-company-fix",
+        "hiring-outcomes",
+        "skills-assessment",
+        "engineering-talent",
+        "linux-academy"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q2130",
+      "question": "How do you start a fractional CFO firm business in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q2130",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "fractional-cfo",
+        "cfo-services",
+        "professional-services",
+        "small-business",
+        "finance",
+        "advisory-firm",
+        "startup-finance",
+        "outsourced-finance"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11015",
+      "question": "Chief Member is no longer a signal — brand inflation in 2027",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11015",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "women-exec",
+        "leadership",
+        "executive-network",
+        "revops",
+        "chief-alternative",
+        "negative-leaning",
+        "fractional-cro",
+        "fractional-chief-revenue-officer"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11061",
+      "question": "What does ACG Systems in Annapolis MD do, and what makes them notable?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11061",
+      "matchIn": [
+        "question",
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11062",
+      "question": "ACG Systems vs national AV integrators in 2027 — where regional firms fall short",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11062",
+      "matchIn": [
+        "question",
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11063",
+      "question": "The Annapolis MD AV integrator market in 2027 — what buyers should watch for",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11063",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11086",
+      "question": "Federal defense AV and communications integrator market in 2027 — challenges and customer pain points",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11086",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11087",
+      "question": "Air-to-ground communications integrator market in 2027 — what buyers need to know",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11087",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11088",
+      "question": "Land Mobile Radio integrator market in 2027 — public safety buying gotchas",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11088",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11089",
+      "question": "What does ACG Systems specialize in for mission-critical communications, and where does that expertise matter most in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11089",
+      "matchIn": [
+        "question",
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11090",
+      "question": "The Project 25 P25 radio integrator market in 2027 — public safety procurement gotchas",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11090",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11091",
+      "question": "Dispatch and command-and-control integrator market in 2027 — gotchas for buyers",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11091",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11092",
+      "question": "ACG Systems' aviation communications work in 2027 — defense and commercial niche",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11092",
+      "matchIn": [
+        "question",
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11093",
+      "question": "The Maryland defense contracting market in 2027 — DoD procurement challenges for Annapolis-area firms",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11093",
+      "matchIn": [
+        "tags"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11094",
+      "question": "Federal IDIQ and GWAC contract integrator market in 2027 — buyer + integrator friction",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11094",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11095",
+      "question": "ACG Systems' 24/7 help desk and technician network in 2027",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11095",
+      "matchIn": [
+        "question",
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11096",
+      "question": "SCIF buildout integrator market in 2027 — why ICD-705 schedules slip",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11096",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11097",
+      "question": "NG911 PSAP modernization integrator market in 2027 — why these projects fail",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11097",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11098",
+      "question": "ACG Systems' 2025 Northrim Horizon acquisition — what it signals for the company in 2027",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11098",
+      "matchIn": [
+        "question",
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11099",
+      "question": "Cleared-workforce shortage hitting federal AV+comms integrators in 2027",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11099",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11100",
+      "question": "CMMC 2.0 compliance cost in 2027 — why small federal integrators are getting crushed",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11100",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11101",
+      "question": "Federal AV+comms supply chain disruption in 2027 — TAA Section 889 challenges",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11101",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11102",
+      "question": "Federal comms integrator cybersecurity gaps in 2027 — STIG and zero-trust compliance",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11102",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11103",
+      "question": "Public safety radio interoperability still fails multi-agency response in 2027",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11103",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11104",
+      "question": "Federal AV+comms project change orders in 2027 — how scope creep eats budgets",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11104",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11105",
+      "question": "Federal AV+comms warranty and service gaps in 2027 — what happens after install",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11105",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11106",
+      "question": "The Motorola MOTOTRBO and ASTRO lock-in in public-safety LMR — buyer alternatives in 2027",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11106",
+      "matchIn": [
+        "tags",
+        "answer"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11107",
+      "question": "Federal SATCOM teleport integrator market in 2027 — buyer pain points",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11107",
+      "matchIn": [
+        "tags"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11108",
+      "question": "Federal video teleconference (VTC) integrator market in 2027 — why deployments fail",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11108",
+      "matchIn": [
+        "tags"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11109",
+      "question": "Federal microwave backhaul and RF infrastructure integrator market in 2027",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11109",
+      "matchIn": [
+        "tags"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11110",
+      "question": "Federal AV install schedule slip in 2027 -- why projects run late",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11110",
+      "matchIn": [
+        "tags"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11111",
+      "question": "FAA air traffic control comms integrator market in 2027 — NextGen modernization realities",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11111",
+      "matchIn": [
+        "tags"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    },
+    {
+      "id": "q11112",
+      "question": "Utility and SCADA communications integrator market in 2027 — co-op buyer challenges",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11112",
+      "matchIn": [
+        "tags"
+      ],
+      "tags": [
+        "acg-systems",
+        "annapolis-md",
+        "maryland-business",
+        "av-integration",
+        "negative-leaning"
+      ],
+      "hasSeo": false
+    }
+  ]
+}

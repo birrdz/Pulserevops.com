@@ -1,0 +1,107 @@
+QUESTION: What are Auburn Tigers men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Auburn men's basketball enters 2026-27 with a new identity. Bruce Pearl retired September 22, 2025 after eleven seasons and a 246-125 record, handing the program to his son Steven Pearl. The Tigers fell to Florida 79-73 in the April 2025 Final Four behind Walter Clayton Jr.'s 34 points, then won the program's first-ever NIT championship the following spring as a developmental year for Steven's first crew. For 2027 the priority is rebuilding the front line, defending the perimeter, and proving the Pearl-to-Pearl handoff did not break the SEC-title machine Bruce assembled. NIL strategy now runs through On To Victory, the independent fan-funded collective, and Brett Whiteside on the athletic-department side. Steven Pearl has already added seven transfers in his first full offseason and expects an eighth. The dollars are real — Keyshawn Hall reportedly received $2.2 million to transfer in, and Chad Baker-Mazara's exit triggered a publicized contract-breach dispute when USC paid Auburn out — but the spending must now be targeted, not splashy.
+
+**TL;DR:** Steven Pearl needs roughly $9-11M in 2027 NIL to retain Kevin Overton and Simon Walker, plug the post-Broome frontcourt, and keep the SEC-elite recruiting pipeline open while On To Victory absorbs the new revenue-share era.
+
+```mermaid
+flowchart TD
+    A[Auburn MBB 2027 NIL Ecosystem] --> B[On To Victory Collective]
+    A --> C[Athletic Department Rev Share]
+    A --> D[NIL Club Fan Subscriptions]
+    B --> E[Star Retention Pool]
+    B --> F[Transfer Portal War Chest]
+    C --> G[Brett Whiteside NIL Ops]
+    C --> H[Revenue Share Cap Allocation]
+    D --> I[Per-Athlete Recurring Income]
+    E --> J[Kevin Overton Simon Walker]
+    F --> K[Frontcourt Replacements]
+    G --> L[Compliance and Deal Flow]
+    H --> M[Roster-Wide Base Pay]
+    I --> N[Locker-Room Cohesion]
+    J --> O[2027 SEC Title Push]
+    K --> O
+    L --> O
+    M --> O
+    N --> O
+```
+
+## 1. Where Auburn Stands — Pearl Era 2027 NIL Math
+
+The Pearl-to-Pearl transition is the single most important variable in Auburn's 2027 NIL planning. Bruce Pearl departed as the winningest coach in program history with a 246-125 mark and back-to-back Sweet Sixteen, Final Four, and NIT runs from 2023 through 2026. Steven Pearl, an Auburn assistant since 2019 and Bruce's longtime defensive coordinator, took over with the SEC's third- or fourth-largest basketball NIL budget but lost institutional gravity overnight. Bruce was the closer in every recruiting call. Steven must prove he can be that closer in a single offseason window. The 2025 Final Four roster — Broome, Jones, Kelly, Cardwell, Johnson, Baker-Mazara — is functionally gone. Baker-Mazara's transfer to USC produced a contract-breach payout to Auburn, signaling On To Victory contracts now have enforceable teeth. Keyshawn Hall arrived at $2.2 million in the 2025-26 cycle and is the public benchmark for star-transfer pricing. Kevin Overton and Simon Walker have publicly committed back for 2026-27; locking them through 2027 is the retention foundation. Steven Pearl has added seven transfers and expects an eighth, working with John Cohen, Brett Whiteside, and Jared Benko. The realistic 2027 basketball NIL spend, with revenue-share integration, sits in the $9-11M band.
+
+| Bucket | 2026-27 Allocation | 2027-28 Target | Notes |
+|---|---|---|---|
+| Returning stars (Overton, Walker) | $1.8M | $2.6M | Multi-year retention extensions |
+| Frontcourt transfers | $3.2M | $3.5M | Post-Broome rebuild priority |
+| Perimeter transfers | $2.4M | $2.2M | Replace Jones, Kelly, Baker-Mazara |
+| HS recruiting class | $0.8M | $1.4M | Steven Pearl identity class |
+| Walk-on and depth | $0.4M | $0.5M | Locker-room cohesion budget |
+| Coaching staff NIL ops | $0.3M | $0.4M | Brett Whiteside team expansion |
+| Revenue share allocation | $0.0M | $1.4M | New House settlement cap line |
+| **Total** | **$8.9M** | **$12.0M** | Pre-share to post-share jump |
+
+## 2. Real 2027 Strategy — 5 Moves
+
+**Move 1: Lock Kevin Overton and Simon Walker on multi-year deals before October 2026.** Overton evolved into a primary scorer during the 2025-26 NIT title run and Walker projects as a starter; both are below-market on current paper and either could exit-portal in spring 2027 if not extended. A $1.8M combined retention package now becomes the cornerstone of the Steven Pearl roster identity and signals to recruits that the new staff retains its own.
+
+**Move 2: Spend the biggest single check on a true post-Broome center.** Johni Broome's 18-and-11 production cannot be replaced by committee; Auburn's defensive identity collapses without a rim-protector. Target a Big 12 or AAC transfer center at the $2.5-3M tier rather than spreading across three mid-priced bigs. Concentrated frontcourt spend produces better return than distributed perimeter spend at this stage.
+
+**Move 3: Use the contract-breach precedent from the Baker-Mazara exit.** That payout proved On To Victory can claw back NIL dollars when athletes leave early. Lean into enforceable language on every $1M-plus deal going forward. Recoup risk is the single largest hidden cost of the transfer-portal era and Auburn just demonstrated a working template.
+
+**Move 4: Build a Steven Pearl signature high-school class.** Bruce won with transfers; Steven needs at least one top-25 high schooler in 2027 to prove independent identity. Allocate $1.4M of HS-class NIL to land one elite recruit committed publicly to a Steven Pearl developmental arc.
+
+**Move 5: Integrate revenue share into On To Victory accounting on day one.** The House settlement era forces basketball NIL onto the school's cap. Treat the projected $1.4M revenue-share line as additive base pay and let collective dollars target the top of the roster. Mixing the two budgets is how SEC peers will overspend.
+
+## 3. Top 3 Risks
+
+**Risk 1: Steven Pearl recruiting-credibility cliff.** The biggest risk is not money — it is whether elite recruits and transfers see Steven Pearl as a long-term destination versus a one-year handoff. Bruce closed every major deal of the past decade. Steven is unproven as a primary closer in a multi-million-dollar pitch. If the first cycle produces another NIT instead of a Sweet Sixteen, the 2027 portal will commodify Auburn's roster. Mitigation: stack 2026-27 with winnable marquee games and protect Steven's first NCAA Tournament appearance at any cost.
+
+**Risk 2: On To Victory donor fatigue after the 2025 Final Four peak.** Donors wrote historic checks for the 2024-25 Final Four roster. The 2025-26 NIT was a quieter year and the 2026-27 roster is mostly unknown faces. Collective fundraising follows on-court visibility; a slow start could compress donor enthusiasm when 2027 portal pricing is set. Mitigation: front-load fan-facing events, expand the NIL Club subscription tier to broaden the donor base, and tie monthly fundraising milestones to specific roster moves.
+
+**Risk 3: SEC arms-race compression.** Kentucky, Tennessee, Arkansas, Florida, and Alabama are spending at or above Auburn's level. The conference now has six programs in the $8M-plus basketball-NIL tier and marginal dollars buy less than they did two years ago. Auburn's edge was Bruce's recruiting personality, not budget size. Mitigation: differentiate on player development and NBA pipeline messaging, lean on the Final Four banner one more cycle, and resist matching every Kentucky offer on transfers who do not fit the Pearl defensive system.
+
+```mermaid
+flowchart TD
+    A[2027 Strategic Priorities] --> B[Retention]
+    A --> C[Frontcourt Rebuild]
+    A --> D[Coaching Credibility]
+    B --> E[Overton Extension]
+    B --> F[Walker Extension]
+    C --> G[Post-Broome Center]
+    C --> H[Stretch Four Transfer]
+    D --> I[Steven Pearl Closer Reps]
+    D --> J[Signature HS Recruit]
+    E --> K[2027 SEC Contender]
+    F --> K
+    G --> K
+    H --> K
+    I --> K
+    J --> K
+    K --> L[Final Four Return Path]
+```
+
+## FAQ
+
+**Q: Did Auburn really win the 2025 national championship?**
+No. Auburn reached the 2025 Final Four but lost 79-73 to Florida on April 5, 2025, with Walter Clayton Jr. scoring 34 points for the Gators. Chad Baker-Mazara led Auburn with 18 points and Johni Broome added 15. Auburn finished 32-6 with the SEC regular-season title, eight weeks ranked AP number one, and the program's second-ever Final Four appearance.
+
+**Q: Is Bruce Pearl still Auburn's coach in 2026?**
+No. Bruce Pearl retired on September 22, 2025 after eleven seasons and a 246-125 record as the winningest coach in Auburn basketball history. His son Steven Pearl, who had served as Auburn's associate head coach and defensive coordinator since 2019, was promoted to head coach and is now leading the program into the 2026-27 season.
+
+**Q: What is Auburn's NIL collective called?**
+On To Victory is Auburn's primary independent NIL collective — a fan-funded talent agency that pools donor money into compliant work-for-pay arrangements where athletes earn compensation for tangible services like autograph signings, youth camps, and sponsored content. NIL Club provides athlete-operated fan-subscription income, and Brett Whiteside runs NIL operations on the athletic-department side.
+
+## Sources
+
+- Auburn Tigers Official Athletics, "Historic Auburn season ends, Tigers fall to Florida in Final Four" (April 2025)
+- ESPN Game Recap, "Florida 79-73 Auburn" (April 5, 2025)
+- CBS Sports, "Who is Steven Pearl? What you need to know about Auburn's new basketball coach after Bruce Pearl's retirement"
+- Fox News, "Bruce Pearl set to retire as Auburn's men's basketball coach"
+- 247Sports, "Pearl: Auburn looking to fill one more spot on 2026-27 roster"
+- The Auburn Plainsman, "Transfer portal live tracker: Auburn basketball additions, departures and latest updates"
+- BroBible, "Auburn Basketball Transfer's New School Exceeds NIL Demands To Pay His Old Team For Contract Breach"
+- On To Victory Auburn NIL Collective official site

@@ -1,0 +1,40 @@
+TITLE: What replaces traditional workflow if AI agents handle process orchestration?
+
+BODY:
+## Direct Answer
+
+![What replaces traditional workflow if AI agents handle process orchestration?](https://pulserevops.com/img/auto/q1650.svg)
+
+Traditional workflow doesn't disappear in the agent era — it gets **squeezed out of the middle and pushed to the edges**. The top end becomes **outcome contracts** (a goal + guardrails + a budget, written in plain English), and the bottom end becomes a **tools registry** (a versioned catalog of MCP servers, function-calling APIs, and OpenAPI specs the agent is allowed to call). The middle layer that defined enterprise software for 25 years — BPMN diagrams, ITIL ticket queues, RPA bot orchestration, manual approval ladders — gets eaten by an LLM agent that decides the steps at runtime instead of a process designer drawing them at design-time. Call it the **Sandwich Stack**: outcomes on top, tools on the bottom, agent in the middle, audit wrapped around the whole thing. The new four layers are *outcomes, agents, tools, audit* — not *process, screens, integrations, reports*. Anyone selling you a 2030 workflow diagram in 2026 is selling you a fax-machine cover. (see also: q1613, q1649)
+
+## The Traditional Workflow Stack (2020-25)
+
+- **BPMN process diagrams** — drawn by business analysts in Bizagi, Camunda Modeler, Signavio, or ServiceNow Flow Designer; every branch and exception explicitly mapped at design-time.
+- **ITSM ticket queues** — work-as-tickets routed by rules engines: ServiceNow, Jira Service Management, BMC Helix, Cherwell.
+- **RPA bots** — UiPath, Automation Anywhere, Blue Prism, Pega RPA — screen-scraping legacy systems on a fixed schedule with brittle XPath selectors.
+- **Manual approval workflows** — sequential e-sign + sign-off chains in DocuSign, Coupa, SAP Ariba, Salesforce approval processes; each step is a human clicking a button.
+- **Named platform stack of record:** ServiceNow (IT/HR/CSM), Salesforce Flow + Process Builder (CRM), SAP Workflow + Build Process Automation (ERP), Workday Business Process Framework (HR/Finance), Microsoft Power Automate (cross-cloud glue).
+
+## The 4 Layers Of The New Agent Stack (2026-30)
+
+- **Layer 1 — Outcome contracts.** A plain-English goal ("resolve this Tier 2 incident inside SLA"), a set of guardrails ("never restart a prod database without dual approval"), a budget (tokens, dollars, wall-clock minutes), and a success test (verifier model or rules check). Replaces the BPMN diagram entirely. Early tooling: Anthropic's *constitutional AI* patterns, OpenAI's *agent specs*, ServiceNow's *AI Agent Studio* outcome canvases.
+- **Layer 2 — Agent orchestration layer.** LLM agents (Claude, GPT, Gemini) that read the contract, plan a sequence, call tools, observe results, and re-plan. Frameworks: **LangGraph, CrewAI, Microsoft AutoGen, OpenAI Swarm/Agents SDK, Anthropic Computer Use, Claude Skills**. The agent decides HOW at runtime — not a designer at design-time.
+- **Layer 3 — Tools registry.** A governed catalog of callable capabilities: **Anthropic MCP servers, OpenAI function-calling specs, OpenAPI 3.x descriptions, Workato Recipe APIs, Zapier MCP, ServiceNow Tool Registry**. Each tool has a contract (inputs, outputs, side-effects, blast radius). Replaces the ESB and the iPaaS for agent-callable work.
+- **Layer 4 — Audit + governance.** Humans verify *outcomes*, not *steps*. Observability platforms: **LangSmith, Helicone, Arize AI, Braintrust, Galileo, WhyLabs, Weights & Biases Weave**. Compliance: **Credo AI, Holistic AI, Robust Intelligence**. The audit log captures intent, plan, tool calls, evidence, verifier verdict — not screen-recordings of bot clicks.
+
+## What Disappears
+
+- **The BPMN designer-tool category.** Camunda Modeler, Bizagi, Signavio, ServiceNow Flow Designer become legacy view-only documentation. You don't draw a 47-step swimlane to onboard an employee anymore — you write an outcome contract.
+- **RPA bot orchestration.** UiPath Orchestrator, Automation Anywhere Control Room, Blue Prism Hub, Pega RPA — all collapse into "just another tool the agent can call," not a top-line product category. UiPath's Q1 2026 pivot to *Agentic Automation* is the public concession.
+- **Ticket-routing rules engines.** "If category = network AND priority = P2, assign to L2 queue" disappears. The agent reads the ticket, decides the resolver, dispatches itself, and verifies the fix.
+- **Manual approval workflows for low-risk decisions.** $250 expense reports, password resets, access requests under a defined risk threshold — the agent decides + audits, no human in the loop.
+- **Named tools that lose share fast:** Pega RPA, UiPath Orchestrator (legacy SKUs), ServiceNow Flow Designer (legacy), SAP Build Process Automation, Salesforce Process Builder. All survive in installed-base maintenance mode through ~2029, then get sunset.
+- **The "BA who draws workflows" job category.** Business analysts whose entire output was Visio + BPMN diagrams have to retool into outcome architecture or process anthropology (see below) inside 24 months.
+
+## What Gets More Important
+
+- **Outcome / contract-design tooling.** Anthropic *agent specs*, OpenAI *Agents SDK* schemas, ServiceNow *AI Agent Studio* canvas, Salesforce *Agentforce* topic + action design, **AgentOps**, **Lindy.ai** templates. Net-new category in 2026.
+- **Tools-registry standards.** **Anthropic MCP** (Model Context Protocol) is the early consensus standard, with OpenAI shipping MCP support in late 2025 and Microsoft + Google following Q1 2026. **OpenAPI 3.1** remains the lingua franca for HTTP tools. **Anthropic Computer Use** + **OpenAI Operator** for screen-level fallback.
+- **Guardrail platforms.** **NVIDIA NeMo Guardrails, Lakera, Robust Intelligence, Protect AI, Credo AI**. Run inline between agent intent and tool execution.
+- **Audit + observability.** **LangSmith, Helicone, Arize AI, Braintrust, Galileo, Weights & Biases Weave, Datadog LLM Observability**. Capture every agent trace for post-hoc verification.
+- **Model + agent governance.** **Credo AI, 

@@ -1,0 +1,17 @@
+const t = require('fs').readFileSync('C:/Users/koryj/website/lab/_gold_q461_solo.md', 'utf8');
+const L = t.split(/\n/);
+const mb = '`' + '`' + '`mermaid';
+console.log('1 Direct Answer H3:', L.filter(l => /^### Direct Answer/.test(l)).length);
+console.log('2 TLDR block:', /> \*\*TLDR\*\*/.test(t));
+console.log('3 H2 banners:', L.filter(l => /^## /.test(l)).length);
+const ss = [...t.matchAll(/^### (\d+\.\d+)/gm)].map(m => m[1]);
+console.log('4 numbered subsections:', ss.length, '->', ss.join(' '));
+console.log('5 bold-lead bullets:', L.filter(l => /^\s*-\s+\*\*/.test(l)).length);
+console.log('6 tickers:', [...new Set([...t.matchAll(/\(([A-Z]{2,5})\)/g)].map(m => m[1]))].join(' '));
+console.log('7 mermaid blocks:', t.split(mb).length - 1);
+console.log('8 pipe table sep rows:', L.filter(l => /^\|\s*-/.test(l)).length);
+console.log('9 Counter-Case:', /Counter-Case/.test(t));
+const cl = [...new Set([...t.matchAll(/\(q\d+\)/g)].map(m => m[0]))];
+console.log('10 crosslinks:', cl.length, '->', cl.join(' '));
+console.log('wiki-bracket check (must be 0):', (t.match(/\[\[q\d+\]\]/g) || []).length);
+console.log('WORDS:', t.trim().split(/\s+/).length);

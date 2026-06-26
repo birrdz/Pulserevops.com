@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PULSE — NES + Super NES Style Gallery (PREVIEW ONLY)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#04050a;color:#e8e8f0;font-family:system-ui,sans-serif}
+  .note{max-width:940px;margin:0 auto;padding:26px 20px 6px;text-align:center}
+  .note h1{font-family:'Press Start 2P',monospace;font-size:15px;color:#FF6B30;line-height:1.7;margin:0 0 10px;text-shadow:3px 3px 0 #5a1e08}
+  .note p{color:#9aa;font-size:13px;line-height:1.5;margin:6px 0}
+  .sec-divider{max-width:1180px;margin:54px auto 0;padding:0 20px}
+  .sec-divider span{font-family:'Press Start 2P',monospace;font-size:13px;color:#fff;background:#222;padding:10px 16px;border:2px solid #444}
+  .opt-label{max-width:1180px;margin:40px auto 0;padding:0 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .opt-label .tag{font-family:'Press Start 2P',monospace;font-size:10px;color:#0a0e14;background:#FFB870;padding:8px 12px;box-shadow:3px 3px 0 #000}
+  .opt-label .desc{font-size:12.5px;color:#8a8ba6}
+  .stage{max-width:1180px;margin:13px auto;overflow:hidden;border-radius:6px}
+
+  .hero{padding:46px 22px 50px;text-align:center;position:relative}
+  .hero h2{margin:0 0 16px;line-height:1.45}
+  .hero h2 em{font-style:normal}
+  .lead{max-width:720px;margin:0 auto 22px;line-height:1.7}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:22px}
+  .pills{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;max-width:960px;margin:0 auto 20px}
+  .meta{font-size:11px;letter-spacing:.5px}
+  .cta,.pill{text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+
+  /* ===================== NES (8-bit) ===================== */
+
+  /* N1 — NES Black Box (1985 launch label) */
+  #n1{background:#000;background-image:repeating-linear-gradient(0deg,#0a0a0a 0 2px,#000 2px 4px)}
+  #n1 .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;color:#000;background:#bcbcbc;padding:8px 12px;margin-bottom:20px;letter-spacing:1px}
+  #n1 h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#fff;letter-spacing:1px}
+  #n1 h2 em{color:#e0322c}
+  #n1 .lead{font-family:'VT323',monospace;font-size:22px;color:#bcbcbc}
+  #n1 .cta{font-family:'Press Start 2P',monospace;font-size:11px;padding:13px 17px;border:3px solid #fff;color:#fff;background:#000}
+  #n1 .cta.primary{background:#e0322c;border-color:#fff;color:#fff}
+  #n1 .pill{font-family:'Press Start 2P',monospace;font-size:9px;color:#fff;background:#000;border:2px solid #bcbcbc;padding:9px 11px}
+  #n1 .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#bcbcbc}
+  #n1 .meta b{color:#e0322c}
+
+  /* N2 — Mega Man (Capcom blue energy) */
+  #n2{background:#0a1840}
+  #n2 .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;color:#0a1840;background:#41c7ff;padding:8px 12px;margin-bottom:20px;box-shadow:4px 4px 0 #000}
+  #n2 h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#fff;text-shadow:3px 3px 0 #1d6fe0,6px 6px 0 #000}
+  #n2 h2 em{color:#41c7ff;text-shadow:3px 3px 0 #0a3a8a,6px 6px 0 #000}
+  #n2 .lead{font-family:'VT323',monospace;font-size:22px;color:#a9d6ff}
+  #n2 .cta{font-family:'Press Start 2P',monospace;font-size:11px;padding:13px 17px;color:#fff;background:#1d6fe0;box-shadow:4px 4px 0 #000}
+  #n2 .cta.primary{background:#41c7ff;color:#0a1840;box-shadow:4px 4px 0 #000}
+  #n2 .pill{font-family:'Press Start 2P',monospace;font-size:9px;color:#cdebff;background:#0d266e;border:2px solid #41c7ff;padding:9px 11px}
+  #n2 .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#41c7ff}
+  #n2 .meta b{color:#fff}
+
+  /* N3 — Castlevania (gothic NES) */
+  #n3{background:linear-gradient(#1a0a24 0%,#2a0f2e 60%,#0d0510 100%)}
+  #n3 .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;color:#1a0a24;background:#c9a24b;padding:8px 12px;margin-bottom:20px;box-shadow:3px 3px 0 #000}
+  #n3 h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#e8d6a0;text-shadow:3px 3px 0 #7a1020,6px 6px 0 #000}
+  #n3 h2 em{color:#d62b3a;text-shadow:3px 3px 0 #3a0810,6px 6px 0 #000}
+  #n3 .lead{font-family:'VT323',monospace;font-size:22px;color:#c3a9c9}
+  #n3 .cta{font-family:'Press Start 2P',monospace;font-size:11px;padding:13px 17px;color:#e8d6a0;background:#3a1530;border:2px solid #c9a24b;box-shadow:4px 4px 0 #000}
+  #n3 .cta.primary{background:#a01828;color:#f0d8b0;border:2px solid #c9a24b;box-shadow:4px 4px 0 #000}
+  #n3 .pill{font-family:'Press Start 2P',monospace;font-size:9px;color:#e8d6a0;background:#2a0f2e;border:2px solid #6e4a2a;padding:9px 11px}
+  #n3 .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#c9a24b}
+  #n3 .meta b{color:#d62b3a}
+
+  /* N4 — Contra Neon (arcade on black) */
+  #n4{background:#07080d}
+  #n4 .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;color:#07080d;background:#39ff14;padding:8px 12px;margin-bottom:20px;box-shadow:0 0 12px #39ff14}
+  #n4 h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#fff;text-shadow:0 0 8px #ff2eea,3px 3px 0 #000}
+  #n4 h2 em{color:#39ff14;text-shadow:0 0 10px #39ff14,3px 3px 0 #000}
+  #n4 .lead{font-family:'VT323',monospace;font-size:22px;color:#7fffd4}
+  #n4 .cta{font-family:'Press Start 2P',monospace;font-size:11px;padding:13px 17px;color:#fff;background:#15161f;border:2px solid #ff2eea;box-shadow:0 0 10px rgba(255,46,234,.6)}
+  #n4 .cta.primary{background:#39ff14;color:#07080d;border:2px solid #39ff14;box-shadow:0 0 14px rgba(57,255,20,.7)}
+  #n4 .pill{font-family:'Press Start 2P',monospace;font-size:9px;color:#7fffd4;background:#0d0f17;border:2px solid #1de9b6;padding:9px 11px}
+  #n4 .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#39ff14}
+  #n4 .meta b{color:#ff2eea}
+
+  /* ===================== Super NES (16-bit) ===================== */
+
+  /* S1 — Donkey Kong Country (jungle + metallic gold) */
+  #s1{background:linear-gradient(#0c2a14 0%,#16451f 55%,#06160a 100%)}
+  #s1 .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;color:#3a2600;background:linear-gradient(#ffe08a,#d39a2a);border:2px solid #fff3c0;padding:8px 12px;margin-bottom:20px;box-shadow:4px 4px 0 rgba(0,0,0,.5)}
+  #s1 h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#ffd24a;text-shadow:2px 2px 0 #a8701a,4px 4px 0 #5a3a08,6px 6px 0 #000}
+  #s1 h2 em{color:#8de04a;text-shadow:2px 2px 0 #2d6b14,4px 4px 0 #000}
+  #s1 .lead{font-family:'VT323',monospace;font-size:23px;color:#d8e8c0}
+  #s1 .cta{font-family:'Press Start 2P',monospace;font-size:11px;padding:14px 18px;color:#3a2600;background:linear-gradient(#ffe08a,#d39a2a);border:2px solid #fff3c0;box-shadow:inset -3px -3px 0 #9c6e1a,5px 5px 0 rgba(0,0,0,.5)}
+  #s1 .cta.primary{background:linear-gradient(#a8e06a,#4e8a2a);color:#0c2a14;border:2px solid #d4ffae;box-shadow:inset -3px -3px 0 #2d5a14,5px 5px 0 rgba(0,0,0,.5)}
+  #s1 .pill{font-family:'Press Start 2P',monospace;font-size:9px;color:#ffe08a;background:#16451f;border:2px solid #d39a2a;box-shadow:inset 2px 2px 0 #2a6b30;padding:9px 11px}
+  #s1 .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#ffd24a}
+  #s1 .meta b{color:#8de04a}
+
+  /* S2 — Star Fox / Mode-7 (space wireframe neon) */
+  #s2{background:radial-gradient(circle at 50% 120%,#1a0d4a 0%,#0a0726 55%,#03020f 100%)}
+  #s2 .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;color:#03020f;background:#00e5ff;padding:8px 12px;margin-bottom:20px;box-shadow:0 0 14px #00e5ff}
+  #s2 h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#fff;text-shadow:0 0 10px #7a5cff,3px 3px 0 #2a1a6e}
+  #s2 h2 em{color:#00e5ff;text-shadow:0 0 12px #00e5ff,3px 3px 0 #034a55}
+  #s2 .lead{font-family:'VT323',monospace;font-size:23px;color:#bdb4ff}
+  #s2 .cta{font-family:'Press Start 2P',monospace;font-size:11px;padding:14px 18px;color:#fff;background:#1a1455;border:2px solid #7a5cff;box-shadow:0 0 12px rgba(122,92,255,.5)}
+  #s2 .cta.primary{background:#00e5ff;color:#03020f;border:2px solid #aff7ff;box-shadow:0 0 16px rgba(0,229,255,.7)}
+  #s2 .pill{font-family:'Press Start 2P',monospace;font-size:9px;color:#bdb4ff;background:#120c3a;border:2px solid #4a3aa0;padding:9px 11px}
+  #s2 .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#00e5ff}
+  #s2 .meta b{color:#fff}
+
+  /* S3 — Super Metroid (dark sci-fi, orange + teal — most on-brand) */
+  #s3{background:radial-gradient(circle at 50% -10%,#3a1505 0%,#0c1016 60%,#06080d 100%)}
+  #s3 .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;color:#06121a;background:#2ad6c0;padding:8px 12px;margin-bottom:20px;box-shadow:inset -3px -3px 0 #138a7c,4px 4px 0 rgba(0,0,0,.55)}
+  #s3 h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#EEEEF5;text-shadow:2px 2px 0 #7a2204,4px 4px 0 #3a1002,6px 6px 0 #000}
+  #s3 h2 em{color:#FF7A30;text-shadow:2px 2px 0 #a83d12,4px 4px 0 #000}
+  #s3 .lead{font-family:'VT323',monospace;font-size:23px;color:#9fd6cf}
+  #s3 .cta{font-family:'Press Start 2P',monospace;font-size:11px;padding:14px 18px;color:#06121a;background:#2ad6c0;border:2px solid #aaf3ea;box-shadow:inset -4px -4px 0 #138a7c,5px 5px 0 rgba(0,0,0,.55)}
+  #s3 .cta.primary{background:#FF6B30;color:#1a0d04;border:2px solid #ffb088;box-shadow:inset -4px -4px 0 #a83d12,5px 5px 0 rgba(0,0,0,.55)}
+  #s3 .pill{font-family:'Press Start 2P',monospace;font-size:9px;color:#cfeae6;background:#0e1c22;border:2px solid #1e6b62;box-shadow:inset 2px 2px 0 #15463f;padding:9px 11px}
+  #s3 .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#2ad6c0}
+  #s3 .meta b{color:#FF7A30}
+
+  /* S4 — Kirby / F-Zero (candy neon pastel) */
+  #s4{background:linear-gradient(#ff9ed8 0%,#c79bff 50%,#7ad7ff 100%)}
+  #s4 .eyebrow{display:inline-block;font-family:'Press Start 2P',monospace;font-size:9px;color:#fff;background:#ff4fa3;border:2px solid #fff;padding:8px 12px;margin-bottom:20px;box-shadow:4px 4px 0 rgba(0,0,0,.25)}
+  #s4 h2{font-family:'Press Start 2P',monospace;font-size:25px;color:#fff;text-shadow:3px 3px 0 #ff4fa3,6px 6px 0 #7a2a8a}
+  #s4 h2 em{color:#fff3a0;text-shadow:3px 3px 0 #ff4fa3,6px 6px 0 #7a2a8a}
+  #s4 .lead{font-family:'VT323',monospace;font-size:23px;color:#3a1d5a;font-weight:700}
+  #s4 .cta{font-family:'Press Start 2P',monospace;font-size:11px;padding:14px 18px;color:#7a2a8a;background:#fff;border:2px solid #ff4fa3;box-shadow:inset -3px -3px 0 #ffd0e8,5px 5px 0 rgba(0,0,0,.25)}
+  #s4 .cta.primary{background:#ff4fa3;color:#fff;border:2px solid #fff;box-shadow:inset -3px -3px 0 #c11d6e,5px 5px 0 rgba(0,0,0,.25)}
+  #s4 .pill{font-family:'Silkscreen',monospace;font-weight:700;font-size:11px;color:#7a2a8a;background:#fff;border:2px solid #ff9ed8;box-shadow:3px 3px 0 rgba(0,0,0,.2);padding:9px 11px}
+  #s4 .meta{font-family:'Press Start 2P',monospace;font-size:9px;color:#fff;text-shadow:2px 2px 0 #7a2a8a}
+  #s4 .meta b{color:#fff3a0}
+
+  .foot{text-align:center;padding:44px 20px 70px;color:#888;font-family:'VT323',monospace;font-size:19px}
+  .blink{animation:bl 1s steps(1) infinite}
+  @keyframes bl{50%{opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="note">
+  <h1>PULSE · NES + SUPER NES STYLE GALLERY</h1>
+  <p>Preview only — live site untouched. 8 brand-new retro treatments of the real homepage hero. The earlier 4+4 are still at <b style="color:#aaa">/8bit-preview.html</b> and <b style="color:#aaa">/snes-preview.html</b>.</p>
+  <p style="color:#FF6B30">Scroll ↓ &nbsp;<span class="blink">_</span></p>
+</div>
+
+<div class="sec-divider"><span>▸ NES — 8-BIT</span></div>
+
+<div class="opt-label"><span class="tag">N1 · BLACK BOX</span><span class="desc">The 1985 NES launch-label look — black, gray, red. Iconic &amp; minimal.</span></div>
+<div class="stage"><section class="hero" id="n1">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,769</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<div class="opt-label"><span class="tag">N2 · MEGA MAN</span><span class="desc">Capcom blue + cyan energy, chunky shadows. Crisp, techy, confident.</span></div>
+<div class="stage"><section class="hero" id="n2">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,769</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<div class="opt-label"><span class="tag">N3 · CASTLEVANIA</span><span class="desc">Gothic NES — deep purple, gold, blood red. Serious &amp; premium under the pixels.</span></div>
+<div class="stage"><section class="hero" id="n3">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,769</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<div class="opt-label"><span class="tag">N4 · CONTRA NEON</span><span class="desc">Arcade glow on black — neon green + magenta. Bold, loud, high-contrast.</span></div>
+<div class="stage"><section class="hero" id="n4">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,769</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<div class="sec-divider"><span>▸ SUPER NES — 16-BIT</span></div>
+
+<div class="opt-label"><span class="tag">S1 · DONKEY KONG COUNTRY</span><span class="desc">Jungle green + 3D metallic gold lettering. Rich, expensive-looking 16-bit.</span></div>
+<div class="stage"><section class="hero" id="s1">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,769</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<div class="opt-label"><span class="tag">S2 · STAR FOX (MODE-7)</span><span class="desc">Deep-space wireframe vibe, cyan + violet neon. Futuristic 16-bit.</span></div>
+<div class="stage"><section class="hero" id="s2">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,769</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<div class="opt-label"><span class="tag">S3 · SUPER METROID ★</span><span class="desc">Dark sci-fi, your orange + teal accent. The most on-brand 16-bit option — recommended.</span></div>
+<div class="stage"><section class="hero" id="s3">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,769</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<div class="opt-label"><span class="tag">S4 · KIRBY / F-ZERO</span><span class="desc">Candy pastel neon — pink, violet, sky. Friendly, fun, approachable.</span></div>
+<div class="stage"><section class="hero" id="s4">
+  <span class="eyebrow">● THE PULSE LIBRARY · FREE</span>
+  <h2>EVERY <em>REVOPS ANSWER</em>.<br>ONE FREE LIBRARY.</h2>
+  <p class="lead">8,700+ operator-grade answers, sales trainings, KPIs, tech stacks, book summaries, gear reviews, revenue architecture, GTM playbooks, and college sports + NIL.</p>
+  <div class="cta-row"><a class="cta primary">📚 BROWSE</a><a class="cta">💾 MY CONTENT</a><a class="cta">🛠 TOOLS</a><a class="cta">📲 INSTALL</a></div>
+  <div class="pills"><a class="pill">KNOWLEDGE</a><a class="pill">TRAININGS</a><a class="pill">KPIS</a><a class="pill">STACKS</a><a class="pill">BOOKS</a><a class="pill">REVIEWS</a><a class="pill">REV ARCH</a><a class="pill">GTM</a><a class="pill">FRANCHISES</a><a class="pill">SPORTS</a></div>
+  <div class="meta"><b>8,769</b> ENTRIES · 10 PILLARS · UPDATED CONTINUOUSLY</div>
+</section></div>
+
+<div class="sec-divider"><span>▸ LEADERBOARDS — RETRO STYLED</span></div>
+<div class="note" style="padding-top:14px"><p>This is the Top 25 / Bottom 25 ranking board (the scrolling leaderboard under your hero) re-skinned in three of the styles above, so you can see how the data UI looks — not just the headline.</p></div>
+
+<style>
+  .lbsec{padding:22px 20px 30px}
+  .lb-hd{max-width:1000px;margin:0 auto 16px;text-align:center}
+  .lb-title{font-family:'Press Start 2P',monospace;font-size:13px;line-height:1.6}
+  .lb-sub{font-family:'VT323',monospace;font-size:18px;margin-top:8px;opacity:.85}
+  .lb-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1040px;margin:0 auto}
+  @media(max-width:680px){.lb-cols{grid-template-columns:1fr}}
+  .lb-col-title{font-family:'Press Start 2P',monospace;font-size:10px;padding:10px 12px;margin-bottom:10px}
+  .lb-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:11px 12px;margin-bottom:8px}
+  .lb-rank{font-family:'Press Start 2P',monospace;font-size:12px;min-width:34px}
+  .lb-name{font-family:'Silkscreen',monospace;font-weight:700;font-size:12.5px;line-height:1.35}
+  .lb-prov{font-family:'VT323',monospace;font-size:16px;opacity:.8;line-height:1.1;margin-top:2px}
+  .lb-score{font-family:'Press Start 2P',monospace;font-size:13px}
+
+  /* --- S3 Super Metroid theme --- */
+  #lb-s3{background:radial-gradient(circle at 50% -20%,#3a1505 0%,#0c1016 60%,#06080d 100%)}
+  #lb-s3 .lb-title{color:#EEEEF5;text-shadow:2px 2px 0 #7a2204,4px 4px 0 #000}
+  #lb-s3 .lb-title b{color:#FF7A30}
+  #lb-s3 .lb-sub{color:#9fd6cf}
+  #lb-s3 .lb-col.up .lb-col-title{color:#06121a;background:#2ad6c0;box-shadow:inset -3px -3px 0 #138a7c}
+  #lb-s3 .lb-col.down .lb-col-title{color:#1a0d04;background:#FF6B30;box-shadow:inset -3px -3px 0 #a83d12}
+  #lb-s3 .lb-row{background:#0e1c22;border:2px solid #1e6b62;box-shadow:inset 2px 2px 0 #15463f}
+  #lb-s3 .lb-rank{color:#2ad6c0}
+  #lb-s3 .lb-name{color:#EEEEF5}
+  #lb-s3 .lb-prov{color:#9fd6cf}
+  #lb-s3 .lb-score{color:#FF7A30}
+  #lb-s3 .lb-col.down .lb-rank{color:#ff9a6a}
+
+  /* --- N2 Mega Man theme --- */
+  #lb-n2{background:#0a1840}
+  #lb-n2 .lb-title{color:#fff;text-shadow:3px 3px 0 #1d6fe0,5px 5px 0 #000}
+  #lb-n2 .lb-title b{color:#41c7ff}
+  #lb-n2 .lb-sub{color:#a9d6ff}
+  #lb-n2 .lb-col.up .lb-col-title{color:#0a1840;background:#41c7ff;box-shadow:4px 4px 0 #000}
+  #lb-n2 .lb-col.down .lb-col-title{color:#fff;background:#1d6fe0;box-shadow:4px 4px 0 #000}
+  #lb-n2 .lb-row{background:#0d266e;border:2px solid #41c7ff}
+  #lb-n2 .lb-rank{color:#41c7ff}
+  #lb-n2 .lb-name{color:#fff}
+  #lb-n2 .lb-prov{color:#a9d6ff}
+  #lb-n2 .lb-score{color:#fff}
+
+  /* --- S1 Donkey Kong Country theme --- */
+  #lb-s1{background:linear-gradient(#0c2a14 0%,#16451f 55%,#06160a 100%)}
+  #lb-s1 .lb-title{color:#ffd24a;text-shadow:2px 2px 0 #a8701a,4px 4px 0 #000}
+  #lb-s1 .lb-title b{color:#8de04a}
+  #lb-s1 .lb-sub{color:#d8e8c0}
+  #lb-s1 .lb-col.up .lb-col-title{color:#0c2a14;background:linear-gradient(#a8e06a,#4e8a2a);box-shadow:inset -3px -3px 0 #2d5a14}
+  #lb-s1 .lb-col.down .lb-col-title{color:#3a2600;background:linear-gradient(#ffe08a,#d39a2a);box-shadow:inset -3px -3px 0 #9c6e1a}
+  #lb-s1 .lb-row{background:#16451f;border:2px solid #d39a2a;box-shadow:inset 2px 2px 0 #2a6b30}
+  #lb-s1 .lb-rank{color:#ffd24a}
+  #lb-s1 .lb-name{color:#fff}
+  #lb-s1 .lb-prov{color:#d8e8c0}
+  #lb-s1 .lb-score{color:#8de04a}
+</style>
+
+<div class="opt-label"><span class="tag">S3 · LEADERBOARD</span><span class="desc">Super Metroid skin — Electronic Reviews ranking board.</span></div>
+<div class="stage"><section class="lbsec" id="lb-s3">
+  <div class="lb-hd"><div class="lb-title">⭐ <b>ELECTRONIC REVIEWS</b> LEADERBOARD</div><div class="lb-sub">Refreshes daily as 2027 conditions shift · Top 25 / Bottom 25 · 569 entries evaluated</div></div>
+  <div class="lb-cols">
+    <div class="lb-col up">
+      <div class="lb-col-title">🟢 TOP 25 — OPERATOR-ESSENTIAL</div>
+      <div class="lb-row"><div class="lb-rank">#1</div><div><div class="lb-name">Top 10 Cordless Drills</div><div class="lb-prov">High-utility daily-driver gear</div></div><div class="lb-score">99</div></div>
+      <div class="lb-row"><div class="lb-rank">#2</div><div><div class="lb-name">Top 10 Digital Multimeters</div><div class="lb-prov">Bench + field essential</div></div><div class="lb-score">97</div></div>
+      <div class="lb-row"><div class="lb-rank">#3</div><div><div class="lb-name">Top 10 Floor Jacks</div><div class="lb-prov">Garage must-have</div></div><div class="lb-score">95</div></div>
+      <div class="lb-row"><div class="lb-rank">#4</div><div><div class="lb-name">Top 10 Battery Testers</div><div class="lb-prov">Shop diagnostics staple</div></div><div class="lb-score">93</div></div>
+      <div class="lb-row"><div class="lb-rank">#5</div><div><div class="lb-name">Top 10 Spot Welders</div><div class="lb-prov">Battery + body builders</div></div><div class="lb-score">91</div></div>
+    </div>
+    <div class="lb-col down">
+      <div class="lb-col-title">🔴 BOTTOM 25 — LOW DAILY ROI</div>
+      <div class="lb-row"><div class="lb-rank">#1</div><div><div class="lb-name">Top 10 Reflow Ovens</div><div class="lb-prov">Niche · SMD hobbyists only</div></div><div class="lb-score">52</div></div>
+      <div class="lb-row"><div class="lb-rank">#2</div><div><div class="lb-name">Top 10 Dovetail Jigs</div><div class="lb-prov">Specialist woodworking</div></div><div class="lb-score">49</div></div>
+      <div class="lb-row"><div class="lb-rank">#3</div><div><div class="lb-name">Top 10 Edge Banders</div><div class="lb-prov">Cabinet shops only</div></div><div class="lb-score">46</div></div>
+      <div class="lb-row"><div class="lb-rank">#4</div><div><div class="lb-name">Top 10 Engine Hoists</div><div class="lb-prov">Occasional heavy jobs</div></div><div class="lb-score">43</div></div>
+      <div class="lb-row"><div class="lb-rank">#5</div><div><div class="lb-name">Top 10 Transmission Jacks</div><div class="lb-prov">Rare · pro-shop use</div></div><div class="lb-score">40</div></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="opt-label"><span class="tag">N2 · LEADERBOARD</span><span class="desc">Mega Man skin — same ranking board.</span></div>
+<div class="stage"><section class="lbsec" id="lb-n2">
+  <div class="lb-hd"><div class="lb-title">⭐ <b>ELECTRONIC REVIEWS</b> LEADERBOARD</div><div class="lb-sub">Refreshes daily as 2027 conditions shift · Top 25 / Bottom 25 · 569 entries evaluated</div></div>
+  <div class="lb-cols">
+    <div class="lb-col up">
+      <div class="lb-col-title">🟢 TOP 25 — OPERATOR-ESSENTIAL</div>
+      <div class="lb-row"><div class="lb-rank">#1</div><div><div class="lb-name">Top 10 Cordless Drills</div><div class="lb-prov">High-utility daily-driver gear</div></div><div class="lb-score">99</div></div>
+      <div class="lb-row"><div class="lb-rank">#2</div><div><div class="lb-name">Top 10 Digital Multimeters</div><div class="lb-prov">Bench + field essential</div></div><div class="lb-score">97</div></div>
+      <div class="lb-row"><div class="lb-rank">#3</div><div><div class="lb-name">Top 10 Floor Jacks</div><div class="lb-prov">Garage must-have</div></div><div class="lb-score">95</div></div>
+      <div class="lb-row"><div class="lb-rank">#4</div><div><div class="lb-name">Top 10 Battery Testers</div><div class="lb-prov">Shop diagnostics staple</div></div><div class="lb-score">93</div></div>
+      <div class="lb-row"><div class="lb-rank">#5</div><div><div class="lb-name">Top 10 Spot Welders</div><div class="lb-prov">Battery + body builders</div></div><div class="lb-score">91</div></div>
+    </div>
+    <div class="lb-col down">
+      <div class="lb-col-title">🔴 BOTTOM 25 — LOW DAILY ROI</div>
+      <div class="lb-row"><div class="lb-rank">#1</div><div><div class="lb-name">Top 10 Reflow Ovens</div><div class="lb-prov">Niche · SMD hobbyists only</div></div><div class="lb-score">52</div></div>
+      <div class="lb-row"><div class="lb-rank">#2</div><div><div class="lb-name">Top 10 Dovetail Jigs</div><div class="lb-prov">Specialist woodworking</div></div><div class="lb-score">49</div></div>
+      <div class="lb-row"><div class="lb-rank">#3</div><div><div class="lb-name">Top 10 Edge Banders</div><div class="lb-prov">Cabinet shops only</div></div><div class="lb-score">46</div></div>
+      <div class="lb-row"><div class="lb-rank">#4</div><div><div class="lb-name">Top 10 Engine Hoists</div><div class="lb-prov">Occasional heavy jobs</div></div><div class="lb-score">43</div></div>
+      <div class="lb-row"><div class="lb-rank">#5</div><div><div class="lb-name">Top 10 Transmission Jacks</div><div class="lb-prov">Rare · pro-shop use</div></div><div class="lb-score">40</div></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="opt-label"><span class="tag">S1 · LEADERBOARD</span><span class="desc">Donkey Kong Country skin — same ranking board.</span></div>
+<div class="stage"><section class="lbsec" id="lb-s1">
+  <div class="lb-hd"><div class="lb-title">⭐ <b>ELECTRONIC REVIEWS</b> LEADERBOARD</div><div class="lb-sub">Refreshes daily as 2027 conditions shift · Top 25 / Bottom 25 · 569 entries evaluated</div></div>
+  <div class="lb-cols">
+    <div class="lb-col up">
+      <div class="lb-col-title">🟢 TOP 25 — OPERATOR-ESSENTIAL</div>
+      <div class="lb-row"><div class="lb-rank">#1</div><div><div class="lb-name">Top 10 Cordless Drills</div><div class="lb-prov">High-utility daily-driver gear</div></div><div class="lb-score">99</div></div>
+      <div class="lb-row"><div class="lb-rank">#2</div><div><div class="lb-name">Top 10 Digital Multimeters</div><div class="lb-prov">Bench + field essential</div></div><div class="lb-score">97</div></div>
+      <div class="lb-row"><div class="lb-rank">#3</div><div><div class="lb-name">Top 10 Floor Jacks</div><div class="lb-prov">Garage must-have</div></div><div class="lb-score">95</div></div>
+      <div class="lb-row"><div class="lb-rank">#4</div><div><div class="lb-name">Top 10 Battery Testers</div><div class="lb-prov">Shop diagnostics staple</div></div><div class="lb-score">93</div></div>
+      <div class="lb-row"><div class="lb-rank">#5</div><div><div class="lb-name">Top 10 Spot Welders</div><div class="lb-prov">Battery + body builders</div></div><div class="lb-score">91</div></div>
+    </div>
+    <div class="lb-col down">
+      <div class="lb-col-title">🔴 BOTTOM 25 — LOW DAILY ROI</div>
+      <div class="lb-row"><div class="lb-rank">#1</div><div><div class="lb-name">Top 10 Reflow Ovens</div><div class="lb-prov">Niche · SMD hobbyists only</div></div><div class="lb-score">52</div></div>
+      <div class="lb-row"><div class="lb-rank">#2</div><div><div class="lb-name">Top 10 Dovetail Jigs</div><div class="lb-prov">Specialist woodworking</div></div><div class="lb-score">49</div></div>
+      <div class="lb-row"><div class="lb-rank">#3</div><div><div class="lb-name">Top 10 Edge Banders</div><div class="lb-prov">Cabinet shops only</div></div><div class="lb-score">46</div></div>
+      <div class="lb-row"><div class="lb-rank">#4</div><div><div class="lb-name">Top 10 Engine Hoists</div><div class="lb-prov">Occasional heavy jobs</div></div><div class="lb-score">43</div></div>
+      <div class="lb-row"><div class="lb-rank">#5</div><div><div class="lb-name">Top 10 Transmission Jacks</div><div class="lb-prov">Rare · pro-shop use</div></div><div class="lb-score">40</div></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="foot">— end of gallery — tell me a code (e.g. N2, S3) or a mix and I'll build it for real <span class="blink">█</span></div>
+
+<script src="/js/pulse-lead-track.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+﻿vq_13onl61	What's the best GTM strategy for a startup food truck â first 90 days launch sequence?
+vq_16e1i2q	What's the right SDR to AE ratio for a Series C SaaS in 2027?
+vq_1uh7n7i	How does an outbound SDR team scale from 10 to 50 reps in 12 months?
+q9635	What AI tools should every Chief Revenue Officer actually deploy in their stack in 2027?
+q9633	What does the weekly operating cadence of a world-class CRO look like in 2027?
+q9558	What's the framework for a CRO to decide whether to build two separate sales motions (organic vs M&A/upmarket) with distinct qualification rules, or force-fit both into a single process?
+q9556	For a founder with sales experience vs a non-sales founder building a sales org for the first time, does the case for deal-closing-first still hold, or do they need different sequencing?
+q9552	What's the right architecture for discount governance when a company spans both sales-led enterprise and PLG SMB motion â should they operate entirely separate approval chains or integrate them?
+q9549	How should RevOps teams think about governance philosophy as a leading indicator of go-to-market maturity and expansion readiness, separate from operational compliance requirements?
+q9547	What are the leading indicators that a company has outgrown its current approval model â and what's the migration playbook to a neutral Deal Desk?
+q9545	How should a CRO think about the sequencing of RevOps hiring, CPQ governance, and sales process standardization when scaling a multi-regional or multi-segment sales team?
+q9537	How should a founder separate healthy price negotiation from margin-eroding discounting â and what's the framework for knowing which battle to fight?
+q9532	For a founder-led org running two motions, what's the right compensation and title structure for the first dedicated deal desk hire â should it report to VP Sales Ops or sit as a separate revenue operations function?
+q9529	How do you build discount governance that actually sticks â what combination of policy, tooling, and incentive alignment prevents reps from circumventing rules through bundling tricks?
+q9524	What's the right cadence for auditing whether your pricing model is still fit-for-purpose â annual, quarterly, or event-triggered â and how does that sync with comp planning cycles?
+q9514	What is the operator playbook for a CRO inheriting a Salesforce-based discount approval workflow that everyone bypasses via exception emails?
+q9513	What is the realistic 6-month operating cost of running both HubSpot and Salesforce in parallel during a CRM migration cutover?
+q9512	How do you migrate a Salesforce instance from Classic to Lightning when half the AE team has 5 years of muscle memory in Classic?
+q9511	What is the right Salesforce permission set architecture for a 30-rep team that does not break governance when an SDR gets promoted to AE?
+q9510	At what ARR threshold should a Salesforce admin be a full-time hire vs a contractor vs an AE-level RevOps generalist?
+q2137	How do you start a septic tank pumping business in 2027?
+q1927	What replaces Salesforce sequencing if AI agents handle outbound?
+q1925	Should HubSpot acquire Drift in 2027?
+q1924	How does Outreach make money in 2027?
+q1922	Should Apollo acquire Lavender in 2027?
+q1921	What is HubSpot's AI strategy in 2027?
+q1916	What replaces ZoomInfo sequencing if AI agents handle outbound in 2027?
+q1915	Is a HubSpot AE role still good for my career in 2027?
+q1910	Should Gong acquire Avoma in 2027?
+q1908	What replaces Apollo sequencing if AI agents handle outbound in 2027?
+q1906	Outreach vs Salesloft â which should you buy in 2027?
+q1905	How does HubSpot defend against Salesforce in 2027?
+q1904	How does Salesforce make money in 2027?
+q1903	What replaces Airtable's sequencing if AI agents handle outbound?
+q1901	Should Outreach acquire Regie.ai in 2027?
+q1900	How should ServiceNow price pipeline analytics against HubSpot equivalent?
+q1899	What replaces SDR teams if AI agents replace SDRs natively?
+q1898	What replaces RevOps stack if AI agents auto-coach reps?
+q1897	Is a Outreach Solutions Engineer role still good for my career in 2027?
+q1896	Is a Apollo AE role still good for my career in 2027?
+q1894	Is a Salesforce AE role still good for my career in 2027?
+q1892	Should Outreach acquire Apollo in 2027?
+q1891	Outreach vs MongoDB â which should you buy?
+q1890	How does Salesforce defend against Stripe in 2027?
+q1886	HubSpot vs Snowflake â which should you buy?
+q1885	How does Apollo defend against Zendesk in 2027?
+q1884	Should Gong acquire Outreach to bundle conversation+sequencing?
+q1883	What replaces cold outbound if AI agents handle pipeline forecasting?
+q1880	What replaces manual forecasting if AI agents replace SDRs natively?
+q1879	Outreach vs HubSpot â which should you buy?
+q1877	Should Snowflake acquire Apollo in 2027?
+q1876	ZoomInfo vs Datadog â which should you buy?
+q1875	Is a HubSpot AE role still good for my career in 2027?
+q1874	Snowflake vs Clari â which should you buy?
+q1873	What replaces cold outbound if AI agents handle outbound?
+q1872	Workato vs 11x â which should you buy?
+q1871	Should ZoomInfo acquire Apollo in 2027?
+q1870	What replaces RevOps stack if AI agents replace SDRs natively?
+q1866	Should Gong acquire Chorus to consolidate conversation intelligence?
+q1865	Should Salesloft acquire a video tool in 2027?
+q1864	What is Salesloft gross margin trajectory through 2028?
+q1861	How does Salesloft grow internationally without Vista cost-cutting?
+q1860	Is Salesloft Pipeline AI worth buying vs Clari?
+q1859	Will Salesloft conversation marketing beat Drift standalone competitors?
+q1858	What should Salesloft do about the Drift acquisition value?
+q1857	How does Salesloft win the HubSpot CRM customer base?
+q1856	What is Salesloft net revenue retention in 2026?
+q1855	How does Salesloft defend against HubSpot Sales Hub bundling?
+q1854	Salesloft vs Outreach - which should you buy?
+q1853	Who is the post-Vista Salesloft CEO and what is their mandate?
+q1852	How does Salesloft make money in 2027?
+q1851	Is Salesloft Cadence still relevant in 2027?
+q1850	How does Salesloft compete against AI-native sequencing tools?
+q1849	What is Salesloft AI strategy in 2027?
+q1848	Can Salesloft keep growing 15%+ post-Vista acquisition?
+q1847	How is Vista's playbook reshaping Salesloft through 2027?
+q1846	Is Salesloft worth buying in 2027?
+q1845	Will Salesloft beat Outreach in mid-market sales engagement by 2027?
+q1844	How does Salesloft hit its 2027 revenue target post-Vista?
+q1843	What does Salesloft churn math look like under Vista pressure?
+q1842	How does Salesloft onboarding compare to Outreach?
+q1841	Is Salesloft mobile app good enough in 2027?
+q1840	How does Salesloft API strategy compare to Outreach?
+q1839	What is the bull case for Salesloft 2027?
+q1838	What is the bear case for Salesloft 2027?
+q1837	Should Salesloft acquire Apollo to compete in lead-gen?
+q1836	Should Salesloft acquire Lavender to win AI email?
+q1835	What is Salesloft M&A strategy under Vista through 2028?
+q1834	Is Salesloft Cadence still strategic in 2027?
+q1833	How does Vista exit Salesloft â IPO or strategic acquisition?
+q1832	What is Salesloft right org structure post-Vista in 2027?
+q1831	How does Salesloft protect ARPU from churn under Vista discipline?
+q1830	Should Salesloft pivot from sequencing to AI orchestration?
+q1829	What replaces Salesloft Cadence if AI agents handle outbound?
+q1828	How should Salesloft rethink its sequencing thesis for AI buyers?
+q1827	What is Salesloft enterprise win-rate vs Outreach in 2026?
+q1826	Is Salesloft pricing model broken at the bottom?
+q1825	How does Salesloft pay its sales team post-Vista?
+q1824	Will Salesloft AEs hit quota in 2027?
+q1823	What is Salesloft RevOps career path?
+q1822	Is Salesloft certification worth it in 2027?
+q1821	Should I learn Salesloft or Outreach in 2027?
+q1820	Is a Salesloft AE role still good for my career in 2027?
+q1819	Should I work for Salesloft post-Vista in 2027?
+q1818	What does Salesloft 2024 Vista RIF tell us about 2027?
+q1817	Why is Salesloft losing AE talent to AI-native competitors?
+q1816	How does Salesloft defend its integration ecosystem?
+q1815	What is Salesloft data-center strategy through 2027?
+q1814	Should Salesloft kill its mobile app?
+q1813	How does Salesloft ARPU change post-Vista discount strategy?
+q1812	Should Salesloft launch a vertical-revenue sub-brand?
+q1811	How does Salesloft price Cadence + Drift bundle in 2026?
+q1810	Why did Vista acquire Salesloft for $2.3B?
+q1809	What is Salesloft competitive moat against Outreach + Apollo?
+q1808	Should Salesloft acquire a video tool in 2027?
+q1807	What is Salesloft gross margin trajectory through 2028?
+q1806	How does Salesloft grow internationally without Vista cost-cutting?
+q1805	Is Salesloft Pipeline AI worth buying vs Clari?
+q1804	Will Salesloft conversation marketing beat Drift standalone competitors?
+q1803	What should Salesloft do about the Drift acquisition value?
+q1802	How does Salesloft win the HubSpot CRM customer base?
+q1801	What is Salesloft net revenue retention in 2026?
+q1800	How does Salesloft defend against HubSpot Sales Hub bundling?
+q1799	Salesloft vs Outreach â which should you buy?
+q1798	Who is the post-Vista Salesloft CEO and what is their mandate?
+q1797	How does Salesloft make money in 2027?
+q1796	Is Salesloft Cadence still relevant in 2027?
+q1795	How does Salesloft compete against AI-native sequencing tools?
+q1794	What is Salesloft AI strategy in 2027?
+q1793	Can Salesloft keep growing 15%+ post-Vista acquisition?
+q1792	How is Vista's playbook reshaping Salesloft through 2027?
+q1791	Is Salesloft worth buying in 2027?
+q1790	Will Salesloft beat Outreach in mid-market sales engagement by 2027?
+q1789	How does Salesloft hit its 2027 revenue target post-Vista?
+q1788	What is Outreach playbook for the next $500M in revenue?
+q1787	How does Outreach retain CRO talent in 2027?
+q1786	What is Outreach developer-platform strategy through 2027?
+q1785	Should Outreach launch its own AI agent marketplace?
+q1784	How should Outreach price Smart Email Assist against HubSpot Breeze?
+q1783	What does Outreach churn math look like under AI pressure?
+q1782	How does Outreach onboarding compare to Salesloft?
+q1781	Is Outreach mobile app good enough in 2027?
+q1780	How does Outreach API strategy compare to Salesloft?
+q1779	What is the bull case for Outreach 2027?
+q1778	What is the bear case for Outreach 2027?
+q1777	Should Outreach acquire Apollo to compete in lead-gen?
+q1776	Should Outreach acquire Lavender to win AI email?
+q1775	What is Outreach M&A strategy through 2028?
+q1774	Should Outreach sell to private equity?
+q1773	What is Outreach right org structure in 2027?
+q1772	How does Outreach protect ARPU from churn in a recession?
+q1771	Should Outreach pivot from sequencing to agent-orchestration?
+q1770	What replaces sales sequences if AI agents handle outbound?
+q1769	How should Outreach rethink its sequencing thesis for AI buyers?
+q1768	What is Outreach enterprise win-rate vs Salesloft in 2026?
+q1767	Is Outreach pricing model broken at the bottom?
+q1766	How does Outreach pay its sales team?
+q1765	Will Outreach AEs hit quota in 2027?
+q1764	What is Outreach RevOps career path?
+q1763	Is Outreach certification worth it in 2027?
+q1762	Should I learn Outreach or Salesloft in 2027?
+q1761	Is an Outreach AE role still good for my career in 2027?
+q1760	Should I work for Outreach in 2027?
+q1759	What does Outreach 2024 RIF tell us about 2027?
+q1758	Why is Outreach losing AE talent to AI-native competitors?
+q1757	How does Outreach defend its integration ecosystem?
+q1756	What is Outreach data-center strategy through 2027?
+q1755	Should Outreach kill its mobile app?
+q1754	Is Outreach Sequences still strategic in 2027?
+q1753	How does Outreach ARPU change post-AI rollout?
+q1752	Should Outreach launch a vertical-revenue sub-brand?
+q1751	How does Outreach price Smart Email Assist without cannibalizing core?
+q1750	Why did Outreach's valuation drop from $4.4B to $2-3B?
+q1749	What is Outreach competitive moat against Salesloft + Apollo?
+q1748	Should Outreach acquire a Loom-equivalent in 2027?
+q1747	What is Outreach gross margin trajectory through 2028?
+q1746	How does Outreach grow internationally without burning margin?
+q1745	Is Outreach Commit forecasting worth buying?
+q1744	Will Outreach Kaia win conversation intelligence vs Gong?
+q1743	What should Outreach do about sequence-fatigue stagnation?
+q1742	How does Outreach upmarket without losing mid-market?
+q1741	What is Outreach net revenue retention in 2026?
+q1740	How does Outreach defend against HubSpot Sales Hub bundling?
+q1739	Outreach vs Salesloft â which should you buy?
+q1737	How does Outreach make money in 2027?
+q1736	Is Outreach Smart Email Assist working?
+q1735	How does Outreach compete against AI-native sequencing tools?
+q1734	What is Outreach AI strategy in 2027?
+q1733	Can Outreach keep growing 20%+ into 2027?
+q1732	Why did Outreach growth slow in 2024-25?
+q1731	Is Outreach worth buying in 2027?
+q1730	Will Outreach beat Salesloft in sales engagement by 2027?
+q1729	How does Outreach hit its 2027 revenue target?
+q1709	How should Datadog rethink its observability thesis for AI buyers?
+q1685	Is Datadog Cloud Cost Management worth buying?
+q1679	Datadog vs Splunk â which should you buy?
+q1675	How does Datadog compete against AI-native observability tools?
+q1671	Is Datadog stock still a buy in 2027?
+q1662	How does ServiceNow's onboarding compare to Salesforce?
+q1660	How does ServiceNow's API strategy compare to Salesforce's?
+q1649	How should ServiceNow rethink its workflow thesis for AI buyers?
+q1648	What is ServiceNow's enterprise win-rate vs Salesforce in 2026?
+q1642	Should I learn ServiceNow or Salesforce in 2027?
+q1625	Is ServiceNow CRM good enough to replace Salesforce Service Cloud?
+q1619	ServiceNow vs Salesforce â which should you buy?
+q1614	How does ServiceNow compete against AI-native workflow tools?
+q1610	Is ServiceNow stock still a buy in 2027?
+q1609	Will ServiceNow beat Salesforce in enterprise workflow by 2027?
+q1580	How should Snowflake think about Salesforce Data Cloud partnership in 2027?
+q1570	Snowflake vs Databricks â which should you buy?
+q1561	Is Snowflake stock still a buy in 2027?
+q1558	Should Salesforce acquire Sierra to win agentic customer support?
+q1557	How does Salesforce handle the cost of OpenAI plus Anthropic API spend at scale?
+q1556	What is Salesforce playbook for the next $10B in revenue?
+q1555	Should Salesforce launch its own AI agent marketplace?
+q1554	How should Salesforce price Tableau against Looker plus Power BI in 2027?
+q1552	How does Salesforce onboarding compare to AI-native CRMs?
+q1551	Should Salesforce launch its own foundation model?
+q1550	What is Salesforce data-center strategy through 2027?
+q1549	How does Salesforce API strategy compare to AWS Bedrock?
+q1548	What does Salesforce churn math look like under AI pressure?
+q1547	Should Salesforce launch a vertical-SaaS sub-brand in 2027?
+q1546	How does Salesforce defend its 7,000+ AppExchange partners?
+q1545	What is Salesforce gross margin trajectory through 2028?
+q1544	Is Salesforce certification worth it in 2027?
+q1543	Should I learn Salesforce or HubSpot in 2027?
+q1542	What is Salesforce RevOps career path in 2027?
+q1541	Is a Salesforce AE role still good for my career in 2027?
+q1540	Should I work for Salesforce in 2027?
+q1539	How does Salesforce retain top sales talent in 2027?
+q1538	What is the bull case for Salesforce 2027?
+q1537	What is the bear case for Salesforce 2027?
+q1536	Should Salesforce acquire HubSpot?
+q1535	What is Salesforce M&A strategy through 2028?
+q1534	Should Salesforce sell off Slack?
+q1533	What is the right Salesforce org structure for AI agents?
+q1532	Is Salesforce mid-market push actually working in 2026?
+q1531	Why did Salesforce activist investors push for changes in 2024?
+q1530	How should Salesforce think about Snowflake partnership in 2027?
+q1529	What is Salesforce developer-platform strategy through 2027?
+q1528	How should Salesforce price Agentforce â per agent or per seat?
+q1527	Should Salesforce kill the per-seat pricing model?
+q1526	Is MuleSoft still growing or melting at Salesforce?
+q1524	What should Salesforce do about Slack stagnation?
+q1523	How does Salesforce upmarket vs ServiceNow in 2027?
+q1522	What is Salesforce net revenue retention in 2026?
+q1521	How does Salesforce defend Sales Cloud market share through 2027?
+q1520	Salesforce vs HubSpot â which should you buy?
+q1518	How does Salesforce make money in 2027?
+q1517	Should Salesforce kill Marketing Cloud Account Engagement (Pardot)?
+q1516	Is Agentforce actually working for Salesforce?
+q1515	How does Salesforce compete against AI-native CRMs?
+q1514	What is Salesforce AI strategy in 2027?
+q1513	Can Salesforce keep margins above 30% post-Agentforce?
+q1512	Why did Salesforce growth slow in 2025?
+q1511	Is Salesforce stock still a buy in 2027?
+q1510	Will Salesforce maintain 9% growth into 2027?
+q1509	How does Salesforce hit its 2027 revenue target?
+q1508	HubSpot vs Salesforce â which should you buy?
+q1506	How does HubSpot make money in 2027?
+q1505	Should HubSpot kill its Free CRM tier?
+q1504	Is Breeze AI working for HubSpot?
+q1503	How does HubSpot compete against AI-native CRMs?
+q1502	What's HubSpot's AI strategy in 2027?
+q1501	Can HubSpot keep growing 20% YoY into 2027?
+q1500	Why did HubSpot's customer growth slow in 2025?
+q1499	Is HubSpot still a buy in 2027?
+q1498	Will HubSpot beat Salesforce in mid-market by 2027?
+q1497	How does HubSpot hit its 2027 revenue target?
+q1490	My company replaced Salesforce with an AI platform â should I learn it or leave?
+q1472	My SDR team became Pipeline Architects â what does that mean?
+q1466	Why did my SDR team get eliminated?
+q1409	How'd you fix Pipedrive's revenue issues in 2026?
+q1357	How'd you fix Gong's revenue issues in 2026?
+q1356	How'd you fix Outreach's revenue issues in 2026?
+q1196	How'd you fix Salesforce's revenue issues in 2026?
+q1158	What's the right SDR daily activity volume in 2026 â calls, emails, LinkedIn touches?
+q1152	What's the right way to recover a deal where your champion got promoted out of the buying role mid-cycle?
+q1148	What's the right way to run a sales-tech RFP when 4 vendors all claim the same feature parity?
+q1146	How do you read CAC payback when half your sales motion is PLG and half is enterprise outbound?
+q1140	What's the right way to handle "we need to think about it" when the buyer ghosts you for 2 weeks after?
+q1138	What's the right way to do a follow-up after a demo when the buyer says "we'll get back to you"?
+q1136	How do you handle a discovery call where the buyer brings 6 stakeholders and you only planned for 1?
+q1118	What's the right way to extract honest feedback from a buyer who chose a competitor â without sounding salty?
+q1114	What's the right way to personalize a cold email at scale when you have 200 prospects per SDR per week?
+q1111	How do you handle a deal where the buyer's procurement adds 12 redlines you've never seen before in week 11 of the cycle?
+q1109	What's the right way to evaluate Apollo vs ZoomInfo for a 20-rep outbound team in 2026?
+q1108	What's the right way to read magic number when your sales motion is shifting from inbound-heavy to outbound-heavy?
+q1104	How do you structure a 30-minute demo when the buyer wants to see "everything" but the product has 40+ features?
+q1103	What's the best discovery question to ask when a buyer says they're "just exploring" with no clear timeline?
+q700	What's the math for source-of-pipeline in a land-expand-renew motion? How do we separate sourced ARR from internal growth?
+q670	What PQL scoring rules convert freemium users to MQL status for sales outreach?
+q658	EdTech vertical: How should you pitch differently to K-12 vs. higher-ed institutions, given admin buy-in vs. faculty gatekeeping?
+q657	DevTools sales to engineering orgs: Why do technical evaluations take 4x longer than expected, and how should you compress the proof cycle?
+q656	Security/infosec software has procurement via procurement officers, not buyersâhow do you restructure discovery to account for this gating?
+q644	What sales team specialization model works best for federal-focused SaaS vendors?
+q629	How do you get executive sponsors and C-suite buyers aligned on a multi-year contract when each renewal is uncertain?
+q628	How do you build a multi-year account expansion plan when buyers want to see 18-month value but you have 3-year thinking?
+q556	How do you write sales messaging that works in a crowded buyer journey where prospects see 50+ vendor claims daily?
+q555	How do you stress-test messaging against your actual buyer personas?
+q549	What makes a value-prop framework work when 80% of vendors claim the same benefit?
+q524	What outreach sequence and messaging works best for win-back campaigns?
+q504	What renewal cadence should a SaaS company operate on to maximize land-expand-renew velocity?
+q491	What reference cadence prevents burnout while maximizing call volume?
+q486	How do we build a competitive taxonomy that scales across multiple deal types and buyer personas?
+q475	What criteria should we use to select a third-party win-loss vendor vs. running the program in-house?
+q464	How do you design kickoff content for AEs vs. SDRs vs. managers?
+q449	What are the deal-stage dynamics and negotiation patterns specific to APAC/EMEA buyer psychology?
+q416	How do you separate NRR, GRR, and logo retention when board auditors ask which is 'real'?
+q407	How do we measure whether our Salesforce config is over-engineered or leaving money on table?
+q406	What's the minimal tech stack that actually moves the needle, versus nice-to-have bloat?
+q405	Build a custom CRM vs. buy Salesforce Enterpriseâwhat's the real long-term cost delta?
+q404	Are AI sales tools (predictive lead scoring, auto-email) net positive or net distraction for mid-market ops?
+q403	Tech consolidation: when does cutting tools actually save money, versus creating blind spots?
+q401	Does Gong ROI really justify $200k+ annual spend, or is it a confidence placebo?
+q400	Outreach vs. Salesloft vs. Apolloâwhich one actually pays for itself in our stack?
+q399	How do we evaluate Salesforce admin overhead versus revenue impactâwhat metrics matter?
+q394	What should a sales ops data governance framework include to prevent CRM from becoming a junk drawer?
+q389	Build vs buy: when should we custom-build vs adopt vendor platforms for sales ops infrastructure?
+q384	What's the ROI framework for building CRM hygiene programs, and when should we stop investing?
+q372	What core manager skills separate competent sales leaders from top performers?
+q369	How should managers structure 1:1 cadence for maximum coaching impact without overwhelming reps?
+q360	How do you calibrate interview expectations for different sales stages (SDR vs AE vs Sales Engineer)?
+q357	What role-play scenarios most accurately predict ramp success for AEs and SDRs?
+q356	How do working interviews (sales simulations) separate role-players from closers?
+q333	Procurement pivots from our champion to a competing vendor at the final hour. How do we win back momentum?
+q332	The CRO says they'll adopt our tool, but their team will use a competitor internally anyway. How do we prevent a multi-vendor install that ruins our ROI?
+q326	How do we counter the build-vs-buy objection when their engineering team insists they can build this internally in 6 months?
+q325	What's the playbook when a buyer says they have no budget but still wants a demo and proof of concept?
+q317	What questions reveal a prospect's buying committee that they haven't told you about?
+q315	What's the difference between a pain-stacking discovery and a compliance-box discovery?
+q303	How should forecast precision account for seasonal buying patterns and macro headwinds?
+q302	What CRM hygiene rules prevent forecast garbage-in-garbage-out failures?
+q297	How do AI forecasting tools improve on manual rep estimates and reduce board variance?
+q287	How do you negotiate MSA indemnification and insurance minimums without handing the economic loss to the vendor?
+q284	What's the sequence for getting executive sponsorship aligned before deal stall explodes into budget carry-forward?
+q261	How do you structure win-back outreach for prospects who went silent after demo (60-90 days dark)?
+q260	What's the right way to handle a deal where the buyer's lawyer is hostile and adversarial from the first redline?
+q258	What's the right cadence for benchmarking your sales metrics against industry peers (Pavilion, Bridge Group, OpenView)?
+q252	When should sales operations own the CRM versus IT â and what's the handoff model?
+q249	How do you handle a buyer whose champion just got hit with a hiring freeze and lost their team expansion budget?
+q245	How do you tell if your sales process actually matches how customers buy versus how you think they buy?
+q244	What's the right cadence for sales-leadership team meetings â weekly, bi-weekly, or monthly?
+q241	How do you handle a buyer who insists on monthly contracts when your standard is annual?
+q237	What's the right way to handle a deal where the buyer wants a 6-month free pilot?
+q235	What's the right way to sunset a sales-tech tool the team has gotten comfortable with but isn't producing ROI?
+q234	How do you structure SDR-to-AE handoff to prevent dropped leads?
+q229	What's the best way to run a competitive take-out campaign against an entrenched vendor with 3+ years of customer history?
+q228	How do you tell if your sales tech stack is actually being adopted or just being paid for every month?
+q227	What's the right cadence for revisiting territory carve-outs as the company grows â annually, after every quota change, or only when reps complain?
+q223	How do you compensate for product-led trials that an SDR sourced but an AE closed â full credit to whom?
+q220	What's the right approach to running deal-room collaboration with buyers â Slack Connect, shared Notion, or stay on email?
+q219	How do you tell if your reported win rate is a real number or a CRM-hygiene illusion (reps closing-lost stale deals)?
+q217	What's the right way to handle a deal where the buyer wants to talk to your CEO every week?
+q214	What signals from a CRM tell you a deal is about to slip 30+ days before it actually does?
+q210	How do you handle a buyer who keeps requesting custom legal terms that slow every deal in their pipeline?
+q204	What's the right way to comp a new product launch â separate quota carve-out or rolled into existing AE quota?
+q200	What's the right ratio of email to LinkedIn to phone in a cadence?
+q198	What's the right outbound cadence in 2026 â touches, channels, days?
+q191	What's the right cadence for renewal conversations â 90, 120, 180 days out?
+q186	How do I handle a buying committee where two stakeholders disagree?
+q182	How do I identify the real economic buyer in a complex deal?
+q171	When should I introduce specialized roles (SDR / AE / CSM / SE)?
+q165	What's the right way to transition from inbound-only to outbound?
+q154	Which AI sales tools are actually moving the needle this quarter?
+q152	Which sales-tech vendors are getting acquired most often in 2026?
+q149	What's the right way to sell to a government/federal buyer?
+q144	How do you sell developer tools to a developer audience?
+q139	What's the right way to run a multi-vendor RFP I'm responding to?
+q136	What's the right way to engage Procurement vs the buyer?
+q131	What's the right way to map an enterprise org chart in CRM?
+q127	What's the right cadence for sales training in a 30-rep org?
+q117	How do I evaluate buying vs building sales-data infrastructure?
+q113	How do I clean a CRM that has 5 years of bad data?
+q111	When does Gong pay for itself in coaching ROI?
+q110	How do I evaluate Outreach vs Salesloft vs Apollo for outbound cadences?
+q109	What's the right CRM hygiene policy that reps actually follow?
+q108	When should I add a forecasting tool like Clari vs use Salesforce reports?
+q107	What's a realistic sales tech stack for a $20M ARR SaaS in 2026?
+q94	What's the right ratio of inbound to outbound pipeline at $20M ARR?
+q89	What's the trigger to launch an enterprise motion separate from mid-market?
+q68	What's the best move when the buyer says 'circle back next quarter'?
+q63	How do you handle 'we already have a tool for that'?
+q59	How do I get a prospect to introduce me to the economic buyer?
+q50	What discovery questions separate top-quartile reps from the rest?
+q42	How do I get reps to log accurate next steps in CRM?
+q41	What's the right cadence for one-on-one deal reviews with AEs?
+q18	What's the right SDR-to-AE ratio at a $5M ARR seed-stage company?
+q10	What's the right SPIFF cadence to drive end-of-quarter pipeline pull-in?
+q08	Should I pay SDRs on demos booked or only on demos held + qualified?
+q02	How should I structure SDR commission to discourage gaming MQL counts?
+st0004	Cold Call Openers That Don't Get Hung Up On: The First 13 Seconds That Decide Every Outbound Call â a 60-Minute Sales Training
+st0002	Multi-Threading Enterprise Deals: How to Earn the Right to the Economic Buyer Without Going Around Your Champion -- a 60-Minute Sales Training

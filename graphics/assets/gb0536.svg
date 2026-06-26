@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--bg1, #0b0f17)"/>
+      <stop offset="1" stop-color="var(--bg2, #0f172a)"/>
+    </linearGradient>
+    <linearGradient id="barSmb" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="var(--c4)"/>
+      <stop offset="1" stop-color="var(--c4b)"/>
+    </linearGradient>
+    <linearGradient id="barMm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="var(--c1)"/>
+      <stop offset="1" stop-color="var(--c3)"/>
+    </linearGradient>
+    <linearGradient id="barEnt" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="var(--c2)"/>
+      <stop offset="1" stop-color="var(--c1)"/>
+    </linearGradient>
+    <linearGradient id="barStrat" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="var(--c2)"/>
+      <stop offset="1" stop-color="var(--c3)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1584" height="396" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="60" y="50" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="700" fill="var(--c3)">Monthly Logo Churn by Segment</text>
+  <text x="60" y="78" font-family="Inter, system-ui, sans-serif" font-size="18" fill="var(--c3)" opacity="0.7">Lower is better — % of customers lost per month</text>
+
+  <!-- Chart area frame -->
+  <rect x="220" y="110" width="1240" height="240" fill="none" stroke="var(--c3)" stroke-opacity="0.15" stroke-width="1"/>
+
+  <!-- Vertical gridlines + x-axis labels (0% to 6%) -->
+  <g font-family="Inter, system-ui, sans-serif" font-size="18" fill="var(--c3)" opacity="0.7">
+    <line x1="220" y1="110" x2="220" y2="350" stroke="var(--c3)" stroke-opacity="0.25"/>
+    <line x1="427" y1="110" x2="427" y2="350" stroke="var(--c3)" stroke-opacity="0.12" stroke-dasharray="3,4"/>
+    <line x1="633" y1="110" x2="633" y2="350" stroke="var(--c3)" stroke-opacity="0.12" stroke-dasharray="3,4"/>
+    <line x1="840" y1="110" x2="840" y2="350" stroke="var(--c3)" stroke-opacity="0.12" stroke-dasharray="3,4"/>
+    <line x1="1047" y1="110" x2="1047" y2="350" stroke="var(--c3)" stroke-opacity="0.12" stroke-dasharray="3,4"/>
+    <line x1="1253" y1="110" x2="1253" y2="350" stroke="var(--c3)" stroke-opacity="0.12" stroke-dasharray="3,4"/>
+    <line x1="1460" y1="110" x2="1460" y2="350" stroke="var(--c3)" stroke-opacity="0.12" stroke-dasharray="3,4"/>
+    <text x="220" y="372" text-anchor="middle">0%</text>
+    <text x="427" y="372" text-anchor="middle">1%</text>
+    <text x="633" y="372" text-anchor="middle">2%</text>
+    <text x="840" y="372" text-anchor="middle">3%</text>
+    <text x="1047" y="372" text-anchor="middle">4%</text>
+    <text x="1253" y="372" text-anchor="middle">5%</text>
+    <text x="1460" y="372" text-anchor="middle">6%</text>
+  </g>
+
+  <!-- SMB bar — 5.2% -->
+  <g>
+    <text x="205" y="158" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="var(--c3)">SMB</text>
+    <rect x="220" y="132" width="1075" height="44" rx="6" fill="url(#barSmb)"/>
+    <text x="1310" y="160" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="var(--c4b)">5.2%</text>
+  </g>
+
+  <!-- Mid-Market bar — 2.8% -->
+  <g>
+    <text x="205" y="208" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="var(--c3)">Mid-Market</text>
+    <rect x="220" y="182" width="579" height="44" rx="6" fill="url(#barMm)"/>
+    <text x="814" y="210" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="var(--c1)">2.8%</text>
+  </g>
+
+  <!-- Enterprise bar — 1.1% -->
+  <g>
+    <text x="205" y="258" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="var(--c3)">Enterprise</text>
+    <rect x="220" y="232" width="227" height="44" rx="6" fill="url(#barEnt)"/>
+    <text x="462" y="260" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="var(--c1)">1.1%</text>
+  </g>
+
+  <!-- Strategic bar — 0.4% -->
+  <g>
+    <text x="205" y="308" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="var(--c3)">Strategic</text>
+    <rect x="220" y="282" width="83" height="44" rx="6" fill="url(#barStrat)"/>
+    <text x="318" y="310" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="var(--c3)">0.4%</text>
+  </g>
+
+  <!-- Benchmark callout -->
+  <g>
+    <line x1="427" y1="110" x2="427" y2="350" stroke="var(--c4)" stroke-width="2" stroke-dasharray="5,5"/>
+    <rect x="437" y="115" width="172" height="26" rx="4" fill="var(--ink)" fill-opacity="0.55" stroke="var(--c4)" stroke-width="1"/>
+    <text x="445" y="133" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="600" fill="var(--c4)">SaaS median: 1.0%</text>
+  </g>
+</svg>

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.bg1{fill:var(--bg1,#0b0f17);} .bg2{fill:var(--bg2,#0f172a);}
+.title{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:26px;fill:var(--c3);letter-spacing:1px;}
+.stage{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:30px;fill:var(--ink);}
+.stagesub{font-family:'Inter',system-ui,sans-serif;font-weight:500;font-size:18px;fill:var(--ink);opacity:.85;}
+.lbl{font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:19px;fill:var(--c3);}
+.lblh{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:20px;fill:var(--c4);letter-spacing:.5px;}
+.tag{font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:18px;fill:var(--ink);}
+.pct{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:22px;fill:var(--c4);}
+</style>
+<defs>
+<linearGradient id="tofu" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0" stop-color="var(--c3)"/><stop offset="1" stop-color="var(--c1)"/>
+</linearGradient>
+<linearGradient id="mofu" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0" stop-color="var(--c1)"/><stop offset="1" stop-color="var(--c2)"/>
+</linearGradient>
+<linearGradient id="bofu" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0" stop-color="var(--c2)"/><stop offset="1" stop-color="var(--c4)"/>
+</linearGradient>
+</defs>
+<rect class="bg1" width="1584" height="396"/>
+<rect class="bg2" x="0" y="0" width="1584" height="64"/>
+<text class="title" x="48" y="42">MARKETING FUNNEL — TOFU / MOFU / BOFU</text>
+<text class="lbl" x="1320" y="42" text-anchor="start" opacity=".7">3 STAGES · CONTENT TYPES</text>
+
+<!-- Funnel sits roughly centered. Trapezoid stack: top wide, narrows down. -->
+<!-- TOFU trapezoid -->
+<polygon points="500,96 880,96 830,196 550,196" fill="url(#tofu)" stroke="var(--ink)" stroke-width="2"/>
+<!-- MOFU trapezoid -->
+<polygon points="550,200 830,200 790,290 590,290" fill="url(#mofu)" stroke="var(--ink)" stroke-width="2"/>
+<!-- BOFU trapezoid -->
+<polygon points="590,294 790,294 740,372 640,372" fill="url(#bofu)" stroke="var(--ink)" stroke-width="2"/>
+
+<!-- Stage labels inside funnel -->
+<text class="stage" x="690" y="146" text-anchor="middle">TOFU</text>
+<text class="stagesub" x="690" y="172" text-anchor="middle">Top of Funnel · Awareness</text>
+
+<text class="stage" x="690" y="240" text-anchor="middle">MOFU</text>
+<text class="stagesub" x="690" y="266" text-anchor="middle">Middle of Funnel · Consideration</text>
+
+<text class="stage" x="690" y="330" text-anchor="middle">BOFU</text>
+<text class="stagesub" x="690" y="354" text-anchor="middle">Bottom · Decision</text>
+
+<!-- Stage % conversion guide rail on right of funnel -->
+<text class="pct" x="900" y="150">100%</text>
+<text class="pct" x="900" y="246">~20%</text>
+<text class="pct" x="900" y="338">~3%</text>
+
+<!-- LEFT SIDE: TOFU content types -->
+<text class="lblh" x="48" y="104">TOFU · ATTRACT</text>
+<line x1="48" y1="116" x2="440" y2="116" stroke="var(--c4)" stroke-width="2" opacity=".6"/>
+<g transform="translate(48,140)">
+  <rect x="0" y="-18" width="180" height="30" rx="6" fill="var(--c1)" opacity=".85"/>
+  <text class="tag" x="14" y="3">Blog posts &amp; SEO</text>
+  <rect x="190" y="-18" width="180" height="30" rx="6" fill="var(--c1)" opacity=".85"/>
+  <text class="tag" x="204" y="3">Social media</text>
+</g>
+<g transform="translate(48,180)">
+  <rect x="0" y="-18" width="180" height="30" rx="6" fill="var(--c1)" opacity=".85"/>
+  <text class="tag" x="14" y="3">Short-form video</text>
+  <rect x="190" y="-18" width="180" height="30" rx="6" fill="var(--c1)" opacity=".85"/>
+  <text class="tag" x="204" y="3">Infographics</text>
+</g>
+<g transform="translate(48,220)">
+  <rect x="0" y="-18" width="180" height="30" rx="6" fill="var(--c1)" opacity=".85"/>
+  <text class="tag" x="14" y="3">Podcasts</text>
+  <rect x="190" y="-18" width="180" height="30" rx="6" fill="var(--c1)" opacity=".85"/>
+  <text class="tag" x="204" y="3">Paid display ads</text>
+</g>
+
+<!-- LEFT SIDE: MOFU label header (lower) -->
+<text class="lblh" x="48" y="282">MOFU · ENGAGE</text>
+<line x1="48" y1="294" x2="440" y2="294" stroke="var(--c4)" stroke-width="2" opacity=".6"/>
+<g transform="translate(48,318)">
+  <rect x="0" y="-18" width="180" height="30" rx="6" fill="var(--c2)" opacity=".9"/>
+  <text class="tag" x="14" y="3" fill="var(--c3)">Ebooks &amp; guides</text>
+  <rect x="190" y="-18" width="180" height="30" rx="6" fill="var(--c2)" opacity=".9"/>
+  <text class="tag" x="204" y="3" fill="var(--c3)">Webinars</text>
+</g>
+<g transform="translate(48,358)">
+  <rect x="0" y="-18" width="180" height="30" rx="6" fill="var(--c2)" opacity=".9"/>
+  <text class="tag" x="14" y="3" fill="var(--c3)">Email nurture</text>
+  <rect x="190" y="-18" width="180" height="30" rx="6" fill="var(--c2)" opacity=".9"/>
+  <text class="tag" x="204" y="3" fill="var(--c3)">Case-study teasers</text>
+</g>
+
+<!-- RIGHT SIDE: MOFU continued -->
+<text class="lblh" x="1010" y="104">MOFU · ENGAGE (cont.)</text>
+<line x1="1010" y1="116" x2="1540" y2="116" stroke="var(--c4)" stroke-width="2" opacity=".6"/>
+<g transform="translate(1010,140)">
+  <rect x="0" y="-18" width="200" height="30" rx="6" fill="var(--c2)" opacity=".9"/>
+  <text class="tag" x="14" y="3" fill="var(--c3)">Comparison guides</text>
+  <rect x="220" y="-18" width="200" height="30" rx="6" fill="var(--c2)" opacity=".9"/>
+  <text class="tag" x="234" y="3" fill="var(--c3)">Calculators / quizzes</text>
+</g>
+<g transform="translate(1010,180)">
+  <rect x="0" y="-18" width="200" height="30" rx="6" fill="var(--c2)" opacity=".9"/>
+  <text class="tag" x="14" y="3" fill="var(--c3)">Email courses</text>
+  <rect x="220" y="-18" width="200" height="30" rx="6" fill="var(--c2)" opacity=".9"/>
+  <text class="tag" x="234" y="3" fill="var(--c3)">Retargeting ads</text>
+</g>
+
+<!-- RIGHT SIDE: BOFU -->
+<text class="lblh" x="1010" y="232">BOFU · CONVERT</text>
+<line x1="1010" y1="244" x2="1540" y2="244" stroke="var(--c4)" stroke-width="2" opacity=".6"/>
+<g transform="translate(1010,268)">
+  <rect x="0" y="-18" width="200" height="30" rx="6" fill="var(--c4)"/>
+  <text class="tag" x="14" y="3">Free trial / demo</text>
+  <rect x="220" y="-18" width="200" height="30" rx="6" fill="var(--c4)"/>
+  <text class="tag" x="234" y="3">Pricing page</text>
+</g>
+<g transform="translate(1010,308)">
+  <rect x="0" y="-18" width="200" height="30" rx="6" fill="var(--c4)"/>
+  <text class="tag" x="14" y="3">Customer testimonials</text>
+  <rect x="220" y="-18" width="200" height="30" rx="6" fill="var(--c4)"/>
+  <text class="tag" x="234" y="3">ROI case studies</text>
+</g>
+<g transform="translate(1010,348)">
+  <rect x="0" y="-18" width="200" height="30" rx="6" fill="var(--c4)"/>
+  <text class="tag" x="14" y="3">Sales-call CTAs</text>
+  <rect x="220" y="-18" width="200" height="30" rx="6" fill="var(--c4)"/>
+  <text class="tag" x="234" y="3">Proposals &amp; quotes</text>
+</g>
+
+<!-- Connector arrows from side panels into funnel -->
+<path d="M440 130 Q 480 130 500 140" fill="none" stroke="var(--c4)" stroke-width="2" opacity=".55"/>
+<path d="M440 308 Q 520 300 565 245" fill="none" stroke="var(--c4)" stroke-width="2" opacity=".55"/>
+<path d="M1010 140 Q 950 140 880 130" fill="none" stroke="var(--c4)" stroke-width="2" opacity=".55"/>
+<path d="M1010 258 Q 880 290 790 332" fill="none" stroke="var(--c4)" stroke-width="2" opacity=".55"/>
+
+<!-- Bottom outflow arrow -->
+<polygon points="690,378 660,360 720,360" fill="var(--c4)"/>
+<text class="lblh" x="690" y="394" text-anchor="middle" font-size="14">CUSTOMERS</text>
+</svg>

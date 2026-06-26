@@ -1,0 +1,122 @@
+QUESTION: What are Iowa Hawkeyes football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Iowa Hawkeyes football enters 2027 with a strange identity. Kirk Ferentz, now 71, just confirmed his return for a 28th season in 2026 and remains under contract through 2029, making him by a wide margin the longest-tenured head coach in the FBS. The Swarm Collective, led by CEO Brad Heinrichs and Executive Director Scott Brickman, has expanded NIL support to all 22 Hawkeye programs but admits it is "still not close to the fundraising finish line." Iowa Athletics is allocating the full $20.5 million House settlement cap to athletes for 2025-26 and launched "Flight Funds" so donors can fund revenue share directly. With Mark Gronowski's one-and-done season ending in 2025, the 2026 QB room turns to Jeremy Hecklinski and Hank Brown, with Tradon Bessinger likely redshirting. The 2027 NIL job is concrete: fund a real quarterback war chest, lock the offensive line, and bridge the post-Ferentz transition without losing the donor base that funds it.
+
+**TL;DR:** Iowa's 2027 NIL needs a $9-11M football allocation, a dedicated QB fund, and a succession-proof donor pitch — because Ferentz is 71, Swarm is behind on fundraising, and Deloitte's NIL Go clearinghouse is auditing every $600+ deal.
+
+```mermaid
+flowchart TD
+    A[Iowa Hawkeyes 2027 NIL] --> B[Swarm Collective]
+    A --> C[Flight Funds Rev Share]
+    A --> D[Big Ten Media Pool]
+    A --> E[Kinnick Stadium 69k]
+    B --> F[Brad Heinrichs CEO]
+    B --> G[Scott Brickman ED]
+    B --> H[Swarm Water Crystal Clear]
+    C --> I[20.5M House Cap]
+    C --> J[Beth Goetz AD]
+    D --> K[Big Ten 7B Fox CBS NBC]
+    E --> L[Tailgate Donor Base]
+    F --> M[Iowa Farm and Business Alumni]
+    G --> N[Deloitte NIL Go Clearinghouse]
+    H --> O[Des Moines Retail Channel]
+    I --> P[Football 75 Percent Allocation]
+    J --> Q[Scott Pioli Rev Share Consultant]
+    K --> R[Media Rights Distribution]
+    L --> S[Season Ticket NIL Bundles]
+    M --> T[Casey's Hy-Vee Local Sponsors]
+    N --> U[Fair Market Value Audit]
+    O --> V[Branded Athlete Products]
+    P --> W[QB OL DL Priority Spend]
+    Q --> X[Cap Allocation Strategy]
+    R --> Y[Conference Revenue Floor]
+    S --> Z[Iowa City Game Day Economy]
+```
+
+## 1. Where Iowa Stands — Ferentz Era 2027 NIL Math
+
+Iowa is the only Power 4 program where the head coach in 2027 will be older than the program's NIL collective. Kirk Ferentz turns 72 during the 2027 season. He told reporters in May that he "doesn't envision stopping in the near future" and his contract runs through 2029, but every recruit's parent is doing the same math: who coaches my kid in year three? That uncertainty is the single biggest drag on Iowa NIL valuations right now, and it shows up in collective fundraising. The Swarm Collective opened its membership to fund all 22 sports in 2024 and added branded "Swarm Water" through Iowa packer Crystal Clear, but ED Scott Brickman has publicly conceded the collective is behind on its football goal. Meanwhile Iowa Athletics, under AD Beth Goetz, hit the full $20.5M House settlement cap for 2025-26 and stood up Flight Funds as a direct donor channel for revenue share. Football's slice of that cap typically runs 70-75% at Big Ten peers, meaning the 2027 football revenue-share line is roughly $14-15.5M before collective dollars. Iowa also hired former NFL GM Scott Pioli as a revenue-share consultant. The roster math is unforgiving — Mark Gronowski leaves after 2025, Jeremy Hecklinski is the projected 2026 starter, and 2027 needs a real QB1 contract.
+
+| 2027 Iowa NIL Line | Status | Number |
+|---|---|---|
+| Football rev-share slice (est. 72% of cap) | Projected | $14.5M |
+| Swarm Collective football top-up target | Behind pace | $5-6M |
+| Total 2027 football comp pool | Combined | $19-20M |
+| QB1 market (Big Ten median) | Comp benchmark | $1.6-2.2M |
+| OL starter cluster (5 spots) | Comp benchmark | $3.5-4.5M |
+| Ferentz contract end | Fixed | 2029 season |
+| Deloitte NIL Go threshold | Compliance | $600+ deals |
+
+## 2. Real 2027 Strategy — 5 Moves
+
+**Move 1 — Stand up a named QB Fund inside Swarm.** Iowa's offense has been the punchline of Big Ten Twitter for a decade. The fix is not a coordinator hire, it is a dedicated, transparent $2.5M QB pool donors can write checks to specifically. Tennessee and Texas A&M proved that named position funds raise more than general appeals.
+
+**Move 2 — Lock the offensive line for two cycles.** Iowa's OL pipeline is the program's actual brand. Use 18-22% of the 2027 collective spend on multi-year OL deals with clear renewal triggers. The OL room is where Ferentz still recruits at an elite level, and it is the cheapest place to outbid Nebraska and Wisconsin.
+
+**Move 3 — Publish a succession bridge memo.** Donors will not max-fund a 72-year-old coach without knowing the plan. Beth Goetz should publicly name the search committee structure and Scott Pioli's role in coach-transition cap modeling. Vague is fatal here.
+
+**Move 4 — Monetize the Kinnick tailgate economy.** Iowa City sells out 69,250 seats every Saturday and the donor base skews farm and business owner. Swarm should bundle game-day hospitality, branded Swarm Water distribution at Casey's and Hy-Vee, and rev-share tiers into one $1,000-and-up product. Volume, not whales.
+
+**Move 5 — Pre-clear every football deal with Deloitte NIL Go.** The clearinghouse is auditing all $600+ third-party deals for fair market value. Iowa's compliance reputation is an asset — lean into it, publish a "Swarm-cleared" badge for athlete deals, and use it as a recruiting differentiator against collectives running gray-area contracts.
+
+## 3. Top 3 Risks
+
+**Risk 1 — The Ferentz transition lands in 2028, not 2030.** The contract runs through 2029, but health, family, or a season collapse could pull the retirement forward. If Iowa is mid-2027 cycle with $20M committed and no announced succession plan, recruits will decommit en masse and the portal will become a one-way exit. Mitigation: publish the bridge plan in fall 2026, not after the fact. Brian Ferentz is no longer on staff after his 2023 OC removal, so the internal heir-apparent narrative is gone — Iowa needs an external short list named privately to donors.
+
+**Risk 2 — Swarm Collective hits a fundraising ceiling.** Brickman has already admitted Swarm is behind on its football goal. Iowa's donor base is broad but not deep — there are no oil-money mega-donors like at Texas or Oklahoma. If the $5-6M football target slips to $3-4M, Iowa will lose every contested portal QB and skill-position recruit in 2027. Mitigation: convert season-ticket holders into auto-recurring Swarm members at the $100/month tier, and lean on Iowa-based corporate sponsors (Casey's, Hy-Vee, Principal Financial, Rockwell Collins) for multi-year underwriting deals routed through NIL Go.
+
+**Risk 3 — NIL Go clearinghouse blocks Iowa deals at higher rates than SEC peers.** The Deloitte fair-market-value model uses national comparables, which can penalize Big Ten programs with smaller local media markets. If Iowa submits a $1.5M QB deal and NIL Go knocks it to $900K based on Cedar Rapids market data, Iowa loses the QB to an SEC school whose comparable deal cleared. Mitigation: structure deals with documented national brand activation (Swarm Water national rollout, Big Ten Network appearances, alumni-network endorsements) so the FMV file shows clear interstate value, not just Iowa City reach.
+
+```mermaid
+flowchart TD
+    A[2027 Iowa Football NIL Plan] --> B[QB Fund 2.5M Named]
+    A --> C[OL Multi Year Locks]
+    A --> D[Succession Bridge Memo]
+    A --> E[Kinnick Tailgate Bundles]
+    A --> F[Deloitte Pre Clear Badge]
+    B --> G[Hecklinski 2026 Starter]
+    B --> H[2027 QB1 Market 1.6M to 2.2M]
+    C --> I[18 to 22 Percent of Spend]
+    C --> J[Renewal Triggers]
+    D --> K[Beth Goetz Public Plan]
+    D --> L[Scott Pioli Cap Modeling]
+    E --> M[69k Seats Sold Out]
+    E --> N[Casey Hy Vee Swarm Water]
+    F --> O[Fair Market Value Defense]
+    F --> P[Recruiting Differentiator]
+    G --> Q[Hank Brown Backup]
+    H --> R[Portal vs High School Mix]
+    I --> S[OL Pipeline Brand]
+    J --> T[Two Cycle Stability]
+    K --> U[Donor Confidence Restored]
+    L --> V[External Short List]
+    M --> W[Game Day Hospitality Tiers]
+    N --> X[Volume Donor Base]
+    O --> Y[National Brand Activation]
+    P --> Z[Swarm Cleared Athlete Badge]
+```
+
+## FAQ
+
+**Q: Is Kirk Ferentz really coaching in 2026?**
+A: Yes. Ferentz confirmed in May 2026 he will return for his 28th season, and his contract runs through 2029. He told reporters he doesn't envision stopping soon and has his wife Mary's support.
+
+**Q: Who is Iowa's 2026 starting quarterback?**
+A: Per ESPN's projection, Jeremy Hecklinski takes over after Mark Gronowski's one-and-done 2025. Hank Brown is the backup, Tradon Bessinger likely redshirts.
+
+**Q: Does Iowa's Swarm Collective support all sports?**
+A: Yes. Since 2024, donors giving $1,000+ one-time or $100/month can direct NIL support across all 22 Hawkeye athletic programs, not just football and basketball.
+
+## Sources
+
+- [Iowa's Kirk Ferentz to coach 28th season with Hawkeyes in '26 — ESPN](https://www.espn.com/college-football/story/_/id/47192417/iowa-kirk-ferentz-coach-28th-season-hawkeyes-26)
+- [Kirk Ferentz — Iowa Hawkeyes Athletics](https://hawkeyesports.com/staff/kirk-ferentz)
+- [Iowa football's Kirk Ferentz confirms return for 2026 season — Yahoo Sports](https://sports.yahoo.com/articles/iowa-footballs-kirk-ferentz-confirms-211628769.html)
+- [Swarm Collective to Offer NIL Opportunities for all Hawkeye student-athletes — Iowa Swarm](https://iowaswarm.com/swarm-collective-to-offer-nil-opportunities-for-all-hawkeye-student-athletes/)
+- [Iowa's Swarm Collective gains momentum, still not close to fundraising finish line — The Gazette](https://www.thegazette.com/iowa-football/iowas-swarm-collective-gains-momentum-although-still-not-close-to-fundraising-finish-line/)
+- [What House vs. NCAA settlement's final approval means for Iowa Athletics — The Gazette](https://www.thegazette.com/iowa-hawkeyes/what-house-vs-ncaa-settlements-final-approval-means-for-iowa-athletics-in-2025-and-beyond/)
+- [Iowa athletics creates new Flight Funds in wake of House settlement — Daily Iowan](https://dailyiowan.com/2025/06/10/iowa-athletics-creates-new-flight-funds-in-wake-of-house-settlement/)
+- [Iowa's Predicted Starting Quarterback in 2026 — SI](https://www.si.com/college/iowa/football/iowa-hawkeyes-predicted-starting-quarterback-2026)

@@ -1,0 +1,87 @@
+QUESTION: What are Arkansas Razorbacks football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Arkansas Razorbacks football enters the 2027 cycle as a full rebuild rather than a tune-up. Sam Pittman was fired on October 5, 2025 after a 56-13 loss to Notre Dame dropped the Hogs to 2-3, and interim head coach Bobby Petrino finished the season before athletic director Hunter Yurachek hired a permanent replacement after the season ended. Just as that coaching change happened, Arkansas killed its NIL collective: Arkansas Edge shut down in October 2025 after the school ended its partnership with Blueprint Sports, and on December 30, 2025 the program announced TheLinkU as its new in-house NIL and marketplace partner. That means 2027 NIL strategy starts from a blank page with a new staff, a new operating model, and a roster that needs to be rebuilt at quarterback, offensive line, edge rusher, and the secondary. The Hogs need roughly twelve to fifteen million in football NIL to be SEC-competitive, with quarterback and trenches absorbing more than half of that. The strategy is to use TheLinkU's marketplace plus revenue-share dollars from the House v. NCAA settlement to bid hard on a Power Four transfer quarterback, hold the in-state Texarkana to Little Rock to Northwest Arkansas pipeline, and stop bleeding offensive linemen to Texas A&M, Texas, and Ole Miss.
+
+## Why Arkansas Is Starting Over
+
+When Yurachek pulled the plug on Arkansas Edge, he did not just change vendors. He changed the entire operating philosophy. Edge had cycled through multiple executive directors in under two years, and Blueprint Sports was facing scrutiny nationally for how it structured collective deals. After the House v. NCAA settlement received final approval on June 6, 2025, schools across the country either folded their collectives in-house or closed them outright, and Arkansas chose to do both. The TheLinkU partnership, announced December 30, gives Arkansas a marketplace layer where boosters and brands can transact directly with athletes, plus a media arm to push athlete content. Combined with the roughly $20.5 million in revenue-share dollars allowed under the settlement cap, Arkansas now controls its own NIL stack instead of renting it.
+
+The football coaching transition compounds the urgency. A new head coach arriving after the 2025 season inherits a 2-10 roster, a transfer portal that opens immediately, and a 2027 recruiting class that needs commitments before fans even know who is running the offense. Every week of indecision in NIL strategy costs the Hogs a recruit to Texas A&M's Mike Elko, Lane Kiffin at Ole Miss, or Steve Sarkisian at Texas, all of whom are running mature, well-funded NIL operations.
+
+```mermaid
+flowchart TD
+    A[Sam Pittman fired Oct 5 2025] --> B[Petrino interim]
+    B --> C[New head coach hired]
+    D[Arkansas Edge shut down Oct] --> E[Blueprint Sports ended]
+    E --> F[TheLinkU partner Dec 30]
+    C --> G[2027 NIL strategy]
+    F --> G
+    G --> H[Twelve to fifteen million target]
+```
+
+## The Position Group Spend Map
+
+Quarterback is the single largest line item. Arkansas has not had a top-twenty SEC passing offense in years, and the 2026 starter situation is unresolved heading into spring. A proven Power Four transfer quarterback in this market commits at roughly two to three million for one year, and that number climbs if the quarterback brings a second receiver or tackle with him. Budgeting 2.5 million for the QB1 deal, plus 600 thousand for a developmental QB2, is the realistic floor. Offensive line is the second pillar. Arkansas has lost projected starters to the portal in each of the last two cycles, and the SEC rate for a starting tackle is now 700 thousand to 1.1 million. Holding five linemen at an average of 750 thousand is 3.75 million by itself.
+
+Edge rusher is the third priority. The Hogs ranked near the bottom of the SEC in sack rate in 2025, and the new staff will need two transfer edges at roughly 800 thousand each plus a 2027 high school signee in the 400 thousand range. The secondary, particularly cornerback, sits at about 2 million across three to four players to be SEC-credible. Receiver and tight end together absorb another 1.5 to 2 million if Arkansas wants a true number-one wideout. That math lands the football-only NIL budget between 12 and 15 million, which is consistent with what Texas A&M, Ole Miss, and Auburn are spending publicly.
+
+## How TheLinkU Changes the Pitch
+
+The old Edge model leaned on flat collective payments funded by boosters. TheLinkU adds a marketplace where athletes can be matched with actual Arkansas brands — regional Walmart suppliers, Tyson Foods, J.B. Hunt, Dillard's, and the Northwest Arkansas tech corridor. That gives Arkansas two pitches at once: a guaranteed revenue-share number from the athletic department, plus a marketplace ceiling that can stretch a deal upward through real brand activations. For a 2027 commit from Bentonville or Fayetteville, that local-brand story is a recruiting differentiator that Tuscaloosa and College Station cannot easily match. The risk, flagged by Last Word on Sports in February 2026, is that the new compliance layer adds enough red tape that deals close more slowly than they did under the old collective. The new staff has to push closing speed to match SEC peers, or recruits will sign elsewhere while paperwork moves.
+
+That compliance layer is not optional. Since June 2025, every third-party NIL deal of $600 or more must clear the Deloitte-run NIL Go clearinghouse, which checks the deal against a fair-market-value range and a legitimate business purpose under the College Sports Commission. TheLinkU's value is precisely that it can document genuine brand activations — a Tyson endorsement, a Dillard's appearance — that pass that review cleanly, whereas thin pay-for-play deals now get flagged. Arkansas's regional Fortune 500 density is a real advantage here, because it gives the marketplace authentic deals to underwrite rather than manufactured ones.
+
+```mermaid
+flowchart TD
+    I[Rev share 20.5M cap] --> J[Football allocation]
+    K[TheLinkU marketplace] --> J
+    L[Local brand pipeline] --> K
+    J --> M[QB 2.5M]
+    J --> N[OL 3.75M]
+    J --> O[Edge 2M]
+    J --> P[CB 2M]
+    J --> Q[WR TE 1.75M]
+```
+
+## The 2027 Recruiting Map
+
+Arkansas's geographic strategy has to be sharper than ever. The in-state base produces three to five FBS-caliber prospects in a typical year, so the Hogs cannot win on Arkansas talent alone. The Dallas-Fort Worth metroplex, East Texas, Memphis, and Shreveport make up the realistic primary footprint, with Tulsa and Kansas City as secondary territories. The new head coach has to make at least eight of the top fifteen in-state and border-state targets feel like priority-one recruits, which means head-coach visits, official-visit weekends timed against Texas A&M and Ole Miss, and NIL offers presented in writing during the visit rather than after. Atlanta and South Florida are realistic only for a small number of skill-position prospects where Arkansas has a specific position-coach connection.
+
+## Portal Strategy Versus High School Strategy
+
+The new staff has to decide quickly how much of the 2027 roster comes from the transfer portal versus high school signing class. Arkansas under Pittman leaned heavily on portal additions in his last two cycles and still finished 2-10 in 2025, which tells the new staff that simply outbidding for portal veterans is not enough. The likely split is roughly 60 percent high school and 40 percent portal in 2027, with the portal money concentrated on quarterback, edge, and one offensive tackle. That keeps roughly 6 to 7 million for the 2027 high school class, distributed across roughly 22 to 25 signees at an average of 250 to 300 thousand per player, with a few headline offers in the 600 thousand to 1 million range for five-star or high-four-star prospects in Texas and Arkansas. The high school strategy also protects against the second-year portal churn that has crushed Arkansas's continuity, because four-year recruits stay on the roster long enough to develop into the kind of veteran starters who actually win SEC games in November.
+
+## The Donor Base and the Razorback Foundation
+
+Arkansas's spending ceiling ultimately depends on its fan base, which is one of the most fervent and geographically unified in the SEC. The Razorbacks are the only Power Four program in the state — no in-state competition for fan dollars, no pro football team siphoning attention — so the entire state's college football passion funnels to Fayetteville. Donald W. Reynolds Razorback Stadium seats roughly 76,000, and War Memorial Stadium in Little Rock historically extended the program's reach into central and southern Arkansas. The Razorback Foundation, the athletic department's primary fundraising arm, has the donor depth to feed both the revenue-share cap and TheLinkU's marketplace if it converts traditional facilities-and-tickets giving into NIL-directed giving. The 2027 challenge is messaging: persuading a donor base accustomed to writing checks for stadium projects that the highest-leverage gift now is a recurring NIL contribution. A program with no in-state rival and a statewide fan base should, in theory, out-fundraise a Mississippi or a Missouri — the gap is organization, not appetite.
+
+## The Bottom Line
+
+Arkansas in 2027 is a teardown rebuild with a brand-new NIL operating system. The Hogs need a 12 to 15 million football NIL budget, a Power Four transfer quarterback, five committed offensive linemen, and two transfer edges, all closed before signing day. TheLinkU gives the program a more sustainable model than Arkansas Edge ever was, but only if the new staff and Yurachek move at SEC speed. The infrastructure is finally in place. The execution is the open question, and the answer arrives by February 2027 signing day.
+
+## FAQ
+
+**Q: Why did Arkansas shut down the Arkansas Edge collective?**
+A: Yurachek ended the Blueprint Sports partnership in October 2025 amid leadership turnover at Edge and national scrutiny of Blueprint's deal structures. With the House settlement letting schools pay athletes directly, Arkansas folded NIL in-house, replacing Edge with the TheLinkU marketplace announced December 30, 2025.
+
+**Q: How much does Arkansas football need to spend on NIL in 2027?**
+A: Roughly $12 million to $15 million for the football roster alone to stay SEC-competitive, with quarterback and the offensive and defensive lines absorbing more than half. That figure is funded by a blend of the roughly $20.5 million House-settlement revenue-share cap and uncapped TheLinkU marketplace deals.
+
+**Q: What does TheLinkU do that Arkansas Edge did not?**
+A: TheLinkU is a marketplace plus media platform that matches athletes with real Arkansas brands — Tyson, Walmart suppliers, J.B. Hunt, Dillard's — rather than relying solely on flat booster-funded collective payments. The trade-off is added compliance, since each deal of $600 or more must clear the NIL Go clearinghouse for fair-market value.
+
+**Q: Is Arkansas's fan base big enough to fund an SEC-level roster?**
+A: It has the appetite. Arkansas is the only Power Four program in the state, so the entire state's fan dollars funnel to one team, and the Razorback Foundation has deep donor reach. The challenge is organizational — converting traditional stadium-and-ticket giving into recurring NIL contributions through TheLinkU.
+
+## Sources
+
+1. Arkansas Razorbacks Athletics — Pittman dismissal and coaching change (October 2025)
+2. Whole Hog Sports / Arkansas Democrat-Gazette — Razorbacks football and NIL coverage
+3. Talk Business and Politics — UA ends Arkansas Edge NIL program
+4. Arkansas Athletics — TheLinkU NIL partnership announcement (December 30, 2025)
+5. Last Word on Sports — Arkansas NIL transition analysis (February 2026)
+6. House v. NCAA settlement — revenue-share cap and NIL Go clearinghouse (final approval June 6, 2025)
+7. 247Sports / On3 — SEC NIL spending comparisons (Texas A&M, Ole Miss, Auburn)

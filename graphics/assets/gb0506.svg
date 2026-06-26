@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>
+    svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+    .bg{fill:var(--bg1,#0b0f17);}
+    .panel{fill:var(--bg2,#0f172a);}
+    .title{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:26px;font-weight:700;fill:var(--c3);}
+    .sub{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:16px;fill:var(--c3);opacity:.72;}
+    .axis{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;fill:var(--c3);opacity:.55;}
+    .stage{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:18px;font-weight:600;fill:var(--c3);text-anchor:middle;}
+    .pct{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:22px;font-weight:800;fill:var(--ink);text-anchor:middle;}
+    .pctlight{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:22px;font-weight:800;fill:var(--c3);text-anchor:middle;}
+    .grid{stroke:var(--c3);stroke-opacity:.12;stroke-width:1;}
+    .conv{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;font-weight:600;fill:var(--c4);text-anchor:middle;}
+    .convarrow{stroke:var(--c4);stroke-width:1.5;fill:none;stroke-dasharray:3 3;opacity:.7;}
+  </style>
+
+  <rect class="bg" width="1584" height="396"/>
+  <rect class="panel" x="24" y="24" width="1536" height="348" rx="14"/>
+
+  <text class="title" x="56" y="64">Win Rate by Stage</text>
+  <text class="sub" x="56" y="88">Conversion % from prior stage  |  Discovery -> Closed Won</text>
+
+  <!-- Y axis grid + labels -->
+  <g>
+    <line class="grid" x1="120" y1="320" x2="1540" y2="320"/>
+    <line class="grid" x1="120" y1="265" x2="1540" y2="265"/>
+    <line class="grid" x1="120" y1="210" x2="1540" y2="210"/>
+    <line class="grid" x1="120" y1="155" x2="1540" y2="155"/>
+    <line class="grid" x1="120" y1="120" x2="1540" y2="120"/>
+    <text class="axis" x="108" y="324" text-anchor="end">0%</text>
+    <text class="axis" x="108" y="269" text-anchor="end">25%</text>
+    <text class="axis" x="108" y="214" text-anchor="end">50%</text>
+    <text class="axis" x="108" y="159" text-anchor="end">75%</text>
+    <text class="axis" x="108" y="124" text-anchor="end">100%</text>
+  </g>
+
+  <!-- Bars: 6 stages, baseline y=320, max h=200 (100% = 200px) -->
+  <!-- Discovery 100%, Qualified 62%, Proposal 41%, Negotiation 28%, Verbal 22%, Closed Won 18% -->
+
+  <!-- Discovery: 100% -> h=200, y=120 -->
+  <g>
+    <rect x="180" y="120" width="180" height="200" rx="6" fill="var(--c1)"/>
+    <rect x="180" y="120" width="180" height="8" rx="4" fill="var(--c2)"/>
+    <text class="pct" x="270" y="152">100%</text>
+    <text class="stage" x="270" y="352">Discovery</text>
+  </g>
+
+  <!-- Qualified: 62% -> h=124, y=196 -->
+  <g>
+    <rect x="400" y="196" width="180" height="124" rx="6" fill="var(--c1)"/>
+    <rect x="400" y="196" width="180" height="8" rx="4" fill="var(--c2)"/>
+    <text class="pct" x="490" y="228">62%</text>
+    <text class="stage" x="490" y="352">Qualified</text>
+  </g>
+
+  <!-- Proposal: 41% -> h=82, y=238 -->
+  <g>
+    <rect x="620" y="238" width="180" height="82" rx="6" fill="var(--c1)"/>
+    <rect x="620" y="238" width="180" height="8" rx="4" fill="var(--c2)"/>
+    <text class="pct" x="710" y="270">41%</text>
+    <text class="stage" x="710" y="352">Proposal</text>
+  </g>
+
+  <!-- Negotiation: 28% -> h=56, y=264 -->
+  <g>
+    <rect x="840" y="264" width="180" height="56" rx="6" fill="var(--c4)"/>
+    <rect x="840" y="264" width="180" height="8" rx="4" fill="var(--c4b)"/>
+    <text class="pctlight" x="930" y="252">28%</text>
+    <text class="stage" x="930" y="352">Negotiation</text>
+  </g>
+
+  <!-- Verbal: 22% -> h=44, y=276 -->
+  <g>
+    <rect x="1060" y="276" width="180" height="44" rx="6" fill="var(--c4)"/>
+    <rect x="1060" y="276" width="180" height="8" rx="4" fill="var(--c4b)"/>
+    <text class="pctlight" x="1150" y="264">22%</text>
+    <text class="stage" x="1150" y="352">Verbal</text>
+  </g>
+
+  <!-- Closed Won: 18% -> h=36, y=284 -->
+  <g>
+    <rect x="1280" y="284" width="180" height="36" rx="6" fill="var(--c2)"/>
+    <rect x="1280" y="284" width="180" height="8" rx="4" fill="var(--c1)"/>
+    <text class="pctlight" x="1370" y="272">18%</text>
+    <text class="stage" x="1370" y="352">Closed Won</text>
+  </g>
+
+  <!-- Conversion arrows between stages -->
+  <g>
+    <path class="convarrow" d="M 360 140 Q 380 105 400 215"/>
+    <text class="conv" x="380" y="100">-38%</text>
+
+    <path class="convarrow" d="M 580 215 Q 600 195 620 255"/>
+    <text class="conv" x="600" y="190">-34%</text>
+
+    <path class="convarrow" d="M 800 255 Q 820 245 840 280"/>
+    <text class="conv" x="820" y="240">-32%</text>
+
+    <path class="convarrow" d="M 1020 280 Q 1040 275 1060 290"/>
+    <text class="conv" x="1040" y="270">-21%</text>
+
+    <path class="convarrow" d="M 1240 290 Q 1260 288 1280 297"/>
+    <text class="conv" x="1260" y="283">-18%</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(56, 348)">
+    <rect x="0" y="0" width="14" height="14" rx="3" fill="var(--c1)"/>
+    <text x="22" y="12" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13" fill="var(--c3)" opacity=".75">Healthy stages</text>
+    <rect x="160" y="0" width="14" height="14" rx="3" fill="var(--c4)"/>
+    <text x="182" y="12" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13" fill="var(--c3)" opacity=".75">Late-funnel risk</text>
+  </g>
+</svg>

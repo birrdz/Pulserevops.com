@@ -1,0 +1,3 @@
+FAIL 429 {"error":"rate_limited","message":"Too many requests to pulse-blob-writer. Limit 120/min/IP. Retry in 32s.","retry_after_seconds":32}
+
+SUMMARY batch=2 posted=0 failed=1 next=q10032

@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "stopped": true,
+  "reason": "diminishing_returns",
+  "ticks": [
+    {
+      "tick": 1,
+      "at": "2026-05-24",
+      "changes": [
+        "entry-card layout with quality-score gem",
+        "lazy answer preview strip (IntersectionObserver)",
+        "inline expand on card click (restore grid answers)",
+        "Read full answer CTA",
+        "flash sweep only on first grid paint"
+      ]
+    }
+  ],
+  "next_ideas_if_resumed": [
+    "search-highlight in preview text",
+    "skeleton shimmer animation polish",
+    "optional two-column grid at wide breakpoints"
+  ]
+}

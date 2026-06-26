@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#15110d">
+<title>My Thoughts — Kory White, Chief Revenue Officer</title>
+<meta name="description" content="The opinions of Kory White, a Chief Revenue Officer with 25 years in the field — my takes on revenue, software, travel, machines, and the good life. Not facts. Opinions, earned.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://pulserevops.com/thoughts">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,800;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#15110d; --bg2:#1d1711; --panel:#221a13; --panel2:#2a2018;
+  --cream:#ECE3D2; --muted:#A99B86; --faint:#7d7060;
+  --amber:#C8821E; --gold:#CBA135; --wine:#8C2D3C; --winelt:#B14256;
+  --line:rgba(203,161,53,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--cream);font-family:'Inter',system-ui,-apple-system,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+body{background-image:radial-gradient(1200px 500px at 80% -10%,rgba(200,130,30,.10),transparent),radial-gradient(900px 400px at 0% 0%,rgba(140,45,60,.10),transparent)}
+a{color:inherit;text-decoration:none}
+.serif{font-family:'Fraunces',Georgia,serif}
+.topbar{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:16px clamp(18px,5vw,56px);border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(21,17,13,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);z-index:30}
+.brand{display:inline-flex;align-items:center;gap:9px;font-family:'Fraunces',serif;font-weight:900;font-size:1.25rem;letter-spacing:.01em;color:var(--cream)}
+.brand img{height:26px;width:auto;filter:drop-shadow(0 0 7px rgba(203,161,53,.55))}
+.brand b{color:var(--gold)}
+.topbar nav{display:flex;gap:18px;flex-wrap:wrap;font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.topbar nav a{color:var(--muted)}.topbar nav a:hover{color:var(--gold)}
+.topbar .cro{margin-left:auto;background:linear-gradient(135deg,var(--amber),#9c5e12);color:#1a1208;font-weight:800;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 16px;border-radius:99px;box-shadow:0 4px 18px rgba(200,130,30,.25)}
+.hero{max-width:1120px;margin:0 auto;padding:56px clamp(18px,5vw,56px) 18px;display:flex;gap:30px;align-items:center;flex-wrap:wrap}
+.hero img{width:104px;height:104px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);box-shadow:0 0 0 6px rgba(203,161,53,.10),0 12px 40px rgba(0,0,0,.5);flex:0 0 auto}
+.hero .who{flex:1;min-width:280px}
+.hero .eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.hero h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.4rem,6vw,4rem);line-height:1.02;letter-spacing:-.01em;color:var(--cream)}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero p{font-size:1.12rem;color:var(--muted);max-width:680px;margin-top:14px}
+.rule{max-width:1120px;margin:8px auto 0;padding:0 clamp(18px,5vw,56px)}
+.rule hr{border:0;border-top:1px solid var(--line);margin:18px 0 0}
+.sec-label{max-width:1120px;margin:30px auto 0;padding:0 clamp(18px,5vw,56px);font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--faint)}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;max-width:1120px;margin:14px auto 0;padding:0 clamp(18px,5vw,56px) 28px}
+.cat{position:relative;display:block;padding:24px 22px 20px;background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;cursor:pointer;transition:transform .14s,box-shadow .14s,border-color .14s;overflow:hidden}
+.cat::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--gold),var(--wine))}
+.cat:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(0,0,0,.45);border-color:rgba(203,161,53,.42)}
+.cat .k{font-size:.64rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}
+.cat .t{font-family:'Fraunces',serif;font-weight:800;font-size:1.34rem;line-height:1.12;margin:8px 0 8px;color:var(--cream)}
+.cat .d{font-size:.9rem;color:var(--muted);line-height:1.5}
+.cat .go{margin-top:14px;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+#results{max-width:1120px;margin:0 auto;padding:6px clamp(18px,5vw,56px) 72px}
+#results .back{display:inline-block;margin:14px 0 6px;color:var(--amber);font-weight:800;font-size:.82rem;letter-spacing:.04em;cursor:pointer}
+#results h2{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.8rem,4vw,2.6rem);margin:6px 0 4px;color:var(--cream)}
+#results .sub{color:var(--muted);margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{display:block;padding:18px 20px;background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:13px;transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.card .q{font-family:'Fraunces',serif;font-weight:600;font-size:1.04rem;line-height:1.32;color:var(--cream)}
+.card .m{font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:10px}
+.loading{color:var(--faint);padding:26px 0;font-style:italic}
+footer{border-top:1px solid var(--line);max-width:1120px;margin:0 auto;padding:30px clamp(18px,5vw,56px);color:var(--faint);font-size:.8rem}
+footer a{color:var(--amber);font-weight:700}
+/* "Search the stories" — editorial, non-digital: serif italic line under a fleuron. */
+.storysearch{max-width:1120px;margin:30px auto 4px;padding:0 clamp(18px,5vw,56px);display:flex;align-items:baseline;gap:14px}
+.storysearch .ss-ico{font-family:'Fraunces',serif;font-size:1.7rem;line-height:1;color:var(--gold,#CBA135);opacity:.85;flex:0 0 auto}
+.storysearch input{flex:1;min-width:0;background:transparent;border:0;border-bottom:1.5px solid var(--line,rgba(203,161,53,.18));outline:none;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:clamp(1.1rem,2.4vw,1.55rem);color:var(--cream,#ECE3D2);padding:6px 2px 10px;transition:border-color .25s}
+.storysearch input::placeholder{color:var(--faint,#7d7060);font-style:italic}
+.storysearch input:focus{border-bottom-color:var(--gold,#CBA135)}
+.ss-results-head{max-width:1120px;margin:18px auto 0;padding:0 clamp(18px,5vw,56px);font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--faint,#7d7060)}
+.storysearch{align-items:center}
+.ss-box{position:relative;flex:1;min-width:0}
+.ss-box input{width:100%}
+.ss-auto{display:none;position:absolute;left:0;right:0;top:100%;margin-top:8px;background:#1d1711;border:1px solid var(--line,rgba(203,161,53,.18));border-radius:12px;box-shadow:0 16px 44px rgba(0,0,0,.55);z-index:50;overflow:hidden}
+.ss-opt{padding:11px 16px;font-family:'Fraunces',serif;font-style:italic;font-size:1.02rem;color:var(--cream,#ECE3D2);cursor:pointer;border-bottom:1px solid rgba(203,161,53,.08)}
+.ss-opt:last-child{border-bottom:0}
+.ss-opt:hover{background:rgba(203,161,53,.10);color:var(--gold,#CBA135)}
+.ss-results{max-width:1120px;margin:0 auto;padding:0 clamp(18px,5vw,56px) 50px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="/" class="brand"><img src="/pulse-logo.svg" alt="" onerror="this.style.display='none'">PULSE<b>.</b></a>
+  <nav>
+    <a href="/thoughts">My Thoughts</a>
+    <a href="/about">About</a>
+    <a href="/kory-white">Kory White</a>
+    <a href="/contact">Contact</a>
+  </nav>
+  <a href="/fractional-cro" class="cro">⚡ Hire a Fractional CRO</a>
+</div>
+
+<div class="hero">
+  <img src="/assets/kory-white.jpg" alt="Kory White, Chief Revenue Officer">
+  <div class="who">
+    <div class="eyebrow">Kory White · Chief Revenue Officer · 25 Years</div>
+    <h1 class="serif">My <em>Thoughts</em>.</h1>
+    <p>A quarter-century of opinions, poured out on the things I actually care about — how revenue really works, the software worth paying for, where to go, what to drive, and how to live a little. These aren't facts off a search result. They're my takes, earned the hard way.</p>
+  </div>
+</div>
+<div class="storysearch"><span class="ss-ico" aria-hidden="true">&#10086;</span><div class="ss-box"><input id="storysearch" type="search" placeholder="Search every story &mdash; try &ldquo;aquariums,&rdquo; &ldquo;cars,&rdquo; &ldquo;cold email&rdquo;&hellip;" autocomplete="off" aria-label="Search the whole library"><div class="ss-auto" id="ss-auto" role="listbox"></div></div></div>
+<div class="ss-results" id="ss-results"></div>
+<div class="rule"><hr></div>
+
+<div class="sec-label">Pick a subject</div>
+<div class="cats" id="cats"></div>
+<div id="results"></div>
+
+<footer>
+  © 2026 Kory White · PULSE · <a href="/about">About</a> · <a href="/kory-white">My story</a> · <a href="/contact">Contact</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
+</footer>
+
+<script>
+var CATS=[
+ {k:'editorials',t:'The Editorials',               d:'My long-form takes — the full stories behind the questions, told my way.'},
+ {k:'revenue',  t:'Revenue &amp; RevOps',          d:'How revenue actually gets built — pipeline, forecasting, GTM, the stuff that moves the number.'},
+ {k:'coaching', t:'Sales Leadership &amp; Coaching',d:'Hiring, coaching, comp, and the meetings that are worth running.'},
+ {k:'metrics',  t:'Metrics &amp; KPIs',             d:'The numbers that matter by industry — and the vanity ones to ignore.'},
+ {k:'ai',       t:'Software &amp; AI',              d:'CRM, AI, and the stacks I’d actually buy — and the hype I’d skip.'},
+ {k:'gear',     t:'Tools &amp; Gear',               d:'Calculators, gadgets, and the kit that earns its place.'},
+ {k:'books',    t:'Books Worth Reading',           d:'The sales and operator books that changed how I work.'},
+ {k:'travel',   t:'Travel &amp; Resorts',           d:'Where to go, where to stay, and where the money’s wasted.'},
+ {k:'nightlife',t:'Dining &amp; Nightlife',         d:'The tables, bars, clubs and rooms worth the reservation.'},
+ {k:'living',   t:'Towns &amp; Living',             d:'Best places to actually live, raise a family, and plant roots.'},
+ {k:'property', t:'Property &amp; Franchises',      d:'Real estate, buildouts, and whether the franchise math works.'},
+ {k:'machines', t:'Cars &amp; Boats',               d:'What I’d drive, what I’d float, and what’s worth the spend.'},
+ {k:'pets',     t:'Pets &amp; Aquariums',           d:'Gear, setups, and the things I’d actually bring home.'},
+ {k:'style',    t:'Style &amp; Wellness',           d:'Dressing the part and staying sharp without the nonsense.'},
+ {k:'culture',  t:'Culture &amp; Downtime',         d:'Movies, games, collecting — the good life off the clock.'}
+];
+var cd=document.getElementById('cats'), rd=document.getElementById('results');
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function renderCats(){
+  cd.innerHTML=CATS.map(function(c){return '<a class="cat" href="/thoughts?cat='+c.k+'" data-k="'+c.k+'"><div class="k">My Thoughts On</div><div class="t serif">'+c.t+'</div><div class="d">'+c.d+'</div><div class="go">Read my take &rarr;</div></a>';}).join('');
+  Array.prototype.forEach.call(cd.querySelectorAll('.cat'),function(a){a.addEventListener('click',function(e){e.preventDefault();load(a.getAttribute('data-k'));history.pushState({},'','/thoughts?cat='+a.getAttribute('data-k'));window.scrollTo(0,0);});});
+}
+function load(k){
+  var c=CATS.filter(function(x){return x.k===k;})[0]; if(!c)return;
+  cd.style.display='none';
+  rd.innerHTML='<span class="back" id="back">&larr; All subjects</span><h2 class="serif">My Thoughts on '+c.t+'</h2><div class="sub">'+c.d+'</div><div class="loading">Pouring…</div>';
+  document.getElementById('back').addEventListener('click',function(){history.pushState({},'','/thoughts');rd.innerHTML='';cd.style.display='';});
+  fetch('/.netlify/functions/pulse-machine-library-list?cat='+k+'&recent=3000',{cache:'default'}).then(function(r){return r.json();}).then(function(j){
+    var ents=(j&&j.entries)||[];
+    var cards=ents.map(function(e){return '<a class="card" href="/knowledge/'+e.id+'"><div class="q">'+esc(e.question||e.id)+'</div><div class="m">My Thoughts</div></a>';}).join('');
+    var l=rd.querySelector('.loading'); if(l) l.outerHTML='<div class="grid">'+(cards||'<p>Nothing here yet — check back.</p>')+'</div>';
+  }).catch(function(){var l=rd.querySelector('.loading');if(l)l.textContent='Could not load — please retry.';});
+}
+renderCats();
+var m=location.search.match(/[?&]cat=([a-z]+)/);
+if(m)load(m[1]);
+window.addEventListener('popstate',function(){var mm=location.search.match(/[?&]cat=([a-z]+)/);if(mm){load(mm[1]);}else{rd.innerHTML='';cd.style.display='';}});
+// My Thoughts search: lazy-load the WHOLE library (mini) once; predictive autocomplete + results.
+(function(){
+  var box=document.getElementById('storysearch'); if(!box) return;
+  var auto=document.getElementById('ss-auto'), res=document.getElementById('ss-results');
+  var LIB=null, loading=false;
+  function title(e){return String(e.question||e.id).replace(/^My Thoughts:\s*/i,'');}
+  function load(cb){
+    if(LIB){cb();return;} if(loading)return; loading=true;
+    fetch('/.netlify/functions/pulse-machine-library-list?recent=25000&mini=1',{cache:'default'})
+      .then(function(r){return r.json();})
+      .then(function(j){LIB=((j&&j.entries)||[]).filter(function(e){return e&&e.id&&!/^vq_/i.test(e.id);});loading=false;cb();})
+      .catch(function(){loading=false;});
+  }
+  function match(q){q=q.toLowerCase();return LIB.filter(function(e){return title(e).toLowerCase().indexOf(q)>-1;});}
+  function showResults(list,q){
+    cd.style.display='none';
+    res.innerHTML='<div class="ss-results-head">'+list.length.toLocaleString()+' result'+(list.length===1?'':'s')+' for &ldquo;'+esc(q)+'&rdquo;</div><div class="grid">'+
+      list.slice(0,400).map(function(e){return '<a class="card" href="/knowledge/'+e.id+'"><div class="q">'+esc(title(e))+'</div><div class="m">Read &rarr;</div></a>';}).join('')+'</div>'+
+      (list.length>400?'<p style="color:var(--faint,#7d7060);padding:8px clamp(18px,5vw,56px)">Showing the first 400 &mdash; keep typing to narrow it down.</p>':'');
+  }
+  function showAuto(list){
+    if(!list.length){auto.style.display='none';return;}
+    auto.innerHTML=list.slice(0,8).map(function(e){return '<div class="ss-opt" data-id="'+e.id+'">'+esc(title(e))+'</div>';}).join('');
+    auto.style.display='block';
+  }
+  function run(){
+    var q=box.value.trim();
+    if(!q){auto.style.display='none';res.innerHTML='';cd.style.display='';return;}
+    load(function(){ if(!LIB){res.innerHTML='<div class="ss-results-head">Loading the library&hellip;</div>';return;} var m=match(q); showAuto(m); showResults(m,q); });
+  }
+  box.addEventListener('input',run);
+  box.addEventListener('focus',function(){load(function(){});});
+  auto.addEventListener('mousedown',function(ev){var o=ev.target.closest('.ss-opt');if(!o)return;ev.preventDefault();box.value=o.textContent;auto.style.display='none';run();});
+  document.addEventListener('click',function(ev){if(!ev.target.closest('.storysearch'))auto.style.display='none';});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+{
+ "total": 973,
+ "ok": 907,
+ "noCover": 0,
+ "needCards": 66,
+ "noProduct": 0,
+ "partial": 66,
+ "needCover": [],
+ "needFull": [],
+ "needStraggler": [
+  {
+   "id": "ca0307",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0353",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0356",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0358",
+   "imgs": 8,
+   "want": 10
+  },
+  {
+   "id": "ca0362",
+   "imgs": 8,
+   "want": 10
+  },
+  {
+   "id": "ca0378",
+   "imgs": 8,
+   "want": 10
+  },
+  {
+   "id": "ca0392",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0395",
+   "imgs": 8,
+   "want": 10
+  },
+  {
+   "id": "ca0396",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0450",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0478",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0492",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0503",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0509",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0524",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0527",
+   "imgs": 8,
+   "want": 10
+  },
+  {
+   "id": "ca0544",
+   "imgs": 8,
+   "want": 10
+  },
+  {
+   "id": "ca0548",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0552",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0554",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0556",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0559",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0569",
+   "imgs": 8,
+   "want": 10
+  },
+  {
+   "id": "ca0571",
+   "imgs": 6,
+   "want": 10
+  },
+  {
+   "id": "ca0572",
+   "imgs": 8,
+   "want": 10
+  },
+  {
+   "id": "ca0579",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0581",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0582",
+   "imgs": 8,
+   "want": 10
+  },
+  {
+   "id": "ca0585",
+   "imgs": 8,
+   "want": 10
+  },
+  {
+   "id": "ca0586",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0591",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0599",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0609",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0610",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0631",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0635",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0636",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0646",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0648",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0693",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0716",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0720",
+   "imgs": 9,
+   "want": 10
+  },
+  {
+   "id": "ca0950",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0951",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0952",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0953",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0954",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0955",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0956",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0957",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0958",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0959",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0960",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0961",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0962",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0963",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0964",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0965",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0966",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0967",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0968",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0969",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0970",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0971",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0972",
+   "imgs": 0,
+   "want": 10
+  },
+  {
+   "id": "ca0973",
+   "imgs": 0,
+   "want": 10
+  }
+ ]
+}

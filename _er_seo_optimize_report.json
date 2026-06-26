@@ -1,0 +1,30 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 699,
+ "changed": 663,
+ "keywordPhrases": 335,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 200,
+   "bing": 200,
+   "yandex": 200
+  }
+ },
+ "hubUrls": [
+  "https://pulserevops.com/electronic-reviews"
+ ],
+ "sample": {
+  "id": "er0001",
+  "ok": true,
+  "changed": true,
+  "tagCount": 350,
+  "keywordCount": 354,
+  "url": "https://pulserevops.com/electronic-reviews/er0001",
+  "indexnow": {
+   "ok": false
+  }
+ }
+}

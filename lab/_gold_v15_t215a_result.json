@@ -1,0 +1,27 @@
+{
+  "tick": "215-A",
+  "agent": "v15.2 gold-format conversion agent A",
+  "target_id": "q421",
+  "question": "How do you explain negative churn (expansion revenue) to board auditors who think NRR >100% is impossible?",
+  "rank_picked": "2nd-newest (index 1) of filtered qs=10 non-gold entries",
+  "filtered_pool_size": 1206,
+  "word_count_before": 0,
+  "word_count_after": 9311,
+  "post_http_status": 200,
+  "post_response": {"ok": true, "id": "q421", "quality_score": 10, "format_v": "2026-05", "gold_format": true, "from": 10, "to": 10},
+  "gold_format": true,
+  "gold_elements_verified": {
+    "direct_answer_header": true,
+    "tldr_block": true,
+    "h2_banners": 15,
+    "numbered_subsections": true,
+    "bold_in_bullets": true,
+    "named_operators_with_tickers": true,
+    "mermaid_diagram": 1,
+    "pipe_tables": "20+ (128 table rows)",
+    "counter_case_section": true,
+    "cross_links": 9,
+    "sources": 32
+  },
+  "payload_bytes": 59628
+}

@@ -1,0 +1,28 @@
+{
+  "tick": "t204a",
+  "agent": "A (newest)",
+  "target_id": "vq_1uh7n7i",
+  "target_question": "How does an outbound SDR team scale from 10 to 50 reps in 12 months?",
+  "pre_state": {
+    "quality_score": 5,
+    "format_v": null,
+    "ts": 1779110123806
+  },
+  "filter_check": {
+    "is_qXXXX_above_9501": false,
+    "note": "id is vq_ prefix not q####, gold-eligibility filter passed"
+  },
+  "word_count": 9084,
+  "char_count": 57169,
+  "payload_bytes": 58157,
+  "http_status": 200,
+  "response": {
+    "ok": true,
+    "id": "vq_1uh7n7i",
+    "quality_score": 6,
+    "from": 5,
+    "polished": false
+  },
+  "gold_format_confirmed": false,
+  "note": "Endpoint accepted POST and bumped quality_score from 5 to 6, but did not return gold_format:true or set format_v. Standard polish path applied despite format_v:2026-05 in request."
+}

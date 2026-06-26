@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;} text{font-family:'Inter','Segoe UI',system-ui,sans-serif;fill:var(--ink);}</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c3)" stop-opacity="0.95"/>
+<stop offset="1" stop-color="var(--c1)" stop-opacity="0.85"/>
+</linearGradient>
+<linearGradient id="cardMid" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)" stop-opacity="0.95"/>
+<stop offset="1" stop-color="var(--c2)" stop-opacity="0.9"/>
+</linearGradient>
+<linearGradient id="cardEnd" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c4b)" stop-opacity="0.95"/>
+<stop offset="1" stop-color="var(--c4)" stop-opacity="0.95"/>
+</linearGradient>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+<path d="M0,0 L10,5 L0,10 z" fill="var(--c4)"/>
+</marker>
+</defs>
+
+<rect width="1584" height="396" fill="url(#bg)"/>
+
+<!-- Title -->
+<text x="48" y="48" font-size="26" font-weight="700" fill="var(--c3)">Demo Flow Diagram</text>
+<text x="48" y="76" font-size="18" fill="var(--c3)" opacity="0.75">Discovery-anchored, Tell-Show-Tell, ends on a committed next step</text>
+
+<!-- Time ruler -->
+<line x1="60" y1="340" x2="1524" y2="340" stroke="var(--c1)" stroke-width="2" opacity="0.45"/>
+<text x="60" y="368" font-size="16" fill="var(--c3)" opacity="0.8">0 min</text>
+<text x="1480" y="368" font-size="16" fill="var(--c3)" opacity="0.8">30 min</text>
+<text x="780" y="368" font-size="16" fill="var(--c3)" opacity="0.8" text-anchor="middle">timeline</text>
+
+<!-- Connector arrows -->
+<g stroke="var(--c4)" stroke-width="4" fill="none" marker-end="url(#arrow)">
+<line x1="248" y1="220" x2="298" y2="220"/>
+<line x1="496" y1="220" x2="546" y2="220"/>
+<line x1="816" y1="220" x2="866" y2="220"/>
+<line x1="1136" y1="220" x2="1186" y2="220"/>
+<line x1="1384" y1="220" x2="1434" y2="220"/>
+</g>
+
+<!-- Step 1: Open -->
+<g>
+<rect x="60" y="110" width="188" height="220" rx="18" fill="url(#card)" stroke="var(--c2)" stroke-width="2"/>
+<circle cx="100" cy="148" r="22" fill="var(--c2)"/>
+<text x="100" y="156" font-size="22" font-weight="700" fill="var(--c3)" text-anchor="middle">1</text>
+<text x="138" y="156" font-size="20" font-weight="700">Open</text>
+<text x="78" y="200" font-size="14" font-weight="600" opacity="0.85">2 min</text>
+<text x="78" y="226" font-size="15">Agenda check</text>
+<text x="78" y="248" font-size="15">Confirm time</text>
+<text x="78" y="270" font-size="15">Outcome ask</text>
+<text x="78" y="292" font-size="15" font-style="italic" opacity="0.8">"What makes</text>
+<text x="78" y="312" font-size="15" font-style="italic" opacity="0.8">today a win?"</text>
+</g>
+
+<!-- Step 2: Recap Discovery -->
+<g>
+<rect x="308" y="110" width="188" height="220" rx="18" fill="url(#card)" stroke="var(--c2)" stroke-width="2"/>
+<circle cx="348" cy="148" r="22" fill="var(--c2)"/>
+<text x="348" y="156" font-size="22" font-weight="700" fill="var(--c3)" text-anchor="middle">2</text>
+<text x="386" y="156" font-size="20" font-weight="700">Recap</text>
+<text x="326" y="200" font-size="14" font-weight="600" opacity="0.85">4 min</text>
+<text x="326" y="226" font-size="15">Pain points</text>
+<text x="326" y="248" font-size="15">Metrics shared</text>
+<text x="326" y="270" font-size="15">Stakeholders</text>
+<text x="326" y="292" font-size="15">Get a YES on</text>
+<text x="326" y="312" font-size="15">the problem</text>
+</g>
+
+<!-- Step 3: Tell-Show-Tell (wider) -->
+<g>
+<rect x="556" y="110" width="260" height="220" rx="18" fill="url(#cardMid)" stroke="var(--c2)" stroke-width="2"/>
+<circle cx="596" cy="148" r="22" fill="var(--ink)"/>
+<text x="596" y="156" font-size="22" font-weight="700" fill="var(--c3)" text-anchor="middle">3</text>
+<text x="634" y="156" font-size="20" font-weight="700" fill="var(--ink)">Tell-Show-Tell</text>
+<text x="574" y="200" font-size="14" font-weight="600" fill="var(--ink)" opacity="0.85">14 min — 3 sections</text>
+<!-- Three sub-pills -->
+<rect x="574" y="214" width="64" height="32" rx="8" fill="var(--c4b)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="606" y="235" font-size="14" font-weight="700" text-anchor="middle">Tell</text>
+<rect x="646" y="214" width="64" height="32" rx="8" fill="var(--c4)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="678" y="235" font-size="14" font-weight="700" text-anchor="middle">Show</text>
+<rect x="718" y="214" width="64" height="32" rx="8" fill="var(--c4b)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="750" y="235" font-size="14" font-weight="700" text-anchor="middle">Tell</text>
+<text x="574" y="272" font-size="14" fill="var(--ink)">Tell: tie to their pain</text>
+<text x="574" y="292" font-size="14" fill="var(--ink)">Show: live click-path</text>
+<text x="574" y="312" font-size="14" fill="var(--ink)">Tell: "Does this solve X?"</text>
+</g>
+
+<!-- Step 4: Q&A -->
+<g>
+<rect x="876" y="110" width="260" height="220" rx="18" fill="url(#card)" stroke="var(--c2)" stroke-width="2"/>
+<circle cx="916" cy="148" r="22" fill="var(--c2)"/>
+<text x="916" y="156" font-size="22" font-weight="700" fill="var(--c3)" text-anchor="middle">4</text>
+<text x="954" y="156" font-size="20" font-weight="700">Q&amp;A</text>
+<text x="894" y="200" font-size="14" font-weight="600" opacity="0.85">6 min</text>
+<text x="894" y="226" font-size="15">Open the floor</text>
+<text x="894" y="248" font-size="15">Park edge-cases</text>
+<text x="894" y="270" font-size="15">Surface objections</text>
+<text x="894" y="292" font-size="15" font-style="italic" opacity="0.8">"What would stop</text>
+<text x="894" y="312" font-size="15" font-style="italic" opacity="0.8">you buying?"</text>
+</g>
+
+<!-- Step 5: Next Step -->
+<g>
+<rect x="1196" y="110" width="188" height="220" rx="18" fill="url(#cardEnd)" stroke="var(--ink)" stroke-width="2"/>
+<circle cx="1236" cy="148" r="22" fill="var(--ink)"/>
+<text x="1236" y="156" font-size="22" font-weight="700" fill="var(--c4b)" text-anchor="middle">5</text>
+<text x="1274" y="156" font-size="20" font-weight="700">Next Step</text>
+<text x="1214" y="200" font-size="14" font-weight="600" opacity="0.85">4 min</text>
+<text x="1214" y="226" font-size="15">Calendar invite</text>
+<text x="1214" y="248" font-size="15">Named attendees</text>
+<text x="1214" y="270" font-size="15">Mutual action plan</text>
+<text x="1214" y="292" font-size="15" font-weight="700">Booked before</text>
+<text x="1214" y="312" font-size="15" font-weight="700">you hang up</text>
+</g>
+
+<!-- Outcome callout -->
+<g>
+<rect x="1444" y="130" width="100" height="180" rx="14" fill="var(--c2)" stroke="var(--c4)" stroke-width="2"/>
+<text x="1494" y="170" font-size="14" font-weight="700" fill="var(--c4b)" text-anchor="middle">Goal</text>
+<text x="1494" y="206" font-size="32" font-weight="800" fill="var(--c4b)" text-anchor="middle">SQO</text>
+<text x="1494" y="236" font-size="13" fill="var(--c3)" text-anchor="middle">Sales</text>
+<text x="1494" y="254" font-size="13" fill="var(--c3)" text-anchor="middle">Qualified</text>
+<text x="1494" y="272" font-size="13" fill="var(--c3)" text-anchor="middle">Opportunity</text>
+<text x="1494" y="298" font-size="12" fill="var(--c4b)" text-anchor="middle" opacity="0.9">w/ next step</text>
+</g>
+
+</svg>

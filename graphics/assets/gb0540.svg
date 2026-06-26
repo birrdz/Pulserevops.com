@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.title{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:22px;fill:var(--c3);letter-spacing:0.5px}
+.sub{font-family:'Inter',system-ui,sans-serif;font-weight:500;font-size:14px;fill:var(--c3);opacity:0.7}
+.role{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:18px;fill:var(--ink)}
+.roleSub{font-family:'Inter',system-ui,sans-serif;font-weight:500;font-size:12px;fill:var(--ink);opacity:0.75}
+.colHdr{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:13px;fill:var(--c3);letter-spacing:1px;text-transform:uppercase}
+.cell{font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:13px;fill:var(--c3)}
+.dot{stroke:var(--ink);stroke-width:1.5}
+</style>
+<rect width="1584" height="396" fill="var(--bg1,#0b0f17)"/>
+<rect x="0" y="0" width="1584" height="396" fill="var(--bg2,#0f172a)" opacity="0.6"/>
+
+<!-- Header -->
+<text x="40" y="42" class="title">DECISION-MAKER MAPPING GRID</text>
+<text x="40" y="64" class="sub">Map every stakeholder. Track engagement. Close the gap before the gap closes you.</text>
+
+<!-- Column headers -->
+<g transform="translate(0,92)">
+  <text x="380" y="0" class="colHdr" text-anchor="middle">Engagement</text>
+  <text x="600" y="0" class="colHdr" text-anchor="middle">Last Touch</text>
+  <text x="820" y="0" class="colHdr" text-anchor="middle">Sentiment</text>
+  <text x="1040" y="0" class="colHdr" text-anchor="middle">Influence</text>
+  <text x="1260" y="0" class="colHdr" text-anchor="middle">Next Action</text>
+  <text x="1480" y="0" class="colHdr" text-anchor="middle">Status</text>
+</g>
+
+<!-- Row template helper: 5 rows starting y=110, height=50, gap=4 -->
+
+<!-- Row 1: Economic Buyer -->
+<g transform="translate(0,110)">
+  <rect x="20" y="0" width="300" height="50" rx="8" fill="var(--c2)" opacity="0.95"/>
+  <text x="40" y="22" class="role">Economic Buyer</text>
+  <text x="40" y="40" class="roleSub">CFO / VP Finance · signs the check</text>
+  <!-- Engagement bar 4/5 -->
+  <g transform="translate(330,18)">
+    <rect x="0" y="0" width="100" height="14" rx="4" fill="var(--c3)" opacity="0.15"/>
+    <rect x="0" y="0" width="80" height="14" rx="4" fill="var(--c1)"/>
+  </g>
+  <text x="380" y="46" class="cell" text-anchor="middle">4/5</text>
+  <!-- Last touch -->
+  <text x="600" y="32" class="cell" text-anchor="middle">2 days ago</text>
+  <!-- Sentiment dot -->
+  <circle cx="820" cy="25" r="11" fill="var(--c1)" class="dot"/>
+  <!-- Influence -->
+  <g transform="translate(1000,18)">
+    <rect x="0" y="0" width="80" height="14" rx="4" fill="var(--c3)" opacity="0.15"/>
+    <rect x="0" y="0" width="80" height="14" rx="4" fill="var(--c4)"/>
+  </g>
+  <text x="1040" y="46" class="cell" text-anchor="middle">High</text>
+  <!-- Next action -->
+  <text x="1260" y="32" class="cell" text-anchor="middle">Send ROI memo</text>
+  <!-- Status pill -->
+  <rect x="1430" y="14" width="100" height="22" rx="11" fill="var(--c1)"/>
+  <text x="1480" y="29" class="cell" text-anchor="middle" fill="var(--ink)">ENGAGED</text>
+</g>
+
+<!-- Row 2: Champion -->
+<g transform="translate(0,164)">
+  <rect x="20" y="0" width="300" height="50" rx="8" fill="var(--c1)" opacity="0.95"/>
+  <text x="40" y="22" class="role">Champion</text>
+  <text x="40" y="40" class="roleSub">RevOps Director · sells internally</text>
+  <g transform="translate(330,18)">
+    <rect x="0" y="0" width="100" height="14" rx="4" fill="var(--c3)" opacity="0.15"/>
+    <rect x="0" y="0" width="100" height="14" rx="4" fill="var(--c1)"/>
+  </g>
+  <text x="380" y="46" class="cell" text-anchor="middle">5/5</text>
+  <text x="600" y="32" class="cell" text-anchor="middle">Today</text>
+  <circle cx="820" cy="25" r="11" fill="var(--c1)" class="dot"/>
+  <g transform="translate(1000,18)">
+    <rect x="0" y="0" width="80" height="14" rx="4" fill="var(--c3)" opacity="0.15"/>
+    <rect x="0" y="0" width="64" height="14" rx="4" fill="var(--c4)"/>
+  </g>
+  <text x="1040" y="46" class="cell" text-anchor="middle">Med-High</text>
+  <text x="1260" y="32" class="cell" text-anchor="middle">Arm w/ deck</text>
+  <rect x="1430" y="14" width="100" height="22" rx="11" fill="var(--c1)"/>
+  <text x="1480" y="29" class="cell" text-anchor="middle" fill="var(--ink)">CHAMPIONING</text>
+</g>
+
+<!-- Row 3: User -->
+<g transform="translate(0,218)">
+  <rect x="20" y="0" width="300" height="50" rx="8" fill="var(--c3)" opacity="0.95"/>
+  <text x="40" y="22" class="role" fill="var(--ink)">User</text>
+  <text x="40" y="40" class="roleSub" fill="var(--ink)">SDR Team Lead · uses it daily</text>
+  <g transform="translate(330,18)">
+    <rect x="0" y="0" width="100" height="14" rx="4" fill="var(--c3)" opacity="0.15"/>
+    <rect x="0" y="0" width="60" height="14" rx="4" fill="var(--c1)"/>
+  </g>
+  <text x="380" y="46" class="cell" text-anchor="middle">3/5</text>
+  <text x="600" y="32" class="cell" text-anchor="middle">5 days ago</text>
+  <circle cx="820" cy="25" r="11" fill="var(--c4)" class="dot"/>
+  <g transform="translate(1000,18)">
+    <rect x="0" y="0" width="80" height="14" rx="4" fill="var(--c3)" opacity="0.15"/>
+    <rect x="0" y="0" width="32" height="14" rx="4" fill="var(--c4)"/>
+  </g>
+  <text x="1040" y="46" class="cell" text-anchor="middle">Low</text>
+  <text x="1260" y="32" class="cell" text-anchor="middle">Demo + Q&amp;A</text>
+  <rect x="1430" y="14" width="100" height="22" rx="11" fill="var(--c4)"/>
+  <text x="1480" y="29" class="cell" text-anchor="middle" fill="var(--ink)">WARMING</text>
+</g>
+
+<!-- Row 4: Influencer -->
+<g transform="translate(0,272)">
+  <rect x="20" y="0" width="300" height="50" rx="8" fill="var(--c4)" opacity="0.95"/>
+  <text x="40" y="22" class="role">Influencer</text>
+  <text x="40" y="40" class="roleSub">Head of Sales Ops · shapes opinion</text>
+  <g transform="translate(330,18)">
+    <rect x="0" y="0" width="100" height="14" rx="4" fill="var(--c3)" opacity="0.15"/>
+    <rect x="0" y="0" width="40" height="14" rx="4" fill="var(--c1)"/>
+  </g>
+  <text x="380" y="46" class="cell" text-anchor="middle">2/5</text>
+  <text x="600" y="32" class="cell" text-anchor="middle">2 weeks ago</text>
+  <circle cx="820" cy="25" r="11" fill="var(--c4b)" class="dot"/>
+  <g transform="translate(1000,18)">
+    <rect x="0" y="0" width="80" height="14" rx="4" fill="var(--c3)" opacity="0.15"/>
+    <rect x="0" y="0" width="56" height="14" rx="4" fill="var(--c4)"/>
+  </g>
+  <text x="1040" y="46" class="cell" text-anchor="middle">Medium</text>
+  <text x="1260" y="32" class="cell" text-anchor="middle">Coffee meeting</text>
+  <rect x="1430" y="14" width="100" height="22" rx="11" fill="var(--c4b)"/>
+  <text x="1480" y="29" class="cell" text-anchor="middle" fill="var(--ink)">AT RISK</text>
+</g>
+
+<!-- Row 5: Blocker -->
+<g transform="translate(0,326)">
+  <rect x="20" y="0" width="300" height="50" rx="8" fill="var(--ink)" opacity="0.85" stroke="var(--c4)" stroke-width="2"/>
+  <text x="40" y="22" class="role" fill="var(--c3)">Blocker</text>
+  <text x="40" y="40" class="roleSub" fill="var(--c3)">IT Security · gates the contract</text>
+  <g transform="translate(330,18)">
+    <rect x="0" y="0" width="100" height="14" rx="4" fill="var(--c3)" opacity="0.15"/>
+    <rect x="0" y="0" width="20" height="14" rx="4" fill="var(--c4)"/>
+  </g>
+  <text x="380" y="46" class="cell" text-anchor="middle">1/5</text>
+  <text x="600" y="32" class="cell" text-anchor="middle">No contact</text>
+  <circle cx="820" cy="25" r="11" fill="#dc2626" class="dot"/>
+  <g transform="translate(1000,18)">
+    <rect x="0" y="0" width="80" height="14" rx="4" fill="var(--c3)" opacity="0.15"/>
+    <rect x="0" y="0" width="72" height="14" rx="4" fill="var(--c4)"/>
+  </g>
+  <text x="1040" y="46" class="cell" text-anchor="middle">High</text>
+  <text x="1260" y="32" class="cell" text-anchor="middle">SOC2 + DPA prep</text>
+  <rect x="1430" y="14" width="100" height="22" rx="11" fill="#dc2626"/>
+  <text x="1480" y="29" class="cell" text-anchor="middle" fill="#fff">BLOCKED</text>
+</g>
+
+<!-- Grid divider lines -->
+<g stroke="var(--c3)" stroke-width="1" opacity="0.08">
+  <line x1="320" y1="105" x2="320" y2="380"/>
+  <line x1="440" y1="105" x2="440" y2="380"/>
+  <line x1="540" y1="105" x2="540" y2="380"/>
+  <line x1="700" y1="105" x2="700" y2="380"/>
+  <line x1="920" y1="105" x2="920" y2="380"/>
+  <line x1="1140" y1="105" x2="1140" y2="380"/>
+  <line x1="1400" y1="105" x2="1400" y2="380"/>
+</g>
+</svg>

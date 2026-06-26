@@ -1,0 +1,518 @@
+<!doctype html>
+<!-- KPI-CRON-CHANGELOG
+     Industry-KPIs hub page changes. Newest at top.
+     - 2026-05-22 — Pillar plumbing created. /industry-kpis hub mirrors the
+       /sales-trainings pillar exactly: tag "industry-kpi", id pattern ik####,
+       clean URL /industry-kpis/<id>, renderer kind=kpi. Dual progress bars
+       (Verified 10/10 + Gold Format), per-card gold/verified/polishing pill,
+       search, auto-refresh. Edit on disk, will ship at next scheduled deploy.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#E8710A" />
+  <meta name="color-scheme" content="dark" />
+  <title>Sales KPIs &amp; Revenue Benchmarks by Industry — 290+ Guides | Pulse</title>
+  <meta name="keywords" content="sales KPI benchmarks, industry sales benchmarks, SaaS KPIs, B2B sales metrics, revenue benchmarks by industry, sales conversion benchmarks, average close rate by industry, sales KPI calculator, sales metrics by industry, sales benchmark report, sales KPI dashboard, revenue operations benchmarks, sales performance benchmarks, industry-specific KPIs, sales metric definitions">
+  <meta name="author" content="Pulse RevOps · The Machine">
+  <meta name="description" content="A growing library of industry KPI guides published by Pulse RevOps. Each guide breaks down the metrics that actually move revenue in a specific industry — the benchmark ranges, how to calculate them, what good looks like, and the levers that move each number. Built for revenue leaders who run on numbers, not vibes." />
+  <link rel="canonical" href="https://pulserevops.com/industry-kpis" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Pulse RevOps" />
+  <meta property="og:title" content="Pulse Industry KPIs — sales KPIs &amp; benchmarks, by industry" />
+  <meta property="og:description" content="The metrics that actually move revenue in your industry — benchmark ranges, calculations, and the levers behind each number. Built for revenue leaders who run on numbers." />
+  <meta property="og:url" content="https://pulserevops.com/industry-kpis" />
+  <meta property="og:image" content="https://pulserevops.com/og-cover.png" />
+  <meta property="og:image:alt" content="Pulse Industry KPIs — sales KPIs and benchmarks, by industry" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@coachkorywhite" />
+  <meta name="twitter:creator" content="@coachkorywhite" />
+  <meta name="twitter:title" content="Pulse Industry KPIs — sales KPIs &amp; benchmarks, by industry" />
+  <meta name="twitter:description" content="The metrics that actually move revenue in your industry — benchmark ranges, calculations, and the levers behind each number." />
+  <meta name="twitter:image" content="https://pulserevops.com/og-cover.png" />
+
+  <link rel="alternate" type="application/atom+xml" title="Pulse Library — Atom feed" href="/feed.xml" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://pulserevops.com/#website",
+        "url": "https://pulserevops.com/",
+        "name": "Pulse RevOps",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": { "@type": "EntryPoint", "urlTemplate": "https://pulserevops.com/industry-kpis?q={search_term_string}" },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://pulserevops.com/#org",
+        "name": "Pulse RevOps",
+        "url": "https://pulserevops.com/",
+        "logo": "https://pulserevops.com/favicon.svg"
+      },
+      {
+        "@type": "CollectionPage",
+        "name": "Pulse Industry KPIs",
+        "description": "A growing library of industry KPI guides — the metrics that move revenue in each industry, with benchmark ranges, calculations, and the levers behind every number. New guides ship continuously.",
+        "url": "https://pulserevops.com/industry-kpis",
+        "isPartOf": { "@id": "https://pulserevops.com/#website" },
+        "publisher": { "@id": "https://pulserevops.com/#org" },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulserevops.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Industry KPIs", "item": "https://pulserevops.com/industry-kpis" }
+          ]
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Prefetch sibling pillar pages so cross-nav loads from cache -->
+  <link rel="prefetch" href="/knowledge" as="document">
+  <link rel="prefetch" href="/sales-trainings" as="document">
+  <link rel="prefetch" href="/dashboard" as="document">
+  <link rel="prefetch" href="/" as="document">
+
+  <style>
+    :root {
+      --bg: #070a0f;
+      --bg-2: #0e1218;
+      --bg-3: #161b25;
+      --ink: #EDE5D8;
+      --ink-dim: rgba(237,229,216,0.65);
+      --ink-faint: rgba(237,229,216,0.42);
+      --orange: #E8710A;
+      --orange-bright: #FF8C1A;
+      --gold: #FFD740;
+      --green: #22c55e;
+      --purple: #a78bfa;
+      --line: rgba(255,255,255,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif; line-height: 1.55; }
+    a { color: var(--orange-bright); text-decoration: none; }
+    a:hover { color: var(--gold); }
+
+    /* ── Top nav ───────────────────────────────────────────────────── */
+    .topnav {
+      position: sticky; top: 34px; z-index: 50;
+      background: rgba(7,10,15,0.92);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 20px;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    }
+    .topnav .brand { font-weight: 900; letter-spacing: 0.08em; color: var(--ink); font-size: 0.84rem; }
+    .topnav .brand .dot { color: var(--orange-bright); }
+    .topnav nav { display: flex; gap: 14px; flex-wrap: wrap; }
+    .topnav nav a {
+      font-size: 0.74rem; font-weight: 700; letter-spacing: 0.04em;
+      color: var(--ink-dim); padding: 6px 10px; border-radius: 6px;
+    }
+    .topnav nav a:hover { background: rgba(255,140,26,0.08); color: var(--ink); }
+    .topnav nav a.active { background: rgba(232,113,10,0.18); color: var(--gold); border: 1px solid rgba(232,113,10,0.45); }
+
+    /* ── Hero ──────────────────────────────────────────────────────── */
+    .hero {
+      max-width: 1200px; margin: 0 auto; padding: 56px 24px 28px;
+      position: relative; overflow: hidden;
+    }
+    .hero .eyebrow {
+      font-size: 0.58rem; font-weight: 900; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--orange-bright); margin-bottom: 8px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4.4vw, 3.2rem); font-weight: 900; line-height: 1.05;
+      letter-spacing: -0.02em; margin: 0 0 14px; color: var(--ink);
+    }
+    .hero h1 .accent {
+      background: linear-gradient(90deg, var(--orange-bright), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero .lede {
+      max-width: 760px; font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+      color: var(--ink-dim); line-height: 1.6; margin-bottom: 22px;
+    }
+    .hero .stats {
+      display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px;
+    }
+    .hero .stat {
+      background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px 16px; display: flex; flex-direction: column; gap: 2px;
+    }
+    .hero .stat .n { font-size: 1.3rem; font-weight: 900; color: var(--gold); font-variant-numeric: tabular-nums; }
+    .hero .stat .l { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+
+    /* ── Search bar ────────────────────────────────────────────────── */
+    .search-row {
+      max-width: 1200px; margin: 0 auto; padding: 8px 24px 24px;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .search-row input {
+      flex: 1; min-width: 280px;
+      background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px;
+      color: var(--ink); font-family: inherit; font-size: 0.95rem;
+      padding: 12px 16px; outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .search-row input:focus {
+      border-color: rgba(232,113,10,0.7);
+      box-shadow: 0 0 0 3px rgba(232,113,10,0.18);
+    }
+    .search-row .kbd-hint {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .search-row .kbd-hint kbd {
+      background: rgba(0,0,0,0.4); border: 1px solid rgba(255,140,26,0.3);
+      border-radius: 3px; padding: 1px 6px; color: #FFB46A; font-family: inherit; font-weight: 800;
+    }
+
+    /* ── Grid ──────────────────────────────────────────────────────── */
+    .grid-wrap { max-width: 1200px; margin: 0 auto; padding: 4px 24px 60px; }
+    .grid {
+      display: grid; gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    }
+    .card {
+      background: linear-gradient(160deg, var(--bg-2) 0%, var(--bg-3) 100%);
+      border: 1px solid var(--line); border-radius: 14px;
+      padding: 20px 20px 18px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: transform 0.18s ease-out, border-color 0.18s ease-out, box-shadow 0.18s ease-out;
+      position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: linear-gradient(180deg, var(--orange) 0%, var(--orange-bright) 50%, var(--gold) 100%);
+      opacity: 0.7;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(232,113,10,0.55);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(232,113,10,0.25);
+    }
+    .card .meta-row {
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .card .meta-row .duration {
+      background: rgba(232,113,10,0.12); border: 1px solid rgba(232,113,10,0.4);
+      color: var(--orange-bright); padding: 3px 8px; border-radius: 99px;
+    }
+    .card .meta-row .qs10 {
+      background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.4);
+      color: var(--green); padding: 3px 8px; border-radius: 99px;
+    }
+    .card .meta-row .qs-progress {
+      background: rgba(255,215,64,0.1); border: 1px solid rgba(255,215,64,0.35);
+      color: var(--gold); padding: 3px 8px; border-radius: 99px;
+    }
+    .card h3 {
+      margin: 0; font-size: 1.05rem; font-weight: 800; line-height: 1.3;
+      color: var(--ink); letter-spacing: -0.01em;
+    }
+    .card h3 a { color: inherit; }
+    .card h3 a:hover { color: var(--gold); }
+    .card .tags {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      font-size: 0.62rem; font-weight: 700;
+    }
+    .card .tags .tag {
+      background: rgba(168,139,250,0.1); border: 1px solid rgba(168,139,250,0.3);
+      color: var(--purple); padding: 2px 8px; border-radius: 99px;
+    }
+    .card .footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: auto; padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-size: 0.72rem; color: var(--ink-faint);
+    }
+    .card .footer .open {
+      color: var(--orange-bright); font-weight: 800; letter-spacing: 0.04em;
+    }
+    .card .footer .open::after { content: " →"; }
+
+    /* ── Empty / loading states ────────────────────────────────────── */
+    .state {
+      max-width: 760px; margin: 80px auto; padding: 40px 28px;
+      text-align: center; color: var(--ink-dim);
+      background: var(--bg-2); border: 1px dashed var(--line); border-radius: 14px;
+    }
+    .state h2 { color: var(--ink); margin-top: 0; font-weight: 800; }
+    .state .pulse-dot {
+      display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--orange-bright); margin-right: 8px;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:0.4;transform:scale(0.85)} 50%{opacity:1;transform:scale(1.1)} }
+
+    /* ── About strip ───────────────────────────────────────────────── */
+    .about {
+      max-width: 1200px; margin: 8px auto 0; padding: 28px 24px;
+      border-top: 1px solid var(--line);
+    }
+    .about h2 {
+      font-size: 0.62rem; font-weight: 900; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin: 0 0 14px;
+    }
+    .about p { color: var(--ink-dim); max-width: 780px; line-height: 1.65; }
+    .about ul { color: var(--ink-dim); padding-left: 22px; max-width: 780px; }
+    .about li { margin-bottom: 6px; }
+
+    footer {
+      max-width: 1200px; margin: 0 auto; padding: 28px 24px 40px;
+      border-top: 1px solid var(--line);
+      font-size: 0.72rem; color: var(--ink-faint);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    footer a { color: var(--ink-dim); }
+    footer a:hover { color: var(--gold); }
+  </style>
+  <script defer src="/pulse-max-plan-widget.js"></script>
+</head>
+<body>
+
+  <!-- KPI-pillar auditor bar — mirrors the bar on /knowledge but scoped to ik* entries only.
+       Pulls /pulse-quality-audit-pillar-status?pillar=kpi every 15s. -->
+  <div id="kpi-audit-bar" style="position:fixed;top:0;left:0;right:0;height:34px;z-index:9998;background:rgba(7,10,15,0.94);border-bottom:1px solid rgba(57,255,20,0.45);display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'JetBrains Mono','SF Mono',Menlo,monospace;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#C9FFB3;">
+    <span style="font-weight:900;color:#39FF14;white-space:nowrap;">⚖ KPI Audit</span>
+    <div id="kpiab-track" style="flex:1;height:8px;background:rgba(57,255,20,0.08);border:1px solid rgba(57,255,20,0.30);border-radius:99px;overflow:hidden;min-width:60px;">
+      <div id="kpiab-fill" style="height:100%;width:0%;background:linear-gradient(90deg,#39FF14 0%,#22c55e 100%);border-radius:99px;box-shadow:0 0 10px rgba(57,255,20,0.55);transition:width 0.7s cubic-bezier(0.22,1,0.36,1);"></div>
+    </div>
+    <span id="kpiab-pct" style="font-weight:900;color:#39FF14;min-width:46px;text-align:right;">—%</span>
+    <span id="kpiab-detail" style="opacity:0.78;font-size:0.55rem;white-space:nowrap;">— audited · — pass · — flagged</span>
+    <span id="kpiab-idle" style="font-weight:900;color:#39FF14;font-size:0.55rem;display:none;white-space:nowrap;">● caught up · idle</span>
+  </div>
+  <style>
+    @keyframes kpiabSweep{0%{box-shadow:0 0 10px rgba(57,255,20,0.55);}50%{box-shadow:0 0 22px rgba(57,255,20,0.95);}100%{box-shadow:0 0 10px rgba(57,255,20,0.55);}}
+    #kpi-audit-bar.kpiab-running #kpiab-fill { animation: kpiabSweep 1.8s ease-in-out infinite; }
+    body { padding-top: 34px; }
+    @media (max-width:640px) { #kpiab-detail { display:none !important; } #kpi-audit-bar { gap:8px !important; padding:0 10px !important; font-size:0.55rem !important; } }
+  </style>
+  <script>
+  (function(){
+    function refreshKpiAuditBar(){
+      fetch('/.netlify/functions/pulse-quality-audit-pillar-status?pillar=kpi', { cache: 'no-store' })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+          if (!d || !d.ok) return;
+          var fill = document.getElementById('kpiab-fill');
+          var pct  = document.getElementById('kpiab-pct');
+          var det  = document.getElementById('kpiab-detail');
+          var idle = document.getElementById('kpiab-idle');
+          var pctNum = typeof d.audited_pct === 'number' ? d.audited_pct : 0;
+          if (fill) fill.style.width = Math.min(100, pctNum).toFixed(1) + '%';
+          if (pct)  pct.textContent  = pctNum.toFixed(1) + '%';
+          if (det)  det.textContent  = (d.audited || 0).toLocaleString() + ' audited · ' + (d.pass || 0).toLocaleString() + ' pass · ' + (d.fail || 0).toLocaleString() + ' flagged';
+          if (idle) idle.style.display = d.idle ? 'inline' : 'none';
+          var bar = document.getElementById('kpi-audit-bar');
+          if (bar) {
+            if (d.idle) bar.classList.remove('kpiab-running');
+            else bar.classList.add('kpiab-running');
+          }
+        })
+        .catch(function(){});
+    }
+    refreshKpiAuditBar();
+    setInterval(refreshKpiAuditBar, 15000);
+  })();
+  </script>
+
+  <div class="topnav">
+    <span class="brand">PULSE<span class="dot">.</span> RevOps</span>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/knowledge">Knowledge Library</a>
+      <a href="/sales-trainings">Sales Trainings</a>
+      <a href="/industry-kpis" class="active">Industry KPIs</a>
+      <a href="/tech-stacks">Tech Stacks</a>
+      <a href="/sales-book-summaries">Book Summaries</a>
+      <a href="/graphics">Graphics</a>
+      <a href="/electronic-reviews">Electronic Reviews</a>
+      <a href="/revenue-architecture">Revenue Architecture</a>
+      <a href="/go-to-market-playbooks">GTM Playbooks</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/themachine">The Machine</a>
+    </nav>
+  </div>
+
+  <section class="hero">
+    <h1 style="font-size:clamp(3rem,7vw,5.5rem);font-weight:900;letter-spacing:-0.02em;line-height:0.95;margin:0 0 18px;background:linear-gradient(135deg,#39FF14 0%,#22c55e 50%,#15803d 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 48px rgba(57,255,20,0.28);">Industry KPIs</h1>
+    <div class="eyebrow">📊 The Pulse Industry KPIs Library</div>
+    <h2 style="font-size:clamp(1.4rem,2.4vw,2rem);font-weight:800;line-height:1.2;margin:8px 0 14px;color:#EDE5D8;">Sales <span class="accent">KPIs &amp; benchmarks</span> — the metrics that actually move revenue in your industry.</h2>
+    <p class="lede">
+      Every industry runs on a different scoreboard. A SaaS team lives and dies by NRR and CAC payback; an HVAC operation watches average ticket and labor utilization; a manufacturer tracks quote-to-order and gross margin per line. This library is one guide per industry — the 9 KPIs that matter, the benchmark ranges of what good looks like, exactly how to calculate each one, and the operating levers that move the number. No vanity metrics, no slideware. Pull a guide, hand it to your team, and run your business on the numbers that count. New guides ship continuously.
+    </p>
+    <div class="stats">
+      <div class="stat"><span class="n" id="ik-count">—</span><span class="l">KPI guides live</span></div>
+      <div class="stat"><span class="n" id="ik-fresh">—</span><span class="l">added this week</span></div>
+      <div class="stat"><span class="n">9 KPIs</span><span class="l">per guide</span></div>
+      <div class="stat"><span class="n">$0</span><span class="l">paywall</span></div>
+    </div>
+  </section>
+
+  <div class="search-row">
+    <input type="search" id="ik-search" placeholder="Search KPI guides — industry, metric, benchmark…" aria-label="Search KPI guides" />
+    <span class="kbd-hint">press <kbd>/</kbd> to focus · <kbd>Esc</kbd> to clear</span>
+  </div>
+
+  <main class="grid-wrap">
+    <div id="ik-grid" class="grid" aria-live="polite"></div>
+    <div id="ik-state" class="state" style="display:none;">
+      <span class="pulse-dot"></span><strong>First industry KPI guides being authored right now.</strong>
+      <p style="margin-top:14px;">The Pulse Machine is publishing the first KPI guides in the background. Refresh in a minute or two — the cards will appear here automatically. (You can also drop into <a href="/knowledge">the Knowledge Library</a> in the meantime.)</p>
+    </div>
+  </main>
+
+  <section class="about">
+    <h2>What's inside every Pulse KPI guide</h2>
+    <p>Each entry is a complete, industry-specific KPI playbook. The same fixed structure every time:</p>
+    <ul>
+      <li><strong>The 9 KPIs that matter</strong> — the metrics that genuinely drive revenue in this industry, not a generic dashboard dump</li>
+      <li><strong>Benchmark ranges</strong> — what "bad / okay / good / elite" looks like for each number, with the data sourced and dated</li>
+      <li><strong>How to calculate it</strong> — the exact formula, the inputs, and where to pull them from your stack</li>
+      <li><strong>What the number is telling you</strong> — how to read each KPI and the failure mode it exposes when it drifts</li>
+      <li><strong>The levers that move it</strong> — the concrete operating actions that improve the metric, ranked by impact</li>
+      <li><strong>The one-page scorecard</strong> — printable summary with every KPI, its benchmark, and its formula in one place</li>
+    </ul>
+    <p>Use them as-is, fork them for your stack, or stack several into a full revenue scorecard. They're free, indexed, and built to be linked.</p>
+  </section>
+
+  <footer>
+    <span>© Pulse RevOps · Built by <a href="/kory-white">Kory White</a></span>
+    <span>
+      <a href="/feed.xml">Atom feed</a> ·
+      <a href="/knowledge">Knowledge Library</a> ·
+      <a href="/sales-trainings">Sales Trainings</a> ·
+      <a href="/tech-stacks">Tech Stacks</a> ·
+      <a href="/sales-book-summaries">Book Summaries</a> ·
+      <a href="/graphics">Graphics</a> ·
+      <a href="/electronic-reviews">Electronic Reviews</a> ·
+      <a href="/revenue-architecture">Revenue Architecture</a> ·
+      <a href="/go-to-market-playbooks">GTM Playbooks</a> ·
+      <a href="/themachine">The Machine</a>
+    </span>
+  </footer>
+
+  <script>
+    (function(){
+      var GRID = document.getElementById('ik-grid');
+      var STATE = document.getElementById('ik-state');
+      var COUNT = document.getElementById('ik-count');
+      var FRESH = document.getElementById('ik-fresh');
+      var SEARCH = document.getElementById('ik-search');
+      var ALL = [];
+
+      function tagsLine(tags){
+        if (!Array.isArray(tags) || !tags.length) return '';
+        return tags.filter(function(t){ return t && t !== 'industry-kpi'; }).slice(0, 3)
+          .map(function(t){ return '<span class="tag">' + t + '</span>'; }).join('');
+      }
+      function fmtTs(ts){
+        if (!ts) return '';
+        var d = new Date(ts);
+        if (isNaN(d.getTime())) return '';
+        var now = Date.now();
+        var diff = now - ts;
+        if (diff < 60000) return 'just now';
+        if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+        if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+        if (diff < 7 * 86400000) return Math.floor(diff / 86400000) + 'd ago';
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+      function card(e){
+        var CARD_STYLE = ' style="border:2px solid rgba(255,140,26,0.42); background:linear-gradient(90deg, rgba(255,140,26,0.055), rgba(10,14,20,0.02) 60%); box-shadow:0 0 12px rgba(255,140,26,0.14);"';
+        var dur = '<span class="duration">9 KPIs</span>';
+        var tsLabel = fmtTs(e.polished_at || e.ts);
+        var tsHtml = tsLabel ? '<span style="opacity:0.65;font-size:0.7rem;margin-left:8px;">· ' + tsLabel + '</span>' : '';
+        return '<article class="card"' + CARD_STYLE + '>'
+          + '<div class="meta-row">' + dur + '<span>' + (e.id || '') + tsHtml + '</span></div>'
+          + '<h3><a href="/industry-kpis/' + e.id + '">' + escapeHtml(e.question || '(untitled)') + '</a></h3>'
+          + '<div class="tags">' + tagsLine(e.tags) + '</div>'
+          + '<div class="footer"><span>Pulse KPI Guide · benchmarks + formulas + levers</span><span class="open">Open guide</span></div>'
+          + '</article>';
+      }
+      function escapeHtml(s){
+        return String(s).replace(/[&<>"']/g, function(c){
+          return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+        });
+      }
+      function render(list){
+        if (!list || !list.length){
+          GRID.innerHTML = '';
+          STATE.style.display = 'block';
+          return;
+        }
+        STATE.style.display = 'none';
+        GRID.innerHTML = list.map(card).join('');
+      }
+      function filterAndRender(){
+        var q = (SEARCH.value || '').toLowerCase().trim();
+        if (!q) return render(ALL);
+        var sNoSpace = q.replace(/\s+/g, '');
+        var f = ALL.filter(function(e){
+          var idLc = String(e.id || '').toLowerCase();
+          // ID match — handles "ik0001", "0001", "ik00" partial, "1" etc.
+          if (sNoSpace === idLc) return true;
+          if (/^\d{1,6}$/.test(sNoSpace)) {
+            var idDigits = idLc.replace(/^(ik|q|st|vq_?)/, '');
+            if (idDigits === sNoSpace) return true;
+            if (parseInt(idDigits, 10) === parseInt(sNoSpace, 10)) return true;
+            if (idDigits.startsWith(sNoSpace)) return true;
+          }
+          var prefixedMatch = sNoSpace.match(/^(ik|q|st|vq_?)(\w+)$/);
+          if (prefixedMatch && idLc.startsWith(prefixedMatch[1] + prefixedMatch[2])) return true;
+          var hay = ((e.question || '') + ' ' + (e.tags || []).join(' ') + ' ' + idLc).toLowerCase();
+          return hay.indexOf(q) >= 0;
+        });
+        render(f);
+      }
+      function load(){
+        fetch('/.netlify/functions/pulse-machine-library-list?pillar=kpi&recent=500', { cache: 'no-store' })
+          .then(function(r){ return r.json(); })
+          .then(function(j){
+            ALL = (j.entries || []).slice();
+            ALL.sort(function(a,b){
+              return (b.polished_at || b.ts || 0) - (a.polished_at || a.ts || 0);
+            });
+            COUNT.textContent = ALL.length;
+            var wk = Date.now() - 7*86400000;
+            FRESH.textContent = ALL.filter(function(e){ return (e.ts || 0) >= wk; }).length;
+            filterAndRender();
+          })
+          .catch(function(){
+            STATE.style.display = 'block';
+          });
+      }
+      SEARCH.addEventListener('input', filterAndRender);
+      SEARCH.addEventListener('keydown', function(e){
+        if (e.key === 'Escape'){ SEARCH.value = ''; filterAndRender(); SEARCH.blur(); }
+      });
+      document.addEventListener('keydown', function(e){
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        var t = e.target, tag = (t && t.tagName || '').toUpperCase();
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || (t && t.isContentEditable)) return;
+        if (e.key === '/'){ e.preventDefault(); SEARCH.focus(); SEARCH.select(); }
+      });
+      load();
+      setInterval(load, 60000);
+    })();
+  </script>
+
+  <script src="/assets/nav-loader.js" defer></script>
+</body>
+</html>

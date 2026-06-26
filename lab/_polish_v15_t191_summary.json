@@ -1,0 +1,19 @@
+{
+  "tick": 191,
+  "picked": "q363",
+  "question": "How do you assess sales interview candidates for resilience and adaptability to process changes?",
+  "walk": "5->6",
+  "qs_after": 6,
+  "from": 5,
+  "words": 6538,
+  "format_v": "2026-05",
+  "posted_at": "2026-05-19T22:55:29.584Z",
+  "response": {
+    "ok": true,
+    "id": "q363",
+    "quality_score": 6,
+    "from": 5,
+    "polished": false
+  },
+  "live_url": "https://pulserevops.com/?q=q363"
+}

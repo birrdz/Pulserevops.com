@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#facc15;--c2:#a16207;--c3:#fef08a;--c4:#fbbf24;--c4b:#fde68a;--ink:#1a1300;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#facc15)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#a16207)"/>
+      <stop offset="1" style="stop-color:var(--c3,#fef08a)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.3" r="0.5">
+      <stop offset="0" style="stop-color:var(--c1,#facc15)" stop-opacity="0.18"/>
+      <stop offset="1" style="stop-color:var(--c1,#facc15)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1584" height="396" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1584" height="396" fill="url(#glow)"/>
+
+  <!-- Stylized truck silhouette with route arrow on the right -->
+  <g transform="translate(1140,120)" fill="none" stroke="url(#accent)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95">
+    <!-- Route path leading into truck -->
+    <path d="M0,160 C40,160 60,120 110,120 C160,120 180,160 220,160"/>
+    <!-- Truck cargo box -->
+    <rect x="60" y="50" width="200" height="110" rx="6"/>
+    <!-- Truck cab -->
+    <path d="M260,90 L320,90 L356,130 L356,160 L260,160 Z"/>
+    <!-- Cab window -->
+    <path d="M272,100 L312,100 L336,128 L272,128 Z"/>
+    <!-- Wheels -->
+    <circle cx="120" cy="170" r="18"/>
+    <circle cx="220" cy="170" r="18"/>
+    <circle cx="320" cy="170" r="18"/>
+    <!-- Forward route arrow -->
+    <path d="M370,140 L410,140 M398,128 L410,140 L398,152"/>
+  </g>
+
+  <text x="120" y="180" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">LOGISTICS</text>
+  <text x="118" y="262" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="72" font-weight="900" fill="#FFFFFF">Chief Revenue Officer.</text>
+  <text x="120" y="316" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="28" font-weight="700" fill="#EDE5D8">Lanes <tspan fill="url(#accent)">&#183;</tspan> Capacity <tspan fill="url(#accent)">&#183;</tspan> Margin</text>
+
+</svg>

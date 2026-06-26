@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PULSE RevOps — The #1 Source of Truth for RevOps Leaders</title>
+<link rel="canonical" href="https://pulserevops.com/">
+<meta name="description" content="PULSE RevOps — Operator-grade RevOps content across 11 pillars (Knowledge, Sales Trainings, KPIs, Tech Stacks, Books, Reviews, Revenue Architecture, GTM Playbooks, Sports/NIL, Franchises, Cars). Built by Kory White, Chief Revenue Officer.">
+<!-- PWA install (manifest + Apple touch icons + Android theming) -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#FF6B30" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#09090F" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PULSE">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="PULSE">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" href="/icon-192.svg">
+<link rel="apple-touch-icon" sizes="192x192" href="/icon-192.svg">
+<link rel="apple-touch-icon" sizes="512x512" href="/icon-512.svg">
+<link rel="icon" type="image/svg+xml" href="/icon-192.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- 16-bit (SNES) hero fonts — scoped to .home-hero.snes16 only -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#FF6B30;--od:#D95520;--og:rgba(255,107,48,.15);
+  --green:#22C55E;--gd:#16A34A;--gg:rgba(34,197,94,.12);
+  --gold:#F59E0B;--gold-d:#92400E;
+  --bg:#09090F;--s1:#111118;--s2:#0D0D15;
+  --card:#161622;--cardh:#1C1C2C;
+  --bdr:rgba(255,255,255,.06);--bdrh:rgba(255,107,48,.28);
+  --t1:#EEEEF5;--t2:#8A8BA6;--t3:#55566A;
+  --font:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--t1);overflow-x:hidden;line-height:1.5;background-color:var(--bg);background-image:radial-gradient(rgba(255,255,255,.032) 1px,transparent 1px);background-size:26px 26px}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(9,9,15,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);padding:0 20px}
+.hdr-in{max-width:1280px;margin:0 auto;height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo-wrap{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.live-pill{display:flex;align-items:center;gap:5px;background:rgba(255,107,48,.15);border:1px solid rgba(255,107,48,.35);color:var(--orange);font-size:10px;font-weight:800;letter-spacing:1.2px;padding:4px 10px;border-radius:20px}
+.ldot{width:6px;height:6px;background:var(--orange);border-radius:50%;animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.logo{font-size:30px;font-weight:900;letter-spacing:-1.5px;color:var(--orange)}
+.tagline{font-size:11.5px;color:var(--t2);line-height:1.3;display:block;text-align:right}
+.tagline strong{display:block;color:var(--t1);font-weight:800;font-size:12.5px;letter-spacing:.01em}
+@media(max-width:520px){.tagline{font-size:10px}.tagline strong{font-size:11px}}
+@media(max-width:380px){.tagline{display:none}}
+.hstats{display:flex;gap:8px;flex-shrink:0}
+.hs{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;border:1px solid}
+.hs.g{background:rgba(34,197,94,.08);color:#4ADE80;border-color:rgba(34,197,94,.2)}
+.hs.p{background:rgba(167,139,250,.08);color:#C4B5FD;border-color:rgba(167,139,250,.2)}
+.hs.o{background:rgba(255,107,48,.08);color:#FF9562;border-color:rgba(255,107,48,.2)}
+.hsdot{width:6px;height:6px;border-radius:50%}
+.hs.g .hsdot{background:#22C55E}.hs.p .hsdot{background:#A78BFA}.hs.o .hsdot{background:var(--orange)}
+@media(max-width:600px){.hs:nth-child(n+3){display:none}}
+
+/* THE MACHINE — featured hero */
+.feat-wrap{padding:14px 20px 0}
+.feat-in{max-width:1280px;margin:0 auto}
+.feat-card{
+  border-radius:26px;border:1px solid rgba(255,255,255,.07);
+  padding:24px 32px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;
+  position:relative;overflow:hidden;cursor:pointer;text-decoration:none;
+  background-color:#0E0E1A;
+  background-image:radial-gradient(ellipse at 75% 40%,rgba(255,107,48,.14) 0%,transparent 55%),radial-gradient(ellipse at 15% 70%,rgba(34,197,94,.10) 0%,transparent 50%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'%3E%3Cpolygon points='30,1 59,17 59,49 30,65 1,49 1,17' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='0.8'/%3E%3C/svg%3E");
+  animation:border-pulse 3s ease-in-out infinite;
+}
+@keyframes border-pulse{0%,100%{border-color:rgba(255,255,255,.07)}50%{border-color:rgba(255,107,48,.2)}}
+.feat-card:hover{transform:translateY(-2px)}
+.feat-live{display:inline-flex;align-items:center;gap:6px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:#4ADE80;font-size:10px;font-weight:800;letter-spacing:1px;padding:4px 11px;border-radius:20px;margin-bottom:16px}
+.fldot{width:6px;height:6px;background:#22C55E;border-radius:50%;animation:blink 1.2s infinite}
+.feat-card h2{font-size:clamp(26px,3.5vw,44px);font-weight:900;color:var(--t1);letter-spacing:-1.5px;line-height:1.05;margin-bottom:12px}
+.feat-card h2 em{font-style:normal;color:var(--orange)}
+.feat-card p{font-size:14px;color:var(--t2);margin-bottom:24px;max-width:500px;line-height:1.65}
+.feat-btn{display:inline-flex;align-items:center;gap:8px;width:fit-content;background:var(--orange);color:#fff;font-size:13px;font-weight:800;padding:12px 24px;border-radius:24px;text-decoration:none;transition:background .15s,transform .1s}
+.feat-btn:hover{background:var(--od);transform:scale(1.04)}
+.feat-chips{display:none;flex-direction:column;gap:10px;align-items:flex-end}
+@media(min-width:720px){.feat-chips{display:flex}}
+.feat-chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:10px 16px;font-size:12px;font-weight:600;color:rgba(255,255,255,.75);white-space:nowrap}
+.feat-chip span{display:block;font-size:10px;color:rgba(255,255,255,.35);margin-bottom:2px}
+@media(max-width:720px){.feat-card{grid-template-columns:1fr;padding:26px 22px}}
+
+/* GOLD PATH — FRONT AND CENTER (recolored to vivid site orange 2026-06-07).
+   Padding + label-row matched to .gticker (green pain strip) so both tickers
+   render the same height. */
+.gp-section{margin-top:0;background:#FF6B30;border-top:1px solid rgba(0,0,0,.25);border-bottom:1px solid rgba(0,0,0,.25);padding:14px 0}
+.gp-label-row{display:none}
+.gp-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(10,14,20,.28);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;padding:6px 14px;border-radius:20px}
+.gp-badge-dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 2s infinite;box-shadow:0 0 8px rgba(255,255,255,.7)}
+.gp-sub{font-size:12px;color:rgba(10,14,20,.78);font-weight:700}
+.gp-track-wrap{overflow:hidden}
+.gp-track{display:flex;width:max-content;animation:scrollL 130s linear infinite}
+.gp-track:hover{animation-play-state:paused}
+@keyframes scrollL{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.gp-item{display:flex;align-items:center;gap:12px;padding:0 28px;white-space:nowrap;font-size:15px;font-weight:700;color:#fff;cursor:default;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.gp-item:hover{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.gp-dot{width:5px;height:5px;background:rgba(255,255,255,.7);border-radius:50%;flex-shrink:0}
+
+/* GREEN TICKER */
+.gticker{overflow:hidden;background:linear-gradient(90deg,#14602A,#1A7A35);padding:14px 0}
+.gt-track{display:flex;width:max-content;animation:scrollL 150s linear infinite}
+.gt-track:hover{animation-play-state:paused}
+.gt-item{font-size:15px;font-weight:700;letter-spacing:.3px;color:rgba(255,255,255,.92);white-space:nowrap;padding:0 30px;display:flex;align-items:center;gap:12px}
+.gt-dot{width:3px;height:3px;background:rgba(255,255,255,.35);border-radius:50%}
+
+/* SECTIONS */
+.section{padding:14px 0 6px}
+.section.alt{background:var(--s1)}
+.sec-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(255,107,48,.2),transparent)}
+.sec-hd{display:flex;align-items:flex-end;justify-content:space-between;padding:0 20px;margin-bottom:18px}
+.sec-title{font-size:18px;font-weight:800;letter-spacing:-.4px;color:var(--t1)}
+.sec-sub{font-size:12px;color:var(--t2);margin-top:3px;font-weight:500}
+.see-all{font-size:12px;font-weight:700;color:var(--green);text-decoration:none;transition:color .15s}
+.see-all:hover{color:#4ADE80}
+
+/* SHELF — auto-scrolling ticker on desktop, drag-to-scroll on mobile. */
+.shelf-wrap{position:relative;overflow:hidden;padding:4px 0 22px;mask-image:linear-gradient(90deg,transparent 0,#000 32px,#000 calc(100% - 32px),transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 32px,#000 calc(100% - 32px),transparent 100%)}
+.shelf{display:flex;gap:14px;overflow-x:auto;overflow-y:visible;padding:0 20px;cursor:grab;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:none}
+.shelf::-webkit-scrollbar{display:none}
+.shelf.dragging{cursor:grabbing;user-select:none}
+/* Desktop ticker mode — JS duplicates cards + flips on this class. Pauses
+   on hover so users can read individual cards. Auto-scroll left-to-right. */
+@media (min-width: 1024px) {
+  .shelf.ticker{overflow-x:hidden;cursor:default;width:max-content;animation:shelfTick 75s linear infinite}
+  .shelf.ticker:hover{animation-play-state:paused}
+  .shelf-wrap:hover .shelf.ticker{animation-play-state:paused}
+}
+@keyframes shelfTick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* PILLAR CARD */
+.pc{flex:0 0 220px;background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:20px 18px 18px;scroll-snap-align:start;text-decoration:none;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s,background .2s}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent)}
+.pc:hover{background:var(--cardh);border-color:var(--bdrh);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.4),0 0 24px rgba(255,107,48,.07)}
+.pc.wide{flex:0 0 280px}
+.pc-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;flex-shrink:0}
+.ic-o{background:linear-gradient(135deg,#C2400A,#FF6B30)}
+.ic-g{background:linear-gradient(135deg,#15803D,#22C55E)}
+.ic-b{background:linear-gradient(135deg,#1D4ED8,#60A5FA)}
+.ic-p{background:linear-gradient(135deg,#6D28D9,#A78BFA)}
+.ic-t{background:linear-gradient(135deg,#0F766E,#2DD4BF)}
+.ic-pk{background:linear-gradient(135deg,#BE185D,#F472B6)}
+.ic-a{background:linear-gradient(135deg,#B45309,#FCD34D)}
+.ic-n{background:linear-gradient(135deg,#1E3A5F,#3B82F6)}
+.ic-c{background:linear-gradient(135deg,#064E3B,#34D399)}
+.bdg{position:absolute;top:14px;right:14px;font-size:9px;font-weight:800;letter-spacing:.6px;padding:3px 8px;border-radius:20px}
+.bdg-ct{background:rgba(255,107,48,.15);color:#FF9562;border:1px solid rgba(255,107,48,.25)}
+.bdg-lv{background:rgba(34,197,94,.12);color:#4ADE80;border:1px solid rgba(34,197,94,.25)}
+.bdg-nw{background:rgba(167,139,250,.12);color:#C4B5FD;border:1px solid rgba(167,139,250,.25)}
+.pc-name{font-size:14px;font-weight:800;color:var(--t1);margin-bottom:6px;line-height:1.25}
+.pc-desc{font-size:12px;color:var(--t2);line-height:1.55;flex:1;margin-bottom:16px}
+.pc-cta{font-size:11px;font-weight:800;letter-spacing:.2px;display:flex;align-items:center;gap:4px;transition:gap .15s}
+.pc:hover .pc-cta{gap:7px}
+.ct-o{color:var(--orange)}.ct-g{color:var(--green)}.ct-b{color:#60A5FA}.ct-p{color:#A78BFA}.ct-t{color:#2DD4BF}
+
+/* CRM & DASHBOARD — 2-up spotlight */
+.duo-wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+.duo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.duo-grid{grid-template-columns:1fr}}
+.duo-card{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:28px 26px;text-decoration:none;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s}
+.duo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent)}
+.duo-card:hover{transform:translateY(-3px);border-color:var(--bdrh);box-shadow:0 8px 32px rgba(0,0,0,.4),0 0 24px rgba(255,107,48,.07)}
+.duo-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px}
+.duo-name{font-size:18px;font-weight:800;color:var(--t1);margin-bottom:8px}
+.duo-desc{font-size:13px;color:var(--t2);line-height:1.6;flex:1;margin-bottom:20px}
+.duo-cta{font-size:12px;font-weight:800;display:flex;align-items:center;gap:5px;transition:gap .15s}
+.duo-card:hover .duo-cta{gap:8px}
+
+/* KORY */
+.kory-wrap{padding:8px 20px 32px;max-width:1280px;margin:0 auto}
+.kory-card{background:var(--card);border:1px solid var(--bdr);border-radius:26px;padding:28px 32px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;position:relative;overflow:hidden;transition:border-color .2s}
+.kory-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,107,48,.3),transparent)}
+.kory-card:hover{border-color:rgba(255,107,48,.2)}
+.kory-av{width:70px;height:70px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(255,107,48,.3)}
+.kory-av img{width:100%;height:100%;object-fit:cover}
+.kory-init{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--od),var(--orange));display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;flex-shrink:0}
+.kory-text h3{font-size:17px;font-weight:800;color:var(--t1);margin-bottom:5px}
+.kory-text p{font-size:13px;color:var(--t2)}
+.kory-text .ksub{font-size:11px;color:var(--t3);margin-top:4px}
+.kory-btn{background:var(--orange);color:#fff;font-size:13px;font-weight:800;padding:12px 24px;border-radius:24px;text-decoration:none;flex-shrink:0;white-space:nowrap;transition:background .15s,transform .1s}
+.kory-btn:hover{background:var(--od);transform:scale(1.04)}
+@media(max-width:680px){.kory-card{grid-template-columns:auto 1fr}.kory-btn{display:none}}
+
+/* FOOTER */
+.footer{background:var(--s1);border-top:1px solid rgba(255,255,255,.05);padding:36px 20px 24px}
+.ft-in{max-width:1280px;margin:0 auto}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:28px}
+.f-logo{font-size:20px;font-weight:900;color:var(--orange);margin-bottom:8px}
+.f-desc{font-size:12px;color:var(--t2);line-height:1.7;max-width:300px}
+.f-disc{font-size:10px;color:var(--t3);margin-top:10px;line-height:1.5}
+.fc h4{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--t3);margin-bottom:12px}
+.fc a{display:block;font-size:13px;color:var(--t2);text-decoration:none;margin-bottom:7px;transition:color .15s}
+.fc a:hover{color:var(--t1)}
+.ft-bot{border-top:1px solid rgba(255,255,255,.05);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.f-copy{font-size:11px;color:var(--t3)}
+.f-seo{font-size:10px;color:var(--t3);max-width:560px;line-height:1.6}
+@media(max-width:720px){.ft-grid{grid-template-columns:1fr}}
+</style>
+<script defer src="/pulse-funnel-overlay.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="logo-wrap">
+      <div class="live-pill"><span class="ldot"></span>LIVE</div>
+      <div class="logo">PULSE</div>
+      <div class="tagline"><strong>The #1 Source of Truth</strong>for RevOps Leaders · Built by Kory White, Chief Revenue Officer</div>
+    </div>
+    <!-- Top-right header stat chips removed 2026-06-02 per owner — counts were fluctuating. -->
+    <div class="hstats">
+      <a href="/sponsor" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(255,107,48,0.10);border:1px solid rgba(255,107,48,0.32);border-radius:99px;color:#FFB870;font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:background .15s,color .15s;" onmouseover="this.style.background='#FF6B30';this.style.color='#0a0e14';" onmouseout="this.style.background='rgba(255,107,48,0.10)';this.style.color='#FFB870';">✦ Advertise</a>
+      <!-- Clerk auth UI — Sign In button (signed out) or user avatar menu (signed in) -->
+      <span data-pulse-auth-slot class="pulse-auth-slot"></span>
+    </div>
+  </div>
+</header>
+
+<!-- NEW-PASSCODE ANNOUNCEMENT BANNER removed 2026-06-15 per owner request -->
+
+
+<!-- HOMEPAGE HERO — rebuilt 2026-06-02: removed Machine featured card per
+     owner, replaced with a mobile-first library hero. Same .feat-wrap /
+     .feat-in containers so the existing layout flow doesn't shift. -->
+<style>
+.home-hero{padding:14px 18px 12px;text-align:center;max-width:1280px;margin:0 auto}
+@media(min-width:768px){.home-hero{padding:18px 24px 14px}}
+.home-hero .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.28);color:#4ADE80;font-size:10.5px;font-weight:800;letter-spacing:1.4px;padding:5px 12px;border-radius:20px;margin-bottom:10px;text-transform:uppercase}
+.home-hero .eyebrow .dot{width:6px;height:6px;background:#22C55E;border-radius:50%;animation:hh-blink 1.6s infinite}
+@keyframes hh-blink{0%,100%{opacity:1}50%{opacity:.3}}
+.home-hero h1{font-size:clamp(26px,4.4vw,42px);font-weight:900;letter-spacing:-1.2px;line-height:1.05;margin:0 0 8px;color:#EEEEF5;white-space:normal}
+.home-hero h1 em{font-style:normal;color:#FF6B30}
+.home-hero p.lead{font-size:clamp(13px,1.6vw,14.5px);color:#A5A6BD;max-width:980px;margin:0 auto 12px;line-height:1.45}
+.home-hero .home-cta-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px}
+.home-hero .home-cta{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:99px;font:800 12.5px 'Plus Jakarta Sans',system-ui,sans-serif;letter-spacing:.02em;text-decoration:none;transition:transform .12s,box-shadow .15s;-webkit-tap-highlight-color:transparent;min-height:40px}
+.home-hero .home-cta.primary{background:#FF6B30;color:#0a0e14;border:none;box-shadow:0 4px 14px rgba(255,107,48,.30)}
+.home-hero .home-cta.secondary{background:rgba(255,255,255,.06);color:#EEEEF5;border:1px solid rgba(255,255,255,.10)}
+.home-hero .home-cta:hover{transform:translateY(-1px)}
+.home-hero .home-meta{display:inline-flex;align-items:center;gap:14px;font-size:11px;color:#8A8BA6;font-weight:600;flex-wrap:wrap;justify-content:center;font-family:'JetBrains Mono',monospace;font-feature-settings:'tnum'}
+.home-hero .home-meta strong{color:#FFB870;font-weight:800;font-size:12.5px}
+.home-hero .home-meta .sep{opacity:.4}
+@media(max-width:560px){.home-hero p.lead{display:none}.home-hero .home-meta{display:none}}
+</style>
+<!-- ===== SNES 16-bit hero skin (Option D) — visual only, all links/JS unchanged.
+     To revert: delete this <style> block and remove " snes16" from the section class. ===== -->
+<style>
+  .home-hero.snes16{background:radial-gradient(circle at 50% -10%,#2a1505 0%,#0c0e14 62%,#06080d 100%);border-radius:0;padding-bottom:30px}
+  .home-hero.snes16 .eyebrow{font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:1px;color:#4ADE80;background:#0d2417;border:3px solid #2c6b3f;border-radius:0;text-transform:uppercase;box-shadow:inset -3px -3px 0 #07150d,inset 3px 3px 0 #3a8a52,4px 4px 0 rgba(0,0,0,.55);padding:9px 13px;margin-bottom:18px}
+  .home-hero.snes16 .eyebrow .dot{background:#4ADE80;box-shadow:0 0 0 2px #0d2417}
+  .home-hero.snes16 h1{font-family:'Press Start 2P',monospace;font-size:clamp(17px,3vw,27px);letter-spacing:0;line-height:1.45;color:#EEEEF5;text-shadow:3px 3px 0 #5a1e08,6px 6px 0 #000}
+  .home-hero.snes16 h1 em{color:#FF6B30;text-shadow:3px 3px 0 #7a2204,6px 6px 0 #000}
+  .home-hero.snes16 p.lead{font-family:'VT323',monospace;font-size:clamp(16px,2vw,21px);color:#B7B8CC;line-height:1.5}
+  .home-hero.snes16 .home-cta{font-family:'Press Start 2P',monospace !important;font-size:9.5px !important;border-radius:0 !important;padding:13px 15px !important;min-height:auto}
+  .home-hero.snes16 .home-cta.primary{background:#FF6B30;color:#1a0d04;border:3px solid #ffb088;box-shadow:inset -4px -4px 0 #a83d12,inset 4px 4px 0 #ff9a6a,5px 5px 0 rgba(0,0,0,.55)}
+  .home-hero.snes16 .home-cta.secondary{background:#1a2233;color:#EEEEF5;border:3px solid #38465f;box-shadow:inset -4px -4px 0 #0c121e,inset 4px 4px 0 #2e3c54,5px 5px 0 rgba(0,0,0,.55)}
+  .home-hero.snes16 .home-cta:hover{transform:translateY(-1px)}
+  .home-hero.snes16 .pillar-strip a{font-family:'Press Start 2P',monospace;font-size:9px !important;border-radius:0;color:#EEEEF5;background:#161c28;border:2px solid #38465f;box-shadow:inset -2px -2px 0 #0c121e,inset 2px 2px 0 #2e3c54;padding:10px 11px}
+  .home-hero.snes16 .pillar-strip a:hover{border-color:#FF6B30;background:#1f2736;color:#FFD7A8}
+  .home-hero.snes16 .pillar-strip a .ps-emoji{font-size:12px}
+  .home-hero.snes16 .home-meta{font-family:'Press Start 2P',monospace;font-size:8.5px;color:#FFB870}
+  .home-hero.snes16 .home-meta strong{color:#FF6B30;font-size:9.5px}
+  @media(max-width:560px){.home-hero.snes16 h1{font-size:15px}.home-hero.snes16 .home-cta{font-size:8.5px !important}}
+</style>
+<section class="home-hero snes16">
+  <div class="eyebrow"><span class="dot"></span>The PULSE Knowledge Library · Free</div>
+  <h1>Every <em>RevOps Answer</em>. One Free Library.</h1>
+  <p class="lead">8,700+ Operator-Grade Answers, Sales Trainings, KPIs, Tech Stacks, Book Summaries, Gear Reviews, Revenue Architecture, GTM Playbooks, And College Sports + NIL. Create A Free Account To Save, Export, And Print Anything — Sign In With Email Or Google.</p>
+  <div class="home-cta-row">
+    <a href="/knowledge" class="home-cta primary">📚 Browse The Library</a>
+    <a href="/my-content" id="home-mycontent-cta" class="home-cta secondary">💾 My Content</a>
+    <a href="/tools" class="home-cta secondary">🛠 Free Tools</a>
+    <a href="#" class="home-cta secondary" data-pulse-install>📲 Install The App</a>
+  </div>
+  <!-- Compact horizontal pillar strip (added 2026-06-07) — all pillars + CRM
+       + Dashboard one tap away, right under the main CTA row. Pills are
+       larger than the CTA row above so the pillar set reads as the primary
+       nav, not a secondary footer. -->
+  <style>
+    .home-cta-row{font-size:13px}
+    .home-cta-row .home-cta{padding:9px 16px !important;font-size:13px !important}
+    .pillar-strip{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px auto 6px;max-width:1180px;padding:0 8px}
+    .pillar-strip a{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:99px;color:#EEEEF5;text-decoration:none;font-size:14px;font-weight:800;letter-spacing:.01em;transition:border-color .15s,background .15s,transform .12s;white-space:nowrap}
+    .pillar-strip a:hover{border-color:rgba(255,107,48,.6);background:rgba(255,107,48,.10);transform:translateY(-1px);color:#FFD7A8}
+    .pillar-strip a .ps-emoji{font-size:17px;line-height:1}
+    @media(max-width:560px){.pillar-strip a{padding:9px 14px;font-size:12.5px}.pillar-strip a .ps-emoji{font-size:15px}}
+  </style>
+  <nav class="pillar-strip" aria-label="All pillars">
+    <a href="/knowledge"><span class="ps-emoji">📚</span>Knowledge</a>
+    <a href="/sales-trainings"><span class="ps-emoji">⚔</span>Trainings</a>
+    <a href="/industry-kpis"><span class="ps-emoji">📊</span>KPIs</a>
+    <a href="/tech-stacks"><span class="ps-emoji">🧰</span>Tech Stacks</a>
+    <a href="/sales-book-summaries"><span class="ps-emoji">📖</span>Books</a>
+    <a href="/electronic-reviews"><span class="ps-emoji">⭐</span>Reviews</a>
+    <a href="/revenue-architecture"><span class="ps-emoji">🏗️</span>Rev Arch</a>
+    <a href="/go-to-market-playbooks"><span class="ps-emoji">🗺️</span>GTM</a>
+    <a href="/franchises"><span class="ps-emoji">🏪</span>Franchises</a>
+    <a href="/cars"><span class="ps-emoji">🚗</span>Cars</a>
+    <a href="/sports"><span class="ps-emoji">🏈</span>Sports</a>
+    <a href="/dashboard#crm-intel-strip"><span class="ps-emoji">🧭</span>CRM</a>
+    <a href="/dashboard"><span class="ps-emoji">📡</span>Dashboard</a>
+  </nav>
+  <div class="home-meta">
+    <span><strong id="home-total">…</strong> entries</span><span class="sep">·</span>
+    <span>11 pillars</span><span class="sep">·</span>
+    <span>Updated continuously</span>
+  </div>
+</section>
+<script>
+(function(){
+  fetch('/.netlify/functions/pulse-library-pulse',{cache:'default'})
+    .then(function(r){return r.ok?r.json():null})
+    .then(function(j){
+      if(!j||typeof j.total!=='number')return;
+      var el=document.getElementById('home-total');
+      if(el)el.textContent=j.total.toLocaleString();
+    })
+    .catch(function(){});
+})();
+</script>
+
+<!-- ★ GOLD PATH — FRONT AND CENTER ★ -->
+<div class="gp-section">
+  <div class="gp-label-row">
+    <div class="gp-badge"><span class="gp-badge-dot"></span>✦ GOLD PATH</div>
+    <span class="gp-sub">Citation-ready · 10/10 answers · Board-ready reads</span>
+  </div>
+  <div class="gp-track-wrap">
+    <div class="gp-track" id="gp-track-live">
+      <div class="gp-item">How do you build a comp plan that keeps your top 20% without overpaying the bottom 60%?<span class="gp-dot"></span></div>
+      <div class="gp-item">What does a real pipeline review look like vs. a status meeting with slides?<span class="gp-dot"></span></div>
+      <div class="gp-item">How do you tell your board you're missing quota before they figure it out?<span class="gp-dot"></span></div>
+      <div class="gp-item">What's the right number of reps before you need a second manager?<span class="gp-dot"></span></div>
+      <div class="gp-item">How do you onboard a new AE in 30 days without losing a quarter?<span class="gp-dot"></span></div>
+      <div class="gp-item">When does a RevOps hire actually pay off?<span class="gp-dot"></span></div>
+      <div class="gp-item">How do you design territory splits that don't start civil wars?<span class="gp-dot"></span></div>
+      <div class="gp-item">What do you do when your CRM data is too dirty to trust?<span class="gp-dot"></span></div>
+      <div class="gp-item">How do you run a PIP that actually works instead of just documenting a firing?<span class="gp-dot"></span></div>
+      <div class="gp-item">What does good channel partner comp actually look like?<span class="gp-dot"></span></div>
+      <div class="gp-item">How do you keep a rep engaged after they blow past quota in month one?<span class="gp-dot"></span></div>
+      <div class="gp-item">How do you build a comp plan that keeps your top 20% without overpaying the bottom 60%?<span class="gp-dot"></span></div>
+      <div class="gp-item">What does a real pipeline review look like vs. a status meeting with slides?<span class="gp-dot"></span></div>
+      <div class="gp-item">How do you tell your board you're missing quota before they figure it out?<span class="gp-dot"></span></div>
+      <div class="gp-item">What's the right number of reps before you need a second manager?<span class="gp-dot"></span></div>
+      <div class="gp-item">How do you onboard a new AE in 30 days without losing a quarter?<span class="gp-dot"></span></div>
+      <div class="gp-item">When does a RevOps hire actually pay off?<span class="gp-dot"></span></div>
+      <div class="gp-item">How do you design territory splits that don't start civil wars?<span class="gp-dot"></span></div>
+      <div class="gp-item">What do you do when your CRM data is too dirty to trust?<span class="gp-dot"></span></div>
+      <div class="gp-item">How do you run a PIP that actually works instead of just documenting a firing?<span class="gp-dot"></span></div>
+      <div class="gp-item">What does good channel partner comp actually look like?<span class="gp-dot"></span></div>
+      <div class="gp-item">How do you keep a rep engaged after they blow past quota in month one?<span class="gp-dot"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- GREEN TICKER — THE PAIN STRIP -->
+<div class="gticker">
+  <div class="gt-track" id="gt-track-live">
+    <div class="gt-item">My reps don't know their number until it's too late<span class="gt-dot"></span></div>
+    <div class="gt-item">I'm managing to a forecast I don't trust<span class="gt-dot"></span></div>
+    <div class="gt-item">My best rep just quit and I didn't see it coming<span class="gt-dot"></span></div>
+    <div class="gt-item">We hit quota but I still can't explain why<span class="gt-dot"></span></div>
+    <div class="gt-item">My pipeline looks full and my month is still ending slow<span class="gt-dot"></span></div>
+    <div class="gt-item">I'm coaching but nothing is changing<span class="gt-dot"></span></div>
+    <div class="gt-item">I hired fast and now I'm managing slow<span class="gt-dot"></span></div>
+    <div class="gt-item">Leadership wants a number I can't stand behind<span class="gt-dot"></span></div>
+    <div class="gt-item">My team is busy but revenue isn't moving<span class="gt-dot"></span></div>
+    <div class="gt-item">I have data but I don't have visibility<span class="gt-dot"></span></div>
+    <div class="gt-item">End of month shouldn't feel like a surprise every time<span class="gt-dot"></span></div>
+    <div class="gt-item">My comp plan is motivating the wrong behavior<span class="gt-dot"></span></div>
+    <div class="gt-item">My reps don't know their number until it's too late<span class="gt-dot"></span></div>
+    <div class="gt-item">I'm managing to a forecast I don't trust<span class="gt-dot"></span></div>
+    <div class="gt-item">My best rep just quit and I didn't see it coming<span class="gt-dot"></span></div>
+    <div class="gt-item">We hit quota but I still can't explain why<span class="gt-dot"></span></div>
+    <div class="gt-item">My pipeline looks full and my month is still ending slow<span class="gt-dot"></span></div>
+    <div class="gt-item">I'm coaching but nothing is changing<span class="gt-dot"></span></div>
+    <div class="gt-item">I hired fast and now I'm managing slow<span class="gt-dot"></span></div>
+    <div class="gt-item">Leadership wants a number I can't stand behind<span class="gt-dot"></span></div>
+    <div class="gt-item">My team is busy but revenue isn't moving<span class="gt-dot"></span></div>
+    <div class="gt-item">I have data but I don't have visibility<span class="gt-dot"></span></div>
+    <div class="gt-item">End of month shouldn't feel like a surprise every time<span class="gt-dot"></span></div>
+    <div class="gt-item">My comp plan is motivating the wrong behavior<span class="gt-dot"></span></div>
+  </div>
+</div>
+
+<style>
+body.pulse-already-installed .pwa-install-section,
+body.pulse-already-installed .install-bar,
+body.pulse-already-installed [data-pulse-install] { display: none !important; }
+</style>
+
+<!-- ─── FRANCHISE LEADERBOARD — Top 5 START / Bottom 5 SKIP ─── -->
+<style>
+.fl-wrap{max-width:1280px;margin:6px auto 4px;padding:8px 18px}
+@media(min-width:768px){.fl-wrap{padding:10px 24px}}
+.fl-hd{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin:0 0 12px;flex-wrap:wrap}
+.fl-title-row{font-size:13px;font-weight:900;letter-spacing:.04em;color:#FFD7A8;text-transform:uppercase}
+.fl-title-row .fl-emoji{margin-right:6px}
+.fl-sub{font-size:11px;color:#8A8BA6;font-weight:600}
+.fl-cta{font-size:11px;color:#FF8C1A;text-decoration:none;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.fl-cta:hover{color:#FFD740}
+.fl-cols{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:880px){.fl-cols{grid-template-columns:1fr 1fr}}
+.fl-col{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:14px 14px 10px;position:relative;overflow:hidden}
+.fl-col.fl-go{border-color:rgba(34,197,94,.35)}
+.fl-col.fl-no{border-color:rgba(239,68,68,.30)}
+.fl-col::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent)}
+.fl-col-hd{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 10px;gap:10px;flex-wrap:wrap}
+.fl-col-title{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.fl-go .fl-col-title{color:#86EFAC}
+.fl-no .fl-col-title{color:#FCA5A5}
+.fl-col-tag{font-size:10px;color:#8A8BA6;font-weight:600}
+/* Scrolling viewport — shows ~5 rows at once and auto-scrolls vertically.
+   The inner track holds the full ranked list duplicated so the loop is
+   seamless. Pause on hover so visitors can actually read what catches their
+   eye. Fade gradients at top/bottom give the "infinite ribbon" feel. */
+.fl-viewport{position:relative;height:340px;overflow:hidden;mask-image:linear-gradient(to bottom,transparent 0,#000 22px,#000 calc(100% - 22px),transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 22px,#000 calc(100% - 22px),transparent 100%)}
+.fl-track{display:flex;flex-direction:column;gap:6px;animation:fl-scroll linear infinite;will-change:transform}
+.fl-viewport:hover .fl-track{animation-play-state:paused}
+@keyframes fl-scroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+@media (prefers-reduced-motion: reduce){.fl-track{animation:none}}
+.fl-row{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:8px 10px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.04);border-radius:10px;text-decoration:none;color:inherit;transition:border-color .15s,background .15s;flex-shrink:0}
+.fl-row:hover{border-color:rgba(255,107,48,.3);background:rgba(255,107,48,.04)}
+.fl-rank{font:900 16px/1 'JetBrains Mono',monospace}
+.fl-go .fl-rank{color:#22C55E}
+.fl-no .fl-rank{color:#EF4444}
+.fl-name{font-size:12.5px;font-weight:700;line-height:1.25;color:#EEEEF5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fl-provides{font-size:10.5px;color:#9CA3AF;line-height:1.3;margin-top:2px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.fl-score{font:800 13px/1 'JetBrains Mono',monospace;color:#FFD7A8;font-feature-settings:'tnum';white-space:nowrap}
+.fl-empty{font-size:11px;color:#8A8BA6;text-align:center;padding:18px 8px;font-style:italic}
+.fl-footer{margin-top:10px;font-size:10px;color:#6E7088;letter-spacing:.02em}
+</style>
+<section class="fl-wrap" id="franchise-leaderboard" aria-label="Franchise leaderboard">
+  <div class="fl-hd">
+    <div>
+      <div class="fl-title-row"><span class="fl-emoji">🏪</span>Franchise Leaderboard — Today's Rankings</div>
+      <div class="fl-sub">Refreshes daily as 2027 conditions shift · Scrolling Top 25 / Bottom 25 · From our <a href="/franchises" style="color:#FF8C1A;text-decoration:none;">Franchises pillar</a></div>
+    </div>
+    <a href="/franchises" class="fl-cta">View all →</a>
+  </div>
+  <div class="fl-cols">
+    <div class="fl-col fl-go">
+      <div class="fl-col-hd">
+        <div class="fl-col-title">🟢 Top 25 — Start These</div>
+        <div class="fl-col-tag">Best 2027 unit economics · hover to pause</div>
+      </div>
+      <div class="fl-viewport"><div class="fl-track" id="fl-top25"><div class="fl-empty">Loading top franchises…</div></div></div>
+    </div>
+    <div class="fl-col fl-no">
+      <div class="fl-col-hd">
+        <div class="fl-col-title">🔴 Bottom 25 — Skip These</div>
+        <div class="fl-col-tag">Tough conditions, long payback · hover to pause</div>
+      </div>
+      <div class="fl-viewport"><div class="fl-track" id="fl-bottom25"><div class="fl-empty">Loading bottom franchises…</div></div></div>
+    </div>
+  </div>
+  <div class="fl-footer" id="fl-asof"></div>
+</section>
+<script>
+(function(){
+  function row(item){
+    var safe = function(s){ return String(s||'').replace(/[<>&"]/g, function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];}); };
+    return '<a class="fl-row" href="' + safe(item.url) + '">'
+      + '<div class="fl-rank">#' + (item.rank) + '</div>'
+      + '<div><div class="fl-name">' + safe(item.name) + '</div>'
+      + '<div class="fl-provides">' + safe(item.provides) + '</div></div>'
+      + '<div class="fl-score">' + item.score + '</div></a>';
+  }
+  // Render rows once, then DUPLICATE them so the -50% translateY keyframe
+  // loops seamlessly. Animation speed scales with count so longer lists
+  // don't blur past too fast (~2s per row feels readable).
+  function renderTrack(el, items){
+    if (!items || !items.length) { el.innerHTML = '<div class="fl-empty">Building rankings…</div>'; return; }
+    var rows = items.map(function(it, i){ return row({rank:i+1,...it}); });
+    el.innerHTML = rows.concat(rows).join(''); // double for seamless loop
+    var duration = Math.max(20, items.length * 2.4); // seconds
+    el.style.animationDuration = duration + 's';
+  }
+  fetch('/.netlify/functions/pulse-franchise-leaderboard?t=' + Date.now(), { cache: 'no-store' })
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if (!j || !j.ok) throw new Error('endpoint not ok');
+      var top = j.top25 || j.top5 || [];
+      var bot = j.bottom25 || j.bottom5 || [];
+      renderTrack(document.getElementById('fl-top25'), top);
+      renderTrack(document.getElementById('fl-bottom25'), bot);
+      document.getElementById('fl-asof').textContent = 'As of ' + (j.asof || '') + ' · ' + j.total_evaluated + ' franchises evaluated · Daily-shifting model · ' + top.length + ' top / ' + bot.length + ' bottom shown';
+    })
+    .catch(function(err){
+      // Don't hide the section — surface a friendly empty state so visitors
+      // see the leaderboard slot and know it's loading/will populate.
+      var msg = '<div class="fl-empty">Rankings rebuilding — refresh in a minute.</div>';
+      var t = document.getElementById('fl-top25'); if (t) t.innerHTML = msg;
+      var b = document.getElementById('fl-bottom25'); if (b) b.innerHTML = msg;
+    });
+})();
+</script>
+<!-- ─── /FRANCHISE LEADERBOARD ─── -->
+
+<!-- ─── BOOK SUMMARIES LEADERBOARD — same scrolling format ─── -->
+<section class="fl-wrap" id="books-leaderboard" aria-label="Book summaries leaderboard">
+  <div class="fl-hd">
+    <div>
+      <div class="fl-title-row"><span class="fl-emoji">📖</span>Sales Book Leaderboard — Must-Read Rankings</div>
+      <div class="fl-sub">Refreshes daily as author authority + 2027 relevance shift · From our <a href="/sales-book-summaries" style="color:#FF8C1A;text-decoration:none;">Book Summaries pillar</a></div>
+    </div>
+    <a href="/sales-book-summaries" class="fl-cta">View all →</a>
+  </div>
+  <div class="fl-cols">
+    <div class="fl-col fl-go">
+      <div class="fl-col-hd">
+        <div class="fl-col-title">🟢 Top 25 — Must-Read</div>
+        <div class="fl-col-tag">Canonical for 2027 operators · hover to pause</div>
+      </div>
+      <div class="fl-viewport"><div class="fl-track" id="bl-top25"><div class="fl-empty">Loading top books…</div></div></div>
+    </div>
+    <div class="fl-col fl-no">
+      <div class="fl-col-hd">
+        <div class="fl-col-title">🔴 Bottom 25 — Skip / Aging</div>
+        <div class="fl-col-tag">Classic but dated for current playbooks · hover to pause</div>
+      </div>
+      <div class="fl-viewport"><div class="fl-track" id="bl-bottom25"><div class="fl-empty">Loading bottom books…</div></div></div>
+    </div>
+  </div>
+  <div class="fl-footer" id="bl-asof"></div>
+</section>
+<script>
+(function(){
+  function safe(s){ return String(s||'').replace(/[<>&"]/g, function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]; }); }
+  function row(item){
+    return '<a class="fl-row" href="' + safe(item.url) + '">'
+      + '<div class="fl-rank">#' + (item.rank) + '</div>'
+      + '<div><div class="fl-name">' + safe(item.name) + '</div>'
+      + '<div class="fl-provides">' + safe(item.provides) + '</div></div>'
+      + '<div class="fl-score">' + item.score + '</div></a>';
+  }
+  function renderTrack(el, items){
+    if (!items || !items.length) { el.innerHTML = '<div class="fl-empty">Building rankings…</div>'; return; }
+    var rows = items.map(function(it, i){ return row({rank:i+1,...it}); });
+    el.innerHTML = rows.concat(rows).join('');
+    var duration = Math.max(20, items.length * 2.4);
+    el.style.animationDuration = duration + 's';
+  }
+  fetch('/.netlify/functions/pulse-books-leaderboard?t=' + Date.now(), { cache: 'no-store' })
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if (!j || !j.ok) throw new Error('endpoint not ok');
+      var top = j.top25 || j.top5 || [];
+      var bot = j.bottom25 || j.bottom5 || [];
+      renderTrack(document.getElementById('bl-top25'), top);
+      renderTrack(document.getElementById('bl-bottom25'), bot);
+      document.getElementById('bl-asof').textContent = 'As of ' + (j.asof || '') + ' · ' + j.total_evaluated + ' books evaluated · Authority + recency model · ' + top.length + ' top / ' + bot.length + ' bottom shown';
+    })
+    .catch(function(){
+      var msg = '<div class="fl-empty">Rankings rebuilding — refresh in a minute.</div>';
+      var t = document.getElementById('bl-top25'); if (t) t.innerHTML = msg;
+      var b = document.getElementById('bl-bottom25'); if (b) b.innerHTML = msg;
+    });
+})();
+</script>
+<!-- ─── /BOOK SUMMARIES LEADERBOARD ─── -->
+
+<!-- ─── REMAINING PILLAR LEADERBOARDS (KPI, RA, GP, TK, ST, Q, ER, Sports) ─── -->
+<div id="pillar-leaderboards"></div>
+<script>
+(function(){
+  var PILLARS = [
+    { key:'kpi',     emoji:'📊', name:'Industry KPI',         endpoint:'kpi',     viewAll:'/leaderboards/kpi',         pillarUrl:'/industry-kpis',          topLabel:'Top 25 — Strongest Benchmark Sets', bottomLabel:'Bottom 25 — Aging Verticals',     topTag:'Highest 2027 demand verticals', bottomTag:'Verticals with cooling benchmarks' },
+    { key:'ra',      emoji:'🏗️', name:'Revenue Architecture',  endpoint:'ra',      viewAll:'/leaderboards/ra',          pillarUrl:'/revenue-architecture',   topLabel:'Top 25 — Hottest Blueprints',        bottomLabel:'Bottom 25 — Cooling Approaches',  topTag:'2027 industry-architecture blueprints', bottomTag:'Aging mechanic-only deep-dives' },
+    { key:'gp',      emoji:'🗺️', name:'GTM Playbook',          endpoint:'gp',      viewAll:'/leaderboards/gp',          pillarUrl:'/go-to-market-playbooks', topLabel:'Top 25 — Hottest Motions',           bottomLabel:'Bottom 25 — Motions Losing Steam',topTag:'2027 GTM motions with most lift', bottomTag:'Motions with limited 2027 lift' },
+    { key:'tk',      emoji:'🧰', name:'Tech Stack',             endpoint:'tk',      viewAll:'/leaderboards/tk',          pillarUrl:'/tech-stacks',            topLabel:'Top 25 — Sharpest 2027 Stacks',      bottomLabel:'Bottom 25 — Aging Components',    topTag:'Best-in-class vendor lineups', bottomTag:'Stacks with legacy / aging pieces' },
+    { key:'st',      emoji:'⚔',  name:'Sales Training',         endpoint:'st',      viewAll:'/leaderboards/st',          pillarUrl:'/sales-trainings',        topLabel:'Top 25 — Drop-In Sessions',          bottomLabel:'Bottom 25 — Pick Selectively',    topTag:'High-impact ready-to-run meetings', bottomTag:'Theoretical · pick selectively' },
+    { key:'q',       emoji:'📚', name:'Knowledge',              endpoint:'q',       viewAll:'/leaderboards/q',           pillarUrl:'/knowledge',              topLabel:'Top 25 — Trending Now',              bottomLabel:'Bottom 25 — Cooling Topics',      topTag:'Highest 2027 search demand', bottomTag:'Topics with falling demand' },
+    { key:'reviews', emoji:'⭐', name:'Electronic Review',      endpoint:'er',      viewAll:'/leaderboards/reviews',     pillarUrl:'/electronic-reviews',     topLabel:'Top 25 — Operator-Essential',        bottomLabel:'Bottom 25 — Low Daily ROI',       topTag:'High-utility gear for operators', bottomTag:'Optional gear · low daily ROI' },
+    { key:'sports',  emoji:'🏈', name:'Sports / NIL',           endpoint:'sports',  viewAll:'/leaderboards/sports',      pillarUrl:'/sports',                 topLabel:'Top 25 — Strongest NIL Programs',    bottomLabel:'Bottom 25 — Weaker NIL Signal',   topTag:'Top-tier 2027 NIL economies', bottomTag:'Programs with weaker NIL signals' },
+  ];
+
+  function safe(s){ return String(s||'').replace(/[<>&"]/g, function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];}); }
+  function row(item){
+    return '<a class="fl-row" href="' + safe(item.url) + '">'
+      + '<div class="fl-rank">#' + (item.rank) + '</div>'
+      + '<div><div class="fl-name">' + safe(item.name) + '</div>'
+      + '<div class="fl-provides">' + safe(item.provides) + '</div></div>'
+      + '<div class="fl-score">' + item.score + '</div></a>';
+  }
+  function renderTrack(el, items){
+    if (!items || !items.length) { el.innerHTML = '<div class="fl-empty">Building rankings…</div>'; return; }
+    var rows = items.map(function(it, i){ return row({rank:i+1,...it}); });
+    el.innerHTML = rows.concat(rows).join('');
+    el.style.animationDuration = Math.max(20, items.length * 2.4) + 's';
+  }
+
+  var container = document.getElementById('pillar-leaderboards');
+  if (!container) return;
+
+  PILLARS.forEach(function(p){
+    var sectionHtml =
+      '<section class="fl-wrap" id="lb-' + p.key + '" aria-label="' + safe(p.name) + ' leaderboard">' +
+        '<div class="fl-hd">' +
+          '<div>' +
+            '<div class="fl-title-row"><span class="fl-emoji">' + p.emoji + '</span>' + safe(p.name) + ' Leaderboard — Today’s Rankings</div>' +
+            '<div class="fl-sub">Refreshes daily as 2027 conditions shift · Scrolling Top 25 / Bottom 25 · From our <a href="' + safe(p.pillarUrl) + '" style="color:#FF8C1A;text-decoration:none;">' + safe(p.name) + ' pillar</a></div>' +
+          '</div>' +
+          '<a href="' + safe(p.viewAll) + '" class="fl-cta">View all →</a>' +
+        '</div>' +
+        '<div class="fl-cols">' +
+          '<div class="fl-col fl-go">' +
+            '<div class="fl-col-hd">' +
+              '<div class="fl-col-title">🟢 ' + safe(p.topLabel) + '</div>' +
+              '<div class="fl-col-tag">' + safe(p.topTag) + ' · hover to pause</div>' +
+            '</div>' +
+            '<div class="fl-viewport"><div class="fl-track" id="lb-' + p.key + '-top"><div class="fl-empty">Loading…</div></div></div>' +
+          '</div>' +
+          '<div class="fl-col fl-no">' +
+            '<div class="fl-col-hd">' +
+              '<div class="fl-col-title">🔴 ' + safe(p.bottomLabel) + '</div>' +
+              '<div class="fl-col-tag">' + safe(p.bottomTag) + ' · hover to pause</div>' +
+            '</div>' +
+            '<div class="fl-viewport"><div class="fl-track" id="lb-' + p.key + '-bot"><div class="fl-empty">Loading…</div></div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="fl-footer" id="lb-' + p.key + '-asof"></div>' +
+      '</section>';
+    container.insertAdjacentHTML('beforeend', sectionHtml);
+
+    fetch('/.netlify/functions/pulse-pillar-leaderboard?pillar=' + encodeURIComponent(p.endpoint) + '&t=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        if (!j || !j.ok) throw new Error('endpoint not ok');
+        var top = j.top25 || j.top5 || [];
+        var bot = j.bottom25 || j.bottom5 || [];
+        renderTrack(document.getElementById('lb-' + p.key + '-top'), top);
+        renderTrack(document.getElementById('lb-' + p.key + '-bot'), bot);
+        document.getElementById('lb-' + p.key + '-asof').textContent = 'As of ' + (j.asof || '') + ' · ' + j.total_evaluated + ' entries evaluated · ' + top.length + ' top / ' + bot.length + ' bottom shown';
+      })
+      .catch(function(){
+        var msg = '<div class="fl-empty">Rankings rebuilding — refresh in a minute.</div>';
+        var t = document.getElementById('lb-' + p.key + '-top'); if (t) t.innerHTML = msg;
+        var b = document.getElementById('lb-' + p.key + '-bot'); if (b) b.innerHTML = msg;
+      });
+  });
+})();
+</script>
+<!-- ─── /REMAINING PILLAR LEADERBOARDS ─── -->
+
+<!-- TOP 5 TRENDING THIS WEEK (rolling 7-day, twice-daily cache) -->
+<style>
+.trend-wrap{max-width:1280px;margin:0 auto;padding:8px 18px 4px}
+@media(min-width:768px){.trend-wrap{padding:10px 24px 6px}}
+.trend-hd{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin:0 0 10px;flex-wrap:wrap}
+.trend-title-row{font-size:13px;font-weight:900;letter-spacing:.04em;color:#FFD7A8;text-transform:uppercase}
+.trend-title-row .dot{display:inline-block;width:8px;height:8px;background:#22C55E;border-radius:50%;margin-right:8px;vertical-align:middle;animation:hh-blink 1.6s infinite}
+.trend-sub{font-size:11px;color:#8A8BA6;font-weight:600}
+.trend-grid{display:grid;gap:8px;grid-template-columns:1fr}
+@media(min-width:640px){.trend-grid{grid-template-columns:repeat(5,1fr)}}
+.trend-card{display:flex;flex-direction:column;gap:6px;padding:12px 12px 10px;background:var(--card);border:1px solid var(--bdr);border-radius:12px;text-decoration:none;color:var(--t1);transition:border-color .15s,background .15s,transform .12s;min-height:88px;position:relative}
+.trend-card:hover{border-color:rgba(255,107,48,.32);background:var(--cardh);transform:translateY(-1px)}
+.trend-rank{font:900 18px/1 'JetBrains Mono',monospace;color:#FF6B30;margin:0 0 2px}
+.trend-title{font-size:12.5px;font-weight:700;line-height:1.3;color:#EEEEF5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.trend-views{margin-top:auto;font-size:10px;color:#8A8BA6;font-family:'JetBrains Mono',monospace;font-feature-settings:'tnum'}
+</style>
+<div class="trend-wrap" id="trending-top5" style="display:none">
+  <div class="trend-hd">
+    <div class="trend-title-row"><span class="dot"></span>Top 5 Trending This Week</div>
+    <div class="trend-sub">Updated continuously · 7-day rolling</div>
+  </div>
+  <div class="trend-grid"></div>
+</div>
+
+<!-- Duplicate leaderboard removed — single canonical leaderboard lives above the trending widget -->
+
+<!-- (Bottom pillar grid + CRM/Dashboard section removed 2026-06-07 —
+     both moved to the compact horizontal pillar strip under the hero CTA row.) -->
+<!-- LEGACY MARKER: pillar grid removed -->
+<style>
+  .pillar-grid-wrap{max-width:1280px;margin:0 auto;padding:4px 14px 14px}
+  @media(min-width:768px){.pillar-grid-wrap{padding:6px 24px 18px}}
+  .pillar-grid{display:grid !important;gap:8px;grid-template-columns:repeat(3,minmax(0,1fr)) !important;width:100% !important}
+  @media(min-width:1024px){.pillar-grid{gap:12px}}
+  .pillar-grid > .pc{display:flex !important;flex-direction:column !important;align-items:center !important;justify-content:center !important;padding:14px 8px !important;background:var(--card);border:1px solid var(--bdr);border-radius:14px;text-decoration:none;color:var(--t1);transition:border-color .15s,background .15s,transform .12s;min-height:104px;text-align:center;position:relative;overflow:hidden;flex:initial !important;width:auto !important;max-width:100% !important}
+  .pillar-grid > .pc.wide{flex:initial !important;width:auto !important}
+  .pillar-grid .pc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent)}
+  .pillar-grid .pc:hover{border-color:rgba(255,107,48,.32);background:var(--cardh);transform:translateY(-2px)}
+  .pillar-grid > .pc > .pc-icon{width:34px !important;height:34px !important;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px !important;margin:0 0 6px !important}
+  .pillar-grid > .pc > .pc-name{font-size:12px !important;font-weight:800;letter-spacing:-.01em;line-height:1.15;color:#EEEEF5;margin:0 !important}
+  .pillar-grid > .pc > .pc-desc,.pillar-grid > .pc > .pc-cta{display:none !important}
+  @media(min-width:768px){
+    .pillar-grid > .pc{min-height:130px !important;padding:18px 10px !important}
+    .pillar-grid > .pc > .pc-icon{width:46px !important;height:46px !important;font-size:21px !important;margin-bottom:10px !important}
+    .pillar-grid > .pc > .pc-name{font-size:14.5px !important}
+  }
+  @media(min-width:1024px){
+    .pillar-grid > .pc{min-height:142px !important;padding:22px 12px !important}
+    .pillar-grid > .pc > .pc-name{font-size:15.5px !important}
+  }
+  /* Sec header trimmed on mobile so all 10 cards stay above the fold */
+  @media(max-width:560px){
+    .pillar-grid-wrap .sec-hd{display:none}
+  }
+</style>
+<!-- Pillar grid + CRM/Dashboard block removed — both moved to the
+     compact horizontal pillar strip directly under the hero CTA row. -->
+
+<!-- FRACTIONAL CRO -->
+<div class="sec-rule" style="margin-top:14px"></div>
+<div style="padding:14px 0 0">
+  <div class="kory-wrap">
+    <div class="kory-card">
+      <div class="kory-av">
+        <img src="/kory-white.jpg" alt="Kory White" onerror="this.parentNode.innerHTML='<div class=\'kory-init\'>K</div>'">
+      </div>
+      <div class="kory-text">
+        <h3>Chief Revenue Officer — Kory White</h3>
+        <p>Senior B2B/B2C revenue leader. $200M+ ARR built greenfield. #1 national ranking back to back.</p>
+        <div class="ksub">Maryland · DC · DMV · 15+ years · 5,000+ reps led</div>
+      </div>
+      <a href="https://calendly.com/korywhiterevops" class="kory-btn">Schedule a Call →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="ft-in">
+    <div class="ft-grid">
+      <div>
+        <div class="f-logo">PULSE RevOps</div>
+        <p class="f-desc">The #1 source of truth for RevOps leaders. Operator-grade RevOps content across ten pillars — all free. Built by Kory White, Chief Revenue Officer.</p>
+        <p class="f-disc">PULSE RevOps is an independent educational resource and is not affiliated with, endorsed by, or connected to any former employer.</p>
+      </div>
+      <div class="fc">
+        <h4>Pillars</h4>
+        <a href="/knowledge">Knowledge Library</a>
+        <a href="/dashboard#crm-intel-strip">CRM</a>
+        <a href="/sales-trainings">Sales Trainings</a>
+        <a href="/industry-kpis">Industry KPIs</a>
+        <a href="/tech-stacks">Tech Stacks</a>
+        <a href="/sports">Sports (NIL)</a>
+        <a href="/sales-book-summaries">Book Summaries</a>
+        <a href="/electronic-reviews">Electronic Reviews</a>
+        <a href="/revenue-architecture">Revenue Architecture</a>
+        <a href="/go-to-market-playbooks">GTM Playbooks</a>
+        <a href="/franchises">Franchises</a>
+        <a href="/my-content">My Content</a>
+        <a href="/dashboard">Dashboard</a>
+      </div>
+      <div class="fc">
+        <h4>Connect</h4>
+        <a href="https://calendly.com/korywhiterevops">Schedule a Call</a>
+        <a href="https://linkedin.com/in/korywhite">LinkedIn</a>
+        <a href="https://theexecutivereview.org">The Executive Review</a>
+        <a href="https://coachkorywhite.com">CoachKoryWhite.com</a>
+        <h4 style="margin-top:16px">Tools</h4>
+        <a href="/dashboard">Live Dashboard</a>
+        <a href="/tools">🛠 Free Tools</a>
+        <a href="/how-tos/">By Industry</a>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <span class="f-copy">© 2025 Kory White · PULSE RevOps · pulserevops.com · <a href="/sponsor" style="color:#FFB870;text-decoration:none;">Advertise</a> · <a href="https://calendly.com/korywhiterevops" style="color:#FFB870;text-decoration:none;">Open to Chief Revenue Officer roles →</a></span>
+      <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-start;flex:1;min-width:0;">
+        <a href="#" id="library-pulse" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#4ADE80;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);padding:6px 14px;border-radius:99px;text-decoration:none;font-feature-settings:'tnum';"><span style="width:6px;height:6px;background:#22C55E;border-radius:50%;box-shadow:0 0 6px #22C55E;"></span>Library &middot; <span id="lp-num">live</span> entries</a>
+        <div id="lp-pillars" style="display:flex;flex-wrap:wrap;gap:6px;font-size:10.5px;font-weight:600;color:rgba(237,229,216,0.65);font-feature-settings:'tnum';"></div>
+      </div>
+      <span class="f-seo">Fractional CRO Maryland · Chief Revenue Officer Washington DC · Revenue Operations DMV · Kory White CRO · Free RevOps Tools · Free Sales KPI Calculator</span>
+    </div>
+    <script>
+    // SINGLE source of truth for the library count. One endpoint, one paint
+    // target, one polling interval. Replaces every prior count surface site-wide.
+    (function libraryPulse(){
+      var el=document.getElementById('lp-num');
+      var box=document.getElementById('lp-pillars');
+      if(!el) return;
+      var LABELS={knowledge:'Knowledge',sales_trainings:'Trainings',industry_kpis:'KPIs',tech_stacks:'Tech Stacks',sports:'Sports',book_summaries:'Books',electronic_reviews:'Reviews',revenue_architecture:'RevArch',gtm_playbooks:'GTM Playbooks',franchises:'Franchises'};
+      var ORDER=['knowledge','sales_trainings','industry_kpis','tech_stacks','graphics','book_summaries','electronic_reviews','revenue_architecture','gtm_playbooks'];
+      function refresh(){
+        fetch('/.netlify/functions/pulse-library-pulse',{cache:'no-store'})
+          .then(function(r){return r.ok?r.json():null;})
+          .then(function(j){
+            if(!j||!j.ok)return;
+            if(typeof j.total==='number') el.textContent=j.total.toLocaleString();
+            if(box && j.by_pillar){
+              var html=ORDER.map(function(k){
+                var n=j.by_pillar[k]||0;
+                return '<span style="display:inline-flex;gap:5px;padding:3px 9px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:99px;"><strong style="color:rgba(237,229,216,0.92);font-weight:700;">'+n.toLocaleString()+'</strong> '+LABELS[k]+'</span>';
+              }).join('');
+              box.innerHTML=html;
+            }
+          })
+          .catch(function(){});
+      }
+      refresh(); setInterval(refresh, 60000);
+    })();
+    </script>
+  </div>
+</footer>
+
+<script>
+function drag(el){
+  // Click-suppression threshold raised to 12px so tiny mouse drift between
+  // press + release does NOT cancel link clicks. Only real drags suppress.
+  let dn=false,sx=0,ss=0,v=0,lx=0,lt=0,raf,mv=false,DRAG_THR=12;
+  el.addEventListener('pointerdown',e=>{
+    if(e.pointerType==='touch')return; // native touch-scroll handles touch
+    dn=true;mv=false;
+    sx=e.clientX;ss=el.scrollLeft;lx=e.clientX;lt=performance.now();v=0;
+    cancelAnimationFrame(raf);
+  });
+  el.addEventListener('pointermove',e=>{
+    if(!dn||e.pointerType==='touch')return;
+    const dx=e.clientX-sx;
+    if(Math.abs(dx)>DRAG_THR){
+      if(!mv){mv=true;el.classList.add('dragging');try{el.setPointerCapture(e.pointerId);}catch(_){}}
+      el.scrollLeft=ss-dx;
+    }
+    const now=performance.now(),dt=now-lt;
+    if(dt>0)v=(e.clientX-lx)/dt;
+    lx=e.clientX;lt=now;
+  });
+  function end(){
+    if(!dn)return;dn=false;
+    if(mv){el.classList.remove('dragging');let vel=v*16;(function g(){if(Math.abs(vel)<0.5)return;el.scrollLeft-=vel;vel*=0.92;raf=requestAnimationFrame(g)})();}
+  }
+  el.addEventListener('pointerup',end);el.addEventListener('pointercancel',end);
+  el.addEventListener('click',e=>{if(mv){e.preventDefault();e.stopPropagation();mv=false;}},true);
+}
+document.querySelectorAll('.shelf').forEach(drag);
+
+// AUTO-SCROLLING TICKER for #s1 — DISABLED 2026-06-03 because #s1 is now a
+// 3×3 grid (.pillar-grid), not a horizontal shelf. The clone-for-seamless-loop
+// was doubling the 9 pillar cards to 18. Early-return.
+(function tickerize(){
+  const el=document.getElementById('s1'); if(!el || el.classList.contains('pillar-grid')) return;
+  const kids=Array.from(el.children);
+  kids.forEach(k=>{const c=k.cloneNode(true);c.setAttribute('aria-hidden','true');el.appendChild(c);});
+  const halfWidth=()=>el.scrollWidth/2;
+  let paused=false, lastT=0;
+  const SPEED=28; // px/sec
+  function tick(t){
+    if(!lastT)lastT=t; const dt=(t-lastT)/1000; lastT=t;
+    if(!paused && !el.classList.contains('dragging') && document.visibilityState!=='hidden'){
+      let next=el.scrollLeft+SPEED*dt;
+      const hw=halfWidth(); if(next>=hw) next-=hw; // wrap
+      el.scrollLeft=next;
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  ['pointerenter','focusin'].forEach(ev=>el.addEventListener(ev,()=>paused=true));
+  ['pointerleave','focusout'].forEach(ev=>el.addEventListener(ev,()=>{paused=false;lastT=0;}));
+  document.addEventListener('visibilitychange',()=>lastT=0);
+})();
+
+// LIVE PER-PILLAR COUNT BADGES + HEADER TOTAL
+// Pulls from /.netlify/functions/pulse-pillar-totals (cached snapshot
+// refreshed every 12 hours by pulse-pillar-totals-cron). Falls back to
+// /.netlify/functions/pulse-machine-library-list?recent=1 if cache miss.
+// ─── DAILY-ROTATING TICKER CONTENT ───
+// Pulls gold-path + pain-strip phrases from /.netlify/functions/pulse-tickers,
+// which serves a daily-refreshed snapshot via the pulse-tickers-cron. The
+// static fallback content in HTML stays as a no-JS / no-network safety net.
+(function liveTickers(){
+  function esc(s){return String(s||'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));}
+  function renderGold(items){
+    var el=document.getElementById('gp-track-live'); if(!el||!items||!items.length) return;
+    // Double the list so the CSS marquee loops seamlessly (50% translate-X)
+    var doubled=items.concat(items);
+    el.innerHTML=doubled.map(function(q){return '<div class="gp-item">'+esc(q)+'<span class="gp-dot"></span></div>';}).join('');
+  }
+  function renderPain(items){
+    var el=document.getElementById('gt-track-live'); if(!el||!items||!items.length) return;
+    var doubled=items.concat(items);
+    el.innerHTML=doubled.map(function(p){return '<div class="gt-item">'+esc(p)+'<span class="gt-dot"></span></div>';}).join('');
+  }
+  fetch('/.netlify/functions/pulse-tickers',{cache:'default'})
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(j){
+      if(!j||!j.ok) return;
+      if(Array.isArray(j.gold)) renderGold(j.gold);
+      if(Array.isArray(j.pain)) renderPain(j.pain);
+    }).catch(function(){});
+})();
+
+// All count-display surfaces removed 2026-06-02 per owner — totals were
+// fluctuating across the site (cache vs. live, paint-order divergence).
+// Rebuild path: a single library-status pill in the footer that pulls from
+// /.netlify/functions/pulse-library-pulse once per minute. One source of
+// truth, one paint target, one consistent value site-wide.
+
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})
+},{threshold:0.06});
+document.querySelectorAll('.pc,.duo-card,.kory-card,.feat-card').forEach(el=>{
+  el.style.cssText+='opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease,border-color .2s,box-shadow .2s';
+  io.observe(el);
+});
+
+// Make every ticker item (.gp-item gold-path + .gt-item green pain-strip)
+// clickable — taps the topic text into the library search so the user lands
+// on the best-match answer.
+document.querySelectorAll('.gp-item, .gt-item').forEach(function(el){
+  el.style.cursor = 'pointer';
+  el.setAttribute('role', 'link');
+  el.setAttribute('tabindex', '0');
+  var go = function(){
+    var text = el.textContent.replace(/[•·]/g,'').trim();
+    if (!text) return;
+    window.location.href = '/knowledge?q=' + encodeURIComponent(text.slice(0, 120));
+  };
+  el.addEventListener('click', go);
+  el.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }});
+});
+
+// ─── TOP 5 TRENDING (homepage) ─────────────────────────────────────────
+// Pulls 7-day-rolling top entries from entry-view trending endpoint, joins
+// with library titles, renders below hero. Updates 2x/day naturally via
+// the endpoint's 5-min edge cache + rolling 7-day window.
+(function trendingTop5(){
+  var sec = document.getElementById('trending-top5');
+  if (!sec) return;
+  Promise.all([
+    fetch('/.netlify/functions/entry-view?trending=1', {cache:'default'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+    fetch('/.netlify/functions/pulse-machine-library-list?recent=12000', {cache:'default'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+  ]).then(function(arr){
+    var trending = arr[0]; var lib = arr[1];
+    if (!trending || !trending.ok || !Array.isArray(trending.trending) || !lib || !Array.isArray(lib.entries)) {
+      sec.style.display = 'none'; return;
+    }
+    var titleById = {};
+    var routeById = {};
+    var ROUTE = {q:'/knowledge/',st:'/sales-trainings/',ik:'/industry-kpis/',tk:'/tech-stacks/',gb:'/graphics/',bs:'/sales-book-summaries/',er:'/electronic-reviews/',ra:'/revenue-architecture/',gp:'/go-to-market-playbooks/',fr:'/franchises/'};
+    lib.entries.forEach(function(e){
+      if (!e || !e.id) return;
+      titleById[e.id] = e.question || '(no title)';
+      var m = e.id.match(/^([a-z]+)/i);
+      var p = m ? m[1].toLowerCase() : 'q';
+      routeById[e.id] = (ROUTE[p] || '/knowledge/') + e.id;
+    });
+    var top5 = trending.trending.filter(function(t){ return titleById[t.id]; }).slice(0, 5);
+    if (!top5.length) { sec.style.display = 'none'; return; }
+    var html = top5.map(function(t, i){
+      var title = titleById[t.id];
+      var url = routeById[t.id];
+      return '<a class="trend-card" href="' + url + '">' +
+        '<span class="trend-rank">' + (i+1) + '</span>' +
+        '<span class="trend-title">' + title.replace(/[<>&]/g,'') + '</span>' +
+        '<span class="trend-views">' + t.sum + ' views this week</span>' +
+      '</a>';
+    }).join('');
+    sec.querySelector('.trend-grid').innerHTML = html;
+    sec.style.display = '';
+  });
+})();
+</script>
+<script src="/js/pwa-install.js" defer></script>
+<!-- Clerk authentication (email + Google/Apple social, account-gated save/export/print) -->
+<style>
+  .pulse-auth-slot{display:inline-flex;align-items:center;min-height:34px}
+  .pulse-auth-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#FF6B30;border:none;border-radius:99px;color:#0a0e14;font:800 11px/1 'Plus Jakarta Sans',system-ui,sans-serif;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:transform .12s,box-shadow .15s;box-shadow:0 2px 10px rgba(255,107,48,.25)}
+  .pulse-auth-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(255,107,48,.4)}
+  .pulse-userbtn{display:inline-flex;align-items:center}
+</style>
+<script src="/js/pulse-auth.js" defer></script>
+<script src="/js/pulse-lead-track.js" defer></script>
+</body>
+</html>

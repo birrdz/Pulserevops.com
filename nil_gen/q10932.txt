@@ -1,0 +1,110 @@
+QUESTION: What are Nebraska Cornhuskers football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Nebraska Cornhuskers football enters 2027 needing to convert a $20 million revenue-share allocation into a winning roster after losing franchise quarterback Dylan Raiola to Oregon in the January 2026 portal window. With the 1890 Nebraska collective formally shutting down in December 2025 and all NIL spend moving in-house under athletic director Troy Dannen, head coach Matt Rhule must defend his October 2025 contract extension through 2032 by turning Lincoln's $87M coaching bet into Big Ten wins. The 2027 NIL strategy pivots from collective-driven retention to rev-share-funded quarterback replacement, offensive line continuity, and disciplined portal arithmetic that avoids the CSC arbitration trap that voided the Playfly warehousing deals in March.
+
+**TL;DR:** Nebraska's 2027 NIL playbook is replace Raiola, protect Rhule, and spend the $20M cap on impact transfers — not developmental high school commits.
+
+```mermaid
+flowchart TD
+    A[Memorial Stadium 86k Sellout Streak] --> B[Huskers Athletic Fund]
+    B --> C[$20M Revenue Share Cap 2026-27]
+    D[1890 Nebraska Wound Down Dec 2025] --> E[In-House NIL Office]
+    E --> C
+    F[Big Ten Media Rights $80M] --> C
+    G[Nebraska Alumni Network] --> B
+    C --> H[Roster Investment 2027]
+    H --> I[QB Room Post-Raiola]
+    H --> J[Offensive Line Retention]
+    H --> K[Portal Skill Position Spend]
+    L[CSC Salary Cap Enforcement] --> H
+    M[House Settlement Compliance] --> E
+```
+
+## 1. Where Nebraska Stands — Rhule Era 2027 NIL Math
+
+Matt Rhule enters 2027 as a 19-19 head coach across three seasons in Lincoln, with back-to-back 7-6 finishes in 2024 and 2025 that triggered a chorus of fan frustration despite the late-2025 two-year extension that runs his contract through 2032. The $87 million guaranteed package — first reported by Pro Football Network in May 2026 — makes Rhule the largest coaching liability on Nebraska's books and the central reason the athletic department reorganized NIL operations heading into the 2027 cycle. When 1890 Nebraska announced its December 2025 wind-down, the message to donors was explicit: the House settlement era requires direct school-to-athlete payments, and a parallel collective structure no longer serves the program.
+
+The financial reality for 2027 is the new $20.5 million revenue-share cap, a figure Troy Dannen has publicly described as Nebraska's competitive floor rather than ceiling. Roughly 75% of that pool — about $15.4M — is earmarked for football, which is below the SEC top-end but materially above where the Huskers operated through the collective era. Compounding the budget pressure, Nebraska is still absorbing the March 2026 CSC arbitration loss in which 18 players' Playfly-sourced deals worth a combined $1M+ were ruled prohibited warehousing arrangements, meaning that money cannot return to the rev-share pool and the compliance office now reviews every third-party deal twice.
+
+| 2027 Resource | Estimated Value | Status |
+|---|---|---|
+| Rev-share football allocation | $15.4M | Active |
+| Coaching salary pool | $24M (Rhule + staff) | Locked through 2032 |
+| Memorial Stadium gate | $48M | 86k sellout streak intact |
+| Big Ten media share | ~$80M | Rising with 2024 contract |
+| Huskers Athletic Fund priority points | $42M annual donations | In-house routing |
+| CSC-disallowed warehousing recovery | $0 | Lost in arbitration |
+
+## 2. The House Settlement, the Cap, and Why the CSC Loss Still Hurts
+
+The structural backdrop for every dollar above is the House v. NCAA settlement, given final approval by Judge Claudia Wilken on June 6, 2025 and effective July 1, 2025. It permits each Division I school to pay athletes directly from a capped pool — about $20.5M in year one, set at 22 percent of average power-conference athletic revenue and scheduled to rise roughly 4 percent annually toward $30M-plus by the early 2030s. It also created the College Sports Commission (CSC) and routed every third-party deal of $600 or more through Deloitte's "NIL Go" clearinghouse, which tests each deal for a valid business purpose and a fair-market compensation range.
+
+Nebraska's March 2026 arbitration loss is the cautionary case study for the entire conference. The CSC ruled that 18 Husker deals sourced through Playfly were "warehousing" — booster money parked in a third-party wrapper to function as disguised pay-for-play rather than genuine endorsement — and voided them. The arbitrator upheld the CSC's authority, a precedent that now governs how aggressively any Big Ten program can stack collective-style money above the cap. The practical 2027 consequence is twofold: that roughly $1M is gone and does not flow back into the rev-share pool, and Nebraska's in-house compliance office now double-reviews every above-cap deal before it is signed. The lesson Lincoln learned the hard way is that the only above-cap money that survives is money attached to a real deliverable — an appearance, a social post with tracked metrics, an autograph session, a camp — which is exactly the inventory the new NIL marketplace must generate.
+
+## 3. Real 2027 Strategy — 5 Moves
+
+**Move 1 — Replace Raiola with a portal-first quarterback room.** Dylan Raiola's January 2026 commitment to Oregon — using a redshirt as Dante Moore's NFL decision plays out — left Rhule without his $1.8M NIL franchise face. The 2027 plan is allocating roughly $2.5M of rev-share to two transfer quarterbacks rather than betting on a true freshman, with offensive coordinator Dana Holgorsen running the evaluation. Recruiting a multi-year starter from the Group of 5 ranks costs less than chasing a five-star prep recruit and produces 2027 wins, not 2029 ones.
+
+**Move 2 — Pay the offensive line, not the press release.** Nebraska's 2025 line allowed pressure rates that capped Raiola's ceiling. The 2027 budget routes approximately $4M to retain four returning starters and add two interior transfers, prioritizing snap continuity over recruiting-ranking optics. This mirrors the calculated gamble visible in the 11-player 2026 class, which sits well below the Big Ten average of 17.9 commits.
+
+**Move 3 — Build a bona-fide NIL marketplace, not warehousing dressed up as deals.** The post-Playfly compliance posture requires that every above-cap payment trace to a genuine endorsement workflow that clears NIL Go. Nebraska's in-house NIL office launched a vendor portal in March 2026 connecting athletes to Lincoln-area businesses, Runza, Hudl, and Union Bank, with deliverable-tracked deal structures that survive CSC review.
+
+**Move 4 — Convert the 86,000 Memorial Stadium sellout streak into 2027 ticket-revenue capital.** With every home game still selling out into a 64-year streak, premium seat repricing for 2027 and a renegotiated multimedia rights extension are the cleanest paths to growing the rev-share float without donor fatigue.
+
+**Move 5 — Defend Rhule publicly while quietly building a 2028 contingency.** The contract runs through 2032, but the $87M figure makes a buyout impractical; the realistic 2027 play is investing in coordinator-level upgrades and recruiting infrastructure that survive any future transition.
+
+## 4. The 2027 Portal Arithmetic That Decides the Season
+
+The single most consequential number for 2027 is how Nebraska splits its roughly $15.4M football rev-share pool, because the cap forces genuine trade-offs for the first time. A defensible allocation looks like this: $2.5M to the quarterback room (two veteran transfers rather than one prep gamble), $4M to the offensive line (retention plus two interior portal adds), $3M to retain proven defensive contributors, $3M to skill-position transfers at receiver and edge, and the remaining $2.9M spread across special teams, depth, and developmental scholarships. That math is unforgiving in a way the collective era was not: every dollar handed to a high-ceiling, low-floor freshman is a dollar not spent on a ready-now starter, and Nebraska's record over three Rhule seasons argues for buying production now rather than projecting it. The programs winning the post-settlement portal are not the loudest spenders but the most disciplined allocators — they retain their own proven players (the cheapest production available) and reserve cap room for two or three surgical transfers at premium positions. For a 19-19 program with an $87M coaching commitment to justify, 2027 is the year the arithmetic has to be right.
+
+## 5. Top 3 Risks
+
+**Risk 1 — A third straight 7-6 season triggers donor revolt.** Nebraska's fan base has tolerated three rebuilding years; a fourth without a bowl-game ceiling break would compress 2028 collective-replacement giving and put pressure on the Huskers Athletic Fund priority-point model that just absorbed the 1890 wind-down. The math gets worse fast: if annual giving drops 15%, the rev-share supplement vanishes and Nebraska is suddenly operating below the Big Ten median.
+
+**Risk 2 — Quarterback room fails to replace Raiola's ceiling.** Dylan Raiola represented a legitimate NFL arm and the highest-profile recruit Nebraska had landed since the Tom Osborne era. Two portal transfers at $1.25M apiece is rational arithmetic but produces a lower ceiling. If neither hits, the 2027 offense regresses to 2023 levels and the Rhule extension narrative collapses inside the Big Ten media cycle.
+
+**Risk 3 — CSC enforcement tightens on bona-fide NIL.** The Playfly arbitration loss established that the CSC will void deals it considers warehousing, and 2026 reviews already flagged collective-adjacent structures at other Big Ten schools. A second public Nebraska enforcement action would signal that Lincoln cannot deliver promised dollars, and the portal market would price that compliance overhead into every transfer negotiation.
+
+```mermaid
+flowchart TD
+    A[2026 Season Outcome] --> B{Bowl Eligible?}
+    B -->|Yes 8+ wins| C[Donor Confidence Holds]
+    B -->|No 7-6 Again| D[Athletic Fund Giving Drops]
+    C --> E[2027 Rev-Share Stable $15.4M]
+    D --> F[Rev-Share Squeezed]
+    E --> G[Portal QB Competition]
+    F --> G
+    G --> H{Raiola Replacement Hits?}
+    H -->|Yes| I[Rhule Defends Contract]
+    H -->|No| J[2028 Coaching Question]
+    K[CSC Compliance Posture] --> L[Bona-Fide NIL Office]
+    L --> M[Sustainable 2028 Cycle]
+    J --> N[Buyout Math Blocks Move]
+```
+
+## FAQ
+
+**Q: Is Dylan Raiola coming back to Nebraska?** No. Raiola committed to Oregon on January 12, 2026, and is using a redshirt year while Dante Moore's NFL Draft decision plays out. Nebraska's 2027 quarterback room will be built through the portal.
+
+**Q: How big is Nebraska's 2027 NIL budget?** The football share of the $20.5M House-settlement revenue-share cap is approximately $15.4M, with bona-fide third-party NIL deals stacking above that under CSC review.
+
+**Q: What happened to the 1890 Nebraska collective?** 1890 announced in December 2025 that it would wind down operations as Nebraska moved NIL in-house. Contributions now flow through the Huskers Athletic Fund with priority points routed to rev-share.
+
+**Q: What exactly was the CSC warehousing ruling against Nebraska?** In March 2026, the College Sports Commission ruled that 18 Nebraska players' deals routed through Playfly — worth a combined $1M-plus — were prohibited warehousing, meaning booster money disguised as endorsement to function as pay-for-play. An arbitrator upheld the CSC's authority, the money was voided and did not return to the rev-share pool, and the compliance office now double-reviews every third-party deal.
+
+**Q: Why does the House settlement cap rise each year, and what does that mean for Nebraska?** The cap is pegged to 22 percent of average power-conference athletic revenue and is set to increase roughly 4 percent annually, climbing past $30M by the early 2030s. For Nebraska it means the $15.4M football allocation should grow modestly each cycle, but only if the Big Ten media and Memorial Stadium gate revenue that feeds the formula keeps rising — which is why the sellout streak and a renegotiated media deal are NIL strategy, not just ticket-office concerns.
+
+## Sources
+
+- [Matt Rhule — Nebraska Official Athletics](https://huskers.com/staff/matt-rhule)
+- [Daily Nebraskan — Rhule Two-Year Extension](https://www.dailynebraskan.com/sports/breaking-nebraska-signs-head-coach-matt-rhule-to-two-year-extension/article_2eec161a-7c27-4330-87d5-40adff2f91cb.html)
+- [Pro Football Network — $87M Rhule Gamble Analysis](https://www.profootballnetwork.com/cfb/josh-pate-analyzes-matt-rhule-contract-extension-nebraska-may-2026/)
+- [Daily Nebraskan — 1890 Nebraska Wind-Down](https://www.dailynebraskan.com/sports/1890-nebraska-collective-to-shut-down-nil-moved-in-house/article_a094030e-1db3-4762-b406-0afcdec87161.html)
+- [The Spun — Raiola Transfer Commitment](https://thespun.com/college-football/nebraska-qb-dylan-raiola-announces-his-transfer-commitment)
+- [SI FanNation — Raiola Crown Jewel Portal Move](https://www.si.com/fannation/college/cfb-hq/transfer-portal/1-3-million-qb-named-crown-jewel-of-college-football-transfer-portal-dylan-raiola-oregon)
+- [Yahoo Sports — 18 Huskers Challenge CSC](https://sports.yahoo.com/college-football/article/18-nebraska-football-players-challenging-csc-over-rejection-of-third-party-nil-deals-worth-over-1-million-224212813.html)
+- [ESPN — CSC Wins NIL Arbitration vs Nebraska](https://www.espn.com/college-football/story/_/id/48745201/college-sports-salary-cap-rules-upheld-arbitration-case-brought-nebraska-football-players)
+- [AP/Reuters — House v. NCAA settlement final approval (June 6, 2025), revenue-share cap, and NIL Go / College Sports Commission clearinghouse]

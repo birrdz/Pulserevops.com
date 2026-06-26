@@ -1,0 +1,14 @@
+{
+  "at": "2026-05-25T20:22:12.409Z",
+  "days": 2,
+  "minWords": 1000,
+  "total": 594,
+  "ok": 594,
+  "bad": 0,
+  "badSample": [],
+  "nilTotal": 5,
+  "nilOk": 5,
+  "nilBad": 0,
+  "nilBadSample": [],
+  "pass": true
+}

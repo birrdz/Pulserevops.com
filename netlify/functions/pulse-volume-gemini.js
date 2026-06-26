@@ -15,12 +15,14 @@
 // untouched — that's the wake-loop's job, not this cron's.
 // ════════════════════════════════════════════════════════════════════════
 const https = require('https');
+const { normalizeQuestion, visitorQuestionId } = require('./lib/visitor-question-id');
+const { clearVisitorPriority } = require('./lib/visitor-priority');
 
 let getStore = null;
 try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
 
 const SITE_ID         = process.env.NETLIFY_SITE_ID || 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
-const GEMINI_MODEL    = 'gemini-1.5-flash';
+const GEMINI_MODEL    = 'gemini-2.5-flash';
 const ENTRIES_PER_RUN = 4;        // 4 × 24 hourly runs = 96/day
 const MAX_TOKENS_OUT  = 1400;
 const STARTING_SCORE  = 5;        // every Gemini entry lands at 5/10; polish wave upgrades it.
@@ -104,7 +106,7 @@ function parseOutput(raw) {
 }
 
 function normalize(s) {
-  return String(s || '').toLowerCase().replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim();
+  return normalizeQuestion(s);
 }
 
 function makeId() {
@@ -124,7 +126,7 @@ async function getLibraryStore() {
 exports.handler = async () => {
   if (!process.env.GEMINI_API_KEY) {
     console.log('[volume-gemini] GEMINI_API_KEY not set — no-op');
-    return { statusCode: 200, body: 'no key' };
+    return { statusCode: 200, body: JSON.stringify({ ok: false, reason: 'no GEMINI_API_KEY in env' }) };
   }
 
   let store;
@@ -155,35 +157,43 @@ exports.handler = async () => {
 
   const newEntries = [];
   const processedQs = new Set();
+  const failures = [];   // collect per-item failure reasons for diagnostic visibility
+  const failedVisitors = []; // visitor questions we couldn't write — flag for human fallback
   for (const item of batch) {
     const question = String(item.q).trim();
-    if (!question || question.length < 6) continue;
+    if (!question || question.length < 6) { failures.push({ q: question.slice(0,80), reason: 'too short' }); continue; }
     let raw;
     try { raw = await geminiPost(question); }
     catch (e) {
-      console.warn('[volume-gemini] gemini call failed', e && e.message);
-      // Stop the batch on first failure to avoid burning quota on the same downstream issue
-      break;
+      const msg = (e && e.message) || 'unknown';
+      console.warn('[volume-gemini] gemini call failed', msg);
+      failures.push({ q: question.slice(0,80), reason: 'gemini-fail: ' + msg.slice(0, 220) });
+      if (item.source === 'visitor') failedVisitors.push({ vq_id: item.vq_id, q: question, reason: msg.slice(0, 220) });
+      // Don't break the whole batch on a single failure — try the next item.
+      // (Quota-related failures will fail uniformly; transient errors will not.)
+      continue;
     }
     const { answer, tags } = parseOutput(raw);
     if (!answer || answer.length < 200) {
       console.warn('[volume-gemini] short answer, skip:', question.slice(0, 80));
+      failures.push({ q: question.slice(0,80), reason: 'short answer: ' + (answer ? answer.length : 0) + ' chars' });
+      if (item.source === 'visitor') failedVisitors.push({ vq_id: item.vq_id, q: question, reason: 'short-answer' });
       continue;
     }
-    const id = makeId();
+    const id = item.vq_id || (item.source === 'visitor' ? visitorQuestionId(question) : makeId());
     const ts = Date.now();
     const entry = {
       id,
       question,
       answer,
-      tags,
+      tags: tags.length ? tags : (item.source === 'visitor' ? ['visitor-asked'] : tags),
       sources: [],
       ts,
       model: GEMINI_MODEL,
       quality_score: STARTING_SCORE,
       polish_history: [],
       polished_at: null,
-      source: 'volume-gemini',
+      source: item.source === 'visitor' ? 'visitor' : 'volume-gemini',
       parent_id: item.parent_id || null,
     };
     await store.setJSON('answers/' + id + '.json', entry);
@@ -212,10 +222,42 @@ exports.handler = async () => {
       meta.last_run = Date.now();
       await store.setJSON('_meta_volume.json', meta);
     } catch (_e) {}
+
+    // VISITOR PRIORITY: if any of the entries we just wrote was a visitor
+    // question, clear the priority pause so the rest of the engine resumes.
+    try {
+      const visitorEntry = newEntries.find(e => {
+        const item = batch.find(it => normalize(it.q) === normalize(e.question));
+        return item && item.source === 'visitor';
+      });
+      if (visitorEntry) await clearVisitorPriority(store, visitorEntry.id);
+    } catch (_e) {}
+  }
+
+  // If any visitor questions failed (Gemini error, short answer, etc.), flag
+  // them so the Claude Code wake-loop can pick them up on the next polish run.
+  if (failedVisitors.length) {
+    try {
+      const cur = (await store.get('_visitor_needs_human.json', { type: 'json' })) || { items: [] };
+      const existingIds = new Set((cur.items || []).map(i => i.vq_id));
+      for (const v of failedVisitors) {
+        if (v.vq_id && !existingIds.has(v.vq_id)) cur.items.unshift({ ...v, flagged_at: Date.now() });
+      }
+      cur.items = (cur.items || []).slice(0, 200);
+      cur.last_flag_at = Date.now();
+      await store.setJSON('_visitor_needs_human.json', cur);
+    } catch (_e) {}
   }
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ ok: true, wrote: newEntries.length, of: batch.length, ids: newEntries.map(e => e.id) }),
+    body: JSON.stringify({
+      ok: true,
+      wrote: newEntries.length,
+      of: batch.length,
+      ids: newEntries.map(e => e.id),
+      failures,
+      failed_visitors: failedVisitors.length,
+    }),
   };
 };

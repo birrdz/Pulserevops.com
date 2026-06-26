@@ -1,0 +1,1438 @@
+{
+  "count": 63,
+  "ambiguousCount": 4,
+  "ambiguousIds": [
+    "q9678",
+    "q9598",
+    "q9568",
+    "q82"
+  ],
+  "matches": [
+    {
+      "id": "q13",
+      "question": "How do you comp a hybrid AE/CSM who handles expansion in their book?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q13",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "revops",
+        "sales-comp",
+        "hybrid-ae",
+        "expansion",
+        "retention",
+        "nrr",
+        "ae-csm",
+        "full-stack-ae",
+        "quarterback-ae",
+        "pavilion"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q80",
+      "question": "How do I roll out a 15% price increase without churning the base?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q80",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "pricing",
+        "revops",
+        "saas",
+        "price-increase",
+        "churn",
+        "retention",
+        "procurement",
+        "grandfathering",
+        "multi-year-contracts",
+        "enterprise-sales"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q81",
+      "question": "What's the right list price vs effective price ratio for SaaS?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q81",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "saas",
+        "pricing",
+        "revops",
+        "deal-desk",
+        "discount-discipline",
+        "effective-price",
+        "list-price",
+        "sales-operations",
+        "enterprise-saas",
+        "cpq"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q82",
+      "question": "How do I price for international vs domestic deals?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q82",
+      "matchTier": "cpi-word-inflation",
+      "matchReason": "standalone cpi (ambiguous: inflation index)",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "international-pricing",
+        "saas",
+        "revops",
+        "vat",
+        "gst",
+        "ppp",
+        "fx-hedging",
+        "entity-structure",
+        "transfer-pricing",
+        "enterprise-discount"
+      ],
+      "hasSeo": false,
+      "ambiguous": true
+    },
+    {
+      "id": "q102",
+      "question": "What's the difference between expansion ARR and net new ARR for forecasting?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q102",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "revops",
+        "arr",
+        "forecasting",
+        "expansion",
+        "net-new-arr",
+        "nrr",
+        "ndr",
+        "saas",
+        "fp-and-a",
+        "board-reporting"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q136",
+      "question": "What's the right way to engage Procurement vs the buyer?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q136",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "procurement-engagement",
+        "contract-negotiation",
+        "buyer-vs-procurement",
+        "vendor-management",
+        "msa"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q137",
+      "question": "How do I handle a Master Services Agreement that conflicts with our terms?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q137",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "msa-negotiation",
+        "legal-terms",
+        "vendor-management",
+        "contract-strategy",
+        "risk-management"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q146",
+      "question": "How do I sell into private equity-backed portfolio companies?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q146",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "private-equity",
+        "portfolio-companies",
+        "pe-sales",
+        "opex-reduction",
+        "ebitda-math"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q421",
+      "question": "How do you explain negative churn (expansion revenue) to board auditors who think NRR >100% is impossible?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q421",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "nrr",
+        "net-revenue-retention",
+        "negative-churn",
+        "expansion-revenue",
+        "grr",
+        "gross-retention",
+        "cohort-analysis",
+        "asc-606",
+        "asc-340-40",
+        "revenue-recognition"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q1157",
+      "question": "What's the right monthly retainer for a bookkeeping firm to charge a 10-employee small business, and how do you avoid scope creep?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q1157",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "bookkeeping-retainer",
+        "scope-creep",
+        "pricing-strategy",
+        "small-business-accounting",
+        "cash-flow-protection",
+        "retainer-economics",
+        "owner-operator-tactics"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q1443",
+      "question": "How'd you fix Cluep's revenue issues in 2026?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q1443",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "cluep",
+        "adtech",
+        "mobile-ads",
+        "drip-company-fix",
+        "programmatic",
+        "dsp",
+        "adjust",
+        "singular",
+        "vertical-saas",
+        "measurement-stack"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q1746",
+      "question": "How does Outreach grow internationally without burning margin?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q1746",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "outreach",
+        "international-expansion",
+        "emea",
+        "apac",
+        "gross-margin",
+        "localization",
+        "multi-currency",
+        "partner-channel",
+        "gtm-strategy",
+        "fy27-outlook"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q1760",
+      "question": "Should I work for Outreach in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q1760",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "outreach",
+        "career-decision",
+        "job-evaluation",
+        "equity-vs-comp",
+        "late-stage-saas",
+        "risk-tolerance",
+        "role-fit",
+        "ipo-bet",
+        "vs-ai-native",
+        "fy27-employer"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q9550",
+      "question": "What's the right pricing-governance model for a founder-led company in a highly competitive vertical where rigid discount authority could kill deal velocity?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q9550",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "revops",
+        "pricing-governance",
+        "deal-desk",
+        "discount-strategy",
+        "founder-led-sales",
+        "cpq",
+        "sales-comp",
+        "gtm-strategy",
+        "deal-velocity",
+        "sales-operations"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q9568",
+      "question": "How do you start a backyard chicken coop installation business in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q9568",
+      "matchTier": "cpi-word-inflation",
+      "matchReason": "standalone cpi (ambiguous: inflation index)",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "backyard-chickens",
+        "coop-installation",
+        "small-business",
+        "local-service",
+        "homesteading",
+        "recurring-revenue",
+        "2027",
+        "service-business"
+      ],
+      "hasSeo": false,
+      "ambiguous": true
+    },
+    {
+      "id": "q9598",
+      "question": "How do you start a personal chef business in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q9598",
+      "matchTier": "cpi-word-inflation",
+      "matchReason": "standalone cpi (ambiguous: inflation index)",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "personal-chef",
+        "food-business",
+        "small-business",
+        "meal-prep",
+        "culinary",
+        "glp-1-nutrition",
+        "private-chef",
+        "catering",
+        "2027",
+        "entrepreneurship"
+      ],
+      "hasSeo": false,
+      "ambiguous": true
+    },
+    {
+      "id": "q9653",
+      "question": "How do you start a memory care facility business in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q9653",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "memory-care",
+        "dementia-care",
+        "alzheimers-care",
+        "residential-care",
+        "senior-housing",
+        "licensed-facility",
+        "specialized-care",
+        "behavioral-support",
+        "aging-services",
+        "2027"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q9663",
+      "question": "How do you start a self-storage facility business in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q9663",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "self-storage",
+        "storage-facility",
+        "climate-controlled-storage",
+        "drive-up-storage",
+        "public-storage-psa",
+        "extra-space-exr",
+        "cubesmart-cube",
+        "sba-504",
+        "cmbs-stabilized",
+        "2027"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q9678",
+      "question": "How do you start a landscaping company in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q9678",
+      "matchTier": "cpi-word-inflation",
+      "matchReason": "standalone cpi (ambiguous: inflation index)",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "landscaping",
+        "lawn-care",
+        "grounds-maintenance",
+        "hardscape",
+        "design-build",
+        "irrigation",
+        "snow-removal",
+        "commercial-maintenance",
+        "residential-maintenance",
+        "brightview"
+      ],
+      "hasSeo": false,
+      "ambiguous": true
+    },
+    {
+      "id": "q11022",
+      "question": "What is CPI Security and what makes the NC-based provider different from ADT or Vivint?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11022",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11023",
+      "question": "What is CPI Security's customer service actually like in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11023",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11024",
+      "question": "Is CPI Security's pricing transparent in 2027 — or are there hidden contract traps?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11024",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11025",
+      "question": "What CPI Security smart-home integrations actually work in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11025",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11026",
+      "question": "CPI Security installation quality in 2027 — the documented technician complaints",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11026",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11027",
+      "question": "CPI Security's contract auto-renewal in 2027 - what to know before signing",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11027",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11028",
+      "question": "What does CPI Security offer for medical alert and life safety in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11028",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11029",
+      "question": "CPI Security vs ADT in 2027 — head-to-head for NC and Southeast homeowners",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11029",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11030",
+      "question": "CPI Security billing issues in 2027 — what customers complain about",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11030",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11031",
+      "question": "CPI Security for small business in 2027 — what makes it competitive?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11031",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11032",
+      "question": "CPI Security camera quality in 2027 — what reviews show vs Ring and Arlo",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11032",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11033",
+      "question": "CPI Security panel upgrade fees in 2027 — the 3G/4G sunset trap",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11033",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11034",
+      "question": "CPI Security vs SimpliSafe in 2027 — which delivers better value for most homeowners?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11034",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11035",
+      "question": "How hard is it to cancel CPI Security service in 2027? The retention friction",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11035",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11036",
+      "question": "CPI Security false alarms and city fines in 2027 — what customers don't know",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11036",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11037",
+      "question": "CPI Security alarm response times in 2027 — when monitoring fails",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11037",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11038",
+      "question": "CPI Security's inTouch app reliability in 2027 — what reviews show",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11038",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11039",
+      "question": "CPI Security's private equity ownership in 2027 — what it means for customers",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11039",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11040",
+      "question": "CPI Security's environmental monitoring in 2027 — flood, freeze, CO",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11040",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11041",
+      "question": "CPI Security sales tactics in 2027 — what to watch for at the door",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11041",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11042",
+      "question": "CPI Security and moving in 2027 — what happens to your contract when you relocate",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11042",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11043",
+      "question": "CPI Security cellular monitoring upcharge in 2027 — when free becomes $10+ a month",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11043",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11044",
+      "question": "CPI Security equipment lock-in in 2027 — can you switch providers?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11044",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11045",
+      "question": "CPI Security's insurance discount claim in 2027 — what insurers actually pay",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11045",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11046",
+      "question": "CPI Security vs Ring Alarm in 2027 — when DIY beats pro-installed",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11046",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11047",
+      "question": "CPI Security customer service hold times in 2027 — when local NC still leaves you on hold",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11047",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11048",
+      "question": "CPI Security retention tactics in 2027 — what happens when you try to cancel",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11048",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11049",
+      "question": "CPI Security's Alarm.com dependency in 2027 — the third-party risk",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11049",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11050",
+      "question": "Why ADT's Google Nest integration beats CPI's stack in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11050",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11051",
+      "question": "Vivint vs CPI Security in 2027 — what Vivint does better",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11051",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11052",
+      "question": "Why CPI Security's long-tenure customers feel like they're being squeezed in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11052",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11053",
+      "question": "CPI Security rural coverage gaps in 2027 — when 'local' doesn't reach you",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11053",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11054",
+      "question": "CPI Security's hidden internet dependency in 2027 — when WiFi outages disable your alarm",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11054",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11055",
+      "question": "CPI Security complaint volume in 2027 — how it stacks vs ADT, Vivint, SimpliSafe",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11055",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11056",
+      "question": "What CPI Security's online reviews actually reveal in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11056",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11057",
+      "question": "CPI Security's tiered support experience in 2027 — when 'all customers matter' actually means VIPs first",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11057",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11058",
+      "question": "CPI Security's lifetime warranty fine print in 2027 — what's not covered",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11058",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q11059",
+      "question": "CPI Security's video doorbell vs Ring and Nest in 2027 — the quality gap",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q11059",
+      "matchTier": "cpi-security",
+      "matchReason": "cpi security",
+      "matchIn": [
+        "question",
+        "answer",
+        "tags"
+      ],
+      "tags": [
+        "cpi-security",
+        "home-security",
+        "north-carolina",
+        "security-systems",
+        "negative-leaning"
+      ],
+      "hasSeo": true,
+      "ambiguous": false
+    },
+    {
+      "id": "q12404",
+      "question": "How do you write price-protection clauses that do not hurt vendor pricing power in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q12404",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "revops",
+        "foundation",
+        "revops-100",
+        "fractional-cro",
+        "fractional-chief-revenue-officer",
+        "cro-syndicate",
+        "cro-syndicate-fractional-cro",
+        "hire-fractional-cro",
+        "interim-cro",
+        "chief-revenue-officer"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q12507",
+      "question": "How should a 2027 enterprise sales org structure multi-year pricing locks?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q12507",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "revops",
+        "foundation",
+        "revops-100",
+        "fractional-cro",
+        "fractional-chief-revenue-officer",
+        "cro-syndicate",
+        "cro-syndicate-fractional-cro",
+        "hire-fractional-cro",
+        "interim-cro",
+        "chief-revenue-officer"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q12588",
+      "question": "How should a 2027 sales org design regional compensation for international AEs?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q12588",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "revops",
+        "foundation",
+        "revops-100",
+        "fractional-cro",
+        "fractional-chief-revenue-officer",
+        "cro-syndicate",
+        "cro-syndicate-fractional-cro",
+        "hire-fractional-cro",
+        "interim-cro",
+        "chief-revenue-officer"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q12691",
+      "question": "What is GRR (Gross Revenue Retention) and how does it differ from NRR?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q12691",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "revops",
+        "foundation",
+        "revops-100",
+        "fractional-cro",
+        "fractional-chief-revenue-officer",
+        "cro-syndicate",
+        "cro-syndicate-fractional-cro",
+        "hire-fractional-cro",
+        "interim-cro",
+        "chief-revenue-officer"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q12753",
+      "question": "What is the Texas A&M Aggies NIL strategy for football in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q12753",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "nil",
+        "nil-2027",
+        "nil-football",
+        "d1",
+        "college-athletics",
+        "texas-am-football"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    },
+    {
+      "id": "q12798",
+      "question": "What is the Maryland Terrapins NIL strategy for women's basketball in 2027?",
+      "pillar": "knowledge",
+      "url": "https://pulserevops.com/knowledge/q12798",
+      "matchTier": "cpi-word",
+      "matchReason": "standalone cpi",
+      "matchIn": [
+        "answer"
+      ],
+      "tags": [
+        "nil",
+        "nil-2027",
+        "nil-wbb",
+        "d1",
+        "college-athletics",
+        "maryland-wbb"
+      ],
+      "hasSeo": false,
+      "ambiguous": false
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;} .lbl{font-family:'Inter',system-ui,sans-serif;fill:#e5e7eb;} .val{font-family:'Inter',system-ui,sans-serif;font-weight:700;fill:var(--ink);} .seg{font-family:'Inter',system-ui,sans-serif;font-weight:600;fill:#f1f5f9;} .title{font-family:'Inter',system-ui,sans-serif;font-weight:800;fill:#f8fafc;} .axis{stroke:#475569;stroke-width:1;} .grid{stroke:#334155;stroke-width:1;stroke-dasharray:4 4;}</style>
+<defs>
+<linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--c1)"/><stop offset="100%" stop-color="var(--c2)"/></linearGradient>
+<linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--c4)"/><stop offset="100%" stop-color="var(--c4b)"/></linearGradient>
+<linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--c3)"/><stop offset="100%" stop-color="var(--c1)"/></linearGradient>
+<linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--bg1,#0b0f17)"/><stop offset="100%" stop-color="var(--bg2,#0f172a)"/></linearGradient>
+</defs>
+<rect width="1584" height="396" fill="url(#bgGrad)"/>
+<text x="60" y="50" class="title" font-size="26">Win Rate by Segment</text>
+<text x="60" y="78" class="lbl" font-size="16" opacity="0.75">Closed-won opportunities as % of qualified pipeline</text>
+
+<!-- Y axis grid & labels -->
+<line x1="200" y1="120" x2="1520" y2="120" class="grid"/>
+<line x1="200" y1="170" x2="1520" y2="170" class="grid"/>
+<line x1="200" y1="220" x2="1520" y2="220" class="grid"/>
+<line x1="200" y1="270" x2="1520" y2="270" class="grid"/>
+<line x1="200" y1="320" x2="1520" y2="320" class="axis"/>
+<text x="180" y="125" class="lbl" font-size="14" text-anchor="end">50%</text>
+<text x="180" y="175" class="lbl" font-size="14" text-anchor="end">40%</text>
+<text x="180" y="225" class="lbl" font-size="14" text-anchor="end">30%</text>
+<text x="180" y="275" class="lbl" font-size="14" text-anchor="end">20%</text>
+<text x="180" y="325" class="lbl" font-size="14" text-anchor="end">0%</text>
+
+<!-- X axis -->
+<line x1="200" y1="320" x2="1520" y2="320" class="axis" stroke-width="2"/>
+
+<!-- SMB bar: 32% -->
+<rect x="340" y="160" width="280" height="160" rx="10" fill="url(#g1)" stroke="var(--c2)" stroke-width="2"/>
+<text x="480" y="195" class="val" font-size="48" text-anchor="middle">32%</text>
+<text x="480" y="360" class="seg" font-size="22" text-anchor="middle">SMB</text>
+<text x="480" y="382" class="lbl" font-size="14" text-anchor="middle" opacity="0.75">&lt; $1M ARR</text>
+
+<!-- Mid-Market bar: 24% -->
+<rect x="700" y="220" width="280" height="100" rx="10" fill="url(#g2)" stroke="var(--c4)" stroke-width="2"/>
+<text x="840" y="255" class="val" font-size="48" text-anchor="middle">24%</text>
+<text x="840" y="360" class="seg" font-size="22" text-anchor="middle">Mid-Market</text>
+<text x="840" y="382" class="lbl" font-size="14" text-anchor="middle" opacity="0.75">$1M–$50M ARR</text>
+
+<!-- Enterprise bar: 18% -->
+<rect x="1060" y="250" width="280" height="70" rx="10" fill="url(#g3)" stroke="var(--c1)" stroke-width="2"/>
+<text x="1200" y="285" class="val" font-size="48" text-anchor="middle">18%</text>
+<text x="1200" y="360" class="seg" font-size="22" text-anchor="middle">Enterprise</text>
+<text x="1200" y="382" class="lbl" font-size="14" text-anchor="middle" opacity="0.75">&gt; $50M ARR</text>
+
+<!-- Legend / callout -->
+<circle cx="1400" cy="130" r="6" fill="var(--c1)"/>
+<text x="1414" y="135" class="lbl" font-size="14">Higher velocity</text>
+<circle cx="1400" cy="158" r="6" fill="var(--c4)"/>
+<text x="1414" y="163" class="lbl" font-size="14">Mid complexity</text>
+<circle cx="1400" cy="186" r="6" fill="var(--c3)"/>
+<text x="1414" y="191" class="lbl" font-size="14">Longer cycles</text>
+</svg>

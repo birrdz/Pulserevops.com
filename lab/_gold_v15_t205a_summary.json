@@ -1,0 +1,15 @@
+{
+  "tick": "v15.2 t205a",
+  "agent": "A (newest)",
+  "target_id": "q07",
+  "target_question": "What's the median pay mix for a VP Sales at Series B SaaS?",
+  "target_qs_before": 10,
+  "target_format_v_before": null,
+  "target_ts": 1779077987190,
+  "eligible_count": 1113,
+  "word_count_pre_post": 9053,
+  "new_answer_chars": 56273,
+  "response": {"ok":true,"id":"q07","quality_score":10,"format_v":"2026-05","gold_format":true,"from":10,"to":10},
+  "gold_format_confirmed": true,
+  "http_status": 200
+}

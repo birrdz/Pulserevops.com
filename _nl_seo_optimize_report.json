@@ -1,0 +1,15 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 168,
+ "changed": 132,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 200,
+   "bing": 200,
+   "yandex": 200
+  }
+ }
+}

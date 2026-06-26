@@ -15,12 +15,27 @@
 
 const { getStore } = require('@netlify/blobs');
 const crypto = require('crypto');
+const { buildTop10Weekly } = require('./lib/top10-weekly');
+
+const TOP10_KEY = 'top10-weekly.json';
+const TOP10_MAX_AGE_MS = 65 * 60 * 1000;
 
 function initBlob(name) {
   const tok = process.env.BLOBS_PAT || process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
   const sid = process.env.NETLIFY_SITE_ID || 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
   try { return getStore(name); }
   catch (e1) { if (tok && sid) { try { return getStore({ name, siteID: sid, token: tok }); } catch (e2) { return null; } } return null; }
+}
+
+async function getTop10Weekly(viewStore) {
+  const libStore = initBlob('pulse-machine-library');
+  let snap = await viewStore.get(TOP10_KEY, { type: 'json' });
+  const stale = !snap || !snap.updated_at || Date.now() - snap.updated_at > TOP10_MAX_AGE_MS;
+  if (stale && libStore) {
+    snap = await buildTop10Weekly(viewStore, libStore);
+    await viewStore.setJSON(TOP10_KEY, snap);
+  }
+  return snap || { updated_at: Date.now(), period_days: 7, items: [] };
 }
 
 function todayKey() {
@@ -63,10 +78,34 @@ exports.handler = async (event) => {
   if (event.httpMethod === 'GET') {
     const qs = event.queryStringParameters || {};
     const counts = (await store.get('counts.json', { type: 'json' })) || { entries: {}, last_pruned: 0 };
+    if (qs.top10) {
+      const snap = await getTop10Weekly(store);
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'public, max-age=300',
+        },
+        body: JSON.stringify({
+          ok: true,
+          updated_at: snap.updated_at,
+          period_days: snap.period_days || 7,
+          items: snap.items || [],
+        }),
+      };
+    }
     if (qs.trending || qs.all) {
       // Sum last 7 days for each entry. ?trending=1 → top 12 sorted desc;
       // ?all=1 → flat { id: sum } map of every entry with sum>0 (for grid badges).
+      // ?pillar=q|st|ik|tk|gb|bs|er|ra|gp|sports → filter to that ID prefix or
+      //   tag (sports = entries tagged sports/nil/football/mbb/wbb).
       const days7 = lastNDays(7);
+      const PILLAR_RX = {
+        q:/^q\d+$|^vq_/, st:/^st\d+$/, ik:/^ik\d+$/, tk:/^tk\d+$/, gb:/^gb\d+$/,
+        bs:/^bs\d+$/, er:/^er\d+$/, ra:/^ra\d+$/, gp:/^gp\d+$/,
+      };
+      const pillarKey = (qs.pillar || '').toLowerCase().trim();
+      const pillarRx = pillarKey && PILLAR_RX[pillarKey] ? PILLAR_RX[pillarKey] : null;
       const ranked = Object.keys(counts.entries || {})
         .map(id => {
           const e = counts.entries[id] || {};
@@ -74,14 +113,19 @@ exports.handler = async (event) => {
           for (const d of days7) sum += dayCount(e.days && e.days[d]);
           return { id, sum, total: e.total || 0 };
         })
-        .filter(r => r.sum > 0);
+        .filter(r => r.sum > 0 && (!pillarRx || pillarRx.test(r.id)));
       if (qs.all) {
         const map = {};
+        const totals = {};
         for (const r of ranked) map[r.id] = r.sum;
+        for (const eid of Object.keys(counts.entries || {})) {
+          const t = (counts.entries[eid] && counts.entries[eid].total) || 0;
+          if (t > 0) totals[eid] = t;
+        }
         return {
           statusCode: 200,
           headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=120' },
-          body: JSON.stringify({ ok: true, counts: map }),
+          body: JSON.stringify({ ok: true, counts: map, totals: totals }),
         };
       }
       ranked.sort((a, b) => b.sum - a.sum);
@@ -107,7 +151,8 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body || '{}'); }
   catch (e) { return { statusCode: 400, body: JSON.stringify({ ok: false, reason: 'bad json' }) }; }
   const id = String(body.id || '').trim();
-  if (!id || !/^v?q[a-z0-9_]*\d+$/i.test(id)) {
+  // Accept every pillar prefix (was q/vq-only, which under-counted the whole site).
+  if (!id || !/^(vq_[a-z0-9]+|[a-z]{1,5}\d+)$/i.test(id)) {
     return { statusCode: 400, body: JSON.stringify({ ok: false, reason: 'bad id' }) };
   }
 
@@ -115,6 +160,13 @@ exports.handler = async (event) => {
   const ua = (event.headers && event.headers['user-agent']) || '';
   if (looksLikeBot(ua)) {
     return { statusCode: 200, body: JSON.stringify({ ok: true, id, skipped: 'bot' }) };
+  }
+
+  // Owner's own devices carry a permanent pulse_owner=1 cookie — never count
+  // the owner as a visitor (the beacon sends cookies same-origin).
+  const _ck = (event.headers && (event.headers.cookie || event.headers.Cookie)) || '';
+  if (/(?:^|;\s*)pulse_owner=1\b/.test(_ck)) {
+    return { statusCode: 200, body: JSON.stringify({ ok: true, id, skipped: 'owner' }) };
   }
 
   // Read-modify-write
@@ -141,6 +193,9 @@ exports.handler = async (event) => {
   if (slot.ips.length > 5000) slot.ips = slot.ips.slice(-5000);
   counts.entries[id].days[today] = slot;
   counts.entries[id].total = (counts.entries[id].total || 0) + 1;
+  // Site-wide daily visitor total for the 15-min heartbeat (non-bot, non-owner,
+  // deduped one-per-visitor-per-entry-per-day). Resets at midnight via hour keys.
+  try { const st = require('./_stats'); await st.bump({ views: 1 }); await st.bumpDaily({ views: 1 }); } catch (e) {}
 
   // Prune day buckets older than 14 days, once per hour
   if (Date.now() - (counts.last_pruned || 0) > 3600000) {

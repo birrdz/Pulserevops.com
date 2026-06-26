@@ -1,0 +1,87 @@
+QUESTION: What are Washington Huskies football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Washington Huskies football's 2027 NIL strategy must solve a specific problem: competing in the Big Ten's coastal arms race on a West Coast budget, with a third-year Jedd Fisch program that has formally handed NIL operations from Montlake Futures to the internal Dawgs Unleashed division in the wake of the House v. NCAA settlement. The needs are concrete — roughly $20-22M in football revenue-share allocation for the 2026-27 cycle, a healthy front-seven and offensive-line investment to match Ohio State and Oregon weight rooms, premium NIL packages for quarterback Demond Williams Jr. and a marquee 2027 high-school class, plus a Seattle-corporate sponsorship engine that does not depend on collective donations alone. The strategy is what Washington has already started building: a nonprofit Montlake Futures legacy bolted to a Big Ten media-rights windfall, routed through Dawgs Unleashed, and aimed squarely at retaining the Williams-era core through the program's first full Big Ten recruiting cycle.
+
+## The 2027 Cap Math Everyone Argues About
+
+The House settlement, granted final approval by Judge Claudia Wilken in June 2025, set a school revenue-share pool of roughly $20.5M in year one (2025-26), calculated as 22% of the average power-conference athletic revenue, and the pool escalates at about 4% annually — pushing it past $22M by the 2027-28 academic year and toward $32M-plus by the end of the ten-year settlement window. Football typically takes 70-75% of that pool — call it $14-16M of direct school-paid revenue share at Washington plus another $5-7M in third-party deals routed through Dawgs Unleashed and remaining Montlake Futures legacy commitments. Washington's challenge is that Ohio State, Oregon, and Penn State are all reportedly pushing toward $20M-plus football allocations through aggressive third-party stacking, while Washington's natural donor base is smaller than Columbus or Eugene's.
+
+It is worth being precise about the new third-party rules, because they are the part of the 2027 cap math that trips up programs. Any NIL deal of $600 or more from a booster or a collective associated with the school must now be submitted to NIL Go, the Deloitte-run clearinghouse operated under the new College Sports Commission, which checks whether the deal falls inside a "fair market value" range for the athlete's actual marketing reach. Deals judged to be disguised pay-for-play can be flagged and voided. For Washington, that means Dawgs Unleashed cannot simply paper a $1M "appearance" deal for a left tackle who does two autograph sessions a year — the clearinghouse will compress that number toward genuine market value. The honest internal number floating around Montlake heading into 2027 is "match the median Big Ten, beat the bottom third, accept that we will not outspend Ohio State." Fisch has publicly framed this as a roster-construction problem rather than a money problem: build deeper than you buy, develop two-deep at every position, and use NIL to retain rather than to recruit-over.
+
+## Position-by-Position 2027 NIL Needs
+
+The single biggest 2027 line item is retaining quarterback Demond Williams Jr. through his redshirt-junior year. Williams is the centerpiece of Fisch's offense and the most portal-vulnerable asset on the roster; a market-rate QB1 NIL package in the Big Ten in 2027 is $1.5-2.5M, and Washington has to be inside that band or risk a Caleb-Williams-style exit. After Williams, the priority stack is offensive line (four projected 2027 starters need new deals), edge rushers (Fisch's defensive identity demands two paid edges at $400K+ each), and a single elite safety to anchor a young secondary. Skill-position spend should be deliberately lower — Fisch's track record at Arizona and in year one at Washington shows he develops receivers rather than buying them, and 2027 should follow that pattern.
+
+The structural reason the offensive line is so expensive is supply, not Washington's preferences. The transfer portal has turned proven interior linemen and tackles into the scarcest priced commodity in the sport — a returning Power Four starting tackle now routinely costs $500K-900K to retain, and the Big Ten sets the top of that market. Washington's counter is roster math: Fisch's staff has prioritized signing and developing high-school linemen who arrive on smaller deals and become expensive only once they have started, which spreads the line budget across multiple cap years instead of front-loading it on portal mercenaries.
+
+```flowchart TD
+    A[2027 Football NIL Pool ~$20M] --> B[Revenue Share $14-15M]
+    A --> C[Third-Party Deals $5-7M]
+    B --> D[QB Room $2-3M]
+    B --> E[Offensive Line $3-4M]
+    B --> F[Defensive Front $3-4M]
+    B --> G[Secondary $2-3M]
+    B --> H[Skill + Specialists $2-3M]
+    C --> I[Dawgs Unleashed Corporate]
+    C --> J[Montlake Legacy Charity Deals]
+    I --> K[Alaska Airlines, Costco, Microsoft]
+    J --> L[Seattle Childrens, Food Lifeline]
+```
+
+## Montlake Futures To Dawgs Unleashed: The Handoff
+
+The structural story of 2027 is the formal transfer of NIL operations from Montlake Futures, the nonprofit collective that ran point through the Big Ten transition, to Dawgs Unleashed, Washington's internal NIL and influencer-marketing division. Montlake Futures funded nearly 200 deals and consulted on roughly 100 more during its run, building a model that did not take a cut of athlete payments and routed money through 501(c)(3) charity partners — a deliberately different posture from the Texas or Tennessee collective archetypes. Post-House, that nonprofit charity model is less useful because schools can now pay athletes directly. Dawgs Unleashed inherits the corporate sponsorship pipeline (Alaska Airlines, Costco, regional tech) and adds the internal cap-management function.
+
+The handoff matters because of who is now legally on the hook. When a collective sits outside the athletic department, the school can keep the messiest dealmaking at arm's length. When the operation is brought in-house, every football deal becomes a compliance question the athletic department owns directly under the College Sports Commission's rules. That is a feature, not a bug, for a program trying to avoid the kind of public collective fights that have embarrassed Tennessee, Florida, and Wisconsin — but it puts a premium on a competent internal staff that can value deals, file them with NIL Go, and keep the locker-room pay scale defensible. The strategic risk is that Montlake's donor goodwill does not fully transfer to a school-run office; the strategic upside is that consolidating under athletics eliminates the agent-collective middle layer that has gotten other programs into trouble.
+
+## The Big Ten Travel And Brand Premium
+
+Washington's 2027 NIL pitch has one genuinely unique selling point: the Big Ten media rights deal pays Washington a partial, escalating share that grows through the end of the decade, and that revenue floor lets the school commit to multi-year NIL deals other Pac-12-refugee programs cannot match. Washington and Oregon entered the Big Ten in 2024 on reduced revenue shares relative to the league's longtime members, but those shares step up over the contract term, which means the school can credibly tell a 2027 recruit that the money available to him grows every year he stays. Fisch's recruiting staff has been selling "Big Ten money, West Coast lifestyle" — meaning Seattle weather, a top-25 academic university, NFL-grade facilities at Husky Stadium, and Pacific Northwest corporate brand access without the Midwest winter. For 2027 recruits weighing Washington against Oregon, USC, and a Big 12 offer, the financial gap is now narrow enough that lifestyle and development tiebreakers matter again.
+
+## Roster Retention Versus Portal Aggression
+
+The single biggest 2027 strategic decision is the retention-versus-portal split. Fisch's first two cycles at Washington leaned heavily on the portal to rebuild the post-Kalen-DeBoer roster; 2027 should be the inflection year where high-school recruiting and homegrown retention finally outweigh portal spending. Internal projections inside Montlake Futures' final year reportedly targeted a 65/35 retention-to-portal split for the football NIL pool by 2027, reversing the 40/60 ratio of the rebuild years. That means deeper sophomore-and-junior deals, less spending on one-year transfer mercenaries, and a clear message to high-school recruits that Washington will pay them more in year three than in year one.
+
+```flowchart TD
+    M[2027 Recruiting Cycle Strategy] --> N[High School Class]
+    M --> O[Portal Targets]
+    M --> P[Roster Retention]
+    N --> Q[Top-20 National Class Goal]
+    N --> R[PNW + California + Texas Pipeline]
+    O --> S[Selective: 8-12 Players Max]
+    O --> T[Edge Rusher + OL Priority]
+    P --> U[Williams QB Extension]
+    P --> V[Junior-Class Multi-Year Deals]
+    Q --> W[Big Ten Money Pitch]
+    S --> X[Avoid Mercenary Stacking]
+    U --> Y[Match Big Ten QB1 Market]
+```
+
+## How The Cap Squeezes Olympic And Women's Sports
+
+The part of the 2027 strategy that gets the least attention publicly is the most politically delicate internally: when football and men's basketball claim 75-80% of the revenue-share pool, every Olympic and women's program at Washington is fighting over what is left. Husky women's basketball, soccer, softball, rowing, and volleyball have their own recruiting markets that have begun paying athletes, and Title IX scrutiny of how the revenue-share dollars are distributed is an active legal question that could reshape allocations mid-settlement. For Fisch and the athletic department, the strategic implication is that football cannot assume it will hold 75% of the cap forever. The smart 2027 hedge is to keep building genuine third-party corporate revenue through Dawgs Unleashed — money that sits outside the capped pool entirely — so that if Title IX pressure forces football's share of the cap down, the program's total spending power does not collapse with it.
+
+## What Could Go Wrong
+
+Three failure modes are real. First, a Fisch departure — Florida and other SEC programs have circled, and a coaching change inside the 2027 cycle would force Montlake legacy donors to re-evaluate. Second, the House settlement implementation could shift the revenue-share number or, more likely, tighten NIL Go review so that Dawgs Unleashed corporate deals get compressed toward lower fair-market valuations, slowing dealmaking. Third, the Big Ten media revenue escalator assumes the conference holds its current footprint; any contraction or renegotiation would compress Washington's NIL ceiling at exactly the wrong moment.
+
+## Frequently Asked Questions
+
+**Does the House settlement mean Washington pays players a salary directly now?**
+
+Functionally, yes, within limits. Since the settlement took effect on July 1, 2025, schools may share revenue directly with athletes up to the annual cap — about $20.5M across all sports in year one, escalating roughly 4% a year. Washington pays this directly from the athletic department, which is why the program reorganized NIL under the in-house Dawgs Unleashed division rather than relying on an outside collective. The catch is that this revenue share counts against the cap, while genuine third-party endorsement deals do not, as long as they clear NIL Go fair-market-value review. So Washington's real spending power in 2027 is the capped revenue share plus whatever legitimate corporate NIL it can stack on top.
+
+**Why did Washington move NIL in-house instead of keeping Montlake Futures?**
+
+Because the legal and financial logic flipped after the settlement. Montlake Futures was built as a nonprofit collective that routed deals through charity partners and took no cut — a sensible structure when schools were barred from paying athletes. Once Washington could pay athletes directly and had to manage a hard cap, running NIL through an outside nonprofit created duplicate plumbing and compliance gaps. Folding the corporate-sponsorship pipeline and cap management into Dawgs Unleashed lets the athletic department file deals with the clearinghouse, keep one defensible pay scale, and avoid the agent-and-collective middle layer that has caused public disputes at other programs. The tradeoff is that the donor goodwill Montlake built does not automatically transfer to a school-run office, which is the relationship-management work facing Washington through 2027.
+
+Sources:
+- [Jedd Fisch - Head Football Coach - University of Washington Athletics](https://gohuskies.com/staff-directory/jedd-fisch/6098)
+- [Montlake Futures hands NIL reins to UW athletics after House settlement](https://www.union-bulletin.com/sports/college_sports/university_of_washington/montlake-futures-hands-nil-reins-to-uw-athletics-after-house-settlement/article_6f57c81e-5c21-5b7a-93a3-6df48b42d0a5.html)
+- [In post-House world, Washington investing in 'real' NIL](https://www.onmontlake.com/in-post-house-world-washington-investing/)
+- [Montlake Futures seeks growth before UW's Big Ten move - Seattle Times](https://www.seattletimes.com/sports/uw-husky-football/do-we-want-to-compete-montlake-futures-seeks-growth-before-big-ten-move/)
+- [Jedd Fisch excited for 'true reboot' with Washington - ESPN](https://www.espn.com/college-football/story/_/id/40639665/jedd-fisch-excited-true-reboot-washington)
+- [House v. NCAA settlement explained - NCAA / ESPN](https://www.espn.com/college-sports/story/_/id/45417406/house-settlement-explained-college-sports-revenue-sharing)

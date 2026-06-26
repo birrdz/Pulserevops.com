@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 810" role="img" aria-label="Pulse Trainings">
+  <rect width="1440" height="810" fill="#EBE9DE"/>
+  <defs>
+    <pattern id="stripeTr" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="30" height="30" fill="#2563EB"/><rect y="15" width="30" height="15" fill="#0A1A3A"/>
+    </pattern>
+  </defs>
+  <rect x="446" y="330" width="216" height="216" fill="url(#stripeTr)" opacity="0.5"/>
+  <g fill="none" stroke="#2563EB" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="446" y="330" width="216" height="216"/>                 <!-- board -->
+    <path d="M486 506 l54 -64 36 30 60 -78"/>                        <!-- chart line -->
+    <path d="M636 394 v30 h-30"/>                                    <!-- arrowhead -->
+    <path d="M554 546 v60 M512 700 l42 -94 M596 700 l-42 -94"/>      <!-- easel legs -->
+    <path d="M500 660 h108"/>                                        <!-- tray -->
+  </g>
+  <g font-family="'Plus Jakarta Sans','Trebuchet MS',Verdana,sans-serif" font-weight="800" letter-spacing="-2">
+    <text x="800" y="452" font-size="150" fill="#E3C9B8">Pulse</text><text x="794" y="446" font-size="150" fill="#2563EB">Pulse</text>
+    <text x="800" y="632" font-size="150" fill="#E3C9B8">Trainings</text><text x="794" y="626" font-size="150" fill="#2563EB">Trainings</text>
+  </g>
+</svg>

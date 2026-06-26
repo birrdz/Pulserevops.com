@@ -3,7 +3,14 @@
 // Used by the cloud routine which generates entries on Anthropic's side
 // (billed to user's $200 Claude.ai plan, not separate API).
 const { getStore } = require('@netlify/blobs');
-const SITE_ID = 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
+const { pingIndexNowQ } = require('./lib/indexnow-ping-q');
+const { pingIndexNowEntry } = require('./lib/indexnow-ping-entry');
+const { capitalizeQuestion, capitalizeSentencesInMarkdown } = require('./lib/text-capitalize');
+const { ensureImages } = require('./lib/ensure-entry-images');
+const { gradeEntry } = require('./lib/grade-entry');
+const { applyPillarSeo } = require('./lib/ensure-pillar-seo');
+const { blobsPat, netlifySiteId } = require('./lib/load-env');
+const SITE_ID = netlifySiteId();
 // Shared secret to prevent random POSTs flooding the library. Change if leaked.
 const KEY = 'pulsemachine-writer-2026';
 
@@ -21,13 +28,32 @@ exports.handler = async (event) => {
 
   if (body.key !== KEY) return { statusCode: 401, headers: corsHeaders(), body: JSON.stringify({ ok: false, reason: 'bad key' }) };
 
-  const { id, question, answer } = body;
+  let { id, question, answer } = body;
   if (!id || !/^q\d+$/.test(id)) return { statusCode: 400, headers: corsHeaders(), body: JSON.stringify({ ok: false, reason: 'bad id (must be qNNNN)' }) };
+  question = capitalizeQuestion(question);
+  answer = capitalizeSentencesInMarkdown(answer);
   if (!question || question.length < 8) return { statusCode: 400, headers: corsHeaders(), body: JSON.stringify({ ok: false, reason: 'bad question' }) };
   if (!answer || answer.length < 800) return { statusCode: 400, headers: corsHeaders(), body: JSON.stringify({ ok: false, reason: 'answer too short (min 800 chars)' }) };
   if (!/```mermaid/.test(answer)) return { statusCode: 400, headers: corsHeaders(), body: JSON.stringify({ ok: false, reason: 'missing mermaid block' }) };
 
-  const tok = process.env.BLOBS_PAT;
+  const deferImages = !!(body.defer_images || (body.skip_images && /^q\d+$/.test(id)));
+  const ts = Date.now();
+
+  // Ship-first law (q####): publish text now; DDG turtle backfills cover later.
+  if (!deferImages && !body.skip_images) {
+    const img = await ensureImages(id, question, answer);
+    answer = img.body;
+    if (!img.audit.compliant && !body.force_images) {
+      const g = gradeEntry(id, answer);
+      return {
+        statusCode: 422,
+        headers: corsHeaders(),
+        body: JSON.stringify({ ok: false, reason: 'images_law', needs: img.audit.needs, score: g.score }),
+      };
+    }
+  }
+
+  const tok = blobsPat();
   let store;
   try { store = getStore('pulse-machine-library'); }
   catch { store = getStore({ name: 'pulse-machine-library', siteID: SITE_ID, token: tok }); }
@@ -36,16 +62,20 @@ exports.handler = async (event) => {
   const existing = await store.get('answers/' + id + '.json', { type: 'json' });
   if (existing) return { statusCode: 409, headers: corsHeaders(), body: JSON.stringify({ ok: false, reason: 'id exists', id }) };
 
-  const ts = Date.now();
-  await store.setJSON('answers/' + id + '.json', {
+  const baseTags = Array.isArray(body.tags) ? body.tags : [];
+  const seoBase = applyPillarSeo(id, question, {
     id,
     question,
     answer,
-    tags: Array.isArray(body.tags) ? body.tags : [],
+    tags: baseTags,
     sources: Array.isArray(body.sources) ? body.sources : [],
     ts,
     model: body.model || 'claude-opus-4-7',
     lab_run: body.lab_run || 'session-' + new Date(ts).toISOString().slice(0, 10),
+  });
+  const stamped = seoBase.entry;
+  await store.setJSON('answers/' + id + '.json', {
+    ...stamped,
     // Honest defaults: a fresh write starts at 5/10. Polish passes earn each
     // step up to 10. polished_at is only set when quality_score reaches 10.
     polished_at: null,
@@ -56,6 +86,7 @@ exports.handler = async (event) => {
     // detailed AND more intelligent than the original — not just longer.
     // Purged once 10/10 verification passes, so storage stays bounded.
     baseline_answer_v5: body.answer,
+    ...(deferImages ? { images_deferred_at: ts, images_deferred_note: 'ddg-turtle-backfill' } : {}),
   });
 
   // Update index — race-tolerant: re-read after a tiny stagger, dedupe before write.
@@ -67,32 +98,39 @@ exports.handler = async (event) => {
     idx.entries.unshift({
       id,
       question,
-      tags: body.tags || [],
+      tags: stamped.tags || baseTags,
       ts,
       polished_at: null,
       quality_score: 5,
     });
   }
-  // q-IDs (the routine's auto-numbered entries) rank ahead of everything else
-  // (visitor questions vq_*, hand-curated, etc.) so the public library shows
-  // the freshest authored content first AND the routine's "find next id" grep
-  // reliably hits a q-prefix at the top. Within q-IDs sort by numeric desc;
-  // non-q-IDs fall back to ts desc.
-  idx.entries.sort((a, b) => {
-    const aIsQ = /^q\d+$/.test(a.id);
-    const bIsQ = /^q\d+$/.test(b.id);
-    if (aIsQ && !bIsQ) return -1;
-    if (!aIsQ && bIsQ) return 1;
-    if (aIsQ && bIsQ) {
-      return parseInt(b.id.slice(1), 10) - parseInt(a.id.slice(1), 10);
-    }
-    return (b.ts || 0) - (a.ts || 0);
-  });
+  // TRUE CHRONOLOGICAL order for the persisted _index.json: newest `ts`
+  // first, all id types (q####, vq_*, hand-curated) intermixed. A freshly
+  // written entry appears at the top and ages downward as newer ones arrive.
+  idx.entries.sort((a, b) => (b.ts || 0) - (a.ts || 0));
   await store.setJSON('_index.json', idx);
+
+  // Every new publish: IndexNow (all engines) + was_indexed_at — required by publish rule.
+  let indexResult = null;
+  if (!body.skip_index) {
+    const indexRow = (idx.entries || []).find((e) => e && e.id === id);
+    indexResult = await pingIndexNowEntry(id, store, indexRow);
+    if (!indexResult?.ok && /^q\d+$/.test(id)) {
+      indexResult = await pingIndexNowQ(id, store);
+    }
+  }
 
   return {
     statusCode: 200,
     headers: { ...corsHeaders(), 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ok: true, id, ts, total_now: idx.entries.length }),
+    body: JSON.stringify({
+      ok: true,
+      id,
+      ts,
+      total_now: idx.entries.length,
+      indexed: !!indexResult?.ok,
+      index: indexResult,
+      images_deferred: deferImages,
+    }),
   };
 };

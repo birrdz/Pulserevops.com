@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.bg{fill:var(--bg1,#0b0f17);}
+.panel{fill:var(--bg2,#0f172a);stroke:var(--c2);stroke-width:1.5;}
+.tile{fill:var(--bg2,#0f172a);stroke:var(--c1);stroke-width:1.5;}
+.label{font-family:'Inter','Segoe UI',sans-serif;font-size:18px;fill:var(--c3);font-weight:600;letter-spacing:.5px;}
+.value{font-family:'Inter','Segoe UI',sans-serif;font-size:34px;fill:var(--c1);font-weight:800;}
+.delta{font-family:'Inter','Segoe UI',sans-serif;font-size:16px;fill:var(--c4);font-weight:700;}
+.title{font-family:'Inter','Segoe UI',sans-serif;font-size:28px;fill:var(--c4);font-weight:800;letter-spacing:1px;}
+.sub{font-family:'Inter','Segoe UI',sans-serif;font-size:18px;fill:var(--c3);font-weight:500;}
+.tick{stroke:var(--c2);stroke-width:1;opacity:.5;}
+.bar{fill:var(--c1);}
+.bar2{fill:var(--c2);}
+.spark{fill:none;stroke:var(--c1);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;}
+.ring{fill:none;stroke:var(--c2);stroke-width:8;opacity:.35;}
+.ringfg{fill:none;stroke:var(--c1);stroke-width:8;stroke-linecap:round;}
+.dot{fill:var(--c4);}
+</style>
+<rect class="bg" width="1584" height="396"/>
+<rect x="24" y="24" width="1536" height="348" rx="14" class="panel"/>
+
+<text x="48" y="68" class="title">SALES KPI DASHBOARD — TOP 9</text>
+<text x="48" y="94" class="sub">CRO weekly scorecard · trailing 90 days</text>
+<circle cx="1520" cy="60" r="8" class="dot"/>
+<text x="1380" y="66" class="label" text-anchor="end">LIVE</text>
+
+<!-- Row 1: 5 tiles -->
+<g transform="translate(48,120)">
+  <rect width="288" height="108" rx="10" class="tile"/>
+  <text x="18" y="32" class="label">BOOKINGS</text>
+  <text x="18" y="74" class="value">$4.82M</text>
+  <text x="18" y="98" class="delta">+18% QoQ</text>
+  <polyline class="spark" points="180,80 200,72 220,76 240,60 260,52 270,40"/>
+</g>
+
+<g transform="translate(354,120)">
+  <rect width="288" height="108" rx="10" class="tile"/>
+  <text x="18" y="32" class="label">WIN RATE</text>
+  <text x="18" y="74" class="value">31.4%</text>
+  <text x="18" y="98" class="delta">+2.1 pp</text>
+  <g transform="translate(220,54)">
+    <circle r="32" class="ring"/>
+    <path class="ringfg" d="M 0,-32 A 32,32 0 1 1 -18,26"/>
+  </g>
+</g>
+
+<g transform="translate(660,120)">
+  <rect width="288" height="108" rx="10" class="tile"/>
+  <text x="18" y="32" class="label">SALES CYCLE</text>
+  <text x="18" y="74" class="value">42d</text>
+  <text x="18" y="98" class="delta">-6d MoM</text>
+  <polyline class="spark" points="180,50 200,58 220,55 240,68 260,72 270,80"/>
+</g>
+
+<g transform="translate(966,120)">
+  <rect width="288" height="108" rx="10" class="tile"/>
+  <text x="18" y="32" class="label">PIPELINE COVERAGE</text>
+  <text x="18" y="74" class="value">3.8x</text>
+  <text x="18" y="98" class="delta">target 3.0x</text>
+  <g transform="translate(210,40)">
+    <rect x="0" y="40" width="14" height="20" class="bar2"/>
+    <rect x="20" y="28" width="14" height="32" class="bar2"/>
+    <rect x="40" y="14" width="14" height="46" class="bar"/>
+    <rect x="60" y="4" width="14" height="56" class="bar"/>
+  </g>
+</g>
+
+<g transform="translate(1272,120)">
+  <rect width="288" height="108" rx="10" class="tile"/>
+  <text x="18" y="32" class="label">QUOTA ATTAINMENT</text>
+  <text x="18" y="74" class="value">87%</text>
+  <text x="18" y="98" class="delta">42 of 48 reps</text>
+  <g transform="translate(200,44)">
+    <rect x="0" y="20" width="80" height="10" rx="5" class="ring"/>
+    <rect x="0" y="20" width="70" height="10" rx="5" class="bar"/>
+  </g>
+</g>
+
+<!-- Row 2: 4 tiles + summary -->
+<g transform="translate(48,248)">
+  <rect width="288" height="108" rx="10" class="tile"/>
+  <text x="18" y="32" class="label">ACV</text>
+  <text x="18" y="74" class="value">$64.2K</text>
+  <text x="18" y="98" class="delta">+9% YoY</text>
+  <polyline class="spark" points="180,70 200,62 220,66 240,54 260,46 270,38"/>
+</g>
+
+<g transform="translate(354,248)">
+  <rect width="288" height="108" rx="10" class="tile"/>
+  <text x="18" y="32" class="label">CAC PAYBACK</text>
+  <text x="18" y="74" class="value">11.3mo</text>
+  <text x="18" y="98" class="delta">target &lt;12mo</text>
+  <g transform="translate(210,54)">
+    <circle r="32" class="ring"/>
+    <path class="ringfg" d="M 0,-32 A 32,32 0 1 1 28,-15"/>
+  </g>
+</g>
+
+<g transform="translate(660,248)">
+  <rect width="288" height="108" rx="10" class="tile"/>
+  <text x="18" y="32" class="label">NET RETENTION</text>
+  <text x="18" y="74" class="value">118%</text>
+  <text x="18" y="98" class="delta">+4 pp</text>
+  <polyline class="spark" points="180,72 200,64 220,58 240,52 260,44 270,36"/>
+</g>
+
+<g transform="translate(966,248)">
+  <rect width="288" height="108" rx="10" class="tile"/>
+  <text x="18" y="32" class="label">LEAD VELOCITY</text>
+  <text x="18" y="74" class="value">+24%</text>
+  <text x="18" y="98" class="delta">MoM growth</text>
+  <g transform="translate(196,40)">
+    <rect x="0" y="44" width="14" height="16" class="bar2"/>
+    <rect x="20" y="32" width="14" height="28" class="bar2"/>
+    <rect x="40" y="20" width="14" height="40" class="bar"/>
+    <rect x="60" y="8" width="14" height="52" class="bar"/>
+  </g>
+</g>
+
+<g transform="translate(1272,248)">
+  <rect width="288" height="108" rx="10" class="tile"/>
+  <text x="18" y="32" class="label">FORECAST ACCURACY</text>
+  <text x="18" y="74" class="value">94%</text>
+  <text x="18" y="98" class="delta">commit vs actual</text>
+  <g transform="translate(200,44)">
+    <rect x="0" y="20" width="80" height="10" rx="5" class="ring"/>
+    <rect x="0" y="20" width="75" height="10" rx="5" class="bar"/>
+  </g>
+</g>
+</svg>

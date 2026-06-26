@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;} .lbl{font-family:'Inter','Segoe UI',system-ui,sans-serif;fill:var(--ink);font-weight:700;} .vol{font-family:'Inter','Segoe UI',system-ui,sans-serif;fill:var(--ink);font-weight:800;} .ttl{font-family:'Inter','Segoe UI',system-ui,sans-serif;fill:var(--c3);font-weight:800;letter-spacing:1.5px;} .sub{font-family:'Inter','Segoe UI',system-ui,sans-serif;fill:var(--c4b);font-weight:600;} .conv{font-family:'Inter','Segoe UI',system-ui,sans-serif;fill:var(--c4);font-weight:700;}</style>
+<defs>
+<linearGradient id="bgG" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="s1" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c3)"/>
+<stop offset="1" stop-color="var(--c1)"/>
+</linearGradient>
+<linearGradient id="s2" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)"/>
+<stop offset="1" stop-color="var(--c1)"/>
+</linearGradient>
+<linearGradient id="s3" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)"/>
+<stop offset="1" stop-color="var(--c2)"/>
+</linearGradient>
+<linearGradient id="s4" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c2)"/>
+<stop offset="1" stop-color="var(--c4)"/>
+</linearGradient>
+<linearGradient id="s5" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c4)"/>
+<stop offset="1" stop-color="var(--c4b)"/>
+</linearGradient>
+</defs>
+<rect width="1584" height="396" fill="url(#bgG)"/>
+<text x="60" y="50" class="ttl" font-size="20">SALES FUNNEL</text>
+<text x="60" y="78" class="sub" font-size="16">Lead → MQL → SQL → Opportunity → Closed Won</text>
+<!-- Stage 1: Lead -->
+<polygon points="100,120 380,120 360,310 120,310" fill="url(#s1)" stroke="var(--c2)" stroke-width="2"/>
+<text x="240" y="200" class="lbl" font-size="26" text-anchor="middle">LEAD</text>
+<text x="240" y="240" class="vol" font-size="34" text-anchor="middle">10,000</text>
+<text x="240" y="268" class="lbl" font-size="14" text-anchor="middle" opacity="0.75">top of funnel</text>
+<text x="240" y="345" class="sub" font-size="14" text-anchor="middle">Awareness · Inbound · Outbound</text>
+<!-- Arrow 1→2 + conv -->
+<path d="M380,215 L420,215" stroke="var(--c4)" stroke-width="3" fill="none" marker-end="url(#ar)"/>
+<text x="400" y="195" class="conv" font-size="14" text-anchor="middle">25%</text>
+<!-- Stage 2: MQL -->
+<polygon points="420,140 660,140 640,290 440,290" fill="url(#s2)" stroke="var(--c2)" stroke-width="2"/>
+<text x="540" y="205" class="lbl" font-size="24" text-anchor="middle">MQL</text>
+<text x="540" y="240" class="vol" font-size="30" text-anchor="middle">2,500</text>
+<text x="540" y="263" class="lbl" font-size="13" text-anchor="middle" opacity="0.75">marketing qualified</text>
+<text x="540" y="325" class="sub" font-size="13" text-anchor="middle">Score ≥ 70 · Engaged</text>
+<!-- Arrow 2→3 -->
+<path d="M660,215 L700,215" stroke="var(--c4)" stroke-width="3" fill="none" marker-end="url(#ar)"/>
+<text x="680" y="195" class="conv" font-size="14" text-anchor="middle">40%</text>
+<!-- Stage 3: SQL -->
+<polygon points="700,160 900,160 880,270 720,270" fill="url(#s3)" stroke="var(--c2)" stroke-width="2"/>
+<text x="800" y="205" class="lbl" font-size="22" text-anchor="middle">SQL</text>
+<text x="800" y="238" class="vol" font-size="28" text-anchor="middle">1,000</text>
+<text x="800" y="258" class="lbl" font-size="12" text-anchor="middle" opacity="0.75">sales qualified</text>
+<text x="800" y="305" class="sub" font-size="13" text-anchor="middle">BANT · Meeting set</text>
+<!-- Arrow 3→4 -->
+<path d="M900,215 L940,215" stroke="var(--c4)" stroke-width="3" fill="none" marker-end="url(#ar)"/>
+<text x="920" y="195" class="conv" font-size="14" text-anchor="middle">35%</text>
+<!-- Stage 4: Opportunity -->
+<polygon points="940,180 1140,180 1120,250 960,250" fill="url(#s4)" stroke="var(--c2)" stroke-width="2"/>
+<text x="1040" y="210" class="lbl" font-size="20" text-anchor="middle">OPPORTUNITY</text>
+<text x="1040" y="240" class="vol" font-size="24" text-anchor="middle">350</text>
+<text x="1040" y="285" class="sub" font-size="13" text-anchor="middle">Proposal · Negotiation</text>
+<!-- Arrow 4→5 -->
+<path d="M1140,215 L1180,215" stroke="var(--c4)" stroke-width="3" fill="none" marker-end="url(#ar)"/>
+<text x="1160" y="195" class="conv" font-size="14" text-anchor="middle">25%</text>
+<!-- Stage 5: Closed Won -->
+<polygon points="1180,195 1340,195 1320,235 1200,235" fill="url(#s5)" stroke="var(--c2)" stroke-width="2"/>
+<text x="1260" y="218" class="lbl" font-size="16" text-anchor="middle">CLOSED WON</text>
+<text x="1260" y="265" class="vol" font-size="22" text-anchor="middle">88</text>
+<text x="1260" y="290" class="sub" font-size="13" text-anchor="middle">Revenue booked</text>
+<!-- Arrow marker -->
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+<path d="M0,0 L10,5 L0,10 z" fill="var(--c4)"/>
+</marker>
+</defs>
+<!-- Right side summary panel -->
+<rect x="1380" y="120" width="170" height="190" rx="12" fill="var(--c2)" opacity="0.18" stroke="var(--c1)" stroke-width="1.5"/>
+<text x="1465" y="150" class="ttl" font-size="14" text-anchor="middle">OVERALL</text>
+<text x="1465" y="195" class="vol" font-size="36" text-anchor="middle" fill="var(--c4)">0.88%</text>
+<text x="1465" y="220" class="sub" font-size="13" text-anchor="middle">lead → won</text>
+<line x1="1410" y1="240" x2="1520" y2="240" stroke="var(--c1)" stroke-width="1" opacity="0.5"/>
+<text x="1465" y="265" class="lbl" font-size="13" text-anchor="middle" fill="var(--c3)">10,000 → 88</text>
+<text x="1465" y="290" class="sub" font-size="12" text-anchor="middle">benchmark B2B SaaS</text>
+<!-- Footer -->
+<text x="792" y="378" class="sub" font-size="13" text-anchor="middle" opacity="0.7">Stage conversion rates · annual cohort · adjust for your motion</text>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#a3e635;--c2:#65a30d;--c3:#d9f99d;--c4:#22d3ee;--c4b:#a5f3fc;--ink:#0d1403;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse"><stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/><stop offset="1" style="stop-color:var(--bg2,#0f172a)"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/><stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/><stop offset="1" style="stop-color:var(--c3,#FFD740)"/></linearGradient>
+    <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--c4,#22d3ee)"/><stop offset="1" style="stop-color:var(--c4b,#67e8f9)"/></linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.2" r="0.6"><stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.18"/><stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1584" height="396" fill="url(#bg)"/>
+  <rect width="1584" height="396" fill="url(#glow)"/>
+  <rect x="6.0" y="276" width="87.0" height="120" fill="url(#accent)" opacity="0.18"/>
+  <rect x="105.0" y="196" width="87.0" height="200" fill="url(#accent)" opacity="0.23"/>
+  <rect x="204.0" y="236" width="87.0" height="160" fill="url(#accent)" opacity="0.28"/>
+  <rect x="303.0" y="136" width="87.0" height="260" fill="url(#accent)" opacity="0.18"/>
+  <rect x="402.0" y="186" width="87.0" height="210" fill="url(#accent)" opacity="0.23"/>
+  <rect x="501.0" y="96" width="87.0" height="300" fill="url(#accent)" opacity="0.28"/>
+  <rect x="600.0" y="216" width="87.0" height="180" fill="url(#accent)" opacity="0.18"/>
+  <rect x="699.0" y="156" width="87.0" height="240" fill="url(#accent)" opacity="0.23"/>
+  <rect x="798.0" y="76" width="87.0" height="320" fill="url(#accent)" opacity="0.28"/>
+  <rect x="897.0" y="196" width="87.0" height="200" fill="url(#accent)" opacity="0.18"/>
+  <rect x="996.0" y="116" width="87.0" height="280" fill="url(#accent)" opacity="0.23"/>
+  <rect x="1095.0" y="246" width="87.0" height="150" fill="url(#accent)" opacity="0.28"/>
+  <rect x="1194.0" y="166" width="87.0" height="230" fill="url(#accent)" opacity="0.18"/>
+  <rect x="1293.0" y="106" width="87.0" height="290" fill="url(#accent)" opacity="0.23"/>
+  <rect x="1392.0" y="226" width="87.0" height="170" fill="url(#accent)" opacity="0.28"/>
+  <rect x="1491.0" y="146" width="87.0" height="250" fill="url(#accent)" opacity="0.18"/>
+  <text x="90" y="150" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="url(#accent)">INSIGHT</text>
+  <text x="88" y="235" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="66" font-weight="900" fill="#FFFFFF">Turn data into decisions.</text>
+
+</svg>

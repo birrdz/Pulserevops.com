@@ -1,0 +1,12 @@
+{
+  "nextId": 10639,
+  "queue": [],
+  "cursor": 0,
+  "posted": 0,
+  "skippedDup": 0,
+  "ids": [],
+  "cancelled": false,
+  "topicGen": "nil-d1-2027-v1",
+  "topicPhase": "fbs-nil-2027",
+  "note": "Pivot: D1 college football NIL GTM 2027. Live state in Netlify blob _economy_cro_infinite_state.json; cron */3 min."
+}

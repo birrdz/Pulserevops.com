@@ -1,0 +1,2 @@
+{"ok":false,"reason":"polish_note required (min 8 chars)"}
+HTTP_STATUS:400

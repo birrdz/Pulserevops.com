@@ -1,0 +1,752 @@
+[
+ {
+  "id": "ai0051",
+  "title": "The 10 Best AI Tools for Content Repurposing in 2027",
+  "slug": "ai-tools-for-content-repurposing"
+ },
+ {
+  "id": "ai0052",
+  "title": "The 10 Best AI Tools for Influencer Marketing in 2027",
+  "slug": "ai-tools-for-influencer-marketing"
+ },
+ {
+  "id": "ai0053",
+  "title": "The 10 Best AI Tools for Project Management in 2027",
+  "slug": "ai-tools-for-project-management"
+ },
+ {
+  "id": "ai0054",
+  "title": "The 10 Best AI Tools for Time Tracking in 2027",
+  "slug": "ai-tools-for-time-tracking"
+ },
+ {
+  "id": "ai0055",
+  "title": "The 10 Best AI Tools for Customer Feedback Analysis in 2027",
+  "slug": "ai-tools-for-customer-feedback-analysis"
+ },
+ {
+  "id": "ai0056",
+  "title": "The 10 Best AI Tools for Survey Creation in 2027",
+  "slug": "ai-tools-for-survey-creation"
+ },
+ {
+  "id": "ai0057",
+  "title": "The 10 Best AI Tools for Form Building in 2027",
+  "slug": "ai-tools-for-form-building"
+ },
+ {
+  "id": "ai0058",
+  "title": "The 10 Best AI Tools for Knowledge Base Articles in 2027",
+  "slug": "ai-tools-for-knowledge-base-articles"
+ },
+ {
+  "id": "ai0059",
+  "title": "The 10 Best AI Tools for Internal Wikis in 2027",
+  "slug": "ai-tools-for-internal-wikis"
+ },
+ {
+  "id": "ai0060",
+  "title": "The 10 Best AI Tools for Employee Onboarding in 2027",
+  "slug": "ai-tools-for-employee-onboarding"
+ },
+ {
+  "id": "ai0061",
+  "title": "The 10 Best AI Tools for Performance Reviews in 2027",
+  "slug": "ai-tools-for-performance-reviews"
+ },
+ {
+  "id": "ai0062",
+  "title": "The 10 Best AI Tools for Writing Job Descriptions in 2027",
+  "slug": "ai-tools-for-writing-job-descriptions"
+ },
+ {
+  "id": "ai0063",
+  "title": "The 10 Best AI Tools for Salary Benchmarking in 2027",
+  "slug": "ai-tools-for-salary-benchmarking"
+ },
+ {
+  "id": "ai0064",
+  "title": "The 10 Best AI Tools for Expense Management in 2027",
+  "slug": "ai-tools-for-expense-management"
+ },
+ {
+  "id": "ai0065",
+  "title": "The 10 Best AI Tools for Invoicing in 2027",
+  "slug": "ai-tools-for-invoicing"
+ },
+ {
+  "id": "ai0066",
+  "title": "The 10 Best AI Tools for Contract Generation in 2027",
+  "slug": "ai-tools-for-contract-generation"
+ },
+ {
+  "id": "ai0067",
+  "title": "The 10 Best AI Tools for Proposal Writing in 2027",
+  "slug": "ai-tools-for-proposal-writing"
+ },
+ {
+  "id": "ai0068",
+  "title": "The 10 Best AI Tools for RFP Responses in 2027",
+  "slug": "ai-tools-for-rfp-responses"
+ },
+ {
+  "id": "ai0069",
+  "title": "The 10 Best AI Tools for Investor Pitch Decks in 2027",
+  "slug": "ai-tools-for-investor-pitch-decks"
+ },
+ {
+  "id": "ai0070",
+  "title": "The 10 Best AI Tools for Financial Modeling in 2027",
+  "slug": "ai-tools-for-financial-modeling"
+ },
+ {
+  "id": "ai0071",
+  "title": "The 10 Best AI Tools for Budgeting in 2027",
+  "slug": "ai-tools-for-budgeting"
+ },
+ {
+  "id": "ai0072",
+  "title": "The 10 Best AI Tools for Tax Preparation in 2027",
+  "slug": "ai-tools-for-tax-preparation"
+ },
+ {
+  "id": "ai0073",
+  "title": "The 10 Best AI Tools for Fraud Detection in 2027",
+  "slug": "ai-tools-for-fraud-detection"
+ },
+ {
+  "id": "ai0074",
+  "title": "The 10 Best AI Tools for Cybersecurity in 2027",
+  "slug": "ai-tools-for-cybersecurity"
+ },
+ {
+  "id": "ai0075",
+  "title": "The 10 Best AI Tools for Password Management in 2027",
+  "slug": "ai-tools-for-password-management"
+ },
+ {
+  "id": "ai0076",
+  "title": "The 10 Best AI Tools for Code Review in 2027",
+  "slug": "ai-tools-for-code-review"
+ },
+ {
+  "id": "ai0077",
+  "title": "The 10 Best AI Tools for Code Documentation in 2027",
+  "slug": "ai-tools-for-code-documentation"
+ },
+ {
+  "id": "ai0078",
+  "title": "The 10 Best AI Tools for API Testing in 2027",
+  "slug": "ai-tools-for-api-testing"
+ },
+ {
+  "id": "ai0079",
+  "title": "The 10 Best AI Tools for Bug Tracking in 2027",
+  "slug": "ai-tools-for-bug-tracking"
+ },
+ {
+  "id": "ai0080",
+  "title": "The 10 Best AI Tools for DevOps Automation in 2027",
+  "slug": "ai-tools-for-devops-automation"
+ },
+ {
+  "id": "ai0081",
+  "title": "The 10 Best AI Tools for Database Design in 2027",
+  "slug": "ai-tools-for-database-design"
+ },
+ {
+  "id": "ai0082",
+  "title": "The 10 Best AI Tools for Writing SQL Queries in 2027",
+  "slug": "ai-tools-for-writing-sql-queries"
+ },
+ {
+  "id": "ai0083",
+  "title": "The 10 Best AI Tools for Writing Regex in 2027",
+  "slug": "ai-tools-for-writing-regex"
+ },
+ {
+  "id": "ai0084",
+  "title": "The 10 Best AI Tools for No-Code App Building in 2027",
+  "slug": "ai-tools-for-no-code-app-building"
+ },
+ {
+  "id": "ai0085",
+  "title": "The 10 Best AI Tools for Mobile App Development in 2027",
+  "slug": "ai-tools-for-mobile-app-development"
+ },
+ {
+  "id": "ai0086",
+  "title": "The 10 Best AI Tools for Building Chrome Extensions in 2027",
+  "slug": "ai-tools-for-building-chrome-extensions"
+ },
+ {
+  "id": "ai0087",
+  "title": "The 10 Best AI Tools for Web Scraping in 2027",
+  "slug": "ai-tools-for-web-scraping"
+ },
+ {
+  "id": "ai0088",
+  "title": "The 10 Best AI Tools for Data Visualization in 2027",
+  "slug": "ai-tools-for-data-visualization"
+ },
+ {
+  "id": "ai0089",
+  "title": "The 10 Best AI Tools for Business Dashboards in 2027",
+  "slug": "ai-tools-for-business-dashboards"
+ },
+ {
+  "id": "ai0090",
+  "title": "The 10 Best AI Tools for Sales Forecasting in 2027",
+  "slug": "ai-tools-for-sales-forecasting"
+ },
+ {
+  "id": "ai0091",
+  "title": "The 10 Best AI Tools for A/B Testing in 2027",
+  "slug": "ai-tools-for-a-b-testing"
+ },
+ {
+  "id": "ai0092",
+  "title": "The 10 Best AI Tools for Conversion Rate Optimization in 2027",
+  "slug": "ai-tools-for-conversion-rate-optimization"
+ },
+ {
+  "id": "ai0093",
+  "title": "The 10 Best AI Tools for Landing Pages in 2027",
+  "slug": "ai-tools-for-landing-pages"
+ },
+ {
+  "id": "ai0094",
+  "title": "The 10 Best AI Tools for Email Marketing Campaigns in 2027",
+  "slug": "ai-tools-for-email-marketing-campaigns"
+ },
+ {
+  "id": "ai0095",
+  "title": "The 10 Best AI Tools for Newsletter Writing in 2027",
+  "slug": "ai-tools-for-newsletter-writing"
+ },
+ {
+  "id": "ai0096",
+  "title": "The 10 Best AI Tools for Cold Email in 2027",
+  "slug": "ai-tools-for-cold-email"
+ },
+ {
+  "id": "ai0097",
+  "title": "The 10 Best AI Tools for Sales Scripts in 2027",
+  "slug": "ai-tools-for-sales-scripts"
+ },
+ {
+  "id": "ai0098",
+  "title": "The 10 Best AI Tools for Call Coaching in 2027",
+  "slug": "ai-tools-for-call-coaching"
+ },
+ {
+  "id": "ai0099",
+  "title": "The 10 Best AI Tools for CRM Data Enrichment in 2027",
+  "slug": "ai-tools-for-crm-data-enrichment"
+ },
+ {
+  "id": "ai0100",
+  "title": "The 10 Best AI Tools for Account-Based Marketing in 2027",
+  "slug": "ai-tools-for-account-based-marketing"
+ },
+ {
+  "id": "ai0101",
+  "title": "The 10 Best AI Tools for Competitor Analysis in 2027",
+  "slug": "ai-tools-for-competitor-analysis"
+ },
+ {
+  "id": "ai0102",
+  "title": "The 10 Best AI Tools for Market Research in 2027",
+  "slug": "ai-tools-for-market-research"
+ },
+ {
+  "id": "ai0103",
+  "title": "The 10 Best AI Tools for Trend Forecasting in 2027",
+  "slug": "ai-tools-for-trend-forecasting"
+ },
+ {
+  "id": "ai0104",
+  "title": "The 10 Best AI Tools for Brand Naming in 2027",
+  "slug": "ai-tools-for-brand-naming"
+ },
+ {
+  "id": "ai0105",
+  "title": "The 10 Best AI Tools for Slogans and Taglines in 2027",
+  "slug": "ai-tools-for-slogans-and-taglines"
+ },
+ {
+  "id": "ai0106",
+  "title": "The 10 Best AI Tools for Brand Voice Guides in 2027",
+  "slug": "ai-tools-for-brand-voice-guides"
+ },
+ {
+  "id": "ai0107",
+  "title": "The 10 Best AI Tools for Press Releases in 2027",
+  "slug": "ai-tools-for-press-releases"
+ },
+ {
+  "id": "ai0108",
+  "title": "The 10 Best AI Tools for Media Outreach in 2027",
+  "slug": "ai-tools-for-media-outreach"
+ },
+ {
+  "id": "ai0109",
+  "title": "The 10 Best AI Tools for Crisis Communications in 2027",
+  "slug": "ai-tools-for-crisis-communications"
+ },
+ {
+  "id": "ai0110",
+  "title": "The 10 Best AI Tools for Speech Writing in 2027",
+  "slug": "ai-tools-for-speech-writing"
+ },
+ {
+  "id": "ai0111",
+  "title": "The 10 Best AI Tools for Screenwriting in 2027",
+  "slug": "ai-tools-for-screenwriting"
+ },
+ {
+  "id": "ai0112",
+  "title": "The 10 Best AI Tools for Writing Movie Scripts in 2027",
+  "slug": "ai-tools-for-writing-movie-scripts"
+ },
+ {
+  "id": "ai0113",
+  "title": "The 10 Best AI Tools for Writing Fiction in 2027",
+  "slug": "ai-tools-for-writing-fiction"
+ },
+ {
+  "id": "ai0114",
+  "title": "The 10 Best AI Tools for Writing Poetry in 2027",
+  "slug": "ai-tools-for-writing-poetry"
+ },
+ {
+  "id": "ai0115",
+  "title": "The 10 Best AI Tools for Children's Books in 2027",
+  "slug": "ai-tools-for-children-s-books"
+ },
+ {
+  "id": "ai0116",
+  "title": "The 10 Best AI Tools for Comic Creation in 2027",
+  "slug": "ai-tools-for-comic-creation"
+ },
+ {
+  "id": "ai0117",
+  "title": "The 10 Best AI Tools for Storyboarding in 2027",
+  "slug": "ai-tools-for-storyboarding"
+ },
+ {
+  "id": "ai0118",
+  "title": "The 10 Best AI Tools for Concept Art in 2027",
+  "slug": "ai-tools-for-concept-art"
+ },
+ {
+  "id": "ai0119",
+  "title": "The 10 Best AI Tools for Character Design in 2027",
+  "slug": "ai-tools-for-character-design"
+ },
+ {
+  "id": "ai0120",
+  "title": "The 10 Best AI Tools for Texture Generation in 2027",
+  "slug": "ai-tools-for-texture-generation"
+ },
+ {
+  "id": "ai0121",
+  "title": "The 10 Best AI Tools for Architecture Design in 2027",
+  "slug": "ai-tools-for-architecture-design"
+ },
+ {
+  "id": "ai0122",
+  "title": "The 10 Best AI Tools for Floor Plans in 2027",
+  "slug": "ai-tools-for-floor-plans"
+ },
+ {
+  "id": "ai0123",
+  "title": "The 10 Best AI Tools for Garden Design in 2027",
+  "slug": "ai-tools-for-garden-design"
+ },
+ {
+  "id": "ai0124",
+  "title": "The 10 Best AI Tools for Fashion Design in 2027",
+  "slug": "ai-tools-for-fashion-design"
+ },
+ {
+  "id": "ai0125",
+  "title": "The 10 Best AI Tools for Jewelry Design in 2027",
+  "slug": "ai-tools-for-jewelry-design"
+ },
+ {
+  "id": "ai0126",
+  "title": "The 10 Best AI Tools for Product Design in 2027",
+  "slug": "ai-tools-for-product-design"
+ },
+ {
+  "id": "ai0127",
+  "title": "The 10 Best AI Tools for Packaging Design in 2027",
+  "slug": "ai-tools-for-packaging-design"
+ },
+ {
+  "id": "ai0128",
+  "title": "The 10 Best AI Tools for Print Design in 2027",
+  "slug": "ai-tools-for-print-design"
+ },
+ {
+  "id": "ai0129",
+  "title": "The 10 Best AI Tools for Book Covers in 2027",
+  "slug": "ai-tools-for-book-covers"
+ },
+ {
+  "id": "ai0130",
+  "title": "The 10 Best AI Tools for Album Art in 2027",
+  "slug": "ai-tools-for-album-art"
+ },
+ {
+  "id": "ai0131",
+  "title": "The 10 Best AI Tools for T-Shirt and Merch Design in 2027",
+  "slug": "ai-tools-for-t-shirt-and-merch-design"
+ },
+ {
+  "id": "ai0132",
+  "title": "The 10 Best AI Tools for Tattoo Design in 2027",
+  "slug": "ai-tools-for-tattoo-design"
+ },
+ {
+  "id": "ai0133",
+  "title": "The 10 Best AI Tools for Coloring Pages in 2027",
+  "slug": "ai-tools-for-coloring-pages"
+ },
+ {
+  "id": "ai0134",
+  "title": "The 10 Best AI Tools for Design Mockups in 2027",
+  "slug": "ai-tools-for-design-mockups"
+ },
+ {
+  "id": "ai0135",
+  "title": "The 10 Best AI Tools for Custom Icons in 2027",
+  "slug": "ai-tools-for-custom-icons"
+ },
+ {
+  "id": "ai0136",
+  "title": "The 10 Best AI Tools for Stock Photos in 2027",
+  "slug": "ai-tools-for-stock-photos"
+ },
+ {
+  "id": "ai0137",
+  "title": "The 10 Best AI Tools for Background Removal in 2027",
+  "slug": "ai-tools-for-background-removal"
+ },
+ {
+  "id": "ai0138",
+  "title": "The 10 Best AI Tools for Image Upscaling in 2027",
+  "slug": "ai-tools-for-image-upscaling"
+ },
+ {
+  "id": "ai0139",
+  "title": "The 10 Best AI Tools for Colorizing Old Photos in 2027",
+  "slug": "ai-tools-for-colorizing-old-photos"
+ },
+ {
+  "id": "ai0140",
+  "title": "The 10 Best AI Tools for Restoring Old Photos in 2027",
+  "slug": "ai-tools-for-restoring-old-photos"
+ },
+ {
+  "id": "ai0141",
+  "title": "The 10 Best AI Tools for Image-to-Video in 2027",
+  "slug": "ai-tools-for-image-to-video"
+ },
+ {
+  "id": "ai0142",
+  "title": "The 10 Best AI Tools for Lip Syncing and Dubbing in 2027",
+  "slug": "ai-tools-for-lip-syncing-and-dubbing"
+ },
+ {
+  "id": "ai0143",
+  "title": "The 10 Best AI Tools for Motion Capture in 2027",
+  "slug": "ai-tools-for-motion-capture"
+ },
+ {
+  "id": "ai0144",
+  "title": "The 10 Best AI Tools for Visual Effects in 2027",
+  "slug": "ai-tools-for-visual-effects"
+ },
+ {
+  "id": "ai0145",
+  "title": "The 10 Best AI Tools for Color Grading in 2027",
+  "slug": "ai-tools-for-color-grading"
+ },
+ {
+  "id": "ai0146",
+  "title": "The 10 Best AI Tools for YouTube Thumbnails in 2027",
+  "slug": "ai-tools-for-youtube-thumbnails"
+ },
+ {
+  "id": "ai0147",
+  "title": "The 10 Best AI Tools for YouTube Optimization in 2027",
+  "slug": "ai-tools-for-youtube-optimization"
+ },
+ {
+  "id": "ai0148",
+  "title": "The 10 Best AI Tools for Video Summarization in 2027",
+  "slug": "ai-tools-for-video-summarization"
+ },
+ {
+  "id": "ai0149",
+  "title": "The 10 Best AI Tools for Short-Form Clips in 2027",
+  "slug": "ai-tools-for-short-form-clips"
+ },
+ {
+  "id": "ai0150",
+  "title": "The 10 Best AI Tools for Live Streaming in 2027",
+  "slug": "ai-tools-for-live-streaming"
+ },
+ {
+  "id": "ai0151",
+  "title": "The 10 Best AI Tools for Screen Recording in 2027",
+  "slug": "ai-tools-for-screen-recording"
+ },
+ {
+  "id": "ai0152",
+  "title": "The 10 Best AI Tools for Webinars in 2027",
+  "slug": "ai-tools-for-webinars"
+ },
+ {
+  "id": "ai0153",
+  "title": "The 10 Best AI Tools for Online Course Creation in 2027",
+  "slug": "ai-tools-for-online-course-creation"
+ },
+ {
+  "id": "ai0154",
+  "title": "The 10 Best AI Tools for Quiz Generation in 2027",
+  "slug": "ai-tools-for-quiz-generation"
+ },
+ {
+  "id": "ai0155",
+  "title": "The 10 Best AI Tools for Lesson Planning in 2027",
+  "slug": "ai-tools-for-lesson-planning"
+ },
+ {
+  "id": "ai0156",
+  "title": "The 10 Best AI Tools for Homework Help in 2027",
+  "slug": "ai-tools-for-homework-help"
+ },
+ {
+  "id": "ai0157",
+  "title": "The 10 Best AI Tools for Solving Math Problems in 2027",
+  "slug": "ai-tools-for-solving-math-problems"
+ },
+ {
+  "id": "ai0158",
+  "title": "The 10 Best AI Tools for Essay Writing in 2027",
+  "slug": "ai-tools-for-essay-writing"
+ },
+ {
+  "id": "ai0159",
+  "title": "The 10 Best AI Tools for Citations and References in 2027",
+  "slug": "ai-tools-for-citations-and-references"
+ },
+ {
+  "id": "ai0160",
+  "title": "The 10 Best AI Tools for Plagiarism Detection in 2027",
+  "slug": "ai-tools-for-plagiarism-detection"
+ },
+ {
+  "id": "ai0161",
+  "title": "The 10 Best AI Tools for Language Learning in 2027",
+  "slug": "ai-tools-for-language-learning"
+ },
+ {
+  "id": "ai0162",
+  "title": "The 10 Best AI Tools for Vocabulary Building in 2027",
+  "slug": "ai-tools-for-vocabulary-building"
+ },
+ {
+  "id": "ai0163",
+  "title": "The 10 Best AI Tools for Reading Comprehension in 2027",
+  "slug": "ai-tools-for-reading-comprehension"
+ },
+ {
+  "id": "ai0164",
+  "title": "The 10 Best AI Tools for Summarizing Articles in 2027",
+  "slug": "ai-tools-for-summarizing-articles"
+ },
+ {
+  "id": "ai0165",
+  "title": "The 10 Best AI Tools for Summarizing Books in 2027",
+  "slug": "ai-tools-for-summarizing-books"
+ },
+ {
+  "id": "ai0166",
+  "title": "The 10 Best AI Tools for Mind Mapping in 2027",
+  "slug": "ai-tools-for-mind-mapping"
+ },
+ {
+  "id": "ai0167",
+  "title": "The 10 Best AI Tools for Brainstorming Ideas in 2027",
+  "slug": "ai-tools-for-brainstorming-ideas"
+ },
+ {
+  "id": "ai0168",
+  "title": "The 10 Best AI Tools for Decision Making in 2027",
+  "slug": "ai-tools-for-decision-making"
+ },
+ {
+  "id": "ai0169",
+  "title": "The 10 Best AI Tools for Negotiation Prep in 2027",
+  "slug": "ai-tools-for-negotiation-prep"
+ },
+ {
+  "id": "ai0170",
+  "title": "The 10 Best AI Tools for Public Speaking Practice in 2027",
+  "slug": "ai-tools-for-public-speaking-practice"
+ },
+ {
+  "id": "ai0171",
+  "title": "The 10 Best AI Tools for Pronunciation Coaching in 2027",
+  "slug": "ai-tools-for-pronunciation-coaching"
+ },
+ {
+  "id": "ai0172",
+  "title": "The 10 Best AI Tools for Accessibility Captioning in 2027",
+  "slug": "ai-tools-for-accessibility-captioning"
+ },
+ {
+  "id": "ai0173",
+  "title": "The 10 Best AI Tools for Reading PDFs Aloud in 2027",
+  "slug": "ai-tools-for-reading-pdfs-aloud"
+ },
+ {
+  "id": "ai0174",
+  "title": "The 10 Best AI Tools for Audiobook Creation in 2027",
+  "slug": "ai-tools-for-audiobook-creation"
+ },
+ {
+  "id": "ai0175",
+  "title": "The 10 Best AI Tools for Sound Effects in 2027",
+  "slug": "ai-tools-for-sound-effects"
+ },
+ {
+  "id": "ai0176",
+  "title": "The 10 Best AI Tools for Beat Making in 2027",
+  "slug": "ai-tools-for-beat-making"
+ },
+ {
+  "id": "ai0177",
+  "title": "The 10 Best AI Tools for Mixing and Mastering in 2027",
+  "slug": "ai-tools-for-mixing-and-mastering"
+ },
+ {
+  "id": "ai0178",
+  "title": "The 10 Best AI Tools for Vocal Removal in 2027",
+  "slug": "ai-tools-for-vocal-removal"
+ },
+ {
+  "id": "ai0179",
+  "title": "The 10 Best AI Tools for Podcast Show Notes in 2027",
+  "slug": "ai-tools-for-podcast-show-notes"
+ },
+ {
+  "id": "ai0180",
+  "title": "The 10 Best AI Tools for Phone Answering in 2027",
+  "slug": "ai-tools-for-phone-answering"
+ },
+ {
+  "id": "ai0181",
+  "title": "The 10 Best AI Tools for Appointment Scheduling in 2027",
+  "slug": "ai-tools-for-appointment-scheduling"
+ },
+ {
+  "id": "ai0182",
+  "title": "The 10 Best AI Tools for Calendar Management in 2027",
+  "slug": "ai-tools-for-calendar-management"
+ },
+ {
+  "id": "ai0183",
+  "title": "The 10 Best AI Tools for Travel Planning in 2027",
+  "slug": "ai-tools-for-travel-planning"
+ },
+ {
+  "id": "ai0184",
+  "title": "The 10 Best AI Tools for Trip Itineraries in 2027",
+  "slug": "ai-tools-for-trip-itineraries"
+ },
+ {
+  "id": "ai0185",
+  "title": "The 10 Best AI Tools for Restaurant Picks in 2027",
+  "slug": "ai-tools-for-restaurant-picks"
+ },
+ {
+  "id": "ai0186",
+  "title": "The 10 Best AI Tools for Recipe Generation in 2027",
+  "slug": "ai-tools-for-recipe-generation"
+ },
+ {
+  "id": "ai0187",
+  "title": "The 10 Best AI Tools for Meal Planning in 2027",
+  "slug": "ai-tools-for-meal-planning"
+ },
+ {
+  "id": "ai0188",
+  "title": "The 10 Best AI Tools for Nutrition Tracking in 2027",
+  "slug": "ai-tools-for-nutrition-tracking"
+ },
+ {
+  "id": "ai0189",
+  "title": "The 10 Best AI Tools for Workout Plans in 2027",
+  "slug": "ai-tools-for-workout-plans"
+ },
+ {
+  "id": "ai0190",
+  "title": "The 10 Best AI Tools for Personal Styling in 2027",
+  "slug": "ai-tools-for-personal-styling"
+ },
+ {
+  "id": "ai0191",
+  "title": "The 10 Best AI Tools for Gift Recommendations in 2027",
+  "slug": "ai-tools-for-gift-recommendations"
+ },
+ {
+  "id": "ai0192",
+  "title": "The 10 Best AI Tools for Wedding Planning in 2027",
+  "slug": "ai-tools-for-wedding-planning"
+ },
+ {
+  "id": "ai0193",
+  "title": "The 10 Best AI Tools for Event Planning in 2027",
+  "slug": "ai-tools-for-event-planning"
+ },
+ {
+  "id": "ai0194",
+  "title": "The 10 Best AI Tools for Party Planning in 2027",
+  "slug": "ai-tools-for-party-planning"
+ },
+ {
+  "id": "ai0195",
+  "title": "The 10 Best AI Tools for Home Organization in 2027",
+  "slug": "ai-tools-for-home-organization"
+ },
+ {
+  "id": "ai0196",
+  "title": "The 10 Best AI Tools for Resume Screening in 2027",
+  "slug": "ai-tools-for-resume-screening"
+ },
+ {
+  "id": "ai0197",
+  "title": "The 10 Best AI Tools for Sales Call Summaries in 2027",
+  "slug": "ai-tools-for-sales-call-summaries"
+ },
+ {
+  "id": "ai0198",
+  "title": "The 10 Best AI Tools for Customer Churn Prediction in 2027",
+  "slug": "ai-tools-for-customer-churn-prediction"
+ },
+ {
+  "id": "ai0199",
+  "title": "The 10 Best AI Tools for Inventory Management in 2027",
+  "slug": "ai-tools-for-inventory-management"
+ },
+ {
+  "id": "ai0200",
+  "title": "The 10 Best AI Tools for Supply Chain Planning in 2027",
+  "slug": "ai-tools-for-supply-chain-planning"
+ }
+]

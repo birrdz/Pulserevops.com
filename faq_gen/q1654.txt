@@ -1,0 +1,51 @@
+TITLE: Should ServiceNow sell to private equity?
+
+BODY:
+## Direct Answer
+
+![Should ServiceNow sell to private equity?](https://pulserevops.com/img/auto/q1654.svg)
+
+**No — and effectively impossible at today's $200B+ market cap.** Even a mega-consortium of Vista + KKR + Thoma Bravo + Silver Lake would strain the limits of LBO debt-financing markets, which have never funded a take-private above ~$70B (Dell-EMC, 2016). ServiceNow's enterprise value sits roughly **3x the largest tech LBO ever attempted**, and that's before factoring the 25-30% control premium PE would have to pay. McDermott and the board are not motivated sellers — Bill McDermott holds a meaningful equity stake, the Pro Plus pricing transition is mid-flight, and growth still prints 20%+. The three reasons it won't happen: (1) deal-financing capacity caps out around $80-100B in today's debt markets, (2) management/board are aligned long-holders not flip-sellers, (3) strategic acquirers (Microsoft, Oracle, IBM) would force an auction PE can't win. The one scenario where it could: a deep recession halves the market cap to ~$100B, a 4-firm consortium emerges, and the thesis becomes "go private to fix Pro Plus pricing without quarterly earnings noise." Speculative analysis — not investment advice.
+
+## The Math: Why It's Impossible Today
+
+- **Largest PE take-private in tech history: Dell-EMC at ~$67B (2016)** — and that required Michael Dell's rollover equity, Silver Lake co-invest, and a record $50B+ debt stack. Nothing since has come close.
+- **ServiceNow market cap ~$200B+ (Q1 2026)** — a take-private at a 25% control premium implies ~$250B equity check before debt assumption.
+- **LBO debt-financing capacity caps around $80-100B** in today's high-yield + leveraged-loan markets combined. You cannot fund a $250B deal with debt — you'd need $150B+ of equity from a consortium, which is multiples of what any 4-firm coalition has ever assembled.
+- **Regulatory hurdles: HSR antitrust review** would scrutinize PE roll-up of workflow + AI + ITSM dominance; CFIUS could intervene if foreign LP capital exceeds thresholds.
+- **Goodwill + amortization mechanics** make the post-LBO P&L brutal at this scale — interest coverage ratios would be tight even with $40B+ EBITDA.
+
+## The Hypothetical PE Thesis
+
+- **Cost-out playbook**: 15-20% headcount reduction in non-revenue functions, classic PE operational lever — ~$1.5-2B annual EBITDA lift.
+- **Accelerate Pro Plus AI pricing transition** without quarterly earnings drag — push 30-40% list price increases on AI modules customers are already paying for piecemeal.
+- **Slim org structure**: collapse 8 BU layers to 4, reduce SVP count by half, consolidate the matrix that's grown bloated post-$10B revenue.
+- **Sell off non-core modules** (HR Service Delivery, App Engine Studio standalone) to strategic buyers for $5-10B — fund partial dividend recap.
+- **Named precedent: SolarWinds + Thoma Bravo (2016, $4.5B take-private)** — Bravo took it private, restructured into a focused IT-monitoring platform, IPO'd back at $7B+ in 2018.
+- **Splunk pre-Cisco**: speculation persisted for years that Splunk was a Vista/Thoma Bravo target before Cisco's $28B strategic acquisition closed the door.
+
+## The 3 Reasons It Won't Happen
+
+- **Market cap exceeds PE deal-financing capacity** — there is no precedent above $70B and the debt markets cannot syndicate $150B+ of LBO debt without a generational regime change in rates and risk appetite.
+- **McDermott + board not motivated sellers** — McDermott holds large equity stake, just signed a multi-year extension, and the Pro Plus AI thesis is materially in-flight. Founder Frank Slootman is aligned and a long-holder. Boards don't auction $200B platforms mid-thesis.
+- **Strategic acquirers (Microsoft, Oracle, IBM) would block the auction** — the moment ServiceNow puts itself in play, MSFT or ORCL bid up the deal price by 30-40% to either acquire or spoil the PE bid. PE cannot outbid a strategic at this scale.
+
+## The 1 Scenario Where It Could
+
+- **Deep recession + 50% market-cap haircut → ~$100B valuation** — at $100B, a 4-firm mega-consortium (Vista + KKR + Thoma Bravo + Silver Lake) could plausibly fund $60B equity + $50B debt.
+- **Mega-consortium structure** modeled on Dell-EMC: Silver Lake as lead operator, McDermott rolls equity (becomes the "Michael Dell" of the deal), each PE firm contributes $12-15B equity check.
+- **Named precedent: Dell-EMC structure (2016)** — Michael Dell rollover + Silver Lake + MSD Capital + $50B debt stack; the only viable template for a deal this large.
+- **The "go private to fix Pro Plus" thesis** becomes credible if AI revenue stalls in a recession — board could rationalize a take-private to restructure pricing without quarterly noise.
+- **3-5 year hold**, IPO back at $200B+ post-restructuring — math works only if entry multiple is depressed enough.
+
+## What Strategic Acquisition Would Look Like
+
+- **Microsoft + ServiceNow**: combined deal would price >$300B (30-40% premium on $200B+ cap). Most strategic fit — ServiceNow workflow + Azure AI + Copilot stack — but DOJ/EU antitrust would block on workflow-monopoly grounds.
+- **Oracle + ServiceNow**: vertical stack synergy (Oracle Cloud Infra + ServiceNow workflow), Larry Ellison has the appetite and balance sheet, but the cultural/sales-channel collision is severe.
+- **IBM hybrid-cloud play**: would be transformational for IBM but stretches their balance sheet — IBM market cap itself is only ~$200B, so it's effectively a merger-of-equals not an acquisition.
+- **Regulator-blocker reality**: any of these triggers 18-24 month antitrust review. EU Commission almost certainly forces divestitures. The deal-completion risk premium alone deters bidders.
+- **Salesforce**: rumored target historically but Benioff has been clear on disciplined M&A post-Slack; $200B+ deal not on the table.
+
+## The Vista / Thoma Bravo PE Pattern Comparison
+
+- **Thoma Bravo workflow/IT portfolio**: Imperva ($2.1B, 2018), SolarWinds ($4.5B, 2016 → re-IPO), Anaplan ($10.7B, 2022), Coupa

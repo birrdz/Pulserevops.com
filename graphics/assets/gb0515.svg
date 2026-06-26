@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}</style>
+<rect width="1584" height="396" fill="var(--bg1, #0b0f17)"/>
+<rect x="40" y="40" width="1504" height="316" rx="20" fill="var(--bg2, #0f172a)" stroke="var(--c2)" stroke-width="2" opacity="0.85"/>
+
+<text x="792" y="78" text-anchor="middle" font-family="system-ui, sans-serif" font-size="24" font-weight="700" fill="var(--c3)">GTM Org Wheel — Customer at the Center</text>
+
+<!-- Wheel group, centered at (792, 228) with radius 130 -->
+<g transform="translate(792,228)">
+
+  <!-- Outer ring background -->
+  <circle r="148" fill="none" stroke="var(--c2)" stroke-width="1" opacity="0.5"/>
+
+  <!-- Quadrants -->
+  <!-- Marketing: top-left, 180-270deg -->
+  <path d="M 0 0 L -130 0 A 130 130 0 0 1 0 -130 Z" fill="var(--c1)" opacity="0.85" stroke="var(--ink)" stroke-width="2"/>
+  <!-- Sales: top-right, 270-360deg -->
+  <path d="M 0 0 L 0 -130 A 130 130 0 0 1 130 0 Z" fill="var(--c2)" opacity="0.9" stroke="var(--ink)" stroke-width="2"/>
+  <!-- Customer Success: bottom-right, 0-90deg -->
+  <path d="M 0 0 L 130 0 A 130 130 0 0 1 0 130 Z" fill="var(--c4)" opacity="0.9" stroke="var(--ink)" stroke-width="2"/>
+  <!-- RevOps: bottom-left, 90-180deg -->
+  <path d="M 0 0 L 0 130 A 130 130 0 0 1 -130 0 Z" fill="var(--c4b)" opacity="0.9" stroke="var(--ink)" stroke-width="2"/>
+
+  <!-- Quadrant labels -->
+  <text x="-65" y="-58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="var(--ink)">Marketing</text>
+  <text x="-65" y="-38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="var(--ink)" opacity="0.75">Demand · Brand</text>
+
+  <text x="65" y="-58" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="var(--ink)">Sales</text>
+  <text x="65" y="-38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="var(--ink)" opacity="0.75">New ARR · Pipe</text>
+
+  <text x="65" y="72" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="var(--ink)">Customer Success</text>
+  <text x="65" y="92" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="var(--ink)" opacity="0.75">Retain · Expand</text>
+
+  <text x="-65" y="72" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="var(--ink)">RevOps</text>
+  <text x="-65" y="92" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="var(--ink)" opacity="0.75">Data · Systems</text>
+
+  <!-- Divider lines -->
+  <line x1="-130" y1="0" x2="130" y2="0" stroke="var(--ink)" stroke-width="2"/>
+  <line x1="0" y1="-130" x2="0" y2="130" stroke="var(--ink)" stroke-width="2"/>
+
+  <!-- Customer hub at center -->
+  <circle r="52" fill="var(--bg2, #0f172a)" stroke="var(--c1)" stroke-width="3"/>
+  <circle r="46" fill="var(--c3)" opacity="0.95"/>
+  <text x="0" y="-2" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="800" fill="var(--ink)">CUSTOMER</text>
+  <text x="0" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="var(--ink)" opacity="0.75">at the center</text>
+
+  <!-- Rotation arrows around wheel -->
+  <path d="M 158 -20 A 162 162 0 0 1 158 20" fill="none" stroke="var(--c1)" stroke-width="2" opacity="0.7"/>
+  <polygon points="158,22 153,14 163,14" fill="var(--c1)" opacity="0.85"/>
+  <path d="M -158 20 A 162 162 0 0 1 -158 -20" fill="none" stroke="var(--c1)" stroke-width="2" opacity="0.7"/>
+  <polygon points="-158,-22 -163,-14 -153,-14" fill="var(--c1)" opacity="0.85"/>
+</g>
+
+<!-- Left side legend: handoffs -->
+<g transform="translate(90,140)">
+  <text font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Handoffs</text>
+  <g transform="translate(0,28)">
+    <rect width="14" height="14" fill="var(--c1)" rx="3"/>
+    <text x="22" y="12" font-family="system-ui, sans-serif" font-size="14" fill="var(--c3)" opacity="0.9">MQL → Sales</text>
+  </g>
+  <g transform="translate(0,54)">
+    <rect width="14" height="14" fill="var(--c2)" rx="3"/>
+    <text x="22" y="12" font-family="system-ui, sans-serif" font-size="14" fill="var(--c3)" opacity="0.9">Closed-Won → CS</text>
+  </g>
+  <g transform="translate(0,80)">
+    <rect width="14" height="14" fill="var(--c4)" rx="3"/>
+    <text x="22" y="12" font-family="system-ui, sans-serif" font-size="14" fill="var(--c3)" opacity="0.9">Expansion → Sales</text>
+  </g>
+  <g transform="translate(0,106)">
+    <rect width="14" height="14" fill="var(--c4b)" rx="3"/>
+    <text x="22" y="12" font-family="system-ui, sans-serif" font-size="14" fill="var(--c3)" opacity="0.9">Insights → All</text>
+  </g>
+</g>
+
+<!-- Right side legend: KPI owners -->
+<g transform="translate(1290,140)">
+  <text font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="var(--c3)">KPI Owners</text>
+  <g transform="translate(0,28)">
+    <circle cx="7" cy="7" r="7" fill="var(--c1)"/>
+    <text x="22" y="12" font-family="system-ui, sans-serif" font-size="14" fill="var(--c3)" opacity="0.9">Pipeline Created</text>
+  </g>
+  <g transform="translate(0,54)">
+    <circle cx="7" cy="7" r="7" fill="var(--c2)"/>
+    <text x="22" y="12" font-family="system-ui, sans-serif" font-size="14" fill="var(--c3)" opacity="0.9">New ARR · Win Rate</text>
+  </g>
+  <g transform="translate(0,80)">
+    <circle cx="7" cy="7" r="7" fill="var(--c4)"/>
+    <text x="22" y="12" font-family="system-ui, sans-serif" font-size="14" fill="var(--c3)" opacity="0.9">NRR · GRR</text>
+  </g>
+  <g transform="translate(0,106)">
+    <circle cx="7" cy="7" r="7" fill="var(--c4b)"/>
+    <text x="22" y="12" font-family="system-ui, sans-serif" font-size="14" fill="var(--c3)" opacity="0.9">Forecast Accuracy</text>
+  </g>
+</g>
+
+<text x="792" y="340" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="var(--c3)" opacity="0.7">Four GTM quadrants spin around a single customer — handoffs are the seams, RevOps stitches them.</text>
+</svg>

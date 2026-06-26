@@ -1,0 +1,206 @@
+{
+ "(other)": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 0,
+  "kind": "essay"
+ },
+ "ai": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "bs": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 8,
+  "kind": "essay"
+ },
+ "bt": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "ca": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "cg": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 0,
+  "kind": "essay"
+ },
+ "cl": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "co": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "dn": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "er": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "es": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "ev": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "fr": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 8,
+  "kind": "essay"
+ },
+ "ga": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "gb": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 0,
+  "kind": "essay"
+ },
+ "gm": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "gp": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 0,
+  "kind": "essay"
+ },
+ "ik": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 0,
+  "kind": "essay"
+ },
+ "lv": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "mv": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "nl": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "q": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 1,
+  "kind": "essay"
+ },
+ "ra": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 0,
+  "kind": "essay"
+ },
+ "rs": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "sc": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "sk": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 8,
+  "kind": "essay"
+ },
+ "sp": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 8,
+  "kind": "essay"
+ },
+ "st": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 1,
+  "kind": "essay"
+ },
+ "sy": {
+  "n": 8,
+  "withProduct": 0,
+  "withLead": 8,
+  "kind": "essay"
+ },
+ "tk": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "tl": {
+  "n": 8,
+  "withProduct": 5,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "tn": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "tv": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ },
+ "wl": {
+  "n": 8,
+  "withProduct": 8,
+  "withLead": 0,
+  "kind": "PRODUCT"
+ }
+}

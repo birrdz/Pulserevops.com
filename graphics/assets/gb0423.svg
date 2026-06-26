@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#fbbf24;--c2:#d97706;--c3:#fde68a;--c4:#fb7185;--c4b:#fecdd3;--ink:#1a1203;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/>
+      <stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.3" r="0.5">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.18"/>
+      <stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1584" height="396" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1584" height="396" fill="url(#glow)"/>
+
+  <!-- Decorative: bot/agent icon with signal burst -->
+  <g transform="translate(1240,198)">
+    <!-- antenna -->
+    <line x1="0" y1="-92" x2="0" y2="-66" stroke="url(#accent)" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="0" cy="-98" r="8" fill="url(#accent)"/>
+    <!-- head -->
+    <rect x="-70" y="-66" width="140" height="100" rx="20" ry="20" fill="none" stroke="url(#accent)" stroke-width="6"/>
+    <circle cx="-30" cy="-22" r="9" fill="url(#accent)"/>
+    <circle cx="30" cy="-22" r="9" fill="url(#accent)"/>
+    <line x1="-22" y1="14" x2="22" y2="14" stroke="url(#accent)" stroke-width="6" stroke-linecap="round"/>
+    <!-- signal burst arcs left -->
+    <path d="M-100,-30 Q-120,-16 -100,-2" stroke="url(#accent)" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/>
+    <path d="M-130,-44 Q-160,-16 -130,12" stroke="url(#accent)" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.55"/>
+    <!-- signal burst arcs right -->
+    <path d="M100,-30 Q120,-16 100,-2" stroke="url(#accent)" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/>
+    <path d="M130,-44 Q160,-16 130,12" stroke="url(#accent)" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.55"/>
+  </g>
+
+  <text x="120" y="180" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">THE AGENTIC SHIFT</text>
+  <text x="118" y="262" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="76" font-weight="900" fill="#FFFFFF">AI does 60% of SDR work.</text>
+  <text x="120" y="316" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="30" font-weight="700" fill="#EDE5D8">Humans close <tspan fill="url(#accent)">&#183;</tspan> Agents prospect <tspan fill="url(#accent)">&#183;</tspan> 2027</text>
+
+</svg>

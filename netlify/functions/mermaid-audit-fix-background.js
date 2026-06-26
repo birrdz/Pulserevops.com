@@ -71,6 +71,9 @@ exports.handler = async () => {
   const slice = idx.entries.slice(0, 200);
   for (const meta of slice) {
     if (!meta || !meta.id) continue;
+    // Graphics (gb####) are downloadable visual assets, not text entries — they
+    // never carry mermaid diagrams, so skip them rather than queue regeneration.
+    if (/^gb\d+$/i.test(meta.id)) continue;
     totals.scanned++;
     let entry;
     try { entry = await lib.get('answers/' + meta.id + '.json', { type: 'json' }); }

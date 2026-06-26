@@ -70,7 +70,8 @@ try {
 
     # Run the deploy — --no-build keeps it local-built (no build minutes consumed)
     $deployStart = Get-Date
-    $proc = Start-Process -FilePath 'npx' -ArgumentList @('netlify-cli','deploy','--prod','--no-build','--functions','netlify/functions','--dir','.') -NoNewWindow -Wait -PassThru -RedirectStandardOutput "$logFile.out" -RedirectStandardError "$logFile.err"
+    $npx = (Get-Command npx.cmd -ErrorAction Stop).Source
+    $proc = Start-Process -FilePath $npx -ArgumentList @('netlify-cli','deploy','--prod','--no-build','--functions','netlify/functions','--dir','.','--skip-functions-cache') -NoNewWindow -Wait -PassThru -RedirectStandardOutput "$logFile.out" -RedirectStandardError "$logFile.err"
 
     $stdout = ''; $stderr = ''
     if (Test-Path "$logFile.out") { $stdout = Get-Content "$logFile.out" -Raw; Remove-Item "$logFile.out" -Force }
@@ -85,7 +86,7 @@ try {
         exit 0
     }
     elseif ($stderr -match 'credit usage exceeded') {
-        Write-Log "BLOCKED: Netlify credit cap hit — deploy refused. Will retry next run."
+        Write-Log "BLOCKED: Netlify credit cap hit - deploy refused. Will retry next run."
         exit 2
     }
     else {

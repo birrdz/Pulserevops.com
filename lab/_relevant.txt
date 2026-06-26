@@ -1,0 +1,139 @@
+q9669 | How do you start a food truck business in 2027?
+q9664 | How do you start a microbrewery (craft brewery) business in 2027?
+q9656 | How do you start a hospice care agency business in 2027?
+q9606 | How do you start a craft distillery business in 2027?
+q9605 | How do you start a nano brewery business in 2027?
+q9604 | How do you start a specialty allergen-free bakery business in 2027?
+q9603 | How do you start a pop-up restaurant business in 2027?
+q9602 | How do you start a event coffee cart business in 2027?
+q9601 | How do you start a food truck business in 2027?
+q9600 | How do you start a corporate catering business in 2027?
+q9588 | How do you start a single-product e-commerce business in 2027?
+q9570 | How do you start a hyperlocal food delivery business in 2027?
+q9565 | How do you start a mushroom farming business in 2027?
+q9564 | How do you start a indoor vertical farming business in 2027?
+q9557 | When a founder-led company has strong product-market fit but weak sales discipline, is the root cause almost always qualification/champion validation gaps, or are there meaningful cases where it's pricing, positioning, or ICP clarity?
+q9549 | How should RevOps teams think about governance philosophy as a leading indicator of go-to-market maturity and expansion readiness, separate from operational compliance requirements?
+q9545 | How should a CRO think about the sequencing of RevOps hiring, CPQ governance, and sales process standardization when scaling a multi-regional or multi-segment sales team?
+q9544 | For a founder-led B2B SaaS org scaling from $5M to $25M ARR, what's the clearest signal that the founder should hire RevOps instead of doing a full CPQ overhaul â and when does it switch the other way?
+q9538 | What's the relationship between a founder's sales background and the discount governance readiness threshold â do product founders delay the signal longer?
+q9512 | How do you migrate a Salesforce instance from Classic to Lightning when half the AE team has 5 years of muscle memory in Classic?
+q9511 | What is the right Salesforce permission set architecture for a 30-rep team that does not break governance when an SDR gets promoted to AE?
+q9501 | A company sells $100 group workshops teaching older adults how to use technology â phones, iPads, email. The model has had real if modest traction but has hit a friction point that's capping further growth. What's the right next move?
+q2152 | How do you start a microgreens farming business in 2027?
+q2144 | How do you start a Christmas tree farm business in 2027?
+q2134 | How do you start a brand identity studio business in 2027?
+q2005 | How do you start a kombucha business in 2027?
+q2003 | How do you start a cottage food bakery business in 2027?
+q2001 | How do you start a juice bar business in 2027?
+q2000 | How do you start a coffee cart business in 2027?
+q1990 | How do you start a soap making business in 2027?
+q1989 | How do you start a candle making business in 2027?
+q1982 | How do you start an ice cream truck business in 2027?
+q1980 | How do you start a catering business in 2027?
+q1941 | How do you start a brewery business in 2027?
+q1940 | How do you start a bakery business in 2027?
+q1931 | How do you start an e-commerce DTC brand in 2027?
+q1930 | How do you start a coffee shop business in 2027?
+q1929 | How do you start a food truck business in 2027?
+q1899 | What replaces SDR teams if AI agents replace SDRs natively?
+q1825 | How does Salesloft pay its sales team post-Vista?
+q1812 | Should Salesloft launch a vertical-revenue sub-brand?
+q1766 | How does Outreach pay its sales team?
+q1752 | Should Outreach launch a vertical-revenue sub-brand?
+q1716 | Should Datadog acquire Honeycomb to win observability?
+q1706 | How does Datadog pay its sales team?
+q1692 | Should Datadog launch a vertical-observability sub-brand?
+q1646 | How does ServiceNow pay its sales team?
+q1632 | Should ServiceNow launch a vertical-SaaS sub-brand?
+q1596 | Should Snowflake launch a vertical-data sub-brand in 2027?
+q1547 | Should Salesforce launch a vertical-SaaS sub-brand in 2027?
+q1486 | My company merged sales and marketing into one team â should I leave?
+q1484 | Why did my entire support team become Customer Success Engineers?
+q1473 | Why did my company kill the inside sales team?
+q1472 | My SDR team became Pipeline Architects â what does that mean?
+q1466 | Why did my SDR team get eliminated?
+q1427 | How'd you fix Prosperity Organic Foods's revenue issues in 2026?
+q1335 | How'd you fix Juicero's revenue issues in 2026?
+q1327 | How'd you fix Brandless's revenue issues in 2026?
+q1322 | How'd you fix ezCater's revenue issues in 2026?
+q1283 | How'd you fix Juicero's revenue issues in 2026?
+q1275 | How'd you fix Brandless's revenue issues in 2026?
+q1272 | How'd you fix ezCater's revenue issues in 2026?
+q1182 | How'd you fix Bowery Farming's revenue issues in 2026?
+q1169 | What's the optimal membership mix and pricing ladder to maximize boxing gym revenue without commoditizing the brand?
+q1154 | What's the right way to add a second sales manager when the first one is overworked but the team is only 8 reps?
+q1150 | How do you coach a brand-new manager who was promoted from top IC last quarter and is still trying to close their old deals?
+q1144 | What's the right way to split a sales team between SMB and mid-market when reps don't want to give up bigger accounts?
+q1142 | How do you price a SaaS add-on so it doesn't cannibalize the core product but still drives attach?
+q1131 | What's the realistic break-even cup count per day for a 1200-square-foot coffee shop, and how long does it take to reach it?
+q1129 | What's the realistic gross daily revenue for a food truck at a regular lunch spot, and how does it compare to event days?
+q1113 | How do you diagnose whether your churn is a product problem or a customer-success problem?
+q1112 | What's the right way to scale a sales team from 10 to 30 reps in 9 months without crushing win rate?
+q1109 | What's the right way to evaluate Apollo vs ZoomInfo for a 20-rep outbound team in 2026?
+q1104 | How do you structure a 30-minute demo when the buyer wants to see "everything" but the product has 40+ features?
+q849 | How do you formalize sales feedback into product requirements without creating bottlenecks?
+q834 | How do deal-desk and finance teams align on discount authority and deal structuring?
+q717 | At what team size does a sales manager's job fundamentally change?
+q715 | What's the first-90-day plan for a sales manager taking over a team?
+q688 | How do we coordinate ABM campaigns between marketing and sales so neither team goes rogue with a prospect?
+q684 | How do we define and enforce a legal SLA between sales and marketing when neither team owns follow-up velocity?
+q674 | How do we structure sales-assist motions for accounts that plateau in self-serve adoption?
+q673 | Which product behaviors indicate mid-market PLG accounts are ready for land-and-expand sales cycles?
+q644 | What sales team specialization model works best for federal-focused SaaS vendors?
+q626 | How many people should staff an account team for a $50M-revenue target? What roles?
+q526 | What is a leading product adoption signal and how should it be weighted in health scoring?
+q523 | How do you categorize and score churn types (product, price, competitor, organizational)?
+q520 | What product-usage signals most reliably predict 6-month churn in B2B SaaS?
+q519 | How should we structure a customer health score that tracks both product engagement and commercial indicators?
+q483 | How do we use competitive intelligence from win-loss to guide product roadmap prioritization?
+q476 | At what interview frequency should we trigger product/GTM pivots based on win-loss data?
+q380 | How do you structure ramp coaching differently for new hires vs. plateaued reps?
+q378 | How do you prevent reps from becoming permanently plateau at year 2-3 (the danger zone)?
+q371 | How do you diagnose when a rep has hit plateau vs. when they need a behavior change?
+q334 | Sales team is asking for a price concession to close, but the deal is already at margin. How do we say no while keeping the deal alive?
+q332 | The CRO says they'll adopt our tool, but their team will use a competitor internally anyway. How do we prevent a multi-vendor install that ruins our ROI?
+q329 | Legal team wants 60+ days to review terms, creating deployment risk. How do we move them without conceding core deal terms?
+q328 | Security blockers from the procurement/legal team are delaying close. How do we move past SOC 2, penetration testing, and audit compliance?
+q326 | How do we counter the build-vs-buy objection when their engineering team insists they can build this internally in 6 months?
+q318 | How do you handle the prospect who says "just show us a demo" instead of discovery?
+q316 | How do you qualify a prospect on implementation readiness without showing the product?
+q314 | How do you design follow-up questions that uncover hidden pain instead of leading the prospect?
+q290 | How do you use Challenger Selling principles to reframe procurement objections as growth opportunities instead of cost-cutting?
+q278 | How do we fix comp comp when we've created a monsterâreps gaming deals, inflating pipelines, sandbagging, and comp costs are 45% of revenue instead of 15%?
+q277 | How do we structure performance-based comp (quotas + bonuses + accelerators) to encourage team selling over individual heroics?
+q276 | How do we comp reps during a major product pivot or repositioning when quota expectations are uncertain?
+q275 | How do we design comp for deal teams (AE + SA + Sales Engineer) where all three touch the deal but at different stages?
+q269 | How do we adjust comp when a product changes pricing mid-year and reps' quotas become misaligned?
+q263 | When should a sales org introduce industry-vertical specialization in its rep teams (vs staying horizontal)?
+q259 | How do you compensate a sales rep who lands a strategic-but-low-ARR logo (e.g. brand-name reference customer)?
+q250 | What signals from product usage and CSM notes predict a renewal will require a discount to close?
+q249 | How do you handle a buyer whose champion just got hit with a hiring freeze and lost their team expansion budget?
+q248 | What's the right approach to international territory expansion â EMEA before APAC, or product-fit driven?
+q244 | What's the right cadence for sales-leadership team meetings â weekly, bi-weekly, or monthly?
+q243 | How do you compensate a sales manager whose reps overperform â pay them on team total or on personal stretch goals?
+q242 | What's the right way to staff a renewals team â dedicated CSM, AE-led, or hybrid by segment?
+q240 | When should a sales team start running formal win-loss interviews â at $5M ARR, $20M, or only when win rate drops?
+q235 | What's the right way to sunset a sales-tech tool the team has gotten comfortable with but isn't producing ROI?
+q232 | How do you build a sales accelerator program for stuck mid-tenure reps (12-24 months in seat, plateaued at 70-80%)?
+q223 | How do you compensate for product-led trials that an SDR sourced but an AE closed â full credit to whom?
+q221 | How do you build a real ICP scoring model that reps actually use to filter inbound leads instead of working everything?
+q209 | What's the right way to compensate sales engineers in a complex deal cycle â flat salary, deal-attached bonuses, or team commission?
+q206 | When should a startup invest in its first sales operations hire instead of adding another rep?
+q204 | What's the right way to comp a new product launch â separate quota carve-out or rolled into existing AE quota?
+q202 | What's the right way to set quota for a brand-new product line with no historical data?
+q201 | How do you tell if your sales team needs a system change versus a coaching change?
+q196 | What signals from product usage predict churn 90 days out?
+q178 | What's the right way to break bad news to the sales team?
+q175 | How do you reset a sales team that's lost its mojo?
+q172 | What do I do when the board wants 200% growth but my team is at 40%?
+q167 | How do I split a single sales team into segment-based teams?
+q145 | What's unique about selling AI products in 2026?
+q143 | What's the right go-to-market for a security/SOC2 product?
+q141 | What KPIs matter most for a fintech sales team?
+q118 | How do I coach a tenured rep who's plateaued at 80% attainment?
+q116 | What's the right territory design for a 30-rep mid-market team?
+q73 | How do I price an add-on SKU when my base product is underpriced?
+q32 | How do you onboard a CRO who's never sold your product category before?
+q30 | How do you handle a star rep who's toxic to the team?
+q20 | What's the difference between hunters and farmers and when to hire each?

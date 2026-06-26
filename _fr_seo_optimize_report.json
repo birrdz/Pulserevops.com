@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "dryRun": false,
+  "count": 1033,
+  "changed": 473,
+  "keywordPhrases": 200,
+  "hubPing": {
+    "ok": true,
+    "count": 1,
+    "pings": {
+      "indexnow_org": 429,
+      "bing": 429,
+      "yandex": 200
+    }
+  },
+  "hubUrls": [
+    "https://pulserevops.com/franchises"
+  ],
+  "sample": {
+    "id": "fr0001",
+    "ok": true,
+    "changed": false,
+    "tagCount": 215,
+    "keywordCount": 215,
+    "url": "https://pulserevops.com/franchises/fr0001",
+    "indexnow": null
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "q447",
+  "question": "What's the multi-language sales infrastructure for APAC/EMEA without hiring 10 extra support people?",
+  "tick": 226,
+  "outline": [
+    "The Multi-Language Trap: Why Headcount Is the Wrong First Move",
+    "Mapping Your Language Surface Area Before You Spend a Dollar",
+    "The Tiered Language Coverage Model: P0, P1, and P2 Markets",
+    "AI Translation Layer: Where Machine Translation Actually Holds Up",
+    "Localizing the Sales Tech Stack: CRM, CPQ, and Sequencer Configuration",
+    "Multilingual Content Operations: Decks, One-Pagers, and Demo Environments",
+    "Async-First Support: Knowledge Bases and Self-Serve in Local Languages",
+    "The Fractional Native-Speaker Model: Pods, Not Hires",
+    "Routing and Escalation: Getting the Right Language to the Right Rep",
+    "Quality Assurance and the Localization Feedback Loop",
+    "Compliance, Data Residency, and Contract Language by Region",
+    "Cost Model and the 90-Day Rollout Plan",
+    "Metrics That Prove the Infrastructure Is Working",
+    "Common Failure Modes and How to Recover"
+  ],
+  "blocks": {
+    "block1": [0, 1, 2, 3, 4],
+    "block2": [5, 6, 7, 8, 9],
+    "block3": [10, 11, 12, 13]
+  }
+}

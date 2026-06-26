@@ -1,0 +1,21 @@
+{
+  "id": "q407",
+  "question": "How do we measure whether our Salesforce config is over-engineered or leaving money on table?",
+  "tags": [
+    "revops",
+    "salesforce",
+    "config-debt",
+    "over-engineering",
+    "crm-architecture",
+    "tco",
+    "salesforce-optimizer",
+    "well-architected"
+  ],
+  "ts": 1779053874351,
+  "polished_at": 1779053884128,
+  "quality_score": 10,
+  "was_indexed_at": null,
+  "format_v": null,
+  "pending": false,
+  "source": null
+}

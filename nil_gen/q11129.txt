@@ -1,0 +1,83 @@
+QUESTION: What are Iowa Hawkeyes men's basketball's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Iowa Hawkeyes men's basketball heads into the 2026-27 season with a rare blend of momentum and uncertainty. Ben McCollum, who finalized a six-year contract extension running through April 30, 2032 after a 24-13 debut campaign and the program's first Elite Eight appearance since 1987, must now translate that breakthrough into a sustainable NIL operation. The Swarm Collective, led by CEO Brad Heinrichs, will anchor the spending, working in tandem with Iowa's House-settlement revenue share inside the roughly $2.05 million to $4.1 million men's basketball slice of the school's $20.5 million cap. Iowa's strategy is not to chase the rumored $10 million roster ceiling some Big Ten rivals are pursuing, but to deploy a tighter, more disciplined pool around three pillars: retaining the 10 returners from the Elite Eight run, replacing All-Big Ten guard Bennett Stirtz at the point, and funding a contingency line for forward Tavion Banks should the NCAA grant his fifth-year waiver.
+
+## How Iowa's 2026-27 NIL Pool Actually Stacks Up
+
+The financial backdrop is the first thing prospects and agents will ask about. Iowa's athletic department has committed to fully funding the House settlement's $20.5 million revenue share for 2025-26, with the cap rising four percent annually for the next two years before re-evaluation. Power Four schools have publicly signaled allocations of 10 to 20 percent of that pool toward men's basketball, putting Iowa's direct revenue-share contribution to McCollum's roster somewhere between $2.05 million and $4.1 million. The Swarm Collective layers true NIL deals on top of that, funded through one-time gifts of $1,000 or more or recurring $100 monthly commitments that donors can direct toward men's basketball specifically.
+
+Heinrichs has publicly pushed back on the inflated arms-race numbers, telling the Hawk Fanatic radio show that he does not believe it takes $10 million to build and sustain a competitive Big Ten roster. He also confirmed the Elite Eight run produced more NIL contributions in the two weeks of March than during the entire prior season, validating the thesis that on-court success is itself the most powerful fundraising engine Iowa has.
+
+```mermaid
+flowchart TD
+    A[Iowa Athletics 20.5M Cap] --> B[Revenue Share Pool]
+    A --> C[Swarm Collective NIL]
+    B --> D[Football 70-75 percent]
+    B --> E[Men's Basketball 10-20 percent]
+    B --> F[Other Sports]
+    C --> G[Donor One-Time Gifts]
+    C --> H[Monthly Recurring 100 plus]
+    E --> I[Roster Pool 2.05M to 4.1M]
+    G --> I
+    H --> I
+    I --> J[McCollum 2026-27 Roster Build]
+```
+
+## The Three Roster Needs Driving Every Dollar
+
+### 1. Replacing Bennett Stirtz at the Point
+
+Stirtz, who followed McCollum from Northwest Missouri State to Drake to Iowa, exhausted his eligibility after earning All-Big Ten honors and a 2026 NBA Draft Combine invite, with first-round projections from RealGM and ESPN. He was the offensive engine and the cultural glue. McCollum has been blunt about the gap: "The only thing we'd take is another guard." Iowa's first move was landing Illinois State transfer Ty'Reek Coleman, a 6-foot-2 freshman who averaged 10 points, 2.7 rebounds and 1.8 assists while shooting 50.4 percent from the field and 41.6 percent from three. Coleman is a developmental win, not a one-for-one Stirtz replacement, which means another portal guard — likely a high-major proven creator — sits at the top of the NIL priority list.
+
+### 2. The Tavion Banks Contingency
+
+Banks, Iowa's leading rebounder and second-leading scorer in 2025-26, declared for the 2026 NBA Draft, entered the transfer portal, and is awaiting a fifth-year ruling from the NCAA after two prior junior-college seasons. McCollum told reporters that Iowa cannot sit on the NIL money Banks would command and must operate as if he is not returning. If the waiver is granted, Iowa wants the funds and a roster slot ready to move quickly — a structural decision that has shaped every other commitment this spring. This is the cleanest example of McCollum treating NIL not as a slush fund but as a portfolio with reserved tranches.
+
+### 3. Locking in the 10 Returners
+
+The Gazette reported that all 10 remaining Hawkeyes from the Elite Eight run are returning for year two, the rarest kind of continuity in the portal era. Holding that group together against poaching offers from rival collectives is itself a multi-million-dollar exercise. Brendan Hausen also exhausted eligibility alongside Stirtz, but the rest of the rotation — including the developmental pieces who logged tournament minutes — has been re-papered with new deals. Alvaro Folgueiras was the only outbound transfer through mid-April, a remarkably low attrition rate that the Swarm Collective is treating as proof that culture-plus-cash beats cash-only pitches. The retention story is especially important because every returning rotation player saves Iowa from paying twice — once for the incumbent's new market value, and again for whatever portal replacement would have been required. McCollum has framed continuity as the cheapest form of NIL spending available, and Heinrichs has used those retention wins as proof points in every donor pitch since the Elite Eight.
+
+## The McCollum Identity and Why Donors Are Buying In
+
+McCollum's track record — Drake to the NCAA Tournament, then Iowa to the Elite Eight in year one as one of only two first-year Hawkeye coaches alongside Tom Davis to win 20-plus games, win a tournament game and reach the Elite Eight — gives Heinrichs a fundraising pitch most collectives would envy. The May 11 contract extension reported by HawkCentral, running through 2032, signaled long-term stability to both donors and recruits. Athletic Director Beth Goetz publicly closed the door on the rumors of McCollum entertaining other openings, which Sports Illustrated covered as a watershed moment for Iowa's NIL credibility. That stability matters operationally because portal players and their representatives now ask collectives to project three to four years out, not one. A coach without long-term contract certainty cannot make those promises credibly, and Iowa's competitors in the Big Ten have been targeting exactly that vulnerability in their own pitches. McCollum's locked-in horizon flips that conversation entirely in Iowa's favor.
+
+It is worth situating McCollum's pedigree precisely. At Northwest Missouri State he won four Division II national championships, a résumé of sustained title-level program-building that almost no first-year high-major coach carries. That history is itself an NIL asset: Heinrichs can tell donors they are funding a proven program-builder, not a one-year fluke, and can tell recruits the player-development system that produced an Elite Eight in year one is the same one that won four national titles. In a market where most collective pitches lean on raw dollar figures, Iowa's is unusually anchored in a track record.
+
+## The Carver-Hawkeye and Fan-Base Engine
+
+Iowa's NIL ceiling is underwritten by one of the most reliable fan bases in college basketball. Carver-Hawkeye Arena seats roughly 15,000, and Iowa fans demonstrated their funding appetite in the most concrete way possible during the Elite Eight run, when March contributions to the Swarm Collective in two weeks outpaced the entire prior season. That spike is the model Heinrichs wants to make permanent through recurring $100 monthly memberships rather than one-time surges. Iowa also benefits from a statewide fan identity — no in-state Power Four rival splits the basketball audience — and from the program's broader athletics brand, which the runaway success of Iowa women's basketball in the Caitlin Clark era expanded into a national following. Converting even a fraction of that attention into recurring men's basketball NIL dollars is the single highest-leverage fundraising move available for 2026-27.
+
+## The Strategic Bet for 2026-27 and Beyond
+
+Iowa's NIL approach is fundamentally a value-investing thesis rather than a momentum trade. Heinrichs is courting corporate sponsorships and recurring small-dollar donors instead of chasing whale checks. McCollum is recruiting players whose game fits a deliberate offense rather than bidding on the highest-ranked portal name. The combined effect is a roster cost structure that should land comfortably under the rumored $10 million Big Ten ceiling while still being competitive against Purdue, Illinois, and Michigan State.
+
+The risks are clear. If the Banks waiver is denied and the contingency money has to be redeployed quickly, Iowa needs a second-tier portal target identified by mid-summer. If the corporate sponsorship pipeline Heinrichs is building does not materialize, the Swarm Collective's growth curve flattens and the gap to top spenders widens. And if McCollum's offense stumbles without Stirtz's creation, the donor surge from March 2026 could cool just as fast as it arrived.
+
+The opportunity, though, is that Iowa has rebuilt itself as a destination program with a coach locked in through 2032, a collective with traction, and a fanbase that just demonstrated it will fund success. For 2026-27, the strategy is straightforward: keep the band together, find one more guard who fits the system, hold a reserve for Banks, and let the on-court product do the next round of fundraising.
+
+## FAQ
+
+**Q: How much can Iowa actually spend on men's basketball NIL in 2026-27?**
+A: Iowa's direct revenue-share contribution to the roster lands between roughly $2.05 million and $4.1 million — 10 to 20 percent of the school's fully funded $20.5 million House-settlement cap — with the Swarm Collective layering uncapped NIL deals on top. CEO Brad Heinrichs argues a competitive Big Ten roster does not require the rumored $10 million ceiling.
+
+**Q: Why is replacing Bennett Stirtz Iowa's top NIL priority?**
+A: Stirtz was the All-Big Ten point guard and offensive engine of the Elite Eight run, and his eligibility is exhausted. Illinois State transfer Ty'Reek Coleman is a developmental add, not a one-for-one replacement, so McCollum has earmarked top-of-pool NIL money for a proven high-major creating guard.
+
+**Q: What is the Tavion Banks contingency and why does it shape the budget?**
+A: Banks, Iowa's leading rebounder, declared for the draft and entered the portal while awaiting an NCAA fifth-year waiver. McCollum is operating as if Banks is gone but holding a reserved NIL tranche and roster slot so Iowa can move instantly if the waiver clears — a portfolio approach rather than a single committed budget.
+
+**Q: Why does McCollum's contract extension matter for NIL recruiting?**
+A: Portal players and agents now want collectives to project three to four years out. McCollum's extension through April 30, 2032, plus AD Beth Goetz publicly ending speculation about his departure, lets the Swarm Collective credibly promise multi-year stability — a pitch Big Ten rivals were using his uncertainty to undercut.
+
+## Sources
+
+1. HawkCentral / Des Moines Register — Ben McCollum contract extension through 2032 (May 11)
+2. The Gazette — All 10 Iowa returners back from Elite Eight run
+3. Sports Illustrated — Beth Goetz, McCollum, and Iowa's NIL credibility
+4. Hawk Fanatic radio — Brad Heinrichs on Swarm Collective and the $10 million ceiling
+5. RealGM / ESPN — Bennett Stirtz NBA Draft projections and Combine invite
+6. Iowa Athletics / On3 — Ty'Reek Coleman transfer and roster updates
+7. House v. NCAA settlement — $20.5 million revenue-share cap (final approval June 6, 2025)

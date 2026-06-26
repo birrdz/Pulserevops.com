@@ -1,0 +1,1034 @@
+[
+  {
+    "id": "tk0002",
+    "q": "What is the best tech stack for a B2B SaaS company in 2027?"
+  },
+  {
+    "id": "tk0005",
+    "q": "What is the best tech stack for a residential real estate brokerage in 2027?"
+  },
+  {
+    "id": "tk0007",
+    "q": "What is the best tech stack for a professional services or consulting firm in 2027?"
+  },
+  {
+    "id": "tk0008",
+    "q": "What is the best tech stack for an e-commerce or DTC brand in 2027?"
+  },
+  {
+    "id": "tk0009",
+    "q": "What is the best tech stack for a financial advisory or RIA wealth management firm in 2027?"
+  },
+  {
+    "id": "tk0010",
+    "q": "What is the best tech stack for an insurance agency in 2027?"
+  },
+  {
+    "id": "tk0011",
+    "q": "What is the best tech stack for a logistics, freight brokerage, or 3PL in 2027?"
+  },
+  {
+    "id": "tk0012",
+    "q": "What is the best tech stack for a field services company (HVAC, plumbing, or electrical) in 2027?"
+  },
+  {
+    "id": "tk0013",
+    "q": "What is the best tech stack for a restaurant or multi-unit hospitality business in 2027?"
+  },
+  {
+    "id": "tk0014",
+    "q": "What is the best tech stack for an auto dealership in 2027?"
+  },
+  {
+    "id": "tk0015",
+    "q": "What is the best tech stack for a law firm in 2027?"
+  },
+  {
+    "id": "tk0016",
+    "q": "What is the best tech stack for a higher education institution in 2027?"
+  },
+  {
+    "id": "tk0017",
+    "q": "What is the best tech stack for a wholesale distribution business in 2027?"
+  },
+  {
+    "id": "tk0018",
+    "q": "What is the best tech stack for a property management company in 2027?"
+  },
+  {
+    "id": "tk0019",
+    "q": "What is the best tech stack for a staffing or recruiting agency in 2027?"
+  },
+  {
+    "id": "tk0020",
+    "q": "What is the best tech stack for a marketing agency in 2027?"
+  },
+  {
+    "id": "tk0021",
+    "q": "What is the best tech stack for a dental practice in 2027?"
+  },
+  {
+    "id": "tk0022",
+    "q": "What is the best tech stack for a fitness studio or gym in 2027?"
+  },
+  {
+    "id": "tk0023",
+    "q": "What is the best tech stack for a residential cleaning or maid service company in 2027?"
+  },
+  {
+    "id": "tk0024",
+    "q": "What is the best tech stack for an MSP or IT services company in 2027?"
+  },
+  {
+    "id": "tk0025",
+    "q": "What is the best tech stack for a veterinary practice in 2027?"
+  },
+  {
+    "id": "tk0027",
+    "q": "What is the best tech stack for an accounting or CPA firm in 2027?"
+  },
+  {
+    "id": "tk0028",
+    "q": "What is the best tech stack for an architecture firm in 2027?"
+  },
+  {
+    "id": "tk0029",
+    "q": "What is the best tech stack for an engineering firm in 2027?"
+  },
+  {
+    "id": "tk0030",
+    "q": "What is the best tech stack for a commercial cleaning or janitorial company in 2027?"
+  },
+  {
+    "id": "tk0031",
+    "q": "What is the best tech stack for a specialty pharmacy in 2027?"
+  },
+  {
+    "id": "tk0033",
+    "q": "What is the best tech stack for a senior living or assisted living operator in 2027?"
+  },
+  {
+    "id": "tk0035",
+    "q": "What is the best tech stack for a mental or behavioral health practice in 2027?"
+  },
+  {
+    "id": "tk0036",
+    "q": "What is the best tech stack for a physical therapy clinic in 2027?"
+  },
+  {
+    "id": "tk0037",
+    "q": "What is the best tech stack for a chiropractic practice in 2027?"
+  },
+  {
+    "id": "tk0038",
+    "q": "What is the best tech stack for a med spa or aesthetics clinic in 2027?"
+  },
+  {
+    "id": "tk0039",
+    "q": "What is the best tech stack for an optometry practice in 2027?"
+  },
+  {
+    "id": "tk0040",
+    "q": "What is the best tech stack for a childcare or daycare center in 2027?"
+  },
+  {
+    "id": "tk0041",
+    "q": "What is the best tech stack for a K-12 private school in 2027?"
+  },
+  {
+    "id": "tk0042",
+    "q": "What is the best tech stack for a trade or vocational school in 2027?"
+  },
+  {
+    "id": "tk0043",
+    "q": "What is the best tech stack for a multi-unit franchisor in 2027?"
+  },
+  {
+    "id": "tk0044",
+    "q": "What is the best tech stack for a coworking or flex space operator in 2027?"
+  },
+  {
+    "id": "tk0045",
+    "q": "What is the best tech stack for a boutique hotel in 2027?"
+  },
+  {
+    "id": "tk0046",
+    "q": "What is the best tech stack for a catering or events company in 2027?"
+  },
+  {
+    "id": "tk0047",
+    "q": "What is the best tech stack for a travel agency or tour operator in 2027?"
+  },
+  {
+    "id": "tk0048",
+    "q": "What is the best tech stack for a winery, brewery, or distillery in 2027?"
+  },
+  {
+    "id": "tk0049",
+    "q": "What is the best tech stack for a cannabis dispensary in 2027?"
+  },
+  {
+    "id": "tk0050",
+    "q": "What is the best tech stack for a specialty food or grocery retailer in 2027?"
+  },
+  {
+    "id": "tk0051",
+    "q": "What is the best tech stack for an apparel or fashion brand in 2027?"
+  },
+  {
+    "id": "tk0052",
+    "q": "What is the best tech stack for a furniture or home goods retailer in 2027?"
+  },
+  {
+    "id": "tk0053",
+    "q": "What is the best tech stack for a jewelry retailer in 2027?"
+  },
+  {
+    "id": "tk0054",
+    "q": "What is the best tech stack for a pet store or pet services business in 2027?"
+  },
+  {
+    "id": "tk0055",
+    "q": "What is the best tech stack for a salon or spa in 2027?"
+  },
+  {
+    "id": "tk0056",
+    "q": "What is the best tech stack for an auto repair or body shop in 2027?"
+  },
+  {
+    "id": "tk0057",
+    "q": "What is the best tech stack for a commercial trucking or carrier fleet in 2027?"
+  },
+  {
+    "id": "tk0058",
+    "q": "What is the best tech stack for a moving and storage company in 2027?"
+  },
+  {
+    "id": "tk0059",
+    "q": "What is the best tech stack for a courier or last-mile delivery company in 2027?"
+  },
+  {
+    "id": "tk0060",
+    "q": "What is the best tech stack for a waste management or hauling company in 2027?"
+  },
+  {
+    "id": "tk0062",
+    "q": "What is the best tech stack for a roofing contractor in 2027?"
+  },
+  {
+    "id": "tk0063",
+    "q": "What is the best tech stack for a painting contractor in 2027?"
+  },
+  {
+    "id": "tk0064",
+    "q": "What is the best tech stack for a flooring contractor in 2027?"
+  },
+  {
+    "id": "tk0065",
+    "q": "What is the best tech stack for a pool service and construction company in 2027?"
+  },
+  {
+    "id": "tk0066",
+    "q": "What is the best tech stack for a pest control company in 2027?"
+  },
+  {
+    "id": "tk0067",
+    "q": "What is the best tech stack for a lawn care or landscaping company in 2027?"
+  },
+  {
+    "id": "tk0068",
+    "q": "What is the best tech stack for a tree service company in 2027?"
+  },
+  {
+    "id": "tk0069",
+    "q": "What is the best tech stack for a fencing or deck contractor in 2027?"
+  },
+  {
+    "id": "tk0070",
+    "q": "What is the best tech stack for a concrete or paving contractor in 2027?"
+  },
+  {
+    "id": "tk0071",
+    "q": "What is the best tech stack for a commercial electrical contractor in 2027?"
+  },
+  {
+    "id": "tk0072",
+    "q": "What is the best tech stack for a commercial plumbing contractor in 2027?"
+  },
+  {
+    "id": "tk0073",
+    "q": "What is the best tech stack for a commercial HVAC contractor in 2027?"
+  },
+  {
+    "id": "tk0074",
+    "q": "What is the best tech stack for a glass and glazing contractor in 2027?"
+  },
+  {
+    "id": "tk0075",
+    "q": "What is the best tech stack for a garage or overhead door service company in 2027?"
+  },
+  {
+    "id": "tk0076",
+    "q": "What is the best tech stack for a locksmith or access control company in 2027?"
+  },
+  {
+    "id": "tk0077",
+    "q": "What is the best tech stack for a fire protection or sprinkler contractor in 2027?"
+  },
+  {
+    "id": "tk0078",
+    "q": "What is the best tech stack for an elevator service and modernization company in 2027?"
+  },
+  {
+    "id": "tk0079",
+    "q": "What is the best tech stack for an industrial equipment distributor in 2027?"
+  },
+  {
+    "id": "tk0080",
+    "q": "What is the best tech stack for a medical device manufacturer in 2027?"
+  },
+  {
+    "id": "tk0081",
+    "q": "What is the best tech stack for a biotech or life sciences lab in 2027?"
+  },
+  {
+    "id": "tk0082",
+    "q": "What is the best tech stack for a small aerospace and defense contractor in 2027?"
+  },
+  {
+    "id": "tk0083",
+    "q": "What is the best tech stack for an oil and gas field services company in 2027?"
+  },
+  {
+    "id": "tk0084",
+    "q": "What is the best tech stack for a mining or aggregates operation in 2027?"
+  },
+  {
+    "id": "tk0085",
+    "q": "What is the best tech stack for an agriculture or farm operation in 2027?"
+  },
+  {
+    "id": "tk0086",
+    "q": "What is the best tech stack for a food and beverage manufacturer in 2027?"
+  },
+  {
+    "id": "tk0087",
+    "q": "What is the best tech stack for a printing or sign company in 2027?"
+  },
+  {
+    "id": "tk0088",
+    "q": "What is the best tech stack for a packaging or corrugated manufacturer in 2027?"
+  },
+  {
+    "id": "tk0089",
+    "q": "What is the best tech stack for a telecom or regional ISP in 2027?"
+  },
+  {
+    "id": "tk0091",
+    "q": "What is the best tech stack for a renewable energy developer in 2027?"
+  },
+  {
+    "id": "tk0092",
+    "q": "What is the best tech stack for a janitorial and sanitation supply distributor in 2027?"
+  },
+  {
+    "id": "tk0093",
+    "q": "What is the best tech stack for an equipment rental company in 2027?"
+  },
+  {
+    "id": "tk0094",
+    "q": "What is the best tech stack for a title and escrow company in 2027?"
+  },
+  {
+    "id": "tk0095",
+    "q": "What is the best tech stack for a mortgage brokerage in 2027?"
+  },
+  {
+    "id": "tk0096",
+    "q": "What is the best tech stack for a commercial real estate brokerage in 2027?"
+  },
+  {
+    "id": "tk0097",
+    "q": "What is the best tech stack for a home builder or residential developer in 2027?"
+  },
+  {
+    "id": "tk0098",
+    "q": "What is the best tech stack for a self-storage operator in 2027?"
+  },
+  {
+    "id": "tk0099",
+    "q": "What is the best tech stack for a funeral home or mortuary in 2027?"
+  },
+  {
+    "id": "tk0100",
+    "q": "What is the best tech stack for a commercial landscaping and grounds maintenance company in 2027?"
+  },
+  {
+    "id": "tk0101",
+    "q": "What is the best tech stack for a dermatology practice in 2027?"
+  },
+  {
+    "id": "tk0102",
+    "q": "What is the best tech stack for an orthodontics practice in 2027?"
+  },
+  {
+    "id": "tk0103",
+    "q": "What is the best tech stack for a fertility or IVF clinic in 2027?"
+  },
+  {
+    "id": "tk0104",
+    "q": "What is the best tech stack for an ambulatory surgery center in 2027?"
+  },
+  {
+    "id": "tk0105",
+    "q": "What is the best tech stack for an urgent care clinic in 2027?"
+  },
+  {
+    "id": "tk0106",
+    "q": "What is the best tech stack for a radiology or imaging center in 2027?"
+  },
+  {
+    "id": "tk0107",
+    "q": "What is the best tech stack for a medical billing or RCM company in 2027?"
+  },
+  {
+    "id": "tk0108",
+    "q": "What is the best tech stack for an independent retail pharmacy in 2027?"
+  },
+  {
+    "id": "tk0109",
+    "q": "What is the best tech stack for a durable medical equipment supplier in 2027?"
+  },
+  {
+    "id": "tk0110",
+    "q": "What is the best tech stack for an audiology or hearing aid practice in 2027?"
+  },
+  {
+    "id": "tk0111",
+    "q": "What is the best tech stack for a podiatry practice in 2027?"
+  },
+  {
+    "id": "tk0112",
+    "q": "What is the best tech stack for a plastic surgery practice in 2027?"
+  },
+  {
+    "id": "tk0113",
+    "q": "What is the best tech stack for a direct primary care or concierge medicine practice in 2027?"
+  },
+  {
+    "id": "tk0114",
+    "q": "What is the best tech stack for a telehealth provider in 2027?"
+  },
+  {
+    "id": "tk0115",
+    "q": "What is the best tech stack for a dialysis center in 2027?"
+  },
+  {
+    "id": "tk0116",
+    "q": "What is the best tech stack for a clinical research site in 2027?"
+  },
+  {
+    "id": "tk0117",
+    "q": "What is the best tech stack for a public relations agency in 2027?"
+  },
+  {
+    "id": "tk0118",
+    "q": "What is the best tech stack for a translation or localization agency in 2027?"
+  },
+  {
+    "id": "tk0119",
+    "q": "What is the best tech stack for a private investigation firm in 2027?"
+  },
+  {
+    "id": "tk0120",
+    "q": "What is the best tech stack for a patent or IP law firm in 2027?"
+  },
+  {
+    "id": "tk0121",
+    "q": "What is the best tech stack for a bookkeeping firm in 2027?"
+  },
+  {
+    "id": "tk0122",
+    "q": "What is the best tech stack for a tax preparation service in 2027?"
+  },
+  {
+    "id": "tk0123",
+    "q": "What is the best tech stack for an executive search firm in 2027?"
+  },
+  {
+    "id": "tk0124",
+    "q": "What is the best tech stack for an employee benefits consulting firm in 2027?"
+  },
+  {
+    "id": "tk0125",
+    "q": "What is the best tech stack for a credit union in 2027?"
+  },
+  {
+    "id": "tk0126",
+    "q": "What is the best tech stack for a community bank in 2027?"
+  },
+  {
+    "id": "tk0127",
+    "q": "What is the best tech stack for a payment processor or fintech company in 2027?"
+  },
+  {
+    "id": "tk0128",
+    "q": "What is the best tech stack for a cryptocurrency exchange in 2027?"
+  },
+  {
+    "id": "tk0129",
+    "q": "What is the best tech stack for a private equity firm in 2027?"
+  },
+  {
+    "id": "tk0130",
+    "q": "What is the best tech stack for a venture capital firm in 2027?"
+  },
+  {
+    "id": "tk0131",
+    "q": "What is the best tech stack for a hedge fund in 2027?"
+  },
+  {
+    "id": "tk0133",
+    "q": "What is the best tech stack for a debt collection agency in 2027?"
+  },
+  {
+    "id": "tk0134",
+    "q": "What is the best tech stack for an invoice factoring company in 2027?"
+  },
+  {
+    "id": "tk0135",
+    "q": "What is the best tech stack for a pawn shop in 2027?"
+  },
+  {
+    "id": "tk0136",
+    "q": "What is the best tech stack for an independent bookstore in 2027?"
+  },
+  {
+    "id": "tk0137",
+    "q": "What is the best tech stack for a sporting goods retailer in 2027?"
+  },
+  {
+    "id": "tk0138",
+    "q": "What is the best tech stack for a bicycle shop in 2027?"
+  },
+  {
+    "id": "tk0139",
+    "q": "What is the best tech stack for a music or instrument store in 2027?"
+  },
+  {
+    "id": "tk0140",
+    "q": "What is the best tech stack for an independent hardware store in 2027?"
+  },
+  {
+    "id": "tk0141",
+    "q": "What is the best tech stack for a garden center or nursery in 2027?"
+  },
+  {
+    "id": "tk0142",
+    "q": "What is the best tech stack for a liquor store in 2027?"
+  },
+  {
+    "id": "tk0143",
+    "q": "What is the best tech stack for a convenience store in 2027?"
+  },
+  {
+    "id": "tk0144",
+    "q": "What is the best tech stack for a thrift or consignment store in 2027?"
+  },
+  {
+    "id": "tk0145",
+    "q": "What is the best tech stack for an art gallery in 2027?"
+  },
+  {
+    "id": "tk0146",
+    "q": "What is the best tech stack for a food truck in 2027?"
+  },
+  {
+    "id": "tk0147",
+    "q": "What is the best tech stack for a coffee shop or cafe in 2027?"
+  },
+  {
+    "id": "tk0148",
+    "q": "What is the best tech stack for a bakery in 2027?"
+  },
+  {
+    "id": "tk0149",
+    "q": "What is the best tech stack for a ghost kitchen or virtual restaurant in 2027?"
+  },
+  {
+    "id": "tk0150",
+    "q": "What is the best tech stack for a bar or nightclub in 2027?"
+  },
+  {
+    "id": "tk0151",
+    "q": "What is the best tech stack for a family entertainment center in 2027?"
+  },
+  {
+    "id": "tk0152",
+    "q": "What is the best tech stack for a golf course or country club in 2027?"
+  },
+  {
+    "id": "tk0153",
+    "q": "What is the best tech stack for a casino or gaming operator in 2027?"
+  },
+  {
+    "id": "tk0154",
+    "q": "What is the best tech stack for a movie theater in 2027?"
+  },
+  {
+    "id": "tk0155",
+    "q": "What is the best tech stack for a campground or RV park in 2027?"
+  },
+  {
+    "id": "tk0156",
+    "q": "What is the best tech stack for a vacation rental management company in 2027?"
+  },
+  {
+    "id": "tk0157",
+    "q": "What is the best tech stack for a septic or portable sanitation service in 2027?"
+  },
+  {
+    "id": "tk0158",
+    "q": "What is the best tech stack for a window cleaning service in 2027?"
+  },
+  {
+    "id": "tk0159",
+    "q": "What is the best tech stack for a pressure washing service in 2027?"
+  },
+  {
+    "id": "tk0160",
+    "q": "What is the best tech stack for an insulation contractor in 2027?"
+  },
+  {
+    "id": "tk0161",
+    "q": "What is the best tech stack for a foundation or waterproofing contractor in 2027?"
+  },
+  {
+    "id": "tk0162",
+    "q": "What is the best tech stack for an excavation or site work contractor in 2027?"
+  },
+  {
+    "id": "tk0163",
+    "q": "What is the best tech stack for a drywall contractor in 2027?"
+  },
+  {
+    "id": "tk0164",
+    "q": "What is the best tech stack for a masonry contractor in 2027?"
+  },
+  {
+    "id": "tk0165",
+    "q": "What is the best tech stack for a welding or metal fabrication shop in 2027?"
+  },
+  {
+    "id": "tk0166",
+    "q": "What is the best tech stack for a CNC machine shop in 2027?"
+  },
+  {
+    "id": "tk0167",
+    "q": "What is the best tech stack for a limousine or black car service in 2027?"
+  },
+  {
+    "id": "tk0168",
+    "q": "What is the best tech stack for a charter bus or motorcoach company in 2027?"
+  },
+  {
+    "id": "tk0169",
+    "q": "What is the best tech stack for a non-emergency medical transport company in 2027?"
+  },
+  {
+    "id": "tk0170",
+    "q": "What is the best tech stack for a private ambulance or EMS company in 2027?"
+  },
+  {
+    "id": "tk0171",
+    "q": "What is the best tech stack for an auto transport or car hauling company in 2027?"
+  },
+  {
+    "id": "tk0172",
+    "q": "What is the best tech stack for an RV dealership in 2027?"
+  },
+  {
+    "id": "tk0173",
+    "q": "What is the best tech stack for a marine or boat dealer in 2027?"
+  },
+  {
+    "id": "tk0174",
+    "q": "What is the best tech stack for a powersports or motorcycle dealer in 2027?"
+  },
+  {
+    "id": "tk0175",
+    "q": "What is the best tech stack for an HVAC equipment distributor in 2027?"
+  },
+  {
+    "id": "tk0176",
+    "q": "What is the best tech stack for an electrical supply distributor in 2027?"
+  },
+  {
+    "id": "tk0177",
+    "q": "What is the best tech stack for a building materials or lumber yard in 2027?"
+  },
+  {
+    "id": "tk0178",
+    "q": "What is the best tech stack for an auto parts distributor in 2027?"
+  },
+  {
+    "id": "tk0180",
+    "q": "What is the best tech stack for a plastics or injection molding manufacturer in 2027?"
+  },
+  {
+    "id": "tk0181",
+    "q": "What is the best tech stack for a cabinet or millwork manufacturer in 2027?"
+  },
+  {
+    "id": "tk0182",
+    "q": "What is the best tech stack for a photography studio in 2027?"
+  },
+  {
+    "id": "tk0183",
+    "q": "What is the best tech stack for a wedding or event venue in 2027?"
+  },
+  {
+    "id": "tk0184",
+    "q": "What is the best tech stack for a martial arts school in 2027?"
+  },
+  {
+    "id": "tk0185",
+    "q": "What is the best tech stack for a tutoring or learning center in 2027?"
+  },
+  {
+    "id": "tk0186",
+    "q": "What is the best tech stack for a driving school in 2027?"
+  },
+  {
+    "id": "tk0187",
+    "q": "What is the best tech stack for a dance studio in 2027?"
+  },
+  {
+    "id": "tk0188",
+    "q": "What is the best tech stack for a laundromat or dry cleaning business in 2027?"
+  },
+  {
+    "id": "tk0189",
+    "q": "What is the best tech stack for an appliance repair service in 2027?"
+  },
+  {
+    "id": "tk0190",
+    "q": "What is the best tech stack for a computer or IT repair shop in 2027?"
+  },
+  {
+    "id": "tk0191",
+    "q": "What is the best tech stack for a restoration contractor in 2027?"
+  },
+  {
+    "id": "tk0192",
+    "q": "What is the best tech stack for an amusement or water park in 2027?"
+  },
+  {
+    "id": "tk0193",
+    "q": "What is the best tech stack for a marina operator in 2027?"
+  },
+  {
+    "id": "tk0194",
+    "q": "What is the best tech stack for an HOA or community association management company in 2027?"
+  },
+  {
+    "id": "tk0195",
+    "q": "What is the best tech stack for a real estate appraisal firm in 2027?"
+  },
+  {
+    "id": "tk0196",
+    "q": "What is the best tech stack for a home inspection company in 2027?"
+  },
+  {
+    "id": "tk0197",
+    "q": "What is the best tech stack for a land surveying firm in 2027?"
+  },
+  {
+    "id": "tk0198",
+    "q": "What is the best tech stack for a tattoo or body art studio in 2027?"
+  },
+  {
+    "id": "tk0199",
+    "q": "What is the best tech stack for an escape room or attraction in 2027?"
+  },
+  {
+    "id": "tk0200",
+    "q": "What is the best tech stack for a uniform or linen rental service in 2027?"
+  },
+  {
+    "id": "tk0201",
+    "q": "What is the recommended Quick Service Restaurant (QSR) Franchise sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0203",
+    "q": "What is the recommended Cruise Line Operations sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0204",
+    "q": "What is the recommended Casino and Gaming Resort sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0205",
+    "q": "What is the recommended Theme Park and Attraction sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0206",
+    "q": "What is the recommended Health Club and Gym Operations sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0207",
+    "q": "What is the recommended Pharmacy Benefit Manager (PBM) sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0208",
+    "q": "What is the recommended Pet Insurance Carrier sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0210",
+    "q": "What is the recommended Specialty Coffee Shop Chain Operations sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0211",
+    "q": "What is the recommended Online Travel Agency (OTA) sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0212",
+    "q": "What is the recommended Hotel Brand Operations sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0213",
+    "q": "What is the recommended Rideshare and Mobility Marketplace sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0214",
+    "q": "What is the recommended Food Delivery Marketplace sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0216",
+    "q": "What is the recommended Streaming Music Services sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0217",
+    "q": "What is the recommended Esports and Pro Gaming Organization sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0218",
+    "q": "What is the recommended Professional Sports Team Operations sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0219",
+    "q": "What is the recommended Golf Course Operations sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0220",
+    "q": "What is the recommended Ski Resort Operations sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0221",
+    "q": "What is the recommended Wine and Spirits Distribution sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0222",
+    "q": "What is the recommended Craft Beer Brewery sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0223",
+    "q": "What is the recommended Cannabis Retail Dispensary sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0224",
+    "q": "What is the recommended Retail Pharmacy Chain sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0225",
+    "q": "What is the recommended Grocery Retail sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0228",
+    "q": "What is the recommended Penetration Testing Services Firm sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0229",
+    "q": "What is the recommended Managed Detection and Response (MDR) Provider sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0230",
+    "q": "What is the recommended SIEM Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0231",
+    "q": "What is the recommended Zero Trust Network Access (ZTNA) Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0232",
+    "q": "What is the recommended Cyber-Insurance Carrier sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0233",
+    "q": "What is the recommended Vulnerability Management Software Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0234",
+    "q": "What is the recommended Privileged Access Management (PAM) Software Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0235",
+    "q": "What is the recommended CNAPP Cloud-Native Application Protection Platform Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0236",
+    "q": "What is the recommended Email Security Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0237",
+    "q": "What is the recommended Data Loss Prevention (DLP) Software Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0238",
+    "q": "What is the recommended Endpoint Detection and Response (EDR) Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0239",
+    "q": "What is the recommended Threat Intelligence Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0240",
+    "q": "What is the recommended SOC-as-a-Service (SOCaaS) Provider sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0241",
+    "q": "What is the recommended Incident Response (IR) Firm sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0242",
+    "q": "What is the recommended GRC Governance Risk and Compliance Platform Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0243",
+    "q": "What is the recommended DevSecOps Tooling Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0244",
+    "q": "What is the recommended API Security Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0245",
+    "q": "What is the recommended Bot Mitigation Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0246",
+    "q": "What is the recommended Mobile Threat Defense (MTD) Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0247",
+    "q": "What is the recommended OT/ICS Security Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0248",
+    "q": "What is the recommended Hardware Security Module (HSM) Vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0250",
+    "q": "What is the recommended Cybersecurity Channel Partner (MSSP/MSP) sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0251",
+    "q": "What is the recommended LLM API Provider sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0252",
+    "q": "What is the recommended Vector Database vendor sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0253",
+    "q": "What is the recommended AI Observability Platform sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0254",
+    "q": "What is the recommended GenAI / Enterprise RAG Platform sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0255",
+    "q": "What is the recommended GPU Cloud Provider sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0256",
+    "q": "What is the recommended AI Safety / Red Team Services sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0257",
+    "q": "What is the recommended Fine-Tuning Platform sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0258",
+    "q": "What is the recommended Embeddings API sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0259",
+    "q": "What is the recommended Synthetic Data Generation sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0260",
+    "q": "What is the recommended AI Agent Framework sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0261",
+    "q": "What is the recommended AI Eval Platform sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0262",
+    "q": "What is the recommended AI Coding Tools sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0263",
+    "q": "What is the recommended Computer Vision API sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0264",
+    "q": "What is the recommended Speech-to-Text API sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0265",
+    "q": "What is the recommended TTS / Voice AI sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0266",
+    "q": "What is the recommended AI Image Generation sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0267",
+    "q": "What is the recommended AI Video Generation sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0268",
+    "q": "What is the recommended AI Music Generation sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0269",
+    "q": "What is the recommended AI Translation API sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0270",
+    "q": "What is the recommended AI Document Intelligence sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0271",
+    "q": "What is the recommended AI Sales Coaching / Conversation Intelligence sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0272",
+    "q": "What is the recommended AI Customer Support sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0273",
+    "q": "What is the recommended AI Recruiting sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0274",
+    "q": "What is the recommended AI Legal Tools sales and operations tech stack in 2027?"
+  },
+  {
+    "id": "tk0275",
+    "q": "What is the recommended AI Code Review sales and operations tech stack in 2027?"
+  }
+]

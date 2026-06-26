@@ -298,6 +298,154 @@
   to = "/.netlify/functions/pulse-machine-entry?id=:id"
   status = 200
 
+# ─── PILLAR ANSWER ROUTES (added 2026-06-25): every pillar pretty-URL /<path>/<id>
+# routes to the same entry renderer that /knowledge/<id> uses. Fixes site-wide
+# answer-page 404s — pretty pillar URLs had no route; only /knowledge/:id existed.
+[[redirects]]
+  from = "/sales-trainings/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/industry-kpis/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/tech-stacks/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/graphics/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/sales-book-summaries/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/electronic-reviews/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/revenue-architecture/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/go-to-market-playbooks/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/franchises/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/cars/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/collectibles/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/aquariums/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/highschool-football-recruiting/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/towns/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/schools/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/nightlife/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/dining/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/boats/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/movies/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/wellness/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/drills/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/travel/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/resorts/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/estates/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/clubs/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/living/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/events/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/style/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/gatherings/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/gaming/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/skills/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/speeches/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/ai-infrastructure/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/buildouts/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/contracts/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+[[redirects]]
+  from = "/coaching/:id"
+  to = "/.netlify/functions/pulse-machine-entry?id=:id"
+  status = 200
+
 [[redirects]]
   from = "/press-kit"
   to = "/press/press-kit.html"
@@ -316,6 +464,161 @@
 [[redirects]]
   from = "/media"
   to = "/press/press-kit.html"
+  status = 200
+
+# ─── HUB CLEAN-URL ROUTES (2026-06-25): serve /<pillar> from <pillar>.html so the
+# hub pages resolve under CLI deploys (which dont auto-apply Netlify pretty-URLs).
+[[redirects]]
+  from = "/sales-trainings"
+  to = "/sales-trainings.html"
+  status = 200
+[[redirects]]
+  from = "/industry-kpis"
+  to = "/industry-kpis.html"
+  status = 200
+[[redirects]]
+  from = "/tech-stacks"
+  to = "/tech-stacks.html"
+  status = 200
+[[redirects]]
+  from = "/graphics"
+  to = "/graphics.html"
+  status = 200
+[[redirects]]
+  from = "/sales-book-summaries"
+  to = "/sales-book-summaries.html"
+  status = 200
+[[redirects]]
+  from = "/electronic-reviews"
+  to = "/electronic-reviews.html"
+  status = 200
+[[redirects]]
+  from = "/revenue-architecture"
+  to = "/revenue-architecture.html"
+  status = 200
+[[redirects]]
+  from = "/go-to-market-playbooks"
+  to = "/go-to-market-playbooks.html"
+  status = 200
+[[redirects]]
+  from = "/franchises"
+  to = "/franchises.html"
+  status = 200
+[[redirects]]
+  from = "/cars"
+  to = "/cars.html"
+  status = 200
+[[redirects]]
+  from = "/collectibles"
+  to = "/collectibles.html"
+  status = 200
+[[redirects]]
+  from = "/aquariums"
+  to = "/aquariums.html"
+  status = 200
+[[redirects]]
+  from = "/highschool-football-recruiting"
+  to = "/highschool-football-recruiting.html"
+  status = 200
+[[redirects]]
+  from = "/towns"
+  to = "/towns.html"
+  status = 200
+[[redirects]]
+  from = "/schools"
+  to = "/schools.html"
+  status = 200
+[[redirects]]
+  from = "/nightlife"
+  to = "/nightlife.html"
+  status = 200
+[[redirects]]
+  from = "/dining"
+  to = "/dining.html"
+  status = 200
+[[redirects]]
+  from = "/boats"
+  to = "/boats.html"
+  status = 200
+[[redirects]]
+  from = "/movies"
+  to = "/movies.html"
+  status = 200
+[[redirects]]
+  from = "/wellness"
+  to = "/wellness.html"
+  status = 200
+[[redirects]]
+  from = "/drills"
+  to = "/drills.html"
+  status = 200
+[[redirects]]
+  from = "/travel"
+  to = "/travel.html"
+  status = 200
+[[redirects]]
+  from = "/resorts"
+  to = "/resorts.html"
+  status = 200
+[[redirects]]
+  from = "/estates"
+  to = "/estates.html"
+  status = 200
+[[redirects]]
+  from = "/clubs"
+  to = "/clubs.html"
+  status = 200
+[[redirects]]
+  from = "/living"
+  to = "/living.html"
+  status = 200
+[[redirects]]
+  from = "/events"
+  to = "/events.html"
+  status = 200
+[[redirects]]
+  from = "/style"
+  to = "/style.html"
+  status = 200
+[[redirects]]
+  from = "/gatherings"
+  to = "/gatherings.html"
+  status = 200
+[[redirects]]
+  from = "/gaming"
+  to = "/gaming.html"
+  status = 200
+[[redirects]]
+  from = "/skills"
+  to = "/skills.html"
+  status = 200
+[[redirects]]
+  from = "/speeches"
+  to = "/speeches.html"
+  status = 200
+[[redirects]]
+  from = "/ai-infrastructure"
+  to = "/ai-infrastructure.html"
+  status = 200
+[[redirects]]
+  from = "/buildouts"
+  to = "/buildouts.html"
+  status = 200
+[[redirects]]
+  from = "/contracts"
+  to = "/contracts.html"
+  status = 200
+[[redirects]]
+  from = "/coaching"
+  to = "/coaching.html"
+  status = 200
+[[redirects]]
+  from = "/pets"
+  to = "/pets.html"
+  status = 200
+[[redirects]]
+  from = "/software"
+  to = "/software.html"
   status = 200
 
 [[headers]]

@@ -1,0 +1,14 @@
+const fs = require('fs');
+let raw = fs.readFileSync('C:/Users/koryj/website/lab/_liblist_q2153.json', 'utf8');
+if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1);
+const d = JSON.parse(raw);
+const arr = d.entries || [];
+const q = arr.filter(e => e.id && /^q[0-9]+$/.test(e.id));
+const kw = ['laundr','laundromat','dry clean','car wash','vending','franchis','self-storage',' storage','start a','airbnb','coffee','restaurant','gym','pressure wash',' pet ','food truck','small business','cleaning','bakery','salon','barber','retail','sba','window','lawn'];
+const hits = q.filter(e => kw.some(k => (e.question || '').toLowerCase().includes(k)));
+let out = 'TOTAL q-entries: ' + q.length + '\nMATCHED: ' + hits.length + '\n\n';
+hits.forEach(e => { out += e.id + ' :: ' + e.question + '\n'; });
+fs.writeFileSync('C:/Users/koryj/website/lab/_candidates.txt', out);
+const idset = q.map(e => e.id).sort();
+fs.writeFileSync('C:/Users/koryj/website/lab/_allids.txt', idset.join('\n'));
+fs.writeFileSync('C:/Users/koryj/website/lab/_node_status.txt', 'DONE q=' + q.length + ' hits=' + hits.length + '\n');

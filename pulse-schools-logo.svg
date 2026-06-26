@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 810" role="img" aria-label="Pulse Schools">
+  <rect width="1440" height="810" fill="#EBE9DE"/>
+  <defs>
+    <pattern id="stripeS" width="30" height="30" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="30" height="30" fill="#FBF7EF"/>
+      <rect width="15" height="30" fill="#1E40AF"/>
+    </pattern>
+  </defs>
+  <!-- school building (line art) -->
+  <g fill="none" stroke="#1E40AF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M512 250 v150"/>                         <!-- flag pole -->
+    <path d="M470 470 l42 -58 l42 58"/>               <!-- tower roof -->
+    <path d="M482 470 v-30 M542 470 v-30"/>           <!-- tower posts -->
+    <path d="M360 690 v-160 h320 v160"/>              <!-- building body -->
+    <path d="M338 530 l182 -92 l182 92"/>             <!-- main roof -->
+    <path d="M462 690 v-66 a58 58 0 0 1 116 0 v66"/>  <!-- arched door -->
+    <rect x="398" y="556" width="54" height="54"/>     <!-- window L -->
+    <rect x="588" y="556" width="54" height="54"/>     <!-- window R -->
+    <path d="M318 690 h404"/>                          <!-- ground -->
+  </g>
+  <!-- striped flag (lighthouse motif) -->
+  <rect x="512" y="250" width="96" height="60" fill="url(#stripeS)" stroke="#1E40AF" stroke-width="5"/>
+  <!-- wordmark -->
+  <g font-family="'Plus Jakarta Sans','Trebuchet MS',Verdana,sans-serif" font-weight="800" letter-spacing="-2">
+    <text x="852" y="452" font-size="156" fill="#E3C9B8">Pulse</text>
+    <text x="846" y="446" font-size="156" fill="#1E40AF">Pulse</text>
+    <text x="852" y="636" font-size="156" fill="#E3C9B8">Schools</text>
+    <text x="846" y="630" font-size="156" fill="#1E40AF">Schools</text>
+  </g>
+</svg>

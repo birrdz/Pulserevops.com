@@ -1,0 +1,28 @@
+{
+ "ok": true,
+ "dryRun": false,
+ "count": 72,
+ "changed": 0,
+ "keywordPhrases": 200,
+ "hubPing": {
+  "ok": true,
+  "count": 1,
+  "pings": {
+   "indexnow_org": 0,
+   "bing": 429,
+   "yandex": 200
+  }
+ },
+ "hubUrls": [
+  "https://pulserevops.com/collectibles"
+ ],
+ "sample": {
+  "id": "co0001",
+  "ok": true,
+  "changed": false,
+  "tagCount": 213,
+  "keywordCount": 225,
+  "url": "https://pulserevops.com/collectibles/co0001",
+  "indexnow": null
+ }
+}

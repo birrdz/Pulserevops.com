@@ -48,7 +48,29 @@ function claudePost(payload) {
   });
 }
 
+const { isVisitorPriorityActive } = require('./lib/visitor-priority');
+
 exports.handler = async (event) => {
+  /* visitor-priority-injected */
+  try {
+    let __vp_getStore = null;
+    try { __vp_getStore = require('@netlify/blobs').getStore; } catch (_e) {}
+    if (__vp_getStore) {
+      let __vp_store = null;
+      try { __vp_store = __vp_getStore('pulse-machine-library'); }
+      catch (_e) {
+        const __vp_tok = process.env.BLOBS_PAT || process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
+        const __vp_sid = process.env.NETLIFY_SITE_ID || 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
+        if (__vp_tok && __vp_sid) {
+          try { __vp_store = __vp_getStore({ name: 'pulse-machine-library', siteID: __vp_sid, token: __vp_tok }); } catch (_e2) {}
+        }
+      }
+      if (__vp_store && await isVisitorPriorityActive(__vp_store)) {
+        return { statusCode: 200, body: JSON.stringify({ ok: true, paused: 'visitor-priority' }) };
+      }
+    }
+  } catch (_e) {}
+
   let body;
   try { body = JSON.parse(event.body || '{}'); }
   catch (e) { return { statusCode: 400, body: 'bad json' }; }
@@ -162,6 +184,7 @@ exports.handler = async (event) => {
           model: 'claude-haiku-4-5-20251001',
           lab_run: 'visitor-asked',
           source: 'visitor',
+          quality_score: 5,
         });
         // Add to index (read-modify-write)
         try {
@@ -170,7 +193,7 @@ exports.handler = async (event) => {
           const norm = String(message).toLowerCase().replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim();
           const dupe = idx.entries.find(e => String(e.question || '').toLowerCase().replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim() === norm);
           if (!dupe) {
-            idx.entries.unshift({ id: visitorId, question: String(message).slice(0, 320), tags, ts, source: 'visitor' });
+            idx.entries.unshift({ id: visitorId, question: String(message).slice(0, 320), tags, ts, source: 'visitor', quality_score: 5 });
             await libStore.setJSON('_index.json', idx);
           }
         } catch (_eIdx) { /* non-fatal */ }

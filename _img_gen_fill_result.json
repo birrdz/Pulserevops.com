@@ -1,0 +1,15 @@
+{
+ "prefixes": [
+  "ik",
+  "st",
+  "gp",
+  "ra",
+  "vq",
+  "q"
+ ],
+ "engine": "pollinations",
+ "processed": 69,
+ "fixed": 50,
+ "failed": 18,
+ "uniqueImages": 62
+}

@@ -1,0 +1,24 @@
+{
+  "pages": {
+    "fractional-cro.html": {
+      "updated": false,
+      "metaLen": 20637
+    },
+    "fractional-cro-maryland-dc.html": {
+      "updated": false,
+      "metaLen": 20637
+    },
+    "kory-white-maryland.html": {
+      "updated": false,
+      "metaLen": 20637
+    },
+    "cro-syndicate-team.html": {
+      "updated": false,
+      "metaLen": 20637
+    }
+  },
+  "lib": {
+    "path": "C:\\Users\\koryj\\website\\netlify\\functions\\lib\\cro-seo-keywords.js",
+    "count": 708
+  }
+}

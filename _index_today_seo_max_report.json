@@ -1,0 +1,165 @@
+{
+  "ok": true,
+  "date": "2026-06-22",
+  "keywordCount": 708,
+  "seoResults": [
+    {
+      "url": "https://pulserevops.com/fractional-cro",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/fractional-cro-maryland-dc",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/cro-syndicate-team",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/kory-white-maryland",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/tools",
+      "status": 200,
+      "seo": false,
+      "missing": [
+        "jsonLd",
+        "keywords"
+      ],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/highschool-football-recruiting",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/resume",
+      "status": 301,
+      "seo": true,
+      "missing": [],
+      "redirect": true,
+      "note": "301 redirect (expected after removal)"
+    },
+    {
+      "url": "https://pulserevops.com/tools/tl0001",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/tools/tl0100",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/tools/tl0300",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/tools/tl0500",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/tools/tl0660",
+      "status": 200,
+      "seo": true,
+      "missing": [],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/tools/tl0001/reviews",
+      "status": 200,
+      "seo": false,
+      "missing": [
+        "canonical"
+      ],
+      "redirect": false
+    },
+    {
+      "url": "https://pulserevops.com/tools/tl0100/reviews",
+      "status": 200,
+      "seo": false,
+      "missing": [
+        "canonical"
+      ],
+      "redirect": false
+    }
+  ],
+  "sitemapChecks": {
+    "fractional_cro": false,
+    "cro_syndicate": false,
+    "kory_white": true,
+    "tools_hub": true,
+    "tl_tools_path": false,
+    "kory_white_image": false,
+    "no_resume_sitemap": false
+  },
+  "indexUrlCount": 1322,
+  "indexBatches": [
+    {
+      "offset": 0,
+      "count": 500,
+      "ping": {
+        "ok": true,
+        "count": 500,
+        "pings": {
+          "indexnow_org": 429,
+          "bing": 429,
+          "yandex": 200
+        }
+      }
+    },
+    {
+      "offset": 500,
+      "count": 500,
+      "ping": {
+        "ok": true,
+        "count": 500,
+        "pings": {
+          "indexnow_org": 429,
+          "bing": 429,
+          "yandex": 200
+        }
+      }
+    },
+    {
+      "offset": 1000,
+      "count": 322,
+      "ping": {
+        "ok": true,
+        "count": 322,
+        "pings": {
+          "indexnow_org": 429,
+          "bing": 429,
+          "yandex": 200
+        }
+      }
+    }
+  ],
+  "googleNote": "Google discovery via sitemap.xml + sitemap-knowledge.xml + robots.txt. IndexNow covers Bing/Yandex."
+}

@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.t{font-family:'Inter','Helvetica Neue',Arial,sans-serif;fill:var(--ink);}
+.lbl{font-size:22px;font-weight:700;}
+.val{font-size:42px;font-weight:800;}
+.sub{font-size:18px;font-weight:500;opacity:.78;}
+.h{font-size:28px;font-weight:800;}
+.f{font-size:20px;font-weight:700;letter-spacing:.5px;}
+.eq{font-size:46px;font-weight:800;}
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--bg1, #0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2, #0f172a)"/>
+</linearGradient>
+<linearGradient id="qA" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--c1)" stop-opacity=".95"/>
+<stop offset="1" stop-color="var(--c2)" stop-opacity=".95"/>
+</linearGradient>
+<linearGradient id="qB" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--c3)" stop-opacity=".95"/>
+<stop offset="1" stop-color="var(--c1)" stop-opacity=".95"/>
+</linearGradient>
+<linearGradient id="qC" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--c4)" stop-opacity=".95"/>
+<stop offset="1" stop-color="var(--c4b)" stop-opacity=".95"/>
+</linearGradient>
+<linearGradient id="qD" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--c2)" stop-opacity=".95"/>
+<stop offset="1" stop-color="var(--c4)" stop-opacity=".95"/>
+</linearGradient>
+</defs>
+
+<rect width="1584" height="396" fill="url(#bg)"/>
+
+<!-- Header -->
+<text x="48" y="50" class="t h" fill="var(--c3)">Sales Velocity = the speed revenue moves through the funnel</text>
+<text x="48" y="78" class="t sub" fill="var(--c3)">Four levers. Pull any one — pipeline accelerates.</text>
+
+<!-- Formula strip -->
+<g transform="translate(48,330)">
+  <rect x="0" y="0" width="1488" height="44" rx="10" fill="var(--ink)" opacity=".35"/>
+  <text x="24" y="30" class="t f" fill="var(--c3)">FORMULA</text>
+  <text x="160" y="30" class="t f" fill="var(--c1)"># Opps</text>
+  <text x="280" y="32" class="t eq" fill="var(--c3)">×</text>
+  <text x="320" y="30" class="t f" fill="var(--c3)">Avg Deal $</text>
+  <text x="490" y="32" class="t eq" fill="var(--c3)">×</text>
+  <text x="530" y="30" class="t f" fill="var(--c4)">Win Rate %</text>
+  <text x="720" y="32" class="t eq" fill="var(--c3)">÷</text>
+  <text x="760" y="30" class="t f" fill="var(--c4b)">Sales Cycle (days)</text>
+  <text x="1000" y="32" class="t eq" fill="var(--c3)">=</text>
+  <text x="1040" y="30" class="t f" fill="var(--c1)">$ per day of pipeline velocity</text>
+</g>
+
+<!-- Quadrant 1: Opportunities -->
+<g transform="translate(48,100)">
+  <rect x="0" y="0" width="356" height="210" rx="16" fill="url(#qA)"/>
+  <rect x="0" y="0" width="356" height="210" rx="16" fill="none" stroke="var(--ink)" stroke-opacity=".15" stroke-width="2"/>
+  <!-- icon: stacked opportunities -->
+  <g transform="translate(24,30)" stroke="var(--ink)" stroke-width="2.5" fill="none">
+    <rect x="0" y="40" width="60" height="14" rx="3" fill="var(--ink)" opacity=".2"/>
+    <rect x="0" y="22" width="60" height="14" rx="3" fill="var(--ink)" opacity=".35"/>
+    <rect x="0" y="4"  width="60" height="14" rx="3" fill="var(--ink)" opacity=".55"/>
+  </g>
+  <text x="100" y="50" class="t lbl">QUADRANT 1</text>
+  <text x="24" y="118" class="t val"># Opportunities</text>
+  <text x="24" y="150" class="t sub">Qualified deals entering pipeline</text>
+  <text x="24" y="180" class="t sub">Levers: SDR output, inbound MQLs, ICP fit</text>
+</g>
+
+<!-- Quadrant 2: Deal Size -->
+<g transform="translate(424,100)">
+  <rect x="0" y="0" width="356" height="210" rx="16" fill="url(#qB)"/>
+  <rect x="0" y="0" width="356" height="210" rx="16" fill="none" stroke="var(--ink)" stroke-opacity=".15" stroke-width="2"/>
+  <!-- icon: coin stack -->
+  <g transform="translate(24,28)">
+    <ellipse cx="32" cy="60" rx="30" ry="8" fill="var(--ink)" opacity=".55"/>
+    <ellipse cx="32" cy="44" rx="30" ry="8" fill="var(--ink)" opacity=".4"/>
+    <ellipse cx="32" cy="28" rx="30" ry="8" fill="var(--ink)" opacity=".25"/>
+    <text x="22" y="34" class="t lbl" fill="var(--c2)">$</text>
+  </g>
+  <text x="100" y="50" class="t lbl">QUADRANT 2</text>
+  <text x="24" y="118" class="t val">Avg Deal Size</text>
+  <text x="24" y="150" class="t sub">ACV / ARR per closed-won deal</text>
+  <text x="24" y="180" class="t sub">Levers: packaging, multi-product, upmarket</text>
+</g>
+
+<!-- Quadrant 3: Win Rate -->
+<g transform="translate(800,100)">
+  <rect x="0" y="0" width="356" height="210" rx="16" fill="url(#qC)"/>
+  <rect x="0" y="0" width="356" height="210" rx="16" fill="none" stroke="var(--ink)" stroke-opacity=".15" stroke-width="2"/>
+  <!-- icon: target -->
+  <g transform="translate(28,28)" fill="none" stroke="var(--ink)" stroke-width="3">
+    <circle cx="32" cy="32" r="30"/>
+    <circle cx="32" cy="32" r="20"/>
+    <circle cx="32" cy="32" r="10" fill="var(--ink)" opacity=".7"/>
+    <circle cx="32" cy="32" r="3" fill="var(--c1)"/>
+  </g>
+  <text x="100" y="50" class="t lbl">QUADRANT 3</text>
+  <text x="24" y="118" class="t val">Win Rate %</text>
+  <text x="24" y="150" class="t sub">Closed-won ÷ qualified opps</text>
+  <text x="24" y="180" class="t sub">Levers: MEDDPICC, discovery, champion</text>
+</g>
+
+<!-- Quadrant 4: Sales Cycle -->
+<g transform="translate(1176,100)">
+  <rect x="0" y="0" width="360" height="210" rx="16" fill="url(#qD)"/>
+  <rect x="0" y="0" width="360" height="210" rx="16" fill="none" stroke="var(--ink)" stroke-opacity=".15" stroke-width="2"/>
+  <!-- icon: clock -->
+  <g transform="translate(28,28)" fill="none" stroke="var(--ink)" stroke-width="3">
+    <circle cx="32" cy="32" r="28" fill="var(--c4b)"/>
+    <line x1="32" y1="32" x2="32" y2="14"/>
+    <line x1="32" y1="32" x2="48" y2="38"/>
+    <circle cx="32" cy="32" r="3" fill="var(--ink)"/>
+  </g>
+  <text x="100" y="50" class="t lbl">QUADRANT 4</text>
+  <text x="24" y="118" class="t val">Sales Cycle</text>
+  <text x="24" y="150" class="t sub">Days from opp-created to closed-won</text>
+  <text x="24" y="180" class="t sub">Levers: mutual action plan, single-threading kill</text>
+</g>
+
+<!-- divider arrow showing inverse relationship of cycle -->
+<g transform="translate(1140,205)" fill="var(--c3)" opacity=".7">
+  <path d="M0 0 L24 -10 L24 -4 L40 -4 L40 4 L24 4 L24 10 Z"/>
+</g>
+
+</svg>

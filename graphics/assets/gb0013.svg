@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <style>svg{--c1:#22d3ee;--c2:#0e7490;--c3:#a5f3fc;--c4:#34d399;--c4b:#a7f3d0;--ink:#04141a;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1080" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/>
+      <stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.45" r="0.6">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.18"/>
+      <stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="1080" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1080" height="1080" fill="url(#glow)"/>
+
+<text x="540" y="370" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="340" font-weight="900" fill="url(#accent)" opacity="0.9">&#8220;</text>
+
+<text text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="168" font-weight="900" fill="#FFFFFF" letter-spacing="-3">
+    <tspan x="540" y="560">Pipeline</tspan>
+    <tspan x="540" y="720" fill="url(#accent)">cures all.</tspan>
+  </text>
+
+<polyline points="270,818 420,818 464,818 502,752 544,890 584,818 736,818 778,818 816,768 856,866 896,818 810,818"
+    stroke="url(#accent)" fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+
+</svg>

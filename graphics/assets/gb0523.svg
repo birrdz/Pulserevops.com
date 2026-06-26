@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}</style>
+<defs>
+<linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="var(--bg1,#0b0f17)"/>
+<stop offset="1" stop-color="var(--bg2,#0f172a)"/>
+</linearGradient>
+<linearGradient id="stepGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c1)" stop-opacity="0.95"/>
+<stop offset="1" stop-color="var(--c2)" stop-opacity="0.95"/>
+</linearGradient>
+<linearGradient id="finalGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="var(--c4)"/>
+<stop offset="1" stop-color="var(--c4b)"/>
+</linearGradient>
+<marker id="arr" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto">
+<path d="M0 0 L12 6 L0 12 Z" fill="var(--c3)"/>
+</marker>
+</defs>
+
+<rect width="1584" height="396" fill="url(#bgGrad)"/>
+
+<!-- Title -->
+<text x="792" y="50" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="var(--c3)">Discovery Call Flow</text>
+<text x="792" y="78" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="500" fill="var(--c3)" opacity="0.75">From rapport to committed next step in six stages</text>
+
+<!-- Connecting backbone line -->
+<line x1="120" y1="220" x2="1464" y2="220" stroke="var(--c2)" stroke-width="3" stroke-dasharray="6,8" opacity="0.55"/>
+
+<!-- STAGE 1: OPEN -->
+<g>
+<circle cx="160" cy="220" r="58" fill="url(#stepGrad)" stroke="var(--c3)" stroke-width="3"/>
+<text x="160" y="208" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="var(--ink)">01</text>
+<text x="160" y="234" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="var(--ink)">OPEN</text>
+<text x="160" y="310" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Rapport &amp; Agenda</text>
+<text x="160" y="334" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" fill="var(--c3)" opacity="0.8">5 min</text>
+<text x="160" y="356" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="var(--c3)" opacity="0.7">Confirm time, set agenda</text>
+</g>
+
+<!-- Arrow 1 -->
+<line x1="222" y1="220" x2="358" y2="220" stroke="var(--c3)" stroke-width="3" marker-end="url(#arr)" opacity="0.85"/>
+
+<!-- STAGE 2: CONTEXT -->
+<g>
+<circle cx="400" cy="220" r="58" fill="url(#stepGrad)" stroke="var(--c3)" stroke-width="3"/>
+<text x="400" y="208" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="var(--ink)">02</text>
+<text x="400" y="234" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="var(--ink)">CONTEXT</text>
+<text x="400" y="310" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Current State</text>
+<text x="400" y="334" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" fill="var(--c3)" opacity="0.8">10 min</text>
+<text x="400" y="356" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="var(--c3)" opacity="0.7">Team, stack, process today</text>
+</g>
+
+<!-- Arrow 2 -->
+<line x1="462" y1="220" x2="598" y2="220" stroke="var(--c3)" stroke-width="3" marker-end="url(#arr)" opacity="0.85"/>
+
+<!-- STAGE 3: PAIN -->
+<g>
+<circle cx="640" cy="220" r="58" fill="url(#stepGrad)" stroke="var(--c3)" stroke-width="3"/>
+<text x="640" y="208" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="var(--ink)">03</text>
+<text x="640" y="234" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="var(--ink)">PAIN</text>
+<text x="640" y="310" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Problems &amp; Gaps</text>
+<text x="640" y="334" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" fill="var(--c3)" opacity="0.8">10 min</text>
+<text x="640" y="356" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="var(--c3)" opacity="0.7">What is broken, why now</text>
+</g>
+
+<!-- Arrow 3 -->
+<line x1="702" y1="220" x2="838" y2="220" stroke="var(--c3)" stroke-width="3" marker-end="url(#arr)" opacity="0.85"/>
+
+<!-- STAGE 4: IMPACT -->
+<g>
+<circle cx="880" cy="220" r="58" fill="url(#stepGrad)" stroke="var(--c3)" stroke-width="3"/>
+<text x="880" y="208" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="var(--ink)">04</text>
+<text x="880" y="234" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="var(--ink)">IMPACT</text>
+<text x="880" y="310" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Quantify Cost</text>
+<text x="880" y="334" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" fill="var(--c3)" opacity="0.8">10 min</text>
+<text x="880" y="356" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="var(--c3)" opacity="0.7">Revenue, hours, risk lost</text>
+</g>
+
+<!-- Arrow 4 -->
+<line x1="942" y1="220" x2="1078" y2="220" stroke="var(--c3)" stroke-width="3" marker-end="url(#arr)" opacity="0.85"/>
+
+<!-- STAGE 5: DECISION PROCESS -->
+<g>
+<circle cx="1120" cy="220" r="58" fill="url(#stepGrad)" stroke="var(--c3)" stroke-width="3"/>
+<text x="1120" y="206" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="var(--ink)">05</text>
+<text x="1120" y="228" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="var(--ink)">DECISION</text>
+<text x="1120" y="244" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="var(--ink)">PROCESS</text>
+<text x="1120" y="310" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="var(--c3)">Buyers &amp; Budget</text>
+<text x="1120" y="334" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" fill="var(--c3)" opacity="0.8">8 min</text>
+<text x="1120" y="356" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="var(--c3)" opacity="0.7">Who signs, criteria, timeline</text>
+</g>
+
+<!-- Arrow 5 -->
+<line x1="1182" y1="220" x2="1318" y2="220" stroke="var(--c4)" stroke-width="3" marker-end="url(#arr)" opacity="0.95"/>
+
+<!-- STAGE 6: NEXT STEP (gold/final) -->
+<g>
+<circle cx="1360" cy="220" r="62" fill="url(#finalGrad)" stroke="var(--c4b)" stroke-width="4"/>
+<text x="1360" y="206" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="var(--ink)">06</text>
+<text x="1360" y="228" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="var(--ink)">NEXT</text>
+<text x="1360" y="246" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="var(--ink)">STEP</text>
+<text x="1360" y="310" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="var(--c4b)">Commit &amp; Calendar</text>
+<text x="1360" y="334" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" fill="var(--c4b)" opacity="0.9">5 min</text>
+<text x="1360" y="356" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="var(--c4b)" opacity="0.85">Book demo on the call</text>
+</g>
+
+<!-- Footer hint bar -->
+<rect x="120" y="106" width="1344" height="34" rx="17" fill="var(--c2)" opacity="0.18"/>
+<text x="792" y="129" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="600" fill="var(--c3)" letter-spacing="1">48 MINUTE STRUCTURE  -  EARN THE RIGHT TO ADVANCE AT EACH GATE</text>
+</svg>

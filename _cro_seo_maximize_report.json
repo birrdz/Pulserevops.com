@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "dryRun": false,
+  "stats": {
+    "cro": 311,
+    "revops": 2242,
+    "skipped": 3497,
+    "updated": 2553,
+    "indexnow_ok": 2553
+  },
+  "staticPing": {
+    "ok": true,
+    "count": 8,
+    "pings": {
+      "indexnow_org": 429,
+      "bing": 429,
+      "yandex": 200
+    }
+  },
+  "staticUrls": [
+    "https://pulserevops.com/fractional-cro",
+    "https://pulserevops.com/fractional-cro-maryland-dc",
+    "https://pulserevops.com/cro-syndicate-team",
+    "https://pulserevops.com/cro-syndicate",
+    "https://pulserevops.com/knowledge",
+    "https://pulserevops.com/revenue-architecture",
+    "https://pulserevops.com/go-to-market-playbooks",
+    "https://pulserevops.com/sales-trainings"
+  ]
+}

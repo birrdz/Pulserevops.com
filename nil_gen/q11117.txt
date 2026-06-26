@@ -1,0 +1,108 @@
+QUESTION: What are Mississippi State Bulldogs football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Mississippi State Bulldogs football enters 2027 needing roughly $9 to $10 million in NIL and revenue-share spend to climb out of the SEC cellar, with the top priority being a proven SEC quarterback, a rebuilt edge-rusher room, and three plug-and-play offensive linemen who can pass-protect from week one. Jeff Lebby returns for year three after a 5-8 finish in 2025 that included a 1-7 SEC record and a Duke's Mayo Bowl loss to Wake Forest, so the Bulldog Initiative collective and the State Excellence NIL fund have to convert money into wins quickly or the seat gets hot. The Bulldog Initiative's roughly $6.48 million annual budget sits mid-pack in the SEC, well behind the $7.5 to $12 million pools at Texas A&M and Tennessee, which means Starkville cannot win bidding wars and has to win fit wars instead. The 2027 strategy is straightforward: protect the eight returning foundation players who did not enter the portal in 2026, stack revenue-share dollars on three or four position-of-need transfers, and use Mississippi roots and the Adidas school store partnership to lock high-school talent before the bigger checkbooks arrive in late December.
+
+## The 2026 Baseline Lebby Inherits Going Into 2027
+
+Year two of the Jeff Lebby era ended at 5-8 overall and 1-7 in SEC play, with the lone league win coming against Arkansas on November 1, 2025 and the season closing in a 43-29 bowl loss to Wake Forest. That record produced two simultaneous truths that shape the 2027 NIL plan. First, the roster needed a near-total overhaul, and Lebby executed it by bringing in 24 transfers for the 2026 cycle, 20 of them from Power Four programs and 10 from inside the SEC, a class that ranked 35th nationally and 15th in the conference per 247Sports. Second, and this is the part that matters most for 2027 budgeting, Mississippi State did not lose a single projected starter to the portal after the 2025 season. Foundational pieces stayed, which is the clearest possible signal that the Bulldog Initiative and the revenue-share pool are at least competitive on retention even if they cannot lead the league on acquisition. The 2027 plan has to lean on that retention strength because chasing five-star portal arms against Texas or Georgia simply is not financially survivable.
+
+### Quarterback: The Position That Eats the Budget
+
+The 2026 room has AJ Swann from Appalachian State, a veteran with 18 career starts across App State, LSU, and Vanderbilt, plus Jaden Rashada from Sacramento State as the higher-upside developmental piece. Neither is a guaranteed 2027 SEC answer, and Swann will be out of eligibility. The 2027 NIL ask at quarterback should run $1.5 to $2 million for a returning veteran or a portal arm with two years of Power Four starts, because asking the offensive line and receiver rooms to carry a third-string-caliber quarterback for a third straight season in SEC play is how five-win seasons become four-win seasons and four-win seasons become coaching searches.
+
+## The 2027 NIL Need List in Priority Order
+
+Going position by position, here is where the money actually has to go and why.
+
+1. **Quarterback (priority one)**: $1.5 to $2 million for one starter-grade arm. The 2026 plan of two transfer competitors is fine for one cycle, but the 2027 roster has to feature one clear QB1 with at least one full year of SEC reps and a backup who can win a game without scheme collapse.
+2. **Edge rusher (priority two)**: $1.2 to $1.8 million for two proven SEC-or-equivalent edges. The 2025 defense gave up too many late-game scoring drives and the 1-7 SEC record is mostly a fourth-quarter pass-rush problem.
+3. **Interior offensive line (priority three)**: $1.5 to $2 million for three immediate-start interior linemen. The 2026 cycle already churned eight offensive linemen in and eight out, which keeps the room young. Stability beats churn here.
+4. **Wide receiver depth (priority four)**: $600,000 to $900,000 layered on top of returner Marquis Johnson, the Missouri transfer who arrived with 1,000-plus career yards.
+5. **Cornerback (priority five)**: $800,000 to $1.2 million for one starter and one rotational piece in a league where every passing offense throws for 300-plus.
+6. **High school class anchor (priority six)**: $500,000 to $800,000 reserved for two in-state Mississippi recruits the staff cannot afford to let cross the state line.
+
+Total 2027 spend lands between $6.1 and $8.7 million on football alone, which sits right at the realistic ceiling of what the Bulldog Initiative plus revenue share can deliver without burning future cycles.
+
+```mermaid
+flowchart TD
+    A[2027 NIL Budget Pool] --> B[Quarterback Tier]
+    A --> C[Trench Tier]
+    A --> D[Skill And Coverage Tier]
+    A --> E[High School Anchor Tier]
+    B --> F[One Starter Grade QB]
+    B --> G[One Developmental QB]
+    C --> H[Two Edge Rushers]
+    C --> I[Three Interior Linemen]
+    D --> J[Wide Receiver Depth]
+    D --> K[Two Cornerbacks]
+    E --> L[Two In State Recruits]
+    F --> M[Win Number Six]
+    H --> M
+    I --> M
+    K --> M
+    M --> N[Lebby Returns For 2028]
+```
+
+## Where the Money Actually Comes From
+
+Three separate revenue streams feed the 2027 plan and they do not behave the same way. The Bulldog Initiative was unveiled in May 2022 by founder Charlie Winfield, a 1994 Mississippi State graduate, and operates as a third-party organization unaffiliated with the university itself. The collective's roughly $6.48 million annual budget runs on member dues, corporate sponsorships, and merchandise revenue through the Mississippi State NIL Store partnership. The State Excellence NIL fund, established by an $8 million gift in September 2024, adds a separate university-side pool that can be deployed across sports. And starting with the house settlement era, direct revenue sharing adds a third bucket that universities pay athletes directly, which functionally raises the per-player ceiling without forcing the collective to grow at the same pace.
+
+### The Cohen Departure Lesson
+
+When former athletic director John Cohen left for Auburn, the Bulldog Initiative gained more than 800 new members in the five days between the announcement and the next football game against Auburn. That membership spike is the single most important data point in Starkville's NIL story because it proved fan-base mobilization at scale is possible without a national playoff run or a top-15 ranking. The 2027 plan has to replicate that mobilization energy on purpose, probably through a fall membership drive timed to the SEC schedule release.
+
+## How the Revenue-Share Cap Reshapes Starkville's Budget
+
+The 2026-27 cycle is the first full season under the House v. NCAA settlement, which took effect July 1, 2025 and lets opted-in schools share roughly $20.5 million directly with athletes across all sports. For Mississippi State, that direct revenue-share pool is the single most important structural change to the budget because it gives Jeff Lebby a university-controlled funding floor that does not depend on the Bulldog Initiative's annual membership swings. Football claims the dominant share of that pool at an SEC program, which means the roughly $9-10 million total football spend the 2027 plan calls for is now stacked from three sources rather than one: the revenue-share allocation as the base, the Bulldog Initiative's roughly $6.48 million collective layer on top, and the State Excellence NIL fund seeded by the $8 million 2024 gift as a cross-sport reserve.
+
+This stacking matters most for the retention thesis. Mississippi State's headline 2026 achievement — losing zero projected starters to the portal after a 5-8 season — only happened because the revenue-share offers matched what those players could command elsewhere. The cap actually helps a mid-pack SEC program here: because every opt-in rival shares the identical $20.5 million ceiling, Texas A&M and Tennessee cannot use the direct-pay bucket to lap Starkville the way bottomless booster collectives once did. The gap between Mississippi State and the top of the SEC narrows on the revenue-share line and only widens again on third-party collective money, which is precisely where the Bulldog Initiative's membership drives — like the 800-member spike during the Cohen departure — have to do their work.
+
+The settlement's NIL Go clearinghouse, the Deloitte-run review of third-party deals above $600 for fair-market value, reinforces the fit-over-stars strategy. The Bulldog Initiative's revenue runs on member dues, corporate sponsorships, and the Mississippi State NIL Store merchandise partnership — all legitimate, documentable commercial activity that clears a fair-market-value review cleanly. A deal built on a real Starkville-area business buying real appearances and merchandise endorsement survives scrutiny; an opaque booster payment does not. For a program that has to win fit wars rather than bidding wars, the compliance regime is an unexpected ally: it caps the advantage of the deep-pocketed collectives Mississippi State could never outspend anyway.
+
+## The Strategy That Actually Threads the Needle
+
+Mississippi State cannot outspend the top of the SEC, so the 2027 strategy is built around three principles that the staff has already demonstrated they can execute. First, retain the foundation, which the 2026 cycle proved is achievable when the revenue-share offer matches the player's market. Second, concentrate portal dollars on two or three positions per cycle rather than spreading thinly across eight, because a $300,000 offer at one position beats two $150,000 offers nobody accepts. Third, lean into the Mississippi pipeline for high school recruiting where the Bulldogs have geographic and emotional advantages that Tennessee and Texas A&M cannot replicate with a checkbook.
+
+```mermaid
+flowchart TD
+    A[Bulldog Initiative Collective] --> D[2027 Roster Build]
+    B[State Excellence NIL Fund] --> D
+    C[University Revenue Share] --> D
+    D --> E[Retain Eight Foundation Starters]
+    D --> F[Sign Three Priority Transfers]
+    D --> G[Lock Two In State Recruits]
+    E --> H[Year Three Lebby Roster]
+    F --> H
+    G --> H
+    H --> I[Target Six Plus Wins]
+    H --> J[One SEC Road Win Minimum]
+    I --> K[Program Stability Through 2028]
+    J --> K
+```
+
+The 2027 win number almost certainly sits at six victories with at least one quality SEC road win, and the NIL plan above is calibrated to hit exactly that mark. Anything less and the conversation in Starkville turns from roster construction to coaching searches, which is the most expensive NIL problem of all.
+
+## FAQ
+
+**Who is Mississippi State's head coach going into 2027?**
+Jeff Lebby, entering his third season after a 5-8 finish in 2025 (1-7 in the SEC) that ended with a 43-29 Duke's Mayo Bowl loss to Wake Forest. The lone 2025 SEC win came against Arkansas on November 1.
+
+**What is the Bulldog Initiative and how big is its budget?**
+The Bulldog Initiative is Mississippi State's NIL collective, unveiled in May 2022 by founder Charlie Winfield, a 1994 MSU graduate. It operates independently of the university on roughly a $6.48 million annual budget funded by member dues, corporate sponsorships, and NIL Store merchandise revenue — mid-pack in the SEC.
+
+**How does the revenue-share cap change Mississippi State's NIL math?**
+Under the House settlement effective July 1, 2025, opt-in schools share roughly $20.5 million directly with athletes across all sports, with football taking the dominant share. That gives Lebby a stable university-controlled base stacked beneath the Bulldog Initiative collective layer and the State Excellence NIL fund, and because every SEC rival shares the same ceiling, the cap narrows the gap on direct pay even if collective money still favors Texas A&M and Tennessee.
+
+**What is the realistic 2027 win target for Mississippi State?**
+Six wins with at least one quality SEC road victory. The roughly $6.1-8.7 million football NIL plan is calibrated to that mark; anything less likely shifts the conversation in Starkville from roster construction to a coaching search.
+
+Sources:
+- [The Bulldog Initiative: NIL Rights for MSU Student-Athletes](https://bulldoginitiative.com/)
+- [Mississippi State NIL collective takes off, what's next - The Dispatch](https://cdispatch.com/sports/mississippi-states-nil-collective-has-taken-off-heres-whats-next-for-the-bulldog-initiative/)
+- [How Mississippi State used portal to change every position but one - Yahoo Sports](https://sports.yahoo.com/articles/mississippi-state-football-used-portal-110215508.html)
+- [2025 Mississippi State Bulldogs football team - Wikipedia](https://en.wikipedia.org/wiki/2025_Mississippi_State_Bulldogs_football_team)
+- [Mississippi State Football Transfer Portal Tracker 2026 - On3](https://www.on3.com/teams/mississippi-state-bulldogs/news/mississippi-state-football-transfer-portal-tracker/)
+- [Jeff Lebby - Wikipedia](https://en.wikipedia.org/wiki/Jeff_Lebby)

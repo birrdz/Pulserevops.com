@@ -1,0 +1,93 @@
+![What are Liberty Flames football's 2027 NIL needs and strategy?](https://images.sidearmdev.com/resize?url=https:%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Flibertyuni.sidearmsports.com%2Fimages%2F2025%2F6%2F25%2Fathletics-sparkyphotoforNILpressrelease-2025.jpg&width=1600&type=jpeg)
+
+# What are Liberty Flames football's 2027 NIL needs and strategy?
+
+## Direct Answer
+
+Liberty Flames football enters the 2027 NIL cycle as a wounded program with a sharpened mandate. After a 4-8 finish in 2025 — the program's first losing record in two decades — head coach Jamey Chadwell needs roughly $4 to $6 million in combined revenue-share plus collective dollars to rebuild a roster gutted by 31 portal departures and the loss of dual-threat quarterback Kaidon Salter. The strategy is narrow and disciplined: pour the largest share into a proven transfer quarterback and three offensive line starters, protect freshman Ethan Houck as a developmental QB2, and use Flames Rising NIL Collective (powered by A Sea of Red) as the booster engine while Liberty Athletics layers in House-settlement revenue-share contracts on top. Liberty cannot outspend SEC programs, but it can out-target them by concentrating dollars on six to eight roster spots that single-handedly decide whether the Flames return to bowl eligibility.
+
+## Where Liberty Stands Entering 2027
+
+The 2025 season ended badly. A 4-8 overall record, 3-5 in Conference USA, snapped a two-decade streak of winning campaigns and triggered a coaching-staff reshuffle that Chadwell completed in February 2026 with the addition of Cory Peoples and a pair of internal promotions. Chadwell himself missed the late offseason after a treatable medical procedure but returned in time for spring practice. The optics matter for NIL because donors fund momentum, and Liberty has none right now. Flames Rising, the official collective stood up with help from A Sea of Red, was designed as a general-fund vehicle pooling booster, alumni, and fan contributions and distributing them through an advisory committee. That structure worked when Liberty was winning ten games a year under Hugh Freeze and the early Chadwell era. It is being stress-tested now.
+
+```mermaid
+flowchart TD
+    A[Flames Rising Collective] --> B[General Fund Pool]
+    C[House Settlement Rev-Share Cap] --> D[Liberty Athletics Direct Pay]
+    B --> E[Advisory Committee Allocation]
+    D --> E
+    E --> F[Quarterback Room]
+    E --> G[Offensive Line]
+    E --> H[Edge Rush & Secondary]
+    E --> I[Skill Position Depth]
+    F --> J[2027 Roster Build]
+    G --> J
+    H --> J
+    I --> J
+```
+
+## The Five Position Needs Driving the 2027 NIL Budget
+
+**1. Veteran transfer quarterback.** Salter is gone to the portal. Backup Miles McEachin entered the portal as well. True freshman Ethan Houck — rated by 247Sports as the fourth-highest recruit in program history — arrives from Brunswick, Maryland, but throwing him onto the field as a true freshman starter behind a rebuilt line invites another losing season. Appalachian State transfer Ryan Burger and redshirt Jayden Bradford fill the QB2 and QB3 roles, but Liberty needs to spend roughly $750,000 to $1.2 million on a proven Group of Five or mid-major Power Four transfer QB who can start sixteen weeks and let Houck redshirt or backup.
+
+**2. Three offensive line starters.** The Flames' 4-8 collapse was driven in equal parts by injuries and a porous front. Three new starters at guard and tackle, drawn from the transfer portal, will cost an estimated $300,000 to $500,000 apiece in combined rev-share and collective NIL.
+
+**3. Edge rushers.** Conference USA's offensive identity is tempo and spread, and Liberty's pass-rush production cratered in 2025. Two edge transfers in the $200,000-to-$350,000 range each are non-negotiable.
+
+**4. Cornerback depth.** The secondary surrendered explosive plays at a rate inconsistent with Chadwell's defensive philosophy. One starter-grade corner and two developmental signees keep this position from becoming a yearly hole.
+
+**5. Slot receiver and tight end.** Chadwell's RPO-heavy offense lives or dies on slot mismatches. One veteran slot and one transfer tight end in the $150,000-to-$250,000 band round out the priority list.
+
+## The Strategy: Concentrate, Don't Spread
+
+The temptation for a mid-tier program with a wounded roster is to chase volume — sign twenty-five transfers, hand out small NIL checks, and hope the law of averages produces ten wins. That strategy has failed at every program that tried it from 2023 onward. Liberty's strategy under Chadwell and the Flames Rising leadership should be the opposite: concentrate roughly seventy percent of the NIL budget on the six to eight roster spots above, accept smaller deals for the remaining thirty positions, and treat the high school class as a developmental pipeline rather than an immediate-impact pool.
+
+The math works because Liberty's revenue ceiling is real. The House settlement caps direct school-paid revenue share at roughly $20.5 million across all sports for participating institutions, of which football typically absorbs seventy-five percent — call it $15 million on the high end if Liberty opts in fully, likely closer to $10 to $12 million given the athletic department's broader portfolio. Flames Rising adds collective dollars on top, but the collective is not bottomless. USF's NIL collective shut down in April 2026 specifically because universities moved to direct-pay models and donors stopped writing checks to redundant vehicles. Liberty must avoid that fate by giving Flames Rising a defined, complementary role: roster-specific deals, appearance fees, and brand-building campaigns that the school's compliance-bound rev-share cannot legally fund.
+
+## How the House Settlement and NIL Go Constrain the Plan
+
+Every dollar Liberty moves in 2027 runs through machinery that did not exist when Flames Rising launched. The House v. NCAA settlement, given final approval by Judge Claudia Wilken in June 2025 and effective July 1, 2025, did two things at once: it set aside roughly $2.8 billion in back-pay damages for athletes dating to 2016, and it authorized schools to pay athletes directly under an annual cap that started near $20.5 million for 2025-26 and rises about four percent each year, pushing the 2027-28 ceiling toward the $22 million to $23 million range. Liberty's decision is not whether the cap exists but how aggressively to fund toward it given a broader athletic budget that supports a large Olympic-sports footprint.
+
+The second piece of machinery is NIL Go, the Deloitte-operated clearinghouse run through the College Sports Commission, the enforcement body the four power conferences created to police the new system. Any NIL deal of $600 or more between an athlete and a third party must be submitted for review, and the clearinghouse tests whether the deal serves a valid business purpose and whether the dollar figure falls inside a defensible range for that athlete's market. For a program like Liberty, this is actually an advantage worth selling: a transfer quarterback weighing Liberty against a school promising vague booster money can be shown a clean, compliant term sheet that will survive review, rather than a handshake number that could be flagged and clawed back. Flames Rising deals have to be structured as genuine endorsements, appearances, and licensing arrangements precisely so they clear NIL Go without friction.
+
+## The Donor and Brand Pitch
+
+Liberty's NIL fundraising pitch in 2027 has to lean into three differentiators that Power Four collectives cannot match: the largest Christian-university athletic platform in the country, a debt-free institution with a $2 billion-plus endowment that signals long-term stability, and a coaching staff whose track record (Chadwell at Coastal Carolina, the Hugh Freeze legacy, the FBS-transition success) gives transfers a credible path to NFL evaluation. The pitch to a transfer quarterback weighing Liberty against a Sun Belt or American program is not just dollars — it is reps, scheme fit, NFL-style passing concepts, and a fan base of 17,000-plus that fills Williams Stadium even in losing seasons.
+
+```mermaid
+flowchart TD
+    A[2027 NIL Strategy] --> B[Concentrated Spend 70%]
+    A --> C[Developmental Spend 30%]
+    B --> D[Transfer QB $1M]
+    B --> E[OL Trio $1.2M]
+    B --> F[Edge Pair $600K]
+    B --> G[CB Starter $400K]
+    C --> H[HS Signees]
+    C --> I[Walk-On Bonuses]
+    C --> J[Returning Player Retention]
+    D --> K[Bowl-Eligible 2027]
+    E --> K
+    F --> K
+    G --> K
+    H --> L[2028-29 Pipeline]
+```
+
+## What Success Looks Like in 2027
+
+A successful 2027 NIL cycle for Liberty does not mean a top-25 finish. It means seven wins, a returned bowl bid, a quarterback room with one experienced starter and a developing Houck, and a Flames Rising Collective that finished the calendar year with more donors than it started — not necessarily more dollars per donor, but a broader base that survives the next losing season if one comes. The trap to avoid is the boom-bust cycle that has killed mid-major collectives across the country. Disciplined concentration on six positions, transparent reporting back to donors, and a head coach who has now publicly committed to the rebuild give Liberty a realistic path back to the Conference USA title race by 2028.
+
+## Execution Risks to Watch
+
+Three risks could derail the plan. The first is collective fragmentation: if a parallel booster vehicle pops up outside the Flames Rising umbrella, donor dollars split and the advisory committee loses leverage on big-ticket quarterback deals. Liberty's leadership should publicly endorse Flames Rising as the single front-door collective. The second risk is portal timing. Liberty has historically signed transfers in the second wave, after Power Four boards have set. For a $1 million quarterback investment to land, the recruiting staff has to be in the first wave with NIL term sheets ready before the visit ends. The third risk is retention. The 31 portal departures after 2025 included starters Liberty could have kept for the cost of a modest retention bonus — a $300,000 retention pool in $15,000-to-$40,000 increments is cheaper than re-buying replacements at transfer prices.
+
+## Frequently Asked Questions
+
+**Why does Liberty prioritize a transfer quarterback over playing freshman Ethan Houck right away?**
+
+Houck is the fourth-highest-rated recruit in program history, but a true freshman starting behind three rebuilt offensive-line spots is the fastest route to a second straight losing season, which would further erode donor confidence in Flames Rising. Spending roughly $750,000 to $1.2 million on a proven multi-year starter buys a stable 2027 while Houck develops as QB2, protecting both the win total and the long-term quarterback investment rather than gambling the season on a freshman's learning curve.
+
+**How does Liberty avoid the collective collapse that shut down USF's NIL vehicle in April 2026?**
+
+USF's collective folded because direct-pay revenue share made a redundant general fund pointless and donors stopped contributing. Liberty's answer is to give Flames Rising a non-overlapping job: appearance fees, licensing, and genuine endorsement deals that clear NIL Go review and that the school's capped revenue-share dollars cannot legally cover. By making the collective complementary rather than duplicative, and by publicly endorsing it as the single front-door vehicle, Liberty keeps the donor base intact even as direct-pay grows.
+
+Sources: libertyflames.com Chadwell statement January 2026; libertyflames.com 2026 staff completion February 2026; Wikipedia 2025 Liberty Flames football team; ESPN Kaidon Salter portal report; Recruiting News Guru McEachin portal report; A Sea of Red Flames Rising launch; On3 Flames Rising collective profile; WUSF USF collective shutdown April 2026; ncaa.org and apnews.com on the House v. NCAA settlement, the $20.5M revenue-share cap, and the NIL Go clearinghouse.

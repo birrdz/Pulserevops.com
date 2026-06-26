@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;}
+.bg{fill:var(--bg1,#0b0f17);}
+.bg2{fill:var(--bg2,#0f172a);}
+.title{font-family:'Inter',system-ui,sans-serif;font-size:22px;font-weight:700;fill:var(--c3);}
+.sub{font-family:'Inter',system-ui,sans-serif;font-size:14px;fill:var(--c3);opacity:.7;}
+.label{font-family:'Inter',system-ui,sans-serif;font-size:18px;font-weight:600;fill:var(--ink);}
+.labelL{font-family:'Inter',system-ui,sans-serif;font-size:19px;font-weight:700;fill:var(--ink);}
+.branch{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:700;fill:var(--c4b);}
+.pill{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;fill:var(--ink);}
+.flow{stroke:var(--c1);stroke-width:3;fill:none;}
+.flowY{stroke:var(--c4);stroke-width:3;fill:none;stroke-dasharray:6 4;}
+</style>
+<rect class="bg" width="1584" height="396"/>
+<rect class="bg2" x="0" y="0" width="1584" height="64"/>
+<text class="title" x="32" y="38">Lead Routing Logic Diagram</text>
+<text class="sub" x="32" y="56">Territory check → Account-owner check → SDR queue → AE assignment</text>
+
+<!-- Inbound lead start -->
+<rect x="32" y="170" width="160" height="64" rx="32" fill="var(--c2)" stroke="var(--c1)" stroke-width="2"/>
+<text class="labelL" x="112" y="208" text-anchor="middle">Inbound Lead</text>
+
+<!-- Arrow 1 -->
+<path class="flow" d="M192 202 L256 202"/>
+<polygon points="256,196 268,202 256,208" fill="var(--c1)"/>
+
+<!-- Decision 1: Territory check (diamond) -->
+<polygon points="380,202 268,138 380,202 268,266" fill="var(--c4)" stroke="var(--c4b)" stroke-width="2"/>
+<polygon points="380,138 268,202 380,266 492,202" fill="var(--c4)" stroke="var(--c4b)" stroke-width="2"/>
+<text class="label" x="380" y="198" text-anchor="middle">Territory</text>
+<text class="label" x="380" y="218" text-anchor="middle">Match?</text>
+
+<!-- Branch labels under diamond 1 -->
+<text class="branch" x="500" y="194">YES</text>
+<text class="branch" x="380" y="290" text-anchor="middle">NO</text>
+
+<!-- Arrow YES from D1 -->
+<path class="flow" d="M492 202 L556 202"/>
+<polygon points="556,196 568,202 556,208" fill="var(--c1)"/>
+
+<!-- Arrow NO from D1 down to unassigned queue -->
+<path class="flowY" d="M380 266 L380 332"/>
+<polygon points="374,332 380,344 386,332" fill="var(--c4)"/>
+
+<!-- Unassigned / round-robin pill -->
+<rect x="280" y="344" width="200" height="40" rx="20" fill="var(--c3)" stroke="var(--c4)" stroke-width="2"/>
+<text class="pill" x="380" y="370" text-anchor="middle">Round-Robin Queue</text>
+
+<!-- Decision 2: Account owner check -->
+<polygon points="680,202 568,138 680,202 568,266" fill="var(--c4)" stroke="var(--c4b)" stroke-width="2"/>
+<polygon points="680,138 568,202 680,266 792,202" fill="var(--c4)" stroke="var(--c4b)" stroke-width="2"/>
+<text class="label" x="680" y="198" text-anchor="middle">Account</text>
+<text class="label" x="680" y="218" text-anchor="middle">Owner?</text>
+
+<text class="branch" x="800" y="194">NO</text>
+<text class="branch" x="680" y="290" text-anchor="middle">YES</text>
+
+<!-- Arrow YES (has owner) goes down to AE direct -->
+<path class="flowY" d="M680 266 L680 332"/>
+<polygon points="674,332 680,344 686,332" fill="var(--c4)"/>
+
+<rect x="580" y="344" width="200" height="40" rx="20" fill="var(--c3)" stroke="var(--c4)" stroke-width="2"/>
+<text class="pill" x="680" y="370" text-anchor="middle">Route to Owner</text>
+
+<!-- Arrow NO from D2 -->
+<path class="flow" d="M792 202 L856 202"/>
+<polygon points="856,196 868,202 856,208" fill="var(--c1)"/>
+
+<!-- Decision 3: SDR available? -->
+<polygon points="980,202 868,138 980,202 868,266" fill="var(--c4)" stroke="var(--c4b)" stroke-width="2"/>
+<polygon points="980,138 868,202 980,266 1092,202" fill="var(--c4)" stroke="var(--c4b)" stroke-width="2"/>
+<text class="label" x="980" y="198" text-anchor="middle">SDR Queue</text>
+<text class="label" x="980" y="218" text-anchor="middle">Available?</text>
+
+<text class="branch" x="1100" y="194">YES</text>
+<text class="branch" x="980" y="290" text-anchor="middle">NO</text>
+
+<!-- NO from D3 -->
+<path class="flowY" d="M980 266 L980 332"/>
+<polygon points="974,332 980,344 986,332" fill="var(--c4)"/>
+
+<rect x="880" y="344" width="200" height="40" rx="20" fill="var(--c3)" stroke="var(--c4)" stroke-width="2"/>
+<text class="pill" x="980" y="370" text-anchor="middle">Hold &amp; Nurture</text>
+
+<!-- Arrow YES from D3 -->
+<path class="flow" d="M1092 202 L1156 202"/>
+<polygon points="1156,196 1168,202 1156,208" fill="var(--c1)"/>
+
+<!-- SDR Queue node -->
+<rect x="1168" y="170" width="160" height="64" rx="12" fill="var(--c2)" stroke="var(--c1)" stroke-width="2"/>
+<text class="labelL" x="1248" y="200" text-anchor="middle">SDR Queue</text>
+<text class="pill" x="1248" y="222" text-anchor="middle" fill="var(--c3)">Qualify · Book</text>
+
+<!-- Arrow to AE Assignment -->
+<path class="flow" d="M1328 202 L1392 202"/>
+<polygon points="1392,196 1404,202 1392,208" fill="var(--c1)"/>
+
+<!-- AE Assignment terminal -->
+<rect x="1404" y="170" width="148" height="64" rx="32" fill="var(--c1)" stroke="var(--c2)" stroke-width="2"/>
+<text class="labelL" x="1478" y="208" text-anchor="middle">AE Assigned</text>
+
+<!-- Legend strip -->
+<rect x="32" y="84" width="14" height="14" rx="3" fill="var(--c4)"/>
+<text class="sub" x="52" y="96">Decision</text>
+<rect x="140" y="84" width="14" height="14" rx="3" fill="var(--c2)"/>
+<text class="sub" x="160" y="96">Process</text>
+<rect x="240" y="84" width="14" height="14" rx="3" fill="var(--c3)"/>
+<text class="sub" x="260" y="96">Fallback</text>
+<rect x="340" y="84" width="14" height="14" rx="3" fill="var(--c1)"/>
+<text class="sub" x="360" y="96">Happy-Path Flow</text>
+
+<!-- Subtle bottom rail -->
+<rect x="0" y="392" width="1584" height="4" fill="var(--c2)" opacity=".4"/>
+</svg>

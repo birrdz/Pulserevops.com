@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <style>svg{--c1:#38bdf8;--c2:#2563eb;--c3:#7dd3fc;--c4:#818cf8;--c4b:#c7d2fe;--ink:#06121f;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/>
+      <stop offset="0.5" style="stop-color:var(--c2,#E8710A)"/>
+      <stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+  </defs>
+  <rect x="40" y="40" width="720" height="720" rx="80" fill="url(#bg)" stroke="#1e293b" stroke-width="4"/>
+
+<g>
+<path d="M 200 220 L 600 220 L 540 300 L 260 300 Z" fill="url(#accent)"/>
+<path d="M 270 330 L 530 330 L 478 410 L 322 410 Z" fill="url(#accent)" opacity="0.85"/>
+<path d="M 332 440 L 468 440 L 422 520 L 378 520 Z" fill="url(#accent)" opacity="0.7"/>
+<rect x="378" y="530" width="44" height="60" fill="var(--c4,#22d3ee)"/>
+  </g>
+
+<path d="M 400 620 C 360 660 360 700 400 720 C 440 700 440 660 400 620 Z" fill="var(--c4,#22d3ee)"/>
+</svg>

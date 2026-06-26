@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+  <style>svg{--c1:#fbbf24;--c2:#d97706;--c3:#fde68a;--c4:#fb7185;--c4b:#fecdd3;--ink:#1a1203;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/>
+      <stop offset="0.55" style="stop-color:var(--c2,#E8710A)"/>
+      <stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.3" r="0.5">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0.18"/>
+      <stop offset="1" style="stop-color:var(--c1,#FF8C1A)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1584" height="396" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1584" height="396" fill="url(#glow)"/>
+
+  <!-- Decorative: upward trend curve with arrow head -->
+  <path d="M1060,260 Q1140,250 1180,210 T1300,140 L1460,80" stroke="url(#accent)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+  <path d="M1460,80 L1420,86 M1460,80 L1454,120" stroke="url(#accent)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="1060" cy="260" r="6" fill="url(#accent)"/>
+  <circle cx="1180" cy="210" r="6" fill="url(#accent)"/>
+  <circle cx="1300" cy="140" r="6" fill="url(#accent)"/>
+  <line x1="1040" y1="300" x2="1480" y2="300" stroke="#94a3b8" stroke-width="2" opacity="0.4"/>
+  <line x1="1040" y1="300" x2="1040" y2="60" stroke="#94a3b8" stroke-width="2" opacity="0.4"/>
+
+  <text x="120" y="180" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#94a3b8">MODERN GTM METRICS</text>
+  <text x="118" y="262" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="76" font-weight="900" fill="#FFFFFF">Time to Value &gt; ACV.</text>
+  <text x="120" y="316" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="30" font-weight="700" fill="#EDE5D8">Adoption <tspan fill="url(#accent)">&#183;</tspan> Expansion <tspan fill="url(#accent)">&#183;</tspan> Predictable revenue</text>
+
+</svg>

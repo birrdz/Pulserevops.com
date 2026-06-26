@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="3000" viewBox="0 0 2400 3000">
+  <style>svg{--c1:#FF8C1A;--c2:#E8710A;--c3:#FFD740;--c4:#22d3ee;--c4b:#67e8f9;--ink:#0b0f17;}</style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" style="stop-color:var(--bg1,#0b0f17)"/>
+      <stop offset="1" style="stop-color:var(--bg2,#0f172a)"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" style="stop-color:var(--c1,#FF8C1A)"/>
+      <stop offset="0.5" style="stop-color:var(--c2,#E8710A)"/>
+      <stop offset="1" style="stop-color:var(--c3,#FFD740)"/>
+    </linearGradient>
+    <linearGradient id="arrowfade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" style="stop-color:var(--c4,#22d3ee)"/>
+      <stop offset="1" style="stop-color:var(--c1,#FF8C1A)"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="2400" height="3000" fill="url(#bg)"/>
+  <rect x="216" y="216" width="1968" height="2568" fill="none" stroke="#1e293b" stroke-width="6" rx="32"/>
+
+<text x="1200" y="500" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="80" font-weight="800" letter-spacing="24" fill="#94a3b8">THE REVOPS CHAIN</text>
+
+<text x="1200" y="900" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="300" font-weight="700" letter-spacing="-4" fill="#94a3b8">ACTIVITY</text>
+<g stroke="url(#arrowfade)" stroke-width="22" stroke-linecap="round" fill="none">
+    <line x1="1200" y1="1020" x2="1200" y2="1200"/>
+  </g>
+  <polygon points="1200,1280 1140,1180 1260,1180" fill="#5eead4"/>
+
+<text x="1200" y="1660" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="340" font-weight="800" letter-spacing="-6" fill="#EDE5D8">PIPELINE</text>
+<g stroke="url(#arrowfade)" stroke-width="24" stroke-linecap="round" fill="none">
+    <line x1="1200" y1="1780" x2="1200" y2="1980"/>
+  </g>
+  <polygon points="1200,2070 1130,1960 1270,1960" fill="url(#accent)"/>
+
+<text x="1200" y="2500" text-anchor="middle" font-family="'Inter','Segoe UI',system-ui,Arial,sans-serif" font-size="400" font-weight="900" letter-spacing="-8" fill="url(#accent)">REVENUE</text>
+
+</svg>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="format-detection" content="telephone=no">
+<title>Travel — Top-10 Travel Rankings — Pulse</title>
+<meta name="description" content="Top-10 travel rankings — destinations, things to do, beaches, parks, and itineraries with real, practical detail.">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://pulserevops.com/travel">
+<meta property="og:title" content="Travel — Top-10 Travel Rankings — Pulse">
+<meta property="og:description" content="Top-10 travel rankings — destinations, things to do, beaches, parks, and itineraries with real, practical detail.">
+<meta property="og:url" content="https://pulserevops.com/travel">
+<meta property="og:image" content="https://pulserevops.com/pulse-og.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PULSE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Travel — Top-10 Travel Rankings — Pulse">
+<meta name="twitter:description" content="Top-10 travel rankings — destinations, things to do, beaches, parks, and itineraries with real, practical detail.">
+<meta name="twitter:image" content="https://pulserevops.com/pulse-og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/pillar-page.css">
+<link rel="prefetch" href="/.netlify/functions/pulse-machine-library-list?recent=300" as="fetch" crossorigin>
+<!-- Travel pillar — white theme + PULSE BOATS logo (2026-06-16) -->
+<style>
+:root{
+  --orange:#E25C29;--od:#C44E1F;
+  --bg:#EBE9DE;--s1:#F5F5F5;--card:#FFFFFF;--cardh:#FAFBF6;
+  --bdr:rgba(25,35,20,.12);--bdrh:rgba(226,92,41,.42);
+  --t1:#171E14;--t2:#535a48;--t3:#8a917e;
+}
+body{background-color:#EBE9DE;background-image:none}
+.hdr{background:rgba(255,255,255,.94);border-bottom:1px solid rgba(25,35,20,.08)}
+.hdr-name{color:var(--orange)}
+.hdr-cta{color:#fff}
+.search-input{background:#fff;border:1px solid rgba(25,35,20,.14);color:var(--t1)}
+.search-clear{background:rgba(25,35,20,.06)}
+.filter-chip{background:rgba(25,35,20,.03);border:1px solid rgba(25,35,20,.10)}
+.filter-chip.is-active{color:#fff}
+.statusbar strong{color:var(--t1)}
+.card{background:#fff}
+.card::before{background:linear-gradient(90deg,transparent,rgba(25,35,20,.06),transparent)}
+.card:hover{box-shadow:0 8px 24px rgba(25,35,20,.10)}
+.card-meta{border-top:1px solid rgba(25,35,20,.06)}
+.pager button{background:rgba(25,35,20,.03);border:1px solid rgba(25,35,20,.10)}
+.pager button.is-active{color:#fff}
+.footer{background:var(--s1);border-top:1px solid rgba(25,35,20,.08)}
+.footer-pillars span{background:rgba(25,35,20,.03);border:1px solid rgba(25,35,20,.08)}
+.footer-pillars strong{color:#171E14}
+.hero-counts strong{color:var(--orange)}
+/* PULSE BOATS widescreen logo banner */
+.pillar-brand{display:flex;justify-content:center;margin:10px auto 18px}
+.pillar-hero-logo{display:block;width:min(1180px,94vw);height:auto;margin:0 auto}
+.pillar-brand-fallback{display:flex;align-items:center;gap:14px;justify-content:center}
+.pbf-mark{height:54px;width:auto;display:block}
+.pbf-word{font-size:42px;font-weight:800;letter-spacing:2px;color:var(--orange);line-height:1}
+.pbf-word em{font-style:normal;color:var(--od)}
+@media(max-width:560px){.pbf-mark{height:38px}.pbf-word{font-size:28px;letter-spacing:1px}}
+.hero{padding-top:22px;padding-bottom:14px;max-width:1360px}
+.hero h1{margin-top:6px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-in">
+    <a href="/" class="hdr-logo">
+      <span class="hdr-pill"><span class="hdr-dot"></span>LIVE</span>
+      <span class="hdr-name">PULSE</span>
+    </a>
+    <a href="/sponsor" class="hdr-cta">✦ Advertise</a>
+  </div>
+</header>
+<section class="hero">
+  <div class="pillar-brand">
+    <img class="pillar-hero-logo" src="/pulse-travel-logo.svg" alt="PULSE Travel" onerror="this.style.display='none';var f=document.getElementById('pillar-brand-fallback');if(f)f.style.display='flex'">
+    <div class="pillar-brand-fallback" id="pillar-brand-fallback" style="display:none">
+      <img class="pbf-mark" src="/pulse-mark.svg" alt="">
+      <span class="pbf-word">PULSE <em>TRAVEL</em></span>
+    </div>
+  </div>
+  <div class="hero-eyebrow"><span class="hero-dot"></span>Travel · Top-10 rankings</div>
+  <h1>Plan the perfect <em>trip.</em></h1>
+  <p class="hero-sub">Top-10 travel rankings — destinations, things to do, beaches, parks, and itineraries with real, practical detail.</p>
+  <div class="hero-counts">✈️ <strong id="hc-total">…</strong> travel rankings</div>
+</section>
+<div class="toolbar">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="q" type="search" placeholder="Search travel by name or tv#### id" autocomplete="off">
+    <button class="search-clear" id="qclear" aria-label="Clear search">×</button>
+  </div>
+  <div class="filters" id="filters"></div>
+</div>
+<div class="statusbar" id="status">
+  <span><strong id="st-count">…</strong> entries shown</span>
+  <span>Sorted newest first</span>
+</div>
+<div class="grid-wrap">
+  <div class="grid" id="grid"><div class="loading"><div class="pulse-logo"><span class="pulse-dot"></span></div><div class="pulse-label">Loading Travel<span class="pulse-dots">...</span></div><div class="pulse-skeleton"><div class="skel-card"></div><div class="skel-card"></div><div class="skel-card"></div><div class="skel-card"></div><div class="skel-card"></div><div class="skel-card"></div></div></div></div>
+  <div class="pager" id="pager"></div>
+</div>
+<footer class="footer">
+  <div class="footer-in">
+    <a href="#" class="footer-pill"><span class="footer-pill-dot"></span>Library · <span id="lp-num">live</span> entries</a>
+    <div class="footer-pillars" id="lp-pillars"></div>
+    <div class="footer-copy">© 2025 Kory White · PULSE RevOps · <a href="/">pulserevops.com</a> · <a href="/tools">🛠 Free Tools</a> · <a href="/sponsor">Advertise</a> · <a href="/my-content">My Content (initials + 4-digit code)</a></div>
+  </div>
+</footer>
+<script>window.PILLAR_DEFAULT = 'tv';</script>
+<script src="/js/pillar-page.js" defer></script>
+<script src="/js/pulse-lead-track.js" defer></script>
+
+<script async id="netlify-rum-container" src="/.netlify/scripts/rum" data-netlify-rum-site-id="a2b74b30-a1ac-40e2-9622-aebfc2feb482" data-netlify-deploy-branch="" data-netlify-deploy-context="production" data-netlify-cwv-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaXRlX2lkIjoiYTJiNzRiMzAtYTFhYy00MGUyLTk2MjItYWViZmMyZmViNDgyIiwiYWNjb3VudF9pZCI6IjY5YzRhYzQ0MjRhNGE5OGNhOTFkZTQwYiIsImRlcGxveV9pZCI6IjZhMzk1MzQzNjFlMjBhNTdiOTZiZDQxOCIsImlzc3VlciI6Im5mc2VydmVyIn0.rQ-KIzTHm8pWHUyQ975bDTEAvh2EfX7iEw2bsXiNj7o"></script></body>
+</html>

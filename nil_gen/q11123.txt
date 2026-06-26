@@ -1,0 +1,108 @@
+QUESTION: What are Cincinnati Bearcats football's 2027 NIL needs and strategy?
+
+ANSWER (rewrite per the rules in _NIL_INSTRUCTIONS.md):
+## Direct Answer
+
+Cincinnati Bearcats football enters the 2027 NIL cycle with a clear structural problem and a clear structural opportunity. The structural problem is that the program is a Big 12 newcomer competing for the same revenue-share and NIL dollars as Texas Tech, Kansas State, Utah, and the four Texas/Arizona schools, while sitting on a metro donor base that, while real, has historically funded basketball and the local pro franchises ahead of Bearcat football. The structural opportunity is that head coach Scott Satterfield, entering his fourth season in 2026, finalized his coaching staff in February 2026 with a clear identity built around the offensive and defensive line — and the Cincy Reigns collective, the official NIL partner of UC Athletics since its September 2023 partnership with Learfield through Bearcats Sports Properties, has matured into an operational fundraising arm that can be pointed at specific positional needs rather than spread evenly across 18 varsity sports. The 2027 NIL strategy needs to concentrate dollars on three high-leverage positions, retain the developmental core through revenue-share, and convert the metro Cincinnati business community into recurring monthly donors rather than one-time event sponsors.
+
+**TL;DR**
+Cincinnati's 2027 NIL plan should concentrate funds on OL, edge, and QB through Cincy Reigns, retain Satterfield's developmental core with revenue-share, and convert metro Cincinnati businesses into monthly Bearcat donors instead of one-time sponsors.
+
+```mermaid
+flowchart TD
+    A[Cincinnati 2027 NIL Pool] --> B{Allocation Model}
+    B -->|Concentrated positional| C[OL + Edge + QB Stack]
+    B -->|Retention layer| D[Revenue Share for Returners]
+    B -->|Roster fillers| E[Skill + DB Portal Targets]
+    C --> F[Big 12 Trench Competitiveness]
+    D --> G[Satterfield Continuity Core]
+    E --> H[Athletic Depth Replenish]
+    F --> I[2027 Bowl Window]
+    G --> I
+    H --> I
+    I --> J{Funded by Cincy Reigns + Rev Share}
+    J --> K[Sustainable 2028 Cycle]
+```
+
+## 1. Where Cincinnati Sits in the Big 12 NIL Market
+
+The Big 12 in 2027 is a tiered NIL conference. The top tier — Texas Tech, Utah, Kansas State, and Arizona State — operates with collective-plus-revenue-share football budgets reported in the $14 to $18 million range. The middle tier, where Cincinnati realistically lives, runs $9 to $12 million. The bottom tier sits under $8 million. The House v. NCAA settlement that took effect in summer 2025 created a roughly $20.5 million school-wide revenue-share cap, and most Big 12 programs are pushing 70 to 75 percent of that cap into football. For Cincinnati, that math points to a 2027 football revenue-share allocation of roughly $14.5 million, plus whatever Cincy Reigns and adjacent collectives can stack on top through legitimate NIL agreements with disclosed fair-market-value endorsements.
+
+Cincy Reigns launched in late 2022 as the first collective focused on UC athletes, signed its First Class of 14 student-athletes — one from each varsity program, including football All-American Dontay Corleone — in March 2023, and formalized as the official NIL partner of UC Athletics in September 2023 through the Learfield/Bearcats Sports Properties partnership. That structure matters because Learfield's local sales force already calls on the same Cincinnati businesses Cincy Reigns needs to convert. The 2027 strategy should treat that overlap as an asset and run football-specific NIL packages — luxury suite plus jersey patch plus four-player appearance bundle — through the existing Bearcats Sports Properties sales motion rather than rebuilding a parallel pipeline.
+
+The honest read on the donor base: Cincinnati has roughly 350,000 alumni, a metro population of 2.3 million, two major pro franchises that absorb premium sponsor dollars (the Bengals and Reds), and a strong but not bottomless C-suite of Fortune 500 headquarters (Procter and Gamble, Kroger, Fifth Third, Western and Southern, Cintas, American Financial Group). Football has historically captured a smaller share of that wallet than basketball. The 2027 plan needs to flip that ratio, not by asking basketball donors to switch sports, but by activating a separate gridiron-first donor tier built around game-day hospitality and recurring monthly subscriptions.
+
+## 2. The Three Positional Concentrations That Win 2027
+
+Satterfield's identity in his February 2026 staff reshuffle was unmistakable. Robert Nunn moved to edge rushers. Adam Braithwaite took outside linebackers. Larry Murphy added cornerbacks. The staff is built to win on the line of scrimmage and on the perimeter, which means the NIL stack has to match. Three positions deserve concentrated 2027 spend.
+
+Offensive line is first. The Big 12 is a heavy-pressure passing conference, and Cincinnati's 2026 transfer-portal cycle showed the cost of being thin at tackle. A 2027 OL room with two veteran transfer tackles paying $700K each and two developmental interior linemen at $250K each consumes roughly $1.9 million but stabilizes the entire offense. Edge rusher is second. The conference produced eight first-round defensive linemen in the last two NFL drafts, and Nunn's group needs at least one transfer pass-rusher in the $500K to $800K range plus retention money for the returning rotation. Quarterback is third and most asymmetric. A starter-caliber Big 12 QB in 2027 costs $1.2 to $2.0 million, but the position drives ticket sales, recruiting visits, and downstream collective donations in ways no other position does. Underpaying here cascades through every other line item.
+
+Skill positions (WR, RB) and secondary depth round out the roster but should be funded through smaller, performance-tiered Cincy Reigns deals rather than headline contracts. Special teams specialists and developmental backups belong on revenue-share scholarships, not NIL.
+
+## 3. Retention, Recurring Donors, and the 2027 Calendar
+
+Retention is the lever most outside observers underrate. Every returning starter Satterfield keeps off the portal in December 2026 saves the program roughly the cost of replacing him plus the development cost of integrating a transfer. A targeted retention pool of $3.5 to $4.0 million spread across 18 to 22 returners — funded primarily through revenue-share with NIL stacking for the top six — preserves continuity through the 2027 season and signals roster stability to incoming recruits who increasingly read transfer-portal turnover as a red flag.
+
+Recurring donors are the second underrated lever. Cincy Reigns has historically generated revenue through events, major gifts, and merchandise. The 2027 plan should add a Bearcat Monthly tier — $25, $100, $500, $1,500 per month — that auto-renews and credits to football-specific player pools. Even 4,000 monthly donors at an average of $75 produces $3.6 million annually with low acquisition cost after the first cycle. The Cincinnati metro base can support that number if the activation runs through season-ticket renewals, the Bearcats Sports Properties radio network, and Fifth Third Arena events where football coaches make in-person asks.
+
+The calendar matters too. The 2027 NIL push should peak twice: once in February 2027 around signing day and the post-spring portal window, and once in late November 2027 around bowl positioning and early-enrollee commitments. Spreading announcements evenly across the year dilutes media impact. Concentrating them produces the local press cycles that drive recurring-donor signups.
+
+```mermaid
+flowchart TD
+    A[Cincy Reigns Funding Sources] --> B[Bearcat Monthly Tiers]
+    A --> C[Major Gifts $25K+]
+    A --> D[Corporate Activations]
+    A --> E[Game Day Hospitality]
+    B --> F[Football Position Pools]
+    C --> F
+    D --> F
+    E --> F
+    F --> G[OL Concentration]
+    F --> H[Edge Concentration]
+    F --> I[QB Concentration]
+    F --> J[Retention Layer]
+    G --> K[2027 Roster]
+    H --> K
+    I --> K
+    J --> K
+    K --> L{Big 12 Finish}
+    L -->|Top 6| M[Bowl Bid + Revenue Reinvest]
+    L -->|Below| N[Reset 2028 Allocation]
+```
+
+## 4. The NIL Go Clearinghouse and Cincinnati's Corporate Advantage
+
+Every Cincy Reigns deal of $600 or more now passes through NIL Go, the Deloitte-operated clearinghouse created under the College Sports Commission to vet third-party NIL agreements for fair-market value. For most mid-tier programs this is a constraint, but for Cincinnati it can be turned into an edge. The metro is a genuine corporate headquarters town — Procter and Gamble, Kroger, Fifth Third, Western and Southern, Cintas, and American Financial Group all sit within the Bearcats Sports Properties sales footprint — which means Cincy Reigns can build real, deliverable-backed endorsement deals with national brands rather than thin booster payments that draw clearinghouse scrutiny. A quarterback doing genuine campaign work for a Cincinnati-headquartered Fortune 500 company clears NIL Go cleanly and carries brand value beyond the dollar figure. The 2027 strategy should explicitly pair the three positional concentrations with named corporate partners so each marquee deal is both fair-market-defensible and a marketing asset, and the documentation should be pre-built before the spring portal window so nothing gets voided mid-cycle.
+
+## 5. The Retention-First Spending Sequence
+
+Sequencing matters as much as totals. Cincinnati's 2027 dollars should move in a fixed order: first the December 2026 retention locks on the offensive line, edge rotation, and any returning quarterback; second the February 2027 high-school and portal signing-day push funded by the Bearcat Monthly ramp; third a reserved spring-portal strike fund of roughly $2 million held back for the second transfer window, where Big 12 programs routinely lose and gain rotation players to last-minute overpays. Spending the strike fund early is the most common mid-tier mistake — it leaves nothing for May, exactly when a starting-caliber tackle or edge becomes available because a bluer-blood program ran out of cap room. Holding dry powder is how a $9-to-$12 million middle-tier budget competes with $14-to-$18 million rosters on the specific positions Satterfield's staff is built to coach.
+
+## FAQ
+
+**Q: Can Cincinnati realistically out-recruit Texas Tech or Utah in NIL?**
+A: Not in aggregate. The strategy is positional concentration, not total spend. Win OL and edge specifically, accept that skill-position bidding wars are losses worth ceding.
+
+**Q: How much should Cincy Reigns target for football alone in 2027?**
+A: A football-specific pool of $7 to $9 million on top of the revenue-share allocation is a defensible mid-tier Big 12 number and matches realistic donor capacity.
+
+**Q: What is the single highest-leverage move?**
+A: Launching the Bearcat Monthly recurring-donor tier through existing Bearcats Sports Properties channels. Recurring revenue compounds; event revenue does not.
+
+**Q: How does Cincinnati's revenue-share allocation compare to the rest of the Big 12?**
+A: The House settlement set a roughly $20.5 million school-wide cap, and most Big 12 programs route 70 to 75 percent of it into football, which puts Cincinnati's football rev-share near $14.5 million. That figure is competitive with the conference middle but still below the Texas Tech, Utah, Kansas State, and Arizona State tier, which is why collective dollars from Cincy Reigns stacked on top — and concentrated on OL, edge, and quarterback — are what actually decide whether the Bearcats compete for a bowl in 2027.
+
+**Q: Why does the corporate-headquarters base matter more under the new clearinghouse rules?**
+A: Because NIL Go now reviews deals of $600 and up for genuine fair-market value, programs that lean on disguised booster payments risk rejections that pull money out mid-cycle. Cincinnati's concentration of Fortune 500 headquarters lets Cincy Reigns build deals around real campaign work for national brands, which clears review cleanly and adds marketing value on top of the cash. It converts a city full of corporate marketing budgets into the most compliance-proof funding source in the program's 2027 plan.
+
+## Sources
+
+1. University of Cincinnati Athletics — gobearcats.com staff and February 2026 coaching staff announcement
+2. Cincy Reigns — cincyreigns.org official NIL partner page
+3. On3 — Cincy Reigns launch and First Class signing coverage
+4. Sports Illustrated All Bearcats — Cincy Reigns Learfield partnership reporting
+5. Spectrum News 1 Ohio — February 2026 coaching staff reporting
+6. Wikipedia — Scott Satterfield biographical and tenure record
+7. WCPO Cincinnati — Satterfield hire reporting
+8. NCAA — House v. NCAA settlement revenue-share framework and NIL Go clearinghouse

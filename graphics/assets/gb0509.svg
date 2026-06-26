@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396">
+<style>svg{--c1:#34d399;--c2:#059669;--c3:#a7f3d0;--c4:#fbbf24;--c4b:#fde68a;--ink:#03130d;--stale:#ef4444;--stale2:#b91c1c;}</style>
+<rect width="1584" height="396" fill="var(--bg1,#0b0f17)"/>
+<rect x="0" y="0" width="1584" height="64" fill="var(--bg2,#0f172a)"/>
+<text x="48" y="42" font-family="sans-serif" font-size="26" font-weight="700" fill="var(--c3)">Pipeline Aging Heatmap</text>
+<text x="48" y="60" font-family="sans-serif" font-size="14" fill="var(--c4b)" opacity="0.85">Deals by stage and days-in-stage — red flags stale deals over 60 days</text>
+
+<!-- Legend -->
+<g transform="translate(1040,24)" font-family="sans-serif" font-size="13">
+  <rect x="0" y="2" width="22" height="18" fill="var(--c3)" opacity="0.55"/>
+  <text x="28" y="16" fill="var(--c4b)">Healthy</text>
+  <rect x="100" y="2" width="22" height="18" fill="var(--c1)"/>
+  <text x="128" y="16" fill="var(--c4b)">Active</text>
+  <rect x="200" y="2" width="22" height="18" fill="var(--c4)"/>
+  <text x="228" y="16" fill="var(--c4b)">Aging 31-60d</text>
+  <rect x="340" y="2" width="22" height="18" fill="var(--stale)"/>
+  <text x="368" y="16" fill="var(--c4b)">Stale 60+d</text>
+  <rect x="450" y="2" width="22" height="18" fill="var(--stale2)"/>
+  <text x="478" y="16" fill="var(--c4b)">Critical 90+d</text>
+</g>
+
+<!-- X-axis header: days-in-stage buckets -->
+<g font-family="sans-serif" font-size="15" fill="var(--c4b)" font-weight="600">
+  <text x="280" y="100" text-anchor="middle">0-15d</text>
+  <text x="440" y="100" text-anchor="middle">16-30d</text>
+  <text x="600" y="100" text-anchor="middle">31-45d</text>
+  <text x="760" y="100" text-anchor="middle">46-60d</text>
+  <text x="920" y="100" text-anchor="middle">61-75d</text>
+  <text x="1080" y="100" text-anchor="middle">76-90d</text>
+  <text x="1240" y="100" text-anchor="middle">90+d</text>
+  <text x="1400" y="100" text-anchor="middle" fill="var(--c1)" font-weight="700">Total</text>
+</g>
+<text x="760" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" fill="var(--c3)" opacity="0.7">Days in Current Stage</text>
+
+<!-- Y-axis label -->
+<text x="20" y="240" font-family="sans-serif" font-size="13" fill="var(--c3)" opacity="0.7" transform="rotate(-90 20 240)">Pipeline Stage</text>
+
+<!-- Stage labels -->
+<g font-family="sans-serif" font-size="15" fill="var(--c4b)" font-weight="600">
+  <text x="190" y="140" text-anchor="end">Prospect</text>
+  <text x="190" y="180" text-anchor="end">Qualify</text>
+  <text x="190" y="220" text-anchor="end">Discovery</text>
+  <text x="190" y="260" text-anchor="end">Proposal</text>
+  <text x="190" y="300" text-anchor="end">Negotiation</text>
+  <text x="190" y="340" text-anchor="end">Close</text>
+</g>
+
+<!-- Heatmap cells: 6 rows x 7 cols. cell = 152 wide x 32 tall, centered on x positions -->
+<!-- Row 1: Prospect -->
+<g font-family="sans-serif" font-size="16" fill="var(--ink)" font-weight="700" text-anchor="middle">
+  <rect x="204" y="124" width="152" height="32" fill="var(--c1)" rx="3"/>
+  <text x="280" y="146">42</text>
+  <rect x="364" y="124" width="152" height="32" fill="var(--c1)" opacity="0.75" rx="3"/>
+  <text x="440" y="146">28</text>
+  <rect x="524" y="124" width="152" height="32" fill="var(--c4)" rx="3"/>
+  <text x="600" y="146">19</text>
+  <rect x="684" y="124" width="152" height="32" fill="var(--c4)" opacity="0.75" rx="3"/>
+  <text x="760" y="146">11</text>
+  <rect x="844" y="124" width="152" height="32" fill="var(--stale)" rx="3"/>
+  <text x="920" y="146" fill="#fff">7</text>
+  <rect x="1004" y="124" width="152" height="32" fill="var(--stale)" opacity="0.85" rx="3"/>
+  <text x="1080" y="146" fill="#fff">3</text>
+  <rect x="1164" y="124" width="152" height="32" fill="var(--stale2)" rx="3"/>
+  <text x="1240" y="146" fill="#fff">2</text>
+  <rect x="1324" y="124" width="152" height="32" fill="var(--bg2,#0f172a)" stroke="var(--c1)" stroke-width="1.5" rx="3"/>
+  <text x="1400" y="146" fill="var(--c1)">112</text>
+</g>
+
+<!-- Row 2: Qualify -->
+<g font-family="sans-serif" font-size="16" fill="var(--ink)" font-weight="700" text-anchor="middle">
+  <rect x="204" y="164" width="152" height="32" fill="var(--c1)" rx="3"/>
+  <text x="280" y="186">35</text>
+  <rect x="364" y="164" width="152" height="32" fill="var(--c1)" opacity="0.8" rx="3"/>
+  <text x="440" y="186">31</text>
+  <rect x="524" y="164" width="152" height="32" fill="var(--c4)" rx="3"/>
+  <text x="600" y="186">22</text>
+  <rect x="684" y="164" width="152" height="32" fill="var(--c4)" opacity="0.8" rx="3"/>
+  <text x="760" y="186">14</text>
+  <rect x="844" y="164" width="152" height="32" fill="var(--stale)" rx="3"/>
+  <text x="920" y="186" fill="#fff">9</text>
+  <rect x="1004" y="164" width="152" height="32" fill="var(--stale)" opacity="0.85" rx="3"/>
+  <text x="1080" y="186" fill="#fff">5</text>
+  <rect x="1164" y="164" width="152" height="32" fill="var(--stale2)" rx="3"/>
+  <text x="1240" y="186" fill="#fff">3</text>
+  <rect x="1324" y="164" width="152" height="32" fill="var(--bg2,#0f172a)" stroke="var(--c1)" stroke-width="1.5" rx="3"/>
+  <text x="1400" y="186" fill="var(--c1)">119</text>
+</g>
+
+<!-- Row 3: Discovery -->
+<g font-family="sans-serif" font-size="16" fill="var(--ink)" font-weight="700" text-anchor="middle">
+  <rect x="204" y="204" width="152" height="32" fill="var(--c1)" opacity="0.85" rx="3"/>
+  <text x="280" y="226">24</text>
+  <rect x="364" y="204" width="152" height="32" fill="var(--c1)" rx="3"/>
+  <text x="440" y="226">38</text>
+  <rect x="524" y="204" width="152" height="32" fill="var(--c4)" rx="3"/>
+  <text x="600" y="226">26</text>
+  <rect x="684" y="204" width="152" height="32" fill="var(--c4)" opacity="0.85" rx="3"/>
+  <text x="760" y="226">17</text>
+  <rect x="844" y="204" width="152" height="32" fill="var(--stale)" rx="3"/>
+  <text x="920" y="226" fill="#fff">12</text>
+  <rect x="1004" y="204" width="152" height="32" fill="var(--stale)" opacity="0.9" rx="3"/>
+  <text x="1080" y="226" fill="#fff">8</text>
+  <rect x="1164" y="204" width="152" height="32" fill="var(--stale2)" rx="3"/>
+  <text x="1240" y="226" fill="#fff">6</text>
+  <rect x="1324" y="204" width="152" height="32" fill="var(--bg2,#0f172a)" stroke="var(--c1)" stroke-width="1.5" rx="3"/>
+  <text x="1400" y="226" fill="var(--c1)">131</text>
+</g>
+
+<!-- Row 4: Proposal -->
+<g font-family="sans-serif" font-size="16" fill="var(--ink)" font-weight="700" text-anchor="middle">
+  <rect x="204" y="244" width="152" height="32" fill="var(--c1)" opacity="0.7" rx="3"/>
+  <text x="280" y="266">15</text>
+  <rect x="364" y="244" width="152" height="32" fill="var(--c1)" rx="3"/>
+  <text x="440" y="266">27</text>
+  <rect x="524" y="244" width="152" height="32" fill="var(--c4)" rx="3"/>
+  <text x="600" y="266">21</text>
+  <rect x="684" y="244" width="152" height="32" fill="var(--c4)" opacity="0.85" rx="3"/>
+  <text x="760" y="266">18</text>
+  <rect x="844" y="244" width="152" height="32" fill="var(--stale)" rx="3"/>
+  <text x="920" y="266" fill="#fff">14</text>
+  <rect x="1004" y="244" width="152" height="32" fill="var(--stale)" opacity="0.9" rx="3"/>
+  <text x="1080" y="266" fill="#fff">11</text>
+  <rect x="1164" y="244" width="152" height="32" fill="var(--stale2)" rx="3"/>
+  <text x="1240" y="266" fill="#fff">9</text>
+  <rect x="1324" y="244" width="152" height="32" fill="var(--bg2,#0f172a)" stroke="var(--c1)" stroke-width="1.5" rx="3"/>
+  <text x="1400" y="266" fill="var(--c1)">115</text>
+</g>
+
+<!-- Row 5: Negotiation -->
+<g font-family="sans-serif" font-size="16" fill="var(--ink)" font-weight="700" text-anchor="middle">
+  <rect x="204" y="284" width="152" height="32" fill="var(--c1)" opacity="0.55" rx="3"/>
+  <text x="280" y="306">8</text>
+  <rect x="364" y="284" width="152" height="32" fill="var(--c1)" opacity="0.85" rx="3"/>
+  <text x="440" y="306">16</text>
+  <rect x="524" y="284" width="152" height="32" fill="var(--c4)" rx="3"/>
+  <text x="600" y="306">19</text>
+  <rect x="684" y="284" width="152" height="32" fill="var(--c4)" rx="3"/>
+  <text x="760" y="306">22</text>
+  <rect x="844" y="284" width="152" height="32" fill="var(--stale)" rx="3"/>
+  <text x="920" y="306" fill="#fff">17</text>
+  <rect x="1004" y="284" width="152" height="32" fill="var(--stale)" rx="3"/>
+  <text x="1080" y="306" fill="#fff">13</text>
+  <rect x="1164" y="284" width="152" height="32" fill="var(--stale2)" rx="3"/>
+  <text x="1240" y="306" fill="#fff">11</text>
+  <rect x="1324" y="284" width="152" height="32" fill="var(--bg2,#0f172a)" stroke="var(--c1)" stroke-width="1.5" rx="3"/>
+  <text x="1400" y="306" fill="var(--c1)">106</text>
+</g>
+
+<!-- Row 6: Close -->
+<g font-family="sans-serif" font-size="16" fill="var(--ink)" font-weight="700" text-anchor="middle">
+  <rect x="204" y="324" width="152" height="32" fill="var(--c1)" opacity="0.45" rx="3"/>
+  <text x="280" y="346">5</text>
+  <rect x="364" y="324" width="152" height="32" fill="var(--c1)" opacity="0.7" rx="3"/>
+  <text x="440" y="346">11</text>
+  <rect x="524" y="324" width="152" height="32" fill="var(--c4)" opacity="0.85" rx="3"/>
+  <text x="600" y="346">14</text>
+  <rect x="684" y="324" width="152" height="32" fill="var(--c4)" rx="3"/>
+  <text x="760" y="346">18</text>
+  <rect x="844" y="324" width="152" height="32" fill="var(--stale)" rx="3"/>
+  <text x="920" y="346" fill="#fff">15</text>
+  <rect x="1004" y="324" width="152" height="32" fill="var(--stale)" rx="3"/>
+  <text x="1080" y="346" fill="#fff">12</text>
+  <rect x="1164" y="324" width="152" height="32" fill="var(--stale2)" rx="3"/>
+  <text x="1240" y="346" fill="#fff">14</text>
+  <rect x="1324" y="324" width="152" height="32" fill="var(--bg2,#0f172a)" stroke="var(--c1)" stroke-width="1.5" rx="3"/>
+  <text x="1400" y="346" fill="var(--c1)">89</text>
+</g>
+
+<!-- Stale-zone divider -->
+<line x1="844" y1="116" x2="844" y2="362" stroke="var(--stale)" stroke-width="2" stroke-dasharray="6 4" opacity="0.7"/>
+<text x="852" y="378" font-family="sans-serif" font-size="13" fill="var(--stale)" font-weight="600">▶ Stale Zone — flag for review</text>
+
+<!-- Footer note -->
+<text x="48" y="378" font-family="sans-serif" font-size="13" fill="var(--c4b)" opacity="0.7">Cell = deal count · color intensity = aging severity · cross-hatch divider marks 60-day stale threshold</text>
+</svg>

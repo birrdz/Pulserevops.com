@@ -1,0 +1,22 @@
+{
+  "tick": "213-A",
+  "target_id": "q416",
+  "question": "How do you separate NRR, GRR, and logo retention when board auditors ask which is 'real'?",
+  "rank_picked": 0,
+  "word_count_final": 9211,
+  "post_http_status": 200,
+  "post_response": {"ok":true,"id":"q416","quality_score":10,"format_v":"2026-05","gold_format":true,"from":10,"to":10},
+  "gold_format": true,
+  "gold_elements_verified": {
+    "direct_answer_header": true,
+    "tldr_block": true,
+    "h2_banners": 12,
+    "numbered_subsections": 46,
+    "mermaid_diagram": true,
+    "pipe_tables": 21,
+    "counter_case_section": true,
+    "cross_links": 14,
+    "sources": 36,
+    "named_operators_with_tickers": true
+  }
+}

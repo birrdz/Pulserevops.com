@@ -1,0 +1,3976 @@
+{
+  "from": "tl",
+  "to": "q",
+  "dry": false,
+  "addTags": [],
+  "requested": 660,
+  "copied": 658,
+  "dryOk": 0,
+  "skipped": 2,
+  "newIndexSize": 17988,
+  "firstId": "q15522",
+  "lastId": "q16179",
+  "results": [
+    {
+      "srcId": "tl0001",
+      "destId": "q15522",
+      "ok": true,
+      "title": "How Do I Know Where, When, and How Many People to Schedule at Each of My Multi-Unit Retail Locations?"
+    },
+    {
+      "srcId": "tl0002",
+      "destId": "q15523",
+      "ok": true,
+      "title": "How Do I Figure Out How Many People to Schedule Each Day and at What Times for My Single Store?"
+    },
+    {
+      "srcId": "tl0003",
+      "destId": "q15524",
+      "ok": true,
+      "title": "How Do I Know How Many Cooks and Servers to Schedule Each Shift at My Pizza Restaurant?"
+    },
+    {
+      "srcId": "tl0004",
+      "destId": "q15525",
+      "ok": true,
+      "title": "How Many Salespeople Should I Schedule Each Day on My Furniture Store Floor?"
+    },
+    {
+      "srcId": "tl0005",
+      "destId": "q15526",
+      "ok": true,
+      "title": "How Do I Decide How Many Reps to Schedule at Each Store in My Mattress Retail Chain?"
+    },
+    {
+      "srcId": "tl0006",
+      "destId": "q15527",
+      "ok": true,
+      "title": "How Do I Figure Out How Many Reps to Schedule at Each of My Multi-Unit Cell Phone Stores?"
+    },
+    {
+      "srcId": "tl0007",
+      "destId": "q15528",
+      "ok": true,
+      "title": "How Many Crew Members Should I Schedule Each Shift at My Hamburger Franchise?"
+    },
+    {
+      "srcId": "tl0008",
+      "destId": "q15529",
+      "ok": true,
+      "title": "How Many Salespeople Should I Schedule on My Auto Dealership Floor Each Day?"
+    },
+    {
+      "srcId": "tl0009",
+      "destId": "q15530",
+      "ok": true,
+      "title": "How Many Associates Should I Schedule Each Day at My Hardware Store?"
+    },
+    {
+      "srcId": "tl0010",
+      "destId": "q15531",
+      "ok": true,
+      "title": "How Many Salespeople Should I Schedule Each Day at My Jewelry Store?"
+    },
+    {
+      "srcId": "tl0011",
+      "destId": "q15532",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My SaaS Company to Hit Next Year''s Goal?"
+    },
+    {
+      "srcId": "tl0012",
+      "destId": "q15533",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Painting Company to Grow Next Year?"
+    },
+    {
+      "srcId": "tl0013",
+      "destId": "q15534",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My HVAC Company to Hit Its Growth Target?"
+    },
+    {
+      "srcId": "tl0014",
+      "destId": "q15535",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Roofing Company This Year?"
+    },
+    {
+      "srcId": "tl0015",
+      "destId": "q15536",
+      "ok": true,
+      "title": "How Many Producers Do I Need to Hire for My Insurance Agency to Grow My Book?"
+    },
+    {
+      "srcId": "tl0016",
+      "destId": "q15537",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Solar Company to Hit Its Install Goal?"
+    },
+    {
+      "srcId": "tl0017",
+      "destId": "q15538",
+      "ok": true,
+      "title": "How Many Recruiters Do I Need to Hire for My Staffing Agency to Hit Its Placement Goal?"
+    },
+    {
+      "srcId": "tl0018",
+      "destId": "q15539",
+      "ok": true,
+      "title": "How Many Agents Do I Need to Recruit for My Real Estate Brokerage to Grow Production?"
+    },
+    {
+      "srcId": "tl0019",
+      "destId": "q15540",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Landscaping Company This Year?"
+    },
+    {
+      "srcId": "tl0020",
+      "destId": "q15541",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Medical Device Company?"
+    },
+    {
+      "srcId": "tl0021",
+      "destId": "q15542",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Pest Control Company?"
+    },
+    {
+      "srcId": "tl0022",
+      "destId": "q15543",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Home Security and Alarm Company?"
+    },
+    {
+      "srcId": "tl0023",
+      "destId": "q15544",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Commercial Cleaning Company?"
+    },
+    {
+      "srcId": "tl0024",
+      "destId": "q15545",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Industrial Distribution Business?"
+    },
+    {
+      "srcId": "tl0025",
+      "destId": "q15546",
+      "ok": true,
+      "title": "How Many Freight Brokers Do I Need to Hire for My Freight Brokerage?"
+    },
+    {
+      "srcId": "tl0026",
+      "destId": "q15547",
+      "ok": true,
+      "title": "How Many Loan Officers Do I Need to Hire for My Mortgage Brokerage?"
+    },
+    {
+      "srcId": "tl0027",
+      "destId": "q15548",
+      "ok": true,
+      "title": "How Many Advisors Do I Need to Hire for My Financial Advisory Firm?"
+    },
+    {
+      "srcId": "tl0028",
+      "destId": "q15549",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Home Remodeling Company?"
+    },
+    {
+      "srcId": "tl0029",
+      "destId": "q15550",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My IT Managed Services (MSP) Business?"
+    },
+    {
+      "srcId": "tl0030",
+      "destId": "q15551",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Plumbing Company?"
+    },
+    {
+      "srcId": "tl0031",
+      "destId": "q15552",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My B2B Telecom Company?"
+    },
+    {
+      "srcId": "tl0032",
+      "destId": "q15553",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Merchant Services Company?"
+    },
+    {
+      "srcId": "tl0033",
+      "destId": "q15554",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Marketing Agency?"
+    },
+    {
+      "srcId": "tl0034",
+      "destId": "q15555",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Equipment Rental Company?"
+    },
+    {
+      "srcId": "tl0035",
+      "destId": "q15556",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Dental Support Organization?"
+    },
+    {
+      "srcId": "tl0036",
+      "destId": "q15557",
+      "ok": true,
+      "title": "How Many Membership Sales Reps Do I Need to Hire for My Gym?"
+    },
+    {
+      "srcId": "tl0037",
+      "destId": "q15558",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Moving Company?"
+    },
+    {
+      "srcId": "tl0038",
+      "destId": "q15559",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Pool Company?"
+    },
+    {
+      "srcId": "tl0039",
+      "destId": "q15560",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Garage Door Company?"
+    },
+    {
+      "srcId": "tl0040",
+      "destId": "q15561",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Window Replacement Company?"
+    },
+    {
+      "srcId": "tl0041",
+      "destId": "q15562",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Fence Company?"
+    },
+    {
+      "srcId": "tl0042",
+      "destId": "q15563",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Flooring Company?"
+    },
+    {
+      "srcId": "tl0043",
+      "destId": "q15564",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Pressure Washing Business?"
+    },
+    {
+      "srcId": "tl0044",
+      "destId": "q15565",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Tree Service Company?"
+    },
+    {
+      "srcId": "tl0045",
+      "destId": "q15566",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Septic Service Company?"
+    },
+    {
+      "srcId": "tl0046",
+      "destId": "q15567",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Pharmaceutical Company?"
+    },
+    {
+      "srcId": "tl0047",
+      "destId": "q15568",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Healthcare SaaS Company?"
+    },
+    {
+      "srcId": "tl0048",
+      "destId": "q15569",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Fintech Startup?"
+    },
+    {
+      "srcId": "tl0049",
+      "destId": "q15570",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Manufacturing Company?"
+    },
+    {
+      "srcId": "tl0050",
+      "destId": "q15571",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My VoIP Company?"
+    },
+    {
+      "srcId": "tl0051",
+      "destId": "q15572",
+      "ok": true,
+      "title": "How Many Brokers Do I Need to Hire for My Commercial Real Estate Firm?"
+    },
+    {
+      "srcId": "tl0052",
+      "destId": "q15573",
+      "ok": true,
+      "title": "How Many Salespeople Do I Need to Hire for My Car Dealership?"
+    },
+    {
+      "srcId": "tl0053",
+      "destId": "q15574",
+      "ok": true,
+      "title": "How Many Sales Consultants Do I Need to Hire for My Medical Spa?"
+    },
+    {
+      "srcId": "tl0054",
+      "destId": "q15575",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Title Insurance Company?"
+    },
+    {
+      "srcId": "tl0055",
+      "destId": "q15576",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Office Furniture Dealership?"
+    },
+    {
+      "srcId": "tl0056",
+      "destId": "q15577",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Food Distribution Business?"
+    },
+    {
+      "srcId": "tl0057",
+      "destId": "q15578",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Cybersecurity Company?"
+    },
+    {
+      "srcId": "tl0058",
+      "destId": "q15579",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Logistics Company?"
+    },
+    {
+      "srcId": "tl0059",
+      "destId": "q15580",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Janitorial Supply Company?"
+    },
+    {
+      "srcId": "tl0060",
+      "destId": "q15581",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Commercial Printing Company?"
+    },
+    {
+      "srcId": "tl0061",
+      "destId": "q15582",
+      "ok": true,
+      "title": "How Many Cashiers Should I Schedule Each Shift at My Convenience Store Chain?"
+    },
+    {
+      "srcId": "tl0062",
+      "destId": "q15583",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Day at My Grocery Store?"
+    },
+    {
+      "srcId": "tl0063",
+      "destId": "q15584",
+      "ok": true,
+      "title": "How Many Staff Should I Schedule Each Day at My Pharmacy?"
+    },
+    {
+      "srcId": "tl0064",
+      "destId": "q15585",
+      "ok": true,
+      "title": "How Many Baristas Should I Schedule Each Shift at My Coffee Shop?"
+    },
+    {
+      "srcId": "tl0065",
+      "destId": "q15586",
+      "ok": true,
+      "title": "How Many Staff Should I Schedule Each Shift at My Gym?"
+    },
+    {
+      "srcId": "tl0066",
+      "destId": "q15587",
+      "ok": true,
+      "title": "How Many Stylists Should I Schedule Each Day at My Hair Salon?"
+    },
+    {
+      "srcId": "tl0067",
+      "destId": "q15588",
+      "ok": true,
+      "title": "How Many Attendants Should I Schedule Each Day at My Car Wash?"
+    },
+    {
+      "srcId": "tl0068",
+      "destId": "q15589",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Day at My Liquor Store?"
+    },
+    {
+      "srcId": "tl0069",
+      "destId": "q15590",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Day at My Pet Store?"
+    },
+    {
+      "srcId": "tl0070",
+      "destId": "q15591",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Day at My Garden Center?"
+    },
+    {
+      "srcId": "tl0071",
+      "destId": "q15592",
+      "ok": true,
+      "title": "How Many Staff Should I Schedule Each Shift at My Bakery?"
+    },
+    {
+      "srcId": "tl0072",
+      "destId": "q15593",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Ice Cream Shop?"
+    },
+    {
+      "srcId": "tl0073",
+      "destId": "q15594",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Day at My Bookstore?"
+    },
+    {
+      "srcId": "tl0074",
+      "destId": "q15595",
+      "ok": true,
+      "title": "How Many Salespeople Should I Schedule Each Day at My Sporting Goods Store?"
+    },
+    {
+      "srcId": "tl0075",
+      "destId": "q15596",
+      "ok": true,
+      "title": "How Many Salespeople Should I Schedule Each Day at My Shoe Store?"
+    },
+    {
+      "srcId": "tl0076",
+      "destId": "q15597",
+      "ok": true,
+      "title": "How Many Salespeople Should I Schedule Each Day at My Apparel Boutique?"
+    },
+    {
+      "srcId": "tl0077",
+      "destId": "q15598",
+      "ok": true,
+      "title": "How Many Technicians Should I Schedule Each Day at My Nail Salon?"
+    },
+    {
+      "srcId": "tl0078",
+      "destId": "q15599",
+      "ok": true,
+      "title": "How Many Staff Should I Schedule Each Shift at My Urgent Care Clinic?"
+    },
+    {
+      "srcId": "tl0079",
+      "destId": "q15600",
+      "ok": true,
+      "title": "How Many Staff Should I Schedule Each Day at My Veterinary Clinic?"
+    },
+    {
+      "srcId": "tl0080",
+      "destId": "q15601",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Day at My Optical Store?"
+    },
+    {
+      "srcId": "tl0081",
+      "destId": "q15602",
+      "ok": true,
+      "title": "How Many Budtenders Should I Schedule Each Shift at My Cannabis Dispensary?"
+    },
+    {
+      "srcId": "tl0082",
+      "destId": "q15603",
+      "ok": true,
+      "title": "How Many Tellers Should I Schedule Each Day at My Bank Branch?"
+    },
+    {
+      "srcId": "tl0083",
+      "destId": "q15604",
+      "ok": true,
+      "title": "How Many Front Desk Staff Should I Schedule Each Shift at My Hotel?"
+    },
+    {
+      "srcId": "tl0084",
+      "destId": "q15605",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Movie Theater?"
+    },
+    {
+      "srcId": "tl0085",
+      "destId": "q15606",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Bowling Alley?"
+    },
+    {
+      "srcId": "tl0086",
+      "destId": "q15607",
+      "ok": true,
+      "title": "How Many Staff Should I Schedule Each Shift Across My Food Truck Fleet?"
+    },
+    {
+      "srcId": "tl0087",
+      "destId": "q15608",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Deli?"
+    },
+    {
+      "srcId": "tl0088",
+      "destId": "q15609",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Day at My Butcher Shop?"
+    },
+    {
+      "srcId": "tl0089",
+      "destId": "q15610",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Donut Shop?"
+    },
+    {
+      "srcId": "tl0090",
+      "destId": "q15611",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Smoothie Bar?"
+    },
+    {
+      "srcId": "tl0091",
+      "destId": "q15612",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Sandwich Franchise?"
+    },
+    {
+      "srcId": "tl0092",
+      "destId": "q15613",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Taco Shop?"
+    },
+    {
+      "srcId": "tl0093",
+      "destId": "q15614",
+      "ok": true,
+      "title": "How Many Staff Should I Schedule Each Shift at My BBQ Restaurant?"
+    },
+    {
+      "srcId": "tl0094",
+      "destId": "q15615",
+      "ok": true,
+      "title": "How Many Staff Should I Schedule Each Shift at My Sushi Restaurant?"
+    },
+    {
+      "srcId": "tl0095",
+      "destId": "q15616",
+      "ok": true,
+      "title": "How Many Baristas Should I Schedule Each Shift at My Coffee Drive-Thru?"
+    },
+    {
+      "srcId": "tl0096",
+      "destId": "q15617",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Frozen Yogurt Shop?"
+    },
+    {
+      "srcId": "tl0097",
+      "destId": "q15618",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Day at My Wine Shop?"
+    },
+    {
+      "srcId": "tl0098",
+      "destId": "q15619",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Day at My Toy Store?"
+    },
+    {
+      "srcId": "tl0099",
+      "destId": "q15620",
+      "ok": true,
+      "title": "How Many Salespeople Should I Schedule Each Day at My Electronics Store?"
+    },
+    {
+      "srcId": "tl0100",
+      "destId": "q15621",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Day at My Department Store?"
+    },
+    {
+      "srcId": "tl0101",
+      "destId": "q15622",
+      "ok": true,
+      "title": "How Do I Know If I Need a Fractional CRO?"
+    },
+    {
+      "srcId": "tl0102",
+      "destId": "q15623",
+      "ok": true,
+      "title": "How Much Does a Fractional CRO Cost?"
+    },
+    {
+      "srcId": "tl0103",
+      "destId": "q15624",
+      "ok": true,
+      "title": "Do I Need a Full-Time or Part-Time Fractional CRO?"
+    },
+    {
+      "srcId": "tl0104",
+      "destId": "q15625",
+      "ok": true,
+      "title": "What Does a Fractional CRO Actually Do?"
+    },
+    {
+      "srcId": "tl0105",
+      "destId": "q15626",
+      "ok": true,
+      "title": "Fractional CRO vs VP of Sales: Which Do I Need?"
+    },
+    {
+      "srcId": "tl0106",
+      "destId": "q15627",
+      "ok": true,
+      "title": "When Should a Startup Hire a Fractional CRO?"
+    },
+    {
+      "srcId": "tl0107",
+      "destId": "q15628",
+      "ok": true,
+      "title": "Is a Fractional CRO Worth It for a Small Business?"
+    },
+    {
+      "srcId": "tl0108",
+      "destId": "q15629",
+      "ok": true,
+      "title": "How Do I Hire a Fractional CRO?"
+    },
+    {
+      "srcId": "tl0109",
+      "destId": "q15630",
+      "ok": true,
+      "title": "How Do I Scale Revenue Without Hiring a Full-Time CRO?"
+    },
+    {
+      "srcId": "tl0110",
+      "destId": "q15631",
+      "ok": true,
+      "title": "What ROI Should I Expect From a Fractional CRO?"
+    },
+    {
+      "srcId": "tl0111",
+      "destId": "q15632",
+      "ok": true,
+      "title": "How Do I Know If My Business Is Ready for a Fractional CRO?"
+    },
+    {
+      "srcId": "tl0112",
+      "destId": "q15633",
+      "ok": true,
+      "title": "What Questions Should I Ask Before Hiring a Fractional CRO?"
+    },
+    {
+      "srcId": "tl0113",
+      "destId": "q15634",
+      "ok": true,
+      "title": "How Long Should a Fractional CRO Engagement Last?"
+    },
+    {
+      "srcId": "tl0114",
+      "destId": "q15635",
+      "ok": true,
+      "title": "Fractional CRO vs Sales Consultant: What Is the Difference?"
+    },
+    {
+      "srcId": "tl0115",
+      "destId": "q15636",
+      "ok": true,
+      "title": "Can a Fractional CRO Fix Unpredictable Revenue?"
+    },
+    {
+      "srcId": "tl0116",
+      "destId": "q15637",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO or a Sales Manager?"
+    },
+    {
+      "srcId": "tl0117",
+      "destId": "q15638",
+      "ok": true,
+      "title": "What Is the Difference Between a Fractional CRO and a Fractional VP of Sales?"
+    },
+    {
+      "srcId": "tl0118",
+      "destId": "q15639",
+      "ok": true,
+      "title": "How Does a Fractional CRO Build a Compensation Plan?"
+    },
+    {
+      "srcId": "tl0119",
+      "destId": "q15640",
+      "ok": true,
+      "title": "How Does a Fractional CRO Improve Sales Forecasting?"
+    },
+    {
+      "srcId": "tl0120",
+      "destId": "q15641",
+      "ok": true,
+      "title": "What Are the Signs My Sales Team Needs a Fractional CRO?"
+    },
+    {
+      "srcId": "tl0121",
+      "destId": "q15642",
+      "ok": true,
+      "title": "How Do I Get Affordable Revenue Leadership Without a Full-Time Hire?"
+    },
+    {
+      "srcId": "tl0122",
+      "destId": "q15643",
+      "ok": true,
+      "title": "How Does a Fractional CRO Align Sales, Marketing, and Customer Success?"
+    },
+    {
+      "srcId": "tl0123",
+      "destId": "q15644",
+      "ok": true,
+      "title": "How Does a Fractional CRO Fix a Broken Sales Comp Plan?"
+    },
+    {
+      "srcId": "tl0124",
+      "destId": "q15645",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO Before or After a Funding Round?"
+    },
+    {
+      "srcId": "tl0125",
+      "ok": false,
+      "reason": "dup_title_in_dest",
+      "title": "What Does a Fractional CRO Do in the First 90 Days?"
+    },
+    {
+      "srcId": "tl0126",
+      "destId": "q15646",
+      "ok": true,
+      "title": "How Do I Measure Whether My Fractional CRO Is Working?"
+    },
+    {
+      "srcId": "tl0127",
+      "destId": "q15647",
+      "ok": true,
+      "title": "Fractional CRO vs Full-Time CRO: When Do I Make the Switch?"
+    },
+    {
+      "srcId": "tl0128",
+      "destId": "q15648",
+      "ok": true,
+      "title": "Can a Fractional CRO Help Me Build a Repeatable Sales Process?"
+    },
+    {
+      "srcId": "tl0129",
+      "destId": "q15649",
+      "ok": true,
+      "title": "How Does a Fractional CRO Help With Pipeline Management?"
+    },
+    {
+      "srcId": "tl0130",
+      "destId": "q15650",
+      "ok": true,
+      "title": "What Is the Difference Between a Fractional CRO and a Fractional CMO?"
+    },
+    {
+      "srcId": "tl0131",
+      "destId": "q15651",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My SaaS Company?"
+    },
+    {
+      "srcId": "tl0132",
+      "destId": "q15652",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Home Services Business?"
+    },
+    {
+      "srcId": "tl0133",
+      "destId": "q15653",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Manufacturing Company?"
+    },
+    {
+      "srcId": "tl0134",
+      "destId": "q15654",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Insurance Agency?"
+    },
+    {
+      "srcId": "tl0135",
+      "destId": "q15655",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Roofing Company?"
+    },
+    {
+      "srcId": "tl0136",
+      "destId": "q15656",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My HVAC Company?"
+    },
+    {
+      "srcId": "tl0137",
+      "destId": "q15657",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Solar Company?"
+    },
+    {
+      "srcId": "tl0138",
+      "destId": "q15658",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Staffing Agency?"
+    },
+    {
+      "srcId": "tl0139",
+      "destId": "q15659",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Real Estate Brokerage?"
+    },
+    {
+      "srcId": "tl0140",
+      "destId": "q15660",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Medical Device Company?"
+    },
+    {
+      "srcId": "tl0141",
+      "destId": "q15661",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Marketing Agency?"
+    },
+    {
+      "srcId": "tl0142",
+      "destId": "q15662",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Multi-Unit Retail Business?"
+    },
+    {
+      "srcId": "tl0143",
+      "destId": "q15663",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Franchise?"
+    },
+    {
+      "srcId": "tl0144",
+      "destId": "q15664",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Auto Dealership?"
+    },
+    {
+      "srcId": "tl0145",
+      "destId": "q15665",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Medical Spa?"
+    },
+    {
+      "srcId": "tl0146",
+      "destId": "q15666",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Logistics Company?"
+    },
+    {
+      "srcId": "tl0147",
+      "destId": "q15667",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Fintech Startup?"
+    },
+    {
+      "srcId": "tl0148",
+      "destId": "q15668",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Professional Services Firm?"
+    },
+    {
+      "srcId": "tl0149",
+      "destId": "q15669",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My E-Commerce Business?"
+    },
+    {
+      "srcId": "tl0150",
+      "destId": "q15670",
+      "ok": true,
+      "title": "Do I Need a Fractional CRO for My Construction Company?"
+    },
+    {
+      "srcId": "tl0151",
+      "destId": "q15671",
+      "ok": true,
+      "title": "How Do I Get My Sales Reps to Sell the Full Product Line Instead of Just One or Two Products?"
+    },
+    {
+      "srcId": "tl0152",
+      "destId": "q15672",
+      "ok": true,
+      "title": "How Do I Build a Sales Rep Scorecard?"
+    },
+    {
+      "srcId": "tl0153",
+      "destId": "q15673",
+      "ok": true,
+      "title": "How Do I Score My Sales Reps Across Multiple KPIs?"
+    },
+    {
+      "srcId": "tl0154",
+      "destId": "q15674",
+      "ok": true,
+      "title": "How Do I Stop My Reps From Only Selling the Easy Product?"
+    },
+    {
+      "srcId": "tl0155",
+      "destId": "q15675",
+      "ok": true,
+      "title": "How Do I Align Sales, RevOps, and Customer Success on the Same Goals?"
+    },
+    {
+      "srcId": "tl0156",
+      "destId": "q15676",
+      "ok": true,
+      "title": "How Do I Motivate Reps to Sell More Than the Core Product?"
+    },
+    {
+      "srcId": "tl0157",
+      "destId": "q15677",
+      "ok": true,
+      "title": "How Do I Set Up a Points-Based Sales Incentive System?"
+    },
+    {
+      "srcId": "tl0158",
+      "destId": "q15678",
+      "ok": true,
+      "title": "How Do I Measure Rep Performance Beyond Revenue?"
+    },
+    {
+      "srcId": "tl0159",
+      "destId": "q15679",
+      "ok": true,
+      "title": "How Do I Create a Sales Accountability Matrix?"
+    },
+    {
+      "srcId": "tl0160",
+      "destId": "q15680",
+      "ok": true,
+      "title": "How Do I Change Sales KPIs Quickly When the Market Shifts?"
+    },
+    {
+      "srcId": "tl0161",
+      "destId": "q15681",
+      "ok": true,
+      "title": "How Do I Get My Whole Team Chasing the Same Number?"
+    },
+    {
+      "srcId": "tl0162",
+      "destId": "q15682",
+      "ok": true,
+      "title": "How Do I Build a Weighted Sales Scorecard?"
+    },
+    {
+      "srcId": "tl0163",
+      "destId": "q15683",
+      "ok": true,
+      "title": "How Do I Rank My Sales Reps Fairly?"
+    },
+    {
+      "srcId": "tl0164",
+      "destId": "q15684",
+      "ok": true,
+      "title": "How Do I Tie Commission to More Than One Product?"
+    },
+    {
+      "srcId": "tl0165",
+      "destId": "q15685",
+      "ok": true,
+      "title": "How Do I Coach Reps on Their Weakest KPIs?"
+    },
+    {
+      "srcId": "tl0166",
+      "destId": "q15686",
+      "ok": true,
+      "title": "How Do I Keep Reps From Gaming the Comp Plan?"
+    },
+    {
+      "srcId": "tl0167",
+      "destId": "q15687",
+      "ok": true,
+      "title": "How Do I Track Attach Rate and Add-On Sales by Rep?"
+    },
+    {
+      "srcId": "tl0168",
+      "destId": "q15688",
+      "ok": true,
+      "title": "How Do I Set Sales KPIs That Reflect the Whole Business?"
+    },
+    {
+      "srcId": "tl0169",
+      "destId": "q15689",
+      "ok": true,
+      "title": "How Do I Make My Sales Goals Visible to the Whole Team?"
+    },
+    {
+      "srcId": "tl0170",
+      "destId": "q15690",
+      "ok": true,
+      "title": "How Do I Balance Revenue and Behavior in Rep Scoring?"
+    },
+    {
+      "srcId": "tl0171",
+      "destId": "q15691",
+      "ok": true,
+      "title": "How Do I Build a Rep Performance Dashboard?"
+    },
+    {
+      "srcId": "tl0172",
+      "destId": "q15692",
+      "ok": true,
+      "title": "How Do I Get My Retail Sales Team to Sell the Full Product Line?"
+    },
+    {
+      "srcId": "tl0173",
+      "destId": "q15693",
+      "ok": true,
+      "title": "How Do I Get My SaaS AEs to Sell the Whole Platform, Not One Module?"
+    },
+    {
+      "srcId": "tl0174",
+      "destId": "q15694",
+      "ok": true,
+      "title": "How Do I Get My Wireless Store Reps to Sell Accessories and Plans, Not Just Phones?"
+    },
+    {
+      "srcId": "tl0175",
+      "destId": "q15695",
+      "ok": true,
+      "title": "How Do I Get My Furniture Salespeople to Sell Protection Plans and Add-Ons?"
+    },
+    {
+      "srcId": "tl0176",
+      "destId": "q15696",
+      "ok": true,
+      "title": "How Do I Get My Auto Dealership Team to Sell F&I and Service, Not Just Cars?"
+    },
+    {
+      "srcId": "tl0177",
+      "destId": "q15697",
+      "ok": true,
+      "title": "How Do I Get My Insurance Producers to Round Out Every Account?"
+    },
+    {
+      "srcId": "tl0178",
+      "destId": "q15698",
+      "ok": true,
+      "title": "How Do I Get My Bank Staff to Cross-Sell the Full Product Set?"
+    },
+    {
+      "srcId": "tl0179",
+      "destId": "q15699",
+      "ok": true,
+      "title": "How Do I Get My Medical Device Reps to Sell the Full Portfolio?"
+    },
+    {
+      "srcId": "tl0180",
+      "destId": "q15700",
+      "ok": true,
+      "title": "How Do I Score Reps at My Multi-Unit Retail Chain?"
+    },
+    {
+      "srcId": "tl0181",
+      "destId": "q15701",
+      "ok": true,
+      "title": "How Do I Get My HVAC Techs to Sell Maintenance Agreements?"
+    },
+    {
+      "srcId": "tl0182",
+      "destId": "q15702",
+      "ok": true,
+      "title": "How Do I Get My Gym Staff to Sell Memberships and Add-Ons?"
+    },
+    {
+      "srcId": "tl0183",
+      "destId": "q15703",
+      "ok": true,
+      "title": "How Do I Get My Jewelry Sales Team to Sell Across Every Category?"
+    },
+    {
+      "srcId": "tl0184",
+      "destId": "q15704",
+      "ok": true,
+      "title": "How Do I Score My Restaurant Staff on Upsells and Attachment?"
+    },
+    {
+      "srcId": "tl0185",
+      "destId": "q15705",
+      "ok": true,
+      "title": "How Do I Get My Solar Reps to Sell Batteries and Add-Ons?"
+    },
+    {
+      "srcId": "tl0186",
+      "destId": "q15706",
+      "ok": true,
+      "title": "How Do I Get My Mattress Sales Team to Sell Accessories and Protection?"
+    },
+    {
+      "srcId": "tl0187",
+      "destId": "q15707",
+      "ok": true,
+      "title": "How Do I Get My Pharmacy Staff to Drive Front-of-Store Sales?"
+    },
+    {
+      "srcId": "tl0188",
+      "destId": "q15708",
+      "ok": true,
+      "title": "How Do I Get My Electronics Reps to Sell Warranties and Accessories?"
+    },
+    {
+      "srcId": "tl0189",
+      "destId": "q15709",
+      "ok": true,
+      "title": "How Do I Get My Home Services Sales Team to Sell the Full Menu?"
+    },
+    {
+      "srcId": "tl0190",
+      "destId": "q15710",
+      "ok": true,
+      "title": "How Do I Get My Apparel Team to Sell Complete Outfits, Not Single Items?"
+    },
+    {
+      "srcId": "tl0191",
+      "destId": "q15711",
+      "ok": true,
+      "title": "How Do I Score My Call Center Reps Across Every Offer?"
+    },
+    {
+      "srcId": "tl0192",
+      "destId": "q15712",
+      "ok": true,
+      "title": "How Do I Get My Telecom Reps to Sell Bundles?"
+    },
+    {
+      "srcId": "tl0193",
+      "destId": "q15713",
+      "ok": true,
+      "title": "How Do I Get My Medical Spa Consultants to Sell Packages, Not One Treatment?"
+    },
+    {
+      "srcId": "tl0194",
+      "destId": "q15714",
+      "ok": true,
+      "title": "How Do I Get My Pest Control Reps to Sell Recurring Plans?"
+    },
+    {
+      "srcId": "tl0195",
+      "destId": "q15715",
+      "ok": true,
+      "title": "How Do I Get My Roofing Sales Team to Sell Full-System Upgrades?"
+    },
+    {
+      "srcId": "tl0196",
+      "destId": "q15716",
+      "ok": true,
+      "title": "How Do I Score My Franchise Locations on the Full Product Mix?"
+    },
+    {
+      "srcId": "tl0197",
+      "destId": "q15717",
+      "ok": true,
+      "title": "How Do I Get My Distribution Sales Reps to Sell the Full Catalog?"
+    },
+    {
+      "srcId": "tl0198",
+      "destId": "q15718",
+      "ok": true,
+      "title": "How Do I Get My Fitness Studio Team to Sell Retail and Memberships?"
+    },
+    {
+      "srcId": "tl0199",
+      "destId": "q15719",
+      "ok": true,
+      "title": "How Do I Get My Hotel Front Desk to Upsell Rooms and Amenities?"
+    },
+    {
+      "srcId": "tl0200",
+      "destId": "q15720",
+      "ok": true,
+      "title": "How Do I Get My Liquor Store Staff to Sell Premium and Attach Items?"
+    },
+    {
+      "srcId": "tl0201",
+      "destId": "q15721",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Wholesale Electrical Distribution Company?"
+    },
+    {
+      "srcId": "tl0202",
+      "destId": "q15722",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Medical Billing Company?"
+    },
+    {
+      "srcId": "tl0203",
+      "destId": "q15723",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Promotional Products Company?"
+    },
+    {
+      "srcId": "tl0204",
+      "destId": "q15724",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Snow Removal Company?"
+    },
+    {
+      "srcId": "tl0205",
+      "destId": "q15725",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Foundation Repair Company?"
+    },
+    {
+      "srcId": "tl0206",
+      "destId": "q15726",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My EV Charging Installation Company?"
+    },
+    {
+      "srcId": "tl0207",
+      "destId": "q15727",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Document Shredding Company?"
+    },
+    {
+      "srcId": "tl0208",
+      "destId": "q15728",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Uniform Rental Company?"
+    },
+    {
+      "srcId": "tl0209",
+      "destId": "q15729",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Wildlife Removal Company?"
+    },
+    {
+      "srcId": "tl0210",
+      "destId": "q15730",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Fire Sprinkler Company?"
+    },
+    {
+      "srcId": "tl0211",
+      "destId": "q15731",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Elevator Maintenance Company?"
+    },
+    {
+      "srcId": "tl0212",
+      "destId": "q15732",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Industrial Refrigeration Company?"
+    },
+    {
+      "srcId": "tl0213",
+      "destId": "q15733",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Crane Rental Company?"
+    },
+    {
+      "srcId": "tl0214",
+      "destId": "q15734",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Scaffolding Rental Company?"
+    },
+    {
+      "srcId": "tl0215",
+      "destId": "q15735",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Portable Sanitation Company?"
+    },
+    {
+      "srcId": "tl0216",
+      "destId": "q15736",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Waste Hauling Company?"
+    },
+    {
+      "srcId": "tl0217",
+      "destId": "q15737",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Steel Building Construction Company?"
+    },
+    {
+      "srcId": "tl0218",
+      "destId": "q15738",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Concrete Contracting Company?"
+    },
+    {
+      "srcId": "tl0219",
+      "destId": "q15739",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Asphalt Paving Company?"
+    },
+    {
+      "srcId": "tl0220",
+      "destId": "q15740",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Water Treatment Company?"
+    },
+    {
+      "srcId": "tl0221",
+      "destId": "q15741",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Backup Generator Company?"
+    },
+    {
+      "srcId": "tl0222",
+      "destId": "q15742",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Smart Home Integration Company?"
+    },
+    {
+      "srcId": "tl0223",
+      "destId": "q15743",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Epoxy Flooring Company?"
+    },
+    {
+      "srcId": "tl0224",
+      "destId": "q15744",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Sign Company?"
+    },
+    {
+      "srcId": "tl0225",
+      "destId": "q15745",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Automatic Gate Company?"
+    },
+    {
+      "srcId": "tl0226",
+      "destId": "q15746",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Irrigation Company?"
+    },
+    {
+      "srcId": "tl0227",
+      "destId": "q15747",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Artificial Turf Company?"
+    },
+    {
+      "srcId": "tl0228",
+      "destId": "q15748",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Hot Tub and Spa Retailer?"
+    },
+    {
+      "srcId": "tl0229",
+      "destId": "q15749",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Closet and Storage Company?"
+    },
+    {
+      "srcId": "tl0230",
+      "destId": "q15750",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Window Blinds Company?"
+    },
+    {
+      "srcId": "tl0231",
+      "destId": "q15751",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Cabinet Refacing Company?"
+    },
+    {
+      "srcId": "tl0232",
+      "destId": "q15752",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Countertop Fabrication Company?"
+    },
+    {
+      "srcId": "tl0233",
+      "destId": "q15753",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Water Damage Restoration Company?"
+    },
+    {
+      "srcId": "tl0234",
+      "destId": "q15754",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Mold Remediation Company?"
+    },
+    {
+      "srcId": "tl0235",
+      "destId": "q15755",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Air Duct Cleaning Company?"
+    },
+    {
+      "srcId": "tl0236",
+      "destId": "q15756",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Gutter Installation Company?"
+    },
+    {
+      "srcId": "tl0237",
+      "destId": "q15757",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Insulation Company?"
+    },
+    {
+      "srcId": "tl0238",
+      "destId": "q15758",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Window Tinting Company?"
+    },
+    {
+      "srcId": "tl0239",
+      "destId": "q15759",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Field Service Software Company?"
+    },
+    {
+      "srcId": "tl0240",
+      "destId": "q15760",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Restaurant POS Company?"
+    },
+    {
+      "srcId": "tl0241",
+      "destId": "q15761",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Dental Equipment Company?"
+    },
+    {
+      "srcId": "tl0242",
+      "destId": "q15762",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Veterinary Software Company?"
+    },
+    {
+      "srcId": "tl0243",
+      "destId": "q15763",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Commercial Laundry Company?"
+    },
+    {
+      "srcId": "tl0244",
+      "destId": "q15764",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Linen Supply Company?"
+    },
+    {
+      "srcId": "tl0245",
+      "destId": "q15765",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Vending Machine Company?"
+    },
+    {
+      "srcId": "tl0246",
+      "destId": "q15766",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My ATM Services Company?"
+    },
+    {
+      "srcId": "tl0247",
+      "destId": "q15767",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Payroll Services Company?"
+    },
+    {
+      "srcId": "tl0248",
+      "destId": "q15768",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Background Screening Company?"
+    },
+    {
+      "srcId": "tl0249",
+      "destId": "q15769",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Translation Services Company?"
+    },
+    {
+      "srcId": "tl0250",
+      "destId": "q15770",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Trade Show Exhibit Company?"
+    },
+    {
+      "srcId": "tl0251",
+      "destId": "q15771",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Trampoline Park?"
+    },
+    {
+      "srcId": "tl0252",
+      "destId": "q15772",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Family Entertainment Center?"
+    },
+    {
+      "srcId": "tl0253",
+      "destId": "q15773",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Escape Room?"
+    },
+    {
+      "srcId": "tl0254",
+      "destId": "q15774",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Arcade and Barcade?"
+    },
+    {
+      "srcId": "tl0255",
+      "destId": "q15775",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Mini Golf Course?"
+    },
+    {
+      "srcId": "tl0256",
+      "destId": "q15776",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Go-Kart Track?"
+    },
+    {
+      "srcId": "tl0257",
+      "destId": "q15777",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Laser Tag Arena?"
+    },
+    {
+      "srcId": "tl0258",
+      "destId": "q15778",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Climbing Gym?"
+    },
+    {
+      "srcId": "tl0259",
+      "destId": "q15779",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Yoga Studio?"
+    },
+    {
+      "srcId": "tl0260",
+      "destId": "q15780",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Pilates Studio?"
+    },
+    {
+      "srcId": "tl0261",
+      "destId": "q15781",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My CrossFit Box?"
+    },
+    {
+      "srcId": "tl0262",
+      "destId": "q15782",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Spin Studio?"
+    },
+    {
+      "srcId": "tl0263",
+      "destId": "q15783",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Martial Arts Studio?"
+    },
+    {
+      "srcId": "tl0264",
+      "destId": "q15784",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Dance Studio?"
+    },
+    {
+      "srcId": "tl0265",
+      "destId": "q15785",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Tutoring Center?"
+    },
+    {
+      "srcId": "tl0266",
+      "destId": "q15786",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Daycare Center?"
+    },
+    {
+      "srcId": "tl0267",
+      "destId": "q15787",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Assisted Living Front Desk?"
+    },
+    {
+      "srcId": "tl0268",
+      "destId": "q15788",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Tanning Salon?"
+    },
+    {
+      "srcId": "tl0269",
+      "destId": "q15789",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Barbershop?"
+    },
+    {
+      "srcId": "tl0270",
+      "destId": "q15790",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Massage Studio?"
+    },
+    {
+      "srcId": "tl0271",
+      "destId": "q15791",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Tattoo Shop?"
+    },
+    {
+      "srcId": "tl0272",
+      "destId": "q15792",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Dry Cleaner?"
+    },
+    {
+      "srcId": "tl0273",
+      "destId": "q15793",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Laundromat?"
+    },
+    {
+      "srcId": "tl0274",
+      "destId": "q15794",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Self-Storage Facility?"
+    },
+    {
+      "srcId": "tl0275",
+      "destId": "q15795",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Truck Rental Counter?"
+    },
+    {
+      "srcId": "tl0276",
+      "destId": "q15796",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Auto Parts Store?"
+    },
+    {
+      "srcId": "tl0277",
+      "destId": "q15797",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Tire Shop?"
+    },
+    {
+      "srcId": "tl0278",
+      "destId": "q15798",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Quick Lube?"
+    },
+    {
+      "srcId": "tl0279",
+      "destId": "q15799",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Auto Detail Shop?"
+    },
+    {
+      "srcId": "tl0280",
+      "destId": "q15800",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Bike Shop?"
+    },
+    {
+      "srcId": "tl0281",
+      "destId": "q15801",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Outdoor and Camping Store?"
+    },
+    {
+      "srcId": "tl0282",
+      "destId": "q15802",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Craft and Fabric Store?"
+    },
+    {
+      "srcId": "tl0283",
+      "destId": "q15803",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Party Supply Store?"
+    },
+    {
+      "srcId": "tl0284",
+      "destId": "q15804",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Florist Shop?"
+    },
+    {
+      "srcId": "tl0285",
+      "destId": "q15805",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Gift Shop?"
+    },
+    {
+      "srcId": "tl0286",
+      "destId": "q15806",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Cigar Lounge?"
+    },
+    {
+      "srcId": "tl0287",
+      "destId": "q15807",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Brewery Taproom?"
+    },
+    {
+      "srcId": "tl0288",
+      "destId": "q15808",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Winery Tasting Room?"
+    },
+    {
+      "srcId": "tl0289",
+      "destId": "q15809",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Distillery Tasting Room?"
+    },
+    {
+      "srcId": "tl0290",
+      "destId": "q15810",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Juice Bar?"
+    },
+    {
+      "srcId": "tl0291",
+      "destId": "q15811",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Poke Restaurant?"
+    },
+    {
+      "srcId": "tl0292",
+      "destId": "q15812",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Ramen Shop?"
+    },
+    {
+      "srcId": "tl0293",
+      "destId": "q15813",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Burrito Restaurant?"
+    },
+    {
+      "srcId": "tl0294",
+      "destId": "q15814",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Steakhouse?"
+    },
+    {
+      "srcId": "tl0295",
+      "destId": "q15815",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Diner?"
+    },
+    {
+      "srcId": "tl0296",
+      "destId": "q15816",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Buffet Restaurant?"
+    },
+    {
+      "srcId": "tl0297",
+      "destId": "q15817",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Seafood Restaurant?"
+    },
+    {
+      "srcId": "tl0298",
+      "destId": "q15818",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Food Hall?"
+    },
+    {
+      "srcId": "tl0299",
+      "destId": "q15819",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Ghost Kitchen?"
+    },
+    {
+      "srcId": "tl0300",
+      "destId": "q15820",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Pretzel Shop?"
+    },
+    {
+      "srcId": "tl0301",
+      "destId": "q15821",
+      "ok": true,
+      "title": "How Do I Get My Bank Branch Staff to Cross-Sell Accounts and Services?"
+    },
+    {
+      "srcId": "tl0302",
+      "destId": "q15822",
+      "ok": true,
+      "title": "How Do I Get My Gym Front Desk to Sell Personal Training Packages?"
+    },
+    {
+      "srcId": "tl0303",
+      "destId": "q15823",
+      "ok": true,
+      "title": "How Do I Get My Hotel Front Desk to Upsell Room Upgrades?"
+    },
+    {
+      "srcId": "tl0304",
+      "destId": "q15824",
+      "ok": true,
+      "title": "How Do I Get My Dealership Service Advisors to Sell Maintenance Plans?"
+    },
+    {
+      "srcId": "tl0305",
+      "destId": "q15825",
+      "ok": true,
+      "title": "How Do I Get My Retail Associates to Attach Protection Plans and Warranties?"
+    },
+    {
+      "srcId": "tl0306",
+      "destId": "q15826",
+      "ok": true,
+      "title": "How Do I Get My Pharmacy Staff to Drive Immunizations and Paid Services?"
+    },
+    {
+      "srcId": "tl0307",
+      "destId": "q15827",
+      "ok": true,
+      "title": "How Do I Get My Optical Staff to Sell Premium Lenses and Coatings?"
+    },
+    {
+      "srcId": "tl0308",
+      "destId": "q15828",
+      "ok": true,
+      "title": "How Do I Get My Furniture Reps to Sell Protection Plans?"
+    },
+    {
+      "srcId": "tl0309",
+      "destId": "q15829",
+      "ok": true,
+      "title": "How Do I Get My Cell Phone Store Reps to Attach Accessories?"
+    },
+    {
+      "srcId": "tl0310",
+      "destId": "q15830",
+      "ok": true,
+      "title": "How Do I Get My Jewelry Staff to Offer Financing on Every Sale?"
+    },
+    {
+      "srcId": "tl0311",
+      "destId": "q15831",
+      "ok": true,
+      "title": "How Do I Get My Salon Staff to Sell Retail Products?"
+    },
+    {
+      "srcId": "tl0312",
+      "destId": "q15832",
+      "ok": true,
+      "title": "How Do I Get My Med Spa Staff to Sell Memberships?"
+    },
+    {
+      "srcId": "tl0313",
+      "destId": "q15833",
+      "ok": true,
+      "title": "How Do I Get My Veterinary Staff to Sell Wellness Plans?"
+    },
+    {
+      "srcId": "tl0314",
+      "destId": "q15834",
+      "ok": true,
+      "title": "How Do I Get My Dental Front Desk to Close Treatment Plans?"
+    },
+    {
+      "srcId": "tl0315",
+      "destId": "q15835",
+      "ok": true,
+      "title": "How Do I Get My Plumbers to Sell Water Heater Upgrades?"
+    },
+    {
+      "srcId": "tl0316",
+      "destId": "q15836",
+      "ok": true,
+      "title": "How Do I Get My Electricians to Sell Panel Upgrades?"
+    },
+    {
+      "srcId": "tl0317",
+      "destId": "q15837",
+      "ok": true,
+      "title": "How Do I Get My Roofers to Sell Gutter and Attic Add-Ons?"
+    },
+    {
+      "srcId": "tl0318",
+      "destId": "q15838",
+      "ok": true,
+      "title": "How Do I Get My Pest Techs to Sell Mosquito and Termite Add-Ons?"
+    },
+    {
+      "srcId": "tl0319",
+      "destId": "q15839",
+      "ok": true,
+      "title": "How Do I Get My Lawn Techs to Sell Aeration and Fertilization Upgrades?"
+    },
+    {
+      "srcId": "tl0320",
+      "destId": "q15840",
+      "ok": true,
+      "title": "How Do I Get My Pool Techs to Sell Equipment Upgrades?"
+    },
+    {
+      "srcId": "tl0321",
+      "destId": "q15841",
+      "ok": true,
+      "title": "How Do I Get My Car Wash Staff to Sell Unlimited Membership Plans?"
+    },
+    {
+      "srcId": "tl0322",
+      "destId": "q15842",
+      "ok": true,
+      "title": "How Do I Get My Quick-Lube Techs to Sell Filters and Fluid Services?"
+    },
+    {
+      "srcId": "tl0323",
+      "destId": "q15843",
+      "ok": true,
+      "title": "How Do I Get My Tire Shop Staff to Sell Alignments and Road Hazard?"
+    },
+    {
+      "srcId": "tl0324",
+      "destId": "q15844",
+      "ok": true,
+      "title": "How Do I Get My Parts Counter to Upsell Premium Parts?"
+    },
+    {
+      "srcId": "tl0325",
+      "destId": "q15845",
+      "ok": true,
+      "title": "How Do I Get My Appliance Reps to Sell Delivery and Haul-Away?"
+    },
+    {
+      "srcId": "tl0326",
+      "destId": "q15846",
+      "ok": true,
+      "title": "How Do I Get My Mattress Reps to Sell Adjustable Bases?"
+    },
+    {
+      "srcId": "tl0327",
+      "destId": "q15847",
+      "ok": true,
+      "title": "How Do I Get My Apparel Staff to Build Bigger Baskets?"
+    },
+    {
+      "srcId": "tl0328",
+      "destId": "q15848",
+      "ok": true,
+      "title": "How Do I Get My Shoe Store Staff to Attach Socks and Care Kits?"
+    },
+    {
+      "srcId": "tl0329",
+      "destId": "q15849",
+      "ok": true,
+      "title": "How Do I Get My Sporting Goods Staff to Sell Memberships and Services?"
+    },
+    {
+      "srcId": "tl0330",
+      "destId": "q15850",
+      "ok": true,
+      "title": "How Do I Get My Garden Center Staff to Sell Soil and Fertilizer Add-Ons?"
+    },
+    {
+      "srcId": "tl0331",
+      "destId": "q15851",
+      "ok": true,
+      "title": "How Do I Get My Wine Shop Staff to Sell Club Memberships?"
+    },
+    {
+      "srcId": "tl0332",
+      "destId": "q15852",
+      "ok": true,
+      "title": "How Do I Get My Coffee Shop Staff to Drive Loyalty App Signups?"
+    },
+    {
+      "srcId": "tl0333",
+      "destId": "q15853",
+      "ok": true,
+      "title": "How Do I Get My QSR Crew to Upsize and Attach Items?"
+    },
+    {
+      "srcId": "tl0334",
+      "destId": "q15854",
+      "ok": true,
+      "title": "How Do I Get My Bakery Staff to Sell Custom Orders?"
+    },
+    {
+      "srcId": "tl0335",
+      "destId": "q15855",
+      "ok": true,
+      "title": "How Do I Get My Butcher Staff to Sell Premium Cuts?"
+    },
+    {
+      "srcId": "tl0336",
+      "destId": "q15856",
+      "ok": true,
+      "title": "How Do I Get My Deli Staff to Sell Catering?"
+    },
+    {
+      "srcId": "tl0337",
+      "destId": "q15857",
+      "ok": true,
+      "title": "How Do I Get My Grocery Staff to Promote Store Brands?"
+    },
+    {
+      "srcId": "tl0338",
+      "destId": "q15858",
+      "ok": true,
+      "title": "How Do I Get My Convenience Store Staff to Attach Food Service?"
+    },
+    {
+      "srcId": "tl0339",
+      "destId": "q15859",
+      "ok": true,
+      "title": "How Do I Get My Hardware Staff to Sell Project Add-Ons?"
+    },
+    {
+      "srcId": "tl0340",
+      "destId": "q15860",
+      "ok": true,
+      "title": "How Do I Get My Lumber Yard Staff to Sell Installed Sales?"
+    },
+    {
+      "srcId": "tl0341",
+      "destId": "q15861",
+      "ok": true,
+      "title": "How Do I Get My Inside Sales Team to Sell Annual Contracts?"
+    },
+    {
+      "srcId": "tl0342",
+      "destId": "q15862",
+      "ok": true,
+      "title": "How Do I Get My SaaS CSMs to Drive Expansion Revenue?"
+    },
+    {
+      "srcId": "tl0343",
+      "destId": "q15863",
+      "ok": true,
+      "title": "How Do I Get My Field Reps to Sell Service Agreements?"
+    },
+    {
+      "srcId": "tl0344",
+      "destId": "q15864",
+      "ok": true,
+      "title": "How Do I Get My Distribution Reps to Sell Private Label?"
+    },
+    {
+      "srcId": "tl0345",
+      "destId": "q15865",
+      "ok": true,
+      "title": "How Do I Get My Medical Device Reps to Sell Service Contracts?"
+    },
+    {
+      "srcId": "tl0346",
+      "ok": false,
+      "reason": "dup_title_in_dest",
+      "title": "How Do I Get My Telecom Reps to Sell Bundles?"
+    },
+    {
+      "srcId": "tl0347",
+      "destId": "q15866",
+      "ok": true,
+      "title": "How Do I Get My Merchant Services Reps to Sell Value-Added Services?"
+    },
+    {
+      "srcId": "tl0348",
+      "destId": "q15867",
+      "ok": true,
+      "title": "How Do I Get My Freight Brokers to Grow Margin Per Load?"
+    },
+    {
+      "srcId": "tl0349",
+      "destId": "q15868",
+      "ok": true,
+      "title": "How Do I Get My Staffing Recruiters to Sell Direct-Hire Placements?"
+    },
+    {
+      "srcId": "tl0350",
+      "destId": "q15869",
+      "ok": true,
+      "title": "How Do I Get My Real Estate Agents to Capture More Referrals?"
+    },
+    {
+      "srcId": "tl0351",
+      "destId": "q15870",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Have Missed Quota Two Quarters in a Row?"
+    },
+    {
+      "srcId": "tl0352",
+      "destId": "q15871",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Pipeline Coverage Is Below 2x?"
+    },
+    {
+      "srcId": "tl0353",
+      "destId": "q15872",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am the Founder Still Closing Every Big Deal?"
+    },
+    {
+      "srcId": "tl0354",
+      "destId": "q15873",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Just Raised a Series A?"
+    },
+    {
+      "srcId": "tl0355",
+      "destId": "q15874",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Preparing for a Series B in Six Months?"
+    },
+    {
+      "srcId": "tl0356",
+      "destId": "q15875",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If Sales and Marketing Keep Fighting Over Leads?"
+    },
+    {
+      "srcId": "tl0357",
+      "destId": "q15876",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My VP of Sales Just Quit?"
+    },
+    {
+      "srcId": "tl0358",
+      "destId": "q15877",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If Churn Is Rising on My Enterprise Accounts?"
+    },
+    {
+      "srcId": "tl0359",
+      "destId": "q15878",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Scaling From 10 to 50 Reps?"
+    },
+    {
+      "srcId": "tl0360",
+      "destId": "q15879",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Expanding Internationally Next Year?"
+    },
+    {
+      "srcId": "tl0361",
+      "destId": "q15880",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Launching a Second Product Line?"
+    },
+    {
+      "srcId": "tl0362",
+      "destId": "q15881",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Moving From SMB to Enterprise?"
+    },
+    {
+      "srcId": "tl0363",
+      "destId": "q15882",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If A PE Firm Just Acquired Us?"
+    },
+    {
+      "srcId": "tl0364",
+      "destId": "q15883",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If We Are Integrating Two Sales Teams After a Merger?"
+    },
+    {
+      "srcId": "tl0365",
+      "destId": "q15884",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Board Wants a Revenue Turnaround?"
+    },
+    {
+      "srcId": "tl0366",
+      "destId": "q15885",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Revenue Has Been Flat for Four Quarters?"
+    },
+    {
+      "srcId": "tl0367",
+      "destId": "q15886",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My CAC Payback Exceeds 24 Months?"
+    },
+    {
+      "srcId": "tl0368",
+      "destId": "q15887",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Forecast Accuracy Is Below 50 Percent?"
+    },
+    {
+      "srcId": "tl0369",
+      "destId": "q15888",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Moving From Founder-Led to Repeatable Sales?"
+    },
+    {
+      "srcId": "tl0370",
+      "destId": "q15889",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Adding a Channel and Partner Motion?"
+    },
+    {
+      "srcId": "tl0371",
+      "destId": "q15890",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Comp Plan Is Driving the Wrong Behavior?"
+    },
+    {
+      "srcId": "tl0372",
+      "destId": "q15891",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Have No RevOps Function Yet?"
+    },
+    {
+      "srcId": "tl0373",
+      "destId": "q15892",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My CRM Data Is a Mess and Nobody Trusts It?"
+    },
+    {
+      "srcId": "tl0374",
+      "destId": "q15893",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Prepping for an Exit in 18 Months?"
+    },
+    {
+      "srcId": "tl0375",
+      "destId": "q15894",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Just Hit 5 Million in ARR?"
+    },
+    {
+      "srcId": "tl0376",
+      "destId": "q15895",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Just Hit 20 Million in ARR?"
+    },
+    {
+      "srcId": "tl0377",
+      "destId": "q15896",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Bootstrapped and Cannot Afford a Full-Time CRO?"
+    },
+    {
+      "srcId": "tl0378",
+      "destId": "q15897",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Shifting From Services to Product Revenue?"
+    },
+    {
+      "srcId": "tl0379",
+      "destId": "q15898",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Pivoting to Usage-Based Pricing?"
+    },
+    {
+      "srcId": "tl0380",
+      "destId": "q15899",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My PLG Motion Stalls at the Sales Handoff?"
+    },
+    {
+      "srcId": "tl0381",
+      "destId": "q15900",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Win Rates Are Dropping Against a New Competitor?"
+    },
+    {
+      "srcId": "tl0382",
+      "destId": "q15901",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Sales Cycle Has Doubled?"
+    },
+    {
+      "srcId": "tl0383",
+      "destId": "q15902",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Too Dependent on One Big Customer?"
+    },
+    {
+      "srcId": "tl0384",
+      "destId": "q15903",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Need to Build My First Sales Playbook?"
+    },
+    {
+      "srcId": "tl0385",
+      "destId": "q15904",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Replacing a CRO Who Failed?"
+    },
+    {
+      "srcId": "tl0386",
+      "destId": "q15905",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Want a Fractional CRO Before the Full-Time Hire?"
+    },
+    {
+      "srcId": "tl0387",
+      "destId": "q15906",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Family Business Is Handing Sales to the Next Generation?"
+    },
+    {
+      "srcId": "tl0388",
+      "destId": "q15907",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Nonprofit Is Building an Earned-Revenue Arm?"
+    },
+    {
+      "srcId": "tl0389",
+      "destId": "q15908",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Franchise System Is Standardizing Unit Sales?"
+    },
+    {
+      "srcId": "tl0390",
+      "destId": "q15909",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My E-Commerce Brand Is Adding B2B Wholesale?"
+    },
+    {
+      "srcId": "tl0391",
+      "destId": "q15910",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Agency Is Productizing Into Recurring Revenue?"
+    },
+    {
+      "srcId": "tl0392",
+      "destId": "q15911",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Manufacturer Is Going Direct-to-Consumer?"
+    },
+    {
+      "srcId": "tl0393",
+      "destId": "q15912",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Healthcare Company Is Entering Payer Contracts?"
+    },
+    {
+      "srcId": "tl0394",
+      "destId": "q15913",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Fintech Is Navigating a New Compliance Regime?"
+    },
+    {
+      "srcId": "tl0395",
+      "destId": "q15914",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Two Co-Founders Disagree on GTM Strategy?"
+    },
+    {
+      "srcId": "tl0396",
+      "destId": "q15915",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Need to Fix Broken Lead Routing and Handoffs?"
+    },
+    {
+      "srcId": "tl0397",
+      "destId": "q15916",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Entering a Regulated Market?"
+    },
+    {
+      "srcId": "tl0398",
+      "destId": "q15917",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Need Interim Leadership During a CRO Search?"
+    },
+    {
+      "srcId": "tl0399",
+      "destId": "q15918",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Preparing My Revenue Org for Due Diligence?"
+    },
+    {
+      "srcId": "tl0400",
+      "destId": "q15919",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Want a 90-Day Revenue Diagnostic Before Committing?"
+    },
+    {
+      "srcId": "tl0401",
+      "destId": "q15920",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Commercial Solar O&M Company?"
+    },
+    {
+      "srcId": "tl0402",
+      "destId": "q15921",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Data Center Construction Company?"
+    },
+    {
+      "srcId": "tl0403",
+      "destId": "q15922",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Modular Building Manufacturer?"
+    },
+    {
+      "srcId": "tl0404",
+      "destId": "q15923",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Prefab Home Builder?"
+    },
+    {
+      "srcId": "tl0405",
+      "destId": "q15924",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Commercial Glass and Glazing Company?"
+    },
+    {
+      "srcId": "tl0406",
+      "destId": "q15925",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Commercial Overhead Door Company?"
+    },
+    {
+      "srcId": "tl0407",
+      "destId": "q15926",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Loading Dock Equipment Company?"
+    },
+    {
+      "srcId": "tl0408",
+      "destId": "q15927",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Forklift and Material Handling Dealer?"
+    },
+    {
+      "srcId": "tl0409",
+      "destId": "q15928",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Industrial Automation Integrator?"
+    },
+    {
+      "srcId": "tl0410",
+      "destId": "q15929",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Robotics Integrator?"
+    },
+    {
+      "srcId": "tl0411",
+      "destId": "q15930",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Industrial Controls Company?"
+    },
+    {
+      "srcId": "tl0412",
+      "destId": "q15931",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Calibration Services Company?"
+    },
+    {
+      "srcId": "tl0413",
+      "destId": "q15932",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My NDT Inspection Services Company?"
+    },
+    {
+      "srcId": "tl0414",
+      "destId": "q15933",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Industrial Coatings Company?"
+    },
+    {
+      "srcId": "tl0415",
+      "destId": "q15934",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Sandblasting Company?"
+    },
+    {
+      "srcId": "tl0416",
+      "destId": "q15935",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Industrial Gas Supplier?"
+    },
+    {
+      "srcId": "tl0417",
+      "destId": "q15936",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Welding Supply Company?"
+    },
+    {
+      "srcId": "tl0418",
+      "destId": "q15937",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Hydraulics and Pneumatics Supplier?"
+    },
+    {
+      "srcId": "tl0419",
+      "destId": "q15938",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Bearings and Power Transmission Distributor?"
+    },
+    {
+      "srcId": "tl0420",
+      "destId": "q15939",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Cutting Tools Distributor?"
+    },
+    {
+      "srcId": "tl0421",
+      "destId": "q15940",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Safety Equipment Supplier?"
+    },
+    {
+      "srcId": "tl0422",
+      "destId": "q15941",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Janitorial Equipment Dealer?"
+    },
+    {
+      "srcId": "tl0423",
+      "destId": "q15942",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Commercial Kitchen Equipment Dealer?"
+    },
+    {
+      "srcId": "tl0424",
+      "destId": "q15943",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Foodservice Equipment Dealer?"
+    },
+    {
+      "srcId": "tl0425",
+      "destId": "q15944",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Refrigerated Transport Company?"
+    },
+    {
+      "srcId": "tl0426",
+      "destId": "q15945",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Cold Storage Warehouse?"
+    },
+    {
+      "srcId": "tl0427",
+      "destId": "q15946",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My 3PL Fulfillment Company?"
+    },
+    {
+      "srcId": "tl0428",
+      "destId": "q15947",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Last-Mile Delivery Company?"
+    },
+    {
+      "srcId": "tl0429",
+      "destId": "q15948",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Courier Service?"
+    },
+    {
+      "srcId": "tl0430",
+      "destId": "q15949",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Medical Courier Company?"
+    },
+    {
+      "srcId": "tl0431",
+      "destId": "q15950",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Clinical Lab Services Company?"
+    },
+    {
+      "srcId": "tl0432",
+      "destId": "q15951",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Diagnostic Imaging Center?"
+    },
+    {
+      "srcId": "tl0433",
+      "destId": "q15952",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Durable Medical Equipment Company?"
+    },
+    {
+      "srcId": "tl0434",
+      "destId": "q15953",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Home Health Agency?"
+    },
+    {
+      "srcId": "tl0435",
+      "destId": "q15954",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Hospice Agency?"
+    },
+    {
+      "srcId": "tl0436",
+      "destId": "q15955",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Behavioral Health Company?"
+    },
+    {
+      "srcId": "tl0437",
+      "destId": "q15956",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Physical Therapy Clinic Group?"
+    },
+    {
+      "srcId": "tl0438",
+      "destId": "q15957",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Urgent Care Group?"
+    },
+    {
+      "srcId": "tl0439",
+      "destId": "q15958",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Dialysis Services Company?"
+    },
+    {
+      "srcId": "tl0440",
+      "destId": "q15959",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Specialty Pharmacy?"
+    },
+    {
+      "srcId": "tl0441",
+      "destId": "q15960",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Veterinary Hospital Group?"
+    },
+    {
+      "srcId": "tl0442",
+      "destId": "q15961",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Pet Insurance Company?"
+    },
+    {
+      "srcId": "tl0443",
+      "destId": "q15962",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Appraisal Management Company?"
+    },
+    {
+      "srcId": "tl0444",
+      "destId": "q15963",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My SBA Lending Company?"
+    },
+    {
+      "srcId": "tl0445",
+      "destId": "q15964",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Equipment Finance Company?"
+    },
+    {
+      "srcId": "tl0446",
+      "destId": "q15965",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Invoice Factoring Company?"
+    },
+    {
+      "srcId": "tl0447",
+      "destId": "q15966",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Payment Processing ISV?"
+    },
+    {
+      "srcId": "tl0448",
+      "destId": "q15967",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My HR Tech Company?"
+    },
+    {
+      "srcId": "tl0449",
+      "destId": "q15968",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Learning Management Software Company?"
+    },
+    {
+      "srcId": "tl0450",
+      "destId": "q15969",
+      "ok": true,
+      "title": "How Many Sales Reps Do I Need to Hire for My Customer Data Platform Company?"
+    },
+    {
+      "srcId": "tl0451",
+      "destId": "q15970",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Bagel Shop?"
+    },
+    {
+      "srcId": "tl0452",
+      "destId": "q15971",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Bubble Tea Shop?"
+    },
+    {
+      "srcId": "tl0453",
+      "destId": "q15972",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Acai Bowl Shop?"
+    },
+    {
+      "srcId": "tl0454",
+      "destId": "q15973",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Hot Pot Restaurant?"
+    },
+    {
+      "srcId": "tl0455",
+      "destId": "q15974",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Korean BBQ Restaurant?"
+    },
+    {
+      "srcId": "tl0456",
+      "destId": "q15975",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Indian Restaurant?"
+    },
+    {
+      "srcId": "tl0457",
+      "destId": "q15976",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Thai Restaurant?"
+    },
+    {
+      "srcId": "tl0458",
+      "destId": "q15977",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Mediterranean Restaurant?"
+    },
+    {
+      "srcId": "tl0459",
+      "destId": "q15978",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Vegan Restaurant?"
+    },
+    {
+      "srcId": "tl0460",
+      "destId": "q15979",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Gastropub?"
+    },
+    {
+      "srcId": "tl0461",
+      "destId": "q15980",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Sports Bar?"
+    },
+    {
+      "srcId": "tl0462",
+      "destId": "q15981",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Wine Bar?"
+    },
+    {
+      "srcId": "tl0463",
+      "destId": "q15982",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Cocktail Lounge?"
+    },
+    {
+      "srcId": "tl0464",
+      "destId": "q15983",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Comedy Club?"
+    },
+    {
+      "srcId": "tl0465",
+      "destId": "q15984",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Music Venue?"
+    },
+    {
+      "srcId": "tl0466",
+      "destId": "q15985",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Axe Throwing Venue?"
+    },
+    {
+      "srcId": "tl0467",
+      "destId": "q15986",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My VR Arcade?"
+    },
+    {
+      "srcId": "tl0468",
+      "destId": "q15987",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Indoor Skydiving Center?"
+    },
+    {
+      "srcId": "tl0469",
+      "destId": "q15988",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Ice Rink?"
+    },
+    {
+      "srcId": "tl0470",
+      "destId": "q15989",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Roller Rink?"
+    },
+    {
+      "srcId": "tl0471",
+      "destId": "q15990",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Skate Park?"
+    },
+    {
+      "srcId": "tl0472",
+      "destId": "q15991",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Batting Cage Facility?"
+    },
+    {
+      "srcId": "tl0473",
+      "destId": "q15992",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Driving Range?"
+    },
+    {
+      "srcId": "tl0474",
+      "destId": "q15993",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Pickleball Club?"
+    },
+    {
+      "srcId": "tl0475",
+      "destId": "q15994",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Tennis Club?"
+    },
+    {
+      "srcId": "tl0476",
+      "destId": "q15995",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Swim School?"
+    },
+    {
+      "srcId": "tl0477",
+      "destId": "q15996",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Gymnastics Gym?"
+    },
+    {
+      "srcId": "tl0478",
+      "destId": "q15997",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Cheer Gym?"
+    },
+    {
+      "srcId": "tl0479",
+      "destId": "q15998",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Music School?"
+    },
+    {
+      "srcId": "tl0480",
+      "destId": "q15999",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Art Studio?"
+    },
+    {
+      "srcId": "tl0481",
+      "destId": "q16000",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Pottery Studio?"
+    },
+    {
+      "srcId": "tl0482",
+      "destId": "q16001",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Cooking School?"
+    },
+    {
+      "srcId": "tl0483",
+      "destId": "q16002",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Language School?"
+    },
+    {
+      "srcId": "tl0484",
+      "destId": "q16003",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Test Prep Center?"
+    },
+    {
+      "srcId": "tl0485",
+      "destId": "q16004",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Coworking Space?"
+    },
+    {
+      "srcId": "tl0486",
+      "destId": "q16005",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Print and Ship Store?"
+    },
+    {
+      "srcId": "tl0487",
+      "destId": "q16006",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Phone Repair Shop?"
+    },
+    {
+      "srcId": "tl0488",
+      "destId": "q16007",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Computer Repair Shop?"
+    },
+    {
+      "srcId": "tl0489",
+      "destId": "q16008",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Watch and Jewelry Repair Shop?"
+    },
+    {
+      "srcId": "tl0490",
+      "destId": "q16009",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Shoe Repair Shop?"
+    },
+    {
+      "srcId": "tl0491",
+      "destId": "q16010",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Tailor and Alterations Shop?"
+    },
+    {
+      "srcId": "tl0492",
+      "destId": "q16011",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Pet Grooming Salon?"
+    },
+    {
+      "srcId": "tl0493",
+      "destId": "q16012",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Doggy Daycare?"
+    },
+    {
+      "srcId": "tl0494",
+      "destId": "q16013",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Pet Boarding Kennel?"
+    },
+    {
+      "srcId": "tl0495",
+      "destId": "q16014",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Aquarium Store?"
+    },
+    {
+      "srcId": "tl0496",
+      "destId": "q16015",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Smoke and Vape Shop?"
+    },
+    {
+      "srcId": "tl0497",
+      "destId": "q16016",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Comic Book Store?"
+    },
+    {
+      "srcId": "tl0498",
+      "destId": "q16017",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Record Store?"
+    },
+    {
+      "srcId": "tl0499",
+      "destId": "q16018",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Vintage Clothing Store?"
+    },
+    {
+      "srcId": "tl0500",
+      "destId": "q16019",
+      "ok": true,
+      "title": "How Many Employees Should I Schedule Each Shift at My Thrift Store?"
+    },
+    {
+      "srcId": "tl0501",
+      "destId": "q16020",
+      "ok": true,
+      "title": "How Do I Score My SDRs on the Activities That Actually Book Meetings?"
+    },
+    {
+      "srcId": "tl0502",
+      "destId": "q16021",
+      "ok": true,
+      "title": "How Do I Score My AEs on More Than Just Closed-Won?"
+    },
+    {
+      "srcId": "tl0503",
+      "destId": "q16022",
+      "ok": true,
+      "title": "How Do I Build a Points Scorecard for My BDR Team?"
+    },
+    {
+      "srcId": "tl0504",
+      "destId": "q16023",
+      "ok": true,
+      "title": "How Do I Align My AE and SE Teams on One Number?"
+    },
+    {
+      "srcId": "tl0505",
+      "destId": "q16024",
+      "ok": true,
+      "title": "How Do I Get My AEs to Update the CRM Consistently?"
+    },
+    {
+      "srcId": "tl0506",
+      "destId": "q16025",
+      "ok": true,
+      "title": "How Do I Score My Reps on Pipeline Hygiene?"
+    },
+    {
+      "srcId": "tl0507",
+      "destId": "q16026",
+      "ok": true,
+      "title": "How Do I Get My Reps to Follow the Sales Process?"
+    },
+    {
+      "srcId": "tl0508",
+      "destId": "q16027",
+      "ok": true,
+      "title": "How Do I Score My Reps on Discovery Quality?"
+    },
+    {
+      "srcId": "tl0509",
+      "destId": "q16028",
+      "ok": true,
+      "title": "How Do I Get My Reps to Multithread Enterprise Deals?"
+    },
+    {
+      "srcId": "tl0510",
+      "destId": "q16029",
+      "ok": true,
+      "title": "How Do I Score My CSMs on Retention and Expansion?"
+    },
+    {
+      "srcId": "tl0511",
+      "destId": "q16030",
+      "ok": true,
+      "title": "How Do I Get My Account Managers to Grow Existing Accounts?"
+    },
+    {
+      "srcId": "tl0512",
+      "destId": "q16031",
+      "ok": true,
+      "title": "How Do I Score My Channel Partners on Performance?"
+    },
+    {
+      "srcId": "tl0513",
+      "destId": "q16032",
+      "ok": true,
+      "title": "How Do I Get My Franchisees to Hit Unit Sales Standards?"
+    },
+    {
+      "srcId": "tl0514",
+      "destId": "q16033",
+      "ok": true,
+      "title": "How Do I Score My Retail Managers Across Stores?"
+    },
+    {
+      "srcId": "tl0515",
+      "destId": "q16034",
+      "ok": true,
+      "title": "How Do I Get My District Managers Aligned on KPIs?"
+    },
+    {
+      "srcId": "tl0516",
+      "destId": "q16035",
+      "ok": true,
+      "title": "How Do I Score My Call Center Agents on Quality and Sales?"
+    },
+    {
+      "srcId": "tl0517",
+      "destId": "q16036",
+      "ok": true,
+      "title": "How Do I Get My Support Reps to Convert Chats to Sales?"
+    },
+    {
+      "srcId": "tl0518",
+      "destId": "q16037",
+      "ok": true,
+      "title": "How Do I Score My Field Techs on Sales and Service?"
+    },
+    {
+      "srcId": "tl0519",
+      "destId": "q16038",
+      "ok": true,
+      "title": "How Do I Get My Route Drivers to Upsell on Every Stop?"
+    },
+    {
+      "srcId": "tl0520",
+      "destId": "q16039",
+      "ok": true,
+      "title": "How Do I Score My Counter Staff Across Branches?"
+    },
+    {
+      "srcId": "tl0521",
+      "destId": "q16040",
+      "ok": true,
+      "title": "How Do I Get My Showroom Reps to Log Every Up?"
+    },
+    {
+      "srcId": "tl0522",
+      "destId": "q16041",
+      "ok": true,
+      "title": "How Do I Score My F&I Managers at My Dealership?"
+    },
+    {
+      "srcId": "tl0523",
+      "destId": "q16042",
+      "ok": true,
+      "title": "How Do I Get My Leasing Agents to Hit Occupancy and Rate?"
+    },
+    {
+      "srcId": "tl0524",
+      "destId": "q16043",
+      "ok": true,
+      "title": "How Do I Score My Recruiters on Placements and Margin?"
+    },
+    {
+      "srcId": "tl0525",
+      "destId": "q16044",
+      "ok": true,
+      "title": "How Do I Get My Loan Officers to Hit Funded-Loan Goals?"
+    },
+    {
+      "srcId": "tl0526",
+      "destId": "q16045",
+      "ok": true,
+      "title": "How Do I Score My Financial Advisors on AUM Growth?"
+    },
+    {
+      "srcId": "tl0527",
+      "destId": "q16046",
+      "ok": true,
+      "title": "How Do I Get My Insurance Agents to Cross-Sell Lines?"
+    },
+    {
+      "srcId": "tl0528",
+      "destId": "q16047",
+      "ok": true,
+      "title": "How Do I Score My Real Estate Team on GCI and Referrals?"
+    },
+    {
+      "srcId": "tl0529",
+      "destId": "q16048",
+      "ok": true,
+      "title": "How Do I Get My Medical Reps to Balance Reach and Frequency?"
+    },
+    {
+      "srcId": "tl0530",
+      "destId": "q16049",
+      "ok": true,
+      "title": "How Do I Score My Pharma Reps on Call Plan Adherence?"
+    },
+    {
+      "srcId": "tl0531",
+      "destId": "q16050",
+      "ok": true,
+      "title": "How Do I Get My Distributors to Push the Full Catalog?"
+    },
+    {
+      "srcId": "tl0532",
+      "destId": "q16051",
+      "ok": true,
+      "title": "How Do I Score My Inside and Outside Reps on the Same Scale?"
+    },
+    {
+      "srcId": "tl0533",
+      "destId": "q16052",
+      "ok": true,
+      "title": "How Do I Get My Reps to Sell Value Instead of Discounting?"
+    },
+    {
+      "srcId": "tl0534",
+      "destId": "q16053",
+      "ok": true,
+      "title": "How Do I Score My Reps on Margin Instead of Just Revenue?"
+    },
+    {
+      "srcId": "tl0535",
+      "destId": "q16054",
+      "ok": true,
+      "title": "How Do I Get My Reps to Attach Services to Product Deals?"
+    },
+    {
+      "srcId": "tl0536",
+      "destId": "q16055",
+      "ok": true,
+      "title": "How Do I Score My Reps on New Logo Versus Expansion?"
+    },
+    {
+      "srcId": "tl0537",
+      "destId": "q16056",
+      "ok": true,
+      "title": "How Do I Get My Reps to Forecast Accurately?"
+    },
+    {
+      "srcId": "tl0538",
+      "destId": "q16057",
+      "ok": true,
+      "title": "How Do I Score My Reps on Deal Slippage?"
+    },
+    {
+      "srcId": "tl0539",
+      "destId": "q16058",
+      "ok": true,
+      "title": "How Do I Get My Reps to Qualify Harder?"
+    },
+    {
+      "srcId": "tl0540",
+      "destId": "q16059",
+      "ok": true,
+      "title": "How Do I Score My Managers on Coaching Cadence?"
+    },
+    {
+      "srcId": "tl0541",
+      "destId": "q16060",
+      "ok": true,
+      "title": "How Do I Get My Team to Adopt a New Comp Plan?"
+    },
+    {
+      "srcId": "tl0542",
+      "destId": "q16061",
+      "ok": true,
+      "title": "How Do I Score My Reps Fairly Across Territories?"
+    },
+    {
+      "srcId": "tl0543",
+      "destId": "q16062",
+      "ok": true,
+      "title": "How Do I Get My Reps to Sell the New Product Line?"
+    },
+    {
+      "srcId": "tl0544",
+      "destId": "q16063",
+      "ok": true,
+      "title": "How Do I Score My Reps During a Pricing Change?"
+    },
+    {
+      "srcId": "tl0545",
+      "destId": "q16064",
+      "ok": true,
+      "title": "How Do I Get My Reps to Renew Accounts on Time?"
+    },
+    {
+      "srcId": "tl0546",
+      "destId": "q16065",
+      "ok": true,
+      "title": "How Do I Score My Reps on Customer References Generated?"
+    },
+    {
+      "srcId": "tl0547",
+      "destId": "q16066",
+      "ok": true,
+      "title": "How Do I Get My Reps to Expand Into White Space?"
+    },
+    {
+      "srcId": "tl0548",
+      "destId": "q16067",
+      "ok": true,
+      "title": "How Do I Score My Reps on Partner-Sourced Pipeline?"
+    },
+    {
+      "srcId": "tl0549",
+      "destId": "q16068",
+      "ok": true,
+      "title": "How Do I Get My Reps to Log Competitive Intel?"
+    },
+    {
+      "srcId": "tl0550",
+      "destId": "q16069",
+      "ok": true,
+      "title": "How Do I Build a Balanced Scorecard for My Whole Sales Team?"
+    },
+    {
+      "srcId": "tl0551",
+      "destId": "q16070",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Sales Team Has No Manager?"
+    },
+    {
+      "srcId": "tl0552",
+      "destId": "q16071",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Have Great Marketing but Weak Sales?"
+    },
+    {
+      "srcId": "tl0553",
+      "destId": "q16072",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Deals Keep Stalling in Procurement and Legal?"
+    },
+    {
+      "srcId": "tl0554",
+      "destId": "q16073",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Losing Deals to a Cheaper Competitor?"
+    },
+    {
+      "srcId": "tl0555",
+      "destId": "q16074",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Reps Are Sandbagging the Forecast?"
+    },
+    {
+      "srcId": "tl0556",
+      "destId": "q16075",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Cannot Hire a Great Full-Time CRO in My Market?"
+    },
+    {
+      "srcId": "tl0557",
+      "destId": "q16076",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Last Two Sales Hires Failed?"
+    },
+    {
+      "srcId": "tl0558",
+      "destId": "q16077",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am a Technical Founder Who Hates Selling?"
+    },
+    {
+      "srcId": "tl0559",
+      "destId": "q16078",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Product Is Great but Nobody Can Sell It?"
+    },
+    {
+      "srcId": "tl0560",
+      "destId": "q16079",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Need to Enter a New Vertical?"
+    },
+    {
+      "srcId": "tl0561",
+      "destId": "q16080",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Consolidating Regional Sales Teams?"
+    },
+    {
+      "srcId": "tl0562",
+      "destId": "q16081",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My CAC Is Rising Every Quarter?"
+    },
+    {
+      "srcId": "tl0563",
+      "destId": "q16082",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Net Revenue Retention Is Below 100 Percent?"
+    },
+    {
+      "srcId": "tl0564",
+      "destId": "q16083",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Launching Outbound for the First Time?"
+    },
+    {
+      "srcId": "tl0565",
+      "destId": "q16084",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Need to Professionalize a Referral-Only Business?"
+    },
+    {
+      "srcId": "tl0566",
+      "destId": "q16085",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Board Added a New Revenue Target Mid-Year?"
+    },
+    {
+      "srcId": "tl0567",
+      "destId": "q16086",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Just Lost My Biggest Account?"
+    },
+    {
+      "srcId": "tl0568",
+      "destId": "q16087",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Sales and Customer Success Teams Do Not Talk?"
+    },
+    {
+      "srcId": "tl0569",
+      "destId": "q16088",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Moving Upmarket and Deals Got Complex?"
+    },
+    {
+      "srcId": "tl0570",
+      "destId": "q16089",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Need to Build a Partner Channel?"
+    },
+    {
+      "srcId": "tl0571",
+      "destId": "q16090",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Reps Will Not Adopt the CRM?"
+    },
+    {
+      "srcId": "tl0572",
+      "destId": "q16091",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Have No Sales Enablement Function?"
+    },
+    {
+      "srcId": "tl0573",
+      "destId": "q16092",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My New Reps Take Too Long to Ramp?"
+    },
+    {
+      "srcId": "tl0574",
+      "destId": "q16093",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Preparing for a Recapitalization?"
+    },
+    {
+      "srcId": "tl0575",
+      "destId": "q16094",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Revenue Is Seasonal and Unpredictable?"
+    },
+    {
+      "srcId": "tl0576",
+      "destId": "q16095",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Want to Add a Self-Serve Motion?"
+    },
+    {
+      "srcId": "tl0577",
+      "destId": "q16096",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Pricing Has Not Changed in Five Years?"
+    },
+    {
+      "srcId": "tl0578",
+      "destId": "q16097",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Spinning Out a Business Unit?"
+    },
+    {
+      "srcId": "tl0579",
+      "destId": "q16098",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Acquired a Company and Need to Cross-Sell?"
+    },
+    {
+      "srcId": "tl0580",
+      "destId": "q16099",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Founder-Led Deals Do Not Transfer to Reps?"
+    },
+    {
+      "srcId": "tl0581",
+      "destId": "q16100",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Need a 30-60-90 Plan Before a Board Meeting?"
+    },
+    {
+      "srcId": "tl0582",
+      "destId": "q16101",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Win Rate Is High but Volume Is Low?"
+    },
+    {
+      "srcId": "tl0583",
+      "destId": "q16102",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Pipeline Is All Late-Stage and Thin Early?"
+    },
+    {
+      "srcId": "tl0584",
+      "destId": "q16103",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Need to Fix Attribution Before Raising?"
+    },
+    {
+      "srcId": "tl0585",
+      "destId": "q16104",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Comp Plan Caps My Top Performers?"
+    },
+    {
+      "srcId": "tl0586",
+      "destId": "q16105",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Hiring My First Sales Manager?"
+    },
+    {
+      "srcId": "tl0587",
+      "destId": "q16106",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Want to Test Enterprise Without Betting the Company?"
+    },
+    {
+      "srcId": "tl0588",
+      "destId": "q16107",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Deals Close Then Churn in Six Months?"
+    },
+    {
+      "srcId": "tl0589",
+      "destId": "q16108",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Need to Stand Up RevOps From Scratch?"
+    },
+    {
+      "srcId": "tl0590",
+      "destId": "q16109",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am a PE Operating Partner Standardizing a Portfolio Company?"
+    },
+    {
+      "srcId": "tl0591",
+      "destId": "q16110",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My GTM Works in the US but Not Abroad?"
+    },
+    {
+      "srcId": "tl0592",
+      "destId": "q16111",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Need to Rebuild Trust After a Failed CRO?"
+    },
+    {
+      "srcId": "tl0593",
+      "destId": "q16112",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Marketing Leads Do Not Convert?"
+    },
+    {
+      "srcId": "tl0594",
+      "destId": "q16113",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Scaling a Services Firm Into Products?"
+    },
+    {
+      "srcId": "tl0595",
+      "destId": "q16114",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Revenue Depends on a Single Channel?"
+    },
+    {
+      "srcId": "tl0596",
+      "destId": "q16115",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Need Interim Coverage During a Medical Leave?"
+    },
+    {
+      "srcId": "tl0597",
+      "destId": "q16116",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Reps Are Great Hunters but Poor Farmers?"
+    },
+    {
+      "srcId": "tl0598",
+      "destId": "q16117",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Want a Revenue Audit Before I Commit Budget?"
+    },
+    {
+      "srcId": "tl0599",
+      "destId": "q16118",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If My Forecast and Actuals Never Match?"
+    },
+    {
+      "srcId": "tl0600",
+      "destId": "q16119",
+      "ok": true,
+      "title": "Should I Hire a Fractional CRO If I Am Taking the Company to Market in a Year?"
+    },
+    {
+      "srcId": "tl0601",
+      "destId": "q16120",
+      "ok": true,
+      "title": "How Do I Increase My Average Ticket Without Selling Anything Extra?"
+    },
+    {
+      "srcId": "tl0602",
+      "destId": "q16121",
+      "ok": true,
+      "title": "Why Should I Start Charging Service Fees?"
+    },
+    {
+      "srcId": "tl0603",
+      "destId": "q16122",
+      "ok": true,
+      "title": "How Do I Calculate the Right Service Fee to Charge?"
+    },
+    {
+      "srcId": "tl0604",
+      "destId": "q16123",
+      "ok": true,
+      "title": "How Do I Set Attach Rates for My Service Fees?"
+    },
+    {
+      "srcId": "tl0605",
+      "destId": "q16124",
+      "ok": true,
+      "title": "How Do I Use Service Fees to Cover Back-Office Payroll?"
+    },
+    {
+      "srcId": "tl0606",
+      "destId": "q16125",
+      "ok": true,
+      "title": "How Do I Raise Contribution Margin Without Raising My Prices?"
+    },
+    {
+      "srcId": "tl0607",
+      "destId": "q16126",
+      "ok": true,
+      "title": "What Add-On Fees Should I Be Charging That I'm Not?"
+    },
+    {
+      "srcId": "tl0608",
+      "destId": "q16127",
+      "ok": true,
+      "title": "How Do I Add a Service Fee Customers Won't Push Back On?"
+    },
+    {
+      "srcId": "tl0609",
+      "destId": "q16128",
+      "ok": true,
+      "title": "How Do I Model Service-Fee Revenue Before My Next Hire?"
+    },
+    {
+      "srcId": "tl0610",
+      "destId": "q16129",
+      "ok": true,
+      "title": "How Do I Make a Service Fee Tangible So It Adds Real Value?"
+    },
+    {
+      "srcId": "tl0611",
+      "destId": "q16130",
+      "ok": true,
+      "title": "What Service Fees Should an HVAC Company Charge?"
+    },
+    {
+      "srcId": "tl0612",
+      "destId": "q16131",
+      "ok": true,
+      "title": "What Service Fees Should an Auto Repair Shop Charge?"
+    },
+    {
+      "srcId": "tl0613",
+      "destId": "q16132",
+      "ok": true,
+      "title": "What Service Fees Should a Salon or Med Spa Charge?"
+    },
+    {
+      "srcId": "tl0614",
+      "destId": "q16133",
+      "ok": true,
+      "title": "What Service Fees Should a Plumbing Company Charge?"
+    },
+    {
+      "srcId": "tl0615",
+      "destId": "q16134",
+      "ok": true,
+      "title": "What Service Fees Should a Landscaping Business Charge?"
+    },
+    {
+      "srcId": "tl0616",
+      "destId": "q16135",
+      "ok": true,
+      "title": "What Service Fees Should a Dental Practice Charge?"
+    },
+    {
+      "srcId": "tl0617",
+      "destId": "q16136",
+      "ok": true,
+      "title": "What Service Fees Should a Restaurant or Catering Business Charge?"
+    },
+    {
+      "srcId": "tl0618",
+      "destId": "q16137",
+      "ok": true,
+      "title": "What Service Fees Should a Law Firm Charge?"
+    },
+    {
+      "srcId": "tl0619",
+      "destId": "q16138",
+      "ok": true,
+      "title": "What Service Fees Should a Gym or Fitness Studio Charge?"
+    },
+    {
+      "srcId": "tl0620",
+      "destId": "q16139",
+      "ok": true,
+      "title": "What Service Fees Should an Electrical Contractor Charge?"
+    },
+    {
+      "srcId": "tl0621",
+      "destId": "q16140",
+      "ok": true,
+      "title": "What Service Fees Should a Roofing Company Charge?"
+    },
+    {
+      "srcId": "tl0622",
+      "destId": "q16141",
+      "ok": true,
+      "title": "What Service Fees Should a Pest Control Company Charge?"
+    },
+    {
+      "srcId": "tl0623",
+      "destId": "q16142",
+      "ok": true,
+      "title": "What Service Fees Should a Cleaning Service Charge?"
+    },
+    {
+      "srcId": "tl0624",
+      "destId": "q16143",
+      "ok": true,
+      "title": "What Service Fees Should a Moving Company Charge?"
+    },
+    {
+      "srcId": "tl0625",
+      "destId": "q16144",
+      "ok": true,
+      "title": "What Service Fees Should a Veterinary Clinic Charge?"
+    },
+    {
+      "srcId": "tl0626",
+      "destId": "q16145",
+      "ok": true,
+      "title": "What Service Fees Should an Accounting Firm Charge?"
+    },
+    {
+      "srcId": "tl0627",
+      "destId": "q16146",
+      "ok": true,
+      "title": "What Service Fees Should a Pool Service Company Charge?"
+    },
+    {
+      "srcId": "tl0628",
+      "destId": "q16147",
+      "ok": true,
+      "title": "What Service Fees Should an Appliance Repair Company Charge?"
+    },
+    {
+      "srcId": "tl0629",
+      "destId": "q16148",
+      "ok": true,
+      "title": "What Service Fees Should a Towing Company Charge?"
+    },
+    {
+      "srcId": "tl0630",
+      "destId": "q16149",
+      "ok": true,
+      "title": "What Service Fees Should a Painting Contractor Charge?"
+    },
+    {
+      "srcId": "tl0631",
+      "destId": "q16150",
+      "ok": true,
+      "title": "What Service Fees Should a General Contractor Charge?"
+    },
+    {
+      "srcId": "tl0632",
+      "destId": "q16151",
+      "ok": true,
+      "title": "What Service Fees Should a Locksmith Charge?"
+    },
+    {
+      "srcId": "tl0633",
+      "destId": "q16152",
+      "ok": true,
+      "title": "What Service Fees Should a Garage Door Company Charge?"
+    },
+    {
+      "srcId": "tl0634",
+      "destId": "q16153",
+      "ok": true,
+      "title": "What Service Fees Should a Carpet Cleaning Company Charge?"
+    },
+    {
+      "srcId": "tl0635",
+      "destId": "q16154",
+      "ok": true,
+      "title": "What Service Fees Should a Window Cleaning Company Charge?"
+    },
+    {
+      "srcId": "tl0636",
+      "destId": "q16155",
+      "ok": true,
+      "title": "What Service Fees Should a Junk Removal Company Charge?"
+    },
+    {
+      "srcId": "tl0637",
+      "destId": "q16156",
+      "ok": true,
+      "title": "What Service Fees Should a Septic Service Company Charge?"
+    },
+    {
+      "srcId": "tl0638",
+      "destId": "q16157",
+      "ok": true,
+      "title": "What Service Fees Should a Tree Service Company Charge?"
+    },
+    {
+      "srcId": "tl0639",
+      "destId": "q16158",
+      "ok": true,
+      "title": "What Service Fees Should a Handyman Business Charge?"
+    },
+    {
+      "srcId": "tl0640",
+      "destId": "q16159",
+      "ok": true,
+      "title": "What Service Fees Should a Chimney Sweep Charge?"
+    },
+    {
+      "srcId": "tl0641",
+      "destId": "q16160",
+      "ok": true,
+      "title": "How Do I Introduce a Service Fee Without Losing Customers?"
+    },
+    {
+      "srcId": "tl0642",
+      "destId": "q16161",
+      "ok": true,
+      "title": "How Do I Justify a Service Fee to Customers?"
+    },
+    {
+      "srcId": "tl0643",
+      "destId": "q16162",
+      "ok": true,
+      "title": "How Do I Add a Fuel or Trip Fee the Right Way?"
+    },
+    {
+      "srcId": "tl0644",
+      "destId": "q16163",
+      "ok": true,
+      "title": "How Do I Roll Out Service Fees Across My Whole Team?"
+    },
+    {
+      "srcId": "tl0645",
+      "destId": "q16164",
+      "ok": true,
+      "title": "How Do I Track Service-Fee Attach Rate by Rep?"
+    },
+    {
+      "srcId": "tl0646",
+      "destId": "q16165",
+      "ok": true,
+      "title": "How Do I Use Service Fees to Offset Rising Labor Costs?"
+    },
+    {
+      "srcId": "tl0647",
+      "destId": "q16166",
+      "ok": true,
+      "title": "What Service Fees Should a Physical Therapy Clinic Charge?"
+    },
+    {
+      "srcId": "tl0648",
+      "destId": "q16167",
+      "ok": true,
+      "title": "What Service Fees Should an IT or MSP Company Charge?"
+    },
+    {
+      "srcId": "tl0649",
+      "destId": "q16168",
+      "ok": true,
+      "title": "What Service Fees Should a Real Estate Brokerage Charge?"
+    },
+    {
+      "srcId": "tl0650",
+      "destId": "q16169",
+      "ok": true,
+      "title": "What Service Fees Should a Property Management Company Charge?"
+    },
+    {
+      "srcId": "tl0651",
+      "destId": "q16170",
+      "ok": true,
+      "title": "What Service Fees Should a Photography Business Charge?"
+    },
+    {
+      "srcId": "tl0652",
+      "destId": "q16171",
+      "ok": true,
+      "title": "What Service Fees Should an Event Planning Business Charge?"
+    },
+    {
+      "srcId": "tl0653",
+      "destId": "q16172",
+      "ok": true,
+      "title": "What Service Fees Should a Food Truck Business Charge?"
+    },
+    {
+      "srcId": "tl0654",
+      "destId": "q16173",
+      "ok": true,
+      "title": "What Service Fees Should a Childcare or Daycare Center Charge?"
+    },
+    {
+      "srcId": "tl0655",
+      "destId": "q16174",
+      "ok": true,
+      "title": "What Service Fees Should a Tutoring Business Charge?"
+    },
+    {
+      "srcId": "tl0656",
+      "destId": "q16175",
+      "ok": true,
+      "title": "What Service Fees Should a Car Detailing Business Charge?"
+    },
+    {
+      "srcId": "tl0657",
+      "destId": "q16176",
+      "ok": true,
+      "title": "What Service Fees Should a Mobile Mechanic Charge?"
+    },
+    {
+      "srcId": "tl0658",
+      "destId": "q16177",
+      "ok": true,
+      "title": "What Service Fees Should a Home Inspection Business Charge?"
+    },
+    {
+      "srcId": "tl0659",
+      "destId": "q16178",
+      "ok": true,
+      "title": "How Do I Set Service Fees for a Membership or Subscription Business?"
+    },
+    {
+      "srcId": "tl0660",
+      "destId": "q16179",
+      "ok": true,
+      "title": "How Do I Audit My Service Fees to Recover Lost Margin?"
+    }
+  ],
+  "at": "2026-06-23T22:32:50.773Z"
+}
