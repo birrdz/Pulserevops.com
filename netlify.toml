@@ -627,5 +627,3 @@
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    # Tell Google which domain is canonical
-    Link = "<https://pulserevops.com/>; rel=\"canonical\""
