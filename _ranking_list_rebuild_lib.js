@@ -24,7 +24,7 @@ const { auditTop10GoldTemplate, appliesTop10Gold } = require('./_ranking_top10_g
 const { directAnswerFull } = require('./_format_fixer_lib');
 const { auditLivePollinationsInBody } = require('./_image_provider_alternate');
 const { ensureAlternateSectionImage, pickMatchingLibraryImage } = require('./_ddg_facecard_lib');
-const { buildMoviePosterSearchQuery } = require('./_mv_image_title_match');
+const { buildMoviePosterSearchQuery, stripDuplicateFillerBlock } = require('./_mv_image_title_match');
 const _pillarOf = (x) => (String(x).match(/^[a-z]+/) || [''])[0];
 
 const FORMAT_V = '2026-07-ranking-master-no-hero';
@@ -463,6 +463,8 @@ async function spotCheckEntry(id, body, title) {
 
 async function saveRankingEntry(store, idx, id, title, body, existing, formatV) {
   body = stripRankSectionMarkdownImages(body, expectedRankCount(body, title));
+  // Remove any appended generic stub Pros/Cons/Verdict block baked in by older runs (structural, idempotent).
+  body = stripDuplicateFillerBlock(body);
   assertNoLivePollinations(body, 'saveRankingEntry ' + id);
   assertRankingImageLaw(body, title, 'saveRankingEntry ' + id);
   assertTop10GoldCompliance(body, title, 'saveRankingEntry ' + id);

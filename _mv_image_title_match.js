@@ -193,6 +193,22 @@ function splitRankSections(body) {
   }
   return secs;
 }
+// Structural REPAIR for the duplicate-filler defect baked into old blobs: remove the appended generic stub
+// Pros/Cons/Verdict block (buildStubSectionBlock output) when authored content precedes it. Deterministic +
+// idempotent — targets the exact generic sentences, so it removes the injection rather than rewording it.
+// Movie + SaaS/aquarium variants are all handled. Safe to run repeatedly.
+function stripDuplicateFillerBlock(body) {
+  let b = String(body || '');
+  const blocks = [
+    // movie stub
+    /\n-[ \t]*\*\*Pros:\*\*[ \t]*Iconic direction · Memorable performances · Rewatch value[\s\S]*?\*\*Verdict:\*\*[ \t]*A definitive pick for fans of[ \t]*\*\*[^*\n]*\*\*\.[ \t]*(?=\n|$)/g,
+    // saas/aquarium stub
+    /\n-[ \t]*\*\*Pros:\*\*[ \t]*Strong track record · Good value · Proven in real deployments[\s\S]*?\*\*Verdict:\*\*[ \t]*A solid pick at this rank[^\n]*(?=\n|$)/g,
+  ];
+  for (const re of blocks) b = b.replace(re, '');
+  return b.replace(/\n{3,}/g, '\n\n');
+}
+
 function auditDuplicateFiller(body) {
   const fails = [];
   for (const sec of splitRankSections(body)) {
@@ -263,6 +279,7 @@ module.exports = {
   auditForeignPillarText,
   auditTemplateArtifacts,
   auditDuplicateFiller,
+  stripDuplicateFillerBlock,
   auditImgSrcResolve,
   auditRelatedIntegrity,
   MOVIE_SLOT_STAMP_PREFIX,
