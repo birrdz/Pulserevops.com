@@ -204,6 +204,33 @@ function auditDuplicateFiller(body) {
   return fails;
 }
 
+// Criterion #22: every image the blob references must resolve. For self-hosted /assets/ paths that means the file
+// exists on disk (the detect-fix desync the advisor flagged: repair rewrote files but the page still points at old
+// paths → 404). Hotlinks are caught separately by C4/C14; here we flag missing local files. Covers @@PRODUCT img="…"
+// and markdown ![alt](url) references.
+function enumerateAllImageRefs(body) {
+  const refs = [];
+  const b = String(body || '');
+  let m;
+  const prod = /@@PRODUCT\s+[^\n]*\bimg="([^"]*)"/g;
+  while ((m = prod.exec(b))) refs.push(m[1]);
+  const md = /!\[[^\]]*\]\(([^)\s]+)/g;
+  while ((m = md.exec(b))) refs.push(m[1]);
+  return refs;
+}
+function auditImgSrcResolve(body) {
+  const missing = [];
+  for (const url of enumerateAllImageRefs(body)) {
+    if (!url) { missing.push('(empty)'); continue; }
+    if (/^https?:\/\//i.test(url)) continue; // hotlink: C4/C14 handle it
+    const rel = url.replace(/^\//, '').split(/[?#]/)[0];
+    try {
+      if (!fs.existsSync(WD + '/' + rel)) missing.push(url);
+    } catch (e) { missing.push(url); }
+  }
+  return missing;
+}
+
 function auditRelatedIntegrity(body, idxEntries) {
   const byId = {};
   for (const e of idxEntries || []) if (e && e.id) byId[e.id] = e;
@@ -236,6 +263,7 @@ module.exports = {
   auditForeignPillarText,
   auditTemplateArtifacts,
   auditDuplicateFiller,
+  auditImgSrcResolve,
   auditRelatedIntegrity,
   MOVIE_SLOT_STAMP_PREFIX,
 };

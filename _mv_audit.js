@@ -19,6 +19,7 @@
 //   C15b filler   — (mv only) no duplicate stub Pros/Cons/Verdict appended to rich authored sections
 //   C16 related   — Related on PULSE link text matches destination entry question
 //   C17 artifacts — no weave HTML comments in blob; no duplicate caption lines
+//   C22 imgsrc    — every self-hosted /assets/ image referenced in the blob exists on disk (no 404 desync)
 'use strict';
 const fs = require('fs');
 const WD = __dirname;
@@ -41,6 +42,7 @@ const {
   auditForeignPillarText,
   auditTemplateArtifacts,
   auditDuplicateFiller,
+  auditImgSrcResolve,
   auditRelatedIntegrity,
 } = require('./_mv_image_title_match');
 
@@ -106,6 +108,8 @@ async function auditEntry(id, entry, idxEntries) {
     const artifacts = auditTemplateArtifacts(body);
     if (artifacts.length) { failed.push('C17_artifacts'); detail.C17 = artifacts; }
   }
+  const missingImgs = auditImgSrcResolve(body);
+  if (missingImgs.length) { failed.push('C22_imgsrc'); detail.C22 = missingImgs.slice(0, 8); }
   const relatedFails = auditRelatedIntegrity(body, idxEntries);
   if (relatedFails.length) {
     failed.push('C16_related');
