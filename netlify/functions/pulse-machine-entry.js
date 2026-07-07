@@ -16,6 +16,9 @@ let getStore = null;
 try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
 
 const SITE = 'https://pulserevops.com';
+const { isRankingListBody, RANKING_LIST_NO_TOP_HERO } = require('../../_ranking_list_master_law');
+const { appliesQaGold } = require('../../_qa_gold_template');
+const { pulseOrgLogoImageObject, PULSE_SITE, PULSE_SHARE_ICON, PULSE_OG_IMAGE, PULSE_FAVICON_ICO, PULSE_ICON_192, PULSE_ICON_512, PULSE_APPLE_TOUCH } = require('./lib/pulse-brand');
 
 function initStore() {
   if (!getStore) return null;
@@ -61,10 +64,122 @@ function renderTable(lines) {
     + body.map(r => '<tr>' + r.map(c => '<td>' + renderInline(escHtml(c)) + '</td>').join('') + '</tr>').join('')
     + '</tbody></table>';
 }
-function renderMd(text) {
+// Proxy external images through wsrv.nl so hotlink-protected hosts (licdn, wp
+// sites, vendor CDNs) still load in-browser. Local/pollinations URLs pass through.
+function imgProxy(u) {
+  u = String(u || '').trim();
+  if (!/^https?:\/\//i.test(u)) return u;
+  if (/(^|\/\/)(pulserevops\.com|wsrv\.nl|images\.weserv\.nl|image\.pollinations\.ai)/i.test(u)) return u;
+  // wsrv often 404s Pinterest/CDN hosts — img tags can load these direct in-browser.
+  if (/pinimg\.com|pinterest\.com|redd\.it|redditmedia\.com|i\.imgur\.com/i.test(u)) return u;
+  // Resize + WebP at the proxy so huge external photos (e.g. DDG real images) don't ship at full
+  // resolution — big site-wide page-weight cut now that pages carry 3-10 images each.
+  // w=760 (owner 2026-07-06 speed): content images display ~600-800px — 1280 was 2-3x the bytes + slower wsrv resize.
+  return 'https://wsrv.nl/?url=' + encodeURIComponent(u.replace(/^https?:\/\//i, '')) + '&w=760&output=webp&q=80&we&n=-1';
+}
+
+const IMG_ONERROR = "this.onerror=null;var fb=this.getAttribute('data-fallback');if(fb&&this.src!==fb){this.src=fb;}";
+
+/** Build img attributes with https normalization, dimensions, and wsrv→direct fallback. */
+function entryImgAttrs(url, alt, opts) {
+  opts = opts || {};
+  const raw = String(url || '').trim().replace(/^http:\/\//i, 'https://');
+  const src = resolveEntryAssetUrl(raw);
+  const direct = /^https?:\/\//i.test(raw) ? raw : '';
+  const fb = opts.fallback ? resolveEntryAssetUrl(opts.fallback) : (direct && src !== direct ? direct : '');
+  const load = opts.eager ? 'eager' : 'lazy';
+  const fetchP = opts.eager ? ' fetchpriority="high"' : '';
+  const w = opts.width || 760;
+  const h = opts.height || 428;
+  let attrs = ' src="' + escAttr(src) + '" alt="' + escAttr(alt || '') + '" width="' + w + '" height="' + h + '" loading="' + load + '"' + fetchP + ' decoding="async"';
+  if (fb) attrs += ' data-fallback="' + escAttr(fb) + '"';
+  attrs += ' onerror="' + IMG_ONERROR + '"';
+  return attrs;
+}
+
+function leadingCoverFromBody(body) {
+  const m = String(body || '').match(/^﻿?\s*!\[([^\]]*)\]\((.+)\)\s*$/m);
+  if (!m) return null;
+  let url = m[2].trim();
+  const tm = url.match(/^(.*?)\s+"[^"]*"$/); if (tm) url = tm[1].trim();
+  return { alt: m[1], url };
+}
+
+function stripLeadingCoverMarkdown(body) {
+  return String(body || '').replace(/^﻿?\s*!\[[^\]]*\]\([^)]+\)\s*\n+/m, '');
+}
+
+function entryCoverFigureHtml(alt, url) {
+  const attrs = entryImgAttrs(url, alt, { eager: true, width: 1200, height: 675 });
+  return '<figure class="entry-cover" style="margin:0 0 18px;background:#ECE3D2;border-radius:14px;overflow:hidden;border:1px solid rgba(29,23,17,.10);">'
+    + '<img' + attrs + ' style="width:100%;height:auto;border-radius:14px;display:block;background:#ECE3D2;object-fit:cover;max-height:520px;"></figure>';
+}
+
+function entryCoverFigureHtmlWithFallback(alt, url, fallback) {
+  const raw = String(url || '').trim();
+  const direct = /^https?:\/\//i.test(raw) ? raw.replace(/^http:\/\//i, 'https://') : '';
+  const fb = fallback ? fallback : (direct || '');
+  const attrs = entryImgAttrs(url, alt, { eager: true, width: 1200, height: 675, fallback: fb });
+  return '<figure class="entry-cover" style="margin:0 0 18px;background:#ECE3D2;border-radius:14px;overflow:hidden;border:1px solid rgba(29,23,17,.10);">'
+    + '<img' + attrs + ' style="width:100%;height:auto;border-radius:14px;display:block;background:#ECE3D2;object-fit:cover;max-height:520px;"></figure>';
+}
+
+/** Absolute URL for /assets paths; wsrv proxy for externals. */
+function resolveEntryAssetUrl(url) {
+  url = String(url || '').trim().replace(/^http:\/\//i, 'https://');
+  if (!url) return '';
+  if (/^https:\/\//i.test(url)) return imgProxy(url);
+  if (url.startsWith('//')) return 'https:' + url;
+  if (url.startsWith('/')) return SITE + url;
+  return imgProxy(url);
+}
+
+function firstProductImg(body) {
+  const m = String(body || '').match(/@@PRODUCT[^\n]* img="([^"]+)"/);
+  return m ? m[1].trim() : '';
+}
+
+function pickHeroUrl(body, idxImg, id, skipHero) {
+  if (skipHero) return '';
+  const lead = leadingCoverFromBody(body);
+  const leadUrl = lead && lead.url ? String(lead.url).trim() : '';
+  const idx = idxImg && String(idxImg).trim();
+  // Only skip the legacy flux placeholder /assets/qa/{id}.jpg — numbered self-hosted covers are valid heroes.
+  const legacyFluxFace = (u) => !!(id && u && u.toLowerCase() === ('/assets/qa/' + id.toLowerCase() + '.jpg'));
+  const product = firstProductImg(body);
+  const hosted = (u) => u && /pulserevops\.com\/img\/auto\//i.test(u);
+  // Self-hosted first, then https body/index — skip broken local flux face-card slots.
+  if (hosted(leadUrl)) return leadUrl;
+  if (hosted(idx)) return idx;
+  if (hosted(product)) return product;
+  if (/^https?:\/\//i.test(leadUrl)) return leadUrl;
+  if (idx && /^https?:\/\//i.test(idx)) return idx;
+  if (product && /^https?:\/\//i.test(product)) return product;
+  if (leadUrl && !legacyFluxFace(leadUrl)) return leadUrl;
+  if (idx && !legacyFluxFace(idx)) return idx;
+  return product || (!legacyFluxFace(leadUrl) && leadUrl) || (!legacyFluxFace(idx) && idx) || '';
+}
+
+const DIRECT_ANSWER_BOX_OPEN = '<div class="direct-answer-box" style="margin:0 0 22px;padding:18px 20px;border:2px solid #C8821E !important;border-radius:14px;background:#FBF3E4 !important;box-shadow:0 0 0 1px rgba(200,130,30,.18), inset 0 0 0 1px rgba(200,130,30,.08) !important;">'
+  + '<div class="direct-answer-label" style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#C8821E;font-weight:800;margin-bottom:10px;">Direct Answer</div>';
+
+/** Wrap rendered Direct Answer prose in the gold box if renderMd missed it. */
+function wrapDirectAnswerGold(html) {
+  if (!html || /class="direct-answer-box"/i.test(html)) return html;
+  const h2m = html.match(/<h2[^>]*>\s*Direct Answer\s*<\/h2>/i);
+  if (!h2m) return html;
+  const contentStart = h2m.index + h2m[0].length;
+  const end = afterDirectAnswerPos(html);
+  const contentEnd = end !== -1 ? end : html.length;
+  const content = html.slice(contentStart, contentEnd);
+  return html.slice(0, h2m.index) + DIRECT_ANSWER_BOX_OPEN + content + '</div>' + html.slice(contentEnd);
+}
+
+function renderMd(text, styleIncl, skipFirstCover) {
   text = String(text || '').replace(/\r\n/g, '\n').trim();
-  const lines = text.split('\n'); const out = []; let i = 0; let paraBuf = [];
+  const lines = text.split('\n'); const out = []; let i = 0; let paraBuf = []; let coverImgDone = false; let directAnswerOpen = false;
   const flush = () => { if (paraBuf.length) { const j = paraBuf.join(' ').trim(); if (j) out.push('<p>' + renderInline(escHtml(j)) + '</p>'); paraBuf = []; } };
+  const closeDirectAnswer = () => { if (directAnswerOpen) { out.push('</div>'); directAnswerOpen = false; } };
   while (i < lines.length) {
     const line = lines[i]; const t = line.trim();
     if (/^```mermaid\s*$/i.test(t)) {
@@ -75,11 +190,198 @@ function renderMd(text) {
       if (src) out.push('<div class="mermaid-wrap"><div class="mermaid">' + escHtml(src) + '</div></div>');
       continue;
     }
+    // ```outfit board (Style pillar) -> a clean styled card with color swatches,
+    // instead of showing literal ``` fences + raw key:value lines.
+    if (/^```outfit\b/i.test(t)) {
+      flush(); i++; const blk = [];
+      while (i < lines.length && !/^```/.test(lines[i].trim())) { blk.push(lines[i].trim()); i++; }
+      i++; // closing fence
+      const meta = {}; const items = [];
+      for (const s of blk) {
+        if (!s) continue;
+        const kv = s.match(/^(gender|title|occasion|budget|age|img):\s*(.+)$/i);
+        if (kv) { meta[kv[1].toLowerCase()] = kv[2]; continue; }
+        const it = s.replace(/^[-•*]\s*/, '').split('|').map(x => x.trim());
+        if (it.length >= 2) items.push(it);
+      }
+      let h = '<div class="outfit-board" style="margin:18px 0;border:1px solid rgba(29,23,17,.14);border-radius:14px;background:#FBF8F1;overflow:hidden;">';
+      // Per-outfit photo: a REAL matching image (img:) takes priority; otherwise an
+      // auto-generated example from the board's own data (gender + age + pieces).
+      const gender = /women|female|ladies/i.test(meta.gender || '') ? 'woman' : (/men|male/i.test(meta.gender || '') ? 'man' : 'person');
+      const ageStr = (meta.age || '').trim();
+      const pieces = items.map(function (it) { return ((it[1] || '') + ' ' + (it[0] || '')).trim(); }).filter(Boolean).slice(0, 6).join(', ');
+      const oprompt = 'full body fashion editorial photo of a ' + (ageStr ? ageStr + ' ' : '') + gender + ' wearing ' + (pieces || (meta.title || 'a complete outfit')) + ', studio lighting, plain neutral background, realistic';
+      const realImg = (meta.img || '').trim();
+      const oimg = realImg
+        ? imgProxy(realImg)
+        : 'https://image.pollinations.ai/prompt/' + encodeURIComponent(oprompt) + '?width=768&height=1024&nologo=true';
+      h += '<img' + entryImgAttrs(oimg, (ageStr ? ageStr + ' ' : '') + gender + ' — ' + (meta.title || 'outfit') + ' look', { width: 760, height: 560 }) + ' style="display:block;width:100%;height:auto;max-height:560px;object-fit:cover;object-position:top;background:#ECE3D2;">';
+      h += '<div style="padding:16px 18px;">';
+      if (meta.title) h += '<div style="font-family:Fraunces,Georgia,serif;font-weight:800;font-size:1.15rem;color:#1d1711;">' + escHtml(meta.title) + '</div>';
+      const sub = [meta.gender, meta.age, meta.occasion, meta.budget].filter(Boolean).map(escHtml).join(' · ');
+      if (sub) h += '<div style="color:#6b5d49;font-size:.9rem;margin:2px 0 12px;">' + sub + '</div>';
+      if (items.length) {
+        h += '<div style="display:flex;flex-direction:column;gap:8px;">';
+        for (const it of items) {
+          const name = it[0] || ''; const color = it[1] || '';
+          const hex = (/^#?[0-9a-f]{3,6}$/i.test(it[2] || '')) ? (it[2].startsWith('#') ? it[2] : '#' + it[2]) : '';
+          const desc = it[3] || (hex ? '' : it[2]) || '';
+          h += '<div style="display:flex;align-items:center;gap:10px;">';
+          if (hex) h += '<span style="width:16px;height:16px;border-radius:4px;border:1px solid rgba(0,0,0,.15);background:' + escAttr(hex) + ';flex:0 0 auto;"></span>';
+          h += '<span style="color:#1d1711;"><b>' + escHtml(name) + '</b>' + (color ? ' — ' + escHtml(color) : '') + (desc ? ' · ' + escHtml(desc) : '') + '</span></div>';
+        }
+        h += '</div>';
+      }
+      h += '</div></div>';
+      out.push(h); continue;
+    }
+    // ── v2 content blocks (regular Q&A + Top-10 upgrade). All backward-compatible:
+    // entries that don't use these fences are unaffected.
+    // ```answer -> boxed "Quick Answer" card at the top of a regular Q&A.
+    if (/^```answer\b/i.test(t)) {
+      flush(); i++; const blk = [];
+      while (i < lines.length && !/^```/.test(lines[i].trim())) { blk.push(lines[i]); i++; } i++;
+      const txt = blk.join(' ').trim();
+      if (txt) out.push('<div class="v2-answer" style="margin:0 0 20px;padding:16px 18px;border-left:4px solid #C8821E;border-radius:10px;background:#FBF3E4;"><div style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#C8821E;font-weight:800;margin-bottom:6px;">Quick Answer</div><div style="font-size:1.08rem;line-height:1.6;color:#1d1711;">' + renderInline(escHtml(txt)) + '</div></div>');
+      continue;
+    }
+    // ```steps -> numbered step cards. `title:` optional; each "- step | detail".
+    if (/^```steps\b/i.test(t)) {
+      flush(); i++; const blk = [];
+      while (i < lines.length && !/^```/.test(lines[i].trim())) { blk.push(lines[i].trim()); i++; } i++;
+      let title = ''; const steps = [];
+      for (const s of blk) { if (!s) continue; const m = s.match(/^title:\s*(.+)$/i); if (m) { title = m[1]; continue; } const it = s.replace(/^[-•*]\s*|^\d+\.\s*/, '').split('|').map(x => x.trim()); if (it[0]) steps.push(it); }
+      let h = '<div class="v2-steps" style="margin:18px 0;">';
+      if (title) h += '<div style="font-family:Fraunces,Georgia,serif;font-weight:800;font-size:1.1rem;color:#1d1711;margin-bottom:12px;">' + escHtml(title) + '</div>';
+      steps.forEach((it, idx) => { h += '<div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:10px;"><span style="flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:#C8821E;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.95rem;">' + (idx + 1) + '</span><div style="flex:1;"><div style="font-weight:700;color:#1d1711;">' + renderInline(escHtml(it[0])) + '</div>' + (it[1] ? '<div style="color:#6b5d49;font-size:.92rem;margin-top:2px;">' + renderInline(escHtml(it[1])) + '</div>' : '') + '</div></div>'; });
+      h += '</div>'; out.push(h); continue;
+    }
+    // ```compare -> two-option comparison table. `a:`/`b:` headers; "- row | A | B".
+    if (/^```compare\b/i.test(t)) {
+      flush(); i++; const blk = [];
+      while (i < lines.length && !/^```/.test(lines[i].trim())) { blk.push(lines[i].trim()); i++; } i++;
+      let a = 'Option A', b = 'Option B'; const rows = [];
+      for (const s of blk) { if (!s) continue; const ma = s.match(/^a:\s*(.+)$/i); if (ma) { a = ma[1]; continue; } const mb = s.match(/^b:\s*(.+)$/i); if (mb) { b = mb[1]; continue; } const it = s.replace(/^[-•*]\s*/, '').split('|').map(x => x.trim()); if (it.length >= 3) rows.push(it); }
+      let h = '<div class="v2-compare" style="margin:18px 0;border:1px solid rgba(29,23,17,.14);border-radius:14px;overflow:hidden;">';
+      h += '<div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;background:#1d1711;color:#fff;font-weight:800;"><div style="padding:11px 14px;"></div><div style="padding:11px 14px;border-left:1px solid rgba(255,255,255,.15);">' + escHtml(a) + '</div><div style="padding:11px 14px;border-left:1px solid rgba(255,255,255,.15);">' + escHtml(b) + '</div></div>';
+      rows.forEach((it, idx) => { const bg = idx % 2 ? '#FBF8F1' : '#fff'; h += '<div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;background:' + bg + ';"><div style="padding:11px 14px;font-weight:700;color:#1d1711;">' + escHtml(it[0]) + '</div><div style="padding:11px 14px;color:#1d1711;border-left:1px solid rgba(29,23,17,.08);">' + renderInline(escHtml(it[1])) + '</div><div style="padding:11px 14px;color:#1d1711;border-left:1px solid rgba(29,23,17,.08);">' + renderInline(escHtml(it[2])) + '</div></div>'; });
+      h += '</div>'; out.push(h); continue;
+    }
+    // ```callout -> colored tip/warning/key box. `type: tip|warning|key`.
+    if (/^```callout\b/i.test(t)) {
+      flush(); i++; const blk = [];
+      while (i < lines.length && !/^```/.test(lines[i].trim())) { blk.push(lines[i]); i++; } i++;
+      let type = 'tip'; const body = [];
+      for (const s of blk) { const m = s.trim().match(/^type:\s*(\w+)/i); if (m) { type = m[1].toLowerCase(); continue; } body.push(s); }
+      const txt = body.join(' ').trim();
+      const cfg = ({ tip: ['#1E8E5A', '#E8F6EE', '💡 Tip'], warning: ['#C0392B', '#FBEBE9', '⚠️ Watch out'], key: ['#C8821E', '#FBF3E4', '★ Key point'] })[type] || ['#C8821E', '#FBF3E4', '★ Note'];
+      if (txt) out.push('<div class="v2-callout" style="margin:16px 0;padding:13px 16px;border-left:4px solid ' + cfg[0] + ';border-radius:10px;background:' + cfg[1] + ';"><div style="font-weight:800;color:' + cfg[0] + ';font-size:.82rem;margin-bottom:4px;">' + cfg[2] + '</div><div style="color:#1d1711;line-height:1.55;">' + renderInline(escHtml(txt)) + '</div></div>');
+      continue;
+    }
+    // ```pick -> Top-10 v2 product/pick card (rank badge, image, verdict, best-for +
+    // price chips, pros/cons, CTA). Keys: rank,name,img,site,verdict,bestfor,price,pros,cons.
+    if (/^```pick\b/i.test(t)) {
+      flush(); i++; const blk = [];
+      while (i < lines.length && !/^```/.test(lines[i].trim())) { blk.push(lines[i].trim()); i++; } i++;
+      const m = {}; for (const s of blk) { const kv = s.match(/^(rank|name|img|site|verdict|bestfor|price|pros|cons):\s*(.+)$/i); if (kv) m[kv[1].toLowerCase()] = kv[2]; }
+      const pros = (m.pros || '').split(';').map(x => x.trim()).filter(Boolean);
+      const cons = (m.cons || '').split(';').map(x => x.trim()).filter(Boolean);
+      let h = '<div class="v2-pick" style="margin:20px 0;border:1px solid rgba(29,23,17,.14);border-radius:16px;overflow:hidden;background:#FBF8F1;"><div style="position:relative;">';
+      if (m.img) h += '<a href="' + escAttr(m.site || m.img) + '" target="_blank" rel="noopener"><img' + entryImgAttrs(m.img, m.name || '', { width: 760, height: 360 }) + ' style="display:block;width:100%;height:auto;max-height:360px;object-fit:contain;background:#fff;"></a>';
+      if (m.rank) h += '<span style="position:absolute;top:12px;left:12px;background:#C8821E;color:#fff;font-weight:800;border-radius:8px;padding:4px 11px;font-size:.9rem;">#' + escHtml(m.rank) + '</span>';
+      h += '</div><div style="padding:15px 18px;">';
+      if (m.name) h += '<a href="' + escAttr(m.site || '#') + '" target="_blank" rel="noopener" style="font-family:Fraunces,Georgia,serif;font-weight:800;font-size:1.18rem;color:#1d1711;text-decoration:none;display:block;">' + escHtml(m.name) + '</a>';
+      const chips = []; if (m.bestfor) chips.push('<span style="background:#FBF3E4;color:#C8821E;border:1px solid rgba(200,130,30,.3);border-radius:99px;padding:3px 10px;font-size:.78rem;font-weight:700;">Best for: ' + escHtml(m.bestfor) + '</span>'); if (m.price) chips.push('<span style="background:#Eef6f0;color:#1E8E5A;border:1px solid rgba(30,142,90,.25);border-radius:99px;padding:3px 10px;font-size:.78rem;font-weight:700;">' + escHtml(m.price) + '</span>');
+      if (chips.length) h += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;">' + chips.join('') + '</div>';
+      if (m.verdict) h += '<div style="color:#1d1711;line-height:1.55;margin:6px 0;">' + renderInline(escHtml(m.verdict)) + '</div>';
+      if (pros.length || cons.length) { h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;">'; h += '<div>' + (pros.length ? '<div style="font-weight:800;color:#1E8E5A;font-size:.8rem;margin-bottom:4px;">Pros</div>' + pros.map(p => '<div style="font-size:.9rem;color:#1d1711;">+ ' + escHtml(p) + '</div>').join('') : '') + '</div>'; h += '<div>' + (cons.length ? '<div style="font-weight:800;color:#C0392B;font-size:.8rem;margin-bottom:4px;">Cons</div>' + cons.map(p => '<div style="font-size:.9rem;color:#1d1711;">– ' + escHtml(p) + '</div>').join('') : '') + '</div>'; h += '</div>'; }
+      if (m.site) h += '<a href="' + escAttr(m.site) + '" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;background:#1d1711;color:#fff;font-weight:700;border-radius:10px;padding:9px 16px;text-decoration:none;font-size:.9rem;">View ' + escHtml(m.name || 'pick') + ' →</a>';
+      h += '</div></div>'; out.push(h); continue;
+    }
+    // Any other ``` fence: drop the markers and let the inner content render as
+    // normal markdown (the library has no real code blocks besides mermaid).
+    if (/^```/.test(t)) { i++; continue; }
     if (!t) { flush(); i++; continue; }
-    if (/^#{2,3}\s+/.test(t)) {
-      flush(); const lvl = t.match(/^(#{2,3})/)[1].length;
-      const c = t.replace(/^#{2,3}\s+/, '');
-      out.push('<h' + lvl + '>' + renderInline(escHtml(c)) + '</h' + lvl + '>'); i++; continue;
+    // Whole-line markdown image -> rendered <figure><img>. (renderMd historically
+    // had NO image support, so a leading `![cover](url)` rendered as a broken
+    // `!`+text-link. Writers + the cover lane prepend a cover image as body line 1.)
+    {
+      // Capture the URL GREEDILY to the final ) so image-host URLs that contain
+      // literal parens (e.g. filters:no_upscale(), max_bytes(150000), strip_icc(),
+      // or Squarespace "(1)" suffixes) don't break — they were rendering as a
+      // stray "!" + leaked raw URL text with no image. Strip an optional "title".
+      const imgM = t.match(/^!\[([^\]]*)\]\((.+)\)\s*$/);
+      if (imgM) {
+        flush();
+        let url = imgM[2].trim();
+        const tm = url.match(/^(.*?)\s+"[^"]*"$/); if (tm) url = tm[1].trim();
+        if (!coverImgDone) {
+          if (skipFirstCover) {
+            coverImgDone = true;
+            out.push('<figure class="entry-section" style="margin:0 0 18px;"><img' + entryImgAttrs(url, imgM[1], { width: 760, height: 428 }) + ' style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 30%;border-radius:14px;display:block;max-height:480px;background:#ECE3D2;"></figure>');
+          } else {
+            out.push(entryCoverFigureHtml(imgM[1], url));
+            coverImgDone = true;
+          }
+        } else {
+          out.push('<figure class="entry-section" style="margin:0 0 18px;"><img' + entryImgAttrs(url, imgM[1], { width: 760, height: 428 }) + ' style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 30%;border-radius:14px;display:block;max-height:480px;background:#ECE3D2;"></figure>');
+        }
+        i++; continue;
+      }
+    }
+    // Top-10 product directive: @@PRODUCT name="..." img="..." site="..."
+    // -> a card with a decent-sized item image + linked name. (This was a
+    // live-only renderer feature lost in the clean rebuild, so Top-10s showed
+    // raw "@@PRODUCT ..." text with no images. Reconstructed here.)
+    if (/^@@PRODUCT\b/.test(t)) {
+      flush();
+      const nm = (t.match(/name="([^"]*)"/) || [])[1] || '';
+      const im = (t.match(/img="([^"]*)"/) || [])[1] || '';
+      const st = (t.match(/site="([^"]*)"/) || [])[1] || '';
+      const link = st || (im ? im : '#');
+      let card = '<div class="product-card" style="margin:18px 0;border:1px solid rgba(29,23,17,.14);border-radius:14px;overflow:hidden;background:#FBF8F1;">';
+      if (im) card += '<a href="' + escAttr(link) + '" target="_blank" rel="noopener"><img' + entryImgAttrs(im, nm, { width: 760, height: 460 }) + ' style="display:block;width:100%;height:auto;max-height:460px;object-fit:contain;background:#fff;"></a>';
+      if (nm) card += '<div class="product-name" style="display:block;padding:13px 16px;font-weight:800;color:#1d1711;font-size:1.06rem;line-height:1.35;">' + escHtml(nm) + '</div>';
+      card += '</div>';
+      out.push(card);
+      i++; continue;
+    }
+    // Whole-line LINKED image: [![alt](img)](link) -> clickable figure. renderMd
+    // didn't handle the nested syntax, so it leaked raw on every Graphics (gb)
+    // entry (the SVG download line) and anywhere else linked images are used.
+    {
+      const li = t.match(/^\[!\[([^\]]*)\]\(([^)]+)\)\]\((.+)\)\s*$/);
+      if (li) {
+        flush();
+        out.push('<figure class="entry-graphic" style="margin:0 0 18px;"><a href="' + escAttr(li[3].trim()) + '" target="_blank" rel="noopener"><img' + entryImgAttrs(li[2].trim(), li[1], { width: 760, height: 428 }) + ' style="width:100%;height:auto;border-radius:14px;display:block;"></a></figure>');
+        i++; continue;
+      }
+    }
+    // A single-# H1 duplicates the page title (<h1 class="q">) -> drop it so the
+    // question isn't shown twice and no raw `# ...` leaks. (## … ###### render.)
+    if (/^#\s+\S/.test(t)) { flush(); i++; continue; }
+    if (/^#{2,6}\s+/.test(t)) {
+      flush();
+      const lvl = t.match(/^(#{2,6})/)[1].length;
+      const c = t.replace(/^#{2,6}\s+/, '');
+      if (/^direct answer$/i.test(c.trim())) {
+        closeDirectAnswer();
+        out.push(DIRECT_ANSWER_BOX_OPEN);
+        directAnswerOpen = true;
+        i++; continue;
+      }
+      // Close gold box only on the next ## h2 — h3+ (tips, notes) stay inside Direct Answer.
+      if (directAnswerOpen && lvl === 2) closeDirectAnswer();
+      out.push('<h' + lvl + '>' + renderInline(escHtml(c)) + '</h' + lvl + '>');
+      // Style pillar: an inclusive note under the For Men / For Women section heads —
+      // these looks aren't gated by gender, only by how you present.
+      if (styleIncl && lvl === 2) {
+        const cl = c.trim().toLowerCase().replace(/[\s:.!]+$/, '');
+        const note = cl === 'for men' ? 'Masculine-presenting women — these looks work for you too.'
+          : cl === 'for women' ? 'Feminine-presenting men — these looks work for you too.' : '';
+        if (note) out.push('<p class="incl-note" style="margin:-10px 0 16px;font-size:.82rem;font-style:italic;color:#6b5d49;">' + note + '</p>');
+      }
+      i++; continue;
     }
     if (/^\|.*\|/.test(t) && i + 1 < lines.length && /^\|[\s:|-]+\|/.test(lines[i+1].trim())) {
       flush(); const tbl = [];
@@ -98,8 +400,296 @@ function renderMd(text) {
     }
     paraBuf.push(t); i++;
   }
-  flush();
+  flush(); closeDirectAnswer();
   return out.join('');
+}
+
+// ── CRO Syndicate card (v2). Operates on the ALREADY-RENDERED answer HTML, so
+// body HTML-escaping does not apply. Reading order: hero image → Direct Answer
+// section → Kory White CRO card → rest of article. Top-10 falls back to before
+// item #4 only when no Direct Answer heading exists.
+// Click targets (owner spec): "See Kory on LinkedIn" + photo -> LinkedIn;
+// "Quick Call?" button -> Calendly; "CRO Syndicate" logo -> crosyndicate.com.
+function h2PlainText(inner) {
+  return String(inner).replace(/<[^>]+>/g, '').trim().toLowerCase();
+}
+function isDirectAnswerH2(inner) {
+  const t = h2PlainText(inner);
+  return t === 'direct answer' || /^direct answer\b/.test(t);
+}
+/** End index of the outer direct-answer-box (depth-counted — label div must not truncate). */
+function directAnswerBoxEndPos(html) {
+  if (!html) return -1;
+  const start = html.search(/<div\b[^>]*class="direct-answer-box"/i);
+  if (start === -1) return -1;
+  const tagRe = /<\/?div\b[^>]*>/gi;
+  tagRe.lastIndex = start;
+  let depth = 0;
+  let m;
+  while ((m = tagRe.exec(html)) !== null) {
+    if (m[0].charAt(1) === '/') depth--;
+    else depth++;
+    if (depth === 0) return tagRe.lastIndex;
+  }
+  return -1;
+}
+
+// Index where the CRO card should be inserted — immediately after the Direct Answer section.
+function afterDirectAnswerPos(html) {
+  if (!html) return -1;
+  const boxEnd = directAnswerBoxEndPos(html);
+  if (boxEnd !== -1) return boxEnd;
+  // Gold box open but depth parse failed — never fall through to </p> inside the box.
+  const boxStart = html.search(/<div\b[^>]*class="direct-answer-box"/i);
+  if (boxStart !== -1) {
+    const afterLabel = html.indexOf('</div>', boxStart);
+    if (afterLabel !== -1) {
+      const rest = html.slice(afterLabel + 6);
+      const nextH2 = rest.search(/<h2\b/i);
+      if (nextH2 !== -1) return afterLabel + 6 + nextH2;
+    }
+  }
+  const re = /<h2[^>]*>([\s\S]*?)<\/h2>/gi;
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    if (isDirectAnswerH2(m[1])) {
+      const afterH2 = m.index + m[0].length;
+      const rest = html.slice(afterH2);
+      const nextH2 = rest.search(/<h2\b/i);
+      return nextH2 !== -1 ? afterH2 + nextH2 : html.length;
+    }
+  }
+  return -1;
+}
+
+/** Q&A essay: CRO after first content image + the text block that follows it (owner 2026-07-06). */
+function afterQaEssayCroPos(html) {
+  const boxEnd = directAnswerBoxEndPos(html);
+  if (boxEnd === -1) return -1;
+  const tail = html.slice(boxEnd);
+  const figIdx = tail.search(/<figure\b/i);
+  if (figIdx === -1) return -1;
+  const figClose = tail.indexOf('</figure>', figIdx);
+  if (figClose === -1) return -1;
+  const afterFig = boxEnd + figClose + '</figure>'.length;
+  const rest = html.slice(afterFig);
+  const pEnd = rest.search(/<\/p>/i);
+  if (pEnd === -1) return afterFig;
+  return afterFig + pEnd + 4;
+}
+// Top-10: CRO card BETWEEN entry #3 and #4 — never inside an entry's content block (owner 2026-07-07 C18).
+function afterTop10Item3Card(html) {
+  const isTop10 = /<h2[^>]*>\s*10\.\s/.test(html) || /🏆|BEST OVERALL/i.test(html);
+  if (!isTop10) return -1;
+  // Insert BETWEEN entry #3 and #4 — immediately before the ## 4 heading.
+  // Never after the #3 product-card (that lands inside #3's body, between caption and Director:).
+  const m4 = html.match(/<h2[^>]*>\s*4\.\s/i);
+  if (m4) return m4.index;
+  return -1;
+}
+function croInsertPos(html) {
+  const top10pos = afterTop10Item3Card(html);
+  if (top10pos !== -1) return top10pos;
+  if (/<div\b[^>]*class="direct-answer-box"/i.test(html) && !/<h2[^>]*>\s*10\.\s/.test(html) && !/🏆|BEST OVERALL/i.test(html)) {
+    const qaPos = afterQaEssayCroPos(html);
+    if (qaPos !== -1) return qaPos;
+  }
+  const da = afterDirectAnswerPos(html);
+  if (da !== -1) return da;
+  // Direct Answer gold box present — do not use </p>/</figure> fallbacks (they land inside the box).
+  if (/<div\b[^>]*class="direct-answer-box"/i.test(html)) {
+    const boxEnd = directAnswerBoxEndPos(html);
+    if (boxEnd !== -1) return boxEnd;
+    const h2 = html.search(/<div\b[^>]*class="direct-answer-box"[\s\S]*?<\/div>\s*<h2\b/i);
+    if (h2 !== -1) {
+      const rel = html.slice(h2).search(/<h2\b/i);
+      if (rel !== -1) return h2 + rel;
+    }
+  }
+  const isTop10 = /<h2>\s*10\.\s/.test(html) || /🏆|BEST OVERALL/i.test(html);
+  if (isTop10) {
+    const m = html.match(/<h2>\s*4\.\s/);
+    if (m) return m.index;
+  }
+  const fig1 = html.indexOf('</figure>');
+  if (fig1 !== -1) {
+    const after = fig1 + 9;
+    const pEnd = html.indexOf('</p>', after);
+    const fig2 = html.indexOf('<figure', after);
+    if (pEnd !== -1 && (fig2 === -1 || pEnd < fig2)) return pEnd + 4;
+    if (fig2 !== -1) return fig2;
+    return after;
+  }
+  const p0 = html.indexOf('</p>');
+  if (p0 !== -1) return p0 + 4;
+  return html.length;
+}
+function croAdCard() {
+  // The owner-designed CRO Syndicate card (PNG). The body renderer can't show an
+  // image, but this runs on already-rendered HTML so the <img> survives.
+  // Click targets via transparent hotspots layered over the image:
+  //   base (whole image / "Quick Call?") -> Calendly · logo -> crosyndicate.com ·
+  //   photo + "See Kory on LinkedIn" -> LinkedIn.
+  const LI   = 'https://www.linkedin.com/in/korywhite';
+  const CAL  = 'https://calendly.com/korywhiterevops';
+  const SYND = 'https://crosyndicate.com/';
+  const RESUME = '/assets/kory-white-cro-1page.pdf';
+  const IMG  = '/assets/cro-syndicate-card.png';
+  const btn  = 'display:block;text-align:center;text-decoration:none;font-weight:800;font-size:.82rem;padding:8px 10px;border-radius:9px;margin-top:7px;';
+  const btnO = 'background:#fff;border:1px solid rgba(156,94,18,.4);color:#9c5e12;';   // outline button
+  // HANGING widget — a little sign that hangs top-right from a cord + peg, sways gently, and stays
+  // as you scroll. × drops it off the string. On screens too narrow to sit beside the article it
+  // hides (see .cro-ad-root CSS + the article right-gutter) so it NEVER covers the text.
+  const KORY = '/assets/kory-white.jpg';
+  return '<div class="cro-ad cro-ad-card cro-ad-root" id="croFixed" aria-label="Sponsored — Kory White, Fractional CRO">' +
+    '<div class="cro-swing">' +
+      '<div class="cro-cord"></div><div class="cro-peg"></div>' +
+      '<div class="cro-card">' +
+        '<div class="cro-spine"></div>' +
+        '<button type="button" class="cro-close cro-x" aria-label="Dismiss">×</button>' +
+        '<div class="cro-top"><div class="cro-logo">CRO <em>SYNDICATE</em></div><span class="cro-sponsored">SPONSORED</span></div>' +
+        '<div class="cro-hero"><span class="cro-photo"><img src="' + KORY + '" alt="Kory White, Fractional CRO" width="64" height="64" loading="lazy" decoding="async"></span>' +
+          '<span><span class="cro-name">Kory White</span><span class="cro-role">Fractional CRO · 25 yrs · $0→$200M</span></span></div>' +
+        '<p class="cro-eyebrow">Hire a Fractional CRO</p>' +
+        '<div class="cro-head">Need a fractional Chief Revenue Officer?</div>' +
+        '<div class="cro-pills"><span>Chief Revenue Officer</span><span>Revenue Leader</span><span>VP of Sales</span><span>Sales Leader</span></div>' +
+        '<p class="cro-body">CRO Syndicate connects you with vetted fractional &amp; interim revenue leaders — nationwide and across <b>Maryland &amp; DC</b>.</p>' +
+        '<a class="cro-btn" href="' + CAL + '" target="_blank" rel="noopener" data-pulse-click="hire-cro">Book a Call <span aria-hidden="true">→</span></a>' +
+        '<div class="cro-links">' +
+          '<a href="' + LI + '" target="_blank" rel="noopener" data-pulse-click="curator">Kory White LinkedIn <span aria-hidden="true">→</span></a>' +
+          '<a href="' + SYND + '" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate <span aria-hidden="true">→</span></a>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>' +
+    '<script>(function(){var c=document.getElementById("croFixed");if(!c)return;' +
+      'try{if(sessionStorage.getItem("croX")==="1"){c.style.display="none";document.body.classList.add("cro-dismissed");return;}}catch(e){}' +
+      'function b(k){try{if(sessionStorage.getItem("pclk_"+k))return;sessionStorage.setItem("pclk_"+k,"1");}catch(e){}' +
+        'try{var p=JSON.stringify({kind:k,label:"CRO card",page:location.pathname+location.search,url:location.href,title:document.title});' +
+          'if(navigator.sendBeacon)navigator.sendBeacon("/.netlify/functions/pulse-click-notify",new Blob([p],{type:"application/json"}));' +
+          'else fetch("/.netlify/functions/pulse-click-notify",{method:"POST",headers:{"Content-Type":"application/json"},body:p,keepalive:true});}catch(e){}}' +
+      'var x=c.querySelector(".cro-close");if(x)x.addEventListener("click",function(){b("cro-card-dismiss");c.classList.add("cro-drop");document.body.classList.add("cro-dismissed");try{sessionStorage.setItem("croX","1")}catch(e){}setTimeout(function(){c.style.display="none";},780);});' +
+      'c.addEventListener("click",function(e){if(e.target&&e.target.closest&&e.target.closest(".cro-close"))return;b("cro-card-click");},true);' +
+      'c.addEventListener("mouseenter",function(){b("cro-card-hover");});' +
+    '})();</script>';
+}
+
+// MOBILE-ONLY inline CRO card: the whole CRO Syndicate card as a full-width image that
+// sits inline among the content photos (same size, border-radius:14px) so at first it reads
+// like just another picture — then gently swings. Whole image links to the Calendly call;
+// × dismisses it (remembered per session). Hidden on desktop (desktop keeps the hanging card).
+// MOBILE inline CRO card — same Kory card as desktop, placed inline after Direct Answer. × dismisses it.
+function croMobileCard() {
+  const CAL = 'https://calendly.com/korywhiterevops';
+  const LI = 'https://www.linkedin.com/in/korywhite';
+  const SYND = 'https://crosyndicate.com/';
+  const KORY = '/assets/kory-white.jpg';
+  return '<div class="cro-mob-card" id="croMobCard" aria-label="Sponsored — Kory White, Fractional CRO">' +
+    '<div class="cro-swing">' +
+      '<div class="cro-cord"></div><div class="cro-peg"></div>' +
+      '<div class="cro-card">' +
+        '<div class="cro-spine"></div>' +
+        '<button type="button" class="cro-close" aria-label="Dismiss">×</button>' +
+        '<div class="cro-top"><div class="cro-logo">CRO <em>SYNDICATE</em></div><span class="cro-sponsored">SPONSORED</span></div>' +
+        '<div class="cro-hero"><span class="cro-photo"><img src="' + KORY + '" alt="Kory White, Fractional CRO" width="64" height="64" loading="lazy" decoding="async"></span>' +
+          '<span><span class="cro-name">Kory White</span><span class="cro-role">Fractional CRO · 25 yrs · $0→$200M</span></span></div>' +
+        '<p class="cro-eyebrow">Hire a Fractional CRO</p>' +
+        '<div class="cro-head">Need a fractional Chief Revenue Officer?</div>' +
+        '<div class="cro-pills"><span>Chief Revenue Officer</span><span>Revenue Leader</span><span>VP of Sales</span><span>Sales Leader</span></div>' +
+        '<p class="cro-body">CRO Syndicate connects you with vetted fractional &amp; interim revenue leaders — nationwide and across <b>Maryland &amp; DC</b>.</p>' +
+        '<a class="cro-btn" href="' + CAL + '" target="_blank" rel="noopener" data-pulse-click="hire-cro">Book a Call <span aria-hidden="true">→</span></a>' +
+        '<div class="cro-links">' +
+          '<a href="' + LI + '" target="_blank" rel="noopener" data-pulse-click="curator">Kory White LinkedIn <span aria-hidden="true">→</span></a>' +
+          '<a href="' + SYND + '" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate <span aria-hidden="true">→</span></a>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>' +
+  '<script>(function(){var c=document.getElementById("croMobCard");if(!c)return;' +
+    'try{if(sessionStorage.getItem("croMobX")==="1"){c.parentNode&&c.parentNode.removeChild(c);return;}}catch(e){}' +
+    'function b(k){try{if(sessionStorage.getItem("pclk_"+k))return;sessionStorage.setItem("pclk_"+k,"1");}catch(e){}' +
+      'try{var p=JSON.stringify({kind:k,label:"CRO card (mobile)",page:location.pathname+location.search,url:location.href,title:document.title});' +
+        'if(navigator.sendBeacon)navigator.sendBeacon("/.netlify/functions/pulse-click-notify",new Blob([p],{type:"application/json"}));' +
+        'else fetch("/.netlify/functions/pulse-click-notify",{method:"POST",headers:{"Content-Type":"application/json"},body:p,keepalive:true});}catch(e){}}' +
+    'var x=c.querySelector(".cro-close");if(x)x.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();b("cro-card-dismiss");c.style.transition="opacity .4s,transform .4s";c.style.opacity="0";c.style.transform="scale(.96)";try{sessionStorage.setItem("croMobX","1")}catch(_){}setTimeout(function(){c.parentNode&&c.parentNode.removeChild(c);},420);});' +
+    'c.addEventListener("click",function(e){if(e.target&&e.target.closest&&e.target.closest(".cro-close"))return;b("cro-card-click");},true);' +
+  '})();</script>';
+}
+
+function stripBlobCro(body) {
+  if (!body) return body;
+  let b = String(body).replace(/\n*<aside class=["']cro-ad[\s\S]*?<\/aside>\n*/gi, '\n\n');
+  b = b.split('\n').filter(l => {
+    const s = l.trim();
+    if (!s) return true;
+    if (/!\[[^\]]*\]\([^)]*(?:catbox\.moe|wsrv\.nl|usgv65|files\.catbox|cro-syndicate|kory-white)[^)]*\)/i.test(s)) return false;
+    if (/Reach Kory White, Fractional CRO/i.test(s)) return false;
+    if (/calendly\.com\/korywhiterevops|linkedin\.com\/in\/korywhite|crosyndicate\.com/i.test(s) && /Book a Quick Call|Kory on LinkedIn|CRO Syndicate|Quick Call/i.test(s)) return false;
+    if (/💼.*CRO Syndicate · Fractional CRO/.test(s)) return false;
+    return true;
+  }).join('\n');
+  return b.replace(/\n{3,}/g, '\n\n');
+}
+
+function stripRenderedCro(html) {
+  if (!html) return html;
+  let h = String(html);
+  h = h.replace(/\n*<aside class=["']cro-ad[\s\S]*?<\/aside>\n*/gi, '\n');
+  h = h.replace(/\n*<figure class=["']entry-graphic["'][\s\S]*?(?:calendly\.com\/korywhiterevops|cro-syndicate-card|kory-white\.jpg|usgv65|files\.catbox)[\s\S]*?<\/figure>\n*/gi, '\n');
+  h = h.replace(/\n*<p>\s*(?:<strong>\s*)?Reach Kory White, Fractional CRO[\s\S]*?<\/p>\n*/gi, '\n');
+  h = h.replace(/\n*<p>\s*💼[\s\S]*?<\/p>\n*/gi, '\n');
+  return h.replace(/\n{3,}/g, '\n\n');
+}
+
+// Move all mermaid diagrams out of the middle of the prose to the BOTTOM of the answer
+// (just above "Related on PULSE", or the very end if there's none) — owner 2026-07-02.
+// Never strip mermaid from inside the Direct Answer gold box (would leave an empty box).
+function moveMermaidToBottom(html) {
+  if (!html) return html;
+  const blocks = [];
+  const daStart = html.search(/<div\b[^>]*class="direct-answer-box"/i);
+  const daEnd = directAnswerBoxEndPos(html);
+  html = html.replace(/<div class="mermaid-wrap"><div class="mermaid">[\s\S]*?<\/div><\/div>/g, (m, offset) => {
+    if (daStart !== -1 && daEnd !== -1 && offset > daStart && offset < daEnd) return m;
+    blocks.push(m);
+    return '';
+  });
+  if (!blocks.length) return html;
+  const cluster = '\n' + blocks.join('\n') + '\n';
+  const rel = html.search(/<h2[^>]*>\s*Related on PULSE/i);
+  if (rel !== -1) return html.slice(0, rel) + cluster + html.slice(rel);
+  return html + cluster;
+}
+
+function insertCroAd(html, id) {
+  if (!html) return html;
+  // Desktop hanging card + mobile inline card (each hidden on the other's viewport via CSS).
+  let out = insertCroAdDesktop(html, id);
+  const mob = '\n' + croMobileCard() + '\n';
+  out = out.replace(/<div class="cro-mob-card[\s\S]*?<\/script>\s*/g, '');
+  // Mobile uses the same Top-10 slot (#3 product) as desktop — NOT right after Direct Answer.
+  const pos = croInsertPos(out);
+  return out.slice(0, pos) + mob + out.slice(pos);
+}
+
+function insertCroAdDesktop(html, id) {
+  if (!html) return html;
+  html = stripRenderedCro(html);
+  if (/class="cro-ad-card/.test(html)) {
+    const first = html.match(/<div class="cro-ad cro-ad-card[\s\S]*?<\/script>/);
+    if (first) {
+      html = html.replace(/<div class="cro-ad cro-ad-card[\s\S]*?<\/script>\s*/g, '');
+      const at = croInsertPos(html);
+      return html.slice(0, at) + '\n' + first[0] + '\n' + html.slice(at);
+    }
+    return html;
+  }
+  const card = croAdCard();
+  const mdAd = html.match(/<p>\s*💼[\s\S]*?<\/p>/);
+  if (mdAd) html = html.slice(0, mdAd.index) + html.slice(mdAd.index + mdAd[0].length);
+  const ad = '\n' + card + '\n';
+  const at = croInsertPos(html);
+  return html.slice(0, at) + ad + html.slice(at);
 }
 
 function findRelated(entry, allEntries, n) {
@@ -154,9 +744,39 @@ function descExcerpt(answer) {
     if (/^\|/.test(t)) continue;                   // skip table
     const cleaned = stripMd(t);
     if (cleaned.length < 40) continue;             // skip tiny fragments
-    return cleaned.slice(0, 240);
+    return clipMeta(cleaned);
   }
-  return stripMd(answer).slice(0, 240);
+  return clipMeta(stripMd(answer));
+}
+// Keep the meta description <=160 chars (word boundary) so it's never flagged "long meta".
+// PREEMPTIVE long-meta fix: every rendered page clips here, so the spider never sees >160.
+function clipMeta(s) {
+  s = String(s || '').trim(); const MAX = 158;
+  if (s.length <= MAX) return s;
+  let t = s.slice(0, MAX); const sp = t.lastIndexOf(' ');
+  if (sp > 100) t = t.slice(0, sp);
+  return t.replace(/[\s,;:.–\-]+$/, '') + '…';
+}
+// PREEMPTIVE meta-keywords fix (owner 4444 2026-06-29): default EVERY URL to the top ~50 best
+// keyword phrases for THAT page, derived from its question + tags + stored cluster + n-gram
+// phrases + standard SEO modifiers. Deduped, length-bounded, capped at 50.
+const KW_STOP = new Set('a,an,the,to,of,for,in,on,at,by,and,or,with,your,you,is,are,was,were,do,does,did,can,could,should,would,what,how,where,when,why,who,whom,which,it,its,as,that,this,these,those,from,be,been,being,about,into,than,then,so,if,but,not,no,my,our,their,his,her'.split(','));
+function metaKeywords(entry) {
+  const out = []; const seen = new Set();
+  const push = k => { k = String(k || '').trim().replace(/\s+/g, ' ').replace(/[?!.,;:]+$/, ''); const lk = k.toLowerCase(); if (k.length > 2 && k.length <= 60 && !seen.has(lk)) { seen.add(lk); out.push(k); } };
+  const q = (entry.question || '').replace(/[?.!]+$/, '').trim();
+  (entry.tags || []).forEach(push);
+  (entry.keywords || []).forEach(push);
+  (entry.keyword_cluster || []).forEach(push);
+  (entry.kw_cluster || []).forEach(push);
+  const core = q.replace(/^(what|how|where|when|why|who|which|is|are|do|does|can|could|should|would)\b\s*/i, '')
+                .replace(/\bin\s+20\d\d\b/i, '').replace(/[?]/g, '').replace(/\s+/g, ' ').trim();
+  push(core); push(q);
+  const words = core.toLowerCase().split(/[^a-z0-9]+/).filter(w => w && !KW_STOP.has(w));
+  for (let n = 2; n <= 4; n++) for (let i = 0; i + n <= words.length; i++) push(words.slice(i, i + n).join(' '));
+  words.forEach(push);
+  if (core) { [core + ' 2027', 'best ' + core, core + ' guide', core + ' tips', core + ' near me', core + ' explained'].forEach(push); }
+  return out.slice(0, 50);
 }
 
 exports.handler = async (event) => {
@@ -165,8 +785,14 @@ exports.handler = async (event) => {
   const params = event.queryStringParameters || {};
   if (params.id) id = String(params.id).replace(/[^\w-]/g, '');
   if (!id && event.path) {
-    const m = event.path.match(/\/knowledge\/([\w-]+)/);
-    if (m) id = m[1];
+    // /knowledge/<id> OR any pretty pillar path /<pillar>/<id> (e.g. /cars/ca0977,
+    // /sales-trainings/st0001). Netlify's ?id=:id query substitution doesn't populate
+    // for the pillar rewrites, so fall back to the last id-shaped path segment
+    // (1-4 letters + a digit, e.g. q11133, tl9398, bs0136). The index lookup below
+    // 404s anything that isn't a real entry id.
+    const m = event.path.match(/\/knowledge\/([\w-]+)/) ||
+              event.path.replace(/\/+$/, '').match(/\/([A-Za-z]{1,4}\d[\w-]*)$/);
+    if (m) id = m[1].replace(/[^\w-]/g, '');
   }
   if (!id) return { statusCode: 404, headers: { 'Content-Type': 'text/html' }, body: '<h1>404</h1><p>No entry id provided.</p>' };
 
@@ -174,16 +800,24 @@ exports.handler = async (event) => {
   if (!store) return { statusCode: 503, headers: { 'Content-Type': 'text/html' }, body: '<h1>503</h1><p>Library not available.</p>' };
 
   let entry, idx;
+  let idxEntry = null;
   try {
+    // Entry blob is small (per-page). The full _index.json is multi-MB (35k entries) and only needed for
+    // related-link lookup — cache it in warm memory for 5 min so most renders skip the big fetch/parse (owner 2026-07-06 speed).
     entry = await store.get('answers/' + id + '.json', { type: 'json' });
-    idx   = (await store.get('_index.json', { type: 'json' })) || { entries: [] };
+    if (globalThis.__PULSE_IDX_CACHE && (Date.now() - globalThis.__PULSE_IDX_AT) < 300000) {
+      idx = globalThis.__PULSE_IDX_CACHE;
+    } else {
+      idx = (await store.get('_index.json', { type: 'json' })) || { entries: [] };
+      globalThis.__PULSE_IDX_CACHE = idx; globalThis.__PULSE_IDX_AT = Date.now();
+    }
   } catch (e) {
     return { statusCode: 500, headers: { 'Content-Type': 'text/html' }, body: '<h1>500</h1><p>Error reading library.</p>' };
   }
   // Index is source of truth for quality_score and polished_at — per-entry
   // blobs may carry stale values from before the score-system rebuild.
   if (entry && idx && Array.isArray(idx.entries)) {
-    const idxEntry = idx.entries.find(e => e && e.id === id);
+    idxEntry = idx.entries.find(e => e && e.id === id) || null;
     if (idxEntry) {
       if (typeof idxEntry.quality_score === 'number') entry.quality_score = idxEntry.quality_score;
       entry.polished_at = idxEntry.polished_at || null;
@@ -200,8 +834,17 @@ exports.handler = async (event) => {
   const url       = SITE + '/knowledge/' + id;
   const title     = (entry.question || '').slice(0, 70);
   const desc      = descExcerpt(entry.answer);
+  // SEO <title> kept <=65 chars (fixes "long titles") — the full question stays as the H1.
+  const shortTitle = (() => {
+    const q = (entry.question || '').trim(); const SUF = ' | Pulse News'; const max = 65 - SUF.length;
+    if (q.length <= max) return q + SUF;
+    let t = q.slice(0, max); const sp = t.lastIndexOf(' ');
+    if (sp > 24) t = t.slice(0, sp);
+    return t.replace(/[\s,;:.–-]+$/, '') + '…' + SUF;
+  })();
   const tagsList  = entry.tags || [];
   const sourcesArr= entry.sources || [];
+  const entryPillar = (String(id).match(/^[a-z]+/) || [''])[0];
   const related   = findRelated({ id, tags: tagsList }, idx.entries || [], 10);
 
   // Prev/Next neighbors by q-ID numeric order — gives Google explicit
@@ -257,10 +900,10 @@ exports.handler = async (event) => {
   const publisherOrg = {
     "@type": "Organization",
     "@id": SITE + "/#organization",
-    "name": "Pulse",
+    "name": "Pulse News",
     "url": SITE,
     "founder": koryEditor,
-    "logo": { "@type": "ImageObject", "url": SITE + "/og-preview.jpg" }
+    "logo": pulseOrgLogoImageObject()
   };
 
   const ld = {
@@ -311,7 +954,20 @@ exports.handler = async (event) => {
   // Always render the original Operator voice (entry.answer) for uniform UX
   // across the entire library. The In-Between bake was disabled 2026-05-04;
   // any partial-baked answer_between fields are ignored.
-  const renderedAnswer = renderMd(entry.answer);
+  // CRO card is injected at RENDER time (insertCroAd) — strip any in-blob card so pages never double.
+  const croStripped = stripBlobCro(entry.answer || '');
+  const rankingList = RANKING_LIST_NO_TOP_HERO && isRankingListBody(croStripped, entry.question || entry.h1);
+  const qaEssay = appliesQaGold(id, croStripped, { title: entry.question || entry.h1 });
+  const noTopHero = rankingList || qaEssay;
+  const coverLead = leadingCoverFromBody(croStripped);
+  const heroUrl = pickHeroUrl(croStripped, idxEntry && idxEntry.img, id, noTopHero);
+  const heroFallback = firstProductImg(croStripped);
+  const heroAlt = entry.question || (coverLead && coverLead.alt) || id;
+  const heroHtml = heroUrl ? entryCoverFigureHtmlWithFallback(heroAlt, heroUrl, heroFallback && heroFallback !== heroUrl ? heroFallback : '') : '';
+  let bodyForMd = noTopHero ? stripLeadingCoverMarkdown(croStripped) : croStripped;
+  bodyForMd = bodyForMd.replace(/<!--pillar-weave-->|<!--cro-weave-->/g, '');
+  if (heroHtml) bodyForMd = stripLeadingCoverMarkdown(bodyForMd);
+  let renderedAnswer = wrapDirectAnswerGold(renderMd(bodyForMd, /^sy\d+$/i.test(id), noTopHero || !!heroHtml));
 
   // Word count for the meta row — strip markdown noise (code fences, URLs,
   // table pipes, heading hashes) so the count reflects readable prose.
@@ -391,21 +1047,22 @@ exports.handler = async (event) => {
     return '<a class="entry-tag" href="/knowledge/tag/' + escAttr(slug) + '">' + escHtml(t) + '</a>';
   }).join('');
 
-  // Share buttons — pre-populated with the question + URL for one-click
-  // distribution of the autonomously researched content.
+  // Share row — always visible at bottom of every knowledge entry
   const shareText  = encodeURIComponent(entry.question + ' — Pulse Knowledge Library');
   const shareUrl   = encodeURIComponent(url);
   const linkedInUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + shareUrl;
   const xUrl        = 'https://twitter.com/intent/tweet?text=' + shareText + '&url=' + shareUrl + '&via=coachkorywhite';
   const facebookUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + shareUrl;
   const emailUrl    = 'mailto:?subject=' + shareText + '&body=' + encodeURIComponent('From the Pulse Knowledge Library:\n\n' + entry.question + '\n\n' + url);
-  const shareHtml = '<div class="share-row" aria-label="Share this answer">'
+  const shareImg    = SITE + '/og-preview.jpg';
+  const shareHtml = '<div class="share-row entry-share" aria-label="Share this answer" style="display:flex !important;visibility:visible !important;opacity:1 !important;">'
     + '<span class="share-label">Share:</span>'
-    + '<a class="share-btn" href="' + linkedInUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">in</a>'
-    + '<a class="share-btn" href="' + xUrl       + '" target="_blank" rel="noopener noreferrer" aria-label="Share on X">𝕏</a>'
-    + '<a class="share-btn" href="' + facebookUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">f</a>'
-    + '<a class="share-btn" href="' + emailUrl   + '" aria-label="Share via email">✉</a>'
-    + '<button class="share-btn copy-link" type="button" data-url="' + escAttr(url) + '" aria-label="Copy link">⎘</button>'
+    + '<a class="share-btn" href="' + linkedInUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">LinkedIn</a>'
+    + '<a class="share-btn" href="' + xUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Share on X">X</a>'
+    + '<a class="share-btn" href="' + facebookUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">Facebook</a>'
+    + '<a class="share-btn" href="' + emailUrl + '" aria-label="Share via email">Email</a>'
+    + '<button class="share-btn share-copy copy-link" type="button" data-url="' + escAttr(url) + '" aria-label="Copy link">'
+    + '<span class="share-copy-lbl">Copy link</span></button>'
     + '</div>';
 
   const html = `<!doctype html>
@@ -413,9 +1070,9 @@ exports.handler = async (event) => {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>${escHtml(title)} — Pulse Knowledge Library</title>
+  <title>${escHtml(shortTitle)}</title>
   <meta name="description" content="${escAttr(desc)}">
-  <meta name="keywords" content="${escAttr(tagsList.join(', '))}">
+  <meta name="keywords" content="${escAttr(metaKeywords(entry).join(', '))}">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="${url}">
   ${seqNavLinks}
@@ -423,41 +1080,126 @@ exports.handler = async (event) => {
   <meta property="og:title" content="${escAttr(title)}">
   <meta property="og:description" content="${escAttr(desc)}">
   <meta property="og:url" content="${url}">
-  <meta property="og:site_name" content="Pulse">
-  <meta property="og:image" content="${SITE}/og-preview.jpg">
+  <meta property="og:site_name" content="Pulse News">
+  <meta property="og:image" content="${shareImg}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escAttr(title)}">
   <meta name="twitter:description" content="${escAttr(desc)}">
-  <meta name="twitter:image" content="${SITE}/og-preview.jpg">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E8710A' d='M3 12h3l2-7 4 14 2-7h7'/%3E%3C/svg%3E">
+  <meta name="twitter:image" content="${shareImg}">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
-    if (window.mermaid && window.mermaid.initialize) {
-      window.mermaid.initialize({
-        startOnLoad: true, theme: 'dark', securityLevel: 'loose',
-        themeVariables: { fontFamily: "'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
-          primaryColor:'#1a1f29', primaryTextColor:'#EDE5D8', primaryBorderColor:'#E8710A',
-          lineColor:'rgba(232,113,10,0.65)', mainBkg:'#1a1f29', textColor:'#EDE5D8' },
-      });
-    }
+    /* LAZY mermaid (owner 2026-07-06 speed): never render-blocking. Skip the ~1MB lib entirely on pages
+       with no diagrams; otherwise load it AFTER first paint so the answer text shows instantly. */
+    (function(){
+      function loadMermaid(){
+        if(!document.querySelector('.mermaid')) return;   // no diagram → don't fetch mermaid at all
+        var s=document.createElement('script');
+        s.src='https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+        s.async=true;
+        s.onload=function(){ try{ window.mermaid.initialize({ startOnLoad:false, theme:'dark', securityLevel:'loose',
+          themeVariables:{ fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
+            primaryColor:'#1a1f29', primaryTextColor:'#EDE5D8', primaryBorderColor:'#E8710A',
+            lineColor:'rgba(232,113,10,0.65)', mainBkg:'#1a1f29', textColor:'#EDE5D8' } });
+          if(window.mermaid.run) window.mermaid.run(); }catch(e){} };
+        document.body.appendChild(s);
+      }
+      if(document.readyState==='loading') window.addEventListener('DOMContentLoaded', function(){ setTimeout(loadMermaid,0); });
+      else setTimeout(loadMermaid,0);
+    })();
   </script>
   <style>
     :root { --orange:#E8710A; --orange-bright:#FF8C1A; --ink:#EDE5D8; --bg:#070a0f; --muted:rgba(237,229,216,0.5); }
     *{box-sizing:border-box;}
+    /* site-wide brightness bump (owner 2026-07-06): brighten all in-body + cover images */
+    article img, .body img, .entry-hero img, figure img { filter: brightness(1.22) saturate(1.04); }
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.7;}
     a{color:var(--orange-bright);text-decoration:none;}
     a:hover{text-decoration:underline;}
-    .top{padding:24px clamp(20px,5vw,56px);display:flex;justify-content:space-between;align-items:center;font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,229,216,0.65);border-bottom:1px solid rgba(255,255,255,0.05);}
+    .top{padding:18px clamp(20px,5vw,56px);display:flex;justify-content:space-between;align-items:center;font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,229,216,0.65);border-bottom:1px solid rgba(255,255,255,0.05);}
     .top a{color:var(--orange-bright);}
+    .top .brand{display:flex;align-items:center;}
+    .top .brand:hover{text-decoration:none;}
+    .top .brandlogo{height:46px;width:auto;display:block;}
+    @media(max-width:600px){.top .brandlogo{height:38px;}}
+    /* ── DARK MASTHEAD (owner 2026-07-02): the gold Pulse News logo on a black band with a thin
+       gold pulse-hairline along the bottom edge. Higher specificity (body .top) + !important beats
+       the sitewide tan sheet's cream .top so the gold logo pops instead of washing out on cream. ── */
+    body .top{background:linear-gradient(90deg,#0a0c11 0%,#171b23 52%,#0a0c11 100%) !important;border-bottom:none !important;position:relative !important;padding:16px clamp(20px,5vw,56px) !important;box-shadow:0 2px 18px rgba(0,0,0,0.25);}
+    body .top a{color:#e7d4a1 !important;}
+    body .top a:hover{color:#ffe9b0 !important;text-decoration:none;}
+    body .top::after{content:"" !important;position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,rgba(200,130,30,0) 0%,#C8821E 18%,#f2d987 50%,#C8821E 82%,rgba(200,130,30,0) 100%) !important;box-shadow:0 0 10px rgba(242,217,135,0.55);}
     article{max-width:880px;margin:0 auto;padding:36px clamp(20px,5vw,40px) 64px;}
     .crumb{font-size:0.66rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
     .crumb a{color:var(--muted);}
-    h1.q{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:900;letter-spacing:-0.01em;line-height:1.2;margin:0 0 18px;}
+    h1.q{font-family:Fraunces,Georgia,'Times New Roman',serif;font-size:clamp(2.7rem,5.6vw,4.1rem);font-weight:900;letter-spacing:-0.015em;line-height:1.1;margin:0 0 22px;}
     .meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:0.66rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,229,216,0.45);margin-bottom:28px;}
     .entry-tag{display:inline-block;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(237,229,216,0.7);padding:3px 9px;border-radius:99px;font-size:0.6rem;text-decoration:none;transition:all 0.12s;}
     a.entry-tag:hover{background:rgba(232,113,10,0.12);border-color:rgba(232,113,10,0.4);color:rgba(255,180,90,0.9);text-decoration:none;}
     .body p{margin:0 0 16px;color:rgba(237,229,216,0.94);font-size:1.15rem;}
+    .body .direct-answer-box{margin:0 0 22px !important;padding:18px 20px !important;border:2px solid #C8821E !important;border-radius:14px !important;background:#FBF3E4 !important;box-shadow:0 0 0 1px rgba(200,130,30,.18), inset 0 0 0 1px rgba(200,130,30,.08) !important;}
+    .body .direct-answer-box p,.body .direct-answer-box li{color:#1d1711 !important;}
+    .body .direct-answer-box strong,.body .direct-answer-box b{color:#1d1711 !important;}
+    @media(max-width:640px){
+      .body,.body p,.body li{font-size:1.2rem !important;line-height:1.72 !important;}
+      .body .direct-answer-box p{font-size:1.18rem !important;}
+    }
+    /* CRO hanging widget — a little sign that hangs top-right from a cord+peg, sways, stays on scroll */
+    .cro-ad-root{position:fixed;top:0;right:28px;width:322px;z-index:2147483000;font-family:'Plus Jakarta Sans',-apple-system,'Segoe UI',system-ui,sans-serif;pointer-events:none;text-align:left;}
+    .cro-ad-root *{box-sizing:border-box;}
+    .cro-swing{position:relative;padding-top:44px;transform-origin:50% 0;animation:cro-sway 5.5s ease-in-out infinite;pointer-events:auto;}
+    .cro-cord{position:absolute;top:0;left:50%;width:3px;height:46px;margin-left:-1.5px;background:linear-gradient(#d7c19f,#c6ab80);border-radius:2px;box-shadow:0 0 0 .5px rgba(120,92,52,.35);}
+    .cro-cord::before{content:"";position:absolute;top:-4px;left:50%;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:#b89a6c;box-shadow:0 1px 2px rgba(0,0,0,.3);}
+    .cro-peg{position:absolute;top:34px;left:50%;width:40px;height:20px;margin-left:-20px;background:linear-gradient(180deg,#e4c489,#caa15f);border-radius:5px;box-shadow:0 2px 4px rgba(0,0,0,.28),inset 0 -2px 3px rgba(120,80,30,.35);z-index:3;}
+    .cro-peg::before{content:"";position:absolute;left:50%;top:2px;width:2px;height:16px;margin-left:-1px;background:rgba(120,80,30,.4);}
+    .cro-peg::after{content:"";position:absolute;left:6px;right:6px;top:8px;height:4px;border-radius:2px;background:linear-gradient(#c9c9cf,#8f8f97);box-shadow:0 1px 1px rgba(0,0,0,.25);}
+    .cro-card{position:relative;margin-top:6px;border-radius:16px;overflow:hidden;padding:16px 18px 18px 22px;background:linear-gradient(155deg,#fff 0%,#fdf1f0 60%,#fbe9e8 100%);border:1px solid #f0d3d2;box-shadow:0 18px 40px -12px rgba(90,10,10,.45),0 4px 12px rgba(0,0,0,.12);}
+    .cro-spine{position:absolute;left:0;top:0;bottom:0;width:7px;background:linear-gradient(#a71c1c,#8b0202);}
+    .cro-close{position:absolute;top:9px;right:9px;width:26px;height:26px;border:none;cursor:pointer;border-radius:50%;background:#fff;color:#a71c1c;font-size:19px;line-height:1;box-shadow:0 1px 4px rgba(0,0,0,.22);transition:background .15s,color .15s,transform .15s;padding:0;}
+    .cro-close:hover{background:#a71c1c;color:#fff;transform:scale(1.06);}
+    .cro-top{display:flex;align-items:center;justify-content:space-between;}
+    .cro-logo{font-weight:900;font-size:15px;letter-spacing:.4px;color:#8b0202;}.cro-logo em{font-style:normal;color:#232327;}
+    .cro-sponsored{font-size:9px;font-weight:700;letter-spacing:1.3px;color:#9a6b6b;background:#f4dedd;border-radius:20px;padding:3px 9px;margin-right:26px;}
+    .cro-hero{display:flex;align-items:center;gap:12px;margin:12px 0 6px;}
+    .cro-photo{flex:0 0 auto;width:70px;height:70px;border-radius:50%;padding:3px;background:#fff;box-shadow:0 0 0 2.5px #8b0202;}
+    .cro-photo img{width:100%;height:100%;border-radius:50%;display:block;object-fit:cover;}
+    .cro-name{display:block;font-size:22px;font-weight:800;color:#a71c1c;line-height:1;}
+    .cro-role{display:block;font-size:12px;font-weight:600;color:#3f3f45;margin-top:4px;}
+    .cro-eyebrow{margin:6px 0 0;font-size:9.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#a71c1c;}
+    .cro-head{margin:4px 0 0;font-size:19px;line-height:1.12;font-weight:800;color:#232327;padding-bottom:7px;border-bottom:3px solid #a71c1c;display:inline-block;}
+    .cro-pills{display:flex;flex-wrap:wrap;gap:6px;margin:11px 0 0;}
+    .cro-pills span{font-size:10.5px;font-weight:700;color:#8b0202;border:1.4px solid #e6b7b6;background:rgba(255,255,255,.6);border-radius:20px;padding:4px 10px;}
+    .cro-body{margin:11px 0 13px !important;font-size:12px !important;line-height:1.42 !important;color:#45454b !important;}.cro-body b{color:#8b0202;}
+    .cro-btn{display:block;text-align:center;text-decoration:none;font-size:14px;font-weight:800;color:#fff;background:linear-gradient(180deg,#b81f1f,#8b0202);border-radius:30px;padding:11px 14px;box-shadow:0 6px 14px -4px rgba(139,2,2,.6);transition:transform .12s,box-shadow .12s;}
+    .cro-btn:hover{transform:translateY(-1px);box-shadow:0 9px 18px -5px rgba(139,2,2,.7);text-decoration:none;}
+    .cro-links{display:flex;justify-content:space-between;gap:8px;margin-top:11px;}
+    .cro-links a{font-size:11.5px;font-weight:700;color:#a71c1c;text-decoration:none;border-bottom:2px solid rgba(167,28,28,.35);padding-bottom:1px;}
+    .cro-links a:hover{color:#8b0202;border-color:#8b0202;text-decoration:none;}
+    @keyframes cro-sway{0%,100%{transform:rotate(-1.5deg);}50%{transform:rotate(1.5deg);}}
+    .cro-ad-root.cro-drop .cro-swing{animation:none;transition:transform .7s cubic-bezier(.4,0,.6,1),opacity .7s ease;transform:rotate(11deg) translateY(130vh);opacity:0;}
+    @media(prefers-reduced-motion:reduce){.cro-swing{animation:none;transform:rotate(-1deg);}}
+    /* NO-OVERLAP: on wide screens shift the WHOLE page left, leaving a clean right column for the
+       hanging widget (article stays balanced/centered in the left region, not shoved right). When the
+       user × dismisses it, body.cro-dismissed removes the shift and everything re-centers. Below the
+       threshold the widget hides so it never covers text. */
+    @media(min-width:1200px){ body{padding-right:352px;transition:padding-right .5s ease;} body.cro-dismissed{padding-right:0;} article{max-width:1240px;} body.cro-dismissed article{max-width:880px;} }
+    /* MOBILE / narrow: HIDE the CRO card entirely (owner 2026-07-01). Phones get the same clean,
+       full-width reading page as desktop — no bottom dock, no content shift. Card is desktop-only. */
+    @media(max-width:1199px){
+      .cro-ad-root{display:none!important;}
+      body{padding-right:0!important;}
+    }
+    /* MOBILE inline CRO card — IDENTICAL to the desktop hanging card (reuses .cro-swing/.cro-card),
+       just inline instead of fixed. Hidden on desktop (desktop keeps the fixed hanging card). */
+    .cro-mob-card{display:none;}
+    @media(max-width:1199px){
+      /* full-width image-sized slot; the exact desktop card centered inside (dead space on sides is fine) */
+      .cro-mob-card{display:flex;justify-content:center;width:100%;margin:28px 0 24px;padding:8px 0 12px;background:rgba(236,227,210,.55);border-radius:14px;border:1px solid rgba(29,23,17,.08);}
+      .cro-mob-card .cro-swing{width:min(322px,88vw);}
+    }
     .body strong{color:#fff;}
     .body h2,.body h3{font-size:0.82rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--orange-bright);margin:22px 0 10px;}
     .body ul,.body ol{margin:8px 0 16px;padding-left:24px;}
@@ -487,11 +1229,14 @@ exports.handler = async (event) => {
     .entry-source .es-host{font-size:0.62rem;color:rgba(237,229,216,0.45);letter-spacing:0.08em;text-transform:uppercase;flex-shrink:0;}
     .entry-source .es-title{font-size:0.92rem;color:rgba(237,229,216,0.9);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .footer-note{padding:24px;text-align:center;color:rgba(237,229,216,0.35);font-size:0.66rem;letter-spacing:0.16em;}
-    .share-row{display:flex;align-items:center;gap:8px;margin:24px 0 4px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);}
-    .share-label{font-size:0.6rem;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,229,216,0.45);margin-right:4px;}
-    .share-btn{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,216,0.7);font-family:inherit;font-size:0.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.15s;}
-    .share-btn:hover{border-color:rgba(232,113,10,0.55);color:var(--orange-bright);background:rgba(232,113,10,0.06);text-decoration:none;}
+    .share-row,.entry-share{display:flex !important;visibility:visible !important;opacity:1 !important;align-items:center;flex-wrap:wrap;gap:8px;margin:28px 0 8px;padding:16px 0;border-top:1px solid rgba(255,255,255,0.12);}
+    .share-label{font-size:0.65rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,229,216,0.55);margin-right:6px;}
+    .share-btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;min-height:36px;padding:0 12px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);color:rgba(237,229,216,0.85);font-family:inherit;font-size:0.72rem;font-weight:700;letter-spacing:0.03em;cursor:pointer;text-decoration:none;transition:all 0.15s;}
+    .share-btn.share-copy{padding:0 14px;}
+    .share-copy-lbl{font-size:0.72rem;font-weight:700;}
+    .share-btn:hover{border-color:rgba(232,113,10,0.55);color:var(--orange-bright);background:rgba(232,113,10,0.08);text-decoration:none;}
     .share-btn.copied{color:var(--green,#22c55e);border-color:rgba(34,197,94,0.5);}
+    .share-btn.copied .share-copy-lbl::after{content:' ✓';}
     .layman-hero{margin:0 0 22px;padding:18px 22px;background:linear-gradient(135deg,rgba(255,140,26,0.18),rgba(232,113,10,0.1));border:2px solid rgba(255,140,26,0.55);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 4px 14px rgba(232,113,10,0.15);}
     .layman-hero-text{flex:1;min-width:200px;}
     .layman-hero-title{font-size:0.96rem;font-weight:900;color:#FFD7A8;letter-spacing:0.01em;line-height:1.3;margin-bottom:3px;}
@@ -526,17 +1271,26 @@ exports.handler = async (event) => {
       .body table{page-break-inside:avoid;}
       .footer-note{color:#666 !important;border-top:1px solid #ccc;padding-top:12px;margin-top:24px;font-size:9pt;}
     }
+  /* GOLD 13/13 trim — entries personally audited + signed off by Claude Code */
+  article.cc-gold{position:relative;outline:5px solid #FFD740;outline-offset:10px;border-radius:18px;box-shadow:0 0 60px rgba(255,215,64,0.55),inset 0 0 0 2px rgba(255,215,64,0.35);}
+  @keyframes ccGoldPulse{0%{box-shadow:0 0 40px rgba(255,215,64,0.42),inset 0 0 0 2px rgba(255,215,64,0.30)}50%{box-shadow:0 0 72px rgba(255,215,64,0.72),inset 0 0 0 2px rgba(255,215,64,0.45)}100%{box-shadow:0 0 40px rgba(255,215,64,0.42),inset 0 0 0 2px rgba(255,215,64,0.30)}}
+  article.cc-gold{animation:ccGoldPulse 3.4s ease-in-out infinite;}
+  /* diagonal CERTIFIED corner ribbon */
+  article.cc-gold::after{content:"✓ CERTIFIED";position:absolute;top:22px;right:-54px;transform:rotate(45deg);background:linear-gradient(135deg,#FFE34F,#E89F0A);color:#1a1208;font-size:0.72rem;font-weight:900;letter-spacing:0.14em;padding:8px 62px;box-shadow:0 4px 14px rgba(0,0,0,0.28),0 0 18px rgba(255,215,64,0.6);z-index:5;pointer-events:none;}
+  .cc-gold-badge{display:inline-block;background:linear-gradient(135deg,#FFE34F,#E89F0A);color:#1a1208;padding:9px 20px;border-radius:99px;font-size:0.9rem;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;border:2px solid #FFF3B0;box-shadow:0 0 22px rgba(255,215,64,0.75),0 2px 8px rgba(0,0,0,0.2);vertical-align:middle;margin-right:4px;}
+  @media print{article.cc-gold::after{display:none}}
   </style>
+  <link rel="stylesheet" href="/assets/pulse-tan.css">
 </head>
 <body>
-  <div id="read-progress" aria-hidden="true" style="position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#FF8C1A,#FFD740);z-index:9999;transition:width 0.1s linear;box-shadow:0 0 8px rgba(255,140,26,0.5);"></div>
   <button id="scroll-top" type="button" aria-label="Scroll to top" style="position:fixed;bottom:24px;right:24px;width:42px;height:42px;border-radius:50%;background:rgba(232,113,10,0.92);border:1px solid rgba(255,255,255,0.18);color:#fff;font-size:1.1rem;font-weight:900;cursor:pointer;z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.2s, transform 0.15s;box-shadow:0 6px 20px rgba(232,113,10,0.4);font-family:inherit;">↑</button>
   <div class="top">
-    <a href="/">Pulse</a>
+    <a href="/" class="brand" aria-label="Pulse News — Value Added"><img class="brandlogo" src="/pulse-news-logo.png" alt="Pulse News — Value Added" width="164" height="46"></a>
     <span><a href="/knowledge.html">← Library</a></span>
   </div>
-  <article>
+  <article${entry.cc_signed ? ' class="cc-gold"' : ''}>
     <div class="crumb"><a href="/knowledge.html">Knowledge Library</a> · ${escHtml(tagsList[0] || 'Sales')}</div>
+    ${entry.cc_signed ? '<div style="margin:0 0 10px;"><span class="cc-gold-badge">🏆 ' + (entry.quality || '13/13') + ' · Claude Code Audited</span></div>' : ''}
     <div style="margin:0 0 12px;">
       ${(() => {
         const sc = typeof entry.quality_score === 'number' ? entry.quality_score : 5;
@@ -562,13 +1316,14 @@ exports.handler = async (event) => {
         return `${polishingPill}<span style="display:inline-block;background:${labelBg};color:${labelTx};padding:5px 12px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;border:1px solid ${labelBd};${labelSh}vertical-align:middle;margin-right:4px;">${labelText}</span><span style="display:inline-block;background:${bg};color:${tx};padding:5px 12px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;border:1px solid ${bd};box-shadow:${sh};vertical-align:middle;margin-right:4px;">${lbl}</span><span role="button" tabindex="0" aria-label="How does the score work?" onclick="showIQHelp()" onkeypress="if(event.key===&quot;Enter&quot;){showIQHelp();}" style="display:inline-block;width:18px;height:18px;line-height:16px;text-align:center;background:rgba(57,255,20,0.18);border:1px solid rgba(57,255,20,0.55);color:#39FF14;border-radius:50%;font-size:0.7rem;font-weight:900;cursor:pointer;margin-right:8px;vertical-align:middle;user-select:none;">?</span>`;
       })()}
     </div>
-    <h1 class="q">${escHtml(entry.question)}</h1>
-    <div class="meta-row"><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 10px;background:rgba(255,140,26,0.10);border:1px solid rgba(255,140,26,0.35);border-radius:99px;color:#FFB870;font-size:0.66rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;" title="Word count of this answer">📖 ${wordCountFmt} words</span><span style="margin-left:auto;">${new Date(entry.ts).toLocaleDateString()}</span></div>
+    <h1 class="q">${escHtml(entry.h1 || entry.question)}</h1>
+    ${heroHtml}
+    <div class="meta-row"><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 10px;background:rgba(255,140,26,0.10);border:1px solid rgba(255,140,26,0.35);border-radius:99px;color:#FFB870;font-size:0.66rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;" title="Word count of this answer">📖 ${wordCountFmt} words</span><span style="margin-left:auto;color:rgba(237,229,216,0.82);font-weight:800;white-space:nowrap;">${(()=>{const fmtD=v=>{const d=new Date(v);return isNaN(d.getTime())?'':d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});};const pub=fmtD(entry.ts||entry.was_indexed_at||entry.cc_signed_at||Date.now());const uraw=entry.polished_at||entry.updated_at||entry.cc_signed_at;const upd=uraw?fmtD(uraw):'';return '🗓️ Published '+pub+(upd&&upd!==pub?'  ·  Updated '+upd:'');})()}</span></div>
     <div style="margin:10px 0 18px;">
       <button type="button" id="read-aloud-top" aria-label="Read this answer aloud" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(57,166,255,0.22),rgba(120,180,255,0.14));border:1px solid rgba(57,166,255,0.6);color:#9ECFFF;font-family:inherit;font-size:0.78rem;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;padding:9px 16px;border-radius:99px;cursor:pointer;box-shadow:0 0 12px rgba(57,166,255,0.25);"><span id="ra-top-icon" style="font-size:1rem;">🔊</span><span id="ra-top-label">Listen to this answer</span></button>
     </div>
 <!-- Voice switcher removed 2026-05-03 — single In-Between voice only -->
-    <div class="body">${renderedAnswer}</div>
+    <div class="body">${insertCroAd(moveMermaidToBottom(renderedAnswer), id)}</div>
     <div class="dl-row" aria-label="Download options">
       <span class="dl-label">Download:</span>
       <button class="dl-btn" type="button" id="dl-md">⬇ Answer (.md)</button>
@@ -613,13 +1368,23 @@ exports.handler = async (event) => {
     <button class="viz-lightbox-close" id="viz-lightbox-close" aria-label="Close">×</button>
     <div class="viz-lightbox-inner" id="viz-lightbox-inner"></div>
   </div>
+  <link rel="stylesheet" href="/css/pulse-mosaic.css">
+  <section class="mag-mosaic" data-pulse-mosaic data-pillar="${escAttr(entryPillar)}" aria-label="More stories in this topic" style="max-width:1080px;margin:0 auto;padding:0 clamp(10px,2vw,24px) 40px;"></section>
   <div class="footer-note">
     Researched autonomously by <a href="/themachine" style="color:rgba(255,140,26,0.7);">The Machine</a> · Claude Sonnet 4.6 + live web search · Cited &amp; dated
-    <div style="margin-top:8px;font-size:0.62rem;letter-spacing:0.06em;text-transform:none;color:rgba(237,229,216,0.45);line-height:1.6;">
-      Curated by <a href="/resume" style="color:rgba(255,140,26,0.85);font-weight:700;">Kory White</a> — 22-year revenue executive, architect of PULSE RevOps · <a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" style="color:rgba(255,140,26,0.65);">LinkedIn</a> · <a href="https://theexecutivereview.org/kory-white.html" target="_blank" rel="noopener" style="color:rgba(255,140,26,0.65);">Featured on TheExecutiveReview</a>
-    </div>
   </div>
-  <script src="/assets/visit-alert.js" defer></script>
+  <!-- Visit-email: Human-Interaction Gate -> /visitor-alert -> emails owner on every
+       verified visitor (1/IP/day) via Resend. Replaces the old disabled visit-alert stub
+       so ENTRY pages (the bulk of traffic) also report visits. Owner 2026-06-29. -->
+  <script src="/js/pulse-face-img.js" defer></script>
+  <script src="/js/pulse-home-mosaic.js" defer></script>
+  <script src="/js/human-gate.js" defer></script>
+  <!-- Click-email tracker: emails owner on any CRO-ad click (Calendly / LinkedIn /
+       CRO Syndicate / resume / hire-cro / tools) via pulse-click-notify. Owner 2026-06-27. -->
+  <script src="/js/pulse-lead-track.js" defer></script>
+  <!-- site-wide low-volume 80s synthwave ambience (The Midnight vibe), owner 2026-07-03 -->
+  <script src="/pulse-ambient.js" defer></script>
+  <!-- trivia game popup removed per owner 2026-07-03 -->
   <script>
     // Reading progress bar + scroll-to-top button
     (function(){
@@ -651,17 +1416,23 @@ exports.handler = async (event) => {
       update();
     })();
 
-    // Copy-link button — replaces clipboard text with the entry URL
+    // Copy-link button — copies entry URL to clipboard (share row + vertical rail)
     document.addEventListener('click', function(e) {
       var btn = e.target.closest('.copy-link');
       if (!btn) return;
       var u = btn.getAttribute('data-url');
       if (!u) return;
+      var done = function() {
+        btn.classList.add('copied');
+        var lbl = btn.querySelector('.share-copy-lbl');
+        if (lbl) lbl.textContent = 'Copied';
+        setTimeout(function() {
+          btn.classList.remove('copied');
+          if (lbl) lbl.textContent = 'Copy link';
+        }, 1800);
+      };
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(u).then(function() {
-          btn.classList.add('copied'); btn.textContent = '✓';
-          setTimeout(function() { btn.classList.remove('copied'); btn.textContent = '⎘'; }, 1800);
-        });
+        navigator.clipboard.writeText(u).then(done);
       }
     });
 
@@ -983,10 +1754,25 @@ exports.handler = async (event) => {
         function pickVoice(){
           var voices = synth.getVoices() || [];
           if (!voices.length) return null;
-          var byLangNatural = voices.find(function(v){ return /en-US/i.test(v.lang) && /Natural|Google|Microsoft|Samantha|Aria|Jenny/i.test(v.name); });
-          if (byLangNatural) return byLangNatural;
-          var byLang = voices.find(function(v){ return /^en/i.test(v.lang); });
-          return byLang || voices[0];
+          var en = voices.filter(function(v){ return /^en(-|_|$)/i.test(v.lang) || /english/i.test(v.name); });
+          var pool = en.length ? en : voices;
+          // Ranked preference — warmest, most NATURAL (neural) human voices first.
+          // Edge/Chrome ship "…Online (Natural)" neural voices that sound real; Apple
+          // ships Samantha/Ava (Enhanced). Fall back gracefully to any English voice.
+          var PREF = [
+            /Aria.*Natural|Aria.*Online/i, /Jenny.*Natural|Jenny.*Online/i,
+            /Ava.*Natural|Ava.*Online|Ava \((?:Premium|Enhanced)\)/i, /Emma.*Natural/i,
+            /Michelle.*Natural/i, /Sonia.*Natural/i, /Libby.*Natural/i, /Aria/i, /Jenny/i,
+            /\(Natural\)/i, /Online \(Natural\)/i, /Neural/i,
+            /Samantha/i, /Allison/i, /Ava\b/i, /Zoe/i, /Serena/i, /Nicky/i,
+            /Google US English/i, /Google UK English Female/i,
+            /Microsoft .*Online/i, /\bfemale\b/i
+          ];
+          for (var i = 0; i < PREF.length; i++) {
+            var hit = pool.find(function(v){ return PREF[i].test(v.name); });
+            if (hit) return hit;
+          }
+          return pool.find(function(v){ return /en-US/i.test(v.lang); }) || pool[0];
         }
 
         function setIdle(){
@@ -1018,8 +1804,9 @@ exports.handler = async (event) => {
             if (idx >= chunks.length){ setIdle(); return; }
             var u = new SpeechSynthesisUtterance(chunks[idx]);
             if (v) u.voice = v;
-            u.rate = 1.0;
-            u.pitch = 1.0;
+            u.rate = 0.95;   // a touch slower = calmer, more natural, easier to listen to
+            u.pitch = 1.02;  // very slightly lifted = warmer, less flat/robotic
+            u.volume = 1.0;
             u.onend = function(){ idx++; speakNext(); };
             u.onerror = function(){ setIdle(); };
             synth.speak(u);
@@ -1304,45 +2091,6 @@ exports.handler = async (event) => {
     });
   </script>
 
-  <!-- PULSE BUILD: live campaign-progress dashboard (site-wide) -->
-  <div id="pulse-build-dash" style="position:fixed;right:16px;bottom:16px;z-index:99999;width:310px;max-width:92vw;background:rgba(20,16,12,0.96);color:#ECE3D2;border:1px solid rgba(203,161,53,.3);border-radius:14px;box-shadow:0 10px 34px rgba(0,0,0,.45);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:13px;overflow:hidden">
-    <div onclick="this.parentNode.classList.toggle('pbd-collapsed')" style="cursor:pointer;padding:11px 14px;background:linear-gradient(135deg,#C8821E,#8C2D3C);color:#fff;font-weight:800;display:flex;justify-content:space-between;align-items:center">
-      <span>🛠️ PULSE BUILD — live</span><span id="pbd-toggle" style="font-size:11px;opacity:.85">▾</span>
-    </div>
-    <div class="pbd-body" style="padding:12px 14px">
-      <div style="font-weight:700;margin-bottom:1px">✍️ Writing (gap-fill Q&amp;As)</div>
-      <div style="display:flex;justify-content:space-between"><span id="pbd-w-txt">…</span><b id="pbd-w-pct" style="color:#7CCF6A"></b></div>
-      <div style="background:#322a20;border-radius:6px;height:9px;margin:3px 0 11px;overflow:hidden"><div id="pbd-w-bar" style="background:#7CCF6A;height:9px;width:0%;transition:width .6s"></div></div>
-      <div style="font-weight:700;margin-bottom:1px">🖼️ Images (DuckDuckGo)</div>
-      <div style="display:flex;justify-content:space-between"><span id="pbd-i-txt">…</span><b id="pbd-i-pct" style="color:#CBA135"></b></div>
-      <div style="background:#322a20;border-radius:6px;height:9px;margin:3px 0 11px;overflow:hidden"><div id="pbd-i-bar" style="background:#CBA135;height:9px;width:0%;transition:width .6s"></div></div>
-      <div id="pbd-visitors" style="color:#A99B86;margin-bottom:9px"></div>
-      <div id="pbd-pillars" style="max-height:168px;overflow:auto;font-size:12px;border-top:1px solid rgba(203,161,53,.15);padding-top:8px"></div>
-      <div style="color:#7d7060;font-size:10px;margin-top:8px">auto-updates every 5 min · <span id="pbd-time"></span></div>
-    </div>
-  </div>
-  <style>#pulse-build-dash.pbd-collapsed .pbd-body{display:none}#pulse-build-dash.pbd-collapsed #pbd-toggle{transform:rotate(180deg);display:inline-block}</style>
-  <script>
-  (function(){
-    function pct(n,d){return d?Math.min(100,Math.round(n/d*100)):0;}
-    function g(id){return document.getElementById(id);}
-    async function load(){
-      try{
-        var r=await fetch('/.netlify/functions/pulse-progress',{cache:'no-store'});
-        var d=await r.json(); var T=d.target||8730;
-        g('pbd-w-txt').textContent=(d.written||0).toLocaleString()+' of '+T.toLocaleString();
-        g('pbd-w-pct').textContent=pct(d.written,T)+'%'; g('pbd-w-bar').style.width=pct(d.written,T)+'%';
-        g('pbd-i-txt').textContent=(d.imgDone||0).toLocaleString()+' of '+T.toLocaleString();
-        g('pbd-i-pct').textContent=pct(d.imgDone,T)+'%'; g('pbd-i-bar').style.width=pct(d.imgDone,T)+'%';
-        g('pbd-visitors').innerHTML='👥 <b>'+(d.visits||0).toLocaleString()+'</b> visitors today · '+(d.clicks||0)+' clicks';
-        var ph='';(d.pillars||[]).forEach(function(p){var pc=pct(p.written,p.gap);ph+='<div style="margin:5px 0"><div style="display:flex;justify-content:space-between"><span>'+p.name+'</span><span style="color:#A99B86">'+p.written+'/'+p.gap+'</span></div><div style="background:#322a20;border-radius:4px;height:5px;overflow:hidden"><div style="background:#C8821E;height:5px;width:'+pc+'%"></div></div></div>';});
-        g('pbd-pillars').innerHTML=ph||'<span style="color:#7d7060">warming up…</span>';
-        g('pbd-time').textContent=new Date().toLocaleTimeString();
-      }catch(e){}
-    }
-    load(); setInterval(load,300000);
-  })();
-  </script>
 </body>
 </html>`;
 
