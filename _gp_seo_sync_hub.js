@@ -33,9 +33,15 @@ html = html
   .join('\n');
 
 if (!/^\s*<meta name="keywords"/im.test(html)) {
+  // Use a function replacement, NOT a string. The keyword phrases contain
+  // literal "$1M to $10M ARR" — in a string replacement JS reads those $1/$10
+  // as backreferences, eating them and injecting the captured <link> tag mid
+  // attribute (which closes content="" early and dumps the keyword list as
+  // visible body text). A function return value is never $-substituted.
+  const metaTag = `<meta name="keywords" content="${escMeta(joined)}">`;
   html = html.replace(
     /(<link rel="canonical"[^>]+>)/i,
-    `$1\n<meta name="keywords" content="${escMeta(joined)}">`
+    (_m, p1) => `${p1}\n${metaTag}`
   );
 }
 

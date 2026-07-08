@@ -8,6 +8,7 @@ const { pingIndexNowEntry } = require('./lib/indexnow-ping-entry');
 const { capitalizeQuestion, capitalizeSentencesInMarkdown } = require('./lib/text-capitalize');
 const { ensureImages } = require('./lib/ensure-entry-images');
 const { gradeEntry } = require('./lib/grade-entry');
+const { VISITOR_ANSWER } = require('./lib/anthropic-models');
 const { applyPillarSeo } = require('./lib/ensure-pillar-seo');
 const { blobsPat, netlifySiteId } = require('./lib/load-env');
 const SITE_ID = netlifySiteId();
@@ -70,7 +71,7 @@ exports.handler = async (event) => {
     tags: baseTags,
     sources: Array.isArray(body.sources) ? body.sources : [],
     ts,
-    model: body.model || 'claude-opus-4-7',
+    model: body.model || VISITOR_ANSWER,
     lab_run: body.lab_run || 'session-' + new Date(ts).toISOString().slice(0, 10),
   });
   const stamped = seoBase.entry;

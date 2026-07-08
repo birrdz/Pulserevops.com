@@ -1,0 +1,4470 @@
+[
+ {
+  "slug": "the-shawshank-redemption-1994",
+  "title": "The Shawshank Redemption (1994)"
+ },
+ {
+  "slug": "the-dark-knight-2008",
+  "title": "The Dark Knight (2008)"
+ },
+ {
+  "slug": "inception-2010",
+  "title": "Inception (2010)"
+ },
+ {
+  "slug": "fight-club-1999",
+  "title": "Fight Club (1999)"
+ },
+ {
+  "slug": "interstellar-2014",
+  "title": "Interstellar (2014)"
+ },
+ {
+  "slug": "forrest-gump-1994",
+  "title": "Forrest Gump (1994)"
+ },
+ {
+  "slug": "pulp-fiction-1994",
+  "title": "Pulp Fiction (1994)"
+ },
+ {
+  "slug": "the-matrix-1999",
+  "title": "The Matrix (1999)"
+ },
+ {
+  "slug": "the-godfather-1972",
+  "title": "The Godfather (1972)"
+ },
+ {
+  "slug": "the-lord-of-the-rings-the-fellowship-of-the-ring-2001",
+  "title": "The Lord of the Rings: The Fellowship of the Ring (2001)"
+ },
+ {
+  "slug": "the-lord-of-the-rings-the-return-of-the-king-2003",
+  "title": "The Lord of the Rings: The Return of the King (2003)"
+ },
+ {
+  "slug": "seven-1995",
+  "title": "Seven (1995)"
+ },
+ {
+  "slug": "the-dark-knight-rises-2012",
+  "title": "The Dark Knight Rises (2012)"
+ },
+ {
+  "slug": "the-lord-of-the-rings-the-two-towers-2002",
+  "title": "The Lord of the Rings: The Two Towers (2002)"
+ },
+ {
+  "slug": "django-unchained-2012",
+  "title": "Django Unchained (2012)"
+ },
+ {
+  "slug": "gladiator-2000",
+  "title": "Gladiator (2000)"
+ },
+ {
+  "slug": "the-wolf-of-wall-street-2013",
+  "title": "The Wolf of Wall Street (2013)"
+ },
+ {
+  "slug": "inglourious-basterds-2009",
+  "title": "Inglourious Basterds (2009)"
+ },
+ {
+  "slug": "the-silence-of-the-lambs-1991",
+  "title": "The Silence of the Lambs (1991)"
+ },
+ {
+  "slug": "batman-begins-2005",
+  "title": "Batman Begins (2005)"
+ },
+ {
+  "slug": "joker-2019",
+  "title": "Joker (2019)"
+ },
+ {
+  "slug": "shutter-island-2010",
+  "title": "Shutter Island (2010)"
+ },
+ {
+  "slug": "saving-private-ryan-1998",
+  "title": "Saving Private Ryan (1998)"
+ },
+ {
+  "slug": "the-prestige-2006",
+  "title": "The Prestige (2006)"
+ },
+ {
+  "slug": "schindler-s-list-1993",
+  "title": "Schindler's List (1993)"
+ },
+ {
+  "slug": "star-wars-episode-iv-a-new-hope-1977",
+  "title": "Star Wars: Episode IV - A New Hope (1977)"
+ },
+ {
+  "slug": "the-green-mile-1999",
+  "title": "The Green Mile (1999)"
+ },
+ {
+  "slug": "the-avengers-2012",
+  "title": "The Avengers (2012)"
+ },
+ {
+  "slug": "the-departed-2006",
+  "title": "The Departed (2006)"
+ },
+ {
+  "slug": "star-wars-episode-v-the-empire-strikes-back-1980",
+  "title": "Star Wars: Episode V - The Empire Strikes Back (1980)"
+ },
+ {
+  "slug": "avatar-2009",
+  "title": "Avatar (2009)"
+ },
+ {
+  "slug": "the-godfather-part-ii-1974",
+  "title": "The Godfather Part II (1974)"
+ },
+ {
+  "slug": "back-to-the-future-1985",
+  "title": "Back to the Future (1985)"
+ },
+ {
+  "slug": "avengers-endgame-2019",
+  "title": "Avengers: Endgame (2019)"
+ },
+ {
+  "slug": "memento-2000",
+  "title": "Memento (2000)"
+ },
+ {
+  "slug": "titanic-1997",
+  "title": "Titanic (1997)"
+ },
+ {
+  "slug": "goodfellas-1990",
+  "title": "GoodFellas (1990)"
+ },
+ {
+  "slug": "the-truman-show-1998",
+  "title": "The Truman Show (1998)"
+ },
+ {
+  "slug": "avengers-infinity-war-2018",
+  "title": "Avengers: Infinity War (2018)"
+ },
+ {
+  "slug": "guardians-of-the-galaxy-2014",
+  "title": "Guardians of the Galaxy (2014)"
+ },
+ {
+  "slug": "l-on-the-professional-1994",
+  "title": "Léon: The Professional (1994)"
+ },
+ {
+  "slug": "pirates-of-the-caribbean-the-curse-of-the-black-pearl-2003",
+  "title": "Pirates of the Caribbean: The Curse of the Black Pearl (2003)"
+ },
+ {
+  "slug": "wall-e-2008",
+  "title": "WALL·E (2008)"
+ },
+ {
+  "slug": "kill-bill-vol-1-2003",
+  "title": "Kill Bill: Vol. 1 (2003)"
+ },
+ {
+  "slug": "terminator-2-judgment-day-1991",
+  "title": "Terminator 2: Judgment Day (1991)"
+ },
+ {
+  "slug": "american-beauty-1999",
+  "title": "American Beauty (1999)"
+ },
+ {
+  "slug": "american-history-x-1998",
+  "title": "American History X (1998)"
+ },
+ {
+  "slug": "the-lion-king-1994",
+  "title": "The Lion King (1994)"
+ },
+ {
+  "slug": "deadpool-2016",
+  "title": "Deadpool (2016)"
+ },
+ {
+  "slug": "v-for-vendetta-2005",
+  "title": "V for Vendetta (2005)"
+ },
+ {
+  "slug": "catch-me-if-you-can-2002",
+  "title": "Catch Me If You Can (2002)"
+ },
+ {
+  "slug": "the-usual-suspects-1995",
+  "title": "The Usual Suspects (1995)"
+ },
+ {
+  "slug": "up-2009",
+  "title": "Up (2009)"
+ },
+ {
+  "slug": "the-shining-1980",
+  "title": "The Shining (1980)"
+ },
+ {
+  "slug": "iron-man-2008",
+  "title": "Iron Man (2008)"
+ },
+ {
+  "slug": "good-will-hunting-1997",
+  "title": "Good Will Hunting (1997)"
+ },
+ {
+  "slug": "star-wars-episode-vi-return-of-the-jedi-1983",
+  "title": "Star Wars: Episode VI - Return of the Jedi (1983)"
+ },
+ {
+  "slug": "finding-nemo-2003",
+  "title": "Finding Nemo (2003)"
+ },
+ {
+  "slug": "mad-max-fury-road-2015",
+  "title": "Mad Max: Fury Road (2015)"
+ },
+ {
+  "slug": "no-country-for-old-men-2007",
+  "title": "No Country for Old Men (2007)"
+ },
+ {
+  "slug": "eternal-sunshine-of-the-spotless-mind-2004",
+  "title": "Eternal Sunshine of the Spotless Mind (2004)"
+ },
+ {
+  "slug": "jurassic-park-1993",
+  "title": "Jurassic Park (1993)"
+ },
+ {
+  "slug": "toy-story-1995",
+  "title": "Toy Story (1995)"
+ },
+ {
+  "slug": "gone-girl-2014",
+  "title": "Gone Girl (2014)"
+ },
+ {
+  "slug": "parasite-2019",
+  "title": "Parasite (2019)"
+ },
+ {
+  "slug": "reservoir-dogs-1992",
+  "title": "Reservoir Dogs (1992)"
+ },
+ {
+  "slug": "braveheart-1995",
+  "title": "Braveheart (1995)"
+ },
+ {
+  "slug": "whiplash-2014",
+  "title": "Whiplash (2014)"
+ },
+ {
+  "slug": "one-flew-over-the-cuckoo-s-nest-1975",
+  "title": "One Flew Over the Cuckoo's Nest (1975)"
+ },
+ {
+  "slug": "the-sixth-sense-1999",
+  "title": "The Sixth Sense (1999)"
+ },
+ {
+  "slug": "raiders-of-the-lost-ark-1981",
+  "title": "Raiders of the Lost Ark (1981)"
+ },
+ {
+  "slug": "the-hunger-games-2012",
+  "title": "The Hunger Games (2012)"
+ },
+ {
+  "slug": "monsters-inc-2001",
+  "title": "Monsters, Inc. (2001)"
+ },
+ {
+  "slug": "dune-part-one-2021",
+  "title": "Dune: Part One (2021)"
+ },
+ {
+  "slug": "alien-1979",
+  "title": "Alien (1979)"
+ },
+ {
+  "slug": "oppenheimer-2023",
+  "title": "Oppenheimer (2023)"
+ },
+ {
+  "slug": "a-beautiful-mind-2001",
+  "title": "A Beautiful Mind (2001)"
+ },
+ {
+  "slug": "harry-potter-and-the-deathly-hallows-part-2-2011",
+  "title": "Harry Potter and the Deathly Hallows: Part 2 (2011)"
+ },
+ {
+  "slug": "die-hard-1988",
+  "title": "Die Hard (1988)"
+ },
+ {
+  "slug": "the-intouchables-2011",
+  "title": "The Intouchables (2011)"
+ },
+ {
+  "slug": "taxi-driver-1976",
+  "title": "Taxi Driver (1976)"
+ },
+ {
+  "slug": "spider-man-no-way-home-2021",
+  "title": "Spider-Man: No Way Home (2021)"
+ },
+ {
+  "slug": "star-wars-episode-vii-the-force-awakens-2015",
+  "title": "Star Wars: Episode VII - The Force Awakens (2015)"
+ },
+ {
+  "slug": "scarface-1983",
+  "title": "Scarface (1983)"
+ },
+ {
+  "slug": "the-martian-2015",
+  "title": "The Martian (2015)"
+ },
+ {
+  "slug": "the-pianist-2002",
+  "title": "The Pianist (2002)"
+ },
+ {
+  "slug": "the-terminator-1984",
+  "title": "The Terminator (1984)"
+ },
+ {
+  "slug": "avengers-age-of-ultron-2015",
+  "title": "Avengers: Age of Ultron (2015)"
+ },
+ {
+  "slug": "12-angry-men-1957",
+  "title": "12 Angry Men (1957)"
+ },
+ {
+  "slug": "snatch-2000",
+  "title": "Snatch (2000)"
+ },
+ {
+  "slug": "toy-story-3-2010",
+  "title": "Toy Story 3 (2010)"
+ },
+ {
+  "slug": "requiem-for-a-dream-2000",
+  "title": "Requiem for a Dream (2000)"
+ },
+ {
+  "slug": "the-grand-budapest-hotel-2014",
+  "title": "The Grand Budapest Hotel (2014)"
+ },
+ {
+  "slug": "captain-america-the-winter-soldier-2014",
+  "title": "Captain America: The Winter Soldier (2014)"
+ },
+ {
+  "slug": "spirited-away-2001",
+  "title": "Spirited Away (2001)"
+ },
+ {
+  "slug": "spider-man-2002",
+  "title": "Spider-Man (2002)"
+ },
+ {
+  "slug": "captain-america-the-first-avenger-2011",
+  "title": "Captain America: The First Avenger (2011)"
+ },
+ {
+  "slug": "iron-man-3-2013",
+  "title": "Iron Man 3 (2013)"
+ },
+ {
+  "slug": "thor-2011",
+  "title": "Thor (2011)"
+ },
+ {
+  "slug": "once-upon-a-time-in-hollywood-2019",
+  "title": "Once Upon a Time in... Hollywood (2019)"
+ },
+ {
+  "slug": "harry-potter-and-the-sorcerer-s-stone-2001",
+  "title": "Harry Potter and the Sorcerer's Stone (2001)"
+ },
+ {
+  "slug": "the-revenant-2015",
+  "title": "The Revenant (2015)"
+ },
+ {
+  "slug": "ratatouille-2007",
+  "title": "Ratatouille (2007)"
+ },
+ {
+  "slug": "prisoners-2013",
+  "title": "Prisoners (2013)"
+ },
+ {
+  "slug": "iron-man-2-2010",
+  "title": "Iron Man 2 (2010)"
+ },
+ {
+  "slug": "a-clockwork-orange-1971",
+  "title": "A Clockwork Orange (1971)"
+ },
+ {
+  "slug": "the-hangover-2009",
+  "title": "The Hangover (2009)"
+ },
+ {
+  "slug": "the-batman-2022",
+  "title": "The Batman (2022)"
+ },
+ {
+  "slug": "captain-america-civil-war-2016",
+  "title": "Captain America: Civil War (2016)"
+ },
+ {
+  "slug": "star-wars-episode-i-the-phantom-menace-1999",
+  "title": "Star Wars: Episode I - The Phantom Menace (1999)"
+ },
+ {
+  "slug": "the-hobbit-an-unexpected-journey-2012",
+  "title": "The Hobbit: An Unexpected Journey (2012)"
+ },
+ {
+  "slug": "logan-2017",
+  "title": "Logan (2017)"
+ },
+ {
+  "slug": "star-wars-episode-iii-revenge-of-the-sith-2005",
+  "title": "Star Wars: Episode III - Revenge of the Sith (2005)"
+ },
+ {
+  "slug": "inside-out-2015",
+  "title": "Inside Out (2015)"
+ },
+ {
+  "slug": "the-big-lebowski-1998",
+  "title": "The Big Lebowski (1998)"
+ },
+ {
+  "slug": "300-2006",
+  "title": "300 (2006)"
+ },
+ {
+  "slug": "donnie-darko-2001",
+  "title": "Donnie Darko (2001)"
+ },
+ {
+  "slug": "black-panther-2018",
+  "title": "Black Panther (2018)"
+ },
+ {
+  "slug": "slumdog-millionaire-2008",
+  "title": "Slumdog Millionaire (2008)"
+ },
+ {
+  "slug": "the-incredibles-2004",
+  "title": "The Incredibles (2004)"
+ },
+ {
+  "slug": "gravity-2013",
+  "title": "Gravity (2013)"
+ },
+ {
+  "slug": "thor-ragnarok-2017",
+  "title": "Thor: Ragnarok (2017)"
+ },
+ {
+  "slug": "how-to-train-your-dragon-2010",
+  "title": "How to Train Your Dragon (2010)"
+ },
+ {
+  "slug": "the-good-the-bad-and-the-ugly-1966",
+  "title": "The Good, the Bad and the Ugly (1966)"
+ },
+ {
+  "slug": "black-swan-2010",
+  "title": "Black Swan (2010)"
+ },
+ {
+  "slug": "top-gun-maverick-2022",
+  "title": "Top Gun: Maverick (2022)"
+ },
+ {
+  "slug": "doctor-strange-2016",
+  "title": "Doctor Strange (2016)"
+ },
+ {
+  "slug": "blade-runner-1982",
+  "title": "Blade Runner (1982)"
+ },
+ {
+  "slug": "knives-out-2019",
+  "title": "Knives Out (2019)"
+ },
+ {
+  "slug": "i-am-legend-2007",
+  "title": "I Am Legend (2007)"
+ },
+ {
+  "slug": "the-imitation-game-2014",
+  "title": "The Imitation Game (2014)"
+ },
+ {
+  "slug": "city-of-god-2002",
+  "title": "City of God (2002)"
+ },
+ {
+  "slug": "kill-bill-vol-2-2004",
+  "title": "Kill Bill: Vol. 2 (2004)"
+ },
+ {
+  "slug": "man-of-steel-2013",
+  "title": "Man of Steel (2013)"
+ },
+ {
+  "slug": "arrival-2016",
+  "title": "Arrival (2016)"
+ },
+ {
+  "slug": "indiana-jones-and-the-last-crusade-1989",
+  "title": "Indiana Jones and the Last Crusade (1989)"
+ },
+ {
+  "slug": "gran-torino-2008",
+  "title": "Gran Torino (2008)"
+ },
+ {
+  "slug": "full-metal-jacket-1987",
+  "title": "Full Metal Jacket (1987)"
+ },
+ {
+  "slug": "american-psycho-2000",
+  "title": "American Psycho (2000)"
+ },
+ {
+  "slug": "aliens-1986",
+  "title": "Aliens (1986)"
+ },
+ {
+  "slug": "am-lie-2001",
+  "title": "Amélie (2001)"
+ },
+ {
+  "slug": "guardians-of-the-galaxy-vol-2-2017",
+  "title": "Guardians of the Galaxy: Vol. 2 (2017)"
+ },
+ {
+  "slug": "john-wick-2014",
+  "title": "John Wick (2014)"
+ },
+ {
+  "slug": "pirates-of-the-caribbean-dead-man-s-chest-2006",
+  "title": "Pirates of the Caribbean: Dead Man's Chest (2006)"
+ },
+ {
+  "slug": "star-wars-episode-ii-attack-of-the-clones-2002",
+  "title": "Star Wars: Episode II - Attack of the Clones (2002)"
+ },
+ {
+  "slug": "get-out-2017",
+  "title": "Get Out (2017)"
+ },
+ {
+  "slug": "the-social-network-2010",
+  "title": "The Social Network (2010)"
+ },
+ {
+  "slug": "sin-city-2005",
+  "title": "Sin City (2005)"
+ },
+ {
+  "slug": "life-is-beautiful-1997",
+  "title": "Life Is Beautiful (1997)"
+ },
+ {
+  "slug": "shrek-2001",
+  "title": "Shrek (2001)"
+ },
+ {
+  "slug": "dunkirk-2017",
+  "title": "Dunkirk (2017)"
+ },
+ {
+  "slug": "heat-1995",
+  "title": "Heat (1995)"
+ },
+ {
+  "slug": "edge-of-tomorrow-2014",
+  "title": "Edge of Tomorrow (2014)"
+ },
+ {
+  "slug": "spider-man-homecoming-2017",
+  "title": "Spider-Man: Homecoming (2017)"
+ },
+ {
+  "slug": "spider-man-into-the-spider-verse-2018",
+  "title": "Spider-Man: Into the Spider-Verse (2018)"
+ },
+ {
+  "slug": "batman-v-superman-dawn-of-justice-2016",
+  "title": "Batman v Superman: Dawn of Justice (2016)"
+ },
+ {
+  "slug": "x-men-days-of-future-past-2014",
+  "title": "X-Men: Days of Future Past (2014)"
+ },
+ {
+  "slug": "fargo-1996",
+  "title": "Fargo (1996)"
+ },
+ {
+  "slug": "spider-man-2-2004",
+  "title": "Spider-Man 2 (2004)"
+ },
+ {
+  "slug": "12-years-a-slave-2013",
+  "title": "12 Years a Slave (2013)"
+ },
+ {
+  "slug": "psycho-1960",
+  "title": "Psycho (1960)"
+ },
+ {
+  "slug": "world-war-z-2013",
+  "title": "World War Z (2013)"
+ },
+ {
+  "slug": "2001-a-space-odyssey-1968",
+  "title": "2001: A Space Odyssey (1968)"
+ },
+ {
+  "slug": "ant-man-2015",
+  "title": "Ant-Man (2015)"
+ },
+ {
+  "slug": "thor-the-dark-world-2013",
+  "title": "Thor: The Dark World (2013)"
+ },
+ {
+  "slug": "kingsman-the-secret-service-2014",
+  "title": "Kingsman: The Secret Service (2014)"
+ },
+ {
+  "slug": "the-hunger-games-catching-fire-2013",
+  "title": "The Hunger Games: Catching Fire (2013)"
+ },
+ {
+  "slug": "1917-2019",
+  "title": "1917 (2019)"
+ },
+ {
+  "slug": "skyfall-2012",
+  "title": "Skyfall (2012)"
+ },
+ {
+  "slug": "silver-linings-playbook-2012",
+  "title": "Silver Linings Playbook (2012)"
+ },
+ {
+  "slug": "now-you-see-me-2013",
+  "title": "Now You See Me (2013)"
+ },
+ {
+  "slug": "apocalypse-now-1979",
+  "title": "Apocalypse Now (1979)"
+ },
+ {
+  "slug": "harry-potter-and-the-prisoner-of-azkaban-2004",
+  "title": "Harry Potter and the Prisoner of Azkaban (2004)"
+ },
+ {
+  "slug": "dune-part-two-2024",
+  "title": "Dune: Part Two (2024)"
+ },
+ {
+  "slug": "trainspotting-1996",
+  "title": "Trainspotting (1996)"
+ },
+ {
+  "slug": "the-amazing-spider-man-2012",
+  "title": "The Amazing Spider-Man (2012)"
+ },
+ {
+  "slug": "harry-potter-and-the-chamber-of-secrets-2002",
+  "title": "Harry Potter and the Chamber of Secrets (2002)"
+ },
+ {
+  "slug": "million-dollar-baby-2004",
+  "title": "Million Dollar Baby (2004)"
+ },
+ {
+  "slug": "la-la-land-2016",
+  "title": "La La Land (2016)"
+ },
+ {
+  "slug": "drive-2011",
+  "title": "Drive (2011)"
+ },
+ {
+  "slug": "x-men-first-class-2011",
+  "title": "X-Men: First Class (2011)"
+ },
+ {
+  "slug": "suicide-squad-2016",
+  "title": "Suicide Squad (2016)"
+ },
+ {
+  "slug": "rogue-one-a-star-wars-story-2016",
+  "title": "Rogue One: A Star Wars Story (2016)"
+ },
+ {
+  "slug": "blade-runner-2049-2017",
+  "title": "Blade Runner 2049 (2017)"
+ },
+ {
+  "slug": "harry-potter-and-the-goblet-of-fire-2005",
+  "title": "Harry Potter and the Goblet of Fire (2005)"
+ },
+ {
+  "slug": "the-hobbit-the-desolation-of-smaug-2013",
+  "title": "The Hobbit: The Desolation of Smaug (2013)"
+ },
+ {
+  "slug": "district-9-2009",
+  "title": "District 9 (2009)"
+ },
+ {
+  "slug": "pan-s-labyrinth-2006",
+  "title": "Pan's Labyrinth (2006)"
+ },
+ {
+  "slug": "casino-royale-2006",
+  "title": "Casino Royale (2006)"
+ },
+ {
+  "slug": "the-curious-case-of-benjamin-button-2008",
+  "title": "The Curious Case of Benjamin Button (2008)"
+ },
+ {
+  "slug": "deadpool-2-2018",
+  "title": "Deadpool 2 (2018)"
+ },
+ {
+  "slug": "home-alone-1990",
+  "title": "Home Alone (1990)"
+ },
+ {
+  "slug": "pirates-of-the-caribbean-at-world-s-end-2007",
+  "title": "Pirates of the Caribbean: At World's End (2007)"
+ },
+ {
+  "slug": "jaws-1975",
+  "title": "Jaws (1975)"
+ },
+ {
+  "slug": "groundhog-day-1993",
+  "title": "Groundhog Day (1993)"
+ },
+ {
+  "slug": "wonder-woman-2017",
+  "title": "Wonder Woman (2017)"
+ },
+ {
+  "slug": "the-king-s-speech-2010",
+  "title": "The King's Speech (2010)"
+ },
+ {
+  "slug": "jurassic-world-2015",
+  "title": "Jurassic World (2015)"
+ },
+ {
+  "slug": "her-2013",
+  "title": "Her (2013)"
+ },
+ {
+  "slug": "the-hateful-eight-2015",
+  "title": "The Hateful Eight (2015)"
+ },
+ {
+  "slug": "oldboy-2003",
+  "title": "Oldboy (2003)"
+ },
+ {
+  "slug": "star-wars-episode-viii-the-last-jedi-2017",
+  "title": "Star Wars: Episode VIII - The Last Jedi (2017)"
+ },
+ {
+  "slug": "transformers-2007",
+  "title": "Transformers (2007)"
+ },
+ {
+  "slug": "frozen-2013",
+  "title": "Frozen (2013)"
+ },
+ {
+  "slug": "coco-2017",
+  "title": "Coco (2017)"
+ },
+ {
+  "slug": "ted-2012",
+  "title": "Ted (2012)"
+ },
+ {
+  "slug": "there-will-be-blood-2007",
+  "title": "There Will Be Blood (2007)"
+ },
+ {
+  "slug": "sherlock-holmes-2009",
+  "title": "Sherlock Holmes (2009)"
+ },
+ {
+  "slug": "spider-man-3-2007",
+  "title": "Spider-Man 3 (2007)"
+ },
+ {
+  "slug": "harry-potter-and-the-order-of-the-phoenix-2007",
+  "title": "Harry Potter and the Order of the Phoenix (2007)"
+ },
+ {
+  "slug": "prometheus-2012",
+  "title": "Prometheus (2012)"
+ },
+ {
+  "slug": "life-of-pi-2012",
+  "title": "Life of Pi (2012)"
+ },
+ {
+  "slug": "it-2017",
+  "title": "It (2017)"
+ },
+ {
+  "slug": "birdman-or-the-unexpected-virtue-of-ignorance-2014",
+  "title": "Birdman or (The Unexpected Virtue of Ignorance) (2014)"
+ },
+ {
+  "slug": "superbad-2007",
+  "title": "Superbad (2007)"
+ },
+ {
+  "slug": "into-the-wild-2007",
+  "title": "Into the Wild (2007)"
+ },
+ {
+  "slug": "barbie-2023",
+  "title": "Barbie (2023)"
+ },
+ {
+  "slug": "the-notebook-2004",
+  "title": "The Notebook (2004)"
+ },
+ {
+  "slug": "x-men-2000",
+  "title": "X-Men (2000)"
+ },
+ {
+  "slug": "rocky-1976",
+  "title": "Rocky (1976)"
+ },
+ {
+  "slug": "green-book-2018",
+  "title": "Green Book (2018)"
+ },
+ {
+  "slug": "cast-away-2000",
+  "title": "Cast Away (2000)"
+ },
+ {
+  "slug": "tenet-2020",
+  "title": "Tenet (2020)"
+ },
+ {
+  "slug": "baby-driver-2017",
+  "title": "Baby Driver (2017)"
+ },
+ {
+  "slug": "hacksaw-ridge-2016",
+  "title": "Hacksaw Ridge (2016)"
+ },
+ {
+  "slug": "the-bourne-ultimatum-2007",
+  "title": "The Bourne Ultimatum (2007)"
+ },
+ {
+  "slug": "12-monkeys-1995",
+  "title": "12 Monkeys (1995)"
+ },
+ {
+  "slug": "zodiac-2007",
+  "title": "Zodiac (2007)"
+ },
+ {
+  "slug": "ocean-s-eleven-2001",
+  "title": "Ocean's Eleven (2001)"
+ },
+ {
+  "slug": "toy-story-2-1999",
+  "title": "Toy Story 2 (1999)"
+ },
+ {
+  "slug": "don-t-look-up-2021",
+  "title": "Don't Look Up (2021)"
+ },
+ {
+  "slug": "taken-2008",
+  "title": "Taken (2008)"
+ },
+ {
+  "slug": "nightcrawler-2014",
+  "title": "Nightcrawler (2014)"
+ },
+ {
+  "slug": "the-matrix-reloaded-2003",
+  "title": "The Matrix Reloaded (2003)"
+ },
+ {
+  "slug": "zombieland-2009",
+  "title": "Zombieland (2009)"
+ },
+ {
+  "slug": "argo-2012",
+  "title": "Argo (2012)"
+ },
+ {
+  "slug": "harry-potter-and-the-deathly-hallows-part-1-2010",
+  "title": "Harry Potter and the Deathly Hallows: Part 1 (2010)"
+ },
+ {
+  "slug": "men-in-black-1997",
+  "title": "Men in Black (1997)"
+ },
+ {
+  "slug": "harry-potter-and-the-half-blood-prince-2009",
+  "title": "Harry Potter and the Half-Blood Prince (2009)"
+ },
+ {
+  "slug": "a-quiet-place-2018",
+  "title": "A Quiet Place (2018)"
+ },
+ {
+  "slug": "captain-marvel-2019",
+  "title": "Captain Marvel (2019)"
+ },
+ {
+  "slug": "l-a-confidential-1997",
+  "title": "L.A. Confidential (1997)"
+ },
+ {
+  "slug": "dead-poets-society-1989",
+  "title": "Dead Poets Society (1989)"
+ },
+ {
+  "slug": "casablanca-1942",
+  "title": "Casablanca (1942)"
+ },
+ {
+  "slug": "everything-everywhere-all-at-once-2022",
+  "title": "Everything Everywhere All at Once (2022)"
+ },
+ {
+  "slug": "lock-stock-and-two-smoking-barrels-1998",
+  "title": "Lock, Stock and Two Smoking Barrels (1998)"
+ },
+ {
+  "slug": "limitless-2011",
+  "title": "Limitless (2011)"
+ },
+ {
+  "slug": "independence-day-1996",
+  "title": "Independence Day (1996)"
+ },
+ {
+  "slug": "bohemian-rhapsody-2018",
+  "title": "Bohemian Rhapsody (2018)"
+ },
+ {
+  "slug": "21-jump-street-2012",
+  "title": "21 Jump Street (2012)"
+ },
+ {
+  "slug": "spider-man-far-from-home-2019",
+  "title": "Spider-Man: Far from Home (2019)"
+ },
+ {
+  "slug": "the-great-gatsby-2013",
+  "title": "The Great Gatsby (2013)"
+ },
+ {
+  "slug": "zootopia-2016",
+  "title": "Zootopia (2016)"
+ },
+ {
+  "slug": "ex-machina-2014",
+  "title": "Ex Machina (2014)"
+ },
+ {
+  "slug": "shaun-of-the-dead-2004",
+  "title": "Shaun of the Dead (2004)"
+ },
+ {
+  "slug": "star-trek-2009",
+  "title": "Star Trek (2009)"
+ },
+ {
+  "slug": "avatar-the-way-of-water-2022",
+  "title": "Avatar: The Way of Water (2022)"
+ },
+ {
+  "slug": "despicable-me-2010",
+  "title": "Despicable Me (2010)"
+ },
+ {
+  "slug": "looper-2012",
+  "title": "Looper (2012)"
+ },
+ {
+  "slug": "blood-diamond-2006",
+  "title": "Blood Diamond (2006)"
+ },
+ {
+  "slug": "the-conjuring-2013",
+  "title": "The Conjuring (2013)"
+ },
+ {
+  "slug": "split-2016",
+  "title": "Split (2016)"
+ },
+ {
+  "slug": "the-pursuit-of-happyness-2006",
+  "title": "The Pursuit of Happyness (2006)"
+ },
+ {
+  "slug": "back-to-the-future-part-ii-1989",
+  "title": "Back to the Future Part II (1989)"
+ },
+ {
+  "slug": "minority-report-2002",
+  "title": "Minority Report (2002)"
+ },
+ {
+  "slug": "crazy-stupid-love-2011",
+  "title": "Crazy, Stupid, Love. (2011)"
+ },
+ {
+  "slug": "casino-1995",
+  "title": "Casino (1995)"
+ },
+ {
+  "slug": "kick-ass-2010",
+  "title": "Kick-Ass (2010)"
+ },
+ {
+  "slug": "500-days-of-summer-2009",
+  "title": "500 Days of Summer (2009)"
+ },
+ {
+  "slug": "the-hobbit-the-battle-of-the-five-armies-2014",
+  "title": "The Hobbit: The Battle of the Five Armies (2014)"
+ },
+ {
+  "slug": "troy-2004",
+  "title": "Troy (2004)"
+ },
+ {
+  "slug": "i-robot-2004",
+  "title": "I, Robot (2004)"
+ },
+ {
+  "slug": "the-bourne-identity-2002",
+  "title": "The Bourne Identity (2002)"
+ },
+ {
+  "slug": "watchmen-2009",
+  "title": "Watchmen (2009)"
+ },
+ {
+  "slug": "x2-x-men-united-2003",
+  "title": "X2: X-Men United (2003)"
+ },
+ {
+  "slug": "fury-2014",
+  "title": "Fury (2014)"
+ },
+ {
+  "slug": "three-billboards-outside-ebbing-missouri-2017",
+  "title": "Three Billboards Outside Ebbing, Missouri (2017)"
+ },
+ {
+  "slug": "venom-2018",
+  "title": "Venom (2018)"
+ },
+ {
+  "slug": "pirates-of-the-caribbean-on-stranger-tides-2011",
+  "title": "Pirates of the Caribbean: On Stranger Tides (2011)"
+ },
+ {
+  "slug": "rise-of-the-planet-of-the-apes-2011",
+  "title": "Rise of the Planet of the Apes (2011)"
+ },
+ {
+  "slug": "monty-python-and-the-holy-grail-1975",
+  "title": "Monty Python and the Holy Grail (1975)"
+ },
+ {
+  "slug": "the-perks-of-being-a-wallflower-2012",
+  "title": "The Perks of Being a Wallflower (2012)"
+ },
+ {
+  "slug": "mr-mrs-smith-2005",
+  "title": "Mr. & Mrs. Smith (2005)"
+ },
+ {
+  "slug": "the-amazing-spider-man-2-2014",
+  "title": "The Amazing Spider-Man 2 (2014)"
+ },
+ {
+  "slug": "oblivion-2013",
+  "title": "Oblivion (2013)"
+ },
+ {
+  "slug": "rain-man-1988",
+  "title": "Rain Man (1988)"
+ },
+ {
+  "slug": "source-code-2011",
+  "title": "Source Code (2011)"
+ },
+ {
+  "slug": "kung-fu-panda-2008",
+  "title": "Kung Fu Panda (2008)"
+ },
+ {
+  "slug": "love-actually-2003",
+  "title": "Love Actually (2003)"
+ },
+ {
+  "slug": "lucy-2014",
+  "title": "Lucy (2014)"
+ },
+ {
+  "slug": "the-hangover-part-ii-2011",
+  "title": "The Hangover Part II (2011)"
+ },
+ {
+  "slug": "the-kashmir-files-2022",
+  "title": "The Kashmir Files (2022)"
+ },
+ {
+  "slug": "the-matrix-revolutions-2003",
+  "title": "The Matrix Revolutions (2003)"
+ },
+ {
+  "slug": "ford-v-ferrari-2019",
+  "title": "Ford v Ferrari (2019)"
+ },
+ {
+  "slug": "deadpool-wolverine-2024",
+  "title": "Deadpool & Wolverine (2024)"
+ },
+ {
+  "slug": "x-men-the-last-stand-2006",
+  "title": "X-Men: The Last Stand (2006)"
+ },
+ {
+  "slug": "charlie-and-the-chocolate-factory-2005",
+  "title": "Charlie and the Chocolate Factory (2005)"
+ },
+ {
+  "slug": "juno-2007",
+  "title": "Juno (2007)"
+ },
+ {
+  "slug": "john-wick-chapter-2-2017",
+  "title": "John Wick: Chapter 2 (2017)"
+ },
+ {
+  "slug": "american-sniper-2014",
+  "title": "American Sniper (2014)"
+ },
+ {
+  "slug": "indiana-jones-and-the-temple-of-doom-1984",
+  "title": "Indiana Jones and the Temple of Doom (1984)"
+ },
+ {
+  "slug": "rear-window-1954",
+  "title": "Rear Window (1954)"
+ },
+ {
+  "slug": "x-men-origins-wolverine-2009",
+  "title": "X-Men Origins: Wolverine (2009)"
+ },
+ {
+  "slug": "hot-fuzz-2007",
+  "title": "Hot Fuzz (2007)"
+ },
+ {
+  "slug": "children-of-men-2006",
+  "title": "Children of Men (2006)"
+ },
+ {
+  "slug": "ice-age-2002",
+  "title": "Ice Age (2002)"
+ },
+ {
+  "slug": "the-incredible-hulk-2008",
+  "title": "The Incredible Hulk (2008)"
+ },
+ {
+  "slug": "edward-scissorhands-1990",
+  "title": "Edward Scissorhands (1990)"
+ },
+ {
+  "slug": "mission-impossible-ghost-protocol-2011",
+  "title": "Mission: Impossible - Ghost Protocol (2011)"
+ },
+ {
+  "slug": "the-maze-runner-2014",
+  "title": "The Maze Runner (2014)"
+ },
+ {
+  "slug": "rush-2013",
+  "title": "Rush (2013)"
+ },
+ {
+  "slug": "little-miss-sunshine-2006",
+  "title": "Little Miss Sunshine (2006)"
+ },
+ {
+  "slug": "pacific-rim-2013",
+  "title": "Pacific Rim (2013)"
+ },
+ {
+  "slug": "the-devil-wears-prada-2006",
+  "title": "The Devil Wears Prada (2006)"
+ },
+ {
+  "slug": "shrek-2-2004",
+  "title": "Shrek 2 (2004)"
+ },
+ {
+  "slug": "the-butterfly-effect-2004",
+  "title": "The Butterfly Effect (2004)"
+ },
+ {
+  "slug": "big-hero-6-2014",
+  "title": "Big Hero 6 (2014)"
+ },
+ {
+  "slug": "top-gun-1986",
+  "title": "Top Gun (1986)"
+ },
+ {
+  "slug": "it-s-a-wonderful-life-1946",
+  "title": "It's a Wonderful Life (1946)"
+ },
+ {
+  "slug": "aquaman-2018",
+  "title": "Aquaman (2018)"
+ },
+ {
+  "slug": "dr-strangelove-or-how-i-learned-to-stop-worrying-and-love-the-bomb-1964",
+  "title": "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1964)"
+ },
+ {
+  "slug": "28-days-later-2002",
+  "title": "28 Days Later (2002)"
+ },
+ {
+  "slug": "dallas-buyers-club-2013",
+  "title": "Dallas Buyers Club (2013)"
+ },
+ {
+  "slug": "the-hunger-games-mockingjay-part-1-2014",
+  "title": "The Hunger Games: Mockingjay - Part 1 (2014)"
+ },
+ {
+  "slug": "doctor-strange-in-the-multiverse-of-madness-2022",
+  "title": "Doctor Strange in the Multiverse of Madness (2022)"
+ },
+ {
+  "slug": "tangled-2010",
+  "title": "Tangled (2010)"
+ },
+ {
+  "slug": "the-fifth-element-1997",
+  "title": "The Fifth Element (1997)"
+ },
+ {
+  "slug": "star-wars-episode-ix-the-rise-of-skywalker-2019",
+  "title": "Star Wars: Episode IX - The Rise of Skywalker (2019)"
+ },
+ {
+  "slug": "ready-player-one-2018",
+  "title": "Ready Player One (2018)"
+ },
+ {
+  "slug": "the-big-short-2015",
+  "title": "The Big Short (2015)"
+ },
+ {
+  "slug": "sicario-2015",
+  "title": "Sicario (2015)"
+ },
+ {
+  "slug": "fantastic-beasts-and-where-to-find-them-2016",
+  "title": "Fantastic Beasts and Where to Find Them (2016)"
+ },
+ {
+  "slug": "hancock-2008",
+  "title": "Hancock (2008)"
+ },
+ {
+  "slug": "cars-2006",
+  "title": "Cars (2006)"
+ },
+ {
+  "slug": "bullet-train-2022",
+  "title": "Bullet Train (2022)"
+ },
+ {
+  "slug": "the-terminal-2004",
+  "title": "The Terminal (2004)"
+ },
+ {
+  "slug": "spotlight-2015",
+  "title": "Spotlight (2015)"
+ },
+ {
+  "slug": "spider-man-across-the-spider-verse-2023",
+  "title": "Spider-Man: Across the Spider-Verse (2023)"
+ },
+ {
+  "slug": "lost-in-translation-2003",
+  "title": "Lost in Translation (2003)"
+ },
+ {
+  "slug": "warrior-2011",
+  "title": "Warrior (2011)"
+ },
+ {
+  "slug": "the-girl-with-the-dragon-tattoo-2011",
+  "title": "The Girl with the Dragon Tattoo (2011)"
+ },
+ {
+  "slug": "the-help-2011",
+  "title": "The Help (2011)"
+ },
+ {
+  "slug": "twilight-2008",
+  "title": "Twilight (2008)"
+ },
+ {
+  "slug": "the-thing-1982",
+  "title": "The Thing (1982)"
+ },
+ {
+  "slug": "glass-onion-2022",
+  "title": "Glass Onion (2022)"
+ },
+ {
+  "slug": "we-re-the-millers-2013",
+  "title": "We're the Millers (2013)"
+ },
+ {
+  "slug": "the-wolverine-2013",
+  "title": "The Wolverine (2013)"
+ },
+ {
+  "slug": "mystic-river-2003",
+  "title": "Mystic River (2003)"
+ },
+ {
+  "slug": "back-to-the-future-part-iii-1990",
+  "title": "Back to the Future Part III (1990)"
+ },
+ {
+  "slug": "captain-phillips-2013",
+  "title": "Captain Phillips (2013)"
+ },
+ {
+  "slug": "american-hustle-2013",
+  "title": "American Hustle (2013)"
+ },
+ {
+  "slug": "divergent-2014",
+  "title": "Divergent (2014)"
+ },
+ {
+  "slug": "training-day-2001",
+  "title": "Training Day (2001)"
+ },
+ {
+  "slug": "mission-impossible-1996",
+  "title": "Mission: Impossible (1996)"
+ },
+ {
+  "slug": "howl-s-moving-castle-2004",
+  "title": "Howl's Moving Castle (2004)"
+ },
+ {
+  "slug": "indiana-jones-and-the-kingdom-of-the-crystal-skull-2008",
+  "title": "Indiana Jones and the Kingdom of the Crystal Skull (2008)"
+ },
+ {
+  "slug": "the-bourne-supremacy-2004",
+  "title": "The Bourne Supremacy (2004)"
+ },
+ {
+  "slug": "the-day-after-tomorrow-2004",
+  "title": "The Day After Tomorrow (2004)"
+ },
+ {
+  "slug": "saw-2004",
+  "title": "Saw (2004)"
+ },
+ {
+  "slug": "dawn-of-the-planet-of-the-apes-2014",
+  "title": "Dawn of the Planet of the Apes (2014)"
+ },
+ {
+  "slug": "moneyball-2011",
+  "title": "Moneyball (2011)"
+ },
+ {
+  "slug": "star-trek-into-darkness-2013",
+  "title": "Star Trek Into Darkness (2013)"
+ },
+ {
+  "slug": "war-of-the-worlds-2005",
+  "title": "War of the Worlds (2005)"
+ },
+ {
+  "slug": "the-theory-of-everything-2014",
+  "title": "The Theory of Everything (2014)"
+ },
+ {
+  "slug": "gangs-of-new-york-2002",
+  "title": "Gangs of New York (2002)"
+ },
+ {
+  "slug": "beauty-and-the-beast-1991",
+  "title": "Beauty and the Beast (1991)"
+ },
+ {
+  "slug": "justice-league-2017",
+  "title": "Justice League (2017)"
+ },
+ {
+  "slug": "jumanji-welcome-to-the-jungle-2017",
+  "title": "Jumanji: Welcome to the Jungle (2017)"
+ },
+ {
+  "slug": "the-last-samurai-2003",
+  "title": "The Last Samurai (2003)"
+ },
+ {
+  "slug": "the-menu-2022",
+  "title": "The Menu (2022)"
+ },
+ {
+  "slug": "the-mummy-1999",
+  "title": "The Mummy (1999)"
+ },
+ {
+  "slug": "the-40-year-old-virgin-2005",
+  "title": "The 40-Year-Old Virgin (2005)"
+ },
+ {
+  "slug": "sherlock-holmes-a-game-of-shadows-2011",
+  "title": "Sherlock Holmes: A Game of Shadows (2011)"
+ },
+ {
+  "slug": "predator-1987",
+  "title": "Predator (1987)"
+ },
+ {
+  "slug": "aladdin-1992",
+  "title": "Aladdin (1992)"
+ },
+ {
+  "slug": "wreck-it-ralph-2012",
+  "title": "Wreck-It Ralph (2012)"
+ },
+ {
+  "slug": "passengers-2016",
+  "title": "Passengers (2016)"
+ },
+ {
+  "slug": "the-exorcist-1973",
+  "title": "The Exorcist (1973)"
+ },
+ {
+  "slug": "quantum-of-solace-2008",
+  "title": "Quantum of Solace (2008)"
+ },
+ {
+  "slug": "spectre-2015",
+  "title": "Spectre (2015)"
+ },
+ {
+  "slug": "sinners-2025",
+  "title": "Sinners (2025)"
+ },
+ {
+  "slug": "ant-man-and-the-wasp-2018",
+  "title": "Ant-Man and the Wasp (2018)"
+ },
+ {
+  "slug": "scott-pilgrim-vs-the-world-2010",
+  "title": "Scott Pilgrim vs. the World (2010)"
+ },
+ {
+  "slug": "the-hurt-locker-2008",
+  "title": "The Hurt Locker (2008)"
+ },
+ {
+  "slug": "in-bruges-2008",
+  "title": "In Bruges (2008)"
+ },
+ {
+  "slug": "citizen-kane-1941",
+  "title": "Citizen Kane (1941)"
+ },
+ {
+  "slug": "x-men-apocalypse-2016",
+  "title": "X-Men: Apocalypse (2016)"
+ },
+ {
+  "slug": "elysium-2013",
+  "title": "Elysium (2013)"
+ },
+ {
+  "slug": "tropic-thunder-2008",
+  "title": "Tropic Thunder (2008)"
+ },
+ {
+  "slug": "the-cabin-in-the-woods-2011",
+  "title": "The Cabin in the Woods (2011)"
+ },
+ {
+  "slug": "free-guy-2021",
+  "title": "Free Guy (2021)"
+ },
+ {
+  "slug": "shang-chi-and-the-legend-of-the-ten-rings-2021",
+  "title": "Shang-Chi and the Legend of the Ten Rings (2021)"
+ },
+ {
+  "slug": "no-time-to-die-2021",
+  "title": "No Time to Die (2021)"
+ },
+ {
+  "slug": "jojo-rabbit-2019",
+  "title": "Jojo Rabbit (2019)"
+ },
+ {
+  "slug": "stand-by-me-1986",
+  "title": "Stand by Me (1986)"
+ },
+ {
+  "slug": "midsommar-2019",
+  "title": "Midsommar (2019)"
+ },
+ {
+  "slug": "american-gangster-2007",
+  "title": "American Gangster (2007)"
+ },
+ {
+  "slug": "horrible-bosses-2011",
+  "title": "Horrible Bosses (2011)"
+ },
+ {
+  "slug": "mean-girls-2004",
+  "title": "Mean Girls (2004)"
+ },
+ {
+  "slug": "ghostbusters-1984",
+  "title": "Ghostbusters (1984)"
+ },
+ {
+  "slug": "the-princess-bride-1987",
+  "title": "The Princess Bride (1987)"
+ },
+ {
+  "slug": "the-da-vinci-code-2006",
+  "title": "The Da Vinci Code (2006)"
+ },
+ {
+  "slug": "princess-mononoke-1997",
+  "title": "Princess Mononoke (1997)"
+ },
+ {
+  "slug": "in-time-2011",
+  "title": "In Time (2011)"
+ },
+ {
+  "slug": "3-idiots-2009",
+  "title": "3 Idiots (2009)"
+ },
+ {
+  "slug": "john-wick-chapter-3-parabellum-2019",
+  "title": "John Wick: Chapter 3 - Parabellum (2019)"
+ },
+ {
+  "slug": "madagascar-2005",
+  "title": "Madagascar (2005)"
+ },
+ {
+  "slug": "room-2015",
+  "title": "Room (2015)"
+ },
+ {
+  "slug": "brave-2012",
+  "title": "Brave (2012)"
+ },
+ {
+  "slug": "armageddon-1998",
+  "title": "Armageddon (1998)"
+ },
+ {
+  "slug": "black-widow-2021",
+  "title": "Black Widow (2021)"
+ },
+ {
+  "slug": "borat-2006",
+  "title": "Borat (2006)"
+ },
+ {
+  "slug": "the-lost-world-jurassic-park-1997",
+  "title": "The Lost World: Jurassic Park (1997)"
+ },
+ {
+  "slug": "big-fish-2003",
+  "title": "Big Fish (2003)"
+ },
+ {
+  "slug": "the-shape-of-water-2017",
+  "title": "The Shape of Water (2017)"
+ },
+ {
+  "slug": "guardians-of-the-galaxy-vol-3-2023",
+  "title": "Guardians of the Galaxy Vol. 3 (2023)"
+ },
+ {
+  "slug": "zack-snyder-s-justice-league-2021",
+  "title": "Zack Snyder's Justice League (2021)"
+ },
+ {
+  "slug": "the-irishman-2019",
+  "title": "The Irishman (2019)"
+ },
+ {
+  "slug": "the-breakfast-club-1985",
+  "title": "The Breakfast Club (1985)"
+ },
+ {
+  "slug": "the-game-1997",
+  "title": "The Game (1997)"
+ },
+ {
+  "slug": "platoon-1986",
+  "title": "Platoon (1986)"
+ },
+ {
+  "slug": "e-t-the-extra-terrestrial-1982",
+  "title": "E.T. the Extra-Terrestrial (1982)"
+ },
+ {
+  "slug": "the-mask-1994",
+  "title": "The Mask (1994)"
+ },
+ {
+  "slug": "bruce-almighty-2003",
+  "title": "Bruce Almighty (2003)"
+ },
+ {
+  "slug": "midnight-in-paris-2011",
+  "title": "Midnight in Paris (2011)"
+ },
+ {
+  "slug": "king-kong-2005",
+  "title": "King Kong (2005)"
+ },
+ {
+  "slug": "american-pie-1999",
+  "title": "American Pie (1999)"
+ },
+ {
+  "slug": "amadeus-1984",
+  "title": "Amadeus (1984)"
+ },
+ {
+  "slug": "collateral-2004",
+  "title": "Collateral (2004)"
+ },
+ {
+  "slug": "unforgiven-1992",
+  "title": "Unforgiven (1992)"
+ },
+ {
+  "slug": "alice-in-wonderland-2010",
+  "title": "Alice in Wonderland (2010)"
+ },
+ {
+  "slug": "the-wizard-of-oz-1939",
+  "title": "The Wizard of Oz (1939)"
+ },
+ {
+  "slug": "unbreakable-2000",
+  "title": "Unbreakable (2000)"
+ },
+ {
+  "slug": "the-equalizer-2014",
+  "title": "The Equalizer (2014)"
+ },
+ {
+  "slug": "godzilla-2014",
+  "title": "Godzilla (2014)"
+ },
+ {
+  "slug": "thor-love-and-thunder-2022",
+  "title": "Thor: Love and Thunder (2022)"
+ },
+ {
+  "slug": "crash-2004",
+  "title": "Crash (2004)"
+ },
+ {
+  "slug": "despicable-me-2-2013",
+  "title": "Despicable Me 2 (2013)"
+ },
+ {
+  "slug": "hereditary-2018",
+  "title": "Hereditary (2018)"
+ },
+ {
+  "slug": "the-suicide-squad-2021",
+  "title": "The Suicide Squad (2021)"
+ },
+ {
+  "slug": "the-gentlemen-2019",
+  "title": "The Gentlemen (2019)"
+ },
+ {
+  "slug": "the-fast-and-the-furious-2001",
+  "title": "The Fast and the Furious (2001)"
+ },
+ {
+  "slug": "vertigo-1958",
+  "title": "Vertigo (1958)"
+ },
+ {
+  "slug": "the-chronicles-of-narnia-the-lion-the-witch-and-the-wardrobe-2005",
+  "title": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe (2005)"
+ },
+ {
+  "slug": "home-alone-2-lost-in-new-york-1992",
+  "title": "Home Alone 2: Lost in New York (1992)"
+ },
+ {
+  "slug": "transformers-dark-of-the-moon-2011",
+  "title": "Transformers: Dark of the Moon (2011)"
+ },
+ {
+  "slug": "the-godfather-part-iii-1990",
+  "title": "The Godfather Part III (1990)"
+ },
+ {
+  "slug": "this-is-the-end-2013",
+  "title": "This Is the End (2013)"
+ },
+ {
+  "slug": "black-hawk-down-2001",
+  "title": "Black Hawk Down (2001)"
+ },
+ {
+  "slug": "transformers-revenge-of-the-fallen-2009",
+  "title": "Transformers: Revenge of the Fallen (2009)"
+ },
+ {
+  "slug": "10-things-i-hate-about-you-1999",
+  "title": "10 Things I Hate About You (1999)"
+ },
+ {
+  "slug": "soul-2020",
+  "title": "Soul (2020)"
+ },
+ {
+  "slug": "a-star-is-born-2018",
+  "title": "A Star Is Born (2018)"
+ },
+ {
+  "slug": "the-town-2010",
+  "title": "The Town (2010)"
+ },
+ {
+  "slug": "scream-1996",
+  "title": "Scream (1996)"
+ },
+ {
+  "slug": "the-substance-2024",
+  "title": "The Substance (2024)"
+ },
+ {
+  "slug": "the-devil-s-advocate-1997",
+  "title": "The Devil's Advocate (1997)"
+ },
+ {
+  "slug": "mission-impossible-rogue-nation-2015",
+  "title": "Mission: Impossible - Rogue Nation (2015)"
+ },
+ {
+  "slug": "cloverfield-2008",
+  "title": "Cloverfield (2008)"
+ },
+ {
+  "slug": "easy-a-2010",
+  "title": "Easy A (2010)"
+ },
+ {
+  "slug": "dumb-and-dumber-1994",
+  "title": "Dumb and Dumber (1994)"
+ },
+ {
+  "slug": "the-lives-of-others-2006",
+  "title": "The Lives of Others (2006)"
+ },
+ {
+  "slug": "moana-2016",
+  "title": "Moana (2016)"
+ },
+ {
+  "slug": "the-machinist-2004",
+  "title": "The Machinist (2004)"
+ },
+ {
+  "slug": "22-jump-street-2014",
+  "title": "22 Jump Street (2014)"
+ },
+ {
+  "slug": "fast-furious-6-2013",
+  "title": "Fast & Furious 6 (2013)"
+ },
+ {
+  "slug": "furious-7-2015",
+  "title": "Furious 7 (2015)"
+ },
+ {
+  "slug": "ocean-s-twelve-2004",
+  "title": "Ocean's Twelve (2004)"
+ },
+ {
+  "slug": "terminator-3-rise-of-the-machines-2003",
+  "title": "Terminator 3: Rise of the Machines (2003)"
+ },
+ {
+  "slug": "about-time-2013",
+  "title": "About Time (2013)"
+ },
+ {
+  "slug": "live-free-or-die-hard-2007",
+  "title": "Live Free or Die Hard (2007)"
+ },
+ {
+  "slug": "fast-five-2011",
+  "title": "Fast Five (2011)"
+ },
+ {
+  "slug": "monty-python-s-life-of-brian-1979",
+  "title": "Monty Python's Life of Brian (1979)"
+ },
+ {
+  "slug": "my-neighbor-totoro-1988",
+  "title": "My Neighbor Totoro (1988)"
+ },
+ {
+  "slug": "men-in-black-ii-2002",
+  "title": "Men in Black II (2002)"
+ },
+ {
+  "slug": "batman-1989",
+  "title": "Batman (1989)"
+ },
+ {
+  "slug": "eyes-wide-shut-1999",
+  "title": "Eyes Wide Shut (1999)"
+ },
+ {
+  "slug": "die-hard-with-a-vengeance-1995",
+  "title": "Die Hard with a Vengeance (1995)"
+ },
+ {
+  "slug": "mulholland-drive-2001",
+  "title": "Mulholland Drive (2001)"
+ },
+ {
+  "slug": "eternals-2021",
+  "title": "Eternals (2021)"
+ },
+ {
+  "slug": "wanted-2008",
+  "title": "Wanted (2008)"
+ },
+ {
+  "slug": "face-off-1997",
+  "title": "Face/Off (1997)"
+ },
+ {
+  "slug": "the-others-2001",
+  "title": "The Others (2001)"
+ },
+ {
+  "slug": "monsters-university-2013",
+  "title": "Monsters University (2013)"
+ },
+ {
+  "slug": "superman-2025",
+  "title": "Superman (2025)"
+ },
+ {
+  "slug": "mission-impossible-iii-2006",
+  "title": "Mission: Impossible III (2006)"
+ },
+ {
+  "slug": "inside-man-2006",
+  "title": "Inside Man (2006)"
+ },
+ {
+  "slug": "the-fault-in-our-stars-2014",
+  "title": "The Fault in Our Stars (2014)"
+ },
+ {
+  "slug": "127-hours-2010",
+  "title": "127 Hours (2010)"
+ },
+ {
+  "slug": "maleficent-2014",
+  "title": "Maleficent (2014)"
+ },
+ {
+  "slug": "speed-1994",
+  "title": "Speed (1994)"
+ },
+ {
+  "slug": "bird-box-2018",
+  "title": "Bird Box (2018)"
+ },
+ {
+  "slug": "2012-2009",
+  "title": "2012 (2009)"
+ },
+ {
+  "slug": "one-battle-after-another-2025",
+  "title": "One Battle After Another (2025)"
+ },
+ {
+  "slug": "man-on-fire-2004",
+  "title": "Man on Fire (2004)"
+ },
+ {
+  "slug": "snowpiercer-2013",
+  "title": "Snowpiercer (2013)"
+ },
+ {
+  "slug": "mission-impossible-fallout-2018",
+  "title": "Mission: Impossible - Fallout (2018)"
+ },
+ {
+  "slug": "friends-with-benefits-2011",
+  "title": "Friends with Benefits (2011)"
+ },
+ {
+  "slug": "beetlejuice-1988",
+  "title": "Beetlejuice (1988)"
+ },
+ {
+  "slug": "the-nice-guys-2016",
+  "title": "The Nice Guys (2016)"
+ },
+ {
+  "slug": "brokeback-mountain-2005",
+  "title": "Brokeback Mountain (2005)"
+ },
+ {
+  "slug": "the-lego-movie-2014",
+  "title": "The Lego Movie (2014)"
+ },
+ {
+  "slug": "ferris-bueller-s-day-off-1986",
+  "title": "Ferris Bueller's Day Off (1986)"
+ },
+ {
+  "slug": "50-first-dates-2004",
+  "title": "50 First Dates (2004)"
+ },
+ {
+  "slug": "the-hunger-games-mockingjay-part-2-2015",
+  "title": "The Hunger Games: Mockingjay - Part 2 (2015)"
+ },
+ {
+  "slug": "poor-things-2023",
+  "title": "Poor Things (2023)"
+ },
+ {
+  "slug": "signs-2002",
+  "title": "Signs (2002)"
+ },
+ {
+  "slug": "mission-impossible-ii-2000",
+  "title": "Mission: Impossible II (2000)"
+ },
+ {
+  "slug": "jumanji-1995",
+  "title": "Jumanji (1995)"
+ },
+ {
+  "slug": "shazam-2019",
+  "title": "Shazam! (2019)"
+ },
+ {
+  "slug": "john-wick-chapter-4-2023",
+  "title": "John Wick: Chapter 4 (2023)"
+ },
+ {
+  "slug": "men-in-black-3-2012",
+  "title": "Men in Black 3 (2012)"
+ },
+ {
+  "slug": "sleepy-hollow-1999",
+  "title": "Sleepy Hollow (1999)"
+ },
+ {
+  "slug": "the-nightmare-before-christmas-1993",
+  "title": "The Nightmare Before Christmas (1993)"
+ },
+ {
+  "slug": "the-hunt-2012",
+  "title": "The Hunt (2012)"
+ },
+ {
+  "slug": "night-at-the-museum-2006",
+  "title": "Night at the Museum (2006)"
+ },
+ {
+  "slug": "solo-a-star-wars-story-2018",
+  "title": "Solo: A Star Wars Story (2018)"
+ },
+ {
+  "slug": "raging-bull-1980",
+  "title": "Raging Bull (1980)"
+ },
+ {
+  "slug": "the-aviator-2004",
+  "title": "The Aviator (2004)"
+ },
+ {
+  "slug": "constantine-2005",
+  "title": "Constantine (2005)"
+ },
+ {
+  "slug": "once-upon-a-time-in-america-1984",
+  "title": "Once Upon a Time in America (1984)"
+ },
+ {
+  "slug": "the-fighter-2010",
+  "title": "The Fighter (2010)"
+ },
+ {
+  "slug": "the-italian-job-2003",
+  "title": "The Italian Job (2003)"
+ },
+ {
+  "slug": "die-hard-2-1990",
+  "title": "Die Hard 2 (1990)"
+ },
+ {
+  "slug": "pretty-woman-1990",
+  "title": "Pretty Woman (1990)"
+ },
+ {
+  "slug": "sweeney-todd-the-demon-barber-of-fleet-street-2007",
+  "title": "Sweeney Todd: The Demon Barber of Fleet Street (2007)"
+ },
+ {
+  "slug": "yes-man-2008",
+  "title": "Yes Man (2008)"
+ },
+ {
+  "slug": "jackie-brown-1997",
+  "title": "Jackie Brown (1997)"
+ },
+ {
+  "slug": "the-illusionist-2006",
+  "title": "The Illusionist (2006)"
+ },
+ {
+  "slug": "how-to-train-your-dragon-2-2014",
+  "title": "How to Train Your Dragon 2 (2014)"
+ },
+ {
+  "slug": "the-ring-2002",
+  "title": "The Ring (2002)"
+ },
+ {
+  "slug": "kingsman-the-golden-circle-2017",
+  "title": "Kingsman: The Golden Circle (2017)"
+ },
+ {
+  "slug": "seven-samurai-1954",
+  "title": "Seven Samurai (1954)"
+ },
+ {
+  "slug": "anchorman-the-legend-of-ron-burgundy-2004",
+  "title": "Anchorman: The Legend of Ron Burgundy (2004)"
+ },
+ {
+  "slug": "downfall-2004",
+  "title": "Downfall (2004)"
+ },
+ {
+  "slug": "knocked-up-2007",
+  "title": "Knocked Up (2007)"
+ },
+ {
+  "slug": "wedding-crashers-2005",
+  "title": "Wedding Crashers (2005)"
+ },
+ {
+  "slug": "the-proposal-2009",
+  "title": "The Proposal (2009)"
+ },
+ {
+  "slug": "flight-2012",
+  "title": "Flight (2012)"
+ },
+ {
+  "slug": "the-accountant-2016",
+  "title": "The Accountant (2016)"
+ },
+ {
+  "slug": "project-hail-mary-2026",
+  "title": "Project Hail Mary (2026)"
+ },
+ {
+  "slug": "nobody-2021",
+  "title": "Nobody (2021)"
+ },
+ {
+  "slug": "your-name-2016",
+  "title": "Your Name. (2016)"
+ },
+ {
+  "slug": "snow-white-2025",
+  "title": "Snow White (2025)"
+ },
+ {
+  "slug": "moon-2009",
+  "title": "Moon (2009)"
+ },
+ {
+  "slug": "annihilation-2018",
+  "title": "Annihilation (2018)"
+ },
+ {
+  "slug": "us-2019",
+  "title": "Us (2019)"
+ },
+ {
+  "slug": "terminator-salvation-2009",
+  "title": "Terminator Salvation (2009)"
+ },
+ {
+  "slug": "jack-reacher-2012",
+  "title": "Jack Reacher (2012)"
+ },
+ {
+  "slug": "hotel-rwanda-2004",
+  "title": "Hotel Rwanda (2004)"
+ },
+ {
+  "slug": "black-panther-wakanda-forever-2022",
+  "title": "Black Panther: Wakanda Forever (2022)"
+ },
+ {
+  "slug": "grave-of-the-fireflies-1988",
+  "title": "Grave of the Fireflies (1988)"
+ },
+ {
+  "slug": "click-2006",
+  "title": "Click (2006)"
+ },
+ {
+  "slug": "the-blind-side-2009",
+  "title": "The Blind Side (2009)"
+ },
+ {
+  "slug": "ocean-s-thirteen-2007",
+  "title": "Ocean's Thirteen (2007)"
+ },
+ {
+  "slug": "tron-legacy-2010",
+  "title": "Tron: Legacy (2010)"
+ },
+ {
+  "slug": "pirates-of-the-caribbean-dead-men-tell-no-tales-2017",
+  "title": "Pirates of the Caribbean: Dead Men Tell No Tales (2017)"
+ },
+ {
+  "slug": "cloud-atlas-2012",
+  "title": "Cloud Atlas (2012)"
+ },
+ {
+  "slug": "the-deer-hunter-1978",
+  "title": "The Deer Hunter (1978)"
+ },
+ {
+  "slug": "notting-hill-1999",
+  "title": "Notting Hill (1999)"
+ },
+ {
+  "slug": "10-cloverfield-lane-2016",
+  "title": "10 Cloverfield Lane (2016)"
+ },
+ {
+  "slug": "once-upon-a-time-in-the-west-1968",
+  "title": "Once Upon a Time in the West (1968)"
+ },
+ {
+  "slug": "moonrise-kingdom-2012",
+  "title": "Moonrise Kingdom (2012)"
+ },
+ {
+  "slug": "jurassic-world-fallen-kingdom-2018",
+  "title": "Jurassic World: Fallen Kingdom (2018)"
+ },
+ {
+  "slug": "total-recall-1990",
+  "title": "Total Recall (1990)"
+ },
+ {
+  "slug": "boyhood-2014",
+  "title": "Boyhood (2014)"
+ },
+ {
+  "slug": "the-rock-1996",
+  "title": "The Rock (1996)"
+ },
+ {
+  "slug": "real-steel-2011",
+  "title": "Real Steel (2011)"
+ },
+ {
+  "slug": "super-8-2011",
+  "title": "Super 8 (2011)"
+ },
+ {
+  "slug": "the-expendables-2010",
+  "title": "The Expendables (2010)"
+ },
+ {
+  "slug": "before-sunrise-1995",
+  "title": "Before Sunrise (1995)"
+ },
+ {
+  "slug": "meet-the-parents-2000",
+  "title": "Meet the Parents (2000)"
+ },
+ {
+  "slug": "pride-prejudice-2005",
+  "title": "Pride & Prejudice (2005)"
+ },
+ {
+  "slug": "national-treasure-2004",
+  "title": "National Treasure (2004)"
+ },
+ {
+  "slug": "interview-with-the-vampire-the-vampire-chronicles-1994",
+  "title": "Interview with the Vampire: The Vampire Chronicles (1994)"
+ },
+ {
+  "slug": "the-interview-2014",
+  "title": "The Interview (2014)"
+ },
+ {
+  "slug": "burn-after-reading-2008",
+  "title": "Burn After Reading (2008)"
+ },
+ {
+  "slug": "chinatown-1974",
+  "title": "Chinatown (1974)"
+ },
+ {
+  "slug": "true-grit-2010",
+  "title": "True Grit (2010)"
+ },
+ {
+  "slug": "shooter-2007",
+  "title": "Shooter (2007)"
+ },
+ {
+  "slug": "the-mist-2007",
+  "title": "The Mist (2007)"
+ },
+ {
+  "slug": "kong-skull-island-2017",
+  "title": "Kong: Skull Island (2017)"
+ },
+ {
+  "slug": "weapons-2025",
+  "title": "Weapons (2025)"
+ },
+ {
+  "slug": "fantastic-four-2005",
+  "title": "Fantastic Four (2005)"
+ },
+ {
+  "slug": "pineapple-express-2008",
+  "title": "Pineapple Express (2008)"
+ },
+ {
+  "slug": "the-secret-life-of-walter-mitty-2013",
+  "title": "The Secret Life of Walter Mitty (2013)"
+ },
+ {
+  "slug": "incredibles-2-2018",
+  "title": "Incredibles 2 (2018)"
+ },
+ {
+  "slug": "scent-of-a-woman-1992",
+  "title": "Scent of a Woman (1992)"
+ },
+ {
+  "slug": "marriage-story-2019",
+  "title": "Marriage Story (2019)"
+ },
+ {
+  "slug": "due-date-2010",
+  "title": "Due Date (2010)"
+ },
+ {
+  "slug": "f1-the-movie-2025",
+  "title": "F1: The Movie (2025)"
+ },
+ {
+  "slug": "jurassic-park-iii-2001",
+  "title": "Jurassic Park III (2001)"
+ },
+ {
+  "slug": "from-dusk-till-dawn-1996",
+  "title": "From Dusk Till Dawn (1996)"
+ },
+ {
+  "slug": "hellboy-2004",
+  "title": "Hellboy (2004)"
+ },
+ {
+  "slug": "pearl-harbor-2001",
+  "title": "Pearl Harbor (2001)"
+ },
+ {
+  "slug": "the-dictator-2012",
+  "title": "The Dictator (2012)"
+ },
+ {
+  "slug": "being-john-malkovich-1999",
+  "title": "Being John Malkovich (1999)"
+ },
+ {
+  "slug": "north-by-northwest-1959",
+  "title": "North by Northwest (1959)"
+ },
+ {
+  "slug": "the-mummy-returns-2001",
+  "title": "The Mummy Returns (2001)"
+ },
+ {
+  "slug": "the-holiday-2006",
+  "title": "The Holiday (2006)"
+ },
+ {
+  "slug": "insidious-2010",
+  "title": "Insidious (2010)"
+ },
+ {
+  "slug": "lady-bird-2017",
+  "title": "Lady Bird (2017)"
+ },
+ {
+  "slug": "28-weeks-later-2007",
+  "title": "28 Weeks Later (2007)"
+ },
+ {
+  "slug": "the-hangover-part-iii-2013",
+  "title": "The Hangover Part III (2013)"
+ },
+ {
+  "slug": "liar-liar-1997",
+  "title": "Liar Liar (1997)"
+ },
+ {
+  "slug": "the-simpsons-movie-2007",
+  "title": "The Simpsons Movie (2007)"
+ },
+ {
+  "slug": "equilibrium-2002",
+  "title": "Equilibrium (2002)"
+ },
+ {
+  "slug": "les-mis-rables-2012",
+  "title": "Les Misérables (2012)"
+ },
+ {
+  "slug": "now-you-see-me-2-2016",
+  "title": "Now You See Me 2 (2016)"
+ },
+ {
+  "slug": "shrek-the-third-2007",
+  "title": "Shrek the Third (2007)"
+ },
+ {
+  "slug": "the-book-of-eli-2010",
+  "title": "The Book of Eli (2010)"
+ },
+ {
+  "slug": "up-in-the-air-2009",
+  "title": "Up in the Air (2009)"
+ },
+ {
+  "slug": "call-me-by-your-name-2017",
+  "title": "Call Me by Your Name (2017)"
+ },
+ {
+  "slug": "apocalypto-2006",
+  "title": "Apocalypto (2006)"
+ },
+ {
+  "slug": "lord-of-war-2005",
+  "title": "Lord of War (2005)"
+ },
+ {
+  "slug": "beauty-and-the-beast-2017",
+  "title": "Beauty and the Beast (2017)"
+ },
+ {
+  "slug": "kung-fu-panda-2-2011",
+  "title": "Kung Fu Panda 2 (2011)"
+ },
+ {
+  "slug": "school-of-rock-2003",
+  "title": "School of Rock (2003)"
+ },
+ {
+  "slug": "manchester-by-the-sea-2016",
+  "title": "Manchester by the Sea (2016)"
+ },
+ {
+  "slug": "uncut-gems-2019",
+  "title": "Uncut Gems (2019)"
+ },
+ {
+  "slug": "donnie-brasco-1997",
+  "title": "Donnie Brasco (1997)"
+ },
+ {
+  "slug": "the-man-from-u-n-c-l-e-2015",
+  "title": "The Man from U.N.C.L.E. (2015)"
+ },
+ {
+  "slug": "it-chapter-two-2019",
+  "title": "It: Chapter Two (2019)"
+ },
+ {
+  "slug": "fifty-shades-of-grey-2015",
+  "title": "Fifty Shades of Grey (2015)"
+ },
+ {
+  "slug": "gone-with-the-wind-1939",
+  "title": "Gone with the Wind (1939)"
+ },
+ {
+  "slug": "red-notice-2021",
+  "title": "Red Notice (2021)"
+ },
+ {
+  "slug": "kingdom-of-heaven-2005",
+  "title": "Kingdom of Heaven (2005)"
+ },
+ {
+  "slug": "ace-ventura-pet-detective-1994",
+  "title": "Ace Ventura: Pet Detective (1994)"
+ },
+ {
+  "slug": "50-50-2011",
+  "title": "50/50 (2011)"
+ },
+ {
+  "slug": "the-witch-2015",
+  "title": "The Witch (2015)"
+ },
+ {
+  "slug": "the-untouchables-1987",
+  "title": "The Untouchables (1987)"
+ },
+ {
+  "slug": "moonlight-2016",
+  "title": "Moonlight (2016)"
+ },
+ {
+  "slug": "alien-1992",
+  "title": "Alien³ (1992)"
+ },
+ {
+  "slug": "8-mile-2002",
+  "title": "8 Mile (2002)"
+ },
+ {
+  "slug": "o-brother-where-art-thou-2000",
+  "title": "O Brother, Where Art Thou? (2000)"
+ },
+ {
+  "slug": "pitch-perfect-2012",
+  "title": "Pitch Perfect (2012)"
+ },
+ {
+  "slug": "3-10-to-yuma-2007",
+  "title": "3:10 to Yuma (2007)"
+ },
+ {
+  "slug": "to-kill-a-mockingbird-1962",
+  "title": "To Kill a Mockingbird (1962)"
+ },
+ {
+  "slug": "transformers-age-of-extinction-2014",
+  "title": "Transformers: Age of Extinction (2014)"
+ },
+ {
+  "slug": "magnolia-1999",
+  "title": "Magnolia (1999)"
+ },
+ {
+  "slug": "batman-returns-1992",
+  "title": "Batman Returns (1992)"
+ },
+ {
+  "slug": "hitch-2005",
+  "title": "Hitch (2005)"
+ },
+ {
+  "slug": "hugo-2011",
+  "title": "Hugo (2011)"
+ },
+ {
+  "slug": "the-greatest-showman-2017",
+  "title": "The Greatest Showman (2017)"
+ },
+ {
+  "slug": "there-s-something-about-mary-1998",
+  "title": "There's Something About Mary (1998)"
+ },
+ {
+  "slug": "gattaca-1997",
+  "title": "Gattaca (1997)"
+ },
+ {
+  "slug": "mulan-1998",
+  "title": "Mulan (1998)"
+ },
+ {
+  "slug": "the-fugitive-1993",
+  "title": "The Fugitive (1993)"
+ },
+ {
+  "slug": "starship-troopers-1997",
+  "title": "Starship Troopers (1997)"
+ },
+ {
+  "slug": "elf-2003",
+  "title": "Elf (2003)"
+ },
+ {
+  "slug": "el-camino-2019",
+  "title": "El Camino (2019)"
+ },
+ {
+  "slug": "neighbors-2014",
+  "title": "Neighbors (2014)"
+ },
+ {
+  "slug": "deja-vu-2006",
+  "title": "Deja Vu (2006)"
+ },
+ {
+  "slug": "law-abiding-citizen-2009",
+  "title": "Law Abiding Citizen (2009)"
+ },
+ {
+  "slug": "alien-covenant-2017",
+  "title": "Alien: Covenant (2017)"
+ },
+ {
+  "slug": "bridge-of-spies-2015",
+  "title": "Bridge of Spies (2015)"
+ },
+ {
+  "slug": "the-conjuring-2-2016",
+  "title": "The Conjuring 2 (2016)"
+ },
+ {
+  "slug": "hachi-a-dog-s-tale-2009",
+  "title": "Hachi: A Dog's Tale (2009)"
+ },
+ {
+  "slug": "insomnia-2002",
+  "title": "Insomnia (2002)"
+ },
+ {
+  "slug": "salt-2010",
+  "title": "Salt (2010)"
+ },
+ {
+  "slug": "the-island-2005",
+  "title": "The Island (2005)"
+ },
+ {
+  "slug": "lawrence-of-arabia-1962",
+  "title": "Lawrence of Arabia (1962)"
+ },
+ {
+  "slug": "step-brothers-2008",
+  "title": "Step Brothers (2008)"
+ },
+ {
+  "slug": "zero-dark-thirty-2012",
+  "title": "Zero Dark Thirty (2012)"
+ },
+ {
+  "slug": "con-air-1997",
+  "title": "Con Air (1997)"
+ },
+ {
+  "slug": "a-i-artificial-intelligence-2001",
+  "title": "A.I. Artificial Intelligence (2001)"
+ },
+ {
+  "slug": "halloween-1978",
+  "title": "Halloween (1978)"
+ },
+ {
+  "slug": "nocturnal-animals-2016",
+  "title": "Nocturnal Animals (2016)"
+ },
+ {
+  "slug": "apollo-13-1995",
+  "title": "Apollo 13 (1995)"
+ },
+ {
+  "slug": "all-quiet-on-the-western-front-2022",
+  "title": "All Quiet on the Western Front (2022)"
+ },
+ {
+  "slug": "lucky-number-slevin-2006",
+  "title": "Lucky Number Slevin (2006)"
+ },
+ {
+  "slug": "red-2010",
+  "title": "RED (2010)"
+ },
+ {
+  "slug": "the-transporter-2002",
+  "title": "The Transporter (2002)"
+ },
+ {
+  "slug": "a-bug-s-life-1998",
+  "title": "A Bug's Life (1998)"
+ },
+ {
+  "slug": "jumper-2008",
+  "title": "Jumper (2008)"
+ },
+ {
+  "slug": "as-good-as-it-gets-1997",
+  "title": "As Good as It Gets (1997)"
+ },
+ {
+  "slug": "me-before-you-2016",
+  "title": "Me Before You (2016)"
+ },
+ {
+  "slug": "taken-2-2012",
+  "title": "Taken 2 (2012)"
+ },
+ {
+  "slug": "final-destination-2000",
+  "title": "Final Destination (2000)"
+ },
+ {
+  "slug": "fast-furious-2009",
+  "title": "Fast & Furious (2009)"
+ },
+ {
+  "slug": "predestination-2014",
+  "title": "Predestination (2014)"
+ },
+ {
+  "slug": "creed-2015",
+  "title": "Creed (2015)"
+ },
+ {
+  "slug": "the-royal-tenenbaums-2001",
+  "title": "The Royal Tenenbaums (2001)"
+ },
+ {
+  "slug": "finding-dory-2016",
+  "title": "Finding Dory (2016)"
+ },
+ {
+  "slug": "public-enemies-2009",
+  "title": "Public Enemies (2009)"
+ },
+ {
+  "slug": "the-lobster-2015",
+  "title": "The Lobster (2015)"
+ },
+ {
+  "slug": "death-proof-2007",
+  "title": "Death Proof (2007)"
+ },
+ {
+  "slug": "the-expendables-2-2012",
+  "title": "The Expendables 2 (2012)"
+ },
+ {
+  "slug": "how-the-grinch-stole-christmas-2000",
+  "title": "How the Grinch Stole Christmas (2000)"
+ },
+ {
+  "slug": "the-fast-and-the-furious-tokyo-drift-2006",
+  "title": "The Fast and the Furious: Tokyo Drift (2006)"
+ },
+ {
+  "slug": "fantastic-beasts-the-crimes-of-grindelwald-2018",
+  "title": "Fantastic Beasts: The Crimes of Grindelwald (2018)"
+ },
+ {
+  "slug": "don-t-breathe-2016",
+  "title": "Don't Breathe (2016)"
+ },
+ {
+  "slug": "contagion-2011",
+  "title": "Contagion (2011)"
+ },
+ {
+  "slug": "blade-1998",
+  "title": "Blade (1998)"
+ },
+ {
+  "slug": "the-wrestler-2008",
+  "title": "The Wrestler (2008)"
+ },
+ {
+  "slug": "rush-hour-1998",
+  "title": "Rush Hour (1998)"
+ },
+ {
+  "slug": "scary-movie-2000",
+  "title": "Scary Movie (2000)"
+ },
+ {
+  "slug": "atonement-2007",
+  "title": "Atonement (2007)"
+ },
+ {
+  "slug": "babel-2006",
+  "title": "Babel (2006)"
+ },
+ {
+  "slug": "300-rise-of-an-empire-2014",
+  "title": "300: Rise of an Empire (2014)"
+ },
+ {
+  "slug": "corpse-bride-2005",
+  "title": "Corpse Bride (2005)"
+ },
+ {
+  "slug": "mission-impossible-dead-reckoning-part-one-2023",
+  "title": "Mission: Impossible - Dead Reckoning Part One (2023)"
+ },
+ {
+  "slug": "the-bourne-legacy-2012",
+  "title": "The Bourne Legacy (2012)"
+ },
+ {
+  "slug": "the-goonies-1985",
+  "title": "The Goonies (1985)"
+ },
+ {
+  "slug": "war-for-the-planet-of-the-apes-2017",
+  "title": "War for the Planet of the Apes (2017)"
+ },
+ {
+  "slug": "megamind-2010",
+  "title": "Megamind (2010)"
+ },
+ {
+  "slug": "grease-1978",
+  "title": "Grease (1978)"
+ },
+ {
+  "slug": "angels-demons-2009",
+  "title": "Angels & Demons (2009)"
+ },
+ {
+  "slug": "bridesmaids-2011",
+  "title": "Bridesmaids (2011)"
+ },
+ {
+  "slug": "seven-pounds-2008",
+  "title": "Seven Pounds (2008)"
+ },
+ {
+  "slug": "the-platform-2019",
+  "title": "The Platform (2019)"
+ },
+ {
+  "slug": "2-fast-2-furious-2003",
+  "title": "2 Fast 2 Furious (2003)"
+ },
+ {
+  "slug": "a-quiet-place-part-ii-2020",
+  "title": "A Quiet Place Part II (2020)"
+ },
+ {
+  "slug": "how-to-lose-a-guy-in-10-days-2003",
+  "title": "How to Lose a Guy in 10 Days (2003)"
+ },
+ {
+  "slug": "alita-battle-angel-2019",
+  "title": "Alita: Battle Angel (2019)"
+ },
+ {
+  "slug": "lone-survivor-2013",
+  "title": "Lone Survivor (2013)"
+ },
+ {
+  "slug": "frankenstein-2025",
+  "title": "Frankenstein (2025)"
+ },
+ {
+  "slug": "the-twilight-saga-new-moon-2009",
+  "title": "The Twilight Saga: New Moon (2009)"
+ },
+ {
+  "slug": "sully-2016",
+  "title": "Sully (2016)"
+ },
+ {
+  "slug": "furiosa-a-mad-max-saga-2024",
+  "title": "Furiosa: A Mad Max Saga (2024)"
+ },
+ {
+  "slug": "murder-on-the-orient-express-2017",
+  "title": "Murder on the Orient Express (2017)"
+ },
+ {
+  "slug": "toy-story-4-2019",
+  "title": "Toy Story 4 (2019)"
+ },
+ {
+  "slug": "jumanji-the-next-level-2019",
+  "title": "Jumanji: The Next Level (2019)"
+ },
+ {
+  "slug": "rango-2011",
+  "title": "Rango (2011)"
+ },
+ {
+  "slug": "forgetting-sarah-marshall-2008",
+  "title": "Forgetting Sarah Marshall (2008)"
+ },
+ {
+  "slug": "fear-and-loathing-in-las-vegas-1998",
+  "title": "Fear and Loathing in Las Vegas (1998)"
+ },
+ {
+  "slug": "ice-age-the-meltdown-2006",
+  "title": "Ice Age: The Meltdown (2006)"
+ },
+ {
+  "slug": "the-blair-witch-project-1999",
+  "title": "The Blair Witch Project (1999)"
+ },
+ {
+  "slug": "nope-2022",
+  "title": "Nope (2022)"
+ },
+ {
+  "slug": "a-few-good-men-1992",
+  "title": "A Few Good Men (1992)"
+ },
+ {
+  "slug": "sinister-2012",
+  "title": "Sinister (2012)"
+ },
+ {
+  "slug": "prince-of-persia-the-sands-of-time-2010",
+  "title": "Prince of Persia: The Sands of Time (2010)"
+ },
+ {
+  "slug": "zoolander-2001",
+  "title": "Zoolander (2001)"
+ },
+ {
+  "slug": "cinema-paradiso-1988",
+  "title": "Cinema Paradiso (1988)"
+ },
+ {
+  "slug": "mrs-doubtfire-1993",
+  "title": "Mrs. Doubtfire (1993)"
+ },
+ {
+  "slug": "wind-river-2017",
+  "title": "Wind River (2017)"
+ },
+ {
+  "slug": "before-sunset-2004",
+  "title": "Before Sunset (2004)"
+ },
+ {
+  "slug": "bad-boys-1995",
+  "title": "Bad Boys (1995)"
+ },
+ {
+  "slug": "aladdin-2019",
+  "title": "Aladdin (2019)"
+ },
+ {
+  "slug": "serenity-2005",
+  "title": "Serenity (2005)"
+ },
+ {
+  "slug": "hotel-transylvania-2012",
+  "title": "Hotel Transylvania (2012)"
+ },
+ {
+  "slug": "almost-famous-2000",
+  "title": "Almost Famous (2000)"
+ },
+ {
+  "slug": "snow-white-and-the-huntsman-2012",
+  "title": "Snow White and the Huntsman (2012)"
+ },
+ {
+  "slug": "blackkklansman-2018",
+  "title": "BlacKkKlansman (2018)"
+ },
+ {
+  "slug": "1408-2007",
+  "title": "1408 (2007)"
+ },
+ {
+  "slug": "moulin-rouge-2001",
+  "title": "Moulin Rouge! (2001)"
+ },
+ {
+  "slug": "panic-room-2002",
+  "title": "Panic Room (2002)"
+ },
+ {
+  "slug": "grown-ups-2010",
+  "title": "Grown Ups (2010)"
+ },
+ {
+  "slug": "contact-1997",
+  "title": "Contact (1997)"
+ },
+ {
+  "slug": "hannibal-2001",
+  "title": "Hannibal (2001)"
+ },
+ {
+  "slug": "the-patriot-2000",
+  "title": "The Patriot (2000)"
+ },
+ {
+  "slug": "the-world-s-end-2013",
+  "title": "The World's End (2013)"
+ },
+ {
+  "slug": "the-little-mermaid-1989",
+  "title": "The Little Mermaid (1989)"
+ },
+ {
+  "slug": "dredd-2012",
+  "title": "Dredd (2012)"
+ },
+ {
+  "slug": "jerry-maguire-1996",
+  "title": "Jerry Maguire (1996)"
+ },
+ {
+  "slug": "red-dragon-2002",
+  "title": "Red Dragon (2002)"
+ },
+ {
+  "slug": "wonder-woman-1984-2020",
+  "title": "Wonder Woman 1984 (2020)"
+ },
+ {
+  "slug": "resident-evil-2002",
+  "title": "Resident Evil (2002)"
+ },
+ {
+  "slug": "gone-baby-gone-2007",
+  "title": "Gone Baby Gone (2007)"
+ },
+ {
+  "slug": "the-intern-2015",
+  "title": "The Intern (2015)"
+ },
+ {
+  "slug": "dances-with-wolves-1990",
+  "title": "Dances with Wolves (1990)"
+ },
+ {
+  "slug": "gone-in-60-seconds-2000",
+  "title": "Gone in 60 Seconds (2000)"
+ },
+ {
+  "slug": "the-place-beyond-the-pines-2012",
+  "title": "The Place Beyond the Pines (2012)"
+ },
+ {
+  "slug": "the-other-guys-2010",
+  "title": "The Other Guys (2010)"
+ },
+ {
+  "slug": "vanilla-sky-2001",
+  "title": "Vanilla Sky (2001)"
+ },
+ {
+  "slug": "robocop-1987",
+  "title": "RoboCop (1987)"
+ },
+ {
+  "slug": "office-space-1999",
+  "title": "Office Space (1999)"
+ },
+ {
+  "slug": "train-to-busan-2016",
+  "title": "Train to Busan (2016)"
+ },
+ {
+  "slug": "green-lantern-2011",
+  "title": "Green Lantern (2011)"
+ },
+ {
+  "slug": "killers-of-the-flower-moon-2023",
+  "title": "Killers of the Flower Moon (2023)"
+ },
+ {
+  "slug": "maze-runner-the-scorch-trials-2015",
+  "title": "Maze Runner: The Scorch Trials (2015)"
+ },
+ {
+  "slug": "happy-gilmore-1996",
+  "title": "Happy Gilmore (1996)"
+ },
+ {
+  "slug": "terminator-genisys-2015",
+  "title": "Terminator Genisys (2015)"
+ },
+ {
+  "slug": "mamma-mia-2008",
+  "title": "Mamma Mia! (2008)"
+ },
+ {
+  "slug": "van-helsing-2004",
+  "title": "Van Helsing (2004)"
+ },
+ {
+  "slug": "olympus-has-fallen-2013",
+  "title": "Olympus Has Fallen (2013)"
+ },
+ {
+  "slug": "boogie-nights-1997",
+  "title": "Boogie Nights (1997)"
+ },
+ {
+  "slug": "fantastic-mr-fox-2009",
+  "title": "Fantastic Mr. Fox (2009)"
+ },
+ {
+  "slug": "the-jungle-book-2016",
+  "title": "The Jungle Book (2016)"
+ },
+ {
+  "slug": "venom-let-there-be-carnage-2021",
+  "title": "Venom: Let There Be Carnage (2021)"
+ },
+ {
+  "slug": "clash-of-the-titans-2010",
+  "title": "Clash of the Titans (2010)"
+ },
+ {
+  "slug": "the-whale-2022",
+  "title": "The Whale (2022)"
+ },
+ {
+  "slug": "black-adam-2022",
+  "title": "Black Adam (2022)"
+ },
+ {
+  "slug": "some-like-it-hot-1959",
+  "title": "Some Like It Hot (1959)"
+ },
+ {
+  "slug": "glass-2019",
+  "title": "Glass (2019)"
+ },
+ {
+  "slug": "the-lighthouse-2019",
+  "title": "The Lighthouse (2019)"
+ },
+ {
+  "slug": "the-matrix-resurrections-2021",
+  "title": "The Matrix Resurrections (2021)"
+ },
+ {
+  "slug": "gladiator-ii-2024",
+  "title": "Gladiator II (2024)"
+ },
+ {
+  "slug": "superman-returns-2006",
+  "title": "Superman Returns (2006)"
+ },
+ {
+  "slug": "the-sting-1973",
+  "title": "The Sting (1973)"
+ },
+ {
+  "slug": "first-blood-1982",
+  "title": "First Blood (1982)"
+ },
+ {
+  "slug": "phone-booth-2002",
+  "title": "Phone Booth (2002)"
+ },
+ {
+  "slug": "the-graduate-1967",
+  "title": "The Graduate (1967)"
+ },
+ {
+  "slug": "coraline-2009",
+  "title": "Coraline (2009)"
+ },
+ {
+  "slug": "uncharted-2022",
+  "title": "Uncharted (2022)"
+ },
+ {
+  "slug": "meet-the-fockers-2004",
+  "title": "Meet the Fockers (2004)"
+ },
+ {
+  "slug": "war-dogs-2016",
+  "title": "War Dogs (2016)"
+ },
+ {
+  "slug": "the-northman-2022",
+  "title": "The Northman (2022)"
+ },
+ {
+  "slug": "underworld-2003",
+  "title": "Underworld (2003)"
+ },
+ {
+  "slug": "true-lies-1994",
+  "title": "True Lies (1994)"
+ },
+ {
+  "slug": "road-to-perdition-2002",
+  "title": "Road to Perdition (2002)"
+ },
+ {
+  "slug": "for-a-few-dollars-more-1965",
+  "title": "For a Few Dollars More (1965)"
+ },
+ {
+  "slug": "it-follows-2014",
+  "title": "It Follows (2014)"
+ },
+ {
+  "slug": "kick-ass-2-2013",
+  "title": "Kick-Ass 2 (2013)"
+ },
+ {
+  "slug": "meet-joe-black-1998",
+  "title": "Meet Joe Black (1998)"
+ },
+ {
+  "slug": "fantastic-four-rise-of-the-silver-surfer-2007",
+  "title": "Fantastic Four: Rise of the Silver Surfer (2007)"
+ },
+ {
+  "slug": "john-carter-2012",
+  "title": "John Carter (2012)"
+ },
+ {
+  "slug": "stardust-2007",
+  "title": "Stardust (2007)"
+ },
+ {
+  "slug": "hellboy-ii-the-golden-army-2008",
+  "title": "Hellboy II: The Golden Army (2008)"
+ },
+ {
+  "slug": "encanto-2021",
+  "title": "Encanto (2021)"
+ },
+ {
+  "slug": "the-super-mario-bros-movie-2023",
+  "title": "The Super Mario Bros. Movie (2023)"
+ },
+ {
+  "slug": "cruella-2021",
+  "title": "Cruella (2021)"
+ },
+ {
+  "slug": "saw-ii-2005",
+  "title": "Saw II (2005)"
+ },
+ {
+  "slug": "the-village-2004",
+  "title": "The Village (2004)"
+ },
+ {
+  "slug": "the-banshees-of-inisherin-2022",
+  "title": "The Banshees of Inisherin (2022)"
+ },
+ {
+  "slug": "robin-hood-2010",
+  "title": "Robin Hood (2010)"
+ },
+ {
+  "slug": "anora-2024",
+  "title": "Anora (2024)"
+ },
+ {
+  "slug": "lethal-weapon-1987",
+  "title": "Lethal Weapon (1987)"
+ },
+ {
+  "slug": "warcraft-2016",
+  "title": "Warcraft (2016)"
+ },
+ {
+  "slug": "focus-2015",
+  "title": "Focus (2015)"
+ },
+ {
+  "slug": "crouching-tiger-hidden-dragon-2000",
+  "title": "Crouching Tiger, Hidden Dragon (2000)"
+ },
+ {
+  "slug": "dark-shadows-2012",
+  "title": "Dark Shadows (2012)"
+ },
+ {
+  "slug": "identity-2003",
+  "title": "Identity (2003)"
+ },
+ {
+  "slug": "enemy-at-the-gates-2001",
+  "title": "Enemy at the Gates (2001)"
+ },
+ {
+  "slug": "end-of-watch-2012",
+  "title": "End of Watch (2012)"
+ },
+ {
+  "slug": "the-lion-king-2019",
+  "title": "The Lion King (2019)"
+ },
+ {
+  "slug": "alien-resurrection-1997",
+  "title": "Alien: Resurrection (1997)"
+ },
+ {
+  "slug": "hook-1991",
+  "title": "Hook (1991)"
+ },
+ {
+  "slug": "hulk-2003",
+  "title": "Hulk (2003)"
+ },
+ {
+  "slug": "dog-day-afternoon-1975",
+  "title": "Dog Day Afternoon (1975)"
+ },
+ {
+  "slug": "a-nightmare-on-elm-street-1984",
+  "title": "A Nightmare on Elm Street (1984)"
+ },
+ {
+  "slug": "the-sound-of-music-1965",
+  "title": "The Sound of Music (1965)"
+ },
+ {
+  "slug": "annie-hall-1977",
+  "title": "Annie Hall (1977)"
+ },
+ {
+  "slug": "just-go-with-it-2011",
+  "title": "Just Go with It (2011)"
+ },
+ {
+  "slug": "extraction-2020",
+  "title": "Extraction (2020)"
+ },
+ {
+  "slug": "hidden-figures-2016",
+  "title": "Hidden Figures (2016)"
+ },
+ {
+  "slug": "alien-romulus-2024",
+  "title": "Alien: Romulus (2024)"
+ },
+ {
+  "slug": "airplane-1980",
+  "title": "Airplane! (1980)"
+ },
+ {
+  "slug": "primal-fear-1996",
+  "title": "Primal Fear (1996)"
+ },
+ {
+  "slug": "dawn-of-the-dead-2004",
+  "title": "Dawn of the Dead (2004)"
+ },
+ {
+  "slug": "bad-boys-ii-2003",
+  "title": "Bad Boys II (2003)"
+ },
+ {
+  "slug": "seven-psychopaths-2012",
+  "title": "Seven Psychopaths (2012)"
+ },
+ {
+  "slug": "das-boot-1981",
+  "title": "Das Boot (1981)"
+ },
+ {
+  "slug": "sunshine-2007",
+  "title": "Sunshine (2007)"
+ },
+ {
+  "slug": "non-stop-2014",
+  "title": "Non-Stop (2014)"
+ },
+ {
+  "slug": "legally-blonde-2001",
+  "title": "Legally Blonde (2001)"
+ },
+ {
+  "slug": "blow-2001",
+  "title": "Blow (2001)"
+ },
+ {
+  "slug": "american-pie-2-2001",
+  "title": "American Pie 2 (2001)"
+ },
+ {
+  "slug": "bridget-jones-s-diary-2001",
+  "title": "Bridget Jones's Diary (2001)"
+ },
+ {
+  "slug": "dodgeball-a-true-underdog-story-2004",
+  "title": "Dodgeball: A True Underdog Story (2004)"
+ },
+ {
+  "slug": "goldeneye-1995",
+  "title": "GoldenEye (1995)"
+ },
+ {
+  "slug": "the-invisible-man-2020",
+  "title": "The Invisible Man (2020)"
+ },
+ {
+  "slug": "ice-age-dawn-of-the-dinosaurs-2009",
+  "title": "Ice Age: Dawn of the Dinosaurs (2009)"
+ },
+ {
+  "slug": "cloudy-with-a-chance-of-meatballs-2009",
+  "title": "Cloudy with a Chance of Meatballs (2009)"
+ },
+ {
+  "slug": "minions-2015",
+  "title": "Minions (2015)"
+ },
+ {
+  "slug": "modern-times-1936",
+  "title": "Modern Times (1936)"
+ },
+ {
+  "slug": "thunderbolts-2025",
+  "title": "Thunderbolts* (2025)"
+ },
+ {
+  "slug": "little-women-2019",
+  "title": "Little Women (2019)"
+ },
+ {
+  "slug": "lincoln-2012",
+  "title": "Lincoln (2012)"
+ },
+ {
+  "slug": "chappie-2015",
+  "title": "Chappie (2015)"
+ },
+ {
+  "slug": "singin-in-the-rain-1952",
+  "title": "Singin' in the Rain (1952)"
+ },
+ {
+  "slug": "the-adjustment-bureau-2011",
+  "title": "The Adjustment Bureau (2011)"
+ },
+ {
+  "slug": "birds-of-prey-and-the-fantabulous-emancipation-of-one-harley-quinn-2020",
+  "title": "Birds of Prey and the Fantabulous Emancipation of One Harley Quinn (2020)"
+ },
+ {
+  "slug": "the-twilight-saga-breaking-dawn-part-2-2012",
+  "title": "The Twilight Saga: Breaking Dawn - Part 2 (2012)"
+ },
+ {
+  "slug": "batman-robin-1997",
+  "title": "Batman & Robin (1997)"
+ },
+ {
+  "slug": "paul-2011",
+  "title": "Paul (2011)"
+ },
+ {
+  "slug": "batman-forever-1995",
+  "title": "Batman Forever (1995)"
+ },
+ {
+  "slug": "the-twilight-saga-eclipse-2010",
+  "title": "The Twilight Saga: Eclipse (2010)"
+ },
+ {
+  "slug": "ad-astra-2019",
+  "title": "Ad Astra (2019)"
+ },
+ {
+  "slug": "conclave-2024",
+  "title": "Conclave (2024)"
+ },
+ {
+  "slug": "the-elephant-man-1980",
+  "title": "The Elephant Man (1980)"
+ },
+ {
+  "slug": "21-2008",
+  "title": "21 (2008)"
+ },
+ {
+  "slug": "dirty-dancing-1987",
+  "title": "Dirty Dancing (1987)"
+ },
+ {
+  "slug": "walk-the-line-2005",
+  "title": "Walk the Line (2005)"
+ },
+ {
+  "slug": "vicky-cristina-barcelona-2008",
+  "title": "Vicky Cristina Barcelona (2008)"
+ },
+ {
+  "slug": "hercules-1997",
+  "title": "Hercules (1997)"
+ },
+ {
+  "slug": "game-night-2018",
+  "title": "Game Night (2018)"
+ },
+ {
+  "slug": "southpaw-2015",
+  "title": "Southpaw (2015)"
+ },
+ {
+  "slug": "perfume-the-story-of-a-murderer-2006",
+  "title": "Perfume: The Story of a Murderer (2006)"
+ },
+ {
+  "slug": "clueless-1995",
+  "title": "Clueless (1995)"
+ },
+ {
+  "slug": "hell-or-high-water-2016",
+  "title": "Hell or High Water (2016)"
+ },
+ {
+  "slug": "orphan-2009",
+  "title": "Orphan (2009)"
+ },
+ {
+  "slug": "a-separation-2011",
+  "title": "A Separation (2011)"
+ },
+ {
+  "slug": "chronicle-2012",
+  "title": "Chronicle (2012)"
+ },
+ {
+  "slug": "eastern-promises-2007",
+  "title": "Eastern Promises (2007)"
+ },
+ {
+  "slug": "the-great-escape-1963",
+  "title": "The Great Escape (1963)"
+ },
+ {
+  "slug": "crank-2006",
+  "title": "Crank (2006)"
+ },
+ {
+  "slug": "life-2017",
+  "title": "Life (2017)"
+ },
+ {
+  "slug": "the-a-team-2010",
+  "title": "The A-Team (2010)"
+ },
+ {
+  "slug": "noah-2014",
+  "title": "Noah (2014)"
+ },
+ {
+  "slug": "unknown-2011",
+  "title": "Unknown (2011)"
+ },
+ {
+  "slug": "total-recall-2012",
+  "title": "Total Recall (2012)"
+ },
+ {
+  "slug": "san-andreas-2015",
+  "title": "San Andreas (2015)"
+ },
+ {
+  "slug": "the-boy-in-the-striped-pajamas-2008",
+  "title": "The Boy in the Striped Pajamas (2008)"
+ },
+ {
+  "slug": "rocknrolla-2008",
+  "title": "RocknRolla (2008)"
+ },
+ {
+  "slug": "valkyrie-2008",
+  "title": "Valkyrie (2008)"
+ },
+ {
+  "slug": "enemy-of-the-state-1998",
+  "title": "Enemy of the State (1998)"
+ },
+ {
+  "slug": "changeling-2008",
+  "title": "Changeling (2008)"
+ },
+ {
+  "slug": "the-fate-of-the-furious-2017",
+  "title": "The Fate of the Furious (2017)"
+ },
+ {
+  "slug": "gremlins-1984",
+  "title": "Gremlins (1984)"
+ },
+ {
+  "slug": "dungeons-dragons-honor-among-thieves-2023",
+  "title": "Dungeons & Dragons: Honor Among Thieves (2023)"
+ },
+ {
+  "slug": "the-passion-of-the-christ-2004",
+  "title": "The Passion of the Christ (2004)"
+ },
+ {
+  "slug": "disturbia-2007",
+  "title": "Disturbia (2007)"
+ },
+ {
+  "slug": "spy-2015",
+  "title": "Spy (2015)"
+ },
+ {
+  "slug": "the-gray-man-2022",
+  "title": "The Gray Man (2022)"
+ },
+ {
+  "slug": "the-grey-2011",
+  "title": "The Grey (2011)"
+ },
+ {
+  "slug": "philadelphia-1993",
+  "title": "Philadelphia (1993)"
+ },
+ {
+  "slug": "a-history-of-violence-2005",
+  "title": "A History of Violence (2005)"
+ },
+ {
+  "slug": "rio-2011",
+  "title": "Rio (2011)"
+ },
+ {
+  "slug": "prey-2022",
+  "title": "Prey (2022)"
+ },
+ {
+  "slug": "austin-powers-international-man-of-mystery-1997",
+  "title": "Austin Powers: International Man of Mystery (1997)"
+ },
+ {
+  "slug": "the-reader-2008",
+  "title": "The Reader (2008)"
+ },
+ {
+  "slug": "the-twilight-saga-breaking-dawn-part-1-2011",
+  "title": "The Twilight Saga: Breaking Dawn - Part 1 (2011)"
+ },
+ {
+  "slug": "the-descent-2005",
+  "title": "The Descent (2005)"
+ },
+ {
+  "slug": "the-bucket-list-2007",
+  "title": "The Bucket List (2007)"
+ },
+ {
+  "slug": "the-talented-mr-ripley-1999",
+  "title": "The Talented Mr. Ripley (1999)"
+ },
+ {
+  "slug": "when-harry-met-sally-1989",
+  "title": "When Harry Met Sally... (1989)"
+ },
+ {
+  "slug": "paranormal-activity-2007",
+  "title": "Paranormal Activity (2007)"
+ },
+ {
+  "slug": "madagascar-escape-2-africa-2008",
+  "title": "Madagascar: Escape 2 Africa (2008)"
+ },
+ {
+  "slug": "the-karate-kid-1984",
+  "title": "The Karate Kid (1984)"
+ },
+ {
+  "slug": "the-divergent-series-insurgent-2015",
+  "title": "The Divergent Series: Insurgent (2015)"
+ },
+ {
+  "slug": "the-polar-express-2004",
+  "title": "The Polar Express (2004)"
+ },
+ {
+  "slug": "ant-man-and-the-wasp-quantumania-2023",
+  "title": "Ant-Man and the Wasp: Quantumania (2023)"
+ },
+ {
+  "slug": "the-road-2009",
+  "title": "The Road (2009)"
+ },
+ {
+  "slug": "ben-hur-1959",
+  "title": "Ben-Hur (1959)"
+ },
+ {
+  "slug": "amores-perros-2000",
+  "title": "Amores Perros (2000)"
+ },
+ {
+  "slug": "escape-plan-2013",
+  "title": "Escape Plan (2013)"
+ },
+ {
+  "slug": "the-lincoln-lawyer-2011",
+  "title": "The Lincoln Lawyer (2011)"
+ },
+ {
+  "slug": "the-babadook-2014",
+  "title": "The Babadook (2014)"
+ },
+ {
+  "slug": "the-fantastic-four-first-steps-2025",
+  "title": "The Fantastic Four: First Steps (2025)"
+ },
+ {
+  "slug": "civil-war-2024",
+  "title": "Civil War (2024)"
+ },
+ {
+  "slug": "star-trek-beyond-2016",
+  "title": "Star Trek Beyond (2016)"
+ },
+ {
+  "slug": "battleship-2012",
+  "title": "Battleship (2012)"
+ },
+ {
+  "slug": "ghost-rider-2007",
+  "title": "Ghost Rider (2007)"
+ },
+ {
+  "slug": "tarzan-1999",
+  "title": "Tarzan (1999)"
+ },
+ {
+  "slug": "memories-of-murder-2003",
+  "title": "Memories of Murder (2003)"
+ },
+ {
+  "slug": "the-holdovers-2023",
+  "title": "The Holdovers (2023)"
+ },
+ {
+  "slug": "what-s-eating-gilbert-grape-1993",
+  "title": "What's Eating Gilbert Grape (1993)"
+ },
+ {
+  "slug": "the-beach-2000",
+  "title": "The Beach (2000)"
+ },
+ {
+  "slug": "nosferatu-2024",
+  "title": "Nosferatu (2024)"
+ },
+ {
+  "slug": "the-tourist-2010",
+  "title": "The Tourist (2010)"
+ },
+ {
+  "slug": "mother-2017",
+  "title": "Mother! (2017)"
+ },
+ {
+  "slug": "dracula-1992",
+  "title": "Dracula (1992)"
+ },
+ {
+  "slug": "natural-born-killers-1994",
+  "title": "Natural Born Killers (1994)"
+ },
+ {
+  "slug": "godzilla-vs-kong-2021",
+  "title": "Godzilla vs. Kong (2021)"
+ },
+ {
+  "slug": "saltburn-2023",
+  "title": "Saltburn (2023)"
+ },
+ {
+  "slug": "the-fall-guy-2024",
+  "title": "The Fall Guy (2024)"
+ },
+ {
+  "slug": "national-treasure-book-of-secrets-2007",
+  "title": "National Treasure: Book of Secrets (2007)"
+ },
+ {
+  "slug": "lion-2016",
+  "title": "Lion (2016)"
+ },
+ {
+  "slug": "the-black-phone-2021",
+  "title": "The Black Phone (2021)"
+ },
+ {
+  "slug": "misery-1990",
+  "title": "Misery (1990)"
+ },
+ {
+  "slug": "ender-s-game-2013",
+  "title": "Ender's Game (2013)"
+ },
+ {
+  "slug": "pitch-black-2000",
+  "title": "Pitch Black (2000)"
+ },
+ {
+  "slug": "the-girl-next-door-2004",
+  "title": "The Girl Next Door (2004)"
+ },
+ {
+  "slug": "me-myself-irene-2000",
+  "title": "Me, Myself & Irene (2000)"
+ },
+ {
+  "slug": "barbarian-2022",
+  "title": "Barbarian (2022)"
+ },
+ {
+  "slug": "the-impossible-2012",
+  "title": "The Impossible (2012)"
+ },
+ {
+  "slug": "austin-powers-the-spy-who-shagged-me-1999",
+  "title": "Austin Powers: The Spy Who Shagged Me (1999)"
+ },
+ {
+  "slug": "predators-2010",
+  "title": "Predators (2010)"
+ },
+ {
+  "slug": "the-hitman-s-bodyguard-2017",
+  "title": "The Hitman's Bodyguard (2017)"
+ },
+ {
+  "slug": "lawless-2012",
+  "title": "Lawless (2012)"
+ },
+ {
+  "slug": "the-boondock-saints-1999",
+  "title": "The Boondock Saints (1999)"
+ },
+ {
+  "slug": "elvis-2022",
+  "title": "Elvis (2022)"
+ },
+ {
+  "slug": "knowing-2009",
+  "title": "Knowing (2009)"
+ },
+ {
+  "slug": "ocean-s-eight-2018",
+  "title": "Ocean's Eight (2018)"
+ },
+ {
+  "slug": "cube-1997",
+  "title": "Cube (1997)"
+ },
+ {
+  "slug": "i-tonya-2017",
+  "title": "I, Tonya (2017)"
+ },
+ {
+  "slug": "ted-2-2015",
+  "title": "Ted 2 (2015)"
+ },
+ {
+  "slug": "the-iron-giant-1999",
+  "title": "The Iron Giant (1999)"
+ },
+ {
+  "slug": "sunset-boulevard-1950",
+  "title": "Sunset Boulevard (1950)"
+ },
+ {
+  "slug": "sucker-punch-2011",
+  "title": "Sucker Punch (2011)"
+ },
+ {
+  "slug": "romeo-juliet-1996",
+  "title": "Romeo + Juliet (1996)"
+ },
+ {
+  "slug": "rush-hour-2-2001",
+  "title": "Rush Hour 2 (2001)"
+ },
+ {
+  "slug": "silent-hill-2006",
+  "title": "Silent Hill (2006)"
+ },
+ {
+  "slug": "the-purge-2013",
+  "title": "The Purge (2013)"
+ },
+ {
+  "slug": "big-1988",
+  "title": "Big (1988)"
+ },
+ {
+  "slug": "true-romance-1993",
+  "title": "True Romance (1993)"
+ },
+ {
+  "slug": "the-descendants-2011",
+  "title": "The Descendants (2011)"
+ },
+ {
+  "slug": "the-favourite-2018",
+  "title": "The Favourite (2018)"
+ },
+ {
+  "slug": "the-adam-project-2022",
+  "title": "The Adam Project (2022)"
+ },
+ {
+  "slug": "mars-attacks-1996",
+  "title": "Mars Attacks! (1996)"
+ },
+ {
+  "slug": "ghostbusters-2016",
+  "title": "Ghostbusters (2016)"
+ },
+ {
+  "slug": "project-x-2012",
+  "title": "Project X (2012)"
+ },
+ {
+  "slug": "cars-2-2011",
+  "title": "Cars 2 (2011)"
+ },
+ {
+  "slug": "rosemary-s-baby-1968",
+  "title": "Rosemary's Baby (1968)"
+ },
+ {
+  "slug": "the-great-dictator-1940",
+  "title": "The Great Dictator (1940)"
+ },
+ {
+  "slug": "the-fountain-2006",
+  "title": "The Fountain (2006)"
+ },
+ {
+  "slug": "jason-bourne-2016",
+  "title": "Jason Bourne (2016)"
+ },
+ {
+  "slug": "fast-furious-presents-hobbs-shaw-2019",
+  "title": "Fast & Furious Presents: Hobbs & Shaw (2019)"
+ },
+ {
+  "slug": "mr-nobody-2009",
+  "title": "Mr. Nobody (2009)"
+ },
+ {
+  "slug": "ghost-1990",
+  "title": "Ghost (1990)"
+ },
+ {
+  "slug": "napoleon-dynamite-2004",
+  "title": "Napoleon Dynamite (2004)"
+ },
+ {
+  "slug": "chicago-2002",
+  "title": "Chicago (2002)"
+ },
+ {
+  "slug": "rambo-2008",
+  "title": "Rambo (2008)"
+ },
+ {
+  "slug": "master-and-commander-the-far-side-of-the-world-2003",
+  "title": "Master and Commander: The Far Side of the World (2003)"
+ },
+ {
+  "slug": "old-school-2003",
+  "title": "Old School (2003)"
+ },
+ {
+  "slug": "promising-young-woman-2020",
+  "title": "Promising Young Woman (2020)"
+ },
+ {
+  "slug": "the-adventures-of-tintin-2011",
+  "title": "The Adventures of Tintin (2011)"
+ },
+ {
+  "slug": "warm-bodies-2013",
+  "title": "Warm Bodies (2013)"
+ },
+ {
+  "slug": "no-strings-attached-2011",
+  "title": "No Strings Attached (2011)"
+ },
+ {
+  "slug": "roma-2018",
+  "title": "Roma (2018)"
+ },
+ {
+  "slug": "the-power-of-the-dog-2021",
+  "title": "The Power of the Dog (2021)"
+ },
+ {
+  "slug": "glass-onion-a-knives-out-mystery-2022",
+  "title": "Glass Onion: A Knives Out Mystery (2022)"
+ },
+ {
+  "slug": "klaus-2019",
+  "title": "Klaus (2019)"
+ },
+ {
+  "slug": "okja-2017",
+  "title": "Okja (2017)"
+ },
+ {
+  "slug": "the-trial-of-the-chicago-7-2020",
+  "title": "The Trial of the Chicago 7 (2020)"
+ },
+ {
+  "slug": "west-side-story-1961",
+  "title": "West Side Story (1961)"
+ },
+ {
+  "slug": "mary-poppins-1964",
+  "title": "Mary Poppins (1964)"
+ },
+ {
+  "slug": "come-and-see-1985",
+  "title": "Come and See (1985)"
+ },
+ {
+  "slug": "the-bridge-on-the-river-kwai-1957",
+  "title": "The Bridge on the River Kwai (1957)"
+ },
+ {
+  "slug": "akira-1988",
+  "title": "Akira (1988)"
+ },
+ {
+  "slug": "hoop-dreams-1994",
+  "title": "Hoop Dreams (1994)"
+ },
+ {
+  "slug": "free-solo-2018",
+  "title": "Free Solo (2018)"
+ },
+ {
+  "slug": "shoah-1985",
+  "title": "Shoah (1985)"
+ },
+ {
+  "slug": "the-thin-blue-line-1988",
+  "title": "The Thin Blue Line (1988)"
+ },
+ {
+  "slug": "march-of-the-penguins-2005",
+  "title": "March of the Penguins (2005)"
+ },
+ {
+  "slug": "man-on-wire-2008",
+  "title": "Man on Wire (2008)"
+ },
+ {
+  "slug": "grizzly-man-2005",
+  "title": "Grizzly Man (2005)"
+ },
+ {
+  "slug": "o-j-made-in-america-2016",
+  "title": "O.J.: Made in America (2016)"
+ },
+ {
+  "slug": "won-t-you-be-my-neighbor-2018",
+  "title": "Won't You Be My Neighbor? (2018)"
+ },
+ {
+  "slug": "13th-2016",
+  "title": "13th (2016)"
+ },
+ {
+  "slug": "se7en-1995",
+  "title": "Se7en (1995)"
+ },
+ {
+  "slug": "in-the-mood-for-love-2000",
+  "title": "In the Mood for Love (2000)"
+ },
+ {
+  "slug": "this-is-spinal-tap-1984",
+  "title": "This Is Spinal Tap (1984)"
+ },
+ {
+  "slug": "dr-strangelove-1964",
+  "title": "Dr. Strangelove (1964)"
+ },
+ {
+  "slug": "young-frankenstein-1974",
+  "title": "Young Frankenstein (1974)"
+ },
+ {
+  "slug": "caddyshack-1980",
+  "title": "Caddyshack (1980)"
+ },
+ {
+  "slug": "hard-boiled-1992",
+  "title": "Hard Boiled (1992)"
+ },
+ {
+  "slug": "the-texas-chain-saw-massacre-1974",
+  "title": "The Texas Chain Saw Massacre (1974)"
+ },
+ {
+  "slug": "metropolis-1927",
+  "title": "Metropolis (1927)"
+ },
+ {
+  "slug": "solaris-1972",
+  "title": "Solaris (1972)"
+ },
+ {
+  "slug": "primer-2004",
+  "title": "Primer (2004)"
+ },
+ {
+  "slug": "coherence-2013",
+  "title": "Coherence (2013)"
+ },
+ {
+  "slug": "the-rocky-horror-picture-show-1975",
+  "title": "The Rocky Horror Picture Show (1975)"
+ },
+ {
+  "slug": "the-room-2003",
+  "title": "The Room (2003)"
+ },
+ {
+  "slug": "repo-man-1984",
+  "title": "Repo Man (1984)"
+ },
+ {
+  "slug": "pink-flamingos-1972",
+  "title": "Pink Flamingos (1972)"
+ },
+ {
+  "slug": "they-live-1988",
+  "title": "They Live (1988)"
+ },
+ {
+  "slug": "8-1963",
+  "title": "8½ (1963)"
+ },
+ {
+  "slug": "tokyo-story-1953",
+  "title": "Tokyo Story (1953)"
+ },
+ {
+  "slug": "yi-yi-2000",
+  "title": "Yi Yi (2000)"
+ },
+ {
+  "slug": "birdman-2014",
+  "title": "Birdman (2014)"
+ },
+ {
+  "slug": "the-artist-2011",
+  "title": "The Artist (2011)"
+ },
+ {
+  "slug": "past-lives-2023",
+  "title": "Past Lives (2023)"
+ },
+ {
+  "slug": "paddington-2-2017",
+  "title": "Paddington 2 (2017)"
+ },
+ {
+  "slug": "paddington-2014",
+  "title": "Paddington (2014)"
+ },
+ {
+  "slug": "the-400-blows-1959",
+  "title": "The 400 Blows (1959)"
+ },
+ {
+  "slug": "eighth-grade-2018",
+  "title": "Eighth Grade (2018)"
+ },
+ {
+  "slug": "dazed-and-confused-1993",
+  "title": "Dazed and Confused (1993)"
+ },
+ {
+  "slug": "hoosiers-1986",
+  "title": "Hoosiers (1986)"
+ },
+ {
+  "slug": "field-of-dreams-1989",
+  "title": "Field of Dreams (1989)"
+ },
+ {
+  "slug": "bull-durham-1988",
+  "title": "Bull Durham (1988)"
+ },
+ {
+  "slug": "remember-the-titans-2000",
+  "title": "Remember the Titans (2000)"
+ },
+ {
+  "slug": "my-cousin-vinny-1992",
+  "title": "My Cousin Vinny (1992)"
+ },
+ {
+  "slug": "witness-for-the-prosecution-1957",
+  "title": "Witness for the Prosecution (1957)"
+ },
+ {
+  "slug": "anatomy-of-a-murder-1959",
+  "title": "Anatomy of a Murder (1959)"
+ },
+ {
+  "slug": "the-verdict-1982",
+  "title": "The Verdict (1982)"
+ },
+ {
+  "slug": "a-time-to-kill-1996",
+  "title": "A Time to Kill (1996)"
+ },
+ {
+  "slug": "the-italian-job-1969",
+  "title": "The Italian Job (1969)"
+ },
+ {
+  "slug": "sexy-beast-2000",
+  "title": "Sexy Beast (2000)"
+ },
+ {
+  "slug": "goldfinger-1964",
+  "title": "Goldfinger (1964)"
+ },
+ {
+  "slug": "from-russia-with-love-1963",
+  "title": "From Russia with Love (1963)"
+ },
+ {
+  "slug": "the-spy-who-loved-me-1977",
+  "title": "The Spy Who Loved Me (1977)"
+ },
+ {
+  "slug": "dr-no-1962",
+  "title": "Dr. No (1962)"
+ },
+ {
+  "slug": "live-and-let-die-1973",
+  "title": "Live and Let Die (1973)"
+ },
+ {
+  "slug": "licence-to-kill-1989",
+  "title": "Licence to Kill (1989)"
+ },
+ {
+  "slug": "on-her-majesty-s-secret-service-1969",
+  "title": "On Her Majesty's Secret Service (1969)"
+ },
+ {
+  "slug": "kiki-s-delivery-service-1989",
+  "title": "Kiki's Delivery Service (1989)"
+ },
+ {
+  "slug": "castle-in-the-sky-1986",
+  "title": "Castle in the Sky (1986)"
+ },
+ {
+  "slug": "ponyo-2008",
+  "title": "Ponyo (2008)"
+ },
+ {
+  "slug": "the-wind-rises-2013",
+  "title": "The Wind Rises (2013)"
+ },
+ {
+  "slug": "the-tale-of-the-princess-kaguya-2013",
+  "title": "The Tale of the Princess Kaguya (2013)"
+ },
+ {
+  "slug": "parasite-era-follow-up-decision-to-leave-2022",
+  "title": "Parasite-era follow-up — Decision to Leave (2022)"
+ },
+ {
+  "slug": "the-zone-of-interest-2023",
+  "title": "The Zone of Interest (2023)"
+ },
+ {
+  "slug": "nomadland-2020",
+  "title": "Nomadland (2020)"
+ },
+ {
+  "slug": "the-empire-strikes-back-1980",
+  "title": "The Empire Strikes Back (1980)"
+ },
+ {
+  "slug": "do-the-right-thing-1989",
+  "title": "Do the Right Thing (1989)"
+ },
+ {
+  "slug": "dune-2021",
+  "title": "Dune (2021)"
+ },
+ {
+  "slug": "incendies-2010",
+  "title": "Incendies (2010)"
+ },
+ {
+  "slug": "enemy-2013",
+  "title": "Enemy (2013)"
+ },
+ {
+  "slug": "polytechnique-2009",
+  "title": "Polytechnique (2009)"
+ },
+ {
+  "slug": "maelstr-m-2000",
+  "title": "Maelström (2000)"
+ },
+ {
+  "slug": "paths-of-glory-1957",
+  "title": "Paths of Glory (1957)"
+ },
+ {
+  "slug": "barry-lyndon-1975",
+  "title": "Barry Lyndon (1975)"
+ },
+ {
+  "slug": "the-killing-1956",
+  "title": "The Killing (1956)"
+ },
+ {
+  "slug": "lolita-1962",
+  "title": "Lolita (1962)"
+ },
+ {
+  "slug": "notorious-1946",
+  "title": "Notorious (1946)"
+ },
+ {
+  "slug": "rebecca-1940",
+  "title": "Rebecca (1940)"
+ },
+ {
+  "slug": "strangers-on-a-train-1951",
+  "title": "Strangers on a Train (1951)"
+ },
+ {
+  "slug": "shadow-of-a-doubt-1943",
+  "title": "Shadow of a Doubt (1943)"
+ },
+ {
+  "slug": "the-birds-1963",
+  "title": "The Birds (1963)"
+ },
+ {
+  "slug": "the-39-steps-1935",
+  "title": "The 39 Steps (1935)"
+ },
+ {
+  "slug": "mean-streets-1973",
+  "title": "Mean Streets (1973)"
+ },
+ {
+  "slug": "close-encounters-of-the-third-kind-1977",
+  "title": "Close Encounters of the Third Kind (1977)"
+ },
+ {
+  "slug": "coda-2021",
+  "title": "CODA (2021)"
+ },
+ {
+  "slug": "greyhound-2020",
+  "title": "Greyhound (2020)"
+ },
+ {
+  "slug": "napoleon-2023",
+  "title": "Napoleon (2023)"
+ },
+ {
+  "slug": "the-tragedy-of-macbeth-2021",
+  "title": "The Tragedy of Macbeth (2021)"
+ },
+ {
+  "slug": "wolfwalkers-2020",
+  "title": "Wolfwalkers (2020)"
+ },
+ {
+  "slug": "emancipation-2022",
+  "title": "Emancipation (2022)"
+ },
+ {
+  "slug": "cha-cha-real-smooth-2022",
+  "title": "Cha Cha Real Smooth (2022)"
+ },
+ {
+  "slug": "tetris-2023",
+  "title": "Tetris (2023)"
+ },
+ {
+  "slug": "sharper-2023",
+  "title": "Sharper (2023)"
+ },
+ {
+  "slug": "star-wars-the-empire-strikes-back-1980",
+  "title": "Star Wars: The Empire Strikes Back (1980)"
+ },
+ {
+  "slug": "palm-springs-2020",
+  "title": "Palm Springs (2020)"
+ },
+ {
+  "slug": "booksmart-2019",
+  "title": "Booksmart (2019)"
+ },
+ {
+  "slug": "crawl-2019",
+  "title": "Crawl (2019)"
+ },
+ {
+  "slug": "sound-of-metal-2019",
+  "title": "Sound of Metal (2019)"
+ },
+ {
+  "slug": "no-one-will-save-you-2023",
+  "title": "No One Will Save You (2023)"
+ },
+ {
+  "slug": "the-big-sick-2017",
+  "title": "The Big Sick (2017)"
+ },
+ {
+  "slug": "the-tomorrow-war-2021",
+  "title": "The Tomorrow War (2021)"
+ },
+ {
+  "slug": "the-sound-of-metal-2019",
+  "title": "The Sound of Metal (2019)"
+ },
+ {
+  "slug": "the-searchers-1956",
+  "title": "The Searchers (1956)"
+ },
+ {
+  "slug": "the-outlaw-josey-wales-1976",
+  "title": "The Outlaw Josey Wales (1976)"
+ },
+ {
+  "slug": "high-noon-1952",
+  "title": "High Noon (1952)"
+ },
+ {
+  "slug": "butch-cassidy-and-the-sundance-kid-1969",
+  "title": "Butch Cassidy and the Sundance Kid (1969)"
+ },
+ {
+  "slug": "tombstone-1993",
+  "title": "Tombstone (1993)"
+ }
+]

@@ -1,0 +1,40 @@
+{
+  "at": "2026-06-30T15:06:12.302Z",
+  "mode": "live",
+  "windowHours": 24,
+  "cutoff": "2026-06-29T15:05:48.321Z",
+  "methodology": "Log-based approval timestamps from engine logs (NOT blob updated_at). spotCheckEntry @12/13 + all station gates.",
+  "minScore": 12,
+  "wordFloor": 2000,
+  "logEventCountsByKind": {
+    "components-approved": 212,
+    "stage1": 453,
+    "nr-cleared": 655,
+    "cc-approved": 1,
+    "cc-signed": 1240,
+    "final-signed": 409,
+    "dual-signed": 16
+  },
+  "uniqueLogApprovedIds24h": 2126,
+  "scanTargetCount": 1487,
+  "crossCheck": {
+    "approvedInLedgerWithLog24h": 1487,
+    "ccInLedgerWithLog24h": 1396
+  },
+  "slipCount": 0,
+  "slipIds": [],
+  "slips": [],
+  "byReason": {},
+  "byReasonAll": {},
+  "byPillar": {},
+  "scoreHist": {},
+  "cleanPass": 1487,
+  "noBlob": 0,
+  "before": {
+    "approved": 18653,
+    "review": 2575,
+    "ccApproved": 1461,
+    "queue": 155
+  },
+  "liveApplied": null
+}

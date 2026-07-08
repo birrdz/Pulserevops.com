@@ -1,0 +1,40 @@
+{
+  "rankingDone": [],
+  "essayDone": [],
+  "ceDone": [
+    "ce0023",
+    "ce0022",
+    "ce0021",
+    "ce0188",
+    "ce0187",
+    "ce0186",
+    "ce0185"
+  ],
+  "rankingFailed": [],
+  "essayFailed": [],
+  "ceFailed": [],
+  "samples": [
+    {
+      "at": "2026-07-06T15:32:28.019Z",
+      "phase": "ce",
+      "id": "ce0187",
+      "title": "What happened with Former NBA doctor warns of dire consequences for Caitlin Clark if hard contact issues continue in 2027?",
+      "url": "https://pulserevops.com/knowledge/ce0187",
+      "imgs": 4,
+      "grade": 14,
+      "rubricPct": 100,
+      "words": 2464
+    },
+    {
+      "at": "2026-07-06T15:30:41.582Z",
+      "phase": "ce",
+      "id": "ce0023",
+      "title": "What details were revealed about Taylor Swift and Travis Kelce's wedding in 2027?",
+      "url": "https://pulserevops.com/knowledge/ce0023",
+      "imgs": 5,
+      "grade": 14,
+      "rubricPct": 100,
+      "words": 2545
+    }
+  ]
+}

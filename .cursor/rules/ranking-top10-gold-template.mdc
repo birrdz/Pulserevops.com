@@ -1,0 +1,18 @@
+---
+description: Top 10 ranking list GOLD template — pointer to GOLDEN_TEMPLATE_TOP10.md (aq1158)
+globs: website/_ranking_list_master_law.js,website/_ranking_list_rebuild_lib.js,website/_ranking_top10_gold_template.js,website/_ranking_master_pillar_config.js,website/_ranking_*_batch*.js,website/_scrub_button_server.js,website/netlify/functions/pulse-machine-entry.js,website/GOLDEN_TEMPLATE_TOP10.md
+alwaysApply: false
+---
+
+# Top 10 Ranking List — GOLD Template (aq1158)
+
+**Authoritative spec:** `GOLDEN_TEMPLATE_TOP10.md` — read before generate, fix, or audit.
+
+**Gold reference:** [aq1158](https://pulserevops.com/aquariums/aq1158)  
+**Code:** `_ranking_top10_gold_template.js` — `TOP10_SECTION_ORDER`, `auditTop10GoldTemplate`
+
+**Site-wide listicle-intent:** any pillar when `pickGoldTemplate` returns `template: 'top10'`.
+
+**Classify first:** `pickGoldTemplate(id, body, title)` — lock result; never switch mid-run.
+
+**Visual lock:** `.cursor/rules/visual-lock-law.mdc` — writers change prose only; do not touch `@@PRODUCT` or image lines.

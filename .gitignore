@@ -18,3 +18,10 @@ Thumbs.db
 .burst-*
 .watch-*
 Captures/
+
+# Generated / derived — regenerable by the pipeline; never in git (keep backups fast) 2026-07-08
+_imdb_cache/
+_site_deploy/
+_site_deploy 2/
+_facecard_pool/
+assets/qa/

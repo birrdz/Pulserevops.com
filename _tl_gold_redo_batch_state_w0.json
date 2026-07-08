@@ -1,0 +1,19 @@
+{
+  "rankingDone": [],
+  "qaDone": [],
+  "rankingFailed": [],
+  "qaFailed": [
+    {
+      "id": "tl21653",
+      "err": "Q&A gold audit: image_before_direct_answer, first_h2_not_direct_answer, content_sections_1_min_5, tail_out_of_order_expected_faq_got_Direct Answer, extra_sections_after_tail_Direct Answer|How the Placement Process Works for Fractional CROs|When Companies Choose a Fractional CRO Over a Full-Time Hire|The Role of Private Equity and Venture Capital in Fractional CRO Placement|Key Skills and Experience Companies Look for in Fractional CROs|How to Vet a Fractional CRO Placement Firm|Mermaid Diagram: Fractional CRO Placement Ecosystem|Mermaid Diagram: Decision Flow for Choosing a Fractional CRO|The Role of Executive Search and Consulting Firms in Placing Fractional CROs|The Influence of Board Members and Advisory Networks|Industry-Specific and Niche Placement Channels|FAQ|Sources|Related on PULSE",
+      "at": "2026-07-07T04:08:28.561Z"
+    },
+    {
+      "id": "tl21650",
+      "err": "Q&A gold audit: image_before_direct_answer, first_h2_not_direct_answer, content_sections_1_min_5, tail_out_of_order_expected_faq_got_Direct Answer, extra_sections_after_tail_Direct Answer|Where to Find Fractional CRO Directories|How to Evaluate a Fractional CRO Directory|Step-by-Step: How to Use a Directory to Find a Fractional CRO|Red Flags When Using Fractional CRO Directories|Alternative Ways to Find a Fractional CRO Without a Directory|How to Vet a Fractional CRO Once You Find One in a Directory|How to Evaluate Fractional CROs Found in Directories|Alternative Paths When Directories Fall Short|Red Flags to Watch for in Fractional CRO Directories|FAQ|Sources|Related on PULSE",
+      "at": "2026-07-07T04:17:01.406Z"
+    }
+  ],
+  "samples": [],
+  "answerPool": []
+}

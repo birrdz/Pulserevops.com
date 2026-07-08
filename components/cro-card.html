@@ -1,0 +1,79 @@
+<!-- ============================================================================
+     components/cro-card.html — CRO Syndicate hanging card widget (spec rebuild)
+     Golden template ref: CURSOR_GOLDEN_TEMPLATES.md → "CRO card widget — if missing, rebuild"
+     Pairs with: css/cro-card.css
+
+     Self-contained fragment: markup + inline dismiss/load-check script.
+     Include on a page by:
+       1) Linking css/cro-card.css in <head> (or inline it if the page pipeline concatenates CSS)
+       2) Injecting this fragment's <body> content at render time — NEVER paste this into a
+          stored answer blob (visual-lock-law.mdc: CRO / widget / ad markup is renderer-injected only)
+
+     Structure: cord -> clothespin (.cro-card-pin) -> card. Swings ±3deg / ~4s ease-in-out via
+     css/cro-card.css (@keyframes cro-card-sway). Dismiss (×) sets
+     localStorage.croCardDismissed = "1" and the card hides itself; also hidden on load if
+     already set (see script below).
+
+     Calendly URL reused from the live repo (netlify/functions/pulse-machine-entry.js,
+     GOLDEN_TEMPLATE_QA.md, GOLDEN_TEMPLATE_TOP10.md): https://calendly.com/korywhiterevops
+     ============================================================================ -->
+<link rel="stylesheet" href="/css/cro-card.css">
+
+<!-- Desktop: fixed top-right hanging card. Add class "cro-card-desktop-only" so it hides
+     below 820px in favor of the .cro-card-inline mobile variant (same markup, different wrapper). -->
+<div class="cro-card-root cro-card-desktop-only" id="croCardWidget" aria-label="Sponsored — CRO Syndicate">
+  <div class="cro-card-swing">
+    <div class="cro-card-cord"></div>
+    <div class="cro-card-pin"><span class="cro-card-pin-spring"></span></div>
+    <div class="cro-card">
+      <div class="cro-card-spine"></div>
+      <button type="button" class="cro-card-close" aria-label="Dismiss">&times;</button>
+      <div class="cro-card-top">
+        <div class="cro-card-logo">CRO <em>SYNDICATE</em></div>
+        <span class="cro-card-sponsored">SPONSORED</span>
+      </div>
+      <div class="cro-card-hero">
+        <span class="cro-card-photo"><img src="/assets/kory-white.jpg" alt="Kory White, Fractional CRO" width="64" height="64" loading="lazy" decoding="async"></span>
+        <span>
+          <span class="cro-card-name">Kory White</span>
+          <span class="cro-card-role">Fractional CRO &middot; 25 yrs &middot; $0&rarr;$200M</span>
+        </span>
+      </div>
+      <p class="cro-card-eyebrow">Hire a Fractional CRO</p>
+      <div class="cro-card-head">Need a fractional Chief Revenue Officer?</div>
+      <div class="cro-card-pills"><span>Chief Revenue Officer</span><span>Revenue Leader</span><span>VP of Sales</span><span>Sales Leader</span></div>
+      <p class="cro-card-body">CRO Syndicate connects you with vetted fractional &amp; interim revenue leaders &mdash; nationwide and across <b>Maryland &amp; DC</b>.</p>
+      <a class="cro-card-btn" href="https://calendly.com/korywhiterevops" target="_blank" rel="noopener" data-pulse-click="hire-cro">Book a Call <span aria-hidden="true">&rarr;</span></a>
+      <div class="cro-card-links">
+        <a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">Kory White LinkedIn <span aria-hidden="true">&rarr;</span></a>
+        <a href="https://crosyndicate.com/" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var ids = ['croCardWidget'];
+  var els = ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  if (!els.length) return;
+
+  // Hide on load if previously dismissed.
+  try {
+    if (localStorage.getItem('croCardDismissed') === '1') {
+      els.forEach(function(el){ el.style.display = 'none'; });
+      return;
+    }
+  } catch (e) {}
+
+  els.forEach(function(root){
+    var closeBtn = root.querySelector('.cro-card-close');
+    if (!closeBtn) return;
+    closeBtn.addEventListener('click', function(){
+      root.classList.add('cro-card-drop');
+      try { localStorage.setItem('croCardDismissed', '1'); } catch (e) {}
+      setTimeout(function(){ root.style.display = 'none'; }, 780);
+    });
+  });
+})();
+</script>

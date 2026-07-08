@@ -1,0 +1,52 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>CRO card — fixed + dismiss preview</title>
+<style>
+:root{--orange-bright:#FFB870;}
+body{margin:0;background:#12100c;color:#ede5d8;font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+.hdr{position:sticky;top:0;height:64px;background:#1a1610;display:flex;align-items:center;padding:0 20px;font-weight:800;color:#E89F0A;z-index:1000;border-bottom:1px solid rgba(255,255,255,.08)}
+article{max-width:880px;margin:0 auto;padding:30px 22px 120px}
+h1{font-size:1.9rem;margin:0 0 18px}
+.body p{margin:0 0 16px;color:rgba(237,229,216,.94);font-size:1.15rem;line-height:1.7}
+.body h2{font-size:.82rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--orange-bright);margin:26px 0 10px}
+/* ==== exact fixed-card CSS from the renderer ==== */
+.cro-ad-fixed{position:fixed;top:86px;right:18px;width:290px;max-width:calc(100vw - 36px);max-height:calc(100vh - 108px);overflow-y:auto;z-index:900;background:linear-gradient(180deg,#fbf5ea,#f2e5cd);border:1px solid rgba(156,94,18,.32);border-radius:16px;box-shadow:0 14px 40px rgba(20,12,4,.45);overflow-x:hidden}
+.cro-ad-fixed a{text-decoration:none}
+.cro-ad-fixed p{font-size:.85rem !important;color:#3a2f22 !important;margin:6px 0 3px !important}
+.cro-x{position:absolute;top:8px;right:8px;width:28px;height:28px;line-height:24px;text-align:center;border-radius:50%;border:none;background:rgba(20,12,4,.6);color:#fff;font-size:1.15rem;font-weight:900;cursor:pointer;z-index:3;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.cro-x:hover{background:rgba(192,57,43,.92)}
+@media(max-width:760px){.cro-ad-fixed{top:auto;bottom:12px;right:10px;left:10px;width:auto;max-width:none;max-height:64vh}}
+.note{max-width:880px;margin:0 auto;color:#8a8570;font-size:.85rem;padding:0 22px}
+</style></head><body>
+<div class="hdr">PULSE — answer page</div>
+<p class="note">↓ Scroll — the CRO card stays pinned top-right the whole way down. Click the × to dismiss it (stays gone this session). On a narrow window it anchors to the bottom.</p>
+<article>
+<h1>What's the most reliable way to scale a revenue team in 2027?</h1>
+<div class="body">
+<p><strong>Direct answer:</strong> Install repeatable revenue operations before you add headcount, so every new rep plugs into a system instead of improvising.</p>
+<h2>Section one</h2>
+<p>Scroll down and watch the card stay put on the right. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Revenue systems compound when process, data, and ownership are defined before scale. Managers coach to one standard and leadership sees exactly where deals stall.</p>
+<p>More content. The card does not move as you read. Data hygiene is the quiet multiplier — when the CRM reflects reality, forecasting and planning get easier at once.</p>
+<h2>Section two</h2>
+<p>Keep scrolling. Still pinned. Pick systems that enforce your stage definitions and surface the two or three metrics that actually predict revenue.</p>
+<p>Even more content so the page is tall enough to scroll a good distance and prove the card is fixed to the viewport, not floating in the text.</p>
+<h2>Section three</h2>
+<p>Almost to the bottom and the card is still with you. Scaling is less about heroics and more about compounding a few good habits until they are the default.</p>
+<p>Final paragraph. Get the foundation right and growth stops feeling like a gamble. (If you dismissed the card with ×, it stays closed for the rest of your session.)</p>
+<p>Buffer line. Buffer line. Buffer line. Buffer line. Buffer line. Buffer line. Buffer line.</p>
+<p>Buffer line. Buffer line. Buffer line. Buffer line. Buffer line. Buffer line. Buffer line.</p>
+</div>
+</article>
+
+<aside class="cro-ad cro-ad-card cro-ad-fixed" id="croFixed" aria-label="Sponsored — Kory White, Fractional CRO">
+<button type="button" class="cro-x" aria-label="Dismiss" title="Dismiss" onclick="var c=document.getElementById('croFixed');if(c)c.style.display='none';">×</button>
+<a href="#" style="display:block;line-height:0;"><img src="/assets/cro-syndicate-card.png" alt="Kory White — Fractional CRO" loading="lazy" style="width:100%;height:auto;display:block;"></a>
+<div style="padding:12px 13px 14px;">
+<div style="font-size:.68rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:#9c5e12;">Need a Fractional CRO?</div>
+<p style="margin:6px 0 3px;font-size:.85rem;line-height:1.5;color:#3a2f22;"><strong>Kory White</strong> has scaled revenue from <strong>$0 to $200M</strong> over 25 years — fractional CRO leadership, RevOps, and AI build-outs for growing teams.</p>
+<a href="#" style="display:block;text-align:center;text-decoration:none;font-weight:800;font-size:.82rem;padding:8px 10px;border-radius:9px;margin-top:7px;background:linear-gradient(135deg,#c0392b,#e05a3f);color:#fff;box-shadow:0 4px 12px rgba(192,57,43,.3);">📅 Book a Quick Call</a>
+<a href="#" style="display:block;text-align:center;text-decoration:none;font-weight:800;font-size:.82rem;padding:8px 10px;border-radius:9px;margin-top:7px;background:#fff;border:1px solid rgba(156,94,18,.4);color:#9c5e12;">💼 Kory on LinkedIn</a>
+<div style="display:flex;gap:8px;">
+<a href="#" style="display:block;text-align:center;text-decoration:none;font-weight:800;font-size:.74rem;padding:8px 10px;border-radius:9px;margin-top:7px;background:#fff;border:1px solid rgba(156,94,18,.4);color:#9c5e12;flex:1;">🏢 Syndicate</a>
+<a href="#" style="display:block;text-align:center;text-decoration:none;font-weight:800;font-size:.74rem;padding:8px 10px;border-radius:9px;margin-top:7px;background:#fff;border:1px solid rgba(156,94,18,.4);color:#9c5e12;flex:1;">📄 Profile</a>
+</div></div></aside>
+</body></html>

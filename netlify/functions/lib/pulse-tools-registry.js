@@ -15,11 +15,11 @@ function crmRoom(slug, name, icon, route, short, keywords, extra) {
     short,
     keywords,
     category: 'crm',
-    related_tools: ['revenue-intelligence', 'war-room', 'crm-pipeline', 'lead-enricher'],
+    related_tools: ['revenue-intelligence', 'crm-pipeline', 'lead-enricher'],
     related_tags: ['crm-hygiene', 'pipeline-management', 'forecast-accuracy'],
     body: [
       short,
-      'Part of the free PULSE Revenue Intelligence CRM — browser-only, no per-seat fees. Deals, stages, owners, and forecast roll-ups stay in sync with the War Room and operator calculators.',
+      'Part of the free PULSE Revenue Intelligence CRM — browser-only, no per-seat fees. Deals, stages, owners, and forecast roll-ups stay in sync with the operator calculators.',
       'Open the live room, add or edit deals, and drill into pipeline health without exporting to a spreadsheet.',
     ],
     ...extra,
@@ -27,46 +27,15 @@ function crmRoom(slug, name, icon, route, short, keywords, extra) {
 }
 
 const TOOLS = {
-  'war-room': {
-    name: 'War Room',
-    icon: '⚔',
-    route: 'warroom',
-    short: 'The PULSE War Room — forty live leadership charts, drag-to-rearrange, all fed by your CRM.',
-    keywords: ['sales war room', 'revops command center', 'sales leadership dashboard', 'pipeline command center'],
-    category: 'warroom',
-    related_tools: ['leader-hub', 'revenue-intelligence', 'crm-forecast'],
-    related_tags: ['sales-leadership', 'forecast-accuracy', 'pipeline-management'],
-    body: [
-      'Mission control for revenue leaders: pipeline, deals, reps, leaders, and forecast in one operational surface — not a read-only QBR slide.',
-      'Built for the 90 minutes between Tuesday pipeline and Friday board when you need to know which deals to push and which reps to coach.',
-      'Free. Press L from any sub-room to return to the War Room.',
-    ],
-  },
-
-  'leader-hub': {
-    name: 'Leader Hub',
-    icon: '⚡',
-    route: 'leaderhub',
-    short: 'Manager-curated focus view — what to coach, hire, or intervene on next. Refreshes every 30 seconds.',
-    keywords: ['sales leader hub', 'manager focus dashboard', 'revops leader view', 'sales intervention tool'],
-    category: 'warroom',
-    related_tools: ['war-room', 'coaching', 'crm-leaders'],
-    related_tags: ['sales-leadership', 'cro-playbook'],
-    body: [
-      'Same underlying CRM data as the War Room, filtered for the manager decision: who needs a call, which leader to lean on, where forecast is fragile.',
-      'Designed for operators who do not want another BI export — they want the next action.',
-      'Free, browser-only, pairs with Coaching Action Items and Pulse Check.',
-    ],
-  },
-
   'revenue-intelligence': {
-    name: 'Revenue Intelligence (CRM)',
+    name: 'PULSE CRM (Free)',
     icon: '📊',
     route: 'crm',
+    openUrl: '/crm',
     short: 'Free operator-grade CRM — deals, pipeline, forecast, reps, and beats without the Salesforce bill.',
     keywords: ['free crm', 'revenue intelligence', 'sales pipeline tool', 'free salesforce alternative'],
     category: 'crm',
-    related_tools: ['crm-deals', 'war-room', 'lead-enricher'],
+    related_tools: ['crm-deals', 'lead-enricher'],
     related_tags: ['crm-hygiene', 'pipeline-management', 'salesforce'],
     body: [
       'Full CRM in the browser: deal table, stage hygiene, owner assignment, weighted pipeline, and leadership roll-ups.',
@@ -99,13 +68,13 @@ const TOOLS = {
   'crm-leaders': crmRoom('crm-leaders', 'CRM · Leaders', '👥', 'leaders',
     'Leader-board for managers — compare pods, regions, or segments without a spreadsheet.',
     ['sales leader board', 'manager pipeline view', 'sales pod dashboard'],
-    { related_tools: ['leader-hub', 'coaching'] },
+    { related_tools: ['coaching'] },
   ),
 
   'crm-forecast': crmRoom('crm-forecast', 'CRM · Forecast', '📈', 'forecast',
     'Forecast roll-up with commit rules — see fragile assumptions before the board asks.',
     ['sales forecast tool', 'crm forecast', 'pipeline forecast free'],
-    { related_tools: ['war-room', 'house-goals'] },
+    { related_tools: ['house-goals'] },
   ),
 
   'gross-profit-calculator': {
@@ -214,7 +183,7 @@ const TOOLS = {
     short: 'One highest-impact coaching move per rhythm tier — built for busy managers.',
     keywords: ['ai sales coaching', 'sales coaching tool', 'rep development'],
     category: 'calculator',
-    related_tools: ['pulse-check', 'leader-hub', 'crm-reps'],
+    related_tools: ['pulse-check', 'crm-reps'],
     related_tags: ['sales-leadership', 'rep-development'],
     body: [
       'Surfaces one behavior, one metric, one timeline — not a 300-word essay.',
@@ -334,7 +303,7 @@ const TOOLS = {
     short: 'What to stop doing this week — subtraction beats addition.',
     keywords: ['not to do list sales', 'sales productivity', 'stop doing list manager'],
     category: 'enablement',
-    related_tools: ['leader-hub', 'coaching'],
+    related_tools: ['coaching'],
     related_tags: ['sales-leadership', 'cro-playbook'],
     body: [
       'Forces explicit tradeoffs — vanity reports, duplicate meetings, busywork that does not move pipeline.',
@@ -364,7 +333,7 @@ const TOOLS = {
     short: 'Ramp or reset playbook — ninety-day revenue plan template on the dashboard.',
     keywords: ['90 day sales plan', 'revenue ramp plan', 'quarterly sales plan template'],
     category: 'enablement',
-    related_tools: ['house-goals', 'recruiting-calculator', 'war-room'],
+    related_tools: ['house-goals', 'recruiting-calculator'],
     related_tags: ['cro-playbook', 'forecast-accuracy'],
     body: [
       'Structured quarter plan when you are resetting a team or onboarding a new leader.',
@@ -395,7 +364,7 @@ const TOOLS = {
     short: 'Four-digit save codes — pivot entire dashboard configs between teams or scenarios.',
     keywords: ['dashboard save load', 'crm config backup', 'sales dashboard scenarios'],
     category: 'ops',
-    related_tools: ['war-room', 'revenue-intelligence'],
+    related_tools: ['revenue-intelligence'],
     related_tags: ['revops', 'gtm-operations'],
     body: [
       'One-click save and load for the full PULSE workspace — tour stop #18.',
@@ -410,7 +379,7 @@ const TOOLS = {
     short: 'Industry KPI playbooks and RevOps Q&A — 39+ verticals, refreshed by The Machine.',
     keywords: ['industry sales kpis', 'how to sales playbook', 'revops library'],
     category: 'library',
-    related_tools: ['revenue-intelligence', 'war-room'],
+    related_tools: ['revenue-intelligence'],
     related_tags: ['revops', 'sales-leadership'],
     body: [
       'Tour stop #16 — Solar, Real Estate, SaaS, Healthcare, and more. Nine KPIs per industry.',
@@ -423,10 +392,10 @@ const TOOLS = {
     name: 'Guided Dashboard Tour',
     icon: '🎓',
     tour: true,
-    short: 'Twenty-five-step walkthrough — War Room, CRM, calculators, enricher, derby, and more in ~3 minutes.',
+    short: 'Twenty-five-step walkthrough — CRM, calculators, enricher, derby, and more in ~3 minutes.',
     keywords: ['pulse revops tour', 'free crm tour', 'sales dashboard walkthrough'],
     category: 'tour',
-    related_tools: ['war-room', 'revenue-intelligence', 'house-goals'],
+    related_tools: ['revenue-intelligence', 'house-goals'],
     related_tags: ['revops', 'sales-leadership'],
     body: [
       'Re-run anytime from the Tour Menu (top right) or start with ?tour=1 on the dashboard.',
@@ -434,12 +403,26 @@ const TOOLS = {
       'Free, no login — narration + ghost demos on key fields.',
     ],
   },
+
+  'medical-documents-batch-extractor': {
+    name: 'Medical Documents Batch Extractor',
+    icon: '🩺',
+    openUrl: '/medical-documents-batch-extractor.html',
+    short: 'Batch-extract structured medical document data from PDFs and images using Gemini Flash Lite — labs, diagnoses, meds, vitals.',
+    keywords: ['medical document extractor', 'batch pdf ocr', 'lab report parser', 'gemini flash lite medical'],
+    category: 'utility',
+    related_tools: ['lead-enricher', 'revenue-intelligence'],
+    related_tags: ['healthcare', 'document-processing'],
+    body: [
+      'Upload PDFs or images (lab reports, discharge summaries, imaging, prescriptions).',
+      'Gemini Flash Lite returns structured JSON per file — diagnoses, medications, lab results, vitals, summary.',
+      'Browser batch mode with checkpoint CSV every 48 files; CLI runner for folder drops.',
+    ],
+  },
 };
 
 // Aliases: short paths → canonical tool slug (for redirects)
 const SHORT_ALIASES = {
-  'war-room': 'war-room',
-  'warroom': 'war-room',
   'crm': 'crm-deals',
   'deals': 'crm-deals',
   'pipeline': 'crm-pipeline',
@@ -448,8 +431,6 @@ const SHORT_ALIASES = {
   'leaders': 'crm-leaders',
   'forecast': 'crm-forecast',
   'tour': 'guided-tour',
-  'leader-hub': 'leader-hub',
-  'leaderhub': 'leader-hub',
 };
 
 function allToolUrls() {

@@ -1,0 +1,793 @@
+{
+  "audited_at": "2026-06-29T01:21:31.395Z",
+  "site": "https://pulserevops.com",
+  "mode": "quick",
+  "options": {
+    "conc": 6,
+    "delay": 100,
+    "limit": 15,
+    "depth": 4,
+    "knowledgeSample": 0
+  },
+  "urls_crawled": 15,
+  "sitemap": {
+    "total_urls": 27465,
+    "child_sitemaps": 47,
+    "errors": [
+      {
+        "sitemap": "https://pulserevops.com/sitemap-tools.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-reviews.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-knowledge-live.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-sales-trainings.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-industry-kpis.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-tech-stacks.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-graphics.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-book-summaries.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-electronic-reviews.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-revenue-architecture.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-go-to-market-playbooks.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-franchises.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-cars.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-towns.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-schools.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-nightlife.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-dining.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-boats.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-movies.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-wellness.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-travel.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-resorts.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-estates.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-clubs.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-living.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-events.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-style.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-gatherings.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-gaming.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-skills.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-speeches.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-coaching.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-collectibles.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-ai-infrastructure.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-aquariums.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-buildouts.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-pets.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-software.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-telco.xml",
+        "status": 404
+      },
+      {
+        "sitemap": "https://pulserevops.com/sitemap-trending.xml",
+        "status": 404
+      }
+    ],
+    "notCrawledSample": [
+      "https://pulserevops.com/knowledge/q19002",
+      "https://pulserevops.com/knowledge/q19001",
+      "https://pulserevops.com/knowledge/q16721",
+      "https://pulserevops.com/knowledge/q16720",
+      "https://pulserevops.com/knowledge/q16719",
+      "https://pulserevops.com/knowledge/q16718",
+      "https://pulserevops.com/knowledge/q16717",
+      "https://pulserevops.com/knowledge/q16716",
+      "https://pulserevops.com/knowledge/q16714",
+      "https://pulserevops.com/knowledge/q16715",
+      "https://pulserevops.com/knowledge/q16713",
+      "https://pulserevops.com/knowledge/q16712",
+      "https://pulserevops.com/knowledge/q16710",
+      "https://pulserevops.com/knowledge/q16711",
+      "https://pulserevops.com/knowledge/q16709",
+      "https://pulserevops.com/knowledge/q16707",
+      "https://pulserevops.com/knowledge/q16708",
+      "https://pulserevops.com/knowledge/q16706",
+      "https://pulserevops.com/knowledge/q16705",
+      "https://pulserevops.com/knowledge/q16703",
+      "https://pulserevops.com/knowledge/q16704",
+      "https://pulserevops.com/knowledge/q16702",
+      "https://pulserevops.com/knowledge/q16701",
+      "https://pulserevops.com/knowledge/q16700",
+      "https://pulserevops.com/knowledge/q16699",
+      "https://pulserevops.com/knowledge/q16698",
+      "https://pulserevops.com/knowledge/q16696",
+      "https://pulserevops.com/knowledge/q16697",
+      "https://pulserevops.com/knowledge/q16695",
+      "https://pulserevops.com/knowledge/q16694",
+      "https://pulserevops.com/knowledge/q16692",
+      "https://pulserevops.com/knowledge/q16693",
+      "https://pulserevops.com/knowledge/q16690",
+      "https://pulserevops.com/knowledge/q16691",
+      "https://pulserevops.com/knowledge/q16689",
+      "https://pulserevops.com/knowledge/q16688",
+      "https://pulserevops.com/knowledge/q16687",
+      "https://pulserevops.com/knowledge/q16686",
+      "https://pulserevops.com/knowledge/q16684",
+      "https://pulserevops.com/knowledge/q16685",
+      "https://pulserevops.com/knowledge/q16683",
+      "https://pulserevops.com/knowledge/q16682",
+      "https://pulserevops.com/knowledge/q16681",
+      "https://pulserevops.com/knowledge/q16680",
+      "https://pulserevops.com/knowledge/q16679",
+      "https://pulserevops.com/knowledge/q16678",
+      "https://pulserevops.com/knowledge/q16677",
+      "https://pulserevops.com/knowledge/q16676",
+      "https://pulserevops.com/knowledge/q16675",
+      "https://pulserevops.com/knowledge/q16674"
+    ]
+  },
+  "crawl": {
+    "notInSitemap": []
+  },
+  "summary": {
+    "bySeverity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 12
+    },
+    "byCode": {
+      "long_title": 4,
+      "long_meta_desc": 8
+    },
+    "statusHistogram": {
+      "200": 15
+    }
+  },
+  "duplicates": {
+    "dupTitles": [],
+    "dupDescs": []
+  },
+  "issues": {
+    "critical": [],
+    "high": [],
+    "medium": [],
+    "low": [
+      {
+        "severity": "low",
+        "code": "long_title",
+        "detail": "70 chars",
+        "fix": "Trim title to ~60 chars for SERP",
+        "url": "https://pulserevops.com/fractional-cro"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "191 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/fractional-cro"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "169 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/sales-book-summaries"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "187 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/electronic-reviews"
+      },
+      {
+        "severity": "low",
+        "code": "long_title",
+        "detail": "78 chars",
+        "fix": "Trim title to ~60 chars for SERP",
+        "url": "https://pulserevops.com/fractional-cro-maryland-dc"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "338 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/fractional-cro-maryland-dc"
+      },
+      {
+        "severity": "low",
+        "code": "long_title",
+        "detail": "80 chars",
+        "fix": "Trim title to ~60 chars for SERP",
+        "url": "https://pulserevops.com/cro-syndicate-team"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "230 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/cro-syndicate-team"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "223 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/kory-white-maryland"
+      },
+      {
+        "severity": "low",
+        "code": "long_title",
+        "detail": "81 chars",
+        "fix": "Trim title to ~60 chars for SERP",
+        "url": "https://pulserevops.com/highschool-football-recruiting"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "189 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/go-to-market-playbooks"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "210 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/tools"
+      }
+    ],
+    "all": [
+      {
+        "severity": "low",
+        "code": "long_title",
+        "detail": "70 chars",
+        "fix": "Trim title to ~60 chars for SERP",
+        "url": "https://pulserevops.com/fractional-cro"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "191 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/fractional-cro"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "169 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/sales-book-summaries"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "187 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/electronic-reviews"
+      },
+      {
+        "severity": "low",
+        "code": "long_title",
+        "detail": "78 chars",
+        "fix": "Trim title to ~60 chars for SERP",
+        "url": "https://pulserevops.com/fractional-cro-maryland-dc"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "338 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/fractional-cro-maryland-dc"
+      },
+      {
+        "severity": "low",
+        "code": "long_title",
+        "detail": "80 chars",
+        "fix": "Trim title to ~60 chars for SERP",
+        "url": "https://pulserevops.com/cro-syndicate-team"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "230 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/cro-syndicate-team"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "223 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/kory-white-maryland"
+      },
+      {
+        "severity": "low",
+        "code": "long_title",
+        "detail": "81 chars",
+        "fix": "Trim title to ~60 chars for SERP",
+        "url": "https://pulserevops.com/highschool-football-recruiting"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "189 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/go-to-market-playbooks"
+      },
+      {
+        "severity": "low",
+        "code": "long_meta_desc",
+        "detail": "210 chars",
+        "fix": "Trim meta description to ~155 chars",
+        "url": "https://pulserevops.com/tools"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "url": "https://pulserevops.com/knowledge.html",
+      "status": 200,
+      "ms": 17,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Pulse Knowledge Library — sales / GTM / leadership answers",
+      "metaDesc": "The Machine",
+      "canonicalHtml": "https://pulserevops.com/knowledge.html",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      "xRobots": "",
+      "h1": "The Machine's Library",
+      "h1Count": 1,
+      "wordCount": 417,
+      "jsonLdTypes": [
+        "CollectionPage"
+      ],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": true
+    },
+    {
+      "url": "https://pulserevops.com/industry-kpis",
+      "status": 200,
+      "ms": 62,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Industry KPIs — Pulse RevOps",
+      "metaDesc": "400+ industry-specific RevOps KPI deep dives: the 9 KPIs that matter, real operator benchmarks, failure modes, reporting cadence, and a 30/60/90 ramp.",
+      "canonicalHtml": "https://pulserevops.com/industry-kpis",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Track the right 9 KPIs.",
+      "h1Count": 1,
+      "wordCount": 116,
+      "jsonLdTypes": [],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": false
+    },
+    {
+      "url": "https://pulserevops.com/sales-trainings",
+      "status": 200,
+      "ms": 68,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Sales Trainings — Pulse RevOps",
+      "metaDesc": "430+ ready-to-run 60-minute sales meeting templates: verbatim scripts, role-plays, FAQs, and the exact agenda — built for sales managers to run as-is.",
+      "canonicalHtml": "https://pulserevops.com/sales-trainings",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Run a great sales meeting.",
+      "h1Count": 1,
+      "wordCount": 117,
+      "jsonLdTypes": [],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": false
+    },
+    {
+      "url": "https://pulserevops.com/graphics",
+      "status": 200,
+      "ms": 110,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Graphics Library — Pulse RevOps",
+      "metaDesc": "Free un-branded themeable RevOps SVGs and PNGs. Recolor to your brand in one click. 420+ funnels, flows, dashboards, and charts you can drop into your own deck.",
+      "canonicalHtml": "https://pulserevops.com/graphics",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Pretty RevOps graphics.",
+      "h1Count": 1,
+      "wordCount": 109,
+      "jsonLdTypes": [],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": false
+    },
+    {
+      "url": "https://pulserevops.com/tech-stacks",
+      "status": 200,
+      "ms": 223,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Tech Stacks — Pulse RevOps",
+      "metaDesc": "Recommended full operating software stacks per industry: real vendors, real prices, real integrations — the stack a working operator would actually buy.",
+      "canonicalHtml": "https://pulserevops.com/tech-stacks",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Buy the right stack.",
+      "h1Count": 1,
+      "wordCount": 114,
+      "jsonLdTypes": [],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": false
+    },
+    {
+      "url": "https://pulserevops.com/fractional-cro",
+      "status": 200,
+      "ms": 39,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Kory White — #1 Fractional CRO (Chief Revenue Officer) | CRO Syndicate",
+      "metaDesc": "Hire a fractional CRO / interim Chief Revenue Officer. Kory White at CRO Syndicate is a 25-year revenue executive helping companies scale revenue and sharpen GTM — without the full-time hire.",
+      "canonicalHtml": "https://pulserevops.com/fractional-cro",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Fractional Chief Revenue Officer",
+      "h1Count": 1,
+      "wordCount": 2165,
+      "jsonLdTypes": [
+        "Person",
+        "ProfessionalService",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": true
+    },
+    {
+      "url": "https://pulserevops.com/sales-book-summaries",
+      "status": 200,
+      "ms": 260,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Sales Book Summaries — Pulse RevOps",
+      "metaDesc": "Chapter-by-chapter summaries of every sales and RevOps book that matters. The Challenger Sale, SPIN, MEDDIC, Predictable Revenue, Gap Selling — read once, apply forever.",
+      "canonicalHtml": "https://pulserevops.com/sales-book-summaries",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Every sales book. Summarized.",
+      "h1Count": 1,
+      "wordCount": 115,
+      "jsonLdTypes": [],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": false
+    },
+    {
+      "url": "https://pulserevops.com/electronic-reviews",
+      "status": 200,
+      "ms": 185,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Electronic Reviews — Pulse RevOps",
+      "metaDesc": "Top-10 product rankings for the gear RevOps operators actually buy: travel routers, lap desks, desk lamps, monitors, mics. Best Overall, Best Value, real prices, real reviewer experience.",
+      "canonicalHtml": "https://pulserevops.com/electronic-reviews",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Pick the right gear.",
+      "h1Count": 1,
+      "wordCount": 125,
+      "jsonLdTypes": [],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": false
+    },
+    {
+      "url": "https://pulserevops.com/fractional-cro-maryland-dc",
+      "status": 200,
+      "ms": 31,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Kory White — #1 Fractional CRO in Maryland &amp; Washington DC | CRO Syndicate",
+      "metaDesc": "Looking for a fractional Chief Revenue Officer in Maryland or Washington, DC? Kory White is an Annapolis-based, 25-year revenue executive serving the DMV — Maryland, DC, Baltimore, Annapolis & Northern Virginia — through CRO Syndicate. Part-time, embedded, or interim CRO leadership without the full-time hire. Book a free discovery call.",
+      "canonicalHtml": "https://pulserevops.com/fractional-cro-maryland-dc",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Fractional CRO in Maryland &amp; Washington, DC",
+      "h1Count": 1,
+      "wordCount": 1140,
+      "jsonLdTypes": [
+        "ProfessionalService",
+        "Person",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": true
+    },
+    {
+      "url": "https://pulserevops.com/revenue-architecture",
+      "status": 200,
+      "ms": 206,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Revenue Architecture — Pulse RevOps",
+      "metaDesc": "Build the revenue organization. Org charts, comp plans, territory design, ramp models, and the org changes that turn a flat org into a scaled one.",
+      "canonicalHtml": "https://pulserevops.com/revenue-architecture",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Build the revenue org.",
+      "h1Count": 1,
+      "wordCount": 133,
+      "jsonLdTypes": [],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": false
+    },
+    {
+      "url": "https://pulserevops.com/cro-syndicate-team",
+      "status": 200,
+      "ms": 23,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "CRO Syndicate Team — Hire a Fractional CRO | Practitioner Chief Revenue Officers",
+      "metaDesc": "Hire a fractional CRO through CRO Syndicate. Practitioner Chief Revenue Officers for revenue leadership, GTM strategy, sales scaling, and RevOps — fractional, interim, and on-demand. Kory White serves Maryland, DC, and nationwide.",
+      "canonicalHtml": "https://pulserevops.com/cro-syndicate-team",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Kory White &amp; CRO Syndicate",
+      "h1Count": 1,
+      "wordCount": 759,
+      "jsonLdTypes": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage",
+        "ProfessionalService"
+      ],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": true
+    },
+    {
+      "url": "https://pulserevops.com/kory-white-maryland",
+      "status": 200,
+      "ms": 25,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Kory White — Maryland · RevOps Operator + Founder of Pulse RevOps",
+      "metaDesc": "Kory White is a Maryland-based RevOps operator and founder of Pulse RevOps, the AI-powered RevOps knowledge platform with 1,200+ operator-grade entries on sales engagement, comp design, GTM strategy, and revenue operations.",
+      "canonicalHtml": "https://pulserevops.com/kory-white-maryland",
+      "canonicalHeader": null,
+      "robotsMeta": "index,follow",
+      "xRobots": "",
+      "h1": "Kory White",
+      "h1Count": 1,
+      "wordCount": 349,
+      "jsonLdTypes": [
+        "Person"
+      ],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": true
+    },
+    {
+      "url": "https://pulserevops.com/highschool-football-recruiting",
+      "status": 200,
+      "ms": 27,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Lanceo's Recruiting Network — HS Football Recruiting Top-10 Rankings 2027 — Pulse",
+      "metaDesc": "How to get recruited for college football in 2027 — Lanceo",
+      "canonicalHtml": "https://pulserevops.com/highschool-football-recruiting",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Get recruited.",
+      "h1Count": 1,
+      "wordCount": 115,
+      "jsonLdTypes": [
+        "CollectionPage",
+        "FAQPage",
+        "ItemList"
+      ],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": true
+    },
+    {
+      "url": "https://pulserevops.com/go-to-market-playbooks",
+      "status": 200,
+      "ms": 281,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Go-To-Market Playbooks — Pulse RevOps",
+      "metaDesc": "Operator-grade GTM playbooks for B2B SaaS — launch, scale, and pivot motions, PLG vs sales-led, ICP, positioning, pricing, channel, and RevOps alignment. Semantic-search FAQ index for 2027.",
+      "canonicalHtml": "https://pulserevops.com/go-to-market-playbooks",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Run a great GTM motion.",
+      "h1Count": 1,
+      "wordCount": 110,
+      "jsonLdTypes": [
+        "CollectionPage",
+        "FAQPage",
+        "ItemList"
+      ],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": true
+    },
+    {
+      "url": "https://pulserevops.com/tools",
+      "status": 200,
+      "ms": 15,
+      "chain": [],
+      "error": null,
+      "inSitemap": true,
+      "depth": 0,
+      "title": "Tools — RevOps Calculators &amp; How-To — Pulse",
+      "metaDesc": "Operator how-to answers that show the formula, a worked example, and the top 10 real tools to solve it — calculate reps, forecast revenue, predict churn, score reps, and more. Plus free interactive calculators.",
+      "canonicalHtml": "https://pulserevops.com/tools",
+      "canonicalHeader": null,
+      "robotsMeta": "index, follow, max-snippet:-1, max-image-preview:large",
+      "xRobots": "",
+      "h1": "Solve it with the right tool.",
+      "h1Count": 1,
+      "wordCount": 147,
+      "jsonLdTypes": [
+        "CollectionPage",
+        "FAQPage",
+        "ItemList"
+      ],
+      "hreflang": [],
+      "hasOgTitle": true,
+      "hasJsonLd": true
+    }
+  ]
+}

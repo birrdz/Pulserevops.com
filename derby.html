@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Pulse Derby — retro horse racing</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#15110d;--amber:#C8821E;--gold:#CBA135;--ink:#ECE3D2}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:'Press Start 2P',monospace;overflow:hidden}
+#wrap{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px}
+#game{image-rendering:pixelated;image-rendering:crisp-edges;width:min(96vw,1024px);height:auto;background:#6db3d6;border:3px solid #000;border-radius:6px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+#hint{font-size:9px;color:var(--gold);letter-spacing:.05em;text-align:center;line-height:1.7;opacity:.9}
+#hint b{color:var(--ink)}
+@media(max-width:640px){#hint{font-size:7px}}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="game" width="384" height="216"></canvas>
+  <div id="hint">PULSE DERBY · <b>SPACE / TAP</b> = sprint (uses stamina) · <b>↑/↓</b> pick horse · <b>ENTER</b> start/restart</div>
+</div>
+<script>
+(function(){
+'use strict';
+var cv=document.getElementById('game'),x=cv.getContext('2d');
+var W=384,H=216, GROUND=170, TRACK=4200, FINISH=TRACK-60;
+// retro palette
+var SKY='#6db3d6', SKY2='#8fcfe6', HILL='#7bbf6a', HILL2='#5da257', DIRT='#caa46a', DIRT2='#b88f54', RAIL='#f4ecd8', INK='#1a120a';
+var HCOLORS=[['#7a4a23','#3a2412'],['#caa46a','#7a5a30'],['#9a9a9a','#5a5a5a'],['#2a2a2a','#101010'],['#b85c4a','#7a3528']];
+var HNAMES=['CHESTNUT','PALOMINO','GREY','MIDNIGHT','ROAN'];
+
+function rnd(a,b){return a+Math.random()*(b-a);}
+var state='title', sel=0, horses=[], camX=0, t=0, results=[], raceT=0, you=0, msg='';
+
+function makeHorses(){
+  horses=[]; results=[];
+  for(var i=0;i<5;i++){
+    horses.push({
+      i:i, lane:i, x:20, y:GROUND-2 - i*7,
+      base: i===sel?2.05:rnd(1.85,2.15),   // px/tick base speed
+      stam: 100, maxStam:100, surge:0, surgeCd:rnd(40,160),
+      vel:0, leg:0, done:false, place:0, player:i===sel
+    });
+  }
+}
+
+// ── input ───────────────────────────────────────────────────────────────
+var sprint=false;
+function key(d){return function(e){
+  var k=e.key;
+  if(k===' '||k==='Spacebar'){ sprint=d; e.preventDefault(); }
+  if(!d) return;
+  if(state==='title'){ if(k==='ArrowUp'){sel=(sel+4)%5;} if(k==='ArrowDown'){sel=(sel+1)%5;} if(k==='Enter'){ start(); } }
+  else if(state==='results'){ if(k==='Enter') state='title'; }
+}; }
+addEventListener('keydown',key(true)); addEventListener('keyup',key(false));
+cv.addEventListener('touchstart',function(e){ e.preventDefault(); if(state==='title')start(); else if(state==='results')state='title'; else sprint=true; },{passive:false});
+cv.addEventListener('touchend',function(e){ e.preventDefault(); sprint=false; },{passive:false});
+cv.addEventListener('mousedown',function(){ if(state==='race')sprint=true; else if(state==='title')start(); else if(state==='results')state='title'; });
+addEventListener('mouseup',function(){ sprint=false; });
+
+function start(){ makeHorses(); camX=0; raceT=0; state='countdown'; t=0; msg='3'; }
+
+// ── update ──────────────────────────────────────────────────────────────
+function update(){
+  t++;
+  if(state==='countdown'){
+    var s=Math.floor(t/45); msg = s<1?'3':s<2?'2':s<3?'1':'GO!';
+    if(t>=45*3+30){ state='race'; raceT=0; }
+    return;
+  }
+  if(state!=='race') return;
+  raceT++;
+  for(var i=0;i<horses.length;i++){
+    var h=horses[i]; if(h.done) continue;
+    var spd=h.base;
+    if(h.player){
+      if(sprint && h.stam>0){ spd+=1.15; h.stam-=1.2; } else { h.stam=Math.min(h.maxStam,h.stam+0.55); }
+    } else {
+      // AI: periodic surges, stamina-gated, slight rubber-band
+      h.surgeCd--; if(h.surgeCd<=0 && h.stam>25){ h.surge=rnd(25,70); h.surgeCd=rnd(60,200); }
+      if(h.surge>0){ spd+=0.95; h.stam-=1.0; h.surge--; } else { h.stam=Math.min(h.maxStam,h.stam+0.45); }
+      var lead=leader().x; if(h.x<lead-120) spd+=0.25; // catch-up
+      spd+=Math.sin((raceT+i*40)/55)*0.12;
+    }
+    h.vel += (spd-h.vel)*0.2;
+    h.x += h.vel;
+    h.leg += h.vel*0.5;
+    if(h.x>=FINISH){ h.done=true; h.place=results.length+1; results.push(h); }
+  }
+  // camera follows the leader
+  camX += ((leader().x-110) - camX)*0.1; if(camX<0)camX=0;
+  if(results.length>=horses.length){ finish(); }
+}
+function leader(){ var L=horses[0]; for(var i=1;i<horses.length;i++) if(horses[i].x>L.x)L=horses[i]; return L; }
+function finish(){
+  state='results';
+  var me=horses[sel]; you=me.place;
+  msg = you===1?'YOU WIN!':you===2?'2ND PLACE':you===3?'3RD PLACE':'PLACE '+you;
+}
+
+// ── render ──────────────────────────────────────────────────────────────
+function px(c,a,b,w,h){ x.fillStyle=c; x.fillRect(a|0,b|0,w|0,h|0); }
+function bg(){
+  // sky gradient (banded for retro feel)
+  px(SKY,0,0,W,H); px(SKY2,0,0,W,60);
+  // parallax hills
+  var off=(camX*0.3)%96;
+  for(var hx=-96; hx<W+96; hx+=96){ hill(hx-off, 96, HILL2); }
+  off=(camX*0.5)%80;
+  for(var hx2=-80; hx2<W+80; hx2+=80){ hill(hx2-off, 64, HILL); }
+  // ground / track
+  px(DIRT,0,GROUND-6,W,H-(GROUND-6));
+  for(var d=0; d<W; d+=8){ px(DIRT2, d - (camX% -16<0?0:0),GROUND+6,4,3); }
+  // moving dirt speckles
+  var so=(camX)%16;
+  for(var s2=-16;s2<W+16;s2+=16){ px(DIRT2, s2-so, GROUND+14, 6,2); px(DIRT2, s2-so+9, GROUND+24, 4,2); }
+  // top rail
+  px(RAIL,0,GROUND-10,W,2);
+  for(var r=-( (camX*1)%24 ); r<W; r+=24){ px(RAIL, r, GROUND-18, 2, 10); }
+  // finish line (when near)
+  var fx=FINISH-camX;
+  if(fx>-30 && fx<W+30){
+    for(var fy=GROUND-44; fy<GROUND+8; fy+=8){ px((((fy/8)|0)%2)? '#111':'#fff', fx, fy, 6,4); px((((fy/8)|0)%2)? '#fff':'#111', fx+6, fy, 6,4); }
+    x.fillStyle=INK; x.font='8px "Press Start 2P",monospace'; x.fillText('FINISH', fx-10, GROUND-50);
+  }
+}
+function hill(hx,h,c){ x.fillStyle=c; x.beginPath(); x.moveTo(hx,GROUND); x.quadraticCurveTo(hx+48,GROUND-h,hx+96,GROUND); x.closePath(); x.fill(); }
+
+function horse(h){
+  var sx=(h.x-camX)|0, sy=h.y|0, col=HCOLORS[h.i], body=col[0], dark=col[1];
+  if(sx<-30||sx>W+30) return;
+  var f=Math.floor(h.leg/4)%4, gallop=[0,2,0,-2][f], lift=[0,-1,0,-1][f];
+  // shadow
+  x.fillStyle='rgba(0,0,0,.25)'; x.fillRect(sx-2, GROUND+4, 22, 3);
+  // legs (animated)
+  px(dark, sx+2, sy+8+lift, 2, 6+gallop*0); px(dark, sx+6, sy+8-lift, 2, 6);
+  px(dark, sx+12, sy+8+lift, 2, 6); px(dark, sx+16, sy+8-lift, 2, 6);
+  // body
+  px(body, sx, sy, 20, 9); px(body, sx+18, sy-3, 6, 6);   // body + neck base
+  px(dark, sx, sy+7, 20, 2);                               // belly shade
+  // head
+  px(body, sx+22, sy-6, 6, 6); px(body, sx+26, sy-4, 3, 4);
+  px(dark, sx+27, sy-3, 1,1);                              // eye
+  // ear + mane + tail
+  px(dark, sx+22, sy-8, 2, 3); px(dark, sx+16, sy-4, 3, 7); px(dark, sx-3, sy-1+gallop, 4, 9);
+  // jockey (player = amber silks, rivals = varied)
+  var silk = h.player? '#C8821E' : ['#2a6cff','#e23c3c','#36b06a','#9a3cff','#e0a000'][h.i%5];
+  px(silk, sx+8, sy-7, 6, 5); px('#e8c9a0', sx+9, sy-10, 4, 3); px('#111', sx+9, sy-12, 4, 2);
+}
+
+function hud(){
+  x.fillStyle=INK; x.font='8px "Press Start 2P",monospace';
+  // positions
+  var ord=horses.slice().sort(function(a,b){return b.x-a.x;});
+  for(var i=0;i<ord.length;i++){ var h=ord[i]; x.fillStyle = h.player?'#C8821E':'#ECE3D2'; x.fillText((i+1)+' '+HNAMES[h.i].slice(0,4), 6, 14+i*10); }
+  // stamina bar (player)
+  var me=horses[sel];
+  x.fillStyle=INK; x.fillRect(W-86,8,80,8); x.fillStyle='#3C8C3F'; x.fillRect(W-85,9,(me.stam/me.maxStam*78)|0,6);
+  x.fillStyle='#ECE3D2'; x.fillText('STAMINA', W-86, 26);
+  // progress
+  var prog=Math.min(1, me.x/FINISH); x.fillStyle=INK; x.fillRect(W-86,34,80,4); x.fillStyle='#C8821E'; x.fillRect(W-85,35,(prog*78)|0,2);
+}
+
+function title(){
+  bg();
+  x.fillStyle='rgba(21,17,13,.55)'; x.fillRect(0,0,W,H);
+  x.fillStyle='#CBA135'; x.font='16px "Press Start 2P",monospace'; x.textAlign='center';
+  x.fillText('PULSE DERBY', W/2, 46); x.fillStyle='#ECE3D2'; x.font='7px "Press Start 2P",monospace';
+  x.fillText('retro 16-bit horse racing', W/2, 60);
+  // horse select
+  x.font='8px "Press Start 2P",monospace';
+  x.fillText('PICK YOUR HORSE', W/2, 86);
+  for(var i=0;i<5;i++){
+    var yy=100+i*16; x.textAlign='left';
+    x.fillStyle = i===sel? '#C8821E':'#ECE3D2';
+    x.fillText((i===sel?'> ':'  ')+HNAMES[i], W/2-70, yy+6);
+    // swatch
+    px(HCOLORS[i][0], W/2+34, yy, 10,8); px(HCOLORS[i][1], W/2+34, yy+6, 10,2);
+  }
+  x.textAlign='center'; x.fillStyle='#CBA135';
+  if((t>>5)&1){ x.fillText('PRESS ENTER / TAP TO RACE', W/2, H-14); }
+  x.textAlign='left';
+}
+function results_(){
+  bg(); horses.forEach(horse);
+  x.fillStyle='rgba(21,17,13,.7)'; x.fillRect(0,0,W,H);
+  x.textAlign='center'; x.fillStyle = you===1?'#CBA135':'#ECE3D2'; x.font='14px "Press Start 2P",monospace';
+  x.fillText(msg, W/2, 40);
+  x.font='8px "Press Start 2P",monospace'; x.fillStyle='#ECE3D2';
+  for(var i=0;i<results.length;i++){ var h=results[i]; x.fillStyle=h.player?'#C8821E':'#ECE3D2'; x.fillText((i+1)+'.  '+HNAMES[h.i], W/2, 70+i*14); }
+  x.fillStyle='#CBA135'; if((t>>5)&1) x.fillText('ENTER / TAP = AGAIN', W/2, H-14);
+  x.textAlign='left';
+}
+
+function frame(){
+  update();
+  if(state==='title'){ title(); }
+  else { bg(); horses.forEach(horse);
+    if(state==='countdown'){ x.textAlign='center'; x.fillStyle='#CBA135'; x.font='20px "Press Start 2P",monospace'; x.fillText(msg, W/2, H/2); x.textAlign='left'; }
+    if(state==='race') hud();
+    if(state==='results') results_();
+  }
+  requestAnimationFrame(frame);
+}
+makeHorses(); frame();
+})();
+</script>
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

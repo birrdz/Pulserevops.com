@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fractional CRO — The Collection · PULSE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#1b1712;--ink-soft:#6c6259;--line:#e8e2d8;--paper:#fdfbf7;--paper-2:#f4efe7;--accent:#c26a10;--maxw:1200px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+
+  .load{position:relative;background:#ededea;overflow:hidden}
+  .load::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.75) 50%,transparent 80%);transform:translateX(-100%);animation:sh 1.3s infinite}
+  @keyframes sh{to{transform:translateX(100%)}}
+  img.ready{animation:fade .5s ease}@keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes drift{from{transform:scale(1.06) translate3d(0,0,0)}to{transform:scale(1.16) translate3d(-2%,-2%,0)}}
+  .card .ph img,.masthead .ph img{animation:drift 24s ease-in-out infinite alternate;will-change:transform}
+  .card:nth-child(even) .ph img{animation-duration:30s;animation-direction:alternate-reverse}
+  .card:nth-child(3n) .ph img{animation-duration:27s}
+  @media(prefers-reduced-motion:reduce){.card .ph img,.masthead .ph img{animation:none}}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:60}
+  .topbar{background:var(--accent);height:6px}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{font-weight:800;font-size:1.45rem;letter-spacing:-.02em}.brand b{color:var(--accent)}
+  nav.top{display:flex;gap:26px;font-size:.83rem;font-weight:600;color:#333}
+  nav.top a:hover{color:var(--accent)}
+  .search{border:1px solid var(--line);border-radius:100px;padding:9px 16px;font-size:.8rem;color:var(--ink-soft);background:#fff}
+
+  /* Collection masthead */
+  .masthead{position:relative;border-radius:14px;overflow:hidden;margin-top:24px;aspect-ratio:16/6;min-height:260px}
+  .masthead .ph{position:absolute;inset:0}
+  .masthead .sc{position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,10,9,.82) 0%,rgba(12,10,9,.5) 45%,rgba(12,10,9,.15) 100%)}
+  .masthead .in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 48px;color:#fff;max-width:640px;z-index:2}
+  .crumb{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+  .crumb b{color:#fff}
+  .masthead h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(2rem,4vw,3.2rem);line-height:1.03;letter-spacing:-.015em;margin:10px 0 10px}
+  .masthead p{color:rgba(255,255,255,.85);font-size:1rem;max-width:52ch}
+  .count{margin-top:14px;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;display:inline-flex;align-items:center;gap:8px}
+  .count .badge{background:var(--accent);padding:5px 11px;border-radius:100px}
+
+  /* Filter chips */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0 6px}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:100px;padding:9px 17px;font-size:.83rem;font-weight:600;color:#333;cursor:pointer}
+  .chip.on{background:#161616;color:#fff;border-color:#161616}
+  .chip:hover:not(.on){border-color:#111}
+  .resultline{margin:26px 0 18px;font-size:.85rem;color:var(--ink-soft)}
+  .resultline b{color:var(--ink)}
+
+  /* Grid — photo-forward cards, uniform */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+  .card:hover{box-shadow:0 12px 30px -18px rgba(0,0,0,.4);transform:translateY(-3px)}
+  .card .ph{aspect-ratio:3/2;overflow:hidden;position:relative}
+  .card .ph img{transition:transform .8s ease}
+  .card:hover .ph img{transform:scale(1.05)}
+  .card .pill{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.94);font-size:.62rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:5px 10px;border-radius:100px;color:#111;z-index:2}
+  .card .body{padding:16px 17px 20px}
+  .card h3{font-size:1.04rem;font-weight:700;line-height:1.28;letter-spacing:-.005em;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card p{margin-top:8px;font-size:.83rem;color:var(--ink-soft);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card .rt{margin-top:12px;font-size:.72rem;color:var(--ink-soft)}
+
+  /* featured (spans 2 cols, taller) */
+  .card.feat{grid-column:span 2}
+  @media(max-width:900px){.card.feat{grid-column:span 2}}
+  @media(max-width:600px){.card.feat{grid-column:span 1}}
+  .card.feat .ph{aspect-ratio:16/8}
+  .card.feat h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.6rem;-webkit-line-clamp:3}
+  .card.feat p{font-size:.92rem;-webkit-line-clamp:3}
+
+  .more{display:flex;justify-content:center;margin:44px 0 10px}
+  .more button{border:1px solid #161616;background:#fff;color:#161616;font-weight:700;font-size:.9rem;padding:13px 30px;border-radius:100px;cursor:pointer}
+  .more button:hover{background:#161616;color:#fff}
+
+  footer{border-top:1px solid var(--line);margin-top:60px;padding:44px 0 64px;color:var(--ink-soft);font-size:.85rem}
+  footer b{color:var(--ink)}
+  @media(max-width:600px){nav.top,.search{display:none}.masthead .in{padding:0 24px}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="topbar"></div>
+  <div class="wrap bar">
+    <div class="brand"><a href="index.html">PULSE<b>.</b></a></div>
+    <nav class="top"><a href="index.html">The Guide</a><a href="#">Fractional CRO</a><a href="#">The Library</a><a href="#">Collections</a><a href="#">Search</a></nav>
+    <div class="search">🔍 Search 35,000 answers</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- COLLECTION MASTHEAD -->
+  <div class="masthead">
+    <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/wide%20cinematic%20editorial%20photograph%20of%20a%20confident%20revenue%20leadership%20team%20in%20a%20sleek%20modern%20glass%20office%20at%20golden%20hour%2C%20city%20skyline%20behind%2C%20warm%20light%2C%20premium%20magazine%20photography%2C%20ultra%20detailed?width=1500&height=560&nologo=true&model=flux&seed=401" alt=""></div>
+    <div class="sc"></div>
+    <div class="in">
+      <div class="crumb"><a href="index.html">The Guide</a> &nbsp;›&nbsp; <b>Collections</b></div>
+      <h1>Fractional CRO</h1>
+      <p>Everything about hiring, pricing, and working with a part-time Chief Revenue Officer — answered plainly, by people who've done the job.</p>
+      <div class="count"><span class="badge">11,000+ answers</span><span>Updated daily</span></div>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <div class="chip on">All</div>
+    <div class="chip">Getting started</div>
+    <div class="chip">Hiring</div>
+    <div class="chip">Pricing</div>
+    <div class="chip">Playbooks</div>
+    <div class="chip">Metrics</div>
+    <div class="chip">Interim vs. full-time</div>
+  </div>
+  <div class="resultline">Showing <b>13</b> of <b>11,240</b> answers · sorted by <b>Most asked</b></div>
+
+  <!-- GRID -->
+  <div class="grid">
+
+    <a class="card feat" href="story.html">
+      <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/cinematic%20editorial%20portrait%20of%20a%20confident%20fractional%20chief%20revenue%20officer%20working%20at%20a%20glass%20table%20covered%20in%20sales%20pipeline%20charts%2C%20warm%20morning%20light%2C%20magazine%20photography%2C%20shallow%20depth%20of%20field?width=1200&height=600&nologo=true&model=flux&seed=71" alt=""><span class="pill">Featured</span></div>
+      <div class="body"><h3>What does a fractional CRO actually do all day?</h3><p>Not a coach, not a consultant. We followed one through a real 90-day engagement — from a messy pipeline to a revenue engine that runs without them.</p><div class="rt">12 min read</div></div>
+    </a>
+
+    <a class="card" href="story.html">
+      <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/close%20up%20editorial%20photograph%20of%20hands%20reviewing%20a%20business%20contract%20and%20financial%20figures%20on%20a%20warm%20wooden%20desk%2C%20soft%20cinematic%20light%2C%20magazine%20photography?width=640&height=430&nologo=true&model=flux&seed=34" alt=""><span class="pill">Pricing</span></div>
+      <div class="body"><h3>How much does a fractional CRO cost?</h3><p>Real monthly ranges by company stage — and why the cheapest option is rarely cheapest.</p><div class="rt">5 min read</div></div>
+    </a>
+
+    <a class="card" href="story.html">
+      <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/editorial%20photograph%20of%20two%20executives%20shaking%20hands%20in%20a%20bright%20modern%20boardroom%2C%20candid%20documentary%2C%20warm%20light%2C%20magazine%20quality?width=640&height=430&nologo=true&model=flux&seed=56" alt=""><span class="pill">Hiring</span></div>
+      <div class="body"><h3>Interim, fractional, or full-time — which do you need?</h3><p>A simple decision map based on your runway, your board, and how broken things really are.</p><div class="rt">7 min read</div></div>
+    </a>
+
+    <a class="card" href="story.html">
+      <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/editorial%20photograph%20of%20a%20startup%20founder%20studying%20a%20growth%20plan%20on%20a%20whiteboard%2C%20candid%2C%20natural%20window%20light%2C%20magazine%20photography?width=640&height=430&nologo=true&model=flux&seed=23" alt=""><span class="pill">Hiring</span></div>
+      <div class="body"><h3>When should a startup hire its first RevOps leader?</h3><p>The revenue number, the headcount, and three symptoms that mean you're already late.</p><div class="rt">6 min read</div></div>
+    </a>
+
+    <a class="card" href="story.html">
+      <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/editorial%20photograph%20of%20a%20sales%20leader%20presenting%20a%20rising%20revenue%20chart%20on%20a%20large%20screen%20to%20a%20small%20engaged%20team%2C%20warm%20candid%20office%20light%2C%20magazine%20photography?width=640&height=430&nologo=true&model=flux&seed=81" alt=""><span class="pill">Metrics</span></div>
+      <div class="body"><h3>What's a healthy CAC payback period for SaaS?</h3><p>The benchmark, the math, and the trap that makes a great number look terrible.</p><div class="rt">8 min read</div></div>
+    </a>
+
+    <a class="card" href="story.html">
+      <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/cinematic%20editorial%20photograph%20of%20a%20detailed%20sales%20pipeline%20funnel%20on%20a%20large%20monitor%20in%20a%20focused%20modern%20office%2C%20warm%20light%2C%20magazine%20photography%2C%20shallow%20depth%20of%20field?width=640&height=430&nologo=true&model=flux&seed=45" alt=""><span class="pill">Playbooks</span></div>
+      <div class="body"><h3>How do you fix a pipeline that keeps stalling?</h3><p>The four stage definitions that turn forecasting from a guessing game into a routine.</p><div class="rt">9 min read</div></div>
+    </a>
+
+    <a class="card" href="story.html">
+      <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/editorial%20photograph%20of%20a%20calm%20revenue%20leader%20mentoring%20a%20junior%20sales%20rep%20at%20a%20desk%2C%20warm%20candid%20office%20light%2C%20magazine%20quality%2C%20shallow%20depth%20of%20field?width=640&height=430&nologo=true&model=flux&seed=92" alt=""><span class="pill">Getting started</span></div>
+      <div class="body"><h3>What should you expect in the first 30 days?</h3><p>A week-by-week look at what a good fractional CRO does before they change anything.</p><div class="rt">7 min read</div></div>
+    </a>
+
+    <a class="card" href="story.html">
+      <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/editorial%20photograph%20of%20a%20marketing%20and%20sales%20team%20aligning%20over%20a%20shared%20plan%20on%20a%20glass%20wall%20with%20sticky%20notes%2C%20candid%2C%20warm%20natural%20light%2C%20magazine%20photography?width=640&height=430&nologo=true&model=flux&seed=103" alt=""><span class="pill">Playbooks</span></div>
+      <div class="body"><h3>Who should own the lead handoff — marketing or sales?</h3><p>The honest answer nobody likes, and the one SLA that ends the argument for good.</p><div class="rt">6 min read</div></div>
+    </a>
+
+    <a class="card" href="story.html">
+      <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/editorial%20photograph%20of%20a%20customer%20success%20manager%20on%20a%20warm%20friendly%20video%20call%20in%20a%20bright%20modern%20workspace%2C%20candid%20documentary%2C%20magazine%20quality?width=640&height=430&nologo=true&model=flux&seed=113" alt=""><span class="pill">Metrics</span></div>
+      <div class="body"><h3>Which metrics predict churn before it happens?</h3><p>The early-warning signals hiding in your product and support data — long before renewal.</p><div class="rt">8 min read</div></div>
+    </a>
+
+  </div>
+
+  <div class="more"><button type="button">Load more answers</button></div>
+
+</div>
+
+<footer><div class="wrap"><div class="brand" style="font-size:1.2rem;margin-bottom:8px"><a href="index.html">PULSE<b>.</b></a></div><div>The Fractional CRO collection — part of the PULSE guide. 35,000 answers, told beautifully.</div><div style="margin-top:14px;opacity:.7">Prototype · pillar hub page · not deployed</div></div></footer>
+
+<script>
+  // sequential image loader (same as homepage) — kind to Pollinations
+  (function(){
+    const imgs=[...document.querySelectorAll('img[data-src]')];
+    let idx=0, active=0; const MAX=2;
+    function done(im){im.classList.add('ready');const ph=im.closest('.load');if(ph)ph.classList.remove('load');active--;pump();}
+    function pump(){while(active<MAX&&idx<imgs.length){const im=imgs[idx++];active++;im.onload=()=>done(im);im.onerror=()=>{if(!im.dataset.tried){im.dataset.tried=1;setTimeout(()=>{im.src=im.dataset.src+'&r='+Date.now();},800);}else{done(im);}};im.src=im.dataset.src;}}
+    pump();
+  })();
+  // filter chips (visual demo)
+  document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{document.querySelector('.chip.on')?.classList.remove('on');c.classList.add('on');});
+</script>
+
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

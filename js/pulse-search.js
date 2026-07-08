@@ -14,7 +14,7 @@
     tv:['/travel/','✈️','Travel'], rs:['/resorts/','🌴','Resorts'], es:['/estates/','🏡','Estates'], cl:['/clubs/','⛳','Clubs'],
     lv:['/living/','🛋','Living'], ev:['/events/','🎟','Events'], sy:['/style/','👗','Style'], ga:['/gatherings/','🥂','Gatherings'],
     gm:['/gaming/','🎮','Gaming'], sk:['/skills/','🎯','Skills'], tl:['/tools/','🛠️','Tools'], cg:['/coaching/','🧭','Coaching'],
-    co:['/collectibles/','🃏','Collectibles'], aq:['/aquariums/','🐠','Aquariums'], hf:['/highschool-football-recruiting/','🏈','Football Recruiting'], ai:['/ai-infrastructure/','🤖','AI Tools'], bo:['/buildouts/','🏗️','Buildouts'], cd:['/contracts/','📑','Contracts']
+    co:['/collectibles/','🃏','Collectibles'], aq:['/aquariums/','🐠','Aquariums'], hf:['/highschool-football-recruiting/','🏈','Football Recruiting'], ai:['/ai-infrastructure/','🤖','AI Tools'], bo:['/buildouts/','🏗️','Buildouts'], cd:['/contracts/','📑','Contracts'], tc:['/telco/','📶','Telco']
   };
   var SYN = {
     cro:['chief revenue officer'], revops:['revenue operations','rev ops'], gtm:['go to market','go-to-market'],
@@ -49,7 +49,7 @@
     if (ALL){ cb && cb(); return; }
     if (loading) { if (cb) loadWait.push(cb); return; }
     loading = true;
-    fetch('/.netlify/functions/pulse-machine-library-list?recent=20000&mini=1', { cache: 'default' })
+    fetch('/.netlify/functions/pulse-machine-library-list?recent=40000&mini=1', { cache: 'default' })
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(d){
         var it = (d && d.entries) || [];
@@ -280,7 +280,17 @@
     items.forEach(function(el, i){ el.classList.toggle('active', i === active); });
     if (active >= 0 && items[active]) items[active].scrollIntoView({ block: 'nearest' });
   });
-  if (clr) clr.addEventListener('click', function(){ input.value = ''; clr.style.display = 'none'; close(); input.focus(); renderEmpty(); });
+  if (clr) clr.addEventListener('click', function(){ input.value = ''; clr.style.display = 'none'; close(); input.focus(); renderEmpty(); tickPlaceholder(); });
   document.addEventListener('click', function(e){ var hsEl = $('home-search'); if (hsEl && !hsEl.contains(e.target)) close(); });
   box.addEventListener('click', function(e){ var a = e.target.closest && e.target.closest('.hs-row[href]'); if (a && a.getAttribute('href') !== '#') pushHist(input.value); });
+
+  var phIdx = 0;
+  function tickPlaceholder(){
+    if (!input || document.activeElement === input || input.value) return;
+    input.placeholder = 'Try: ' + EXAMPLES[phIdx % EXAMPLES.length];
+    phIdx++;
+  }
+  tickPlaceholder();
+  setInterval(tickPlaceholder, 3500);
+  input.addEventListener('blur', function(){ setTimeout(tickPlaceholder, 120); });
 })();

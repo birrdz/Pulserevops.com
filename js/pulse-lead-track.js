@@ -13,14 +13,27 @@
       else{ fetch('/.netlify/functions/pulse-click-notify',{method:'POST',headers:{'Content-Type':'application/json'},body:payload,keepalive:true}); }
     }catch(e){}
   }
+  // (1b) EVERY human click on a link → owner digest (owner 2026-07-06). No per-click dedup; every click counts.
+  // Bots don't run JS click handlers, so these are human by nature; the server also filters bot user-agents.
+  function trackClick(href,text){
+    if(!href) return;
+    var h=String(href);
+    if(h.charAt(0)==='#'||/^(javascript:|mailto:|tel:)/i.test(h)) return; // skip in-page/util links
+    try{
+      var payload=JSON.stringify({kind:'click',label:h.slice(0,300),text:String(text||'').slice(0,120),page:(location.pathname+location.search),url:location.href,title:document.title});
+      if(navigator.sendBeacon){ navigator.sendBeacon('/.netlify/functions/pulse-click-notify', new Blob([payload],{type:'application/json'})); }
+      else{ fetch('/.netlify/functions/pulse-click-notify',{method:'POST',headers:{'Content-Type':'application/json'},body:payload,keepalive:true}); }
+    }catch(e){}
+  }
   document.addEventListener('click',function(e){
     var a=e.target && e.target.closest ? e.target.closest('a') : null; if(!a) return;
     var href=a.getAttribute('href')||'';
     // PULSE Tool link = a /tools/<slug> destination (NOT /tools/tl#### answers, NOT the /tools hub)
     // or any anchor the renderer marked with the tool-cta highlight class.
     var isTool=(a.className&&/\btool-cta\b/.test(a.className))||/^\/tools\/(?!tl\d)[a-z0-9-]+/i.test(href)||/pulserevops\.com\/tools\/(?!tl\d)[a-z0-9-]+/i.test(href);
-    var kind=a.getAttribute('data-pulse-click') || (/crosyndicate\.com/i.test(href)?'cro-syndicate':(/linkedin\.com\/in\/korywhite/i.test(href)?'kory-linkedin':(/\/assets\/kory-white[^"'\s]*\.pdf/i.test(href)?'kory-resume':(/\/fractional-cro\b/i.test(href)?'hire-cro':(isTool?'tool':'')))));
-    if(kind) notify(kind, href||(a.textContent||'').slice(0,40));
+    var kind=a.getAttribute('data-pulse-click') || (/calendly\.com\/korywhiterevops/i.test(href)?'kory-calendly':(/crosyndicate\.com/i.test(href)?'cro-syndicate':(/linkedin\.com\/in\/korywhite/i.test(href)?'kory-linkedin':(/\/assets\/kory-white[^"'\s]*\.pdf/i.test(href)?'kory-resume':(/\/fractional-cro\b/i.test(href)?'hire-cro':(isTool?'tool':''))))));
+    if(kind) notify(kind, href||(a.textContent||'').slice(0,40)); // CRO card + tagged links (already tracked)
+    else trackClick(href, (a.textContent||'').trim());            // every other human link click
   }, true);
 
   // (2) fractional-CRO lead form -> emails Kory

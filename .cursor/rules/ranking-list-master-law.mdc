@@ -1,0 +1,13 @@
+---
+description: Ranking list master — code enforcement pointer (see GOLDEN_TEMPLATE_TOP10.md for shape law)
+globs: website/_scrub_button_server.js,website/_write_*.js,website/_*_workflow*.js,website/netlify/functions/pulse-machine-entry.js,website/netlify/functions/lib/grade-entry.js,website/netlify/functions/lib/ensure-entry-images.js,website/_ranking_list_master_law.js,website/_ranking_list_rebuild_lib.js
+alwaysApply: false
+---
+
+# Ranking List Master — code enforcement
+
+**Golden template shape law:** `GOLDEN_TEMPLATE_TOP10.md` · `GOLDEN_TEMPLATE_QA.md` — sole doc sources of truth; do not restate section order here.
+
+**Code:** `_ranking_list_master_law.js` · `_ranking_top10_gold_template.js` · `_ranking_list_rebuild_lib.js` · `_scrub_button_server.js`
+
+**Bypass without owner passcode `4444` is forbidden.**

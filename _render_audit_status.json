@@ -1,0 +1,479 @@
+{
+  "updatedAt": "2026-07-06T23:08:54.916Z",
+  "deployBlocked": true,
+  "speedupBlocked": true,
+  "reason": "Render audit failing — aq1160: entry-cover hero present (Top 10 should not have top hero); aq1160: too few product-card elements (0); aq1160: ds:Top 10 page has entry-cover hero present (violates rule: no entry-cover hero for top 10); aq1160: ds:Top 10 page has 0 product-card elements (requires at least 10 product-card per rank); aq1160: ds:Direct Answer gold box (direct-answer-box) not found in HTML snippet",
+  "issues": [
+    "aq1160: entry-cover hero present (Top 10 should not have top hero)",
+    "aq1160: too few product-card elements (0)",
+    "aq1160: ds:Top 10 page has entry-cover hero present (violates rule: no entry-cover hero for top 10)",
+    "aq1160: ds:Top 10 page has 0 product-card elements (requires at least 10 product-card per rank)",
+    "aq1160: ds:Direct Answer gold box (direct-answer-box) not found in HTML snippet",
+    "q11133: live pollinations.ai URL in rendered HTML",
+    "q11133: ds:Live pollinations.ai URL found in rendered HTML (multiple image src attributes use image.pollinations.ai)",
+    "q11133: ds:Direct Answer box (direct-answer-box) not present in provided HTML snippet",
+    "q11133: pollinations URL in img src: https://image.pollinations.ai/prompt/high%20quality%20editorial%20business%20pro",
+    "q11133: broken/missing image https://wsrv.nl/?url=www.gamermarkt.com%2Fblog%2Fwp-content%2Fuploads%2F2025%2F12%2Fleague",
+    "q11133: broken/missing image https://wsrv.nl/?url=cdn.educba.com%2Facademy%2Fwp-content%2Fuploads%2F2023%2F01%2FTriple-",
+    "q11133: ds:pollinations.ai URL in img src: https://image.pollinations.ai/prompt/high%20quality%20editorial%20business%20pro (3 occurrences)",
+    "q11133: ds:broken/missing image: https://wsrv.nl/?url=www.gamermarkt.com%2Fblog%2Fwp-content%2Fuploads%2F2025%2F12%2Fleague-of-legends-2027-update-league-next.png&w=760&output=webp&q=80&we&n=-1 (404 not image)",
+    "q11133: ds:broken/missing image: https://wsrv.nl/?url=cdn.educba.com%2Facademy%2Fwp-content%2Fuploads%2F2023%2F01%2FTriple- (404 not image)"
+  ],
+  "agentA": {
+    "pass": false,
+    "issues": [
+      "aq1160: entry-cover hero present (Top 10 should not have top hero)",
+      "aq1160: too few product-card elements (0)",
+      "aq1160: ds:Top 10 page has entry-cover hero present (violates rule: no entry-cover hero for top 10)",
+      "aq1160: ds:Top 10 page has 0 product-card elements (requires at least 10 product-card per rank)",
+      "aq1160: ds:Direct Answer gold box (direct-answer-box) not found in HTML snippet",
+      "q11133: live pollinations.ai URL in rendered HTML",
+      "q11133: ds:Live pollinations.ai URL found in rendered HTML (multiple image src attributes use image.pollinations.ai)",
+      "q11133: ds:Direct Answer box (direct-answer-box) not present in provided HTML snippet"
+    ],
+    "lastRun": "2026-07-06T23:08:54.916Z",
+    "entries": [
+      {
+        "id": "aq1160",
+        "url": "https://pulserevops.com/aquariums/aq1160",
+        "template": "top10",
+        "pass": false,
+        "issues": [
+          "aq1160: entry-cover hero present (Top 10 should not have top hero)",
+          "aq1160: too few product-card elements (0)",
+          "aq1160: ds:Top 10 page has entry-cover hero present (violates rule: no entry-cover hero for top 10)",
+          "aq1160: ds:Top 10 page has 0 product-card elements (requires at least 10 product-card per rank)",
+          "aq1160: ds:Direct Answer gold box (direct-answer-box) not found in HTML snippet"
+        ],
+        "metrics": {
+          "hasGoldBox": true,
+          "proseLen": 2140,
+          "productCards": 0
+        },
+        "dsPass": false,
+        "dsNotes": "The page is structured as a Q&A article with a hero image and long-form content, but it lacks the required product-card elements and direct-answer-box for a top 10 entry. The entry-cover hero is present in the CSS and likely rendered, violating the top 10 rule."
+      },
+      {
+        "id": "aq1158",
+        "url": "https://pulserevops.com/aquariums/aq1158",
+        "template": "top10",
+        "pass": true,
+        "issues": [],
+        "metrics": {
+          "hasGoldBox": true,
+          "proseLen": 527,
+          "productCards": 10
+        },
+        "dsPass": true,
+        "dsNotes": "Entry aq1158 is a Q&A page with a gold box (direct-answer-box) containing a dense 3-5 sentence Direct Answer of 140+ characters. The top 10 uses product-card per rank, no entry-cover hero is present, and no pollinations.ai references exist in the HTML. Heuristic pre-check issues: none."
+      },
+      {
+        "id": "q11133",
+        "url": "https://pulserevops.com/knowledge/q11133",
+        "template": "qa",
+        "pass": false,
+        "issues": [
+          "q11133: live pollinations.ai URL in rendered HTML",
+          "q11133: ds:Live pollinations.ai URL found in rendered HTML (multiple image src attributes use image.pollinations.ai)",
+          "q11133: ds:Direct Answer box (direct-answer-box) not present in provided HTML snippet"
+        ],
+        "metrics": {
+          "hasGoldBox": true,
+          "proseLen": 930,
+          "productCards": 7
+        },
+        "dsPass": false,
+        "dsNotes": "The page contains pollinations.ai image URLs which violates the heuristic pre-check rule. Additionally, the required gold box with class 'direct-answer-box' is not found in the truncated HTML; the Direct Answer content appears only within the JSON-LD structured data and as plain markdown in the article body, not in a dedicated gold box element."
+      }
+    ],
+    "mode": "deepseek+heuristic"
+  },
+  "agentB": {
+    "pass": false,
+    "issues": [
+      "q11133: pollinations URL in img src: https://image.pollinations.ai/prompt/high%20quality%20editorial%20business%20pro",
+      "q11133: broken/missing image https://wsrv.nl/?url=www.gamermarkt.com%2Fblog%2Fwp-content%2Fuploads%2F2025%2F12%2Fleague",
+      "q11133: broken/missing image https://wsrv.nl/?url=cdn.educba.com%2Facademy%2Fwp-content%2Fuploads%2F2023%2F01%2FTriple-",
+      "q11133: ds:pollinations.ai URL in img src: https://image.pollinations.ai/prompt/high%20quality%20editorial%20business%20pro (3 occurrences)",
+      "q11133: ds:broken/missing image: https://wsrv.nl/?url=www.gamermarkt.com%2Fblog%2Fwp-content%2Fuploads%2F2025%2F12%2Fleague-of-legends-2027-update-league-next.png&w=760&output=webp&q=80&we&n=-1 (404 not image)",
+      "q11133: ds:broken/missing image: https://wsrv.nl/?url=cdn.educba.com%2Facademy%2Fwp-content%2Fuploads%2F2023%2F01%2FTriple- (404 not image)"
+    ],
+    "lastRun": "2026-07-06T23:06:52.961Z",
+    "entries": [
+      {
+        "id": "aq1160",
+        "url": "https://pulserevops.com/aquariums/aq1160",
+        "template": "top10",
+        "pass": true,
+        "issues": [],
+        "metrics": {
+          "imgCount": 13,
+          "checked": 12,
+          "broken": 0,
+          "details": [
+            {
+              "url": "https://pulserevops.com/pulse-news-logo.png",
+              "ok": true,
+              "status": 206,
+              "ct": "image/png",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/qa/aq1162-993.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/qa/aq1160-5.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/kory-white.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/kory-white.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/qa/aq1162-994.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/qa/aq1162-991.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/qa/aq1160-5.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/qa/aq1160-6.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/qa/aq1160-7.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/qa/aq1160-9.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/qa/aq1160-10.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            }
+          ]
+        },
+        "dsPass": true,
+        "dsNotes": "All images load successfully with status 206, no pollinations.ai references found, and all paths use self-hosted /assets/ paths."
+      },
+      {
+        "id": "aq1158",
+        "url": "https://pulserevops.com/aquariums/aq1158",
+        "template": "top10",
+        "pass": true,
+        "issues": [],
+        "metrics": {
+          "imgCount": 13,
+          "checked": 12,
+          "broken": 0,
+          "details": [
+            {
+              "url": "https://pulserevops.com/pulse-news-logo.png",
+              "ok": true,
+              "status": 206,
+              "ct": "image/png",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=pulsarpet.com%2Fwp-content%2Fuploads%2F2024%2F11%2FInnovative-Marine-20-Gallon-NUVO-Fusion-Stand-16.jpg&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=fragbox.ca%2Fwp-content%2Fuploads%2F2018%2F06%2F10531_packaging.jpg&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=www.aqualively.com%2Fwp-content%2Fuploads%2F2025%2F11%2F1762948312%2Fwaterbox-aio-cube-10-freshwater-aquarium-with-light-new-in-store-pickup-only-1762948321.webp&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/kory-white.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/kory-white.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=cdn11.bigcommerce.com%2Fs-zrfsy1cc33%2Fimages%2Fstencil%2F1280x1280%2Fproducts%2F11872%2F65759%2FMNG2_C_Box_copy__08230__30938.1709762180.1280.1280__76082.1709763385.jpg%3Fc%3D1&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=jbjaquarium.com%2Fwp-content%2Fuploads%2F2019%2F03%2Fproduct-image_MT-604.png&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/png",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=cdn11.bigcommerce.com%2Fs-fh5tkm%2Fimages%2Fstencil%2F2560w%2Fproducts%2F6053%2F59539%2Fwsekopthpiorz5ftjg2y__54674.1742834291.jpg%3Fc%3D2&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=blogger.googleusercontent.com%2Fimg%2Fb%2FR29vZ2xl%2FAVvXsEgY3Kt8AWgstnZpAJgNgJ9KZ9kC_UKLLL-uvYGBFLlxXx1BqQZAyP8fzmZ_9qWTifAJrBjtdxv65AIbtHjStmW5iZsVzxAwSVBJVDgPZLBMzps3S8K3DZUeQaKHg0h6ofSPxzWb-RJMXn0V%2Fs1600%2F20121110_095457.jpg&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=cdn.bigeasymart.com%2Fwp-content%2Fuploads%2F2022%2F07%2F60.jpg&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=koralking.com%2Fcdn%2Fshop%2Fproducts%2Fimage_4f64d526-6629-4a3b-82ec-3663dde719a5.jpg%3Fv%3D1678294815&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            }
+          ]
+        },
+        "dsPass": true,
+        "dsNotes": "All images load successfully, no pollinations.ai references found, and self-hosted /assets/ paths are used where applicable."
+      },
+      {
+        "id": "q11133",
+        "url": "https://pulserevops.com/knowledge/q11133",
+        "template": "qa",
+        "pass": false,
+        "issues": [
+          "q11133: pollinations URL in img src: https://image.pollinations.ai/prompt/high%20quality%20editorial%20business%20pro",
+          "q11133: broken/missing image https://wsrv.nl/?url=www.gamermarkt.com%2Fblog%2Fwp-content%2Fuploads%2F2025%2F12%2Fleague",
+          "q11133: broken/missing image https://wsrv.nl/?url=cdn.educba.com%2Facademy%2Fwp-content%2Fuploads%2F2023%2F01%2FTriple-",
+          "q11133: ds:pollinations.ai URL in img src: https://image.pollinations.ai/prompt/high%20quality%20editorial%20business%20pro (3 occurrences)",
+          "q11133: ds:broken/missing image: https://wsrv.nl/?url=www.gamermarkt.com%2Fblog%2Fwp-content%2Fuploads%2F2025%2F12%2Fleague-of-legends-2027-update-league-next.png&w=760&output=webp&q=80&we&n=-1 (404 not image)",
+          "q11133: ds:broken/missing image: https://wsrv.nl/?url=cdn.educba.com%2Facademy%2Fwp-content%2Fuploads%2F2023%2F01%2FTriple- (404 not image)"
+        ],
+        "metrics": {
+          "imgCount": 13,
+          "checked": 12,
+          "broken": 2,
+          "details": [
+            {
+              "url": "https://pulserevops.com/pulse-news-logo.png",
+              "ok": true,
+              "status": 206,
+              "ct": "image/png",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/kory-white.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://pulserevops.com/assets/kory-white.jpg",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://image.pollinations.ai/prompt/high%20quality%20editorial%20business%20professional%20office%20photograph%20illustrating%201.%20The%202027%20Context%3A%20A%20New%20League%2C%20A%20New%20Math%20What%20are%20Gonzaga%20Bulldogs%20men&#39;s%20ba%2C%20realistic%20magazine%20style%2C%20warm%20light%2C%20no%20text%2C%20no%20watermark?width=1200&amp;height=675&amp;nologo=true&amp;model=flux&amp;seed=53427",
+              "ok": true,
+              "status": 200,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=www.gamermarkt.com%2Fblog%2Fwp-content%2Fuploads%2F2025%2F12%2Fleague-of-legends-2027-update-league-next.png&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": false,
+              "status": 404,
+              "ct": "application/json",
+              "reason": "not_image"
+            },
+            {
+              "url": "https://image.pollinations.ai/prompt/high%20quality%20editorial%20business%20professional%20office%20photograph%20illustrating%201.1%20Roster%20Reality%20After%20the%20Portal%20Bloodbath%20What%20are%20Gonzaga%20Bulldogs%20men&#39;s%20ba%2C%20realistic%20magazine%20style%2C%20warm%20light%2C%20no%20text%2C%20no%20watermark?width=1200&amp;height=675&amp;nologo=true&amp;model=flux&amp;seed=24965",
+              "ok": true,
+              "status": 200,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://image.pollinations.ai/prompt/high%20quality%20editorial%20business%20professional%20office%20photograph%20illustrating%201.2%20Why%20The%20Pac-12%20Move%20Raises%20The%20Stakes%20What%20are%20Gonzaga%20Bulldogs%20men&#39;s%20basket%2C%20realistic%20magazine%20style%2C%20warm%20light%2C%20no%20text%2C%20no%20watermark?width=1200&amp;height=675&amp;nologo=true&amp;model=flux&amp;seed=43940",
+              "ok": true,
+              "status": 200,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=images.g2crowd.com%2Fuploads%2Fproduct%2Fimage%2Fsocial_landscape%2Fsocial_landscape_5e511a3bb3caa0e569b4e1ebf37382d1%2Ffundingstack.png&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/png",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=strategicaccounts.org%2Fwp-content%2Fuploads%2F2026%2F02%2FTruStage_Logo-1.jpg&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=i.etsystatic.com%2F63513834%2Fr%2Fil%2F3a2dda%2F7500789740%2Fil_1080xN.7500789740_arfa.jpg&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/jpeg",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=cdn.prod.website-files.com%2F655b74a21bf061a53f52743c%2F67178f60059072dc4b2ddf5d_67178b2189304f4be0afe59e_Cybersecurity%252520Threats%252520to%252520Watch%252520in%2525202025.png&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": true,
+              "status": 206,
+              "ct": "image/png",
+              "reason": "ok"
+            },
+            {
+              "url": "https://wsrv.nl/?url=cdn.educba.com%2Facademy%2Fwp-content%2Fuploads%2F2023%2F01%2FTriple-Bottom-Line.jpg&amp;w=760&amp;output=webp&amp;q=80&amp;we&amp;n=-1",
+              "ok": false,
+              "status": 404,
+              "ct": "application/json",
+              "reason": "not_image"
+            }
+          ]
+        },
+        "dsPass": false,
+        "dsNotes": "Multiple violations: pollinations.ai URLs must be removed and replaced with self-hosted /assets/ paths; two wsrv.nl proxied images are broken/missing (404)."
+      }
+    ],
+    "mode": "deepseek+heuristic"
+  },
+  "templateBlocked": true,
+  "agentC": {
+    "pass": false,
+    "issues": [
+      "aq1160: gold image_before_direct_answer",
+      "aq1160: image_before_direct_answer (blob)"
+    ],
+    "lastRun": "2026-07-06T23:08:15.994Z",
+    "entries": [
+      {
+        "id": "aq1160",
+        "url": "https://pulserevops.com/aquariums/aq1160",
+        "template": "top10",
+        "pass": false,
+        "issues": [
+          "aq1160: gold image_before_direct_answer",
+          "aq1160: image_before_direct_answer (blob)"
+        ],
+        "metrics": {
+          "template": "qa",
+          "goldId": "q11133",
+          "grade": 14,
+          "imageCount": 11,
+          "goldCompliant": false,
+          "classifiedTemplate": "qa",
+          "goldUrl": "https://pulserevops.com/knowledge/q11133"
+        },
+        "cursorNotes": "classified=qa gold=q11133 grade=14/13"
+      },
+      {
+        "id": "aq1158",
+        "url": "https://pulserevops.com/aquariums/aq1158",
+        "template": "top10",
+        "pass": true,
+        "issues": [],
+        "metrics": {
+          "template": "top10",
+          "goldId": "aq1158",
+          "grade": 15,
+          "imageCount": 0,
+          "goldCompliant": true,
+          "classifiedTemplate": "top10",
+          "goldUrl": "https://pulserevops.com/aquariums/aq1158"
+        },
+        "cursorNotes": "classified=top10 gold=aq1158 grade=15/13"
+      },
+      {
+        "id": "q11133",
+        "url": "https://pulserevops.com/knowledge/q11133",
+        "template": "qa",
+        "pass": true,
+        "issues": [],
+        "metrics": {
+          "template": "top10",
+          "goldId": "aq1158",
+          "grade": 14,
+          "imageCount": 10,
+          "goldCompliant": true,
+          "classifiedTemplate": "top10",
+          "goldUrl": "https://pulserevops.com/aquariums/aq1158"
+        },
+        "cursorNotes": "classified=top10 gold=aq1158 grade=14/13"
+      }
+    ],
+    "mode": "cursor-rules"
+  }
+}

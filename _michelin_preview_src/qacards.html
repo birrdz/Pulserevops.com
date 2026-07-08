@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q&A Card Treatments — PULSE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#1b1712;--ink-soft:#6c6259;--line:#e8e2d8;--paper:#fdfbf7;--paper-2:#f4efe7;--accent:#c26a10;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;padding:0 0 80px}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  .head{padding:46px 0 10px}
+  .head .k{font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  .head h1{font-family:'Fraunces',serif;font-weight:500;font-size:2.2rem;letter-spacing:-.01em;margin:8px 0 8px}
+  .head p{color:var(--ink-soft);max-width:64ch}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 34px;margin-top:40px}
+  @media(max-width:920px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+  .cell .lab{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;display:flex;gap:8px;align-items:baseline}
+  .cell .lab b{color:var(--accent);font-size:.86rem}
+
+  .load{position:relative;background:#ece7de;overflow:hidden}
+  .load::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.7) 50%,transparent 80%);transform:translateX(-100%);animation:sh 1.3s infinite}
+  @keyframes sh{to{transform:translateX(100%)}}
+  img.ready{animation:fade .5s ease}@keyframes fade{from{opacity:0}to{opacity:1}}
+
+  .A{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .A .ph{aspect-ratio:3/2}
+  .A .b{padding:16px 17px 20px}
+  .A .tag{font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  .A h3{font-size:1.08rem;font-weight:700;line-height:1.26;margin-top:7px}
+
+  .B .ph{aspect-ratio:16/10;border-radius:10px;overflow:hidden}
+  .B h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.5rem;line-height:1.14;letter-spacing:-.01em;margin-top:16px}
+  .B .rt{margin-top:10px;font-size:.78rem;color:var(--ink-soft)}
+
+  .C{text-align:center}
+  .C .ph{aspect-ratio:1/1;border-radius:10px;overflow:hidden}
+  .C .tag{margin-top:18px;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .C h3{font-size:1.14rem;font-weight:700;line-height:1.3;margin-top:8px;max-width:26ch;margin-left:auto;margin-right:auto}
+
+  .D .ph{aspect-ratio:3/2;border-radius:10px;overflow:hidden}
+  .D h3{font-size:1.12rem;font-weight:700;line-height:1.28;margin-top:16px;padding-bottom:14px;border-bottom:2px solid var(--accent);display:inline-block}
+  .D .rt{margin-top:12px;font-size:.8rem;color:var(--ink-soft)}
+
+  .E{position:relative}
+  .E .ph{aspect-ratio:4/5;border-radius:12px;overflow:hidden}
+  .E .cap{position:relative;margin:-46px 16px 0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:0 16px 34px -22px rgba(0,0,0,.4)}
+  .E .tag{font-size:.64rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  .E h3{font-size:1.04rem;font-weight:700;line-height:1.26;margin-top:6px}
+
+  .F .ph{aspect-ratio:4/5;border-radius:10px;overflow:hidden}
+  .F .row{display:flex;gap:14px;margin-top:16px;align-items:flex-start}
+  .F .num{font-family:'Fraunces',serif;font-size:2rem;font-weight:500;color:var(--accent);line-height:1}
+  .F h3{font-size:1.08rem;font-weight:700;line-height:1.26}
+  .F .rt{color:var(--ink-soft);font-weight:500;font-size:.82rem;margin-top:4px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="head">
+    <div class="k">PULSE · Q&amp;A box explorations</div>
+    <h1>Best-quality images, matched to each question</h1>
+    <p>Six treatments — image on top, question underneath. Images are max-setting flux renders (higher resolution + prompt enhance), each written to match its exact question. They load one-by-one, so give the sharp ones a moment.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- A -->
+    <div class="cell">
+      <div class="lab"><b>A</b> Michelin clean · hairline card</div>
+      <a class="A">
+        <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/cinematic%20editorial%20portrait%20of%20a%20confident%20fractional%20chief%20revenue%20officer%20mid%20conversation%20at%20a%20glass%20conference%20table%20covered%20with%20sales%20pipeline%20charts%2C%20busy%20productive%20morning%2C%20sunlight%20through%20a%20modern%20high%20rise%20office%2C%20award%20winning%20magazine%20photography%2C%20shot%20on%20hasselblad%2C%20shallow%20depth%20of%20field%2C%20ultra%20sharp%2C%208k?width=1000&height=680&nologo=true&model=flux&enhance=true&seed=71" alt=""></div>
+        <div class="b"><div class="tag">Fractional CRO</div><h3>What does a fractional CRO actually do all day?</h3></div>
+      </a>
+    </div>
+
+    <!-- B -->
+    <div class="cell">
+      <div class="lab"><b>B</b> Editorial serif · borderless</div>
+      <a class="B">
+        <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/beautiful%20overhead%20editorial%20flatlay%20of%20a%20modern%20revenue%20operations%20workspace%2C%20laptop%20showing%20a%20clean%20CRM%20dashboard%2C%20connected%20software%20tool%20icons%2C%20notebook%20and%20coffee%2C%20warm%20natural%20light%2C%20award%20winning%20magazine%20photography%2C%20ultra%20detailed%2C%208k?width=1000&height=625&nologo=true&model=flux&enhance=true&seed=12" alt=""></div>
+        <h3>How do you build a RevOps stack from scratch?</h3>
+        <div class="rt">Tech Stacks · 8 min read</div>
+      </a>
+    </div>
+
+    <!-- C -->
+    <div class="cell">
+      <div class="lab"><b>C</b> Centered gallery · square</div>
+      <a class="C">
+        <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/editorial%20square%20photograph%20of%20a%20finance%20analyst%20reviewing%20a%20customer%20acquisition%20cost%20payback%20chart%20with%20a%20calculator%20and%20a%20rising%20growth%20graph%20on%20screen%2C%20warm%20modern%20office%20light%2C%20award%20winning%20magazine%20photography%2C%20shallow%20depth%20of%20field%2C%20ultra%20sharp?width=900&height=900&nologo=true&model=flux&enhance=true&seed=81" alt=""></div>
+        <div class="tag">Industry KPIs</div>
+        <h3>What's a healthy CAC payback period for SaaS?</h3>
+      </a>
+    </div>
+
+    <!-- D -->
+    <div class="cell">
+      <div class="lab"><b>D</b> Accent underline · minimal</div>
+      <a class="D">
+        <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/cinematic%20editorial%20photograph%20of%20a%20detailed%20sales%20pipeline%20funnel%20visualization%20on%20a%20large%20monitor%20showing%20a%20bottleneck%2C%20a%20focused%20revenue%20leader%20analyzing%20it%2C%20modern%20office%2C%20warm%20light%2C%20award%20winning%20magazine%20photography%2C%20shallow%20depth%20of%20field%2C%20ultra%20sharp?width=1000&height=680&nologo=true&model=flux&enhance=true&seed=45" alt=""></div>
+        <h3>How do you fix a pipeline that keeps stalling?</h3>
+        <div class="rt">Playbooks · 9 min read</div>
+      </a>
+    </div>
+
+    <!-- E -->
+    <div class="cell">
+      <div class="lab"><b>E</b> Overlapping caption card</div>
+      <a class="E">
+        <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/cinematic%20editorial%20photograph%20of%20glowing%20abstract%20AI%20data%20streams%20and%20automation%20flowing%20through%20a%20revenue%20operations%20dashboard%2C%20warm%20amber%20and%20teal%20light%2C%20premium%20technology%20magazine%20cover%2C%20ultra%20detailed%2C%208k?width=900&height=1120&nologo=true&model=flux&enhance=true&seed=67" alt=""></div>
+        <div class="cap"><div class="tag">AI Infrastructure</div><h3>Where does AI actually belong in your revenue engine?</h3></div>
+      </a>
+    </div>
+
+    <!-- F -->
+    <div class="cell">
+      <div class="lab"><b>F</b> Poster · serif index numeral</div>
+      <a class="F">
+        <div class="ph load"><img data-src="https://image.pollinations.ai/prompt/editorial%20photograph%20of%20a%20focused%20ten%20person%20sales%20team%20collaborating%20around%20laptops%20with%20a%20CRM%20dashboard%20on%20a%20wall%20screen%20in%20a%20bright%20modern%20office%2C%20candid%20documentary%2C%20warm%20light%2C%20award%20winning%20magazine%20photography%2C%20shallow%20depth%20of%20field?width=900&height=1120&nologo=true&model=flux&enhance=true&seed=46" alt=""></div>
+        <div class="row"><div class="num">01</div><div><h3>What's the best CRM for a ten-person sales team?</h3><div class="rt">Tech Stacks</div></div></div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function(){
+    const imgs=[...document.querySelectorAll('img[data-src]')];
+    let idx=0, active=0; const MAX=2;
+    function done(im){im.classList.add('ready');const ph=im.closest('.load');if(ph)ph.classList.remove('load');active--;pump();}
+    function pump(){while(active<MAX&&idx<imgs.length){const im=imgs[idx++];active++;im.onload=()=>done(im);im.onerror=()=>{if(!im.dataset.t){im.dataset.t=1;setTimeout(()=>{im.src=im.dataset.src+'&r='+Date.now();},700);}else{done(im);}};im.src=im.dataset.src;}}
+    pump();
+  })();
+</script>
+
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

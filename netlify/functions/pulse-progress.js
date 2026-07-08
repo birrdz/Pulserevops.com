@@ -12,7 +12,7 @@ const PILLAR = {
   dn:['Dining',183,107], sw:['Software',95,105], sk:['Skill Drills',100,100], gp:['GTM Playbooks',398,100],
   hf:['NIL/HS',62,90], tn:['Towns',141,89], co:['Collectibles',74,76], es:['Home Builders',193,67],
   sy:['Style',100,65], mv:['Movies',51,64], tv:['Travel',281,60], gm:['Games',63,57], lv:['Retire',117,50],
-  sp:['Speeches',100,50], wl:['Wellness',65,45], cl:['Clubs',50,40], ga:['Wedding Venues',50,30],
+  sp:['Speeches',100,50], wl:['Wellness',65,45], cl:['Clubs',50,40], ga:['Gatherings',50,30],
 };
 exports.handler = async () => {
   try {

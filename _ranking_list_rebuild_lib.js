@@ -24,6 +24,8 @@ const { auditTop10GoldTemplate, appliesTop10Gold } = require('./_ranking_top10_g
 const { directAnswerFull } = require('./_format_fixer_lib');
 const { auditLivePollinationsInBody } = require('./_image_provider_alternate');
 const { ensureAlternateSectionImage, pickMatchingLibraryImage } = require('./_ddg_facecard_lib');
+const { ensurePexelsProductImage, usePexelsProductImages } = require('./_pexels_product_lib');
+const { entryTopicKey } = require('./netlify/functions/lib/entry-image-query');
 const { buildMoviePosterSearchQuery, stripDuplicateFillerBlock } = require('./_mv_image_title_match');
 const _pillarOf = (x) => (String(x).match(/^[a-z]+/) || [''])[0];
 
@@ -365,16 +367,32 @@ function withTimeout(promise, ms, label) {
   return Promise.race([promise, timeout]).finally(() => clearTimeout(t));
 }
 
-async function fillProductImagesSequential(body, id, products, onProgress) {
-  // SELF_HOST_PRODUCT_IMAGES=1 (movies/new project): self-host + stagger DDG↔Pollinator per product in ONE pass —
-  // no external hotlink round for the Fable render gate to discard (kills the ~2x product-image bottleneck).
-  const selfHost = process.env.SELF_HOST_PRODUCT_IMAGES === '1';
-  const PROD_IMG_TIMEOUT_MS = parseInt(process.env.PROD_IMG_TIMEOUT_MS || '60000', 10);
+async function fillProductImagesSequential(body, id, products, onProgress, entryTitle) {
+  const usePexels = usePexelsProductImages();
+  // SELF_HOST_PRODUCT_IMAGES=1: DDG↔Pollinator (legacy). USE_PEXELS_PRODUCT_IMAGES=1: real Pexels stock (serial 18s).
+  const selfHost = !usePexels && process.env.SELF_HOST_PRODUCT_IMAGES === '1';
+  const PROD_IMG_TIMEOUT_MS = parseInt(process.env.PROD_IMG_TIMEOUT_MS || (usePexels ? '120000' : '60000'), 10);
+  const pexelsFamilyIndex = {};
   const seen = new Set();
   let out = stripRankingHeroMarkdown(body);
+  const title = entryTitle || '';
   for (const p of products) {
     const amzn = 'https://www.amazon.com/s?k=' + encodeURIComponent(String(p.name).replace(/\s+/g, '+'));
-    let img = null, site = null;
+    let img = null; let site = null;
+    if (usePexels) {
+      if (onProgress) onProgress({ kind: 'product-pexels', rank: p.rank, name: p.name });
+      try {
+        img = await withTimeout(
+          ensurePexelsProductImage(id, p.rank, p.name, title, { familyIndex: pexelsFamilyIndex, familyKey: entryTopicKey(title) }),
+          PROD_IMG_TIMEOUT_MS,
+          'pexels#' + p.rank
+        );
+      } catch (e) {
+        if (onProgress) onProgress({ kind: 'product-pexels-err', rank: p.rank, err: e.message });
+        img = null;
+      }
+      if (img) site = amzn;
+    }
     if (selfHost) {
       if (onProgress) onProgress({ kind: 'product', rank: p.rank, name: p.name });
       const posterQ = _pillarOf(id) === 'mv' ? buildMoviePosterSearchQuery(p.name) : p.name;
@@ -424,7 +442,7 @@ async function rebuildRankingProductImages(id, title, body, opts) {
   const products = parseRankedProducts(b, expected);
 
   if (products.length >= 5) {
-    b = await fillProductImagesSequential(b, id, products.slice(0, expected), opts.onProgress);
+    b = await fillProductImagesSequential(b, id, products.slice(0, expected), opts.onProgress, title);
   } else {
     const rebuilt = await rebuildProductImages(b, id, { forceAll: true });
     if (!rebuilt || !rebuilt.body) {

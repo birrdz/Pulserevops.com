@@ -1,0 +1,13 @@
+{
+    "prefixes":  [
+                     "ik"
+                 ],
+    "poolInventory":  0,
+    "smartDup":  false,
+    "force":  false,
+    "cooldownMs":  0,
+    "coolStepMs":  5000,
+    "coolMaxMs":  60000,
+    "emailPerImage":  false,
+    "note":  "owner 2026-07-07: pillar ik (Industry KPIs) face-card CREATE run. Fresh flux originals via Pollinator, no pool dup. NO cooldown floor 0ms, strictly serial via singleton lock + global flux queue, never two in parallel. Per-image email ON. Single pillar ik scope so it PAUSES at end of pillar."
+}

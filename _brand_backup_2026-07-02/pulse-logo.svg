@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 810" role="img" aria-label="PULSE — We add Value">
+  <defs>
+    <pattern id="capStripe" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="22" height="22" fill="#C0531F"/><rect y="11" width="22" height="11" fill="#F7F3EA"/>
+    </pattern>
+  </defs>
+  <g fill="none" stroke="#C0531F" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <!-- glass: clean teardrop -->
+    <path d="M490 214 C560 214 624 268 624 344 C624 404 590 446 556 472 L424 472 C390 446 356 404 356 344 C356 268 420 214 490 214 Z"/>
+    <!-- filament loop -->
+    <path d="M466 452 L466 360 C466 330 514 330 514 360 L514 452"/>
+    <!-- bright-idea rays -->
+    <path d="M490 176 v-30 M404 210 l-22 -22 M576 210 l22 -22 M348 322 h-30 M632 322 h30"/>
+  </g>
+  <!-- striped base collar -->
+  <path d="M430 478 L550 478 L544 502 L436 502 Z" fill="url(#capStripe)"/>
+  <g fill="none" stroke="#C0531F" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M430 478 L550 478 L544 502 L436 502 Z"/>
+    <path d="M440 514 h100 M444 530 h92"/>
+    <path d="M470 544 q20 26 40 0"/>
+  </g>
+  <!-- wordmark -->
+  <g font-family="'Plus Jakarta Sans','Trebuchet MS',Verdana,sans-serif" letter-spacing="2">
+    <text x="694" y="430" font-size="192" font-weight="800" fill="#E3C9B8">PULSE</text>
+    <text x="688" y="424" font-size="192" font-weight="800" fill="#C0531F">PULSE</text>
+    <text x="696" y="548" font-size="96" font-weight="600" fill="#E3C9B8">We add Value</text>
+    <text x="690" y="542" font-size="96" font-weight="600" fill="#C0531F">We add Value</text>
+  </g>
+</svg>

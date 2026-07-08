@@ -129,7 +129,7 @@ exports.handler = async (event) => {
   h2 { font-family:Georgia,serif; font-size:24px; font-weight:800; color:#fff; margin:0 0 8px; }
   table { width:100%; border-collapse:collapse; margin-top:8px; font-size:13px; }
   table td { padding:6px 10px; border-bottom:1px solid rgba(255,255,255,0.06); }
-</style></head>
+</style><link rel="stylesheet" href="/assets/pulse-tan.css"></head>
 <body><div class="wrap">
   <h1>◉ Pulse Machine — Site Audit</h1>
   <h2>Recommendations from Sonnet</h2>

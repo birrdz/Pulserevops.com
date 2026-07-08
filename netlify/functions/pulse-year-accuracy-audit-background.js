@@ -17,7 +17,7 @@ const { getStore } = require('@netlify/blobs');
 const RECIPIENT = 'koryjordanwhite@gmail.com';
 const BATCH = 250;                 // entries scanned per run
 const EMAIL_EVERY_MS = 6 * 60 * 60 * 1000; // digest at most every 6h
-const PILLAR_PATH = { q:'knowledge', er:'electronic-reviews', ca:'cars', sc:'schools', dn:'dining', bt:'boats', mv:'movies', wl:'wellness', tv:'travel', rs:'resorts', es:'estates', cl:'clubs', lv:'living', ev:'events', ga:'gatherings', gm:'gaming', nl:'nightlife', tl:'tools', tn:'towns', co:'collectibles', ai:'ai-infrastructure', aq:'aquariums', hf:'highschool-football-recruiting', fr:'franchises', ik:'industry-kpis', st:'sales-trainings', tk:'tech-stacks', sy:'style', gb:'graphics', sp:'speeches', ra:'knowledge', gp:'knowledge', bs:'knowledge', sk:'skills' };
+const PILLAR_PATH = { q:'knowledge', er:'electronic-reviews', ca:'cars', sc:'schools', dn:'dining', bt:'boats', mv:'movies', wl:'wellness', tv:'travel', rs:'resorts', es:'estates', cl:'clubs', lv:'living', ev:'events', ga:'gatherings', gm:'gaming', nl:'nightlife', tl:'tools', tn:'towns', co:'collectibles', ai:'ai-infrastructure', aq:'aquariums', hf:'highschool-football-recruiting', fr:'franchises', ik:'industry-kpis', st:'sales-trainings', tk:'tech-stacks', sy:'style', gb:'graphics', sp:'speeches', ra:'knowledge', gp:'knowledge', bs:'knowledge', sk:'skills', tc:'telco' };
 
 function store() {
   const tok = process.env.BLOBS_PAT || process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_AUTH_TOKEN;

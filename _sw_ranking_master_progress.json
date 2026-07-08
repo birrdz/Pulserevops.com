@@ -1,0 +1,41 @@
+{
+  "running": false,
+  "pillar": "sw",
+  "pillarLabel": "Software",
+  "strategy": "images-rebuild",
+  "total": 1,
+  "remaining": 0,
+  "fixed": 1,
+  "failed": 0,
+  "currentId": "sw0001",
+  "currentTitle": "Top 10 CRM Platforms for Scaling Enterprises in 2027",
+  "stage": "complete",
+  "note": "Software — re-fetching all product images (no top hero)",
+  "samples": [
+    {
+      "at": "2026-07-06T13:08:20.129Z",
+      "id": "sw0001",
+      "url": "https://pulserevops.com/software/sw0001",
+      "masterOk": true,
+      "masterIssues": [],
+      "productImgs": 10,
+      "wantProduct": 10,
+      "grade": 14,
+      "pass": true
+    }
+  ],
+  "startedAt": "2026-07-06T13:07:15.808Z",
+  "at": "2026-07-06T13:08:21.523Z",
+  "format_v": "2026-07-ranking-no-hero-imgs",
+  "fixedCount": 1,
+  "lastCheck": {
+    "id": "sw0001",
+    "url": "https://pulserevops.com/software/sw0001",
+    "masterOk": true,
+    "masterIssues": [],
+    "productImgs": 10,
+    "wantProduct": 10,
+    "grade": 14,
+    "pass": true
+  }
+}

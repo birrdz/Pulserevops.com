@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="manifest" href="/seo-manifest.webmanifest">
+<meta name="theme-color" content="#13c2c2">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pulse SEO">
+<title>🏭 PULSE Site Perfection Engine</title>
+<style>
+  :root{--bg:#0b0f14;--card:#141b24;--line:rgba(255,255,255,.08);--t:#e8eef2;--mut:#8aa0ad;--ok:#2ecc71;--warn:#f1c40f;--bad:#e74c3c;--accent:#13c2c2;--gold:#CBA135}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--t);font-family:'Inter',system-ui,sans-serif;line-height:1.5}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px}
+  header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:4px}
+  h1{font-size:1.45rem;margin:0;font-weight:800} .sub{color:var(--mut);font-size:.85rem;margin:2px 0 14px}
+  .live{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;color:var(--ok)}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--ok);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,204,113,.55)}70%{box-shadow:0 0 0 9px rgba(46,204,113,0)}100%{box-shadow:0 0 0 0 rgba(46,204,113,0)}}
+  .pill{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(19,194,194,.14);color:var(--accent)}
+  .bigbar{height:14px;background:#0f161e;border:1px solid var(--line);border-radius:20px;overflow:hidden;margin:6px 0 4px}
+  .bigbar>div{height:100%;background:linear-gradient(90deg,var(--ok),var(--accent));transition:width .6s;border-radius:20px}
+  .barlabel{display:flex;justify-content:space-between;font-size:.85rem;color:var(--mut)} .barlabel b{color:var(--t)}
+  .hero{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:16px}
+  .hero .big{font-size:2.5rem;font-weight:800;line-height:1} .hero .big small{font-size:1rem;color:var(--mut);font-weight:600}
+  .window{background:linear-gradient(90deg,#0c2a2a,#10261c);border:1px solid #1f6b5e;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+  .window h2{margin:0 0 8px;font-size:.95rem} .lock{font-size:.78rem;color:#7CF5C8;font-weight:700}
+  .now{font-size:.72rem;color:var(--mut);margin-top:6px;display:none} .now b{color:var(--mut);font-weight:600}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px}
+  .stat .n{font-size:1.9rem;font-weight:800;line-height:1} .stat .l{color:var(--mut);font-size:.74rem;text-transform:uppercase;letter-spacing:.07em;margin-top:6px}
+  .stat.bad-tile{border-color:rgba(231,76,60,.55);background:rgba(231,76,60,.1);box-shadow:0 0 0 1px rgba(231,76,60,.2)}
+  .stat.bad-tile .n{color:var(--bad)!important}
+  .stat.warn-tile{border-color:rgba(241,196,15,.55);background:rgba(241,196,15,.1);box-shadow:0 0 0 1px rgba(241,196,15,.2)}
+  .stat.warn-tile .n{color:var(--warn)!important}
+  .panel.redpanel{border-color:rgba(231,76,60,.55);background:rgba(231,76,60,.07);box-shadow:0 0 0 1px rgba(231,76,60,.18)}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:16px}
+  .panel h2{font-size:1rem;margin:0 0 4px;font-weight:800} .panel .sub{margin:0 0 14px}
+  .checklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+  .req{display:flex;align-items:flex-start;gap:11px;background:#0f161e;border:1px solid var(--line);border-radius:11px;padding:11px 13px}
+  .req .ic{font-size:1.3rem;line-height:1.2} .req .tx b{display:block;font-size:.88rem;color:var(--t)} .req .tx span{font-size:.76rem;color:var(--mut)}
+  .review{display:flex;flex-wrap:wrap;gap:8px} .review a{font-size:.8rem;background:#2a1010;border:1px solid var(--bad);color:#ffb4b4;border-radius:8px;padding:5px 9px;text-decoration:none}
+  .empty{color:var(--mut);font-size:.85rem;padding:8px 0}
+  #gate{position:fixed;inset:0;background:#0b0f14;display:flex;align-items:center;justify-content:center;z-index:99}
+  .gatebox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 28px;text-align:center;max-width:340px;width:90%}
+  .gatebox h2{margin:0 0 6px} .gatebox p{color:var(--mut);font-size:.85rem;margin:0 0 16px}
+  .gatebox input{width:100%;padding:12px;font-size:1.3rem;text-align:center;letter-spacing:.4em;border-radius:10px;border:1px solid var(--line);background:#0f161e;color:var(--t)}
+  .gatebox button{margin-top:12px;width:100%;padding:11px;border:none;border-radius:10px;background:var(--accent);color:#06121a;font-weight:800;font-size:.95rem;cursor:pointer}
+  .gateerr{color:var(--bad);font-size:.82rem;margin-top:10px;min-height:18px} #app{display:none}
+  .ibtn{background:var(--accent);color:#06121a;border:none;border-radius:8px;padding:8px 14px;font-weight:800;cursor:pointer;margin-right:10px;font-size:.9rem}
+</style>
+</head>
+<body>
+<div id="gate"><div class="gatebox"><h2>🏭 Site Perfection Engine</h2><p>Enter access code</p>
+  <input id="pw" type="password" inputmode="numeric" maxlength="8" autofocus placeholder="••••">
+  <button id="go">Unlock</button><div class="gateerr" id="gerr"></div></div></div>
+
+<div id="app"><div class="wrap">
+  <header>
+    <div><h1>🏭 PULSE Site Perfection Engine <span class="pill">live</span> <a href="/publish" style="font-size:.8rem;color:var(--accent);text-decoration:none;font-weight:700">✍️ Publisher →</a></h1>
+      <div class="sub" id="meta">loading…</div></div>
+    <div class="live"><button class="ibtn" data-pulse-install type="button">📲 Install app</button><span class="dot"></span> auto-refresh · <span id="ago">—</span></div>
+  </header>
+
+  <!-- SITE-WIDE PERFECTION -->
+  <div class="hero">
+    <div class="barlabel"><span>✅ Pages perfected — every URL at 12/13 or 13/13, dual-signed by 2 independent DS auditors</span><b id="pctlbl">—</b></div>
+    <div class="big"><span id="approvedN">—</span> <small>/ <span id="totalN">—</span> site-wide perfected</small></div>
+    <div class="bigbar"><div id="sitebar" style="width:0%"></div></div>
+    <div class="barlabel"><span id="remainlbl">—</span><span id="ratelbl">—</span></div>
+  </div>
+
+  <!-- CURRENT 400-WINDOW -->
+  <div class="window">
+    <h2>🔎 Now crawling this 400 <span class="lock">🔒 cannot advance to the next 400 until ALL 400 are perfect</span></h2>
+    <div class="barlabel"><span id="winlbl">window…</span><b id="winpct"></b></div>
+    <div class="bigbar"><div id="winbar" style="width:0%;background:linear-gradient(90deg,#13c2c2,#2ecc71)"></div></div>
+    <div class="now" id="nowwork">—</div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <!-- THE CHECKLIST -->
+  <div class="panel">
+    <h2>✅ What every URL must have to pass — perfect 13/13</h2>
+    <div class="sub">Every URL must pass <b>all</b> checklist items below and earn <b>≥12/13 (13/13 ideal)</b>. <b>Stage 1</b> fixes each component; <b>Stage 2</b> — two independent DeepSeek auditors must BOTH PASS @≥12/13 + every station before sign-off. Signed off → indexed via IndexNow. Can't reach 12/13 after 3 tries → flagged for your review.</div>
+    <div class="checklist" id="checklist"></div>
+  </div>
+
+  <!-- NEEDS REVIEW -->
+  <div class="panel redpanel" id="reviewpanel" style="display:none">
+    <h2>⚠️ Needs your attention <span class="pill" style="background:rgba(231,76,60,.16);color:#ff9b8a" id="reviewcount"></span></h2>
+    <div class="sub">These couldn't reach a perfect 13/13 after 3 tries. Set aside for deep audit — fix manually or tell me how to handle them.</div>
+    <div class="review" id="reviewlist"></div>
+  </div>
+
+  <div class="sub">400 URLs at a time · never advances until all are perfect · indexes on sign-off.</div>
+</div></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const KEY_SS='pulse_seo_key'; let KEY=null,lastAt=null;
+const REQS=[
+  ['🏆','Quality score ≥12/13','12/13 minimum, 13/13 ideal — every quality signal must pass the deep grader'],
+  ['🖼️','Top cover image','A relevant image at the top of the answer'],
+  ['🧭','Direct Answer card','A "## Direct Answer" up top that answers the title'],
+  ['📝','2,000+ words','Real depth — expanded to ≥2,000 words, no padding'],
+  ['❓','FAQ — 6 questions','A "## FAQ" with 6 real question/answer pairs'],
+  ['📊','2 clean mermaids','Two valid Mermaid diagrams, render-safe (no broken labels)'],
+  ['📚','Sources — 5+','A "## Sources" section with 5 or more credible references'],
+  ['🔗','Related on PULSE','Internal cross-links to sibling pages'],
+  ['🧹','Healthy links','https only · canonical /knowledge/ links · no broken/redirect links'],
+  ['🏷️','Image alt text','Every image carries descriptive alt text'],
+  ['💼','Kory White CRO card','The CRO Syndicate card injected in the body'],
+  ['🔢','Top-10 item images','Top-10 lists: an image on all 10 picks'],
+  ['🧑‍⚖️','Dual DS auditor sign-off','Stage 2: two independent DeepSeek auditors must BOTH PASS @≥12/13 before final sign-off'],
+  ['🔎','Indexed','Submitted to IndexNow the moment it passes'],
+];
+function fmtAgo(iso){if(!iso)return '—';const s=Math.round((Date.now()-new Date(iso))/1000);if(s<60)return s+'s ago';if(s<3600)return Math.round(s/60)+'m ago';return Math.round(s/3600)+'h ago';}
+function num(n){return n==null?'—':Number(n).toLocaleString();}
+function shortWork(s){if(!s||/^(idle|starting)/i.test(s))return '';const m=String(s).match(/fixing\s+(\S+)/);if(m)return m[1];if(/^[a-z]{1,4}\d/i.test(s))return s;return '';}
+function renderChecklist(){$('#checklist').innerHTML=REQS.map(([ic,t,d])=>`<div class="req"><div class="ic">${ic}</div><div class="tx"><b>${t}</b><span>${d}</span></div></div>`).join('');}
+async function load(){
+  let p;
+  try{const r=await fetch('/.netlify/functions/pulse-seo-monitor?key='+encodeURIComponent(KEY)+'&t='+Date.now());if(r.status===401){gateFail('Wrong code');return false;}p=await r.json();}catch(e){$('#meta').textContent='fetch error: '+e.message;return true;}
+  const c=p.content||{}, pg=p.progress||{};
+  lastAt=c.auditedAt||pg.currentAt;
+  const total=c.catalogTotal||0, approved=c.approved||0, remaining=c.remaining!=null?c.remaining:(c.total||0);
+  const nr=c.needsReview||0;
+  const pct=total?Math.round(approved/total*1000)/10:0;
+  // site-wide
+  $('#approvedN').textContent=num(approved); $('#totalN').textContent=num(total);
+  $('#pctlbl').textContent=pct+'%'; $('#sitebar').style.width=Math.min(100,pct)+'%';
+  $('#remainlbl').innerHTML='<b>'+num(remaining)+'</b> still to perfect';
+  $('#ratelbl').innerHTML='<b>'+(c.fixesPerMin!=null?c.fixesPerMin:'—')+'</b>/min · <b>'+(c.fixesPerHour!=null?c.fixesPerHour:'—')+'</b>/hr';
+  // current 400 window
+  const wd=pg.crawled||0, wt=pg.target||400, wp=wt?Math.round(wd/wt*100):0;
+  $('#winlbl').innerHTML='🔎 '+num(wd)+' / '+num(wt)+' perfect in this batch';
+  $('#winpct').textContent=wp+'%'; $('#winbar').style.width=Math.min(100,wp)+'%';
+  const curId=shortWork(pg.currentlyWorking);
+  const nw=$('#nowwork');if(curId){nw.style.display='';nw.textContent='Now: '+curId;}else{nw.style.display='none';nw.textContent='';}
+  // stat tiles — LATEST-5 layout
+  const rateLbl='⚡ V2 fixes/min'+(c.fixesPerHour!=null?' · '+c.fixesPerHour+'/hr':'');
+  $('#stats').innerHTML=[
+    ['🔎 Indexed',c.indexed,'ok'],
+    ['📭 Not indexed',c.notIndexed,c.notIndexed>0?'warn-tile':'ok'],
+    ['📤 Indexed today',c.indexedToday,'ok'],
+    [rateLbl,c.fixesPerMin,'accent']
+  ].map(([l,n,k])=>{const cls=k==='bad-tile'?'stat bad-tile':k==='warn-tile'?'stat warn-tile':'stat';const col=k==='ok'?'var(--ok)':k==='bad-tile'?'var(--bad)':k==='warn-tile'?'var(--warn)':k==='accent'?'var(--accent)':'var(--t)';return `<div class="${cls}"><div class="n" style="color:${col}">${num(n)}</div><div class="l">${l}</div></div>`;}).join('');
+  // needs review — red box
+  if(nr>0){
+    $('#reviewpanel').style.display='block';
+    $('#reviewcount').textContent=nr+' in red box';
+    const ids=(c.needsReviewIds||[]).slice(0,80);
+    const links=ids.map(id=>`<a href="/knowledge/${id}" target="_blank" rel="noopener">${id}</a>`).join('');
+    $('#reviewlist').innerHTML='<div class="empty"><b>'+nr+'</b> entries queued — 3 DS fix · 2 DDG images · 3 DS auditors (both must PASS @12/13)</div>'+(links?'<div class="review" style="margin-top:10px">'+links+'</div>':'');
+  } else $('#reviewpanel').style.display='none';
+  $('#meta').innerHTML='<b>pulserevops.com</b> · '+(lastAt?new Date(lastAt).toLocaleString():'—')+' · '+num(total)+' URLs';
+  return true;
+}
+function gateFail(m){$('#gerr').textContent=m;$('#pw').value='';try{localStorage.removeItem(KEY_SS)}catch(e){}}
+async function unlock(code){KEY=code;const ok=await load();if(ok){try{localStorage.setItem(KEY_SS,code)}catch(e){}$('#gate').style.display='none';$('#app').style.display='block';renderChecklist();setInterval(()=>{$('#ago').textContent=fmtAgo(lastAt);},1000);setInterval(load,10000);}}
+$('#go').onclick=()=>unlock($('#pw').value.trim());
+$('#pw').addEventListener('keydown',e=>{if(e.key==='Enter')unlock($('#pw').value.trim());});
+(()=>{const u=new URLSearchParams(location.search).get('code');let saved=null;try{saved=localStorage.getItem(KEY_SS)}catch(e){}if(u)unlock(u);else if(saved)unlock(saved);})();
+</script>
+<script src="/js/pwa-install.js" defer></script>
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

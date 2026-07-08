@@ -1,0 +1,49 @@
+---
+description: Pillar dupe-pool images — Fable grade, import paths, do-not-repeat errors
+globs: website/_import_pool*.js,website/_ddg_facecard_lib.js,website/_pillar_dupe_pool.js,website/_scrub_button_server.js
+alwaysApply: false
+---
+
+# Pillar pool images (Pulse Tools / dupe-fill)
+
+## Fable grade is mandatory
+
+Every pool file MUST pass `storeGradedImage` in `_ddg_facecard_lib.js` (warm cast, vignette, grain, EXIF `PULSE_GRADE=v_final`). Verify with `verifyGradeStamp` after write. Never copy raw JPGs into `assets/qa/pool-*` without grading.
+
+## Do NOT import low-res collage grids
+
+**Never** split a ~1024×559 (or similar) 10×10 collage into pool slots. Each cell is ~100×50 px — upscaling to 800px looks aged but is **too blurry for production**.
+
+- ❌ `_import_pool_grid.js` on small AI collage downloads
+- ✅ Full-size **individual** images (≥600×400, ideally ≥1000px wide)
+- ✅ DDG via `ensurePillarPoolSlot` / `_pillar_dupe_pool.js` at native resolution
+- Grid import only if source width is **≥4096px** (still prefer individual files)
+
+## Import owner-provided images
+
+1. User drops files in `Downloads/pool-import/` or gives a local synced path (Google Drive must be synced locally — no cloud API).
+2. Run: `node _import_pool_files.js "C:/path/to/folder" tl 1`
+3. Slots: `pool-{pillar}-001.jpg`, `002`, … (200+ allowed)
+
+## Pool vs Image Fill
+
+- **Pool** = shared reuse library for dupe-fill (`pickMatchingLibraryImage` pool-first)
+- **Image Fill** tab consumes pool; does not need 100 sharp images to start (~20–30 is fine for pilot)
+- Delete bad pool files AND remove matching rows from `_img_registry.json` before re-import
+
+## Q&A topical image reuse (owner 4444)
+
+- **Allowed:** Q&A / essay entries may place an existing graded URL when `pickMatchingLibraryImage` finds a **topical match** — pillar pool slots, registry section images, or (cross-format) a Top 10 `@@PRODUCT` product photo for the same product/topic
+- **Preferred:** generate **new** Flux pool fill or `ensureDdgSectionImage` when no candidate scores high enough
+- **Code:** `_ddg_facecard_lib.js` · `pickMatchingLibraryImage` · pass `allowTopicalReuse: true` on Q&A fill paths (`fillEntryMissingImages` when body is not Top 10)
+- **Still forbidden:** within-page duplicate URLs/pHash on one entry; Top 10 rank blocks with **two** images (`@@PRODUCT` + markdown) — see `GOLDEN_TEMPLATE_TOP10.md`
+
+## Scrub server
+
+- Portal: `http://localhost:8899/scrubber` pass `4444`
+- If port 8899 in use, kill old node before restart — do not assume restart succeeded on EADDRINUSE
+- Static asset preview: `npx http-server website -p 3456` → `/assets/qa/pool-tl-NNN.jpg`
+
+## Minimum quality gate
+
+Reject imports below `qualifyPhoto` thresholds: width <600, height <400, extreme aspect, flat/logo-like images.

@@ -1,0 +1,19 @@
+{
+  "rankingDone": [],
+  "qaDone": [],
+  "rankingFailed": [],
+  "qaFailed": [
+    {
+      "id": "tl21651",
+      "err": "Q&A gold audit: image_before_direct_answer, first_h2_not_direct_answer, content_sections_1_min_5, tail_out_of_order_expected_faq_got_Direct Answer, extra_sections_after_tail_Direct Answer|H2: Step-by-Step Search Strategy for Finding a Fractional CRO on LinkedIn|H2: How to Vet a Fractional CRO on LinkedIn Before Engaging|H2: Crafting an Effective Outreach Message on LinkedIn|H2: Alternative LinkedIn Tactics to Find a Fractional CRO|H2: Common Mistakes When Searching for a Fractional CRO on LinkedIn|H2: How to Vet a Fractional CRO’s Profile for Genuine Expertise|H2: Using LinkedIn Groups and Communities to Uncover Hidden Talent|H2: Crafting a Compelling Outreach Message That Gets Responses|FAQ|Sources|Related on PULSE",
+      "at": "2026-07-07T04:05:50.499Z"
+    },
+    {
+      "id": "tl21648",
+      "err": "Q&A gold audit: image_before_direct_answer, first_h2_not_direct_answer, content_sections_1_min_5, tail_out_of_order_expected_faq_got_Direct Answer, extra_sections_after_tail_Direct Answer|Top Sources to Call for a Fractional CRO|How to Evaluate a Fractional CRO Before Calling|The Process: What to Expect When You Call|When NOT to Call a Fractional CRO Platform|Red Flags When Hiring a Fractional CRO|How to Structure the Engagement for Success|Mermaid Diagram: Decision Flow for Hiring a Fractional CRO|Mermaid Diagram: Typical Fractional CRO Engagement Timeline|How to Vet a Fractional CRO Before You Commit|Red Flags to Watch for When Hiring a Fractional CRO|When to Consider a Fractional CRO Over a Full-Time Hire|FAQ|Sources|Related on PULSE",
+      "at": "2026-07-07T04:14:07.119Z"
+    }
+  ],
+  "samples": [],
+  "answerPool": []
+}

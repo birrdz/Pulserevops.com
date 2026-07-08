@@ -1,0 +1,290 @@
+{
+  "rs0001": {
+    "cat": "rs",
+    "key": "RS-1",
+    "img": 1,
+    "url": "https://i.pinimg.com/originals/46/4b/30/464b309d16dd8614f3485eb2a825b40f.jpg"
+  },
+  "rs0002": {
+    "cat": "rs",
+    "key": "RS-2",
+    "img": 2,
+    "url": "https://storage.googleapis.com/cloudaio/images/hotel/13ad197e-d303-406b-a0c5-03c6486ac6c8/22911/Riviera_Cancun__Aerial2.jpg"
+  },
+  "rs0003": {
+    "cat": "rs",
+    "key": "RS-3",
+    "img": 2,
+    "url": "https://www.fodors.com/wp-content/uploads/2019/01/03_Best_Luxury_Caribbean_Zoetry_Agua_12308177_10153887887523054_6082492700201757636_o.jpg"
+  },
+  "rs0004": {
+    "cat": "rs",
+    "key": "RS-4",
+    "img": 2,
+    "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/ed/f5/e3/jewel-punta-cana-all.jpg?w=1400&h=-1&s=1"
+  },
+  "rs0005": {
+    "cat": "rs",
+    "key": "RS-5",
+    "img": 5,
+    "url": "https://cdn.sandals.com/beaches/v12/images/resorts/bbo/home/rooms-and-suites/beachfront-suite.jpg"
+  },
+  "rs0006": {
+    "cat": "rs",
+    "key": "RS-6",
+    "img": 2,
+    "url": "https://onlybyland.com/wp-content/uploads/2024/11/BeachAllInclusiveFeature.jpg"
+  },
+  "rs0007": {
+    "cat": "rs",
+    "key": "RS-7",
+    "img": 4,
+    "url": "https://www.awaygowe.com/wp-content/uploads/2023/06/family-caribbean-resorts-all-inclusive-coconut-bay-st-lucia.jpg"
+  },
+  "rs0008": {
+    "cat": "rs",
+    "key": "RS-8",
+    "img": 5,
+    "url": "https://thepointsguy.global.ssl.fastly.net/us/originals/2023/02/Best-All-Inclusive_Hyatt-Zilara-Cap-Cana_Hyatt.jpg?width=1920"
+  },
+  "rs0009": {
+    "cat": "rs",
+    "key": "RS-9",
+    "img": 4,
+    "url": "https://corksandtacos.com/wp-content/uploads/2023/02/eb-homebox-21-2.jpg"
+  },
+  "rs0010": {
+    "cat": "rs",
+    "key": "RS-10",
+    "img": 3,
+    "url": "https://i.pinimg.com/originals/24/cd/57/24cd57f85a56ef47aaf7d7c02ef49a76.jpg"
+  },
+  "rs0011": {
+    "cat": "rs",
+    "key": "RS-11",
+    "img": 1,
+    "url": "https://images.prismic.io/ski-com/ZuCZiRoQrfVKl77j_931a00a9.avif?auto=format%2Ccompress&fit=max&w=3840&q=100"
+  },
+  "rs0012": {
+    "cat": "rs",
+    "key": "RS-12",
+    "img": 3,
+    "url": "https://myfamilytravels.com/wp-content/uploads/2025/10/10-Utah-Ski-Resorts-Drawing-Visitors-From-Everywhere.jpg"
+  },
+  "tn0001": {
+    "cat": "tn",
+    "key": "TN-1",
+    "img": 3,
+    "url": "https://besthotelshome.com/wp-content/uploads/2021/11/Annapolis-Maryland-USA-downtown-view-over-Main-Street-with-the-State-House..jpg"
+  },
+  "tn0002": {
+    "cat": "tn",
+    "key": "TN-2",
+    "img": 3,
+    "url": "https://besthotelshome.com/wp-content/uploads/2021/11/Annapolis-Maryland-USA-downtown-view-over-Main-Street-with-the-State-House..jpg"
+  },
+  "tn0003": {
+    "cat": "tn",
+    "key": "TN-3",
+    "img": 2,
+    "url": "https://www.islands.com/img/gallery/one-of-marylands-best-baltimore-suburbs-is-known-as-the-heart-of-harford-full-of-art-culture-and-shops/experience-bel-airs-arts-and-culture-1758320556.jpg"
+  },
+  "tn0004": {
+    "cat": "tn",
+    "key": "TN-4",
+    "img": 5,
+    "url": "https://www.georgetowndc.com/wp-content/uploads/2019/08/0076-Kittner_20181207_8_0894_5_6_7_8Enhancer01-Edit-Edit_website-1400x800.jpg"
+  },
+  "tn0005": {
+    "cat": "tn",
+    "key": "TN-5",
+    "img": 2,
+    "url": "https://www.ourescapeclause.com/wp-content/uploads/2020/12/shutterstock_1606291531-1024x683.jpg"
+  },
+  "tn0006": {
+    "cat": "tn",
+    "key": "TN-6",
+    "img": 2,
+    "url": "https://www.ourescapeclause.com/wp-content/uploads/2020/12/shutterstock_1606291531-1024x683.jpg"
+  },
+  "tn0007": {
+    "cat": "tn",
+    "key": "TN-7",
+    "img": 1,
+    "url": "https://www.countryaah.com/wp-content/uploads/2024/11/History-of-Anne-Arundel-County-Maryland-730x418.jpg"
+  },
+  "tn0008": {
+    "cat": "tn",
+    "key": "TN-8",
+    "img": 1,
+    "url": "https://www.worldatlas.com/r/w768/upload/43/6f/ab/shutterstock-1768100804.jpg"
+  },
+  "tn0009": {
+    "cat": "tn",
+    "key": "TN-9",
+    "img": 5,
+    "url": "https://onbetterliving.com/wp-content/uploads/2023/06/St-Michaels-MD-B_BL.jpg"
+  },
+  "tn0010": {
+    "cat": "tn",
+    "key": "TN-10",
+    "img": 2,
+    "url": "https://www.travelandleisure.com/thmb/0mEnLiGY4buTjqHWi5zQzOg15I0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/palm-beach-florida-SMALLTOWNFL0521-8579684b4a3247429793985a78bf20ef.jpg"
+  },
+  "tn0011": {
+    "cat": "tn",
+    "key": "TN-11",
+    "img": 3,
+    "url": "https://www.worldatlas.com/r/w768/upload/dd/bf/d1/shutterstock-1071931766.jpg"
+  },
+  "tn0012": {
+    "cat": "tn",
+    "key": "TN-12",
+    "img": 1,
+    "url": "https://i.pinimg.com/originals/66/80/9d/66809df6e1441a0e0b9394d514a59b99.jpg"
+  },
+  "pt0001": {
+    "cat": "pt",
+    "key": "PT-1",
+    "img": 2,
+    "url": "https://i.pinimg.com/originals/e7/01/7f/e7017f47eea4f71c339170f1ed9b158a.jpg"
+  },
+  "pt0003": {
+    "cat": "pt",
+    "key": "PT-2",
+    "img": 3,
+    "url": "https://i.etsystatic.com/61035967/r/il/56f582/7587583863/il_1080xN.7587583863_axst.jpg"
+  },
+  "pt0004": {
+    "cat": "pt",
+    "key": "PT-3",
+    "img": 3,
+    "url": "https://cdn.builder.io/api/v1/image/assets/1c8ef3f695f2487f915df3885427baf6/9207d989c906454889feb82c186a2927"
+  },
+  "pt0005": {
+    "cat": "pt",
+    "key": "PT-4",
+    "img": 2,
+    "url": "https://aplaceforanimals.com/wp-content/uploads/2024/03/choosing_grain_free_cat_food.jpg"
+  },
+  "pt0006": {
+    "cat": "pt",
+    "key": "PT-5",
+    "img": 3,
+    "url": "https://www.news.market.us/wp-content/uploads/2024/12/Insect-based-Pet-Food-Market.png"
+  },
+  "pt0007": {
+    "cat": "pt",
+    "key": "PT-6",
+    "img": 2,
+    "url": "https://imgcdn.stablediffusionweb.com/2024/9/28/ca279bca-dbba-431e-ab2d-489f46d2e51d.jpg"
+  },
+  "pt0008": {
+    "cat": "pt",
+    "key": "PT-7",
+    "img": 3,
+    "url": "https://i.pinimg.com/originals/0d/62/a8/0d62a86e7cc1c769335be8b2e7caf031.jpg"
+  },
+  "pt0009": {
+    "cat": "pt",
+    "key": "PT-8",
+    "img": 3,
+    "url": "https://tractive.com/blog/wp-content/uploads/2025/02/Tractive_Smart_GPS_Cat_Tracker_LIVE_Tracking-1024x1024.jpg"
+  },
+  "pt0010": {
+    "cat": "pt",
+    "key": "PT-9",
+    "img": 2,
+    "url": "https://i.etsystatic.com/50718871/r/il/b81a25/6415750555/il_1080xN.6415750555_71b9.jpg"
+  },
+  "pt0011": {
+    "cat": "pt",
+    "key": "PT-10",
+    "img": 2,
+    "url": "https://petproducts.com.cn/wp-content/uploads/2023/11/eco-pet-bed-1024x760.webp"
+  },
+  "pt0012": {
+    "cat": "pt",
+    "key": "PT-11",
+    "img": 4,
+    "url": "https://i5.walmartimages.com/seo/Dog-Harness-Small-Large-Dogs-Artistic-Cool-Horse-Multicolor-No-Pull-Pet-Easy-Walk-Adjustable-Soft-Padded-Vest-Front-Clip-Reflective_a7c08686-e021-4097-b5a2-124213e86475.f1aeee6369c6d0742edd5be54cc05de1.jpeg"
+  },
+  "pt0013": {
+    "cat": "pt",
+    "key": "PT-12",
+    "img": 4,
+    "url": "https://assets.petworks.com/images/listing_images/images/1307313/original/croppedimage508_dog_portrait.png?1678599115"
+  },
+  "wl0001": {
+    "cat": "wl",
+    "key": "WL-1",
+    "img": 1,
+    "url": "https://thumbs.dreamstime.com/b/person-practicing-transcendental-meditation-surrounded-beautiful-serene-natural-environment-person-practicing-274465379.jpg"
+  },
+  "wl0002": {
+    "cat": "wl",
+    "key": "WL-2",
+    "img": 4,
+    "url": "https://i.etsystatic.com/62136632/r/il/52f17c/7558218953/il_1080xN.7558218953_ofuk.jpg"
+  },
+  "wl0003": {
+    "cat": "wl",
+    "key": "WL-3",
+    "img": 3,
+    "url": "https://thumbs.dreamstime.com/b/two-sleek-smartwatches-vibrant-health-data-wet-stone-surface-set-against-soft-natural-backdrop-ocean-waves-ai-381686593.jpg"
+  },
+  "wl0004": {
+    "cat": "wl",
+    "key": "WL-4",
+    "img": 5,
+    "url": "https://www.russh.com/wp-content/uploads/2025/03/best-sleep-trackers.jpg"
+  },
+  "wl0005": {
+    "cat": "wl",
+    "key": "WL-5",
+    "img": 3,
+    "url": "https://images.stockcake.com/public/5/0/7/5070300e-c77a-429d-81d5-d4b60192a516_large/luxury-spa-serenity-stockcake.jpg"
+  },
+  "wl0006": {
+    "cat": "wl",
+    "key": "WL-6",
+    "img": 4,
+    "url": "https://dsproul.com/hospitality%20spa%20moody%20mockup.jpg"
+  },
+  "wl0007": {
+    "cat": "wl",
+    "key": "WL-7",
+    "img": 4,
+    "url": "https://thumbs.dreamstime.com/b/natural-herbal-powders-botanicals-holistic-wellness-serene-inviting-composition-featuring-assortment-various-421882357.jpg"
+  },
+  "wl0008": {
+    "cat": "wl",
+    "key": "WL-8",
+    "img": 1,
+    "url": "https://content.eturia.ro/images/site/heroes/banner-wellness.webp"
+  },
+  "wl0009": {
+    "cat": "wl",
+    "key": "WL-9",
+    "img": 4,
+    "url": "https://img.freepik.com/premium-photo/serene-luxury-spa_1031776-38935.jpg?w=996"
+  },
+  "wl0010": {
+    "cat": "wl",
+    "key": "WL-10",
+    "img": 2,
+    "url": "https://workoutable.com/wp-content/uploads/2025/08/top_pre_workout_supplements_2025_pkfrl.jpg"
+  },
+  "wl0011": {
+    "cat": "wl",
+    "key": "WL-11",
+    "img": 4,
+    "url": "https://i.etsystatic.com/37425971/r/il/aad892/5939587188/il_fullxfull.5939587188_fwfp.jpg"
+  },
+  "wl0012": {
+    "cat": "wl",
+    "key": "WL-12",
+    "img": 5,
+    "url": "https://a4group.eu/wp-content/uploads/2025/01/best-algae-omega-3-supplements-in-2025.webp"
+  }
+}

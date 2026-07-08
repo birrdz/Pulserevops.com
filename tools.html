@@ -1,9 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>window.PILLAR_DEFAULT='tl';window.PILLAR_MOSAIC=true;document.documentElement.classList.add('pillar-mosaic-instant');</script>
+<style id="pillar-mosaic-critical">html.pillar-mosaic-instant .hdr,html.pillar-mosaic-instant .hero,html.pillar-mosaic-instant .toolbar,html.pillar-mosaic-instant .statusbar,html.pillar-mosaic-instant .footer,html.pillar-mosaic-instant .loading,html.pillar-mosaic-instant .pulse-skeleton{display:none!important}html.pillar-mosaic-instant body{background:#0a0806!important;color:#fff!important;margin:0}</style>
+<script src="/js/pillar-mosaic-instant.js"></script>
+<link rel="stylesheet" href="/css/pulse-mosaic.css">
+<script src="/js/pulse-face-img.js" defer></script>
+<script src="/js/pulse-home-mosaic.js" defer></script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#F1F5F9">
+<meta name="theme-color" content="#0B0B0C">
 <meta name="format-detection" content="telephone=no">
 <title>Tools — RevOps Calculators &amp; How-To — Pulse</title>
 <meta name="description" content="Operator how-to answers that show the formula, a worked example, and the top 10 real tools to solve it — calculate reps, forecast revenue, predict churn, score reps, and more. Plus free interactive calculators.">
@@ -27,32 +34,35 @@
 <link rel="prefetch" href="/.netlify/functions/pulse-machine-library-list?recent=300" as="fetch" crossorigin>
 <!-- tl pillar — themed accent -->
 <style>
+/* tl pillar listing — BLACK / RED / WHITE theme (owner). Only the listing/grid pages,
+   not the printed answer pages. */
 :root{
-  --orange:#475569;--od:#334155;
-  --bg:#F1F5F9;--s1:#F4F7FA;--card:#FFFFFF;--cardh:#F6F9FB;
-  --bdr:rgba(29,44,52,0.12);--bdrh:rgba(71,85,105,0.42);
-  --t1:#0F172A;--t2:#475569;--t3:#94A3B8;
+  --orange:#E11D2A;--od:#B00C18;
+  --bg:#0B0B0C;--s1:#131316;--card:#17171A;--cardh:#1F1F24;
+  --bdr:rgba(255,255,255,0.10);--bdrh:rgba(225,29,42,0.6);
+  --t1:#FFFFFF;--t2:#C7C7CE;--t3:#8A8A93;
 }
-body{background-color:#F1F5F9;background-image:none}
-.hdr{background:rgba(255,255,255,.94);border-bottom:1px solid rgba(29,44,52,0.08)}
-.hdr-name{color:var(--orange)}
+body{background-color:#0B0B0C;background-image:none;color:var(--t2)}
+.hdr{background:rgba(11,11,12,.92);border-bottom:1px solid rgba(255,255,255,0.08)}
+.hdr-name{color:#fff}
 .hdr-cta{background:var(--orange);color:#fff}
-.search-input{background:#fff;border:1px solid rgba(29,44,52,0.14);color:var(--t1)}
-.search-clear{background:rgba(29,44,52,0.06)}
-.filter-chip{background:rgba(29,44,52,0.03);border:1px solid rgba(29,44,52,0.1)}
+.search-input{background:#17171A;border:1px solid rgba(255,255,255,0.16);color:var(--t1)}
+.search-clear{background:rgba(255,255,255,0.08);color:#fff}
+.filter-chip{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.13);color:var(--t2)}
 .filter-chip.is-active{background:var(--orange);color:#fff;border-color:var(--orange)}
-.statusbar strong{color:var(--t1)}
-.card{background:#fff}
-.card::before{background:linear-gradient(90deg,transparent,rgba(29,44,52,0.06),transparent)}
-.card:hover{box-shadow:0 8px 24px rgba(29,44,52,0.1)}
-.card-meta{border-top:1px solid rgba(29,44,52,0.06)}
-.card-pillar{color:var(--orange);background:rgba(71,85,105,0.1);border:1px solid rgba(71,85,105,0.25)}
-.pager button{background:rgba(29,44,52,0.03);border:1px solid rgba(29,44,52,0.1)}
+.statusbar,.statusbar strong{color:var(--t1)}
+.card{background:#17171A;border:2px solid #1f1f22}
+.card::before{background:linear-gradient(90deg,transparent,rgba(225,29,42,0.30),transparent)}
+.card:hover{box-shadow:0 10px 28px rgba(0,0,0,0.55);border-color:var(--bdrh);background:var(--cardh)}
+.card-q{color:#fff}
+.card-meta{border-top:1px solid rgba(255,255,255,0.07)}
+.card-pillar{color:#fff;background:rgba(225,29,42,0.18);border:1px solid rgba(225,29,42,0.5)}
+.pager button{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.13);color:var(--t2)}
 .pager button.is-active{background:var(--orange);color:#fff;border-color:var(--orange)}
-.footer{background:var(--s1);border-top:1px solid rgba(29,44,52,0.08)}
-.footer-pillars span{background:rgba(29,44,52,0.03);border:1px solid rgba(29,44,52,0.08)}
-.footer-pillars strong{color:#0F172A}
-.hero-eyebrow{background:rgba(71,85,105,0.1);border:1px solid rgba(71,85,105,0.28);color:var(--od)}
+.footer{background:#0E0E10;border-top:1px solid rgba(255,255,255,0.08)}
+.footer-pillars span{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)}
+.footer-pillars strong{color:#fff}
+.hero-eyebrow{background:rgba(225,29,42,0.16);border:1px solid rgba(225,29,42,0.45);color:#fff}
 .hero-counts strong{color:var(--orange)}
 .hero h1 em{color:var(--orange)}
 .pillar-brand{display:flex;justify-content:center;margin:10px auto 18px}
@@ -1707,18 +1717,10 @@ body{background-color:#F1F5F9;background-image:none}
   <div class="hero-counts">🛠️ <strong id="hc-total">…</strong> how-to answers · <a class="calc-cta" href="/calculators">⚡ Open the free interactive calculators →</a></div>
   <nav class="tool-pills" aria-label="Quick access to free PULSE tools">
     <span class="tp-label">⚡ Jump straight to a free tool</span>
-    <a class="tool-pill" href="/tools/pulse-check"><span class="tp-emo">◉</span>Pulse Check Matrix</a>
-    <a class="tool-pill" href="/tools/recruiting-calculator"><span class="tp-emo">🎓</span>Recruiting Calculator</a>
-    <a class="tool-pill" href="/tools/rep-scheduling"><span class="tp-emo">🕒</span>Rep Scheduling Matrix</a>
-    <a class="tool-pill" href="/tools/gross-profit-calculator"><span class="tp-emo">💰</span>Gross Profit Calculator</a>
-    <a class="tool-pill" href="/tools/house-goals"><span class="tp-emo">🏠</span>House Goals</a>
-    <a class="tool-pill" href="/tools/pulse-matrix"><span class="tp-emo">⌬</span>Pulse Matrix</a>
-    <a class="tool-pill" href="/tools/tier-distribution"><span class="tp-emo">📊</span>Tier Distribution</a>
-    <a class="tool-pill" href="/tools/service-fees"><span class="tp-emo">💵</span>Service Fees</a>
-    <a class="tool-pill" href="/tools/lead-enricher"><span class="tp-emo">🔍</span>Lead Enricher</a>
-    <a class="tool-pill" href="/tools/revenue-intelligence"><span class="tp-emo">📈</span>Free CRM</a>
-    <a class="tool-pill" href="/tools/war-room"><span class="tp-emo">⚔</span>War Room</a>
-    <a class="tool-pill" href="/tools/90-day-revenue-plan"><span class="tp-emo">📅</span>90-Day Revenue Plan</a>
+    <a class="tool-pill" href="/calculators#house-goals"><span class="tp-emo">🏠</span>House Goals &amp; Pulse Check</a>
+    <a class="tool-pill" href="/calculators#gross-profit"><span class="tp-emo">💰</span>Gross Profit Calculator</a>
+    <a class="tool-pill" href="/calculators#service-fees"><span class="tp-emo">💵</span>Service Fees</a>
+    <a class="tool-pill" href="/calculators#rep-scheduling"><span class="tp-emo">🕒</span>Rep Scheduling Matrix</a>
   </nav>
 </section>
 <div class="toolbar">
@@ -1744,8 +1746,8 @@ body{background-color:#F1F5F9;background-image:none}
     <div class="footer-copy">© 2025 Kory White · PULSE RevOps · <a href="/">pulserevops.com</a> · <a href="/calculators">⚡ Interactive Calculators</a> · <a href="/sponsor">Advertise</a> · <a href="/my-content">My Content (initials + 4-digit code)</a></div>
   </div>
 </footer>
-<script>window.PILLAR_DEFAULT = 'tl';</script>
 <script src="/js/pillar-page.js" defer></script>
 <script src="/js/pulse-lead-track.js" defer></script>
+<script src="/pulse-ambient.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,20 @@
+{
+  "at": "2026-07-07T04:03:46.822Z",
+  "workers": 3,
+  "staggerSec": 60,
+  "pids": [
+    {
+      "shard": 0,
+      "pid": 40984
+    },
+    {
+      "shard": 1,
+      "pid": 32260
+    },
+    {
+      "shard": 2,
+      "pid": 37576
+    }
+  ],
+  "stopAll": "New-Item C:\\Users\\koryj\\website\\_tl_gold_redo_batch_stop.flag -Force"
+}

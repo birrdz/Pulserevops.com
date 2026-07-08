@@ -1,0 +1,43 @@
+SCRUB AUDIT — PARTIAL (watch timed out at 2/10)
+2026-07-03T23:52:35Z
+
+=== SCRUB AUDIT — last 2 runs ===
+
+❌ q2003 | scrub:parked 12/13 | grade:12/13
+   FAIL: internalDdg, allInternalFlux, ccSigned, noLivePollinator
+   steps: deban+bold → deepseek-fill → pollinator-cover
+
+❌ q2005 | scrub:parked 12/13 | grade:12/13
+   FAIL: internalDdg, allInternalFlux, ccSigned, noLivePollinator
+   steps: deban+bold → deepseek-fill → pollinator-cover
+
+=== SUMMARY ===
+certified+compliant: 0/2
+ready (approval pile): 0/2
+parked: 2/2 — both "internal section images not DDG-ready"
+issues: 2
+serial overlap violations: 1
+
+❌ SCRUB PIPELINE NEEDS ATTENTION — DDG section images still failing first pass.
+
+LOG:
+[
+  {
+    "ts": "2026-07-03T23:43:47.669Z",
+    "id": "q2005",
+    "status": "parked",
+    "score": 12,
+    "before": 12,
+    "steps": ["deban+bold", "deepseek-fill", "pollinator-cover"],
+    "msg": "pollinatorInternalFlux,score12"
+  },
+  {
+    "ts": "2026-07-03T23:50:02.621Z",
+    "id": "q2003",
+    "status": "parked",
+    "score": 12,
+    "before": 12,
+    "steps": ["deban+bold", "deepseek-fill", "pollinator-cover"],
+    "msg": "pollinatorInternalFlux,score12"
+  }
+]

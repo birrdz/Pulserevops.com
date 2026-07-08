@@ -1,0 +1,124 @@
+/* Shared face-card mosaic — homepage, pillar hubs, knowledge entries (owner 2026-07-04)
+   Canonical tile size = homepage .wrap (1080px · 4 cols · 150px rows · 12px gap). */
+:root {
+  --pulse-mosaic-max: 1080px;
+  --pulse-mosaic-row: 360px; /* single-column decent rectangle (owner 2026-07-06) */
+  --pulse-mosaic-gap: 12px;
+  --pulse-mosaic-cols: 1;
+  --mm-gold: #FFEB3B;
+  --mm-gold-cat: #FFE566;
+}
+
+/* Shell — match homepage width so tiles stay the same size on every page */
+.pulse-mosaic-shell,
+.grid-wrap:has(.mag-mosaic),
+.grid-wrap:has(.pulse-home-mosaic),
+body.pulse-mosaic-page .grid-wrap {
+  max-width: var(--pulse-mosaic-max);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: clamp(10px, 2vw, 24px);
+  padding-right: clamp(10px, 2vw, 24px);
+  box-sizing: border-box;
+}
+
+.mag-mosaic,
+.grid.mag-mosaic,
+.grid.pulse-home-mosaic,
+#grid.mag-mosaic,
+#grid.pulse-home-mosaic,
+[data-pulse-home-mosaic].mag-mosaic,
+[data-pulse-mosaic].mag-mosaic {
+  display: grid;
+  grid-template-columns: repeat(var(--pulse-mosaic-cols), 1fr);
+  grid-auto-rows: var(--pulse-mosaic-row);
+  gap: var(--pulse-mosaic-gap);
+  grid-auto-flow: dense;
+  margin: 16px auto 30px;
+  width: 100%;
+  max-width: var(--pulse-mosaic-max);
+  box-sizing: border-box;
+}
+
+.grid.mag-mosaic,
+.grid.pulse-home-mosaic {
+  display: grid !important;
+  grid-template-columns: 1fr !important; /* single column (owner 2026-07-06) */
+  grid-auto-rows: 360px !important;
+  gap: 12px !important;
+  grid-auto-flow: dense !important;
+  max-width: var(--pulse-mosaic-max) !important;
+}
+
+.mag-mosaic.mosaic-compact{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));grid-auto-rows:138px;gap:10px;}
+.mag-mosaic.mosaic-compact .mm h4{font-size:1.14rem;}
+.mm{position:relative;display:block;overflow:hidden;border-radius:6px;background:#1a1a1a center 24%/cover no-repeat;background-size:cover;text-decoration:none;border:1.5px solid #EAC15C;box-shadow:0 0 0 1px rgba(234,193,92,.25);content-visibility:visible;min-height:var(--pulse-mosaic-row,150px);}
+.mm[href^="/knowledge/"]{background-position:center center;}
+/* Face-card tiles are baked 3:1 with attention crop — center on subject (owner 2026-07-08). */
+.mm-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;min-width:0;min-height:0;display:block;filter:brightness(1.22) saturate(1.04);} /* site-wide brightness bump (owner 2026-07-06) */
+/* HOMEPAGE (owner 2026-07-07): original full-color tile format, but LARGE WHITE titles instead of gold.
+   Scoped to #magMosaic entry tiles. Strong shadow + stroke so white reads over any photo. Revert = delete. */
+#magMosaic a.mm[href^="/knowledge/"] h4{color:#fff;text-shadow:0 2px 4px #000,0 2px 16px rgba(0,0,0,.95);-webkit-text-stroke:.7px rgba(0,0,0,.6);paint-order:stroke fill;}
+#magMosaic .mm-scrim{background:linear-gradient(180deg,rgba(0,0,0,0) 34%,rgba(0,0,0,.5) 64%,rgba(0,0,0,.9) 100%);}
+/* brighten background-image fallback tiles + hub tiles too (owner 2026-07-06) */
+.mm[style*="background-image"]:not(:has(.mm-img)){filter:brightness(1.18) saturate(1.03);}
+.mm .mm-scrim,.mm .mm-txt,.mm .mm-hire-t,.mm .mm-menu-t,.mm .mm-hero-in{position:relative;z-index:1;}
+.mm .mm-scrim{position:absolute;}
+.mm .mm-txt{position:absolute;}
+.mm.mm-lazy{background:#14120e linear-gradient(145deg,#14120e 0%,#1e1a12 42%,#14120e 100%);background-size:cover;}
+.mm.mm-lazy.mm-img-pending{animation:mm-lazy-pulse 1.8s ease-in-out infinite;}
+@keyframes mm-lazy-pulse{0%,100%{opacity:1}50%{opacity:.82}}
+.mm-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.03) 42%,rgba(0,0,0,.82) 100%);pointer-events:none;}
+.mm-txt{position:absolute;left:0;right:0;bottom:0;padding:11px 13px;pointer-events:none;}
+.mm-hire-t,.mm-menu-t,.mm-hero-in{pointer-events:none;}
+.mm-cat{font-size:1rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mm-gold-cat,#FFE566);}
+.mm h4{font-family:Fraunces,"Playfair Display",Georgia,serif;font-style:italic;font-weight:900;font-size:3.2rem;line-height:1.16;margin:3px 0 0;color:var(--mm-gold,#FFEB3B);text-shadow:0 0 1px #000,0 0 2px #000,0 1px 0 #000,0 2px 10px rgba(0,0,0,.95),0 4px 16px rgba(0,0,0,.85),0 0 12px rgba(255,220,50,.28);-webkit-text-stroke:0.5px rgba(0,0,0,.9);paint-order:stroke fill;}
+.mm.big{grid-column:span 2;grid-row:span 2;}.mm.wide{grid-column:span 2;}.mm.tall{grid-row:span 2;}
+/* Really long Q&A titles get a much larger tile so the full question fits (+15% scale). */
+.mm.mm-long{grid-column:span 2;grid-row:span 3;contain-intrinsic-size:173px 531px;}
+.mm.mm-long .mm-scrim{background:linear-gradient(180deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,.55) 38%,rgba(0,0,0,.9) 100%);}
+.mm.mm-long .mm-txt{padding:12px 14px 15px;}
+.mm h4{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;-webkit-line-clamp:4;}
+.mm.big h4{font-size:1.2rem;line-height:1.18;-webkit-line-clamp:6;}
+.mm.mm-long h4{font-size:1.13rem;line-height:1.22;-webkit-line-clamp:9;}
+.mm:hover{filter:brightness(1.07);}
+.mm.mm-noimg{border-color:rgba(234,193,92,.45);}
+.mm.mm-noimg .mm-img{display:none;}
+.mm.mm-noimg{background:#14120e linear-gradient(145deg,#14120e 0%,#1e1a12 42%,#14120e 100%) center/cover;}
+@media(max-width:820px){
+  :root{--pulse-mosaic-row:360px;--pulse-mosaic-gap:14px;}
+  .mag-mosaic,.grid.mag-mosaic,.grid.pulse-home-mosaic,[data-pulse-home-mosaic].mag-mosaic,[data-pulse-mosaic].mag-mosaic{
+    grid-template-columns:1fr!important;grid-auto-rows:360px!important;gap:14px!important;
+  }
+  .grid.mag-mosaic,.grid.pulse-home-mosaic{grid-auto-rows:360px!important;gap:14px!important;}
+  .mag-mosaic.mosaic-compact{grid-auto-rows:225px;}
+  .mm{contain-intrinsic-size:285px 368px;min-height:285px;content-visibility:visible;}
+  .mm-txt{padding:16px 18px 17px;}
+  .mm-scrim{background:linear-gradient(180deg,rgba(0,0,0,.05) 28%,rgba(0,0,0,.7) 60%,rgba(0,0,0,.94) 100%);}
+  .mm-cat{font-size:1.2rem;letter-spacing:.12em;color:#FFE9A6;text-shadow:0 1px 2px #000;-webkit-text-stroke:0.4px rgba(0,0,0,.88);paint-order:stroke fill;}
+  /* Mobile tile title (owner 2026-07-07): crisp black stroke + tighter dark halo + cleaner cream-gold + right-sized so full titles read. */
+  .mm h4{font-size:2.7rem;line-height:1.18;-webkit-line-clamp:5;color:#FFF4CC;text-shadow:0 1px 2px #000,0 2px 6px rgba(0,0,0,.95),0 0 3px #000;-webkit-text-stroke:0.8px rgba(0,0,0,.92);paint-order:stroke fill;}
+  .mm.big h4,.mm.wide h4,.mm.tall h4{font-size:1.78rem;line-height:1.22;-webkit-line-clamp:5;}
+  .mm.mm-long h4{font-size:1.61rem;line-height:1.24;-webkit-line-clamp:8;}
+  .mm.big{grid-column:span 2;grid-row:span 1;min-height:285px;}
+  .mm.mm-long{grid-column:span 2;grid-row:span 2;min-height:570px;}
+}
+@media(max-width:520px){
+  :root{--pulse-mosaic-row:360px;--pulse-mosaic-cols:1;--pulse-mosaic-gap:18px;}
+  .mag-mosaic,.grid.mag-mosaic,.grid.pulse-home-mosaic,[data-pulse-home-mosaic].mag-mosaic,[data-pulse-mosaic].mag-mosaic{
+    grid-template-columns:1fr!important;grid-auto-rows:360px!important;gap:18px!important;
+  }
+  .grid.mag-mosaic,.grid.pulse-home-mosaic{grid-template-columns:1fr!important;grid-auto-rows:360px!important;gap:18px!important;}
+  .mag-mosaic.mosaic-compact{grid-template-columns:1fr!important;grid-auto-rows:299px;}
+  .mag-mosaic.mosaic-compact .mm h4{font-size:1.82rem;}
+  .mm{contain-intrinsic-size:368px 100%;min-height:368px;content-visibility:visible;}
+  .mm-txt{padding:18px 20px 20px;}
+  .mm-scrim{background:linear-gradient(180deg,rgba(0,0,0,.06) 26%,rgba(0,0,0,.72) 58%,rgba(0,0,0,.95) 100%);}
+  .mm-cat{font-size:1.25rem;letter-spacing:.13em;color:#FFE9A6;text-shadow:0 1px 2px #000;-webkit-text-stroke:0.45px rgba(0,0,0,.9);paint-order:stroke fill;}
+  .mm h4{font-size:2.5rem;line-height:1.2;-webkit-line-clamp:6;color:#FFF4CC;text-shadow:0 1px 2px #000,0 2px 6px rgba(0,0,0,.96),0 0 3px #000;-webkit-text-stroke:0.9px rgba(0,0,0,.94);paint-order:stroke fill;}
+  .mm.big,.mm.wide,.mm.tall{grid-column:auto;grid-row:auto;min-height:368px;}
+  .mm.big h4,.mm.wide h4,.mm.tall h4{font-size:2.04rem;line-height:1.24;-webkit-line-clamp:6;}
+  .mm.mm-long{grid-column:auto;grid-row:span 2;min-height:598px;}
+  .mm.mm-long h4{font-size:1.87rem;line-height:1.26;-webkit-line-clamp:10;}
+}

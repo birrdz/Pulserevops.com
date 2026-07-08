@@ -1,0 +1,1202 @@
+[
+ {
+  "id": "tc0051",
+  "title": "Verizon vs T-Mobile: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0052",
+  "title": "Best Prepaid Cell Phone Plans in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0053",
+  "title": "Best Unlimited Cell Phone Plans in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0054",
+  "title": "AT&T vs Verizon: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0055",
+  "title": "Best Cheap Cell Phone Plans in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0056",
+  "title": "Best Family Cell Phone Plans in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0057",
+  "title": "AT&T vs T-Mobile: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0058",
+  "title": "Best Cell Phone Plans for Seniors in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0059",
+  "title": "Best Cell Phone Plans for Kids in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0060",
+  "title": "T-Mobile vs Visible: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0061",
+  "title": "Best Cell Phone Plans for International Travel in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0062",
+  "title": "Best No-Contract Cell Phone Plans in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0063",
+  "title": "Mint Mobile vs Visible: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0064",
+  "title": "Best Cell Phone Plans for Light Users in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0065",
+  "title": "Best Cell Phone Plans for Heavy Data Users in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0066",
+  "title": "Cricket Wireless vs Metro by T-Mobile: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0067",
+  "title": "Best Business Cell Phone Plans in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0068",
+  "title": "Best Pay-As-You-Go Cell Phone Plans in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0069",
+  "title": "Google Fi vs T-Mobile: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0070",
+  "title": "Best Two-Line Cell Phone Plans in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0071",
+  "title": "Best Cell Phone Plans with a Free Phone in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0072",
+  "title": "US Mobile vs Mint Mobile: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0073",
+  "title": "Best MVNO Cell Phone Carriers in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0074",
+  "title": "Best Budget Cell Phone Carriers in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0075",
+  "title": "Xfinity Mobile vs Visible: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0076",
+  "title": "Best Carriers for Rural Coverage in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0077",
+  "title": "Best Carriers for Travel in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0078",
+  "title": "Boost Mobile vs Cricket Wireless: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0079",
+  "title": "Best 5G Cell Phone Carriers in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0080",
+  "title": "Best Value Cell Phone Carriers in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0081",
+  "title": "Verizon vs Visible: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0082",
+  "title": "Best 5G Home Internet Providers in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0083",
+  "title": "Best Home Internet for Rural Areas in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0084",
+  "title": "Straight Talk vs Total Wireless: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0085",
+  "title": "Best Fixed-Wireless Internet Providers in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0086",
+  "title": "Best Satellite Internet Providers in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0087",
+  "title": "Is an unlimited data plan worth it in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0088",
+  "title": "Best Home Internet for Gaming in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0089",
+  "title": "Best Phones on Verizon in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0090",
+  "title": "How much mobile data does a family of four actually need in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0091",
+  "title": "Best Phones on AT&T in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0092",
+  "title": "Best Phones on T-Mobile in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0093",
+  "title": "Is a prepaid carrier as good as Verizon, AT&T, or T-Mobile in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0094",
+  "title": "Best Budget Smartphones in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0095",
+  "title": "Best 5G Phones in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0096",
+  "title": "What is the catch with cheap MVNO carriers in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0097",
+  "title": "Best Phones for Seniors in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0098",
+  "title": "Best Phones for Kids in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0099",
+  "title": "How do I port my phone number to a new carrier in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0100",
+  "title": "Best Unlocked Phones in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0101",
+  "title": "Best Smartwatches with Cellular in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0102",
+  "title": "What is the best cheap unlimited phone plan in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0103",
+  "title": "Best Cellular and Wireless Carrier in New York City in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0104",
+  "title": "Best Cellular and Wireless Carrier in Los Angeles in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0105",
+  "title": "What is the best family cell phone plan for four lines in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0106",
+  "title": "Best Cellular and Wireless Carrier in Chicago in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0107",
+  "title": "Best Cellular and Wireless Carrier in Houston in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0108",
+  "title": "How do I lower my cell phone bill in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0109",
+  "title": "Best Cellular and Wireless Carrier in Phoenix in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0110",
+  "title": "Best Cellular and Wireless Carrier in Philadelphia in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0111",
+  "title": "Are autopay and paperless discounts worth it in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0112",
+  "title": "Best Cellular and Wireless Carrier in San Antonio in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0113",
+  "title": "Best Cellular and Wireless Carrier in San Diego in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0114",
+  "title": "Why are taxes and fees so high on my phone bill in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0115",
+  "title": "Best Cellular and Wireless Carrier in Dallas in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0116",
+  "title": "Best Cellular and Wireless Carrier in San Jose in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0117",
+  "title": "Should I get a contract or no-contract phone plan in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0118",
+  "title": "Best Cellular and Wireless Carrier in Austin in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0119",
+  "title": "Best Cellular and Wireless Carrier in Jacksonville in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0120",
+  "title": "Can I bring my own phone to a new carrier (BYOD) in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0121",
+  "title": "Best Cellular and Wireless Carrier in Fort Worth in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0122",
+  "title": "Best Cellular and Wireless Carrier in Columbus in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0123",
+  "title": "Should I finance a new phone or buy it outright in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0124",
+  "title": "Best Cellular and Wireless Carrier in Charlotte in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0125",
+  "title": "Best Cellular and Wireless Carrier in Indianapolis in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0126",
+  "title": "Are phone trade-in deals actually worth it in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0127",
+  "title": "Best Cellular and Wireless Carrier in San Francisco in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0128",
+  "title": "Best Cellular and Wireless Carrier in Seattle in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0129",
+  "title": "Is carrier phone insurance worth it in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0130",
+  "title": "Best Cellular and Wireless Carrier in Denver in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0131",
+  "title": "Best Cellular and Wireless Carrier in Washington DC in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0132",
+  "title": "How does mobile hotspot and tethering work in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0133",
+  "title": "Best Cellular and Wireless Carrier in Boston in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0134",
+  "title": "Best Cellular and Wireless Carrier in Nashville in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0135",
+  "title": "Do I need a separate plan line for a smartwatch in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0136",
+  "title": "Best Cellular and Wireless Carrier in Las Vegas in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0137",
+  "title": "Best Cellular and Wireless Carrier in Portland in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0138",
+  "title": "How do I add a tablet to my cell phone plan in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0139",
+  "title": "Best Cellular and Wireless Carrier in Memphis in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0140",
+  "title": "Best Cellular and Wireless Carrier in Oklahoma City in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0141",
+  "title": "Is 5G home internet good enough to replace cable in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0142",
+  "title": "Best Cellular and Wireless Carrier in Louisville in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0143",
+  "title": "Best Cellular and Wireless Carrier in Milwaukee in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0144",
+  "title": "T-Mobile vs Verizon 5G home internet: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0145",
+  "title": "Best Cellular and Wireless Carrier in Baltimore in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0146",
+  "title": "Best Cellular and Wireless Carrier in Albuquerque in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0147",
+  "title": "Is 5G home internet good enough for gaming in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0148",
+  "title": "Best Cellular and Wireless Carrier in Tucson in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0149",
+  "title": "Best Cellular and Wireless Carrier in Fresno in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0150",
+  "title": "Is 5G home internet a good option for rural areas in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0151",
+  "title": "Best Cellular and Wireless Carrier in Sacramento in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0152",
+  "title": "Best Cellular and Wireless Carrier in Kansas City in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0153",
+  "title": "eSIM vs physical SIM: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0154",
+  "title": "Best Cellular and Wireless Carrier in Atlanta in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0155",
+  "title": "Best Cellular and Wireless Carrier in Miami in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0156",
+  "title": "How do I set up an eSIM in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0157",
+  "title": "Best Cellular and Wireless Carrier in Raleigh in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0158",
+  "title": "Best Cellular and Wireless Carrier in Omaha in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0159",
+  "title": "How do I unlock my phone to switch carriers in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0160",
+  "title": "Best Cellular and Wireless Carrier in Minneapolis in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0161",
+  "title": "Best Cellular and Wireless Carrier in Tulsa in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0162",
+  "title": "How do I check if my phone is compatible with a new carrier in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0163",
+  "title": "Best Cellular and Wireless Carrier in Tampa in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0164",
+  "title": "Best Cellular and Wireless Carrier in New Orleans in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0165",
+  "title": "What is the best cell phone plan for international travel in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0166",
+  "title": "Best Cellular and Wireless Carrier in Wichita in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0167",
+  "title": "Best Cellular and Wireless Carrier in Cleveland in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0168",
+  "title": "How does international roaming work and how do I avoid huge bills in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0169",
+  "title": "Best Cellular and Wireless Carrier in Pittsburgh in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0170",
+  "title": "Best Cellular and Wireless Carrier in St. Louis in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0171",
+  "title": "What is the best cell phone plan for seniors in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0172",
+  "title": "Best Cellular and Wireless Carrier in Cincinnati in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0173",
+  "title": "Best Cellular and Wireless Carrier in Orlando in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0174",
+  "title": "What is the best cell phone plan for kids in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0175",
+  "title": "Best Cellular and Wireless Carrier in Salt Lake City in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0176",
+  "title": "Best Cellular and Wireless Carrier in Richmond in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0177",
+  "title": "What is the best carrier for rural coverage in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0178",
+  "title": "Best Cellular and Wireless Carrier in Buffalo in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0179",
+  "title": "Best Cellular and Wireless Carrier in Hartford in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0180",
+  "title": "What is Wi-Fi calling and should I turn it on in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0181",
+  "title": "Best Cellular and Wireless Carrier in Birmingham in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0182",
+  "title": "Best Cellular and Wireless Carrier in Rochester in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0183",
+  "title": "Why is my cell phone data so slow and am I being throttled in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0184",
+  "title": "Best Cellular and Wireless Carrier in Grand Rapids in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0185",
+  "title": "Best Cellular and Wireless Carrier in Boise in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0186",
+  "title": "How do I fix bad cell signal at home in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0187",
+  "title": "Best Cellular and Wireless Carrier in Spokane in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0188",
+  "title": "Best Cellular and Wireless Carrier in Des Moines in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0189",
+  "title": "What should I do when I have no service or dropped calls in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0190",
+  "title": "Best Cellular and Wireless Carrier in Little Rock in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0191",
+  "title": "Best Cellular and Wireless Carrier in Charleston in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0192",
+  "title": "Prepaid vs postpaid: which should I choose in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0193",
+  "title": "Best Cellular and Wireless Carrier in Greenville in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0194",
+  "title": "Best Cellular and Wireless Carrier in Knoxville in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0195",
+  "title": "Is switching cell carriers worth the hassle in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0196",
+  "title": "Best Cellular and Wireless Carrier in Chattanooga in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0197",
+  "title": "Best Cellular and Wireless Carrier in Lexington in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0198",
+  "title": "What is the best plan for a single line with unlimited data in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0199",
+  "title": "Best Cellular and Wireless Carrier in Dayton in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0200",
+  "title": "Best Cellular and Wireless Carrier in Akron in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0201",
+  "title": "What is the best plan if I barely use data in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0202",
+  "title": "Best Cellular and Wireless Carrier in Toledo in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0203",
+  "title": "Best Cellular and Wireless Carrier in Madison in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0204",
+  "title": "How do I keep my phone number if I cancel my plan in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0205",
+  "title": "Best Cellular and Wireless Carrier in Reno in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0206",
+  "title": "Best Cellular and Wireless Carrier in Colorado Springs in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0207",
+  "title": "What is the best two-line cell phone plan in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0208",
+  "title": "Best Cellular and Wireless Carrier in Virginia Beach in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0209",
+  "title": "Best Cellular and Wireless Carrier in Norfolk in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0210",
+  "title": "Do I really get free streaming (Netflix, Apple TV) with my plan in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0211",
+  "title": "Best Cellular and Wireless Carrier in Greensboro in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0212",
+  "title": "Best Cellular and Wireless Carrier in Durham in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0213",
+  "title": "What is the difference between 5G UW, 5G+, and regular 5G in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0214",
+  "title": "Best Cellular and Wireless Carrier in Baton Rouge in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0215",
+  "title": "Best Cellular and Wireless Carrier in Shreveport in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0216",
+  "title": "Is Starlink a good home internet option in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0217",
+  "title": "Best Cellular and Wireless Carrier in Mobile in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0218",
+  "title": "Best Cellular and Wireless Carrier in Montgomery in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0219",
+  "title": "How much speed do I need from home internet in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0220",
+  "title": "Best Cellular and Wireless Carrier in Fort Wayne in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0221",
+  "title": "Best Cellular and Wireless Carrier in Anchorage in 2027",
+  "ruleset": "top10v2",
+  "kind": "top10"
+ },
+ {
+  "id": "tc0222",
+  "title": "What is the best phone plan for a small business in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0223",
+  "title": "How do I get the best Black Friday cell phone deal in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0224",
+  "title": "Can I use one carrier for phone and another for home internet in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0225",
+  "title": "What is the best backup option if my home internet goes down in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0226",
+  "title": "How do I split a family plan when someone moves out in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0227",
+  "title": "Mint Mobile vs Cricket Wireless: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0228",
+  "title": "Google Fi vs Visible: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0229",
+  "title": "US Mobile vs Visible: which is better in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0230",
+  "title": "Verizon vs AT&T for rural coverage in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0231",
+  "title": "Is Visible worth it in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0232",
+  "title": "Is Mint Mobile worth it in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0233",
+  "title": "Is Google Fi worth it in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0234",
+  "title": "Is US Mobile worth it in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0235",
+  "title": "Is Boost Mobile worth it in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0236",
+  "title": "What is the best cell phone plan for a college student in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0237",
+  "title": "What is the best first phone plan for a child in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0238",
+  "title": "How do I monitor my child's phone usage in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0239",
+  "title": "Do I need 5G or is 4G LTE still fine in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0240",
+  "title": "How do I test a carrier's coverage before fully switching in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0241",
+  "title": "How long does it take to port a phone number in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0242",
+  "title": "Is a dedicated hotspot device better than phone tethering in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0243",
+  "title": "What is the best cell phone plan if I work from home in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0244",
+  "title": "What is the best phone plan with no credit check in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0245",
+  "title": "Are family plans really cheaper than individual lines in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0246",
+  "title": "How do I avoid an early termination fee when switching in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0247",
+  "title": "What is the difference between an MVNO and a major carrier in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0248",
+  "title": "Is unlimited data really unlimited or does it slow down in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0249",
+  "title": "How do I get a free or discounted phone when I switch in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ },
+ {
+  "id": "tc0250",
+  "title": "What is the best plan for a frequent international traveler in 2027?",
+  "ruleset": "telcoqa",
+  "kind": "qa"
+ }
+]

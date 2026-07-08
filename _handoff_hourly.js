@@ -1,7 +1,8 @@
-// _handoff_hourly.js — ROLE LAW (owner 2026-06-26): once an hour, refresh the
+// _handoff_hourly.js — ROLE LAW (owner 2026-06-30, 4444): auto-save the crossover
 // handoff document for the next Claude Code session with a LIVE snapshot of
-// campaign state + running lanes, then EMAIL that it's time for the handoff.
-// Runs once immediately on launch, then every 60 minutes. Self-contained loop.
+// campaign state + running lanes EVERY 15 MINUTES, then EMAIL that it's time for
+// the handoff (email gated by _emails_off.flag). Runs once immediately on launch,
+// then every 15 min. Cadence is a LAW — default is 15, do not raise without "4444".
 //   Launch:  node _handoff_hourly.js   (background lane)
 const fs = require('fs');
 const { execSync } = require('child_process');
@@ -32,11 +33,11 @@ async function refresh(sendEmail = true) {
 
   const snap = [
     '<!-- LIVE-SNAPSHOT-START (auto, _handoff_hourly.js) -->',
-    `## 🕒 LIVE SNAPSHOT — refreshed ${stamp} ET (auto, hourly)`,
+    `## 🕒 LIVE SNAPSHOT — refreshed ${stamp} ET (auto, every 15 min)`,
     `- **Index:** ${count == null ? 'read-failed' : count.toLocaleString()} entries · **net-new ${netNew == null ? '?' : netNew.toLocaleString()} / ${TARGET.toLocaleString()}** (${netNew == null ? '?' : (netNew / TARGET * 100).toFixed(1)}%)`,
     `- **Running lanes (${lanes.length}):** ${lanes.join(', ') || 'NONE'}`,
     `- **\`_indexnow_sitewide.js\` OFF:** ${indexnowOff ? '✅ yes (correct)' : '⚠️ NO — KILL IT (clobbers index)'}`,
-    '- This block is regenerated hourly. The curated handoff below it is the durable knowledge — keep it.',
+    '- This block is auto-regenerated every 15 min (LAW). The curated handoff below it is the durable knowledge — keep it.',
     '<!-- LIVE-SNAPSHOT-END -->',
     '',
   ].join('\n');
@@ -77,5 +78,5 @@ async function refresh(sendEmail = true) {
 // the handoff" email fires only at the hour mark, then every 60 min after.
 (async () => {
   await refresh(false);
-  setInterval(() => refresh(true), 60 * 60 * 1000);
+  setInterval(() => refresh(true), (parseInt(process.env.HANDOFF_INTERVAL_MIN || '15', 10)) * 60 * 1000);   // 🔒 LAW (owner 2026-06-30, 4444): auto-save every 15 min (default 15). Do not raise without "4444".
 })();

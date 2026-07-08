@@ -6,12 +6,13 @@ function serperKey() {
   return (process.env.SERPER_API_KEY || '').trim();
 }
 
-const DDG_DELAY_MS = Math.max(500, parseInt(process.env.DDG_DELAY_MS || '2500', 10) || 2500);
+const DDG_DELAY_MS = Math.max(500, parseInt(process.env.DDG_DELAY_MS || process.env.DDG_THROTTLE_COOLDOWN_MS || '15000', 10) || 15000);
 let lastDdgAt = 0;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function ddgThrottle() {
+async function ddgThrottle(opts) {
+  if (opts && opts.skipThrottle) return;
   const jitter = Math.floor(Math.random() * 1500);
   const wait = DDG_DELAY_MS + jitter;
   const elapsed = Date.now() - lastDdgAt;
@@ -36,8 +37,8 @@ async function headOk(url) {
   }
 }
 
-async function ddgImages(q, attempt = 0) {
-  if (attempt === 0) await ddgThrottle();
+async function ddgImages(q, attempt = 0, throttleOpts) {
+  if (attempt === 0) await ddgThrottle(throttleOpts);
   try {
     const tp = await fetch(`https://duckduckgo.com/?q=${encodeURIComponent(q)}&iax=images&ia=images`, {
       headers: { 'User-Agent': UA },
@@ -112,8 +113,8 @@ async function serperImageQuery(q) {
   }
 }
 
-async function ddgPickFirst(q, limit = 6, emptyAttempt = 0) {
-  const arr = await ddgImages(q);
+async function ddgPickFirst(q, limit = 6, emptyAttempt = 0, throttleOpts) {
+  const arr = await ddgImages(q, 0, throttleOpts);
   for (const c of arr.slice(0, limit)) {
     if (c.image && (await headOk(c.image))) {
       return { img: c.image, site: c.url || '', via: 'ddg:' + q };
@@ -121,7 +122,7 @@ async function ddgPickFirst(q, limit = 6, emptyAttempt = 0) {
   }
   if (!arr.length && emptyAttempt < 3) {
     await sleep(DDG_DELAY_MS * 2 ** emptyAttempt);
-    return ddgPickFirst(q, limit, emptyAttempt + 1);
+    return ddgPickFirst(q, limit, emptyAttempt + 1, throttleOpts);
   }
   return null;
 }
@@ -149,8 +150,8 @@ async function searchRealPhoto(subject, id, opts = {}) {
     const serper = await serperImageQuery(q);
     if (serper) return serper;
 
-    await ddgThrottle();
-    const ddg = await ddgPickFirst(q, refined && q.includes(refined) ? 8 : 5);
+    await ddgThrottle(opts);
+    const ddg = await ddgPickFirst(q, refined && q.includes(refined) ? 8 : 5, 0, opts);
     if (ddg) return ddg;
   }
   return null;

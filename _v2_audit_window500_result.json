@@ -1,0 +1,7870 @@
+{
+  "at": "2026-06-30T13:14:10.334Z",
+  "cursorOffset": 20400,
+  "catalogSize": 34697,
+  "primary": {
+    "label": "primary-500",
+    "window": {
+      "startIdx": 19900,
+      "endIdx": 20400,
+      "count": 500
+    },
+    "firstId": "pt0044",
+    "lastId": "ik0473",
+    "minScore": 12,
+    "wordFloor": 2000,
+    "totals": {
+      "pass": 385,
+      "fail": 115,
+      "noBlob": 0,
+      "stage1InWindow": 353,
+      "ccInWindow": 30,
+      "lackCcInWindow": 323
+    },
+    "scoreHist": {
+      "11": 6,
+      "12": 174,
+      "13": 320
+    },
+    "gapCounts": {
+      "words<2000": 55,
+      "faq": 10,
+      "score<12": 42,
+      "mermaid2": 55,
+      "related": 1,
+      "sources5": 1,
+      "mermaidDirty": 1
+    },
+    "failByGapSample": {
+      "words<2000": [
+        "sw0024",
+        "sw0021",
+        "sw0025",
+        "sw0019",
+        "sw0020",
+        "sw0017",
+        "sw0016",
+        "sw0018"
+      ],
+      "faq": [
+        "sw0019",
+        "gp0487",
+        "tk0424",
+        "tk0421",
+        "tk0415",
+        "tk0409",
+        "tk0405",
+        "tk0399"
+      ],
+      "score<12": [
+        "sw0013",
+        "sw0014",
+        "sw0011",
+        "sw0012",
+        "sw0010",
+        "sw0008",
+        "sw0007",
+        "sw0009"
+      ],
+      "mermaid2": [
+        "sw0013",
+        "sw0014",
+        "sw0011",
+        "sw0012",
+        "sw0010",
+        "sw0008",
+        "sw0007",
+        "sw0009"
+      ],
+      "related": [
+        "tk0440"
+      ],
+      "sources5": [
+        "cg0884"
+      ],
+      "mermaidDirty": [
+        "cg0835"
+      ]
+    },
+    "slipThrough": {
+      "count": 2,
+      "byPillar": {
+        "gp": 1,
+        "cg": 1
+      },
+      "ids": [
+        "gp0487",
+        "cg0884"
+      ],
+      "sample": [
+        {
+          "id": "gp0487",
+          "idxPos": 19986,
+          "score": 11,
+          "gaps": [
+            "faq"
+          ],
+          "pillar": "gp"
+        },
+        {
+          "id": "cg0884",
+          "idxPos": 20052,
+          "score": 11,
+          "gaps": [
+            "score<12",
+            "sources5"
+          ],
+          "pillar": "cg"
+        }
+      ]
+    },
+    "approvedFailGate": {
+      "count": 8,
+      "sample": [
+        {
+          "id": "gp0487",
+          "idxPos": 19986,
+          "score": 11,
+          "gaps": [
+            "faq"
+          ],
+          "pillar": "gp"
+        },
+        {
+          "id": "cg0884",
+          "idxPos": 20052,
+          "score": 11,
+          "gaps": [
+            "score<12",
+            "sources5"
+          ],
+          "pillar": "cg"
+        },
+        {
+          "id": "cg0880",
+          "idxPos": 20073,
+          "score": 13,
+          "gaps": [
+            "words<2000"
+          ],
+          "pillar": "cg"
+        },
+        {
+          "id": "cg0866",
+          "idxPos": 20137,
+          "score": 13,
+          "gaps": [
+            "words<2000"
+          ],
+          "pillar": "cg"
+        },
+        {
+          "id": "cg0858",
+          "idxPos": 20170,
+          "score": 13,
+          "gaps": [
+            "words<2000"
+          ],
+          "pillar": "cg"
+        },
+        {
+          "id": "cg0835",
+          "idxPos": 20272,
+          "score": 13,
+          "gaps": [
+            "mermaidDirty"
+          ],
+          "pillar": "cg"
+        },
+        {
+          "id": "cg0829",
+          "idxPos": 20300,
+          "score": 13,
+          "gaps": [
+            "words<2000"
+          ],
+          "pillar": "cg"
+        },
+        {
+          "id": "cg0815",
+          "idxPos": 20367,
+          "score": 13,
+          "gaps": [
+            "words<2000"
+          ],
+          "pillar": "cg"
+        }
+      ]
+    },
+    "results": [
+      {
+        "id": "pt0044",
+        "idxPos": 19900,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2643,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0041",
+        "idxPos": 19901,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2732,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0043",
+        "idxPos": 19902,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3180,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0042",
+        "idxPos": 19903,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2758,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0040",
+        "idxPos": 19904,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3011,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0039",
+        "idxPos": 19905,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2664,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0037",
+        "idxPos": 19906,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3106,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0038",
+        "idxPos": 19907,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2734,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0035",
+        "idxPos": 19908,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2641,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0036",
+        "idxPos": 19909,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3013,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0032",
+        "idxPos": 19910,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2637,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0034",
+        "idxPos": 19911,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2758,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0033",
+        "idxPos": 19912,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2929,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0031",
+        "idxPos": 19913,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2719,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0030",
+        "idxPos": 19914,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2675,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0029",
+        "idxPos": 19915,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2507,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0028",
+        "idxPos": 19916,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2790,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0026",
+        "idxPos": 19917,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2596,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "sw0024",
+        "idxPos": 19918,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1910,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0025",
+        "idxPos": 19919,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1558,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0023",
+        "idxPos": 19920,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2012,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "sw0022",
+        "idxPos": 19921,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1882,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0021",
+        "idxPos": 19922,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1843,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0020",
+        "idxPos": 19923,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1690,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0019",
+        "idxPos": 19924,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1577,
+        "gaps": [
+          "words<2000",
+          "faq"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0017",
+        "idxPos": 19925,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1597,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0016",
+        "idxPos": 19926,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1714,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0018",
+        "idxPos": 19927,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1834,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0014",
+        "idxPos": 19928,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2187,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0013",
+        "idxPos": 19929,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2306,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0015",
+        "idxPos": 19930,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2027,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "sw0011",
+        "idxPos": 19931,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2418,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0010",
+        "idxPos": 19932,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2298,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0012",
+        "idxPos": 19933,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2359,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0007",
+        "idxPos": 19934,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 11,
+        "words": 2337,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0009",
+        "idxPos": 19935,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2395,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0008",
+        "idxPos": 19936,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2402,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0006",
+        "idxPos": 19937,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2477,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0002",
+        "idxPos": 19938,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2338,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0001",
+        "idxPos": 19939,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2361,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0003",
+        "idxPos": 19940,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2333,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "pt0025",
+        "idxPos": 19941,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2298,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0024",
+        "idxPos": 19942,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2161,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0023",
+        "idxPos": 19943,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2144,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0022",
+        "idxPos": 19944,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2296,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0020",
+        "idxPos": 19945,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2151,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0021",
+        "idxPos": 19946,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2338,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0019",
+        "idxPos": 19947,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2188,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0016",
+        "idxPos": 19948,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2513,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0018",
+        "idxPos": 19949,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2174,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0017",
+        "idxPos": 19950,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2258,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0014",
+        "idxPos": 19951,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2602,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0015",
+        "idxPos": 19952,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2685,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0013",
+        "idxPos": 19953,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2996,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0012",
+        "idxPos": 19954,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2586,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0011",
+        "idxPos": 19955,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2475,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0009",
+        "idxPos": 19956,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2886,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0007",
+        "idxPos": 19957,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2736,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0010",
+        "idxPos": 19958,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3066,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0008",
+        "idxPos": 19959,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2671,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0004",
+        "idxPos": 19960,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2626,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0006",
+        "idxPos": 19961,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2775,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0005",
+        "idxPos": 19962,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2883,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0003",
+        "idxPos": 19963,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2521,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0001",
+        "idxPos": 19964,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2589,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13606",
+        "idxPos": 19965,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2585,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0748",
+        "idxPos": 19966,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2024,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0903",
+        "idxPos": 19967,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2539,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0606",
+        "idxPos": 19968,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2690,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0443",
+        "idxPos": 19969,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1576,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0569",
+        "idxPos": 19970,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2290,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13605",
+        "idxPos": 19971,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2366,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0442",
+        "idxPos": 19972,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2398,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "cg0902",
+        "idxPos": 19973,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2894,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0568",
+        "idxPos": 19974,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2373,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "gp0489",
+        "idxPos": 19975,
+        "pillar": "gp",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 12,
+        "words": 2439,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13604",
+        "idxPos": 19976,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2842,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0746",
+        "idxPos": 19977,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2547,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0901",
+        "idxPos": 19978,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2670,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0441",
+        "idxPos": 19979,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1708,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13603",
+        "idxPos": 19980,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2226,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0900",
+        "idxPos": 19981,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2987,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0566",
+        "idxPos": 19982,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2762,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0440",
+        "idxPos": 19983,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2552,
+        "gaps": [
+          "score<12",
+          "mermaid2",
+          "related"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0745",
+        "idxPos": 19984,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2009,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13602",
+        "idxPos": 19985,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2701,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "gp0487",
+        "idxPos": 19986,
+        "pillar": "gp",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 11,
+        "words": 3124,
+        "gaps": [
+          "faq"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "cg0899",
+        "idxPos": 19987,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2555,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0439",
+        "idxPos": 19988,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1752,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0565",
+        "idxPos": 19989,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2352,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13601",
+        "idxPos": 19990,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2319,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0898",
+        "idxPos": 19991,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2955,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0438",
+        "idxPos": 19992,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2335,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0743",
+        "idxPos": 19993,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2597,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0564",
+        "idxPos": 19994,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2204,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13600",
+        "idxPos": 19995,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2343,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0742",
+        "idxPos": 19996,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2186,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0437",
+        "idxPos": 19997,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2001,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0896",
+        "idxPos": 19998,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2717,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13599",
+        "idxPos": 19999,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2143,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0741",
+        "idxPos": 20000,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2637,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0436",
+        "idxPos": 20001,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2304,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13598",
+        "idxPos": 20002,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2632,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0895",
+        "idxPos": 20003,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2396,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0740",
+        "idxPos": 20004,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2302,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13597",
+        "idxPos": 20005,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2016,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0894",
+        "idxPos": 20006,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2853,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0739",
+        "idxPos": 20007,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2502,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0434",
+        "idxPos": 20008,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1735,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13596",
+        "idxPos": 20009,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2318,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0597",
+        "idxPos": 20010,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2714,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0893",
+        "idxPos": 20011,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2364,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0738",
+        "idxPos": 20012,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2162,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0433",
+        "idxPos": 20013,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2580,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ra0596",
+        "idxPos": 20014,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2975,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0559",
+        "idxPos": 20015,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2463,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13595",
+        "idxPos": 20016,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2236,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0892",
+        "idxPos": 20017,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 12,
+        "words": 2719,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0737",
+        "idxPos": 20018,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2249,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0432",
+        "idxPos": 20019,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1550,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0558",
+        "idxPos": 20020,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2772,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0891",
+        "idxPos": 20021,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2348,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13594",
+        "idxPos": 20022,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 3003,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0431",
+        "idxPos": 20023,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2350,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0557",
+        "idxPos": 20024,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2603,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0890",
+        "idxPos": 20025,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2747,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0430",
+        "idxPos": 20026,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 1611,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0556",
+        "idxPos": 20027,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2115,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0734",
+        "idxPos": 20028,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2463,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0889",
+        "idxPos": 20029,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2562,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0429",
+        "idxPos": 20030,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2308,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0733",
+        "idxPos": 20031,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2353,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13591",
+        "idxPos": 20032,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2171,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0888",
+        "idxPos": 20033,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2502,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0428",
+        "idxPos": 20034,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1760,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0554",
+        "idxPos": 20035,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2501,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13590",
+        "idxPos": 20036,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2435,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0887",
+        "idxPos": 20037,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2707,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0732",
+        "idxPos": 20038,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2174,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0427",
+        "idxPos": 20039,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2901,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0553",
+        "idxPos": 20040,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2596,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0590",
+        "idxPos": 20041,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2383,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13589",
+        "idxPos": 20042,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2244,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0886",
+        "idxPos": 20043,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2401,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0426",
+        "idxPos": 20044,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1501,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "cg0885",
+        "idxPos": 20045,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2981,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13588",
+        "idxPos": 20046,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2656,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0425",
+        "idxPos": 20047,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2168,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0730",
+        "idxPos": 20048,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2327,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0551",
+        "idxPos": 20049,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2779,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0588",
+        "idxPos": 20050,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2798,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13587",
+        "idxPos": 20051,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2261,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0884",
+        "idxPos": 20052,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 11,
+        "words": 2562,
+        "gaps": [
+          "score<12",
+          "sources5"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0729",
+        "idxPos": 20053,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2004,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0424",
+        "idxPos": 20054,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1799,
+        "gaps": [
+          "words<2000",
+          "faq"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0550",
+        "idxPos": 20055,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2634,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13586",
+        "idxPos": 20056,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2528,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0728",
+        "idxPos": 20057,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2721,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0883",
+        "idxPos": 20058,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2442,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0423",
+        "idxPos": 20059,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2247,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0727",
+        "idxPos": 20060,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2361,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13585",
+        "idxPos": 20061,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2225,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0882",
+        "idxPos": 20062,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2529,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0422",
+        "idxPos": 20063,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1706,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ra0585",
+        "idxPos": 20064,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2586,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13584",
+        "idxPos": 20065,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2327,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0881",
+        "idxPos": 20066,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2381,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0421",
+        "idxPos": 20067,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2394,
+        "gaps": [
+          "score<12",
+          "faq",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0726",
+        "idxPos": 20068,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2638,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0547",
+        "idxPos": 20069,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2412,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0584",
+        "idxPos": 20070,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2578,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13583",
+        "idxPos": 20071,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2273,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0725",
+        "idxPos": 20072,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2036,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0880",
+        "idxPos": 20073,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1929,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0546",
+        "idxPos": 20074,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2513,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0420",
+        "idxPos": 20075,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1642,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13582",
+        "idxPos": 20076,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2546,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0583",
+        "idxPos": 20077,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2309,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0879",
+        "idxPos": 20078,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 3007,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0419",
+        "idxPos": 20079,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2400,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0545",
+        "idxPos": 20080,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2214,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13581",
+        "idxPos": 20081,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2070,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0878",
+        "idxPos": 20082,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2763,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0581",
+        "idxPos": 20083,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2774,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0544",
+        "idxPos": 20084,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2446,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0877",
+        "idxPos": 20085,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2967,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13580",
+        "idxPos": 20086,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2379,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0417",
+        "idxPos": 20087,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1644,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0722",
+        "idxPos": 20088,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2264,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0543",
+        "idxPos": 20089,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2449,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13579",
+        "idxPos": 20090,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2590,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0876",
+        "idxPos": 20091,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2647,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0542",
+        "idxPos": 20092,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2253,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0416",
+        "idxPos": 20093,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2666,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13578",
+        "idxPos": 20094,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2846,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0875",
+        "idxPos": 20095,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2930,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0541",
+        "idxPos": 20096,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2363,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0415",
+        "idxPos": 20097,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1705,
+        "gaps": [
+          "words<2000",
+          "faq"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13577",
+        "idxPos": 20098,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2054,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0578",
+        "idxPos": 20099,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2404,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0414",
+        "idxPos": 20100,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2334,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0719",
+        "idxPos": 20101,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2191,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0577",
+        "idxPos": 20102,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2815,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0540",
+        "idxPos": 20103,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2476,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13576",
+        "idxPos": 20104,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2353,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0873",
+        "idxPos": 20105,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2517,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0718",
+        "idxPos": 20106,
+        "pillar": "st",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 11,
+        "words": 2593,
+        "gaps": [
+          "score<12"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "tk0413",
+        "idxPos": 20107,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2279,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0539",
+        "idxPos": 20108,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2828,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13575",
+        "idxPos": 20109,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2232,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0717",
+        "idxPos": 20110,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2162,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0412",
+        "idxPos": 20111,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2771,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0716",
+        "idxPos": 20112,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2725,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13574",
+        "idxPos": 20113,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2569,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0871",
+        "idxPos": 20114,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2906,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0411",
+        "idxPos": 20115,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1404,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0537",
+        "idxPos": 20116,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2676,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13573",
+        "idxPos": 20117,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2035,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0870",
+        "idxPos": 20118,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2665,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0715",
+        "idxPos": 20119,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2301,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0410",
+        "idxPos": 20120,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2372,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13572",
+        "idxPos": 20121,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2366,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0714",
+        "idxPos": 20122,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2454,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0869",
+        "idxPos": 20123,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": true,
+        "score": 11,
+        "words": 2933,
+        "gaps": [
+          "score<12"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "tk0409",
+        "idxPos": 20124,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1738,
+        "gaps": [
+          "words<2000",
+          "faq"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0535",
+        "idxPos": 20125,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2288,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0713",
+        "idxPos": 20126,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2156,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13571",
+        "idxPos": 20127,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2232,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0868",
+        "idxPos": 20128,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2869,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0408",
+        "idxPos": 20129,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2486,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0534",
+        "idxPos": 20130,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2617,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13570",
+        "idxPos": 20131,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2913,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0867",
+        "idxPos": 20132,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2529,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0712",
+        "idxPos": 20133,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2264,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0407",
+        "idxPos": 20134,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1506,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0533",
+        "idxPos": 20135,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2327,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13569",
+        "idxPos": 20136,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2219,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0866",
+        "idxPos": 20137,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1783,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "tk0406",
+        "idxPos": 20138,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2360,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0532",
+        "idxPos": 20139,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2395,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13568",
+        "idxPos": 20140,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2269,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0865",
+        "idxPos": 20141,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2925,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0710",
+        "idxPos": 20142,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2214,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0405",
+        "idxPos": 20143,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1747,
+        "gaps": [
+          "words<2000",
+          "faq"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "tk0404",
+        "idxPos": 20144,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2390,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13567",
+        "idxPos": 20145,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2211,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0864",
+        "idxPos": 20146,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2812,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13566",
+        "idxPos": 20147,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2601,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0863",
+        "idxPos": 20148,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2441,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0403",
+        "idxPos": 20149,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1656,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "tk0402",
+        "idxPos": 20150,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2224,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "cg0862",
+        "idxPos": 20151,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2227,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0528",
+        "idxPos": 20152,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2538,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0707",
+        "idxPos": 20153,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2528,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0861",
+        "idxPos": 20154,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2697,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0706",
+        "idxPos": 20155,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2302,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0401",
+        "idxPos": 20156,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1984,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0527",
+        "idxPos": 20157,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2734,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13563",
+        "idxPos": 20158,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2243,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0400",
+        "idxPos": 20159,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2474,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "cg0860",
+        "idxPos": 20160,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2078,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0705",
+        "idxPos": 20161,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2658,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0526",
+        "idxPos": 20162,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2398,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13562",
+        "idxPos": 20163,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2806,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0859",
+        "idxPos": 20164,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2698,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0704",
+        "idxPos": 20165,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2228,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0399",
+        "idxPos": 20166,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1308,
+        "gaps": [
+          "words<2000",
+          "faq"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0525",
+        "idxPos": 20167,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2063,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0703",
+        "idxPos": 20168,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2552,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13561",
+        "idxPos": 20169,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2300,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0858",
+        "idxPos": 20170,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1957,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "tk0398",
+        "idxPos": 20171,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2514,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0524",
+        "idxPos": 20172,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2233,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13560",
+        "idxPos": 20173,
+        "pillar": "q",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": true,
+        "score": 11,
+        "words": 2314,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0857",
+        "idxPos": 20174,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2897,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0702",
+        "idxPos": 20175,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2189,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0397",
+        "idxPos": 20176,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1538,
+        "gaps": [
+          "words<2000",
+          "faq"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13559",
+        "idxPos": 20177,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2004,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0856",
+        "idxPos": 20178,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2798,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0396",
+        "idxPos": 20179,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2193,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13558",
+        "idxPos": 20180,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2454,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0521",
+        "idxPos": 20181,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3408,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0855",
+        "idxPos": 20182,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2808,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13557",
+        "idxPos": 20183,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2343,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0700",
+        "idxPos": 20184,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2788,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0395",
+        "idxPos": 20185,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1760,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0520",
+        "idxPos": 20186,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2790,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0394",
+        "idxPos": 20187,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2821,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13556",
+        "idxPos": 20188,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2526,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0854",
+        "idxPos": 20189,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2718,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0699",
+        "idxPos": 20190,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2117,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0853",
+        "idxPos": 20191,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2787,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0698",
+        "idxPos": 20192,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2510,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0518",
+        "idxPos": 20193,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2165,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13554",
+        "idxPos": 20194,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2158,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0697",
+        "idxPos": 20195,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2422,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0517",
+        "idxPos": 20196,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2936,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13553",
+        "idxPos": 20197,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2970,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0851",
+        "idxPos": 20198,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 3123,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0696",
+        "idxPos": 20199,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2744,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0391",
+        "idxPos": 20200,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1983,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0516",
+        "idxPos": 20201,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2828,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13552",
+        "idxPos": 20202,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2142,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0850",
+        "idxPos": 20203,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2047,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0695",
+        "idxPos": 20204,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2210,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0390",
+        "idxPos": 20205,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2991,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13551",
+        "idxPos": 20206,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2735,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0849",
+        "idxPos": 20207,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 3037,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0694",
+        "idxPos": 20208,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2811,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0514",
+        "idxPos": 20209,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2665,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0693",
+        "idxPos": 20210,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2277,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0513",
+        "idxPos": 20211,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2113,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0848",
+        "idxPos": 20212,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2673,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0388",
+        "idxPos": 20213,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1797,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ra0550",
+        "idxPos": 20214,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2586,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "gp0435",
+        "idxPos": 20215,
+        "pillar": "gp",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3148,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13549",
+        "idxPos": 20216,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2206,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0847",
+        "idxPos": 20217,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3038,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0692",
+        "idxPos": 20218,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2955,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0512",
+        "idxPos": 20219,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2765,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0387",
+        "idxPos": 20220,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2648,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13548",
+        "idxPos": 20221,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2686,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0691",
+        "idxPos": 20222,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2225,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0846",
+        "idxPos": 20223,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2553,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0386",
+        "idxPos": 20224,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1641,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "gp0433",
+        "idxPos": 20225,
+        "pillar": "gp",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2587,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0845",
+        "idxPos": 20226,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2980,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13547",
+        "idxPos": 20227,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2155,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0547",
+        "idxPos": 20228,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2691,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0690",
+        "idxPos": 20229,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2575,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0385",
+        "idxPos": 20230,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2510,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0510",
+        "idxPos": 20231,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2552,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13546",
+        "idxPos": 20232,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2868,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0384",
+        "idxPos": 20233,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1918,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0509",
+        "idxPos": 20234,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2842,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13545",
+        "idxPos": 20235,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2054,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0688",
+        "idxPos": 20236,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2707,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0508",
+        "idxPos": 20237,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2299,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0383",
+        "idxPos": 20238,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2587,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ra0545",
+        "idxPos": 20239,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2619,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13544",
+        "idxPos": 20240,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2657,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0842",
+        "idxPos": 20241,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2980,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0687",
+        "idxPos": 20242,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2658,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0382",
+        "idxPos": 20243,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1599,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ra0544",
+        "idxPos": 20244,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3244,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13543",
+        "idxPos": 20245,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2398,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0686",
+        "idxPos": 20246,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2371,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0841",
+        "idxPos": 20247,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2329,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0381",
+        "idxPos": 20248,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2748,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0506",
+        "idxPos": 20249,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2576,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13542",
+        "idxPos": 20250,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3216,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0840",
+        "idxPos": 20251,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2712,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0685",
+        "idxPos": 20252,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2673,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0380",
+        "idxPos": 20253,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1830,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0505",
+        "idxPos": 20254,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2250,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13541",
+        "idxPos": 20255,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2171,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0379",
+        "idxPos": 20256,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2633,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "cg0839",
+        "idxPos": 20257,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2922,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0684",
+        "idxPos": 20258,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2415,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0838",
+        "idxPos": 20259,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2626,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13540",
+        "idxPos": 20260,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2521,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0683",
+        "idxPos": 20261,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2646,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0837",
+        "idxPos": 20262,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2062,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0682",
+        "idxPos": 20263,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2319,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0377",
+        "idxPos": 20264,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1492,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0502",
+        "idxPos": 20265,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2539,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13538",
+        "idxPos": 20266,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2318,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0376",
+        "idxPos": 20267,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3119,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "cg0836",
+        "idxPos": 20268,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3121,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0681",
+        "idxPos": 20269,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2532,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13537",
+        "idxPos": 20270,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2651,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0680",
+        "idxPos": 20271,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2144,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0835",
+        "idxPos": 20272,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2392,
+        "gaps": [
+          "mermaidDirty"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "tk0375",
+        "idxPos": 20273,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1837,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0500",
+        "idxPos": 20274,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2616,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0834",
+        "idxPos": 20275,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2998,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13536",
+        "idxPos": 20276,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2381,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0679",
+        "idxPos": 20277,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2822,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0374",
+        "idxPos": 20278,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2659,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13535",
+        "idxPos": 20279,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2688,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0833",
+        "idxPos": 20280,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 3094,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0373",
+        "idxPos": 20281,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1873,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0498",
+        "idxPos": 20282,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2620,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13534",
+        "idxPos": 20283,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2245,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0832",
+        "idxPos": 20284,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3196,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0497",
+        "idxPos": 20285,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2331,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0677",
+        "idxPos": 20286,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2563,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0372",
+        "idxPos": 20287,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2751,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13533",
+        "idxPos": 20288,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3226,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0534",
+        "idxPos": 20289,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2574,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0831",
+        "idxPos": 20290,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2103,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0676",
+        "idxPos": 20291,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2709,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0371",
+        "idxPos": 20292,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1924,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ra0533",
+        "idxPos": 20293,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2962,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0496",
+        "idxPos": 20294,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2714,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13532",
+        "idxPos": 20295,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2192,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0830",
+        "idxPos": 20296,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3631,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0370",
+        "idxPos": 20297,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2804,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0495",
+        "idxPos": 20298,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2359,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13531",
+        "idxPos": 20299,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2498,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0829",
+        "idxPos": 20300,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1968,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0674",
+        "idxPos": 20301,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2218,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0369",
+        "idxPos": 20302,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1555,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ra0531",
+        "idxPos": 20303,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2707,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13530",
+        "idxPos": 20304,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2133,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0673",
+        "idxPos": 20305,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2937,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0368",
+        "idxPos": 20306,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2223,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0493",
+        "idxPos": 20307,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2612,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13529",
+        "idxPos": 20308,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2830,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0530",
+        "idxPos": 20309,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2618,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0827",
+        "idxPos": 20310,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2313,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0672",
+        "idxPos": 20311,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2052,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0367",
+        "idxPos": 20312,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1895,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0492",
+        "idxPos": 20313,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2415,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13528",
+        "idxPos": 20314,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2345,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0671",
+        "idxPos": 20315,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3078,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0826",
+        "idxPos": 20316,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2829,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0366",
+        "idxPos": 20317,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2570,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0670",
+        "idxPos": 20318,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2357,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13527",
+        "idxPos": 20319,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2496,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0825",
+        "idxPos": 20320,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2556,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0365",
+        "idxPos": 20321,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1610,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0490",
+        "idxPos": 20322,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2531,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0824",
+        "idxPos": 20323,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3210,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0669",
+        "idxPos": 20324,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2554,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13526",
+        "idxPos": 20325,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2238,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0364",
+        "idxPos": 20326,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2857,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0489",
+        "idxPos": 20327,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2485,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13525",
+        "idxPos": 20328,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2560,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0668",
+        "idxPos": 20329,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2098,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0823",
+        "idxPos": 20330,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2251,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0488",
+        "idxPos": 20331,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2716,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13524",
+        "idxPos": 20332,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2281,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0822",
+        "idxPos": 20333,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2948,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0667",
+        "idxPos": 20334,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2716,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0362",
+        "idxPos": 20335,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1657,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0487",
+        "idxPos": 20336,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2126,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0666",
+        "idxPos": 20337,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2255,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13523",
+        "idxPos": 20338,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2649,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0361",
+        "idxPos": 20339,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2804,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "cg0821",
+        "idxPos": 20340,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2701,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0665",
+        "idxPos": 20341,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2776,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13522",
+        "idxPos": 20342,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2146,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0820",
+        "idxPos": 20343,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2863,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0360",
+        "idxPos": 20344,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1911,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13521",
+        "idxPos": 20345,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2740,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0819",
+        "idxPos": 20346,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2755,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0359",
+        "idxPos": 20347,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2588,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0664",
+        "idxPos": 20348,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2265,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0521",
+        "idxPos": 20349,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2827,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0484",
+        "idxPos": 20350,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2738,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13520",
+        "idxPos": 20351,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2212,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0818",
+        "idxPos": 20352,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2561,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0358",
+        "idxPos": 20353,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1362,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0483",
+        "idxPos": 20354,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2198,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0662",
+        "idxPos": 20355,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2775,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13519",
+        "idxPos": 20356,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2582,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0817",
+        "idxPos": 20357,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2818,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0357",
+        "idxPos": 20358,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2745,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0661",
+        "idxPos": 20359,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2243,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0816",
+        "idxPos": 20360,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2966,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13518",
+        "idxPos": 20361,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2224,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0356",
+        "idxPos": 20362,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1824,
+        "gaps": [
+          "words<2000",
+          "faq"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ra0518",
+        "idxPos": 20363,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3064,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0355",
+        "idxPos": 20364,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2749,
+        "gaps": [
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0660",
+        "idxPos": 20365,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3016,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13517",
+        "idxPos": 20366,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2494,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0815",
+        "idxPos": 20367,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1862,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "cg0814",
+        "idxPos": 20368,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3119,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13516",
+        "idxPos": 20369,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2183,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0659",
+        "idxPos": 20370,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2072,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0354",
+        "idxPos": 20371,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2115,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0479",
+        "idxPos": 20372,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2762,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13515",
+        "idxPos": 20373,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2956,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0658",
+        "idxPos": 20374,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2595,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0813",
+        "idxPos": 20375,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2325,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0353",
+        "idxPos": 20376,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2481,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13514",
+        "idxPos": 20377,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2324,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0812",
+        "idxPos": 20378,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2639,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0657",
+        "idxPos": 20379,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2195,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13513",
+        "idxPos": 20380,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2352,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0514",
+        "idxPos": 20381,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2521,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0656",
+        "idxPos": 20382,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2531,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0513",
+        "idxPos": 20383,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2462,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0476",
+        "idxPos": 20384,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2458,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0655",
+        "idxPos": 20385,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2208,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13512",
+        "idxPos": 20386,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2202,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0350",
+        "idxPos": 20387,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1344,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0475",
+        "idxPos": 20388,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2314,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13511",
+        "idxPos": 20389,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2817,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0810",
+        "idxPos": 20390,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2444,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0654",
+        "idxPos": 20391,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2315,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0349",
+        "idxPos": 20392,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2814,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0474",
+        "idxPos": 20393,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2726,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "gp0396",
+        "idxPos": 20394,
+        "pillar": "gp",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 12,
+        "words": 2262,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0653",
+        "idxPos": 20395,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2497,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0809",
+        "idxPos": 20396,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2507,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0348",
+        "idxPos": 20397,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1753,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "gp0395",
+        "idxPos": 20398,
+        "pillar": "gp",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 3000,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0473",
+        "idxPos": 20399,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2416,
+        "gaps": [],
+        "passAll": true
+      }
+    ]
+  },
+  "secondary": {
+    "label": "secondary-400to500back",
+    "window": {
+      "startIdx": 19900,
+      "endIdx": 20000,
+      "count": 100
+    },
+    "firstId": "pt0044",
+    "lastId": "q13599",
+    "minScore": 12,
+    "wordFloor": 2000,
+    "totals": {
+      "pass": 72,
+      "fail": 28,
+      "noBlob": 0,
+      "stage1InWindow": 65,
+      "ccInWindow": 3,
+      "lackCcInWindow": 62
+    },
+    "scoreHist": {
+      "11": 2,
+      "12": 31,
+      "13": 67
+    },
+    "gapCounts": {
+      "words<2000": 12,
+      "faq": 2,
+      "score<12": 15,
+      "mermaid2": 15,
+      "related": 1
+    },
+    "failByGapSample": {
+      "words<2000": [
+        "sw0024",
+        "sw0025",
+        "sw0022",
+        "sw0021",
+        "sw0019",
+        "sw0016",
+        "sw0018",
+        "sw0017"
+      ],
+      "faq": [
+        "sw0019",
+        "gp0487"
+      ],
+      "score<12": [
+        "sw0013",
+        "sw0014",
+        "sw0011",
+        "sw0010",
+        "sw0007",
+        "sw0012",
+        "sw0008",
+        "sw0009"
+      ],
+      "mermaid2": [
+        "sw0013",
+        "sw0014",
+        "sw0011",
+        "sw0010",
+        "sw0007",
+        "sw0012",
+        "sw0008",
+        "sw0009"
+      ],
+      "related": [
+        "tk0440"
+      ]
+    },
+    "slipThrough": {
+      "count": 1,
+      "byPillar": {
+        "gp": 1
+      },
+      "ids": [
+        "gp0487"
+      ],
+      "sample": [
+        {
+          "id": "gp0487",
+          "idxPos": 19986,
+          "score": 11,
+          "gaps": [
+            "faq"
+          ],
+          "pillar": "gp"
+        }
+      ]
+    },
+    "approvedFailGate": {
+      "count": 1,
+      "sample": [
+        {
+          "id": "gp0487",
+          "idxPos": 19986,
+          "score": 11,
+          "gaps": [
+            "faq"
+          ],
+          "pillar": "gp"
+        }
+      ]
+    },
+    "results": [
+      {
+        "id": "pt0044",
+        "idxPos": 19900,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2643,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0041",
+        "idxPos": 19901,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2732,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0043",
+        "idxPos": 19902,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3180,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0042",
+        "idxPos": 19903,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2758,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0040",
+        "idxPos": 19904,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3011,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0039",
+        "idxPos": 19905,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2664,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0037",
+        "idxPos": 19906,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3106,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0038",
+        "idxPos": 19907,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2734,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0035",
+        "idxPos": 19908,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2641,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0036",
+        "idxPos": 19909,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3013,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0032",
+        "idxPos": 19910,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2637,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0034",
+        "idxPos": 19911,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2758,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0033",
+        "idxPos": 19912,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2929,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0031",
+        "idxPos": 19913,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2719,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0030",
+        "idxPos": 19914,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2675,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0029",
+        "idxPos": 19915,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2507,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0028",
+        "idxPos": 19916,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2790,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0026",
+        "idxPos": 19917,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2596,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "sw0024",
+        "idxPos": 19918,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1910,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0025",
+        "idxPos": 19919,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1558,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0023",
+        "idxPos": 19920,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2012,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "sw0022",
+        "idxPos": 19921,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1882,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0021",
+        "idxPos": 19922,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1843,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0020",
+        "idxPos": 19923,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1690,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0019",
+        "idxPos": 19924,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1577,
+        "gaps": [
+          "words<2000",
+          "faq"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0017",
+        "idxPos": 19925,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1597,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0016",
+        "idxPos": 19926,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1714,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0018",
+        "idxPos": 19927,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1834,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0014",
+        "idxPos": 19928,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2187,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0013",
+        "idxPos": 19929,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2306,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0015",
+        "idxPos": 19930,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2027,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "sw0011",
+        "idxPos": 19931,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2418,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0010",
+        "idxPos": 19932,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2298,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0012",
+        "idxPos": 19933,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2359,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0007",
+        "idxPos": 19934,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 11,
+        "words": 2337,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0009",
+        "idxPos": 19935,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2395,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0008",
+        "idxPos": 19936,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2402,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0006",
+        "idxPos": 19937,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2477,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0002",
+        "idxPos": 19938,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2338,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0001",
+        "idxPos": 19939,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2361,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "sw0003",
+        "idxPos": 19940,
+        "pillar": "sw",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2333,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "pt0025",
+        "idxPos": 19941,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2298,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0024",
+        "idxPos": 19942,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2161,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0023",
+        "idxPos": 19943,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2144,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0022",
+        "idxPos": 19944,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2296,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0020",
+        "idxPos": 19945,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2151,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0021",
+        "idxPos": 19946,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2338,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0019",
+        "idxPos": 19947,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2188,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0016",
+        "idxPos": 19948,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2513,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0018",
+        "idxPos": 19949,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2174,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0017",
+        "idxPos": 19950,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2258,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0014",
+        "idxPos": 19951,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2602,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0015",
+        "idxPos": 19952,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2685,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0013",
+        "idxPos": 19953,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2996,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0012",
+        "idxPos": 19954,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2586,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0011",
+        "idxPos": 19955,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2475,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0009",
+        "idxPos": 19956,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2886,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0007",
+        "idxPos": 19957,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2736,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0010",
+        "idxPos": 19958,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 3066,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0008",
+        "idxPos": 19959,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2671,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0004",
+        "idxPos": 19960,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2626,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0006",
+        "idxPos": 19961,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2775,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0005",
+        "idxPos": 19962,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2883,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0003",
+        "idxPos": 19963,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2521,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "pt0001",
+        "idxPos": 19964,
+        "pillar": "pt",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2589,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13606",
+        "idxPos": 19965,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2585,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0748",
+        "idxPos": 19966,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2024,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0903",
+        "idxPos": 19967,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2539,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ra0606",
+        "idxPos": 19968,
+        "pillar": "ra",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2690,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0443",
+        "idxPos": 19969,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1576,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0569",
+        "idxPos": 19970,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2290,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13605",
+        "idxPos": 19971,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2366,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0442",
+        "idxPos": 19972,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2398,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "cg0902",
+        "idxPos": 19973,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2894,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0568",
+        "idxPos": 19974,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2373,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "gp0489",
+        "idxPos": 19975,
+        "pillar": "gp",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 12,
+        "words": 2439,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13604",
+        "idxPos": 19976,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2842,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0746",
+        "idxPos": 19977,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2547,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0901",
+        "idxPos": 19978,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2670,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0441",
+        "idxPos": 19979,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1708,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "q13603",
+        "idxPos": 19980,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2226,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0900",
+        "idxPos": 19981,
+        "pillar": "cg",
+        "stage1": true,
+        "ccSigned": true,
+        "needsReview": false,
+        "score": 13,
+        "words": 2987,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0566",
+        "idxPos": 19982,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2762,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0440",
+        "idxPos": 19983,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2552,
+        "gaps": [
+          "score<12",
+          "mermaid2",
+          "related"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0745",
+        "idxPos": 19984,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2009,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13602",
+        "idxPos": 19985,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2701,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "gp0487",
+        "idxPos": 19986,
+        "pillar": "gp",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 11,
+        "words": 3124,
+        "gaps": [
+          "faq"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "cg0899",
+        "idxPos": 19987,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2555,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0439",
+        "idxPos": 19988,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 1752,
+        "gaps": [
+          "words<2000"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "ik0565",
+        "idxPos": 19989,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2352,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13601",
+        "idxPos": 19990,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2319,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0898",
+        "idxPos": 19991,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2955,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0438",
+        "idxPos": 19992,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2335,
+        "gaps": [
+          "score<12",
+          "mermaid2"
+        ],
+        "passAll": false
+      },
+      {
+        "id": "st0743",
+        "idxPos": 19993,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2597,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "ik0564",
+        "idxPos": 19994,
+        "pillar": "ik",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2204,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13600",
+        "idxPos": 19995,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2343,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "st0742",
+        "idxPos": 19996,
+        "pillar": "st",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2186,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "tk0437",
+        "idxPos": 19997,
+        "pillar": "tk",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2001,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "cg0896",
+        "idxPos": 19998,
+        "pillar": "cg",
+        "stage1": false,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 12,
+        "words": 2717,
+        "gaps": [],
+        "passAll": true
+      },
+      {
+        "id": "q13599",
+        "idxPos": 19999,
+        "pillar": "q",
+        "stage1": true,
+        "ccSigned": false,
+        "needsReview": false,
+        "score": 13,
+        "words": 2143,
+        "gaps": [],
+        "passAll": true
+      }
+    ]
+  },
+  "remediation": {
+    "action": "manual_triage",
+    "note": "2 slip-through entries — below 50 threshold; owner should remove from _v2_approved.json and add to _v2_needs_review.json",
+    "slipIds": [
+      "gp0487",
+      "cg0884"
+    ]
+  }
+}

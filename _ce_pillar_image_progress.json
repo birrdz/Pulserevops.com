@@ -1,0 +1,53 @@
+{
+  "running": true,
+  "phase": "ce-template",
+  "stage": "template · full rewrite",
+  "ranking": {
+    "fixed": 0,
+    "total": 0,
+    "failed": 0,
+    "remaining": 0
+  },
+  "essays": {
+    "fixed": 7,
+    "total": 178,
+    "failed": 0,
+    "remaining": 171
+  },
+  "note": "Current Events — complete ~2000w writings + 13/13 certify (hero, Direct Answer, 6+ sections, 2 mermaid, FAQ, Sources, Related)",
+  "samples": [
+    {
+      "at": "2026-07-06T15:32:28.019Z",
+      "phase": "ce",
+      "id": "ce0187",
+      "title": "What happened with Former NBA doctor warns of dire consequences for Caitlin Clark if hard contact issues continue in 2027?",
+      "url": "https://pulserevops.com/knowledge/ce0187",
+      "imgs": 4,
+      "grade": 14,
+      "rubricPct": 100,
+      "words": 2464
+    },
+    {
+      "at": "2026-07-06T15:30:41.582Z",
+      "phase": "ce",
+      "id": "ce0023",
+      "title": "What details were revealed about Taylor Swift and Travis Kelce's wedding in 2027?",
+      "url": "https://pulserevops.com/knowledge/ce0023",
+      "imgs": 5,
+      "grade": 14,
+      "rubricPct": 100,
+      "words": 2545
+    }
+  ],
+  "startedAt": "2026-07-06T15:30:22.947Z",
+  "at": "2026-07-06T15:34:13.561Z",
+  "pillar": "ce",
+  "pillarLabel": "Current Events",
+  "strategy": "ce-complete-13",
+  "fixed": 7,
+  "total": 178,
+  "remaining": 171,
+  "failed": 0,
+  "currentId": "ce0184",
+  "currentTitle": "What happened with Why the USMNT can't appeal Folarin Balogun's suspension after his controversial World Cup red card in 2027?"
+}

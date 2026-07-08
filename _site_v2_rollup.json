@@ -1,0 +1,248 @@
+[
+ {
+  "pillar": "q",
+  "total": 7862,
+  "flagged": 7862,
+  "pct": 100
+ },
+ {
+  "pillar": "tl",
+  "total": 10489,
+  "flagged": 2975,
+  "pct": 28
+ },
+ {
+  "pillar": "sy",
+  "total": 1594,
+  "flagged": 1594,
+  "pct": 100
+ },
+ {
+  "pillar": "fr",
+  "total": 1082,
+  "flagged": 1082,
+  "pct": 100
+ },
+ {
+  "pillar": "ed",
+  "total": 998,
+  "flagged": 998,
+  "pct": 100
+ },
+ {
+  "pillar": "ca",
+  "total": 993,
+  "flagged": 993,
+  "pct": 100
+ },
+ {
+  "pillar": "aq",
+  "total": 881,
+  "flagged": 881,
+  "pct": 100
+ },
+ {
+  "pillar": "st",
+  "total": 770,
+  "flagged": 770,
+  "pct": 100
+ },
+ {
+  "pillar": "er",
+  "total": 699,
+  "flagged": 699,
+  "pct": 100
+ },
+ {
+  "pillar": "ik",
+  "total": 676,
+  "flagged": 676,
+  "pct": 100
+ },
+ {
+  "pillar": "cg",
+  "total": 654,
+  "flagged": 654,
+  "pct": 100
+ },
+ {
+  "pillar": "pt",
+  "total": 565,
+  "flagged": 565,
+  "pct": 100
+ },
+ {
+  "pillar": "ra",
+  "total": 564,
+  "flagged": 564,
+  "pct": 100
+ },
+ {
+  "pillar": "gb",
+  "total": 545,
+  "flagged": 545,
+  "pct": 100
+ },
+ {
+  "pillar": "tk",
+  "total": 531,
+  "flagged": 531,
+  "pct": 100
+ },
+ {
+  "pillar": "gp",
+  "total": 420,
+  "flagged": 420,
+  "pct": 100
+ },
+ {
+  "pillar": "sc",
+  "total": 409,
+  "flagged": 409,
+  "pct": 100
+ },
+ {
+  "pillar": "bt",
+  "total": 400,
+  "flagged": 400,
+  "pct": 100
+ },
+ {
+  "pillar": "ai",
+  "total": 437,
+  "flagged": 371,
+  "pct": 85
+ },
+ {
+  "pillar": "es",
+  "total": 350,
+  "flagged": 350,
+  "pct": 100
+ },
+ {
+  "pillar": "dn",
+  "total": 339,
+  "flagged": 339,
+  "pct": 100
+ },
+ {
+  "pillar": "bs",
+  "total": 317,
+  "flagged": 317,
+  "pct": 100
+ },
+ {
+  "pillar": "tv",
+  "total": 285,
+  "flagged": 285,
+  "pct": 100
+ },
+ {
+  "pillar": "sp",
+  "total": 258,
+  "flagged": 258,
+  "pct": 100
+ },
+ {
+  "pillar": "bo",
+  "total": 235,
+  "flagged": 235,
+  "pct": 100
+ },
+ {
+  "pillar": "rs",
+  "total": 208,
+  "flagged": 208,
+  "pct": 100
+ },
+ {
+  "pillar": "nl",
+  "total": 179,
+  "flagged": 179,
+  "pct": 100
+ },
+ {
+  "pillar": "tn",
+  "total": 141,
+  "flagged": 141,
+  "pct": 100
+ },
+ {
+  "pillar": "lv",
+  "total": 117,
+  "flagged": 117,
+  "pct": 100
+ },
+ {
+  "pillar": "wl",
+  "total": 110,
+  "flagged": 110,
+  "pct": 100
+ },
+ {
+  "pillar": "ev",
+  "total": 100,
+  "flagged": 100,
+  "pct": 100
+ },
+ {
+  "pillar": "sk",
+  "total": 100,
+  "flagged": 100,
+  "pct": 100
+ },
+ {
+  "pillar": "sw",
+  "total": 95,
+  "flagged": 95,
+  "pct": 100
+ },
+ {
+  "pillar": "cl",
+  "total": 90,
+  "flagged": 90,
+  "pct": 100
+ },
+ {
+  "pillar": "co",
+  "total": 86,
+  "flagged": 86,
+  "pct": 100
+ },
+ {
+  "pillar": "ga",
+  "total": 80,
+  "flagged": 80,
+  "pct": 100
+ },
+ {
+  "pillar": "gm",
+  "total": 63,
+  "flagged": 63,
+  "pct": 100
+ },
+ {
+  "pillar": "hf",
+  "total": 62,
+  "flagged": 62,
+  "pct": 100
+ },
+ {
+  "pillar": "cr",
+  "total": 56,
+  "flagged": 56,
+  "pct": 100
+ },
+ {
+  "pillar": "mv",
+  "total": 51,
+  "flagged": 51,
+  "pct": 100
+ },
+ {
+  "pillar": "tc",
+  "total": 250,
+  "flagged": 5,
+  "pct": 2
+ }
+]

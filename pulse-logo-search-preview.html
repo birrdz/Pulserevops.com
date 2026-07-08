@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pulse — Adaptive logo preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#ECE3D2;color:#1d1711;font-family:Inter,system-ui,sans-serif;line-height:1.5;padding:34px 20px 70px}
+.wrap{max-width:880px;margin:0 auto}
+h1{font-family:Fraunces,serif;font-size:1.7rem;margin:0 0 6px}
+.lead{color:#6b5d49;margin:0 0 28px;font-size:.95rem}
+h2{font-family:Fraunces,serif;font-size:1.05rem;margin:34px 0 12px;display:flex;align-items:center;gap:8px}
+.note{background:#FBF3E4;border:1px dashed #C8821E;border-radius:12px;padding:12px 16px;font-size:.85rem;color:#6b5d49;margin:0 0 8px}
+
+/* ---- mock search result cards ---- */
+.serp{border-radius:14px;padding:22px 24px;margin-bottom:14px}
+.serp.light{background:#ffffff;border:1px solid #e6e0d4}
+.serp.dark{background:#1f1f22;border:1px solid #34343a}
+.serp .row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.serp .fav{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.serp.light .fav{background:#f1f3f4}
+.serp.dark .fav{background:#303134}
+.serp .fav svg{width:20px;height:20px}
+.serp .site{display:flex;flex-direction:column;line-height:1.25}
+.serp.light .site .name{color:#202124;font-size:.82rem;font-weight:600}
+.serp.light .site .url{color:#4d5156;font-size:.78rem}
+.serp.dark .site .name{color:#e8eaed;font-size:.82rem;font-weight:600}
+.serp.dark .site .url{color:#bdc1c6;font-size:.78rem}
+.serp .title{font-size:1.25rem;margin:2px 0 4px}
+.serp.light .title{color:#1a0dab}
+.serp.dark .title{color:#99c3ff}
+.serp .snip{font-size:.86rem}
+.serp.light .snip{color:#4d5156}
+.serp.dark .snip{color:#bdc1c6}
+
+/* ---- mock browser tabs ---- */
+.tabs{display:flex;gap:0;border-radius:12px 12px 0 0;overflow:hidden}
+.tab{display:flex;align-items:center;gap:9px;padding:11px 16px;font-size:.85rem;font-weight:500;min-width:190px}
+.tab svg{width:16px;height:16px;flex-shrink:0}
+.tab.light{background:#fff;color:#202124;border:1px solid #e6e0d4}
+.tab.dark{background:#202124;color:#e8eaed;border:1px solid #34343a}
+
+/* ---- homepage header look ---- */
+.hdr{background:#ECE3D2;border:1px solid rgba(29,23,17,.1);border-radius:12px;padding:18px 22px}
+.hdr img{height:54px;width:auto;display:block}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Adaptive Pulse logo — what it looks like</h1>
+  <p class="lead">The mark flips automatically: <b>black on light screens</b>, <b>white on dark screens</b> — so it always reads, whether the searcher uses light or dark mode.</p>
+
+  <h2>🔍 In a Google search result</h2>
+  <div class="note">Left = a searcher in <b>light mode</b> (your logo shows black). Right = a searcher in <b>dark mode</b> (your logo shows white). Same site, same favicon file.</div>
+  <div class="cols">
+    <div class="serp light">
+      <div class="row">
+        <span class="fav"><svg viewBox="280 120 420 460" fill="none" stroke="#141210" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M490 214 C560 214 624 268 624 344 C624 404 590 446 556 472 L424 472 C390 446 356 404 356 344 C356 268 420 214 490 214 Z"/><path d="M466 452 L466 360 C466 330 514 330 514 360 L514 452"/><path d="M490 176 v-30 M404 210 l-22 -22 M576 210 l22 -22 M348 322 h-30 M632 322 h30"/><path d="M430 478 L550 478 L544 502 L436 502 Z"/><path d="M440 514 h100 M444 530 h92"/><path d="M470 544 q20 26 40 0"/></svg></span>
+        <span class="site"><span class="name">Pulse</span><span class="url">https://pulserevops.com</span></span>
+      </div>
+      <div class="title">Pulse — 24,000+ researched answers that add value</div>
+      <div class="snip">Operator-grade answers across revenue, business, buying guides, lifestyle and more. Free to read.</div>
+    </div>
+    <div class="serp dark">
+      <div class="row">
+        <span class="fav"><svg viewBox="280 120 420 460" fill="none" stroke="#ffffff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M490 214 C560 214 624 268 624 344 C624 404 590 446 556 472 L424 472 C390 446 356 404 356 344 C356 268 420 214 490 214 Z"/><path d="M466 452 L466 360 C466 330 514 330 514 360 L514 452"/><path d="M490 176 v-30 M404 210 l-22 -22 M576 210 l22 -22 M348 322 h-30 M632 322 h30"/><path d="M430 478 L550 478 L544 502 L436 502 Z"/><path d="M440 514 h100 M444 530 h92"/><path d="M470 544 q20 26 40 0"/></svg></span>
+        <span class="site"><span class="name">Pulse</span><span class="url">https://pulserevops.com</span></span>
+      </div>
+      <div class="title">Pulse — 24,000+ researched answers that add value</div>
+      <div class="snip">Operator-grade answers across revenue, business, buying guides, lifestyle and more. Free to read.</div>
+    </div>
+  </div>
+
+  <h2>🗂 In a browser tab</h2>
+  <div class="cols">
+    <div class="tabs"><div class="tab light"><svg viewBox="280 120 420 460" fill="none" stroke="#141210" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M490 214 C560 214 624 268 624 344 C624 404 590 446 556 472 L424 472 C390 446 356 404 356 344 C356 268 420 214 490 214 Z"/><path d="M466 452 L466 360 C466 330 514 330 514 360 L514 452"/><path d="M490 176 v-30 M404 210 l-22 -22 M576 210 l22 -22 M348 322 h-30 M632 322 h30"/><path d="M430 478 L550 478 L544 502 L436 502 Z"/><path d="M440 514 h100 M444 530 h92"/><path d="M470 544 q20 26 40 0"/></svg>Pulse — We add Value</div></div>
+    <div class="tabs"><div class="tab dark"><svg viewBox="280 120 420 460" fill="none" stroke="#ffffff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M490 214 C560 214 624 268 624 344 C624 404 590 446 556 472 L424 472 C390 446 356 404 356 344 C356 268 420 214 490 214 Z"/><path d="M466 452 L466 360 C466 330 514 330 514 360 L514 452"/><path d="M490 176 v-30 M404 210 l-22 -22 M576 210 l22 -22 M348 322 h-30 M632 322 h30"/><path d="M430 478 L550 478 L544 502 L436 502 Z"/><path d="M440 514 h100 M444 530 h92"/><path d="M470 544 q20 26 40 0"/></svg>Pulse — We add Value</div></div>
+  </div>
+
+  <h2>🏠 On your homepage (top-left)</h2>
+  <div class="note">Your homepage background is light, so the full wordmark stays black there.</div>
+  <div class="hdr"><img src="/pulse-logo-black.svg" alt="PULSE — We add Value"></div>
+
+  <h2>✅ The actual adaptive file (follows YOUR current mode)</h2>
+  <div class="note">This is the real <code>pulse-favicon-adaptive.svg</code>. It matches whatever mode your device is in right now — switch your OS light/dark to watch it flip.</div>
+  <div class="hdr" style="text-align:center"><img src="/pulse-favicon-adaptive.svg" alt="PULSE" style="height:90px;margin:0 auto"></div>
+</div>
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

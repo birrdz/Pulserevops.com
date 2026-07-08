@@ -1,0 +1,85 @@
+{
+  "rankingDone": [
+    "hf0061",
+    "hf0060",
+    "hf0059",
+    "hf0058",
+    "hf0057",
+    "hf0056",
+    "hf0055",
+    "hf0054",
+    "hf0053",
+    "hf0052",
+    "hf0051",
+    "hf0050",
+    "hf0049"
+  ],
+  "essayDone": [],
+  "ceDone": [],
+  "rankingFailed": [
+    {
+      "id": "hf0062",
+      "err": "rebuildRankingProductImages: tail_out_of_order_expected_howToChoose_got_3. Practical Compliance for Athletes and Families, extra_sections_after_sources_3. Practical Compliance for Athletes and Families|FAQ|Bottom Line|Related on PULSE|Sources|How to Choose|What to Look For, rank1_missing_best_overall, rank2_missing_best_value, mermaid_count_3_expected_1 (reference https://pulserevops.com/aquariums/aq1158)",
+      "at": "2026-07-08T18:34:09.358Z"
+    },
+    {
+      "id": "hf0062",
+      "err": "rebuildRankingProductImages: tail_out_of_order_expected_howToChoose_got_3. Practical Compliance for Athletes and Families, extra_sections_after_sources_3. Practical Compliance for Athletes and Families|FAQ|Bottom Line|Related on PULSE|Sources|How to Choose|What to Look For, rank1_missing_best_overall, rank2_missing_best_value, mermaid_count_3_expected_1 (reference https://pulserevops.com/aquariums/aq1158)",
+      "at": "2026-07-08T19:01:15.150Z"
+    },
+    {
+      "id": "hf0048",
+      "err": "rebuildRankingProductImages: tail_out_of_order_expected_sources_got_Related on PULSE, extra_sections_after_sources_Related on PULSE|Sources, mermaid_count_2_expected_1 (reference https://pulserevops.com/aquariums/aq1158)",
+      "at": "2026-07-08T19:23:54.243Z"
+    },
+    {
+      "id": "hf0047",
+      "err": "rebuildRankingProductImages: tail_out_of_order_expected_sources_got_Related on PULSE, extra_sections_after_sources_Related on PULSE|Sources, mermaid_count_2_expected_1 (reference https://pulserevops.com/aquariums/aq1158)",
+      "at": "2026-07-08T19:28:04.670Z"
+    },
+    {
+      "id": "hf0046",
+      "err": "rebuildRankingProductImages: tail_out_of_order_expected_sources_got_Related on PULSE, extra_sections_after_sources_Related on PULSE|Sources, mermaid_count_2_expected_1 (reference https://pulserevops.com/aquariums/aq1158)",
+      "at": "2026-07-08T19:32:15.273Z"
+    },
+    {
+      "id": "hf0045",
+      "err": "rebuildRankingProductImages: tail_out_of_order_expected_sources_got_Related on PULSE, extra_sections_after_sources_Related on PULSE|Sources, mermaid_count_2_expected_1 (reference https://pulserevops.com/aquariums/aq1158)",
+      "at": "2026-07-08T19:36:28.634Z"
+    }
+  ],
+  "essayFailed": [],
+  "ceFailed": [],
+  "samples": [
+    {
+      "at": "2026-07-08T19:13:25.905Z",
+      "phase": "ranking",
+      "id": "hf0052",
+      "title": "Lance O's Recruiting Network vs NCSA vs Hudl vs FieldLevel in 2027 — which one serves HS football prospects best?",
+      "url": "https://pulserevops.com/hf/hf0052",
+      "grade": 13,
+      "productImgs": 6,
+      "pass": true
+    },
+    {
+      "at": "2026-07-08T18:53:08.672Z",
+      "phase": "ranking",
+      "id": "hf0057",
+      "title": "Why a single well-crafted X DM to a college coach beats 1000 mass emails in 2027?",
+      "url": "https://pulserevops.com/hf/hf0057",
+      "grade": 15,
+      "productImgs": 9,
+      "pass": true
+    },
+    {
+      "at": "2026-07-08T18:37:21.205Z",
+      "phase": "ranking",
+      "id": "hf0061",
+      "title": "How does NIL impact high school recruiting commitments in 2027?",
+      "url": "https://pulserevops.com/hf/hf0061",
+      "grade": 15,
+      "productImgs": 6,
+      "pass": true
+    }
+  ]
+}

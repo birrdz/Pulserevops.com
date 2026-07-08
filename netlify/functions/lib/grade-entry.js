@@ -6,6 +6,7 @@
 // Image LAW (images_law): Top-10 needs cover + 10 @@PRODUCT img=; essays need
 // a non-weak leading cover. Failing images_law caps score at 9 (publish gate).
 const { checkImagesLaw } = require('./ensure-entry-images');
+const { auditRankingListMaster, expectedRankCount, isRankingListBody, entryTitle } = require('../../../_ranking_list_master_law');
 
 const BANNED_PHRASES = [
   /\bdelve(?:\s+into)?\b/i,
@@ -34,11 +35,15 @@ function pillarOf(id, body) {
   // electronicreview ruleset; otherwise the entry grades under the pillar's own
   // regular ruleset. With no body (index/empty contexts) the prefix map below
   // gives the regular ruleset. (Mirrors the style-pillar dual precedent.)
-  const DUAL = { q: 'qa', cg: 'qa', tk: 'qa', ra: 'revenuearchitecture', gp: 'gtmplaybook', ik: 'kpi', st: 'training', pt: 'qa', sw: 'qa' };
+  const DUAL = { q: 'qa', cg: 'qa', tk: 'qa', ra: 'revenuearchitecture', gp: 'gtmplaybook', ik: 'kpi', st: 'training', pt: 'qa', sw: 'qa', ai: 'qa', aq: 'qa', tl: 'qa', tc: 'qa', ga: 'qa', gm: 'qa' };
   const dm = String(id).match(/^([a-z]+)\d+$/i);
   if (dm && DUAL[dm[1].toLowerCase()] && typeof body === 'string' && body) {
     const numbered = (body.match(/^#{2,3}\s+(?:\d+\.|#?\d+\s+[—-])/gm) || []).length;
-    return numbered >= 8 ? 'electronicreview' : DUAL[dm[1].toLowerCase()];
+    // A DUAL-pillar entry is a Top-10 ONLY if it ALSO carries ranking markers (Best Overall/Value or @@PRODUCT).
+    // A Q&A that merely uses numbered lists must NOT be judged by the 10-product ruleset — that was mis-parking
+    // real Q&As on heavy_bold(ER pills) + images_law(10 product imgs). (owner fix 2026-07-01)
+    const hasRankMarkers = /(?:🏆|\bBEST\s+OVERALL\b|💎|\bBEST\s+VALUE\b|@@PRODUCT)/i.test(body);
+    return (numbered >= 8 && hasRankMarkers) ? 'electronicreview' : DUAL[dm[1].toLowerCase()];
   }
   if (/^ik\d+$/i.test(id)) return 'kpi';
   if (/^st\d+$/i.test(id)) {
@@ -71,6 +76,7 @@ function pillarOf(id, body) {
   if (/^aq\d+$/i.test(id)) return 'electronicreview'; // Aquariums pillar — Top-10 ruleset
   if (/^hf\d+$/i.test(id)) return 'electronicreview'; // HS Football Recruiting pillar — Top-10 ruleset
   if (/^ai\d+$/i.test(id)) return 'electronicreview'; // AI Infrastructure pillar — Top-10 ruleset
+  if (/^tc\d+$/i.test(id)) return 'electronicreview'; // Telco pillar — Top-10 ruleset (best carrier by state)
   if (/^cg\d+$/i.test(id)) return 'electronicreview'; // Coaching pillar — Top-10 ruleset (cg0518+)
   if (/^sk\d+$/i.test(id)) return 'training'; // Skills pillar — workshop/drill ruleset
   if (/^sp\d+$/i.test(id)) return 'speech'; // Speeches pillar — ready-to-deliver speech/toast ruleset
@@ -84,9 +90,11 @@ function pillarOf(id, body) {
 function gradeEntry(idOrEntry, maybeBody, opts = {}) {
   // Accept either (entry object) or (id, body string).
   let id, body, imagesDeferred = !!opts.imagesDeferred;
+  let entryTitleStr = String(opts.title || opts.question || '');
   if (typeof idOrEntry === 'object') {
     id = idOrEntry && idOrEntry.id;
     body = String(idOrEntry && idOrEntry.answer || '');
+    if (!entryTitleStr) entryTitleStr = String((idOrEntry && (idOrEntry.question || idOrEntry.title)) || '');
     if (idOrEntry && idOrEntry.images_deferred_at) imagesDeferred = true;
   } else {
     id = idOrEntry;
@@ -163,6 +171,16 @@ function gradeEntry(idOrEntry, maybeBody, opts = {}) {
   const isKPI = pillar === 'kpi';
   const isBS = pillar === 'booksummary';
   const isER = pillar === 'electronicreview';
+  const erTitle = entryTitle(body);
+  const erRankExpected = isER ? expectedRankCount(body, erTitle) : 10;
+  const erRankAudit = isER ? auditRankingListMaster(body, erTitle) : null;
+  let qaGoldAudit = null;
+  try {
+    const { auditQaGoldTemplate, appliesQaGold } = require('../../../_qa_gold_template');
+    if (appliesQaGold(id, body, { title: erTitle })) {
+      qaGoldAudit = auditQaGoldTemplate(body, erTitle, id);
+    }
+  } catch (e) { qaGoldAudit = null; }
   const isRA = pillar === 'revenuearchitecture';
   const isGP = pillar === 'gtmplaybook';
   // ER pillar: detect the two highlight markers — Best Overall + Best Value pills.
@@ -213,7 +231,9 @@ function gradeEntry(idOrEntry, maybeBody, opts = {}) {
     // KPI: enforce the ik0035 6 distinctive section headers (require 5+ of 6).
     // ER: require 10+ numbered product sections (the top-10 list itself).
     // Other pillars: keep the original h2_six_plus check.
-    h2_six_plus: isKPI ? ikSectionCount >= 5 : isER ? erProductSections >= 10 : h2Count >= 6,
+    h2_six_plus: isKPI ? ikSectionCount >= 5 : isER ? erProductSections >= erRankExpected : h2Count >= 6,
+    ranking_list_master: !isER || !erRankAudit || !erRankAudit.applies || erRankAudit.compliant,
+    qa_gold_outline: !qaGoldAudit || !qaGoldAudit.applies || qaGoldAudit.compliant,
     sources_five_plus: sourceCount >= 5,
     faq_five_plus: faqQACount >= 4,
     // ST: time-allocation tokens in headers count toward "heavy bold" criterion
@@ -257,12 +277,14 @@ function gradeEntry(idOrEntry, maybeBody, opts = {}) {
   //     → guide checks (Direct Answer + What to Wear + pieces + do/don't + FAQ).
   if (pillar === 'style') {
     const headSy = (re) => new RegExp('(?:<h[23][^>]*>\\s*[^<\\n]*' + re + ')|(?:^#{2,3}\\s+[^\\n]*' + re + ')', 'im').test(body);
-    const isTop10 = erProductSections >= 8;
+    const isTop10 = isRankingListBody(body, erTitle);
     if (isTop10) {
+      const syRankN = expectedRankCount(body, erTitle);
       checks = {
         word_count_floor: wordCount >= 1800,
         direct_answer: checks.direct_answer,
-        ten_sections: erProductSections >= 10,
+        ten_sections: erProductSections >= syRankN,
+        ranking_list_master: auditRankingListMaster(body, erTitle).compliant,
         best_overall: erBestOverall,
         best_value: erBestValue,
         faq_section: faqHeading,
@@ -294,9 +316,28 @@ function gradeEntry(idOrEntry, maybeBody, opts = {}) {
   // Image LAW — applies to every pillar/format.
   checks.images_law = checkImagesLaw(body).compliant;
 
+  let vsAudit = null;
+  try {
+    const { auditComparisonEntry } = require('./vs-expert-verify');
+    vsAudit = auditComparisonEntry(id, entryTitleStr || erTitle, body);
+    if (vsAudit.isComparison) checks.vs_compare_valid = vsAudit.structuralPass;
+  } catch (_e) {}
+
   let score = Object.values(checks).filter(Boolean).length;
   if (!checks.images_law && !imagesDeferred) score = Math.min(score, 9);
+  // MEDIA LAW (owner 2026-07-01): every page must break up its text with media — MIN 3, MAX 10
+  // images. A GATE (not a scored criterion, to keep the /13 scale): without >=3 media it can NOT
+  // be certified 12/13. imagesDeferred bypasses it (the crew enforces media via stationsOk).
+  // MEDIA = markdown images PLUS Top-10 @@PRODUCT img= cards (they render as images and break up
+  // the page just the same). A compliant Top-10 = hero cover + 10 product cards → 11 media. (owner 2026-07-02)
+  const mediaCount = (body.match(/!\[[^\]]*\]\([^)]+\)/g) || []).length + (body.match(/@@PRODUCT[^\n]* img=/g) || []).length;
+  if (mediaCount < 3 && !imagesDeferred) score = Math.min(score, 11);
   const missing = Object.entries(checks).filter(([_, v]) => !v).map(([k]) => k);
+  if (mediaCount < 3) missing.push('media_images(min3)');
+  if (vsAudit && vsAudit.isComparison && !vsAudit.structuralPass) {
+    score = Math.min(score, 11);
+    missing.push(...vsAudit.gaps.map(g => 'vs:' + g));
+  }
 
   return {
     pillar,
@@ -315,6 +356,7 @@ function gradeEntry(idOrEntry, maybeBody, opts = {}) {
     images_law: checks.images_law,
     image_audit: checkImagesLaw(body),
     missing,
+    vs_audit: vsAudit,
   };
 }
 

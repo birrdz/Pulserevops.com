@@ -1,0 +1,62 @@
+[sitewide] library rows=22489 submitting=22489 | static/sitemap=51523 | TOTAL unique=51523 (full)
+[dry] no pings sent. sample: [
+  'https://pulserevops.com/tools/tl10182',
+  'https://pulserevops.com/tools/tl10180',
+  'https://pulserevops.com/tools/tl10181',
+  'https://pulserevops.com/tools/tl10178',
+  'https://pulserevops.com/tools/tl10176'
+]
+[indexnow-safe] 51523 URLs, batch=200
+  batch 1/258 ok=true pinged=200
+  batch 6/258 ok=true pinged=1200
+  batch 11/258 ok=true pinged=2200
+  batch 16/258 ok=true pinged=3200
+  batch 21/258 ok=true pinged=4200
+  batch 26/258 ok=true pinged=5200
+  batch 31/258 ok=true pinged=6200
+  batch 36/258 ok=true pinged=7200
+  batch 41/258 ok=true pinged=8200
+  batch 46/258 ok=true pinged=9200
+  batch 51/258 ok=true pinged=10200
+  batch 56/258 ok=true pinged=11200
+  batch 61/258 ok=true pinged=12200
+  batch 66/258 ok=true pinged=13200
+  batch 71/258 ok=true pinged=14200
+  batch 76/258 ok=true pinged=15200
+  batch 81/258 ok=true pinged=16200
+  batch 86/258 ok=true pinged=17200
+  batch 91/258 ok=true pinged=18200
+  batch 96/258 ok=true pinged=19200
+  batch 101/258 ok=true pinged=20200
+  batch 106/258 ok=true pinged=21200
+  batch 111/258 ok=true pinged=22200
+  batch 116/258 ok=true pinged=23200
+  batch 121/258 ok=true pinged=24200
+  batch 126/258 ok=true pinged=25200
+  batch 131/258 ok=true pinged=26200
+  batch 136/258 ok=true pinged=27200
+  batch 141/258 ok=true pinged=28200
+  batch 146/258 ok=true pinged=29200
+  batch 151/258 ok=true pinged=30200
+  batch 156/258 ok=true pinged=31200
+  batch 161/258 ok=true pinged=32200
+  batch 166/258 ok=true pinged=33200
+  batch 171/258 ok=true pinged=34200
+  batch 176/258 ok=true pinged=35200
+  batch 181/258 ok=true pinged=36200
+  batch 186/258 ok=true pinged=37200
+  batch 191/258 ok=true pinged=38200
+  batch 196/258 ok=true pinged=39200
+  batch 201/258 ok=true pinged=40200
+  batch 206/258 ok=true pinged=41200
+  batch 211/258 ok=true pinged=42200
+  batch 216/258 ok=true pinged=43200
+  batch 221/258 ok=true pinged=44200
+  batch 226/258 ok=true pinged=45200
+  batch 231/258 ok=true pinged=46200
+  batch 236/258 ok=true pinged=47200
+  batch 241/258 ok=true pinged=48200
+  batch 246/258 ok=true pinged=49200
+  batch 251/258 ok=true pinged=50200
+  batch 256/258 ok=true pinged=51200
+[indexnow-safe] DONE {"submitted":51523,"pinged":51523,"okBatches":258,"failBatches":0,"at":1782661432067}

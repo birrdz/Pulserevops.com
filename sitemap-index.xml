@@ -57,6 +57,9 @@
   <sitemap><loc>https://pulserevops.com/sitemap-buildouts.xml</loc><lastmod>2026-06-23</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-pets.xml</loc><lastmod>2026-06-23</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-software.xml</loc><lastmod>2026-06-23</lastmod></sitemap>
+  <!-- Added 2026-06-28: Telco library pillar (dynamic) + Fish & Crabs static hot-spot maps. -->
+  <sitemap><loc>https://pulserevops.com/sitemap-telco.xml</loc><lastmod>2026-06-28</lastmod></sitemap>
+  <sitemap><loc>https://pulserevops.com/sitemap-fish-crabs.xml</loc><lastmod>2026-06-28</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-leaderboards.xml</loc><lastmod>2026-06-07</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-misc.xml</loc><lastmod>2026-06-02</lastmod></sitemap>
   <!-- Trending super-index — top-12 most-viewed entries in last 7 days. Hourly

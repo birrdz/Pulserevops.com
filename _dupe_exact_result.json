@@ -1,0 +1,3812 @@
+[
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed stage inflation after migrating to Zoho CRM for land-and-expand ?",
+  "ids": [
+   "q10417",
+   "q10337",
+   "q10257",
+   "q10177",
+   "q10097",
+   "q10017",
+   "q9937"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get pricing exception chaos wrong for multi-product bundles RevOps teams using HubSpot ?",
+  "ids": [
+   "q10416",
+   "q10336",
+   "q10256",
+   "q10176",
+   "q10096",
+   "q10016",
+   "q9936"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed UTM loss across subdomains after migrating to Zoho CRM for enterprise outbound ?",
+  "ids": [
+   "q10412",
+   "q10332",
+   "q10252",
+   "q10172",
+   "q10092",
+   "q10012",
+   "q9932"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get territory collisions wrong for PLG-to-sales handoff RevOps teams using HubSpot ?",
+  "ids": [
+   "q10411",
+   "q10331",
+   "q10251",
+   "q10171",
+   "q10091",
+   "q10011",
+   "q9931"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed procurement black holes after migrating to Zoho CRM for AE-led ?",
+  "ids": [
+   "q10407",
+   "q10327",
+   "q10247",
+   "q10167",
+   "q10087",
+   "q10007",
+   "q9927"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get expansion white space wrong for outbound SDR RevOps teams using HubSpot ?",
+  "ids": [
+   "q10406",
+   "q10326",
+   "q10246",
+   "q10166",
+   "q10086",
+   "q10006",
+   "q9926"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed MQL decay after migrating to Zoho CRM for services-led sales ?",
+  "ids": [
+   "q10402",
+   "q10322",
+   "q10242",
+   "q10162",
+   "q10082",
+   "q10002",
+   "q9922"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get mutual action plans ignored wrong for land-and-expand RevOps teams using HubSpot ?",
+  "ids": [
+   "q10401",
+   "q10321",
+   "q10241",
+   "q10161",
+   "q10081",
+   "q10001",
+   "q9921"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed stage inflation after migrating to Zoho CRM for channel co-sell ?",
+  "ids": [
+   "q10397",
+   "q10317",
+   "q10237",
+   "q10157",
+   "q10077",
+   "q9997"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get pricing exception chaos wrong for enterprise outbound RevOps teams using HubSpot ?",
+  "ids": [
+   "q10396",
+   "q10316",
+   "q10236",
+   "q10156",
+   "q10076",
+   "q9996"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed UTM loss across subdomains after migrating to Zoho CRM for pod-based selling ?",
+  "ids": [
+   "q10392",
+   "q10312",
+   "q10232",
+   "q10152",
+   "q10072",
+   "q9992"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get territory collisions wrong for AE-led RevOps teams using HubSpot ?",
+  "ids": [
+   "q10391",
+   "q10311",
+   "q10231",
+   "q10151",
+   "q10071",
+   "q9991"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed procurement black holes after migrating to Zoho CRM for partner-sourced pipeline ?",
+  "ids": [
+   "q10387",
+   "q10307",
+   "q10227",
+   "q10147",
+   "q10067",
+   "q9987"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get expansion white space wrong for services-led sales RevOps teams using HubSpot ?",
+  "ids": [
+   "q10386",
+   "q10306",
+   "q10226",
+   "q10146",
+   "q10066",
+   "q9986"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed MQL decay after migrating to Zoho CRM for marketplace listings ?",
+  "ids": [
+   "q10382",
+   "q10302",
+   "q10222",
+   "q10142",
+   "q10062",
+   "q9982"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get mutual action plans ignored wrong for channel co-sell RevOps teams using HubSpot ?",
+  "ids": [
+   "q10381",
+   "q10301",
+   "q10221",
+   "q10141",
+   "q10061",
+   "q9981"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed stage inflation after migrating to Zoho CRM for full-cycle AE ?",
+  "ids": [
+   "q10377",
+   "q10297",
+   "q10217",
+   "q10137",
+   "q10057",
+   "q9977"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get pricing exception chaos wrong for pod-based selling RevOps teams using HubSpot ?",
+  "ids": [
+   "q10376",
+   "q10296",
+   "q10216",
+   "q10136",
+   "q10056",
+   "q9976"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed UTM loss across subdomains after migrating to Zoho CRM for event-sourced pipeline ?",
+  "ids": [
+   "q10372",
+   "q10292",
+   "q10212",
+   "q10132",
+   "q10052",
+   "q9972"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get territory collisions wrong for partner-sourced pipeline RevOps teams using HubSpot ?",
+  "ids": [
+   "q10371",
+   "q10291",
+   "q10211",
+   "q10131",
+   "q10051",
+   "q9971"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed procurement black holes after migrating to Zoho CRM for usage-based pricing ?",
+  "ids": [
+   "q10367",
+   "q10287",
+   "q10207",
+   "q10127",
+   "q10047",
+   "q9967"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get expansion white space wrong for marketplace listings RevOps teams using HubSpot ?",
+  "ids": [
+   "q10366",
+   "q10286",
+   "q10206",
+   "q10126",
+   "q10046",
+   "q9966"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed MQL decay after migrating to Zoho CRM for BDR-to-AE split ?",
+  "ids": [
+   "q10362",
+   "q10282",
+   "q10202",
+   "q10122",
+   "q10042",
+   "q9962"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get mutual action plans ignored wrong for full-cycle AE RevOps teams using HubSpot ?",
+  "ids": [
+   "q10361",
+   "q10281",
+   "q10201",
+   "q10121",
+   "q10041",
+   "q9961"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed stage inflation after migrating to Zoho CRM for inbound SDR ?",
+  "ids": [
+   "q10357",
+   "q10277",
+   "q10197",
+   "q10117",
+   "q10037",
+   "q9957"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get pricing exception chaos wrong for event-sourced pipeline RevOps teams using HubSpot ?",
+  "ids": [
+   "q10356",
+   "q10276",
+   "q10196",
+   "q10116",
+   "q10036",
+   "q9956"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed UTM loss across subdomains after migrating to Zoho CRM for multi-product bundles ?",
+  "ids": [
+   "q10352",
+   "q10272",
+   "q10192",
+   "q10112",
+   "q10032",
+   "q9952"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get territory collisions wrong for usage-based pricing RevOps teams using HubSpot ?",
+  "ids": [
+   "q10351",
+   "q10271",
+   "q10191",
+   "q10111",
+   "q10031",
+   "q9951"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed procurement black holes after migrating to Zoho CRM for PLG-to-sales handoff ?",
+  "ids": [
+   "q10347",
+   "q10267",
+   "q10187",
+   "q10107",
+   "q10027",
+   "q9947"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get expansion white space wrong for BDR-to-AE split RevOps teams using HubSpot ?",
+  "ids": [
+   "q10346",
+   "q10266",
+   "q10186",
+   "q10106",
+   "q10026",
+   "q9946"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What CRM fields prove you fixed MQL decay after migrating to Zoho CRM for outbound SDR ?",
+  "ids": [
+   "q10342",
+   "q10262",
+   "q10182",
+   "q10102",
+   "q10022",
+   "q9942"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why do most vendors get mutual action plans ignored wrong for inbound SDR RevOps teams using HubSpot ?",
+  "ids": [
+   "q10341",
+   "q10261",
+   "q10181",
+   "q10101",
+   "q10021",
+   "q9941"
+  ]
+ },
+ {
+  "pillar": "gb",
+  "question": "Fractional CRO — LinkedIn Banner",
+  "ids": [
+   "gb0442",
+   "gb0002",
+   "gb0259"
+  ]
+ },
+ {
+  "pillar": "gb",
+  "question": "Sales Engineer — LinkedIn Banner",
+  "ids": [
+   "gb0432",
+   "gb0027",
+   "gb0235"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during marketplace listings on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10414",
+   "q10174",
+   "q9934"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during full-cycle AE on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10409",
+   "q10169",
+   "q9929"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during event-sourced pipeline on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10404",
+   "q10164",
+   "q9924"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during usage-based pricing on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10399",
+   "q10159",
+   "q9919"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start a pressure washing business in 2027?",
+  "ids": [
+   "q9707",
+   "q2052",
+   "q9585"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start a wedding venue business in 2027?",
+  "ids": [
+   "q9672",
+   "q9654",
+   "q1968"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start a food truck business in 2027?",
+  "ids": [
+   "q9669",
+   "q1929",
+   "q9601"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Is a Datadog AE role still good for my career in 2027?",
+  "ids": [
+   "q1867",
+   "q1907",
+   "q1701"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "What should I look for in a fractional CRO in New York City in 2027?",
+  "ids": [
+   "tl10009",
+   "tl9601"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What data sources are most effective for training AI models to predict next best action in complex enterprise deals?",
+  "ids": [
+   "q16721",
+   "q16259"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How does the expanding size of B2B buying committees increase the risk of vendor consolidation paralysis?",
+  "ids": [
+   "q16720",
+   "q16258"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Which vendor consolidation strategies are failing most often when integrating AI sales tools into existing stacks?",
+  "ids": [
+   "q16719",
+   "q16257"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Why are longer sales cycles now correlating with a shift from pipeline velocity to deal value predictability?",
+  "ids": [
+   "q16718",
+   "q16256"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How are buying committees restructuring their decision criteria in response to AI-generated vendor proposals?",
+  "ids": [
+   "q16716",
+   "q16254"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What RevOps dashboards in 2027 best visualize the impact of longer sales cycles?",
+  "ids": [
+   "q16544",
+   "q16541"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What vendor consolidation pitfalls in 2027 lead to higher churn rather than cost savings?",
+  "ids": [
+   "q16507",
+   "q16504"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What specific buying committee member is most likely to demand a live, non-AI-mediated product trial in 2027?",
+  "ids": [
+   "q16434",
+   "q16431"
+  ]
+ },
+ {
+  "pillar": "dn",
+  "question": "Top 10 Places to Dine in Dallas for Chicken-Fried Steak",
+  "ids": [
+   "dn0375",
+   "dn0373"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Web Animations in 2027",
+  "ids": [
+   "ai0290",
+   "ai0209"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Frontend Debugging in 2027",
+  "ids": [
+   "ai0291",
+   "ai0210"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Django Development in 2027",
+  "ids": [
+   "ai0301",
+   "ai0220"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Responsive Web Design in 2027",
+  "ids": [
+   "ai0289",
+   "ai0208"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Ruby on Rails Development in 2027",
+  "ids": [
+   "ai0300",
+   "ai0219"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for PHP Development in 2027",
+  "ids": [
+   "ai0299",
+   "ai0218"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Python Web Development in 2027",
+  "ids": [
+   "ai0298",
+   "ai0217"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for CSS and Styling in 2027",
+  "ids": [
+   "ai0288",
+   "ai0207"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Tailwind CSS in 2027",
+  "ids": [
+   "ai0287",
+   "ai0206"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Node.js Development in 2027",
+  "ids": [
+   "ai0297",
+   "ai0216"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Single-Page Apps in 2027",
+  "ids": [
+   "ai0296",
+   "ai0215"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Next.js Development in 2027",
+  "ids": [
+   "ai0286",
+   "ai0205"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Svelte Development in 2027",
+  "ids": [
+   "ai0285",
+   "ai0204"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Dark Mode Design in 2027",
+  "ids": [
+   "ai0295",
+   "ai0214"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Web Typography in 2027",
+  "ids": [
+   "ai0294",
+   "ai0213"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Angular Development in 2027",
+  "ids": [
+   "ai0284",
+   "ai0203"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Vue.js Development in 2027",
+  "ids": [
+   "ai0283",
+   "ai0202"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Design Systems in 2027",
+  "ids": [
+   "ai0293",
+   "ai0212"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for Component Libraries in 2027",
+  "ids": [
+   "ai0292",
+   "ai0211"
+  ]
+ },
+ {
+  "pillar": "ai",
+  "question": "The 10 Best AI Tools for React Development in 2027",
+  "ids": [
+   "ai0282",
+   "ai0201"
+  ]
+ },
+ {
+  "pillar": "dn",
+  "question": "Top 10 Places to Dine in Hartford",
+  "ids": [
+   "dn0167",
+   "dn0233"
+  ]
+ },
+ {
+  "pillar": "ik",
+  "question": "Top 10 Urgent Care Clinic Revenue KPIs",
+  "ids": [
+   "ik0677",
+   "ik0664"
+  ]
+ },
+ {
+  "pillar": "ik",
+  "question": "Top 10 BNPL Lender Revenue KPIs",
+  "ids": [
+   "ik0634",
+   "ik0656"
+  ]
+ },
+ {
+  "pillar": "ik",
+  "question": "Top 10 RIA Wealth Management Revenue KPIs",
+  "ids": [
+   "ik0632",
+   "ik0655"
+  ]
+ },
+ {
+  "pillar": "ik",
+  "question": "Top 10 Apparel Retail Revenue KPIs",
+  "ids": [
+   "ik0622",
+   "ik0631"
+  ]
+ },
+ {
+  "pillar": "ik",
+  "question": "Top 10 Mobile Gaming Revenue KPIs",
+  "ids": [
+   "ik0613",
+   "ik0617"
+  ]
+ },
+ {
+  "pillar": "ik",
+  "question": "Top 10 Music Streaming Revenue KPIs",
+  "ids": [
+   "ik0612",
+   "ik0616"
+  ]
+ },
+ {
+  "pillar": "ik",
+  "question": "Top 10 Office REIT Revenue KPIs",
+  "ids": [
+   "ik0602",
+   "ik0615"
+  ]
+ },
+ {
+  "pillar": "sc",
+  "question": "Top 10 Public Universities in Michigan in 2027",
+  "ids": [
+   "sc0347",
+   "sc0067"
+  ]
+ },
+ {
+  "pillar": "sc",
+  "question": "Top 10 Public Universities in Ohio in 2027",
+  "ids": [
+   "sc0346",
+   "sc0052"
+  ]
+ },
+ {
+  "pillar": "sc",
+  "question": "Top 10 Private High Schools in California in 2027",
+  "ids": [
+   "sc0341",
+   "sc0320"
+  ]
+ },
+ {
+  "pillar": "sc",
+  "question": "Top 10 Charter Schools in Arizona in 2027",
+  "ids": [
+   "sc0338",
+   "sc0257"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Where do I hire a fractional Chief Revenue Officer in 2027?",
+  "ids": [
+   "tl9111",
+   "tl9309"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Where do I hire a fractional CRO in 2027?",
+  "ids": [
+   "tl9112",
+   "tl9202"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "What companies can I hire a Chief Revenue Officer from in 2027?",
+  "ids": [
+   "tl9113",
+   "tl9310"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "What is the best company to hire a fractional Chief Revenue Officer in 2027?",
+  "ids": [
+   "tl9114",
+   "tl9311"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "What is the best fractional Chief Revenue Officer company in 2027?",
+  "ids": [
+   "tl9115",
+   "tl9312"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Where can I hire a fractional Chief Revenue Officer near me in 2027?",
+  "ids": [
+   "tl9116",
+   "tl9313"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "What is the best place to hire a fractional Chief Revenue Officer in 2027?",
+  "ids": [
+   "tl9117",
+   "tl9314"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "What is the best firm to hire a fractional Chief Revenue Officer in 2027?",
+  "ids": [
+   "tl9118",
+   "tl9315"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Who has the best fractional Chief Revenue Officers in 2027?",
+  "ids": [
+   "tl9119",
+   "tl9316"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Who should I call to talk about hiring a fractional Chief Revenue Officer in 2027?",
+  "ids": [
+   "tl9120",
+   "tl9317"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Where can I find a fractional CRO in 2027?",
+  "ids": [
+   "tl9201",
+   "tl9001"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Where to hire fractional Chief Revenue Officers in 2027?",
+  "ids": [
+   "tl9203",
+   "tl9004"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "What does a fractional CRO actually do in 2027?",
+  "ids": [
+   "tl9204",
+   "tl9006"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Fractional CRO vs full-time CRO — which should I hire in 2027?",
+  "ids": [
+   "tl9205",
+   "tl9007"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "When should a startup hire a fractional CRO in 2027?",
+  "ids": [
+   "tl9206",
+   "tl9008"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a B2B SaaS company in 2027?",
+  "ids": [
+   "tl9207",
+   "tl9009"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Fractional CRO services near me — Maryland, DC & nationwide in 2027?",
+  "ids": [
+   "tl9208",
+   "tl9010"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a B2B SaaS business in 2027?",
+  "ids": [
+   "tl9209",
+   "tl9011"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a B2B SaaS company in 2027?",
+  "ids": [
+   "tl9210",
+   "tl9012"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my B2B SaaS company in 2027?",
+  "ids": [
+   "tl9211",
+   "tl9013"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a fintech company in 2027?",
+  "ids": [
+   "tl9212",
+   "tl9014"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a fintech business in 2027?",
+  "ids": [
+   "tl9213",
+   "tl9015"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a fintech company in 2027?",
+  "ids": [
+   "tl9214",
+   "tl9016"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my fintech company in 2027?",
+  "ids": [
+   "tl9215",
+   "tl9017"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a healthtech company in 2027?",
+  "ids": [
+   "tl9216",
+   "tl9018"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a healthtech business in 2027?",
+  "ids": [
+   "tl9217",
+   "tl9019"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a healthtech company in 2027?",
+  "ids": [
+   "tl9218",
+   "tl9020"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my healthtech company in 2027?",
+  "ids": [
+   "tl9219",
+   "tl9021"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a manufacturing company in 2027?",
+  "ids": [
+   "tl9220",
+   "tl9022"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a manufacturing business in 2027?",
+  "ids": [
+   "tl9221",
+   "tl9023"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a manufacturing company in 2027?",
+  "ids": [
+   "tl9222",
+   "tl9024"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my manufacturing company in 2027?",
+  "ids": [
+   "tl9223",
+   "tl9025"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a professional services company in 2027?",
+  "ids": [
+   "tl9224",
+   "tl9026"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a professional services business in 2027?",
+  "ids": [
+   "tl9225",
+   "tl9027"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a professional services company in 2027?",
+  "ids": [
+   "tl9226",
+   "tl9028"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my professional services company in 2027?",
+  "ids": [
+   "tl9227",
+   "tl9029"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my e-commerce company in 2027?",
+  "ids": [
+   "tl9231",
+   "tl9033"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a cybersecurity company in 2027?",
+  "ids": [
+   "tl9232",
+   "tl9034"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a cybersecurity business in 2027?",
+  "ids": [
+   "tl9233",
+   "tl9035"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a cybersecurity company in 2027?",
+  "ids": [
+   "tl9234",
+   "tl9036"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my cybersecurity company in 2027?",
+  "ids": [
+   "tl9235",
+   "tl9037"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a martech company in 2027?",
+  "ids": [
+   "tl9236",
+   "tl9038"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a martech business in 2027?",
+  "ids": [
+   "tl9237",
+   "tl9039"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a martech company in 2027?",
+  "ids": [
+   "tl9238",
+   "tl9040"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my martech company in 2027?",
+  "ids": [
+   "tl9239",
+   "tl9041"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a logistics company in 2027?",
+  "ids": [
+   "tl9240",
+   "tl9042"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a logistics business in 2027?",
+  "ids": [
+   "tl9241",
+   "tl9043"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a logistics company in 2027?",
+  "ids": [
+   "tl9242",
+   "tl9044"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my logistics company in 2027?",
+  "ids": [
+   "tl9243",
+   "tl9045"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my edtech company in 2027?",
+  "ids": [
+   "tl9247",
+   "tl9049"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a biotech company in 2027?",
+  "ids": [
+   "tl9248",
+   "tl9050"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a biotech business in 2027?",
+  "ids": [
+   "tl9249",
+   "tl9051"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a biotech company in 2027?",
+  "ids": [
+   "tl9250",
+   "tl9052"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my biotech company in 2027?",
+  "ids": [
+   "tl9251",
+   "tl9053"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my insurtech company in 2027?",
+  "ids": [
+   "tl9255",
+   "tl9057"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a proptech company in 2027?",
+  "ids": [
+   "tl9256",
+   "tl9058"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a proptech business in 2027?",
+  "ids": [
+   "tl9257",
+   "tl9059"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a proptech company in 2027?",
+  "ids": [
+   "tl9258",
+   "tl9060"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my proptech company in 2027?",
+  "ids": [
+   "tl9259",
+   "tl9061"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a media company in 2027?",
+  "ids": [
+   "tl9260",
+   "tl9062"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a media business in 2027?",
+  "ids": [
+   "tl9261",
+   "tl9063"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a media company in 2027?",
+  "ids": [
+   "tl9262",
+   "tl9064"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my media company in 2027?",
+  "ids": [
+   "tl9263",
+   "tl9065"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my AI startup company in 2027?",
+  "ids": [
+   "tl9267",
+   "tl9069"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a developer-tools company in 2027?",
+  "ids": [
+   "tl9268",
+   "tl9070"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a developer-tools business in 2027?",
+  "ids": [
+   "tl9269",
+   "tl9071"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a developer-tools company in 2027?",
+  "ids": [
+   "tl9270",
+   "tl9072"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my developer-tools company in 2027?",
+  "ids": [
+   "tl9271",
+   "tl9073"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a marketplace company in 2027?",
+  "ids": [
+   "tl9272",
+   "tl9074"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a marketplace business in 2027?",
+  "ids": [
+   "tl9273",
+   "tl9075"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a marketplace company in 2027?",
+  "ids": [
+   "tl9274",
+   "tl9076"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my marketplace company in 2027?",
+  "ids": [
+   "tl9275",
+   "tl9077"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a consumer app company in 2027?",
+  "ids": [
+   "tl9276",
+   "tl9078"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a consumer app business in 2027?",
+  "ids": [
+   "tl9277",
+   "tl9079"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a consumer app company in 2027?",
+  "ids": [
+   "tl9278",
+   "tl9080"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my consumer app company in 2027?",
+  "ids": [
+   "tl9279",
+   "tl9081"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a hardware company in 2027?",
+  "ids": [
+   "tl9280",
+   "tl9082"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a hardware business in 2027?",
+  "ids": [
+   "tl9281",
+   "tl9083"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a hardware company in 2027?",
+  "ids": [
+   "tl9282",
+   "tl9084"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my hardware company in 2027?",
+  "ids": [
+   "tl9283",
+   "tl9085"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a telecom company in 2027?",
+  "ids": [
+   "tl9284",
+   "tl9086"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How do I hire a fractional CRO for a telecom business in 2027?",
+  "ids": [
+   "tl9285",
+   "tl9087"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "How much does a fractional CRO cost for a telecom company in 2027?",
+  "ids": [
+   "tl9286",
+   "tl9088"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Do I need a fractional CRO for my telecom company in 2027?",
+  "ids": [
+   "tl9287",
+   "tl9089"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Should a pre-seed startup hire a fractional CRO in 2027?",
+  "ids": [
+   "tl9288",
+   "tl9090"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a pre-seed startup in 2027?",
+  "ids": [
+   "tl9289",
+   "tl9091"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Fractional CRO vs full-time CRO for a pre-seed startup in 2027?",
+  "ids": [
+   "tl9290",
+   "tl9092"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Should a seed-stage startup hire a fractional CRO in 2027?",
+  "ids": [
+   "tl9291",
+   "tl9093"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a seed-stage startup in 2027?",
+  "ids": [
+   "tl9292",
+   "tl9094"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Fractional CRO vs full-time CRO for a seed-stage startup in 2027?",
+  "ids": [
+   "tl9293",
+   "tl9095"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Should a Series A company hire a fractional CRO in 2027?",
+  "ids": [
+   "tl9294",
+   "tl9096"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a Series A company in 2027?",
+  "ids": [
+   "tl9295",
+   "tl9097"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Fractional CRO vs full-time CRO for a Series A company in 2027?",
+  "ids": [
+   "tl9296",
+   "tl9098"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Should a Series B company hire a fractional CRO in 2027?",
+  "ids": [
+   "tl9297",
+   "tl9099"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a Series B company in 2027?",
+  "ids": [
+   "tl9298",
+   "tl9100"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Fractional CRO vs full-time CRO for a Series B company in 2027?",
+  "ids": [
+   "tl9299",
+   "tl9101"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Should a PE-backed company hire a fractional CRO in 2027?",
+  "ids": [
+   "tl9300",
+   "tl9102"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a PE-backed company in 2027?",
+  "ids": [
+   "tl9301",
+   "tl9103"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Fractional CRO vs full-time CRO for a PE-backed company in 2027?",
+  "ids": [
+   "tl9302",
+   "tl9104"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Should a bootstrapped business hire a fractional CRO in 2027?",
+  "ids": [
+   "tl9303",
+   "tl9105"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a bootstrapped business in 2027?",
+  "ids": [
+   "tl9304",
+   "tl9106"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Fractional CRO vs full-time CRO for a bootstrapped business in 2027?",
+  "ids": [
+   "tl9305",
+   "tl9107"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Should a post-merger company hire a fractional CRO in 2027?",
+  "ids": [
+   "tl9306",
+   "tl9108"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Best fractional CRO for a post-merger company in 2027?",
+  "ids": [
+   "tl9307",
+   "tl9109"
+  ]
+ },
+ {
+  "pillar": "tl",
+  "question": "Fractional CRO vs full-time CRO for a post-merger company in 2027?",
+  "ids": [
+   "tl9308",
+   "tl9110"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How much do Mississippi State men’s basketball players earn from NIL in 2027?",
+  "ids": [
+   "q13282",
+   "q13162"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How much do NC State men’s basketball players earn from NIL in 2027?",
+  "ids": [
+   "q13265",
+   "q13170"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How much do Baylor men’s basketball players earn from NIL in 2027?",
+  "ids": [
+   "q13260",
+   "q13124"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Nissan Rogue Model Years (Ranked)",
+  "ids": [
+   "ca0522",
+   "ca0395"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Subaru Crosstrek Model Years (Ranked)",
+  "ids": [
+   "ca0526",
+   "ca0400"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Nissan Pathfinder Model Years (Ranked)",
+  "ids": [
+   "ca0521",
+   "ca0437"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Kia Sorento Model Years (Ranked)",
+  "ids": [
+   "ca0537",
+   "ca0428"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Subaru WRX Model Years (Ranked)",
+  "ids": [
+   "ca0525",
+   "ca0326"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Kia Telluride Model Years (Ranked)",
+  "ids": [
+   "ca0536",
+   "ca0367"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Nissan Frontier Model Years (Ranked)",
+  "ids": [
+   "ca0520",
+   "ca0370"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Hyundai Tucson Model Years (Ranked)",
+  "ids": [
+   "ca0535",
+   "ca0396"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Mazda CX-5 Model Years (Ranked)",
+  "ids": [
+   "ca0529",
+   "ca0365"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Subaru Outback Model Years (Ranked)",
+  "ids": [
+   "ca0523",
+   "ca0341"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Dodge Durango Model Years (Ranked)",
+  "ids": [
+   "ca0514",
+   "ca0410"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Nissan Altima Model Years (Ranked)",
+  "ids": [
+   "ca0518",
+   "ca0361"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Mazda MX-5 Miata Generations (Ranked)",
+  "ids": [
+   "ca0528",
+   "ca0325"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Dodge Charger Model Years (Ranked)",
+  "ids": [
+   "ca0513",
+   "ca0333"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Toyota Tundra Model Years (Ranked)",
+  "ids": [
+   "ca0492",
+   "ca0388"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Toyota RAV4 Generations (Ranked)",
+  "ids": [
+   "ca0491",
+   "ca0340"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Toyota Tacoma Model Years (Ranked)",
+  "ids": [
+   "ca0488",
+   "ca0322"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Ford Bronco Model Years (Ranked)",
+  "ids": [
+   "ca0502",
+   "ca0334"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Chevrolet Colorado Model Years (Ranked)",
+  "ids": [
+   "ca0507",
+   "ca0390"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Chevrolet Equinox Model Years (Ranked)",
+  "ids": [
+   "ca0506",
+   "ca0412"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Jeep Gladiator Model Years (Ranked)",
+  "ids": [
+   "ca0511",
+   "ca0401"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Ford Escape Model Years (Ranked)",
+  "ids": [
+   "ca0500",
+   "ca0362"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Ford Explorer Model Years (Ranked)",
+  "ids": [
+   "ca0499",
+   "ca0346"
+  ]
+ },
+ {
+  "pillar": "ca",
+  "question": "Best Jeep Grand Cherokee Model Years (Ranked)",
+  "ids": [
+   "ca0509",
+   "ca0335"
+  ]
+ },
+ {
+  "pillar": "tv",
+  "question": "Top 10 Safari Destinations in Africa in 2027",
+  "ids": [
+   "tv0043",
+   "tv0025"
+  ]
+ },
+ {
+  "pillar": "rs",
+  "question": "The 10 Best Family Ski Resorts in North America for 2027",
+  "ids": [
+   "rs0027",
+   "rs0018"
+  ]
+ },
+ {
+  "pillar": "tn",
+  "question": "Top 10 Best Suburbs of Washington, D.C.",
+  "ids": [
+   "tn0012",
+   "tn0004"
+  ]
+ },
+ {
+  "pillar": "er",
+  "question": "Top 10 Bench Grinders in 2027 — Best Overall + Best Value",
+  "ids": [
+   "er573",
+   "er520"
+  ]
+ },
+ {
+  "pillar": "qmpxa",
+  "question": "How should a CRO think about data cleanup scope for a scaled org: is it one-time project ownership (RevOps, Finance, IT) or permanent sales operations responsibility, and what does the org design look like after month three?",
+  "ids": [
+   "qmpxa6evsqnsj",
+   "qmpxa66nsvpnf"
+  ]
+ },
+ {
+  "pillar": "qmpxa",
+  "question": "How should a CRO decide whether to fund a CRM migration in year 2 vs. using that budget to hire, build custom integrations, or double down on sales coaching—what's the actual revenue impact of each choice?",
+  "ids": [
+   "qmpxa6850knk4",
+   "qmpxa5zzysy2w"
+  ]
+ },
+ {
+  "pillar": "qmpx",
+  "question": "How should reassignment strategy shift if your org is moving from self-serve/PLG motions to a quota-carrying AE model?",
+  "ids": [
+   "qmpx03rsnp9j5",
+   "qmpx03fy3nwsa"
+  ]
+ },
+ {
+  "pillar": "qmpx",
+  "question": "What's the right framework for deciding whether to reassign an underperforming account vs. invest in coaching the rep who owns it?",
+  "ids": [
+   "qmpx03knrmcye",
+   "qmpx0396xqtod"
+  ]
+ },
+ {
+  "pillar": "ik",
+  "question": "What are the key sales KPIs for the Commercial Real Estate Brokerage industry in 2027?",
+  "ids": [
+   "ik0357",
+   "ik0006"
+  ]
+ },
+ {
+  "pillar": "gb",
+  "question": "SDR Manager — LinkedIn Banner",
+  "ids": [
+   "gb0435",
+   "gb0230"
+  ]
+ },
+ {
+  "pillar": "gb",
+  "question": "Customer Success Manager — LinkedIn Banner",
+  "ids": [
+   "gb0433",
+   "gb0237"
+  ]
+ },
+ {
+  "pillar": "gb",
+  "question": "Solutions Consultant — LinkedIn Banner",
+  "ids": [
+   "gb0431",
+   "gb0032"
+  ]
+ },
+ {
+  "pillar": "gb",
+  "question": "Inside Sales Rep — LinkedIn Banner",
+  "ids": [
+   "gb0040",
+   "gb0247"
+  ]
+ },
+ {
+  "pillar": "gb",
+  "question": "GTM Strategist — LinkedIn Banner",
+  "ids": [
+   "gb0039",
+   "gb0256"
+  ]
+ },
+ {
+  "pillar": "gb",
+  "question": "Partnerships Lead — LinkedIn Banner",
+  "ids": [
+   "gb0037",
+   "gb0241"
+  ]
+ },
+ {
+  "pillar": "gb",
+  "question": "Sales Coach — LinkedIn Banner",
+  "ids": [
+   "gb0035",
+   "gb0248"
+  ]
+ },
+ {
+  "pillar": "gb",
+  "question": "VP of Sales — LinkedIn Banner",
+  "ids": [
+   "gb0021",
+   "gb0222"
+  ]
+ },
+ {
+  "pillar": "ik",
+  "question": "What are the key sales KPIs for the Pharmaceutical Cold Chain Logistics industry in 2027?",
+  "ids": [
+   "ik0294",
+   "ik0198"
+  ]
+ },
+ {
+  "pillar": "st",
+  "question": "The Mutual Action Plan Co-Build — 60-Min Training",
+  "ids": [
+   "st0075",
+   "st0038"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you report call recordings not tied to opps when no dedicated RevOps hire yet and leadership only reviews forecast accuracy monthly on Dynamics 365 ?",
+  "ids": [
+   "q10418",
+   "q9998"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you measure multi-thread gaps when parent-company rollup reporting and leadership only reviews pipeline coverage monthly on Dynamics 365 ?",
+  "ids": [
+   "q10413",
+   "q9993"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you fix broken lead routing when sales on Outreach and leadership only reviews win rate monthly on Dynamics 365 ?",
+  "ids": [
+   "q10408",
+   "q9988"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you model renewal ghosting when no dedicated RevOps hire yet and leadership only reviews expansion rate monthly on Dynamics 365 ?",
+  "ids": [
+   "q10403",
+   "q9983"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you automate call recordings not tied to opps when parent-company rollup reporting and leadership only reviews CAC payback monthly on Dynamics 365 ?",
+  "ids": [
+   "q10398",
+   "q9978"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during BDR-to-AE split on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10394",
+   "q10154"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you audit multi-thread gaps when sales on Outreach and leadership only reviews sales cycle length monthly on Dynamics 365 ?",
+  "ids": [
+   "q10393",
+   "q9973"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during inbound SDR on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10389",
+   "q10149"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you standardize broken lead routing when no dedicated RevOps hire yet and leadership only reviews churn reason integrity monthly on Dynamics 365 ?",
+  "ids": [
+   "q10388",
+   "q9968"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during multi-product bundles on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10384",
+   "q10144"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you forecast renewal ghosting when parent-company rollup reporting and leadership only reviews magic number monthly on Dynamics 365 ?",
+  "ids": [
+   "q10383",
+   "q9963"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during PLG-to-sales handoff on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10379",
+   "q10139"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you attribute call recordings not tied to opps when sales on Outreach and leadership only reviews stage conversion monthly on Dynamics 365 ?",
+  "ids": [
+   "q10378",
+   "q9958"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during outbound SDR on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10374",
+   "q10134"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you reconcile multi-thread gaps when no dedicated RevOps hire yet and leadership only reviews bookings vs billings monthly on Dynamics 365 ?",
+  "ids": [
+   "q10373",
+   "q9953"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during land-and-expand on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10369",
+   "q10129"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you dedupe broken lead routing when parent-company rollup reporting and leadership only reviews NRR monthly on Dynamics 365 ?",
+  "ids": [
+   "q10368",
+   "q9948"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during enterprise outbound on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10364",
+   "q10124"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you route renewal ghosting when sales on Outreach and leadership only reviews quota attainment monthly on Dynamics 365 ?",
+  "ids": [
+   "q10363",
+   "q9943"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during AE-led on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10359",
+   "q10119"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you score call recordings not tied to opps when no dedicated RevOps hire yet and leadership only reviews ARR waterfall monthly on Dynamics 365 ?",
+  "ids": [
+   "q10358",
+   "q9938"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during services-led sales on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10354",
+   "q10114"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you alert on multi-thread gaps when parent-company rollup reporting and leadership only reviews GRR monthly on Dynamics 365 ?",
+  "ids": [
+   "q10353",
+   "q9933"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during channel co-sell on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10349",
+   "q10109"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you report broken lead routing when sales on Outreach and leadership only reviews forecast accuracy monthly on Dynamics 365 ?",
+  "ids": [
+   "q10348",
+   "q9928"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during pod-based selling on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10344",
+   "q10104"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you measure renewal ghosting when no dedicated RevOps hire yet and leadership only reviews pipeline coverage monthly on Dynamics 365 ?",
+  "ids": [
+   "q10343",
+   "q9923"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during partner-sourced pipeline on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10339",
+   "q10099"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during marketplace listings on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10334",
+   "q10094"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during full-cycle AE on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10329",
+   "q10089"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during event-sourced pipeline on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10324",
+   "q10084"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during usage-based pricing on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10319",
+   "q10079"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during BDR-to-AE split on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10314",
+   "q10074"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during inbound SDR on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10309",
+   "q10069"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during multi-product bundles on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10304",
+   "q10064"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during PLG-to-sales handoff on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10299",
+   "q10059"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during outbound SDR on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10294",
+   "q10054"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during land-and-expand on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10289",
+   "q10049"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during enterprise outbound on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10284",
+   "q10044"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during AE-led on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10279",
+   "q10039"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during services-led sales on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10274",
+   "q10034"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during channel co-sell on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10269",
+   "q10029"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during pod-based selling on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10264",
+   "q10024"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during partner-sourced pipeline on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10259",
+   "q10019"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during marketplace listings on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10254",
+   "q10014"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during full-cycle AE on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10249",
+   "q10009"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during event-sourced pipeline on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10244",
+   "q10004"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during usage-based pricing on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10239",
+   "q9999"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during BDR-to-AE split on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10234",
+   "q9994"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during inbound SDR on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10229",
+   "q9989"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during multi-product bundles on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10224",
+   "q9984"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during PLG-to-sales handoff on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10219",
+   "q9979"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during outbound SDR on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10214",
+   "q9974"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during land-and-expand on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10209",
+   "q9969"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during enterprise outbound on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10204",
+   "q9964"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during AE-led on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10199",
+   "q9959"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for commission disputes during services-led sales on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10194",
+   "q9954"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for partner deal registration conflicts during channel co-sell on Salesforce when sales on Outreach ?",
+  "ids": [
+   "q10189",
+   "q9949"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for legal redline cycle time during pod-based selling on Salesforce when no dedicated RevOps hire yet ?",
+  "ids": [
+   "q10184",
+   "q9944"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is the RevOps playbook for forecast sandbagging during partner-sourced pipeline on Salesforce when parent-company rollup reporting ?",
+  "ids": [
+   "q10179",
+   "q9939"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you develop an offboarding protocol that re-routes sequences and pipeline when a rep leaves?",
+  "ids": [
+   "q9918",
+   "q9910"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you create a unified customer communication view across support outbound and marketing tools?",
+  "ids": [
+   "q9917",
+   "q9908"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you track non-standard MSA clauses that impact renewals?",
+  "ids": [
+   "q9916",
+   "q9906"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you operationalize state-specific sales tax exemption tracking in the CRM?",
+  "ids": [
+   "q9915",
+   "q9904"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you align RevOps when acquiring a business with a different GTM motion?",
+  "ids": [
+   "q9914",
+   "q9902"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you track multi-currency exchange rates in historical closed-won reporting?",
+  "ids": [
+   "q9913",
+   "q9900"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you build automated de-dup workflows that merge activity history safely?",
+  "ids": [
+   "q9912",
+   "q9898"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you capture UTM parameters in hidden form fields across complex subdomains?",
+  "ids": [
+   "q9911",
+   "q9896"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you migrate from legacy CPQ to modern tools with zero sales floor downtime?",
+  "ids": [
+   "q9909",
+   "q9894"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you set up PLG billing infrastructure between payment gateways and CRMs?",
+  "ids": [
+   "q9907",
+   "q9892"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you model revenue delay from switching payment processors or billing systems?",
+  "ids": [
+   "q9905",
+   "q9890"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you forecast impact of a planned price increase on pipeline velocity?",
+  "ids": [
+   "q9903",
+   "q9888"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you strip happy ears from the sales pipeline before board reporting?",
+  "ids": [
+   "q9901",
+   "q9886"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you define pipeline coverage ratios for enterprise vs high-velocity sales?",
+  "ids": [
+   "q9899",
+   "q9884"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you triangulate forecasts between manager commits and ML predictions?",
+  "ids": [
+   "q9897",
+   "q9882"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you reconcile top-down board goals with bottom-up pipeline reality?",
+  "ids": [
+   "q9895",
+   "q9880"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you build a bottoms-up forecast for a net-new outbound motion?",
+  "ids": [
+   "q9893",
+   "q9878"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you identify systemic sandbagging using historical closing patterns?",
+  "ids": [
+   "q9891",
+   "q9876"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you build forecasting models for consumption-based pricing tiers?",
+  "ids": [
+   "q9889",
+   "q9874"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you adjust CRM forecast categories based on historical stage slip rates?",
+  "ids": [
+   "q9887",
+   "q9872"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you analyze churn root causes when CRM says budget but telemetry disagrees?",
+  "ids": [
+   "q9885",
+   "q9870"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you re-engage ghosted renewals without automatic discounting?",
+  "ids": [
+   "q9883",
+   "q9868"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you automate workflow triggers from implementation to adoption phases?",
+  "ids": [
+   "q9881",
+   "q9866"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you track cost-to-serve enterprise customers against ARR margin?",
+  "ids": [
+   "q9879",
+   "q9864"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you operationalize a customer reference program natively in the CRM?",
+  "ids": [
+   "q9877",
+   "q9862"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you map white space in enterprise accounts for expansion campaigns?",
+  "ids": [
+   "q9875",
+   "q9860"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you set CRM early warning alerts for champion departures or title changes?",
+  "ids": [
+   "q9873",
+   "q9858"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you automate data aggregation for Quarterly Business Reviews?",
+  "ids": [
+   "q9871",
+   "q9856"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you operationalize customer health scores beyond login frequency and NPS?",
+  "ids": [
+   "q9869",
+   "q9854"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you decouple gross retention from net revenue retention to find hidden churn?",
+  "ids": [
+   "q9867",
+   "q9852"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you create a sandbox testing protocol for RevOps infrastructure changes?",
+  "ids": [
+   "q9865",
+   "q9850"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you quantify the financial cost of bad CRM data in enterprise B2B?",
+  "ids": [
+   "q9863",
+   "q9848"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you design a territory hierarchy that handles mid-year rep reassignments cleanly?",
+  "ids": [
+   "q9861",
+   "q9846"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you restrict field-level CRM visibility without breaking integration user permissions?",
+  "ids": [
+   "q9859",
+   "q9844"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you reset baseline metrics when historical CRM data is fundamentally flawed?",
+  "ids": [
+   "q9857",
+   "q9842"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you establish a cross-functional data dictionary for revenue metrics before an IPO?",
+  "ids": [
+   "q9855",
+   "q9840"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you archive inactive contacts without losing historical activity timelines?",
+  "ids": [
+   "q9853",
+   "q9838"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you audit automated CRM workflow rules to prevent infinite loops and API limits?",
+  "ids": [
+   "q9851",
+   "q9836"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you write an enforceable SLA for data entry between marketing and sales?",
+  "ids": [
+   "q9849",
+   "q9834"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you standardize free-text job titles in legacy CRMs using fuzzy matching?",
+  "ids": [
+   "q9847",
+   "q9832"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you map lead status to opportunity stages after a company merger?",
+  "ids": [
+   "q9845",
+   "q9830"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you calculate weighted pipeline value when sales cycles vary by more than six months?",
+  "ids": [
+   "q9843",
+   "q9828"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you build a unified lead-to-revenue lifecycle without default CRM lifecycle stages?",
+  "ids": [
+   "q9841",
+   "q9826"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you run cohort analysis to isolate B2B expansion revenue by acquisition channel?",
+  "ids": [
+   "q9839",
+   "q9824"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you bridge attribution between self-serve trial users and enterprise procurement upgrades?",
+  "ids": [
+   "q9837",
+   "q9823"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you track and attribute offline event interactions in a digital revenue waterfall?",
+  "ids": [
+   "q9835",
+   "q9821"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you establish Blended CAC vs Paid CAC benchmarks for Series B B2B SaaS?",
+  "ids": [
+   "q9833",
+   "q9819"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you calculate CAC payback for hybrid PLG and sales-led motions?",
+  "ids": [
+   "q9831",
+   "q9817"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you structure CRM campaigns to measure revenue impact of dark social?",
+  "ids": [
+   "q9829",
+   "q9815"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you build multi-touch attribution for 18-month B2B enterprise sales cycles?",
+  "ids": [
+   "q9827",
+   "q9813"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you structure variable comp for channel partners who co-sell rather than resell?",
+  "ids": [
+   "q9825",
+   "q9811"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you benchmark equity vs cash compensation for a first dedicated RevOps hire?",
+  "ids": [
+   "q9822",
+   "q9809"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you calculate On-Target Earnings ratios for specialized technical sales engineers?",
+  "ids": [
+   "q9820",
+   "q9807"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you transition a sales floor from ARR-based to usage-based compensation?",
+  "ids": [
+   "q9818",
+   "q9805"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you design temporary Spiff structures that drive adoption of new CRM fields?",
+  "ids": [
+   "q9816",
+   "q9800"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you decouple Customer Success compensation from direct renewal quotas?",
+  "ids": [
+   "q9814",
+   "q9797"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you set territory routing rules for hybrid inbound/outbound SDRs to prevent cherry-picking?",
+  "ids": [
+   "q9812",
+   "q9795"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you design quota relief policies for reps facing prolonged non-sales technical delays?",
+  "ids": [
+   "q9810",
+   "q9793"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you model commission clawbacks for multi-year consumption-based enterprise contracts?",
+  "ids": [
+   "q9808",
+   "q9791"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you structure double-trigger commission payouts for complex M&A scenarios?",
+  "ids": [
+   "q9806",
+   "q9789"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you design curriculum for continuous revenue operations education?",
+  "ids": [
+   "q9804",
+   "q9787"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you standardize the pre-sales engineering handoff to customer success?",
+  "ids": [
+   "q9803",
+   "q9785"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you develop a certification program that measures pitch comprehension not video completion?",
+  "ids": [
+   "q9802",
+   "q9783"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you create dynamic battle cards that update from competitor news feeds?",
+  "ids": [
+   "q9801",
+   "q9781"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you measure pipeline impact of a localized sales training rollout?",
+  "ids": [
+   "q9799",
+   "q9779"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you structure a weekly forecast call focused on deal strategy not pipeline reading?",
+  "ids": [
+   "q9798",
+   "q9777"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you align marketing collateral taxonomy with sales enablement platforms?",
+  "ids": [
+   "q9796",
+   "q9775"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you transition veteran sales teams from relationship selling to data-driven execution?",
+  "ids": [
+   "q9794",
+   "q9773"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you create playbooks for standardizing Mutual Action Plans natively in the CRM?",
+  "ids": [
+   "q9792",
+   "q9771"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you build scalable sales enablement frameworks without relying on gut feeling?",
+  "ids": [
+   "q9790",
+   "q9769"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you correlate sales rep tenure and prior industry experience with product line success?",
+  "ids": [
+   "q9788",
+   "q9768"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you track the friction score of a B2B contract signature process?",
+  "ids": [
+   "q9786",
+   "q9767"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you measure conversion from targeted direct mail campaigns to enterprise meetings?",
+  "ids": [
+   "q9784",
+   "q9766"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you analyze the impact of specific legal redlines on sales cycle length?",
+  "ids": [
+   "q9782",
+   "q9765"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you track the decay rate of Marketing Qualified Leads by cohort week?",
+  "ids": [
+   "q9780",
+   "q9764"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you correlate executive sponsor involvement with deal size and velocity?",
+  "ids": [
+   "q9778",
+   "q9763"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you calculate the true cost of a free trial motion vs a pilot program?",
+  "ids": [
+   "q9776",
+   "q9762"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you measure sales cycle velocity by tracking duration in micro-stages?",
+  "ids": [
+   "q9774",
+   "q9761"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you apply baseball On-Base Percentage philosophy to SDR pipeline generation?",
+  "ids": [
+   "q9772",
+   "q9760"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you define Pulse metrics for real-time Go-To-Market execution visibility?",
+  "ids": [
+   "q9770",
+   "q9759"
+  ]
+ },
+ {
+  "pillar": "st",
+  "question": "Multi-Threading Enterprise Deals — 60-Min Training",
+  "ids": [
+   "st0061",
+   "st0002"
+  ]
+ },
+ {
+  "pillar": "st",
+  "question": "The Discovery Call Reset — 60-Min Training",
+  "ids": [
+   "st0053",
+   "st0001"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start an escape room business in 2027?",
+  "ids": [
+   "q9702",
+   "q9641"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start an axe-throwing venue business in 2027?",
+  "ids": [
+   "q9694",
+   "q9643"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start a cannabis dispensary business in 2027?",
+  "ids": [
+   "q9690",
+   "q9673"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start an adult day care center business in 2027?",
+  "ids": [
+   "q9658",
+   "q9652"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How is Vista's playbook reshaping Salesloft through 2027?",
+  "ids": [
+   "q1847",
+   "q1792"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Is Salesloft worth buying in 2027?",
+  "ids": [
+   "q1846",
+   "q1791"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Can Salesloft keep growing 15%+ post-Vista acquisition?",
+  "ids": [
+   "q1848",
+   "q1793"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is Salesloft AI strategy in 2027?",
+  "ids": [
+   "q1849",
+   "q1794"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Who is the post-Vista Salesloft CEO and what is their mandate?",
+  "ids": [
+   "q1853",
+   "q1798"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How does Salesloft compete against AI-native sequencing tools?",
+  "ids": [
+   "q1850",
+   "q1795"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How does Salesloft make money in 2027?",
+  "ids": [
+   "q1852",
+   "q1797"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Is Salesloft Cadence still relevant in 2027?",
+  "ids": [
+   "q1851",
+   "q1796"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Is Salesloft Pipeline AI worth buying vs Clari?",
+  "ids": [
+   "q1860",
+   "q1805"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How does Salesloft win the HubSpot CRM customer base?",
+  "ids": [
+   "q1857",
+   "q1802"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is Salesloft net revenue retention in 2026?",
+  "ids": [
+   "q1856",
+   "q1801"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How does Salesloft defend against HubSpot Sales Hub bundling?",
+  "ids": [
+   "q1855",
+   "q1800"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What should Salesloft do about the Drift acquisition value?",
+  "ids": [
+   "q1858",
+   "q1803"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Will Salesloft conversation marketing beat Drift standalone competitors?",
+  "ids": [
+   "q1859",
+   "q1804"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How does Salesloft grow internationally without Vista cost-cutting?",
+  "ids": [
+   "q1861",
+   "q1806"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Should Salesloft acquire a video tool in 2027?",
+  "ids": [
+   "q1865",
+   "q1808"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is Salesloft gross margin trajectory through 2028?",
+  "ids": [
+   "q1864",
+   "q1807"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Is a HubSpot AE role still good for my career in 2027?",
+  "ids": [
+   "q1875",
+   "q1915"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Is a Salesforce AE role still good for my career in 2027?",
+  "ids": [
+   "q1894",
+   "q1541"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start a mobile pet grooming business in 2027?",
+  "ids": [
+   "q1973",
+   "q9566"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start a window cleaning business in 2027?",
+  "ids": [
+   "q1978",
+   "q2107"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start a fence installation business in 2027?",
+  "ids": [
+   "q1983",
+   "q9617"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start a lawn care business in 2027?",
+  "ids": [
+   "q2050",
+   "q9612"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start a mobile mechanic business in 2027?",
+  "ids": [
+   "q2065",
+   "q9594"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How do you start a junk removal business in 2027?",
+  "ids": [
+   "q1944",
+   "q9586"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How does Salesforce make money in 2027?",
+  "ids": [
+   "q1904",
+   "q1518"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is Snowflake AI strategy in 2027?",
+  "ids": [
+   "q1909",
+   "q1564"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "What is Datadog AI strategy in 2027?",
+  "ids": [
+   "q1914",
+   "q1674"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How does ServiceNow make money in 2027?",
+  "ids": [
+   "q1920",
+   "q1617"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Is a Snowflake AE role still good for my career in 2027?",
+  "ids": [
+   "q1923",
+   "q1591"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How does Outreach make money in 2027?",
+  "ids": [
+   "q1924",
+   "q1737"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "Will Salesloft beat Outreach in mid-market sales engagement by 2027?",
+  "ids": [
+   "q1845",
+   "q1790"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How does Salesloft hit its 2027 revenue target post-Vista?",
+  "ids": [
+   "q1844",
+   "q1789"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Convoy's revenue issues in 2026?",
+  "ids": [
+   "q1342",
+   "q1214"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Hyperloop One's revenue issues in 2026?",
+  "ids": [
+   "q1340",
+   "q1285"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Frank's revenue issues in 2026?",
+  "ids": [
+   "q1339",
+   "q1284"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Hooked Inc's revenue issues in 2026?",
+  "ids": [
+   "q1338",
+   "q1289"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Theranos's revenue issues in 2026?",
+  "ids": [
+   "q1336",
+   "q1288"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Juicero's revenue issues in 2026?",
+  "ids": [
+   "q1335",
+   "q1283"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Anki's revenue issues in 2026?",
+  "ids": [
+   "q1334",
+   "q1282"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Beepi's revenue issues in 2026?",
+  "ids": [
+   "q1333",
+   "q1281"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Pearl Auto's revenue issues in 2026?",
+  "ids": [
+   "q1332",
+   "q1280"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Quibi's revenue issues in 2026?",
+  "ids": [
+   "q1331",
+   "q1279"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Washio's revenue issues in 2026?",
+  "ids": [
+   "q1330",
+   "q1278"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Jet.com's revenue issues in 2026?",
+  "ids": [
+   "q1329",
+   "q1277"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Munchery's revenue issues in 2026?",
+  "ids": [
+   "q1328",
+   "q1276"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Brandless's revenue issues in 2026?",
+  "ids": [
+   "q1327",
+   "q1275"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Knotch's revenue issues in 2026?",
+  "ids": [
+   "q1326",
+   "q1274"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Veev's revenue issues in 2026?",
+  "ids": [
+   "q1325",
+   "q1287"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Trōv's revenue issues in 2026?",
+  "ids": [
+   "q1324",
+   "q1286"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix OYO US's revenue issues in 2026?",
+  "ids": [
+   "q1323",
+   "q1273"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix ezCater's revenue issues in 2026?",
+  "ids": [
+   "q1322",
+   "q1272"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Doma's revenue issues in 2026?",
+  "ids": [
+   "q1321",
+   "q1271"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Hippo Insurance's revenue issues in 2026?",
+  "ids": [
+   "q1320",
+   "q1270"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Root Insurance's revenue issues in 2026?",
+  "ids": [
+   "q1319",
+   "q1269"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Lemonade's revenue issues in 2026?",
+  "ids": [
+   "q1318",
+   "q1268"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Forge Global's revenue issues in 2026?",
+  "ids": [
+   "q1317",
+   "q1267"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Cedar's revenue issues in 2026?",
+  "ids": [
+   "q1316",
+   "q1266"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Cazoo's revenue issues in 2026?",
+  "ids": [
+   "q1315",
+   "q1265"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Better.com's revenue issues in 2026?",
+  "ids": [
+   "q1314",
+   "q1264"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Babylon Health's revenue issues in 2026?",
+  "ids": [
+   "q1313",
+   "q1263"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Olive AI's revenue issues in 2026?",
+  "ids": [
+   "q1311",
+   "q1261"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Hopper's revenue issues in 2026?",
+  "ids": [
+   "q1310",
+   "q1260"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Linear's revenue issues in 2026?",
+  "ids": [
+   "q1309",
+   "q1259"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Notion's revenue issues in 2026?",
+  "ids": [
+   "q1308",
+   "q1258"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Tovala's revenue issues in 2026?",
+  "ids": [
+   "q1307",
+   "q1257"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Nikola's revenue issues in 2026?",
+  "ids": [
+   "q1306",
+   "q1256"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Canoo's revenue issues in 2026?",
+  "ids": [
+   "q1305",
+   "q1255"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Fisker's revenue issues in 2026?",
+  "ids": [
+   "q1304",
+   "q1254"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Faraday Future's revenue issues in 2026?",
+  "ids": [
+   "q1303",
+   "q1253"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Luminar's revenue issues in 2026?",
+  "ids": [
+   "q1301",
+   "q1251"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Plaid's revenue issues in 2026?",
+  "ids": [
+   "q1299",
+   "q1249"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Mercury's revenue issues in 2026?",
+  "ids": [
+   "q1298",
+   "q1248"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Ramp's revenue issues in 2026?",
+  "ids": [
+   "q1297",
+   "q1247"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Brex's revenue issues in 2026?",
+  "ids": [
+   "q1296",
+   "q1246"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Carta's revenue issues in 2026?",
+  "ids": [
+   "q1295",
+   "q1245"
+  ]
+ },
+ {
+  "pillar": "q",
+  "question": "How'd you fix Bench Accounting's revenue issues in 2026?",
+  "ids": [
+   "q1294",
+   "q1244"
+  ]
+ }
+]

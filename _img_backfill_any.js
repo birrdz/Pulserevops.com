@@ -62,6 +62,14 @@ async function rebuild(answer){
   if(items.length<5)return null;
   const picks=[];
   for(const it of items){
+    // PULSE-brand override: any PULSE-owned product (e.g. "PULSE Pulse Check
+    // Matrix") must ALWAYS show the site pulse logo + link to its tool — never a
+    // DDG search result. Owner fix: searching the literal phrase "Pulse Check"
+    // returned a MEDICAL "pulse check in an infant" photo (the baby-arm bug).
+    if(/^PULSE\b/i.test(it.q)||/pulse\s+check\s+matrix/i.test(it.q)){
+      picks.push({idx:it.idx,q:it.q,img:'https://pulserevops.com/pulse-logo.svg',site:'https://pulserevops.com/tools/pulse-check'});
+      continue;
+    }
     const arr=await ddgImages(it.q);
     let got=null;
     for(const c of arr.slice(0,8)){ if(!c.image)continue; if(await headOk(c.image)){got={idx:it.idx,q:it.q,img:c.image,site:c.url||''};break;} }
@@ -78,14 +86,18 @@ async function pingIndexNow(id){try{await fetch('https://pulserevops.com/.netlif
 
 (async()=>{
   const idx=(await s.get('_index.json',{type:'json'}))||{entries:[]};
-  const allIds=(idx.entries||[]).filter(e=>PRE_RE.test(e.id)&&(!SINCE||(e.ts||0)>=SINCE)).map(e=>e.id).sort((a,b)=>num(a)-num(b));
+  // Newest-published FIRST → oldest (owner 2026-06-27): higher id = newer. IMG_ASC=1 reverts.
+  const allIds=(idx.entries||[]).filter(e=>PRE_RE.test(e.id)&&(!SINCE||(e.ts||0)>=SINCE)).map(e=>e.id).sort((a,b)=>process.env.IMG_ASC==='1'?num(a)-num(b):num(b)-num(a));
   const weak=[];
   for(const id of allIds){
     const e=await s.get('answers/'+id+'.json',{type:'json'}).catch(()=>null);
     if(!e||!e.answer)continue;
     const cur=(e.answer.match(/@@PRODUCT[^\n]* img=/g)||[]).length;
     const items=(e.answer.match(/^##\s+\d+\.\s/gm)||[]).length;
-    if(items>=5&&cur<Math.min(THRESHOLD,items))weak.push({id,cur});
+    // Also target entries whose PULSE-branded #1 item still carries a non-logo
+    // (e.g. the medical infant) image, so the slow sweep self-heals the baby bug.
+    const pulseBad=/name="PULSE[^"]*"\s+img="(?![^"]*pulse-logo)/.test(e.answer)||/aclsstlouis|Pulse-Check-In-An-Infant/i.test(e.answer);
+    if((items>=5&&cur<Math.min(THRESHOLD,items))||pulseBad)weak.push({id,cur});
   }
   console.log(`[${PREFIX}] DDG backfill targets (<${THRESHOLD} imgs): ${weak.length}`);
   const progress = createBatchProgressReporter({

@@ -96,9 +96,15 @@ function libraryEntryKind(e) {
   if (/^tl\d+$/i.test(id)) return 'tools';
   if (/^sp\d+$/i.test(id)) return 'speech';
   if (/^ai\d+$/i.test(id)) return 'aiinfra';
+  if (/^tc\d+$/i.test(id)) return 'telco';
   if (/^bo\d+$/i.test(id)) return 'buildout';
   if (/^cd\d+$/i.test(id)) return 'contract';
   if (/^cg\d+$/i.test(id)) return 'coaching';
+  if (/^pt\d+$/i.test(id)) return 'pet';
+  if (/^ce\d+$/i.test(id)) return 'currentevents';
+  if (/^cr\d+$/i.test(id)) return 'crabbing';
+  if (/^fs\d+$/i.test(id)) return 'fishing';
+  if (/^sw\d+$/i.test(id)) return 'software';
   if (/^q\d+$/i.test(id)) return 'knowledge';
   if (/^vq_/i.test(id)) return 'knowledge'; // visitor-asked questions
   return null;
@@ -142,9 +148,15 @@ function libraryEntryPublicUrl(e) {
   if (kind === 'tools') return `${SITE}/tools/${id}`;
   if (kind === 'speech') return `${SITE}/speeches/${id}`;
   if (kind === 'aiinfra') return `${SITE}/ai-infrastructure/${id}`;
+  if (kind === 'telco') return `${SITE}/telco/${id}`;
   if (kind === 'buildout') return `${SITE}/buildouts/${id}`;
   if (kind === 'contract') return `${SITE}/contracts/${id}`;
   if (kind === 'coaching') return `${SITE}/coaching/${id}`;
+  if (kind === 'pet') return `${SITE}/pets/${id}`;
+  if (kind === 'currentevents') return `${SITE}/knowledge/${id}`;
+  if (kind === 'crabbing') return `${SITE}/crabbing/${id}`;
+  if (kind === 'fishing') return `${SITE}/fishing/${id}`;
+  if (kind === 'software') return `${SITE}/software/${id}`;
   return `${SITE}/knowledge/${id}`;
 }
 

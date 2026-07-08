@@ -1,587 +1,2522 @@
 [
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for React Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How are buying committees restructuring their decision criteria in response to AI-generated vendor proposals?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Vue.js Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What specific metrics are B2B RevOps teams using to measure AI’s impact on lead quality in the top-of-funnel?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Angular Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are longer sales cycles now correlating with a shift from pipeline velocity to deal value predictability?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Svelte Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which vendor consolidation strategies are failing most often when integrating AI sales tools into existing stacks?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Next.js Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does the expanding size of B2B buying committees increase the risk of vendor consolidation paralysis?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Tailwind CSS in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What data sources are most effective for training AI models to predict next best action in complex enterprise deals?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for CSS and Styling in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Are AI-driven sales engagement platforms reducing or amplifying the need for human SDRs in 2027?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Responsive Web Design in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How have longer sales cycles reshaped compensation models for enterprise account executives this year?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Animations in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What signals indicate that a buying committee is nearing a decision versus still gathering vendor intelligence?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Frontend Debugging in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why do 40% of AI-led B2B sales enablement initiatives fail within the first quarter of deployment?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Component Libraries in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How is vendor consolidation affecting the negotiation leverage of mid-market buyers in 2027?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Design Systems in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which RevOps dashboards are most frequently updated to track AI-generated leads through the funnel?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Typography in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What role do third-party AI audit firms play in buying committees’ trust evaluation of vendor claims?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Dark Mode Design in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How are B2B companies recalibrating lead scoring models to filter out AI-hallucinated prospect data?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Single-Page Apps in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Are longer sales cycles pushing RevOps teams to invest more in no-code workflow automation or AI copilots?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Node.js Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are multi-year contracts becoming more common despite vendors’ push for monthly AI consumption pricing?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Python Web Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do buying committees balance speed of AI implementation versus depth of customization in vendor selection?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for PHP Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What specific friction points in the handoff from marketing to sales are amplified by AI-generated content?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Ruby on Rails Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which vendor consolidation approaches are most aligned with buying committees’ desire for single-pane-of-glass analytics?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Django Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How has the average number of touchpoints per deal changed since AI chatbots entered B2B cold outreach?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Laravel Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are RevOps leaders prioritizing data lineage transparency over feature parity in AI tool evaluations?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Express.js Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What are the top three reasons buying committees reject AI-driven pricing recommendations from vendors?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for REST API Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does the rise of AI-generated contract clauses increase the length of legal review in sales cycles?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for GraphQL Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which specific buyer personas are most resistant to AI-led demo presentations in enterprise sales?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Backend Debugging in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Are vendor consolidation efforts reducing or increasing the total cost of ownership for AI sales stacks in 2027?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Serverless Functions in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do buying committees use synthetic data provided by vendors to validate AI model performance?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Microservices Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are B2B sales cycles for AI platform purchases 2.5 times longer than for traditional SaaS tools?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Authentication and Login in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What percentage of RevOps time is now spent on auditing AI outputs versus managing human-led processes?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Webhook Integration in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does the reliability of AI-generated sales predictions degrade with longer cycle times?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Real-Time Web Apps in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which AI features in CRM platforms are most frequently cited as ‘must-haves’ by buying committees?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Full-Stack Web Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are companies with high vendor consolidation reporting lower satisfaction with AI tool integration?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for WordPress Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How have buyer enablement programs changed to support larger buying committees in 2027?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Shopify Store Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What specific legal concerns are delaying the adoption of AI sales assistants in regulated industries?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Webflow Sites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Are sales teams using AI to shorten cycle times suffering from higher post-close churn rates?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Wix Websites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do long sales cycles affect the accuracy of revenue forecasting models that rely on AI signals?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Squarespace Websites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are buying committees increasingly demanding proof of AI model bias mitigation in vendor RFPs?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Headless CMS Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How are buying committees restructuring their decision criteria in Q1 2027 to account for AI-generated vendor reports?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Drupal Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which RevOps metrics are most impacted by the 2027 shift to 14-month average sales cycles in enterprise SaaS?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Static Site Generation in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are 67% of B2B purchases in 2027 now starting with a chatbot pre-qualification layer instead of a demo request?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Jamstack Sites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does the 2027 consolidation of CDP and MAP platforms affect lead scoring accuracy for multi-threaded deals?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for E-commerce Websites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What specific changes to the MEDDIC framework are necessary for 2027’s AI-mediated discovery calls?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Online Store Building in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Are 2027’s buying committees actually smaller due to AI copilots replacing junior stakeholders?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Payment Integration in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do you compensate SDRs in a 2027 model where AI books 80% of qualified meetings?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Product Page Design in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What is the optimal number of AI-generated touchpoints per week in a 2027 enterprise nurture sequence?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Shopping Cart Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are 2027 renewal cycles expanding by 30% when AI adoption is supposed to accelerate retention?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Subscription Billing in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does the 2027 vendor consolidation wave redefine ideal customer profile scoring for platform health checks?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Checkout Optimization in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which channel attribution model survives the 2027 reality of AI agents researching vendors autonomously?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Landing Page Design in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What is the correct SLA for returning a buying committee’s AI-generated RFP in the current 2027 climate?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Wireframing in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do you prevent revenue leakage when your 2027 CRM’s AI hallucinates deal stage probabilities?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Prototyping in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are 2027’s longest sales cycles concentrated in industries where buying committees still enforce manual compliance checks?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for UI Mockups in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What role does a RevOps analyst play in 2027 when predictive AI handles all pipeline velocity analysis?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Color Palette Generation in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How should 2027’s pricing pages be redesigned for AI crawlers that summarize terms for buying committees?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Favicon and Icon Design in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which five vendor relationships should a 2027 RevOps team consolidate first to reduce data latency?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Hero Section Design in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Are 2027’s forecast accuracy rates actually improving with AI, or are we just getting better at bias confirmation?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Form Design in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What specific buyer intent signals in 2027 indicate a buying committee is approaching a consensus?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Navigation and Menu Design in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do you structure a 2027 sales contract when the main buyer is an AI procurement agent?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Illustration in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are 2027 demo requests declining even as total pipeline value increases?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Copywriting in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What is the most effective 2027 close plan for a deal stalled by a committee’s AI risk simulator?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Blog Writing for Websites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does the 2027 trend of vendor consolidation affect renewal negotiation leverage for enterprise accounts?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for UX Microcopy in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which data points must a 2027 RevOps team extract from AI chat transcripts to score buying committee sentiment?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Meta Description Writing in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do you align sales and marketing SLAs in 2027 when AI-generated leads have a 40% faster conversion time?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Image Alt Text in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What is the appropriate 2027 approval threshold for sales to bypass an AI’s negative scoring of a prospect?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Content Planning in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are 2027’s buying committees requiring vendor-specific AI governance audits before procurement decisions?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for FAQ Page Writing in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does the 2027 consolidation of analytics tools impact the accuracy of multi-touch attribution in long-cycle deals?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Performance Optimization in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which 2027 incentives reduce buying committee friction in deals where three stakeholders are AI-generated personas?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Core Web Vitals in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How should RevOps redesign the 2027 pipeline review cadence when AI predicts stage duration better than humans?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Image Optimization in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What is the biggest 2027 risk of over-automating follow-ups in a buying committee that values human empathy?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Lazy Loading in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are 2027’s sales cycles for AI-native products shorter than for legacy replacements, despite larger committees?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Caching in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do you verify a 2027 buying committee’s authority when one member’s inputs are all from an AI summarizer?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Bundle Size Optimization in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which 2027 vendor consolidation strategy minimizes disruption to existing multi-year contracts with auto-renewals?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Speed Testing in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What specific 2027 signal proves a buying committee has moved from exploration to active vendor comparison?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Accessibility in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do you handle 2027’s increased volume of AI-generated meeting no-shows from committee members?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Accessibility Audits in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How is AI reshaping the B2B buyer journey in 2027 when buying committees hesitate to trust algorithmic recommendations?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Screen Reader Testing in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are vendor consolidation trends in 2027 forcing RevOps to renegotiate data-sharing agreements mid-funnel?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Color Contrast Checking in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Can a single AI-powered CRM replace the entire B2B martech stack by 2027 without sacrificing lead quality?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Technical SEO in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do B2B sales teams in 2027 use generative AI to personalize outreach when buying committees exceed 15 members?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for On-Page SEO in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What specific metrics prove that AI-driven lead scoring reduces sales cycles by 40% in 2027?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Schema Markup in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are longer sales cycles in 2027 requiring RevOps to integrate real-time buyer intent data from consolidated platforms?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Sitemap Generation in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does the 2027 buying committee shift toward decision-by-consensus affect the optimal cadence of follow-up emails?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Analytics in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What role does predictive AI play in forecasting closed-won deals when vendor consolidation collapses legacy data sources?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Keyword Research for Websites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why do 2027 B2B buyers demand personalized video demos from AI when traditional product sheets no longer convert?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Testing and QA in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How can RevOps in 2027 map the influence of each buying committee member when their engagement is fragmented across 6 channels?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for End-to-End Testing in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What is the true cost of a single sales cycle in 2027 after vendor consolidation eliminates best-of-breed tools?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Unit Testing in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Are 2027 AI chatbots effective at handling complex B2B pricing negotiations without human intervention?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Visual Regression Testing in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does the 2027 trend toward outcome-based contracts change the GTM motion for SaaS startups?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Cross-Browser Testing in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are buying committees in 2027 rejecting vendor ROI calculators built on generic AI models?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Deployment in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What specific seller behaviors in 2027 correlate with faster deal velocity when buying committees are cross-functional?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for CI/CD for Web Apps in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do consolidated CRM and CDP platforms in 2027 actually reduce data silos for RevOps teams?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Docker for Web Apps in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Can AI-generated content in 2027 replace the need for SDRs in initial outreach to committee-level buyers?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Hosting Management in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why is the 2027 B2B sales cycle lengthening despite AI tools that promise to shrink research phases?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Domain and DNS Management in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What data points should RevOps track in 2027 to identify when a buying committee is stuck in analysis paralysis?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for SSL and HTTPS Setup in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does vendor consolidation in 2027 impact the accuracy of lead-to-revenue attribution models?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Monitoring in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Are 2027 AI assistants capable of replicating the trust-building rapport of senior sales reps during demos?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Uptime Monitoring in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why do 2027 buying committees with AI procurement tools still require 3+ human seller touchpoints per week?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Error Tracking in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What specific GTM metric is most impacted by the 2027 trend of CFOs approving only consolidated platform deals?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Application Security in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How can RevOps in 2027 design a lead handoff process when AI qualifies leads faster than human reps can respond?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Vulnerability Scanning in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are 2027 sales cycles for enterprise deals averaging 9 months despite AI-powered pipeline acceleration?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Bot and Spam Protection in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What buyer behavior in 2027 signals that vendor consolidation is driving decision fatigue in choosing a platform?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website A/B Testing in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does the 2027 rise of AI-based procurement agents change the way sellers structure initial discovery calls?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Heatmaps and Session Recording in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What is the optimal number of decision-makers in a 2027 buying committee for predictable close rates?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Lead Capture Forms in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why do 2027 B2B buyers trust peer reviews over AI-generated case studies when evaluating consolidated vendors?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Pop-up Optimization in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How should RevOps in 2027 adjust quota carrying capacity when AI automates 60% of outbound tasks?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Portfolio Websites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What specific contract terms in 2027 are buying committees using to mitigate risks from vendor consolidation?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for SaaS Landing Pages in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Can 2027 AI tools accurately predict churn risk during the renewal cycle for consolidated vendor ecosystems?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Real Estate Websites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are 2027 sales cycles longer for AI-enabled products despite buyers having access to instant product demos?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Restaurant Websites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How does the 2027 buying committee's preference for self-service research affect the role of the BDR?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Membership Sites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What single data point from consolidated platforms in 2027 most accurately predicts a deal's progression?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Online Course Platforms in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why do 2027 B2B RevOps leaders report that AI-generated lead lists have a 30% lower conversion rate than curated ones?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Directory Websites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How is the 2027 AI compliance overhaul reshaping your B2B sales discovery stage?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Booking and Appointment Sites in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are buying committees in 2027 averaging 14 stakeholders for mid-market deals?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Chatbots in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What specific vendor consolidation triggers are causing RevOps to rebuild data pipelines mid-quarter?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Localization in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How do 2027 AI SDR tools distinguish between intent signal and noise in a saturated funnel?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Progressive Web Apps in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Which 2027 procurement mandates are extending sales cycles by 40% in regulated industries?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Browser Extension Development in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Is your 2027 GTM tech stack suffering from forced AI features from vendor acquisitions?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Migration in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "How can RevOps quantify the cost of a stalled buying committee in the 2027 economy?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Website Redesign in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "What 2027 buyer behavior shift made demo-to-close ratio drop despite higher lead quality?",
+  "kind": "regular"
  },
  {
-  "prefix": "ai",
-  "title": "The 10 Best AI Tools for Web Code Refactoring in 2027",
-  "kind": "top10"
+  "prefix": "q",
+  "title": "Why are 2027 AI forecasting tools underestimating deal velocity for complex enterprise sales?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you rebuild a 2027 lead scoring model when buying committee members gatekeep anonymously?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 partner ecosystem changes are forcing GTM teams to renegotiate co-sell compensation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are 2027 AI agents in the funnel creating false conversion spikes that mislead pipeline reports?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific 2027 vendor consolidation is breaking your ABM platform's account enrichment?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why did 2027 buying committees start demanding cancellation clauses tied to AI model accuracy?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do 2027 longer sales cycles impact your quota capacity model for enterprise AEs?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 data privacy update is blocking your RevOps team from tracking buying committee members?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you measure AI-assisted deal progression when 2027 buyers ghost early-stage meetings?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 consolidation of CRM and CDP vendors is forcing a migration mid-fiscal year?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 generative AI proposals extending the legal review phase by 60%?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can 2027 RevOps align compensation around buying committee engagement instead of individual meetings?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 AI bias in lead routing is accidentally deprioritizing deals with diverse buying groups?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you validate 2027 intent data when the same AI tool generates both supply and demand?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 vendor consolidation in the analytics space is killing your funnel attribution model?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 sales cycles for SaaS contracts exceeding 12 months despite AI acceleration?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does the 2027 rise of AI procurement officers change your demo narrative for technical buyers?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 economic signal (layoffs, rate hikes) is causing buying committees to freeze mid-pipeline?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you update 2027 territory carve-ups when AI outbound floods all regions equally?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 post-merger integration of two major Martech vendors broke your lead handoff?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 enterprise deals requiring CFO approval earlier in the funnel than in 2024?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can RevOps in 2027 build a single source of truth when buying committees use shadow AI tools?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 AI-driven pricing strategy is backfiring by prolonging negotiation cycles?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you handle 2027 data sovereignty laws when your ideal buying committee spans 5 countries?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 vendor consolidation just removed the native integration between your sales and marketing tools?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 slot-based meeting schedulers increasing no-show rates for committee demos?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do 2027 AI content generators create duplicate proposals that confuse the buying committee?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 industry-specific compliance update is adding a mandatory security review step mid-cycle?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are B2B buying committees restructuring their decision-making processes around AI-generated vendor shortlists in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are enterprise sales cycles exceeding 18 months despite AI-powered deal acceleration tools in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific signals indicate a buying committee is using an AI agent to negotiate contract terms in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How is the consolidation of MAP, CRM, and CDP into single platforms altering RevOps attribution models in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are sales development representatives obsolete when AI can book 90% of initial meetings in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What new revenue leakages emerge when vendor consolidation forces sales teams to retrain on unified platforms mid-cycle?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do buying committees validate AI-generated ROI projections before advancing to procurement in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 60% of B2B deals stalling at the technical validation stage due to AI hallucination risks in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What compensation model prevents revenue churn when sales cycles double due to mandatory AI audit requirements in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does the emergence of 'vendor synthesis agents' change the way buyers compare consolidated platform suites in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific friction points cause buying committees to ghost sellers after AI demos in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are traditional BANT and MEDDIC frameworks failing to predict outcomes in 2027's multi-agent buying environments?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do RevOps leaders measure pipeline health when AI agents automatically disqualify leads based on hidden vendor policy shifts in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What triggers a buying committee to pause procurement when a vendor's AI model is found to use competitor training data in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are sales cycles for consolidated RevOps platforms 40% longer than best-of-breed purchases in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does the rise of 'AI contract auditors' reshape the negotiation stage of B2B sales in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What data sources do buying committees trust most when evaluating a vendor's AI compliance with 2027 regulatory standards?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are expansion deals shrinking as vendor consolidation forces buyers to renegotiate full-stack contracts in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do sales teams prove differentiation when every competitor claims identical AI-powered funnel acceleration in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific role on the buying committee is most likely to veto a deal due to AI integration concerns in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does vendor consolidation affect the speed of proof-of-concept cycles for enterprise buyers in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 'AI-first' startups losing enterprise deals to legacy vendors with consolidated stacks in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What early-stage pipeline signals predict a buying committee will use a reverse-auction AI tool for pricing in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do RevOps teams handle data migration friction when two previously separate vendors merge mid-sales-cycle in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What percentage of B2B deals now require a dedicated AI risk officer on the buying committee in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are renewal rates dropping as buyers demand retrospective AI performance guarantees in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does the growing use of AI for procurement compliance checks lengthen the legal review stage in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific objections from buying committees are most common against vendors using AI for dynamic pricing in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are sales enablement teams struggling to keep content relevant when AI buyers scan for specific regulatory language in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does the shift to consolidated vendor stacks impact the sales cycle length for mid-market companies in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What triggers a buying committee to open a competitive evaluation after an AI-driven demo in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are internal referral programs ineffective when AI agents suppress organic peer recommendations in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do RevOps teams model revenue forecasts when AI-driven vendor consolidation causes unpredictable churn in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific buying committee member is most likely to demand a live, non-AI-mediated product trial in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are enterprise deals with more than seven buying committee members 3x more likely to timeout in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does the presence of an AI-powered 'procurement bot' change the sequence of sales touchpoints in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How is the 2027 AI buying committee reshaping your B2B sales cycle length?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What does the 2027 vendor consolidation wave mean for your RevOps tool stack?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 enterprise deals requiring 40% more internal approvals than last year?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you measure AI’s ROI in the top-of-funnel when attribution models break?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is your 2027 lead scoring system ignoring the silent buying committee members?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What happens to your GTM motion when a consolidated vendor drops a critical API?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are 2027 longer sales cycles forcing you to change your compensation model?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Does your 2027 revenue engine treat AI-generated leads differently from human-sourced ones?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 vendor consolidation move will break your handoff between marketing and sales?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you validate demo requests when 60% of 2027 inbound is AI-created?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 buying committees now including a dedicated AI ethics reviewer?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What is the true cost of a 2027 sales cycle that stretches past 9 months?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does your RevOps team audit AI predictions that change weekly in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are your 2027 sales enablement materials built for human or AI-assisted buyers?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does vendor consolidation in 2027 affect your data privacy compliance for outbound?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 signal tells you a buying committee is really ready to evaluate?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 B2B buyers demanding proof-of-concept before even a discovery call?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does your 2027 forecast adjust when AI tools hallucinate pipeline data?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 objection from a buying committee member kills deals most often?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you prevent RevOps tool fragmentation after a 2027 vendor consolidation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is your 2027 contract structure flexible enough for a 14-month sales cycle?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does AI in the funnel change your definition of a qualified lead in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 buying committees requiring a joint AI governance agreement upfront?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What happens to your 2027 GTM strategy when your CRM provider buys your MAP vendor?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you train reps to handle buying committees that change membership mid-cycle in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 vendor consolidation triggers the biggest data migration headache for RevOps?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does AI-assisted objection handling in 2027 affect your rep’s negotiation autonomy?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 KPI best predicts deals closing in a 12+ month sales cycle?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are you tracking how many times a buying committee reconvenes before decision in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does vendor consolidation in 2027 impact your multi-product pricing strategy?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 buyers using AI to redline your proposals before negotiations start?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 RevOps dashboard metric reveals AI funnel inefficiency?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you balance automation and human touch when buying committees shrink in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 sales cycle stage sees the most drop-off from AI fatigue?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does your 2027 lead routing handle contacts from a consolidated vendor’s new platform?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 buying committees asking for AI bias audits of your product?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How is AI reshaping the B2B sales funnel in Q1 2027 away from linear stages?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are B2B buying committees expanding to 18 members in 2027 despite AI tools?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What vendor consolidation strategies are GTM teams using to cut tech stacks by 40% in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can RevOps measure AI-agent-assisted pipeline value without inflating metrics in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are longer 2027 sales cycles actually improving deal quality or just hiding poor targeting?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which B2B companies have successfully replaced SDRs with AI outbound in 2027 without revenue drops?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do seven-member buying committees in 2027 align on vendor selection within 90 days?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific AI hallucination risks are plaguing B2B sales demos in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why is 2027 seeing a 30% increase in sales cycle length despite predictive AI?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are RevOps teams in 2027 handling data silos left by vendor consolidation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What new buying committee roles emerged in 2027 due to AI procurement compliance?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can AI-driven call coaching in 2027 actually shorten enterprise sales cycles by 20%?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which vendor consolidation moves in 2027 are creating the most data integration headaches?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do 2027 building purchasing committees weigh AI tool recommendations vs human referrals?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What is the real cost of a stalled B2B deal in 2027 when AI is tracking every touchpoint?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 RevOps leaders prioritizing AI bias audits over conversion rate optimization?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are B2B companies in 2027 using AI to identify silent buyers on large committees?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What vendor consolidation patterns in 2027 are actually reducing GTM efficiency?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How long should a B2B sales cycle be in 2027 for a six-figure SaaS deal?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which AI tools in 2027 are most frequently rejected by buying committees due to transparency?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What percentage of 2027 B2B pipeline should come from AI-sourced leads to avoid saturation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are 2027 RevOps teams calculating ROI on AI SDRs when humans are still closing?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 buyer committees demanding AI explainability before signing contracts?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific friction points in 2027 buying committees cause the longest delays?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does vendor consolidation in 2027 affect multi-year contract negotiations?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are 2027 AI-powered sales sequences actually increasing or decreasing meeting booking rates?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What data privacy concerns in 2027 are causing buying committees to slow down due diligence?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can RevOps in 2027 prevent AI from over-hyping pipeline and misleading forecasts?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 vendor consolidation trends are forcing RevOps to rebuild attribution models?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do 2027 buying committees handle security reviews when AI vendors keep updating models?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What is the average time to first demo in 2027 for enterprises with 14-person committees?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 RevOps teams finding that AI reduces sales cycles for renewals but not new logos?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are B2B companies in 2027 using AI to segment buying committees by influence weight?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What vendor consolidation pitfalls in 2027 lead to higher churn rather than cost savings?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do 2027 longer sales cycles impact cash flow forecasting for subscription-based RevOps?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can AI in 2027 reliably predict which buying committee member will veto the deal?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How is AI in the funnel reshaping B2B lead scoring accuracy in late 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What vendor consolidation trends are forcing RevOps to renegotiate contracts in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are B2B buying committees expanding to 14+ members in the current 2027 market?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does longer sales cycles in 2027 impact quota attainment for enterprise reps?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What AI-driven sales tools are actually reducing time-to-close in the 2027 funnel?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is the 2027 vendor consolidation wave killing best-of-breed point solutions for RevOps?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are buying committees using AI to vet vendors before the first meeting in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 GTM tactics shorten extended sales cycles for mid-market deals?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 B2B buyers demanding AI-generated demo personalization at scale?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do marketing and sales handoffs break down when buying committees grow in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What RevOps metrics matter most when AI automates 60% of the funnel in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 AI agents are replacing SDRs in early-stage funnel qualification?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does vendor consolidation in 2027 affect data integration across CRM and MAP?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 sales cycle length triggers the need for new forecasting models in RevOps?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are large buying committees in 2027 using consensus tools to stall deals?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 AI chatbots failing to replace human BDRs in complex B2B funnels?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What vendor consolidation strategies in 2027 actually lower total cost of RevOps stack?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do 2027 buying committees evaluate ROI across multiple departments before purchase?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 GTM motion best handles sales cycles that exceed 12 months?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is the 2027 AI-in-the-funnel trend creating blind spots in lead qualification?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does vendor consolidation in 2027 force RevOps to adopt new data governance policies?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 buying committee dynamics make champion-building harder than ever?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are longer sales cycles in 2027 increasing the need for AI-powered deal inspection?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can RevOps in 2027 map AI usage across the funnel without tool bloat?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 signals from buying committees indicate a deal is actually progressing?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does 2027 vendor consolidation impact the accuracy of revenue attribution models?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 AI tools successfully automate proposal generation for complex buying groups?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What new RevOps roles emerge in 2027 to manage vendor consolidation and AI adoption?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are 2027 buying committees using external AI auditors to challenge vendor claims?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are longer sales cycles in 2027 causing higher churn in early-stage pipeline?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 vendor consolidation patterns predict the next major CRM-API shift?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do 2027 AI agents in the funnel affect the cadence of follow-up emails?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which 2027 buying committee objections are most resistant to AI-generated content?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What RevOps dashboards in 2027 best visualize the impact of longer sales cycles?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does 2027 vendor consolidation affect the choice between Salesforce and HubSpot?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 buying committees demanding zero-touch proof-of-concept implementations?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are AI-driven sales assistants reshaping the post-demo follow-up sequence for enterprise buying committees?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is the rise of the 14-person buying committee making vendor consolidation a necessity for RevOps efficiency?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific metrics should B2B leaders track to prove AI-enhanced lead scoring works in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can a unified data platform shorten the 9-month sales cycle when committee approval stages are siloed?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do self-serve AI demos affect the precision of B2B qualification criteria for complex deals?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are longer sales cycles in 2027 forcing RevOps to redefine the 'MQL-to-revenue' attribution model?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What new friction points emerge when buying committees use AI to validate vendor claims before meetings?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does vendor consolidation impact the effectiveness of multi-channel B2B content mapping?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is the 2027 trend of AI-coded product demos reducing or increasing the need for sales engineer intervention?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What role should RevOps play in orchestrating AI-driven personalization across a 30-touchpoint B2B journey?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do buying committees in 2027 use generative AI to compare contract terms before signing?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can forcing headcount consolidation in RevOps actually lengthen sales cycles by reducing specialist input?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What signal should a B2B seller look for when the buyer's AI assistant rejects a meeting invite?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are 2027's AI procurement tools changing the way vendors structure their pricing proposals?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Does the proliferation of buying committee members require a new SLA between marketing and sales for handoffs?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 40% of B2B deals stalling in the legal review phase despite AI contract analysis tools?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific objection patterns emerge when a buying committee includes a dedicated AI ethics reviewer?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is the 2027 focus on AI-powered forecasting making RevOps ignore the human judgment in pipeline management?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How should B2B companies redesign their demo environments to handle simultaneous AI agent testing by prospects?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can consolidating from 12 to 3 CRM tools actually improve data hygiene for AI models in RevOps?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What hidden costs arise when buying committees demand AI-generated compliance reports from vendors?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do longer sales cycles in 2027 change the optimal cadence for executive sponsor check-ins?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is the AI-driven content engine making B2B sales sequences too automated, hurting relationship depth?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific buying committee role is most likely to veto a deal based on poor AI integration documentation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How should RevOps adjust territory planning when 60% of leads arrive via AI-synthesized recommendations?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are vendor consolidation efforts in 2027 failing because of unresolved data migration between legacy platforms?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What new qualification framework best predicts a deal's progression through an AI-mediated B2B funnel?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do buying committees in 2027 use sentiment analysis of sales calls to inform their final selection?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can a single unified RevOps dashboard replace the need for three separate tools in a consolidated tech stack?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What impact does a buyer's internal AI assistant have on the perceived urgency of a B2B sales deadline?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How should sales enablement evolve when buying committee members are trained by their own AI coaches?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is the 2027 B2B sales cycle lengthening because AI enhances due diligence or because it paralyzes decision-making?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific data points must RevOps clean before feeding them to an AI predictive lead model?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do vendors successfully navigate a buying committee that uses AI to simulate competitor negotiation tactics?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are longer sales cycles in 2027 leading to higher win rates, or just bloated pipeline values?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What new vendor consolidation pitfalls occur when AI tools from different acquisitions refuse to share datasets?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are buying committees now requiring a pre-RFP AI audit before vendor selection in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How is the 2027 vendor consolidation wave forcing RevOps to kill data silos between CDP and CRM?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What happens to net-new pipeline when AI agents autonomously skip 40% of early-stage qualification?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why did 2027 buying committees expand from 11 to 17 stakeholders, and how does RevOps map them now?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can AI-driven closed-lost reanimation actually compress sales cycles in a 2027 high-consolidation market?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you prevent AI-generated demos from triggering false positive in the 2027 buyer-intent signal stack?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 vendor consolidation scenario breaks the handoff between SDR and AE when both use different AI co-pilots?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 20% longer sales cycles in 2027 linked to AI hallucination audits during technical validation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does RevOps price a seat-based model when the buying committee includes non-human AI procurement agents?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 data shows that AI in the funnel increases demo-to-proposal time by 30% instead of reducing it?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why do 2027 buying committees demand a 'reverse sandbox'—running vendor AI against their own synthetic data?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does vendor consolidation in 2027 create single-point-of-failure risk for the entire revenue tech stack?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 contract clause are buying committees using to force vendor AI transparency on training data?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you rebuild territory assignments when AI forecasting tools in 2027 have 40% higher error in consolidated accounts?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why did 2027 RevOps teams stop using intent data from consolidated vendors due to audience contamination?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are 2027 sales cycles extended by mandatory AI explainability reviews for pricing models?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 buyer behavior shift makes micro-conversion tracking obsolete in consolidated B2B tech stacks?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can a 2027 RevOps team survive with only two CRM vendors when the buying committee demands five point solutions?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why do 2027 AI-driven lead scoring models degrade 60% faster after a vendor consolidation event?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does the 2027 'longer sales cycle' trend force RevOps to build a multi-year co-sell plan with partner AI?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific 2027 regulation is making buying committees add a compliance AI auditor to every deal review?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you measure AI's impact on funnel velocity when 2027 vendor consolidation merges 3 CRM instances?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 buying committees rejecting vendor proofs that don't include AI bias audits on historical data?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 RevOps metric replaces win rate when AI handles 80% of initial qualification?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does the 2027 sales cycle lengthen by 8 weeks when buying committees use AI to run RFx against 20 vendors simultaneously?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can a 2027 RevOps team align sales and marketing with only one AI orchestration platform after consolidation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why do 2027 buying committees require access to a vendor's internal RevOps dashboard before signing?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What happens to pipeline coverage ratio when 2027 AI agents auto-remove stale deals 3x faster than humans?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do 2027 vendor consolidation layoffs affect the institutional knowledge of a buying committee's past decisions?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific AI hallucination in a 2027 product demo caused a buying committee to pause a $2M deal for 6 months?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 sales cycles for consolidated tech stacks 45% longer than for single-vendor stacks?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you forecast revenue when 2027 AI buying committees bid on services during the vendor evaluation phase?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 RevOps staffing model survives a 40% longer sales cycle without burning cash?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 buying committees demanding 'AI-free' zones in demos to validate human value?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does the 2027 trend of vendor consolidation force RevOps to rewrite commission plans based on shared data lakes?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What 2027 event made buying committees start using AI to simulate your product roadmap before purchase?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How is AI-driven predictive lead scoring reshaping B2B sales cycles in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are buying committees expanding to include AI ethics officers in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What vendor consolidation strategies are Mid-Market RevOps teams adopting in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does generative AI create friction in B2B funnel handoffs this year?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are longer sales cycles in 2027 being driven by AI evaluation demands?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are RevOps teams measuring AI's impact on win rates in Q3 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What role does AI play in reducing vendor bloat for enterprise GTM stacks?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why do 2027 buying committees now demand ROI simulations before demos?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can RevOps use AI to compress the sales cycle in hyperscale accounts?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What is the cost of AI vendor lock-in for B2B sales teams in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are GTM teams restructuring quotas to account for AI-assisted deals?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 sales cycles 40% longer for AI-native product launches?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do consolidated RevOps platforms affect data accuracy in forecasting?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What AI governance policies are buying committees requiring in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does AI-generated content in the funnel affect B2B trust metrics?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are RevOps leaders prioritizing AI explainability tools in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does vendor consolidation impact sales tech stack integration costs?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What buying committee personas are most skeptical of AI in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can RevOps use AI to identify stalled deals in longer sales cycles?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are 2027 enterprise buyers demanding AI-driven total cost of ownership models?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are GTM teams hiring AI prompt engineers for sales sequences?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does AI affect the number of decision-makers in B2B purchases?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What RevOps metrics are obsolete due to AI in the 2027 funnel?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do consolidated CRM and CDP platforms shorten buying committee alignment?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why do 37% of 2027 deals require AI risk assessment sign-offs?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How is AI transforming lead qualification in hyper-competitive GTM plays?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What vendor consolidation traps cause hidden costs in 2027 RevOps?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are buying committees using AI to simulate contract terms before negotiation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are sales cycles extending for companies without AI adoption playbooks?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does AI affect the velocity of mid-funnel opportunities in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What consolidation strategies help RevOps avoid AI vendor switching costs?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do 2027 buying committees evaluate AI bias in vendor solutions?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are GTM teams adopting AI-powered deal rooms for committee consensus?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does vendor consolidation change RevOps hiring priorities in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What AI-driven signals predict buying committee readiness in longer cycles?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can RevOps use AI to map influence dynamics inside buying committees?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How is AI in the funnel reshaping the scoring of B2B inbound leads in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which vendor consolidation trends are forcing RevOps to renegotiate contract terms mid-cycle?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are buying committees in 2027 demanding AI-generated ROI breakdowns before first demos?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do longer sales cycles in Q1 2027 correlate with the rise of AI-based deal risk prediction?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific vendor consolidation risks are hidden in your current GTM tech stack?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can AI in the funnel effectively replace human-led qualification for enterprise buying committees?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are 2027 buying committees using generative AI to compare vendor pricing before any contact?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why does longer sales cycles in 2027 increase the need for real-time revenue intelligence?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which vendor consolidation strategies are causing the most friction in B2B sales handoffs?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How should RevOps adjust quota setting when AI in the funnel accelerates lead velocity?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What metrics should buying committees in 2027 demand from AI-driven forecasting tools?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do longer sales cycles in 2027 impact the calculation of customer acquisition cost?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which vendor consolidation patterns are signaling a shift toward single-platform GTM stacks?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are buying committees in 2027 adding a separate AI audit step to procurement processes?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can RevOps use AI in the funnel to identify stalled deals before the buying committee loses interest?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What vendor consolidation moves are most likely to disrupt existing ABM workflows in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do longer sales cycles in 2027 change the optimal frequency of B2B follow-up communications?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which AI in the funnel features are buying committees in 2027 treating as non-negotiable?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How should RevOps reprioritize tool investments when vendor consolidation makes data portability harder?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are longer sales cycles in 2027 driving adoption of AI-based meeting summarization tools?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What specific vendor consolidation failures in 2026 are still haunting B2B RevOps teams in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are buying committees in 2027 using AI to simulate contract scenarios before negotiation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can AI in the funnel reduce the average number of buying committee members required?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do longer sales cycles in 2027 affect the accuracy of quarter-end close predictions?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which vendor consolidation trends are making multi-year B2B contracts riskier in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are buying committees in 2027 demanding observable AI logic for revenue attribution?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How should RevOps redesign lead routing when AI in the funnel changes intent score reliability?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What vendor consolidation moves are most damaging to sales and marketing data alignment?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do longer sales cycles in 2027 impact the effectiveness of cold email sequences?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which AI in the funnel applications are buying committees in 2027 most suspicious of?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are vendor consolidation decisions in 2027 affecting the cost of RevOps headcount?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are longer sales cycles in 2027 forcing B2B companies to adopt outcome-based pricing models?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What vendor consolidation strategies are helping RevOps reduce data duplication across tiers?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can AI in the funnel properly handle objections from diverse buying committee personas?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do longer sales cycles in 2027 change the role of customer references in deal closing?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which vendor consolidation trends are making API-first architectures a RevOps priority?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How will AI-driven intent data reshape B2B lead scoring by 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is the 10-person buying committee killing mid-funnel conversion rates in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What role does generative AI play in B2B sales discovery calls this year?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are RevOps teams measuring AI hallucination risk in pipeline forecasting?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are B2B sales cycles stretching beyond 12 months in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can vendor consolidation reduce the average B2B deal close time in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What new skills do B2B sales reps need to handle AI-augmented buying committees?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do 2027 buying committees use AI comparison tools before engaging vendors?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which RevOps metrics matter most when sales cycles exceed 18 months?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are traditional BANT qualification frameworks obsolete in 2027’s AI-driven funnel?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are B2B companies using AI to automate multi-stakeholder follow-ups?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What data silos most damage revenue operations after vendor consolidation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are 2027 buyers demanding AI-generated proof-of-concept simulations?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does AI impact the cost-per-lead in enterprise B2B sales this year?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What signals indicate a buying committee is stalling vs. progressing in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Can consolidated tech stacks actually shorten B2B sales cycles in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are RevOps leaders balancing AI automation with human-led negotiation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What new objection patterns emerge when buyers use AI research agents?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is the B2B demo evolving into an AI-powered interactive experience by 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do 2027 contract values shift when buying committees grow to 15 people?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which vendor consolidation strategies backfire for RevOps in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are sales teams adapting to AI agents that book meetings without human contact?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What compliance risks arise when AI analyzes buying committee communications?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are longer sales cycles forcing RevOps to revise quota models in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does AI personalize B2B proposals for each member of a buying committee?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What replacement tools are B2B teams adopting after consolidating CRM and MAP?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Are 2027 buyers more skeptical of AI-generated sales content than human-created?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do RevOps leaders prevent AI bias from skewing lead routing decisions?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What hidden costs emerge from vendor consolidation in B2B GTM stacks?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do buying committees in 2027 use live AI benchmarks during evaluations?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is the B2B sales funnel becoming a non-linear AI-driven mesh by 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What role does predictive churn AI play in 2027’s expansion revenue strategies?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are 2027 sales cycles affected by AI-generated competitor battle cards?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Which RevOps integrations fail most after a major vendor consolidation?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why do buying committees in 2027 demand AI governance guarantees from vendors?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can B2B teams use AI to identify buying committee power dynamics?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How are buying committees using AI agents to evaluate vendors before the first demo in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are B2B sales cycles extending to 14 months despite AI-powered pipeline acceleration tools?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What does the consolidation of six major CRMs into two mean for RevOps data hygiene this year?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you score leads when AI hallucinations create phantom intent signals in your funnel?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Is the 10-person buying committee now obsolete due to asynchronous AI negotiation platforms?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How should RevOps restructure compensation when AI closes 40% of renewals without a rep?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What happens to account mapping when AI agents block outreach to entire domains as spam?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you prevent vendor consolidation from causing a single point of failure in your GTM stack?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are enterprise procurement teams now requiring AI audit trails for every sales interaction?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does a longer sales cycle affect your unit economics when AI demo costs per lead drop to zero?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What is the correct attribution model when AI-assisted outreach sequences run autonomously for weeks?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you qualify a buying committee that delegates all technical evaluation to an AI agent?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why did vendor consolidation cause a 30% drop in data sync reliability in Q1 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can RevOps build a RACI framework for AI roles in the modern enterprise sales process?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What metrics should replace MQLs when AI generates 97% of early-stage touchpoints automatically?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you negotiate with a procurement AI that demands your entire pricing history and margins?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are customers churning at contract signature due to AI risk scoring of your vendor dependencies?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does the shift to autonomous scheduling impact BDR-to-AE handoff timing in 2027?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What is the optimal mix of human and AI SDRs for a $5M ARR company in the current landscape?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you handle data privacy when AI agents from competing vendors share a buyer's purchase group?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are traditional pipeline stage definitions breaking under persistent AI follow-up sequences?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you attribute a closed-won deal when the buying committee used three different AI agents across the journey?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What governance do you need for AI tools that automatically add decision-makers to your CRM without consent?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How does the 2027 longer sales cycle affect your annual recurring revenue forecasting accuracy?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why did the best performing RevOps teams this year eliminate the term 'hand-raise' from their vocabulary?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you build a data cleanup strategy when vendor mergers cause field mapping chaos in your instance?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What is the right SL2 for an AI that responds to prospect objections in real-time on your website?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How should you redesign your lead routing when 80% of inbound traffic is from bot-driven evaluations?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why are companies with the largest buying committees now seeing faster deal velocity than smaller ones?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you detect AI-led churn when a customer's autonomous procurement system decides not to renew?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What does a proper data lineage look like when three different AI models contribute to one forecast number?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How can you avoid AI echo chambers where your sales agent only talks to the buyer's agent?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "Why is the average contract value shrinking for AI-native RevOps stacks despite longer sales cycles?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you create a playbook for when a buyer's AI asks to speak to your AI instead of a sales rep?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "What is the new role of the RevOps manager when AI handles all data integration and pipeline hygiene?",
+  "kind": "regular"
+ },
+ {
+  "prefix": "q",
+  "title": "How do you set quotas in a world where AI can generate infinite qualified meetings without human effort?",
+  "kind": "regular"
  }
 ]

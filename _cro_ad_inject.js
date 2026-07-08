@@ -39,32 +39,27 @@ V.push(`<aside class="cro-ad cro-ad-5" aria-label="Sponsored — Fractional CRO"
 
 const AD_MARK = 'class="cro-ad';
 
-// Insert the ad block into a markdown body at the right spot.
+// Remove ALL existing CRO ad asides (handles mid-page placement + accidental doubles).
+function stripAds(body) {
+  return String(body).replace(/\n*<aside class=["']cro-ad[\s\S]*?<\/aside>\n*/gi, '\n\n').replace(/\n{3,}/g, '\n\n');
+}
+// Insert the ad ABOVE THE FOLD (owner law): right after the Direct Answer / opening, before the
+// first content section — so the "Book a 20-minute call" CTA is visible without scrolling.
 function injectInto(body, vi) {
-  const ad = '\n\n' + V[vi] + '\n\n';
+  const ad = V[vi];
   const lines = body.split('\n');
-  // numbered tool sections: "## 3. Recurly", "## 4. Zuora", ...
-  const numbered = [];
-  lines.forEach((ln, i) => { const m = ln.match(/^##\s+(\d+)\.\s/); if (m) numbered.push({ i, n: +m[1] }); });
-  if (numbered.length >= 4) {
-    // before the 4th tool (prefer the one literally numbered 4, else the 4th in order)
-    const four = numbered.find(x => x.n === 4) || numbered[3];
-    lines.splice(four.i, 0, ad);
-    return { body: lines.join('\n'), mode: 'top10-after-3' };
+  const isH = i => /^#{2,3}\s+/.test(lines[i]);
+  // anchor: the Direct Answer / Quick Answer opening
+  const daIdx = lines.findIndex(l => /^#{2,3}\s*(Direct Answer|Quick Answer|Short Answer|TL;DR|TLDR)\b/i.test(l));
+  let at = -1;
+  if (daIdx >= 0) { for (let i = daIdx + 1; i < lines.length; i++) if (isH(i)) { at = i; break; } if (at < 0) at = lines.length; }
+  else { for (let i = 0; i < lines.length; i++) if (isH(i)) { at = i; break; } }       // no DA: before first H2
+  if (at < 0) { // no headings at all: after the first paragraph (skip a leading cover image)
+    const paras = body.split(/\n\n+/); paras.splice(Math.min(2, paras.length), 0, ad);
+    return { body: paras.join('\n\n'), mode: 'top-para' };
   }
-  // regular Q&A: all H2 headings, insert ~30% down
-  const heads = [];
-  lines.forEach((ln, i) => { if (/^##\s+/.test(ln)) heads.push(i); });
-  if (heads.length >= 2) {
-    const idx = Math.max(1, Math.round(0.3 * heads.length));
-    lines.splice(heads[Math.min(idx, heads.length - 1)], 0, ad);
-    return { body: lines.join('\n'), mode: `qa-30pct(h${idx}/${heads.length})` };
-  }
-  // fallback: ~30% through paragraphs
-  const paras = body.split(/\n\n+/);
-  const at = Math.max(1, Math.round(0.3 * paras.length));
-  paras.splice(at, 0, V[vi]);
-  return { body: paras.join('\n\n'), mode: `qa-para(${at}/${paras.length})` };
+  lines.splice(at, 0, '', ad, '');
+  return { body: lines.join('\n').replace(/\n{3,}/g, '\n\n'), mode: 'above-fold' };
 }
 
 async function verifyLive(id) {
@@ -104,7 +99,9 @@ async function removeOne(id) {
   return { id, ok: true, restored: true };
 }
 
-(async () => {
+module.exports = { injectInto, injectOne, removeOne, stripAds, V };
+
+if (require.main === module) (async () => {
   const args = process.argv.slice(2);
   if (args[0] === '--test') {
     console.log(JSON.stringify(await injectOne(args[1], args[2] != null ? +args[2] : undefined)));

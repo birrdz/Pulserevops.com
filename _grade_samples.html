@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pulse — Grade Samples (with gold titles)</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#FFB81C;--bg:#1A0710;--serif:Fraunces,'Playfair Display',Georgia,serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);padding:18px;font-family:system-ui,-apple-system,sans-serif}
+h1{color:var(--gold);font-family:var(--serif);font-style:italic;font-weight:900;font-size:1.4rem;text-align:center;margin:4px 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;max-width:1200px;margin:0 auto}
+.card{position:relative;aspect-ratio:16/10;border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.5)}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,5,12,0.92) 0%,rgba(20,5,12,0.5) 42%,transparent 72%)}
+.txt{position:absolute;left:0;right:0;bottom:0;padding:14px;z-index:2}
+.eye{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:800;color:var(--gold);margin-bottom:5px}
+.eye{font-family:system-ui,sans-serif}
+.title{margin:0;font-family:var(--serif);font-style:italic;font-weight:900;color:var(--gold);line-height:1.14;text-shadow:0 1px 3px rgba(0,0,0,.7);font-size:21px;letter-spacing:.005em;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<h1>Pulse — Final Grade, shown as cards with gold titles</h1>
+<div class="grid">
+<a class="card"><img src="/assets/qa/_final-1.jpg" alt=""><div class="grad"></div><div class="txt"><span class="eye">CRO &amp; Tools</span><h3 class="title">How do I hire a fractional CRO for my startup?</h3></div></a>
+<a class="card"><img src="/assets/qa/_final-2.jpg" alt=""><div class="grad"></div><div class="txt"><span class="eye">Aquariums</span><h3 class="title">How do you keep a betta and other fish together peacefully?</h3></div></a>
+<a class="card"><img src="/assets/qa/_final-3.jpg" alt=""><div class="grad"></div><div class="txt"><span class="eye">Collectibles</span><h3 class="title">Top 10 Muscle Cars of 1969 — Best Overall + Best Value</h3></div></a>
+<a class="card"><img src="/assets/qa/_final-5.jpg" alt=""><div class="grad"></div><div class="txt"><span class="eye">Towns</span><h3 class="title">10 Best Lake Towns to Live in for 2027</h3></div></a>
+<a class="card"><img src="/assets/qa/_final-6.jpg" alt=""><div class="grad"></div><div class="txt"><span class="eye">Espresso</span><h3 class="title">What is the best espresso machine for home baristas?</h3></div></a>
+<a class="card"><img src="/assets/qa/_ex-2.jpg" alt=""><div class="grad"></div><div class="txt"><span class="eye">Gaming</span><h3 class="title">What is the best gaming PC build under $2,000 in 2027?</h3></div></a>
+<a class="card"><img src="/assets/qa/_ex-3.jpg" alt=""><div class="grad"></div><div class="txt"><span class="eye">Style</span><h3 class="title">How do you style a suit for the modern office?</h3></div></a>
+</div></body></html>

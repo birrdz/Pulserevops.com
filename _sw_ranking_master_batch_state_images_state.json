@@ -1,0 +1,22 @@
+{
+  "done": [
+    "sw0001"
+  ],
+  "failed": [],
+  "samples": [
+    {
+      "at": "2026-07-06T13:08:20.129Z",
+      "id": "sw0001",
+      "url": "https://pulserevops.com/software/sw0001",
+      "masterOk": true,
+      "masterIssues": [],
+      "productImgs": 10,
+      "wantProduct": 10,
+      "grade": 14,
+      "pass": true
+    }
+  ],
+  "fixedCount": 1,
+  "strategy": "images-rebuild",
+  "pillar": "sw"
+}

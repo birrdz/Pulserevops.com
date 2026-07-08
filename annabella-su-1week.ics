@@ -1,0 +1,115 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PULSE RevOps//Annabella SU 1-Week Reminders//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Annabella · Salisbury — 1-Week Heads-Ups
+X-WR-CALDESC:Reminders one week ahead of each Salisbury University fall 2026 deadline for Annabella.
+X-WR-TIMEZONE:America/New_York
+X-PUBLISHED-TTL:PT12H
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+BEGIN:VEVENT
+UID:annabella-su-1wk-transcript@pulserevops.com
+DTSTAMP:20260701T000000Z
+DTSTART;VALUE=DATE:20260708
+DTEND;VALUE=DATE:20260709
+SUMMARY:⏰ 1 week until: Send final HS transcript to SU (due Jul 15)
+DESCRIPTION:One week out — the final official HS transcript is due to the Salisbury Registrar on Jul 15.
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:1 week until transcript deadline (Jul 15)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:annabella-su-1wk-immunization@pulserevops.com
+DTSTAMP:20260701T000000Z
+DTSTART;VALUE=DATE:20260725
+DTEND;VALUE=DATE:20260726
+SUMMARY:⏰ 1 week until: Immunization & health records (due Aug 1)
+DESCRIPTION:One week out — immunization and health records are due to SU around Aug 1 (confirm exact date on GullNet).
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:1 week until immunization records (Aug 1)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:annabella-su-1wk-bill@pulserevops.com
+DTSTAMP:20260701T000000Z
+DTSTART;VALUE=DATE:20260727
+DTEND;VALUE=DATE:20260728
+SUMMARY:⏰ 1 week until: SU fall bill (target Aug 3 — confirm on GullNet)
+DESCRIPTION:One week out — the fall bill is due around Aug 3. Confirm the exact due date and pay on GullNet.
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:1 week until SU fall bill (confirm on GullNet)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:annabella-su-1wk-gullcard@pulserevops.com
+DTSTAMP:20260701T000000Z
+DTSTART;VALUE=DATE:20260803
+DTEND;VALUE=DATE:20260804
+SUMMARY:⏰ 1 week until: GullCard, email/DUO, meal plan, parking (Aug 10)
+DESCRIPTION:One week out — by Aug 10: upload GullCard photo, set up SU email + DUO, choose meal plan, register parking.
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:1 week until GullCard / setup tasks (Aug 10)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:annabella-su-1wk-textbooks@pulserevops.com
+DTSTAMP:20260701T000000Z
+DTSTART;VALUE=DATE:20260817
+DTEND;VALUE=DATE:20260818
+SUMMARY:⏰ 1 week until: Buy or rent textbooks (Aug 24)
+DESCRIPTION:One week out — plan to buy or rent fall textbooks by Aug 24 (confirm your course list first).
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:1 week until textbooks (Aug 24)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:annabella-su-1wk-movein@pulserevops.com
+DTSTAMP:20260701T000000Z
+DTSTART;VALUE=DATE:20260820
+DTEND;VALUE=DATE:20260821
+SUMMARY:⏰ 1 week until: MOVE-IN + First Flight (Aug 27-30)
+DESCRIPTION:One week out — residence hall move-in and First Flight weekend begins Aug 27.
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:1 week until MOVE-IN weekend (Aug 27)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:annabella-su-1wk-firstday@pulserevops.com
+DTSTAMP:20260701T000000Z
+DTSTART;VALUE=DATE:20260824
+DTEND;VALUE=DATE:20260825
+SUMMARY:⏰ 1 week until: First Day of Classes (Aug 31)
+DESCRIPTION:One week out — fall 2026 classes begin Aug 31.
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:1 week until first day of classes (Aug 31)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:annabella-su-1wk-dropadd@pulserevops.com
+DTSTAMP:20260701T000000Z
+DTSTART;VALUE=DATE:20260828
+DTEND;VALUE=DATE:20260829
+SUMMARY:⏰ 1 week until: Drop/Add ends (Sep 4)
+DESCRIPTION:One week out — last day to drop or add courses is Sep 4.
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:1 week until Drop/Add ends (Sep 4)
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,19 @@
+[
+  {
+    "at": "2026-07-05T17:12:41.360Z",
+    "status": "needs-fix",
+    "id": "cl0131",
+    "title": "The 10 Best Colognes with Saffron and Spice Notes in 2027",
+    "pillar": "cl",
+    "score": 13,
+    "why": "owner flagged: Pollinator face-card cover; All images flux; 3–10 images (CRO extra); Top-10: hero + 10 unique item-matched @@PRODUCT imgs · notes: Section images still show /img/auto placeholders — replace with DuckDuckGo https photos and verify wsrv render.",
+    "ownerTargets": [
+      "pollinatorFaceCover",
+      "pollinatorInternalFlux",
+      "media3to10",
+      "top10Images"
+    ],
+    "ownerNotes": "Section images still show /img/auto placeholders — replace with DuckDuckGo https photos and verify wsrv render.",
+    "source": "owner-signoff"
+  }
+]

@@ -94,7 +94,7 @@ exports.handler = async () => {
     ul{padding-left:18px;margin:0 0 24px;}li{margin:6px 0;}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px 28px;}
     .footer-note{padding:28px;text-align:center;color:rgba(237,229,216,0.4);font-size:0.74rem;letter-spacing:0.08em;border-top:1px solid rgba(255,255,255,0.04);}
-  </style></head><body>
+  </style><link rel="stylesheet" href="/assets/pulse-tan.css"></head><body>
   <div class="top"><span><a href="/">PULSE REVOPS</a></span><span><a href="/knowledge.html">📚 Library</a> · <a href="/sales-trainings">Trainings</a> · <a href="/industry-kpis">KPIs</a> · <a href="/tools/">Tools</a></span></div>
   <main>
     <h1>Reviews and Expert Analysis — Every Sales, RevOps, and Operator Topic in the Pulse Library</h1>

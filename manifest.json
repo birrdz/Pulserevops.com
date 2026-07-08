@@ -1,6 +1,6 @@
 {
-  "name": "Pulse RevOps — Every RevOps Answer",
-  "short_name": "PULSE",
+  "name": "Pulse News — Value Added",
+  "short_name": "Pulse News",
   "description": "6,400+ operator-grade RevOps answers, sales trainings, industry KPIs, tech stacks, book summaries, electronic reviews, revenue architecture, GTM playbooks, and graphics. Save anything with a 4-digit passcode — no login.",
   "start_url": "/?utm_source=pwa",
   "scope": "/",
@@ -16,8 +16,7 @@
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
-    { "src": "/pulse-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
     { "name": "Knowledge Library", "short_name": "Library", "url": "/knowledge?utm_source=pwa_shortcut", "description": "6,400+ operator-grade RevOps answers" },

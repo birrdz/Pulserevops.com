@@ -1,0 +1,27 @@
+---
+description: PULSE gold template selection — Top 10 vs Q&A router pointer
+globs: website/_pulse_gold_template_router.js,website/_aq_gold_redo_batch_run.js,website/_ranking_*_batch*.js,website/_pillar_image_fix_run.js,website/_format_fixer_lib.js,website/_scrub_button_server.js
+alwaysApply: false
+---
+
+# PULSE Gold Template Selection
+
+> **Template shape law:** `GOLDEN_TEMPLATE_TOP10.md` · `GOLDEN_TEMPLATE_QA.md`  
+> **Pipeline process:** `.cursor/rules/pipeline-template-law.mdc`
+
+**Router:** `_pulse_gold_template_router.js` → `pickGoldTemplate(id, body, title)`
+
+Classify **before** generation. Lock `template`, `goldId`, `reason`. Never switch mid-run.
+
+| Condition | Template | Spec |
+|-----------|----------|------|
+| Title + body ranking markers | **Top 10** | `GOLDEN_TEMPLATE_TOP10.md` |
+| Body ranking markers without title | **Top 10** | `GOLDEN_TEMPLATE_TOP10.md` |
+| Essay/Q&A body | **Q&A** | `GOLDEN_TEMPLATE_QA.md` |
+| Title says "best" but body is essay | **Q&A** (never Top 10) | `GOLDEN_TEMPLATE_QA.md` |
+
+```javascript
+const { pickGoldTemplate } = require('./_pulse_gold_template_router');
+const route = pickGoldTemplate(id, body, title);
+// route.template === 'top10' | 'qa' | null
+```

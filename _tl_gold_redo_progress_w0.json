@@ -1,0 +1,41 @@
+{
+  "running": false,
+  "phase": "complete",
+  "stage": "complete",
+  "total": 10949,
+  "queued": 3475,
+  "ranking": {
+    "fixed": 0,
+    "total": 0,
+    "failed": 0,
+    "remaining": 0
+  },
+  "qa": {
+    "fixed": 0,
+    "total": 3475,
+    "failed": 0,
+    "remaining": 0
+  },
+  "skipped": 0,
+  "note": "CRO Pulse Tools redo — PIPELINE TEMPLATE LAW: classify→gold shape→13/13 only; Top10=aq1158 Q&A=q11133; after 100 fixes dup ONLY for geo-swap / same-angle twins (never lazy cross-bucket); slow doc1 every 0 min",
+  "dupAfter": 100,
+  "answerPoolSize": 0,
+  "ruleFile": ".cursor/rules/pipeline-template-law.mdc",
+  "routerFile": "_pulse_gold_template_router.js",
+  "imageProviderLaw": "_image_provider_alternate.js",
+  "startedAt": "2026-07-07T04:24:07.650Z",
+  "samples": [],
+  "at": "2026-07-07T04:24:30.617Z",
+  "pillar": "tl",
+  "pillarLabel": "CRO Pulse Tools",
+  "strategy": "dual-gold-redo",
+  "shard": "0/3",
+  "doneIds": [],
+  "remaining": 3475,
+  "failed": 0,
+  "currentId": null,
+  "currentTitle": null,
+  "fixed": 0,
+  "completedAt": "2026-07-07T04:24:30.616Z",
+  "entryMs": 25000
+}

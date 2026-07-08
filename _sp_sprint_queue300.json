@@ -1,0 +1,1502 @@
+[
+  {
+    "id": "sp0101",
+    "title": "A Wedding Speech for the Groom",
+    "slug": "a-wedding-speech-for-the-groom"
+  },
+  {
+    "id": "sp0102",
+    "title": "A Wedding Speech for the Bride",
+    "slug": "a-wedding-speech-for-the-bride"
+  },
+  {
+    "id": "sp0103",
+    "title": "A Wedding Speech for a Best Man",
+    "slug": "a-wedding-speech-for-a-best-man"
+  },
+  {
+    "id": "sp0104",
+    "title": "A Wedding Speech for a Maid of Honor",
+    "slug": "a-wedding-speech-for-a-maid-of-honor"
+  },
+  {
+    "id": "sp0105",
+    "title": "A Wedding Speech for the Father of the Bride",
+    "slug": "a-wedding-speech-for-the-father-of-the-bride"
+  },
+  {
+    "id": "sp0106",
+    "title": "A Wedding Speech for the Mother of the Bride",
+    "slug": "a-wedding-speech-for-the-mother-of-the-bride"
+  },
+  {
+    "id": "sp0107",
+    "title": "A Wedding Speech for the Father of the Groom",
+    "slug": "a-wedding-speech-for-the-father-of-the-groom"
+  },
+  {
+    "id": "sp0108",
+    "title": "A Wedding Speech for the Mother of the Groom",
+    "slug": "a-wedding-speech-for-the-mother-of-the-groom"
+  },
+  {
+    "id": "sp0109",
+    "title": "A Wedding Speech for a Best Woman",
+    "slug": "a-wedding-speech-for-a-best-woman"
+  },
+  {
+    "id": "sp0110",
+    "title": "A Wedding Speech for a Man of Honor",
+    "slug": "a-wedding-speech-for-a-man-of-honor"
+  },
+  {
+    "id": "sp0111",
+    "title": "A Wedding Speech for the Officiant",
+    "slug": "a-wedding-speech-for-the-officiant"
+  },
+  {
+    "id": "sp0112",
+    "title": "A Wedding Speech for a Bridesmaid",
+    "slug": "a-wedding-speech-for-a-bridesmaid"
+  },
+  {
+    "id": "sp0113",
+    "title": "A Wedding Speech for a Groomsman",
+    "slug": "a-wedding-speech-for-a-groomsman"
+  },
+  {
+    "id": "sp0114",
+    "title": "A Wedding Speech for a Wedding Rehearsal Dinner",
+    "slug": "a-wedding-speech-for-a-wedding-rehearsal-dinner"
+  },
+  {
+    "id": "sp0115",
+    "title": "A Wedding Speech for a Second Marriage",
+    "slug": "a-wedding-speech-for-a-second-marriage"
+  },
+  {
+    "id": "sp0116",
+    "title": "A Wedding Speech for a Small Backyard Wedding",
+    "slug": "a-wedding-speech-for-a-small-backyard-wedding"
+  },
+  {
+    "id": "sp0117",
+    "title": "A Wedding Speech for a Destination Wedding",
+    "slug": "a-wedding-speech-for-a-destination-wedding"
+  },
+  {
+    "id": "sp0118",
+    "title": "A Wedding Speech for a Same-Sex Wedding",
+    "slug": "a-wedding-speech-for-a-same-sex-wedding"
+  },
+  {
+    "id": "sp0119",
+    "title": "A Wedding Speech for a Surprise Wedding",
+    "slug": "a-wedding-speech-for-a-surprise-wedding"
+  },
+  {
+    "id": "sp0120",
+    "title": "A Wedding Speech for a Vow Renewal",
+    "slug": "a-wedding-speech-for-a-vow-renewal"
+  },
+  {
+    "id": "sp0121",
+    "title": "A Toast for a 30th Birthday",
+    "slug": "a-toast-for-a-30th-birthday"
+  },
+  {
+    "id": "sp0122",
+    "title": "A Toast for a 40th Birthday",
+    "slug": "a-toast-for-a-40th-birthday"
+  },
+  {
+    "id": "sp0123",
+    "title": "A Toast for a 50th Birthday",
+    "slug": "a-toast-for-a-50th-birthday"
+  },
+  {
+    "id": "sp0124",
+    "title": "A Toast for a 60th Birthday",
+    "slug": "a-toast-for-a-60th-birthday"
+  },
+  {
+    "id": "sp0125",
+    "title": "A Toast for a 70th Birthday",
+    "slug": "a-toast-for-a-70th-birthday"
+  },
+  {
+    "id": "sp0126",
+    "title": "A Toast for an 80th Birthday",
+    "slug": "a-toast-for-an-80th-birthday"
+  },
+  {
+    "id": "sp0127",
+    "title": "A Toast for a 90th Birthday",
+    "slug": "a-toast-for-a-90th-birthday"
+  },
+  {
+    "id": "sp0128",
+    "title": "A Toast for a 100th Birthday",
+    "slug": "a-toast-for-a-100th-birthday"
+  },
+  {
+    "id": "sp0129",
+    "title": "A Toast for a Sweet Sixteen",
+    "slug": "a-toast-for-a-sweet-sixteen"
+  },
+  {
+    "id": "sp0130",
+    "title": "A Toast for a 21st Birthday",
+    "slug": "a-toast-for-a-21st-birthday"
+  },
+  {
+    "id": "sp0131",
+    "title": "A Toast for a Surprise Birthday Party",
+    "slug": "a-toast-for-a-surprise-birthday-party"
+  },
+  {
+    "id": "sp0132",
+    "title": "A Toast for a Milestone Wedding Anniversary",
+    "slug": "a-toast-for-a-milestone-wedding-anniversary"
+  },
+  {
+    "id": "sp0133",
+    "title": "A Toast for a 25th Anniversary",
+    "slug": "a-toast-for-a-25th-anniversary"
+  },
+  {
+    "id": "sp0134",
+    "title": "A Toast for a 50th Anniversary",
+    "slug": "a-toast-for-a-50th-anniversary"
+  },
+  {
+    "id": "sp0135",
+    "title": "A Toast for an Engagement Party",
+    "slug": "a-toast-for-an-engagement-party"
+  },
+  {
+    "id": "sp0136",
+    "title": "A Toast for a Housewarming",
+    "slug": "a-toast-for-a-housewarming"
+  },
+  {
+    "id": "sp0137",
+    "title": "A Toast for a Retirement Dinner",
+    "slug": "a-toast-for-a-retirement-dinner"
+  },
+  {
+    "id": "sp0138",
+    "title": "A Toast for a Going-Away Party",
+    "slug": "a-toast-for-a-going-away-party"
+  },
+  {
+    "id": "sp0139",
+    "title": "A Toast for a New Year’s Eve Gathering",
+    "slug": "a-toast-for-a-new-year-s-eve-gathering"
+  },
+  {
+    "id": "sp0140",
+    "title": "A Toast for a Thanksgiving Dinner",
+    "slug": "a-toast-for-a-thanksgiving-dinner"
+  },
+  {
+    "id": "sp0141",
+    "title": "A Toast for a Holiday Office Party",
+    "slug": "a-toast-for-a-holiday-office-party"
+  },
+  {
+    "id": "sp0142",
+    "title": "A Toast for a Graduation Party",
+    "slug": "a-toast-for-a-graduation-party"
+  },
+  {
+    "id": "sp0143",
+    "title": "A Toast for a Baby Shower",
+    "slug": "a-toast-for-a-baby-shower"
+  },
+  {
+    "id": "sp0144",
+    "title": "A Toast for a Gender Reveal",
+    "slug": "a-toast-for-a-gender-reveal"
+  },
+  {
+    "id": "sp0145",
+    "title": "A Toast for a Christening",
+    "slug": "a-toast-for-a-christening"
+  },
+  {
+    "id": "sp0146",
+    "title": "A Toast for a Bar Mitzvah",
+    "slug": "a-toast-for-a-bar-mitzvah"
+  },
+  {
+    "id": "sp0147",
+    "title": "A Toast for a Bat Mitzvah",
+    "slug": "a-toast-for-a-bat-mitzvah"
+  },
+  {
+    "id": "sp0148",
+    "title": "A Toast for a Quinceañera",
+    "slug": "a-toast-for-a-quincea-era"
+  },
+  {
+    "id": "sp0149",
+    "title": "A Toast for a First Communion",
+    "slug": "a-toast-for-a-first-communion"
+  },
+  {
+    "id": "sp0150",
+    "title": "A Toast for a Family Reunion",
+    "slug": "a-toast-for-a-family-reunion"
+  },
+  {
+    "id": "sp0151",
+    "title": "A Eulogy for a Parent",
+    "slug": "a-eulogy-for-a-parent"
+  },
+  {
+    "id": "sp0152",
+    "title": "A Eulogy for a Mother",
+    "slug": "a-eulogy-for-a-mother"
+  },
+  {
+    "id": "sp0153",
+    "title": "A Eulogy for a Father",
+    "slug": "a-eulogy-for-a-father"
+  },
+  {
+    "id": "sp0154",
+    "title": "A Eulogy for a Spouse",
+    "slug": "a-eulogy-for-a-spouse"
+  },
+  {
+    "id": "sp0155",
+    "title": "A Eulogy for a Sibling",
+    "slug": "a-eulogy-for-a-sibling"
+  },
+  {
+    "id": "sp0156",
+    "title": "A Eulogy for a Child",
+    "slug": "a-eulogy-for-a-child"
+  },
+  {
+    "id": "sp0157",
+    "title": "A Eulogy for a Colleague",
+    "slug": "a-eulogy-for-a-colleague"
+  },
+  {
+    "id": "sp0158",
+    "title": "A Eulogy for a Mentor",
+    "slug": "a-eulogy-for-a-mentor"
+  },
+  {
+    "id": "sp0159",
+    "title": "A Eulogy for a Beloved Teacher",
+    "slug": "a-eulogy-for-a-beloved-teacher"
+  },
+  {
+    "id": "sp0160",
+    "title": "A Eulogy for a Veteran",
+    "slug": "a-eulogy-for-a-veteran"
+  },
+  {
+    "id": "sp0161",
+    "title": "A Eulogy for a Community Leader",
+    "slug": "a-eulogy-for-a-community-leader"
+  },
+  {
+    "id": "sp0162",
+    "title": "A Eulogy for a Family Pet",
+    "slug": "a-eulogy-for-a-family-pet"
+  },
+  {
+    "id": "sp0163",
+    "title": "A Eulogy for a Coworker Who Died Young",
+    "slug": "a-eulogy-for-a-coworker-who-died-young"
+  },
+  {
+    "id": "sp0164",
+    "title": "A Eulogy for a Grandmother Who Raised You",
+    "slug": "a-eulogy-for-a-grandmother-who-raised-you"
+  },
+  {
+    "id": "sp0165",
+    "title": "A Graduation Speech for a High School Graduation",
+    "slug": "a-graduation-speech-for-a-high-school-graduation"
+  },
+  {
+    "id": "sp0166",
+    "title": "A Graduation Speech for a College Commencement",
+    "slug": "a-graduation-speech-for-a-college-commencement"
+  },
+  {
+    "id": "sp0167",
+    "title": "A Graduation Speech for a Valedictorian",
+    "slug": "a-graduation-speech-for-a-valedictorian"
+  },
+  {
+    "id": "sp0168",
+    "title": "A Graduation Speech for a Kindergarten Graduation",
+    "slug": "a-graduation-speech-for-a-kindergarten-graduation"
+  },
+  {
+    "id": "sp0169",
+    "title": "A Graduation Speech for a Nursing School Pinning",
+    "slug": "a-graduation-speech-for-a-nursing-school-pinning"
+  },
+  {
+    "id": "sp0170",
+    "title": "A Graduation Speech for an MBA Graduation",
+    "slug": "a-graduation-speech-for-an-mba-graduation"
+  },
+  {
+    "id": "sp0171",
+    "title": "A Graduation Speech for a Trade School Completion",
+    "slug": "a-graduation-speech-for-a-trade-school-completion"
+  },
+  {
+    "id": "sp0172",
+    "title": "A Graduation Speech for a Graduate as the Class President",
+    "slug": "a-graduation-speech-for-a-graduate-as-the-class-president"
+  },
+  {
+    "id": "sp0173",
+    "title": "A Graduation Speech for a Homeschool Graduation",
+    "slug": "a-graduation-speech-for-a-homeschool-graduation"
+  },
+  {
+    "id": "sp0174",
+    "title": "A Graduation Speech for a PhD Defense Celebration",
+    "slug": "a-graduation-speech-for-a-phd-defense-celebration"
+  },
+  {
+    "id": "sp0175",
+    "title": "A Retirement Speech for a Teacher",
+    "slug": "a-retirement-speech-for-a-teacher"
+  },
+  {
+    "id": "sp0176",
+    "title": "A Retirement Speech for a Nurse",
+    "slug": "a-retirement-speech-for-a-nurse"
+  },
+  {
+    "id": "sp0177",
+    "title": "A Retirement Speech for a Police Officer",
+    "slug": "a-retirement-speech-for-a-police-officer"
+  },
+  {
+    "id": "sp0178",
+    "title": "A Retirement Speech for a Firefighter",
+    "slug": "a-retirement-speech-for-a-firefighter"
+  },
+  {
+    "id": "sp0179",
+    "title": "A Retirement Speech for a Military Officer",
+    "slug": "a-retirement-speech-for-a-military-officer"
+  },
+  {
+    "id": "sp0180",
+    "title": "A Retirement Speech for a CEO",
+    "slug": "a-retirement-speech-for-a-ceo"
+  },
+  {
+    "id": "sp0181",
+    "title": "A Retirement Speech for a Small Business Owner",
+    "slug": "a-retirement-speech-for-a-small-business-owner"
+  },
+  {
+    "id": "sp0182",
+    "title": "A Retirement Speech for a Factory Worker",
+    "slug": "a-retirement-speech-for-a-factory-worker"
+  },
+  {
+    "id": "sp0183",
+    "title": "A Retirement Speech for a Pastor",
+    "slug": "a-retirement-speech-for-a-pastor"
+  },
+  {
+    "id": "sp0184",
+    "title": "A Retirement Speech for a Coach",
+    "slug": "a-retirement-speech-for-a-coach"
+  },
+  {
+    "id": "sp0185",
+    "title": "A Retirement Speech for a Doctor",
+    "slug": "a-retirement-speech-for-a-doctor"
+  },
+  {
+    "id": "sp0186",
+    "title": "A Retirement Speech for a Long-Serving Employee",
+    "slug": "a-retirement-speech-for-a-long-serving-employee"
+  },
+  {
+    "id": "sp0187",
+    "title": "A Retirement Speech for a Government Worker",
+    "slug": "a-retirement-speech-for-a-government-worker"
+  },
+  {
+    "id": "sp0188",
+    "title": "A Retirement Speech for a Union Member",
+    "slug": "a-retirement-speech-for-a-union-member"
+  },
+  {
+    "id": "sp0189",
+    "title": "A Retirement Speech for a Flight Attendant",
+    "slug": "a-retirement-speech-for-a-flight-attendant"
+  },
+  {
+    "id": "sp0190",
+    "title": "A Speech for a Sales Kickoff",
+    "slug": "a-speech-for-a-sales-kickoff"
+  },
+  {
+    "id": "sp0191",
+    "title": "A Speech for a Company All-Hands",
+    "slug": "a-speech-for-a-company-all-hands"
+  },
+  {
+    "id": "sp0192",
+    "title": "A Speech for a Product Launch",
+    "slug": "a-speech-for-a-product-launch"
+  },
+  {
+    "id": "sp0193",
+    "title": "A Speech for an Award Ceremony",
+    "slug": "a-speech-for-an-award-ceremony"
+  },
+  {
+    "id": "sp0194",
+    "title": "A Speech for an Employee of the Year",
+    "slug": "a-speech-for-an-employee-of-the-year"
+  },
+  {
+    "id": "sp0195",
+    "title": "A Speech for a Team Offsite Kickoff",
+    "slug": "a-speech-for-a-team-offsite-kickoff"
+  },
+  {
+    "id": "sp0196",
+    "title": "A Speech for a Farewell to a Departing Colleague",
+    "slug": "a-speech-for-a-farewell-to-a-departing-colleague"
+  },
+  {
+    "id": "sp0197",
+    "title": "A Speech for Welcoming a New Hire",
+    "slug": "a-speech-for-welcoming-a-new-hire"
+  },
+  {
+    "id": "sp0198",
+    "title": "A Speech for a Promotion Announcement",
+    "slug": "a-speech-for-a-promotion-announcement"
+  },
+  {
+    "id": "sp0199",
+    "title": "A Speech for a Company 10th Anniversary",
+    "slug": "a-speech-for-a-company-10th-anniversary"
+  },
+  {
+    "id": "sp0200",
+    "title": "A Speech for an IPO Celebration",
+    "slug": "a-speech-for-an-ipo-celebration"
+  },
+  {
+    "id": "sp0201",
+    "title": "A Speech for a Board Dinner",
+    "slug": "a-speech-for-a-board-dinner"
+  },
+  {
+    "id": "sp0202",
+    "title": "A Speech for a Customer Appreciation Event",
+    "slug": "a-speech-for-a-customer-appreciation-event"
+  },
+  {
+    "id": "sp0203",
+    "title": "A Speech for a Conference Opening Keynote",
+    "slug": "a-speech-for-a-conference-opening-keynote"
+  },
+  {
+    "id": "sp0204",
+    "title": "A Speech for a Project Wrap Celebration",
+    "slug": "a-speech-for-a-project-wrap-celebration"
+  },
+  {
+    "id": "sp0205",
+    "title": "A Speech for a Layoff Announcement with Compassion",
+    "slug": "a-speech-for-a-layoff-announcement-with-compassion"
+  },
+  {
+    "id": "sp0206",
+    "title": "A Speech for a Merger Town Hall",
+    "slug": "a-speech-for-a-merger-town-hall"
+  },
+  {
+    "id": "sp0207",
+    "title": "A Speech for Accepting an Industry Award",
+    "slug": "a-speech-for-accepting-an-industry-award"
+  },
+  {
+    "id": "sp0208",
+    "title": "A Speech for a Mentor Recognition",
+    "slug": "a-speech-for-a-mentor-recognition"
+  },
+  {
+    "id": "sp0209",
+    "title": "A Speech for a Volunteer Appreciation Night",
+    "slug": "a-speech-for-a-volunteer-appreciation-night"
+  },
+  {
+    "id": "sp0210",
+    "title": "A Speech for a Youth Sports Banquet",
+    "slug": "a-speech-for-a-youth-sports-banquet"
+  },
+  {
+    "id": "sp0211",
+    "title": "A Speech for a Championship Celebration",
+    "slug": "a-speech-for-a-championship-celebration"
+  },
+  {
+    "id": "sp0212",
+    "title": "A Speech for a Coach’s End-of-Season Talk",
+    "slug": "a-speech-for-a-coach-s-end-of-season-talk"
+  },
+  {
+    "id": "sp0213",
+    "title": "A Speech for a Charity Fundraiser",
+    "slug": "a-speech-for-a-charity-fundraiser"
+  },
+  {
+    "id": "sp0214",
+    "title": "A Speech for a Nonprofit Gala",
+    "slug": "a-speech-for-a-nonprofit-gala"
+  },
+  {
+    "id": "sp0215",
+    "title": "A Speech for a Scout Eagle Court of Honor",
+    "slug": "a-speech-for-a-scout-eagle-court-of-honor"
+  },
+  {
+    "id": "sp0216",
+    "title": "A Speech for a Club Induction",
+    "slug": "a-speech-for-a-club-induction"
+  },
+  {
+    "id": "sp0217",
+    "title": "A Speech for a City Council Swearing-In",
+    "slug": "a-speech-for-a-city-council-swearing-in"
+  },
+  {
+    "id": "sp0218",
+    "title": "A Speech for a Ribbon-Cutting",
+    "slug": "a-speech-for-a-ribbon-cutting"
+  },
+  {
+    "id": "sp0219",
+    "title": "A Speech for a Memorial Day Ceremony",
+    "slug": "a-speech-for-a-memorial-day-ceremony"
+  },
+  {
+    "id": "sp0220",
+    "title": "A Speech for a Veterans Day Tribute",
+    "slug": "a-speech-for-a-veterans-day-tribute"
+  },
+  {
+    "id": "sp0221",
+    "title": "A Speech for a Fourth of July Gathering",
+    "slug": "a-speech-for-a-fourth-of-july-gathering"
+  },
+  {
+    "id": "sp0222",
+    "title": "A Speech for a Neighborhood Block Party",
+    "slug": "a-speech-for-a-neighborhood-block-party"
+  },
+  {
+    "id": "sp0223",
+    "title": "A Speech for a Church Anniversary",
+    "slug": "a-speech-for-a-church-anniversary"
+  },
+  {
+    "id": "sp0224",
+    "title": "A Speech for a PTA Meeting",
+    "slug": "a-speech-for-a-pta-meeting"
+  },
+  {
+    "id": "sp0225",
+    "title": "A Speech for a Library Reopening",
+    "slug": "a-speech-for-a-library-reopening"
+  },
+  {
+    "id": "sp0226",
+    "title": "A Speech for a Hall of Fame Induction",
+    "slug": "a-speech-for-a-hall-of-fame-induction"
+  },
+  {
+    "id": "sp0227",
+    "title": "A Speech for a Little League Opening Day",
+    "slug": "a-speech-for-a-little-league-opening-day"
+  },
+  {
+    "id": "sp0228",
+    "title": "A Speech for a Rotary Club Meeting",
+    "slug": "a-speech-for-a-rotary-club-meeting"
+  },
+  {
+    "id": "sp0229",
+    "title": "A Speech for a Town Hall on a Local Issue",
+    "slug": "a-speech-for-a-town-hall-on-a-local-issue"
+  },
+  {
+    "id": "sp0230",
+    "title": "What Makes Lincoln’s Gettysburg Address a Great Speech",
+    "slug": "what-makes-lincoln-s-gettysburg-address-a-great-speech"
+  },
+  {
+    "id": "sp0231",
+    "title": "What Makes Martin Luther King Jr.’s “I Have a Dream” a Great Speech",
+    "slug": "what-makes-martin-luther-king-jr-s-i-have-a-dream-a-great-sp"
+  },
+  {
+    "id": "sp0232",
+    "title": "What Makes Churchill’s “We Shall Fight on the Beaches” a Great Speech",
+    "slug": "what-makes-churchill-s-we-shall-fight-on-the-beaches-a-great"
+  },
+  {
+    "id": "sp0233",
+    "title": "What Makes JFK’s Inaugural Address a Great Speech",
+    "slug": "what-makes-jfk-s-inaugural-address-a-great-speech"
+  },
+  {
+    "id": "sp0234",
+    "title": "What Makes Steve Jobs’ Stanford Commencement a Great Speech",
+    "slug": "what-makes-steve-jobs-stanford-commencement-a-great-speech"
+  },
+  {
+    "id": "sp0235",
+    "title": "What Makes Nelson Mandela’s Inauguration Speech a Great Speech",
+    "slug": "what-makes-nelson-mandela-s-inauguration-speech-a-great-spee"
+  },
+  {
+    "id": "sp0236",
+    "title": "What Makes FDR’s “Nothing to Fear” a Great Speech",
+    "slug": "what-makes-fdr-s-nothing-to-fear-a-great-speech"
+  },
+  {
+    "id": "sp0237",
+    "title": "What Makes Susan B. Anthony’s “On Women’s Right to Vote” a Great Speech",
+    "slug": "what-makes-susan-b-anthony-s-on-women-s-right-to-vote-a-grea"
+  },
+  {
+    "id": "sp0238",
+    "title": "What Makes Reagan’s “Tear Down This Wall” a Great Speech",
+    "slug": "what-makes-reagan-s-tear-down-this-wall-a-great-speech"
+  },
+  {
+    "id": "sp0239",
+    "title": "What Makes Maya Angelou’s “On the Pulse of Morning” a Great Speech",
+    "slug": "what-makes-maya-angelou-s-on-the-pulse-of-morning-a-great-sp"
+  },
+  {
+    "id": "sp0240",
+    "title": "What Makes Winston Churchill’s “Their Finest Hour” a Great Speech",
+    "slug": "what-makes-winston-churchill-s-their-finest-hour-a-great-spe"
+  },
+  {
+    "id": "sp0241",
+    "title": "What Makes David Foster Wallace’s “This Is Water” a Great Speech",
+    "slug": "what-makes-david-foster-wallace-s-this-is-water-a-great-spee"
+  },
+  {
+    "id": "sp0242",
+    "title": "What Makes Theodore Roosevelt’s “The Man in the Arena” a Great Speech",
+    "slug": "what-makes-theodore-roosevelt-s-the-man-in-the-arena-a-great"
+  },
+  {
+    "id": "sp0243",
+    "title": "What Makes Sojourner Truth’s “Ain’t I a Woman?” a Great Speech",
+    "slug": "what-makes-sojourner-truth-s-ain-t-i-a-woman-a-great-speech"
+  },
+  {
+    "id": "sp0244",
+    "title": "What Makes Patrick Henry’s “Give Me Liberty” a Great Speech",
+    "slug": "what-makes-patrick-henry-s-give-me-liberty-a-great-speech"
+  },
+  {
+    "id": "sp0245",
+    "title": "How to Open a Speech with a Story",
+    "slug": "how-to-open-a-speech-with-a-story"
+  },
+  {
+    "id": "sp0246",
+    "title": "How to Land a Joke in a Toast",
+    "slug": "how-to-land-a-joke-in-a-toast"
+  },
+  {
+    "id": "sp0247",
+    "title": "How to Write a Speech in 30 Minutes",
+    "slug": "how-to-write-a-speech-in-30-minutes"
+  },
+  {
+    "id": "sp0248",
+    "title": "How to Beat Public-Speaking Nerves",
+    "slug": "how-to-beat-public-speaking-nerves"
+  },
+  {
+    "id": "sp0249",
+    "title": "How to End a Speech Memorably",
+    "slug": "how-to-end-a-speech-memorably"
+  },
+  {
+    "id": "sp0250",
+    "title": "How to Give an Impromptu Toast",
+    "slug": "how-to-give-an-impromptu-toast"
+  },
+  {
+    "id": "sp0251",
+    "title": "How to Use the Rule of Three in a Speech",
+    "slug": "how-to-use-the-rule-of-three-in-a-speech"
+  },
+  {
+    "id": "sp0252",
+    "title": "How to Write a Heartfelt Eulogy When You’re Grieving",
+    "slug": "how-to-write-a-heartfelt-eulogy-when-you-re-grieving"
+  },
+  {
+    "id": "sp0253",
+    "title": "How to Tailor a Toast to the Audience",
+    "slug": "how-to-tailor-a-toast-to-the-audience"
+  },
+  {
+    "id": "sp0254",
+    "title": "How to Practice a Speech So It Sounds Natural",
+    "slug": "how-to-practice-a-speech-so-it-sounds-natural"
+  },
+  {
+    "id": "sp0255",
+    "title": "How to Keep a Wedding Toast Under Three Minutes",
+    "slug": "how-to-keep-a-wedding-toast-under-three-minutes"
+  },
+  {
+    "id": "sp0256",
+    "title": "How to Add Humor to a Retirement Speech",
+    "slug": "how-to-add-humor-to-a-retirement-speech"
+  },
+  {
+    "id": "sp0257",
+    "title": "How to Quote Someone Without Sounding Cliche",
+    "slug": "how-to-quote-someone-without-sounding-cliche"
+  },
+  {
+    "id": "sp0258",
+    "title": "How to Structure a Best Man Speech",
+    "slug": "how-to-structure-a-best-man-speech"
+  },
+  {
+    "id": "sp0259",
+    "title": "How to Handle a Hostile Audience",
+    "slug": "how-to-handle-a-hostile-audience"
+  },
+  {
+    "id": "sp0260",
+    "title": "How to Write a Toast for Someone You Barely Know",
+    "slug": "how-to-write-a-toast-for-someone-you-barely-know"
+  },
+  {
+    "id": "sp0261",
+    "title": "How to Memorize a Speech Without Notecards",
+    "slug": "how-to-memorize-a-speech-without-notecards"
+  },
+  {
+    "id": "sp0262",
+    "title": "How to Recover When You Lose Your Place",
+    "slug": "how-to-recover-when-you-lose-your-place"
+  },
+  {
+    "id": "sp0263",
+    "title": "How to Make a Virtual Toast Land on Video",
+    "slug": "how-to-make-a-virtual-toast-land-on-video"
+  },
+  {
+    "id": "sp0264",
+    "title": "How to Write a Bilingual Wedding Toast",
+    "slug": "how-to-write-a-bilingual-wedding-toast"
+  },
+  {
+    "id": "sp0265",
+    "title": "How to Write a Speech Your Audience Remembers",
+    "slug": "how-to-write-a-speech-your-audience-remembers"
+  },
+  {
+    "id": "sp0266",
+    "title": "How to Choose the Right Tone for a Eulogy",
+    "slug": "how-to-choose-the-right-tone-for-a-eulogy"
+  },
+  {
+    "id": "sp0267",
+    "title": "How to Cut a Speech Down to Time",
+    "slug": "how-to-cut-a-speech-down-to-time"
+  },
+  {
+    "id": "sp0268",
+    "title": "How to Use Pauses for Effect",
+    "slug": "how-to-use-pauses-for-effect"
+  },
+  {
+    "id": "sp0269",
+    "title": "How to Write a Toast That Isn’t Cheesy",
+    "slug": "how-to-write-a-toast-that-isn-t-cheesy"
+  },
+  {
+    "id": "sp0270",
+    "title": "How to Tell a Story That Lands an Emotional Point",
+    "slug": "how-to-tell-a-story-that-lands-an-emotional-point"
+  },
+  {
+    "id": "sp0271",
+    "title": "How to Calm Your Hands and Voice on Stage",
+    "slug": "how-to-calm-your-hands-and-voice-on-stage"
+  },
+  {
+    "id": "sp0272",
+    "title": "How to Open with a Question That Hooks the Room",
+    "slug": "how-to-open-with-a-question-that-hooks-the-room"
+  },
+  {
+    "id": "sp0273",
+    "title": "How to Close a Business Speech with a Call to Action",
+    "slug": "how-to-close-a-business-speech-with-a-call-to-action"
+  },
+  {
+    "id": "sp0274",
+    "title": "How to Read the Room and Adjust on the Fly",
+    "slug": "how-to-read-the-room-and-adjust-on-the-fly"
+  },
+  {
+    "id": "sp0275",
+    "title": "A Birthday Speech for Mom",
+    "slug": "a-birthday-speech-for-mom"
+  },
+  {
+    "id": "sp0276",
+    "title": "A Birthday Speech for Dad",
+    "slug": "a-birthday-speech-for-dad"
+  },
+  {
+    "id": "sp0277",
+    "title": "A Birthday Speech for a Grandmother",
+    "slug": "a-birthday-speech-for-a-grandmother"
+  },
+  {
+    "id": "sp0278",
+    "title": "A Birthday Speech for a Grandfather",
+    "slug": "a-birthday-speech-for-a-grandfather"
+  },
+  {
+    "id": "sp0279",
+    "title": "A Birthday Speech for a Best Friend",
+    "slug": "a-birthday-speech-for-a-best-friend"
+  },
+  {
+    "id": "sp0280",
+    "title": "A Birthday Speech for a Spouse",
+    "slug": "a-birthday-speech-for-a-spouse"
+  },
+  {
+    "id": "sp0281",
+    "title": "A Birthday Speech for a Daughter",
+    "slug": "a-birthday-speech-for-a-daughter"
+  },
+  {
+    "id": "sp0282",
+    "title": "A Birthday Speech for a Son",
+    "slug": "a-birthday-speech-for-a-son"
+  },
+  {
+    "id": "sp0283",
+    "title": "A Birthday Speech for a Sister",
+    "slug": "a-birthday-speech-for-a-sister"
+  },
+  {
+    "id": "sp0284",
+    "title": "A Birthday Speech for a Brother",
+    "slug": "a-birthday-speech-for-a-brother"
+  },
+  {
+    "id": "sp0285",
+    "title": "A Birthday Speech for a Coworker",
+    "slug": "a-birthday-speech-for-a-coworker"
+  },
+  {
+    "id": "sp0286",
+    "title": "A Birthday Speech for a Boss",
+    "slug": "a-birthday-speech-for-a-boss"
+  },
+  {
+    "id": "sp0287",
+    "title": "A Birthday Speech for a Mentor",
+    "slug": "a-birthday-speech-for-a-mentor"
+  },
+  {
+    "id": "sp0288",
+    "title": "A Birthday Speech for a Twin",
+    "slug": "a-birthday-speech-for-a-twin"
+  },
+  {
+    "id": "sp0289",
+    "title": "A Birthday Speech for an Aunt",
+    "slug": "a-birthday-speech-for-an-aunt"
+  },
+  {
+    "id": "sp0290",
+    "title": "A Birthday Speech for an Uncle",
+    "slug": "a-birthday-speech-for-an-uncle"
+  },
+  {
+    "id": "sp0291",
+    "title": "A Toast for a 1st Anniversary",
+    "slug": "a-toast-for-a-1st-anniversary"
+  },
+  {
+    "id": "sp0292",
+    "title": "A Toast for a 5th Anniversary",
+    "slug": "a-toast-for-a-5th-anniversary"
+  },
+  {
+    "id": "sp0293",
+    "title": "A Toast for a 10th Anniversary",
+    "slug": "a-toast-for-a-10th-anniversary"
+  },
+  {
+    "id": "sp0294",
+    "title": "A Toast for a 20th Anniversary",
+    "slug": "a-toast-for-a-20th-anniversary"
+  },
+  {
+    "id": "sp0295",
+    "title": "A Toast for a 30th Anniversary",
+    "slug": "a-toast-for-a-30th-anniversary"
+  },
+  {
+    "id": "sp0296",
+    "title": "A Toast for a 40th Anniversary",
+    "slug": "a-toast-for-a-40th-anniversary"
+  },
+  {
+    "id": "sp0297",
+    "title": "A Toast for a 60th Anniversary",
+    "slug": "a-toast-for-a-60th-anniversary"
+  },
+  {
+    "id": "sp0298",
+    "title": "A Toast for a Parents’ Anniversary",
+    "slug": "a-toast-for-a-parents-anniversary"
+  },
+  {
+    "id": "sp0299",
+    "title": "A Toast for a Work Anniversary",
+    "slug": "a-toast-for-a-work-anniversary"
+  },
+  {
+    "id": "sp0300",
+    "title": "A Toast for a Company Founding Anniversary",
+    "slug": "a-toast-for-a-company-founding-anniversary"
+  },
+  {
+    "id": "sp0301",
+    "title": "A Toast for Mother’s Day",
+    "slug": "a-toast-for-mother-s-day"
+  },
+  {
+    "id": "sp0302",
+    "title": "A Toast for Father’s Day",
+    "slug": "a-toast-for-father-s-day"
+  },
+  {
+    "id": "sp0303",
+    "title": "A Toast for Easter Dinner",
+    "slug": "a-toast-for-easter-dinner"
+  },
+  {
+    "id": "sp0304",
+    "title": "A Toast for Hanukkah",
+    "slug": "a-toast-for-hanukkah"
+  },
+  {
+    "id": "sp0305",
+    "title": "A Toast for Diwali",
+    "slug": "a-toast-for-diwali"
+  },
+  {
+    "id": "sp0306",
+    "title": "A Toast for Eid al-Fitr",
+    "slug": "a-toast-for-eid-al-fitr"
+  },
+  {
+    "id": "sp0307",
+    "title": "A Toast for Lunar New Year",
+    "slug": "a-toast-for-lunar-new-year"
+  },
+  {
+    "id": "sp0308",
+    "title": "A Toast for Juneteenth",
+    "slug": "a-toast-for-juneteenth"
+  },
+  {
+    "id": "sp0309",
+    "title": "A Toast for a Friendsgiving",
+    "slug": "a-toast-for-a-friendsgiving"
+  },
+  {
+    "id": "sp0310",
+    "title": "A Toast for a Christmas Eve Dinner",
+    "slug": "a-toast-for-a-christmas-eve-dinner"
+  },
+  {
+    "id": "sp0311",
+    "title": "A Toast for a New Year’s Day Brunch",
+    "slug": "a-toast-for-a-new-year-s-day-brunch"
+  },
+  {
+    "id": "sp0312",
+    "title": "A Toast for a Halloween Party",
+    "slug": "a-toast-for-a-halloween-party"
+  },
+  {
+    "id": "sp0313",
+    "title": "A Toast for a Cinco de Mayo Gathering",
+    "slug": "a-toast-for-a-cinco-de-mayo-gathering"
+  },
+  {
+    "id": "sp0314",
+    "title": "A Toast for a St. Patrick’s Day Party",
+    "slug": "a-toast-for-a-st-patrick-s-day-party"
+  },
+  {
+    "id": "sp0315",
+    "title": "A Toast for an Oktoberfest Celebration",
+    "slug": "a-toast-for-an-oktoberfest-celebration"
+  },
+  {
+    "id": "sp0316",
+    "title": "An Acceptance Speech for a Lifetime Achievement Award",
+    "slug": "an-acceptance-speech-for-a-lifetime-achievement-award"
+  },
+  {
+    "id": "sp0317",
+    "title": "An Acceptance Speech for a Sports MVP Award",
+    "slug": "an-acceptance-speech-for-a-sports-mvp-award"
+  },
+  {
+    "id": "sp0318",
+    "title": "An Acceptance Speech for an Academic Scholarship",
+    "slug": "an-acceptance-speech-for-an-academic-scholarship"
+  },
+  {
+    "id": "sp0319",
+    "title": "An Acceptance Speech for a Volunteer of the Year Award",
+    "slug": "an-acceptance-speech-for-a-volunteer-of-the-year-award"
+  },
+  {
+    "id": "sp0320",
+    "title": "An Acceptance Speech for an Industry Innovation Award",
+    "slug": "an-acceptance-speech-for-an-industry-innovation-award"
+  },
+  {
+    "id": "sp0321",
+    "title": "An Acceptance Speech for a Teacher of the Year Award",
+    "slug": "an-acceptance-speech-for-a-teacher-of-the-year-award"
+  },
+  {
+    "id": "sp0322",
+    "title": "An Acceptance Speech for a Sales Rep of the Year Award",
+    "slug": "an-acceptance-speech-for-a-sales-rep-of-the-year-award"
+  },
+  {
+    "id": "sp0323",
+    "title": "An Acceptance Speech for a Community Service Medal",
+    "slug": "an-acceptance-speech-for-a-community-service-medal"
+  },
+  {
+    "id": "sp0324",
+    "title": "An Acceptance Speech for a Hall of Fame Honor",
+    "slug": "an-acceptance-speech-for-a-hall-of-fame-honor"
+  },
+  {
+    "id": "sp0325",
+    "title": "An Acceptance Speech for a Film or Arts Award",
+    "slug": "an-acceptance-speech-for-a-film-or-arts-award"
+  },
+  {
+    "id": "sp0326",
+    "title": "A Welcome Speech for a New CEO",
+    "slug": "a-welcome-speech-for-a-new-ceo"
+  },
+  {
+    "id": "sp0327",
+    "title": "A Welcome Speech for a New Team Member",
+    "slug": "a-welcome-speech-for-a-new-team-member"
+  },
+  {
+    "id": "sp0328",
+    "title": "A Welcome Speech for International New Hires",
+    "slug": "a-welcome-speech-for-international-new-hires"
+  },
+  {
+    "id": "sp0329",
+    "title": "A Welcome Speech for a New Pastor",
+    "slug": "a-welcome-speech-for-a-new-pastor"
+  },
+  {
+    "id": "sp0330",
+    "title": "A Welcome Speech for a New School Principal",
+    "slug": "a-welcome-speech-for-a-new-school-principal"
+  },
+  {
+    "id": "sp0331",
+    "title": "A Welcome Speech for a Foreign Exchange Student",
+    "slug": "a-welcome-speech-for-a-foreign-exchange-student"
+  },
+  {
+    "id": "sp0332",
+    "title": "A Welcome Speech for a New Club President",
+    "slug": "a-welcome-speech-for-a-new-club-president"
+  },
+  {
+    "id": "sp0333",
+    "title": "A Welcome Speech for New Recruits at Orientation",
+    "slug": "a-welcome-speech-for-new-recruits-at-orientation"
+  },
+  {
+    "id": "sp0334",
+    "title": "A Welcome Speech for a Returning Veteran",
+    "slug": "a-welcome-speech-for-a-returning-veteran"
+  },
+  {
+    "id": "sp0335",
+    "title": "A Welcome Speech for a New Daughter-in-Law",
+    "slug": "a-welcome-speech-for-a-new-daughter-in-law"
+  },
+  {
+    "id": "sp0336",
+    "title": "A Farewell Speech for a Departing CEO",
+    "slug": "a-farewell-speech-for-a-departing-ceo"
+  },
+  {
+    "id": "sp0337",
+    "title": "A Farewell Speech for a Beloved Teacher Leaving",
+    "slug": "a-farewell-speech-for-a-beloved-teacher-leaving"
+  },
+  {
+    "id": "sp0338",
+    "title": "A Farewell Speech for a Coworker Moving Away",
+    "slug": "a-farewell-speech-for-a-coworker-moving-away"
+  },
+  {
+    "id": "sp0339",
+    "title": "A Farewell Speech for a Coach Stepping Down",
+    "slug": "a-farewell-speech-for-a-coach-stepping-down"
+  },
+  {
+    "id": "sp0340",
+    "title": "A Farewell Speech for a Pastor Relocating",
+    "slug": "a-farewell-speech-for-a-pastor-relocating"
+  },
+  {
+    "id": "sp0341",
+    "title": "A Farewell Speech for an Exchange Student Going Home",
+    "slug": "a-farewell-speech-for-an-exchange-student-going-home"
+  },
+  {
+    "id": "sp0342",
+    "title": "A Farewell Speech for a Friend Moving Abroad",
+    "slug": "a-farewell-speech-for-a-friend-moving-abroad"
+  },
+  {
+    "id": "sp0343",
+    "title": "A Farewell Speech for a Manager Taking a New Role",
+    "slug": "a-farewell-speech-for-a-manager-taking-a-new-role"
+  },
+  {
+    "id": "sp0344",
+    "title": "A Farewell Speech for a Soldier Deploying",
+    "slug": "a-farewell-speech-for-a-soldier-deploying"
+  },
+  {
+    "id": "sp0345",
+    "title": "A Farewell Speech for a Long-Time Neighbor Moving",
+    "slug": "a-farewell-speech-for-a-long-time-neighbor-moving"
+  },
+  {
+    "id": "sp0346",
+    "title": "A Coach’s End-of-Season Speech for a Soccer Team",
+    "slug": "a-coach-s-end-of-season-speech-for-a-soccer-team"
+  },
+  {
+    "id": "sp0347",
+    "title": "A Coach’s End-of-Season Speech for a Basketball Team",
+    "slug": "a-coach-s-end-of-season-speech-for-a-basketball-team"
+  },
+  {
+    "id": "sp0348",
+    "title": "A Coach’s End-of-Season Speech for a Football Team",
+    "slug": "a-coach-s-end-of-season-speech-for-a-football-team"
+  },
+  {
+    "id": "sp0349",
+    "title": "A Coach’s End-of-Season Speech for a Baseball Team",
+    "slug": "a-coach-s-end-of-season-speech-for-a-baseball-team"
+  },
+  {
+    "id": "sp0350",
+    "title": "A Coach’s End-of-Season Speech for a Volleyball Team",
+    "slug": "a-coach-s-end-of-season-speech-for-a-volleyball-team"
+  },
+  {
+    "id": "sp0351",
+    "title": "A Coach’s End-of-Season Speech for a Swim Team",
+    "slug": "a-coach-s-end-of-season-speech-for-a-swim-team"
+  },
+  {
+    "id": "sp0352",
+    "title": "A Coach’s End-of-Season Speech for a Track Team",
+    "slug": "a-coach-s-end-of-season-speech-for-a-track-team"
+  },
+  {
+    "id": "sp0353",
+    "title": "A Coach’s End-of-Season Speech for a Hockey Team",
+    "slug": "a-coach-s-end-of-season-speech-for-a-hockey-team"
+  },
+  {
+    "id": "sp0354",
+    "title": "A Coach’s End-of-Season Speech for a Wrestling Team",
+    "slug": "a-coach-s-end-of-season-speech-for-a-wrestling-team"
+  },
+  {
+    "id": "sp0355",
+    "title": "A Coach’s End-of-Season Speech for a Youth Cheer Squad",
+    "slug": "a-coach-s-end-of-season-speech-for-a-youth-cheer-squad"
+  },
+  {
+    "id": "sp0356",
+    "title": "A Coach’s End-of-Season Speech for a Gymnastics Team",
+    "slug": "a-coach-s-end-of-season-speech-for-a-gymnastics-team"
+  },
+  {
+    "id": "sp0357",
+    "title": "A Coach’s End-of-Season Speech for a Tennis Team",
+    "slug": "a-coach-s-end-of-season-speech-for-a-tennis-team"
+  },
+  {
+    "id": "sp0358",
+    "title": "A Speech for a Quarterly Business Review",
+    "slug": "a-speech-for-a-quarterly-business-review"
+  },
+  {
+    "id": "sp0359",
+    "title": "A Speech for a Startup Pitch Day",
+    "slug": "a-speech-for-a-startup-pitch-day"
+  },
+  {
+    "id": "sp0360",
+    "title": "A Speech for an Investor Update Dinner",
+    "slug": "a-speech-for-an-investor-update-dinner"
+  },
+  {
+    "id": "sp0361",
+    "title": "A Speech for a Diversity & Inclusion Event",
+    "slug": "a-speech-for-a-diversity-inclusion-event"
+  },
+  {
+    "id": "sp0362",
+    "title": "A Speech for a Safety Milestone Celebration",
+    "slug": "a-speech-for-a-safety-milestone-celebration"
+  },
+  {
+    "id": "sp0363",
+    "title": "A Speech for a Store Grand Opening",
+    "slug": "a-speech-for-a-store-grand-opening"
+  },
+  {
+    "id": "sp0364",
+    "title": "A Speech for a Franchise Convention",
+    "slug": "a-speech-for-a-franchise-convention"
+  },
+  {
+    "id": "sp0365",
+    "title": "A Speech for a Partner Kickoff",
+    "slug": "a-speech-for-a-partner-kickoff"
+  },
+  {
+    "id": "sp0366",
+    "title": "A Speech for an Onboarding Welcome",
+    "slug": "a-speech-for-an-onboarding-welcome"
+  },
+  {
+    "id": "sp0367",
+    "title": "A Speech for a Recognition Lunch",
+    "slug": "a-speech-for-a-recognition-lunch"
+  },
+  {
+    "id": "sp0368",
+    "title": "A Speech for a Holiday Bonus Announcement",
+    "slug": "a-speech-for-a-holiday-bonus-announcement"
+  },
+  {
+    "id": "sp0369",
+    "title": "A Speech for a Return-to-Office Town Hall",
+    "slug": "a-speech-for-a-return-to-office-town-hall"
+  },
+  {
+    "id": "sp0370",
+    "title": "A Toast for a New Baby’s Arrival",
+    "slug": "a-toast-for-a-new-baby-s-arrival"
+  },
+  {
+    "id": "sp0371",
+    "title": "A Toast for an Adoption Celebration",
+    "slug": "a-toast-for-an-adoption-celebration"
+  },
+  {
+    "id": "sp0372",
+    "title": "A Toast for Becoming a Citizen",
+    "slug": "a-toast-for-becoming-a-citizen"
+  },
+  {
+    "id": "sp0373",
+    "title": "A Toast for Buying a First Home",
+    "slug": "a-toast-for-buying-a-first-home"
+  },
+  {
+    "id": "sp0374",
+    "title": "A Toast for Starting a New Job",
+    "slug": "a-toast-for-starting-a-new-job"
+  },
+  {
+    "id": "sp0375",
+    "title": "A Toast for Beating an Illness",
+    "slug": "a-toast-for-beating-an-illness"
+  },
+  {
+    "id": "sp0376",
+    "title": "A Toast for Finishing a Marathon",
+    "slug": "a-toast-for-finishing-a-marathon"
+  },
+  {
+    "id": "sp0377",
+    "title": "A Toast for Opening a New Business",
+    "slug": "a-toast-for-opening-a-new-business"
+  },
+  {
+    "id": "sp0378",
+    "title": "A Toast for Paying Off a Mortgage",
+    "slug": "a-toast-for-paying-off-a-mortgage"
+  },
+  {
+    "id": "sp0379",
+    "title": "A Toast for Moving Into a Dream Home",
+    "slug": "a-toast-for-moving-into-a-dream-home"
+  },
+  {
+    "id": "sp0380",
+    "title": "A Toast for a Military Homecoming",
+    "slug": "a-toast-for-a-military-homecoming"
+  },
+  {
+    "id": "sp0381",
+    "title": "A Toast for Passing the Bar Exam",
+    "slug": "a-toast-for-passing-the-bar-exam"
+  },
+  {
+    "id": "sp0382",
+    "title": "A Toast for Earning a Black Belt",
+    "slug": "a-toast-for-earning-a-black-belt"
+  },
+  {
+    "id": "sp0383",
+    "title": "A Toast for Completing Basic Training",
+    "slug": "a-toast-for-completing-basic-training"
+  },
+  {
+    "id": "sp0384",
+    "title": "A Toast for a Confirmation",
+    "slug": "a-toast-for-a-confirmation"
+  },
+  {
+    "id": "sp0385",
+    "title": "A Toast for a Baptism",
+    "slug": "a-toast-for-a-baptism"
+  },
+  {
+    "id": "sp0386",
+    "title": "A Toast for a Naming Ceremony",
+    "slug": "a-toast-for-a-naming-ceremony"
+  },
+  {
+    "id": "sp0387",
+    "title": "A Toast for an Empty-Nest Send-Off",
+    "slug": "a-toast-for-an-empty-nest-send-off"
+  },
+  {
+    "id": "sp0388",
+    "title": "A Toast for a Divorce-Recovery Celebration",
+    "slug": "a-toast-for-a-divorce-recovery-celebration"
+  },
+  {
+    "id": "sp0389",
+    "title": "A Toast for a Sober Anniversary",
+    "slug": "a-toast-for-a-sober-anniversary"
+  },
+  {
+    "id": "sp0390",
+    "title": "A Eulogy for a Beloved Coach",
+    "slug": "a-eulogy-for-a-beloved-coach"
+  },
+  {
+    "id": "sp0391",
+    "title": "A Eulogy for a Lifelong Best Friend",
+    "slug": "a-eulogy-for-a-lifelong-best-friend"
+  },
+  {
+    "id": "sp0392",
+    "title": "A Eulogy for a Family Patriarch",
+    "slug": "a-eulogy-for-a-family-patriarch"
+  },
+  {
+    "id": "sp0393",
+    "title": "A Eulogy for a Family Matriarch",
+    "slug": "a-eulogy-for-a-family-matriarch"
+  },
+  {
+    "id": "sp0394",
+    "title": "A Eulogy for a Young Person Gone Too Soon",
+    "slug": "a-eulogy-for-a-young-person-gone-too-soon"
+  },
+  {
+    "id": "sp0395",
+    "title": "A Eulogy for a Devoted Volunteer",
+    "slug": "a-eulogy-for-a-devoted-volunteer"
+  },
+  {
+    "id": "sp0396",
+    "title": "A Eulogy for a War Hero",
+    "slug": "a-eulogy-for-a-war-hero"
+  },
+  {
+    "id": "sp0397",
+    "title": "A Eulogy for a Small-Town Doctor",
+    "slug": "a-eulogy-for-a-small-town-doctor"
+  },
+  {
+    "id": "sp0398",
+    "title": "A Eulogy for a Favorite Aunt",
+    "slug": "a-eulogy-for-a-favorite-aunt"
+  },
+  {
+    "id": "sp0399",
+    "title": "A Eulogy for a First Responder",
+    "slug": "a-eulogy-for-a-first-responder"
+  },
+  {
+    "id": "sp0400",
+    "title": "What Makes Barbara Jordan’s 1976 DNC Keynote a Great Speech",
+    "slug": "what-makes-barbara-jordan-s-1976-dnc-keynote-a-great-speech"
+  }
+]

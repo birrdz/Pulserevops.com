@@ -6,6 +6,8 @@ Sitemap: https://pulserevops.com/sitemap-tools.xml
 Sitemap: https://pulserevops.com/sitemap-knowledge.xml
 Sitemap: https://pulserevops.com/sitemap-recent.xml
 Sitemap: https://pulserevops.com/sitemap-pillars.xml
+Sitemap: https://pulserevops.com/sitemap-fish-crabs.xml
+Sitemap: https://pulserevops.com/sitemap-telco.xml
 Sitemap: https://pulserevops.com/sitemap-reviews.xml
 Sitemap: https://pulserevops.com/sitemap-franchises.xml
 Sitemap: https://pulserevops.com/sitemap-cars.xml
@@ -47,6 +49,8 @@ Sitemap: https://pulserevops.com/.netlify/functions/pulse-machine-sitemap
 
 # Disallow dashboard query param from being indexed as a separate URL
 Disallow: /?dashboard
+# Kory White Projects — private gated pillar (passcode 4444), keep out of search
+Disallow: /kory-white-projects
 
 # Netlify Functions are APIs — not public pages (prevents GSC "401 unauthorized" on admin API)
 Disallow: /.netlify/functions/

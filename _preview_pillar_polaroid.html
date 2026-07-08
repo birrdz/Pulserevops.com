@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>PULSE Dining — Polaroid pillar mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Caveat:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2c2416;--paper:#fffdf7;}
+*{box-sizing:border-box}
+body{margin:0;background:#e9dcc4;background-image:radial-gradient(1400px 700px at 50% -12%,#f4ead6,#e0d0b3);font-family:'Fraunces',Georgia,serif;color:#3a3020}
+/* header */
+.hdr{position:sticky;top:0;z-index:1000;background:rgba(30,22,12,.92);backdrop-filter:blur(6px);color:#f4ead6;display:flex;align-items:center;justify-content:space-between;padding:12px 22px;border-bottom:1px solid rgba(255,220,150,.15)}
+.hdr .b{font-weight:900;letter-spacing:.5px;font-size:1.05rem}
+.hdr .b em{font-style:normal;color:#ffcf7a}
+.hdr .cta{background:linear-gradient(135deg,#c0392b,#e05a3f);color:#fff;text-decoration:none;font-weight:800;font-size:.82rem;padding:8px 15px;border-radius:20px}
+.wrap{max-width:1280px;margin:0 auto;padding:26px 20px 100px}
+/* hero */
+.hero{text-align:center;padding:14px 10px 6px}
+.hero .eye{font-family:'Caveat',cursive;font-size:1.7rem;color:#9c5e12;transform:rotate(-2deg);display:inline-block}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);margin:2px 0 6px;font-weight:900;color:#241a0e;letter-spacing:-.5px}
+.hero p{margin:0 auto;max-width:640px;color:#6f5c3d;font-size:1.05rem}
+.hero .count{margin-top:8px;font-weight:800;color:#c0392b}
+/* search bar (decorative) */
+.tools{display:flex;justify-content:center;gap:10px;margin:20px 0 6px;flex-wrap:wrap}
+.tools input{font-family:inherit;font-size:.95rem;padding:11px 16px;border-radius:26px;border:1px solid rgba(120,80,30,.3);background:#fffdf7;color:#3a3020;width:min(420px,80vw)}
+.chip{font-family:'Caveat',cursive;font-size:1.15rem;background:#fffdf7;border:1px solid rgba(120,80,30,.25);border-radius:20px;padding:5px 14px;color:#7a5a28;cursor:pointer}
+
+/* ── the photo line ── */
+.section{margin-top:46px}
+.sec-lbl{font-family:'Permanent Marker',cursive;font-size:1.5rem;color:var(--ink);transform:rotate(-1.1deg);margin:0 0 4px 10px}
+.scene{position:relative;padding-top:30px}
+.cord{position:absolute;top:0;left:0;width:100%;height:82px;overflow:visible;pointer-events:none;z-index:1}
+.line{position:relative;z-index:2;display:flex;justify-content:space-around;align-items:flex-start;gap:8px;padding:0 8px;flex-wrap:nowrap}
+.polaroid{position:relative;margin-top:34px;width:206px;flex:0 0 auto;background:linear-gradient(168deg,#fffefa,#f3ecdc);padding:11px 11px 0;border-radius:2px;
+  box-shadow:0 16px 28px rgba(50,34,14,.30),0 3px 6px rgba(0,0,0,.14);
+  transform:rotate(var(--t,0deg));transform-origin:50% -14px;
+  transition:transform .5s cubic-bezier(.34,1.35,.5,1),box-shadow .3s;animation:sway 7s ease-in-out infinite;animation-delay:var(--d,0s);cursor:pointer}
+.polaroid:hover{transform:rotate(0) translateY(-10px) scale(1.045);box-shadow:0 30px 52px rgba(50,34,14,.42);z-index:6;animation-play-state:paused}
+.photo{position:relative;width:100%;aspect-ratio:1/1;background:#0d0d0d;overflow:hidden;border-radius:1px}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(.95) saturate(.92) brightness(1.05) sepia(.12)}
+.photo::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 34px rgba(0,0,0,.32);background:linear-gradient(135deg,rgba(255,255,255,.10),transparent 42%);pointer-events:none}
+.cap{font-family:'Caveat',cursive;font-weight:700;color:var(--ink);text-align:center;font-size:1.28rem;line-height:1.12;padding:9px 6px 14px;min-height:56px;display:flex;align-items:center;justify-content:center}
+/* clothespin */
+.pin{position:absolute;top:-22px;left:50%;transform:translateX(-50%) rotate(var(--pr,0deg));width:15px;height:40px;background:linear-gradient(90deg,#e7c99b,#d3ac78 46%,#c39a63);border-radius:4px;z-index:7;box-shadow:0 2px 3px rgba(0,0,0,.35)}
+.pin::before{content:"";position:absolute;left:50%;top:5px;width:1.5px;height:28px;background:rgba(110,72,32,.55);transform:translateX(-50%)}
+.pin::after{content:"";position:absolute;left:50%;top:17px;transform:translateX(-50%);width:13px;height:6px;border:1px solid #9a9a9a;border-radius:2px;background:linear-gradient(#e2e2e2,#a8a8a8)}
+/* glowing bulbs */
+.bulb{fill:#ffd27a;filter:drop-shadow(0 0 7px rgba(255,180,80,.95));animation:flick 4s ease-in-out infinite}
+.b2{animation-delay:1.1s}.b3{animation-delay:.5s}.b4{animation-delay:1.9s}.b5{animation-delay:1.4s}
+@keyframes sway{0%,100%{transform:rotate(var(--t,0deg))}50%{transform:rotate(calc(var(--t,0deg) + 1deg))}}
+@keyframes flick{0%,100%{opacity:1}45%{opacity:.7}72%{opacity:.9}}
+.footer{margin-top:70px;text-align:center;color:#8a744c;font-size:.9rem}
+@media(max-width:900px){.line{flex-wrap:wrap;justify-content:center;gap:16px}.polaroid{margin-top:14px;width:44vw;max-width:210px}.cord{display:none}}
+</style></head>
+<body>
+<header class="hdr"><div class="b">PULSE <em>· Dining</em></div><a class="cta" href="#">✦ Advertise</a></header>
+<div class="wrap">
+  <div class="hero">
+    <span class="eye">strung up & ready ✦</span>
+    <h1>PULSE Dining</h1>
+    <p>Where to eat, hung out to dry like snapshots on the patio lights. Tap any Polaroid to open the full answer.</p>
+    <div class="count">🍽 1,240 dining answers</div>
+  </div>
+  <div class="tools">
+    <input placeholder="🔍 Search dining — “best crab house”, “rooftop dinner”, dn#### …">
+    <span class="chip">Waterfront</span><span class="chip">Date night</span><span class="chip">Brunch</span><span class="chip">Cheap eats</span>
+  </div>
+
+  <!-- rows -->
+  <div id="rows"></div>
+
+  <div class="footer">© 2025 Kory White · PULSE RevOps · a Polaroid-line concept for pillar pages</div>
+</div>
+<script>
+var CORD='<svg class="cord" viewBox="0 0 1000 82" preserveAspectRatio="none"><path d="M0,42 C40,32 70,28 100,28 C140,28 170,58 200,58 C230,58 260,28 300,28 C340,28 370,58 400,58 C430,58 460,28 500,28 C540,28 570,58 600,58 C630,58 660,28 700,28 C740,28 770,58 800,58 C830,58 860,28 900,28 C940,28 970,36 1000,42" fill="none" stroke="#7c6238" stroke-width="2.6"/><circle class="bulb" cx="200" cy="59" r="6.5"/><circle class="bulb b2" cx="400" cy="59" r="6.5"/><circle class="bulb b3" cx="600" cy="59" r="6.5"/><circle class="bulb b4" cx="800" cy="59" r="6.5"/></svg>';
+var ROWS=[
+  {lbl:'🍽 Where to eat this weekend', items:[
+    ['Top 10 waterfront restaurants','waterfront seafood restaurant sunset deck dining'],
+    ['Best crab houses on the bay','chesapeake crab house steamed blue crabs old bay'],
+    ['Rooftop dinner spots','rooftop restaurant city lights evening dinner'],
+    ['Hidden-gem taco joints','street tacos vibrant colorful mexican food'],
+    ['Cozy Italian date night','italian trattoria pasta candlelight romantic'] ]},
+  {lbl:'🥐 Brunch & coffee', items:[
+    ['Best brunch in town','bright brunch table pancakes eggs coffee sunny cafe'],
+    ['Third-wave coffee bars','specialty coffee latte art cafe cozy'],
+    ['Bakeries worth the line','artisan bakery croissants pastries golden'],
+    ['Bottomless mimosa spots','mimosa brunch champagne orange juice patio'] ]},
+  {lbl:'🌙 After dark', items:[
+    ['Late-night eats','late night diner neon burger fries cozy'],
+    ['Best cocktail bars','craft cocktail bar moody dim lighting'],
+    ['Live-music dinner','live music restaurant warm lights band'],
+    ['Wine bars for a nightcap','wine bar glasses cozy shelves bottles'],
+    ['Dessert-first places','decadent dessert plating chocolate elegant'] ]},
+  {lbl:'💵 Cheap & cheerful', items:[
+    ['Best cheap eats','food truck street food casual tasty'],
+    ['$10 lunch specials','casual lunch bowl fresh affordable'],
+    ['Family-size portions','hearty comfort food big plate diner'],
+    ['Happy-hour deals','happy hour appetizers bar snacks drinks'] ]}
+];
+function tilt(i){var t=[-3,2,-2,3,-1][i%5];return t;}
+var out='';
+ROWS.forEach(function(r){
+  out+='<div class="section"><div class="sec-lbl">'+r.lbl+'</div><div class="scene">'+CORD+'<div class="line">';
+  r.items.forEach(function(it,i){
+    var seed=(r.lbl+it[0]).split('').reduce(function(a,c){return (a*31+c.charCodeAt(0))>>>0;},0)%100000;
+    var url='https://image.pollinations.ai/prompt/'+encodeURIComponent(it[1]+' realistic magazine food photography warm light no text')+'?width=500&height=500&nologo=true&model=flux&seed='+seed;
+    out+='<figure class="polaroid" style="--t:'+tilt(i)+'deg;--pr:'+([6,-5,4,-3,5][i%5])+'deg;--d:'+(i*0.25)+'s"><span class="pin"></span><div class="photo"><img loading="lazy" src="'+url+'"></div><figcaption class="cap">'+it[0]+'</figcaption></figure>';
+  });
+  out+='</div></div></div>';
+});
+document.getElementById('rows').innerHTML=out;
+</script>
+</body></html>

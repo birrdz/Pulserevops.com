@@ -49,23 +49,47 @@ exports.handler = async (event) => {
   const store = initStore();
   if (!store) return ok();
 
-  // De-dupe: at most one email per hashed IP per day.
-  const ipHash = hashIp(clientIp(event));
-  const day = today();
-  let quota = {};
-  try { quota = (await store.get(QUOTA_KEY, { type: 'json' })) || {}; } catch (e) {}
-  if (quota[ipHash] === day) return ok();          // already alerted today
-  quota[ipHash] = day;
-  // light prune so the blob can't grow unbounded
-  const keys = Object.keys(quota);
-  if (keys.length > 5000) for (const k of keys) if (quota[k] !== day) delete quota[k];
-  try { await store.setJSON(QUOTA_KEY, quota); } catch (e) {}
+  // BATCHED VISITOR ALERTS (owner 2026-06-29): "1 email per 10 visitors, show all 10 URLs."
+  // Accumulate every visit in a blob buffer; when it reaches BATCH_SIZE, send ONE email
+  // listing all 10 visited URLs (with human/bot label, time, referrer), then clear the
+  // buffer. No per-IP dedup — every beacon counts. Email via the working pulse-progress-notify
+  // path (Postmark/Resend -> koryjordanwhite@gmail.com).
+  const BATCH_KEY = '_visitor_batch.json';
+  const BATCH_SIZE = 10;
+  const rec = {
+    page: String(p.page || '/').slice(0, 300),
+    ref: String(p.ref || '').slice(0, 200),
+    human: !!p.human,
+    bot: isBotUa,
+    at: new Date().toISOString(),
+  };
+  let batch = [];
+  try { batch = (await store.get(BATCH_KEY, { type: 'json', consistency: 'strong' })) || []; } catch (e) {}
+  if (!Array.isArray(batch)) batch = [];
+  batch.push(rec);
 
-  // NO VISITOR EMAILS (owner 2026-06-25): cancelled entirely. This endpoint no
-  // longer emails on visits (neither per-visit nor batched). Visitor COUNT is
-  // surfaced in the gap-fill progress emails instead, sourced from the live
-  // `_stats` daily counter. We keep the per-IP/day quota write above only so the
-  // beacon stays cheap; nothing is emailed from here.
+  if (batch.length >= BATCH_SIZE) {
+    const group = batch.slice(0, BATCH_SIZE);
+    const rows = group.map((v, i) =>
+      `<tr><td style="padding:4px 8px;color:#888">${i + 1}</td>`
+      + `<td style="padding:4px 8px"><a href="https://pulserevops.com${esc(v.page)}">${esc(v.page)}</a></td>`
+      + `<td style="padding:4px 8px">${v.human ? '👤 human' : (v.bot ? '🤖 bot' : '• visit')}</td>`
+      + `<td style="padding:4px 8px;color:#888;white-space:nowrap">${esc((v.at || '').slice(11, 19))} UTC</td>`
+      + `<td style="padding:4px 8px;color:#888">${esc(v.ref || '—')}</td></tr>`
+    ).join('');
+    const html = `<h2>🔔 10 new visitors on Pulse</h2>`
+      + `<table style="border-collapse:collapse;font-family:system-ui,sans-serif;font-size:14px">`
+      + `<tr><th style="padding:4px 8px">#</th><th align="left" style="padding:4px 8px">Page</th><th align="left" style="padding:4px 8px">Type</th><th align="left" style="padding:4px 8px">Time</th><th align="left" style="padding:4px 8px">Referrer</th></tr>`
+      + `${rows}</table><p style="color:#888;font-size:12px">Batched: 1 email per 10 visitors · sent ${esc(new Date().toISOString())}</p>`;
+    try {
+      await fetch('https://pulserevops.com/.netlify/functions/pulse-progress-notify', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ subject: '🔔 10 new Pulse visitors', html }),
+      });
+    } catch (e) {}
+    batch = batch.slice(BATCH_SIZE); // keep any overflow beyond 10
+  }
+  try { await store.setJSON(BATCH_KEY, batch); } catch (e) {}
   return ok();
 };
 

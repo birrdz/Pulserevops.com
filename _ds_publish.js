@@ -30,6 +30,13 @@ const PILLAR = {
   pt: { tags: ['pets', 'pet-care', 'best-of-2027'], seg: 'pets' },
   sw: { tags: ['software', 'software-comparison', 'saas', 'best-of-2027'], seg: 'software' },
   ai: { tags: ['ai-tool-review', 'top-10', 'ai-tools', 'ai-infrastructure', 'best-of-2027'], seg: 'ai-infrastructure' },
+  ga: { tags: ['gatherings', 'top-10', 'best-of-2027'], seg: 'gatherings' },
+  tl: { tags: ['revops-tools', 'sales-tools', 'tools', 'best-of-2027'], seg: 'tools' },
+  sy: { tags: ['style', 'what-to-wear', 'outfits', 'work-style'], seg: 'style' },
+  tc: { tags: ['telco', 'telecom', 'wireless', 'cellular-carrier', 'top-10', 'best-of-2027'], seg: 'telco' },
+  kw: { tags: ['kory-white-projects', 'projects', 'portfolio'], seg: 'kory-white-projects' },
+  cr: { tags: ['crabbing', 'crab', 'chesapeake', 'blue-crab', 'best-of-2027'], seg: 'crabbing' },
+  fs: { tags: ['fishing', 'fishing-spots', 'chesapeake', 'angling', 'best-of-2027'], seg: 'fishing' },
 };
 const prefixOf = (id) => (String(id).match(/^([a-z]+)/i) || [])[1];
 
@@ -42,12 +49,30 @@ async function publishTextFirst(id, title, opts = {}) {
   const conf = PILLAR[pfx] || { tags: [pfx], seg: 'knowledge' };
   const tags = Array.from(new Set([...(conf.tags || []), ...(opts.tags || [])]));
 
+  // EXACT-duplicate guard (owner law): a duplicate = the SAME question WORD FOR WORD
+  // WITHIN THE SAME PILLAR. Two rules from the owner:
+  //   1. Near-but-not-identical questions ARE allowed — match verbatim (whitespace-
+  //      normalized only; case + punctuation stay significant), never fuzzy.
+  //   2. The same question in a DIFFERENT pillar is intentional crossover — allowed.
+  // So we only block when another id in the SAME pillar prefix has the exact question.
+  // Re-writing the same id is fine. Checked before grading/blob-write so no orphan blob.
+  const exactKey = (q) => String(q || '').trim().replace(/\s+/g, ' ');
+  if (!opts.allowDuplicate) {
+    const pre = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] };
+    const key = exactKey(title);
+    const clash = (pre.entries || []).find((e) => e && e.id !== id && prefixOf(e.id) === pfx && exactKey(e.question) === key);
+    if (clash) return { ok: false, id, reason: 'duplicate', dupeOf: clash.id };
+  }
+
   const prep = await prepareBodyForGrade(id, title, body, { skipImages: true });
   body = prep.body;
   const grade = prep.grade;
   if (grade.score < 10) {
     return { ok: false, id, reason: 'grade', score: grade.score, missing: grade.missing, banned: grade.banned_hits };
   }
+
+  // CRO card: render-time only (pulse-machine-entry insertCroAd). Do not bake into blobs.
+  try { const { stripAllCroFromBody } = require('./_cro_strip_lib'); body = stripAllCroFromBody(body); } catch (e) {}
 
   const existing = await store.get(`answers/${id}.json`, { type: 'json' });
   const prevQs = existing && typeof existing.quality_score === 'number' ? existing.quality_score : 0;

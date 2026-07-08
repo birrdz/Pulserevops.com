@@ -10,6 +10,7 @@
 // →    { reply, sources?: [{title, url}] }
 // ════════════════════════════════════════════════════════════════════════
 const https = require('https');
+const { VISITOR_ANSWER } = require('./lib/anthropic-models');
 const { normalizeQuestion, visitorQuestionId } = require('./lib/visitor-question-id');
 const { setVisitorPriority } = require('./lib/visitor-priority');
 
@@ -273,7 +274,7 @@ exports.handler = async (event) => {
   // right where the visitor typed the question. No redirect.
   try {
     const claudeResp = await claudePost({
-      model: 'claude-opus-4-7',
+      model: VISITOR_ANSWER,
       max_tokens: 4096,
       system: SYSTEM_PROMPT + feedContext,
       messages,

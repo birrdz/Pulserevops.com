@@ -1,0 +1,109 @@
+{
+  "running": false,
+  "phase": "ranking-top10",
+  "stage": "stopped by owner — gold templates broken",
+  "total": 900,
+  "queued": 885,
+  "ranking": {
+    "fixed": 14,
+    "total": 826,
+    "failed": 2,
+    "remaining": 812
+  },
+  "qa": {
+    "fixed": 0,
+    "total": 59,
+    "failed": 0,
+    "remaining": 59
+  },
+  "skipped": 1,
+  "note": "Aquarium redo — Top 10 entries use aq1158 law, Q&A entries use q11133 law; image/provider law locked (DDG↔Pollinator 20s floor + adaptive)",
+  "ruleFile": ".cursor/rules/pulse-template-selection.mdc",
+  "routerFile": "_pulse_gold_template_router.js",
+  "imageProviderLaw": "_image_provider_alternate.js",
+  "startedAt": "2026-07-06T22:34:03.424Z",
+  "samples": [
+    {
+      "at": "2026-07-06T21:41:30.513Z",
+      "phase": "top10",
+      "template": "aq1158",
+      "id": "aq1151",
+      "title": "Top 10 Aquarium Sump Pumps 2027",
+      "url": "https://pulserevops.com/aquariums/aq1151",
+      "grade": 15,
+      "goldOk": true,
+      "pass": true
+    },
+    {
+      "at": "2026-07-06T21:06:58.611Z",
+      "phase": "top10",
+      "template": "aq1158",
+      "id": "aq1155",
+      "title": "Top 10 Aquarium Lid Options 2027",
+      "url": "https://pulserevops.com/aquariums/aq1155",
+      "grade": 15,
+      "goldOk": true,
+      "pass": true
+    },
+    {
+      "at": "2026-07-06T20:42:40.323Z",
+      "phase": "top10",
+      "template": "aq1158",
+      "id": "aq1162",
+      "title": "Best salt mix for reef tanks in 2027",
+      "url": "https://pulserevops.com/aquariums/aq1162",
+      "grade": 13,
+      "goldOk": true,
+      "pass": true
+    }
+  ],
+  "at": "2026-07-06T22:49:04.573Z",
+  "pillar": "aq",
+  "pillarLabel": "Aquariums",
+  "strategy": "dual-gold-redo",
+  "currentId": null,
+  "currentTitle": "Top 10 Nano Saltwater Corals for Beginners",
+  "failed": 2,
+  "lastError": "SPEEDUP BLOCKED by render auditors (batch-start): Render audit failing — aq1160: entry-cover hero present (Top 10 should not have top hero); aq1160: too few product-card elements (0); aq1160: ds:Top 10 page has entry-cover hero present (violates rule: No entry-cover hero for Top 10); aq1160: ds:Top 10 page has 0 product-card elements (requires at least 10 product-card per rank); aq1160: ds:Missing direct-answer-box element (Direct Answer must be in gold box with class direct-answer-box)",
+  "doneIds": [
+    "aq1162",
+    "aq1159",
+    "aq1156",
+    "aq1157",
+    "aq1155",
+    "aq1154",
+    "aq1153",
+    "aq1152",
+    "aq1149",
+    "aq1151",
+    "aq1150",
+    "aq1148",
+    "aq1143",
+    "aq1138"
+  ],
+  "remaining": 871,
+  "fixed": 14,
+  "lastCheck": {
+    "at": "2026-07-06T22:26:29.303Z",
+    "phase": "top10",
+    "template": "aq1158",
+    "id": "aq1138",
+    "title": "Top 10 Aquarium Background Plants for Aquascaping",
+    "url": "https://pulserevops.com/aquariums/aq1138",
+    "grade": 15,
+    "goldOk": true,
+    "pass": true
+  },
+  "completedAt": "2026-07-06T20:36:10.808Z",
+  "lastTemplateCheck": {
+    "at": "2026-07-06T20:32:42.934Z",
+    "id": "aq1159",
+    "title": "Best auto feeder for vacation in 2027",
+    "expected": "top10",
+    "picked": "top10",
+    "goldId": "aq1158",
+    "goldUrl": "https://pulserevops.com/aquariums/aq1158",
+    "reason": "body_ranking_markers_without_title_signal",
+    "verifyMs": 10000
+  }
+}

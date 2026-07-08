@@ -1,0 +1,23 @@
+{
+  "flux": {
+    "step": 0,
+    "sweetStep": 0,
+    "hits": 0,
+    "successes": 34,
+    "consecutiveSuccesses": 34,
+    "lastReason": "",
+    "lastAt": 1783546349198,
+    "lockedMs": 15000
+  },
+  "ddg": {
+    "step": 0,
+    "sweetStep": null,
+    "hits": 0,
+    "successes": 0,
+    "consecutiveSuccesses": 0,
+    "lastReason": "",
+    "lastAt": 0,
+    "lockedMs": null
+  },
+  "updatedAt": 1783546349198
+}

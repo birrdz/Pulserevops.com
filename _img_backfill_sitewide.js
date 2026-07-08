@@ -20,11 +20,17 @@ function run(cmd) { try { execSync(cmd, { cwd: 'C:/Users/koryj/website', stdio: 
 
 (async () => {
   log('[img-sitewide] started — full-site sweep across all pillars');
+  // Two-lane support: REVERSE=1 walks pillars back-to-front so a second lane
+  // diverges from the forward lane (per-entry idempotency means no double work —
+  // they meet in the middle, ~halving wall-clock). LANE just labels the log.
+  const REV = process.env.REVERSE === '1';
+  const LANE = process.env.LANE || (REV ? 'B' : 'A');
+  const ord = a => (REV ? a.slice().reverse() : a);
   for (let pass = 1; ; pass++) {
     if (fs.existsSync(STOP)) { log('[img-sitewide] stop flag — exiting'); break; }
-    log('[img-sitewide] FULL-SITE pass ' + pass + ' start');
-    for (const [p, suf] of Object.entries(COVER)) { if (fs.existsSync(STOP)) break; run(`node _cover_img_any.js ${p} "${suf}"`); }
-    for (const [p, path] of Object.entries(TOP10)) { if (fs.existsSync(STOP)) break; run(`node _img_backfill_any.js ${p} ${path}`); }
+    log('[img-sitewide] lane ' + LANE + ' FULL-SITE pass ' + pass + ' start');
+    for (const [p, suf] of ord(Object.entries(COVER))) { if (fs.existsSync(STOP)) break; run(`node _cover_img_any.js ${p} "${suf}"`); }
+    for (const [p, path] of ord(Object.entries(TOP10))) { if (fs.existsSync(STOP)) break; run(`node _img_backfill_any.js ${p} ${path}`); }
     log('[img-sitewide] pass ' + pass + ' complete');
     await sleep(120000); // breathe, then re-sweep (catches newly written entries too)
   }

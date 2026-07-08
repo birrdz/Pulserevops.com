@@ -16,6 +16,9 @@ let getStore = null;
 try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
 
 const SITE = 'https://pulserevops.com';
+// Owner 2026-07-08: article body is text-only — no hero, product, section, or inline
+// images on answer pages. CRO header card (crohdr / background-image) is unchanged.
+const ANSWER_CONTENT_IMAGES_OFF = true;
 const { isRankingListBody, RANKING_LIST_NO_TOP_HERO } = require('../../_ranking_list_master_law');
 const { appliesQaGold } = require('../../_qa_gold_template');
 const { pulseOrgLogoImageObject, PULSE_SITE, PULSE_SHARE_ICON, PULSE_OG_IMAGE, PULSE_FAVICON_ICO, PULSE_ICON_192, PULSE_ICON_512, PULSE_APPLE_TOUCH } = require('./lib/pulse-brand');
@@ -78,21 +81,40 @@ function imgProxy(u) {
   return 'https://wsrv.nl/?url=' + encodeURIComponent(u.replace(/^https?:\/\//i, '')) + '&w=760&output=webp&q=80&we&n=-1';
 }
 
-const IMG_ONERROR = "this.onerror=null;var fb=this.getAttribute('data-fallback');if(fb&&this.src!==fb){this.src=fb;}";
+// Chained fallback: wsrv-proxied → direct (e.g. https m.media-amazon.com) → branded image.
+// Amazon CDN posters can 404 at wsrv AND direct on some mobile networks; the terminal
+// branded fallback guarantees a dead poster NEVER shows a broken-image icon.
+const IMG_ONERROR = "this.onerror=null;var s=this,f1=this.getAttribute('data-fallback'),f2=this.getAttribute('data-fallback2');if(f1&&this.src!==f1){this.onerror=function(){s.onerror=null;if(f2&&s.src!==f2)s.src=f2;};this.src=f1;}else if(f2&&this.src!==f2){this.src=f2;}";
+// Branded fallback shown when a poster src is "N/A", empty, or the remote (Amazon CDN) image dies.
+const BRANDED_IMG_FALLBACK = '/pulse-og.svg';
+// OMDb returns the literal string "N/A" when a title has no poster — never render that as a src.
+function isNaImageUrl(u) {
+  const s = String(u || '').trim();
+  return !s || /^n\/?a$/i.test(s) || /\/N\/A(\.[a-z]+)?$/i.test(s);
+}
 
-/** Build img attributes with https normalization, dimensions, and wsrv→direct fallback. */
+/** Build img attributes: https-forced, N/A-guarded, referrer-safe, dimensioned, onerror→branded fallback. */
 function entryImgAttrs(url, alt, opts) {
   opts = opts || {};
-  const raw = String(url || '').trim().replace(/^http:\/\//i, 'https://');
-  const src = resolveEntryAssetUrl(raw);
+  const na = isNaImageUrl(url);
+  // Force HTTPS (mixed content is blocked on mobile); OMDb posters come from m.media-amazon.com over http.
+  const raw = na ? '' : String(url || '').trim().replace(/^http:\/\//i, 'https://');
+  const brandFb = resolveEntryAssetUrl(BRANDED_IMG_FALLBACK);
+  const src = na ? brandFb : resolveEntryAssetUrl(raw);
   const direct = /^https?:\/\//i.test(raw) ? raw : '';
-  const fb = opts.fallback ? resolveEntryAssetUrl(opts.fallback) : (direct && src !== direct ? direct : '');
+  // Chained fallback (no broken icons, ever):
+  //   step 1 (data-fallback)  → explicit opts.fallback, else the direct https poster URL (bypasses wsrv proxy)
+  //   step 2 (data-fallback2) → ALWAYS the branded image, as the terminal guarantee
+  let fb1 = opts.fallback ? resolveEntryAssetUrl(opts.fallback) : (direct && src !== direct ? direct : '');
+  if (fb1 === src) fb1 = '';
+  const fb2 = brandFb !== src ? brandFb : '';
   const load = opts.eager ? 'eager' : 'lazy';
   const fetchP = opts.eager ? ' fetchpriority="high"' : '';
   const w = opts.width || 760;
   const h = opts.height || 428;
-  let attrs = ' src="' + escAttr(src) + '" alt="' + escAttr(alt || '') + '" width="' + w + '" height="' + h + '" loading="' + load + '"' + fetchP + ' decoding="async"';
-  if (fb) attrs += ' data-fallback="' + escAttr(fb) + '"';
+  let attrs = ' src="' + escAttr(src) + '" alt="' + escAttr(alt || '') + '" width="' + w + '" height="' + h + '" loading="' + load + '"' + fetchP + ' decoding="async" referrerpolicy="no-referrer"';
+  if (fb1 && fb1 !== src) attrs += ' data-fallback="' + escAttr(fb1) + '"';
+  if (fb2 && fb2 !== src && fb2 !== fb1) attrs += ' data-fallback2="' + escAttr(fb2) + '"';
   attrs += ' onerror="' + IMG_ONERROR + '"';
   return attrs;
 }
@@ -110,18 +132,20 @@ function stripLeadingCoverMarkdown(body) {
 }
 
 function entryCoverFigureHtml(alt, url) {
+  if (ANSWER_CONTENT_IMAGES_OFF) return '';
   const attrs = entryImgAttrs(url, alt, { eager: true, width: 1200, height: 675 });
   return '<figure class="entry-cover" style="margin:0 0 18px;background:#ECE3D2;border-radius:14px;overflow:hidden;border:1px solid rgba(29,23,17,.10);">'
-    + '<img' + attrs + ' style="width:100%;height:auto;border-radius:14px;display:block;background:#ECE3D2;object-fit:cover;max-height:520px;"></figure>';
+    + '<img' + attrs + ' style="width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;display:block;background:#ECE3D2;object-fit:cover;max-height:520px;"></figure>';
 }
 
 function entryCoverFigureHtmlWithFallback(alt, url, fallback) {
+  /* TOP HERO renders even with ANSWER_CONTENT_IMAGES_OFF — hero is 1 of the 2 allowed images (owner 2026-07-08) */
   const raw = String(url || '').trim();
   const direct = /^https?:\/\//i.test(raw) ? raw.replace(/^http:\/\//i, 'https://') : '';
   const fb = fallback ? fallback : (direct || '');
   const attrs = entryImgAttrs(url, alt, { eager: true, width: 1200, height: 675, fallback: fb });
   return '<figure class="entry-cover" style="margin:0 0 18px;background:#ECE3D2;border-radius:14px;overflow:hidden;border:1px solid rgba(29,23,17,.10);">'
-    + '<img' + attrs + ' style="width:100%;height:auto;border-radius:14px;display:block;background:#ECE3D2;object-fit:cover;max-height:520px;"></figure>';
+    + '<img' + attrs + ' style="width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;display:block;background:#ECE3D2;object-fit:cover;max-height:520px;"></figure>';
 }
 
 /** Absolute URL for /assets paths; wsrv proxy for externals. */
@@ -215,7 +239,9 @@ function renderMd(text, styleIncl, skipFirstCover) {
       const oimg = realImg
         ? imgProxy(realImg)
         : 'https://image.pollinations.ai/prompt/' + encodeURIComponent(oprompt) + '?width=768&height=1024&nologo=true';
-      h += '<img' + entryImgAttrs(oimg, (ageStr ? ageStr + ' ' : '') + gender + ' — ' + (meta.title || 'outfit') + ' look', { width: 760, height: 560 }) + ' style="display:block;width:100%;height:auto;max-height:560px;object-fit:cover;object-position:top;background:#ECE3D2;">';
+      if (!ANSWER_CONTENT_IMAGES_OFF) {
+        h += '<img' + entryImgAttrs(oimg, (ageStr ? ageStr + ' ' : '') + gender + ' — ' + (meta.title || 'outfit') + ' look', { width: 760, height: 560 }) + ' style="display:block;width:100%;height:auto;max-height:560px;object-fit:cover;object-position:top;background:#ECE3D2;">';
+      }
       h += '<div style="padding:16px 18px;">';
       if (meta.title) h += '<div style="font-family:Fraunces,Georgia,serif;font-weight:800;font-size:1.15rem;color:#1d1711;">' + escHtml(meta.title) + '</div>';
       const sub = [meta.gender, meta.age, meta.occasion, meta.budget].filter(Boolean).map(escHtml).join(' · ');
@@ -313,6 +339,10 @@ function renderMd(text, styleIncl, skipFirstCover) {
       const imgM = t.match(/^!\[([^\]]*)\]\((.+)\)\s*$/);
       if (imgM) {
         flush();
+        if (ANSWER_CONTENT_IMAGES_OFF) {
+          if (!coverImgDone) coverImgDone = true;
+          i++; continue;
+        }
         let url = imgM[2].trim();
         const tm = url.match(/^(.*?)\s+"[^"]*"$/); if (tm) url = tm[1].trim();
         if (!coverImgDone) {
@@ -339,8 +369,18 @@ function renderMd(text, styleIncl, skipFirstCover) {
       const im = (t.match(/img="([^"]*)"/) || [])[1] || '';
       const st = (t.match(/site="([^"]*)"/) || [])[1] || '';
       const link = st || (im ? im : '#');
+      // Movie posters (mv pillar) are portrait 2:3 — render in an aspect-ratio container so they never
+      // collapse or stretch on mobile (no fixed px width). Other pillars keep contain-fit product photos.
+      const isPoster = /\/assets\/qa\/mv\d/i.test(im) || /m\.media-amazon\.com/i.test(im);
       let card = '<div class="product-card" style="margin:18px 0;border:1px solid rgba(29,23,17,.14);border-radius:14px;overflow:hidden;background:#FBF8F1;">';
-      if (im) card += '<a href="' + escAttr(link) + '" target="_blank" rel="noopener"><img' + entryImgAttrs(im, nm, { width: 760, height: 460 }) + ' style="display:block;width:100%;height:auto;max-height:460px;object-fit:contain;background:#fff;"></a>';
+      // @@PRODUCT posters are curated Top-10 images — always render them (exempt from the Q&A body-image purge).
+      if (im) {
+        const imgStyle = isPoster
+          ? 'display:block;width:100%;height:auto;aspect-ratio:2/3;max-width:340px;margin:0 auto;object-fit:cover;background:#0a0c11;'
+          : 'display:block;width:100%;height:auto;max-height:460px;object-fit:contain;background:#fff;';
+        const dims = isPoster ? { width: 800, height: 1200 } : { width: 760, height: 460 };
+        card += '<a href="' + escAttr(link) + '" target="_blank" rel="noopener"><img' + entryImgAttrs(im, nm, dims) + ' style="' + imgStyle + '"></a>';
+      }
       if (nm) card += '<div class="product-name" style="display:block;padding:13px 16px;font-weight:800;color:#1d1711;font-size:1.06rem;line-height:1.35;">' + escHtml(nm) + '</div>';
       card += '</div>';
       out.push(card);
@@ -353,7 +393,9 @@ function renderMd(text, styleIncl, skipFirstCover) {
       const li = t.match(/^\[!\[([^\]]*)\]\(([^)]+)\)\]\((.+)\)\s*$/);
       if (li) {
         flush();
-        out.push('<figure class="entry-graphic" style="margin:0 0 18px;"><a href="' + escAttr(li[3].trim()) + '" target="_blank" rel="noopener"><img' + entryImgAttrs(li[2].trim(), li[1], { width: 760, height: 428 }) + ' style="width:100%;height:auto;border-radius:14px;display:block;"></a></figure>');
+        if (!ANSWER_CONTENT_IMAGES_OFF) {
+          out.push('<figure class="entry-graphic" style="margin:0 0 18px;"><a href="' + escAttr(li[3].trim()) + '" target="_blank" rel="noopener"><img' + entryImgAttrs(li[2].trim(), li[1], { width: 760, height: 428 }) + ' style="width:100%;height:auto;border-radius:14px;display:block;"></a></figure>');
+        }
         i++; continue;
       }
     }
@@ -531,8 +573,8 @@ function croAdCard() {
   //   base (whole image / "Quick Call?") -> Calendly · logo -> crosyndicate.com ·
   //   photo + "See Kory on LinkedIn" -> LinkedIn.
   const LI   = 'https://www.linkedin.com/in/korywhite';
-  const CAL  = 'https://calendly.com/korywhiterevops';
-  const SYND = 'https://crosyndicate.com/';
+  const CAL  = 'https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget';
+  const SYND = 'https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget';
   const RESUME = '/assets/kory-white-cro-1page.pdf';
   const IMG  = '/assets/cro-syndicate-card.png';
   const btn  = 'display:block;text-align:center;text-decoration:none;font-weight:800;font-size:.82rem;padding:8px 10px;border-radius:9px;margin-top:7px;';
@@ -541,6 +583,7 @@ function croAdCard() {
   // as you scroll. × drops it off the string. On screens too narrow to sit beside the article it
   // hides (see .cro-ad-root CSS + the article right-gutter) so it NEVER covers the text.
   const KORY = '/assets/kory-white.jpg';
+  return '';   // swinging card removed — CRO card is now the page header (owner 2026-07-07)
   return '<div class="cro-ad cro-ad-card cro-ad-root" id="croFixed" aria-label="Sponsored — Kory White, Fractional CRO">' +
     '<div class="cro-swing">' +
       '<div class="cro-cord"></div><div class="cro-peg"></div>' +
@@ -549,7 +592,7 @@ function croAdCard() {
         '<button type="button" class="cro-close cro-x" aria-label="Dismiss">×</button>' +
         '<div class="cro-top"><div class="cro-logo">CRO <em>SYNDICATE</em></div><span class="cro-sponsored">SPONSORED</span></div>' +
         '<div class="cro-hero"><span class="cro-photo"><img src="' + KORY + '" alt="Kory White, Fractional CRO" width="64" height="64" loading="lazy" decoding="async"></span>' +
-          '<span><span class="cro-name">Kory White</span><span class="cro-role">Fractional CRO · 25 yrs · $0→$200M</span></span></div>' +
+          '<span><span class="cro-name">Kory White</span><span class="cro-role">Fractional Chief Revenue Officer · 25 yrs · $0→$200M</span></span></div>' +
         '<p class="cro-eyebrow">Hire a Fractional CRO</p>' +
         '<div class="cro-head">Need a fractional Chief Revenue Officer?</div>' +
         '<div class="cro-pills"><span>Chief Revenue Officer</span><span>Revenue Leader</span><span>VP of Sales</span><span>Sales Leader</span></div>' +
@@ -580,10 +623,11 @@ function croAdCard() {
 // × dismisses it (remembered per session). Hidden on desktop (desktop keeps the hanging card).
 // MOBILE inline CRO card — same Kory card as desktop, placed inline after Direct Answer. × dismisses it.
 function croMobileCard() {
-  const CAL = 'https://calendly.com/korywhiterevops';
+  const CAL = 'https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget';
   const LI = 'https://www.linkedin.com/in/korywhite';
-  const SYND = 'https://crosyndicate.com/';
+  const SYND = 'https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget';
   const KORY = '/assets/kory-white.jpg';
+  return '';   // mobile swinging card removed — CRO card is now the page header (owner 2026-07-07)
   return '<div class="cro-mob-card" id="croMobCard" aria-label="Sponsored — Kory White, Fractional CRO">' +
     '<div class="cro-swing">' +
       '<div class="cro-cord"></div><div class="cro-peg"></div>' +
@@ -592,7 +636,7 @@ function croMobileCard() {
         '<button type="button" class="cro-close" aria-label="Dismiss">×</button>' +
         '<div class="cro-top"><div class="cro-logo">CRO <em>SYNDICATE</em></div><span class="cro-sponsored">SPONSORED</span></div>' +
         '<div class="cro-hero"><span class="cro-photo"><img src="' + KORY + '" alt="Kory White, Fractional CRO" width="64" height="64" loading="lazy" decoding="async"></span>' +
-          '<span><span class="cro-name">Kory White</span><span class="cro-role">Fractional CRO · 25 yrs · $0→$200M</span></span></div>' +
+          '<span><span class="cro-name">Kory White</span><span class="cro-role">Fractional Chief Revenue Officer · 25 yrs · $0→$200M</span></span></div>' +
         '<p class="cro-eyebrow">Hire a Fractional CRO</p>' +
         '<div class="cro-head">Need a fractional Chief Revenue Officer?</div>' +
         '<div class="cro-pills"><span>Chief Revenue Officer</span><span>Revenue Leader</span><span>VP of Sales</span><span>Sales Leader</span></div>' +
@@ -638,6 +682,30 @@ function stripRenderedCro(html) {
   h = h.replace(/\n*<figure class=["']entry-graphic["'][\s\S]*?(?:calendly\.com\/korywhiterevops|cro-syndicate-card|kory-white\.jpg|usgv65|files\.catbox)[\s\S]*?<\/figure>\n*/gi, '\n');
   h = h.replace(/\n*<p>\s*(?:<strong>\s*)?Reach Kory White, Fractional CRO[\s\S]*?<\/p>\n*/gi, '\n');
   h = h.replace(/\n*<p>\s*💼[\s\S]*?<\/p>\n*/gi, '\n');
+  return h.replace(/\n{3,}/g, '\n\n');
+}
+
+/** Strip stray content images from rendered article HTML (CRO header is outside .body).
+ *  preserveProducts=true (ranking lists / Top-10): KEEP the @@PRODUCT + v2-pick poster images —
+ *  those ARE the ranking content — and only remove stray section/graphic/cover figures. */
+function stripAnswerContentImages(html, preserveProducts) {
+  if (!html || !ANSWER_CONTENT_IMAGES_OFF) return html;
+  let h = String(html);
+  if (preserveProducts) {
+    // Protect Top-10 product-card + v2-pick blocks, strip the rest, then restore them.
+    const keep = [];
+    h = h.replace(/<div class="(?:product-card|v2-pick)"[\s\S]*?<div class="product-name"[\s\S]*?<\/div>\s*<\/div>/gi, m => { keep.push(m); return '@@KEEPIMG' + (keep.length - 1) + '@@'; });
+    h = h.replace(/<figure\b[^>]*class="entry-(?:section|graphic|cover)"[^>]*>[\s\S]*?<\/figure>/gi, '');
+    h = h.replace(/<a\b[^>]*>\s*<img\b[^>]*\/?>\s*<\/a>/gi, '');
+    h = h.replace(/<img\b[^>]*\/?>/gi, '');
+    h = h.replace(/<figure\b[^>]*>\s*<\/figure>/gi, '');
+    h = h.replace(/@@KEEPIMG(\d+)@@/g, (m, i) => keep[+i] || '');
+    return h.replace(/\n{3,}/g, '\n\n');
+  }
+  h = h.replace(/<figure\b[^>]*class="entry-(?:section|graphic|cover)"[^>]*>[\s\S]*?<\/figure>/gi, '');
+  h = h.replace(/<a\b[^>]*>\s*<img\b[^>]*\/?>\s*<\/a>/gi, '');
+  h = h.replace(/<img\b[^>]*\/?>/gi, '');
+  h = h.replace(/<figure\b[^>]*>\s*<\/figure>/gi, '');
   return h.replace(/\n{3,}/g, '\n\n');
 }
 
@@ -888,14 +956,30 @@ exports.handler = async (event) => {
     "@type": "Person",
     "@id": SITE + "/#korywhite",
     "name": "Kory White",
-    "jobTitle": "Chief Revenue Officer",
+    "jobTitle": ["Fractional CRO", "Fractional Chief Revenue Officer"],
+    "description": "Fractional CRO — Fractional Chief Revenue Officer with 25 years in revenue leadership; has driven $0→$200M in revenue. Available for fractional / interim / part-time Fractional Chief Revenue Officer engagements via CRO Syndicate.",
     "url": SITE + "/resume",
     "image": SITE + "/assets/kory-white.jpg",
+    "knowsAbout": ["Fractional CRO", "Fractional Chief Revenue Officer", "Chief Revenue Officer", "Revenue Operations (RevOps)", "Go-to-Market strategy", "Sales leadership", "Revenue architecture", "Pipeline and forecasting"],
+    "worksFor": { "@type": "Organization", "@id": "https://crosyndicate.com/#org", "name": "CRO Syndicate", "url": "https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-schema" },
     "sameAs": [
       "https://www.linkedin.com/in/korywhite",
+      "https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-schema",
       "https://theexecutivereview.org/kory-white.html",
       SITE + "/resume"
     ]
+  };
+  // Fractional-CRO SERVICE entity — so Google associates the "hire a fractional CRO" intent
+  // with Kory / CRO Syndicate (service-search lever, owner lead-gen pivot 2026-07-08).
+  const croService = {
+    "@type": "Service",
+    "@id": SITE + "/#fractional-cro-service",
+    "serviceType": "Fractional CRO — Fractional Chief Revenue Officer",
+    "name": "Fractional CRO (Fractional Chief Revenue Officer)",
+    "alternateName": ["Fractional CRO", "Fractional Chief Revenue Officer"],
+    "provider": { "@type": "ProfessionalService", "name": "CRO Syndicate", "url": "https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-schema", "founder": { "@id": SITE + "/#korywhite" } },
+    "areaServed": "US",
+    "description": "Fractional, interim, and part-time Chief Revenue Officer engagements — revenue operations, GTM, pipeline, and forecasting leadership."
   };
   const publisherOrg = {
     "@type": "Organization",
@@ -909,6 +993,8 @@ exports.handler = async (event) => {
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
+      koryEditor,
+      croService,
       {
         "@type": "QAPage",
         "url": url,
@@ -963,11 +1049,11 @@ exports.handler = async (event) => {
   const heroUrl = pickHeroUrl(croStripped, idxEntry && idxEntry.img, id, noTopHero);
   const heroFallback = firstProductImg(croStripped);
   const heroAlt = entry.question || (coverLead && coverLead.alt) || id;
-  const heroHtml = heroUrl ? entryCoverFigureHtmlWithFallback(heroAlt, heroUrl, heroFallback && heroFallback !== heroUrl ? heroFallback : '') : '';
+  const heroHtml = (heroUrl ? entryCoverFigureHtmlWithFallback(heroAlt, heroUrl, heroFallback && heroFallback !== heroUrl ? heroFallback : '') : '');
   let bodyForMd = noTopHero ? stripLeadingCoverMarkdown(croStripped) : croStripped;
   bodyForMd = bodyForMd.replace(/<!--pillar-weave-->|<!--cro-weave-->/g, '');
   if (heroHtml) bodyForMd = stripLeadingCoverMarkdown(bodyForMd);
-  let renderedAnswer = wrapDirectAnswerGold(renderMd(bodyForMd, /^sy\d+$/i.test(id), noTopHero || !!heroHtml));
+  let renderedAnswer = stripAnswerContentImages(wrapDirectAnswerGold(renderMd(bodyForMd, /^sy\d+$/i.test(id), noTopHero || !!heroHtml)), rankingList);
 
   // Word count for the meta row — strip markdown noise (code fences, URLs,
   // table pipes, heading hashes) so the count reflects readable prose.
@@ -1116,6 +1202,7 @@ exports.handler = async (event) => {
     *{box-sizing:border-box;}
     /* site-wide brightness bump (owner 2026-07-06): brighten all in-body + cover images */
     article img, .body img, .entry-hero img, figure img { filter: brightness(1.22) saturate(1.04); }
+    ${ANSWER_CONTENT_IMAGES_OFF ? '.body img,.body figure.entry-section,.body figure.entry-graphic,.body figure.entry-cover{display:none!important;}.body .product-card>a,.body .product-card>a img,.body .product-card img,.body .v2-pick>div>a,.body .v2-pick>div>a img,.body .v2-pick img{display:block!important;}' : ''}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.7;}
     a{color:var(--orange-bright);text-decoration:none;}
     a:hover{text-decoration:underline;}
@@ -1283,6 +1370,9 @@ exports.handler = async (event) => {
   <link rel="stylesheet" href="/assets/pulse-tan.css">
 </head>
 <body>
+  <style>.crohdr{max-width:1000px;margin:10px auto 6px;padding:0 14px}.cro-card{display:flex;align-items:stretch;text-decoration:none;border:3px solid #EAC15C;border-radius:14px;overflow:hidden;background:linear-gradient(100deg,#180a10,#0f0a0c 60%);box-shadow:0 6px 26px rgba(0,0,0,.5),0 0 0 1px rgba(234,193,92,.35)}.cro-card__img{flex:0 0 32%;background-size:cover;background-position:center 30%;min-height:210px;border-right:1px solid rgba(234,193,92,.28)}.cro-card__body{flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center;gap:5px}.cro-card__eyebrow{font:800 .6rem/1.3 system-ui;letter-spacing:.13em;color:#FFB81C}.cro-card__title{margin:0;font-family:Georgia,serif;font-weight:800;font-size:clamp(1.7rem,3.7vw,2.6rem);line-height:1.05;color:#F6C445!important;text-shadow:0 1px 6px rgba(0,0,0,.5)}.cro-card__eyebrow{color:#FFB81C!important}.cro-card__role{color:#EAC15C!important}.cro-card__role{margin:0;color:#EAC15C;font-weight:700;font-size:.9rem}.cro-card__sub{margin:2px 0 0;color:#b9b1a6;font-size:.88rem;max-width:52ch}.cro-card__rail{flex:0 0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;gap:12px;padding:16px 20px;background:linear-gradient(180deg,rgba(234,193,92,.06),transparent);border-left:1px solid rgba(234,193,92,.16);min-width:190px}.cro-card__badge{display:inline-flex;align-items:center;gap:7px;font:800 .58rem/1 system-ui;letter-spacing:.1em;text-transform:uppercase;color:#cfe8c6;background:rgba(40,90,50,.28);border:1px solid rgba(120,200,130,.35);padding:5px 10px;border-radius:999px;white-space:nowrap}.cro-card__badge i{width:8px;height:8px;border-radius:50%;background:#48d16a;box-shadow:0 0 8px #48d16a}.cro-card__railcta{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.cro-card__cta{background:linear-gradient(180deg,#EAC15C,#cf9f2e);color:#1a0a00;font-weight:900;font-size:.95rem;padding:11px 20px;border-radius:10px;white-space:nowrap}.cro-card__resume{color:#EAC15C;font-weight:700;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}.cro-card:hover{border-color:#EAC15C}.cro-bar{display:grid;grid-template-columns:repeat(4,1fr);margin:-2px 0 4px;border:1px solid rgba(234,193,92,.4);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}.cro-bar a{text-align:center;padding:11px 8px;color:#EAC15C;font-weight:800;font-size:.9rem;text-decoration:none;background:#130a10;border-right:1px solid rgba(234,193,92,.22)}.cro-bar a:last-child{border-right:none}.cro-bar a:hover{background:#1d1017;color:#fff}@media(max-width:640px){.cro-bar{grid-template-columns:repeat(2,1fr)}.cro-bar a:nth-child(2){border-right:none}.cro-card{flex-direction:column}.cro-card__img{flex:none;width:100%;min-height:120px;border-right:none;border-bottom:1px solid rgba(234,193,92,.28)}.cro-card__rail{flex-direction:row;align-items:center;justify-content:space-between;width:100%;min-width:0;border-left:none;border-top:1px solid rgba(234,193,92,.16);padding:11px 14px}.cro-card__railcta{flex-direction:row;align-items:center;gap:12px}}</style>
+  <div class="crohdr"><a class="cro-card" href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="hire-cro" aria-label="Book a call with Kory White, Fractional CRO"><div class="cro-card__img" style="background-image:url('/assets/kory-white.jpg')"></div><div class="cro-card__body"><span class="cro-card__eyebrow">FRACTIONAL CHIEF REVENUE OFFICER · 25 YRS · $0→$200M</span><h2 class="cro-card__title">Kory White</h2><p class="cro-card__role">RevOps &amp; Revenue Leadership</p><p class="cro-card__sub">25 years scaling revenue teams from $0 to $200M. Fractional leadership, full-time impact.</p></div></a>
+  <div class="cro-bar"><a href="/fractional-cro" data-pulse-click="fractional-cro-hub">Hire a Fractional CRO</a><a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">LinkedIn</a><a href="/assets/kory-white-cro-resume.pdf" target="_blank" rel="noopener">Résumé</a><a href="https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate</a></div></div>
   <button id="scroll-top" type="button" aria-label="Scroll to top" style="position:fixed;bottom:24px;right:24px;width:42px;height:42px;border-radius:50%;background:rgba(232,113,10,0.92);border:1px solid rgba(255,255,255,0.18);color:#fff;font-size:1.1rem;font-weight:900;cursor:pointer;z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.2s, transform 0.15s;box-shadow:0 6px 20px rgba(232,113,10,0.4);font-family:inherit;">↑</button>
   <div class="top">
     <a href="/" class="brand" aria-label="Pulse News — Value Added"><img class="brandlogo" src="/pulse-news-logo.png" alt="Pulse News — Value Added" width="164" height="46"></a>
@@ -1372,6 +1462,9 @@ exports.handler = async (event) => {
   <section class="mag-mosaic" data-pulse-mosaic data-pillar="${escAttr(entryPillar)}" aria-label="More stories in this topic" style="max-width:1080px;margin:0 auto;padding:0 clamp(10px,2vw,24px) 40px;"></section>
   <div class="footer-note">
     Researched autonomously by <a href="/themachine" style="color:rgba(255,140,26,0.7);">The Machine</a> · Claude Sonnet 4.6 + live web search · Cited &amp; dated
+    <div style="margin-top:10px;">
+      <a href="/about" style="color:inherit;">About</a> · <a href="/contact" style="color:inherit;">Contact</a> · <a href="/privacy" style="color:inherit;">Privacy</a> · <a href="/terms" style="color:inherit;">Terms</a>
+    </div>
   </div>
   <!-- Visit-email: Human-Interaction Gate -> /visitor-alert -> emails owner on every
        verified visitor (1/IP/day) via Resend. Replaces the old disabled visit-alert stub

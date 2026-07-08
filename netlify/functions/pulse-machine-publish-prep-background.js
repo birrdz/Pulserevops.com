@@ -16,12 +16,13 @@
 // Schedule: once per day (08:00 UTC by default in netlify.toml).
 // ════════════════════════════════════════════════════════════════════════
 const https = require('https');
+const { BACKGROUND_PUBLISH } = require('./lib/anthropic-models');
 
 let getStore = null;
 try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
 
 const MIN_ENTRIES_PER_PILLAR = 5;
-const MODEL                  = 'claude-sonnet-4-6';
+const MODEL                  = BACKGROUND_PUBLISH;
 const ESTIMATED_COST_USD     = 0.06;   // pillar synthesis ~ 1 sonnet call, no web search
 const DAILY_PILLAR_CAP       = 5;      // max pillars generated per run (keep cost predictable)
 

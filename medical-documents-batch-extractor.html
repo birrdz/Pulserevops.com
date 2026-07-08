@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medical Documents Batch Extractor | PULSE</title>
+  <meta name="description" content="Batch-extract structured medical document data (labs, diagnoses, meds, vitals) from PDFs and images using Gemini Flash Lite." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #111518; --surface: #1A2025; --accent: #E8710A; --accent2: #FF8C1A;
+      --text: #e2e8f0; --muted: #94a3b8; --border: rgba(255,255,255,0.08); --ok: #22c55e; --err: #f87171;
+    }
+    body { font-family: system-ui, Segoe UI, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    h1 { font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .sub { color: var(--muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .pill { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(232,113,10,0.15); color: var(--accent2); border: 1px solid rgba(232,113,10,0.35);
+      border-radius: 999px; padding: 4px 10px; margin-bottom: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+    .drop { border: 2px dashed rgba(232,113,10,0.45); border-radius: 10px; padding: 2rem; text-align: center; cursor: pointer; }
+    .drop:hover { background: rgba(232,113,10,0.06); }
+    input[type=file] { display: none; }
+    .btn { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 0.65rem 1.25rem;
+      font-weight: 700; cursor: pointer; font-size: 0.9rem; margin-right: 0.5rem; margin-top: 0.5rem; }
+    .btn:hover { background: var(--accent2); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .progress { height: 8px; background: #0d1114; border-radius: 4px; overflow: hidden; margin: 1rem 0; }
+    .progress > div { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 0%; transition: width 0.2s; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .ok { color: var(--ok); } .fail { color: var(--err); }
+    pre { background: #0d1114; padding: 12px; border-radius: 8px; overflow: auto; font-size: 0.75rem; max-height: 280px; }
+    .log { font-size: 0.78rem; color: var(--muted); max-height: 120px; overflow-y: auto; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="pill">Gemini Flash Lite · batch · resumable</div>
+    <h1>Medical Documents Batch Extractor</h1>
+    <p class="sub">Upload PDFs or images (lab reports, discharge summaries, imaging, prescriptions). One file at a time through the API — structured JSON per document. Checkpoint CSV downloads after each batch of 48.</p>
+
+    <div class="card">
+      <div class="drop" id="drop">
+        <div style="font-size:2rem;margin-bottom:0.5rem">📄</div>
+        <div><strong>Drop files here</strong> or click to browse</div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-top:0.5rem">PDF · PNG · JPG · WEBP · TIFF · TXT</div>
+      </div>
+      <input type="file" id="fileInput" multiple accept=".pdf,.png,.jpg,.jpeg,.webp,.tif,.tiff,.txt" />
+      <div style="margin-top:1rem">
+        <button class="btn" id="startBtn" disabled>Start batch</button>
+        <button class="btn btn-ghost" id="pauseBtn" disabled>Pause</button>
+        <button class="btn btn-ghost" id="csvBtn" disabled>Download checkpoint CSV</button>
+      </div>
+      <div class="progress"><div id="bar"></div></div>
+      <div id="status" style="font-size:0.85rem;color:var(--muted)">Queue empty</div>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:1rem;margin-bottom:0.75rem">Results</h2>
+      <table>
+        <thead><tr><th>File</th><th>Status</th><th>Type</th><th>Model</th><th>Summary</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:1rem;margin-bottom:0.5rem">Latest JSON</h2>
+      <pre id="jsonOut">{}</pre>
+    </div>
+
+    <div class="card">
+      <div class="log" id="log"></div>
+    </div>
+  </div>
+
+  <script>
+    const BATCH = 48;
+    const API = '/.netlify/functions/medical-documents-batch-extract';
+    const LS_KEY = 'medical_batch_checkpoint_v1';
+
+    let queue = [];
+    let running = false;
+    let paused = false;
+    let done = 0;
+    let checkpointRows = [];
+
+    const drop = document.getElementById('drop');
+    const fileInput = document.getElementById('fileInput');
+    const startBtn = document.getElementById('startBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const csvBtn = document.getElementById('csvBtn');
+    const bar = document.getElementById('bar');
+    const statusEl = document.getElementById('status');
+    const tbody = document.getElementById('tbody');
+    const jsonOut = document.getElementById('jsonOut');
+    const logEl = document.getElementById('log');
+
+    function log(msg) {
+      const line = new Date().toISOString().slice(11, 19) + ' ' + msg;
+      logEl.textContent = line + '\n' + logEl.textContent;
+    }
+
+    function loadCheckpoint() {
+      try {
+        const raw = localStorage.getItem(LS_KEY);
+        if (raw) checkpointRows = JSON.parse(raw);
+      } catch (e) { checkpointRows = []; }
+      if (checkpointRows.length) csvBtn.disabled = false;
+    }
+
+    function saveCheckpoint() {
+      localStorage.setItem(LS_KEY, JSON.stringify(checkpointRows));
+      csvBtn.disabled = checkpointRows.length === 0;
+    }
+
+    function esc(s) {
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function addRow(file, status, type, model, summary) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + esc(file) + '</td><td class="' + (status === 'ok' ? 'ok' : 'fail') + '">' + esc(status) +
+        '</td><td>' + esc(type) + '</td><td>' + esc(model) + '</td><td>' + esc((summary || '').slice(0, 120)) + '</td>';
+      tbody.prepend(tr);
+    }
+
+    function fileToPayload(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        const ext = file.name.split('.').pop().toLowerCase();
+        if (ext === 'txt') {
+          reader.onload = () => resolve({ filename: file.name, text: reader.result });
+          reader.onerror = reject;
+          reader.readAsText(file);
+        } else {
+          reader.onload = () => {
+            const b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(reader.result)));
+            resolve({ filename: file.name, base64: b64, mimeType: file.type || undefined });
+          };
+          reader.onerror = reject;
+          reader.readAsArrayBuffer(file);
+        }
+      });
+    }
+
+    async function processOne(file) {
+      const payload = await fileToPayload(file);
+      const r = await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || !j.ok) throw new Error(j.error || 'extract failed');
+      return j;
+    }
+
+    async function runBatch() {
+      if (!queue.length || paused) {
+        running = false;
+        startBtn.disabled = queue.length === 0;
+        pauseBtn.disabled = true;
+        return;
+      }
+      running = true;
+      startBtn.disabled = true;
+      pauseBtn.disabled = false;
+      const total = done + queue.length;
+      let batchN = 0;
+
+      while (queue.length && !paused) {
+        const file = queue.shift();
+        statusEl.textContent = 'Processing ' + file.name + ' (' + done + '/' + total + ')';
+        try {
+          const j = await processOne(file);
+          done++;
+          batchN++;
+          const d = j.data || {};
+          addRow(file.name, 'ok', d.document_type || '', j.model || '', d.summary || '');
+          jsonOut.textContent = JSON.stringify(j, null, 2);
+          checkpointRows.push({
+            at: new Date().toISOString(),
+            filename: file.name,
+            status: 'ok',
+            model: j.model || '',
+            document_type: d.document_type || '',
+          });
+          log('✓ ' + file.name);
+        } catch (e) {
+          done++;
+          batchN++;
+          addRow(file.name, 'fail', '', '', e.message);
+          checkpointRows.push({
+            at: new Date().toISOString(),
+            filename: file.name,
+            status: 'fail',
+            error: e.message,
+          });
+          log('✗ ' + file.name + ' — ' + e.message);
+        }
+        bar.style.width = Math.round((done / total) * 100) + '%';
+        if (batchN >= BATCH) {
+          saveCheckpoint();
+          log('checkpoint batch ' + done);
+          batchN = 0;
+        }
+      }
+      saveCheckpoint();
+      statusEl.textContent = paused ? 'Paused · ' + done + ' done · ' + queue.length + ' queued' : 'Done · ' + done + ' processed';
+      running = false;
+      startBtn.disabled = queue.length === 0;
+      pauseBtn.disabled = true;
+    }
+
+    function onFiles(files) {
+      const list = Array.from(files || []);
+      queue = queue.concat(list);
+      startBtn.disabled = queue.length === 0 || running;
+      statusEl.textContent = queue.length + ' file(s) queued' + (running ? ' (running)' : '');
+      log('queued ' + list.length + ' file(s)');
+    }
+
+    drop.addEventListener('click', () => fileInput.click());
+    drop.addEventListener('dragover', (e) => { e.preventDefault(); });
+    drop.addEventListener('drop', (e) => { e.preventDefault(); onFiles(e.dataTransfer.files); });
+    fileInput.addEventListener('change', (e) => onFiles(e.target.files));
+
+    startBtn.addEventListener('click', () => { paused = false; runBatch(); });
+    pauseBtn.addEventListener('click', () => { paused = true; pauseBtn.disabled = true; });
+
+    csvBtn.addEventListener('click', () => {
+      const header = 'at,filename,status,model,document_type,error\n';
+      const lines = checkpointRows.map((r) =>
+        [r.at, r.filename, r.status, r.model || '', r.document_type || '', r.error || '']
+          .map((c) => /[",\n]/.test(String(c)) ? '"' + String(c).replace(/"/g, '""') + '"' : String(c))
+          .join(',')
+      );
+      const blob = new Blob([header + lines.join('\n')], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'medical_documents_checkpoint.csv';
+      a.click();
+    });
+
+    loadCheckpoint();
+  </script>
+</body>
+</html>

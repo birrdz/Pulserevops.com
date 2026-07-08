@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PULSE — We Add Value!</title>
+<link rel="canonical" href="https://pulserevops.com/">
+<meta name="description" content="PULSE — we add value. One free library of operator-grade rankings, answers, and guides across every category — cars, towns, schools, dining, nightlife, boats, sales, and more.">
+<!-- Social / link-preview branding -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pulserevops.com/">
+<meta property="og:site_name" content="Pulse">
+<meta property="og:title" content="PULSE — We Add Value!">
+<meta property="og:description" content="We add value — one free library of operator-grade rankings across every category, all free.">
+<meta property="og:image" content="https://pulserevops.com/pulse-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PULSE — We Add Value!">
+<meta name="twitter:description" content="We add value — one free library of operator-grade rankings across every category, all free.">
+<meta name="twitter:image" content="https://pulserevops.com/pulse-og.png">
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pulse">
+<meta name="application-name" content="Pulse">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<!-- Lightbulb brand favicon — SVG primary (crisp at every tab size), PNG fallbacks (2026-06-19) -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/icon-192.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+<!-- Site name for search results (Google uses WebSite.name as the bold title above the URL) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Pulse",
+  "alternateName": "Pulse RevOps",
+  "url": "https://pulserevops.com/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": { "@type": "EntryPoint", "urlTemplate": "https://pulserevops.com/knowledge?q={search_term_string}" },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"></noscript>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#E25C29;--od:#C44E1F;--og:rgba(226,92,41,.10);
+  --ink:#16161D;--ink2:#55576A;--ink3:#8A8BA0;
+  --bg:#EBE9DE;--soft:#FAF8F4;--line:rgba(20,20,30,.10);--lineh:rgba(226,92,41,.45);
+  --font:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* slim top bar — keeps auth (sign-in) + advertise working */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1180px;margin:0 auto;padding:14px 22px}
+.tb-left{display:flex;align-items:center;gap:10px}
+.live-pill{display:inline-flex;align-items:center;gap:6px;background:var(--og);border:1px solid rgba(226,92,41,.30);color:var(--orange);font-size:10px;font-weight:800;letter-spacing:1.2px;padding:4px 10px;border-radius:20px}
+.ldot{width:6px;height:6px;background:var(--orange);border-radius:50%;animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.tb-right{display:flex;align-items:center;gap:10px}
+.tb-ad{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--og);border:1px solid rgba(226,92,41,.30);border-radius:99px;color:var(--orange);font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;transition:background .15s,color .15s}
+.tb-ad:hover{background:var(--orange);color:#fff}
+.pulse-auth-slot{display:inline-flex;align-items:center;min-height:34px}
+.pulse-auth-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:var(--orange);border:none;border-radius:99px;color:#fff;font:800 11px/1 var(--font);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:transform .12s,box-shadow .15s;box-shadow:0 2px 10px rgba(226,92,41,.25)}
+.pulse-auth-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(226,92,41,.4)}
+.pulse-userbtn{display:inline-flex;align-items:center}
+
+/* HERO — logo as the title */
+.hero{max-width:1300px;margin:0 auto;padding:40px 22px 26px;text-align:center}
+@media(min-width:768px){.hero{padding:64px 24px 34px}}
+/* Tan hero panel behind the PULSE logo + tagline — matches the pillar landing banners. Same on mobile + desktop. */
+.hero-tan{background:#EBE9DE;border-radius:22px;padding:42px 26px 34px;margin:0 auto;max-width:1240px;width:100%}
+@media(max-width:560px){.hero-tan{padding:26px 16px 22px;border-radius:16px}}
+.logo-lockup{display:inline-flex;align-items:center;gap:18px;justify-content:center}
+.logo-lockup img{height:auto;width:auto;display:block}
+.logo-lockup img.pulse-fulllogo{display:block;margin:0 auto;width:min(1140px,96vw);height:auto;max-width:100%}
+.cta.trip{background:linear-gradient(135deg,#16161D,#2b2b3a);color:#fff;border:1px solid #16161D;box-shadow:0 6px 20px rgba(20,20,30,.28);font-size:15px;padding:14px 26px}
+.cta.trip:hover{background:#000;transform:translateY(-1px)}
+.trip-row{display:flex;justify-content:center;margin-top:14px}
+/* homepage smart search */
+.home-search{position:relative;max-width:620px;margin:24px auto 0;text-align:left}
+.hs-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:16px;opacity:.5;pointer-events:none}
+.hs-field{position:relative;background:#fff;border:2px solid var(--line);border-radius:16px;transition:border-color .15s,box-shadow .15s}
+.hs-field:focus-within{border-color:var(--orange);box-shadow:0 6px 22px rgba(226,92,41,.14)}
+#hs-input{width:100%;background:transparent;border:none;border-radius:16px;padding:16px 44px 16px 46px;font:600 16px var(--font);color:var(--ink);outline:none;position:relative;z-index:2}
+#hs-input::-webkit-search-cancel-button{display:none}
+.hs-ghost{position:absolute;inset:0;display:flex;align-items:center;padding:0 46px;font:600 16px var(--font);white-space:pre;overflow:hidden;pointer-events:none;z-index:1;color:transparent}
+.hs-ghost .g-rest{color:#c2c0bb}
+.hs-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:32px;height:32px;border:none;border-radius:99px;background:rgba(20,20,30,.06);color:var(--ink2);font-size:18px;line-height:1;cursor:pointer;display:none;z-index:3}
+.hs-sec{padding:9px 16px 5px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.hs-row .hs-t mark{background:rgba(226,92,41,.16);color:inherit;border-radius:3px;padding:0 1px;font-weight:800}
+.hs-meta{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.hs-cat{font-size:10px;font-weight:700;color:var(--ink3);white-space:nowrap}
+.hs-hint{display:flex;gap:6px;align-items:center;justify-content:center;padding:9px 12px;border-top:1px solid rgba(20,20,30,.05);font-size:11px;color:var(--ink3);font-weight:600}
+.hs-hint kbd{font:inherit;background:var(--soft);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;font-size:10px;color:var(--ink2)}
+.hs-chips{display:flex;flex-wrap:wrap;gap:7px;padding:6px 14px 12px}
+.hs-chip{font:inherit;font-size:12px;font-weight:700;background:var(--soft);border:1px solid var(--line);color:var(--ink2);border-radius:99px;padding:6px 12px;cursor:pointer}
+.hs-chip:hover{border-color:var(--orange);color:var(--orange)}
+.hs-q .hs-t{font-weight:600;color:var(--ink2)}
+.hs-dym a{color:var(--orange);font-weight:800;text-decoration:none}
+.hs-dym a:hover{text-decoration:underline}
+.hs-suggest{position:absolute;left:0;right:0;top:calc(100% + 8px);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 44px rgba(20,20,30,.16);overflow:hidden;z-index:40;display:none;max-height:62vh;overflow-y:auto}
+.hs-suggest.open{display:block}
+.hs-row{display:flex;align-items:center;gap:11px;padding:12px 16px;text-decoration:none;color:var(--ink);border-bottom:1px solid rgba(20,20,30,.05);cursor:pointer}
+.hs-row:last-child{border-bottom:none}
+.hs-row:hover,.hs-row.active{background:var(--soft)}
+.hs-row .hs-em{font-size:18px;width:24px;text-align:center;flex-shrink:0}
+.hs-row .hs-t{font-size:14px;font-weight:700;line-height:1.25;flex:1;min-width:0}
+.hs-row .hs-pill{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--orange);background:var(--og);border:1px solid rgba(226,92,41,.25);padding:2px 8px;border-radius:99px;flex-shrink:0}
+.hs-empty{padding:16px;color:var(--ink3);font-size:13px;font-weight:600;text-align:center}
+.logo-lockup .wordmark{font-size:64px;font-weight:800;letter-spacing:6px;color:var(--orange);line-height:1}
+@media(max-width:560px){.hero{padding:30px 18px 22px}.logo-lockup{gap:11px;width:100%}.logo-lockup img.pulse-fulllogo{width:min(580px,94vw)}.hero h1{font-size:clamp(34px,9vw,52px);letter-spacing:-1px;margin-top:20px}.home-search{margin-top:18px}.hero .meta{margin-top:14px}}
+.hero h1{margin:20px auto 0;max-width:1100px;font-size:clamp(24px,4vw,46px);font-weight:900;letter-spacing:-1px;line-height:1.1;color:#171E14}
+.hero h1 em{font-style:normal;color:#171E14}
+.hero p.lead{margin:14px auto 0;max-width:680px;font-size:clamp(14px,1.7vw,16px);color:var(--ink2);line-height:1.6}
+.hero .meta{margin-top:16px;display:inline-flex;align-items:center;gap:12px;font-size:12px;color:var(--ink3);font-weight:600;flex-wrap:wrap;justify-content:center}
+.hero .meta strong{color:var(--orange);font-weight:800}
+.hero .meta .sep{opacity:.4}
+
+/* primary CTAs */
+.cta-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px}
+.cta{display:inline-flex;align-items:center;gap:7px;padding:12px 22px;border-radius:99px;font-size:13.5px;font-weight:800;letter-spacing:.01em;text-decoration:none;transition:transform .12s,box-shadow .15s,background .15s,border-color .15s;min-height:44px}
+.cta.primary{background:var(--orange);color:#fff;border:1px solid var(--orange);box-shadow:0 6px 18px rgba(226,92,41,.28)}
+.cta.primary:hover{background:var(--od);transform:translateY(-1px)}
+.cta.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.cta.ghost:hover{border-color:var(--lineh);color:var(--orange);transform:translateY(-1px)}
+
+/* PILLAR GRID — the connections */
+.pillars{max-width:1100px;margin:6px auto 0;padding:26px 22px 8px}
+.pillars h2{text-align:center;font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink3);margin-bottom:18px}
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:620px){.pgrid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:920px){.pgrid{grid-template-columns:repeat(4,1fr)}}
+.pcard{display:flex;align-items:center;gap:12px;padding:16px 16px;background:var(--soft);border:1px solid var(--line);border-radius:16px;text-decoration:none;color:var(--ink);transition:border-color .15s,background .15s,transform .12s,box-shadow .15s}
+.pcard:hover{border-color:var(--lineh);background:#fff;transform:translateY(-2px);box-shadow:0 8px 22px rgba(20,20,30,.06)}
+.pcard .em{font-size:22px;line-height:1;flex-shrink:0;width:26px;text-align:center}
+.pcard .em img{height:26px;width:auto;display:block;margin:0 auto}
+.pcard .pt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pcard .pn{font-size:14px;font-weight:800;letter-spacing:-.01em;line-height:1.15}
+.pcard .pd{font-size:11px;color:var(--ink3);font-weight:600;line-height:1.3}
+
+/* KORY CRO strip */
+.kory{max-width:1100px;margin:30px auto 0;padding:0 22px}
+.kory-card{background:var(--soft);border:1px solid var(--line);border-radius:22px;padding:24px 26px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:22px}
+.kory-av{width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(226,92,41,.3);background:linear-gradient(135deg,var(--od),var(--orange));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:24px}
+.kory-av img{width:100%;height:100%;object-fit:cover}
+.kory-text h3{font-size:16px;font-weight:800;margin-bottom:4px}
+.kory-text p{font-size:13px;color:var(--ink2)}
+.kory-text .ksub{font-size:11px;color:var(--ink3);margin-top:3px}
+.kory-btn{background:var(--orange);color:#fff;font-size:13px;font-weight:800;padding:12px 22px;border-radius:24px;text-decoration:none;white-space:nowrap;transition:background .15s,transform .1s}
+.kory-btn:hover{background:var(--od);transform:scale(1.03)}
+@media(max-width:680px){.kory-card{grid-template-columns:auto 1fr}.kory-btn{display:none}}
+
+/* FOOTER */
+.footer{margin-top:40px;border-top:1px solid var(--line);background:var(--soft);padding:34px 22px 26px}
+.ft-in{max-width:1100px;margin:0 auto}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:36px;margin-bottom:24px}
+@media(max-width:720px){.ft-grid{grid-template-columns:1fr;gap:26px}}
+.f-logo{display:inline-flex;align-items:center;gap:9px;margin-bottom:9px}
+.f-logo img{height:24px}
+.f-logo span{font-size:19px;font-weight:800;letter-spacing:2px;color:var(--orange)}
+.f-desc{font-size:12px;color:var(--ink2);line-height:1.7;max-width:320px}
+.f-disc{font-size:10px;color:var(--ink3);margin-top:10px;line-height:1.5}
+.fc h4{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:11px}
+.fc a{display:block;font-size:13px;color:var(--ink2);text-decoration:none;margin-bottom:7px;transition:color .15s}
+.fc a:hover{color:var(--orange)}
+.ft-bot{border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;align-items:center}
+.f-copy{font-size:11px;color:var(--ink3)}
+.f-copy a{color:var(--orange);text-decoration:none}
+.lib-pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--orange);background:var(--og);border:1px solid rgba(226,92,41,.25);padding:6px 14px;border-radius:99px;text-decoration:none}
+.lib-pill .d{width:6px;height:6px;background:var(--orange);border-radius:50%;box-shadow:0 0 6px var(--orange)}
+/* 50% opacity on pills + pillar tiles (2026-06-21) */
+.live-pill,.hs-pill,.lib-pill{opacity:.5}
+.pcard{opacity:.5}
+.pcard:hover{opacity:1}
+.f-seo{font-size:10px;color:var(--ink3);max-width:560px;line-height:1.6;margin-top:12px}
+</style>
+<script defer src="/pulse-funnel-overlay.js"></script>
+</head>
+<body>
+
+<!-- slim top bar: sign-in + advertise stay functional -->
+<div class="topbar">
+  <div class="tb-left"><span class="live-pill"><span class="ldot"></span>LIVE</span></div>
+  <div class="tb-right">
+    <a href="/sponsor" class="tb-ad">✦ Advertise</a>
+    <span data-pulse-auth-slot class="pulse-auth-slot"></span>
+  </div>
+</div>
+
+<!-- HERO — the PULSE logo as the default title -->
+<section class="hero">
+  <div class="hero-tan">
+    <a href="/" class="logo-lockup" aria-label="PULSE home">
+      <img class="pulse-fulllogo" src="/pulse-logo.svg" alt="PULSE — We add Value">
+    </a>
+    <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">PULSE — We add value</h1>
+  </div>
+  <div class="home-search" id="home-search">
+    <div class="hs-field">
+      <span class="hs-icon">🔍</span>
+      <div class="hs-ghost" id="hs-ghost" aria-hidden="true"><span class="g-typed"></span><span class="g-rest"></span></div>
+      <input id="hs-input" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+             placeholder="Search 10,000+ answers — keyword or ID (try “best sci-fi movies”, q1946, bt0050)…">
+      <button class="hs-clear" id="hs-clear" aria-label="Clear">×</button>
+    </div>
+    <div class="hs-suggest" id="hs-suggest" role="listbox"></div>
+  </div>
+  <div class="meta">
+    <span><strong id="home-total">…</strong> entries</span><span class="sep">·</span>
+    <span>30 pillars</span><span class="sep">·</span>
+    <span>Updated continuously</span>
+  </div>
+  <div class="trip-row">
+    <button type="button" class="cta trip" onclick="myPulseLocate(this)">📍 MyPulse — turn on location, we'll tune your PULSE to your area</button>
+  </div>
+  <script>
+  function myPulseLocate(btn){
+    if(!navigator.geolocation){ location.href='/trip'; return; }
+    var orig = btn.textContent; btn.textContent='📍 Getting your location…';
+    navigator.geolocation.getCurrentPosition(function(pos){
+      var la=pos.coords.latitude.toFixed(4), lo=pos.coords.longitude.toFixed(4);
+      try{ localStorage.setItem('pulse_geo', JSON.stringify({la:la,lo:lo,ts:Date.now()})); }catch(e){}
+      location.href='/trip?lat='+la+'&lon='+lo+'&auto=1';
+    }, function(){ btn.textContent=orig; location.href='/trip'; }, {enableHighAccuracy:false,timeout:8000,maximumAge:600000});
+  }
+  </script>
+  <div class="cta-row">
+    <a href="/knowledge" class="cta primary">📚 Browse the Library</a>
+    <a href="/my-content" class="cta ghost">💾 My Content</a>
+    <a href="/tools" class="cta ghost">🛠 Free Tools</a>
+    <a href="#" class="cta ghost" data-pulse-install>📲 Install the App</a>
+  </div>
+</section>
+
+<!-- PILLARS — every connection, one tap away -->
+<section class="pillars">
+  <h2>Explore every pillar</h2>
+  <div class="pgrid">
+    <a class="pcard" href="/ai-infrastructure"><span class="em">🤖</span><span class="pt"><span class="pn">AI Infrastructure</span><span class="pd">Top-10 AI tools by task</span></span></a>
+    <a class="pcard" href="/aquariums"><span class="em">🐠</span><span class="pt"><span class="pn">Aquariums</span><span class="pd">Top-10 aquarium rankings</span></span></a>
+    <a class="pcard" href="/boats"><span class="em">⛵</span><span class="pt"><span class="pn">Boats</span><span class="pd">Top-10 boat rankings</span></span></a>
+    <a class="pcard" href="/sales-book-summaries"><span class="em">📖</span><span class="pt"><span class="pn">Book Summaries</span><span class="pd">Sales canon, distilled</span></span></a>
+    <a class="pcard" href="/buildouts"><span class="em">🏗️</span><span class="pt"><span class="pn">Buildouts</span><span class="pd">Save money, don’t get screwed</span></span></a>
+    <a class="pcard" href="/cars"><span class="em">🚗</span><span class="pt"><span class="pn">Cars</span><span class="pd">Top-10 vehicle rankings</span></span></a>
+    <a class="pcard" href="/clubs"><span class="em">⛳</span><span class="pt"><span class="pn">Clubs</span><span class="pd">Country &amp; golf clubs</span></span></a>
+    <a class="pcard" href="/coaching"><span class="em">🧭</span><span class="pt"><span class="pn">Coaching</span><span class="pd">Coaching salespeople, Q&amp;A</span></span></a>
+    <a class="pcard" href="/collectibles"><span class="em">🃏</span><span class="pt"><span class="pn">Collectibles</span><span class="pd">Top-10 collectible rankings</span></span></a>
+    <a class="pcard" href="/dashboard"><span class="em">📡</span><span class="pt"><span class="pn">Dashboard &amp; CRM</span><span class="pd">Live revenue intel</span></span></a>
+    <a class="pcard" href="/dining"><span class="em">🍽️</span><span class="pt"><span class="pn">Dining</span><span class="pd">Top-10 restaurants</span></span></a>
+    <a class="pcard" href="/estates"><span class="em">🏡</span><span class="pt"><span class="pn">Estates</span><span class="pd">Luxury real estate</span></span></a>
+    <a class="pcard" href="/events"><span class="em">🎟️</span><span class="pt"><span class="pn">Events</span><span class="pd">Festivals &amp; happenings</span></span></a>
+    <a class="pcard" href="/franchises"><span class="em">🏪</span><span class="pt"><span class="pn">Franchises</span><span class="pd">Open it or skip it</span></span></a>
+    <a class="pcard" href="/gaming"><span class="em">🎮</span><span class="pt"><span class="pn">Gaming</span><span class="pd">Top-10 games &amp; gear</span></span></a>
+    <a class="pcard" href="/gatherings"><span class="em">🥂</span><span class="pt"><span class="pn">Gatherings</span><span class="pd">Venues &amp; hosting</span></span></a>
+    <a class="pcard" href="/go-to-market-playbooks"><span class="em">🗺️</span><span class="pt"><span class="pn">GTM Playbooks</span><span class="pd">Motions that win</span></span></a>
+    <a class="pcard" href="/highschool-football-recruiting"><span class="em">🏈</span><span class="pt"><span class="pn">HS Football Recruiting</span><span class="pd">Get recruited — who to use &amp; how</span></span></a>
+    <a class="pcard" href="/industry-kpis"><span class="em"><img src="/pulse-kpi-logo.png" alt="" onerror="this.replaceWith(document.createTextNode('📊'))"></span><span class="pt"><span class="pn">Industry KPIs</span><span class="pd">Benchmarks by vertical</span></span></a>
+    <a class="pcard" href="/knowledge"><span class="em">📚</span><span class="pt"><span class="pn">Knowledge</span><span class="pd">Operator Q&amp;A library</span></span></a>
+    <a class="pcard" href="/living"><span class="em">🛋️</span><span class="pt"><span class="pn">Living</span><span class="pd">Lifestyle &amp; home</span></span></a>
+    <a class="pcard" href="/movies"><span class="em">🎬</span><span class="pt"><span class="pn">Movies</span><span class="pd">Top-10 movie rankings</span></span></a>
+    <a class="pcard" href="/nightlife"><span class="em">🌃</span><span class="pt"><span class="pn">Nightlife</span><span class="pd">Top-10 night out</span></span></a>
+    <a class="pcard" href="/resorts"><span class="em">🌴</span><span class="pt"><span class="pn">Resorts</span><span class="pd">Top-10 resort picks</span></span></a>
+    <a class="pcard" href="/revenue-architecture"><span class="em">🏗️</span><span class="pt"><span class="pn">Revenue Architecture</span><span class="pd">Blueprints by industry</span></span></a>
+    <a class="pcard" href="/electronic-reviews"><span class="em">⭐</span><span class="pt"><span class="pn">Reviews</span><span class="pd">Top-10 gear rankings</span></span></a>
+    <a class="pcard" href="/sales-trainings"><span class="em">⚔️</span><span class="pt"><span class="pn">Sales Trainings</span><span class="pd">Run-ready meetings</span></span></a>
+    <a class="pcard" href="/schools"><span class="em">🎓</span><span class="pt"><span class="pn">Schools</span><span class="pd">Top-10 school rankings</span></span></a>
+    <a class="pcard" href="/skills"><span class="em">🎯</span><span class="pt"><span class="pn">Skill Drills</span><span class="pd">Runnable team workshops</span></span></a>
+    <a class="pcard" href="/speeches"><span class="em">🎤</span><span class="pt"><span class="pn">Speeches</span><span class="pd">Toasts &amp; famous speeches</span></span></a>
+    <a class="pcard" href="/sports"><span class="em">🏈</span><span class="pt"><span class="pn">Sports / NIL</span><span class="pd">College NIL economies</span></span></a>
+    <a class="pcard" href="/style"><span class="em">👗</span><span class="pt"><span class="pn">Style</span><span class="pd">Fashion &amp; grooming</span></span></a>
+    <a class="pcard" href="/tech-stacks"><span class="em">🧰</span><span class="pt"><span class="pn">Tech Stacks</span><span class="pd">Full software stacks</span></span></a>
+    <a class="pcard" href="/tools"><span class="em">🛠️</span><span class="pt"><span class="pn">Tools</span><span class="pd">Calculators &amp; how-to</span></span></a>
+    <a class="pcard" href="/towns"><span class="em">🏘️</span><span class="pt"><span class="pn">Towns</span><span class="pd">Top-10 place rankings</span></span></a>
+    <a class="pcard" href="/travel"><span class="em">✈️</span><span class="pt"><span class="pn">Travel</span><span class="pd">Top-10 destinations</span></span></a>
+    <a class="pcard" href="/wellness"><span class="em">🧘</span><span class="pt"><span class="pn">Wellness</span><span class="pd">Top-10 wellness picks</span></span></a>
+  </div>
+</section>
+
+<!-- FRACTIONAL CRO -->
+<section class="kory" aria-label="Sponsored — CRO Syndicate · Fractional CRO">
+  <div class="cro-home-card" style="position:relative;max-width:900px;margin:0 auto;border-radius:16px;overflow:hidden;line-height:0;box-shadow:0 6px 24px rgba(29,23,17,.12);">
+    <a href="https://calendly.com/korywhiterevops" target="_blank" rel="noopener" data-pulse-click="hire-cro" aria-label="Book a call with Kory White (Calendly)" style="display:block;">
+      <img src="/assets/cro-syndicate-card.png" alt="CRO Syndicate — Need a fractional Chief Revenue Officer? Kory White, Fractional CRO · 25 yrs · $0 to $200M scaled. Book a call." style="width:100%;height:auto;display:block;">
+    </a>
+    <!-- CRO Syndicate logo (top-left) -> crosyndicate.com -->
+    <a href="https://crosyndicate.com/" target="_blank" rel="noopener" data-pulse-click="cro-syndicate" aria-label="CRO Syndicate" style="position:absolute;z-index:2;left:5%;top:3%;width:17%;height:13%;"></a>
+    <!-- Headshot (right) -> LinkedIn -->
+    <a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator" aria-label="Kory White on LinkedIn" style="position:absolute;z-index:2;left:73%;top:15%;width:26%;height:43%;"></a>
+    <!-- Bottom strip: left "Kory White LinkedIn" -> LinkedIn -->
+    <a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator" aria-label="Kory White LinkedIn" style="position:absolute;z-index:2;left:5%;top:84%;width:32%;height:14%;"></a>
+    <!-- center red pill "Book a Call" -> Calendly -->
+    <a href="https://calendly.com/korywhiterevops" target="_blank" rel="noopener" data-pulse-click="hire-cro" aria-label="Book a Call (Calendly)" style="position:absolute;z-index:2;left:38%;top:83%;width:24%;height:15%;"></a>
+    <!-- right "CRO Syndicate" -> crosyndicate.com -->
+    <a href="https://crosyndicate.com/" target="_blank" rel="noopener" data-pulse-click="cro-syndicate" aria-label="CRO Syndicate" style="position:absolute;z-index:2;left:70%;top:84%;width:26%;height:14%;"></a>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 14px;margin:12px auto 0;max-width:900px;font-size:1rem;">
+    <a href="https://calendly.com/korywhiterevops" target="_blank" rel="noopener" data-pulse-click="hire-cro" style="color:#C8821E;font-weight:800;text-decoration:none;">📅 Book a Call</a>
+    <span aria-hidden="true" style="color:#8a7a63;">·</span>
+    <a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator" style="color:#C8821E;font-weight:800;text-decoration:none;">💼 Kory on LinkedIn</a>
+    <span aria-hidden="true" style="color:#8a7a63;">·</span>
+    <a href="https://crosyndicate.com/" target="_blank" rel="noopener" data-pulse-click="cro-syndicate" style="color:#C8821E;font-weight:800;text-decoration:none;">🏢 CRO Syndicate</a>
+    <span aria-hidden="true" style="color:#8a7a63;">·</span>
+    <a href="/fractional-cro" style="color:#C8821E;font-weight:800;text-decoration:none;">Fractional CRO services →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="ft-in">
+    <div class="ft-grid">
+      <div>
+        <div class="f-logo"><img src="/pulse-mark.svg" alt=""><span>PULSE</span></div>
+        <p class="f-desc">The answer to all your value-based questions. One free library of operator-grade rankings, answers, and guides across every category. Built by Kory White.</p>
+        <p class="f-disc">PULSE is an independent educational resource and is not affiliated with, endorsed by, or connected to any former employer.</p>
+      </div>
+      <div class="fc">
+        <h4>Pillars</h4>
+        <a href="/ai-infrastructure">AI Infrastructure</a>
+        <a href="/aquariums">Aquariums</a>
+        <a href="/boats">Boats</a>
+        <a href="/sales-book-summaries">Book Summaries</a>
+        <a href="/buildouts">Buildouts</a>
+        <a href="/cars">Cars</a>
+        <a href="/collectibles">Collectibles</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/dining">Dining</a>
+        <a href="/electronic-reviews">Electronic Reviews</a>
+        <a href="/fractional-cro">Fractional CRO</a>
+        <a href="/franchises">Franchises</a>
+        <a href="/go-to-market-playbooks">GTM Playbooks</a>
+        <a href="/highschool-football-recruiting">HS Football Recruiting</a>
+        <a href="/industry-kpis">Industry KPIs</a>
+        <a href="/knowledge">Knowledge Library</a>
+        <a href="/my-content">My Content</a>
+        <a href="/nightlife">Nightlife</a>
+        <a href="/revenue-architecture">Revenue Architecture</a>
+        <a href="/sales-trainings">Sales Trainings</a>
+        <a href="/schools">Schools</a>
+        <a href="/sports">Sports (NIL)</a>
+        <a href="/tech-stacks">Tech Stacks</a>
+        <a href="/towns">Towns</a>
+      </div>
+      <div class="fc">
+        <h4>Connect</h4>
+        <a href="https://calendly.com/korywhiterevops">Schedule a Call</a>
+        <a href="https://linkedin.com/in/korywhite">LinkedIn</a>
+        <a href="https://theexecutivereview.org">The Executive Review</a>
+        <a href="https://coachkorywhite.com">CoachKoryWhite.com</a>
+        <h4 style="margin-top:16px">Tools</h4>
+        <a href="/dashboard">Live Dashboard</a>
+        <a href="/tools">🛠 Free Tools</a>
+        <a href="/how-tos/">By Industry</a>
+      </div>
+      <div class="fc">
+        <h4>Company</h4>
+        <a href="/about">About Us</a>
+        <a href="/contact">Contact</a>
+        <a href="/sponsor">Advertise</a>
+        <a href="/press/">Press</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <span class="f-copy">© 2026 Kory White · PULSE · pulserevops.com · <a href="/about">About</a> · <a href="/contact">Contact</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="https://calendly.com/korywhiterevops">Open to CRO roles →</a></span>
+      <a href="/knowledge" class="lib-pill"><span class="d"></span>Library · <span id="lp-num">live</span> entries</a>
+    </div>
+    <p class="f-seo">Fractional CRO Maryland · Chief Revenue Officer Washington DC · Revenue Operations DMV · Kory White CRO · Free RevOps Tools · Free Sales KPI Calculator</p>
+  </div>
+</footer>
+
+<script>
+// Live library count — single source of truth (same endpoint as before)
+(function(){
+  function paint(j){
+    if(!j||typeof j.total!=='number')return;
+    var a=document.getElementById('home-total'); if(a)a.textContent=j.total.toLocaleString();
+    var b=document.getElementById('lp-num'); if(b)b.textContent=j.total.toLocaleString();
+  }
+  function go(){
+    fetch('/.netlify/functions/pulse-library-pulse',{cache:'no-store'})
+      .then(function(r){return r.ok?r.json():null;}).then(paint).catch(function(){});
+  }
+  go(); setInterval(go,60000);
+})();
+</script>
+<script src="/js/pwa-install.js" defer></script>
+<script src="/js/pulse-auth.js" defer></script>
+  <script src="/js/human-gate.js" defer></script>
+  <script src="/js/pulse-search.js" defer></script>
+<script src="/js/pulse-lead-track.js" defer></script>
+
+<script async id="netlify-rum-container" src="/.netlify/scripts/rum" data-netlify-rum-site-id="a2b74b30-a1ac-40e2-9622-aebfc2feb482" data-netlify-deploy-branch="" data-netlify-deploy-context="production" data-netlify-cwv-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaXRlX2lkIjoiYTJiNzRiMzAtYTFhYy00MGUyLTk2MjItYWViZmMyZmViNDgyIiwiYWNjb3VudF9pZCI6IjY5YzRhYzQ0MjRhNGE5OGNhOTFkZTQwYiIsImRlcGxveV9pZCI6IjZhMzk1MzQzNjFlMjBhNTdiOTZiZDQxOCIsImlzc3VlciI6Im5mc2VydmVyIn0.rQ-KIzTHm8pWHUyQ975bDTEAvh2EfX7iEw2bsXiNj7o"></script>
+  <!-- PULSE BUILD progress dashboard removed per owner 2026-06-27 -->
+
+
+<script async id="netlify-rum-container" src="/.netlify/scripts/rum" data-netlify-rum-site-id="a2b74b30-a1ac-40e2-9622-aebfc2feb482" data-netlify-deploy-branch="" data-netlify-deploy-context="production" data-netlify-cwv-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaXRlX2lkIjoiYTJiNzRiMzAtYTFhYy00MGUyLTk2MjItYWViZmMyZmViNDgyIiwiYWNjb3VudF9pZCI6IjY5YzRhYzQ0MjRhNGE5OGNhOTFkZTQwYiIsImRlcGxveV9pZCI6IjZhM2RlNTc1MzY5OWJmZmY0OGQ0ZjA0OCIsImlzc3VlciI6Im5mc2VydmVyIn0.s45pLLbnr7FhxhaCMqJcC0Ko3Ael-o3NmbyFbVNl7uk"></script></body>
+</html>

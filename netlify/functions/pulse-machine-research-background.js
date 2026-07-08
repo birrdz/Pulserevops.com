@@ -18,14 +18,15 @@
 //   _meta.json                  — { spend_today, day, runs_today, last_run }
 // ════════════════════════════════════════════════════════════════════════
 const https = require('https');
+const { BACKGROUND_RESEARCH, ECONOMY_HAIKU } = require('./lib/anthropic-models');
 const SEED_QUESTIONS = require('./pulse-machine-questions.js');
 
 let getStore = null;
 try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
 
 // ── Config ─────────────────────────────────────────────────────────────
-const SONNET_MODEL       = 'claude-sonnet-4-6';
-const HAIKU_MODEL        = 'claude-haiku-4-5-20251001';
+const SONNET_MODEL       = BACKGROUND_RESEARCH;
+const HAIKU_MODEL        = ECONOMY_HAIKU;
 const MAX_WEB_SEARCHES   = 4;
 const MAX_TOKENS_OUT     = 1400;
 const SPAWN_COUNT        = 10;            // 5 micro-niche + 3 modern-exec + 2 trunk

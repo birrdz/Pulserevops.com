@@ -1,0 +1,19 @@
+{
+  "at": "2026-07-06T15:53:16.080Z",
+  "pillar": "aq",
+  "pillarName": "Aquariums",
+  "running": true,
+  "stage": "↩️ retarget aq0706",
+  "currentId": "aq0706",
+  "currentTitle": "Top 10 Algae Scrubber Systems for Nutrient Control",
+  "certifiedThisRun": 0,
+  "at13": 17,
+  "total": 900,
+  "inQueue": 900,
+  "pct13": 1.9,
+  "extra": {
+    "phase": "waiting",
+    "queueFiltered": 900,
+    "stage": "↩️ retarget aq0706"
+  }
+}

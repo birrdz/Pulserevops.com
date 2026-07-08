@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What does a fractional CRO actually do all day? — PULSE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#1b1712;--ink-soft:#6c6259;--line:#e8e2d8;--paper:#fdfbf7;--paper-2:#f4efe7;--accent:#c26a10;--maxw:740px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7}
+  a{color:var(--accent)}
+  img{display:block;width:100%;object-fit:cover;background:var(--paper-2)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:60}
+  .topbar{background:var(--accent);height:6px}
+  .bar{max-width:1200px;margin:0 auto;padding:0 26px;display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{font-weight:800;font-size:1.4rem}.brand b{color:var(--accent)}
+  .back{font-size:.84rem;font-weight:600;color:#333}
+
+  /* full-bleed hero that IS the question's story */
+  .hero{position:relative;height:min(76vh,640px);overflow:hidden}
+  .hero img{position:absolute;inset:0;height:100%}
+  .hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.8) 100%)}
+  .hero .cap{position:absolute;left:0;right:0;bottom:0}
+  .hero .cap .inner{max-width:var(--maxw);margin:0 auto;padding:0 26px 50px;color:#fff}
+  .flabel{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--accent);padding:5px 11px;border-radius:4px;display:inline-block}
+  .hero h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(2rem,5vw,3.4rem);line-height:1.05;letter-spacing:-.02em;margin:16px 0 16px;max-width:18ch}
+  .byline{display:flex;align-items:center;gap:13px;font-size:.85rem;color:rgba(255,255,255,.85)}
+  .avatar{width:38px;height:38px;border-radius:50%;overflow:hidden;flex:none;border:2px solid rgba(255,255,255,.55)}
+
+  article{padding:52px 0 20px}
+  .lede{font-family:'Fraunces',serif;font-weight:400;font-size:1.45rem;line-height:1.42;color:var(--ink);margin-bottom:32px}
+  article p{font-size:1.1rem;margin:0 0 24px;color:#242424}
+  article h2{font-size:1.55rem;font-weight:700;letter-spacing:-.01em;margin:48px 0 16px;line-height:1.2}
+  article h2 .num{color:var(--accent);font-size:.8rem;font-weight:700;letter-spacing:.14em;display:block;margin-bottom:6px}
+
+  figure{margin:40px 0}
+  figure .fimg{border-radius:12px;overflow:hidden;aspect-ratio:16/9}
+  figcaption{font-size:.82rem;color:var(--ink-soft);margin-top:11px;text-align:center;font-style:italic}
+  .pull{border-left:3px solid var(--accent);padding:4px 0 4px 24px;margin:38px 0;font-family:'Fraunces',serif;font-size:1.5rem;line-height:1.35;color:var(--ink)}
+
+  .keycard{background:var(--paper-2);border:1px solid var(--line);border-radius:14px;padding:28px 30px;margin:38px 0}
+  .keycard .k{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .keycard h4{font-weight:700;font-size:1.2rem;margin:9px 0 8px}
+  .keycard p{font-size:1rem;margin:0;color:var(--ink-soft)}
+
+  .related{background:var(--paper-2);border-top:1px solid var(--line);margin-top:64px;padding:56px 0 74px}
+  .related .rhead{max-width:1180px;margin:0 auto 26px;padding:0 26px;font-size:1.4rem;font-weight:700}
+  .rgrid{max-width:1180px;margin:0 auto;padding:0 26px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .rcard{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .rcard .ph{aspect-ratio:3/2;overflow:hidden}
+  .rcard .ph img{transition:transform .8s ease}
+  .rcard:hover .ph img{transform:scale(1.05)}
+  .rcard h3{font-size:1rem;font-weight:700;line-height:1.25;margin:0;padding:15px 16px 18px;color:var(--ink)}
+  @media(max-width:800px){.rgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="topbar"></div>
+  <div class="bar"><div class="brand">PULSE<b>.</b></div><a class="back" href="index.html">← The Guide</a></div>
+</header>
+
+<!-- HERO image = the exact story of THIS question -->
+<div class="hero">
+  <img src="https://image.pollinations.ai/prompt/cinematic%20editorial%20portrait%20of%20a%20confident%20fractional%20chief%20revenue%20officer%20working%20intently%20at%20a%20glass%20conference%20table%20covered%20in%20sales%20pipeline%20charts%2C%20mid%20morning%20sunlight%20streaming%20through%20a%20modern%20office%2C%20a%20busy%20productive%20day%2C%20award%20winning%20magazine%20photography%2C%20shot%20on%20hasselblad%2C%20shallow%20depth%20of%20field%2C%20ultra%20detailed?width=1700&height=980&nologo=true&model=flux&enhance=true&seed=71" alt="A fractional CRO working through a real day of pipeline reviews">
+  <div class="scrim"></div>
+  <div class="cap"><div class="inner">
+    <span class="flabel">Fractional CRO</span>
+    <h1>What does a fractional CRO actually do all day?</h1>
+    <div class="byline">
+      <div class="avatar"><img src="https://image.pollinations.ai/prompt/professional%20warm%20headshot%20portrait%20of%20a%20friendly%20revenue%20executive%2C%20studio%20light%2C%20magazine%20quality?width=120&height=120&nologo=true&model=flux&seed=9" alt=""></div>
+      <span>By the PULSE Guide · Updated June 30, 2026 · 12 min read</span>
+    </div>
+  </div></div>
+</div>
+
+<div class="wrap">
+  <article>
+    <p class="lede">Everyone knows the title. Almost nobody can tell you what the job looks like on a Tuesday. So we followed one fractional Chief Revenue Officer through a real engagement — and the day-to-day is far less glamorous, and far more valuable, than the title suggests.</p>
+
+    <p>A fractional CRO is not a coach, not a consultant, and not a full-time hire waiting to happen. They are a senior revenue operator who owns your entire go-to-market engine — sales, marketing, and customer success — for a fraction of the week and a fraction of the cost. The word "fractional" describes their calendar, not their commitment.</p>
+
+    <p>In practice, the first thing they do is stop the bleeding. Before any strategy, they find the three places where revenue is quietly leaking: the deals stuck in a stage nobody owns, the leads that never get a second touch, the renewals that slip because no one is watching them.</p>
+
+    <div class="pull">"The best fractional CROs don't add motion. They remove the reasons your revenue keeps stalling."</div>
+
+    <figure>
+      <div class="fimg"><img src="https://image.pollinations.ai/prompt/editorial%20documentary%20photograph%20of%20a%20revenue%20leader%20and%20a%20small%20focused%20team%20reviewing%20a%20detailed%20sales%20pipeline%20on%20a%20large%20wall%20screen%2C%20candid%2C%20warm%20natural%20office%20light%2C%20magazine%20quality%2C%20shallow%20depth%20of%20field%2C%20ultra%20detailed?width=1400&height=790&nologo=true&model=flux&enhance=true&seed=52" alt="A fractional CRO reviewing the pipeline with the team"></div>
+      <figcaption>Week one is mostly listening — to reps, to the numbers, and to what isn't being said.</figcaption>
+    </figure>
+
+    <h2><span class="num">01 · Accountability</span>They own the number, not just the advice</h2>
+    <p>The line that separates a fractional CRO from a consultant is accountability. A consultant hands you a deck. A fractional CRO carries the same quota pressure your full-time leader would — they just carry it two or three days a week. That single difference changes every conversation they have with your team.</p>
+
+    <h2><span class="num">02 · The handoff</span>They build the engine to run without them</h2>
+    <p>The goal of a good engagement is to make itself unnecessary. By the end, the forecast is trustworthy, the pipeline stages mean something, and your team knows exactly what to do on Monday morning — whether or not the CRO is in the room that day.</p>
+
+    <div class="keycard">
+      <div class="k">The short answer</div>
+      <h4>So — what do they actually do all day?</h4>
+      <p>They diagnose where revenue leaks, install the systems and rituals that stop it, and coach your existing team to keep the engine running. Part-time hours, full-time ownership, measured against one number: predictable revenue.</p>
+    </div>
+
+    <p>If you're weighing whether you need one, the honest test is simple. If your revenue feels unpredictable and no single person is accountable for fixing that — you don't need more headcount. You need someone who has done this before, a few days a week, until it's fixed.</p>
+  </article>
+</div>
+
+<div class="related">
+  <div class="rhead">Keep reading</div>
+  <div class="rgrid">
+    <a class="rcard" href="index.html">
+      <div class="ph"><img src="https://image.pollinations.ai/prompt/close%20up%20editorial%20photograph%20of%20hands%20reviewing%20a%20business%20contract%20and%20financial%20figures%20on%20a%20warm%20wooden%20desk%2C%20soft%20cinematic%20light%2C%20magazine%20photography%2C%20shallow%20depth%20of%20field?width=700&height=470&nologo=true&model=flux&enhance=true&seed=34" alt=""></div>
+      <h3>How much does a fractional CRO cost?</h3>
+    </a>
+    <a class="rcard" href="index.html">
+      <div class="ph"><img src="https://image.pollinations.ai/prompt/editorial%20photograph%20of%20a%20startup%20founder%20studying%20a%20growth%20plan%20on%20a%20whiteboard%2C%20candid%2C%20natural%20window%20light%2C%20magazine%20photography?width=700&height=470&nologo=true&model=flux&enhance=true&seed=23" alt=""></div>
+      <h3>When should you hire your first RevOps leader?</h3>
+    </a>
+    <a class="rcard" href="index.html">
+      <div class="ph"><img src="https://image.pollinations.ai/prompt/editorial%20photograph%20of%20two%20executives%20shaking%20hands%20in%20a%20bright%20modern%20boardroom%2C%20candid%20documentary%2C%20warm%20light%2C%20magazine%20quality?width=700&height=470&nologo=true&model=flux&enhance=true&seed=56" alt=""></div>
+      <h3>Interim, fractional, or full-time?</h3>
+    </a>
+  </div>
+</div>
+
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

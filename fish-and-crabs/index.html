@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fish &amp; Crabs — Fishing &amp; Crabbing Hot-Spot Heat Maps in 2027 · PULSE</title>
+<meta name="description" content="Interactive hot-spot density heat maps for fishing and crabbing — by time of day, with public access, gear, and the rules. Pick crabs or fish.">
+<link rel="canonical" href="https://pulserevops.com/fish-and-crabs">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  :root{ --bg:#0e1418; --bg2:#16202a; --card:#16202a; --line:rgba(255,255,255,0.08);
+    --text:#eaf2f4; --muted:#9fb0b6; --accent:#13c2c2; --accent2:#ff8c1a; --crab:#ff5a3c; --fish:#2f9be8; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+  a{color:var(--accent)}
+  .topbar{position:sticky;top:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;
+    padding:13px 22px;background:rgba(14,20,24,0.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .topbar .brand{font-family:'Plus Jakarta Sans';font-weight:900;letter-spacing:.04em;color:#fff;text-decoration:none}
+  .topbar a{text-decoration:none;font-weight:800;font-size:.9rem}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+  .eyebrow{margin:34px 0 8px;font-size:.66rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  h1{font-family:'Plus Jakarta Sans';font-size:clamp(1.9rem,4.4vw,2.9rem);margin:0 0 12px;line-height:1.12;color:#fff}
+  .dek{color:var(--muted);font-size:1.08rem;max-width:760px}
+  .meta{margin:14px 0 4px;font-size:.8rem;color:var(--muted)}
+  .quick{margin:22px 0;padding:18px 22px;background:linear-gradient(135deg,rgba(19,194,194,.1),rgba(255,140,26,.06));
+    border:1px solid rgba(19,194,194,.25);border-radius:14px}
+  .quick b{color:#fff}
+  .mapcard{margin:26px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+  .maphead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .maphead h2{margin:0;font-size:1.05rem}
+  .toggles{display:flex;gap:8px}
+  .tg{cursor:pointer;font-size:.72rem;font-weight:800;padding:5px 11px;border-radius:20px;border:1px solid var(--line);background:transparent;color:var(--muted);font-family:inherit}
+  .tg.crab.on{background:rgba(255,90,60,.18);border-color:var(--crab);color:#ffb3a6}
+  .tg.fish.on{background:rgba(47,155,232,.18);border-color:var(--fish);color:#bfe0fb}
+  .timebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .timebar .lbl{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .times{display:flex;gap:6px;flex-wrap:wrap}
+  .tm{cursor:pointer;font-size:.74rem;font-weight:800;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--muted);font-family:inherit}
+  .tm.on{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06121a;border-color:transparent}
+  .nowbite{font-size:.74rem;color:var(--muted)}
+  #map{height:460px;width:100%;background:#0a1014}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.74rem;color:var(--muted);padding:10px 18px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .maphint{padding:10px 18px;font-size:.74rem;color:var(--muted);border-top:1px solid var(--line)}
+  .dialogue{display:flex;gap:14px;align-items:flex-start;margin:18px 0 6px;padding:18px 20px;border-radius:16px;
+    background:linear-gradient(135deg,rgba(19,194,194,.12),rgba(255,140,26,.07));border:1px solid rgba(19,194,194,.28)}
+  .dialogue .av{flex:0 0 auto;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:1.5rem;
+    background:rgba(14,20,24,.55);border:1px solid var(--line)}
+  .dialogue .when{font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+  .dialogue .text{color:#eaf2f4;font-size:1.04rem;line-height:1.6;margin:0}
+  .dialogue .sig{margin-top:8px;font-size:.78rem;color:var(--muted);font-style:italic}
+  /* fullscreen */
+  .tg.fs{margin-left:auto}
+  .mapcard:fullscreen{background:var(--bg);display:flex;flex-direction:column;width:100vw;height:100vh}
+  .mapcard:fullscreen #map{flex:1;height:auto}
+  .mapcard:-webkit-full-screen{background:var(--bg);width:100vw;height:100vh;display:flex;flex-direction:column}
+  .mapcard:-webkit-full-screen #map{flex:1}
+  /* map controls + tap hint */
+  #map{position:relative;cursor:pointer}
+  .mapcard:fullscreen #map,.mapcard:-webkit-full-screen #map{cursor:default}
+  .leaflet-control-layers{background:var(--card)!important;color:var(--text)!important;border:1px solid var(--line)!important;border-radius:10px!important}
+  .leaflet-control-layers-expanded{padding:9px 12px 9px 10px!important;font-size:.8rem}
+  .leaflet-control-layers label{margin:3px 0;font-weight:700}
+  .leaflet-bar a{background:var(--card)!important;color:var(--text)!important;border-bottom:1px solid var(--line)!important}
+  .leaflet-bar a:hover{background:var(--bg2)!important}
+  .leaflet-control-scale-line{background:rgba(14,20,24,.7)!important;color:var(--text)!important;border-color:var(--line)!important}
+  .maptip{position:absolute;z-index:600;left:50%;top:12px;transform:translateX(-50%);background:rgba(14,20,24,.85);color:#eaf2f4;
+    font-size:.74rem;font-weight:700;padding:6px 14px;border-radius:20px;border:1px solid var(--line);pointer-events:none;
+    white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:opacity .4s}
+  /* gradient legend */
+  .heatleg{display:flex;align-items:center;gap:12px;padding:11px 18px;flex-wrap:wrap;border-top:1px solid var(--line)}
+  .heatleg .bar{height:10px;width:150px;border-radius:6px;background:linear-gradient(to right,#2ecc71,#f1c40f,#e67e22,#e74c3c)}
+  .heatleg .lab{font-size:.72rem;color:var(--muted);font-weight:700}
+  .heatleg .pin{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;color:var(--muted)}
+  .locask{position:absolute;inset:0;z-index:1200;display:flex;align-items:center;justify-content:center;background:rgba(8,12,16,.5);backdrop-filter:blur(2px)}
+  .locask-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;max-width:290px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.55)}
+  .locask-t{font-weight:800;font-size:1.05rem;color:#fff;margin-bottom:6px}
+  .locask-d{font-size:.82rem;color:var(--muted);margin-bottom:14px;line-height:1.45}
+  .locask-b{display:flex;gap:8px;justify-content:center}
+  .locask-b button{padding:9px 14px;border-radius:9px;border:none;font-weight:700;cursor:pointer;background:#e67e22;color:#fff;font-size:.85rem}
+  .locask-b button.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+  h2.sec{font-family:'Plus Jakarta Sans';font-size:1.5rem;margin:38px 0 6px;color:#fff}
+  .spotcard{display:flex;gap:14px;align-items:flex-start;margin:12px 0;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+  .spotcard .rank{flex:0 0 auto;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-weight:900;background:rgba(19,194,194,.15);color:var(--accent)}
+  .spotcard b{color:#fff}
+  .chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}
+  .chip{font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--line)}
+  .qa{border-top:1px solid var(--line);padding:18px 0}
+  .qa h3{margin:0 0 6px;font-size:1.12rem;color:#fff}
+  .qa p{margin:0 0 10px;color:#d4dee1}
+  .disc{margin:30px 0;padding:14px 18px;font-size:.82rem;color:var(--muted);background:rgba(255,140,26,.06);border:1px solid rgba(255,140,26,.22);border-radius:12px}
+  /* hub */
+  .hubgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin:26px 0 10px}
+  .hubcard{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);transition:border-color .2s,transform .2s}
+  .hubcard:hover{border-color:var(--accent);transform:translateY(-3px)}
+  .hubcard .body{padding:16px 18px}
+  .hubcard h3{margin:0 0 6px;color:#fff;font-family:'Plus Jakarta Sans';font-size:1.12rem}
+  .hubcard p{margin:0;color:var(--muted);font-size:.92rem}
+  .hubcard .tag{display:inline-block;margin-bottom:8px;font-size:.64rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .subtiles{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:26px 0 14px}
+  @media(max-width:560px){.subtiles{grid-template-columns:1fr}}
+  .subtile{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:20px;padding:34px 26px;text-align:center;
+    background:var(--card);transition:border-color .2s,transform .2s}
+  .subtile:hover{transform:translateY(-3px)}
+  .subtile.crab:hover{border-color:var(--crab)}
+  .subtile.fish:hover{border-color:var(--fish)}
+  .subtile .ic{font-size:3rem;line-height:1}
+  .subtile h2{font-family:'Plus Jakarta Sans';margin:12px 0 6px;color:#fff;font-size:1.5rem}
+  .subtile p{margin:0;color:var(--muted);font-size:.95rem}
+  .subtile .cnt{display:inline-block;margin-top:12px;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  footer{margin-top:40px;padding:30px 20px;text-align:center;color:var(--muted);font-size:.82rem;border-top:1px solid var(--line)}</style>
+</head>
+<body>
+  <div class="topbar"><a class="brand" href="/">🦀 PULSE · Fish &amp; Crabs</a><a href="/">← PULSE home</a></div>
+  <div class="wrap">
+    <div class="eyebrow">Living · Fish &amp; Crabs</div>
+    <h1>Fishing &amp; Crabbing Hot-Spot Maps</h1>
+    <p class="dek">Where the fish and crabs actually are — interactive <b>density maps</b> (red = dense, green = few) that shift by time of day, with public access, gear, and the rules. Pick what you're after:</p>
+    <div class="subtiles">
+      <a class="subtile crab" href="/fish-and-crabs/crab"><div class="ic">🦀</div><h2>Crabs</h2><p>Blue-crab hot spots — where they stack by season &amp; time of day.</p><span class="cnt">119 spots →</span></a>
+      <a class="subtile fish" href="/fish-and-crabs/fish"><div class="ic">🎣</div><h2>Fish</h2><p>Rockfish, striped bass &amp; more — best spots by time of day.</p><span class="cnt">2 spots →</span></a>
+    </div>
+    <div class="disc">⚠️ These maps show illustrative seasonal/time density and real public-access points. Always verify current state DNR fishing &amp; crabbing regulations and access boundaries before heading out.</div>
+  </div>
+  <footer>© 2027 Kory White · PULSE · <a href="/">pulserevops.com</a></footer>
+<script src="/pulse-ambient.js" defer></script>
+</body></html>

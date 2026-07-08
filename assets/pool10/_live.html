@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="15"><title>pick 10</title>
+<style>body{margin:0;background:#0f0f12;color:#eef1f6;font-family:system-ui,Arial}
+#bar{position:sticky;top:0;z-index:5;background:#16181d;padding:14px 20px;border-bottom:1px solid #333}
+#list{color:#EAC15C;font-weight:700}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:11px;padding:16px}
+figure{margin:0;position:relative;border:3px solid #333;border-radius:9px;overflow:hidden;background:#000;cursor:pointer}
+figure.sel{border-color:#22c55e}img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+figcaption{position:absolute;top:5px;left:5px;background:rgba(0,0,0,.75);color:#EAC15C;font-weight:800;padding:2px 9px;border-radius:6px}
+.chk{position:absolute;top:5px;right:5px;width:30px;height:30px;border-radius:50%;background:#22c55e;color:#062;display:none;align-items:center;justify-content:center;font-weight:900}
+figure.sel .chk{display:flex}</style></head><body>
+<div id="bar">🏈 <b id="t">hf</b> — auto-updates every 15s · tap 10 · picked <b id="cnt">0</b>: <span id="list">none</span></div>
+<div class="g" id="g"></div>
+<script>
+var t=new URLSearchParams(location.search).get("t")||"hf";document.getElementById("t").textContent=t;
+var K="sel_"+t;var sel=new Set(JSON.parse(localStorage.getItem(K)||"[]"));
+var g=document.getElementById("g");
+for(var i=0;i<50;i++){(function(n){var f=document.createElement("figure");f.dataset.n=n;
+var im=new Image();im.src=t+"/"+n+".jpg";im.onerror=function(){f.style.display="none"};
+var cap=document.createElement("figcaption");cap.textContent=n;var ck=document.createElement("div");ck.className="chk";ck.textContent="✓";
+f.appendChild(im);f.appendChild(cap);f.appendChild(ck);if(sel.has(n))f.classList.add("sel");
+f.onclick=function(){if(sel.has(n)){sel.delete(n);f.classList.remove("sel")}else{sel.add(n);f.classList.add("sel")}localStorage.setItem(K,JSON.stringify([...sel]));upd()};
+g.appendChild(f)})(String(i).padStart(2,"0"))}
+function upd(){var a=[...sel].sort();document.getElementById("list").textContent=a.join(", ")||"none";document.getElementById("cnt").textContent=a.length}upd();
+</script></body></html>

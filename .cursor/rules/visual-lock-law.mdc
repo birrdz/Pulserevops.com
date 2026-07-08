@@ -1,0 +1,40 @@
+---
+description: Visual lock law — DeepSeek text-only; images swap-in-place only; no stacking
+alwaysApply: true
+---
+
+# VISUAL LOCK LAW — WRITING & FIXING
+
+**Status: MANDATORY · NON-NEGOTIABLE** for every DeepSeek / writer / format-fix pass.
+
+## DeepSeek / writers (text only)
+
+Writers may change **prose, headings, FAQ, Sources, mermaid code** only.
+
+Writers **must NOT**:
+- Add, remove, move, or edit image markdown (`![alt](url)`), `@@PRODUCT`, HTML, `<aside>`, inline styles, or CRO cards
+- Change layout, visual structure, or render-time widgets
+- Stack two images back-to-back (text must sit between images)
+- Invent image URLs
+
+Enforcement: `_visual_lock_law.js` → `enforceWriterVisualLock()` after every DS pass. Prompt snippet: `VISUAL_LOCK_DS_SYSTEM_SNIPPET`.
+
+## Images (swap only)
+
+The **image pipeline** (`_ddg_facecard_lib.js`, `repairBrokenQaImages`, `fillEntryMissingImages`) may **swap** one applicable image for another at an **existing slot** — same count, same rhythm.
+
+Images **must NOT**:
+- Stack two images without text between
+- Add extra image lines beyond what the template allows
+- Use live `pollinations.ai` URLs in blobs (self-host to `/assets/qa/`)
+
+DDG↔Pollinator alternation · **15s** floor (`_image_provider_alternate.js`).
+
+## Render (desktop + mobile)
+
+Renderer + `assets/pulse-tan.css` own all visuals:
+- Real `<img>` tags; `max-width:100%`; `height:auto`; `width:100%` on entry figures
+- Q&A: gold `direct-answer-box` at render; CRO injected at render — never in blob
+- Mosaic tiles: `<img class="mm-img">` not background-image lazy load
+
+Module: `_visual_lock_law.js` · wired in `_format_fixer_lib.js`, `_v2_components.js`, `_aq_qa_gold_fix_lib.js`.

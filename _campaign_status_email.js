@@ -18,7 +18,7 @@ const PILLAR = {
   dn:['Dining',183,107], sw:['Software',95,105], sk:['Skill Drills',100,100], gp:['GTM Playbooks',398,100],
   hf:['NIL/HS',62,90], tn:['Towns',141,89], co:['Collectibles',74,76], es:['Home Builders',193,67],
   sy:['Style',100,65], mv:['Movies',51,64], tv:['Travel',281,60], gm:['Games',63,57], lv:['Retire',117,50],
-  sp:['Speeches',100,50], wl:['Wellness',65,45], cl:['Clubs',50,40], ga:['Wedding Venues',50,30],
+  sp:['Speeches',100,50], wl:['Wellness',65,45], cl:['Clubs',50,40], ga:['Gatherings',50,30],
 };
 
 (async () => {
@@ -49,8 +49,26 @@ const PILLAR = {
     curBlock = `<p style="font-size:17px;margin:16px 0 6px;padding:10px 14px;background:#eef4ff;border:1px solid #cfe0ff;border-radius:10px">🎯 <b>Current pillar:</b> ${cnm} <span style="color:#999">(${curP})</span> — <b style="color:#1f5fd6">${cw}</b> of <b>${cgap}</b> &nbsp;(<b>${cpc}%</b> of this pillar)</p>`;
     curSub = ` · 🎯 ${cnm} ${cw}/${cgap} (${cpc}%)`; }
 
+  // ── CURRENT PROJECTS (owner 2026-06-27): the live picture of what's in flight,
+  // awaiting deploy, and recently shipped — replaces the gap-fill-only framing.
+  const spCount = idx.entries.filter(e => e && /^sp\d+$/.test(e.id)).length;
+  const projectsBlock = `
+    <div style="margin:4px 0 18px;padding:12px 16px;background:#fff8ee;border:1px solid #f0d9b0;border-radius:12px">
+      <div style="font-size:16px;font-weight:800;margin-bottom:8px">📌 Current projects</div>
+      <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.7">
+        <li>🎤 <b>Speeches sprint</b> — Claude writers building 300 new speeches/toasts (sp): <b style="color:#1a7f37">${spCount.toLocaleString()}</b> live (target ~400).</li>
+        <li>🖼️ <b>Images</b> — DuckDuckGo lanes backfilling covers site-wide.</li>
+        <li>🛑 <b>Gap-fill campaign</b> — <b>cancelled</b> by owner.</li>
+      </ul>
+      <div style="font-size:14px;font-weight:800;margin:10px 0 4px">🚀 Ready, awaiting your deploy</div>
+      <div style="font-size:13px;color:#555">GTM Playbooks header fix · CRO 3-hotspot card (logo/face/Quick Call) · progress-bar removal · CRM + War Room redesign · full 22k search coverage</div>
+      <div style="font-size:14px;font-weight:800;margin:10px 0 4px">✅ Shipped (deploy-free)</div>
+      <div style="font-size:13px;color:#555">Homepage search keyword autofill restored · Kory White CRO card corrected on all answers</div>
+    </div>`;
+
   const html = `<div style="font-family:system-ui,sans-serif;font-size:15px;line-height:1.55">
-    <h2 style="margin:0 0 10px">Pulse gap-fill — live status</h2>
+    <h2 style="margin:0 0 10px">Pulse — current projects &amp; status</h2>
+    ${projectsBlock}
     <p style="font-size:17px;margin:6px 0"><b>✍️ Writing</b> (DeepSeek + Claude, 4 lanes): <b style="color:#1a7f37">${W.toLocaleString()}</b> of <b>${TARGET.toLocaleString()}</b> &nbsp;(<b>${wpct}%</b> total gap filled)</p>
     <div style="background:#eee;border-radius:8px;height:12px;overflow:hidden"><div style="background:#1a7f37;height:12px;width:${Math.min(100, wpct)}%"></div></div>
     ${curBlock}
@@ -61,6 +79,6 @@ const PILLAR = {
     <table cellpadding="5" cellspacing="0" style="border-collapse:collapse;font-size:14px;width:100%">${perPillar}</table>
     <p style="color:#888;font-size:12px;margin-top:14px">Library: ${idx.entries.length.toLocaleString()} entries. Per-pillar = new entries written vs that pillar's gap target; only active pillars shown.</p>
   </div>`;
-  const r = await fetch('https://pulserevops.com/.netlify/functions/pulse-progress-notify?key=pulsemachine-writer-2026', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subject: `Pulse: ${W.toLocaleString()}/${TARGET.toLocaleString()} written (${wpct}%)${curSub} · 👥 ${visits.toLocaleString()} today`, html }) });
+  const r = await fetch('https://pulserevops.com/.netlify/functions/pulse-progress-notify?key=pulsemachine-writer-2026', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subject: `Pulse projects: 🎤 ${spCount} speeches · 👥 ${visits.toLocaleString()} today`, html }) });
   console.log('email:', await r.text(), '| W=' + W, 'imgDone=' + imgDone, 'activePillars=' + rows.length);
 })().catch(e => { console.error('ERR', e.message); });

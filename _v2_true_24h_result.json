@@ -1,0 +1,60 @@
+{
+  "at": "2026-06-30T13:57:27.212Z",
+  "windowHours": 24,
+  "cutoff": "2026-06-29T13:54:28.880Z",
+  "methodology": "Log-based: STAGE-1 + needs-review CLEARED timestamps from engine logs (NOT blob updated_at)",
+  "stage1Approvals24h": 314,
+  "nrCleared24h": 197,
+  "uniqueApprovedEvents24h": 511,
+  "finalSigned24h": 409,
+  "ccSigned24h": 1240,
+  "falsePassLooks12or13": {
+    "count": 0,
+    "scoreHist": {},
+    "byReason": {},
+    "byPillar": {},
+    "ids": [],
+    "sample": []
+  },
+  "sub12WithGaps": 0,
+  "cleanPass": 511,
+  "noBlob": 0,
+  "finalGateNowFailing": {
+    "count": 3,
+    "sample": [
+      {
+        "id": "cg0914",
+        "score": 11,
+        "gaps": [
+          "score<12",
+          "sources5"
+        ],
+        "signedAt": "2026-06-30T07:57:26.657Z",
+        "source": "cc-audit"
+      },
+      {
+        "id": "cg0843",
+        "score": 11,
+        "gaps": [
+          "score<12",
+          "sources5"
+        ],
+        "signedAt": "2026-06-30T08:00:33.452Z",
+        "source": "cc-audit"
+      },
+      {
+        "id": "gp0491",
+        "score": 12,
+        "gaps": [
+          "twoMermaid"
+        ],
+        "signedAt": "2026-06-30T11:11:18.069Z",
+        "source": "cc-audit"
+      }
+    ]
+  },
+  "ledgerNow": {
+    "inNeedsReview": 0,
+    "stillInApproved": 0
+  }
+}

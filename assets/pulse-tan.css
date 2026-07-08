@@ -1,0 +1,147 @@
+/* ===========================================================================
+   PULSE — Light Tan Editorial Theme (sitewide, owner 2026-06-27)
+   One shared sheet linked into EVERY public page. Uses !important so it wins
+   over each page's existing (mostly dark) inline styles regardless of load
+   order — including inline style="" attributes (external !important beats
+   non-!important inline declarations).
+
+   Palette (owner-selected "light tan / cream paper"):
+     bg #ECE3D2 · text #1d1711 · headings Fraunces #1d1711 ·
+     accents amber #C8821E / gold #CBA135 · links #C8821E
+   =========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,800;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+  /* Re-point every design token used across templates to the light-tan palette. */
+  --bg:#ECE3D2 !important; --ink:#1d1711 !important;
+  --s1:#F4ECDC !important; --s2:#EFE6D4 !important;
+  --card:#FBF8F1 !important; --cardh:#FFFFFF !important;
+  --bdr:rgba(29,23,17,.14) !important; --bdrh:rgba(200,130,30,.50) !important;
+  --t1:#1d1711 !important; --t2:#6b5d49 !important; --t3:#8a7a63 !important;
+  --line:rgba(29,23,17,.12) !important; --muted:#6b5d49 !important;
+  --gold:#CBA135; --amber:#C8821E; --wine:#8C2D3C; --cream:#ECE3D2;
+}
+
+/* ── Canvas + base type ──────────────────────────────────────────────────── */
+html,body{
+  background:#ECE3D2 !important;
+  background-image:radial-gradient(1100px 480px at 85% -12%,rgba(200,130,30,.10),transparent),
+                   radial-gradient(820px 380px at 0% 0%,rgba(203,161,53,.10),transparent) !important;
+  color:#1d1711 !important;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif !important;
+}
+
+/* Headings → Fraunces serif, dark brown. */
+h1,h2,h3,h4,.hero h1,.hdr-name,.q,.pbf-word,.kbf-word{font-family:'Fraunces',Georgia,serif !important;}
+h1,h2,h3,h4,.q,.hero h1{color:#1d1711 !important;}
+.hero h1 em,em.gold{color:#C8821E !important;font-style:italic !important;}
+p,li,td,span,.body,.body p,.body li{color:#1d1711;}
+a{color:#C8821E !important;}
+a:hover{color:#9c5e12 !important;}
+
+/* ── Entry / answer page (pulse-machine-entry renderer) ──────────────────── */
+.top{background:rgba(236,227,210,.85) !important;border-bottom:1px solid rgba(29,23,17,.12) !important;}
+.top a,.meta-row{color:#6b5d49 !important;}
+.body{color:#1d1711 !important;}
+.body strong,.body b{color:#1d1711 !important;}
+.body h2,.body h3{color:#1d1711 !important;}
+.body a{color:#C8821E !important;}
+.body code{background:rgba(29,23,17,.06) !important;border:1px solid rgba(29,23,17,.12) !important;color:#9c5e12 !important;}
+.body .mermaid-wrap{background:#FBF8F1 !important;border:1px solid rgba(203,161,53,.30) !important;}
+.entry-tag{background:rgba(203,161,53,.10) !important;border:1px solid rgba(203,161,53,.28) !important;color:#6b5d49 !important;}
+a.entry-tag:hover{background:rgba(200,130,30,.16) !important;border-color:rgba(200,130,30,.5) !important;color:#9c5e12 !important;}
+.entry-sources,.entry-source{color:#1d1711 !important;}
+.entry-source{background:#FBF8F1 !important;border:1px solid rgba(29,23,17,.12) !important;color:#1d1711 !important;}
+.entry-source:hover{background:#fff !important;border-color:rgba(200,130,30,.45) !important;}
+.entry-sources-label{color:#C8821E !important;}
+.es-host{color:#8a7a63 !important;} .es-title{color:#1d1711 !important;}
+.footer-note{color:#6b5d49 !important;}
+.figure,.entry-cover img{border:1px solid rgba(29,23,17,.10);}
+
+/* ── Pillar / library template chrome (knowledge.html, *.html, pillar-page) ─ */
+.hdr{background:rgba(236,227,210,.92) !important;border-bottom:1px solid rgba(29,23,17,.12) !important;}
+.hdr-name{color:#1d1711 !important;}
+.hdr-cta{background:linear-gradient(135deg,#C8821E,#9c5e12) !important;color:#fff !important;border:none !important;}
+.search-input{background:#FBF8F1 !important;border:1px solid rgba(29,23,17,.16) !important;color:#1d1711 !important;}
+.search-input::placeholder{color:#8a7a63 !important;}
+.search-clear{background:rgba(29,23,17,.06) !important;color:#1d1711 !important;}
+.filters,.filter-chip{color:#6b5d49 !important;}
+.filter-chip{background:rgba(203,161,53,.06) !important;border:1px solid rgba(29,23,17,.12) !important;}
+.filter-chip.is-active{background:#C8821E !important;color:#fff !important;border-color:#C8821E !important;}
+.statusbar,.statusbar strong{color:#1d1711 !important;}
+.filter-count{color:#6b5d49 !important;}
+
+.card,.pcard{background:#FBF8F1 !important;border:1px solid rgba(29,23,17,.12) !important;}
+.card:hover,.pcard:hover{box-shadow:0 12px 30px rgba(29,23,17,.16) !important;border-color:rgba(200,130,30,.42) !important;}
+.card-q,.card-top{color:#1d1711 !important;}
+.card-meta{color:#6b5d49 !important;border-top:1px solid rgba(29,23,17,.10) !important;}
+.card-id,.card-date{color:#8a7a63 !important;}
+.card-cta{color:#C8821E !important;}
+.card-pillar{color:#9c5e12 !important;background:rgba(200,130,30,.10) !important;border:1px solid rgba(200,130,30,.30) !important;}
+.empty{color:#6b5d49 !important;}
+
+.pager button{background:rgba(203,161,53,.06) !important;border:1px solid rgba(29,23,17,.12) !important;color:#1d1711 !important;}
+.pager button.is-active{background:#C8821E !important;color:#fff !important;border-color:#C8821E !important;}
+
+.footer{background:#EFE6D4 !important;border-top:1px solid rgba(29,23,17,.12) !important;color:#6b5d49 !important;}
+.footer-copy{color:#8a7a63 !important;}
+.footer-pillars span,.footer-pill{background:rgba(203,161,53,.06) !important;border:1px solid rgba(29,23,17,.12) !important;color:#6b5d49 !important;}
+.footer-pillars strong{color:#1d1711 !important;}
+
+.hero-eyebrow{background:rgba(200,130,30,.10) !important;border:1px solid rgba(200,130,30,.30) !important;color:#9c5e12 !important;}
+.hero-counts strong{color:#C8821E !important;}
+
+/* ── Bigger, heavier body text for readability (owner request) ─────────────
+   Applies to general words + every answer body. */
+.body, .body p, .body li, .body td,
+article p, article li, article td,
+.entry-source .es-title{
+  font-size:1.16rem !important;
+  line-height:1.72 !important;
+  font-weight:500 !important;
+  letter-spacing:.002em;
+}
+.body h2, article h2{ font-size:1.62rem !important; }
+.body h3, article h3{ font-size:1.28rem !important; }
+.body strong, .body b, article strong{ font-weight:800 !important; }
+@media(max-width:640px){
+  .body, .body p, .body li, article p, article li{
+    font-size:1.22rem !important;
+    line-height:1.76 !important;
+  }
+  .body .direct-answer-box p{ font-size:1.2rem !important; }
+}
+
+/* ── Responsive images (sitewide — mobile + desktop) ─────────────────────── */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+picture,
+figure {
+  max-width: 100%;
+}
+
+img,
+picture {
+  min-width: 0;
+  min-height: 0;
+}
+
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.entry-cover img,
+.entry-section img,
+.entry-graphic img,
+.product-card img,
+.body figure img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}

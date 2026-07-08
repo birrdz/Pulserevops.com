@@ -1,0 +1,68 @@
+{
+  "running": false,
+  "paused": true,
+  "stage": "paused by owner",
+  "ranking": {
+    "failed": 6
+  },
+  "essays": {
+    "fixed": 0,
+    "total": 0,
+    "failed": 0,
+    "remaining": 0
+  },
+  "note": "HF — ranking product imgs + essay section imgs, no top hero",
+  "strategy": "pillar-images",
+  "samples": [
+    {
+      "at": "2026-07-08T19:13:25.905Z",
+      "phase": "ranking",
+      "id": "hf0052",
+      "title": "Lance O's Recruiting Network vs NCSA vs Hudl vs FieldLevel in 2027 — which one serves HS football prospects best?",
+      "url": "https://pulserevops.com/hf/hf0052",
+      "grade": 13,
+      "productImgs": 6,
+      "pass": true
+    },
+    {
+      "at": "2026-07-08T18:53:08.672Z",
+      "phase": "ranking",
+      "id": "hf0057",
+      "title": "Why a single well-crafted X DM to a college coach beats 1000 mass emails in 2027?",
+      "url": "https://pulserevops.com/hf/hf0057",
+      "grade": 15,
+      "productImgs": 9,
+      "pass": true
+    },
+    {
+      "at": "2026-07-08T18:37:21.205Z",
+      "phase": "ranking",
+      "id": "hf0061",
+      "title": "How does NIL impact high school recruiting commitments in 2027?",
+      "url": "https://pulserevops.com/hf/hf0061",
+      "grade": 15,
+      "productImgs": 6,
+      "pass": true
+    }
+  ],
+  "startedAt": "2026-07-08T18:57:01.640Z",
+  "at": "2026-07-08T19:36:28.939Z",
+  "pillar": "hf",
+  "pillarLabel": "HF",
+  "fixed": 13,
+  "total": 57,
+  "remaining": 44,
+  "failed": 6,
+  "currentId": "hf0044",
+  "currentTitle": "Top 10 College Football Recruiting Pipeline States 2027",
+  "lastCheck": {
+    "id": "hf0049",
+    "url": "https://pulserevops.com/knowledge/hf0049",
+    "masterOk": true,
+    "masterIssues": [],
+    "productImgs": 6,
+    "wantProduct": 6,
+    "grade": 13,
+    "pass": true
+  }
+}

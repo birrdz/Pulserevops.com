@@ -1,0 +1,26 @@
+---
+description: Pulse share buttons required on q#### and st#### Q&A pages
+globs: netlify/functions/pulse-machine-entry.js
+alwaysApply: false
+---
+
+# Share buttons — Q&A law (4444)
+
+Every **q####** and **st####** knowledge page MUST render the enhanced share row in `pulse-machine-entry.js`.
+
+## Required UI
+
+- **Pulse logo** (`/pulse-favicon-adaptive.svg`) as the primary clickable share control → opens X/Twitter intent with question + URL + `@coachkorywhite`
+- **LinkedIn**, **Facebook**, **email**, and **Copy link** buttons alongside
+- Pre-filled share text: `{question} — Pulse Knowledge Library`
+- OG/Twitter image for q/st: `/pulse-favicon-adaptive.svg`
+
+## Do not remove or regress
+
+- Do not drop share on q/st when editing the renderer
+- Do not replace the Pulse logo X button with text-only 𝕏 on q/st pages
+- Copy-link must write the canonical `/knowledge/{id}` URL
+
+## Where it lives
+
+`netlify/functions/pulse-machine-entry.js` — `shareHtml` block (~line 720). Requires Netlify deploy to go live.

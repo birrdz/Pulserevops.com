@@ -1,0 +1,164 @@
+{
+  "done": [
+    "sw0001",
+    "sw0002",
+    "sw0003",
+    "sw0006",
+    "sw0007",
+    "sw0008",
+    "sw0009",
+    "sw0010",
+    "sw0011",
+    "sw0012",
+    "sw0013",
+    "sw0014",
+    "sw0026",
+    "sw0028",
+    "sw0029",
+    "sw0030",
+    "sw0031",
+    "sw0032",
+    "sw0034",
+    "sw0035",
+    "sw0036",
+    "sw0037",
+    "sw0038",
+    "sw0041",
+    "sw0044",
+    "sw0045",
+    "sw0047",
+    "sw0048",
+    "sw0050",
+    "sw0051",
+    "sw0052",
+    "sw0054",
+    "sw0055",
+    "sw0056",
+    "sw0057",
+    "sw0059",
+    "sw0060",
+    "sw0061",
+    "sw0067",
+    "sw0072",
+    "sw0076",
+    "sw0079",
+    "sw0083",
+    "sw0087",
+    "sw0091",
+    "sw0096",
+    "sw0098",
+    "sw0104",
+    "sw0106"
+  ],
+  "failed": [],
+  "samples": [
+    {
+      "at": "2026-07-06T12:30:30.052Z",
+      "id": "sw0072",
+      "title": "What is the best AI writing assistant for business emails—Jasper or Copy.ai?",
+      "url": "https://pulserevops.com/software/sw0072",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "numbered_sections_0_of_10",
+        "product_lines_0_of_10"
+      ]
+    },
+    {
+      "at": "2026-07-06T12:30:25.890Z",
+      "id": "sw0051",
+      "title": "Top 10 recruitment software with AI screening in 2027",
+      "url": "https://pulserevops.com/software/sw0051",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "numbered_sections_5_of_10",
+        "product_lines_5_of_10"
+      ]
+    },
+    {
+      "at": "2026-07-06T12:30:20.361Z",
+      "id": "sw0035",
+      "title": "Top 10 customer success platforms in 2027",
+      "url": "https://pulserevops.com/software/sw0035",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "numbered_sections_2_of_10",
+        "product_lines_2_of_10"
+      ]
+    },
+    {
+      "at": "2026-07-06T12:30:16.393Z",
+      "id": "sw0012",
+      "title": "Top 10 Password Managers for Enterprises in 2027",
+      "url": "https://pulserevops.com/software/sw0012",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": []
+    },
+    {
+      "at": "2026-07-06T12:30:12.971Z",
+      "id": "sw0001",
+      "title": "Top 10 CRM Platforms for Scaling Enterprises in 2027",
+      "url": "https://pulserevops.com/software/sw0001",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": []
+    }
+  ],
+  "fixedCount": 49,
+  "strategy": "master-no-hero",
+  "pillar": "sw",
+  "recent": [
+    {
+      "id": "sw0106",
+      "title": "Top 10 Cybersecurity Software for 2027: CrowdStrike, SentinelOne, and Palo Alto Compared",
+      "url": "https://pulserevops.com/software/sw0106",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": []
+    },
+    {
+      "id": "sw0104",
+      "title": "Top 10 Productivity Suites for 2027: Notion, Asana, and Monday.com Compared",
+      "url": "https://pulserevops.com/software/sw0104",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": []
+    },
+    {
+      "id": "sw0098",
+      "title": "What are the best AI tools for content marketing—Surfer SEO or Frase?",
+      "url": "https://pulserevops.com/software/sw0098",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "numbered_sections_0_of_10",
+        "product_lines_0_of_10"
+      ]
+    },
+    {
+      "id": "sw0096",
+      "title": "What is the best tool for A/B testing landing pages—Optimizely or VWO?",
+      "url": "https://pulserevops.com/software/sw0096",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "numbered_sections_0_of_10",
+        "product_lines_0_of_10"
+      ]
+    },
+    {
+      "id": "sw0091",
+      "title": "What is the best AI-powered CRM for small businesses in 2024?",
+      "url": "https://pulserevops.com/software/sw0091",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "numbered_sections_0_of_10",
+        "product_lines_0_of_10"
+      ]
+    }
+  ]
+}

@@ -16,8 +16,10 @@ const {
   repairBrokenQaImages,
   fillEntryMissingImages,
   pickMatchingLibraryImage,
+  tryPosterLibrary,
   backfillRegistry,
 } = require('./_ddg_facecard_lib');
+const WD = 'C:/Users/koryj/website';
 const { auditMovieTitleMatch, enumerateProductSlots } = require('./_mv_image_title_match');
 
 const COVER = (id) => '/assets/qa/' + id + '.jpg';
@@ -92,6 +94,20 @@ async function guaranteedLibraryFill(id, title, body, failedUrls, onProgress) {
   for (const url of failedUrls) {
     const movieName = slotByUrl[url] || title;
     if (onProgress) onProgress({ phase: 'library-fallback', url, title: movieName });
+    // mv: regenerate this slot from the local title-keyed poster library FIRST — correct movie, instant, no
+    // registry guessing. Only falls through to pickMatchingLibraryImage if the title isn't in the library.
+    if (pillar === 'mv' && tryPosterLibrary) {
+      const tiM = url.match(new RegExp(id + '-(\\d+)\\.jpg'));
+      const ti = tiM ? parseInt(tiM[1], 10) : (Object.keys(slotByUrl).indexOf(url) + 1 || 1);
+      const out = WD + '/assets/qa/' + id + '-' + ti + '.jpg';
+      try {
+        const lib = await withTimeout(tryPosterLibrary(id, ti, movieName, movieName, out), 15000, 'poster-lib:' + url);
+        if (lib) {
+          const renders = await imageRenders(lib, id);
+          if (renders.ok) { b = swapImageUrl(b, url, lib); exclude.push(lib); filled++; continue; }
+        }
+      } catch (e) {}
+    }
     let pick = null;
     try {
       pick = await withTimeout(

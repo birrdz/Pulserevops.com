@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulse — We add value</title>
+<link rel="canonical" href="https://pulserevops.com/">
+<meta name="description" content="Pulse — we add value. One free library of 35,000+ operator-grade answers, rankings, and guides across revenue, business, buying guides, places, and lifestyle.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pulserevops.com/">
+<meta property="og:site_name" content="Pulse">
+<meta property="og:title" content="Pulse — We add value">
+<meta property="og:description" content="35,000+ researched answers that add value — across revenue, business, buying guides, places and lifestyle. All free.">
+<meta property="og:image" content="https://pulserevops.com/pulse-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pulse — We add value">
+<meta name="twitter:description" content="35,000+ researched answers that add value. All free.">
+<meta name="twitter:image" content="https://pulserevops.com/pulse-og.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#fdfbf7">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/icon-192.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Pulse","alternateName":"Pulse RevOps","url":"https://pulserevops.com/","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://pulserevops.com/knowledge?q={search_term_string}"},"query-input":"required name=search_term_string"}}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#1b1712;--ink-soft:#6c6259;--line:#e8e2d8;--paper:#fdfbf7;--paper-2:#f4efe7;--accent:#c26a10;--maxw:1200px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+
+  /* shimmer placeholder while an image loads */
+  .load{position:relative;background:#ededea;overflow:hidden}
+  .load::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.75) 50%,transparent 80%);transform:translateX(-100%);animation:sh 1.3s infinite}
+  @keyframes sh{to{transform:translateX(100%)}}
+  img{opacity:1}
+  img.ready{opacity:1}
+  /* slow continuous Ken Burns drift on every image (visible pan + zoom) */
+  @keyframes drift{0%{transform:scale(1.04) translate3d(1.5%,1%,0)}100%{transform:scale(1.15) translate3d(-2.5%,-2.5%,0)}}
+  .card .ph img,.tile .ph img,.feature .slide .ph img{animation:drift 22s ease-in-out infinite alternate;will-change:transform;transform-origin:center}
+  .card:nth-child(even) .ph img,.tile:nth-child(even) .ph img{animation-duration:27s;animation-direction:alternate-reverse}
+  .card:nth-child(3n) .ph img,.tile:nth-child(3n) .ph img{animation-duration:24s}
+  .mtrack .card .ph img{animation:none} /* auto-scrolling row already moves — keep its images still so it never feels spammy */
+  @media(prefers-reduced-motion:reduce){.card .ph img,.tile .ph img,.feature .slide .ph img{animation:none}}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:60}
+  .topbar{background:var(--accent);height:6px}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{font-weight:800;font-size:1.45rem;letter-spacing:-.02em}.brand b{color:var(--accent)}
+  nav.top{display:flex;gap:26px;font-size:.83rem;font-weight:600;color:#333}
+  nav.top a:hover{color:var(--accent)}
+  .search{border:1px solid var(--line);border-radius:100px;padding:9px 16px;font-size:.8rem;color:var(--ink-soft);background:#fff}
+
+  .today{display:flex;align-items:center;gap:12px;margin:28px 0 14px;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .today .ln{flex:1;height:1px;background:var(--line)}
+  .today .soft{color:var(--ink-soft);font-weight:600;letter-spacing:.04em;text-transform:none}
+
+  .feature{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/7}
+  .feature .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease}
+  .feature .slide.on{opacity:1}
+  .feature .slide .ph{position:absolute;inset:0}
+  .feature .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 28%,rgba(0,0,0,.76) 100%)}
+  .feature .cap{position:absolute;left:0;right:0;bottom:0;padding:40px 44px;color:#fff;z-index:2}
+  .flabel{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--accent);padding:5px 11px;border-radius:4px;display:inline-block}
+  .feature h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(1.8rem,3.6vw,3rem);line-height:1.05;letter-spacing:-.01em;max-width:20ch;margin:13px 0 6px}
+  .feature .dek{max-width:58ch;color:rgba(255,255,255,.86);font-size:.98rem}
+  .dots{position:absolute;right:26px;top:22px;display:flex;gap:7px;z-index:3}
+  .dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer}
+  .dots i.on{background:#fff}
+
+  .rail{margin-top:56px}
+  .rail-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px}
+  .rail-head .tick{width:34px;height:2px;background:#111;margin-bottom:12px}
+  .rail-head h2{font-size:1.5rem;font-weight:700;letter-spacing:-.01em}
+  .rail-head .sub{font-size:.82rem;color:var(--ink-soft);margin-top:4px}
+  .seyebrow{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  .livedot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e0362a;margin-right:6px;vertical-align:middle;animation:pulse 1.7s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(224,54,42,.5)}70%{box-shadow:0 0 0 7px rgba(224,54,42,0)}100%{box-shadow:0 0 0 0 rgba(224,54,42,0)}}
+  .refresh-note{margin-left:auto;font-size:.72rem;font-weight:600;color:var(--ink-soft)}
+  .season{background:linear-gradient(180deg,rgba(194,106,16,.06),rgba(194,106,16,0));border:1px solid var(--line);border-radius:16px;padding:26px 24px 30px;margin-top:56px}
+  .season .rail-head{margin-bottom:16px}
+  .marquee{overflow:hidden}
+  .mtrack{display:flex;gap:22px;width:max-content;animation:scrollx 60s linear infinite}
+  .marquee:hover .mtrack{animation-play-state:paused}
+  @keyframes scrollx{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+  .mtrack .card{width:300px;flex:none}
+  @media(prefers-reduced-motion:reduce){.mtrack{animation:none}}
+  .arrows{display:flex;gap:8px}
+  .arrows button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:1rem;color:#333;display:flex;align-items:center;justify-content:center}
+  .arrows button:hover{border-color:#111;color:#111}
+
+  .track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(280px,1fr);gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+  @media(min-width:900px){.track.four{grid-template-columns:repeat(4,1fr);grid-auto-flow:row;overflow:visible}}
+
+  .card{scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+  .card:hover{box-shadow:0 12px 30px -18px rgba(0,0,0,.4);transform:translateY(-3px)}
+  .card .ph{aspect-ratio:3/2;overflow:hidden;position:relative}
+  .card .ph img{transition:transform .8s ease}
+  .card:hover .ph img{transform:scale(1.05)}
+  .card .pill{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.94);font-size:.62rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:5px 10px;border-radius:100px;color:#111;z-index:2}
+  .card .body{padding:15px 16px 18px}
+  .card h3{font-size:1rem;font-weight:700;line-height:1.28;letter-spacing:-.005em;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card p{margin-top:7px;font-size:.81rem;color:var(--ink-soft);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+  .libwrap{background:var(--paper-2);border-top:1px solid var(--line);margin-top:70px;padding:56px 0 68px}
+  .libtiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+  @media(max-width:900px){.libtiles{grid-template-columns:repeat(2,1fr)}}
+  .tile{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1/1;color:#fff}
+  .tile .ph{position:absolute;inset:0}
+  .tile .ph img{transition:transform .7s ease}
+  .tile:hover .ph img{transform:scale(1.07)}
+  .tile .sc{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.62));z-index:1}
+  .tile .t{position:absolute;left:14px;bottom:12px;right:12px;z-index:2}
+  .tile .t b{display:block;font-size:1.02rem;font-weight:700}
+  .tile .t span{font-size:.74rem;opacity:.85}
+
+  footer{border-top:1px solid var(--line);padding:44px 0 64px;color:var(--ink-soft);font-size:.85rem}
+  footer b{color:var(--ink)}
+  @media(max-width:600px){.feature{aspect-ratio:4/5}.feature .cap{padding:22px 20px}nav.top,.search{display:none}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="topbar"></div>
+  <div class="wrap bar">
+    <div class="brand">PULSE<b>.</b></div>
+    <nav class="top"><a href="/">The Guide</a><a href="/coaching">Fractional CRO</a><a href="/pulse-tools">Pulse Tools</a><a href="/knowledge">The Library</a><a href="/knowledge">Search</a></nav>
+    <div class="search">🔍 Search 35,000 answers</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="today"><span id="daylabel">Today on PULSE</span><span class="ln"></span><span class="soft" id="refreshSoft">Fresh picks · a new set every few hours</span></div>
+
+  <a class="feature" href="/knowledge" id="feature">
+    <div class="slide on">
+      <div class="ph"><img loading="lazy" src="/assets/hv2/hv2-7a5c4db7dcba28e6.jpg" alt=""></div>
+      <div class="scrim"></div>
+      <div class="cap"><span class="flabel">Fractional CRO</span><h1>What does a fractional CRO actually do all day?</h1><p class="dek">A real 90-day engagement — from a messy pipeline to a revenue engine that runs without them.</p></div>
+    </div>
+    <div class="slide">
+      <div class="ph"><img loading="lazy" src="/assets/hv2/hv2-ddc5ec3f3967d633.jpg" alt=""></div>
+      <div class="scrim"></div>
+      <div class="cap"><span class="flabel">Cars</span><h1>The best luxury SUVs of the decade, ranked</h1><p class="dek">Ten flagships that defined comfort, tech, and resale value — with the receipts to back it up.</p></div>
+    </div>
+    <div class="slide">
+      <div class="ph"><img loading="lazy" src="/assets/hv2/hv2-bf432ded493a0a16.jpg" alt=""></div>
+      <div class="scrim"></div>
+      <div class="cap"><span class="flabel">Boats</span><h1>What nobody tells you before buying your first boat</h1><p class="dek">The hidden costs, the smartest first purchase, and the one question that saves the most regret.</p></div>
+    </div>
+    <div class="dots" id="dots"></div>
+  </a>
+
+  <!-- CURRENT EVENTS / TRENDING — refreshes hourly -->
+  <section class="rail">
+    <div class="rail-head">
+      <div><div class="seyebrow"><span class="livedot"></span>Trending now · updated hourly</div><h2>What people are asking today</h2><div class="sub">Driven by current events &amp; live search trends</div></div>
+      <div class="arrows"><button type="button">‹</button><button type="button">›</button></div>
+    </div>
+    <div class="track" id="trendTrack">
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-79641b97fcc406fc.jpg" alt=""><span class="pill">Cars</span></div><div class="body"><h3>How are tariffs changing car prices right now?</h3><p>What's actually moving on the lot this month — and what to do about it.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-6ce620ee24329659.jpg" alt=""><span class="pill">AI</span></div><div class="body"><h3>What the newest AI models mean for revenue teams</h3><p>The releases worth your attention this week, minus the hype.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-4178c154681816dc.jpg" alt=""><span class="pill">Schools</span></div><div class="body"><h3>Back-to-school shopping: what's actually worth it this year</h3><p>Where the deals are real and where you're paying for the label.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-fd94748c84f9d46c.jpg" alt=""><span class="pill">Fractional CRO</span></div><div class="body"><h3>Mid-year check: is your pipeline on pace for the year?</h3><p>The three numbers to pull today before H2 planning starts.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-ce79eb30aee869be.jpg" alt=""><span class="pill">Travel</span></div><div class="body"><h3>Where's actually worth traveling this month?</h3><p>Timed to the season and the crowds — not last year's list.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-edfdb53f5b96d222.jpg" alt=""><span class="pill">Markets</span></div><div class="body"><h3>Cut or invest? Reading the market right now</h3><p>How steady operators are making the call this quarter.</p></div></a>
+    </div>
+  </section>
+
+  <!-- SEASONAL CROSS-PILLAR CLUSTER — auto-scrolls, reshuffles, theme rotates with the calendar -->
+  <section class="rail season" id="seasonRail">
+    <div class="rail-head">
+      <div>
+        <div class="seyebrow" id="seasonTag">☀ In season now</div>
+        <h2 id="seasonTitle">Summer Time Vibes</h2>
+        <div class="sub">One common thread — <b>summer</b> — pulled from across every collection. Auto-scrolls · refreshes every few hours · up next: <b>Back to School</b></div>
+      </div>
+    </div>
+    <div class="marquee"><div class="mtrack" id="mtrack">
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-687426e5ac8dcf33.jpg" alt=""><span class="pill">Style</span></div><div class="body"><h3>What to wear to summer work functions</h3><p>Beat-the-heat looks that still read polished — for men and women.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-ee79ebd24427e82b.jpg" alt=""><span class="pill">Cars</span></div><div class="body"><h3>The best convertibles for a summer road trip</h3><p>Top-down picks for every budget — plus the one nobody expects.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-b7fc5457c88fba41.jpg" alt=""><span class="pill">Boats</span></div><div class="body"><h3>First lake day? Rookie boating mistakes to skip</h3><p>The five things that ruin a summer outing — and how to avoid them.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-f9cf8e8c0ae62369.jpg" alt=""><span class="pill">Aquariums</span></div><div class="body"><h3>Keep your tank cool through a summer heat wave</h3><p>Simple ways to hold temperature before your fish feel the spike.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-9ba78712245b7d70.jpg" alt=""><span class="pill">Fractional CRO</span></div><div class="body"><h3>How to keep the pipeline warm through the summer slowdown</h3><p>What great revenue teams do while everyone else is on vacation.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-e5b5873d39a28e9c.jpg" alt=""><span class="pill">Events</span></div><div class="body"><h3>How to host the perfect backyard summer party</h3><p>The timeline, the menu, and the detail guests always remember.</p></div></a>
+    </div></div>
+  </section>
+
+  <section class="rail">
+    <div class="rail-head">
+      <div><div class="tick"></div><h2>A taste from across the library</h2><div class="sub">One question from each collection — a different mix every visit</div></div>
+      <div class="arrows"><button type="button">‹</button><button type="button">›</button></div>
+    </div>
+    <div class="track" id="mixTrack">
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-4e23261305711d7c.jpg" alt=""><span class="pill">Fractional CRO</span></div><div class="body"><h3>How much does a fractional CRO cost?</h3><p>Real monthly ranges by stage — and why cheapest is rarely cheapest.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-77a67902145d9078.jpg" alt=""><span class="pill">Collectibles</span></div><div class="body"><h3>Are 1990s trading cards actually worth anything?</h3><p>Which boxes hold value, which are landfill, and how to tell.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-0ebc0a6d3133e742.jpg" alt=""><span class="pill">Tech Stacks</span></div><div class="body"><h3>How do you build a RevOps stack from scratch?</h3><p>The five tools you need first — and the twelve you don't.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-d36c13ec2d1c677a.jpg" alt=""><span class="pill">Style</span></div><div class="body"><h3>What do you wear to a summer wedding?</h3><p>Dress-code decoded for both — with looks you can actually copy.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-3c9b5d4242160a3e.jpg" alt=""><span class="pill">Industry KPIs</span></div><div class="body"><h3>What's a healthy CAC payback period?</h3><p>The benchmark, the math, and the trap that fools everyone.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-59e28b1ab37bbaca.jpg" alt=""><span class="pill">Aquariums</span></div><div class="body"><h3>What fish can actually live together peacefully?</h3><p>A beginner's compatibility map that prevents most disasters.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-9d5aeb51b45a47ae.jpg" alt=""><span class="pill">Cars</span></div><div class="body"><h3>The best luxury SUVs of the decade</h3><p>Ten flagships ranked on comfort, tech, and resale.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-e8f23ad68ad7ea56.jpg" alt=""><span class="pill">AI Infrastructure</span></div><div class="body"><h3>Where does AI actually belong in your revenue engine?</h3><p>Three jobs it does brilliantly, two it quietly ruins.</p></div></a>
+    </div>
+  </section>
+
+  <!-- SINGLE-TOPIC CLUSTER — evergreen "best of" row (~20 answers, scrolls) -->
+  <section class="rail">
+    <div class="rail-head">
+      <div><div class="tick"></div><h2>Best Schools</h2><div class="sub">A single-topic cluster · <b>20 answers</b> · scroll to browse →</div></div>
+      <div class="arrows"><button type="button">‹</button><button type="button">›</button></div>
+    </div>
+    <div class="track">
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-2c0b7162b1d85849.jpg" alt=""><span class="pill">Schools</span></div><div class="body"><h3>The best MBA programs for a revenue career</h3><p>Where RevOps and go-to-market leaders actually come from.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-c0dc753dbe6138cc.jpg" alt=""><span class="pill">Schools</span></div><div class="body"><h3>Best online colleges for working adults</h3><p>Accredited, flexible, and actually respected by employers.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-b94b7dc77aa8187a.jpg" alt=""><span class="pill">Schools</span></div><div class="body"><h3>Trade schools that lead to six figures</h3><p>The programs with the best pay-to-tuition math in the country.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-c0597e50cf1cb849.jpg" alt=""><span class="pill">Schools</span></div><div class="body"><h3>Best schools for computer science</h3><p>Beyond the obvious names — where outcomes beat the ranking.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-6d089b0133d5fe3a.jpg" alt=""><span class="pill">Schools</span></div><div class="body"><h3>Are coding bootcamps still worth it?</h3><p>Which ones place graduates — and which just take your money.</p></div></a>
+      <a class="card" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-8def28b5f9dec838.jpg" alt=""><span class="pill">Schools</span></div><div class="body"><h3>Best law schools by real-world outcome</h3><p>Ranked on jobs and debt, not prestige and rumor.</p></div></a>
+    </div>
+  </section>
+
+</div>
+
+<div class="libwrap">
+  <div class="wrap">
+    <div class="rail-head">
+      <div><div class="tick"></div><h2>Explore the full library</h2><div class="sub">35,000 answers across 20+ collections — dive into any of them</div></div>
+    </div>
+    <div class="libtiles">
+      <a class="tile" href="/coaching"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-543b3afa4d2f84c4.jpg" alt=""></div><div class="sc"></div><div class="t"><b>Fractional CRO</b><span>11,000+ answers</span></div></a>
+      <a class="tile" href="/tech-stacks"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-fffa3626c6cb6be3.jpg" alt=""></div><div class="sc"></div><div class="t"><b>Tech Stacks</b><span>1,400+ answers</span></div></a>
+      <a class="tile" href="/industry-kpis"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-6e056201490c529d.jpg" alt=""></div><div class="sc"></div><div class="t"><b>Industry KPIs</b><span>680+ answers</span></div></a>
+      <a class="tile" href="/cars"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-a09f605babd75faf.jpg" alt=""></div><div class="sc"></div><div class="t"><b>Cars</b><span>920+ answers</span></div></a>
+      <a class="tile" href="/boats"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-d4c55dcf4130a7eb.jpg" alt=""></div><div class="sc"></div><div class="t"><b>Boats</b><span>400+ answers</span></div></a>
+      <a class="tile" href="/collectibles"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-84834237ab21d6f1.jpg" alt=""></div><div class="sc"></div><div class="t"><b>Collectibles</b><span>Growing daily</span></div></a>
+      <a class="tile" href="/aquariums"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-88628dd7803dea6d.jpg" alt=""></div><div class="sc"></div><div class="t"><b>Aquariums</b><span>Beginner to expert</span></div></a>
+      <a class="tile" href="/style"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-7b0d4fb829eb401b.jpg" alt=""></div><div class="sc"></div><div class="t"><b>Style</b><span>Looks for every occasion</span></div></a>
+    </div>
+    <div style="margin-top:22px;font-size:.86rem;font-weight:600"><a href="/knowledge" style="color:var(--accent)">See all 20+ collections →</a></div>
+  </div>
+</div>
+
+<!-- live accent switcher (prototype control) -->
+<div id="accentSwitch" style="position:fixed;right:18px;bottom:18px;z-index:200;background:#fff;border:1px solid var(--line);border-radius:100px;box-shadow:0 8px 24px -10px rgba(0,0,0,.35);padding:7px 9px;display:flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700">
+  <span style="color:#6d6d6d;padding-left:4px">Accent</span>
+  <button type="button" data-c="#c26a10" style="width:26px;height:26px;border-radius:50%;border:2px solid #fff;outline:2px solid #c26a10;background:#c26a10;cursor:pointer" title="PULSE amber-gold (chosen)"></button>
+  <button type="button" data-c="#c8102e" style="width:26px;height:26px;border-radius:50%;border:2px solid #fff;outline:2px solid transparent;background:#c8102e;cursor:pointer" title="Michelin red"></button>
+</div>
+
+<footer><div class="wrap"><div class="brand" style="font-size:1.2rem;margin-bottom:8px">PULSE<b>.</b></div><div>The guide to everything worth knowing — 35,000 answers, told beautifully.</div><div style="margin-top:14px;opacity:.7">Prototype · living front door + full library · not deployed · images load one-by-one</div></div></footer>
+
+<script>
+  // 3-hour rotation bucket — the homepage reshuffles into a fresh set every few hours
+  const HB=Math.floor(Date.now()/(3*3600*1000));
+  function mk(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  const rnd=mk(HB+7);
+  function shuffleKids(p){if(!p)return;const k=[...p.children];for(let i=k.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));p.appendChild(k[j]);k.splice(j,1);}}
+
+  // Seasonal theme rotates with the calendar (feels alive / topical)
+  (function(){
+    const THEMES=[
+      {mo:[11,0,1], tag:"❄ In season now",  title:"New Year, New Pipeline"},
+      {mo:[2,3],    tag:"🌱 Fresh this spring", title:"Spring Reset"},
+      {mo:[4,5,6],  tag:"☀ In season now",  title:"Summer Time Vibes"},
+      {mo:[7],      tag:"🎒 Right on time",  title:"Back to School"},
+      {mo:[8,9,10], tag:"🍂 In season now",  title:"Q4 Push & Planning"}
+    ];
+    const m=new Date().getMonth();
+    const t=THEMES.find(x=>x.mo.includes(m))||THEMES[2];
+    const tag=document.getElementById('seasonTag'), title=document.getElementById('seasonTitle');
+    if(tag) tag.textContent=t.tag; if(title) title.textContent=t.title;
+  })();
+  // Shuffle clusters by the 3-hour bucket + clone the marquee once (BEFORE the loader runs)
+  (function(){
+    shuffleKids(document.getElementById('trendTrack'));
+    const mt=document.getElementById('mtrack'); if(!mt) return;
+    shuffleKids(mt);
+    [...mt.children].forEach(n=>{const c=n.cloneNode(true);c.setAttribute('aria-hidden','true');mt.appendChild(c);});
+  })();
+
+  // SEQUENTIAL image loader — never hammer Pollinations (2 at a time, retry once)
+  (function(){
+    const imgs=[...document.querySelectorAll('img[data-src]')];
+    let idx=0, active=0; const MAX=2;
+    function done(im){ im.classList.add('ready'); const ph=im.closest('.load'); if(ph) ph.classList.remove('load'); active--; pump(); }
+    function pump(){
+      while(active<MAX && idx<imgs.length){
+        const im=imgs[idx++]; active++;
+        im.onload=()=>done(im);
+        im.onerror=()=>{ if(!im.dataset.tried){ im.dataset.tried=1; setTimeout(()=>{ im.src=im.dataset.src+'&r='+Date.now(); },800); } else { done(im); } };
+        im.src=im.dataset.src;
+      }
+    }
+    pump();
+  })();
+
+  // Rotating hero
+  (function(){
+    const slides=[...document.querySelectorAll('#feature .slide')];
+    const dotwrap=document.getElementById('dots');
+    slides.forEach((_,i)=>{const d=document.createElement('i');if(i===0)d.className='on';d.onclick=e=>{e.preventDefault();go(i);};dotwrap.appendChild(d);});
+    const dots=[...dotwrap.children]; let cur=0,timer;
+    function go(n){slides[cur].classList.remove('on');dots[cur].classList.remove('on');cur=n;slides[cur].classList.add('on');dots[cur].classList.add('on');restart();}
+    function restart(){clearInterval(timer);timer=setInterval(()=>go((cur+1)%slides.length),6000);}
+    restart();
+  })();
+
+  // Shuffle the mix rail so it feels fresh each visit
+  (function(){shuffleKids(document.getElementById('mixTrack'));})();
+  document.getElementById('daylabel').textContent=new Date().toLocaleDateString('en-US',{weekday:'long'})+' on PULSE';
+  (function(){const el=document.getElementById('refreshSoft');if(!el)return;const next=new Date((HB+1)*3*3600*1000);const hrs=Math.max(0.1,Math.round((next-Date.now())/360000)/10);el.textContent='Fresh set · next refresh in ~'+hrs+'h';})();
+  // accent switcher
+  document.querySelectorAll('#accentSwitch button').forEach(b=>b.onclick=()=>{
+    document.documentElement.style.setProperty('--accent',b.dataset.c);
+    document.querySelectorAll('#accentSwitch button').forEach(x=>x.style.outlineColor='transparent');
+    b.style.outlineColor=b.dataset.c;
+  });
+  document.querySelectorAll('.rail').forEach(rail=>{const track=rail.querySelector('.track');const a=rail.querySelectorAll('.arrows button');if(!a.length)return;const step=()=>Math.max(300,track.clientWidth*0.8);a[0].onclick=()=>track.scrollBy({left:-step(),behavior:'smooth'});a[1].onclick=()=>track.scrollBy({left:step(),behavior:'smooth'});});
+</script>
+
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

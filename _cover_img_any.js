@@ -49,27 +49,42 @@ async function emailOwner(subject,html){return;try{await fetch('https://pulserev
 
 (async()=>{
   const idx=(await s.get('_index.json',{type:'json'}))||{entries:[]};
-  const all=(idx.entries||[]).filter(e=>isId(e.id)&&(!SINCE||(e.ts||0)>=SINCE)).sort((a,b)=>num(a.id)-num(b.id));
+  // Newest-published FIRST → oldest (owner 2026-06-27). Sort by publish time (ts),
+  // falling back to id. Set IMG_ASC=1 to go oldest-first instead.
+  const ASC=process.env.IMG_ASC==='1';
+  const key=e=>(e.ts||num(e.id));
+  const all=(idx.entries||[]).filter(e=>isId(e.id)&&(!SINCE||(e.ts||0)>=SINCE)).sort((a,b)=>ASC?key(a)-key(b):key(b)-key(a));
   console.log(`[${PREFIX}] entries: ${all.length} | suffix="${SUFFIX}"`);
   if(DRY){all.slice(0,15).forEach(e=>console.log('  '+e.id+' -> "'+queryFrom(e.question)+'"'));return;}
   let done=0,skip=0,fail=0,lastEmail=Date.now();
   const cleared=new Set(); // ids that now have an image → clear images_pending in index (moves the progress bar)
-  const CONC=3;let cur=0;
+  const CONC=process.env.DDG_SLOW?1:3;let cur=0;
+  const _slowMs=+process.env.DDG_SLOW||0; // gentle pace: sleep this long after each processed entry
   async function worker(){
     while(cur<all.length){
       const e0=all[cur++];
       const e=await s.get('answers/'+e0.id+'.json',{type:'json'}).catch(()=>null);
       if(!e||!e.answer){continue;}
-      if(/^﻿?\s*!\[/.test(e.answer)){skip++;cleared.add(e0.id);continue;}
+      // Leading image present? If it's a REAL cover, leave it. If it's a
+      // pollinations AI placeholder (writers use it to pass the image-law at
+      // write time), UPGRADE it to a real photo — once (cover_upgraded guard
+      // prevents reprocessing every pass when no real photo is found).
+      const lead=e.answer.match(/^﻿?\s*!\[[^\]]*\]\(([^)]+)\)/);
+      const isPoll=lead && /pollinations\.ai/i.test(lead[1]);
+      if(lead && !isPoll){skip++;cleared.add(e0.id);continue;}
+      if(isPoll && e.cover_upgraded){skip++;cleared.add(e0.id);continue;}
       const img=await pickImage(queryFrom(e0.question));
       if(!img){fail++;console.log('  no img:',e0.id);continue;}
       e.answer=e.answer.replace(/^﻿/,'');
+      if(lead) e.answer=e.answer.replace(/^﻿?\s*!\[[^\]]*\]\([^)]+\)\s*\n*/,''); // strip pollinations placeholder
+      if(isPoll) e.cover_upgraded=true;
       e.answer=`![${String(e0.question||'').replace(/[\[\]]/g,'').slice(0,80)}](${img})\n\n`+e.answer.replace(/^\n+/,'');
       e.ts=Date.now();e.polished_at=Date.now();
       await s.setJSON('answers/'+e0.id+'.json',e);
       await pingIndexNow(e0.id);
       cleared.add(e0.id);
       done++;console.log(`  [${done}] ${e0.id} -> ${img.slice(0,55)}`);
+      if(_slowMs)await new Promise(r=>setTimeout(r,_slowMs)); // throttle: ~0.6x writer pace, gentle on API/cap
       if(Date.now()-lastEmail>15*60*1000){lastEmail=Date.now();await emailOwner(`PULSE ${PREFIX} cover images: ${done}`,`<p>${PREFIX} cover-image backfill: ${done} added, ${skip} skipped, ${fail} no-image.</p>`);}
     }
   }

@@ -10,6 +10,7 @@
 // Runs on Netlify schedule (15-min budget for background functions).
 // ════════════════════════════════════════════════════════════════════════
 const https = require('https');
+const { BACKGROUND_RESEARCH } = require('./lib/anthropic-models');
 
 let getStore = null;
 try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
@@ -105,7 +106,7 @@ exports.handler = async () => {
   let entries = [];
   try {
     const r = await claudePost({
-      model: 'claude-sonnet-4-6',
+      model: BACKGROUND_RESEARCH,
       max_tokens: 4000,
       system: SCAN_PROMPT,
       tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 8 }],

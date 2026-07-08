@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pulse — Homepage Concept C (Search-First Bento)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ECE3D2;--ink:#1d1711;--muted:#6b5d49;--amber:#C8821E;--gold:#CBA135;--card:#FBF8F1;--line:rgba(29,23,17,.14);}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.5}
+a{color:inherit;text-decoration:none}h1,h2,h3{font-family:Fraunces,Georgia,serif}
+.wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+/* top */
+header{position:sticky;top:0;z-index:40;background:rgba(236,227,210,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:18px;height:60px}
+.logo{font-family:Fraunces;font-weight:800;font-size:1.35rem}.logo span{color:var(--amber)}
+.barlinks{margin-left:auto;display:flex;gap:6px}
+.barlinks a{font-weight:700;font-size:.9rem;padding:8px 12px;border-radius:9px;color:var(--muted)}
+.barlinks a:hover{background:var(--card);color:var(--amber)}
+.cta{background:var(--ink)!important;color:#fff!important;border-radius:99px;padding:9px 16px!important}
+/* hero search */
+.hero{text-align:center;padding:62px 0 26px}
+.eyebrow{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:800;margin-bottom:14px}
+.hero h1{font-size:clamp(2.2rem,5vw,3.7rem);font-weight:800;margin:0 0 14px;line-height:1.04}
+.hero p{font-size:1.12rem;color:var(--muted);max-width:640px;margin:0 auto 28px}
+.cmd{max-width:660px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px rgba(29,23,17,.12);padding:6px 6px 6px 20px;display:flex;align-items:center;gap:12px}
+.cmd input{flex:1;border:0;background:none;outline:none;font:inherit;font-size:1.08rem;padding:14px 0}
+.cmd .go{background:var(--amber);color:#fff;font-weight:800;border:0;border-radius:13px;padding:13px 22px;font-size:1rem;cursor:pointer}
+.cmd .kbd{font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+.sugg{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px auto 0;max-width:680px}
+.sugg a{font-size:.85rem;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:99px;padding:6px 14px}
+.sugg a:hover{border-color:var(--amber);color:var(--amber)}
+/* stats ribbon */
+.stats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:34px 0 8px}
+.stat{text-align:center;padding:0 18px}
+.stat b{display:block;font-family:Fraunces;font-size:1.7rem;font-weight:800;color:var(--ink)}
+.stat span{font-size:.78rem;color:var(--muted)}
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 70px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column}
+.tile:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(29,23,17,.12)}
+.tile .ico{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--amber),var(--gold));color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:12px}
+.tile h3{margin:0 0 4px;font-size:1.15rem}
+.tile p{margin:0 0 12px;font-size:.84rem;color:var(--muted);flex:1}
+.tile .links{display:flex;flex-wrap:wrap;gap:6px}
+.tile .links a{font-size:.77rem;background:#F3ECDD;border-radius:99px;padding:4px 10px}
+.tile .links a:hover{background:var(--amber);color:#fff}
+/* feature tiles span 2 cols + 2 rows */
+.tile.big{grid-column:span 2;grid-row:span 2}
+.tile.wide{grid-column:span 2}
+.tile.big h3{font-size:1.5rem}
+.tile.big .ico{width:54px;height:54px;font-size:1.6rem}
+.tile.dark{background:var(--ink);color:#F3ECDD}
+.tile.dark p{color:rgba(243,236,221,.72)}
+.tile.dark .links a{background:rgba(255,255,255,.1);color:#fff}
+.tile.dark .links a:hover{background:var(--amber)}
+.note{background:#FBF3E4;border:1px dashed var(--amber);border-radius:12px;padding:12px 16px;margin:0 0 8px;font-size:.85rem;color:var(--muted)}
+@media(max-width:960px){.bento{grid-template-columns:repeat(2,1fr)}.tile.big{grid-row:span 1}}
+@media(max-width:560px){.bento{grid-template-columns:1fr}.tile.big,.tile.wide{grid-column:span 1}.barlinks{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <div class="logo">Pulse<span>.</span></div>
+  <nav class="barlinks">
+    <a href="/knowledge">Library</a>
+    <a href="/tools">Tools</a>
+    <a href="/software">Software</a>
+    <a class="cta" href="/coaching">Hire a CRO</a>
+  </nav>
+</div></header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="eyebrow">24,000+ operator-grade answers</div>
+    <h1>Ask anything about revenue, business &amp; what you buy.</h1>
+    <p>Start with a question — or browse the library below. Researched answers, organized like a reference, not a feed.</p>
+    <div class="cmd">
+      <span style="font-size:1.2rem">🔎</span>
+      <input id="q" placeholder="e.g. how do I hire a fractional CRO in 2027?">
+      <span class="kbd">⏎</span>
+      <button class="go" onclick="go()">Search</button>
+    </div>
+    <div class="sugg" id="sugg"></div>
+    <div class="stats" id="stats"></div>
+  </section>
+
+  <div class="note">📐 <b>Concept C — Search-First Bento.</b> A command-palette search leads; a magazine bento grid mixes large featured pillars with the rest. Discovery-oriented (Notion / Linear feel) rather than a nav menu.</div>
+
+  <section class="bento" id="bento"></section>
+</div>
+
+<script>
+const CATS = [
+  { id:'revops', name:'RevOps & Knowledge', ico:'📊', desc:'The fractional-CRO authority library — 24k researched Q&A on revenue, GTM and operations.', big:true, items:[
+    ['Knowledge Library','/knowledge'],['CRO Coaching','/coaching'],['Sales Trainings','/sales-trainings'],['Industry KPIs','/industry-kpis'],['Tech Stacks','/tech-stacks'],['Revenue Architecture','/revenue-architecture'],['GTM Playbooks','/go-to-market-playbooks'],['Book Summaries','/sales-book-summaries'] ]},
+  { id:'software', name:'Software & Tools', ico:'🧰', desc:'Free calculators, matrices & honest software comparisons.', wide:true, dark:true, items:[
+    ['Pulse Tools','/tools'],['Software','/software'],['AI Infrastructure','/ai-infrastructure'] ]},
+  { id:'shop', name:'Shop & Gear', ico:'🛍️', desc:'Top-10 buying guides, tested.', items:[
+    ['Electronics','/electronic-reviews'],['Cars','/cars'],['Boats','/boats'],['Aquariums','/aquariums'],['Collectibles','/collectibles'],['Pets','/pets'],['Graphics','/graphics'] ]},
+  { id:'life', name:'Lifestyle & Style', ico:'✨', desc:'What to wear, by age & occasion — plus wellness & skills.', items:[
+    ['Style','/style'],['Wellness','/wellness'],['Skills','/skills'],['Drills','/drills'],['Fresh','/fresh'] ]},
+  { id:'home', name:'Home & Business', ico:'🏠', desc:'Property, franchises & ventures.', items:[
+    ['Homes for Sale','/home-for-sale'],['Estates','/estates'],['Buildouts','/buildouts'],['Franchises','/franchises'],['Contracts','/contracts'] ]},
+  { id:'places', name:'Places & Local', ico:'📍', desc:'Where to go, eat and gather.', wide:true, items:[
+    ['Travel','/travel'],['Resorts','/resorts'],['Dining','/dining'],['Clubs','/clubs'],['Events','/events'],['Nightlife','/nightlife'],['Towns','/towns'],['Living','/living'] ]},
+  { id:'ent', name:'Entertainment & Sports', ico:'🎬', desc:'Watch, play, compete — incl. College NIL.', items:[
+    ['Movies','/movies'],['Gaming','/gaming'],['Media','/media'],['Speeches','/speeches'],['Sports & NIL','/sports'],['HS Football Recruiting','/highschool-football-recruiting'] ]},
+];
+const SUGG = ['How to hire a fractional CRO in 2027','Best CRM for a 10-person sales team','What to wear to a winter wedding','Top-10 electric SUVs','How to start a franchise'];
+const STATS = [['24,000+','Researched answers'],['40','Pillars'],['100%','Free to read'],['2027','Kept current']];
+
+function go(){ const v=document.getElementById('q').value.trim(); location.href = v ? ('/knowledge?q='+encodeURIComponent(v)) : '/knowledge'; }
+document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+document.getElementById('sugg').innerHTML = SUGG.map(s=>`<a href="/knowledge?q=${encodeURIComponent(s)}">${s}</a>`).join('');
+document.getElementById('stats').innerHTML = STATS.map(s=>`<div class="stat"><b>${s[0]}</b><span>${s[1]}</span></div>`).join('');
+document.getElementById('bento').innerHTML = CATS.map(c=>`
+  <div class="tile ${c.big?'big':''} ${c.wide?'wide':''} ${c.dark?'dark':''}">
+    <div class="ico">${c.ico}</div>
+    <h3>${c.name}</h3>
+    <p>${c.desc}</p>
+    <div class="links">${c.items.map(it=>`<a href="${it[1]}">${it[0]}</a>`).join('')}</div>
+  </div>`).join('');
+</script>
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

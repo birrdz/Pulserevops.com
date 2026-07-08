@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pulse — We add value</title>
+<link rel="canonical" href="https://pulserevops.com/">
+<meta name="description" content="Pulse — we add value. One free library of 24,000+ operator-grade answers, rankings, and guides across revenue, business, buying guides, places, and lifestyle.">
+<!-- Social / link-preview branding -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pulserevops.com/">
+<meta property="og:site_name" content="Pulse">
+<meta property="og:title" content="Pulse — We add value">
+<meta property="og:description" content="24,000+ researched answers that add value — across revenue, business, buying guides, places and lifestyle. All free.">
+<meta property="og:image" content="https://pulserevops.com/pulse-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pulse — We add value">
+<meta name="twitter:description" content="24,000+ researched answers that add value — across revenue, business, buying guides, places and lifestyle. All free.">
+<meta name="twitter:image" content="https://pulserevops.com/pulse-og.png">
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ECE3D2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pulse">
+<meta name="application-name" content="Pulse">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<!-- Lightbulb brand favicon — adaptive SVG primary (black on light / white on dark), PNG fallbacks -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/icon-192.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+<!-- Site name for search results (Google uses WebSite.name as the bold title above the URL) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Pulse",
+  "alternateName": "Pulse RevOps",
+  "url": "https://pulserevops.com/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": { "@type": "EntryPoint", "urlTemplate": "https://pulserevops.com/knowledge?q={search_term_string}" },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ECE3D2;--ink:#1d1711;--muted:#7a6b54;--amber:#C8821E;--card:#FBF8F1;--line:rgba(29,23,17,.10);
+--good:#3C8C3F;--mid:#C8821E;
+/* aliases so pulse-search.js styling maps onto the palette */
+--orange:#C8821E;--ink2:#7a6b54;--ink3:#9a8a72;--soft:#F3ECDD;--og:rgba(200,130,30,.10);--font:Inter,system-ui,sans-serif;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:700}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;min-height:100dvh;display:flex;flex-direction:column}
+/* minimal header */
+header{padding:22px 0}
+.bar{display:flex;align-items:center}
+.brand{display:flex;align-items:center}
+.brandlogo{height:62px;width:auto;display:block}
+@media(max-width:480px){.brandlogo{height:46px}}
+.bar nav{margin-left:auto;display:flex;align-items:center;gap:26px}
+.bar nav a{font-size:.9rem;color:var(--muted);font-weight:500}
+.bar nav a:hover{color:var(--ink)}
+.bar nav a.cta{color:var(--ink);font-weight:600;border-bottom:2px solid var(--amber);padding-bottom:2px}
+/* === pulse-search.js styling === */
+.home-search{position:relative;max-width:620px;margin:30px auto 0;text-align:left}
+.hs-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:16px;opacity:.5;pointer-events:none;z-index:2}
+.hs-field{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;transition:border-color .15s,box-shadow .15s}
+.hs-field:focus-within{border-color:var(--orange);box-shadow:0 8px 30px rgba(200,130,30,.14)}
+#hs-input{width:100%;background:transparent;border:none;border-radius:16px;padding:16px 44px 16px 46px;font:600 16px var(--font);color:var(--ink);outline:none;position:relative;z-index:2}
+#hs-input::-webkit-search-cancel-button{display:none}
+.hs-ghost{position:absolute;inset:0;display:flex;align-items:center;padding:0 46px;font:600 16px var(--font);white-space:pre;overflow:hidden;pointer-events:none;z-index:1;color:transparent}
+.hs-ghost .g-rest{color:#c2bba8}
+.hs-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:32px;height:32px;border:none;border-radius:99px;background:rgba(29,23,17,.06);color:var(--ink2);font-size:18px;line-height:1;cursor:pointer;display:none;z-index:3}
+.hs-sec{padding:9px 16px 5px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.hs-row .hs-t mark{background:rgba(200,130,30,.18);color:inherit;border-radius:3px;padding:0 1px;font-weight:800}
+.hs-meta{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.hs-cat{font-size:10px;font-weight:700;color:var(--ink3);white-space:nowrap}
+.hs-hint{display:flex;gap:6px;align-items:center;justify-content:center;padding:9px 12px;border-top:1px solid rgba(29,23,17,.06);font-size:11px;color:var(--ink3);font-weight:600}
+.hs-hint kbd{font:inherit;background:var(--soft);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;font-size:10px;color:var(--ink2)}
+.hs-chips{display:flex;flex-wrap:wrap;gap:7px;padding:6px 14px 12px}
+.hs-chip{font:inherit;font-size:12px;font-weight:700;background:var(--soft);border:1px solid var(--line);color:var(--ink2);border-radius:99px;padding:6px 12px;cursor:pointer}
+.hs-chip:hover{border-color:var(--orange);color:var(--orange)}
+.hs-q .hs-t{font-weight:600;color:var(--ink2)}
+.hs-dym a{color:var(--orange);font-weight:800;text-decoration:none}
+.hs-suggest{position:absolute;left:0;right:0;top:calc(100% + 8px);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 44px rgba(29,23,17,.16);overflow:hidden;z-index:40;display:none;max-height:62vh;overflow-y:auto}
+.hs-suggest.open{display:block}
+.hs-row{display:flex;align-items:center;gap:11px;padding:12px 16px;text-decoration:none;color:var(--ink);border-bottom:1px solid rgba(29,23,17,.05);cursor:pointer}
+.hs-row:last-child{border-bottom:none}
+.hs-row:hover,.hs-row.active{background:var(--soft)}
+.hs-row .hs-em{font-size:18px;width:24px;text-align:center;flex-shrink:0}
+.hs-row .hs-t{font-size:14px;font-weight:700;line-height:1.25;flex:1;min-width:0}
+.hs-row .hs-pill{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--orange);background:var(--og);border:1px solid rgba(200,130,30,.25);padding:2px 8px;border-radius:99px;flex-shrink:0}
+.hs-empty{padding:16px;color:var(--ink3);font-size:13px;font-weight:600;text-align:center}
+/* hero — search is the one focal point */
+.hero{text-align:center;padding:clamp(36px,7vh,72px) 0 14px}
+.subline{margin:18px 0 0;font-size:.92rem;color:var(--muted)}
+.hero h1{font-size:clamp(2.3rem,5.2vw,3.5rem);font-weight:700;margin:0 auto 30px;line-height:1.08;max-width:14ch;letter-spacing:-.01em}
+/* umbrellas — 5 calm tiles, subcategories hidden until opened (progressive disclosure) */
+.shelf{margin:clamp(34px,6vh,56px) 0 40px}
+.shelf-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 16px}
+.shelf-lbl{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.switch{display:flex;align-items:center;gap:10px;cursor:pointer;-webkit-user-select:none;user-select:none}
+.switch-txt{font-size:.85rem;color:var(--muted);font-weight:500}
+.switch input{position:absolute;opacity:0;pointer-events:none}
+.switch .track{width:40px;height:23px;border-radius:99px;background:rgba(29,23,17,.16);position:relative;transition:background .2s}
+.switch .knob{position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.switch input:checked + .track{background:var(--amber)}
+.switch input:checked + .track .knob{transform:translateX(17px)}
+/* full directory (toggle on) */
+.alldir{display:none;margin-top:18px;gap:14px;grid-template-columns:1fr;}
+.alldir.show{display:grid}
+.alldir .ud{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 24px}
+.alldir .ud-h{display:flex;align-items:center;gap:11px;margin:0 0 14px}
+.alldir .ud-h .ico{font-size:1.3rem}
+.alldir .ud-h h3{margin:0;font-size:1.12rem}
+.alldir .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:22px}
+.alldir .sh{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:700;margin:0 0 9px}
+.alldir a.lk{display:block;padding:4px 0;font-size:.9rem;font-weight:500}
+.alldir a.lk:hover{color:var(--amber)}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.tile{background:transparent;border:1px solid var(--line);border-radius:16px;padding:22px 18px;cursor:pointer;text-align:left;transition:background .18s,border-color .18s,transform .18s;font-family:inherit;color:inherit}
+.tile:hover{background:var(--card);transform:translateY(-2px)}
+.tile.active{background:var(--card);border-color:var(--amber)}
+.tile .ico{font-size:1.5rem;display:block;margin-bottom:14px;filter:grayscale(.1)}
+.tile h3{margin:0 0 4px;font-size:1.05rem}
+.tile .n{font-size:.78rem;color:var(--muted)}
+/* reveal panel: one open at a time */
+.panel{margin-top:14px;background:var(--card);border:1px solid var(--amber);border-radius:16px;padding:0;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
+.panel.open{max-height:1200px;padding:24px 26px}
+.panel .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
+.panel .sh{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:700;margin:0 0 10px}
+.panel a.lk{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:.92rem;font-weight:500;color:var(--ink)}
+.panel a.lk:hover{color:var(--amber)}
+.panel a.lk .d{font-size:.77rem;color:var(--muted);font-weight:400}
+/* the one rich accent: score chips on Buying links */
+.score{font-family:Fraunces;font-weight:700;font-size:.72rem;color:#fff;border-radius:6px;padding:2px 6px;line-height:1.2}
+.score.good{background:var(--good)}.score.mid{background:var(--mid)}
+.foot{margin-top:auto;padding:22px 0 26px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted);display:flex;gap:12px 18px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.footlinks{display:flex;gap:18px;flex-wrap:wrap}
+.footlinks a:hover{color:var(--amber)}
+/* trivia champions ticker (scrolling) */
+.tk{display:none;align-items:center;margin:0 0 18px;border:1px solid var(--line);background:var(--card);border-radius:12px;overflow:hidden}
+.tk.show{display:flex}
+.tk-label{flex:0 0 auto;padding:9px 14px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);font-weight:800;border-right:1px solid var(--line);white-space:nowrap}
+.tk-win{flex:1;overflow:hidden}
+.tk-track{display:inline-flex;gap:28px;white-space:nowrap;padding-left:28px;animation:tkscroll 30s linear infinite;will-change:transform}
+.tk:hover .tk-track{animation-play-state:paused}
+.tk-item{font-size:.86rem;font-weight:600;color:var(--ink)}
+.tk-item b{color:var(--amber);font-weight:800}
+@keyframes tkscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.tk-track{animation:none}}
+@media(max-width:820px){.tiles{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.wrap{padding:0 18px}.bar nav a:not(.cta){display:none}.hero h1{margin-bottom:22px}.home-search{margin-top:20px}.shelf-head{flex-wrap:wrap;gap:10px}}
+@media(max-width:420px){.tiles{grid-template-columns:1fr}.foot{flex-direction:column;align-items:flex-start;gap:12px}}
+</style>
+<style id="pulse-pill-bright">
+/* Brighter pillar pills (snippet-injected 2026-06-26, no deploy). Cards were dimmed to opacity:.5 */
+.pcard{opacity:1 !important;background:#fffdf8 !important;border:1px solid rgba(192,83,31,.32) !important;box-shadow:0 2px 10px rgba(20,20,30,.06) !important;transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease !important;}
+.pcard:hover,.pcard.is-kb-focus{opacity:1 !important;background:#ffffff !important;border-color:#C0531F !important;box-shadow:0 12px 28px rgba(192,83,31,.18) !important;transform:translateY(-2px) !important;}
+.pcard .pn{color:#1a120c !important;}
+.pcard .pd{color:#7a5c44 !important;}
+.pcard .em img{filter:saturate(1.2) contrast(1.05) !important;}
+.pcard.is-hidden{display:none !important;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><div class="bar">
+    <a class="brand" href="/" aria-label="PULSE — We add Value">
+      <img class="brandlogo" src="/pulse-logo-black.svg" alt="PULSE — We add Value">
+    </a>
+    <nav>
+      <a href="/tools">Tools</a>
+      <a class="cta" href="/coaching">Hire a CRO</a>
+    </nav>
+  </div></header>
+
+  <section class="hero">
+    <h1>What do you want to figure out?</h1>
+    <div class="home-search" id="home-search">
+      <div class="hs-field">
+        <span class="hs-icon">🔍</span>
+        <div class="hs-ghost" id="hs-ghost" aria-hidden="true"><span class="g-typed"></span><span class="g-rest"></span></div>
+        <input id="hs-input" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+               placeholder="Find Answers">
+        <button class="hs-clear" id="hs-clear" aria-label="Clear" type="button">×</button>
+      </div>
+      <div class="hs-suggest" id="hs-suggest" role="listbox"></div>
+    </div>
+    <p class="subline">24,000+ researched answers that add value — free to read.</p>
+  </section>
+
+  <section class="shelf">
+    <div class="shelf-head">
+      <span class="shelf-lbl">Browse by category</span>
+      <label class="switch">
+        <span class="switch-txt">Show all pillars</span>
+        <input type="checkbox" id="allToggle" checked>
+        <span class="track"><span class="knob"></span></span>
+      </label>
+    </div>
+    <div class="tiles" id="tiles"></div>
+    <div class="panel" id="panel"></div>
+    <div class="alldir" id="alldir"></div>
+  </section>
+
+  <div class="tk" id="triviaTicker" aria-label="This week's Pulse Trivia champions">
+    <span class="tk-label">🏆 Trivia champions</span>
+    <div class="tk-win"><div class="tk-track" id="tkTrack"></div></div>
+  </div>
+
+  <div class="foot">
+    <span>© Pulse — operator-grade answers. <span class="uni-egg" title="🦄" style="cursor:pointer;user-select:none;opacity:.5" onclick="var p=prompt('🦄 enter code');if(p==='4444'){location.href='http://localhost:8899/';}else if(p){alert('🦄 says no');}">🦄</span></span>
+    <nav class="footlinks"><a href="/knowledge">Library</a><a href="/tools">Tools</a><a href="/software">Software</a><a href="/coaching">Hire a CRO</a></nav>
+  </div>
+
+  <!-- SEO: all pillar links present in DOM (visually hidden) -->
+  <div id="seolinks" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></div>
+</div>
+
+<script src="/home-v2-data.js"></script>
+<script>
+const T = window.PULSE_TAX;
+// sample scores on the Buying umbrella (the one rich accent)
+const SCORES = {'/cars':96,'/boats':91,'/electronic-reviews':94,'/graphics':92,'/aquariums':83,'/collectibles':90,'/pets':89};
+
+// tiles
+document.getElementById('tiles').innerHTML = T.map((c,i)=>{
+  const count = c.subs.reduce((n,s)=>n+s.items.length,0);
+  return `<button class="tile" data-i="${i}"><span class="ico">${c.ico}</span><h3>${c.name}</h3><span class="n">${count} pillars</span></button>`;
+}).join('');
+
+const panel = document.getElementById('panel');
+let openIdx = -1;
+function renderPanel(i){
+  const c = T[i];
+  panel.innerHTML = `<div class="cols">${c.subs.map(s=>`
+    <div><div class="sh">${s.name}</div>${s.items.map(it=>{
+      const sc = (c.id==='buy') ? SCORES[it[1]] : null;
+      const chip = sc ? `<span class="score ${sc>=85?'good':'mid'}">${sc}</span>` : '';
+      return `<a class="lk" href="${it[1]}">${chip}<span>${it[0]} <span class="d">— ${it[2]}</span></span></a>`;
+    }).join('')}</div>`).join('')}</div>`;
+}
+document.querySelectorAll('.tile').forEach(t=>{
+  const i = +t.dataset.i;
+  const open = ()=>{ if(openIdx===i){panel.classList.remove('open');document.querySelectorAll('.tile').forEach(x=>x.classList.remove('active'));openIdx=-1;return;}
+    renderPanel(i); panel.classList.add('open'); document.querySelectorAll('.tile').forEach(x=>x.classList.toggle('active',+x.dataset.i===i)); openIdx=i; };
+  t.addEventListener('click',open);
+});
+
+// full directory (toggle on) — real inline content, good for SEO
+document.getElementById('alldir').innerHTML = T.map(c=>`
+  <div class="ud">
+    <div class="ud-h"><span class="ico">${c.ico}</span><h3>${c.name}</h3></div>
+    <div class="cols">${c.subs.map(s=>`<div><div class="sh">${s.name}</div>${s.items.map(it=>`<a class="lk" href="${it[1]}">${it[0]}</a>`).join('')}</div>`).join('')}</div>
+  </div>`).join('');
+const allToggle = document.getElementById('allToggle');
+allToggle.addEventListener('change', ()=>{
+  const on = allToggle.checked;
+  document.getElementById('alldir').classList.toggle('show', on);
+  if(on){ panel.classList.remove('open'); document.querySelectorAll('.tile').forEach(x=>x.classList.remove('active')); openIdx=-1; }
+});
+// default-on: sync the full directory to the (checked) toggle on load
+allToggle.dispatchEvent(new Event('change'));
+
+// SEO fallback links (covers the collapsed/default state)
+document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.map(it=>`<a href="${it[1]}">${it[0]}</a>`).join('')).join('')).join('');
+
+// Trivia champions ticker — this week's daily winners (scrolling)
+(function(){
+  fetch('/.netlify/functions/pulse-trivia-score', { cache:'no-store' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      var w = (d && d.winners) || [];
+      if (!w.length) return;
+      var esc = function(s){ var x=document.createElement('div'); x.textContent=s==null?'':s; return x.innerHTML; };
+      var items = w.slice(0,7).map(function(x){ return '<span class="tk-item">'+esc(x.day||'')+' — <b>'+esc(x.name)+'</b> ('+ (x.score|0) +')</span>'; });
+      if (!items.length) return;
+      var track = document.getElementById('tkTrack');
+      track.innerHTML = items.join('') + items.join(''); // duplicate for seamless loop
+      document.getElementById('triviaTicker').classList.add('show');
+    }).catch(function(){});
+})();
+</script>
+
+<!-- search engine + preserved site functionality -->
+<script src="/js/pulse-search.js" defer></script>
+<script src="/assets/pulse-trivia-game.js" defer></script>
+<script src="/js/pwa-install.js" defer></script>
+<script src="/js/pulse-auth.js" defer></script>
+<script src="/js/human-gate.js" defer></script>
+<script src="/js/pulse-lead-track.js" defer></script>
+<script async id="netlify-rum-container" src="/.netlify/scripts/rum" data-netlify-rum-site-id="a2b74b30-a1ac-40e2-9622-aebfc2feb482" data-netlify-deploy-branch="" data-netlify-deploy-context="production" data-netlify-cwv-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaXRlX2lkIjoiYTJiNzRiMzAtYTFhYy00MGUyLTk2MjItYWViZmMyZmViNDgyIiwiYWNjb3VudF9pZCI6IjY5YzRhYzQ0MjRhNGE5OGNhOTFkZTQwYiIsImRlcGxveV9pZCI6IjZhMzk1MzQzNjFlMjBhNTdiOTZiZDQxOCIsImlzc3VlciI6Im5mc2VydmVyIn0.rQ-KIzTHm8pWHUyQ975bDTEAvh2EfX7iEw2bsXiNj7o"></script>
+
+<script async id="netlify-rum-container" src="/.netlify/scripts/rum" data-netlify-rum-site-id="a2b74b30-a1ac-40e2-9622-aebfc2feb482" data-netlify-deploy-branch="" data-netlify-deploy-context="production" data-netlify-cwv-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaXRlX2lkIjoiYTJiNzRiMzAtYTFhYy00MGUyLTk2MjItYWViZmMyZmViNDgyIiwiYWNjb3VudF9pZCI6IjY5YzRhYzQ0MjRhNGE5OGNhOTFkZTQwYiIsImRlcGxveV9pZCI6IjZhNDFhZjcwMzRmNGI2NWE1Mjc4ZTQ4MiIsImlzc3VlciI6Im5mc2VydmVyIn0.KOZIZxC3yYdwjhIOiiFrrzkz7P6AFCcgfhkKM75j2OA"></script><!-- PULSE build-status widget removed 2026-06-29 (owner request) -->
+<!-- PULSE Graphics pillar card (snippet-injected, no deploy) -->
+<script id="pulse-graphics-pill">
+(function(){
+  function add(){
+    var p=location.pathname;
+    if(p!=='/'&&p!=='/index.html')return;
+    var grid=document.querySelector('.pgrid');
+    if(!grid||grid.querySelector('a[href="/graphics"]'))return;
+    var a=document.createElement('a');
+    a.className='pcard';
+    a.href='/graphics';
+    a.innerHTML='<span class="em">\uD83C\uDFA8</span><span class="pt"><span class="pn">Graphics</span><span class="pd">Themeable RevOps SVGs</span></span>';
+    grid.appendChild(a);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',add);
+  else add();
+})();
+</script></body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "rankingDone": [],
+  "qaDone": [],
+  "rankingFailed": [],
+  "qaFailed": [
+    {
+      "id": "tl21653",
+      "err": "Q&A gold audit: image_before_direct_answer, first_h2_not_direct_answer, content_sections_1_min_5, tail_out_of_order_expected_faq_got_Direct Answer, extra_sections_after_tail_Direct Answer|How the Placement Process Works for Fractional CROs|When Companies Choose a Fractional CRO Over a Full-Time Hire|The Role of Private Equity and Venture Capital in Fractional CRO Placement|Key Skills and Experience Companies Look for in Fractional CROs|How to Vet a Fractional CRO Placement Firm|Mermaid Diagram: Fractional CRO Placement Ecosystem|Mermaid Diagram: Decision Flow for Choosing a Fractional CRO|The Role of Executive Search and Consulting Firms in Placing Fractional CROs|The Influence of Board Members and Advisory Networks|Industry-Specific and Niche Placement Channels|FAQ|Sources|Related on PULSE",
+      "at": "2026-07-07T03:59:04.635Z"
+    },
+    {
+      "id": "tl21652",
+      "err": "Q&A gold audit: image_before_direct_answer, first_h2_not_direct_answer, content_sections_1_min_5, tail_out_of_order_expected_faq_got_Direct Answer, extra_sections_after_tail_Direct Answer|Key Differences from Traditional Executive Recruiting|What to Look for in a Fractional CRO Placement Service|Real Companies and Tools in This Space|The Process of Engaging a Fractional CRO Through These Services|Common Pitfalls and How to Avoid Them|When to Choose a Fractional CRO vs. a Full-Time Hire|Red Flags to Watch for in Fractional CRO Placement Services|How to Vet a Fractional CRO Candidate Yourself|FAQ|Sources|Related on PULSE",
+      "at": "2026-07-07T04:03:38.987Z"
+    },
+    {
+      "id": "tl21651",
+      "err": "Q&A gold audit: image_before_direct_answer, first_h2_not_direct_answer, content_sections_1_min_5, tail_out_of_order_expected_faq_got_Direct Answer, extra_sections_after_tail_Direct Answer|H2: Step-by-Step Search Strategy for Finding a Fractional CRO on LinkedIn|H2: How to Vet a Fractional CRO on LinkedIn Before Engaging|H2: Crafting an Effective Outreach Message on LinkedIn|H2: Alternative LinkedIn Tactics to Find a Fractional CRO|H2: Common Mistakes When Searching for a Fractional CRO on LinkedIn|H2: How to Vet a Fractional CRO’s Profile for Genuine Expertise|H2: Using LinkedIn Groups and Communities to Uncover Hidden Talent|H2: Crafting a Compelling Outreach Message That Gets Responses|FAQ|Sources|Related on PULSE",
+      "at": "2026-07-07T04:14:46.035Z"
+    }
+  ],
+  "samples": [],
+  "answerPool": []
+}

@@ -1,0 +1,57 @@
+# Never deploy these — they churn during a deploy (background writers) and cause 422
+# "no records matched" races, and they're local-only tooling/scratch, not site content.
+*.log
+_media_backfill.js
+_media_backfill_progress.json
+_scrub_button_server.js
+_scrub_button_queue.json
+_scrub_button_queue.bak.json
+_scrub_cook_queue.json
+_qa_scan_last.json
+_scrub_button_day.json
+_redbox_parked.json
+_gen_pillar_day.json
+_known_ids.json
+_certified.json
+_newwrites.json
+_approved.json
+_under12_result.json
+_do_deploy.sh
+_do_deploy_draft.sh
+_draft_deploy.json
+_draft_deploy.err
+_pulsenews_sample.js
+_pulsenews_sample.md
+_preview_server.js
+_preview_polaroids.html
+_preview_polaroids_real.html
+_preview_cro.html
+_preview_gold.html
+_preview_pulsenews.html
+_image_audit.js
+_image_audit_all.js
+_image_audit_progress.json
+_image_audit_all_status.json
+_media_backfill.err.log
+
+# Volatile runtime-state files that churn during deploys → 422 (owner 2026-07-06). NOT site content.
+# NOTE: mosaic-pool*.json and _defaults.json are NEEDED — they do NOT match these patterns.
+*_progress.json
+*_spend.json
+*_state.json
+*_status.json
+*.out.log
+_aq_gold_redo_*.json
+_pillar_13_*.json
+_all_flux_*.json
+_render_audit*.json
+_scrub_*.json
+_ds_spend.json
+_facecard_pool/
+_gen*.json
+_ds_spend.json
+_smallest_pillar*.json
+.netlify/edge-functions-import-map.json
+_perf_stats.json
+_perf_telemetry.jsonl
+_all_flux_cooldown.json

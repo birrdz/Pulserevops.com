@@ -22,7 +22,7 @@ exports.handler = async () => {
       '<title>410 Gone · PULSE RevOps</title>' +
       '<meta name="robots" content="noindex, nofollow">' +
       '<meta name="viewport" content="width=device-width,initial-scale=1">' +
-      '</head><body style="background:#09090F;color:#EEEEF5;font-family:system-ui,-apple-system,sans-serif;padding:48px;max-width:560px;margin:0 auto;line-height:1.6;">' +
+      '<link rel="stylesheet" href="/assets/pulse-tan.css"></head><body style="background:#09090F;color:#EEEEF5;font-family:system-ui,-apple-system,sans-serif;padding:48px;max-width:560px;margin:0 auto;line-height:1.6;">' +
       '<h1 style="color:#FF6B30;font-size:32px;margin-bottom:8px;">410 Gone</h1>' +
       '<p style="color:#8A8BA6;font-size:14px;margin-bottom:24px;">This URL is no longer in service and will not return.</p>' +
       '<p><a href="/" style="color:#FF6B30;text-decoration:none;font-weight:700;">← Back to the library</a></p>' +

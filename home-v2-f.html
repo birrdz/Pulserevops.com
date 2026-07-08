@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pulse — Concept F (Metacritic-style Scored Grid)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ECE3D2;--ink:#1d1711;--muted:#6b5d49;--amber:#C8821E;--gold:#CBA135;--card:#FBF8F1;--line:rgba(29,23,17,.14);
+--good:#3C8C3F;--mid:#C8821E;--low:#B23A2E;}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.5}
+a{color:inherit;text-decoration:none}h1,h2,h3{font-family:Fraunces,Georgia,serif}
+.wrap{max-width:1220px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:40;background:rgba(236,227,210,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:16px;height:58px}
+.logo{font-family:Fraunces;font-weight:800;font-size:1.32rem}.logo span{color:var(--amber)}
+.search{margin-left:auto;display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:6px 13px;min-width:220px}
+.search input{border:0;background:none;outline:none;font:inherit;width:100%}
+.cta{background:var(--ink);color:#fff;font-weight:700;border-radius:99px;padding:8px 15px}
+/* tabs */
+.tabs{display:flex;gap:4px;overflow-x:auto;padding:10px 0;border-bottom:1px solid var(--line);background:var(--bg)}
+.tab{flex:0 0 auto;font-weight:700;font-size:.86rem;padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);cursor:pointer;color:var(--muted)}
+.tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* score badge */
+.score{font-family:Fraunces;font-weight:800;color:#fff;border-radius:9px;display:flex;align-items:center;justify-content:center;line-height:1}
+.score.good{background:var(--good)}.score.mid{background:var(--mid)}.score.low{background:var(--low)}
+/* hero trending */
+.h2row{display:flex;align-items:baseline;justify-content:space-between;margin:26px 0 12px}
+.h2row h2{font-size:1.4rem;margin:0}.h2row a{font-size:.82rem;color:var(--amber);font-weight:700}
+.trend{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tcard{background:var(--ink);color:#F3ECDD;border-radius:16px;padding:18px;position:relative;overflow:hidden;min-height:150px;display:flex;flex-direction:column;justify-content:flex-end}
+.tcard::after{content:"";position:absolute;inset:0;background:radial-gradient(110% 80% at 85% 0,rgba(200,130,30,.4),transparent 60%)}
+.tcard>*{position:relative;z-index:1}
+.tcard .score{position:absolute;top:14px;left:14px;width:46px;height:46px;font-size:1.35rem;z-index:2}
+.tcard .pill{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.tcard h3{margin:4px 0 0;font-size:1.12rem;line-height:1.15}
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:70px}
+.gcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;gap:14px;align-items:center;transition:transform .12s,box-shadow .12s}
+.gcard:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(29,23,17,.12)}
+.gcard .score{width:52px;height:52px;font-size:1.45rem;flex:0 0 auto}
+.gcard .meta .pill{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:800}
+.gcard .meta h3{margin:2px 0 3px;font-size:1.02rem;line-height:1.18}
+.gcard .meta p{margin:0;font-size:.78rem;color:var(--muted)}
+.legend{display:flex;gap:16px;align-items:center;font-size:.78rem;color:var(--muted);margin:6px 0 0;flex-wrap:wrap}
+.legend i{display:inline-block;width:13px;height:13px;border-radius:4px;margin-right:5px;vertical-align:-1px}
+.note{background:#FBF3E4;border:1px dashed var(--amber);border-radius:12px;padding:12px 16px;margin:16px 0;font-size:.85rem;color:var(--muted)}
+@media(max-width:900px){.trend{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.trend{grid-template-columns:1fr}.search{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="bar">
+    <div class="logo">Pulse<span>.</span></div>
+    <div class="search">🔎 <input placeholder="Search scored guides…"></div>
+    <a class="cta" href="/coaching">Hire a CRO</a>
+  </div>
+  <div class="tabs" id="tabs"></div>
+</div></header>
+
+<div class="wrap">
+  <div class="note">📐 <b>Concept F — Scored Grid (Metacritic-style).</b> Every guide carries a colored <b>Pulse Score</b> (mapped from the real 0–13 quality grade), with category tabs and a "Trending" row. Best fit for the Top-10 / Buying pillars where ranking is native. <span class="legend"><i style="background:var(--good)"></i>85–100 strong · <i style="background:var(--mid)"></i>60–84 solid · <i style="background:var(--low)"></i>&lt;60 mixed</span></div>
+
+  <div class="h2row"><h2>🔥 Trending this week</h2><a href="#">See all →</a></div>
+  <div class="trend" id="trend"></div>
+
+  <div class="h2row"><h2 id="gridtitle">All scored guides</h2><a href="#">Browse library →</a></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+// Sample scored guides (score = Pulse quality grade 0–13 → 0–100). Demo data for layout.
+const PILLARS = ['Cars','Boats','Electronics','Aquariums','Collectibles','Pets','Graphics','Software'];
+const CARDS = [
+  ['Cars','Best Electric SUVs in 2027','Range, value & tech, ranked',96,'/cars'],
+  ['Cars','Best Trucks Under $50k in 2027','Towing, MPG, resale',88,'/cars'],
+  ['Cars','Best First Cars for New Drivers','Safety-first picks',82,'/cars'],
+  ['Boats','Best Family Pontoons in 2027','Comfort & dollar-per-foot',91,'/boats'],
+  ['Boats','Best Center Consoles for Inshore','Fishability ranked',77,'/boats'],
+  ['Electronics','Best Noise-Cancelling Headphones','Tested & ranked',94,'/electronic-reviews'],
+  ['Electronics','Best Budget 4K TVs in 2027','Picture per dollar',86,'/electronic-reviews'],
+  ['Electronics','Best Laptops for Work in 2027','Battery & build',58,'/electronic-reviews'],
+  ['Aquariums','Best Nano Tank Kits in 2027','All-in-one ranked',83,'/aquariums'],
+  ['Aquariums','Best Filters for Planted Tanks','Flow & silence',71,'/aquariums'],
+  ['Collectibles','Best 1990s Basketball Cards','By value & grade',90,'/collectibles'],
+  ['Collectibles','Best Vintage Watches to Collect','Era-by-era',64,'/collectibles'],
+  ['Pets','Best Dog Foods for Large Breeds','Vet-informed picks',89,'/pets'],
+  ['Pets','Best Cat Trees in 2027','Stability ranked',55,'/pets'],
+  ['Graphics','Best Free Dashboard SVG Kits','Themeable & clean',92,'/graphics'],
+  ['Software','Best CRMs for Small Teams in 2027','Price vs power',87,'/software'],
+  ['Software','Best AI Note-Takers for Sales','Accuracy tested',79,'/software'],
+  ['Software','Best Free Project Tools in 2027','For lean teams',62,'/software'],
+];
+const TREND = [CARDS[0],CARDS[5],CARDS[14],CARDS[12]];
+const cls = s => s>=85?'good':s>=60?'mid':'low';
+const pct = s => s; // already 0–100 sample
+
+// tabs
+const TABS=['All',...PILLARS];
+let active='All';
+function renderTabs(){document.getElementById('tabs').innerHTML=TABS.map(t=>`<div class="tab ${t===active?'active':''}" data-t="${t}">${t}</div>`).join('');
+  document.querySelectorAll('.tab').forEach(el=>el.onclick=()=>{active=el.dataset.t;renderTabs();renderGrid();});}
+function renderGrid(){
+  const list = active==='All'?CARDS:CARDS.filter(c=>c[0]===active);
+  document.getElementById('gridtitle').textContent = active==='All'?'All scored guides':active+' — scored';
+  document.getElementById('grid').innerHTML = list.sort((a,b)=>b[3]-a[3]).map(c=>`
+    <a class="gcard" href="${c[4]}">
+      <div class="score ${cls(c[3])}">${pct(c[3])}</div>
+      <div class="meta"><div class="pill">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></div>
+    </a>`).join('');
+}
+document.getElementById('trend').innerHTML = TREND.map(c=>`
+  <a class="tcard" href="${c[4]}"><div class="score ${cls(c[3])}">${pct(c[3])}</div><div class="pill">${c[0]}</div><h3>${c[1]}</h3></a>`).join('');
+renderTabs();renderGrid();
+</script>
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

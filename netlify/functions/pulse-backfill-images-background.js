@@ -14,7 +14,7 @@ const { getStore } = require('@netlify/blobs');
 
 const RECIPIENT = 'koryjordanwhite@gmail.com';
 const LOCK_MS = 8 * 60 * 1000;
-const PILLAR_PATH = { er:'electronic-reviews', ca:'cars', sc:'schools', dn:'dining', bt:'boats', mv:'movies', wl:'wellness', tv:'travel', rs:'resorts', es:'estates', cl:'clubs', lv:'living', ev:'events', ga:'gatherings', gm:'gaming', nl:'nightlife', tl:'tools', tn:'towns', co:'collectibles', ai:'ai-infrastructure', aq:'aquariums', hf:'highschool-football-recruiting' };
+const PILLAR_PATH = { er:'electronic-reviews', ca:'cars', sc:'schools', dn:'dining', bt:'boats', mv:'movies', wl:'wellness', tv:'travel', rs:'resorts', es:'estates', cl:'clubs', lv:'living', ev:'events', ga:'gatherings', gm:'gaming', nl:'nightlife', tl:'tools', tn:'towns', co:'collectibles', ai:'ai-infrastructure', aq:'aquariums', hf:'highschool-football-recruiting', tc:'telco' };
 
 function store() {
   const tok = process.env.BLOBS_PAT || process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_AUTH_TOKEN;

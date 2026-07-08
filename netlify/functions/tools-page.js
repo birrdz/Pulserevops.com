@@ -47,7 +47,7 @@ exports.handler = async (event) => {
   if (!slug) {
     const idxUrl = SITE + '/calculators';
     const n = Object.keys(TOOLS).length;
-    const idxDesc = 'All ' + n + ' PULSE tools — free CRM, War Room, Leader Hub, pipeline rooms, calculators, guided tour, and operator dashboards. Browser-only, no login.';
+    const idxDesc = 'All ' + n + ' PULSE tools — free CRM, pipeline rooms, calculators, guided tour, and operator dashboards. Browser-only, no login.';
     const idxLd = {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
@@ -75,9 +75,10 @@ exports.handler = async (event) => {
       let store;
       try { store = getStore('pulse-machine-library'); }
       catch (e) { store = getStore({ name: 'pulse-machine-library', siteID: process.env.SITE_ID || 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.NETLIFY_BLOBS_TOKEN || process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN }); }
-      const idx = (await store.get('_index.json', { type: 'json' })) || { entries: [] };
-      const tl = idx.entries.filter(e => e && /^tl\d+$/i.test(e.id)).sort((a, b) => (b.ts || 0) - (a.ts || 0));
-      if (tl.length) {
+      const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] };
+      const tlAll = idx.entries.filter(e => e && /^tl\d+$/i.test(e.id)).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+      const tl = tlAll.slice(0, 300); // render only the 300 most-recent cards (full count below)
+      if (tlAll.length) {
         const links = tl.map(e => `
           <a href="/tools/${escAttr(e.id)}" style="display:block;background:rgba(20,25,32,0.5);border:1px solid rgba(255,255,255,0.07);border-left:3px solid #39A6FF;border-radius:10px;padding:16px 18px;text-decoration:none;color:inherit;">
             <div style="font-size:0.95rem;font-weight:700;color:#EDE5D8;line-height:1.4;">${escHtml(e.question || e.id)}</div>
@@ -85,7 +86,7 @@ exports.handler = async (event) => {
           </a>`).join('');
         tlSection = `
           <h2 style="font-size:1.5rem;font-weight:900;color:#fff;margin:52px 0 6px;">Pulse Tools — Operator How-To Library</h2>
-          <p class="lead" style="margin-bottom:22px;">${tl.length} answers that show you the actual method (the formula + a worked example) <b>and</b> the top 10 real tools that solve it — calculate reps, forecast revenue, predict churn, and more.</p>
+          <p class="lead" style="margin-bottom:22px;">${tlAll.length} answers that show you the actual method (the formula + a worked example) <b>and</b> the top 10 real tools that solve it — calculate reps, forecast revenue, predict churn, and more.</p>
           <div class="grid">${links}</div>`;
       }
     } catch (e) { tlSection = ''; }
@@ -103,7 +104,9 @@ exports.handler = async (event) => {
   <meta property="og:description" content="${escAttr(idxDesc)}">
   <meta property="og:url" content="${idxUrl}">
   <meta property="og:image" content="${SITE}/pulse-og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E8710A' d='M3 12h3l2-7 4 14 2-7h7'/%3E%3C/svg%3E">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
   <script type="application/ld+json">${JSON.stringify(idxLd)}</script>
   <style>
     *{box-sizing:border-box;}html,body{margin:0;padding:0;background:#070a0f;color:#EDE5D8;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.7;}
@@ -113,7 +116,7 @@ exports.handler = async (event) => {
     .lead{font-size:1.12rem;color:rgba(237,229,216,0.78);max-width:760px;margin:0 0 36px;}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;}
     .footer-note{padding:32px;text-align:center;color:rgba(237,229,216,0.35);font-size:0.7rem;letter-spacing:0.1em;border-top:1px solid rgba(255,255,255,0.04);}.footer-note a{color:rgba(255,140,26,0.7);}
-  </style></head><body>
+  </style><link rel="stylesheet" href="/assets/pulse-tan.css"></head><body>
   <div class="top"><span><a href="/">PULSE REVOPS</a></span><span><a href="/dashboard.html">🛠 Free CRM</a> · <a href="/knowledge.html">📚 Library</a> · <a href="/themachine">The Machine</a></span></div>
   <main>
     <h1>Free Sales &amp; RevOps Tools — Operator-Grade Calculators &amp; Dashboards</h1>
@@ -203,8 +206,8 @@ exports.handler = async (event) => {
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="PULSE">
-  <link rel="apple-touch-icon" href="/icon-192.svg">
-  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <title>Free ${escHtml(t.name)} — Sales &amp; RevOps Tool | PULSE</title>
   <meta name="description" content="${escAttr(t.short)}">
   <meta name="keywords" content="${escAttr(t.keywords.join(', '))}, free RevOps tools, free sales tools, PULSE RevOps">
@@ -223,7 +226,9 @@ exports.handler = async (event) => {
   <meta name="twitter:description" content="${escAttr(t.short)}">
   <meta name="twitter:image" content="${SITE}/pulse-og.png">
   <meta name="twitter:image:alt" content="${escAttr(t.name + ' — free Pulse RevOps tool')}">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E8710A' d='M3 12h3l2-7 4 14 2-7h7'/%3E%3C/svg%3E">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
   <style>
     *{box-sizing:border-box;}

@@ -1,0 +1,76 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>PULSE · Polaroid line — realistic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#e7dcc7;font-family:'Fraunces',Georgia,serif;color:#3a3020}
+.wrap{max-width:1180px;margin:0 auto;padding:30px 16px 80px}
+.hd{text-align:center;margin-bottom:14px}
+.hd h1{font-size:1.9rem;margin:0 0 4px}
+.hd p{margin:0;color:#7a6a4e}
+.toggle{display:flex;gap:10px;justify-content:center;margin:14px 0}
+.toggle button{font-family:inherit;font-size:.9rem;font-weight:700;padding:8px 16px;border-radius:20px;border:1px solid #c9a86c;background:#fff;color:#7a6a4e;cursor:pointer}
+.toggle button.on{background:#9c5e12;color:#fff;border-color:#9c5e12}
+
+/* the real photo IS the frame; we only drop photos + ink captions into it */
+.frame{position:relative;width:100%;max-width:1100px;margin:0 auto;line-height:0}
+.frame>img.tpl{width:100%;height:auto;display:block;border-radius:4px}
+.slot{position:absolute;overflow:hidden;line-height:0;cursor:pointer;box-shadow:inset 0 0 22px rgba(0,0,0,.55);transition:filter .3s, transform .3s}
+.slot img{width:100%;height:100%;object-fit:cover;display:block;
+  /* instant-film look: faded blacks, warm cast, soft contrast, subtle vignette via the inset shadow above */
+  filter:contrast(.94) saturate(.9) brightness(1.06) sepia(.14);}
+.slot::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.14),transparent 40%);pointer-events:none}
+.slot:hover{filter:brightness(1.08)}
+.cap{position:absolute;text-align:center;font-family:'Caveat',cursive;font-weight:700;color:#2b2416;
+  font-size:clamp(11px,1.55vw,20px);line-height:1.05;transform-origin:center;pointer-events:none;opacity:.9}
+
+/* --- coordinates mapped to the 4 real Polaroids (% of the frame) --- */
+.s1{left:10.6%;top:30.2%;width:15.2%;height:33.8%;transform:rotate(-3deg)}
+.s2{left:31.6%;top:34.3%;width:15.2%;height:33.8%;transform:rotate(-2deg)}
+.s3{left:51.4%;top:30.7%;width:15.2%;height:33.6%;transform:rotate(-1.4deg)}
+.s4{left:72.2%;top:31.8%;width:17.3%;height:33.8%;transform:rotate(-2deg)}
+.cap{white-space:nowrap}
+.c1{left:6%;top:66.5%;width:24%;transform:rotate(-3deg)}
+.c2{left:27.5%;top:70.6%;width:24%;transform:rotate(-2deg)}
+.c3{left:47.5%;top:67%;width:24%;transform:rotate(-1.4deg)}
+.c4{left:69.5%;top:67.8%;width:24%;transform:rotate(-2deg)}
+.foot{margin-top:34px;text-align:center;color:#8a7a5c;font-size:.9rem}
+.tag{display:inline-block;background:#fff;border:1px dashed #c9a86c;border-radius:20px;padding:4px 12px;margin:3px;font-size:.82rem;color:#7a6a4e}
+</style></head>
+<body>
+<div class="wrap">
+<div class="hd">
+  <h1>Polaroid line — realistic version</h1>
+  <p>Real photo of real Polaroids on twine. We drop the pictures + marker captions straight into the frames.</p>
+</div>
+<div class="toggle">
+  <button id="tFilm" class="on">Instant-film look</button>
+  <button id="tClean">Clean photos</button>
+  <button id="tCaps" class="on">Captions on</button>
+</div>
+
+<div class="frame" id="frame">
+  <img class="tpl" src="/assets/_polaroid-template.png" alt="Polaroids on a line">
+  <a class="slot s1" href="#"><img src="https://image.pollinations.ai/prompt/overhead%20gourmet%20restaurant%20dinner%20plate%20warm%20light%20no%20text?width=520&height=560&nologo=true&model=flux&seed=201"></a>
+  <a class="slot s2" href="#"><img src="https://image.pollinations.ai/prompt/chesapeake%20blue%20crabs%20steamed%20old%20bay%20no%20text?width=520&height=560&nologo=true&model=flux&seed=202"></a>
+  <a class="slot s3" href="#"><img src="https://image.pollinations.ai/prompt/sunset%20sailboat%20on%20calm%20bay%20golden%20hour%20no%20text?width=520&height=560&nologo=true&model=flux&seed=203"></a>
+  <a class="slot s4" href="#"><img src="https://image.pollinations.ai/prompt/cozy%20rooftop%20bar%20string%20lights%20night%20cocktails%20no%20text?width=520&height=560&nologo=true&model=flux&seed=204"></a>
+  <div class="cap c1">Top 10 places<br>to eat here</div>
+  <div class="cap c2">Best crab<br>spots ✦</div>
+  <div class="cap c3">Sunset<br>cruises</div>
+  <div class="cap c4">Rooftop bars</div>
+</div>
+
+<div class="foot">
+  <p>If a photo sits a hair off inside a frame, I can nudge each one pixel-perfect. This template has 4 slots; a production version can be shot/generated with any number.</p>
+  <p><span class="tag">real frames + twine + clothespins</span> <span class="tag">film-graded photos</span> <span class="tag">pen captions</span></p>
+</div>
+</div>
+<script>
+const F=document.getElementById('frame');
+document.getElementById('tFilm').onclick=e=>{document.querySelectorAll('.slot img').forEach(i=>i.style.filter='contrast(.94) saturate(.9) brightness(1.06) sepia(.14)');e.target.classList.add('on');document.getElementById('tClean').classList.remove('on');};
+document.getElementById('tClean').onclick=e=>{document.querySelectorAll('.slot img').forEach(i=>i.style.filter='none');e.target.classList.add('on');document.getElementById('tFilm').classList.remove('on');};
+document.getElementById('tCaps').onclick=e=>{const on=e.target.classList.toggle('on');document.querySelectorAll('.cap').forEach(c=>c.style.display=on?'':'none');};
+</script>
+</body></html>

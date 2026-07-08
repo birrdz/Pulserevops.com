@@ -1,0 +1,50 @@
+PULSE REV-OPS Q&A — 13-POINT CONTENT RUBRIC
+
+Publish only at 13/13 with every checkmark green. (A full-rubric 12 is an accepted
+scoring quirk; an INCOMPLETE rubric is not.) Score each page, list the failed criteria
+numbers, fix them, then rescore until 13/13.
+
+1.  WORD COUNT — at least 2000 words of real content. No padding or filler.
+2.  DIRECT ANSWER — a direct answer to the question appears up top, before anything else.
+3.  DIRECT ANSWER COMPLETE — that direct answer is full and self-contained, not a one-line stub.
+4.  FAQ — at least 5 relevant FAQ question/answer pairs.
+5.  MERMAID DIAGRAMS — exactly 2 mermaid diagrams (not 1, not 3).
+6.  MERMAID CLEAN — both mermaid diagrams use valid, error-free syntax that renders.
+7.  SOURCES — at least 5 real, verifiable sources. No fabricated or dead source URLs.
+8.  RELATED ON PULSE — a "Related on PULSE" section linking sibling pages is present.
+9.  CLEAN LINKS — every internal and external link is valid; no broken, empty, or placeholder links.
+10. HERO IMAGE — a top image is present above the answer.
+11. MEDIA COUNT — 3 to 10 images total (1 hero + up to 9 section images).
+12. IMAGES LAW — every image obeys the Image Standard below.
+13. NO FABRICATION — zero invented vendors, products, prices, statistics, studies, or quotes.
+    Every specific claim is real and verifiable.
+
+Output per page: "score X/13" plus the list of failed criteria numbers.
+
+
+IMAGE STANDARD (criterion 12)
+
+Every image must be a REAL DuckDuckGo photo of a PERSON, PLACE, or THING, on-topic to the
+page, self-hosted (never a live DDG/hotlink URL), and given the dated/vintage grade (muted
+color, warm sepia cast, faded contrast, vignette + film grain).
+
+RULE OUT / re-fetch any image that is:
+- a graph, chart, infographic, diagram, or table
+- a logo, icon, clip art, or flat solid-color graphic (.svg)
+- a transparent PNG (or give it a solid dark backdrop)
+- a text-heavy image, screenshot, or meme
+- a watermarked stock preview (dreamstime, shutterstock, alamy, istock, 123rf, depositphotos, getty, adobe stock)
+- a webpage screenshot, directory grab, or marketing collage
+- broken / dead / 403-hotlinked / placeholder / SVG
+- low-res (width under 600px) or extreme aspect (beyond 1:2.5 or 2.5:1)
+- an animated GIF (use first frame only, or exclude)
+- white / light-dominant behind a gold title (exclude, or force a heavier overlay)
+
+Match aspect to card slot: landscape -> wide/hero, square -> standard, portrait -> tall.
+
+Subject by pillar:
+- PEOPLE (portrait):  tl, ik, gp, ra, st, tk, ai, sw, tc, fr, q, ed
+- PLACES:             rs, lv, tn, ev, ga, nl, sc, dn, bo
+- THINGS:             ca, bt, aq, es, tv, cl, co, er, gm, dr, sy, cr, fs, pt, wl, hf
+- TOPICAL (event):    ce, mv
+- EXEMPT (SVG system, not DDG): gb

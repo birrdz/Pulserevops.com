@@ -62,7 +62,7 @@ async function stampIndexed(store, id, ts) {
  * @param {object} [indexRow] — optional _index.json row (tags)
  */
 async function pingIndexNowEntry(id, store, indexRow) {
-  if (!id || !(/^(q|st|ik|tk|gb|bs|er|ra|gp|fr|ca|tn|sc|nl|dn|bt|mv|wl|dr|tv|rs|es|cl|lv|ev|sy|ga|gm|sk|sp|tl|cg|co|ai|bo|cd|aq|hf)\d+rv?$/i.test(id) || /^vq_[a-z0-9]+rv?$/i.test(id))) {
+  if (!id || !(/^(q|st|ik|tk|gb|bs|er|ra|gp|fr|ca|tn|sc|nl|dn|bt|mv|wl|dr|tv|rs|es|cl|lv|ev|sy|ga|gm|sk|sp|tl|cg|co|ai|bo|cd|aq|hf|tc)\d+(?:rv)?$/i.test(id) || /^vq_[a-z0-9]+(?:rv)?$/i.test(id))) {
     return { ok: false, reason: 'bad id' };
   }
 

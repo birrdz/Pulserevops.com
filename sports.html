@@ -50,7 +50,7 @@
   }
   .back:hover { color:#7BB6FF; }
 
-  #unlocked { display:none; max-width:1180px; margin:0 auto; padding:28px 22px 80px; }
+  #unlocked { display:block; max-width:1180px; margin:0 auto; padding:28px 22px 80px; }
   .header {
     display:flex; align-items:baseline; flex-wrap:wrap; gap:18px;
     border-bottom:1px solid rgba(120,180,255,0.18); padding-bottom:16px; margin-bottom:22px;
@@ -441,22 +441,722 @@
   .load-more-btn:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(59,130,246,0.45); }
   .load-more-meta { font-size:0.65rem; color:rgba(180,210,255,0.5); margin-top:6px; }
 </style>
+
+<style id="nil-qas-style">
+  .nil-qas { max-width:1180px; margin:0 auto 36px; padding:24px 22px; border:1px solid rgba(120,180,255,0.18); border-radius:16px; background:rgba(12,22,40,0.45); }
+  .nil-qas h2 { margin:0 0 6px; font-size:1.5rem; font-weight:900; color:#7BB6FF; }
+  .nil-qas .nil-sub { margin:0 0 14px; font-size:0.86rem; color:rgba(190,215,255,0.72); line-height:1.5; }
+  .nil-ct { display:inline-block; font-size:0.72rem; font-weight:800; color:#0b1628; background:#7BB6FF; border-radius:99px; padding:2px 9px; vertical-align:middle; }
+  .nil-filter { width:100%; max-width:440px; padding:9px 13px; border-radius:10px; border:1px solid rgba(120,180,255,0.3); background:rgba(8,16,30,0.7); color:#e8f0ff; font-size:0.9rem; outline:none; }
+  .nil-filter:focus { border-color:#7BB6FF; box-shadow:0 0 12px rgba(120,180,255,0.35); }
+  .nil-h3 { margin:20px 0 10px; font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(180,210,255,0.8); }
+  .nil-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:8px 16px; }
+  .nil-link { display:block; font-size:0.9rem; color:#cfe0ff; text-decoration:none; padding:6px 10px; border-radius:8px; border:1px solid transparent; transition:background .15s,border-color .15s; }
+  .nil-link:hover { background:rgba(120,180,255,0.1); border-color:rgba(120,180,255,0.3); color:#fff; }
+  .nil-link.nil-hide { display:none; }
+</style>
 </head>
 <body>
 
-<div class="gate" id="gate">
-  <div class="icon">🏈</div>
-  <h1>Fantasy Football</h1>
-  <div class="sub">4-digit code required</div>
-  <form onsubmit="return checkPwd(event)">
-    <input type="password" id="pwd" maxlength="4" inputmode="numeric" autocomplete="off" autofocus placeholder="••••">
-    <button type="submit">Enter</button>
-    <div class="err" id="err"></div>
-  </form>
-  <a class="back" href="/">← back to pulse</a>
-</div>
-
 <div id="unlocked">
+
+<section id="nil-qas" class="nil-qas">
+  <div class="nil-head">
+    <h2>🏀🏈 College Sports &amp; NIL — Q&amp;A Library <span class="nil-ct">666</span></h2>
+    <p class="nil-sub">Every Pulse answer on college Name, Image &amp; Likeness (NIL) earnings, collectives, revenue-share, and roster strategy. Tap any question to read the full breakdown.</p>
+    <input id="nil-filter" class="nil-filter" type="search" placeholder="Filter questions (team, sport, keyword)…" oninput="nilFilter(this.value)">
+  </div>
+    <h3 class="nil-h3">Men's &amp; Women's Basketball <span class="nil-ct">294</span></h3>
+    <div class="nil-grid">
+      <a class="nil-link" href="/knowledge/q10914">What are Houston Cougars men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10917">What are UCLA Bruins men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10923">What are Florida Gators men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10927">What are Marquette Golden Eagles men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10928">What are Iowa State Cyclones men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10929">What are Arizona Wildcats men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10930">What are Michigan State Spartans men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10931">What are Auburn Tigers men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10935">What are Louisville Cardinals men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10938">What are Purdue Boilermakers men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11114">What are Baylor Bears men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11118">What are Texas Longhorns men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11119">What are Alabama Crimson Tide men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11120">What are Ohio State Buckeyes men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11121">What are Florida State Seminoles men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11124">What are Arkansas Razorbacks men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11129">What are Iowa Hawkeyes men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11133">What are Gonzaga Bulldogs men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11134">What are BYU Cougars men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11139">What are Saint Mary's Gaels men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11140">What are St John's Red Storm men's basketball's 2027 NIL needs and strategy under Rick Pitino?</a>
+      <a class="nil-link" href="/knowledge/q11142">What are Texas Tech Red Raiders men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11143">What are Indiana Hoosiers men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11145">What are USC Trojans men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11150">What are Wisconsin Badgers men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11154">What are Creighton Bluejays men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11158">What are Maryland Terrapins men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11160">What are Villanova Wildcats men's basketball's 2027 NIL needs and strategy under Kevin Willard?</a>
+      <a class="nil-link" href="/knowledge/q11162">What are Mississippi State Bulldogs men's basketball's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11164">What is the Memphis Tigers men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11168">What is the Iowa Hawkeyes men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11169">What is the UConn Huskies men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11174">What is the Duke Blue Devils men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11175">What is the Florida Gators men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11177">What is the Arkansas Razorbacks men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11178">What is the Auburn Tigers men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11180">What is the Kentucky Wildcats men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11183">What is the Michigan State Spartans men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11184">What is the Maryland Terrapins men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11186">What is the Houston Cougars men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11187">What is the Baylor Bears men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11189">What is the North Carolina Tar Heels men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11197">What is the Kansas Jayhawks men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q12124">What is the Arizona Wildcats men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q12125">What is the Illinois Fighting Illini men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q12126">What is the Cincinnati Bearcats men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q12127">What is the Michigan Wolverines men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q12128">What is the San Diego State Aztecs men's basketball NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q12763">What is the Duke Blue Devils NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12764">What is the Kentucky Wildcats NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12765">What is the Kansas Jayhawks NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12766">What is the North Carolina Tar Heels NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12767">What is the UConn Huskies NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12768">What is the Arizona Wildcats NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12769">What is the Michigan State Spartans NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12770">What is the Gonzaga Bulldogs NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12771">What is the Houston Cougars NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12772">What is the Tennessee Volunteers NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12773">What is the Purdue Boilermakers NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12774">What is the Baylor Bears NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12775">What is the Auburn Tigers NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12776">What is the UCLA Bruins NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12777">What is the Indiana Hoosiers NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12778">What is the Iowa State Cyclones NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12779">What is the Marquette Golden Eagles NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12780">What is the Texas Longhorns NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12781">What is the Villanova Wildcats NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12782">What is the Illinois Fighting Illini NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12783">What is the Florida Gators NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12784">What is the Creighton Bluejays NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12785">What is the Wisconsin Badgers NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12786">What is the Saint Marys Gaels NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12787">What is the Memphis Tigers NIL recruiting strategy for college basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12788">What is the South Carolina Gamecocks NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12789">What is the LSU Tigers NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12790">What is the Iowa Hawkeyes NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12791">What is the UConn Huskies NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12792">What is the Stanford Cardinal NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12793">What is the UCLA Bruins NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12794">What is the Notre Dame Fighting Irish NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12795">What is the Tennessee Lady Vols NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12796">What is the Texas Longhorns NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12797">What is the Baylor Bears NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12798">What is the Maryland Terrapins NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12799">What is the Virginia Tech Hokies NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12800">What is the Ohio State Buckeyes NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12801">What is the Duke Blue Devils NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12802">What is the North Carolina Tar Heels NIL strategy for women's basketball in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12805">What is the average NIL deal size for a top-25 men's basketball recruit in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12842">How much do Duke basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12846">How much do UConn women's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12978">Who are the highest-paid men's college basketball players by NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12982">Who are the highest-paid women's college basketball players by NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13050">Why is EA Sports reviving its college basketball game and what does NIL have to do with it in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13102">How much do Kansas men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13103">How much do Kentucky men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13104">How much do North Carolina men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13105">How much do UCLA men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13106">How much do Indiana men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13107">How much do Michigan State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13108">How much do Villanova men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13109">How much do Gonzaga men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13110">How much do Arizona men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13111">How much do Michigan men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13112">How much do Louisville men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13113">How much do Syracuse men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13114">How much do UConn men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13115">How much do Florida men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13116">How much do Ohio State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13117">How much do Wisconsin men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13118">How much do Maryland men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13119">How much do Texas men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13120">How much do Tennessee men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13121">How much do Auburn men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13122">How much do Alabama men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13123">How much do Arkansas men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13124">How much do Baylor men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13125">How much do Houston men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13126">How much do Purdue men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13127">How much do Illinois men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13128">How much do Iowa men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13129">How much do Iowa State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13130">How much do Creighton men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13131">How much do Marquette men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13132">How much do Xavier men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13133">How much do Providence men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13134">How much do Seton Hall men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13135">How much do St. John’s men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13136">How much do Georgetown men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13137">How much do Butler men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13138">How much do DePaul men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13139">How much do Memphis men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13140">How much do Cincinnati men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13141">How much do Wichita State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13142">How much do San Diego State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13143">How much do Saint Mary’s men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13144">How much do BYU men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13145">How much do Utah men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13146">How much do Colorado men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13147">How much do Oregon men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13148">How much do Oregon State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13149">How much do Washington men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13150">How much do Washington State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13151">How much do Stanford men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13152">How much do California men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13153">How much do USC men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13154">How much do Arizona State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13155">How much do TCU men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13156">How much do Texas Tech men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13157">How much do Oklahoma men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13158">How much do Oklahoma State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13159">How much do West Virginia men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13160">How much do Kansas State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13161">How much do Missouri men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13162">How much do Mississippi State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13163">How much do Ole Miss men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13164">How much do LSU men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13165">How much do Georgia men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13166">How much do South Carolina men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13167">How much do Florida State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13168">How much do Miami men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13169">How much do Clemson men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13170">How much do NC State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13171">How much do Virginia men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13172">How much do Virginia Tech men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13173">How much do Wake Forest men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13174">How much do Pittsburgh men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13175">How much do Boston College men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13176">How much do Notre Dame men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13177">How much do Georgia Tech men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13178">How much do Penn State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13179">How much do Rutgers men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13180">How much do Nebraska men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13181">How much do Minnesota men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13182">How much do Northwestern men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13183">How much do Vanderbilt men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13184">How much do Texas A&amp;M men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13185">How much do Dayton men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13186">How much do VCU men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13187">How much do Saint Louis men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13188">How much do Rhode Island men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13189">How much do Davidson men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13190">How much do Richmond men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13191">How much do George Mason men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13192">How much do Loyola Chicago men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13193">How much do Drake men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13194">How much do Bradley men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13195">How much do Northern Iowa men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13196">How much do Murray State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13197">How much do Belmont men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13198">How much do Vermont men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13199">How much do Colgate men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13200">How much do Yale men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13201">How much do Princeton men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13202">How much do Harvard men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13203">How much do Cornell men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13204">How much do UC Irvine men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13205">How much do UC Santa Barbara men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13206">How much do Hawaii men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13207">How much do Nevada men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13208">How much do UNLV men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13209">How much do New Mexico men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13210">How much do Boise State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13211">How much do Fresno State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13212">How much do Utah State men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13213">How much do Colorado State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13214">How much do Wyoming men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13215">How much do Air Force men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13216">How much do Grand Canyon men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13217">How much do Liberty men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13218">How much do Florida Atlantic men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13219">How much do Charleston men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13220">How much do UAB men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13221">How much do North Texas men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13222">How much do Temple men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13223">How much do Tulane men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13224">How much do SMU men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13225">How much do East Carolina men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13226">How much do South Florida men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13227">How much do Akron men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13228">How much do Toledo men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13229">How much do Kent State men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13230">How much do Ohio men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13231">How much do Buffalo men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13232">How much do Northern Kentucky men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13233">How much do Oakland men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13234">How much do Cleveland State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13235">How much do Milwaukee men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13236">How much do Wright State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13237">How much do Montana men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13238">How much do Montana State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13239">How much do Eastern Washington men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13240">How much do Weber State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13241">How much do North Dakota State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13242">How much do South Dakota State men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13243">How much do Oral Roberts men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13244">How much do McNeese men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13245">How much do Indiana State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13246">How much do Furman men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13247">How much do Samford men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13248">How much do UNC Greensboro men's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13249">How much do Chattanooga men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13250">How much do Mercer men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13251">How much do Wofford men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13252">How much do South Carolina women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13253">How much do LSU women's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13254">How much do Iowa women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13255">How much do Stanford women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13256">How much do Texas women's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13257">How much do UCLA women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13258">How much do Notre Dame women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13259">How much do Tennessee women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13260">How much do Baylor men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13261">How much do Maryland women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13262">How much do Ohio State women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13263">How much do Virginia Tech women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13264">How much do Indiana women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13265">How much do NC State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13266">How much do Duke women's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13267">How much do Utah women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13268">How much do Colorado women's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13269">How much do Oregon State women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13270">How much do Louisville women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13271">How much do Florida State women's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13272">How much do Ole Miss women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13273">How much do Kansas State women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13274">How much do Creighton women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13275">How much do Villanova women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13276">How much do Oklahoma women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13277">How much do Oklahoma State women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13278">How much do Texas A&amp;M women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13279">How much do Kentucky women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13280">How much do Georgia women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13281">How much do Arkansas women's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13282">How much do Mississippi State men’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13283">How much do Michigan women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13284">How much do Michigan State women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13285">How much do Nebraska women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13286">How much do Washington State women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13287">How much do Gonzaga women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13288">How much do West Virginia women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13289">How much do Princeton women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13290">How much do Columbia women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13291">How much do South Dakota State women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13292">How much do Fairfield women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13293">How much do Middle Tennessee women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13294">How much do Florida Gulf Coast women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13295">How much do James Madison women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13296">How much do Richmond women's basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13297">How much do North Carolina women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13298">How much do Syracuse women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13299">How much do Arizona women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13300">How much do California women’s basketball players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13301">How much do USC women’s basketball players earn from NIL in 2027?</a>
+    </div>
+    <h3 class="nil-h3">Football <span class="nil-ct">307</span></h3>
+    <div class="nil-grid">
+      <a class="nil-link" href="/knowledge/q10899">What are Alabama Crimson Tide football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10900">What are Texas Longhorns football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10902">What are Ohio State Buckeyes football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10913">What are Oregon Ducks football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10915">What are USC Trojans football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10922">What are Florida State Seminoles football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10924">What are Miami Hurricanes football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10925">What are Clemson Tigers football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10926">What are Wisconsin Badgers football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10932">What are Nebraska Cornhuskers football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10933">What are Indiana Hoosiers football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10934">What are Louisville Cardinals football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10936">What are BYU Cougars football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q10937">What are Iowa Hawkeyes football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11064">What does Lance O's Recruiting Network actually do, and where does it fit in the 2027 college football recruiting landscape?</a>
+      <a class="nil-link" href="/knowledge/q11065">Are college football recruiting services like Lance O's Recruiting Network worth it in 2027 — the industry-wide reality</a>
+      <a class="nil-link" href="/knowledge/q11069">Lance O's Recruiting Network vs NCSA vs Hudl vs FieldLevel in 2027 — which one serves HS football prospects best?</a>
+      <a class="nil-link" href="/knowledge/q11070">What is LRN's NIL Consultation service and how does it help HS football prospects build a brand in 2027?</a>
+      <a class="nil-link" href="/knowledge/q11072">What's actually in a college football coach's recruiting inbox in 2027 — and why mass emails get filtered</a>
+      <a class="nil-link" href="/knowledge/q11074">Why your HS football coach's phone call beats any paid recruiting service in 2027?</a>
+      <a class="nil-link" href="/knowledge/q11076">The brutal D1 football scholarship math in 2027 — what recruiting services don't show you</a>
+      <a class="nil-link" href="/knowledge/q11077">HS football NIL — the hype, the reality, and why most recruiting services oversell it in 2027</a>
+      <a class="nil-link" href="/knowledge/q11081">Why showcase camps and 7-on-7 beat paid recruiting services for HS football recruits in 2027?</a>
+      <a class="nil-link" href="/knowledge/q11085">Final verdict on paid HS football recruiting services in 2027 — when (rarely) they're worth it</a>
+      <a class="nil-link" href="/knowledge/q11116">What are Ole Miss Rebels football's 2027 NIL needs and strategy under the new head coach?</a>
+      <a class="nil-link" href="/knowledge/q11117">What are Mississippi State Bulldogs football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11122">What are Iowa State Cyclones football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11123">What are Cincinnati Bearcats football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11125">What are SMU Mustangs football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11126">What are South Carolina Gamecocks football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11127">What are Virginia Tech Hokies football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11128">What are Arkansas Razorbacks football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11130">What are Washington Huskies football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11131">What are NC State Wolfpack football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11132">What are Memphis Tigers football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11135">What are West Virginia Mountaineers football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11136">What are UConn Huskies football's 2027 NIL needs and strategy as an independent?</a>
+      <a class="nil-link" href="/knowledge/q11137">What are Maryland Terrapins football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11138">What are Stanford Cardinal football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11141">What are Pitt Panthers football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11144">What are Vanderbilt Commodores football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11146">What are Boise State Broncos football's 2027 NIL needs and strategy in the new Pac-12?</a>
+      <a class="nil-link" href="/knowledge/q11147">What are Minnesota Golden Gophers football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11148">What are Illinois Fighting Illini football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11149">What are Liberty Flames football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11151">What are California Golden Bears football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11152">What are Northwestern Wildcats football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11153">What are Rutgers Scarlet Knights football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11155">What are Syracuse Orange football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11156">What are Purdue Boilermakers football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11157">What are Michigan State Spartans football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11159">What are North Carolina Tar Heels football's 2027 NIL needs and strategy under Bill Belichick?</a>
+      <a class="nil-link" href="/knowledge/q11161">What are Wake Forest Demon Deacons football's 2027 NIL needs and strategy?</a>
+      <a class="nil-link" href="/knowledge/q11163">What are Air Force Falcons football's 2027 NIL needs and strategy under service academy constraints?</a>
+      <a class="nil-link" href="/knowledge/q11165">What is the SMU Mustangs football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11166">What is the Boise State Broncos football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11167">What is the Houston Cougars football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11170">What is the Penn State Nittany Lions football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11171">What is the Ole Miss Rebels football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11172">What is the Oregon Ducks football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11173">What is the Texas A&amp;M Aggies football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11176">What is the Tennessee Volunteers football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11179">What is the USC Trojans football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11181">What is the Texas Tech Red Raiders football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11182">What is the Notre Dame Fighting Irish football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11185">What is the Indiana Hoosiers football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11188">What is the Michigan Wolverines football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11190">What is the Texas Longhorns football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11191">What is the Ohio State Buckeyes football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11192">What is the Georgia Bulldogs football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11193">What is the Alabama Crimson Tide football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11194">What is the Clemson Tigers football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11195">What is the Florida State Seminoles football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11196">What is the Miami Hurricanes football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11198">What is the Florida Gators football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q11199">What is the South Carolina Gamecocks football NIL and roster strategy for the 2027 season?</a>
+      <a class="nil-link" href="/knowledge/q12738">What is the Alabama Crimson Tide NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12739">What is the Georgia Bulldogs NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12740">What is the Ohio State Buckeyes NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12741">What is the Texas Longhorns NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12742">What is the Michigan Wolverines NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12743">What is the Notre Dame Fighting Irish NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12744">What is the LSU Tigers NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12745">What is the Oklahoma Sooners NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12746">What is the Oregon Ducks NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12747">What is the Penn State Nittany Lions NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12748">What is the USC Trojans NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12749">What is the Florida State Seminoles NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12750">What is the Tennessee Volunteers NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12751">What is the Florida Gators NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12752">What is the Auburn Tigers NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12753">What is the Texas A&amp;M Aggies NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12754">What is the Miami Hurricanes NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12755">What is the Clemson Tigers NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12756">What is the Washington Huskies NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12757">What is the Wisconsin Badgers NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12758">What is the Iowa Hawkeyes NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12759">What is the Nebraska Cornhuskers NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12760">What is the Ole Miss Rebels NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12761">What is the Utah Utes NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12762">What is the Kansas State Wildcats NIL strategy for football in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12804">What is the average NIL deal size for a top-100 football recruit in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12818">How does the College Football Playoff format change NIL economics in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12840">How much can a Texas Longhorns football player earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12844">How much do LSU football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12964">How does EA Sports College Football 26 pay players through NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12976">How does the college football transfer portal work as a free-agency market in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13302">How much do Alabama football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13303">How much do Arkansas football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13304">How much do Auburn football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13305">How much do Florida football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13306">How much do Georgia football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13307">How much do Kentucky football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13308">How much do Mississippi State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13309">How much do Missouri football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13310">How much do Oklahoma football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13311">How much do Ole Miss football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13312">How much do South Carolina football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13313">How much do Tennessee football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13314">How much do Texas football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13315">How much do Texas A&amp;M football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13316">How much do Vanderbilt football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13317">How much do Illinois football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13318">How much do Indiana football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13319">How much do Iowa football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13320">How much do Maryland football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13321">How much do Michigan football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13322">How much do Michigan State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13323">How much do Minnesota football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13324">How much do Nebraska football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13325">How much do Northwestern football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13326">How much do Ohio State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13327">How much do Oregon football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13328">How much do Penn State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13329">How much do Purdue football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13330">How much do Rutgers football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13331">How much do UCLA football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13332">How much do USC football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13333">How much do Washington football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13334">How much do Wisconsin football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13335">How much do Arizona football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13336">How much do Arizona State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13337">How much do Baylor football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13338">How much do BYU football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13339">How much do Cincinnati football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13340">How much do Colorado football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13341">How much do Houston football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13342">How much do Iowa State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13343">How much do Kansas football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13344">How much do Kansas State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13345">How much do Oklahoma State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13346">How much do TCU football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13347">How much do Texas Tech football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13348">How much do UCF football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13349">How much do Utah football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13350">How much do West Virginia football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13351">How much do Boston College football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13352">How much do California football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13353">How much do Clemson football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13354">How much do Duke football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13355">How much do Florida State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13356">How much do Georgia Tech football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13357">How much do Louisville football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13358">How much do Miami football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13359">How much do NC State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13360">How much do North Carolina football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13361">How much do Pittsburgh football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13362">How much do SMU football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13363">How much do Stanford football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13364">How much do Syracuse football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13365">How much do Virginia football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13366">How much do Virginia Tech football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13367">How much do Wake Forest football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13368">How much do Oregon State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13369">How much do Washington State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13370">How much do Army football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13371">How much do Charlotte football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13372">How much do East Carolina football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13373">How much do Florida Atlantic football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13374">How much do Memphis football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13375">How much do Navy football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13376">How much do North Texas football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13377">How much do Rice football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13378">How much do South Florida football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13379">How much do Temple football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13380">How much do Tulane football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13381">How much do Tulsa football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13382">How much do UAB football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13383">How much do UTSA football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13384">How much do Air Force football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13385">How much do Boise State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13386">How much do Colorado State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13387">How much do Fresno State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13388">How much do Hawaii football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13389">How much do Nevada football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13390">How much do New Mexico football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13391">How much do San Diego State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13392">How much do San Jose State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13393">How much do UNLV football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13394">How much do Utah State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13395">How much do Wyoming football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13396">How much do Akron football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13397">How much do Ball State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13398">How much do Bowling Green football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13399">How much do Buffalo football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13400">How much do Central Michigan football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13401">How much do Eastern Michigan football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13402">How much do Kent State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13403">How much do Miami (OH) football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13404">How much do Northern Illinois football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13405">How much do Ohio football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13406">How much do Toledo football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13407">How much do Western Michigan football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13408">How much do Appalachian State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13409">How much do Arkansas State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13410">How much do Coastal Carolina football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13411">How much do Georgia Southern football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13412">How much do Georgia State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13413">How much do James Madison football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13414">How much do Louisiana football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13415">How much do Louisiana-Monroe football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13416">How much do Marshall football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13417">How much do Old Dominion football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13418">How much do South Alabama football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13419">How much do Southern Miss football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13420">How much do Texas State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13421">How much do Troy football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13422">How much do Jacksonville State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13423">How much do Kennesaw State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13424">How much do Liberty football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13425">How much do Louisiana Tech football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13426">How much do Middle Tennessee football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13427">How much do New Mexico State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13428">How much do Sam Houston football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13429">How much do UTEP football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13430">How much do Western Kentucky football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13431">How much do Florida International football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13432">How much do Delaware football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13433">How much do Missouri State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13434">How much do Notre Dame football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13435">How much do UConn football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13436">How much do UMass football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13437">How much do North Dakota State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13438">How much do South Dakota State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13439">How much do Montana football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13440">How much do Montana State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13441">How much do Sacramento State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13442">How much do Idaho football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13443">How much do South Dakota football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13444">How much do North Dakota football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13445">How much do Villanova football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13446">How much do William &amp; Mary football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13447">How much do Richmond football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13448">How much do Incarnate Word football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13449">How much do Furman football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13450">How much do Mercer football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13451">How much do Chattanooga football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13452">How much do Holy Cross football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13453">How much do Princeton football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13454">How much do Harvard football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13455">How much do Yale football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13456">How much do Dartmouth football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13457">How much do Penn football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13458">How much do Cornell football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13459">How much do Columbia football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13460">How much do Brown football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13461">How much do Jackson State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13462">How much do Florida A&amp;M football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13463">How much do North Carolina Central football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13464">How much do Southern football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13465">How much do Grambling football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13466">How much do Howard football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13467">How much do Tennessee State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13468">How much do Alcorn State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13469">How much do Lehigh football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13470">How much do Lafayette football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13471">How much do Colgate football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13472">How much do Rhode Island football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13473">How much do Maine football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13474">How much do New Hampshire football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13475">How much do Albany football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13476">How much do Elon football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13477">How much do Towson football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13478">How much do Monmouth football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13479">How much do Stony Brook football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13480">How much do Weber State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13481">How much do Eastern Washington football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13482">How much do UC Davis football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13483">How much do Cal Poly football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13484">How much do Northern Arizona football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13485">How much do Southern Illinois football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13486">How much do Northern Iowa football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13487">How much do Illinois State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13488">How much do Youngstown State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13489">How much do Western Carolina football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13490">How much do Wofford football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13491">How much do Samford football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13492">How much do The Citadel football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13493">How much do VMI football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13494">How much do East Tennessee State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13495">How much do Gardner-Webb football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13496">How much do Tennessee Tech football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13497">How much do Austin Peay football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13498">How much do Eastern Kentucky football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13499">How much do Indiana State football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13500">How much do North Alabama football players earn from NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13501">How much do Central Arkansas football players earn from NIL in 2027?</a>
+    </div>
+    <h3 class="nil-h3">More NIL &amp; Revenue <span class="nil-ct">65</span></h3>
+    <div class="nil-grid">
+      <a class="nil-link" href="/knowledge/q1448">How'd you fix Alabama's NIL &amp; athletic revenue issues in 2026?</a>
+      <a class="nil-link" href="/knowledge/q1449">How'd you fix Arkansas's NIL &amp; athletic revenue issues in 2026?</a>
+      <a class="nil-link" href="/knowledge/q1451">How'd you fix Florida's NIL &amp; athletic revenue issues in 2026?</a>
+      <a class="nil-link" href="/knowledge/q1452">How'd you fix Georgia's NIL &amp; athletic revenue issues in 2026?</a>
+      <a class="nil-link" href="/knowledge/q1453">How'd you fix Kentucky's NIL &amp; athletic revenue issues in 2026?</a>
+      <a class="nil-link" href="/knowledge/q1460">How'd you fix Tennessee's NIL &amp; athletic revenue issues in 2026?</a>
+      <a class="nil-link" href="/knowledge/q1462">How'd you fix Texas A&amp;M's NIL &amp; athletic revenue issues in 2026?</a>
+      <a class="nil-link" href="/knowledge/q11066">Do mass marketing email campaigns to college coaches actually work in 2027? The recruiting services tactic critique</a>
+      <a class="nil-link" href="/knowledge/q11067">What is the LRN Elite 400 program — Lance O's Recruiting Network's flagship offering</a>
+      <a class="nil-link" href="/knowledge/q11073">The college recruiting service tier upsell — how 'consultation' becomes a $5K commitment</a>
+      <a class="nil-link" href="/knowledge/q11075">How recruiting services calculate 'success rates' — and why those numbers don't mean what parents think</a>
+      <a class="nil-link" href="/knowledge/q11078">Recruiting service refund policies in 2027 — why most parents can't get their money back</a>
+      <a class="nil-link" href="/knowledge/q11079">8 contract red flags every parent should check before signing a recruiting service in 2027</a>
+      <a class="nil-link" href="/knowledge/q11080">How the transfer portal era squeezed HS recruiting service ROI in 2027?</a>
+      <a class="nil-link" href="/knowledge/q11082">NCAA compliance gotchas every HS family should know before paying a recruiting service in 2027</a>
+      <a class="nil-link" href="/knowledge/q11083">Why a single well-crafted X DM to a college coach beats 1000 mass emails in 2027?</a>
+      <a class="nil-link" href="/knowledge/q11084">Decoding recruiting service marketing claims in 2027 — what 'verified' and 'connections' actually mean</a>
+      <a class="nil-link" href="/knowledge/q12803">How do NIL collectives actually work in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12806">How has House v. NCAA changed college athlete revenue sharing in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12807">What is the impact of the $22M revenue-share cap on college sports in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12808">Who are the biggest NIL collectives in 2027 by total fund size?</a>
+      <a class="nil-link" href="/knowledge/q12809">How do college athletes choose their NIL agents in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12810">What is the typical NIL agent commission in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12811">How does NIL impact transfer portal decisions in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12812">What are the tax implications of NIL income for college athletes in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12813">Which NIL platforms do college athletes actually use in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12814">How big is the women's sports NIL market in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12815">What are the biggest NIL brand deals of 2027 so far?</a>
+      <a class="nil-link" href="/knowledge/q12816">How do NIL contracts protect athletes from exploitation in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12817">What is the SEC vs Big Ten NIL spending arms race in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12819">How do walk-on athletes earn NIL income in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12820">What role does social media play in college athlete NIL value in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12821">How does NIL impact high school recruiting commitments in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12822">What is the typical NIL endorsement structure for a Heisman candidate in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12823">How are college coaches contracts changing in the NIL era in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12824">What is the impact of conference realignment on NIL deals in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12825">How does Title IX apply to NIL revenue sharing in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12826">How do brands choose which college athletes to sign for NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12827">What is the Caitlin Clark effect on women's sports NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12828">How are NCAA scholarship limits changing post-House settlement in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12829">What is the biggest NIL deal ever signed and what made it work in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12830">How do international student-athletes earn NIL income in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12831">What is the role of On3 Sports and 247Sports in NIL valuations in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12832">How are athletic departments structuring NIL collective relationships in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12833">How does the JUCO route impact NIL earnings in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12834">What is the typical college quarterback NIL package at a top program in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12835">How are pro teams using college NIL data for draft scouting in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12836">What is the future of NIL through 2030 — predictions and risks in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12837">How are college baseball and softball programs adapting to NIL in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12960">What is Arch Manning's NIL valuation and how does he earn it in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12962">What is Opendorse and how big is it in NIL and revenue sharing in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12966">How does NIL work in high school sports in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12968">How big is women's sports and NIL revenue in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12970">What is Livvy Dunne's NIL valuation and how did she build it in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12972">How are NIL and revenue sharing affecting Olympic and non-revenue college sports in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12974">How do NIL collectives work and how are they taxed in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12985">How does the .8 billion House v. NCAA back-pay settlement work in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12986">What is the NIL Go clearinghouse and how does it review deals in 2027?</a>
+      <a class="nil-link" href="/knowledge/q12996">Are college athletes employees, and where does the unionization fight stand in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13002">How are NIL valuations calculated and what determines an athlete's value in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13005">How does NIL income taxation work for college athletes in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13014">Which brands invest most in NIL deals with college athletes in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13016">How do House settlement roster limits change college rosters and walk-ons in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13036">How are NIL deals structured and what are the key contract terms in 2027?</a>
+      <a class="nil-link" href="/knowledge/q13081">What is NIL Go and how does the NIL clearinghouse work in 2027?</a>
+    </div>
+
+</section>
+
+<script id="nil-qas-js">
+  function nilFilter(v){ v=(v||'').toLowerCase().trim();
+    document.querySelectorAll('#nil-qas .nil-link').forEach(function(a){
+      a.classList.toggle('nil-hide', v && a.textContent.toLowerCase().indexOf(v)===-1);
+    });
+    document.querySelectorAll('#nil-qas .nil-h3').forEach(function(h){
+      var grid=h.nextElementSibling; if(!grid) return;
+      var any=Array.prototype.some.call(grid.querySelectorAll('.nil-link'),function(a){return !a.classList.contains('nil-hide');});
+      h.style.display=any?'':'none'; grid.style.display=any?'':'none';
+    });
+  }
+</script>
+
   <div class="header">
     <h1>🏈 Fantasy Football Top 300</h1>
     <span class="tag">Daily Refresh</span>
@@ -1265,27 +1965,8 @@ const ROUND_MIX = [
 })();
 </script>
 
-<script>
-  function checkPwd(e) {
-    e.preventDefault();
-    var pwd = document.getElementById('pwd').value.trim();
-    if (pwd === '4444') {
-      try { sessionStorage.setItem('sports_unlocked', '1'); } catch(_){}
-      document.getElementById('gate').style.display = 'none';
-      document.getElementById('unlocked').style.display = 'block';
-    } else {
-      document.getElementById('err').textContent = '✗ wrong code';
-      document.getElementById('pwd').value = '';
-    }
-    return false;
-  }
-  try {
-    if (sessionStorage.getItem('sports_unlocked') === '1') {
-      document.getElementById('gate').style.display = 'none';
-      document.getElementById('unlocked').style.display = 'block';
-    }
-  } catch(_){}
-</script>
+<script>/* sports page is open — gate removed */</script>
 
+<script src="/pulse-ambient.js" defer></script>
 </body>
 </html>

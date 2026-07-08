@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulse Tools — Practical how-tos for your revenue engine | Pulse</title>
+<link rel="canonical" href="https://pulserevops.com/pulse-tools">
+<meta name="description" content="Pulse Tools — plain, practical how-to answers for the tools that run your revenue engine: calculators, CRMs, forecasting, automation and reporting.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pulserevops.com/pulse-tools">
+<meta property="og:site_name" content="Pulse">
+<meta property="og:title" content="Pulse Tools — Practical how-tos for your revenue engine">
+<meta property="og:description" content="Calculators, CRMs, forecasting, automation, reporting — answered plainly.">
+<meta property="og:image" content="https://pulserevops.com/pulse-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pulse Tools — Practical how-tos for your revenue engine">
+<meta name="twitter:image" content="https://pulserevops.com/pulse-og.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#fdfbf7">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#1b1712;--ink-soft:#6c6259;--line:#e8e2d8;--paper:#fdfbf7;--paper-2:#f4efe7;--accent:#c26a10;--maxw:1200px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+
+  .load{position:relative;background:#ece7de;overflow:hidden}
+  .load::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.7) 50%,transparent 80%);transform:translateX(-100%);animation:sh 1.3s infinite}
+  @keyframes sh{to{transform:translateX(100%)}}
+  img.ready{animation:fade .5s ease}@keyframes fade{from{opacity:0}to{opacity:1}}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:60}
+  .topbar{background:var(--accent);height:6px}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{font-weight:800;font-size:1.45rem;letter-spacing:-.02em}.brand b{color:var(--accent)}
+  nav.top{display:flex;gap:26px;font-size:.83rem;font-weight:600;color:#333}
+  nav.top a:hover{color:var(--accent)}
+  .search{border:1px solid var(--line);border-radius:100px;padding:9px 16px;font-size:.8rem;color:var(--ink-soft);background:#fff}
+
+  .masthead{position:relative;border-radius:14px;overflow:hidden;margin-top:24px;aspect-ratio:16/5.4;min-height:230px}
+  .masthead .ph{position:absolute;inset:0}
+  .masthead .sc{position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,15,10,.82) 0%,rgba(20,15,10,.5) 46%,rgba(20,15,10,.12) 100%)}
+  .masthead .in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 46px;color:#fff;max-width:640px;z-index:2}
+  .crumb{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+  .crumb b{color:#fff}
+  .masthead h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(2rem,4vw,3rem);line-height:1.03;letter-spacing:-.015em;margin:10px 0 10px}
+  .masthead p{color:rgba(255,255,255,.85);font-size:1rem;max-width:52ch}
+  .count{margin-top:14px;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;display:inline-flex;align-items:center;gap:10px}
+  .count .badge{background:var(--accent);padding:5px 11px;border-radius:100px}
+
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0 6px}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:100px;padding:9px 17px;font-size:.83rem;font-weight:600;color:#333;cursor:pointer}
+  .chip.on{background:#1b1712;color:#fff;border-color:#1b1712}
+  .chip:hover:not(.on){border-color:#111}
+  .resultline{margin:26px 0 18px;font-size:.85rem;color:var(--ink-soft)}
+  .resultline b{color:var(--ink)}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px 28px}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+  /* Q&A box = image on top, question underneath (treatment A) */
+  .qa{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+  .qa:hover{box-shadow:0 12px 30px -18px rgba(0,0,0,.4);transform:translateY(-3px)}
+  .qa .ph{aspect-ratio:3/2;overflow:hidden}
+  .qa .ph img{transition:transform .8s ease}
+  .qa:hover .ph img{transform:scale(1.05)}
+  .qa .b{padding:15px 16px 19px}
+  .qa .tag{font-size:.64rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  .qa h3{font-size:1.05rem;font-weight:700;line-height:1.26;margin-top:7px}
+  .qa .rt{margin-top:10px;font-size:.76rem;color:var(--ink-soft)}
+
+  .more{display:flex;justify-content:center;margin:46px 0 10px}
+  .more button{border:1px solid #1b1712;background:#fff;color:#1b1712;font-weight:700;font-size:.9rem;padding:13px 30px;border-radius:100px;cursor:pointer}
+  .more button:hover{background:#1b1712;color:#fff}
+
+  footer{border-top:1px solid var(--line);margin-top:60px;padding:44px 0 64px;color:var(--ink-soft);font-size:.85rem}
+  footer b{color:var(--ink)}
+  @media(max-width:600px){nav.top,.search{display:none}.masthead .in{padding:0 24px}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="topbar"></div>
+  <div class="wrap bar">
+    <div class="brand"><a href="/">PULSE<b>.</b></a></div>
+    <nav class="top"><a href="/">The Guide</a><a href="/coaching">Fractional CRO</a><a href="/pulse-tools">Pulse Tools</a><a href="/knowledge">The Library</a><a href="/knowledge">Search</a></nav>
+    <div class="search">🔍 Search 35,000 answers</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="ph"><img loading="lazy" src="/assets/hv2/hv2-fe5c1eb96f6161c5.jpg" alt=""></div>
+    <div class="sc"></div>
+    <div class="in">
+      <div class="crumb"><a href="/">The Guide</a> &nbsp;›&nbsp; <b>Collections</b></div>
+      <h1>Pulse Tools</h1>
+      <p>Practical how-tos for the tools that run your revenue engine — calculators, CRMs, forecasting, automation. Plain answers, no fluff.</p>
+      <div class="count"><span class="badge">10,900+ answers</span><span>Updated daily</span></div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <div class="chip on">All</div>
+    <div class="chip">Metrics &amp; calculators</div>
+    <div class="chip">CRM</div>
+    <div class="chip">Forecasting</div>
+    <div class="chip">Automation</div>
+    <div class="chip">Reporting</div>
+    <div class="chip">Outbound</div>
+  </div>
+  <div class="resultline">Showing <b>12</b> of <b>10,949</b> answers · sorted by <b>Most asked</b></div>
+
+  <div class="grid" id="grid">
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-0d47e862758f4e2d.jpg" alt=""></div><div class="b"><div class="tag">Metrics</div><h3>How do you calculate customer acquisition cost (CAC)?</h3><div class="rt">6 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-742ba302bc99515a.jpg" alt=""></div><div class="b"><div class="tag">CRM</div><h3>What's the best free CRM for a small team?</h3><div class="rt">7 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-11189367563433e0.jpg" alt=""></div><div class="b"><div class="tag">Compensation</div><h3>How do you build a sales commission calculator?</h3><div class="rt">8 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-9d9957e65691aab5.jpg" alt=""></div><div class="b"><div class="tag">Forecasting</div><h3>What tools do you need to forecast revenue accurately?</h3><div class="rt">9 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-0ddd4942be3af9fb.jpg" alt=""></div><div class="b"><div class="tag">Automation</div><h3>How do you set up lead scoring that actually works?</h3><div class="rt">7 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-068c13ec0f4ba670.jpg" alt=""></div><div class="b"><div class="tag">Pipeline</div><h3>What's the best tool for pipeline management?</h3><div class="rt">6 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-8303175f51e6bfdc.jpg" alt=""></div><div class="b"><div class="tag">Automation</div><h3>How do you automate sales follow-up emails?</h3><div class="rt">5 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-b9ba5946eb44d63c.jpg" alt=""></div><div class="b"><div class="tag">Reporting</div><h3>How do you track sales rep performance?</h3><div class="rt">8 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-bf98170a03224e39.jpg" alt=""></div><div class="b"><div class="tag">Finance</div><h3>How do you calculate gross profit margin?</h3><div class="rt">5 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-e00971b9d297a6a8.jpg" alt=""></div><div class="b"><div class="tag">Planning</div><h3>How do you build a sales territory plan?</h3><div class="rt">9 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-61eb03a9e964fb56.jpg" alt=""></div><div class="b"><div class="tag">Outbound</div><h3>What software do you need for outbound sales?</h3><div class="rt">7 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-5237630caa02732b.jpg" alt=""></div><div class="b"><div class="tag">Analytics</div><h3>How do you measure marketing ROI?</h3><div class="rt">6 min read</div></div></a>
+
+    <a class="qa" href="/knowledge"><div class="ph"><img loading="lazy" src="/assets/hv2/hv2-0e7dbe44ea01b019.jpg" alt=""></div><div class="b"><div class="tag">Reporting</div><h3>How do you build a quota attainment tracker?</h3><div class="rt">7 min read</div></div></a>
+
+  </div>
+
+  <div class="more"><button type="button">Load more answers</button></div>
+
+</div>
+
+<footer><div class="wrap"><div class="brand" style="font-size:1.2rem;margin-bottom:8px"><a href="/">PULSE<b>.</b></a></div><div>The Pulse Tools collection — part of the PULSE guide. 35,000 answers, told beautifully.</div><div style="margin-top:14px;opacity:.7">Prototype · full landing page · image-on-top / question-underneath · not deployed</div></div></footer>
+
+<script>
+  (function(){
+    const imgs=[...document.querySelectorAll('img[data-src]')];
+    let idx=0, active=0; const MAX=2;
+    function done(im){im.classList.add('ready');const ph=im.closest('.load');if(ph)ph.classList.remove('load');active--;pump();}
+    function pump(){while(active<MAX&&idx<imgs.length){const im=imgs[idx++];active++;im.onload=()=>done(im);im.onerror=()=>{if(!im.dataset.t){im.dataset.t=1;setTimeout(()=>{im.src=im.dataset.src+'&r='+Date.now();},700);}else{done(im);}};im.src=im.dataset.src;}}
+    pump();
+  })();
+  document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{document.querySelector('.chip.on')?.classList.remove('on');c.classList.add('on');});
+</script>
+
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

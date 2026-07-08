@@ -1,0 +1,124 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>PULSE · Polaroid photo-line — mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Caveat:wght@600&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2c2418;}
+*{box-sizing:border-box}
+body{margin:0;background:#efe6d6;background-image:radial-gradient(1200px 500px at 50% -10%,#f6efe1,#e7dcc7);font-family:'Fraunces',Georgia,serif;color:#3a3020}
+.wrap{max-width:1240px;margin:0 auto;padding:34px 20px 90px}
+.hd{text-align:center;margin-bottom:10px}
+.hd h1{font-size:2rem;margin:0 0 4px;letter-spacing:.3px}
+.hd p{margin:0;color:#7a6a4e;font-size:1rem}
+.section{margin-top:40px}
+.sec-lbl{font-family:'Permanent Marker',cursive;font-size:1.5rem;color:var(--ink);transform:rotate(-1.2deg);margin:0 0 6px 8px}
+.sec-sub{margin:0 0 6px 10px;color:#8a7a5c;font-size:.9rem}
+
+/* ── the photo line ── */
+.scene{position:relative;padding-top:26px}
+.cord{position:absolute;top:0;left:0;width:100%;height:74px;overflow:visible;pointer-events:none;z-index:1}
+.line{position:relative;z-index:2;display:flex;justify-content:space-around;align-items:flex-start;flex-wrap:nowrap;gap:6px;padding:0 10px}
+
+.polaroid{position:relative;margin-top:30px;width:212px;flex:0 0 auto;background:linear-gradient(180deg,#fffdf7,#f4eede);padding:12px 12px 0;border-radius:3px;
+  box-shadow:0 14px 26px rgba(60,44,20,.28),0 2px 4px rgba(0,0,0,.12);
+  transform:rotate(var(--tilt,0deg));transform-origin:50% -12px;   /* swing from the pin */
+  transition:transform .45s cubic-bezier(.34,1.4,.5,1),box-shadow .3s;
+  animation:sway 6s ease-in-out infinite;animation-delay:var(--d,0s);cursor:pointer}
+.polaroid:hover{transform:rotate(0deg) translateY(-10px) scale(1.04);box-shadow:0 26px 46px rgba(60,44,20,.4);z-index:5;animation-play-state:paused}
+.photo{position:relative;width:100%;aspect-ratio:1/1;background:#111;border-radius:1px;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.02) contrast(1.02)}
+.photo::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 30px rgba(0,0,0,.28);pointer-events:none}
+.cap{font-family:'Permanent Marker',cursive;color:var(--ink);text-align:center;font-size:1.06rem;line-height:1.15;padding:12px 6px 16px;min-height:58px;display:flex;align-items:center;justify-content:center}
+.cap.pen{font-family:'Caveat',cursive;font-size:1.5rem}
+
+/* clothespin */
+.pin{position:absolute;top:-20px;left:50%;transform:translateX(-50%) rotate(var(--pinrot,0deg));width:15px;height:38px;
+  background:linear-gradient(90deg,#e6c79a,#d3ac78 45%,#c69c66);border-radius:4px;z-index:6;box-shadow:0 2px 3px rgba(0,0,0,.35)}
+.pin::before{content:"";position:absolute;left:50%;top:5px;width:1.5px;height:26px;background:rgba(120,80,40,.55);transform:translateX(-50%)}
+.pin::after{content:"";position:absolute;left:50%;top:16px;transform:translateX(-50%);width:13px;height:6px;border:1px solid #9a9a9a;border-radius:2px;background:linear-gradient(#ddd,#aaa)}
+
+/* glowing patio bulbs on the cord */
+.bulb{fill:#ffd98a;filter:drop-shadow(0 0 6px rgba(255,196,90,.9));animation:flick 4s ease-in-out infinite}
+.bulb.b2{animation-delay:1.3s}.bulb.b3{animation-delay:.6s}.bulb.b4{animation-delay:2.1s}.bulb.b5{animation-delay:1.7s}
+.cap-note{fill:#6b5c40}
+
+@keyframes sway{0%,100%{transform:rotate(var(--tilt,0deg))}50%{transform:rotate(calc(var(--tilt,0deg) + 1.1deg))}}
+@keyframes flick{0%,100%{opacity:1}45%{opacity:.72}70%{opacity:.9}}
+
+.foot{margin-top:60px;text-align:center;color:#8a7a5c;font-size:.9rem}
+.tag{display:inline-block;background:#fff;border:1px dashed #c9a86c;border-radius:20px;padding:4px 12px;margin:3px;font-size:.82rem;color:#7a6a4e}
+@media(max-width:900px){.line{flex-wrap:wrap;justify-content:center;gap:14px}.polaroid{margin-top:14px}.cord{display:none}}
+</style></head>
+<body>
+<div class="wrap">
+<div class="hd">
+  <h1>The Polaroid photo-line</h1>
+  <p>Clip your Q&amp;As to a string of patio lights. Click any Polaroid → opens the answer. (Hover one to see it swing off its pin.)</p>
+</div>
+
+<!-- ROW 1 -->
+<div class="section">
+  <div class="sec-lbl">🍽 Where to eat this weekend</div>
+  <div class="sec-sub">A rotating cluster — dining Q&amp;As, shot like snapshots on the line.</div>
+  <div class="scene">
+    <svg class="cord" viewBox="0 0 1000 74" preserveAspectRatio="none">
+      <path d="M0,40 C40,30 70,26 100,26 C140,26 170,54 200,54 C230,54 260,26 300,26 C340,26 370,54 400,54 C430,54 460,26 500,26 C540,26 570,54 600,54 C630,54 660,26 700,26 C740,26 770,54 800,54 C830,54 860,26 900,26 C940,26 970,34 1000,40" fill="none" stroke="#8a6f45" stroke-width="2.4"/>
+      <circle class="bulb"    cx="200" cy="55" r="6"/><circle class="bulb b2" cx="400" cy="55" r="6"/>
+      <circle class="bulb b3" cx="600" cy="55" r="6"/><circle class="bulb b4" cx="800" cy="55" r="6"/>
+    </svg>
+    <div class="line">
+      <figure class="polaroid" style="--tilt:-3deg;--pinrot:6deg;--d:0s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/overhead%20gourmet%20restaurant%20dinner%20plates%20warm%20light%20no%20text?width=500&height=500&nologo=true&model=flux&seed=11"></div><figcaption class="cap">Top 10 places to eat here</figcaption></figure>
+      <figure class="polaroid" style="--tilt:2deg;--pinrot:-5deg;--d:.5s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/bright%20brunch%20table%20pancakes%20coffee%20sunny%20cafe%20no%20text?width=500&height=500&nologo=true&model=flux&seed=22"></div><figcaption class="cap pen">Best brunch in town</figcaption></figure>
+      <figure class="polaroid" style="--tilt:-2deg;--pinrot:4deg;--d:1s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/late%20night%20street%20tacos%20neon%20cozy%20no%20text?width=500&height=500&nologo=true&model=flux&seed=33"></div><figcaption class="cap">Late-night bites</figcaption></figure>
+      <figure class="polaroid" style="--tilt:3deg;--pinrot:-3deg;--d:.3s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/waterfront%20seafood%20restaurant%20sunset%20deck%20no%20text?width=500&height=500&nologo=true&model=flux&seed=44"></div><figcaption class="cap pen">Waterfront dining ✦</figcaption></figure>
+      <figure class="polaroid" style="--tilt:-1deg;--pinrot:5deg;--d:.8s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/cozy%20italian%20trattoria%20pasta%20candlelight%20no%20text?width=500&height=500&nologo=true&model=flux&seed=55"></div><figcaption class="cap">Hidden gem pasta</figcaption></figure>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 2 — night vibes, bulbs glowing -->
+<div class="section">
+  <div class="sec-lbl">🌙 Summer night vibes</div>
+  <div class="sec-sub">Evening themes lean into the string lights — the bulbs glow warmer after dark.</div>
+  <div class="scene">
+    <svg class="cord" viewBox="0 0 1000 74" preserveAspectRatio="none">
+      <path d="M0,40 C40,30 70,26 100,26 C140,26 170,54 200,54 C230,54 260,26 300,26 C340,26 370,54 400,54 C430,54 460,26 500,26 C540,26 570,54 600,54 C630,54 660,26 700,26 C740,26 770,54 800,54 C830,54 860,26 900,26 C940,26 970,34 1000,40" fill="none" stroke="#6f5a38" stroke-width="2.4"/>
+      <circle class="bulb"    cx="100" cy="27" r="6.5"/><circle class="bulb b2" cx="200" cy="55" r="6.5"/>
+      <circle class="bulb b3" cx="400" cy="55" r="6.5"/><circle class="bulb b4" cx="600" cy="55" r="6.5"/>
+      <circle class="bulb b5" cx="800" cy="55" r="6.5"/><circle class="bulb"    cx="900" cy="27" r="6.5"/>
+    </svg>
+    <div class="line">
+      <figure class="polaroid" style="--tilt:2deg;--pinrot:-4deg;--d:.2s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/rooftop%20bar%20city%20lights%20night%20cocktails%20no%20text?width=500&height=500&nologo=true&model=flux&seed=66"></div><figcaption class="cap">Rooftop bars ✦</figcaption></figure>
+      <figure class="polaroid" style="--tilt:-3deg;--pinrot:5deg;--d:.7s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/backyard%20firepit%20string%20lights%20evening%20cozy%20no%20text?width=500&height=500&nologo=true&model=flux&seed=77"></div><figcaption class="cap pen">Firepit lounges</figcaption></figure>
+      <figure class="polaroid" style="--tilt:1deg;--pinrot:-6deg;--d:1.1s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/live%20music%20patio%20warm%20lights%20crowd%20night%20no%20text?width=500&height=500&nologo=true&model=flux&seed=88"></div><figcaption class="cap">Live music patios</figcaption></figure>
+      <figure class="polaroid" style="--tilt:-2deg;--pinrot:3deg;--d:.4s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/sunset%20overlook%20golden%20hour%20couple%20silhouette%20no%20text?width=500&height=500&nologo=true&model=flux&seed=99"></div><figcaption class="cap pen">Best sunset spots</figcaption></figure>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 3 -->
+<div class="section">
+  <div class="sec-lbl">🎣 On the water</div>
+  <div class="sec-sub">Same motif, different pillar — crabbing, fishing, boats.</div>
+  <div class="scene">
+    <svg class="cord" viewBox="0 0 1000 74" preserveAspectRatio="none">
+      <path d="M0,40 C40,30 70,26 100,26 C140,26 170,54 200,54 C230,54 260,26 300,26 C340,26 370,54 400,54 C430,54 460,26 500,26 C540,26 570,54 600,54 C630,54 660,26 700,26 C740,26 770,54 800,54 C830,54 860,26 900,26 C940,26 970,34 1000,40" fill="none" stroke="#8a6f45" stroke-width="2.4"/>
+      <circle class="bulb"    cx="200" cy="55" r="6"/><circle class="bulb b3" cx="400" cy="55" r="6"/>
+      <circle class="bulb b4" cx="600" cy="55" r="6"/><circle class="bulb b2" cx="800" cy="55" r="6"/>
+    </svg>
+    <div class="line">
+      <figure class="polaroid" style="--tilt:-2deg;--pinrot:5deg;--d:.6s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/chesapeake%20blue%20crabs%20steamed%20old%20bay%20table%20no%20text?width=500&height=500&nologo=true&model=flux&seed=101"></div><figcaption class="cap">Best crab spots</figcaption></figure>
+      <figure class="polaroid" style="--tilt:3deg;--pinrot:-4deg;--d:.1s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/fisherman%20casting%20rod%20golden%20hour%20river%20no%20text?width=500&height=500&nologo=true&model=flux&seed=112"></div><figcaption class="cap pen">Where the fish bite</figcaption></figure>
+      <figure class="polaroid" style="--tilt:-1deg;--pinrot:4deg;--d:.9s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/boat%20rental%20marina%20blue%20water%20sunny%20no%20text?width=500&height=500&nologo=true&model=flux&seed=123"></div><figcaption class="cap">Boat rentals 101</figcaption></figure>
+      <figure class="polaroid" style="--tilt:2deg;--pinrot:-5deg;--d:.35s"><span class="pin"></span><div class="photo"><img loading="lazy" src="https://image.pollinations.ai/prompt/sunset%20sailboat%20cruise%20calm%20bay%20no%20text?width=500&height=500&nologo=true&model=flux&seed=134"></div><figcaption class="cap pen">Sunset cruises ✦</figcaption></figure>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <p>Two caption styles shown: <span class="tag">Permanent Marker</span> (bold Sharpie) and <span class="tag">Caveat pen</span> (looser handwriting).</p>
+  <p>Ideas to layer on: <span class="tag">"just developed" fade-in</span> <span class="tag">washi-tape instead of pins</span> <span class="tag">corkboard version</span> <span class="tag">rotate the row every few hours</span> <span class="tag">real entry images + titles</span></p>
+</div>
+</div>
+</body></html>

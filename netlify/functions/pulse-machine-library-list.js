@@ -3,6 +3,9 @@
 // growing knowledge library. Powers the /knowledge/ hub page.
 //
 // GET ?recent=N            → top N most recent answers, summary fields only
+// GET ?newOnly=1&days=7    → only entries with ts within N days of newest index ts (/recent page)
+// GET ?since=<ms>          → only entries with ts >= since (epoch ms)
+// GET ?sort=ts             → pure ts descending (skip q/vq pin reorder)
 // GET ?id=<id>             → full answer for one entry (question, answer, sources, tags)
 // GET ?tag=<tag>&recent=N  → recent N entries that include the given tag
 // ════════════════════════════════════════════════════════════════════════
@@ -11,6 +14,186 @@ let getStore = null;
 try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
 
 const { normalizeQuestion, visitorQuestionId } = require('./lib/visitor-question-id');
+
+/** Safe numeric ts — index rows may carry ISO strings or junk that poison Math.max → NaN. */
+function entryTs(e) {
+  if (!e) return 0;
+  for (const k of ['ts', 'last_modified_ms', 'generated_at', 'created_at']) {
+    const n = Number(e[k]);
+    if (Number.isFinite(n) && n > 0) return n;
+  }
+  return 0;
+}
+
+function pillarOfEntryId(id) {
+  const m = String(id || '').match(/^([a-z]+)/);
+  return m ? m[1] : '';
+}
+
+function mosaicImgKeyEntry(e) {
+  const u = String((e && e.img) || '').replace(/\?.*$/, '').toLowerCase();
+  return u || '';
+}
+
+/** Mixed homepage mosaic: cap tl + dedupe face URLs so CRO volume cannot dominate. */
+function balanceMixedMosaicEntries(entries, cap) {
+  cap = Math.max(1, Math.min(parseInt(cap, 10) || 500, 5000));
+  const byp = {};
+  for (const e of entries || []) {
+    if (!e || !e.id) continue;
+    const p = pillarOfEntryId(e.id);
+    if (p === 'tl' && mosaicImgKeyEntry(e) && /\/assets\/cro-cover-/.test(mosaicImgKeyEntry(e))) continue;
+    (byp[p] = byp[p] || []).push(e);
+  }
+  const pills = Object.keys(byp);
+  if (pills.length < 2) return (entries || []).slice(0, cap);
+  for (let i = pills.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pills[i], pills[j]] = [pills[j], pills[i]];
+  }
+  const maxDefault = Math.max(6, Math.ceil(cap / Math.max(pills.length, 8)));
+  const maxFor = (p) => (p === 'tl' ? Math.min(3, Math.max(2, Math.floor(cap / 120))) : maxDefault);
+  for (const p of pills) {
+    byp[p].sort((a, b) => entryTs(b) - entryTs(a));
+    const m = maxFor(p);
+    if (byp[p].length > m) byp[p] = byp[p].slice(0, m);
+  }
+  const out = [];
+  const cur = {};
+  const seenImg = new Set();
+  pills.forEach((p) => { cur[p] = 0; });
+  while (out.length < cap) {
+    let added = false;
+    for (const p of pills) {
+      if (out.length >= cap) break;
+      const lst = byp[p];
+      while (cur[p] < lst.length) {
+        const row = lst[cur[p]++];
+        const ik = mosaicImgKeyEntry(row);
+        if (ik && seenImg.has(ik)) continue;
+        if (ik) seenImg.add(ik);
+        out.push(row);
+        added = true;
+        break;
+      }
+    }
+    if (!added) break;
+  }
+  return out;
+}
+
+function parseIdParts(id) {
+  const m = String(id || '').match(/^([a-z]{2,3})(\d+)$/i);
+  if (!m) return null;
+  return { prefix: m[1].toLowerCase(), num: parseInt(m[2], 10), pad: m[2].length };
+}
+
+/** Blobs written by generateOne may exist before _index.json is updated — probe ids just above each prefix max. */
+async function mergeOrphanBlobs(store, entries, opts) {
+  if (!opts || (!opts.newOnly && !opts.pillar)) return entries;
+  if (opts.mini) return entries;
+  const seen = new Set((entries || []).map(e => e && e.id).filter(Boolean));
+  const maxByPrefix = {};
+  for (const e of entries || []) {
+    const p = parseIdParts(e.id);
+    if (!p) continue;
+    if (!maxByPrefix[p.prefix] || p.num > maxByPrefix[p.prefix].num) maxByPrefix[p.prefix] = p;
+  }
+  const pillarKey = opts.pillar ? String(opts.pillar).toLowerCase().trim() : '';
+  const pillarPrefix = ({ ce: 'ce', 'current-events': 'ce' }[pillarKey] || pillarKey.replace(/[^a-z]/g, ''));
+  if (pillarPrefix && !maxByPrefix[pillarPrefix]) {
+    maxByPrefix[pillarPrefix] = { prefix: pillarPrefix, num: 0, pad: 4 };
+  }
+  const prefixes = pillarPrefix ? [pillarPrefix] : Object.keys(maxByPrefix);
+  const probes = [];
+  for (const prefix of prefixes) {
+    const info = maxByPrefix[prefix] || { prefix, num: 0, pad: 4 };
+    for (let i = 1; i <= 12; i++) {
+      const id = info.prefix + String(info.num + i).padStart(info.pad, '0');
+      if (!seen.has(id)) probes.push(id);
+    }
+  }
+  const orphans = [];
+  for (const id of probes.slice(0, 24)) {
+    try {
+      const blob = await store.get('answers/' + id.replace(/[^\w-]/g, '') + '.json', { type: 'json' });
+      if (!blob || !blob.question) continue;
+      const ans = String(blob.answer || '');
+      if (ans.length < 200) continue;
+      let qs = typeof blob.quality_score === 'number' ? blob.quality_score : null;
+      if (qs == null && blob.quality) {
+        const sm = String(blob.quality).match(/^(\d+)/);
+        if (sm) qs = parseInt(sm[1], 10);
+      }
+      if (qs == null || qs < 13) continue;
+      if (!blob.img && !blob.cover_src && !blob.images_verified_at && !blob.cc_signed) continue;
+      const ts = entryTs(blob);
+      orphans.push({
+        id: blob.id || id,
+        question: blob.question,
+        tags: (function () {
+          const p = parseIdParts(id)?.prefix || 'q';
+          let tags = Array.isArray(blob.tags) && blob.tags.length ? blob.tags.slice() : [p];
+          if (p === 'ce') ['current-events', 'current-events-2027', 'pulse-news'].forEach(t => { if (!tags.includes(t)) tags.push(t); });
+          if (!tags.includes(p)) tags.unshift(p);
+          if ((blob.pipeline_origin === 'generate' || blob.from_pipeline_generator || blob.pending === false) && !tags.includes('pulse-recent')) tags.push('pulse-recent');
+          return tags;
+        })(),
+        ts: ts || Date.now(),
+        img: blob.img || null,
+        cover_src: blob.cover_src || null,
+        quality_score: qs,
+        pending: false,
+        has_answer: true,
+        source: blob.source || 'orphan-probe',
+        was_indexed_at: blob.was_indexed_at || null,
+      });
+    } catch (_e) {}
+  }
+  if (!orphans.length) return entries;
+  // Persist orphans into _index.json so pillar/recent pages stay warm on next request.
+  try {
+    const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] };
+    let touched = false;
+    for (const row of orphans.slice(0, 8)) {
+      if ((idx.entries || []).some(e => e && e.id === row.id)) continue;
+      idx.entries.unshift({
+        id: row.id,
+        question: row.question,
+        tags: row.tags,
+        ts: row.ts,
+        img: row.img,
+        cover_src: row.cover_src,
+        quality_score: row.quality_score,
+        pending: false,
+        was_indexed_at: new Date().toISOString(),
+      });
+      touched = true;
+      try {
+        const blob = await store.get('answers/' + row.id + '.json', { type: 'json' });
+        if (blob && blob.pending) {
+          await store.setJSON('answers/' + row.id + '.json', Object.assign({}, blob, {
+            pending: false,
+            was_indexed_at: blob.was_indexed_at || new Date().toISOString(),
+          }));
+        }
+      } catch (_e2) {}
+    }
+    if (touched) {
+      idx.entries.sort((a, b) => entryTs(b) - entryTs(a));
+      await store.setJSON('_index.json', idx);
+    }
+  } catch (_e) {}
+  const merged = orphans.concat(entries || []);
+  const dedup = [];
+  const ids = new Set();
+  for (const e of merged) {
+    if (!e || !e.id || ids.has(e.id)) continue;
+    ids.add(e.id);
+    dedup.push(e);
+  }
+  return dedup;
+}
 
 function mapListEntry(e) {
   return {
@@ -23,7 +206,10 @@ function mapListEntry(e) {
     // Functional + pillar + sports tags always lead the array, so the first
     // ~20 preserve client search / sports tag-filter; SEO keywords live on the
     // rendered entry page meta (from the blob), not this index API.
-    tags: (e.tags || []).slice(0, 20),
+    tags: (e.tags || []).slice(0, 12),
+    img: e.img || null,   // face-card hero URL (stamped into the index) — powers the mosaic tile boxes
+    cover_src: e.cover_src || null,
+    face_title_baked: !!e.face_title_baked,
     ts: e.ts,
     polished_at: e.polished_at || null,
     quality_score: typeof e.quality_score === 'number' ? e.quality_score : 5,
@@ -185,7 +371,7 @@ exports.handler = async (event) => {
       // scripts on a different clock). This makes "today" track the data,
       // not the server, so a 35-entry burst isn't invisible to the dashboard.
       const allEntries = idx.entries || [];
-      const newestTs = allEntries.reduce((m, e) => Math.max(m, e.ts || 0), 0);
+      const newestTs = allEntries.reduce((m, e) => Math.max(m, entryTs(e)), 0);
       const now = newestTs > 0 ? newestTs : Date.now();
       const todayStartMs = (function(){
         if (newestTs <= 0) {
@@ -485,7 +671,7 @@ exports.handler = async (event) => {
   // ── List recent (with optional tag filter) ──────────────────────────
   // Cap raised to 12000 so /knowledge.html can render the full library
   // (was 60 — caused empty grid when all top-60 were today's entries).
-  const limit = Math.max(1, Math.min(20000, parseInt(params.recent, 10) || 24));
+  const limit = Math.max(1, Math.min(40000, parseInt(params.recent, 10) || 24));
   const tag   = params.tag ? String(params.tag).toLowerCase().trim() : null;
   // pillar filter: training → only st#### entries, kpi → only ik#### entries,
   // knowledge → only q#### entries. Filters by ID prefix because that's
@@ -508,8 +694,22 @@ exports.handler = async (event) => {
     sc:/^sc\d+$/, nl:/^nl\d+$/, dn:/^dn\d+$/, bt:/^bt\d+$/, mv:/^mv\d+$/, wl:/^wl\d+$/,
     dr:/^dr\d+$/, tv:/^tv\d+$/, rs:/^rs\d+$/, es:/^es\d+$/, cl:/^cl\d+$/, lv:/^lv\d+$/,
     ev:/^ev\d+$/, sy:/^sy\d+$/, ga:/^ga\d+$/, gm:/^gm\d+$/, sk:/^sk\d+$/, sp:/^sp\d+$/,
-    tl:/^tl\d+$/, cg:/^cg\d+$/, co:/^co\d+$/, ai:/^ai\d+$/, bo:/^bo\d+$/, cd:/^cd\d+$/, aq:/^aq\d+$/, hf:/^hf\d+$/,
-    pt:/^pt\d+$/, sw:/^sw\d+$/, ed:/^ed\d+$/,
+    tl:/^tl\d+$/, cg:/^cg\d+$/, co:/^co\d+$/, ai:/^ai\d+$/, bo:/^bo\d+$/, cd:/^cd\d+$/, aq:/^aq\d+$/, hf:/^hf\d+$/, tc:/^tc\d+$/, ce:/^ce\d+$/,
+    pt:/^pt\d+$/, sw:/^sw\d+$/, ed:/^ed\d+$/, kw:/^kw\d+$/, cr:/^cr\d+$/, fs:/^fs\d+$/,
+    'kory-white-projects':/^kw\d+$/, crabbing:/^cr\d+$/, fishing:/^fs\d+$/,
+    // SEG-NAME aliases — the /style, /cars … hubs send the URL seg, not the prefix.
+    // Without these the filter no-ops and the hub falls back to the byte-trimmed global
+    // list, capping the pillar count (e.g. /style showed 341 of 870). Map seg → prefix rx.
+    style:/^sy\d+$/, cars:/^ca\d+$/, aquariums:/^aq\d+$/, boats:/^bt\d+$/, collectibles:/^co\d+$/,
+    franchises:/^fr\d+$/, telco:/^tc\d+$/, pets:/^pt\d+$/, software:/^sw\d+$/, tools:/^tl\d+$/,
+    coaching:/^cg\d+$/, 'tech-stacks':/^tk\d+$/, graphics:/^gb\d+$/, 'sales-book-summaries':/^bs\d+$/,
+    'electronic-reviews':/^er\d+$/, 'revenue-architecture':/^ra\d+$/, 'go-to-market-playbooks':/^gp\d+$/,
+    'ai-infrastructure':/^ai\d+$/, 'sales-trainings':/^st\d+$/, 'industry-kpis':/^ik\d+$/,
+    schools:/^sc\d+$/, towns:/^tn\d+$/, nightlife:/^nl\d+$/, dining:/^dn\d+$/, movies:/^mv\d+$/,
+    wellness:/^wl\d+$/, drills:/^dr\d+$/, travel:/^tv\d+$/, resorts:/^rs\d+$/, estates:/^es\d+$/,
+    clubs:/^cl\d+$/, living:/^lv\d+$/, events:/^ev\d+$/, skills:/^sk\d+$/, gatherings:/^ga\d+$/,
+    gaming:/^gm\d+$/, buildouts:/^bo\d+$/, 'highschool-football-recruiting':/^hf\d+$/,
+    'current-events':/^ce\d+$/,
   };
   // MERGED CATEGORIES (owner IA redesign 2026-06-23): collapse the 37 pillars into
   // a handful of "My Thoughts on…" categories. ?cat=<key> returns all member pillars.
@@ -534,8 +734,15 @@ exports.handler = async (event) => {
   let meta    = null;
 
   try {
-    const idx = (await store.get('_index.json', { type: 'json' })) || { entries: [] };
+    const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] };
     let entries = (idx.entries || []).slice();
+    const sortTsEarly = params.sort === 'ts';
+    const newOnlyEarly = params.newOnly === '1' || params.newonly === '1';
+    entries = await mergeOrphanBlobs(store, entries, {
+      newOnly: newOnlyEarly,
+      pillar,
+      mini: params.mini === '1' || params.mini === 'true',
+    });
     if (tag) entries = entries.filter(e => Array.isArray(e.tags) && e.tags.includes(tag));
     if (cat === 'editorials' || cat === 'mythoughts' || cat === 'thoughts') {
       // MY THOUGHTS (owner 2026-06-25): the single home, and FOR NOW it surfaces the
@@ -559,36 +766,57 @@ exports.handler = async (event) => {
         });
       }
     }
-    // Sort priority (top → bottom):
-    //   1. pinned_until > now (fresh API-direct visitor answers — 24h window)
-    //   2. visitor-asked vq_* IDs (newest-ts first)
-    //   3. q#### IDs (newest numeric first)
-    //   4. everything else by ts desc
-    const nowSort = Date.now();
-    entries.sort((a, b) => {
-      const aPinned = (a.pinned_until || 0) > nowSort;
-      const bPinned = (b.pinned_until || 0) > nowSort;
-      if (aPinned && bPinned) return (b.pinned_until || 0) - (a.pinned_until || 0);
-      if (aPinned && !bPinned) return -1;
-      if (!aPinned && bPinned) return 1;
-      const aIsVQ = /^vq_/i.test(a.id);
-      const bIsVQ = /^vq_/i.test(b.id);
-      if (aIsVQ && bIsVQ) return (b.ts || 0) - (a.ts || 0);
-      if (aIsVQ && !bIsVQ) return -1;
-      if (!aIsVQ && bIsVQ) return 1;
-      const aIsQ = /^q\d+$/.test(a.id);
-      const bIsQ = /^q\d+$/.test(b.id);
-      if (aIsQ && bIsQ) return parseInt(b.id.slice(1), 10) - parseInt(a.id.slice(1), 10);
-      if (aIsQ && !bIsQ) return -1;
-      if (!aIsQ && bIsQ) return 1;
-      return (b.ts || 0) - (a.ts || 0);
-    });
+    const sortTs = params.sort === 'ts';
+    const newOnly = params.newOnly === '1' || params.newonly === '1';
+    const sinceParam = parseInt(params.since, 10) || 0;
+    let newSinceMs = null;
+
+    if (sortTs) {
+      entries.sort((a, b) => entryTs(b) - entryTs(a));
+    } else {
+      // Sort priority (top → bottom):
+      //   1. pinned_until > now (fresh API-direct visitor answers — 24h window)
+      //   2. visitor-asked vq_* IDs (newest-ts first)
+      //   3. q#### IDs (newest numeric first)
+      //   4. everything else by ts desc
+      const nowSort = Date.now();
+      entries.sort((a, b) => {
+        const aPinned = (a.pinned_until || 0) > nowSort;
+        const bPinned = (b.pinned_until || 0) > nowSort;
+        if (aPinned && bPinned) return (b.pinned_until || 0) - (a.pinned_until || 0);
+        if (aPinned && !bPinned) return -1;
+        if (!aPinned && bPinned) return 1;
+        const aIsVQ = /^vq_/i.test(a.id);
+        const bIsVQ = /^vq_/i.test(b.id);
+        if (aIsVQ && bIsVQ) return (b.ts || 0) - (a.ts || 0);
+        if (aIsVQ && !bIsVQ) return -1;
+        if (!aIsVQ && bIsVQ) return 1;
+        const aIsQ = /^q\d+$/.test(a.id);
+        const bIsQ = /^q\d+$/.test(b.id);
+        if (aIsQ && bIsQ) return parseInt(b.id.slice(1), 10) - parseInt(a.id.slice(1), 10);
+        if (aIsQ && !bIsQ) return -1;
+        if (!aIsQ && bIsQ) return 1;
+        return (b.ts || 0) - (a.ts || 0);
+      });
+    }
+
+    if (newOnly || sinceParam > 0) {
+      newSinceMs = sinceParam > 0 ? sinceParam : 0;
+      if (newOnly && !newSinceMs) {
+        const days = Math.max(1, Math.min(90, parseInt(params.days, 10) || 7));
+        const newestTs = entries.reduce((m, e) => Math.max(m, entryTs(e)), 0);
+        newSinceMs = newestTs > 0
+          ? newestTs - days * 86400000
+          : Date.now() - days * 86400000;
+      }
+      entries = entries.filter(e => entryTs(e) >= newSinceMs);
+    }
 
     // Per owner 2026-05-26: push entries tagged "negative-leaning" out of the
     // top of the library and into the middle band. Keeps the first impression
     // on page 1 positive-leaning while still surfacing the critical takes for
     // visitors who scroll. Only applies when NOT filtering to a specific tag.
-    if (!tag) {
+    if (!tag && !newOnly && !sortTs) {
       const isNeg = e => Array.isArray(e.tags) && e.tags.includes('negative-leaning');
       const negatives = entries.filter(isNeg);
       const positives = entries.filter(e => !isNeg(e));
@@ -607,22 +835,43 @@ exports.handler = async (event) => {
     // autocomplete + Enter keyword search, avoiding the 502s that large
     // full-record `recent` requests hit (payload/memory).
     if (params.mini === '1' || params.mini === 'true') {
-      const slim = entries.slice(0, Math.min(limit, 20000)).map(e => ({ id: e.id, question: e.question }));
+      // id + question + a CAPPED tag slice so the homepage predictive search can
+      // autofill/match on keywords (pulse-search.js reads e.tags). Cap tags hard
+      // (10) — some pillars carry 100+ SEO keyword tags; returning them all for
+      // the whole library blew past Netlify's 6 MB response limit → 502 → dead
+      // homepage search. Bump the row cap to 40000 so all ~22k entries load.
+      const TAG_CAP = 6;
+      let slim = entries.slice(0, Math.min(limit, 40000)).map(e => ({
+        id: e.id,
+        question: e.question,
+        tags: Array.isArray(e.tags) ? e.tags.slice(0, TAG_CAP) : undefined,
+      }));
+      // BYTE-BUDGET guard (matches the full path): returning the WHOLE library can
+      // exceed Netlify's ~6 MB response limit → the function returns nothing → dead
+      // homepage search. Trim to fit instead of failing, so search always works.
+      const miniTotal = (pillar || cat || tag) ? matched : (idx.entries || []).length;
+      const MINI_BUDGET = 5200000; // ~5.2 MB, safely under Netlify's 6 MB hard limit
+      let miniBody;
+      while (true) {
+        miniBody = JSON.stringify({ ok: true, total: miniTotal, matched, returned: slim.length, entries: slim });
+        if (miniBody.length <= MINI_BUDGET || slim.length <= 500) break;
+        slim = slim.slice(0, Math.floor(slim.length * 0.9));
+      }
       return {
         statusCode: 200,
         headers: { ...CORS, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ok: true, total: (idx.entries || []).length, matched, returned: slim.length, entries: slim }),
+        body: miniBody,
       };
     }
-    // SAFE CAP for FULL records: the synchronous function 502s when the JSON
-    // body gets too big (~2000+ full records). At 14.8k+ entries, callers asking
-    // recent=12000 used to crash → EMPTY listings + dead homepage search site-wide.
-    // Cap full-record responses to a safe size; use mini=1 for whole-library needs.
-    const SAFE_FULL = 1200;
+    // FULL-record ceiling raised to 10000 (owner: "really big number so we don't keep
+    // doing this — like 10,000", sitewide/pillar-wide). The old 1200 cap truncated the
+    // grid (40 pages × 30). A hard BYTE-BUDGET guard below makes it 502-proof regardless
+    // of per-row size or pillar growth, so we never hit Netlify's ~6 MB limit again.
+    const SAFE_FULL = 25000;
     const safeLimit = Math.min(limit, SAFE_FULL);
     // Skip visitor-queue ghosts when a pillar filter is applied — they don't
     // belong on the per-pillar listing pages (trainings / KPIs / etc).
-    if (!pillar && !cat) {
+    if (!pillar && !cat && !newOnly) {
       entries = await mergeVisitorQueue(store, entries, safeLimit);
     } else {
       // Honor `recent` for pillar queries too (previously unsliced → returned
@@ -630,17 +879,36 @@ exports.handler = async (event) => {
       entries = entries.slice(0, safeLimit);
     }
     try { meta = (await store.get('_meta.json', { type: 'json' })) || null; } catch (_e) {}
+    const mixBalance = params.mixBalance === '1' || params.mixbalance === '1'
+      || (!pillar && !cat && !tag && sortTs && safeLimit <= 500);
+    if (mixBalance && !pillar && !cat && !tag) {
+      entries = balanceMixedMosaicEntries(entries, safeLimit);
+    } else if (!pillar && !cat && !newOnly) {
+      entries = entries.slice(0, safeLimit);
+    }
+    let mapped = entries.map(mapListEntry);
+    const metaOut = meta && { spend_today: meta.spend_today || 0, runs_today: meta.runs_today || 0, last_run: meta.last_run || null };
+    const totalOut = (pillar || cat || tag) ? matched : (idx.entries || []).length;
+    const BYTE_BUDGET = 5200000; // ~5.2 MB, safely under Netlify's 6 MB hard limit
+    let bodyStr;
+    while (true) {
+      bodyStr = JSON.stringify({
+        ok: true,
+        total: totalOut,
+        matched,
+        returned: mapped.length,
+        entries: mapped,
+        meta: metaOut,
+        new_only: !!newOnly,
+        new_since_ms: Number.isFinite(newSinceMs) && newSinceMs > 0 ? newSinceMs : undefined,
+      });
+      if (bodyStr.length <= BYTE_BUDGET || mapped.length <= 200) break;
+      mapped = mapped.slice(0, Math.floor(mapped.length * 0.85));
+    }
     return {
       statusCode: 200,
       headers: { ...CORS, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ok: true,
-        total: (idx.entries || []).length,
-        matched: matched,
-        returned: entries.length,
-        entries: entries.map(mapListEntry),
-        meta: meta && { spend_today: meta.spend_today || 0, runs_today: meta.runs_today || 0, last_run: meta.last_run || null },
-      }),
+      body: bodyStr,
     };
   } catch (e) {
     return { statusCode: 200, headers: CORS, body: JSON.stringify({ ok: false, reason: 'index err' }) };

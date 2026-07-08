@@ -9,6 +9,12 @@ const KIND_LABEL = { 'curator': 'Kory White name (→ LinkedIn)', 'curator-photo
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers: CORS, body: '' };
   if (event.httpMethod !== 'POST') return { statusCode: 405, headers: CORS, body: 'POST only' };
+  // HUMAN-ONLY (owner 2026-07-06): drop bot/crawler/monitor user-agents. Real link clicks run this JS handler
+  // (bots don't), so this is a second safety layer for "human behavior only".
+  const ua = String((event.headers && (event.headers['user-agent'] || event.headers['User-Agent'])) || '').toLowerCase();
+  if (!ua || /bot|crawl|spider|slurp|headless|phantom|puppeteer|playwright|lighthouse|pingdom|uptime|monitor|preview|prerender|curl|wget|python|axios|node-fetch|go-http|scrapy|semrush|ahrefs|bingpreview|facebookexternalhit|embedly/.test(ua)) {
+    return { statusCode: 204, headers: CORS, body: '' };
+  }
   let b = {};
   try { b = JSON.parse(event.body || '{}'); } catch (e) {}
   const kind = String(b.kind || 'unknown').slice(0, 40);
@@ -23,33 +29,27 @@ exports.handler = async (event) => {
   const note = String(b.note || '').slice(0, 500); // e.g. the follow-up question text
   const noteRow = note ? `<strong>Question / note:</strong> <span style="color:#C8112B">${note.replace(/[<>]/g, '')}</span><br>` : '';
 
-  const pmToken = process.env.POSTMARK_SERVER_TOKEN || process.env.POSTMARK_API_KEY;
-  const resendKey = process.env.RESEND_API_KEY || process.env.resendapikey || process.env.RESENDAPIKEY;
-  const fromEmail = process.env.ALERT_FROM_EMAIL || process.env.alert_from_email || 'onboarding@resend.dev';
-  const subject = `🔔 PULSE lead-signal: ${what}`;
-  const html = `<div style="font-family:system-ui,sans-serif;font-size:15px;line-height:1.6;color:#171E14">
-    <h2 style="color:#C8112B;margin:0 0 8px">A visitor clicked ${what}</h2>
-    <p>${noteRow}<strong>Page they were on:</strong> ${fullPage ? `<a href="${fullPage}">${fullPage}</a>` : (page || ref || '(unknown page)')}<br>
-    <strong>Page title:</strong> ${title || '(n/a)'}<br>
-    <strong>Link/target:</strong> ${label || '(n/a)'}<br>
-    <strong>Time:</strong> ${new Date().toUTCString()}</p>
-    <p style="color:#8a8ba0;font-size:12px">Low-key lead signal from pulserevops.com. (One alert per visitor per click-type, per session.)</p>
-  </div>`;
-
+  // CONSOLIDATED: queue into the owner digest instead of emailing per-click.
+  // One email per 25 signals (owner 2026-06-27) so the inbox isn't flooded.
   try {
-    if (pmToken) {
-      const r = await fetch('https://api.postmarkapp.com/email', { method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-Postmark-Server-Token': pmToken },
-        body: JSON.stringify({ From: fromEmail, To: RECIPIENT, Subject: subject, HtmlBody: html, MessageStream: 'outbound' }) });
-      return { statusCode: 200, headers: CORS, body: JSON.stringify({ ok: r.ok, provider: 'postmark' }) };
+    const { queueOwnerEmail } = require('./lib/owner-digest');
+    // General link clicks (owner 2026-07-06): show the CLICKED link + which page. url = the clicked destination.
+    let detail, digestUrl;
+    if (kind === 'click') {
+      const clicked = label || '';
+      const clickedAbs = /^https?:\/\//i.test(clicked) ? clicked : (clicked.charAt(0) === '/' ? ('https://pulserevops.com' + clicked) : clicked);
+      const txt = String(b.text || '').slice(0, 120).replace(/[<>]/g, '');
+      detail = `Click → ${clicked}${txt ? ' ("' + txt + '")' : ''} · on ${page || '/'}`;
+      digestUrl = clickedAbs || fullPage;
+    } else {
+      detail = `Lead-signal: ${what}${note ? ' — ' + note.replace(/[<>]/g, '') : ''}${title ? ' · ' + title : ''}`;
+      digestUrl = fullPage;
     }
-    if (resendKey) {
-      const r = await fetch('https://api.resend.com/emails', { method: 'POST',
-        headers: { Authorization: 'Bearer ' + resendKey, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ from: fromEmail, to: [RECIPIENT], subject, html }) });
-      return { statusCode: 200, headers: CORS, body: JSON.stringify({ ok: r.ok, provider: 'resend' }) };
-    }
-    return { statusCode: 200, headers: CORS, body: JSON.stringify({ ok: false, reason: 'no mail provider configured' }) };
+    // General clicks → SEPARATE batched queue (25/email) so they don't flood; lead signals stay real-time.
+    const r = (kind === 'click')
+      ? await queueOwnerEmail({ what: detail, url: digestUrl, queueKey: 'click-digest-queue.json', flushAt: 25, label: 'human clicks' })
+      : await queueOwnerEmail({ what: detail, url: digestUrl });
+    return { statusCode: 200, headers: CORS, body: JSON.stringify({ ok: true, digest: r }) };
   } catch (e) {
     return { statusCode: 200, headers: CORS, body: JSON.stringify({ ok: false, error: String(e.message || e) }) };
   }

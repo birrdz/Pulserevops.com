@@ -139,7 +139,7 @@ exports.handler = async (event) => {
     return {
       statusCode: 404,
       headers: { 'Content-Type': 'text/html' },
-      body: '<!doctype html><html><head><title>Leaderboard not found</title><meta name="robots" content="noindex"></head><body style="background:#070a0f;color:#EDE5D8;font-family:sans-serif;padding:40px;"><h1>Leaderboard not found</h1><p>Available: ' + Object.keys(PILLARS).map(k => '<a href="/leaderboards/' + k + '" style="color:#FF8C1A;">' + k + '</a>').join(' · ') + '</p></body></html>',
+      body: '<!doctype html><html><head><title>Leaderboard not found</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/assets/pulse-tan.css"></head><body style="background:#070a0f;color:#EDE5D8;font-family:sans-serif;padding:40px;"><h1>Leaderboard not found</h1><p>Available: ' + Object.keys(PILLARS).map(k => '<a href="/leaderboards/' + k + '" style="color:#FF8C1A;">' + k + '</a>').join(' · ') + '</p></body></html>',
     };
   }
 

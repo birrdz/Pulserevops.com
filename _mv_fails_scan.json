@@ -1,0 +1,414 @@
+{
+  "total": 50,
+  "pass": 16,
+  "fails": [
+    {
+      "id": "mv0017",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0018",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0019",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0020",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0021",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0022",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0023",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0024",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0025",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0026",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0027",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0028",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0029",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0030",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0031",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0032",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0033",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0034",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0035",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0036",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0037",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0038",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0039",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0040",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0041",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0042",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0043",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0044",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0045",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0046",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0047",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0048",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "10/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0049",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "11/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "unexpected_top_hero",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    },
+    {
+      "id": "mv0050",
+      "grade": 9,
+      "masterOk": false,
+      "productImgs": "0/10",
+      "issues": [
+        "missing_how_we_ranked",
+        "product_lines_0_of_10",
+        "missing_whatToLookFor",
+        "rank1_markdown_image"
+      ]
+    }
+  ]
+}

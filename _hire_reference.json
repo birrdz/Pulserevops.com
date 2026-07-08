@@ -1,0 +1,34 @@
+{
+  "BOOK": {
+    "img": 1,
+    "file": "/assets/hire-tile-book.jpg"
+  },
+  "HIRE": {
+    "img": 1,
+    "file": "/assets/hire-tile-hire.jpg"
+  },
+  "RESUME": {
+    "img": 2,
+    "file": "/assets/hire-tile-resume.jpg"
+  },
+  "LINKEDIN": {
+    "img": 2,
+    "file": "/assets/hire-tile-linkedin.jpg"
+  },
+  "SYNDICATE": {
+    "img": 4,
+    "file": "/assets/hire-tile-syndicate.jpg"
+  },
+  "ABOUT": {
+    "img": 3,
+    "file": "/assets/hire-tile-about.jpg"
+  },
+  "CONTACT": {
+    "img": 2,
+    "file": "/assets/hire-tile-contact.jpg"
+  },
+  "TOOLS": {
+    "img": 1,
+    "file": "/assets/hire-tile-tools.jpg"
+  }
+}

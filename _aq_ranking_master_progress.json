@@ -1,0 +1,117 @@
+{
+  "running": false,
+  "stage": "complete",
+  "fixed": 838,
+  "failed": 0,
+  "remaining": 0,
+  "total": 838,
+  "pillar": "aq",
+  "format_v": "2026-07-ranking-master-no-hero",
+  "note": "Full master template — no top hero, tail sections added, no image re-fetch",
+  "samples": [
+    {
+      "at": "2026-07-06T08:49:42.617Z",
+      "id": "aq1149",
+      "title": "Top 10 Aquarium Wave Makers 2027",
+      "url": "https://pulserevops.com/aquariums/aq1149",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "unexpected_top_hero"
+      ]
+    },
+    {
+      "at": "2026-07-06T08:49:37.176Z",
+      "id": "aq1126",
+      "title": "Top 10 Reef-Safe Tangs for Saltwater Aquariums",
+      "url": "https://pulserevops.com/aquariums/aq1126",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "unexpected_top_hero"
+      ]
+    },
+    {
+      "at": "2026-07-06T08:49:33.345Z",
+      "id": "aq1108",
+      "title": "Top 10 Aquarium Wave Pump Brands in 2027",
+      "url": "https://pulserevops.com/aquariums/aq1108",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "unexpected_top_hero"
+      ]
+    },
+    {
+      "at": "2026-07-06T08:49:26.207Z",
+      "id": "aq0990",
+      "title": "Top 10 Aquarium Chillers in 2027",
+      "url": "https://pulserevops.com/aquariums/aq0990",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "unexpected_top_hero"
+      ]
+    },
+    {
+      "at": "2026-07-06T08:49:22.068Z",
+      "id": "aq0971",
+      "title": "Top 10 Protein Skimmers for Reef Tanks Under 100 Gallons",
+      "url": "https://pulserevops.com/aquariums/aq0971",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "unexpected_top_hero"
+      ]
+    },
+    {
+      "at": "2026-07-06T08:49:17.529Z",
+      "id": "aq0960",
+      "title": "Top 10 Aquarium Tweezers and Scissors for Planted Tank Maintenance",
+      "url": "https://pulserevops.com/aquariums/aq0960",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "unexpected_top_hero"
+      ]
+    },
+    {
+      "at": "2026-07-06T08:49:12.787Z",
+      "id": "aq0950",
+      "title": "Top 10 Reverse Osmosis Systems for Reef Aquariums",
+      "url": "https://pulserevops.com/aquariums/aq0950",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "unexpected_top_hero"
+      ]
+    },
+    {
+      "at": "2026-07-06T08:49:08.595Z",
+      "id": "aq0940",
+      "title": "Top 10 Live Plants That Thrive in Low-Light Aquariums",
+      "url": "https://pulserevops.com/aquariums/aq0940",
+      "grade": 9,
+      "pass": false,
+      "masterIssues": [
+        "unexpected_top_hero"
+      ]
+    }
+  ],
+  "currentId": null,
+  "currentTitle": null,
+  "at": "2026-07-06T08:49:46.869Z",
+  "strategy": "master-no-hero",
+  "startedAt": "2026-07-06T08:42:43.006Z",
+  "fixedCount": 838,
+  "lastCheck": {
+    "id": "aq1157",
+    "title": "Top 10 Aquarium Plumbing Fittings 2027",
+    "url": "https://pulserevops.com/aquariums/aq1157",
+    "grade": 9,
+    "pass": false,
+    "masterIssues": [
+      "unexpected_top_hero"
+    ]
+  }
+}

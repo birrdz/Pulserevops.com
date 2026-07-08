@@ -107,7 +107,7 @@
     { key: 'lv',     label: '🛋 Living',      re: /^lv\d+$/i },
     { key: 'ev',     label: '🎟 Events',      re: /^ev\d+$/i },
     { key: 'sy',     label: '👗 Style',       re: /^sy\d+$/i },
-    { key: 'ga',     label: '💒 Wedding Venues', re: /^ga\d+$/i },
+    { key: 'ga',     label: '🥂 Gatherings', re: /^ga\d+$/i },
     { key: 'gm',     label: '🎮 Gaming',     re: /^gm\d+$/i },
     { key: 'sk',     label: '🎯 Skill Drills', re: /^sk\d+$/i },
     { key: 'sp',     label: '🎤 Speeches',   re: /^sp\d+$/i },
@@ -115,10 +115,12 @@
     { key: 'cg',     label: '🧭 Coaching',   re: /^cg\d+$/i },
     { key: 'co',     label: '🃏 Collectibles', re: /^co\d+$/i },
     { key: 'aq',     label: '🐠 Aquariums', re: /^aq\d+$/i },
+    { key: 'tc',     label: '📶 Telco', re: /^tc\d+$/i },
     { key: 'hf',     label: '🏈 HS Football Recruiting', re: /^hf\d+$/i },
     { key: 'ai',     label: '🤖 AI Infrastructure', re: /^ai\d+$/i },
     { key: 'pt',     label: '🐾 Pets',       re: /^pt\d+$/i },
     { key: 'sw',     label: '💻 Software',   re: /^sw\d+$/i },
+    { key: 'ce',     label: '📰 Current Events', re: /^ce\d+$/i },
   ];
   // Keep "All" pinned first, then order every pillar pill alphabetically by its
   // display name (ignoring the leading emoji).
@@ -142,7 +144,7 @@
     gp: KNOW, fr: KNOW, ca: KNOW, tn: KNOW, sc: KNOW, nl: KNOW, dn: KNOW, bt: KNOW,
     mv: KNOW, wl: KNOW, dr: KNOW, tv: KNOW, rs: KNOW, es: KNOW, cl: KNOW, lv: KNOW,
     ev: KNOW, sy: KNOW, ga: KNOW, gm: KNOW, sk: KNOW, sp: KNOW, tl: KNOW, cg: KNOW,
-    co: KNOW, aq: KNOW, hf: KNOW, pt: KNOW, sw: KNOW, sports: KNOW,
+    co: KNOW, aq: KNOW, hf: KNOW, pt: KNOW, sw: KNOW, tc: KNOW, sports: KNOW,
   };
   // Hub/landing URL for each pillar — clicking a chip navigates here so the
   // hero headline/description always matches the pillar being viewed.
@@ -169,6 +171,7 @@
     cg:     '/coaching',
     co:     '/collectibles',
     aq:     '/aquariums',
+    tc:     '/telco',
     hf:     '/highschool-football-recruiting',
     pt:     '/pets',
     sw:     '/software',
@@ -268,6 +271,7 @@
   var FIRST_PAINT_MIN_MS = 300;
   var firstPaintAt = Date.now();
   function delayedRender(){
+    if (MOSAIC) { render(); return; }
     var elapsed = Date.now() - firstPaintAt;
     if (elapsed >= FIRST_PAINT_MIN_MS) { render(); return; }
     setTimeout(render, FIRST_PAINT_MIN_MS - elapsed);
@@ -312,6 +316,13 @@
   function loadEntries(){
     var grid = document.getElementById('grid');
 
+    if (MOSAIC && grid) {
+      hideMosaicChrome();
+      applyPillarBg();
+      grid.innerHTML = '';
+      renderHomeMosaic(grid);
+    }
+
     // PHASE 0 — instant paint from cache (cache holds the full library).
     var cached = loadFromCache();
     if (cached && cached.length) {
@@ -319,7 +330,7 @@
       fullLibraryLoaded = true;
       setHeroCount();
       delayedRender();
-    } else if (grid) {
+    } else if (grid && !MOSAIC) {
       // No cache: show an ACTIVE loading skeleton immediately. The visitor must
       // never see a blank grid or a "0 answers" empty state during the fetch.
       grid.innerHTML = loadingMarkup('Loading answers');
@@ -329,7 +340,11 @@
     // pillar, so it both renders the grid and gives the true count.
     var pillarParam = (DEFAULT_PILLAR && DEFAULT_PILLAR !== 'all' && DEFAULT_PILLAR !== 'sports')
       ? '&pillar=' + encodeURIComponent(DEFAULT_PILLAR) : '';
-    var phase1Url = '/.netlify/functions/pulse-machine-library-list?recent=2000' + pillarParam;
+    // Pillar-scoped requests return only that one pillar (small payload even at a high
+    // cap), so load the FULL pillar — otherwise a growing pillar (e.g. tl/tools) looks
+    // "stuck" at the old 2000 cap. The universal hub stays at 2000 for fast first paint
+    // (phase 2 warms the rest in the background).
+    var phase1Url = '/.netlify/functions/pulse-machine-library-list?recent=' + (pillarParam ? '25000' : '2000') + pillarParam;
 
     return fetch(phase1Url, { cache: 'default' })
       .then(function(r){ return r.ok ? r.json() : null; })
@@ -523,7 +538,7 @@
       var pcfg = PILLARS.find(function(p){ return p.key === filterPillar; });
       if (pcfg) v = v.filter(function(e){ return entryInPillar(e, pcfg); });
     }
-    var vs = function(id){ try { return (window.PulseVote && window.PulseVote.score) ? window.PulseVote.score(id) : 0; } catch(_e){ return 0; } };
+    var vs = function(){ return 0; };   // Yup/Nope removed (owner 2026-07-02)
     if (q) {
       v.sort(function(a, b){
         return (queryScore(b, q) - queryScore(a, q)) || (vs(b.id) - vs(a.id)) || ((b.ts || 0) - (a.ts || 0));
@@ -663,11 +678,97 @@
     bar.setAttribute('aria-hidden', past && n > 0 ? 'false' : 'true');
   }
 
+  // ── MOSAIC tile-box style (per-pillar, gated by window.PILLAR_MOSAIC) — owner 2026-07-02 ──
+  // Renders the pillar inventory as the CNET-style image mosaic (like the homepage) instead of text
+  // cards. Uses each entry's face-card image (e.img, stamped into the index) proxied through wsrv.
+  var MOSAIC = !!window.PILLAR_MOSAIC;
+  // per-pillar two-tone palette (from pillar-palette.js) — [primary, secondary(dark)]
+  var PPAL={q:['#C0531F','#2A1206'],ra:['#1B7A3D','#0A3019'],gp:['#1C6EA4','#082635'],ik:['#1565C0','#071E3C'],tk:['#3B5BA5','#101A33'],ev:['#EC2D7C','#141414'],nl:['#7A1FA2','#1C0A28'],gm:['#6D28D9','#170A33'],sk:['#3949AB','#0D1234'],sp:['#8E1B4B','#260711'],bt:['#0E6BA8','#052433'],tv:['#1C9AD6','#063347'],rs:['#0E9C9C','#04302F'],aq:['#0E7C86','#03282B'],ga:['#C026D3','#260A2A'],ca:['#C0392B','#2A0907'],fr:['#1E3A5F','#C8972E'],mv:['#B71C3B','#270710'],er:['#E08A1E','#3A2206'],es:['#B8860B','#2C1F03'],cl:['#2E7D32','#0B280D'],hf:['#B45309','#2C1403'],wl:['#2E9E5B','#0C321F'],lv:['#A0522D','#28130A'],sy:['#BE185D','#260512'],gb:['#0D9488','#04302B'],bs:['#8B5A2B','#241405'],tn:['#5B7553','#182015'],dr:['#D2691E','#341805'],pt:['#0E8C7A','#042E28'],sw:['#475569','#131A24'],ai:['#0A66C2','#0A0A0A'],cg:['#0891B2','#04303A'],co:['#92400E','#2A1304'],tl:['#52525B','#18181B'],dn:['#9F1239','#270710'],sc:['#1E40AF','#0A1533'],st:['#2563EB','#0A1A3A'],bo:['#D97706','#341B03'],ce:['#D7263D','#A81729']};
+  function applyPillarBg(){
+    var p=(window.PILLAR_DEFAULT||'q'); var c=PPAL[p]||PPAL.q;
+    document.body.style.background='radial-gradient(1200px 620px at 18% -8%, '+c[0]+'66, transparent 62%), linear-gradient(162deg, '+c[1]+' 0%, #0b0908 52%, '+c[1]+' 100%)';
+    document.body.style.backgroundAttachment='fixed';
+  }
+  function routeSeg(){ try { return location.pathname.replace(/^\//,'').split('/')[0]||''; } catch(e){ return ''; } }
+  function hideMosaicChrome(){
+    ['.hero','.toolbar','.statusbar','.hdr','.footer','#hub-recent','#hub-results-bar','#mos-head'].forEach(function(sel){
+      [].forEach.call(document.querySelectorAll(sel), function(el){ el.style.display = 'none'; });
+    });
+    var gw = document.querySelector('.grid-wrap');
+    if (gw) { gw.style.maxWidth = '1080px'; gw.style.marginLeft = 'auto'; gw.style.marginRight = 'auto'; gw.style.padding = '0 clamp(10px,2vw,24px) 48px'; }
+  }
+  function ensureHomeMosaicScript(cb){
+    function go(){ if (window.PulseHomeMosaic) { cb(); return; } setTimeout(go, 40); }
+    if (window.PulseHomeMosaic) { cb(); return; }
+    if (!window.PulseFaceImg && !document.querySelector('script[data-pulse-face-img-loader]')) {
+      var f = document.createElement('script');
+      f.src = '/js/pulse-face-img.js';
+      f.defer = true;
+      f.setAttribute('data-pulse-face-img-loader', '');
+      document.head.appendChild(f);
+    }
+    if (document.querySelector('script[data-pulse-home-mosaic-loader]')) { go(); return; }
+    var s = document.createElement('script');
+    s.src = '/js/pulse-home-mosaic.js';
+    s.defer = true;
+    s.setAttribute('data-pulse-home-mosaic-loader', '');
+    s.onload = function(){ go(); };
+    document.head.appendChild(s);
+  }
+  var mosaicMountedKey = '';
+  function switchMosaicPillar(targetPillar) {
+    targetPillar = targetPillar || 'all';
+    pillar = targetPillar;
+    window.PILLAR_DEFAULT = targetPillar;
+    page = 1;
+    mosaicMountedKey = '';
+    hideMosaicChrome();
+    applyPillarBg();
+    buildFilters(null);
+    render();
+  }
+  window.__pulsePillarPageSwitch = switchMosaicPillar;
+  function renderHomeMosaic(grid){
+    var key = String(window.PILLAR_DEFAULT || '') + '|' + query.trim();
+    if (mosaicMountedKey === key && grid.__pulseHome) return;
+    mosaicMountedKey = key;
+    hideMosaicChrome();
+    applyPillarBg();
+    grid.classList.remove('mosaic');
+    ensureHomeMosaicScript(function(){
+      if (!window.PulseHomeMosaic) return;
+      window.PulseHomeMosaic.mount(grid, {
+        pillar: window.PILLAR_DEFAULT || '',
+        query: query.trim(),
+        hubTiles: true,
+        searchBox: false,
+        allPillars: false,
+        recent: 25000,
+        poolCap: 25000,
+        recentFaceOnly: true,
+        perfectFirst: true,
+        rotateTiles: true,
+        fluxFirst: true,
+        sortNewest: true,
+        endlessLoop: true,
+      });
+    });
+  }
+
   function render(){
     var computed = computeView();
     view = computed.view;
     buildFilters(computed.searchHits);
     var grid = document.getElementById('grid');
+    if (MOSAIC && grid) {
+      renderHomeMosaic(grid);
+      var pgM = document.getElementById('pager'); if (pgM) pgM.innerHTML = '';
+      setSearchLoading(!fullLibraryLoaded && !entries.length);
+      announceResults(view.length);
+      updateSearchPlaceholder(view.length);
+      updateResultsBar(view.length);
+      return;
+    }
     var status = document.getElementById('st-count');
     if (status) status.textContent = fmtN(view.length);
     // Status label: make it explicit that search spans every pillar
@@ -684,7 +785,7 @@
       }
     }
 
-    if (!view.length) {
+    if (!view.length && !MOSAIC) {
       // Distinguish "still loading" from "actually empty" so the user never
       // sees "no entries match" while the universal feed is still in flight.
       var qActiveNow = !!query.trim();
@@ -732,7 +833,6 @@
         + '</div>'
         + '<div class="card-q">' + hlQuery(e.question || '(no title)', query.trim()) + '</div>'
         + '<div class="card-meta"><span class="card-date">' + esc(when) + '</span><span class="card-cta">Open →</span></div>'
-        + '<div class="pv-card" data-pulse-vote="' + esc(e.id) + '" onclick="event.preventDefault();event.stopPropagation();"></div>'
       + '</a>';
     }).join('');
 
@@ -742,14 +842,9 @@
     updateSearchPlaceholder(view.length);
     updateResultsBar(view.length);
     markLastVisitedCard();
-    if (window.PulseVote && window.PulseVote.ready) window.PulseVote.ready(function(){ /* bars auto-render via scan */ });
   }
 
-  // Load the Yup/Nope voting widget, and re-sort the list (popular to top) when
-  // a vote lands so a Yup visibly bubbles its entry up its category.
-  (function(){ if (document.getElementById('pv-js')) return; var s = document.createElement('script'); s.id = 'pv-js'; s.src = '/js/pulse-vote.js'; s.defer = true; (document.head || document.documentElement).appendChild(s); })();
   (function(){ if (document.getElementById('hg-js')) return; var g = document.createElement('script'); g.id='hg-js'; g.src='/js/human-gate.js'; g.defer=true; (document.head||document.documentElement).appendChild(g); })();
-  document.addEventListener('pulse-vote', function(){ try { render(); } catch (_e) {} });
 
   function renderPager(total){
     var pg = document.getElementById('pager');
@@ -797,7 +892,7 @@
 
   document.addEventListener('click', function(e){
     var card = e.target.closest('.card[href]');
-    if (card && !e.target.closest('.pv-card')) {
+    if (card) {
       saveHubScroll();
       try { sessionStorage.setItem(HUB_LAST_KEY, card.getAttribute('href') || ''); } catch(_e){}
     }
@@ -817,9 +912,17 @@
         if (tbS) window.scrollTo({ top: tbS.offsetTop - 80, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
         return;
       }
+      // Mosaic mode: smooth in-place pillar switch (no full page reload / old-format flash).
+      if (MOSAIC && window.PulsePillarSpa && targetPillar !== pillar) {
+        var qs = query.trim();
+        var dest = window.PulsePillarSpa.keyToPath(targetPillar);
+        if (qs) dest += '?q=' + encodeURIComponent(qs);
+        window.PulsePillarSpa.go(dest, { pillar: targetPillar, force: true });
+        return;
+      }
       // Navigate to the target pillar's hub page so the hero/description
       // always matches the active pillar. Same pillar = client-side filter.
-      if (targetPillar !== DEFAULT_PILLAR && PILLAR_PAGE[targetPillar]) {
+      if (targetPillar !== DEFAULT_PILLAR && PILLAR_PAGE[targetPillar] && !MOSAIC) {
         var qs = query.trim();
         var url = PILLAR_PAGE[targetPillar];
         if (qs) url += '?q=' + encodeURIComponent(qs);

@@ -1,0 +1,24 @@
+---
+description: Listicle-intent URLs site-wide — pointer to GOLDEN_TEMPLATE_TOP10.md
+globs: website/_pulse_gold_template_router.js,website/_ranking_top10_gold_template.js,website/_ranking_list_master_law.js,website/_ranking_list_rebuild_lib.js,website/_scrub_button_server.js,website/_format_fixer_lib.js,website/_aq_top10_gold_fix_lib.js,website/netlify/functions/pulse-machine-entry.js,website/GOLDEN_TEMPLATE_TOP10.md
+alwaysApply: false
+---
+
+# Listicle-Intent → Top 10 GOLD Template (site-wide)
+
+**Authoritative spec:** `GOLDEN_TEMPLATE_TOP10.md`  
+**Pipeline process:** `.cursor/rules/pipeline-template-law.mdc`
+
+Applies to every listicle-intent URL on pulserevops.com — any pillar when `pickGoldTemplate` returns `template: 'top10'`.
+
+**Classify (mandatory):**
+
+```javascript
+const { pickGoldTemplate } = require('./_pulse_gold_template_router');
+const route = pickGoldTemplate(id, body, title);
+// Lock route.template — never switch mid-run
+```
+
+**No hybrids:** never inject Q&A hero rhythm into Top 10; never inject `@@PRODUCT` into Q&A. See both MD specs.
+
+**Certify:** 13/13 only · surgical fixes · re-run gold audit after every edit pass.

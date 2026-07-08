@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PULSE — Image Scrub (Fable v2)</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#FFB81C;--bg:#1A0710;--card:#2a1019;--line:#3a1f2a;--ok:#4ade80;--bad:#f87171}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#e8dfe4;font-family:system-ui,-apple-system,sans-serif;padding:14px 14px 48px}
+h1,h2{font-family:'Playfair Display',Georgia,serif;font-style:italic;color:var(--gold);margin:0 0 8px}
+h1{font-size:1.45rem}h2{font-size:1.05rem;margin-top:20px}
+.muted{color:#a98;font-size:.78rem}
+.strip{position:sticky;top:0;z-index:30;display:flex;gap:14px;flex-wrap:wrap;background:#170710f0;backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0}
+.strip b{color:var(--gold);font-size:1.15rem;display:block}
+.banner{background:#3a0d12;border:1px solid var(--bad);color:#fca5a5;padding:11px 14px;border-radius:10px;margin:8px 0;font-weight:700}
+.okbar{background:#0f2a18;border:1px solid var(--ok);color:#86efac;padding:10px 14px;border-radius:10px;margin:8px 0}
+.picker{background:var(--card);border:2px solid var(--gold);border-radius:12px;padding:14px;margin:12px 0}
+.picker h2{margin-top:0;color:var(--gold)}
+.pick-meta{font-size:.85rem;margin-bottom:10px;line-height:1.4}
+.pick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.pick-card{position:relative;border-radius:10px;overflow:hidden;border:2px solid transparent;cursor:pointer;background:#120810;aspect-ratio:1}
+.pick-card img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .35s}
+.pick-card.loaded img{opacity:1}
+.pick-card:hover,.pick-card.sel{border-color:var(--gold);box-shadow:0 0 12px rgba(255,184,28,.35)}
+.pick-lbl{position:absolute;left:0;right:0;bottom:0;padding:6px 8px;background:linear-gradient(to top,rgba(20,5,12,.95),transparent);font-size:.65rem;color:var(--gold)}
+.pick-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{background:var(--gold);color:#1a0710;border:0;border-radius:8px;padding:10px 16px;font-weight:800;cursor:pointer;font-size:.85rem}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:#e8dfe4}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px}
+.pcard .code{font-weight:900;color:#fff}.pcard .st{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;margin:3px 0}
+.bar{height:7px;background:#160b11;border-radius:5px;overflow:hidden;margin:5px 0}.bar>i{display:block;height:100%;background:linear-gradient(90deg,#c98,var(--gold))}
+.st.DONE{color:var(--ok)}.st.IN{color:var(--gold)}.st.NOT{color:#7a6}.st.STOPPED{color:var(--bad)}
+.hm{overflow-x:auto}.hmg{display:grid;grid-template-columns:64px repeat(9,minmax(36px,1fr));gap:2px;font-size:.55rem;min-width:380px}
+.hmg .h{color:var(--gold);text-align:center;padding:2px}.hmg .rl{color:#cbb;padding:2px 3px;text-align:right}
+.cell{height:18px;border-radius:2px;background:#241019}
+.samp{display:flex;gap:12px;flex-wrap:wrap}
+.pair{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center;max-width:280px}
+.pair img{width:110px;height:110px;object-fit:cover;border-radius:6px}
+.pair .arw{color:var(--gold);font-size:1.2rem;margin:0 4px}
+.pair .lbl{font-size:.62rem;color:#a98;margin-top:4px;word-break:break-all}
+.stat{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:0 6px 6px 0}.stat b{color:var(--gold);font-size:1.2rem;display:block}
+table{width:100%;border-collapse:collapse;font-size:.8rem}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}th{color:var(--gold)}a{color:#93c5fd}
+.law{font-size:.75rem;line-height:1.45;background:#120810;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0}
+@media(max-width:640px){.grid,.pick-grid{grid-template-columns:1fr 1fr}.strip{gap:10px;font-size:.85rem}}
+</style></head><body>
+
+<h1>PULSE — Image Scrub</h1>
+<div class="muted" id="updated">loading…</div>
+<div class="strip" id="strip"><span class="muted">connecting…</span></div>
+<div id="alerts"></div>
+
+<h2>① Cover picker <span class="muted">(graded previews only — tap one)</span></h2>
+<div class="picker" id="picker"><div class="muted">No cover waiting — scrub runs auto unless PICK_SCOPE=covers.</div></div>
+
+<h2>② Before → After</h2>
+<div class="samp" id="samp"><span class="muted">no replacements yet</span></div>
+
+<h2>③ Pillar board</h2>
+<div class="grid" id="board"></div>
+
+<h2>④ Flag heatmap</h2>
+<div class="hm"><div class="hmg" id="heat"></div></div>
+
+<h2>⑤ Run stats</h2>
+<div id="stats"></div>
+
+<h2>⑥ Unresolved queue</h2>
+<table id="unres"><thead><tr><th>Page</th><th>Pillar</th><th>Flags</th></tr></thead><tbody></tbody></table>
+
+<div class="law">
+<strong>Image law (Fable v2):</strong> covers alternate <b>DDG real photo ↔ Pollinator flux</b> (fallback when one throttles).
+Every image → <code>storeGradedImage</code> choke point → self-hosted <code>/assets/qa/</code> with EXIF <code>PULSE_GRADE=v_final</code>.
+<b>Gold title</b> = CSS overlay at render (<code>#FFB81C</code> Playfair italic) — never baked into images.
+Sections = DDG self-hosted <code>/assets/qa/&lt;id&gt;-N.jpg</code> · No hotlinks · Pace 12s · circuit breaker &gt;20% fail/100 fetches.
+</div>
+
+<div class="pick-actions">
+  <button class="btn" onclick="startScrub('none','gp')">▶ GTM pillar (gp)</button>
+  <button class="btn ghost" onclick="startScrub('none')">▶ Auto scrub (all pillars)</button>
+  <button class="btn ghost" onclick="startScrub('covers','gp')">▶ GTM + cover picker</button>
+  <button class="btn ghost" onclick="stopScrub()">■ Stop</button>
+</div>
+
+<script>
+const FLAGS=['DEAD','PLACEHOLDER','LOWRES','BADRATIO','STANDARD','DUPLICATE','UNRESOLVED','HOTLINKED','GRADE_MISSING'];
+let selIdx=null, waitId=null;
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+async function api(path,opts){const r=await fetch(path,opts);return r.json()}
+function heat(rate){if(rate==null)return'#241019';const a=Math.min(1,rate*4);return'rgba(248,113,113,'+(0.1+a*0.8)+')'}
+
+function renderPicker(w){
+  const el=document.getElementById('picker');
+  if(!w){el.innerHTML='<div class="muted">No cover waiting — auto mode picks top artistic candidate.</div>';selIdx=null;waitId=null;return}
+  waitId=w.id; selIdx=0;
+  el.innerHTML='<div class="pick-meta"><strong>'+esc(w.id)+'</strong> · '+esc(w.pillar)+'<br>'+esc((w.question||'').slice(0,120))+'</div>'+
+    '<div class="pick-grid" id="pgrid"></div>'+
+    '<div class="pick-actions"><button class="btn" onclick="commitPick()">Use selected cover</button>'+
+    '<button class="btn ghost" onclick="autoPick()">Auto-pick #1</button>'+
+    '<button class="btn ghost" onclick="nonePick()">None of these — refetch</button></div>';
+  const g=document.getElementById('pgrid');
+  g.innerHTML=(w.candidates||[]).map((c,i)=>
+    '<div class="pick-card'+(i===0?' sel':'')+'" data-i="'+i+'" onclick="selectCand('+i+')">'+
+    '<img loading="lazy" src="'+esc(c.preview)+'" onload="this.parentElement.classList.add(\'loaded\')" onerror="this.parentElement.style.opacity=.3">'+
+    '<div class="pick-lbl">#'+(i+1)+(c.artistic?' · art':'')+'</div></div>'
+  ).join('');
+}
+function selectCand(i){selIdx=i;document.querySelectorAll('.pick-card').forEach((el,j)=>el.classList.toggle('sel',j===i))}
+async function commitPick(){if(waitId==null||selIdx==null)return;await api('/api/picker/pick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:waitId,idx:selIdx})});tick()}
+async function autoPick(){if(!waitId)return;await api('/api/picker/auto',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:waitId})});tick()}
+async function nonePick(){if(!waitId)return;await api('/api/picker/none',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:waitId})});tick()}
+async function startScrub(scope,pillar){await api('/api/scrub/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pickScope:scope,pillar:pillar||''})});tick()}
+async function stopScrub(){await api('/api/scrub/stop',{method:'POST'});tick()}
+
+async function tick(){
+  const pack=await api('/api/status');
+  const s=pack.status, q=pack.queue;
+  document.getElementById('updated').textContent=s?
+    ('updated '+new Date(s.updated).toLocaleTimeString()+' · registry '+(s.registrySize||0)+' · pick='+esc(s.pickScope||'none')+' · scrub '+(pack.scrubRunning?'RUNNING':'idle')):
+    'no run yet';
+  renderPicker(q&&q.waiting);
+  const L=s&&s.live;
+  document.getElementById('strip').innerHTML=L?
+    ['Pillar','Batch','Fixed','Skipped','Unresolved','Fetched','Graded','Dup rej','SVG hits','Grade miss'].map((k,i)=>{
+      const keys=['pillar',['batch','totalBatches'],'fixed','skipped','unresolved','fetched','graded','dedupedRejected','placeholderHits','gradeMissing'];
+      const v=keys[i]; const val=Array.isArray(v)?L[v[0]]+'/'+L[v[1]]:L[v];
+      return '<span>'+k+'<b>'+esc(val==null?'—':val)+'</b></span>';
+    }).join(''):'<span class="muted">between pillars…</span>';
+  let alerts='';
+  const stop=(s&&s.pillars||[]).find(p=>p.state==='STOPPED-PATTERN');
+  if(stop) alerts+='<div class="banner">🛑 PAUSED on '+esc(stop.code)+' — '+esc(stop.breaker||'defect')+'</div>';
+  else if(pack.scrubRunning) alerts+='<div class="okbar">🖼 Image scrub running — DDG ↔ Pollinator covers, graded only</div>';
+  document.getElementById('alerts').innerHTML=alerts;
+  if(s&&s.samples&&s.samples.length){
+    document.getElementById('samp').innerHTML=s.samples.map(x=>'<div class="pair"><img src="'+esc(x.neu)+'" onerror="this.style.opacity=.2"><div class="lbl">'+esc(x.id)+'<br>'+esc((x.neu||'').split('/').pop())+'</div></div>').join('');
+  }
+  document.getElementById('board').innerHTML=(s&&s.pillars||[]).map(p=>{
+    const pct=p.n?Math.round((p.done||0)/p.n*100):0;
+    const cls=p.state==='DONE'?'DONE':p.state==='STOPPED-PATTERN'?'STOPPED':/IN PROGRESS/.test(p.state)?'IN':'NOT';
+    return '<div class="pcard"><div class="code">'+esc(p.code)+' '+esc(p.name)+(p.state==='DONE'?' ✓':'')+'</div>'+
+      '<div class="st '+cls+'">'+esc(p.state)+'</div><div class="bar"><i style="width:'+pct+'%"></i></div>'+
+      '<div class="muted">'+(p.done||0)+'/'+p.n+' · fixed '+(p.fixed||0)+' · skip '+(p.skipped||0)+'</div></div>';
+  }).join('');
+  let hm='<div></div>'+FLAGS.map(f=>'<div class="h" title="'+f+'">'+f.slice(0,4)+'</div>').join('');
+  (s&&s.pillars||[]).forEach(p=>{hm+='<div class="rl">'+esc(p.code)+'</div>';FLAGS.forEach(f=>{const c=(p.flagCounts||{})[f]||0;const rate=p.done?c/p.done:null;hm+='<div class="cell" style="background:'+heat(p.done?rate:null)+'" title="'+esc(p.code)+' '+f+': '+c+'"></div>';});});
+  document.getElementById('heat').innerHTML=hm;
+  const rs=s&&s.runStats||{};
+  document.getElementById('stats').innerHTML=
+    ['registry','fetched','graded','dedupedRejected','placeholderHits','gradeMissing'].map(k=>
+      '<div class="stat"><b>'+(k==='registry'?(s.registrySize||0):rs[k]||0)+'</b>'+k+'</div>'
+    ).join('');
+  try{
+    const r=await fetch('/_image_scrub.csv?t='+Date.now());const csv=await r.text();
+    const rows=csv.split(/\r?\n/).slice(1).filter(Boolean).map(r=>(r.match(/("([^"]|"")*"|[^,]*)/g)||[]).filter((_,i)=>i%2===0).map(x=>x.replace(/^"|"$/g,'').replace(/""/g,'"')));
+    const un=rows.filter(r=>/unresolved|GRADE_MISSING/i.test(r[6]||'')).slice(-50).reverse();
+    document.querySelector('#unres tbody').innerHTML=un.length?un.map(r=>'<tr><td><a href="https://pulserevops.com'+esc(r[0])+'" target="_blank">'+esc(r[0])+'</a></td><td>'+esc(r[1])+'</td><td>'+esc(r[5])+'</td></tr>').join(''):'<tr><td colspan="3" class="muted">none</td></tr>';
+  }catch(e){}
+}
+tick();setInterval(tick,10000);
+</script></body></html>

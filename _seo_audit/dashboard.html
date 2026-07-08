@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🕷️ PULSE Spider — Live SEO Monitor</title>
+<style>
+  :root{--bg:#0b0f14;--card:#141b24;--line:rgba(255,255,255,.08);--t:#e8eef2;--mut:#8aa0ad;--ok:#2ecc71;--warn:#f1c40f;--bad:#e74c3c;--accent:#13c2c2}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--t);font-family:'Inter',system-ui,sans-serif;line-height:1.5}
+  .wrap{max-width:1200px;margin:0 auto;padding:22px}
+  header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px}
+  h1{font-size:1.5rem;margin:0;font-weight:800;letter-spacing:.01em}
+  .sub{color:var(--mut);font-size:.85rem;margin:2px 0 18px}
+  .live{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;color:var(--ok)}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(46,204,113,.6);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,204,113,.55)}70%{box-shadow:0 0 0 9px rgba(46,204,113,0)}100%{box-shadow:0 0 0 0 rgba(46,204,113,0)}}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:18px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .stat .n{font-size:2rem;font-weight:800;line-height:1} .stat .l{color:var(--mut);font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;margin-top:6px}
+  .grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+  @media(max-width:880px){.grid{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:18px}
+  .panel h2{font-size:.95rem;margin:0 0 12px;font-weight:800}
+  .issues{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .issue{background:#0f161e;border:1px solid var(--line);border-radius:11px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .issue .lab{font-size:.8rem;color:var(--mut)} .issue .v{font-weight:800;font-size:1.15rem}
+  .issue.bad .v{color:var(--bad)} .issue.warn .v{color:var(--warn)} .issue.ok .v{color:var(--ok)}
+  table{width:100%;border-collapse:collapse;font-size:.82rem} th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)} th{color:var(--mut);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em}
+  td.r,th.r{text-align:right} a{color:var(--accent);text-decoration:none;word-break:break-all} a:hover{text-decoration:underline}
+  canvas{width:100%;height:180px;display:block}
+  .empty{color:var(--mut);font-size:.85rem;padding:10px 0}
+  .pill{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(19,194,194,.14);color:var(--accent)}
+  code{background:#0f161e;padding:1px 6px;border-radius:5px;font-size:.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>🕷️ PULSE Spider <span class="pill">live SEO monitor</span></h1>
+      <div class="sub" id="meta">loading…</div>
+    </div>
+    <div class="live"><span class="dot"></span> auto-refreshing · <span id="ago">—</span></div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="grid">
+    <div>
+      <div class="panel"><h2>📈 Issue trend (per crawl cycle)</h2><canvas id="chart" width="760" height="180"></canvas>
+        <div class="sub" id="legend"></div></div>
+      <div class="panel"><h2>🧮 All issues</h2><div class="issues" id="issues"></div></div>
+      <div class="panel"><h2>🗂️ By pillar</h2><div id="pillars"></div></div>
+    </div>
+    <div>
+      <div class="panel"><h2>🔴 Broken links (4xx/5xx)</h2><div id="broken"></div></div>
+      <div class="panel"><h2>🔁 Redirects (3xx)</h2><div id="redirects"></div></div>
+    </div>
+  </div>
+  <div class="sub">Source: <code>_seo_audit/</code> · refreshed every 15s · daemon: <code>_pulse_spider_forever.js</code></div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const bust = () => '?t=' + Date.now();
+async function getJSON(f){ try{ const r=await fetch(f+bust()); return r.ok? await r.json():null; }catch(e){return null;} }
+async function getText(f){ try{ const r=await fetch(f+bust()); return r.ok? await r.text():''; }catch(e){return '';} }
+function csv(t){ const rows=t.trim().split(/\r?\n/); if(rows.length<2)return []; const h=rows[0].split(','); return rows.slice(1).map(line=>{const c=line.match(/("([^"]|"")*"|[^,]*)/g).filter((_,i,a)=>i<a.length).map(x=>x.replace(/^"|"$/g,'').replace(/""/g,'"')); const o={}; h.forEach((k,i)=>o[k]=c[i]); return o;}); }
+const ISSUE_META = {broken_4xx_5xx:['🔴 Broken','bad'],redirects_3xx:['🔁 Redirects','warn'],missing_titles:['Missing titles','bad'],duplicate_titles:['Dup titles','warn'],short_titles:['Short titles','warn'],long_titles:['Long titles','warn'],multiple_titles:['Multiple titles','bad'],missing_meta:['Missing meta','bad'],duplicate_meta:['Dup meta','warn'],long_meta:['Long meta','warn'],missing_h1:['Missing H1','bad'],multiple_h1:['Multiple H1','warn'],duplicate_h1:['Dup H1','warn'],duplicate_bodies:['Dup bodies','bad'],missing_canonical:['Missing canonical','warn'],title_equals_h1:['Title=H1','warn'],thin_content:['Thin content','warn'],pages_no_image:['No image','warn'],missing_cro_card:['Missing CRO card','bad'],missing_faq:['Missing FAQ','warn'],images_missing_alt:['Img no alt','warn'],missing_schema:['Missing schema','warn'],insecure_link_pages:['Insecure links','warn'],non_indexable:['Non-indexable','warn'],low_inlinks:['Low inlinks','warn'],orphan_pages:['Orphans','warn'],broken_external:['Broken external','bad']};
+let history=[];
+function drawChart(){
+  const c=$('#chart'), ctx=c.getContext('2d'); const W=c.width=c.clientWidth*2, H=c.height=360; ctx.clearRect(0,0,W,H); ctx.scale(1,1);
+  if(history.length<2){ctx.fillStyle='#8aa0ad';ctx.font='24px Inter';ctx.fillText('collecting data… (need ≥2 cycles)',20,40);return;}
+  const series=[['broken_4xx_5xx','#e74c3c'],['thin_content','#f1c40f'],['orphan_pages','#13c2c2'],['missing_cro_card','#e67e22']];
+  const xs=history.map((_,i)=>i); const pad=40; const maxV=Math.max(1,...history.flatMap(h=>series.map(([k])=>+(h.issues[k]||0))));
+  const X=i=>pad+(W-2*pad)*(i/(history.length-1||1)); const Y=v=>H-pad-(H-2*pad)*(v/maxV);
+  ctx.strokeStyle='rgba(255,255,255,.08)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(pad,H-pad);ctx.lineTo(W-pad,H-pad);ctx.stroke();
+  series.forEach(([k,col])=>{ctx.strokeStyle=col;ctx.lineWidth=4;ctx.beginPath();history.forEach((h,i)=>{const x=X(i),y=Y(+(h.issues[k]||0));i?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.stroke();
+    ctx.fillStyle=col;history.forEach((h,i)=>{ctx.beginPath();ctx.arc(X(i),Y(+(h.issues[k]||0)),5,0,7);ctx.fill();});});
+  $('#legend').innerHTML=series.map(([k,c])=>`<span style="color:${c};font-weight:700;margin-right:14px">● ${ISSUE_META[k]?ISSUE_META[k][0]:k}</span>`).join('');
+}
+function fmtAgo(iso){ if(!iso)return '—'; const s=Math.round((Date.now()-new Date(iso))/1000); if(s<60)return s+'s ago'; if(s<3600)return Math.round(s/60)+'m ago'; return Math.round(s/3600)+'h ago'; }
+let lastCrawl=null;
+async function refresh(){
+  const s=await getJSON('summary.json');
+  const hist=(await getText('history.jsonl')).trim().split(/\n/).filter(Boolean).map(l=>{try{return JSON.parse(l)}catch(e){return null}}).filter(Boolean);
+  if(hist.length) history=hist;
+  if(!s){ $('#meta').textContent='waiting for first crawl to finish…'; return; }
+  lastCrawl=s.crawledAt_utc;
+  $('#meta').innerHTML=`crawled <b>${s.host}</b> · seed ${s.seed} · ${new Date(s.crawledAt_utc).toLocaleString()} · cycles: ${history.length}`;
+  const I=s.issues||{};
+  $('#stats').innerHTML=[['URLs crawled',s.urls_crawled],['HTML 200',s.html_200],['Indexable',s.indexable],['🔴 Broken',I.broken_4xx_5xx,'bad'],['🔁 Redirects',I.redirects_3xx,'warn'],['👻 Orphans',I.orphan_pages,'warn']]
+    .map(([l,n,c])=>`<div class="stat"><div class="n" style="color:${c==='bad'&&n>0?'var(--bad)':c==='warn'&&n>0?'var(--warn)':'var(--t)'}">${n??'—'}</div><div class="l">${l}</div></div>`).join('');
+  $('#issues').innerHTML=Object.entries(I).map(([k,v])=>{const m=ISSUE_META[k]||[k,''];const cls=(typeof v==='number'&&v>0)?m[1]:'ok';return `<div class="issue ${cls}"><span class="lab">${m[0]}</span><span class="v">${v}</span></div>`;}).join('');
+  // pillars
+  if(s.pillars&&s.pillars.length){ $('#pillars').innerHTML=`<table><tr><th>Pillar</th><th class=r>URLs</th><th class=r>Broken</th><th class=r>Redir</th><th class=r>Non-idx</th><th class=r>Thin</th><th class=r>No img</th></tr>`+
+    s.pillars.slice(0,18).map(p=>`<tr><td>${p.pillar}</td><td class=r>${p.urls}</td><td class=r style="color:${p.broken?'var(--bad)':''}">${p.broken}</td><td class=r>${p.redirects}</td><td class=r>${p.nonIndexable}</td><td class=r>${p.thin}</td><td class=r>${p.noImg}</td></tr>`).join('')+`</table>`; }
+  // broken + redirects from CSV
+  const bk=csv(await getText('issue_broken_4xx_5xx.csv'));
+  $('#broken').innerHTML = bk.length? `<table><tr><th>URL</th><th>Status</th></tr>`+bk.slice(0,40).map(r=>`<tr><td><a href="${r.url}" target=_blank>${(r.url||'').replace('https://'+s.host,'')||'/'}</a></td><td style="color:var(--bad)">${r.status}</td></tr>`).join('')+`</table>` : `<div class=empty>✅ none found</div>`;
+  const rd=csv(await getText('issue_redirects_3xx.csv'));
+  $('#redirects').innerHTML = rd.length? `<table><tr><th>URL</th><th>→</th></tr>`+rd.slice(0,30).map(r=>`<tr><td>${(r.url||'').replace('https://'+s.host,'')||'/'}</td><td>${r.status}</td></tr>`).join('')+`</table>` : `<div class=empty>✅ none found</div>`;
+  drawChart();
+}
+setInterval(()=>{$('#ago').textContent=fmtAgo(lastCrawl);},1000);
+refresh(); setInterval(refresh,15000);
+</script>
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

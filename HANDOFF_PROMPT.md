@@ -91,6 +91,50 @@ Writers: `_write_tl.js` (Top-10 honeypots, tag `tools`), `_write_fcro.js` (fract
 ---
 **(Append below this line any new rules, laws, or tasks over time — this is a living command.)**
 
+### 2026-07-03 LATE NIGHT — LATEST-27: Parallel 3-workers · crew manifest · Claude Code auditor
+- **Manifest:** `_scrub_crew_manifest.js` — writers, workers, auditors (single source of truth).
+- **Crew:** 1 DeepSeek writer · 0 CC writers · 3 parallel workers (✍️ words / 🌸 flux / 🖼 DDG) · **1 Claude Code auditor** per article (quad code = claude.exe Max plan).
+- **DS auditors:** avoid as primary — CLI-error fallback only unless `LANE_AUDITOR_MODE=claude+ds`.
+- **`CC_MAX=4`** = parallel claude.exe pool, NOT 4 auditors per article.
+- **Parallel lane:** `laneOrchestrate` · 48 batch · auto-refill · content audit before images.
+- **Hero = face-card** + image law unchanged (LATEST-26).
+- **Pool:** queue ~35,294 · green/pending 0 · `_scrub_auto_off.flag` when stopped.
+- **Server:** http://localhost:8899/ (4444). Handoffs: LATEST-27 top in `_HANDOFF_NEXT_CLAUDE.md`, `_CROSSOVER.md`, `_BATON_PASS.md`, `_scrub_image_law_handoff_20260703.md`, `_site_deploy/_CROSSOVER.md`.
+
+### 2026-07-03 LATE NIGHT — LATEST-26: Lane 48 · hero=face-card · pipeline spread · 15s flux (superseded by LATEST-27 for parallel + auditors)
+- **Hero = face-card** — same first top image; homepage/pillar mosaic → `/assets/qa/<id>.jpg` (Pollinator flux).
+- **Rubric (all required):** `heroImage` (tag exists) · `faceCardApplicable` (topical) · `pollinatorFaceCover` (flux file + `cover_src:'flux'`).
+- **Lineup:** phase `image_cover` / stage Pollinator / column Hero / kid "Hero pic" = face-card work. DDG = stage 3.
+- **Lane mode (default ON):** 48 articles, 15s tick, auto-refill slots, `_scrub_lane_jobs.json`.
+- **Pipeline spread:** interleave flux + DDG early — no end-of-batch cooldown jam (`lanePipelineBalance`, `pickLaneJobCooldownAware`).
+- **Pollinator:** fixed **15s** freq (`POLLINATOR_FREQ_MS=15000`) — supersedes LATEST-25 2.5min gap.
+- **Approval pile:** 100% rubric only (`APPROVAL_PILE_REQUIRES_FULL_RUBRIC`). Owner hits **Begin Scrub** — do not auto-start.
+- **Pool:** queue ~35,293 · green/pending 0. Server http://localhost:8899/ (4444).
+- **Handoff files:** `_HANDOFF_NEXT_CLAUDE.md` (LATEST-26 top), `_CROSSOVER.md`, `_BATON_PASS.md`, `_scrub_image_law_handoff_20260703.md`, `_site_deploy/_CROSSOVER.md`.
+
+### 2026-07-03 LATE NIGHT — LATEST-25: DDG win-first + approval pile + full repop (scrub + write)
+- **Face-card / hero (#1):** Pollinator flux ONLY → `/assets/qa/<id>.jpg`, `cover_src:'flux'`, file >40KB.
+- **Internal section images:** high-quality **DuckDuckGo** `https` URLs. **BANNED:** `pollinations.ai`, `/img/auto/*.svg`, `/assets/qa/<id>-N.jpg` internals.
+- **Kory CRO (#2):** `/assets/kory-white.jpg` — guaranteed, does not count toward 3–10.
+- **Top-10:** hero + 10 `@@PRODUCT` images only.
+- **Publish gate:** rubric only — **no automated dual auditor**. Cursor / Claude Code / owner ✅ after skim.
+- **12/13 image caveats only** → approval pile (`needsReview`), NOT auto-park. Owner ✅ can override.
+- **DDG win-first:** strip placeholders → flux cover → wait flux idle → DDG + wsrv verify (3 passes) before rubric.
+- **Pollinator gap start:** 150000ms (2.5 min) — intentional; do not restart scrubber for that.
+- **Pool after repop:** queue **35,294**, green **0**, pending **0**. Backup `_scrub_repop_backup_1783124136809.json`. Repop: `node _repop_scrub_now.js`.
+- **Enforced in:** `_scrub_button_server.js` (pipeline + UI + generate). Generate ready → approval pile, not red queue.
+- **Server:** `node _scrub_button_server.js` → http://localhost:8899/ (4444). New Q&A: POST `/urgent` or Generate UI.
+- **Handoff files:** `_HANDOFF_NEXT_CLAUDE.md` (LATEST-25 top), `_CROSSOVER.md`, `_BATON_PASS.md`, `_scrub_image_law_handoff_20260703.md`.
+
+### 2026-07-03 — LOCKED: Image law — flux face-card + DDG internal sections (scrub + write)
+- **Face-card / hero (#1):** Pollinator flux ONLY → `/assets/qa/<id>.jpg`, `cover_src:'flux'`, file >40KB. DDG covers banned.
+- **Internal section images:** high-quality **DuckDuckGo** `https` URLs (query from section H2 + Q&A title). No `/assets/qa/<id>-N.jpg` internals. No live `pollinations.ai` in body.
+- **Kory CRO (#2):** `/assets/kory-white.jpg` — guaranteed, does not count toward 3–10 media law.
+- **Top-10:** hero + 10 `@@PRODUCT` images only.
+- **Enforced in:** `_scrub_button_server.js` (rubric + `entryScrubPipeline` + auditors + UI). Generate = factor 1; scrubber = factor 2 (only certify path).
+- **Server:** `node _scrub_button_server.js` → http://localhost:8899/ (4444). Legacy all-flux internals: `REQUIRE_FLUX_IMAGES=1`.
+- **Handoff files:** `_HANDOFF_NEXT_CLAUDE.md`, `_CROSSOVER.md`, `_BATON_PASS.md`.
+
 ### 2026-06-23 — LOCKED: AFK = keep everything moving
 - Owner AFK / bye / ttyl **does not pause work**. Continue turtle, pillar SEO, sprints, deploys.
 - Rule: `.cursor/rules/afk-keep-moving.mdc` | Status emails: `--active` (real progress, not idle break)

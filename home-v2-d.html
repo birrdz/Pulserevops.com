@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pulse — Homepage Concept D (Nested Categories)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ECE3D2;--ink:#1d1711;--muted:#6b5d49;--amber:#C8821E;--gold:#CBA135;--card:#FBF8F1;--line:rgba(29,23,17,.14);}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.5}
+a{color:inherit;text-decoration:none}h1,h2,h3,h4{font-family:Fraunces,Georgia,serif}
+header{border-bottom:1px solid var(--line);background:rgba(236,227,210,.95);position:sticky;top:0;z-index:40}
+.bar{max-width:1240px;margin:0 auto;padding:0 22px;height:62px;display:flex;align-items:center;gap:18px}
+.logo{font-family:Fraunces;font-weight:800;font-size:1.35rem}.logo span{color:var(--amber)}
+/* top-level nav with nested mega */
+nav.top{display:flex;gap:2px;margin-left:10px}
+.topitem{position:relative}
+.topitem>button{font:inherit;font-weight:700;color:var(--ink);background:none;border:0;padding:9px 13px;border-radius:9px;cursor:pointer}
+.topitem:hover>button,.topitem.open>button{background:var(--card);color:var(--amber)}
+.mega{position:absolute;top:calc(100% + 8px);left:0;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 60px rgba(29,23,17,.18);padding:18px;display:none;gap:24px;grid-auto-flow:column}
+.topitem.open .mega{display:grid}
+.subcol{min-width:180px}
+.subcol .sh{font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--amber);font-weight:800;margin:0 0 8px}
+.subcol a{display:block;padding:6px 9px;border-radius:8px;font-weight:600;font-size:.9rem}
+.subcol a:hover{background:#F3ECDD}
+.search{margin-left:auto;display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:7px 14px;min-width:230px}
+.search input{border:0;background:none;outline:none;font:inherit;width:100%}
+.cta{background:var(--ink);color:#fff;font-weight:700;border-radius:99px;padding:9px 16px}
+.hero{max-width:1240px;margin:0 auto;padding:44px 22px 16px}
+.hero h1{font-size:clamp(2rem,4.4vw,3.1rem);font-weight:800;margin:0 0 10px;line-height:1.06}
+.hero p{font-size:1.08rem;color:var(--muted);max-width:700px;margin:0}
+.note{max-width:1240px;margin:14px auto 0;padding:0 22px}
+.note .inner{background:#FBF3E4;border:1px dashed var(--amber);border-radius:12px;padding:12px 16px;font-size:.85rem;color:var(--muted)}
+/* page body: top-level cards each holding subcategory columns */
+.feed{max-width:1240px;margin:20px auto 70px;padding:0 22px;display:flex;flex-direction:column;gap:18px}
+.umb{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.umb-head{display:flex;align-items:center;gap:14px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.umb-head .ico{width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,var(--amber),var(--gold));color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex:0 0 auto}
+.umb-head h2{margin:0;font-size:1.45rem}
+.umb-head p{margin:2px 0 0;font-size:.85rem;color:var(--muted)}
+.umb-body{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0}
+.sub{padding:16px 22px;border-right:1px solid var(--line);border-top:1px solid var(--line)}
+.sub h4{margin:0 0 10px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:800}
+.sub a{display:flex;gap:9px;align-items:flex-start;padding:7px 9px;border-radius:9px}
+.sub a:hover{background:#F3ECDD}
+.sub .t{font-weight:700;font-size:.9rem}
+.sub .d{font-size:.75rem;color:var(--muted);line-height:1.3}
+@media(max-width:880px){nav.top,.search{display:none}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <div class="logo">Pulse<span>.</span></div>
+  <nav class="top" id="topnav"></nav>
+  <div class="search">🔎 <input placeholder="Search 24,000+ answers…"></div>
+  <a class="cta" href="/coaching">Hire a CRO</a>
+</div></header>
+
+<div class="hero">
+  <h1>Everything Pulse, in nested categories.</h1>
+  <p>Big umbrella categories — Business, Living, Buying, and more — each open into focused subcategories. Browse top-down like a real site map.</p>
+</div>
+<div class="note"><div class="inner">📐 <b>Concept D — Nested Categories.</b> Top nav opens a multi-column mega-menu (umbrella → subcategories → pillars). The page below mirrors the same hierarchy as expandable umbrella panels. e.g. <b>Living → Go &amp; Do →</b> Travel, Resorts, Dining…</div></div>
+
+<div class="feed" id="feed"></div>
+
+<script>
+const TAX = [
+  { id:'biz', name:'Business & Revenue', ico:'💼', desc:'The fractional-CRO authority library + the tools to run revenue.', subs:[
+    { name:'Learn', items:[['Knowledge Library','/knowledge','24k revenue & GTM Q&A'],['Sales Trainings','/sales-trainings','Rep & manager playbooks'],['Book Summaries','/sales-book-summaries','Sales classics, distilled'],['Skills','/skills','Learn something new']] },
+    { name:'Advise & Architect', items:[['CRO Coaching','/coaching','Fractional CRO guidance'],['Revenue Architecture','/revenue-architecture','Design the revenue engine'],['GTM Playbooks','/go-to-market-playbooks','Go-to-market guides'],['Industry KPIs','/industry-kpis','Benchmarks by sector']] },
+    { name:'Software & AI', items:[['Pulse Tools','/tools','Free calculators & matrices'],['Software','/software','Reviews & comparisons'],['AI Infrastructure','/ai-infrastructure','The 2027 AI stack'],['Tech Stacks','/tech-stacks','Stacks by industry']] },
+  ]},
+  { id:'living', name:'Living', ico:'🌿', desc:'Style, wellness, travel, dining and where to put down roots.', subs:[
+    { name:'Style & Wellness', items:[['Style','/style','What to wear, by age & occasion'],['Wellness','/wellness','Health & habits'],['Drills','/drills','Practice routines'],['Fresh','/fresh','New & trending']] },
+    { name:'Go & Do', items:[['Travel','/travel','Destinations & packing'],['Resorts','/resorts','Getaways'],['Dining','/dining','Where to eat'],['Clubs','/clubs','Memberships & scenes'],['Nightlife','/nightlife','After dark'],['Events','/events','What to attend']] },
+    { name:'Where to Live', items:[['Towns','/towns','Where to live'],['Living','/living','Local life']] },
+  ]},
+  { id:'home', name:'Home & Property', ico:'🏠', desc:'Real estate and the ventures you build on it.', subs:[
+    { name:'Real Estate', items:[['Homes for Sale','/home-for-sale','Listings & guides'],['Estates','/estates','High-end property'],['Buildouts','/buildouts','Commercial real estate']] },
+    { name:'Ventures', items:[['Franchises','/franchises','Real FDD numbers'],['Contracts','/contracts','Templates & terms']] },
+  ]},
+  { id:'buy', name:'Buying Guides', ico:'🛍️', desc:'Tested Top-10 picks across vehicles, tech and hobbies.', subs:[
+    { name:'Vehicles', items:[['Cars','/cars','Top-10 by category'],['Boats','/boats','On-water buying guides']] },
+    { name:'Tech & Gear', items:[['Electronics','/electronic-reviews','Tested tech picks'],['Graphics','/graphics','Free themeable SVGs']] },
+    { name:'Hobby & Pets', items:[['Aquariums','/aquariums','Tanks & kit'],['Collectibles','/collectibles','By era & value'],['Pets','/pets','Gear & care']] },
+  ]},
+  { id:'play', name:'Watch & Play', ico:'🎬', desc:'Entertainment, gaming and college sports.', subs:[
+    { name:'Entertainment', items:[['Movies','/movies','What to watch'],['Gaming','/gaming','Games & gear'],['Media','/media','Shows & more'],['Speeches','/speeches','Great talks']] },
+    { name:'Sports & NIL', items:[['Sports & NIL','/sports','College NIL Q&A'],['HS Football Recruiting','/highschool-football-recruiting','Recruiting & NIL']] },
+  ]},
+];
+// top nav mega
+document.getElementById('topnav').innerHTML = TAX.map((c,i)=>`
+  <div class="topitem" data-i="${i}">
+    <button>${c.name} ▾</button>
+    <div class="mega">${c.subs.map(s=>`<div class="subcol"><div class="sh">${s.name}</div>${s.items.map(it=>`<a href="${it[1]}">${it[0]}</a>`).join('')}</div>`).join('')}</div>
+  </div>`).join('');
+document.querySelectorAll('.topitem').forEach(n=>{
+  n.addEventListener('mouseenter',()=>{document.querySelectorAll('.topitem').forEach(x=>x.classList.remove('open'));n.classList.add('open')});
+  n.addEventListener('mouseleave',()=>n.classList.remove('open'));
+  n.querySelector('button').addEventListener('click',()=>n.classList.toggle('open'));
+});
+// page feed
+document.getElementById('feed').innerHTML = TAX.map(c=>`
+  <section class="umb">
+    <div class="umb-head"><div class="ico">${c.ico}</div><div><h2>${c.name}</h2><p>${c.desc}</p></div></div>
+    <div class="umb-body">${c.subs.map(s=>`
+      <div class="sub"><h4>${s.name}</h4>${s.items.map(it=>`<a href="${it[1]}"><span><span class="t">${it[0]}</span><br><span class="d">${it[2]}</span></span></a>`).join('')}</div>`).join('')}</div>
+  </section>`).join('');
+</script>
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>

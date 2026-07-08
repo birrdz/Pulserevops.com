@@ -1,0 +1,84 @@
+{
+ "gm0030": [
+  {
+   "rank": 1,
+   "name": "Clash of Clans",
+   "status": "ok",
+   "chain_step": "pollinations",
+   "gate": "fallthrough",
+   "gate_version": 2
+  },
+  {
+   "rank": 2,
+   "name": "Clash Royale",
+   "status": "ok",
+   "chain_step": "pollinations",
+   "gate": "fallthrough",
+   "gate_version": 2
+  },
+  {
+   "rank": 3,
+   "name": "Rise of Kingdoms",
+   "status": "ok",
+   "chain_step": "pollinations",
+   "gate": "fallthrough",
+   "gate_version": 2
+  },
+  {
+   "rank": 4,
+   "name": "Whiteout Survival",
+   "status": "ok",
+   "chain_step": "pollinations",
+   "gate": "fallthrough",
+   "gate_version": 2
+  },
+  {
+   "rank": 5,
+   "name": "State of Survival",
+   "status": "ok",
+   "chain_step": "pollinations",
+   "gate": "fallthrough",
+   "gate_version": 2
+  },
+  {
+   "rank": 6,
+   "name": "Last War: Survival",
+   "status": "ok",
+   "chain_step": "pollinations",
+   "gate": "fallthrough",
+   "gate_version": 2
+  },
+  {
+   "rank": 7,
+   "name": "Boom Beach",
+   "status": "ok",
+   "chain_step": "pollinations",
+   "gate": "fallthrough",
+   "gate_version": 2
+  },
+  {
+   "rank": 8,
+   "name": "Age of Empires Mobile",
+   "status": "ok",
+   "chain_step": "pollinations",
+   "gate": "fallthrough",
+   "gate_version": 2
+  },
+  {
+   "rank": 9,
+   "name": "Plants vs. Zombies (Tower Defense)",
+   "status": "ok",
+   "chain_step": "pollinations",
+   "gate": "fallthrough",
+   "gate_version": 2
+  },
+  {
+   "rank": 10,
+   "name": "Kingdom Rush (Series)",
+   "status": "ok",
+   "chain_step": "pollinations",
+   "gate": "fallthrough",
+   "gate_version": 2
+  }
+ ]
+}

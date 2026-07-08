@@ -1,0 +1,97 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>PULSE — corkboard + thumbtacks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'Fraunces',Georgia,serif;color:#3b3020;
+  background:#e8dcc2 url("https://image.pollinations.ai/prompt/seamless%20pale%20light%20sand%20tan%20cork%20board%20texture%20subtle%20fine%20soft%20grain%20no%20text%20bright?width=1000&height=1000&nologo=true&model=flux&seed=21");
+  background-size:560px;background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(130% 100% at 50% 15%,transparent 60%,rgba(120,95,55,.18));pointer-events:none;z-index:0}
+.frame-edge{position:fixed;inset:0;border:15px solid #7a5228;border-image:linear-gradient(135deg,#8a5f2e,#5b3d1c) 1;box-shadow:inset 0 0 44px rgba(60,40,15,.4);pointer-events:none;z-index:40}
+.hdr{position:sticky;top:0;z-index:50;background:rgba(70,48,22,.8);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);display:flex;justify-content:space-between;align-items:center;padding:12px 26px;color:#f6ecd9}
+.hdr .b{font-weight:900}.hdr .b em{font-style:normal;color:#ffcf7a}
+.wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:16px 26px 110px}
+.hero{text-align:center;padding:12px 10px 2px}
+.hero .eye{font-family:'Caveat',cursive;font-size:1.7rem;color:#6a4a20;display:inline-block;transform:rotate(-1.5deg);text-shadow:0 1px 0 rgba(255,255,255,.4)}
+.hero h1{font-size:clamp(2rem,5vw,3rem);margin:2px 0 6px;font-weight:900;color:#33260f;text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.hero p{max-width:600px;margin:0 auto;color:#5c4726}
+.board{display:flex;flex-wrap:wrap;justify-content:center;gap:38px 32px;margin-top:36px}
+.pin{position:relative;width:210px;background:#faf5ea;padding:11px 11px 0;border-radius:2px;text-decoration:none;color:#2b2115;
+  box-shadow:0 12px 22px rgba(60,42,16,.32),0 2px 4px rgba(0,0,0,.22);
+  transform:rotate(var(--t,0deg));transition:transform .3s ease,box-shadow .3s ease}
+.pin:hover{transform:rotate(0) scale(1.05);box-shadow:0 22px 44px rgba(60,42,16,.42);z-index:6}
+.photo{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:linear-gradient(135deg,#2a2015,#0f0b06)}
+.photo::before{content:"developing…";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Caveat',cursive;color:rgba(240,200,150,.4);font-size:1rem}
+.photo img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s;filter:contrast(1.01) saturate(.97) brightness(1.03) sepia(.05)}
+.photo img.on{opacity:1}
+.photo::after{content:"";position:absolute;z-index:2;inset:0;box-shadow:inset 0 0 34px rgba(0,0,0,.36);pointer-events:none}
+.cap{font-family:'Caveat',cursive;font-weight:700;text-align:center;font-size:1.18rem;line-height:1.12;padding:8px 6px 13px;min-height:52px;display:flex;align-items:center;justify-content:center}
+
+/* ── thumbtacks: several styles + per-pin aging/rotation/offset ── */
+.tack{position:absolute;top:-14px;left:calc(50% + var(--tx,0px));width:28px;height:28px;z-index:8;pointer-events:none;
+  transform:translateX(-50%) rotate(var(--rot,0deg));filter:drop-shadow(0 5px 4px rgba(0,0,0,.4)) brightness(var(--br,1)) saturate(var(--sa,1))}
+.tack .head{position:absolute;inset:0;border-radius:50%}
+.tack .hl{position:absolute;top:26%;left:28%;width:22%;height:20%;border-radius:50%;background:rgba(255,255,255,.6);filter:blur(1px)}
+/* A) glossy colored dome */
+.tk-dome .head{background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.92), var(--tk,#d1332e) 44%, rgba(0,0,0,.4) 100%)}
+/* B) flat brushed-metal tack with center dimple */
+.tk-flat .head{background:radial-gradient(circle at 40% 34%, #ffffff, #c3c3c3 42%, #7c7c7c 100%)}
+.tk-flat .head::after{content:"";position:absolute;top:36%;left:36%;width:28%;height:28%;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8f8f8f,#4c4c4c)}
+.tk-flat .hl{opacity:.5}
+/* C) office push-pin — colored top + little barrel */
+.tk-plunger .head{width:20px;height:20px;left:4px;top:0;background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.85), var(--tk,#2f6fd1) 52%, rgba(0,0,0,.45) 100%)}
+.tk-plunger .barrel{position:absolute;top:15px;left:50%;transform:translateX(-50%);width:8px;height:13px;background:linear-gradient(var(--tk,#2f6fd1),rgba(0,0,0,.35));border-radius:0 0 3px 3px;opacity:.9}
+.tk-plunger .hl{top:16%;left:24%}
+/* D) vintage brass, tarnished */
+.tk-brass .head{background:radial-gradient(circle at 35% 30%, #ffeaa8, #b8860b 46%, #5f430a 100%)}
+.tk-brass .head::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 62% 68%, rgba(60,45,10,.5), transparent 45%);mix-blend-mode:multiply}
+.tk-brass .hl{opacity:.45}
+@media(max-width:560px){.pin{width:44vw}}
+</style></head>
+<body>
+<div class="frame-edge"></div>
+<header class="hdr"><div class="b">PULSE <em>· Dining</em></div><div style="font-family:'Caveat',cursive;color:#ffcf7a;font-size:1.3rem">pinned up 📌</div></header>
+<div class="wrap">
+  <div class="hero">
+    <span class="eye">pinned to the board ✦</span>
+    <h1>Where to Eat</h1>
+    <p>Every answer tacked to the cork. Tap a photo to open it.</p>
+  </div>
+  <div class="board" id="board"></div>
+</div>
+<script>
+var ITEMS=[
+ ['Top 10 waterfront restaurants','waterfront seafood sunset deck dining'],['Best crab houses on the bay','chesapeake steamed blue crabs old bay'],
+ ['Rooftop dinner spots','rooftop restaurant city lights dinner'],['Cozy Italian date night','italian trattoria pasta candlelight'],
+ ['Hidden-gem taco joints','colorful street tacos vibrant'],['Best brunch in town','bright brunch pancakes eggs coffee'],
+ ['Third-wave coffee bars','specialty latte art cafe cozy'],['Best cocktail bars','craft cocktail bar moody dim light'],
+ ['Late-night eats','late night diner burger neon'],['Live-music dinner','live music restaurant warm lights'],
+ ['Bakeries worth the line','artisan croissants pastries golden'],['Wine bars for a nightcap','wine bar cozy bottles shelves'],
+ ['Dessert-first places','decadent chocolate dessert plated'],['Bottomless mimosa spots','mimosa brunch champagne patio'],
+ ['Best cheap eats','food truck street food tasty'],['Family-size portions','hearty comfort food big plate']
+];
+var STYLES=['tk-dome','tk-dome','tk-flat','tk-plunger','tk-brass'];   // dome a touch more common
+var COLORS=['#d1332e','#c0392b','#2f6fd1','#1f5aa8','#e0b020','#2fae5a','#8e44ad','#e07a1f','#16a3a3','#f2ede2'];
+function rnd(s,n){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h%n;}
+var out='';
+ITEMS.forEach(function(it){
+  var seed=rnd(it[0],100000);
+  var tilt=((rnd(it[0]+'t',15)-7)/1.5).toFixed(1);          // ~ -4.6..+4.6 deg
+  var style=STYLES[rnd(it[0]+'s',STYLES.length)];
+  var col=COLORS[rnd(it[0]+'c',COLORS.length)];
+  var tx=(rnd(it[0]+'x',44)-22);                             // -22..+22 px
+  var rot=(rnd(it[0]+'r',60)-30);                            // -30..+30 deg tack rotation
+  var br=(0.82+rnd(it[0]+'b',30)/100).toFixed(2);           // aging: brightness .82-1.11
+  var sa=(0.6+rnd(it[0]+'a',55)/100).toFixed(2);            // aging: saturation .60-1.14
+  var url='https://image.pollinations.ai/prompt/'+encodeURIComponent('realistic magazine food and restaurant photography of '+it[1]+', warm light, appetizing, no text')+'?width=460&height=460&nologo=true&model=flux&seed='+seed;
+  var barrel=(style==='tk-plunger')?'<span class="barrel"></span>':'';
+  out+='<a class="pin" href="#" style="--t:'+tilt+'deg">'+
+       '<span class="tack '+style+'" style="--tk:'+col+';--tx:'+tx+'px;--rot:'+rot+'deg;--br:'+br+';--sa:'+sa+'">'+barrel+'<span class="head"></span><span class="hl"></span></span>'+
+       '<div class="photo"><img data-src="'+url+'" alt="'+it[0]+'"></div><div class="cap">'+it[0]+'</div></a>';
+});
+document.getElementById('board').innerHTML=out;
+document.querySelectorAll('img[data-src]').forEach(function(img){ img.onload=function(){img.classList.add('on');}; img.src=img.getAttribute('data-src'); });
+</script>
+</body></html>

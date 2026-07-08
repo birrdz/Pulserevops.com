@@ -1,0 +1,48 @@
+---
+description: Render Auditor Agent C — Cursor blob gold-template + visual-lock audit
+alwaysApply: false
+---
+
+# Render Auditor — Agent C (Cursor)
+
+**Status: MANDATORY crew member** alongside Agent A (live layout) and Agent B (live images).
+
+## Role
+
+Agent C audits **answer blobs** (not live HTML) against locked gold templates and visual-lock law — specs: `GOLDEN_TEMPLATE_TOP10.md` · `GOLDEN_TEMPLATE_QA.md`.
+
+| Agent | What it audits | Engine |
+|-------|----------------|--------|
+| **A** | Live HTML — Direct Answer gold box, layout, CRO | DeepSeek + heuristic |
+| **B** | Live HTML — image loads, pollinations, broken imgs | DeepSeek + heuristic |
+| **C (Cursor)** | Blob markdown — gold template shape, visual lock, pollinations in body | **Rules only** (no DeepSeek) |
+
+## Sample entries (every 3 min)
+
+- `aq1160` — problem child
+- `aq1158` — Top 10 gold ref
+- `q11133` — Q&A gold ref
+
+## Checks (Agent C)
+
+- `pickGoldTemplate` classification
+- `auditTop10GoldTemplate` or `auditQaGoldTemplate` / `auditGoldReferenceQa`
+- No `image_before_direct_answer` · no `stacked_images`
+- No live `pollinations.ai` URLs in blob
+- `gradeEntry` score logged
+
+## Gate
+
+- `templateBlocked` — true when Agent C fails
+- `speedupBlocked` — includes `templateBlocked` (batch writes pause)
+- `deployBlocked` — still Agent A + B only (live render)
+
+## Scripts
+
+- `_render_audit_agent_c.js`
+- `_render_audit_lib.js` → `cursorBlobGoldAudit()`
+- Supervisor: `_render_audit_supervisor.js` (spawns A + B + C)
+
+**START:** `Remove-Item _render_audit_stop.flag,_render_audit_agent_c_stop.flag -EA SilentlyContinue; Start-Process node -ArgumentList '_render_audit_supervisor.js' -WorkingDirectory C:\Users\koryj\website -WindowStyle Hidden`
+
+**STOP:** `New-Item -ItemType File -Path _render_audit_stop.flag -Force`

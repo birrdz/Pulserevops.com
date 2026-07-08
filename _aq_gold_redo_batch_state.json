@@ -1,0 +1,67 @@
+{
+  "rankingDone": [
+    "aq1162",
+    "aq1159",
+    "aq1156",
+    "aq1157",
+    "aq1155",
+    "aq1154",
+    "aq1153",
+    "aq1152",
+    "aq1149",
+    "aq1151",
+    "aq1150",
+    "aq1148",
+    "aq1143",
+    "aq1138"
+  ],
+  "qaDone": [],
+  "rankingFailed": [
+    {
+      "id": "aq1145",
+      "err": "Product images still short: 7 of 10",
+      "at": "2026-07-06T22:13:23.375Z"
+    },
+    {
+      "id": "aq1145",
+      "err": "Product images still short: 7 of 10",
+      "at": "2026-07-06T22:44:21.271Z"
+    }
+  ],
+  "qaFailed": [],
+  "samples": [
+    {
+      "at": "2026-07-06T21:41:30.513Z",
+      "phase": "top10",
+      "template": "aq1158",
+      "id": "aq1151",
+      "title": "Top 10 Aquarium Sump Pumps 2027",
+      "url": "https://pulserevops.com/aquariums/aq1151",
+      "grade": 15,
+      "goldOk": true,
+      "pass": true
+    },
+    {
+      "at": "2026-07-06T21:06:58.611Z",
+      "phase": "top10",
+      "template": "aq1158",
+      "id": "aq1155",
+      "title": "Top 10 Aquarium Lid Options 2027",
+      "url": "https://pulserevops.com/aquariums/aq1155",
+      "grade": 15,
+      "goldOk": true,
+      "pass": true
+    },
+    {
+      "at": "2026-07-06T20:42:40.323Z",
+      "phase": "top10",
+      "template": "aq1158",
+      "id": "aq1162",
+      "title": "Best salt mix for reef tanks in 2027",
+      "url": "https://pulserevops.com/aquariums/aq1162",
+      "grade": 13,
+      "goldOk": true,
+      "pass": true
+    }
+  ]
+}

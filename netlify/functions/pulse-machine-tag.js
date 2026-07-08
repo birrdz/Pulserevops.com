@@ -224,7 +224,10 @@ exports.handler = async (event) => {
   <meta name="twitter:title" content="${escAttr(titleCase + ' — Pulse Knowledge Library')}">
   <meta name="twitter:description" content="${escAttr(desc)}">
   <meta name="twitter:image" content="${SITE}/pulse-og.png">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E8710A' d='M3 12h3l2-7 4 14 2-7h7'/%3E%3C/svg%3E">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
   <style>
     *{box-sizing:border-box;}
@@ -242,7 +245,7 @@ exports.handler = async (event) => {
     .footer-note{padding:32px clamp(20px,5vw,56px);text-align:center;color:rgba(237,229,216,0.35);font-size:0.7rem;letter-spacing:0.1em;border-top:1px solid rgba(255,255,255,0.04);}
     .footer-note a{color:rgba(255,140,26,0.7);}
   </style>
-</head>
+<link rel="stylesheet" href="/assets/pulse-tan.css"></head>
 <body>
   <div class="top">
     <span><a href="/">PULSE REVOPS</a></span>

@@ -11,6 +11,24 @@
 
   <!-- Core pages -->
   <url><loc>https://pulserevops.com/</loc><lastmod>2026-05-26</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://pulserevops.com/calculators</loc><lastmod>2026-06-28</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/crab</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/fish</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.82</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/bay-bridge</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/tangier-sound</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/magothy-river</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/severn-river</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/south-river</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/patuxent-river-solomons</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/eastern-bay</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/chester-river</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/miles-river</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/honga-river</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/nanticoke-river</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/sassafras-river</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.78</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/choptank-river</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pulserevops.com/fish-and-crabs/susquehanna-flats</loc><lastmod>2026-06-28</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://pulserevops.com/derby/</loc><lastmod>2026-05-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://pulserevops.com/themachine</loc><lastmod>2026-04-29</lastmod><changefreq>daily</changefreq><priority>0.95</priority></url>
   <url><loc>https://pulserevops.com/my-content</loc><lastmod>2026-06-02</lastmod><changefreq>monthly</changefreq><priority>0.88</priority></url>
@@ -48,7 +66,6 @@
   <url><loc>https://pulserevops.com/tools/how-to-library</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://pulserevops.com/tools/inventory-tracker</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://pulserevops.com/tools/lead-enricher</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://pulserevops.com/tools/leader-hub</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://pulserevops.com/tools/lightning-rounds</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://pulserevops.com/tools/locker-room</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://pulserevops.com/tools/not-to-do-list</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
@@ -63,7 +80,6 @@
   <url><loc>https://pulserevops.com/tools/squad-sync</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://pulserevops.com/tools/team-toasts</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://pulserevops.com/tools/tier-distribution</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://pulserevops.com/tools/war-room</loc><lastmod>2026-05-25</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 
   <!-- Operator-grade pillar pages (drafted by The Machine, human-reviewed) -->
   <url><loc>https://pulserevops.com/pillars/deal-desk-architecture-scaled-governance.html</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>

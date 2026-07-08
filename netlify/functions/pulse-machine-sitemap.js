@@ -73,6 +73,7 @@ const PILLAR_HUB = {
   aq: { path: '/aquariums',                      name: 'Aquariums' },
   hf: { path: '/highschool-football-recruiting', name: 'HS Football Recruiting' },
   ai: { path: '/ai-infrastructure',              name: 'AI Infrastructure' },
+  tc: { path: '/telco',                          name: 'Telco' },
 };
 const PILLAR_ENTRY_PREFIX = {
   q:  '/knowledge/',  st: '/sales-trainings/',  ik: '/industry-kpis/',  tk: '/tech-stacks/',
@@ -91,6 +92,7 @@ const PILLAR_ENTRY_PREFIX = {
   aq: '/aquariums/',
   hf: '/highschool-football-recruiting/',
   ai: '/ai-infrastructure/',
+  tc: '/telco/',
   bo: '/buildouts/',
   cd: '/contracts/',
   pt: '/pets/',
@@ -134,6 +136,7 @@ exports.handler = async (event) => {
       'sitemap-aquariums':              'aq',
       'sitemap-highschool-football-recruiting': 'hf',
       'sitemap-ai-infrastructure':      'ai',
+      'sitemap-telco':                  'tc',
       'sitemap-coaching':               'cg',
       'sitemap-buildouts':              'bo',
       'sitemap-pets':                   'pt',
@@ -158,7 +161,13 @@ exports.handler = async (event) => {
   if (store) {
     try {
       const idx = (await store.get('_index.json', { type: 'json' })) || { entries: [] };
-      entries = (idx.entries || []).slice(0, 5000);
+      // Cap was 5,000 → only the newest 5k of ~22.8k entries reached Google (the
+      // other ~17k were invisible). Raised to 50,000 to emit EVERY entry (owner
+      // 2026-06-27). Current sizes: omnibus ~22.8k URLs/3.3MB, q-branch (2 URLs/
+      // entry) ~30k URLs/4.3MB — under Google's 50k-URL & Netlify's 6MB limits.
+      // ⚠️ When the library passes ~30k entries the q-branch (2×) nears 6MB — at
+      // that point split into a <sitemapindex> of per-pillar child sitemaps.
+      entries = (idx.entries || []).slice(0, 50000);
       if (entries.length && entries[0].ts) latestTs = entries[0].ts;
     } catch (e) {}
 
@@ -172,7 +181,7 @@ exports.handler = async (event) => {
         if (filterPillar === 'q') {
           // Knowledge = anything NOT in the other 8 pillars (plus vq_* visitor)
           if (/^vq_/i.test(e.id)) return true;
-          if (/^(st|ik|tk|gb|bs|er|ra|gp|fr|ca|co|aq|hf)\d+$/i.test(e.id)) return false;
+          if (/^(st|ik|tk|gb|bs|er|ra|gp|fr|ca|co|aq|hf|tc)\d+$/i.test(e.id)) return false;
           return true;
         }
         const re = new RegExp('^' + filterPillar + '\\d+$', 'i');
@@ -190,10 +199,10 @@ exports.handler = async (event) => {
         pBody += '<url><loc>' + SITE + entryPrefix + escXml(e.id) + '</loc>'
           + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
           + '<changefreq>weekly</changefreq><priority>0.78</priority></url>\n';
-        // Reviews-mirror URL — ranks for "<topic> reviews/rating" queries.
-        pBody += '<url><loc>' + SITE + entryPrefix + escXml(e.id) + '/reviews</loc>'
-          + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
-          + '<changefreq>weekly</changefreq><priority>0.40</priority></url>\n';
+        // NOTE: the /reviews mirror URL was dropped here — emitting 2 URLs/entry
+        // pushed this q-branch past Netlify's 6MB function-response limit at ~30k
+        // URLs (502 ResponseSizeTooLarge). The /reviews URLs are already covered by
+        // the dedicated pulse-machine-reviews-sitemap. 1 URL/entry keeps this ~2.7MB.
       });
       pBody += '</urlset>';
       return {
@@ -230,9 +239,9 @@ exports.handler = async (event) => {
   const gtmPlaybookEntries = entries.filter(e => !isTrainingEntry(e) && !isKpiEntry(e) && !isTechstackEntry(e) && !isGraphicEntry(e) && !isBookSummaryEntry(e) && !isElectronicReviewEntry(e) && !isRevenueArchitectureEntry(e) && isGTMPlaybookEntry(e));
   const franchiseEntries = entries.filter(isFranchiseEntry);
   const carEntries = entries.filter(isCarEntry);
-  const isNewPillarEntry = e => e && e.id && /^(tn|sc|nl|dn|bt|mv|wl|dr|tv|rs|es|cl|lv|ev|sy|ga|gm|sk|sp|tl|cg|co|ai|bo|aq|hf|pt|sw)\d+$/i.test(e.id);
+  const isNewPillarEntry = e => e && e.id && /^(tn|sc|nl|dn|bt|mv|wl|dr|tv|rs|es|cl|lv|ev|sy|ga|gm|sk|sp|tl|cg|co|ai|bo|aq|hf|pt|sw|tc)\d+$/i.test(e.id);
   const newPillarEntries = entries.filter(isNewPillarEntry);
-  const NEW_PILLAR_PATH = { tn:'/towns/', sc:'/schools/', nl:'/nightlife/', dn:'/dining/', bt:'/boats/', mv:'/movies/', wl:'/wellness/', dr:'/drills/', tv:'/travel/', rs:'/resorts/', es:'/estates/', cl:'/clubs/', lv:'/living/', ev:'/events/', sy:'/style/', ga:'/gatherings/', gm:'/gaming/', sk:'/skills/', sp:'/speeches/', tl:'/tools/', cg:'/coaching/', co:'/collectibles/', ai:'/ai-infrastructure/', bo:'/buildouts/', aq:'/aquariums/', hf:'/highschool-football-recruiting/', pt:'/pets/', sw:'/software/' };
+  const NEW_PILLAR_PATH = { tn:'/towns/', sc:'/schools/', nl:'/nightlife/', dn:'/dining/', bt:'/boats/', mv:'/movies/', wl:'/wellness/', dr:'/drills/', tv:'/travel/', rs:'/resorts/', es:'/estates/', cl:'/clubs/', lv:'/living/', ev:'/events/', sy:'/style/', ga:'/gatherings/', gm:'/gaming/', sk:'/skills/', sp:'/speeches/', tl:'/tools/', cg:'/coaching/', co:'/collectibles/', ai:'/ai-infrastructure/', bo:'/buildouts/', aq:'/aquariums/', hf:'/highschool-football-recruiting/', pt:'/pets/', sw:'/software/', tc:'/telco/' };
   const libraryEntries  = entries.filter(e => !isTrainingEntry(e) && !isKpiEntry(e) && !isTechstackEntry(e) && !isGraphicEntry(e) && !isBookSummaryEntry(e) && !isElectronicReviewEntry(e) && !isRevenueArchitectureEntry(e) && !isGTMPlaybookEntry(e) && !isFranchiseEntry(e) && !isCarEntry(e) && !isNewPillarEntry(e));
   const latestTrainingTs = trainingEntries.length && trainingEntries[0].ts ? trainingEntries[0].ts : latestTs;
   const latestKpiTs      = kpiEntries.length && kpiEntries[0].ts ? kpiEntries[0].ts : latestTs;
@@ -440,6 +449,12 @@ exports.handler = async (event) => {
   });
 
   body += '</urlset>\n';
+
+  // Slim every <url> to <loc>+<lastmod> only — drop <changefreq>/<priority>
+  // (Google ignores both). At ~275 bytes/url the full omnibus (22,960+ entries)
+  // hit Netlify's 6MB function-response limit → 502; this cuts to ~110 bytes/url
+  // (~2.5MB) so ALL entries fit, with headroom to ~50k. Owner 2026-06-27.
+  body = body.replace(/<changefreq>[^<]*<\/changefreq>/g, '').replace(/<priority>[^<]*<\/priority>/g, '');
 
   return {
     statusCode: 200,

@@ -1,0 +1,16 @@
+---
+description: General Q&A GOLD template — pointer to GOLDEN_TEMPLATE_QA.md (q11133)
+globs: website/_qa_gold_template.js,website/_format_fixer_lib.js,website/_scrub_button_server.js,website/netlify/functions/pulse-machine-entry.js,website/netlify/functions/lib/grade-entry.js,website/GOLDEN_TEMPLATE_QA.md
+alwaysApply: false
+---
+
+# General Q&A — GOLD Template (q11133)
+
+**Authoritative spec:** `GOLDEN_TEMPLATE_QA.md` — read before generate, fix, or audit.
+
+**Gold reference:** [q11133](https://pulserevops.com/knowledge/q11133)  
+**Code:** `_qa_gold_template.js` — `QA_SECTION_ORDER`, `auditQaGoldTemplate`, `ensureQaGoldBodyShape`
+
+**Classify first:** `pickGoldTemplate(id, body, title)` — essay body → Q&A even if title says "best".
+
+**Visual lock:** `.cursor/rules/visual-lock-law.mdc` — writers change prose only; do not touch image lines or CRO.

@@ -66,6 +66,10 @@ async function dsChat(messages, opts = {}) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${DS_KEY}` },
         body: JSON.stringify({ model, messages, temperature, max_tokens, stream: false }),
+        // hard cap per attempt — a stalled DeepSeek connection must NOT hang the writer
+        // forever (that's the "stuck in a pillar" freeze). Abort → retry → eventually throw,
+        // which the generator's .catch() handles so the job advances instead of wedging.
+        signal: AbortSignal.timeout(120000),
       });
       if (!res.ok) {
         const txt = await res.text().catch(() => '');

@@ -1,0 +1,27 @@
+{
+ "running": false,
+ "stop": true,
+ "pillar": null,
+ "pillarName": "All pillars",
+ "done": 0,
+ "total": 0,
+ "pct": 0,
+ "slotsEmpty": 0,
+ "entriesWithBlanks": 0,
+ "entriesFilled": 0,
+ "imagesFilled": 0,
+ "skippedNoMatch": 0,
+ "skippedNoBlob": 0,
+ "clean": 0,
+ "errors": 0,
+ "currentId": "",
+ "currentTitle": "",
+ "currentStep": "force stopped",
+ "phase": "stopped",
+ "startedAt": null,
+ "finishedAt": 1783533268325,
+ "error": "",
+ "log": [
+  "1:54:28 PM ⏹ force stop — image fill halted"
+ ]
+}

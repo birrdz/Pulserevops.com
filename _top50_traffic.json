@@ -1,0 +1,402 @@
+[
+ {
+  "rank": 1,
+  "id": "q1606",
+  "total": 1079,
+  "last7": "0[object Object][object Object][object Object][object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How does Snowflake handle the cost of Anthropic + OpenAI inference at scale?"
+ },
+ {
+  "rank": 2,
+  "id": "q1669",
+  "total": 83,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How does Datadog hit its 2027 revenue target?"
+ },
+ {
+  "rank": 3,
+  "id": "q1937",
+  "total": 66,
+  "last7": "0[object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How do you start a vending machine business in 2027?"
+ },
+ {
+  "rank": 4,
+  "id": "q1598",
+  "total": 60,
+  "last7": "0[object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How does Snowflake compute pricing compare to BigQuery and Redshift?"
+ },
+ {
+  "rank": 5,
+  "id": "q1620",
+  "total": 54,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How does ServiceNow defend against Microsoft Power Platform?"
+ },
+ {
+  "rank": 6,
+  "id": "q1980",
+  "total": 54,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How do you start a catering business in 2027?"
+ },
+ {
+  "rank": 7,
+  "id": "q9501",
+  "total": 54,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "A company sells $100 group workshops teaching older adults how to use technology — phones, iPads, email. The model has had real if modest traction but has hit a friction point that's capping further growth. What's the right next move?"
+ },
+ {
+  "rank": 8,
+  "id": "q9502",
+  "total": 47,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How do you scale a workshop-led senior tech-training business in 2027 — what's the proven path past the single-operator ceiling?"
+ },
+ {
+  "rank": 9,
+  "id": "q1319",
+  "total": 42,
+  "last7": "0[object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How'd you fix Root Insurance's revenue issues in 2026?"
+ },
+ {
+  "rank": 10,
+  "id": "q1848",
+  "total": 39,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "Can Salesloft keep growing 15%+ post-Vista acquisition?"
+ },
+ {
+  "rank": 11,
+  "id": "q1621",
+  "total": 37,
+  "last7": "0[object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What is ServiceNow net revenue retention in 2026?"
+ },
+ {
+  "rank": 12,
+  "id": "q1368",
+  "total": 36,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How'd you fix Hightouch's revenue issues in 2026?"
+ },
+ {
+  "rank": 13,
+  "id": "q9638",
+  "total": 28,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How does a CRO design the ideal pipeline review meeting in 2027?"
+ },
+ {
+  "rank": 14,
+  "id": "q12316",
+  "total": 28,
+  "last7": "0[object Object][object Object][object Object][object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "Best fractional CRO firms in 2027"
+ },
+ {
+  "rank": 15,
+  "id": "q2147",
+  "total": 26,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How do you start a sauna and cold plunge studio business in 2027?"
+ },
+ {
+  "rank": 16,
+  "id": "q1599",
+  "total": 24,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What is Snowflake data-region strategy through 2027?"
+ },
+ {
+  "rank": 17,
+  "id": "q9523",
+  "total": 23,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "At what stage does a sales org move from 'leadership as top producer + manager' to 'leadership as pure operator' — and should comp philosophy shift at that inflection point?"
+ },
+ {
+  "rank": 18,
+  "id": "q1412",
+  "total": 21,
+  "last7": "0[object Object][object Object][object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How'd you fix Aleph Alpha's revenue issues in 2026?"
+ },
+ {
+  "rank": 19,
+  "id": "q1917",
+  "total": 20,
+  "last7": "0[object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How does Atlassian make money in 2027?"
+ },
+ {
+  "rank": 20,
+  "id": "q1907",
+  "total": 19,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "Is a Datadog AE role still good for my career in 2027?"
+ },
+ {
+  "rank": 21,
+  "id": "q1593",
+  "total": 19,
+  "last7": "0[object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "Is Snowflake certification worth it in 2027?"
+ },
+ {
+  "rank": 22,
+  "id": "q9634",
+  "total": 19,
+  "last7": "0[object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What do CRO compensation benchmarks actually look like by company stage in 2027?"
+ },
+ {
+  "rank": 23,
+  "id": "q1572",
+  "total": 18,
+  "last7": "0[object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What is Snowflake net revenue retention in 2026?"
+ },
+ {
+  "rank": 24,
+  "id": "q1884",
+  "total": 17,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "Should Gong acquire Outreach to bundle conversation+sequencing?"
+ },
+ {
+  "rank": 25,
+  "id": "q1116",
+  "total": 17,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What's the right SE-to-AE ratio when your average deal cycle hits 90+ days with 3+ technical stakeholders?"
+ },
+ {
+  "rank": 26,
+  "id": "q1624",
+  "total": 17,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "Will ServiceNow IRM beat Archer + LogicGate?"
+ },
+ {
+  "rank": 27,
+  "id": "q10967",
+  "total": 17,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "Chief Clubhouses are dying real estate — the 2027 closure prediction"
+ },
+ {
+  "rank": 28,
+  "id": "q12501",
+  "total": 17,
+  "last7": "0[object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "Outreach vs Salesloft vs HubSpot Sales Hub: Which sales engagement platform should you pick in 2027?"
+ },
+ {
+  "rank": 29,
+  "id": "q65",
+  "total": 17,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How do I disarm 'we need to think about it' without being pushy?"
+ },
+ {
+  "rank": 30,
+  "id": "q12149",
+  "total": 17,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What is Hightouch and why is it a hot RevOps composable-CDP and AI decisioning platform for 2027?"
+ },
+ {
+  "rank": 31,
+  "id": "q1372",
+  "total": 16,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How'd you fix Cohere's revenue issues in 2026?"
+ },
+ {
+  "rank": 32,
+  "id": "q9730",
+  "total": 16,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How do you start an aerial adventure park and zipline business in 2027?"
+ },
+ {
+  "rank": 33,
+  "id": "q1248",
+  "total": 16,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How'd you fix Mercury's revenue issues in 2026?"
+ },
+ {
+  "rank": 34,
+  "id": "q1911",
+  "total": 16,
+  "last7": "0[object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How does Cloudflare make money in 2027?"
+ },
+ {
+  "rank": 35,
+  "id": "q84",
+  "total": 16,
+  "last7": "0[object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What's the right pricing strategy for a freemium → paid conversion?"
+ },
+ {
+  "rank": 36,
+  "id": "q12300",
+  "total": 16,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "Constitutional AI vs RLHF: which alignment method should you use in 2027?"
+ },
+ {
+  "rank": 37,
+  "id": "q110",
+  "total": 16,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How do I evaluate Outreach vs Salesloft vs Apollo for outbound cadences?"
+ },
+ {
+  "rank": 38,
+  "id": "ai0111",
+  "total": 16,
+  "last7": "0[object Object]",
+  "pillar": "AI Infrastructure",
+  "title": "The 10 Best AI Tools for Screenwriting in 2027"
+ },
+ {
+  "rank": 39,
+  "id": "q10870",
+  "total": 15,
+  "last7": "0[object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What's the right sales engineer (SE) to AE ratio — and when do you need one?"
+ },
+ {
+  "rank": 40,
+  "id": "q11117",
+  "total": 15,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What are Mississippi State Bulldogs football's 2027 NIL needs and strategy?"
+ },
+ {
+  "rank": 41,
+  "id": "ev0009",
+  "total": 15,
+  "last7": "0[object Object][object Object][object Object]",
+  "pillar": "ev",
+  "title": "The 10 Best Rock and Metal Music Festivals in 2027"
+ },
+ {
+  "rank": 42,
+  "id": "ca0641",
+  "total": 15,
+  "last7": "0[object Object][object Object][object Object]",
+  "pillar": "Cars",
+  "title": "Best Mercedes-Benz S-Class Model Years (Ranked)"
+ },
+ {
+  "rank": 43,
+  "id": "er0230",
+  "total": 15,
+  "last7": "0[object Object][object Object]",
+  "pillar": "Electronic Reviews",
+  "title": "Top 10 Document Cameras for Remote Demo Recording in 2027"
+ },
+ {
+  "rank": 44,
+  "id": "q12",
+  "total": 14,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What's the typical CRO base salary in NYC vs SF vs remote in 2026?"
+ },
+ {
+  "rank": 45,
+  "id": "q1585",
+  "total": 14,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What is Snowflake M&A strategy through 2028?"
+ },
+ {
+  "rank": 46,
+  "id": "q1921",
+  "total": 14,
+  "last7": "0[object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What is HubSpot's AI strategy in 2027?"
+ },
+ {
+  "rank": 47,
+  "id": "q12153",
+  "total": 14,
+  "last7": "0[object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What is Default and why is it a hot RevOps inbound GTM platform for 2027?"
+ },
+ {
+  "rank": 48,
+  "id": "q1455",
+  "total": 14,
+  "last7": 0,
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How'd you fix Mississippi State's NIL & athletic revenue issues in 2026?"
+ },
+ {
+  "rank": 49,
+  "id": "q12725",
+  "total": 14,
+  "last7": "0[object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "What is a sales cycle and how do you measure it accurately?"
+ },
+ {
+  "rank": 50,
+  "id": "q13059",
+  "total": 14,
+  "last7": "0[object Object][object Object][object Object][object Object][object Object]",
+  "pillar": "Knowledge/RevOps Q&A",
+  "title": "How do AI inference costs and AI product gross margins work in 2027?"
+ }
+]

@@ -1,0 +1,134 @@
+<script>/* CNET-style lead — cards TWIST into new pictures at random intervals (owner 2026-07-02) */(function(){
+  function esc(s){return String(s||'').replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});}
+  function rnd(a,b){return a+Math.random()*(b-a);}
+  function cardHTML(c){return '<a class="lc" href="/knowledge/'+encodeURIComponent(c.id)+'"><div class="lc-img" style="background-image:url(\''+(c.img||'')+'\')"></div><div class="lc-cat">'+esc(c.pillar)+'</div><h3>'+esc(c.title)+'</h3></a>';}
+  function setCard(el,c){el.href='/knowledge/'+encodeURIComponent(c.id);el.querySelector('.lc-img').style.backgroundImage="url('"+(c.img||'')+"')";el.querySelector('.lc-cat').textContent=c.pillar;el.querySelector('h3').textContent=c.title;}
+  function setHero(imgEl,panEl,h){imgEl.style.backgroundImage="url('"+h.img+"')";imgEl.href='/knowledge/'+encodeURIComponent(h.id);panEl.href='/knowledge/'+encodeURIComponent(h.id);document.getElementById('leadCat').textContent=h.pillar;document.getElementById('leadTitle').textContent=h.title;document.getElementById('leadDeck').textContent=h.deck||'';}
+  function twist(el,apply){el.style.transition='transform .5s ease';el.style.transformStyle='preserve-3d';el.style.transform='perspective(900px) rotateY(90deg)';setTimeout(function(){apply();el.style.transform='perspective(900px) rotateY(0deg)';},270);}
+  /* ===== ONE MOSAIC HOMEPAGE (owner 2026-07-02): solid-color menu/pillar tiles in-line at the top of
+     the asymmetric mosaic → flowing into Q&A face cards, endless scroll. Menu tile → straight to that
+     pillar's endless-scroll mosaic (no dropdowns, no steps). ===== */
+  (function(){
+    var T=window.PULSE_TAX||[];
+    var mm=document.getElementById('magMosaic'); if(!mm)return;
+    ['cnetLead','magNav','tiles','panel'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});
+    var np=document.querySelector('.nameplate');if(np)np.style.display='none';
+    var bug=document.querySelector('.serp-bug');if(bug)bug.style.display='none';
+    var st=document.createElement('style');st.textContent='.mm.mm-menu{display:flex;align-items:center;justify-content:center;text-align:center;}.mm.mm-menu::after,.mm.mm-menu .mm-scrim{display:none;}.mm.mm-menu .mm-txt{position:static;padding:0;}.mm-menu-t{margin:0;font-family:Fraunces,"Playfair Display",Georgia,serif;font-style:italic;font-weight:900;font-size:1.5rem;line-height:1.06;color:#fff;text-shadow:0 2px 7px rgba(0,0,0,.5);letter-spacing:.004em;}.mm.mm-menu.big .mm-menu-t{font-size:3.7rem;}.mm.mm-menu.wide .mm-menu-t{font-size:2.8rem;}.mm.mm-menu.tall .mm-menu-t{font-size:2.6rem;}@media(max-width:600px){.mm.mm-menu.big .mm-menu-t{font-size:2.4rem;}.mm.mm-menu.wide .mm-menu-t,.mm.mm-menu.tall .mm-menu-t{font-size:2rem;}}'
+      +'.mm.mm-hero{grid-column:span 1;grid-row:span 1;min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(120deg,#0a0b0f 0%,#171006 52%,#0a0b0f 100%);border:1px solid rgba(246,192,73,.34);box-shadow:inset 0 0 60px rgba(246,192,73,.06);}'
+      +'.mm.mm-hero::after,.mm.mm-hero .mm-scrim{display:none;}'
+      +'.mm-hero-in{padding:16px 22px;}'
+      +'.mm-hero-k{font:800 .62rem/1 system-ui;letter-spacing:.2em;text-transform:uppercase;color:#F6C049;}'
+      +'.mm-hero h2{margin:8px 0 6px;font:800 clamp(1.7rem,4vw,2.6rem)/1 Fraunces,Georgia,serif;color:#F6C049;letter-spacing:-.01em;}'
+      +'.mm-hero h2 b{color:#fff;}'
+      +'.mm-hero-logo{display:block;margin:8px auto 9px;max-width:min(430px,74%);max-height:88px;height:auto;width:auto;object-fit:contain;}'
+      +'.mm-hero-sub{display:block;color:rgba(255,255,255,.72);font-size:.9rem;}'
+      +'.mm.mm-hire{grid-column:span 2;grid-row:span 2;position:relative;background-size:cover;background-position:center 18%;border:1px solid rgba(246,192,73,.4);box-shadow:0 0 0 1px rgba(246,192,73,.12) inset;}'
+      +'.mm.mm-hire::after,.mm.mm-hire .mm-scrim{display:none;}'
+      +'.mm.mm-hire .mm-hire-t{position:absolute;left:0;right:0;bottom:0;padding:26px 30px;background:linear-gradient(0deg,rgba(6,7,11,.95),rgba(6,7,11,.5) 58%,transparent);color:#EAC15C;font-family:Fraunces,\'Playfair Display\',Georgia,serif;font-style:italic;font-weight:900;font-size:2.5rem;line-height:1.06;letter-spacing:-.01em;text-shadow:0 2px 14px rgba(0,0,0,.95);z-index:3;}'
+      +'.mm.mm-hire .mm-hire-cta{display:block;margin-top:10px;font-family:system-ui;font-style:normal;font-weight:800;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;}'
+      +'@media(max-width:600px){.mm.mm-hire{min-height:320px;background-position:center 15%;}.mm.mm-hire .mm-hire-t{font-size:2.15rem;padding:18px 20px;}}';
+    document.head.appendChild(st);
+    var NM={tl:'CRO & Tools',ca:'Cars',bt:'Boats',aq:'Aquariums',ik:'Industry KPIs',tk:'Tech Stacks',bs:'Book Summaries',st:'Sales Trainings',fr:'Franchises',co:'Collectibles',ai:'AI Infrastructure',gb:'Graphics',bo:'Buildouts',sy:'Style',cr:'Crabbing',fs:'Fishing',gp:'GTM Playbooks',ra:'Revenue Architecture',pt:'Pets',es:'Espresso',tv:'TVs',rs:'Resorts',cl:'Cologne',lv:'Luxury Travel',ev:'Events',ga:'Gatherings',gm:'Gaming',mv:'Movies',wl:'Wellness',dr:'Drills',dn:'Dining',nl:'Nightlife',tn:'Towns',sc:'Schools',tc:'Telco',er:'Electronics',ce:'Pulse News',q:'Knowledge',ed:'Advice',sw:'Software',hf:'Home & Family'};
+    function pof(id){return (String(id).match(/^[a-z]+/)||[''])[0];}
+    function px(u){if(!u)return '';if(u[0]==='/')u='https://pulserevops.com'+u;if(!/^https?:\/\//.test(u))return '';if(/wsrv\.nl/.test(u))return u;return 'https://wsrv.nl/?url='+encodeURIComponent(u.replace(/^https?:\/\//,''))+'&w=520&output=webp&q=72&we';}
+    var COL=[['#0E8C7A','#042E28'],['#C0392B','#2A0907'],['#7A1FA2','#1C0A28'],['#1565C0','#071E3C'],['#EC2D7C','#141414'],['#D97706','#341B03'],['#2E9E5B','#0C321F'],['#6D28D9','#170A33'],['#0A66C2','#0A0A0A'],['#BE185D','#260512'],['#0E6BA8','#052433'],['#C026D3','#260A2A'],['#2563EB','#0A1A3A'],['#B71C3B','#270710'],['#0891B2','#04303A'],['#8B5A2B','#241405'],['#5B7553','#182015'],['#9F1239','#270710']];
+    var SZ=['big','tall','wide','','tall','wide','big','','wide','tall','','big','wide','tall'];var placedSz=[];
+    function _w(s){return (s==='big'||s==='wide')?2:1;}function _h(s){return (s==='big'||s==='tall')?2:1;}
+    // LAW: above/below differ WIDTH; left/right differ HEIGHT; diagonal anything.
+    function nextSize(){var cols=Math.max(2,Math.round((((typeof mm!=='undefined'&&mm&&mm.clientWidth)||1200))/245));var left=placedSz[placedSz.length-1];var up=placedSz[placedSz.length-cols];var s,t=0;do{s=SZ[Math.floor(Math.random()*SZ.length)];t++;}while(t<16&&((left&&_h(s)===_h(left))||(up&&_w(s)===_w(up))));placedSz.push(s);return s;}
+    function ftile(c){var z=nextSize();return '<a class="mm '+z+'" href="/knowledge/'+encodeURIComponent(c.id)+'" style="background-image:url(\''+px(c.img)+'\')"><div class="mm-scrim"></div><div class="mm-txt"><span class="mm-cat">'+esc(NM[pof(c.id)]||'')+'</span><h4>'+esc(c.question||c.title||'')+'</h4></div></a>';}
+    var html='<div class="mm mm-hero"><div class="mm-hero-in"><span class="mm-hero-k">● LIVE · The RevOps Authority</span><img class="mm-hero-logo" src="/pulse-news-logo.png" alt="Pulse News — Value Added"></div></div>';
+    // hub tiles = vintage cover + GOLD ITALIC title (CSS overlay, like the Topics template)
+    var _hubt='position:absolute;left:16px;right:16px;bottom:14px;z-index:3;color:#EAC15C;font-family:Fraunces,\'Playfair Display\',Georgia,serif;font-style:italic;font-weight:800;line-height:1.02;text-shadow:0 2px 10px rgba(0,0,0,.92),0 1px 3px rgba(0,0,0,.95);';
+    var _hireN=Math.floor(Date.now()/1800000)%8+1;
+    html+='<a class="mm mm-hire" href="/hire" data-pulse-click="hire-cro" aria-label="Hire your Fractional CRO here" style="background-image:url(\'/assets/hire-cro-'+_hireN+'.jpg\')"><div class="mm-hire-t">Hire your Fractional CRO here<span class="mm-hire-cta">Book a call &rarr;</span></div></a>';
+    html+='<a class="mm mm-menu wide" href="/topics" style="background-image:url(\'/assets/topics/_topics.jpg\');background-size:cover;background-position:center"><div class="mm-scrim"></div><div style="'+_hubt+'font-size:2rem">Browse Topics</div></a>';
+    html+='<a class="mm mm-menu tall" href="/search" style="background-image:url(\'/assets/topics/_search.jpg\');background-size:cover;background-position:center"><div class="mm-scrim"></div><div style="'+_hubt+'font-size:1.7rem">Search</div></a>';
+    mm.innerHTML=html;
+    var shown={},sent=document.createElement('div');sent.style.cssText='grid-column:1/-1;height:1px';mm.appendChild(sent);
+    var buf=[],bi=0,loading=false,fetched=false;
+    var BATCH=48;   // tiles appended each time you near the bottom — keeps the page growing forever
+    function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+    // ENDLESS DOWN (owner 2026-07-04): append Q&A face-cards forever — scroll never ends; buffer cycles when exhausted.
+    function paint(n){if(!buf.length)return;var out='',k=0,guard=0;while(k<n&&guard++<n*4){if(bi>0&&bi%buf.length===0)shuf(buf);var c=buf[bi%buf.length];bi++;if(!c||!c.img)continue;out+=ftile(c);k++;}if(out)sent.insertAdjacentHTML('beforebegin',out);}
+    function more(){if(loading)return;loading=true;if(fetched){paint(BATCH);loading=false;return;}fetch('/.netlify/functions/pulse-machine-library-list?recent=15000').then(function(r){return r.json();}).then(function(j){var a=Array.isArray(j)?j:(j.entries||j.items||[]);var raw=a.filter(function(e){if(!e||!e.id||!e.img)return false;var p=(String(e.id).match(/^[a-z]+/)||[''])[0];return !(p==='tl'&&/\/assets\/cro-cover-/.test(e.img));});
+      // Cross-pillar round-robin — no per-pillar cap so the infinite scroll has thousands of Q&As to cycle.
+      var byp={};raw.forEach(function(e){var p=(String(e.id).match(/^[a-z]+/)||[''])[0];(byp[p]=byp[p]||[]).push(e);});
+      var pills=Object.keys(byp);pills.forEach(function(p){byp[p]=shuf(byp[p]);});
+      buf=[];var idx=0,added=true;while(added){added=false;for(var pi=0;pi<pills.length;pi++){var lst=byp[pills[pi]];if(idx<lst.length){buf.push(lst[idx]);added=true;}}idx++;}
+      if(window.PULSE_DEFAULTS&&PULSE_DEFAULTS.length)buf=shuf(PULSE_DEFAULTS.slice()).concat(buf);
+      bi=0;fetched=true;paint(BATCH);loading=false;}).catch(function(){loading=false;});}
+    var io=new IntersectionObserver(function(en){if(en[0]&&en[0].isIntersecting)more();},{rootMargin:'900px'});io.observe(sent);
+    if(window.PULSE_DEFAULTS&&PULSE_DEFAULTS.length){buf=PULSE_DEFAULTS.slice();shuf(buf);bi=0;paint(BATCH);}
+    more();
+    // FLIP (owner 2026-07-02): a few face cards twist to a fresh Q&A every ~10s (newsroom board), not all.
+    (function(){
+      function twist(el,apply){el.style.transition='transform .5s ease';el.style.transform='perspective(900px) rotateY(90deg)';setTimeout(function(){apply();el.style.transform='perspective(900px) rotateY(0deg)';},260);}
+      setInterval(function(){
+        if(!buf.length)return;
+        var tiles=[].slice.call(mm.querySelectorAll('a.mm')).filter(function(t){var h=t.getAttribute('href')||'';return t.style.backgroundImage&&h.indexOf('/knowledge/')===0;});
+        if(tiles.length<14)return;
+        var n=2+Math.floor(Math.random()*2), vis={};
+        [].slice.call(mm.querySelectorAll('a.mm')).forEach(function(t){if(t.style.backgroundImage)vis[t.style.backgroundImage]=1;});
+        for(var i=0;i<n;i++){
+          var SKIP=6;var el=tiles[SKIP+Math.floor(Math.random()*(Math.min(tiles.length,30)-SKIP))];   // never flip the top-left face cards (owner 2026-07-03)
+          var c=buf[Math.floor(Math.random()*buf.length)], tries=0;
+          while(vis['url("'+px(c.img)+'")']&&tries++<8){c=buf[Math.floor(Math.random()*buf.length)];}   // avoid duplicate picture
+          (function(el,c){twist(el,function(){el.setAttribute('href','/knowledge/'+encodeURIComponent(c.id));el.style.backgroundImage="url('"+px(c.img)+"')";var t=el.querySelector('h4');if(t)t.textContent=c.question||c.title||'';var cat=el.querySelector('.mm-cat');if(cat)cat.textContent=NM[pof(c.id)]||'';});})(el,c);
+        }
+      },10000);
+    })();
+    // rotating pillar-color background vibe (owner 2026-07-02) — shifts every ~14s
+    (function(){var CYC=[['#0E8C7A','#042E28'],['#C0392B','#2A0907'],['#7A1FA2','#1C0A28'],['#1565C0','#071E3C'],['#EC2D7C','#141414'],['#D97706','#341B03'],['#2E9E5B','#0C321F'],['#6D28D9','#170A33'],['#0A66C2','#0A0A0A'],['#BE185D','#260512'],['#0E6BA8','#052433'],['#C026D3','#260A2A'],['#2563EB','#0A1A3A'],['#B71C3B','#270710']];var ci=Math.floor(Math.random()*CYC.length),b=document.body;b.style.transition='background 2s ease';function tick(){var c=CYC[ci++%CYC.length];b.style.background='radial-gradient(1100px 560px at 82% -6%, '+c[0]+'40, transparent 60%), linear-gradient(165deg, '+c[1]+' 0%, #0a0806 55%, '+c[1]+' 100%)';b.style.backgroundAttachment='fixed';}tick();setInterval(tick,1800000);})();  /* random pillar color each visit, rotates every ~30 min */
+  })();
+  return;  /* legacy CNET featured render disabled below */
+  fetch('/.netlify/functions/pulse-featured').then(function(r){return r.json();}).then(function(d){
+    if(!d||!d.hero||!d.hero.img)return;
+    var pool=(d.pool||[]).filter(function(x){return x&&x.img;});
+    if(pool.length<5){pool=[d.hero].concat(d.cards||[]).filter(function(x){return x&&x.img;});}
+    pool.forEach(function(x){var im=new Image();im.src=x.img;});   // preload so flips are instant
+    var imgEl=document.getElementById('leadImg'),panEl=document.getElementById('leadPanel');
+    setHero(imgEl,panEl,pool[0]);
+    var cards=pool.slice(1,5);
+    document.getElementById('leadCards').innerHTML=cards.map(cardHTML).join('');
+    document.getElementById('cnetLead').style.display='block';
+    // extra rows — irregular mosaic of face cards (title overlaid on the image)
+    var rest=pool.slice(5),mz=['big','','tall','','wide','','','tall','wide','','big','','tall','','wide','','','tall','',''];
+    var mm=document.getElementById('magMosaic');
+    if(mm){mm.innerHTML=rest.map(function(c,i){return '<a class="mm '+mz[i%mz.length]+'" href="/knowledge/'+encodeURIComponent(c.id)+'" style="background-image:url(\''+(c.img||'')+'\')"><div class="mm-scrim"></div><div class="mm-txt"><span class="mm-cat">'+esc(c.pillar)+'</span><h4>'+esc(c.title)+'</h4></div></a>';}).join('');rest.forEach(function(c){shown[c.id]=1;});}
+    var cardEls=[].slice.call(document.querySelectorAll('#leadCards .lc'));
+    var shown={};pool.slice(0,5).forEach(function(x){shown[x.id]=1;});
+    var ptr=5;
+    function nextItem(){for(var k=0;k<pool.length;k++){var it=pool[ptr%pool.length];ptr++;if(!shown[it.id])return it;}return pool[(ptr++)%pool.length];}
+    function face(it){try{fetch('/.netlify/functions/pulse-face?id='+encodeURIComponent(it.id)).catch(function(){});}catch(e){}}
+    // churn phase: flip every ~1-10 min so the library gets faces fast (dial to 30min-3hr later)
+    function scheduleCard(el,first){var ms=first?rnd(15,60)*1000:rnd(1,10)*60000;setTimeout(function(){var it=nextItem();var old=el.getAttribute('data-id');twist(el,function(){setCard(el,it);el.setAttribute('data-id',it.id);if(old)shown[old]=0;shown[it.id]=1;});face(it);scheduleCard(el,false);},ms);}
+    cardEls.forEach(function(el,i){el.setAttribute('data-id',cards[i].id);face(cards[i]);scheduleCard(el,true);});
+    function scheduleHero(first){var ms=first?rnd(25,80)*1000:rnd(3,12)*60000;setTimeout(function(){var it=nextItem();twist(imgEl,function(){setHero(imgEl,panEl,it);imgEl.setAttribute('data-id',it.id);shown[it.id]=1;});face(it);scheduleHero(false);},ms);}
+    imgEl.setAttribute('data-id',pool[0].id);face(pool[0]);scheduleHero(true);
+    // ── ENDLESS SCROLL (owner 2026-07-02): keep appending library face-cards below the featured pool ──
+    (function(){
+      var mm2=document.getElementById('magMosaic'); if(!mm2)return;
+      var mzA=['big','','tall','','wide','','','tall','wide','','big','','tall','','wide','','','tall','',''];
+      var NM={tl:'CRO & Tools',ca:'Cars',bt:'Boats',aq:'Aquariums',ik:'Industry KPIs',tk:'Tech Stacks',bs:'Book Summaries',st:'Sales Trainings',fr:'Franchises',co:'Collectibles',ai:'AI Infrastructure',gb:'Graphics',bo:'Buildouts',sy:'Style',cr:'Crabbing',fs:'Fishing',gp:'GTM Playbooks',ra:'Revenue Architecture',pt:'Pets',es:'Espresso',tv:'TVs',rs:'Resorts',cl:'Cologne',lv:'Luxury Travel',ev:'Events',ga:'Gatherings',gm:'Gaming',mv:'Movies',wl:'Wellness',dr:'Drills',dn:'Dining',nl:'Nightlife',tn:'Towns',sc:'Schools',tc:'Telco',er:'Electronics',ce:'Pulse News',q:'Knowledge',ed:'Advice',sw:'Software',hf:'Home & Family'};
+      function pof(id){return (String(id).match(/^[a-z]+/)||[''])[0];}
+      function px(u){if(!u)return '';if(u[0]==='/')u='https://pulserevops.com'+u;if(!/^https?:\/\//.test(u))return '';if(/wsrv\.nl/.test(u))return u;return 'https://wsrv.nl/?url='+encodeURIComponent(u.replace(/^https?:\/\//,''))+'&w=520&output=webp&q=72&we';}
+      var buf=[],bi=0,ti=(typeof rest!=='undefined'?rest.length:0),loading=false,fetched=false,done=false;
+      var sent=document.createElement('div');sent.style.cssText='grid-column:1/-1;height:1px';mm2.appendChild(sent);
+      function paint(n){var out=[];while(out.length<n&&bi<buf.length){var c=buf[bi++];if(!c||!c.img||shown[c.id])continue;shown[c.id]=1;out.push(c);}if(!out.length)return;sent.insertAdjacentHTML('beforebegin',out.map(function(c){var z=mzA[(ti++)%mzA.length];return '<a class="mm '+z+'" href="/knowledge/'+encodeURIComponent(c.id)+'" style="background-image:url(\''+px(c.img)+'\')"><div class="mm-scrim"></div><div class="mm-txt"><span class="mm-cat">'+esc(NM[pof(c.id)]||pof(c.id).toUpperCase())+'</span><h4>'+esc(c.question||c.title||'')+'</h4></div></a>';}).join(''));}
+      function more(){if(loading||done)return;loading=true;if(bi<buf.length-30){paint(24);loading=false;return;}if(fetched){done=true;loading=false;return;}
+        fetch('/.netlify/functions/pulse-machine-library-list?recent=4000').then(function(r){return r.json();}).then(function(j){var a=Array.isArray(j)?j:(j.entries||j.items||[]);buf=a.filter(function(e){return e&&e.id&&e.img&&!shown[e.id];});bi=0;fetched=true;done=buf.length===0;paint(24);loading=false;}).catch(function(){loading=false;});}
+      var io=new IntersectionObserver(function(en){if(en[0]&&en[0].isIntersecting)more();},{rootMargin:'900px'});io.observe(sent);
+    })();
+    // ── ALTERNATING PILLAR-COLOR BACKGROUND (owner 2026-07-02): shift the page tint through the pillar
+    // palette every ~14s so the homepage cycles its pillar color options ──
+    (function(){
+      var CYC=[['#0E8C7A','#042E28'],['#C0392B','#2A0907'],['#7A1FA2','#1C0A28'],['#1565C0','#071E3C'],['#EC2D7C','#141414'],['#D97706','#341B03'],['#2E9E5B','#0C321F'],['#6D28D9','#170A33'],['#0A66C2','#0A0A0A'],['#BE185D','#260512'],['#0E6BA8','#052433'],['#C026D3','#260A2A'],['#2563EB','#0A1A3A'],['#B71C3B','#270710']];
+      var ci=0, b=document.body;
+      b.style.transition='background 1.8s ease';
+      function tick(){var c=CYC[ci++%CYC.length];b.style.background='radial-gradient(1100px 560px at 82% -6%, '+c[0]+'4d, transparent 60%), linear-gradient(165deg, '+c[1]+' 0%, #0a0806 55%, '+c[1]+' 100%)';b.style.backgroundAttachment='fixed';}
+      tick(); setInterval(tick, 14000);
+    })();
+  }).catch(function(){});
+})();</script>

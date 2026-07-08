@@ -1,0 +1,95 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#e9dcc4">
+<title>PULSE Dining — Where to Eat, on the Lights</title>
+<meta name="description" content="PULSE Dining answers strung up like Polaroids on patio lights — where to eat, brunch spots, date-night dinners, late-night bites and cheap eats. Tap a photo to open the full answer.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://pulserevops.com/dining-lights">
+<meta property="og:title" content="PULSE Dining — Where to Eat, on the Lights">
+<meta property="og:description" content="Dining answers strung up like Polaroids on patio lights. Tap a photo to open the full answer.">
+<meta property="og:url" content="https://pulserevops.com/dining-lights"><meta property="og:image" content="https://pulserevops.com/pulse-og.png"><meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Caveat:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&display=swap" rel="stylesheet">
+<link rel="prefetch" href="/.netlify/functions/pulse-machine-library-list?pillar=dn&recent=60" as="fetch" crossorigin>
+<style>
+:root{--ink:#2c2416;}
+*{box-sizing:border-box}
+body{margin:0;background:#e9dcc4;background-image:radial-gradient(1400px 700px at 50% -12%,#f4ead6,#e0d0b3);font-family:'Fraunces',Georgia,serif;color:#3a3020}
+.hdr{position:sticky;top:0;z-index:1000;background:rgba(30,22,12,.92);backdrop-filter:blur(6px);color:#f4ead6;display:flex;align-items:center;justify-content:space-between;padding:12px 22px;border-bottom:1px solid rgba(255,220,150,.15)}
+.hdr a{color:inherit;text-decoration:none}
+.hdr .b{font-weight:900;letter-spacing:.5px;font-size:1.05rem}.hdr .b em{font-style:normal;color:#ffcf7a}
+.hdr .cta{background:linear-gradient(135deg,#c0392b,#e05a3f);color:#fff;font-weight:800;font-size:.82rem;padding:8px 15px;border-radius:20px}
+.wrap{max-width:1280px;margin:0 auto;padding:26px 20px 100px}
+.hero{text-align:center;padding:14px 10px 6px}
+.hero .eye{font-family:'Caveat',cursive;font-size:1.7rem;color:#9c5e12;transform:rotate(-2deg);display:inline-block}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);margin:2px 0 6px;font-weight:900;color:#241a0e;letter-spacing:-.5px}
+.hero p{margin:0 auto;max-width:640px;color:#6f5c3d;font-size:1.05rem}
+.hero .count{margin-top:8px;font-weight:800;color:#c0392b}
+.tools{display:flex;justify-content:center;gap:10px;margin:20px 0 6px;flex-wrap:wrap}
+.tools input{font-family:inherit;font-size:.95rem;padding:11px 16px;border-radius:26px;border:1px solid rgba(120,80,30,.3);background:#fffdf7;color:#3a3020;width:min(440px,82vw)}
+.section{margin-top:44px}
+.sec-lbl{font-family:'Permanent Marker',cursive;font-size:1.4rem;color:var(--ink);transform:rotate(-1.1deg);margin:0 0 4px 10px}
+.scene{position:relative;padding-top:30px}
+.cord{position:absolute;top:0;left:0;width:100%;height:82px;overflow:visible;pointer-events:none;z-index:1}
+.line{position:relative;z-index:2;display:flex;justify-content:space-around;align-items:flex-start;gap:8px;padding:0 8px;flex-wrap:nowrap}
+.polaroid{position:relative;margin-top:34px;width:206px;flex:0 0 auto;background:linear-gradient(168deg,#fffefa,#f3ecdc);padding:11px 11px 0;border-radius:2px;text-decoration:none;color:inherit;
+  box-shadow:0 16px 28px rgba(50,34,14,.30),0 3px 6px rgba(0,0,0,.14);
+  transform:rotate(var(--t,0deg));transform-origin:50% -14px;transition:transform .5s cubic-bezier(.34,1.35,.5,1),box-shadow .3s;animation:sway 7s ease-in-out infinite;animation-delay:var(--d,0s)}
+.polaroid:hover{transform:rotate(0) translateY(-10px) scale(1.045);box-shadow:0 30px 52px rgba(50,34,14,.42);z-index:6;animation-play-state:paused}
+.photo{position:relative;width:100%;aspect-ratio:1/1;background:linear-gradient(135deg,#2b2118,#0d0d0d);overflow:hidden;border-radius:1px}
+/* "developing" shimmer while Pollinations renders the shot */
+.photo::before{content:"developing…";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Caveat',cursive;font-size:1rem;color:rgba(255,220,160,.5);background:linear-gradient(100deg,transparent 20%,rgba(255,220,160,.08) 50%,transparent 80%);background-size:200% 100%;animation:shimmer 1.9s linear infinite}
+.photo img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .7s ease;filter:contrast(.95) saturate(.92) brightness(1.05) sepia(.12)}
+.photo img.on{opacity:1}
+.photo::after{content:"";position:absolute;z-index:2;inset:0;box-shadow:inset 0 0 34px rgba(0,0,0,.32);background:linear-gradient(135deg,rgba(255,255,255,.10),transparent 42%);pointer-events:none}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.cap{font-family:'Caveat',cursive;font-weight:700;color:var(--ink);text-align:center;font-size:1.22rem;line-height:1.12;padding:9px 6px 14px;min-height:56px;display:flex;align-items:center;justify-content:center}
+.pin{position:absolute;top:-22px;left:50%;transform:translateX(-50%) rotate(var(--pr,0deg));width:15px;height:40px;background:linear-gradient(90deg,#e7c99b,#d3ac78 46%,#c39a63);border-radius:4px;z-index:7;box-shadow:0 2px 3px rgba(0,0,0,.35)}
+.pin::before{content:"";position:absolute;left:50%;top:5px;width:1.5px;height:28px;background:rgba(110,72,32,.55);transform:translateX(-50%)}
+.pin::after{content:"";position:absolute;left:50%;top:17px;transform:translateX(-50%);width:13px;height:6px;border:1px solid #9a9a9a;border-radius:2px;background:linear-gradient(#e2e2e2,#a8a8a8)}
+.bulb{fill:#ffd27a;filter:drop-shadow(0 0 7px rgba(255,180,80,.95));animation:flick 4s ease-in-out infinite}
+.b2{animation-delay:1.1s}.b3{animation-delay:.5s}.b4{animation-delay:1.9s}
+@keyframes sway{0%,100%{transform:rotate(var(--t,0deg))}50%{transform:rotate(calc(var(--t,0deg) + 1deg))}}
+@keyframes flick{0%,100%{opacity:1}45%{opacity:.7}72%{opacity:.9}}
+.loading{text-align:center;padding:60px;font-family:'Caveat',cursive;font-size:1.6rem;color:#9c5e12}
+.footer{margin-top:70px;text-align:center;color:#8a744c;font-size:.9rem}
+.footer a{color:#9c5e12}
+@media(max-width:900px){.line{flex-wrap:wrap;justify-content:center;gap:16px}.polaroid{margin-top:14px;width:44vw;max-width:210px}.cord{display:none}}
+</style></head>
+<body>
+<header class="hdr"><a class="b" href="/">PULSE <em>· Dining</em></a><a class="cta" href="/coaching">✦ Hire a CRO</a></header>
+<div class="wrap">
+  <div class="hero">
+    <span class="eye">strung up &amp; ready ✦</span>
+    <h1>Where to Eat, on the Lights</h1>
+    <p>PULSE Dining answers, hung out like snapshots on the patio string lights. Tap any Polaroid to open the full answer.</p>
+    <div class="count" id="count">🍽 loading dining answers…</div>
+  </div>
+  <div class="tools"><input id="q" placeholder="🔍 Filter these — “crab”, “brunch”, “rooftop”…" autocomplete="off"></div>
+  <div id="rows"><div class="loading">Developing the photos… 📷</div></div>
+  <div class="footer">© 2025 Kory White · <a href="/">PULSE RevOps</a> · <a href="/dining">classic Dining view</a> · <a href="/knowledge">full library</a></div>
+</div>
+<script>
+var CORD='<svg class="cord" viewBox="0 0 1000 82" preserveAspectRatio="none"><path d="M0,42 C40,32 70,28 100,28 C140,28 170,58 200,58 C230,58 260,28 300,28 C340,28 370,58 400,58 C430,58 460,28 500,28 C540,28 570,58 600,58 C630,58 660,28 700,28 C740,28 770,58 800,58 C830,58 860,28 900,28 C940,28 970,36 1000,42" fill="none" stroke="#7c6238" stroke-width="2.6"/><circle class="bulb" cx="200" cy="59" r="6.5"/><circle class="bulb b2" cx="400" cy="59" r="6.5"/><circle class="bulb b3" cx="600" cy="59" r="6.5"/><circle class="bulb b4" cx="800" cy="59" r="6.5"/></svg>';
+var TILT=[-3,2,-2,3,-1], PR=[6,-5,4,-3,5];
+function esc(s){return String(s).replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});}
+function shortCap(q){ var s=String(q||'').replace(/\s+in\s+20\d\d\??$/i,'').replace(/^(what(?:'s| is| are)?|which|how|where|when|why|who)\s+/i,'').replace(/\?+$/,'').trim(); if(s)s=s.charAt(0).toUpperCase()+s.slice(1); return s.length>52?s.slice(0,50).trim()+'…':s; }
+function imgFor(q,id){ var seed=(id+q).split('').reduce(function(a,c){return (a*31+c.charCodeAt(0))>>>0;},0)%100000; return 'https://image.pollinations.ai/prompt/'+encodeURIComponent('realistic magazine food and restaurant photography of '+String(q).replace(/[^\w\s]/g,' ').slice(0,70)+', warm light, appetizing, no text')+'?width=460&height=460&nologo=true&model=flux&seed='+seed; }
+function polaroid(e,i){ var cap=shortCap(e.question)||('dn'+(e.id||'')); var url=imgFor(e.question||'',e.id||''); return '<a class="polaroid" href="/knowledge/'+esc(e.id)+'" style="--t:'+TILT[i%5]+'deg;--pr:'+PR[i%5]+'deg;--d:'+((i%5)*0.22)+'s"><span class="pin"></span><div class="photo"><img loading="lazy" src="'+url+'" alt="'+esc(cap)+'"></div><figcaption class="cap">'+esc(cap)+'</figcaption></a>'; }
+var ALL=[];
+function chunk(a,n){var o=[];for(var i=0;i<a.length;i+=n)o.push(a.slice(i,i+n));return o;}
+function render(list){
+  if(!list.length){ document.getElementById('rows').innerHTML='<div class="loading">No matches — try another word.</div>'; return; }
+  var rows=chunk(list,5), out='';
+  rows.forEach(function(r){ out+='<div class="section"><div class="scene">'+CORD+'<div class="line">'+r.map(polaroid).join('')+'</div></div></div>'; });
+  document.getElementById('rows').innerHTML=out;
+}
+fetch('/.netlify/functions/pulse-machine-library-list?pillar=dn&recent=60').then(function(r){return r.json();}).then(function(j){
+  ALL=(j.entries||[]).filter(function(e){return e&&e.id&&e.question;});
+  document.getElementById('count').textContent='🍽 '+(j.total||ALL.length).toLocaleString()+' dining answers';
+  render(ALL.slice(0,40));
+}).catch(function(){ document.getElementById('rows').innerHTML='<div class="loading">Could not load — <a href="/dining">try the classic view</a>.</div>'; });
+document.getElementById('q').addEventListener('input',function(e){ var v=e.target.value.toLowerCase().trim(); render(v?ALL.filter(function(x){return (x.question||'').toLowerCase().indexOf(v)>=0;}).slice(0,40):ALL.slice(0,40)); });
+</script>
+<script src="/pulse-ambient.js" defer></script>
+</body></html>

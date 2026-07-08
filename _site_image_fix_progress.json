@@ -1,0 +1,21 @@
+{
+  "running": true,
+  "phase": "queue-scan",
+  "stage": "scanning index 26800/36010",
+  "ranking": {
+    "fixed": 0,
+    "total": 5956,
+    "failed": 0,
+    "remaining": 5956
+  },
+  "essays": {
+    "fixed": 0,
+    "total": 16824,
+    "failed": 0,
+    "remaining": 16824
+  },
+  "note": "Site-wide: ranking lists get product imgs each; essays get occasional section imgs; no top heroes",
+  "samples": [],
+  "startedAt": "2026-07-06T13:17:41.989Z",
+  "at": "2026-07-06T14:06:58.813Z"
+}
