@@ -148,3 +148,10 @@ Before ANY deploy from this run, execute this pass and write a PRE-DEPLOY REPORT
 8. Confirm no mv or hf pages were modified — diff against git to prove it.
 9. Build the site locally and confirm zero build errors and no broken image references (404s) in the output.
 10. Write the results as a PRE-DEPLOY REPORT with pass/fail per item.
+
+### DIAGNOSTIC — proper-noun TITLE slots false-positive the gate → skip stock (owner 2026-07-08)
+Live probe of the gate on gaming Top-10 title slots (3 titles, real Pexels calls):
+- "Clash of Clans" → total_results=1487, GATE **PASS** but returned "two elk **clash**ing antlers" / Pokémon GO (WRONG — "clash" matched unrelated alt).
+- "Elden Ring" → total_results=4389, GATE **PASS** but returned golden wedding **ring**s (WRONG — "ring" matched).
+- "Whiteout Survival" → 3339, GATE FAIL:no_alt_match (correctly rejected).
+**Finding**: for a SPECIFIC proper-noun title whose tokens are common words (clash, ring, war, survival…), Pexels returns thousands of unrelated photos whose alt text contains the token → the relevance gate PASSES the wrong image. So stock CANNOT serve title-based Top-10 slots, and the gate can't catch it. **Rule**: Top-10 slots that are specific product/media TITLES (games, movies, named products) skip Pexels/Pixabay and go straight to Pollinations (prompt-driven → on-topic). The gate + stock chain remains correct for GENERIC-noun topics (headphones, crm, office). `_gm_top10_reimage.js` implements this for gm. (Movies already handled separately via the OMDb poster library.)
