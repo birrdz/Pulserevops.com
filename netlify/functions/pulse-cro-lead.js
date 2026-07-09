@@ -40,15 +40,25 @@ exports.handler=async(event)=>{
   const pmToken=process.env.POSTMARK_SERVER_TOKEN||process.env.POSTMARK_API_KEY;
   const resendKey=process.env.RESEND_API_KEY||process.env.resendapikey||process.env.RESENDAPIKEY;
   const fromEmail=process.env.ALERT_FROM_EMAIL||process.env.alert_from_email||'onboarding@resend.dev';
+  // Recipients: RECIPIENT + optional comma-list in LEAD_CC (env). Delivering to more than one
+  // inbox means a mis-verified sender for one address doesn't lose the lead.
+  const recipients=[RECIPIENT].concat(String(process.env.LEAD_CC||'').split(',').map(x=>x.trim()).filter(Boolean));
+  const out={ok:false,attempts:[]};
+  const tryText=r=>r.text().catch(()=>'');
+  async function pm(to){const r=await fetch('https://api.postmarkapp.com/email',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json','X-Postmark-Server-Token':pmToken},body:JSON.stringify({From:fromEmail,To:to,ReplyTo:(email||RECIPIENT),Subject:subject,HtmlBody:html,MessageStream:'outbound'})});return{provider:'postmark',to,ok:r.ok,status:r.status,body:(await tryText(r)).slice(0,200)};}
+  async function rs(to){const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+resendKey,'Content-Type':'application/json'},body:JSON.stringify({from:fromEmail,to:[to],reply_to:(email||RECIPIENT),subject,html})});return{provider:'resend',to,ok:r.ok,status:r.status,body:(await tryText(r)).slice(0,200)};}
+  // Fallback that needs NO domain verification — relays the lead to an inbox via FormSubmit.
+  async function fsub(){const addr=process.env.LEAD_FORMSUBMIT||'hello@pulserevops.com';const r=await fetch('https://formsubmit.co/ajax/'+encodeURIComponent(addr),{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_subject:subject,Name:name||'(not given)',Email:email||'(not given)',Phone:phone||'(not given)',Company:company||'(not given)',Message:message||'(none)',Page:page||'(n/a)'})});return{provider:'formsubmit',to:addr,ok:r.ok,status:r.status,body:(await tryText(r)).slice(0,200)};}
   try{
-    if(pmToken){
-      const r=await fetch('https://api.postmarkapp.com/email',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json','X-Postmark-Server-Token':pmToken},body:JSON.stringify({From:fromEmail,To:RECIPIENT,ReplyTo:(email||RECIPIENT),Subject:subject,HtmlBody:html,MessageStream:'outbound'})});
-      return json(200,{ok:r.ok,provider:'postmark'});
+    for(const to of recipients){
+      try{
+        if(pmToken){const a=await pm(to);out.attempts.push(a);if(a.ok)out.ok=true;}
+        else if(resendKey){const a=await rs(to);out.attempts.push(a);if(a.ok)out.ok=true;}
+      }catch(e){out.attempts.push({to,ok:false,error:String(e.message||e)});}
     }
-    if(resendKey){
-      const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+resendKey,'Content-Type':'application/json'},body:JSON.stringify({from:fromEmail,to:[RECIPIENT],reply_to:(email||RECIPIENT),subject,html})});
-      return json(200,{ok:r.ok,provider:'resend'});
-    }
-    return json(200,{ok:true,stored:true,reason:'no mail provider — lead stored'});
-  }catch(e){ return json(200,{ok:false,error:String(e.message||e)}); }
+    // If no API provider delivered (missing keys or unverified sender), fall back to FormSubmit.
+    if(!out.ok){try{const a=await fsub();out.attempts.push(a);if(a.ok)out.ok=true;}catch(e){out.attempts.push({provider:'formsubmit',ok:false,error:String(e.message||e)});}}
+    out.stored=true; // lead is also persisted in the blob above
+    return json(200,out);
+  }catch(e){ out.error=String(e.message||e); return json(200,out); }
 };
