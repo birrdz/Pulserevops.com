@@ -15,14 +15,14 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #111518; --surface: #1A2025; --surface2: #242C32;
-      --accent: #E8710A; --accent2: #FF8C1A;
-      --text: #e2e8f0; --muted: #94a3b8;
-      --border: rgba(255,255,255,0.08);
+      --bg: #EBE9DE; --surface: #ffffff; --surface2: #F5F1E6;
+      --accent: #A97C1E; --accent2: #D3AD57;
+      --text: #20241d; --muted: #6b6f64;
+      --border: rgba(20,16,8,0.12);
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
-    nav { position: sticky; top: 0; z-index: 100; background: rgba(17,21,24,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
     .nav-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; text-transform: uppercase; }
     .nav-links { display: flex; gap: 1.5rem; align-items: center; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; transition: color 0.2s; }
@@ -30,7 +30,7 @@
     .nav-cta { background: var(--accent); color: #fff !important; padding: 6px 14px; border-radius: 6px; }
     .nav-cta:hover { background: var(--accent2) !important; }
 
-    .hero { background: linear-gradient(135deg, #1A2025 0%, #111518 70%); border-bottom: 1px solid var(--border); padding: 4rem 1.5rem 3.5rem; text-align: center; }
+    .hero { background: linear-gradient(160deg, #ffffff 0%, #EBE9DE 75%); border-bottom: 1px solid var(--border); padding: 4rem 1.5rem 3.5rem; text-align: center; }
     .hero-eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
     .hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 800; line-height: 1.15; max-width: 700px; margin: 0 auto 1rem; }
     .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 580px; margin: 0 auto 2rem; }
@@ -64,7 +64,7 @@
 <body>
 
 <nav>
-  <a href="../" class="nav-brand">PULSE</a>
+  <a href="../" class="nav-brand"><img src="/icon-192.png" alt="" role="presentation" style="height:26px;width:26px;border-radius:6px;vertical-align:middle;margin-right:8px;">PULSE NEWS</a>
   <div class="nav-links">
     <a href="../dashboard.html">Dashboard</a>
     <a href="../blog/">Blog</a>
@@ -332,7 +332,7 @@
     <a href="./">How To's</a>
     <a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=howtos-footer" target="_blank" rel="noopener" data-pulse-click="hire-cro">Book a Call</a>
   </div>
-  <p>&copy; 2026 PULSE RevOps &mdash; Free to use. Pay it forward.</p>
+  <p>&copy; 2026 Pulse News &mdash; Free to use. Pay it forward.</p>
 </footer>
 
 <script>
@@ -354,5 +354,6 @@ function filterIndustries(query) {
 </script>
 
 <script src="/pulse-ambient.js" defer></script>
+  <script src="/js/howtos-track.js" defer></script>
 </body>
 </html>
