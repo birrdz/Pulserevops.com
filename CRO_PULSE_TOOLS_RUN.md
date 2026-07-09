@@ -90,3 +90,13 @@ Make EVERY entry genuinely UNIQUE while bringing it to the golden template + 13/
 ## FIRST CHECKPOINT
 Show the owner `netlify env:list` (names only, not values) so we know the keys landed before
 committing to anything else.
+
+## SEO GOAL (owner 2026-07-09) — CORNER THE FRACTIONAL-CRO MARKET: nationwide + Maryland/DC
+The 4,506 certified-unique fractional-CRO entries are the content moat. Max SEO via DUAL-HUB:
+- NATIONAL hub = /fractional-cro. Every certified entry links up to it; it links down to top spokes.
+  Intent-aware interlinking (cost<->cost, city<->city, industry<->industry, find<->find) so it reads
+  as a topic silo, not a blanket mesh. Buckets: find 3543, cost 680, city 542, vs 58, industry 24.
+- LOCAL hub = /fractional-cro-maryland-dc (+ /kory-white-maryland). The MD/DC + nearby-city entries
+  form a tighter local sub-cluster funneling here — highest-conversion home-market intent.
+- IndexNow-submit all 4,506 after deploy (fast crawl). Keyword clusters + "People also search."
+- Guardrail: only works because entries are UNIQUE (gate proved it). Never interlink near-dups (doorways).

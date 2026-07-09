@@ -1,0 +1,23 @@
+{
+ "faq_residuals": {
+  "count": 7,
+  "ids": [
+   "tl0129",
+   "tl9904",
+   "tl9928",
+   "tl9930",
+   "tl9952",
+   "tl11240",
+   "tl19961"
+  ],
+  "fix": "trim FAQ to exactly 4 (robust)"
+ },
+ "near_dup_rewrite_queue": {
+  "count": 128,
+  "note": "95%-similar doorways → need real unique rewrite, NOT polish"
+ },
+ "stub_full_writing_queue": {
+  "count": 362,
+  "note": "<1600w finder entries → full SPEC2 writing"
+ }
+}

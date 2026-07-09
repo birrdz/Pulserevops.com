@@ -57,9 +57,15 @@ function transform(body, question) {
   let a = body;
   a = a.replace(/\s*—\s*/g, ' - ');
   if (!/From the CRO Syndicate network/.test(a)) {
-    const m = a.match(/(^##\s+Direct Answer[\s\S]*?)(\n##\s+)/m);
-    if (m) a = a.replace(m[0], m[1] + '\n\n' + koryBlock(question) + m[2]);
-    else a = a.replace(/^(#[^\n]*\n+(?:!\[[^\]]*\]\([^)]*\)\n+)?)/, '$1' + koryBlock(question) + '\n');
+    // Direct Answer section may be H2 or H3; insert the block after its content, before the next heading.
+    const m = a.match(/(^#{2,3}\s+Direct Answer[\s\S]*?)(?=\n#{1,3}\s+\S)/m);
+    if (m) a = a.replace(m[0], m[1] + '\n\n' + koryBlock(question));
+    else {
+      // no Direct Answer heading: insert after the leading (optional #title) + image + first paragraph
+      const lead = a.match(/^(\s*(?:#[^\n]*\n+)?(?:!\[[^\]]*\]\([^)]*\)\s*\n+)?(?:[^\n#][^\n]*\n+)?)/);
+      const at = lead ? lead[0].length : 0;
+      a = a.slice(0, at) + koryBlock(question) + '\n' + a.slice(at);
+    }
   }
   a = trimFaq(a);
   if (!/^##\s+Sources/m.test(a)) a = a.replace(/\s*$/, '\n\n## Sources\n\n' + SOURCES_LINE + '\n');
@@ -79,12 +85,16 @@ const saveJSON = (f, o) => { try { fs.writeFileSync(f, JSON.stringify(o)); } cat
   const stubs = new Set(loadJSON(STUB_F, []));
   let ok = 0, skip = 0, stub = 0, fail = 0, n = 0;
   console.log('[fcro-spec2] ' + ids.length + ' CERTIFIED-UNIQUE candidates (near-dups excluded) · ' + done.size + ' already transformed · NO deploy');
+  const stat = (f, v) => { try { fs.writeFileSync(WD + '/' + f, v); } catch (e) {} };
+  const ev = (msg) => { try { const a = JSON.parse(fs.readFileSync(WD + '/_run_events.json', 'utf8')); a.unshift({ t: Date.now(), msg }); fs.writeFileSync(WD + '/_run_events.json', JSON.stringify(a.slice(0, 50))); } catch (e) {} };
+  stat('_run_phase.txt', 'TRANSFORM RUNNING'); ev('Transform resumed over ' + ids.length + ' certified-unique entries (128 near-dups excluded).');
   for (const id of ids) {
     n++;
     if (done.has(id) || stubs.has(id)) { skip++; continue; }
     try {
       const e = await store.get('answers/' + id + '.json', { type: 'json' });
       if (!e) { fail++; continue; }
+      stat('_run_current.txt', id + ' — ' + String(e.question || '').slice(0, 62));
       if (gateProblems(e.answer).length === 0) { done.add(id); ok++; continue; } // already SPEC2
       const out = transform(e.answer || '', e.question);
       const probs = gateProblems(out);
@@ -101,5 +111,6 @@ const saveJSON = (f, o) => { try { fs.writeFileSync(f, JSON.stringify(o)); } cat
     if (n % 15 === 0) await sleep(400); // gentle cooldown between batches of 15
   }
   saveJSON(DONE_F, [...done]); saveJSON(STUB_F, [...stubs]);
+  stat('_run_phase.txt', 'TRANSFORM PAUSED'); stat('_run_current.txt', 'batch complete'); ev('Transform batch complete: ' + done.size + ' certified-unique entries carry the Kory block.');
   console.log('[fcro-spec2] DONE · transformed=' + ok + ' stubs(need full writing)=' + stub + ' skip=' + skip + ' fail=' + fail);
 })().catch(x => { console.error('FATAL', x.message); process.exit(1); });
