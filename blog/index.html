@@ -3,107 +3,297 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RevOps Blog — Sales KPIs, Pipeline Math & Free Tools | PULSE RevOps</title>
-  <meta name="description" content="Revenue operations insights from Kory White — quota modeling, pipeline coverage, sales KPI calculators, and free RevOps tools. Practical, no-fluff content for ops and sales leaders." />
+  <title>The Pulse News Blog — RevOps, Pipeline &amp; Fractional CRO Insights</title>
+  <meta name="description" content="Operator-grade revenue insights from fractional CRO Kory White — pipeline math, sales comp, forecasting, KPIs, and go-to-market strategy. Practical, no fluff." />
   <link rel="canonical" href="https://pulserevops.com/blog/" />
-  <meta property="og:title" content="RevOps Blog — Sales KPIs, Pipeline Math & Free Tools | PULSE RevOps" />
-  <meta property="og:description" content="Revenue operations insights from Kory White — quota modeling, pipeline coverage, sales KPI calculators, and free RevOps tools." />
-  <meta property="og:url" content="https://pulserevops.com/blog/" />
   <meta property="og:type" content="website" />
-
+  <meta property="og:site_name" content="Pulse News" />
+  <meta property="og:title" content="The Pulse News Blog — RevOps &amp; Fractional CRO Insights" />
+  <meta property="og:description" content="Pipeline math, sales comp, forecasting, KPIs, and GTM strategy from fractional CRO Kory White. Practical, no fluff." />
+  <meta property="og:url" content="https://pulserevops.com/blog/" />
+  <meta property="og:image" content="https://pulserevops.com/pulse-og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Pulse News Blog — RevOps &amp; Fractional CRO Insights" />
+  <meta name="twitter:description" content="Pipeline math, sales comp, forecasting, KPIs, and GTM strategy from fractional CRO Kory White." />
+  <meta name="twitter:image" content="https://pulserevops.com/pulse-og.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "PULSE RevOps Blog",
-    "description": "Revenue operations insights — quota modeling, pipeline coverage, sales KPI calculators, and free RevOps tools.",
+    "name": "The Pulse News Blog",
+    "description": "Operator-grade revenue insights from fractional CRO Kory White — pipeline math, sales comp, forecasting, KPIs, and go-to-market strategy.",
     "url": "https://pulserevops.com/blog/",
-    "author": { "@type": "Person", "name": "Kory White" },
-    "publisher": { "@type": "Organization", "name": "PULSE RevOps", "url": "https://pulserevops.com" }
+    "author": {"@type": "Person", "name": "Kory White", "url": "https://pulserevops.com/kory-white-maryland", "jobTitle": "Fractional Chief Revenue Officer"},
+    "publisher": {"@type": "Organization", "name": "Pulse News", "url": "https://pulserevops.com", "logo": {"@type": "ImageObject", "url": "https://pulserevops.com/icon-512.png"}}
   }
   </script>
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #111518; --surface: #1A2025; --accent: #E8710A; --text: #e2e8f0;
-      --muted: #94a3b8; --border: rgba(255,255,255,0.08);
-    }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(17,21,24,0.95); backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 1.5rem; height: 58px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; text-transform: uppercase; }
-    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-cta { background: var(--accent); color: #fff !important; padding: 6px 14px; border-radius: 6px; }
-
-    .hero { padding: 3rem 1.5rem 2.5rem; text-align: center; border-bottom: 1px solid var(--border); }
-    .hero-eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
-    .hero h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 0.75rem; }
-    .hero p { color: var(--muted); max-width: 520px; margin: 0 auto; }
-
-    .posts { max-width: 820px; margin: 0 auto; padding: 3rem 1.5rem; display: grid; gap: 1.5rem; }
-    .post-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-      padding: 1.75rem; text-decoration: none; color: inherit; display: block;
-      transition: border-color 0.2s, transform 0.15s;
-    }
-    .post-card:hover { border-color: rgba(249,115,22,0.4); transform: translateY(-2px); }
-    .post-tag { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
-    .post-card h2 { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--text); }
-    .post-card p { color: var(--muted); font-size: 0.92rem; margin-bottom: 0.75rem; }
-    .post-meta { font-size: 0.75rem; color: var(--muted); display: flex; gap: 1rem; flex-wrap: wrap; }
-
-    footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.82rem; }
-    footer a { color: var(--muted); text-decoration: none; }
-    .footer-links { display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 0.75rem; flex-wrap: wrap; }
-  </style>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/blog/pulse-blog.css">
 </head>
 <body>
 
 <nav>
-  <a class="nav-brand" href="https://pulserevops.com/">PULSE RevOps</a>
+  <a href="/" class="nav-brand"><img src="/icon-192.png" alt="" role="presentation">PULSE NEWS</a>
   <div class="nav-links">
-    <a href="https://pulserevops.com/blog/">Blog</a>
-    <a href="https://pulserevops.com/dashboard.html" class="nav-cta">Free Tools →</a>
+    <a href="/revenue-checkup">Free Checkup</a>
+    <a href="/blog/">Blog</a>
+    <a href="/how-tos/">How To&apos;s</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=blog-nav" target="_blank" rel="noopener" data-pulse-click="hire-cro" class="nav-cta">Free CRO Audit</a>
   </div>
 </nav>
 
-<div class="hero">
+<section class="hero">
   <p class="hero-eyebrow">Revenue Operations</p>
-  <h1>The PULSE RevOps Blog</h1>
-  <p>Quota math, pipeline models, KPI frameworks, and free tools for RevOps and sales leaders. No fluff.</p>
+  <h1>The Pulse News Blog</h1>
+  <p class="hero-sub">Pipeline math, sales comp, forecasting, KPIs, and go-to-market strategy &mdash; from a 25-year revenue operator. No fluff, no theory you can&apos;t use Monday morning.</p>
+  <div class="hero-meta">
+    <span>By Kory White, Fractional CRO</span>
+    <span>Maryland-based &middot; working nationwide</span>
+  </div>
+</section>
+
+<div class="filters" id="filters">
+  <button class="filter-chip active" data-cat="all">All</button>
+  <button class="filter-chip" data-cat="Pipeline">Pipeline</button>
+  <button class="filter-chip" data-cat="Comp &amp; Quota">Comp &amp; Quota</button>
+  <button class="filter-chip" data-cat="KPIs &amp; Metrics">KPIs &amp; Metrics</button>
+  <button class="filter-chip" data-cat="GTM Strategy">GTM Strategy</button>
+  <button class="filter-chip" data-cat="RevOps Systems">RevOps Systems</button>
+  <button class="filter-chip" data-cat="Sales Leadership">Sales Leadership</button>
+  <button class="filter-chip" data-cat="Fractional CRO">Fractional CRO</button>
 </div>
 
-<div class="posts">
-  <a class="post-card" href="https://pulserevops.com/blog/free-sales-kpi-calculator.html">
-    <p class="post-tag">Sales KPIs · RevOps Tools</p>
-    <h2>Free Sales KPI Calculator: How to Set Rep Goals That Actually Drive Revenue</h2>
-    <p>Most quota models are built on gut feel and last year's spreadsheet. Here's how to set KPIs mathematically — and the free tool that does the math for you.</p>
-    <div class="post-meta">
-      <span>✍️ Kory White</span>
-      <span>📅 April 5, 2026</span>
-      <span>⏱ 8 min read</span>
-    </div>
+<div class="posts" id="posts">
+
+  <a class="post-card" data-cat="KPIs &amp; Metrics" href="/blog/free-sales-kpi-calculator">
+    <span class="post-tag">Tools &amp; KPIs</span>
+    <h2>Free Sales KPI Calculator: Set Rep Goals That Drive Revenue</h2>
+    <p>Stop building quotas on gut feel and last year&apos;s spreadsheet. Here&apos;s how to set rep KPIs mathematically &mdash; and a free tool that does the math.</p>
+    <div class="post-meta"><span>Jul 1, 2026</span><span>8 min read</span></div>
   </a>
+
+  <a class="post-card" data-cat="Pipeline" href="/blog/pipeline-coverage-ratio">
+    <span class="post-tag">Pipeline</span>
+    <h2>Pipeline Coverage: How Much Pipeline Do You Actually Need?</h2>
+    <p>The &ldquo;3x rule&rdquo; is lazy math. Here&apos;s how to calculate the coverage ratio your team actually needs from your real win rate and sales cycle.</p>
+    <div class="post-meta"><span>Jun 24, 2026</span><span>7 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="Fractional CRO" href="/blog/fractional-cro-vs-vp-sales">
+    <span class="post-tag">Fractional CRO</span>
+    <h2>Fractional CRO vs. VP of Sales: Which Do You Need?</h2>
+    <p>They are not the same hire. One owns the number end-to-end; the other runs the sales team. Here&apos;s how to tell which gap you actually have.</p>
+    <div class="post-meta"><span>Jun 17, 2026</span><span>8 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="RevOps Systems" href="/blog/crm-pipeline-hygiene">
+    <span class="post-tag">RevOps Systems</span>
+    <h2>CRM Pipeline Hygiene: The Silent Revenue Killer</h2>
+    <p>Stale deals and missing next steps aren&apos;t a tidiness problem &mdash; they&apos;re a visibility problem. Here&apos;s the hygiene standard that fixes forecasting.</p>
+    <div class="post-meta"><span>Jun 10, 2026</span><span>6 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="Comp &amp; Quota" href="/blog/sales-comp-plans-that-work">
+    <span class="post-tag">Comp &amp; Quota</span>
+    <h2>Sales Comp Plans That Actually Drive Behavior</h2>
+    <p>Your comp plan is your loudest strategy document. If reps are chasing the wrong deals, the plan &mdash; not the reps &mdash; is usually the reason.</p>
+    <div class="post-meta"><span>Jun 3, 2026</span><span>8 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="KPIs &amp; Metrics" href="/blog/nine-revenue-kpis-ceo">
+    <span class="post-tag">KPIs &amp; Metrics</span>
+    <h2>The 9 Revenue KPIs Every CEO Should Watch Weekly</h2>
+    <p>Not 40 metrics on a dashboard nobody opens &mdash; the nine numbers that actually predict whether you hit the year.</p>
+    <div class="post-meta"><span>May 27, 2026</span><span>7 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="Pipeline" href="/blog/sales-cycle-length">
+    <span class="post-tag">Pipeline</span>
+    <h2>How to Shorten Your Sales Cycle Without Discounting</h2>
+    <p>Cutting price to close faster trains buyers to wait. Here are the levers that compress cycle time without touching your margin.</p>
+    <div class="post-meta"><span>May 20, 2026</span><span>6 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="Comp &amp; Quota" href="/blog/quota-setting-methodology">
+    <span class="post-tag">Comp &amp; Quota</span>
+    <h2>Quota Setting: The Math Behind Motivating Targets</h2>
+    <p>Set quotas too high and reps check out; too low and you leave money on the table. Here&apos;s how to find the number that&apos;s both attainable and ambitious.</p>
+    <div class="post-meta"><span>May 13, 2026</span><span>7 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="GTM Strategy" href="/blog/lead-response-time">
+    <span class="post-tag">GTM Strategy</span>
+    <h2>Lead Response Time: Why 5 Minutes Beats 5 Hours</h2>
+    <p>The single most under-managed number in your funnel. The math on why speed-to-lead quietly decides your conversion rate.</p>
+    <div class="post-meta"><span>May 6, 2026</span><span>5 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="Pipeline" href="/blog/win-rate-improvement">
+    <span class="post-tag">Pipeline</span>
+    <h2>5 Levers That Actually Move Your Win Rate</h2>
+    <p>Win rate is the highest-leverage number in your funnel. Five levers that move it &mdash; and the vanity tactics that don&apos;t.</p>
+    <div class="post-meta"><span>Apr 29, 2026</span><span>6 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="RevOps Systems" href="/blog/revenue-forecasting-accuracy">
+    <span class="post-tag">RevOps Systems</span>
+    <h2>Revenue Forecasting: How to Get Within 5% Every Quarter</h2>
+    <p>A forecast that swings 30% is a guess with a spreadsheet. The stage model and discipline that make revenue predictable.</p>
+    <div class="post-meta"><span>Apr 22, 2026</span><span>8 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="GTM Strategy" href="/blog/sales-territory-design">
+    <span class="post-tag">GTM Strategy</span>
+    <h2>Territory Design That Balances Fairness and Coverage</h2>
+    <p>Bad territories quietly cap your revenue and burn your best reps. How to carve territories that are fair, covered, and scalable.</p>
+    <div class="post-meta"><span>Apr 15, 2026</span><span>7 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="Sales Leadership" href="/blog/ramp-time-new-reps">
+    <span class="post-tag">Sales Leadership</span>
+    <h2>Cutting New-Rep Ramp Time in Half</h2>
+    <p>Every month of ramp is a month of carried quota you paid for and didn&apos;t get. The onboarding system that gets reps productive faster.</p>
+    <div class="post-meta"><span>Apr 8, 2026</span><span>6 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="KPIs &amp; Metrics" href="/blog/net-revenue-retention">
+    <span class="post-tag">KPIs &amp; Metrics</span>
+    <h2>Net Revenue Retention: The Metric That Predicts Your Valuation</h2>
+    <p>NRR is the number investors trust most &mdash; and the one most teams manage least. How to measure it and move it.</p>
+    <div class="post-meta"><span>Apr 1, 2026</span><span>7 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="RevOps Systems" href="/blog/sdr-to-ae-handoff">
+    <span class="post-tag">RevOps Systems</span>
+    <h2>Fixing the SDR-to-AE Handoff Where Pipeline Dies</h2>
+    <p>More qualified pipeline leaks out at the SDR-to-AE handoff than almost anywhere else. The SLA and process that plug the leak.</p>
+    <div class="post-meta"><span>Mar 25, 2026</span><span>6 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="RevOps Systems" href="/blog/sales-tech-stack-audit">
+    <span class="post-tag">RevOps Systems</span>
+    <h2>How to Audit Your Sales Tech Stack and Cut the Waste</h2>
+    <p>The average team pays for tools half the reps never open. A practical audit to cut cost and consolidate your stack.</p>
+    <div class="post-meta"><span>Mar 18, 2026</span><span>7 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="GTM Strategy" href="/blog/ideal-customer-profile">
+    <span class="post-tag">GTM Strategy</span>
+    <h2>Sharpening Your ICP to Lift Win Rates</h2>
+    <p>A fuzzy ICP is the root cause of low win rates and long cycles. How to define the accounts you should actually be chasing.</p>
+    <div class="post-meta"><span>Mar 11, 2026</span><span>6 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="Comp &amp; Quota" href="/blog/sales-comp-efficiency">
+    <span class="post-tag">Comp &amp; Quota</span>
+    <h2>Compensation Efficiency: Paying for Revenue, Not Activity</h2>
+    <p>Are you paying for outcomes or for motion? How to measure comp efficiency and fix a plan that rewards the wrong things.</p>
+    <div class="post-meta"><span>Mar 4, 2026</span><span>7 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="RevOps Systems" href="/blog/deal-desk-setup">
+    <span class="post-tag">RevOps Systems</span>
+    <h2>When and How to Stand Up a Deal Desk</h2>
+    <p>Discounting chaos and slow approvals are a sign you&apos;ve outgrown ad-hoc deals. When a deal desk pays for itself &mdash; and how to build one.</p>
+    <div class="post-meta"><span>Feb 25, 2026</span><span>6 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="Sales Leadership" href="/blog/goal-setting-optimization">
+    <span class="post-tag">Sales Leadership</span>
+    <h2>Goal-Setting Optimization: OKRs vs. KPIs for Revenue</h2>
+    <p>OKRs and KPIs are not the same tool, and confusing them wrecks focus. How to use each so your team actually moves the number.</p>
+    <div class="post-meta"><span>Feb 18, 2026</span><span>7 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="KPIs &amp; Metrics" href="/blog/sales-forecasting-methods">
+    <span class="post-tag">KPIs &amp; Metrics</span>
+    <h2>4 Sales Forecasting Methods and When to Use Each</h2>
+    <p>Pipeline, historical, multi-factor, AI &mdash; each forecasting method has a job. How to pick the right one for your stage and data.</p>
+    <div class="post-meta"><span>Feb 11, 2026</span><span>7 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="KPIs &amp; Metrics" href="/blog/churn-early-warning">
+    <span class="post-tag">KPIs &amp; Metrics</span>
+    <h2>Building a Churn Early-Warning System</h2>
+    <p>By the time a customer cancels, the churn happened months ago. The signals and scoring that let you save accounts before they leave.</p>
+    <div class="post-meta"><span>Feb 4, 2026</span><span>6 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="Sales Leadership" href="/blog/cost-of-a-bad-hire">
+    <span class="post-tag">Sales Leadership</span>
+    <h2>The Real Cost of a Bad Sales Hire</h2>
+    <p>A missed rep hire costs far more than their salary. The true fully-loaded number &mdash; and how to stop making the same hire twice.</p>
+    <div class="post-meta"><span>Jan 28, 2026</span><span>6 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="GTM Strategy" href="/blog/plg-vs-slg">
+    <span class="post-tag">GTM Strategy</span>
+    <h2>PLG vs. SLG: Choosing a Go-To-Market Motion</h2>
+    <p>Product-led and sales-led aren&apos;t a religious choice &mdash; they&apos;re a fit question. How to pick the motion your product and buyer actually want.</p>
+    <div class="post-meta"><span>Jan 21, 2026</span><span>7 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="Sales Leadership" href="/blog/board-revenue-reporting">
+    <span class="post-tag">Sales Leadership</span>
+    <h2>Revenue Reporting for the Board: What to Show</h2>
+    <p>Boards don&apos;t want your whole dashboard. The handful of revenue slides that build confidence &mdash; and what to leave out.</p>
+    <div class="post-meta"><span>Jan 14, 2026</span><span>6 min read</span></div>
+  </a>
+
+  <a class="post-card" data-cat="Fractional CRO" href="/blog/when-to-hire-fractional-cro">
+    <span class="post-tag">Fractional CRO</span>
+    <h2>5 Signs It&apos;s Time to Hire a Fractional CRO</h2>
+    <p>Stalled growth, a founder still closing every deal, a forecast that&apos;s a guess &mdash; five concrete signals it&apos;s time for fractional revenue leadership.</p>
+    <div class="post-meta"><span>Jan 7, 2026</span><span>7 min read</span></div>
+  </a>
+
+</div>
+
+<div class="cta-card" style="max-width:760px;margin:0 auto 3rem;">
+  <h3>Want this applied to your numbers?</h3>
+  <p>Get a free 30-minute revenue checkup. Tell Kory White where revenue is stuck and get the top fixes &mdash; no pitch, no obligation.</p>
+  <a href="/revenue-checkup" class="btn">Get your free revenue checkup</a>
+  <a href="/fractional-cro" class="btn btn-ghost">Hire a Fractional CRO</a>
 </div>
 
 <footer>
   <div class="footer-links">
-    <a href="https://pulserevops.com/">Home</a>
-    <a href="https://pulserevops.com/dashboard.html">Free Tools</a>
-    <a href="https://pulserevops.com/blog/">Blog</a>
-    <a href="mailto:hello@pulserevops.com">Contact</a>
+    <a href="/">Home</a>
+    <a href="/knowledge">Library</a>
+    <a href="/blog/">Blog</a>
+    <a href="/revenue-checkup">Free Revenue Checkup</a>
+    <a href="/how-tos/">How To&apos;s</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
   </div>
-  <p>© 2026 PULSE RevOps · Built by Kory White · Free RevOps Tools Online</p>
+  <p>&copy; 2026 Pulse News &middot; RevOps insights by Kory White, fractional CRO &middot; Maryland-based, working nationwide</p>
 </footer>
 
+<script>
+  (function () {
+    var chips = document.querySelectorAll('.filter-chip');
+    var cards = document.querySelectorAll('.post-card');
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        var cat = chip.getAttribute('data-cat');
+        cards.forEach(function (card) {
+          var show = cat === 'all' || card.getAttribute('data-cat') === cat;
+          card.style.display = show ? 'flex' : 'none';
+        });
+      });
+    });
+  })();
+</script>
+<script src="/js/pulse-lead-track.js" defer></script>
 <script src="/pulse-ambient.js" defer></script>
 </body>
 </html>

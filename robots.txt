@@ -3,6 +3,7 @@ Allow: /
 Sitemap: https://pulserevops.com/sitemap-index.xml
 Sitemap: https://pulserevops.com/sitemap.xml
 Sitemap: https://pulserevops.com/sitemap-howtos.xml
+Sitemap: https://pulserevops.com/sitemap-blog.xml
 Sitemap: https://pulserevops.com/sitemap-tools.xml
 Sitemap: https://pulserevops.com/sitemap-knowledge.xml
 Sitemap: https://pulserevops.com/sitemap-recent.xml

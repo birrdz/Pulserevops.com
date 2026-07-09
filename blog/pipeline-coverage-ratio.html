@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pipeline Coverage: How Much Do You Really Need? | Pulse News</title>
+  <meta name="description" content="Pipeline coverage ratio explained: why 3x is a myth, how to calculate the number you actually need from your win rate, and how to fix a thin quarter early." />
+  <meta name="author" content="Kory White" />
+  <link rel="canonical" href="https://pulserevops.com/blog/pipeline-coverage-ratio" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Pipeline Coverage: How Much Pipeline Do You Actually Need?" />
+  <meta property="og:description" content="Why 3x pipeline coverage is a lazy default, and how to calculate the ratio your win rate and sales cycle actually demand." />
+  <meta property="og:url" content="https://pulserevops.com/blog/pipeline-coverage-ratio" />
+  <meta property="og:site_name" content="Pulse News" />
+  <meta property="og:image" content="https://pulserevops.com/pulse-og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pipeline Coverage: How Much Pipeline Do You Actually Need?" />
+  <meta name="twitter:description" content="Why 3x is a myth and how to calculate the coverage ratio your numbers actually demand — from Pulse News." />
+  <meta name="twitter:image" content="https://pulserevops.com/pulse-og.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Pipeline Coverage: How Much Pipeline Do You Actually Need?",
+    "description": "Why 3x pipeline coverage is a lazy default, and how to calculate the ratio your win rate and sales cycle actually demand.",
+    "datePublished": "2026-06-24",
+    "dateModified": "2026-06-24",
+    "author": {"@type": "Person", "name": "Kory White", "url": "https://pulserevops.com/kory-white-maryland", "jobTitle": "Fractional Chief Revenue Officer"},
+    "publisher": {"@type": "Organization", "name": "Pulse News", "url": "https://pulserevops.com", "logo": {"@type": "ImageObject", "url": "https://pulserevops.com/icon-512.png"}},
+    "image": "https://pulserevops.com/pulse-og.png",
+    "mainEntityOfPage": "https://pulserevops.com/blog/pipeline-coverage-ratio"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "What is a good pipeline coverage ratio?", "acceptedAnswer": {"@type": "Answer", "text": "The right ratio is the inverse of your stage-weighted win rate, plus a buffer. If you win 25% of qualified pipeline, you need roughly 4x coverage to hit quota. Teams with a 33% win rate can run closer to 3x. The default 3x number only fits companies that happen to close about a third of their pipeline."}},
+      {"@type": "Question", "name": "How do you calculate pipeline coverage?", "acceptedAnswer": {"@type": "Answer", "text": "Divide the total value of open pipeline expected to close in the period by the quota or revenue target for that same period. $2M of qualifying pipeline against a $500K target is 4x coverage. Only count deals with a close date inside the period and clean of stale, zombie, and duplicate opportunities."}},
+      {"@type": "Question", "name": "When should you measure pipeline coverage?", "acceptedAnswer": {"@type": "Answer", "text": "Measure at the start of the period, not the middle. Coverage is a leading indicator you act on with weeks of runway. Check it against your sales cycle length: if your cycle is 90 days, the pipeline you need for Q3 has to exist by the start of Q2, so a thin number in June is a Q3 problem you can still fix."}}
+    ]
+  }
+  </script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/blog/pulse-blog.css">
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand"><img src="/icon-192.png" alt="" role="presentation">PULSE NEWS</a>
+  <div class="nav-links">
+    <a href="/revenue-checkup">Free Checkup</a>
+    <a href="/blog/">Blog</a>
+    <a href="/how-tos/">How To&apos;s</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=blog-nav" target="_blank" rel="noopener" data-pulse-click="hire-cro" class="nav-cta">Free CRO Audit</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Pipeline</p>
+  <h1>Pipeline Coverage: How Much Pipeline Do You Actually Need?</h1>
+  <p class="hero-sub">Everyone says 3x. Almost no one can tell you why. Here is how to calculate the coverage ratio your win rate and sales cycle actually demand &mdash; and how to spot a thin quarter early enough to fix it.</p>
+  <div class="hero-meta">
+    <span>By Kory White</span>
+    <span>June 24, 2026</span>
+    <span>7 min read</span>
+  </div>
+</section>
+
+<article>
+  <p>&ldquo;We need 3x pipeline&rdquo; is the most repeated and least examined rule in sales. It gets copied from company to company like folklore, applied to a 60% win rate and a 20% win rate alike, and then everyone acts surprised when the quarter comes up short. Pipeline coverage is not a vibe. It is a ratio you can derive from your own numbers, and getting it right is the difference between a forecast you trust and a forecast that&apos;s a coin flip.</p>
+  <p>The good news: the math is simple, and once you internalize it you can diagnose a coverage problem months before it shows up in closed revenue. This is one of the first things I audit as a <a href="/fractional-cro">fractional CRO</a>, because it quietly governs every hiring and forecasting decision downstream.</p>
+
+  <h2>What pipeline coverage actually measures</h2>
+  <p>Coverage is the total value of open, qualified pipeline expected to close in a period divided by the revenue target for that period. If you have $2M of pipeline landing in Q3 and a $500K quota, that&apos;s 4x coverage. It answers one question: do we have enough at-bats to hit the number, given how often we win?</p>
+  <p>The trap is treating every dollar of pipeline as equal. A deal in the first stage and a deal in verbal-commit both add to the raw total, but they are not remotely the same. That&apos;s why raw coverage lies and stage-weighted coverage tells the truth &mdash; more on that below.</p>
+
+  <h2>Why 3x is usually wrong</h2>
+  <p>The 3x rule assumes you win one in three qualified opportunities. That&apos;s a ~33% win rate. If your actual <a href="/blog/win-rate-improvement">win rate</a> is 25%, then 3x coverage mathematically guarantees you miss &mdash; you&apos;d close $500K against a $667K need. If you win 50%, 3x is bloated and you&apos;re either sandbagging or stuffing the pipeline with junk. The right number is simply the inverse of your win rate, plus a buffer for slippage:</p>
+  <div class="callout">
+    <div class="callout-title">The formula</div>
+    <p>Required coverage = (1 &divide; win rate) &times; slippage buffer. At a 25% win rate with a 1.3x buffer for deals that push or die: (1 &divide; 0.25) &times; 1.3 = <strong>5.2x</strong>. At a 40% win rate: (1 &divide; 0.40) &times; 1.3 = <strong>3.25x</strong>. Your number is yours &mdash; not the industry&apos;s.</p>
+  </div>
+
+  <h2>Stage-weight your pipeline or the number is fiction</h2>
+  <p>Raw coverage counts a $100K deal in &ldquo;discovery&rdquo; the same as one in &ldquo;contract sent.&rdquo; They should not count the same. Apply historical stage conversion rates so the total reflects real probability:</p>
+  <ul>
+    <li><strong>Discovery (15% close rate):</strong> $400K raw &rarr; $60K weighted</li>
+    <li><strong>Evaluation (35%):</strong> $300K raw &rarr; $105K weighted</li>
+    <li><strong>Proposal (60%):</strong> $250K raw &rarr; $150K weighted</li>
+    <li><strong>Negotiation (85%):</strong> $150K raw &rarr; $128K weighted</li>
+  </ul>
+  <p>That $1.1M of raw pipeline is really $443K of weighted pipeline. Against a $500K target you don&apos;t have 2.2x coverage &mdash; you have a shortfall. This is exactly the kind of thing clean <a href="/blog/crm-pipeline-hygiene">CRM pipeline hygiene</a> makes visible and a graveyard CRM hides.</p>
+
+  <h2>Coverage is a leading indicator &mdash; use the calendar</h2>
+  <p>The single biggest mistake is measuring coverage too late. Coverage only helps if you read it with enough runway to act. Tie it to your <a href="/blog/sales-cycle-length">sales cycle length</a>: if your average cycle is 90 days, the pipeline that will close in Q3 must already exist at the start of Q2. A thin coverage number in June is not a June problem &mdash; it&apos;s a September problem you can still solve with a demand-gen push, more outbound, or reallocated rep time.</p>
+  <p>Check coverage at the top of every period and again at the mid-quarter mark, per rep and per segment. One rep at 6x and another at 2x is not a &ldquo;team average&rdquo; of 4x &mdash; it&apos;s one rep about to miss badly.</p>
+
+  <div class="cta-card">
+    <h3>Not sure your coverage math holds up?</h3>
+    <p>Get a free 30-minute revenue checkup. Send me your win rate, cycle, and pipeline and I&apos;ll tell you if this quarter is already made &mdash; or already at risk. No pitch, no obligation.</p>
+    <a href="/revenue-checkup" class="btn">Get your free revenue checkup</a>
+    <a href="/hire" class="btn btn-ghost">Meet Kory</a>
+  </div>
+
+  <h2>How to fix thin coverage without stuffing the pipeline</h2>
+  <p>When coverage runs light, the wrong move is to inflate it by re-opening dead deals or lowering the qualification bar. That just moves the miss later. The right moves: pull demand-gen spend forward, redeploy reps from stalled deals to fresh outbound, tighten your <a href="/blog/lead-response-time">lead response time</a> so more inbound converts, and revisit your <a href="/revenue-architecture">revenue architecture</a> to see whether the real constraint is top-of-funnel volume or mid-funnel conversion. Real coverage comes from real at-bats, not accounting.</p>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-item">
+    <div class="faq-q">What is a good pipeline coverage ratio?</div>
+    <p class="faq-a">The right ratio is the inverse of your stage-weighted win rate, plus a buffer. If you win 25% of qualified pipeline, you need roughly 4x coverage to hit quota. Teams with a 33% win rate can run closer to 3x. The default 3x number only fits companies that happen to close about a third of their pipeline.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How do you calculate pipeline coverage?</div>
+    <p class="faq-a">Divide the total value of open pipeline expected to close in the period by the quota or revenue target for that same period. $2M of qualifying pipeline against a $500K target is 4x coverage. Only count deals with a close date inside the period and clean of stale, zombie, and duplicate opportunities.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">When should you measure pipeline coverage?</div>
+    <p class="faq-a">Measure at the start of the period, not the middle. Coverage is a leading indicator you act on with weeks of runway. Check it against your sales cycle length: if your cycle is 90 days, the pipeline you need for Q3 has to exist by the start of Q2, so a thin number in June is a Q3 problem you can still fix.</p>
+  </div>
+
+  <h2>Related reading</h2>
+  <ul>
+    <li><a href="/blog/win-rate-improvement">5 Levers That Actually Move Your Win Rate</a></li>
+    <li><a href="/blog/crm-pipeline-hygiene">CRM Pipeline Hygiene: The Silent Revenue Killer</a></li>
+    <li><a href="/blog/revenue-forecasting-accuracy">Revenue Forecasting: How to Get Within 5% Every Quarter</a></li>
+  </ul>
+</article>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/knowledge">Library</a>
+    <a href="/blog/">Blog</a>
+    <a href="/revenue-checkup">Free Revenue Checkup</a>
+    <a href="/how-tos/">How To&apos;s</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </div>
+  <p>&copy; 2026 Pulse News &middot; RevOps insights by Kory White, fractional CRO &middot; Maryland-based, working nationwide</p>
+</footer>
+
+<script src="/js/pulse-lead-track.js" defer></script>
+<script src="/pulse-ambient.js" defer></script>
+</body>
+</html>
