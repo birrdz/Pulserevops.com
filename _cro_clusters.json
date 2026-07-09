@@ -1,0 +1,1021 @@
+{
+ "totalNearDupEntries": 346,
+ "totalClusters": 71,
+ "bigGroups": 11,
+ "pairs": 60,
+ "clusters": [
+  {
+   "size": 102,
+   "ids": [
+    "tl14009",
+    "tl14014",
+    "tl14017",
+    "tl14020",
+    "tl14023",
+    "tl14026",
+    "tl14029",
+    "tl14032",
+    "tl14035",
+    "tl14038",
+    "tl14041",
+    "tl14044",
+    "tl14047",
+    "tl14050",
+    "tl14053",
+    "tl14056",
+    "tl14059",
+    "tl14062",
+    "tl14065",
+    "tl14068",
+    "tl14070",
+    "tl14073",
+    "tl14075",
+    "tl14078",
+    "tl14081",
+    "tl14084",
+    "tl14087",
+    "tl14090",
+    "tl14093",
+    "tl14096",
+    "tl14098",
+    "tl14101",
+    "tl14104",
+    "tl14107",
+    "tl14110",
+    "tl14113",
+    "tl14116",
+    "tl14119",
+    "tl14122",
+    "tl14125",
+    "tl14128",
+    "tl14131",
+    "tl14134",
+    "tl14137",
+    "tl14140",
+    "tl14142",
+    "tl14145",
+    "tl14148",
+    "tl14154",
+    "tl14157",
+    "tl14160",
+    "tl14163",
+    "tl14166",
+    "tl14169",
+    "tl14172",
+    "tl14175",
+    "tl14178",
+    "tl14181",
+    "tl14184",
+    "tl14187",
+    "tl14190",
+    "tl14193",
+    "tl14196",
+    "tl14199",
+    "tl14202",
+    "tl14205",
+    "tl14208",
+    "tl14211",
+    "tl14214",
+    "tl14216",
+    "tl14218",
+    "tl14221",
+    "tl14223",
+    "tl14225",
+    "tl14228",
+    "tl14231",
+    "tl14234",
+    "tl14237",
+    "tl14240",
+    "tl14243",
+    "tl14246",
+    "tl14249",
+    "tl14252",
+    "tl14255",
+    "tl14258",
+    "tl14261",
+    "tl14264",
+    "tl14267",
+    "tl14270",
+    "tl14273",
+    "tl14276",
+    "tl14279",
+    "tl14282",
+    "tl14285",
+    "tl14288",
+    "tl14291",
+    "tl14294",
+    "tl14297",
+    "tl14300",
+    "tl14303",
+    "tl14304",
+    "tl14305"
+   ],
+   "sample": [
+    "tl14009: ",
+    "tl14014: ",
+    "tl14017: ",
+    "tl14020: ",
+    "tl14023: ",
+    "tl14026: "
+   ]
+  },
+  {
+   "size": 76,
+   "ids": [
+    "q10650",
+    "q10587",
+    "q10649",
+    "q10647",
+    "q10644",
+    "q10642",
+    "q10641",
+    "q10636",
+    "q10634",
+    "q10633",
+    "q10628",
+    "q10625",
+    "q10624",
+    "q10620",
+    "q10619",
+    "q10618",
+    "q10617",
+    "q10616",
+    "q10615",
+    "q10614",
+    "q10612",
+    "q10611",
+    "q10610",
+    "q10609",
+    "q10608",
+    "q10607",
+    "q10606",
+    "q10604",
+    "q10603",
+    "q10602",
+    "q10601",
+    "q10600",
+    "q10599",
+    "q10598",
+    "q10596",
+    "q10594",
+    "q10592",
+    "q10590",
+    "q10588",
+    "q10583",
+    "q10584",
+    "q10580",
+    "q10579",
+    "q10578",
+    "q10576",
+    "q10575",
+    "q10572",
+    "q10571",
+    "q10569",
+    "q10568",
+    "q10566",
+    "q10565",
+    "q10563",
+    "q10556",
+    "q10555",
+    "q10554",
+    "q10553",
+    "q10552",
+    "q10551",
+    "q10550",
+    "q10549",
+    "q10548",
+    "q10547",
+    "q10546",
+    "q10545",
+    "q10544",
+    "q10543",
+    "q10542",
+    "q10541",
+    "q10540",
+    "q9757",
+    "q9755",
+    "q9754",
+    "q9751",
+    "q9750",
+    "q9749"
+   ],
+   "sample": [
+    "q10650: How do you have a part-time revenue leader rebuild forecast ",
+    "q10587: How do you decide if a fractional Chief Revenue Officer is r",
+    "q10649: How do you decide if a full-time Chief Revenue Officer is ri",
+    "q10647: How do you help a first enterprise motion leadership team co",
+    "q10644: How do you decide if a part-time revenue leader is right for",
+    "q10642: How do you decide if a full-time Chief Revenue Officer is ri"
+   ]
+  },
+  {
+   "size": 11,
+   "ids": [
+    "q10645",
+    "q10581",
+    "q10640",
+    "q10589",
+    "q10585",
+    "q10573",
+    "q10577",
+    "q10570",
+    "q10567",
+    "q10564",
+    "q10557"
+   ],
+   "sample": [
+    "q10645: How do you decide if a CRO advisory before a full-time hire ",
+    "q10581: How do you decide if a CRO advisory before a full-time hire ",
+    "q10640: How do you decide if a CRO advisory before a full-time hire ",
+    "q10589: How do you decide if a CRO advisory before a full-time hire ",
+    "q10585: How do you decide if a CRO advisory before a full-time hire ",
+    "q10573: How do you decide if a CRO advisory before a full-time hire "
+   ]
+  },
+  {
+   "size": 10,
+   "ids": [
+    "q10638",
+    "q10632",
+    "q10637",
+    "q10630",
+    "q10629",
+    "q10627",
+    "q10626",
+    "q10623",
+    "q10621",
+    "q10539"
+   ],
+   "sample": [
+    "q10638: How do you decide if a fractional CRO is right for a first e",
+    "q10632: How do you decide if a fractional CRO is right for a first e",
+    "q10637: How do you decide if a fractional CRO is right for a first e",
+    "q10630: How do you decide if a fractional CRO is right for a first e",
+    "q10629: How do you decide if a fractional CRO is right for a founder",
+    "q10627: How do you decide if a fractional CRO is right for a founder"
+   ]
+  },
+  {
+   "size": 7,
+   "ids": [
+    "q10631",
+    "q10622",
+    "q10605",
+    "q10561",
+    "q10560",
+    "q10559",
+    "q10558"
+   ],
+   "sample": [
+    "q10631: How do you decide if a fractional CRO is right for a first e",
+    "q10622: How do you decide if a fractional CRO is right for a founder",
+    "q10605: How do you decide if a full-time CRO is right for a PE-backe",
+    "q10561: How do you decide if a CRO advisory before a full-time hire ",
+    "q10560: How do you decide if a part-time revenue leader is right for",
+    "q10559: How do you decide if a fractional Chief Revenue Officer is r"
+   ]
+  },
+  {
+   "size": 4,
+   "ids": [
+    "st0614",
+    "st0611",
+    "st0613",
+    "st0612"
+   ],
+   "sample": [
+    "st0614: Top 10 VP of Sales facilitator guides for 2027",
+    "st0611: Top 10 VP of Sales training drills for 2027",
+    "st0613: Top 10 VP of Sales workshop agendas for 2027",
+    "st0612: Top 10 VP of Sales role-play scenarios for 2027"
+   ]
+  },
+  {
+   "size": 4,
+   "ids": [
+    "q10586",
+    "q10574",
+    "q10582",
+    "q10562"
+   ],
+   "sample": [
+    "q10586: How do you decide if a fractional CRO is right for a Series ",
+    "q10574: How do you decide if a fractional CRO is right for a Series ",
+    "q10582: How do you decide if a fractional CRO is right for a Series ",
+    "q10562: How do you decide if a fractional CRO is right for a Series "
+   ]
+  },
+  {
+   "size": 3,
+   "ids": [
+    "q10648",
+    "q10635",
+    "q10639"
+   ],
+   "sample": [
+    "q10648: How do you decide if a fractional Chief Revenue Officer is r",
+    "q10635: How do you decide if a fractional Chief Revenue Officer is r",
+    "q10639: How do you decide if a CRO advisory before a full-time hire "
+   ]
+  },
+  {
+   "size": 3,
+   "ids": [
+    "q10597",
+    "q10595",
+    "q10593"
+   ],
+   "sample": [
+    "q10597: How do you decide if a fractional Chief Revenue Officer is r",
+    "q10595: How do you decide if a fractional Chief Revenue Officer is r",
+    "q10593: How do you decide if a fractional Chief Revenue Officer is r"
+   ]
+  },
+  {
+   "size": 3,
+   "ids": [
+    "tl9638",
+    "tl9640",
+    "tl9642"
+   ],
+   "sample": [
+    "tl9638: ",
+    "tl9640: ",
+    "tl9642: "
+   ]
+  },
+  {
+   "size": 3,
+   "ids": [
+    "tl9639",
+    "tl9641",
+    "tl9643"
+   ],
+   "sample": [
+    "tl9639: ",
+    "tl9641: ",
+    "tl9643: "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0380",
+    "q16118"
+   ],
+   "sample": [
+    "ed0380: Should I Hire a Fractional CRO If My Forecast and Actuals Ne",
+    "q16118: Should I Hire a Fractional CRO If My Forecast and Actuals Ne"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0381",
+    "q16117"
+   ],
+   "sample": [
+    "ed0381: Should I Hire a Fractional CRO If I Want a Revenue Audit Bef",
+    "q16117: Should I Hire a Fractional CRO If I Want a Revenue Audit Bef"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0387",
+    "q16111"
+   ],
+   "sample": [
+    "ed0387: Should I Hire a Fractional CRO If I Need to Rebuild Trust Af",
+    "q16111: Should I Hire a Fractional CRO If I Need to Rebuild Trust Af"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0389",
+    "q16109"
+   ],
+   "sample": [
+    "ed0389: Should I Hire a Fractional CRO If I Am a PE Operating Partne",
+    "q16109: Should I Hire a Fractional CRO If I Am a PE Operating Partne"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0391",
+    "q16107"
+   ],
+   "sample": [
+    "ed0391: Should I Hire a Fractional CRO If My Deals Close Then Churn ",
+    "q16107: Should I Hire a Fractional CRO If My Deals Close Then Churn "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0393",
+    "q16105"
+   ],
+   "sample": [
+    "ed0393: Should I Hire a Fractional CRO If I Am Hiring My First Sales",
+    "q16105: Should I Hire a Fractional CRO If I Am Hiring My First Sales"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0396",
+    "q16102"
+   ],
+   "sample": [
+    "ed0396: Should I Hire a Fractional CRO If My Pipeline Is All Late-St",
+    "q16102: Should I Hire a Fractional CRO If My Pipeline Is All Late-St"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0398",
+    "q16100"
+   ],
+   "sample": [
+    "ed0398: Should I Hire a Fractional CRO If I Need a 30-60-90 Plan Bef",
+    "q16100: Should I Hire a Fractional CRO If I Need a 30-60-90 Plan Bef"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0401",
+    "q16097"
+   ],
+   "sample": [
+    "ed0401: Should I Hire a Fractional CRO If I Am Spinning Out a Busine",
+    "q16097: Should I Hire a Fractional CRO If I Am Spinning Out a Busine"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0403",
+    "q16095"
+   ],
+   "sample": [
+    "ed0403: Should I Hire a Fractional CRO If I Want to Add a Self-Serve",
+    "q16095: Should I Hire a Fractional CRO If I Want to Add a Self-Serve"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0405",
+    "q16093"
+   ],
+   "sample": [
+    "ed0405: Should I Hire a Fractional CRO If I Am Preparing for a Recap",
+    "q16093: Should I Hire a Fractional CRO If I Am Preparing for a Recap"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0407",
+    "q16091"
+   ],
+   "sample": [
+    "ed0407: Should I Hire a Fractional CRO If I Have No Sales Enablement",
+    "q16091: Should I Hire a Fractional CRO If I Have No Sales Enablement"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0408",
+    "q16090"
+   ],
+   "sample": [
+    "ed0408: Should I Hire a Fractional CRO If My Reps Will Not Adopt the",
+    "q16090: Should I Hire a Fractional CRO If My Reps Will Not Adopt the"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0409",
+    "q16089"
+   ],
+   "sample": [
+    "ed0409: Should I Hire a Fractional CRO If I Need to Build a Partner ",
+    "q16089: Should I Hire a Fractional CRO If I Need to Build a Partner "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0410",
+    "q16088"
+   ],
+   "sample": [
+    "ed0410: Should I Hire a Fractional CRO If I Am Moving Upmarket and D",
+    "q16088: Should I Hire a Fractional CRO If I Am Moving Upmarket and D"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0415",
+    "q16083"
+   ],
+   "sample": [
+    "ed0415: Should I Hire a Fractional CRO If I Am Launching Outbound fo",
+    "q16083: Should I Hire a Fractional CRO If I Am Launching Outbound fo"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0417",
+    "q16081"
+   ],
+   "sample": [
+    "ed0417: Should I Hire a Fractional CRO If My CAC Is Rising Every Qua",
+    "q16081: Should I Hire a Fractional CRO If My CAC Is Rising Every Qua"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0418",
+    "q16080"
+   ],
+   "sample": [
+    "ed0418: Should I Hire a Fractional CRO If I Am Consolidating Regiona",
+    "q16080: Should I Hire a Fractional CRO If I Am Consolidating Regiona"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0419",
+    "q16079"
+   ],
+   "sample": [
+    "ed0419: Should I Hire a Fractional CRO If I Need to Enter a New Vert",
+    "q16079: Should I Hire a Fractional CRO If I Need to Enter a New Vert"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0421",
+    "q16077"
+   ],
+   "sample": [
+    "ed0421: Should I Hire a Fractional CRO If I Am a Technical Founder W",
+    "q16077: Should I Hire a Fractional CRO If I Am a Technical Founder W"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0423",
+    "q16075"
+   ],
+   "sample": [
+    "ed0423: Should I Hire a Fractional CRO If I Cannot Hire a Great Full",
+    "q16075: Should I Hire a Fractional CRO If I Cannot Hire a Great Full"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0580",
+    "q15918"
+   ],
+   "sample": [
+    "ed0580: Should I Hire a Fractional CRO If I Am Preparing My Revenue ",
+    "q15918: Should I Hire a Fractional CRO If I Am Preparing My Revenue "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0583",
+    "q15915"
+   ],
+   "sample": [
+    "ed0583: Should I Hire a Fractional CRO If I Need to Fix Broken Lead ",
+    "q15915: Should I Hire a Fractional CRO If I Need to Fix Broken Lead "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0591",
+    "q15907"
+   ],
+   "sample": [
+    "ed0591: Should I Hire a Fractional CRO If My Nonprofit Is Building a",
+    "q15907: Should I Hire a Fractional CRO If My Nonprofit Is Building a"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0598",
+    "q15900"
+   ],
+   "sample": [
+    "ed0598: Should I Hire a Fractional CRO If My Win Rates Are Dropping ",
+    "q15900: Should I Hire a Fractional CRO If My Win Rates Are Dropping "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0603",
+    "q15895"
+   ],
+   "sample": [
+    "ed0603: Should I Hire a Fractional CRO If I Just Hit 20 Million in A",
+    "q15895: Should I Hire a Fractional CRO If I Just Hit 20 Million in A"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0605",
+    "q15893"
+   ],
+   "sample": [
+    "ed0605: Should I Hire a Fractional CRO If I Am Prepping for an Exit ",
+    "q15893: Should I Hire a Fractional CRO If I Am Prepping for an Exit "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0615",
+    "q15883"
+   ],
+   "sample": [
+    "ed0615: Should I Hire a Fractional CRO If We Are Integrating Two Sal",
+    "q15883: Should I Hire a Fractional CRO If We Are Integrating Two Sal"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0826",
+    "q15670"
+   ],
+   "sample": [
+    "ed0826: Do I Need a Fractional CRO for My Construction Company?",
+    "q15670: Do I Need a Fractional CRO for My Construction Company?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0835",
+    "q15661"
+   ],
+   "sample": [
+    "ed0835: Do I Need a Fractional CRO for My Marketing Agency?",
+    "q15661: Do I Need a Fractional CRO for My Marketing Agency?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0836",
+    "q15660"
+   ],
+   "sample": [
+    "ed0836: Do I Need a Fractional CRO for My Medical Device Company?",
+    "q15660: Do I Need a Fractional CRO for My Medical Device Company?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0838",
+    "q15658"
+   ],
+   "sample": [
+    "ed0838: Do I Need a Fractional CRO for My Staffing Agency?",
+    "q15658: Do I Need a Fractional CRO for My Staffing Agency?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0839",
+    "q15657"
+   ],
+   "sample": [
+    "ed0839: Do I Need a Fractional CRO for My Solar Company?",
+    "q15657: Do I Need a Fractional CRO for My Solar Company?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0843",
+    "q15653"
+   ],
+   "sample": [
+    "ed0843: Do I Need a Fractional CRO for My Manufacturing Company?",
+    "q15653: Do I Need a Fractional CRO for My Manufacturing Company?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0845",
+    "q15651"
+   ],
+   "sample": [
+    "ed0845: Do I Need a Fractional CRO for My SaaS Company?",
+    "q15651: Do I Need a Fractional CRO for My SaaS Company?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0846",
+    "q15650"
+   ],
+   "sample": [
+    "ed0846: What Is the Difference Between a Fractional CRO and a Fracti",
+    "q15650: What Is the Difference Between a Fractional CRO and a Fracti"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0851",
+    "q15645"
+   ],
+   "sample": [
+    "ed0851: Should I Hire a Fractional CRO Before or After a Funding Rou",
+    "q15645: Should I Hire a Fractional CRO Before or After a Funding Rou"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "q15642",
+    "tl0121"
+   ],
+   "sample": [
+    "q15642: How Do I Get Affordable Revenue Leadership Without a Full-Ti",
+    "tl0121: How Do I Get Affordable Revenue Leadership Without a Full-Ti"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0856",
+    "q15640"
+   ],
+   "sample": [
+    "ed0856: How Does a Fractional CRO Improve Sales Forecasting?",
+    "q15640: How Does a Fractional CRO Improve Sales Forecasting?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0857",
+    "q15639"
+   ],
+   "sample": [
+    "ed0857: How Does a Fractional CRO Build a Compensation Plan?",
+    "q15639: How Does a Fractional CRO Build a Compensation Plan?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0858",
+    "q15638"
+   ],
+   "sample": [
+    "ed0858: What Is the Difference Between a Fractional CRO and a Fracti",
+    "q15638: What Is the Difference Between a Fractional CRO and a Fracti"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0859",
+    "q15637"
+   ],
+   "sample": [
+    "ed0859: Do I Need a Fractional CRO or a Sales Manager?",
+    "q15637: Do I Need a Fractional CRO or a Sales Manager?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0864",
+    "q15632"
+   ],
+   "sample": [
+    "ed0864: How Do I Know If My Business Is Ready for a Fractional CRO?",
+    "q15632: How Do I Know If My Business Is Ready for a Fractional CRO?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0865",
+    "q15631"
+   ],
+   "sample": [
+    "ed0865: What ROI Should I Expect From a Fractional CRO?",
+    "q15631: What ROI Should I Expect From a Fractional CRO?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0869",
+    "q15627"
+   ],
+   "sample": [
+    "ed0869: When Should a Startup Hire a Fractional CRO?",
+    "q15627: When Should a Startup Hire a Fractional CRO?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0872",
+    "q15624"
+   ],
+   "sample": [
+    "ed0872: Do I Need a Full-Time or Part-Time Fractional CRO?",
+    "q15624: Do I Need a Full-Time or Part-Time Fractional CRO?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0873",
+    "q15623"
+   ],
+   "sample": [
+    "ed0873: How Much Does a Fractional CRO Cost?",
+    "q15623: How Much Does a Fractional CRO Cost?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "ed0874",
+    "q15622"
+   ],
+   "sample": [
+    "ed0874: How Do I Know If I Need a Fractional CRO?",
+    "q15622: How Do I Know If I Need a Fractional CRO?"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "q10646",
+    "q10643"
+   ],
+   "sample": [
+    "q10646: How do you decide if a interim Chief Revenue Officer is righ",
+    "q10643: How do you decide if a part-time revenue leader is right for"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "q10613",
+    "q10591"
+   ],
+   "sample": [
+    "q10613: How do you decide if a interim CRO is right for a bootstrapp",
+    "q10591: How do you decide if a interim CRO is right for a post-merge"
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "tl9473",
+    "tl9485"
+   ],
+   "sample": [
+    "tl9473: ",
+    "tl9485: "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "tl9475",
+    "tl9483"
+   ],
+   "sample": [
+    "tl9475: ",
+    "tl9483: "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "tl9594",
+    "tl9598"
+   ],
+   "sample": [
+    "tl9594: ",
+    "tl9598: "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "tl9595",
+    "tl9599"
+   ],
+   "sample": [
+    "tl9595: ",
+    "tl9599: "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "tl9596",
+    "tl9600"
+   ],
+   "sample": [
+    "tl9596: ",
+    "tl9600: "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "tl9597",
+    "tl9601"
+   ],
+   "sample": [
+    "tl9597: ",
+    "tl9601: "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "tl9612",
+    "tl9614"
+   ],
+   "sample": [
+    "tl9612: ",
+    "tl9614: "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "tl9626",
+    "tl9628"
+   ],
+   "sample": [
+    "tl9626: ",
+    "tl9628: "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "tl9646",
+    "tl9648"
+   ],
+   "sample": [
+    "tl9646: ",
+    "tl9648: "
+   ]
+  },
+  {
+   "size": 2,
+   "ids": [
+    "tl9647",
+    "tl9649"
+   ],
+   "sample": [
+    "tl9647: ",
+    "tl9649: "
+   ]
+  }
+ ]
+}
