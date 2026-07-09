@@ -36,3 +36,7 @@ _run_current.txt
 _fcro_sim_progress.txt
 _fcro_batch_progress.txt
 _fcro_scan_progress.txt
+_run_status.json
+_cro_minicert/
+_cro_minicert.log
+_run_dashboard_server.log

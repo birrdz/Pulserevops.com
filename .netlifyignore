@@ -55,3 +55,10 @@ _smallest_pillar*.json
 _perf_stats.json
 _perf_telemetry.jsonl
 _all_flux_cooldown.json
+_run_dashboard.html
+_run_dashboard_server.js
+run_status.json
+_run_status.json
+_cro_minicert/
+_cro_minicert.log
+_run_dashboard_server.log

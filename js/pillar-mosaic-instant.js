@@ -11,10 +11,10 @@
       + 'html.pillar-mosaic-instant .statusbar,html.pillar-mosaic-instant .footer,html.pillar-mosaic-instant #hub-recent,'
       + 'html.pillar-mosaic-instant #hub-results-bar,html.pillar-mosaic-instant #mos-head{display:none!important}'
       + 'html.pillar-mosaic-instant body{background:#0a0806!important;color:#fff!important;margin:0}'
-      + 'html.pillar-mosaic-instant .grid-wrap{max-width:1080px!important;margin-left:auto!important;margin-right:auto!important;padding:0 clamp(10px,2vw,24px) 48px!important;margin-top:0!important}'
+      + 'html.pillar-mosaic-instant .grid-wrap{max-width:none!important;width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important;padding:0 0 48px!important;margin-top:0!important}'
       + 'html.pillar-mosaic-instant .loading,html.pillar-mosaic-instant .pulse-logo,html.pillar-mosaic-instant .pulse-skeleton{display:none!important}'
       + 'html.pillar-mosaic-instant .grid,html.pillar-mosaic-instant [data-pulse-home-mosaic],html.pillar-mosaic-instant #magMosaic{min-height:55vh;background:transparent!important;transition:opacity .28s ease,transform .28s ease}'
-      + 'html.pillar-mosaic-instant .grid.mag-mosaic,html.pillar-mosaic-instant .grid.pulse-home-mosaic{display:grid!important;grid-template-columns:repeat(4,1fr)!important;grid-auto-rows:150px!important;gap:12px!important;grid-auto-flow:dense!important}'
+      + 'html.pillar-mosaic-instant .grid.mag-mosaic,html.pillar-mosaic-instant .grid.pulse-home-mosaic{display:block!important;width:100vw!important;max-width:none!important;margin:0!important;padding:0!important}'
       + 'html.pillar-mosaic-instant.pillar-spa-busy .grid,html.pillar-mosaic-instant.pillar-spa-busy [data-pulse-home-mosaic],html.pillar-mosaic-instant.pillar-spa-busy #magMosaic{pointer-events:none}';
     (document.head || document.documentElement).appendChild(s);
   }
