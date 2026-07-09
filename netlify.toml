@@ -226,6 +226,11 @@
   status = 200
 
 [[redirects]]
+  from = "/revenue-checkup"
+  to = "/revenue-checkup-request.html"
+  status = 200
+
+[[redirects]]
   from = "/search"
   to = "/search.html"
   status = 200

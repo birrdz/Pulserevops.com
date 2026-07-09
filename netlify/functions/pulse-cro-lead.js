@@ -13,20 +13,24 @@ exports.handler=async(event)=>{
   let b={}; try{ b=JSON.parse(event.body||'{}'); }catch(e){ return json(400,{ok:false,reason:'bad json'}); }
   const name=String(b.name||'').slice(0,120).trim();
   const email=String(b.email||'').slice(0,160).trim();
+  const phone=String(b.phone||'').slice(0,60).trim();
   const company=String(b.company||'').slice(0,160).trim();
   const message=String(b.message||'').slice(0,2000).trim();
   const page=String(b.page||'').slice(0,300);
-  if(!name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json(400,{ok:false,reason:'name and valid email required'});
+  // Low-friction: accept the lead as long as there's a way to reach them (email OR phone). Name optional.
+  const emailOk = email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+  if(!emailOk && !phone) return json(400,{ok:false,reason:'email or phone required'});
 
   // store the lead (best-effort)
-  try{ const s=store(); if(s){ await s.setJSON('cro-leads/'+Date.now()+'.json',{name,email,company,message,page,ts:Date.now()}); } }catch(e){}
+  try{ const s=store(); if(s){ await s.setJSON('cro-leads/'+Date.now()+'.json',{name,email,phone,company,message,page,ts:Date.now()}); } }catch(e){}
   try{ await require('./_stats').bump({leads:1}); }catch(e){}
 
   const subject=`🟢 Fractional CRO lead: ${name}${company?(' ('+company+')'):''}`;
   const html=`<div style="font-family:system-ui,sans-serif;font-size:15px;line-height:1.6;color:#171E14">
     <h2 style="color:#8E1B1B;margin:0 0 10px">New fractional CRO lead</h2>
-    <p><strong>Name:</strong> ${esc(name)}<br>
-    <strong>Email:</strong> <a href="mailto:${esc(email)}">${esc(email)}</a><br>
+    <p><strong>Name:</strong> ${esc(name)||'(not given)'}<br>
+    <strong>Email:</strong> ${email?('<a href="mailto:'+esc(email)+'">'+esc(email)+'</a>'):'(not given)'}<br>
+    <strong>Phone:</strong> ${esc(phone)||'(not given)'}<br>
     <strong>Company:</strong> ${esc(company)||'(not given)'}<br>
     <strong>From page:</strong> ${esc(page)||'(n/a)'}<br>
     <strong>Time:</strong> ${new Date().toUTCString()}</p>
@@ -38,11 +42,11 @@ exports.handler=async(event)=>{
   const fromEmail=process.env.ALERT_FROM_EMAIL||process.env.alert_from_email||'onboarding@resend.dev';
   try{
     if(pmToken){
-      const r=await fetch('https://api.postmarkapp.com/email',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json','X-Postmark-Server-Token':pmToken},body:JSON.stringify({From:fromEmail,To:RECIPIENT,ReplyTo:email,Subject:subject,HtmlBody:html,MessageStream:'outbound'})});
+      const r=await fetch('https://api.postmarkapp.com/email',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json','X-Postmark-Server-Token':pmToken},body:JSON.stringify({From:fromEmail,To:RECIPIENT,ReplyTo:(email||RECIPIENT),Subject:subject,HtmlBody:html,MessageStream:'outbound'})});
       return json(200,{ok:r.ok,provider:'postmark'});
     }
     if(resendKey){
-      const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+resendKey,'Content-Type':'application/json'},body:JSON.stringify({from:fromEmail,to:[RECIPIENT],reply_to:email,subject,html})});
+      const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+resendKey,'Content-Type':'application/json'},body:JSON.stringify({from:fromEmail,to:[RECIPIENT],reply_to:(email||RECIPIENT),subject,html})});
       return json(200,{ok:r.ok,provider:'resend'});
     }
     return json(200,{ok:true,stored:true,reason:'no mail provider — lead stored'});

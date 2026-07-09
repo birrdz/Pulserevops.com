@@ -55,21 +55,21 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #111518; --surface: #1A2025; --surface2: #242C32;
-      --accent: #E8710A; --accent2: #FF8C1A;
-      --text: #e2e8f0; --muted: #94a3b8;
-      --border: rgba(255,255,255,0.08); --max: 760px;
+      --bg: #EBE9DE; --surface: #ffffff; --surface2: #F5F1E6;
+      --accent: #A97C1E; --accent2: #D3AD57;
+      --text: #20241d; --muted: #6b6f64;
+      --border: rgba(20,16,8,0.12); --max: 760px;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; font-size: 1rem; }
-    nav { position: sticky; top: 0; z-index: 100; background: rgba(17,21,24,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
     .nav-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; text-transform: uppercase; }
     .nav-links { display: flex; gap: 1.5rem; align-items: center; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
     .nav-cta { background: var(--accent); color: #fff !important; padding: 6px 14px; border-radius: 6px; }
     .nav-cta:hover { background: var(--accent2) !important; }
-    .hero { background: linear-gradient(135deg, #1A2025 0%, #111518 60%); border-bottom: 1px solid var(--border); padding: 3.5rem 1.5rem 3rem; text-align: center; }
+    .hero { background: linear-gradient(160deg, #ffffff 0%, #EBE9DE 75%); border-bottom: 1px solid var(--border); padding: 3.5rem 1.5rem 3rem; text-align: center; }
     .hero-eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
     .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.2; max-width: 720px; margin: 0 auto 1rem; }
     .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 1.75rem; }
@@ -80,8 +80,8 @@
     article p { margin-bottom: 1.1rem; color: var(--text); }
     article ul, article ol { margin: 0.5rem 0 1.1rem 1.5rem; color: var(--text); }
     article li { margin-bottom: 0.45rem; }
-    article strong { color: #f8fafc; }
-    article a { color: var(--accent2); text-decoration: none; border-bottom: 1px solid rgba(251,146,60,0.3); transition: border-color 0.2s; }
+    article strong { color: #111418; }
+    article a { color: var(--accent2); text-decoration: none; border-bottom: 1px solid rgba(169,124,30,0.30); transition: border-color 0.2s; }
     article a:hover { border-color: var(--accent2); }
     .callout { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
     .callout-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
@@ -101,12 +101,12 @@
     .btn { display: inline-block; background: var(--accent); color: #fff; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.04em; border-bottom: none; transition: background 0.2s, transform 0.15s; margin: 0.25rem; }
     .btn:hover { background: var(--accent2); transform: translateY(-1px); border-bottom: none; }
     .btn-ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
-    .btn-ghost:hover { background: rgba(232,113,10,0.1); }
+    .btn-ghost:hover { background: rgba(169,124,30,0.10); }
     /* NEWS FEED */
     .news-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
     .news-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
     .news-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
-    .news-badge { font-size: 0.62rem; font-weight: 700; background: rgba(232,113,10,0.15); color: var(--accent); border: 1px solid rgba(232,113,10,0.3); border-radius: 20px; padding: 2px 8px; letter-spacing: 0.08em; }
+    .news-badge { font-size: 0.62rem; font-weight: 700; background: rgba(169,124,30,0.14); color: var(--accent); border: 1px solid rgba(169,124,30,0.35); border-radius: 20px; padding: 2px 8px; letter-spacing: 0.08em; }
     #news-feed { list-style: none; margin: 0; padding: 0; }
     #news-feed li { border-bottom: 1px solid var(--border); padding: 0.75rem 0; }
     #news-feed li:last-child { border-bottom: none; padding-bottom: 0; }
@@ -124,9 +124,9 @@
 <body>
 
 <nav>
-  <a href="../" class="nav-brand">PULSE</a>
+  <a href="../" class="nav-brand"><img src="/icon-192.png" alt="" style="height:26px;width:26px;border-radius:6px;vertical-align:middle;margin-right:8px;">PULSE NEWS</a>
   <div class="nav-links">
-    <a href="../dashboard.html">Dashboard</a>
+    <a href="/revenue-checkup">Free Checkup</a>
     <a href="../blog/">Blog</a>
     <a href="./">How To&apos;s</a>
     <a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=howtos-nav" target="_blank" rel="noopener" data-pulse-click="hire-cro" class="nav-cta">Free CRO Audit</a>
@@ -145,6 +145,49 @@
 </section>
 
 <article>
+
+    <h2>Typical Things We Look At</h2>
+  <p>A few of the visuals a revenue checkup can surface &mdash; illustrative examples, not a self-serve tool, and the actual mix depends on your business. See one that would help? <a href="/revenue-checkup">Tell us where you're stuck</a> and Kory takes it from there.</p>
+  <style>
+    .vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin:1.5rem 0 .5rem}
+    .vtile{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform .15s,box-shadow .15s,border-color .15s;border-bottom:1px solid var(--border)}
+    .vtile:hover{transform:translateY(-3px);box-shadow:0 14px 30px -16px rgba(90,66,10,.5);border-color:var(--accent2)}
+    .vthumb{aspect-ratio:16/9;background:linear-gradient(160deg,#fffdf7,#F1EAD8);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);color:var(--accent)}
+    .vthumb svg{width:78%;height:78%}
+    .vbody{padding:.85rem 1rem 1rem}
+    .vlabel{font-weight:800;color:var(--text);font-size:1rem;margin-bottom:.15rem}
+    .vdesc{color:var(--muted);font-size:.85rem;line-height:1.45}
+    .vtile .go{display:inline-block;margin-top:.5rem;font-size:.78rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+  </style>
+  <div class="vgrid">
+    <a class="vtile" href="/revenue-checkup" data-pulse-click="hire-cro">
+      <div class="vthumb"><svg viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="52" x2="92" y2="52"/><rect x="18" y="30" width="9" height="22" fill="currentColor" stroke="none"/><rect x="34" y="20" width="9" height="32" fill="currentColor" stroke="none"/><rect x="50" y="34" width="9" height="18" fill="currentColor" stroke="none"/><rect x="66" y="12" width="9" height="40" fill="currentColor" stroke="none"/></svg></div>
+      <div class="vbody"><div class="vlabel">Which KPIs to track</div><div class="vdesc">The handful that actually predict revenue in your business &mdash; not vanity metrics.</div><span class="go">Explore &rarr;</span></div>
+    </a>
+    <a class="vtile" href="/revenue-checkup" data-pulse-click="hire-cro">
+      <div class="vthumb"><svg viewBox="0 0 100 60" fill="currentColor"><rect x="14" y="10" width="72" height="8" rx="2"/><rect x="22" y="24" width="56" height="8" rx="2"/><rect x="30" y="38" width="40" height="8" rx="2"/><rect x="40" y="50" width="20" height="7" rx="2"/></svg></div>
+      <div class="vbody"><div class="vlabel">CRM &amp; pipeline hygiene</div><div class="vdesc">Clean stages, real close dates, and a funnel you can actually forecast from.</div><span class="go">Explore &rarr;</span></div>
+    </a>
+    <a class="vtile" href="/revenue-checkup" data-pulse-click="hire-cro">
+      <div class="vthumb"><svg viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="7"><circle cx="50" cy="32" r="20" stroke="rgba(169,124,30,.25)"/><path d="M50 12 a20 20 0 0 1 17 30" stroke="currentColor" stroke-linecap="round"/><text x="50" y="37" font-size="13" font-weight="800" fill="currentColor" stroke="none" text-anchor="middle" font-family="system-ui">%</text></svg></div>
+      <div class="vbody"><div class="vlabel">Compensation efficiency</div><div class="vdesc">A comp plan that pays for the behavior your strategy needs right now.</div><span class="go">Explore &rarr;</span></div>
+    </a>
+    <a class="vtile" href="/revenue-checkup" data-pulse-click="hire-cro">
+      <div class="vthumb"><svg viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="4"><circle cx="50" cy="30" r="22" stroke="rgba(169,124,30,.3)"/><circle cx="50" cy="30" r="13" stroke="rgba(169,124,30,.55)"/><circle cx="50" cy="30" r="4" fill="currentColor" stroke="none"/><line x1="50" y1="30" x2="80" y2="12" stroke-linecap="round"/></svg></div>
+      <div class="vbody"><div class="vlabel">Goal-setting optimization</div><div class="vdesc">Quotas and goal orientation set to what the math supports, not hope.</div><span class="go">Explore &rarr;</span></div>
+    </a>
+    <a class="vtile" href="/revenue-checkup" data-pulse-click="hire-cro">
+      <div class="vthumb"><svg viewBox="0 0 100 60" fill="currentColor"><circle cx="30" cy="22" r="8"/><rect x="20" y="33" width="20" height="16" rx="4"/><circle cx="54" cy="20" r="7"/><rect x="45" y="30" width="18" height="15" rx="4"/><circle cx="76" cy="24" r="6" fill="rgba(169,124,30,.4)"/><rect x="68" y="33" width="16" height="13" rx="4" fill="rgba(169,124,30,.4)"/></svg></div>
+      <div class="vbody"><div class="vlabel">How many reps to hire</div><div class="vdesc">Right-size the team to the number before you post the job.</div><span class="go">Explore &rarr;</span></div>
+    </a>
+    <a class="vtile" href="/revenue-checkup" data-pulse-click="hire-cro">
+      <div class="vthumb"><svg viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="3"><rect x="20" y="10" width="60" height="40" rx="4"/><circle cx="31" cy="22" r="3" fill="currentColor"/><line x1="40" y1="22" x2="70" y2="22"/><circle cx="31" cy="32" r="3" fill="currentColor"/><line x1="40" y1="32" x2="70" y2="32"/><circle cx="31" cy="42" r="3" fill="rgba(169,124,30,.4)"/><line x1="40" y1="42" x2="62" y2="42" stroke="rgba(169,124,30,.4)"/></svg></div>
+      <div class="vbody"><div class="vlabel">Rep scorecard &middot; Pulse Check</div><div class="vdesc">Grade reps on the metrics that matter and coach to the gaps.</div><span class="go">Explore &rarr;</span></div>
+    </a>
+  </div>
+
+
+  <div class="callout" style="border-left-color:var(--accent2);"><div class="callout-title">Snapshot &mdash; not a full playbook</div><p>These are just a few of the signals and levers worth watching &mdash; a starting frame, not a literal gameplan. Every real engagement through <a href="/fractional-cro">CRO Syndicate</a> builds a go-to-market strategy tailored to your specific business.</p></div>
 
   <h2>Why This Industry Is Different</h2>
   <p>Every industry has its own revenue physics. Veterinary / Pet Services businesses deal with specific buying cycles, customer expectations, and margin structures that generic sales advice can&apos;t address. This guide is built specifically for veterinary practice and pet services sales teams &mdash; with benchmarks, frameworks, and coaching cues that apply to your world.</p>
@@ -302,15 +345,14 @@
     </ol>
   </div>
 
-  <h2>How to Use the PULSE Dashboard for Veterinary / Pet Services</h2>
-  <p>The PULSE framework was designed to work across industries &mdash; but here&apos;s how to apply it specifically to Veterinary / Pet Services:</p>
+    <h2>How PULSE News Can Help You Grow</h2>
+  <p>PULSE News runs a full revenue toolkit &mdash; pipeline and rep scorecards, a gross-profit model, recruiting and scheduling calculators, and a live knowledge library. Rather than hand you a login and walk away, we put a real operator on it:</p>
   <ul>
-    <li><strong>Pulse Check:</strong> Use it to grade your reps on the metrics above. Active Clients and Revenue per Visit should be your primary scoring columns.</li>
-    <li><strong>Gross Profit Calculator:</strong> Model your margin per deal, per rep, and per territory. Know your break-even unit economics cold.</li>
-    <li><strong>Lightning Rounds:</strong> Run weekly 15-minute sessions focused on the most common objections in Veterinary / Pet Services. Repetition builds reflex.</li>
-    <li><strong>Rep Scheduling Matrix:</strong> Protect high-value selling time. Most revenue losses in Veterinary / Pet Services come from reps in admin, not the field.</li>
-    <li><strong>Recruiting Calculator:</strong> Use it before you post a job. Know exactly how many reps you need to hit your number before you hire.</li>
+    <li><strong>Tell us where revenue is stuck:</strong> take the 60-second <a href="/revenue-audit">free revenue audit survey</a> &mdash; your industry and top few challenges &mdash; and Kory White reaches out with the one or two fixes that move the needle first.</li>
+    <li><strong>Get the right tools set up for you:</strong> the scorecards, calculators, and models above are matched to your situation on that first call, not guessed at from a dashboard.</li>
+    <li><strong>Bring in a fractional CRO when you're ready:</strong> <a href="/fractional-cro">CRO Syndicate</a> places practitioner Chief Revenue Officers to build and run the full plan.</li>
   </ul>
+
 
   <h2>Frequently Asked Questions</h2>
   <div>
@@ -320,8 +362,8 @@
   <div class="cta-card">
     <h3>Ready to Put This Into Practice?</h3>
     <p>Open the free PULSE dashboard &mdash; no account required. Set your goals, run your Pulse Check, and start today.</p>
-    <a href="../dashboard.html" class="btn">Open the Dashboard &rarr;</a>
-    <a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=howtos-cta" target="_blank" rel="noopener" data-pulse-click="hire-cro" class="btn btn-ghost">Get a free 30-minute revenue audit</a>
+    <a href="/revenue-checkup" class="btn" data-pulse-click="hire-cro">Get your free revenue checkup &rarr;</a>
+    <a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=howtos-cta" target="_blank" rel="noopener" data-pulse-click="hire-cro" class="btn btn-ghost">Get a free 30-minute revenue checkup</a>
   </div>
 
   <h2>More How To&apos;s</h2>
@@ -332,12 +374,12 @@
 <footer>
   <div class="footer-links">
     <a href="../">Home</a>
-    <a href="../dashboard.html">Dashboard</a>
+    <a href="/knowledge">Library</a>
     <a href="../blog/">Blog</a>
     <a href="./">How To&apos;s</a>
     <a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=howtos-footer" target="_blank" rel="noopener" data-pulse-click="hire-cro">Book a Call</a>
   </div>
-  <p>&copy; 2026 PULSE RevOps &mdash; Free to use. Pay it forward.</p>
+  <p>&copy; 2026 Pulse News &mdash; Value added. Free to use.</p>
 </footer>
 
 <script>
