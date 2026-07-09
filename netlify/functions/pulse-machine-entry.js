@@ -1272,7 +1272,9 @@ exports.handler = async (event) => {
        hanging widget (article stays balanced/centered in the left region, not shoved right). When the
        user × dismisses it, body.cro-dismissed removes the shift and everything re-centers. Below the
        threshold the widget hides so it never covers text. */
-    @media(min-width:1200px){ body{padding-right:352px;transition:padding-right .5s ease;} body.cro-dismissed{padding-right:0;} article{max-width:1240px;} body.cro-dismissed article{max-width:880px;} }
+    /* Hanging CRO widget removed (owner 2026-07-07) — drop the old right-gutter shift so the
+       answer/Q&A column stays centered on desktop. */
+    @media(min-width:1200px){ body{padding-right:0;} article{max-width:880px;margin:0 auto;} }
     /* MOBILE / narrow: HIDE the CRO card entirely (owner 2026-07-01). Phones get the same clean,
        full-width reading page as desktop — no bottom dock, no content shift. Card is desktop-only. */
     @media(max-width:1199px){
