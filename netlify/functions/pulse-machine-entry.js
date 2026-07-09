@@ -1142,14 +1142,20 @@ exports.handler = async (event) => {
   const xUrl        = 'https://twitter.com/intent/tweet?text=' + shareText + '&url=' + shareUrl + '&via=coachkorywhite';
   const facebookUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + shareUrl;
   const emailUrl    = 'mailto:?subject=' + shareText + '&body=' + encodeURIComponent('From the Pulse Knowledge Library:\n\n' + entry.question + '\n\n' + url);
-  const shareImg    = SITE + '/og-preview.jpg';
+  const shareImg    = SITE + '/pulse-og.jpg';
+  // brand icons (inherit currentColor via fill)
+  const IC_LI = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>';
+  const IC_X  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.24 2.25h6.83l4.71 6.23 5.46-6.23zm-1.16 17.52h1.83L7.01 4.13H5.05l12.03 15.64z"/></svg>';
+  const IC_FB = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07c0 6.02 4.39 11.01 10.13 11.93v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.08 24 18.09 24 12.07z"/></svg>';
+  const IC_EM = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>';
+  const IC_CP = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>';
   const shareHtml = '<div class="share-row entry-share" aria-label="Share this answer" style="display:flex !important;visibility:visible !important;opacity:1 !important;">'
-    + '<span class="share-label">Share:</span>'
-    + '<a class="share-btn" href="' + linkedInUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">LinkedIn</a>'
-    + '<a class="share-btn" href="' + xUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Share on X">X</a>'
-    + '<a class="share-btn" href="' + facebookUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">Facebook</a>'
-    + '<a class="share-btn" href="' + emailUrl + '" aria-label="Share via email">Email</a>'
-    + '<button class="share-btn share-copy copy-link" type="button" data-url="' + escAttr(url) + '" aria-label="Copy link">'
+    + '<span class="share-label">Share</span>'
+    + '<a class="share-btn sb-linkedin" href="' + linkedInUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">' + IC_LI + '<span>LinkedIn</span></a>'
+    + '<a class="share-btn sb-x" href="' + xUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Share on X">' + IC_X + '<span>X</span></a>'
+    + '<a class="share-btn sb-facebook" href="' + facebookUrl + '" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">' + IC_FB + '<span>Facebook</span></a>'
+    + '<a class="share-btn sb-email" href="' + emailUrl + '" aria-label="Share via email">' + IC_EM + '<span>Email</span></a>'
+    + '<button class="share-btn share-copy copy-link" type="button" data-url="' + escAttr(url) + '" aria-label="Copy link">' + IC_CP
     + '<span class="share-copy-lbl">Copy link</span></button>'
     + '</div>';
 
@@ -1170,10 +1176,17 @@ exports.handler = async (event) => {
   <meta property="og:url" content="${url}">
   <meta property="og:site_name" content="Pulse RevOps">
   <meta property="og:image" content="${shareImg}">
+  <meta property="og:image:secure_url" content="${shareImg}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PULSE RevOps - The RevOps Authority">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@coachkorywhite">
   <meta name="twitter:title" content="${escAttr(title)}">
   <meta name="twitter:description" content="${escAttr(desc)}">
   <meta name="twitter:image" content="${shareImg}">
+  <meta name="twitter:image:alt" content="PULSE RevOps - The RevOps Authority">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
@@ -1320,14 +1333,19 @@ exports.handler = async (event) => {
     .entry-source .es-host{font-size:0.62rem;color:rgba(237,229,216,0.45);letter-spacing:0.08em;text-transform:uppercase;flex-shrink:0;}
     .entry-source .es-title{font-size:0.92rem;color:rgba(237,229,216,0.9);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .footer-note{padding:24px;text-align:center;color:rgba(237,229,216,0.35);font-size:0.66rem;letter-spacing:0.16em;}
-    .share-row,.entry-share{display:flex !important;visibility:visible !important;opacity:1 !important;align-items:center;flex-wrap:wrap;gap:8px;margin:28px 0 8px;padding:16px 0;border-top:1px solid rgba(255,255,255,0.12);}
-    .share-label{font-size:0.65rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,229,216,0.55);margin-right:6px;}
-    .share-btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;min-height:36px;padding:0 12px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);color:rgba(237,229,216,0.85);font-family:inherit;font-size:0.72rem;font-weight:700;letter-spacing:0.03em;cursor:pointer;text-decoration:none;transition:all 0.15s;}
-    .share-btn.share-copy{padding:0 14px;}
-    .share-copy-lbl{font-size:0.72rem;font-weight:700;}
-    .share-btn:hover{border-color:rgba(232,113,10,0.55);color:var(--orange-bright);background:rgba(232,113,10,0.08);text-decoration:none;}
-    .share-btn.copied{color:var(--green,#22c55e);border-color:rgba(34,197,94,0.5);}
+    .share-row,.entry-share{display:flex !important;visibility:visible !important;opacity:1 !important;align-items:center;flex-wrap:wrap;gap:10px;margin:32px 0 8px;padding:20px 0 6px;border-top:1px solid rgba(234,193,92,0.2);}
+    .share-label{font-size:0.6rem;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(234,193,92,0.7);margin-right:4px;}
+    .share-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,0.035);border:1px solid rgba(234,193,92,0.3);color:#e9ddcb;font-family:inherit;font-size:0.78rem;font-weight:600;letter-spacing:0.01em;cursor:pointer;text-decoration:none;transition:transform 0.16s ease,background 0.16s ease,border-color 0.16s ease,color 0.16s ease;}
+    .share-btn svg{width:16px;height:16px;fill:currentColor;flex:0 0 auto;}
+    .share-copy-lbl{font-size:0.78rem;font-weight:600;}
+    .share-btn:hover{transform:translateY(-1px);text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,0.35);}
+    .share-btn.sb-linkedin:hover{background:#0A66C2;border-color:#0A66C2;color:#fff;}
+    .share-btn.sb-x:hover{background:#0a0a0a;border-color:#0a0a0a;color:#fff;}
+    .share-btn.sb-facebook:hover{background:#1877F2;border-color:#1877F2;color:#fff;}
+    .share-btn.sb-email:hover,.share-btn.share-copy:hover{background:linear-gradient(180deg,#EAC15C,#cf9f2e);border-color:#EAC15C;color:#1a0a00;}
+    .share-btn.copied{background:#22c55e !important;border-color:#22c55e !important;color:#fff !important;}
     .share-btn.copied .share-copy-lbl::after{content:' ✓';}
+    @media(max-width:560px){.share-btn span{display:none;}.share-btn{width:44px;height:44px;padding:0;}.share-btn.share-copy{width:auto;padding:0 16px;}.share-btn.share-copy span{display:inline;}}
     .layman-hero{margin:0 0 22px;padding:18px 22px;background:linear-gradient(135deg,rgba(255,140,26,0.18),rgba(232,113,10,0.1));border:2px solid rgba(255,140,26,0.55);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 4px 14px rgba(232,113,10,0.15);}
     .layman-hero-text{flex:1;min-width:200px;}
     .layman-hero-title{font-size:0.96rem;font-weight:900;color:#FFD7A8;letter-spacing:0.01em;line-height:1.3;margin-bottom:3px;}
