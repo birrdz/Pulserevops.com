@@ -903,12 +903,14 @@ exports.handler = async (event) => {
   const title     = (entry.question || '').slice(0, 70);
   const desc      = descExcerpt(entry.answer);
   // SEO <title> kept <=65 chars (fixes "long titles") — the full question stays as the H1.
+  // No brand suffix in <title>: Google already shows the "Pulse News" site name on the
+  // top line of the SERP, so appending "| Pulse News" made the name appear twice.
   const shortTitle = (() => {
-    const q = (entry.question || '').trim(); const SUF = ' | Pulse News'; const max = 65 - SUF.length;
-    if (q.length <= max) return q + SUF;
+    const q = (entry.question || '').trim(); const max = 65;
+    if (q.length <= max) return q;
     let t = q.slice(0, max); const sp = t.lastIndexOf(' ');
     if (sp > 24) t = t.slice(0, sp);
-    return t.replace(/[\s,;:.–-]+$/, '') + '…' + SUF;
+    return t.replace(/[\s,;:.–-]+$/, '') + '…';
   })();
   const tagsList  = entry.tags || [];
   const sourcesArr= entry.sources || [];
