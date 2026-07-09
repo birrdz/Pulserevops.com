@@ -850,13 +850,13 @@
     }
 
     if (opts.rotateTiles !== false && !opts.topicsOnly && !opts.query) {
-      setInterval(function () {
+      var __swapCycle = function () {
         if (!state.buf.length) return;
         var tiles = [].slice.call(el.querySelectorAll('a.mm[href^="/knowledge/"]')).filter(function (t) {
           return t.style.backgroundImage || t.classList.contains('mm-noimg') === false;
         });
         if (tiles.length < 8) return;
-        var n = 4 + Math.floor(Math.random() * 3); // 4-6 tiles per cycle — more visible rotation (owner 2026-07-07)
+        var n = 1; // ONE tile swaps per cycle (owner 2026-07-09)
         var vis = {};
         tiles.forEach(function (t) {
           var bg = t.style.backgroundImage;
@@ -913,7 +913,9 @@
             }, 260);
           })(elTile, c);
         }
-      }, parseInt(opts.rotateMs || '10000', 10) || 10000);
+      };
+      // first swap at 5s, then a different one every 20s (owner 2026-07-09)
+      setTimeout(function () { __swapCycle(); setInterval(__swapCycle, 20000); }, 5000);
     }
 
     var searchInput = document.getElementById('pulse-mosaic-search');
