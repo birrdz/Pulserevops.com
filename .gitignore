@@ -25,3 +25,14 @@ _site_deploy/
 _site_deploy 2/
 _facecard_pool/
 assets/qa/
+
+# Run dashboard + live status (state/scratch — never deployed, never committed) 2026-07-09
+_run_dashboard.html
+_run_dashboard_server.js
+run_status.json
+_run_events.json
+_run_phase.txt
+_run_current.txt
+_fcro_sim_progress.txt
+_fcro_batch_progress.txt
+_fcro_scan_progress.txt

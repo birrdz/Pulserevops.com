@@ -8,8 +8,9 @@ const WD = 'C:/Users/koryj/website';
 for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 const BANNED = ['delve', 'tapestry', 'holistic', 'ever-evolving', 'synergy', 'paradigm shift', 'game-changer', 'cutting-edge', 'state-of-the-art', 'seamless integration', 'needless to say', "in today's", "it's worth noting", "it's important to note"];
-const DONE_F = WD + '/_fcro_transform_done.json';
-const STUB_F = WD + '/_fcro_stubs.json';
+const TAG = process.env.RUN_TAG || 'fcro';
+const DONE_F = WD + '/_' + TAG + '_transform_done.json';
+const STUB_F = WD + '/_' + TAG + '_stubs.json';
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function gateProblems(a) {
@@ -78,7 +79,7 @@ const saveJSON = (f, o) => { try { fs.writeFileSync(f, JSON.stringify(o)); } cat
 (async () => {
   // UNIQUENESS SKIP-GATE (Q3): only entries that PASSED the similarity re-scan may be transformed.
   // Near-dups + short stubs are NEVER touched here — they go to the rewrite queue, not editorial polish.
-  const uniq = loadJSON(WD + '/_fcro_unique.json', null);
+  const uniq = loadJSON(WD + '/' + (process.env.UNIQUE_FILE || '_fcro_unique.json'), null);
   if (!uniq || !Array.isArray(uniq.uniqueIds)) { console.error('run _fcro_similarity_gate.js first — uniqueness allow-list required before transform'); process.exit(1); }
   const ids = uniq.uniqueIds;
   const done = new Set(loadJSON(DONE_F, []));
