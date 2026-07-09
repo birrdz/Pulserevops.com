@@ -903,8 +903,8 @@ exports.handler = async (event) => {
   const title     = (entry.question || '').slice(0, 70);
   const desc      = descExcerpt(entry.answer);
   // SEO <title> kept <=65 chars (fixes "long titles") — the full question stays as the H1.
-  // No brand suffix in <title>: Google already shows the "Pulse News" site name on the
-  // top line of the SERP, so appending "| Pulse News" made the name appear twice.
+  // No brand suffix in <title>: Google already shows the "Pulse RevOps" site name on the
+  // top line of the SERP, so appending "| Pulse RevOps" made the name appear twice.
   const shortTitle = (() => {
     const q = (entry.question || '').trim(); const max = 65;
     if (q.length <= max) return q;
@@ -986,7 +986,7 @@ exports.handler = async (event) => {
   const publisherOrg = {
     "@type": "Organization",
     "@id": SITE + "/#organization",
-    "name": "Pulse News",
+    "name": "Pulse RevOps",
     "url": SITE,
     "founder": koryEditor,
     "logo": pulseOrgLogoImageObject()
@@ -1168,7 +1168,7 @@ exports.handler = async (event) => {
   <meta property="og:title" content="${escAttr(title)}">
   <meta property="og:description" content="${escAttr(desc)}">
   <meta property="og:url" content="${url}">
-  <meta property="og:site_name" content="Pulse News">
+  <meta property="og:site_name" content="Pulse RevOps">
   <meta property="og:image" content="${shareImg}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escAttr(title)}">
@@ -1214,7 +1214,7 @@ exports.handler = async (event) => {
     .top .brand:hover{text-decoration:none;}
     .top .brandlogo{height:46px;width:auto;display:block;}
     @media(max-width:600px){.top .brandlogo{height:38px;}}
-    /* ── DARK MASTHEAD (owner 2026-07-02): the gold Pulse News logo on a black band with a thin
+    /* ── DARK MASTHEAD (owner 2026-07-02): the gold Pulse RevOps logo on a black band with a thin
        gold pulse-hairline along the bottom edge. Higher specificity (body .top) + !important beats
        the sitewide tan sheet's cream .top so the gold logo pops instead of washing out on cream. ── */
     body .top{background:linear-gradient(90deg,#0a0c11 0%,#171b23 52%,#0a0c11 100%) !important;border-bottom:none !important;position:relative !important;padding:16px clamp(20px,5vw,56px) !important;box-shadow:0 2px 18px rgba(0,0,0,0.25);}
@@ -1379,7 +1379,7 @@ exports.handler = async (event) => {
   <div class="cro-bar"><a href="/fractional-cro" data-pulse-click="fractional-cro-hub">Hire a Fractional CRO</a><a href="/revenue-checkup" data-pulse-click="hire-cro">How We Help?</a><a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">LinkedIn</a><a href="/assets/kory-white-cro-resume.pdf" target="_blank" rel="noopener">Résumé</a><a href="https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate</a></div></div>
   <button id="scroll-top" type="button" aria-label="Scroll to top" style="position:fixed;bottom:24px;right:24px;width:42px;height:42px;border-radius:50%;background:rgba(232,113,10,0.92);border:1px solid rgba(255,255,255,0.18);color:#fff;font-size:1.1rem;font-weight:900;cursor:pointer;z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.2s, transform 0.15s;box-shadow:0 6px 20px rgba(232,113,10,0.4);font-family:inherit;">↑</button>
   <div class="top">
-    <a href="/" class="brand" aria-label="Pulse News — Value Added"><img class="brandlogo" src="/pulse-news-logo.png" alt="Pulse News — Value Added" width="164" height="46"></a>
+    <a href="/" class="brand" aria-label="Pulse RevOps — Value Added"><img class="brandlogo" src="/pulse-news-logo.png" alt="Pulse RevOps — Value Added" width="164" height="46"></a>
     <span><a href="/knowledge.html">← Library</a></span>
   </div>
   <article${entry.cc_signed ? ' class="cc-gold"' : ''}>
