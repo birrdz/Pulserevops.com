@@ -2,7 +2,7 @@
 // Kory White" byline or any CRO Syndicate / Kory LinkedIn link, on any page.
 // Public beacon endpoint (no secret — client can't hold one). Reuses the same
 // Postmark/Resend env as pulse-progress-notify. Recipient fixed.
-const RECIPIENT = 'koryjordanwhite@gmail.com';
+const RECIPIENT = 'kory.white@crosyndicate.com';
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' };
 const KIND_LABEL = { 'curator': 'Kory White name (→ LinkedIn)', 'curator-photo': "Kory White's profile photo (→ LinkedIn)", 'kory-title': "Kory White's title ‘Chief Revenue Officer’ (→ resume)", 'cro-syndicate': 'CRO Syndicate link', 'kory-linkedin': 'Kory White LinkedIn', 'kory-resume': "Kory White's 1-page resume (PDF)", 'hire-cro': "the ‘Hire a Fractional CRO’ button", 'tool': 'a PULSE Tool link', 'followup': 'submitted a follow-up question (→ Machine / DeepSeek)' };
 

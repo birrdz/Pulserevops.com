@@ -1,7 +1,7 @@
 // pulse-cro-lead — "Reach out for fractional CRO help" form. Emails Kory the
 // prospect's info (name/email/company/message) and stores the lead in a blob.
 let getStore=null; try{ getStore=require('@netlify/blobs').getStore; }catch(e){}
-const RECIPIENT='koryjordanwhite@gmail.com';
+const RECIPIENT='kory.white@crosyndicate.com';
 const CORS={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'POST, OPTIONS','Access-Control-Allow-Headers':'Content-Type'};
 const json=(sc,o)=>({statusCode:sc,headers:{...CORS,'Content-Type':'application/json'},body:JSON.stringify(o)});
 const esc=s=>String(s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));

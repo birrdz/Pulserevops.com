@@ -353,7 +353,7 @@
     <h1>Fractional Chief Revenue Officer</h1>
     <p class="lede">Get world-class revenue leadership without the full-time hire. <strong>Kory White</strong> runs fractional and interim CRO engagements as an independent operator in partnership with <strong>CRO Syndicate</strong> — nationwide, fully remote, on-site, or embedded in-house. Scale revenue, fix GTM, and install RevOps.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="https://crosyndicate.com/contact-us/" target="_blank" rel="noopener">Book a Free Discovery Call</a>
+      <a class="btn btn-primary" href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=fractional-cro-hub" target="_blank" rel="noopener" data-pulse-click="hire-cro">Get a free 30-minute revenue audit</a>
       <a class="btn btn-ghost" href="#about">Why Kory White</a>
     </div>
     <div class="stats">
@@ -364,6 +364,54 @@
     </div>
     <p class="credential-strip">Chief Revenue Officer · SaaS · Telco · B2B · B2C · Events · Call Centers · Lead Gen · Architect · $200M Builder · $3B Scaler · Leadership Coaching · GTM Playbooks · RevOps · Growth Strategy · Operator · Executive</p>
   </section>
+
+  <section class="block" aria-labelledby="audit-h" style="border:1px solid var(--red);border-radius:16px;padding:24px 26px;margin:8px 0 6px;background:linear-gradient(160deg,#fff, #fff8f7);">
+    <div class="eyebrow" style="font-size:.7rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Free 30-minute revenue audit</div>
+    <h2 id="audit-h" style="margin:0 0 10px;">What you get in the free 30-minute revenue audit</h2>
+    <p style="margin:0 0 12px;">No pitch deck and no obligation. Bring your pipeline, forecast, or comp plan and Kory will read it live with you, then name the one or two changes that move revenue fastest. You leave with a prioritized fix list whether or not we ever work together.</p>
+    <ul style="margin:0 0 16px 1.1rem;line-height:1.7;">
+      <li><strong>Pipeline and forecast pressure-test</strong> - where deals stall, where the forecast is lying to you, and what to fix first.</li>
+      <li><strong>GTM and RevOps quick-read</strong> - the highest-leverage gap across process, data, and coverage.</li>
+      <li><strong>One prioritized action</strong> - the single next move most likely to lift revenue this quarter.</li>
+    </ul>
+    <a class="btn btn-primary" href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=fractional-cro-audit" target="_blank" rel="noopener" data-pulse-click="hire-cro">Get a free 30-minute revenue audit</a>
+  </section>
+
+  <section class="block" aria-labelledby="magnet-h" style="border:1px solid var(--line,#e2ded0);border-radius:16px;padding:24px 26px;margin:6px 0;background:#fff;">
+    <div class="eyebrow" style="font-size:.7rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Free download</div>
+    <h2 id="magnet-h" style="margin:0 0 8px;">Not ready to talk? Grab the 12-point Revenue Teardown Checklist</h2>
+    <p style="margin:0 0 14px;">The same checkpoints Kory runs on an engagement - pipeline, forecast, comp, retention, RevOps - boiled down to the twelve that surface the most revenue fastest. Enter your email and it opens instantly.</p>
+    <form id="magnetForm" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;max-width:560px;">
+      <input type="text" name="fname" placeholder="First name" autocomplete="given-name" required style="flex:1;min-width:130px;padding:11px 13px;border:1px solid #cfc9ba;border-radius:9px;font-size:1rem;">
+      <input type="email" name="email" placeholder="Work email" autocomplete="email" required style="flex:2;min-width:180px;padding:11px 13px;border:1px solid #cfc9ba;border-radius:9px;font-size:1rem;">
+      <button type="submit" class="btn btn-primary" style="cursor:pointer;border:none;">Send me the checklist</button>
+    </form>
+    <p id="magnetMsg" role="status" style="margin:12px 0 0;font-weight:700;color:var(--red);display:none;"></p>
+    <p style="margin:10px 0 0;font-size:.82rem;color:#8a8578;">No spam. Kory may follow up once to see if the teardown was useful. <a href="/revenue-teardown-checklist" style="color:var(--red);">Prefer to just read it?</a></p>
+  </section>
+  <script>
+  (function(){
+    var f=document.getElementById('magnetForm'); if(!f) return;
+    var CHECKLIST='/revenue-teardown-checklist';
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var msg=document.getElementById('magnetMsg');
+      var fname=(f.fname.value||'').trim(), email=(f.email.value||'').trim();
+      if(!fname || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.style.display='block'; msg.style.color='var(--red)'; msg.textContent='Please enter your first name and a valid email.'; return; }
+      var btn=f.querySelector('button'); btn.disabled=true; btn.textContent='Sending...';
+      var payload=JSON.stringify({name:fname,email:email,company:'',message:'Lead magnet: Revenue Teardown Checklist',page:location.pathname+location.search});
+      fetch('/.netlify/functions/pulse-cro-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:payload})
+        .catch(function(){})
+        .finally(function(){
+          try{ if(navigator.sendBeacon){ navigator.sendBeacon('/.netlify/functions/pulse-click-notify', new Blob([JSON.stringify({kind:'lead-magnet',label:'Revenue Teardown Checklist',page:location.pathname})],{type:'application/json'})); } }catch(_){}
+          msg.style.display='block'; msg.style.color='#1a7a2e';
+          msg.innerHTML='Done - opening your checklist. If it does not open, <a href="'+CHECKLIST+'" style="color:#1a7a2e;text-decoration:underline;">click here</a>.';
+          f.reset(); btn.disabled=false; btn.textContent='Send me the checklist';
+          window.open(CHECKLIST,'_blank');
+        });
+    });
+  })();
+  </script>
 
   <div class="wrap" id="about">
     <article class="profile-card">
@@ -495,9 +543,9 @@
   </section>
 
   <div class="cta">
-    <h3>Ready to talk through your revenue situation?</h3>
-    <p>Quick call. No pitch deck. An honest fit-check on whether a fractional CRO is the right next move.</p>
-    <a class="btn btn-primary" href="https://crosyndicate.com/contact-us/" target="_blank" rel="noopener">Book a Free Discovery Call</a>
+    <h3>Ready to see where your revenue is leaking?</h3>
+    <p>Book a free 30-minute revenue audit. No pitch deck &mdash; Kory reviews your pipeline and forecast live and names the 1&ndash;2 fixes that move revenue fastest.</p>
+    <a class="btn btn-primary" href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=fractional-cro-hub" target="_blank" rel="noopener" data-pulse-click="hire-cro">Get a free 30-minute revenue audit</a>
   </div>
 
   <footer>
