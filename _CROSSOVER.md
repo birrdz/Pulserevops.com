@@ -1,4 +1,19 @@
-﻿# â–¶ HANDOFF â€” for the next Claude Code session (saved 2026-06-26)
+# ▶ HANDOFF — for the next Claude Code session (saved 2026-06-26)
+
+## ▶▶ CROSSOVER — 2026-07-12 CHECK-IN (DEPLOY INTERRUPTION RECOVERY) — READ FIRST
+
+- **2026-07-12 (cloud agent `bc-4e030c98`):** Owner reconnect after disconnect near deploy finish line.
+- **Where we are:** CRO/SEO money-page batch is **still STAGED on git `main` (`cf718af`), NOT live**. Live `/hire` still titled "Hire a CRO"; no `utm_campaign=hire-page`; sitemap missing `/hire` `/about` `/contact` `/revenue-architecture`; `/about` canonical still `about.html`. Entry **cro-bar "Hire a Fractional CRO" is already live** (prior renderer deploy).
+- **Pre-deploy report:** `PRE_DEPLOY_REPORT_CRO_SEO.md` — gate items for this batch CLEAR TO DRAFT-DEPLOY (2/6/7/8 PASS; image-run items N/A).
+- **Finish line (blocked here):** this cloud pod has **no `.env.local` / `NETLIFY_AUTH_TOKEN`** (Netlify CLI not logged in). Complete on Windows box:
+  1. `bash _do_deploy_draft.sh` (draft, `--no-build` — avoids prior full-build failure in `_dn_deploy_log.txt`)
+  2. Verify draft: `/hire` title + UTMs, sitemap urls, `/about` canonical
+  3. `_promote_deploy.ps1 -DeployId <id>`
+- **Do NOT use** `_do_deploy_now.js` until `_render_audit_status.json` is refreshed — still stale `deployBlocked: true` (2026-07-06 aq1160 mis-template).
+- **Not this deploy:** image-run / gm reimage / render-auditor crew. Resume after money-page promote per `_HANDOFF_NEXT_CLAUDE.md` §RESUME POINT.
+- **2026-07-12 (notes refresh `bc-9a5cd914`):** Re-verified live vs staged — still true. Live `/hire` title still "Hire a CRO"; `/about` canonical still `about.html`; local money pages + sitemap still staged on `main` @ `cf718af`. `_render_audit_status.json` still `deployBlocked/speedupBlocked/templateBlocked` (stale `2026-07-06T23:08:54Z`).
+
+---
 
 ## ▶▶ CROSSOVER — 2026-07-07 LATEST-40 (TL GOLD REDO · GOLDEN TEMPLATE LAW) — READ FIRST
 
