@@ -1,4 +1,14 @@
-# ▶ HANDOFF — for the next Claude Code session (saved 2026-06-26)
+﻿# ▶ HANDOFF — for the next Claude Code session (saved 2026-06-26)
+
+## ▶▶ CROSSOVER — 2026-07-13 OWNER LAW (FORMAT FIXER → SQUARE BUILDER) — READ FIRST
+
+- **2026-07-13 (owner):** **Q&As MUST pass the Format Fixer, then they go to Square Builder.** Never reverse.
+  - **Step 1 — Format Fixer** (`/format-fixer`): content + structure rubric only (no image URL changes). Stamp `format_fixed_at` on pass.
+  - **Step 2 — Square Builder** (`/face-card-top-image-generator`, Face Card & Top Image): Pollinator flux mosaic cover + synced top hero. **Skips** any Q&A that has not passed Format Fixer (`contentFormatPass` / `passedFormatFixerGate`).
+  - Rubric Stations **face** slice also blocked until Format Fixer/writing pass.
+  - Code: `_scrub_button_server.js` (`passedFormatFixerGate`, Face Hero skip counter `skippedFixerGate`).
+
+---
 
 ## ▶▶ CROSSOVER — 2026-07-12 CHECK-IN (DEPLOY INTERRUPTION RECOVERY) — READ FIRST
 

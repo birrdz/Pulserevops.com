@@ -667,7 +667,7 @@ function imageJobConflict(except) {
   if (except !== 'duplicator' && except !== 'facehero' && imageDuplicatorJob.running) return 'image fill running';
   if (except !== 'imgen' && imageGeneratorJob.running) return 'image generator running';
   if (except !== 'rewrite' && (imageRewriteJob.running || imageRewriteJob.phase === 'review')) return 'Pollinator image overwrite running';
-  if (except !== 'facehero' && except !== 'duplicator' && (faceHeroJob.running || faceHeroJob.phase === 'review')) return 'Face Card & Top Image Generator running';
+  if (except !== 'facehero' && except !== 'duplicator' && (faceHeroJob.running || faceHeroJob.phase === 'review')) return 'Square Builder (Face Card) running';
   if (except !== 'formatfix' && formatFixerJob.running) return 'Format Fixer running';
   if (except !== 'internalimages' && internalImagesJob.running) return 'Internal Images running';
   if (except !== 'rubricstation' && rubricStationJob.running) return 'Rubric Station running';
@@ -881,14 +881,20 @@ function imageRewriteStatusPayload() {
   return snap;
 }
 
-// ── Face Card & Top Image Generator — Pollinator face-card + hero only (whole pillar) ──
+// ── Square Builder (Face Card & Top Image) — Pollinator face-card + hero only (whole pillar)
+// Owner 2026-07-13: Q&As MUST pass Format Fixer first, then Square Builder.
 const FACE_HERO_F = WD + '/_face_hero_run.json';
 let faceHeroJob = {
   running: false, stop: false, stopAfterReview: false, pillar: 'tl', pillarName: 'Pulse Tools / CRO',
   done: 0, total: 0, pct: 0, entriesDone: 0, coversGenerated: 0, fluxJobs: 0,
-  skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
+  skippedNoBlob: 0, skippedFixerGate: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
   phase: 'idle', startedAt: null, finishedAt: null, error: '', log: [],
 };
+/** Owner 2026-07-13: Q&As MUST pass Format Fixer before Square Builder (Face Card). */
+function passedFormatFixerGate(id, body, entryMeta) {
+  if (entryMeta && entryMeta.format_fixed_at && contentFormatPass(id, body, valid)) return true;
+  return contentFormatPass(id, body, valid);
+}
 try {
   const _fhSnap = JSON.parse(fs.readFileSync(FACE_HERO_F, 'utf8'));
   if (_fhSnap && typeof _fhSnap === 'object') {
@@ -920,6 +926,10 @@ async function buildFaceHeroDraft(id, attempt) {
   const title = titleOf[id] || id;
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e || !e.answer) return { noBlob: true };
+  // 🔒 OWNER LAW: Format Fixer pass → then Square Builder (this station). Never reverse.
+  if (!passedFormatFixerGate(id, e.answer, e)) {
+    return { skippedFixerGate: true, msg: 'must pass Format Fixer first' };
+  }
   const plan = countFaceHeroJobs();
   faceHeroJob.currentStep = 'flux 0/' + plan.total;
   const r = await fluxFaceHeroOnlyEntry(id, title, e.answer, {
@@ -996,6 +1006,13 @@ async function runFaceHeroLoop() {
       try {
         const r = await buildFaceHeroDraft(id, faceHeroJob.reviewAttempt);
         if (r.noBlob) { faceHeroJob.skippedNoBlob++; i++; faceHeroJob.done = i; faceHeroJob.reviewAttempt = 1; }
+        else if (r.skippedFixerGate) {
+          faceHeroJob.skippedFixerGate = (faceHeroJob.skippedFixerGate || 0) + 1;
+          faceHeroLog('⏭ ' + id + ' · wait — Format Fixer must pass before Square Builder');
+          i++;
+          faceHeroJob.done = i;
+          faceHeroJob.reviewAttempt = 1;
+        }
         else if (r.stopped) break;
         else if (r.error) {
           faceHeroJob.errors++;
@@ -1048,7 +1065,7 @@ async function runFaceHeroLoop() {
     }
     if (faceHeroJob.phase !== 'review') {
       faceHeroJob.phase = faceHeroJob.stop ? 'stopped' : 'done';
-      faceHeroLog(faceHeroJob.stop ? ('⏹ stopped at ' + faceHeroJob.pct + '%') : ('✅ complete — ' + faceHeroJob.entriesDone + ' entries · ' + faceHeroJob.coversGenerated + ' face-card+hero flux jobs'));
+      faceHeroLog(faceHeroJob.stop ? ('⏹ stopped at ' + faceHeroJob.pct + '%') : ('✅ complete — ' + faceHeroJob.entriesDone + ' entries · ' + faceHeroJob.coversGenerated + ' square builder flux · ' + (faceHeroJob.skippedFixerGate || 0) + ' waited on Format Fixer'));
       faceHeroJob.running = false;
       faceHeroJob.finishedAt = Date.now();
       faceHeroJob.currentId = '';
@@ -1134,13 +1151,13 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
   faceHeroJob = {
     running: false, stop: false, stopAfterReview: false, pillar, pillarName: pName(pillar), guideKeywords, autoApproveImages,
     done: 0, total: 0, pct: 0, entriesDone: 0, coversGenerated: 0, fluxJobs: 0,
-    skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
+    skippedNoBlob: 0, skippedFixerGate: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [],
     pendingReview: null, reviewAttempt: 1, _entries: null,
   };
   const kwNote = guideKeywords ? (' · guide: ' + guideKeywords.slice(0, 48) + (guideKeywords.length > 48 ? '…' : '')) : '';
   const modeNote = autoApproveImages ? ' · 🤖 auto-approve ON' : ' · keep/retry each card';
-  faceHeroLog('▶ Face Card & Top Image — ' + faceHeroJob.pillarName + kwNote + modeNote + ' · serial flux');
+  faceHeroLog('▶ Square Builder (Face Card) — ' + faceHeroJob.pillarName + kwNote + modeNote + ' · Format Fixer gate ON · serial flux');
   runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
   return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages };
 }
@@ -1253,7 +1270,15 @@ async function processFormatFixerEntry(id) {
   const pillar = pillarOf(id);
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e || !e.answer) return { noBlob: true };
-  if (contentFormatPass(id, e.answer, valid)) return { skipped: true, pass: true };
+  if (contentFormatPass(id, e.answer, valid)) {
+    // Stamp pass so Square Builder gate sees explicit format_fixed_at when already clean.
+    if (!e.format_fixed_at) {
+      try {
+        await persistAnswerBlob(id, e.answer, { format_fixed_at: new Date().toISOString() }, formatFixerLog);
+      } catch (err) {}
+    }
+    return { skipped: true, pass: true };
+  }
   formatFixerJob.currentStep = 'audit · ' + id;
   const sib = (byPillar[pillar] || []).filter(x => x && x.id !== id).slice(0, 8);
   const r = await formatFixEntry(id, title, e.answer, {
@@ -1347,7 +1372,7 @@ async function runFormatFixerLoop() {
     formatFixerJob.phase = formatFixerJob.stop ? 'stopped' : 'done';
     formatFixerLog(formatFixerJob.stop
       ? ('⏹ stopped at ' + formatFixerJob.pct + '%')
-      : ('✅ complete — ' + formatFixerJob.entriesFixed + ' fixed · ' + formatFixerJob.entriesPass + ' pass content rubric · no images touched'));
+      : ('✅ complete — ' + formatFixerJob.entriesFixed + ' fixed · ' + formatFixerJob.entriesPass + ' pass content rubric · ready for Square Builder · no images touched'));
   } catch (e) {
     formatFixerJob.error = e.message;
     formatFixerJob.phase = 'error';
@@ -1636,6 +1661,15 @@ async function processRubricStationEntry(id) {
     if (r.stopped) return { stopped: true, pass: false };
     body = r.body || body;
     await save(body, { format_fixed_at: new Date().toISOString() });
+  } else if (station === 'face') {
+    // 🔒 OWNER LAW: Format Fixer → Square Builder. Face station blocked until content pass.
+    if (!passedFormatFixerGate(id, body, e)) {
+      rubricStationLog('⏭ ' + id + ' · face blocked — pass Format Fixer / writing first');
+      return { pass: false, fixerGate: true };
+    }
+    body = await runTargetedOwnerFixes(id, title, body, keys, { save, sib, out, ui: 'station', shouldStop: () => rubricStationJob.stop });
+    await save(body);
+    clearImageVerifyCache(id);
   } else if (station === 'internal') {
     const r = await internalImagesFixEntry(id, title, body, internalImagesFixOpts({
       shouldStop: () => rubricStationJob.stop,
@@ -1659,7 +1693,6 @@ async function processRubricStationEntry(id) {
   } else if (keys.length) {
     body = await runTargetedOwnerFixes(id, title, body, keys, { save, sib, out, ui: 'station', shouldStop: () => rubricStationJob.stop });
     await save(body);
-    if (station === 'face') clearImageVerifyCache(id);
   }
   if (blobSaveErr) return { error: blobSaveErr, pass: false };
   const rb2 = rubricSignOff(id, body);
@@ -1696,6 +1729,7 @@ async function runRubricStationLoop() {
       try {
         const r = await processRubricStationEntry(id);
         if (r.noBlob) rubricStationJob.skippedNoBlob++;
+        else if (r.fixerGate) { rubricStationJob.skippedFixerGate = (rubricStationJob.skippedFixerGate || 0) + 1; }
         else if (r.skipped) { rubricStationJob.entriesSkipped++; rubricStationJob.entriesPass++; }
         else if (r.stopped) break;
         else if (r.error) { rubricStationJob.errors = (rubricStationJob.errors || 0) + 1; rubricStationLog('⚠️ ' + id + ' · ' + r.error); }
@@ -6476,7 +6510,7 @@ function buildPage(mode) {
     : 'Tap any entry for <b>fullscreen review</b> — <b>Cursor auto-auditors</b> gate publish. Only exceptions land here — <b style=color:#2ecc71>✓</b> publish · <b style=color:#ff8a76>✗</b> retarget.';
   const fsBatchExplain = 'Use <b>Rubric Stations</b> — one slice at a time (Writing · Structure · Face · Internal images · Top-10 · Publish gate). Each station has its own fix + auditor. Standard full scrub is disabled.';
   const batchIdleHint = 'Open a station tab — pick pillar — ▶ Start. Finished entries land in the audit pile below.';
-  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Face Card & Top Image Generator' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
+  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Square Builder · Face Card' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
   return `<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><title>PULSE · ${pageTitle}</title><style>
 *{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:18px}
 #gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:92%;max-width:560px}
@@ -7180,8 +7214,8 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   </div>
   <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
-    <div class=dupe-panel-title style="color:#e879f9">🦄 Face Card &amp; Top Image Generator</div>
-    <div class=dupe-panel-hint><b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
+    <div class=dupe-panel-title style="color:#e879f9">🟦 Square Builder · Face Card &amp; Top Image</div>
+    <div class=dupe-panel-hint><b>Order law:</b> Q&amp;As must <b>pass Format Fixer first</b>, then they come here. Entries that fail the content rubric are skipped. <b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
     <div class=dupe-panel-row>
       <select id=faceheroPillarFilter title="Which pillar to regenerate face-cards + heroes for"><option value=tl>Loading pillars…</option></select>
     </div>
@@ -7194,7 +7228,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <label title="Skip manual review — each generated face-card is saved automatically and the run continues"><input type=checkbox id=faceheroAutoApprove> 🤖 Auto-approve images</label>
     </div>
     <div class=dupe-btns>
-      <button type=button id=faceheroStart>▶ Generate face-card + top hero for pillar</button>
+      <button type=button id=faceheroStart>▶ Square Builder — face-card + top hero for pillar</button>
       <button type=button id=faceheroStop disabled>⏹ Stop</button>
       <button type=button id=faceheroForceStop disabled title="Force stop — clears review and will not resume on server restart">⏹ Force stop</button>
     </div>
@@ -7304,7 +7338,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   <div id=formatfixPanel${isFormatFix ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#0ea5e9;background:linear-gradient(165deg,#041018 0%,#0e1620 100%)">
     <div class=dupe-panel-title style="color:#38bdf8">📝 Format Fixer</div>
-    <div class=dupe-panel-hint><b>Content rubric:</b> ≥2000 words · hero image present · Direct Answer first after hero (2–3 sentences) · <b>no CRO in blob</b> (live page injects Kory card after Direct Answer) · 6 FAQs · 2 clean mermaid · 5 Sources · Related · clean links. DeepSeek fills gaps. <b>Never changes image URLs.</b></div>
+    <div class=dupe-panel-hint><b>Step 1 of pipeline:</b> content must pass here before Square Builder. <b>Content rubric:</b> ≥2000 words · hero image present · Direct Answer first after hero (2–3 sentences) · <b>no CRO in blob</b> (live page injects Kory card after Direct Answer) · 6 FAQs · 2 clean mermaid · 5 Sources · Related · clean links. DeepSeek fills gaps. <b>Never changes image URLs.</b> After pass → run <b>Square Builder</b> (Face Card).</div>
     <div class=dupe-panel-row>
       <select id=formatfixPillarFilter title="Which pillar to audit and fix"><option value=tl>Loading pillars…</option></select>
     </div>
@@ -7616,8 +7650,8 @@ const RUBRIC_PICK=${JSON.stringify(Object.entries(RUBRIC_LABELS).filter(function
 const $=s=>document.querySelector(s);
 // ── Scrub vs Generate — one page, client-side tab toggle (owner) ──
 window.activeTab='${mode}';
-const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'🦄 Face Card & Top Image',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
-const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'Audits ≥2000 words, Direct Answer, CRO placement, FAQs, mermaid, Sources, Related. <b>Does not touch images.</b>'};
+const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'🟦 Square Builder',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
+const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'<b>Square Builder</b> — after Format Fixer pass only. Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only. Face station requires Format Fixer pass first.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'<b>Step 1:</b> Audits ≥2000 words, Direct Answer, CRO placement, FAQs, mermaid, Sources, Related. <b>Does not touch images.</b> Pass → then Square Builder.';
 function switchPipelineTab(mode){
   if(!mode||mode===window.activeTab) return;
   window.activeTab=mode;
@@ -7868,8 +7902,9 @@ function renderFaceHero(j){
     bar.style.width=Math.max(pct>0?0.5:0,pct)+'%';
   }
   if(stats) stats.innerHTML=
-    '<div>🦄 face-card+hero flux: <span>'+(j.coversGenerated||0)+'</span></div>'+
+    '<div>🟦 square builder flux: <span>'+(j.coversGenerated||0)+'</span></div>'+
     '<div>📋 entries done: <span>'+(j.entriesDone||0)+'</span></div>'+
+    '<div>⏭ wait Format Fixer: <span>'+(j.skippedFixerGate||0)+'</span></div>'+
     '<div>⏭ no blob: <span>'+(j.skippedNoBlob||0)+'</span></div>'+
     '<div>⚠️ errors: <span>'+(j.errors||0)+'</span></div>'+
     '<div>📁 pillar: <span>'+esc(j.pillarName||j.pillar||'—')+'</span></div>'+
@@ -9651,7 +9686,7 @@ _faceheroStart&&_faceheroStart.addEventListener('click',async()=>{
   const autoApprove=readAutoApprove('faceheroAutoApprove');
   if(!pillar||pillar==='all'){ alert('Pick a specific pillar (not All)'); return; }
   const modeNote=autoApprove?' Auto-approve is ON — each card saves without manual review.':' After each card: ✓ Keep saves it · ✗ Try again regenerates with the next search.';
-  if(!confirm('Generate face-cards for every Q&A in '+pillar+'?'+modeNote)) return;
+  if(!confirm('Square Builder for every Format-Fixer-passed Q&A in '+pillar+'?'+modeNote+'\n\nEntries that have not passed Format Fixer are skipped.')) return;
   _faceheroStart.disabled=true;
   try{
     const r=await(await fetch('/face-hero-start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,pillar,guideKeywords,autoApprove})})).json();
@@ -9767,7 +9802,7 @@ _formatfixStart&&_formatfixStart.addEventListener('click',async()=>{
   if(!KEY) return;
   const pillar=($('#formatfixPillarFilter')&&$('#formatfixPillarFilter').value)||'tl';
   if(!pillar||pillar==='all'){ alert('Pick a specific pillar (not All)'); return; }
-  if(!confirm('Format Fixer for every Q&A in '+pillar+'? Fixes content + structure only — images will NOT be changed.')) return;
+  if(!confirm('Format Fixer for every Q&A in '+pillar+'?\n\nStep 1: content + structure only — images NOT changed.\nAfter pass → run Square Builder (Face Card).')) return;
   _formatfixStart.disabled=true;
   try{
     const r=await(await fetch('/format-fixer-start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,pillar})})).json();
