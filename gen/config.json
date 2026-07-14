@@ -1,0 +1,19 @@
+{
+ "fixConcurrency": 100,
+ "fixWorkers": 1,
+ "fixSoloTriple": false,
+ "fixScope": "tl",
+ "fixAutoRun": true,
+ "fixPodSize": 100,
+ "fixStage": "all",
+ "fixWriter": "deepseek",
+ "fixRunUntil": "2026-07-14T01:00:00.000Z",
+ "entriesPerHour": 10,
+ "perTopicPerHour": null,
+ "genTopics": "ALL",
+ "runHours": 2,
+ "runUntil": null,
+ "paused": false,
+ "deployEveryHours": 0,
+ "pillarLap": true
+}
