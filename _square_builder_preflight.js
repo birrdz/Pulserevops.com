@@ -9,6 +9,7 @@ const { faceCardSquareGradeOpts, goldTitleLayout } = require('./_ddg_facecard_li
 
 assert.strictEqual(config.faceCardVariant, 'square', 'square variant must be enabled');
 assert.strictEqual(config.queueMode, true, 'fixer-to-square queue mode must be enabled');
+assert.strictEqual(config.manualReview, true, 'square queue must wait for owner image selection');
 assert.strictEqual(config.force, false, 'queue mode must not force unrelated rebuilds');
 assert(!fs.existsSync(path.join(root, '_all_flux_facecards_stop.flag')), 'generator stop flag is present');
 assert(!fs.existsSync(path.join(root, '_all_flux_watchdog_stop.flag')), 'watchdog stop flag is present');

@@ -66,7 +66,7 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 // 🔒 OWNER 2026-07-04: Pollinator REMOVED from writing + scrubbing. Covers now = DDG face-cards with
 // the dated Pollinator look (people/places/things, photo-refined, no watermarked stock). Same signatures.
 const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
-const { readSquareQueue, enqueueSquareBuild } = require('./_square_builder_queue');
+const { readSquareQueue, enqueueSquareBuild, completeSquareBuild } = require('./_square_builder_queue');
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
 const IMG_GEN_BATCH_MAX = parseInt(process.env.IMG_GEN_BATCH_MAX || '250', 10);
@@ -676,7 +676,7 @@ function imageJobConflict(except) {
 }
 function slimImageReview(pr) {
   if (!pr) return null;
-  return { id: pr.id, title: pr.title, previewUrl: pr.previewUrl, previewNonce: pr.previewNonce, attempt: pr.attempt || 1, fluxDone: pr.fluxDone, top10: !!pr.top10, searchQuery: pr.searchQuery || '', searchIdx: pr.searchIdx };
+  return { id: pr.id, title: pr.title, previewUrl: pr.previewUrl, previewNonce: pr.previewNonce, attempt: pr.attempt || 1, fluxDone: pr.fluxDone, top10: !!pr.top10, template: pr.template || '', heroPlaced: !!pr.heroPlaced, searchQuery: pr.searchQuery || '', searchIdx: pr.searchIdx };
 }
 async function buildImageRewriteDraft(id, attempt) {
   const title = titleOf[id] || id;
@@ -921,10 +921,13 @@ async function buildFaceHeroDraft(id, attempt) {
   const title = titleOf[id] || id;
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e || !e.answer) return { noBlob: true };
+  const route = pickGoldTemplate(id, e.answer, title);
   const plan = countFaceHeroJobs();
   faceHeroJob.currentStep = 'flux 0/' + plan.total;
   const r = await fluxFaceHeroOnlyEntry(id, title, e.answer, {
     guideKeywords: faceHeroJob.guideKeywords || '',
+    variant: 'square',
+    coverOnly: true,
     attempt: attempt || faceHeroJob.reviewAttempt || 1,
     shouldStop: () => faceHeroJob.stop,
     onProgress: p => {
@@ -940,16 +943,21 @@ async function buildFaceHeroDraft(id, attempt) {
   if (r.stopped) return { stopped: true };
   if (r.error) return { error: r.error, fluxDone: r.fluxDone || 0 };
   const facePath = '/assets/qa/' + id + '.jpg';
-  let outBody = syncHeroDupesFaceCard(id, title, r.body || e.answer);
-  outBody = enforceCroCardLaw(outBody, id);
-  outBody = ensureKoryAfterHero(outBody);
-  outBody = syncHeroDupesFaceCard(id, title, outBody);
-  faceHeroJob.currentStep = 'verify · same file renders (face-card = hero)';
+  let outBody = e.answer;
+  let heroPlaced = false;
+  // Preserve the locked golden-template shape and visual rhythm. Top 10 has no top hero. Q&A may
+  // swap the first existing image slot to the selected square, but this image pass never adds/moves slots.
+  if (route.template === 'qa') {
+    outBody = outBody.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/, (all, alt) => {
+      heroPlaced = true;
+      return '![' + alt + '](' + facePath + ')';
+    });
+  }
+  faceHeroJob.currentStep = 'verify · 760×760 square + locked ' + (route.template || 'Q&A') + ' template';
   await waitFluxIdle();
-  const heroUrl = heroOf(outBody);
-  if (heroUrl !== facePath) return { error: 'hero must dupe face-card path ' + facePath + ' (got ' + (heroUrl || 'none') + ')', fluxDone: r.fluxDone || 0 };
+  if (heroPlaced && !outBody.includes('](' + facePath + ')')) return { error: 'selected square did not replace the existing top image slot', fluxDone: r.fluxDone || 0 };
   if (!(await verifyQaAssetRenders(facePath, id))) return { error: 'face-card/hero file failed render verify', fluxDone: r.fluxDone || 0 };
-  return { ok: true, body: outBody, fluxDone: r.fluxDone || 0, fluxTotal: r.fluxTotal || 0, top10: !!r.top10, previewUrl: facePath, searchQuery: r.searchQuery || '', searchIdx: r.searchIdx };
+  return { ok: true, body: outBody, fluxDone: r.fluxDone || 0, fluxTotal: r.fluxTotal || 0, top10: route.template === 'top10', template: route.template, heroPlaced, previewUrl: facePath, searchQuery: r.searchQuery || '', searchIdx: r.searchIdx };
 }
 async function commitFaceHeroDraft(id, outBody) {
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
@@ -962,6 +970,7 @@ async function commitFaceHeroDraft(id, outBody) {
     const ent = (idx.entries || []).find(x => x && x.id === id);
     if (ent) { ent.img = facePath; ent.cover_src = 'flux'; ent.face_title_baked = true; await store.setJSON('_index.json', idx); }
   } catch (err) {}
+  completeSquareBuild(id);
   return { ok: true };
 }
 async function runFaceHeroLoop() {
@@ -976,7 +985,9 @@ async function runFaceHeroLoop() {
   faceHeroJob.running = true;
   faceHeroJob.phase = 'facehero';
   try {
-    const entries = faceHeroJob._entries || await getImageDuplicatorEntries(faceHeroJob.pillar);
+    const entries = faceHeroJob._entries || readSquareQueue().pending
+      .filter(row => !faceHeroJob.pillar || pillarOf(row.id) === faceHeroJob.pillar)
+      .slice(0, faceHeroJob.batchSize || 200);
     faceHeroJob._entries = entries;
     faceHeroJob.total = entries.length;
     if (!faceHeroJob.total) {
@@ -1027,7 +1038,7 @@ async function runFaceHeroLoop() {
             faceHeroJob.stopAfterReview = true;
             faceHeroJob.stop = false;
           }
-          faceHeroJob.pendingReview = { id, title: faceHeroJob.currentTitle, previewUrl: r.previewUrl || ('/assets/qa/' + id + '.jpg'), previewNonce: id + '-a' + faceHeroJob.reviewAttempt + '-' + Date.now(), draftBody: r.body, attempt: faceHeroJob.reviewAttempt, fluxDone: r.fluxDone || 0, top10: !!r.top10, searchQuery: r.searchQuery || '', searchIdx: r.searchIdx };
+          faceHeroJob.pendingReview = { id, title: faceHeroJob.currentTitle, previewUrl: r.previewUrl || ('/assets/qa/' + id + '.jpg'), previewNonce: id + '-a' + faceHeroJob.reviewAttempt + '-' + Date.now(), draftBody: r.body, attempt: faceHeroJob.reviewAttempt, fluxDone: r.fluxDone || 0, top10: !!r.top10, template: r.template, heroPlaced: !!r.heroPlaced, searchQuery: r.searchQuery || '', searchIdx: r.searchIdx };
           faceHeroJob.phase = 'review';
           faceHeroJob.running = false;
           faceHeroJob.currentStep = faceHeroJob.stopAfterReview ? 'review · keep to save then stop · or try again' : 'review · keep or try again';
@@ -1104,7 +1115,7 @@ function faceHeroReviewDecision(action) {
     return { ok: true, kept: true, id: pr.id };
   }).catch(e => ({ ok: false, msg: e.message }));
 }
-function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
+function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart, batchSize) {
   if (faceHeroJob.running) return { ok: false, msg: 'already running' };
   if (faceHeroJob.phase === 'review' && faceHeroJob.pendingReview && !forceRestart) {
     return { ok: false, msg: 'card waiting for review — ✓ Keep or ✗ Try again first (or Force stop to cancel)', needsReview: true, pendingId: faceHeroJob.pendingReview.id };
@@ -1112,9 +1123,9 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
   const busy = imageJobConflict('facehero');
   if (busy) return { ok: false, msg: busy };
   pillar = pillar && pillar !== 'all' ? String(pillar) : null;
-  if (!pillar) return { ok: false, msg: 'pick a pillar' };
   guideKeywords = String(guideKeywords || '').trim().slice(0, 800);
   autoApproveImages = !!autoApproveImages;
+  batchSize = Math.max(1, Math.min(200, parseInt(batchSize, 10) || 200));
   const canResume = !forceRestart && faceHeroJob.pillar === pillar && (faceHeroJob.phase === 'stopped' || faceHeroJob.phase === 'done' || faceHeroJob.phase === 'error') && (faceHeroJob.done || 0) > 0 && (faceHeroJob.done || 0) < (faceHeroJob.total || 1);
   if (canResume) {
     faceHeroJob.stop = false;
@@ -1125,15 +1136,16 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
     faceHeroJob.error = '';
     faceHeroJob.guideKeywords = guideKeywords;
     faceHeroJob.autoApproveImages = autoApproveImages;
+    faceHeroJob.batchSize = batchSize;
     faceHeroJob.pendingReview = null;
     faceHeroJob.reviewAttempt = 1;
-    faceHeroJob.pillarName = pName(pillar);
+    faceHeroJob.pillarName = pillar ? pName(pillar) : 'All queued Q&As';
     faceHeroLog('▶ Resuming — ' + (faceHeroJob.done || 0) + '/' + (faceHeroJob.total || 0) + ' · ' + faceHeroJob.pillarName);
     runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
     return { ok: true, started: true, resumed: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, done: faceHeroJob.done, total: faceHeroJob.total };
   }
   faceHeroJob = {
-    running: false, stop: false, stopAfterReview: false, pillar, pillarName: pName(pillar), guideKeywords, autoApproveImages,
+    running: false, stop: false, stopAfterReview: false, pillar, pillarName: pillar ? pName(pillar) : 'All queued Q&As', guideKeywords, autoApproveImages, batchSize,
     done: 0, total: 0, pct: 0, entriesDone: 0, coversGenerated: 0, fluxJobs: 0,
     skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [],
@@ -1141,9 +1153,9 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
   };
   const kwNote = guideKeywords ? (' · guide: ' + guideKeywords.slice(0, 48) + (guideKeywords.length > 48 ? '…' : '')) : '';
   const modeNote = autoApproveImages ? ' · 🤖 auto-approve ON' : ' · keep/retry each card';
-  faceHeroLog('▶ Face Card & Top Image — ' + faceHeroJob.pillarName + kwNote + modeNote + ' · serial flux');
+  faceHeroLog('▶ Square Builder — ' + faceHeroJob.pillarName + ' · up to ' + batchSize + ' today' + kwNote + modeNote + ' · serial flux');
   runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
-  return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages };
+  return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, batchSize };
 }
 function stopFaceHero() {
   if (faceHeroJob.running) {
@@ -6530,7 +6542,7 @@ function buildPage(mode) {
     : 'Tap any entry for <b>fullscreen review</b> — <b>Cursor auto-auditors</b> gate publish. Only exceptions land here — <b style=color:#2ecc71>✓</b> publish · <b style=color:#ff8a76>✗</b> retarget.';
   const fsBatchExplain = 'Use <b>Rubric Stations</b> — one slice at a time (Writing · Structure · Face · Internal images · Top-10 · Publish gate). Each station has its own fix + auditor. Standard full scrub is disabled.';
   const batchIdleHint = 'Open a station tab — pick pillar — ▶ Start. Finished entries land in the audit pile below.';
-  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Face Card & Top Image Generator' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
+  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Square Builder' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
   return `<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><title>PULSE · ${pageTitle}</title><style>
 *{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:18px}
 #gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:92%;max-width:560px}
@@ -7234,21 +7246,25 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   </div>
   <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
-    <div class=dupe-panel-title style="color:#e879f9">🦄 Face Card &amp; Top Image Generator</div>
-    <div class=dupe-panel-hint><b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
+    <div class=dupe-panel-title style="color:#e879f9">◻️ Square Builder</div>
+    <div class=dupe-panel-hint><b>One click:</b> generates a titled 760×760 square, applies it as the card cover, and swaps the existing Q&amp;A top-image slot when allowed. The locked template is preserved: <b>Top 10</b> or <b>Q&amp;A essay</b>. Run up to 200 per batch.</div>
     <div class=dupe-panel-row>
       <select id=faceheroPillarFilter title="Which pillar to regenerate face-cards + heroes for"><option value=tl>Loading pillars…</option></select>
     </div>
     <div class=imgen-keywords-row>
-      <label class=imgen-keywords-label style="color:#e879f9" for=faceheroKeywords>🎯 Guide keywords (optional)</label>
-      <input type=text id=faceheroKeywords class=imgen-keywords maxlength=800 placeholder="e.g. headroom portrait, warm cinematic grade — comma separated" title="Optional — steers each Pollinator face-card flux try">
+      <label class=imgen-keywords-label style="color:#e879f9" for=faceheroKeywords>🎯 What should the image show?</label>
+      <input type=text id=faceheroKeywords class=imgen-keywords maxlength=800 placeholder="e.g. confident executive in a bright modern office" title="Steers each square image">
       <div class=imgen-keywords-hint>Leave blank for automatic title-based searches. Same search/guide for every card until you ✗ Try again — then it rotates to the next title search (and next comma guide keyword if set).</div>
+    </div>
+    <div class=dupe-panel-row>
+      <label for=faceheroBatch>Squares today</label>
+      <input type=number id=faceheroBatch min=1 max=200 value=200 style="width:92px" title="Maximum 200 per run">
     </div>
     <div class="dupe-auto-opts facehero">
       <label title="Skip manual review — each generated face-card is saved automatically and the run continues"><input type=checkbox id=faceheroAutoApprove> 🤖 Auto-approve images</label>
     </div>
     <div class=dupe-btns>
-      <button type=button id=faceheroStart>▶ Generate face-card + top hero for pillar</button>
+      <button type=button id=faceheroStart>▶ Start square batch</button>
       <button type=button id=faceheroStop disabled>⏹ Stop</button>
       <button type=button id=faceheroForceStop disabled title="Force stop — clears review and will not resume on server restart">⏹ Force stop</button>
     </div>
@@ -7258,7 +7274,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
         <a id=faceheroReviewLink href="#" target=_blank rel=noopener><img id=faceheroReviewImg src="" alt="face-card preview"></a>
         <div class=card-review-meta id=faceheroReviewMeta></div>
         <div class=card-review-btns>
-          <button type=button id=faceheroKeep>✓ Keep</button>
+          <button type=button id=faceheroKeep>✓ Use this square</button>
           <button type=button id=faceheroRetry>✗ Try again</button>
         </div>
       </div>
@@ -7670,8 +7686,8 @@ const RUBRIC_PICK=${JSON.stringify(Object.entries(RUBRIC_LABELS).filter(function
 const $=s=>document.querySelector(s);
 // ── Scrub vs Generate — one page, client-side tab toggle (owner) ──
 window.activeTab='${mode}';
-const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'🦄 Face Card & Top Image',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
-const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'Audits ≥2000 words, Direct Answer, CRO placement, FAQs, mermaid, Sources, Related. <b>Does not touch images.</b>'};
+const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'◻️ Square Builder',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
+const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'Your local 760×760 square workflow: describe the image, review it, then click the square to apply the baked title and template-safe cover/top-image swap. Up to 200 per batch.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every image renders before moving on. Face-card + top image never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'Audits ≥2000 words, Direct Answer, CRO placement, FAQs, mermaid, Sources, Related. <b>Does not touch images.</b>'};
 function switchPipelineTab(mode){
   if(!mode||mode===window.activeTab) return;
   window.activeTab=mode;
@@ -7698,7 +7714,7 @@ function switchPipelineTab(mode){
   const at=$('#appTitle'); if(at) at.textContent=TAB_TITLE[mode];
   const as=$('#appSub'); if(as) as.innerHTML=TAB_COPY[mode];
   if(window._sa&&window._sa.state&&window._sa.state.cap){ const cap=$('#cap'); if(cap) cap.textContent=window._sa.state.cap; }
-  try{ history.replaceState({tab:mode},'',mode==='generate'?'/generate':mode==='duplicator'?'/image-duplicator':mode==='imgen'?'/image-generator':mode==='facehero'?'/face-card-top-image-generator':mode==='internalimages'?'/internal-images':mode==='rubricstation'?'/rubric-stations':mode==='rewrite'?'/pollinator-image-overwrite':mode==='formatfix'?'/format-fixer':'/scrubber'); }catch(e){}
+  try{ history.replaceState({tab:mode},'',mode==='generate'?'/generate':mode==='duplicator'?'/image-duplicator':mode==='imgen'?'/image-generator':mode==='facehero'?'/square-builder':mode==='internalimages'?'/internal-images':mode==='rubricstation'?'/rubric-stations':mode==='rewrite'?'/pollinator-image-overwrite':mode==='formatfix'?'/format-fixer':'/scrubber'); }catch(e){}
   updateFullscreenForTab();
   updateTabBadges();
   if(mode==='scrub'){ if(window._sa) renderAuto(window._sa); loadPillars(); }
@@ -7724,7 +7740,7 @@ function bindPipelineTabs(){
   if(nf) nf.addEventListener('click',()=>switchPipelineTab('formatfix'));
   window.addEventListener('popstate',()=>{
     const path=(location.pathname||'/scrubber').toLowerCase();
-    const m=path.includes('format-fixer')||path.includes('formatfix')?'formatfix':path.includes('rubric-stations')||path.includes('rubricstation')?'rubricstation':path.includes('internal-images')||path.includes('internalimages')?'internalimages':path.includes('pollinator-image-overwrite')||path.includes('image-rewrite')?'rewrite':path.includes('face-card-top-image')||path.includes('face-hero')?'facehero':path.includes('image-generator')?'imgen':path.includes('image-duplicator')?'duplicator':path.includes('generate')?'generate':'scrub';
+    const m=path.includes('format-fixer')||path.includes('formatfix')?'formatfix':path.includes('rubric-stations')||path.includes('rubricstation')?'rubricstation':path.includes('internal-images')||path.includes('internalimages')?'internalimages':path.includes('pollinator-image-overwrite')||path.includes('image-rewrite')?'rewrite':path.includes('square-builder')||path.includes('face-card-top-image')||path.includes('face-hero')?'facehero':path.includes('image-generator')?'imgen':path.includes('image-duplicator')?'duplicator':path.includes('generate')?'generate':'scrub';
     if(m!==window.activeTab) switchPipelineTab(m);
   });
 }
@@ -7892,13 +7908,14 @@ let faceheroPoll=null, faceheroPollBusy=false;
 function renderFaceHero(j){
   if(!j) return;
   const prog=$('#faceheroProg'), bar=$('#faceheroProgBar'), lbl=$('#faceheroProgLbl'), stats=$('#faceheroStats'), log=$('#faceheroLog');
-  const start=$('#faceheroStart'), stop=$('#faceheroStop'), forceStop=$('#faceheroForceStop'), pf=$('#faceheroPillarFilter'), kw=$('#faceheroKeywords'), aa=$('#faceheroAutoApprove');
+  const start=$('#faceheroStart'), stop=$('#faceheroStop'), forceStop=$('#faceheroForceStop'), pf=$('#faceheroPillarFilter'), kw=$('#faceheroKeywords'), aa=$('#faceheroAutoApprove'), batch=$('#faceheroBatch');
   const showReview=j.phase==='review'&&j.pendingReview;
   const active=!!(j.running||j.phase==='starting'||j.phase==='facehero');
   const busy=active||showReview;
   if(pf) pf.disabled=busy;
   if(kw) kw.disabled=busy;
   if(aa) aa.disabled=busy;
+  if(batch) batch.disabled=busy;
   if(start) start.disabled=busy;
   if(busy){
     if(prog) prog.style.display='block';
@@ -7913,7 +7930,7 @@ function renderFaceHero(j){
   }
   if(lbl){
     const cur=j.currentId?(' · now: '+esc(j.currentId)+' — '+esc(String(j.currentTitle||'').slice(0,48))):'';
-    if(showReview) lbl.innerHTML='<b>Review</b> — '+esc(j.pendingReview.id)+' · try #'+(j.pendingReview.attempt||1)+(j.stopAfterReview?' · <span style="color:#fbbf24">Keep saves then stops run</span>':'')+' — ✓ keep or ✗ try again';
+    if(showReview) lbl.innerHTML='<b>Click the square to use it</b> — '+esc(j.pendingReview.id)+' · '+esc(j.pendingReview.template==='top10'?'Top 10':'Q&A essay')+' · try #'+(j.pendingReview.attempt||1)+(j.pendingReview.heroPlaced?' · cover + existing top image':' · cover only')+(j.stopAfterReview?' · <span style="color:#fbbf24">selection saves then stops</span>':'')+' — or ✗ try again';
     else{
       const pctShow=(Number(j.pct)>0&&Number(j.pct)<1)?Number(j.pct).toFixed(1):String(Math.round(Number(j.pct)||0));
       lbl.innerHTML='<b>'+pctShow+'%</b> — '+(j.done||0).toLocaleString()+' / '+(j.total||0).toLocaleString()+' Q&amp;As'+cur+(j.currentStep?(' · '+esc(j.currentStep)):'');
@@ -7929,6 +7946,7 @@ function renderFaceHero(j){
     '<div>⏭ no blob: <span>'+(j.skippedNoBlob||0)+'</span></div>'+
     '<div>⚠️ errors: <span>'+(j.errors||0)+'</span></div>'+
     '<div>📁 pillar: <span>'+esc(j.pillarName||j.pillar||'—')+'</span></div>'+
+    '<div>📦 daily batch: <span>'+(j.batchSize||200)+'</span></div>'+
     (j.autoApproveImages?('<div>🤖 auto-approve: <span>ON</span></div>'):'')+
     (j.guideKeywords?('<div>🎯 guide: <span>'+esc(String(j.guideKeywords).slice(0,80))+(String(j.guideKeywords).length>80?'…':'')+'</span></div>'):'');
   if(j.autoApproveImages != null){ const el=$('#faceheroAutoApprove'); if(el&&document.activeElement!==el) el.checked=!!j.autoApproveImages; }
@@ -9705,12 +9723,12 @@ _faceheroStart&&_faceheroStart.addEventListener('click',async()=>{
   const pillar=($('#faceheroPillarFilter')&&$('#faceheroPillarFilter').value)||'tl';
   const guideKeywords=readGuideKeywords('faceheroKeywords');
   const autoApprove=readAutoApprove('faceheroAutoApprove');
-  if(!pillar||pillar==='all'){ alert('Pick a specific pillar (not All)'); return; }
+  const batchSize=Math.max(1,Math.min(200,parseInt(($('#faceheroBatch')&&$('#faceheroBatch').value)||'200',10)||200));
   const modeNote=autoApprove?' Auto-approve is ON — each card saves without manual review.':' After each card: ✓ Keep saves it · ✗ Try again regenerates with the next search.';
-  if(!confirm('Generate face-cards for every Q&A in '+pillar+'?'+modeNote)) return;
+  if(!confirm('Build up to '+batchSize+' titled squares for '+(pillar==='all'?'all queued Q&As':pillar)+'?'+modeNote)) return;
   _faceheroStart.disabled=true;
   try{
-    const r=await(await fetch('/face-hero-start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,pillar,guideKeywords,autoApprove})})).json();
+    const r=await(await fetch('/face-hero-start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,pillar,guideKeywords,autoApprove,batchSize})})).json();
     if(!r.started){
       if(r.needsReview){
         alert(r.msg||('Review pending: '+(r.pendingId||'')));
@@ -9722,7 +9740,7 @@ _faceheroStart&&_faceheroStart.addEventListener('click',async()=>{
     $('#faceheroProg')&&($('#faceheroProg').style.display='block');
     $('#faceheroReview')&&($('#faceheroReview').style.display='none');
     startFaceHeroPoll();
-    renderFaceHero({running:true,pct:0,done:0,total:0,log:['▶ Starting…'],pillarName:r.pillarName,pillar,guideKeywords,autoApproveImages:autoApprove});
+    renderFaceHero({running:true,pct:0,done:0,total:0,log:['▶ Starting square batch…'],pillarName:r.pillarName,pillar,guideKeywords,autoApproveImages:autoApprove,batchSize});
   }catch(e){ alert('start failed'); }
   finally{ _faceheroStart.disabled=false; }
 });
@@ -9737,6 +9755,11 @@ _faceheroKeep&&_faceheroKeep.addEventListener('click',async()=>{
     await refreshFaceHeroStatus();
   }catch(e){ alert('keep failed'); }
   finally{ _faceheroKeep.disabled=false; }
+});
+var _faceheroReviewImg=$('#faceheroReviewImg');
+_faceheroReviewImg&&_faceheroReviewImg.addEventListener('click',function(e){
+  e.preventDefault();
+  if(_faceheroKeep&&!_faceheroKeep.disabled)_faceheroKeep.click();
 });
 var _faceheroRetry=$('#faceheroRetry');
 _faceheroRetry&&_faceheroRetry.addEventListener('click',async()=>{
@@ -10597,7 +10620,7 @@ const server = http.createServer(async (req, res) => {
   if (u.pathname === '/image-duplicator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('duplicator')); }
   if (u.pathname === '/image-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('imgen')); }
   if (u.pathname === '/pollinator-image-overwrite' || u.pathname === '/image-rewrite') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rewrite')); }
-  if (u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('facehero')); }
+  if (u.pathname === '/square-builder' || u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('facehero')); }
   if (u.pathname === '/format-fixer' || u.pathname === '/formatfix') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('formatfix')); }
   if (u.pathname === '/internal-images' || u.pathname === '/internalimages') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('internalimages')); }
   if (u.pathname === '/rubric-stations' || u.pathname === '/rubricstation') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rubricstation')); }
@@ -10974,7 +10997,7 @@ const server = http.createServer(async (req, res) => {
     let b = ''; req.on('data', c => b += c); req.on('end', () => {
       let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
       if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
-      const r = startFaceHero(d.pillar || '', d.guideKeywords || '', d.autoApprove);
+      const r = startFaceHero(d.pillar || '', d.guideKeywords || '', d.autoApprove, false, d.batchSize);
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(r));
     });

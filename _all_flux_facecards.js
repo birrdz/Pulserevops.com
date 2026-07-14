@@ -269,6 +269,10 @@ async function makeFluxOverwrite(id, question) {
   let todo;
   if (QUEUE_MODE) {
     const queued = readSquareQueue().pending;
+    if (CFG.manualReview === true) {
+      console.log('[all-flux] WAITING · ' + queued.length + ' Q&As reserved for manual review at /square-builder');
+      return;
+    }
     const byId = new Map((idx.entries || []).filter(Boolean).map(e => [String(e.id), e]));
     todo = queued.map(item => Object.assign({}, byId.get(String(item.id)) || {}, item, {
       id: String(item.id),

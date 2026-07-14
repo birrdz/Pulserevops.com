@@ -71,7 +71,7 @@ async function makeCoverForce(id, q, promptOverride, fluxOpts) {
       const missMode = tryAttempt > 0 || fluxTry > 0 ? 'dupe' : null;
       const b = await fetchFluxPrompt(prompt, seed, { pool: true, missMode, maxTry: fluxTry > 2 ? 8 : 6 });
       if (!b) return false;
-      await gradeFaceCardFromBuffer(b, dest, { question: clean(q) || id });
+      await gradeFaceCardFromBuffer(b, dest, { question: clean(q) || id, variant: fluxOpts.variant });
       const qc = await faceCoverQualityOk(id, clean(q) || id, fs.readFileSync(dest));
       if (!qc.ok) {
         try { fs.unlinkSync(dest); } catch (e) {}
@@ -122,7 +122,7 @@ function syncHeroDupesFaceCard(id, question, body) {
 /** One flux face-card file, then duplicate that path into the answer hero line. */
 async function makeFaceCardAndSyncHero(id, question, body, coverPrompt, fluxOpts) {
   if (!(await makeCoverForce(id, question, coverPrompt, fluxOpts))) return { ok: false, body };
-  return { ok: true, body: syncHeroDupesFaceCard(id, question, body), fluxDone: 1 };
+  return { ok: true, body: fluxOpts && fluxOpts.coverOnly ? body : syncHeroDupesFaceCard(id, question, body), fluxDone: 1 };
 }
 
 /** Drop legacy <!--HERO--> marker + stray intro images before the first ## section (second hero under face-card). */
