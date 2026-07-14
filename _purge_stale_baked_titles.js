@@ -72,6 +72,7 @@ function parseArgs(argv) {
   ].map(id => id.trim()).filter(id => /^[a-z]+\d+$/i.test(id));
   return {
     ids: [...new Set(ids)],
+    allBaked: argv.includes('--all-baked'),
     regen: !argv.includes('--no-regen'),
     lawDomUrl: ((argv.find(arg => arg.startsWith('--law-dom-url=')) || '').split('=').slice(1).join('=') || process.env.LAW_DOM_URL || '').trim(),
   };
@@ -85,6 +86,27 @@ function atomicJson(file, value) {
     fs.rmSync(file, { force: true });
     fs.renameSync(tmp, file);
   }
+}
+
+function deleteResumeLockfiles(ids) {
+  const deleted = [];
+  const escaped = ids.map(id => id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  if (!escaped.length) return deleted;
+  const idPattern = new RegExp('(^|[^a-z0-9_])(?:' + escaped.join('|') + ')(?=$|[^a-z0-9_])', 'i');
+  for (const name of fs.readdirSync(WD)) {
+    if (!/^_.*(?:resume|lock)/i.test(name)) continue;
+    if (name === path.basename(LOCK_FILE)) continue;
+    const file = path.join(WD, name);
+    let stat;
+    try { stat = fs.statSync(file); } catch (e) { continue; }
+    if (!stat.isFile() || stat.size > 5 * 1024 * 1024) continue;
+    let content = '';
+    try { content = fs.readFileSync(file, 'utf8'); } catch (e) { continue; }
+    if (!idPattern.test(content)) continue;
+    fs.rmSync(file, { force: true });
+    deleted.push(name);
+  }
+  return deleted;
 }
 
 function chromePath() {
@@ -167,46 +189,60 @@ async function purgeOne(store, id) {
 
 async function main() {
   const options = parseArgs(process.argv.slice(2));
-  if (!options.ids.length) throw new Error('provide one or more IDs (example: node _purge_stale_baked_titles.js ed0338)');
+  if (!options.ids.length && !options.allBaked) throw new Error('provide IDs or --all-baked');
   const token = process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN;
   if (!token) throw new Error('BLOBS_PAT/NETLIFY_AUTH_TOKEN missing; run on the local Fixer machine with .env.local');
-  const release = acquireLock();
   const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token });
-  const report = { startedAt: new Date().toISOString(), ids: options.ids, purged: [], regeneration: null, lawDom: [] };
+  if (options.allBaked) {
+    const index = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+    options.ids = [...new Set((index.entries || []).filter(entry => entry && entry.id && entry.face_title_baked === true).map(entry => String(entry.id)))];
+    console.log('[stale-title-purge] identified ' + options.ids.length + ' face_title_baked entries');
+  }
+  if (!options.ids.length) {
+    console.log('[stale-title-purge] no baked-title entries found');
+    return;
+  }
+  const release = acquireLock();
+  const report = { startedAt: new Date().toISOString(), ids: options.ids, purged: [], resumeLocksDeleted: [], regeneration: null, lawDom: [] };
   try {
     for (const id of options.ids) report.purged.push(await purgeOne(store, id));
+    report.resumeLocksDeleted = deleteResumeLockfiles(options.ids);
     atomicJson(REPORT_FILE, report);
   } finally {
     release();
   }
 
   if (options.regen) {
-    const run = spawnSync(process.execPath, [path.join(WD, '_all_flux_facecards.js')], {
-      cwd: WD,
-      env: Object.assign({}, process.env, {
-        PURGE_REGEN_IDS: options.ids.join(','),
-        FORCE_ALL: '1',
-        LIMIT: String(options.ids.length),
-      }),
-      stdio: 'inherit',
-      timeout: 30 * 60 * 1000,
-    });
-    report.regeneration = { status: run.status, signal: run.signal || null, error: run.error ? run.error.message : '' };
-    if (run.error || run.status !== 0) {
+    report.regeneration = [];
+    for (let offset = 0; offset < options.ids.length; offset += 100) {
+      const pod = options.ids.slice(offset, offset + 100);
+      const run = spawnSync(process.execPath, [path.join(WD, '_all_flux_facecards.js')], {
+        cwd: WD,
+        env: Object.assign({}, process.env, {
+          PURGE_REGEN_IDS: pod.join(','),
+          FORCE_ALL: '1',
+          LIMIT: String(pod.length),
+        }),
+        stdio: 'inherit',
+        timeout: 6 * 60 * 60 * 1000,
+      });
+      report.regeneration.push({ pod: Math.floor(offset / 100) + 1, ids: pod, status: run.status, signal: run.signal || null, error: run.error ? run.error.message : '' });
       atomicJson(REPORT_FILE, report);
-      throw new Error('clean regeneration failed; force-regeneration markers remain active');
+      if (run.error || run.status !== 0) {
+        throw new Error('clean regeneration failed in pod ' + (Math.floor(offset / 100) + 1) + '; force-regeneration markers remain active');
+      }
     }
     for (const item of report.purged) {
       const file = coverPath(item.id);
       item.regenerated = fs.existsSync(file);
       item.gradeStamp = item.regenerated && await verifyGradeStamp(file);
-      report.lawDom.push(Object.assign({ id: item.id }, verifyRenderedDom(item.id, item.title, options.lawDomUrl)));
+      if (options.lawDomUrl) report.lawDom.push(Object.assign({ id: item.id }, verifyRenderedDom(item.id, item.title, options.lawDomUrl)));
     }
   }
   report.finishedAt = new Date().toISOString();
   atomicJson(REPORT_FILE, report);
   console.log(JSON.stringify(report, null, 2));
-  if (options.regen && report.lawDom.some(result => !result.pass)) {
+  if (options.regen && options.lawDomUrl && report.lawDom.some(result => !result.pass)) {
     throw new Error('LAW-DOM verification failed; see ' + REPORT_FILE);
   }
 }

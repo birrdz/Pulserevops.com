@@ -19,7 +19,7 @@ const { getStore } = require('@netlify/blobs');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 const lib = require('./_ddg_facecard_lib');
 const { fluxPromptUrl, runFluxJob } = require('./_pollinator_flux_throttle');
-const { storeGradedImage, coverPath, buildFluxFaceQuery, stampCoverProvenance, gradeFaceCardFromBuffer, clearFaceCardForceRegen } = lib;
+const { storeGradedImage, coverPath, buildFluxFaceQuery, stampCoverProvenance, clearFaceCardForceRegen, FACE_CARD_TILE_W, FACE_CARD_TILE_H } = lib;
 const { sendFaceCardEmail } = require('./_facecard_resend_email');
 const {
   poolPath,
@@ -203,7 +203,10 @@ async function makeFluxOriginal(id, question, addToPool) {
   const prompt = anchoredPrompt(id, question);
   const img = await fetchAdaptiveFlux(prompt, seed);
   if (!img) return 0;
-  await gradeFaceCardFromBuffer(img, coverPath(id), { question, variant: FACE_CARD_VARIANT });
+  const gradeOpts = FACE_CARD_VARIANT === 'square'
+    ? { square: S, faceCard: true, cropPosition: 'attention', bright: false }
+    : { faceCardTile: true, faceCard: true, width: FACE_CARD_TILE_W, height: FACE_CARD_TILE_H, cropPosition: 'attention', bright: false };
+  await storeGradedImage(img, coverPath(id), gradeOpts);
   if (addToPool) {
     const nPool = poolCount(p);
     const cap = POOL_INVENTORY > 0 ? POOL_INVENTORY : ORIG_PER_PILLAR;
@@ -320,7 +323,7 @@ async function makeFluxOverwrite(id, question) {
     if (!stampIds.length) return;
     try {
       const fresh = await store.get('_index.json', { type: 'json', consistency: 'strong' });
-      for (const id of stampIds) { const e = (fresh.entries || []).find(x => x && x.id === id); if (e) { e.img = '/assets/qa/' + id + '.jpg'; e.cover_src = 'flux'; e.face_title_baked = true; } }
+      for (const id of stampIds) { const e = (fresh.entries || []).find(x => x && x.id === id); if (e) { e.img = '/assets/qa/' + id + '.jpg?v=' + Date.now().toString(36); e.cover_src = 'flux'; e.face_title_baked = false; delete e.face_title_text; } }
       await store.setJSON('_index.json', fresh);
       idx = fresh; stampIds = [];
     } catch (z) { console.log('    idx flush err ' + (z && z.message)); }
@@ -354,7 +357,14 @@ async function makeFluxOverwrite(id, question) {
       // mutate in-memory index (no per-entry strong read); write the small answer blob per-entry; flush index every STAMP_BATCH
       { // record id for the merged index flush; write the small answer blob per-entry (fresh read → no clobber)
         stampIds.push(e.id);
-        try { const cur = await store.get('answers/' + e.id + '.json', { type: 'json' }); if (cur) await store.setJSON('answers/' + e.id + '.json', Object.assign({}, cur, { cover_src: 'flux', face_title_baked: true })); } catch (z) {}
+        try {
+          const cur = await store.get('answers/' + e.id + '.json', { type: 'json' });
+          if (cur) {
+            const next = Object.assign({}, cur, { cover_src: 'flux', face_title_baked: false, image_version: Date.now().toString(36) });
+            delete next.face_title_text;
+            await store.setJSON('answers/' + e.id + '.json', next);
+          }
+        } catch (z) {}
         if (stampIds.length >= STAMP_BATCH) await flushIndex();
         if (QUEUE_MODE) {
           await flushIndex();
