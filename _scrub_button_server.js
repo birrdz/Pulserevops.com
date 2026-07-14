@@ -11037,7 +11037,14 @@ const server = http.createServer(async (req, res) => {
   if (u.pathname === '/pillar-progress-data') { res.writeHead(200, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify(buildPillarProgressPayload())); }
   if (u.pathname === '/health' || u.pathname === '/ping') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    return res.end(JSON.stringify({ ok: true, port: PORT, passcode: PASS, ts: Date.now() }));
+    return res.end(JSON.stringify({
+      ok: true,
+      app: 'pulse-fixer-square-builder',
+      build: 'pods-100-image-proxy-v1',
+      port: PORT,
+      passcode: PASS,
+      ts: Date.now(),
+    }));
   }
   if (u.pathname === '/portal-url') {
     let lan = '';
