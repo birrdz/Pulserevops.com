@@ -67,7 +67,7 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 // 🔒 OWNER 2026-07-04: Pollinator REMOVED from writing + scrubbing. Covers now = DDG face-cards with
 // the dated Pollinator look (people/places/things, photo-refined, no watermarked stock). Same signatures.
 const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, storeGradedImage, coverPath, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
-const { readSquareQueue, enqueueSquareBuild, completeSquareBuild } = require('./_square_builder_queue');
+const { readSquareQueue, enqueueSquareBuild, completeSquareBuild, removeSquareBuildsByPrefix } = require('./_square_builder_queue');
 const { deriveImageSearchQuery } = require('./netlify/functions/lib/derive-image-search-query');
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
@@ -892,6 +892,7 @@ async function searchPexelsForTitle(id, requestedTitle, gender, clickIndex) {
   if (!key) throw new Error('PEXELS_API_KEY missing');
   const entry = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
+  if (pillarOf(id) === 'sy') throw new Error('Style pillar is paused');
   const pageTitle = String(requestedTitle || titleOf[id] || entry.question || entry.title || id).trim();
   const route = pickGoldTemplate(id, entry.answer, pageTitle);
   clickIndex = Math.max(0, parseInt(clickIndex, 10) || 0);
@@ -914,7 +915,7 @@ async function searchPexelsForTitle(id, requestedTitle, gender, clickIndex) {
     url: p.src.large2x || p.src.large || p.src.original,
     photographer: p.photographer || '',
   }));
-  return { id, title: pageTitle, targetTitle: title, targetIndex: clickIndex, query, photos, template: route.template, targetCount: route.template === 'top10' ? Math.min(10, productTitles.length) : (pillarOf(id) === 'sy' ? 6 : 3) };
+  return { id, title: pageTitle, targetTitle: title, targetIndex: clickIndex, query, photos, template: route.template, targetCount: route.template === 'top10' ? Math.min(10, productTitles.length) : 3 };
 }
 async function downloadPexelsPickerImage(url) {
   const parsed = new URL(String(url || ''));
@@ -952,13 +953,9 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   if (!route.template) throw new Error('Q&A does not match a locked golden template');
   clickIndex = Math.max(0, parseInt(clickIndex, 10) || 0);
   const pillar = pillarOf(id);
-  const maxClick = route.template === 'top10' ? 9 : (pillar === 'sy' ? 5 : 2);
+  if (pillar === 'sy') throw new Error('Style pillar is paused');
+  const maxClick = route.template === 'top10' ? 9 : 2;
   if (clickIndex > maxClick) throw new Error('all allowed manual image slots are filled');
-  const styleCounts = Object.assign({ men: 0, women: 0 }, entry.manual_style_counts || {});
-  if (pillar === 'sy') {
-    if (gender !== 'men' && gender !== 'women') throw new Error('Style requires Men or Women selection');
-    if ((styleCounts[gender] || 0) >= 3) throw new Error('Style already has 3 ' + gender + ' images');
-  }
   const buffer = await downloadPexelsPickerImage(url);
   fs.mkdirSync(path.join(WD, 'assets', 'qa'), { recursive: true });
   let body = entry.answer, localUrl, placement;
@@ -988,13 +985,11 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   }
   const afterRoute = pickGoldTemplate(id, body, title);
   if (afterRoute.template !== route.template) throw new Error('image change would alter the locked template');
-  if (pillar === 'sy') styleCounts[gender] = (styleCounts[gender] || 0) + 1;
   await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, {
     answer: body,
     cover_src: clickIndex === 0 ? 'pexels' : (entry.cover_src || 'pexels'),
     face_title_baked: false,
     image_updated_at: new Date().toISOString(),
-    manual_style_counts: pillar === 'sy' ? styleCounts : entry.manual_style_counts,
   }));
   if (clickIndex === 0) {
     const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
@@ -1541,7 +1536,7 @@ async function runFormatFixerLoop() {
           formatFixerJob.entriesPass++;
           formatFixerJob.consecutiveErrors = 0;
           await stampFormatFixerPassed(id);
-          if (enqueueSquareBuild(id, titleOf[id] || row.question || id)) formatFixerJob.squareQueued++;
+          if (pillarOf(id) !== 'sy' && enqueueSquareBuild(id, titleOf[id] || row.question || id)) formatFixerJob.squareQueued++;
         }
         else if (r.error) recordFormatFixerError(id, r.error);
         else {
@@ -1551,7 +1546,7 @@ async function runFormatFixerLoop() {
           if (r.pass) {
             formatFixerJob.entriesPass++;
             await stampFormatFixerPassed(id);
-            if (enqueueSquareBuild(id, titleOf[id] || row.question || id)) formatFixerJob.squareQueued++;
+            if (pillarOf(id) !== 'sy' && enqueueSquareBuild(id, titleOf[id] || row.question || id)) formatFixerJob.squareQueued++;
           }
           const note = r.pass ? 'rubric ✓' : ('rubric ' + (r.afterPct != null ? r.afterPct : '?') + '% · ' + (r.words != null ? r.words + 'w' : '') + (r.failed && r.failed.length ? ' · ' + r.failed.slice(0, 4).join(', ') : ''));
           formatFixerLog((r.changed ? '📝' : '✓') + ' ' + id + ' · ' + note + (r.steps && r.steps.length ? (' · ' + r.steps.join('+')) : ''));
@@ -2085,7 +2080,7 @@ function recordScrubAutoResult(r) {
   if (!r) return;
   if (r.status === 'certified') {
     const st = stateObj();
-    if (enqueueSquareBuild(r.id, titleOf[r.id] || r.id)) {
+    if (pillarOf(r.id) !== 'sy' && enqueueSquareBuild(r.id, titleOf[r.id] || r.id)) {
       autoJob.squareQueued = (autoJob.squareQueued || 0) + 1;
       autoLog('◻️ ' + r.id + ' passed all Daily Driver gates → waiting in Square Builder');
     }
@@ -7431,9 +7426,6 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <input type=text id=squareQaId class=imgen-keywords maxlength=80 placeholder="e.g. q11133">
       <label class=imgen-keywords-label style="color:#e879f9" for=squareTitleQuery>Title keywords</label>
       <input type=text id=squareTitleQuery class=imgen-keywords maxlength=220 placeholder="Leave blank to read the Q&amp;A title automatically">
-      <select id=squareGender style="margin-top:8px;padding:9px;border-radius:8px;background:#0b1219;color:#fff;border:1px solid #6b4a7a">
-        <option value="">Any subject</option><option value="men">Men</option><option value="women">Women</option>
-      </select>
     </div>
     <div class=dupe-btns><button type=button id=squarePexelsSearch>🔎 Search title on Pexels</button><button type=button id=squareFinishQa>✅ Finish Q&amp;A</button></div>
     <div id=squarePickerStatus class=dupe-panel-hint style="margin-top:10px">Graduated Q&amp;As wait here for manual images.</div>
@@ -9887,7 +9879,7 @@ _squarePexelsSearch&&_squarePexelsSearch.addEventListener('click',async()=>{
   if(!KEY)return;
   const id=String(($('#squareQaId')&&$('#squareQaId').value)||'').trim();
   const title=String(($('#squareTitleQuery')&&$('#squareTitleQuery').value)||'').trim();
-  const gender=String(($('#squareGender')&&$('#squareGender').value)||'');
+  const gender='';
   const currentClick=squareClickCount(id);
   const status=$('#squarePickerStatus'),grid=$('#squarePexelsGrid');
   if(!id){if(status)status.textContent='Enter a graduated Q&A ID.';return;}
@@ -11531,6 +11523,7 @@ server.on('error', (e) => {
   process.exit(1);
 });
 server.listen(PORT, '0.0.0.0', async () => {
+  removeSquareBuildsByPrefix('sy');
   loadScrubPillarFilter();
   await loadIndex();
   mergeCookIntoQueue();
