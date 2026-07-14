@@ -5,7 +5,7 @@
 | # | Shape | What it is | Answer-page images |
 |---|--------|------------|--------------------|
 | 1 | **Top 10 / ranking** | Listicle goat (`aq1158` gold) | Rank + product images per list law |
-| 2 | **Q&A essay** | Standard goat (`q11133` gold) | Face-card/hero + section images |
+| 2 | **Q&A essay** | Standard goat (`q11133` gold) | **Top hero = copy of face-card.** Then body rhythm: **2 word blocks → image → 2 word blocks → image** (owner picks images in order: search → click → fills slot 1, then 2, …). |
 | 3 | **Styles (`sy`) — style only** | Same Fixer → Square path as Q&A | **3 men + 3 women** outfit images (20s / 40s / 60s) + cover = **7 total** |
 
 **Station law (all three):**
