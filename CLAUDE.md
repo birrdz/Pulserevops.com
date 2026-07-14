@@ -49,3 +49,24 @@
 
 - One page: **Format Fixer on top · Square Builder dashboard underneath** (`/format-fixer-full`).
 - Order: Format Fixer pass → then Square Builder. Never reverse.
+
+---
+
+## NARROW FOCUS (stuck-thread rule)
+
+When working title / Square / Fixer dash / homepage box / answer preview — **do not scan the whole repo.**
+
+**@ these only:**
+
+| File | Why |
+|------|-----|
+| `CLAUDE.md` | Title law (this file) |
+| `_scrub_button_server.js` | Fixer + Square dash + apply bake |
+| `_square_desk.js` | Pick-photos desk UI |
+| `_square_manual_apply.js` | Queue watcher |
+| `assets/square-preview/homepage-box.html` | Homepage `.rcard` preview |
+| `assets/square-preview/answer.html` | Answer-page preview |
+
+**Do not open / search for title rules in:** `_HANDOFF_NEXT_CLAUDE.md`, old `_CROSSOVER*` piles, `_BACKUP_*`, `lab/`, `nil_gen/`, derby, or whole-repo greps for “gold title”.
+
+One task per chat. New chat if the model starts “fixing” back to CSS-only / keep-old-JPG.
