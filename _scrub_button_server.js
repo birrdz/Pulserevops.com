@@ -1403,8 +1403,10 @@ function detectSquareShape(id, title, body) {
 }
 function buildSquareSlots(id, shape, body) {
   const slots = [];
-  slots.push({ key: 'face', label: 'Face', n: 0, filled: squareFileOk(squareFaceRel(id)), url: squareFileOk(squareFaceRel(id)) ? squareFaceRel(id) : null, kind: 'face' });
-  slots.push({ key: 'top', label: 'Top', n: 0, filled: squareFileOk(squareFaceRel(id)), url: squareFileOk(squareFaceRel(id)) ? squareFaceRel(id) : null, kind: 'top' });
+  const faceOk = squareFileOk(squareFaceRel(id));
+  const faceUrl = faceOk ? squareFaceRel(id) : null;
+  // Face-card and top hero are THE SAME file — one slot in the desk
+  slots.push({ key: 'face', label: 'Face + Top', n: 0, filled: faceOk, url: faceUrl, kind: 'face', alsoTop: true });
   let count = 4;
   if (shape === 'top10') count = 10;
   else if (shape === 'styles') count = 6;
@@ -1600,8 +1602,8 @@ function buildSquareSlotsFromPending(id, shape, body, pending) {
   const faceStaged = !!(pending && pending.faceImageUrl);
   const staged = (pending && pending.slots) || {};
   return slots.map(s => {
-    if (s.kind === 'face' || s.kind === 'top') {
-      return Object.assign({}, s, { filled: faceStaged, url: faceStaged ? 'staged' : null, staged: faceStaged });
+    if (s.kind === 'face') {
+      return Object.assign({}, s, { filled: faceStaged, url: faceStaged ? 'staged' : null, staged: faceStaged, alsoTop: true });
     }
     if (s.kind === 'body' && staged[s.n]) {
       return Object.assign({}, s, { filled: true, url: 'staged', staged: true });

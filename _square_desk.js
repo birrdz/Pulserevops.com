@@ -50,7 +50,7 @@ footer a{color:#7a8496;font-size:.75rem}
 <body>
 <div class=wrap>
   <h1>🟦 Pick photos</h1>
-  <p class=sub>No preview box. Tap a <b>slot</b> (Face / Img 1 / …), then click any search photo to set or <b>switch</b> it. Hit Done when ready.</p>
+  <p class=sub>No preview box. Face-card <b>auto = top image</b> (same file). Tap a slot, click any photo to set/switch. Hit Done when ready.</p>
 
   <div class=card>
     <div class=badge id=shapeBadge>Q&amp;A</div>
@@ -89,10 +89,10 @@ function bodySlotNs(){
   return (cur&&cur.slots||[]).filter(s=>s&&s.kind==='body').map(s=>s.n);
 }
 function targetLabel(){
-  return active==='face'?'FACE':('IMG '+active);
+  return active==='face'?'FACE + TOP':('IMG '+active);
 }
 function whatNext(){
-  return 'Active slot: <b>'+targetLabel()+'</b> — click any photo to set/switch it. Tap another slot to change target.';
+  return 'Active: <b>'+targetLabel()+'</b> — click any photo to set/switch. Face pick auto-fills top image (same file).';
 }
 function setActive(t){
   active=t;
@@ -109,7 +109,7 @@ function renderSlotBar(){
     b.onclick=()=>setActive(key);
     bar.appendChild(b);
   };
-  mk('face','FACE',!!faceUrl);
+  mk('face','FACE + TOP',!!faceUrl);
   bodySlotNs().forEach(n=>mk(n,'Img '+n,!!bodyUrls[n]));
 }
 function renderPicks(){
@@ -130,7 +130,7 @@ function renderPicks(){
     };
     list.appendChild(d);
   };
-  addRow('face','FACE',faceUrl);
+  addRow('face','FACE+TOP',faceUrl);
   bodySlotNs().forEach(n=>addRow(n,'IMG '+n,bodyUrls[n]));
   $('#doneBtn').disabled=!faceUrl;
 }
@@ -160,7 +160,7 @@ async function loadNext(){
     cur=j;
     $('#entryTitle').textContent=j.title||j.id;
     $('#shapeBadge').textContent=shapeLabel(j.shape);
-    $('#entryMeta').textContent=j.id+(j.demo?' · demo':'')+' · click a slot, then any photo to switch';
+    $('#entryMeta').textContent=j.id+(j.demo?' · demo':'')+' · face-card = top image (one file)';
     $('#kw').value=suggestKeyword(j.title);
     if(j.pending&&j.pending.faceImageUrl){
       faceUrl=j.pending.faceImageUrl;
