@@ -52,6 +52,18 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .site-square img{width:100%;height:100%;object-fit:cover;display:block}
 .site-square::after{content:'';position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.88))}
 .site-square-title{position:absolute;z-index:2;left:4%;right:4%;bottom:5%;color:#FFD54F;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:900;font-size:clamp(24px,6vw,38px);line-height:1.04;text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000}
+.page-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.page-tab{padding:13px 12px;border:2px solid var(--line);border-radius:11px;background:#0c1018;color:var(--muted);font-weight:900;cursor:pointer}
+.page-tab.on{border-color:#FFD54F;background:rgba(255,213,79,.12);color:#FFD54F}
+.preview-page[hidden]{display:none}
+.answer-page{width:min(680px,100%);margin:12px auto;background:#fff;color:#18202a;border-radius:12px;padding:24px 18px;box-shadow:0 8px 28px rgba(0,0,0,.35)}
+.answer-page h2{font-family:Georgia,serif;font-size:1.55rem;line-height:1.18;margin:0 0 14px}
+.answer-direct{padding:12px 14px;border-left:5px solid #FFB81C;background:#fff6d9;border-radius:8px;font-size:.82rem;font-weight:700;margin-bottom:18px}
+.answer-figure{margin:16px 0;border:1px solid #e5e7eb;border-radius:9px;overflow:hidden;background:#f3f4f6;cursor:pointer}
+.answer-figure img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.answer-figure.top img{aspect-ratio:1;max-height:520px}
+.answer-placeholder{display:flex;align-items:center;justify-content:center;min-height:150px;color:#6b7280;font-weight:800}
+.answer-cap{padding:8px 10px;color:#4b5563;font-size:.76rem;font-weight:800}
 footer a{color:#7a8496;font-size:.75rem}
 </style>
 </head>
@@ -70,7 +82,20 @@ footer a{color:#7a8496;font-size:.75rem}
     <div class=badge id=shapeBadge>Q&amp;A</div>
     <h2 class=ttl id=entryTitle>Loading…</h2>
     <div class=meta id=entryMeta></div>
-    <div class=site-square id=siteSquare><img id=siteSquareImg alt=""><div class=site-square-title id=siteSquareTitle></div></div>
+    <div class=page-tabs>
+      <button type=button class="page-tab on" id=showSquarePage>1 · Square card</button>
+      <button type=button class=page-tab id=showAnswerPage>2 · Answer page</button>
+    </div>
+    <div class=preview-page id=squarePreviewPage>
+      <div class=site-square id=siteSquare><img id=siteSquareImg alt=""><div class=site-square-title id=siteSquareTitle></div></div>
+    </div>
+    <div class=preview-page id=answerPreviewPage hidden>
+      <article class=answer-page>
+        <h2 id=answerPreviewTitle></h2>
+        <div class=answer-direct>Direct Answer and article copy remain unchanged. This page previews the exact image order only.</div>
+        <div id=answerPreviewImages></div>
+      </article>
+    </div>
     <div class=slots id=slotBar></div>
     <div class=row>
       <input type=text id=kw placeholder="keyword" autocomplete=off>
@@ -168,7 +193,33 @@ function renderPicks(){
     previewTitle.textContent=title;
     previewTitle.style.fontSize=(title.length>=90?'31px':title.length>=60?'34px':'38px');
   }
+  renderAnswerPreview();
   syncDoneButton();
+}
+function renderAnswerPreview(){
+  const title=$('#answerPreviewTitle'), images=$('#answerPreviewImages');
+  if(title)title.textContent=(cur&&cur.title)||'';
+  if(!images)return;
+  images.innerHTML='';
+  const add=(key,label,url,top)=>{
+    const figure=document.createElement('div');
+    figure.className='answer-figure'+(top?' top':'');
+    figure.onclick=()=>setActive(key);
+    if(url){
+      const img=document.createElement('img');
+      img.alt=label;img.src=proxy(url);figure.appendChild(img);
+    }else{
+      const blank=document.createElement('div');
+      blank.className='answer-placeholder';blank.textContent='Choose '+label;figure.appendChild(blank);
+    }
+    const cap=document.createElement('div');
+    cap.className='answer-cap';cap.textContent=label+(url?' ✓':' · empty');figure.appendChild(cap);
+    images.appendChild(figure);
+  };
+  add('face','Top image · same photo as square card',faceUrl,true);
+  (cur&&cur.slots||[]).filter(slot=>slot&&slot.kind==='body').forEach(slot=>{
+    add(slot.n,'Answer image '+slot.n+(slot.label?' · '+slot.label:''),bodyUrls[slot.n],false);
+  });
 }
 function markGrid(){
   const chosen=new Set([faceUrl,...Object.values(bodyUrls)].filter(Boolean));
@@ -274,6 +325,16 @@ $('#searchBtn').onclick=runSearch;
 $('#kw').addEventListener('keydown',e=>{ if(e.key==='Enter') runSearch(); });
 $('#doneBtn').onclick=done;
 $('#nextBtn').onclick=loadNext;
+function showPreviewPage(page){
+  const answer=page==='answer';
+  $('#squarePreviewPage').hidden=answer;
+  $('#answerPreviewPage').hidden=!answer;
+  $('#showSquarePage').classList.toggle('on',!answer);
+  $('#showAnswerPage').classList.toggle('on',answer);
+  if(answer)renderAnswerPreview();
+}
+$('#showSquarePage').onclick=()=>showPreviewPage('square');
+$('#showAnswerPage').onclick=()=>showPreviewPage('answer');
 async function refreshAuto(){
   try{
     const j=await(await fetch('/square-auto-status?key='+KEY+'&t='+Date.now(),{cache:'no-store'})).json();
