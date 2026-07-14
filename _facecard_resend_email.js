@@ -149,5 +149,30 @@ async function sendSquareBacklogEmail({ items, localBase, lanBase }) {
   if (!response.ok) throw new Error('resend ' + response.status + ' ' + (await response.text()).slice(0, 160));
   return { ok: true, count: items.length };
 }
+async function sendCompletedQaImagesEmail({ id, question, pageUrl }) {
+  const key = await resendKey();
+  const attachments = [];
+  try {
+    const files = fs.readdirSync(COVDIR)
+      .filter(name => name === id + '.jpg' || name.startsWith(id + '-manual-') && name.endsWith('.jpg'))
+      .sort((a, b) => (a === id + '.jpg' ? -1 : b === id + '.jpg' ? 1 : a.localeCompare(b, undefined, { numeric: true })));
+    for (const filename of files.slice(0, 14)) {
+      attachments.push({ filename, content: fs.readFileSync(path.join(COVDIR, filename)).toString('base64') });
+    }
+  } catch (e) {}
+  if (!attachments.length) throw new Error('no completed Q&A images found for email');
+  const rows = attachments.map((attachment, index) => '<li>' + (index === 0 ? 'Face card / top image: ' : 'Internal or ranked image: ') + esc(attachment.filename) + '</li>').join('');
+  const html = '<div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:620px;color:#15110d">' +
+    '<h2 style="font-family:Georgia,serif">✅ Images complete · ' + esc(id) + '</h2><p><b>' + esc(question) + '</b></p>' +
+    '<p><a href="' + esc(pageUrl) + '" style="display:inline-block;padding:10px 16px;background:#6b21a8;color:#fff;text-decoration:none;border-radius:18px;font-weight:800">Open Q&amp;A ' + esc(id) + '</a></p>' +
+    '<p>' + attachments.length + ' selected image(s) attached:</p><ol>' + rows + '</ol></div>';
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from: 'PULSE Engine <onboarding@resend.dev>', to: [RECIP], subject: '✅ Q&A images complete · ' + id, html, attachments }),
+  });
+  if (!response.ok) throw new Error('resend ' + response.status + ' ' + (await response.text()).slice(0, 160));
+  return { ok: true, attachments: attachments.length };
+}
 
-module.exports = { sendFaceCardEmail, sendSquareQueueEmail, sendSquareBacklogEmail, resendKey, RECIP };
+module.exports = { sendFaceCardEmail, sendSquareQueueEmail, sendSquareBacklogEmail, sendCompletedQaImagesEmail, resendKey, RECIP };
