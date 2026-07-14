@@ -1259,10 +1259,10 @@ function recordFormatFixerError(id, error) {
   }
 }
 async function processFormatFixerEntry(id) {
-  const title = titleOf[id] || id;
   const pillar = pillarOf(id);
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e || !e.answer) return { noBlob: true };
+  const title = titleOf[id] || e.question || e.title || id;
   if (contentFormatPass(id, e.answer, valid)) return { skipped: true, pass: true };
   formatFixerJob.currentStep = 'audit · ' + id;
   const sib = (byPillar[pillar] || []).filter(x => x && x.id !== id).slice(0, 8);
@@ -1306,7 +1306,7 @@ async function processFormatFixerEntry(id) {
 async function getFormatFixerEntries(pillar) {
   const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
   const seen = new Set();
-  let entries = (idx.entries || []).filter(e => {
+  const entries = (idx.entries || []).filter(e => {
     if (!e || !e.id || seen.has(String(e.id))) return false;
     // The format fixer owns every database Q&A URL, including one-letter q IDs and visitor IDs
     // (vq_*). The old image-job regex silently excluded both. Missing answer blobs are counted
@@ -1315,8 +1315,21 @@ async function getFormatFixerEntries(pillar) {
     seen.add(String(e.id));
     return true;
   });
-  if (pillar && pillar !== 'all') entries = entries.filter(e => pillarOf(e.id) === pillar);
-  return entries.sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true }));
+  // Reconcile against the actual answer-blob database, not only _index.json. This catches orphaned
+  // but publicly addressable Q&A blobs and keeps the automatic fixer queue complete.
+  let cursor;
+  do {
+    const page = await store.list({ prefix: 'answers/', cursor });
+    for (const blob of (page.blobs || [])) {
+      const match = String(blob.key || '').match(/^answers\/([^/]+)\.json$/i);
+      if (!match || seen.has(match[1])) continue;
+      seen.add(match[1]);
+      entries.push({ id: match[1], question: titleOf[match[1]] || match[1], has_answer: true });
+    }
+    cursor = page.cursor;
+  } while (cursor);
+  const scoped = pillar && pillar !== 'all' ? entries.filter(e => pillarOf(e.id) === pillar) : entries;
+  return scoped.sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true }));
 }
 async function runFormatFixerLoop() {
   if (formatFixerJob.running) return;
