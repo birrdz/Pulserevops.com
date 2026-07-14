@@ -11,8 +11,8 @@
 **Template auto-select:** based on the question + answer URL/id in play, Square / block builder formats to whichever golden template it is (Top 10 vs Q&A vs Styles). No manual template switch mid-run.
 
 **Station law (all three):**
-1. **Format Fixer** — content + structure only. **Title overlay + face image are fake/placeholder here** (visual lock: Fixer never owns real cover/title bake).
-2. **Square Builder** (`/face-card-top-image-generator`) — real Pollinator face-card + **orange title bake** (`face_title_baked`). **When face-card title is done → square turns green** → **auto goes to the answer screen**.
+1. **Format Fixer** — content + structure only. Title overlay + face/top image may still look **fake/placeholder** here (visual lock: Fixer never owns the real cover/title bake).
+2. **Square Builder** (`/face-card-top-image-generator`) — **title + images are actually fixed here**: real Pollinator face-card + **orange title bake** (`face_title_baked`), Q&A **top image auto-fills from that face-card**, then owner click-fills remaining slots (Top 10 ranks / essay body images / Styles 3M+3W). **When face-card title is done → square turns green** → **auto goes to the answer screen**.
 3. Main library / blobs stay put. **Only full Fixer passers (5/5 / contentFormatPass) from the last hour** are queued into Square Builder — nothing is removed from the main DB.
 
 **Handoff:**
