@@ -662,6 +662,7 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
     var SZ=['big','tall','wide','','tall','wide','big','','wide','tall','','big','wide','tall'];var placedSz=[];
     function _w(s){return (s==='big'||s==='wide'||s==='mm-long')?2:1;}function _h(s){return s==='mm-long'?3:((s==='big'||s==='tall')?2:1);}
     function entryTitle(c){return String((c&&(c.question||c.title))||(c&&c.id)||'');}
+    function fixedTitleClass(c){var n=entryTitle(c).length;return 'mm-title-fixed '+(n>=88?'mm-title-long':(n>=58?'mm-title-medium':'mm-title-short'));}
     /* tile size tracks TITLE LENGTH (owner 2026-07-06): short titles → small tiles, long titles → larger tiles so the baked gold title has room. */
     function longTitleSize(c){var n=entryTitle(c).length;if(n>=88)return 'mm-long';if(n>=58)return 'big';if(n>=40)return (n%2?'tall':'wide');return '';}
     // LAW: above/below differ WIDTH; left/right differ HEIGHT; diagonal anything.
@@ -701,7 +702,7 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
     perfect.sort(byNewestQuality);
     return perfect.length ? perfect : list;
   }
-    function ftile(c,eager){if(!scrubbedPerfect13Ok(c))return '';var z=tileSizeFor(c);var src=mosaicSrc(c);var title=entryTitle(c);var img=FI.mosaicImgTag?FI.mosaicImgTag(src,title,!!eager):'';var lazy=eager?'':' mm-lazy mm-img-pending';var dl=eager?' data-mosaic-loaded="1"':' data-mosaic-lazy="1"';return '<a class="mm'+lazy+' '+z+'" href="/knowledge/'+encodeURIComponent(c.id)+'" data-face-bound="1" data-mosaic-src="'+esc(src)+'"'+dl+'>'+img+'<div class="mm-scrim"></div><div class="mm-txt"><span class="mm-cat">'+esc(NM[pof(c.id)]||'')+'</span><h4>'+esc(title)+'</h4></div></a>';}
+    function ftile(c,eager){if(!scrubbedPerfect13Ok(c))return '';var z=tileSizeFor(c);var src=mosaicSrc(c);var title=entryTitle(c);var img=FI.mosaicImgTag?FI.mosaicImgTag(src,title,!!eager):'';var lazy=eager?'':' mm-lazy mm-img-pending';var dl=eager?' data-mosaic-loaded="1"':' data-mosaic-lazy="1"';return '<a class="mm'+lazy+' '+z+' '+fixedTitleClass(c)+'" href="/knowledge/'+encodeURIComponent(c.id)+'" data-face-bound="1" data-mosaic-src="'+esc(src)+'"'+dl+'>'+img+'<div class="mm-scrim"></div><div class="mm-txt"><span class="mm-cat">'+esc(NM[pof(c.id)]||'')+'</span><h4>'+esc(title)+'</h4></div></a>';}
     var html='<a class="mm mm-hero" href="/" aria-label="Pulse RevOps home"><div class="mm-hero-in"><span class="mm-hero-k">● LIVE · The RevOps Authority</span><img class="mm-hero-logo" src="/pulse-news-logo.png" alt="Pulse RevOps — Value Added" width="164" height="46" loading="eager" fetchpriority="high" decoding="async"></div></a>';
     // hub tiles = vintage cover + GOLD ITALIC title (CSS overlay, like the Topics template)
     var _hubt='position:absolute;left:16px;right:16px;bottom:14px;z-index:3;color:#fff;font-family:Fraunces,\'Playfair Display\',Georgia,serif;font-style:italic;font-weight:800;line-height:1.02;text-shadow:0 2px 12px rgba(0,0,0,.95),0 1px 3px rgba(0,0,0,.97);';
