@@ -5,8 +5,8 @@
 const FACE_TITLE_ORANGE = process.env.FACE_TITLE_COLOR || '#FFD54F';
 const FACE_TITLE_STROKE = process.env.FACE_TITLE_STROKE || '#000000';
 // Every cover/section image passes storeGradedImage (grade + EXIF PULSE_GRADE=v_final + self-host).
-const fs = require('fs'), sharp = require('sharp');
-const WD = 'C:/Users/koryj/website', DIR = WD + '/assets/qa', S = 760;
+const fs = require('fs'), path = require('path'), sharp = require('sharp');
+const WD = process.env.PULSE_ROOT || __dirname, DIR = path.join(WD, 'assets', 'qa'), S = 760;
 // Mosaic tile display ratio (pulse-mosaic.css — 1080×360 row). Bake face-cards at this aspect so
 // object-fit:cover on the tile shows the subject, not random square-crop edges.
 const FACE_CARD_TILE_W = parseInt(process.env.FACE_CARD_TILE_W || '1200', 10);

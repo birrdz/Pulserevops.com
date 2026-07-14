@@ -4,11 +4,11 @@
                  ],
     "poolInventory":  0,
     "smartDup":  false,
-    "force":  false,
+    "force":  true,
     "faceCardVariant":  "square",
     "cooldownMs":  0,
     "coolStepMs":  5000,
     "coolMaxMs":  60000,
     "emailPerImage":  false,
-    "note":  "owner 2026-07-14: square builder ON for pillar ik. Fresh 760x760 flux originals with corrected fixed title sizing, no pool dup. NO cooldown floor 0ms, strictly serial via singleton lock + global flux queue, never two in parallel. Single pillar ik scope so it PAUSES at end of pillar."
+    "note":  "owner 2026-07-14: square builder ON and force rebuild enabled for pillar ik. Fresh 760x760 flux originals with corrected fixed title sizing, no pool dup. NO cooldown floor 0ms, strictly serial via singleton lock + global flux queue, never two in parallel. Single pillar ik scope so it PAUSES at end of pillar."
 }
