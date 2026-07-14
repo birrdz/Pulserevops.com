@@ -57,6 +57,10 @@
     if (n >= 40) return (n % 2 ? 'tall' : 'wide');
     return '';
   }
+  function fixedTitleClass(c) {
+    var n = entryTitle(c).length;
+    return 'mm-title-fixed ' + (n >= 88 ? 'mm-title-long' : (n >= 58 ? 'mm-title-medium' : 'mm-title-short'));
+  }
   function pof(id) { return (String(id).match(/^[a-z]+/) || [''])[0]; }
 
   function prefetchMosaicApi(url) {
@@ -511,7 +515,7 @@
       var scrim = '<div class="mm-scrim"></div>';
       var lazyCls = lazy ? ' mm-lazy mm-img-pending' : '';
       var dataLazy = lazy ? ' data-mosaic-lazy="1"' : ' data-mosaic-loaded="1"';
-      return '<a class="mm' + lazyCls + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
+      return '<a class="mm' + lazyCls + ' ' + z + ' ' + fixedTitleClass(c) + '" href="/knowledge/' + encodeURIComponent(c.id) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
         + imgHtml
         + scrim + '<div class="mm-txt"><span class="mm-cat">' + esc(NM[pof(c.id)] || pof(c.id).toUpperCase()) + '</span>'
         + titleHtml + '</div></a>';

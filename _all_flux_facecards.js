@@ -176,6 +176,9 @@ const ORIG_PER_PILLAR = parseInt(process.env.ORIG_PER_PILLAR || '299', 10);
 const POOL_INVENTORY = parseInt(process.env.POOL_INVENTORY || (CFG.poolInventory != null ? String(CFG.poolInventory) : '0'), 10); // 200 flux originals/pillar, then duplicate the remainder
 const SMART_DUP = process.env.SMART_DUP === '1' || CFG.smartDup === true;
 const POOL_BUILD_ONLY = process.env.POOL_BUILD_ONLY === '1'; // build pool inventory even if cover_src already flux
+// Persisted so watchdog relaunches keep the owner's selected cover shape. "square" is the legacy 760x760
+// footprint with the corrected title layout; unset/"tile" retains the 1200x400 mosaic crop.
+const FACE_CARD_VARIANT = String(process.env.FACE_CARD_VARIANT || CFG.faceCardVariant || 'tile').toLowerCase() === 'square' ? 'square' : 'tile';
 const POOL_DIR = WD + '/_facecard_pool';
 
 async function makeDuplicateCover(id, question, p, nPool, slotIndex) {
@@ -194,7 +197,7 @@ async function makeFluxOriginal(id, question, addToPool) {
   const prompt = anchoredPrompt(id, question);
   const img = await fetchAdaptiveFlux(prompt, seed);
   if (!img) return 0;
-  await gradeFaceCardFromBuffer(img, coverPath(id), { question });
+  await gradeFaceCardFromBuffer(img, coverPath(id), { question, variant: FACE_CARD_VARIANT });
   if (addToPool) {
     const nPool = poolCount(p);
     const cap = POOL_INVENTORY > 0 ? POOL_INVENTORY : ORIG_PER_PILLAR;
