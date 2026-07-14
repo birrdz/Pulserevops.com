@@ -1918,6 +1918,10 @@ function recordScrubAutoResult(r) {
   if (!r) return;
   if (r.status === 'certified') {
     const st = stateObj();
+    if (enqueueSquareBuild(r.id, titleOf[r.id] || r.id)) {
+      autoJob.squareQueued = (autoJob.squareQueued || 0) + 1;
+      autoLog('◻️ ' + r.id + ' passed all Daily Driver gates → waiting in Square Builder');
+    }
     if (!autoJob.lastCertify || autoJob.lastCertify.id !== r.id || Date.now() - (autoJob.lastCertify.at || 0) > 8000) {
       autoJob.lastCertify = { id: r.id, score: r.score, before: r.before, at: Date.now(), green: st.green, under: st.under };
       autoJob.lastFinish = { type: 'certified', id: r.id, score: r.score, contentScore: r.score, before: r.before, at: Date.now(), green: st.green, under: st.under };
@@ -2033,7 +2037,7 @@ const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-4
 
 const PORT = parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
 const PASS = '4444';
-const DAILY_MAX = parseInt(process.env.SCRUB_BTN_DAILY || '100000000', 10);   // daily cap removed (owner 2026-07-01) — effectively unlimited
+const DAILY_MAX = parseInt(process.env.SCRUB_BTN_DAILY || '200', 10);
 const MIN_SCORE = 12, WORD_FLOOR = 2000;
 const NR = WD + '/_v2_needs_review.json', AP = WD + '/_v2_approved.json', CC = WD + '/_v2_cc_approved.json';
 const QUEUE = WD + '/_scrub_button_queue.json';      // remaining under-12 ids to work
@@ -10541,7 +10545,7 @@ function startPillarFixTo13(pillar) {
   return { ok: true, started: true, pillar, pillarName: pName(pillar) };
 }
 
-let autoJob = { running: false, certified: 0, ready: 0, parked: 0, tried: 0, phase: 'idle', current: null, currentSince: null, stage: 'idle', startedAt: null, stop: false, log: [], lastCertify: null, lastFinish: null };
+let autoJob = { running: false, auto: true, halted: false, certified: 0, ready: 0, parked: 0, tried: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, squareQueued: 0, phase: 'idle', current: null, currentSince: null, stage: 'idle', startedAt: null, stop: false, log: [], lastCertify: null, lastFinish: null };
 function autoLog(s) { autoJob.log.unshift(new Date().toLocaleTimeString() + ' ' + s); autoJob.log = autoJob.log.slice(0, 28); }
 async function scrubAutoLoop() {
   if (autoJob.running) return;
@@ -10550,7 +10554,7 @@ async function scrubAutoLoop() {
     pipelineAlt.next = 'scrub';
     touchPipelineAlt({});
   }
-  autoJob = { running: true, certified: 0, ready: 0, parked: 0, tried: 0, phase: 'scrub', current: null, currentSince: null, stage: genJob.running ? '🔁 alt scrub — waiting for turn' : '🍳 full scrub — one ID at a time', startedAt: new Date().toISOString(), stop: false, log: [], lastCertify: null, lastFinish: null };
+  autoJob = { running: true, auto: true, halted: false, certified: 0, ready: 0, parked: 0, tried: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, squareQueued: 0, phase: 'scrub', current: null, currentSince: null, stage: genJob.running ? '🔁 alt scrub — waiting for turn' : '🍳 full scrub — one ID at a time', startedAt: new Date().toISOString(), stop: false, log: [], lastCertify: null, lastFinish: null };
   if (merged) autoLog('↪ merged ' + merged + ' legacy ids into pool');
   autoLog(genJob.running ? '▶ scrubber joined generate ↔ scrub alternation' : '▶ started (full scrub — one at a time, no fast pass)');
   while (!autoJob.stop) {
@@ -10581,13 +10585,26 @@ async function scrubAutoLoop() {
     autoJob.currentSince = null;
     autoJob.tried++;
     recordScrubAutoResult(r);
+    if (r && r.status === 'error') {
+      autoJob.errors++;
+      autoJob.consecutiveErrors++;
+      autoLog('⚠️ daily driver error ' + autoJob.consecutiveErrors + '/' + autoJob.maxConsecutiveErrors);
+      if (autoJob.consecutiveErrors >= autoJob.maxConsecutiveErrors) {
+        autoJob.stop = true;
+        autoJob.halted = true;
+        autoJob.stage = '🛑 stopped after 3 consecutive errors';
+        autoLog(autoJob.stage);
+      }
+    } else {
+      autoJob.consecutiveErrors = 0;
+    }
     releasePipelineAltTurn('scrub', r && r.id);
   }
   autoJob.running = false;
   autoJob.current = null;
   autoJob.currentSince = null;
-  autoJob.stage = autoJob.stop ? '⏹ stopped' : '✅ all done — scrub pool clear';
-  autoLog(autoJob.stop ? '⏹ stopped by owner' : '✅ complete');
+  autoJob.stage = autoJob.halted ? '🛑 stopped after 3 consecutive errors' : (autoJob.stop ? '⏹ stopped' : '✅ all done — scrub pool clear');
+  autoLog(autoJob.halted ? autoJob.stage : (autoJob.stop ? '⏹ stopped by owner' : '✅ complete'));
 }
 // KEEP-CONTENT-HIGH (owner 2026-06-30): every NEW entry appearing in the index is dropped into the
 // scrub-button queue (red) until certified — so new writes (incl. the cloud writer's) never silently
@@ -11306,4 +11323,19 @@ server.listen(PORT, '0.0.0.0', async () => {
       saveFormatFixerState(true);
     });
   }
+  // Daily Driver mirrors Fixer automation: keep draining its queue, cap at 200/day, and halt only
+  // after three consecutive errors. It waits while Format Fixer is writing so the same Q&A is never
+  // mutated by both pipelines at once.
+  const keepDailyDriverRunning = () => {
+    if (!autoJob.auto || autoJob.halted || autoJob.running || formatFixerJob.running) return;
+    if (dayCount() >= DAILY_MAX || !readArr(QUEUE).length) return;
+    scrubAutoLoop().catch(e => {
+      autoJob.errors++;
+      autoJob.consecutiveErrors++;
+      autoJob.stage = '⚠️ daily driver · ' + e.message;
+      if (autoJob.consecutiveErrors >= autoJob.maxConsecutiveErrors) autoJob.halted = true;
+    });
+  };
+  setTimeout(keepDailyDriverRunning, 3000);
+  setInterval(keepDailyDriverRunning, 10000);
 });
