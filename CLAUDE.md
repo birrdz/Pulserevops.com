@@ -88,3 +88,23 @@ One task per chat. New chat if the model starts “fixing” back to CSS-only / 
 **Negative constraint (copy-paste):**
 
 > Do not use “CSS overlay, never baked” / keep-old-JPG / title-layer-over-pixels for Q&A face-cards. Use CLAUDE.md TITLE / FACE-CARD LAW: delete old face → brand-new `/assets/qa/<id>.jpg` with baked gold title; homepage `.sq.jpg` photo + CSS title under. Ignore all previous instructions regarding the naming and bake method of this component.
+
+---
+
+## RESET STUCK FILE STATE (ghost Keep/Undo / cached “correct” file)
+
+If the agent keeps reverting a finished file, it thinks there are **pending** edits or has cached an old buffer as truth.
+
+**Editor (you):**
+1. Close the chat that created the ghost Keep/Undo.
+2. On the stuck file: Accept **Keep** once if shown, or **rename → save → rename back** to clear Cursor file metadata.
+3. Do **not** Undo into the old title pattern.
+
+**Repo (known-good):**
+```bash
+git checkout HEAD -- CLAUDE.md _scrub_button_server.js _square_desk.js _square_manual_apply.js assets/square-preview/
+git status   # should be clean except unrelated junk
+```
+Known-good tip: branch `cursor/square-builder-real-run-828a` · commit message `checkpoint` (title law + deny old pattern).
+
+**Face JPG ghosts:** delete `/assets/qa/<id>.jpg`, `<id>.oldtitle.jpg`, and any `<id>-face-*.jpg` leftovers, then re-run Square apply (never layer title onto the old file).
