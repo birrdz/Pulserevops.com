@@ -6568,7 +6568,7 @@ function buildPage(mode) {
 *{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:18px}
 #gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:92%;max-width:560px}
 #gate{display:none;position:relative;z-index:90}
-#app{display:none;position:relative;z-index:90}
+#app{display:flex;position:relative;z-index:90}
 h1{font-weight:800;margin:0;font-size:1.4rem}.sub{color:#8aa0ad;font-size:.85rem;margin:0;text-align:center}
 input{padding:12px;font-size:1.4rem;text-align:center;letter-spacing:.4em;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#0f161e;color:#e8eef2;width:160px}
 .counts{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}.pill{padding:8px 14px;border-radius:20px;font-weight:800;font-size:.95rem}.green{background:rgba(46,204,113,.16);color:#2ecc71}.red{background:rgba(231,76,60,.16);color:#ff8a76}.amber{background:rgba(241,196,15,.16);color:#f1c40f}.purple{background:rgba(167,139,250,.18);color:#c4b5fd}
@@ -7019,8 +7019,8 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
     <button type=button class="mode-tab${isScrub ? ' on' : ''}" id=navScrub data-mode=scrub>🧽 Scrub to 13/13 <span id=tabScrubBadge class=tab-badge></span></button>
     <button type=button class="mode-tab${isGenerate ? ' on' : ''}" id=navGenerate data-mode=generate>✍️ New Q&amp;A <span id=tabGenerateBadge class="tab-badge gen"></span></button>
   </nav>
-  <h1 id=appTitle>${isGenerate ? '✍️ New Q&amp;A — auto 13/13' : '🧽 Scrub to 13/13'}</h1>
-  <p class=sub id=appSub>${isGenerate ? 'Pick pillar + count. Each new Q&amp;A runs the <b>same 13/13 pipeline as scrubber</b> — writing → Pollinator face-card + top hero → DDG sections → render verify → <b>certify 13/13</b> before the next one.' : 'Pick a pillar, then <b>Fix pillar</b>. Every entry gets Pollinator flux on face-card + top hero, DDG images inside, gold title overlay, full render check — then <b>quality_score 13</b>.'}</p>
+  <h1 id=appTitle>${isFormatFix ? '📝 Format Fixer + 🟦 Square Builder' : (isFaceHero ? '🟦 Square Builder' : (isGenerate ? '✍️ New Q&amp;A — auto 13/13' : '🧽 Scrub to 13/13'))}</h1>
+  <p class=sub id=appSub>${isFormatFix ? '<b>Daily driver:</b> Format Fixer on top · Square Builder dashboard below. No password.' : (isFaceHero ? '<b>Square Builder</b> — face-card + top image. Pass Format Fixer first.' : (isGenerate ? 'Pick pillar + count. Each new Q&amp;A runs the <b>same 13/13 pipeline as scrubber</b> — writing → Pollinator face-card + top hero → DDG sections → render verify → <b>certify 13/13</b> before the next one.' : 'Pick a pillar, then <b>Fix pillar</b>. Every entry gets Pollinator flux on face-card + top hero, DDG images inside, gold title overlay, full render check — then <b>quality_score 13</b>.'))}</p>
   <div id=scrubPanel${isScrub ? '' : ' style="display:none"'}>
   <div id=scrubFilterBar class=scrub-filter-bar style="margin-top:0">
     <div class=scrub-filter-title>🎯 Which pillar to scrub?</div>
@@ -8530,20 +8530,41 @@ function hideIntro(){if(uni)uni.style.display='none';if(uniSplash)uniSplash.styl
 // Owner 2026-07-14: Square Builder localhost — NO unicorn splash, NO password screen. Open straight in.
 function enterGate(){ if(!gateUnlocked) tryGate(); }
 window.enterUnicornGate=enterGate;
-function tryGate(){if(gateUnlocked)return;const code=(pwEl&&pwEl.value.trim())||'4444';if(code.length!==4)return;KEY=code;fetch('/state?key='+KEY).then(r=>r.json()).then(d=>{if(d.ok){gateUnlocked=true;const ge=$('#gerr'); if(ge)ge.textContent='';if(gateEl)gateEl.style.display='none';hideIntro();if(appEl)appEl.style.display='flex';shownGreen=d.green;shownUnder=d.under;paint(d,true);
-  loadPillars();
-  initPage();
-  fetch('/scrub-status').then(r=>r.json()).then(a=>{ window._sa=a; setScrubPillarFilterUi(a.scrubPillarFilter||'all'); renderAuto(a); if(a.state)paint(a.state); if(a.running||a.imageScrubRunning){ startAutoPoll(); } refreshSignoffQueue(); maybeOpenApprovalDeepLink(); updateTabBadges(); refreshDuplicatorStatus(); }).catch(()=>{ paintCrewManifest(null); maybeOpenApprovalDeepLink(); });
-  fetch('/gen-status?key='+KEY).then(r=>r.json()).then(g=>{ if(g&&g.running){ window._gen=g; window.genRunning=true; genRender(g); genStartPoll(); } updateTabBadges(); }).catch(()=>{});
-  if(window.activeTab==='imgen') refreshImgGenStatus();
-  else if(window.activeTab==='duplicator') refreshDuplicatorStatus();
-  else if(window.activeTab==='facehero') refreshFaceHeroStatus();
-  else if(window.activeTab==='rewrite') refreshRewriteStatus();
-  else if(window.activeTab==='formatfix') refreshFormatFixerStatus();
-  startHeartbeat();
-}else{const ge=$('#gerr'); if(ge)ge.textContent='Wrong code'}}).catch(()=>{const ge=$('#gerr'); if(ge)ge.textContent='server?'})}
-// No password UI — auto-open Square Builder / scrub app on localhost.
-setTimeout(()=>{ try{ tryGate(); }catch(e){} }, 30);
+function openAppNow(){
+  try{
+    KEY = KEY || '4444';
+    gateUnlocked = true;
+    hideIntro();
+    if(gateEl) gateEl.style.display='none';
+    if(appEl){ appEl.style.display='flex'; appEl.style.visibility='visible'; appEl.style.opacity='1'; }
+  }catch(e){}
+}
+function tryGate(){
+  openAppNow();
+  const code=(pwEl&&pwEl.value.trim())||'4444';
+  if(code.length!==4) return;
+  KEY=code;
+  fetch('/state?key='+KEY).then(r=>r.json()).then(d=>{
+    if(!(d&&d.ok)) return;
+    shownGreen=d.green; shownUnder=d.under;
+    try{ paint(d,true); }catch(e){}
+    try{ loadPillars(); }catch(e){}
+    try{ initPage(); }catch(e){}
+    fetch('/scrub-status').then(r=>r.json()).then(a=>{ window._sa=a; try{ setScrubPillarFilterUi(a.scrubPillarFilter||'all'); renderAuto(a); if(a.state)paint(a.state); if(a.running||a.imageScrubRunning){ startAutoPoll(); } refreshSignoffQueue(); maybeOpenApprovalDeepLink(); updateTabBadges(); refreshDuplicatorStatus(); }catch(e){} }).catch(()=>{ try{ paintCrewManifest(null); maybeOpenApprovalDeepLink(); }catch(e){} });
+    fetch('/gen-status?key='+KEY).then(r=>r.json()).then(g=>{ if(g&&g.running){ window._gen=g; window.genRunning=true; try{ genRender(g); genStartPoll(); }catch(e){} } try{ updateTabBadges(); }catch(e){} }).catch(()=>{});
+    try{
+      if(window.activeTab==='imgen') refreshImgGenStatus();
+      else if(window.activeTab==='duplicator') refreshDuplicatorStatus();
+      else if(window.activeTab==='facehero') refreshFaceHeroStatus();
+      else if(window.activeTab==='rewrite') refreshRewriteStatus();
+      else if(window.activeTab==='formatfix'){ refreshFormatFixerStatus(); refreshFaceHeroStatus(); }
+    }catch(e){}
+    try{ startHeartbeat(); }catch(e){}
+  }).catch(()=>{ openAppNow(); });
+}
+// Show dashboard immediately — do not wait on network
+openAppNow();
+setTimeout(()=>{ try{ tryGate(); }catch(e){ openAppNow(); } }, 20);
 // Persistent 3s heartbeat: always reflect true server state for both pipelines.
 var heartbeat=null;
 function startHeartbeat(){ if(heartbeat)return; heartbeat=setInterval(async()=>{ try{ const d=await(await fetch('/scrub-status')).json(); window._sa=d; if(window.activeTab==='scrub') renderAuto(d); else if(window.activeTab!=='duplicator'&&window.activeTab!=='imgen'&&window.activeTab!=='facehero'&&window.activeTab!=='rewrite'&&window.activeTab!=='formatfix') { paintRunStats(d); if(d.state)paint(d.state); } if((d.pendingList&&d.pendingList.length)||(d.state&&d.state.pending)) refreshSignoffQueue(); if(isScrubActive(d)&&!autoPoll) startAutoPoll(); }catch(e){} if(KEY){ try{ const g=await(await fetch('/gen-status?key='+KEY)).json(); window._gen=g; window.genRunning=!!g.running; if(window.activeTab==='generate') genRender(g); if(g.running&&!genPoll) genStartPoll(); else if(g.running) renderFsGenerate(g); }catch(e){} if(!dupePoll&&(window.activeTab==='duplicator'||(window._dupe&&window._dupe.running))){ try{ const j=await(await fetch('/image-duplicator-status?key='+KEY)).json(); window._dupe=j; if(window.activeTab==='duplicator') renderDuplicator(j); if(j.running) startDupePoll(); }catch(e){} } if(!imgenPoll&&(window.activeTab==='imgen'||(window._imgen&&window._imgen.running))){ try{ const j=await(await fetch('/image-generator-status?key='+KEY)).json(); window._imgen=j; if(window.activeTab==='imgen') renderImgGen(j); if(j.running) startImgGenPoll(); }catch(e){} } if(!rewritePoll&&(window.activeTab==='rewrite'||(window._rewrite&&window._rewrite.running))){ try{ const j=await(await fetch('/image-rewrite-status?key='+KEY)).json(); window._rewrite=j; if(window.activeTab==='rewrite') renderRewrite(j); if(j.running) startRewritePoll(); }catch(e){} } if(!faceheroPoll&&(window.activeTab==='facehero'||(window._facehero&&window._facehero.running))){ try{ const j=await(await fetch('/face-hero-status?key='+KEY)).json(); window._facehero=j; if(window.activeTab==='facehero') renderFaceHero(j); if(j.running) startFaceHeroPoll(); }catch(e){} } if(!formatfixPoll&&(window.activeTab==='formatfix'||(window._formatfix&&window._formatfix.running))){ try{ const j=await(await fetch('/format-fixer-status?key='+KEY)).json(); window._formatfix=j; if(window.activeTab==='formatfix') renderFormatFixer(j); if(j.running) startFormatFixerPoll(); }catch(e){} } } updateTabBadges(); },3000); }
