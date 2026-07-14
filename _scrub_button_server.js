@@ -7167,7 +7167,7 @@ function buildPage(mode) {
     : 'Tap any entry for <b>fullscreen review</b> — <b>Cursor auto-auditors</b> gate publish. Only exceptions land here — <b style=color:#2ecc71>✓</b> publish · <b style=color:#ff8a76>✗</b> retarget.';
   const fsBatchExplain = 'Use <b>Rubric Stations</b> — one slice at a time (Writing · Structure · Face · Internal images · Top-10 · Publish gate). Each station has its own fix + auditor. Standard full scrub is disabled.';
   const batchIdleHint = 'Open a station tab — pick pillar — ▶ Start. Finished entries land in the audit pile below.';
-  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Square Builder · Face Card' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
+  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer + Square Builder' : (isFaceHero ? 'Square Builder · Face Card' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
   return `<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><title>PULSE · ${pageTitle}</title><style>
 *{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh;gap:18px;padding:24px 0 48px}
 #gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:94%;max-width:560px}
@@ -7620,12 +7620,12 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
 <div id=uniSplash style="display:none" aria-hidden="true"></div>
 <div id=gate style="display:none" aria-hidden="true"><input id=pw type=hidden value="4444"><p class=sub id=gerr style="display:none"></p></div>
 <div id=app>
-  <nav id=pageNav class=mode-tabs${(isFormatFix || isFaceHero) ? ' style="display:none"' : ''}>
+  <nav id=pageNav class=mode-tabs>
     <button type=button class="mode-tab${isScrub ? ' on' : ''}" id=navScrub data-mode=scrub>🧽 Scrub to 13/13 <span id=tabScrubBadge class=tab-badge></span></button>
     <button type=button class="mode-tab${isGenerate ? ' on' : ''}" id=navGenerate data-mode=generate>✍️ New Q&amp;A <span id=tabGenerateBadge class="tab-badge gen"></span></button>
   </nav>
-  <h1 id=appTitle>${isFormatFix ? '📝 Format Fixer' : (isFaceHero ? '🟦 Square Builder' : (isGenerate ? '✍️ New Q&amp;A — auto 13/13' : '🧽 Scrub to 13/13'))}</h1>
-  <p class=sub id=appSub>${isFormatFix ? '<b>Daily driver:</b> content + structure only. Square Builder lives on its own page — link below, out of the way of Fixer controls. No password.' : (isFaceHero ? '<b>Square Builder</b> — face-card + top image. Pass Format Fixer first.' : (isGenerate ? 'Pick pillar + count. Each new Q&amp;A runs the <b>same 13/13 pipeline as scrubber</b> — writing → Pollinator face-card + top hero → DDG sections → render verify → <b>certify 13/13</b> before the next one.' : 'Pick a pillar, then <b>Fix pillar</b>. Every entry gets Pollinator flux on face-card + top hero, DDG images inside, gold title overlay, full render check — then <b>quality_score 13</b>.'))}</p>
+  <h1 id=appTitle>${isFormatFix ? '📝 Format Fixer + 🟦 Square Builder' : (isFaceHero ? '🟦 Square Builder' : (isGenerate ? '✍️ New Q&amp;A — auto 13/13' : '🧽 Scrub to 13/13'))}</h1>
+  <p class=sub id=appSub>${isFormatFix ? '<b>Daily driver:</b> Format Fixer on top · Square Builder dashboard below. No password.' : (isFaceHero ? '<b>Square Builder</b> — face-card + top image. Pass Format Fixer first.' : (isGenerate ? 'Pick pillar + count. Each new Q&amp;A runs the <b>same 13/13 pipeline as scrubber</b> — writing → Pollinator face-card + top hero → DDG sections → render verify → <b>certify 13/13</b> before the next one.' : 'Pick a pillar, then <b>Fix pillar</b>. Every entry gets Pollinator flux on face-card + top hero, DDG images inside, gold title overlay, full render check — then <b>quality_score 13</b>.'))}</p>
   <div id=scrubPanel${isScrub ? '' : ' style="display:none"'}>
   <div id=scrubFilterBar class=scrub-filter-bar style="margin-top:0">
     <div class=scrub-filter-title>🎯 Which pillar to scrub?</div>
@@ -7953,7 +7953,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   <div id=formatfixPanel${isFormatFix ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#0ea5e9;background:linear-gradient(165deg,#041018 0%,#0e1620 100%)">
     <div class=dupe-panel-title style="color:#38bdf8">📝 Format Fixer · daily driver</div>
-    <div class=dupe-panel-hint><b>Step 1:</b> content rubric only — <b>never changes image URLs</b>. Pass here first, then open Square Builder on its own page (link under these buttons — not mixed in).</div>
+    <div class=dupe-panel-hint><b>Step 1:</b> content must pass here before Square Builder (dashboard below on this same page). Content rubric only — <b>never changes image URLs</b>. Title/face stay placeholder until Square Builder fixes them.</div>
     <div class=dupe-panel-row>
       <select id=formatfixPillarFilter title="Which pillar to audit and fix"><option value=tl>Loading pillars…</option></select>
     </div>
@@ -7969,15 +7969,12 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <div class=dupe-log id=formatfixLog></div>
     </div>
   </div>
-  <div class=square-away style="margin:14px auto 0;max-width:540px;width:94%;padding:12px 14px;border:1px dashed #4c1d95;border-radius:12px;background:#0a0812;text-align:center">
-    <div style="font-size:.78rem;color:#9aa3b2;margin-bottom:8px;line-height:1.4">Square Builder buttons stay off this Fixer panel so they never cover Start / Stop.</div>
-    <a href="/square-builder" style="display:inline-block;padding:10px 16px;border-radius:10px;background:transparent;border:1px solid #7c3aed;color:#e9d5ff;font-weight:800;text-decoration:none;font-size:.88rem">🟦 Open Square Builder desk →</a>
+  <p class=sub style="margin:10px 0 0;color:#e879f9;font-weight:700;text-align:center">⬇ Square Builder dashboard is on this same page below ⬇</p>
   </div>
-  </div>
-  <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
+  <div id=faceheroPanel${(isFaceHero || isFormatFix) ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
     <div class=dupe-panel-title style="color:#e879f9">🟦 Square Builder · Face Card &amp; Top Image</div>
-    <div class=dupe-panel-hint>Q&amp;As must <b>pass Format Fixer first</b>. Entries that fail the content rubric are skipped. <b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
+    <div class=dupe-panel-hint><b>Built into the Format Fixer daily driver.</b> Q&amp;As must <b>pass Format Fixer first</b> (dashboard above), then run here. Entries that fail the content rubric are skipped. <b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
     <div class=dupe-panel-row>
       <select id=faceheroPillarFilter title="Which pillar to regenerate face-cards + heroes for"><option value=tl>Loading pillars…</option></select>
     </div>
@@ -8309,7 +8306,7 @@ const $=s=>document.querySelector(s);
 // ── Scrub vs Generate — one page, client-side tab toggle (owner) ──
 window.activeTab='${mode}';
 const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'🟦 Square Builder',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
-const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'<b>Square Builder</b> — after Format Fixer pass only. Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only. Face station requires Format Fixer pass first.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'<b>Daily driver:</b> Format Fixer controls only on this page. Square Builder is a separate desk link below — never stacked on Fixer Start / Stop.'};
+const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'<b>Square Builder</b> — after Format Fixer pass only. Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only. Face station requires Format Fixer pass first.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'<b>Daily driver:</b> Format Fixer on top · <b>Square Builder dashboard below</b> on this same page. Fixer = content only. Square = real face-card + title bake + click-fill images.'};
 function switchPipelineTab(mode){
   if(!mode||mode===window.activeTab) return;
   window.activeTab=mode;
@@ -8318,7 +8315,7 @@ function switchPipelineTab(mode){
   if(gp) gp.style.display=mode==='generate'?'':'none';
   if(dp) dp.style.display=mode==='duplicator'?'':'none';
   if(ip) ip.style.display=mode==='imgen'?'':'none';
-  if(fhp) fhp.style.display=mode==='facehero'?'':'none';
+  if(fhp) fhp.style.display=(mode==='facehero'||mode==='formatfix')?'':'none';
   if(iip) iip.style.display=mode==='internalimages'?'':'none';
   if(rsp) rsp.style.display=mode==='rubricstation'?'':'none';
   if(rp) rp.style.display=mode==='rewrite'?'':'none';
@@ -8347,7 +8344,7 @@ function switchPipelineTab(mode){
   else if(mode==='internalimages'){ loadPillars(); refreshInternalImagesStatus(); }
   else if(mode==='rubricstation'){ loadPillars(); refreshRubricStationStatus(); }
   else if(mode==='rewrite'){ loadPillars(); refreshRewriteStatus(); }
-  else if(mode==='formatfix'){ loadPillars(); refreshFormatFixerStatus(); }
+  else if(mode==='formatfix'){ loadPillars(); refreshFormatFixerStatus(); refreshFaceHeroStatus(); }
 }
 function bindPipelineTabs(){
   const ns=$('#navScrub'), ng=$('#navGenerate'), nd=$('#navDuplicator'), ni=$('#navImgGen'), nfh=$('#navFaceHero'), nii=$('#navInternalImages'), nrs=$('#navRubricStation'), nr=$('#navRewrite'), nf=$('#navFormatFix');
