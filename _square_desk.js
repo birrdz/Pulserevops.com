@@ -70,7 +70,9 @@ footer a{color:#7a8496;font-size:.75rem}
     </div>
   </div>
 
-  <footer><a href="/format-fixer-full">Format Fixer</a></footer>
+  <footer style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+    <a href="/format-fixer-full">← Format Fixer (content only)</a>
+  </footer>
 </div>
 <script>
 const KEY='4444';
