@@ -29,6 +29,7 @@ const {
   loadPoolMeta,
 } = require('./_facecard_pool_lib');
 const { pickSmartPoolSlot, describeForMeta } = require('./_facecard_pool_match');
+const { readSquareQueue, completeSquareBuild, failSquareBuild } = require('./_square_builder_queue');
 const S = 760, DIR = WD + '/assets/qa';
 const STOP = WD + '/_all_flux_facecards_stop.flag';
 const PROG = process.env.PROG_LOG || path.join(os.tmpdir(), 'pulse-all-flux-progress.json');
@@ -179,6 +180,7 @@ const ORIG_PER_PILLAR = parseInt(process.env.ORIG_PER_PILLAR || '299', 10);
 const POOL_INVENTORY = parseInt(process.env.POOL_INVENTORY || (CFG.poolInventory != null ? String(CFG.poolInventory) : '0'), 10); // 200 flux originals/pillar, then duplicate the remainder
 const SMART_DUP = process.env.SMART_DUP === '1' || CFG.smartDup === true;
 const POOL_BUILD_ONLY = process.env.POOL_BUILD_ONLY === '1'; // build pool inventory even if cover_src already flux
+const QUEUE_MODE = process.env.SQUARE_BUILDER_QUEUE_MODE === '1' || CFG.queueMode === true;
 // Persisted so watchdog relaunches keep the owner's selected cover shape. "square" is the legacy 760x760
 // footprint with the corrected title layout; unset/"tile" retains the 1200x400 mosaic crop.
 const FACE_CARD_VARIANT = String(process.env.FACE_CARD_VARIANT || CFG.faceCardVariant || 'tile').toLowerCase() === 'square' ? 'square' : 'tile';
@@ -265,7 +267,19 @@ async function makeFluxOverwrite(id, question) {
   const ordered = [];
   for (const [p, arr] of pillars) { arr.sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true })); ordered.push(...arr); }
   let todo;
-  if (POOL_BUILD_ONLY && POOL_INVENTORY > 0 && ONLY_PREFIX) {
+  if (QUEUE_MODE) {
+    const queued = readSquareQueue().pending;
+    const byId = new Map((idx.entries || []).filter(Boolean).map(e => [String(e.id), e]));
+    todo = queued.map(item => Object.assign({}, byId.get(String(item.id)) || {}, item, {
+      id: String(item.id),
+      question: item.question || (byId.get(String(item.id)) && byId.get(String(item.id)).question) || String(item.id),
+    })).slice(0, LIMIT);
+    if (!todo.length) {
+      console.log('[all-flux] WAITING · fixer-to-square queue is empty');
+      return;
+    }
+    console.log('[all-flux] FIXER → SQUARE · ' + todo.length + ' Q&As waiting');
+  } else if (POOL_BUILD_ONLY && POOL_INVENTORY > 0 && ONLY_PREFIX) {
     const have = poolCount(ONLY_PREFIX);
     const need = Math.max(0, POOL_INVENTORY - have);
     const scoped = ordered.filter((e) => e.id.startsWith(ONLY_PREFIX));
@@ -318,13 +332,22 @@ async function makeFluxOverwrite(id, question) {
     }
     let sz = 0;
     try { sz = await makeFluxOverwrite(e.id, e.question); } catch (x) { if (x && x.code === 'SCRUB_STOP') { console.log('[all-flux] SCRUB_STOP'); break; } console.log('  ✗ ' + e.id + ' err ' + (x && x.message)); }
-    if (!sz) { fail++; console.log('  ✗ ' + e.id + ' flux FAILED — left as-is, retry next run'); continue; }
+    if (!sz) {
+      fail++;
+      if (QUEUE_MODE) failSquareBuild(e.id, 'flux build failed');
+      console.log('  ✗ ' + e.id + ' flux FAILED — left as-is, retry next run');
+      continue;
+    }
     try {
       // mutate in-memory index (no per-entry strong read); write the small answer blob per-entry; flush index every STAMP_BATCH
       { // record id for the merged index flush; write the small answer blob per-entry (fresh read → no clobber)
         stampIds.push(e.id);
         try { const cur = await store.get('answers/' + e.id + '.json', { type: 'json' }); if (cur) await store.setJSON('answers/' + e.id + '.json', Object.assign({}, cur, { cover_src: 'flux', face_title_baked: true })); } catch (z) {}
         if (stampIds.length >= STAMP_BATCH) await flushIndex();
+        if (QUEUE_MODE) {
+          await flushIndex();
+          completeSquareBuild(e.id);
+        }
       }
       done++;
       const rate = done / Math.max(1, (Date.now() - startedAt) / 3600000);
@@ -337,7 +360,12 @@ async function makeFluxOverwrite(id, question) {
           console.log('    📧 email fail ' + e.id + ' · ' + (em && em.message));
         }
       }
-    } catch (x) { fail++; console.log('  ✗ ' + e.id + ' stamp-fail ' + (x && x.message)); continue; }
+    } catch (x) {
+      fail++;
+      if (QUEUE_MODE) failSquareBuild(e.id, x && x.message);
+      console.log('  ✗ ' + e.id + ' stamp-fail ' + (x && x.message));
+      continue;
+    }
     if (done % 5 === 0) { try { fs.writeFileSync(PROG, JSON.stringify({ at: nowIso(), done, fail, total: todo.length, remaining: todo.length - i - 1, lastId: e.id, alreadyFlux: totalFlux }, null, 2)); } catch (z) {} }
   }
   await flushIndex(); // write any remaining stamps
