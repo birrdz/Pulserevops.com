@@ -2650,8 +2650,10 @@ const { libraryEntryPublicUrl, libraryEntryKind, SITE: PULSE_SITE } = require('.
 const { pushSeoCounts } = require('./_seo_monitor_sync_lib');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 
-const PORT = parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
-const SQUARE_ONLY = String(process.env.SQUARE_ONLY || '') === '1';
+const SQUARE_ONLY = process.argv.includes('--square-only') || String(process.env.SQUARE_ONLY || '') === '1';
+const PORT = SQUARE_ONLY
+  ? parseInt(process.env.SQUARE_PORT || '9377', 10)
+  : parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
 const PASS = '4444';
 const DAILY_MAX = parseInt(process.env.SCRUB_BTN_DAILY || '100000000', 10);   // daily cap removed (owner 2026-07-01) — effectively unlimited
 const MIN_SCORE = 12, WORD_FLOOR = 2000;
