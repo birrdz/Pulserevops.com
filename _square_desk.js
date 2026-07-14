@@ -93,6 +93,15 @@ function bodySlotNs(){
 function targetLabel(){
   return active==='face'?'FACE + TOP':('IMG '+active);
 }
+function entryComplete(){
+  return !!faceUrl && bodySlotNs().every(n=>!!bodyUrls[n]);
+}
+function syncDoneButton(){
+  const button=$('#doneBtn');
+  if(!button) return;
+  button.disabled=!entryComplete();
+  button.textContent=entryComplete()?'Done — save & next':'Fill every slot to continue';
+}
 function whatNext(){
   return 'Active: <b>'+targetLabel()+'</b> — click any photo to set/switch. Face pick auto-fills top image (same file).';
 }
@@ -127,14 +136,14 @@ function renderPicks(){
       if(key==='face') faceUrl=null; else delete bodyUrls[key];
       stageSilent();
       renderSlotBar(); renderPicks(); markGrid();
-      $('#doneBtn').disabled=!faceUrl;
+      syncDoneButton();
       $('#status').innerHTML=whatNext();
     };
     list.appendChild(d);
   };
   addRow('face','FACE+TOP',faceUrl);
   bodySlotNs().forEach(n=>addRow(n,'IMG '+n,bodyUrls[n]));
-  $('#doneBtn').disabled=!faceUrl;
+  syncDoneButton();
 }
 function markGrid(){
   const chosen=new Set([faceUrl,...Object.values(bodyUrls)].filter(Boolean));
@@ -211,18 +220,20 @@ async function pick(url){
   renderSlotBar();
   renderPicks();
   markGrid();
+  syncDoneButton();
   $('#status').innerHTML='Set <b>'+targetLabel()+'</b>. Click another photo to switch, or tap a different slot.';
 }
 async function done(){
-  if(!cur||!faceUrl) return;
+  if(!cur||!entryComplete()) return;
   $('#doneBtn').disabled=true;
-  $('#status').textContent='Queued — Cursor will delete the old face and put your picks on…';
+  $('#status').textContent='Saving every slot and removing this entry from the row…';
   try{
     const j=await(await fetch('/square-save-draft',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
       key:KEY,id:cur.id,title:cur.title,shape:cur.shape,faceImageUrl:faceUrl,slots:bodyUrls
     })})).json();
     if(!j.ok){ $('#status').textContent=j.msg||'Queue failed'; $('#doneBtn').disabled=false; return; }
-    $('#status').textContent='Queued for Cursor. You can Next entry or wait here.';
+    $('#status').textContent='Saved — loading next entry…';
+    await loadNext();
   }catch(e){ $('#status').textContent='Queue error'; $('#doneBtn').disabled=false; }
 }
 $('#searchBtn').onclick=runSearch;

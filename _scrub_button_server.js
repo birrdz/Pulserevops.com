@@ -967,8 +967,18 @@ async function saveSquareDeskDraft(d) {
   const title = titleOf[id] || d.title || entry.question || entry.title || id;
   const route = pickGoldTemplate(id, entry.answer, title);
   if (route.template !== d.shape) throw new Error('locked template changed');
+  const imageCount = route.template === 'top10'
+    ? (String(entry.answer).match(/@@PRODUCT[^\n]*\bimg="[^"]+"/g) || []).length
+    : (String(entry.answer).match(/!\[[^\]]*\]\([^)]+\)/g) || []).length;
+  const requiredSlots = [];
+  const firstSlot = route.template === 'top10' ? 2 : 1;
+  const lastSlot = route.template === 'top10' ? imageCount : imageCount - 1;
+  for (let n = firstSlot; n <= lastSlot; n++) requiredSlots.push(n);
+  const suppliedSlots = d.slots || {};
+  const missingSlots = requiredSlots.filter(slot => !suppliedSlots[slot]);
+  if (missingSlots.length) throw new Error('fill every image slot before save: ' + missingSlots.join(', '));
   await applyManualPexelsImage(id, d.faceImageUrl, 0, '');
-  const slots = Object.entries(d.slots || {}).sort((a, b) => Number(a[0]) - Number(b[0]));
+  const slots = Object.entries(suppliedSlots).sort((a, b) => Number(a[0]) - Number(b[0]));
   for (const [slot, url] of slots) {
     const n = Number(slot);
     const clickIndex = route.template === 'top10' ? n - 1 : n;
