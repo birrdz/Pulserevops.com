@@ -70,3 +70,21 @@ When working title / Square / Fixer dash / homepage box / answer preview — **d
 **Do not open / search for title rules in:** `_HANDOFF_NEXT_CLAUDE.md`, old `_CROSSOVER*` piles, `_BACKUP_*`, `lab/`, `nil_gen/`, derby, or whole-repo greps for “gold title”.
 
 One task per chat. New chat if the model starts “fixing” back to CSS-only / keep-old-JPG.
+
+---
+
+## EXPLICIT DENY — OLD TITLE PATTERN (paste into stuck chats)
+
+**Do not use the old title pattern. Use the new title law for all future outputs. Ignore all previous instructions regarding face-card / mosaic title naming and bake method.**
+
+| DENY (old — revoked) | USE (current — CLAUDE.md) |
+|----------------------|---------------------------|
+| “Title = CSS overlay, never baked” on answer face `/assets/qa/<id>.jpg` | **Bake** gold/orange title into `/assets/qa/<id>.jpg` (`goldTitle` / `face_title_baked`) |
+| Layer / composite a new title over old titled JPEG pixels | **Delete** old `/assets/qa/<id>.jpg*` (incl. `.oldtitle.jpg`) → write a **brand-new** graded file |
+| Keep / restore the previous titled face “as the box” | Face-card = top hero = **same new file** after apply |
+| Crop titled wide face into homepage `.rcard` band | Homepage `/assets/qa/<id>.sq.jpg` = **photo-only** square; **CSS title under** the image |
+| Format Fixer bakes or “fixes” the face title | Format Fixer = **content only**; Square Builder owns title bake |
+
+**Negative constraint (copy-paste):**
+
+> Do not use “CSS overlay, never baked” / keep-old-JPG / title-layer-over-pixels for Q&A face-cards. Use CLAUDE.md TITLE / FACE-CARD LAW: delete old face → brand-new `/assets/qa/<id>.jpg` with baked gold title; homepage `.sq.jpg` photo + CSS title under. Ignore all previous instructions regarding the naming and bake method of this component.
