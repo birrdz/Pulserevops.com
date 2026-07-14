@@ -44,18 +44,28 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .pick .u{flex:1;font-size:.75rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pick .x{border:none;background:transparent;color:#f87171;font-weight:900;cursor:pointer;font-size:1rem;padding:4px 8px}
 .badge{display:inline-block;font-size:.7rem;font-weight:800;padding:3px 8px;border-radius:999px;background:rgba(168,85,247,.18);color:#e9d5ff;margin-bottom:8px}
+.site-square{position:relative;width:min(420px,100%);aspect-ratio:1;margin:12px auto;border-radius:12px;overflow:hidden;background:#090b10;border:1px solid var(--line)}
+.site-square img{width:100%;height:100%;object-fit:cover;display:block}
+.site-square::after{content:'';position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.88))}
+.site-square-title{position:absolute;z-index:2;left:4%;right:4%;bottom:5%;color:#FFD54F;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:900;font-size:clamp(24px,6vw,38px);line-height:1.04;text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000}
 footer a{color:#7a8496;font-size:.75rem}
 </style>
 </head>
 <body>
 <div class=wrap>
   <h1>🟦 Pick photos</h1>
-  <p class=sub>No preview box. Face-card <b>auto = top image</b> (same file). Tap a slot, click any photo to set/switch. Hit Done when ready.</p>
+  <p class=sub>The square preview mirrors the live card: same crop, gradient, current template title, and title placement. Face-card <b>auto = top image</b> (same file).</p>
+  <div class="card row">
+    <button type=button class=act id=autoToggle>▶ Auto-run 100 OFF</button>
+    <button type=button class=ghost id=restartNode>♻ Restart Node</button>
+    <span class=status id=autoStatus>Manual mode · your picks train auto-run.</span>
+  </div>
 
   <div class=card>
     <div class=badge id=shapeBadge>Q&amp;A</div>
     <h2 class=ttl id=entryTitle>Loading…</h2>
     <div class=meta id=entryMeta></div>
+    <div class=site-square id=siteSquare><img id=siteSquareImg alt=""><div class=site-square-title id=siteSquareTitle></div></div>
     <div class=slots id=slotBar></div>
     <div class=row>
       <input type=text id=kw placeholder="keyword" autocomplete=off>
@@ -80,6 +90,9 @@ let cur=null;
 let faceUrl=null;
 let bodyUrls={};
 let active='face'; // 'face' or body slot number
+let searchItems=[];
+let searchQuery='';
+let autoPoll=null;
 const $=s=>document.querySelector(s);
 function shapeLabel(s){return s==='top10'?'TOP 10':s==='styles'?'STYLES':'Q&A ESSAY';}
 function proxy(u){return '/square-proxy?u='+encodeURIComponent(u);}
@@ -143,6 +156,13 @@ function renderPicks(){
   };
   addRow('face','FACE+TOP',faceUrl);
   bodySlotNs().forEach(n=>addRow(n,'IMG '+n,bodyUrls[n]));
+  const previewImg=$('#siteSquareImg'), previewTitle=$('#siteSquareTitle');
+  if(previewImg){if(faceUrl)previewImg.src=proxy(faceUrl);else previewImg.removeAttribute('src');}
+  if(previewTitle){
+    const title=(cur&&cur.title)||'';
+    previewTitle.textContent=title;
+    previewTitle.style.fontSize=(title.length>=90?'31px':title.length>=60?'34px':'38px');
+  }
   syncDoneButton();
 }
 function markGrid(){
@@ -191,6 +211,8 @@ async function runSearch(){
     const j=await(await fetch('/square-search?key='+KEY+'&q='+encodeURIComponent(q))).json();
     if(!j.ok){ $('#status').textContent=j.msg||'Search failed'; return; }
     const items=j.results||[];
+    searchItems=items;
+    searchQuery=j.query||q;
     if(!items.length){ $('#status').textContent='No photos'; return; }
     $('#status').innerHTML=items.length+' photos — '+whatNext();
     items.forEach(item=>{
@@ -221,6 +243,13 @@ async function pick(url){
   renderPicks();
   markGrid();
   syncDoneButton();
+  const selected=searchItems.find(item=>(item.image||item.thumb)===url);
+  const rank=Math.max(0,searchItems.findIndex(item=>(item.image||item.thumb)===url));
+  if(selected){
+    fetch('/square-preference',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      key:KEY,slotType:active==='face'?'face':'body',rank,query:searchQuery,width:selected.width||0,height:selected.height||0
+    })}).catch(()=>{});
+  }
   $('#status').innerHTML='Set <b>'+targetLabel()+'</b>. Click another photo to switch, or tap a different slot.';
 }
 async function done(){
@@ -240,6 +269,39 @@ $('#searchBtn').onclick=runSearch;
 $('#kw').addEventListener('keydown',e=>{ if(e.key==='Enter') runSearch(); });
 $('#doneBtn').onclick=done;
 $('#nextBtn').onclick=loadNext;
+async function refreshAuto(){
+  try{
+    const j=await(await fetch('/square-auto-status?key='+KEY+'&t='+Date.now(),{cache:'no-store'})).json();
+    const on=!!(j.enabled||j.running);
+    $('#autoToggle').textContent=on?'⏹ Auto-run 100 ON':'▶ Auto-run 100 OFF';
+    $('#autoToggle').className=on?'act save':'act';
+    $('#autoStatus').textContent=on
+      ?('Auto '+(j.done||0)+' / '+(j.target||100)+(j.currentId?' · '+j.currentId:'')+' · '+(j.phase||'working'))
+      :('Manual mode · learned '+((j.preferences&&j.preferences.face)||0)+' face + '+((j.preferences&&j.preferences.body)||0)+' body picks');
+    if(on&&!autoPoll)autoPoll=setInterval(refreshAuto,2000);
+    if(!on&&autoPoll){clearInterval(autoPoll);autoPoll=null;}
+  }catch(e){}
+}
+$('#autoToggle').onclick=async()=>{
+  const status=await(await fetch('/square-auto-status?key='+KEY)).json();
+  await fetch('/square-auto-toggle',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,enabled:!(status.enabled||status.running)})});
+  await refreshAuto();
+};
+$('#restartNode').onclick=async()=>{
+  if(!confirm('Restart this localhost Node server? Active Fixer and Builder state will resume.'))return;
+  $('#restartNode').disabled=true;
+  $('#restartNode').textContent='♻ Restarting…';
+  try{
+    const result=await(await fetch('/server-restart',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY})})).json();
+    if(!result.ok)throw new Error(result.msg||'restart failed');
+    for(let i=0;i<90;i++){
+      await new Promise(resolve=>setTimeout(resolve,1000));
+      try{const h=await(await fetch('/health?t='+Date.now(),{cache:'no-store'})).json();if(h.ok){location.reload();return;}}catch(e){}
+    }
+    throw new Error('server did not return');
+  }catch(e){alert(e.message);$('#restartNode').disabled=false;$('#restartNode').textContent='♻ Restart Node';}
+};
+refreshAuto();
 loadNext();
 </script>
 </body>

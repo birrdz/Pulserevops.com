@@ -66,11 +66,12 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 // 🔒🔒 POLLINATOR FACE-CARD COVER LAW (owner 2026-07-03) — covers are Pollinations flux ONLY (DDG banned).
 // 🔒 OWNER 2026-07-04: Pollinator REMOVED from writing + scrubbing. Covers now = DDG face-cards with
 // the dated Pollinator look (people/places/things, photo-refined, no watermarked stock). Same signatures.
-const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, storeGradedImage, coverPath, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
+const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, storeGradedImage, gradeFaceCardFromBuffer, coverPath, pHash, purgeFaceCardRegistry, markFaceCardForceRegen, clearFaceCardForceRegen, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
 const { readSquareQueue, enqueueSquareBuild, completeSquareBuild, removeSquareBuildsByPrefix } = require('./_square_builder_queue');
 const { deriveImageSearchQuery } = require('./netlify/functions/lib/derive-image-search-query');
 const { sendSquareQueueEmail, sendSquareBacklogEmail, sendCompletedQaImagesEmail } = require('./_facecard_resend_email');
 const { buildSquareDeskPage } = require('./_square_desk');
+const { recordPreference: recordSquarePreference, choosePreferredResult, readPreferences: readSquarePreferences } = require('./_square_builder_preferences');
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
 const IMG_GEN_BATCH_MAX = parseInt(process.env.IMG_GEN_BATCH_MAX || '250', 10);
@@ -924,15 +925,21 @@ async function pickSquareNextEntry() {
   if (!next) return { ok: false, msg: 'No graduated Q&A waiting for images' };
   const entry = await store.get('answers/' + next.id + '.json', { type: 'json' });
   if (!entry || !entry.answer) return { ok: false, msg: 'Missing answer blob for ' + next.id };
-  const title = titleOf[next.id] || next.question || entry.question || entry.title || next.id;
+  const freshIndex = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+  const freshRow = (freshIndex.entries || []).find(item => item && item.id === next.id);
+  const title = (freshRow && (freshRow.question || freshRow.title)) || entry.question || entry.title || titleOf[next.id] || next.question || next.id;
   const route = pickGoldTemplate(next.id, entry.answer, title);
   if (!route.template) return { ok: false, msg: 'No locked template for ' + next.id };
   const count = route.template === 'top10'
     ? (String(entry.answer).match(/@@PRODUCT[^\n]*\bimg="[^"]+"/g) || []).length
     : (String(entry.answer).match(/!\[[^\]]*\]\([^)]+\)/g) || []).length;
+  const productTitles = [...String(entry.answer).matchAll(/@@PRODUCT[^\n]*\bname="([^"]+)"/g)].map(match => match[1]);
+  const depthTitles = [...String(entry.answer).matchAll(/^##\s+(?!Direct Answer|Related questions|FAQ|Sources|Related on PULSE)(.+)$/gim)].map(match => match[1].replace(/^\d+[.)]\s*/, '').trim());
   const start = route.template === 'top10' ? 2 : 1;
   const slots = [];
-  for (let n = start; n <= (route.template === 'top10' ? count : count - 1); n++) slots.push({ kind: 'body', n });
+  for (let n = start; n <= (route.template === 'top10' ? count : count - 1); n++) {
+    slots.push({ kind: 'body', n, label: route.template === 'top10' ? (productTitles[n - 1] || title) : (depthTitles[n] || title) });
+  }
   return { ok: true, id: next.id, title, shape: route.template, slots };
 }
 async function searchSquareDeskImages(query) {
@@ -956,8 +963,124 @@ async function searchSquareDeskImages(query) {
       id: p.id,
       thumb: p.src.medium || p.src.small,
       image: p.src.large2x || p.src.large || p.src.original,
+      width: p.width || 0,
+      height: p.height || 0,
+      color: p.avg_color || '',
     })),
   };
+}
+const SQUARE_AUTO_F = path.join(WD, '_square_builder_auto_run.json');
+let squareAutoJob = {
+  running: false, enabled: false, stop: false, target: 100, done: 0, failed: 0,
+  currentId: '', phase: 'idle', startedAt: null, finishedAt: null, error: '', log: [],
+};
+try {
+  const saved = JSON.parse(fs.readFileSync(SQUARE_AUTO_F, 'utf8'));
+  squareAutoJob = Object.assign(squareAutoJob, saved, { running: false });
+} catch (e) {}
+function squareAutoLog(message) {
+  squareAutoJob.log.unshift(new Date().toLocaleTimeString() + ' ' + message);
+  squareAutoJob.log = squareAutoJob.log.slice(0, 40);
+}
+function saveSquareAutoJob() {
+  try {
+    const tmp = SQUARE_AUTO_F + '.tmp-' + process.pid;
+    fs.writeFileSync(tmp, JSON.stringify(squareAutoJob, null, 2));
+    try { fs.renameSync(tmp, SQUARE_AUTO_F); }
+    catch (error) { fs.rmSync(SQUARE_AUTO_F, { force: true }); fs.renameSync(tmp, SQUARE_AUTO_F); }
+  } catch (e) {}
+}
+function squareAutoStatus() {
+  return Object.assign({}, squareAutoJob, {
+    preferences: {
+      face: readSquarePreferences().face.samples || 0,
+      body: readSquarePreferences().body.samples || 0,
+    },
+    log: (squareAutoJob.log || []).slice(0, 20),
+  });
+}
+async function autoFillSquareEntry() {
+  const current = await pickSquareNextEntry();
+  if (!current.ok) return { empty: true, msg: current.msg };
+  squareAutoJob.currentId = current.id;
+  squareAutoJob.phase = 'search';
+  saveSquareAutoJob();
+  const used = new Set();
+  const faceSearch = await searchSquareDeskImages(current.title);
+  const facePick = choosePreferredResult(faceSearch.results, 'face', used);
+  if (!facePick) throw new Error('no face image candidate');
+  const faceUrl = facePick.item.image || facePick.item.thumb;
+  used.add(faceUrl);
+  const slots = {};
+  for (const slot of (current.slots || [])) {
+    if (squareAutoJob.stop) return { stopped: true };
+    squareAutoJob.phase = 'fill · image ' + slot.n;
+    saveSquareAutoJob();
+    const search = await searchSquareDeskImages(slot.label || current.title);
+    const picked = choosePreferredResult(search.results, 'body', used);
+    if (!picked) throw new Error('no unique candidate for image ' + slot.n);
+    const url = picked.item.image || picked.item.thumb;
+    used.add(url);
+    slots[slot.n] = url;
+  }
+  squareAutoJob.phase = 'save';
+  saveSquareAutoJob();
+  const saved = await saveSquareDeskDraft({
+    id: current.id, title: current.title, shape: current.shape,
+    faceImageUrl: faceUrl, slots,
+  });
+  return { ok: true, id: current.id, saved };
+}
+async function runSquareAutoLoop() {
+  if (squareAutoJob.running) return;
+  squareAutoJob.running = true;
+  squareAutoJob.stop = false;
+  squareAutoJob.phase = 'starting';
+  saveSquareAutoJob();
+  while (squareAutoJob.enabled && !squareAutoJob.stop && squareAutoJob.done < squareAutoJob.target) {
+    try {
+      const result = await autoFillSquareEntry();
+      if (result.empty) { squareAutoLog('✅ queue empty'); break; }
+      if (result.stopped) break;
+      squareAutoJob.done++;
+      squareAutoLog('✅ ' + result.id + ' saved · removed from row · next');
+    } catch (error) {
+      squareAutoJob.failed++;
+      squareAutoJob.error = error.message;
+      squareAutoLog('⚠️ ' + (squareAutoJob.currentId || 'entry') + ' · ' + error.message);
+      // Prevent a permanently bad first row from spinning forever.
+      if (squareAutoJob.failed >= 10 && squareAutoJob.done === 0) break;
+    }
+    saveSquareAutoJob();
+  }
+  squareAutoJob.running = false;
+  squareAutoJob.enabled = false;
+  squareAutoJob.phase = squareAutoJob.stop ? 'stopped' : 'done';
+  squareAutoJob.currentId = '';
+  squareAutoJob.finishedAt = Date.now();
+  saveSquareAutoJob();
+}
+function setSquareAutoRun(enabled) {
+  enabled = !!enabled;
+  if (!enabled) {
+    squareAutoJob.enabled = false;
+    squareAutoJob.stop = true;
+    squareAutoLog('⏹ Auto-run stopping');
+    saveSquareAutoJob();
+    return { ok: true, enabled: false, stopping: squareAutoJob.running };
+  }
+  if (squareAutoJob.running) return { ok: true, enabled: true, running: true };
+  squareAutoJob = {
+    running: false, enabled: true, stop: false, target: 100, done: 0, failed: 0,
+    currentId: '', phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [],
+  };
+  squareAutoLog('▶ Auto-run 100 · learned face/body preferences');
+  saveSquareAutoJob();
+  runSquareAutoLoop().catch(error => {
+    squareAutoJob.running = false; squareAutoJob.enabled = false; squareAutoJob.phase = 'error';
+    squareAutoJob.error = error.message; saveSquareAutoJob();
+  });
+  return { ok: true, enabled: true, running: true, target: 100 };
 }
 async function saveSquareDeskDraft(d) {
   const id = String(d.id || '').trim();
@@ -1017,7 +1140,9 @@ function replaceProductImageAt(body, index, url) {
 async function applyManualPexelsImage(id, url, clickIndex, gender) {
   const entry = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
-  const title = titleOf[id] || entry.question || entry.title || id;
+  const freshIndex = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+  const freshRow = (freshIndex.entries || []).find(item => item && item.id === id);
+  const title = (freshRow && (freshRow.question || freshRow.title)) || entry.question || entry.title || titleOf[id] || id;
   const route = pickGoldTemplate(id, entry.answer, title);
   if (!route.template) throw new Error('Q&A does not match a locked golden template');
   clickIndex = Math.max(0, parseInt(clickIndex, 10) || 0);
@@ -1033,9 +1158,24 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   fs.mkdirSync(path.join(WD, 'assets', 'qa'), { recursive: true });
   let body = entry.answer, localUrl, placement;
   if (clickIndex === 0) {
-    await storeGradedImage(buffer, coverPath(id), { square: 760, faceCard: true, cropPosition: 'attention', bright: false });
+    const oldFile = coverPath(id);
+    let stalePh = null;
+    if (fs.existsSync(oldFile)) {
+      try { stalePh = await pHash(fs.readFileSync(oldFile)); } catch (e) {}
+    }
+    markFaceCardForceRegen(id, 'Square Builder replacing stale baked-title pixels');
+    purgeFaceCardRegistry(id, stalePh);
+    fs.rmSync(oldFile, { force: true });
+    await gradeFaceCardFromBuffer(buffer, oldFile, {
+      question: title,
+      goldTitle: title,
+      variant: 'square',
+      cropPosition: 'attention',
+      bright: false,
+    });
+    clearFaceCardForceRegen(id);
     localUrl = '/assets/qa/' + id + '.jpg';
-    placement = 'face card';
+    placement = 'face card · current title baked with site square layout';
     if (route.template === 'qa') {
       const swapped = replaceMarkdownImageAt(body, 0, localUrl);
       body = swapped.body;
@@ -1063,22 +1203,22 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, {
     answer: body,
     cover_src: clickIndex === 0 ? 'pexels' : (entry.cover_src || 'pexels'),
-    face_title_baked: false,
+    face_title_baked: clickIndex === 0 ? true : !!entry.face_title_baked,
+    face_title_text: clickIndex === 0 ? title : entry.face_title_text,
     image_updated_at: new Date().toISOString(),
     manual_image_sources: sourceUrls,
     manual_image_hashes: imageHashes,
   }));
   if (clickIndex === 0) {
-    const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
-    const row = (idx.entries || []).find(item => item && item.id === id);
-    if (row) {
-      row.img = localUrl;
-      row.cover_src = 'pexels';
-      row.face_title_baked = false;
-      await store.setJSON('_index.json', idx);
+    if (freshRow) {
+      freshRow.img = localUrl;
+      freshRow.cover_src = 'pexels';
+      freshRow.face_title_baked = true;
+      freshRow.face_title_text = title;
+      await store.setJSON('_index.json', freshIndex);
     }
   }
-  return { ok: true, id, clickIndex, placement, localUrl, template: route.template };
+  return { ok: true, id, clickIndex, placement, localUrl, template: route.template, title };
 }
 async function finishManualPexelsQa(id) {
   const entry = await store.get('answers/' + id + '.json', { type: 'json' });
@@ -11018,6 +11158,7 @@ async function watchNew() {
     cur.forEach(id => knownIds.add(id)); fs.writeFileSync(KNOWN, JSON.stringify([...knownIds]));
   } catch (e) {}
 }
+let nodeRestartScheduled = false;
 const server = http.createServer(async (req, res) => {
   const u = new URL(req.url, 'http://localhost');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -11055,6 +11196,35 @@ const server = http.createServer(async (req, res) => {
       passcode: PASS,
       ts: Date.now(),
     }));
+  }
+  if (u.pathname === '/server-restart' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ ok: false, msg: 'bad code' }));
+      }
+      if (nodeRestartScheduled) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ ok: true, restarting: true }));
+      }
+      nodeRestartScheduled = true;
+      saveFormatFixerState(true);
+      saveSquareAutoJob();
+      res.writeHead(202, { 'Content-Type': 'application/json', 'Connection': 'close' });
+      res.end(JSON.stringify({ ok: true, restarting: true }));
+      setTimeout(() => {
+        server.close(() => {
+          const child = spawn(process.execPath, process.argv.slice(1), {
+            cwd: WD, env: Object.assign({}, process.env), detached: true, stdio: 'ignore', windowsHide: true,
+          });
+          child.unref();
+          process.exit(0);
+        });
+        setTimeout(() => { if (typeof server.closeAllConnections === 'function') server.closeAllConnections(); }, 750);
+      }, 350);
+    });
+    return;
   }
   if (u.pathname === '/portal-url') {
     let lan = '';
@@ -11407,6 +11577,31 @@ const server = http.createServer(async (req, res) => {
     if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
     res.writeHead(200, { 'Content-Type': 'application/json' });
     return res.end(JSON.stringify(faceHeroStatusPayload()));
+  }
+  if (u.pathname === '/square-auto-status') {
+    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify(squareAutoStatus()));
+  }
+  if (u.pathname === '/square-auto-toggle' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      const result = setSquareAutoRun(d.enabled);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    });
+    return;
+  }
+  if (u.pathname === '/square-preference' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      const profile = recordSquarePreference(d);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, profile }));
+    });
+    return;
   }
   if (u.pathname === '/square-next') {
     if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
@@ -11833,7 +12028,16 @@ server.listen(PORT, '0.0.0.0', async () => {
   console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
   if (lanIp) console.log(`[scrub-button] LAN (phone on WiFi): http://${lanIp}:${PORT}/`);
   resumeInterruptedImageJobs();
-  if (formatFixerJob.auto && formatFixerJob.phase !== 'done') {
+  const bootFixerAuto = process.env.FORMAT_FIXER_AUTORUN === '1';
+  const bootFixerPillar = String(process.env.FORMAT_FIXER_BOOT_PILLAR || 'tl').trim() || 'tl';
+  if (bootFixerAuto && (!formatFixerJob.auto || formatFixerJob.phase === 'done' || formatFixerJob.pillar !== bootFixerPillar)) {
+    const bootStart = () => {
+      if (formatFixerJob.running) return;
+      const result = startFormatFixer(bootFixerPillar);
+      if (!result.ok && /running/i.test(result.msg || '')) setTimeout(bootStart, 5000);
+    };
+    setTimeout(bootStart, 1200);
+  } else if (formatFixerJob.auto && formatFixerJob.phase !== 'done') {
     formatFixerJob.stop = false;
     formatFixerJob.error = '';
     formatFixerLog('▶ auto-resume · errors continue · runs until owner stops it');
@@ -11842,6 +12046,13 @@ server.listen(PORT, '0.0.0.0', async () => {
       formatFixerJob.running = false;
       formatFixerJob.phase = 'error';
       saveFormatFixerState(true);
+    });
+  }
+  if (squareAutoJob.enabled && squareAutoJob.done < squareAutoJob.target) {
+    squareAutoJob.stop = false;
+    runSquareAutoLoop().catch(error => {
+      squareAutoJob.running = false; squareAutoJob.enabled = false; squareAutoJob.phase = 'error';
+      squareAutoJob.error = error.message; saveSquareAutoJob();
     });
   }
   // Daily Driver mirrors Fixer automation: keep draining its queue, cap at 200/day, and halt only

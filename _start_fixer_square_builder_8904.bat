@@ -11,7 +11,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$pids=Get-NetTCPConnection -LocalPort 8904 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique;" ^
   "foreach($pid in $pids){try{Stop-Process -Id $pid -Force -ErrorAction Stop;Write-Host ('Stopped stale port 8904 process '+$pid)}catch{}};" ^
   "Start-Sleep -Milliseconds 750"
-start "PULSE Fixer + Square Builder 8904" /D "%~dp0" cmd /k "set SCRUB_BTN_PORT=8904&& set FORMAT_FIXER_AUTORUN=1&& node _scrub_button_server.js"
+start "PULSE Fixer + Square Builder 8904" /D "%~dp0" cmd /k "set SCRUB_BTN_PORT=8904&& set FORMAT_FIXER_AUTORUN=1&& set FORMAT_FIXER_BOOT_PILLAR=tl&& node _scrub_button_server.js"
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$url='%URL%';" ^
   "for($i=0;$i -lt 90;$i++){" ^
