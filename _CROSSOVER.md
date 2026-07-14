@@ -18,7 +18,7 @@
 **Handoff:**
 - Stop Format Fixer → Square Builder: force-stop / finish auto-launches Square on the **same pillar**, **passers only**, **auto-approve ON**.
 - Windows one-click: `_stop_fixer_go_square.bat` (scrub on **8911** for this real run · or 8902 legacy) · `node _handoff_fixer_to_square.js --base=http://127.0.0.1:8911`
-- **Open Square Builder:** http://127.0.0.1:8911/face-card-top-image-generator (🦄 → **4444**)
+- **Open Square Builder (fresh channel):** http://127.0.0.1:8933/face-card-top-image-generator (🦄 → **4444**)
 - Cloud agent cannot hit LAN scrub / main Blobs without Windows `.env.local` — run on the PC.
 
 ## ▶▶ CROSSOVER — 2026-07-14 FIXER → SQUARE AUTO HANDOFF — READ FIRST

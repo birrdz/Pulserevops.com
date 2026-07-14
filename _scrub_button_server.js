@@ -3353,17 +3353,22 @@ async function deFab(id, title, body, critique) {
 
 let valid = new Set(), titleOf = {}, byPillar = {}, coverSrcOf = {}, qualityScoreOf = {};
 async function loadIndex() {
-  const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
-  const es = (idx.entries || []).filter(e => e && e.id);
-  valid = new Set(es.map(e => e.id)); titleOf = Object.fromEntries(es.map(e => [e.id, e.question]));
-  coverSrcOf = Object.fromEntries(es.map(e => [e.id, e.cover_src || null]));   // face-card provenance (flux = pollinator, per cover law)
-  qualityScoreOf = Object.fromEntries(es.map(e => [e.id, typeof e.quality_score === 'number' ? e.quality_score : null]));
-  byPillar = {}; const isDemo = t => /\bdemo\b|standing desk|\btest entry\b/i.test(String(t || ''));
-  for (const e of es) { if (isDemo(e.question)) continue; (byPillar[pillarOf(e.id)] = byPillar[pillarOf(e.id)] || []).push({ id: e.id, title: e.question }); }
-  // seed the 24h Writing panel from the catalog — entries indexed in the last 24h (owner 2026-07-02)
-  const cut = Date.now() - 24 * 3600 * 1000;
-  recentWrites = es.filter(e => !isDemo(e.question) && typeof e.ts === 'number' && e.ts >= cut)
-    .map(e => ({ ts: e.ts, id: e.id, pillar: pillarOf(e.id), pillarName: pName(pillarOf(e.id)), title: String(e.question || '').slice(0, 80), status: 'published', score: (typeof e.quality_score === 'number' ? e.quality_score : null) }));
+  try {
+    const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+    const es = ((idx && idx.entries) || []).filter(e => e && e.id);
+    valid = new Set(es.map(e => e.id)); titleOf = Object.fromEntries(es.map(e => [e.id, e.question]));
+    coverSrcOf = Object.fromEntries(es.map(e => [e.id, e.cover_src || null]));   // face-card provenance (flux = pollinator, per cover law)
+    qualityScoreOf = Object.fromEntries(es.map(e => [e.id, typeof e.quality_score === 'number' ? e.quality_score : null]));
+    byPillar = {}; const isDemo = t => /\bdemo\b|standing desk|\btest entry\b/i.test(String(t || ''));
+    for (const e of es) { if (isDemo(e.question)) continue; (byPillar[pillarOf(e.id)] = byPillar[pillarOf(e.id)] || []).push({ id: e.id, title: e.question }); }
+    // seed the 24h Writing panel from the catalog — entries indexed in the last 24h (owner 2026-07-02)
+    const cut = Date.now() - 24 * 3600 * 1000;
+    recentWrites = es.filter(e => !isDemo(e.question) && typeof e.ts === 'number' && e.ts >= cut)
+      .map(e => ({ ts: e.ts, id: e.id, pillar: pillarOf(e.id), pillarName: pName(pillarOf(e.id)), title: String(e.question || '').slice(0, 80), status: 'published', score: (typeof e.quality_score === 'number' ? e.quality_score : null) }));
+  } catch (e) {
+    console.error('[scrub-button] loadIndex soft-fail (UI still up):', e && e.message);
+    valid = valid || new Set(); titleOf = titleOf || {}; coverSrcOf = coverSrcOf || {}; qualityScoreOf = qualityScoreOf || {}; byPillar = byPillar || {}; recentWrites = recentWrites || [];
+  }
 }
 let recentWrites = [];
 // 🔒🔒 RUBRIC — THE STANDARDS, NO GREY AREA (owner 4444, 2026-07-02). To certify (≥12/13) an entry
