@@ -2315,7 +2315,7 @@ const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-4
 
 const SQUARE_ONLY = process.argv.includes('--square-only') || process.env.SQUARE_ONLY === '1';
 const PORT = SQUARE_ONLY
-  ? parseInt(process.env.SQUARE_PORT || '9377', 10)
+  ? parseInt(process.env.SQUARE_PORT || '4444', 10)
   : parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
 const PASS = '4444';
 const DAILY_MAX = parseInt(process.env.SCRUB_BTN_DAILY || '200', 10);
