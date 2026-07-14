@@ -1270,15 +1270,67 @@ function nextOpenSquareSlot(slots) {
   return bodies.length ? bodies[0].i : null;
 }
 async function fetchSquareImageBuf(url) {
-  const r = await fetch(String(url), {
-    signal: AbortSignal.timeout(28000),
-    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; PulseSquare/1.0)', Accept: 'image/*,*/*' },
-    redirect: 'follow',
-  });
-  if (!r.ok) throw new Error('image HTTP ' + r.status);
-  const buf = Buffer.from(await r.arrayBuffer());
-  if (buf.length < 2500) throw new Error('image too small');
-  return buf;
+  const target = String(url || '').trim();
+  if (!target) throw new Error('missing image url');
+  const headersList = [
+    { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8', Referer: 'https://duckduckgo.com/' },
+    { 'User-Agent': 'Mozilla/5.0 (compatible; PulseSquare/1.0)', Accept: 'image/*,*/*' },
+  ];
+  let lastErr = null;
+  for (const headers of headersList) {
+    try {
+      const r = await fetch(target, { signal: AbortSignal.timeout(28000), headers, redirect: 'follow' });
+      if (!r.ok) { lastErr = new Error('image HTTP ' + r.status); continue; }
+      const buf = Buffer.from(await r.arrayBuffer());
+      if (buf.length < 2500) { lastErr = new Error('image too small'); continue; }
+      return buf;
+    } catch (e) { lastErr = e; }
+  }
+  throw lastErr || new Error('image fetch failed');
+}
+/** Write graded JPEG to a temp file, then rename over the live path (true overwrite). */
+async function squareWriteFaceAtomic(id, buf, title) {
+  const dest = coverPath(id);
+  const dir = path.dirname(dest);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  const tmp = dest + '.tmp-' + Date.now() + '.jpg';
+  try {
+    await gradeFaceCardFromBuffer(buf, tmp, { question: title, goldTitle: title });
+    const sz = fs.statSync(tmp).size;
+    if (sz < 12000) throw new Error('graded face-card too small (' + sz + 'b)');
+    try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
+    fs.renameSync(tmp, dest);
+    // Mirror into workspace assets if different tree (belt + suspenders)
+    try {
+      const mirror = path.join('/workspace/assets/qa', id + '.jpg');
+      if (path.normalize(mirror) !== path.normalize(dest)) {
+        if (!fs.existsSync(path.dirname(mirror))) fs.mkdirSync(path.dirname(mirror), { recursive: true });
+        fs.copyFileSync(dest, mirror);
+      }
+    } catch (e) {}
+    return dest;
+  } catch (e) {
+    try { if (fs.existsSync(tmp)) fs.unlinkSync(tmp); } catch (x) {}
+    throw e;
+  }
+}
+async function squareWriteSlotAtomic(id, n, buf) {
+  const rel = squareSlotRel(id, n);
+  const dest = squareAbs(rel);
+  const dir = path.dirname(dest);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  const tmp = dest + '.tmp-' + Date.now() + '.jpg';
+  try {
+    await storeGradedImage(buf, tmp, { sectionTile: true, width: 1200, height: 675, bright: false });
+    const sz = fs.statSync(tmp).size;
+    if (sz < 4000) throw new Error('graded slot too small');
+    try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
+    fs.renameSync(tmp, dest);
+    return rel;
+  } catch (e) {
+    try { if (fs.existsSync(tmp)) fs.unlinkSync(tmp); } catch (x) {}
+    throw e;
+  }
 }
 /** Replace the Nth body image (and any prior /assets/qa/<id>-N.jpg) — always overwrite in place. */
 function patchBodySlotImage(id, title, body, n, rel) {
@@ -1454,10 +1506,7 @@ async function applySquarePick(id, imageUrl, slotIdx) {
       if (fallback == null) return { ok: false, msg: 'no body slot' };
       slot = slots[fallback];
     }
-    const rel = squareSlotRel(id, slot.n);
-    const dest = squareAbs(rel);
-    squareUnlink(dest);
-    await storeGradedImage(buf, dest, { sectionTile: true, width: 1200, height: 675, bright: false });
+    const rel = await squareWriteSlotAtomic(id, slot.n, buf);
     body = patchBodySlotImage(id, title, body, slot.n, rel);
     await saveSquareEntry(id, {}, body);
     slots = buildSquareSlots(id, shape, body);
@@ -1468,19 +1517,20 @@ async function applySquarePick(id, imageUrl, slotIdx) {
       shape,
       overwritten: true,
       faceUrl: squareFaceRel(id) + '?v=' + bust,
+      slotUrl: rel + '?v=' + bust,
       slots,
       nextSlot: nextOpenSquareSlot(slots),
     };
   }
 
-  // Face + top (same file) — delete old JPEG then rewrite + force hero markdown
-  const dest = coverPath(id);
-  squareUnlink(dest);
-  await gradeFaceCardFromBuffer(buf, dest, { question: title, goldTitle: title });
-  if (!coverFileOk(id)) return { ok: false, msg: 'graded face-card too small' };
+  // Face + top (same file) — atomic overwrite + force hero markdown
+  await squareWriteFaceAtomic(id, buf, title);
+  if (!fs.existsSync(coverPath(id)) || fs.statSync(coverPath(id)).size < 12000) {
+    return { ok: false, msg: 'overwrite failed — face file missing after write' };
+  }
   body = forceSquareFaceAndTopMarkdown(id, title, body || ('# ' + title + '\n\n'));
   try { await stampDdgProvenance(id, store); } catch (e) {}
-  await saveSquareEntry(id, {
+  const saved = await saveSquareEntry(id, {
     cover_src: 'ddg-facecard',
     face_title_baked: true,
     img: squareFaceRel(id),
@@ -1493,6 +1543,7 @@ async function applySquarePick(id, imageUrl, slotIdx) {
     title,
     shape,
     overwritten: true,
+    blobOk: !!saved._blobOk,
     faceUrl: squareFaceRel(id) + '?v=' + bust,
     slots,
     nextSlot: nextOpenSquareSlot(slots),

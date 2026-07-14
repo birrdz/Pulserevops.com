@@ -83,7 +83,7 @@ footer a{color:#8aa0ad;font-family:system-ui,sans-serif;font-size:.75rem}
       <div class=row>
         <div class=sq wait id=titleSquare style="width:120px;flex-shrink:0"><span class=label style="font-size:.72rem">face</span></div>
         <div style="flex:1;min-width:200px">
-          <p class=status style="margin:0 0 8px">Type a keyword from the title, pick a photo. Click <b>overwrites</b> the existing face-card + top image (same file).</p>
+          <p class=status style="margin:0 0 8px">Type a keyword from the title, pick a photo. Click <b>writes OVER</b> the existing face-card + top image (same file).</p>
           <div class=row>
             <input type=text id=kw placeholder="keyword from the title" autocomplete=off>
             <button type=button class=act id=searchBtn>Search</button>
@@ -130,16 +130,28 @@ function shapeLabel(s){
   if(s==='styles') return 'STYLES';
   return 'Q&A ESSAY';
 }
+function paintSq(el, url, fallbackLabel){
+  if(!el) return;
+  if(url){
+    el.classList.remove('wait');
+    el.classList.add('green');
+    el.innerHTML='<img src="'+url+(url.indexOf('?')>=0?'&':'?')+'t='+Date.now()+'" alt="face">';
+  }else{
+    el.classList.add('wait');
+    el.classList.remove('green');
+    el.innerHTML='<span class=label>'+(fallbackLabel||'Click')+'</span>';
+  }
+}
 async function loadNext(){
   $('#waitStatus').textContent='Loading next Q&A…';
-  $('#waitingSquare').classList.add('wait');
-  $('#waitingSquare').innerHTML='<span class=label>Click to open</span>';
+  paintSq($('#waitingSquare'), null, 'Click to open');
   try{
     const j=await(await fetch('/square-next?key='+KEY)).json();
     if(!j||!j.ok){ $('#waitStatus').textContent=(j&&j.msg)||'No entry ready — still click to retry'; cur=null; return; }
     cur=j;
-    $('#waitStatus').textContent=(j.demo?'Demo · ':'')+j.id+(j.pillar?(' · '+j.pillar):'');
-    $('#headline').textContent='Square ready. Click it.';
+    if(j.faceUrl) paintSq($('#waitingSquare'), j.faceUrl, 'face');
+    $('#waitStatus').textContent=(j.demo?'Demo · ':'')+j.id+(j.pillar?(' · '+j.pillar):'')+(j.faceUrl?' · will overwrite existing':'');
+    $('#headline').textContent=j.faceUrl?'Square ready — click, then pick a new photo to write over it.':'Square ready. Click it.';
   }catch(e){
     $('#waitStatus').textContent='Could not load — click to retry';
     cur=null;
@@ -151,15 +163,14 @@ function openSquare(){
   $('#shapeBadge').textContent=shapeLabel(cur.shape);
   $('#kw').value=suggestKeyword(cur.title||'');
   $('#grid').innerHTML='';
-  $('#pickStatus').textContent='';
-  $('#titleSquare').innerHTML='<span class=label style="font-size:.72rem">face</span>';
-  $('#titleSquare').className='sq wait';
+  $('#pickStatus').textContent=cur.faceUrl?'Existing face shown — search + click writes OVER it.':'Search + click writes the face-card + top image.';
+  paintSq($('#titleSquare'), cur.faceUrl||null, 'face');
   show('phasePick');
   $('#kw').focus();
 }
 function suggestKeyword(title){
   const stop=new Set(['the','a','an','to','of','for','in','on','and','or','how','what','why','with','from','does','do','is','are','best','top']);
-  const words=String(title).replace(/[^\w\s-]/g,' ').split(/\\s+/).filter(w=>w&&w.length>2&&!stop.has(w.toLowerCase()));
+  const words=String(title).replace(/[^\\w\\s-]/g,' ').split(/\\s+/).filter(w=>w&&w.length>2&&!stop.has(w.toLowerCase()));
   return words.slice(0,3).join(' ');
 }
 async function runSearch(q, gridEl, statusEl){
@@ -170,67 +181,80 @@ async function runSearch(q, gridEl, statusEl){
     if(!j.ok){ statusEl.textContent=j.msg||'Search failed'; return; }
     const items=j.results||[];
     if(!items.length){ statusEl.textContent='No photos — try another keyword'; return; }
-    statusEl.textContent=items.length+' photos — click one to save';
+    statusEl.textContent=items.length+' photos — click one to WRITE OVER the existing image';
     items.forEach(item=>{
       const b=document.createElement('button');
       b.type='button';
-      b.title='Use this photo';
+      b.title='Overwrite with this photo';
       const img=document.createElement('img');
       img.loading='lazy';
       img.alt='';
-      img.src='/square-proxy?u='+encodeURIComponent(item.thumb||item.image);
+      const thumb=item.thumb||item.image;
+      img.src='/square-proxy?u='+encodeURIComponent(thumb);
       b.appendChild(img);
-      b.onclick=()=>pickImage(item.image);
+      b.onclick=()=>pickImage(item.image||thumb, thumb);
       gridEl.appendChild(b);
     });
   }catch(e){ statusEl.textContent='Search error'; }
 }
-async function pickImage(imageUrl){
+async function postPick(imageUrl, slot){
+  const body={key:KEY,id:cur.id,imageUrl};
+  if(slot!=null && slot>=0) body.slot=slot;
+  const r=await fetch('/square-pick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  return r.json();
+}
+async function pickImage(imageUrl, thumbUrl){
   if(!cur||!cur.id) return;
   const onAnswer=!!$('#phaseAnswer').classList.contains('on');
   const statusEl=onAnswer?$('#ansStatus'):$('#pickStatus');
-    statusEl.textContent=onAnswer?'Overwriting image slot…':'Overwriting face-card + top image…';
+  statusEl.textContent=onAnswer?'Writing over image slot…':'Writing OVER face-card + top image…';
+  // Instant preview from the thumb while save runs
+  if(thumbUrl){
+    const prev='/square-proxy?u='+encodeURIComponent(thumbUrl);
+    if(!onAnswer) paintSq($('#titleSquare'), prev, 'face');
+    else paintSq($('#ansSquare'), prev, 'face');
+  }
   try{
-    const body={key:KEY,id:cur.id,imageUrl};
+    let slot=null;
     if(onAnswer){
-      const slot=(cur.nextSlot!=null)?cur.nextSlot:((cur.slots||[]).findIndex(s=>s&&s.kind==='body'));
-      if(slot>=0) body.slot=slot;
+      slot=(cur.nextSlot!=null)?cur.nextSlot:((cur.slots||[]).findIndex(s=>s&&s.kind==='body'));
     }
-    const j=await(await fetch('/square-pick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})).json();
-    if(!j.ok){ statusEl.textContent=j.msg||'Save failed'; return; }
+    let j=await postPick(imageUrl, slot);
+    if(!j.ok && thumbUrl && thumbUrl!==imageUrl){
+      statusEl.textContent='Retrying via proxy…';
+      j=await postPick(thumbUrl, slot);
+    }
+    if(!j.ok){ statusEl.textContent=j.msg||'Overwrite failed'; return; }
     if(j.mode==='slot'){
       cur.slots=j.slots||cur.slots;
       cur.nextSlot=j.nextSlot;
       cur.faceUrl=j.faceUrl||cur.faceUrl;
       renderSlots();
       $('#ansGrid').innerHTML='';
-      statusEl.textContent='Overwrote slot · ready for next';
+      statusEl.textContent='Wrote over slot · next ready';
       return;
     }
-    // face + top done → answer page
     cur.faceUrl=j.faceUrl;
     cur.slots=j.slots||[];
     cur.nextSlot=j.nextSlot;
     enterAnswer();
-    $('#ansStatus').textContent='Face-card + top image overwritten.';
-  }catch(e){ statusEl.textContent='Save error'; }
+    statusEl.textContent='';
+    $('#ansStatus').textContent='Wrote OVER face-card + top image'+(j.blobOk===false?' (local file — Blobs offline)':'')+'.';
+  }catch(e){ statusEl.textContent='Save error — try another photo'; }
 }
 function enterAnswer(){
   $('#ansTitle').textContent=cur.title||cur.id;
-  const sq=$('#ansSquare');
-  sq.className='sq green';
-  sq.innerHTML=cur.faceUrl?('<img src="'+cur.faceUrl+'?t='+Date.now()+'" alt="face-card">'):'';
+  paintSq($('#ansSquare'), cur.faceUrl, 'face');
   $('#ansBlurb').textContent=cur.shape==='top10'
-    ? 'Face-card + top image overwritten. Click photos to overwrite ranks #1, #2…'
+    ? 'Face + top overwritten. Click photos to write over ranks #1, #2…'
     : cur.shape==='styles'
-    ? 'Face-card + top image overwritten. Next clicks overwrite outfit slots.'
-    : 'Face-card + top image overwritten (same file). Clicks overwrite body image slots.';
+    ? 'Face + top overwritten. Next clicks write over outfit slots.'
+    : 'Face + top overwritten (same file). Clicks write over body image slots.';
   renderSlots();
   $('#ansKw').value=suggestKeyword(cur.title||'');
   $('#ansGrid').innerHTML='';
-  $('#ansStatus').textContent='';
   show('phaseAnswer');
-  $('#headline').textContent='Answer page — click a photo to fill the next image slot.';
+  $('#headline').textContent='Answer page — each click writes over the next image slot.';
 }
 function renderSlots(){
   const list=$('#slotList');
@@ -238,7 +262,7 @@ function renderSlots(){
   (cur.slots||[]).forEach(s=>{
     const d=document.createElement('div');
     d.className='slot'+(s.filled?' done':'');
-    d.innerHTML='<span class=n>'+s.label+'</span><span class=t>'+(s.filled?(s.url||'filled'):'waiting')+'</span>';
+    d.innerHTML='<span class=n>'+s.label+'</span><span class=t>'+(s.filled?(s.url||'filled'):'waiting — will write over')+'</span>';
     list.appendChild(d);
   });
 }
