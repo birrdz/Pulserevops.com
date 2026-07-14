@@ -1,0 +1,80 @@
+{
+ "approved": {},
+ "trashed": {
+  "gp0001": {
+   "at": 1783877740297,
+   "title": "GTM Playbook for B2B SaaS in 2027 — The Complete Operator Guide"
+  },
+  "gp0002": {
+   "at": 1783877742377,
+   "title": "GTM Playbook for Cybersecurity in 2027 — The Complete Operator Guide"
+  },
+  "gp0003": {
+   "at": 1783877744378,
+   "title": "GTM Playbook for Healthcare Tech in 2027 — The Complete Operator Guide"
+  },
+  "gp0004": {
+   "at": 1783877745466,
+   "title": "GTM Playbook for FinTech in 2027 — The Complete Operator Guide"
+  },
+  "gp0005": {
+   "at": 1783877747044,
+   "title": "GTM Playbook for AI Infrastructure in 2027 — The Complete Operator Guide"
+  },
+  "gp0006": {
+   "at": 1783877748064,
+   "title": "GTM Playbook for Manufacturing in 2027 — The Complete Operator Guide"
+  },
+  "gp0007": {
+   "at": 1783877768683,
+   "title": "GTM Playbook for Logistics and Supply Chain in 2027 — The Complete Operator Guide",
+   "reason": "owner:all bad"
+  },
+  "gp0008": {
+   "at": 1783877768683,
+   "title": "GTM Playbook for Construction Tech in 2027 — The Complete Operator Guide",
+   "reason": "owner:all bad"
+  },
+  "gp0009": {
+   "at": 1783877768683,
+   "title": "GTM Playbook for PropTech in 2027 — The Complete Operator Guide",
+   "reason": "owner:all bad"
+  },
+  "gp0010": {
+   "at": 1783877768683,
+   "title": "GTM Playbook for InsureTech in 2027 — The Complete Operator Guide",
+   "reason": "owner:all bad"
+  },
+  "gp0011": {
+   "at": 1783877768683,
+   "title": "GTM Playbook for Energy and Utilities in 2027 — The Complete Operator Guide",
+   "reason": "owner:all bad"
+  },
+  "gp0012": {
+   "at": 1783877768683,
+   "title": "GTM Playbook for Telecom in 2027 — The Complete Operator Guide",
+   "reason": "owner:all bad"
+  },
+  "gp0013": {
+   "at": 1783877768683,
+   "title": "GTM Playbook for Media and Entertainment in 2027 — The Complete Operator Guide",
+   "reason": "owner:all bad"
+  },
+  "gp0014": {
+   "at": 1783877768683,
+   "title": "GTM Playbook for E-commerce and DTC in 2027 — The Complete Operator Guide",
+   "reason": "owner:all bad"
+  },
+  "gp0015": {
+   "at": 1783877768683,
+   "title": "GTM Playbook for Restaurants and Food Service in 2027 — The Complete Operator Guide",
+   "reason": "owner:all bad"
+  },
+  "gp0016": {
+   "at": 1783877768683,
+   "title": "GTM Playbook for EdTech in 2027 — The Complete Operator Guide",
+   "reason": "owner:all bad"
+  }
+ },
+ "batchStart": 0
+}

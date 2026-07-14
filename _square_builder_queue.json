@@ -1,0 +1,2963 @@
+{
+  "version": 1,
+  "pending": [
+    {
+      "id": "tl0002",
+      "question": "How Do I Figure Out How Many People to Schedule Each Day and at What Times for My Single Store?",
+      "queuedAt": "2026-07-14T11:34:10.619Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0005",
+      "question": "How Do I Decide How Many Reps to Schedule at Each Store in My Mattress Retail Chain?",
+      "queuedAt": "2026-07-14T11:34:12.778Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0007",
+      "question": "How Many Crew Members Should I Schedule Each Shift at My Hamburger Franchise?",
+      "queuedAt": "2026-07-14T11:34:13.877Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0008",
+      "question": "How Many Salespeople Should I Schedule on My Auto Dealership Floor Each Day?",
+      "queuedAt": "2026-07-14T11:34:14.205Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0013",
+      "question": "How Many Sales Reps Do I Need to Hire for My HVAC Company to Hit Its Growth Target?",
+      "queuedAt": "2026-07-14T11:34:17.828Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0015",
+      "question": "How Many Producers Do I Need to Hire for My Insurance Agency to Grow My Book?",
+      "queuedAt": "2026-07-14T11:34:18.966Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0016",
+      "question": "How Many Sales Reps Do I Need to Hire for My Solar Company to Hit Its Install Goal?",
+      "queuedAt": "2026-07-14T11:34:19.275Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0023",
+      "question": "How Many Sales Reps Do I Need to Hire for My Commercial Cleaning Company?",
+      "queuedAt": "2026-07-14T11:34:24.583Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0026",
+      "question": "How Many Loan Officers Do I Need to Hire for My Mortgage Brokerage?",
+      "queuedAt": "2026-07-14T11:34:26.842Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0029",
+      "question": "How Many Sales Reps Do I Need to Hire for My IT Managed Services (MSP) Business?",
+      "queuedAt": "2026-07-14T11:34:28.728Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0031",
+      "question": "How Many Sales Reps Do I Need to Hire for My B2B Telecom Company?",
+      "queuedAt": "2026-07-14T11:34:29.854Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0032",
+      "question": "How Many Sales Reps Do I Need to Hire for My Merchant Services Company?",
+      "queuedAt": "2026-07-14T11:34:30.192Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0034",
+      "question": "How Many Sales Reps Do I Need to Hire for My Equipment Rental Company?",
+      "queuedAt": "2026-07-14T11:34:31.382Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0036",
+      "question": "How Many Membership Sales Reps Do I Need to Hire for My Gym?",
+      "queuedAt": "2026-07-14T11:34:32.515Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0040",
+      "question": "How Many Sales Reps Do I Need to Hire for My Window Replacement Company?",
+      "queuedAt": "2026-07-14T11:34:35.229Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0043",
+      "question": "How Many Sales Reps Do I Need to Hire for My Pressure Washing Business?",
+      "queuedAt": "2026-07-14T11:34:37.134Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0044",
+      "question": "How Many Sales Reps Do I Need to Hire for My Tree Service Company?",
+      "queuedAt": "2026-07-14T11:34:37.475Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0047",
+      "question": "How Many Sales Reps Do I Need to Hire for My Healthcare SaaS Company?",
+      "queuedAt": "2026-07-14T11:34:39.330Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0052",
+      "question": "How Many Salespeople Do I Need to Hire for My Car Dealership?",
+      "queuedAt": "2026-07-14T11:34:43.456Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0056",
+      "question": "How Many Sales Reps Do I Need to Hire for My Food Distribution Business?",
+      "queuedAt": "2026-07-14T11:34:46.204Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0058",
+      "question": "How Many Sales Reps Do I Need to Hire for My Logistics Company?",
+      "queuedAt": "2026-07-14T11:34:47.293Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0060",
+      "question": "How Many Sales Reps Do I Need to Hire for My Commercial Printing Company?",
+      "queuedAt": "2026-07-14T11:34:48.413Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0064",
+      "question": "How Many Baristas Should I Schedule Each Shift at My Coffee Shop?",
+      "queuedAt": "2026-07-14T11:34:51.200Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0151",
+      "question": "How Do I Get My Sales Reps to Sell the Full Product Line Instead of Just One or Two Products?",
+      "queuedAt": "2026-07-14T11:35:59.695Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0152",
+      "question": "How Do I Build a Sales Rep Scorecard?",
+      "queuedAt": "2026-07-14T11:36:00.015Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0153",
+      "question": "How Do I Score My Sales Reps Across Multiple KPIs?",
+      "queuedAt": "2026-07-14T11:36:00.340Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0154",
+      "question": "How Do I Stop My Reps From Only Selling the Easy Product?",
+      "queuedAt": "2026-07-14T11:36:00.700Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0155",
+      "question": "How Do I Align Sales, RevOps, and Customer Success on the Same Goals?",
+      "queuedAt": "2026-07-14T11:36:01.052Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0156",
+      "question": "How Do I Motivate Reps to Sell More Than the Core Product?",
+      "queuedAt": "2026-07-14T11:36:01.372Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0157",
+      "question": "How Do I Set Up a Points-Based Sales Incentive System?",
+      "queuedAt": "2026-07-14T11:36:01.699Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0158",
+      "question": "How Do I Measure Rep Performance Beyond Revenue?",
+      "queuedAt": "2026-07-14T11:36:02.016Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0159",
+      "question": "How Do I Create a Sales Accountability Matrix?",
+      "queuedAt": "2026-07-14T11:36:02.365Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0160",
+      "question": "How Do I Change Sales KPIs Quickly When the Market Shifts?",
+      "queuedAt": "2026-07-14T11:36:02.672Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0161",
+      "question": "How Do I Get My Whole Team Chasing the Same Number?",
+      "queuedAt": "2026-07-14T11:36:02.977Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0162",
+      "question": "How Do I Build a Weighted Sales Scorecard?",
+      "queuedAt": "2026-07-14T11:36:03.318Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0163",
+      "question": "How Do I Rank My Sales Reps Fairly?",
+      "queuedAt": "2026-07-14T11:36:03.634Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0164",
+      "question": "How Do I Tie Commission to More Than One Product?",
+      "queuedAt": "2026-07-14T11:36:03.985Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0165",
+      "question": "How Do I Coach Reps on Their Weakest KPIs?",
+      "queuedAt": "2026-07-14T11:36:04.284Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0166",
+      "question": "How Do I Keep Reps From Gaming the Comp Plan?",
+      "queuedAt": "2026-07-14T11:36:04.611Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0167",
+      "question": "How Do I Track Attach Rate and Add-On Sales by Rep?",
+      "queuedAt": "2026-07-14T11:36:04.922Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0168",
+      "question": "How Do I Set Sales KPIs That Reflect the Whole Business?",
+      "queuedAt": "2026-07-14T11:36:05.235Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0169",
+      "question": "How Do I Make My Sales Goals Visible to the Whole Team?",
+      "queuedAt": "2026-07-14T11:36:05.538Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0170",
+      "question": "How Do I Balance Revenue and Behavior in Rep Scoring?",
+      "queuedAt": "2026-07-14T11:36:05.976Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0171",
+      "question": "How Do I Build a Rep Performance Dashboard?",
+      "queuedAt": "2026-07-14T11:36:06.327Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0172",
+      "question": "How Do I Get My Retail Sales Team to Sell the Full Product Line?",
+      "queuedAt": "2026-07-14T11:36:06.645Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0173",
+      "question": "How Do I Get My SaaS AEs to Sell the Whole Platform, Not One Module?",
+      "queuedAt": "2026-07-14T11:36:06.963Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0175",
+      "question": "How Do I Get My Furniture Salespeople to Sell Protection Plans and Add-Ons?",
+      "queuedAt": "2026-07-14T11:36:08.173Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0176",
+      "question": "How Do I Get My Auto Dealership Team to Sell F&I and Service, Not Just Cars?",
+      "queuedAt": "2026-07-14T11:36:08.523Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0177",
+      "question": "How Do I Get My Insurance Producers to Round Out Every Account?",
+      "queuedAt": "2026-07-14T11:36:08.840Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0178",
+      "question": "How Do I Get My Bank Staff to Cross-Sell the Full Product Set?",
+      "queuedAt": "2026-07-14T11:36:09.154Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0179",
+      "question": "How Do I Get My Medical Device Reps to Sell the Full Portfolio?",
+      "queuedAt": "2026-07-14T11:36:09.491Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0180",
+      "question": "How Do I Score Reps at My Multi-Unit Retail Chain?",
+      "queuedAt": "2026-07-14T11:36:09.915Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0181",
+      "question": "How Do I Get My HVAC Techs to Sell Maintenance Agreements?",
+      "queuedAt": "2026-07-14T11:36:10.235Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0182",
+      "question": "How Do I Get My Gym Staff to Sell Memberships and Add-Ons?",
+      "queuedAt": "2026-07-14T11:36:10.555Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0183",
+      "question": "How Do I Get My Jewelry Sales Team to Sell Across Every Category?",
+      "queuedAt": "2026-07-14T11:36:10.921Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0184",
+      "question": "How Do I Score My Restaurant Staff on Upsells and Attachment?",
+      "queuedAt": "2026-07-14T11:36:11.225Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0185",
+      "question": "How Do I Get My Solar Reps to Sell Batteries and Add-Ons?",
+      "queuedAt": "2026-07-14T11:36:11.540Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0186",
+      "question": "How Do I Get My Mattress Sales Team to Sell Accessories and Protection?",
+      "queuedAt": "2026-07-14T11:36:11.849Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0187",
+      "question": "How Do I Get My Pharmacy Staff to Drive Front-of-Store Sales?",
+      "queuedAt": "2026-07-14T11:36:12.163Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0188",
+      "question": "How Do I Get My Electronics Reps to Sell Warranties and Accessories?",
+      "queuedAt": "2026-07-14T11:36:12.462Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0189",
+      "question": "How Do I Get My Home Services Sales Team to Sell the Full Menu?",
+      "queuedAt": "2026-07-14T11:36:12.765Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0190",
+      "question": "How Do I Get My Apparel Team to Sell Complete Outfits, Not Single Items?",
+      "queuedAt": "2026-07-14T11:36:13.073Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0191",
+      "question": "How Do I Score My Call Center Reps Across Every Offer?",
+      "queuedAt": "2026-07-14T11:36:13.394Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0193",
+      "question": "How Do I Get My Medical Spa Consultants to Sell Packages, Not One Treatment?",
+      "queuedAt": "2026-07-14T11:36:13.697Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0194",
+      "question": "How Do I Get My Pest Control Reps to Sell Recurring Plans?",
+      "queuedAt": "2026-07-14T11:36:14.006Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0195",
+      "question": "How Do I Get My Roofing Sales Team to Sell Full-System Upgrades?",
+      "queuedAt": "2026-07-14T11:36:14.335Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0196",
+      "question": "How Do I Score My Franchise Locations on the Full Product Mix?",
+      "queuedAt": "2026-07-14T11:36:14.636Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0197",
+      "question": "How Do I Get My Distribution Sales Reps to Sell the Full Catalog?",
+      "queuedAt": "2026-07-14T11:36:14.994Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0198",
+      "question": "How Do I Get My Fitness Studio Team to Sell Retail and Memberships?",
+      "queuedAt": "2026-07-14T11:36:15.301Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0199",
+      "question": "How Do I Get My Hotel Front Desk to Upsell Rooms and Amenities?",
+      "queuedAt": "2026-07-14T11:36:15.623Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0200",
+      "question": "How Do I Get My Liquor Store Staff to Sell Premium and Attach Items?",
+      "queuedAt": "2026-07-14T11:36:15.933Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0201",
+      "question": "How Many Sales Reps Do I Need to Hire for My Wholesale Electrical Distribution Company?",
+      "queuedAt": "2026-07-14T11:36:16.228Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0202",
+      "question": "How Many Sales Reps Do I Need to Hire for My Medical Billing Company?",
+      "queuedAt": "2026-07-14T11:36:16.538Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0203",
+      "question": "How Many Sales Reps Do I Need to Hire for My Promotional Products Company?",
+      "queuedAt": "2026-07-14T11:36:16.901Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0204",
+      "question": "How Many Sales Reps Do I Need to Hire for My Snow Removal Company?",
+      "queuedAt": "2026-07-14T11:36:17.226Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0205",
+      "question": "How Many Sales Reps Do I Need to Hire for My Foundation Repair Company?",
+      "queuedAt": "2026-07-14T11:36:17.538Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0206",
+      "question": "How Many Sales Reps Do I Need to Hire for My EV Charging Installation Company?",
+      "queuedAt": "2026-07-14T11:36:17.868Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0207",
+      "question": "How Many Sales Reps Do I Need to Hire for My Document Shredding Company?",
+      "queuedAt": "2026-07-14T11:36:18.260Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0208",
+      "question": "How Many Sales Reps Do I Need to Hire for My Uniform Rental Company?",
+      "queuedAt": "2026-07-14T11:36:18.552Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0209",
+      "question": "How Many Sales Reps Do I Need to Hire for My Wildlife Removal Company?",
+      "queuedAt": "2026-07-14T11:36:18.881Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0210",
+      "question": "How Many Sales Reps Do I Need to Hire for My Fire Sprinkler Company?",
+      "queuedAt": "2026-07-14T11:36:19.182Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0211",
+      "question": "How Many Sales Reps Do I Need to Hire for My Elevator Maintenance Company?",
+      "queuedAt": "2026-07-14T11:36:19.504Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0212",
+      "question": "How Many Sales Reps Do I Need to Hire for My Industrial Refrigeration Company?",
+      "queuedAt": "2026-07-14T11:36:19.824Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0213",
+      "question": "How Many Sales Reps Do I Need to Hire for My Crane Rental Company?",
+      "queuedAt": "2026-07-14T11:36:20.141Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0214",
+      "question": "How Many Sales Reps Do I Need to Hire for My Scaffolding Rental Company?",
+      "queuedAt": "2026-07-14T11:36:20.489Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0215",
+      "question": "How Many Sales Reps Do I Need to Hire for My Portable Sanitation Company?",
+      "queuedAt": "2026-07-14T11:36:20.787Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0216",
+      "question": "How Many Sales Reps Do I Need to Hire for My Waste Hauling Company?",
+      "queuedAt": "2026-07-14T11:36:21.130Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0217",
+      "question": "How Many Sales Reps Do I Need to Hire for My Steel Building Construction Company?",
+      "queuedAt": "2026-07-14T11:36:21.450Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0218",
+      "question": "How Many Sales Reps Do I Need to Hire for My Concrete Contracting Company?",
+      "queuedAt": "2026-07-14T11:36:21.767Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0219",
+      "question": "How Many Sales Reps Do I Need to Hire for My Asphalt Paving Company?",
+      "queuedAt": "2026-07-14T11:36:22.103Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0220",
+      "question": "How Many Sales Reps Do I Need to Hire for My Water Treatment Company?",
+      "queuedAt": "2026-07-14T11:37:44.295Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0221",
+      "question": "How Many Sales Reps Do I Need to Hire for My Backup Generator Company?",
+      "queuedAt": "2026-07-14T11:37:44.611Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0222",
+      "question": "How Many Sales Reps Do I Need to Hire for My Smart Home Integration Company?",
+      "queuedAt": "2026-07-14T11:37:44.921Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0223",
+      "question": "How Many Sales Reps Do I Need to Hire for My Epoxy Flooring Company?",
+      "queuedAt": "2026-07-14T11:37:45.219Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0224",
+      "question": "How Many Sales Reps Do I Need to Hire for My Sign Company?",
+      "queuedAt": "2026-07-14T11:37:45.572Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0225",
+      "question": "How Many Sales Reps Do I Need to Hire for My Automatic Gate Company?",
+      "queuedAt": "2026-07-14T11:37:45.934Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0226",
+      "question": "How Many Sales Reps Do I Need to Hire for My Irrigation Company?",
+      "queuedAt": "2026-07-14T11:37:46.266Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0227",
+      "question": "How Many Sales Reps Do I Need to Hire for My Artificial Turf Company?",
+      "queuedAt": "2026-07-14T11:37:46.630Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0228",
+      "question": "How Many Sales Reps Do I Need to Hire for My Hot Tub and Spa Retailer?",
+      "queuedAt": "2026-07-14T11:37:47.136Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0229",
+      "question": "How Many Sales Reps Do I Need to Hire for My Closet and Storage Company?",
+      "queuedAt": "2026-07-14T11:37:47.472Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0230",
+      "question": "How Many Sales Reps Do I Need to Hire for My Window Blinds Company?",
+      "queuedAt": "2026-07-14T11:37:47.791Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0231",
+      "question": "How Many Sales Reps Do I Need to Hire for My Cabinet Refacing Company?",
+      "queuedAt": "2026-07-14T11:37:48.152Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0232",
+      "question": "How Many Sales Reps Do I Need to Hire for My Countertop Fabrication Company?",
+      "queuedAt": "2026-07-14T11:37:48.542Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0233",
+      "question": "How Many Sales Reps Do I Need to Hire for My Water Damage Restoration Company?",
+      "queuedAt": "2026-07-14T11:37:48.836Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0234",
+      "question": "How Many Sales Reps Do I Need to Hire for My Mold Remediation Company?",
+      "queuedAt": "2026-07-14T11:37:49.137Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0235",
+      "question": "How Many Sales Reps Do I Need to Hire for My Air Duct Cleaning Company?",
+      "queuedAt": "2026-07-14T11:37:49.508Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0236",
+      "question": "How Many Sales Reps Do I Need to Hire for My Gutter Installation Company?",
+      "queuedAt": "2026-07-14T11:37:49.829Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0237",
+      "question": "How Many Sales Reps Do I Need to Hire for My Insulation Company?",
+      "queuedAt": "2026-07-14T11:37:50.160Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0238",
+      "question": "How Many Sales Reps Do I Need to Hire for My Window Tinting Company?",
+      "queuedAt": "2026-07-14T11:37:50.477Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0239",
+      "question": "How Many Sales Reps Do I Need to Hire for My Field Service Software Company?",
+      "queuedAt": "2026-07-14T11:37:50.776Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0240",
+      "question": "How Many Sales Reps Do I Need to Hire for My Restaurant POS Company?",
+      "queuedAt": "2026-07-14T11:37:51.096Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0241",
+      "question": "How Many Sales Reps Do I Need to Hire for My Dental Equipment Company?",
+      "queuedAt": "2026-07-14T11:37:51.432Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0242",
+      "question": "How Many Sales Reps Do I Need to Hire for My Veterinary Software Company?",
+      "queuedAt": "2026-07-14T11:37:51.791Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0243",
+      "question": "How Many Sales Reps Do I Need to Hire for My Commercial Laundry Company?",
+      "queuedAt": "2026-07-14T11:37:52.107Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0244",
+      "question": "How Many Sales Reps Do I Need to Hire for My Linen Supply Company?",
+      "queuedAt": "2026-07-14T11:37:52.406Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0245",
+      "question": "How Many Sales Reps Do I Need to Hire for My Vending Machine Company?",
+      "queuedAt": "2026-07-14T11:37:52.705Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0246",
+      "question": "How Many Sales Reps Do I Need to Hire for My ATM Services Company?",
+      "queuedAt": "2026-07-14T11:37:53.027Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0247",
+      "question": "How Many Sales Reps Do I Need to Hire for My Payroll Services Company?",
+      "queuedAt": "2026-07-14T11:37:53.364Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0248",
+      "question": "How Many Sales Reps Do I Need to Hire for My Background Screening Company?",
+      "queuedAt": "2026-07-14T11:37:53.718Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0249",
+      "question": "How Many Sales Reps Do I Need to Hire for My Translation Services Company?",
+      "queuedAt": "2026-07-14T11:37:54.039Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0250",
+      "question": "How Many Sales Reps Do I Need to Hire for My Trade Show Exhibit Company?",
+      "queuedAt": "2026-07-14T11:37:54.389Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0251",
+      "question": "How Many Employees Should I Schedule Each Shift at My Trampoline Park?",
+      "queuedAt": "2026-07-14T11:37:54.720Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0252",
+      "question": "How Many Employees Should I Schedule Each Shift at My Family Entertainment Center?",
+      "queuedAt": "2026-07-14T11:37:55.040Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0253",
+      "question": "How Many Employees Should I Schedule Each Shift at My Escape Room?",
+      "queuedAt": "2026-07-14T11:37:55.416Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0254",
+      "question": "How Many Employees Should I Schedule Each Shift at My Arcade and Barcade?",
+      "queuedAt": "2026-07-14T11:37:55.814Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0255",
+      "question": "How Many Employees Should I Schedule Each Shift at My Mini Golf Course?",
+      "queuedAt": "2026-07-14T11:37:56.126Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0256",
+      "question": "How Many Employees Should I Schedule Each Shift at My Go-Kart Track?",
+      "queuedAt": "2026-07-14T11:37:56.432Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0257",
+      "question": "How Many Employees Should I Schedule Each Shift at My Laser Tag Arena?",
+      "queuedAt": "2026-07-14T11:37:56.734Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0258",
+      "question": "How Many Employees Should I Schedule Each Shift at My Climbing Gym?",
+      "queuedAt": "2026-07-14T11:37:57.071Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0259",
+      "question": "How Many Employees Should I Schedule Each Shift at My Yoga Studio?",
+      "queuedAt": "2026-07-14T11:37:57.382Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0260",
+      "question": "How Many Employees Should I Schedule Each Shift at My Pilates Studio?",
+      "queuedAt": "2026-07-14T11:37:57.709Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0261",
+      "question": "How Many Employees Should I Schedule Each Shift at My CrossFit Box?",
+      "queuedAt": "2026-07-14T11:37:58.014Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0262",
+      "question": "How Many Employees Should I Schedule Each Shift at My Spin Studio?",
+      "queuedAt": "2026-07-14T11:37:58.327Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0263",
+      "question": "How Many Employees Should I Schedule Each Shift at My Martial Arts Studio?",
+      "queuedAt": "2026-07-14T11:37:58.655Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0264",
+      "question": "How Many Employees Should I Schedule Each Shift at My Dance Studio?",
+      "queuedAt": "2026-07-14T11:37:58.964Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0265",
+      "question": "How Many Employees Should I Schedule Each Shift at My Tutoring Center?",
+      "queuedAt": "2026-07-14T11:37:59.270Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0266",
+      "question": "How Many Employees Should I Schedule Each Shift at My Daycare Center?",
+      "queuedAt": "2026-07-14T11:37:59.584Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0267",
+      "question": "How Many Employees Should I Schedule Each Shift at My Assisted Living Front Desk?",
+      "queuedAt": "2026-07-14T11:37:59.895Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0268",
+      "question": "How Many Employees Should I Schedule Each Shift at My Tanning Salon?",
+      "queuedAt": "2026-07-14T11:38:00.229Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0269",
+      "question": "How Many Employees Should I Schedule Each Shift at My Barbershop?",
+      "queuedAt": "2026-07-14T11:38:00.579Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0270",
+      "question": "How Many Employees Should I Schedule Each Shift at My Massage Studio?",
+      "queuedAt": "2026-07-14T11:38:00.897Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0271",
+      "question": "How Many Employees Should I Schedule Each Shift at My Tattoo Shop?",
+      "queuedAt": "2026-07-14T11:38:01.228Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0272",
+      "question": "How Many Employees Should I Schedule Each Shift at My Dry Cleaner?",
+      "queuedAt": "2026-07-14T11:38:01.532Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0273",
+      "question": "How Many Employees Should I Schedule Each Shift at My Laundromat?",
+      "queuedAt": "2026-07-14T11:38:01.859Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0274",
+      "question": "How Many Employees Should I Schedule Each Shift at My Self-Storage Facility?",
+      "queuedAt": "2026-07-14T11:38:02.197Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0275",
+      "question": "How Many Employees Should I Schedule Each Shift at My Truck Rental Counter?",
+      "queuedAt": "2026-07-14T11:38:02.544Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0276",
+      "question": "How Many Employees Should I Schedule Each Shift at My Auto Parts Store?",
+      "queuedAt": "2026-07-14T11:38:02.845Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0277",
+      "question": "How Many Employees Should I Schedule Each Shift at My Tire Shop?",
+      "queuedAt": "2026-07-14T11:38:03.162Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0278",
+      "question": "How Many Employees Should I Schedule Each Shift at My Quick Lube?",
+      "queuedAt": "2026-07-14T11:38:03.493Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0279",
+      "question": "How Many Employees Should I Schedule Each Shift at My Auto Detail Shop?",
+      "queuedAt": "2026-07-14T11:38:03.834Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0280",
+      "question": "How Many Employees Should I Schedule Each Shift at My Bike Shop?",
+      "queuedAt": "2026-07-14T11:38:04.160Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0281",
+      "question": "How Many Employees Should I Schedule Each Shift at My Outdoor and Camping Store?",
+      "queuedAt": "2026-07-14T11:38:04.470Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0282",
+      "question": "How Many Employees Should I Schedule Each Shift at My Craft and Fabric Store?",
+      "queuedAt": "2026-07-14T11:38:04.766Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0283",
+      "question": "How Many Employees Should I Schedule Each Shift at My Party Supply Store?",
+      "queuedAt": "2026-07-14T11:38:05.079Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0284",
+      "question": "How Many Employees Should I Schedule Each Shift at My Florist Shop?",
+      "queuedAt": "2026-07-14T11:38:05.411Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0285",
+      "question": "How Many Employees Should I Schedule Each Shift at My Gift Shop?",
+      "queuedAt": "2026-07-14T11:38:05.740Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0286",
+      "question": "How Many Employees Should I Schedule Each Shift at My Cigar Lounge?",
+      "queuedAt": "2026-07-14T11:38:06.038Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0287",
+      "question": "How Many Employees Should I Schedule Each Shift at My Brewery Taproom?",
+      "queuedAt": "2026-07-14T11:38:06.339Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0288",
+      "question": "How Many Employees Should I Schedule Each Shift at My Winery Tasting Room?",
+      "queuedAt": "2026-07-14T11:38:06.652Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0289",
+      "question": "How Many Employees Should I Schedule Each Shift at My Distillery Tasting Room?",
+      "queuedAt": "2026-07-14T11:38:06.986Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0290",
+      "question": "How Many Employees Should I Schedule Each Shift at My Juice Bar?",
+      "queuedAt": "2026-07-14T11:38:07.784Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0291",
+      "question": "How Many Employees Should I Schedule Each Shift at My Poke Restaurant?",
+      "queuedAt": "2026-07-14T11:38:08.103Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0292",
+      "question": "How Many Employees Should I Schedule Each Shift at My Ramen Shop?",
+      "queuedAt": "2026-07-14T11:38:08.450Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0293",
+      "question": "How Many Employees Should I Schedule Each Shift at My Burrito Restaurant?",
+      "queuedAt": "2026-07-14T11:38:08.823Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0294",
+      "question": "How Many Employees Should I Schedule Each Shift at My Steakhouse?",
+      "queuedAt": "2026-07-14T11:38:09.116Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0295",
+      "question": "How Many Employees Should I Schedule Each Shift at My Diner?",
+      "queuedAt": "2026-07-14T11:38:09.440Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0296",
+      "question": "How Many Employees Should I Schedule Each Shift at My Buffet Restaurant?",
+      "queuedAt": "2026-07-14T11:38:09.742Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0297",
+      "question": "How Many Employees Should I Schedule Each Shift at My Seafood Restaurant?",
+      "queuedAt": "2026-07-14T11:38:10.082Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0298",
+      "question": "How Many Employees Should I Schedule Each Shift at My Food Hall?",
+      "queuedAt": "2026-07-14T11:38:10.450Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0299",
+      "question": "How Many Employees Should I Schedule Each Shift at My Ghost Kitchen?",
+      "queuedAt": "2026-07-14T11:38:10.900Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0300",
+      "question": "How Many Employees Should I Schedule Each Shift at My Pretzel Shop?",
+      "queuedAt": "2026-07-14T11:38:11.213Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0301",
+      "question": "How Do I Get My Bank Branch Staff to Cross-Sell Accounts and Services?",
+      "queuedAt": "2026-07-14T11:38:11.501Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0302",
+      "question": "How Do I Get My Gym Front Desk to Sell Personal Training Packages?",
+      "queuedAt": "2026-07-14T11:38:11.818Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0303",
+      "question": "How Do I Get My Hotel Front Desk to Upsell Room Upgrades?",
+      "queuedAt": "2026-07-14T11:38:12.148Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0304",
+      "question": "How Do I Get My Dealership Service Advisors to Sell Maintenance Plans?",
+      "queuedAt": "2026-07-14T11:38:12.467Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0305",
+      "question": "How Do I Get My Retail Associates to Attach Protection Plans and Warranties?",
+      "queuedAt": "2026-07-14T11:38:12.824Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0306",
+      "question": "How Do I Get My Pharmacy Staff to Drive Immunizations and Paid Services?",
+      "queuedAt": "2026-07-14T11:38:13.183Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0307",
+      "question": "How Do I Get My Optical Staff to Sell Premium Lenses and Coatings?",
+      "queuedAt": "2026-07-14T11:38:13.499Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0308",
+      "question": "How Do I Get My Furniture Reps to Sell Protection Plans?",
+      "queuedAt": "2026-07-14T11:38:13.817Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0309",
+      "question": "How Do I Get My Cell Phone Store Reps to Attach Accessories?",
+      "queuedAt": "2026-07-14T11:38:14.146Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0310",
+      "question": "How Do I Get My Jewelry Staff to Offer Financing on Every Sale?",
+      "queuedAt": "2026-07-14T11:38:14.478Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0311",
+      "question": "How Do I Get My Salon Staff to Sell Retail Products?",
+      "queuedAt": "2026-07-14T11:38:14.794Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0312",
+      "question": "How Do I Get My Med Spa Staff to Sell Memberships?",
+      "queuedAt": "2026-07-14T11:38:15.108Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0313",
+      "question": "How Do I Get My Veterinary Staff to Sell Wellness Plans?",
+      "queuedAt": "2026-07-14T11:38:15.428Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0314",
+      "question": "How Do I Get My Dental Front Desk to Close Treatment Plans?",
+      "queuedAt": "2026-07-14T11:38:15.743Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0315",
+      "question": "How Do I Get My Plumbers to Sell Water Heater Upgrades?",
+      "queuedAt": "2026-07-14T11:38:16.060Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0316",
+      "question": "How Do I Get My Electricians to Sell Panel Upgrades?",
+      "queuedAt": "2026-07-14T11:38:16.367Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0317",
+      "question": "How Do I Get My Roofers to Sell Gutter and Attic Add-Ons?",
+      "queuedAt": "2026-07-14T11:38:16.679Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0318",
+      "question": "How Do I Get My Pest Techs to Sell Mosquito and Termite Add-Ons?",
+      "queuedAt": "2026-07-14T11:38:16.994Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0319",
+      "question": "How Do I Get My Lawn Techs to Sell Aeration and Fertilization Upgrades?",
+      "queuedAt": "2026-07-14T11:38:17.329Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0320",
+      "question": "How Do I Get My Pool Techs to Sell Equipment Upgrades?",
+      "queuedAt": "2026-07-14T11:38:17.645Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0321",
+      "question": "How Do I Get My Car Wash Staff to Sell Unlimited Membership Plans?",
+      "queuedAt": "2026-07-14T11:38:17.963Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0323",
+      "question": "How Do I Get My Tire Shop Staff to Sell Alignments and Road Hazard?",
+      "queuedAt": "2026-07-14T11:38:19.090Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0324",
+      "question": "How Do I Get My Parts Counter to Upsell Premium Parts?",
+      "queuedAt": "2026-07-14T11:38:19.409Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0325",
+      "question": "How Do I Get My Appliance Reps to Sell Delivery and Haul-Away?",
+      "queuedAt": "2026-07-14T11:38:19.729Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0327",
+      "question": "How Do I Get My Apparel Staff to Build Bigger Baskets?",
+      "queuedAt": "2026-07-14T11:38:21.014Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0328",
+      "question": "How Do I Get My Shoe Store Staff to Attach Socks and Care Kits?",
+      "queuedAt": "2026-07-14T11:38:21.355Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0329",
+      "question": "How Do I Get My Sporting Goods Staff to Sell Memberships and Services?",
+      "queuedAt": "2026-07-14T11:38:21.730Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0330",
+      "question": "How Do I Get My Garden Center Staff to Sell Soil and Fertilizer Add-Ons?",
+      "queuedAt": "2026-07-14T11:38:22.073Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0331",
+      "question": "How Do I Get My Wine Shop Staff to Sell Club Memberships?",
+      "queuedAt": "2026-07-14T11:38:22.401Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0332",
+      "question": "How Do I Get My Coffee Shop Staff to Drive Loyalty App Signups?",
+      "queuedAt": "2026-07-14T11:38:22.712Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0333",
+      "question": "How Do I Get My QSR Crew to Upsize and Attach Items?",
+      "queuedAt": "2026-07-14T11:38:23.013Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0334",
+      "question": "How Do I Get My Bakery Staff to Sell Custom Orders?",
+      "queuedAt": "2026-07-14T11:38:23.325Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0335",
+      "question": "How Do I Get My Butcher Staff to Sell Premium Cuts?",
+      "queuedAt": "2026-07-14T11:38:23.676Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0336",
+      "question": "How Do I Get My Deli Staff to Sell Catering?",
+      "queuedAt": "2026-07-14T11:38:24.053Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0337",
+      "question": "How Do I Get My Grocery Staff to Promote Store Brands?",
+      "queuedAt": "2026-07-14T11:38:24.480Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0338",
+      "question": "How Do I Get My Convenience Store Staff to Attach Food Service?",
+      "queuedAt": "2026-07-14T11:38:24.858Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0339",
+      "question": "How Do I Get My Hardware Staff to Sell Project Add-Ons?",
+      "queuedAt": "2026-07-14T11:38:25.298Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0340",
+      "question": "How Do I Get My Lumber Yard Staff to Sell Installed Sales?",
+      "queuedAt": "2026-07-14T11:38:25.894Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0341",
+      "question": "How Do I Get My Inside Sales Team to Sell Annual Contracts?",
+      "queuedAt": "2026-07-14T11:38:26.229Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0342",
+      "question": "How Do I Get My SaaS CSMs to Drive Expansion Revenue?",
+      "queuedAt": "2026-07-14T11:38:26.623Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0343",
+      "question": "How Do I Get My Field Reps to Sell Service Agreements?",
+      "queuedAt": "2026-07-14T11:38:26.928Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0344",
+      "question": "How Do I Get My Distribution Reps to Sell Private Label?",
+      "queuedAt": "2026-07-14T11:38:27.287Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0345",
+      "question": "How Do I Get My Medical Device Reps to Sell Service Contracts?",
+      "queuedAt": "2026-07-14T11:38:27.602Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0346",
+      "question": "How Do I Get My Telecom Reps to Sell Bundles?",
+      "queuedAt": "2026-07-14T11:38:27.922Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0347",
+      "question": "How Do I Get My Merchant Services Reps to Sell Value-Added Services?",
+      "queuedAt": "2026-07-14T11:38:28.235Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0348",
+      "question": "How Do I Get My Freight Brokers to Grow Margin Per Load?",
+      "queuedAt": "2026-07-14T11:38:28.561Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0349",
+      "question": "How Do I Get My Staffing Recruiters to Sell Direct-Hire Placements?",
+      "queuedAt": "2026-07-14T11:38:28.888Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0350",
+      "question": "How Do I Get My Real Estate Agents to Capture More Referrals?",
+      "queuedAt": "2026-07-14T11:38:29.198Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0401",
+      "question": "How Many Sales Reps Do I Need to Hire for My Commercial Solar O&M Company?",
+      "queuedAt": "2026-07-14T12:04:50.084Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0402",
+      "question": "How Many Sales Reps Do I Need to Hire for My Data Center Construction Company?",
+      "queuedAt": "2026-07-14T12:04:50.417Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0403",
+      "question": "How Many Sales Reps Do I Need to Hire for My Modular Building Manufacturer?",
+      "queuedAt": "2026-07-14T12:04:50.774Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0404",
+      "question": "How Many Sales Reps Do I Need to Hire for My Prefab Home Builder?",
+      "queuedAt": "2026-07-14T12:04:51.088Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0405",
+      "question": "How Many Sales Reps Do I Need to Hire for My Commercial Glass and Glazing Company?",
+      "queuedAt": "2026-07-14T12:04:51.412Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0406",
+      "question": "How Many Sales Reps Do I Need to Hire for My Commercial Overhead Door Company?",
+      "queuedAt": "2026-07-14T12:04:51.740Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0407",
+      "question": "How Many Sales Reps Do I Need to Hire for My Loading Dock Equipment Company?",
+      "queuedAt": "2026-07-14T12:04:52.072Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0408",
+      "question": "How Many Sales Reps Do I Need to Hire for My Forklift and Material Handling Dealer?",
+      "queuedAt": "2026-07-14T12:04:52.437Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0409",
+      "question": "How Many Sales Reps Do I Need to Hire for My Industrial Automation Integrator?",
+      "queuedAt": "2026-07-14T12:04:52.820Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0410",
+      "question": "How Many Sales Reps Do I Need to Hire for My Robotics Integrator?",
+      "queuedAt": "2026-07-14T12:04:53.208Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0411",
+      "question": "How Many Sales Reps Do I Need to Hire for My Industrial Controls Company?",
+      "queuedAt": "2026-07-14T12:04:54.034Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0412",
+      "question": "How Many Sales Reps Do I Need to Hire for My Calibration Services Company?",
+      "queuedAt": "2026-07-14T12:04:54.352Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0413",
+      "question": "How Many Sales Reps Do I Need to Hire for My NDT Inspection Services Company?",
+      "queuedAt": "2026-07-14T12:04:54.685Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0414",
+      "question": "How Many Sales Reps Do I Need to Hire for My Industrial Coatings Company?",
+      "queuedAt": "2026-07-14T12:04:55.025Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0415",
+      "question": "How Many Sales Reps Do I Need to Hire for My Sandblasting Company?",
+      "queuedAt": "2026-07-14T12:04:55.353Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0416",
+      "question": "How Many Sales Reps Do I Need to Hire for My Industrial Gas Supplier?",
+      "queuedAt": "2026-07-14T12:04:55.679Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0417",
+      "question": "How Many Sales Reps Do I Need to Hire for My Welding Supply Company?",
+      "queuedAt": "2026-07-14T12:04:56.028Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0418",
+      "question": "How Many Sales Reps Do I Need to Hire for My Hydraulics and Pneumatics Supplier?",
+      "queuedAt": "2026-07-14T12:04:56.345Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0419",
+      "question": "How Many Sales Reps Do I Need to Hire for My Bearings and Power Transmission Distributor?",
+      "queuedAt": "2026-07-14T12:04:56.673Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0420",
+      "question": "How Many Sales Reps Do I Need to Hire for My Cutting Tools Distributor?",
+      "queuedAt": "2026-07-14T12:04:57.016Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0421",
+      "question": "How Many Sales Reps Do I Need to Hire for My Safety Equipment Supplier?",
+      "queuedAt": "2026-07-14T12:04:57.322Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0422",
+      "question": "How Many Sales Reps Do I Need to Hire for My Janitorial Equipment Dealer?",
+      "queuedAt": "2026-07-14T12:04:57.635Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0423",
+      "question": "How Many Sales Reps Do I Need to Hire for My Commercial Kitchen Equipment Dealer?",
+      "queuedAt": "2026-07-14T12:04:58.047Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0424",
+      "question": "How Many Sales Reps Do I Need to Hire for My Foodservice Equipment Dealer?",
+      "queuedAt": "2026-07-14T12:04:58.363Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0425",
+      "question": "How Many Sales Reps Do I Need to Hire for My Refrigerated Transport Company?",
+      "queuedAt": "2026-07-14T12:04:58.704Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0426",
+      "question": "How Many Sales Reps Do I Need to Hire for My Cold Storage Warehouse?",
+      "queuedAt": "2026-07-14T12:04:59.111Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0427",
+      "question": "How Many Sales Reps Do I Need to Hire for My 3PL Fulfillment Company?",
+      "queuedAt": "2026-07-14T12:04:59.447Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0428",
+      "question": "How Many Sales Reps Do I Need to Hire for My Last-Mile Delivery Company?",
+      "queuedAt": "2026-07-14T12:04:59.761Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0429",
+      "question": "How Many Sales Reps Do I Need to Hire for My Courier Service?",
+      "queuedAt": "2026-07-14T12:05:00.055Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0430",
+      "question": "How Many Sales Reps Do I Need to Hire for My Medical Courier Company?",
+      "queuedAt": "2026-07-14T12:05:00.371Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0431",
+      "question": "How Many Sales Reps Do I Need to Hire for My Clinical Lab Services Company?",
+      "queuedAt": "2026-07-14T12:05:00.700Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0432",
+      "question": "How Many Sales Reps Do I Need to Hire for My Diagnostic Imaging Center?",
+      "queuedAt": "2026-07-14T12:05:01.036Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0434",
+      "question": "How Many Sales Reps Do I Need to Hire for My Home Health Agency?",
+      "queuedAt": "2026-07-14T12:05:03.044Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0435",
+      "question": "How Many Sales Reps Do I Need to Hire for My Hospice Agency?",
+      "queuedAt": "2026-07-14T12:05:03.376Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0436",
+      "question": "How Many Sales Reps Do I Need to Hire for My Behavioral Health Company?",
+      "queuedAt": "2026-07-14T12:05:03.721Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0437",
+      "question": "How Many Sales Reps Do I Need to Hire for My Physical Therapy Clinic Group?",
+      "queuedAt": "2026-07-14T12:05:04.143Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0438",
+      "question": "How Many Sales Reps Do I Need to Hire for My Urgent Care Group?",
+      "queuedAt": "2026-07-14T12:05:04.477Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0439",
+      "question": "How Many Sales Reps Do I Need to Hire for My Dialysis Services Company?",
+      "queuedAt": "2026-07-14T12:05:04.816Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0440",
+      "question": "How Many Sales Reps Do I Need to Hire for My Specialty Pharmacy?",
+      "queuedAt": "2026-07-14T12:05:05.120Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0441",
+      "question": "How Many Sales Reps Do I Need to Hire for My Veterinary Hospital Group?",
+      "queuedAt": "2026-07-14T12:05:05.973Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0442",
+      "question": "How Many Sales Reps Do I Need to Hire for My Pet Insurance Company?",
+      "queuedAt": "2026-07-14T12:05:06.283Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0443",
+      "question": "How Many Sales Reps Do I Need to Hire for My Appraisal Management Company?",
+      "queuedAt": "2026-07-14T12:05:06.668Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0445",
+      "question": "How Many Sales Reps Do I Need to Hire for My Equipment Finance Company?",
+      "queuedAt": "2026-07-14T12:05:07.825Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0446",
+      "question": "How Many Sales Reps Do I Need to Hire for My Invoice Factoring Company?",
+      "queuedAt": "2026-07-14T12:05:08.275Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0447",
+      "question": "How Many Sales Reps Do I Need to Hire for My Payment Processing ISV?",
+      "queuedAt": "2026-07-14T12:05:08.655Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0448",
+      "question": "How Many Sales Reps Do I Need to Hire for My HR Tech Company?",
+      "queuedAt": "2026-07-14T12:05:08.989Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0449",
+      "question": "How Many Sales Reps Do I Need to Hire for My Learning Management Software Company?",
+      "queuedAt": "2026-07-14T12:05:09.325Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0450",
+      "question": "How Many Sales Reps Do I Need to Hire for My Customer Data Platform Company?",
+      "queuedAt": "2026-07-14T12:05:09.749Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0451",
+      "question": "How Many Employees Should I Schedule Each Shift at My Bagel Shop?",
+      "queuedAt": "2026-07-14T12:05:10.096Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0452",
+      "question": "How Many Employees Should I Schedule Each Shift at My Bubble Tea Shop?",
+      "queuedAt": "2026-07-14T12:05:10.490Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0454",
+      "question": "How Many Employees Should I Schedule Each Shift at My Hot Pot Restaurant?",
+      "queuedAt": "2026-07-14T12:05:11.797Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0455",
+      "question": "How Many Employees Should I Schedule Each Shift at My Korean BBQ Restaurant?",
+      "queuedAt": "2026-07-14T12:05:12.112Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0456",
+      "question": "How Many Employees Should I Schedule Each Shift at My Indian Restaurant?",
+      "queuedAt": "2026-07-14T12:05:12.548Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0458",
+      "question": "How Many Employees Should I Schedule Each Shift at My Mediterranean Restaurant?",
+      "queuedAt": "2026-07-14T12:05:14.159Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0459",
+      "question": "How Many Employees Should I Schedule Each Shift at My Vegan Restaurant?",
+      "queuedAt": "2026-07-14T12:05:14.485Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0460",
+      "question": "How Many Employees Should I Schedule Each Shift at My Gastropub?",
+      "queuedAt": "2026-07-14T12:05:14.798Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0461",
+      "question": "How Many Employees Should I Schedule Each Shift at My Sports Bar?",
+      "queuedAt": "2026-07-14T12:05:15.143Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0462",
+      "question": "How Many Employees Should I Schedule Each Shift at My Wine Bar?",
+      "queuedAt": "2026-07-14T12:05:15.455Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0463",
+      "question": "How Many Employees Should I Schedule Each Shift at My Cocktail Lounge?",
+      "queuedAt": "2026-07-14T12:05:15.825Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0464",
+      "question": "How Many Employees Should I Schedule Each Shift at My Comedy Club?",
+      "queuedAt": "2026-07-14T12:05:16.162Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0465",
+      "question": "How Many Employees Should I Schedule Each Shift at My Music Venue?",
+      "queuedAt": "2026-07-14T12:05:21.062Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0466",
+      "question": "How Many Employees Should I Schedule Each Shift at My Axe Throwing Venue?",
+      "queuedAt": "2026-07-14T12:05:21.444Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0467",
+      "question": "How Many Employees Should I Schedule Each Shift at My VR Arcade?",
+      "queuedAt": "2026-07-14T12:05:21.769Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0468",
+      "question": "How Many Employees Should I Schedule Each Shift at My Indoor Skydiving Center?",
+      "queuedAt": "2026-07-14T12:05:22.125Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0469",
+      "question": "How Many Employees Should I Schedule Each Shift at My Ice Rink?",
+      "queuedAt": "2026-07-14T12:05:22.501Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0471",
+      "question": "How Many Employees Should I Schedule Each Shift at My Skate Park?",
+      "queuedAt": "2026-07-14T12:05:23.706Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0472",
+      "question": "How Many Employees Should I Schedule Each Shift at My Batting Cage Facility?",
+      "queuedAt": "2026-07-14T12:05:24.033Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0473",
+      "question": "How Many Employees Should I Schedule Each Shift at My Driving Range?",
+      "queuedAt": "2026-07-14T12:05:24.473Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0474",
+      "question": "How Many Employees Should I Schedule Each Shift at My Pickleball Club?",
+      "queuedAt": "2026-07-14T12:05:24.782Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0475",
+      "question": "How Many Employees Should I Schedule Each Shift at My Tennis Club?",
+      "queuedAt": "2026-07-14T12:05:25.152Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0476",
+      "question": "How Many Employees Should I Schedule Each Shift at My Swim School?",
+      "queuedAt": "2026-07-14T12:05:25.460Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0477",
+      "question": "How Many Employees Should I Schedule Each Shift at My Gymnastics Gym?",
+      "queuedAt": "2026-07-14T12:05:25.794Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0478",
+      "question": "How Many Employees Should I Schedule Each Shift at My Cheer Gym?",
+      "queuedAt": "2026-07-14T12:05:26.130Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0479",
+      "question": "How Many Employees Should I Schedule Each Shift at My Music School?",
+      "queuedAt": "2026-07-14T12:05:26.580Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0480",
+      "question": "How Many Employees Should I Schedule Each Shift at My Art Studio?",
+      "queuedAt": "2026-07-14T12:05:26.898Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0481",
+      "question": "How Many Employees Should I Schedule Each Shift at My Pottery Studio?",
+      "queuedAt": "2026-07-14T12:05:27.227Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0482",
+      "question": "How Many Employees Should I Schedule Each Shift at My Cooking School?",
+      "queuedAt": "2026-07-14T12:05:27.778Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0483",
+      "question": "How Many Employees Should I Schedule Each Shift at My Language School?",
+      "queuedAt": "2026-07-14T12:05:28.181Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0484",
+      "question": "How Many Employees Should I Schedule Each Shift at My Test Prep Center?",
+      "queuedAt": "2026-07-14T12:05:28.655Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0485",
+      "question": "How Many Employees Should I Schedule Each Shift at My Coworking Space?",
+      "queuedAt": "2026-07-14T12:05:29.016Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0486",
+      "question": "How Many Employees Should I Schedule Each Shift at My Print and Ship Store?",
+      "queuedAt": "2026-07-14T12:05:29.526Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0487",
+      "question": "How Many Employees Should I Schedule Each Shift at My Phone Repair Shop?",
+      "queuedAt": "2026-07-14T12:05:29.922Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0488",
+      "question": "How Many Employees Should I Schedule Each Shift at My Computer Repair Shop?",
+      "queuedAt": "2026-07-14T12:05:30.257Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0489",
+      "question": "How Many Employees Should I Schedule Each Shift at My Watch and Jewelry Repair Shop?",
+      "queuedAt": "2026-07-14T12:05:30.663Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0490",
+      "question": "How Many Employees Should I Schedule Each Shift at My Shoe Repair Shop?",
+      "queuedAt": "2026-07-14T12:05:30.992Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0491",
+      "question": "How Many Employees Should I Schedule Each Shift at My Tailor and Alterations Shop?",
+      "queuedAt": "2026-07-14T12:05:31.337Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0492",
+      "question": "How Many Employees Should I Schedule Each Shift at My Pet Grooming Salon?",
+      "queuedAt": "2026-07-14T12:05:31.907Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0493",
+      "question": "How Many Employees Should I Schedule Each Shift at My Doggy Daycare?",
+      "queuedAt": "2026-07-14T12:05:32.367Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0494",
+      "question": "How Many Employees Should I Schedule Each Shift at My Pet Boarding Kennel?",
+      "queuedAt": "2026-07-14T12:05:32.709Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0495",
+      "question": "How Many Employees Should I Schedule Each Shift at My Aquarium Store?",
+      "queuedAt": "2026-07-14T12:05:33.036Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0496",
+      "question": "How Many Employees Should I Schedule Each Shift at My Smoke and Vape Shop?",
+      "queuedAt": "2026-07-14T12:05:33.402Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0497",
+      "question": "How Many Employees Should I Schedule Each Shift at My Comic Book Store?",
+      "queuedAt": "2026-07-14T12:05:33.803Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0498",
+      "question": "How Many Employees Should I Schedule Each Shift at My Record Store?",
+      "queuedAt": "2026-07-14T12:05:34.256Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0499",
+      "question": "How Many Employees Should I Schedule Each Shift at My Vintage Clothing Store?",
+      "queuedAt": "2026-07-14T12:05:35.375Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0500",
+      "question": "How Many Employees Should I Schedule Each Shift at My Thrift Store?",
+      "queuedAt": "2026-07-14T12:05:36.286Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0501",
+      "question": "How Do I Score My SDRs on the Activities That Actually Book Meetings?",
+      "queuedAt": "2026-07-14T12:05:36.674Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0502",
+      "question": "How Do I Score My AEs on More Than Just Closed-Won?",
+      "queuedAt": "2026-07-14T12:05:37.058Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0503",
+      "question": "How Do I Build a Points Scorecard for My BDR Team?",
+      "queuedAt": "2026-07-14T12:05:37.465Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0504",
+      "question": "How Do I Align My AE and SE Teams on One Number?",
+      "queuedAt": "2026-07-14T12:05:37.835Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0505",
+      "question": "How Do I Get My AEs to Update the CRM Consistently?",
+      "queuedAt": "2026-07-14T12:05:38.204Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0506",
+      "question": "How Do I Score My Reps on Pipeline Hygiene?",
+      "queuedAt": "2026-07-14T12:05:38.558Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0507",
+      "question": "How Do I Get My Reps to Follow the Sales Process?",
+      "queuedAt": "2026-07-14T12:05:38.881Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0508",
+      "question": "How Do I Score My Reps on Discovery Quality?",
+      "queuedAt": "2026-07-14T12:05:39.276Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0509",
+      "question": "How Do I Get My Reps to Multithread Enterprise Deals?",
+      "queuedAt": "2026-07-14T12:05:39.632Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0510",
+      "question": "How Do I Score My CSMs on Retention and Expansion?",
+      "queuedAt": "2026-07-14T12:05:40.144Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0511",
+      "question": "How Do I Get My Account Managers to Grow Existing Accounts?",
+      "queuedAt": "2026-07-14T12:05:40.460Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0512",
+      "question": "How Do I Score My Channel Partners on Performance?",
+      "queuedAt": "2026-07-14T12:05:40.793Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0513",
+      "question": "How Do I Get My Franchisees to Hit Unit Sales Standards?",
+      "queuedAt": "2026-07-14T12:05:41.102Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0514",
+      "question": "How Do I Score My Retail Managers Across Stores?",
+      "queuedAt": "2026-07-14T12:05:41.502Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0515",
+      "question": "How Do I Get My District Managers Aligned on KPIs?",
+      "queuedAt": "2026-07-14T12:05:41.891Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0516",
+      "question": "How Do I Score My Call Center Agents on Quality and Sales?",
+      "queuedAt": "2026-07-14T12:05:42.374Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0517",
+      "question": "How Do I Get My Support Reps to Convert Chats to Sales?",
+      "queuedAt": "2026-07-14T12:05:42.727Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0518",
+      "question": "How Do I Score My Field Techs on Sales and Service?",
+      "queuedAt": "2026-07-14T12:05:43.067Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0519",
+      "question": "How Do I Get My Route Drivers to Upsell on Every Stop?",
+      "queuedAt": "2026-07-14T12:05:43.417Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0520",
+      "question": "How Do I Score My Counter Staff Across Branches?",
+      "queuedAt": "2026-07-14T12:05:43.736Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0521",
+      "question": "How Do I Get My Showroom Reps to Log Every Up?",
+      "queuedAt": "2026-07-14T12:05:44.216Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0522",
+      "question": "How Do I Score My F&I Managers at My Dealership?",
+      "queuedAt": "2026-07-14T12:05:44.562Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0523",
+      "question": "How Do I Get My Leasing Agents to Hit Occupancy and Rate?",
+      "queuedAt": "2026-07-14T12:05:44.884Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0524",
+      "question": "How Do I Score My Recruiters on Placements and Margin?",
+      "queuedAt": "2026-07-14T12:05:45.219Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0525",
+      "question": "How Do I Get My Loan Officers to Hit Funded-Loan Goals?",
+      "queuedAt": "2026-07-14T12:05:45.543Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0526",
+      "question": "How Do I Score My Financial Advisors on AUM Growth?",
+      "queuedAt": "2026-07-14T12:05:45.885Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0527",
+      "question": "How Do I Get My Insurance Agents to Cross-Sell Lines?",
+      "queuedAt": "2026-07-14T12:05:46.239Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0528",
+      "question": "How Do I Score My Real Estate Team on GCI and Referrals?",
+      "queuedAt": "2026-07-14T12:05:46.552Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0529",
+      "question": "How Do I Get My Medical Reps to Balance Reach and Frequency?",
+      "queuedAt": "2026-07-14T12:05:46.877Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0530",
+      "question": "How Do I Score My Pharma Reps on Call Plan Adherence?",
+      "queuedAt": "2026-07-14T12:05:47.218Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0531",
+      "question": "How Do I Get My Distributors to Push the Full Catalog?",
+      "queuedAt": "2026-07-14T12:05:47.590Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0532",
+      "question": "How Do I Score My Inside and Outside Reps on the Same Scale?",
+      "queuedAt": "2026-07-14T12:05:47.922Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0533",
+      "question": "How Do I Get My Reps to Sell Value Instead of Discounting?",
+      "queuedAt": "2026-07-14T12:05:48.256Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0534",
+      "question": "How Do I Score My Reps on Margin Instead of Just Revenue?",
+      "queuedAt": "2026-07-14T12:05:49.540Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0535",
+      "question": "How Do I Get My Reps to Attach Services to Product Deals?",
+      "queuedAt": "2026-07-14T12:05:49.856Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0537",
+      "question": "How Do I Get My Reps to Forecast Accurately?",
+      "queuedAt": "2026-07-14T12:05:51.384Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0538",
+      "question": "How Do I Score My Reps on Deal Slippage?",
+      "queuedAt": "2026-07-14T12:05:51.719Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0539",
+      "question": "How Do I Get My Reps to Qualify Harder?",
+      "queuedAt": "2026-07-14T12:05:52.088Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0540",
+      "question": "How Do I Score My Managers on Coaching Cadence?",
+      "queuedAt": "2026-07-14T12:05:52.406Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0541",
+      "question": "How Do I Get My Team to Adopt a New Comp Plan?",
+      "queuedAt": "2026-07-14T12:05:52.738Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0542",
+      "question": "How Do I Score My Reps Fairly Across Territories?",
+      "queuedAt": "2026-07-14T12:05:53.147Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0543",
+      "question": "How Do I Get My Reps to Sell the New Product Line?",
+      "queuedAt": "2026-07-14T12:05:53.551Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0544",
+      "question": "How Do I Score My Reps During a Pricing Change?",
+      "queuedAt": "2026-07-14T12:05:53.894Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0545",
+      "question": "How Do I Get My Reps to Renew Accounts on Time?",
+      "queuedAt": "2026-07-14T12:05:54.447Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0546",
+      "question": "How Do I Score My Reps on Customer References Generated?",
+      "queuedAt": "2026-07-14T12:05:54.763Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0547",
+      "question": "How Do I Get My Reps to Expand Into White Space?",
+      "queuedAt": "2026-07-14T12:05:55.110Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0548",
+      "question": "How Do I Score My Reps on Partner-Sourced Pipeline?",
+      "queuedAt": "2026-07-14T12:05:55.425Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0549",
+      "question": "How Do I Get My Reps to Log Competitive Intel?",
+      "queuedAt": "2026-07-14T12:05:55.852Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0550",
+      "question": "How Do I Build a Balanced Scorecard for My Whole Sales Team?",
+      "queuedAt": "2026-07-14T12:05:56.203Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0601",
+      "question": "How Do I Increase My Average Ticket Without Selling Anything Extra?",
+      "queuedAt": "2026-07-14T12:06:38.607Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0602",
+      "question": "Why Should I Start Charging Service Fees?",
+      "queuedAt": "2026-07-14T12:06:38.917Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0603",
+      "question": "How Do I Calculate the Right Service Fee to Charge?",
+      "queuedAt": "2026-07-14T12:06:39.547Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0604",
+      "question": "How Do I Set Attach Rates for My Service Fees?",
+      "queuedAt": "2026-07-14T12:06:39.874Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0605",
+      "question": "How Do I Use Service Fees to Cover Back-Office Payroll?",
+      "queuedAt": "2026-07-14T12:06:40.233Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0606",
+      "question": "How Do I Raise Contribution Margin Without Raising My Prices?",
+      "queuedAt": "2026-07-14T12:06:40.549Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0607",
+      "question": "What Add-On Fees Should I Be Charging That I'm Not?",
+      "queuedAt": "2026-07-14T12:06:40.903Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0608",
+      "question": "How Do I Add a Service Fee Customers Won't Push Back On?",
+      "queuedAt": "2026-07-14T12:06:41.265Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0609",
+      "question": "How Do I Model Service-Fee Revenue Before My Next Hire?",
+      "queuedAt": "2026-07-14T12:06:41.589Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0610",
+      "question": "How Do I Make a Service Fee Tangible So It Adds Real Value?",
+      "queuedAt": "2026-07-14T12:06:41.893Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0611",
+      "question": "What Service Fees Should an HVAC Company Charge?",
+      "queuedAt": "2026-07-14T12:06:42.242Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0612",
+      "question": "What Service Fees Should an Auto Repair Shop Charge?",
+      "queuedAt": "2026-07-14T12:06:42.556Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0613",
+      "question": "What Service Fees Should a Salon or Med Spa Charge?",
+      "queuedAt": "2026-07-14T12:06:42.902Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0614",
+      "question": "What Service Fees Should a Plumbing Company Charge?",
+      "queuedAt": "2026-07-14T12:06:43.222Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0615",
+      "question": "What Service Fees Should a Landscaping Business Charge?",
+      "queuedAt": "2026-07-14T12:06:43.636Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0616",
+      "question": "What Service Fees Should a Dental Practice Charge?",
+      "queuedAt": "2026-07-14T12:06:43.996Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0617",
+      "question": "What Service Fees Should a Restaurant or Catering Business Charge?",
+      "queuedAt": "2026-07-14T12:06:44.527Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0619",
+      "question": "What Service Fees Should a Gym or Fitness Studio Charge?",
+      "queuedAt": "2026-07-14T12:06:45.898Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0620",
+      "question": "What Service Fees Should an Electrical Contractor Charge?",
+      "queuedAt": "2026-07-14T12:06:46.349Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0621",
+      "question": "What Service Fees Should a Roofing Company Charge?",
+      "queuedAt": "2026-07-14T12:06:46.891Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0622",
+      "question": "What Service Fees Should a Pest Control Company Charge?",
+      "queuedAt": "2026-07-14T12:06:47.406Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0623",
+      "question": "What Service Fees Should a Cleaning Service Charge?",
+      "queuedAt": "2026-07-14T12:06:48.065Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0624",
+      "question": "What Service Fees Should a Moving Company Charge?",
+      "queuedAt": "2026-07-14T12:06:48.414Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0625",
+      "question": "What Service Fees Should a Veterinary Clinic Charge?",
+      "queuedAt": "2026-07-14T12:06:48.818Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0626",
+      "question": "What Service Fees Should an Accounting Firm Charge?",
+      "queuedAt": "2026-07-14T12:06:49.331Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0627",
+      "question": "What Service Fees Should a Pool Service Company Charge?",
+      "queuedAt": "2026-07-14T12:06:49.651Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0628",
+      "question": "What Service Fees Should an Appliance Repair Company Charge?",
+      "queuedAt": "2026-07-14T12:06:50.046Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0629",
+      "question": "What Service Fees Should a Towing Company Charge?",
+      "queuedAt": "2026-07-14T12:06:50.379Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0630",
+      "question": "What Service Fees Should a Painting Contractor Charge?",
+      "queuedAt": "2026-07-14T12:06:51.338Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0631",
+      "question": "What Service Fees Should a General Contractor Charge?",
+      "queuedAt": "2026-07-14T12:06:51.669Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0632",
+      "question": "What Service Fees Should a Locksmith Charge?",
+      "queuedAt": "2026-07-14T12:06:52.013Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0633",
+      "question": "What Service Fees Should a Garage Door Company Charge?",
+      "queuedAt": "2026-07-14T12:06:52.400Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0634",
+      "question": "What Service Fees Should a Carpet Cleaning Company Charge?",
+      "queuedAt": "2026-07-14T12:06:52.724Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0635",
+      "question": "What Service Fees Should a Window Cleaning Company Charge?",
+      "queuedAt": "2026-07-14T12:06:53.049Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0636",
+      "question": "What Service Fees Should a Junk Removal Company Charge?",
+      "queuedAt": "2026-07-14T12:06:53.418Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0637",
+      "question": "What Service Fees Should a Septic Service Company Charge?",
+      "queuedAt": "2026-07-14T12:06:53.749Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0638",
+      "question": "What Service Fees Should a Tree Service Company Charge?",
+      "queuedAt": "2026-07-14T12:06:54.093Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0639",
+      "question": "What Service Fees Should a Handyman Business Charge?",
+      "queuedAt": "2026-07-14T12:06:54.443Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0640",
+      "question": "What Service Fees Should a Chimney Sweep Charge?",
+      "queuedAt": "2026-07-14T12:06:54.780Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0641",
+      "question": "How Do I Introduce a Service Fee Without Losing Customers?",
+      "queuedAt": "2026-07-14T12:06:55.113Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0642",
+      "question": "How Do I Justify a Service Fee to Customers?",
+      "queuedAt": "2026-07-14T12:06:55.425Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0643",
+      "question": "How Do I Add a Fuel or Trip Fee the Right Way?",
+      "queuedAt": "2026-07-14T12:06:55.927Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0644",
+      "question": "How Do I Roll Out Service Fees Across My Whole Team?",
+      "queuedAt": "2026-07-14T12:06:56.227Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0645",
+      "question": "How Do I Track Service-Fee Attach Rate by Rep?",
+      "queuedAt": "2026-07-14T12:06:56.542Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0646",
+      "question": "How Do I Use Service Fees to Offset Rising Labor Costs?",
+      "queuedAt": "2026-07-14T12:06:56.876Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0647",
+      "question": "What Service Fees Should a Physical Therapy Clinic Charge?",
+      "queuedAt": "2026-07-14T12:06:57.277Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0648",
+      "question": "What Service Fees Should an IT or MSP Company Charge?",
+      "queuedAt": "2026-07-14T12:06:57.589Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0649",
+      "question": "What Service Fees Should a Real Estate Brokerage Charge?",
+      "queuedAt": "2026-07-14T12:06:57.934Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0650",
+      "question": "What Service Fees Should a Property Management Company Charge?",
+      "queuedAt": "2026-07-14T12:06:58.422Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0651",
+      "question": "What Service Fees Should a Photography Business Charge?",
+      "queuedAt": "2026-07-14T12:06:58.747Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0652",
+      "question": "What Service Fees Should an Event Planning Business Charge?",
+      "queuedAt": "2026-07-14T12:06:59.089Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0653",
+      "question": "What Service Fees Should a Food Truck Business Charge?",
+      "queuedAt": "2026-07-14T12:06:59.420Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0654",
+      "question": "What Service Fees Should a Childcare or Daycare Center Charge?",
+      "queuedAt": "2026-07-14T12:06:59.781Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0656",
+      "question": "What Service Fees Should a Car Detailing Business Charge?",
+      "queuedAt": "2026-07-14T12:07:00.936Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0657",
+      "question": "What Service Fees Should a Mobile Mechanic Charge?",
+      "queuedAt": "2026-07-14T12:07:01.310Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0658",
+      "question": "What Service Fees Should a Home Inspection Business Charge?",
+      "queuedAt": "2026-07-14T12:07:02.374Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0659",
+      "question": "How Do I Set Service Fees for a Membership or Subscription Business?",
+      "queuedAt": "2026-07-14T12:07:02.725Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl0660",
+      "question": "How Do I Audit My Service Fees to Recover Lost Margin?",
+      "queuedAt": "2026-07-14T12:07:03.087Z",
+      "attempts": 0,
+      "lastError": ""
+    },
+    {
+      "id": "tl9352",
+      "question": "How Do I Configure Sequences Without Burning Your Domain in Apollo?",
+      "queuedAt": "2026-07-14T13:41:40.284Z",
+      "attempts": 0,
+      "lastError": ""
+    }
+  ],
+  "completedIds": [],
+  "completed": 0,
+  "failed": 0,
+  "updatedAt": "2026-07-14T13:41:40.284Z"
+}

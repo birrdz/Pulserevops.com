@@ -1,0 +1,31 @@
+{
+ "stage": "done",
+ "mode": "delta",
+ "running": false,
+ "done": 3900,
+ "total": 3900,
+ "note": "Done · 35,683 / 35,683 indexed (100%)",
+ "updated": 1783936488245,
+ "err": null,
+ "okBatches": 20,
+ "failBatches": 0,
+ "last": {
+  "delta": {
+   "at": 1783936488218,
+   "mode": "delta",
+   "urls": 3900,
+   "pinged": 3900,
+   "okBatches": 20,
+   "failBatches": 0,
+   "stamped": 34,
+   "indexed": 35683,
+   "total": 35683,
+   "pct": 100
+  }
+ },
+ "stats": {
+  "total": 35683,
+  "indexed": 35683,
+  "pct": 100
+ }
+}

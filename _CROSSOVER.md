@@ -1,5 +1,48 @@
 ﻿# â–¶ HANDOFF â€” for the next Claude Code session (saved 2026-06-26)
 
+## 📌 CROSSOVER — 2026-07-12 — PULSE / KORY HANDOFF — READ FIRST
+- **GTM faces:** promoted live (prod matches kept assets)
+- **Fixer:** 20 URLs parallel; stage tags on GO ▸ FIX (only piles scan found); order quality → title → image → 13/13 → sim; skip-if-done · **WORKING (owner 2026-07-12)** — keep this strat; FORCE STOP to unlock; CLEAR rare/recovery only (does not wipe FIXED.md or scan_report.json)
+- **Daily Driver:** DeepSeek API (currently needs balance top-up); panel shows “done today”
+- **Cursor Ultra:** prefer Auto/Composer; Jul 6–12 usage chart mixes old Pro+ days — don’t treat as Ultra-only burn
+- **Panel:** http://127.0.0.1:8904/
+- **Chat law:** keep light handoff chats closed for heavy work — open a fresh Ultra/Composer session for fixer / generator / deploys
+
+## 🖼️ CROSSOVER — 2026-07-12 — IK FACES → THEN TOP INTERNAL IMAGE REPLACEMENT — READ FIRST
+- **🔒 IMAGE PASS LAW (owner 2026-07-12 — permanent · change only with `4444`):** Owner **approves images for the pillar being worked** — each keep is usable as **face card and/or top internal**. Pattern: write face → write top **same URL** → next → rinse/repeat. Dupes OK/expected. No Pollinations wait. Manual 1-by-1. Unsupervised “do the pillar for you” **forbidden** without **`4444`**.
+- **Named process (proven):** **`PILLAR {NAME} FACE/TOPS`** — `X` = pillar name (e.g. **`PILLAR KPI FACE/TOPS`** for `ik`)
+  1. Pull that pillar
+  2. Pexels = **N + ~300 bank**
+  3. Owner approve (face and/or top)
+  4. Manually apply every entry: face → top same URL → next
+  5. Review → pre-draft → publish
+  - `PILLAR_X_FACE_TOPS.md` · `node _manual_pillar_face_tops.js <pillar>`
+- **No old terrible baked title font** on face cards or top internals — clean photos only; HTML titles stay off the JPG.
+- **NOW:** **`PILLAR BOOK SUMMARIES FACE/TOPS`** (`bs` **322**) — room http://127.0.0.1:8920/ · bank target **642** (322+320) · **books / reading / library photos** · inventory first else Pexels · approve faces → face→top same URL → review → pre-draft → publish. **ST faces pre-drafted** (770 on disk · tops still need face→same URL pass · Recents-first homepage on draft). **REV ARCH LIVE** (promoted `6a545f2f572ef8889ed44bf8`).
+- **AFTER faces + bank → TOP INTERNAL** on the same pillar
+  - Use **already-approved** faces — same URL as face card
+  - **Dupes OK / required for speed** — that is why owner approved them
+  - **Job:** replace bad/missing/pollinations tops with approved face URL
+- **Image count:** 676 faces + 320 bank; tops reuse face URLs (instant)
+- **🔒 PILLAR LOOP (owner 2026-07-12 — repeat forever):**
+  1. Topic faces (pillar Q&As + 300 bank) — approve for **upcoming** face+top use
+  2. Top internal = **same approved face URL** (rinse/repeat)
+  3. **Review**
+  4. **Pre draft deploy**
+  5. **Publish**
+  6. **Next pillar topic**
+  7. → repeat
+- **⛔ NO LAZY / NO CORNERS (owner 2026-07-12):** every step full — all faces, full bank, every bad/missing internal, real review, real pre-draft, real publish, then next pillar. No skip-if-close, no “good enough,” no partial pillar, no silent cut. **Owner will catch cuts every time.**
+- **⛔ ONE THING AT A TIME (owner 2026-07-12):** do not get ahead · do not juggle ~8 workstreams · finish current step (e.g. wait for bank) before the next. Serial pillar loop only.
+- **NOTIFY:** when bank/approvals hit the right counts → move along the loop · **ping owner when it publishes**
+- **LATER (after this pillar — owner 2026-07-12):** wire **topic bank → Daily Grind / gen_daemon** so new generator entries **seamlessly** auto-pull faces from the bank · **keep bank topped off** (refill toward 300+ as entries consume it) — don’t invent mid-pillar
+- **LATER / QUEUE:** **SEO IndexNow ~3,900** recently made **high-value** new URLs (owner 2026-07-12) — after this pillar’s publish
+  - **Prioritize money pages first:** `/fractional-cro` · `/hire` · CRO Syndicate / tools money surfaces · unicorn/owner pages · then recent high-value entry URLs (CRO/`tl`, GTM, IK, etc.)
+  - **Use prior playbook (logs):** clobber-safe ping only (`_indexnow_safe` / drip model) · **200-URL batches** · **~800ms pace** · newest-first · soft daily comfort (~10k/day) · **NEVER** full `_indexnow_sitewide.js` RMW · optional drip stamp `was_indexed_at` in one batched write like `_indexnow_drip.js`
+  - **Panel buttons (owner 2026-07-12):** Daily Driver bottom — **Index Site** + **Index Delta** · separate child (never touch gen/fixer) · show indexed count/% after · cooldowns grey-out: **Site = 7 days** · **Delta = 24 hours** (hard)
+  - Don’t cut pillar corners for it
+- **Chat law:** keep light handoff chats closed for heavy work — open a fresh Ultra/Composer session for fixer / generator / deploys
+
 ## 🚚 CROSSOVER — 2026-07-11 — MIGRATION PLAN + DEPLOY LAW — READ FIRST
 - **🔒 DEPLOY LAW (permanent) — `DEPLOY_LAW.md`:** CONTENT/DATA → Blobs only, NEVER deploy; CODE/TEMPLATE/ASSET → queue for a **once-a-day** `--prod` (only if queue non-empty; no queued code = no deploy that day). Drafts free; never misclassify code as content; "deploy now" = operator override; log every deploy. Embedded in `CLAUDE.md` + `SIMILARITY_MACHINE.md` + `HOURLY_GENERATOR.md` + `MIGRATION_MACHINE.md` + `sim/LESSONS.md`. Goal: kill the ~$200/mo Netlify burn.
 - **🚚 Netlify→Cloudflare FULL-STATIC migration = `MIGRATION_MACHINE.md`** (PLAN ONLY; Phase 1 after CC weekly-limit reset). Ground truth: 148 fns · 2,284 `@netlify/blobs` scripts · 35,453 entries · Netlify DNS w/ Google email (**`DNS_INVENTORY.md`** saved: 2 MX→SMTP.GOOGLE.COM + SPF/DMARC) · **CF creds MISSING** (`CF_ACCOUNT_ID`/`CF_API_TOKEN` not in env). Phase 1 = build a static generator (reuse the real render fns), render all 35K pages LOCALLY, LAW-DOM diff vs live — **nothing live until Phase 4 GO + Phase 5 manual DNS cutover** (email preserved). Prereqs: real CF creds · confirm the $200 driver (Netlify billing) · pick data source (recommend repo files + CF KV for counts). Control panel pattern on localhost:7200.

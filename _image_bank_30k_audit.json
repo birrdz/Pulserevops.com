@@ -1,0 +1,1027 @@
+{
+  "at": "2026-07-13T11:30:29.200Z",
+  "totalEntriesNow": 35684,
+  "futureQAs": 30000,
+  "method": "Allocate 30k new Q&As proportional to current pillar mix. Bank = (growth + 300 spare) × 1.15 variety. Tops reuse faces (dupes OK) so bank ≈ unique faces needed.",
+  "totals": {
+    "recommendBankAll": 49334,
+    "bankNowAll": 940,
+    "gapAll": 48394
+  },
+  "byCategory": [
+    {
+      "category": "revops-tools-saas-dashboards",
+      "pillars": [
+        "tl"
+      ],
+      "now": 10957,
+      "futureAdd": 9212,
+      "bankNow": 0,
+      "recommendBank": 10939,
+      "gap": 10939
+    },
+    {
+      "category": "revops-b2b-office-meetings",
+      "pillars": [
+        "q"
+      ],
+      "now": 7871,
+      "futureAdd": 6617,
+      "bankNow": 0,
+      "recommendBank": 7955,
+      "gap": 7955
+    },
+    {
+      "category": "style-fashion",
+      "pillars": [
+        "sy"
+      ],
+      "now": 1835,
+      "futureAdd": 1543,
+      "bankNow": 0,
+      "recommendBank": 2119,
+      "gap": 2119
+    },
+    {
+      "category": "cars-auto",
+      "pillars": [
+        "ca"
+      ],
+      "now": 1104,
+      "futureAdd": 928,
+      "bankNow": 0,
+      "recommendBank": 1412,
+      "gap": 1412
+    },
+    {
+      "category": "franchises-retail-storefronts",
+      "pillars": [
+        "fr"
+      ],
+      "now": 1090,
+      "futureAdd": 916,
+      "bankNow": 0,
+      "recommendBank": 1398,
+      "gap": 1398
+    },
+    {
+      "category": "advice-mentoring",
+      "pillars": [
+        "ed"
+      ],
+      "now": 1036,
+      "futureAdd": 871,
+      "bankNow": 0,
+      "recommendBank": 1347,
+      "gap": 1347
+    },
+    {
+      "category": "aquariums-fish-tanks",
+      "pillars": [
+        "aq"
+      ],
+      "now": 907,
+      "futureAdd": 763,
+      "bankNow": 0,
+      "recommendBank": 1222,
+      "gap": 1222
+    },
+    {
+      "category": "sales-training-workshops",
+      "pillars": [
+        "st"
+      ],
+      "now": 776,
+      "futureAdd": 652,
+      "bankNow": 320,
+      "recommendBank": 1095,
+      "gap": 775
+    },
+    {
+      "category": "coaching-leadership",
+      "pillars": [
+        "cg"
+      ],
+      "now": 757,
+      "futureAdd": 636,
+      "bankNow": 0,
+      "recommendBank": 1076,
+      "gap": 1076
+    },
+    {
+      "category": "general-business",
+      "pillars": [
+        "qmpxa",
+        "qmpx",
+        "qmpsyg"
+      ],
+      "now": 12,
+      "futureAdd": 10,
+      "bankNow": 0,
+      "recommendBank": 1047,
+      "gap": 1047
+    },
+    {
+      "category": "electronics-gadgets",
+      "pillars": [
+        "er"
+      ],
+      "now": 711,
+      "futureAdd": 598,
+      "bankNow": 0,
+      "recommendBank": 1033,
+      "gap": 1033
+    },
+    {
+      "category": "industry-verticals-jobs-kpi",
+      "pillars": [
+        "ik"
+      ],
+      "now": 677,
+      "futureAdd": 569,
+      "bankNow": 320,
+      "recommendBank": 999,
+      "gap": 679
+    },
+    {
+      "category": "pets-animals",
+      "pillars": [
+        "pt"
+      ],
+      "now": 573,
+      "futureAdd": 482,
+      "bankNow": 0,
+      "recommendBank": 899,
+      "gap": 899
+    },
+    {
+      "category": "revenue-ops-architecture-meetings",
+      "pillars": [
+        "ra"
+      ],
+      "now": 573,
+      "futureAdd": 482,
+      "bankNow": 0,
+      "recommendBank": 899,
+      "gap": 899
+    },
+    {
+      "category": "graphics-design-creative",
+      "pillars": [
+        "gb"
+      ],
+      "now": 553,
+      "futureAdd": 465,
+      "bankNow": 0,
+      "recommendBank": 880,
+      "gap": 880
+    },
+    {
+      "category": "tech-stacks-servers-code",
+      "pillars": [
+        "tk"
+      ],
+      "now": 544,
+      "futureAdd": 457,
+      "bankNow": 0,
+      "recommendBank": 871,
+      "gap": 871
+    },
+    {
+      "category": "schools-campus",
+      "pillars": [
+        "sc"
+      ],
+      "now": 518,
+      "futureAdd": 435,
+      "bankNow": 0,
+      "recommendBank": 845,
+      "gap": 845
+    },
+    {
+      "category": "ai-data-centers-ml",
+      "pillars": [
+        "ai"
+      ],
+      "now": 445,
+      "futureAdd": 374,
+      "bankNow": 0,
+      "recommendBank": 775,
+      "gap": 775
+    },
+    {
+      "category": "gtm-sales-marketing-warroom",
+      "pillars": [
+        "gp"
+      ],
+      "now": 425,
+      "futureAdd": 357,
+      "bankNow": 0,
+      "recommendBank": 756,
+      "gap": 756
+    },
+    {
+      "category": "boats-marine",
+      "pillars": [
+        "bt"
+      ],
+      "now": 418,
+      "futureAdd": 351,
+      "bankNow": 0,
+      "recommendBank": 749,
+      "gap": 749
+    },
+    {
+      "category": "dining-restaurants",
+      "pillars": [
+        "dn"
+      ],
+      "now": 382,
+      "futureAdd": 321,
+      "bankNow": 0,
+      "recommendBank": 714,
+      "gap": 714
+    },
+    {
+      "category": "espresso-coffee",
+      "pillars": [
+        "es"
+      ],
+      "now": 356,
+      "futureAdd": 299,
+      "bankNow": 0,
+      "recommendBank": 689,
+      "gap": 689
+    },
+    {
+      "category": "books-reading-library",
+      "pillars": [
+        "bs"
+      ],
+      "now": 350,
+      "futureAdd": 294,
+      "bankNow": 300,
+      "recommendBank": 683,
+      "gap": 383
+    },
+    {
+      "category": "buildouts-construction",
+      "pillars": [
+        "bo"
+      ],
+      "now": 296,
+      "futureAdd": 249,
+      "bankNow": 0,
+      "recommendBank": 631,
+      "gap": 631
+    },
+    {
+      "category": "tvs-living-room-tech",
+      "pillars": [
+        "tv"
+      ],
+      "now": 292,
+      "futureAdd": 245,
+      "bankNow": 0,
+      "recommendBank": 627,
+      "gap": 627
+    },
+    {
+      "category": "sports",
+      "pillars": [
+        "sp"
+      ],
+      "now": 258,
+      "futureAdd": 217,
+      "bankNow": 0,
+      "recommendBank": 595,
+      "gap": 595
+    },
+    {
+      "category": "telco-network-towers",
+      "pillars": [
+        "tc"
+      ],
+      "now": 256,
+      "futureAdd": 215,
+      "bankNow": 0,
+      "recommendBank": 592,
+      "gap": 592
+    },
+    {
+      "category": "resorts-hotels",
+      "pillars": [
+        "rs"
+      ],
+      "now": 214,
+      "futureAdd": 180,
+      "bankNow": 0,
+      "recommendBank": 552,
+      "gap": 552
+    },
+    {
+      "category": "nightlife-bars",
+      "pillars": [
+        "nl"
+      ],
+      "now": 185,
+      "futureAdd": 156,
+      "bankNow": 0,
+      "recommendBank": 524,
+      "gap": 524
+    },
+    {
+      "category": "cologne-fragrance",
+      "pillars": [
+        "cl"
+      ],
+      "now": 160,
+      "futureAdd": 135,
+      "bankNow": 0,
+      "recommendBank": 500,
+      "gap": 500
+    },
+    {
+      "category": "collectibles-auctions",
+      "pillars": [
+        "co"
+      ],
+      "now": 157,
+      "futureAdd": 132,
+      "bankNow": 0,
+      "recommendBank": 497,
+      "gap": 497
+    },
+    {
+      "category": "towns-main-street",
+      "pillars": [
+        "tn"
+      ],
+      "now": 144,
+      "futureAdd": 121,
+      "bankNow": 0,
+      "recommendBank": 484,
+      "gap": 484
+    },
+    {
+      "category": "luxury-travel",
+      "pillars": [
+        "lv"
+      ],
+      "now": 125,
+      "futureAdd": 105,
+      "bankNow": 0,
+      "recommendBank": 466,
+      "gap": 466
+    },
+    {
+      "category": "wellness-fitness-meditation",
+      "pillars": [
+        "wl"
+      ],
+      "now": 119,
+      "futureAdd": 100,
+      "bankNow": 0,
+      "recommendBank": 460,
+      "gap": 460
+    },
+    {
+      "category": "events-conferences",
+      "pillars": [
+        "ev"
+      ],
+      "now": 108,
+      "futureAdd": 91,
+      "bankNow": 0,
+      "recommendBank": 450,
+      "gap": 450
+    },
+    {
+      "category": "skills-training-drills",
+      "pillars": [
+        "sk"
+      ],
+      "now": 105,
+      "futureAdd": 88,
+      "bankNow": 0,
+      "recommendBank": 446,
+      "gap": 446
+    },
+    {
+      "category": "software-laptops-product",
+      "pillars": [
+        "sw"
+      ],
+      "now": 102,
+      "futureAdd": 86,
+      "bankNow": 0,
+      "recommendBank": 444,
+      "gap": 444
+    },
+    {
+      "category": "gatherings-venues-weddings",
+      "pillars": [
+        "ga"
+      ],
+      "now": 97,
+      "futureAdd": 82,
+      "bankNow": 0,
+      "recommendBank": 439,
+      "gap": 439
+    },
+    {
+      "category": "gaming-esports",
+      "pillars": [
+        "gm"
+      ],
+      "now": 70,
+      "futureAdd": 59,
+      "bankNow": 0,
+      "recommendBank": 413,
+      "gap": 413
+    },
+    {
+      "category": "home-family",
+      "pillars": [
+        "hf"
+      ],
+      "now": 68,
+      "futureAdd": 57,
+      "bankNow": 0,
+      "recommendBank": 411,
+      "gap": 411
+    },
+    {
+      "category": "movies-cinema",
+      "pillars": [
+        "mv"
+      ],
+      "now": 58,
+      "futureAdd": 49,
+      "bankNow": 0,
+      "recommendBank": 401,
+      "gap": 401
+    }
+  ],
+  "byPillar": [
+    {
+      "pfx": "tl",
+      "name": "Pulse Tools",
+      "category": "revops-tools-saas-dashboards",
+      "now": 10957,
+      "sharePct": 30.7,
+      "futureAdd": 9212,
+      "faceOnDisk": 11037,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 10939,
+      "gap": 10939
+    },
+    {
+      "pfx": "q",
+      "name": "Q&A / Knowledge",
+      "category": "revops-b2b-office-meetings",
+      "now": 7871,
+      "sharePct": 22.1,
+      "futureAdd": 6617,
+      "faceOnDisk": 7899,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 7955,
+      "gap": 7955
+    },
+    {
+      "pfx": "sy",
+      "name": "Style",
+      "category": "style-fashion",
+      "now": 1835,
+      "sharePct": 5.1,
+      "futureAdd": 1543,
+      "faceOnDisk": 1835,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 2119,
+      "gap": 2119
+    },
+    {
+      "pfx": "ca",
+      "name": "Cars",
+      "category": "cars-auto",
+      "now": 1104,
+      "sharePct": 3.1,
+      "futureAdd": 928,
+      "faceOnDisk": 1104,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 1412,
+      "gap": 1412
+    },
+    {
+      "pfx": "fr",
+      "name": "Franchises",
+      "category": "franchises-retail-storefronts",
+      "now": 1090,
+      "sharePct": 3.1,
+      "futureAdd": 916,
+      "faceOnDisk": 1090,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 1398,
+      "gap": 1398
+    },
+    {
+      "pfx": "ed",
+      "name": "Advice",
+      "category": "advice-mentoring",
+      "now": 1036,
+      "sharePct": 2.9,
+      "futureAdd": 871,
+      "faceOnDisk": 1044,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 1347,
+      "gap": 1347
+    },
+    {
+      "pfx": "aq",
+      "name": "Aquariums",
+      "category": "aquariums-fish-tanks",
+      "now": 907,
+      "sharePct": 2.5,
+      "futureAdd": 763,
+      "faceOnDisk": 2149,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 1222,
+      "gap": 1222
+    },
+    {
+      "pfx": "st",
+      "name": "Sales Trainings",
+      "category": "sales-training-workshops",
+      "now": 776,
+      "sharePct": 2.2,
+      "futureAdd": 652,
+      "faceOnDisk": 776,
+      "approved": 770,
+      "bankNow": 320,
+      "recommendBank": 1095,
+      "gap": 775
+    },
+    {
+      "pfx": "cg",
+      "name": "Coaching",
+      "category": "coaching-leadership",
+      "now": 757,
+      "sharePct": 2.1,
+      "futureAdd": 636,
+      "faceOnDisk": 768,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 1076,
+      "gap": 1076
+    },
+    {
+      "pfx": "er",
+      "name": "Electronics",
+      "category": "electronics-gadgets",
+      "now": 711,
+      "sharePct": 2,
+      "futureAdd": 598,
+      "faceOnDisk": 712,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 1033,
+      "gap": 1033
+    },
+    {
+      "pfx": "ik",
+      "name": "Industry KPIs",
+      "category": "industry-verticals-jobs-kpi",
+      "now": 677,
+      "sharePct": 1.9,
+      "futureAdd": 569,
+      "faceOnDisk": 677,
+      "approved": 676,
+      "bankNow": 320,
+      "recommendBank": 999,
+      "gap": 679
+    },
+    {
+      "pfx": "pt",
+      "name": "Pets",
+      "category": "pets-animals",
+      "now": 573,
+      "sharePct": 1.6,
+      "futureAdd": 482,
+      "faceOnDisk": 573,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 899,
+      "gap": 899
+    },
+    {
+      "pfx": "ra",
+      "name": "Rev Architecture",
+      "category": "revenue-ops-architecture-meetings",
+      "now": 573,
+      "sharePct": 1.6,
+      "futureAdd": 482,
+      "faceOnDisk": 573,
+      "approved": 573,
+      "bankNow": 0,
+      "recommendBank": 899,
+      "gap": 899
+    },
+    {
+      "pfx": "gb",
+      "name": "Graphics",
+      "category": "graphics-design-creative",
+      "now": 553,
+      "sharePct": 1.5,
+      "futureAdd": 465,
+      "faceOnDisk": 553,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 880,
+      "gap": 880
+    },
+    {
+      "pfx": "tk",
+      "name": "Tech Stacks",
+      "category": "tech-stacks-servers-code",
+      "now": 544,
+      "sharePct": 1.5,
+      "futureAdd": 457,
+      "faceOnDisk": 545,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 871,
+      "gap": 871
+    },
+    {
+      "pfx": "sc",
+      "name": "Schools",
+      "category": "schools-campus",
+      "now": 518,
+      "sharePct": 1.5,
+      "futureAdd": 435,
+      "faceOnDisk": 518,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 845,
+      "gap": 845
+    },
+    {
+      "pfx": "ai",
+      "name": "AI Infra",
+      "category": "ai-data-centers-ml",
+      "now": 445,
+      "sharePct": 1.2,
+      "futureAdd": 374,
+      "faceOnDisk": 461,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 775,
+      "gap": 775
+    },
+    {
+      "pfx": "gp",
+      "name": "GTM Playbooks",
+      "category": "gtm-sales-marketing-warroom",
+      "now": 425,
+      "sharePct": 1.2,
+      "futureAdd": 357,
+      "faceOnDisk": 853,
+      "approved": 271,
+      "bankNow": 0,
+      "recommendBank": 756,
+      "gap": 756
+    },
+    {
+      "pfx": "bt",
+      "name": "Boats",
+      "category": "boats-marine",
+      "now": 418,
+      "sharePct": 1.2,
+      "futureAdd": 351,
+      "faceOnDisk": 453,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 749,
+      "gap": 749
+    },
+    {
+      "pfx": "dn",
+      "name": "Dining",
+      "category": "dining-restaurants",
+      "now": 382,
+      "sharePct": 1.1,
+      "futureAdd": 321,
+      "faceOnDisk": 383,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 714,
+      "gap": 714
+    },
+    {
+      "pfx": "es",
+      "name": "Espresso",
+      "category": "espresso-coffee",
+      "now": 356,
+      "sharePct": 1,
+      "futureAdd": 299,
+      "faceOnDisk": 356,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 689,
+      "gap": 689
+    },
+    {
+      "pfx": "bs",
+      "name": "Book Summaries",
+      "category": "books-reading-library",
+      "now": 350,
+      "sharePct": 1,
+      "futureAdd": 294,
+      "faceOnDisk": 350,
+      "approved": 46,
+      "bankNow": 300,
+      "recommendBank": 683,
+      "gap": 383
+    },
+    {
+      "pfx": "bo",
+      "name": "Buildouts",
+      "category": "buildouts-construction",
+      "now": 296,
+      "sharePct": 0.8,
+      "futureAdd": 249,
+      "faceOnDisk": 296,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 631,
+      "gap": 631
+    },
+    {
+      "pfx": "tv",
+      "name": "TVs",
+      "category": "tvs-living-room-tech",
+      "now": 292,
+      "sharePct": 0.8,
+      "futureAdd": 245,
+      "faceOnDisk": 292,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 627,
+      "gap": 627
+    },
+    {
+      "pfx": "sp",
+      "name": "Sports",
+      "category": "sports",
+      "now": 258,
+      "sharePct": 0.7,
+      "futureAdd": 217,
+      "faceOnDisk": 258,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 595,
+      "gap": 595
+    },
+    {
+      "pfx": "tc",
+      "name": "Telco",
+      "category": "telco-network-towers",
+      "now": 256,
+      "sharePct": 0.7,
+      "futureAdd": 215,
+      "faceOnDisk": 256,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 592,
+      "gap": 592
+    },
+    {
+      "pfx": "rs",
+      "name": "Resorts",
+      "category": "resorts-hotels",
+      "now": 214,
+      "sharePct": 0.6,
+      "futureAdd": 180,
+      "faceOnDisk": 214,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 552,
+      "gap": 552
+    },
+    {
+      "pfx": "nl",
+      "name": "Nightlife",
+      "category": "nightlife-bars",
+      "now": 185,
+      "sharePct": 0.5,
+      "futureAdd": 156,
+      "faceOnDisk": 185,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 524,
+      "gap": 524
+    },
+    {
+      "pfx": "cl",
+      "name": "Cologne",
+      "category": "cologne-fragrance",
+      "now": 160,
+      "sharePct": 0.4,
+      "futureAdd": 135,
+      "faceOnDisk": 160,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 500,
+      "gap": 500
+    },
+    {
+      "pfx": "co",
+      "name": "Collectibles",
+      "category": "collectibles-auctions",
+      "now": 157,
+      "sharePct": 0.4,
+      "futureAdd": 132,
+      "faceOnDisk": 157,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 497,
+      "gap": 497
+    },
+    {
+      "pfx": "tn",
+      "name": "Towns",
+      "category": "towns-main-street",
+      "now": 144,
+      "sharePct": 0.4,
+      "futureAdd": 121,
+      "faceOnDisk": 144,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 484,
+      "gap": 484
+    },
+    {
+      "pfx": "lv",
+      "name": "Lux Vacations",
+      "category": "luxury-travel",
+      "now": 125,
+      "sharePct": 0.4,
+      "futureAdd": 105,
+      "faceOnDisk": 125,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 466,
+      "gap": 466
+    },
+    {
+      "pfx": "wl",
+      "name": "Wellness",
+      "category": "wellness-fitness-meditation",
+      "now": 119,
+      "sharePct": 0.3,
+      "futureAdd": 100,
+      "faceOnDisk": 128,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 460,
+      "gap": 460
+    },
+    {
+      "pfx": "ev",
+      "name": "Events",
+      "category": "events-conferences",
+      "now": 108,
+      "sharePct": 0.3,
+      "futureAdd": 91,
+      "faceOnDisk": 108,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 450,
+      "gap": 450
+    },
+    {
+      "pfx": "sk",
+      "name": "Skill Drills",
+      "category": "skills-training-drills",
+      "now": 105,
+      "sharePct": 0.3,
+      "futureAdd": 88,
+      "faceOnDisk": 105,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 446,
+      "gap": 446
+    },
+    {
+      "pfx": "sw",
+      "name": "Software",
+      "category": "software-laptops-product",
+      "now": 102,
+      "sharePct": 0.3,
+      "futureAdd": 86,
+      "faceOnDisk": 102,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 444,
+      "gap": 444
+    },
+    {
+      "pfx": "ga",
+      "name": "Gatherings",
+      "category": "gatherings-venues-weddings",
+      "now": 97,
+      "sharePct": 0.3,
+      "futureAdd": 82,
+      "faceOnDisk": 104,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 439,
+      "gap": 439
+    },
+    {
+      "pfx": "gm",
+      "name": "Gaming",
+      "category": "gaming-esports",
+      "now": 70,
+      "sharePct": 0.2,
+      "futureAdd": 59,
+      "faceOnDisk": 546,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 413,
+      "gap": 413
+    },
+    {
+      "pfx": "hf",
+      "name": "Home & Family",
+      "category": "home-family",
+      "now": 68,
+      "sharePct": 0.2,
+      "futureAdd": 57,
+      "faceOnDisk": 242,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 411,
+      "gap": 411
+    },
+    {
+      "pfx": "mv",
+      "name": "Movies",
+      "category": "movies-cinema",
+      "now": 58,
+      "sharePct": 0.2,
+      "futureAdd": 49,
+      "faceOnDisk": 1131,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 401,
+      "gap": 401
+    },
+    {
+      "pfx": "qmpxa",
+      "name": "qmpxa",
+      "category": "general-business",
+      "now": 5,
+      "sharePct": 0,
+      "futureAdd": 4,
+      "faceOnDisk": 5,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 350,
+      "gap": 350
+    },
+    {
+      "pfx": "qmpx",
+      "name": "qmpx",
+      "category": "general-business",
+      "now": 5,
+      "sharePct": 0,
+      "futureAdd": 4,
+      "faceOnDisk": 12,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 350,
+      "gap": 350
+    },
+    {
+      "pfx": "qmpsyg",
+      "name": "qmpsyg",
+      "category": "general-business",
+      "now": 2,
+      "sharePct": 0,
+      "futureAdd": 2,
+      "faceOnDisk": 3,
+      "approved": 0,
+      "bankNow": 0,
+      "recommendBank": 347,
+      "gap": 347
+    }
+  ]
+}

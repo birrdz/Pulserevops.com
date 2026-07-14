@@ -208,6 +208,7 @@ function mapListEntry(e) {
     // rendered entry page meta (from the blob), not this index API.
     tags: (e.tags || []).slice(0, 12),
     img: e.img || null,   // face-card hero URL (stamped into the index) — powers the mosaic tile boxes
+    imgSq: e.imgSq || null, // untitled browse square for homepage Recents + pillar rows
     cover_src: e.cover_src || null,
     face_title_baked: !!e.face_title_baked,
     ts: e.ts,
@@ -844,10 +845,12 @@ exports.handler = async (event) => {
       let slim = entries.slice(0, Math.min(limit, 40000)).map(e => ({
         id: e.id,
         question: e.question,
-        // Face/cover URLs are short and required for browse squares — without them
-        // every card in a pillar collapses to the same topic stock image.
+        // Face/cover + browse square + ts — Recents + pillar rows need these
         img: e.img || undefined,
+        imgSq: e.imgSq || undefined,
         cover_src: e.cover_src || undefined,
+        ts: e.ts || e.polished_at || undefined,
+        quality_score: typeof e.quality_score === 'number' ? e.quality_score : undefined,
         tags: Array.isArray(e.tags) ? e.tags.slice(0, TAG_CAP) : undefined,
       }));
       // BYTE-BUDGET guard (matches the full path): returning the WHOLE library can

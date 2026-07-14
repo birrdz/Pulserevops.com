@@ -1,0 +1,2717 @@
+{
+ "kept": {
+  "gp0059": {
+   "at": 1783887372744
+  },
+  "gp0061": {
+   "at": 1783887377408
+  },
+  "gp0062": {
+   "at": 1783887379183
+  },
+  "gp0067": {
+   "at": 1783887380757
+  },
+  "gp0068": {
+   "at": 1783887381979
+  },
+  "gp0069": {
+   "at": 1783887383256
+  },
+  "gp0071": {
+   "at": 1783887384530
+  },
+  "gp0072": {
+   "at": 1783887385831
+  },
+  "gp0073": {
+   "at": 1783887387502
+  },
+  "gp0074": {
+   "at": 1783887388757
+  },
+  "gp0075": {
+   "at": 1783887389930
+  },
+  "gp0079": {
+   "at": 1783887391267
+  },
+  "gp0081": {
+   "at": 1783887392592
+  },
+  "gp0084": {
+   "at": 1783887394879
+  },
+  "gp0085": {
+   "at": 1783887395984
+  },
+  "gp0087": {
+   "at": 1783887397200
+  },
+  "gp0089": {
+   "at": 1783887398417
+  },
+  "gp0091": {
+   "at": 1783887399496
+  },
+  "gp0092": {
+   "at": 1783887400642
+  },
+  "gp0093": {
+   "at": 1783887402281
+  },
+  "gp0094": {
+   "at": 1783887403539
+  },
+  "gp0095": {
+   "at": 1783887404842
+  },
+  "gp0096": {
+   "at": 1783887406423
+  },
+  "gp0098": {
+   "at": 1783887408155
+  },
+  "gp0099": {
+   "at": 1783887409412
+  },
+  "gp0101": {
+   "at": 1783887410390
+  },
+  "gp0106": {
+   "at": 1783887411367
+  },
+  "gp0110": {
+   "at": 1783887412308
+  },
+  "gp0113": {
+   "at": 1783887413442
+  },
+  "gp0116": {
+   "at": 1783887414542
+  },
+  "gp0117": {
+   "at": 1783887415448
+  },
+  "gp0118": {
+   "at": 1783887416515
+  },
+  "gp0119": {
+   "at": 1783887417966
+  },
+  "gp0121": {
+   "at": 1783887419329
+  },
+  "gp0122": {
+   "at": 1783887420869
+  },
+  "gp0124": {
+   "at": 1783887422160
+  },
+  "gp0125": {
+   "at": 1783887423623
+  },
+  "gp0126": {
+   "at": 1783887424808
+  },
+  "gp0127": {
+   "at": 1783887426108
+  },
+  "gp0129": {
+   "at": 1783887427262
+  },
+  "gp0130": {
+   "at": 1783887428460
+  },
+  "gp0131": {
+   "at": 1783887429788
+  },
+  "gp0132": {
+   "at": 1783887430944
+  },
+  "gp0133": {
+   "at": 1783887433903
+  },
+  "gp0134": {
+   "at": 1783887436442
+  },
+  "gp0135": {
+   "at": 1783887437547
+  },
+  "gp0136": {
+   "at": 1783887438482
+  },
+  "gp0137": {
+   "at": 1783887439072
+  },
+  "gp0138": {
+   "at": 1783887440232
+  },
+  "gp0140": {
+   "at": 1783887441367
+  },
+  "gp0141": {
+   "at": 1783887442774
+  },
+  "gp0142": {
+   "at": 1783887443913
+  },
+  "gp0143": {
+   "at": 1783887445008
+  },
+  "gp0144": {
+   "at": 1783887446100
+  },
+  "gp0145": {
+   "at": 1783887447149
+  },
+  "gp0146": {
+   "at": 1783887448222
+  },
+  "gp0147": {
+   "at": 1783887449461
+  },
+  "gp0148": {
+   "at": 1783887450342
+  },
+  "gp0149": {
+   "at": 1783887451388
+  },
+  "gp0150": {
+   "at": 1783887452759
+  },
+  "gp0151": {
+   "at": 1783887453762
+  },
+  "gp0152": {
+   "at": 1783887454738
+  },
+  "gp0154": {
+   "at": 1783887456812
+  },
+  "gp0155": {
+   "at": 1783887458796
+  },
+  "gp0156": {
+   "at": 1783887459865
+  },
+  "gp0001": {
+   "at": 1783887497170
+  },
+  "gp0006": {
+   "at": 1783887498663
+  },
+  "gp0007": {
+   "at": 1783887500152
+  },
+  "gp0008": {
+   "at": 1783887500769
+  },
+  "gp0009": {
+   "at": 1783887501302
+  },
+  "gp0010": {
+   "at": 1783887501884
+  },
+  "gp0011": {
+   "at": 1783887502458
+  },
+  "gp0012": {
+   "at": 1783887502961
+  },
+  "gp0014": {
+   "at": 1783887503570
+  },
+  "gp0015": {
+   "at": 1783887504051
+  },
+  "gp0016": {
+   "at": 1783887504503
+  },
+  "gp0018": {
+   "at": 1783887504880
+  },
+  "gp0020": {
+   "at": 1783887505362
+  },
+  "gp0024": {
+   "at": 1783887506180
+  },
+  "gp0025": {
+   "at": 1783887506656
+  },
+  "gp0026": {
+   "at": 1783887507097
+  },
+  "gp0028": {
+   "at": 1783887507543
+  },
+  "gp0029": {
+   "at": 1783887509680
+  },
+  "gp0030": {
+   "at": 1783887510176
+  },
+  "gp0031": {
+   "at": 1783887510686
+  },
+  "gp0032": {
+   "at": 1783887511119
+  },
+  "gp0033": {
+   "at": 1783887511455
+  },
+  "gp0034": {
+   "at": 1783887511748
+  },
+  "gp0035": {
+   "at": 1783887512204
+  },
+  "gp0036": {
+   "at": 1783887512674
+  },
+  "gp0037": {
+   "at": 1783887513613
+  },
+  "gp0038": {
+   "at": 1783887513900
+  },
+  "gp0039": {
+   "at": 1783887514242
+  },
+  "gp0040": {
+   "at": 1783887514942
+  },
+  "gp0041": {
+   "at": 1783887515419
+  },
+  "gp0043": {
+   "at": 1783887515802
+  },
+  "gp0044": {
+   "at": 1783887516070
+  },
+  "gp0045": {
+   "at": 1783887517516
+  },
+  "gp0046": {
+   "at": 1783887518432
+  },
+  "gp0048": {
+   "at": 1783887519114
+  },
+  "gp0049": {
+   "at": 1783887519736
+  },
+  "gp0052": {
+   "at": 1783887520010
+  },
+  "gp0053": {
+   "at": 1783887520262
+  },
+  "gp0054": {
+   "at": 1783887520604
+  },
+  "gp0057": {
+   "at": 1783887521280
+  },
+  "gp0157": {
+   "at": 1783887521602
+  },
+  "gp0158": {
+   "at": 1783887522196
+  },
+  "gp0159": {
+   "at": 1783887522562
+  },
+  "gp0160": {
+   "at": 1783887522923
+  },
+  "gp0161": {
+   "at": 1783887523258
+  },
+  "gp0162": {
+   "at": 1783887523732
+  },
+  "gp0163": {
+   "at": 1783887524322
+  },
+  "gp0164": {
+   "at": 1783887524664
+  },
+  "gp0166": {
+   "at": 1783887525035
+  },
+  "gp0167": {
+   "at": 1783887525404
+  },
+  "gp0168": {
+   "at": 1783887525776
+  },
+  "gp0172": {
+   "at": 1783887526252
+  },
+  "gp0174": {
+   "at": 1783887526587
+  },
+  "gp0175": {
+   "at": 1783887526994
+  },
+  "gp0176": {
+   "at": 1783887527396
+  },
+  "gp0186": {
+   "at": 1783887528007
+  },
+  "gp0187": {
+   "at": 1783887529063
+  },
+  "gp0188": {
+   "at": 1783887529359
+  },
+  "gp0191": {
+   "at": 1783887529644
+  },
+  "gp0269": {
+   "at": 1783887530040
+  },
+  "gp0270": {
+   "at": 1783887530419
+  },
+  "gp0271": {
+   "at": 1783887530941
+  },
+  "gp0272": {
+   "at": 1783887531216
+  },
+  "gp0273": {
+   "at": 1783887531514
+  },
+  "gp0274": {
+   "at": 1783887531943
+  },
+  "gp0275": {
+   "at": 1783887532476
+  },
+  "gp0276": {
+   "at": 1783887532862
+  },
+  "gp0277": {
+   "at": 1783887537629
+  },
+  "gp0278": {
+   "at": 1783887538074
+  },
+  "gp0279": {
+   "at": 1783887538360
+  },
+  "gp0280": {
+   "at": 1783887539280
+  },
+  "gp0281": {
+   "at": 1783887539614
+  },
+  "gp0282": {
+   "at": 1783887539985
+  },
+  "gp0283": {
+   "at": 1783887540396
+  },
+  "gp0284": {
+   "at": 1783887541292
+  },
+  "gp0285": {
+   "at": 1783887541812
+  },
+  "gp0286": {
+   "at": 1783887542693
+  },
+  "gp0287": {
+   "at": 1783887543096
+  },
+  "gp0288": {
+   "at": 1783887543505
+  },
+  "gp0289": {
+   "at": 1783887543780
+  },
+  "gp0290": {
+   "at": 1783887544221
+  },
+  "gp0291": {
+   "at": 1783887544609
+  },
+  "gp0292": {
+   "at": 1783887546818
+  },
+  "gp0293": {
+   "at": 1783887547444
+  },
+  "gp0294": {
+   "at": 1783887547946
+  },
+  "gp0295": {
+   "at": 1783887549302
+  },
+  "gp0296": {
+   "at": 1783887549832
+  },
+  "gp0297": {
+   "at": 1783887550288
+  },
+  "gp0298": {
+   "at": 1783887550618
+  },
+  "gp0299": {
+   "at": 1783887551367
+  },
+  "gp0300": {
+   "at": 1783887552266
+  },
+  "gp0301": {
+   "at": 1783887552943
+  },
+  "gp0302": {
+   "at": 1783887553220
+  },
+  "gp0303": {
+   "at": 1783887553598
+  },
+  "gp0304": {
+   "at": 1783887553936
+  },
+  "gp0305": {
+   "at": 1783887554710
+  },
+  "gp0306": {
+   "at": 1783887555319
+  },
+  "gp0307": {
+   "at": 1783887555842
+  },
+  "gp0308": {
+   "at": 1783887556352
+  },
+  "gp0309": {
+   "at": 1783887556608
+  },
+  "gp0310": {
+   "at": 1783887556977
+  },
+  "gp0311": {
+   "at": 1783887557339
+  },
+  "gp0312": {
+   "at": 1783887557864
+  },
+  "gp0313": {
+   "at": 1783887558166
+  },
+  "gp0314": {
+   "at": 1783887558498
+  },
+  "gp0315": {
+   "at": 1783887558940
+  },
+  "gp0316": {
+   "at": 1783887559346
+  },
+  "gp0317": {
+   "at": 1783887559649
+  },
+  "gp0318": {
+   "at": 1783887560365
+  },
+  "gp0319": {
+   "at": 1783887561085
+  },
+  "gp0320": {
+   "at": 1783887561370
+  },
+  "gp0321": {
+   "at": 1783887561680
+  },
+  "gp0322": {
+   "at": 1783887562009
+  },
+  "gp0323": {
+   "at": 1783887562486
+  },
+  "gp0324": {
+   "at": 1783887562947
+  },
+  "gp0325": {
+   "at": 1783887563292
+  },
+  "gp0326": {
+   "at": 1783887563651
+  },
+  "gp0327": {
+   "at": 1783887564115
+  },
+  "gp0328": {
+   "at": 1783887564580
+  },
+  "gp0329": {
+   "at": 1783887565076
+  },
+  "gp0330": {
+   "at": 1783887565720
+  },
+  "gp0331": {
+   "at": 1783887566165
+  },
+  "gp0332": {
+   "at": 1783887566766
+  },
+  "gp0333": {
+   "at": 1783887567226
+  },
+  "gp0334": {
+   "at": 1783887567552
+  },
+  "gp0335": {
+   "at": 1783887568023
+  },
+  "gp0336": {
+   "at": 1783887568327
+  },
+  "gp0337": {
+   "at": 1783887568600
+  },
+  "gp0338": {
+   "at": 1783887568888
+  },
+  "gp0339": {
+   "at": 1783887569341
+  },
+  "gp0340": {
+   "at": 1783887570115
+  },
+  "gp0341": {
+   "at": 1783887570762
+  },
+  "gp0342": {
+   "at": 1783887571088
+  },
+  "gp0343": {
+   "at": 1783887571466
+  },
+  "gp0344": {
+   "at": 1783887571788
+  },
+  "gp0345": {
+   "at": 1783887572183
+  },
+  "gp0346": {
+   "at": 1783887572560
+  },
+  "gp0347": {
+   "at": 1783887573103
+  },
+  "gp0348": {
+   "at": 1783887573698
+  },
+  "gp0349": {
+   "at": 1783887574138
+  },
+  "gp0350": {
+   "at": 1783887574674
+  },
+  "gp0351": {
+   "at": 1783887575051
+  },
+  "gp0352": {
+   "at": 1783887575358
+  },
+  "gp0353": {
+   "at": 1783887575742
+  },
+  "gp0354": {
+   "at": 1783887576133
+  },
+  "gp0355": {
+   "at": 1783887576515
+  },
+  "gp0356": {
+   "at": 1783887576899
+  },
+  "gp0357": {
+   "at": 1783887577289
+  },
+  "gp0358": {
+   "at": 1783887577810
+  },
+  "gp0359": {
+   "at": 1783887578185
+  },
+  "gp0360": {
+   "at": 1783887578463
+  },
+  "gp0361": {
+   "at": 1783887578852
+  },
+  "gp0362": {
+   "at": 1783887579249
+  },
+  "gp0363": {
+   "at": 1783887579655
+  },
+  "gp0364": {
+   "at": 1783887580035
+  },
+  "gp0365": {
+   "at": 1783887580433
+  },
+  "gp0366": {
+   "at": 1783887580792
+  },
+  "gp0367": {
+   "at": 1783887581070
+  },
+  "gp0368": {
+   "at": 1783887581442
+  },
+  "gp0369": {
+   "at": 1783887581738
+  },
+  "gp0370": {
+   "at": 1783887582148
+  },
+  "gp0371": {
+   "at": 1783887582542
+  },
+  "gp0372": {
+   "at": 1783887582931
+  },
+  "gp0373": {
+   "at": 1783887588697
+  },
+  "gp0374": {
+   "at": 1783887589128
+  },
+  "gp375": {
+   "at": 1783887589919
+  },
+  "gp376": {
+   "at": 1783887590616
+  },
+  "gp377": {
+   "at": 1783887591044
+  },
+  "gp378": {
+   "at": 1783887591699
+  },
+  "gp0379": {
+   "at": 1783887592098
+  },
+  "gp0380": {
+   "at": 1783887592452
+  },
+  "gp0381": {
+   "at": 1783887593092
+  },
+  "gp382": {
+   "at": 1783887593580
+  },
+  "gp383": {
+   "at": 1783887593954
+  },
+  "gp384": {
+   "at": 1783887594465
+  },
+  "gp385": {
+   "at": 1783887594970
+  },
+  "gp386": {
+   "at": 1783887595430
+  },
+  "gp387": {
+   "at": 1783887595735
+  },
+  "gp388": {
+   "at": 1783887596212
+  },
+  "gp389": {
+   "at": 1783887596676
+  },
+  "gp390": {
+   "at": 1783887597212
+  },
+  "gp0391": {
+   "at": 1783887597865
+  },
+  "gp0392": {
+   "at": 1783887598134
+  },
+  "gp0395": {
+   "at": 1783887598582
+  },
+  "gp0396": {
+   "at": 1783887599013
+  },
+  "gp0433": {
+   "at": 1783887599381
+  },
+  "gp0435": {
+   "at": 1783887599782
+  },
+  "gp0487": {
+   "at": 1783887600190
+  },
+  "gp0489": {
+   "at": 1783887600598
+  },
+  "gp0490": {
+   "at": 1783887600944
+  },
+  "gp0491": {
+   "at": 1783887601356
+  },
+  "gp0492": {
+   "at": 1783887601706
+  },
+  "gp0493": {
+   "at": 1783887602080
+  },
+  "gp0494": {
+   "at": 1783887602451
+  },
+  "gp0495": {
+   "at": 1783887602797
+  },
+  "gp0496": {
+   "at": 1783887603102
+  },
+  "gp0502": {
+   "at": 1783887603684
+  },
+  "gp0503": {
+   "at": 1783887604172
+  },
+  "gp0504": {
+   "at": 1783887604780
+  },
+  "gp0505": {
+   "at": 1783887605102
+  },
+  "gp0506": {
+   "at": 1783887605742
+  },
+  "gp0507": {
+   "at": 1783887606035
+  },
+  "gp0508": {
+   "at": 1783887606398
+  },
+  "gp0509": {
+   "at": 1783887606686
+  },
+  "gp0510": {
+   "at": 1783887607079
+  },
+  "gp516": {
+   "at": 1783887607493
+  }
+ },
+ "reverted": {},
+ "meta": {
+  "gp0001": {
+   "photoId": "6804068",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 1,
+   "title": "GTM Playbook for B2B SaaS in 2027 — The Complete Operator Guide"
+  },
+  "gp0006": {
+   "photoId": "34718922",
+   "srcUrl": "",
+   "query": "Manufacturing business workplace",
+   "zoomLevel": 1,
+   "title": "GTM Playbook for Manufacturing in 2027 — The Complete Operator Guide"
+  },
+  "gp0007": {
+   "photoId": "4487383",
+   "srcUrl": "",
+   "query": "warehouse logistics shipping workers",
+   "zoomLevel": 1,
+   "title": "GTM Playbook for Logistics and Supply Chain in 2027 — The Complete Operator Guide"
+  },
+  "gp0008": {
+   "photoId": "8961260",
+   "srcUrl": "",
+   "query": "construction site workers hard hats",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Construction Tech in 2027 — The Complete Operator Guide"
+  },
+  "gp0009": {
+   "photoId": "15951714",
+   "srcUrl": "",
+   "query": "modern apartment building architecture exterior",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for PropTech in 2027 — The Complete Operator Guide"
+  },
+  "gp0010": {
+   "photoId": "8353820",
+   "srcUrl": "",
+   "query": "finance banking professionals office",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for InsureTech in 2027 — The Complete Operator Guide"
+  },
+  "gp0011": {
+   "photoId": "15751132",
+   "srcUrl": "",
+   "query": "energy power plant solar infrastructure",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Energy and Utilities in 2027 — The Complete Operator Guide"
+  },
+  "gp0012": {
+   "photoId": "36532938",
+   "srcUrl": "",
+   "query": "telecommunications network tower",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Telecom in 2027 — The Complete Operator Guide"
+  },
+  "gp0014": {
+   "photoId": "7679784",
+   "srcUrl": "",
+   "query": "retail store shopping customers",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for E-commerce and DTC in 2027 — The Complete Operator Guide"
+  },
+  "gp0015": {
+   "photoId": "5531289",
+   "srcUrl": "",
+   "query": "Restaurants Food Service business workplace",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Restaurants and Food Service in 2027 — The Complete Operator Guide"
+  },
+  "gp0016": {
+   "photoId": "8199134",
+   "srcUrl": "",
+   "query": "university campus classroom education",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for EdTech in 2027 — The Complete Operator Guide"
+  },
+  "gp0018": {
+   "photoId": "31379836",
+   "srcUrl": "",
+   "query": "LegalTech business workplace",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for LegalTech in 2027 — The Complete Operator Guide"
+  },
+  "gp0020": {
+   "photoId": "4253300",
+   "srcUrl": "",
+   "query": "restaurant kitchen chefs hospitality",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Travel and Hospitality in 2027 — The Complete Operator Guide"
+  },
+  "gp0024": {
+   "photoId": "20425755",
+   "srcUrl": "",
+   "query": "Aviation Aerospace business workplace",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Aviation and Aerospace in 2027 — The Complete Operator Guide"
+  },
+  "gp0025": {
+   "photoId": "35652456",
+   "srcUrl": "",
+   "query": "IoT Hardware business workplace",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for IoT Hardware in 2027 — The Complete Operator Guide"
+  },
+  "gp0026": {
+   "photoId": "8199145",
+   "srcUrl": "",
+   "query": "university campus classroom education",
+   "zoomLevel": 0,
+   "title": "How do you build a K-12 EdTech go-to-market motion in 2027?"
+  },
+  "gp0028": {
+   "photoId": "28543579",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "How do you build a corporate L&D platform go-to-market motion in 2027?"
+  },
+  "gp0029": {
+   "photoId": "5668863",
+   "srcUrl": "",
+   "query": "job interview office professionals",
+   "zoomLevel": 0,
+   "title": "How do you build an HR Tech and HRIS go-to-market motion in 2027?"
+  },
+  "gp0030": {
+   "photoId": "8171870",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "How do you build a recruiting tech and ATS go-to-market motion in 2027?"
+  },
+  "gp0031": {
+   "photoId": "4974912",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 0,
+   "title": "How do you build a performance management and OKR software go-to-market motion in 2027?"
+  },
+  "gp0032": {
+   "photoId": "15168095",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "How do you build an employee engagement platform go-to-market motion in 2027?"
+  },
+  "gp0033": {
+   "photoId": "6804594",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 0,
+   "title": "How do you build a customer support and help desk SaaS go-to-market motion in 2027?"
+  },
+  "gp0034": {
+   "photoId": "11673912",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "How do you build a field service management go-to-market motion in 2027?"
+  },
+  "gp0035": {
+   "photoId": "6285146",
+   "srcUrl": "",
+   "query": "do you build workforce management motion business workplace",
+   "zoomLevel": 0,
+   "title": "How do you build a workforce management go-to-market motion in 2027?"
+  },
+  "gp0036": {
+   "photoId": "36297579",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "How do you build a payroll and benefits administration go-to-market motion in 2027?"
+  },
+  "gp0037": {
+   "photoId": "7680736",
+   "srcUrl": "",
+   "query": "do you build expense management motion business workplace",
+   "zoomLevel": 0,
+   "title": "How do you build an expense management go-to-market motion in 2027?"
+  },
+  "gp0038": {
+   "photoId": "15577446",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "How do you build a procurement and spend management go-to-market motion in 2027?"
+  },
+  "gp0039": {
+   "photoId": "3622683",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "How do you build a treasury and cash management go-to-market motion in 2027?"
+  },
+  "gp0040": {
+   "photoId": "38427501",
+   "srcUrl": "",
+   "query": "do you build manufacturing ERP motion business workplace",
+   "zoomLevel": 0,
+   "title": "How do you build a manufacturing ERP go-to-market motion in 2027?"
+  },
+  "gp0041": {
+   "photoId": "946310",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "How do you build a distribution and wholesale ERP go-to-market motion in 2027?"
+  },
+  "gp0043": {
+   "photoId": "1181467",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 0,
+   "title": "How do you build an AEC (architecture, engineering, construction) software go-to-market motion in 2027?"
+  },
+  "gp0044": {
+   "photoId": "7988114",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 0,
+   "title": "How do you build a CAFM and IWMS facility management software go-to-market motion in 2027?"
+  },
+  "gp0045": {
+   "photoId": "1181263",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 0,
+   "title": "How do you build an EHS (environment health safety) software go-to-market motion in 2027?"
+  },
+  "gp0046": {
+   "photoId": "6689140",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "How do you build a quality management systems (QMS) go-to-market motion in 2027?"
+  },
+  "gp0048": {
+   "photoId": "4487484",
+   "srcUrl": "",
+   "query": "warehouse logistics shipping workers",
+   "zoomLevel": 0,
+   "title": "How do you build a warehouse management system (WMS) go-to-market motion in 2027?"
+  },
+  "gp0049": {
+   "photoId": "38113341",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "How do you build a transportation management system (TMS) go-to-market motion in 2027?"
+  },
+  "gp0052": {
+   "photoId": "7988079",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 0,
+   "title": "How do you build a maritime and shipping software go-to-market motion in 2027?"
+  },
+  "gp0053": {
+   "photoId": "34803969",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 0,
+   "title": "How do you build a cold chain logistics software go-to-market motion in 2027?"
+  },
+  "gp0054": {
+   "photoId": "34803986",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 0,
+   "title": "How do you build a trade compliance software go-to-market motion in 2027?"
+  },
+  "gp0057": {
+   "photoId": "7988745",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 0,
+   "title": "How do you build an oil and gas upstream software go-to-market motion in 2027?"
+  },
+  "gp0059": {
+   "photoId": "34212916",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 0,
+   "title": "How do you build a carbon accounting and ESG reporting software go-to-market motion in 2027?"
+  },
+  "gp0061": {
+   "photoId": "34774358",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 1,
+   "title": "How do you build a smart building and IoT buildings software go-to-market motion in 2027?"
+  },
+  "gp0062": {
+   "photoId": "5323853",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 1,
+   "title": "How do you build a smart city platforms go-to-market motion in 2027?"
+  },
+  "gp0067": {
+   "photoId": "36496927",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 1,
+   "title": "How do you build an audit software go-to-market motion in 2027?"
+  },
+  "gp0068": {
+   "photoId": "36598848",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 1,
+   "title": "How do you build a risk management and GRC software go-to-market motion in 2027?"
+  },
+  "gp0069": {
+   "photoId": "37170373",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 1,
+   "title": "How do you build a compliance training platform go-to-market motion in 2027?"
+  },
+  "gp0071": {
+   "photoId": "38240611",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 1,
+   "title": "How do you build a background check services go-to-market motion in 2027?"
+  },
+  "gp0072": {
+   "photoId": "7988125",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 1,
+   "title": "How do you build an identity verification (IDV) software go-to-market motion in 2027?"
+  },
+  "gp0073": {
+   "photoId": "36706459",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 1,
+   "title": "How do you build a fraud detection (e-commerce and payments) software go-to-market motion in 2027?"
+  },
+  "gp0074": {
+   "photoId": "6804612",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 1,
+   "title": "How do you build an AML and KYC compliance software go-to-market motion in 2027?"
+  },
+  "gp0075": {
+   "photoId": "14455165",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 1,
+   "title": "How do you build a trading and order management systems (OMS) capital markets go-to-market motion in 2027?"
+  },
+  "gp0079": {
+   "photoId": "7446996",
+   "srcUrl": "",
+   "query": "doctors hospital medical professionals",
+   "zoomLevel": 1,
+   "title": "How do you build a vertical SaaS for dental practices (Dentrix / Eaglesoft) go-to-market motion in 2027?"
+  },
+  "gp0081": {
+   "photoId": "6804071",
+   "srcUrl": "",
+   "query": "software developers coding office working",
+   "zoomLevel": 1,
+   "title": "How do you build a vertical SaaS for real estate brokers (MoxiWorks / kvCORE) go-to-market motion in 2027?"
+  },
+  "gp0084": {
+   "photoId": "89724",
+   "srcUrl": "",
+   "query": "software developers coding office working",
+   "zoomLevel": 1,
+   "title": "How do you build a vertical SaaS for lawn care and landscaping go-to-market motion in 2027?"
+  },
+  "gp0085": {
+   "photoId": "36706460",
+   "srcUrl": "",
+   "query": "software developers coding office working",
+   "zoomLevel": 1,
+   "title": "How do you build a vertical SaaS for HVAC and plumbing contractors go-to-market motion in 2027?"
+  },
+  "gp0087": {
+   "photoId": "6803522",
+   "srcUrl": "",
+   "query": "software developers coding office working",
+   "zoomLevel": 1,
+   "title": "How do you build a vertical SaaS for electrical contractors go-to-market motion in 2027?"
+  },
+  "gp0089": {
+   "photoId": "8961070",
+   "srcUrl": "",
+   "query": "construction workers hard hats jobsite",
+   "zoomLevel": 1,
+   "title": "How do you build a construction tendering and bid management software go-to-market motion in 2027?"
+  },
+  "gp0091": {
+   "photoId": "31091544",
+   "srcUrl": "",
+   "query": "manufacturing factory workers production line",
+   "zoomLevel": 1,
+   "title": "How do you build an industrial IoT platforms go-to-market motion in 2027?"
+  },
+  "gp0092": {
+   "photoId": "8438991",
+   "srcUrl": "",
+   "query": "robotic process automation UiPath / Automation Anywhere professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build a robotic process automation (UiPath / Automation Anywhere) go-to-market motion in 2027?"
+  },
+  "gp0093": {
+   "photoId": "3861951",
+   "srcUrl": "",
+   "query": "low-code / no-code platforms OutSystems / Mendix professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build a low-code / no-code platforms (OutSystems / Mendix) go-to-market motion in 2027?"
+  },
+  "gp0094": {
+   "photoId": "38240550",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 1,
+   "title": "How do you build an iPaaS / integration platforms (Workato / Tray.io / Boomi) go-to-market motion in 2027?"
+  },
+  "gp0095": {
+   "photoId": "7709240",
+   "srcUrl": "",
+   "query": "reverse ETL Hightouch / Census professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build a reverse ETL (Hightouch / Census) go-to-market motion in 2027?"
+  },
+  "gp0096": {
+   "photoId": "7691675",
+   "srcUrl": "",
+   "query": "data catalog governance Collibra / Alation professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build a data catalog and governance (Collibra / Alation) go-to-market motion in 2027?"
+  },
+  "gp0098": {
+   "photoId": "7255730",
+   "srcUrl": "",
+   "query": "feature stores MLOps Tecton / Featureform / MLflow professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build a feature stores and MLOps (Tecton / Featureform / MLflow) go-to-market motion in 2027?"
+  },
+  "gp0099": {
+   "photoId": "29238152",
+   "srcUrl": "",
+   "query": "vector databases Pinecone / Weaviate professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build a vector databases (Pinecone / Weaviate) go-to-market motion in 2027?"
+  },
+  "gp0101": {
+   "photoId": "442151",
+   "srcUrl": "",
+   "query": "AI engineers data center technology working",
+   "zoomLevel": 1,
+   "title": "How do you build an AI agent frameworks (LangChain / LlamaIndex) go-to-market motion in 2027?"
+  },
+  "gp0106": {
+   "photoId": "19317897",
+   "srcUrl": "",
+   "query": "AI engineers data center technology working",
+   "zoomLevel": 1,
+   "title": "How do you build an AI for customer success (Catalyst / ChurnZero) go-to-market motion in 2027?"
+  },
+  "gp0110": {
+   "photoId": "35803215",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 1,
+   "title": "How do you build a mental health and behavioral health platforms (Lyra / Spring Health) go-to-market motion in 2027?"
+  },
+  "gp0113": {
+   "photoId": "5327649",
+   "srcUrl": "",
+   "query": "doctors nurses hospital medical professionals working",
+   "zoomLevel": 1,
+   "title": "How do you build a hospital revenue cycle management (Epic / Cerner adjacent) go-to-market motion in 2027?"
+  },
+  "gp0116": {
+   "photoId": "6129154",
+   "srcUrl": "",
+   "query": "doctors nurses hospital medical professionals working",
+   "zoomLevel": 1,
+   "title": "How do you build a specialty pharma distribution software go-to-market motion in 2027?"
+  },
+  "gp0117": {
+   "photoId": "6129494",
+   "srcUrl": "",
+   "query": "doctors nurses hospital medical professionals working",
+   "zoomLevel": 0,
+   "title": "How do you build a medical device software / SaMD go-to-market motion in 2027?"
+  },
+  "gp0118": {
+   "photoId": "6129502",
+   "srcUrl": "",
+   "query": "doctors nurses hospital medical professionals working",
+   "zoomLevel": 1,
+   "title": "How do you build a biotech research platforms (Benchling / Schrödinger) go-to-market motion in 2027?"
+  },
+  "gp0119": {
+   "photoId": "34965367",
+   "srcUrl": "",
+   "query": "farmers agriculture workers harvest field",
+   "zoomLevel": 1,
+   "title": "How do you build an AgTech crop management (Climate FieldView / Granular) go-to-market motion in 2027?"
+  },
+  "gp0121": {
+   "photoId": "1181676",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 1,
+   "title": "How do you build an aquaculture software go-to-market motion in 2027?"
+  },
+  "gp0122": {
+   "photoId": "4974920",
+   "srcUrl": "",
+   "query": "software developers coding laptops office",
+   "zoomLevel": 1,
+   "title": "How do you build a forestry management software go-to-market motion in 2027?"
+  },
+  "gp0124": {
+   "photoId": "30535634",
+   "srcUrl": "",
+   "query": "carbon credit marketplaces professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build a carbon credit marketplaces go-to-market motion in 2027?"
+  },
+  "gp0125": {
+   "photoId": "7693218",
+   "srcUrl": "",
+   "query": "climate risk analytics Jupiter Intelligence / Cervest professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build a climate risk analytics (Jupiter Intelligence / Cervest) go-to-market motion in 2027?"
+  },
+  "gp0126": {
+   "photoId": "13971183",
+   "srcUrl": "",
+   "query": "restaurant chefs kitchen staff working",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a Quick-Service Restaurant (QSR) operator in 2027?"
+  },
+  "gp0127": {
+   "photoId": "17318176",
+   "srcUrl": "",
+   "query": "restaurant chefs kitchen staff working",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a fine-dining or upscale restaurant in 2027?"
+  },
+  "gp0129": {
+   "photoId": "7433874",
+   "srcUrl": "",
+   "query": "convenience professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a convenience-store (C-store) operator in 2027?"
+  },
+  "gp0130": {
+   "photoId": "4484073",
+   "srcUrl": "",
+   "query": "warehouse logistics workers shipping",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a Big-Box / warehouse-club retailer (Costco, Sam's, BJ's) in 2027?"
+  },
+  "gp0131": {
+   "photoId": "8475203",
+   "srcUrl": "",
+   "query": "independent specialty retailer professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for an independent specialty retailer in 2027?"
+  },
+  "gp0132": {
+   "photoId": "7176000",
+   "srcUrl": "",
+   "query": "specialty coffee roaster independent coffee shop professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a specialty coffee roaster and independent coffee shop in 2027?"
+  },
+  "gp0133": {
+   "photoId": "5532995",
+   "srcUrl": "",
+   "query": "craft brewery or microbrewery professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a craft brewery or microbrewery operator in 2027?"
+  },
+  "gp0134": {
+   "photoId": "1267307",
+   "srcUrl": "",
+   "query": "craft distillery spirits professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a craft distillery (spirits) operator in 2027?"
+  },
+  "gp0135": {
+   "photoId": "10922984",
+   "srcUrl": "",
+   "query": "winery professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a winery operator in 2027?"
+  },
+  "gp0136": {
+   "photoId": "7175981",
+   "srcUrl": "",
+   "query": "specialty or artisan food brand professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a specialty or artisan food brand in 2027?"
+  },
+  "gp0137": {
+   "photoId": "16974742",
+   "srcUrl": "",
+   "query": "DTC cosmetics brand professionals working at work",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a DTC cosmetics brand in 2027?"
+  },
+  "gp0138": {
+   "photoId": "7707020",
+   "srcUrl": "",
+   "query": "DTC skincare brand professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a DTC skincare brand in 2027?"
+  },
+  "gp0140": {
+   "photoId": "8117465",
+   "srcUrl": "",
+   "query": "beauty subscription box professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a beauty subscription box operator in 2027?"
+  },
+  "gp0141": {
+   "photoId": "8353786",
+   "srcUrl": "",
+   "query": "finance banking professionals working office",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a pet insurance operator in 2027?"
+  },
+  "gp0142": {
+   "photoId": "19145897",
+   "srcUrl": "",
+   "query": "doggy daycare pet boarding professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a doggy daycare and pet boarding operator in 2027?"
+  },
+  "gp0143": {
+   "photoId": "7282636",
+   "srcUrl": "",
+   "query": "pet sitting dog walking marketplace professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a pet sitting and dog walking marketplace in 2027?"
+  },
+  "gp0144": {
+   "photoId": "37676584",
+   "srcUrl": "",
+   "query": "med spa Botox + filler + laser professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a med spa (Botox + filler + laser) operator in 2027?"
+  },
+  "gp0145": {
+   "photoId": "6129589",
+   "srcUrl": "",
+   "query": "doctors nurses hospital medical professionals working",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a cosmetic dermatology clinic in 2027?"
+  },
+  "gp0146": {
+   "photoId": "20860596",
+   "srcUrl": "",
+   "query": "physical therapist patient rehabilitation",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a physical therapy clinic in 2027?"
+  },
+  "gp0147": {
+   "photoId": "4506217",
+   "srcUrl": "",
+   "query": "chiropractor treating patient clinic",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a chiropractic practice in 2027?"
+  },
+  "gp0148": {
+   "photoId": "37795357",
+   "srcUrl": "",
+   "query": "teachers university classroom education",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a music school and lesson studio in 2027?"
+  },
+  "gp0149": {
+   "photoId": "14911054",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a K-12 tutoring center in 2027?"
+  },
+  "gp0150": {
+   "photoId": "37758126",
+   "srcUrl": "",
+   "query": "teachers university classroom education",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a driving school in 2027?"
+  },
+  "gp0151": {
+   "photoId": "6926404",
+   "srcUrl": "",
+   "query": "dance performing arts studio professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a dance and performing arts studio in 2027?"
+  },
+  "gp0152": {
+   "photoId": "6593448",
+   "srcUrl": "",
+   "query": "tattoo studio professionals working at work",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for a tattoo studio in 2027?"
+  },
+  "gp0154": {
+   "photoId": "4783335",
+   "srcUrl": "",
+   "query": "nail salon manicure bar professionals working at work",
+   "zoomLevel": 2,
+   "title": "How do you build the GTM playbook for a nail salon and manicure bar in 2027?"
+  },
+  "gp0155": {
+   "photoId": "3037215",
+   "srcUrl": "",
+   "query": "barbershop men s grooming chain professionals working at work",
+   "zoomLevel": 2,
+   "title": "How do you build the GTM playbook for a barbershop and men's grooming chain in 2027?"
+  },
+  "gp0156": {
+   "photoId": "36729881",
+   "srcUrl": "",
+   "query": "automotive dealership salespeople showroom",
+   "zoomLevel": 1,
+   "title": "How do you build the GTM playbook for an auto body shop in 2027?"
+  },
+  "gp0157": {
+   "photoId": "4254171",
+   "srcUrl": "",
+   "query": "energy workers power plant solar field",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a quick-lube and oil change chain in 2027?"
+  },
+  "gp0158": {
+   "photoId": "12555010",
+   "srcUrl": "",
+   "query": "tire shop professionals working at work",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a tire shop operator in 2027?"
+  },
+  "gp0159": {
+   "photoId": "4895429",
+   "srcUrl": "",
+   "query": "used car dealership professionals working at work",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a used car dealership in 2027?"
+  },
+  "gp0160": {
+   "photoId": "8961133",
+   "srcUrl": "",
+   "query": "construction workers hard hats jobsite",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a concrete and masonry contractor in 2027?"
+  },
+  "gp0161": {
+   "photoId": "31768372",
+   "srcUrl": "",
+   "query": "construction workers hard hats jobsite",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a painting contractor in 2027?"
+  },
+  "gp0162": {
+   "photoId": "9300985",
+   "srcUrl": "",
+   "query": "construction workers hard hats jobsite",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a flooring contractor in 2027?"
+  },
+  "gp0163": {
+   "photoId": "10231663",
+   "srcUrl": "",
+   "query": "pool cleaning pool maintenance professionals working at work",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a pool cleaning and pool maintenance operator in 2027?"
+  },
+  "gp0164": {
+   "photoId": "5691531",
+   "srcUrl": "",
+   "query": "glazier installing windows construction",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a window cleaning service operator in 2027?"
+  },
+  "gp0166": {
+   "photoId": "34581908",
+   "srcUrl": "",
+   "query": "junk removal hauling professionals working at work",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a junk removal and hauling operator in 2027?"
+  },
+  "gp0167": {
+   "photoId": "35578808",
+   "srcUrl": "",
+   "query": "locksmith service professionals working at work",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a locksmith service operator in 2027?"
+  },
+  "gp0168": {
+   "photoId": "4981812",
+   "srcUrl": "",
+   "query": "garage door installation repair professionals working at work",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a garage door installation and repair operator in 2027?"
+  },
+  "gp0172": {
+   "photoId": "31259229",
+   "srcUrl": "",
+   "query": "cruise line professionals working at work",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a cruise line operator in 2027?"
+  },
+  "gp0174": {
+   "photoId": "36088955",
+   "srcUrl": "",
+   "query": "event venue wedding venue professionals working at work",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for an event venue and wedding venue operator in 2027?"
+  },
+  "gp0175": {
+   "photoId": "30719069",
+   "srcUrl": "",
+   "query": "tours activities professionals working at work",
+   "zoomLevel": 0,
+   "title": "How do you build the GTM playbook for a tours and activities operator in 2027?"
+  },
+  "gp0176": {
+   "photoId": "8052221",
+   "srcUrl": "",
+   "query": "Mobile Detailing Route Density Fleet Sales M Owner- professionals working at work",
+   "zoomLevel": 0,
+   "title": "Mobile Detailing GTM Playbook 2027 — Route Density, Fleet Sales, and the M Owner-Operator"
+  },
+  "gp0186": {
+   "photoId": "5070401",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "Bubble Tea (Boba) Shop GTM Playbook 2027 — Gen Z TikTok Engine, Topping Attach, and the Cluster Strategy"
+  },
+  "gp0187": {
+   "photoId": "26957786",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "Ramen Shop GTM Playbook 2027 — Signature Broth Moat, Premium Bowl Pricing, and the Corporate Catering Pivot"
+  },
+  "gp0188": {
+   "photoId": "33719782",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "Independent Pizza Shop GTM Playbook 2027 — Specialty Regional Style, Delivery Dominance, and the Bar Program Math"
+  },
+  "gp0191": {
+   "photoId": "4487360",
+   "srcUrl": "",
+   "query": "warehouse logistics workers shipping",
+   "zoomLevel": 0,
+   "title": "BBQ Restaurant GTM Playbook 2027 — Regional-Style Craft Moat, Wholesale Channel, and the $4.2M Operator Path"
+  },
+  "gp0269": {
+   "photoId": "14614016",
+   "srcUrl": "",
+   "query": "Electricians professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Electricians in 2027"
+  },
+  "gp0270": {
+   "photoId": "1813272",
+   "srcUrl": "",
+   "query": "Hair Salons professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Hair Salons in 2027"
+  },
+  "gp0271": {
+   "photoId": "8413334",
+   "srcUrl": "",
+   "query": "dentist dental clinic patient at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Dental Practices in 2027"
+  },
+  "gp0272": {
+   "photoId": "7469228",
+   "srcUrl": "",
+   "query": "Veterinary Clinics professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Veterinary Clinics in 2027"
+  },
+  "gp0273": {
+   "photoId": "36712847",
+   "srcUrl": "",
+   "query": "Landscaping Companies professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Landscaping Companies in 2027"
+  },
+  "gp0274": {
+   "photoId": "19145895",
+   "srcUrl": "",
+   "query": "Pet Grooming Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Pet Grooming Services in 2027"
+  },
+  "gp0275": {
+   "photoId": "4587339",
+   "srcUrl": "",
+   "query": "Yoga Studios professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Yoga Studios in 2027"
+  },
+  "gp0276": {
+   "photoId": "5201903",
+   "srcUrl": "",
+   "query": "Optometry Practices professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Optometry Practices in 2027"
+  },
+  "gp0277": {
+   "photoId": "5888069",
+   "srcUrl": "",
+   "query": "Massage Therapy Practices professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Massage Therapy Practices in 2027"
+  },
+  "gp0278": {
+   "photoId": "17124737",
+   "srcUrl": "",
+   "query": "Locksmith Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Locksmith Services in 2027"
+  },
+  "gp0279": {
+   "photoId": "26872245",
+   "srcUrl": "",
+   "query": "Pest Control Companies professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Pest Control Companies in 2027"
+  },
+  "gp0280": {
+   "photoId": "4920283",
+   "srcUrl": "",
+   "query": "Tree Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Tree Services in 2027"
+  },
+  "gp0281": {
+   "photoId": "5025639",
+   "srcUrl": "",
+   "query": "Moving Companies professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Moving Companies in 2027"
+  },
+  "gp0282": {
+   "photoId": "34406282",
+   "srcUrl": "",
+   "query": "Junk Removal Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Junk Removal Services in 2027"
+  },
+  "gp0283": {
+   "photoId": "9810640",
+   "srcUrl": "",
+   "query": "Pet Boarding Kennels professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Pet Boarding Kennels in 2027"
+  },
+  "gp0284": {
+   "photoId": "5904051",
+   "srcUrl": "",
+   "query": "Dog Walking Pet Sitting professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Dog Walking and Pet Sitting in 2027"
+  },
+  "gp0285": {
+   "photoId": "6919718",
+   "srcUrl": "",
+   "query": "Doggie Daycare professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Doggie Daycare in 2027"
+  },
+  "gp0286": {
+   "photoId": "6195275",
+   "srcUrl": "",
+   "query": "House Cleaning Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for House Cleaning Services in 2027"
+  },
+  "gp0287": {
+   "photoId": "36730205",
+   "srcUrl": "",
+   "query": "automotive dealership salespeople showroom",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Auto Detailing in 2027"
+  },
+  "gp0288": {
+   "photoId": "6872580",
+   "srcUrl": "",
+   "query": "Mobile Car Wash Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Mobile Car Wash Services in 2027"
+  },
+  "gp0289": {
+   "photoId": "1391786",
+   "srcUrl": "",
+   "query": "Photography Studios professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Photography Studios in 2027"
+  },
+  "gp0290": {
+   "photoId": "16313529",
+   "srcUrl": "",
+   "query": "Wedding Photographers professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Wedding Photographers in 2027"
+  },
+  "gp0291": {
+   "photoId": "7247731",
+   "srcUrl": "",
+   "query": "Videography Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Videography Services in 2027"
+  },
+  "gp0292": {
+   "photoId": "18429457",
+   "srcUrl": "",
+   "query": "Catering Companies professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Catering Companies in 2027"
+  },
+  "gp0293": {
+   "photoId": "5668428",
+   "srcUrl": "",
+   "query": "Food Trucks professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Food Trucks in 2027"
+  },
+  "gp0294": {
+   "photoId": "18003564",
+   "srcUrl": "",
+   "query": "Ice Cream Shops professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Ice Cream Shops in 2027"
+  },
+  "gp0295": {
+   "photoId": "33393559",
+   "srcUrl": "",
+   "query": "Bakeries professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Bakeries in 2027"
+  },
+  "gp0296": {
+   "photoId": "5953548",
+   "srcUrl": "",
+   "query": "Pizza Shops professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Pizza Shops in 2027"
+  },
+  "gp0297": {
+   "photoId": "3811834",
+   "srcUrl": "",
+   "query": "Bars Pubs professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Bars and Pubs in 2027"
+  },
+  "gp0298": {
+   "photoId": "4485353",
+   "srcUrl": "",
+   "query": "Liquor Stores professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Liquor Stores in 2027"
+  },
+  "gp0299": {
+   "photoId": "16781258",
+   "srcUrl": "",
+   "query": "Convenience Stores professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Convenience Stores in 2027"
+  },
+  "gp0300": {
+   "photoId": "4173196",
+   "srcUrl": "",
+   "query": "Used Car Dealerships professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Used Car Dealerships in 2027"
+  },
+  "gp0301": {
+   "photoId": "6870331",
+   "srcUrl": "",
+   "query": "Tire Shops professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Tire Shops in 2027"
+  },
+  "gp0302": {
+   "photoId": "36729875",
+   "srcUrl": "",
+   "query": "automotive dealership salespeople showroom",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Auto Body Shops in 2027"
+  },
+  "gp0303": {
+   "photoId": "3817730",
+   "srcUrl": "",
+   "query": "Bike Shops professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Bike Shops in 2027"
+  },
+  "gp0304": {
+   "photoId": "1325735",
+   "srcUrl": "",
+   "query": "Sporting Goods Stores professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Sporting Goods Stores in 2027"
+  },
+  "gp0305": {
+   "photoId": "12741843",
+   "srcUrl": "",
+   "query": "electronics engineers hardware lab working",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Hardware Stores in 2027"
+  },
+  "gp0306": {
+   "photoId": "4920284",
+   "srcUrl": "",
+   "query": "Garden Centers Nurseries professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Garden Centers and Nurseries in 2027"
+  },
+  "gp0307": {
+   "photoId": "6196677",
+   "srcUrl": "",
+   "query": "Pool Cleaning Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Pool Cleaning Services in 2027"
+  },
+  "gp0308": {
+   "photoId": "5768107",
+   "srcUrl": "",
+   "query": "glazier installing windows construction",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Window Cleaning Services in 2027"
+  },
+  "gp0309": {
+   "photoId": "6195273",
+   "srcUrl": "",
+   "query": "Carpet Cleaning Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Carpet Cleaning Services in 2027"
+  },
+  "gp0310": {
+   "photoId": "14965464",
+   "srcUrl": "",
+   "query": "Pressure Washing Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Pressure Washing Services in 2027"
+  },
+  "gp0311": {
+   "photoId": "36497856",
+   "srcUrl": "",
+   "query": "Residential Painters professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Residential Painters in 2027"
+  },
+  "gp0312": {
+   "photoId": "6720531",
+   "srcUrl": "",
+   "query": "Handyman Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Handyman Services in 2027"
+  },
+  "gp0313": {
+   "photoId": "13540543",
+   "srcUrl": "",
+   "query": "Self professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Self-Storage Facilities in 2027"
+  },
+  "gp0314": {
+   "photoId": "13801858",
+   "srcUrl": "",
+   "query": "Driving Schools professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Driving Schools in 2027"
+  },
+  "gp0315": {
+   "photoId": "11044765",
+   "srcUrl": "",
+   "query": "Music Schools professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Music Schools in 2027"
+  },
+  "gp0316": {
+   "photoId": "6699100",
+   "srcUrl": "",
+   "query": "Martial Arts Schools professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Martial Arts Schools in 2027"
+  },
+  "gp0317": {
+   "photoId": "8462750",
+   "srcUrl": "",
+   "query": "Dance Studios professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Dance Studios in 2027"
+  },
+  "gp0318": {
+   "photoId": "7903142",
+   "srcUrl": "",
+   "query": "Swim Schools professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Swim Schools in 2027"
+  },
+  "gp0319": {
+   "photoId": "4506216",
+   "srcUrl": "",
+   "query": "chiropractor treating patient clinic",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Chiropractic Practices in 2027"
+  },
+  "gp0320": {
+   "photoId": "20860622",
+   "srcUrl": "",
+   "query": "physical therapist patient rehabilitation",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Physical Therapy Clinics in 2027"
+  },
+  "gp0321": {
+   "photoId": "5699456",
+   "srcUrl": "",
+   "query": "Counseling Therapy Practices professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Counseling and Therapy Practices in 2027"
+  },
+  "gp0322": {
+   "photoId": "8124247",
+   "srcUrl": "",
+   "query": "Senior professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Senior In-Home Care Agencies in 2027"
+  },
+  "gp0323": {
+   "photoId": "6405722",
+   "srcUrl": "",
+   "query": "Wedding Venues professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Wedding Venues in 2027"
+  },
+  "gp0324": {
+   "photoId": "32200252",
+   "srcUrl": "",
+   "query": "Banquet Event Venues professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Banquet and Event Venues in 2027"
+  },
+  "gp0325": {
+   "photoId": "15899541",
+   "srcUrl": "",
+   "query": "DJ Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for DJ Services in 2027"
+  },
+  "gp0326": {
+   "photoId": "5410133",
+   "srcUrl": "",
+   "query": "Florists professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Florists in 2027"
+  },
+  "gp0327": {
+   "photoId": "15764070",
+   "srcUrl": "",
+   "query": "Waxing Hair Removal Salons professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Waxing and Hair Removal Salons in 2027"
+  },
+  "gp0328": {
+   "photoId": "4586709",
+   "srcUrl": "",
+   "query": "Med Spas Aesthetics professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Med Spas and Aesthetics in 2027"
+  },
+  "gp0329": {
+   "photoId": "6593369",
+   "srcUrl": "",
+   "query": "Tattoo Studios professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Tattoo Studios in 2027"
+  },
+  "gp0330": {
+   "photoId": "4173189",
+   "srcUrl": "",
+   "query": "automotive dealership salespeople showroom",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Auto Glass Repair in 2027"
+  },
+  "gp0331": {
+   "photoId": "36766751",
+   "srcUrl": "",
+   "query": "Mobile Notary Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Mobile Notary Services in 2027"
+  },
+  "gp0332": {
+   "photoId": "8297351",
+   "srcUrl": "",
+   "query": "Bookkeeping Tax Prep Practices professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Bookkeeping and Tax Prep Practices in 2027"
+  },
+  "gp0333": {
+   "photoId": "5716035",
+   "srcUrl": "",
+   "query": "finance banking professionals working office",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Insurance Brokerages in 2027"
+  },
+  "gp0334": {
+   "photoId": "7937363",
+   "srcUrl": "",
+   "query": "real estate agent showing modern apartment",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Real Estate Brokerages in 2027"
+  },
+  "gp0335": {
+   "photoId": "8292840",
+   "srcUrl": "",
+   "query": "Mortgage Brokers professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Mortgage Brokers in 2027"
+  },
+  "gp0336": {
+   "photoId": "23225003",
+   "srcUrl": "",
+   "query": "Funeral Homes professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Funeral Homes in 2027"
+  },
+  "gp0337": {
+   "photoId": "27087212",
+   "srcUrl": "",
+   "query": "Senior Living Communities professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Senior Living Communities in 2027"
+  },
+  "gp0338": {
+   "photoId": "6129141",
+   "srcUrl": "",
+   "query": "Assisted Living Facilities professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Assisted Living Facilities in 2027"
+  },
+  "gp0339": {
+   "photoId": "6129646",
+   "srcUrl": "",
+   "query": "doctors nurses hospital medical professionals working",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Home Health Care Agencies in 2027"
+  },
+  "gp0340": {
+   "photoId": "7755676",
+   "srcUrl": "",
+   "query": "Day Spas professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Day Spas in 2027"
+  },
+  "gp0341": {
+   "photoId": "3984870",
+   "srcUrl": "",
+   "query": "Bridal Shops professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Bridal Shops in 2027"
+  },
+  "gp0342": {
+   "photoId": "7697348",
+   "srcUrl": "",
+   "query": "Childrens Hair Salons professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Childrens Hair Salons in 2027"
+  },
+  "gp0343": {
+   "photoId": "6455770",
+   "srcUrl": "",
+   "query": "Personal Trainers professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Personal Trainers in 2027"
+  },
+  "gp0344": {
+   "photoId": "6963865",
+   "srcUrl": "",
+   "query": "Tax Prep Services professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Tax Prep Services in 2027"
+  },
+  "gp0345": {
+   "photoId": "5473184",
+   "srcUrl": "",
+   "query": "Acupuncture Clinics professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Acupuncture Clinics in 2027"
+  },
+  "gp0346": {
+   "photoId": "5327654",
+   "srcUrl": "",
+   "query": "Functional Medicine Practices professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Functional Medicine Practices in 2027"
+  },
+  "gp0347": {
+   "photoId": "6129205",
+   "srcUrl": "",
+   "query": "Cardiology Practices professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Cardiology Practices in 2027"
+  },
+  "gp0348": {
+   "photoId": "32260064",
+   "srcUrl": "",
+   "query": "Dermatology Practices professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Dermatology Practices in 2027"
+  },
+  "gp0349": {
+   "photoId": "5998445",
+   "srcUrl": "",
+   "query": "Pediatric Practices professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Pediatric Practices in 2027"
+  },
+  "gp0350": {
+   "photoId": "38240600",
+   "srcUrl": "",
+   "query": "modern architecture building exterior city",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for OB-GYN Practices in 2027"
+  },
+  "gp0351": {
+   "photoId": "5673490",
+   "srcUrl": "",
+   "query": "Personal Injury Law Firms professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Personal Injury Law Firms in 2027"
+  },
+  "gp0352": {
+   "photoId": "7841812",
+   "srcUrl": "",
+   "query": "lawyer attorney working law office",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Family Law and Divorce Attorneys in 2027"
+  },
+  "gp0353": {
+   "photoId": "8112110",
+   "srcUrl": "",
+   "query": "lawyer attorney working law office",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Estate Planning Attorneys in 2027"
+  },
+  "gp0354": {
+   "photoId": "20752572",
+   "srcUrl": "",
+   "query": "Immigration Law Firms professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Immigration Law Firms in 2027"
+  },
+  "gp0355": {
+   "photoId": "8112112",
+   "srcUrl": "",
+   "query": "lawyer attorney working law office",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Criminal Defense Attorneys in 2027"
+  },
+  "gp0356": {
+   "photoId": "8296970",
+   "srcUrl": "",
+   "query": "accountant finance professional working desk",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Accounting Firms in 2027"
+  },
+  "gp0357": {
+   "photoId": "7654609",
+   "srcUrl": "",
+   "query": "Financial Advisors professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Financial Advisors in 2027"
+  },
+  "gp0358": {
+   "photoId": "7937362",
+   "srcUrl": "",
+   "query": "real estate agent showing modern apartment",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Property Management Companies in 2027"
+  },
+  "gp0359": {
+   "photoId": "36729944",
+   "srcUrl": "",
+   "query": "real estate agent showing modern apartment",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Vacation Rental Property Managers in 2027"
+  },
+  "gp0360": {
+   "photoId": "36729941",
+   "srcUrl": "",
+   "query": "real estate agent showing modern apartment",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Commercial Real Estate Brokers in 2027"
+  },
+  "gp0361": {
+   "photoId": "7679559",
+   "srcUrl": "",
+   "query": "finance banking professionals working office",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Title Insurance Companies in 2027"
+  },
+  "gp0362": {
+   "photoId": "8293678",
+   "srcUrl": "",
+   "query": "Home Inspectors professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Home Inspectors in 2027"
+  },
+  "gp0363": {
+   "photoId": "5582590",
+   "srcUrl": "",
+   "query": "Residential Architects professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Residential Architects in 2027"
+  },
+  "gp0364": {
+   "photoId": "8470038",
+   "srcUrl": "",
+   "query": "General Contractors professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for General Contractors in 2027"
+  },
+  "gp0365": {
+   "photoId": "36912709",
+   "srcUrl": "",
+   "query": "restaurant chefs kitchen staff working",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Kitchen and Bath Remodelers in 2027"
+  },
+  "gp0366": {
+   "photoId": "10133578",
+   "srcUrl": "",
+   "query": "Concrete Contractors professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Concrete Contractors in 2027"
+  },
+  "gp0367": {
+   "photoId": "8447790",
+   "srcUrl": "",
+   "query": "Fencing Contractors professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Fencing Contractors in 2027"
+  },
+  "gp0368": {
+   "photoId": "5452222",
+   "srcUrl": "",
+   "query": "Concierge Medicine Practices professionals working at work",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Concierge Medicine Practices in 2027"
+  },
+  "gp0369": {
+   "photoId": "8111888",
+   "srcUrl": "",
+   "query": "lawyer attorney working law office",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Tax Attorneys in 2027"
+  },
+  "gp0370": {
+   "photoId": "37635943",
+   "srcUrl": "",
+   "query": "construction workers hard hats jobsite",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Custom Home Builders in 2027"
+  },
+  "gp0371": {
+   "photoId": "18870256",
+   "srcUrl": "",
+   "query": "teachers coaching students classroom studio",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Dance Schools (Adult) in 2027"
+  },
+  "gp0372": {
+   "photoId": "1739321",
+   "srcUrl": "",
+   "query": "Trampoline Parks people working professionals",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Trampoline Parks in 2027"
+  },
+  "gp0373": {
+   "photoId": "36713442",
+   "srcUrl": "",
+   "query": "Indoor Playgrounds people working professionals",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Indoor Playgrounds in 2027"
+  },
+  "gp0374": {
+   "photoId": "7429616",
+   "srcUrl": "",
+   "query": "Bowling Alleys people working professionals",
+   "zoomLevel": 0,
+   "title": "GTM Playbook for Bowling Alleys in 2027"
+  },
+  "gp375": {
+   "photoId": "3184339",
+   "srcUrl": "",
+   "query": "usage people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for a usage-based pricing launch in 2027?"
+  },
+  "gp376": {
+   "photoId": "8872411",
+   "srcUrl": "",
+   "query": "expanding from mid people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for expanding from mid-market to enterprise in 2027?"
+  },
+  "gp377": {
+   "photoId": "7495604",
+   "srcUrl": "",
+   "query": "launching new product line people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for launching a new product line in 2027?"
+  },
+  "gp378": {
+   "photoId": "7698712",
+   "srcUrl": "",
+   "query": "international expansion people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for international expansion in 2027?"
+  },
+  "gp0379": {
+   "photoId": "36714216",
+   "srcUrl": "",
+   "query": "competitive displacement people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for competitive displacement in 2027?"
+  },
+  "gp0380": {
+   "photoId": "34804015",
+   "srcUrl": "",
+   "query": "software engineers coding AI laptop office",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for launching an AI product in 2027?"
+  },
+  "gp0381": {
+   "photoId": "7109165",
+   "srcUrl": "",
+   "query": "community people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for community-led growth in 2027?"
+  },
+  "gp382": {
+   "photoId": "30688593",
+   "srcUrl": "",
+   "query": "partner people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for a partner-led (channel) motion in 2027?"
+  },
+  "gp383": {
+   "photoId": "7964503",
+   "srcUrl": "",
+   "query": "product people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for product-led growth (PLG) in 2027?"
+  },
+  "gp384": {
+   "photoId": "7710074",
+   "srcUrl": "",
+   "query": "marketing creative team working office",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for account-based marketing (ABM) in 2027?"
+  },
+  "gp385": {
+   "photoId": "19747906",
+   "srcUrl": "",
+   "query": "founder people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for founder-led sales in 2027?"
+  },
+  "gp386": {
+   "photoId": "7674845",
+   "srcUrl": "",
+   "query": "category creation people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for category creation in 2027?"
+  },
+  "gp387": {
+   "photoId": "7988747",
+   "srcUrl": "",
+   "query": "developer people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for developer-led growth in 2027?"
+  },
+  "gp388": {
+   "photoId": "10922982",
+   "srcUrl": "",
+   "query": "land people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for a land-and-expand motion in 2027?"
+  },
+  "gp389": {
+   "photoId": "5439166",
+   "srcUrl": "",
+   "query": "verticalizing people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for verticalizing in 2027?"
+  },
+  "gp390": {
+   "photoId": "14224718",
+   "srcUrl": "",
+   "query": "farmers agriculture workers harvest field",
+   "zoomLevel": 0,
+   "title": "Pet food DTC GTM playbook 2027 — fresh human-grade wedge, vet credibility, subscription replenishment engine, and the $1B The Farmer's Dog operator path"
+  },
+  "gp0391": {
+   "photoId": "8774509",
+   "srcUrl": "",
+   "query": "laundromat people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for a laundromat operator in 2027?"
+  },
+  "gp0392": {
+   "photoId": "6930556",
+   "srcUrl": "",
+   "query": "Product-Led Converting Freemium Users Paid Accounts people working professionals",
+   "zoomLevel": 0,
+   "title": "The Product-Led Sales Playbook: Converting Freemium Users to Paid Accounts"
+  },
+  "gp0395": {
+   "photoId": "6805161",
+   "srcUrl": "",
+   "query": "Developer-Led Targeting Open Source Communities Commercial Adoption people working professionals",
+   "zoomLevel": 0,
+   "title": "The Developer-Led GTM Playbook: Targeting Open Source Communities for Commercial Adoption"
+  },
+  "gp0396": {
+   "photoId": "6805152",
+   "srcUrl": "",
+   "query": "software developers coding office team",
+   "zoomLevel": 0,
+   "title": "Top 10 product-led growth activation plays for SaaS startups"
+  },
+  "gp0433": {
+   "photoId": "6937819",
+   "srcUrl": "",
+   "query": "Education-First Using Webinars Certifications Generate Demand people working professionals",
+   "zoomLevel": 0,
+   "title": "The Education-First GTM Playbook: Using Webinars and Certifications to Generate Demand"
+  },
+  "gp0435": {
+   "photoId": "7652128",
+   "srcUrl": "",
+   "query": "Plays Launching B2B Enterprise Freemium Tier people working professionals",
+   "zoomLevel": 0,
+   "title": "Top 10 GTM Plays for Launching a B2B Enterprise Freemium Tier"
+  },
+  "gp0487": {
+   "photoId": "8128192",
+   "srcUrl": "",
+   "query": "Developer-First Launch API-First Product Adoption Without Team people working professionals",
+   "zoomLevel": 0,
+   "title": "Developer-First Launch Playbook: API-First Product Adoption Without a Sales Team"
+  },
+  "gp0489": {
+   "photoId": "7640435",
+   "srcUrl": "",
+   "query": "Product-Led Launch Playbooks people working professionals",
+   "zoomLevel": 0,
+   "title": "Top 10 Product-Led Sales GTM Launch Playbooks"
+  },
+  "gp0490": {
+   "photoId": "8117437",
+   "srcUrl": "",
+   "query": "marketing creative team working office",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for marketing-led demand-gen growth in 2027?"
+  },
+  "gp0491": {
+   "photoId": "7658380",
+   "srcUrl": "",
+   "query": "first customers before product people working professionals",
+   "zoomLevel": 0,
+   "title": "What is the go-to-market playbook for the first 10 customers before product-market fit in 2027?"
+  },
+  "gp0492": {
+   "photoId": "36765714",
+   "srcUrl": "",
+   "query": "-led -down enterprise people working professionals",
+   "zoomLevel": 0,
+   "title": "Sales-led top-down enterprise GTM motion in 2027"
+  },
+  "gp0493": {
+   "photoId": "30688909",
+   "srcUrl": "",
+   "query": "seed people working professionals",
+   "zoomLevel": 0,
+   "title": "Outbound GTM playbook for a seed-stage startup in 2027"
+  },
+  "gp0494": {
+   "photoId": "8204364",
+   "srcUrl": "",
+   "query": "PLG- -assist handoff people working professionals",
+   "zoomLevel": 0,
+   "title": "PLG-to-sales-assist handoff playbook in 2027"
+  },
+  "gp0495": {
+   "photoId": "6077775",
+   "srcUrl": "",
+   "query": "Land- -expand net revenue retention people working professionals",
+   "zoomLevel": 0,
+   "title": "Land-and-expand net revenue retention motion in 2027"
+  },
+  "gp0496": {
+   "photoId": "3184324",
+   "srcUrl": "",
+   "query": "Multi-product cross-sell people working professionals",
+   "zoomLevel": 0,
+   "title": "Multi-product cross-sell GTM motion in 2027"
+  },
+  "gp0502": {
+   "photoId": "7918035",
+   "srcUrl": "",
+   "query": "Founder-led people working professionals",
+   "zoomLevel": 0,
+   "title": "Founder-led sales GTM motion in 2027"
+  },
+  "gp0503": {
+   "photoId": "7654403",
+   "srcUrl": "",
+   "query": "Community-led growth people working professionals",
+   "zoomLevel": 0,
+   "title": "Community-led growth GTM playbook in 2027"
+  },
+  "gp0504": {
+   "photoId": "7710150",
+   "srcUrl": "",
+   "query": "marketing creative team working office",
+   "zoomLevel": 0,
+   "title": "Event-led and field-marketing GTM playbook in 2027"
+  },
+  "gp0505": {
+   "photoId": "8117436",
+   "srcUrl": "",
+   "query": "marketing creative team working office",
+   "zoomLevel": 0,
+   "title": "Account-based marketing (ABM) GTM playbook for enterprise in 2027"
+  },
+  "gp0506": {
+   "photoId": "7693729",
+   "srcUrl": "",
+   "query": "Usage-based pricing people working professionals",
+   "zoomLevel": 0,
+   "title": "Usage-based pricing GTM motion in 2027"
+  },
+  "gp0507": {
+   "photoId": "8460371",
+   "srcUrl": "",
+   "query": "doctors nurses hospital professionals working",
+   "zoomLevel": 0,
+   "title": "Vertical SaaS go-to-market playbook for healthcare in 2027"
+  },
+  "gp0508": {
+   "photoId": "3184338",
+   "srcUrl": "",
+   "query": "International geo-expansion people working professionals",
+   "zoomLevel": 0,
+   "title": "International and geo-expansion GTM playbook in 2027"
+  },
+  "gp0509": {
+   "photoId": "7709189",
+   "srcUrl": "",
+   "query": "Reseller VAR channel people working professionals",
+   "zoomLevel": 0,
+   "title": "Reseller and VAR channel GTM playbook in 2027"
+  },
+  "gp0510": {
+   "photoId": "5453921",
+   "srcUrl": "",
+   "query": "-assisted PLG mid-market people working professionals",
+   "zoomLevel": 0,
+   "title": "Sales-assisted PLG for mid-market in 2027"
+  },
+  "gp516": {
+   "photoId": "8730283",
+   "srcUrl": "",
+   "query": "Playbooks people working professionals",
+   "zoomLevel": 0,
+   "title": "Top 10 GTM Playbooks strategies for 2027"
+  }
+ }
+}

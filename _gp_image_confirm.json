@@ -1,0 +1,22 @@
+{
+  "pillar": "gp",
+  "total": 425,
+  "squares": {
+    "have": 425,
+    "miss": 0,
+    "done": true,
+    "missSample": []
+  },
+  "faceCovers": {
+    "have": 425,
+    "miss": 0,
+    "done": true,
+    "missSample": []
+  },
+  "bodyTopInternals": {
+    "withAtLeast1": 425,
+    "withZero": 0,
+    "done": true,
+    "zeroSample": []
+  }
+}

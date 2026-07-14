@@ -1,36 +1,57 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Pulse RevOps — Value Added</title>
+<meta name="viewport" content="width=1100, viewport-fit=cover">
+<title>Pulse - Value Added</title>
 <link rel="canonical" href="https://pulserevops.com/">
-<meta name="description" content="Pulse — we add value. One free library of 24,000+ operator-grade answers, rankings, and guides across revenue, business, buying guides, places, and lifestyle.">
+<meta name="description" content="Pulse - Value Added. One free library of 24,000+ operator-grade answers, rankings, and guides across revenue, business, buying guides, places, and lifestyle.">
 <!-- Social / link-preview branding -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pulserevops.com/">
-<meta property="og:site_name" content="Pulse RevOps">
-<meta property="og:title" content="Pulse RevOps — Value Added">
+<meta property="og:site_name" content="Pulse - Value Added">
+<meta property="og:title" content="Pulse - Value Added">
 <meta property="og:description" content="24,000+ researched answers that add value — across revenue, business, buying guides, places and lifestyle. All free.">
-<meta property="og:image" content="https://pulserevops.com/pulse-og.png">
+<meta property="og:image" content="https://pulserevops.com/pulse-og.png?v=value-added">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Pulse RevOps — Value Added">
+<meta name="twitter:title" content="Pulse - Value Added">
 <meta name="twitter:description" content="24,000+ researched answers that add value — across revenue, business, buying guides, places and lifestyle. All free.">
-<meta name="twitter:image" content="https://pulserevops.com/pulse-og.png">
+<meta name="twitter:image" content="https://pulserevops.com/pulse-og.png?v=value-added">
 <!-- PWA -->
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#ECE3D2">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark light">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Pulse RevOps">
-<meta name="application-name" content="Pulse RevOps">
+<meta name="apple-mobile-web-app-title" content="Pulse - Value Added">
+<meta name="application-name" content="Pulse - Value Added">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <!-- Pulse RevOps brand favicon — gold pulse-wave mark on dark -->
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+<!-- Instant jet black field — paints before any JS -->
+<style id="pulse-boot-bg">
+html,body{background-color:#000!important}
+body{background-image:none!important;background-color:#000!important;background-attachment:fixed!important;margin:0}
+#psqBoot{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:14px clamp(12px,4vw,40px) 6px;box-sizing:border-box}
+#psqBoot .psq-group__label{display:inline-flex;align-items:center;gap:10px;font:800 .72rem/1 Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:#EAC15C;margin:0 0 10px}
+#psqBoot .psq-group__label::before,#psqBoot .psq-group__label::after{content:"";display:block;height:2px;width:28px;background:#EAC15C;opacity:.85}
+#psqBoot h3{font-family:Georgia,serif;color:#F6C445;font-size:1.2rem;margin:0 0 10px;font-weight:800;letter-spacing:.02em}
+#psqBoot .psq-scroll{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;padding:2px 2px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+#psqBoot .rcard{display:flex;flex-direction:column;flex:0 0 220px;width:220px;height:340px;text-decoration:none;background:#000;border:7px solid #EAC15C;box-sizing:border-box;color:inherit;overflow:hidden}
+#psqBoot .rcard-imgwrap{display:block;width:100%;height:198px;flex:0 0 198px;overflow:hidden;background:#000}
+#psqBoot .rcard-imgwrap img{width:100%;height:100%;object-fit:cover;display:block}
+#psqBoot .rc{padding:8px 10px 0;color:#EAC15C;font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;text-align:center}
+#psqBoot .rt{padding:8px 12px 16px;color:#F6C445;font-family:Georgia,serif;font-size:1.2rem;line-height:1.18;font-weight:800;text-align:center}
+#psqBoot .rt>span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#psqBoot.is-gone{display:none!important}
+</style>
+<link rel="preload" as="image" href="/assets/qa/ra0645.sq.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/qa/cg0953.sq.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/qa/bs0319.sq.jpg" fetchpriority="high">
 <!-- Site name + Organization logo for Google search identity -->
 <script type="application/ld+json">
 {
@@ -39,7 +60,7 @@
     {
       "@type": "Organization",
       "@id": "https://pulserevops.com/#organization",
-      "name": "Pulse RevOps",
+      "name": "Pulse - Value Added",
       "url": "https://pulserevops.com/",
       "logo": {
         "@type": "ImageObject",
@@ -50,7 +71,7 @@
     },
     {
       "@type": "WebSite",
-      "name": "Pulse RevOps",
+      "name": "Pulse - Value Added",
       "url": "https://pulserevops.com/",
       "publisher": { "@id": "https://pulserevops.com/#organization" },
       "potentialAction": {
@@ -76,10 +97,10 @@
 html,body{overflow-x:hidden}
 #magMosaic,#cnetLead{display:none!important}
 body.pulse-mosaic-home #magMosaic.is-ready{display:grid!important}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#000;color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:700}
-.wrap{max-width:1080px;margin:0 auto;padding:0 24px;min-height:100dvh;display:flex;flex-direction:column}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;min-height:100dvh;display:flex;flex-direction:column;background:#EAEAEC}
 /* minimal header */
 header{padding:22px 0}
 .bar{display:flex;align-items:center}
@@ -210,7 +231,7 @@ header{padding:22px 0}
 @keyframes tkscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.tk-track{animation:none}}
 @media(max-width:820px){.tiles{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.wrap{padding:0 18px}.bar nav a:not(.cta){display:none}.hero h1{margin-bottom:22px}.home-search{margin-top:20px}.shelf-head{flex-wrap:wrap;gap:10px}}
+@media(max-width:600px){.wrap{padding:0 24px}.bar nav a:not(.cta){display:none}.hero h1{margin-bottom:22px}.home-search{margin-top:20px}.shelf-head{flex-wrap:wrap;gap:10px}}
 @media(max-width:420px){.tiles{grid-template-columns:1fr}.foot{flex-direction:column;align-items:flex-start;gap:12px}}
 </style>
 <style id="pulse-pill-bright">
@@ -229,7 +250,7 @@ header{padding:22px 0}
 .tile h3{color:var(--amber);}
 .pcard{border-color:rgba(200,130,30,.40) !important;background:#ffffff !important;}
 .pcard:hover,.pcard.is-kb-focus{border-color:var(--amber) !important;}
-/* â”€â”€ Corporate "GET FRACTIONAL" scrolling marquee â”€â”€ */
+/* —— Corporate "GET FRACTIONAL" scrolling marquee —— */
 .cro-mq{display:block;margin:10px 0 2px;overflow:hidden;text-decoration:none;
   -webkit-mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
           mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);}
@@ -243,7 +264,7 @@ header{padding:22px 0}
 .cro-mq-box.hot .g{color:#fff;}
 @keyframes cro-mq-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.cro-mq-track{animation:none;}}
-/* â”€â”€ NEWS VIBE (owner 2026-07-02): dateline nameplate + breaking-news ticker â”€â”€ */
+/* —— NEWS VIBE (owner 2026-07-02): dateline nameplate + breaking-news ticker —— */
 .nameplate{display:flex;gap:10px;align-items:center;justify-content:flex-end;padding:9px 0 8px;font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 0 6px;}
 .nameplate .np-tag{color:var(--amber);}
 .nameplate .np-sep{opacity:.45;}
@@ -254,7 +275,7 @@ header{padding:22px 0}
 .cro-ticker .cro-mq{flex:1 1 auto;min-width:0;margin:0;}
 .cro-ticker .cro-mq-box{border:none;border-right:1px solid var(--line);border-radius:0;box-shadow:none;background:transparent;}
 .cro-ticker .cro-mq-box.hot{background:linear-gradient(135deg,#C8821E,#a9711a);color:#fff;}
-/* â”€â”€ Right-side news rail (desktop): sticky ad + popular sections â”€â”€ */
+/* —— Right-side news rail (desktop): sticky ad + popular sections —— */
 .news-rail{display:none;}
 @media(min-width:1200px){
   body{padding-right:322px;}
@@ -272,12 +293,12 @@ header{padding:22px 0}
 .rail-item{display:block;padding:9px 0;font-size:.92rem;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
 .rail-item:last-child{border-bottom:none;}
 .rail-item:hover{color:var(--amber);padding-left:4px;transition:padding .12s;}
-/* â”€â”€ Magazine section nav (owner 2026-07-02, "Goods" inspo) â”€â”€ */
+/* —— Magazine section nav (owner 2026-07-02, "Goods" inspo) —— */
 .mag-nav{display:flex;flex-wrap:wrap;gap:6px 26px;align-items:center;justify-content:center;padding:11px 8px;border-bottom:1px solid var(--line);margin:0 0 6px;}
 .mag-nav a{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;white-space:nowrap;transition:color .12s;}
 .mag-nav a:hover{color:var(--amber);}
 @media(max-width:600px){.mag-nav{gap:6px 16px;}.mag-nav a{font-size:.64rem;letter-spacing:.08em;}}
-/* â”€â”€ CNET-style featured section: hero + cards, TITLE OVERLAID on the image, hourly â”€â”€ */
+/* —— CNET-style featured section: hero + cards, TITLE OVERLAID on the image, hourly —— */
 .mag-feature{display:none;margin:16px 0 10px;}
 .mf-hero{display:block;position:relative;height:clamp(280px,42vw,440px);border-radius:16px;overflow:hidden;background:#222 center/cover no-repeat;background-size:cover;text-decoration:none;border:1.5px solid rgba(200,130,30,.4);}
 .mf-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02) 28%,rgba(0,0,0,.84) 100%);}
@@ -349,7 +370,7 @@ header .bar{max-width:1200px;margin:0 auto;}
 /* pillars moved to the top nav — hide the old bottom browse shelf + trivia ticker */
 .shelf{display:none !important;} .tk{display:none !important;}
 /* MOSAIC — desktop 2-up; mobile 1 tile/row so baked titles aren't side-cropped (owner 2026-07-11) */
-.mag-mosaic{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:220px;gap:0;margin:16px 0 30px;max-width:1100px;margin-left:auto;margin-right:auto;background:#0a0806;}
+.mag-mosaic{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:220px;gap:0;margin:16px 0 30px;max-width:1100px;margin-left:auto;margin-right:auto;background:#000;}
 .mm{position:relative;display:block;overflow:hidden;border-radius:0;background:#1a1a1a center/cover no-repeat;background-size:cover;text-decoration:none;border:0;border-right:1px solid rgba(8,6,4,.45);border-bottom:1px solid rgba(8,6,4,.45);box-shadow:none;margin:0;}
 .mm:nth-child(2n){border-right:0;}
 .mm-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02) 35%,rgba(0,0,0,.75) 68%,rgba(0,0,0,.96) 100%);z-index:1;}
@@ -374,13 +395,14 @@ header .bar{max-width:1200px;margin:0 auto;}
 
 
 <script src="/js/pulse-defaults.js"></script>
+<link rel="stylesheet" href="/css/pulse-jet-sides.css">
 </head>
 <body>
 <div class="wrap">
     <!-- CRO CARD HEADER — full-bleed L→R; SEARCH inside gold trim (owner 2026-07-11) -->
   <style>
   .crohdr{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);margin-top:14px;margin-bottom:8px;padding:0;box-sizing:border-box}
-  .cro-card{position:relative;display:flex;align-items:stretch;text-decoration:none;border:4px solid #EAC15C;border-radius:0;justify-content:center;overflow:hidden;min-height:320px;width:100%;background:linear-gradient(100deg,#180a10,#0f0a0c 60%);box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 4px rgba(234,193,92,.6),inset 0 0 40px rgba(234,193,92,.05),0 8px 32px rgba(0,0,0,.55)}
+  .cro-card{position:relative;display:flex;align-items:stretch;text-decoration:none;border:4px solid #EAC15C;border-radius:0;justify-content:center;overflow:hidden;min-height:320px;width:100%;background:#000;box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 4px rgba(234,193,92,.6),inset 0 0 40px rgba(234,193,92,.05),0 8px 32px rgba(0,0,0,.55)}
   .cro-card__img{flex:0 0 auto;width:270px;height:270px;align-self:center;margin:20px 12px 20px 30px;border-radius:50%;background-size:cover;background-position:center;filter:brightness(1.1);border:2px solid rgba(234,193,92,.5);box-shadow:0 4px 18px rgba(0,0,0,.4)}
   .cro-card__body{flex:0 1 auto;max-width:640px;padding:22px 30px 22px 18px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;gap:7px}
   .cro-card__eyebrow{font:800 .6rem/1.3 system-ui;letter-spacing:.13em;color:#FFB81C!important}
@@ -390,22 +412,13 @@ header .bar{max-width:1200px;margin:0 auto;}
   .cro-card__cta{background:linear-gradient(180deg,#EAC15C,#cf9f2e);color:#1a0a00;font-weight:900;font-size:.95rem;padding:11px 20px;border-radius:10px;white-space:nowrap}
   .cro-card:hover{border-color:#EAC15C}
   /* SEARCH sits INSIDE the gold frame, bottom-left corner */
-  #pulseSearchSq{position:absolute;left:14px;bottom:14px;z-index:6;width:64px;height:64px;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;background:#130a10;color:#F6C445;font:800 .68rem/1.05 Georgia,serif;letter-spacing:.1em;border:3px solid #EAC15C;border-radius:0;box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 4px rgba(234,193,92,.55),0 4px 14px rgba(0,0,0,.4);transition:border-color .15s,color .15s,transform .15s}
+  #pulseSearchSq{position:absolute;left:14px;bottom:14px;z-index:6;width:64px;height:64px;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;background:#000;color:#F6C445;font:800 .68rem/1.05 Georgia,serif;letter-spacing:.1em;border:3px solid #EAC15C;border-radius:0;box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 4px rgba(234,193,92,.55),0 4px 14px rgba(0,0,0,.4);transition:border-color .15s,color .15s,transform .15s}
   #pulseSearchSq:hover,#pulseSearchSq:focus{border-color:#F6C445;color:#fff;transform:translateY(-1px);outline:none}
   .cro-bar{display:grid;grid-template-columns:repeat(6,1fr);margin:-2px 0 0;border:1px solid rgba(234,193,92,.4);border-top:none;border-radius:0;overflow:hidden;width:100%;box-sizing:border-box}
-  .cro-bar a{text-align:center;padding:14px 8px;color:#EAC15C;font-weight:800;font-size:1.05rem;text-decoration:none;background:#130a10;border-right:1px solid rgba(234,193,92,.22)}
+  .cro-bar a{text-align:center;padding:14px 8px;color:#EAC15C;font-weight:800;font-size:1.05rem;text-decoration:none;background:#000;border-right:1px solid rgba(234,193,92,.22)}
   .cro-bar a:last-child{border-right:none}
-  .cro-bar a:hover{background:#1d1017;color:#fff}
-  @media(max-width:640px){
-    .crohdr{margin-top:8px}
-    .cro-card{flex-direction:column;height:auto;min-height:0;overflow:visible;padding-bottom:72px}
-    .cro-card__body{padding:6px 18px 20px}
-    .cro-card__img{flex:none;width:210px;height:210px;min-height:210px;border-radius:50%;margin:18px auto 6px;border:2px solid rgba(234,193,92,.5);background-size:cover;background-position:center}
-    .cro-bar{grid-template-columns:repeat(2,1fr)}
-    .cro-bar a{padding:9px 6px;font-size:.92rem;line-height:1.15}
-    .cro-bar a:nth-child(2){border-right:none}
-    #pulseSearchSq{left:12px;bottom:12px;width:56px;height:56px;font-size:.6rem}
-  }
+  .cro-bar a:hover{background:#0a0a0a;color:#fff}
+  /* Mobile = same desktop CRO layout (owner: desktop-mode look on phone) */
   </style>
   <div class="crohdr">
     <a class="cro-card" href="/revenue-checkup" target="_blank" rel="noopener" data-pulse-click="hire-cro" aria-label="Get a free 30-minute revenue checkup with Kory White, Fractional CRO">
@@ -430,28 +443,52 @@ header .bar{max-width:1200px;margin:0 auto;}
   </div>
   <script>(function(){var s=document.getElementById('pulseSearchSq');if(!s)return;function go(e){e.preventDefault();e.stopPropagation();location.href=s.getAttribute('data-href')||'/search';}s.addEventListener('click',go);s.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')go(e);});})();</script>
 
+  <!-- Homepage search (owner: search must work — markup was missing; JS alone no-ops) -->
+  <div class="home-search" id="home-search">
+    <div class="hs-field">
+      <span class="hs-icon" aria-hidden="true">🔍</span>
+      <div class="hs-ghost" id="hs-ghost" aria-hidden="true"><span class="g-typed"></span><span class="g-rest"></span></div>
+      <input id="hs-input" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+             placeholder="Search 35,000+ Q&amp;As — try: fractional CRO" aria-label="Search Pulse Q&amp;As">
+      <button class="hs-clear" id="hs-clear" aria-label="Clear" type="button">×</button>
+    </div>
+    <div class="hs-suggest" id="hs-suggest" role="listbox"></div>
+  </div>
+
   <!-- UNIFIED SQUARE ROWS (owner 2026-07-11): every row identical size/format — only title + square content changes -->
-  <link rel="stylesheet" href="/css/pulse-squares.css?v=20260712bg14">
+  <link rel="stylesheet" href="/css/pulse-squares.css?v=20260713recent200">
+
   <style>
   /* Force identical row chrome — Recent + every topic row */
   #recentRow.recentrow,.recentrow.psq-row{padding:16px clamp(12px,4vw,40px) 8px!important}
   #recentRow h3,.recentrow h3,.psq-head{font-family:Georgia,serif!important;color:#F6C445!important;font-size:1.2rem!important;margin:0 0 10px!important;font-weight:800!important;letter-spacing:.02em!important;line-height:1.2!important}
-  .recentscroll,.psq-scroll{gap:16px!important;padding:2px 2px 12px!important;min-height:0!important}
+  .psq-inv{display:inline-block!important;margin-left:.45em!important;padding:.12em .55em!important;font:700 .72rem/1.2 system-ui,sans-serif!important;letter-spacing:.04em!important;color:#021C18!important;background:#EAC15C!important;border-radius:999px!important;vertical-align:middle!important}
+  .recentscroll,.psq-scroll{gap:16px!important;padding:2px 2px 12px!important;min-height:0!important;touch-action:pan-x pan-y pinch-zoom!important}
+  .recentscroll.is-dragging,.psq-scroll.is-dragging{touch-action:none!important}
+  .rcard,.psq{touch-action:manipulation}
+  /* Recent must never vanish on mobile Safari (content-visibility / empty paint) */
+  #recentRow.recentrow{display:block!important;visibility:visible!important;content-visibility:visible!important;contain:none!important;min-height:360px!important;opacity:1!important}
+  #recentRow .recentscroll{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    min-height:340px!important;
+    max-width:100%!important;
+    cursor:grab!important;
+    scrollbar-width:thin!important;
+  }
+  #recentRow .rcard-imgwrap img{opacity:1!important}
   .rcard{width:220px!important;height:340px!important;flex:0 0 220px!important;border:7px solid var(--tc,#EAC15C)!important;border-radius:0!important;box-sizing:border-box!important}
-  .rcard-imgwrap{display:block!important;width:100%!important;height:198px!important;flex:0 0 198px!important;overflow:hidden!important;background:#1a1014!important}
+  .rcard-imgwrap{display:block!important;width:100%!important;height:198px!important;flex:0 0 198px!important;overflow:hidden!important;background:#000!important}
   .rcard-imgwrap img{width:100%!important;height:100%!important;flex:none!important;aspect-ratio:auto!important;object-fit:cover!important;object-position:center center!important;transform:none!important;max-width:none!important;object-view-box:unset!important;opacity:0;transition:opacity .38s ease}
   .rcard-imgwrap img.is-on{opacity:1!important}
+  #psqBoot .rcard-imgwrap img{opacity:1!important;transition:none!important}
   .rcard .rc{padding:8px 10px 0!important;color:#EAC15C!important;font-size:.58rem!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:800!important;min-height:1.1em;text-align:center!important}
-  .rcard .rt{padding:8px 12px 16px!important;color:#F6C445!important;font-family:Georgia,serif!important;font-size:1.42rem!important;line-height:1.16!important;font-weight:800!important;text-align:center!important;display:flex!important;align-items:center!important;justify-content:center!important;min-height:0!important;max-height:none!important;-webkit-line-clamp:unset!important}
-  .rcard .rt>span{display:-webkit-box!important;-webkit-line-clamp:3!important;-webkit-box-orient:vertical!important;overflow:hidden!important;text-align:center!important;width:100%!important;max-height:calc(1.16em * 3)!important;line-height:1.16!important}
-  @media(max-width:600px){
-    .recentscroll,.psq-scroll{gap:10px!important}
-    .rcard{width:168px!important;height:278px!important;flex-basis:168px!important;border-width:5px!important}
-    .rcard-imgwrap{height:148px!important;flex-basis:148px!important}
-    .rcard-imgwrap img{height:100%!important;flex:none!important;object-position:center center!important;transform:none!important;object-view-box:unset!important}
-    .rcard .rt{font-size:1.08rem!important;padding:4px 8px 10px!important;line-height:1.16!important;text-align:center!important;min-height:calc(1.16em * 3)!important;max-height:calc(1.16em * 3)!important}
-  }
-    /* Section grouping labels */
+  .rcard .rt{padding:8px 12px 16px!important;color:#F6C445!important;font-family:Georgia,serif!important;font-size:1.2rem!important;line-height:1.18!important;font-weight:800!important;text-align:center!important;display:flex!important;align-items:center!important;justify-content:center!important;min-height:0!important;max-height:none!important;-webkit-line-clamp:unset!important}
+  .rcard .rt>span{display:-webkit-box!important;-webkit-line-clamp:4!important;-webkit-box-orient:vertical!important;overflow:hidden!important;text-align:center!important;width:100%!important;max-height:calc(1.18em * 4)!important;line-height:1.18!important}
+    /* Section grouping labels — desktop full-bleed; mobile pad breakout */
   .psq-group{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:14px clamp(12px,4vw,40px) 2px;box-sizing:border-box}
   .psq-group__label{display:inline-flex;align-items:center;gap:10px;font:800 .72rem/1 Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gc,#EAC15C)}
   .psq-group__label::before,.psq-group__label::after{content:"";display:block;height:2px;width:28px;background:var(--gc,#EAC15C);opacity:.85}
@@ -464,6 +501,21 @@ header .bar{max-width:1200px;margin:0 auto;}
   /* Kill old full-bleed bands + mosaic on homepage — square rows only */
   #bandStack,#magMosaic,.cnet-lead,.nameplate,.mag-nav,.serp-bug{display:none!important}
   body.pulse-mosaic-home #magMosaic,body.pulse-mosaic-home #magMosaic.is-ready{display:none!important}
+  /* Legacy bg-only mode — NEVER hide Recent or pillar rows (owner 2026-07-12) */
+  body.pulse-bg-only{min-height:100dvh}
+  body.pulse-bg-only .foot,
+  body.pulse-bg-only #toTop,
+  body.pulse-bg-only .news-rail,
+  body.pulse-bg-only .shelf,
+  body.pulse-bg-only #triviaTicker,
+  body.pulse-bg-only .tk,
+  body.pulse-bg-only .pwa-install,
+  body.pulse-bg-only [class*="pwa"],
+  body.pulse-bg-only .serp-bug,
+  body.pulse-bg-only .mag-nav,
+  body.pulse-bg-only .nameplate{display:none!important}
+  body.pulse-bg-only a[style*="bottom:90px"],
+  body.pulse-bg-only #pulseSearchSq{display:none!important}
   </style>
 
   <script>
@@ -473,8 +525,18 @@ header .bar{max-width:1200px;margin:0 auto;}
     : '/.netlify/functions/pulse-machine-library-list';
   </script>
 
-  <div class="recentrow" id="recentRow" style="display:none"><h3>Recently Added</h3><div class="recentscroll" id="recentScroll" tabindex="0" role="region" aria-label="Recently added"></div></div>
+
+  <!-- Recently Added FIRST after CRO — seeded so mobile never shows empty (owner 2026-07-13) -->
+  <div class="recentrow" id="recentRow"><h3>Recently Added</h3><div class="recentscroll" id="recentScroll" tabindex="0" role="region" aria-label="Recently added">
+      <a class="rcard" href="/knowledge/ra0645" style="--tc:#EAC15C"><span class="rcard-imgwrap"><img src="/assets/qa/ra0645.sq.jpg" width="220" height="198" alt="" decoding="async" fetchpriority="high" class="is-on"></span><div class="rc">Revenue Architecture</div><div class="rt"><span>How do you architect revenue operations…</span></div></a>
+      <a class="rcard" href="/knowledge/st0001" style="--tc:#EAC15C"><span class="rcard-imgwrap"><img src="/assets/qa/st0001.sq.jpg" width="220" height="198" alt="" decoding="async" class="is-on" onerror="this.onerror=null;this.src='/assets/qa/st0001.jpg'"></span><div class="rc">Sales Trainings</div><div class="rt"><span>The Discovery Call Reset — 60-Min Training</span></div></a>
+      <a class="rcard" href="/knowledge/gp0517" style="--tc:#EAC15C"><span class="rcard-imgwrap"><img src="/assets/qa/gp0517.sq.jpg" width="220" height="198" alt="" decoding="async" class="is-on" onerror="this.onerror=null;this.src='/assets/topics/go-to-market-playbooks.jpg'"></span><div class="rc">GTM Playbooks</div><div class="rt"><span>What is the best way to approach GTM…</span></div></a>
+      <a class="rcard" href="/knowledge/ik0101" style="--tc:#EAC15C"><span class="rcard-imgwrap"><img src="/assets/qa/ik0101.sq.jpg" width="220" height="198" alt="" decoding="async" class="is-on" onerror="this.onerror=null;this.src='/assets/topics/industry-kpis.jpg'"></span><div class="rc">Industry KPIs</div><div class="rt"><span>Industry KPI benchmarks for 2027</span></div></a>
+      <a class="rcard" href="/knowledge/bs0319" style="--tc:#EAC15C"><span class="rcard-imgwrap"><img src="/assets/qa/bs0319.sq.jpg" width="220" height="198" alt="" decoding="async" class="is-on"></span><div class="rc">Book Summaries</div><div class="rt"><span>The 12 Week Year by Brian Moran…</span></div></a>
+      <a class="rcard" href="/knowledge/tk0553" style="--tc:#A78BDB"><span class="rcard-imgwrap"><img src="/assets/qa/tk0553.sq.jpg" width="220" height="198" alt="" decoding="async" class="is-on"></span><div class="rc">Tech Stacks</div><div class="rt"><span>What is the recommended tech stack…</span></div></a>
+  </div></div>
   <script>(function(){
+    // Recently Added ALWAYS loads (owner 2026-07-12 — was flickering / hidden by bg-only)
     var PN={q:'Knowledge',ce:'Knowledge',tl:'Pulse Tools',ca:'Cars',bt:'Boats',aq:'Aquariums',ik:'Industry KPIs',tk:'Tech Stacks',bs:'Book Summaries',st:'Sales Trainings',fr:'Franchises',co:'Collectibles',ai:'AI Infrastructure',gb:'Graphics',bo:'Buildouts',sy:'Style',gp:'GTM Playbooks',ra:'Revenue Architecture',pt:'Pets',es:'Estates',tv:'Travel',rs:'Resorts',cl:'Clubs',lv:'Living',ev:'Events',ga:'Gatherings',gm:'Gaming',mv:'Movies',wl:'Wellness',dn:'Dining',nl:'Nightlife',tn:'Towns',sc:'Schools',tc:'Telco',er:'Electronics',hf:'HS Football',sw:'Software',sk:'Skills',sp:'Speeches',cg:'Coaching',cd:'Contracts',dr:'Drills',cr:'Crabbing',fs:'Fishing'};
     var TI={q:'/assets/topics/current-events.jpg',ce:'/assets/topics/current-events.jpg',st:'/assets/topics/sales-trainings.jpg',ik:'/assets/topics/industry-kpis.jpg',tk:'/assets/topics/tech-stacks.jpg',gb:'/assets/topics/graphics.jpg',bs:'/assets/topics/sales-book-summaries.jpg',er:'/assets/topics/electronic-reviews.jpg',ra:'/assets/topics/revenue-architecture.jpg',gp:'/assets/topics/go-to-market-playbooks.jpg',fr:'/assets/topics/franchises.jpg',ca:'/assets/topics/cars.jpg',tn:'/assets/topics/towns.jpg',sc:'/assets/topics/towns.jpg',nl:'/assets/topics/nightlife.jpg',dn:'/assets/topics/dining.jpg',bt:'/assets/topics/boats.jpg',mv:'/assets/topics/movies.jpg',wl:'/assets/topics/wellness.jpg',dr:'/assets/topics/drills.jpg',tv:'/assets/topics/travel.jpg',rs:'/assets/topics/resorts.jpg',es:'/assets/topics/estates.jpg',cl:'/assets/topics/clubs.jpg',lv:'/assets/topics/living.jpg',ev:'/assets/topics/events.jpg',sy:'/assets/topics/style.jpg',ga:'/assets/topics/events.jpg',gm:'/assets/topics/gaming.jpg',sk:'/assets/topics/skills.jpg',sp:'/assets/topics/speeches.jpg',tl:'/assets/topics/tools.jpg',cg:'/assets/topics/coaching.jpg',co:'/assets/topics/collectibles.jpg',aq:'/assets/topics/aquariums.jpg',hf:'/assets/topics/highschool-football-recruiting.jpg',ai:'/assets/topics/ai-infrastructure.jpg',bo:'/assets/topics/buildouts.jpg',cd:'/assets/topics/contracts.jpg',tc:'/assets/topics/telco.jpg',pt:'/assets/topics/pets.jpg',sw:'/assets/topics/software.jpg',cr:'/assets/topics/fish-and-crabs-crab.jpg',fs:'/assets/topics/fish-and-crabs-fish.jpg'};
     var TC={gp:'#EAC15C',ik:'#EAC15C',ra:'#EAC15C',st:'#EAC15C',bs:'#EAC15C',cg:'#EAC15C',q:'#EAC15C',sk:'#EAC15C',sp:'#E0B84A',cd:'#E0B84A',tk:'#A78BDB',tl:'#A78BDB',sw:'#A78BDB',ai:'#A78BDB',er:'#A78BDB',tc:'#A78BDB',fr:'#C8A878',es:'#C8A878',bo:'#C8A878',ca:'#5AA8D4',bt:'#5AA8D4',tv:'#4AB8A8',rs:'#4AB8A8',tn:'#4AB8A8',sc:'#4AB8A8',gb:'#C090D0',sy:'#C090D0',co:'#C090D0',mv:'#C090D0',dn:'#E090A8',cl:'#E090A8',nl:'#1A1A1E',ev:'#E8E4D8',ga:'#E8E4D8',lv:'#E090A8',wl:'#E090A8',hf:'#5CBC70',dr:'#5CBC70',gm:'#6BC88A',aq:'#6BC88A',pt:'#6BC88A',ce:'#EAC15C',fs:'#6BC88A',cr:'#6BC88A'};
@@ -536,20 +598,31 @@ header .bar{max-width:1200px;margin:0 auto;}
     }
     function wireDrag(){
       if(scrollWired)return;
+      // Shared grab only — no idle autoscroll
+      if(window.PulseSquares&&PulseSquares.wireGrabScroll){
+        scrollWired=true;
+        PulseSquares.wireGrabScroll(sc,{auto:false});
+        return;
+      }
       scrollWired=true;
-      var drag=false,moved=false,startX=0,startLeft=0,pid=null,pressed=null,suppressClick=false,DRAG_PX=12;
+      var drag=false,moved=false,startX=0,startY=0,startLeft=0,pid=null,pressed=null,suppressClick=false,touchy=false;
+      var DRAG_MOUSE=8,DRAG_TOUCH=12,VERT_CANCEL=14;
+      function th(){return touchy?DRAG_TOUCH:DRAG_MOUSE;}
       function onDown(e){
         if(e.pointerType==='mouse'&&e.button!==0)return;
+        touchy=e.pointerType==='touch'||e.pointerType==='pen';
         drag=true;moved=false;pid=e.pointerId;suppressClick=false;
-        startX=e.clientX;startLeft=sc.scrollLeft;
+        startX=e.clientX;startY=e.clientY;startLeft=sc.scrollLeft;
         pressed=e.target&&e.target.closest?e.target.closest('a.rcard'):null;
-        pauseAuto(null);
-        try{sc.setPointerCapture(e.pointerId);}catch(err){}
+        if(!touchy){try{sc.setPointerCapture(e.pointerId);}catch(err){}}
       }
       function onMove(e){
         if(!drag||(pid!=null&&e.pointerId!==pid))return;
-        var dx=e.clientX-startX;
-        if(Math.abs(dx)>DRAG_PX){
+        var dx=e.clientX-startX, dy=e.clientY-startY;
+        if(touchy&&Math.abs(dy)>VERT_CANCEL&&Math.abs(dy)>=Math.abs(dx)){
+          moved=true;pressed=null;drag=false;sc.classList.remove('is-dragging');return;
+        }
+        if(Math.abs(dx)>th()){
           if(!moved){moved=true;sc.classList.add('is-dragging');}
           sc.scrollLeft=startLeft-dx;
           e.preventDefault();
@@ -558,13 +631,15 @@ header .bar{max-width:1200px;margin:0 auto;}
       function onUp(e){
         if(!drag||(pid!=null&&e.pointerId!==pid))return;
         var wasMoved=moved;
-        var go=(!wasMoved&&pressed&&pressed.getAttribute('href'))?pressed.href:'';
-        drag=false;pid=null;pressed=null;moved=false;
+        var dx=Math.abs(e.clientX-startX), dy=Math.abs(e.clientY-startY);
+        var scrollDelta=Math.abs(sc.scrollLeft-startLeft);
+        var tap=!wasMoved&&pressed&&pressed.getAttribute('href')&&scrollDelta<6&&dx<th()&&dy<(touchy?VERT_CANCEL:th());
+        var go=tap?pressed.getAttribute('href'):'';
+        drag=false;pid=null;pressed=null;moved=false;touchy=false;
         sc.classList.remove('is-dragging');
         try{sc.releasePointerCapture(e.pointerId);}catch(err){}
-        pauseAuto(2800);
         if(go){suppressClick=true;e.preventDefault();location.href=go;return;}
-        if(wasMoved) suppressClick=true;
+        if(wasMoved||scrollDelta>=6) suppressClick=true;
       }
       sc.addEventListener('pointerdown',onDown);
       sc.addEventListener('pointermove',onMove,{passive:false});
@@ -575,55 +650,25 @@ header .bar{max-width:1200px;margin:0 auto;}
         suppressClick=false;
         e.preventDefault();e.stopPropagation();
       },true);
-      // Wheel: page up/down only. Left/right = click-drag + autoscroll only.
-      sc.addEventListener('wheel',function(e){
-        var dy=e.deltaY;
-        if(e.deltaMode===1)dy*=16;
-        else if(e.deltaMode===2)dy*=window.innerHeight;
-        e.preventDefault();e.stopPropagation();
-        if(dy) window.scrollBy(0,dy);
-      },{passive:false});
-      sc.addEventListener('mouseenter',function(){pauseAuto(null);});
-      sc.addEventListener('mouseleave',function(){if(!drag)pauseAuto(1200);});
-      setInterval(function(){
-        if(paused||drag||document.hidden)return;
-        var max=Math.max(0,sc.scrollWidth-sc.clientWidth);
-        if(max<=0)return;
-        if(sc.scrollLeft>=max-1){sc.scrollLeft=0;return;}
-        sc.scrollLeft+=0.55;
-      },32);
     }
-    function paint(es, forceShuffle){
-      if(!Array.isArray(es)||!es.length)return;
-      lastEntries=es.slice(0,8);
-      var slice=forceShuffle!==false ? shuffle(lastEntries) : lastEntries.slice();
-      var sig=slice.map(function(e){return e.id;}).join(',')+(forceShuffle?'~':'');
-      if(!forceShuffle && sig===lastSig)return;
-      lastSig=sig;
-      var used=Object.create(null);
-      var cards=[];
-      for(var i=0;i<slice.length;i++){
-        var e=slice[i];
-        var img=e.imgSq||('/assets/qa/'+e.id+'.sq.jpg');
-        // Browse only: untitled .sq.jpg → topic stock. NEVER mosaic face (double-title).
-        var fallback=topicOf(e.id);
-        if(used[img]) continue;
-        used[img]=1;
-        var full=String(e.question||e.title||'');
-        var q=esc(shortTitle(full,36));
-        var tip=esc(full);
-        var label=esc(PN[pref(e.id)]||pref(e.id).toUpperCase());
-        cards.push('<a class="rcard" href="'+hrefOf(e.id)+'" style="--tc:'+colorOf(e.id)+'" title="'+tip+'"><span class="rcard-imgwrap"><img class="psq-img" width="220" height="198" decoding="async" draggable="false" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="'+esc(img)+'" alt="'+tip+'" data-fb="'+esc(fallback)+'" onerror="if(window.PulseSquares&&PulseSquares.imgFail)PulseSquares.imgFail(this);else{this.onerror=null;this.src=\''+esc(fallback)+'\';}"></span><div class="rc">'+label+'</div><div class="rt"><span>'+q+'</span></div></a>');
-      }
-      if(!cards.length)return;
-      sc.innerHTML=cards.join('');
-      row.style.display='block';
-      // Keep same scroll node — wire once (rewiring every paint stacked listeners and broke clicks)
-      wireDrag();
-      if(window.PulseSquares&&PulseSquares.wireLazyImgs) PulseSquares.wireLazyImgs(sc);
+    var RECENT_SHOW = 40;   // paint first chunk fast
+    var RECENT_POOL = 1000; // busy-friendly max (owner 2026-07-13)
+    var RECENT_CHUNK = 40;  // append pace
+    var RECENT_CHUNK_MS = 120;
+    var fillTimer = null;
+    function cardHtml(e){
+      var img=e.imgSq||('/assets/qa/'+e.id+'.sq.jpg');
+      var fallback=topicOf(e.id);
+      var full=String(e.question||e.title||'');
+      var q=esc(shortTitle(full,36));
+      var tip=esc(full);
+      var label=esc(PN[pref(e.id)]||pref(e.id).toUpperCase());
+      return '<a class="rcard" href="'+hrefOf(e.id)+'" style="--tc:'+colorOf(e.id)+'" title="'+tip+'"><span class="rcard-imgwrap"><img class="psq-img" width="220" height="198" decoding="async" draggable="false" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="'+esc(img)+'" alt="'+tip+'" data-fb="'+esc(fallback)+'" onerror="if(window.PulseSquares&&PulseSquares.imgFail)PulseSquares.imgFail(this);else{this.onerror=null;this.src=\''+esc(fallback)+'\';}"></span><div class="rc">'+label+'</div><div class="rt"><span>'+q+'</span></div></a>';
+    }
+    function hydrateImgs(root){
+      if(window.PulseSquares&&PulseSquares.wireLazyImgs) PulseSquares.wireLazyImgs(root||sc);
       else {
-        // Fallback hydrate if squares helper not ready
-        var ims=sc.querySelectorAll('img.psq-img[data-src]');
+        var ims=(root||sc).querySelectorAll('img.psq-img[data-src]');
         for(var hi=0;hi<ims.length;hi++){
           (function(img){
             var s=img.getAttribute('data-src'); if(!s)return;
@@ -633,12 +678,65 @@ header .bar{max-width:1200px;margin:0 auto;}
           })(ims[hi]);
         }
       }
+    }
+    function paint(es, forceShuffle){
+      if(!Array.isArray(es)||!es.length)return;
+      if(fillTimer){ clearTimeout(fillTimer); fillTimer=null; }
+      // Keep chronological order for scroll depth — only light shuffle within first paint chunk
+      lastEntries=es.slice(0,RECENT_POOL);
+      var pool=lastEntries.slice();
+      var first=pool.slice(0,RECENT_SHOW);
+      if(forceShuffle!==false) first=shuffle(first);
+      var sig=first.map(function(e){return e.id;}).join(',')+(forceShuffle?'~':'');
+      if(!forceShuffle && sig===lastSig && sc.children.length>=Math.min(pool.length,RECENT_SHOW))return;
+      lastSig=sig;
+      var seenId=Object.create(null);
+      var cards=[];
+      for(var i=0;i<first.length;i++){
+        var e=first[i];
+        if(!e||!e.id||seenId[e.id])continue;
+        seenId[e.id]=1;
+        cards.push(cardHtml(e));
+      }
+      if(!cards.length)return;
+      sc.innerHTML=cards.join('');
+      row.style.display='block';
+      wireDrag();
+      if(window.PulseSquares&&PulseSquares.wireEndlessLoop) PulseSquares.wireEndlessLoop(sc);
+      if(window.PulseSquares&&PulseSquares.wireFlyIn) PulseSquares.wireFlyIn(sc,{flyStaggerMs:120});
+      else hydrateImgs(sc);
+      // Slowly append the rest up to RECENT_POOL so the row is scrollable without blocking first paint
+      var rest=pool.filter(function(e){ return e&&e.id&&!seenId[e.id]; });
+      var ri=0;
+      function appendMore(){
+        if(document.hidden){ fillTimer=setTimeout(appendMore, RECENT_CHUNK_MS*2); return; }
+        if(ri>=rest.length){ fillTimer=null; return; }
+        var frag=document.createDocumentFragment();
+        var wrap=document.createElement('div');
+        var chunk=[];
+        for(var n=0;n<RECENT_CHUNK && ri<rest.length;n++,ri++){
+          var e2=rest[ri];
+          if(!e2||!e2.id||seenId[e2.id]) continue;
+          seenId[e2.id]=1;
+          chunk.push(cardHtml(e2));
+        }
+        if(!chunk.length){ fillTimer=setTimeout(appendMore, RECENT_CHUNK_MS); return; }
+        wrap.innerHTML=chunk.join('');
+        while(wrap.firstChild) frag.appendChild(wrap.firstChild);
+        sc.appendChild(frag);
+        hydrateImgs(sc);
+        fillTimer=setTimeout(appendMore, RECENT_CHUNK_MS);
+      }
+      if(rest.length) fillTimer=setTimeout(appendMore, RECENT_CHUNK_MS);
+    }
     function load(){
-      // STEP 7 placement: fresh ts window + pulse-recent tag (same entry, Recent surface)
+      // Daily Driver + fixer publishes land here via pulse-recent tag + fresh ts
       var LIB=(window.__PULSE_LIB__||'/.netlify/functions/pulse-machine-library-list');
-      var a=fetch(LIB+'?recent=24&newOnly=1&days=14&sort=ts&mini=1').then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});
-      var b=fetch(LIB+'?recent=24&tag=pulse-recent&sort=ts&mini=1').then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});
-      Promise.all([a,b]).then(function(pair){
+      var a=fetch(LIB+'?recent='+RECENT_POOL+'&newOnly=1&days=30&sort=ts&mini=1').then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});
+      var b=fetch(LIB+'?recent='+RECENT_POOL+'&tag=pulse-recent&sort=ts&mini=1').then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});
+      // Fallback: fat recent list if tag/newOnly thin
+      var c=fetch(LIB+'?recent='+RECENT_POOL+'&sort=ts&mini=1').then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});
+      Promise.all([a,b,c]).then(function(pair){
         var seen=Object.create(null), merged=[];
         pair.forEach(function(d){
           ((d&&(d.entries||d.items||d.results))||[]).forEach(function(e){
@@ -647,19 +745,42 @@ header .bar{max-width:1200px;margin:0 auto;}
           });
         });
         merged.sort(function(x,y){return (y.ts||0)-(x.ts||0);});
-        paint(merged.slice(0,8), true);
+        if(merged.length) paint(merged.slice(0,RECENT_POOL), true);
+        else if(lastEntries.length) paint(lastEntries, false);
+        else if(row) row.style.display='block';
+        try{ window.__PULSE_RECENT_READY = true; window.dispatchEvent(new Event('pulse-recent-ready')); }catch(e){}
       });
     }
+    // Recent FIRST — seed visible now; live 40 ASAP, then slowly fill to RECENT_POOL for scroll
     load();
-    setInterval(load, 60000);
+    setInterval(load, 45000);
     setInterval(function(){
       if(document.hidden||!lastEntries.length)return;
+      // Don't wipe a long scroll row — only reshuffle when under first chunk
+      if(sc && sc.children && sc.children.length > RECENT_SHOW) return;
       paint(lastEntries, true);
-    }, 15*60*1000);
+    }, 90*1000);
   })();</script>
 
+  <div id="psqBoot" aria-label="Loading browse rows">
+    <div class="psq-group__label">Revenue &amp; Leadership</div>
+    <h3>GTM Playbooks</h3>
+    <div class="psq-scroll">
+      <a class="rcard" href="/knowledge/ra0645" style="--tc:#EAC15C"><span class="rcard-imgwrap"><img src="/assets/qa/ra0645.sq.jpg" width="220" height="198" alt="" decoding="async" fetchpriority="high"></span><div class="rc">Revenue Architecture</div><div class="rt"><span>How do you architect revenue operations for a direct…</span></div></a>
+      <a class="rcard" href="/knowledge/cg0953" style="--tc:#EAC15C"><span class="rcard-imgwrap"><img src="/assets/qa/cg0953.sq.jpg" width="220" height="198" alt="" decoding="async" fetchpriority="high"></span><div class="rc">CRO Coaching</div><div class="rt"><span>How do you validate that the person you are talkin…</span></div></a>
+      <a class="rcard" href="/knowledge/bs0319" style="--tc:#EAC15C"><span class="rcard-imgwrap"><img src="/assets/qa/bs0319.sq.jpg" width="220" height="198" alt="" decoding="async"></span><div class="rc">Book Summaries</div><div class="rt"><span>The 12 Week Year by Brian Moran and Michael Lennin</span></div></a>
+      <a class="rcard" href="/knowledge/tk0553" style="--tc:#A78BDB"><span class="rcard-imgwrap"><img src="/assets/qa/tk0553.sq.jpg" width="220" height="198" alt="" decoding="async"></span><div class="rc">Tech Stacks</div><div class="rt"><span>What is the recommended tech stack for a direct-to…</span></div></a>
+      <a class="rcard" href="/knowledge/wl0109" style="--tc:#6BC88A"><span class="rcard-imgwrap"><img src="/assets/qa/wl0109.sq.jpg" width="220" height="198" alt="" decoding="async"></span><div class="rc">Wellness</div><div class="rt"><span>Top 10 Habit Tracker Apps 2027</span></div></a>
+      <a class="rcard" href="/knowledge/er0708" style="--tc:#A78BDB"><span class="rcard-imgwrap"><img src="/assets/qa/er0708.sq.jpg" width="220" height="198" alt="" decoding="async"></span><div class="rc">Electronics</div><div class="rt"><span>Top 10 Soundbars Under $500 in 2027</span></div></a>
+      <a class="rcard" href="/knowledge/mv0015" style="--tc:#C090D0"><span class="rcard-imgwrap"><img src="/assets/qa/mv0015.sq.jpg" width="220" height="198" alt="" decoding="async"></span><div class="rc">Movies</div><div class="rt"><span>Top 10 Movies on Netflix 2027</span></div></a>
+      <a class="rcard" href="/knowledge/bt0399" style="--tc:#5AA8D4"><span class="rcard-imgwrap"><img src="/assets/qa/bt0399.sq.jpg" width="220" height="198" alt="" decoding="async"></span><div class="rc">Boats</div><div class="rt"><span>Top 10 Trawlers 2024</span></div></a>
+    </div>
+  </div>
+
   <div id="psqStack"></div>
-  <script src="/js/pulse-squares.js?v=20260712bg14" defer></script>
+  <script src="/js/pulse-squares.js?v=20260713recent200" defer></script>
+  <script src="/js/pulse-square-refresh.js?v=20260714" defer></script>
+  <script src="/js/pulse-square-drift.js?v=20260714" defer></script>
   <script>
   (function(){
     // Same row format as Recently Added — only title + pillar content changes
@@ -712,16 +833,34 @@ header .bar{max-width:1200px;margin:0 auto;}
     ROWS.forEach(function(r){if(r.group&&GROUP_COLOR[r.group])r.groupColor=GROUP_COLOR[r.group];if(r.group==='Revenue & Leadership')r.color='#EAC15C';});
     var stack=document.getElementById('psqStack');
     if(!stack)return;
-    // FIRST VIEWPORT ONLY (owner 2026-07-12): paint what fits, then slowly drip the rest.
-    var FIRST_ROWS = 1;          // Recent + 1 pillar ≈ first screen
-    var CARDS_FIRST = 8;         // ~what fits horizontally + peek
-    var CARDS_LATER = 12;
-    var FETCH_N = 24;            // tiny library pulls
-    var DRIP_MS = 1800;          // slow: one offscreen row at a time
-    var i = 0, busy = false, phase = 'first', dripLock = false;
+    // Instant boot (snappy) → replace with real paint → quickly ADD pillar rows.
+    // Load 100–200 per row only (NOT 35k). Background shuffler mixes in new ones every 90s.
+    var isMob = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || (window.innerWidth||900) < 700;
+    var BATCH = isMob ? 100 : 160; // show up to this many cards in the row
+    var POOL = isMob ? 160 : 200;  // fetch pool — reshuffle draws different faces from here
+    var BETWEEN_ROWS_MS = isMob ? 220 : 160;
+    var FLY_STAGGER = isMob ? 90 : 120;  // slower L→R fill (owner 2026-07-13)
+    var FLY_MAX = isMob ? 6 : 10;
+    var RESHUFFLE_MS = 15 * 1000; // 1 new square per row every 15s (owner 2026-07-13)
+    var i = 0, busy = false, painted = 0;
+    var rowCache = Object.create(null);
+    var CACHE_KEY = 'psq.row.v5.';
+    var CACHE_TTL = 20 * 60 * 1000;
 
-    function paint(spec, ents, cardLimit){
-      if(!window.PulseSquares || !ents || !ents.length) return false;
+    function paint(spec, ents, onFlyDone){
+      var list = Array.isArray(ents) ? ents : (ents && ents.entries) || [];
+      var inv = (ents && !Array.isArray(ents) && ents.inventory != null) ? ents.inventory : (spec.inventory || list.length);
+      if(!window.PulseSquares || !list.length) {
+        if(onFlyDone) onFlyDone();
+        return false;
+      }
+      // First REAL row replaces snappy boot; later rows APPEND quickly below.
+      if(painted===0){
+        var boot=document.getElementById('psqBoot');
+        if(boot) boot.classList.add('is-gone');
+      }
+      var useFly = painted >= 1;
+      painted++;
       var g=spec.group||'';
       if(g && g!==paint._lastGroup){
         paint._lastGroup=g;
@@ -734,45 +873,87 @@ header .bar{max-width:1200px;margin:0 auto;}
       }
       var el=document.createElement('div');
       stack.appendChild(el);
-      window.PulseSquares.paintRow(el, ents, {
+      el.__psqRefetch = function(){ return fetchRow(spec, true).then(function(r){ return r && r.entries ? r.entries : r; }); };
+      window.PulseSquares.paintRow(el, list, {
         title:spec.title,
         pillar:spec.pillar,
         moreHref:spec.href,
-        limit: cardLimit || CARDS_LATER,
+        inventory:inv,
+        limit: BATCH,
         shuffle:true,
+        flyIn:useFly,
+        flyStaggerMs:FLY_STAGGER,
+        flyMax:useFly ? FLY_MAX : 0,
+        onFlyDone:onFlyDone,
         color:spec.color||(window.PulseSquares&&window.PulseSquares.colorOf?window.PulseSquares.colorOf(spec.pillar):null),
         usedImages:Object.create(null),
         allowImageDupes:false,
-        idleMs:15000,
-        reshuffleMs:15*60*1000
+        auto:false,
+        reshuffle:true,
+        reshuffleMs:RESHUFFLE_MS
       });
       if(el.style.display==='none' || !el.querySelector('.rcard')){
         try{el.remove();}catch(e){}
+        if(onFlyDone) onFlyDone();
         return false;
       }
+      if(i < ROWS.length) fetchRow(ROWS[i]);
       return true;
     }
-    function fetchRow(spec){
-      return fetch((window.__PULSE_LIB__||'/.netlify/functions/pulse-machine-library-list')+'?recent='+FETCH_N+'&pillar='+encodeURIComponent(spec.pillar)+'&mini=1&sort=ts')
+    function readCache(key){
+      try{
+        var raw=sessionStorage.getItem(CACHE_KEY+key);
+        if(!raw)return null;
+        var o=JSON.parse(raw);
+        if(!o||!o.t||(Date.now()-o.t)>CACHE_TTL||!Array.isArray(o.e))return null;
+        return { entries:o.e, inventory:o.n||o.e.length };
+      }catch(e){return null;}
+    }
+    function writeCache(key, ents, inv){
+      try{ sessionStorage.setItem(CACHE_KEY+key, JSON.stringify({t:Date.now(),e:(ents||[]).slice(0,POOL),n:inv||0})); }catch(e){}
+    }
+    function fetchRow(spec, forceNet){
+      var key = String(spec.pillar || '').toLowerCase();
+      if (!forceNet && rowCache[key]) return rowCache[key];
+      var cached = readCache(key);
+      var net = fetch((window.__PULSE_LIB__||'/.netlify/functions/pulse-machine-library-list')+'?recent='+POOL+'&pillar='+encodeURIComponent(spec.pillar)+'&mini=1&sort=ts')
         .then(function(r){return r.ok?r.json():null;})
         .then(function(d){
           var ents=(d&&(d.entries||d.items))||[];
           var p=String(spec.pillar||'').toLowerCase().replace(/[^a-z]/g,'');
-          if(!p)return ents;
-          var rx=new RegExp('^'+p+'\\d+$','i');
-          return ents.filter(function(e){ return e&&e.id&&rx.test(String(e.id)); });
+          if(p){
+            var rx=new RegExp('^'+p+'\\d+$','i');
+            ents=ents.filter(function(e){ return e&&e.id&&rx.test(String(e.id)); });
+          }
+          var inv = Number((d&&(d.matched!=null?d.matched:d.total))||ents.length)||ents.length;
+          if(ents.length) writeCache(key, ents, inv);
+          return { entries: ents, inventory: inv };
         })
-        .catch(function(){return [];});
+        .catch(function(){return cached||{entries:[],inventory:0};});
+      rowCache[key] = net;
+      if(!forceNet && cached && cached.entries && cached.entries.length){
+        net.then(function(fresh){ if(fresh && fresh.entries && fresh.entries.length) rowCache[key] = Promise.resolve(fresh); });
+        return Promise.resolve(cached);
+      }
+      return net;
     }
 
     function loadOne(done){
       if(busy || i>=ROWS.length){ if(done) done(false); return; }
       busy=true;
       var spec=ROWS[i++];
-      var lim = (i <= FIRST_ROWS) ? CARDS_FIRST : CARDS_LATER;
       function go(){
-        fetchRow(spec).then(function(ents){
-          if(ents && ents.length && window.PulseSquares) paint(spec, ents, lim);
+        fetchRow(spec).then(function(pack){
+          var ents = pack && pack.entries ? pack : { entries: pack||[], inventory: (pack&&pack.length)||0 };
+          if(pack && pack.entries) ents = pack;
+          else if(Array.isArray(pack)) ents = { entries: pack, inventory: pack.length };
+          if(!(ents.entries && ents.entries.length && window.PulseSquares)){
+            busy=false;
+            if(done) done(i < ROWS.length);
+            return;
+          }
+          spec.inventory = ents.inventory;
+          paint(spec, ents, null);
           busy=false;
           if(done) done(i < ROWS.length);
         }).catch(function(){
@@ -784,65 +965,31 @@ header .bar{max-width:1200px;margin:0 auto;}
       else setTimeout(function(){
         if(window.PulseSquares) go();
         else { busy=false; i--; if(done) done(true); }
-      }, 80);
+      }, 40);
     }
 
-    // Sentinel at bottom — only fetch more when user is near it (or idle drip)
-    var sent = document.createElement('div');
-    sent.id = 'psqSentinel';
-    sent.setAttribute('aria-hidden','true');
-    sent.style.cssText = 'height:1px;width:100%;pointer-events:none';
-    stack.appendChild(sent);
-
-    function dripRest(){
-      if(phase !== 'rest' || i >= ROWS.length || busy || dripLock) return;
-      dripLock = true;
+    function tick(){
+      if(i >= ROWS.length) return;
       loadOne(function(more){
-        try { stack.appendChild(sent); } catch(e) {}
-        setTimeout(function(){ dripLock = false; }, DRIP_MS);
-        if(!more){ phase = 'done'; return; }
+        if(!more) return;
+        setTimeout(tick, BETWEEN_ROWS_MS);
       });
     }
-
-    function startRest(){
-      if(phase !== 'first') return;
-      phase = 'rest';
-      // Idle drip: one row every ~2s so the rest of the site fills without jamming first paint
-      function idleTick(){
-        if(phase === 'done') return;
-        if(!document.hidden) dripRest();
-        setTimeout(idleTick, DRIP_MS + 200);
-      }
-      var kick = function(){ setTimeout(idleTick, 1500); };
-      if(typeof requestIdleCallback === 'function') requestIdleCallback(kick, { timeout: 3000 });
-      else setTimeout(kick, 1500);
-    }
-
-    if(typeof IntersectionObserver === 'function'){
-      try {
-        var io = new IntersectionObserver(function(ents){
-          for(var k=0;k<ents.length;k++){
-            if(ents[k].isIntersecting && phase === 'rest') dripRest();
-          }
-        }, { root: null, rootMargin: '600px 0px', threshold: 0 });
-        io.observe(sent);
-      } catch(err) {}
-    }
-    // Also drip when user scrolls near end of loaded stack
-    addEventListener('scroll', function(){
-      if(phase !== 'rest' || busy) return;
-      var r = sent.getBoundingClientRect();
-      if(r.top < window.innerHeight + 700) dripRest();
-    }, { passive: true });
 
     function start(){
-      // First screen: one pillar row only
-      loadOne(function(){
-        startRest();
-      });
+      if(ROWS[0]) fetchRow(ROWS[0]);
+      tick();
     }
-    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);
-    else start();
+    // Pillar rows wait until Recent has painted 40 (or 1.2s max) — Recent loads first
+    function startAfterRecent(){
+      if(window.__PULSE_RECENT_READY){ start(); return; }
+      var done=false;
+      function go(){ if(done)return; done=true; start(); }
+      window.addEventListener('pulse-recent-ready', go, { once:true });
+      setTimeout(go, 1200);
+    }
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startAfterRecent);
+    else startAfterRecent();
   })();
   </script>
 
@@ -850,7 +997,7 @@ header .bar{max-width:1200px;margin:0 auto;}
 
   <nav class="mag-nav" id="magNav" aria-label="Sections"></nav>
 
-  <a class="serp-bug" href="/knowledge" aria-label="Pulse RevOps — Adds Value"><img src="/icon-192.png" alt=""><span><b>Pulse RevOps</b><small>Adds Value</small></span></a>
+  <a class="serp-bug" href="/knowledge" aria-label="Pulse - Value Added"><img src="/icon-192.png" alt=""><span><b>Pulse</b><small>Value Added</small></span></a>
 
   <section class="cnet-lead" id="cnetLead" aria-label="Featured">
     <div class="lead-row">
@@ -876,13 +1023,13 @@ header .bar{max-width:1200px;margin:0 auto;}
   </section>
 
   <section class="mag-mosaic" id="magMosaic" aria-label="More stories" style="display:none"></section>
-  <button id="toTop" aria-label="Back to top" style="display:none;position:fixed;right:18px;bottom:18px;z-index:75;min-width:72px;height:52px;padding:0 14px;border-radius:6px;border:1.5px solid #EAC15C;background:linear-gradient(135deg,#1a140f 0%,#2a1d12 100%);color:#EAC15C;font:800 1.05rem/1 Fraunces,Georgia,serif;font-style:italic;cursor:pointer;box-shadow:0 0 0 1px rgba(234,193,92,.25),0 8px 22px rgba(0,0,0,.45);letter-spacing:.02em">Top â†‘</button>
+  <button id="toTop" aria-label="Back to top" style="display:none;position:fixed;right:18px;bottom:18px;z-index:75;min-width:72px;height:52px;padding:0 14px;border-radius:6px;border:1.5px solid #EAC15C;background:#000;color:#EAC15C;font:800 1.05rem/1 Fraunces,Georgia,serif;font-style:italic;cursor:pointer;box-shadow:0 0 0 1px rgba(234,193,92,.25),0 8px 22px rgba(0,0,0,.45);letter-spacing:.02em">Top ↑</button>
   <!-- SEARCH moved onto CRO card -->
   <style>#toTop{right:18px!important;left:auto!important}</style>
   <script>(function(){var LH='local'+'host',PT=8899;window.PULSE_UNICORN_PORT=function(){var h=location.hostname,m=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent),saved=null;try{saved=localStorage.getItem('pulse.unicorn.lan');}catch(e){}var lan=(saved||'192.168.5.68').replace(/^https?:\/\//,'').replace(/\/.*$/,'').replace(/:\d+$/,'');if(h==='pulserevops.com'||h==='www.pulserevops.com'||h.endsWith('.netlify.app'))return m?'http://'+lan+':'+PT+'/':'http://'+LH+':'+PT+'/';if(h===LH||/^127\./.test(h)||/^192\.168\.|^10\./.test(h))return location.protocol+'//'+h+':'+PT+'/';return 'http://'+LH+':'+PT+'/';};window.PULSE_UNICORN_BOOT=function(){if(!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent))return;fetch('http://'+LH+':'+PT+'/portal-url').then(function(r){return r.json();}).then(function(j){if(j&&j.lan){try{var ip=String(j.lan).replace(/^https?:\/\//,'').replace(/\/.*$/,'');localStorage.setItem('pulse.unicorn.lan',ip.replace(/:\d+$/,''));}catch(e){}}}).catch(function(){});};})();</script>
-  <a href="#" onclick="window.open(window.PULSE_UNICORN_PORT(),'_blank');return false;" rel="noopener" title="" aria-label="" style="position:fixed;left:10px;bottom:90px;z-index:80;opacity:.1;font-size:1rem;text-decoration:none;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.1">ðŸ¦„</a>
+  <a href="#" onclick="window.open(window.PULSE_UNICORN_PORT(),'_blank');return false;" rel="noopener" title="" aria-label="" style="position:fixed;left:10px;bottom:90px;z-index:80;opacity:.1;font-size:1rem;text-decoration:none;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.1">🦄</a>
   <script>(function(){var t=document.getElementById('toTop');if(!t)return;addEventListener('scroll',function(){t.style.display=scrollY>700?'block':'none';},{passive:true});t.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'});});})();</script>
-  <script>/* AUTO-SCROLL every 15s (owner 2026-07-08): advance a screen, loop at bottom, pause 30s after user scrolls/touches */(function(){var last=0;function bump(){last=Date.now();}addEventListener('wheel',bump,{passive:true});addEventListener('touchmove',bump,{passive:true});addEventListener('keydown',bump);setInterval(function(){if(document.hidden)return;if(Date.now()-last<15000)return;var atEnd=(innerHeight+scrollY)>=document.documentElement.scrollHeight-6;if(atEnd){scrollTo({top:0,behavior:'smooth'});}else{scrollBy({top:Math.round(innerHeight*0.82),behavior:'smooth'});}},15000);})();</script>
+  <!-- AUTO-SCROLL DOWN removed (owner 2026-07-12) -->
 
   <aside class="news-rail" aria-label="Fractional CRO — Kory White">
     <div class="rail-card rail-ad">
@@ -890,7 +1037,7 @@ header .bar{max-width:1200px;margin:0 auto;}
       <img class="rail-photo" src="/assets/kory-white.jpg" alt="Kory White, Fractional CRO" width="120" height="120" loading="lazy" decoding="async">
       <div class="rail-title">Get Fractional.</div>
       <div class="rail-sub">Kory White — Fractional Chief Revenue Officer. 25 yrs · $0→$200M scaled · nationwide + MD &amp; DC.</div>
-      <a class="rail-cta" href="/coaching">ðŸ“ž Book a Call →</a>
+      <a class="rail-cta" href="/coaching">📞 Book a Call →</a>
       <a class="rail-link" href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener">Kory White on LinkedIn →</a>
     </div>
     <div class="rail-card">
@@ -909,26 +1056,26 @@ header .bar{max-width:1200px;margin:0 auto;}
     <span class="cro-ticker-lbl"><span class="dot"></span> Latest</span>
     <a class="cro-mq" href="/coaching" aria-label="Hire a fractional Chief Revenue Officer">
     <div class="cro-mq-track">
-      <span class="cro-mq-box hot"><span class="g">ðŸ’¼</span>Get Fractional</span>
-      <span class="cro-mq-box"><span class="g">ðŸ“ˆ</span>Review Your Revenue</span>
-      <span class="cro-mq-box"><span class="g">ðŸš€</span>$0 → $200M Scaled</span>
-      <span class="cro-mq-box"><span class="g">ðŸŽ¯</span>Hire a Fractional CRO</span>
-      <span class="cro-mq-box"><span class="g">ðŸ“Š</span>AI-Built RevOps</span>
-      <span class="cro-mq-box"><span class="g">ðŸ’°</span>Pipeline → Profit</span>
-      <span class="cro-mq-box"><span class="g">ðŸ§­</span>Interim · Nationwide</span>
-      <span class="cro-mq-box"><span class="g">â±ï¸</span>25 Yrs Scaling Revenue</span>
-      <span class="cro-mq-box hot"><span class="g">ðŸ“ž</span>Book a Call</span>
-      <span class="cro-mq-box"><span class="g">âœ…</span>RevOps, Handled</span>
-      <span class="cro-mq-box hot"><span class="g">ðŸ’¼</span>Get Fractional</span>
-      <span class="cro-mq-box"><span class="g">ðŸ“ˆ</span>Review Your Revenue</span>
-      <span class="cro-mq-box"><span class="g">ðŸš€</span>$0 → $200M Scaled</span>
-      <span class="cro-mq-box"><span class="g">ðŸŽ¯</span>Hire a Fractional CRO</span>
-      <span class="cro-mq-box"><span class="g">ðŸ“Š</span>AI-Built RevOps</span>
-      <span class="cro-mq-box"><span class="g">ðŸ’°</span>Pipeline → Profit</span>
-      <span class="cro-mq-box"><span class="g">ðŸ§­</span>Interim · Nationwide</span>
-      <span class="cro-mq-box"><span class="g">â±ï¸</span>25 Yrs Scaling Revenue</span>
-      <span class="cro-mq-box hot"><span class="g">ðŸ“ž</span>Book a Call</span>
-      <span class="cro-mq-box"><span class="g">âœ…</span>RevOps, Handled</span>
+      <span class="cro-mq-box hot"><span class="g">💼</span>Get Fractional</span>
+      <span class="cro-mq-box"><span class="g">📈</span>Review Your Revenue</span>
+      <span class="cro-mq-box"><span class="g">🚀</span>$0 → $200M Scaled</span>
+      <span class="cro-mq-box"><span class="g">🎯</span>Hire a Fractional CRO</span>
+      <span class="cro-mq-box"><span class="g">📊</span>AI-Built RevOps</span>
+      <span class="cro-mq-box"><span class="g">💰</span>Pipeline → Profit</span>
+      <span class="cro-mq-box"><span class="g">🧭</span>Interim · Nationwide</span>
+      <span class="cro-mq-box"><span class="g">⏱️</span>25 Yrs Scaling Revenue</span>
+      <span class="cro-mq-box hot"><span class="g">📞</span>Book a Call</span>
+      <span class="cro-mq-box"><span class="g">âÅ“…</span>RevOps, Handled</span>
+      <span class="cro-mq-box hot"><span class="g">💼</span>Get Fractional</span>
+      <span class="cro-mq-box"><span class="g">📈</span>Review Your Revenue</span>
+      <span class="cro-mq-box"><span class="g">🚀</span>$0 → $200M Scaled</span>
+      <span class="cro-mq-box"><span class="g">🎯</span>Hire a Fractional CRO</span>
+      <span class="cro-mq-box"><span class="g">📊</span>AI-Built RevOps</span>
+      <span class="cro-mq-box"><span class="g">💰</span>Pipeline → Profit</span>
+      <span class="cro-mq-box"><span class="g">🧭</span>Interim · Nationwide</span>
+      <span class="cro-mq-box"><span class="g">⏱️</span>25 Yrs Scaling Revenue</span>
+      <span class="cro-mq-box hot"><span class="g">📞</span>Book a Call</span>
+      <span class="cro-mq-box"><span class="g">âÅ“…</span>RevOps, Handled</span>
     </div>
     </a>
   </div>
@@ -948,12 +1095,12 @@ header .bar{max-width:1200px;margin:0 auto;}
   </section>
 
   <div class="tk" id="triviaTicker" aria-label="This week's Pulse Trivia champions">
-    <span class="tk-label">ðŸ† Trivia champions</span>
+    <span class="tk-label">🏆 Trivia champions</span>
     <div class="tk-win"><div class="tk-track" id="tkTrack"></div></div>
   </div>
 
   <div class="foot">
-    <span>Â© Pulse — operator-grade answers. <span class="uni-egg" title="ðŸ¦„ owner portal" style="cursor:pointer;user-select:none;opacity:.9;font-size:1.2rem" onclick="window.PULSE_UNICORN_BOOT&&window.PULSE_UNICORN_BOOT();var p=prompt('ðŸ¦„ enter code');if(p==='4444'){location.href=window.PULSE_UNICORN_PORT();}else if(p){alert('ðŸ¦„ says no');}">ðŸ¦„</span></span>
+    <span>© Pulse — operator-grade answers. <span class="uni-egg" title="🦄 owner portal" style="cursor:pointer;user-select:none;opacity:.9;font-size:1.2rem" onclick="window.PULSE_UNICORN_BOOT&&window.PULSE_UNICORN_BOOT();var p=prompt('🦄 enter code');if(p==='4444'){location.href=window.PULSE_UNICORN_PORT();}else if(p){alert('🦄 says no');}">🦄</span></span>
     <nav class="footlinks"><a href="/knowledge">Library</a><a href="/tools">Tools</a><a href="/software">Software</a><a href="/coaching">Hire a CRO</a><a href="/blog/">Blog</a><a href="/revenue-checkup">Free Checkup</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
   </div>
 
@@ -966,7 +1113,7 @@ header .bar{max-width:1200px;margin:0 auto;}
 const T = window.PULSE_TAX;
 // top-nav pillar dropdowns (pillars live here now)
 (function(){var nav=document.getElementById('magNav');if(!nav||!T)return;
-  nav.innerHTML=T.map(function(c){var drop=c.subs.map(function(s){return '<div class="mn-sub">'+s.name+'</div>'+s.items.map(function(it){return '<a href="'+it[1]+'">'+it[0]+'</a>';}).join('');}).join('');return '<div class="mn-item"><span class="mn-trigger" tabindex="0">'+c.name+' â–¾</span><div class="mn-drop">'+drop+'</div></div>';}).join('')+'<div class="mn-item"><span class="mn-trigger" tabindex="0">Hire a CRO â–¾</span><div class="mn-drop"><a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="hire-cro">ðŸ“… Book a Call</a><a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">Kory White — LinkedIn</a><a href="https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate Website</a><a href="/assets/kory-white-cro-1page.pdf" target="_blank" rel="noopener" data-pulse-click="resume">Resume — 1-Pager (PDF)</a></div></div>';
+  nav.innerHTML=T.map(function(c){var drop=c.subs.map(function(s){return '<div class="mn-sub">'+s.name+'</div>'+s.items.map(function(it){return '<a href="'+it[1]+'">'+it[0]+'</a>';}).join('');}).join('');return '<div class="mn-item"><span class="mn-trigger" tabindex="0">'+c.name+' ▾</span><div class="mn-drop">'+drop+'</div></div>';}).join('')+'<div class="mn-item"><span class="mn-trigger" tabindex="0">Hire a CRO ▾</span><div class="mn-drop"><a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="hire-cro">📅 Book a Call</a><a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">Kory White — LinkedIn</a><a href="https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate Website</a><a href="/assets/kory-white-cro-1page.pdf" target="_blank" rel="noopener" data-pulse-click="resume">Resume — 1-Pager (PDF)</a></div></div>';
   nav.querySelectorAll('.mn-trigger').forEach(function(t){t.addEventListener('click',function(){var it=t.parentNode,was=it.classList.contains('open');nav.querySelectorAll('.mn-item').forEach(function(x){x.classList.remove('open');});if(!was)it.classList.add('open');});});
   document.addEventListener('click',function(e){if(!nav.contains(e.target))nav.querySelectorAll('.mn-item').forEach(function(x){x.classList.remove('open');});});
 })();
@@ -1065,19 +1212,13 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
 <script>/* Square homepage: do NOT boot old mosaic / face-img pool (owner 2026-07-12). */
 window.__PULSE_SQUARES_HOME__ = true;
 </script>
-<script>/* Main-page pillar color auto-rotate (works with squares home — mosaic skipped). */
+<script>/* Jet black homepage field (owner 2026-07-12) — locked, no color rotate. */
 (function(){
-  var CYC=[['#0E8C7A','#042E28'],['#C0392B','#2A0907'],['#7A1FA2','#1C0A28'],['#1565C0','#071E3C'],['#EC2D7C','#141414'],['#D97706','#341B03'],['#2E9E5B','#0C321F'],['#6D28D9','#170A33'],['#0A66C2','#0A0A0A'],['#BE185D','#260512'],['#0E6BA8','#052433'],['#C026D3','#260A2A'],['#2563EB','#0A1A3A'],['#B71C3B','#270710']];
-  var ci=Math.floor(Math.random()*CYC.length), b=document.body;
-  b.style.transition='background 2.5s ease';
-  function tick(){
-    if (document.hidden) return; // skip work when tab not visible
-    var c=CYC[ci++%CYC.length];
-    b.style.background='radial-gradient(1100px 560px at 82% -6%, '+c[0]+'4d, transparent 60%), linear-gradient(165deg, '+c[1]+' 0%, #0a0806 55%, '+c[1]+' 100%)';
-    b.style.backgroundAttachment='fixed';
-  }
-  tick();
-  setInterval(tick, 15*60*1000); // every ~15 min — chill, no lag
+  var b=document.body;
+  b.style.background='#000';
+  b.style.backgroundImage='none';
+  b.style.backgroundAttachment='fixed';
+  b.style.backgroundColor='#000';
 })();
 </script>
 <!-- pulse-face-img.js intentionally omitted on squares homepage (was pulling mosaic work) -->
@@ -1095,7 +1236,7 @@ window.__PULSE_SQUARES_HOME__ = true;
   (function(){
     var T=window.PULSE_TAX||[];
     var mm=document.getElementById('magMosaic'); if(!mm)return;
-    document.body.style.background='#0a0806';
+    document.body.style.background='#000';
     document.body.classList.add('pulse-mosaic-home');
     ['cnetLead','magNav','tiles','panel'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});
     var np=document.querySelector('.nameplate');if(np)np.style.display='none';
@@ -1111,7 +1252,7 @@ window.__PULSE_SQUARES_HOME__ = true;
       +'body.pulse-mosaic-home .hs-row{color:#f5e6c8;border-bottom-color:rgba(255,255,255,.06);}'
       +'body.pulse-mosaic-home .hs-row:hover,body.pulse-mosaic-home .hs-row.active{background:rgba(246,192,73,.08);}'
       +'.mm.mm-menu{display:flex;align-items:center;justify-content:center;text-align:center;}.mm.mm-menu::after,.mm.mm-menu .mm-scrim{display:none;}.mm.mm-menu .mm-txt{position:static;padding:0;}.mm-menu-t{margin:0;font-family:Fraunces,"Playfair Display",Georgia,serif;font-style:italic;font-weight:900;font-size:1.5rem;line-height:1.06;color:#fff;text-shadow:0 2px 7px rgba(0,0,0,.5);letter-spacing:.004em;}.mm.mm-menu.big .mm-menu-t{font-size:3.7rem;}.mm.mm-menu.wide .mm-menu-t{font-size:2.8rem;}.mm.mm-menu.tall .mm-menu-t{font-size:2.6rem;}@media(max-width:600px){.mm.mm-menu.big .mm-menu-t{font-size:2.4rem;}.mm.mm-menu.wide .mm-menu-t,.mm.mm-menu.tall .mm-menu-t{font-size:2rem;}}'
-      +'.mm.mm-hero{grid-column:span 1;grid-row:span 1;min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(120deg,#0a0b0f 0%,#171006 52%,#0a0b0f 100%);border:1px solid rgba(246,192,73,.34);box-shadow:inset 0 0 60px rgba(246,192,73,.06);}'
+      +'.mm.mm-hero{grid-column:span 1;grid-row:span 1;min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center;background:#000;border:1px solid rgba(246,192,73,.34);box-shadow:inset 0 0 60px rgba(246,192,73,.06);}'
       +'.mm.mm-hero::after,.mm.mm-hero .mm-scrim{display:none;}'
       +'.mm-hero-in{padding:16px 22px;}'
       +'.mm-hero-k{font:800 .62rem/1 system-ui;letter-spacing:.2em;text-transform:uppercase;color:#F6C049;}'
@@ -1188,7 +1329,7 @@ window.__PULSE_SQUARES_HOME__ = true;
     return perfect.length ? perfect : list;
   }
     function ftile(c,eager){if(!scrubbedPerfect13Ok(c))return '';var z=tileSizeFor(c);var src=mosaicSrc(c);var title=entryTitle(c);var img=FI.mosaicImgTag?FI.mosaicImgTag(src,title,!!eager):'';var lazy=eager?'':' mm-lazy mm-img-pending';var dl=eager?' data-mosaic-loaded="1"':' data-mosaic-lazy="1"';return '<a class="mm'+lazy+' '+z+'" href="/knowledge/'+encodeURIComponent(c.id)+'" aria-label="'+esc(title)+'" data-face-bound="1" data-mosaic-src="'+esc(src)+'"'+dl+'>'+img+'<div class="mm-scrim"></div><span class="mm-cat">'+esc(NM[pof(c.id)]||'')+'</span><div class="mm-txt"><h4>'+esc(title)+'</h4></div></a>';}
-    var html='<a class="mm mm-hero" href="/" aria-label="Pulse RevOps home"><div class="mm-hero-in"><span class="mm-hero-k">â— LIVE · The RevOps Authority</span><img class="mm-hero-logo" src="/pulse-news-logo.png" alt="Pulse RevOps — Value Added" width="164" height="46" loading="eager" fetchpriority="high" decoding="async"></div></a>';
+    var html='<a class="mm mm-hero" href="/" aria-label="Pulse - Value Added home"><div class="mm-hero-in"><span class="mm-hero-k">● LIVE · Pulse - Value Added</span><img class="mm-hero-logo" src="/pulse-news-logo.png?v=value-added" alt="Pulse - Value Added" width="164" height="46" loading="eager" fetchpriority="high" decoding="async"></div></a>';
     // hub tiles = vintage cover + GOLD ITALIC title (CSS overlay, like the Topics template)
     var _hubt='position:absolute;left:16px;right:16px;bottom:14px;z-index:3;color:#fff;font-family:Fraunces,\'Playfair Display\',Georgia,serif;font-style:italic;font-weight:800;line-height:1.02;text-shadow:0 2px 12px rgba(0,0,0,.95),0 1px 3px rgba(0,0,0,.97);';
     // CRO role tile — 1.5x bigger, first, and repeats every 15 tiles (owner 2026-07-06). Recent removed (recent Q&As auto-surface at top).
@@ -1342,7 +1483,7 @@ window.__PULSE_SQUARES_HOME__ = true;
       }setTimeout(doFlip,5000);setInterval(doFlip,20000);
     })();
     // rotating pillar-color background vibe (owner 2026-07-02) — shifts every ~14s
-    (function(){var CYC=[['#0E8C7A','#042E28'],['#C0392B','#2A0907'],['#7A1FA2','#1C0A28'],['#1565C0','#071E3C'],['#EC2D7C','#141414'],['#D97706','#341B03'],['#2E9E5B','#0C321F'],['#6D28D9','#170A33'],['#0A66C2','#0A0A0A'],['#BE185D','#260512'],['#0E6BA8','#052433'],['#C026D3','#260A2A'],['#2563EB','#0A1A3A'],['#B71C3B','#270710']];var ci=Math.floor(Math.random()*CYC.length),b=document.body;b.style.transition='background 2s ease';function tick(){var c=CYC[ci++%CYC.length];b.style.background='radial-gradient(1100px 560px at 82% -6%, '+c[0]+'40, transparent 60%), linear-gradient(165deg, '+c[1]+' 0%, #0a0806 55%, '+c[1]+' 100%)';b.style.backgroundAttachment='fixed';}tick();setInterval(tick,1800000);})();  /* random pillar color each visit, rotates every ~30 min */
+    (function(){var b=document.body;b.style.background='#000';b.style.backgroundImage='none';b.style.backgroundColor='#000';b.style.backgroundAttachment='fixed';})();  /* jet black — no color rotate */
   })();
   return;  /* legacy CNET featured render disabled below */
   fetch('/.netlify/functions/pulse-featured').then(function(r){return r.json();}).then(function(d){
@@ -1369,7 +1510,7 @@ window.__PULSE_SQUARES_HOME__ = true;
     cardEls.forEach(function(el,i){el.setAttribute('data-id',cards[i].id);face(cards[i]);scheduleCard(el,true);});
     function scheduleHero(first){var ms=first?rnd(25,80)*1000:rnd(3,12)*60000;setTimeout(function(){var it=nextItem();twist(imgEl,function(){setHero(imgEl,panEl,it);imgEl.setAttribute('data-id',it.id);shown[it.id]=1;});face(it);scheduleHero(false);},ms);}
     imgEl.setAttribute('data-id',pool[0].id);face(pool[0]);scheduleHero(true);
-    // â”€â”€ ENDLESS SCROLL (owner 2026-07-02): keep appending library face-cards below the featured pool â”€â”€
+    // —— ENDLESS SCROLL (owner 2026-07-02): keep appending library face-cards below the featured pool ——
     (function(){
       var mm2=document.getElementById('magMosaic'); if(!mm2)return;
       var mzA=['big','','tall','','wide','','','tall','wide','','big','','tall','','wide','','','tall','',''];
@@ -1383,20 +1524,27 @@ window.__PULSE_SQUARES_HOME__ = true;
         fetch('/.netlify/functions/pulse-machine-library-list?recent=4000').then(function(r){return r.json();}).then(function(j){var a=Array.isArray(j)?j:(j.entries||j.items||[]);buf=a.filter(function(e){return e&&e.id&&e.img&&!shown[e.id];});bi=0;fetched=true;done=buf.length===0;paint(24);loading=false;}).catch(function(){loading=false;});}
       var io=new IntersectionObserver(function(en){if(en[0]&&en[0].isIntersecting)more();},{rootMargin:'600px'});io.observe(sent);
     })();
-    // â”€â”€ ALTERNATING PILLAR-COLOR BACKGROUND (owner 2026-07-02): shift the page tint through the pillar
-    // palette every ~14s so the homepage cycles its pillar color options â”€â”€
+    // —— ALTERNATING PILLAR-COLOR BACKGROUND (owner 2026-07-02): shift the page tint through the pillar
+    // palette every ~14s so the homepage cycles its pillar color options ——
     (function(){
-      var CYC=[['#0E8C7A','#042E28'],['#C0392B','#2A0907'],['#7A1FA2','#1C0A28'],['#1565C0','#071E3C'],['#EC2D7C','#141414'],['#D97706','#341B03'],['#2E9E5B','#0C321F'],['#6D28D9','#170A33'],['#0A66C2','#0A0A0A'],['#BE185D','#260512'],['#0E6BA8','#052433'],['#C026D3','#260A2A'],['#2563EB','#0A1A3A'],['#B71C3B','#270710']];
-      var ci=0, b=document.body;
-      b.style.transition='background 1.8s ease';
-      function tick(){var c=CYC[ci++%CYC.length];b.style.background='radial-gradient(1100px 560px at 82% -6%, '+c[0]+'4d, transparent 60%), linear-gradient(165deg, '+c[1]+' 0%, #0a0806 55%, '+c[1]+' 100%)';b.style.backgroundAttachment='fixed';}
-      tick(); setInterval(tick, 14000);
+      var b=document.body;
+      b.style.background='#000';
+      b.style.backgroundImage='none';
+      b.style.backgroundColor='#000';
+      b.style.backgroundAttachment='fixed';
     })();
   }).catch(function(){});
 })();</script>
-<!-- IDLE AUTO-SCROLL (owner 2026-07-03): shared site-wide via pulse-ambient.js + pulse-idle-scroll.js -->
+<!-- IDLE AUTO-SCROLL disabled on homepage (owner 2026-07-12) -->
+<script>window.__pulseIdleScroll=true;</script>
 <script src="/pulse-ambient.js" defer></script>
 </body>
 </html>
+
+
+
+
+
+
 
 

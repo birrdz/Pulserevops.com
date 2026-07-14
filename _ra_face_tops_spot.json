@@ -1,0 +1,13 @@
+{
+  "process": "PILLAR X FACE/TOPS",
+  "pillar": "ra",
+  "checked": 100,
+  "facePass": 100,
+  "topPass": 100,
+  "bothPass": 100,
+  "facePct": 100,
+  "topPct": 100,
+  "bothPct": 100,
+  "gate": "PASS",
+  "fails": []
+}

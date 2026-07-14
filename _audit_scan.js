@@ -6,7 +6,7 @@ const { getStore } = require('@netlify/blobs');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 
 const BANNED = /\b(delve|tapestry|holistic|ever-?evolving|synerg(y|ies|istic)|paradigm shift|game-?changer|cutting-?edge|state-?of-?the-?art|seamless integration|needless to say|in today's)\b/i;
-const MOJIBAKE = /Ã[\x80-\xBF]|â€|â€™|â€œ|â€\x9d|Â[ \xA0]|ï¿½|�|Ã©|Ã¨|Ã¼|Ã±|â„¢|â€“|â€”/;
+const MOJIBAKE = /Ã[\x80-\xBF]|â€|’|“|â€\x9d|Â[ \xA0]|ï¿½|�|é|è|ü|ñ|™|–|—/;
 const STALE_YEAR = /\bin (20(1\d|2[0-5]))\b/i; // "in 2010".."in 2025" — likely stale vs 2027 framing
 
 function defects(a) {

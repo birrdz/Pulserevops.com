@@ -1,7 +1,7 @@
 {
-  "name": "Pulse News — Value Added",
-  "short_name": "Pulse News",
-  "description": "6,400+ operator-grade RevOps answers, sales trainings, industry KPIs, tech stacks, book summaries, electronic reviews, revenue architecture, GTM playbooks, and graphics. Save anything with a 4-digit passcode — no login.",
+  "name": "Pulse - Value Added",
+  "short_name": "Pulse",
+  "description": "Pulse - Value Added. Operator-grade answers, sales trainings, industry KPIs, tech stacks, book summaries, electronic reviews, revenue architecture, GTM playbooks, and more. Save anything with a 4-digit passcode — no login.",
   "start_url": "/?utm_source=pwa",
   "scope": "/",
   "display": "standalone",

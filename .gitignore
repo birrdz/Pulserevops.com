@@ -54,3 +54,9 @@ _ops_dashboard_server.js
 
 sim/
 sim_machine_server.js
+
+# Transient staging + scratch (regenerable; real images live in Netlify blobs) 2026-07-14
+_ra_topic_stage/
+*.raw.jpg
+_tmp_*
+gen/_dd_run.log

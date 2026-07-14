@@ -10,7 +10,7 @@
       'html.pillar-mosaic-instant .hdr,html.pillar-mosaic-instant .hero,html.pillar-mosaic-instant .toolbar,'
       + 'html.pillar-mosaic-instant .statusbar,html.pillar-mosaic-instant .footer,html.pillar-mosaic-instant #hub-recent,'
       + 'html.pillar-mosaic-instant #hub-results-bar,html.pillar-mosaic-instant #mos-head{display:none!important}'
-      + 'html.pillar-mosaic-instant body{background:#0a0806!important;color:#fff!important;margin:0}'
+      + 'html.pillar-mosaic-instant body{background:#000!important;color:#fff!important;margin:0}'
       + 'html.pillar-mosaic-instant .grid-wrap{max-width:none!important;width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important;padding:0 0 48px!important;margin-top:0!important}'
       + 'html.pillar-mosaic-instant .loading,html.pillar-mosaic-instant .pulse-logo,html.pillar-mosaic-instant .pulse-skeleton{display:none!important}'
       + 'html.pillar-mosaic-instant .grid,html.pillar-mosaic-instant [data-pulse-home-mosaic],html.pillar-mosaic-instant #magMosaic{min-height:55vh;background:transparent!important;transition:opacity .28s ease,transform .28s ease}'

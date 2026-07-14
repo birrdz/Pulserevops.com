@@ -1,20 +1,29 @@
 /* Pulse browse squares — tuned desktop/mobile title + image (owner 2026-07-11) */
+/* Desktop: original 100vw full-bleed centering. Mobile: wrap-pad breakout only. */
 .psq-row,.recentrow{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:14px clamp(12px,4vw,40px) 6px;box-sizing:border-box}
 .psq-row h3,.psq-head,.recentrow h3{font-family:Georgia,serif;color:#F6C445;font-size:1.15rem;margin:0 0 8px;letter-spacing:.02em;font-weight:800}
 .psq-head a{color:inherit;text-decoration:none}
 .psq-head a:hover{color:#fff}
-.psq-scroll,.recentscroll{display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;padding:2px 2px 12px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;touch-action:pan-x;cursor:grab;scrollbar-width:thin;scrollbar-color:rgba(234,193,92,.55) rgba(26,16,20,.6);overscroll-behavior-x:contain;align-items:stretch;will-change:scroll-position}
-.psq-scroll.is-dragging,.recentscroll.is-dragging{cursor:grabbing;scroll-snap-type:none;user-select:none;-webkit-user-select:none}
-.psq-scroll.is-dragging .psq,.psq-scroll.is-dragging .rcard,.recentscroll.is-dragging .rcard{pointer-events:none}
+.psq-inv{
+  display:inline-block;margin-left:.45em;padding:.12em .55em;
+  font:700 .72rem/1.2 system-ui,sans-serif;letter-spacing:.04em;
+  color:#021C18;background:#EAC15C;border-radius:999px;
+  vertical-align:middle;transform:translateY(-1px)
+}
+.psq-scroll,.recentscroll{display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;padding:2px 2px 12px;scroll-snap-type:none;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y pinch-zoom;cursor:grab;scrollbar-width:thin;scrollbar-color:rgba(234,193,92,.55) rgba(26,16,20,.6);overscroll-behavior-x:contain;align-items:stretch;will-change:scroll-position}
+.psq-scroll.is-dragging,.recentscroll.is-dragging,
+.psq-scroll.is-flinging,.recentscroll.is-flinging{cursor:grabbing;scroll-snap-type:none;user-select:none;-webkit-user-select:none}
+.psq-scroll.is-dragging .psq,.psq-scroll.is-dragging .rcard,.recentscroll.is-dragging .rcard,
+.psq-scroll.is-flinging .psq,.psq-scroll.is-flinging .rcard,.recentscroll.is-flinging .rcard{pointer-events:none}
 .psq-scroll::-webkit-scrollbar,.recentscroll::-webkit-scrollbar{height:8px}
-.psq-scroll::-webkit-scrollbar-track,.recentscroll::-webkit-scrollbar-track{background:rgba(26,16,20,.55);border-radius:8px}
+.psq-scroll::-webkit-scrollbar-track,.recentscroll::-webkit-scrollbar-track{background:rgba(0,0,0,.55);border-radius:8px}
 .psq-scroll::-webkit-scrollbar-thumb,.recentscroll::-webkit-scrollbar-thumb{background:rgba(234,193,92,.5);border-radius:8px}
 
 /* Desktop — bigger tiles so titles fit (3 lines); image centered, no zoom crop */
 .psq,.rcard{
   display:flex;flex-direction:column;flex:0 0 auto;
   width:220px;height:340px;
-  scroll-snap-align:start;text-decoration:none;background:#130a10;
+  scroll-snap-align:start;text-decoration:none;background:#000;
   border:7px solid var(--tc,#EAC15C);border-radius:0;overflow:hidden;
   box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 6px color-mix(in srgb, var(--tc,#EAC15C) 55%, transparent),0 6px 18px rgba(0,0,0,.45);
   transition:border-color .15s;-webkit-user-drag:none;color:inherit;box-sizing:border-box;
@@ -27,7 +36,7 @@
 /* Untitled .sq.jpg browse faces — normal cover. Mosaic titles stay off these. */
 .psq-imgwrap,.rcard-imgwrap{
   display:block;width:100%;height:198px;flex:0 0 198px;overflow:hidden;
-  background:#1a1014;border-bottom:1px solid color-mix(in srgb, var(--tc,#EAC15C) 35%, transparent);
+  background:#000;border-bottom:1px solid color-mix(in srgb, var(--tc,#EAC15C) 35%, transparent);
   position:relative
 }
 .psq-imgwrap img,.rcard-imgwrap img{
@@ -37,35 +46,81 @@
   opacity:0;transition:opacity .38s ease
 }
 .psq-imgwrap img.is-on,.rcard-imgwrap img.is-on{opacity:1}
-/* Row itself skips offscreen paint work */
-.psq-row,.recentrow{content-visibility:auto;contain-intrinsic-size:100vw 390px}
+/* Top→bottom: whole row drops in (one row at a time). Cards soft-fill after. */
+.psq-row.psq-row-enter,.recentrow.psq-row-enter{
+  opacity:0;
+  transform:translate3d(0,-28px,0);
+  will-change:transform,opacity
+}
+.psq-row.psq-row-enter.is-in,.recentrow.psq-row-enter.is-in{
+  opacity:1;
+  transform:none;
+  transition:opacity .55s ease, transform .65s cubic-bezier(.2,.8,.2,1)
+}
+.rcard.psq-fly,.psq.psq-fly{
+  opacity:0;
+  transform:translate3d(0,14px,0) scale(.97);
+  content-visibility:visible;
+  will-change:transform,opacity;
+  pointer-events:none
+}
+.rcard.psq-fly.is-in,.psq.psq-fly.is-in{
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
+  transition:opacity .55s ease, transform .7s cubic-bezier(.22,.82,.2,1)
+}
+/* Soft progressive swap when a new square replaces one mid-row */
+.rcard.psq-swap-out,.psq.psq-swap-out{
+  opacity:0 !important;
+  transform:translate3d(0,10px,0) scale(.96) !important;
+  transition:opacity .7s ease, transform .75s cubic-bezier(.4,0,.2,1) !important;
+  pointer-events:none !important
+}
+.rcard.psq-swap-in,.psq.psq-swap-in{
+  opacity:0;
+  transform:translate3d(0,18px,0) scale(.94);
+  transition:none;
+  pointer-events:none
+}
+.rcard.psq-swap-in.is-in,.psq.psq-swap-in.is-in{
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
+  transition:opacity .85s ease, transform 1s cubic-bezier(.22,.82,.2,1)
+}
+@media (prefers-reduced-motion:reduce){
+  .psq-row.psq-row-enter,.recentrow.psq-row-enter,
+  .rcard.psq-fly,.psq.psq-fly{opacity:1;transform:none;pointer-events:auto}
+  .psq-row.psq-row-enter.is-in,.recentrow.psq-row-enter.is-in,
+  .rcard.psq-fly.is-in,.psq.psq-fly.is-in{transition:none}
+  .rcard.psq-swap-out,.psq.psq-swap-out,
+  .rcard.psq-swap-in,.psq.psq-swap-in,
+  .rcard.psq-swap-in.is-in,.psq.psq-swap-in.is-in{opacity:1;transform:none;transition:none;pointer-events:auto}
+}
+/* Row itself skips offscreen paint work — EXCEPT Recent (mobile was blanking it) */
+.psq-row{content-visibility:auto;contain-intrinsic-size:100vw 390px}
+.recentrow,#recentRow{content-visibility:visible;contain:none;min-height:360px}
 .psq .psq-cat,.psq .rc,.rcard .rc{
   padding:8px 10px 0;color:#EAC15C;font-size:.58rem;text-transform:uppercase;
   letter-spacing:.08em;font-weight:800;line-height:1.1;min-height:1.1em;flex:0 0 auto;text-align:center
 }
 .psq .psq-t,.psq .rt,.rcard .rt{
-  padding:8px 12px 16px;color:#F6C445;font-family:Georgia,serif;font-size:1.42rem;line-height:1.16;
+  padding:8px 12px 16px;color:#F6C445;font-family:Georgia,serif;font-size:1.2rem;line-height:1.18;
   font-weight:800;text-align:center;
   display:flex;align-items:center;justify-content:center;
   flex:1 1 auto;min-height:0;
   word-break:normal;overflow-wrap:break-word
 }
 .psq .psq-t>span,.psq .rt>span,.rcard .rt>span{
-  width:100%;text-align:center;overflow:hidden;max-height:calc(1.16em * 3);line-height:1.16;
-  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3
+  width:100%;text-align:center;overflow:hidden;max-height:calc(1.18em * 4);line-height:1.18;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4
 }
 
 .psq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;padding:8px 0 40px;max-width:1080px;margin:0 auto}
 .psq-grid .psq{width:auto;min-width:0;height:auto}
 
-/* Mobile — slightly smaller but still room for 3 title lines */
+/* Mobile: same desktop full-bleed + desktop-sized cards (viewport locked to desktop width on home) */
 @media(max-width:600px){
-  .psq-scroll,.recentscroll{gap:10px}
-  .psq,.rcard{width:168px;height:278px;border-width:5px;flex-basis:168px}
-  .psq-imgwrap,.rcard-imgwrap{height:148px;flex-basis:148px}
-  .psq-imgwrap img,.rcard-imgwrap img{height:100%;object-position:center center;transform:none}
-  .psq .psq-cat,.psq .rc,.rcard .rc{padding:7px 8px 0;font-size:.5rem;text-align:center}
-  .psq .psq-t,.psq .rt,.rcard .rt{padding:4px 8px 10px;font-size:1.08rem;line-height:1.16;text-align:center;min-height:calc(1.16em * 3);max-height:calc(1.16em * 3)}
-  .psq-row h3,.psq-head,.recentrow h3{font-size:1.05rem}
-  .psq-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;padding:6px 12px 36px}
+  .psq-row,.recentrow{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
 }

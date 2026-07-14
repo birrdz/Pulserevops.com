@@ -2,7 +2,7 @@
 // Top-10 lists get item-specific prompts (movie/product name) — never generic pool scenes.
 const fs = require('fs');
 const { runFluxJob, fetchFluxPrompt } = require('./_pollinator_flux_throttle');
-const { storeGradedImage, buildFluxFaceQuery, buildFluxSectionQuery, pickTitleSearchQuery, faceCoverQualityOk, FACE_CARD_FRAMING, gradeFaceCardFromBuffer } = require('./_ddg_facecard_lib');
+const { storeGradedImage, buildFluxFaceQuery, buildFluxSectionQuery, pickTitleSearchQuery, faceCoverQualityOk, FACE_CARD_FRAMING, gradeFaceCardFromBuffer, makeDdgFaceCover } = require('./_ddg_facecard_lib');
 const { isTop10Body, parseTop10Items } = require('./netlify/functions/lib/ensure-entry-images');
 const { isKoryCroImg } = require('./_img_flux_lib');
 
@@ -119,10 +119,46 @@ function syncHeroDupesFaceCard(id, question, body) {
   return forceMainTopHero(id, question, body);
 }
 
-/** One flux face-card file, then duplicate that path into the answer hero line. */
+/** Face-card + top hero: prefer DDG photo, flux fallback (owner 2026-07-12 — Pollinator quality stalling). */
 async function makeFaceCardAndSyncHero(id, question, body, coverPrompt, fluxOpts) {
+  fluxOpts = fluxOpts || {};
+  const shouldStop = fluxOpts.shouldStop || (() => false);
+  const dest = QDIR + '/' + id + '.jpg';
+  const preferDdg = process.env.FACE_HERO_PROVIDER !== 'flux';
+
+  // Face-hero overwrite always regenerates (wrong tops are the whole point of this job)
+  if (fluxOpts.force !== false) {
+    try { fs.unlinkSync(dest); } catch (e) {}
+  }
+
+  if (preferDdg) {
+    if (shouldStop()) return { ok: false, body };
+    try {
+      if (fluxOpts.onProgress) fluxOpts.onProgress({ phase: 'ddg', label: 'DDG face cover' });
+      if (fluxOpts.onSearch) fluxOpts.onSearch({ idx: 0, total: 1, query: 'DDG · ' + String(question || id).slice(0, 60) });
+      const sz = await makeDdgFaceCover(id, question, Object.assign({
+        qaUpgradeAlternate: true,
+        alternateSources: true,
+        skipAlternateWait: true,
+        forceDdg: true,
+      }, fluxOpts));
+      if (sz && Number(sz) > 40000 && fs.existsSync(dest) && fs.statSync(dest).size > 40000) {
+        if (fluxOpts.onProgress) fluxOpts.onProgress({ phase: 'ddg', label: 'DDG cover ok' });
+        return { ok: true, body: syncHeroDupesFaceCard(id, question, body), fluxDone: 1, provider: 'ddg' };
+      }
+      if (fluxOpts.onQualityMiss) fluxOpts.onQualityMiss('ddg-miss', 1, { query: 'ddg' });
+    } catch (e) {
+      if (fluxOpts.onQualityMiss) fluxOpts.onQualityMiss('ddg-err', 1, { query: String(e && e.message || 'ddg') });
+    }
+    // Default: no Pollinator fallback (owner 2026-07-12 — flux quality stall). Set FACE_HERO_FLUX_FALLBACK=1 to enable.
+    if (process.env.FACE_HERO_FLUX_FALLBACK !== '1') {
+      return { ok: false, body };
+    }
+  }
+
+  if (shouldStop()) return { ok: false, body };
   if (!(await makeCoverForce(id, question, coverPrompt, fluxOpts))) return { ok: false, body };
-  return { ok: true, body: syncHeroDupesFaceCard(id, question, body), fluxDone: 1 };
+  return { ok: true, body: syncHeroDupesFaceCard(id, question, body), fluxDone: 1, provider: 'flux' };
 }
 
 /** Drop legacy <!--HERO--> marker + stray intro images before the first ## section (second hero under face-card). */

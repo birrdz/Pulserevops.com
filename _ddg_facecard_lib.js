@@ -98,16 +98,11 @@ function faceCardTileGradeOpts(question, qual, overrides) {
     goldTitle: question,
   }, overrides || {});
 }
-/** Pick sharp cover position — prefer north/attention so heads aren't chopped on wide mosaic tiles. */
+/** Prefer north so heads stay in frame on cover crops (owner 2026-07-12). */
 async function resolveFaceCardCropPosition(rawBuf) {
   try {
-    const meta = await sharp(rawBuf, { animated: false }).metadata();
-    const w = meta.width || 1;
-    const h = meta.height || 1;
-    const ar = w / h;
-    if (ar < 0.95) return 'north';        // portrait / square-ish — keep heads
-    if (ar <= 2.2) return 'north';        // typical photo into 3:1 — bias top for headroom
-    return 'attention';                   // ultra-wide — salience
+    await sharp(rawBuf, { animated: false }).metadata();
+    return 'north';
   } catch (e) {
     return 'north';
   }
@@ -120,6 +115,7 @@ async function gradeFaceCardFromBuffer(rawBuf, destPath, opts) {
   const title = opts.goldTitle || opts.question || '';
   return storeGradedImage(rawBuf, destPath, faceCardTileGradeOpts(title, qual, {
     cropPosition,
+    fit: opts.fit || 'contain',
     bright: opts.bright != null ? opts.bright : !!(qual && qual.meanB > 175),
     goldTitle: title || undefined,
   }));
@@ -137,11 +133,21 @@ async function storeGradedImage(rawBuf, destPath, opts = {}) {
   if (opts.faceCardTile) {
     const w = opts.width || FACE_CARD_TILE_W;
     const h = opts.height || FACE_CARD_TILE_H;
-    const pos = opts.cropPosition || 'attention';
-    pipe = pipe.resize(w, h, { fit: 'cover', position: pos });
+    // WHOLE subject in frame (owner 2026-07-12): dish = whole dish, bike = whole rider+bike.
+    // contain (not cover) so we don't chop heads/wheels/plate edges. Dark letterbox OK.
+    const pos = opts.cropPosition || 'north';
+    pipe = pipe.resize(w, h, {
+      fit: opts.fit || 'cover',
+      position: pos,
+      background: { r: 10, g: 10, b: 10 },
+    });
   } else if (opts.square) {
-    const pos = opts.cropPosition || 'attention';
-    pipe = pipe.resize(opts.square, opts.square, { fit: 'cover', position: pos });
+    const pos = opts.cropPosition || 'north';
+    pipe = pipe.resize(opts.square, opts.square, {
+      fit: opts.fit || 'cover',
+      position: pos,
+      background: { r: 10, g: 10, b: 10 },
+    });
   } else if (opts.posterTile) {
     const w = opts.width || 800;
     const h = opts.height || 1200;

@@ -88,7 +88,7 @@ async function writeUntitledSquare(id, donorPath) {
   const dest = path.join(QA, id + '.sq.jpg');
   await sharp(donorPath)
     .rotate()
-    .resize(760, 760, { fit: 'cover', position: 'attention' })
+    .resize(760, 760, { fit: 'cover', position: 'north' })
     .jpeg({ quality: 86, mozjpeg: true })
     .toFile(dest);
   return dest;

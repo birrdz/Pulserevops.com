@@ -2,13 +2,60 @@
    Loaded on every page (static + answer). Credit/schema injection is skipped on
    answer pages (they already render .op-byline server-side). */
 (function(){
+  // Visit beacon (human / likely-human) — same path as human-gate.js so pillar pages email too
+  (function visitBeacon(){
+    if (window.__pulseVisitBeacon) return;
+    window.__pulseVisitBeacon = true;
+    var LOAD = Date.now(), moved = false, clicked = false, fired = false, lx = null, ly = null;
+    document.addEventListener('mousemove', function(e){
+      if (lx !== null && (e.clientX !== lx || e.clientY !== ly)) moved = true;
+      lx = e.clientX; ly = e.clientY;
+    }, { passive: true });
+    document.addEventListener('pointerdown', function(){ clicked = true; }, { passive: true, once: true });
+    function notify(){
+      if (fired) return;
+      fired = true;
+      try {
+        var payload = JSON.stringify({
+          human: !!(moved || clicked),
+          click: !!clicked,
+          dwell_ms: Date.now() - LOAD,
+          page: location.pathname + location.search,
+          ref: document.referrer || '',
+          ua: navigator.userAgent || '',
+          ts: Date.now()
+        });
+        var url = '/.netlify/functions/visitor-alert';
+        var blob = new Blob([payload], { type: 'application/json' });
+        if (navigator.sendBeacon && navigator.sendBeacon(url, blob)) return;
+        fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function(){});
+      } catch (_e) {}
+    }
+    setTimeout(notify, 1400);
+    document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') notify(); });
+    window.addEventListener('pagehide', notify);
+  })();
+
   // (1) click -> email owner (one alert per click-type per session)
-  function notify(kind,label){
+  function notify(kind,label,extra){
     // Tool clicks dedup per-tool (kind+slug) so EVERY distinct PULSE-tool link
     // accessed in a session emails the owner; other kinds dedup once per session.
-    try{ var k='pclk_'+kind+(kind==='tool'?('_'+String(label||'').replace(/[^a-z0-9]/gi,'').slice(0,48)):''); if(sessionStorage.getItem(k)) return; sessionStorage.setItem(k,'1'); }catch(e){}
+    // CRO card clicks always fire (separate !!! email) — light dedup only.
     try{
-      var payload=JSON.stringify({kind:kind,label:(label||'').slice(0,200),page:(location.pathname+location.search),url:location.href,title:document.title});
+      var k='pclk_'+kind+(kind==='tool'?('_'+String(label||'').replace(/[^a-z0-9]/gi,'').slice(0,48)):'');
+      if(kind!=='cro-card-click' && !(extra&&extra.fromCard)){
+        if(sessionStorage.getItem(k)) return;
+        sessionStorage.setItem(k,'1');
+      }
+    }catch(e){}
+    try{
+      var payload=JSON.stringify(Object.assign({
+        kind:kind,
+        label:(label||'').slice(0,200),
+        page:(location.pathname+location.search),
+        url:location.href,
+        title:document.title
+      }, extra||{}));
       if(navigator.sendBeacon){ navigator.sendBeacon('/.netlify/functions/pulse-click-notify', new Blob([payload],{type:'application/json'})); }
       else{ fetch('/.netlify/functions/pulse-click-notify',{method:'POST',headers:{'Content-Type':'application/json'},body:payload,keepalive:true}); }
     }catch(e){}
@@ -26,13 +73,25 @@
     }catch(e){}
   }
   document.addEventListener('click',function(e){
-    var a=e.target && e.target.closest ? e.target.closest('a') : null; if(!a) return;
+    var a=e.target && e.target.closest ? e.target.closest('a') : null;
+    var onCard = !!(e.target && e.target.closest && e.target.closest('.cro-card, .crohdr, .cro-ad, .cro-ad-root, #croFixed, [data-cro-card]'));
+    // Whole-card surface click (even non-link areas) → !!! CRO CARD CLICK
+    if(onCard && !a){
+      notify('cro-card-click', 'CRO card surface', { fromCard: true, croCard: true, source: 'cro-card' });
+      return;
+    }
+    if(!a) return;
     var href=a.getAttribute('href')||'';
     // PULSE Tool link = a /tools/<slug> destination (NOT /tools/tl#### answers, NOT the /tools hub)
     // or any anchor the renderer marked with the tool-cta highlight class.
     var isTool=(a.className&&/\btool-cta\b/.test(a.className))||/^\/tools\/(?!tl\d)[a-z0-9-]+/i.test(href)||/pulserevops\.com\/tools\/(?!tl\d)[a-z0-9-]+/i.test(href);
     var kind=a.getAttribute('data-pulse-click') || (/calendly\.com\/korywhiterevops/i.test(href)?'kory-calendly':(/crosyndicate\.com/i.test(href)?'cro-syndicate':(/linkedin\.com\/in\/korywhite/i.test(href)?'kory-linkedin':(/\/assets\/kory-white[^"'\s]*\.pdf/i.test(href)?'kory-resume':(/\/fractional-cro\b/i.test(href)?'hire-cro':(isTool?'tool':''))))));
-    if(kind) notify(kind, href||(a.textContent||'').slice(0,40)); // CRO card + tagged links (already tracked)
+    if(onCard){
+      // Card link → separate !!! email (keep underlying kind in label)
+      notify('cro-card-click', kind || href || (a.textContent||'').slice(0,40), { fromCard: true, croCard: true, source: 'cro-card', note: kind || '' });
+      return;
+    }
+    if(kind) notify(kind, href||(a.textContent||'').slice(0,40)); // CRO-ish links outside the card → digest
     else trackClick(href, (a.textContent||'').trim());            // every other human link click
   }, true);
 

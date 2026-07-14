@@ -86,7 +86,7 @@ function imgProxy(u) {
 // branded fallback guarantees a dead poster NEVER shows a broken-image icon.
 const IMG_ONERROR = "this.onerror=null;var s=this,f1=this.getAttribute('data-fallback'),f2=this.getAttribute('data-fallback2');if(f1&&this.src!==f1){this.onerror=function(){s.onerror=null;if(f2&&s.src!==f2)s.src=f2;};this.src=f1;}else if(f2&&this.src!==f2){this.src=f2;}";
 // Branded fallback shown when a poster src is "N/A", empty, or the remote (Amazon CDN) image dies.
-const BRANDED_IMG_FALLBACK = '/pulse-og.svg';
+const BRANDED_IMG_FALLBACK = '/assets/img-missing.svg'; // NEVER pulse-og as face/fallback (hard ban)
 // OMDb returns the literal string "N/A" when a title has no poster — never render that as a src.
 function isNaImageUrl(u) {
   const s = String(u || '').trim();
@@ -243,10 +243,9 @@ function renderMd(text, styleIncl, skipFirstCover) {
       const pieces = items.map(function (it) { return ((it[1] || '') + ' ' + (it[0] || '')).trim(); }).filter(Boolean).slice(0, 6).join(', ');
       const oprompt = 'full body fashion editorial photo of a ' + (ageStr ? ageStr + ' ' : '') + gender + ' wearing ' + (pieces || (meta.title || 'a complete outfit')) + ', studio lighting, plain neutral background, realistic';
       const realImg = (meta.img || '').trim();
-      const oimg = realImg
-        ? imgProxy(realImg)
-        : 'https://image.pollinations.ai/prompt/' + encodeURIComponent(oprompt) + '?width=768&height=1024&nologo=true';
-      if (!ANSWER_CONTENT_IMAGES_OFF) {
+      // HARD BAN: never invent pollinations URLs. No img: → skip photo (outfit board text still renders).
+      const oimg = realImg || '';
+      if (!ANSWER_CONTENT_IMAGES_OFF && oimg) {
         h += '<img' + entryImgAttrs(oimg, (ageStr ? ageStr + ' ' : '') + gender + ' — ' + (meta.title || 'outfit') + ' look', { width: 760, height: 560 }) + ' style="display:block;width:100%;height:auto;max-height:560px;object-fit:cover;object-position:top;background:#ECE3D2;">';
       }
       h += '<div style="padding:16px 18px;">';
@@ -910,8 +909,8 @@ exports.handler = async (event) => {
   const title     = (entry.question || '').slice(0, 70);
   const desc      = descExcerpt(entry.answer);
   // SEO <title> kept <=65 chars (fixes "long titles") — the full question stays as the H1.
-  // No brand suffix in <title>: Google already shows the "Pulse RevOps" site name on the
-  // top line of the SERP, so appending "| Pulse RevOps" made the name appear twice.
+  // No brand suffix in <title>: Google already shows the "Pulse - Value Added" site name on the
+  // top line of the SERP, so appending "| Pulse - Value Added" made the name appear twice.
   const shortTitle = (() => {
     const q = (entry.question || '').trim(); const max = 65;
     if (q.length <= max) return q;
@@ -938,16 +937,7 @@ exports.handler = async (event) => {
   const prevUrl = prevQ ? (SITE + '/knowledge/' + prevQ.id) : '';
   const nextUrl = nextQ ? (SITE + '/knowledge/' + nextQ.id) : '';
   const seqNavLinks = (prevQ ? '<link rel="prev" href="' + prevUrl + '">' : '') + (nextQ ? '<link rel="next" href="' + nextUrl + '">' : '');
-  // Crawl-flow boost: 15 random recent entries (last 200 pool) for Google to follow.
-  // "Discovered - not indexed" is the dominant GSC reason; more in-page links to
-  // not-yet-crawled URLs gives Google fresh discovery paths from indexed pages.
-  const recentPool = (idx.entries || []).filter(e => e && e.id && e.id !== id).slice(0, 200);
-  const moreLinks = [];
-  const usedIds = new Set([id, ...related.map(r => r.id)]);
-  for (let i = 0; i < 15 && recentPool.length; i++) {
-    const pick = recentPool[Math.floor(Math.random() * recentPool.length)];
-    if (pick && !usedIds.has(pick.id)) { moreLinks.push(pick); usedIds.add(pick.id); }
-  }
+  // Random "more from library" crawl tiles removed — owner 2026-07-13 (answer pages stay clean)
   const datePub   = new Date(entry.ts || Date.now()).toISOString();
 
   // JSON-LD: QAPage + TechArticle. Author attribution names BOTH the Machine
@@ -993,7 +983,7 @@ exports.handler = async (event) => {
   const publisherOrg = {
     "@type": "Organization",
     "@id": SITE + "/#organization",
-    "name": "Pulse RevOps",
+    "name": "Pulse - Value Added",
     "url": SITE,
     "founder": koryEditor,
     "logo": pulseOrgLogoImageObject()
@@ -1074,11 +1064,12 @@ exports.handler = async (event) => {
   const pillarDupe = pillarPref
     ? ('/assets/qa/' + (PILLAR_FACE_SEED[pillarPref] || (pillarPref + '1')) + '.jpg')
     : '';
-  const heroUrl = faceCard || registryCover || pickHeroUrl(croStripped, rawIdxImg, id, false);
-  // Never fall back to junk body hotlinks — stay on face-card family (dupes OK)
-  const heroFallback = (registryCover && registryCover !== heroUrl)
-    ? registryCover
-    : (pillarDupe && pillarDupe !== heroUrl ? pillarDupe : '');
+  // 🔒 LAW-DOM SINGLE SOURCE (owner 2026-07-14): the face is EXACTLY /assets/qa/<id>.jpg — one field,
+  // written by one function (putQaAsset → blob qa-bin/), read by everyone. No registryCover / pickHeroUrl /
+  // pillar-dupe legacy sources: a miss must show the VISIBLE placeholder (img-missing.svg), never a
+  // silent revert to an old cover or the pulse-og logo.
+  const heroUrl = faceCard || '';
+  const heroFallback = '';
   const heroAlt = entry.question || (coverLead && coverLead.alt) || id;
   // Small corner category on face-card heroes (matches mosaic mm-cat, e.g. Speeches).
   const FACE_CAT = { tl:'Pulse Tools', ca:'Cars', bt:'Boats', aq:'Aquariums', ik:'Industry KPIs', tk:'Tech Stacks', bs:'Book Summaries', st:'Sales Trainings', fr:'Franchises', co:'Collectibles', ai:'AI Infra', gb:'Graphics', bo:'Buildouts', sy:'Style', gp:'GTM Playbooks', ra:'Rev Architecture', pt:'Pets', es:'Espresso', tv:'TVs', rs:'Resorts', cl:'Cologne', lv:'Lux Vacations', ev:'Events', ga:'Gatherings', gm:'Gaming', mv:'Movies', wl:'Wellness', dn:'Dining', nl:'Nightlife', tn:'Towns', sc:'Schools', tc:'Telco', er:'Electronics', q:'Knowledge', hf:'Home & Family', sw:'Software', sk:'Skills', sp:'Speeches', dr:'Drills', ce:'Pulse News', ed:'Advice' };
@@ -1114,18 +1105,20 @@ exports.handler = async (event) => {
           + '<span class="es-title">' + escHtml(s.title || s.url) + '</span></a>').join('')
       + '</div>' : '';
 
+  // Interweave (SEO + human cross-link) rendered in the CURRENT squares model — image tile +
+  // category + gold title on black — matching the homepage mosaic (owner 2026-07-14).
   const relatedHtml = related.length
-    ? '<div class="entry-sources" style="margin-top:18px;"><div class="entry-sources-label">Deep dive · related in the library</div>'
-      + related.map(r => '<a class="entry-source" href="/knowledge/' + escAttr(r.id) + '">'
-          + '<span class="es-host">' + escHtml((r.tags || []).slice(0, 2).join(' · ') || '·') + '</span>'
-          + '<span class="es-title">' + escHtml(r.question) + '</span></a>').join('')
-      + '</div>' : '';
-  const moreHtml = moreLinks.length
-    ? '<div class="entry-sources" style="margin-top:18px;"><div class="entry-sources-label">More from the library</div>'
-      + moreLinks.map(r => '<a class="entry-source" href="/knowledge/' + escAttr(r.id) + '">'
-          + '<span class="es-host">' + escHtml((r.tags || []).slice(0, 2).join(' · ') || '·') + '</span>'
-          + '<span class="es-title">' + escHtml(r.question || r.id) + '</span></a>').join('')
-      + '</div>' : '';
+    ? '<div class="related-sq-wrap"><div class="entry-sources-label">Related on PULSE</div><div class="related-sq-grid">'
+      + related.map(r => {
+          const img = '/assets/qa/' + escAttr(r.id) + '.sq.jpg';
+          const cat = escHtml((r.tags || []).slice(0, 1).join('') || '');
+          return '<a class="rel-sq" href="/knowledge/' + escAttr(r.id) + '">'
+            + '<span class="rel-sq-imgwrap"><img class="rel-sq-img" loading="lazy" decoding="async" src="' + img + '" alt="" onerror="this.style.display=&quot;none&quot;"></span>'
+            + '<span class="rel-sq-body">'
+            + (cat ? '<span class="rel-sq-cat">' + cat + '</span>' : '')
+            + '<span class="rel-sq-title">' + escHtml(r.question) + '</span></span></a>';
+        }).join('')
+      + '</div></div>' : '';
 
   // ── Apply-this-in-PULSE — dynamic operator-tools section based on tags.
   // Cross-link from library entries into the free CRM / pillar pages so
@@ -1174,7 +1167,7 @@ exports.handler = async (event) => {
   const xUrl        = 'https://twitter.com/intent/tweet?text=' + shareText + '&url=' + shareUrl + '&via=coachkorywhite';
   const facebookUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + shareUrl;
   const emailUrl    = 'mailto:?subject=' + shareText + '&body=' + encodeURIComponent('From the Pulse Knowledge Library:\n\n' + entry.question + '\n\n' + url);
-  const shareImg    = SITE + '/pulse-og.jpg';
+  const shareImg    = SITE + '/pulse-og.jpg?v=value-added';
   // brand icons (inherit currentColor via fill)
   const IC_LI = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>';
   const IC_X  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.24 2.25h6.83l4.71 6.23 5.46-6.23zm-1.16 17.52h1.83L7.01 4.13H5.05l12.03 15.64z"/></svg>';
@@ -1206,19 +1199,19 @@ exports.handler = async (event) => {
   <meta property="og:title" content="${escAttr(title)}">
   <meta property="og:description" content="${escAttr(desc)}">
   <meta property="og:url" content="${url}">
-  <meta property="og:site_name" content="Pulse RevOps">
+  <meta property="og:site_name" content="Pulse - Value Added">
   <meta property="og:image" content="${shareImg}">
   <meta property="og:image:secure_url" content="${shareImg}">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="PULSE RevOps - The RevOps Authority">
+  <meta property="og:image:alt" content="Pulse - Value Added">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@coachkorywhite">
   <meta name="twitter:title" content="${escAttr(title)}">
   <meta name="twitter:description" content="${escAttr(desc)}">
   <meta name="twitter:image" content="${shareImg}">
-  <meta name="twitter:image:alt" content="PULSE RevOps - The RevOps Authority">
+  <meta name="twitter:image:alt" content="Pulse - Value Added">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
@@ -1368,6 +1361,16 @@ exports.handler = async (event) => {
     .entry-source:hover{background:rgba(232,113,10,0.06);border-color:rgba(232,113,10,0.45);text-decoration:none;}
     .entry-source .es-host{font-size:0.62rem;color:rgba(237,229,216,0.45);letter-spacing:0.08em;text-transform:uppercase;flex-shrink:0;}
     .entry-source .es-title{font-size:0.92rem;color:rgba(237,229,216,0.9);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    /* Related interweave — current squares model (image tile + gold title on black) */
+    .related-sq-wrap{margin-top:22px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);}
+    .related-sq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px;}
+    .rel-sq{display:block;border:2px solid rgba(234,193,92,0.42);border-radius:12px;overflow:hidden;background:#0c0c0e;text-decoration:none;transition:border-color .15s,transform .15s;}
+    .rel-sq:hover{border-color:#F6C445;transform:translateY(-2px);text-decoration:none;}
+    .rel-sq-imgwrap{display:block;width:100%;aspect-ratio:1/1;background:#0c0c0e;}
+    .rel-sq-img{width:100%;height:100%;object-fit:cover;display:block;}
+    .rel-sq-body{display:block;padding:8px 10px 11px;}
+    .rel-sq-cat{display:block;font-size:0.56rem;font-weight:800;letter-spacing:0.13em;text-transform:uppercase;color:rgba(234,193,92,0.72);}
+    .rel-sq-title{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-family:Fraunces,Georgia,serif;font-weight:800;font-size:0.92rem;line-height:1.2;color:#f5e6c8;margin-top:4px;}
     .footer-note{padding:24px;text-align:center;color:rgba(237,229,216,0.35);font-size:0.66rem;letter-spacing:0.16em;}
     .share-row,.entry-share{display:flex !important;visibility:visible !important;opacity:1 !important;align-items:center;flex-wrap:wrap;gap:10px;margin:32px 0 8px;padding:20px 0 6px;border-top:1px solid rgba(234,193,92,0.2);}
     .share-label{font-size:0.6rem;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(234,193,92,0.7);margin-right:4px;}
@@ -1426,14 +1429,15 @@ exports.handler = async (event) => {
   @media print{article.cc-gold::after{display:none}}
   </style>
   <link rel="stylesheet" href="/assets/pulse-tan.css">
-</head>
+  <link rel="stylesheet" href="/css/pulse-jet-sides.css">
+  <style>html,body{background:#000!important;background-image:none!important;}</style></head>
 <body>
   <style>.crohdr{max-width:1000px;margin:10px auto 6px;padding:0 14px}.cro-card{display:flex;align-items:stretch;text-decoration:none;border:3px solid #EAC15C;border-radius:14px;overflow:hidden;background:linear-gradient(100deg,#180a10,#0f0a0c 60%);box-shadow:0 6px 26px rgba(0,0,0,.5),0 0 0 1px rgba(234,193,92,.35)}.cro-card__img{flex:0 0 32%;background-size:cover;background-position:center 30%;min-height:210px;border-right:1px solid rgba(234,193,92,.28)}.cro-card__body{flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center;gap:5px}.cro-card__eyebrow{font:800 .6rem/1.3 system-ui;letter-spacing:.13em;color:#FFB81C}.cro-card__title{margin:0;font-family:Georgia,serif;font-weight:800;font-size:clamp(1.7rem,3.7vw,2.6rem);line-height:1.05;color:#F6C445!important;text-shadow:0 1px 6px rgba(0,0,0,.5)}.cro-card__eyebrow{color:#FFB81C!important}.cro-card__role{color:#EAC15C!important}.cro-card__role{margin:0;color:#EAC15C;font-weight:700;font-size:.9rem}.cro-card__sub{margin:2px 0 0;color:#b9b1a6;font-size:.88rem;max-width:52ch}.cro-card__rail{flex:0 0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;gap:12px;padding:16px 20px;background:linear-gradient(180deg,rgba(234,193,92,.06),transparent);border-left:1px solid rgba(234,193,92,.16);min-width:190px}.cro-card__badge{display:inline-flex;align-items:center;gap:7px;font:800 .58rem/1 system-ui;letter-spacing:.1em;text-transform:uppercase;color:#cfe8c6;background:rgba(40,90,50,.28);border:1px solid rgba(120,200,130,.35);padding:5px 10px;border-radius:999px;white-space:nowrap}.cro-card__badge i{width:8px;height:8px;border-radius:50%;background:#48d16a;box-shadow:0 0 8px #48d16a}.cro-card__railcta{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.cro-card__cta{background:linear-gradient(180deg,#EAC15C,#cf9f2e);color:#1a0a00;font-weight:900;font-size:.95rem;padding:11px 20px;border-radius:10px;white-space:nowrap}.cro-card__resume{color:#EAC15C;font-weight:700;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}.cro-card:hover{border-color:#EAC15C}.cro-bar{display:grid;grid-template-columns:repeat(5,1fr);margin:-2px 0 4px;border:1px solid rgba(234,193,92,.4);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}.cro-bar a{text-align:center;padding:11px 8px;color:#EAC15C;font-weight:800;font-size:.9rem;text-decoration:none;background:#130a10;border-right:1px solid rgba(234,193,92,.22)}.cro-bar a:last-child{border-right:none}.cro-bar a:hover{background:#1d1017;color:#fff}@media(max-width:640px){.crohdr{margin:8px auto 6px;padding:0 12px}.cro-card{flex-direction:column!important;align-items:center!important;text-align:center;height:auto!important;min-height:0!important;overflow:visible!important}.cro-card__img{flex:0 0 auto!important;width:180px!important;height:180px!important;min-width:180px!important;min-height:180px!important;max-width:180px!important;aspect-ratio:1/1!important;border-radius:50%!important;margin:18px auto 6px!important;border:2px solid rgba(234,193,92,.55)!important;border-right:none!important;border-bottom:none!important;background-size:cover!important;background-position:center 20%!important;filter:brightness(1.1)}.cro-card__body{flex:none!important;width:100%;padding:2px 16px 18px!important;align-items:center!important;text-align:center!important;gap:7px!important}.cro-card__eyebrow{font-size:.52rem!important;letter-spacing:.08em;line-height:1.4;max-width:34ch;margin:0 auto}.cro-card__title{font-size:clamp(1.85rem,9vw,2.35rem)!important;line-height:1.05!important;text-align:center}.cro-card__role{font-size:.88rem!important}.cro-card__sub{font-size:.86rem!important;line-height:1.45;max-width:34ch;margin:0 auto!important}.cro-card__cta{display:inline-block!important;align-self:center!important;margin:10px auto 0!important;font-size:.92rem!important;padding:11px 18px!important;border-radius:10px}.cro-bar{grid-template-columns:repeat(2,1fr)!important;width:100%;margin:0}.cro-bar a{padding:11px 6px!important;font-size:.86rem!important;line-height:1.2}.cro-bar a:nth-child(2){border-right:none}.cro-bar a:nth-child(n+5){grid-column:span 1}}</style>
   <div class="crohdr"><a class="cro-card" href="/revenue-checkup" target="_blank" rel="noopener" data-pulse-click="hire-cro" aria-label="Get a free 30-minute revenue checkup with Kory White, Fractional CRO"><div class="cro-card__img" style="background-image:url('/assets/kory-white.jpg')"></div><div class="cro-card__body"><span class="cro-card__eyebrow">FRACTIONAL CRO · MARYLAND-BASED, NATIONWIDE · $0→$200M</span><h2 class="cro-card__title">Kory White</h2><p class="cro-card__role">RevOps &amp; Revenue Leadership</p><p class="cro-card__sub">Get a <strong>free 30-minute revenue checkup</strong> &mdash; Kory reviews your pipeline and forecast, then names the 1&ndash;2 fixes that move revenue fastest. 25 yrs scaling teams $0&rarr;$200M.</p><span class="cro-card__cta" style="display:inline-block;align-self:flex-start;margin-top:10px;white-space:normal;text-align:center;">Free 30-min revenue checkup &rarr;</span></div></a>
   <div class="cro-bar"><a href="/fractional-cro" data-pulse-click="fractional-cro-hub">Hire a Fractional CRO</a><a href="/revenue-checkup" data-pulse-click="hire-cro">How We Help?</a><a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">LinkedIn</a><a href="/assets/kory-white-cro-resume.pdf" target="_blank" rel="noopener">Résumé</a><a href="https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate</a></div></div>
   <button id="scroll-top" type="button" aria-label="Scroll to top" style="position:fixed;bottom:24px;right:24px;width:42px;height:42px;border-radius:50%;background:rgba(232,113,10,0.92);border:1px solid rgba(255,255,255,0.18);color:#fff;font-size:1.1rem;font-weight:900;cursor:pointer;z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.2s, transform 0.15s;box-shadow:0 6px 20px rgba(232,113,10,0.4);font-family:inherit;">↑</button>
   <div class="top">
-    <a href="/" class="brand" aria-label="Pulse RevOps — Value Added"><img class="brandlogo" src="/pulse-news-logo.png" alt="Pulse RevOps — Value Added" width="164" height="46"></a>
+    <a href="/" class="brand" aria-label="Pulse - Value Added"><img class="brandlogo" src="/pulse-news-logo.png?v=value-added" alt="Pulse - Value Added" width="164" height="46"></a>
     <span><a href="/knowledge.html">← Library</a></span>
   </div>
   <article${entry.cc_signed ? ' class="cc-gold"' : ''}>
@@ -1441,15 +1445,19 @@ exports.handler = async (event) => {
     ${entry.cc_signed ? '<div style="margin:0 0 10px;"><span class="cc-gold-badge">🏆 ' + (entry.quality || '13/13') + ' · Claude Code Audited</span></div>' : ''}
     <div style="margin:0 0 12px;">
       ${(() => {
-        // TWO scales (owner 2026-07-11): Gate = 13/13 checklist · Quality = x/10 polish.
-        // quality_score was historically stamped 13 on gate pass — map 11–13 → 10 for IQ display.
+        // TWO scales (owner 2026-07-11 / 2026-07-13): Gate = 13/13 checklist · Quality = x/10 polish.
+        // Legacy: quality_score was stamped 11–13 on gate pass — map those to 10 for IQ display.
         const raw = typeof entry.quality_score === 'number' ? entry.quality_score : 5;
         const iq = raw >= 11 ? 10 : Math.max(0, Math.min(10, raw));
-        const gateOk = raw >= 13 || entry.pending === false || !!entry.cc_signed;
-        // Quality pass = 9/10. Gold certified = 10/10.
+        const gateOk = (typeof entry.gate_score === 'number' && entry.gate_score >= 13)
+          || !!entry.sim_transformed
+          || entry.pending === false
+          || !!entry.cc_signed
+          || raw >= 13;
+        // Quality pass = 8/10. Gold certified = 10/10.
         const isGold = iq >= 10;
-        const isPass = iq >= 9;
-        const isPolishing = iq > 5 && iq < 9;
+        const isPass = iq >= 8;
+        const isPolishing = iq > 5 && iq < 8;
         let bg, bd, tx, sh, lbl, labelText = 'RevOps IQ';
         if (isGold) {
           bg = 'linear-gradient(135deg,#FFD740,#E89F0A)'; bd = '#FFD740'; tx = '#1a1208';
@@ -1513,7 +1521,6 @@ exports.handler = async (event) => {
     ${sourcesHtml}
     ${toolsHtml}
     ${relatedHtml}
-    ${moreHtml}
     ${(prevQ || nextQ) ? `<nav class="seq-nav" aria-label="Previous and next library entry" style="display:flex;gap:12px;justify-content:space-between;margin:30px 0 12px;padding:14px 0;border-top:1px solid rgba(255,255,255,0.08);">
       ${prevQ ? `<a rel="prev" href="${prevUrl}" style="flex:1;text-decoration:none;color:rgba(237,229,216,0.85);font-size:0.78rem;line-height:1.4;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 14px;transition:all 0.15s;">
         <span style="display:block;font-size:0.55rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--orange-bright);margin-bottom:4px;">← Previous</span>
@@ -1529,8 +1536,6 @@ exports.handler = async (event) => {
     <button class="viz-lightbox-close" id="viz-lightbox-close" aria-label="Close">×</button>
     <div class="viz-lightbox-inner" id="viz-lightbox-inner"></div>
   </div>
-  <link rel="stylesheet" href="/css/pulse-mosaic.css">
-  <section class="mag-mosaic" data-pulse-mosaic data-pillar="${escAttr(entryPillar)}" aria-label="More stories in this topic" style="max-width:1080px;margin:0 auto;padding:0 clamp(10px,2vw,24px) 40px;"></section>
   <div class="footer-note">
     Researched autonomously by <a href="/themachine" style="color:rgba(255,140,26,0.7);">The Machine</a> · Claude Sonnet 4.6 + live web search · Cited &amp; dated
     <div style="margin-top:10px;">
@@ -1541,7 +1546,6 @@ exports.handler = async (event) => {
        verified visitor (1/IP/day) via Resend. Replaces the old disabled visit-alert stub
        so ENTRY pages (the bulk of traffic) also report visits. Owner 2026-06-29. -->
   <script src="/js/pulse-face-img.js" defer></script>
-  <script src="/js/pulse-home-mosaic.js" defer></script>
   <script src="/js/human-gate.js" defer></script>
   <!-- Click-email tracker: emails owner on any CRO-ad click (Calendly / LinkedIn /
        CRO Syndicate / resume / hire-cro / tools) via pulse-click-notify. Owner 2026-06-27. -->
@@ -2230,13 +2234,13 @@ exports.handler = async (event) => {
       </div>
       <h3 style="margin:0 0 12px;font-size:1.1rem;font-weight:700;letter-spacing:0.01em;color:#FFE34F;">Two scores — Gate vs IQ</h3>
       <p style="margin:0 0 10px;font-size:0.85rem;line-height:1.55;color:rgba(237,229,216,0.85);"><strong>13/13 Gate</strong> = structural checklist (words, FAQ, mermaids, sources, images, etc.). Required to publish. Not the same as IQ.</p>
-      <p style="margin:0 0 14px;font-size:0.85rem;line-height:1.55;color:rgba(237,229,216,0.85);"><strong>RevOps IQ (x/10)</strong> = research depth. Fresh entries start at <strong>5/10</strong>. <strong>9/10 = quality pass</strong>. <strong>10/10 = gold certified</strong>.</p>
+      <p style="margin:0 0 14px;font-size:0.85rem;line-height:1.55;color:rgba(237,229,216,0.85);"><strong>RevOps IQ (x/10)</strong> = research depth. Fresh entries start at <strong>5/10</strong>. <strong>8/10 = quality pass</strong>. <strong>10/10 = gold certified</strong>.</p>
       <ul style="margin:0 0 16px;padding-left:18px;font-size:0.82rem;line-height:1.6;color:rgba(237,229,216,0.78);">
         <li><strong>5/10</strong> &mdash; fresh write. Structured argument, named vendors, illustrative numbers (not yet fact-checked).</li>
         <li><strong>6/10</strong> &mdash; every claim resolves to a public source URL.</li>
         <li><strong>7/10</strong> &mdash; illustrative numbers replaced with current verified figures from primary sources (10-Qs, press releases, Gartner/Forrester).</li>
-        <li><strong>8/10</strong> &mdash; adversarial counter-argument section added; alternative views represented honestly.</li>
-        <li><strong>9/10 — PASS</strong> &mdash; cross-links to 4+ related entries; no internal contradictions. Good enough with a 13/13 gate.</li>
+        <li><strong>8/10 — PASS</strong> &mdash; adversarial counter-argument section added; alternative views represented honestly. Good enough with a 13/13 gate.</li>
+        <li><strong>9/10</strong> &mdash; cross-links to 4+ related entries; no internal contradictions.</li>
         <li><strong>10/10 — GOLD</strong> &mdash; comprehensive fact-check passed; expert-ready.</li>
       </ul>
       <p style="margin:0;font-size:0.72rem;color:rgba(237,229,216,0.55);font-style:italic;">IQ climbs over time via the polish loop. Gate stays binary at 13/13.</p>

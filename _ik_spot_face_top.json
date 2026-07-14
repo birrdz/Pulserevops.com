@@ -1,0 +1,233 @@
+{
+  "at": "2026-07-12T22:51:10.867Z",
+  "checked": 20,
+  "facePass": 20,
+  "topPass": 20,
+  "bothPass": 20,
+  "facePct": 100,
+  "topPct": 100,
+  "bothPct": 100,
+  "gate": "PASS",
+  "rows": [
+    {
+      "id": "ik0719",
+      "approved": true,
+      "faceBytes": 28771,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0719.jpg",
+      "second": "/assets/qa/ik0719.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0690",
+      "approved": true,
+      "faceBytes": 27347,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0690.jpg",
+      "second": "/assets/qa/ik0690.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0653",
+      "approved": true,
+      "faceBytes": 27564,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0653.jpg",
+      "second": "/assets/qa/ik0653.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0606",
+      "approved": true,
+      "faceBytes": 29573,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0606.jpg",
+      "second": "/assets/qa/ik0606.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0584",
+      "approved": true,
+      "faceBytes": 43132,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0584.jpg",
+      "second": "/assets/qa/ik0584.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0534",
+      "approved": true,
+      "faceBytes": 46840,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0534.jpg",
+      "second": "/assets/qa/ik0534.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0484",
+      "approved": true,
+      "faceBytes": 52824,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0484.jpg",
+      "second": "/assets/qa/ik0484.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0445",
+      "approved": true,
+      "faceBytes": 33455,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0445.jpg",
+      "second": "/assets/qa/ik0445.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0412",
+      "approved": true,
+      "faceBytes": 49484,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0412.jpg",
+      "second": "/assets/qa/ik0412.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0379",
+      "approved": true,
+      "faceBytes": 45020,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0379.jpg",
+      "second": "/assets/qa/ik0379.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0346",
+      "approved": true,
+      "faceBytes": 48689,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0346.jpg",
+      "second": "/assets/qa/ik0346.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0313",
+      "approved": true,
+      "faceBytes": 35453,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0313.jpg",
+      "second": "/assets/qa/ik0313.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0077",
+      "approved": true,
+      "faceBytes": 46957,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0077.jpg",
+      "second": "/assets/qa/ik0077.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0044",
+      "approved": true,
+      "faceBytes": 44842,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0044.jpg",
+      "second": "/assets/qa/ik0044.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0011",
+      "approved": true,
+      "faceBytes": 35800,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0011.jpg",
+      "second": "/assets/qa/ik0011.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0264",
+      "approved": true,
+      "faceBytes": 53070,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0264.jpg",
+      "second": "/assets/qa/ik0264.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0231",
+      "approved": true,
+      "faceBytes": 56930,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0231.jpg",
+      "second": "/assets/qa/ik0231.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0198",
+      "approved": true,
+      "faceBytes": 41406,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0198.jpg",
+      "second": "/assets/qa/ik0198.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0165",
+      "approved": true,
+      "faceBytes": 59408,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0165.jpg",
+      "second": "/assets/qa/ik0165.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    },
+    {
+      "id": "ik0132",
+      "approved": true,
+      "faceBytes": 45450,
+      "faceOk": true,
+      "topOk": true,
+      "hero": "/assets/qa/ik0132.jpg",
+      "second": "/assets/qa/ik0132.jpg",
+      "cover_src": "pexels-topic",
+      "baked": false
+    }
+  ]
+}

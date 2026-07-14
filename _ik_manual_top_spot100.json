@@ -1,0 +1,170 @@
+{
+  "at": "2026-07-12T22:43:32.242Z",
+  "checked": 20,
+  "pass": 0,
+  "fail": 20,
+  "passPct": 0,
+  "failPct": 100,
+  "gate": "FAIL_FIX",
+  "badSample": [
+    {
+      "id": "ik0719",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20s"
+    },
+    {
+      "id": "ik0717",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20c"
+    },
+    {
+      "id": "ik0716",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20c"
+    },
+    {
+      "id": "ik0713",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20a"
+    },
+    {
+      "id": "ik0711",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20s"
+    },
+    {
+      "id": "ik0709",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20r"
+    },
+    {
+      "id": "ik0707",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20r"
+    },
+    {
+      "id": "ik0705",
+      "reasons": [
+        "not_face_dupe:https://images.fineartamerica.com/images/artworkimages/mediu"
+      ],
+      "topUrl": "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/contemporar"
+    },
+    {
+      "id": "ik0704",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20h"
+    },
+    {
+      "id": "ik0700",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20a"
+    },
+    {
+      "id": "ik0699",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20n"
+    },
+    {
+      "id": "ik0697",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20b"
+    },
+    {
+      "id": "ik0695",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20b"
+    },
+    {
+      "id": "ik0679",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20m"
+    },
+    {
+      "id": "ik0677",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20m"
+    },
+    {
+      "id": "ik0692",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20p"
+    },
+    {
+      "id": "ik0690",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20v"
+    },
+    {
+      "id": "ik0688",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20b"
+    },
+    {
+      "id": "ik0686",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20c"
+    },
+    {
+      "id": "ik0684",
+      "reasons": [
+        "pollinations",
+        "not_face_dupe:https://image.pollinations.ai/prompt/realistic%20editorial%2"
+      ],
+      "topUrl": "https://image.pollinations.ai/prompt/realistic%20editorial%20photograph%20of%20d"
+    }
+  ]
+}

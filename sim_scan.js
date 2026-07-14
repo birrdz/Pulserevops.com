@@ -23,6 +23,53 @@ const SUMMARY_F = SIM_DIR + '/summary.json';
 const STATUS_F = SIM_DIR + '/run_status.json';
 
 const readJSON = (f, d) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { return d; } };
+
+/** Scope match: ALL | pillar | {prefix}{n} section chips | legacy tlA–tlD. */
+const {
+  parseSectionScope,
+  idInSectionScope,
+  buildSections,
+  sortIds,
+  pillarOf,
+} = require('./_fixer_scope_sections');
+
+function packsFromEntries(entries) {
+  const byP = {};
+  for (const e of entries || []) {
+    const id = String((e && e.id) || e || '');
+    const p = pillarOf(id);
+    if (!p) continue;
+    if (!byP[p]) byP[p] = [];
+    byP[p].push(id);
+  }
+  const packs = {};
+  for (const p of Object.keys(byP)) {
+    packs[p] = buildSections(p, byP[p], null, p);
+  }
+  return packs;
+}
+
+function idInScope(id, scope, packsByPrefix) {
+  const s = String(scope || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const idl = String(id || '').toLowerCase();
+  if (!s || s === 'all') return true;
+  // Fixer pods (podN / doneN) — cross-pillar OK
+  const { idInPodScope, isPodLocked, parsePodScope } = require('./_fixer_scope_sections');
+  if (parsePodScope(s)) {
+    if (isPodLocked(s)) return false; // locked green pods never re-enter work
+    return !!idInPodScope(id, s);
+  }
+  const secHit = idInSectionScope(id, s, packsByPrefix);
+  if (secHit !== null) return secHit;
+  if (/^tl[abcd]$/.test(s)) {
+    if (!/^tl\d/.test(idl)) return false;
+    const n = parseInt(idl.replace(/\D/g, ''), 10) || 0;
+    const want = { tla: 0, tlb: 1, tlc: 2, tld: 3 }[s];
+    return (n % 4) === want;
+  }
+  if (parseSectionScope(s)) return false;
+  return new RegExp('^' + s + '\\d').test(idl) || idl === s;
+}
 const pOf = id => (String(id).match(/^([a-z]+)\d/i) || [, ''])[1].toLowerCase();
 
 // ── location + number normalization (kills the doorway "…in <State>" variant signal) ──
@@ -61,7 +108,8 @@ async function main() {
   let entries = ((idx && idx.entries) || []).filter(e => e && e.id && !/^vq_/i.test(String(e.id)));
   if (scope.toUpperCase() !== 'ALL') {
     const s = scope.toLowerCase();
-    entries = entries.filter(e => String(e.id).toLowerCase().startsWith(s));
+    const packs = packsFromEntries(((idx && idx.entries) || []));
+    entries = entries.filter((e) => idInScope(String(e.id), s, packs));
   }
   if (process.env.SIM_MAX) entries = entries.slice(0, parseInt(process.env.SIM_MAX, 10));
   const total = entries.length;
@@ -72,11 +120,25 @@ async function main() {
   const cache = readJSON(CACHE_F, {});
   const recs = [];   // {id, pillar, score, words, hash, sents:Set, stub}
   let scanned = 0;
-  const CONC = parseInt(process.env.SIM_READ_CONC || '18', 10);   // parallel blob reads — scans were serial (~15x slower)
+  // Owner 2026-07-12: default was 18 + rewrite 140MB cache every batch → scan crashes / blob rate limits.
+  // Keep reads gentle; pause between batches; flush cache sparsely.
+  const CONC = Math.max(1, Math.min(8, parseInt(process.env.SIM_READ_CONC || '4', 10) || 4));
+  const PAUSE_MS = Math.max(0, parseInt(process.env.SIM_SCAN_PAUSE_MS || '280', 10) || 0);
+  const CACHE_EVERY = Math.max(1, parseInt(process.env.SIM_CACHE_EVERY || '25', 10) || 25); // batches between cache flushes
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
   async function readOne(e) {
     const id = String(e.id);
     let body = null;
-    try { const a = await store.get('answers/' + id + '.json', { type: 'json' }); body = a && (a.answer || a.body || ''); } catch (x) {}
+    for (let attempt = 0; attempt < 3 && body == null; attempt++) {
+      try {
+        const a = await store.get('answers/' + id + '.json', { type: 'json' });
+        body = a && (a.answer || a.body || '');
+        if (body == null) body = '';
+      } catch (x) {
+        body = null;
+        if (attempt < 2) await sleep(400 * (attempt + 1));
+      }
+    }
     if (body == null) body = '';
     const hash = crypto.createHash('sha1').update(body).digest('hex');
     let sentsArr, words;
@@ -84,12 +146,20 @@ async function main() {
     else { const norm = normalize(body); const ss = sentences(norm); sentsArr = ss; words = norm.split(' ').filter(Boolean).length; cache[id] = { hash, sents: ss, words }; }
     recs.push({ id, pillar: pOf(id), score: (typeof e.quality_score === 'number' ? e.quality_score : 0), words, hash, sents: new Set(sentsArr), stub: words < STUB_MIN });
   }
+  let batches = 0;
   for (let i = 0; i < entries.length; i += CONC) {
     await Promise.all(entries.slice(i, i + CONC).map(readOne));
     scanned = recs.length;
-    writeStatus({ scanned, phase: 'reading bodies' }); fs.writeFileSync(CACHE_F, JSON.stringify(cache)); process.stdout.write(`\r[sim-scan] read ${scanned}/${total}`);
+    batches++;
+    writeStatus({ scanned, phase: 'reading bodies', readConc: CONC });
+    // Sparse cache flush — full rewrite of ~100MB+ every batch was killing the scan phase
+    if (batches % CACHE_EVERY === 0) {
+      try { fs.writeFileSync(CACHE_F, JSON.stringify(cache)); } catch (e) {}
+    }
+    process.stdout.write(`\r[sim-scan] read ${scanned}/${total} · conc=${CONC}`);
+    if (PAUSE_MS) await sleep(PAUSE_MS);
   }
-  fs.writeFileSync(CACHE_F, JSON.stringify(cache));
+  try { fs.writeFileSync(CACHE_F, JSON.stringify(cache)); } catch (e) {}
   process.stdout.write('\n');
 
   // ── pairwise within pillar blocks (clone families are geo/topic variants inside a pillar) ──
@@ -142,6 +212,13 @@ async function main() {
   const summary = { scope, total, piles, familyCount: Object.keys(families).length, nearDupPairs: pairs, largestFamilies: largest, threshold: SIM_THRESHOLD, stubMin: STUB_MIN, at: new Date().toISOString() };
 
   fs.writeFileSync(REPORT_F, JSON.stringify({ scope, at: summary.at, families, entries: report }, null, 1));
+  // Preserve fat sitewide reports — next30 scans must not wipe the need-fix pool
+  try {
+    const needN = Object.values(report).filter((e) => e && e.pile && e.pile !== 'PASS').length;
+    if (String(scope).toLowerCase() !== 'next30' && needN >= 50) {
+      fs.writeFileSync(SIM_DIR + '/scan_report_sitewide.json', JSON.stringify({ scope, at: summary.at, families, entries: report }, null, 1));
+    }
+  } catch (e) {}
   fs.writeFileSync(SUMMARY_F, JSON.stringify(summary, null, 1));
   writeStatus({ stage: 'scan-done', phase: 'idle', piles, families: summary.familyCount });
   console.log(`\n[sim-scan] DONE  total=${total}  PASS=${piles.PASS}  NEAR_DUP=${piles.NEAR_DUP}  SUB13=${piles.SUB13}  STUB=${piles.STUB}  families=${summary.familyCount}`);

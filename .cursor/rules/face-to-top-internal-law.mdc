@@ -1,0 +1,40 @@
+---
+description: Face card URL always auto-copies to top internal image on every page.
+alwaysApply: true
+---
+
+# FACE → TOP INTERNAL LAW
+
+**Status: MANDATORY · NON-NEGOTIABLE.** Owner locked 2026-07-13.  
+**Change only with owner passcode `4444`.**
+
+## The rule
+
+Whenever a **face card** image is set for a Q&A / answer entry, the **top internal** image on the answer page **must be the same URL** — automatically. No separate pull. No Pollinations. Dupes required.
+
+Applies to:
+
+1. **Square Builder** — face click writes face JPG **and** sets top hero/markdown to that same `/assets/qa/{id}.jpg`
+2. **Manual pillar face/tops** — face write → top write same URL → next
+3. **Any other image write path** that sets `img` / face — also set top internal to match
+
+## Top 10 / Q&A / Style
+
+| Type | Face → top? | Extra skeleton blanks |
+|------|-------------|------------------------|
+| Q&A essay | **Yes** (auto) | Section image 1 · Section image 2 |
+| Style | **Yes** (auto) | Outfit slots |
+| Top 10 | **Yes** (auto top hero) | `#1 · name` … `#10 · name` product blanks |
+
+## Square Builder skeleton
+
+Internal answer screen is a **skeleton**, not a live page rebuild:
+
+- Top block already filled / marked done (face)
+- Below: named blank grid — click blank → Pexels → click → fills that slot
+
+## Do not
+
+- Leave top internal empty when face exists
+- Force a second unique photo for the top slot by default
+- Bake the title into the face JPG (title stays OVER the photo in UI/CSS)

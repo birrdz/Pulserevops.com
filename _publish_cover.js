@@ -107,31 +107,29 @@ async function attachPublishCover(store, id, title) {
   let faceLocal = false;
   let coverSrc = liveImg.startsWith('/assets/topics/') ? 'topic-interim' : 'pool-interim';
 
+  // Clean face only — NO gold title bake (HTML title on cards). Daily Driver
+  // finish path also calls stampTitleFaceTop for Recents + pillar row.
   try {
-    const flib = require('./_ddg_facecard_lib');
-    const donors = listDonors(prefixOf(id));
-    if (donors.length) {
-      const buf = fs.readFileSync(donors[hashPick(id, donors.length)]);
-      await flib.gradeFaceCardFromBuffer(buf, flib.coverPath(id), {
-        question: title,
-        goldTitle: title,
-      });
+    const { ensureCleanFaceFile, faceUrl } = require('./_stamp_title_face');
+    const face = await ensureCleanFaceFile(id);
+    if (face && face.ok) {
       faceLocal = true;
       coverSrc = 'pexels-stored';
-      // Prefer the dedicated face URL once the file exists locally — live site
-      // still 404s until assets deploy, so keep liveImg as the stamped CDN URL.
     }
   } catch (e) {
     // non-fatal — live topic/pool cover still stamps
   }
 
+  const faceLocalUrl = '/assets/qa/' + id + '.jpg';
   const patch = {
-    img: liveImg,
+    // Prefer dedicated face URL when local file exists; else live CDN interim
+    img: faceLocal ? faceLocalUrl : liveImg,
     cover_src: coverSrc,
-    face_title_baked: faceLocal,
+    face_title_baked: false,
     face_local_ready: faceLocal,
-    face_path: '/assets/qa/' + id + '.jpg',
+    face_path: faceLocalUrl,
     images_pending: !faceLocal,
+    quality_score: 10,
   };
 
   try {

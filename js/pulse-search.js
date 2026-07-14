@@ -281,17 +281,29 @@
   function paintGhost(qv, list){
     if (!gTyped || !gRest) return;
     gTyped.textContent = ''; gRest.textContent = '';
-    var ql = norm(qv); if (!ql || !list || !list.length) return;
+    var ql = norm(qv); if (!ql) return;
     // caret must be at end for an inline completion to make sense
     if (input.selectionStart !== input.value.length) return;
-    var cand = null;
-    for (var i = 0; i < list.length; i++){
-      if (list[i].n.indexOf(ql) === 0 && list[i].n.length > ql.length){ cand = list[i]; break; }
+    // Completion corpus: your recent searches → example prompts → top result titles.
+    // Natural queries (history/examples) prefix-match what people actually type, so the
+    // ghost appears intuitively instead of only when a full question-title starts with the query.
+    var cands = [];
+    getHist().forEach(function(h){ if (h) cands.push(h); });
+    for (var a = 0; a < EXAMPLES.length; a++) cands.push(EXAMPLES[a]);
+    if (list) for (var b = 0; b < list.length; b++) cands.push(list[b].t);
+    var best = '';
+    for (var i = 0; i < cands.length; i++){
+      var c = cands[i]; if (!c) continue;
+      var nc = norm(c);
+      if (nc.indexOf(ql) === 0 && nc.length > ql.length){
+        if (!best || c.length < best.length) best = c;      // prefer the shortest sensible completion
+        if (nc.length - ql.length <= 24) break;             // close enough — take it
+      }
     }
-    if (!cand) return;
-    gTyped.textContent = qv;                       // reserves exact width (transparent)
-    gRest.textContent = cand.t.slice(qv.length);   // gray completion
-    ghost.dataset.full = cand.t;
+    if (!best) return;
+    gTyped.textContent = qv;                        // reserves exact width (transparent)
+    gRest.textContent = best.slice(qv.length);      // gray completion (Tab / → to accept)
+    ghost.dataset.full = best;
   }
   function acceptGhost(){
     if (!ghost || !ghost.dataset.full) return false;

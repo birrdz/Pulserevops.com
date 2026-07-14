@@ -116,7 +116,7 @@ exports.handler = async (event) => {
     .lead{font-size:1.12rem;color:rgba(237,229,216,0.78);max-width:760px;margin:0 0 36px;}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;}
     .footer-note{padding:32px;text-align:center;color:rgba(237,229,216,0.35);font-size:0.7rem;letter-spacing:0.1em;border-top:1px solid rgba(255,255,255,0.04);}.footer-note a{color:rgba(255,140,26,0.7);}
-  </style><link rel="stylesheet" href="/assets/pulse-tan.css"></head><body>
+  </style><link rel="stylesheet" href="/assets/pulse-tan.css"><link rel="stylesheet" href="/css/pulse-jet-sides.css"></head><body>
   <div class="top"><span><a href="/">PULSE REVOPS</a></span><span><a href="/dashboard.html">🛠 Free CRM</a> · <a href="/knowledge.html">📚 Library</a> · <a href="/themachine">The Machine</a></span></div>
   <main>
     <h1>Free Sales &amp; RevOps Tools — Operator-Grade Calculators &amp; Dashboards</h1>

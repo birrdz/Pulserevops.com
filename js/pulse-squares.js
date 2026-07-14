@@ -245,6 +245,24 @@
   // Soft blank — no network until hydrate. Keeps scroll buttery with dozens of rows.
   var IMG_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
+  /** Live/draft: 2× CSS-size WebP thumbs (sharp + light). Local stays direct for quality preview. */
+  function browseThumb(path) {
+    var src = String(path || '');
+    if (!src || src.indexOf('data:') === 0 || /wsrv\.nl/i.test(src)) return src;
+    var host = '';
+    try { host = String(location.hostname || ''); } catch (err) { host = ''; }
+    if (!host || host === 'localhost' || host === '127.0.0.1' || /^192\.168\./.test(host) || /^10\./.test(host)) {
+      return src;
+    }
+    var abs = src;
+    if (src.charAt(0) === '/') {
+      try { abs = location.origin + src.split('?')[0]; } catch (err2) { return src; }
+    } else if (!/^https?:\/\//i.test(src)) {
+      return src;
+    }
+    return 'https://wsrv.nl/?url=' + encodeURIComponent(abs) + '&w=440&h=396&fit=cover&output=webp&q=82';
+  }
+
   function cardHtml(e, opts) {
     opts = opts || {};
     var id = e && e.id;
@@ -254,12 +272,15 @@
     var q = esc(shortTitle(full, 36));
     var tip = esc(full);
     var label = esc(e.cat || (id ? labelOf(id) : '') || '');
-    var img = esc(e.imgSq || (e.img && /\.sq\.jpg(\?|$)/i.test(String(e.img)) ? e.img : '') || squareOf(id) || topicOf(id || 'q'));
-    var fallback = esc(topicOf(id || 'q'));
+    var rawImg = String(e.imgSq || (e.img && /\.sq\.jpg(\?|$)/i.test(String(e.img)) ? e.img : '') || squareOf(id) || topicOf(id || 'q') || '');
+    var thumb = browseThumb(rawImg);
+    var img = esc(thumb);
+    var origAttr = (thumb !== rawImg && rawImg) ? ' data-orig="' + esc(rawImg) + '"' : '';
+    var fallback = esc(browseThumb(topicOf(id || 'q')));
     var col = opts.color || colorOf(id || opts.pillar || 'q');
     // Creative lag fix: paint cards immediately, hydrate real photos only near the lens.
     return '<a class="rcard" href="' + esc(href) + '" style="--tc:' + col + '" title="' + tip + '">'
-      + '<span class="rcard-imgwrap"><img class="psq-img" width="220" height="198" decoding="async" draggable="false" src="' + IMG_PLACEHOLDER + '" data-src="' + img + '" alt="' + tip + '" data-fb="' + fallback + '" onerror="window.PulseSquares&&PulseSquares.imgFail(this)"></span>'
+      + '<span class="rcard-imgwrap"><img class="psq-img" width="220" height="198" decoding="async" draggable="false" src="' + IMG_PLACEHOLDER + '" data-src="' + img + '"' + origAttr + ' alt="' + tip + '" data-fb="' + fallback + '" onerror="window.PulseSquares&&PulseSquares.imgFail(this)"></span>'
       + (label ? '<div class="rc">' + label + '</div>' : '')
       + '<div class="rt"><span>' + q + '</span></div></a>';
   }
@@ -283,14 +304,32 @@
       img.addEventListener('load', onReady);
       // If cached, load may have already fired
       if (img.complete && img.naturalWidth) onReady();
+      // First paints: ask browser to prioritize decode/network
+      if (!img.__psqPri && sc && sc.querySelectorAll('img.psq-img.is-on, img.psq-img[data-src]').length) {
+        /* set below per index */
+      }
       img.src = src;
     }
 
-    // First 3 cards in each row: hydrate immediately so the row never looks empty
-    for (var i = 0; i < imgs.length && i < 3; i++) reveal(imgs[i]);
+    // First screenful: hydrate now with high priority (phone or monitor width).
+    var eager = 2;
+    try {
+      var mob = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || (window.innerWidth || 900) < 700;
+      if (mob) eager = 2;
+      else if (window.__PULSE_FIRST_SCREEN_N) eager = Math.max(3, Math.min(8, window.__PULSE_FIRST_SCREEN_N|0));
+      else eager = 4;
+    } catch (errE) {}
+    // If fly-in owns hydrate, skip eager (caller handles)
+    if (sc.__psqFlyHydrate) {
+      return;
+    }
+    for (var i = 0; i < imgs.length && i < eager; i++) {
+      try { imgs[i].setAttribute('fetchpriority', 'high'); } catch (errP) {}
+      reveal(imgs[i]);
+    }
 
     if (typeof IntersectionObserver !== 'function') {
-      for (var j = 3; j < imgs.length; j++) reveal(imgs[j]);
+      for (var j = eager; j < imgs.length; j++) reveal(imgs[j]);
       return;
     }
     if (sc.__psqImgIo) {
@@ -303,14 +342,22 @@
           try { io.unobserve(ents[k].target); } catch (err2) {}
         }
       }
-    }, { root: sc, rootMargin: '0px 280px 0px 280px', threshold: 0.01 });
+    }, { root: sc, rootMargin: '0px 100px 0px 100px', threshold: 0.01 });
     sc.__psqImgIo = io;
-    for (var n = 3; n < imgs.length; n++) io.observe(imgs[n]);
+    for (var n = eager; n < imgs.length; n++) io.observe(imgs[n]);
   }
 
   /** Missing .sq.jpg → topic stock once. NEVER fall back to baked face mosaics (double-title bug). */
   function imgFail(img) {
     if (!img) return;
+    // Thumb proxy miss → original full square (quality preserved)
+    var orig = img.getAttribute('data-orig') || '';
+    if (orig) {
+      img.removeAttribute('data-orig');
+      img.onerror = function () { imgFail(img); };
+      img.src = orig;
+      return;
+    }
     var fb = img.getAttribute('data-fb') || '';
     img.onerror = null;
     var sc = img.closest('.psq-scroll, .recentscroll');
@@ -332,69 +379,132 @@
     opts = opts || {};
     if (!sc || sc.__psqWired) return;
     sc.__psqWired = true;
-    var idleMs = opts.idleMs != null ? opts.idleMs : 15000;
-    var auto = opts.auto !== false;
-    var drag = false, moved = false, startX = 0, startLeft = 0, pid = null;
-    var pressed = null, suppressClick = false;
-    var DRAG_PX = 12;
-    var paused = false, resumeTimer = null, lastInteract = Date.now();
-    var hovering = false, rowVisible = true;
+    // Owner 2026-07-12: no idle autoscroll — thumb only.
+    var drag = false, moved = false, startX = 0, startY = 0, startLeft = 0, pid = null;
+    var pressed = null, suppressClick = false, touchy = false;
+    var DRAG_MOUSE = 8;
+    var DRAG_TOUCH = 12;
+    var VERT_CANCEL = 14;
+    var lastX = 0, lastT = 0, velX = 0; // px/ms finger → fling uses -vel
+    var momRaf = 0;
+    var reduceMotion = false;
+    var isMob = false;
+    try {
+      reduceMotion = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+      isMob = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || (window.innerWidth || 900) < 700;
+    } catch (err0) {}
+    // 1:1 drag; gentler mobile fling (owner 2026-07-13 — less vigorous thumb coast)
+    var SWIPE_GAIN = 1;
+    var FLING_BOOST = isMob ? 1.25 : 1.55;
 
-    function pause(ms) {
-      paused = true;
-      lastInteract = Date.now();
-      if (resumeTimer) clearTimeout(resumeTimer);
-      if (ms == null) return;
-      resumeTimer = setTimeout(function () { paused = false; }, ms);
+    function dragThresh() { return touchy ? DRAG_TOUCH : DRAG_MOUSE; }
+    function stopMom() {
+      if (momRaf) { cancelAnimationFrame(momRaf); momRaf = 0; }
+      sc.classList.remove('is-flinging');
+    }
+    function fling(vx) {
+      // vx = scrollLeft velocity in px/ms
+      stopMom();
+      if (reduceMotion || !vx || Math.abs(vx) < 0.08) return;
+      var v = vx * FLING_BOOST;
+      // Soft cap — a flick covers a few cards, not half the row
+      var cap = isMob ? 1.85 : 2.6;
+      if (v > cap) v = cap;
+      if (v < -cap) v = -cap;
+      sc.classList.add('is-flinging');
+      var last = performance.now();
+      var friction = isMob ? 0.90 : 0.945; // mobile dies sooner
+      function step(now) {
+        var dt = Math.min(34, now - last); last = now;
+        var max = Math.max(0, sc.scrollWidth - sc.clientWidth);
+        sc.scrollLeft += v * dt;
+        // Allow endless-loop wrap to run; re-read max each frame
+        v *= Math.pow(friction, dt / 16);
+        if (Math.abs(v) < 0.04) {
+          stopMom();
+          return;
+        }
+        momRaf = requestAnimationFrame(step);
+      }
+      momRaf = requestAnimationFrame(step);
     }
 
-    // Wheel: page up/down only. Never move the row sideways (drag + autoscroll do that).
+    // Wheel: horizontal moves the row; vertical page scroll wins.
     sc.addEventListener('wheel', function (e) {
       var dy = e.deltaY;
       var dx = e.deltaX;
       if (e.deltaMode === 1) { dy *= 16; dx *= 16; }
       else if (e.deltaMode === 2) { dy *= window.innerHeight; dx *= sc.clientWidth; }
-      e.preventDefault();
-      e.stopPropagation();
-      // Ignore horizontal trackpad swipes for the row; only scroll the page vertically
-      if (dy) window.scrollBy(0, dy);
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 2) {
+        e.preventDefault();
+        e.stopPropagation();
+        stopMom();
+        sc.scrollLeft += dx * 1.25;
+      }
     }, { passive: false });
 
-    // Remember the card under pointerdown — setPointerCapture retargets pointerup
-    // to the scroller, which used to break click → link on Recent + topic rows.
     sc.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
+      touchy = e.pointerType === 'touch' || e.pointerType === 'pen';
+      stopMom();
       drag = true; moved = false; pid = e.pointerId;
-      startX = e.clientX; startLeft = sc.scrollLeft;
+      startX = e.clientX; startY = e.clientY; startLeft = sc.scrollLeft;
+      lastX = e.clientX; lastT = performance.now(); velX = 0;
       pressed = e.target && e.target.closest ? e.target.closest('a.rcard, a.psq') : null;
       suppressClick = false;
-      pause(null);
-      try { sc.setPointerCapture(e.pointerId); } catch (err) {}
+      if (!touchy) {
+        try { sc.setPointerCapture(e.pointerId); } catch (err) {}
+      }
     });
     sc.addEventListener('pointermove', function (e) {
       if (!drag || (pid != null && e.pointerId !== pid)) return;
       var dx = e.clientX - startX;
-      if (Math.abs(dx) > DRAG_PX) {
+      var dy = e.clientY - startY;
+      var now = performance.now();
+      var dt = Math.max(1, now - lastT);
+      var instant = (e.clientX - lastX) / dt;
+      // Favor recent samples so a hard flick registers
+      velX = velX * 0.2 + instant * 0.8;
+      lastX = e.clientX; lastT = now;
+      if (touchy && Math.abs(dy) > VERT_CANCEL && Math.abs(dy) >= Math.abs(dx)) {
+        moved = true;
+        pressed = null;
+        drag = false;
+        sc.classList.remove('is-dragging');
+        return;
+      }
+      if (Math.abs(dx) > dragThresh()) {
         if (!moved) { moved = true; sc.classList.add('is-dragging'); }
-        sc.scrollLeft = startLeft - dx;
+        sc.scrollLeft = startLeft - dx * SWIPE_GAIN;
         e.preventDefault();
       }
     }, { passive: false });
     function onUp(e) {
       if (!drag || (pid != null && e.pointerId !== pid)) return;
       var wasMoved = moved;
-      var go = (!wasMoved && pressed && pressed.getAttribute('href')) ? pressed.href : '';
-      drag = false; pid = null; pressed = null; moved = false;
+      var dx = Math.abs(e.clientX - startX);
+      var dy = Math.abs(e.clientY - startY);
+      var scrollDelta = Math.abs(sc.scrollLeft - startLeft);
+      var th = dragThresh();
+      var stale = (performance.now() - lastT) > 90; // finger paused → no fling
+      var tap = !wasMoved && pressed && pressed.getAttribute('href')
+        && scrollDelta < 6 && dx < th && dy < (touchy ? VERT_CANCEL : th);
+      var go = tap ? pressed.getAttribute('href') : '';
+      var flingVel = (wasMoved && !stale) ? (-velX * SWIPE_GAIN) : 0;
+      drag = false; pid = null; pressed = null; moved = false; touchy = false;
+      velX = 0;
       sc.classList.remove('is-dragging');
       try { sc.releasePointerCapture(e.pointerId); } catch (err) {}
-      pause(2800);
       if (go) {
         suppressClick = true;
         e.preventDefault();
         location.href = go;
         return;
       }
-      if (wasMoved) suppressClick = true;
+      if (wasMoved || scrollDelta >= 6) {
+        suppressClick = true;
+        fling(flingVel);
+      }
     }
     sc.addEventListener('pointerup', onUp);
     sc.addEventListener('pointercancel', onUp);
@@ -404,69 +514,159 @@
       e.preventDefault();
       e.stopPropagation();
     }, true);
-    sc.addEventListener('mouseenter', function () { hovering = true; pause(null); });
-    sc.addEventListener('mouseleave', function () {
-      hovering = false;
-      if (!drag) pause(1200);
-    });
+  }
 
-    // Only auto-creep when the row is on screen — kills lag from dozens of 16ms timers
-    if (typeof IntersectionObserver === 'function') {
-      try {
-        var io = new IntersectionObserver(function (ents) {
-          for (var i = 0; i < ents.length; i++) {
-            if (ents[i].target === sc) rowVisible = !!ents[i].isIntersecting;
-          }
-        }, { root: null, threshold: 0.05 });
-        io.observe(sc);
-      } catch (err) {}
+  /** Soft wrap only after truly past the end — let the last card fully “hit right”. */
+  function wireEndlessLoop(sc) {
+    if (!sc || sc.__psqLoop) return;
+    sc.__psqLoop = true;
+    var lock = false;
+    function wrap() {
+      if (lock) return;
+      var max = sc.scrollWidth - sc.clientWidth;
+      if (max < 80) return;
+      // Was max-2 (jumped before last card settled). Now only after overshoot.
+      if (sc.scrollLeft >= max - 0.5) {
+        lock = true;
+        sc.scrollLeft = 0;
+        lock = false;
+      } else if (sc.scrollLeft <= 0) {
+        // Stay at 0 while dragging left; wrap only if user keeps past start mid-fling
+        // (no jump on first pixel — felt like “can’t hit left/right”)
+      }
+    }
+    sc.addEventListener('scroll', wrap, { passive: true });
+  }
+
+  /** Top→bottom: row drops in, then cards soft-fill L→R (buys decode time). */
+  function wireFlyIn(sc, opts) {
+    opts = opts || {};
+    if (!sc) {
+      if (opts.onFlyDone) opts.onFlyDone();
+      return;
+    }
+    var row = sc.closest('.psq-row, .recentrow');
+    var cards = sc.querySelectorAll('a.rcard, a.psq');
+    var reduce = false;
+    try { reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (err) {}
+    var stagger = opts.flyStaggerMs != null ? opts.flyStaggerMs : 140;
+
+    function revealImg(card) {
+      var img = card && card.querySelector('img.psq-img[data-src]');
+      if (!img || img.__psqHydrated) return;
+      var src = img.getAttribute('data-src');
+      if (!src) return;
+      img.__psqHydrated = true;
+      img.removeAttribute('data-src');
+      function onReady() {
+        img.classList.add('is-on');
+        img.removeEventListener('load', onReady);
+      }
+      img.addEventListener('load', onReady);
+      if (img.complete && img.naturalWidth) onReady();
+      img.src = src;
     }
 
-    if (auto) {
-      var creep = function () {
-        if (!sc.isConnected) return;
-        if (rowVisible && !paused && !drag && !document.hidden && !hovering) {
-          if (Date.now() - lastInteract >= idleMs) {
-            var max = Math.max(0, sc.scrollWidth - sc.clientWidth);
-            if (max > 0) {
-              if (sc.scrollLeft >= max - 1) sc.scrollLeft = 0;
-              else sc.scrollLeft += 0.7;
-            }
-          }
+    function fillCards(done) {
+      var flyMax = opts.flyMax != null ? opts.flyMax : cards.length;
+      if (flyMax > cards.length) flyMax = cards.length;
+      if (!cards.length || reduce) {
+        for (var r = 0; r < cards.length; r++) {
+          cards[r].classList.add('psq-fly', 'is-in');
+          revealImg(cards[r]);
         }
-        // Slower tick when off-screen / hidden — less timer thrash across 40 rows
-        setTimeout(creep, rowVisible ? 48 : 600);
-      };
-      setTimeout(creep, idleMs);
+        wireLazyImgs(sc);
+        if (done) done();
+        return;
+      }
+      for (var c = 0; c < cards.length; c++) {
+        if (c < flyMax) cards[c].classList.add('psq-fly');
+        else cards[c].classList.add('psq-fly', 'is-in');
+      }
+      var i = 0;
+      function step() {
+        if (!sc.isConnected) { if (done) done(); return; }
+        if (i >= flyMax) {
+          wireLazyImgs(sc);
+          if (done) done();
+          return;
+        }
+        var card = cards[i++];
+        card.classList.add('is-in');
+        revealImg(card);
+        setTimeout(step, stagger);
+      }
+      setTimeout(step, 40);
     }
+
+    if (row && !reduce) {
+      row.classList.add('psq-row-enter');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          row.classList.add('is-in');
+          // After row lands, fill cards L→R
+          setTimeout(function () { fillCards(opts.onFlyDone); }, 520);
+        });
+      });
+      return;
+    }
+    if (row) row.classList.add('psq-row-enter', 'is-in');
+    fillCards(opts.onFlyDone);
   }
 
   function paintRow(el, entries, opts) {
     opts = opts || {};
     if (!el) return;
-    // Keep source list so we can reshuffle every 30 min without refetch.
-    el.__psqSource = Array.isArray(entries) ? entries.filter(Boolean) : [];
+    // Keep FULL source pool so 30‑min reshuffle can draw different squares (not just reorder the same N).
+    if (!opts._reshufflePass) {
+      el.__psqSource = Array.isArray(entries) ? entries.filter(Boolean) : [];
+    } else if (Array.isArray(entries) && entries.length > (el.__psqSource || []).length) {
+      el.__psqSource = entries.filter(Boolean);
+    }
     el.__psqOpts = opts;
+    var pool = el.__psqSource || [];
     var used = opts.usedImages || Object.create(null);
-    // Always shuffle card order so repeat visits / refreshes feel fresh.
-    var list = shuffle(el.__psqSource.slice());
-    // Keep shared page-level used map so no image repeats across rows on screen
-    if (!opts.usedImages) used = Object.create(null);
-    list = uniqueOnScreen(list, used, opts.allowImageDupes === true);
-    // Hard cap DOM cards — thousands of imgs was melting scroll. Pool stays in __psqSource for reshuffle.
+    if (!opts.usedImages || opts._reshufflePass) used = Object.create(null);
+
     var lim = opts.limit != null ? opts.limit : 40;
-    if (lim > 48) lim = 48;
-    list = list.slice(0, lim);
+    if (lim > 200) lim = 200;
+
+    // Prefer cards not shown last time so reshuffle feels like new face/squares
+    var avoid = opts._reshufflePass ? (el.__psqLastIds || Object.create(null)) : Object.create(null);
+    var list = shuffle(pool.slice());
+    list = uniqueOnScreen(list, used, opts.allowImageDupes === true);
+
+    var fresh = [];
+    var rest = [];
+    for (var i = 0; i < list.length; i++) {
+      var id = list[i] && list[i].id ? String(list[i].id) : '';
+      if (id && avoid[id]) rest.push(list[i]);
+      else fresh.push(list[i]);
+    }
+    list = fresh.concat(rest).slice(0, lim);
     if (!list.length) { el.style.display = 'none'; return; }
+
+    var shown = Object.create(null);
+    for (var s = 0; s < list.length; s++) {
+      if (list[s] && list[s].id) shown[String(list[s].id)] = 1;
+    }
+    el.__psqLastIds = shown;
+
     var title = opts.title || '';
     var moreHref = opts.moreHref || '';
+    var inv = opts.inventory != null ? Number(opts.inventory) : (opts.count != null ? Number(opts.count) : 0);
+    if (!isFinite(inv) || inv < 0) inv = 0;
+    var invHtml = inv > 0
+      ? ' <span class="psq-inv" title="Inventory">' + inv.toLocaleString() + '</span>'
+      : '';
     var col = opts.color || (opts.pillar ? colorOf(opts.pillar) : null);
     if (col) opts.color = col; // lock whole row to one trim
     var head = title
       ? '<h3>' + (moreHref
-        ? '<a class="psq-head" href="' + esc(moreHref) + '">' + esc(title) + '</a>'
-        : esc(title)) + '</h3>'
+        ? '<a class="psq-head" href="' + esc(moreHref) + '">' + esc(title) + invHtml + '</a>'
+        : (esc(title) + invHtml)) + '</h3>'
       : '';
+    // One set only — endless L/R via scroll wrap (no dual-DOM; cuts lag ~2×)
     var cards = list.map(function (e) { return cardHtml(e, opts); }).join('');
     el.className = 'recentrow psq-row';
     if (col) el.style.setProperty('--tc', col);
@@ -476,28 +676,140 @@
     var scNode = el.querySelector('.recentscroll');
     // New scroll node each paint — wire once per node (do not clear __psqWired)
     wireGrabScroll(scNode, opts);
-    wireLazyImgs(scNode);
+    wireEndlessLoop(scNode);
+    // Reshuffle: no fly-in (instant swap of different squares)
+    var doFly = opts.flyIn !== false && !opts._reshufflePass;
+    if (doFly) {
+      scNode.__psqFlyHydrate = true;
+      wireFlyIn(scNode, {
+        flyStaggerMs: opts.flyStaggerMs,
+        flyMax: opts.flyMax,
+        onFlyDone: opts.onFlyDone
+      });
+    } else {
+      wireLazyImgs(scNode);
+      if (opts.onFlyDone) opts.onFlyDone();
+    }
 
-    // STANDING ORDER (owner): every pillar/browse row randomly swaps square order every 30 min.
-    // Stagger start so dozens of rows don't all repaint on the same tick (lag).
+    // Mix in NEW squares 1-by-1 (visually healthier than nuking the whole row).
+    // Default cadence 15s per swap — one card at a time per row (owner 2026-07-13)
     if (opts.reshuffle !== false && !el.__psqReshuffleTimer) {
-      var period = opts.reshuffleMs || 15 * 60 * 1000;
-      var stagger = Math.floor(Math.random() * Math.min(period, 120000));
-      el.__psqReshuffleTimer = setTimeout(function tick() {
-        el.__psqReshuffleTimer = setInterval(function () {
-          if (document.hidden) return;
-          var src = el.__psqSource || [];
-          if (src.length < 2) return;
-          var o = Object.assign({}, el.__psqOpts || opts, {
-            usedImages: null,
-            shuffle: true,
-            _reshufflePass: true
+      var period = opts.reshuffleMs || 15 * 1000;
+      // Stagger row starts so the page doesn't pulse in sync
+      var stagger = Math.floor(Math.random() * Math.min(period, 8000));
+
+      function shownIds() {
+        var ids = Object.create(null);
+        var cards = el.querySelectorAll('a.rcard, a.psq');
+        for (var i = 0; i < cards.length; i++) {
+          var href = cards[i].getAttribute('href') || '';
+          var m = href.match(/\/knowledge\/([^/?#]+)/i);
+          if (m) ids[decodeURIComponent(m[1])] = 1;
+        }
+        return ids;
+      }
+
+      function swapOneCard() {
+        if (document.hidden || !el.isConnected) return;
+        var sc = el.querySelector('.recentscroll, .psq-scroll');
+        if (!sc) return;
+        var cards = sc.querySelectorAll('a.rcard, a.psq');
+        if (!cards.length) return;
+        var src = el.__psqSource || [];
+        if (src.length < 2) return;
+
+        var onScreen = shownIds();
+        var candidates = [];
+        for (var i = 0; i < src.length; i++) {
+          var e = src[i];
+          if (!e || !e.id) continue;
+          if (!onScreen[String(e.id)]) candidates.push(e);
+        }
+        if (!candidates.length) {
+          // Soft refresh pool, then try again next tick
+          if (typeof el.__psqRefetch === 'function') {
+            el.__psqRefetch().then(function (fresh) {
+              if (Array.isArray(fresh) && fresh.length) el.__psqSource = fresh;
+            }).catch(function () {});
+          }
+          return;
+        }
+
+        var pick = candidates[Math.floor(Math.random() * candidates.length)];
+        // Prefer swapping a card near the visible window (healthier than far off-screen churn)
+        var target = null;
+        var sl = sc.scrollLeft || 0;
+        var vw = sc.clientWidth || 800;
+        var near = [];
+        var far = [];
+        for (var c = 0; c < cards.length; c++) {
+          var left = cards[c].offsetLeft;
+          var w = cards[c].offsetWidth || 220;
+          if (left + w > sl - 40 && left < sl + vw + 40) near.push(cards[c]);
+          else far.push(cards[c]);
+        }
+        var poolCards = near.length ? near : cards;
+        target = poolCards[Math.floor(Math.random() * poolCards.length)];
+        if (!target) return;
+
+        var html = cardHtml(pick, Object.assign({}, el.__psqOpts || opts));
+        var wrap = document.createElement('div');
+        wrap.innerHTML = html;
+        var neu = wrap.firstChild;
+        if (!neu) return;
+
+        var reduce = false;
+        try { reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (errR) {}
+
+        // Slow, progressive swap — old eases out, new rises in (owner 2026-07-13)
+        if (reduce) {
+          target.parentNode.replaceChild(neu, target);
+          var imgFast = neu.querySelector('img.psq-img[data-src]');
+          if (imgFast) {
+            var sf = imgFast.getAttribute('data-src');
+            imgFast.removeAttribute('data-src');
+            imgFast.src = sf;
+            imgFast.classList.add('is-on');
+          }
+          return;
+        }
+
+        target.classList.add('psq-swap-out');
+        setTimeout(function () {
+          if (!target.parentNode) return;
+          neu.classList.add('psq-swap-in');
+          target.parentNode.replaceChild(neu, target);
+          var img = neu.querySelector('img.psq-img[data-src]');
+          if (img) {
+            var s = img.getAttribute('data-src');
+            img.removeAttribute('data-src');
+            img.addEventListener('load', function () { img.classList.add('is-on'); });
+            if (img.complete && img.naturalWidth) img.classList.add('is-on');
+            img.src = s;
+          } else {
+            var on = neu.querySelector('img.psq-img');
+            if (on) on.classList.add('is-on');
+          }
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () { neu.classList.add('is-in'); });
           });
-          paintRow(el, src, o);
-          var sc2 = el.querySelector('.recentscroll, .psq-scroll');
-          if (sc2) sc2.scrollLeft = 0;
-        }, period);
-      }, stagger);
+        }, 720);
+      }
+
+      function tickSwap() {
+        swapOneCard();
+        // Occasionally refresh pool so 90s mixes stay fresh (not the same N forever)
+        if (typeof el.__psqRefetch === 'function' && Math.random() < 0.35) {
+          el.__psqRefetch().then(function (fresh) {
+            if (Array.isArray(fresh) && fresh.length) el.__psqSource = fresh;
+          }).catch(function () {});
+        }
+      }
+
+      el.__psqReshuffleTimer = setTimeout(function () {
+        tickSwap();
+        el.__psqReshuffleTimer = setInterval(tickSwap, period);
+      }, stagger); // start soon; then every 15s per row
     }
   }
 
@@ -522,7 +834,7 @@
       el.__psqReshuffleTimer = setInterval(function () {
         if (document.hidden) return;
         paintGrid(el, el.__psqSource || [], Object.assign({}, el.__psqOpts || opts));
-      }, opts.reshuffleMs || 15 * 60 * 1000);
+      }, opts.reshuffleMs || 15 * 1000);
     }
   }
 
@@ -543,6 +855,8 @@
     cardHtml: cardHtml,
     wireLazyImgs: wireLazyImgs,
     wireGrabScroll: wireGrabScroll,
+    wireEndlessLoop: wireEndlessLoop,
+    wireFlyIn: wireFlyIn,
     paintRow: paintRow,
     paintGrid: paintGrid,
     PN: PN,

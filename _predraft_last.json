@@ -1,0 +1,58 @@
+
+npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
+npm warn cleanup Failed to remove some directories [
+npm warn cleanup   [
+npm warn cleanup     '\\\\?\\C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\netlify-cli',
+npm warn cleanup     [Error: EBUSY: resource busy or locked, rmdir 'C:\Users\koryj\AppData\Local\Temp\cursor-sandbox-cache\c458c2dac4add12420933d4b0a7d3963\npm\_npx\b3ca12a867cd0704\node_modules\netlify-cli'] {
+npm warn cleanup       errno: -4082,
+npm warn cleanup       code: 'EBUSY',
+npm warn cleanup       syscall: 'rmdir',
+npm warn cleanup       path: 'C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\netlify-cli'
+npm warn cleanup     }
+npm warn cleanup   ],
+npm warn cleanup   [
+npm warn cleanup     'C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\netlify-cli',
+npm warn cleanup     [Error: EBUSY: resource busy or locked, rmdir 'C:\Users\koryj\AppData\Local\Temp\cursor-sandbox-cache\c458c2dac4add12420933d4b0a7d3963\npm\_npx\b3ca12a867cd0704\node_modules\netlify-cli'] {
+npm warn cleanup       errno: -4082,
+npm warn cleanup       code: 'EBUSY',
+npm warn cleanup       syscall: 'rmdir',
+npm warn cleanup       path: 'C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\netlify-cli'
+npm warn cleanup     }
+npm warn cleanup   ],
+npm warn cleanup   [
+npm warn cleanup     '\\\\?\\C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\@netlify\\zip-it-and-ship-it\\node_modules\\resolve',
+npm warn cleanup     [Error: EPERM: operation not permitted, rmdir 'C:\Users\koryj\AppData\Local\Temp\cursor-sandbox-cache\c458c2dac4add12420933d4b0a7d3963\npm\_npx\b3ca12a867cd0704\node_modules\@netlify\zip-it-and-ship-it\node_modules\resolve'] {
+npm warn cleanup       errno: -4048,
+npm warn cleanup       code: 'EPERM',
+npm warn cleanup       syscall: 'rmdir',
+npm warn cleanup       path: 'C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\@netlify\\zip-it-and-ship-it\\node_modules\\resolve'
+npm warn cleanup     }
+npm warn cleanup   ],
+npm warn cleanup   [
+npm warn cleanup     '\\\\?\\C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\@fastify\\static',
+npm warn cleanup     [Error: EPERM: operation not permitted, rmdir 'C:\Users\koryj\AppData\Local\Temp\cursor-sandbox-cache\c458c2dac4add12420933d4b0a7d3963\npm\_npx\b3ca12a867cd0704\node_modules\@fastify\static\test\static\deep\path\for\test'] {
+npm warn cleanup       errno: -4048,
+npm warn cleanup       code: 'EPERM',
+npm warn cleanup       syscall: 'rmdir',
+npm warn cleanup       path: 'C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\@fastify\\static\\test\\static\\deep\\path\\for\\test'
+npm warn cleanup     }
+npm warn cleanup   ],
+npm warn cleanup   [
+npm warn cleanup     'C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\@netlify\\edge-bundler',
+npm warn cleanup     [Error: EPERM: operation not permitted, rmdir 'C:\Users\koryj\AppData\Local\Temp\cursor-sandbox-cache\c458c2dac4add12420933d4b0a7d3963\npm\_npx\b3ca12a867cd0704\node_modules\@netlify\edge-bundler\deno\vendor\deno.land\x\retry@v2.0.0\retry\utils\untilResponse'] {
+npm warn cleanup       errno: -4048,
+npm warn cleanup       code: 'EPERM',
+npm warn cleanup       syscall: 'rmdir',
+npm warn cleanup       path: 'C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\@netlify\\edge-bundler\\deno\\vendor\\deno.land\\x\\retry@v2.0.0\\retry\\utils\\untilResponse'
+npm warn cleanup     }
+npm warn cleanup   ],
+npm warn cleanup   [
+npm warn cleanup     'C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\@netlify\\build-info',
+npm warn cleanup     [Error: EPERM: operation not permitted, rmdir 'C:\Users\koryj\AppData\Local\Temp\cursor-sandbox-cache\c458c2dac4add12420933d4b0a7d3963\npm\_npx\b3ca12a867cd0704\node_modules\@netlify\build-info'] {
+npm warn cleanup       errno: -4048,
+npm warn cleanup       code: 'EPERM',
+npm warn cleanup       syscall: 'rmdir',
+npm warn cleanup       path: 'C:\\Users\\koryj\\AppData\\Local\\Temp\\cursor-sandbox-cache\\c458c2dac4add12420933d4b0a7d3963\\npm\\_npx\\b3ca12a867cd0704\\node_modules\\@netlify\\build-info'
+npm warn cleanup     }
+npm warn cleanup   ]
+npm warn cleanup ]

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "face": {
+    "samples": 1,
+    "rankTotal": 0,
+    "aspectTotal": 0.6654505654870485
+  },
+  "body": {
+    "samples": 1,
+    "rankTotal": 0,
+    "aspectTotal": 0.6654505654870485
+  },
+  "recent": [
+    {
+      "slotType": "body",
+      "rank": 0,
+      "aspect": 0.6654505654870485,
+      "query": "calendar",
+      "selectedAt": "2026-07-14T12:26:46.323Z"
+    },
+    {
+      "slotType": "face",
+      "rank": 0,
+      "aspect": 0.6654505654870485,
+      "query": "calendar",
+      "selectedAt": "2026-07-14T12:25:43.225Z"
+    }
+  ],
+  "updatedAt": "2026-07-14T12:26:46.323Z"
+}

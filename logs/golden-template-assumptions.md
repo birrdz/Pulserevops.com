@@ -26,3 +26,25 @@ Log entries are **append-only** — never edit or delete a prior row. If a later
 | 2026-07-07T15:20:00-04:00 | `_movies_alt_orchestrator.js` header carries owner note (2026-07-06) "DO NOT attempt golden-template Q&A fixes — face cards only" for the movies (`mv`) pillar, but owner (Kory) issued a newer explicit request today to run golden-template fixes on the movies pillar and email the question ID after each answer is submitted/fixed | Newer explicit owner instruction supersedes the prior header note. Movies golden-template fixes are now the DEFAULT run path (`SKIP_QA_FIXES` off; `NO_FACE_CARDS=1`). All 50 mv entries classify `top10`; 46 need fixes, 4 already compliant. Per-entry email via existing `emailFix()` (question ID + URL). DeepSeek `DAILY_CAP` gate left intact. | mv0001–mv0050 |
 | 2026-07-07T15:34:00-04:00 | Owner: "follow Fable's code to ensure all images render before publishing on both mobile and desktop." Movies entries currently carry external retailer HOTLINKS as product images (fail `_FABLE_MASTER_SPEC.md` self-host law + won't reliably render) | Added `_fable_image_render_gate.js` (auditImage + verifyQaAssetRenders live-render guard) wired into `fixOneEntry` (both branches). Publish/`pass` now requires `img.pass` (every cover+section+@@PRODUCT image self-hosted, decodable raster, grade-stamped). Mobile+desktop parity is guaranteed by renderer `entryImgAttrs()` (responsive width:100%/object-fit + onerror + @media). Per-question email now shows image-render status. | mv0001–mv0050 |
 | 2026-07-07T15:35:00-04:00 | Owner: "stagger pollinator and ddg images for internal use." `_ddg_facecard_lib.js` had `POLLINATOR_IMAGES_ONLY=true` / `DDG_IMAGES_BANNED=true` (owner 2026-07-05) which forces flux-only and prevents any DDG↔Pollinator alternation | Made both consts env-overridable via `STAGGER_DDG_POLLINATOR`; orchestrator sets it to `1` for the movies project (reversible — unset restores the 2026-07-05 ban). Internal (section/product) image fills now alternate DDG↔Pollinator via existing `_image_provider_alternate.js` (`ensureAlternateSectionImage`, 15s adaptive floor), self-hosted + graded. Covers unaffected (run uses `NO_FACE_CARDS=1`). | mv0001–mv0050 |
+
+## 2026-07-13T14:22:30.0969581-04:00 st0804
+- Classified QA (pickGoldTemplate essay).
+- Pillar st (sales-trainings).
+- Mythics Emergent tailored section at end of essay.
+- Published via publishTextFirst + ensureDdFixerImages surface:true.
+
+
+## 2026-07-13T15:01:00.7243825-04:00 st0804 + st0805
+- Ambiguous: pillar for sales comp % GP and territory expansion → DEFAULT infer keywords → **sales-trainings (st)**
+- Ambiguous: template → classify qa (essay) locked to q11133
+- Ambiguous: ids → stMax 803, reuse **st0804** (deleted earlier) + **st0805**
+- Ambiguous: Mythics not requested on these two → general operator Q&As only
+- Images: publishTextFirst then manual thematic face/top (avoid live-bank Impala dupe)
+
+## 2026-07-13T15:14:24.5306434-04:00 Style goat #3
+- Owner ordered GOLDEN_TEMPLATE_STYLE.md as third immutable shape (was 2 goats).
+- Gold ref sy0001. Router: ranking → style → qa. Parked Style now has a target shape to un-park against.
+
+## 2026-07-13T15:15:07.5997714-04:00 Style goat #3
+- Owner ordered GOLDEN_TEMPLATE_STYLE as third shape. Gold ref sy0001. Router ranking then style then qa.
+

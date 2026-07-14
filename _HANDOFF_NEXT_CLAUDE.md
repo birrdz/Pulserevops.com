@@ -1,3 +1,24 @@
+# ⭐ CROSSOVER — 2026-07-14 (fixer/daily-driver + RENDER-PATH GHOST)
+
+## 🚨 CRITICAL UNFINISHED — RENDER-PATH DEPLOY (the baked-title/old-image ghost)
+ROOT CAUSE (proven, LAW-DOM, full in sim/LESSONS.md): the fixer/DD DO write clean Pexels images to blob `qa-bin/<id>.jpg` (hf0037.jpg=264KB, 1365 keys), but the LIVE page never reads them — template hero = CONSTRUCTED `/assets/qa/<id>.jpg` (pulse-machine-entry.js:1051/1067, ignores blob.img/index/pool); netlify serves that STATIC-FIRST (stale baked files win); the blob reader fn `pulse-qa-asset` returns 404 live. "Picks never reach the page." <h1> title is CORRECT — old title is BAKED INTO the .jpg file.
+FABLE DECISIONS + DEPLOY ACTION ITEMS (do in order, per DEPLOY_LAW, ONE prod deploy):
+ 1. netlify.toml `/assets/qa/*` = force=FALSE (reverted; done in code). PURGE stale baked static /assets/qa/*.jpg (ship clean local statics or delete) so static CDN serves clean first, fn only on miss. NOT force=true (per-visitor compute cost bomb).
+ 2. BEFORE deploy: set SITE_ID + BLOBS_PAT as Netlify FUNCTION env vars (deploy w/o runtime blob access = live 404). Then deploy pulse-machine-entry.js (single-source 1d), pulse-qa-asset.js (Cache-Control public,max-age=31536000,immutable — done in code), netlify.toml. POST-DEPLOY: curl one qa-bin asset to verify; DOM-check ONE entry; THEN open image lane.
+ 3. Writer = ONE path: putQaAsset (ensureDdFixerImages/stampTitleFaceTop route through it). Future cleanup: full single-fn consolidation.
+ 4. Two-tier gate (sw115): content hard-fail always; 1e DOM image check hard-fail ONLY when image applied this run; images_pending pass content-only.
+
+## STATE NOW
+- FIXER PANEL = fixer_panel.js @ localhost:8905 (NOT 8904/8903). Gate = `GATE_ONLY=1 GOLD_SKIP_IMG_GATE=1 SCRUB_BTN_PORT=8899 node _scrub_button_server.js` @8899 (FIXED 2 syntax errors in it today — line ~3983 pollCoverUrl name + 2 hero extra-parens; it was crashing → gate 404 → both engines failed).
+- Fixer: pods-of-100 (⬛ black-squares pod FIRST, then tl, then smallest); Claude Code 5-at-a-time; ALL/GENERAL/TOP_LIST filter chips (GENERAL 25226 / TOP_LIST 9429); "fixed" counter = all-5-green tally (persist sim/panel_fixed_ids.json); live red→green box; lifetime %% bar (certified/total). RUNS content-only now: fixEnv has IMAGE_APPLY_PAUSED=1 (stamps images_pending, no image write) until render deploy.
+- WAVE PLAN: Wave1 = GENERAL content-only NOW. Wave2 = TOP_LIST after render deploy DOM-verified on 3 test top-10s.
+- DAILY DRIVER (gen_daemon.js): now Claude Code writer (genWrite, Claude-first/DS-fallback). notesQuestions LOCKED to 2 golden templates (Q&A or "Top 10" only — rejects Top 100/500/1000 + meta-junk). Subsections: 10/pillar, hourly-rotating, seed genNotes → branch off + dedup. Duration timer + pillar dropdown + notes + Force-Stop + Clear. Was failing (DeepSeek scored 5-9, never 13/13) — Claude Code switch is the fix, needs a couple --proof test runs. Currently STOPPED.
+- FRONT-END STAGED (needs same deploy): homepage typos (reusable _mojibake_fix.js), solid-black bg, square fade-refresh (js/pulse-square-refresh.js) + slow-drift (js/pulse-square-drift.js), search ghost/predictive (js/pulse-search.js), tile-title sizing, interweave→squares (pulse-machine-entry.js), auto-scroll off, audio stub.
+- LAWS ADDED to CLAUDE.md: LAW-DOM (never re-patch picker) + IMAGE ACQUISITION CONTRACT (2-4 word concrete-noun Pexels query, 5 candidates, alt-text scoring, pHash dedup, putQaAsset choke point). Deploy law CHANGED: Claude MAY deploy now (safest time, safe method, never blind --prod).
+- Git: repo birrdz/Pulserevops.com, branch claude/fix-it-all-handoff, ~565 uncommitted (this session NOT pushed).
+
+---
+
 # ▶ HANDOFF — for the next Claude Code session (saved 2026-06-26)
 
 ---

@@ -5,6 +5,10 @@
   if (window.__pulseIdleScroll) return;
   window.__pulseIdleScroll = true;
 
+  // DISABLED (owner 2026-07-14): idle auto-scroll drift removed. Stub API so callers don't error.
+  window.PulseIdleScroll = { reset: function () {}, stop: function () {}, start: function () {} };
+  return;
+
   var reduce = false;
   try { reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
   if (reduce) return;

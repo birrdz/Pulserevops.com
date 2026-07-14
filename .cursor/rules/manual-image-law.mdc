@@ -1,0 +1,47 @@
+---
+description: Face cards + top internals MUST be done manually 1-by-1 — no auto batch (bypass 4444 only)
+alwaysApply: true
+---
+
+# MANUAL IMAGE LAW — FACE CARDS + TOP INTERNALS
+
+**Status: MANDATORY · NON-NEGOTIABLE.** Owner locked 2026-07-12 (said ~100×).
+
+## The job (every pillar)
+
+For **each** Q&A entry you must **literally open / handle that entry yourself** and do:
+
+1. **Face card** — clean photo, **no baked title / no old terrible font**
+2. **Top internal image** — clean photo replacing bad/missing/pollinations junk
+
+That is **~N × 2** per pillar (e.g. Industry KPIs ≈ **670 × 2**). Dupes **OK** on top internals only. Face/bank photos stay unique.
+
+## HARD BAN — no “run a thing to do it for you”
+
+Agents **MUST NOT**:
+
+- Launch a batch / daemon / “fast bank” / `fillEntryMissingImages` / `repairBrokenQaImages` / pollinations rewrite / any unsupervised script that **replaces faces or top internals across many entries**
+- Pre-approve / auto-keep / auto-swap an entire pillar’s faces or top internals
+- Declare a pillar’s images “done” because a counter hit N/N from a script
+
+**It will not work** unless you are **manually doing them 1 by 1**. Owner will catch cuts.
+
+## What “manual 1-by-1” means
+
+- Go **into each entry** (blob / live page / review room card for **that** id)
+- Choose / pull / place **that** entry’s face and **that** entry’s top internal yourself
+- Visually confirm: no yellow outlined title bake, no pollinations left in the top internal slot, image actually renders
+- Then move to the **next** id — serial, not fire-and-forget
+
+Helpers (Pexels search, file write, blob set for **the current id**) are fine **while you are on that one entry**. Unsupervised multi-id replacement is not.
+
+## Bypass
+
+Immutable. Override **only** with owner passcode **`4444`**.  
+No other excuse (speed, “dupes OK”, “already 676/676”, pre-draft waiting, next pillar, IndexNow, etc.).
+
+## After both passes
+
+Review → pre-draft → publish → next pillar. Still no lazy corners.
+
+**Canonical prose:** `MANUAL_IMAGE_LAW.md` · also stamped in `_CROSSOVER.md`.

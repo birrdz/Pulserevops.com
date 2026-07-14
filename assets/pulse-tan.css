@@ -23,10 +23,10 @@
 }
 
 /* ── Canvas + base type ──────────────────────────────────────────────────── */
+/* Viewport gutters = jet black L/R (owner 2026-07-13). Content cards stay cream. */
 html,body{
-  background:#ECE3D2 !important;
-  background-image:radial-gradient(1100px 480px at 85% -12%,rgba(200,130,30,.10),transparent),
-                   radial-gradient(820px 380px at 0% 0%,rgba(203,161,53,.10),transparent) !important;
+  background:#000 !important;
+  background-image:none !important;
   color:#1d1711 !important;
   font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif !important;
 }

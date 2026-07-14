@@ -128,7 +128,7 @@ exports.handler = async (event) => {
   h2 { font-family:Georgia,serif; font-size:24px; font-weight:800; color:#fff; margin:0 0 18px; }
   table { width:100%; border-collapse:collapse; margin-top:8px; font-size:13px; }
   table td { padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.06); }
-</style><link rel="stylesheet" href="/assets/pulse-tan.css"></head>
+</style><link rel="stylesheet" href="/assets/pulse-tan.css"><link rel="stylesheet" href="/css/pulse-jet-sides.css"></head>
 <body><div class="wrap">
   <h1>◉ Pulse Machine — SERP Rank</h1>
   <h2>${escHtml(day)}</h2>

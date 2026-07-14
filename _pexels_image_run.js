@@ -69,10 +69,12 @@ async function pixabaySearch(query) {
   if (r.status !== 200) throw new Error('Pixabay HTTP ' + r.status);
   return JSON.parse(r.body.toString('utf8'));
 }
-// Pick best: width ≥1200 landscape then highest res.
+// Pick best: width ≥1200 landscape then highest res — skip consume-blocklist ids.
 function bestPexels(photos) {
-  const ok = (photos || []).filter(p => p && p.width >= 1200 && p.width >= p.height);
-  const pool = ok.length ? ok : (photos || []).filter(p => p && p.src);
+  let isBlocked = () => false;
+  try { isBlocked = require('./_pexels_consume_lib').isBlockedPexelsId; } catch (e) {}
+  const ok = (photos || []).filter(p => p && p.width >= 1200 && p.width >= p.height && !isBlocked(p.id));
+  const pool = ok.length ? ok : (photos || []).filter(p => p && p.src && !isBlocked(p.id));
   pool.sort((a, b) => (b.width * b.height) - (a.width * a.height));
   const p = pool[0]; if (!p) return null;
   return { url: (p.src && (p.src.large2x || p.src.large || p.src.original)) || '', id: p.id, provider: 'pexels', width: p.width };

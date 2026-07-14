@@ -21,6 +21,17 @@ for (const l of (() => { try { return fs.readFileSync(WD + '/.env.local', 'utf8'
 const { getStore } = require('@netlify/blobs');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 const { dsChat, todaySpend } = require('./_ds_lib');
+const { claudeChat } = require('./_claude_chat');
+// Generator writer: Claude Code first (Max-plan, hits the golden template far closer to 13/13),
+// DeepSeek fallback (owner 2026-07-14 — "use Claude Code for the writing").
+async function genWrite(messages, opts) {
+  try {
+    const r = await claudeChat(messages, { timeoutMs: 240000 });
+    const t = (r && (r.content || r.text)) || (typeof r === 'string' ? r : '');
+    if (t && t.length > 400) return { content: t };
+  } catch (e) {}
+  return await dsChat(messages, opts || {});
+}
 const { publishTextFirst } = require('./_ds_publish');   // real new-entry publish: blob + _index.json insert + URL (images deferred)
 
 const GEN = WD + '/gen';
@@ -32,6 +43,7 @@ const FAILS_F = GEN + '/gen_failures.md';
 const DAILY_F = GEN + '/daily_log.md';
 const USED_F = GEN + '/used_questions.json';
 const LAP_F = GEN + '/lap_state.json';
+const TODAY_F = GEN + '/today_stats.json';
 const GATE_URL = 'http://localhost:8899/gate-publish';   // rubricSignOff 13/13 gate (scrub server)
 const GATE_KEY = '4444';
 const SIM_THRESHOLD = 0.70;   // similarity-at-birth (LAW-SIM)
@@ -43,8 +55,58 @@ const nowISO = () => new Date().toISOString();
 const logFail = (id, why) => { try { fs.appendFileSync(FAILS_F, `- ${nowISO()} · ${id} · ${why}\n`); } catch (e) {} };
 const setStatus = o => writeJSON(STATUS_F, Object.assign(readJSON(STATUS_F, {}), o, { updated: nowISO() }));
 
+/** Local calendar day (owner timezone EST/EDT) for "done today" counter. */
+function todayKey() {
+  try {
+    return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+  } catch (e) {
+    return new Date().toLocaleDateString('en-CA');
+  }
+}
+function loadTodayStats() {
+  const key = todayKey();
+  let st = readJSON(TODAY_F, null);
+  if (!st || st.date !== key) {
+    let done = 0, passed = 0, published = 0;
+    try {
+      for (const line of fs.readFileSync(DAILY_F, 'utf8').split(/\r?\n/)) {
+        const iso = line.match(/(\d{4}-\d{2}-\d{2}T[\d:.]+Z)/);
+        if (!iso) continue;
+        const etDay = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(iso[1]));
+        if (etDay !== key) continue;
+        const g = line.match(/generated\s+(\d+)/i);
+        const p = line.match(/passed\s+(\d+)/i);
+        const pub = line.match(/published\s+(\d+)/i);
+        if (g) done += parseInt(g[1], 10) || 0;
+        if (p) passed += parseInt(p[1], 10) || 0;
+        if (pub) published += parseInt(pub[1], 10) || 0;
+      }
+    } catch (e) {}
+    st = { date: key, done, passed, published };
+    writeJSON(TODAY_F, st);
+  }
+  return st;
+}
+function bumpTodayStats(r) {
+  const st = loadTodayStats();
+  st.done = (Number(st.done) || 0) + 1;
+  if (r && r.pass) st.passed = (Number(st.passed) || 0) + 1;
+  if (r && r.published) st.published = (Number(st.published) || 0) + 1;
+  writeJSON(TODAY_F, st);
+  return st;
+}
+function todayStatusFields() {
+  const st = loadTodayStats();
+  return {
+    todayDate: st.date,
+    todayDone: Number(st.done) || 0,
+    todayPassed: Number(st.passed) || 0,
+    todayPublished: Number(st.published) || 0,
+  };
+}
+
 // ── CONFIG (single source of truth; re-read HOT every cycle; daemon never edits rate fields) ──
-const CONFIG_DEFAULTS = { fixConcurrency: 10, fixScope: 'ALL', entriesPerHour: 10, perTopicPerHour: null, genTopics: 'ALL', runHours: 2, runUntil: null, paused: false, deployEveryHours: 0, pillarLap: false };
+const CONFIG_DEFAULTS = { fixConcurrency: 10, fixScope: 'ALL', entriesPerHour: 10, perTopicPerHour: null, genTopics: 'ALL', runHours: 2, runUntil: null, paused: false, deployEveryHours: 0, pillarLap: false, genNotes: '' };
 function loadConfig() {
   const c = Object.assign({}, CONFIG_DEFAULTS, readJSON(CONFIG_F, {}));
   const b = (c._bounds) || {};
@@ -191,6 +253,56 @@ async function pickQuestions(pillar, count, opts) {
 function jaccard(a, b) { const A = new Set(a.split(' ')), B = new Set(b.split(' ')); let i = 0; for (const x of A) if (B.has(x)) i++; return i / (A.size + B.size - i || 1); }
 function markUsed(pillar, question) { const u = readJSON(USED_F, {}); (u[pillar] = u[pillar] || []).push(norm(question)); writeJSON(USED_F, u); }
 
+// ── notes-driven question supply: operator types WHAT they're looking for; DeepSeek generates titles
+// that START on that exact topic then BRANCH OFF into adjacent angles. The used-bank dedupe (below)
+// consumes the near ideas over successive Daily-Driver ticks, so the topic naturally drifts outward. ──
+async function notesQuestions(pillar, count, notes) {
+  const T = PNAMES[pillar] || pillar;
+  const idx = await loadIndex();
+  const existing = new Set((idx.entries || []).filter(e => e && pOf(e.id) === pillar).map(e => norm(e.question || e.title)));
+  const used = new Set(readJSON(USED_F, {})[pillar] || []);
+  const sys = 'You generate page titles for a knowledge library that has EXACTLY TWO formats: (A) a natural Q&A question (e.g. "How much does X cost in 2027?", "Is X worth it in 2027?", "What is the best way to Y in 2027?", "How do you Z in 2027?"), or (B) a "Top 10 <specific thing>" list — ALWAYS exactly 10, NEVER Top 20/50/100/500/1000 or any other number. Output ONLY a plain list of titles, one per line — no numbering, no commentary, no quotes.';
+  const user = [
+    `Pillar: ${T}.`,
+    `The operator wants: "${String(notes).slice(0, 500)}".`,
+    `Generate ${Math.max(6, count * 4)} SPECIFIC titles about that — start squarely on it, then branch to adjacent angles (nearby sub-topics, comparisons, costs, how-tos, common mistakes).`,
+    `HARD RULES: (1) Every title is EITHER a Q&A question OR a "Top 10 <specific thing>" — nothing else. (2) NEVER "Top 100 / Top 500 / Top 1000" or any count except 10. (3) If the request is vague or says "gaps" / "fill in", invent SPECIFIC concrete titles about INDIVIDUAL items (one specific brand/model/category/franchise per title) — NEVER a literal meta-title like "top 1000 franchises". (4) One specific topic per title. (5) End in 2027 where a year applies.`,
+    existing.size ? `Avoid these existing titles: ${[...existing].slice(0, 40).join(' | ')}.` : '',
+    `One title per line.`
+  ].filter(Boolean).join('\n');
+  let lines = [];
+  try {
+    const r = await dsChat([{ role: 'system', content: sys }, { role: 'user', content: user }], { max_tokens: 1200, temperature: 0.9 });
+    lines = String((r && r.content) || '').split('\n')
+      .map(l => l.replace(/^\s*\d+[).\].:]?\s*/, '').replace(/^\s*[-*•]\s*/, '').replace(/^["'`]|["'`]$/g, '').trim())
+      .filter(Boolean);
+  } catch (e) { return []; }
+  // Golden-template guard: only Q&A questions or "Top 10 …". Kill "Top 20/100/500/1000",
+  // meta/instruction titles, and anything not shaped like the two templates.
+  const badTop = /\btop\s*(\d+)/i;                       // any "top N"
+  const metaJunk = /\b(fill in|gap|gaps|the rest|remaining|list of all|all the)\b/i;
+  const validShape = q => {
+    const m = q.match(badTop);
+    if (m && m[1] !== '10') return false;               // top N where N≠10 → reject
+    if (metaJunk.test(q)) return false;                 // literal meta-instruction → reject
+    const isTop10 = /\btop\s*10\b/i.test(q);
+    const isQ = /\?\s*$/.test(q) || /^(how|what|why|is|are|should|when|where|which|can|do|does|will)\b/i.test(q);
+    return isTop10 || isQ;                               // must be Top-10 or a question
+  };
+  const out = [];
+  for (const q of lines) {
+    const nq = norm(q);
+    if (!nq || existing.has(nq) || used.has(nq)) continue;
+    if (!validShape(q)) continue;                        // enforce the two golden templates
+    let near = false;
+    for (const e of existing) { if (jaccard(nq, e) >= 0.85) { near = true; break; } }
+    if (near) continue;
+    out.push(q);
+    if (out.length >= count) break;
+  }
+  return out;
+}
+
 // ── classify TOP_LIST vs GENERAL via the repo router (byte-level golden template law) ──
 let pickGoldTemplate = null;
 try { ({ pickGoldTemplate } = require('./_pulse_gold_template_router')); } catch (e) {}
@@ -238,7 +350,7 @@ const SYS_GENERAL = [
   '- [<a related question>](https://pulserevops.com/knowledge/<id>)',
   '(3 to 5 internal links)',
   '',
-  'HARD RULES: minimum 900 words. NEVER fabricate specific prices, statistics, vendor names, or numbers — stay general and accurate. Output ONLY the markdown, starting exactly at "## Direct Answer".',
+  'HARD RULES: minimum 2000 words. NEVER fabricate specific prices, statistics, vendor names, or numbers — stay general and accurate. Output ONLY the markdown, starting exactly at "## Direct Answer".',
 ].join('\n');
 const SYS_TOPLIST = [
   'You are a senior RevOps editor writing a golden Top-10 essay for pulserevops.com. Output COMPLETE markdown ONLY — no preamble, no CRO/"Kory White" markup, no image markdown. Follow this EXACT order:',
@@ -253,7 +365,7 @@ const SYS_TOPLIST = [
   '## FAQ','**<question>?**','<answer>','(AT LEAST 6 pairs)',
   '## Sources','- [name](https://url)','(5 to 10 real sources)',
   '## Related on PULSE','- [related](https://pulserevops.com/knowledge/<id>)','(3 to 5 links)',
-  'HARD RULES: minimum 900 words. Never fabricate prices/stats/vendors. Output only markdown starting at "## Direct Answer".',
+  'HARD RULES: minimum 2000 words. Never fabricate prices/stats/vendors. Output only markdown starting at "## Direct Answer".',
 ].join('\n');
 // map failing gate checks → concrete repair instructions
 const CHECK_HELP = {
@@ -265,16 +377,23 @@ const CHECK_HELP = {
   sources5: 'The "## Sources" section needs 5-10 real named sources as markdown links.',
   relatedPulse: 'Add a "## Related on PULSE" section with 3-5 links to https://pulserevops.com/knowledge/<id>.',
   qaGoldOutline: 'Order MUST be: ## Direct Answer → 4-6 ## depth sections → ## Related questions → ## FAQ → ## Sources → ## Related on PULSE. No image before Direct Answer; no stacked images/diagrams.',
-  words2000: 'Expand to at least 900 words of substantive detail — never pad.',
+  words2000: 'Expand to at least 2000 words of substantive detail — never pad.',
   linksClean: 'Internal links must be well-formed https://pulserevops.com/knowledge/<id>.',
 };
+
+function shapeQaBody(body) {
+  try {
+    const { ensureQaGoldBodyShape } = require('./_qa_gold_template');
+    return ensureQaGoldBodyShape(body || '') || body || '';
+  } catch (e) { return body || ''; }
+}
 
 async function generateBody(title, kind) {
   goldenSpec(kind);   // HALT-check the template exists on disk before spending a DS call
   const sys = kind === 'TOP_LIST' ? SYS_TOPLIST : SYS_GENERAL;
   const user = `Write the complete golden ${kind} page for this question: "${title}". Follow the structure exactly. Return only the markdown.`;
-  const r = await dsChat([{ role: 'system', content: sys }, { role: 'user', content: user }], { max_tokens: 8000, temperature: 0.7 });
-  return (r && r.content) || '';
+  const r = await genWrite([{ role: 'system', content: sys }, { role: 'user', content: user }], { max_tokens: 8000, temperature: 0.7 });
+  return shapeQaBody((r && r.content) || '');
 }
 // surgical repair pass: rewrite only to satisfy the failing 13-point checkpoints, never shorten.
 async function fixBody(title, kind, body, failed) {
@@ -283,8 +402,8 @@ async function fixBody(title, kind, body, failed) {
   const fb = help.length
     ? ('The golden gate FAILS these checks — fix EXACTLY them, keep everything else, never shorten:\n' + help.join('\n'))
     : 'Revise so it passes every golden check.';
-  const r = await dsChat([{ role: 'system', content: sys }, { role: 'user', content: fb + '\n\nQUESTION: "' + title + '"\n\nCURRENT PAGE:\n' + body }], { max_tokens: 8000, temperature: 0.6 });
-  return (r && r.content) || '';
+  const r = await genWrite([{ role: 'system', content: sys }, { role: 'user', content: fb + '\n\nQUESTION: "' + title + '"\n\nCURRENT PAGE:\n' + body }], { max_tokens: 8000, temperature: 0.6 });
+  return shapeQaBody((r && r.content) || '');
 }
 // image checks the gate waives in simMode — never worth a repair call
 const SIM_WAIVE_LOCAL = new Set(['heroImage', 'faceCardApplicable', 'pollinatorFaceCover', 'pollinatorInternalFlux', 'media3to10', 'imagesLaw', 'top10Images', 'rankingListMaster', 'score12']);
@@ -331,28 +450,42 @@ async function makeEntry(pillar, title, dryRun) {
   const kind = classify(title);
   const id = await nextId(pillar);
   const rec = { id, pillar, title, kind, url: wouldBeUrl(pillar, id) };
+  // Panel: show id + title the whole time we're writing this Q
+  setStatus({
+    currentId: id,
+    currentTitle: title,
+    currentPillar: pillar,
+    currentPillarName: PNAMES[pillar] || pillar,
+    currentJob: 'writing · ' + id,
+    phase: 'writing · ' + id + ' · ' + String(title).slice(0, 100),
+    writing: true,
+  });
   let body = '';
   try { body = await generateBody(title, kind); } catch (e) { rec.error = String(e.message || e); return rec; }
   if (!body || body.length < 800) { rec.error = 'short/empty gen (' + body.length + ' chars)'; return rec; }
   rec.words = body.replace(/\s+/g, ' ').split(' ').length;
+  setStatus({ currentId: id, currentTitle: title, currentJob: 'gating · ' + id, phase: 'gating · ' + id + ' · ' + String(title).slice(0, 100) });
   // 13/13 gate (dryRun in proof mode → score only, no publish)
   let g; try { g = await gate(id, body, title, true); } catch (e) { rec.error = 'gate unreachable: ' + String(e.message || e); return rec; }
   // surgical fix loop — feed the failing checkpoints back to DeepSeek until 13/13 (3 strikes → log & move on)
   let attempts = 0;
   while (!g.pass && attempts < 3) {
     attempts++;
+    setStatus({ currentId: id, currentTitle: title, currentJob: 'repair ' + attempts + ' · ' + id, phase: 'repairing · ' + id + ' · ' + String(title).slice(0, 100) });
     try { const nb = await fixBody(title, kind, body, g.failed || []); if (nb && nb.length > body.length * 0.9) body = nb; } catch (e) { break; }
     try { g = await gate(id, body, title, true); } catch (e) { break; }
   }
   rec.attempts = attempts; rec.words = body.replace(/\s+/g, ' ').split(' ').length;
   rec.score = g.score; rec.pass = !!g.pass; rec.failed = g.failed || [];
   // similarity-at-birth
+  setStatus({ currentId: id, currentTitle: title, currentJob: 'sim-check · ' + id, phase: 'sim-check · ' + id });
   const sim = await simAtBirth(pillar, body); rec.sim = +(sim.max).toFixed(2); rec.simDup = sim.dup;
   if (dryRun) return rec;                                        // DRY: nothing published
   if (!g.pass) { logFail(id, 'gate: ' + (g.failed || []).join(',')); rec.published = false; return rec; }
   if (sim.dup) { logFail(id, 'sim-at-birth ' + rec.sim + ' vs ' + sim.against); rec.published = false; rec.blocked = 'near-dup'; return rec; }
   // REAL new-entry publish: create blob + _index.json insert + live URL. /gate-publish is UPDATE-ONLY
   // (persistAnswerBlob returns 'no blob' for a fresh id), so a brand-new entry goes through publishTextFirst.
+  setStatus({ currentId: id, currentTitle: title, currentJob: 'publishing · ' + id, phase: 'publishing · ' + id + ' · ' + String(title).slice(0, 100) });
   try {
     fs.writeFileSync('C:/Users/koryj/' + id + '_answer.md', body);
     const pub = await publishTextFirst(id, title, {});           // grades (>=10), writes blob, inserts index, defers images
@@ -361,23 +494,34 @@ async function makeEntry(pillar, title, dryRun) {
   } catch (e) { rec.published = false; rec.pubError = String(e.message || e); }
   if (rec.published) {
     markUsed(pillar, title); invalidateIndex();
-    // Browse square rules (owner 2026-07-12): untitled .sq.jpg + imgSq stamp — NEVER bake gold title on face JPG.
+    // Q&A: top + 2 · Top 10: all product imgs · match → Pexels search → inventory (owner 2026-07-13)
+    // IMAGE_APPLY_PAUSED=1 (Fable 2026-07-14): daily driver runs TEXT-ONLY too — images deferred
+    // (images_pending) until the render-path deploy lands + one DOM check passes. Same rule as fixer.
+    if (process.env.IMAGE_APPLY_PAUSED === '1') {
+      try { const cur = await store.get('answers/' + id + '.json', { type: 'json' }); if (cur) await store.setJSON('answers/' + id + '.json', Object.assign({}, cur, { images_pending: true })); } catch (e) {}
+      rec.imagesPending = true;
+      return rec;
+    }
     try {
-      const bsr = require('./_browse_square_rules');
-      const sq = await bsr.applyBrowseSquareRules(id, title, {
-        onStamp: async (sid, imgSq) => {
-          try {
-            const idx = await store.get('_index.json', { type: 'json' });
-            const ent = ((idx && idx.entries) || []).find(x => x && x.id === sid);
-            if (!ent) return;
-            ent.imgSq = imgSq;
-            if (ent.img && /\.jpg(\?|$)/i.test(String(ent.img)) && !/\.sq\.jpg(\?|$)/i.test(String(ent.img))) ent.img = imgSq;
-            await store.setJSON('_index.json', idx);
-          } catch (e) {}
-        }
+      const { ensureDdFixerImages } = require('./_dd_fixer_images');
+      // CONTRACT-BINDING: bind by the recorded title — SAME rule as the panel's typeOf — so the
+      // image applier never auto-guesses. GENERAL = hero+2 · TOP_LIST = hero+10.
+      const templateType = /\btop\s*\d|\btop-\d|\bbest\b|\branked\b|\blist\b/i.test(String(title)) ? 'TOP_LIST' : 'GENERAL';
+      const filled = await ensureDdFixerImages(store, id, {
+        title,
+        body,
+        templateType,    // bound contract — no auto-detect
+        surface: true,   // → homepage Recents + matching pillar row
+        quality: 10,
       });
-      if (sq && sq.ok) rec.imgSq = sq.imgSq;
-    } catch (e) { rec.sqError = String(e.message || e); }
+      rec.imgSq = filled.imgSq;
+      rec.img = filled.img;
+      rec.imgKind = filled.template;
+      rec.imgVia = filled.via;
+      rec.stamped = !!filled.ok;
+      if (filled.body) body = filled.body;
+      if (!filled.ok) rec.stampError = filled.why || filled.persistErr || ('img fill incomplete · ' + (filled.template || ''));
+    } catch (e) { rec.stampError = String(e.message || e); }
   }
   return rec;
 }
@@ -390,7 +534,16 @@ async function runBatch({ dryRun, cap }) {
   const topics = await topicsForBatch(cfg);
   if (!topics.length && !dryRun) { setStatus({ stage: 'armed', currentJob: null, note: 'no topics selected — tag genTopics or set ALL' }); return { skipped: 'no-topics' }; }
   const target = cfg.pillarLap ? 1 : (cap != null ? cap : effectiveBatch(cfg, topics));
-  setStatus({
+  const results = [];
+  // Keep a rolling session feed across Daily Driver one-after-another ticks
+  const prevSt = readJSON(STATUS_F, {});
+  const recentJobs = Array.isArray(prevSt.recentJobs) ? prevSt.recentJobs.slice(-11) : [];
+  const recentResults = Array.isArray(prevSt.recentResults) ? prevSt.recentResults.slice(-11) : [];
+  let sessionDone = Number(prevSt.sessionDone) || 0;
+  let sessionPassed = Number(prevSt.sessionPassed) || 0;
+  let sessionPublished = Number(prevSt.sessionPublished) || 0;
+  loadTodayStats();
+  setStatus(Object.assign({
     stage: dryRun ? 'proof' : 'generating',
     mode: cfg.pillarLap ? 'pillarLap' : (cfg.perTopicPerHour != null ? 'perTopicPerHour' : 'entriesPerHour'),
     pillarLap: !!cfg.pillarLap,
@@ -400,20 +553,14 @@ async function runBatch({ dryRun, cap }) {
     spend: todaySpend().spent,
     currentJob: 'starting batch…',
     note: cfg.pillarLap ? ('Daily Driver · 1 random Q&A · ' + (PNAMES[topics[0]] || topics[0])) : null
-  });
-  const results = [];
-  // Keep a rolling session feed across Daily Driver one-after-another ticks
-  const prevSt = readJSON(STATUS_F, {});
-  const recentJobs = Array.isArray(prevSt.recentJobs) ? prevSt.recentJobs.slice(-11) : [];
-  const recentResults = Array.isArray(prevSt.recentResults) ? prevSt.recentResults.slice(-11) : [];
-  let sessionDone = Number(prevSt.sessionDone) || 0;
-  let sessionPassed = Number(prevSt.sessionPassed) || 0;
-  let sessionPublished = Number(prevSt.sessionPublished) || 0;
+  }, todayStatusFields()));
   outer: for (const pillar of topics) {
     const per = cfg.pillarLap ? 1 : (cfg.perTopicPerHour != null ? cfg.perTopicPerHour : Math.ceil(target / Math.max(1, topics.length)) || 1);
-    const qs = await pickQuestions(pillar, per, { random: true });
+    const notes = String(cfg.genNotes || '').trim();
+    let qs = notes ? await notesQuestions(pillar, per, notes) : [];
+    if (!qs.length) qs = await pickQuestions(pillar, per, { random: true }); // fallback to seeds so the driver never stalls
     if (!qs.length) {
-      console.log(`  · ${pillar}: no unused seed questions left — skip`);
+      console.log(`  · ${pillar}: no unused questions left — skip`);
       continue;
     }
     for (const q of qs) {
@@ -421,12 +568,14 @@ async function runBatch({ dryRun, cap }) {
       const job = pillar + ': ' + q.slice(0, 80);
       recentJobs.push(job);
       if (recentJobs.length > 12) recentJobs.shift();
-      setStatus({
+      setStatus(Object.assign({
         phase: job,
         currentJob: job,
+        currentId: null, // filled the moment makeEntry allocates an id
         currentPillar: pillar,
         currentPillarName: PNAMES[pillar] || pillar,
         currentTitle: q,
+        writing: true,
         recentJobs: recentJobs.slice(),
         recentResults: recentResults.slice(),
         done: results.length,
@@ -434,12 +583,13 @@ async function runBatch({ dryRun, cap }) {
         sessionDone,
         sessionPassed,
         sessionPublished
-      });
+      }, todayStatusFields()));
       const r = await makeEntry(pillar, q, dryRun);
       results.push(r);
       sessionDone += 1;
       if (r.pass) sessionPassed += 1;
       if (r.published) sessionPublished += 1;
+      bumpTodayStats(r);
       const summary = {
         id: r.id,
         pillar: r.pillar,
@@ -455,10 +605,13 @@ async function runBatch({ dryRun, cap }) {
       };
       recentResults.push(summary);
       if (recentResults.length > 12) recentResults.shift();
-      setStatus({
+      setStatus(Object.assign({
         lastResult: summary,
         recentResults: recentResults.slice(),
         recentJobs: recentJobs.slice(),
+        currentId: r.id,
+        currentTitle: r.title,
+        writing: false,
         currentJob: r.published ? ('published · ' + r.id) : (r.pass ? ('gated · ' + r.id) : ('failed · ' + r.id)),
         phase: summary.pass ? ('✓ ' + (summary.published ? 'published ' : 'passed ') + summary.id) : ('✗ ' + summary.id + (summary.error ? ' · ' + String(summary.error).slice(0, 60) : '')),
         sessionDone,
@@ -466,7 +619,7 @@ async function runBatch({ dryRun, cap }) {
         sessionPublished,
         done: results.length,
         target
-      });
+      }, todayStatusFields()));
       console.log(`  ${r.error ? '✗' : (r.pass ? '✓' : '·')} ${r.id} [${r.kind}] score=${r.score != null ? r.score + '/13' : '—'} sim=${r.sim != null ? Math.round(r.sim * 100) + '%' : '—'}${r.error ? '  ' + r.error : ''}`);
       await sleep(500);
     }
@@ -474,7 +627,7 @@ async function runBatch({ dryRun, cap }) {
   const passed = results.filter(r => r.pass).length;
   const cfgEnd = loadConfig();
   const nextStage = dryRun ? 'proof-done' : (cfgEnd.paused ? 'stopped' : (cfgEnd.pillarLap ? 'generating' : 'armed'));
-  setStatus({
+  setStatus(Object.assign({
     stage: nextStage,
     done: results.length,
     passed,
@@ -491,7 +644,7 @@ async function runBatch({ dryRun, cap }) {
     note: nextStage === 'generating' ? 'Daily Driver · one finished → starting next'
       : (nextStage === 'armed' ? 'waiting for next hourly batch'
         : (nextStage === 'stopped' ? 'parked' : null))
-  });
+  }, todayStatusFields()));
   try { fs.appendFileSync(DAILY_F, `- ${nowISO()} · ${dryRun ? 'DRY PROOF' : 'batch'} · generated ${results.length} · passed ${passed} · published ${results.filter(r => r.published).length} · DS spend today $${todaySpend().spent}\n`); } catch (e) {}
   return { results, passed };
 }
@@ -538,8 +691,8 @@ function firstRunNote() {
     return;
   }
   if (/--once/.test(arg)) {
-    // Daily Driver (pillarLap): finish one → start next until STOP / runUntil.
-    // Custom rate mode: single batch then exit.
+    // Panel START / Daily Driver: keep going until STOP or runUntil.
+    // Only exit after a single batch when there is no run window AND pillarLap is off.
     const drive = async () => {
       for (;;) {
         const cfg = loadConfig();
@@ -548,9 +701,10 @@ function firstRunNote() {
           setStatus({ stage: 'idle', note: 'run window ended' });
           return;
         }
-        console.log('[gen-daemon] ' + (cfg.pillarLap ? 'Daily Driver — next one' : 'one live batch'));
+        const continuous = !!cfg.pillarLap || !!(cfg.runUntil && new Date(cfg.runUntil) > new Date());
+        console.log('[gen-daemon] ' + (continuous ? 'Daily Driver — next one' : 'one live batch'));
         await runBatch({ dryRun: false });
-        if (!cfg.pillarLap) return;
+        if (!continuous) return;
         await new Promise(r => setTimeout(r, 1500)); // tiny breath between Q&As
       }
     };

@@ -1,0 +1,23 @@
+{
+  "total": 677,
+  "squares": {
+    "have": 677,
+    "miss": 0,
+    "done": true
+  },
+  "faces": {
+    "have": 671,
+    "miss": 6,
+    "done": false
+  },
+  "topicApproved": 616,
+  "bank": 290,
+  "topInternalInBody": {
+    "have": 676,
+    "miss": 1,
+    "done": false,
+    "missSample": [
+      "ik720"
+    ]
+  }
+}

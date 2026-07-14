@@ -1,8 +1,10 @@
-// pexels-throttle.js — HARD LAW: serial Pexels API, one request in flight, ≥18s between calls.
-// 200/hr limit is per API key (shared with Cursor). No env var may lower the 18s floor.
+// pexels-throttle.js — serial Pexels API, one request in flight.
+// Owner 2026-07-13: thousands/day OK → ~few secs between calls (default 4s).
+// Save quota for real DD/Fixer allocations — no nightly bank burn.
+// PEXELS_PACE_MS can raise the floor; 429 → 60s backoff + retry once.
 'use strict';
 
-const PEXELS_MIN_GAP_MS = 18000;
+const PEXELS_MIN_GAP_MS = 4000;
 const PEXELS_429_SLEEP_MS = 60000;
 
 let inFlight = false;
@@ -10,8 +12,9 @@ let lastPexelsAt = 0;
 let turn = Promise.resolve();
 
 function pexelsMinGapMs() {
-  const env = parseInt(process.env.PEXELS_PACE_MS || '0', 10);
-  return Math.max(PEXELS_MIN_GAP_MS, Number.isFinite(env) ? env : 0);
+  const env = parseInt(process.env.PEXELS_PACE_MS || String(PEXELS_MIN_GAP_MS), 10);
+  const n = Number.isFinite(env) && env > 0 ? env : PEXELS_MIN_GAP_MS;
+  return Math.max(PEXELS_MIN_GAP_MS, n);
 }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

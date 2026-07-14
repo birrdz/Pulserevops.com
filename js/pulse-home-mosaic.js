@@ -83,8 +83,9 @@
   function poolFetchCap(opts) {
     opts = opts || {};
     var n = parseInt(opts.recent || opts.poolCap || '500', 10) || 500;
-    if (opts.pillar || opts.mixPillars || opts.topicsOnly) return Math.min(n, FULL_PILLAR_POOL);
-    return Math.min(n, 500);
+    // Recent / newOnly / mix / pillar: allow full pool (owner max-out 2026-07-13)
+    if (opts.pillar || opts.mixPillars || opts.topicsOnly || opts.newOnly) return Math.min(n, FULL_PILLAR_POOL);
+    return Math.min(n, FULL_PILLAR_POOL);
   }
 
   function mosaicWarmUrls(opts) {
@@ -342,7 +343,7 @@
     var html = '';
     if (o.hubTiles !== false) {
       html += '<a class="mm mm-hero" href="/" aria-label="Pulse News home"><div class="mm-hero-in"><span class="mm-hero-k">● LIVE · The RevOps Authority</span>'
-        + '<img class="mm-hero-logo" src="/pulse-news-logo.png" alt="Pulse News — Value Added"></div></a>';
+        + '<img class="mm-hero-logo" src="/pulse-news-logo.png?v=value-added" alt="Pulse - Value Added"></div></a>';
       html += '<a class="mm mm-hire" href="/hire" data-pulse-click="hire-cro" aria-label="Hire your Fractional CRO here" style="background-image:url(\'/assets/hire-tile-hire.jpg\');background-size:cover;background-position:center 18%">'
         + '<div class="mm-hire-t">Hire your Fractional CRO here<span class="mm-hire-cta">Book a call &rarr;</span></div></a>';
       html += '<a class="mm mm-menu wide mm-topic" href="/topics" style="background-image:url(\'/assets/topics/_topics.jpg\')"><div style="' + HUBT + 'font-size:2rem">Browse Topics</div></a>';
@@ -1011,9 +1012,9 @@
       if (el.hasAttribute('data-recent-page')) {
         opts.hubTiles = false;
         opts.newOnly = true;
-        opts.newDays = 14;
-        opts.recent = 500;
-        opts.poolCap = 500;
+        opts.newDays = 90;
+        opts.recent = 1000;
+        opts.poolCap = 1000;
         opts.sortNewest = true;
         opts.recentFaceOnly = true;
         opts.perfectOnly = true;

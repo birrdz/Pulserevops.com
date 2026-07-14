@@ -1,0 +1,159 @@
+{
+ "pillar": "st",
+ "ids": [
+  "st0002",
+  "st149",
+  "st150",
+  "st155",
+  "st156",
+  "st157",
+  "st158",
+  "st159",
+  "st160",
+  "st161",
+  "st162",
+  "st163",
+  "st164",
+  "st165",
+  "st166",
+  "st167",
+  "st168",
+  "st169",
+  "st170"
+ ],
+ "log": [
+  {
+   "id": "st170",
+   "title": "The Sales Manager 1:1 Reboot — 60-Min Training",
+   "at": 1783921504924,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st169",
+   "title": "The ABM for Sales Reboot — 60-Min Training",
+   "at": 1783921504727,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st168",
+   "title": "The New-Hire Sales Ramp Plan Reboot — 60-Min Training",
+   "at": 1783921504536,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st167",
+   "title": "The Renewal Conversation Reboot — 60-Min Training",
+   "at": 1783921504347,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st166",
+   "title": "The Cross-Sell and Upsell Reboot — 60-Min Training",
+   "at": 1783921504165,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st165",
+   "title": "The SPIN Selling Reboot — 60-Min Training",
+   "at": 1783921504023,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st164",
+   "title": "The BANT Qualification Reboot — 60-Min Training",
+   "at": 1783921503865,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st163",
+   "title": "The Solution Selling Reboot — 60-Min Training",
+   "at": 1783921503599,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st162",
+   "title": "The Challenger Sale Reboot — 60-Min Training",
+   "at": 1783921503456,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st161",
+   "title": "The Referral Generation Reboot — 60-Min Training",
+   "at": 1783921503443,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st160",
+   "title": "The Cold Voicemail Reboot — 60-Min Training",
+   "at": 1783921503262,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st159",
+   "title": "The Active Listening Reboot — 60-Min Training",
+   "at": 1783921503250,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st158",
+   "title": "The Sales Storytelling Reboot — 60-Min Training",
+   "at": 1783921502719,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st157",
+   "title": "The Executive Selling Reboot — 60-Min Training",
+   "at": 1783921502504,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st156",
+   "title": "The MEDDPICC Reboot — 60-Min Training",
+   "at": 1783921502314,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st155",
+   "title": "The Win-Loss Analysis Reboot — 60-Min Training",
+   "at": 1783921502132,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st150",
+   "title": "The Multi-Thread and Champion Build Reboot — 60-Min Training",
+   "at": 1783921378488,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st149",
+   "title": "The Pipeline Review Reboot — 60-Min Training",
+   "at": 1783921378364,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st0002",
+   "title": "Multi-Threading Enterprise Deals — 60-Min Training",
+   "at": 1783921015511,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st0026",
+   "title": "MSP MSA Renewal — 60-Min Training",
+   "at": 1783917008305,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st0020",
+   "title": "Wedding Venue Tour — 60-Min Training",
+   "at": 1783917002627,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "st0010",
+   "title": "Pharma HCP Detailing — 60-Min Training",
+   "at": 1783916991013,
+   "action": "trashed→gen-pool"
+  }
+ ],
+ "updatedAt": 1783921504924
+}

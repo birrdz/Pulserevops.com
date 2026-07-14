@@ -1,0 +1,46 @@
+---
+description: Previews/approvals must look like live site tiles (title+industry readable on photo).
+alwaysApply: true
+---
+
+# SHOW AS SITE LAW — PREVIEWS = LIVE LAYOUT
+
+**Status: MANDATORY · NON-NEGOTIABLE.** Owner locked 2026-07-12.  
+**Change this law only with owner passcode `4444`.**  
+**Canonical prose:** [`SHOW_AS_SITE_LAW.md`](../../SHOW_AS_SITE_LAW.md)
+
+## The rule
+
+Whenever you show the owner something for **approval, audit, review, or spot-check**, render it **the way it will appear on the live site** — not a fake admin card, not a truncated label, not a mystery crop.
+
+## Face / mosaic image boards (GTM, KPI, Rev Arch, …)
+
+Site tiles (`index.html` `ftile` + `css/pulse-mosaic.css`):
+
+1. **Photo** fills the tile (`object-fit: cover`) — clean face, **no baked title**
+2. **Pillar chip** (`mm-cat`) — e.g. REVENUE ARCHITECTURE
+3. **Full question title** as yellow `h4` over the scrim — **industry lives in that title** (readable)
+
+Approval rooms **must** match that shape:
+
+- **Square** face photo (`aspect-ratio: 1/1`, cover)
+- Pillar chip on the photo
+- **Full question title under the square** (no line-clamp) so industry is always readable
+
+Vote buttons sit under the title.
+
+## Do
+
+- Use the real `question` / title string the index will publish
+- Keep industry visible in the title text (that is how the site shows it)
+- Prefer linking `/css/pulse-mosaic.css` or copying its tile CSS so previews do not drift
+
+## Do not
+
+- Hide the industry in tiny footer text only
+- Invent a different card chrome that does not match mosaic tiles
+- Bake titles into the JPG for review (visual lock still owns images)
+
+## Bypass
+
+Only with owner passcode **`4444`**.

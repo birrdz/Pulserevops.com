@@ -1,0 +1,1170 @@
+{
+ "pillar": "gp",
+ "ids": [
+  "gp0002",
+  "gp0003",
+  "gp0004",
+  "gp0022",
+  "gp0042",
+  "gp0005",
+  "gp0013",
+  "gp0017",
+  "gp0019",
+  "gp0021",
+  "gp0027",
+  "gp0023",
+  "gp0047",
+  "gp0050",
+  "gp0051",
+  "gp0058",
+  "gp0060",
+  "gp0055",
+  "gp0056",
+  "gp0063",
+  "gp0064",
+  "gp0065",
+  "gp0066",
+  "gp0070",
+  "gp0076",
+  "gp0077",
+  "gp0078",
+  "gp0080",
+  "gp0082",
+  "gp0083",
+  "gp0086",
+  "gp0090",
+  "gp0088",
+  "gp0097",
+  "gp0100",
+  "gp0102",
+  "gp0103",
+  "gp0104",
+  "gp0107",
+  "gp0108",
+  "gp0109",
+  "gp0105",
+  "gp0111",
+  "gp0112",
+  "gp0114",
+  "gp0115",
+  "gp0120",
+  "gp0123",
+  "gp0128",
+  "gp0139",
+  "gp0153",
+  "gp0165",
+  "gp0173",
+  "gp0177",
+  "gp0178",
+  "gp0179",
+  "gp0180",
+  "gp0181",
+  "gp0182",
+  "gp0183",
+  "gp0184",
+  "gp0185",
+  "gp0189",
+  "gp0190",
+  "gp0192",
+  "gp0193",
+  "gp0194",
+  "gp0195",
+  "gp0196",
+  "gp0197",
+  "gp0198",
+  "gp0199",
+  "gp0200",
+  "gp0201",
+  "gp0202",
+  "gp0203",
+  "gp0204",
+  "gp0205",
+  "gp0206",
+  "gp0207",
+  "gp0208",
+  "gp0209",
+  "gp0210",
+  "gp0211",
+  "gp0212",
+  "gp0213",
+  "gp0214",
+  "gp0215",
+  "gp0216",
+  "gp0217",
+  "gp0218",
+  "gp0219",
+  "gp0220",
+  "gp0221",
+  "gp0222",
+  "gp0223",
+  "gp0224",
+  "gp0225",
+  "gp0226",
+  "gp0227",
+  "gp0228",
+  "gp0229",
+  "gp0230",
+  "gp0231",
+  "gp0232",
+  "gp0233",
+  "gp0234",
+  "gp0235",
+  "gp0236",
+  "gp0237",
+  "gp0238",
+  "gp0239",
+  "gp0240",
+  "gp0241",
+  "gp0242",
+  "gp0243",
+  "gp0244",
+  "gp0245",
+  "gp0246",
+  "gp0247",
+  "gp0248",
+  "gp0249",
+  "gp0250",
+  "gp0251",
+  "gp0252",
+  "gp0253",
+  "gp0254",
+  "gp0255",
+  "gp0256",
+  "gp0257",
+  "gp0258",
+  "gp0259",
+  "gp0260",
+  "gp0261",
+  "gp0262",
+  "gp0263",
+  "gp0264",
+  "gp0265",
+  "gp0266",
+  "gp0267",
+  "gp0268",
+  "gp0169",
+  "gp0170",
+  "gp0171",
+  "gp0497",
+  "gp0498",
+  "gp0499",
+  "gp0500",
+  "gp0501",
+  "gp0511",
+  "gp512",
+  "gp513",
+  "gp514",
+  "gp515"
+ ],
+ "log": [
+  {
+   "id": "gp515",
+   "title": "How do you get started with GTM Playbooks in 2027?",
+   "at": 1783884973173,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp514",
+   "title": "Is GTM Playbooks worth it in 2027?",
+   "at": 1783884973077,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp513",
+   "title": "What are the most common mistakes in GTM Playbooks in 2027?",
+   "at": 1783884972966,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp512",
+   "title": "What should you know before investing in GTM Playbooks in 2027?",
+   "at": 1783884972816,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0511",
+   "title": "Inbound demand-capture GTM playbook in 2027",
+   "at": 1783884972687,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0501",
+   "title": "Co-sell and ecosystem-led GTM motion through cloud marketplaces in 2027",
+   "at": 1783884971999,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0500",
+   "title": "Two-sided marketplace GTM launch playbook in 2027",
+   "at": 1783884971986,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0499",
+   "title": "Pilot/POC-to-paid conversion GTM playbook in 2027",
+   "at": 1783884971980,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0498",
+   "title": "Enterprise RFP and procurement-led GTM playbook in 2027",
+   "at": 1783884971974,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0497",
+   "title": "Win-back GTM playbook for churned customers in 2027",
+   "at": 1783884971964,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0171",
+   "title": "How do you build the GTM playbook for a vacation rental property management (VRPM) operator in 2027?",
+   "at": 1783884349084,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0170",
+   "title": "How do you build the GTM playbook for a short-term rental (STR) vacation rental host in 2027?",
+   "at": 1783884348884,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0169",
+   "title": "How do you build the GTM playbook for a commercial snow removal and grounds maintenance operator in 2027?",
+   "at": 1783884348676,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0268",
+   "title": "GTM Playbook for Plumbing Services in 2027",
+   "at": 1783884347846,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0267",
+   "title": "GTM Playbook for HVAC Contractors in 2027",
+   "at": 1783884347668,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0266",
+   "title": "GTM Playbook for Boutique Fitness Studios in 2027",
+   "at": 1783884347519,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0265",
+   "title": "GTM Playbook for Tutoring Centers in 2027",
+   "at": 1783884347441,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0264",
+   "title": "GTM Playbook for Residential Cleaning Services in 2027",
+   "at": 1783884347322,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0263",
+   "title": "GTM Playbook for Roofing Contractors in 2027",
+   "at": 1783884347318,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0262",
+   "title": "GTM Playbook for Independent Coffee Shops in 2027",
+   "at": 1783884347314,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0261",
+   "title": "GTM Playbook for Local Auto Repair Shops in 2027",
+   "at": 1783884346849,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0260",
+   "title": "GTM Playbook for Independent Restaurants in 2027",
+   "at": 1783884346722,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0259",
+   "title": "GTM Playbook for Private Daycare in 2027",
+   "at": 1783884346618,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0258",
+   "title": "Online Course Platform GTM Playbook 2027 — Creator + Indie + SMB Course Platform + AI-Augmented Course Creation + B2B En",
+   "at": 1783884346415,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0257",
+   "title": "Membership Community Software GTM Playbook 2027 — Creator + Indie + SMB Community Platform + AI-Augmented Community Mode",
+   "at": 1783884346283,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0256",
+   "title": "Podcast Hosting Platform GTM Playbook 2027 — Creator + Indie Podcast Hosting + AI-Augmented Podcast Production + Program",
+   "at": 1783884346014,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0255",
+   "title": "Webinar Software GTM Playbook 2027 — Enterprise B2B Marketing Demand Gen Platform + AI-Augmented Webinar Production + Hy",
+   "at": 1783884345876,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0254",
+   "title": "Affiliate Tracking Software GTM Playbook 2027 — Enterprise Partnership Management + AI-Augmented Partner Discovery + Fra",
+   "at": 1783884345804,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0253",
+   "title": "Influencer Marketing Platform GTM Playbook 2027 — SaaS + Creator Commerce Affiliate + AI-Augmented Creator Matching + Br",
+   "at": 1783884345610,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0252",
+   "title": "Career Coaching Platform GTM Playbook 2027 — B2B Enterprise Coaching Subscription + AI-Augmented Mock Interview + ICF Ce",
+   "at": 1783884345523,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0251",
+   "title": "Online Coding Bootcamp GTM Playbook 2027 — AI Engineering + Cursor + Claude Code + Copilot Curriculum + B2B Enterprise U",
+   "at": 1783884345389,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0250",
+   "title": "Fashion Resale Marketplace GTM Playbook 2027 — Luxury Authenticated + Peer-to-Peer Hybrid + AI Computer-Vision Condition",
+   "at": 1783884345218,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0249",
+   "title": "Snack Subscription Box DTC GTM Playbook 2027 — Country-Themed + Authentic-Import + Creator-Led Acquisition + AI-Augmente",
+   "at": 1783884345092,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0248",
+   "title": "Watch Store GTM Playbook 2027 — Authorized Dealer + Pre-Owned Rolex + AI-Augmented Authentication and the 85M WatchBox O",
+   "at": 1783884344971,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0247",
+   "title": "Jewelry Boutique GTM Playbook 2027 — Lab-Grown Diamond + Custom 3D CAD + DTC and the 85M Brilliant Earth Operator Path",
+   "at": 1783884344839,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0246",
+   "title": "Art Gallery GTM Playbook 2027 — Primary Market + Art Fairs + Artsy + AI-Augmented Authentication and the .18B Gagosian O",
+   "at": 1783884344642,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0245",
+   "title": "Antique Dealer GTM Playbook 2027 — 1stDibs + Auction Consignment + AI-Augmented Authentication and the .8B Sotheby's Ope",
+   "at": 1783884344476,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0244",
+   "title": "Thrift Store Chain GTM Playbook 2027 — Donation Network + ShopGoodwill + AI-Augmented Sortation and the .4B Goodwill Ope",
+   "at": 1783884344369,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0243",
+   "title": "Consignment Shop GTM Playbook 2027 — In-Store + Buy-Outright + Poshmark + Mercari and the 85M Winmark Operator Path",
+   "at": 1783884344186,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0242",
+   "title": "Vintage Clothing Store GTM Playbook 2027 — Decade + Designer + Depop + The RealReal and the 8M What Goes Around Comes Ar",
+   "at": 1783884343985,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0241",
+   "title": "UX Research Firm GTM Playbook 2027 — Usability Testing + ResearchOps + AI-Augmented UX and the 85M UserTesting Operator ",
+   "at": 1783884343819,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0240",
+   "title": "Customer Research / VoC Firm GTM Playbook 2027 — Qualtrics + Medallia + AI-Augmented VoC and the 85M Medallia Operator P",
+   "at": 1783884343668,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0239",
+   "title": "Market Research Firm GTM Playbook 2027 — Custom Quantitative + AI-Augmented Insight and the 85M Numerator Operator Path",
+   "at": 1783884343476,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0238",
+   "title": "Notary Services / Mobile Notary GTM Playbook 2027 — RON + Loan Signing Agent and the 85M Notarize Operator Path",
+   "at": 1783884343338,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0237",
+   "title": "Court-Reporting Services GTM Playbook 2027 — AmLaw MSA + AI-Augmented Transcription and the 85M Veritext Operator Path",
+   "at": 1783884343253,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0236",
+   "title": "Translation Agency GTM Playbook 2027 — AI-Augmented NMT + Specialty Vertical and the .4B TransPerfect Operator Path",
+   "at": 1783884343102,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0235",
+   "title": "Customer Support Outsourcing GTM Playbook 2027 — SaaS Vertical + AI-Augmented Hybrid Agent and the 48M Helpware Operator",
+   "at": 1783884342968,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0234",
+   "title": "Virtual Assistant Services GTM Playbook 2027 — Dedicated VA + Executive-Tier + AI-Augmented and the 48M Magic Operator P",
+   "at": 1783884342842,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0233",
+   "title": "BPO Provider GTM Playbook 2027 — CX + F&A + AI-Augmented Hybrid Agent and the .18B TaskUs Operator Path",
+   "at": 1783884342728,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0232",
+   "title": "RPO Provider GTM Playbook 2027 — Enterprise Full-Cycle + Project RPO + AI-Augmented Sourcing and the 85M Cielo Operator ",
+   "at": 1783884342594,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0231",
+   "title": "Contingency Recruiting Firm GTM Playbook 2027 — Direct Hire + Temp Staffing + AI-Augmented Sourcing and the .8B Insight ",
+   "at": 1783884342422,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0230",
+   "title": "Executive Recruiting Firm GTM Playbook 2027 — Retained Search + PE Portfolio CEO + AI-Augmented Sourcing and the 48M Tru",
+   "at": 1783884342289,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0229",
+   "title": "Fractional CRO Services GTM Playbook 2027 — MEDDPICC + Agentforce + AI-Augmented Sales and the 8M Pavilion Operator Path",
+   "at": 1783884342068,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0228",
+   "title": "Fractional CFO Services GTM Playbook 2027 — Series A-C Fundraise Prep + Mosaic + Cube + Pry and the 48M Pilot Operator P",
+   "at": 1783884341911,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0227",
+   "title": "RevOps Consultancy GTM Playbook 2027 — Salesforce + HubSpot + Agentforce + RaaS Retainer and the 8M Winning by Design Op",
+   "at": 1783884341727,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0226",
+   "title": "Sales-as-a-Service GTM Playbook 2027 — Outsourced SDR + AI-Augmented Prospecting + Clay and the 48M memoryBlue Operator ",
+   "at": 1783884341568,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0225",
+   "title": "Software Development Outsourcing GTM Playbook 2027 — Nearshore LATAM + AI-Augmented Dev and the 85M BairesDev Operator P",
+   "at": 1783884341413,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0224",
+   "title": "Data Engineering Services GTM Playbook 2027 — Snowflake Premier + Databricks Champion + LLM RAG and the 48M phData Opera",
+   "at": 1783884341348,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0223",
+   "title": "Cloud Migration Services GTM Playbook 2027 — AWS MAP + Azure Migrate + Google RaMP and the .8B Slalom Operator Path",
+   "at": 1783884341138,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0222",
+   "title": "Cybersecurity Services Firm GTM Playbook 2027 — MDR + Incident Response Retainer + vCISO and the 85M Arctic Wolf Operato",
+   "at": 1783884340990,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0221",
+   "title": "IT Services and MSP GTM Playbook 2027 — Cybersecurity Bundling, AI Copilot Rollout, and the $64B Accenture Operator Path",
+   "at": 1783884340820,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0220",
+   "title": "Mobile App Development Agency GTM Playbook 2027 — Native + Cross-Platform, AI-Assisted Dev, and the $148M WillowTree Ope",
+   "at": 1783884340610,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0219",
+   "title": "Web-Design Agency GTM Playbook 2027 — Webflow Enterprise, AI-Assisted Development, and the $385M Huge Operator Path",
+   "at": 1783884340453,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0218",
+   "title": "Podcast Production Agency GTM Playbook 2027 — Video-Podcast Multi-Platform, Executive Thought-Leadership, and the $148M ",
+   "at": 1783884340322,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0217",
+   "title": "Video Production Agency GTM Playbook 2027 — AI-Augmented Production, Creator-Style UGC, and the $28M Sandwich Video Oper",
+   "at": 1783884340204,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0216",
+   "title": "Branding and Design Agency GTM Playbook 2027 — AI-Augmented Production, Cannes Lions Awards, and the $148M Pentagram Ope",
+   "at": 1783884340090,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0215",
+   "title": "PR Firm GTM Playbook 2027 — Crisis Response, AI Search Citation, and the $1.18B Edelman Operator Path",
+   "at": 1783884339920,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0214",
+   "title": "Paid-Media Agency GTM Playbook 2027 — Percentage-of-Spend Model, Attribution Stack, and the $385M Tinuiti Operator Path",
+   "at": 1783884339863,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0213",
+   "title": "Content Marketing Agency GTM Playbook 2027 — Executive Thought-Leadership, AI-Assisted Production, and the $88M Brafton ",
+   "at": 1783884339693,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0212",
+   "title": "SEO Agency GTM Playbook 2027 — AI Overview Optimization, Vertical Specialization, and the $148M NP Digital Operator Path",
+   "at": 1783884339564,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0211",
+   "title": "Custom Framing Services GTM Playbook 2027 — Designer Trade, AR Configurator, and the $148M Framebridge Operator Path",
+   "at": 1783884339480,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0210",
+   "title": "Ceramics and Pottery Shop GTM Playbook 2027 — Wait-List Drop Model, Workshop Revenue, and the $48M Heath Operator Path",
+   "at": 1783884339337,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0209",
+   "title": "Kitchenware DTC GTM Playbook 2027 — Chef Endorsement, Williams-Sonoma Wholesale, and the $385M Our Place Operator Path",
+   "at": 1783884339251,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0208",
+   "title": "Home Goods DTC GTM Playbook 2027 — Bed Bath Beyond Aftermath, Amazon Mastery, and the $1.8B Yeti Operator Path",
+   "at": 1783884339068,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0207",
+   "title": "Furniture DTC GTM Playbook 2027 — Design-Trade Program, Showroom Halo, and the $12.4B Wayfair Operator Path",
+   "at": 1783884338925,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0206",
+   "title": "Mattress DTC GTM Playbook 2027 — Hospitality B2B, Hybrid Retail, and the $5.6B Tempur Sealy Operator Path",
+   "at": 1783884338887,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0205",
+   "title": "Eyewear DTC GTM Playbook 2027 — Vision Insurance Integration, Hybrid Retail, and the $885M Warby Parker Operator Path",
+   "at": 1783884338718,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0204",
+   "title": "Sneakers DTC GTM Playbook 2027 — Foot Locker Wholesale, Flagship Retail, and the $2.85B On Holding Operator Path",
+   "at": 1783884338638,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0203",
+   "title": "Athleisure DTC GTM Playbook 2027 — Flagship Retail, Creator Engine, and the $10.6B Lululemon Operator Path",
+   "at": 1783884338634,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0202",
+   "title": "Fitness Equipment DTC GTM Playbook 2027 — Connected-Fitness Bundle, Commercial BD, and the $2.8B Peloton Operator Path",
+   "at": 1783884338628,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0201",
+   "title": "Vitamin DTC GTM Playbook 2027 — Personalized Packs, Women's-Health Positioning, and the $1.4B Strategic Exit Path",
+   "at": 1783884337921,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0200",
+   "title": "Supplement DTC GTM Playbook 2027 — GLP-1 Stack Positioning, Amazon Mastery, and the .2B AG1 Operator Path",
+   "at": 1783884337828,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0199",
+   "title": "Prepared Meal Subscription DTC GTM Playbook 2027 — GLP-1 Positioning, Athletic Plans, and the $588M ARR Path",
+   "at": 1783884337691,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0198",
+   "title": "Meal Kit DTC Operator GTM Playbook 2027 — Dietary Specialization, Retail Grocery Pivot, and the $485M ARR Path",
+   "at": 1783884337686,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0197",
+   "title": "CSA Box DTC Operator GTM Playbook 2027 — Multi-Farm Aggregation, Corporate Wellness, and the $14M ARR Path",
+   "at": 1783884337275,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0196",
+   "title": "Farmers Market Operator GTM Playbook 2027 — Vendor Curation, Corporate Sponsorships, and the $1.2M Operator Path",
+   "at": 1783884337197,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0195",
+   "title": "Farm Stand GTM Playbook 2027 — CSA Subscription, Agritourism Events, and the $1.4M Operator Path",
+   "at": 1783884337069,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0194",
+   "title": "Fish Market GTM Playbook 2027 — Dayboat Sourcing, Oyster Bar Pivot, and the $3.8M Operator Path",
+   "at": 1783884336913,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0193",
+   "title": "Butcher Shop GTM Playbook 2027 — Dry-Aged + Heritage Breed Moat, Wholesale Layer, and the $3.4M Operator Path",
+   "at": 1783884336814,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0192",
+   "title": "Bakery GTM Playbook 2027 — Wholesale Layer, Custom Cakes, and the $1.8M Independent Operator Path",
+   "at": 1783884336310,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0190",
+   "title": "Taco Shop GTM Playbook 2027 — Regional Authenticity Moat, Margarita Program, and the $2.8M Operator Path",
+   "at": 1783884316880,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0189",
+   "title": "Sushi Restaurant GTM Playbook 2027 — Omakase Counter, Corporate Catering, and the $2.8M Operator Path",
+   "at": 1783884316412,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0185",
+   "title": "Smoothie + Juice Bar GTM Playbook 2027 — Functional Add-Ons, Subscription Revenue, and Corporate Wellness BD",
+   "at": 1783884312910,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0184",
+   "title": "Bagel Shop GTM Playbook 2027 — Kettle-Boiled Authenticity, Corporate Catering Engine, and Lunch Sandwich Pivot",
+   "at": 1783884312112,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0183",
+   "title": "Donut Shop GTM Playbook 2027 — Morning Rush, Craft Premium, Wholesale Pivot, and the Coffee Attach Math",
+   "at": 1783884311344,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0182",
+   "title": "Frozen Yogurt Chain GTM Playbook 2027 — Self-Serve Economics, Birthday Party Pivot, and Franchise vs Independent",
+   "at": 1783884310903,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0181",
+   "title": "Ice Cream Shop GTM Playbook 2027 — Premium Scoop Shop Economics, Catering Pivot, and the M Path",
+   "at": 1783884310297,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0180",
+   "title": "Food Truck GTM Playbook 2027 — Routes, Brewery Partnerships, Catering Pivot, and the M Operator Path",
+   "at": 1783884309457,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0179",
+   "title": "Event Rentals GTM Playbook 2027 — Inventory Utilization, Venue Preferred-Vendor BD, and the .1M Operator Model",
+   "at": 1783884308750,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0178",
+   "title": "Wedding Photography GTM Playbook 2027 — The Knot, Venue Preferred-Vendor BD, and the 59K Studio Model",
+   "at": 1783884308273,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0177",
+   "title": "Photo and Video Studio GTM Playbook 2027 — Day Rates, Production Attach, and the Agency BD Motion",
+   "at": 1783884307499,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0173",
+   "title": "How do you build the GTM playbook for a bed and breakfast or inn operator in 2027?",
+   "at": 1783884302809,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0165",
+   "title": "How do you build the GTM playbook for a tree care and gutter services operator in 2027?",
+   "at": 1783883839027,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0153",
+   "title": "How do you build the GTM playbook for a hair salon operator in 2027?",
+   "at": 1783883809503,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0139",
+   "title": "How do you build the GTM playbook for a DTC hair care brand in 2027?",
+   "at": 1783883696861,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0128",
+   "title": "How do you build the GTM playbook for a ghost-kitchen or virtual-brand operator in 2027?",
+   "at": 1783883664558,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0123",
+   "title": "How do you build a commodity trading platforms go-to-market motion in 2027?",
+   "at": 1783883616835,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0120",
+   "title": "How do you build a livestock management software go-to-market motion in 2027?",
+   "at": 1783883613789,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0115",
+   "title": "How do you build a clinical trial software (Veeva / Medidata) go-to-market motion in 2027?",
+   "at": 1783883591283,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0114",
+   "title": "How do you build a population health platforms (Arcadia / Innovaccer) go-to-market motion in 2027?",
+   "at": 1783883590117,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0112",
+   "title": "How do you build a senior living operations software (PointClickCare) go-to-market motion in 2027?",
+   "at": 1783883588147,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0111",
+   "title": "How do you build a caregiving and home health software (CareAcademy / WellSky) go-to-market motion in 2027?",
+   "at": 1783883587193,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0105",
+   "title": "How do you build an AI code assistants (Copilot / Cursor / Windsurf) go-to-market motion in 2027?",
+   "at": 1783883572903,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0109",
+   "title": "How do you build a telehealth platforms (Teladoc / Amwell) go-to-market motion in 2027?",
+   "at": 1783883571634,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0108",
+   "title": "How do you build an AI for performance reviews go-to-market motion in 2027?",
+   "at": 1783883570961,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0107",
+   "title": "How do you build an AI for talent acquisition (HireVue / Eightfold) go-to-market motion in 2027?",
+   "at": 1783883570001,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0104",
+   "title": "How do you build a generative AI for marketing (Jasper / Copy.ai) go-to-market motion in 2027?",
+   "at": 1783883539340,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0103",
+   "title": "How do you build an AI note-takers (Otter / Fireflies / Read AI) go-to-market motion in 2027?",
+   "at": 1783883538298,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0102",
+   "title": "How do you build an AI voice platforms (Vapi / Retell AI) go-to-market motion in 2027?",
+   "at": 1783883536740,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0100",
+   "title": "How do you build an LLM API providers (Anthropic / OpenAI) go-to-market motion in 2027?",
+   "at": 1783883527795,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0097",
+   "title": "How do you build a data observability (Monte Carlo / Bigeye) go-to-market motion in 2027?",
+   "at": 1783883495434,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0088",
+   "title": "How do you build a vertical SaaS for general contractors (Procore competitor space) go-to-market motion in 2027?",
+   "at": 1783883442788,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0090",
+   "title": "How do you build an EAM and CMMS (enterprise asset management) software go-to-market motion in 2027?",
+   "at": 1783883423346,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0086",
+   "title": "How do you build a vertical SaaS for roofing contractors go-to-market motion in 2027?",
+   "at": 1783883419155,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0083",
+   "title": "How do you build a vertical SaaS for pest control (PestPac / FieldRoutes) go-to-market motion in 2027?",
+   "at": 1783883309360,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0082",
+   "title": "How do you build a vertical SaaS for property management (AppFolio / Buildium) go-to-market motion in 2027?",
+   "at": 1783883308640,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0080",
+   "title": "How do you build a vertical SaaS for veterinary clinics (Cornerstone / ezyVet) go-to-market motion in 2027?",
+   "at": 1783883306063,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0078",
+   "title": "How do you build a vertical SaaS for auto dealers (Reynolds / CDK) go-to-market motion in 2027?",
+   "at": 1783883301314,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0077",
+   "title": "How do you build a vertical SaaS for salons and spas (Boulevard / Mindbody) go-to-market motion in 2027?",
+   "at": 1783883300572,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0076",
+   "title": "How do you build a vertical SaaS for restaurants (Toast / Lightspeed) go-to-market motion in 2027?",
+   "at": 1783883299993,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0070",
+   "title": "How do you build a whistleblower and ethics hotline software go-to-market motion in 2027?",
+   "at": 1783883259071,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0066",
+   "title": "How do you build a B2B tax software go-to-market motion in 2027?",
+   "at": 1783883245233,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0065",
+   "title": "How do you build a corrections tech software go-to-market motion in 2027?",
+   "at": 1783883244313,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0064",
+   "title": "How do you build a court and case management software go-to-market motion in 2027?",
+   "at": 1783883243609,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0063",
+   "title": "How do you build a public safety 911 and CAD software go-to-market motion in 2027?",
+   "at": 1783883242417,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0056",
+   "title": "How do you build a mining tech software go-to-market motion in 2027?",
+   "at": 1783883238033,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0055",
+   "title": "How do you build a customs and freight forwarding software go-to-market motion in 2027?",
+   "at": 1783883237058,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0060",
+   "title": "How do you build a water utility software go-to-market motion in 2027?",
+   "at": 1783883227301,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0058",
+   "title": "How do you build a renewable energy trading and ETRM software go-to-market motion in 2027?",
+   "at": 1783883225256,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0051",
+   "title": "How do you build a fleet management software go-to-market motion in 2027?",
+   "at": 1783883205739,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0050",
+   "title": "How do you build a last-mile delivery software go-to-market motion in 2027?",
+   "at": 1783883204494,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0047",
+   "title": "How do you build a supply chain planning (SCP) software go-to-market motion in 2027?",
+   "at": 1783883201510,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0042",
+   "title": "How do you build a PLM and CAD software go-to-market motion in 2027?",
+   "at": 1783883186655,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0023",
+   "title": "GTM Playbook for Automotive and Auto Tech in 2027 — The Complete Operator Guide",
+   "at": 1783883176944,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0022",
+   "title": "GTM Playbook for Pharma and Life Sciences in 2027 — The Complete Operator Guide",
+   "at": 1783882893780,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0027",
+   "title": "How do you build a Higher Ed SIS and LMS go-to-market motion in 2027?",
+   "at": 1783882880466,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0021",
+   "title": "GTM Playbook for AgTech in 2027 — The Complete Operator Guide",
+   "at": 1783882851086,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0019",
+   "title": "GTM Playbook for MarTech and AdTech in 2027 — The Complete Operator Guide",
+   "at": 1783882848186,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0017",
+   "title": "GTM Playbook for GovTech in 2027 — The Complete Operator Guide",
+   "at": 1783882845478,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0013",
+   "title": "GTM Playbook for Media and Entertainment in 2027 — The Complete Operator Guide",
+   "at": 1783882810972,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0004",
+   "title": "GTM Playbook for FinTech in 2027 — The Complete Operator Guide",
+   "at": 1783882805545,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0003",
+   "title": "GTM Playbook for Healthcare Tech in 2027 — The Complete Operator Guide",
+   "at": 1783882804248,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0005",
+   "title": "GTM Playbook for AI Infrastructure in 2027 — The Complete Operator Guide",
+   "at": 1783882782056,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0002",
+   "title": "GTM Playbook for Cybersecurity in 2027 — The Complete Operator Guide",
+   "at": 1783882777087,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0042",
+   "title": "How do you build a PLM and CAD software go-to-market motion in 2027?",
+   "at": 1783880174179,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0041",
+   "title": "How do you build a distribution and wholesale ERP go-to-market motion in 2027?",
+   "at": 1783880172478,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0039",
+   "title": "How do you build a treasury and cash management go-to-market motion in 2027?",
+   "at": 1783880168883,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0038",
+   "title": "How do you build a procurement and spend management go-to-market motion in 2027?",
+   "at": 1783880167574,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0035",
+   "title": "How do you build a workforce management go-to-market motion in 2027?",
+   "at": 1783880132047,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0032",
+   "title": "How do you build an employee engagement platform go-to-market motion in 2027?",
+   "at": 1783880128838,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0031",
+   "title": "How do you build a performance management and OKR software go-to-market motion in 2027?",
+   "at": 1783880092681,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0028",
+   "title": "How do you build a corporate L&D platform go-to-market motion in 2027?",
+   "at": 1783879688600,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0026",
+   "title": "How do you build a K-12 EdTech go-to-market motion in 2027?",
+   "at": 1783879683061,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0022",
+   "title": "GTM Playbook for Pharma and Life Sciences in 2027 — The Complete Operator Guide",
+   "at": 1783879674644,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0002",
+   "title": "GTM Playbook for Cybersecurity in 2027 — The Complete Operator Guide",
+   "at": 1783878907553,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0004",
+   "title": "GTM Playbook for FinTech in 2027 — The Complete Operator Guide",
+   "at": 1783878642763,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0003",
+   "title": "GTM Playbook for Healthcare Tech in 2027 — The Complete Operator Guide",
+   "at": 1783878641853,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "gp0002",
+   "title": "GTM Playbook for Cybersecurity in 2027 — The Complete Operator Guide",
+   "at": 1783878641179,
+   "action": "trashed→gen-pool"
+  }
+ ],
+ "updatedAt": 1783884973173
+}

@@ -87,6 +87,7 @@ const DDG_GAP_MS = parseInt(process.env.DDG_GAP_MS || process.env.DDG_PACE_MS ||
 const REQUIRE_FLUX_IMAGES = true;
 const REQUIRE_FLUX_COVER = process.env.REQUIRE_FLUX_COVER !== '0';
 const { fluxifyBody, fluxifyCoverOnly, bodyImagesAllFlux, countFluxJobs, countCoverFluxJobs, makeContent, KORY_CRO_IMG, isKoryCroImg } = require('./_img_flux_lib');
+const { fluxRewriteEntry, fluxFaceHeroOnlyEntry, countRewriteJobs, countFaceHeroJobs, makeFaceCardAndSyncHero } = require('./_img_flux_rewrite_lib');
 const { coverSrcIsValid } = require('./_entry_image_reuse_lib');
 const { formatFixEntry, contentFormatPass, contentRubricAudit, ensureDirectAnswerAfterHero } = require('./_format_fixer_lib');
 const { internalImagesFixEntry, internalImagesPass, internalImagesRubricAudit } = require('./_internal_images_lib');
@@ -931,7 +932,8 @@ async function buildFaceHeroDraft(id, attempt) {
       saveFaceHeroState(true);
     },
     onQualityMiss: (reason, tryN) => {
-      faceHeroLog('↻ ' + id + ' · quality ' + reason + ' · flux try ' + tryN + '/' + (process.env.FLUX_COVER_MAX_TRY || 8));
+      const label = String(reason || '').startsWith('ddg') ? 'ddg' : 'flux';
+      faceHeroLog('↻ ' + id + ' · quality ' + reason + ' · ' + label + ' try ' + tryN + '/' + (process.env.FLUX_COVER_MAX_TRY || 8));
       faceHeroJob.currentStep = 'quality · ' + reason + ' · try ' + tryN;
       saveFaceHeroState(true);
     },
@@ -1140,7 +1142,7 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
   };
   const kwNote = guideKeywords ? (' · guide: ' + guideKeywords.slice(0, 48) + (guideKeywords.length > 48 ? '…' : '')) : '';
   const modeNote = autoApproveImages ? ' · 🤖 auto-approve ON' : ' · keep/retry each card';
-  faceHeroLog('▶ Face Card & Top Image — ' + faceHeroJob.pillarName + kwNote + modeNote + ' · serial flux');
+  faceHeroLog('▶ Face Card & Top Image — ' + faceHeroJob.pillarName + kwNote + modeNote + ' · DDG-first covers');
   runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
   return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages };
 }
@@ -3784,7 +3786,9 @@ function indexRowFromBlob(id, cur, score) {
     id,
     question: cur.question || titleOf[id] || id,
     tags: publishTagsFor(id, cur, { publishing: true }),
-    quality_score: score >= 13 ? 13 : score,
+    // Quality = x/10 (10 = pass). Gate checklist score stays in gate_score (/13).
+    quality_score: score >= 13 ? 10 : Math.max(0, Math.min(10, Math.round((Number(score) || 0) / 13 * 10))),
+    gate_score: score,
     format_v: '2026-07',
     pending: false,
     ts: now,
@@ -3847,7 +3851,9 @@ async function certify(id, score, body, opts) {
         claude_certified: 'Claude Certified Fresh',
         cc_signed_at: ts,
         quality: q,
-        quality_score: score >= 13 ? 13 : score,
+        // Quality IQ = x/10 (10 = pass). Gate checklist is separate (/13).
+        quality_score: score >= 13 ? 10 : Math.max(0, Math.min(10, Math.round((Number(score) || 0) / 13 * 10))),
+        gate_score: score,
         pending: false,
         tags: pubTags,
         ts: nowMs,
@@ -3865,6 +3871,21 @@ async function certify(id, score, body, opts) {
   try { await pingIndexNowUrlList(['https://pulserevops.com/knowledge/' + id]); } catch (e) {}
   try { await pushSeoCounts(store, { lastBtnAt: ts, lastBtnId: id }); } catch (e) {}
   await logCertified13Done(id, score, Object.assign({}, opts, { body: gateBody, title: opts.title || titleOf[id] }));
+  // Surface on Daily Driver dash whenever a Q&A actually publishes
+  if (score >= MIN_SCORE) {
+    try {
+      const { notifyDdDashPublished } = require('./_dd_dash_feed');
+      notifyDdDashPublished({
+        id,
+        title: opts.title || titleOf[id] || id,
+        score,
+        published: true,
+        pass: true,
+        source: 'scrub',
+        bumpDone: false,
+      });
+    } catch (e) {}
+  }
 }
 
 // ══════════════════════════════════════════════════════════════════════
@@ -3958,13 +3979,9 @@ function yearize(q){
   if (datable && !evergreen) q += ' in 2027';
   return hadQ ? q+'?' : q;
 }
-// IMAGE TIER (owner): Pollinations FIRST, DDG second (Gemini skipped). Direct URL = deploy-free, renderer proxies it.
-function pollCoverUrl(title, pillar){
-  const topical = { ca:'automobile car vehicle', bt:'boat yacht marine', aq:'planted aquarium fish tank', er:'consumer electronics product', dn:'restaurant food dining', nl:'nightlife bar lounge', tn:'town city skyline', sc:'school campus', mv:'cinema film', es:'espresso coffee', tv:'television home theater', rs:'luxury resort hotel', cl:'cologne fragrance bottle', lv:'luxury vacation travel', ev:'event celebration', ga:'board game', gm:'video gaming setup', wl:'wellness spa retreat', dr:'sports training drill', fr:'franchise storefront', co:'collectible memorabilia', sy:'fashion outfit style', cr:'chesapeake crabbing', fs:'fishing boat water', pt:'pet animal', tk:'software dashboard workspace', ik:'business analytics chart', gb:'clean infographic', bo:'commercial real estate buildout', ai:'AI automation abstract', gp:'go to market strategy office', ra:'revenue operations office', bs:'business book desk', st:'sales training workshop', ce:'news media broadcast pop culture entertainment' };
-  const lane = topical[pillar] || 'professional editorial business photography';
-  const prompt = ('high quality editorial ' + lane + ' photograph illustrating ' + String(title).slice(0,90) + ', realistic magazine style, warm light, no text, no watermark, no words').slice(0,300);
-  let h = 0; for (const c of String(title)) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-  return 'https://image.pollinations.ai/prompt/' + encodeURIComponent(prompt) + '?width=1200&height=675&nologo=true&model=flux&seed=' + (h % 100000);
+// IMAGE TIER (owner HARD BAN): never invent pollinations URLs. Pexels/self-host only via rotate/stamp.
+function pollCoverUrl(id){
+  throw new Error('pollCoverUrl DEAD — pollinations hard-banned (_image_hard_bans). Use Pexels stamp/rotate.');
 }
 // VERIFY a top image actually LOADS (not just that a markdown tag exists). Pollinations can
 // 500 / time out, leaving a blank hero — C.topImage only checks the tag. This catches broken
@@ -4250,24 +4267,18 @@ async function ensureInternalImagesRendered(id, title, pillar, body, onProgress)
 // a boardroom photo on a crabbing/aquarium/etc. answer.
 function staticCover(pillar, title){
   if(pillar==='tl'){ let h=0; for(const c of 'tl') h=(h*31+c.charCodeAt(0))>>>0; return '/assets/cro-cover-'+((h % 5)+1)+'.jpg'; }
-  return pollCoverUrl(title || ('best ' + pillar), pillar);   // topical, applicable to THIS pillar
+  return '/assets/qa/_pending.jpg';
+}
+async function pickBestTopUrl(id, title, pillar) {
+  return '/assets/qa/' + String(id || 'cover') + '.jpg';
 }
 async function ensureTopImage(id, title, pillar, body){
   const alt = String(title).replace(/[\[\]"]/g,'').slice(0,80);
+  const face = '/assets/qa/' + id + '.jpg';
   const cur = String(body).slice(0,1400).match(/!\[[^\]]*\]\(([^)]+)\)/);
-  if (REQUIRE_FLUX_IMAGES || INTERNAL_IMAGES_DDG) {
-    if (cur && cur[1] === '/assets/qa/' + id + '.jpg') return body;
-    const b = String(body).replace(/^﻿?\s*!\[[^\]]*\]\([^)]*\)\s*\n*/, '');
-    return '![' + alt + '](/assets/qa/' + id + '.jpg)\n\n' + b.trimStart();
-  }
-  if(cur && await imgLoads(cur[1])) return body;             // existing hero loads → keep it
-  let b = String(body).replace(/^﻿?\s*!\[[^\]]*\]\([^)]*\)\s*\n*/, '');   // drop the broken/missing one
-  const poll = pollCoverUrl(title, pillar);                  // tier 1: Pollinations (verified)
-  if(await imgLoads(poll)) return '!['+alt+']('+poll+')\n\n'+b.trimStart();
-  try{ await fixCover(id, title);                            // tier 2: DDG (writes blob; re-read + verify)
-       const r=await store.get('answers/'+id+'.json',{type:'json'}).catch(()=>null);
-       if(r&&r.answer){ const mm=String(r.answer).slice(0,1400).match(/!\[[^\]]*\]\(([^)]+)\)/); if(mm && await imgLoads(mm[1])) return r.answer; } }catch(e){}
-  return '!['+alt+']('+staticCover(pillar, title)+')\n\n'+b.trimStart();   // tier 3: topical fallback
+  if (cur && cur[1] === face) return body;
+  const b = String(body).replace(/^﻿?\s*!\[[^\]]*\]\([^)]*\)\s*\n*/, '');
+  return '![' + alt + '](' + face + ')\n\n' + b.trimStart();
 }
 // ── MEDIA-IMAGE LAW (owner 2026-07-01 / 2026-07-03):
 //   • Regular Q&A: flux hero + guaranteed Kory CRO (#2, does NOT count) + DDG under EVERY section.
@@ -4792,7 +4803,7 @@ async function ensureMediaImages(id, title, pillar, body){
         if (ti + 1 < targets.length) await ddgPace();
       } else await ddgPace();
     } else {
-      url = pollCoverUrl(sect + ' ' + title, pillar);
+      url = ('/assets/qa/' + String(typeof id !== 'undefined' && id ? id : 'cover') + '.jpg');
     }
     if (INTERNAL_IMAGES_DDG && (!url || !(await imgLoadsLive(url)))) continue;
     picks.push({ idx, url, caption: alt + ' — ' + sect });
@@ -5142,7 +5153,7 @@ async function generateOne(pillar, question, genOpts){
   genJob.stage='✍️ writing'; saveGen();
   const alt = String(question).replace(/[\[\]"]/g,'').slice(0,80);
   const cover = pillar==='tl' ? ('/assets/cro-cover-'+((Math.abs(parseInt(id.slice(2),10)||0)% 5)+1)+'.jpg') : null;
-  const topImg = cover || ((REQUIRE_FLUX_IMAGES || INTERNAL_IMAGES_DDG) ? ('/assets/qa/' + id + '.jpg') : pollCoverUrl(question, pillar));
+  const topImg = cover || ((REQUIRE_FLUX_IMAGES || INTERNAL_IMAGES_DDG) ? ('/assets/qa/' + id + '.jpg') : ('/assets/qa/' + String(typeof id !== 'undefined' && id ? id : 'cover') + '.jpg'));
   const draft = await seedWrite(question, pillar);
   let body = '!['+alt+']('+topImg+')\n\n' + (draft || '## Direct Answer\n\n');
   body = boldify(deban(body), 25); body = ensureErFormat(id, body);
@@ -6087,7 +6098,7 @@ async function runTargetedOwnerFixes(id, title, body, targets, ctx) {
     if (!C.topImage(body)) {
       body = body.replace(/^﻿?\s*!\[[^\]]*\]\([^)]*\)\s*\n*/, '');
       const alt = String(title).replace(/[\[\]"]/g, '').slice(0, 80);
-      const hero = (REQUIRE_FLUX_IMAGES || INTERNAL_IMAGES_DDG) ? ('/assets/qa/' + id + '.jpg') : pollCoverUrl(title, pillarOf(id));
+      const hero = (REQUIRE_FLUX_IMAGES || INTERNAL_IMAGES_DDG) ? ('/assets/qa/' + id + '.jpg') : ('/assets/qa/' + String(typeof id !== 'undefined' && id ? id : 'cover') + '.jpg');
       body = '![' + alt + '](' + hero + ')\n\n' + body.trimStart();
       await save(body);
     }
@@ -6198,7 +6209,7 @@ async function entryScrubPipeline(opts) {
         await save(body);
       } else {
         const alt = String(title).replace(/[\[\]"]/g, '').slice(0, 80);
-        const hero = (REQUIRE_FLUX_IMAGES || INTERNAL_IMAGES_DDG) ? ('/assets/qa/' + id + '.jpg') : pollCoverUrl(title, pillarOf(id));
+        const hero = (REQUIRE_FLUX_IMAGES || INTERNAL_IMAGES_DDG) ? ('/assets/qa/' + id + '.jpg') : ('/assets/qa/' + String(typeof id !== 'undefined' && id ? id : 'cover') + '.jpg');
         body = '![' + alt + '](' + hero + ')\n\n' + body.trimStart();
         await save(body);
         if (!REQUIRE_FLUX_IMAGES && !INTERNAL_IMAGES_DDG && !C.topImage(body)) { await fixCover(id, title).catch(() => {}); const r = await store.get('answers/' + id + '.json', { type: 'json' }).catch(() => null); if (r && r.answer) body = r.answer; }
@@ -11235,13 +11246,26 @@ const server = http.createServer(async (req, res) => {
       if (!id || !body) { res.writeHead(400, { 'Content-Type': 'application/json' }); return res.end('{"ok":false,"msg":"id+body required"}'); }
       try {
         if (d.title) titleOf[id] = d.title;                    // rubric + persist use the new title
-        const rb = rubricSignOff(id, body);
+        // simMode / Daily Driver / Fixer: text-first bodies (images stamped after). Skip section-image
+        // count inside qaGoldOutline so content structure can pass without markdown images yet.
+        const prevGoldImg = process.env.GOLD_SKIP_IMG_GATE;
+        if (d.simMode) process.env.GOLD_SKIP_IMG_GATE = '1';
+        let rb;
+        try {
+          rb = rubricSignOff(id, body);
+        } finally {
+          if (d.simMode) {
+            if (prevGoldImg == null) delete process.env.GOLD_SKIP_IMG_GATE;
+            else process.env.GOLD_SKIP_IMG_GATE = prevGoldImg;
+          }
+        }
         // simMode: certify on CONTENT (owner uses approved covers, not flux) — waive flux-provenance image checks
         const SIM_WAIVE = new Set(['heroImage', 'faceCardApplicable', 'pollinatorFaceCover', 'pollinatorInternalFlux', 'media3to10', 'imagesLaw', 'top10Images', 'rankingListMaster', 'score12']);
         const passed = d.simMode ? (rb.failed || []).every(c => SIM_WAIVE.has(c)) : rb.pass;
         let published = false;
         if (passed && d.dryRun !== true) {
-          const extra = { quality_score: 13, sim_transformed: true };
+          // Quality = x/10 (pass bar = 10/10). Gate checklist stays rb.score /13 — do NOT stamp 13 into IQ.
+          const extra = { quality_score: 10, gate_score: rb.score, sim_transformed: true };
           if (d.question) extra.question = d.question;
           if (d.title) extra.h1 = d.title;
           if (d.metaTitle) extra.meta_title = d.metaTitle;
@@ -11251,7 +11275,14 @@ const server = http.createServer(async (req, res) => {
             try {
               const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
               const e = (idx.entries || []).find(x => x && String(x.id) === id);
-              if (e) { if (d.question) e.question = d.question; if (d.title) e.title = d.title; e.quality_score = 13; e.updated_at = new Date().toISOString(); await store.setJSON('_index.json', idx); }
+              if (e) {
+                if (d.question) e.question = d.question;
+                if (d.title) e.title = d.title;
+                e.quality_score = 10;
+                e.gate_score = rb.score;
+                e.updated_at = new Date().toISOString();
+                await store.setJSON('_index.json', idx);
+              }
             } catch (ie) {}
             published = true;
           }

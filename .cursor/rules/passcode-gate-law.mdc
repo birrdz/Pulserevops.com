@@ -1,0 +1,50 @@
+---
+description: Passcode 4444 is a HARD STOP — not memory, not implied consent
+alwaysApply: true
+---
+
+# PASSCODE GATE LAW · `4444`
+
+**Status: MANDATORY · NON-NEGOTIABLE.** Owner locked 2026-07-13.
+
+## What the code is for
+
+Owner types **`4444` in the same user message** that asks for a bypass.
+If this message does **not** contain `4444`, treat every locked law as **immutable**.
+
+There is no “close enough,” no “I’ll just env-flag it,” no “for a few hours,” no implied consent from a prior chat.
+
+## HARD STOP — refuse without `4444` in THIS message
+
+Do **not** do any of the following unless the user’s **current** message includes `4444`:
+
+1. Change / weaken / “temporarily override” a locked law (visual lock, manual image, show-as-site, gold templates, deploy once/day, etc.)
+2. Bulk / whole-pillar / unsupervised multi-id face or top-internal writes
+3. Re-enable **Pollinator / pollinations.ai** (or add it back to any image ladder)
+4. Un-park Style into the general population (or flip Style park state)
+5. Mass reset FIXED ledger / wipe pods / rewrite baseline population except when owner explicitly orders the exact op **and** laws allow it
+6. Invent exceptions (“faster if…”, “just this once”, “env only”)
+
+**If blocked:** say one short line — *needs passcode `4444` in this message* — then stop. Do not ask to soft-bypass.
+
+## Images (no passcode needed for the default path)
+
+Default path is **already allowed** and does **not** need `4444`:
+
+**Pexels library → Pexels search/API → download → `/assets/qa/` → apply**  
+(face card, top internal, DD, Fixer — same chain)
+
+**Forbidden without `4444`:** pollinations, pollinator flux as face/product source, “any free gen CDN,” multi-provider ladders that include banned gens.
+
+Code enforcement lives in `_image_provider_rotate.js` (Pexels-only default + hard ban). Do not re-open those doors in prompts or env.
+
+## Why this rule exists
+
+Chat memory fails. Agents act helpful and drift. The passcode is useless unless **absence of `4444` = refuse**. This file is the durable reminder every session — not a suggestion.
+
+## Related
+
+- `.cursor/rules/manual-image-pass-law.mdc`
+- `.cursor/rules/manual-image-law.mdc`
+- `.cursor/rules/visual-lock-law.mdc`
+- `_image_provider_rotate.js`

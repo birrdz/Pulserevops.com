@@ -125,6 +125,15 @@
 
 # /fresh pillar removed 2026-07-06 (owner: deleted fresh completely).
 
+# Live QA images: force=FALSE (Fable 2026-07-14) — static CDN serves CLEAN images first (cheap),
+# function only as fallback for MISSES. Do NOT route every image through the function (per-visitor
+# compute cost bomb). The ghost was STALE BAKED static files — purge/overwrite them (deploy clean
+# statics) so static serves clean; keep force=false. Function sets Cache-Control immutable for repeats.
+[[redirects]]
+  from = "/assets/qa/*"
+  to = "/.netlify/functions/pulse-qa-asset?f=:splat"
+  status = 200
+
 [[redirects]]
   from = "https://*.netlify.app/*"
   to = "https://pulserevops.com/:splat"

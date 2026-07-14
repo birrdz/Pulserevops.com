@@ -1,30 +1,29 @@
 ---
-description: Golden template law for Q&A and Top 10 — read CURSOR_GOLDEN_TEMPLATES.md
+description: Golden template law for Top 10, Q&A, and Style — read CURSOR_GOLDEN_TEMPLATES.md
 globs: 
 alwaysApply: true
 ---
 
 # Golden templates — mandatory pointer
 
-**Status: MANDATORY · NON-NEGOTIABLE.** Every new/edited Q&A page is exactly one of two immutable shapes.
+**Status: MANDATORY · NON-NEGOTIABLE.** Every new/edited page is exactly one of **three** immutable shapes.
 
-**Read first, every session:** [`CURSOR_GOLDEN_TEMPLATES.md`](../../CURSOR_GOLDEN_TEMPLATES.md) — the self-contained Cursor Agent execution spec (router, session checklist, DEFAULTS, validation gate). Then read the sole shape law:
+**Read first, every session:** [`CURSOR_GOLDEN_TEMPLATES.md`](../../CURSOR_GOLDEN_TEMPLATES.md). Then read the shape law:
 
 | Template | Spec | Gold ref |
 |----------|------|----------|
 | Top 10 ranking list | [`GOLDEN_TEMPLATE_TOP10.md`](../../GOLDEN_TEMPLATE_TOP10.md) | `aq1158` |
 | Q&A essay | [`GOLDEN_TEMPLATE_QA.md`](../../GOLDEN_TEMPLATE_QA.md) | `q11133` |
-
-No other golden-template markdown is authoritative.
+| Style outfit guide | [`GOLDEN_TEMPLATE_STYLE.md`](../../GOLDEN_TEMPLATE_STYLE.md) | `sy0001` |
 
 ## Rules
 
-1. **Classify before generate** — `pickGoldTemplate(id, body, title)` in `_pulse_gold_template_router.js`, called before any draft/fix/audit/publish. Lock `template`, `goldId`, `goldUrl`, `reason` — **never switch mid-run**. Body shape wins over title wording.
-2. **No hybrids** — exactly one template per entry; never merge `@@PRODUCT`/ranking pills into Q&A; never prepend a Q&A hero onto Top 10.
-3. **13/13 gate only** — no publish below 13/13 on the content rubric (`SCRUBBER_SPEC.md`) + a clean gold audit (`auditQaGoldTemplate` / `auditTop10GoldTemplate`) + the full numbered §6/§7 checklist. No "12/13 close enough."
-4. **Visual lock** — writers touch prose only; see `.cursor/rules/visual-lock-law.mdc`. Never touch images, `@@PRODUCT`, CRO, or schema from a text pass.
-5. **Do not ask the user mid-run** — apply the DEFAULTS table in `CURSOR_GOLDEN_TEMPLATES.md`, then log the assumption to `logs/golden-template-assumptions.md`. Never block on a clarifying question.
-6. **Validate spec-doc edits** — whenever `GOLDEN_TEMPLATE_QA.md` / `GOLDEN_TEMPLATE_TOP10.md` themselves change, run `node validate-golden.mjs --type qa|top10 <file>` and require exit 0 (13/13) before continuing.
-7. **Bypass** — immutable shape law only, only with owner passcode **4444**; never for rubric, broken images, or gold-audit failures.
+1. **Classify before generate** — `pickGoldTemplate(id, body, title)` in `_pulse_gold_template_router.js`. Lock `template`, `goldId`, `goldUrl`, `reason` — **never switch mid-run**. Order: ranking → Style → Q&A.
+2. **No hybrids** — exactly one template per entry; never merge `@@PRODUCT` into Q&A/Style; Style = cover + 3 men + 3 women age bands.
+3. **13/13 gate only** — + clean gold audit (`auditQaGoldTemplate` / `auditTop10GoldTemplate` / `auditStyleGoldTemplate`).
+4. **Visual lock** — writers touch prose (and Style outfit text lines) only; see `.cursor/rules/visual-lock-law.mdc`.
+5. **Do not ask mid-run** — DEFAULTS in `CURSOR_GOLDEN_TEMPLATES.md`; log to `logs/golden-template-assumptions.md`.
+6. **Validate** QA/Top10 spec edits with `validate-golden.mjs`. Style gate lives in `auditStyleGoldTemplate`.
+7. **Bypass** — owner passcode **4444** only for immutable shape; never for rubric/images/audit fails.
 
-**Full detail lives in `CURSOR_GOLDEN_TEMPLATES.md` and the two golden specs — do not restate or fork template law here.**
+**Full detail:** `CURSOR_GOLDEN_TEMPLATES.md` + the three `GOLDEN_TEMPLATE_*.md` specs.

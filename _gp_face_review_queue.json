@@ -1,0 +1,2557 @@
+{
+ "at": 1783877748278,
+ "pillar": "gp",
+ "total": 425,
+ "entries": [
+  {
+   "id": "gp0001",
+   "title": "GTM Playbook for B2B SaaS in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0001.jpg"
+  },
+  {
+   "id": "gp0002",
+   "title": "GTM Playbook for Cybersecurity in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0002.jpg"
+  },
+  {
+   "id": "gp0003",
+   "title": "GTM Playbook for Healthcare Tech in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0003.jpg"
+  },
+  {
+   "id": "gp0004",
+   "title": "GTM Playbook for FinTech in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0004.jpg"
+  },
+  {
+   "id": "gp0005",
+   "title": "GTM Playbook for AI Infrastructure in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0005.jpg"
+  },
+  {
+   "id": "gp0006",
+   "title": "GTM Playbook for Manufacturing in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0006.jpg"
+  },
+  {
+   "id": "gp0007",
+   "title": "GTM Playbook for Logistics and Supply Chain in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0007.jpg"
+  },
+  {
+   "id": "gp0008",
+   "title": "GTM Playbook for Construction Tech in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0008.jpg"
+  },
+  {
+   "id": "gp0009",
+   "title": "GTM Playbook for PropTech in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0009.jpg"
+  },
+  {
+   "id": "gp0010",
+   "title": "GTM Playbook for InsureTech in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0010.jpg"
+  },
+  {
+   "id": "gp0011",
+   "title": "GTM Playbook for Energy and Utilities in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0011.jpg"
+  },
+  {
+   "id": "gp0012",
+   "title": "GTM Playbook for Telecom in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0012.jpg"
+  },
+  {
+   "id": "gp0013",
+   "title": "GTM Playbook for Media and Entertainment in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0013.jpg"
+  },
+  {
+   "id": "gp0014",
+   "title": "GTM Playbook for E-commerce and DTC in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0014.jpg"
+  },
+  {
+   "id": "gp0015",
+   "title": "GTM Playbook for Restaurants and Food Service in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0015.jpg"
+  },
+  {
+   "id": "gp0016",
+   "title": "GTM Playbook for EdTech in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0016.jpg"
+  },
+  {
+   "id": "gp0017",
+   "title": "GTM Playbook for GovTech in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0017.jpg"
+  },
+  {
+   "id": "gp0018",
+   "title": "GTM Playbook for LegalTech in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0018.jpg"
+  },
+  {
+   "id": "gp0019",
+   "title": "GTM Playbook for MarTech and AdTech in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0019.jpg"
+  },
+  {
+   "id": "gp0020",
+   "title": "GTM Playbook for Travel and Hospitality in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0020.jpg"
+  },
+  {
+   "id": "gp0021",
+   "title": "GTM Playbook for AgTech in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0021.jpg"
+  },
+  {
+   "id": "gp0022",
+   "title": "GTM Playbook for Pharma and Life Sciences in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0022.jpg"
+  },
+  {
+   "id": "gp0023",
+   "title": "GTM Playbook for Automotive and Auto Tech in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0023.jpg"
+  },
+  {
+   "id": "gp0024",
+   "title": "GTM Playbook for Aviation and Aerospace in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0024.jpg"
+  },
+  {
+   "id": "gp0025",
+   "title": "GTM Playbook for IoT Hardware in 2027 — The Complete Operator Guide",
+   "faceOk": true,
+   "img": "/img/gp0025.jpg"
+  },
+  {
+   "id": "gp0026",
+   "title": "How do you build a K-12 EdTech go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0026.jpg"
+  },
+  {
+   "id": "gp0027",
+   "title": "How do you build a Higher Ed SIS and LMS go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0027.jpg"
+  },
+  {
+   "id": "gp0028",
+   "title": "How do you build a corporate L&D platform go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0028.jpg"
+  },
+  {
+   "id": "gp0029",
+   "title": "How do you build an HR Tech and HRIS go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0029.jpg"
+  },
+  {
+   "id": "gp0030",
+   "title": "How do you build a recruiting tech and ATS go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0030.jpg"
+  },
+  {
+   "id": "gp0031",
+   "title": "How do you build a performance management and OKR software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0031.jpg"
+  },
+  {
+   "id": "gp0032",
+   "title": "How do you build an employee engagement platform go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0032.jpg"
+  },
+  {
+   "id": "gp0033",
+   "title": "How do you build a customer support and help desk SaaS go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0033.jpg"
+  },
+  {
+   "id": "gp0034",
+   "title": "How do you build a field service management go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0034.jpg"
+  },
+  {
+   "id": "gp0035",
+   "title": "How do you build a workforce management go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0035.jpg"
+  },
+  {
+   "id": "gp0036",
+   "title": "How do you build a payroll and benefits administration go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0036.jpg"
+  },
+  {
+   "id": "gp0037",
+   "title": "How do you build an expense management go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0037.jpg"
+  },
+  {
+   "id": "gp0038",
+   "title": "How do you build a procurement and spend management go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0038.jpg"
+  },
+  {
+   "id": "gp0039",
+   "title": "How do you build a treasury and cash management go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0039.jpg"
+  },
+  {
+   "id": "gp0040",
+   "title": "How do you build a manufacturing ERP go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0040.jpg"
+  },
+  {
+   "id": "gp0041",
+   "title": "How do you build a distribution and wholesale ERP go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0041.jpg"
+  },
+  {
+   "id": "gp0042",
+   "title": "How do you build a PLM and CAD software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0042.jpg"
+  },
+  {
+   "id": "gp0043",
+   "title": "How do you build an AEC (architecture, engineering, construction) software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0043.jpg"
+  },
+  {
+   "id": "gp0044",
+   "title": "How do you build a CAFM and IWMS facility management software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0044.jpg"
+  },
+  {
+   "id": "gp0045",
+   "title": "How do you build an EHS (environment health safety) software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0045.jpg"
+  },
+  {
+   "id": "gp0046",
+   "title": "How do you build a quality management systems (QMS) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0046.jpg"
+  },
+  {
+   "id": "gp0047",
+   "title": "How do you build a supply chain planning (SCP) software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0047.jpg"
+  },
+  {
+   "id": "gp0048",
+   "title": "How do you build a warehouse management system (WMS) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0048.jpg"
+  },
+  {
+   "id": "gp0049",
+   "title": "How do you build a transportation management system (TMS) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0049.jpg"
+  },
+  {
+   "id": "gp0050",
+   "title": "How do you build a last-mile delivery software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0050.jpg"
+  },
+  {
+   "id": "gp0051",
+   "title": "How do you build a fleet management software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0051.jpg"
+  },
+  {
+   "id": "gp0052",
+   "title": "How do you build a maritime and shipping software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0052.jpg"
+  },
+  {
+   "id": "gp0053",
+   "title": "How do you build a cold chain logistics software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0053.jpg"
+  },
+  {
+   "id": "gp0054",
+   "title": "How do you build a trade compliance software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0054.jpg"
+  },
+  {
+   "id": "gp0055",
+   "title": "How do you build a customs and freight forwarding software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0055.jpg"
+  },
+  {
+   "id": "gp0056",
+   "title": "How do you build a mining tech software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0056.jpg"
+  },
+  {
+   "id": "gp0057",
+   "title": "How do you build an oil and gas upstream software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0057.jpg"
+  },
+  {
+   "id": "gp0058",
+   "title": "How do you build a renewable energy trading and ETRM software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0058.jpg"
+  },
+  {
+   "id": "gp0059",
+   "title": "How do you build a carbon accounting and ESG reporting software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0059.jpg"
+  },
+  {
+   "id": "gp0060",
+   "title": "How do you build a water utility software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0060.jpg"
+  },
+  {
+   "id": "gp0061",
+   "title": "How do you build a smart building and IoT buildings software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0061.jpg"
+  },
+  {
+   "id": "gp0062",
+   "title": "How do you build a smart city platforms go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0062.jpg"
+  },
+  {
+   "id": "gp0063",
+   "title": "How do you build a public safety 911 and CAD software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0063.jpg"
+  },
+  {
+   "id": "gp0064",
+   "title": "How do you build a court and case management software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0064.jpg"
+  },
+  {
+   "id": "gp0065",
+   "title": "How do you build a corrections tech software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0065.jpg"
+  },
+  {
+   "id": "gp0066",
+   "title": "How do you build a B2B tax software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0066.jpg"
+  },
+  {
+   "id": "gp0067",
+   "title": "How do you build an audit software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0067.jpg"
+  },
+  {
+   "id": "gp0068",
+   "title": "How do you build a risk management and GRC software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0068.jpg"
+  },
+  {
+   "id": "gp0069",
+   "title": "How do you build a compliance training platform go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0069.jpg"
+  },
+  {
+   "id": "gp0070",
+   "title": "How do you build a whistleblower and ethics hotline software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0070.jpg"
+  },
+  {
+   "id": "gp0071",
+   "title": "How do you build a background check services go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0071.jpg"
+  },
+  {
+   "id": "gp0072",
+   "title": "How do you build an identity verification (IDV) software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0072.jpg"
+  },
+  {
+   "id": "gp0073",
+   "title": "How do you build a fraud detection (e-commerce and payments) software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0073.jpg"
+  },
+  {
+   "id": "gp0074",
+   "title": "How do you build an AML and KYC compliance software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0074.jpg"
+  },
+  {
+   "id": "gp0075",
+   "title": "How do you build a trading and order management systems (OMS) capital markets go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0075.jpg"
+  },
+  {
+   "id": "gp0076",
+   "title": "How do you build a vertical SaaS for restaurants (Toast / Lightspeed) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0076.jpg"
+  },
+  {
+   "id": "gp0077",
+   "title": "How do you build a vertical SaaS for salons and spas (Boulevard / Mindbody) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0077.jpg"
+  },
+  {
+   "id": "gp0078",
+   "title": "How do you build a vertical SaaS for auto dealers (Reynolds / CDK) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0078.jpg"
+  },
+  {
+   "id": "gp0079",
+   "title": "How do you build a vertical SaaS for dental practices (Dentrix / Eaglesoft) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0079.jpg"
+  },
+  {
+   "id": "gp0080",
+   "title": "How do you build a vertical SaaS for veterinary clinics (Cornerstone / ezyVet) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0080.jpg"
+  },
+  {
+   "id": "gp0081",
+   "title": "How do you build a vertical SaaS for real estate brokers (MoxiWorks / kvCORE) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0081.jpg"
+  },
+  {
+   "id": "gp0082",
+   "title": "How do you build a vertical SaaS for property management (AppFolio / Buildium) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0082.jpg"
+  },
+  {
+   "id": "gp0083",
+   "title": "How do you build a vertical SaaS for pest control (PestPac / FieldRoutes) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0083.jpg"
+  },
+  {
+   "id": "gp0084",
+   "title": "How do you build a vertical SaaS for lawn care and landscaping go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0084.jpg"
+  },
+  {
+   "id": "gp0085",
+   "title": "How do you build a vertical SaaS for HVAC and plumbing contractors go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0085.jpg"
+  },
+  {
+   "id": "gp0086",
+   "title": "How do you build a vertical SaaS for roofing contractors go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0086.jpg"
+  },
+  {
+   "id": "gp0087",
+   "title": "How do you build a vertical SaaS for electrical contractors go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0087.jpg"
+  },
+  {
+   "id": "gp0088",
+   "title": "How do you build a vertical SaaS for general contractors (Procore competitor space) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0088.jpg"
+  },
+  {
+   "id": "gp0089",
+   "title": "How do you build a construction tendering and bid management software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0089.jpg"
+  },
+  {
+   "id": "gp0090",
+   "title": "How do you build an EAM and CMMS (enterprise asset management) software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0090.jpg"
+  },
+  {
+   "id": "gp0091",
+   "title": "How do you build an industrial IoT platforms go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0091.jpg"
+  },
+  {
+   "id": "gp0092",
+   "title": "How do you build a robotic process automation (UiPath / Automation Anywhere) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0092.jpg"
+  },
+  {
+   "id": "gp0093",
+   "title": "How do you build a low-code / no-code platforms (OutSystems / Mendix) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0093.jpg"
+  },
+  {
+   "id": "gp0094",
+   "title": "How do you build an iPaaS / integration platforms (Workato / Tray.io / Boomi) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0094.jpg"
+  },
+  {
+   "id": "gp0095",
+   "title": "How do you build a reverse ETL (Hightouch / Census) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0095.jpg"
+  },
+  {
+   "id": "gp0096",
+   "title": "How do you build a data catalog and governance (Collibra / Alation) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0096.jpg"
+  },
+  {
+   "id": "gp0097",
+   "title": "How do you build a data observability (Monte Carlo / Bigeye) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0097.jpg"
+  },
+  {
+   "id": "gp0098",
+   "title": "How do you build a feature stores and MLOps (Tecton / Featureform / MLflow) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0098.jpg"
+  },
+  {
+   "id": "gp0099",
+   "title": "How do you build a vector databases (Pinecone / Weaviate) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0099.jpg"
+  },
+  {
+   "id": "gp0100",
+   "title": "How do you build an LLM API providers (Anthropic / OpenAI) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0100.jpg"
+  },
+  {
+   "id": "gp0101",
+   "title": "How do you build an AI agent frameworks (LangChain / LlamaIndex) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0101.jpg"
+  },
+  {
+   "id": "gp0102",
+   "title": "How do you build an AI voice platforms (Vapi / Retell AI) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0102.jpg"
+  },
+  {
+   "id": "gp0103",
+   "title": "How do you build an AI note-takers (Otter / Fireflies / Read AI) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0103.jpg"
+  },
+  {
+   "id": "gp0104",
+   "title": "How do you build a generative AI for marketing (Jasper / Copy.ai) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0104.jpg"
+  },
+  {
+   "id": "gp0105",
+   "title": "How do you build an AI code assistants (Copilot / Cursor / Windsurf) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0105.jpg"
+  },
+  {
+   "id": "gp0106",
+   "title": "How do you build an AI for customer success (Catalyst / ChurnZero) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0106.jpg"
+  },
+  {
+   "id": "gp0107",
+   "title": "How do you build an AI for talent acquisition (HireVue / Eightfold) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0107.jpg"
+  },
+  {
+   "id": "gp0108",
+   "title": "How do you build an AI for performance reviews go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0108.jpg"
+  },
+  {
+   "id": "gp0109",
+   "title": "How do you build a telehealth platforms (Teladoc / Amwell) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0109.jpg"
+  },
+  {
+   "id": "gp0110",
+   "title": "How do you build a mental health and behavioral health platforms (Lyra / Spring Health) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0110.jpg"
+  },
+  {
+   "id": "gp0111",
+   "title": "How do you build a caregiving and home health software (CareAcademy / WellSky) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0111.jpg"
+  },
+  {
+   "id": "gp0112",
+   "title": "How do you build a senior living operations software (PointClickCare) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0112.jpg"
+  },
+  {
+   "id": "gp0113",
+   "title": "How do you build a hospital revenue cycle management (Epic / Cerner adjacent) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0113.jpg"
+  },
+  {
+   "id": "gp0114",
+   "title": "How do you build a population health platforms (Arcadia / Innovaccer) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0114.jpg"
+  },
+  {
+   "id": "gp0115",
+   "title": "How do you build a clinical trial software (Veeva / Medidata) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0115.jpg"
+  },
+  {
+   "id": "gp0116",
+   "title": "How do you build a specialty pharma distribution software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0116.jpg"
+  },
+  {
+   "id": "gp0117",
+   "title": "How do you build a medical device software / SaMD go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0117.jpg"
+  },
+  {
+   "id": "gp0118",
+   "title": "How do you build a biotech research platforms (Benchling / Schrödinger) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0118.jpg"
+  },
+  {
+   "id": "gp0119",
+   "title": "How do you build an AgTech crop management (Climate FieldView / Granular) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0119.jpg"
+  },
+  {
+   "id": "gp0120",
+   "title": "How do you build a livestock management software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0120.jpg"
+  },
+  {
+   "id": "gp0121",
+   "title": "How do you build an aquaculture software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0121.jpg"
+  },
+  {
+   "id": "gp0122",
+   "title": "How do you build a forestry management software go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0122.jpg"
+  },
+  {
+   "id": "gp0123",
+   "title": "How do you build a commodity trading platforms go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0123.jpg"
+  },
+  {
+   "id": "gp0124",
+   "title": "How do you build a carbon credit marketplaces go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0124.jpg"
+  },
+  {
+   "id": "gp0125",
+   "title": "How do you build a climate risk analytics (Jupiter Intelligence / Cervest) go-to-market motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0125.jpg"
+  },
+  {
+   "id": "gp0126",
+   "title": "How do you build the GTM playbook for a Quick-Service Restaurant (QSR) operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0126.jpg"
+  },
+  {
+   "id": "gp0127",
+   "title": "How do you build the GTM playbook for a fine-dining or upscale restaurant in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0127.jpg"
+  },
+  {
+   "id": "gp0128",
+   "title": "How do you build the GTM playbook for a ghost-kitchen or virtual-brand operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0128.jpg"
+  },
+  {
+   "id": "gp0129",
+   "title": "How do you build the GTM playbook for a convenience-store (C-store) operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0129.jpg"
+  },
+  {
+   "id": "gp0130",
+   "title": "How do you build the GTM playbook for a Big-Box / warehouse-club retailer (Costco, Sam's, BJ's) in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0130.jpg"
+  },
+  {
+   "id": "gp0131",
+   "title": "How do you build the GTM playbook for an independent specialty retailer in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0131.jpg"
+  },
+  {
+   "id": "gp0132",
+   "title": "How do you build the GTM playbook for a specialty coffee roaster and independent coffee shop in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0132.jpg"
+  },
+  {
+   "id": "gp0133",
+   "title": "How do you build the GTM playbook for a craft brewery or microbrewery operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0133.jpg"
+  },
+  {
+   "id": "gp0134",
+   "title": "How do you build the GTM playbook for a craft distillery (spirits) operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0134.jpg"
+  },
+  {
+   "id": "gp0135",
+   "title": "How do you build the GTM playbook for a winery operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0135.jpg"
+  },
+  {
+   "id": "gp0136",
+   "title": "How do you build the GTM playbook for a specialty or artisan food brand in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0136.jpg"
+  },
+  {
+   "id": "gp0137",
+   "title": "How do you build the GTM playbook for a DTC cosmetics brand in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0137.jpg"
+  },
+  {
+   "id": "gp0138",
+   "title": "How do you build the GTM playbook for a DTC skincare brand in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0138.jpg"
+  },
+  {
+   "id": "gp0139",
+   "title": "How do you build the GTM playbook for a DTC hair care brand in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0139.jpg"
+  },
+  {
+   "id": "gp0140",
+   "title": "How do you build the GTM playbook for a beauty subscription box operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0140.jpg"
+  },
+  {
+   "id": "gp0141",
+   "title": "How do you build the GTM playbook for a pet insurance operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0141.jpg"
+  },
+  {
+   "id": "gp0142",
+   "title": "How do you build the GTM playbook for a doggy daycare and pet boarding operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0142.jpg"
+  },
+  {
+   "id": "gp0143",
+   "title": "How do you build the GTM playbook for a pet sitting and dog walking marketplace in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0143.jpg"
+  },
+  {
+   "id": "gp0144",
+   "title": "How do you build the GTM playbook for a med spa (Botox + filler + laser) operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0144.jpg"
+  },
+  {
+   "id": "gp0145",
+   "title": "How do you build the GTM playbook for a cosmetic dermatology clinic in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0145.jpg"
+  },
+  {
+   "id": "gp0146",
+   "title": "How do you build the GTM playbook for a physical therapy clinic in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0146.jpg"
+  },
+  {
+   "id": "gp0147",
+   "title": "How do you build the GTM playbook for a chiropractic practice in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0147.jpg"
+  },
+  {
+   "id": "gp0148",
+   "title": "How do you build the GTM playbook for a music school and lesson studio in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0148.jpg"
+  },
+  {
+   "id": "gp0149",
+   "title": "How do you build the GTM playbook for a K-12 tutoring center in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0149.jpg"
+  },
+  {
+   "id": "gp0150",
+   "title": "How do you build the GTM playbook for a driving school in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0150.jpg"
+  },
+  {
+   "id": "gp0151",
+   "title": "How do you build the GTM playbook for a dance and performing arts studio in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0151.jpg"
+  },
+  {
+   "id": "gp0152",
+   "title": "How do you build the GTM playbook for a tattoo studio in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0152.jpg"
+  },
+  {
+   "id": "gp0153",
+   "title": "How do you build the GTM playbook for a hair salon operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0153.jpg"
+  },
+  {
+   "id": "gp0154",
+   "title": "How do you build the GTM playbook for a nail salon and manicure bar in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0154.jpg"
+  },
+  {
+   "id": "gp0155",
+   "title": "How do you build the GTM playbook for a barbershop and men's grooming chain in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0155.jpg"
+  },
+  {
+   "id": "gp0156",
+   "title": "How do you build the GTM playbook for an auto body shop in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0156.jpg"
+  },
+  {
+   "id": "gp0157",
+   "title": "How do you build the GTM playbook for a quick-lube and oil change chain in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0157.jpg"
+  },
+  {
+   "id": "gp0158",
+   "title": "How do you build the GTM playbook for a tire shop operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0158.jpg"
+  },
+  {
+   "id": "gp0159",
+   "title": "How do you build the GTM playbook for a used car dealership in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0159.jpg"
+  },
+  {
+   "id": "gp0160",
+   "title": "How do you build the GTM playbook for a concrete and masonry contractor in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0160.jpg"
+  },
+  {
+   "id": "gp0161",
+   "title": "How do you build the GTM playbook for a painting contractor in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0161.jpg"
+  },
+  {
+   "id": "gp0162",
+   "title": "How do you build the GTM playbook for a flooring contractor in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0162.jpg"
+  },
+  {
+   "id": "gp0163",
+   "title": "How do you build the GTM playbook for a pool cleaning and pool maintenance operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0163.jpg"
+  },
+  {
+   "id": "gp0164",
+   "title": "How do you build the GTM playbook for a window cleaning service operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0164.jpg"
+  },
+  {
+   "id": "gp0165",
+   "title": "How do you build the GTM playbook for a tree care and gutter services operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0165.jpg"
+  },
+  {
+   "id": "gp0166",
+   "title": "How do you build the GTM playbook for a junk removal and hauling operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0166.jpg"
+  },
+  {
+   "id": "gp0167",
+   "title": "How do you build the GTM playbook for a locksmith service operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0167.jpg"
+  },
+  {
+   "id": "gp0168",
+   "title": "How do you build the GTM playbook for a garage door installation and repair operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0168.jpg"
+  },
+  {
+   "id": "gp0169",
+   "title": "How do you build the GTM playbook for a commercial snow removal and grounds maintenance operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0169.jpg"
+  },
+  {
+   "id": "gp0170",
+   "title": "How do you build the GTM playbook for a short-term rental (STR) vacation rental host in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0170.jpg"
+  },
+  {
+   "id": "gp0171",
+   "title": "How do you build the GTM playbook for a vacation rental property management (VRPM) operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0171.jpg"
+  },
+  {
+   "id": "gp0172",
+   "title": "How do you build the GTM playbook for a cruise line operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0172.jpg"
+  },
+  {
+   "id": "gp0173",
+   "title": "How do you build the GTM playbook for a bed and breakfast or inn operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0173.jpg"
+  },
+  {
+   "id": "gp0174",
+   "title": "How do you build the GTM playbook for an event venue and wedding venue operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0174.jpg"
+  },
+  {
+   "id": "gp0175",
+   "title": "How do you build the GTM playbook for a tours and activities operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0175.jpg"
+  },
+  {
+   "id": "gp0176",
+   "title": "Mobile Detailing GTM Playbook 2027 — Route Density, Fleet Sales, and the M Owner-Operator",
+   "faceOk": true,
+   "img": "/img/gp0176.jpg"
+  },
+  {
+   "id": "gp0177",
+   "title": "Photo and Video Studio GTM Playbook 2027 — Day Rates, Production Attach, and the Agency BD Motion",
+   "faceOk": true,
+   "img": "/img/gp0177.jpg"
+  },
+  {
+   "id": "gp0178",
+   "title": "Wedding Photography GTM Playbook 2027 — The Knot, Venue Preferred-Vendor BD, and the 59K Studio Model",
+   "faceOk": true,
+   "img": "/img/gp0178.jpg"
+  },
+  {
+   "id": "gp0179",
+   "title": "Event Rentals GTM Playbook 2027 — Inventory Utilization, Venue Preferred-Vendor BD, and the .1M Operator Model",
+   "faceOk": true,
+   "img": "/img/gp0179.jpg"
+  },
+  {
+   "id": "gp0180",
+   "title": "Food Truck GTM Playbook 2027 — Routes, Brewery Partnerships, Catering Pivot, and the M Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0180.jpg"
+  },
+  {
+   "id": "gp0181",
+   "title": "Ice Cream Shop GTM Playbook 2027 — Premium Scoop Shop Economics, Catering Pivot, and the M Path",
+   "faceOk": true,
+   "img": "/img/gp0181.jpg"
+  },
+  {
+   "id": "gp0182",
+   "title": "Frozen Yogurt Chain GTM Playbook 2027 — Self-Serve Economics, Birthday Party Pivot, and Franchise vs Independent",
+   "faceOk": true,
+   "img": "/img/gp0182.jpg"
+  },
+  {
+   "id": "gp0183",
+   "title": "Donut Shop GTM Playbook 2027 — Morning Rush, Craft Premium, Wholesale Pivot, and the Coffee Attach Math",
+   "faceOk": true,
+   "img": "/img/gp0183.jpg"
+  },
+  {
+   "id": "gp0184",
+   "title": "Bagel Shop GTM Playbook 2027 — Kettle-Boiled Authenticity, Corporate Catering Engine, and Lunch Sandwich Pivot",
+   "faceOk": true,
+   "img": "/img/gp0184.jpg"
+  },
+  {
+   "id": "gp0185",
+   "title": "Smoothie + Juice Bar GTM Playbook 2027 — Functional Add-Ons, Subscription Revenue, and Corporate Wellness BD",
+   "faceOk": true,
+   "img": "/img/gp0185.jpg"
+  },
+  {
+   "id": "gp0186",
+   "title": "Bubble Tea (Boba) Shop GTM Playbook 2027 — Gen Z TikTok Engine, Topping Attach, and the Cluster Strategy",
+   "faceOk": true,
+   "img": "/img/gp0186.jpg"
+  },
+  {
+   "id": "gp0187",
+   "title": "Ramen Shop GTM Playbook 2027 — Signature Broth Moat, Premium Bowl Pricing, and the Corporate Catering Pivot",
+   "faceOk": true,
+   "img": "/img/gp0187.jpg"
+  },
+  {
+   "id": "gp0188",
+   "title": "Independent Pizza Shop GTM Playbook 2027 — Specialty Regional Style, Delivery Dominance, and the Bar Program Math",
+   "faceOk": true,
+   "img": "/img/gp0188.jpg"
+  },
+  {
+   "id": "gp0189",
+   "title": "Sushi Restaurant GTM Playbook 2027 — Omakase Counter, Corporate Catering, and the $2.8M Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0189.jpg"
+  },
+  {
+   "id": "gp0190",
+   "title": "Taco Shop GTM Playbook 2027 — Regional Authenticity Moat, Margarita Program, and the $2.8M Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0190.jpg"
+  },
+  {
+   "id": "gp0191",
+   "title": "BBQ Restaurant GTM Playbook 2027 — Regional-Style Craft Moat, Wholesale Channel, and the $4.2M Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0191.jpg"
+  },
+  {
+   "id": "gp0192",
+   "title": "Bakery GTM Playbook 2027 — Wholesale Layer, Custom Cakes, and the $1.8M Independent Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0192.jpg"
+  },
+  {
+   "id": "gp0193",
+   "title": "Butcher Shop GTM Playbook 2027 — Dry-Aged + Heritage Breed Moat, Wholesale Layer, and the $3.4M Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0193.jpg"
+  },
+  {
+   "id": "gp0194",
+   "title": "Fish Market GTM Playbook 2027 — Dayboat Sourcing, Oyster Bar Pivot, and the $3.8M Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0194.jpg"
+  },
+  {
+   "id": "gp0195",
+   "title": "Farm Stand GTM Playbook 2027 — CSA Subscription, Agritourism Events, and the $1.4M Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0195.jpg"
+  },
+  {
+   "id": "gp0196",
+   "title": "Farmers Market Operator GTM Playbook 2027 — Vendor Curation, Corporate Sponsorships, and the $1.2M Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0196.jpg"
+  },
+  {
+   "id": "gp0197",
+   "title": "CSA Box DTC Operator GTM Playbook 2027 — Multi-Farm Aggregation, Corporate Wellness, and the $14M ARR Path",
+   "faceOk": true,
+   "img": "/img/gp0197.jpg"
+  },
+  {
+   "id": "gp0198",
+   "title": "Meal Kit DTC Operator GTM Playbook 2027 — Dietary Specialization, Retail Grocery Pivot, and the $485M ARR Path",
+   "faceOk": true,
+   "img": "/img/gp0198.jpg"
+  },
+  {
+   "id": "gp0199",
+   "title": "Prepared Meal Subscription DTC GTM Playbook 2027 — GLP-1 Positioning, Athletic Plans, and the $588M ARR Path",
+   "faceOk": true,
+   "img": "/img/gp0199.jpg"
+  },
+  {
+   "id": "gp0200",
+   "title": "Supplement DTC GTM Playbook 2027 — GLP-1 Stack Positioning, Amazon Mastery, and the .2B AG1 Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0200.jpg"
+  },
+  {
+   "id": "gp0201",
+   "title": "Vitamin DTC GTM Playbook 2027 — Personalized Packs, Women's-Health Positioning, and the $1.4B Strategic Exit Path",
+   "faceOk": true,
+   "img": "/img/gp0201.jpg"
+  },
+  {
+   "id": "gp0202",
+   "title": "Fitness Equipment DTC GTM Playbook 2027 — Connected-Fitness Bundle, Commercial BD, and the $2.8B Peloton Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0202.jpg"
+  },
+  {
+   "id": "gp0203",
+   "title": "Athleisure DTC GTM Playbook 2027 — Flagship Retail, Creator Engine, and the $10.6B Lululemon Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0203.jpg"
+  },
+  {
+   "id": "gp0204",
+   "title": "Sneakers DTC GTM Playbook 2027 — Foot Locker Wholesale, Flagship Retail, and the $2.85B On Holding Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0204.jpg"
+  },
+  {
+   "id": "gp0205",
+   "title": "Eyewear DTC GTM Playbook 2027 — Vision Insurance Integration, Hybrid Retail, and the $885M Warby Parker Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0205.jpg"
+  },
+  {
+   "id": "gp0206",
+   "title": "Mattress DTC GTM Playbook 2027 — Hospitality B2B, Hybrid Retail, and the $5.6B Tempur Sealy Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0206.jpg"
+  },
+  {
+   "id": "gp0207",
+   "title": "Furniture DTC GTM Playbook 2027 — Design-Trade Program, Showroom Halo, and the $12.4B Wayfair Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0207.jpg"
+  },
+  {
+   "id": "gp0208",
+   "title": "Home Goods DTC GTM Playbook 2027 — Bed Bath Beyond Aftermath, Amazon Mastery, and the $1.8B Yeti Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0208.jpg"
+  },
+  {
+   "id": "gp0209",
+   "title": "Kitchenware DTC GTM Playbook 2027 — Chef Endorsement, Williams-Sonoma Wholesale, and the $385M Our Place Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0209.jpg"
+  },
+  {
+   "id": "gp0210",
+   "title": "Ceramics and Pottery Shop GTM Playbook 2027 — Wait-List Drop Model, Workshop Revenue, and the $48M Heath Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0210.jpg"
+  },
+  {
+   "id": "gp0211",
+   "title": "Custom Framing Services GTM Playbook 2027 — Designer Trade, AR Configurator, and the $148M Framebridge Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0211.jpg"
+  },
+  {
+   "id": "gp0212",
+   "title": "SEO Agency GTM Playbook 2027 — AI Overview Optimization, Vertical Specialization, and the $148M NP Digital Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0212.jpg"
+  },
+  {
+   "id": "gp0213",
+   "title": "Content Marketing Agency GTM Playbook 2027 — Executive Thought-Leadership, AI-Assisted Production, and the $88M Brafton Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0213.jpg"
+  },
+  {
+   "id": "gp0214",
+   "title": "Paid-Media Agency GTM Playbook 2027 — Percentage-of-Spend Model, Attribution Stack, and the $385M Tinuiti Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0214.jpg"
+  },
+  {
+   "id": "gp0215",
+   "title": "PR Firm GTM Playbook 2027 — Crisis Response, AI Search Citation, and the $1.18B Edelman Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0215.jpg"
+  },
+  {
+   "id": "gp0216",
+   "title": "Branding and Design Agency GTM Playbook 2027 — AI-Augmented Production, Cannes Lions Awards, and the $148M Pentagram Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0216.jpg"
+  },
+  {
+   "id": "gp0217",
+   "title": "Video Production Agency GTM Playbook 2027 — AI-Augmented Production, Creator-Style UGC, and the $28M Sandwich Video Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0217.jpg"
+  },
+  {
+   "id": "gp0218",
+   "title": "Podcast Production Agency GTM Playbook 2027 — Video-Podcast Multi-Platform, Executive Thought-Leadership, and the $148M Wondery Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0218.jpg"
+  },
+  {
+   "id": "gp0219",
+   "title": "Web-Design Agency GTM Playbook 2027 — Webflow Enterprise, AI-Assisted Development, and the $385M Huge Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0219.jpg"
+  },
+  {
+   "id": "gp0220",
+   "title": "Mobile App Development Agency GTM Playbook 2027 — Native + Cross-Platform, AI-Assisted Dev, and the $148M WillowTree Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0220.jpg"
+  },
+  {
+   "id": "gp0221",
+   "title": "IT Services and MSP GTM Playbook 2027 — Cybersecurity Bundling, AI Copilot Rollout, and the $64B Accenture Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0221.jpg"
+  },
+  {
+   "id": "gp0222",
+   "title": "Cybersecurity Services Firm GTM Playbook 2027 — MDR + Incident Response Retainer + vCISO and the 85M Arctic Wolf Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0222.jpg"
+  },
+  {
+   "id": "gp0223",
+   "title": "Cloud Migration Services GTM Playbook 2027 — AWS MAP + Azure Migrate + Google RaMP and the .8B Slalom Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0223.jpg"
+  },
+  {
+   "id": "gp0224",
+   "title": "Data Engineering Services GTM Playbook 2027 — Snowflake Premier + Databricks Champion + LLM RAG and the 48M phData Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0224.jpg"
+  },
+  {
+   "id": "gp0225",
+   "title": "Software Development Outsourcing GTM Playbook 2027 — Nearshore LATAM + AI-Augmented Dev and the 85M BairesDev Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0225.jpg"
+  },
+  {
+   "id": "gp0226",
+   "title": "Sales-as-a-Service GTM Playbook 2027 — Outsourced SDR + AI-Augmented Prospecting + Clay and the 48M memoryBlue Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0226.jpg"
+  },
+  {
+   "id": "gp0227",
+   "title": "RevOps Consultancy GTM Playbook 2027 — Salesforce + HubSpot + Agentforce + RaaS Retainer and the 8M Winning by Design Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0227.jpg"
+  },
+  {
+   "id": "gp0228",
+   "title": "Fractional CFO Services GTM Playbook 2027 — Series A-C Fundraise Prep + Mosaic + Cube + Pry and the 48M Pilot Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0228.jpg"
+  },
+  {
+   "id": "gp0229",
+   "title": "Fractional CRO Services GTM Playbook 2027 — MEDDPICC + Agentforce + AI-Augmented Sales and the 8M Pavilion Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0229.jpg"
+  },
+  {
+   "id": "gp0230",
+   "title": "Executive Recruiting Firm GTM Playbook 2027 — Retained Search + PE Portfolio CEO + AI-Augmented Sourcing and the 48M True Search Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0230.jpg"
+  },
+  {
+   "id": "gp0231",
+   "title": "Contingency Recruiting Firm GTM Playbook 2027 — Direct Hire + Temp Staffing + AI-Augmented Sourcing and the .8B Insight Global Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0231.jpg"
+  },
+  {
+   "id": "gp0232",
+   "title": "RPO Provider GTM Playbook 2027 — Enterprise Full-Cycle + Project RPO + AI-Augmented Sourcing and the 85M Cielo Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0232.jpg"
+  },
+  {
+   "id": "gp0233",
+   "title": "BPO Provider GTM Playbook 2027 — CX + F&A + AI-Augmented Hybrid Agent and the .18B TaskUs Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0233.jpg"
+  },
+  {
+   "id": "gp0234",
+   "title": "Virtual Assistant Services GTM Playbook 2027 — Dedicated VA + Executive-Tier + AI-Augmented and the 48M Magic Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0234.jpg"
+  },
+  {
+   "id": "gp0235",
+   "title": "Customer Support Outsourcing GTM Playbook 2027 — SaaS Vertical + AI-Augmented Hybrid Agent and the 48M Helpware Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0235.jpg"
+  },
+  {
+   "id": "gp0236",
+   "title": "Translation Agency GTM Playbook 2027 — AI-Augmented NMT + Specialty Vertical and the .4B TransPerfect Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0236.jpg"
+  },
+  {
+   "id": "gp0237",
+   "title": "Court-Reporting Services GTM Playbook 2027 — AmLaw MSA + AI-Augmented Transcription and the 85M Veritext Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0237.jpg"
+  },
+  {
+   "id": "gp0238",
+   "title": "Notary Services / Mobile Notary GTM Playbook 2027 — RON + Loan Signing Agent and the 85M Notarize Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0238.jpg"
+  },
+  {
+   "id": "gp0239",
+   "title": "Market Research Firm GTM Playbook 2027 — Custom Quantitative + AI-Augmented Insight and the 85M Numerator Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0239.jpg"
+  },
+  {
+   "id": "gp0240",
+   "title": "Customer Research / VoC Firm GTM Playbook 2027 — Qualtrics + Medallia + AI-Augmented VoC and the 85M Medallia Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0240.jpg"
+  },
+  {
+   "id": "gp0241",
+   "title": "UX Research Firm GTM Playbook 2027 — Usability Testing + ResearchOps + AI-Augmented UX and the 85M UserTesting Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0241.jpg"
+  },
+  {
+   "id": "gp0242",
+   "title": "Vintage Clothing Store GTM Playbook 2027 — Decade + Designer + Depop + The RealReal and the 8M What Goes Around Comes Around Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0242.jpg"
+  },
+  {
+   "id": "gp0243",
+   "title": "Consignment Shop GTM Playbook 2027 — In-Store + Buy-Outright + Poshmark + Mercari and the 85M Winmark Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0243.jpg"
+  },
+  {
+   "id": "gp0244",
+   "title": "Thrift Store Chain GTM Playbook 2027 — Donation Network + ShopGoodwill + AI-Augmented Sortation and the .4B Goodwill Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0244.jpg"
+  },
+  {
+   "id": "gp0245",
+   "title": "Antique Dealer GTM Playbook 2027 — 1stDibs + Auction Consignment + AI-Augmented Authentication and the .8B Sotheby's Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0245.jpg"
+  },
+  {
+   "id": "gp0246",
+   "title": "Art Gallery GTM Playbook 2027 — Primary Market + Art Fairs + Artsy + AI-Augmented Authentication and the .18B Gagosian Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0246.jpg"
+  },
+  {
+   "id": "gp0247",
+   "title": "Jewelry Boutique GTM Playbook 2027 — Lab-Grown Diamond + Custom 3D CAD + DTC and the 85M Brilliant Earth Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0247.jpg"
+  },
+  {
+   "id": "gp0248",
+   "title": "Watch Store GTM Playbook 2027 — Authorized Dealer + Pre-Owned Rolex + AI-Augmented Authentication and the 85M WatchBox Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0248.jpg"
+  },
+  {
+   "id": "gp0249",
+   "title": "Snack Subscription Box DTC GTM Playbook 2027 — Country-Themed + Authentic-Import + Creator-Led Acquisition + AI-Augmented Flavor Profiling and the 148M Bokksu Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0249.jpg"
+  },
+  {
+   "id": "gp0250",
+   "title": "Fashion Resale Marketplace GTM Playbook 2027 — Luxury Authenticated + Peer-to-Peer Hybrid + AI Computer-Vision Condition Grading and the 385M Vestiaire Collective Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0250.jpg"
+  },
+  {
+   "id": "gp0251",
+   "title": "Online Coding Bootcamp GTM Playbook 2027 — AI Engineering + Cursor + Claude Code + Copilot Curriculum + B2B Enterprise Upskilling and the 148M General Assembly Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0251.jpg"
+  },
+  {
+   "id": "gp0252",
+   "title": "Career Coaching Platform GTM Playbook 2027 — B2B Enterprise Coaching Subscription + AI-Augmented Mock Interview + ICF Certified Coach Marketplace and the 148M BetterUp Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0252.jpg"
+  },
+  {
+   "id": "gp0253",
+   "title": "Influencer Marketing Platform GTM Playbook 2027 — SaaS + Creator Commerce Affiliate + AI-Augmented Creator Matching + Brand-Safety Fraud Detection and the 485M LTK Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0253.jpg"
+  },
+  {
+   "id": "gp0254",
+   "title": "Affiliate Tracking Software GTM Playbook 2027 — Enterprise Partnership Management + AI-Augmented Partner Discovery + Fraud Detection Attribution and the 485M Impact Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0254.jpg"
+  },
+  {
+   "id": "gp0255",
+   "title": "Webinar Software GTM Playbook 2027 — Enterprise B2B Marketing Demand Gen Platform + AI-Augmented Webinar Production + Hybrid Virtual Event and the 485M Zoom Webinars Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0255.jpg"
+  },
+  {
+   "id": "gp0256",
+   "title": "Podcast Hosting Platform GTM Playbook 2027 — Creator + Indie Podcast Hosting + AI-Augmented Podcast Production + Programmatic Dynamic Ad Insertion and the 485M Spotify for Podcasters Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0256.jpg"
+  },
+  {
+   "id": "gp0257",
+   "title": "Membership Community Software GTM Playbook 2027 — Creator + Indie + SMB Community Platform + AI-Augmented Community Moderation + Creator Monetization Tiered Subscription and the 685M Discord Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0257.jpg"
+  },
+  {
+   "id": "gp0258",
+   "title": "Online Course Platform GTM Playbook 2027 — Creator + Indie + SMB Course Platform + AI-Augmented Course Creation + B2B Enterprise Upskilling Cohort-Based Learning and the 185M Kajabi Operator Path",
+   "faceOk": true,
+   "img": "/img/gp0258.jpg"
+  },
+  {
+   "id": "gp0259",
+   "title": "GTM Playbook for Private Daycare in 2027",
+   "faceOk": true,
+   "img": "/img/gp0259.jpg"
+  },
+  {
+   "id": "gp0260",
+   "title": "GTM Playbook for Independent Restaurants in 2027",
+   "faceOk": true,
+   "img": "/img/gp0260.jpg"
+  },
+  {
+   "id": "gp0261",
+   "title": "GTM Playbook for Local Auto Repair Shops in 2027",
+   "faceOk": true,
+   "img": "/img/gp0261.jpg"
+  },
+  {
+   "id": "gp0262",
+   "title": "GTM Playbook for Independent Coffee Shops in 2027",
+   "faceOk": true,
+   "img": "/img/gp0262.jpg"
+  },
+  {
+   "id": "gp0263",
+   "title": "GTM Playbook for Roofing Contractors in 2027",
+   "faceOk": true,
+   "img": "/img/gp0263.jpg"
+  },
+  {
+   "id": "gp0264",
+   "title": "GTM Playbook for Residential Cleaning Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0264.jpg"
+  },
+  {
+   "id": "gp0265",
+   "title": "GTM Playbook for Tutoring Centers in 2027",
+   "faceOk": true,
+   "img": "/img/gp0265.jpg"
+  },
+  {
+   "id": "gp0266",
+   "title": "GTM Playbook for Boutique Fitness Studios in 2027",
+   "faceOk": true,
+   "img": "/img/gp0266.jpg"
+  },
+  {
+   "id": "gp0267",
+   "title": "GTM Playbook for HVAC Contractors in 2027",
+   "faceOk": true,
+   "img": "/img/gp0267.jpg"
+  },
+  {
+   "id": "gp0268",
+   "title": "GTM Playbook for Plumbing Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0268.jpg"
+  },
+  {
+   "id": "gp0269",
+   "title": "GTM Playbook for Electricians in 2027",
+   "faceOk": true,
+   "img": "/img/gp0269.jpg"
+  },
+  {
+   "id": "gp0270",
+   "title": "GTM Playbook for Hair Salons in 2027",
+   "faceOk": true,
+   "img": "/img/gp0270.jpg"
+  },
+  {
+   "id": "gp0271",
+   "title": "GTM Playbook for Dental Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0271.jpg"
+  },
+  {
+   "id": "gp0272",
+   "title": "GTM Playbook for Veterinary Clinics in 2027",
+   "faceOk": true,
+   "img": "/img/gp0272.jpg"
+  },
+  {
+   "id": "gp0273",
+   "title": "GTM Playbook for Landscaping Companies in 2027",
+   "faceOk": true,
+   "img": "/img/gp0273.jpg"
+  },
+  {
+   "id": "gp0274",
+   "title": "GTM Playbook for Pet Grooming Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0274.jpg"
+  },
+  {
+   "id": "gp0275",
+   "title": "GTM Playbook for Yoga Studios in 2027",
+   "faceOk": true,
+   "img": "/img/gp0275.jpg"
+  },
+  {
+   "id": "gp0276",
+   "title": "GTM Playbook for Optometry Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0276.jpg"
+  },
+  {
+   "id": "gp0277",
+   "title": "GTM Playbook for Massage Therapy Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0277.jpg"
+  },
+  {
+   "id": "gp0278",
+   "title": "GTM Playbook for Locksmith Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0278.jpg"
+  },
+  {
+   "id": "gp0279",
+   "title": "GTM Playbook for Pest Control Companies in 2027",
+   "faceOk": true,
+   "img": "/img/gp0279.jpg"
+  },
+  {
+   "id": "gp0280",
+   "title": "GTM Playbook for Tree Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0280.jpg"
+  },
+  {
+   "id": "gp0281",
+   "title": "GTM Playbook for Moving Companies in 2027",
+   "faceOk": true,
+   "img": "/img/gp0281.jpg"
+  },
+  {
+   "id": "gp0282",
+   "title": "GTM Playbook for Junk Removal Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0282.jpg"
+  },
+  {
+   "id": "gp0283",
+   "title": "GTM Playbook for Pet Boarding Kennels in 2027",
+   "faceOk": true,
+   "img": "/img/gp0283.jpg"
+  },
+  {
+   "id": "gp0284",
+   "title": "GTM Playbook for Dog Walking and Pet Sitting in 2027",
+   "faceOk": true,
+   "img": "/img/gp0284.jpg"
+  },
+  {
+   "id": "gp0285",
+   "title": "GTM Playbook for Doggie Daycare in 2027",
+   "faceOk": true,
+   "img": "/img/gp0285.jpg"
+  },
+  {
+   "id": "gp0286",
+   "title": "GTM Playbook for House Cleaning Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0286.jpg"
+  },
+  {
+   "id": "gp0287",
+   "title": "GTM Playbook for Auto Detailing in 2027",
+   "faceOk": true,
+   "img": "/img/gp0287.jpg"
+  },
+  {
+   "id": "gp0288",
+   "title": "GTM Playbook for Mobile Car Wash Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0288.jpg"
+  },
+  {
+   "id": "gp0289",
+   "title": "GTM Playbook for Photography Studios in 2027",
+   "faceOk": true,
+   "img": "/img/gp0289.jpg"
+  },
+  {
+   "id": "gp0290",
+   "title": "GTM Playbook for Wedding Photographers in 2027",
+   "faceOk": true,
+   "img": "/img/gp0290.jpg"
+  },
+  {
+   "id": "gp0291",
+   "title": "GTM Playbook for Videography Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0291.jpg"
+  },
+  {
+   "id": "gp0292",
+   "title": "GTM Playbook for Catering Companies in 2027",
+   "faceOk": true,
+   "img": "/img/gp0292.jpg"
+  },
+  {
+   "id": "gp0293",
+   "title": "GTM Playbook for Food Trucks in 2027",
+   "faceOk": true,
+   "img": "/img/gp0293.jpg"
+  },
+  {
+   "id": "gp0294",
+   "title": "GTM Playbook for Ice Cream Shops in 2027",
+   "faceOk": true,
+   "img": "/img/gp0294.jpg"
+  },
+  {
+   "id": "gp0295",
+   "title": "GTM Playbook for Bakeries in 2027",
+   "faceOk": true,
+   "img": "/img/gp0295.jpg"
+  },
+  {
+   "id": "gp0296",
+   "title": "GTM Playbook for Pizza Shops in 2027",
+   "faceOk": true,
+   "img": "/img/gp0296.jpg"
+  },
+  {
+   "id": "gp0297",
+   "title": "GTM Playbook for Bars and Pubs in 2027",
+   "faceOk": true,
+   "img": "/img/gp0297.jpg"
+  },
+  {
+   "id": "gp0298",
+   "title": "GTM Playbook for Liquor Stores in 2027",
+   "faceOk": true,
+   "img": "/img/gp0298.jpg"
+  },
+  {
+   "id": "gp0299",
+   "title": "GTM Playbook for Convenience Stores in 2027",
+   "faceOk": true,
+   "img": "/img/gp0299.jpg"
+  },
+  {
+   "id": "gp0300",
+   "title": "GTM Playbook for Used Car Dealerships in 2027",
+   "faceOk": true,
+   "img": "/img/gp0300.jpg"
+  },
+  {
+   "id": "gp0301",
+   "title": "GTM Playbook for Tire Shops in 2027",
+   "faceOk": true,
+   "img": "/img/gp0301.jpg"
+  },
+  {
+   "id": "gp0302",
+   "title": "GTM Playbook for Auto Body Shops in 2027",
+   "faceOk": true,
+   "img": "/img/gp0302.jpg"
+  },
+  {
+   "id": "gp0303",
+   "title": "GTM Playbook for Bike Shops in 2027",
+   "faceOk": true,
+   "img": "/img/gp0303.jpg"
+  },
+  {
+   "id": "gp0304",
+   "title": "GTM Playbook for Sporting Goods Stores in 2027",
+   "faceOk": true,
+   "img": "/img/gp0304.jpg"
+  },
+  {
+   "id": "gp0305",
+   "title": "GTM Playbook for Hardware Stores in 2027",
+   "faceOk": true,
+   "img": "/img/gp0305.jpg"
+  },
+  {
+   "id": "gp0306",
+   "title": "GTM Playbook for Garden Centers and Nurseries in 2027",
+   "faceOk": true,
+   "img": "/img/gp0306.jpg"
+  },
+  {
+   "id": "gp0307",
+   "title": "GTM Playbook for Pool Cleaning Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0307.jpg"
+  },
+  {
+   "id": "gp0308",
+   "title": "GTM Playbook for Window Cleaning Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0308.jpg"
+  },
+  {
+   "id": "gp0309",
+   "title": "GTM Playbook for Carpet Cleaning Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0309.jpg"
+  },
+  {
+   "id": "gp0310",
+   "title": "GTM Playbook for Pressure Washing Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0310.jpg"
+  },
+  {
+   "id": "gp0311",
+   "title": "GTM Playbook for Residential Painters in 2027",
+   "faceOk": true,
+   "img": "/img/gp0311.jpg"
+  },
+  {
+   "id": "gp0312",
+   "title": "GTM Playbook for Handyman Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0312.jpg"
+  },
+  {
+   "id": "gp0313",
+   "title": "GTM Playbook for Self-Storage Facilities in 2027",
+   "faceOk": true,
+   "img": "/img/gp0313.jpg"
+  },
+  {
+   "id": "gp0314",
+   "title": "GTM Playbook for Driving Schools in 2027",
+   "faceOk": true,
+   "img": "/img/gp0314.jpg"
+  },
+  {
+   "id": "gp0315",
+   "title": "GTM Playbook for Music Schools in 2027",
+   "faceOk": true,
+   "img": "/img/gp0315.jpg"
+  },
+  {
+   "id": "gp0316",
+   "title": "GTM Playbook for Martial Arts Schools in 2027",
+   "faceOk": true,
+   "img": "/img/gp0316.jpg"
+  },
+  {
+   "id": "gp0317",
+   "title": "GTM Playbook for Dance Studios in 2027",
+   "faceOk": true,
+   "img": "/img/gp0317.jpg"
+  },
+  {
+   "id": "gp0318",
+   "title": "GTM Playbook for Swim Schools in 2027",
+   "faceOk": true,
+   "img": "/img/gp0318.jpg"
+  },
+  {
+   "id": "gp0319",
+   "title": "GTM Playbook for Chiropractic Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0319.jpg"
+  },
+  {
+   "id": "gp0320",
+   "title": "GTM Playbook for Physical Therapy Clinics in 2027",
+   "faceOk": true,
+   "img": "/img/gp0320.jpg"
+  },
+  {
+   "id": "gp0321",
+   "title": "GTM Playbook for Counseling and Therapy Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0321.jpg"
+  },
+  {
+   "id": "gp0322",
+   "title": "GTM Playbook for Senior In-Home Care Agencies in 2027",
+   "faceOk": true,
+   "img": "/img/gp0322.jpg"
+  },
+  {
+   "id": "gp0323",
+   "title": "GTM Playbook for Wedding Venues in 2027",
+   "faceOk": true,
+   "img": "/img/gp0323.jpg"
+  },
+  {
+   "id": "gp0324",
+   "title": "GTM Playbook for Banquet and Event Venues in 2027",
+   "faceOk": true,
+   "img": "/img/gp0324.jpg"
+  },
+  {
+   "id": "gp0325",
+   "title": "GTM Playbook for DJ Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0325.jpg"
+  },
+  {
+   "id": "gp0326",
+   "title": "GTM Playbook for Florists in 2027",
+   "faceOk": true,
+   "img": "/img/gp0326.jpg"
+  },
+  {
+   "id": "gp0327",
+   "title": "GTM Playbook for Waxing and Hair Removal Salons in 2027",
+   "faceOk": true,
+   "img": "/img/gp0327.jpg"
+  },
+  {
+   "id": "gp0328",
+   "title": "GTM Playbook for Med Spas and Aesthetics in 2027",
+   "faceOk": true,
+   "img": "/img/gp0328.jpg"
+  },
+  {
+   "id": "gp0329",
+   "title": "GTM Playbook for Tattoo Studios in 2027",
+   "faceOk": true,
+   "img": "/img/gp0329.jpg"
+  },
+  {
+   "id": "gp0330",
+   "title": "GTM Playbook for Auto Glass Repair in 2027",
+   "faceOk": true,
+   "img": "/img/gp0330.jpg"
+  },
+  {
+   "id": "gp0331",
+   "title": "GTM Playbook for Mobile Notary Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0331.jpg"
+  },
+  {
+   "id": "gp0332",
+   "title": "GTM Playbook for Bookkeeping and Tax Prep Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0332.jpg"
+  },
+  {
+   "id": "gp0333",
+   "title": "GTM Playbook for Insurance Brokerages in 2027",
+   "faceOk": true,
+   "img": "/img/gp0333.jpg"
+  },
+  {
+   "id": "gp0334",
+   "title": "GTM Playbook for Real Estate Brokerages in 2027",
+   "faceOk": true,
+   "img": "/img/gp0334.jpg"
+  },
+  {
+   "id": "gp0335",
+   "title": "GTM Playbook for Mortgage Brokers in 2027",
+   "faceOk": true,
+   "img": "/img/gp0335.jpg"
+  },
+  {
+   "id": "gp0336",
+   "title": "GTM Playbook for Funeral Homes in 2027",
+   "faceOk": true,
+   "img": "/img/gp0336.jpg"
+  },
+  {
+   "id": "gp0337",
+   "title": "GTM Playbook for Senior Living Communities in 2027",
+   "faceOk": true,
+   "img": "/img/gp0337.jpg"
+  },
+  {
+   "id": "gp0338",
+   "title": "GTM Playbook for Assisted Living Facilities in 2027",
+   "faceOk": true,
+   "img": "/img/gp0338.jpg"
+  },
+  {
+   "id": "gp0339",
+   "title": "GTM Playbook for Home Health Care Agencies in 2027",
+   "faceOk": true,
+   "img": "/img/gp0339.jpg"
+  },
+  {
+   "id": "gp0340",
+   "title": "GTM Playbook for Day Spas in 2027",
+   "faceOk": true,
+   "img": "/img/gp0340.jpg"
+  },
+  {
+   "id": "gp0341",
+   "title": "GTM Playbook for Bridal Shops in 2027",
+   "faceOk": true,
+   "img": "/img/gp0341.jpg"
+  },
+  {
+   "id": "gp0342",
+   "title": "GTM Playbook for Childrens Hair Salons in 2027",
+   "faceOk": true,
+   "img": "/img/gp0342.jpg"
+  },
+  {
+   "id": "gp0343",
+   "title": "GTM Playbook for Personal Trainers in 2027",
+   "faceOk": true,
+   "img": "/img/gp0343.jpg"
+  },
+  {
+   "id": "gp0344",
+   "title": "GTM Playbook for Tax Prep Services in 2027",
+   "faceOk": true,
+   "img": "/img/gp0344.jpg"
+  },
+  {
+   "id": "gp0345",
+   "title": "GTM Playbook for Acupuncture Clinics in 2027",
+   "faceOk": true,
+   "img": "/img/gp0345.jpg"
+  },
+  {
+   "id": "gp0346",
+   "title": "GTM Playbook for Functional Medicine Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0346.jpg"
+  },
+  {
+   "id": "gp0347",
+   "title": "GTM Playbook for Cardiology Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0347.jpg"
+  },
+  {
+   "id": "gp0348",
+   "title": "GTM Playbook for Dermatology Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0348.jpg"
+  },
+  {
+   "id": "gp0349",
+   "title": "GTM Playbook for Pediatric Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0349.jpg"
+  },
+  {
+   "id": "gp0350",
+   "title": "GTM Playbook for OB-GYN Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0350.jpg"
+  },
+  {
+   "id": "gp0351",
+   "title": "GTM Playbook for Personal Injury Law Firms in 2027",
+   "faceOk": true,
+   "img": "/img/gp0351.jpg"
+  },
+  {
+   "id": "gp0352",
+   "title": "GTM Playbook for Family Law and Divorce Attorneys in 2027",
+   "faceOk": true,
+   "img": "/img/gp0352.jpg"
+  },
+  {
+   "id": "gp0353",
+   "title": "GTM Playbook for Estate Planning Attorneys in 2027",
+   "faceOk": true,
+   "img": "/img/gp0353.jpg"
+  },
+  {
+   "id": "gp0354",
+   "title": "GTM Playbook for Immigration Law Firms in 2027",
+   "faceOk": true,
+   "img": "/img/gp0354.jpg"
+  },
+  {
+   "id": "gp0355",
+   "title": "GTM Playbook for Criminal Defense Attorneys in 2027",
+   "faceOk": true,
+   "img": "/img/gp0355.jpg"
+  },
+  {
+   "id": "gp0356",
+   "title": "GTM Playbook for Accounting Firms in 2027",
+   "faceOk": true,
+   "img": "/img/gp0356.jpg"
+  },
+  {
+   "id": "gp0357",
+   "title": "GTM Playbook for Financial Advisors in 2027",
+   "faceOk": true,
+   "img": "/img/gp0357.jpg"
+  },
+  {
+   "id": "gp0358",
+   "title": "GTM Playbook for Property Management Companies in 2027",
+   "faceOk": true,
+   "img": "/img/gp0358.jpg"
+  },
+  {
+   "id": "gp0359",
+   "title": "GTM Playbook for Vacation Rental Property Managers in 2027",
+   "faceOk": true,
+   "img": "/img/gp0359.jpg"
+  },
+  {
+   "id": "gp0360",
+   "title": "GTM Playbook for Commercial Real Estate Brokers in 2027",
+   "faceOk": true,
+   "img": "/img/gp0360.jpg"
+  },
+  {
+   "id": "gp0361",
+   "title": "GTM Playbook for Title Insurance Companies in 2027",
+   "faceOk": true,
+   "img": "/img/gp0361.jpg"
+  },
+  {
+   "id": "gp0362",
+   "title": "GTM Playbook for Home Inspectors in 2027",
+   "faceOk": true,
+   "img": "/img/gp0362.jpg"
+  },
+  {
+   "id": "gp0363",
+   "title": "GTM Playbook for Residential Architects in 2027",
+   "faceOk": true,
+   "img": "/img/gp0363.jpg"
+  },
+  {
+   "id": "gp0364",
+   "title": "GTM Playbook for General Contractors in 2027",
+   "faceOk": true,
+   "img": "/img/gp0364.jpg"
+  },
+  {
+   "id": "gp0365",
+   "title": "GTM Playbook for Kitchen and Bath Remodelers in 2027",
+   "faceOk": true,
+   "img": "/img/gp0365.jpg"
+  },
+  {
+   "id": "gp0366",
+   "title": "GTM Playbook for Concrete Contractors in 2027",
+   "faceOk": true,
+   "img": "/img/gp0366.jpg"
+  },
+  {
+   "id": "gp0367",
+   "title": "GTM Playbook for Fencing Contractors in 2027",
+   "faceOk": true,
+   "img": "/img/gp0367.jpg"
+  },
+  {
+   "id": "gp0368",
+   "title": "GTM Playbook for Concierge Medicine Practices in 2027",
+   "faceOk": true,
+   "img": "/img/gp0368.jpg"
+  },
+  {
+   "id": "gp0369",
+   "title": "GTM Playbook for Tax Attorneys in 2027",
+   "faceOk": true,
+   "img": "/img/gp0369.jpg"
+  },
+  {
+   "id": "gp0370",
+   "title": "GTM Playbook for Custom Home Builders in 2027",
+   "faceOk": true,
+   "img": "/img/gp0370.jpg"
+  },
+  {
+   "id": "gp0371",
+   "title": "GTM Playbook for Dance Schools (Adult) in 2027",
+   "faceOk": true,
+   "img": "/img/gp0371.jpg"
+  },
+  {
+   "id": "gp0372",
+   "title": "GTM Playbook for Trampoline Parks in 2027",
+   "faceOk": true,
+   "img": "/img/gp0372.jpg"
+  },
+  {
+   "id": "gp0373",
+   "title": "GTM Playbook for Indoor Playgrounds in 2027",
+   "faceOk": true,
+   "img": "/img/gp0373.jpg"
+  },
+  {
+   "id": "gp0374",
+   "title": "GTM Playbook for Bowling Alleys in 2027",
+   "faceOk": true,
+   "img": "/img/gp0374.jpg"
+  },
+  {
+   "id": "gp375",
+   "title": "What is the go-to-market playbook for a usage-based pricing launch in 2027?",
+   "faceOk": true,
+   "img": "/img/gp375.jpg"
+  },
+  {
+   "id": "gp376",
+   "title": "What is the go-to-market playbook for expanding from mid-market to enterprise in 2027?",
+   "faceOk": true,
+   "img": "/img/gp376.jpg"
+  },
+  {
+   "id": "gp377",
+   "title": "What is the go-to-market playbook for launching a new product line in 2027?",
+   "faceOk": true,
+   "img": "/img/gp377.jpg"
+  },
+  {
+   "id": "gp378",
+   "title": "What is the go-to-market playbook for international expansion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp378.jpg"
+  },
+  {
+   "id": "gp0379",
+   "title": "What is the go-to-market playbook for competitive displacement in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0379.jpg"
+  },
+  {
+   "id": "gp0380",
+   "title": "What is the go-to-market playbook for launching an AI product in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0380.jpg"
+  },
+  {
+   "id": "gp0381",
+   "title": "What is the go-to-market playbook for community-led growth in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0381.jpg"
+  },
+  {
+   "id": "gp382",
+   "title": "What is the go-to-market playbook for a partner-led (channel) motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp382.jpg"
+  },
+  {
+   "id": "gp383",
+   "title": "What is the go-to-market playbook for product-led growth (PLG) in 2027?",
+   "faceOk": true,
+   "img": "/img/gp383.jpg"
+  },
+  {
+   "id": "gp384",
+   "title": "What is the go-to-market playbook for account-based marketing (ABM) in 2027?",
+   "faceOk": true,
+   "img": "/img/gp384.jpg"
+  },
+  {
+   "id": "gp385",
+   "title": "What is the go-to-market playbook for founder-led sales in 2027?",
+   "faceOk": true,
+   "img": "/img/gp385.jpg"
+  },
+  {
+   "id": "gp386",
+   "title": "What is the go-to-market playbook for category creation in 2027?",
+   "faceOk": true,
+   "img": "/img/gp386.jpg"
+  },
+  {
+   "id": "gp387",
+   "title": "What is the go-to-market playbook for developer-led growth in 2027?",
+   "faceOk": true,
+   "img": "/img/gp387.jpg"
+  },
+  {
+   "id": "gp388",
+   "title": "What is the go-to-market playbook for a land-and-expand motion in 2027?",
+   "faceOk": true,
+   "img": "/img/gp388.jpg"
+  },
+  {
+   "id": "gp389",
+   "title": "What is the go-to-market playbook for verticalizing in 2027?",
+   "faceOk": true,
+   "img": "/img/gp389.jpg"
+  },
+  {
+   "id": "gp390",
+   "title": "Pet food DTC GTM playbook 2027 — fresh human-grade wedge, vet credibility, subscription replenishment engine, and the $1B The Farmer's Dog operator path",
+   "faceOk": true,
+   "img": "/img/gp390.jpg"
+  },
+  {
+   "id": "gp0391",
+   "title": "What is the go-to-market playbook for a laundromat operator in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0391.jpg"
+  },
+  {
+   "id": "gp0392",
+   "title": "The Product-Led Sales Playbook: Converting Freemium Users to Paid Accounts",
+   "faceOk": true,
+   "img": "/img/gp0392.jpg"
+  },
+  {
+   "id": "gp0395",
+   "title": "The Developer-Led GTM Playbook: Targeting Open Source Communities for Commercial Adoption",
+   "faceOk": true,
+   "img": "/img/gp0395.jpg"
+  },
+  {
+   "id": "gp0396",
+   "title": "Top 10 product-led growth activation plays for SaaS startups",
+   "faceOk": true,
+   "img": "/img/gp0396.jpg"
+  },
+  {
+   "id": "gp0433",
+   "title": "The Education-First GTM Playbook: Using Webinars and Certifications to Generate Demand",
+   "faceOk": true,
+   "img": "/img/gp0433.jpg"
+  },
+  {
+   "id": "gp0435",
+   "title": "Top 10 GTM Plays for Launching a B2B Enterprise Freemium Tier",
+   "faceOk": true,
+   "img": "/img/gp0435.jpg"
+  },
+  {
+   "id": "gp0487",
+   "title": "Developer-First Launch Playbook: API-First Product Adoption Without a Sales Team",
+   "faceOk": true,
+   "img": "/img/gp0487.jpg"
+  },
+  {
+   "id": "gp0489",
+   "title": "Top 10 Product-Led Sales GTM Launch Playbooks",
+   "faceOk": true,
+   "img": "/img/gp0489.jpg"
+  },
+  {
+   "id": "gp0490",
+   "title": "What is the go-to-market playbook for marketing-led demand-gen growth in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0490.jpg"
+  },
+  {
+   "id": "gp0491",
+   "title": "What is the go-to-market playbook for the first 10 customers before product-market fit in 2027?",
+   "faceOk": true,
+   "img": "/img/gp0491.jpg"
+  },
+  {
+   "id": "gp0492",
+   "title": "Sales-led top-down enterprise GTM motion in 2027",
+   "faceOk": true,
+   "img": "/img/gp0492.jpg"
+  },
+  {
+   "id": "gp0493",
+   "title": "Outbound GTM playbook for a seed-stage startup in 2027",
+   "faceOk": true,
+   "img": "/img/gp0493.jpg"
+  },
+  {
+   "id": "gp0494",
+   "title": "PLG-to-sales-assist handoff playbook in 2027",
+   "faceOk": true,
+   "img": "/img/gp0494.jpg"
+  },
+  {
+   "id": "gp0495",
+   "title": "Land-and-expand net revenue retention motion in 2027",
+   "faceOk": true,
+   "img": "/img/gp0495.jpg"
+  },
+  {
+   "id": "gp0496",
+   "title": "Multi-product cross-sell GTM motion in 2027",
+   "faceOk": true,
+   "img": "/img/gp0496.jpg"
+  },
+  {
+   "id": "gp0497",
+   "title": "Win-back GTM playbook for churned customers in 2027",
+   "faceOk": true,
+   "img": "/img/gp0497.jpg"
+  },
+  {
+   "id": "gp0498",
+   "title": "Enterprise RFP and procurement-led GTM playbook in 2027",
+   "faceOk": true,
+   "img": "/img/gp0498.jpg"
+  },
+  {
+   "id": "gp0499",
+   "title": "Pilot/POC-to-paid conversion GTM playbook in 2027",
+   "faceOk": true,
+   "img": "/img/gp0499.jpg"
+  },
+  {
+   "id": "gp0500",
+   "title": "Two-sided marketplace GTM launch playbook in 2027",
+   "faceOk": true,
+   "img": "/img/gp0500.jpg"
+  },
+  {
+   "id": "gp0501",
+   "title": "Co-sell and ecosystem-led GTM motion through cloud marketplaces in 2027",
+   "faceOk": true,
+   "img": "/img/gp0501.jpg"
+  },
+  {
+   "id": "gp0502",
+   "title": "Founder-led sales GTM motion in 2027",
+   "faceOk": true,
+   "img": "/img/gp0502.jpg"
+  },
+  {
+   "id": "gp0503",
+   "title": "Community-led growth GTM playbook in 2027",
+   "faceOk": true,
+   "img": "/img/gp0503.jpg"
+  },
+  {
+   "id": "gp0504",
+   "title": "Event-led and field-marketing GTM playbook in 2027",
+   "faceOk": true,
+   "img": "/img/gp0504.jpg"
+  },
+  {
+   "id": "gp0505",
+   "title": "Account-based marketing (ABM) GTM playbook for enterprise in 2027",
+   "faceOk": true,
+   "img": "/img/gp0505.jpg"
+  },
+  {
+   "id": "gp0506",
+   "title": "Usage-based pricing GTM motion in 2027",
+   "faceOk": true,
+   "img": "/img/gp0506.jpg"
+  },
+  {
+   "id": "gp0507",
+   "title": "Vertical SaaS go-to-market playbook for healthcare in 2027",
+   "faceOk": true,
+   "img": "/img/gp0507.jpg"
+  },
+  {
+   "id": "gp0508",
+   "title": "International and geo-expansion GTM playbook in 2027",
+   "faceOk": true,
+   "img": "/img/gp0508.jpg"
+  },
+  {
+   "id": "gp0509",
+   "title": "Reseller and VAR channel GTM playbook in 2027",
+   "faceOk": true,
+   "img": "/img/gp0509.jpg"
+  },
+  {
+   "id": "gp0510",
+   "title": "Sales-assisted PLG for mid-market in 2027",
+   "faceOk": true,
+   "img": "/img/gp0510.jpg"
+  },
+  {
+   "id": "gp0511",
+   "title": "Inbound demand-capture GTM playbook in 2027",
+   "faceOk": true,
+   "img": "/img/gp0511.jpg"
+  },
+  {
+   "id": "gp512",
+   "title": "What should you know before investing in GTM Playbooks in 2027?",
+   "faceOk": true,
+   "img": "/img/gp512.jpg"
+  },
+  {
+   "id": "gp513",
+   "title": "What are the most common mistakes in GTM Playbooks in 2027?",
+   "faceOk": true,
+   "img": "/img/gp513.jpg"
+  },
+  {
+   "id": "gp514",
+   "title": "Is GTM Playbooks worth it in 2027?",
+   "faceOk": true,
+   "img": "/img/gp514.jpg"
+  },
+  {
+   "id": "gp515",
+   "title": "How do you get started with GTM Playbooks in 2027?",
+   "faceOk": true,
+   "img": "/img/gp515.jpg"
+  },
+  {
+   "id": "gp516",
+   "title": "Top 10 GTM Playbooks strategies for 2027",
+   "faceOk": true,
+   "img": "/img/gp516.jpg"
+  }
+ ]
+}

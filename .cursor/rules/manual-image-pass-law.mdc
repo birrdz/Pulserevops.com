@@ -1,0 +1,64 @@
+---
+description: Face approvals feed face+top-internal (same URL). Manual 1-by-1. Change only with owner 4444.
+alwaysApply: true
+---
+
+# IMAGE PASS LAW — FACE + TOP INTERNAL (MANDATORY)
+
+**Status: MANDATORY · NON-NEGOTIABLE.** Owner locked 2026-07-12.  
+**Change this law only with owner passcode `4444`.**  
+**Named process:** **`PILLAR {NAME} FACE/TOPS`** — `X` = pillar name (e.g. **`PILLAR KPI FACE/TOPS`** for Industry KPIs / `ik`). See `PILLAR_X_FACE_TOPS.md` · `node _manual_pillar_face_tops.js <pillar>`
+
+## Full meaning
+
+1. Pull up **that named pillar** (KPI, GTM, …)
+2. **Pexels** → same # as pillar Q&As (known criteria) **+ ~300 bank** for future
+3. Owner approves — keeps usable as **face and/or top** on that pillar
+4. Apply **manually** to every entry: face URL → top **same URL** → next
+5. Review → pre-draft → publish → next pillar
+
+## Why you approve faces
+
+Owner approves images **for the pillar currently being worked** — each keep may be used as:
+
+1. **Face card** → `/assets/qa/{id}.jpg`
+2. **Top internal** → **same URL** (dupe allowed / required for speed)
+
+**That is the point of approval:** face **and/or** top internal on **this** pillar — not face-only, not a different pillar’s backlog.
+
+**Canonical write pattern (locked):** for each entry → write face card → write top internal **same URL** → next → rinse and repeat.  
+No Pollinations wait. No second unique pull required for tops when the approved face exists.
+
+## What
+
+For every pillar image pass, the agent must **literally open each entry and do the work by hand**:
+
+1. **Face card** — clean photo, **no baked title / no old yellow outline font**
+2. **Top internal** — **same approved face URL** (or another approved pillar photo; **dupes OK**)
+
+Math for a ~670-entry pillar: **~670 × 2** writes (often the same file twice). Plus bank (unique faces for future).
+
+## How (only allowed path)
+
+- **1 by 1.** Open the entry → use **already-approved** face (Pexels from review room) → set face + top internal to that URL → look → next.
+- Face bank stays **unique photos**. Top internals **may / should dupe** the face card.
+- Review room keep/trash = manual when each card is decided.
+- Pre-draft / publish only after the full pass for that step.
+
+## Forbidden
+
+- Changing this law (approve-for-face-only, force unique tops, Pollinations tops, unsupervised “do the pillar for you”)
+- Launching any script / pipeline / `fillEntryMissingImages` / pollinations rewrite that replaces the approved-face→top path
+- Inventing a soft exception (“faster if we…”, “close enough”)
+- **Offering or using bulk / whole-pillar apply** — owner **never wants bulk** (locked 2026-07-13). Do not ask for `4444` to bulk. Do not run `_manual_pillar_face_tops.js` bulk path. **One id only**, every time.
+
+**Bypass of shape/other laws:** owner types **`4444`** only — **not** a license to bulk face/tops. Face/tops stay 1-by-1 always.
+
+## Why
+
+Unsupervised batch ships titled faces, pollinations junk, and fake done counts. Approvals exist so tops are **instant reuse** of kept photos. Owner locked this 2026-07-12.
+
+## Related
+
+- Pillar loop: faces (+ bank) → top internals (same URL) → review → pre-draft → publish → next pillar — `_CROSSOVER.md`
+- Visual lock: `.cursor/rules/visual-lock-law.mdc`

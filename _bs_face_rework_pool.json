@@ -1,0 +1,36 @@
+{
+ "pillar": "bs",
+ "ids": [
+  "bs0002",
+  "bs0007",
+  "bs0031",
+  "bs0032"
+ ],
+ "log": [
+  {
+   "id": "bs0032",
+   "title": "Eat Their Lunch by Anthony Iannarino — Cliff Notes Summary & Key Takeaways",
+   "at": 1783917099812,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "bs0031",
+   "title": "Inked by Jeb Blount — Cliff Notes Summary & Key Takeaways",
+   "at": 1783917098493,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "bs0007",
+   "title": "The Sales Acceleration Formula by Mark Roberge — Cliff Notes & Chapter-by-Chapter Summary",
+   "at": 1783917097510,
+   "action": "trashed→gen-pool"
+  },
+  {
+   "id": "bs0002",
+   "title": "SPIN Selling by Neil Rackham — Cliff Notes & Chapter-by-Chapter Summary",
+   "at": 1783917096774,
+   "action": "trashed→gen-pool"
+  }
+ ],
+ "updatedAt": 1783917099812
+}
