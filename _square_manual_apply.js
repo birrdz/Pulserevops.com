@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Drain Square Builder apply queue — Cursor manual bake (blank plate + photo + gold title).
+// Drain Square Builder apply queue — DELETE old face JPG(s), WRITE brand-new graded /assets/qa/<id>.jpg with baked gold title.
+// Do NOT layer a new title over old titled pixels (stuck old-title bug). Law: CLAUDE.md TITLE / FACE-CARD LAW.
 // Usage: node _square_manual_apply.js            # drain all ready
 //        node _square_manual_apply.js aq9999     # one id
 //        node _square_manual_apply.js --watch    # poll every 4s

@@ -39,6 +39,8 @@ node validate-golden.mjs --type top10 GOLDEN_TEMPLATE_TOP10.md
 
 **Search keywords:** `goat`, `golden template`, `aq1158`, `q11133`, `gold reference`, `immutable template`, `validate-golden`
 
+**Title / face-card (2026-07-14):** sole rule in [`CLAUDE.md`](CLAUDE.md) → **TITLE / FACE-CARD LAW**. Do not scan `_HANDOFF_NEXT_CLAUDE.md` “CSS overlay, never baked” — that line is **revoked**.
+
 ## Other agent docs
 
 | Doc | Purpose |

@@ -34,7 +34,7 @@ Log entries are **append-only** — never edit or delete a prior row. If a later
 - Images: local stock placeholders under `assets/notes/meg/` (not Pollinations / not `/assets/qa` face-card pipeline).
 
 ## 2026-07-14T02:24Z — Square fake preview + Cursor manual bake
-- Assumption: Desk shows FAKE mosaic only (raw photo + CSS gold title). Click stages; does not bake.
-- Assumption: Save queues `_square_apply_queue.json`; Cursor/`_square_manual_apply.js --watch` bakes for real (blank plate + photo + new gold title). Old titled file backed up once as `<id>.oldtitle.jpg`.
-- Assumption: Owner picks photos; agent manually applies after Save (past working path per owner/logs).
-- 2026-07-14T03:06Z — Updated CLAUDE.md TITLE/FACE-CARD LAW to current Square Builder bake (delete old JPG → new goldTitle). Format Fixer never bakes title. Homepage .sq.jpg = CSS title; answer .jpg = baked title. Checkpoint commit for stuck-thread flush.
+- ~~Assumption: Desk shows FAKE mosaic only (raw photo + CSS gold title).~~ **SUPERSEDED** — see CLAUDE.md.
+- ~~Assumption: blank plate + photo + new gold title; backup `<id>.oldtitle.jpg`.~~ **SUPERSEDED** — apply **deletes** old face files then writes brand-new `/assets/qa/<id>.jpg` with baked title (no layer over old pixels).
+- 2026-07-14T03:06Z — CLAUDE.md TITLE/FACE-CARD LAW is the sole title rule.
+- 2026-07-14T03:08Z — Revoked “Title = CSS overlay, never baked” in `_HANDOFF_NEXT_CLAUDE.md` (was causing stuck old-title scans). Homepage `.sq.jpg` still uses CSS title under image; answer face bakes title into JPG.

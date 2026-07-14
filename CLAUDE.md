@@ -1,5 +1,7 @@
 # CLAUDE.md — pulserevops.com
 
+**Agents: do not scan `_HANDOFF_NEXT_CLAUDE.md` / old crossovers for title rules.** Those files contain revoked “CSS overlay, never baked” notes. Title law is **only** the section below (+ this file).
+
 ## Q&A GENERATION — MANDATORY LAW
 
 **Golden template law (sole doc sources of truth — read before every Q&A generation task):**
