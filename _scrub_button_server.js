@@ -69,7 +69,7 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, storeGradedImage, coverPath, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
 const { readSquareQueue, enqueueSquareBuild, completeSquareBuild, removeSquareBuildsByPrefix } = require('./_square_builder_queue');
 const { deriveImageSearchQuery } = require('./netlify/functions/lib/derive-image-search-query');
-const { sendSquareQueueEmail, sendSquareBacklogEmail } = require('./_facecard_resend_email');
+const { sendSquareQueueEmail, sendSquareBacklogEmail, sendCompletedQaImagesEmail } = require('./_facecard_resend_email');
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
 const IMG_GEN_BATCH_MAX = parseInt(process.env.IMG_GEN_BATCH_MAX || '250', 10);
@@ -1028,8 +1028,10 @@ async function finishManualPexelsQa(id) {
     row.fully_fixed_visual = fullyFixed;
     await store.setJSON('_index.json', idx);
   }
+  const pageUrl = row ? libraryEntryPublicUrl(row) : 'https://pulserevops.com/knowledge/' + id;
+  const emailed = await sendCompletedQaImagesEmail({ id, question: titleOf[id] || entry.question || entry.title || id, pageUrl });
   completeSquareBuild(id);
-  return { ok: true, id, recent: true, pillar: pillarOf(id), fullyFixed };
+  return { ok: true, id, recent: true, pillar: pillarOf(id), fullyFixed, emailed: emailed.attachments };
 }
 const FACE_HERO_F = WD + '/_face_hero_run.json';
 let faceHeroJob = {
@@ -9969,7 +9971,7 @@ _squareFinishQa&&_squareFinishQa.addEventListener('click',async()=>{
     const r=await(await fetch('/square-pexels-finish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,id})})).json();
     if(!r.ok)throw new Error(r.msg||'finish failed');
     setSquareClickCount(id,0);
-    if(status)status.textContent='✅ Finished · added to Recent and '+(r.pillar||'its')+' topic pillar.';
+    if(status)status.textContent='✅ Finished · '+(r.emailed||0)+' images emailed · added to Recent and '+(r.pillar||'its')+' topic pillar.';
     const grid=$('#squarePexelsGrid');if(grid)grid.innerHTML='';
   }catch(e){if(status)status.textContent='⚠ '+e.message;}
   finally{_squareFinishQa.disabled=false;}
