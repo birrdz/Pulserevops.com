@@ -19,7 +19,7 @@ echo  Fixer: TL / CRO Pulse Tools, automatic pods of 100.
 echo  Builder: manual or learned auto-run, continuous pods of 100.
 echo.
 
-start "PULSE NEW Fixer + Builder %PORT%" /D "%~dp0" cmd /k "set PULSE_ROOT=%DATA_ROOT%&& set SCRUB_BTN_PORT=%PORT%&& set FIXER_BUILDER_HOME=1&& set FORMAT_FIXER_AUTORUN=1&& set FORMAT_FIXER_BOOT_PILLAR=tl&& node _scrub_button_server.js"
+start "PULSE NEW Fixer + Builder %PORT%" /D "%~dp0" cmd /k "set PULSE_ROOT=%DATA_ROOT%&& set SCRUB_BTN_PORT=%PORT%&& set FIXER_BUILDER_HOME=1&& set SIM_AUTO_RUN=1&& set FORMAT_FIXER_AUTORUN=0&& set FORMAT_FIXER_BOOT_PILLAR=tl&& node _scrub_button_server.js"
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$url='%URL%';" ^

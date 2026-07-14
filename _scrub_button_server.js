@@ -7881,7 +7881,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
     <div class=dupe-panel-hint style="margin-bottom:10px">Your original machine, unchanged, with clickable pillar pods and <b>Auto-run 100 on TL Pulse Tools</b>. <a href="http://127.0.0.1:8904/" target=_blank style="color:#FFB81C">Open original full screen →</a></div>
     <iframe src="http://127.0.0.1:8904/" title="Original Kory Fix-It-All Machine" loading="eager" style="display:block;width:100%;height:880px;border:2px solid #FFB81C;border-radius:14px;background:#0a0a0c"></iframe>
   </div>
-  <div class=dupe-panel style="border-color:#0ea5e9;background:linear-gradient(165deg,#041018 0%,#0e1620 100%)">
+  <div class=dupe-panel style="border-color:#0ea5e9;background:linear-gradient(165deg,#041018 0%,#0e1620 100%);${process.env.FIXER_BUILDER_HOME === '1' ? 'display:none' : ''}">
     <div class=dupe-panel-title style="color:#38bdf8">📝 Format Fixer</div>
     <div class=dupe-panel-hint><b>Automatic pods of 100:</b> fixes a pod, fetches the next 100, and starts over with a fresh database scan after the full cycle. It runs until you press Stop. <b>Never changes image URLs.</b></div>
     <div class=dupe-panel-row>
@@ -12088,8 +12088,14 @@ if (require.main === module) server.listen(PORT, '0.0.0.0', async () => {
   if (lanIp) console.log(`[scrub-button] LAN (phone on WiFi): http://${lanIp}:${PORT}/`);
   resumeInterruptedImageJobs();
   const bootFixerAuto = process.env.FORMAT_FIXER_AUTORUN === '1';
+  const bootFixerDisabled = process.env.FORMAT_FIXER_AUTORUN === '0';
   const bootFixerPillar = String(process.env.FORMAT_FIXER_BOOT_PILLAR || 'tl').trim() || 'tl';
-  if (bootFixerAuto && (!formatFixerJob.auto || formatFixerJob.phase === 'done' || formatFixerJob.pillar !== bootFixerPillar)) {
+  if (bootFixerDisabled) {
+    formatFixerJob.auto = false;
+    formatFixerJob.stop = true;
+    if (!formatFixerJob.running) formatFixerJob.phase = 'stopped';
+    saveFormatFixerState(true);
+  } else if (bootFixerAuto && (!formatFixerJob.auto || formatFixerJob.phase === 'done' || formatFixerJob.pillar !== bootFixerPillar)) {
     const bootStart = () => {
       if (formatFixerJob.running) return;
       const result = startFormatFixer(bootFixerPillar);
