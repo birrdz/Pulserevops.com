@@ -7323,6 +7323,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
 .dupe-btns button{border:none;border-radius:28px;padding:14px 22px;font-weight:900;font-size:.92rem;cursor:pointer}
 .square-builder-dock{clear:both;width:100%;margin:28px auto 4px;padding-top:20px;border-top:1px solid rgba(168,85,247,.35)}
 .square-builder-dock:empty{display:none}
+#formatfixAutoToggle{flex-basis:100%;padding:17px 22px!important;border:3px solid #86efac!important;border-radius:14px!important;background:linear-gradient(135deg,#15803d,#22c55e)!important;color:#fff!important;font-size:1.05rem!important;font-weight:950!important;box-shadow:0 0 24px rgba(34,197,94,.38)}
 .square-pexels-option{position:relative;aspect-ratio:1/1;padding:0;border:1.5px solid #EAC15C!important;border-radius:6px;overflow:hidden;background:#1a1a1a;box-shadow:0 0 0 1px rgba(234,193,92,.25);cursor:pointer}
 .square-pexels-option img{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(1.14) saturate(1.05)}
 #dupeStart{color:#1a1206;background:linear-gradient(135deg,#f59e0b,#fcd34d);box-shadow:0 6px 20px rgba(245,158,11,.35)}
@@ -7848,7 +7849,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <select id=formatfixPillarFilter title="Which pillar to audit and fix"><option value=tl>Loading pillars…</option></select>
     </div>
     <div class=dupe-btns>
-      <button type=button id=formatfixAutoToggle aria-pressed=true style="background:#166534;color:#fff">▶ Auto-run ON</button>
+      <button type=button id=formatfixAutoToggle aria-pressed=true>▶ FIXER AUTO-RUN 100 · ON</button>
       <button type=button id=formatfixStart>▶ Fix content &amp; structure in pillar</button>
       <button type=button id=formatfixStop disabled>⏹ Stop</button>
       <button type=button id=formatfixForceStop class=dupe-force-stop disabled title="Force stop immediately">⏹ Force stop</button>
@@ -8465,9 +8466,9 @@ function renderFormatFixer(j){
   const active=!!(j.running||j.phase==='starting'||j.phase==='fix'||(j.auto&&j.phase==='waiting'));
   if(pf) pf.disabled=active;
   if(autoToggle){
-    autoToggle.textContent=j.auto?'▶ Auto-run ON':'⏸ Auto-run OFF';
+    autoToggle.textContent=j.auto?'▶ FIXER AUTO-RUN 100 · ON':'⏸ FIXER AUTO-RUN 100 · OFF';
     autoToggle.setAttribute('aria-pressed',j.auto?'true':'false');
-    autoToggle.style.background=j.auto?'#166534':'#374151';
+    autoToggle.style.setProperty('background',j.auto?'linear-gradient(135deg,#15803d,#22c55e)':'#374151','important');
   }
   if(active){
     if(prog) prog.style.display='block';
