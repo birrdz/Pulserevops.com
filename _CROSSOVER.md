@@ -1,5 +1,5 @@
 - **LIVE Square Builder:** https://threaded-hood-wizard-loop.trycloudflare.com/format-fixer · local http://127.0.0.1:3229/format-fixer
-- **Flow:** pick photo → opaque cover (old bake stays on disk, invisible) → new gold title on `<id>-sq.jpg` = face + top. GET `/assets/qa/<id>.jpg` serves `-sq` when present.
+- **Flow (owner 2026-07-14):** desk shows **FAKE** mosaic (raw photo + CSS gold title). Click = stage only. **Save** → `_square_apply_queue.json` → Cursor/`node _square_manual_apply.js --watch` bakes real face+top (blank plate + photo + new gold title). Old titled file backed up as `<id>.oldtitle.jpg`.
 
 - **LIVE Square Builder (tunneled):** https://brown-feet-show.loca.lt/face-card-top-image-generator  · also local http://localhost:3229/face-card-top-image-generator
 ## ▶▶ CROSSOVER — 2026-07-14 OWNER UX LAW (FIXER → SQUARE → ANSWER) — READ FIRST

@@ -33,7 +33,7 @@ Log entries are **append-only** — never edit or delete a prior row. If a later
 - No golden-template classification / 13/13 path.
 - Images: local stock placeholders under `assets/notes/meg/` (not Pollinations / not `/assets/qa` face-card pipeline).
 
-## 2026-07-14T02:16Z — Square old-title invisible
-- Assumption: keep `/assets/qa/<id>.jpg` on disk; never delete; never composite its pixels into live `-sq.jpg`.
-- Assumption: HTTP GET for `<id>.jpg` serves `-sq.jpg` when present so leftover markdown cannot show the old bake.
-- Assumption: new gold title is still baked onto `-sq.jpg` (main-page mosaic style).
+## 2026-07-14T02:24Z — Square fake preview + Cursor manual bake
+- Assumption: Desk shows FAKE mosaic only (raw photo + CSS gold title). Click stages; does not bake.
+- Assumption: Save queues `_square_apply_queue.json`; Cursor/`_square_manual_apply.js --watch` bakes for real (blank plate + photo + new gold title). Old titled file backed up once as `<id>.oldtitle.jpg`.
+- Assumption: Owner picks photos; agent manually applies after Save (past working path per owner/logs).

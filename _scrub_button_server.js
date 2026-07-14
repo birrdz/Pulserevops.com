@@ -1525,7 +1525,8 @@ async function pickSquareNextEntry() {
       demo: true,
     };
   }
-  const slots = buildSquareSlots(pick.id, pick.shape, pick.body);
+  const pending = readSquarePending(pick.id);
+  const slots = buildSquareSlotsFromPending(pick.id, pick.shape, pick.body, pending);
   return {
     ok: true,
     id: pick.id,
@@ -1534,7 +1535,9 @@ async function pickSquareNextEntry() {
     pillar: pick.pillar,
     passer: !!pick.passer,
     demo: !!pick.demo,
-    faceUrl: squareFileOk(squareFaceRel(pick.id)) ? squareFaceRel(pick.id) : null,
+    // Desk uses FAKE preview — do not return baked face for the tile
+    faceUrl: null,
+    pending: pending || null,
     slots,
     nextSlot: nextOpenSquareSlot(slots),
   };
@@ -1556,6 +1559,182 @@ async function searchSquareImages(q) {
   }
   return { ok: true, q: query, results };
 }
+
+// ── Square FAKE preview + Cursor manual bake queue (owner 2026-07-14) ──
+const SQUARE_PENDING_DIR = path.join(WD, '_square_pending');
+const SQUARE_APPLY_QUEUE = path.join(WD, '_square_apply_queue.json');
+function ensureSquarePendingDir() {
+  if (!fs.existsSync(SQUARE_PENDING_DIR)) fs.mkdirSync(SQUARE_PENDING_DIR, { recursive: true });
+}
+function squarePendingPath(id) { return path.join(SQUARE_PENDING_DIR, String(id) + '.json'); }
+function readSquarePending(id) {
+  try {
+    const fp = squarePendingPath(id);
+    if (!fs.existsSync(fp)) return null;
+    return JSON.parse(fs.readFileSync(fp, 'utf8'));
+  } catch (e) { return null; }
+}
+function writeSquarePending(id, data) {
+  ensureSquarePendingDir();
+  const prev = readSquarePending(id) || { id };
+  const next = Object.assign({}, prev, data || {}, { id, updated_at: new Date().toISOString() });
+  fs.writeFileSync(squarePendingPath(id), JSON.stringify(next, null, 0));
+  return next;
+}
+function readSquareApplyQueue() {
+  try {
+    if (!fs.existsSync(SQUARE_APPLY_QUEUE)) return [];
+    const j = JSON.parse(fs.readFileSync(SQUARE_APPLY_QUEUE, 'utf8'));
+    return Array.isArray(j) ? j : (j.items || []);
+  } catch (e) { return []; }
+}
+function writeSquareApplyQueue(items) {
+  fs.writeFileSync(SQUARE_APPLY_QUEUE, JSON.stringify({ items: items || [], updated_at: new Date().toISOString() }, null, 2));
+}
+function buildSquareSlotsFromPending(id, shape, body, pending) {
+  const slots = buildSquareSlots(id, shape, body);
+  const faceStaged = !!(pending && pending.faceImageUrl);
+  const staged = (pending && pending.slots) || {};
+  return slots.map(s => {
+    if (s.kind === 'face' || s.kind === 'top') {
+      return Object.assign({}, s, { filled: faceStaged, url: faceStaged ? 'staged' : null, staged: faceStaged });
+    }
+    if (s.kind === 'body' && staged[s.n]) {
+      return Object.assign({}, s, { filled: true, url: 'staged', staged: true });
+    }
+    return Object.assign({}, s, { filled: false, url: null, staged: false });
+  });
+}
+function stageSquareDraft(d) {
+  const id = String(d.id || '').trim();
+  if (!id) return { ok: false, msg: 'missing id' };
+  const title = String(d.title || (titleOf && titleOf[id]) || id);
+  const faceImageUrl = d.faceImageUrl != null ? String(d.faceImageUrl || '').trim() : undefined;
+  const slotsIn = d.slots && typeof d.slots === 'object' ? d.slots : undefined;
+  const prev = readSquarePending(id) || { id, title, slots: {} };
+  const nextSlots = Object.assign({}, prev.slots || {}, slotsIn || {});
+  const next = writeSquarePending(id, {
+    title,
+    shape: d.shape || prev.shape || detectSquareShape(id, title, ''),
+    faceImageUrl: faceImageUrl !== undefined ? (faceImageUrl || null) : (prev.faceImageUrl || null),
+    slots: nextSlots,
+    status: 'staged',
+    previewOnly: true,
+  });
+  const body = '';
+  const slots = buildSquareSlotsFromPending(id, next.shape, body, next);
+  return {
+    ok: true,
+    mode: 'staged',
+    id,
+    title: next.title,
+    previewOnly: true,
+    faceImageUrl: next.faceImageUrl || null,
+    slots,
+    nextSlot: nextOpenSquareSlot(slots),
+    pending: next,
+  };
+}
+function queueSquareDraft(d) {
+  const id = String(d.id || '').trim();
+  const faceImageUrl = String(d.faceImageUrl || '').trim();
+  if (!id || !faceImageUrl) return { ok: false, msg: 'stage a face photo first' };
+  const title = String(d.title || (titleOf && titleOf[id]) || id);
+  const slots = d.slots && typeof d.slots === 'object' ? d.slots : {};
+  const pending = writeSquarePending(id, {
+    title,
+    shape: d.shape || detectSquareShape(id, title, ''),
+    faceImageUrl,
+    slots,
+    status: 'ready',
+    previewOnly: true,
+    queued_at: new Date().toISOString(),
+  });
+  const q = readSquareApplyQueue().filter(x => x && x.id !== id);
+  q.push({ id, title, faceImageUrl, slots, queued_at: pending.queued_at, status: 'ready' });
+  writeSquareApplyQueue(q);
+  try {
+    fs.appendFileSync(path.join(WD, '_square_apply_log.txt'),
+      new Date().toISOString() + ' QUEUED ' + id + ' face=' + faceImageUrl.slice(0, 80) + '\n');
+  } catch (e) {}
+  return { ok: true, queued: true, id, title, pending, queueLen: q.length, msg: 'Queued for Cursor manual bake' };
+}
+/** Cursor manual bake — blank plate + raw photo + NEW gold title onto real face path. */
+async function squareManualApplyPending(id) {
+  id = String(id || '').trim();
+  const pending = readSquarePending(id);
+  if (!pending || !pending.faceImageUrl) return { ok: false, msg: 'no pending face for ' + id };
+  const title = String(pending.title || (titleOf && titleOf[id]) || id);
+  const entry = await loadSquareEntry(id);
+  let body = entry && entry.answer ? String(entry.answer) : '';
+  if (!body && id === 'aq9999') {
+    body = '# How do reef tanks keep aquarium water clear and stable?\n\n## Direct Answer\n\nClear water starts with filtration, light, and steady parameters.\n\n## Deep Dive\n\nGood flow and a clean filter keep particles moving out of the water column.\n';
+  }
+
+  // Backup old titled original once (never delete)
+  const origAbs = squareAbs(squareOrigRel(id));
+  const bakAbs = squareAbs('/assets/qa/' + id + '.oldtitle.jpg');
+  try {
+    if (fs.existsSync(origAbs) && !fs.existsSync(bakAbs)) fs.copyFileSync(origAbs, bakAbs);
+  } catch (e) {}
+
+  const buf = await fetchSquareImageBuf(pending.faceImageUrl);
+  const liveRel = await squareWriteFaceAtomic(id, buf, title);
+  // Also overwrite live face path bytes with the NEW bake (manual put) — old kept as .oldtitle.jpg
+  try {
+    const liveAbs = squareAbs(liveRel);
+    fs.copyFileSync(liveAbs, origAbs);
+  } catch (e) {}
+
+  body = forceSquareFaceAndTopMarkdown(id, title, body || ('# ' + title + '\n\n'));
+  // Prefer canonical face path in markdown after manual put
+  body = String(body).replace(new RegExp(squareLiveRel(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), squareOrigRel(id));
+
+  const slotMap = pending.slots || {};
+  for (const key of Object.keys(slotMap)) {
+    const n = Number(key);
+    const url = slotMap[key];
+    if (!n || !url) continue;
+    try {
+      const sbuf = await fetchSquareImageBuf(url);
+      const rel = await squareWriteSlotAtomic(id, n, sbuf);
+      body = patchBodySlotImage(id, title, body, n, rel);
+    } catch (e) {}
+  }
+
+  await saveSquareEntry(id, {
+    cover_src: 'square-desk-manual',
+    face_title_baked: true,
+    img: squareOrigRel(id),
+    square_live: liveRel,
+    square_manual_applied_at: new Date().toISOString(),
+  }, body);
+
+  writeSquarePending(id, { status: 'applied', applied_at: new Date().toISOString(), previewOnly: false });
+  writeSquareApplyQueue(readSquareApplyQueue().filter(x => x && x.id !== id));
+  try {
+    fs.appendFileSync(path.join(WD, '_square_apply_log.txt'),
+      new Date().toISOString() + ' APPLIED ' + id + ' → ' + squareOrigRel(id) + '\n');
+  } catch (e) {}
+  return {
+    ok: true,
+    applied: true,
+    id,
+    title,
+    faceUrl: squareOrigRel(id) + '?v=' + Date.now(),
+    backup: fs.existsSync(bakAbs) ? ('/assets/qa/' + id + '.oldtitle.jpg') : null,
+  };
+}
+async function drainSquareApplyQueue() {
+  const q = readSquareApplyQueue().filter(x => x && x.status === 'ready');
+  const out = [];
+  for (const item of q) {
+    try { out.push(await squareManualApplyPending(item.id)); }
+    catch (e) { out.push({ ok: false, id: item.id, msg: e.message || String(e) }); }
+  }
+  return { ok: true, drained: out.length, results: out };
+}
+
 async function applySquarePick(id, imageUrl, slotIdx) {
   id = String(id || '').trim();
   imageUrl = String(imageUrl || '').trim();
@@ -11475,6 +11654,56 @@ const server = http.createServer(async (req, res) => {
       let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
       if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
       squareDeleteFaceEntry(d.id || '').then(r => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(r));
+      }).catch(e => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
+      });
+    });
+    return;
+  }
+  if (u.pathname === '/square-stage' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      try {
+        const r = stageSquareDraft(d);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(r));
+      } catch (e) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
+      }
+    });
+    return;
+  }
+  if (u.pathname === '/square-save-draft' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      try {
+        const r = queueSquareDraft(d);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(r));
+      } catch (e) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
+      }
+    });
+    return;
+  }
+  if (u.pathname === '/square-apply-queue') {
+    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({ ok: true, items: readSquareApplyQueue() }));
+  }
+  if (u.pathname === '/square-apply-now' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      const run = d.id ? squareManualApplyPending(d.id) : drainSquareApplyQueue();
+      Promise.resolve(run).then(r => {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(r));
       }).catch(e => {
