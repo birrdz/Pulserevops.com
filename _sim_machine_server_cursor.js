@@ -133,15 +133,16 @@ async function runAutoTlPods() {
   if (running || !autoRun.enabled) return;
   running = true; stopRequested = false;
   try { fs.unlinkSync(SIM + '/STOP.flag'); } catch (e) {}
-  opLog(`AUTO START scope=tl cursor=${autoRun.cursor || 0} pod=${autoRun.pod || 1} size=100`);
+  opLog(`AUTO START scope=tl cursor=${autoRun.cursor || 0} pod=${autoRun.pod || 1} size=${autoRun.podSize || 100}`);
   while (autoRun.enabled && !stopRequested) {
     const offset = Math.max(0, Number(autoRun.cursor) || 0);
     const pod = Math.max(1, Number(autoRun.pod) || 1);
-    const env = { SIM_OFFSET: String(offset), SIM_MAX: '100', SIM_BATCH: process.env.SIM_BATCH || '10' };
+    const podSize = Number(autoRun.podSize) === 30 ? 30 : 100;
+    const env = { SIM_OFFSET: String(offset), SIM_MAX: String(podSize), SIM_BATCH: process.env.SIM_BATCH || '10' };
     try { fs.unlinkSync(REPORT_F); } catch (e) {}
     try { fs.unlinkSync(SUMMARY_F); } catch (e) {}
     autoRun.phase = 'scan'; autoRun.error = null; saveAuto();
-    setStatus({ stage: 'scan', phase: `AUTO TL pod ${pod} · scanning ${offset + 1}-${offset + 100}`, scope: 'tl', autoRun: true, autoPod: pod, autoCursor: offset });
+    setStatus({ stage: 'scan', phase: `AUTO TL pod ${pod} · scanning ${offset + 1}-${offset + podSize}`, scope: 'tl', autoRun: true, autoPod: pod, autoCursor: offset, autoPodSize: podSize });
     const scanCode = await runStage(SCAN_SCRIPT, ['tl'], env);
     if (stopRequested || !autoRun.enabled) break;
     const scanned = readJSON(SUMMARY_F, {});
@@ -170,10 +171,10 @@ async function runAutoTlPods() {
     autoRun.completed = (Number(autoRun.completed) || 0) + count;
     autoRun.cursor = offset + count;
     autoRun.pod = pod + 1;
-    autoRun.phase = count < 100 ? 'done' : 'next-pod';
+    autoRun.phase = count < podSize ? 'done' : 'next-pod';
     saveAuto();
     opLog(`AUTO POD ${pod} done · ${count} TL Q&As · next cursor=${autoRun.cursor}`);
-    if (count < 100) {
+    if (count < podSize) {
       autoRun.enabled = false; saveAuto();
       setStatus({ stage: 'done', phase: 'idle', verified: true, note: `AUTO TL complete · ${autoRun.completed} processed`, autoRun: false });
       break;
@@ -249,6 +250,12 @@ h1{font-size:19px;letter-spacing:.5px;margin:2px 0 2px;color:#FFB81C}
 .chip.sel{background:#B91C3F;border-color:#B91C3F;color:#fff}
 .chip.all{background:#2a2130;border-color:#FFB81C;color:#FFB81C}
 .chip.all.sel{background:#FFB81C;color:#1a1a1a}
+.pod-sizes{display:flex;gap:8px;margin-bottom:9px}
+.pod-size{border:1px solid #555;background:#202028;color:#ddd;border-radius:9px;padding:8px 12px;font-weight:800;cursor:pointer}
+.pod-size.sel{border-color:#86efac;background:#15803d;color:#fff}
+.pod-list{display:flex;flex-wrap:wrap;gap:7px;max-height:190px;overflow:auto}
+.pod-chip{border:1px solid #3a3a45;background:#1c1c22;color:#FFB81C;border-radius:9px;padding:8px 10px;font-size:12px;font-weight:850;cursor:pointer}
+.pod-chip.sel{border-color:#86efac;background:#14532d;color:#fff}
 input.topic{width:100%;margin-top:8px;background:#1c1c22;border:1px solid #2c2c34;color:#e8e6e1;border-radius:10px;padding:10px;font-size:14px}
 .btns{display:flex;gap:12px;margin:16px 0}
 button{flex:1;border:0;border-radius:14px;padding:20px;font-size:20px;font-weight:800;letter-spacing:1px;cursor:pointer}
@@ -287,6 +294,9 @@ a{color:#FFB81C}
 
 <div class=card><div class=lab>1 � Scope</div><div class=scopes id=scopes>loading�</div>
 <input class=topic id=topic placeholder="�or type a topic / id-prefix (e.g. gp0, ca11)"></div>
+<div class=card><div class=lab>TL Pulse Tools · click any pod to start it</div>
+<div class=pod-sizes><button class="pod-size" id=size30>30 per pod</button><button class="pod-size sel" id=size100>100 per pod</button></div>
+<div class=pod-list id=podlist>Loading TL pods…</div></div>
 
 <div class=btns><button id=go disabled>? RUN REPORT</button><button id=clear>CLEAR</button><button id=stop>STOP</button></div>
 <button id=auto>▶ AUTO-RUN 100 · TL PULSE TOOLS · ON</button>
@@ -304,23 +314,32 @@ a{color:#FFB81C}
 <div class=card><div class=lab>Operator log (last 8)</div><pre id=oplog>�</pre></div>
 
 <script>
-let scope=null, scopes=[];
+let scope=null, scopes=[],tlCount=0,podSize=100,selectedPod=1;
 async function loadScopes(){const d=await(await fetch('/api/scope')).json();scopes=d.pillars;
+ const tl=(d.pillars||[]).find(p=>p.p==='tl');tlCount=tl?tl.n:0;renderPods();
  const el=document.getElementById('scopes');el.innerHTML='<span class="chip all" data-s="ALL">ALL <span class=n>'+d.total.toLocaleString()+'</span></span>'+
   d.pillars.map(p=>'<span class=chip data-s="'+p.p+'">'+p.name+' <span class=n>'+p.n+'</span></span>').join('');
  el.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{document.getElementById('topic').value='';select(c.dataset.s,c)});}
+function renderPods(){
+ document.getElementById('size30').classList.toggle('sel',podSize===30);document.getElementById('size100').classList.toggle('sel',podSize===100);
+ const n=Math.ceil(tlCount/podSize),el=document.getElementById('podlist');el.innerHTML='';
+ for(let pod=1;pod<=n;pod++){const start=(pod-1)*podSize+1,end=Math.min(tlCount,pod*podSize),b=document.createElement('button');b.className='pod-chip'+(pod===selectedPod?' sel':'');b.textContent='TL '+start+'-'+end;b.onclick=async()=>{selectedPod=pod;renderPods();await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'auto',enabled:true,size:podSize,pod})});};el.appendChild(b);}
+}
+document.getElementById('size30').onclick=()=>{podSize=30;selectedPod=1;renderPods();};
+document.getElementById('size100').onclick=()=>{podSize=100;selectedPod=1;renderPods();};
 function select(s,c){scope=s;document.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));if(c)c.classList.add('sel');document.getElementById('go').disabled=!scope;}
 document.getElementById('topic').oninput=e=>{const v=e.target.value.trim();document.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));scope=v||null;document.getElementById('go').disabled=!scope;};
 document.getElementById('go').onclick=async()=>{if(!scope)return;await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'scan',scope})});document.getElementById('stage').innerHTML='?? Running report on <b>'+scope+'</b>�';};
 document.getElementById('fix').onclick=async()=>{const s=scope||'ALL';await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'transform',scope:s})});document.getElementById('stage').innerHTML='?? Fixing <b>'+s+'</b> � transforming flagged URLs�';};
-document.getElementById('auto').onclick=async()=>{const on=document.getElementById('auto').classList.contains('off');await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'auto',enabled:on})});};
+document.getElementById('auto').onclick=async()=>{const on=document.getElementById('auto').classList.contains('off');await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'auto',enabled:on,size:podSize,pod:selectedPod})});};
 document.getElementById('stop').onclick=async()=>{await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'stop'})});};
 document.getElementById('force').onclick=async()=>{if(!confirm('FORCE STOP � kill any stuck process now?'))return;await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'forcestop'})});document.getElementById('stage').innerHTML='? Force-stopped.';};
 document.getElementById('clear').onclick=async()=>{if(!confirm('CLEAR and start over?'))return;await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'clear'})});location.reload();};
 async function poll(){try{const s=await(await fetch('/api/status')).json();
  const st=s.status||{};const p=st.piles||{};
  const ar=s.auto||{};const ab=document.getElementById('auto');const aon=!!ar.enabled;
- ab.classList.toggle('off',!aon);ab.textContent=aon?('⏹ AUTO-RUN 100 · TL · POD '+(ar.pod||1)+' · '+(ar.completed||0)+' DONE'):'▶ AUTO-RUN 100 · TL PULSE TOOLS · OFF';
+ if(ar.podSize&&(podSize!==ar.podSize||selectedPod!==ar.pod)){podSize=ar.podSize;selectedPod=ar.pod||1;renderPods();}
+ ab.classList.toggle('off',!aon);ab.textContent=aon?('⏹ AUTO-RUN '+(ar.podSize||100)+' · TL · POD '+(ar.pod||1)+' · '+(ar.completed||0)+' DONE'):('▶ AUTO-RUN '+podSize+' · TL PULSE TOOLS · OFF');
  document.getElementById('pPass').textContent=p.PASS!=null?p.PASS.toLocaleString():'�';
  document.getElementById('pNear').textContent=p.NEAR_DUP!=null?p.NEAR_DUP.toLocaleString():'�';
  document.getElementById('pStub').textContent=p.STUB!=null?p.STUB.toLocaleString():'�';
@@ -374,7 +393,9 @@ http.createServer(async (req, res) => {
           if (d.enabled === false) { stopRequested = true; autoRun.enabled = false; autoRun.phase = 'stopping'; saveAuto(); if (child) { try { child.kill(); } catch (e) {} } }
           else {
             stopRequested = false;
-            autoRun = { enabled: true, scope: 'tl', podSize: 100, cursor: 0, pod: 1, completed: 0, phase: 'starting', error: null };
+            const size = Number(d.size) === 30 ? 30 : 100;
+            const pod = Math.max(1, parseInt(d.pod, 10) || 1);
+            autoRun = { enabled: true, scope: 'tl', podSize: size, cursor: (pod - 1) * size, pod, completed: 0, phase: 'starting', error: null };
             saveAuto();
             setTimeout(() => runAutoTlPods().catch(e => { autoRun.error = e.message; autoRun.phase = 'error'; autoRun.enabled = false; saveAuto(); running = false; }), 50);
           }
