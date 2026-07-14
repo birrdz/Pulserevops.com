@@ -86,6 +86,19 @@ function originalSimMachineReady() {
     req.on('error', () => resolve(false));
   });
 }
+function originalSimMachineStatus() {
+  return new Promise(resolve => {
+    const req = http.get({ hostname: '127.0.0.1', port: 8904, path: '/api/status', timeout: 1500 }, response => {
+      let body = '';
+      response.on('data', chunk => { body += chunk; });
+      response.on('end', () => {
+        try { resolve(JSON.parse(body || '{}')); } catch (e) { resolve(null); }
+      });
+    });
+    req.on('timeout', () => { req.destroy(); resolve(null); });
+    req.on('error', () => resolve(null));
+  });
+}
 async function ensureOriginalSimMachine() {
   if (await originalSimMachineReady()) return true;
   const script = path.join(__dirname, '_sim_machine_server_cursor.js');
@@ -7879,11 +7892,11 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   <div class=square-builder-dock style="border-top:0;padding-top:0;margin-top:0">
     <div class=dupe-panel-title style="color:#FFB81C">🌸 Original Fix-It-All Machine · SIM → QUALITY → TITLE → IMAGE → 13/13</div>
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:10px 0 12px;font-size:.7rem;font-weight:950;text-align:center">
-      <div style="padding:8px 3px;border-radius:8px;background:#B91C3F;color:#fff">1 · SIM</div>
-      <div style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">2 · QUALITY</div>
-      <div style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">3 · TITLE</div>
-      <div style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">4 · IMAGE</div>
-      <div style="padding:8px 3px;border-radius:8px;background:#14532d;color:#86efac">5 · 13/13</div>
+      <div id=simStage1 style="padding:8px 3px;border-radius:8px;background:#B91C3F;color:#fff">1 · SIM</div>
+      <div id=simStage2 style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">2 · QUALITY</div>
+      <div id=simStage3 style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">3 · TITLE</div>
+      <div id=simStage4 style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">4 · IMAGE</div>
+      <div id=simStage5 style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">5 · 13/13</div>
     </div>
     <div class=dupe-panel-hint style="margin-bottom:10px">Your original machine, unchanged, with clickable pillar pods and <b>Auto-run 100 on TL Pulse Tools</b>. <a href="http://127.0.0.1:8904/" target=_blank style="color:#FFB81C">Open original full screen →</a></div>
     <div id=originalSimWaiting style="padding:18px;text-align:center;color:#FFB81C;font-weight:850">Starting Stage 1 · SIM…</div>
@@ -9105,6 +9118,40 @@ pwEl&&pwEl.addEventListener('input',()=>{if(pwEl.value.trim().length>=4)tryGate(
   }
   if(waiting)waiting.textContent='Stage 1 · SIM did not start — use Restart Node, then retry.';
 })();
+function paintSimStage(el,state){
+  if(!el)return;
+  const colors={
+    done:['#14532d','#86efac'],
+    active:['#92400e','#fde68a'],
+    failed:['#B91C3F','#fff'],
+    pending:['#33230b','#FFB81C']
+  };
+  const c=colors[state]||colors.pending;
+  el.style.background=c[0];el.style.color=c[1];
+  el.style.boxShadow=state==='active'?'0 0 16px rgba(251,191,36,.55)':'none';
+}
+async function refreshOriginalStageStrip(){
+  try{
+    const payload=await(await fetch('/original-machine-status?t='+Date.now(),{cache:'no-store'})).json();
+    const st=payload.status||{},stage=String(st.stage||'idle').toLowerCase(),rows=Object.values(payload.fix||{});
+    const allDone=key=>rows.length>0&&rows.every(row=>{const v=row&&row.checks&&row.checks[key];return v==='done'||v==='fixed';});
+    let states=['pending','pending','pending','pending','pending'];
+    if(stage==='scan')states[0]='active';
+    else if(stage==='error'||stage==='stopped')states[0]='failed';
+    else if(stage==='scan-done'||stage==='triage'){states[0]='done';states[1]='active';}
+    else if(stage==='transform'){
+      states[0]='done';states[1]='active';
+      if(allDone('similarity')){states[1]='done';states[2]='active';}
+      if(allDone('title')){states[2]='done';states[3]='active';}
+      if(allDone('image')){states[3]='done';states[4]='active';}
+      if(allDone('gate'))states[4]='done';
+    }else if(stage==='verify'){states=['done','done','done','done','active'];}
+    else if(stage==='done'&&st.verified){states=['done','done','done','done','done'];}
+    states.forEach((state,index)=>paintSimStage($('#simStage'+(index+1)),state));
+  }catch(e){}
+}
+setInterval(refreshOriginalStageStrip,2000);
+refreshOriginalStageStrip();
 // Persistent 3s heartbeat: always reflect true server state for both pipelines.
 var heartbeat=null;
 function startHeartbeat(){ if(heartbeat)return; heartbeat=setInterval(async()=>{ try{ const d=await(await fetch('/scrub-status')).json(); window._sa=d; if(window.activeTab==='scrub') renderAuto(d); else if(window.activeTab!=='duplicator'&&window.activeTab!=='imgen'&&window.activeTab!=='facehero'&&window.activeTab!=='rewrite'&&window.activeTab!=='formatfix') { paintRunStats(d); if(d.state)paint(d.state); } if((d.pendingList&&d.pendingList.length)||(d.state&&d.state.pending)) refreshSignoffQueue(); if(isScrubActive(d)&&!autoPoll) startAutoPoll(); }catch(e){} if(KEY){ try{ const g=await(await fetch('/gen-status?key='+KEY)).json(); window._gen=g; window.genRunning=!!g.running; if(window.activeTab==='generate') genRender(g); if(g.running&&!genPoll) genStartPoll(); else if(g.running) renderFsGenerate(g); }catch(e){} if(!dupePoll&&(window.activeTab==='duplicator'||(window._dupe&&window._dupe.running))){ try{ const j=await(await fetch('/image-duplicator-status?key='+KEY)).json(); window._dupe=j; if(window.activeTab==='duplicator') renderDuplicator(j); if(j.running) startDupePoll(); }catch(e){} } if(!imgenPoll&&(window.activeTab==='imgen'||(window._imgen&&window._imgen.running))){ try{ const j=await(await fetch('/image-generator-status?key='+KEY)).json(); window._imgen=j; if(window.activeTab==='imgen') renderImgGen(j); if(j.running) startImgGenPoll(); }catch(e){} } if(!rewritePoll&&(window.activeTab==='rewrite'||(window._rewrite&&window._rewrite.running))){ try{ const j=await(await fetch('/image-rewrite-status?key='+KEY)).json(); window._rewrite=j; if(window.activeTab==='rewrite') renderRewrite(j); if(j.running) startRewritePoll(); }catch(e){} } if(!faceheroPoll&&(window.activeTab==='facehero'||(window._facehero&&window._facehero.running))){ try{ const j=await(await fetch('/face-hero-status?key='+KEY)).json(); window._facehero=j; if(window.activeTab==='facehero') renderFaceHero(j); if(j.running) startFaceHeroPoll(); }catch(e){} } if(!formatfixPoll&&(window.activeTab==='formatfix'||(window._formatfix&&window._formatfix.running))){ try{ const j=await(await fetch('/format-fixer-status?key='+KEY)).json(); window._formatfix=j; if(window.activeTab==='formatfix') renderFormatFixer(j); if(j.running) startFormatFixerPoll(); }catch(e){} } } updateTabBadges(); },3000); }
@@ -11282,6 +11329,11 @@ const server = http.createServer(async (req, res) => {
     const ready = await originalSimMachineReady();
     res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
     return res.end(JSON.stringify({ ok: ready, port: 8904 }));
+  }
+  if (u.pathname === '/original-machine-status') {
+    const payload = await originalSimMachineStatus();
+    res.writeHead(payload ? 200 : 503, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    return res.end(JSON.stringify(payload || { ok: false }));
   }
   if (u.pathname === '/server-restart' && req.method === 'POST') {
     let b = ''; req.on('data', c => b += c); req.on('end', () => {
