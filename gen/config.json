@@ -1,6 +1,6 @@
 {
- "fixConcurrency": 100,
- "fixWorkers": 1,
+ "fixConcurrency": 5,
+ "fixWorkers": 5,
  "fixSoloTriple": false,
  "fixScope": "tl",
  "fixAutoRun": true,

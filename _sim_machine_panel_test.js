@@ -17,5 +17,8 @@ assert(script, 'rendered PANEL inline script missing');
 new Function(script);
 assert(html.includes('AUTO-RUN 100'));
 assert(html.includes('SIMILARITY'));
+assert(html.includes('QUALITY'));
 assert(html.includes('13/13'));
+assert(!html.includes('�'), 'rendered panel contains replacement characters');
+assert(!html.includes('10 at a time'), 'rendered panel has stale concurrency copy');
 console.log('sim machine rendered panel: ok');

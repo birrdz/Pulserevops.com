@@ -22,7 +22,7 @@ echo.
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$pids=Get-NetTCPConnection -LocalPort 8904 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique;" ^
   "foreach($pid in $pids){try{Stop-Process -Id $pid -Force -ErrorAction Stop}catch{}}"
-start "PULSE ORIGINAL SIM MACHINE 8904" /D "%~dp0" cmd /k "set SIM_PORT=8904&& set SIM_AUTO_RUN=1&& node _sim_machine_server_cursor.js"
+start "PULSE ORIGINAL SIM MACHINE 8904" /D "%~dp0" cmd /k "set SIM_PORT=8904&& set SIM_AUTO_RUN=1&& set SIM_BATCH=5&& node _sim_machine_server_cursor.js"
 
 start "PULSE NEW Fixer + Builder %PORT%" /D "%~dp0" cmd /k "set PULSE_ROOT=%DATA_ROOT%&& set SCRUB_BTN_PORT=%PORT%&& set FIXER_BUILDER_HOME=1&& set SIM_AUTO_RUN=1&& set FORMAT_FIXER_AUTORUN=0&& set FORMAT_FIXER_BOOT_PILLAR=tl&& node _scrub_button_server.js"
 

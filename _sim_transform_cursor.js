@@ -81,7 +81,7 @@ async function fixVariant(id, famSets, prog) {
   const m = { title: blob.h1 || blob.title, question: blob.question, metaTitle: blob.meta_title, metaDesc: blob.meta_description };
   // live per-entry checklist the dashboard renders
   const P = prog[id] = { id: id, title: String(m.question || m.title || id).slice(0, 72), ov: 100, target: TARGET, status: 'fixing', pass: 0,
-    checks: { similarity: 'active', title: 'pending', image: 'pending', gate: 'pending' } };
+    checks: { similarity: 'active', quality: 'pending', title: 'pending', image: 'pending', gate: 'pending' } };
   writeProg(prog);
   if (!body || body.length < 300) { P.status = 'failed'; P.checks.similarity = 'failed'; writeProg(prog); return { ok: false, why: 'empty body' }; }
   let best = body, bestOv = maxOverlap(sentsOf(best), famSets);
@@ -96,7 +96,8 @@ async function fixVariant(id, famSets, prog) {
     await sleep(800);
   }
   if (bestOv >= TARGET) { P.status = 'failed'; P.checks.similarity = 'failed'; writeProg(prog); return { ok: false, why: 'stuck at ' + Math.round(bestOv * 100) + '%', ov: bestOv }; }
-  P.checks.similarity = 'done'; P.checks.title = 'active'; P.checks.image = 'active'; writeProg(prog);
+  P.checks.similarity = 'done'; P.checks.quality = 'active'; writeProg(prog);
+  P.checks.quality = 'done'; P.checks.title = 'active'; P.checks.image = 'active'; writeProg(prog);
   const qres = await ensureQuality(id, blob);   // title + non-blurry cover (fixes from approved if bad)
   P.checks.title = 'done'; P.checks.image = (qres === 'cover-replaced' ? 'fixed' : 'done'); P.checks.gate = 'active'; writeProg(prog);
   const g = await gate(id, best, m);
@@ -114,27 +115,27 @@ async function fixSub13(id, prog) {
   const { blob, body } = await getBody(id);
   const m = { title: blob.h1 || blob.title, question: blob.question, metaTitle: blob.meta_title, metaDesc: blob.meta_description };
   const P = prog[id] = { id, kind: 'sub13', title: String(m.question || m.title || id).slice(0, 72), ov: 0, target: 13, metric: 'score', status: 'fixing', pass: 0,
-    checks: { similarity: 'active', title: 'pending', image: 'pending', gate: 'pending' } };
+    checks: { similarity: 'active', quality: 'pending', title: 'pending', image: 'pending', gate: 'pending' } };
   writeProg(prog);
-  P.checks.title = 'active'; P.checks.image = 'active'; writeProg(prog);
-  await ensureQuality(id, blob);                                   // title + non-blurry approved cover
-  P.checks.title = 'done'; P.checks.image = 'done'; P.checks.gate = 'active'; P.checks.similarity = 'done'; writeProg(prog);
+  P.checks.similarity = 'done'; P.checks.quality = 'active'; writeProg(prog);
   let best = body || '';
   let g = best.length > 400 ? await gate(id, best, m) : { ok: true, pass: false, failed: ['words2000'] };
   P.ov = (g && g.score) || 0; writeProg(prog);
   for (let pass = 1; pass <= MAX_PASSES && !(g && g.ok && g.pass && g.published); pass++) {
-    P.pass = pass; P.checks.similarity = 'active'; writeProg(prog);
+    P.pass = pass; P.checks.quality = 'active'; writeProg(prog);
     const fb = (g && g.failed && g.failed.length) ? '\n\nThe checklist currently FAILS on: ' + g.failed.join(', ') + '. Fix exactly those.' : '';
     const user = (best.length > 400 ? 'Upgrade this page so it passes all 13 checklist points.' + fb + '\n\nPAGE:\n' + best
                                     : 'Write a complete golden page for this question: "' + (m.question || m.title || id) + '".');
     const out = await writeChat([{ role: 'system', content: QUALITY_SYS }, { role: 'user', content: user }]);
     if (out && out.length > Math.max(600, best.length * 0.9)) best = out;
-    P.checks.similarity = 'done'; writeProg(prog);
+    P.checks.quality = 'done'; P.checks.title = 'active'; P.checks.image = 'active'; writeProg(prog);
+    await ensureQuality(id, blob);
+    P.checks.title = 'done'; P.checks.image = 'done'; P.checks.gate = 'active'; writeProg(prog);
     g = await gate(id, best, m);
     P.ov = (g && g.score) || 0; writeProg(prog);
     await sleep(600);
   }
-  if (g && g.ok && g.pass && g.published) { P.checks.gate = 'done'; P.status = 'approved'; writeProg(prog); return { ok: true, score: g.score }; }
+  if (g && g.ok && g.pass && g.published) { P.checks.quality = 'done'; P.checks.title = 'done'; P.checks.image = 'done'; P.checks.gate = 'done'; P.status = 'approved'; writeProg(prog); return { ok: true, score: g.score }; }
   P.checks.gate = 'failed'; P.status = 'failed'; writeProg(prog);
   return { ok: false, why: 'gate: ' + ((g && g.failed) || []).join(',') };
 }
@@ -144,10 +145,11 @@ async function fixStub(id, prog) {
   const { blob } = await getBody(id);
   const m = { title: blob.h1 || blob.title, question: blob.question, metaTitle: blob.meta_title, metaDesc: blob.meta_description };
   const P = prog[id] = { id, kind: 'stub', title: String(m.question || m.title || id).slice(0, 72), ov: 0, target: 13, metric: 'score', status: 'fixing', pass: 0,
-    checks: { similarity: 'active', title: 'pending', image: 'pending', gate: 'pending' } };
+    checks: { similarity: 'active', quality: 'pending', title: 'pending', image: 'pending', gate: 'pending' } };
   writeProg(prog);
   const out = await writeChat([{ role: 'system', content: QUALITY_SYS }, { role: 'user', content: 'Write a complete golden page for this question: "' + (m.question || m.title || id) + '".' }]);
-  P.checks.similarity = 'done'; P.checks.title = 'active'; P.checks.image = 'active'; writeProg(prog);
+  P.checks.similarity = 'done'; P.checks.quality = 'active'; writeProg(prog);
+  P.checks.quality = 'done'; P.checks.title = 'active'; P.checks.image = 'active'; writeProg(prog);
   await ensureQuality(id, blob);
   P.checks.title = 'done'; P.checks.image = 'done'; P.checks.gate = 'active'; writeProg(prog);
   if (out && out.length > 600) {
@@ -185,7 +187,7 @@ async function main() {
   }
   const nd = work.filter(w => w.kind === 'neardup').length, sb = work.filter(w => w.kind === 'sub13').length, st = work.filter(w => w.kind === 'stub').length;
   const todo = work.filter(w => !cleared.has(w.id));
-  console.log(`[fix-it-all] scope=${scope} worklist=${work.length} todo=${todo.length}  similarity=${nd} sub13=${sb} stubs=${st}  batch=${process.env.SIM_BATCH || 10}`);
+  console.log(`[fix-it-all] scope=${scope} worklist=${work.length} todo=${todo.length}  similarity=${nd} sub13=${sb} stubs=${st}  batch=${process.env.SIM_BATCH || 5}`);
   setStatus({ stage: 'transform', phase: 'starting', scope, total: work.length, todo: todo.length, similarity: nd, sub13: sb, stubs: st, transformed: 0, published: 0, failed: 0, target: TARGET });
 
   // sibling sentence-sets, computed once per family (near-dup fix needs them)
@@ -198,7 +200,7 @@ async function main() {
 
   try { fs.unlinkSync(SIM + '/STOP.flag'); } catch (e) {}   // clear any prior force-stop
   let fixed = 0, failed = 0;
-  const CONC = parseInt(process.env.SIM_BATCH || '10', 10);   // never work more than ~10 at a time
+  const CONC = parseInt(process.env.SIM_BATCH || '5', 10);   // five active entries inside each 100-entry pod
   for (let i = 0; i < todo.length; i += CONC) {
     if (fs.existsSync(SIM + '/STOP.flag')) { setStatus({ stage: 'stopped', phase: 'idle', note: 'Force-stopped.' }); console.log('[fix-it-all] FORCE STOP — halting'); return; }
     for (const k of Object.keys(prog)) if (prog[k].status === 'approved') delete prog[k];   // keep the live checklist to the current batch

@@ -9140,8 +9140,8 @@ async function refreshOriginalStageStrip(){
     else if(stage==='error'||stage==='stopped')states[0]='failed';
     else if(stage==='scan-done'||stage==='triage'){states[0]='done';states[1]='active';}
     else if(stage==='transform'){
-      states[0]='done';states[1]='active';
-      if(allDone('similarity')){states[1]='done';states[2]='active';}
+      states[0]=allDone('similarity')||!rows.length?'done':'active';states[1]=states[0]==='done'?'active':'pending';
+      if(allDone('quality')){states[1]='done';states[2]='active';}
       if(allDone('title')){states[2]='done';states[3]='active';}
       if(allDone('image')){states[3]='done';states[4]='active';}
       if(allDone('gate'))states[4]='done';
