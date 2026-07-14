@@ -210,6 +210,7 @@ function mapListEntry(e) {
     img: e.img || null,   // face-card hero URL (stamped into the index) — powers the mosaic tile boxes
     cover_src: e.cover_src || null,
     face_title_baked: !!e.face_title_baked,
+    fully_fixed_visual: !!e.fully_fixed_visual,
     ts: e.ts,
     polished_at: e.polished_at || null,
     quality_score: typeof e.quality_score === 'number' ? e.quality_score : 5,
