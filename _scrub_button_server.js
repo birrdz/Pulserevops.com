@@ -1629,6 +1629,33 @@ function stopFormatFixer() {
   formatFixerJob.stop = true;
   return { ok: true, stopping: true };
 }
+function setFormatFixerAuto(enabled) {
+  enabled = !!enabled;
+  formatFixerJob.auto = enabled;
+  if (!enabled) {
+    formatFixerLog('⏸ auto-run OFF · current entry continues until Stop');
+    saveFormatFixerState(true);
+    return { ok: true, auto: false, running: formatFixerJob.running };
+  }
+  formatFixerLog('▶ auto-run ON · continues until owner Stop');
+  saveFormatFixerState(true);
+  if (!formatFixerJob.running) {
+    if (formatFixerJob.phase === 'done' || formatFixerJob.phase === 'idle' || (formatFixerJob.done || 0) >= (formatFixerJob.total || 1)) {
+      const pillar = formatFixerJob.pillar && formatFixerJob.pillar !== 'all' ? formatFixerJob.pillar : 'all';
+      const started = startFormatFixer(pillar);
+      return Object.assign({ auto: true }, started);
+    }
+    formatFixerJob.stop = false;
+    formatFixerJob.error = '';
+    runFormatFixerLoop().catch(e => {
+      formatFixerJob.error = e.message;
+      formatFixerJob.running = false;
+      formatFixerJob.phase = 'error';
+      saveFormatFixerState(true);
+    });
+  }
+  return { ok: true, auto: true, running: true };
+}
 function forceStopFormatFixer() {
   formatFixerJob.stop = true;
   formatFixerJob.running = false;
@@ -7550,6 +7577,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <select id=formatfixPillarFilter title="Which pillar to audit and fix"><option value=tl>Loading pillars…</option></select>
     </div>
     <div class=dupe-btns>
+      <button type=button id=formatfixAutoToggle aria-pressed=true style="background:#166534;color:#fff">▶ Auto-run ON</button>
       <button type=button id=formatfixStart>▶ Fix content &amp; structure in pillar</button>
       <button type=button id=formatfixStop disabled>⏹ Stop</button>
       <button type=button id=formatfixForceStop class=dupe-force-stop disabled title="Force stop immediately">⏹ Force stop</button>
@@ -8166,9 +8194,14 @@ let formatfixPoll=null, formatfixPollBusy=false;
 function renderFormatFixer(j){
   if(!j) return;
   const prog=$('#formatfixProg'), bar=$('#formatfixProgBar'), lbl=$('#formatfixProgLbl'), stats=$('#formatfixStats'), log=$('#formatfixLog');
-  const start=$('#formatfixStart'), stop=$('#formatfixStop'), forceStop=$('#formatfixForceStop'), pf=$('#formatfixPillarFilter');
+  const start=$('#formatfixStart'), stop=$('#formatfixStop'), forceStop=$('#formatfixForceStop'), autoToggle=$('#formatfixAutoToggle'), pf=$('#formatfixPillarFilter');
   const active=!!(j.running||j.phase==='starting'||j.phase==='fix');
   if(pf) pf.disabled=active;
+  if(autoToggle){
+    autoToggle.textContent=j.auto?'▶ Auto-run ON':'⏸ Auto-run OFF';
+    autoToggle.setAttribute('aria-pressed',j.auto?'true':'false');
+    autoToggle.style.background=j.auto?'#166534':'#374151';
+  }
   if(active){
     if(prog) prog.style.display='block';
     if(start) start.style.display='none';
@@ -10082,6 +10115,19 @@ _rewriteStop&&_rewriteStop.addEventListener('click',async()=>{
   if(!KEY) return;
   try{ await fetch('/image-rewrite-stop',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY})}); }catch(e){}
 });
+var _formatfixAutoToggle=$('#formatfixAutoToggle');
+_formatfixAutoToggle&&_formatfixAutoToggle.addEventListener('click',async()=>{
+  if(!KEY)return;
+  const enabled=_formatfixAutoToggle.getAttribute('aria-pressed')!=='true';
+  _formatfixAutoToggle.disabled=true;
+  try{
+    const r=await(await fetch('/format-fixer-auto',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,enabled})})).json();
+    if(!r.ok)throw new Error(r.msg||'toggle failed');
+    await refreshFormatFixerStatus();
+    if(r.auto)startFormatFixerPoll();
+  }catch(e){alert(e.message||'toggle failed');}
+  finally{_formatfixAutoToggle.disabled=false;}
+});
 var _formatfixStart=$('#formatfixStart');
 _formatfixStart&&_formatfixStart.addEventListener('click',async()=>{
   if(!KEY) return;
@@ -11317,6 +11363,16 @@ const server = http.createServer(async (req, res) => {
     if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
     res.writeHead(200, { 'Content-Type': 'application/json' });
     return res.end(JSON.stringify(formatFixerStatusPayload()));
+  }
+  if (u.pathname === '/format-fixer-auto' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      const result = setFormatFixerAuto(d.enabled);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    });
+    return;
   }
   if (u.pathname === '/format-fixer-start' && req.method === 'POST') {
     let b = ''; req.on('data', c => b += c); req.on('end', () => {
