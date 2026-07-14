@@ -1,5 +1,15 @@
 ﻿# ▶ HANDOFF — for the next Claude Code session (saved 2026-06-26)
 
+## ▶▶ CROSSOVER — 2026-07-14 FORMAT FIXER INTACT BACKUP — READ FIRST
+
+- **Intact pre-gate backups saved** (roll back if Square Builder order is a bad idea):
+  - `_BACKUP_scrub_button_server_pre_square_gate_20260714.js` — full scrub server from `main` before Format Fixer → Square Builder gate
+  - `_BACKUP_format_fixer_lib_intact_20260714.js` — Format Fixer lib snapshot
+  - Restore steps: `_BACKUP_FORMAT_FIXER_RESTORE.md`
+- **Cloud agent cannot push the scrub buttons** — needs Windows localhost:8899 + `.env.local` (DeepSeek + BLOBS_PAT). Deploy does **not** unlock that.
+
+---
+
 ## ▶▶ CROSSOVER — 2026-07-13 OWNER LAW (FORMAT FIXER → SQUARE BUILDER) — READ FIRST
 
 - **2026-07-13 (owner):** **Q&As MUST pass the Format Fixer, then they go to Square Builder.** Never reverse.
