@@ -10,7 +10,7 @@ if not defined PORT (
   exit /b 1
 )
 
-set "URL=http://127.0.0.1:%PORT%/"
+set "URL=http://127.0.0.1:%PORT%/?code=4444"
 echo.
 echo  Starting NEW Fixer + Builder at %URL%
 echo  Fixer: TL / CRO Pulse Tools, automatic pods of 100.
@@ -22,7 +22,7 @@ start "PULSE NEW Fixer + Builder %PORT%" /D "%~dp0" cmd /k "set SCRUB_BTN_PORT=%
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$url='%URL%';" ^
   "for($i=0;$i -lt 90;$i++){" ^
-  "  try{$r=Invoke-RestMethod -TimeoutSec 2 ($url+'health');if($r.ok -and $r.app -eq 'pulse-fixer-square-builder'){Start-Process $url;exit 0}}catch{};" ^
+  "  try{$health='http://127.0.0.1:%PORT%/health';$r=Invoke-RestMethod -TimeoutSec 2 $health;if($r.ok -and $r.app -eq 'pulse-fixer-square-builder'){Start-Process $url;exit 0}}catch{};" ^
   "  Start-Sleep -Seconds 1" ^
   "};exit 1"
 if errorlevel 1 (

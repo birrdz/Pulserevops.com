@@ -3,12 +3,16 @@
 // tl (CRO) skipped — curated cro-cover rotation. Watchdog: _v2_supervisor.js
 // stop: _v2_nr_ddg_stop.flag · log: _v2_nr_ddg.out.log
 const fs = require('fs');
+const path = require('path');
 const { getStore } = require('@netlify/blobs');
-for (const l of fs.readFileSync('C:/Users/koryj/website/.env.local', 'utf8').split(/\r?\n/)) {
-  const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/);
-  if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
+const WD = process.env.PULSE_ROOT || __dirname;
+const ENV_FILE = path.join(WD, '.env.local');
+if (fs.existsSync(ENV_FILE)) {
+  for (const l of fs.readFileSync(ENV_FILE, 'utf8').split(/\r?\n/)) {
+    const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/);
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
+  }
 }
-const WD = 'C:/Users/koryj/website';
 const STOP = WD + '/_v2_nr_ddg_stop.flag';
 const NR = WD + '/_v2_needs_review.json';
 const LOG = WD + '/_v2_nr_ddg.out.log';

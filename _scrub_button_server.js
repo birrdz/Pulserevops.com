@@ -8992,14 +8992,6 @@ function paintLaneMini(board, d){
     hot.map(r=>'<div style="padding:3px 0">'+queueIco(r.queueColor)+' <b>'+esc(r.id)+'</b> '+esc(lanePhaseKid(r.phase,r.sectionIdx,r.stages,r.phaseLabel))+' · '+r.overallPct+'%</div>').join('');
 }
 setTimeout(initPage,50);
-(function autoFromUrl(){
-  try{
-    const q=new URLSearchParams(location.search);
-    const code=String(q.get('code')||q.get('key')||'').trim();
-    if(code.length===4&&pwEl){ pwEl.value=code; tryGate(); return; }
-    if(q.get('open')==='1') enterGate();
-  }catch(e){}
-})();
 // live visual for the scrub tab — progress bar + current URL + rolling log
 let scrubLog=[];
 function scrubRender(d){
@@ -9041,6 +9033,14 @@ function tryGate(){if(gateUnlocked)return;const code=pwEl?pwEl.value.trim():'';i
 }else{$('#gerr').textContent='Wrong code'}}).catch(()=>$('#gerr').textContent='server?')}
 pwEl&&pwEl.addEventListener('keydown',e=>{if(e.key==='Enter')tryGate()});
 pwEl&&pwEl.addEventListener('input',()=>{if(pwEl.value.trim().length>=4)tryGate()});
+(function autoFromUrl(){
+  try{
+    const q=new URLSearchParams(location.search);
+    const code=String(q.get('code')||q.get('key')||'').trim();
+    if(code.length===4&&pwEl){ pwEl.value=code; tryGate(); return; }
+    if(q.get('open')==='1') enterGate();
+  }catch(e){}
+})();
 // Persistent 3s heartbeat: always reflect true server state for both pipelines.
 var heartbeat=null;
 function startHeartbeat(){ if(heartbeat)return; heartbeat=setInterval(async()=>{ try{ const d=await(await fetch('/scrub-status')).json(); window._sa=d; if(window.activeTab==='scrub') renderAuto(d); else if(window.activeTab!=='duplicator'&&window.activeTab!=='imgen'&&window.activeTab!=='facehero'&&window.activeTab!=='rewrite'&&window.activeTab!=='formatfix') { paintRunStats(d); if(d.state)paint(d.state); } if((d.pendingList&&d.pendingList.length)||(d.state&&d.state.pending)) refreshSignoffQueue(); if(isScrubActive(d)&&!autoPoll) startAutoPoll(); }catch(e){} if(KEY){ try{ const g=await(await fetch('/gen-status?key='+KEY)).json(); window._gen=g; window.genRunning=!!g.running; if(window.activeTab==='generate') genRender(g); if(g.running&&!genPoll) genStartPoll(); else if(g.running) renderFsGenerate(g); }catch(e){} if(!dupePoll&&(window.activeTab==='duplicator'||(window._dupe&&window._dupe.running))){ try{ const j=await(await fetch('/image-duplicator-status?key='+KEY)).json(); window._dupe=j; if(window.activeTab==='duplicator') renderDuplicator(j); if(j.running) startDupePoll(); }catch(e){} } if(!imgenPoll&&(window.activeTab==='imgen'||(window._imgen&&window._imgen.running))){ try{ const j=await(await fetch('/image-generator-status?key='+KEY)).json(); window._imgen=j; if(window.activeTab==='imgen') renderImgGen(j); if(j.running) startImgGenPoll(); }catch(e){} } if(!rewritePoll&&(window.activeTab==='rewrite'||(window._rewrite&&window._rewrite.running))){ try{ const j=await(await fetch('/image-rewrite-status?key='+KEY)).json(); window._rewrite=j; if(window.activeTab==='rewrite') renderRewrite(j); if(j.running) startRewritePoll(); }catch(e){} } if(!faceheroPoll&&(window.activeTab==='facehero'||(window._facehero&&window._facehero.running))){ try{ const j=await(await fetch('/face-hero-status?key='+KEY)).json(); window._facehero=j; if(window.activeTab==='facehero') renderFaceHero(j); if(j.running) startFaceHeroPoll(); }catch(e){} } if(!formatfixPoll&&(window.activeTab==='formatfix'||(window._formatfix&&window._formatfix.running))){ try{ const j=await(await fetch('/format-fixer-status?key='+KEY)).json(); window._formatfix=j; if(window.activeTab==='formatfix') renderFormatFixer(j); if(j.running) startFormatFixerPoll(); }catch(e){} } } updateTabBadges(); },3000); }
@@ -9981,7 +9981,7 @@ async function forceStopScrubUI(){
   showFsScrub(false);
 }
 async function forceStopAllUI(){
-  if(!confirm('Force stop EVERYTHING immediately?\n\nScrubber · Generate · Face hero · Image fill · DDG · Rubric · Format fixer\n\nCurrent entry abandoned — will not auto-resume.')) return;
+  if(!confirm('Force stop EVERYTHING immediately?\\n\\nScrubber · Generate · Face hero · Image fill · DDG · Rubric · Format fixer\\n\\nCurrent entry abandoned — will not auto-resume.')) return;
   const sp=$('#stop'), fs=$('#fsStop'), sf=$('#scrubForceStop'), fsf=$('#fsScrubForceStop'), fsa=$('#forceStopAll'), bg=$('#begin'), gr=$('#gear');
   [sp,fs,sf,fsf,fsa].forEach(el=>{ if(el) el.disabled=true; });
   await fetch('/force-stop-all',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY})}).catch(()=>{});
@@ -12018,7 +12018,7 @@ server.on('error', (e) => {
   else console.error('[scrub-button] FATAL', e && e.message);
   process.exit(1);
 });
-server.listen(PORT, '0.0.0.0', async () => {
+if (require.main === module) server.listen(PORT, '0.0.0.0', async () => {
   removeSquareBuildsByPrefix('sy');
   emailSquareBacklogOnce().catch(error => console.log('[square-email] backlog email failed:', error.message));
   loadScrubPillarFilter();
@@ -12088,3 +12088,5 @@ server.listen(PORT, '0.0.0.0', async () => {
   setTimeout(keepDailyDriverRunning, 3000);
   setInterval(keepDailyDriverRunning, 10000);
 });
+
+module.exports = { buildPage, buildSquareDeskPage };
