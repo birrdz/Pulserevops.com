@@ -10,8 +10,11 @@
 //   Progress log lives OUTSIDE the publish root (scratchpad) so deploys don't 422.
 process.env.POLLINATOR_FREQ_MS = process.env.POLLINATOR_FREQ_MS || '20000'; // 20s pollinator cooldown (owner 2026-07-06)
 const fs = require('fs');
-const WD = 'C:/Users/koryj/website';
-for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+const path = require('path');
+const os = require('os');
+const WD = process.env.PULSE_ROOT || __dirname;
+const envFile = path.join(WD, '.env.local');
+if (fs.existsSync(envFile)) for (const l of fs.readFileSync(envFile, 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
 const { getStore } = require('@netlify/blobs');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 const lib = require('./_ddg_facecard_lib');
@@ -28,7 +31,7 @@ const {
 const { pickSmartPoolSlot, describeForMeta } = require('./_facecard_pool_match');
 const S = 760, DIR = WD + '/assets/qa';
 const STOP = WD + '/_all_flux_facecards_stop.flag';
-const PROG = process.env.PROG_LOG || 'C:/Users/koryj/AppData/Local/Temp/claude/C--Users-koryj/13770b56-5042-4718-9ba0-6cd6a9b9e409/scratchpad/_all_flux_progress.json';
+const PROG = process.env.PROG_LOG || path.join(os.tmpdir(), 'pulse-all-flux-progress.json');
 // ── PERSISTENT RUN CONFIG (owner 2026-07-07): _all_flux_config.json survives watchdog relaunches (the
 // watchdog spawns this script with NO env), so the mv→tl scope + 200-inventory-then-dupe plan sticks. ──
 let CFG = {};
