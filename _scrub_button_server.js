@@ -887,12 +887,16 @@ function imageRewriteStatusPayload() {
 
 // ── Face Card & Top Image Generator — Pollinator face-card + hero only (whole pillar) ──
 let lastPexelsPickerAt = 0;
-async function searchPexelsForTitle(id, requestedTitle, gender) {
+async function searchPexelsForTitle(id, requestedTitle, gender, clickIndex) {
   const key = process.env.PEXELS_API_KEY || '';
   if (!key) throw new Error('PEXELS_API_KEY missing');
   const entry = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
-  const title = String(requestedTitle || titleOf[id] || entry.question || entry.title || id).trim();
+  const pageTitle = String(requestedTitle || titleOf[id] || entry.question || entry.title || id).trim();
+  const route = pickGoldTemplate(id, entry.answer, pageTitle);
+  clickIndex = Math.max(0, parseInt(clickIndex, 10) || 0);
+  const productTitles = [...String(entry.answer).matchAll(/@@PRODUCT[^\n]*\bname="([^"]+)"/g)].map(match => match[1]);
+  const title = route.template === 'top10' && productTitles[clickIndex] ? productTitles[clickIndex] : pageTitle;
   const baseQuery = deriveImageSearchQuery(title);
   const query = (baseQuery + (gender === 'men' ? ' man male' : gender === 'women' ? ' woman female' : '')).trim();
   const wait = lastPexelsPickerAt + 18000 - Date.now();
@@ -910,7 +914,7 @@ async function searchPexelsForTitle(id, requestedTitle, gender) {
     url: p.src.large2x || p.src.large || p.src.original,
     photographer: p.photographer || '',
   }));
-  return { id, title, query, photos, template: pickGoldTemplate(id, entry.answer, title).template };
+  return { id, title: pageTitle, targetTitle: title, targetIndex: clickIndex, query, photos, template: route.template, targetCount: route.template === 'top10' ? Math.min(10, productTitles.length) : (pillarOf(id) === 'sy' ? 6 : 3) };
 }
 async function downloadPexelsPickerImage(url) {
   const parsed = new URL(String(url || ''));
@@ -948,8 +952,13 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   if (!route.template) throw new Error('Q&A does not match a locked golden template');
   clickIndex = Math.max(0, parseInt(clickIndex, 10) || 0);
   const pillar = pillarOf(id);
-  const maxClick = route.template === 'top10' ? 10 : (pillar === 'sy' ? 5 : 2);
+  const maxClick = route.template === 'top10' ? 9 : (pillar === 'sy' ? 5 : 2);
   if (clickIndex > maxClick) throw new Error('all allowed manual image slots are filled');
+  const styleCounts = Object.assign({ men: 0, women: 0 }, entry.manual_style_counts || {});
+  if (pillar === 'sy') {
+    if (gender !== 'men' && gender !== 'women') throw new Error('Style requires Men or Women selection');
+    if ((styleCounts[gender] || 0) >= 3) throw new Error('Style already has 3 ' + gender + ' images');
+  }
   const buffer = await downloadPexelsPickerImage(url);
   fs.mkdirSync(path.join(WD, 'assets', 'qa'), { recursive: true });
   let body = entry.answer, localUrl, placement;
@@ -961,25 +970,31 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
       const swapped = replaceMarkdownImageAt(body, 0, localUrl);
       body = swapped.body;
       if (swapped.changed) placement += ' + existing top image';
+    } else {
+      const swapped = replaceProductImageAt(body, 0, localUrl);
+      body = swapped.body;
+      if (swapped.changed) placement += ' + Top-10 item 1';
     }
   } else {
     const sex = gender === 'men' ? 'men' : gender === 'women' ? 'women' : 'any';
     localUrl = '/assets/qa/' + id + '-manual-' + sex + '-' + clickIndex + '.jpg';
     await storeGradedImage(buffer, path.join(WD, localUrl.replace(/^\/+/, '')), { sectionTile: true, width: 1200, height: 675, cropPosition: 'attention', bright: false });
     const swapped = route.template === 'top10'
-      ? replaceProductImageAt(body, clickIndex - 1, localUrl)
+      ? replaceProductImageAt(body, clickIndex, localUrl)
       : replaceMarkdownImageAt(body, clickIndex, localUrl);
     if (!swapped.changed) throw new Error('that existing image slot is not present in this Q&A');
     body = swapped.body;
-    placement = route.template === 'top10' ? 'Top-10 item ' + clickIndex : (clickIndex === 1 ? 'middle image' : clickIndex === 2 ? 'bottom image' : 'style image ' + (clickIndex + 1));
+    placement = route.template === 'top10' ? 'Top-10 item ' + (clickIndex + 1) : (clickIndex === 1 ? 'middle image' : clickIndex === 2 ? 'bottom image' : 'style image ' + (clickIndex + 1));
   }
   const afterRoute = pickGoldTemplate(id, body, title);
   if (afterRoute.template !== route.template) throw new Error('image change would alter the locked template');
+  if (pillar === 'sy') styleCounts[gender] = (styleCounts[gender] || 0) + 1;
   await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, {
     answer: body,
     cover_src: clickIndex === 0 ? 'pexels' : (entry.cover_src || 'pexels'),
     face_title_baked: false,
     image_updated_at: new Date().toISOString(),
+    manual_style_counts: pillar === 'sy' ? styleCounts : entry.manual_style_counts,
   }));
   if (clickIndex === 0) {
     const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
@@ -9873,15 +9888,16 @@ _squarePexelsSearch&&_squarePexelsSearch.addEventListener('click',async()=>{
   const id=String(($('#squareQaId')&&$('#squareQaId').value)||'').trim();
   const title=String(($('#squareTitleQuery')&&$('#squareTitleQuery').value)||'').trim();
   const gender=String(($('#squareGender')&&$('#squareGender').value)||'');
+  const currentClick=squareClickCount(id);
   const status=$('#squarePickerStatus'),grid=$('#squarePexelsGrid');
   if(!id){if(status)status.textContent='Enter a graduated Q&A ID.';return;}
   _squarePexelsSearch.disabled=true;if(status)status.textContent='Searching Pexels from title keywords…';if(grid)grid.innerHTML='';
   try{
-    const u='/square-pexels-search?key='+encodeURIComponent(KEY)+'&id='+encodeURIComponent(id)+'&title='+encodeURIComponent(title)+'&gender='+encodeURIComponent(gender);
+    const u='/square-pexels-search?key='+encodeURIComponent(KEY)+'&id='+encodeURIComponent(id)+'&title='+encodeURIComponent(title)+'&gender='+encodeURIComponent(gender)+'&clickIndex='+currentClick;
     const r=await(await fetch(u)).json();
     if(!r.ok)throw new Error(r.msg||'search failed');
     if($('#squareTitleQuery')&&!title)$('#squareTitleQuery').value=r.title||'';
-    if(status)status.textContent=(r.template==='top10'?'Top 10 manual mode':'Q&A essay manual mode')+' · query: '+r.query+' · click #'+(squareClickCount(id)+1);
+    if(status)status.textContent=(r.template==='top10'?'Top 10 manual mode':'Q&A essay manual mode')+' · '+(r.targetTitle||r.title)+' · click '+(currentClick+1)+'/'+(r.targetCount||'?')+' · query: '+r.query;
     (r.photos||[]).forEach(photo=>{
       const btn=document.createElement('button');btn.type='button';btn.className='square-pexels-option';
       const img=document.createElement('img');img.src=photo.thumb;img.alt='Pexels option by '+(photo.photographer||'photographer');
@@ -9894,6 +9910,7 @@ _squarePexelsSearch&&_squarePexelsSearch.addEventListener('click',async()=>{
           setSquareClickCount(id,clickIndex+1);
           if(status)status.textContent='✓ '+applied.placement+' · click another image for the next existing slot, or Finish Q&A.';
           btn.style.borderColor='#22c55e';btn.style.opacity='.55';
+          if(clickIndex+1<(r.targetCount||0)){setTimeout(()=>_squarePexelsSearch.click(),350);}
         }catch(e){btn.disabled=false;if(status)status.textContent='⚠ '+e.message;}
       });
       if(grid)grid.appendChild(btn);
@@ -11208,7 +11225,7 @@ const server = http.createServer(async (req, res) => {
   if (u.pathname === '/square-pexels-search') {
     if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
     try {
-      const result = await searchPexelsForTitle(String(u.searchParams.get('id') || '').trim(), u.searchParams.get('title') || '', u.searchParams.get('gender') || '');
+      const result = await searchPexelsForTitle(String(u.searchParams.get('id') || '').trim(), u.searchParams.get('title') || '', u.searchParams.get('gender') || '', u.searchParams.get('clickIndex') || 0);
       res.writeHead(200, { 'Content-Type': 'application/json' });
       return res.end(JSON.stringify(Object.assign({ ok: true }, result)));
     } catch (e) {
