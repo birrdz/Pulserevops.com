@@ -16,8 +16,10 @@ function lanAddress() {
   return hit ? hit.address : '';
 }
 
-function dashboardHtml() {
+function dashboardHtml(requestUrl) {
   const lan = lanAddress();
+  const qa = new URL(requestUrl || '/', 'http://localhost').searchParams.get('qa') || '';
+  const qaSuffix = qa ? '?qa=' + encodeURIComponent(qa) : '';
   const localUrl = 'http://localhost:' + PORT + '/';
   const lanUrl = lan ? 'http://' + lan + ':' + PORT + '/' : '';
   return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
@@ -27,7 +29,7 @@ function dashboardHtml() {
     'iframe{display:block;width:100%;height:calc(100% - 52px);border:0;background:#0b0f14}</style></head><body>' +
     '<div class="bar"><b>◻️ Square Builder</b><a href="/app">Open dashboard</a><span>Local: ' + localUrl + '</span>' +
     (lanUrl ? '<a href="' + lanUrl + '">LAN: ' + lanUrl + '</a>' : '<span>LAN address unavailable</span>') +
-    '</div><iframe src="/app" title="Square Builder dashboard"></iframe></body></html>';
+    '</div><iframe src="/app' + qaSuffix + '" title="Square Builder dashboard"></iframe></body></html>';
 }
 
 function backendReady() {
@@ -63,7 +65,7 @@ async function ensureBackend() {
 function proxy(req, res) {
   if (req.url === '/' && req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
-    return res.end(dashboardHtml());
+    return res.end(dashboardHtml(req.url));
   }
   if (req.url === '/health' && req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
@@ -74,7 +76,9 @@ function proxy(req, res) {
     res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' });
     return res.end(JSON.stringify({ ok: true, localhost: 'http://localhost:' + PORT + '/', lan: lan ? 'http://' + lan + ':' + PORT + '/' : null }));
   }
-  const targetPath = req.url === '/app' ? '/square-builder' : req.url;
+  const targetPath = req.url === '/app' ? '/square-builder'
+    : req.url.startsWith('/app?') ? '/square-builder?' + req.url.slice(req.url.indexOf('?') + 1)
+    : req.url;
   const upstream = http.request({
     hostname: '127.0.0.1',
     port: BACKEND_PORT,

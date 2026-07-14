@@ -69,6 +69,7 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, storeGradedImage, coverPath, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
 const { readSquareQueue, enqueueSquareBuild, completeSquareBuild, removeSquareBuildsByPrefix } = require('./_square_builder_queue');
 const { deriveImageSearchQuery } = require('./netlify/functions/lib/derive-image-search-query');
+const { sendSquareQueueEmail, sendSquareBacklogEmail } = require('./_facecard_resend_email');
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
 const IMG_GEN_BATCH_MAX = parseInt(process.env.IMG_GEN_BATCH_MAX || '250', 10);
@@ -957,6 +958,10 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   const maxClick = route.template === 'top10' ? 9 : 2;
   if (clickIndex > maxClick) throw new Error('all allowed manual image slots are filled');
   const buffer = await downloadPexelsPickerImage(url);
+  const sourceUrls = Array.isArray(entry.manual_image_sources) ? entry.manual_image_sources.slice() : [];
+  const imageHashes = Array.isArray(entry.manual_image_hashes) ? entry.manual_image_hashes.slice() : [];
+  const imageHash = require('crypto').createHash('sha256').update(buffer).digest('hex');
+  if (sourceUrls.includes(url) || imageHashes.includes(imageHash)) throw new Error('duplicate image rejected — choose a different photo');
   fs.mkdirSync(path.join(WD, 'assets', 'qa'), { recursive: true });
   let body = entry.answer, localUrl, placement;
   if (clickIndex === 0) {
@@ -985,11 +990,15 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   }
   const afterRoute = pickGoldTemplate(id, body, title);
   if (afterRoute.template !== route.template) throw new Error('image change would alter the locked template');
+  sourceUrls.push(url);
+  imageHashes.push(imageHash);
   await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, {
     answer: body,
     cover_src: clickIndex === 0 ? 'pexels' : (entry.cover_src || 'pexels'),
     face_title_baked: false,
     image_updated_at: new Date().toISOString(),
+    manual_image_sources: sourceUrls,
+    manual_image_hashes: imageHashes,
   }));
   if (clickIndex === 0) {
     const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
@@ -1470,6 +1479,38 @@ async function stampFormatFixerPassed(id) {
     formatFixerLog('⚠️ ' + id + ' · could not stamp fixer pass');
   }
 }
+function squarePickerLinks(id) {
+  const suffix = '?qa=' + encodeURIComponent(id);
+  let lanUrl = '';
+  try {
+    const saved = fs.readFileSync(path.join(WD, '_scrub_lan_ip.txt'), 'utf8').trim();
+    const host = saved.replace(/^https?:\/\//, '').replace(/:\d+.*$/, '');
+    if (host) lanUrl = 'http://' + host + ':8900/' + suffix;
+  } catch (e) {}
+  return { localUrl: 'http://localhost:8900/' + suffix, lanUrl };
+}
+async function queueGraduatedForManualImages(id, question, log) {
+  if (pillarOf(id) === 'sy' || !enqueueSquareBuild(id, question || id)) return false;
+  const links = squarePickerLinks(id);
+  sendSquareQueueEmail({ id, question: question || id, localUrl: links.localUrl, lanUrl: links.lanUrl })
+    .catch(error => { if (log) log('⚠️ ' + id + ' · image-ready email failed: ' + error.message); });
+  return true;
+}
+async function emailSquareBacklogOnce() {
+  const pending = readSquareQueue().pending.filter(item => pillarOf(item.id) !== 'sy');
+  if (!pending.length) return;
+  const signature = require('crypto').createHash('sha1').update(pending.map(item => item.id).join('|')).digest('hex');
+  const stateFile = path.join(WD, '_square_backlog_email_state.json');
+  try {
+    const previous = JSON.parse(fs.readFileSync(stateFile, 'utf8'));
+    if (previous.signature === signature) return;
+  } catch (e) {}
+  const sample = squarePickerLinks(pending[0].id);
+  const localBase = 'http://localhost:8900/';
+  const lanBase = sample.lanUrl ? sample.lanUrl.replace(/\?qa=.*$/, '') : '';
+  await sendSquareBacklogEmail({ items: pending, localBase, lanBase });
+  fs.writeFileSync(stateFile, JSON.stringify({ signature, count: pending.length, sentAt: new Date().toISOString() }, null, 2));
+}
 async function getFormatFixerEntries(pillar) {
   const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
   const seen = new Set();
@@ -1536,7 +1577,7 @@ async function runFormatFixerLoop() {
           formatFixerJob.entriesPass++;
           formatFixerJob.consecutiveErrors = 0;
           await stampFormatFixerPassed(id);
-          if (pillarOf(id) !== 'sy' && enqueueSquareBuild(id, titleOf[id] || row.question || id)) formatFixerJob.squareQueued++;
+          if (await queueGraduatedForManualImages(id, titleOf[id] || row.question || id, formatFixerLog)) formatFixerJob.squareQueued++;
         }
         else if (r.error) recordFormatFixerError(id, r.error);
         else {
@@ -1546,7 +1587,7 @@ async function runFormatFixerLoop() {
           if (r.pass) {
             formatFixerJob.entriesPass++;
             await stampFormatFixerPassed(id);
-            if (pillarOf(id) !== 'sy' && enqueueSquareBuild(id, titleOf[id] || row.question || id)) formatFixerJob.squareQueued++;
+            if (await queueGraduatedForManualImages(id, titleOf[id] || row.question || id, formatFixerLog)) formatFixerJob.squareQueued++;
           }
           const note = r.pass ? 'rubric ✓' : ('rubric ' + (r.afterPct != null ? r.afterPct : '?') + '% · ' + (r.words != null ? r.words + 'w' : '') + (r.failed && r.failed.length ? ' · ' + r.failed.slice(0, 4).join(', ') : ''));
           formatFixerLog((r.changed ? '📝' : '✓') + ' ' + id + ' · ' + note + (r.steps && r.steps.length ? (' · ' + r.steps.join('+')) : ''));
@@ -2080,10 +2121,11 @@ function recordScrubAutoResult(r) {
   if (!r) return;
   if (r.status === 'certified') {
     const st = stateObj();
-    if (pillarOf(r.id) !== 'sy' && enqueueSquareBuild(r.id, titleOf[r.id] || r.id)) {
+    queueGraduatedForManualImages(r.id, titleOf[r.id] || r.id, autoLog).then(queued => {
+      if (!queued) return;
       autoJob.squareQueued = (autoJob.squareQueued || 0) + 1;
-      autoLog('◻️ ' + r.id + ' passed all Daily Driver gates → waiting in Square Builder');
-    }
+      autoLog('◻️ ' + r.id + ' passed all Daily Driver gates → manual images email sent');
+    });
     if (!autoJob.lastCertify || autoJob.lastCertify.id !== r.id || Date.now() - (autoJob.lastCertify.at || 0) > 8000) {
       autoJob.lastCertify = { id: r.id, score: r.score, before: r.before, at: Date.now(), green: st.green, under: st.under };
       autoJob.lastFinish = { type: 'certified', id: r.id, score: r.score, contentScore: r.score, before: r.before, at: Date.now(), green: st.green, under: st.under };
@@ -8422,6 +8464,12 @@ function initPage(){
   initImgGenKeywords();
   initGuideKeywordsUi();
 }
+function openSquareQaFromLink(){
+  let id='';try{id=new URLSearchParams(location.search).get('qa')||'';}catch(e){}
+  if(!id)return;
+  const input=$('#squareQaId');if(input)input.value=id;
+  setTimeout(()=>{const button=$('#squarePexelsSearch');if(button&&!button.disabled)button.click();},250);
+}
 function showFsGenerate(on){
   const fs=$('#fsGenerate');
   if(fs) fs.classList.toggle('on',!!on);
@@ -8695,6 +8743,7 @@ window.enterUnicornGate=enterGate;
 function tryGate(){if(gateUnlocked)return;const code=pwEl?pwEl.value.trim():'';if(code.length!==4)return;KEY=code;fetch('/state?key='+KEY).then(r=>r.json()).then(d=>{if(d.ok){gateUnlocked=true;$('#gerr').textContent='';if(gateEl)gateEl.style.display='none';hideIntro();if(appEl)appEl.style.display='flex';shownGreen=d.green;shownUnder=d.under;paint(d,true);
   loadPillars();
   initPage();
+  openSquareQaFromLink();
   fetch('/scrub-status').then(r=>r.json()).then(a=>{ window._sa=a; setScrubPillarFilterUi(a.scrubPillarFilter||'all'); renderAuto(a); if(a.state)paint(a.state); if(a.running||a.imageScrubRunning){ startAutoPoll(); } refreshSignoffQueue(); maybeOpenApprovalDeepLink(); updateTabBadges(); refreshDuplicatorStatus(); }).catch(()=>{ paintCrewManifest(null); maybeOpenApprovalDeepLink(); });
   fetch('/gen-status?key='+KEY).then(r=>r.json()).then(g=>{ if(g&&g.running){ window._gen=g; window.genRunning=true; genRender(g); genStartPoll(); } updateTabBadges(); }).catch(()=>{});
   if(window.activeTab==='imgen') refreshImgGenStatus();
@@ -11524,6 +11573,7 @@ server.on('error', (e) => {
 });
 server.listen(PORT, '0.0.0.0', async () => {
   removeSquareBuildsByPrefix('sy');
+  emailSquareBacklogOnce().catch(error => console.log('[square-email] backlog email failed:', error.message));
   loadScrubPillarFilter();
   await loadIndex();
   mergeCookIntoQueue();

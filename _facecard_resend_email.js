@@ -112,4 +112,42 @@ async function sendFaceCardEmail({ id, question, kb, source }) {
   return { ok: true };
 }
 
-module.exports = { sendFaceCardEmail, resendKey, RECIP };
+async function sendSquareQueueEmail({ id, question, localUrl, lanUrl }) {
+  const key = await resendKey();
+  const links = [
+    localUrl ? '<a href="' + esc(localUrl) + '" style="display:inline-block;padding:10px 16px;margin:4px;background:#6b21a8;color:#fff;text-decoration:none;border-radius:18px;font-weight:800">Open locally</a>' : '',
+    lanUrl ? '<a href="' + esc(lanUrl) + '" style="display:inline-block;padding:10px 16px;margin:4px;background:#0f766e;color:#fff;text-decoration:none;border-radius:18px;font-weight:800">Open on LAN</a>' : '',
+  ].join('');
+  const html = '<div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:620px;color:#15110d">' +
+    '<h2 style="font-family:Georgia,serif">Manual images ready · ' + esc(id) + '</h2>' +
+    '<p><b>' + esc(question) + '</b></p><p>Click below, enter 4444, then choose Pexels images manually.</p><p>' + links + '</p></div>';
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from: 'PULSE Engine <onboarding@resend.dev>', to: [RECIP], subject: '◻️ Images ready · ' + id, html }),
+  });
+  if (!response.ok) throw new Error('resend ' + response.status + ' ' + (await response.text()).slice(0, 160));
+  return { ok: true };
+}
+async function sendSquareBacklogEmail({ items, localBase, lanBase }) {
+  items = (items || []).slice(0, 250);
+  if (!items.length) return { ok: false, skipped: true };
+  const key = await resendKey();
+  const rows = items.map(item => {
+    const local = localBase + '?qa=' + encodeURIComponent(item.id);
+    const lan = lanBase ? lanBase + '?qa=' + encodeURIComponent(item.id) : '';
+    return '<li style="margin:8px 0"><b>' + esc(item.id) + '</b> · ' + esc(item.question || '') +
+      ' · <a href="' + esc(local) + '">local</a>' + (lan ? ' · <a href="' + esc(lan) + '">LAN</a>' : '') + '</li>';
+  }).join('');
+  const html = '<div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;color:#15110d">' +
+    '<h2>Manual image backlog · ' + items.length + ' Q&amp;As</h2><p>Click an ID, enter 4444, and choose its Pexels images.</p><ol>' + rows + '</ol></div>';
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from: 'PULSE Engine <onboarding@resend.dev>', to: [RECIP], subject: '◻️ Manual image backlog · ' + items.length, html }),
+  });
+  if (!response.ok) throw new Error('resend ' + response.status + ' ' + (await response.text()).slice(0, 160));
+  return { ok: true, count: items.length };
+}
+
+module.exports = { sendFaceCardEmail, sendSquareQueueEmail, sendSquareBacklogEmail, resendKey, RECIP };
