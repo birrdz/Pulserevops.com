@@ -2,6 +2,8 @@
 REM Starts the tracked Fixer + Builder on the first unused localhost port from 8916-8999.
 setlocal
 cd /d "%~dp0"
+set "DATA_ROOT=%USERPROFILE%\website"
+if not exist "%DATA_ROOT%" set "DATA_ROOT=%~dp0"
 
 for /f %%P in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "$used=@(Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty LocalPort); $p=8916..8999 | Where-Object {$_ -notin $used} | Select-Object -First 1; if($p){$p}"') do set "PORT=%%P"
 if not defined PORT (
@@ -17,7 +19,7 @@ echo  Fixer: TL / CRO Pulse Tools, automatic pods of 100.
 echo  Builder: manual or learned auto-run, continuous pods of 100.
 echo.
 
-start "PULSE NEW Fixer + Builder %PORT%" /D "%~dp0" cmd /k "set SCRUB_BTN_PORT=%PORT%&& set FIXER_BUILDER_HOME=1&& set FORMAT_FIXER_AUTORUN=1&& set FORMAT_FIXER_BOOT_PILLAR=tl&& node _scrub_button_server.js"
+start "PULSE NEW Fixer + Builder %PORT%" /D "%~dp0" cmd /k "set PULSE_ROOT=%DATA_ROOT%&& set SCRUB_BTN_PORT=%PORT%&& set FIXER_BUILDER_HOME=1&& set FORMAT_FIXER_AUTORUN=1&& set FORMAT_FIXER_BOOT_PILLAR=tl&& node _scrub_button_server.js"
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$url='%URL%';" ^
