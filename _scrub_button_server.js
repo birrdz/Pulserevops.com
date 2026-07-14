@@ -1219,14 +1219,10 @@ function forceStopFaceHero() {
 
 // ── Square Desk (owner 2026-07-14): waiting square → keyword search → click = face+top → answer page ──
 const SQUARE_QA_DIR = path.join(WD, 'assets', 'qa');
-/** Live Square Desk image — NEW file. Original /assets/qa/<id>.jpg stays on disk but hidden. */
+/** Canonical face/top path — one file. */
 function squareOrigRel(id) { return '/assets/qa/' + id + '.jpg'; }
-function squareLiveRel(id) { return '/assets/qa/' + id + '-sq.jpg'; }
-function squareFaceRel(id) {
-  // Prefer the new Square pick; fall back to original only if live missing
-  if (squareFileOk(squareLiveRel(id))) return squareLiveRel(id);
-  return squareLiveRel(id); // always show/target the live path once desk runs
-}
+function squareLiveRel(id) { return squareOrigRel(id); } // same file
+function squareFaceRel(id) { return squareOrigRel(id); }
 function squareSlotRel(id, n) { return '/assets/qa/' + id + '-' + n + '.jpg'; }
 function squareFileOk(rel) {
   try { return fs.statSync(path.join(WD, rel.replace(/^\//, ''))).size > 8000; } catch (e) { return false; }
@@ -1238,66 +1234,83 @@ function squareUnlink(relOrAbs) {
   const fp = path.isAbsolute(relOrAbs) ? relOrAbs : squareAbs(relOrAbs);
   try { if (fs.existsSync(fp)) fs.unlinkSync(fp); } catch (e) {}
 }
+/** Delete every face variant for this id (owner: just delete the box and make a new one). */
+function squareDeleteAllFaceFiles(id) {
+  const dir = SQUARE_QA_DIR;
+  const names = [
+    id + '.jpg',
+    id + '-sq.jpg',
+    id + '.oldtitle.jpg',
+    id + '.bak.jpg',
+  ];
+  for (const name of names) {
+    squareUnlink(path.join(dir, name));
+    try { fs.unlinkSync(path.join('/workspace/assets/qa', name)); } catch (e) {}
+  }
+  // wipe leftover tmp / bak fragments
+  for (const root of [dir, '/workspace/assets/qa']) {
+    try {
+      if (!fs.existsSync(root)) continue;
+      for (const name of fs.readdirSync(root)) {
+        if (
+          name.startsWith(id + '-sq.bak-') ||
+          name.startsWith(id + '.bak-') ||
+          name.startsWith(id + '-face-') ||
+          name === id + '-sq.jpg' ||
+          (name.startsWith(id + '.') && name.endsWith('.jpg') && name !== id + '.jpg')
+        ) {
+          try { fs.unlinkSync(path.join(root, name)); } catch (x) {}
+        }
+      }
+    } catch (e) {}
+  }
+}
 /**
- * Face-card = top hero (same file). Old titled <id>.jpg stays on disk but is never shown.
- * Pixel stack (old title forced invisible — never composited into the live file):
- *   1) OPAQUE black plate (wipes any prior pixels — old title cannot bleed through)
- *   2) NEW photo fully covering the plate
- *   3) NEW gold title (main-page mosaic bake only)
- * Writes <id>-sq.jpg only. Original <id>.jpg is never read into this stack, never deleted.
+ * DELETE old face → WRITE brand-new mosaic (photo + gold title) to /assets/qa/<id>.jpg
+ * Face-card = top hero = same file. No layering over old pixels.
  */
 async function squareWriteFaceAtomic(id, buf, title) {
   const sharpLocal = require('sharp');
-  const liveRel = squareLiveRel(id);
-  const dest = squareAbs(liveRel);
+  const destRel = squareOrigRel(id);
+  const dest = squareAbs(destRel);
   const dir = path.dirname(dest);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+  // 1) DELETE the old image box completely
+  squareDeleteAllFaceFiles(id);
 
   const W = FACE_CARD_TILE_W || 1200;
   const H = FACE_CARD_TILE_H || 400;
   const cropPosition = await resolveFaceCardCropPosition(buf);
   const cleanTitle = String(title || id).replace(/[#*_`>|]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 220);
 
-  // 1) Opaque black plate — old baked title cannot appear (we never pull pixels from id.jpg)
-  const blank = await sharpLocal({
-    create: { width: W, height: H, channels: 3, background: { r: 8, g: 8, b: 8 } },
-  }).jpeg({ quality: 95 }).toBuffer();
-
-  // 2) NEW photo fully covers the plate (opaque JPEG — no alpha bleed)
-  const photo = await sharpLocal(buf, { animated: false })
-    .rotate()
-    .flatten({ background: '#080808' })
-    .resize(W, H, { fit: 'cover', position: cropPosition })
-    .removeAlpha()
-    .jpeg({ quality: 95 })
-    .toBuffer();
-  const covered = await sharpLocal(blank)
-    .composite([{ input: photo, top: 0, left: 0 }])
-    .jpeg({ quality: 92 })
-    .toBuffer();
-
-  // 3) NEW title only (main-page gold bake) — never rebake onto old id.jpg
-  const tmp = path.join(dir, id + '-sq.bak-' + Date.now() + '.jpg');
-  await storeGradedImage(covered, tmp, {
+  // 2) Grade NEW photo + NEW gold title into a fresh temp file
+  const tmp = path.join(dir, id + '-face-' + Date.now() + '.jpg');
+  await storeGradedImage(buf, tmp, {
     faceCardTile: true,
     width: W,
     height: H,
-    cropPosition: 'centre',
+    cropPosition,
     bright: false,
     goldTitle: cleanTitle,
   });
   const sz = fs.statSync(tmp).size;
-  if (sz < 8000) throw new Error('face too small (' + sz + 'b)');
-  try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
+  if (sz < 8000) {
+    try { fs.unlinkSync(tmp); } catch (e) {}
+    throw new Error('face too small (' + sz + 'b)');
+  }
+
+  // 3) Make sure destination is gone, then place the new file
+  squareUnlink(dest);
   fs.renameSync(tmp, dest);
   try {
-    const mirror = path.join('/workspace/assets/qa', id + '-sq.jpg');
+    const mirror = path.join('/workspace/assets/qa', id + '.jpg');
     if (path.normalize(mirror) !== path.normalize(dest)) {
       if (!fs.existsSync(path.dirname(mirror))) fs.mkdirSync(path.dirname(mirror), { recursive: true });
       fs.copyFileSync(dest, mirror);
     }
   } catch (e) {}
-  return liveRel;
+  return destRel;
 }
 /** Insert/replace body slot image markdown for Square Desk fills. */
 function patchBodySlotImage(id, title, body, n, rel) {
@@ -1348,45 +1361,36 @@ async function squareWriteSlotAtomic(id, n, buf) {
     throw e;
   }
 }
-/** Point face + top hero at <id>-sq.jpg (same file). Original id.jpg stays but is not shown. */
+/** Point face + top hero at /assets/qa/<id>.jpg (same file). */
 function forceSquareFaceAndTopMarkdown(id, title, body) {
-  const live = squareLiveRel(id);
-  const orig = squareOrigRel(id);
+  const live = squareOrigRel(id);
   const alt = String(title || id).replace(/[\[\]]/g, '').slice(0, 80);
   const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   let text = String(body || '');
-  // Drop leading hero / pollinations / old face / live face — we'll put live back once
   text = text.replace(new RegExp('^\\s*!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '(?:-sq)?\\.jpg(?:\\?[^)]*)?\\)\\s*\\n*', 'gmi'), '');
   text = text.replace(/^\s*!\[[^\]]*\]\(https?:\/\/image\.pollinations\.ai\/[^)]+\)\s*\n*/gmi, '');
-  // Hide every leftover original face reference (file kept, not shown)
-  text = text.replace(new RegExp('!\\[[^\\]]*\\]\\(' + orig.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?:\\?[^)]*)?\\)', 'gi'), '');
-  text = text.replace(new RegExp('!\\[[^\\]]*\\]\\(' + live.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?:\\?[^)]*)?\\)', 'gi'), '');
-  // One hero line = face-card = top image
+  text = text.replace(new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '(?:-sq)?\\.jpg(?:\\?[^)]*)?\\)', 'gi'), '');
   return '![' + alt + '](' + live + ')\n\n' + text.trimStart();
 }
-/** Hide live Square image (delete -sq only). Original id.jpg stays. */
+/** Delete face box completely. */
 async function squareDeleteFaceEntry(id) {
   id = String(id || '').trim();
   if (!id) return { ok: false, msg: 'missing id' };
-  const live = squareLiveRel(id);
-  squareUnlink(live);
-  squareUnlink(path.join('/workspace/assets/qa', id + '-sq.jpg'));
+  squareDeleteAllFaceFiles(id);
   const entry = await loadSquareEntry(id);
   let title = String((titleOf && titleOf[id]) || (entry && (entry.question || entry.title)) || id);
   let body = entry && entry.answer ? String(entry.answer) : '';
   const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  // Strip live -sq refs from body (original file kept, but also un-referenced while hidden)
   body = String(body || '')
-    .replace(new RegExp('^\\s*!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '-sq\\.jpg(?:\\?[^)]*)?\\)\\s*\\n*', 'gmi'), '')
-    .replace(new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '-sq\\.jpg(?:\\?[^)]*)?\\)', 'gi'), '');
+    .replace(new RegExp('^\\s*!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '(?:-sq)?\\.jpg(?:\\?[^)]*)?\\)\\s*\\n*', 'gmi'), '')
+    .replace(new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '(?:-sq)?\\.jpg(?:\\?[^)]*)?\\)', 'gi'), '');
   await saveSquareEntry(id, {
     cover_src: 'square-desk',
     face_title_baked: false,
     img: null,
     square_live: null,
-    square_orig_hidden: true,
   }, body || ('# ' + title + '\n\n'));
-  return { ok: true, deleted: 1, wiped: true, faceUrl: null, originalKept: squareOrigRel(id) };
+  return { ok: true, deleted: 1, wiped: true, faceUrl: null };
 }
 function detectSquareShape(id, title, body) {
   try {
@@ -1659,7 +1663,7 @@ function queueSquareDraft(d) {
   } catch (e) {}
   return { ok: true, queued: true, id, title, pending, queueLen: q.length, msg: 'Queued for Cursor manual bake' };
 }
-/** Cursor manual bake — blank plate + raw photo + NEW gold title onto real face path. */
+/** Cursor: delete old face box → write brand-new graded face + body slots from queued picks. */
 async function squareManualApplyPending(id) {
   id = String(id || '').trim();
   const pending = readSquarePending(id);
@@ -1671,24 +1675,10 @@ async function squareManualApplyPending(id) {
     body = '# How do reef tanks keep aquarium water clear and stable?\n\n## Direct Answer\n\nClear water starts with filtration, light, and steady parameters.\n\n## Deep Dive\n\nGood flow and a clean filter keep particles moving out of the water column.\n';
   }
 
-  // Backup old titled original once (never delete)
-  const origAbs = squareAbs(squareOrigRel(id));
-  const bakAbs = squareAbs('/assets/qa/' + id + '.oldtitle.jpg');
-  try {
-    if (fs.existsSync(origAbs) && !fs.existsSync(bakAbs)) fs.copyFileSync(origAbs, bakAbs);
-  } catch (e) {}
-
   const buf = await fetchSquareImageBuf(pending.faceImageUrl);
+  // DELETE old box + WRITE brand-new /assets/qa/<id>.jpg with gold title
   const liveRel = await squareWriteFaceAtomic(id, buf, title);
-  // Also overwrite live face path bytes with the NEW bake (manual put) — old kept as .oldtitle.jpg
-  try {
-    const liveAbs = squareAbs(liveRel);
-    fs.copyFileSync(liveAbs, origAbs);
-  } catch (e) {}
-
   body = forceSquareFaceAndTopMarkdown(id, title, body || ('# ' + title + '\n\n'));
-  // Prefer canonical face path in markdown after manual put
-  body = String(body).replace(new RegExp(squareLiveRel(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), squareOrigRel(id));
 
   const slotMap = pending.slots || {};
   for (const key of Object.keys(slotMap)) {
@@ -1697,6 +1687,7 @@ async function squareManualApplyPending(id) {
     if (!n || !url) continue;
     try {
       const sbuf = await fetchSquareImageBuf(url);
+      squareUnlink(squareSlotRel(id, n));
       const rel = await squareWriteSlotAtomic(id, n, sbuf);
       body = patchBodySlotImage(id, title, body, n, rel);
     } catch (e) {}
@@ -1705,7 +1696,7 @@ async function squareManualApplyPending(id) {
   await saveSquareEntry(id, {
     cover_src: 'square-desk-manual',
     face_title_baked: true,
-    img: squareOrigRel(id),
+    img: liveRel,
     square_live: liveRel,
     square_manual_applied_at: new Date().toISOString(),
   }, body);
@@ -1714,15 +1705,15 @@ async function squareManualApplyPending(id) {
   writeSquareApplyQueue(readSquareApplyQueue().filter(x => x && x.id !== id));
   try {
     fs.appendFileSync(path.join(WD, '_square_apply_log.txt'),
-      new Date().toISOString() + ' APPLIED ' + id + ' → ' + squareOrigRel(id) + '\n');
+      new Date().toISOString() + ' APPLIED(delete+new) ' + id + ' → ' + liveRel + '\n');
   } catch (e) {}
   return {
     ok: true,
     applied: true,
+    deletedOld: true,
     id,
     title,
-    faceUrl: squareOrigRel(id) + '?v=' + Date.now(),
-    backup: fs.existsSync(bakAbs) ? ('/assets/qa/' + id + '.oldtitle.jpg') : null,
+    faceUrl: liveRel + '?v=' + Date.now(),
   };
 }
 async function drainSquareApplyQueue() {
@@ -2012,10 +2003,25 @@ function startFormatFixer(pillar) {
     done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
     skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [], _entries: null,
+    autorun: true,
   };
-  formatFixerLog('▶ Format Fixer — ' + formatFixerJob.pillarName + ' · content + structure only · images untouched');
+  formatFixerLog('▶ Format Fixer AUTO — ' + formatFixerJob.pillarName + ' · content + structure only · images untouched');
   runFormatFixerLoop().catch(e => { formatFixerJob.error = e.message; formatFixerJob.running = false; formatFixerJob.phase = 'error'; saveFormatFixerState(); });
-  return { ok: true, started: true, pillar, pillarName: formatFixerJob.pillarName };
+  return { ok: true, started: true, pillar, pillarName: formatFixerJob.pillarName, autorun: true };
+}
+/** Boot / flag: auto-start Format Fixer on current pillar (no click). */
+function maybeAutorunFormatFixer(reason) {
+  const envOn = String(process.env.FORMAT_FIXER_AUTORUN || '1') !== '0';
+  let flagOn = false;
+  try { flagOn = fs.existsSync(path.join(WD, '_format_fixer_autorun.flag')); } catch (e) {}
+  if (!envOn && !flagOn) return { ok: false, msg: 'autorun off' };
+  if (formatFixerJob.running) return { ok: false, msg: 'already running' };
+  let pillar = '';
+  try { pillar = fs.readFileSync(path.join(WD, '_current_pillar.txt'), 'utf8').trim().split(/\r?\n/)[0]; } catch (e) {}
+  if (!pillar) pillar = formatFixerJob.pillar || 'aq';
+  pillar = String(pillar).replace(/[^a-z0-9]/gi, '').slice(0, 8) || 'aq';
+  console.log('[scrub-button] Format Fixer AUTORUN · pillar=' + pillar + ' · ' + (reason || 'boot'));
+  return startFormatFixer(pillar);
 }
 function stopFormatFixer() {
   if (!formatFixerJob.running) return { ok: false, msg: 'not running' };
@@ -10451,7 +10457,7 @@ _formatfixStart&&_formatfixStart.addEventListener('click',async()=>{
   if(!KEY) return;
   const pillar=($('#formatfixPillarFilter')&&$('#formatfixPillarFilter').value)||'tl';
   if(!pillar||pillar==='all'){ alert('Pick a specific pillar (not All)'); return; }
-  if(!confirm('Format Fixer for every Q&A in '+pillar+'?\n\nStep 1: content + structure only — images NOT changed.\nAfter pass → run Square Builder (Face Card).')) return;
+  // AUTORUN — no confirm
   _formatfixStart.disabled=true;
   try{
     const r=await(await fetch('/format-fixer-start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,pillar})})).json();
@@ -10462,6 +10468,22 @@ _formatfixStart&&_formatfixStart.addEventListener('click',async()=>{
   }catch(e){ alert('start failed'); }
   finally{ _formatfixStart.disabled=false; }
 });
+// Page load AUTORUN: if Fixer idle on Format Fixer tab, kick it
+(async function formatFixerBootAutorun(){
+  if(!KEY) return;
+  try{
+    const j=await(await fetch('/format-fixer-status?key='+KEY)).json();
+    if(j&&j.running){ startFormatFixerPoll(); renderFormatFixer(j); return; }
+    if(window.activeTab!=='formatfix'&&!(location.pathname||'').includes('format-fixer')) return;
+    const pillar=(j&&j.pillar)||(($('#formatfixPillarFilter')&&$('#formatfixPillarFilter').value))||'aq';
+    const r=await(await fetch('/format-fixer-start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,pillar})})).json();
+    if(r&&r.started){
+      $('#formatfixProg')&&($('#formatfixProg').style.display='block');
+      startFormatFixerPoll();
+      renderFormatFixer({running:true,pct:0,done:0,total:0,log:['▶ AUTORUN…'],pillarName:r.pillarName,pillar});
+    }
+  }catch(e){}
+})();
 var _formatfixStop=$('#formatfixStop');
 _formatfixStop&&_formatfixStop.addEventListener('click',async()=>{
   if(!KEY) return;
@@ -11240,13 +11262,7 @@ const server = http.createServer(async (req, res) => {
   if (u.pathname === '/internal-images' || u.pathname === '/internalimages') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('internalimages')); }
   if (u.pathname === '/rubric-stations' || u.pathname === '/rubricstation') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rubricstation')); }
   if (u.pathname.startsWith('/assets/qa/')) {
-    let rel = u.pathname.replace(/^\/+/, '');
-    // Square Desk live face hides old titled original: serve <id>-sq.jpg when present
-    const bare = rel.match(/^assets\/qa\/([^/]+)\.jpe?g$/i);
-    if (bare && !/-sq$/i.test(bare[1]) && !/-\d+$/i.test(bare[1])) {
-      const liveRel = 'assets/qa/' + bare[1] + '-sq.jpg';
-      if (squareFileOk('/' + liveRel)) rel = liveRel;
-    }
+    const rel = u.pathname.replace(/^\/+/, '');
     const fp = path.normalize(path.join(WD, rel));
     if (!fp.startsWith(path.normalize(WD + '/assets/qa'))) { res.writeHead(403); return res.end(); }
     try {
@@ -12034,4 +12050,11 @@ server.listen(PORT, '0.0.0.0', async () => {
   console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
   if (lanIp) console.log(`[scrub-button] LAN (phone on WiFi): http://${lanIp}:${PORT}/`);
   resumeInterruptedImageJobs();
+  // Format Fixer AUTORUN (owner) — starts on boot unless FORMAT_FIXER_AUTORUN=0
+  setTimeout(() => {
+    try {
+      const r = maybeAutorunFormatFixer('boot');
+      console.log('[scrub-button] Format Fixer AUTORUN →', r && (r.started ? ('started ' + r.pillar) : r.msg));
+    } catch (e) { console.error('[scrub-button] Format Fixer AUTORUN failed', e && e.message); }
+  }, 2500);
 });
