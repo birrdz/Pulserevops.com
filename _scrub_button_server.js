@@ -1288,19 +1288,74 @@ async function fetchSquareImageBuf(url) {
   }
   throw lastErr || new Error('image fetch failed');
 }
+/** Hard-delete every copy of the face-card JPEG for this id. */
+function squareDeleteFaceFiles(id) {
+  const targets = [
+    coverPath(id),
+    squareAbs(squareFaceRel(id)),
+    path.join('/workspace/assets/qa', id + '.jpg'),
+    path.join(WD, 'assets', 'qa', id + '.jpg'),
+  ];
+  // Also wipe leftover tmp files
+  try {
+    const dir = path.dirname(coverPath(id));
+    if (fs.existsSync(dir)) {
+      for (const f of fs.readdirSync(dir)) {
+        if (f === id + '.jpg' || f.startsWith(id + '.jpg.tmp') || f.startsWith(id + '.tmp-')) {
+          targets.push(path.join(dir, f));
+        }
+      }
+    }
+  } catch (e) {}
+  const seen = new Set();
+  let deleted = 0;
+  for (const fp of targets) {
+    const n = path.normalize(fp);
+    if (seen.has(n)) continue;
+    seen.add(n);
+    try {
+      if (fs.existsSync(n)) { fs.unlinkSync(n); deleted++; }
+    } catch (e) {}
+  }
+  return { deleted, gone: !fs.existsSync(coverPath(id)) };
+}
+/** Paint a solid white face-card (title optional) so the old photo is fully gone before write-over. */
+async function squareWriteWhiteFace(id, title) {
+  const sharpLocal = require('sharp');
+  const dest = coverPath(id);
+  const dir = path.dirname(dest);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  const w = 1200, h = 675;
+  const whiteBuf = await sharpLocal({
+    create: { width: w, height: h, channels: 3, background: { r: 255, g: 255, b: 255 } },
+  }).jpeg({ quality: 90 }).toBuffer();
+  await gradeFaceCardFromBuffer(whiteBuf, dest, { question: title || id, goldTitle: title || id, bright: true });
+  try {
+    const mirror = path.join('/workspace/assets/qa', id + '.jpg');
+    if (path.normalize(mirror) !== path.normalize(dest)) {
+      if (!fs.existsSync(path.dirname(mirror))) fs.mkdirSync(path.dirname(mirror), { recursive: true });
+      fs.copyFileSync(dest, mirror);
+    }
+  } catch (e) {}
+  return dest;
+}
 /** Write graded JPEG to a temp file, then rename over the live path (true overwrite). */
 async function squareWriteFaceAtomic(id, buf, title) {
   const dest = coverPath(id);
   const dir = path.dirname(dest);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  // 1) Delete old image completely
+  squareDeleteFaceFiles(id);
+  // 2) Write solid WHITE face so any stale pixels/cache path is visibly blanked
+  try { await squareWriteWhiteFace(id, title); } catch (e) { /* continue to real write */ }
+  // 3) Write the real photo over white
   const tmp = dest + '.tmp-' + Date.now() + '.jpg';
   try {
     await gradeFaceCardFromBuffer(buf, tmp, { question: title, goldTitle: title });
     const sz = fs.statSync(tmp).size;
     if (sz < 12000) throw new Error('graded face-card too small (' + sz + 'b)');
-    try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
+    squareDeleteFaceFiles(id); // wipe white placeholder too
     fs.renameSync(tmp, dest);
-    // Mirror into workspace assets if different tree (belt + suspenders)
     try {
       const mirror = path.join('/workspace/assets/qa', id + '.jpg');
       if (path.normalize(mirror) !== path.normalize(dest)) {
@@ -1321,6 +1376,16 @@ async function squareWriteSlotAtomic(id, n, buf) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   const tmp = dest + '.tmp-' + Date.now() + '.jpg';
   try {
+    // Delete existing slot first
+    try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
+    // White blank then real write
+    try {
+      const sharpLocal = require('sharp');
+      const white = await sharpLocal({
+        create: { width: 1200, height: 675, channels: 3, background: { r: 255, g: 255, b: 255 } },
+      }).jpeg({ quality: 85 }).toBuffer();
+      fs.writeFileSync(dest, white);
+    } catch (e) {}
     await storeGradedImage(buf, tmp, { sectionTile: true, width: 1200, height: 675, bright: false });
     const sz = fs.statSync(tmp).size;
     if (sz < 4000) throw new Error('graded slot too small');
@@ -1331,6 +1396,34 @@ async function squareWriteSlotAtomic(id, n, buf) {
     try { if (fs.existsSync(tmp)) fs.unlinkSync(tmp); } catch (x) {}
     throw e;
   }
+}
+
+/** Delete face-card + strip top hero markdown (leave blank until next pick). */
+async function squareDeleteFaceEntry(id) {
+  id = String(id || '').trim();
+  if (!id) return { ok: false, msg: 'missing id' };
+  const del = squareDeleteFaceFiles(id);
+  const entry = await loadSquareEntry(id);
+  let title = String((titleOf && titleOf[id]) || (entry && (entry.question || entry.title)) || id);
+  let body = entry && entry.answer ? String(entry.answer) : '';
+  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  // Remove every face/hero markdown line for this id + leading pollinations
+  body = String(body || '')
+    .replace(new RegExp('^\\s*!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '\\.jpg(?:\\?[^)]*)?\\)\\s*\\n+', 'gmi'), '')
+    .replace(/^\s*!\[[^\]]*\]\(https?:\/\/image\.pollinations\.ai\/[^)]+\)\s*\n+/gmi, '');
+  // Write white placeholder so UI/CDN can't keep showing stale bytes
+  try { await squareWriteWhiteFace(id, title); } catch (e) {}
+  await saveSquareEntry(id, {
+    cover_src: 'ddg-facecard',
+    face_title_baked: false,
+    img: squareFaceRel(id),
+  }, body || ('# ' + title + '\n\n'));
+  return {
+    ok: true,
+    deleted: del.deleted,
+    faceUrl: squareFaceRel(id) + '?v=' + Date.now(),
+    wiped: true,
+  };
 }
 /** Replace the Nth body image (and any prior /assets/qa/<id>-N.jpg) — always overwrite in place. */
 function patchBodySlotImage(id, title, body, n, rel) {
@@ -11382,6 +11475,20 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': ct, 'Cache-Control': 'public, max-age=600' });
       res.end(buf);
     }).catch(() => { res.writeHead(502); res.end('proxy fail'); });
+    return;
+  }
+  if (u.pathname === '/square-delete' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      squareDeleteFaceEntry(d.id || '').then(r => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(r));
+      }).catch(e => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
+      });
+    });
     return;
   }
   if (u.pathname === '/square-pick' && req.method === 'POST') {
