@@ -1379,7 +1379,9 @@ async function runFormatFixerLoop() {
       }
       i++;
       formatFixerJob.done = i;
-      formatFixerJob.pct = formatFixerJob.total ? Math.min(100, Math.round((i / formatFixerJob.total) * 1000) / 10) : 0;
+      // Coverage bar = Q&As fully passing the fixer across the entire answer database. Keep the
+      // scan cursor separate so 100% scanned can never be mistaken for 100% successfully fixed.
+      formatFixerJob.pct = formatFixerJob.total ? Math.min(100, Math.round((formatFixerJob.entriesPass / formatFixerJob.total) * 1000) / 10) : 0;
       saveFormatFixerState();
       await new Promise(res => setTimeout(res, 120));
     }
@@ -7761,7 +7763,7 @@ function renderDuplicator(j){
   if(bar) bar.style.width=Math.max(pct>0?0.5:0,pct)+'%';
   if(lbl){
     const cur=j.currentId?(' · now: '+esc(j.currentId)+' — '+esc(String(j.currentTitle||'').slice(0,48))):'';
-    lbl.innerHTML='<b>'+pctShow+'%</b> — '+(j.done||0).toLocaleString()+' / '+(j.total||0).toLocaleString()+' Q&amp;As'+cur+(j.currentStep?(' · '+esc(j.currentStep)):'');
+    lbl.innerHTML='<b>'+pctShow+'% fully fixed</b> — '+(j.entriesPass||0).toLocaleString()+' / '+(j.total||0).toLocaleString()+' database Q&amp;As · scanned '+(j.done||0).toLocaleString()+' / '+(j.total||0).toLocaleString()+cur+(j.currentStep?(' · '+esc(j.currentStep)):'');
   }
   if(stats) stats.innerHTML=
     '<div>🖼 slots filled: <span>'+(j.imagesFilled||0)+'</span></div>'+
