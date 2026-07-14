@@ -83,7 +83,7 @@ footer a{color:#8aa0ad;font-family:system-ui,sans-serif;font-size:.75rem}
       <div class=row>
         <div class=sq wait id=titleSquare style="width:120px;flex-shrink:0"><span class=label style="font-size:.72rem">face</span></div>
         <div style="flex:1;min-width:200px">
-          <p class=status style="margin:0 0 8px">Type a keyword from the title, pick a photo. Click saves face-card + top image.</p>
+          <p class=status style="margin:0 0 8px">Type a keyword from the title, pick a photo. Click <b>overwrites</b> the existing face-card + top image (same file).</p>
           <div class=row>
             <input type=text id=kw placeholder="keyword from the title" autocomplete=off>
             <button type=button class=act id=searchBtn>Search</button>
@@ -189,18 +189,22 @@ async function pickImage(imageUrl){
   if(!cur||!cur.id) return;
   const onAnswer=!!$('#phaseAnswer').classList.contains('on');
   const statusEl=onAnswer?$('#ansStatus'):$('#pickStatus');
-  statusEl.textContent='Saving face-card + top image…';
+    statusEl.textContent=onAnswer?'Overwriting image slot…':'Overwriting face-card + top image…';
   try{
     const body={key:KEY,id:cur.id,imageUrl};
-    if(onAnswer&&cur.nextSlot!=null) body.slot=cur.nextSlot;
+    if(onAnswer){
+      const slot=(cur.nextSlot!=null)?cur.nextSlot:((cur.slots||[]).findIndex(s=>s&&s.kind==='body'));
+      if(slot>=0) body.slot=slot;
+    }
     const j=await(await fetch('/square-pick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})).json();
     if(!j.ok){ statusEl.textContent=j.msg||'Save failed'; return; }
     if(j.mode==='slot'){
       cur.slots=j.slots||cur.slots;
       cur.nextSlot=j.nextSlot;
+      cur.faceUrl=j.faceUrl||cur.faceUrl;
       renderSlots();
       $('#ansGrid').innerHTML='';
-      statusEl.textContent=j.nextSlot==null?'All listed slots filled.':'Saved · next slot ready';
+      statusEl.textContent='Overwrote slot · ready for next';
       return;
     }
     // face + top done → answer page
@@ -208,6 +212,7 @@ async function pickImage(imageUrl){
     cur.slots=j.slots||[];
     cur.nextSlot=j.nextSlot;
     enterAnswer();
+    $('#ansStatus').textContent='Face-card + top image overwritten.';
   }catch(e){ statusEl.textContent='Save error'; }
 }
 function enterAnswer(){
@@ -216,10 +221,10 @@ function enterAnswer(){
   sq.className='sq green';
   sq.innerHTML=cur.faceUrl?('<img src="'+cur.faceUrl+'?t='+Date.now()+'" alt="face-card">'):'';
   $('#ansBlurb').textContent=cur.shape==='top10'
-    ? 'Face-card + top image saved. Fill ranks #1, #2… with search + click.'
+    ? 'Face-card + top image overwritten. Click photos to overwrite ranks #1, #2…'
     : cur.shape==='styles'
-    ? 'Face-card + top image saved. Next: 3 men + 3 women outfit slots.'
-    : 'Face-card + top image saved (same file). Fill body images: 2 word blocks → image → 2 → image.';
+    ? 'Face-card + top image overwritten. Next clicks overwrite outfit slots.'
+    : 'Face-card + top image overwritten (same file). Clicks overwrite body image slots.';
   renderSlots();
   $('#ansKw').value=suggestKeyword(cur.title||'');
   $('#ansGrid').innerHTML='';

@@ -1224,6 +1224,14 @@ function squareSlotRel(id, n) { return '/assets/qa/' + id + '-' + n + '.jpg'; }
 function squareFileOk(rel) {
   try { return fs.statSync(path.join(WD, rel.replace(/^\//, ''))).size > 8000; } catch (e) { return false; }
 }
+function squareAbs(rel) {
+  return path.join(WD, String(rel || '').replace(/^\//, ''));
+}
+/** Force-delete before rewrite so the pick always replaces the old JPEG bytes. */
+function squareUnlink(relOrAbs) {
+  const fp = path.isAbsolute(relOrAbs) ? relOrAbs : squareAbs(relOrAbs);
+  try { if (fs.existsSync(fp)) fs.unlinkSync(fp); } catch (e) {}
+}
 function detectSquareShape(id, title, body) {
   try {
     const route = pickGoldTemplate(id, body || '', title || '');
@@ -1255,8 +1263,11 @@ function buildSquareSlots(id, shape, body) {
   return slots;
 }
 function nextOpenSquareSlot(slots) {
-  const i = (slots || []).findIndex(s => s && s.kind === 'body' && !s.filled);
-  return i < 0 ? null : i;
+  const bodies = (slots || []).map((s, i) => ({ s, i })).filter(x => x.s && x.s.kind === 'body');
+  const empty = bodies.find(x => !x.s.filled);
+  if (empty) return empty.i;
+  // All filled — overwrite starting at first body slot
+  return bodies.length ? bodies[0].i : null;
 }
 async function fetchSquareImageBuf(url) {
   const r = await fetch(String(url), {
@@ -1269,10 +1280,15 @@ async function fetchSquareImageBuf(url) {
   if (buf.length < 2500) throw new Error('image too small');
   return buf;
 }
+/** Replace the Nth body image (and any prior /assets/qa/<id>-N.jpg) — always overwrite in place. */
 function patchBodySlotImage(id, title, body, n, rel) {
-  const alt = String(title || id).replace(/]/g, '').slice(0, 80);
+  const alt = String(title || id).replace(/[\[\]]/g, '').slice(0, 80);
   const md = '![' + alt + '](' + rel + ')';
-  const lines = String(body || '').split('\n');
+  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  let text = String(body || '');
+  const selfRe = new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '-' + n + '\\.jpg(?:\\?[^)]*)?\\)', 'i');
+  if (selfRe.test(text)) return text.replace(selfRe, md);
+  const lines = text.split('\n');
   let seenHero = false;
   let bodyImg = 0;
   for (let i = 0; i < lines.length; i++) {
@@ -1285,18 +1301,30 @@ function patchBodySlotImage(id, title, body, n, rel) {
       return lines.join('\n');
     }
   }
-  // no Nth body image — append before FAQ/Sources if possible
   let insertAt = lines.length;
   for (let i = 0; i < lines.length; i++) {
     if (/^##\s+(FAQ|Sources|Frequently)/i.test(String(lines[i]).trim())) { insertAt = i; break; }
   }
-  const block = ['', md, ''];
-  return lines.slice(0, insertAt).concat(block).concat(lines.slice(insertAt)).join('\n');
+  return lines.slice(0, insertAt).concat(['', md, '']).concat(lines.slice(insertAt)).join('\n');
+}
+/** Face-card file + top hero markdown: wipe old face bytes, rewrite every stale hero to the same path. */
+function forceSquareFaceAndTopMarkdown(id, title, body) {
+  const face = squareFaceRel(id);
+  const alt = String(title || id).replace(/[\[\]]/g, '').slice(0, 80);
+  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  let text = String(body || '');
+  text = text.replace(new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '\\.jpg(?:\\?[^)]*)?\\)', 'gi'), '![' + alt + '](' + face + ')');
+  text = text.replace(/!\[[^\]]*\]\(https?:\/\/image\.pollinations\.ai\/[^)]+\)/gi, '![' + alt + '](' + face + ')');
+  return syncHeroDupesFaceCard(id, title, text || ('# ' + title + '\n\n'));
 }
 async function loadSquareEntry(id) {
   try {
     const e = await store.get('answers/' + id + '.json', { type: 'json' });
     if (e && e.answer) return e;
+  } catch (err) {}
+  try {
+    const local = path.join(WD, '_square_local', id + '.json');
+    if (fs.existsSync(local)) return JSON.parse(fs.readFileSync(local, 'utf8'));
   } catch (err) {}
   return null;
 }
@@ -1306,7 +1334,13 @@ async function saveSquareEntry(id, entryPatch, body) {
     answer: body != null ? body : prev.answer,
     updated_at: new Date().toISOString(),
   });
-  try { await store.setJSON('answers/' + id + '.json', next); } catch (e) { /* soft-fail cloud */ }
+  let blobOk = false;
+  try { await store.setJSON('answers/' + id + '.json', next); blobOk = true; } catch (e) { blobOk = false; }
+  try {
+    const dir = path.join(WD, '_square_local');
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, id + '.json'), JSON.stringify(next, null, 0));
+  } catch (e) {}
   try {
     const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
     const ent = (idx.entries || []).find(x => x && x.id === id);
@@ -1317,7 +1351,7 @@ async function saveSquareEntry(id, entryPatch, body) {
       await store.setJSON('_index.json', idx);
     }
   } catch (e) {}
-  return next;
+  return Object.assign(next, { _blobOk: blobOk });
 }
 async function pickSquareNextEntry() {
   let entries = [];
@@ -1325,7 +1359,6 @@ async function pickSquareNextEntry() {
   const scored = [];
   for (const row of entries.slice(0, 400)) {
     const id = row.id;
-    if (squareFileOk(squareFaceRel(id)) && row.face_title_baked) continue;
     let body = '';
     let meta = row;
     try {
@@ -1335,18 +1368,18 @@ async function pickSquareNextEntry() {
     const title = String((typeof titleOf !== 'undefined' && titleOf[id]) || row.question || row.title || id);
     const passer = (() => { try { return passedFormatFixerGate(id, body, meta); } catch (e) { return false; } })();
     const missingFace = !squareFileOk(squareFaceRel(id)) || !meta.face_title_baked;
-    if (!missingFace) continue;
     scored.push({
       id,
       title,
       body,
       pillar: (typeof pillarOf === 'function' ? pillarOf(id) : String(id).replace(/\d.*/, '')) || '',
       passer,
+      missingFace,
       shape: detectSquareShape(id, title, body),
     });
-    if (scored.length >= 40) break;
+    if (scored.length >= 60) break;
   }
-  scored.sort((a, b) => Number(b.passer) - Number(a.passer));
+  scored.sort((a, b) => (Number(b.missingFace) - Number(a.missingFace)) || (Number(b.passer) - Number(a.passer)));
   let pick = scored[0];
   if (!pick && entries[0]) {
     const id = entries[0].id;
@@ -1409,27 +1442,43 @@ async function applySquarePick(id, imageUrl, slotIdx) {
   }
   const shape = detectSquareShape(id, title, body);
   const buf = await fetchSquareImageBuf(imageUrl);
+  const bust = Date.now();
 
-  // Body slot fill (answer page)
+  // Body slot fill (answer page) — always overwrite that slot file + markdown
   if (slotIdx != null && Number.isFinite(Number(slotIdx)) && Number(slotIdx) >= 0) {
     let slots = buildSquareSlots(id, shape, body);
     const idx = Number(slotIdx);
-    const slot = slots[idx];
-    if (!slot || slot.kind !== 'body') return { ok: false, msg: 'no open body slot' };
+    let slot = slots[idx];
+    if (!slot || slot.kind !== 'body') {
+      const fallback = nextOpenSquareSlot(slots);
+      if (fallback == null) return { ok: false, msg: 'no body slot' };
+      slot = slots[fallback];
+    }
     const rel = squareSlotRel(id, slot.n);
-    const dest = path.join(WD, rel.replace(/^\//, ''));
+    const dest = squareAbs(rel);
+    squareUnlink(dest);
     await storeGradedImage(buf, dest, { sectionTile: true, width: 1200, height: 675, bright: false });
     body = patchBodySlotImage(id, title, body, slot.n, rel);
     await saveSquareEntry(id, {}, body);
     slots = buildSquareSlots(id, shape, body);
-    return { ok: true, mode: 'slot', id, shape, faceUrl: squareFaceRel(id), slots, nextSlot: nextOpenSquareSlot(slots) };
+    return {
+      ok: true,
+      mode: 'slot',
+      id,
+      shape,
+      overwritten: true,
+      faceUrl: squareFaceRel(id) + '?v=' + bust,
+      slots,
+      nextSlot: nextOpenSquareSlot(slots),
+    };
   }
 
-  // Face + top (same file)
+  // Face + top (same file) — delete old JPEG then rewrite + force hero markdown
   const dest = coverPath(id);
+  squareUnlink(dest);
   await gradeFaceCardFromBuffer(buf, dest, { question: title, goldTitle: title });
   if (!coverFileOk(id)) return { ok: false, msg: 'graded face-card too small' };
-  body = syncHeroDupesFaceCard(id, title, body || ('# ' + title + '\n\n'));
+  body = forceSquareFaceAndTopMarkdown(id, title, body || ('# ' + title + '\n\n'));
   try { await stampDdgProvenance(id, store); } catch (e) {}
   await saveSquareEntry(id, {
     cover_src: 'ddg-facecard',
@@ -1443,7 +1492,8 @@ async function applySquarePick(id, imageUrl, slotIdx) {
     id,
     title,
     shape,
-    faceUrl: squareFaceRel(id),
+    overwritten: true,
+    faceUrl: squareFaceRel(id) + '?v=' + bust,
     slots,
     nextSlot: nextOpenSquareSlot(slots),
   };
@@ -10886,7 +10936,7 @@ const server = http.createServer(async (req, res) => {
     try {
       const buf = fs.readFileSync(fp);
       const ct = /\.png$/i.test(fp) ? 'image/png' : /\.webp$/i.test(fp) ? 'image/webp' : 'image/jpeg';
-      res.writeHead(200, { 'Content-Type': ct, 'Cache-Control': 'no-cache' });
+      res.writeHead(200, { 'Content-Type': ct, 'Cache-Control': 'no-store, max-age=0' });
       return res.end(buf);
     } catch (e) { res.writeHead(404); return res.end(); }
   }
