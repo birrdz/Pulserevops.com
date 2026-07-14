@@ -1650,6 +1650,11 @@ async function runFormatFixerLoop() {
       // scan cursor separate so 100% scanned can never be mistaken for 100% successfully fixed.
       formatFixerJob.pct = formatFixerJob.total ? Math.min(100, Math.round((formatFixerJob.entriesPass / formatFixerJob.total) * 1000) / 10) : 0;
       saveFormatFixerState();
+      if (i % 30 === 0 && i < entries.length && !formatFixerJob.stop) {
+        formatFixerLog('▶ batch ' + (i / 30) + ' complete · auto-loading next 30 (' + (entries.length - i) + ' remaining)');
+        formatFixerJob.currentStep = 'next 30 · continuing automatically';
+        saveFormatFixerState(true);
+      }
       await new Promise(res => setTimeout(res, 120));
     }
     formatFixerJob.phase = formatFixerJob.error ? 'error' : (formatFixerJob.stop ? 'stopped' : 'done');
@@ -7391,7 +7396,6 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <div class=tick-cd-mini-lbl id=tickCdMiniLbl>⏱️ Timer — seconds until next turn</div>
     </div>
   </div>
-  <div id=scrubSquareDock class=square-builder-dock></div>
   </div>
   <div id=generatePanel${isGenerate ? '' : ' style="display:none"'}>
   <div id=pipelineBar class="pipeline-bar generate-bar">
@@ -7649,7 +7653,6 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <div class=dupe-stats id=formatfixStats></div>
       <div class=dupe-log id=formatfixLog></div>
     </div>
-    <div id=formatfixSquareDock class=square-builder-dock></div>
   </div>
   </div>
   <div id=indexPanel class=index-panel>
@@ -7961,7 +7964,6 @@ function switchPipelineTab(mode){
   if(iip) iip.style.display=mode==='internalimages'?'':'none';
   if(rsp) rsp.style.display=mode==='rubricstation'?'':'none';
   if(rp) rp.style.display=mode==='rewrite'?'':'none';
-  placeSquareBuilderDock(mode);
   const ns=$('#navScrub'), ng=$('#navGenerate'), nd=$('#navDuplicator'), ni=$('#navImgGen'), nfh=$('#navFaceHero'), nii=$('#navInternalImages'), nrs=$('#navRubricStation'), nr=$('#navRewrite'), nf=$('#navFormatFix');
   if(ns) ns.classList.toggle('on',mode==='scrub');
   if(ng) ng.classList.toggle('on',mode==='generate');
@@ -7987,13 +7989,6 @@ function switchPipelineTab(mode){
   else if(mode==='rubricstation'){ loadPillars(); refreshRubricStationStatus(); }
   else if(mode==='rewrite'){ loadPillars(); refreshRewriteStatus(); }
   else if(mode==='formatfix'){ loadPillars(); refreshFormatFixerStatus(); }
-}
-function placeSquareBuilderDock(mode){
-  const fp=$('#faceheroPanel');
-  if(!fp) return;
-  const target=mode==='scrub'?$('#scrubSquareDock'):mode==='formatfix'?$('#formatfixSquareDock'):$('#faceheroHome');
-  if(target&&fp.parentNode!==target) target.appendChild(fp);
-  fp.style.display=(mode==='scrub'||mode==='formatfix'||mode==='facehero')?'':'none';
 }
 function bindPipelineTabs(){
   const ns=$('#navScrub'), ng=$('#navGenerate'), nd=$('#navDuplicator'), ni=$('#navImgGen'), nfh=$('#navFaceHero'), nii=$('#navInternalImages'), nrs=$('#navRubricStation'), nr=$('#navRewrite'), nf=$('#navFormatFix');
@@ -8536,7 +8531,6 @@ function initImgGenKeywords(){
 }
 function initPage(){
   bindPipelineTabs();
-  placeSquareBuilderDock(window.activeTab);
   updateTabBadges();
   bindGenCountUi();
   initImgGenKeywords();
