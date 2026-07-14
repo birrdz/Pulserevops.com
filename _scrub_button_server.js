@@ -1416,17 +1416,6 @@ function recordFormatFixerError(id, error) {
   formatFixerJob.consecutiveErrors = (formatFixerJob.consecutiveErrors || 0) + 1;
   formatFixerLog('⚠️ ' + id + ' · ' + String(error || 'error').slice(0, 80) + ' · continuing automatically');
 }
-const FORMAT_FIXER_HANG_MS = Math.max(60000, parseInt(process.env.FORMAT_FIXER_HANG_MS || '600000', 10));
-function formatFixerWithHangGuard(promise, id) {
-  return Promise.race([
-    promise,
-    new Promise((_, reject) => setTimeout(() => {
-      const error = new Error('hung for ' + Math.round(FORMAT_FIXER_HANG_MS / 60000) + ' minutes at ' + id);
-      error.code = 'FORMAT_FIXER_HUNG';
-      reject(error);
-    }, FORMAT_FIXER_HANG_MS)),
-  ]);
-}
 async function processFormatFixerEntry(id) {
   const pillar = pillarOf(id);
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
@@ -1571,7 +1560,7 @@ async function runFormatFixerLoop() {
       formatFixerJob.currentId = id;
       formatFixerJob.currentTitle = String(titleOf[id] || row.question || id).slice(0, 90);
       try {
-        const r = await formatFixerWithHangGuard(processFormatFixerEntry(id), id);
+        const r = await processFormatFixerEntry(id);
         if (r.noBlob) { formatFixerJob.skippedNoBlob++; formatFixerJob.consecutiveErrors = 0; }
         else if (r.stopped) break;
         else if (r.skipped) {
@@ -1595,13 +1584,6 @@ async function runFormatFixerLoop() {
           formatFixerLog((r.changed ? '📝' : '✓') + ' ' + id + ' · ' + note + (r.steps && r.steps.length ? (' · ' + r.steps.join('+')) : ''));
         }
       } catch (err) {
-        if (err && err.code === 'FORMAT_FIXER_HUNG') {
-          formatFixerJob.hung = true;
-          formatFixerJob.stop = true;
-          formatFixerJob.error = err.message;
-          formatFixerLog('🛑 ' + err.message + ' · stopped hung fixer');
-          break;
-        }
         recordFormatFixerError(id, err && (err.message || err));
       }
       i++;
@@ -10843,12 +10825,6 @@ async function scrubAutoLoop() {
       autoJob.errors++;
       autoJob.consecutiveErrors++;
       autoLog('⚠️ daily driver error ' + autoJob.consecutiveErrors + '/' + autoJob.maxConsecutiveErrors);
-      if (autoJob.consecutiveErrors >= autoJob.maxConsecutiveErrors) {
-        autoJob.stop = true;
-        autoJob.halted = true;
-        autoJob.stage = '🛑 stopped after 3 consecutive errors';
-        autoLog(autoJob.stage);
-      }
     } else {
       autoJob.consecutiveErrors = 0;
     }
@@ -10857,8 +10833,8 @@ async function scrubAutoLoop() {
   autoJob.running = false;
   autoJob.current = null;
   autoJob.currentSince = null;
-  autoJob.stage = autoJob.halted ? '🛑 stopped after 3 consecutive errors' : (autoJob.stop ? '⏹ stopped' : '✅ all done — scrub pool clear');
-  autoLog(autoJob.halted ? autoJob.stage : (autoJob.stop ? '⏹ stopped by owner' : '✅ complete'));
+  autoJob.stage = autoJob.stop ? '⏹ stopped' : '✅ all done — scrub pool clear';
+  autoLog(autoJob.stop ? '⏹ stopped by owner' : '✅ complete');
 }
 // KEEP-CONTENT-HIGH (owner 2026-06-30): every NEW entry appearing in the index is dropped into the
 // scrub-button queue (red) until certified — so new writes (incl. the cloud writer's) never silently
@@ -11596,10 +11572,10 @@ server.listen(PORT, '0.0.0.0', async () => {
   console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
   if (lanIp) console.log(`[scrub-button] LAN (phone on WiFi): http://${lanIp}:${PORT}/`);
   resumeInterruptedImageJobs();
-  if (formatFixerJob.auto && !formatFixerJob.hung && formatFixerJob.phase !== 'done') {
+  if (formatFixerJob.auto && formatFixerJob.phase !== 'done') {
     formatFixerJob.stop = false;
     formatFixerJob.error = '';
-    formatFixerLog('▶ auto-resume · ordinary errors continue · stops only if hung');
+    formatFixerLog('▶ auto-resume · errors continue · runs until owner stops it');
     runFormatFixerLoop().catch(e => {
       formatFixerJob.error = e.message;
       formatFixerJob.running = false;
@@ -11611,13 +11587,13 @@ server.listen(PORT, '0.0.0.0', async () => {
   // after three consecutive errors. It waits while Format Fixer is writing so the same Q&A is never
   // mutated by both pipelines at once.
   const keepDailyDriverRunning = () => {
-    if (!autoJob.auto || autoJob.halted || autoJob.running || formatFixerJob.running) return;
+    if (!autoJob.auto || autoJob.running || formatFixerJob.running) return;
     if (dayCount() >= DAILY_MAX || !readArr(QUEUE).length) return;
     scrubAutoLoop().catch(e => {
       autoJob.errors++;
       autoJob.consecutiveErrors++;
       autoJob.stage = '⚠️ daily driver · ' + e.message;
-      if (autoJob.consecutiveErrors >= autoJob.maxConsecutiveErrors) autoJob.halted = true;
+      autoLog('⚠️ daily driver loop error · continuing automatically');
     });
   };
   setTimeout(keepDailyDriverRunning, 3000);
