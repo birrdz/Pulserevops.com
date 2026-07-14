@@ -972,6 +972,7 @@ async function searchSquareDeskImages(query) {
 const SQUARE_AUTO_F = path.join(WD, '_square_builder_auto_run.json');
 let squareAutoJob = {
   running: false, enabled: false, stop: false, target: 100, done: 0, failed: 0,
+  pod: 1, podsCompleted: 0, totalDone: 0,
   currentId: '', phase: 'idle', startedAt: null, finishedAt: null, error: '', log: [],
 };
 try {
@@ -1037,7 +1038,17 @@ async function runSquareAutoLoop() {
   squareAutoJob.stop = false;
   squareAutoJob.phase = 'starting';
   saveSquareAutoJob();
-  while (squareAutoJob.enabled && !squareAutoJob.stop && squareAutoJob.done < squareAutoJob.target) {
+  while (squareAutoJob.enabled && !squareAutoJob.stop) {
+    if (squareAutoJob.done >= squareAutoJob.target) {
+      squareAutoJob.totalDone = (squareAutoJob.totalDone || 0) + squareAutoJob.done;
+      squareAutoJob.podsCompleted = (squareAutoJob.podsCompleted || 0) + 1;
+      squareAutoJob.pod = (squareAutoJob.pod || 1) + 1;
+      squareAutoJob.done = 0;
+      squareAutoJob.failed = 0;
+      squareAutoJob.phase = 'next pod';
+      squareAutoLog('📦 pod ' + squareAutoJob.podsCompleted + ' complete · auto-loading next 100');
+      saveSquareAutoJob();
+    }
     try {
       const result = await autoFillSquareEntry();
       if (result.empty) { squareAutoLog('✅ queue empty'); break; }
@@ -1072,9 +1083,10 @@ function setSquareAutoRun(enabled) {
   if (squareAutoJob.running) return { ok: true, enabled: true, running: true };
   squareAutoJob = {
     running: false, enabled: true, stop: false, target: 100, done: 0, failed: 0,
+    pod: 1, podsCompleted: 0, totalDone: 0,
     currentId: '', phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [],
   };
-  squareAutoLog('▶ Auto-run 100 · learned face/body preferences');
+  squareAutoLog('▶ Auto-run · continuous pods of 100 · learned face/body preferences');
   saveSquareAutoJob();
   runSquareAutoLoop().catch(error => {
     squareAutoJob.running = false; squareAutoJob.enabled = false; squareAutoJob.phase = 'error';
@@ -12048,7 +12060,7 @@ server.listen(PORT, '0.0.0.0', async () => {
       saveFormatFixerState(true);
     });
   }
-  if (squareAutoJob.enabled && squareAutoJob.done < squareAutoJob.target) {
+  if (squareAutoJob.enabled) {
     squareAutoJob.stop = false;
     runSquareAutoLoop().catch(error => {
       squareAutoJob.running = false; squareAutoJob.enabled = false; squareAutoJob.phase = 'error';

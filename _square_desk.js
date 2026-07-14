@@ -276,7 +276,7 @@ async function refreshAuto(){
     $('#autoToggle').textContent=on?'⏹ Auto-run 100 ON':'▶ Auto-run 100 OFF';
     $('#autoToggle').className=on?'act save':'act';
     $('#autoStatus').textContent=on
-      ?('Auto '+(j.done||0)+' / '+(j.target||100)+(j.currentId?' · '+j.currentId:'')+' · '+(j.phase||'working'))
+      ?('Auto pod '+(j.pod||1)+' · '+(j.done||0)+' / '+(j.target||100)+' · '+((j.totalDone||0)+(j.done||0))+' total'+(j.currentId?' · '+j.currentId:'')+' · '+(j.phase||'working'))
       :('Manual mode · learned '+((j.preferences&&j.preferences.face)||0)+' face + '+((j.preferences&&j.preferences.body)||0)+' body picks');
     if(on&&!autoPoll)autoPoll=setInterval(refreshAuto,2000);
     if(!on&&autoPoll){clearInterval(autoPoll);autoPoll=null;}
