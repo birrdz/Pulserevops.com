@@ -65,10 +65,7 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 // 🔒🔒 POLLINATOR FACE-CARD COVER LAW (owner 2026-07-03) — covers are Pollinations flux ONLY (DDG banned).
 // 🔒 OWNER 2026-07-04: Pollinator REMOVED from writing + scrubbing. Covers now = DDG face-cards with
 // the dated Pollinator look (people/places/things, photo-refined, no watermarked stock). Same signatures.
-const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, stampDdgProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, FILL_REUSE_PCT, gradeFaceCardFromBuffer, coverPath, storeGradedImage, FACE_CARD_TILE_W, FACE_CARD_TILE_H, resolveFaceCardCropPosition } = require('./_ddg_facecard_lib');
-const { syncHeroDupesFaceCard, fluxFaceHeroOnlyEntry, forceMainTopHero } = require('./_img_flux_rewrite_lib');
-const { ddgImages } = require('./netlify/functions/lib/img-search-lib');
-const { buildSquareDeskPage } = require('./_square_desk');
+const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
 const IMG_GEN_BATCH_MAX = parseInt(process.env.IMG_GEN_BATCH_MAX || '250', 10);
@@ -670,7 +667,7 @@ function imageJobConflict(except) {
   if (except !== 'duplicator' && except !== 'facehero' && imageDuplicatorJob.running) return 'image fill running';
   if (except !== 'imgen' && imageGeneratorJob.running) return 'image generator running';
   if (except !== 'rewrite' && (imageRewriteJob.running || imageRewriteJob.phase === 'review')) return 'Pollinator image overwrite running';
-  if (except !== 'facehero' && except !== 'duplicator' && (faceHeroJob.running || faceHeroJob.phase === 'review')) return 'Square Builder (Face Card) running';
+  if (except !== 'facehero' && except !== 'duplicator' && (faceHeroJob.running || faceHeroJob.phase === 'review')) return 'Face Card & Top Image Generator running';
   if (except !== 'formatfix' && formatFixerJob.running) return 'Format Fixer running';
   if (except !== 'internalimages' && internalImagesJob.running) return 'Internal Images running';
   if (except !== 'rubricstation' && rubricStationJob.running) return 'Rubric Station running';
@@ -884,20 +881,14 @@ function imageRewriteStatusPayload() {
   return snap;
 }
 
-// ── Square Builder (Face Card & Top Image) — Pollinator face-card + hero only (whole pillar)
-// Owner 2026-07-13: Q&As MUST pass Format Fixer first, then Square Builder.
+// ── Face Card & Top Image Generator — Pollinator face-card + hero only (whole pillar) ──
 const FACE_HERO_F = WD + '/_face_hero_run.json';
 let faceHeroJob = {
   running: false, stop: false, stopAfterReview: false, pillar: 'tl', pillarName: 'Pulse Tools / CRO',
   done: 0, total: 0, pct: 0, entriesDone: 0, coversGenerated: 0, fluxJobs: 0,
-  skippedNoBlob: 0, skippedFixerGate: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
+  skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
   phase: 'idle', startedAt: null, finishedAt: null, error: '', log: [],
 };
-/** Owner 2026-07-13: Q&As MUST pass Format Fixer before Square Builder (Face Card). */
-function passedFormatFixerGate(id, body, entryMeta) {
-  if (entryMeta && entryMeta.format_fixed_at && contentFormatPass(id, body, valid)) return true;
-  return contentFormatPass(id, body, valid);
-}
 try {
   const _fhSnap = JSON.parse(fs.readFileSync(FACE_HERO_F, 'utf8'));
   if (_fhSnap && typeof _fhSnap === 'object') {
@@ -929,10 +920,6 @@ async function buildFaceHeroDraft(id, attempt) {
   const title = titleOf[id] || id;
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e || !e.answer) return { noBlob: true };
-  // 🔒 OWNER LAW: Format Fixer pass → then Square Builder (this station). Never reverse.
-  if (!passedFormatFixerGate(id, e.answer, e)) {
-    return { skippedFixerGate: true, msg: 'must pass Format Fixer first' };
-  }
   const plan = countFaceHeroJobs();
   faceHeroJob.currentStep = 'flux 0/' + plan.total;
   const r = await fluxFaceHeroOnlyEntry(id, title, e.answer, {
@@ -988,25 +975,11 @@ async function runFaceHeroLoop() {
   faceHeroJob.running = true;
   faceHeroJob.phase = 'facehero';
   try {
-    let entries = faceHeroJob._entries || await getImageDuplicatorEntries(faceHeroJob.pillar);
-    if (faceHeroJob.passersOnly && entries && entries.length) {
-      faceHeroJob.currentStep = 'filter · Format Fixer passers only';
-      const ready = [];
-      for (const row of entries) {
-        const id = row && row.id;
-        if (!id) continue;
-        try {
-          const e = await store.get('answers/' + id + '.json', { type: 'json' });
-          if (e && e.answer && passedFormatFixerGate(id, e.answer, e)) ready.push(row);
-        } catch (err) {}
-      }
-      faceHeroLog('🔎 passers only · ' + ready.length + '/' + entries.length + ' ready for Square Builder');
-      entries = ready;
-    }
+    const entries = faceHeroJob._entries || await getImageDuplicatorEntries(faceHeroJob.pillar);
     faceHeroJob._entries = entries;
     faceHeroJob.total = entries.length;
     if (!faceHeroJob.total) {
-      faceHeroLog('⚠️ no Format Fixer–passed entries for pillar (or pillar empty)');
+      faceHeroLog('⚠️ no entries for pillar');
       faceHeroJob.phase = 'done';
       faceHeroJob.running = false;
       faceHeroJob.finishedAt = Date.now();
@@ -1023,13 +996,6 @@ async function runFaceHeroLoop() {
       try {
         const r = await buildFaceHeroDraft(id, faceHeroJob.reviewAttempt);
         if (r.noBlob) { faceHeroJob.skippedNoBlob++; i++; faceHeroJob.done = i; faceHeroJob.reviewAttempt = 1; }
-        else if (r.skippedFixerGate) {
-          faceHeroJob.skippedFixerGate = (faceHeroJob.skippedFixerGate || 0) + 1;
-          faceHeroLog('⏭ ' + id + ' · wait — Format Fixer must pass before Square Builder');
-          i++;
-          faceHeroJob.done = i;
-          faceHeroJob.reviewAttempt = 1;
-        }
         else if (r.stopped) break;
         else if (r.error) {
           faceHeroJob.errors++;
@@ -1082,7 +1048,7 @@ async function runFaceHeroLoop() {
     }
     if (faceHeroJob.phase !== 'review') {
       faceHeroJob.phase = faceHeroJob.stop ? 'stopped' : 'done';
-      faceHeroLog(faceHeroJob.stop ? ('⏹ stopped at ' + faceHeroJob.pct + '%') : ('✅ complete — ' + faceHeroJob.entriesDone + ' entries · ' + faceHeroJob.coversGenerated + ' square builder flux · ' + (faceHeroJob.skippedFixerGate || 0) + ' waited on Format Fixer'));
+      faceHeroLog(faceHeroJob.stop ? ('⏹ stopped at ' + faceHeroJob.pct + '%') : ('✅ complete — ' + faceHeroJob.entriesDone + ' entries · ' + faceHeroJob.coversGenerated + ' face-card+hero flux jobs'));
       faceHeroJob.running = false;
       faceHeroJob.finishedAt = Date.now();
       faceHeroJob.currentId = '';
@@ -1117,7 +1083,7 @@ function faceHeroReviewDecision(action) {
     faceHeroJob.entriesDone++;
     faceHeroJob.coversGenerated += pr.fluxDone || 0;
     faceHeroJob.fluxJobs += pr.fluxDone || 0;
-    faceHeroLog('🟦 ' + pr.id + ' kept · same file → mosaic + top hero' + (pr.top10 ? ' (Top-10 cover prompt)' : ''));
+    faceHeroLog('🦄 ' + pr.id + ' kept · same file → mosaic + top hero' + (pr.top10 ? ' (Top-10 cover prompt)' : ''));
     faceHeroJob.pendingReview = null;
     faceHeroJob.reviewAttempt = 1;
     faceHeroJob.done = (faceHeroJob.done || 0) + 1;
@@ -1137,7 +1103,7 @@ function faceHeroReviewDecision(action) {
     return { ok: true, kept: true, id: pr.id };
   }).catch(e => ({ ok: false, msg: e.message }));
 }
-function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart, passersOnly) {
+function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
   if (faceHeroJob.running) return { ok: false, msg: 'already running' };
   if (faceHeroJob.phase === 'review' && faceHeroJob.pendingReview && !forceRestart) {
     return { ok: false, msg: 'card waiting for review — ✓ Keep or ✗ Try again first (or Force stop to cancel)', needsReview: true, pendingId: faceHeroJob.pendingReview.id };
@@ -1148,7 +1114,6 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart, p
   if (!pillar) return { ok: false, msg: 'pick a pillar' };
   guideKeywords = String(guideKeywords || '').trim().slice(0, 800);
   autoApproveImages = !!autoApproveImages;
-  passersOnly = !!passersOnly;
   const canResume = !forceRestart && faceHeroJob.pillar === pillar && (faceHeroJob.phase === 'stopped' || faceHeroJob.phase === 'done' || faceHeroJob.phase === 'error') && (faceHeroJob.done || 0) > 0 && (faceHeroJob.done || 0) < (faceHeroJob.total || 1);
   if (canResume) {
     faceHeroJob.stop = false;
@@ -1159,27 +1124,25 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart, p
     faceHeroJob.error = '';
     faceHeroJob.guideKeywords = guideKeywords;
     faceHeroJob.autoApproveImages = autoApproveImages;
-    faceHeroJob.passersOnly = passersOnly;
     faceHeroJob.pendingReview = null;
     faceHeroJob.reviewAttempt = 1;
     faceHeroJob.pillarName = pName(pillar);
     faceHeroLog('▶ Resuming — ' + (faceHeroJob.done || 0) + '/' + (faceHeroJob.total || 0) + ' · ' + faceHeroJob.pillarName);
     runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
-    return { ok: true, started: true, resumed: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, passersOnly, done: faceHeroJob.done, total: faceHeroJob.total };
+    return { ok: true, started: true, resumed: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, done: faceHeroJob.done, total: faceHeroJob.total };
   }
   faceHeroJob = {
     running: false, stop: false, stopAfterReview: false, pillar, pillarName: pName(pillar), guideKeywords, autoApproveImages,
     done: 0, total: 0, pct: 0, entriesDone: 0, coversGenerated: 0, fluxJobs: 0,
-    skippedNoBlob: 0, skippedFixerGate: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
+    skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [],
-    pendingReview: null, reviewAttempt: 1, _entries: null, passersOnly,
+    pendingReview: null, reviewAttempt: 1, _entries: null,
   };
   const kwNote = guideKeywords ? (' · guide: ' + guideKeywords.slice(0, 48) + (guideKeywords.length > 48 ? '…' : '')) : '';
   const modeNote = autoApproveImages ? ' · 🤖 auto-approve ON' : ' · keep/retry each card';
-  const passNote = passersOnly ? ' · Format Fixer passers only' : '';
-  faceHeroLog('▶ Square Builder (Face Card) — ' + faceHeroJob.pillarName + kwNote + modeNote + passNote + ' · Format Fixer gate ON · serial flux');
+  faceHeroLog('▶ Face Card & Top Image — ' + faceHeroJob.pillarName + kwNote + modeNote + ' · serial flux');
   runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
-  return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, passersOnly };
+  return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages };
 }
 function stopFaceHero() {
   if (faceHeroJob.running) {
@@ -1216,592 +1179,6 @@ function forceStopFaceHero() {
   saveFaceHeroState(true);
   return { ok: true, forceStopped: true };
 }
-
-// ── Square Desk (owner 2026-07-14): waiting square → keyword search → click = face+top → answer page ──
-const SQUARE_QA_DIR = path.join(WD, 'assets', 'qa');
-/** Canonical face/top path — one file. */
-function squareOrigRel(id) { return '/assets/qa/' + id + '.jpg'; }
-function squareLiveRel(id) { return squareOrigRel(id); } // same file
-function squareFaceRel(id) { return squareOrigRel(id); }
-function squareSlotRel(id, n) { return '/assets/qa/' + id + '-' + n + '.jpg'; }
-function squareFileOk(rel) {
-  try { return fs.statSync(path.join(WD, rel.replace(/^\//, ''))).size > 8000; } catch (e) { return false; }
-}
-function squareAbs(rel) {
-  return path.join(WD, String(rel || '').replace(/^\//, ''));
-}
-function squareUnlink(relOrAbs) {
-  const fp = path.isAbsolute(relOrAbs) ? relOrAbs : squareAbs(relOrAbs);
-  try { if (fs.existsSync(fp)) fs.unlinkSync(fp); } catch (e) {}
-}
-/** Delete every face variant for this id (owner: just delete the box and make a new one). */
-function squareDeleteAllFaceFiles(id) {
-  const dir = SQUARE_QA_DIR;
-  const names = [
-    id + '.jpg',
-    id + '-sq.jpg',
-    id + '.oldtitle.jpg',
-    id + '.bak.jpg',
-  ];
-  for (const name of names) {
-    squareUnlink(path.join(dir, name));
-    try { fs.unlinkSync(path.join('/workspace/assets/qa', name)); } catch (e) {}
-  }
-  // wipe leftover tmp / bak fragments
-  for (const root of [dir, '/workspace/assets/qa']) {
-    try {
-      if (!fs.existsSync(root)) continue;
-      for (const name of fs.readdirSync(root)) {
-        if (
-          name.startsWith(id + '-sq.bak-') ||
-          name.startsWith(id + '.bak-') ||
-          name.startsWith(id + '-face-') ||
-          name === id + '-sq.jpg' ||
-          (name.startsWith(id + '.') && name.endsWith('.jpg') && name !== id + '.jpg')
-        ) {
-          try { fs.unlinkSync(path.join(root, name)); } catch (x) {}
-        }
-      }
-    } catch (e) {}
-  }
-}
-/**
- * DELETE old face → WRITE brand-new mosaic (photo + gold title) to /assets/qa/<id>.jpg
- * Face-card = top hero = same file. No layering over old pixels.
- */
-async function squareWriteFaceAtomic(id, buf, title) {
-  const sharpLocal = require('sharp');
-  const destRel = squareOrigRel(id);
-  const dest = squareAbs(destRel);
-  const dir = path.dirname(dest);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-
-  // 1) DELETE the old image box completely
-  squareDeleteAllFaceFiles(id);
-
-  const W = FACE_CARD_TILE_W || 1200;
-  const H = FACE_CARD_TILE_H || 400;
-  const cropPosition = await resolveFaceCardCropPosition(buf);
-  const cleanTitle = String(title || id).replace(/[#*_`>|]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 220);
-
-  // 2) Grade NEW photo + NEW gold title into a fresh temp file
-  const tmp = path.join(dir, id + '-face-' + Date.now() + '.jpg');
-  await storeGradedImage(buf, tmp, {
-    faceCardTile: true,
-    width: W,
-    height: H,
-    cropPosition,
-    bright: false,
-    goldTitle: cleanTitle,
-  });
-  const sz = fs.statSync(tmp).size;
-  if (sz < 8000) {
-    try { fs.unlinkSync(tmp); } catch (e) {}
-    throw new Error('face too small (' + sz + 'b)');
-  }
-
-  // 3) Make sure destination is gone, then place the new file
-  squareUnlink(dest);
-  fs.renameSync(tmp, dest);
-  try {
-    const mirror = path.join('/workspace/assets/qa', id + '.jpg');
-    if (path.normalize(mirror) !== path.normalize(dest)) {
-      if (!fs.existsSync(path.dirname(mirror))) fs.mkdirSync(path.dirname(mirror), { recursive: true });
-      fs.copyFileSync(dest, mirror);
-    }
-  } catch (e) {}
-  return destRel;
-}
-/** Insert/replace body slot image markdown for Square Desk fills. */
-function patchBodySlotImage(id, title, body, n, rel) {
-  const alt = String(title || id).replace(/[\[\]]/g, '').slice(0, 80);
-  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const md = '![' + alt + '](' + rel + ')';
-  let text = String(body || '');
-  const reExact = new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '-' + Number(n) + '\\.jpg(?:\\?[^)]*)?\\)', 'gi');
-  if (reExact.test(text)) return text.replace(reExact, md);
-  // Prefer after the nth ## heading block; else append before FAQ/Sources if present
-  const lines = text.split('\n');
-  let h = 0;
-  let insertAt = -1;
-  for (let i = 0; i < lines.length; i++) {
-    if (/^##\s+/.test(lines[i])) {
-      h += 1;
-      if (h === Number(n)) {
-        insertAt = i + 1;
-        while (insertAt < lines.length && !/^##\s+/.test(lines[insertAt]) && !/^![^\]]*\]\(/.test(lines[insertAt])) insertAt += 1;
-        break;
-      }
-    }
-  }
-  if (insertAt >= 0) {
-    lines.splice(insertAt, 0, '', md, '');
-    return lines.join('\n');
-  }
-  const endRe = /\n##\s+(FAQ|Sources|Related)\b/i;
-  const m = text.match(endRe);
-  if (m && m.index != null) return text.slice(0, m.index) + '\n\n' + md + '\n' + text.slice(m.index);
-  return text.trimEnd() + '\n\n' + md + '\n';
-}
-async function squareWriteSlotAtomic(id, n, buf) {
-  const rel = squareSlotRel(id, n);
-  const dest = squareAbs(rel);
-  const dir = path.dirname(dest);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  const tmp = path.join(dir, id + '-' + n + '.bak-' + Date.now() + '.jpg');
-  try {
-    await storeGradedImage(buf, tmp, { sectionTile: true, width: 1200, height: 675, bright: false });
-    const sz = fs.statSync(tmp).size;
-    if (sz < 4000) throw new Error('graded slot too small');
-    try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
-    fs.renameSync(tmp, dest);
-    return rel;
-  } catch (e) {
-    try { if (fs.existsSync(tmp)) fs.unlinkSync(tmp); } catch (x) {}
-    throw e;
-  }
-}
-/** Point face + top hero at /assets/qa/<id>.jpg (same file). */
-function forceSquareFaceAndTopMarkdown(id, title, body) {
-  const live = squareOrigRel(id);
-  const alt = String(title || id).replace(/[\[\]]/g, '').slice(0, 80);
-  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  let text = String(body || '');
-  text = text.replace(new RegExp('^\\s*!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '(?:-sq)?\\.jpg(?:\\?[^)]*)?\\)\\s*\\n*', 'gmi'), '');
-  text = text.replace(/^\s*!\[[^\]]*\]\(https?:\/\/image\.pollinations\.ai\/[^)]+\)\s*\n*/gmi, '');
-  text = text.replace(new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '(?:-sq)?\\.jpg(?:\\?[^)]*)?\\)', 'gi'), '');
-  return '![' + alt + '](' + live + ')\n\n' + text.trimStart();
-}
-/** Delete face box completely. */
-async function squareDeleteFaceEntry(id) {
-  id = String(id || '').trim();
-  if (!id) return { ok: false, msg: 'missing id' };
-  squareDeleteAllFaceFiles(id);
-  const entry = await loadSquareEntry(id);
-  let title = String((titleOf && titleOf[id]) || (entry && (entry.question || entry.title)) || id);
-  let body = entry && entry.answer ? String(entry.answer) : '';
-  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  body = String(body || '')
-    .replace(new RegExp('^\\s*!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '(?:-sq)?\\.jpg(?:\\?[^)]*)?\\)\\s*\\n*', 'gmi'), '')
-    .replace(new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '(?:-sq)?\\.jpg(?:\\?[^)]*)?\\)', 'gi'), '');
-  await saveSquareEntry(id, {
-    cover_src: 'square-desk',
-    face_title_baked: false,
-    img: null,
-    square_live: null,
-  }, body || ('# ' + title + '\n\n'));
-  return { ok: true, deleted: 1, wiped: true, faceUrl: null };
-}
-function detectSquareShape(id, title, body) {
-  try {
-    const route = pickGoldTemplate(id, body || '', title || '');
-    if (route && (route.template === 'top10' || route.template === 'ranking')) return 'top10';
-  } catch (e) {}
-  if (isTop10Body(body) || isRankingListBody(body)) return 'top10';
-  if (/^sy/i.test(String(id || '')) || /\bstyle(s)?\b/i.test(String(title || ''))) return 'styles';
-  return 'qa';
-}
-function buildSquareSlots(id, shape, body) {
-  const slots = [];
-  const faceOk = squareFileOk(squareFaceRel(id));
-  const faceUrl = faceOk ? squareFaceRel(id) : null;
-  // Face-card and top hero are THE SAME file — one slot in the desk
-  slots.push({ key: 'face', label: 'Face + Top', n: 0, filled: faceOk, url: faceUrl, kind: 'face', alsoTop: true });
-  let count = 4;
-  if (shape === 'top10') count = 10;
-  else if (shape === 'styles') count = 6;
-  else {
-    try {
-      const targets = ddgImageSectionTargets(String(body || '').split('\n'), body || '');
-      count = Math.min(8, Math.max(2, (targets && targets.length) || 4));
-    } catch (e) { count = 4; }
-  }
-  for (let n = 1; n <= count; n++) {
-    const rel = squareSlotRel(id, n);
-    const filled = squareFileOk(rel);
-    const label = shape === 'top10' ? ('#' + n) : (shape === 'styles' ? ('Fit ' + n) : ('Img ' + n));
-    slots.push({ key: 'slot-' + n, label, n, filled, url: filled ? rel : null, kind: 'body' });
-  }
-  return slots;
-}
-function nextOpenSquareSlot(slots) {
-  const bodies = (slots || []).map((s, i) => ({ s, i })).filter(x => x.s && x.s.kind === 'body');
-  const empty = bodies.find(x => !x.s.filled);
-  if (empty) return empty.i;
-  // All filled — overwrite starting at first body slot
-  return bodies.length ? bodies[0].i : null;
-}
-async function fetchSquareImageBuf(url) {
-  const target = String(url || '').trim();
-  if (!target) throw new Error('missing image url');
-  const headersList = [
-    { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8', Referer: 'https://duckduckgo.com/' },
-    { 'User-Agent': 'Mozilla/5.0 (compatible; PulseSquare/1.0)', Accept: 'image/*,*/*' },
-  ];
-  let lastErr = null;
-  for (const headers of headersList) {
-    try {
-      const r = await fetch(target, { signal: AbortSignal.timeout(28000), headers, redirect: 'follow' });
-      if (!r.ok) { lastErr = new Error('image HTTP ' + r.status); continue; }
-      const buf = Buffer.from(await r.arrayBuffer());
-      if (buf.length < 2500) { lastErr = new Error('image too small'); continue; }
-      return buf;
-    } catch (e) { lastErr = e; }
-  }
-  throw lastErr || new Error('image fetch failed');
-}
-
-async function loadSquareEntry(id) {
-  try {
-    const e = await store.get('answers/' + id + '.json', { type: 'json' });
-    if (e && e.answer) return e;
-  } catch (err) {}
-  try {
-    const local = path.join(WD, '_square_local', id + '.json');
-    if (fs.existsSync(local)) return JSON.parse(fs.readFileSync(local, 'utf8'));
-  } catch (err) {}
-  return null;
-}
-async function saveSquareEntry(id, entryPatch, body) {
-  const prev = (await loadSquareEntry(id)) || { id };
-  const next = Object.assign({}, prev, entryPatch || {}, {
-    answer: body != null ? body : prev.answer,
-    updated_at: new Date().toISOString(),
-  });
-  let blobOk = false;
-  try { await store.setJSON('answers/' + id + '.json', next); blobOk = true; } catch (e) { blobOk = false; }
-  try {
-    const dir = path.join(WD, '_square_local');
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(path.join(dir, id + '.json'), JSON.stringify(next, null, 0));
-  } catch (e) {}
-  try {
-    const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
-    const ent = (idx.entries || []).find(x => x && x.id === id);
-    if (ent) {
-      if (entryPatch && entryPatch.cover_src) ent.cover_src = entryPatch.cover_src;
-      if (entryPatch && entryPatch.face_title_baked) ent.face_title_baked = true;
-      if (entryPatch && entryPatch.img) ent.img = entryPatch.img;
-      await store.setJSON('_index.json', idx);
-    }
-  } catch (e) {}
-  return Object.assign(next, { _blobOk: blobOk });
-}
-async function pickSquareNextEntry() {
-  let entries = [];
-  try { entries = await getImageDuplicatorEntries(null); } catch (e) { entries = []; }
-  const scored = [];
-  for (const row of entries.slice(0, 400)) {
-    const id = row.id;
-    let body = '';
-    let meta = row;
-    try {
-      const e = await store.get('answers/' + id + '.json', { type: 'json' });
-      if (e && e.answer) { body = e.answer; meta = Object.assign({}, row, e); }
-    } catch (err) {}
-    const title = String((typeof titleOf !== 'undefined' && titleOf[id]) || row.question || row.title || id);
-    const passer = (() => { try { return passedFormatFixerGate(id, body, meta); } catch (e) { return false; } })();
-    const missingFace = !squareFileOk(squareFaceRel(id)) || !meta.face_title_baked;
-    scored.push({
-      id,
-      title,
-      body,
-      pillar: (typeof pillarOf === 'function' ? pillarOf(id) : String(id).replace(/\d.*/, '')) || '',
-      passer,
-      missingFace,
-      shape: detectSquareShape(id, title, body),
-    });
-    if (scored.length >= 60) break;
-  }
-  scored.sort((a, b) => (Number(b.missingFace) - Number(a.missingFace)) || (Number(b.passer) - Number(a.passer)));
-  let pick = scored[0];
-  if (!pick && entries[0]) {
-    const id = entries[0].id;
-    const title = String((titleOf && titleOf[id]) || entries[0].question || id);
-    pick = { id, title, body: '', pillar: pillarOf(id), passer: false, shape: detectSquareShape(id, title, '') };
-  }
-  if (!pick) {
-    pick = {
-      id: 'aq9999',
-      title: 'How do reef tanks keep aquarium water clear and stable?',
-      body: '# How do reef tanks keep aquarium water clear and stable?\n\n## Direct Answer\n\nClear water starts with filtration, light, and steady parameters.\n\n## Deep Dive\n\nGood flow and a clean filter keep particles moving out of the water column.\n',
-      pillar: 'aq',
-      passer: true,
-      shape: 'qa',
-      demo: true,
-    };
-  }
-  const pending = readSquarePending(pick.id);
-  const slots = buildSquareSlotsFromPending(pick.id, pick.shape, pick.body, pending);
-  return {
-    ok: true,
-    id: pick.id,
-    title: pick.title,
-    shape: pick.shape,
-    pillar: pick.pillar,
-    passer: !!pick.passer,
-    demo: !!pick.demo,
-    // Desk uses FAKE preview — do not return baked face for the tile
-    faceUrl: null,
-    pending: pending || null,
-    slots,
-    nextSlot: nextOpenSquareSlot(slots),
-  };
-}
-async function searchSquareImages(q) {
-  const query = String(q || '').trim().slice(0, 120);
-  if (!query) return { ok: false, msg: 'type a keyword' };
-  let results = [];
-  try {
-    const arr = await ddgImages(query);
-    results = (arr || []).slice(0, 24).map((x, i) => ({
-      i,
-      image: x.image || x.url,
-      thumb: x.thumbnail || x.image || x.url,
-      url: x.url || x.image,
-    })).filter(x => x.image && /^https?:\/\//i.test(x.image));
-  } catch (e) {
-    return { ok: false, msg: 'search failed · ' + (e.message || e) };
-  }
-  return { ok: true, q: query, results };
-}
-
-// ── Square FAKE preview + Cursor manual bake queue (owner 2026-07-14) ──
-const SQUARE_PENDING_DIR = path.join(WD, '_square_pending');
-const SQUARE_APPLY_QUEUE = path.join(WD, '_square_apply_queue.json');
-function ensureSquarePendingDir() {
-  if (!fs.existsSync(SQUARE_PENDING_DIR)) fs.mkdirSync(SQUARE_PENDING_DIR, { recursive: true });
-}
-function squarePendingPath(id) { return path.join(SQUARE_PENDING_DIR, String(id) + '.json'); }
-function readSquarePending(id) {
-  try {
-    const fp = squarePendingPath(id);
-    if (!fs.existsSync(fp)) return null;
-    return JSON.parse(fs.readFileSync(fp, 'utf8'));
-  } catch (e) { return null; }
-}
-function writeSquarePending(id, data) {
-  ensureSquarePendingDir();
-  const prev = readSquarePending(id) || { id };
-  const next = Object.assign({}, prev, data || {}, { id, updated_at: new Date().toISOString() });
-  fs.writeFileSync(squarePendingPath(id), JSON.stringify(next, null, 0));
-  return next;
-}
-function readSquareApplyQueue() {
-  try {
-    if (!fs.existsSync(SQUARE_APPLY_QUEUE)) return [];
-    const j = JSON.parse(fs.readFileSync(SQUARE_APPLY_QUEUE, 'utf8'));
-    return Array.isArray(j) ? j : (j.items || []);
-  } catch (e) { return []; }
-}
-function writeSquareApplyQueue(items) {
-  fs.writeFileSync(SQUARE_APPLY_QUEUE, JSON.stringify({ items: items || [], updated_at: new Date().toISOString() }, null, 2));
-}
-function buildSquareSlotsFromPending(id, shape, body, pending) {
-  const slots = buildSquareSlots(id, shape, body);
-  const faceStaged = !!(pending && pending.faceImageUrl);
-  const staged = (pending && pending.slots) || {};
-  return slots.map(s => {
-    if (s.kind === 'face') {
-      return Object.assign({}, s, { filled: faceStaged, url: faceStaged ? 'staged' : null, staged: faceStaged, alsoTop: true });
-    }
-    if (s.kind === 'body' && staged[s.n]) {
-      return Object.assign({}, s, { filled: true, url: 'staged', staged: true });
-    }
-    return Object.assign({}, s, { filled: false, url: null, staged: false });
-  });
-}
-function stageSquareDraft(d) {
-  const id = String(d.id || '').trim();
-  if (!id) return { ok: false, msg: 'missing id' };
-  const title = String(d.title || (titleOf && titleOf[id]) || id);
-  const faceImageUrl = d.faceImageUrl != null ? String(d.faceImageUrl || '').trim() : undefined;
-  const slotsIn = d.slots && typeof d.slots === 'object' ? d.slots : undefined;
-  const prev = readSquarePending(id) || { id, title, slots: {} };
-  const nextSlots = Object.assign({}, prev.slots || {}, slotsIn || {});
-  const next = writeSquarePending(id, {
-    title,
-    shape: d.shape || prev.shape || detectSquareShape(id, title, ''),
-    faceImageUrl: faceImageUrl !== undefined ? (faceImageUrl || null) : (prev.faceImageUrl || null),
-    slots: nextSlots,
-    status: 'staged',
-    previewOnly: true,
-  });
-  const body = '';
-  const slots = buildSquareSlotsFromPending(id, next.shape, body, next);
-  return {
-    ok: true,
-    mode: 'staged',
-    id,
-    title: next.title,
-    previewOnly: true,
-    faceImageUrl: next.faceImageUrl || null,
-    slots,
-    nextSlot: nextOpenSquareSlot(slots),
-    pending: next,
-  };
-}
-function queueSquareDraft(d) {
-  const id = String(d.id || '').trim();
-  const faceImageUrl = String(d.faceImageUrl || '').trim();
-  if (!id || !faceImageUrl) return { ok: false, msg: 'stage a face photo first' };
-  const title = String(d.title || (titleOf && titleOf[id]) || id);
-  const slots = d.slots && typeof d.slots === 'object' ? d.slots : {};
-  const pending = writeSquarePending(id, {
-    title,
-    shape: d.shape || detectSquareShape(id, title, ''),
-    faceImageUrl,
-    slots,
-    status: 'ready',
-    previewOnly: true,
-    queued_at: new Date().toISOString(),
-  });
-  const q = readSquareApplyQueue().filter(x => x && x.id !== id);
-  q.push({ id, title, faceImageUrl, slots, queued_at: pending.queued_at, status: 'ready' });
-  writeSquareApplyQueue(q);
-  try {
-    fs.appendFileSync(path.join(WD, '_square_apply_log.txt'),
-      new Date().toISOString() + ' QUEUED ' + id + ' face=' + faceImageUrl.slice(0, 80) + '\n');
-  } catch (e) {}
-  return { ok: true, queued: true, id, title, pending, queueLen: q.length, msg: 'Queued for Cursor manual bake' };
-}
-/** Cursor: delete old face box → write brand-new graded face + body slots from queued picks. */
-async function squareManualApplyPending(id) {
-  id = String(id || '').trim();
-  const pending = readSquarePending(id);
-  if (!pending || !pending.faceImageUrl) return { ok: false, msg: 'no pending face for ' + id };
-  const title = String(pending.title || (titleOf && titleOf[id]) || id);
-  const entry = await loadSquareEntry(id);
-  let body = entry && entry.answer ? String(entry.answer) : '';
-  if (!body && id === 'aq9999') {
-    body = '# How do reef tanks keep aquarium water clear and stable?\n\n## Direct Answer\n\nClear water starts with filtration, light, and steady parameters.\n\n## Deep Dive\n\nGood flow and a clean filter keep particles moving out of the water column.\n';
-  }
-
-  const buf = await fetchSquareImageBuf(pending.faceImageUrl);
-  // DELETE old box + WRITE brand-new /assets/qa/<id>.jpg with gold title
-  const liveRel = await squareWriteFaceAtomic(id, buf, title);
-  body = forceSquareFaceAndTopMarkdown(id, title, body || ('# ' + title + '\n\n'));
-
-  const slotMap = pending.slots || {};
-  for (const key of Object.keys(slotMap)) {
-    const n = Number(key);
-    const url = slotMap[key];
-    if (!n || !url) continue;
-    try {
-      const sbuf = await fetchSquareImageBuf(url);
-      squareUnlink(squareSlotRel(id, n));
-      const rel = await squareWriteSlotAtomic(id, n, sbuf);
-      body = patchBodySlotImage(id, title, body, n, rel);
-    } catch (e) {}
-  }
-
-  await saveSquareEntry(id, {
-    cover_src: 'square-desk-manual',
-    face_title_baked: true,
-    img: liveRel,
-    square_live: liveRel,
-    square_manual_applied_at: new Date().toISOString(),
-  }, body);
-
-  writeSquarePending(id, { status: 'applied', applied_at: new Date().toISOString(), previewOnly: false });
-  writeSquareApplyQueue(readSquareApplyQueue().filter(x => x && x.id !== id));
-  try {
-    fs.appendFileSync(path.join(WD, '_square_apply_log.txt'),
-      new Date().toISOString() + ' APPLIED(delete+new) ' + id + ' → ' + liveRel + '\n');
-  } catch (e) {}
-  return {
-    ok: true,
-    applied: true,
-    deletedOld: true,
-    id,
-    title,
-    faceUrl: liveRel + '?v=' + Date.now(),
-  };
-}
-async function drainSquareApplyQueue() {
-  const q = readSquareApplyQueue().filter(x => x && x.status === 'ready');
-  const out = [];
-  for (const item of q) {
-    try { out.push(await squareManualApplyPending(item.id)); }
-    catch (e) { out.push({ ok: false, id: item.id, msg: e.message || String(e) }); }
-  }
-  return { ok: true, drained: out.length, results: out };
-}
-
-async function applySquarePick(id, imageUrl, slotIdx) {
-  id = String(id || '').trim();
-  imageUrl = String(imageUrl || '').trim();
-  if (!id || !imageUrl) return { ok: false, msg: 'missing id or image' };
-  if (!fs.existsSync(SQUARE_QA_DIR)) fs.mkdirSync(SQUARE_QA_DIR, { recursive: true });
-  const entry = await loadSquareEntry(id);
-  let title = String((titleOf && titleOf[id]) || (entry && (entry.question || entry.title)) || id);
-  let body = entry && entry.answer ? String(entry.answer) : '';
-  if (!body && id === 'aq9999') {
-    body = '# How do reef tanks keep aquarium water clear and stable?\n\n## Direct Answer\n\nClear water starts with filtration, light, and steady parameters.\n\n## Deep Dive\n\nGood flow and a clean filter keep particles moving out of the water column.\n';
-    title = 'How do reef tanks keep aquarium water clear and stable?';
-  }
-  const shape = detectSquareShape(id, title, body);
-  const buf = await fetchSquareImageBuf(imageUrl);
-  const bust = Date.now();
-
-  // Body slot fill (answer page) — always overwrite that slot file + markdown
-  if (slotIdx != null && Number.isFinite(Number(slotIdx)) && Number(slotIdx) >= 0) {
-    let slots = buildSquareSlots(id, shape, body);
-    const idx = Number(slotIdx);
-    let slot = slots[idx];
-    if (!slot || slot.kind !== 'body') {
-      const fallback = nextOpenSquareSlot(slots);
-      if (fallback == null) return { ok: false, msg: 'no body slot' };
-      slot = slots[fallback];
-    }
-    const rel = await squareWriteSlotAtomic(id, slot.n, buf);
-    body = patchBodySlotImage(id, title, body, slot.n, rel);
-    await saveSquareEntry(id, {}, body);
-    slots = buildSquareSlots(id, shape, body);
-    return {
-      ok: true,
-      mode: 'slot',
-      id,
-      shape,
-      overwritten: true,
-      faceUrl: squareFaceRel(id) + '?v=' + bust,
-      slotUrl: rel + '?v=' + bust,
-      slots,
-      nextSlot: nextOpenSquareSlot(slots),
-    };
-  }
-
-  // Face-card + top hero = SAME file (<id>-sq.jpg). Old titled face stays behind (not deleted).
-  const liveRel = await squareWriteFaceAtomic(id, buf, title);
-  const livePath = squareAbs(liveRel);
-  if (!fs.existsSync(livePath) || fs.statSync(livePath).size < 8000) {
-    return { ok: false, msg: 'face write failed' };
-  }
-  body = forceSquareFaceAndTopMarkdown(id, title, body || ('# ' + title + '\n\n'));
-  const saved = await saveSquareEntry(id, {
-    cover_src: 'square-desk',
-    face_title_baked: true,
-    img: liveRel,
-    square_live: liveRel,
-    square_orig_hidden: true,
-  }, body);
-  const slots = buildSquareSlots(id, shape, body);
-  return {
-    ok: true,
-    mode: 'face',
-    id,
-    title,
-    shape,
-    faceUrl: liveRel + '?v=' + bust,
-    topUrl: liveRel + '?v=' + bust,
-    sameFile: true,
-    originalKept: squareOrigRel(id),
-    blobOk: !!saved._blobOk,
-    slots,
-    nextSlot: nextOpenSquareSlot(slots),
-  };
-}
-
 function faceHeroStatusPayload() {
   const snap = Object.assign({}, faceHeroJob, { log: (faceHeroJob.log || []).slice(0, 24), pendingReview: slimImageReview(faceHeroJob.pendingReview) });
   delete snap._entries;
@@ -1876,15 +1253,7 @@ async function processFormatFixerEntry(id) {
   const pillar = pillarOf(id);
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e || !e.answer) return { noBlob: true };
-  if (contentFormatPass(id, e.answer, valid)) {
-    // Stamp pass so Square Builder gate sees explicit format_fixed_at when already clean.
-    if (!e.format_fixed_at) {
-      try {
-        await persistAnswerBlob(id, e.answer, { format_fixed_at: new Date().toISOString() }, formatFixerLog);
-      } catch (err) {}
-    }
-    return { skipped: true, pass: true };
-  }
+  if (contentFormatPass(id, e.answer, valid)) return { skipped: true, pass: true };
   formatFixerJob.currentStep = 'audit · ' + id;
   const sib = (byPillar[pillar] || []).filter(x => x && x.id !== id).slice(0, 8);
   const r = await formatFixEntry(id, title, e.answer, {
@@ -1978,7 +1347,7 @@ async function runFormatFixerLoop() {
     formatFixerJob.phase = formatFixerJob.stop ? 'stopped' : 'done';
     formatFixerLog(formatFixerJob.stop
       ? ('⏹ stopped at ' + formatFixerJob.pct + '%')
-      : ('✅ complete — ' + formatFixerJob.entriesFixed + ' fixed · ' + formatFixerJob.entriesPass + ' pass content rubric · ready for Square Builder · no images touched'));
+      : ('✅ complete — ' + formatFixerJob.entriesFixed + ' fixed · ' + formatFixerJob.entriesPass + ' pass content rubric · no images touched'));
   } catch (e) {
     formatFixerJob.error = e.message;
     formatFixerJob.phase = 'error';
@@ -1989,10 +1358,6 @@ async function runFormatFixerLoop() {
   formatFixerJob.currentId = '';
   formatFixerJob.currentStep = '';
   saveFormatFixerState(true);
-  // Owner: stop/finish Fixer → all content passes go straight to Square Builder
-  if ((formatFixerJob.entriesPass || 0) > 0 && formatFixerJob.pillar) {
-    setTimeout(() => handoffFormatFixerToSquareBuilder('loop-end'), 400);
-  }
 }
 function startFormatFixer(pillar) {
   if (formatFixerJob.running) return { ok: false, msg: 'already running' };
@@ -2005,30 +1370,14 @@ function startFormatFixer(pillar) {
     done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
     skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [], _entries: null,
-    autorun: true,
   };
-  formatFixerLog('▶ Format Fixer AUTO — ' + formatFixerJob.pillarName + ' · content + structure only · images untouched');
+  formatFixerLog('▶ Format Fixer — ' + formatFixerJob.pillarName + ' · content + structure only · images untouched');
   runFormatFixerLoop().catch(e => { formatFixerJob.error = e.message; formatFixerJob.running = false; formatFixerJob.phase = 'error'; saveFormatFixerState(); });
-  return { ok: true, started: true, pillar, pillarName: formatFixerJob.pillarName, autorun: true };
-}
-/** Boot / flag: auto-start Format Fixer on current pillar (no click). */
-function maybeAutorunFormatFixer(reason) {
-  const envOn = String(process.env.FORMAT_FIXER_AUTORUN || '1') !== '0';
-  let flagOn = false;
-  try { flagOn = fs.existsSync(path.join(WD, '_format_fixer_autorun.flag')); } catch (e) {}
-  if (!envOn && !flagOn) return { ok: false, msg: 'autorun off' };
-  if (formatFixerJob.running) return { ok: false, msg: 'already running' };
-  let pillar = '';
-  try { pillar = fs.readFileSync(path.join(WD, '_current_pillar.txt'), 'utf8').trim().split(/\r?\n/)[0]; } catch (e) {}
-  if (!pillar) pillar = formatFixerJob.pillar || 'aq';
-  pillar = String(pillar).replace(/[^a-z0-9]/gi, '').slice(0, 8) || 'aq';
-  console.log('[scrub-button] Format Fixer AUTORUN · pillar=' + pillar + ' · ' + (reason || 'boot'));
-  return startFormatFixer(pillar);
+  return { ok: true, started: true, pillar, pillarName: formatFixerJob.pillarName };
 }
 function stopFormatFixer() {
   if (!formatFixerJob.running) return { ok: false, msg: 'not running' };
   formatFixerJob.stop = true;
-  formatFixerLog('⏹ stop requested — finishing current entry, then Square Builder handoff');
   return { ok: true, stopping: true };
 }
 function forceStopFormatFixer() {
@@ -2040,33 +1389,7 @@ function forceStopFormatFixer() {
   formatFixerJob.currentStep = 'force stopped';
   formatFixerLog('⏹ force stop — format fixer halted');
   saveFormatFixerState(true);
-  let squareHandoff = false;
-  if ((formatFixerJob.entriesPass || 0) > 0 && formatFixerJob.pillar) {
-    squareHandoff = true;
-    setTimeout(() => handoffFormatFixerToSquareBuilder('force-stop'), 400);
-  }
-  return { ok: true, forceStopped: true, squareHandoff };
-}
-/** After Format Fixer stop/done — launch Square Builder on same pillar (passers only, auto-approve). */
-function handoffFormatFixerToSquareBuilder(reason) {
-  const pillar = formatFixerJob.pillar;
-  const passes = formatFixerJob.entriesPass || 0;
-  if (!pillar) return { ok: false, msg: 'no pillar' };
-  if (passes < 1) {
-    formatFixerLog('⏭ no Format Fixer passes to hand off to Square Builder');
-    return { ok: false, msg: 'no passes' };
-  }
-  if (formatFixerJob.running) return { ok: false, msg: 'fixer still running' };
-  if (faceHeroJob.running || faceHeroJob.phase === 'review') {
-    formatFixerLog('⏭ Square Builder already busy — handoff skipped (' + (reason || '') + ')');
-    return { ok: false, msg: 'square busy' };
-  }
-  formatFixerLog('➡ handoff → Square Builder · ' + passes + ' pass(es) · pillar ' + pillar + ' · auto-approve · ' + (reason || ''));
-  const r = startFaceHero(pillar, '', true, true, true);
-  if (!(r && r.ok)) {
-    formatFixerLog('⚠️ Square Builder handoff failed · ' + ((r && r.msg) || 'unknown'));
-  }
-  return r || { ok: false, msg: 'start failed' };
+  return { ok: true, forceStopped: true };
 }
 function formatFixerStatusPayload() {
   const snap = Object.assign({}, formatFixerJob, { log: (formatFixerJob.log || []).slice(0, 24) });
@@ -2313,15 +1636,6 @@ async function processRubricStationEntry(id) {
     if (r.stopped) return { stopped: true, pass: false };
     body = r.body || body;
     await save(body, { format_fixed_at: new Date().toISOString() });
-  } else if (station === 'face') {
-    // 🔒 OWNER LAW: Format Fixer → Square Builder. Face station blocked until content pass.
-    if (!passedFormatFixerGate(id, body, e)) {
-      rubricStationLog('⏭ ' + id + ' · face blocked — pass Format Fixer / writing first');
-      return { pass: false, fixerGate: true };
-    }
-    body = await runTargetedOwnerFixes(id, title, body, keys, { save, sib, out, ui: 'station', shouldStop: () => rubricStationJob.stop });
-    await save(body);
-    clearImageVerifyCache(id);
   } else if (station === 'internal') {
     const r = await internalImagesFixEntry(id, title, body, internalImagesFixOpts({
       shouldStop: () => rubricStationJob.stop,
@@ -2345,6 +1659,7 @@ async function processRubricStationEntry(id) {
   } else if (keys.length) {
     body = await runTargetedOwnerFixes(id, title, body, keys, { save, sib, out, ui: 'station', shouldStop: () => rubricStationJob.stop });
     await save(body);
+    if (station === 'face') clearImageVerifyCache(id);
   }
   if (blobSaveErr) return { error: blobSaveErr, pass: false };
   const rb2 = rubricSignOff(id, body);
@@ -2381,7 +1696,6 @@ async function runRubricStationLoop() {
       try {
         const r = await processRubricStationEntry(id);
         if (r.noBlob) rubricStationJob.skippedNoBlob++;
-        else if (r.fixerGate) { rubricStationJob.skippedFixerGate = (rubricStationJob.skippedFixerGate || 0) + 1; }
         else if (r.skipped) { rubricStationJob.entriesSkipped++; rubricStationJob.entriesPass++; }
         else if (r.stopped) break;
         else if (r.error) { rubricStationJob.errors = (rubricStationJob.errors || 0) + 1; rubricStationLog('⚠️ ' + id + ' · ' + r.error); }
@@ -2650,10 +1964,7 @@ const { libraryEntryPublicUrl, libraryEntryKind, SITE: PULSE_SITE } = require('.
 const { pushSeoCounts } = require('./_seo_monitor_sync_lib');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 
-const SQUARE_ONLY = process.argv.includes('--square-only') || String(process.env.SQUARE_ONLY || '') === '1';
-const PORT = SQUARE_ONLY
-  ? parseInt(process.env.SQUARE_PORT || '9377', 10)
-  : parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
+const PORT = parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
 const PASS = '4444';
 const DAILY_MAX = parseInt(process.env.SCRUB_BTN_DAILY || '100000000', 10);   // daily cap removed (owner 2026-07-01) — effectively unlimited
 const MIN_SCORE = 12, WORD_FLOOR = 2000;
@@ -3960,22 +3271,17 @@ async function deFab(id, title, body, critique) {
 
 let valid = new Set(), titleOf = {}, byPillar = {}, coverSrcOf = {}, qualityScoreOf = {};
 async function loadIndex() {
-  try {
-    const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
-    const es = ((idx && idx.entries) || []).filter(e => e && e.id);
-    valid = new Set(es.map(e => e.id)); titleOf = Object.fromEntries(es.map(e => [e.id, e.question]));
-    coverSrcOf = Object.fromEntries(es.map(e => [e.id, e.cover_src || null]));   // face-card provenance (flux = pollinator, per cover law)
-    qualityScoreOf = Object.fromEntries(es.map(e => [e.id, typeof e.quality_score === 'number' ? e.quality_score : null]));
-    byPillar = {}; const isDemo = t => /\bdemo\b|standing desk|\btest entry\b/i.test(String(t || ''));
-    for (const e of es) { if (isDemo(e.question)) continue; (byPillar[pillarOf(e.id)] = byPillar[pillarOf(e.id)] || []).push({ id: e.id, title: e.question }); }
-    // seed the 24h Writing panel from the catalog — entries indexed in the last 24h (owner 2026-07-02)
-    const cut = Date.now() - 24 * 3600 * 1000;
-    recentWrites = es.filter(e => !isDemo(e.question) && typeof e.ts === 'number' && e.ts >= cut)
-      .map(e => ({ ts: e.ts, id: e.id, pillar: pillarOf(e.id), pillarName: pName(pillarOf(e.id)), title: String(e.question || '').slice(0, 80), status: 'published', score: (typeof e.quality_score === 'number' ? e.quality_score : null) }));
-  } catch (e) {
-    console.error('[scrub-button] loadIndex soft-fail (UI still up):', e && e.message);
-    valid = valid || new Set(); titleOf = titleOf || {}; coverSrcOf = coverSrcOf || {}; qualityScoreOf = qualityScoreOf || {}; byPillar = byPillar || {}; recentWrites = recentWrites || [];
-  }
+  const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+  const es = (idx.entries || []).filter(e => e && e.id);
+  valid = new Set(es.map(e => e.id)); titleOf = Object.fromEntries(es.map(e => [e.id, e.question]));
+  coverSrcOf = Object.fromEntries(es.map(e => [e.id, e.cover_src || null]));   // face-card provenance (flux = pollinator, per cover law)
+  qualityScoreOf = Object.fromEntries(es.map(e => [e.id, typeof e.quality_score === 'number' ? e.quality_score : null]));
+  byPillar = {}; const isDemo = t => /\bdemo\b|standing desk|\btest entry\b/i.test(String(t || ''));
+  for (const e of es) { if (isDemo(e.question)) continue; (byPillar[pillarOf(e.id)] = byPillar[pillarOf(e.id)] || []).push({ id: e.id, title: e.question }); }
+  // seed the 24h Writing panel from the catalog — entries indexed in the last 24h (owner 2026-07-02)
+  const cut = Date.now() - 24 * 3600 * 1000;
+  recentWrites = es.filter(e => !isDemo(e.question) && typeof e.ts === 'number' && e.ts >= cut)
+    .map(e => ({ ts: e.ts, id: e.id, pillar: pillarOf(e.id), pillarName: pName(pillarOf(e.id)), title: String(e.question || '').slice(0, 80), status: 'published', score: (typeof e.quality_score === 'number' ? e.quality_score : null) }));
 }
 let recentWrites = [];
 // 🔒🔒 RUBRIC — THE STANDARDS, NO GREY AREA (owner 4444, 2026-07-02). To certify (≥12/13) an entry
@@ -7170,13 +6476,12 @@ function buildPage(mode) {
     : 'Tap any entry for <b>fullscreen review</b> — <b>Cursor auto-auditors</b> gate publish. Only exceptions land here — <b style=color:#2ecc71>✓</b> publish · <b style=color:#ff8a76>✗</b> retarget.';
   const fsBatchExplain = 'Use <b>Rubric Stations</b> — one slice at a time (Writing · Structure · Face · Internal images · Top-10 · Publish gate). Each station has its own fix + auditor. Standard full scrub is disabled.';
   const batchIdleHint = 'Open a station tab — pick pillar — ▶ Start. Finished entries land in the audit pile below.';
-  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Square Builder · Face Card' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
+  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Face Card & Top Image Generator' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
   return `<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><title>PULSE · ${pageTitle}</title><style>
-*{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh;gap:18px;padding:24px 0 48px}
-#gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:94%;max-width:560px}
+*{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:18px}
+#gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:92%;max-width:560px}
 #gate{display:none;position:relative;z-index:90}
-#app{display:flex!important;visibility:visible!important;opacity:1!important;position:relative;z-index:90}
-body.daily-driver #app{max-width:920px}
+#app{display:none;position:relative;z-index:90}
 h1{font-weight:800;margin:0;font-size:1.4rem}.sub{color:#8aa0ad;font-size:.85rem;margin:0;text-align:center}
 input{padding:12px;font-size:1.4rem;text-align:center;letter-spacing:.4em;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#0f161e;color:#e8eef2;width:160px}
 .counts{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}.pill{padding:8px 14px;border-radius:20px;font-weight:800;font-size:.95rem}.green{background:rgba(46,204,113,.16);color:#2ecc71}.red{background:rgba(231,76,60,.16);color:#ff8a76}.amber{background:rgba(241,196,15,.16);color:#f1c40f}.purple{background:rgba(167,139,250,.18);color:#c4b5fd}
@@ -7187,7 +6492,7 @@ button.scrub:hover{transform:translateY(-2px)}button.scrub:active{transform:scal
 #result.show{opacity:1}.flash{animation:fl 1s ease}@keyframes fl{0%{background:rgba(46,204,113,.25)}100%{background:#141b24}}
 .rid{font-weight:800}.steps{color:#8aa0ad;font-size:.78rem;margin-top:4px}
 #fx{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:60}
-#uniSplash{position:fixed;inset:0;z-index:70;cursor:pointer;background:#0a0806;touch-action:manipulation;display:none!important;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+#uniSplash{position:fixed;inset:0;z-index:70;cursor:pointer;background:#0a0806;touch-action:manipulation;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
 #uniEnter{border:none;border-radius:32px;padding:16px 28px;font-size:1rem;font-weight:900;color:#06121a;background:linear-gradient(135deg,#a78bfa,#7c3aed);cursor:pointer;box-shadow:0 8px 28px rgba(124,58,237,.45);z-index:85;position:relative}
 #uniEnter:hover{transform:translateY(-2px)}
 #uni{position:relative;left:auto;top:auto;transform:none;font-size:min(18vw,5.5rem);cursor:pointer;z-index:85;user-select:none;filter:drop-shadow(0 6px 16px rgba(167,139,250,.55));padding:8px 16px;text-align:center;pointer-events:none}
@@ -7620,15 +6925,19 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
 #fsGenerate{display:none;position:fixed;inset:0;z-index:250;background:linear-gradient(165deg,#0a0818 0%,#120a20 45%,#0b1218 100%);color:#e8eef2;flex-direction:column;padding:18px 20px 22px;overflow:auto}
 #fsGenerate.on{display:flex}
 </style></head><body>
-<div id=uniSplash style="display:none" aria-hidden="true"></div>
-<div id=gate style="display:none" aria-hidden="true"><input id=pw type=hidden value="4444"><p class=sub id=gerr style="display:none"></p></div>
+<div id=uniSplash aria-label="Tap to open owner portal" onclick="if(window.enterUnicornGate)window.enterUnicornGate()">
+  <div id=uni>🦄<span class=hint>Owner portal</span></div>
+  <button type=button id=uniEnter onclick="event.stopPropagation();if(window.enterUnicornGate)window.enterUnicornGate()">Enter Owner Portal</button>
+  <p class=sub style="max-width:320px;z-index:85;position:relative">Local only · not pulserevops.com · passcode after this screen</p>
+</div>
+<div id=gate><h1>🏭 PULSE Scrub Button</h1><p class=sub>Enter the access code</p><input id=pw type=password inputmode=numeric maxlength=4 placeholder="••••"><p class=sub id=gerr style=color:#ff8a76></p></div>
 <div id=app>
   <nav id=pageNav class=mode-tabs>
     <button type=button class="mode-tab${isScrub ? ' on' : ''}" id=navScrub data-mode=scrub>🧽 Scrub to 13/13 <span id=tabScrubBadge class=tab-badge></span></button>
     <button type=button class="mode-tab${isGenerate ? ' on' : ''}" id=navGenerate data-mode=generate>✍️ New Q&amp;A <span id=tabGenerateBadge class="tab-badge gen"></span></button>
   </nav>
-  <h1 id=appTitle>${isFormatFix ? '📝 Format Fixer' : (isFaceHero ? '🟦 Square Builder' : (isGenerate ? '✍️ New Q&amp;A — auto 13/13' : '🧽 Scrub to 13/13'))}</h1>
-  <p class=sub id=appSub>${isFormatFix ? '<b>Daily driver:</b> content + structure only. Square Builder is on its own localhost page.' : (isFaceHero ? '<b>Square Builder</b> — face-card + top image. Pass Format Fixer first.' : (isGenerate ? 'Pick pillar + count. Each new Q&amp;A runs the <b>same 13/13 pipeline as scrubber</b> — writing → Pollinator face-card + top hero → DDG sections → render verify → <b>certify 13/13</b> before the next one.' : 'Pick a pillar, then <b>Fix pillar</b>. Every entry gets Pollinator flux on face-card + top hero, DDG images inside, gold title overlay, full render check — then <b>quality_score 13</b>.'))}</p>
+  <h1 id=appTitle>${isGenerate ? '✍️ New Q&amp;A — auto 13/13' : '🧽 Scrub to 13/13'}</h1>
+  <p class=sub id=appSub>${isGenerate ? 'Pick pillar + count. Each new Q&amp;A runs the <b>same 13/13 pipeline as scrubber</b> — writing → Pollinator face-card + top hero → DDG sections → render verify → <b>certify 13/13</b> before the next one.' : 'Pick a pillar, then <b>Fix pillar</b>. Every entry gets Pollinator flux on face-card + top hero, DDG images inside, gold title overlay, full render check — then <b>quality_score 13</b>.'}</p>
   <div id=scrubPanel${isScrub ? '' : ' style="display:none"'}>
   <div id=scrubFilterBar class=scrub-filter-bar style="margin-top:0">
     <div class=scrub-filter-title>🎯 Which pillar to scrub?</div>
@@ -7869,6 +7178,45 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
     </div>
   </div>
   </div>
+  <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
+  <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
+    <div class=dupe-panel-title style="color:#e879f9">🦄 Face Card &amp; Top Image Generator</div>
+    <div class=dupe-panel-hint><b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
+    <div class=dupe-panel-row>
+      <select id=faceheroPillarFilter title="Which pillar to regenerate face-cards + heroes for"><option value=tl>Loading pillars…</option></select>
+    </div>
+    <div class=imgen-keywords-row>
+      <label class=imgen-keywords-label style="color:#e879f9" for=faceheroKeywords>🎯 Guide keywords (optional)</label>
+      <input type=text id=faceheroKeywords class=imgen-keywords maxlength=800 placeholder="e.g. headroom portrait, warm cinematic grade — comma separated" title="Optional — steers each Pollinator face-card flux try">
+      <div class=imgen-keywords-hint>Leave blank for automatic title-based searches. Same search/guide for every card until you ✗ Try again — then it rotates to the next title search (and next comma guide keyword if set).</div>
+    </div>
+    <div class="dupe-auto-opts facehero">
+      <label title="Skip manual review — each generated face-card is saved automatically and the run continues"><input type=checkbox id=faceheroAutoApprove> 🤖 Auto-approve images</label>
+    </div>
+    <div class=dupe-btns>
+      <button type=button id=faceheroStart>▶ Generate face-card + top hero for pillar</button>
+      <button type=button id=faceheroStop disabled>⏹ Stop</button>
+      <button type=button id=faceheroForceStop disabled title="Force stop — clears review and will not resume on server restart">⏹ Force stop</button>
+    </div>
+    <div id=faceheroReview class=imgen-review style="display:none">
+      <div class=imgen-review-head><h4 id=faceheroReviewTitle>Review face-card</h4></div>
+      <div class=card-review>
+        <a id=faceheroReviewLink href="#" target=_blank rel=noopener><img id=faceheroReviewImg src="" alt="face-card preview"></a>
+        <div class=card-review-meta id=faceheroReviewMeta></div>
+        <div class=card-review-btns>
+          <button type=button id=faceheroKeep>✓ Keep</button>
+          <button type=button id=faceheroRetry>✗ Try again</button>
+        </div>
+      </div>
+    </div>
+    <div id=faceheroProg class=dupe-prog style="display:none">
+      <div class=dupe-prog-bar><i id=faceheroProgBar style="width:0%;background:linear-gradient(90deg,#a855f7,#e879f9)"></i></div>
+      <div class=dupe-prog-lbl id=faceheroProgLbl style="color:#e879f9">0% — waiting…</div>
+      <div class=dupe-stats id=faceheroStats></div>
+      <div class=dupe-log id=faceheroLog></div>
+    </div>
+  </div>
+  </div>
   <div id=rewritePanel${isRewrite ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#b45309;background:linear-gradient(165deg,#120a04 0%,#0e1620 100%)">
     <div class=dupe-panel-title style="color:#fbbf24">🌸 Pollinator Image Overwrite</div>
@@ -7937,7 +7285,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
     <div class=dupe-panel-title style="color:#a78bfa">🔬 Rubric Stations</div>
     <div class=dupe-panel-hint>One station = one rubric slice. Each entry gets a <b>targeted fix</b> then a <b>dedicated auditor</b> for that slice only.</div>
     <div class=dupe-panel-row>
-      <select id=rubricStationFilter title="Which rubric slice to fix + audit"><option value=writing>✍️ Writing</option><option value=structure>📐 Structure</option><option value=face>🟦 Face &amp; hero</option><option value=internal>📷 Internal images</option><option value=top10>🏆 Top-10 images</option><option value=publish>✅ Publish gate</option></select>
+      <select id=rubricStationFilter title="Which rubric slice to fix + audit"><option value=writing>✍️ Writing</option><option value=structure>📐 Structure</option><option value=face>🦄 Face &amp; hero</option><option value=internal>📷 Internal images</option><option value=top10>🏆 Top-10 images</option><option value=publish>✅ Publish gate</option></select>
       <select id=rubricPillarFilter title="Which pillar"><option value=tl>Loading pillars…</option></select>
     </div>
     <div class=dupe-btns>
@@ -7955,60 +7303,21 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   </div>
   <div id=formatfixPanel${isFormatFix ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#0ea5e9;background:linear-gradient(165deg,#041018 0%,#0e1620 100%)">
-    <div class=dupe-panel-title style="color:#38bdf8">📝 Format Fixer · daily driver</div>
-    <div class=dupe-panel-hint>Content rubric only — <b>never changes image URLs</b>. After it passes, open Square Builder on its separate localhost page.</div>
+    <div class=dupe-panel-title style="color:#38bdf8">📝 Format Fixer</div>
+    <div class=dupe-panel-hint><b>Content rubric:</b> ≥2000 words · hero image present · Direct Answer first after hero (2–3 sentences) · <b>no CRO in blob</b> (live page injects Kory card after Direct Answer) · 6 FAQs · 2 clean mermaid · 5 Sources · Related · clean links. DeepSeek fills gaps. <b>Never changes image URLs.</b></div>
     <div class=dupe-panel-row>
       <select id=formatfixPillarFilter title="Which pillar to audit and fix"><option value=tl>Loading pillars…</option></select>
     </div>
     <div class=dupe-btns>
       <button type=button id=formatfixStart>▶ Fix content &amp; structure in pillar</button>
       <button type=button id=formatfixStop disabled>⏹ Stop</button>
-      <button type=button id=formatfixForceStop class=dupe-force-stop disabled title="Force stop immediately — then hand off passers to Square Builder">⏹ Force stop → Square</button>
+      <button type=button id=formatfixForceStop class=dupe-force-stop disabled title="Force stop immediately">⏹ Force stop</button>
     </div>
     <div id=formatfixProg class=dupe-prog style="display:none">
       <div class=dupe-prog-bar><i id=formatfixProgBar style="width:0%;background:linear-gradient(90deg,#0ea5e9,#38bdf8)"></i></div>
       <div class=dupe-prog-lbl id=formatfixProgLbl style="color:#38bdf8">0% — waiting…</div>
       <div class=dupe-stats id=formatfixStats></div>
       <div class=dupe-log id=formatfixLog></div>
-    </div>
-  </div>
-  </div>
-  <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
-  <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
-    <div class=dupe-panel-title style="color:#e879f9">🟦 Square Builder · Face Card &amp; Top Image</div>
-    <div class=dupe-panel-hint>Separate Square Builder page. Q&amp;As must <b>pass Format Fixer first</b>. Entries that fail the content rubric are skipped. <b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
-    <div class=dupe-panel-row>
-      <select id=faceheroPillarFilter title="Which pillar to regenerate face-cards + heroes for"><option value=tl>Loading pillars…</option></select>
-    </div>
-    <div class=imgen-keywords-row>
-      <label class=imgen-keywords-label style="color:#e879f9" for=faceheroKeywords>🎯 Guide keywords (optional)</label>
-      <input type=text id=faceheroKeywords class=imgen-keywords maxlength=800 placeholder="e.g. headroom portrait, warm cinematic grade — comma separated" title="Optional — steers each Pollinator face-card flux try">
-      <div class=imgen-keywords-hint>Leave blank for automatic title-based searches. Same search/guide for every card until you ✗ Try again — then it rotates to the next title search (and next comma guide keyword if set).</div>
-    </div>
-    <div class="dupe-auto-opts facehero">
-      <label title="Skip manual review — each generated face-card is saved automatically and the run continues"><input type=checkbox id=faceheroAutoApprove> 🤖 Auto-approve images</label>
-    </div>
-    <div class=dupe-btns>
-      <button type=button id=faceheroStart>▶ Square Builder — face-card + top hero for pillar</button>
-      <button type=button id=faceheroStop disabled>⏹ Stop</button>
-      <button type=button id=faceheroForceStop disabled title="Force stop — clears review and will not resume on server restart">⏹ Force stop</button>
-    </div>
-    <div id=faceheroReview class=imgen-review style="display:none">
-      <div class=imgen-review-head><h4 id=faceheroReviewTitle>Review face-card</h4></div>
-      <div class=card-review>
-        <a id=faceheroReviewLink href="#" target=_blank rel=noopener><img id=faceheroReviewImg src="" alt="face-card preview"></a>
-        <div class=card-review-meta id=faceheroReviewMeta></div>
-        <div class=card-review-btns>
-          <button type=button id=faceheroKeep>✓ Keep</button>
-          <button type=button id=faceheroRetry>✗ Try again</button>
-        </div>
-      </div>
-    </div>
-    <div id=faceheroProg class=dupe-prog style="display:none">
-      <div class=dupe-prog-bar><i id=faceheroProgBar style="width:0%;background:linear-gradient(90deg,#a855f7,#e879f9)"></i></div>
-      <div class=dupe-prog-lbl id=faceheroProgLbl style="color:#e879f9">0% — waiting…</div>
-      <div class=dupe-stats id=faceheroStats></div>
-      <div class=dupe-log id=faceheroLog></div>
     </div>
   </div>
   </div>
@@ -8022,7 +7331,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
     </div>
     <div class=index-panel-opts>
       <label title="Red pool + pending sign-off + reject-fix queue"><input type=checkbox id=indexOptScrub checked> Scrub queue pages</label>
-      <label title="Owner portal pages + /seo + /publish"><input type=checkbox id=indexOptUnicorn checked> 🟦 Owner pages</label>
+      <label title="🦄 pt573 easter egg + /seo + /publish owner portals"><input type=checkbox id=indexOptUnicorn checked> 🦄 Unicorn / owner pages</label>
     </div>
     <div class=index-panel-hint>Recent = fast post-scrub ping · Delta = today&apos;s new Q&amp;As (1h cooldown) · Full catalog = entire library + sitemap (1 week) · <b>Interwoven SEO</b> = run pillar + CRO weave, then ping all interlinked pages (1 week). Checkboxes apply to Delta, Full, and Interwoven.</div>
     <div id=indexCooldownLbl class=index-panel-cooldown></div>
@@ -8307,8 +7616,8 @@ const RUBRIC_PICK=${JSON.stringify(Object.entries(RUBRIC_LABELS).filter(function
 const $=s=>document.querySelector(s);
 // ── Scrub vs Generate — one page, client-side tab toggle (owner) ──
 window.activeTab='${mode}';
-const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'🟦 Square Builder',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
-const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'<b>Square Builder</b> — after Format Fixer pass only. Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted + graded. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only. Face station requires Format Fixer pass first.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'<b>Daily driver:</b> Format Fixer only. Square Builder lives on its separate localhost page at <code>/square-builder</code>.'};
+const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'🦄 Face Card & Top Image',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
+const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'Audits ≥2000 words, Direct Answer, CRO placement, FAQs, mermaid, Sources, Related. <b>Does not touch images.</b>'};
 function switchPipelineTab(mode){
   if(!mode||mode===window.activeTab) return;
   window.activeTab=mode;
@@ -8335,7 +7644,7 @@ function switchPipelineTab(mode){
   const at=$('#appTitle'); if(at) at.textContent=TAB_TITLE[mode];
   const as=$('#appSub'); if(as) as.innerHTML=TAB_COPY[mode];
   if(window._sa&&window._sa.state&&window._sa.state.cap){ const cap=$('#cap'); if(cap) cap.textContent=window._sa.state.cap; }
-  try{ history.replaceState({tab:mode},'',mode==='generate'?'/generate':mode==='duplicator'?'/image-duplicator':mode==='imgen'?'/image-generator':mode==='facehero'?'/face-card-top-image-generator':mode==='internalimages'?'/internal-images':mode==='rubricstation'?'/rubric-stations':mode==='rewrite'?'/pollinator-image-overwrite':mode==='formatfix'?'/format-fixer-full':'/scrubber'); }catch(e){}
+  try{ history.replaceState({tab:mode},'',mode==='generate'?'/generate':mode==='duplicator'?'/image-duplicator':mode==='imgen'?'/image-generator':mode==='facehero'?'/face-card-top-image-generator':mode==='internalimages'?'/internal-images':mode==='rubricstation'?'/rubric-stations':mode==='rewrite'?'/pollinator-image-overwrite':mode==='formatfix'?'/format-fixer':'/scrubber'); }catch(e){}
   updateFullscreenForTab();
   updateTabBadges();
   if(mode==='scrub'){ if(window._sa) renderAuto(window._sa); loadPillars(); }
@@ -8361,7 +7670,7 @@ function bindPipelineTabs(){
   if(nf) nf.addEventListener('click',()=>switchPipelineTab('formatfix'));
   window.addEventListener('popstate',()=>{
     const path=(location.pathname||'/scrubber').toLowerCase();
-    const m=path.includes('format-fixer-full')||path.includes('formatfix-full')||path.includes('format-fixer')||path.includes('formatfix')?'formatfix':path.includes('rubric-stations')||path.includes('rubricstation')?'rubricstation':path.includes('internal-images')||path.includes('internalimages')?'internalimages':path.includes('pollinator-image-overwrite')||path.includes('image-rewrite')?'rewrite':path.includes('face-card-top-image')||path.includes('face-hero')?'facehero':path.includes('image-generator')?'imgen':path.includes('image-duplicator')?'duplicator':path.includes('generate')?'generate':'scrub';
+    const m=path.includes('format-fixer')||path.includes('formatfix')?'formatfix':path.includes('rubric-stations')||path.includes('rubricstation')?'rubricstation':path.includes('internal-images')||path.includes('internalimages')?'internalimages':path.includes('pollinator-image-overwrite')||path.includes('image-rewrite')?'rewrite':path.includes('face-card-top-image')||path.includes('face-hero')?'facehero':path.includes('image-generator')?'imgen':path.includes('image-duplicator')?'duplicator':path.includes('generate')?'generate':'scrub';
     if(m!==window.activeTab) switchPipelineTab(m);
   });
 }
@@ -8559,9 +7868,8 @@ function renderFaceHero(j){
     bar.style.width=Math.max(pct>0?0.5:0,pct)+'%';
   }
   if(stats) stats.innerHTML=
-    '<div>🟦 square builder flux: <span>'+(j.coversGenerated||0)+'</span></div>'+
+    '<div>🦄 face-card+hero flux: <span>'+(j.coversGenerated||0)+'</span></div>'+
     '<div>📋 entries done: <span>'+(j.entriesDone||0)+'</span></div>'+
-    '<div>⏭ wait Format Fixer: <span>'+(j.skippedFixerGate||0)+'</span></div>'+
     '<div>⏭ no blob: <span>'+(j.skippedNoBlob||0)+'</span></div>'+
     '<div>⚠️ errors: <span>'+(j.errors||0)+'</span></div>'+
     '<div>📁 pillar: <span>'+esc(j.pillarName||j.pillar||'—')+'</span></div>'+
@@ -9122,6 +8430,14 @@ function paintLaneMini(board, d){
     hot.map(r=>'<div style="padding:3px 0">'+queueIco(r.queueColor)+' <b>'+esc(r.id)+'</b> '+esc(lanePhaseKid(r.phase,r.sectionIdx,r.stages,r.phaseLabel))+' · '+r.overallPct+'%</div>').join('');
 }
 setTimeout(initPage,50);
+(function autoFromUrl(){
+  try{
+    const q=new URLSearchParams(location.search);
+    const code=String(q.get('code')||q.get('key')||'').trim();
+    if(code.length===4&&pwEl){ pwEl.value=code; tryGate(); return; }
+    if(q.get('open')==='1') enterGate();
+  }catch(e){}
+})();
 // live visual for the scrub tab — progress bar + current URL + rolling log
 let scrubLog=[];
 function scrubRender(d){
@@ -9134,44 +8450,34 @@ let gateUnlocked=false;
 const pwEl=$('#pw'), gateEl=$('#gate'), appEl=$('#app'), uni=$('#uni'), uniSplash=$('#uniSplash');
 function elVisible(el){if(!el)return false;if(el.style.display==='none')return false;return window.getComputedStyle(el).display!=='none';}
 function hideIntro(){if(uni)uni.style.display='none';if(uniSplash)uniSplash.style.display='none';}
-// Owner 2026-07-14: Square Builder localhost — NO unicorn splash, NO password screen. Open straight in.
-function enterGate(){ if(!gateUnlocked) tryGate(); }
+// 🦄 unicorn intro (phone/remote-friendly): tap ANYWHERE on the dark screen to enter.
+function enterGate(){if(gateUnlocked)return;hideIntro();if(gateEl){gateEl.style.display='flex';}setTimeout(()=>{try{pwEl&&pwEl.focus()}catch(e){}},60);}
+uniSplash&&uniSplash.addEventListener('click',e=>{e.stopPropagation();enterGate();});
+uniSplash&&uniSplash.addEventListener('touchstart',e=>{e.stopPropagation();enterGate();},{passive:true});
+function onIntroTap(e){
+  if(gateUnlocked)return;
+  if(elVisible(gateEl))return;
+  if(elVisible(appEl))return;
+  if(uni&&uni.style.display==='none'&&(!uniSplash||uniSplash.style.display==='none'))return;
+  enterGate();
+}
+document.addEventListener('click',onIntroTap);
+document.addEventListener('touchstart',onIntroTap,{passive:true});
 window.enterUnicornGate=enterGate;
-function openAppNow(){
-  try{
-    KEY = KEY || '4444';
-    gateUnlocked = true;
-    hideIntro();
-    if(gateEl) gateEl.style.display='none';
-    if(appEl){ appEl.style.display='flex'; appEl.style.visibility='visible'; appEl.style.opacity='1'; }
-  }catch(e){}
-}
-function tryGate(){
-  openAppNow();
-  const code=(pwEl&&pwEl.value.trim())||'4444';
-  if(code.length!==4) return;
-  KEY=code;
-  fetch('/state?key='+KEY).then(r=>r.json()).then(d=>{
-    if(!(d&&d.ok)) return;
-    shownGreen=d.green; shownUnder=d.under;
-    try{ paint(d,true); }catch(e){}
-    try{ loadPillars(); }catch(e){}
-    try{ initPage(); }catch(e){}
-    fetch('/scrub-status').then(r=>r.json()).then(a=>{ window._sa=a; try{ setScrubPillarFilterUi(a.scrubPillarFilter||'all'); renderAuto(a); if(a.state)paint(a.state); if(a.running||a.imageScrubRunning){ startAutoPoll(); } refreshSignoffQueue(); maybeOpenApprovalDeepLink(); updateTabBadges(); refreshDuplicatorStatus(); }catch(e){} }).catch(()=>{ try{ paintCrewManifest(null); maybeOpenApprovalDeepLink(); }catch(e){} });
-    fetch('/gen-status?key='+KEY).then(r=>r.json()).then(g=>{ if(g&&g.running){ window._gen=g; window.genRunning=true; try{ genRender(g); genStartPoll(); }catch(e){} } try{ updateTabBadges(); }catch(e){} }).catch(()=>{});
-    try{
-      if(window.activeTab==='imgen') refreshImgGenStatus();
-      else if(window.activeTab==='duplicator') refreshDuplicatorStatus();
-      else if(window.activeTab==='facehero') refreshFaceHeroStatus();
-      else if(window.activeTab==='rewrite') refreshRewriteStatus();
-      else if(window.activeTab==='formatfix'){ refreshFormatFixerStatus(); refreshFaceHeroStatus(); }
-    }catch(e){}
-    try{ startHeartbeat(); }catch(e){}
-  }).catch(()=>{ openAppNow(); });
-}
-// Show dashboard immediately — do not wait on network
-openAppNow();
-setTimeout(()=>{ try{ tryGate(); }catch(e){ openAppNow(); } }, 20);
+function tryGate(){if(gateUnlocked)return;const code=pwEl?pwEl.value.trim():'';if(code.length!==4)return;KEY=code;fetch('/state?key='+KEY).then(r=>r.json()).then(d=>{if(d.ok){gateUnlocked=true;$('#gerr').textContent='';if(gateEl)gateEl.style.display='none';hideIntro();if(appEl)appEl.style.display='flex';shownGreen=d.green;shownUnder=d.under;paint(d,true);
+  loadPillars();
+  initPage();
+  fetch('/scrub-status').then(r=>r.json()).then(a=>{ window._sa=a; setScrubPillarFilterUi(a.scrubPillarFilter||'all'); renderAuto(a); if(a.state)paint(a.state); if(a.running||a.imageScrubRunning){ startAutoPoll(); } refreshSignoffQueue(); maybeOpenApprovalDeepLink(); updateTabBadges(); refreshDuplicatorStatus(); }).catch(()=>{ paintCrewManifest(null); maybeOpenApprovalDeepLink(); });
+  fetch('/gen-status?key='+KEY).then(r=>r.json()).then(g=>{ if(g&&g.running){ window._gen=g; window.genRunning=true; genRender(g); genStartPoll(); } updateTabBadges(); }).catch(()=>{});
+  if(window.activeTab==='imgen') refreshImgGenStatus();
+  else if(window.activeTab==='duplicator') refreshDuplicatorStatus();
+  else if(window.activeTab==='facehero') refreshFaceHeroStatus();
+  else if(window.activeTab==='rewrite') refreshRewriteStatus();
+  else if(window.activeTab==='formatfix') refreshFormatFixerStatus();
+  startHeartbeat();
+}else{$('#gerr').textContent='Wrong code'}}).catch(()=>$('#gerr').textContent='server?')}
+pwEl&&pwEl.addEventListener('keydown',e=>{if(e.key==='Enter')tryGate()});
+pwEl&&pwEl.addEventListener('input',()=>{if(pwEl.value.trim().length>=4)tryGate()});
 // Persistent 3s heartbeat: always reflect true server state for both pipelines.
 var heartbeat=null;
 function startHeartbeat(){ if(heartbeat)return; heartbeat=setInterval(async()=>{ try{ const d=await(await fetch('/scrub-status')).json(); window._sa=d; if(window.activeTab==='scrub') renderAuto(d); else if(window.activeTab!=='duplicator'&&window.activeTab!=='imgen'&&window.activeTab!=='facehero'&&window.activeTab!=='rewrite'&&window.activeTab!=='formatfix') { paintRunStats(d); if(d.state)paint(d.state); } if((d.pendingList&&d.pendingList.length)||(d.state&&d.state.pending)) refreshSignoffQueue(); if(isScrubActive(d)&&!autoPoll) startAutoPoll(); }catch(e){} if(KEY){ try{ const g=await(await fetch('/gen-status?key='+KEY)).json(); window._gen=g; window.genRunning=!!g.running; if(window.activeTab==='generate') genRender(g); if(g.running&&!genPoll) genStartPoll(); else if(g.running) renderFsGenerate(g); }catch(e){} if(!dupePoll&&(window.activeTab==='duplicator'||(window._dupe&&window._dupe.running))){ try{ const j=await(await fetch('/image-duplicator-status?key='+KEY)).json(); window._dupe=j; if(window.activeTab==='duplicator') renderDuplicator(j); if(j.running) startDupePoll(); }catch(e){} } if(!imgenPoll&&(window.activeTab==='imgen'||(window._imgen&&window._imgen.running))){ try{ const j=await(await fetch('/image-generator-status?key='+KEY)).json(); window._imgen=j; if(window.activeTab==='imgen') renderImgGen(j); if(j.running) startImgGenPoll(); }catch(e){} } if(!rewritePoll&&(window.activeTab==='rewrite'||(window._rewrite&&window._rewrite.running))){ try{ const j=await(await fetch('/image-rewrite-status?key='+KEY)).json(); window._rewrite=j; if(window.activeTab==='rewrite') renderRewrite(j); if(j.running) startRewritePoll(); }catch(e){} } if(!faceheroPoll&&(window.activeTab==='facehero'||(window._facehero&&window._facehero.running))){ try{ const j=await(await fetch('/face-hero-status?key='+KEY)).json(); window._facehero=j; if(window.activeTab==='facehero') renderFaceHero(j); if(j.running) startFaceHeroPoll(); }catch(e){} } if(!formatfixPoll&&(window.activeTab==='formatfix'||(window._formatfix&&window._formatfix.running))){ try{ const j=await(await fetch('/format-fixer-status?key='+KEY)).json(); window._formatfix=j; if(window.activeTab==='formatfix') renderFormatFixer(j); if(j.running) startFormatFixerPoll(); }catch(e){} } } updateTabBadges(); },3000); }
@@ -10345,7 +9651,7 @@ _faceheroStart&&_faceheroStart.addEventListener('click',async()=>{
   const autoApprove=readAutoApprove('faceheroAutoApprove');
   if(!pillar||pillar==='all'){ alert('Pick a specific pillar (not All)'); return; }
   const modeNote=autoApprove?' Auto-approve is ON — each card saves without manual review.':' After each card: ✓ Keep saves it · ✗ Try again regenerates with the next search.';
-  if(!confirm('Square Builder for every Format-Fixer-passed Q&A in '+pillar+'?'+modeNote+'\n\nEntries that have not passed Format Fixer are skipped.')) return;
+  if(!confirm('Generate face-cards for every Q&A in '+pillar+'?'+modeNote)) return;
   _faceheroStart.disabled=true;
   try{
     const r=await(await fetch('/face-hero-start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,pillar,guideKeywords,autoApprove})})).json();
@@ -10461,7 +9767,7 @@ _formatfixStart&&_formatfixStart.addEventListener('click',async()=>{
   if(!KEY) return;
   const pillar=($('#formatfixPillarFilter')&&$('#formatfixPillarFilter').value)||'tl';
   if(!pillar||pillar==='all'){ alert('Pick a specific pillar (not All)'); return; }
-  // AUTORUN — no confirm
+  if(!confirm('Format Fixer for every Q&A in '+pillar+'? Fixes content + structure only — images will NOT be changed.')) return;
   _formatfixStart.disabled=true;
   try{
     const r=await(await fetch('/format-fixer-start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,pillar})})).json();
@@ -10472,22 +9778,6 @@ _formatfixStart&&_formatfixStart.addEventListener('click',async()=>{
   }catch(e){ alert('start failed'); }
   finally{ _formatfixStart.disabled=false; }
 });
-// Page load AUTORUN: if Fixer idle on Format Fixer tab, kick it
-(async function formatFixerBootAutorun(){
-  if(!KEY) return;
-  try{
-    const j=await(await fetch('/format-fixer-status?key='+KEY)).json();
-    if(j&&j.running){ startFormatFixerPoll(); renderFormatFixer(j); return; }
-    if(window.activeTab!=='formatfix'&&!(location.pathname||'').includes('format-fixer')) return;
-    const pillar=(j&&j.pillar)||(($('#formatfixPillarFilter')&&$('#formatfixPillarFilter').value))||'aq';
-    const r=await(await fetch('/format-fixer-start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,pillar})})).json();
-    if(r&&r.started){
-      $('#formatfixProg')&&($('#formatfixProg').style.display='block');
-      startFormatFixerPoll();
-      renderFormatFixer({running:true,pct:0,done:0,total:0,log:['▶ AUTORUN…'],pillarName:r.pillarName,pillar});
-    }
-  }catch(e){}
-})();
 var _formatfixStop=$('#formatfixStop');
 _formatfixStop&&_formatfixStop.addEventListener('click',async()=>{
   if(!KEY) return;
@@ -11246,24 +10536,13 @@ async function watchNew() {
 const server = http.createServer(async (req, res) => {
   const u = new URL(req.url, 'http://localhost');
   res.setHeader('Access-Control-Allow-Origin', '*');
-  if (u.pathname === '/' && SQUARE_ONLY) { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildSquareDeskPage()); }
   if (u.pathname === '/' || u.pathname === '/scrubber') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('scrub')); }
   if (u.pathname === '/generate') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('generate')); }
   if (u.pathname === '/image-duplicator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('duplicator')); }
   if (u.pathname === '/image-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('imgen')); }
   if (u.pathname === '/pollinator-image-overwrite' || u.pathname === '/image-rewrite') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rewrite')); }
-  if (u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator' || u.pathname === '/square-builder' || u.pathname === '/square') {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    return res.end(buildSquareDeskPage());
-  }
-  if (u.pathname === '/format-fixer' || u.pathname === '/formatfix') {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    return res.end(buildPage('formatfix'));
-  }
-  if (u.pathname === '/format-fixer-full' || u.pathname === '/formatfix-full') {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    return res.end(buildPage('formatfix'));
-  }
+  if (u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('facehero')); }
+  if (u.pathname === '/format-fixer' || u.pathname === '/formatfix') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('formatfix')); }
   if (u.pathname === '/internal-images' || u.pathname === '/internalimages') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('internalimages')); }
   if (u.pathname === '/rubric-stations' || u.pathname === '/rubricstation') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rubricstation')); }
   if (u.pathname.startsWith('/assets/qa/')) {
@@ -11273,7 +10552,7 @@ const server = http.createServer(async (req, res) => {
     try {
       const buf = fs.readFileSync(fp);
       const ct = /\.png$/i.test(fp) ? 'image/png' : /\.webp$/i.test(fp) ? 'image/webp' : 'image/jpeg';
-      res.writeHead(200, { 'Content-Type': ct, 'Cache-Control': 'no-store, max-age=0' });
+      res.writeHead(200, { 'Content-Type': ct, 'Cache-Control': 'no-cache' });
       return res.end(buf);
     } catch (e) { res.writeHead(404); return res.end(); }
   }
@@ -11630,143 +10909,6 @@ const server = http.createServer(async (req, res) => {
     });
     return;
   }
-  if (u.pathname === '/square-preview' || u.pathname === '/square-answer-preview') {
-    try {
-      const html = fs.readFileSync(path.join(WD, 'assets/square-preview/answer.html'), 'utf8');
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
-      return res.end(html);
-    } catch (e) {
-      res.writeHead(404); return res.end('no preview');
-    }
-  }
-  if (u.pathname === '/square-homepage-box' || u.pathname === '/homepage-box-preview') {
-    try {
-      const html = fs.readFileSync(path.join(WD, 'assets/square-preview/homepage-box.html'), 'utf8');
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
-      return res.end(html);
-    } catch (e) {
-      res.writeHead(404); return res.end('no box preview');
-    }
-  }
-  if (u.pathname === '/square-next') {
-    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
-    pickSquareNextEntry().then(r => {
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(r));
-    }).catch(e => {
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
-    });
-    return;
-  }
-  if (u.pathname === '/square-search') {
-    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
-    searchSquareImages(u.searchParams.get('q') || '').then(r => {
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(r));
-    }).catch(e => {
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
-    });
-    return;
-  }
-  if (u.pathname === '/square-proxy') {
-    const raw = u.searchParams.get('u') || '';
-    let target = '';
-    try { target = decodeURIComponent(raw); } catch (e) { target = raw; }
-    if (!/^https?:\/\//i.test(target)) { res.writeHead(400); return res.end('bad url'); }
-    fetch(target, {
-      signal: AbortSignal.timeout(20000),
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; PulseSquare/1.0)', Accept: 'image/*,*/*' },
-      redirect: 'follow',
-    }).then(async r => {
-      if (!r.ok) { res.writeHead(502); return res.end('upstream'); }
-      const ct = (r.headers.get('content-type') || 'image/jpeg').split(';')[0];
-      const buf = Buffer.from(await r.arrayBuffer());
-      res.writeHead(200, { 'Content-Type': ct, 'Cache-Control': 'public, max-age=600' });
-      res.end(buf);
-    }).catch(() => { res.writeHead(502); res.end('proxy fail'); });
-    return;
-  }
-  if (u.pathname === '/square-delete' && req.method === 'POST') {
-    let b = ''; req.on('data', c => b += c); req.on('end', () => {
-      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
-      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
-      squareDeleteFaceEntry(d.id || '').then(r => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(r));
-      }).catch(e => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
-      });
-    });
-    return;
-  }
-  if (u.pathname === '/square-stage' && req.method === 'POST') {
-    let b = ''; req.on('data', c => b += c); req.on('end', () => {
-      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
-      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
-      try {
-        const r = stageSquareDraft(d);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(r));
-      } catch (e) {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
-      }
-    });
-    return;
-  }
-  if (u.pathname === '/square-save-draft' && req.method === 'POST') {
-    let b = ''; req.on('data', c => b += c); req.on('end', () => {
-      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
-      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
-      try {
-        const r = queueSquareDraft(d);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(r));
-      } catch (e) {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
-      }
-    });
-    return;
-  }
-  if (u.pathname === '/square-apply-queue') {
-    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    return res.end(JSON.stringify({ ok: true, items: readSquareApplyQueue() }));
-  }
-  if (u.pathname === '/square-apply-now' && req.method === 'POST') {
-    let b = ''; req.on('data', c => b += c); req.on('end', () => {
-      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
-      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
-      const run = d.id ? squareManualApplyPending(d.id) : drainSquareApplyQueue();
-      Promise.resolve(run).then(r => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(r));
-      }).catch(e => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
-      });
-    });
-    return;
-  }
-  if (u.pathname === '/square-pick' && req.method === 'POST') {
-    let b = ''; req.on('data', c => b += c); req.on('end', () => {
-      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
-      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
-      const slot = (d.slot == null || d.slot === '') ? null : Number(d.slot);
-      applySquarePick(d.id || '', d.imageUrl || d.url || '', slot).then(r => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(r));
-      }).catch(e => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
-      });
-    });
-    return;
-  }
   if (u.pathname === '/face-hero-status') {
     if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -12070,16 +11212,7 @@ server.listen(PORT, '0.0.0.0', async () => {
     lanIp = Object.values(os.networkInterfaces()).flat().find(i => i && i.family === 'IPv4' && !i.internal && /^192\.168\.|^10\./.test(i.address))?.address || '';
     if (lanIp) try { fs.writeFileSync(WD + '/_scrub_lan_ip.txt', lanIp + ':' + PORT); } catch (e) {}
   } catch (e) {}
-  console.log(SQUARE_ONLY
-    ? `[square-builder] own site up on http://localhost:${PORT}/`
-    : `[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
+  console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
   if (lanIp) console.log(`[scrub-button] LAN (phone on WiFi): http://${lanIp}:${PORT}/`);
   resumeInterruptedImageJobs();
-  // Format Fixer AUTORUN (owner) — starts on boot unless FORMAT_FIXER_AUTORUN=0
-  if (!SQUARE_ONLY) setTimeout(() => {
-    try {
-      const r = maybeAutorunFormatFixer('boot');
-      console.log('[scrub-button] Format Fixer AUTORUN →', r && (r.started ? ('started ' + r.pillar) : r.msg));
-    } catch (e) { console.error('[scrub-button] Format Fixer AUTORUN failed', e && e.message); }
-  }, 2500);
 });

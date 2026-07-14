@@ -1,4 +1,88 @@
-﻿# â–¶ HANDOFF â€” for the next Claude Code session (saved 2026-06-26)
+- **Format Fixer AUTORUN:** ON (pillar from `_current_pillar.txt`, currently `aq`). Boot-starts unless `FORMAT_FIXER_AUTORUN=0`. Full UI: `/format-fixer-full`. Needs real `BLOBS_PAT` (cloud `.env.local` is currently `missing` → 401).
+- **TITLE LAW (sole):** [`CLAUDE.md`](CLAUDE.md) → **TITLE / FACE-CARD LAW** (2026-07-14). Ignore older “CSS overlay, never baked” notes in `_HANDOFF_NEXT_CLAUDE.md` / prior crossovers.
+- **SEPARATE LOCAL SITES (owner 2026-07-14):** Format Fixer only: `http://127.0.0.1:3229/format-fixer` · Square Builder own site/port: `http://127.0.0.1:9377/` (`_start_square_builder_9377.bat`). Do not render or link Square inside Fixer.
+- **Flow (owner 2026-07-14):** **NO preview box.** Search → click photos (face first, then body). **Done** queues Cursor. Watcher **deletes** old `/assets/qa/<id>.jpg` and writes a brand-new graded face+title.
+
+- **LIVE Square Builder (tunneled):** https://brown-feet-show.loca.lt/face-card-top-image-generator  · also local http://localhost:3229/face-card-top-image-generator
+## ▶▶ CROSSOVER — 2026-07-14 OWNER UX LAW (FIXER → SQUARE → ANSWER) — READ FIRST
+
+**Three shapes (same station order; answer page differs):**
+
+| # | Shape | What it is | Answer-page images |
+|---|--------|------------|--------------------|
+| 1 | **Top 10 / ranking** | Listicle goat (`aq1158` gold) | Auto-picks Top 10 layout from the Q&A/URL. Shows **fake/imitation placeholder words** until filled. Owner **searches (or clicks a pixel/tile)** → clicks a photo → fills **#1**; next click fills **#2**; continue rank-by-rank. |
+| 2 | **Q&A essay** | Standard goat (`q11133` gold) | **Top image auto-fills from the face-card image** (same file / path — no second pick). Then body rhythm: **2 word blocks → image → 2 word blocks → image** (owner searches → clicks → fills slot 1, then 2, …). |
+| 3 | **Styles (`sy`) — style only** | Same Fixer → Square path as Q&A | **3 men + 3 women** outfit images (20s / 40s / 60s) + cover = **7 total** |
+
+**Template auto-select:** based on the question + answer URL/id in play, Square / block builder formats to whichever golden template it is (Top 10 vs Q&A vs Styles). No manual template switch mid-run.
+
+**Station law (all three):**
+1. **Format Fixer** — content + structure only. Title overlay + face/top image may still look **fake/placeholder** here (visual lock: Fixer never owns the real cover/title bake).
+2. **Square Builder** (`/face-card-top-image-generator`) — **title + images are actually fixed here**: real Pollinator face-card + **orange title bake** (`face_title_baked`), Q&A **top image auto-fills from that face-card**, then owner click-fills remaining slots (Top 10 ranks / essay body images / Styles 3M+3W). **When face-card title is done → square turns green** → **auto goes to the answer screen**.
+3. Main library / blobs stay put. **Only full Fixer passers (5/5 / contentFormatPass) from the last hour** are queued into Square Builder — nothing is removed from the main DB.
+
+**Handoff:**
+- Stop Format Fixer → Square Builder: force-stop / finish auto-launches Square on the **same pillar**, **passers only**, **auto-approve ON**.
+- Windows one-click: `_stop_fixer_go_square.bat` (scrub on **8911** for this real run · or 8902 legacy) · `node _handoff_fixer_to_square.js --base=http://127.0.0.1:8911`
+- **Open Square Builder (fresh unused channel):** http://127.0.0.1:9377/face-card-top-image-generator — double-click `_start_square_builder_9377.bat` on Windows (no unicorn, no password)
+- Cloud agent cannot hit LAN scrub / main Blobs without Windows `.env.local` — run on the PC.
+
+## ▶▶ CROSSOVER — 2026-07-14 FIXER → SQUARE AUTO HANDOFF — READ FIRST
+
+- **Stop Format Fixer → Square Builder:** force-stop / finish now auto-launches Square Builder on the **same pillar**, **passers only**, **auto-approve ON**.
+- **One-click on Windows:** double-click `_stop_fixer_go_square.bat` (scrub must already be on 8902/8911) · or `node _handoff_fixer_to_square.js --base=http://127.0.0.1:8911`
+- **API:** `POST /fixer-to-square` `{ key: 4444 }`
+- Cloud agent cannot hit your LAN scrub — run the bat on the PC.
+
+﻿# ▶ HANDOFF — for the next Claude Code session (saved 2026-06-26)
+
+## ▶▶ CROSSOVER — 2026-07-14 FORMAT FIXER — HOW TO RUN (NOT THE UNICORN TRAP) — READ FIRST
+
+- **Wrong feel:** `http://localhost:8899/` often lands on **SEO dashboard** or only the **🦄 splash**. That splash *is* the scrub door — but port 8899 is contested.
+- **Correct Format Fixer UI:**
+  1. Double-click `_start_format_fixer_portal.bat` **or** PowerShell: `$env:SCRUB_BTN_PORT='8902'; node _scrub_button_server.js`
+  2. Open **http://127.0.0.1:8902/format-fixer** (use `127.0.0.1`, not `localhost`)
+  3. Tap 🦄 → enter **4444** → pick pillar → ▶ Fix
+- **CLI (no clicking):** `node _run_format_fixer_cli.js --base=http://127.0.0.1:8902 --pillar=tl --limit=3`
+- **CLI direct blobs:** `node _run_format_fixer_cli.js --direct --pillar=tl --limit=3` (needs `.env.local`)
+- Intact pre-gate backups still in `_BACKUP_*_20260714.*` / `_BACKUP_FORMAT_FIXER_RESTORE.md`.
+
+---
+
+## ▶▶ CROSSOVER — 2026-07-14 FORMAT FIXER INTACT BACKUP — READ FIRST
+
+- **Intact pre-gate backups saved** (roll back if Square Builder order is a bad idea):
+  - `_BACKUP_scrub_button_server_pre_square_gate_20260714.js` — full scrub server from `main` before Format Fixer → Square Builder gate
+  - `_BACKUP_format_fixer_lib_intact_20260714.js` — Format Fixer lib snapshot
+  - Restore steps: `_BACKUP_FORMAT_FIXER_RESTORE.md`
+- **Cloud agent cannot push the scrub buttons** — needs Windows localhost:8899 + `.env.local` (DeepSeek + BLOBS_PAT). Deploy does **not** unlock that.
+
+---
+
+## ▶▶ CROSSOVER — 2026-07-13 OWNER LAW (FORMAT FIXER → SQUARE BUILDER) — READ FIRST
+
+- **2026-07-13 (owner):** **Q&As MUST pass the Format Fixer, then they go to Square Builder.** Never reverse.
+  - **Step 1 — Format Fixer** (`/format-fixer`): content + structure rubric only (no image URL changes). Stamp `format_fixed_at` on pass.
+  - **Step 2 — Square Builder** (`/face-card-top-image-generator`, Face Card & Top Image): Pollinator flux mosaic cover + synced top hero. **Skips** any Q&A that has not passed Format Fixer (`contentFormatPass` / `passedFormatFixerGate`).
+  - Rubric Stations **face** slice also blocked until Format Fixer/writing pass.
+  - Code: `_scrub_button_server.js` (`passedFormatFixerGate`, Face Hero skip counter `skippedFixerGate`).
+
+---
+
+## ▶▶ CROSSOVER — 2026-07-12 CHECK-IN (DEPLOY INTERRUPTION RECOVERY) — READ FIRST
+
+- **2026-07-12 (cloud agent `bc-4e030c98`):** Owner reconnect after disconnect near deploy finish line.
+- **Where we are:** CRO/SEO money-page batch is **still STAGED on git `main` (`cf718af`), NOT live**. Live `/hire` still titled "Hire a CRO"; no `utm_campaign=hire-page`; sitemap missing `/hire` `/about` `/contact` `/revenue-architecture`; `/about` canonical still `about.html`. Entry **cro-bar "Hire a Fractional CRO" is already live** (prior renderer deploy).
+- **Pre-deploy report:** `PRE_DEPLOY_REPORT_CRO_SEO.md` — gate items for this batch CLEAR TO DRAFT-DEPLOY (2/6/7/8 PASS; image-run items N/A).
+- **Finish line (blocked here):** this cloud pod has **no `.env.local` / `NETLIFY_AUTH_TOKEN`** (Netlify CLI not logged in). Complete on Windows box:
+  1. `bash _do_deploy_draft.sh` (draft, `--no-build` — avoids prior full-build failure in `_dn_deploy_log.txt`)
+  2. Verify draft: `/hire` title + UTMs, sitemap urls, `/about` canonical
+  3. `_promote_deploy.ps1 -DeployId <id>`
+- **Do NOT use** `_do_deploy_now.js` until `_render_audit_status.json` is refreshed — still stale `deployBlocked: true` (2026-07-06 aq1160 mis-template).
+- **Not this deploy:** image-run / gm reimage / render-auditor crew. Resume after money-page promote per `_HANDOFF_NEXT_CLAUDE.md` §RESUME POINT.
+- **2026-07-12 (notes refresh `bc-9a5cd914`):** Re-verified live vs staged — still true. Live `/hire` title still "Hire a CRO"; `/about` canonical still `about.html`; local money pages + sitemap still staged on `main` @ `cf718af`. `_render_audit_status.json` still `deployBlocked/speedupBlocked/templateBlocked` (stale `2026-07-06T23:08:54Z`).
+
+---
 
 ## ▶▶ CROSSOVER — 2026-07-07 LATEST-40 (TL GOLD REDO · GOLDEN TEMPLATE LAW) — READ FIRST
 

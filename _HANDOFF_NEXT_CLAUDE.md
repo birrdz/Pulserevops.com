@@ -661,15 +661,25 @@ Every Q&A/story that goes live must hit **≥12 of 13** on the SHARED rubric (`s
 1. **`generateOne` (new writes) and `scrubOne` (scrubs) must both CALL the cover generator** — every new Q&A and every scrubbed Q&A gets a valid face-card cover made/verified as part of the pipeline (reuse the `_gen_qa_covers.js`/`_fix_covers.js` DDG-primary + flux-fallback logic).
 2. **`stationsOk`/`gradeEntry` must REQUIRE a valid non-flyer face-card cover** before certifying 12/13. Cheap first gate: cover file exists AND is >~40KB (small file = likely a DDG flyer/gradient). Reject/redo otherwise.
 
-## 🃏🖼️ CROSSOVER — VINTAGE FACE-CARD COVERS + FINAL MOSAIC (2026-07-03) — 🔒 READ FIRST (newest)
-**Owner drove the mosaic to its final form: every tile is a vintage "face card." This is now LAW site-wide — writing AND scrubbing.**
+## 🃏🖼️ CROSSOVER — VINTAGE FACE-CARD COVERS + FINAL MOSAIC (2026-07-03) — ⚠️ PARTIALLY SUPERSEDED
+
+> **⚠️ TITLE RULE SUPERSEDED (owner 2026-07-14).** Do **not** follow “Title = CSS overlay, never baked” below for Q&A face-cards / answer heroes.
+> **Current law lives only in [`CLAUDE.md`](CLAUDE.md) → TITLE / FACE-CARD LAW:**
+> - Answer face/top = `/assets/qa/<id>.jpg` with **baked** gold/orange title (`goldTitle` / `face_title_baked`)
+> - Apply path **deletes** old JPG then writes a **brand-new** graded file (no layer over old titled pixels)
+> - Homepage `.rcard` uses `/assets/qa/<id>.sq.jpg` photo-only + **CSS title under** the image
+> - Format Fixer never bakes titles
+>
+> Mosaic layout / asymmetry / Pollinator source notes below may still apply. **Title bake vs CSS = CLAUDE.md wins.**
+
+**Owner drove the mosaic to its final form: every tile is a vintage "face card." Layout is still law; title bake was updated 2026-07-14.**
 
 ### THE FACE-CARD LAW (add to writing 12/13 + scrubbing 12/13 + front/back of house)
-Every entry's tile image = a **vintage cover**: a real topical PHOTO + consistent warm '70s/'80s grade + the title as a **GOLD ITALIC SERIF** overlay at the BOTTOM. Requirements:
+Every entry's tile image = a **vintage cover**: a real topical PHOTO + consistent warm '70s/'80s grade + title treatment per **CLAUDE.md** (not the 2026-07-03 CSS-only rule). Requirements:
 - **Image source = POLLINATIONS flux ONLY** (owner: "pollinator is better, don't care how long it takes"). NOT DDG for covers (DDG returns flyers/baked-text for abstract topics).
 - **Prompt:** `a realistic candid documentary color photograph of <question>, natural light, cinematic, detailed, no text, no words, no letters, no watermark` · `width=760&height=760&model=flux&nologo=true&enhance=true` · seed = hash of id.
-- **Grade (sharp):** `resize(760,760,cover)` → `modulate({saturation:1.07, brightness:1.16})` → composite `overlaySVG`: warm sepia `#6b4a1e` opacity **0.08** (whisper only — keep FULL COLOR, NOT orange), vignette (radialGradient 0.26), film grain (feTurbulence baseFrequency 0.8, alpha slope 0.12, opacity 0.42). **NO baked text.**
-- **Title = CSS overlay, never baked** (auto-fits, never crops/doubles): gold `#EAC15C`, Fraunces/Playfair italic 800, bottom-left, dark bottom scrim. Baked text caused crop + double-title bugs — banned.
+- **Grade (sharp):** `resize(760,760,cover)` → `modulate({saturation:1.07, brightness:1.16})` → composite `overlaySVG`: warm sepia `#6b4a1e` opacity **0.08** (whisper only — keep FULL COLOR, NOT orange), vignette (radialGradient 0.26), film grain (feTurbulence baseFrequency 0.8, alpha slope 0.12, opacity 0.42).
+- **Title (CURRENT — see CLAUDE.md):** answer face `/assets/qa/<id>.jpg` = **baked** gold/orange title. Homepage `/assets/qa/<id>.sq.jpg` = photo-only + **CSS title under**. ~~Title = CSS overlay, never baked~~ ← **REVOKED 2026-07-14** (caused stuck old-title loops when agents re-applied CSS-only / layered over old pixels).
 - **NO DUPLICATE PICTURES** (owner law, repeated): covers are unique per-id; every mosaic dedupes tiles by `img` before render.
 - Saved to `/assets/qa/<id>.jpg`; the entry's `_index.json.img` is repointed at it.
 
