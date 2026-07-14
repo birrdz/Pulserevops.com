@@ -15,6 +15,7 @@ const fs = require('fs');
 const path = require('path');
 const { execFile, spawn } = require('child_process');
 let imageScrubChild = null;   // legacy image-only child (_image_scrub.js) — NOT started by Begin Scrub; run manually if needed
+let originalSimMachineChild = null;
 const WD = process.env.PULSE_ROOT || __dirname;
 const ENV_FILE = path.join(WD, '.env.local');
 if (fs.existsSync(ENV_FILE)) for (const l of fs.readFileSync(ENV_FILE, 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
@@ -75,6 +76,34 @@ const { recordPreference: recordSquarePreference, choosePreferredResult, readPre
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
 const IMG_GEN_BATCH_MAX = parseInt(process.env.IMG_GEN_BATCH_MAX || '250', 10);
+function originalSimMachineReady() {
+  return new Promise(resolve => {
+    const req = http.get({ hostname: '127.0.0.1', port: 8904, path: '/api/status', timeout: 1200 }, response => {
+      response.resume();
+      resolve(response.statusCode === 200);
+    });
+    req.on('timeout', () => { req.destroy(); resolve(false); });
+    req.on('error', () => resolve(false));
+  });
+}
+async function ensureOriginalSimMachine() {
+  if (await originalSimMachineReady()) return true;
+  const script = path.join(__dirname, '_sim_machine_server_cursor.js');
+  if (!fs.existsSync(script)) return false;
+  originalSimMachineChild = spawn(process.execPath, [script], {
+    cwd: WD,
+    env: Object.assign({}, process.env, { SIM_PORT: '8904' }),
+    stdio: 'inherit',
+    windowsHide: false,
+  });
+  originalSimMachineChild.on('exit', () => { originalSimMachineChild = null; });
+  for (let attempt = 0; attempt < 30; attempt++) {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    if (await originalSimMachineReady()) return true;
+    if (!originalSimMachineChild) break;
+  }
+  return false;
+}
 // 🔒 IMAGE LAW (owner 2026-07-05): internal ## sections = DDG self-host · face-card + top hero = Pollinator flux.
 const INTERNAL_IMAGES_DDG = true;
 // IMAGE_ALTERNATE (owner 2026-07-08): let BOTH providers (DDG + Pollinator) handle section/top10/verify
@@ -974,7 +1003,7 @@ const SQUARE_AUTO_F = path.join(WD, '_square_builder_auto_run.json');
 let squareAutoJob = {
   running: false, enabled: false, stop: false, target: 100, done: 0, failed: 0,
   pod: 1, podsCompleted: 0, totalDone: 0,
-  currentId: '', phase: 'idle', startedAt: null, finishedAt: null, error: '', log: [],
+  currentId: '', phase: 'idle', preview: null, startedAt: null, finishedAt: null, error: '', log: [],
 };
 try {
   const saved = JSON.parse(fs.readFileSync(SQUARE_AUTO_F, 'utf8'));
@@ -1006,6 +1035,7 @@ async function autoFillSquareEntry() {
   if (!current.ok) return { empty: true, msg: current.msg };
   squareAutoJob.currentId = current.id;
   squareAutoJob.phase = 'search';
+  squareAutoJob.preview = { id: current.id, title: current.title, shape: current.shape, faceImageUrl: '', slots: {} };
   saveSquareAutoJob();
   const used = new Set();
   const faceSearch = await searchSquareDeskImages(current.title);
@@ -1013,6 +1043,8 @@ async function autoFillSquareEntry() {
   if (!facePick) throw new Error('no face image candidate');
   const faceUrl = facePick.item.image || facePick.item.thumb;
   used.add(faceUrl);
+  squareAutoJob.preview.faceImageUrl = faceUrl;
+  saveSquareAutoJob();
   const slots = {};
   for (const slot of (current.slots || [])) {
     if (squareAutoJob.stop) return { stopped: true };
@@ -1024,6 +1056,8 @@ async function autoFillSquareEntry() {
     const url = picked.item.image || picked.item.thumb;
     used.add(url);
     slots[slot.n] = url;
+    squareAutoJob.preview.slots[slot.n] = { url, label: slot.label || ('Image ' + slot.n) };
+    saveSquareAutoJob();
   }
   squareAutoJob.phase = 'save';
   saveSquareAutoJob();
@@ -1085,7 +1119,7 @@ function setSquareAutoRun(enabled) {
   squareAutoJob = {
     running: false, enabled: true, stop: false, target: 100, done: 0, failed: 0,
     pod: 1, podsCompleted: 0, totalDone: 0,
-    currentId: '', phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [],
+    currentId: '', phase: 'starting', preview: null, startedAt: Date.now(), finishedAt: null, error: '', log: [],
   };
   squareAutoLog('▶ Auto-run · continuous pods of 100 · learned face/body preferences');
   saveSquareAutoJob();
@@ -7842,6 +7876,11 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   </div>
   </div>
   <div id=formatfixPanel${isFormatFix ? '' : ' style="display:none"'}>
+  <div class=square-builder-dock style="border-top:0;padding-top:0;margin-top:0">
+    <div class=dupe-panel-title style="color:#FFB81C">🌸 Original Fix-It-All Machine · SIM → QUALITY → TITLE → IMAGE → 13/13</div>
+    <div class=dupe-panel-hint style="margin-bottom:10px">Your original machine, unchanged, with clickable pillar pods and <b>Auto-run 100 on TL Pulse Tools</b>. <a href="http://127.0.0.1:8904/" target=_blank style="color:#FFB81C">Open original full screen →</a></div>
+    <iframe src="http://127.0.0.1:8904/" title="Original Kory Fix-It-All Machine" loading="eager" style="display:block;width:100%;height:880px;border:2px solid #FFB81C;border-radius:14px;background:#0a0a0c"></iframe>
+  </div>
   <div class=dupe-panel style="border-color:#0ea5e9;background:linear-gradient(165deg,#041018 0%,#0e1620 100%)">
     <div class=dupe-panel-title style="color:#38bdf8">📝 Format Fixer</div>
     <div class=dupe-panel-hint><b>Automatic pods of 100:</b> fixes a pod, fetches the next 100, and starts over with a fresh database scan after the full cycle. It runs until you press Stop. <b>Never changes image URLs.</b></div>
@@ -12019,6 +12058,9 @@ server.on('error', (e) => {
   process.exit(1);
 });
 if (require.main === module) server.listen(PORT, '0.0.0.0', async () => {
+  if (process.env.FIXER_BUILDER_HOME === '1') {
+    ensureOriginalSimMachine().then(ok => console.log('[scrub-button] original Fix-It-All Machine ' + (ok ? 'attached on 8904' : 'failed to start'))).catch(() => {});
+  }
   removeSquareBuildsByPrefix('sy');
   emailSquareBacklogOnce().catch(error => console.log('[square-email] backlog email failed:', error.message));
   loadScrubPillarFilter();

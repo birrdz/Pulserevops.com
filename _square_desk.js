@@ -64,6 +64,13 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .answer-figure.top img{aspect-ratio:1;max-height:520px}
 .answer-placeholder{display:flex;align-items:center;justify-content:center;min-height:150px;color:#6b7280;font-weight:800}
 .answer-cap{padding:8px 10px;color:#4b5563;font-size:.76rem;font-weight:800}
+.auto-live{display:none;width:100%;padding-top:10px;border-top:1px solid var(--line)}
+.auto-live.on{display:block}
+.auto-live-title{font-size:.84rem;font-weight:900;color:#86efac;margin-bottom:8px}
+.auto-live-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:7px}
+.auto-live-pick{border:1px solid #374151;border-radius:8px;overflow:hidden;background:#0c1018}
+.auto-live-pick img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+.auto-live-pick span{display:block;padding:5px 6px;color:#cbd5e1;font-size:.65rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 footer a{color:#7a8496;font-size:.75rem}
 </style>
 </head>
@@ -76,6 +83,10 @@ footer a{color:#7a8496;font-size:.75rem}
     <div class=restart-help>Use this after code changes or if Builder is stuck. Active Fixer and Builder progress resumes automatically.</div>
     <button type=button class=act id=autoToggle>▶ Auto-run 100 OFF</button>
     <span class=status id=autoStatus>Manual mode · your picks train auto-run.</span>
+    <div class=auto-live id=autoLive>
+      <div class=auto-live-title id=autoLiveTitle>Auto Builder selections</div>
+      <div class=auto-live-grid id=autoLiveGrid></div>
+    </div>
   </div>
 
   <div class=card>
