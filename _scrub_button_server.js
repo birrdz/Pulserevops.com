@@ -1168,6 +1168,7 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   const imageHash = require('crypto').createHash('sha256').update(buffer).digest('hex');
   if (sourceUrls.includes(url) || imageHashes.includes(imageHash)) throw new Error('duplicate image rejected — choose a different photo');
   fs.mkdirSync(path.join(WD, 'assets', 'qa'), { recursive: true });
+  const imageVersion = Date.now().toString(36);
   let body = entry.answer, localUrl, placement;
   if (clickIndex === 0) {
     const oldFile = coverPath(id);
@@ -1185,7 +1186,7 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
       bright: false,
     });
     clearFaceCardForceRegen(id);
-    localUrl = '/assets/qa/' + id + '.jpg';
+    localUrl = '/assets/qa/' + id + '.jpg?v=' + imageVersion;
     placement = 'face card · photo-only · current title rendered by template';
     if (route.template === 'qa') {
       const swapped = replaceMarkdownImageAt(body, 0, localUrl);
@@ -1198,8 +1199,9 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
     }
   } else {
     const sex = gender === 'men' ? 'men' : gender === 'women' ? 'women' : 'any';
-    localUrl = '/assets/qa/' + id + '-manual-' + sex + '-' + clickIndex + '.jpg';
-    await storeGradedImage(buffer, path.join(WD, localUrl.replace(/^\/+/, '')), { sectionTile: true, width: 1200, height: 675, cropPosition: 'attention', bright: false });
+    const localPath = '/assets/qa/' + id + '-manual-' + sex + '-' + clickIndex + '.jpg';
+    await storeGradedImage(buffer, path.join(WD, localPath.replace(/^\/+/, '')), { sectionTile: true, width: 1200, height: 675, cropPosition: 'attention', bright: false });
+    localUrl = localPath + '?v=' + imageVersion;
     const swapped = route.template === 'top10'
       ? replaceProductImageAt(body, clickIndex, localUrl)
       : replaceMarkdownImageAt(body, clickIndex, localUrl);
@@ -1216,6 +1218,7 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
     cover_src: clickIndex === 0 ? 'pexels' : (entry.cover_src || 'pexels'),
     face_title_baked: clickIndex === 0 ? false : !!entry.face_title_baked,
     image_updated_at: new Date().toISOString(),
+    image_version: imageVersion,
     manual_image_sources: sourceUrls,
     manual_image_hashes: imageHashes,
   });
@@ -1226,6 +1229,7 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
       freshRow.img = localUrl;
       freshRow.cover_src = 'pexels';
       freshRow.face_title_baked = false;
+      freshRow.image_version = imageVersion;
       delete freshRow.face_title_text;
       await store.setJSON('_index.json', freshIndex);
     }
