@@ -66,7 +66,7 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 // 🔒🔒 POLLINATOR FACE-CARD COVER LAW (owner 2026-07-03) — covers are Pollinations flux ONLY (DDG banned).
 // 🔒 OWNER 2026-07-04: Pollinator REMOVED from writing + scrubbing. Covers now = DDG face-cards with
 // the dated Pollinator look (people/places/things, photo-refined, no watermarked stock). Same signatures.
-const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, storeGradedImage, gradeFaceCardFromBuffer, coverPath, pHash, purgeFaceCardRegistry, markFaceCardForceRegen, clearFaceCardForceRegen, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
+const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, storeGradedImage, coverPath, pHash, purgeFaceCardRegistry, markFaceCardForceRegen, clearFaceCardForceRegen, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
 const { readSquareQueue, enqueueSquareBuild, completeSquareBuild, removeSquareBuildsByPrefix } = require('./_square_builder_queue');
 const { deriveImageSearchQuery } = require('./netlify/functions/lib/derive-image-search-query');
 const { sendSquareQueueEmail, sendSquareBacklogEmail, sendCompletedQaImagesEmail } = require('./_facecard_resend_email');
@@ -1178,16 +1178,15 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
     markFaceCardForceRegen(id, 'Square Builder replacing stale baked-title pixels');
     purgeFaceCardRegistry(id, stalePh);
     fs.rmSync(oldFile, { force: true });
-    await gradeFaceCardFromBuffer(buffer, oldFile, {
-      question: title,
-      goldTitle: title,
-      variant: 'square',
+    await storeGradedImage(buffer, oldFile, {
+      square: 760,
+      faceCard: true,
       cropPosition: 'attention',
       bright: false,
     });
     clearFaceCardForceRegen(id);
     localUrl = '/assets/qa/' + id + '.jpg';
-    placement = 'face card · current title baked with site square layout';
+    placement = 'face card · photo-only · current title rendered by template';
     if (route.template === 'qa') {
       const swapped = replaceMarkdownImageAt(body, 0, localUrl);
       body = swapped.body;
@@ -1212,21 +1211,22 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   if (afterRoute.template !== route.template) throw new Error('image change would alter the locked template');
   sourceUrls.push(url);
   imageHashes.push(imageHash);
-  await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, {
+  const nextEntry = Object.assign({}, entry, {
     answer: body,
     cover_src: clickIndex === 0 ? 'pexels' : (entry.cover_src || 'pexels'),
-    face_title_baked: clickIndex === 0 ? true : !!entry.face_title_baked,
-    face_title_text: clickIndex === 0 ? title : entry.face_title_text,
+    face_title_baked: clickIndex === 0 ? false : !!entry.face_title_baked,
     image_updated_at: new Date().toISOString(),
     manual_image_sources: sourceUrls,
     manual_image_hashes: imageHashes,
-  }));
+  });
+  if (clickIndex === 0) delete nextEntry.face_title_text;
+  await store.setJSON('answers/' + id + '.json', nextEntry);
   if (clickIndex === 0) {
     if (freshRow) {
       freshRow.img = localUrl;
       freshRow.cover_src = 'pexels';
-      freshRow.face_title_baked = true;
-      freshRow.face_title_text = title;
+      freshRow.face_title_baked = false;
+      delete freshRow.face_title_text;
       await store.setJSON('_index.json', freshIndex);
     }
   }
