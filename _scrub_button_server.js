@@ -7012,12 +7012,8 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
 #fsGenerate{display:none;position:fixed;inset:0;z-index:250;background:linear-gradient(165deg,#0a0818 0%,#120a20 45%,#0b1218 100%);color:#e8eef2;flex-direction:column;padding:18px 20px 22px;overflow:auto}
 #fsGenerate.on{display:flex}
 </style></head><body>
-<div id=uniSplash aria-label="Tap to open owner portal" onclick="if(window.enterUnicornGate)window.enterUnicornGate()">
-  <div id=uni>🦄<span class=hint>Owner portal</span></div>
-  <button type=button id=uniEnter onclick="event.stopPropagation();if(window.enterUnicornGate)window.enterUnicornGate()">Enter Owner Portal</button>
-  <p class=sub style="max-width:320px;z-index:85;position:relative">Local only · not pulserevops.com · passcode after this screen</p>
-</div>
-<div id=gate><h1>🏭 PULSE Scrub Button</h1><p class=sub>Enter the access code</p><input id=pw type=password inputmode=numeric maxlength=4 placeholder="••••"><p class=sub id=gerr style=color:#ff8a76></p></div>
+<div id=uniSplash style="display:none" aria-hidden="true"></div>
+<div id=gate style="display:none" aria-hidden="true"><input id=pw type=hidden value="4444"><p class=sub id=gerr style="display:none"></p></div>
 <div id=app>
   <nav id=pageNav class=mode-tabs>
     <button type=button class="mode-tab${isScrub ? ' on' : ''}" id=navScrub data-mode=scrub>🧽 Scrub to 13/13 <span id=tabScrubBadge class=tab-badge></span></button>
@@ -8518,14 +8514,6 @@ function paintLaneMini(board, d){
     hot.map(r=>'<div style="padding:3px 0">'+queueIco(r.queueColor)+' <b>'+esc(r.id)+'</b> '+esc(lanePhaseKid(r.phase,r.sectionIdx,r.stages,r.phaseLabel))+' · '+r.overallPct+'%</div>').join('');
 }
 setTimeout(initPage,50);
-(function autoFromUrl(){
-  try{
-    const q=new URLSearchParams(location.search);
-    const code=String(q.get('code')||q.get('key')||'').trim();
-    if(code.length===4&&pwEl){ pwEl.value=code; tryGate(); return; }
-    if(q.get('open')==='1') enterGate();
-  }catch(e){}
-})();
 // live visual for the scrub tab — progress bar + current URL + rolling log
 let scrubLog=[];
 function scrubRender(d){
@@ -8538,21 +8526,10 @@ let gateUnlocked=false;
 const pwEl=$('#pw'), gateEl=$('#gate'), appEl=$('#app'), uni=$('#uni'), uniSplash=$('#uniSplash');
 function elVisible(el){if(!el)return false;if(el.style.display==='none')return false;return window.getComputedStyle(el).display!=='none';}
 function hideIntro(){if(uni)uni.style.display='none';if(uniSplash)uniSplash.style.display='none';}
-// 🦄 unicorn intro (phone/remote-friendly): tap ANYWHERE on the dark screen to enter.
-function enterGate(){if(gateUnlocked)return;hideIntro();if(gateEl){gateEl.style.display='flex';}setTimeout(()=>{try{pwEl&&pwEl.focus()}catch(e){}},60);}
-uniSplash&&uniSplash.addEventListener('click',e=>{e.stopPropagation();enterGate();});
-uniSplash&&uniSplash.addEventListener('touchstart',e=>{e.stopPropagation();enterGate();},{passive:true});
-function onIntroTap(e){
-  if(gateUnlocked)return;
-  if(elVisible(gateEl))return;
-  if(elVisible(appEl))return;
-  if(uni&&uni.style.display==='none'&&(!uniSplash||uniSplash.style.display==='none'))return;
-  enterGate();
-}
-document.addEventListener('click',onIntroTap);
-document.addEventListener('touchstart',onIntroTap,{passive:true});
+// Owner 2026-07-14: Square Builder localhost — NO unicorn splash, NO password screen. Open straight in.
+function enterGate(){ if(!gateUnlocked) tryGate(); }
 window.enterUnicornGate=enterGate;
-function tryGate(){if(gateUnlocked)return;const code=pwEl?pwEl.value.trim():'';if(code.length!==4)return;KEY=code;fetch('/state?key='+KEY).then(r=>r.json()).then(d=>{if(d.ok){gateUnlocked=true;$('#gerr').textContent='';if(gateEl)gateEl.style.display='none';hideIntro();if(appEl)appEl.style.display='flex';shownGreen=d.green;shownUnder=d.under;paint(d,true);
+function tryGate(){if(gateUnlocked)return;const code=(pwEl&&pwEl.value.trim())||'4444';if(code.length!==4)return;KEY=code;fetch('/state?key='+KEY).then(r=>r.json()).then(d=>{if(d.ok){gateUnlocked=true;const ge=$('#gerr'); if(ge)ge.textContent='';if(gateEl)gateEl.style.display='none';hideIntro();if(appEl)appEl.style.display='flex';shownGreen=d.green;shownUnder=d.under;paint(d,true);
   loadPillars();
   initPage();
   fetch('/scrub-status').then(r=>r.json()).then(a=>{ window._sa=a; setScrubPillarFilterUi(a.scrubPillarFilter||'all'); renderAuto(a); if(a.state)paint(a.state); if(a.running||a.imageScrubRunning){ startAutoPoll(); } refreshSignoffQueue(); maybeOpenApprovalDeepLink(); updateTabBadges(); refreshDuplicatorStatus(); }).catch(()=>{ paintCrewManifest(null); maybeOpenApprovalDeepLink(); });
@@ -8563,9 +8540,9 @@ function tryGate(){if(gateUnlocked)return;const code=pwEl?pwEl.value.trim():'';i
   else if(window.activeTab==='rewrite') refreshRewriteStatus();
   else if(window.activeTab==='formatfix') refreshFormatFixerStatus();
   startHeartbeat();
-}else{$('#gerr').textContent='Wrong code'}}).catch(()=>$('#gerr').textContent='server?')}
-pwEl&&pwEl.addEventListener('keydown',e=>{if(e.key==='Enter')tryGate()});
-pwEl&&pwEl.addEventListener('input',()=>{if(pwEl.value.trim().length>=4)tryGate()});
+}else{const ge=$('#gerr'); if(ge)ge.textContent='Wrong code'}}).catch(()=>{const ge=$('#gerr'); if(ge)ge.textContent='server?'})}
+// No password UI — auto-open Square Builder / scrub app on localhost.
+setTimeout(()=>{ try{ tryGate(); }catch(e){} }, 30);
 // Persistent 3s heartbeat: always reflect true server state for both pipelines.
 var heartbeat=null;
 function startHeartbeat(){ if(heartbeat)return; heartbeat=setInterval(async()=>{ try{ const d=await(await fetch('/scrub-status')).json(); window._sa=d; if(window.activeTab==='scrub') renderAuto(d); else if(window.activeTab!=='duplicator'&&window.activeTab!=='imgen'&&window.activeTab!=='facehero'&&window.activeTab!=='rewrite'&&window.activeTab!=='formatfix') { paintRunStats(d); if(d.state)paint(d.state); } if((d.pendingList&&d.pendingList.length)||(d.state&&d.state.pending)) refreshSignoffQueue(); if(isScrubActive(d)&&!autoPoll) startAutoPoll(); }catch(e){} if(KEY){ try{ const g=await(await fetch('/gen-status?key='+KEY)).json(); window._gen=g; window.genRunning=!!g.running; if(window.activeTab==='generate') genRender(g); if(g.running&&!genPoll) genStartPoll(); else if(g.running) renderFsGenerate(g); }catch(e){} if(!dupePoll&&(window.activeTab==='duplicator'||(window._dupe&&window._dupe.running))){ try{ const j=await(await fetch('/image-duplicator-status?key='+KEY)).json(); window._dupe=j; if(window.activeTab==='duplicator') renderDuplicator(j); if(j.running) startDupePoll(); }catch(e){} } if(!imgenPoll&&(window.activeTab==='imgen'||(window._imgen&&window._imgen.running))){ try{ const j=await(await fetch('/image-generator-status?key='+KEY)).json(); window._imgen=j; if(window.activeTab==='imgen') renderImgGen(j); if(j.running) startImgGenPoll(); }catch(e){} } if(!rewritePoll&&(window.activeTab==='rewrite'||(window._rewrite&&window._rewrite.running))){ try{ const j=await(await fetch('/image-rewrite-status?key='+KEY)).json(); window._rewrite=j; if(window.activeTab==='rewrite') renderRewrite(j); if(j.running) startRewritePoll(); }catch(e){} } if(!faceheroPoll&&(window.activeTab==='facehero'||(window._facehero&&window._facehero.running))){ try{ const j=await(await fetch('/face-hero-status?key='+KEY)).json(); window._facehero=j; if(window.activeTab==='facehero') renderFaceHero(j); if(j.running) startFaceHeroPoll(); }catch(e){} } if(!formatfixPoll&&(window.activeTab==='formatfix'||(window._formatfix&&window._formatfix.running))){ try{ const j=await(await fetch('/format-fixer-status?key='+KEY)).json(); window._formatfix=j; if(window.activeTab==='formatfix') renderFormatFixer(j); if(j.running) startFormatFixerPoll(); }catch(e){} } } updateTabBadges(); },3000); }
