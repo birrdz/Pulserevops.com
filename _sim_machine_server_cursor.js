@@ -56,9 +56,18 @@ async function scopeList() {
 // ?? the run engine (watcher): executes the current command's stages, serial + resume-safe ??
 let child = null, running = false, stopRequested = false;
 let autoRun = Object.assign({ enabled: process.env.SIM_AUTO_RUN === '1' || liveConfig.fixAutoRun === true, scope: 'tl', podSize: 100, cursor: 0, pod: 1, completed: 0, clearedRanges: [], phase: 'idle', error: null }, readJSON(AUTO_F, {}));
-if (!Array.isArray(autoRun.clearedRanges)) autoRun.clearedRanges = [];
-if (process.env.SIM_AUTO_RUN === '1') autoRun.enabled = true;
 const saveAuto = () => writeJSON(AUTO_F, Object.assign({}, autoRun, { updated: new Date().toISOString() }));
+if (!Array.isArray(autoRun.clearedRanges)) autoRun.clearedRanges = [];
+if (!autoRun.clearedRanges.length && (Number(autoRun.cursor) || 0) > 0) {
+  autoRun.clearedRanges.push({
+    start: 1,
+    end: Number(autoRun.cursor),
+    verifiedAt: new Date().toISOString(),
+    migratedFromCursor: true,
+  });
+  saveAuto();
+}
+if (process.env.SIM_AUTO_RUN === '1') autoRun.enabled = true;
 function setStatus(o) { writeJSON(STATUS_F, Object.assign(readJSON(STATUS_F, {}), o, { updated: new Date().toISOString() })); }
 function runStage(script, args, extraEnv) {
   return new Promise((resolve) => {
