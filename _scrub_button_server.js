@@ -70,6 +70,7 @@ const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDd
 const { readSquareQueue, enqueueSquareBuild, completeSquareBuild, removeSquareBuildsByPrefix } = require('./_square_builder_queue');
 const { deriveImageSearchQuery } = require('./netlify/functions/lib/derive-image-search-query');
 const { sendSquareQueueEmail, sendSquareBacklogEmail, sendCompletedQaImagesEmail } = require('./_facecard_resend_email');
+const { buildSquareDeskPage } = require('./_square_desk');
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
 const IMG_GEN_BATCH_MAX = parseInt(process.env.IMG_GEN_BATCH_MAX || '250', 10);
@@ -917,6 +918,63 @@ async function searchPexelsForTitle(id, requestedTitle, gender, clickIndex) {
     photographer: p.photographer || '',
   }));
   return { id, title: pageTitle, targetTitle: title, targetIndex: clickIndex, query, photos, template: route.template, targetCount: route.template === 'top10' ? Math.min(10, productTitles.length) : 3 };
+}
+async function pickSquareNextEntry() {
+  const next = readSquareQueue().pending.find(item => pillarOf(item.id) !== 'sy');
+  if (!next) return { ok: false, msg: 'No graduated Q&A waiting for images' };
+  const entry = await store.get('answers/' + next.id + '.json', { type: 'json' });
+  if (!entry || !entry.answer) return { ok: false, msg: 'Missing answer blob for ' + next.id };
+  const title = titleOf[next.id] || next.question || entry.question || entry.title || next.id;
+  const route = pickGoldTemplate(next.id, entry.answer, title);
+  if (!route.template) return { ok: false, msg: 'No locked template for ' + next.id };
+  const count = route.template === 'top10'
+    ? (String(entry.answer).match(/@@PRODUCT[^\n]*\bimg="[^"]+"/g) || []).length
+    : (String(entry.answer).match(/!\[[^\]]*\]\([^)]+\)/g) || []).length;
+  const start = route.template === 'top10' ? 2 : 1;
+  const slots = [];
+  for (let n = start; n <= (route.template === 'top10' ? count : count - 1); n++) slots.push({ kind: 'body', n });
+  return { ok: true, id: next.id, title, shape: route.template, slots };
+}
+async function searchSquareDeskImages(query) {
+  const key = process.env.PEXELS_API_KEY || '';
+  if (!key) throw new Error('PEXELS_API_KEY missing');
+  query = deriveImageSearchQuery(String(query || '').trim());
+  if (!query) throw new Error('Enter title keywords');
+  const wait = lastPexelsPickerAt + 18000 - Date.now();
+  if (wait > 0) await new Promise(resolve => setTimeout(resolve, wait));
+  lastPexelsPickerAt = Date.now();
+  const response = await fetch('https://api.pexels.com/v1/search?per_page=12&query=' + encodeURIComponent(query), {
+    headers: { Authorization: key, 'User-Agent': 'pulse-square-desk/1.0' },
+    signal: AbortSignal.timeout(45000),
+  });
+  if (!response.ok) throw new Error('Pexels HTTP ' + response.status);
+  const data = await response.json();
+  return {
+    ok: true,
+    query,
+    results: (data.photos || []).filter(p => p && p.src).map(p => ({
+      id: p.id,
+      thumb: p.src.medium || p.src.small,
+      image: p.src.large2x || p.src.large || p.src.original,
+    })),
+  };
+}
+async function saveSquareDeskDraft(d) {
+  const id = String(d.id || '').trim();
+  if (!id || !d.faceImageUrl) throw new Error('Face image is required');
+  const entry = await store.get('answers/' + id + '.json', { type: 'json' });
+  if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
+  const title = titleOf[id] || d.title || entry.question || entry.title || id;
+  const route = pickGoldTemplate(id, entry.answer, title);
+  if (route.template !== d.shape) throw new Error('locked template changed');
+  await applyManualPexelsImage(id, d.faceImageUrl, 0, '');
+  const slots = Object.entries(d.slots || {}).sort((a, b) => Number(a[0]) - Number(b[0]));
+  for (const [slot, url] of slots) {
+    const n = Number(slot);
+    const clickIndex = route.template === 'top10' ? n - 1 : n;
+    await applyManualPexelsImage(id, url, clickIndex, '');
+  }
+  return finishManualPexelsQa(id);
 }
 async function downloadPexelsPickerImage(url) {
   const parsed = new URL(String(url || ''));
@@ -2250,7 +2308,10 @@ const { libraryEntryPublicUrl, libraryEntryKind, SITE: PULSE_SITE } = require('.
 const { pushSeoCounts } = require('./_seo_monitor_sync_lib');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 
-const PORT = parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
+const SQUARE_ONLY = process.argv.includes('--square-only') || process.env.SQUARE_ONLY === '1';
+const PORT = SQUARE_ONLY
+  ? parseInt(process.env.SQUARE_PORT || '9377', 10)
+  : parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
 const PASS = '4444';
 const DAILY_MAX = parseInt(process.env.SCRUB_BTN_DAILY || '200', 10);
 const MIN_SCORE = 12, WORD_FLOOR = 2000;
@@ -10909,12 +10970,13 @@ async function watchNew() {
 const server = http.createServer(async (req, res) => {
   const u = new URL(req.url, 'http://localhost');
   res.setHeader('Access-Control-Allow-Origin', '*');
+  if (u.pathname === '/' && SQUARE_ONLY) { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildSquareDeskPage()); }
   if (u.pathname === '/' || u.pathname === '/scrubber') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('scrub')); }
   if (u.pathname === '/generate') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('generate')); }
   if (u.pathname === '/image-duplicator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('duplicator')); }
   if (u.pathname === '/image-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('imgen')); }
   if (u.pathname === '/pollinator-image-overwrite' || u.pathname === '/image-rewrite') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rewrite')); }
-  if (u.pathname === '/square-builder' || u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('facehero')); }
+  if (u.pathname === '/square' || u.pathname === '/square-builder' || u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildSquareDeskPage()); }
   if (u.pathname === '/format-fixer' || u.pathname === '/formatfix') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('formatfix')); }
   if (u.pathname === '/internal-images' || u.pathname === '/internalimages') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('internalimages')); }
   if (u.pathname === '/rubric-stations' || u.pathname === '/rubricstation') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rubricstation')); }
@@ -11287,6 +11349,65 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     return res.end(JSON.stringify(faceHeroStatusPayload()));
   }
+  if (u.pathname === '/square-next') {
+    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
+    try {
+      const result = await pickSquareNextEntry();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify(result));
+    } catch (e) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ ok: false, msg: e.message }));
+    }
+  }
+  if (u.pathname === '/square-search') {
+    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
+    try {
+      const result = await searchSquareDeskImages(u.searchParams.get('q') || '');
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify(result));
+    } catch (e) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ ok: false, msg: e.message }));
+    }
+  }
+  if (u.pathname === '/square-proxy') {
+    try {
+      const parsed = new URL(u.searchParams.get('u') || '');
+      if (parsed.protocol !== 'https:' || !/(^|\.)pexels\.com$/i.test(parsed.hostname)) throw new Error('bad image URL');
+      const upstream = await fetch(parsed.href, { signal: AbortSignal.timeout(45000) });
+      if (!upstream.ok || !String(upstream.headers.get('content-type') || '').startsWith('image/')) throw new Error('image fetch failed');
+      const buffer = Buffer.from(await upstream.arrayBuffer());
+      res.writeHead(200, { 'Content-Type': upstream.headers.get('content-type'), 'Cache-Control': 'private, max-age=300' });
+      return res.end(buffer);
+    } catch (e) {
+      res.writeHead(404); return res.end();
+    }
+  }
+  if (u.pathname === '/square-stage' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true }));
+    });
+    return;
+  }
+  if (u.pathname === '/square-save-draft' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', async () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      try {
+        const result = await saveSquareDeskDraft(d);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(result));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, msg: e.message }));
+      }
+    });
+    return;
+  }
   if (u.pathname === '/square-pexels-search') {
     if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
     try {
@@ -11610,6 +11731,10 @@ server.listen(PORT, '0.0.0.0', async () => {
   emailSquareBacklogOnce().catch(error => console.log('[square-email] backlog email failed:', error.message));
   loadScrubPillarFilter();
   await loadIndex();
+  if (SQUARE_ONLY) {
+    console.log('[square-builder] restored working site at http://127.0.0.1:' + PORT + '/');
+    return;
+  }
   mergeCookIntoQueue();
   try { await backfillRegistry(); loadImageDupePriority(); autoLog('🔄 image-dupe priority loaded — ' + imageDupePriority.size + ' entries flagged'); } catch (e) {}
   // seed the queue from the under-12 survey if empty
