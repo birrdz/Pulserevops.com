@@ -1114,7 +1114,7 @@ function faceHeroReviewDecision(action) {
     faceHeroJob.entriesDone++;
     faceHeroJob.coversGenerated += pr.fluxDone || 0;
     faceHeroJob.fluxJobs += pr.fluxDone || 0;
-    faceHeroLog('🦄 ' + pr.id + ' kept · same file → mosaic + top hero' + (pr.top10 ? ' (Top-10 cover prompt)' : ''));
+    faceHeroLog('🟦 ' + pr.id + ' kept · same file → mosaic + top hero' + (pr.top10 ? ' (Top-10 cover prompt)' : ''));
     faceHeroJob.pendingReview = null;
     faceHeroJob.reviewAttempt = 1;
     faceHeroJob.done = (faceHeroJob.done || 0) + 1;
@@ -7368,7 +7368,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
     <div class=dupe-panel-title style="color:#a78bfa">🔬 Rubric Stations</div>
     <div class=dupe-panel-hint>One station = one rubric slice. Each entry gets a <b>targeted fix</b> then a <b>dedicated auditor</b> for that slice only.</div>
     <div class=dupe-panel-row>
-      <select id=rubricStationFilter title="Which rubric slice to fix + audit"><option value=writing>✍️ Writing</option><option value=structure>📐 Structure</option><option value=face>🦄 Face &amp; hero</option><option value=internal>📷 Internal images</option><option value=top10>🏆 Top-10 images</option><option value=publish>✅ Publish gate</option></select>
+      <select id=rubricStationFilter title="Which rubric slice to fix + audit"><option value=writing>✍️ Writing</option><option value=structure>📐 Structure</option><option value=face>🟦 Face &amp; hero</option><option value=internal>📷 Internal images</option><option value=top10>🏆 Top-10 images</option><option value=publish>✅ Publish gate</option></select>
       <select id=rubricPillarFilter title="Which pillar"><option value=tl>Loading pillars…</option></select>
     </div>
     <div class=dupe-btns>
@@ -7414,7 +7414,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
     </div>
     <div class=index-panel-opts>
       <label title="Red pool + pending sign-off + reject-fix queue"><input type=checkbox id=indexOptScrub checked> Scrub queue pages</label>
-      <label title="🦄 pt573 easter egg + /seo + /publish owner portals"><input type=checkbox id=indexOptUnicorn checked> 🦄 Unicorn / owner pages</label>
+      <label title="Owner portal pages + /seo + /publish"><input type=checkbox id=indexOptUnicorn checked> 🟦 Owner pages</label>
     </div>
     <div class=index-panel-hint>Recent = fast post-scrub ping · Delta = today&apos;s new Q&amp;As (1h cooldown) · Full catalog = entire library + sitemap (1 week) · <b>Interwoven SEO</b> = run pillar + CRO weave, then ping all interlinked pages (1 week). Checkboxes apply to Delta, Full, and Interwoven.</div>
     <div id=indexCooldownLbl class=index-panel-cooldown></div>
