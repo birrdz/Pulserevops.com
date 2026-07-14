@@ -11627,6 +11627,24 @@ const server = http.createServer(async (req, res) => {
     });
     return;
   }
+  if (u.pathname === '/square-preview' || u.pathname === '/square-answer-preview') {
+    try {
+      const html = fs.readFileSync(path.join(WD, 'assets/square-preview/answer.html'), 'utf8');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+      return res.end(html);
+    } catch (e) {
+      res.writeHead(404); return res.end('no preview');
+    }
+  }
+  if (u.pathname === '/square-homepage-box' || u.pathname === '/homepage-box-preview') {
+    try {
+      const html = fs.readFileSync(path.join(WD, 'assets/square-preview/homepage-box.html'), 'utf8');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+      return res.end(html);
+    } catch (e) {
+      res.writeHead(404); return res.end('no box preview');
+    }
+  }
   if (u.pathname === '/square-next') {
     if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
     pickSquareNextEntry().then(r => {
