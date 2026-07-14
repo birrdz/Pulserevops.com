@@ -6834,6 +6834,8 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
 .dupe-log{margin-top:12px;font-size:.72rem;color:#8aa;max-height:160px;overflow:auto;font-family:ui-monospace,monospace;line-height:1.5;border:1px solid #334;border-radius:10px;padding:8px 10px;background:#0a0f16}
 .dupe-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px}
 .dupe-btns button{border:none;border-radius:28px;padding:14px 22px;font-weight:900;font-size:.92rem;cursor:pointer}
+.square-builder-dock{clear:both;width:100%;margin:28px auto 4px;padding-top:20px;border-top:1px solid rgba(168,85,247,.35)}
+.square-builder-dock:empty{display:none}
 #dupeStart{color:#1a1206;background:linear-gradient(135deg,#f59e0b,#fcd34d);box-shadow:0 6px 20px rgba(245,158,11,.35)}
 #rewriteStart{color:#1a1206;background:linear-gradient(135deg,#f59e0b,#fbbf24);box-shadow:0 6px 20px rgba(245,158,11,.35)}
 #faceheroStart{color:#1a1206;background:linear-gradient(135deg,#c084fc,#e879f9);box-shadow:0 6px 20px rgba(192,132,252,.35)}
@@ -7111,6 +7113,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <div class=tick-cd-mini-lbl id=tickCdMiniLbl>⏱️ Timer — seconds until next turn</div>
     </div>
   </div>
+  <div id=scrubSquareDock class=square-builder-dock></div>
   </div>
   <div id=generatePanel${isGenerate ? '' : ' style="display:none"'}>
   <div id=pipelineBar class="pipeline-bar generate-bar">
@@ -7249,6 +7252,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
     </div>
   </div>
   </div>
+  <div id=faceheroHome></div>
   <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
     <div class=dupe-panel-title style="color:#e879f9">◻️ Square Builder</div>
@@ -7394,6 +7398,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <div class=dupe-stats id=formatfixStats></div>
       <div class=dupe-log id=formatfixLog></div>
     </div>
+    <div id=formatfixSquareDock class=square-builder-dock></div>
   </div>
   </div>
   <div id=indexPanel class=index-panel>
@@ -7705,7 +7710,7 @@ function switchPipelineTab(mode){
   if(iip) iip.style.display=mode==='internalimages'?'':'none';
   if(rsp) rsp.style.display=mode==='rubricstation'?'':'none';
   if(rp) rp.style.display=mode==='rewrite'?'':'none';
-  if(fp) fp.style.display=mode==='formatfix'?'':'none';
+  placeSquareBuilderDock(mode);
   const ns=$('#navScrub'), ng=$('#navGenerate'), nd=$('#navDuplicator'), ni=$('#navImgGen'), nfh=$('#navFaceHero'), nii=$('#navInternalImages'), nrs=$('#navRubricStation'), nr=$('#navRewrite'), nf=$('#navFormatFix');
   if(ns) ns.classList.toggle('on',mode==='scrub');
   if(ng) ng.classList.toggle('on',mode==='generate');
@@ -7731,6 +7736,13 @@ function switchPipelineTab(mode){
   else if(mode==='rubricstation'){ loadPillars(); refreshRubricStationStatus(); }
   else if(mode==='rewrite'){ loadPillars(); refreshRewriteStatus(); }
   else if(mode==='formatfix'){ loadPillars(); refreshFormatFixerStatus(); }
+}
+function placeSquareBuilderDock(mode){
+  const fp=$('#faceheroPanel');
+  if(!fp) return;
+  const target=mode==='scrub'?$('#scrubSquareDock'):mode==='formatfix'?$('#formatfixSquareDock'):$('#faceheroHome');
+  if(target&&fp.parentNode!==target) target.appendChild(fp);
+  fp.style.display=(mode==='scrub'||mode==='formatfix'||mode==='facehero')?'':'none';
 }
 function bindPipelineTabs(){
   const ns=$('#navScrub'), ng=$('#navGenerate'), nd=$('#navDuplicator'), ni=$('#navImgGen'), nfh=$('#navFaceHero'), nii=$('#navInternalImages'), nrs=$('#navRubricStation'), nr=$('#navRewrite'), nf=$('#navFormatFix');
@@ -8268,6 +8280,7 @@ function initImgGenKeywords(){
 }
 function initPage(){
   bindPipelineTabs();
+  placeSquareBuilderDock(window.activeTab);
   updateTabBadges();
   bindGenCountUi();
   initImgGenKeywords();
