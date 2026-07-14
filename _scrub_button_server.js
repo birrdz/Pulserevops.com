@@ -66,6 +66,7 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 // 🔒 OWNER 2026-07-04: Pollinator REMOVED from writing + scrubbing. Covers now = DDG face-cards with
 // the dated Pollinator look (people/places/things, photo-refined, no watermarked stock). Same signatures.
 const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
+const { readSquareQueue, enqueueSquareBuild } = require('./_square_builder_queue');
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
 const IMG_GEN_BATCH_MAX = parseInt(process.env.IMG_GEN_BATCH_MAX || '250', 10);
@@ -1222,7 +1223,7 @@ const FORMAT_FIXER_F = WD + '/_format_fixer_run.json';
 let formatFixerJob = {
   running: false, stop: false, pillar: 'tl', pillarName: 'Pulse Tools / CRO',
   done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
-  skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, auto: false, currentId: '', currentTitle: '', currentStep: '',
+  skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, squareQueued: 0, auto: false, currentId: '', currentTitle: '', currentStep: '',
   phase: 'idle', startedAt: null, finishedAt: null, error: '', log: [],
 };
 try {
@@ -1364,13 +1365,21 @@ async function runFormatFixerLoop() {
         const r = await processFormatFixerEntry(id);
         if (r.noBlob) { formatFixerJob.skippedNoBlob++; formatFixerJob.consecutiveErrors = 0; }
         else if (r.stopped) break;
-        else if (r.skipped) { formatFixerJob.entriesSkipped++; formatFixerJob.entriesPass++; formatFixerJob.consecutiveErrors = 0; }
+        else if (r.skipped) {
+          formatFixerJob.entriesSkipped++;
+          formatFixerJob.entriesPass++;
+          formatFixerJob.consecutiveErrors = 0;
+          if (enqueueSquareBuild(id, titleOf[id] || row.question || id)) formatFixerJob.squareQueued++;
+        }
         else if (r.error) recordFormatFixerError(id, r.error);
         else {
           formatFixerJob.consecutiveErrors = 0;
           formatFixerJob.entriesDone++;
           if (r.changed) formatFixerJob.entriesFixed++;
-          if (r.pass) formatFixerJob.entriesPass++;
+          if (r.pass) {
+            formatFixerJob.entriesPass++;
+            if (enqueueSquareBuild(id, titleOf[id] || row.question || id)) formatFixerJob.squareQueued++;
+          }
           const note = r.pass ? 'rubric ✓' : ('rubric ' + (r.afterPct != null ? r.afterPct : '?') + '% · ' + (r.words != null ? r.words + 'w' : '') + (r.failed && r.failed.length ? ' · ' + r.failed.slice(0, 4).join(', ') : ''));
           formatFixerLog((r.changed ? '📝' : '✓') + ' ' + id + ' · ' + note + (r.steps && r.steps.length ? (' · ' + r.steps.join('+')) : ''));
         }
@@ -1408,7 +1417,7 @@ function startFormatFixer(pillar) {
   formatFixerJob = {
     running: false, stop: false, pillar: pillar || 'all', pillarName: pillar ? pName(pillar) : 'All pillars',
     done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
-    skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: Math.max(1, parseInt(process.env.FORMAT_FIXER_MAX_ERRORS || '3', 10)), auto: true, currentId: '', currentTitle: '', currentStep: '',
+    skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: Math.max(1, parseInt(process.env.FORMAT_FIXER_MAX_ERRORS || '3', 10)), squareQueued: 0, auto: true, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [], _entries: null,
   };
   formatFixerLog('▶ Format Fixer — ' + formatFixerJob.pillarName + ' · content + structure only · images untouched');
@@ -1432,7 +1441,12 @@ function forceStopFormatFixer() {
   return { ok: true, forceStopped: true };
 }
 function formatFixerStatusPayload() {
-  const snap = Object.assign({}, formatFixerJob, { log: (formatFixerJob.log || []).slice(0, 24) });
+  const square = readSquareQueue();
+  const snap = Object.assign({}, formatFixerJob, {
+    squarePending: square.pending.length,
+    squareCompleted: square.completed || 0,
+    log: (formatFixerJob.log || []).slice(0, 24),
+  });
   delete snap._entries;
   return snap;
 }
@@ -7838,6 +7852,8 @@ function renderRewrite(j){
     '<div>🌸 flux images: <span>'+(j.imagesRewritten||0)+'</span></div>'+
     '<div>📋 entries done: <span>'+(j.entriesDone||0)+'</span></div>'+
     '<div>⏭ no blob: <span>'+(j.skippedNoBlob||0)+'</span></div>'+
+    '<div>◻️ waiting for square: <span>'+(j.squarePending||0)+'</span></div>'+
+    '<div>✅ squares built: <span>'+(j.squareCompleted||0)+'</span></div>'+
     '<div>⚠️ errors: <span>'+(j.errors||0)+'</span></div>'+
     '<div>📁 pillar: <span>'+esc(j.pillarName||j.pillar||'—')+'</span></div>'+
     (j.autoApproveImages?('<div>🤖 auto-approve: <span>ON</span></div>'):'')+
