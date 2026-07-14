@@ -110,6 +110,41 @@ function applyCineGrade(pipe, bright) {
 // ALWAYS grades from RAW + stamps EXIF PULSE_GRADE=v_final. Returns {hash,size,w,h,path}.
 // opts: {faceCardTile} wide mosaic tile | {square:S} legacy square | {sectionTile} 16:9 | {faceCard:bool}
 const GRADE_STAMP = 'PULSE_GRADE=v_final';
+const FORCE_REGEN_F = path.join(WD, '_facecard_force_regen.json');
+function readFaceCardForceRegen() {
+  try {
+    const value = JSON.parse(fs.readFileSync(FORCE_REGEN_F, 'utf8'));
+    return value && typeof value === 'object' ? value : {};
+  } catch (e) {
+    return {};
+  }
+}
+function faceCardIdFromPath(pathOrBuf) {
+  if (typeof pathOrBuf !== 'string') return '';
+  const match = path.basename(pathOrBuf).match(/^([a-z0-9_]+)\.jpg$/i);
+  return match ? match[1] : '';
+}
+function markFaceCardForceRegen(id, reason) {
+  id = String(id || '').trim();
+  if (!id) return false;
+  const value = readFaceCardForceRegen();
+  value[id] = { reason: String(reason || 'stale baked title'), at: new Date().toISOString() };
+  fs.writeFileSync(FORCE_REGEN_F, JSON.stringify(value, null, 2));
+  return true;
+}
+function clearFaceCardForceRegen(id) {
+  const value = readFaceCardForceRegen();
+  if (!Object.prototype.hasOwnProperty.call(value, id)) return false;
+  delete value[id];
+  fs.writeFileSync(FORCE_REGEN_F, JSON.stringify(value, null, 2));
+  return true;
+}
+function faceCardForceRegenPending(idOrPath) {
+  const id = String(idOrPath || '').includes('/') || String(idOrPath || '').includes('\\')
+    ? faceCardIdFromPath(String(idOrPath))
+    : String(idOrPath || '').trim();
+  return !!(id && readFaceCardForceRegen()[id]);
+}
 function faceCardTileGradeOpts(question, qual, overrides) {
   return Object.assign({
     faceCardTile: true,
@@ -199,6 +234,7 @@ async function storeGradedImage(rawBuf, destPath, opts = {}) {
 }
 // VERIFY GATE — true only if the file carries the grade stamp in EXIF.
 async function verifyGradeStamp(pathOrBuf) {
+  if (faceCardForceRegenPending(pathOrBuf)) return false;
   try { const meta = await sharp(pathOrBuf).metadata(); return !!(meta.exif && Buffer.from(meta.exif).includes(Buffer.from(GRADE_STAMP))); } catch (e) { return false; }
 }
 async function grab(u) {
@@ -318,6 +354,27 @@ function regAdd(ph, url, w, h, pillar, id, extra) {
     r.entries.push(row);
   }
   if (++_regDirty >= 15) flushReg();
+}
+function purgeFaceCardRegistry(id, stalePh) {
+  id = String(id || '').trim();
+  if (!id) return { removed: 0, detached: 0 };
+  const url = '/assets/qa/' + id + '.jpg';
+  const r = loadReg();
+  let removed = 0, detached = 0;
+  r.entries = r.entries.filter(entry => {
+    const exactUrl = entry && entry.url === url;
+    const exactHash = !!(stalePh && entry && entry.ph === stalePh);
+    if (exactUrl || exactHash) { removed++; return false; }
+    if (entry && Array.isArray(entry.pages) && entry.pages.includes(id)) {
+      entry.pages = entry.pages.filter(pageId => pageId !== id);
+      detached++;
+      if (!entry.pages.length && !entry.pool) { removed++; return false; }
+    }
+    return true;
+  });
+  _regDirty++;
+  flushReg();
+  return { removed, detached };
 }
 // BACKFILL (idempotent): hash every existing self-hosted cover into the registry once, skipping files
 // already registered by same path (mtime/size not needed — path is the key and files are immutable once made).
@@ -2706,6 +2763,7 @@ async function runPillarPoolBuild(pillar, target, opts) {
 async function verifyQaAssetRenders(url, id) {
   const u = String(url || '').replace(/\?.*$/, '').trim();
   if (!u.startsWith('/assets/qa/')) return null;
+  if (u === '/assets/qa/' + id + '.jpg' && faceCardForceRegenPending(id)) return false;
   const fp = WD + u;
   try {
     const st = fs.statSync(fp);
@@ -2719,4 +2777,4 @@ async function verifyQaAssetRenders(url, id) {
     return !!(await verifyGradeStamp(buf));
   } catch (e) { return false; }
 }
-module.exports = { tryPosterLibrary, faceCardCoverOk, coverFileOk, ensureDdgFaceCover, ensureAlternateFaceCover, makeDdgFaceCover, makeFluxFaceCover, rebakeFaceCardTitle, ensureFaceCardOrangeTitle, gatherCoverCandidates, ensureDdgSectionImage, ensureAlternateSectionImage, repairBrokenQaImages, pickReusableLibraryImage, pickMatchingLibraryImage, isFillableImageUrl, isUpgradableImageUrl, isBrokenQaImageUrl, isPortraitPoolEntry, isFaceCardCoverUrl, isSectionImageUrl, isPoolImageUrl, isPollinatorImageUrl, pollinatorImageLooksGood, pollinatorImageLooksGoodSync, bodyPageImageUrls, fillEntryMissingImages, sweepPageDuplicateImages, sweepTop10DuplicateImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, auditImage, backfillRegistry, stampDdgProvenance, stampCoverProvenance, coverPath, coverFileOk2: coverFileOk, STOCK_BLOCK, storeGradedImage, gradeFaceCardFromBuffer, resolveFaceCardCropPosition, faceCardTileGradeOpts, faceCardSquareGradeOpts, goldTitleLayout, goldTitleOverlaySVG, FACE_CARD_TILE_W, FACE_CARD_TILE_H, verifyGradeStamp, verifyQaAssetRenders, applyCineGrade, GRADE_STAMP, FACE_TITLE_ORANGE, FACE_TITLE_STROKE, FACE_CARD_FRAMING, PILLAR_SUBJECT, POLLINATOR_IMAGES_ONLY, POOL_REUSE_AFTER, FILL_REUSE_PCT, poolReuseUnlocked, countPillarPoolSlots, pillarPoolInventory, maxPoolSlot, nextPoolSlot, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, poolImageRel, flushReg, buildPoolQuery, buildFluxFaceQuery, buildFluxSectionQuery, parseGuideKeywords, titleFluxSearchQueries, pickTitleSearchQuery, isClichePoolQuery, purgeClichePoolImages, autoCuratePoolBatch, runPillarPoolBuild, collectPillarPoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, faceCoverQualityOk, poolStagingQualityOk, allowDdgForCall, slotPrefersFlux, coverAltFirst, imageProviderAlt, pollinatorBreakLabel, pollinatorBreakSec };
+module.exports = { tryPosterLibrary, faceCardCoverOk, coverFileOk, ensureDdgFaceCover, ensureAlternateFaceCover, makeDdgFaceCover, makeFluxFaceCover, rebakeFaceCardTitle, ensureFaceCardOrangeTitle, gatherCoverCandidates, ensureDdgSectionImage, ensureAlternateSectionImage, repairBrokenQaImages, pickReusableLibraryImage, pickMatchingLibraryImage, isFillableImageUrl, isUpgradableImageUrl, isBrokenQaImageUrl, isPortraitPoolEntry, isFaceCardCoverUrl, isSectionImageUrl, isPoolImageUrl, isPollinatorImageUrl, pollinatorImageLooksGood, pollinatorImageLooksGoodSync, bodyPageImageUrls, fillEntryMissingImages, sweepPageDuplicateImages, sweepTop10DuplicateImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, auditImage, backfillRegistry, stampDdgProvenance, stampCoverProvenance, coverPath, coverFileOk2: coverFileOk, STOCK_BLOCK, storeGradedImage, gradeFaceCardFromBuffer, resolveFaceCardCropPosition, faceCardTileGradeOpts, faceCardSquareGradeOpts, goldTitleLayout, goldTitleOverlaySVG, FACE_CARD_TILE_W, FACE_CARD_TILE_H, verifyGradeStamp, verifyQaAssetRenders, applyCineGrade, GRADE_STAMP, FORCE_REGEN_F, markFaceCardForceRegen, clearFaceCardForceRegen, faceCardForceRegenPending, purgeFaceCardRegistry, pHash, FACE_TITLE_ORANGE, FACE_TITLE_STROKE, FACE_CARD_FRAMING, PILLAR_SUBJECT, POLLINATOR_IMAGES_ONLY, POOL_REUSE_AFTER, FILL_REUSE_PCT, poolReuseUnlocked, countPillarPoolSlots, pillarPoolInventory, maxPoolSlot, nextPoolSlot, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, poolImageRel, flushReg, buildPoolQuery, buildFluxFaceQuery, buildFluxSectionQuery, parseGuideKeywords, titleFluxSearchQueries, pickTitleSearchQuery, isClichePoolQuery, purgeClichePoolImages, autoCuratePoolBatch, runPillarPoolBuild, collectPillarPoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, faceCoverQualityOk, poolStagingQualityOk, allowDdgForCall, slotPrefersFlux, coverAltFirst, imageProviderAlt, pollinatorBreakLabel, pollinatorBreakSec };

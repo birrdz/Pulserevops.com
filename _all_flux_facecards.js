@@ -19,7 +19,7 @@ const { getStore } = require('@netlify/blobs');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 const lib = require('./_ddg_facecard_lib');
 const { fluxPromptUrl, runFluxJob } = require('./_pollinator_flux_throttle');
-const { storeGradedImage, coverPath, buildFluxFaceQuery, stampCoverProvenance, gradeFaceCardFromBuffer } = lib;
+const { storeGradedImage, coverPath, buildFluxFaceQuery, stampCoverProvenance, gradeFaceCardFromBuffer, clearFaceCardForceRegen } = lib;
 const { sendFaceCardEmail } = require('./_facecard_resend_email');
 const {
   poolPath,
@@ -45,6 +45,7 @@ const PREFIXES = Array.isArray(CFG.prefixes) && CFG.prefixes.length ? CFG.prefix
   : (process.env.ONLY_PREFIX ? [process.env.ONLY_PREFIX] : []);
 const ONLY_PREFIX = PREFIXES.length === 1 ? PREFIXES[0] : ''; // POOL_BUILD_ONLY path stays single-prefix
 const LIMIT = parseInt(process.env.LIMIT || '9999999', 10);
+const PURGE_REGEN_IDS = [...new Set(String(process.env.PURGE_REGEN_IDS || '').split(',').map(id => id.trim()).filter(Boolean))];
 // Parallel sharding (owner 2026-07-07 "try 2 in parallel"): SHARD_COUNT instances split the todo list by
 // index (i % SHARD_COUNT === SHARD_INDEX) so they NEVER touch the same entry. Only shard 0 stashes to the
 // pool to avoid a _meta.json write race. Launch the shards staggered ~20s apart.
@@ -180,7 +181,7 @@ const ORIG_PER_PILLAR = parseInt(process.env.ORIG_PER_PILLAR || '299', 10);
 const POOL_INVENTORY = parseInt(process.env.POOL_INVENTORY || (CFG.poolInventory != null ? String(CFG.poolInventory) : '0'), 10); // 200 flux originals/pillar, then duplicate the remainder
 const SMART_DUP = process.env.SMART_DUP === '1' || CFG.smartDup === true;
 const POOL_BUILD_ONLY = process.env.POOL_BUILD_ONLY === '1'; // build pool inventory even if cover_src already flux
-const QUEUE_MODE = process.env.SQUARE_BUILDER_QUEUE_MODE === '1' || CFG.queueMode === true;
+const QUEUE_MODE = !PURGE_REGEN_IDS.length && (process.env.SQUARE_BUILDER_QUEUE_MODE === '1' || CFG.queueMode === true);
 // Persisted so watchdog relaunches keep the owner's selected cover shape. "square" is the legacy 760x760
 // footprint with the corrected title layout; unset/"tile" retains the 1200x400 mosaic crop.
 const FACE_CARD_VARIANT = String(process.env.FACE_CARD_VARIANT || CFG.faceCardVariant || 'tile').toLowerCase() === 'square' ? 'square' : 'tile';
@@ -253,6 +254,10 @@ async function makeFluxOverwrite(id, question) {
 (async () => {
   let idx = await store.get('_index.json', { type: 'json', consistency: 'strong' }); // reassigned on merge-flush (adopt orchestrator fixes)
   let ents = (idx.entries || []).filter(e => e && e.id && /^[a-z]+\d+$/.test(e.id) && e.question);
+  if (PURGE_REGEN_IDS.length) {
+    const wanted = new Set(PURGE_REGEN_IDS);
+    ents = ents.filter(entry => wanted.has(String(entry.id)));
+  }
   if (PREFIXES.length) ents = ents.filter(e => PREFIXES.some(px => e.id.startsWith(px)));
   // group by pillar; honor config.prefixes ORDER when set (mv → tl), else SMALLEST pillar first, then by id within pillar
   const groups = {};
@@ -267,7 +272,10 @@ async function makeFluxOverwrite(id, question) {
   const ordered = [];
   for (const [p, arr] of pillars) { arr.sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true })); ordered.push(...arr); }
   let todo;
-  if (QUEUE_MODE) {
+  if (PURGE_REGEN_IDS.length) {
+    todo = ordered;
+    console.log('[all-flux] CLEAN REGEN · exact IDs · ' + todo.map(entry => entry.id).join(', '));
+  } else if (QUEUE_MODE) {
     const queued = readSquareQueue().pending;
     if (CFG.manualReview === true) {
       console.log('[all-flux] WAITING · ' + queued.length + ' Q&As reserved for manual review at /square-builder');
@@ -354,6 +362,7 @@ async function makeFluxOverwrite(id, question) {
         }
       }
       done++;
+      clearFaceCardForceRegen(e.id);
       const rate = done / Math.max(1, (Date.now() - startedAt) / 3600000);
       console.log('  ✓ ' + done + '/' + todo.length + ' ' + e.id + ' [flux] ' + Math.round(sz / 1024) + 'KB  (' + Math.round(rate) + '/hr · cd ' + Math.round(cool.ms / 1000) + 's · 429s ' + cool.r429 + ')  <-  ' + String(e.question).slice(0, 55));
       if (CFG.emailPerImage !== false) { // owner 2026-07-07: per-image email OFF in dup cleanup (flood). Set emailPerImage:true to re-enable.

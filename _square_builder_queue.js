@@ -114,6 +114,25 @@ function failSquareBuild(id, error) {
     return true;
   });
 }
+function requeueSquareBuild(id, question) {
+  id = String(id || '').trim();
+  if (!id) return false;
+  return withQueueLock(() => {
+    const state = readQueueUnlocked();
+    state.completedIds = state.completedIds.filter(doneId => doneId !== id);
+    state.pending = state.pending.filter(item => item && item.id !== id);
+    state.pending.unshift({
+      id,
+      question: String(question || id).trim() || id,
+      queuedAt: new Date().toISOString(),
+      attempts: 0,
+      lastError: '',
+      forceCleanRegeneration: true,
+    });
+    writeQueueUnlocked(state);
+    return true;
+  });
+}
 function removeSquareBuildsByPrefix(prefix) {
   prefix = String(prefix || '').toLowerCase();
   if (!prefix) return 0;
@@ -133,5 +152,6 @@ module.exports = {
   enqueueSquareBuild,
   completeSquareBuild,
   failSquareBuild,
+  requeueSquareBuild,
   removeSquareBuildsByPrefix,
 };

@@ -17,7 +17,10 @@ assert.strictEqual(queue.failSquareBuild('vq_demo', 'temporary error'), true);
 assert.strictEqual(queue.readSquareQueue().pending.find(x => x.id === 'vq_demo').attempts, 1);
 assert.strictEqual(queue.completeSquareBuild('q11133'), true);
 assert.strictEqual(queue.enqueueSquareBuild('q11133', 'Question one'), false, 'completed Q&A must not rebuild');
-assert.strictEqual(queue.readSquareQueue().pending.length, 1);
+assert.strictEqual(queue.requeueSquareBuild('q11133', 'Question one regenerated'), true);
+assert.strictEqual(queue.readSquareQueue().completedIds.includes('q11133'), false);
+assert.strictEqual(queue.readSquareQueue().pending[0].forceCleanRegeneration, true);
+assert.strictEqual(queue.readSquareQueue().pending.length, 2);
 
 fs.rmSync(dir, { recursive: true, force: true });
 console.log('square builder queue: ok');
