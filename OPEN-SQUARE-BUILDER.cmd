@@ -1,9 +1,9 @@
 @echo off
 setlocal
-set "URL=http://localhost:8899/square-builder"
+set "URL=http://localhost:8900/"
 cd /d "%~dp0"
 
-start "PULSE Square Builder Server" /D "%~dp0" cmd /k node "_scrub_button_server.js"
+start "PULSE Square Builder Server" /D "%~dp0" cmd /k node "_square_builder_server.js"
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$url='%URL%';" ^
