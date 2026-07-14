@@ -216,6 +216,10 @@ async function runStreamAll() {
 // command watcher
 setInterval(() => {
   if (running) return;
+  if (autoRun.enabled) {
+    runAutoTlPods().catch(e => { autoRun.error = e.message; autoRun.phase = 'error'; autoRun.enabled = false; saveAuto(); running = false; });
+    return;
+  }
   const cmd = readJSON(CMD_F, null);
   if (!cmd || cmd.consumed) return;
   writeJSON(CMD_F, Object.assign({}, cmd, { consumed: true }));
