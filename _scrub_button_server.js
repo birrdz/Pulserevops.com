@@ -6988,6 +6988,8 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
 .dupe-btns button{border:none;border-radius:28px;padding:14px 22px;font-weight:900;font-size:.92rem;cursor:pointer}
 .square-builder-dock{clear:both;width:100%;margin:28px auto 4px;padding-top:20px;border-top:1px solid rgba(168,85,247,.35)}
 .square-builder-dock:empty{display:none}
+.square-pexels-option{position:relative;aspect-ratio:1/1;padding:0;border:1.5px solid #EAC15C!important;border-radius:6px;overflow:hidden;background:#1a1a1a;box-shadow:0 0 0 1px rgba(234,193,92,.25);cursor:pointer}
+.square-pexels-option img{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(1.14) saturate(1.05)}
 #dupeStart{color:#1a1206;background:linear-gradient(135deg,#f59e0b,#fcd34d);box-shadow:0 6px 20px rgba(245,158,11,.35)}
 #rewriteStart{color:#1a1206;background:linear-gradient(135deg,#f59e0b,#fbbf24);box-shadow:0 6px 20px rgba(245,158,11,.35)}
 #faceheroStart{color:#1a1206;background:linear-gradient(135deg,#c084fc,#e879f9);box-shadow:0 6px 20px rgba(192,132,252,.35)}
@@ -9881,8 +9883,8 @@ _squarePexelsSearch&&_squarePexelsSearch.addEventListener('click',async()=>{
     if($('#squareTitleQuery')&&!title)$('#squareTitleQuery').value=r.title||'';
     if(status)status.textContent=(r.template==='top10'?'Top 10 manual mode':'Q&A essay manual mode')+' · query: '+r.query+' · click #'+(squareClickCount(id)+1);
     (r.photos||[]).forEach(photo=>{
-      const btn=document.createElement('button');btn.type='button';btn.style.cssText='padding:0;border:2px solid #6b21a8;border-radius:10px;overflow:hidden;background:#090d12;cursor:pointer';
-      const img=document.createElement('img');img.src=photo.thumb;img.alt='Pexels option by '+(photo.photographer||'photographer');img.style.cssText='display:block;width:100%;height:150px;object-fit:cover';
+      const btn=document.createElement('button');btn.type='button';btn.className='square-pexels-option';
+      const img=document.createElement('img');img.src=photo.thumb;img.alt='Pexels option by '+(photo.photographer||'photographer');
       btn.appendChild(img);
       btn.addEventListener('click',async()=>{
         const clickIndex=squareClickCount(id);btn.disabled=true;if(status)status.textContent='Applying selected image…';
