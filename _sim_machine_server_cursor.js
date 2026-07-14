@@ -55,7 +55,8 @@ async function scopeList() {
 
 // ?? the run engine (watcher): executes the current command's stages, serial + resume-safe ??
 let child = null, running = false, stopRequested = false;
-let autoRun = Object.assign({ enabled: process.env.SIM_AUTO_RUN === '1' || liveConfig.fixAutoRun === true, scope: 'tl', podSize: 100, cursor: 0, pod: 1, completed: 0, phase: 'idle', error: null }, readJSON(AUTO_F, {}));
+let autoRun = Object.assign({ enabled: process.env.SIM_AUTO_RUN === '1' || liveConfig.fixAutoRun === true, scope: 'tl', podSize: 100, cursor: 0, pod: 1, completed: 0, clearedRanges: [], phase: 'idle', error: null }, readJSON(AUTO_F, {}));
+if (!Array.isArray(autoRun.clearedRanges)) autoRun.clearedRanges = [];
 if (process.env.SIM_AUTO_RUN === '1') autoRun.enabled = true;
 const saveAuto = () => writeJSON(AUTO_F, Object.assign({}, autoRun, { updated: new Date().toISOString() }));
 function setStatus(o) { writeJSON(STATUS_F, Object.assign(readJSON(STATUS_F, {}), o, { updated: new Date().toISOString() })); }
@@ -140,6 +141,19 @@ async function runAutoTlPods() {
     const offset = Math.max(0, Number(autoRun.cursor) || 0);
     const pod = Math.max(1, Number(autoRun.pod) || 1);
     const podSize = Number(autoRun.podSize) === 30 ? 30 : 100;
+    const rangeAlreadyCleared = (() => {
+      for (let id = offset + 1; id <= offset + podSize; id++) {
+        if (!(autoRun.clearedRanges || []).some(range => id >= range.start && id <= range.end)) return false;
+      }
+      return true;
+    })();
+    if (rangeAlreadyCleared) {
+      autoRun.cursor = offset + podSize;
+      autoRun.pod = pod + 1;
+      autoRun.phase = 'next-pod';
+      saveAuto();
+      continue;
+    }
     const env = { SIM_OFFSET: String(offset), SIM_MAX: String(podSize), SIM_BATCH: process.env.SIM_BATCH || '10' };
     try { fs.unlinkSync(REPORT_F); } catch (e) {}
     try { fs.unlinkSync(SUMMARY_F); } catch (e) {}
@@ -170,6 +184,7 @@ async function runAutoTlPods() {
       break;
     }
     const count = Number(scanned.total) || 0;
+    autoRun.clearedRanges.push({ start: offset + 1, end: offset + count, verifiedAt: new Date().toISOString() });
     autoRun.completed = (Number(autoRun.completed) || 0) + count;
     autoRun.cursor = offset + count;
     autoRun.pod = pod + 1;
@@ -316,7 +331,7 @@ a{color:#FFB81C}
 <div class=card><div class=lab>Operator log (last 8)</div><pre id=oplog>�</pre></div>
 
 <script>
-let scope=null, scopes=[],tlCount=0,podSize=100,selectedPod=1;
+let scope=null, scopes=[],tlCount=0,podSize=100,selectedPod=1,clearedRanges=[],clearedSig='';
 async function loadScopes(){const d=await(await fetch('/api/scope')).json();scopes=d.pillars;
  const tl=(d.pillars||[]).find(p=>p.p==='tl');tlCount=tl?tl.n:0;renderPods();
  const el=document.getElementById('scopes');el.innerHTML='<span class="chip all" data-s="ALL">ALL <span class=n>'+d.total.toLocaleString()+'</span></span>'+
@@ -325,7 +340,9 @@ async function loadScopes(){const d=await(await fetch('/api/scope')).json();scop
 function renderPods(){
  document.getElementById('size30').classList.toggle('sel',podSize===30);document.getElementById('size100').classList.toggle('sel',podSize===100);
  const n=Math.ceil(tlCount/podSize),el=document.getElementById('podlist');el.innerHTML='';
- for(let pod=1;pod<=n;pod++){const start=(pod-1)*podSize+1,end=Math.min(tlCount,pod*podSize),b=document.createElement('button');b.className='pod-chip'+(pod===selectedPod?' sel':'');b.textContent='TL '+start+'-'+end;b.onclick=async()=>{selectedPod=pod;renderPods();await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'auto',enabled:true,size:podSize,pod})});};el.appendChild(b);}
+ const covered=(start,end)=>{for(let id=start;id<=end;id++){if(!clearedRanges.some(r=>id>=r.start&&id<=r.end))return false;}return true;};
+ for(let pod=1;pod<=n;pod++){const start=(pod-1)*podSize+1,end=Math.min(tlCount,pod*podSize);if(covered(start,end))continue;const b=document.createElement('button');b.className='pod-chip'+(pod===selectedPod?' sel':'');b.textContent='TL '+start+'-'+end;b.onclick=async()=>{selectedPod=pod;renderPods();await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'auto',enabled:true,size:podSize,pod})});};el.appendChild(b);}
+ if(!el.children.length)el.textContent='All TL pods verified complete.';
 }
 document.getElementById('size30').onclick=()=>{podSize=30;selectedPod=1;renderPods();};
 document.getElementById('size100').onclick=()=>{podSize=100;selectedPod=1;renderPods();};
@@ -340,7 +357,8 @@ document.getElementById('clear').onclick=async()=>{if(!confirm('CLEAR and start 
 async function poll(){try{const s=await(await fetch('/api/status')).json();
  const st=s.status||{};const p=st.piles||{};
  const ar=s.auto||{};const ab=document.getElementById('auto');const aon=!!ar.enabled;
- if(ar.podSize&&(podSize!==ar.podSize||selectedPod!==ar.pod)){podSize=ar.podSize;selectedPod=ar.pod||1;renderPods();}
+ const nextCleared=Array.isArray(ar.clearedRanges)?ar.clearedRanges:[],nextSig=JSON.stringify(nextCleared);
+ if(ar.podSize&&(podSize!==ar.podSize||selectedPod!==ar.pod||nextSig!==clearedSig)){podSize=ar.podSize;selectedPod=ar.pod||1;clearedRanges=nextCleared;clearedSig=nextSig;renderPods();}
  ab.classList.toggle('off',!aon);ab.textContent=aon?('⏹ AUTO-RUN '+(ar.podSize||100)+' · TL · POD '+(ar.pod||1)+' · '+(ar.completed||0)+' DONE'):('▶ AUTO-RUN '+podSize+' · TL PULSE TOOLS · OFF');
  document.getElementById('pPass').textContent=p.PASS!=null?p.PASS.toLocaleString():'�';
  document.getElementById('pNear').textContent=p.NEAR_DUP!=null?p.NEAR_DUP.toLocaleString():'�';
@@ -397,7 +415,8 @@ http.createServer(async (req, res) => {
             stopRequested = false;
             const size = Number(d.size) === 30 ? 30 : 100;
             const pod = Math.max(1, parseInt(d.pod, 10) || 1);
-            autoRun = { enabled: true, scope: 'tl', podSize: size, cursor: (pod - 1) * size, pod, completed: 0, phase: 'starting', error: null };
+            const clearedRanges = Array.isArray(autoRun.clearedRanges) ? autoRun.clearedRanges.slice() : [];
+            autoRun = { enabled: true, scope: 'tl', podSize: size, cursor: (pod - 1) * size, pod, completed: 0, clearedRanges, phase: 'starting', error: null };
             saveAuto();
             setTimeout(() => runAutoTlPods().catch(e => { autoRun.error = e.message; autoRun.phase = 'error'; autoRun.enabled = false; saveAuto(); running = false; }), 50);
           }
