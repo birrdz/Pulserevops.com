@@ -66,8 +66,9 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 // 🔒🔒 POLLINATOR FACE-CARD COVER LAW (owner 2026-07-03) — covers are Pollinations flux ONLY (DDG banned).
 // 🔒 OWNER 2026-07-04: Pollinator REMOVED from writing + scrubbing. Covers now = DDG face-cards with
 // the dated Pollinator look (people/places/things, photo-refined, no watermarked stock). Same signatures.
-const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
+const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, storeGradedImage, coverPath, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
 const { readSquareQueue, enqueueSquareBuild, completeSquareBuild } = require('./_square_builder_queue');
+const { deriveImageSearchQuery } = require('./netlify/functions/lib/derive-image-search-query');
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
 const IMG_GEN_BATCH_MAX = parseInt(process.env.IMG_GEN_BATCH_MAX || '250', 10);
@@ -89,6 +90,7 @@ const DDG_GAP_MS = parseInt(process.env.DDG_GAP_MS || process.env.DDG_PACE_MS ||
 const REQUIRE_FLUX_IMAGES = true;
 const REQUIRE_FLUX_COVER = process.env.REQUIRE_FLUX_COVER !== '0';
 const { fluxifyBody, fluxifyCoverOnly, bodyImagesAllFlux, countFluxJobs, countCoverFluxJobs, makeContent, KORY_CRO_IMG, isKoryCroImg } = require('./_img_flux_lib');
+const { fluxRewriteEntry, countRewriteJobs, fluxFaceHeroOnlyEntry, countFaceHeroJobs, syncHeroDupesFaceCard } = require('./_img_flux_rewrite_lib');
 const { coverSrcIsValid } = require('./_entry_image_reuse_lib');
 const { formatFixEntry, contentFormatPass, contentRubricAudit, ensureDirectAnswerAfterHero } = require('./_format_fixer_lib');
 const { internalImagesFixEntry, internalImagesPass, internalImagesRubricAudit } = require('./_internal_images_lib');
@@ -884,6 +886,129 @@ function imageRewriteStatusPayload() {
 }
 
 // ── Face Card & Top Image Generator — Pollinator face-card + hero only (whole pillar) ──
+let lastPexelsPickerAt = 0;
+async function searchPexelsForTitle(id, requestedTitle, gender) {
+  const key = process.env.PEXELS_API_KEY || '';
+  if (!key) throw new Error('PEXELS_API_KEY missing');
+  const entry = await store.get('answers/' + id + '.json', { type: 'json' });
+  if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
+  const title = String(requestedTitle || titleOf[id] || entry.question || entry.title || id).trim();
+  const baseQuery = deriveImageSearchQuery(title);
+  const query = (baseQuery + (gender === 'men' ? ' man male' : gender === 'women' ? ' woman female' : '')).trim();
+  const wait = lastPexelsPickerAt + 18000 - Date.now();
+  if (wait > 0) await new Promise(resolve => setTimeout(resolve, wait));
+  lastPexelsPickerAt = Date.now();
+  const response = await fetch('https://api.pexels.com/v1/search?per_page=12&query=' + encodeURIComponent(query), {
+    headers: { Authorization: key, 'User-Agent': 'pulse-manual-square-picker/1.0' },
+    signal: AbortSignal.timeout(45000),
+  });
+  if (!response.ok) throw new Error('Pexels HTTP ' + response.status);
+  const data = await response.json();
+  const photos = (data.photos || []).filter(p => p && p.src && p.width >= 900 && p.height >= 600).map(p => ({
+    id: p.id,
+    thumb: p.src.medium || p.src.small,
+    url: p.src.large2x || p.src.large || p.src.original,
+    photographer: p.photographer || '',
+  }));
+  return { id, title, query, photos, template: pickGoldTemplate(id, entry.answer, title).template };
+}
+async function downloadPexelsPickerImage(url) {
+  const parsed = new URL(String(url || ''));
+  if (parsed.protocol !== 'https:' || !/(^|\.)pexels\.com$/i.test(parsed.hostname)) throw new Error('invalid Pexels image URL');
+  const response = await fetch(parsed.href, { signal: AbortSignal.timeout(45000) });
+  if (!response.ok || !String(response.headers.get('content-type') || '').startsWith('image/')) throw new Error('Pexels image download failed');
+  return Buffer.from(await response.arrayBuffer());
+}
+function replaceMarkdownImageAt(body, index, url) {
+  let seen = -1, changed = false;
+  const out = String(body || '').replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (all, alt) => {
+    seen++;
+    if (seen !== index) return all;
+    changed = true;
+    return '![' + alt + '](' + url + ')';
+  });
+  return { body: out, changed };
+}
+function replaceProductImageAt(body, index, url) {
+  let seen = -1, changed = false;
+  const out = String(body || '').replace(/@@PRODUCT[^\n]*/g, line => {
+    if (!/\bimg="[^"]+"/.test(line)) return line;
+    seen++;
+    if (seen !== index) return line;
+    changed = true;
+    return line.replace(/\bimg="[^"]+"/, 'img="' + url + '"');
+  });
+  return { body: out, changed };
+}
+async function applyManualPexelsImage(id, url, clickIndex, gender) {
+  const entry = await store.get('answers/' + id + '.json', { type: 'json' });
+  if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
+  const title = titleOf[id] || entry.question || entry.title || id;
+  const route = pickGoldTemplate(id, entry.answer, title);
+  if (!route.template) throw new Error('Q&A does not match a locked golden template');
+  clickIndex = Math.max(0, parseInt(clickIndex, 10) || 0);
+  const pillar = pillarOf(id);
+  const maxClick = route.template === 'top10' ? 10 : (pillar === 'sy' ? 5 : 2);
+  if (clickIndex > maxClick) throw new Error('all allowed manual image slots are filled');
+  const buffer = await downloadPexelsPickerImage(url);
+  fs.mkdirSync(path.join(WD, 'assets', 'qa'), { recursive: true });
+  let body = entry.answer, localUrl, placement;
+  if (clickIndex === 0) {
+    await storeGradedImage(buffer, coverPath(id), { square: 760, faceCard: true, cropPosition: 'attention', bright: false });
+    localUrl = '/assets/qa/' + id + '.jpg';
+    placement = 'face card';
+    if (route.template === 'qa') {
+      const swapped = replaceMarkdownImageAt(body, 0, localUrl);
+      body = swapped.body;
+      if (swapped.changed) placement += ' + existing top image';
+    }
+  } else {
+    const sex = gender === 'men' ? 'men' : gender === 'women' ? 'women' : 'any';
+    localUrl = '/assets/qa/' + id + '-manual-' + sex + '-' + clickIndex + '.jpg';
+    await storeGradedImage(buffer, path.join(WD, localUrl.replace(/^\/+/, '')), { sectionTile: true, width: 1200, height: 675, cropPosition: 'attention', bright: false });
+    const swapped = route.template === 'top10'
+      ? replaceProductImageAt(body, clickIndex - 1, localUrl)
+      : replaceMarkdownImageAt(body, clickIndex, localUrl);
+    if (!swapped.changed) throw new Error('that existing image slot is not present in this Q&A');
+    body = swapped.body;
+    placement = route.template === 'top10' ? 'Top-10 item ' + clickIndex : (clickIndex === 1 ? 'middle image' : clickIndex === 2 ? 'bottom image' : 'style image ' + (clickIndex + 1));
+  }
+  const afterRoute = pickGoldTemplate(id, body, title);
+  if (afterRoute.template !== route.template) throw new Error('image change would alter the locked template');
+  await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, {
+    answer: body,
+    cover_src: clickIndex === 0 ? 'pexels' : (entry.cover_src || 'pexels'),
+    face_title_baked: false,
+    image_updated_at: new Date().toISOString(),
+  }));
+  if (clickIndex === 0) {
+    const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+    const row = (idx.entries || []).find(item => item && item.id === id);
+    if (row) {
+      row.img = localUrl;
+      row.cover_src = 'pexels';
+      row.face_title_baked = false;
+      await store.setJSON('_index.json', idx);
+    }
+  }
+  return { ok: true, id, clickIndex, placement, localUrl, template: route.template };
+}
+async function finishManualPexelsQa(id) {
+  const entry = await store.get('answers/' + id + '.json', { type: 'json' });
+  if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
+  const now = Date.now();
+  const tags = [...new Set([...(entry.tags || []), 'pulse-recent'])];
+  await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, { tags, polished_at: now, image_completed_at: new Date(now).toISOString() }));
+  const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+  const row = (idx.entries || []).find(item => item && item.id === id);
+  if (row) {
+    row.tags = [...new Set([...(row.tags || []), 'pulse-recent'])];
+    row.polished_at = now;
+    await store.setJSON('_index.json', idx);
+  }
+  completeSquareBuild(id);
+  return { ok: true, id, recent: true, pillar: pillarOf(id) };
+}
 const FACE_HERO_F = WD + '/_face_hero_run.json';
 let faceHeroJob = {
   running: false, stop: false, stopAfterReview: false, pillar: 'tl', pillarName: 'Pulse Tools / CRO',
@@ -1236,7 +1361,7 @@ const FORMAT_FIXER_F = WD + '/_format_fixer_run.json';
 let formatFixerJob = {
   running: false, stop: false, pillar: 'tl', pillarName: 'Pulse Tools / CRO',
   done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
-  skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, squareQueued: 0, auto: false, currentId: '', currentTitle: '', currentStep: '',
+  skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, squareQueued: 0, auto: false, hung: false, currentId: '', currentTitle: '', currentStep: '',
   phase: 'idle', startedAt: null, finishedAt: null, error: '', log: [],
 };
 try {
@@ -1265,12 +1390,18 @@ function formatFixerLog(msg) {
 function recordFormatFixerError(id, error) {
   formatFixerJob.errors++;
   formatFixerJob.consecutiveErrors = (formatFixerJob.consecutiveErrors || 0) + 1;
-  formatFixerLog('⚠️ ' + id + ' · ' + String(error || 'error').slice(0, 80) + ' · error ' + formatFixerJob.consecutiveErrors + '/' + formatFixerJob.maxConsecutiveErrors);
-  if (formatFixerJob.consecutiveErrors >= formatFixerJob.maxConsecutiveErrors) {
-    formatFixerJob.stop = true;
-    formatFixerJob.error = 'auto-stop after ' + formatFixerJob.consecutiveErrors + ' consecutive errors';
-    formatFixerLog('🛑 ' + formatFixerJob.error);
-  }
+  formatFixerLog('⚠️ ' + id + ' · ' + String(error || 'error').slice(0, 80) + ' · continuing automatically');
+}
+const FORMAT_FIXER_HANG_MS = Math.max(60000, parseInt(process.env.FORMAT_FIXER_HANG_MS || '600000', 10));
+function formatFixerWithHangGuard(promise, id) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => {
+      const error = new Error('hung for ' + Math.round(FORMAT_FIXER_HANG_MS / 60000) + ' minutes at ' + id);
+      error.code = 'FORMAT_FIXER_HUNG';
+      reject(error);
+    }, FORMAT_FIXER_HANG_MS)),
+  ]);
 }
 async function processFormatFixerEntry(id) {
   const pillar = pillarOf(id);
@@ -1375,7 +1506,7 @@ async function runFormatFixerLoop() {
       formatFixerJob.currentId = id;
       formatFixerJob.currentTitle = String(titleOf[id] || row.question || id).slice(0, 90);
       try {
-        const r = await processFormatFixerEntry(id);
+        const r = await formatFixerWithHangGuard(processFormatFixerEntry(id), id);
         if (r.noBlob) { formatFixerJob.skippedNoBlob++; formatFixerJob.consecutiveErrors = 0; }
         else if (r.stopped) break;
         else if (r.skipped) {
@@ -1397,6 +1528,13 @@ async function runFormatFixerLoop() {
           formatFixerLog((r.changed ? '📝' : '✓') + ' ' + id + ' · ' + note + (r.steps && r.steps.length ? (' · ' + r.steps.join('+')) : ''));
         }
       } catch (err) {
+        if (err && err.code === 'FORMAT_FIXER_HUNG') {
+          formatFixerJob.hung = true;
+          formatFixerJob.stop = true;
+          formatFixerJob.error = err.message;
+          formatFixerLog('🛑 ' + err.message + ' · stopped hung fixer');
+          break;
+        }
         recordFormatFixerError(id, err && (err.message || err));
       }
       i++;
@@ -1430,7 +1568,7 @@ function startFormatFixer(pillar) {
   formatFixerJob = {
     running: false, stop: false, pillar: pillar || 'all', pillarName: pillar ? pName(pillar) : 'All pillars',
     done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
-    skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: Math.max(1, parseInt(process.env.FORMAT_FIXER_MAX_ERRORS || '3', 10)), squareQueued: 0, auto: true, currentId: '', currentTitle: '', currentStep: '',
+    skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: Math.max(1, parseInt(process.env.FORMAT_FIXER_MAX_ERRORS || '3', 10)), squareQueued: 0, auto: true, hung: false, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [], _entries: null,
   };
   formatFixerLog('▶ Format Fixer — ' + formatFixerJob.pillarName + ' · content + structure only · images untouched');
@@ -7256,44 +7394,19 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
     <div class=dupe-panel-title style="color:#e879f9">◻️ Square Builder</div>
-    <div class=dupe-panel-hint><b>One click:</b> generates a titled 760×760 square, applies it as the card cover, and swaps the existing Q&amp;A top-image slot when allowed. The locked template is preserved: <b>Top 10</b> or <b>Q&amp;A essay</b>. Run up to 200 per batch.</div>
-    <div class=dupe-panel-row>
-      <select id=faceheroPillarFilter title="Which pillar to regenerate face-cards + heroes for"><option value=tl>Loading pillars…</option></select>
-    </div>
+    <div class=dupe-panel-hint><b>Manual only:</b> enter a graduated Q&amp;A ID. Its title keywords search Pexels. First click sets face card + existing Q&amp;A top-image slot; later clicks fill existing middle/bottom or Top-10 product slots. No slots are added or moved.</div>
     <div class=imgen-keywords-row>
-      <label class=imgen-keywords-label style="color:#e879f9" for=faceheroKeywords>🎯 What should the image show?</label>
-      <input type=text id=faceheroKeywords class=imgen-keywords maxlength=800 placeholder="e.g. confident executive in a bright modern office" title="Steers each square image">
-      <div class=imgen-keywords-hint>Leave blank for automatic title-based searches. Same search/guide for every card until you ✗ Try again — then it rotates to the next title search (and next comma guide keyword if set).</div>
+      <label class=imgen-keywords-label style="color:#e879f9" for=squareQaId>Q&amp;A ID</label>
+      <input type=text id=squareQaId class=imgen-keywords maxlength=80 placeholder="e.g. q11133">
+      <label class=imgen-keywords-label style="color:#e879f9" for=squareTitleQuery>Title keywords</label>
+      <input type=text id=squareTitleQuery class=imgen-keywords maxlength=220 placeholder="Leave blank to read the Q&amp;A title automatically">
+      <select id=squareGender style="margin-top:8px;padding:9px;border-radius:8px;background:#0b1219;color:#fff;border:1px solid #6b4a7a">
+        <option value="">Any subject</option><option value="men">Men</option><option value="women">Women</option>
+      </select>
     </div>
-    <div class=dupe-panel-row>
-      <label for=faceheroBatch>Squares today</label>
-      <input type=number id=faceheroBatch min=1 max=200 value=200 style="width:92px" title="Maximum 200 per run">
-    </div>
-    <div class="dupe-auto-opts facehero">
-      <label title="Skip manual review — each generated face-card is saved automatically and the run continues"><input type=checkbox id=faceheroAutoApprove> 🤖 Auto-approve images</label>
-    </div>
-    <div class=dupe-btns>
-      <button type=button id=faceheroStart>▶ Start square batch</button>
-      <button type=button id=faceheroStop disabled>⏹ Stop</button>
-      <button type=button id=faceheroForceStop disabled title="Force stop — clears review and will not resume on server restart">⏹ Force stop</button>
-    </div>
-    <div id=faceheroReview class=imgen-review style="display:none">
-      <div class=imgen-review-head><h4 id=faceheroReviewTitle>Review face-card</h4></div>
-      <div class=card-review>
-        <a id=faceheroReviewLink href="#" target=_blank rel=noopener><img id=faceheroReviewImg src="" alt="face-card preview"></a>
-        <div class=card-review-meta id=faceheroReviewMeta></div>
-        <div class=card-review-btns>
-          <button type=button id=faceheroKeep>✓ Use this square</button>
-          <button type=button id=faceheroRetry>✗ Try again</button>
-        </div>
-      </div>
-    </div>
-    <div id=faceheroProg class=dupe-prog style="display:none">
-      <div class=dupe-prog-bar><i id=faceheroProgBar style="width:0%;background:linear-gradient(90deg,#a855f7,#e879f9)"></i></div>
-      <div class=dupe-prog-lbl id=faceheroProgLbl style="color:#e879f9">0% — waiting…</div>
-      <div class=dupe-stats id=faceheroStats></div>
-      <div class=dupe-log id=faceheroLog></div>
-    </div>
+    <div class=dupe-btns><button type=button id=squarePexelsSearch>🔎 Search title on Pexels</button><button type=button id=squareFinishQa>✅ Finish Q&amp;A</button></div>
+    <div id=squarePickerStatus class=dupe-panel-hint style="margin-top:10px">Graduated Q&amp;As wait here for manual images.</div>
+    <div id=squarePexelsGrid style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px"></div>
   </div>
   </div>
   <div id=rewritePanel${isRewrite ? '' : ' style="display:none"'}>
@@ -9735,6 +9848,58 @@ bindForceStop('#internalForceStop','/internal-images-force-stop','Force stop int
 bindForceStop('#formatfixForceStop','/format-fixer-force-stop','Force stop format fixer immediately?', refreshFormatFixerStatus);
 bindForceStop('#rubricForceStop','/rubric-station-force-stop','Force stop rubric station immediately?', refreshRubricStationStatus);
 var _genForceStop=$('#genForceStop'); _genForceStop&&_genForceStop.addEventListener('click',()=>forceStopGenUI());
+function squareClickKey(id){return 'pulse.square.clicks.'+String(id||'').trim();}
+function squareClickCount(id){try{return parseInt(sessionStorage.getItem(squareClickKey(id))||'0',10)||0;}catch(e){return 0;}}
+function setSquareClickCount(id,n){try{sessionStorage.setItem(squareClickKey(id),String(n));}catch(e){}}
+var _squarePexelsSearch=$('#squarePexelsSearch');
+_squarePexelsSearch&&_squarePexelsSearch.addEventListener('click',async()=>{
+  if(!KEY)return;
+  const id=String(($('#squareQaId')&&$('#squareQaId').value)||'').trim();
+  const title=String(($('#squareTitleQuery')&&$('#squareTitleQuery').value)||'').trim();
+  const gender=String(($('#squareGender')&&$('#squareGender').value)||'');
+  const status=$('#squarePickerStatus'),grid=$('#squarePexelsGrid');
+  if(!id){if(status)status.textContent='Enter a graduated Q&A ID.';return;}
+  _squarePexelsSearch.disabled=true;if(status)status.textContent='Searching Pexels from title keywords…';if(grid)grid.innerHTML='';
+  try{
+    const u='/square-pexels-search?key='+encodeURIComponent(KEY)+'&id='+encodeURIComponent(id)+'&title='+encodeURIComponent(title)+'&gender='+encodeURIComponent(gender);
+    const r=await(await fetch(u)).json();
+    if(!r.ok)throw new Error(r.msg||'search failed');
+    if($('#squareTitleQuery')&&!title)$('#squareTitleQuery').value=r.title||'';
+    if(status)status.textContent=(r.template==='top10'?'Top 10 manual mode':'Q&A essay manual mode')+' · query: '+r.query+' · click #'+(squareClickCount(id)+1);
+    (r.photos||[]).forEach(photo=>{
+      const btn=document.createElement('button');btn.type='button';btn.style.cssText='padding:0;border:2px solid #6b21a8;border-radius:10px;overflow:hidden;background:#090d12;cursor:pointer';
+      const img=document.createElement('img');img.src=photo.thumb;img.alt='Pexels option by '+(photo.photographer||'photographer');img.style.cssText='display:block;width:100%;height:150px;object-fit:cover';
+      btn.appendChild(img);
+      btn.addEventListener('click',async()=>{
+        const clickIndex=squareClickCount(id);btn.disabled=true;if(status)status.textContent='Applying selected image…';
+        try{
+          const applied=await(await fetch('/square-pexels-apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,id,url:photo.url,clickIndex,gender})})).json();
+          if(!applied.ok)throw new Error(applied.msg||'apply failed');
+          setSquareClickCount(id,clickIndex+1);
+          if(status)status.textContent='✓ '+applied.placement+' · click another image for the next existing slot, or Finish Q&A.';
+          btn.style.borderColor='#22c55e';btn.style.opacity='.55';
+        }catch(e){btn.disabled=false;if(status)status.textContent='⚠ '+e.message;}
+      });
+      if(grid)grid.appendChild(btn);
+    });
+  }catch(e){if(status)status.textContent='⚠ '+e.message;}
+  finally{_squarePexelsSearch.disabled=false;}
+});
+var _squareFinishQa=$('#squareFinishQa');
+_squareFinishQa&&_squareFinishQa.addEventListener('click',async()=>{
+  if(!KEY)return;
+  const id=String(($('#squareQaId')&&$('#squareQaId').value)||'').trim(),status=$('#squarePickerStatus');
+  if(!id){if(status)status.textContent='Enter a Q&A ID.';return;}
+  _squareFinishQa.disabled=true;
+  try{
+    const r=await(await fetch('/square-pexels-finish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,id})})).json();
+    if(!r.ok)throw new Error(r.msg||'finish failed');
+    setSquareClickCount(id,0);
+    if(status)status.textContent='✅ Finished · added to Recent and '+(r.pillar||'its')+' topic pillar.';
+    const grid=$('#squarePexelsGrid');if(grid)grid.innerHTML='';
+  }catch(e){if(status)status.textContent='⚠ '+e.message;}
+  finally{_squareFinishQa.disabled=false;}
+});
 var _faceheroStart=$('#faceheroStart');
 _faceheroStart&&_faceheroStart.addEventListener('click',async()=>{
   if(!KEY) return;
@@ -11024,6 +11189,34 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     return res.end(JSON.stringify(faceHeroStatusPayload()));
   }
+  if (u.pathname === '/square-pexels-search') {
+    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
+    try {
+      const result = await searchPexelsForTitle(String(u.searchParams.get('id') || '').trim(), u.searchParams.get('title') || '', u.searchParams.get('gender') || '');
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify(Object.assign({ ok: true }, result)));
+    } catch (e) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ ok: false, msg: e.message }));
+    }
+  }
+  if ((u.pathname === '/square-pexels-apply' || u.pathname === '/square-pexels-finish') && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', async () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      try {
+        const result = u.pathname === '/square-pexels-finish'
+          ? await finishManualPexelsQa(String(d.id || '').trim())
+          : await applyManualPexelsImage(String(d.id || '').trim(), d.url || '', d.clickIndex, d.gender || '');
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(result));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, msg: e.message }));
+      }
+    });
+    return;
+  }
   if (u.pathname === '/face-hero-start' && req.method === 'POST') {
     let b = ''; req.on('data', c => b += c); req.on('end', () => {
       let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
@@ -11325,10 +11518,10 @@ server.listen(PORT, '0.0.0.0', async () => {
   console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
   if (lanIp) console.log(`[scrub-button] LAN (phone on WiFi): http://${lanIp}:${PORT}/`);
   resumeInterruptedImageJobs();
-  if (formatFixerJob.auto && formatFixerJob.phase !== 'done') {
+  if (formatFixerJob.auto && !formatFixerJob.hung && formatFixerJob.phase !== 'done') {
     formatFixerJob.stop = false;
     formatFixerJob.error = '';
-    formatFixerLog('▶ auto-resume · stops after ' + formatFixerJob.maxConsecutiveErrors + ' consecutive errors');
+    formatFixerLog('▶ auto-resume · ordinary errors continue · stops only if hung');
     runFormatFixerLoop().catch(e => {
       formatFixerJob.error = e.message;
       formatFixerJob.running = false;

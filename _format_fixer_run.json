@@ -16,6 +16,7 @@
  "maxConsecutiveErrors": 3,
  "squareQueued": 0,
  "auto": true,
+ "hung": false,
  "currentId": "",
  "currentTitle": "",
  "currentStep": "auto queued",
