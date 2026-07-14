@@ -1,3 +1,5 @@
+
+- **LIVE Square Builder (tunneled):** https://brown-feet-show.loca.lt/face-card-top-image-generator  · also local http://localhost:3229/face-card-top-image-generator
 ## ▶▶ CROSSOVER — 2026-07-14 OWNER UX LAW (FIXER → SQUARE → ANSWER) — READ FIRST
 
 **Three shapes (same station order; answer page differs):**
