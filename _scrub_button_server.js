@@ -6563,7 +6563,7 @@ function buildPage(mode) {
     : 'Tap any entry for <b>fullscreen review</b> — <b>Cursor auto-auditors</b> gate publish. Only exceptions land here — <b style=color:#2ecc71>✓</b> publish · <b style=color:#ff8a76>✗</b> retarget.';
   const fsBatchExplain = 'Use <b>Rubric Stations</b> — one slice at a time (Writing · Structure · Face · Internal images · Top-10 · Publish gate). Each station has its own fix + auditor. Standard full scrub is disabled.';
   const batchIdleHint = 'Open a station tab — pick pillar — ▶ Start. Finished entries land in the audit pile below.';
-  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Square Builder · Face Card' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
+  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer + Square Builder' : (isFaceHero ? 'Square Builder · Face Card' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
   return `<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><title>PULSE · ${pageTitle}</title><style>
 *{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:18px}
 #gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:92%;max-width:560px}
@@ -7261,45 +7261,6 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
     </div>
   </div>
   </div>
-  <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
-  <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
-    <div class=dupe-panel-title style="color:#e879f9">🟦 Square Builder · Face Card &amp; Top Image</div>
-    <div class=dupe-panel-hint><b>Order law:</b> Q&amp;As must <b>pass Format Fixer first</b>, then they come here. Entries that fail the content rubric are skipped. <b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
-    <div class=dupe-panel-row>
-      <select id=faceheroPillarFilter title="Which pillar to regenerate face-cards + heroes for"><option value=tl>Loading pillars…</option></select>
-    </div>
-    <div class=imgen-keywords-row>
-      <label class=imgen-keywords-label style="color:#e879f9" for=faceheroKeywords>🎯 Guide keywords (optional)</label>
-      <input type=text id=faceheroKeywords class=imgen-keywords maxlength=800 placeholder="e.g. headroom portrait, warm cinematic grade — comma separated" title="Optional — steers each Pollinator face-card flux try">
-      <div class=imgen-keywords-hint>Leave blank for automatic title-based searches. Same search/guide for every card until you ✗ Try again — then it rotates to the next title search (and next comma guide keyword if set).</div>
-    </div>
-    <div class="dupe-auto-opts facehero">
-      <label title="Skip manual review — each generated face-card is saved automatically and the run continues"><input type=checkbox id=faceheroAutoApprove> 🤖 Auto-approve images</label>
-    </div>
-    <div class=dupe-btns>
-      <button type=button id=faceheroStart>▶ Square Builder — face-card + top hero for pillar</button>
-      <button type=button id=faceheroStop disabled>⏹ Stop</button>
-      <button type=button id=faceheroForceStop disabled title="Force stop — clears review and will not resume on server restart">⏹ Force stop</button>
-    </div>
-    <div id=faceheroReview class=imgen-review style="display:none">
-      <div class=imgen-review-head><h4 id=faceheroReviewTitle>Review face-card</h4></div>
-      <div class=card-review>
-        <a id=faceheroReviewLink href="#" target=_blank rel=noopener><img id=faceheroReviewImg src="" alt="face-card preview"></a>
-        <div class=card-review-meta id=faceheroReviewMeta></div>
-        <div class=card-review-btns>
-          <button type=button id=faceheroKeep>✓ Keep</button>
-          <button type=button id=faceheroRetry>✗ Try again</button>
-        </div>
-      </div>
-    </div>
-    <div id=faceheroProg class=dupe-prog style="display:none">
-      <div class=dupe-prog-bar><i id=faceheroProgBar style="width:0%;background:linear-gradient(90deg,#a855f7,#e879f9)"></i></div>
-      <div class=dupe-prog-lbl id=faceheroProgLbl style="color:#e879f9">0% — waiting…</div>
-      <div class=dupe-stats id=faceheroStats></div>
-      <div class=dupe-log id=faceheroLog></div>
-    </div>
-  </div>
-  </div>
   <div id=rewritePanel${isRewrite ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#b45309;background:linear-gradient(165deg,#120a04 0%,#0e1620 100%)">
     <div class=dupe-panel-title style="color:#fbbf24">🌸 Pollinator Image Overwrite</div>
@@ -7386,21 +7347,61 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   </div>
   <div id=formatfixPanel${isFormatFix ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#0ea5e9;background:linear-gradient(165deg,#041018 0%,#0e1620 100%)">
-    <div class=dupe-panel-title style="color:#38bdf8">📝 Format Fixer</div>
-    <div class=dupe-panel-hint><b>Step 1 of pipeline:</b> content must pass here before Square Builder. <b>Content rubric:</b> ≥2000 words · hero image present · Direct Answer first after hero (2–3 sentences) · <b>no CRO in blob</b> (live page injects Kory card after Direct Answer) · 6 FAQs · 2 clean mermaid · 5 Sources · Related · clean links. DeepSeek fills gaps. <b>Never changes image URLs.</b> After pass → run <b>Square Builder</b> (Face Card).</div>
+    <div class=dupe-panel-title style="color:#38bdf8">📝 Format Fixer · daily driver</div>
+    <div class=dupe-panel-hint><b>Step 1:</b> content must pass here before Square Builder (dashboard below on this same page). Content rubric only — <b>never changes image URLs</b>. Title/face stay placeholder until Square Builder fixes them.</div>
     <div class=dupe-panel-row>
       <select id=formatfixPillarFilter title="Which pillar to audit and fix"><option value=tl>Loading pillars…</option></select>
     </div>
     <div class=dupe-btns>
       <button type=button id=formatfixStart>▶ Fix content &amp; structure in pillar</button>
       <button type=button id=formatfixStop disabled>⏹ Stop</button>
-      <button type=button id=formatfixForceStop class=dupe-force-stop disabled title="Force stop immediately">⏹ Force stop</button>
+      <button type=button id=formatfixForceStop class=dupe-force-stop disabled title="Force stop immediately — then hand off passers to Square Builder">⏹ Force stop → Square</button>
     </div>
     <div id=formatfixProg class=dupe-prog style="display:none">
       <div class=dupe-prog-bar><i id=formatfixProgBar style="width:0%;background:linear-gradient(90deg,#0ea5e9,#38bdf8)"></i></div>
       <div class=dupe-prog-lbl id=formatfixProgLbl style="color:#38bdf8">0% — waiting…</div>
       <div class=dupe-stats id=formatfixStats></div>
       <div class=dupe-log id=formatfixLog></div>
+    </div>
+  </div>
+  <p class=sub style="margin:10px 0 0;color:#e879f9;font-weight:700;text-align:center">⬇ Square Builder dashboard is on this same page below ⬇</p>
+  </div>
+  <div id=faceheroPanel${(isFaceHero || isFormatFix) ? '' : ' style="display:none"'}>
+  <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
+    <div class=dupe-panel-title style="color:#e879f9">🟦 Square Builder · Face Card &amp; Top Image</div>
+    <div class=dupe-panel-hint><b>Built into the Format Fixer daily driver.</b> Q&amp;As must <b>pass Format Fixer first</b> (dashboard above), then run here. Entries that fail the content rubric are skipped. <b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
+    <div class=dupe-panel-row>
+      <select id=faceheroPillarFilter title="Which pillar to regenerate face-cards + heroes for"><option value=tl>Loading pillars…</option></select>
+    </div>
+    <div class=imgen-keywords-row>
+      <label class=imgen-keywords-label style="color:#e879f9" for=faceheroKeywords>🎯 Guide keywords (optional)</label>
+      <input type=text id=faceheroKeywords class=imgen-keywords maxlength=800 placeholder="e.g. headroom portrait, warm cinematic grade — comma separated" title="Optional — steers each Pollinator face-card flux try">
+      <div class=imgen-keywords-hint>Leave blank for automatic title-based searches. Same search/guide for every card until you ✗ Try again — then it rotates to the next title search (and next comma guide keyword if set).</div>
+    </div>
+    <div class="dupe-auto-opts facehero">
+      <label title="Skip manual review — each generated face-card is saved automatically and the run continues"><input type=checkbox id=faceheroAutoApprove> 🤖 Auto-approve images</label>
+    </div>
+    <div class=dupe-btns>
+      <button type=button id=faceheroStart>▶ Square Builder — face-card + top hero for pillar</button>
+      <button type=button id=faceheroStop disabled>⏹ Stop</button>
+      <button type=button id=faceheroForceStop disabled title="Force stop — clears review and will not resume on server restart">⏹ Force stop</button>
+    </div>
+    <div id=faceheroReview class=imgen-review style="display:none">
+      <div class=imgen-review-head><h4 id=faceheroReviewTitle>Review face-card</h4></div>
+      <div class=card-review>
+        <a id=faceheroReviewLink href="#" target=_blank rel=noopener><img id=faceheroReviewImg src="" alt="face-card preview"></a>
+        <div class=card-review-meta id=faceheroReviewMeta></div>
+        <div class=card-review-btns>
+          <button type=button id=faceheroKeep>✓ Keep</button>
+          <button type=button id=faceheroRetry>✗ Try again</button>
+        </div>
+      </div>
+    </div>
+    <div id=faceheroProg class=dupe-prog style="display:none">
+      <div class=dupe-prog-bar><i id=faceheroProgBar style="width:0%;background:linear-gradient(90deg,#a855f7,#e879f9)"></i></div>
+      <div class=dupe-prog-lbl id=faceheroProgLbl style="color:#e879f9">0% — waiting…</div>
+      <div class=dupe-stats id=faceheroStats></div>
+      <div class=dupe-log id=faceheroLog></div>
     </div>
   </div>
   </div>
@@ -7700,7 +7701,7 @@ const $=s=>document.querySelector(s);
 // ── Scrub vs Generate — one page, client-side tab toggle (owner) ──
 window.activeTab='${mode}';
 const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'🟦 Square Builder',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
-const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'<b>Square Builder</b> — after Format Fixer pass only. Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only. Face station requires Format Fixer pass first.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'<b>Step 1:</b> Audits ≥2000 words, Direct Answer, CRO placement, FAQs, mermaid, Sources, Related. <b>Does not touch images.</b> Pass → then Square Builder.';
+const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'<b>Square Builder</b> — after Format Fixer pass only. Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only. Face station requires Format Fixer pass first.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'<b>Daily driver:</b> Format Fixer on top · <b>Square Builder dashboard below</b> on this same page. Fixer = content only. Square = real face-card + title bake + click-fill images.';
 function switchPipelineTab(mode){
   if(!mode||mode===window.activeTab) return;
   window.activeTab=mode;
@@ -7709,7 +7710,7 @@ function switchPipelineTab(mode){
   if(gp) gp.style.display=mode==='generate'?'':'none';
   if(dp) dp.style.display=mode==='duplicator'?'':'none';
   if(ip) ip.style.display=mode==='imgen'?'':'none';
-  if(fhp) fhp.style.display=mode==='facehero'?'':'none';
+  if(fhp) fhp.style.display=(mode==='facehero'||mode==='formatfix')?'':'none';
   if(iip) iip.style.display=mode==='internalimages'?'':'none';
   if(rsp) rsp.style.display=mode==='rubricstation'?'':'none';
   if(rp) rp.style.display=mode==='rewrite'?'':'none';
@@ -7738,7 +7739,7 @@ function switchPipelineTab(mode){
   else if(mode==='internalimages'){ loadPillars(); refreshInternalImagesStatus(); }
   else if(mode==='rubricstation'){ loadPillars(); refreshRubricStationStatus(); }
   else if(mode==='rewrite'){ loadPillars(); refreshRewriteStatus(); }
-  else if(mode==='formatfix'){ loadPillars(); refreshFormatFixerStatus(); }
+  else if(mode==='formatfix'){ loadPillars(); refreshFormatFixerStatus(); refreshFaceHeroStatus(); }
 }
 function bindPipelineTabs(){
   const ns=$('#navScrub'), ng=$('#navGenerate'), nd=$('#navDuplicator'), ni=$('#navImgGen'), nfh=$('#navFaceHero'), nii=$('#navInternalImages'), nrs=$('#navRubricStation'), nr=$('#navRewrite'), nf=$('#navFormatFix');
