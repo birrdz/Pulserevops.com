@@ -25,7 +25,7 @@
 ### Who owns the title
 
 1. **Format Fixer** (`/format-fixer-full`) — **content + structure only.** Never changes image URLs. Never bakes a title onto the face-card. Placeholder / fake title look is OK until Square runs.
-2. **Square Builder** (same dash **under** Format Fixer daily driver, or `/square-builder` desk) — **owns the real title.** Face pick → Cursor apply **deletes** old `/assets/qa/<id>.jpg*` and writes a **brand-new** graded face with **baked gold/orange title** (`goldTitle` / `face_title_baked`). **No layering over old titled pixels** (that re-shows the stuck old title).
+2. **Square Builder** (`/square-builder`, a **separate localhost page**) — **owns the real title.** Face pick → Cursor apply **deletes** old `/assets/qa/<id>.jpg*` and writes a **brand-new** graded face with **baked gold/orange title** (`goldTitle` / `face_title_baked`). **No layering over old titled pixels** (that re-shows the stuck old title).
 
 ### Same file = face-card + top hero
 
@@ -47,7 +47,8 @@
 
 ### Dash layout
 
-- One page: **Format Fixer on top · Square Builder dashboard underneath** (`/format-fixer-full`).
+- **Separate pages:** Format Fixer only at `/format-fixer`; Square Builder only at `/square-builder`.
+- Square Builder must not render inside or underneath the Format Fixer dashboard.
 - Order: Format Fixer pass → then Square Builder. Never reverse.
 
 ---
