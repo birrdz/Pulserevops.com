@@ -65,7 +65,7 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 // 🔒🔒 POLLINATOR FACE-CARD COVER LAW (owner 2026-07-03) — covers are Pollinations flux ONLY (DDG banned).
 // 🔒 OWNER 2026-07-04: Pollinator REMOVED from writing + scrubbing. Covers now = DDG face-cards with
 // the dated Pollinator look (people/places/things, photo-refined, no watermarked stock). Same signatures.
-const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, stampDdgProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, FILL_REUSE_PCT, gradeFaceCardFromBuffer, coverPath, storeGradedImage } = require('./_ddg_facecard_lib');
+const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, stampDdgProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, FILL_REUSE_PCT, gradeFaceCardFromBuffer, coverPath, storeGradedImage, FACE_CARD_TILE_W, FACE_CARD_TILE_H, resolveFaceCardCropPosition } = require('./_ddg_facecard_lib');
 const { syncHeroDupesFaceCard, fluxFaceHeroOnlyEntry, forceMainTopHero } = require('./_img_flux_rewrite_lib');
 const { ddgImages } = require('./netlify/functions/lib/img-search-lib');
 const { buildSquareDeskPage } = require('./_square_desk');
@@ -1219,7 +1219,14 @@ function forceStopFaceHero() {
 
 // ── Square Desk (owner 2026-07-14): waiting square → keyword search → click = face+top → answer page ──
 const SQUARE_QA_DIR = path.join(WD, 'assets', 'qa');
-function squareFaceRel(id) { return '/assets/qa/' + id + '.jpg'; }
+/** Live Square Desk image — NEW file. Original /assets/qa/<id>.jpg stays on disk but hidden. */
+function squareOrigRel(id) { return '/assets/qa/' + id + '.jpg'; }
+function squareLiveRel(id) { return '/assets/qa/' + id + '-sq.jpg'; }
+function squareFaceRel(id) {
+  // Prefer the new Square pick; fall back to original only if live missing
+  if (squareFileOk(squareLiveRel(id))) return squareLiveRel(id);
+  return squareLiveRel(id); // always show/target the live path once desk runs
+}
 function squareSlotRel(id, n) { return '/assets/qa/' + id + '-' + n + '.jpg'; }
 function squareFileOk(rel) {
   try { return fs.statSync(path.join(WD, rel.replace(/^\//, ''))).size > 8000; } catch (e) { return false; }
@@ -1227,10 +1234,159 @@ function squareFileOk(rel) {
 function squareAbs(rel) {
   return path.join(WD, String(rel || '').replace(/^\//, ''));
 }
-/** Force-delete before rewrite so the pick always replaces the old JPEG bytes. */
 function squareUnlink(relOrAbs) {
   const fp = path.isAbsolute(relOrAbs) ? relOrAbs : squareAbs(relOrAbs);
   try { if (fs.existsSync(fp)) fs.unlinkSync(fp); } catch (e) {}
+}
+/**
+ * Face-card = top hero (same file). Old titled <id>.jpg stays on disk but is never shown.
+ * Pixel stack (old title forced invisible — never composited into the live file):
+ *   1) OPAQUE black plate (wipes any prior pixels — old title cannot bleed through)
+ *   2) NEW photo fully covering the plate
+ *   3) NEW gold title (main-page mosaic bake only)
+ * Writes <id>-sq.jpg only. Original <id>.jpg is never read into this stack, never deleted.
+ */
+async function squareWriteFaceAtomic(id, buf, title) {
+  const sharpLocal = require('sharp');
+  const liveRel = squareLiveRel(id);
+  const dest = squareAbs(liveRel);
+  const dir = path.dirname(dest);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+  const W = FACE_CARD_TILE_W || 1200;
+  const H = FACE_CARD_TILE_H || 400;
+  const cropPosition = await resolveFaceCardCropPosition(buf);
+  const cleanTitle = String(title || id).replace(/[#*_`>|]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 220);
+
+  // 1) Opaque black plate — old baked title cannot appear (we never pull pixels from id.jpg)
+  const blank = await sharpLocal({
+    create: { width: W, height: H, channels: 3, background: { r: 8, g: 8, b: 8 } },
+  }).jpeg({ quality: 95 }).toBuffer();
+
+  // 2) NEW photo fully covers the plate (opaque JPEG — no alpha bleed)
+  const photo = await sharpLocal(buf, { animated: false })
+    .rotate()
+    .flatten({ background: '#080808' })
+    .resize(W, H, { fit: 'cover', position: cropPosition })
+    .removeAlpha()
+    .jpeg({ quality: 95 })
+    .toBuffer();
+  const covered = await sharpLocal(blank)
+    .composite([{ input: photo, top: 0, left: 0 }])
+    .jpeg({ quality: 92 })
+    .toBuffer();
+
+  // 3) NEW title only (main-page gold bake) — never rebake onto old id.jpg
+  const tmp = path.join(dir, id + '-sq.bak-' + Date.now() + '.jpg');
+  await storeGradedImage(covered, tmp, {
+    faceCardTile: true,
+    width: W,
+    height: H,
+    cropPosition: 'centre',
+    bright: false,
+    goldTitle: cleanTitle,
+  });
+  const sz = fs.statSync(tmp).size;
+  if (sz < 8000) throw new Error('face too small (' + sz + 'b)');
+  try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
+  fs.renameSync(tmp, dest);
+  try {
+    const mirror = path.join('/workspace/assets/qa', id + '-sq.jpg');
+    if (path.normalize(mirror) !== path.normalize(dest)) {
+      if (!fs.existsSync(path.dirname(mirror))) fs.mkdirSync(path.dirname(mirror), { recursive: true });
+      fs.copyFileSync(dest, mirror);
+    }
+  } catch (e) {}
+  return liveRel;
+}
+/** Insert/replace body slot image markdown for Square Desk fills. */
+function patchBodySlotImage(id, title, body, n, rel) {
+  const alt = String(title || id).replace(/[\[\]]/g, '').slice(0, 80);
+  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const md = '![' + alt + '](' + rel + ')';
+  let text = String(body || '');
+  const reExact = new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '-' + Number(n) + '\\.jpg(?:\\?[^)]*)?\\)', 'gi');
+  if (reExact.test(text)) return text.replace(reExact, md);
+  // Prefer after the nth ## heading block; else append before FAQ/Sources if present
+  const lines = text.split('\n');
+  let h = 0;
+  let insertAt = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^##\s+/.test(lines[i])) {
+      h += 1;
+      if (h === Number(n)) {
+        insertAt = i + 1;
+        while (insertAt < lines.length && !/^##\s+/.test(lines[insertAt]) && !/^![^\]]*\]\(/.test(lines[insertAt])) insertAt += 1;
+        break;
+      }
+    }
+  }
+  if (insertAt >= 0) {
+    lines.splice(insertAt, 0, '', md, '');
+    return lines.join('\n');
+  }
+  const endRe = /\n##\s+(FAQ|Sources|Related)\b/i;
+  const m = text.match(endRe);
+  if (m && m.index != null) return text.slice(0, m.index) + '\n\n' + md + '\n' + text.slice(m.index);
+  return text.trimEnd() + '\n\n' + md + '\n';
+}
+async function squareWriteSlotAtomic(id, n, buf) {
+  const rel = squareSlotRel(id, n);
+  const dest = squareAbs(rel);
+  const dir = path.dirname(dest);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  const tmp = path.join(dir, id + '-' + n + '.bak-' + Date.now() + '.jpg');
+  try {
+    await storeGradedImage(buf, tmp, { sectionTile: true, width: 1200, height: 675, bright: false });
+    const sz = fs.statSync(tmp).size;
+    if (sz < 4000) throw new Error('graded slot too small');
+    try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
+    fs.renameSync(tmp, dest);
+    return rel;
+  } catch (e) {
+    try { if (fs.existsSync(tmp)) fs.unlinkSync(tmp); } catch (x) {}
+    throw e;
+  }
+}
+/** Point face + top hero at <id>-sq.jpg (same file). Original id.jpg stays but is not shown. */
+function forceSquareFaceAndTopMarkdown(id, title, body) {
+  const live = squareLiveRel(id);
+  const orig = squareOrigRel(id);
+  const alt = String(title || id).replace(/[\[\]]/g, '').slice(0, 80);
+  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  let text = String(body || '');
+  // Drop leading hero / pollinations / old face / live face — we'll put live back once
+  text = text.replace(new RegExp('^\\s*!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '(?:-sq)?\\.jpg(?:\\?[^)]*)?\\)\\s*\\n*', 'gmi'), '');
+  text = text.replace(/^\s*!\[[^\]]*\]\(https?:\/\/image\.pollinations\.ai\/[^)]+\)\s*\n*/gmi, '');
+  // Hide every leftover original face reference (file kept, not shown)
+  text = text.replace(new RegExp('!\\[[^\\]]*\\]\\(' + orig.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?:\\?[^)]*)?\\)', 'gi'), '');
+  text = text.replace(new RegExp('!\\[[^\\]]*\\]\\(' + live.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?:\\?[^)]*)?\\)', 'gi'), '');
+  // One hero line = face-card = top image
+  return '![' + alt + '](' + live + ')\n\n' + text.trimStart();
+}
+/** Hide live Square image (delete -sq only). Original id.jpg stays. */
+async function squareDeleteFaceEntry(id) {
+  id = String(id || '').trim();
+  if (!id) return { ok: false, msg: 'missing id' };
+  const live = squareLiveRel(id);
+  squareUnlink(live);
+  squareUnlink(path.join('/workspace/assets/qa', id + '-sq.jpg'));
+  const entry = await loadSquareEntry(id);
+  let title = String((titleOf && titleOf[id]) || (entry && (entry.question || entry.title)) || id);
+  let body = entry && entry.answer ? String(entry.answer) : '';
+  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  // Strip live -sq refs from body (original file kept, but also un-referenced while hidden)
+  body = String(body || '')
+    .replace(new RegExp('^\\s*!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '-sq\\.jpg(?:\\?[^)]*)?\\)\\s*\\n*', 'gmi'), '')
+    .replace(new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '-sq\\.jpg(?:\\?[^)]*)?\\)', 'gi'), '');
+  await saveSquareEntry(id, {
+    cover_src: 'square-desk',
+    face_title_baked: false,
+    img: null,
+    square_live: null,
+    square_orig_hidden: true,
+  }, body || ('# ' + title + '\n\n'));
+  return { ok: true, deleted: 1, wiped: true, faceUrl: null, originalKept: squareOrigRel(id) };
 }
 function detectSquareShape(id, title, body) {
   try {
@@ -1288,187 +1444,7 @@ async function fetchSquareImageBuf(url) {
   }
   throw lastErr || new Error('image fetch failed');
 }
-/** Hard-delete every copy of the face-card JPEG for this id. */
-function squareDeleteFaceFiles(id, opts) {
-  opts = opts || {};
-  const keepTmp = !!opts.keepTmp;
-  const targets = [
-    coverPath(id),
-    squareAbs(squareFaceRel(id)),
-    path.join('/workspace/assets/qa', id + '.jpg'),
-    path.join(WD, 'assets', 'qa', id + '.jpg'),
-  ];
-  // Optionally wipe leftover tmp files (never while a write is in flight)
-  if (!keepTmp) {
-    try {
-      const dir = path.dirname(coverPath(id));
-      if (fs.existsSync(dir)) {
-        for (const f of fs.readdirSync(dir)) {
-          if (f === id + '.jpg') targets.push(path.join(dir, f));
-          // only purge stale tmps older naming — exact live file only in keepTmp mode
-          else if (/^\.tmp-/.test(f.replace(id + '.jpg', '')) || f.startsWith(id + '.bak-')) {
-            targets.push(path.join(dir, f));
-          }
-        }
-      }
-    } catch (e) {}
-  }
-  const seen = new Set();
-  let deleted = 0;
-  for (const fp of targets) {
-    const n = path.normalize(fp);
-    if (seen.has(n)) continue;
-    seen.add(n);
-    try {
-      if (fs.existsSync(n)) { fs.unlinkSync(n); deleted++; }
-    } catch (e) {}
-  }
-  return { deleted, gone: !fs.existsSync(coverPath(id)) };
-}
-/** Paint a solid white face-card (title optional) so the old photo is fully gone before write-over. */
-async function squareWriteWhiteFace(id, title) {
-  const sharpLocal = require('sharp');
-  const dest = coverPath(id);
-  const dir = path.dirname(dest);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  const w = 1200, h = 675;
-  const whiteBuf = await sharpLocal({
-    create: { width: w, height: h, channels: 3, background: { r: 255, g: 255, b: 255 } },
-  }).jpeg({ quality: 90 }).toBuffer();
-  await gradeFaceCardFromBuffer(whiteBuf, dest, { question: title || id, goldTitle: title || id, bright: true });
-  try {
-    const mirror = path.join('/workspace/assets/qa', id + '.jpg');
-    if (path.normalize(mirror) !== path.normalize(dest)) {
-      if (!fs.existsSync(path.dirname(mirror))) fs.mkdirSync(path.dirname(mirror), { recursive: true });
-      fs.copyFileSync(dest, mirror);
-    }
-  } catch (e) {}
-  return dest;
-}
-/** Write graded JPEG: delete old → white → write real photo over (never delete in-flight tmp). */
-async function squareWriteFaceAtomic(id, buf, title) {
-  const dest = coverPath(id);
-  const dir = path.dirname(dest);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  // 1) Delete old live face only
-  squareDeleteFaceFiles(id, { keepTmp: true });
-  try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
-  // 2) Solid WHITE so stale pixels are gone
-  try { await squareWriteWhiteFace(id, title); } catch (e) { /* continue */ }
-  // 3) Grade real photo to temp, then replace dest
-  const tmp = path.join(dir, id + '.bak-' + Date.now() + '.jpg');
-  try {
-    await gradeFaceCardFromBuffer(buf, tmp, { question: title, goldTitle: title });
-    const sz = fs.statSync(tmp).size;
-    if (sz < 12000) throw new Error('graded face-card too small (' + sz + 'b)');
-    try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
-    fs.renameSync(tmp, dest);
-    try {
-      const mirror = path.join('/workspace/assets/qa', id + '.jpg');
-      if (path.normalize(mirror) !== path.normalize(dest)) {
-        if (!fs.existsSync(path.dirname(mirror))) fs.mkdirSync(path.dirname(mirror), { recursive: true });
-        fs.copyFileSync(dest, mirror);
-      }
-    } catch (e) {}
-    return dest;
-  } catch (e) {
-    try { if (fs.existsSync(tmp)) fs.unlinkSync(tmp); } catch (x) {}
-    throw e;
-  }
-}
-async function squareWriteSlotAtomic(id, n, buf) {
-  const rel = squareSlotRel(id, n);
-  const dest = squareAbs(rel);
-  const dir = path.dirname(dest);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  const tmp = dest + '.tmp-' + Date.now() + '.jpg';
-  try {
-    // Delete existing slot first
-    try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
-    // White blank then real write
-    try {
-      const sharpLocal = require('sharp');
-      const white = await sharpLocal({
-        create: { width: 1200, height: 675, channels: 3, background: { r: 255, g: 255, b: 255 } },
-      }).jpeg({ quality: 85 }).toBuffer();
-      fs.writeFileSync(dest, white);
-    } catch (e) {}
-    await storeGradedImage(buf, tmp, { sectionTile: true, width: 1200, height: 675, bright: false });
-    const sz = fs.statSync(tmp).size;
-    if (sz < 4000) throw new Error('graded slot too small');
-    try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
-    fs.renameSync(tmp, dest);
-    return rel;
-  } catch (e) {
-    try { if (fs.existsSync(tmp)) fs.unlinkSync(tmp); } catch (x) {}
-    throw e;
-  }
-}
 
-/** Delete face-card + strip top hero markdown (leave blank until next pick). */
-async function squareDeleteFaceEntry(id) {
-  id = String(id || '').trim();
-  if (!id) return { ok: false, msg: 'missing id' };
-  const del = squareDeleteFaceFiles(id);
-  const entry = await loadSquareEntry(id);
-  let title = String((titleOf && titleOf[id]) || (entry && (entry.question || entry.title)) || id);
-  let body = entry && entry.answer ? String(entry.answer) : '';
-  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  // Remove every face/hero markdown line for this id + leading pollinations
-  body = String(body || '')
-    .replace(new RegExp('^\\s*!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '\\.jpg(?:\\?[^)]*)?\\)\\s*\\n+', 'gmi'), '')
-    .replace(/^\s*!\[[^\]]*\]\(https?:\/\/image\.pollinations\.ai\/[^)]+\)\s*\n+/gmi, '');
-  // Write white placeholder so UI/CDN can't keep showing stale bytes
-  try { await squareWriteWhiteFace(id, title); } catch (e) {}
-  await saveSquareEntry(id, {
-    cover_src: 'ddg-facecard',
-    face_title_baked: false,
-    img: squareFaceRel(id),
-  }, body || ('# ' + title + '\n\n'));
-  return {
-    ok: true,
-    deleted: del.deleted,
-    faceUrl: squareFaceRel(id) + '?v=' + Date.now(),
-    wiped: true,
-  };
-}
-/** Replace the Nth body image (and any prior /assets/qa/<id>-N.jpg) — always overwrite in place. */
-function patchBodySlotImage(id, title, body, n, rel) {
-  const alt = String(title || id).replace(/[\[\]]/g, '').slice(0, 80);
-  const md = '![' + alt + '](' + rel + ')';
-  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  let text = String(body || '');
-  const selfRe = new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '-' + n + '\\.jpg(?:\\?[^)]*)?\\)', 'i');
-  if (selfRe.test(text)) return text.replace(selfRe, md);
-  const lines = text.split('\n');
-  let seenHero = false;
-  let bodyImg = 0;
-  for (let i = 0; i < lines.length; i++) {
-    const m = String(lines[i]).match(/^\s*!\[([^\]]*)\]\(([^)\s]+)\)\s*$/);
-    if (!m) continue;
-    if (!seenHero) { seenHero = true; continue; }
-    bodyImg++;
-    if (bodyImg === n) {
-      lines[i] = md;
-      return lines.join('\n');
-    }
-  }
-  let insertAt = lines.length;
-  for (let i = 0; i < lines.length; i++) {
-    if (/^##\s+(FAQ|Sources|Frequently)/i.test(String(lines[i]).trim())) { insertAt = i; break; }
-  }
-  return lines.slice(0, insertAt).concat(['', md, '']).concat(lines.slice(insertAt)).join('\n');
-}
-/** Face-card file + top hero markdown: wipe old face bytes, rewrite every stale hero to the same path. */
-function forceSquareFaceAndTopMarkdown(id, title, body) {
-  const face = squareFaceRel(id);
-  const alt = String(title || id).replace(/[\[\]]/g, '').slice(0, 80);
-  const idEsc = String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  let text = String(body || '');
-  text = text.replace(new RegExp('!\\[[^\\]]*\\]\\(/assets/qa/' + idEsc + '\\.jpg(?:\\?[^)]*)?\\)', 'gi'), '![' + alt + '](' + face + ')');
-  text = text.replace(/!\[[^\]]*\]\(https?:\/\/image\.pollinations\.ai\/[^)]+\)/gi, '![' + alt + '](' + face + ')');
-  return syncHeroDupesFaceCard(id, title, text || ('# ' + title + '\n\n'));
-}
 async function loadSquareEntry(id) {
   try {
     const e = await store.get('answers/' + id + '.json', { type: 'json' });
@@ -1623,17 +1599,19 @@ async function applySquarePick(id, imageUrl, slotIdx) {
     };
   }
 
-  // Face + top (same file) — atomic overwrite + force hero markdown
-  await squareWriteFaceAtomic(id, buf, title);
-  if (!fs.existsSync(coverPath(id)) || fs.statSync(coverPath(id)).size < 12000) {
-    return { ok: false, msg: 'overwrite failed — face file missing after write' };
+  // Face-card + top hero = SAME file (<id>-sq.jpg). Old titled face stays behind (not deleted).
+  const liveRel = await squareWriteFaceAtomic(id, buf, title);
+  const livePath = squareAbs(liveRel);
+  if (!fs.existsSync(livePath) || fs.statSync(livePath).size < 8000) {
+    return { ok: false, msg: 'face write failed' };
   }
   body = forceSquareFaceAndTopMarkdown(id, title, body || ('# ' + title + '\n\n'));
-  try { await stampDdgProvenance(id, store); } catch (e) {}
   const saved = await saveSquareEntry(id, {
-    cover_src: 'ddg-facecard',
+    cover_src: 'square-desk',
     face_title_baked: true,
-    img: squareFaceRel(id),
+    img: liveRel,
+    square_live: liveRel,
+    square_orig_hidden: true,
   }, body);
   const slots = buildSquareSlots(id, shape, body);
   return {
@@ -1642,9 +1620,11 @@ async function applySquarePick(id, imageUrl, slotIdx) {
     id,
     title,
     shape,
-    overwritten: true,
+    faceUrl: liveRel + '?v=' + bust,
+    topUrl: liveRel + '?v=' + bust,
+    sameFile: true,
+    originalKept: squareOrigRel(id),
     blobOk: !!saved._blobOk,
-    faceUrl: squareFaceRel(id) + '?v=' + bust,
     slots,
     nextSlot: nextOpenSquareSlot(slots),
   };
@@ -11081,7 +11061,13 @@ const server = http.createServer(async (req, res) => {
   if (u.pathname === '/internal-images' || u.pathname === '/internalimages') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('internalimages')); }
   if (u.pathname === '/rubric-stations' || u.pathname === '/rubricstation') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rubricstation')); }
   if (u.pathname.startsWith('/assets/qa/')) {
-    const rel = u.pathname.replace(/^\/+/, '');
+    let rel = u.pathname.replace(/^\/+/, '');
+    // Square Desk live face hides old titled original: serve <id>-sq.jpg when present
+    const bare = rel.match(/^assets\/qa\/([^/]+)\.jpe?g$/i);
+    if (bare && !/-sq$/i.test(bare[1]) && !/-\d+$/i.test(bare[1])) {
+      const liveRel = 'assets/qa/' + bare[1] + '-sq.jpg';
+      if (squareFileOk('/' + liveRel)) rel = liveRel;
+    }
     const fp = path.normalize(path.join(WD, rel));
     if (!fp.startsWith(path.normalize(WD + '/assets/qa'))) { res.writeHead(403); return res.end(); }
     try {

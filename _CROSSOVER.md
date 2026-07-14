@@ -1,5 +1,5 @@
-- **LIVE Square Builder (simplified desk):** https://approx-again-incoming-navy.trycloudflare.com/format-fixer  · local http://127.0.0.1:3229/format-fixer
-- **Flow:** waiting square → click → title → keyword search → click photo → face-card + top image saved → answer page. No pillar picker. Full Format Fixer UI: `/format-fixer-full`.
+- **LIVE Square Builder:** https://threaded-hood-wizard-loop.trycloudflare.com/format-fixer · local http://127.0.0.1:3229/format-fixer
+- **Flow:** pick photo → opaque cover (old bake stays on disk, invisible) → new gold title on `<id>-sq.jpg` = face + top. GET `/assets/qa/<id>.jpg` serves `-sq` when present.
 
 - **LIVE Square Builder (tunneled):** https://brown-feet-show.loca.lt/face-card-top-image-generator  · also local http://localhost:3229/face-card-top-image-generator
 ## ▶▶ CROSSOVER — 2026-07-14 OWNER UX LAW (FIXER → SQUARE → ANSWER) — READ FIRST
