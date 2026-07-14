@@ -114,6 +114,18 @@ function failSquareBuild(id, error) {
     return true;
   });
 }
+function removeSquareBuildsByPrefix(prefix) {
+  prefix = String(prefix || '').toLowerCase();
+  if (!prefix) return 0;
+  return withQueueLock(() => {
+    const state = readQueueUnlocked();
+    const before = state.pending.length;
+    state.pending = state.pending.filter(item => !String(item && item.id || '').toLowerCase().startsWith(prefix));
+    const removed = before - state.pending.length;
+    if (removed) writeQueueUnlocked(state);
+    return removed;
+  });
+}
 
 module.exports = {
   QUEUE_FILE,
@@ -121,4 +133,5 @@ module.exports = {
   enqueueSquareBuild,
   completeSquareBuild,
   failSquareBuild,
+  removeSquareBuildsByPrefix,
 };
