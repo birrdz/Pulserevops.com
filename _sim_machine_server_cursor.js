@@ -12,8 +12,9 @@ const { getStore } = require('@netlify/blobs');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 
 const PORT = parseInt(process.env.SIM_PORT || '8904', 10);
-const SCAN_SCRIPT = WD + '/_sim_scan_cursor.js';
-const TRANSFORM_SCRIPT = WD + '/_sim_transform_cursor.js';
+const CODE_ROOT = __dirname;
+const SCAN_SCRIPT = CODE_ROOT + '/_sim_scan_cursor.js';
+const TRANSFORM_SCRIPT = CODE_ROOT + '/_sim_transform_cursor.js';
 const SIM = WD + '/sim';
 try { fs.mkdirSync(SIM, { recursive: true }); } catch (e) {}
 const CMD_F = SIM + '/run_command.json', STATUS_F = SIM + '/run_status.json', SUMMARY_F = SIM + '/summary.json';
