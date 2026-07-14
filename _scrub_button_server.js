@@ -65,7 +65,10 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 // 🔒🔒 POLLINATOR FACE-CARD COVER LAW (owner 2026-07-03) — covers are Pollinations flux ONLY (DDG banned).
 // 🔒 OWNER 2026-07-04: Pollinator REMOVED from writing + scrubbing. Covers now = DDG face-cards with
 // the dated Pollinator look (people/places/things, photo-refined, no watermarked stock). Same signatures.
-const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
+const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, stampDdgProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, FILL_REUSE_PCT, gradeFaceCardFromBuffer, coverPath, storeGradedImage } = require('./_ddg_facecard_lib');
+const { syncHeroDupesFaceCard, fluxFaceHeroOnlyEntry, forceMainTopHero } = require('./_img_flux_rewrite_lib');
+const { ddgImages } = require('./netlify/functions/lib/img-search-lib');
+const { buildSquareDeskPage } = require('./_square_desk');
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
 const IMG_GEN_BATCH_MAX = parseInt(process.env.IMG_GEN_BATCH_MAX || '250', 10);
@@ -1213,6 +1216,239 @@ function forceStopFaceHero() {
   saveFaceHeroState(true);
   return { ok: true, forceStopped: true };
 }
+
+// ── Square Desk (owner 2026-07-14): waiting square → keyword search → click = face+top → answer page ──
+const SQUARE_QA_DIR = path.join(WD, 'assets', 'qa');
+function squareFaceRel(id) { return '/assets/qa/' + id + '.jpg'; }
+function squareSlotRel(id, n) { return '/assets/qa/' + id + '-' + n + '.jpg'; }
+function squareFileOk(rel) {
+  try { return fs.statSync(path.join(WD, rel.replace(/^\//, ''))).size > 8000; } catch (e) { return false; }
+}
+function detectSquareShape(id, title, body) {
+  try {
+    const route = pickGoldTemplate(id, body || '', title || '');
+    if (route && (route.template === 'top10' || route.template === 'ranking')) return 'top10';
+  } catch (e) {}
+  if (isTop10Body(body) || isRankingListBody(body)) return 'top10';
+  if (/^sy/i.test(String(id || '')) || /\bstyle(s)?\b/i.test(String(title || ''))) return 'styles';
+  return 'qa';
+}
+function buildSquareSlots(id, shape, body) {
+  const slots = [];
+  slots.push({ key: 'face', label: 'Face', n: 0, filled: squareFileOk(squareFaceRel(id)), url: squareFileOk(squareFaceRel(id)) ? squareFaceRel(id) : null, kind: 'face' });
+  slots.push({ key: 'top', label: 'Top', n: 0, filled: squareFileOk(squareFaceRel(id)), url: squareFileOk(squareFaceRel(id)) ? squareFaceRel(id) : null, kind: 'top' });
+  let count = 4;
+  if (shape === 'top10') count = 10;
+  else if (shape === 'styles') count = 6;
+  else {
+    try {
+      const targets = ddgImageSectionTargets(String(body || '').split('\n'), body || '');
+      count = Math.min(8, Math.max(2, (targets && targets.length) || 4));
+    } catch (e) { count = 4; }
+  }
+  for (let n = 1; n <= count; n++) {
+    const rel = squareSlotRel(id, n);
+    const filled = squareFileOk(rel);
+    const label = shape === 'top10' ? ('#' + n) : (shape === 'styles' ? ('Fit ' + n) : ('Img ' + n));
+    slots.push({ key: 'slot-' + n, label, n, filled, url: filled ? rel : null, kind: 'body' });
+  }
+  return slots;
+}
+function nextOpenSquareSlot(slots) {
+  const i = (slots || []).findIndex(s => s && s.kind === 'body' && !s.filled);
+  return i < 0 ? null : i;
+}
+async function fetchSquareImageBuf(url) {
+  const r = await fetch(String(url), {
+    signal: AbortSignal.timeout(28000),
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; PulseSquare/1.0)', Accept: 'image/*,*/*' },
+    redirect: 'follow',
+  });
+  if (!r.ok) throw new Error('image HTTP ' + r.status);
+  const buf = Buffer.from(await r.arrayBuffer());
+  if (buf.length < 2500) throw new Error('image too small');
+  return buf;
+}
+function patchBodySlotImage(id, title, body, n, rel) {
+  const alt = String(title || id).replace(/]/g, '').slice(0, 80);
+  const md = '![' + alt + '](' + rel + ')';
+  const lines = String(body || '').split('\n');
+  let seenHero = false;
+  let bodyImg = 0;
+  for (let i = 0; i < lines.length; i++) {
+    const m = String(lines[i]).match(/^\s*!\[([^\]]*)\]\(([^)\s]+)\)\s*$/);
+    if (!m) continue;
+    if (!seenHero) { seenHero = true; continue; }
+    bodyImg++;
+    if (bodyImg === n) {
+      lines[i] = md;
+      return lines.join('\n');
+    }
+  }
+  // no Nth body image — append before FAQ/Sources if possible
+  let insertAt = lines.length;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^##\s+(FAQ|Sources|Frequently)/i.test(String(lines[i]).trim())) { insertAt = i; break; }
+  }
+  const block = ['', md, ''];
+  return lines.slice(0, insertAt).concat(block).concat(lines.slice(insertAt)).join('\n');
+}
+async function loadSquareEntry(id) {
+  try {
+    const e = await store.get('answers/' + id + '.json', { type: 'json' });
+    if (e && e.answer) return e;
+  } catch (err) {}
+  return null;
+}
+async function saveSquareEntry(id, entryPatch, body) {
+  const prev = (await loadSquareEntry(id)) || { id };
+  const next = Object.assign({}, prev, entryPatch || {}, {
+    answer: body != null ? body : prev.answer,
+    updated_at: new Date().toISOString(),
+  });
+  try { await store.setJSON('answers/' + id + '.json', next); } catch (e) { /* soft-fail cloud */ }
+  try {
+    const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+    const ent = (idx.entries || []).find(x => x && x.id === id);
+    if (ent) {
+      if (entryPatch && entryPatch.cover_src) ent.cover_src = entryPatch.cover_src;
+      if (entryPatch && entryPatch.face_title_baked) ent.face_title_baked = true;
+      if (entryPatch && entryPatch.img) ent.img = entryPatch.img;
+      await store.setJSON('_index.json', idx);
+    }
+  } catch (e) {}
+  return next;
+}
+async function pickSquareNextEntry() {
+  let entries = [];
+  try { entries = await getImageDuplicatorEntries(null); } catch (e) { entries = []; }
+  const scored = [];
+  for (const row of entries.slice(0, 400)) {
+    const id = row.id;
+    if (squareFileOk(squareFaceRel(id)) && row.face_title_baked) continue;
+    let body = '';
+    let meta = row;
+    try {
+      const e = await store.get('answers/' + id + '.json', { type: 'json' });
+      if (e && e.answer) { body = e.answer; meta = Object.assign({}, row, e); }
+    } catch (err) {}
+    const title = String((typeof titleOf !== 'undefined' && titleOf[id]) || row.question || row.title || id);
+    const passer = (() => { try { return passedFormatFixerGate(id, body, meta); } catch (e) { return false; } })();
+    const missingFace = !squareFileOk(squareFaceRel(id)) || !meta.face_title_baked;
+    if (!missingFace) continue;
+    scored.push({
+      id,
+      title,
+      body,
+      pillar: (typeof pillarOf === 'function' ? pillarOf(id) : String(id).replace(/\d.*/, '')) || '',
+      passer,
+      shape: detectSquareShape(id, title, body),
+    });
+    if (scored.length >= 40) break;
+  }
+  scored.sort((a, b) => Number(b.passer) - Number(a.passer));
+  let pick = scored[0];
+  if (!pick && entries[0]) {
+    const id = entries[0].id;
+    const title = String((titleOf && titleOf[id]) || entries[0].question || id);
+    pick = { id, title, body: '', pillar: pillarOf(id), passer: false, shape: detectSquareShape(id, title, '') };
+  }
+  if (!pick) {
+    pick = {
+      id: 'aq9999',
+      title: 'How do reef tanks keep aquarium water clear and stable?',
+      body: '# How do reef tanks keep aquarium water clear and stable?\n\n## Direct Answer\n\nClear water starts with filtration, light, and steady parameters.\n\n## Deep Dive\n\nGood flow and a clean filter keep particles moving out of the water column.\n',
+      pillar: 'aq',
+      passer: true,
+      shape: 'qa',
+      demo: true,
+    };
+  }
+  const slots = buildSquareSlots(pick.id, pick.shape, pick.body);
+  return {
+    ok: true,
+    id: pick.id,
+    title: pick.title,
+    shape: pick.shape,
+    pillar: pick.pillar,
+    passer: !!pick.passer,
+    demo: !!pick.demo,
+    faceUrl: squareFileOk(squareFaceRel(pick.id)) ? squareFaceRel(pick.id) : null,
+    slots,
+    nextSlot: nextOpenSquareSlot(slots),
+  };
+}
+async function searchSquareImages(q) {
+  const query = String(q || '').trim().slice(0, 120);
+  if (!query) return { ok: false, msg: 'type a keyword' };
+  let results = [];
+  try {
+    const arr = await ddgImages(query);
+    results = (arr || []).slice(0, 24).map((x, i) => ({
+      i,
+      image: x.image || x.url,
+      thumb: x.thumbnail || x.image || x.url,
+      url: x.url || x.image,
+    })).filter(x => x.image && /^https?:\/\//i.test(x.image));
+  } catch (e) {
+    return { ok: false, msg: 'search failed · ' + (e.message || e) };
+  }
+  return { ok: true, q: query, results };
+}
+async function applySquarePick(id, imageUrl, slotIdx) {
+  id = String(id || '').trim();
+  imageUrl = String(imageUrl || '').trim();
+  if (!id || !imageUrl) return { ok: false, msg: 'missing id or image' };
+  if (!fs.existsSync(SQUARE_QA_DIR)) fs.mkdirSync(SQUARE_QA_DIR, { recursive: true });
+  const entry = await loadSquareEntry(id);
+  let title = String((titleOf && titleOf[id]) || (entry && (entry.question || entry.title)) || id);
+  let body = entry && entry.answer ? String(entry.answer) : '';
+  if (!body && id === 'aq9999') {
+    body = '# How do reef tanks keep aquarium water clear and stable?\n\n## Direct Answer\n\nClear water starts with filtration, light, and steady parameters.\n\n## Deep Dive\n\nGood flow and a clean filter keep particles moving out of the water column.\n';
+    title = 'How do reef tanks keep aquarium water clear and stable?';
+  }
+  const shape = detectSquareShape(id, title, body);
+  const buf = await fetchSquareImageBuf(imageUrl);
+
+  // Body slot fill (answer page)
+  if (slotIdx != null && Number.isFinite(Number(slotIdx)) && Number(slotIdx) >= 0) {
+    let slots = buildSquareSlots(id, shape, body);
+    const idx = Number(slotIdx);
+    const slot = slots[idx];
+    if (!slot || slot.kind !== 'body') return { ok: false, msg: 'no open body slot' };
+    const rel = squareSlotRel(id, slot.n);
+    const dest = path.join(WD, rel.replace(/^\//, ''));
+    await storeGradedImage(buf, dest, { sectionTile: true, width: 1200, height: 675, bright: false });
+    body = patchBodySlotImage(id, title, body, slot.n, rel);
+    await saveSquareEntry(id, {}, body);
+    slots = buildSquareSlots(id, shape, body);
+    return { ok: true, mode: 'slot', id, shape, faceUrl: squareFaceRel(id), slots, nextSlot: nextOpenSquareSlot(slots) };
+  }
+
+  // Face + top (same file)
+  const dest = coverPath(id);
+  await gradeFaceCardFromBuffer(buf, dest, { question: title, goldTitle: title });
+  if (!coverFileOk(id)) return { ok: false, msg: 'graded face-card too small' };
+  body = syncHeroDupesFaceCard(id, title, body || ('# ' + title + '\n\n'));
+  try { await stampDdgProvenance(id, store); } catch (e) {}
+  await saveSquareEntry(id, {
+    cover_src: 'ddg-facecard',
+    face_title_baked: true,
+    img: squareFaceRel(id),
+  }, body);
+  const slots = buildSquareSlots(id, shape, body);
+  return {
+    ok: true,
+    mode: 'face',
+    id,
+    title,
+    shape,
+    faceUrl: squareFaceRel(id),
+    slots,
+    nextSlot: nextOpenSquareSlot(slots),
+  };
+}
+
 function faceHeroStatusPayload() {
   const snap = Object.assign({}, faceHeroJob, { log: (faceHeroJob.log || []).slice(0, 24), pendingReview: slimImageReview(faceHeroJob.pendingReview) });
   delete snap._entries;
@@ -6565,10 +6801,11 @@ function buildPage(mode) {
   const batchIdleHint = 'Open a station tab — pick pillar — ▶ Start. Finished entries land in the audit pile below.';
   const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer + Square Builder' : (isFaceHero ? 'Square Builder · Face Card' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
   return `<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><title>PULSE · ${pageTitle}</title><style>
-*{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:18px}
-#gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:92%;max-width:560px}
+*{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh;gap:18px;padding:24px 0 48px}
+#gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:94%;max-width:560px}
 #gate{display:none;position:relative;z-index:90}
-#app{display:flex;position:relative;z-index:90}
+#app{display:flex!important;visibility:visible!important;opacity:1!important;position:relative;z-index:90}
+body.daily-driver #app{max-width:920px}
 h1{font-weight:800;margin:0;font-size:1.4rem}.sub{color:#8aa0ad;font-size:.85rem;margin:0;text-align:center}
 input{padding:12px;font-size:1.4rem;text-align:center;letter-spacing:.4em;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#0f161e;color:#e8eef2;width:160px}
 .counts{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}.pill{padding:8px 14px;border-radius:20px;font-weight:800;font-size:.95rem}.green{background:rgba(46,204,113,.16);color:#2ecc71}.red{background:rgba(231,76,60,.16);color:#ff8a76}.amber{background:rgba(241,196,15,.16);color:#f1c40f}.purple{background:rgba(167,139,250,.18);color:#c4b5fd}
@@ -6579,7 +6816,7 @@ button.scrub:hover{transform:translateY(-2px)}button.scrub:active{transform:scal
 #result.show{opacity:1}.flash{animation:fl 1s ease}@keyframes fl{0%{background:rgba(46,204,113,.25)}100%{background:#141b24}}
 .rid{font-weight:800}.steps{color:#8aa0ad;font-size:.78rem;margin-top:4px}
 #fx{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:60}
-#uniSplash{position:fixed;inset:0;z-index:70;cursor:pointer;background:#0a0806;touch-action:manipulation;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+#uniSplash{position:fixed;inset:0;z-index:70;cursor:pointer;background:#0a0806;touch-action:manipulation;display:none!important;flex-direction:column;align-items:center;justify-content:center;gap:18px}
 #uniEnter{border:none;border-radius:32px;padding:16px 28px;font-size:1rem;font-weight:900;color:#06121a;background:linear-gradient(135deg,#a78bfa,#7c3aed);cursor:pointer;box-shadow:0 8px 28px rgba(124,58,237,.45);z-index:85;position:relative}
 #uniEnter:hover{transform:translateY(-2px)}
 #uni{position:relative;left:auto;top:auto;transform:none;font-size:min(18vw,5.5rem);cursor:pointer;z-index:85;user-select:none;filter:drop-shadow(0 6px 16px rgba(167,139,250,.55));padding:8px 16px;text-align:center;pointer-events:none}
@@ -7701,7 +7938,7 @@ const $=s=>document.querySelector(s);
 // ── Scrub vs Generate — one page, client-side tab toggle (owner) ──
 window.activeTab='${mode}';
 const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'🟦 Square Builder',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
-const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'<b>Square Builder</b> — after Format Fixer pass only. Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only. Face station requires Format Fixer pass first.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'<b>Daily driver:</b> Format Fixer on top · <b>Square Builder dashboard below</b> on this same page. Fixer = content only. Square = real face-card + title bake + click-fill images.';
+const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'<b>Square Builder</b> — after Format Fixer pass only. Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only. Face station requires Format Fixer pass first.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'<b>Daily driver:</b> Format Fixer on top · <b>Square Builder dashboard below</b> on this same page. Fixer = content only. Square = real face-card + title bake + click-fill images.'};
 function switchPipelineTab(mode){
   if(!mode||mode===window.activeTab) return;
   window.activeTab=mode;
@@ -10628,8 +10865,18 @@ const server = http.createServer(async (req, res) => {
   if (u.pathname === '/image-duplicator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('duplicator')); }
   if (u.pathname === '/image-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('imgen')); }
   if (u.pathname === '/pollinator-image-overwrite' || u.pathname === '/image-rewrite') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rewrite')); }
-  if (u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('facehero')); }
-  if (u.pathname === '/format-fixer' || u.pathname === '/formatfix') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('formatfix')); }
+  if (u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator' || u.pathname === '/square-builder' || u.pathname === '/square') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    return res.end(buildSquareDeskPage());
+  }
+  if (u.pathname === '/format-fixer' || u.pathname === '/formatfix') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    return res.end(buildSquareDeskPage());
+  }
+  if (u.pathname === '/format-fixer-full' || u.pathname === '/formatfix-full') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    return res.end(buildPage('formatfix'));
+  }
   if (u.pathname === '/internal-images' || u.pathname === '/internalimages') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('internalimages')); }
   if (u.pathname === '/rubric-stations' || u.pathname === '/rubricstation') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rubricstation')); }
   if (u.pathname.startsWith('/assets/qa/')) {
@@ -10993,6 +11240,61 @@ const server = http.createServer(async (req, res) => {
       const r = forceStopImageRewrite();
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(r));
+    });
+    return;
+  }
+  if (u.pathname === '/square-next') {
+    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
+    pickSquareNextEntry().then(r => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(r));
+    }).catch(e => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
+    });
+    return;
+  }
+  if (u.pathname === '/square-search') {
+    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
+    searchSquareImages(u.searchParams.get('q') || '').then(r => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(r));
+    }).catch(e => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
+    });
+    return;
+  }
+  if (u.pathname === '/square-proxy') {
+    const raw = u.searchParams.get('u') || '';
+    let target = '';
+    try { target = decodeURIComponent(raw); } catch (e) { target = raw; }
+    if (!/^https?:\/\//i.test(target)) { res.writeHead(400); return res.end('bad url'); }
+    fetch(target, {
+      signal: AbortSignal.timeout(20000),
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; PulseSquare/1.0)', Accept: 'image/*,*/*' },
+      redirect: 'follow',
+    }).then(async r => {
+      if (!r.ok) { res.writeHead(502); return res.end('upstream'); }
+      const ct = (r.headers.get('content-type') || 'image/jpeg').split(';')[0];
+      const buf = Buffer.from(await r.arrayBuffer());
+      res.writeHead(200, { 'Content-Type': ct, 'Cache-Control': 'public, max-age=600' });
+      res.end(buf);
+    }).catch(() => { res.writeHead(502); res.end('proxy fail'); });
+    return;
+  }
+  if (u.pathname === '/square-pick' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      const slot = (d.slot == null || d.slot === '') ? null : Number(d.slot);
+      applySquarePick(d.id || '', d.imageUrl || d.url || '', slot).then(r => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(r));
+      }).catch(e => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, msg: e.message || String(e) }));
+      });
     });
     return;
   }
