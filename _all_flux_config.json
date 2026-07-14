@@ -5,9 +5,10 @@
     "force":  false,
     "faceCardVariant":  "square",
     "queueMode":  true,
+    "manualReview":  true,
     "cooldownMs":  0,
     "coolStepMs":  5000,
     "coolMaxMs":  60000,
     "emailPerImage":  false,
-    "note":  "owner 2026-07-14: fixer-to-square queue ON. Every database Q&A that passes Format Fixer waits in the persistent queue for one serial 760x760 square build. Empty queue = builder waiting; unrelated pages are never rebuilt."
+    "note":  "owner 2026-07-14: fixer-to-square queue ON with manual review at localhost:8899/square-builder. Every passing Q&A waits until the owner clicks a generated square. Background builder stays idle; unrelated pages are never rebuilt."
 }
