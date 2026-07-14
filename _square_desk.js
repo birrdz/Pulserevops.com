@@ -23,6 +23,10 @@ input[type=text]{flex:1;min-width:160px;padding:12px 14px;border-radius:10px;bor
 button.act{border:none;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff}
 button.save{background:linear-gradient(135deg,#15803d,#22c55e)}
 button.ghost{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:12px 14px;font-weight:700;cursor:pointer}
+#restartNode{width:100%;flex-basis:100%;padding:18px 22px;border:3px solid #FFD54F;border-radius:14px;background:linear-gradient(135deg,#dc2626,#f97316);color:#fff;font-size:1.15rem;font-weight:950;letter-spacing:.04em;box-shadow:0 0 0 3px rgba(255,213,79,.2),0 0 28px rgba(249,115,22,.5);animation:restartPulse 1.8s ease-in-out infinite}
+#restartNode:hover{filter:brightness(1.12);transform:translateY(-1px)}
+@keyframes restartPulse{0%,100%{box-shadow:0 0 0 3px rgba(255,213,79,.18),0 0 20px rgba(249,115,22,.35)}50%{box-shadow:0 0 0 6px rgba(255,213,79,.32),0 0 38px rgba(249,115,22,.7)}}
+.restart-help{width:100%;text-align:center;color:#fcd34d;font-size:.78rem;font-weight:800}
 button:disabled{opacity:.4;cursor:not-allowed}
 .slots{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
 .slotbtn{border:1px solid var(--line);background:#0c1018;color:var(--muted);border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer;font-size:.8rem}
@@ -56,8 +60,9 @@ footer a{color:#7a8496;font-size:.75rem}
   <h1>🟦 Pick photos</h1>
   <p class=sub>The square preview mirrors the live card: same crop, gradient, current template title, and title placement. Face-card <b>auto = top image</b> (same file).</p>
   <div class="card row">
+    <button type=button id=restartNode>♻ RESET / RESTART NODE SERVER</button>
+    <div class=restart-help>Use this after code changes or if Builder is stuck. Active Fixer and Builder progress resumes automatically.</div>
     <button type=button class=act id=autoToggle>▶ Auto-run 100 OFF</button>
-    <button type=button class=ghost id=restartNode>♻ Restart Node</button>
     <span class=status id=autoStatus>Manual mode · your picks train auto-run.</span>
   </div>
 
@@ -299,7 +304,7 @@ $('#restartNode').onclick=async()=>{
       try{const h=await(await fetch('/health?t='+Date.now(),{cache:'no-store'})).json();if(h.ok){location.reload();return;}}catch(e){}
     }
     throw new Error('server did not return');
-  }catch(e){alert(e.message);$('#restartNode').disabled=false;$('#restartNode').textContent='♻ Restart Node';}
+  }catch(e){alert(e.message);$('#restartNode').disabled=false;$('#restartNode').textContent='♻ RESET / RESTART NODE SERVER';}
 };
 refreshAuto();
 loadNext();
