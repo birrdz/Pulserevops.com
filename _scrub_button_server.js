@@ -997,17 +997,20 @@ async function finishManualPexelsQa(id) {
   const entry = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
   const now = Date.now();
+  const fullyFixed = !!entry.fixer_passed_at;
   const tags = [...new Set([...(entry.tags || []), 'pulse-recent'])];
-  await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, { tags, polished_at: now, image_completed_at: new Date(now).toISOString() }));
+  await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, { tags, polished_at: now, image_completed_at: new Date(now).toISOString(), fully_fixed_visual: fullyFixed }));
   const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
   const row = (idx.entries || []).find(item => item && item.id === id);
   if (row) {
     row.tags = [...new Set([...(row.tags || []), 'pulse-recent'])];
     row.polished_at = now;
+    row.image_completed_at = new Date(now).toISOString();
+    row.fully_fixed_visual = fullyFixed;
     await store.setJSON('_index.json', idx);
   }
   completeSquareBuild(id);
-  return { ok: true, id, recent: true, pillar: pillarOf(id) };
+  return { ok: true, id, recent: true, pillar: pillarOf(id), fullyFixed };
 }
 const FACE_HERO_F = WD + '/_face_hero_run.json';
 let faceHeroJob = {
@@ -1448,6 +1451,15 @@ async function processFormatFixerEntry(id) {
     words: r.after && r.after.words,
   };
 }
+async function stampFormatFixerPassed(id) {
+  try {
+    const entry = await store.get('answers/' + id + '.json', { type: 'json' });
+    if (!entry || !entry.answer || entry.fixer_passed_at) return;
+    await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, { fixer_passed_at: new Date().toISOString() }));
+  } catch (e) {
+    formatFixerLog('⚠️ ' + id + ' · could not stamp fixer pass');
+  }
+}
 async function getFormatFixerEntries(pillar) {
   const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
   const seen = new Set();
@@ -1513,6 +1525,7 @@ async function runFormatFixerLoop() {
           formatFixerJob.entriesSkipped++;
           formatFixerJob.entriesPass++;
           formatFixerJob.consecutiveErrors = 0;
+          await stampFormatFixerPassed(id);
           if (enqueueSquareBuild(id, titleOf[id] || row.question || id)) formatFixerJob.squareQueued++;
         }
         else if (r.error) recordFormatFixerError(id, r.error);
@@ -1522,6 +1535,7 @@ async function runFormatFixerLoop() {
           if (r.changed) formatFixerJob.entriesFixed++;
           if (r.pass) {
             formatFixerJob.entriesPass++;
+            await stampFormatFixerPassed(id);
             if (enqueueSquareBuild(id, titleOf[id] || row.question || id)) formatFixerJob.squareQueued++;
           }
           const note = r.pass ? 'rubric ✓' : ('rubric ' + (r.afterPct != null ? r.afterPct : '?') + '% · ' + (r.words != null ? r.words + 'w' : '') + (r.failed && r.failed.length ? ' · ' + r.failed.slice(0, 4).join(', ') : ''));
