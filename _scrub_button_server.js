@@ -1303,6 +1303,21 @@ async function processFormatFixerEntry(id) {
     words: r.after && r.after.words,
   };
 }
+async function getFormatFixerEntries(pillar) {
+  const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+  const seen = new Set();
+  let entries = (idx.entries || []).filter(e => {
+    if (!e || !e.id || seen.has(String(e.id))) return false;
+    // The format fixer owns every database Q&A URL, including one-letter q IDs and visitor IDs
+    // (vq_*). The old image-job regex silently excluded both. Missing answer blobs are counted
+    // by processFormatFixerEntry and skipped without stopping the automatic run.
+    if (e.has_answer === false || e.pending === true) return false;
+    seen.add(String(e.id));
+    return true;
+  });
+  if (pillar && pillar !== 'all') entries = entries.filter(e => pillarOf(e.id) === pillar);
+  return entries.sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true }));
+}
 async function runFormatFixerLoop() {
   if (formatFixerJob.running) return;
   formatFixerJob.running = true;
@@ -1315,7 +1330,7 @@ async function runFormatFixerLoop() {
   formatFixerJob.entriesPass = 0;
   formatFixerJob.entriesSkipped = 0;
   try {
-    const entries = formatFixerJob._entries || await getImageDuplicatorEntries(formatFixerJob.pillar === 'all' ? null : formatFixerJob.pillar);
+    const entries = formatFixerJob._entries || await getFormatFixerEntries(formatFixerJob.pillar);
     formatFixerJob._entries = entries;
     formatFixerJob.total = entries.length;
     if (!formatFixerJob.total) {
