@@ -1289,24 +1289,30 @@ async function fetchSquareImageBuf(url) {
   throw lastErr || new Error('image fetch failed');
 }
 /** Hard-delete every copy of the face-card JPEG for this id. */
-function squareDeleteFaceFiles(id) {
+function squareDeleteFaceFiles(id, opts) {
+  opts = opts || {};
+  const keepTmp = !!opts.keepTmp;
   const targets = [
     coverPath(id),
     squareAbs(squareFaceRel(id)),
     path.join('/workspace/assets/qa', id + '.jpg'),
     path.join(WD, 'assets', 'qa', id + '.jpg'),
   ];
-  // Also wipe leftover tmp files
-  try {
-    const dir = path.dirname(coverPath(id));
-    if (fs.existsSync(dir)) {
-      for (const f of fs.readdirSync(dir)) {
-        if (f === id + '.jpg' || f.startsWith(id + '.jpg.tmp') || f.startsWith(id + '.tmp-')) {
-          targets.push(path.join(dir, f));
+  // Optionally wipe leftover tmp files (never while a write is in flight)
+  if (!keepTmp) {
+    try {
+      const dir = path.dirname(coverPath(id));
+      if (fs.existsSync(dir)) {
+        for (const f of fs.readdirSync(dir)) {
+          if (f === id + '.jpg') targets.push(path.join(dir, f));
+          // only purge stale tmps older naming — exact live file only in keepTmp mode
+          else if (/^\.tmp-/.test(f.replace(id + '.jpg', '')) || f.startsWith(id + '.bak-')) {
+            targets.push(path.join(dir, f));
+          }
         }
       }
-    }
-  } catch (e) {}
+    } catch (e) {}
+  }
   const seen = new Set();
   let deleted = 0;
   for (const fp of targets) {
@@ -1339,22 +1345,23 @@ async function squareWriteWhiteFace(id, title) {
   } catch (e) {}
   return dest;
 }
-/** Write graded JPEG to a temp file, then rename over the live path (true overwrite). */
+/** Write graded JPEG: delete old → white → write real photo over (never delete in-flight tmp). */
 async function squareWriteFaceAtomic(id, buf, title) {
   const dest = coverPath(id);
   const dir = path.dirname(dest);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  // 1) Delete old image completely
-  squareDeleteFaceFiles(id);
-  // 2) Write solid WHITE face so any stale pixels/cache path is visibly blanked
-  try { await squareWriteWhiteFace(id, title); } catch (e) { /* continue to real write */ }
-  // 3) Write the real photo over white
-  const tmp = dest + '.tmp-' + Date.now() + '.jpg';
+  // 1) Delete old live face only
+  squareDeleteFaceFiles(id, { keepTmp: true });
+  try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
+  // 2) Solid WHITE so stale pixels are gone
+  try { await squareWriteWhiteFace(id, title); } catch (e) { /* continue */ }
+  // 3) Grade real photo to temp, then replace dest
+  const tmp = path.join(dir, id + '.bak-' + Date.now() + '.jpg');
   try {
     await gradeFaceCardFromBuffer(buf, tmp, { question: title, goldTitle: title });
     const sz = fs.statSync(tmp).size;
     if (sz < 12000) throw new Error('graded face-card too small (' + sz + 'b)');
-    squareDeleteFaceFiles(id); // wipe white placeholder too
+    try { if (fs.existsSync(dest)) fs.unlinkSync(dest); } catch (e) {}
     fs.renameSync(tmp, dest);
     try {
       const mirror = path.join('/workspace/assets/qa', id + '.jpg');
