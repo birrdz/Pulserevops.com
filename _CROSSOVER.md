@@ -1,7 +1,28 @@
+## ▶▶ CROSSOVER — 2026-07-14 OWNER UX LAW (FIXER → SQUARE → ANSWER) — READ FIRST
+
+**Three shapes (same station order; answer page differs):**
+
+| # | Shape | What it is | Answer-page images |
+|---|--------|------------|--------------------|
+| 1 | **Top 10 / ranking** | Listicle goat (`aq1158` gold) | Rank + product images per list law |
+| 2 | **Q&A essay** | Standard goat (`q11133` gold) | Face-card/hero + section images |
+| 3 | **Styles (`sy`) — style only** | Same Fixer → Square path as Q&A | **3 men + 3 women** outfit images (20s / 40s / 60s) + cover = **7 total** |
+
+**Station law (all three):**
+1. **Format Fixer** — content + structure only. **Title overlay + face image are fake/placeholder here** (visual lock: Fixer never owns real cover/title bake).
+2. **Square Builder** (`/face-card-top-image-generator`) — real Pollinator face-card + **orange title bake** (`face_title_baked`). **When face-card title is done → square turns green** → **auto goes to the answer screen**.
+3. Main library / blobs stay put. **Only full Fixer passers (5/5 / contentFormatPass) from the last hour** are queued into Square Builder — nothing is removed from the main DB.
+
+**Handoff:**
+- Stop Format Fixer → Square Builder: force-stop / finish auto-launches Square on the **same pillar**, **passers only**, **auto-approve ON**.
+- Windows one-click: `_stop_fixer_go_square.bat` (scrub on **8911** for this real run · or 8902 legacy) · `node _handoff_fixer_to_square.js --base=http://127.0.0.1:8911`
+- **Open Square Builder:** http://127.0.0.1:8911/face-card-top-image-generator (🦄 → **4444**)
+- Cloud agent cannot hit LAN scrub / main Blobs without Windows `.env.local` — run on the PC.
+
 ## ▶▶ CROSSOVER — 2026-07-14 FIXER → SQUARE AUTO HANDOFF — READ FIRST
 
 - **Stop Format Fixer → Square Builder:** force-stop / finish now auto-launches Square Builder on the **same pillar**, **passers only**, **auto-approve ON**.
-- **One-click on Windows:** double-click `_stop_fixer_go_square.bat` (scrub must already be on 8902) · or `node _handoff_fixer_to_square.js --base=http://127.0.0.1:8902`
+- **One-click on Windows:** double-click `_stop_fixer_go_square.bat` (scrub must already be on 8902/8911) · or `node _handoff_fixer_to_square.js --base=http://127.0.0.1:8911`
 - **API:** `POST /fixer-to-square` `{ key: 4444 }`
 - Cloud agent cannot hit your LAN scrub — run the bat on the PC.
 
