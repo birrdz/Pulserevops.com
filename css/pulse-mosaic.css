@@ -1,10 +1,11 @@
 /* Shared face-card mosaic — homepage, pillar hubs, knowledge entries (owner 2026-07-04)
-   Canonical tile size = homepage .wrap (1080px · 4 cols · 150px rows · 12px gap). */
+   Canonical tile size = homepage .wrap (1080px · 4 cols · 150px rows).
+   Gap = 0 (owner 2026-07-11): no black strips between face cards. */
 :root {
   --pulse-mosaic-max: 1080px;
-  --pulse-mosaic-row: 360px; /* single-column decent rectangle (owner 2026-07-06) */
-  --pulse-mosaic-gap: 12px;
-  --pulse-mosaic-cols: 1;
+  --pulse-mosaic-row: 220px;
+  --pulse-mosaic-gap: 0;
+  --pulse-mosaic-cols: 2; /* desktop + mobile meet: 2 tiles per row (owner 2026-07-11) */
   --mm-gold: #FFEB3B;
   --mm-gold-cat: #FFE566;
 }
@@ -44,22 +45,20 @@ body.pulse-mosaic-page .grid-wrap {
 .grid.mag-mosaic,
 .grid.pulse-home-mosaic {
   display: grid !important;
-  grid-template-columns: 1fr !important; /* single column (owner 2026-07-06) */
-  grid-auto-rows: 360px !important;
-  gap: 12px !important;
-  grid-auto-flow: dense !important;
+  grid-template-columns: repeat(2, 1fr) !important; /* 2 tiles/row — desktop & mobile meet */
+  grid-auto-rows: var(--pulse-mosaic-row, 220px) !important;
+  gap: 0 !important;
+  grid-auto-flow: row !important;
   max-width: var(--pulse-mosaic-max) !important;
 }
 
-.mag-mosaic.mosaic-compact{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));grid-auto-rows:138px;gap:10px;}
-.mag-mosaic.mosaic-compact .mm h4{font-size:1.14rem;}
-.mm{position:relative;display:block;overflow:hidden;border-radius:6px;background:#1a1a1a center 24%/cover no-repeat;background-size:cover;text-decoration:none;border:1.5px solid #EAC15C;box-shadow:0 0 0 1px rgba(234,193,92,.25);content-visibility:visible;min-height:var(--pulse-mosaic-row,150px);}
+.mag-mosaic.mosaic-compact{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));grid-auto-rows:138px;gap:0;}
+.mag-mosaic.mosaic-compact .mm h4{font-size:.82rem;}
+.mm{position:relative;display:block;overflow:hidden;border-radius:0;background:#1a1a1a center 24%/cover no-repeat;background-size:cover;text-decoration:none;border:1.5px solid #EAC15C;border-bottom:none;box-shadow:none;content-visibility:visible;min-height:var(--pulse-mosaic-row,150px);}
+.mag-mosaic > .mm:last-of-type,.grid.mag-mosaic > .mm:last-of-type,.grid.pulse-home-mosaic > .mm:last-of-type{border-bottom:1.5px solid #EAC15C;}
 .mm[href^="/knowledge/"]{background-position:center center;}
 /* Face-card tiles are baked 3:1 with attention crop — center on subject (owner 2026-07-08). */
-.mm-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;min-width:0;min-height:0;display:block;filter:brightness(1.22) saturate(1.04);} /* site-wide brightness bump (owner 2026-07-06) */
-/* HOMEPAGE (owner 2026-07-07): original full-color tile format, but LARGE WHITE titles instead of gold.
-   Scoped to #magMosaic entry tiles. Strong shadow + stroke so white reads over any photo. Revert = delete. */
-#magMosaic a.mm[href^="/knowledge/"] h4{color:#fff;text-shadow:0 2px 4px #000,0 2px 16px rgba(0,0,0,.95);-webkit-text-stroke:.7px rgba(0,0,0,.6);paint-order:stroke fill;}
+.mm-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;z-index:0;min-width:0;min-height:0;display:block;filter:brightness(1.22) saturate(1.04);} /* bias up — hide old huge baked titles at bottom */
 #magMosaic .mm-scrim{background:linear-gradient(180deg,rgba(0,0,0,0) 34%,rgba(0,0,0,.5) 64%,rgba(0,0,0,.9) 100%);}
 /* brighten background-image fallback tiles + hub tiles too (owner 2026-07-06) */
 .mm[style*="background-image"]:not(:has(.mm-img)){filter:brightness(1.18) saturate(1.03);}
@@ -69,76 +68,215 @@ body.pulse-mosaic-page .grid-wrap {
 .mm.mm-lazy{background:#14120e linear-gradient(145deg,#14120e 0%,#1e1a12 42%,#14120e 100%);background-size:cover;}
 .mm.mm-lazy.mm-img-pending{animation:mm-lazy-pulse 1.8s ease-in-out infinite;}
 @keyframes mm-lazy-pulse{0%,100%{opacity:1}50%{opacity:.82}}
-.mm-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.03) 42%,rgba(0,0,0,.82) 100%);pointer-events:none;}
-.mm-txt{position:absolute;left:0;right:0;bottom:0;padding:11px 13px;pointer-events:none;}
+.mm-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02) 35%,rgba(0,0,0,.75) 68%,rgba(0,0,0,.96) 100%);pointer-events:none;z-index:1;}
+/* Readable titles — bright yellow, bigger on desktop + mobile (owner 2026-07-11) */
+.mm-txt{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 16px;pointer-events:none;display:flex;flex-direction:column;align-items:flex-start;gap:4px;z-index:2;}
 .mm-hire-t,.mm-menu-t,.mm-hero-in{pointer-events:none;}
-.mm-cat{font-size:1rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mm-gold-cat,#FFE566);}
-.mm h4{font-family:Fraunces,"Playfair Display",Georgia,serif;font-style:italic;font-weight:900;font-size:3.2rem;line-height:1.16;margin:3px 0 0;color:var(--mm-gold,#FFEB3B);text-shadow:0 0 1px #000,0 0 2px #000,0 1px 0 #000,0 2px 10px rgba(0,0,0,.95),0 4px 16px rgba(0,0,0,.85),0 0 12px rgba(255,220,50,.28);-webkit-text-stroke:0.5px rgba(0,0,0,.9);paint-order:stroke fill;}
+.mm-cat{position:absolute;top:10px;left:10px;z-index:2;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#FFEB3B;background:rgba(0,0,0,.55);border:1px solid rgba(255,235,59,.45);padding:4px 8px;border-radius:6px;text-shadow:0 1px 2px #000;pointer-events:none;}
+.mm h4{font-family:Inter,system-ui,Arial,sans-serif;font-style:normal;font-weight:800;font-size:clamp(1.15rem,2.4vw,1.55rem);line-height:1.15;margin:0;color:#FFEB3B;text-shadow:0 0 2px #000,0 2px 4px #000,0 3px 14px rgba(0,0,0,.95);-webkit-text-stroke:0;paint-order:normal;}
 .mm.big{grid-column:span 2;grid-row:span 2;}.mm.wide{grid-column:span 2;}.mm.tall{grid-row:span 2;}
 /* Really long Q&A titles get a much larger tile so the full question fits (+15% scale). */
 .mm.mm-long{grid-column:span 2;grid-row:span 3;contain-intrinsic-size:173px 531px;}
 .mm.mm-long .mm-scrim{background:linear-gradient(180deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,.55) 38%,rgba(0,0,0,.9) 100%);}
 .mm.mm-long .mm-txt{padding:12px 14px 15px;}
-.mm h4{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;-webkit-line-clamp:4;}
-.mm.big h4{font-size:1.2rem;line-height:1.18;-webkit-line-clamp:6;}
-.mm.mm-long h4{font-size:1.13rem;line-height:1.22;-webkit-line-clamp:9;}
+.mm h4{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;-webkit-line-clamp:3;}
+.mm.big h4{font-size:clamp(1.2rem,2.6vw,1.7rem);line-height:1.12;-webkit-line-clamp:4;}
+.mm.mm-long h4{font-size:clamp(1.2rem,2.6vw,1.65rem);line-height:1.14;-webkit-line-clamp:5;}
 .mm:hover{filter:brightness(1.07);}
 .mm.mm-noimg{border-color:rgba(234,193,92,.45);}
 .mm.mm-noimg .mm-img{display:none;}
 .mm.mm-noimg{background:#14120e linear-gradient(145deg,#14120e 0%,#1e1a12 42%,#14120e 100%) center/cover;}
 @media(max-width:820px){
-  :root{--pulse-mosaic-row:360px;--pulse-mosaic-gap:14px;}
+  :root{--pulse-mosaic-row:160px;--pulse-mosaic-gap:0;--pulse-mosaic-cols:1;}
   .mag-mosaic,.grid.mag-mosaic,.grid.pulse-home-mosaic,[data-pulse-home-mosaic].mag-mosaic,[data-pulse-mosaic].mag-mosaic{
-    grid-template-columns:1fr!important;grid-auto-rows:360px!important;gap:14px!important;
+    grid-template-columns:1fr!important;grid-auto-rows:160px!important;gap:0!important;grid-auto-flow:row!important;
   }
-  .grid.mag-mosaic,.grid.pulse-home-mosaic{grid-auto-rows:360px!important;gap:14px!important;}
-  .mag-mosaic.mosaic-compact{grid-auto-rows:225px;}
-  .mm{contain-intrinsic-size:285px 368px;min-height:285px;content-visibility:visible;}
-  .mm-txt{padding:16px 18px 17px;}
+  .grid.mag-mosaic,.grid.pulse-home-mosaic{grid-auto-rows:160px!important;gap:0!important;}
+  .mag-mosaic.mosaic-compact{grid-auto-rows:150px;}
+  .mm{contain-intrinsic-size:160px 160px;min-height:160px;content-visibility:visible;}
+  .mm-txt{padding:10px 11px 11px;}
   .mm-scrim{background:linear-gradient(180deg,rgba(0,0,0,.05) 28%,rgba(0,0,0,.7) 60%,rgba(0,0,0,.94) 100%);}
-  .mm-cat{font-size:1.2rem;letter-spacing:.12em;color:#FFE9A6;text-shadow:0 1px 2px #000;-webkit-text-stroke:0.4px rgba(0,0,0,.88);paint-order:stroke fill;}
-  /* Mobile tile title (owner 2026-07-07): crisp black stroke + tighter dark halo + cleaner cream-gold + right-sized so full titles read. */
-  .mm h4{font-size:2.7rem;line-height:1.18;-webkit-line-clamp:5;color:#FFF4CC;text-shadow:0 1px 2px #000,0 2px 6px rgba(0,0,0,.95),0 0 3px #000;-webkit-text-stroke:0.8px rgba(0,0,0,.92);paint-order:stroke fill;}
-  .mm.big h4,.mm.wide h4,.mm.tall h4{font-size:1.78rem;line-height:1.22;-webkit-line-clamp:5;}
-  .mm.mm-long h4{font-size:1.61rem;line-height:1.24;-webkit-line-clamp:8;}
-  .mm.big{grid-column:span 2;grid-row:span 1;min-height:285px;}
-  .mm.mm-long{grid-column:span 2;grid-row:span 2;min-height:570px;}
+  .mm-cat{font-size:.55rem;top:8px;left:8px;padding:3px 6px;}
+  .mm h4{font-size:clamp(1.05rem,4.2vw,1.35rem);line-height:1.15;-webkit-line-clamp:3;color:#FFEB3B;text-shadow:0 0 2px #000,0 2px 4px #000,0 3px 12px rgba(0,0,0,.95);}
+  .mm.big h4,.mm.wide h4,.mm.tall h4{font-size:clamp(1.08rem,4.4vw,1.4rem);line-height:1.12;-webkit-line-clamp:3;}
+  .mm.mm-long h4{font-size:clamp(1.05rem,4.2vw,1.35rem);line-height:1.15;-webkit-line-clamp:4;}
+  /* 1 tile per row on mobile — full-width bands (owner 2026-07-11) */
+  .mm.big,.mm.wide,.mm.tall,.mm.mm-long{grid-column:span 1!important;grid-row:span 1!important;min-height:160px;}
 }
 @media(max-width:520px){
-  :root{--pulse-mosaic-row:360px;--pulse-mosaic-cols:1;--pulse-mosaic-gap:18px;}
+  :root{--pulse-mosaic-row:148px;--pulse-mosaic-cols:1;--pulse-mosaic-gap:0;}
   .mag-mosaic,.grid.mag-mosaic,.grid.pulse-home-mosaic,[data-pulse-home-mosaic].mag-mosaic,[data-pulse-mosaic].mag-mosaic{
-    grid-template-columns:1fr!important;grid-auto-rows:360px!important;gap:18px!important;
+    grid-template-columns:1fr!important;grid-auto-rows:148px!important;gap:0!important;
   }
-  .grid.mag-mosaic,.grid.pulse-home-mosaic{grid-template-columns:1fr!important;grid-auto-rows:360px!important;gap:18px!important;}
-  .mag-mosaic.mosaic-compact{grid-template-columns:1fr!important;grid-auto-rows:299px;}
-  .mag-mosaic.mosaic-compact .mm h4{font-size:1.82rem;}
-  .mm{contain-intrinsic-size:368px 100%;min-height:368px;content-visibility:visible;}
-  .mm-txt{padding:18px 20px 20px;}
+  .grid.mag-mosaic,.grid.pulse-home-mosaic{grid-template-columns:1fr!important;grid-auto-rows:148px!important;gap:0!important;}
+  .mag-mosaic.mosaic-compact{grid-template-columns:1fr!important;grid-auto-rows:140px;}
+  .mag-mosaic.mosaic-compact .mm h4{font-size:1.1rem;}
+  .mm{contain-intrinsic-size:148px 148px;min-height:148px;content-visibility:visible;}
+  .mm-txt{padding:9px 10px 10px;}
   .mm-scrim{background:linear-gradient(180deg,rgba(0,0,0,.06) 26%,rgba(0,0,0,.72) 58%,rgba(0,0,0,.95) 100%);}
-  .mm-cat{font-size:1.25rem;letter-spacing:.13em;color:#FFE9A6;text-shadow:0 1px 2px #000;-webkit-text-stroke:0.45px rgba(0,0,0,.9);paint-order:stroke fill;}
-  .mm h4{font-size:2.5rem;line-height:1.2;-webkit-line-clamp:6;color:#FFF4CC;text-shadow:0 1px 2px #000,0 2px 6px rgba(0,0,0,.96),0 0 3px #000;-webkit-text-stroke:0.9px rgba(0,0,0,.94);paint-order:stroke fill;}
-  .mm.big,.mm.wide,.mm.tall{grid-column:auto;grid-row:auto;min-height:368px;}
-  .mm.big h4,.mm.wide h4,.mm.tall h4{font-size:2.04rem;line-height:1.24;-webkit-line-clamp:6;}
-  .mm.mm-long{grid-column:auto;grid-row:span 2;min-height:598px;}
-  .mm.mm-long h4{font-size:1.87rem;line-height:1.26;-webkit-line-clamp:10;}
+  .mm-cat{font-size:.5rem;top:7px;left:7px;}
+  .mm h4{font-size:1.12rem;line-height:1.15;-webkit-line-clamp:3;color:#FFEB3B;}
+  .mm.big,.mm.wide,.mm.tall,.mm.mm-long{grid-column:span 1!important;grid-row:span 1!important;min-height:148px;}
+  .mm.big h4,.mm.wide h4,.mm.tall h4,.mm.mm-long h4{font-size:1.12rem;line-height:1.15;-webkit-line-clamp:3;}
 }
 
-/* ===== FULL-BLEED BANDS — every pillar mosaic looks like the homepage (owner 2026-07-09) =====
-   ONE shared look: single-column block stack (no grid = no columns possible), full-bleed 100vw,
-   150px desktop / 130px mobile bands, gold Georgia serif title bottom-left — identical to homepage .band. */
+/* ===== FULL-BLEED 2-UP MOSAIC — desktop + mobile meet (owner 2026-07-11) =====
+   Two tiles per row, zero gap (no black strips). Mobile uses shorter rows. */
 html,body{overflow-x:hidden}
-.mag-mosaic,.grid.mag-mosaic,.grid.pulse-home-mosaic{display:block!important;grid-template-columns:1fr!important;width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important;max-width:none!important;padding:0!important;}
+.mag-mosaic,.grid.mag-mosaic,.grid.pulse-home-mosaic{
+  display:grid!important;
+  grid-template-columns:repeat(2,1fr)!important;
+  grid-auto-flow:row!important;
+  gap:0!important;
+  width:100vw!important;
+  margin-left:calc(50% - 50vw)!important;
+  margin-right:calc(50% - 50vw)!important;
+  max-width:none!important;
+  padding:0!important;
+  background:#0a0806;
+}
 /* Under the CRO card = ONLY Q&A bands. Hide every promo / branding / nav tile — all of it is
    already covered by the CRO card at the top of every page (owner 2026-07-09). */
 .mag-mosaic .mm.mm-hire,.mag-mosaic .mm.mm-hero,.mag-mosaic .mm.mm-menu,.mag-mosaic .mm.mm-searchbox,.mag-mosaic .mm.mm-topic,.mag-mosaic .mm.mm-ce-topic,.mag-mosaic .mm.mm-recent-topic{display:none!important;}
-/* every Q&A tile = ONE full-width band at the EXACT homepage size: 220px desktop / 185px mobile */
-.mag-mosaic .mm{display:block!important;width:100%!important;height:220px!important;min-height:220px!important;margin:0 0 8px!important;border-radius:0!important;border:none!important;border-top:1px solid rgba(234,193,92,.18)!important;filter:brightness(1.14) saturate(1.05);}
-.mag-mosaic .mm.big,.mag-mosaic .mm.wide,.mag-mosaic .mm.tall,.mag-mosaic .mm.mm-long{width:100%!important;height:220px!important;min-height:220px!important;}
+/* every Q&A tile = half-width cell, flush to neighbors */
+.mag-mosaic .mm{
+  display:block!important;
+  width:auto!important;
+  height:220px!important;
+  min-height:220px!important;
+  margin:0!important;
+  border-radius:0!important;
+  border:none!important;
+  border-right:1px solid rgba(8,6,4,.45)!important;
+  border-bottom:1px solid rgba(8,6,4,.45)!important;
+  filter:brightness(1.14) saturate(1.05);
+  grid-column:span 1!important;
+  grid-row:span 1!important;
+}
+.mag-mosaic .mm:nth-child(2n){border-right:none!important;}
+.mag-mosaic .mm.big,.mag-mosaic .mm.wide,.mag-mosaic .mm.tall,.mag-mosaic .mm.mm-long{
+  width:auto!important;height:220px!important;min-height:220px!important;
+  grid-column:span 1!important;grid-row:span 1!important;
+}
 .mm-img{filter:brightness(1.3) saturate(1.06)!important;}
-.mag-mosaic .mm .mm-txt{padding:0 clamp(16px,4vw,48px) 16px!important;}
-.mag-mosaic .mm .mm-cat{color:#EAC15C!important;font-size:.72rem!important;letter-spacing:.16em!important;}
-.mag-mosaic .mm h4{color:#F6C445!important;font-family:Georgia,serif!important;font-style:normal!important;font-weight:800!important;font-size:clamp(1.6rem,4.4vw,2.8rem)!important;line-height:1.03!important;-webkit-line-clamp:2!important;margin:2px 0 0!important;}
-@media(max-width:560px){.mag-mosaic .mm,.mag-mosaic .mm.big,.mag-mosaic .mm.wide,.mag-mosaic .mm.tall,.mag-mosaic .mm.mm-long,.mag-mosaic .mm.mm-hero{height:185px!important;min-height:185px!important}.mag-mosaic .mm h4{font-size:1.45rem!important}}
+.mag-mosaic .mm .mm-txt{padding:0 clamp(10px,2.5vw,28px) 14px!important;}
+.mag-mosaic .mm .mm-cat{position:absolute!important;top:10px!important;left:clamp(10px,2.5vw,28px)!important;font-size:.58rem!important;letter-spacing:.12em!important;color:#FFEB3B!important;background:rgba(0,0,0,.5)!important;}
+.mag-mosaic .mm h4{color:#FFEB3B!important;font-family:Inter,system-ui,Arial,sans-serif!important;font-style:normal!important;font-weight:800!important;font-size:clamp(1.15rem,2.4vw,1.55rem)!important;line-height:1.15!important;-webkit-line-clamp:3!important;margin:0!important;text-shadow:0 0 2px #000,0 2px 4px #000,0 3px 14px rgba(0,0,0,.95)!important;}
+/* CSS titles on — strong scrim covers old baked JPG text until rebake (owner 2026-07-11) */
+.mm.mm-baked .mm-scrim,
+.mag-mosaic .mm.mm-baked .mm-scrim,
+.mm:has(.mm-img) .mm-scrim{display:block!important;}
+.mm.mm-baked .mm-txt,
+.mm.mm-baked h4,
+.mm:has(.mm-img) .mm-txt,
+.mm:has(.mm-img) h4,
+.mag-mosaic .mm.mm-baked .mm-txt,
+.mag-mosaic .mm.mm-baked h4,
+.mag-mosaic .mm:has(.mm-img) .mm-txt,
+.mag-mosaic .mm:has(.mm-img) h4{display:-webkit-box!important;}
+.mm.mm-baked .mm-txt,
+.mm:has(.mm-img) .mm-txt,
+.mag-mosaic .mm.mm-baked .mm-txt,
+.mag-mosaic .mm:has(.mm-img) .mm-txt{display:flex!important;}
+/* Shift photo up so old baked title sits under the dark scrim */
+.mm-img,.mm.mm-baked .mm-img{object-position:center 22%!important;}
+@media(max-width:700px){
+  .mag-mosaic,.grid.mag-mosaic,.grid.pulse-home-mosaic{
+    grid-template-columns:1fr!important;
+  }
+  .mag-mosaic .mm,.mag-mosaic .mm.big,.mag-mosaic .mm.wide,.mag-mosaic .mm.tall,.mag-mosaic .mm.mm-long,.mag-mosaic .mm.mm-hero{
+    height:148px!important;min-height:148px!important;
+  }
+  .mag-mosaic .mm h4{font-size:1.15rem!important;line-height:1.15!important;-webkit-line-clamp:3!important;color:#FFEB3B!important}
+  .mag-mosaic .mm .mm-cat{font-size:.5rem!important;top:7px!important;left:8px!important}
+  .mag-mosaic .mm .mm-txt{padding:0 10px 10px!important}
+}
 /* gold-outlined search (keep on all pages, easy to see) */
 .search-input,input[type="search"]{border:2px solid #EAC15C!important;border-radius:10px!important;box-shadow:0 0 0 1px rgba(234,193,92,.28),0 2px 10px rgba(0,0,0,.3)!important;outline:none!important;}
 .search-input:focus,input[type="search"]:focus{border-color:#F6C445!important;box-shadow:0 0 0 2px rgba(246,196,69,.5)!important;}
+
+/* ===== Q&A entry CRO header card — mobile (owner 2026-07-11) =====
+   Entry pages bake .crohdr styles inline in the renderer. Live still has the old
+   full-width squashed photo (min-height ~120px). This sheet loads AFTER that
+   inline block, so these rules fix phones without a functions deploy. */
+@media (max-width: 640px) {
+  .crohdr {
+    margin: 8px auto 6px !important;
+    padding: 0 12px !important;
+  }
+  .crohdr .cro-card {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+  .crohdr .cro-card__img {
+    flex: 0 0 auto !important;
+    width: 180px !important;
+    height: 180px !important;
+    min-width: 180px !important;
+    min-height: 180px !important;
+    max-width: 180px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    margin: 18px auto 6px !important;
+    border: 2px solid rgba(234, 193, 92, 0.55) !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    background-size: cover !important;
+    background-position: center 20% !important;
+    filter: brightness(1.1);
+  }
+  .crohdr .cro-card__body {
+    flex: none !important;
+    width: 100% !important;
+    padding: 2px 16px 18px !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 7px !important;
+  }
+  .crohdr .cro-card__eyebrow {
+    font-size: 0.52rem !important;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    max-width: 34ch;
+    margin: 0 auto;
+  }
+  .crohdr .cro-card__title {
+    font-size: clamp(1.85rem, 9vw, 2.35rem) !important;
+    line-height: 1.05 !important;
+    text-align: center !important;
+  }
+  .crohdr .cro-card__role {
+    font-size: 0.88rem !important;
+  }
+  .crohdr .cro-card__sub {
+    font-size: 0.86rem !important;
+    line-height: 1.45;
+    max-width: 34ch;
+    margin: 0 auto !important;
+  }
+  .crohdr .cro-card__cta {
+    display: inline-block !important;
+    align-self: center !important;
+    margin: 10px auto 0 !important;
+    font-size: 0.92rem !important;
+    padding: 11px 18px !important;
+    border-radius: 10px;
+  }
+  .crohdr .cro-bar {
+    grid-template-columns: repeat(2, 1fr) !important;
+    width: 100%;
+    margin: 0;
+  }
+  .crohdr .cro-bar a {
+    padding: 11px 6px !important;
+    font-size: 0.86rem !important;
+    line-height: 1.2;
+  }
+  .crohdr .cro-bar a:nth-child(2) {
+    border-right: none;
+  }
+}

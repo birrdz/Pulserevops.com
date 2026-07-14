@@ -1,0 +1,66 @@
+/* Pulse browse squares — tuned desktop/mobile title + image (owner 2026-07-11) */
+.psq-row,.recentrow{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:14px clamp(12px,4vw,40px) 6px;box-sizing:border-box}
+.psq-row h3,.psq-head,.recentrow h3{font-family:Georgia,serif;color:#F6C445;font-size:1.15rem;margin:0 0 8px;letter-spacing:.02em;font-weight:800}
+.psq-head a{color:inherit;text-decoration:none}
+.psq-head a:hover{color:#fff}
+.psq-scroll,.recentscroll{display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;padding:2px 2px 12px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;touch-action:pan-x;cursor:grab;scrollbar-width:thin;scrollbar-color:rgba(234,193,92,.55) rgba(26,16,20,.6);overscroll-behavior-x:contain;align-items:stretch}
+.psq-scroll.is-dragging,.recentscroll.is-dragging{cursor:grabbing;scroll-snap-type:none;user-select:none;-webkit-user-select:none}
+.psq-scroll.is-dragging .psq,.psq-scroll.is-dragging .rcard,.recentscroll.is-dragging .rcard{pointer-events:none}
+.psq-scroll::-webkit-scrollbar,.recentscroll::-webkit-scrollbar{height:8px}
+.psq-scroll::-webkit-scrollbar-track,.recentscroll::-webkit-scrollbar-track{background:rgba(26,16,20,.55);border-radius:8px}
+.psq-scroll::-webkit-scrollbar-thumb,.recentscroll::-webkit-scrollbar-thumb{background:rgba(234,193,92,.5);border-radius:8px}
+
+/* Desktop — bigger tiles so titles fit (3 lines); image centered, no zoom crop */
+.psq,.rcard{
+  display:flex;flex-direction:column;flex:0 0 auto;
+  width:220px;height:340px;
+  scroll-snap-align:start;text-decoration:none;background:#130a10;
+  border:7px solid var(--tc,#EAC15C);border-radius:0;overflow:hidden;
+  box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 6px color-mix(in srgb, var(--tc,#EAC15C) 55%, transparent),0 6px 18px rgba(0,0,0,.45);
+  transition:border-color .2s,box-shadow .2s;-webkit-user-drag:none;color:inherit;box-sizing:border-box
+}
+.psq:hover,.rcard:hover{
+  border-color:color-mix(in srgb, var(--tc,#EAC15C) 70%, #fff);
+  box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 6px color-mix(in srgb, var(--tc,#EAC15C) 70%, transparent),0 8px 22px rgba(0,0,0,.55)
+}
+/* Untitled .sq.jpg browse faces — normal cover. Mosaic titles stay off these. */
+.psq-imgwrap,.rcard-imgwrap{
+  display:block;width:100%;height:198px;flex:0 0 198px;overflow:hidden;
+  background:#1a1014;border-bottom:1px solid color-mix(in srgb, var(--tc,#EAC15C) 35%, transparent);
+  position:relative
+}
+.psq-imgwrap img,.rcard-imgwrap img{
+  width:100%;height:100%;display:block;
+  object-fit:cover;object-position:center center;
+  pointer-events:none;-webkit-user-drag:none;transform:none;max-width:none
+}
+.psq .psq-cat,.psq .rc,.rcard .rc{
+  padding:8px 10px 0;color:#EAC15C;font-size:.58rem;text-transform:uppercase;
+  letter-spacing:.08em;font-weight:800;line-height:1.1;min-height:1.1em;flex:0 0 auto;text-align:center
+}
+.psq .psq-t,.psq .rt,.rcard .rt{
+  padding:8px 12px 16px;color:#F6C445;font-family:Georgia,serif;font-size:1.42rem;line-height:1.16;
+  font-weight:800;text-align:center;
+  display:flex;align-items:center;justify-content:center;
+  flex:1 1 auto;min-height:0;
+  word-break:normal;overflow-wrap:break-word
+}
+.psq .psq-t>span,.psq .rt>span,.rcard .rt>span{
+  width:100%;text-align:center;overflow:hidden;max-height:calc(1.16em * 3);line-height:1.16;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3
+}
+
+.psq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;padding:8px 0 40px;max-width:1080px;margin:0 auto}
+.psq-grid .psq{width:auto;min-width:0;height:auto}
+
+/* Mobile — slightly smaller but still room for 3 title lines */
+@media(max-width:600px){
+  .psq-scroll,.recentscroll{gap:10px}
+  .psq,.rcard{width:168px;height:278px;border-width:5px;flex-basis:168px}
+  .psq-imgwrap,.rcard-imgwrap{height:148px;flex-basis:148px}
+  .psq-imgwrap img,.rcard-imgwrap img{height:100%;object-position:center center;transform:none}
+  .psq .psq-cat,.psq .rc,.rcard .rc{padding:7px 8px 0;font-size:.5rem;text-align:center}
+  .psq .psq-t,.psq .rt,.rcard .rt{padding:4px 8px 10px;font-size:1.08rem;line-height:1.16;text-align:center;min-height:calc(1.16em * 3);max-height:calc(1.16em * 3)}
+  .psq-row h3,.psq-head,.recentrow h3{font-size:1.05rem}
+  .psq-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;padding:6px 12px 36px}
+}

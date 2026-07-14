@@ -109,3 +109,11 @@ Self-healing (one attempt per cause, then human): When the 20% breaker trips, do
 - LAW-SIM-3: Scope completion = fresh scan clean + fresh gate clean + rendered-DOM spot check. Transformer output alone is never proof.
 
 === END STANDING ORDERS — BUILD THE MACHINE, RUN PHASE 1 ON THE GIVEN SCOPE ===
+
+## 🔒 DEPLOY LAW (permanent · 2026-07-11) — canonical: `DEPLOY_LAW.md`
+1. **Classify every change first.** CONTENT/DATA (entries, bodies, images, scores, index rows) → **Blobs only, NEVER deploy**. CODE/TEMPLATE/ASSET (function, renderer, `.js`/`.css`/static, redirect) → **queue for the daily deploy**.
+2. **`--prod` max ONCE/day**, end of the last machine run, and **only if the code queue is non-empty**. No queued code = no deploy that day.
+3. **Draft deploys are FREE** (`netlify deploy`, no `--prod`) — test freely.
+4. **Never misclassify code as content** to dodge a deploy — classify honestly.
+5. **Exception:** operator says **"deploy now"** → urgent deploy allowed.
+6. **Log every deploy** (date · what shipped) in `DEPLOY_LAW.md`. (This fix machine's transforms are CONTENT — Blobs only, never deploy.)

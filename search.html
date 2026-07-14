@@ -4,31 +4,100 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Search — Pulse RevOps</title>
-<meta name="description" content="Search Pulse RevOps — rankings, guides, and straight answers across every topic.">
+<meta name="description" content="Search every Pulse RevOps Q&A — predictive ghost text across the full library.">
 <link rel="canonical" href="https://pulserevops.com/search">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pulserevops.com/search">
 <meta property="og:site_name" content="Pulse RevOps">
 <meta property="og:title" content="Search — Pulse RevOps">
 <meta property="og:image" content="https://pulserevops.com/pulse-og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pulserevops.com/pulse-og.png">
 <link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
-<link rel="stylesheet" href="/css/pulse-mosaic.css">
+<style>
+:root{--gold:#EAC15C;--gold2:#F6C445;--bg:#0a0806;--ink:#f5e6c8;--mut:rgba(234,193,92,.65)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.ss-bar{display:flex;align-items:center;gap:14px;padding:14px clamp(14px,4vw,28px);border-bottom:1px solid rgba(234,193,92,.28)}
+.ss-back{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;text-decoration:none;color:var(--gold2);font:800 .72rem/1 Georgia,serif;letter-spacing:.06em;text-transform:uppercase;background:#130a10;border:3px solid var(--gold);border-radius:0;box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 4px rgba(234,193,92,.55)}
+.ss-back:hover{border-color:var(--gold2);color:#fff}
+.ss-brand{flex:1;min-width:0}
+.ss-brand b{display:block;font-family:Georgia,serif;font-size:1.15rem;color:var(--gold2);font-weight:800}
+.ss-brand span{display:block;font-size:.72rem;color:var(--mut);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.ss-wrap{max-width:720px;margin:0 auto;padding:28px clamp(14px,4vw,28px) 48px}
+.ss-h{margin:0 0 8px;font-family:Georgia,serif;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--gold2);font-weight:800;line-height:1.1}
+.ss-sub{margin:0 0 22px;color:rgba(245,230,200,.55);font-size:.92rem;line-height:1.4}
+.home-search{position:relative;max-width:100%;margin:0;text-align:left;z-index:50}
+.hs-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:16px;opacity:.75;pointer-events:none;z-index:2}
+.hs-field{position:relative;background:#12151c;border:3px solid var(--gold);border-radius:0;box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 4px rgba(234,193,92,.55),0 10px 32px rgba(0,0,0,.4);transition:border-color .15s,box-shadow .15s}
+.hs-field:focus-within{border-color:var(--gold2);box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 4px rgba(246,196,69,.7),0 12px 36px rgba(246,196,69,.12)}
+#hs-input{width:100%;background:transparent;border:none;border-radius:0;padding:18px 44px 18px 46px;font:600 17px Inter,system-ui,sans-serif;color:var(--ink);outline:none;position:relative;z-index:2}
+#hs-input::placeholder{color:rgba(245,230,200,.35)}
+#hs-input::-webkit-search-cancel-button{display:none}
+.hs-ghost{position:absolute;inset:0;display:flex;align-items:center;padding:0 46px;font:600 17px Inter,system-ui,sans-serif;white-space:pre;overflow:hidden;pointer-events:none;z-index:1;color:transparent}
+.hs-ghost .g-typed{color:transparent}
+.hs-ghost .g-rest{color:rgba(234,193,92,.45)}
+.hs-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:32px;height:32px;border:none;border-radius:0;background:rgba(234,193,92,.12);color:var(--gold);font-size:18px;line-height:1;cursor:pointer;display:none;z-index:3}
+.hs-suggest{position:absolute;left:0;right:0;top:calc(100% + 10px);background:#12151c;border:2px solid rgba(234,193,92,.4);border-radius:0;box-shadow:0 16px 44px rgba(0,0,0,.55);overflow:hidden;z-index:40;display:none;max-height:min(62vh,520px);overflow-y:auto}
+.hs-suggest.open{display:block}
+.hs-sec{padding:10px 16px 5px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.hs-row{display:flex;align-items:center;gap:11px;padding:12px 16px;text-decoration:none;color:var(--ink);border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer}
+.hs-row:hover,.hs-row.active{background:rgba(246,192,73,.1)}
+.hs-row .hs-em{font-size:18px;width:24px;text-align:center;flex-shrink:0}
+.hs-row .hs-t{font-size:14px;font-weight:700;line-height:1.25;flex:1;min-width:0;color:var(--ink)}
+.hs-row .hs-t mark{background:rgba(246,196,69,.22);color:inherit;border-radius:2px;padding:0 1px;font-weight:800}
+.hs-meta{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.hs-cat{font-size:10px;font-weight:700;color:var(--mut);white-space:nowrap}
+.hs-pill{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--gold2);background:rgba(246,196,69,.1);border:1px solid rgba(234,193,92,.35);padding:2px 8px;border-radius:0;flex-shrink:0}
+.hs-hint{display:flex;gap:6px;align-items:center;justify-content:center;padding:9px 12px;border-top:1px solid rgba(234,193,92,.2);font-size:11px;color:var(--mut);font-weight:600}
+.hs-hint kbd{font:inherit;background:#0a0806;border:1px solid rgba(234,193,92,.35);border-bottom-width:2px;border-radius:0;padding:1px 6px;font-size:10px;color:var(--gold)}
+.hs-chips{display:flex;flex-wrap:wrap;gap:7px;padding:6px 14px 12px}
+.hs-chip{font:inherit;font-size:12px;font-weight:700;background:rgba(234,193,92,.08);border:1px solid rgba(234,193,92,.3);color:#EAD9C0;border-radius:0;padding:6px 12px;cursor:pointer}
+.hs-chip:hover{border-color:var(--gold2);color:var(--gold2)}
+.hs-q .hs-t{font-weight:600;color:rgba(245,230,200,.8)}
+.hs-dym a{color:var(--gold2);font-weight:800;text-decoration:none}
+.hs-empty{padding:16px;color:var(--mut);font-size:13px;font-weight:600;text-align:center}
+@media(max-width:600px){
+  #hs-input,.hs-ghost{font-size:16px}
+  .ss-wrap{padding-top:18px}
+}
+</style>
 </head>
 <body>
-<div class="pulse-mosaic-shell">
-  <section class="mag-mosaic" id="searchMosaic" data-pulse-home-mosaic data-search-page aria-label="Search Pulse RevOps"></section>
-</div>
-<script src="/js/pulse-face-img.js" defer></script>
-<script src="/js/pulse-home-mosaic.js" defer></script>
-<script src="/pulse-ambient.js" defer></script>
+<header class="ss-bar">
+  <a class="ss-back" href="/" aria-label="Back to home">←</a>
+  <div class="ss-brand"><b>Pulse RevOps</b><span>Full library search</span></div>
+</header>
+<main class="ss-wrap">
+  <h1 class="ss-h">Search</h1>
+  <p class="ss-sub">Type anything — ghost completion + matches across every Q&amp;A on the site. Tab or → to accept.</p>
+  <div class="home-search" id="home-search">
+    <div class="hs-field">
+      <span class="hs-icon">🔍</span>
+      <div class="hs-ghost" id="hs-ghost" aria-hidden="true"><span class="g-typed"></span><span class="g-rest"></span></div>
+      <input id="hs-input" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+             placeholder="Try: best sci-fi movies" autofocus>
+      <button class="hs-clear" id="hs-clear" aria-label="Clear" type="button">×</button>
+    </div>
+    <div class="hs-suggest" id="hs-suggest" role="listbox"></div>
+  </div>
+</main>
+<script src="/js/pulse-search.js" defer></script>
+<script>
+(function(){
+  // Autofocus + open empty suggestions once search JS is ready
+  function go(){
+    var input=document.getElementById('hs-input');
+    if(!input)return;
+    try{input.focus();}catch(e){}
+    // warm library on arrival
+    try{input.dispatchEvent(new Event('focus'));}catch(e){}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(go,60);});
+  else setTimeout(go,60);
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,13 @@
+{
+ "fixConcurrency": 10,
+ "fixWorkers": 1,
+ "fixScope": "ai",
+ "entriesPerHour": 10,
+ "perTopicPerHour": null,
+ "genTopics": "ALL",
+ "runHours": 2,
+ "runUntil": null,
+ "paused": false,
+ "deployEveryHours": 0,
+ "pillarLap": false
+}

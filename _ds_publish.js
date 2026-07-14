@@ -6,6 +6,7 @@
 const fs = require('fs');
 const { prepareBodyForGrade, prepareEntryForPublish, finalizeIndexNow } = require('./_write_lib');
 const { getStore } = require('@netlify/blobs');
+const { attachPublishCover, routeSegFor, topicImgFor, publicUrlFor } = require('./_publish_cover');
 
 try {
   const env = fs.readFileSync('C:/Users/koryj/website/.env.local', 'utf8');
@@ -46,8 +47,9 @@ async function publishTextFirst(id, title, opts = {}) {
   let body = fs.readFileSync(BODY_PATH, 'utf8');
   const now = Date.now();
   const pfx = prefixOf(id);
-  const conf = PILLAR[pfx] || { tags: [pfx], seg: 'knowledge' };
-  const tags = Array.from(new Set([...(conf.tags || []), ...(opts.tags || [])]));
+  const conf = PILLAR[pfx] || { tags: [pfx], seg: routeSegFor(id) };
+  conf.seg = conf.seg || routeSegFor(id);
+  const tags = Array.from(new Set([...(conf.tags || []), ...(opts.tags || []), 'pulse-recent']));
 
   // EXACT-duplicate guard (owner law): a duplicate = the SAME question WORD FOR WORD
   // WITHIN THE SAME PILLAR. Two rules from the owner:
@@ -76,11 +78,13 @@ async function publishTextFirst(id, title, opts = {}) {
 
   const existing = await store.get(`answers/${id}.json`, { type: 'json' });
   const prevQs = existing && typeof existing.quality_score === 'number' ? existing.quality_score : 0;
+  const liveImg = topicImgFor(id);
   let entry = {
     id, question: title, answer: body, tags,
     quality_score: 10, format_v: '2026-05', pending: false,
     ts: now, polished_at: now, model: 'deepseek-chat', gold_format: true,
     images_deferred_at: now, images_pending: true,
+    img: liveImg, cover_src: 'topic-interim',
     polish_history: [
       ...(existing && Array.isArray(existing.polish_history) ? existing.polish_history : []),
       { from: prevQs, to: 10, at: now, note: existing ? 'deepseek text-first upgrade' : 'deepseek text-first direct-write' },
@@ -95,15 +99,27 @@ async function publishTextFirst(id, title, opts = {}) {
     id, question: title, tags: entry.tags, quality_score: 10, format_v: '2026-05',
     pending: false, ts: now, polished_at: now, model: 'deepseek-chat', was_indexed_at: null,
     seo_optimized_at: entry.seo_optimized_at || now, images_pending: true,
+    img: liveImg, cover_src: 'topic-interim',
   };
   if (ix >= 0) idx.entries.splice(ix, 1);
   idx.entries.unshift(indexEntry);
   await store.setJSON('_index.json', idx);
 
+  // Bake local face-card + upgrade img to a live pool/topic URL (recent + pillar mosaics).
+  let cover = null;
+  try { cover = await attachPublishCover(store, id, title); } catch (e) { cover = { ok: false, err: String(e.message || e) }; }
+
   try { fs.unlinkSync(BODY_PATH); } catch (e) {}
   let indexed = null;
   try { indexed = await finalizeIndexNow(id, store, indexEntry); } catch (e) {}
-  return { ok: true, id, score: grade.score, words: grade.word_count, url: `https://pulserevops.com/${conf.seg}/${id}`, indexnow: indexed };
+  const seg = routeSegFor(id);
+  return {
+    ok: true, id, score: grade.score, words: grade.word_count,
+    url: publicUrlFor(id) || `https://pulserevops.com/${seg}/${id}`,
+    img: (cover && cover.img) || liveImg,
+    faceLocal: !!(cover && cover.faceLocal),
+    indexnow: indexed,
+  };
 }
 
 module.exports = { publishTextFirst, PILLAR, prefixOf };

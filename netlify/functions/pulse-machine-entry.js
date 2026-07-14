@@ -138,13 +138,17 @@ function entryCoverFigureHtml(alt, url) {
     + '<img' + attrs + ' style="width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;display:block;background:#ECE3D2;object-fit:cover;max-height:520px;"></figure>';
 }
 
-function entryCoverFigureHtmlWithFallback(alt, url, fallback) {
+function entryCoverFigureHtmlWithFallback(alt, url, fallback, catLabel) {
   /* TOP HERO renders even with ANSWER_CONTENT_IMAGES_OFF — hero is 1 of the 2 allowed images (owner 2026-07-08) */
   const raw = String(url || '').trim();
   const direct = /^https?:\/\//i.test(raw) ? raw.replace(/^http:\/\//i, 'https://') : '';
   const fb = fallback ? fallback : (direct || '');
   const attrs = entryImgAttrs(url, alt, { eager: true, width: 1200, height: 675, fallback: fb });
-  return '<figure class="entry-cover" style="margin:0 0 18px;background:#ECE3D2;border-radius:14px;overflow:hidden;border:1px solid rgba(29,23,17,.10);">'
+  const cat = catLabel
+    ? '<span class="entry-face-cat">' + escHtml(catLabel) + '</span>'
+    : '';
+  return '<figure class="entry-cover" style="position:relative;margin:0 0 18px;background:#ECE3D2;border-radius:14px;overflow:hidden;border:1px solid rgba(29,23,17,.10);">'
+    + cat
     + '<img' + attrs + ' style="width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;display:block;background:#ECE3D2;object-fit:cover;max-height:520px;"></figure>';
 }
 
@@ -168,20 +172,23 @@ function pickHeroUrl(body, idxImg, id, skipHero) {
   const lead = leadingCoverFromBody(body);
   const leadUrl = lead && lead.url ? String(lead.url).trim() : '';
   const idx = idxImg && String(idxImg).trim();
-  // Only skip the legacy flux placeholder /assets/qa/{id}.jpg — numbered self-hosted covers are valid heroes.
-  const legacyFluxFace = (u) => !!(id && u && u.toLowerCase() === ('/assets/qa/' + id.toLowerCase() + '.jpg'));
+  // FACE-CARD LAW: answer top = /assets/qa/<id>.jpg. Never browse .sq.jpg.
+  if (id) {
+    const face = '/assets/qa/' + String(id) + '.jpg';
+    if (!idx || /\.sq\.jpg(\?|$)/i.test(idx) || idx === face) return face;
+  }
+  if (idx && /^\/assets\/qa\//i.test(idx) && !/\.sq\.jpg(\?|$)/i.test(idx)) return idx;
   const product = firstProductImg(body);
   const hosted = (u) => u && /pulserevops\.com\/img\/auto\//i.test(u);
-  // Self-hosted first, then https body/index — skip broken local flux face-card slots.
   if (hosted(leadUrl)) return leadUrl;
   if (hosted(idx)) return idx;
   if (hosted(product)) return product;
   if (/^https?:\/\//i.test(leadUrl)) return leadUrl;
   if (idx && /^https?:\/\//i.test(idx)) return idx;
   if (product && /^https?:\/\//i.test(product)) return product;
-  if (leadUrl && !legacyFluxFace(leadUrl)) return leadUrl;
-  if (idx && !legacyFluxFace(idx)) return idx;
-  return product || (!legacyFluxFace(leadUrl) && leadUrl) || (!legacyFluxFace(idx) && idx) || '';
+  if (leadUrl && !/\.sq\.jpg(\?|$)/i.test(leadUrl)) return leadUrl;
+  if (id) return '/assets/qa/' + String(id) + '.jpg';
+  return product || leadUrl || idx || '';
 }
 
 const DIRECT_ANSWER_BOX_OPEN = '<div class="direct-answer-box" style="margin:0 0 22px;padding:18px 20px;border:2px solid #C8821E !important;border-radius:14px;background:#FBF3E4 !important;box-shadow:0 0 0 1px rgba(200,130,30,.18), inset 0 0 0 1px rgba(200,130,30,.08) !important;">'
@@ -1048,10 +1055,35 @@ exports.handler = async (event) => {
   const qaEssay = appliesQaGold(id, croStripped, { title: entry.question || entry.h1 });
   const noTopHero = rankingList || qaEssay;
   const coverLead = leadingCoverFromBody(croStripped);
-  const heroUrl = pickHeroUrl(croStripped, idxEntry && idxEntry.img, id, noTopHero);
-  const heroFallback = firstProductImg(croStripped);
+  // 🔒 HERO = FACE CARD (owner 2026-07-12): /assets/qa/<id>.jpg is ALWAYS the answer-page top.
+  // Browse .sq.jpg must NEVER become the hero (that stamp was wiping face-card tops).
+  // Dupes across pages are fine — prefer own face, else any non-sq /assets/qa cover from same pillar.
+  const faceCard = id ? ('/assets/qa/' + String(id) + '.jpg') : '';
+  const rawIdxImg = (idxEntry && idxEntry.img) ? String(idxEntry.img).trim() : '';
+  const registryCover = (rawIdxImg && /^\/assets\/qa\//i.test(rawIdxImg) && !/\.sq\.jpg(\?|$)/i.test(rawIdxImg))
+    ? rawIdxImg : '';
+  const pillarPref = String(id || '').replace(/\d.*$/, '').toLowerCase();
+  // Stable pillar face seeds (dupes OK) — used when own face 404s
+  const PILLAR_FACE_SEED = {
+    gp:'gp1', ik:'ik1', ra:'ra1', st:'st1', bs:'bs1', cg:'cg1', q:'q1', sk:'sk1', sp:'sp1', cd:'cd1',
+    tk:'tk1', tl:'tl1', sw:'sw1', ai:'ai1', er:'er1', tc:'tc1', fr:'fr1', es:'es1', bo:'bo1',
+    ca:'ca1', bt:'bt1', tv:'tv1', rs:'rs1', tn:'tn1', sc:'sc1', gb:'gb1', sy:'sy1', co:'co1', mv:'mv1',
+    dn:'dn1', cl:'cl1', nl:'nl1', ev:'ev1', ga:'ga1', lv:'lv1', wl:'wl1', hf:'hf1', dr:'dr1',
+    gm:'gm1', aq:'aq1', fs:'fs1', cr:'cr1', pt:'pt1'
+  };
+  const pillarDupe = pillarPref
+    ? ('/assets/qa/' + (PILLAR_FACE_SEED[pillarPref] || (pillarPref + '1')) + '.jpg')
+    : '';
+  const heroUrl = faceCard || registryCover || pickHeroUrl(croStripped, rawIdxImg, id, false);
+  // Never fall back to junk body hotlinks — stay on face-card family (dupes OK)
+  const heroFallback = (registryCover && registryCover !== heroUrl)
+    ? registryCover
+    : (pillarDupe && pillarDupe !== heroUrl ? pillarDupe : '');
   const heroAlt = entry.question || (coverLead && coverLead.alt) || id;
-  const heroHtml = (heroUrl ? entryCoverFigureHtmlWithFallback(heroAlt, heroUrl, heroFallback && heroFallback !== heroUrl ? heroFallback : '') : '');
+  // Small corner category on face-card heroes (matches mosaic mm-cat, e.g. Speeches).
+  const FACE_CAT = { tl:'Pulse Tools', ca:'Cars', bt:'Boats', aq:'Aquariums', ik:'Industry KPIs', tk:'Tech Stacks', bs:'Book Summaries', st:'Sales Trainings', fr:'Franchises', co:'Collectibles', ai:'AI Infra', gb:'Graphics', bo:'Buildouts', sy:'Style', gp:'GTM Playbooks', ra:'Rev Architecture', pt:'Pets', es:'Espresso', tv:'TVs', rs:'Resorts', cl:'Cologne', lv:'Lux Vacations', ev:'Events', ga:'Gatherings', gm:'Gaming', mv:'Movies', wl:'Wellness', dn:'Dining', nl:'Nightlife', tn:'Towns', sc:'Schools', tc:'Telco', er:'Electronics', q:'Knowledge', hf:'Home & Family', sw:'Software', sk:'Skills', sp:'Speeches', dr:'Drills', ce:'Pulse News', ed:'Advice' };
+  const faceCat = FACE_CAT[String(id).replace(/\d.*$/, '').toLowerCase()] || '';
+  const heroHtml = (heroUrl ? entryCoverFigureHtmlWithFallback(heroAlt, heroUrl, heroFallback && heroFallback !== heroUrl ? heroFallback : '', faceCat) : '');
   let bodyForMd = noTopHero ? stripLeadingCoverMarkdown(croStripped) : croStripped;
   bodyForMd = bodyForMd.replace(/<!--pillar-weave-->|<!--cro-weave-->/g, '');
   if (heroHtml) bodyForMd = stripLeadingCoverMarkdown(bodyForMd);
@@ -1217,7 +1249,10 @@ exports.handler = async (event) => {
     *{box-sizing:border-box;}
     /* site-wide brightness bump (owner 2026-07-06): brighten all in-body + cover images */
     article img, .body img, .entry-hero img, figure img { filter: brightness(1.22) saturate(1.04); }
-    ${ANSWER_CONTENT_IMAGES_OFF ? '.body img,.body figure.entry-section,.body figure.entry-graphic,.body figure.entry-cover{display:none!important;}.body .product-card>a,.body .product-card>a img,.body .product-card img,.body .v2-pick>div>a,.body .v2-pick>div>a img,.body .v2-pick img{display:block!important;}' : ''}
+    ${ANSWER_CONTENT_IMAGES_OFF ? '.body img,.body figure.entry-section,.body figure.entry-graphic{display:none!important;}.body figure.entry-cover,.entry-cover,figure.entry-cover{display:block!important;}.body .product-card>a,.body .product-card>a img,.body .product-card img,.body .v2-pick>div>a,.body .v2-pick>div>a img,.body .v2-pick img{display:block!important;}' : ''}
+    /* TOP HERO always visible — face card / promoted square (owner 2026-07-12) */
+    figure.entry-cover{display:block!important;visibility:visible!important;}
+    figure.entry-cover img{display:block!important;width:100%;height:auto;}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.7;}
     a{color:var(--orange-bright);text-decoration:none;}
     a:hover{text-decoration:underline;}
@@ -1237,7 +1272,8 @@ exports.handler = async (event) => {
     article{max-width:880px;margin:0 auto;padding:36px clamp(20px,5vw,40px) 64px;}
     .crumb{font-size:0.66rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
     .crumb a{color:var(--muted);}
-    h1.q{font-family:Fraunces,Georgia,'Times New Roman',serif;font-size:clamp(2.7rem,5.6vw,4.1rem);font-weight:900;letter-spacing:-0.015em;line-height:1.1;margin:0 0 22px;}
+    h1.q{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.35rem,3.2vw,1.85rem);font-weight:800;letter-spacing:-0.01em;line-height:1.22;margin:0 0 16px;color:#F6C445;}
+    .entry-face-cat{position:absolute;top:12px;left:12px;z-index:2;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#F6C445;background:rgba(0,0,0,.55);border:1px solid rgba(234,193,92,.45);padding:4px 8px;border-radius:6px;text-shadow:0 1px 2px #000;}
     .meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:0.66rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,229,216,0.45);margin-bottom:28px;}
     .entry-tag{display:inline-block;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(237,229,216,0.7);padding:3px 9px;border-radius:99px;font-size:0.6rem;text-decoration:none;transition:all 0.12s;}
     a.entry-tag:hover{background:rgba(232,113,10,0.12);border-color:rgba(232,113,10,0.4);color:rgba(255,180,90,0.9);text-decoration:none;}
@@ -1392,7 +1428,7 @@ exports.handler = async (event) => {
   <link rel="stylesheet" href="/assets/pulse-tan.css">
 </head>
 <body>
-  <style>.crohdr{max-width:1000px;margin:10px auto 6px;padding:0 14px}.cro-card{display:flex;align-items:stretch;text-decoration:none;border:3px solid #EAC15C;border-radius:14px;overflow:hidden;background:linear-gradient(100deg,#180a10,#0f0a0c 60%);box-shadow:0 6px 26px rgba(0,0,0,.5),0 0 0 1px rgba(234,193,92,.35)}.cro-card__img{flex:0 0 32%;background-size:cover;background-position:center 30%;min-height:210px;border-right:1px solid rgba(234,193,92,.28)}.cro-card__body{flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center;gap:5px}.cro-card__eyebrow{font:800 .6rem/1.3 system-ui;letter-spacing:.13em;color:#FFB81C}.cro-card__title{margin:0;font-family:Georgia,serif;font-weight:800;font-size:clamp(1.7rem,3.7vw,2.6rem);line-height:1.05;color:#F6C445!important;text-shadow:0 1px 6px rgba(0,0,0,.5)}.cro-card__eyebrow{color:#FFB81C!important}.cro-card__role{color:#EAC15C!important}.cro-card__role{margin:0;color:#EAC15C;font-weight:700;font-size:.9rem}.cro-card__sub{margin:2px 0 0;color:#b9b1a6;font-size:.88rem;max-width:52ch}.cro-card__rail{flex:0 0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;gap:12px;padding:16px 20px;background:linear-gradient(180deg,rgba(234,193,92,.06),transparent);border-left:1px solid rgba(234,193,92,.16);min-width:190px}.cro-card__badge{display:inline-flex;align-items:center;gap:7px;font:800 .58rem/1 system-ui;letter-spacing:.1em;text-transform:uppercase;color:#cfe8c6;background:rgba(40,90,50,.28);border:1px solid rgba(120,200,130,.35);padding:5px 10px;border-radius:999px;white-space:nowrap}.cro-card__badge i{width:8px;height:8px;border-radius:50%;background:#48d16a;box-shadow:0 0 8px #48d16a}.cro-card__railcta{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.cro-card__cta{background:linear-gradient(180deg,#EAC15C,#cf9f2e);color:#1a0a00;font-weight:900;font-size:.95rem;padding:11px 20px;border-radius:10px;white-space:nowrap}.cro-card__resume{color:#EAC15C;font-weight:700;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}.cro-card:hover{border-color:#EAC15C}.cro-bar{display:grid;grid-template-columns:repeat(5,1fr);margin:-2px 0 4px;border:1px solid rgba(234,193,92,.4);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}.cro-bar a{text-align:center;padding:11px 8px;color:#EAC15C;font-weight:800;font-size:.9rem;text-decoration:none;background:#130a10;border-right:1px solid rgba(234,193,92,.22)}.cro-bar a:last-child{border-right:none}.cro-bar a:hover{background:#1d1017;color:#fff}@media(max-width:640px){.cro-bar{grid-template-columns:repeat(2,1fr)}.cro-bar a:nth-child(2){border-right:none}.cro-card{flex-direction:column}.cro-card__img{flex:none;width:100%;min-height:120px;border-right:none;border-bottom:1px solid rgba(234,193,92,.28)}.cro-card__rail{flex-direction:row;align-items:center;justify-content:space-between;width:100%;min-width:0;border-left:none;border-top:1px solid rgba(234,193,92,.16);padding:11px 14px}.cro-card__railcta{flex-direction:row;align-items:center;gap:12px}}</style>
+  <style>.crohdr{max-width:1000px;margin:10px auto 6px;padding:0 14px}.cro-card{display:flex;align-items:stretch;text-decoration:none;border:3px solid #EAC15C;border-radius:14px;overflow:hidden;background:linear-gradient(100deg,#180a10,#0f0a0c 60%);box-shadow:0 6px 26px rgba(0,0,0,.5),0 0 0 1px rgba(234,193,92,.35)}.cro-card__img{flex:0 0 32%;background-size:cover;background-position:center 30%;min-height:210px;border-right:1px solid rgba(234,193,92,.28)}.cro-card__body{flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center;gap:5px}.cro-card__eyebrow{font:800 .6rem/1.3 system-ui;letter-spacing:.13em;color:#FFB81C}.cro-card__title{margin:0;font-family:Georgia,serif;font-weight:800;font-size:clamp(1.7rem,3.7vw,2.6rem);line-height:1.05;color:#F6C445!important;text-shadow:0 1px 6px rgba(0,0,0,.5)}.cro-card__eyebrow{color:#FFB81C!important}.cro-card__role{color:#EAC15C!important}.cro-card__role{margin:0;color:#EAC15C;font-weight:700;font-size:.9rem}.cro-card__sub{margin:2px 0 0;color:#b9b1a6;font-size:.88rem;max-width:52ch}.cro-card__rail{flex:0 0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;gap:12px;padding:16px 20px;background:linear-gradient(180deg,rgba(234,193,92,.06),transparent);border-left:1px solid rgba(234,193,92,.16);min-width:190px}.cro-card__badge{display:inline-flex;align-items:center;gap:7px;font:800 .58rem/1 system-ui;letter-spacing:.1em;text-transform:uppercase;color:#cfe8c6;background:rgba(40,90,50,.28);border:1px solid rgba(120,200,130,.35);padding:5px 10px;border-radius:999px;white-space:nowrap}.cro-card__badge i{width:8px;height:8px;border-radius:50%;background:#48d16a;box-shadow:0 0 8px #48d16a}.cro-card__railcta{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.cro-card__cta{background:linear-gradient(180deg,#EAC15C,#cf9f2e);color:#1a0a00;font-weight:900;font-size:.95rem;padding:11px 20px;border-radius:10px;white-space:nowrap}.cro-card__resume{color:#EAC15C;font-weight:700;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}.cro-card:hover{border-color:#EAC15C}.cro-bar{display:grid;grid-template-columns:repeat(5,1fr);margin:-2px 0 4px;border:1px solid rgba(234,193,92,.4);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}.cro-bar a{text-align:center;padding:11px 8px;color:#EAC15C;font-weight:800;font-size:.9rem;text-decoration:none;background:#130a10;border-right:1px solid rgba(234,193,92,.22)}.cro-bar a:last-child{border-right:none}.cro-bar a:hover{background:#1d1017;color:#fff}@media(max-width:640px){.crohdr{margin:8px auto 6px;padding:0 12px}.cro-card{flex-direction:column!important;align-items:center!important;text-align:center;height:auto!important;min-height:0!important;overflow:visible!important}.cro-card__img{flex:0 0 auto!important;width:180px!important;height:180px!important;min-width:180px!important;min-height:180px!important;max-width:180px!important;aspect-ratio:1/1!important;border-radius:50%!important;margin:18px auto 6px!important;border:2px solid rgba(234,193,92,.55)!important;border-right:none!important;border-bottom:none!important;background-size:cover!important;background-position:center 20%!important;filter:brightness(1.1)}.cro-card__body{flex:none!important;width:100%;padding:2px 16px 18px!important;align-items:center!important;text-align:center!important;gap:7px!important}.cro-card__eyebrow{font-size:.52rem!important;letter-spacing:.08em;line-height:1.4;max-width:34ch;margin:0 auto}.cro-card__title{font-size:clamp(1.85rem,9vw,2.35rem)!important;line-height:1.05!important;text-align:center}.cro-card__role{font-size:.88rem!important}.cro-card__sub{font-size:.86rem!important;line-height:1.45;max-width:34ch;margin:0 auto!important}.cro-card__cta{display:inline-block!important;align-self:center!important;margin:10px auto 0!important;font-size:.92rem!important;padding:11px 18px!important;border-radius:10px}.cro-bar{grid-template-columns:repeat(2,1fr)!important;width:100%;margin:0}.cro-bar a{padding:11px 6px!important;font-size:.86rem!important;line-height:1.2}.cro-bar a:nth-child(2){border-right:none}.cro-bar a:nth-child(n+5){grid-column:span 1}}</style>
   <div class="crohdr"><a class="cro-card" href="/revenue-checkup" target="_blank" rel="noopener" data-pulse-click="hire-cro" aria-label="Get a free 30-minute revenue checkup with Kory White, Fractional CRO"><div class="cro-card__img" style="background-image:url('/assets/kory-white.jpg')"></div><div class="cro-card__body"><span class="cro-card__eyebrow">FRACTIONAL CRO · MARYLAND-BASED, NATIONWIDE · $0→$200M</span><h2 class="cro-card__title">Kory White</h2><p class="cro-card__role">RevOps &amp; Revenue Leadership</p><p class="cro-card__sub">Get a <strong>free 30-minute revenue checkup</strong> &mdash; Kory reviews your pipeline and forecast, then names the 1&ndash;2 fixes that move revenue fastest. 25 yrs scaling teams $0&rarr;$200M.</p><span class="cro-card__cta" style="display:inline-block;align-self:flex-start;margin-top:10px;white-space:normal;text-align:center;">Free 30-min revenue checkup &rarr;</span></div></a>
   <div class="cro-bar"><a href="/fractional-cro" data-pulse-click="fractional-cro-hub">Hire a Fractional CRO</a><a href="/revenue-checkup" data-pulse-click="hire-cro">How We Help?</a><a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">LinkedIn</a><a href="/assets/kory-white-cro-resume.pdf" target="_blank" rel="noopener">Résumé</a><a href="https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate</a></div></div>
   <button id="scroll-top" type="button" aria-label="Scroll to top" style="position:fixed;bottom:24px;right:24px;width:42px;height:42px;border-radius:50%;background:rgba(232,113,10,0.92);border:1px solid rgba(255,255,255,0.18);color:#fff;font-size:1.1rem;font-weight:900;cursor:pointer;z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.2s, transform 0.15s;box-shadow:0 6px 20px rgba(232,113,10,0.4);font-family:inherit;">↑</button>
@@ -1405,27 +1441,40 @@ exports.handler = async (event) => {
     ${entry.cc_signed ? '<div style="margin:0 0 10px;"><span class="cc-gold-badge">🏆 ' + (entry.quality || '13/13') + ' · Claude Code Audited</span></div>' : ''}
     <div style="margin:0 0 12px;">
       ${(() => {
-        const sc = typeof entry.quality_score === 'number' ? entry.quality_score : 5;
-        const isPolishing = sc > 5 && sc < 10;
-        let bg, bd, tx, sh, lbl, labelText = 'Current Quality';
-        if (sc >= 10) {
+        // TWO scales (owner 2026-07-11): Gate = 13/13 checklist · Quality = x/10 polish.
+        // quality_score was historically stamped 13 on gate pass — map 11–13 → 10 for IQ display.
+        const raw = typeof entry.quality_score === 'number' ? entry.quality_score : 5;
+        const iq = raw >= 11 ? 10 : Math.max(0, Math.min(10, raw));
+        const gateOk = raw >= 13 || entry.pending === false || !!entry.cc_signed;
+        // Quality pass = 9/10. Gold certified = 10/10.
+        const isGold = iq >= 10;
+        const isPass = iq >= 9;
+        const isPolishing = iq > 5 && iq < 9;
+        let bg, bd, tx, sh, lbl, labelText = 'RevOps IQ';
+        if (isGold) {
           bg = 'linear-gradient(135deg,#FFD740,#E89F0A)'; bd = '#FFD740'; tx = '#1a1208';
-          sh = '0 0 12px rgba(255,215,64,0.7)'; lbl = '10/10'; labelText = '✓ Machine Certified';
+          sh = '0 0 12px rgba(255,215,64,0.7)'; lbl = '10/10'; labelText = '✓ IQ Certified';
+        } else if (isPass) {
+          bg = 'linear-gradient(135deg,#39FF14,#00C030)'; bd = '#39FF14'; tx = '#001405';
+          sh = '0 0 12px rgba(57,255,20,0.75)'; lbl = iq + '/10'; labelText = 'IQ Pass';
         } else if (isPolishing) {
           bg = 'linear-gradient(135deg,#39FF14,#00C030)'; bd = '#39FF14'; tx = '#001405';
-          sh = '0 0 12px rgba(57,255,20,0.75)'; lbl = sc + '/10';
+          sh = '0 0 12px rgba(57,255,20,0.75)'; lbl = iq + '/10';
         } else {
           bg = 'rgba(0,40,18,0.72)'; bd = 'rgba(57,255,20,0.45)'; tx = '#7BFF8F';
-          sh = '0 0 6px rgba(57,255,20,0.18)'; lbl = sc + '/10';
+          sh = '0 0 6px rgba(57,255,20,0.18)'; lbl = iq + '/10';
         }
-        const labelBg = isPolishing ? 'rgba(0,40,18,0.85)' : (sc >= 10 ? 'linear-gradient(135deg,#FFE34F,#FFB347)' : 'rgba(0,30,12,0.75)');
-        const labelTx = isPolishing ? '#39FF14' : (sc >= 10 ? '#1a1208' : '#7BFF8F');
-        const labelBd = isPolishing ? '#39FF14' : (sc >= 10 ? '#FFE34F' : 'rgba(57,255,20,0.4)');
-        const labelSh = isPolishing ? 'box-shadow:0 0 8px rgba(57,255,20,0.5);' : (sc >= 10 ? 'box-shadow:0 0 8px rgba(255,227,79,0.5);' : '');
+        const labelBg = isPolishing ? 'rgba(0,40,18,0.85)' : (isGold ? 'linear-gradient(135deg,#FFE34F,#FFB347)' : (isPass ? 'rgba(0,40,18,0.85)' : 'rgba(0,30,12,0.75)'));
+        const labelTx = (isPolishing || isPass) ? '#39FF14' : (isGold ? '#1a1208' : '#7BFF8F');
+        const labelBd = (isPolishing || isPass) ? '#39FF14' : (isGold ? '#FFE34F' : 'rgba(57,255,20,0.4)');
+        const labelSh = (isPolishing || isPass) ? 'box-shadow:0 0 8px rgba(57,255,20,0.5);' : (isGold ? 'box-shadow:0 0 8px rgba(255,227,79,0.5);' : '');
         const polishingPill = isPolishing
-          ? `<span style="display:inline-block;background:linear-gradient(135deg,#00ff41,#00b830);color:#001405;padding:5px 12px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;border:1px solid #00ff41;box-shadow:0 0 12px rgba(0,255,65,0.7);vertical-align:middle;margin-right:4px;">◉ Currently Polishing</span>`
+          ? `<span style="display:inline-block;background:linear-gradient(135deg,#00ff41,#00b830);color:#001405;padding:5px 12px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;border:1px solid #00ff41;box-shadow:0 0 12px rgba(0,255,65,0.7);vertical-align:middle;margin-right:4px;">◉ Raising IQ</span>`
           : '';
-        return `${polishingPill}<span style="display:inline-block;background:${labelBg};color:${labelTx};padding:5px 12px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;border:1px solid ${labelBd};${labelSh}vertical-align:middle;margin-right:4px;">${labelText}</span><span style="display:inline-block;background:${bg};color:${tx};padding:5px 12px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;border:1px solid ${bd};box-shadow:${sh};vertical-align:middle;margin-right:4px;">${lbl}</span><span role="button" tabindex="0" aria-label="How does the score work?" onclick="showIQHelp()" onkeypress="if(event.key===&quot;Enter&quot;){showIQHelp();}" style="display:inline-block;width:18px;height:18px;line-height:16px;text-align:center;background:rgba(57,255,20,0.18);border:1px solid rgba(57,255,20,0.55);color:#39FF14;border-radius:50%;font-size:0.7rem;font-weight:900;cursor:pointer;margin-right:8px;vertical-align:middle;user-select:none;">?</span>`;
+        const gatePill = gateOk
+          ? `<span style="display:inline-block;background:rgba(255,215,64,0.12);color:#FFD740;padding:5px 12px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;border:1px solid rgba(255,215,64,0.55);vertical-align:middle;margin-right:4px;">13/13 Gate</span>`
+          : `<span style="display:inline-block;background:rgba(255,80,80,0.12);color:#FF8A8A;padding:5px 12px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;border:1px solid rgba(255,80,80,0.45);vertical-align:middle;margin-right:4px;">Gate &lt;13</span>`;
+        return `${polishingPill}${gatePill}<span style="display:inline-block;background:${labelBg};color:${labelTx};padding:5px 12px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;border:1px solid ${labelBd};${labelSh}vertical-align:middle;margin-right:4px;">${labelText}</span><span style="display:inline-block;background:${bg};color:${tx};padding:5px 12px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;border:1px solid ${bd};box-shadow:${sh};vertical-align:middle;margin-right:4px;">${lbl}</span><span role="button" tabindex="0" aria-label="How does the score work?" onclick="showIQHelp()" onkeypress="if(event.key===&quot;Enter&quot;){showIQHelp();}" style="display:inline-block;width:18px;height:18px;line-height:16px;text-align:center;background:rgba(57,255,20,0.18);border:1px solid rgba(57,255,20,0.55);color:#39FF14;border-radius:50%;font-size:0.7rem;font-weight:900;cursor:pointer;margin-right:8px;vertical-align:middle;user-select:none;">?</span>`;
       })()}
     </div>
     <h1 class="q">${escHtml(entry.h1 || entry.question)}</h1>
@@ -2179,17 +2228,18 @@ exports.handler = async (event) => {
         <span style="display:inline-block;background:linear-gradient(135deg,#FFD740,#E89F0A);color:#1a1208;padding:5px 12px;border-radius:99px;font-size:0.6rem;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;border:1px solid #FFD740;box-shadow:0 0 10px rgba(255,215,64,0.55);">RevOps IQ Score</span>
         <button type="button" aria-label="Close" onclick="hideIQHelp()" style="background:none;border:none;color:rgba(237,229,216,0.55);font-size:1.5rem;line-height:1;cursor:pointer;padding:0 4px;">×</button>
       </div>
-      <h3 style="margin:0 0 12px;font-size:1.1rem;font-weight:700;letter-spacing:0.01em;color:#FFE34F;">What does the score mean?</h3>
-      <p style="margin:0 0 14px;font-size:0.85rem;line-height:1.55;color:rgba(237,229,216,0.85);">Every entry shows a live, honest <strong>x/10</strong> score. Fresh entries start at <strong>5/10</strong> &mdash; schema-complete with an opinionated framework. They climb as the AI does real research and verification work between posts.</p>
+      <h3 style="margin:0 0 12px;font-size:1.1rem;font-weight:700;letter-spacing:0.01em;color:#FFE34F;">Two scores — Gate vs IQ</h3>
+      <p style="margin:0 0 10px;font-size:0.85rem;line-height:1.55;color:rgba(237,229,216,0.85);"><strong>13/13 Gate</strong> = structural checklist (words, FAQ, mermaids, sources, images, etc.). Required to publish. Not the same as IQ.</p>
+      <p style="margin:0 0 14px;font-size:0.85rem;line-height:1.55;color:rgba(237,229,216,0.85);"><strong>RevOps IQ (x/10)</strong> = research depth. Fresh entries start at <strong>5/10</strong>. <strong>9/10 = quality pass</strong>. <strong>10/10 = gold certified</strong>.</p>
       <ul style="margin:0 0 16px;padding-left:18px;font-size:0.82rem;line-height:1.6;color:rgba(237,229,216,0.78);">
         <li><strong>5/10</strong> &mdash; fresh write. Structured argument, named vendors, illustrative numbers (not yet fact-checked).</li>
         <li><strong>6/10</strong> &mdash; every claim resolves to a public source URL.</li>
         <li><strong>7/10</strong> &mdash; illustrative numbers replaced with current verified figures from primary sources (10-Qs, press releases, Gartner/Forrester).</li>
         <li><strong>8/10</strong> &mdash; adversarial counter-argument section added; alternative views represented honestly.</li>
-        <li><strong>9/10</strong> &mdash; cross-links to 4+ topically related entries in the library; no internal contradictions.</li>
-        <li><strong>10/10</strong> &mdash; comprehensive fact-check passed. The answer would survive expert review and is the best response we can produce regardless of where you shopped it.</li>
+        <li><strong>9/10 — PASS</strong> &mdash; cross-links to 4+ related entries; no internal contradictions. Good enough with a 13/13 gate.</li>
+        <li><strong>10/10 — GOLD</strong> &mdash; comprehensive fact-check passed; expert-ready.</li>
       </ul>
-      <p style="margin:0;font-size:0.72rem;color:rgba(237,229,216,0.55);font-style:italic;">Score is dynamic &mdash; entries improve over hours/days/weeks as the polish loop earns each step. Nothing claims 10/10 unless it actually passes every check.</p>
+      <p style="margin:0;font-size:0.72rem;color:rgba(237,229,216,0.55);font-style:italic;">IQ climbs over time via the polish loop. Gate stays binary at 13/13.</p>
     </div>
   </div>
   <script>

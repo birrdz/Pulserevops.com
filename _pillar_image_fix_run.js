@@ -7,7 +7,7 @@ const SITE = 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
 
 const PILLAR_HUB = {
   aq: 'aquariums', sw: 'software', ca: 'cars', bt: 'boats', tl: 'tools', ce: 'knowledge',
-  q: 'knowledge', er: 'electronicreview', pt: 'pets', mv: 'movies',
+  q: 'knowledge', er: 'electronicreview', pt: 'pets', mv: 'movies', hf: 'knowledge',
 };
 
 function pillarCfg(key) {

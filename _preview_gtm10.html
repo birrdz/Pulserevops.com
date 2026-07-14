@@ -1,0 +1,47 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTM row of 10 — review</title>
+<style>
+body{margin:0;background:#1a1014;color:#F6C445;font-family:Georgia,serif}
+h1{font-size:1.15rem;margin:0;padding:20px clamp(12px,4vw,40px) 6px;font-weight:800}
+.sub{padding:0 clamp(12px,4vw,40px) 14px;color:rgba(246,196,69,.65);font-size:.85rem}
+.row{width:100%;padding:0 clamp(12px,4vw,40px) 28px;box-sizing:border-box}
+.scroll{display:flex;gap:16px;overflow-x:auto;padding:2px 2px 14px;scrollbar-width:thin;cursor:grab}
+/* Bigger tiles so full titles fit — no abbreviate of answer-page questions */
+.rcard{display:flex;flex-direction:column;flex:0 0 auto;width:220px;height:340px;text-decoration:none;
+  background:#130a10;border:7px solid #EAC15C;overflow:hidden;box-sizing:border-box;color:inherit}
+.imgwrap{display:block;width:100%;height:198px;flex:0 0 198px;overflow:hidden;background:#1a1014}
+.imgwrap img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
+.rc{padding:8px 10px 0;color:#EAC15C;font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-family:system-ui,sans-serif;text-align:center;flex:0 0 auto}
+.rt{padding:10px 12px 16px;color:#F6C445;font-family:Georgia,serif;font-size:1.42rem;line-height:1.16;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex:1 1 auto;min-height:0}
+.rt>span{display:block;width:100%;margin:0 auto;text-align:center;text-wrap:balance;
+  overflow:hidden;max-height:calc(1.16em * 3);line-height:1.16}
+</style>
+</head><body>
+<h1>GTM Playbooks — first 10</h1>
+<p class="sub">Title-matched Pexels · bigger tiles · centered titles · drag/scroll the row</p>
+<div class="row"><div class="scroll" id="sc"></div></div>
+<script>
+var cards=[
+  {id:'gp515',t:'Getting Started with GTM 2027'},
+  {id:'gp514',t:'Is GTM Playbooks Worth It 2027'},
+  {id:'gp0511',t:'Inbound Demand-Capture GTM 2027'},
+  {id:'gp0510',t:'Sales-Assisted PLG for 2027'},
+  {id:'gp0509',t:'Reseller and VAR Channel GTM'},
+  {id:'gp0508',t:'International Geo-Expansion GTM'},
+  {id:'gp0507',t:'Vertical SaaS GTM for Healthcare'},
+  {id:'gp0506',t:'Usage-Based Pricing GTM Motion'},
+  {id:'gp0505',t:'ABM GTM Playbook for Enterprise'},
+  {id:'gp0504',t:'Event-Led Field-Marketing GTM'}
+];
+document.getElementById('sc').innerHTML=cards.map(function(c){
+  return '<a class="rcard" href="/knowledge/'+c.id+'">'+
+    '<span class="imgwrap"><img loading="lazy" src="/assets/qa/'+c.id+'.sq.jpg?v=gtm27" alt=""></span>'+
+    '<div class="rc">GTM PLAYBOOKS</div>'+
+    '<div class="rt"><span>'+c.t+'</span></div></a>';
+}).join('');
+</script>
+</body></html>

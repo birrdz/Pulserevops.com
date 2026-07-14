@@ -60,3 +60,11 @@ Do NOT deploy every entry or every hour. Deploy on a fixed schedule from config 
 - Build proof before launch (Phase-4 style): run ONE manual batch of 10, report gate scores, sim results, discards, and 3 live URLs for operator taste check. Only after operator approval does the hourly schedule arm.
 
 === END — BUILD gen_daemon.js, RUN THE PROOF BATCH, AWAIT MY GO TO ARM ===
+
+## 🔒 DEPLOY LAW (permanent · 2026-07-11) — canonical: `DEPLOY_LAW.md`
+1. **Classify every change first.** CONTENT/DATA (entries, bodies, images, scores, index rows) → **Blobs only, NEVER deploy**. CODE/TEMPLATE/ASSET (function, renderer, `.js`/`.css`/static, redirect) → **queue for the daily deploy**.
+2. **`--prod` max ONCE/day**, end of the last machine run, and **only if the code queue is non-empty**. No queued code = no deploy that day.
+3. **Draft deploys are FREE** (`netlify deploy`, no `--prod`) — test freely.
+4. **Never misclassify code as content** to dodge a deploy — classify honestly.
+5. **Exception:** operator says **"deploy now"** → urgent deploy allowed.
+6. **Log every deploy** (date · what shipped) in `DEPLOY_LAW.md`. (Generated Q&As are CONTENT — Blobs only, never deploy; the daemon's `deployEveryHours` is superseded by this once-a-day CODE-only law.)

@@ -39,10 +39,18 @@
   };
   var SZ = ['big', 'tall', 'wide', '', 'tall', 'wide', 'big', '', 'wide', 'tall', '', 'big', 'wide', 'tall'];
   var TOPIC_SZ = ['big', 'tall', 'wide', '', 'tall', 'wide', 'big', '', 'wide', 'tall', '', 'big', 'wide', 'tall', 'wide', ''];
-  var HUBT = 'position:absolute;left:16px;right:16px;bottom:14px;z-index:3;color:#FFD54F;font-family:Fraunces,\'Playfair Display\',Georgia,serif;font-style:italic;font-weight:900;line-height:1.02;text-shadow:0 0 1px #000,0 0 2px #000,0 1px 0 #000,0 2px 10px rgba(0,0,0,.95),0 4px 16px rgba(0,0,0,.85);-webkit-text-stroke:0.35px rgba(0,0,0,.85);';
+  var HUBT = 'position:absolute;left:14px;right:14px;bottom:12px;z-index:3;color:#FFD54F;font-family:Inter,system-ui,Arial,sans-serif;font-style:normal;font-weight:700;line-height:1.15;font-size:clamp(.78rem,1.5vw,.95rem);text-shadow:0 1px 2px #000,0 2px 8px rgba(0,0,0,.85);';
 
-  /** Image may also have title baked; mosaic always shows gold CSS overlay like homepage hub tiles. */
-  function faceTitleBaked() { return false; }
+  /** FACE-CARD TITLE LAW: baked gold on JPG is the title — do not also paint a CSS h4. */
+  function faceTitleBaked(c) {
+    if (!c) return false;
+    if (c.face_title_baked === true) return true;
+    if (c.cover_src === 'pexels-stored' || c.cover_src === 'flux' || c.cover_src === 'ddg') return true;
+    var img = String(c.img || c.cover || '');
+    // Dedicated face file /assets/qa/tl123.jpg (not pool-*/topic paths)
+    if (/^\/assets\/qa\/[a-z]{1,3}\d+\.jpe?g$/i.test(img)) return true;
+    return false;
+  }
   function esc(s) {
     return String(s || '').replace(/[<>&"]/g, function (c) {
       return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c];
@@ -263,7 +271,7 @@
     var l = document.createElement('link');
     l.id = 'pulse-mosaic-css';
     l.rel = 'stylesheet';
-    l.href = '/css/pulse-mosaic.css';
+    l.href = '/css/pulse-mosaic.css?v=20260711f';
     document.head.appendChild(l);
   }
 
@@ -507,14 +515,18 @@
       var title = entryTitle(c);
       var imgHtml = FI.mosaicImgTag ? FI.mosaicImgTag(src, title, !!eager) : '';
       var lazy = opts.lazyTiles !== false && !eager;
-      var titleHtml = '<h4>' + esc(title) + '</h4>';
+      var cat = NM[pof(c.id)] || pof(c.id).toUpperCase();
+      // Always paint CSS title (bright yellow). Scrim covers old baked JPG text until rebake.
+      var baked = faceTitleBaked(c) || !/^\/assets\/topics\//i.test(String(c.img || ''));
       var scrim = '<div class="mm-scrim"></div>';
+      var titleHtml = '<div class="mm-txt"><h4>' + esc(title) + '</h4></div>';
       var lazyCls = lazy ? ' mm-lazy mm-img-pending' : '';
       var dataLazy = lazy ? ' data-mosaic-lazy="1"' : ' data-mosaic-loaded="1"';
-      return '<a class="mm' + lazyCls + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
+      return '<a class="mm' + lazyCls + (baked ? ' mm-baked' : '') + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" aria-label="' + esc(title) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
         + imgHtml
-        + scrim + '<div class="mm-txt"><span class="mm-cat">' + esc(NM[pof(c.id)] || pof(c.id).toUpperCase()) + '</span>'
-        + titleHtml + '</div></a>';
+        + scrim
+        + '<span class="mm-cat">' + esc(cat) + '</span>'
+        + titleHtml + '</a>';
     }
 
     var sent = document.createElement('div');
@@ -616,9 +628,21 @@
 
     function fetchMixedFluxPool(done) {
       // FAST PATH (owner 2026-07-06): one prebuilt pool file instead of 43 per-pillar calls (~20s → ~0.1s).
-      fetchLibrary('/mosaic-pool.json?v=' + Math.floor(Date.now() / 3600000)).then(function (pj) {
+      // 🔒 A single-pillar page loads its OWN per-pillar file (mosaic-pool-<p>.json — the FULL pillar, all distinct)
+      // instead of the mixed homepage pool (which caps each pillar to ~37). Fixes "every topic shows one image"
+      // when the mixed pool is thin for a pillar (owner 2026-07-10). Falls back to mixed pool / fanout if missing.
+      var poolFile = (opts && opts.pillar) ? ('/mosaic-pool-' + opts.pillar + '.json') : '/mosaic-pool.json';
+      fetchLibrary(poolFile + '?v=' + Math.floor(Date.now() / 3600000)).then(function (pj) {
         var parr = Array.isArray(pj) ? pj : ((pj && (pj.entries || pj.items)) || null);
-        if (parr && parr.length > 40) { var b = buildBuf(parr, opts); if (b && b.length) { done(b); return; } }
+        if (parr && parr.length > 3) { var b = buildBuf(parr, opts); if (b && b.length) { done(b); return; } }
+        if (opts && opts.pillar) {   // per-pillar file thin/missing -> fall back to the mixed pool
+          fetchLibrary('/mosaic-pool.json?v=' + Math.floor(Date.now() / 3600000)).then(function (mj) {
+            var marr = Array.isArray(mj) ? mj : ((mj && (mj.entries || mj.items)) || null);
+            if (marr && marr.length > 40) { var mb = buildBuf(marr, opts); if (mb && mb.length) { done(mb); return; } }
+            fetchMixedFluxPoolFanout(done);
+          }).catch(function () { fetchMixedFluxPoolFanout(done); });
+          return;
+        }
         fetchMixedFluxPoolFanout(done);
       }).catch(function () { fetchMixedFluxPoolFanout(done); });
     }
@@ -735,7 +759,7 @@
         return;
       }
       if (opts.sortNewest) {
-        fetchLibrary('/.netlify/functions/pulse-machine-library-list?recent=' + Math.min(recent, 40000))
+        fetchLibrary('/.netlify/functions/pulse-machine-library-list?recent=' + Math.min(recent, 1200))
           .then(function (j) {
             done(buildBuf(Array.isArray(j) ? j : (j.entries || j.items || []), opts));
           })
@@ -768,7 +792,7 @@
             var chunk = pills.slice(idx, idx + batch);
             idx += batch;
             Promise.all(chunk.map(function (p) {
-              return fetchLibrary('/.netlify/functions/pulse-machine-library-list?recent=25000&pillar=' + encodeURIComponent(p));
+              return fetchLibrary('/.netlify/functions/pulse-machine-library-list?recent=80&pillar=' + encodeURIComponent(p));
             })).then(function (rows) {
               rows.forEach(function (j) { if (j) add(j.entries || j.items || []); });
               runBatch();

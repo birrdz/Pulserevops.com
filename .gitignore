@@ -42,3 +42,15 @@ _cro_minicert.log
 _run_dashboard_server.log
 _cro_minicert_approved.flag
 _cro_rewrite.log
+assets/qa/_gp_pool/
+_gp_pool_manifest.json
+_gp_pool_approval.json
+_gp_pool_progress.txt
+_gp_pool_pace.json
+_gp_gallery_server.js
+_gp_pool_gen.js
+_gp_pool_gen.log
+_ops_dashboard_server.js
+
+sim/
+sim_machine_server.js

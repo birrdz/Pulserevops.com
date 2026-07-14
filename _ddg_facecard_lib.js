@@ -1,8 +1,10 @@
 // _ddg_facecard_lib.js — face-card COVER generation (DDG real photos + Pollinator flux alternate).
 // 🔒 OWNER LAW: alternate DDG ↔ Pollinator per page (id hash); fallback when one throttles/fails.
-// Gold title = baked onto face-card covers (brand orange #FF8C1A, Playfair-style italic, bottom gradient).
+// Gold title = baked onto face-card covers (brand orange, clean Arial/Helvetica sans, bottom gradient).
+// 🔒 FACE-CARD TITLE LAW (owner 2026-07-11): the BAKED title is the only title on Q&A face cards.
+// Mosaic/CSS must NOT also render a large <h4> overlay (that caused double titles). Keep baking here.
 // Section + pool images stay text-free unless opts.goldTitle is passed.
-const FACE_TITLE_ORANGE = process.env.FACE_TITLE_COLOR || '#FFD54F';
+const FACE_TITLE_ORANGE = process.env.FACE_TITLE_COLOR || '#FFEB3B';
 const FACE_TITLE_STROKE = process.env.FACE_TITLE_STROKE || '#000000';
 // Every cover/section image passes storeGradedImage (grade + EXIF PULSE_GRADE=v_final + self-host).
 const fs = require('fs'), sharp = require('sharp');
@@ -45,44 +47,42 @@ function datedSVG(w, h) {
   h = h || w;
   return Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '">' +
     '<defs>' +
-    '<radialGradient id="v" cx="0.5" cy="0.47" r="1.08"><stop offset="0.62" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#0a0603" stop-opacity="0.14"/></radialGradient>' +
-    '<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.045"/></feComponentTransfer></filter>' +
+    '<radialGradient id="v" cx="0.5" cy="0.47" r="1.08"><stop offset="0.72" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000000" stop-opacity="0"/></radialGradient>' +
+    '<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.03"/></feComponentTransfer></filter>' +
     '</defs>' +
-    '<rect width="' + w + '" height="' + h + '" fill="#c98a2e" opacity="0.07"/>' +   // old-timey golden warmth
-    '<rect width="' + w + '" height="' + h + '" fill="url(#v)"/>' +                    // soft wide vignette ~14%
-    '<rect width="' + w + '" height="' + h + '" filter="url(#grain)" opacity="0.045"/>' + // visible grain texture ~4.5%
+    '<rect width="' + w + '" height="' + h + '" fill="#ffffff" opacity="0"/>' +   // CLEAN: no gold wash (owner 2026-07-10)
+    '<rect width="' + w + '" height="' + h + '" fill="url(#v)"/>' +                    // vignette OFF (opacity 0)
+    '<rect width="' + w + '" height="' + h + '" filter="url(#grain)" opacity="0"/>' + // grain OFF
     '</svg>');
 }
 function goldTitleOverlaySVG(w, h, text) {
   const xesc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  const clean = String(text || '').replace(/[#*_`>|]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 220);
+  const clean = String(text || '').replace(/[#*_`>|]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 200);
   const words = clean.split(/\s+/).filter(Boolean);
   const lines = [];
   let cur = '';
-  const maxChars = Math.max(w, h) >= 700 ? 24 : 18;
-  words.forEach(w => {
-    if ((cur + ' ' + w).trim().length > maxChars && cur) { lines.push(cur.trim()); cur = w; }
-    else cur = (cur + ' ' + w).trim();
+  // Bigger + bright yellow, bottom-center (owner 2026-07-11)
+  const maxChars = Math.max(w, h) >= 700 ? 30 : 22;
+  words.forEach(wd => {
+    if ((cur + ' ' + wd).trim().length > maxChars && cur) { lines.push(cur.trim()); cur = wd; }
+    else cur = (cur + ' ' + wd).trim();
   });
   if (cur) lines.push(cur);
-  const L = lines.slice(-3);
-  const S = Math.max(w, h);
-  const F = Math.round(S * 0.072);
-  const lh = Math.round(F * 1.04);
-  const y0 = h - Math.round(h * 0.05) - (L.length - 1) * lh;
-  const pad = Math.round(w * 0.04);
-  const strokeW = Math.max(2, Math.round(F * 0.12));
-  const ts = L.map((l, i) => '<text x="' + pad + '" y="' + (y0 + i * lh) + '" font-family="Georgia,\'Playfair Display\',serif" font-style="italic" font-weight="900" font-size="' + F + '" fill="' + FACE_TITLE_ORANGE + '" stroke="' + FACE_TITLE_STROKE + '" stroke-width="' + strokeW + '" stroke-linejoin="round" paint-order="stroke fill">' + xesc(l) + '</text>').join('');
-  return Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '"><defs><linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.88"/></linearGradient></defs><rect width="' + w + '" height="' + h + '" fill="url(#gt)"/><g>' + ts + '</g></svg>');
+  const L = lines.slice(0, 3);
+  const F = Math.max(24, Math.min(44, Math.round(h * 0.1)));
+  const lh = Math.round(F * 1.14);
+  const y0 = h - Math.round(h * 0.055) - (L.length - 1) * lh;
+  const cx = Math.round(w / 2);
+  const strokeW = Math.max(2.5, Math.round(F * 0.14));
+  const ts = L.map((l, i) => '<text x="' + cx + '" y="' + (y0 + i * lh) + '" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-style="normal" font-weight="800" font-size="' + F + '" fill="' + FACE_TITLE_ORANGE + '" stroke="' + FACE_TITLE_STROKE + '" stroke-width="' + strokeW + '" stroke-linejoin="round" paint-order="stroke fill">' + xesc(l) + '</text>').join('');
+  return Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '"><defs><linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0.4" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.9"/></linearGradient></defs><rect width="' + w + '" height="' + h + '" fill="url(#gt)"/><g>' + ts + '</g></svg>');
 }
 // Shared FINAL color pipeline (frozen once approved). Rich-but-warm old-timey editorial:
 // saturation ~108%, +10% contrast with LIFTED shadows (filmic), warm cast across highlights+midtones, light sharpen.
 function applyCineGrade(pipe, bright) {
-  return pipe
-    .modulate({ saturation: 1.08, brightness: bright ? 0.98 : 1.01 })
-    .linear(1.10, 6)                                                   // +10% contrast, lifted shadows (filmic, not crushed)
-    .recomb([[1.07, 0, 0], [0, 1.0, 0], [0, 0, 0.93]])                 // warm cast (highlights + midtones), cool touch in blue
-    .sharpen();                                                        // light unsharp mask
+  // CLEAN — owner 2026-07-10: "get rid of the grader, just use regular pretty pictures."
+  // No color grade / warm cast / vignette / grain. Just a light brighten so photos pop.
+  return pipe.modulate({ brightness: 1.04 });
 }
 // 🔒🔒 THE ONE CHOKE POINT (v2 spec) — the ONLY function that writes an image file.
 // ALWAYS grades from RAW + stamps EXIF PULSE_GRADE=v_final. Returns {hash,size,w,h,path}.
@@ -98,19 +98,18 @@ function faceCardTileGradeOpts(question, qual, overrides) {
     goldTitle: question,
   }, overrides || {});
 }
-/** Pick sharp cover position from source aspect — keeps faces/products in the visible tile band. */
+/** Pick sharp cover position — prefer north/attention so heads aren't chopped on wide mosaic tiles. */
 async function resolveFaceCardCropPosition(rawBuf) {
   try {
     const meta = await sharp(rawBuf, { animated: false }).metadata();
     const w = meta.width || 1;
     const h = meta.height || 1;
     const ar = w / h;
-    if (ar < 0.82) return 'north';       // portrait — keep head/top product in wide tile
-    if (ar < 1.05) return 'attention';   // square-ish
-    if (ar <= 2.4) return 'attention';   // normal landscape
-    return 'entropy';                    // ultra-wide — find densest region
+    if (ar < 0.95) return 'north';        // portrait / square-ish — keep heads
+    if (ar <= 2.2) return 'north';        // typical photo into 3:1 — bias top for headroom
+    return 'attention';                   // ultra-wide — salience
   } catch (e) {
-    return 'attention';
+    return 'north';
   }
 }
 /** Grade any buffer into a mosaic-ready face-card file (/assets/qa/<id>.jpg). */

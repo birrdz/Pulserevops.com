@@ -290,16 +290,19 @@
   // Full library (every pillar) — needed ONLY for cross-pillar search and to
   // warm the cache for the next pillar. Fetched lazily so the 3-4 MB / ~10 s
   // universal payload never blocks a pillar's first paint.
+  // Full library — grow gradually. Never yank 25k on first paint (owner 2026-07-11).
   var fullLibLoading = false;
+  var FULL_STEPS = [2000, 5000, 10000];
+  var fullStep = 0;
   function ensureFullLibrary(){
-    if (fullLibraryLoaded || fullLibLoading) return;
+    if (fullLibraryLoaded && fullStep >= FULL_STEPS.length) return;
+    if (fullLibLoading) return;
     fullLibLoading = true;
-    fetch('/.netlify/functions/pulse-machine-library-list?recent=25000&mini=1', { cache: 'default' })
+    var n = FULL_STEPS[Math.min(fullStep, FULL_STEPS.length - 1)] || 2000;
+    fetch('/.netlify/functions/pulse-machine-library-list?recent=' + n + '&mini=1', { cache: 'default' })
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(d2){
         if (d2 && Array.isArray(d2.entries)) {
-          // mini=1 strips tags — re-attach from tagCache so the tag-based Sports
-          // pillar still matches after this tagless set replaces `entries`.
           entries = applyTags(d2.entries.filter(function(e){ return e && e.id && !/^vq_/i.test(e.id); }));
           fullLibraryLoaded = true;
           saveToCache(entries);
@@ -307,6 +310,12 @@
           render();
         }
         fullLibLoading = false;
+        fullStep++;
+        if (fullStep < FULL_STEPS.length) {
+          var grow = function(){ ensureFullLibrary(); };
+          if (typeof requestIdleCallback === 'function') requestIdleCallback(grow, { timeout: 5000 });
+          else setTimeout(grow, 2500);
+        }
       })
       .catch(function(){ fullLibLoading = false; });
   }
@@ -709,7 +718,7 @@
     }
     if (document.querySelector('script[data-pulse-home-mosaic-loader]')) { go(); return; }
     var s = document.createElement('script');
-    s.src = '/js/pulse-home-mosaic.js';
+    s.src = '/js/pulse-home-mosaic.js?v=20260711f';
     s.defer = true;
     s.setAttribute('data-pulse-home-mosaic-loader', '');
     s.onload = function(){ go(); };

@@ -3,10 +3,10 @@
     "step": 0,
     "sweetStep": 0,
     "hits": 0,
-    "successes": 34,
-    "consecutiveSuccesses": 34,
+    "successes": 286,
+    "consecutiveSuccesses": 286,
     "lastReason": "",
-    "lastAt": 1783546349198,
+    "lastAt": 1783687791945,
     "lockedMs": 15000
   },
   "ddg": {
@@ -19,5 +19,5 @@
     "lastAt": 0,
     "lockedMs": null
   },
-  "updatedAt": 1783546349198
+  "updatedAt": 1783687791945
 }

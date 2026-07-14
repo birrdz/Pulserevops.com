@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # SAFE deploy: park secrets + 1.7GB _site_deploy, deploy as a DRAFT (not --prod),
 # print the draft URL + deploy id for verification. Promotion happens SEPARATELY
 # via the restore API only after the draft is verified. Restores parked files on exit.
@@ -7,6 +7,11 @@ cd /c/Users/koryj/website
 TOKEN=$(grep -oE 'NETLIFY_AUTH_TOKEN=[^[:space:]]+' .env.local | head -1 | cut -d= -f2- | tr -d '"'"'"'')
 SITE=$(grep -oE '"siteId"[: ]*"[^"]+"' .netlify/state.json | grep -oE '[a-f0-9-]{36}' | head -1)
 echo "site=$SITE token_present=$([ -n "$TOKEN" ] && echo yes || echo no)"
+
+# ðŸ”’ ALWAYS regenerate the mosaic pool before deploy (owner 2026-07-10) â€” a stale pool makes topic mosaics
+# show one image per pillar. Needs .env.local, so run BEFORE parking secrets. Never ship a stale pool again.
+echo "=== regenerating mosaic pool (fresh per-pillar files) ==="
+node _gen_mosaic_pool.js || echo "WARN: mosaic pool rebuild failed (continuing with existing pool)"
 
 PARK=/c/Users/koryj/_DEPLOY_PARK
 mkdir -p "$PARK"
@@ -26,7 +31,7 @@ trap restore EXIT
 echo "=== DRAFT deploy (no --prod) ==="
 # output OUTSIDE the tree so it never churns the deploy hash (422 fix)
 OUT=/c/Users/koryj/_deploy_out.json; ERR=/c/Users/koryj/_deploy_out.err
-MSG="face-card covers mv/hf/gm/ga/sw/ev/sk (blur-refused + sharpened) + homepage 30min fresh-older rotation, no-repeat cover within 8, white/larger CRO and Browse Topics tiles owner 2026-07-07"
+MSG="Approved-image face cards + GTM business covers + topic images + Recent tile + desktop 2-per-row, owner 2026-07-10"
 ok=0
 for i in 1 2 3 4 5 6 7 8; do
   echo "--- attempt $i ---"
@@ -40,3 +45,5 @@ done
 echo "=== deploy ok=$ok ==="
 echo "--- draft json ---"; cat "$OUT"
 echo "--- last err lines ---"; tail -3 "$ERR"
+
+

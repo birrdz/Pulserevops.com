@@ -36,7 +36,7 @@ function pillarHub(id) {
   const pre = prefixOf(id);
   const map = {
     aq: 'aquariums', sw: 'software', tk: 'software', er: 'electronicreview',
-    pt: 'pets', cr: 'crabbing', fs: 'fishing', ce: 'knowledge',
+    pt: 'pets', cr: 'crabbing', fs: 'fishing', ce: 'knowledge', hf: 'knowledge',
   };
   return map[pre] || 'knowledge';
 }

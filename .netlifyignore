@@ -62,3 +62,4 @@ _run_status.json
 _cro_minicert/
 _cro_minicert.log
 _run_dashboard_server.log
+_ops_dashboard_server.js

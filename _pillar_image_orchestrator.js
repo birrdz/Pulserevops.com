@@ -80,7 +80,7 @@ function writeState(st) {
 function hubFor(pillar) {
   const map = {
     aq: 'aquariums', ca: 'cars', bt: 'boats', tl: 'tools', ce: 'knowledge', q: 'knowledge',
-    er: 'electronicreview', hf: 'homefitness', fs: 'fishing', gm: 'gaming', ga: 'gatherings',
+    er: 'electronicreview', hf: 'knowledge', fs: 'fishing', gm: 'gaming', ga: 'gatherings',
   };
   return map[pillar] || pillar;
 }

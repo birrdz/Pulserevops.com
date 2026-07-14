@@ -844,6 +844,10 @@ exports.handler = async (event) => {
       let slim = entries.slice(0, Math.min(limit, 40000)).map(e => ({
         id: e.id,
         question: e.question,
+        // Face/cover URLs are short and required for browse squares — without them
+        // every card in a pillar collapses to the same topic stock image.
+        img: e.img || undefined,
+        cover_src: e.cover_src || undefined,
         tags: Array.isArray(e.tags) ? e.tags.slice(0, TAG_CAP) : undefined,
       }));
       // BYTE-BUDGET guard (matches the full path): returning the WHOLE library can

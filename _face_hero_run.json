@@ -17,9 +17,10 @@
  "currentStep": "force stopped",
  "phase": "stopped",
  "startedAt": 1783278421108,
- "finishedAt": 1783533268326,
+ "finishedAt": 1783657493714,
  "error": "",
  "log": [
+  "12:24:53 AM ⏹ force stop — face-card run halted",
   "1:54:28 PM ⏹ force stop — face-card run halted",
   "1:31:43 PM ⏹ force stop — face-card run halted",
   "1:25:36 PM ⏹ force stop — face-card run halted",
@@ -66,8 +67,7 @@
   "1:36:45 AM ⏹ force stop — face-card run halted",
   "1:36:45 AM ⏹ force stop — face-card run halted",
   "1:36:25 AM ⏹ force stop — face-card run halted",
-  "1:28:28 AM ⏹ stopped at 84.7%",
-  "1:28:25 AM ⏹ force stop — face-card run halted"
+  "1:28:28 AM ⏹ stopped at 84.7%"
  ],
  "guideKeywords": "",
  "autoApproveImages": true,

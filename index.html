@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -75,6 +75,7 @@
 *{box-sizing:border-box}
 html,body{overflow-x:hidden}
 #magMosaic,#cnetLead{display:none!important}
+body.pulse-mosaic-home #magMosaic.is-ready{display:grid!important}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:700}
@@ -120,9 +121,37 @@ header{padding:22px 0}
 .hs-row .hs-pill{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--orange);background:var(--og);border:1px solid rgba(200,130,30,.25);padding:2px 8px;border-radius:99px;flex-shrink:0}
 .hs-empty{padding:16px;color:var(--ink3);font-size:13px;font-weight:600;text-align:center}
 /* hero — search is the one focal point */
-/* HOMEPAGE = one endless mosaic (owner 2026-07-03): hide legacy pre-mosaic chrome (search hero, CRO rail,
-   ticker, browse shelf) at first paint so it never flashes mid-screen before the mosaic loads. */
-.news-rail,.hero,.cro-ticker,#browse{display:none!important}
+/* HOMEPAGE chrome: hide legacy rail/ticker/browse — KEEP sophisticated search visible (owner 2026-07-11) */
+.news-rail,.cro-ticker,#browse{display:none!important}
+.hero{display:block!important;text-align:center;padding:14px 0 10px;margin:0}
+.hero h1,.hero .subline{display:none!important}
+/* Search is the focal point under CRO — dark gold, ghost predictive text */
+.home-search{position:relative;max-width:min(720px,92vw);margin:8px auto 18px;text-align:left;z-index:50}
+.hs-field{position:relative;background:#12151c;border:2px solid rgba(234,193,92,.45);border-radius:16px;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(234,193,92,.12);transition:border-color .15s,box-shadow .15s}
+.hs-field:focus-within{border-color:#F6C445;box-shadow:0 10px 36px rgba(246,196,69,.18),0 0 0 2px rgba(246,196,69,.25)}
+#hs-input{width:100%;background:transparent;border:none;border-radius:16px;padding:16px 44px 16px 46px;font:600 16px Inter,system-ui,sans-serif;color:#f5e6c8;outline:none;position:relative;z-index:2}
+#hs-input::placeholder{color:rgba(245,230,200,.35)}
+.hs-ghost{position:absolute;inset:0;display:flex;align-items:center;padding:0 46px;font:600 16px Inter,system-ui,sans-serif;white-space:pre;overflow:hidden;pointer-events:none;z-index:1;color:transparent}
+.hs-ghost .g-typed{color:transparent}
+.hs-ghost .g-rest{color:rgba(234,193,92,.45)}
+.hs-icon{opacity:.75;filter:grayscale(0)}
+.hs-clear{background:rgba(234,193,92,.12);color:#EAC15C}
+.hs-suggest{background:#12151c;border:1px solid rgba(234,193,92,.35);box-shadow:0 16px 44px rgba(0,0,0,.55);color:#f5e6c8}
+.hs-row{color:#f5e6c8;border-bottom-color:rgba(255,255,255,.06)}
+.hs-row:hover,.hs-row.active{background:rgba(246,192,73,.1)}
+.hs-row .hs-t{color:#f5e6c8}
+.hs-cat{color:rgba(234,193,92,.7)}
+.hs-sec{color:rgba(234,193,92,.65)}
+.hs-chip{background:rgba(234,193,92,.08);border-color:rgba(234,193,92,.3);color:#EAD9C0}
+.hs-chip:hover{border-color:#F6C445;color:#F6C445}
+.hs-hint{border-top-color:rgba(234,193,92,.2);color:rgba(234,193,92,.55)}
+.hs-hint kbd{background:#0a0806;border-color:rgba(234,193,92,.35);color:#EAC15C}
+.hs-empty{color:rgba(234,193,92,.55)}
+@media(max-width:600px){
+  .home-search{margin:6px auto 14px;max-width:100%}
+  #hs-input,.hs-ghost{font-size:15px;padding-left:42px}
+  .hs-field{border-radius:14px}
+}
 .hero{text-align:center;padding:clamp(36px,7vh,72px) 0 14px}
 .subline{margin:18px 0 0;font-size:.92rem;color:var(--muted)}
 .hero h1{font-size:clamp(2.3rem,5.2vw,3.5rem);font-weight:700;margin:0 auto 30px;line-height:1.08;max-width:14ch;letter-spacing:-.01em}
@@ -200,7 +229,7 @@ header{padding:22px 0}
 .tile h3{color:var(--amber);}
 .pcard{border-color:rgba(200,130,30,.40) !important;background:#ffffff !important;}
 .pcard:hover,.pcard.is-kb-focus{border-color:var(--amber) !important;}
-/* ── Corporate "GET FRACTIONAL" scrolling marquee ── */
+/* â”€â”€ Corporate "GET FRACTIONAL" scrolling marquee â”€â”€ */
 .cro-mq{display:block;margin:10px 0 2px;overflow:hidden;text-decoration:none;
   -webkit-mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
           mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);}
@@ -214,7 +243,7 @@ header{padding:22px 0}
 .cro-mq-box.hot .g{color:#fff;}
 @keyframes cro-mq-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.cro-mq-track{animation:none;}}
-/* ── NEWS VIBE (owner 2026-07-02): dateline nameplate + breaking-news ticker ── */
+/* â”€â”€ NEWS VIBE (owner 2026-07-02): dateline nameplate + breaking-news ticker â”€â”€ */
 .nameplate{display:flex;gap:10px;align-items:center;justify-content:flex-end;padding:9px 0 8px;font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 0 6px;}
 .nameplate .np-tag{color:var(--amber);}
 .nameplate .np-sep{opacity:.45;}
@@ -225,7 +254,7 @@ header{padding:22px 0}
 .cro-ticker .cro-mq{flex:1 1 auto;min-width:0;margin:0;}
 .cro-ticker .cro-mq-box{border:none;border-right:1px solid var(--line);border-radius:0;box-shadow:none;background:transparent;}
 .cro-ticker .cro-mq-box.hot{background:linear-gradient(135deg,#C8821E,#a9711a);color:#fff;}
-/* ── Right-side news rail (desktop): sticky ad + popular sections ── */
+/* â”€â”€ Right-side news rail (desktop): sticky ad + popular sections â”€â”€ */
 .news-rail{display:none;}
 @media(min-width:1200px){
   body{padding-right:322px;}
@@ -243,12 +272,12 @@ header{padding:22px 0}
 .rail-item{display:block;padding:9px 0;font-size:.92rem;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
 .rail-item:last-child{border-bottom:none;}
 .rail-item:hover{color:var(--amber);padding-left:4px;transition:padding .12s;}
-/* ── Magazine section nav (owner 2026-07-02, "Goods" inspo) ── */
+/* â”€â”€ Magazine section nav (owner 2026-07-02, "Goods" inspo) â”€â”€ */
 .mag-nav{display:flex;flex-wrap:wrap;gap:6px 26px;align-items:center;justify-content:center;padding:11px 8px;border-bottom:1px solid var(--line);margin:0 0 6px;}
 .mag-nav a{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;white-space:nowrap;transition:color .12s;}
 .mag-nav a:hover{color:var(--amber);}
 @media(max-width:600px){.mag-nav{gap:6px 16px;}.mag-nav a{font-size:.64rem;letter-spacing:.08em;}}
-/* ── CNET-style featured section: hero + cards, TITLE OVERLAID on the image, hourly ── */
+/* â”€â”€ CNET-style featured section: hero + cards, TITLE OVERLAID on the image, hourly â”€â”€ */
 .mag-feature{display:none;margin:16px 0 10px;}
 .mf-hero{display:block;position:relative;height:clamp(280px,42vw,440px);border-radius:16px;overflow:hidden;background:#222 center/cover no-repeat;background-size:cover;text-decoration:none;border:1.5px solid rgba(200,130,30,.4);}
 .mf-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02) 28%,rgba(0,0,0,.84) 100%);}
@@ -319,19 +348,19 @@ header .bar{max-width:1200px;margin:0 auto;}
 @media(max-width:760px){.mag-nav{overflow-x:auto;}.mn-drop{position:fixed;left:8px;right:8px;max-width:none;}}
 /* pillars moved to the top nav — hide the old bottom browse shelf + trivia ticker */
 .shelf{display:none !important;} .tk{display:none !important;}
-/* MOSAIC — extra rows of face cards, irregular grid to break them up */
-/* tiles +15% / title font +20% (owner 2026-07-06) */
-/* single column: 1 tile per row, decent rectangle (owner 2026-07-06) */
-.mag-mosaic{display:grid;grid-template-columns:1fr;grid-auto-rows:340px;gap:16px;margin:16px 0 30px;max-width:1100px;margin-left:auto;margin-right:auto;}
-.mm{position:relative;display:block;overflow:hidden;border-radius:6px;background:#1a1a1a center/cover no-repeat;background-size:cover;text-decoration:none;border:1.5px solid #EAC15C;box-shadow:0 0 0 1px rgba(234,193,92,.25);}
-.mm-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.03) 42%,rgba(0,0,0,.82) 100%);}
-.mm-txt{position:absolute;left:0;right:0;bottom:0;padding:11px 13px;}
-.mm-cat{font-size:1rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#f6d488;}
-.mm h4{font-family:Fraunces,"Playfair Display",Georgia,serif;font-style:italic;font-weight:800;font-size:4rem;line-height:1.16;margin:3px 0 0;color:#EAC15C;text-shadow:0 2px 8px rgba(0,0,0,.85),0 1px 3px rgba(0,0,0,.9);}
-.mm.big{grid-column:span 2;grid-row:span 2;}.mm.wide{grid-column:span 2;}.mm.tall{grid-row:span 2;}
+/* MOSAIC — desktop 2-up; mobile 1 tile/row so baked titles aren't side-cropped (owner 2026-07-11) */
+.mag-mosaic{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:220px;gap:0;margin:16px 0 30px;max-width:1100px;margin-left:auto;margin-right:auto;background:#0a0806;}
+.mm{position:relative;display:block;overflow:hidden;border-radius:0;background:#1a1a1a center/cover no-repeat;background-size:cover;text-decoration:none;border:0;border-right:1px solid rgba(8,6,4,.45);border-bottom:1px solid rgba(8,6,4,.45);box-shadow:none;margin:0;}
+.mm:nth-child(2n){border-right:0;}
+.mm-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02) 35%,rgba(0,0,0,.75) 68%,rgba(0,0,0,.96) 100%);z-index:1;}
+.mm-txt{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;z-index:2;}
+/* CSS titles on — bright yellow, bigger; scrim covers old baked text */
+.mm-cat{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#FFEB3B;z-index:2;}
+.mm h4{font-family:Inter,system-ui,Arial,sans-serif;font-style:normal;font-weight:800;font-size:clamp(1.15rem,2.4vw,1.55rem);line-height:1.15;margin:0;color:#FFEB3B;text-shadow:0 0 2px #000,0 2px 4px #000,0 3px 14px rgba(0,0,0,.95);}
+.mm.big,.mm.wide,.mm.tall,.mm.mm-long{grid-column:span 1;grid-row:span 1;}
 .mm:hover{filter:brightness(1.07);}
-@media(max-width:820px){.mag-mosaic{grid-template-columns:1fr;grid-auto-rows:300px;gap:14px;}.mm h4{font-size:4rem;line-height:1.2;}.mm-txt{padding:14px 16px 15px;}}
-@media(max-width:520px){.mag-mosaic{grid-template-columns:1fr;grid-auto-rows:313px;gap:16px;}.mm.big,.mm.wide,.mm.tall{grid-column:auto;grid-row:auto;min-height:313px;}.mm h4{font-size:4rem;line-height:1.22;}.mm-txt{padding:16px 18px 18px;}}
+@media(max-width:700px){.mag-mosaic{grid-template-columns:1fr;grid-auto-rows:148px;gap:0;}.mm h4{font-size:1.15rem;line-height:1.15;}.mm-txt{padding:9px 10px;}}
+@media(max-width:520px){.mag-mosaic{grid-template-columns:1fr;grid-auto-rows:148px;gap:0;}.mm.big,.mm.wide,.mm.tall,.mm.mm-long{grid-column:span 1;grid-row:span 1;min-height:148px;}.mm h4{font-size:1.15rem;line-height:1.15;}.mm-txt{padding:9px 10px;}}
 /* black-and-gold "search bug" — the Google-result look, tucked in the corner to pop */
 .serp-bug{position:fixed;right:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:9px;background:#0b0d12;border:1px solid rgba(200,130,30,.55);border-radius:12px;padding:7px 13px 7px 8px;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.4);transition:transform .15s,box-shadow .15s;}
 .serp-bug:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(200,130,30,.35);}
@@ -348,24 +377,474 @@ header .bar{max-width:1200px;margin:0 auto;}
 </head>
 <body>
 <div class="wrap">
-  <!-- CRO CARD HEADER (owner 2026-07-08) — answer-page version of the card (matches /knowledge entries) -->
-  <style>.crohdr{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);margin-top:14px;margin-bottom:12px;padding:0}.cro-card{display:flex;align-items:stretch;text-decoration:none;border:4px solid #EAC15C;border-radius:0;justify-content:center;overflow:hidden;min-height:244px;background:linear-gradient(100deg,#180a10,#0f0a0c 60%);box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 4px rgba(234,193,92,.6),inset 0 0 40px rgba(234,193,92,.05),0 8px 32px rgba(0,0,0,.55)}.cro-card__img{flex:0 0 auto;width:200px;height:200px;align-self:center;margin:18px 6px 18px 28px;border-radius:50%;background-size:cover;background-position:center;filter:brightness(1.1);border:2px solid rgba(234,193,92,.5);box-shadow:0 4px 18px rgba(0,0,0,.4)}.cro-card__body{flex:0 1 auto;max-width:640px;padding:22px 30px 22px 18px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;gap:7px}.cro-card__eyebrow{font:800 .6rem/1.3 system-ui;letter-spacing:.13em;color:#FFB81C}.cro-card__title{margin:0;font-family:Georgia,serif;font-weight:800;font-size:clamp(2.1rem,4.4vw,3.3rem);line-height:1.03;color:#F6C445!important;text-shadow:0 1px 6px rgba(0,0,0,.5)}.cro-card__eyebrow{color:#FFB81C!important}.cro-card__role{color:#EAC15C!important}.cro-card__role{margin:0;color:#EAC15C;font-weight:700;font-size:.9rem}.cro-card__sub{margin:2px 0 0;color:#b9b1a6;font-size:.88rem;max-width:52ch}.cro-card__rail{flex:0 0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;gap:12px;padding:16px 20px;background:linear-gradient(180deg,rgba(234,193,92,.06),transparent);border-left:1px solid rgba(234,193,92,.16);min-width:190px}.cro-card__badge{display:inline-flex;align-items:center;gap:7px;font:800 .58rem/1 system-ui;letter-spacing:.1em;text-transform:uppercase;color:#cfe8c6;background:rgba(40,90,50,.28);border:1px solid rgba(120,200,130,.35);padding:5px 10px;border-radius:999px;white-space:nowrap}.cro-card__badge i{width:8px;height:8px;border-radius:50%;background:#48d16a;box-shadow:0 0 8px #48d16a}.cro-card__railcta{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.cro-card__cta{background:linear-gradient(180deg,#EAC15C,#cf9f2e);color:#1a0a00;font-weight:900;font-size:.95rem;padding:11px 20px;border-radius:10px;white-space:nowrap}.cro-card__resume{color:#EAC15C;font-weight:700;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}.cro-card:hover{border-color:#EAC15C}.cro-bar{display:grid;grid-template-columns:repeat(6,1fr);margin:-2px 0 4px;border:1px solid rgba(234,193,92,.4);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}.cro-bar a{text-align:center;padding:14px 8px;color:#EAC15C;font-weight:800;font-size:1.05rem;text-decoration:none;background:#130a10;border-right:1px solid rgba(234,193,92,.22)}.cro-bar a:last-child{border-right:none}.cro-bar a:hover{background:#1d1017;color:#fff}@media(max-width:640px){.crohdr{margin-top:8px}.cro-card{flex-direction:column;height:auto;min-height:0;overflow:visible}.cro-card__body{padding:6px 18px 20px}.cro-bar{grid-template-columns:repeat(2,1fr);position:static}.cro-bar a{padding:9px 6px;font-size:.92rem;line-height:1.15}.cro-bar a:nth-child(2){border-right:none}.cro-card__img{flex:none;width:150px;height:150px;min-height:150px;border-radius:50%;margin:18px auto 6px;border:2px solid rgba(234,193,92,.5);border-right:none;border-bottom:none;background-size:cover;background-position:center;filter:brightness(1.08)}.cro-card__rail{flex-direction:row;align-items:center;justify-content:space-between;width:100%;min-width:0;border-left:none;border-top:1px solid rgba(234,193,92,.16);padding:11px 14px}.cro-card__railcta{flex-direction:row;align-items:center;gap:12px}}</style>
-  <div class="crohdr"><a class="cro-card" href="/revenue-checkup" target="_blank" rel="noopener" data-pulse-click="hire-cro" aria-label="Get a free 30-minute revenue checkup with Kory White, Fractional CRO"><div class="cro-card__img" style="background-image:url('/assets/kory-white.jpg')"></div><div class="cro-card__body"><span class="cro-card__eyebrow">FRACTIONAL CRO · MARYLAND-BASED, NATIONWIDE · $0→$200M</span><h2 class="cro-card__title">Kory White</h2><p class="cro-card__role">RevOps &amp; Revenue Leadership</p><p class="cro-card__sub">Get a <strong>free 30-minute revenue checkup</strong> &mdash; Kory reviews your pipeline and forecast, then names the 1&ndash;2 fixes that move revenue fastest. 25 yrs scaling teams $0&rarr;$200M.</p><span class="cro-card__cta" style="display:inline-block;align-self:flex-start;margin-top:10px;white-space:normal;text-align:center;">Free 30-min revenue checkup &rarr;</span></div></a>
-  <div class="cro-bar"><a href="/fractional-cro" data-pulse-click="fractional-cro-hub">Hire a Fractional CRO</a><a href="/revenue-checkup" data-pulse-click="hire-cro">How We Help?</a><a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="hire-cro">📅 Book a Call</a><a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">LinkedIn</a><a href="/assets/kory-white-cro-resume.pdf" target="_blank" rel="noopener">Résumé</a><a href="https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate</a></div></div>
-
-  <!-- FULL-BLEED TOPIC BANDS (owner spec 2026-07-09): 100vw strips, 150px, CRO 1.3x, rotate 15s -->
+    <!-- CRO CARD HEADER — full-bleed L→R; SEARCH inside gold trim (owner 2026-07-11) -->
   <style>
-  .bleed{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
-  #bandStack{display:flex;flex-direction:column;gap:8px;transition:opacity .5s ease}
-  .band{position:relative;display:block;height:220px;overflow:hidden;text-decoration:none;background-size:cover;background-position:center;border-top:1px solid rgba(234,193,92,.18);filter:brightness(1.16) saturate(1.05)}
-  .band::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,6,4,.72) 0%,rgba(8,6,4,.26) 48%,rgba(8,6,4,0) 100%)}
-  .band__cat{position:absolute;left:clamp(16px,4vw,48px);top:18px;z-index:2;font:800 .7rem/1 system-ui;letter-spacing:.16em;text-transform:uppercase;color:#EAC15C;text-shadow:0 1px 6px rgba(0,0,0,.9)}
-  .band__t{position:absolute;left:clamp(16px,4vw,48px);bottom:16px;z-index:2;color:#F6C445;font-family:Georgia,serif;font-weight:800;font-size:clamp(1.75rem,4.6vw,2.9rem);line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.95)}
-  @media(max-width:560px){.band{height:185px}.band__t{font-size:1.45rem;bottom:12px}.band__cat{top:12px;font-size:.62rem}}
+  .crohdr{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);margin-top:14px;margin-bottom:8px;padding:0;box-sizing:border-box}
+  .cro-card{position:relative;display:flex;align-items:stretch;text-decoration:none;border:4px solid #EAC15C;border-radius:0;justify-content:center;overflow:hidden;min-height:320px;width:100%;background:linear-gradient(100deg,#180a10,#0f0a0c 60%);box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 4px rgba(234,193,92,.6),inset 0 0 40px rgba(234,193,92,.05),0 8px 32px rgba(0,0,0,.55)}
+  .cro-card__img{flex:0 0 auto;width:270px;height:270px;align-self:center;margin:20px 12px 20px 30px;border-radius:50%;background-size:cover;background-position:center;filter:brightness(1.1);border:2px solid rgba(234,193,92,.5);box-shadow:0 4px 18px rgba(0,0,0,.4)}
+  .cro-card__body{flex:0 1 auto;max-width:640px;padding:22px 30px 22px 18px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;gap:7px}
+  .cro-card__eyebrow{font:800 .6rem/1.3 system-ui;letter-spacing:.13em;color:#FFB81C!important}
+  .cro-card__title{margin:0;font-family:Georgia,serif;font-weight:800;font-size:clamp(2.1rem,4.4vw,3.3rem);line-height:1.03;color:#F6C445!important;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+  .cro-card__role{margin:0;color:#EAC15C!important;font-weight:700;font-size:.9rem}
+  .cro-card__sub{margin:2px 0 0;color:#b9b1a6;font-size:.88rem;max-width:52ch}
+  .cro-card__cta{background:linear-gradient(180deg,#EAC15C,#cf9f2e);color:#1a0a00;font-weight:900;font-size:.95rem;padding:11px 20px;border-radius:10px;white-space:nowrap}
+  .cro-card:hover{border-color:#EAC15C}
+  /* SEARCH sits INSIDE the gold frame, bottom-left corner */
+  #pulseSearchSq{position:absolute;left:14px;bottom:14px;z-index:6;width:64px;height:64px;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;background:#130a10;color:#F6C445;font:800 .68rem/1.05 Georgia,serif;letter-spacing:.1em;border:3px solid #EAC15C;border-radius:0;box-shadow:inset 0 0 0 2px rgba(8,6,4,.92),inset 0 0 0 4px rgba(234,193,92,.55),0 4px 14px rgba(0,0,0,.4);transition:border-color .15s,color .15s,transform .15s}
+  #pulseSearchSq:hover,#pulseSearchSq:focus{border-color:#F6C445;color:#fff;transform:translateY(-1px);outline:none}
+  .cro-bar{display:grid;grid-template-columns:repeat(6,1fr);margin:-2px 0 0;border:1px solid rgba(234,193,92,.4);border-top:none;border-radius:0;overflow:hidden;width:100%;box-sizing:border-box}
+  .cro-bar a{text-align:center;padding:14px 8px;color:#EAC15C;font-weight:800;font-size:1.05rem;text-decoration:none;background:#130a10;border-right:1px solid rgba(234,193,92,.22)}
+  .cro-bar a:last-child{border-right:none}
+  .cro-bar a:hover{background:#1d1017;color:#fff}
+  @media(max-width:640px){
+    .crohdr{margin-top:8px}
+    .cro-card{flex-direction:column;height:auto;min-height:0;overflow:visible;padding-bottom:72px}
+    .cro-card__body{padding:6px 18px 20px}
+    .cro-card__img{flex:none;width:210px;height:210px;min-height:210px;border-radius:50%;margin:18px auto 6px;border:2px solid rgba(234,193,92,.5);background-size:cover;background-position:center}
+    .cro-bar{grid-template-columns:repeat(2,1fr)}
+    .cro-bar a{padding:9px 6px;font-size:.92rem;line-height:1.15}
+    .cro-bar a:nth-child(2){border-right:none}
+    #pulseSearchSq{left:12px;bottom:12px;width:56px;height:56px;font-size:.6rem}
+  }
   </style>
-  <div id="bandStack" class="bleed"></div>
-  <script>(function(){var T=[{"href":"/go-to-market-playbooks","img":"/assets/topics/go-to-market-playbooks.jpg","label":"GTM Playbooks","cat":"Revenue & CRO"},{"href":"/industry-kpis","img":"/assets/topics/industry-kpis.jpg","label":"Industry KPIs","cat":"Revenue & CRO"},{"href":"/revenue-architecture","img":"/assets/topics/revenue-architecture.jpg","label":"Revenue Architecture","cat":"Revenue & CRO"},{"href":"/tech-stacks","img":"/assets/topics/tech-stacks.jpg","label":"Tech Stacks","cat":"Revenue & CRO"},{"href":"/sales-trainings","img":"/assets/topics/sales-trainings.jpg","label":"Sales Trainings","cat":"Revenue & CRO"},{"href":"/sales-book-summaries","img":"/assets/topics/sales-book-summaries.jpg","label":"Book Summaries","cat":"Revenue & CRO"},{"href":"/coaching","img":"/assets/topics/coaching.jpg","label":"CRO Coaching","cat":"Revenue & CRO"},{"href":"/tools","img":"/assets/topics/tools.jpg","label":"Pulse Tools","cat":"Revenue & CRO"},{"href":"/software","img":"/assets/topics/software.jpg","label":"Software","cat":"Revenue & CRO"},{"href":"/ai-infrastructure","img":"/assets/topics/ai-infrastructure.jpg","label":"AI Infrastructure","cat":"Revenue & CRO"},{"href":"/knowledge","img":"/assets/topics/current-events.jpg","label":"Knowledge Library","cat":"Revenue & CRO"},{"href":"/franchises","img":"/assets/topics/franchises.jpg","label":"Franchises","cat":"Explore More"},{"href":"/blog/","img":"/assets/topics/media.jpg","label":"RevOps Blog","cat":"Revenue & CRO"},{"href":"/estates","img":"/assets/topics/estates.jpg","label":"Estates","cat":"Explore More"},{"href":"/buildouts","img":"/assets/topics/buildouts.jpg","label":"Buildouts","cat":"Explore More"},{"href":"/contracts","img":"/assets/topics/contracts.jpg","label":"Contracts","cat":"Explore More"},{"href":"/cars","img":"/assets/topics/cars.jpg","label":"Cars","cat":"Explore More"},{"href":"/boats","img":"/assets/topics/boats.jpg","label":"Boats","cat":"Explore More"},{"href":"/electronic-reviews","img":"/assets/topics/electronic-reviews.jpg","label":"Electronics","cat":"Explore More"},{"href":"/telco","img":"/assets/topics/telco.jpg","label":"Telco","cat":"Explore More"},{"href":"/graphics","img":"/assets/topics/graphics.jpg","label":"Graphics","cat":"Explore More"},{"href":"/aquariums","img":"/assets/topics/aquariums.jpg","label":"Aquariums","cat":"Explore More"},{"href":"/collectibles","img":"/assets/topics/collectibles.jpg","label":"Collectibles","cat":"Explore More"},{"href":"/pets","img":"/assets/topics/pets.jpg","label":"Pets","cat":"Explore More"},{"href":"/style","img":"/assets/topics/style.jpg","label":"Style","cat":"Explore More"},{"href":"/wellness","img":"/assets/topics/wellness.jpg","label":"Wellness","cat":"Explore More"},{"href":"/drills","img":"/assets/topics/drills.jpg","label":"Drills","cat":"Explore More"},{"href":"/travel","img":"/assets/topics/travel.jpg","label":"Travel","cat":"Explore More"},{"href":"/resorts","img":"/assets/topics/resorts.jpg","label":"Resorts","cat":"Explore More"},{"href":"/dining","img":"/assets/topics/dining.jpg","label":"Dining","cat":"Explore More"},{"href":"/clubs","img":"/assets/topics/clubs.jpg","label":"Clubs","cat":"Explore More"},{"href":"/nightlife","img":"/assets/topics/nightlife.jpg","label":"Nightlife","cat":"Explore More"},{"href":"/events","img":"/assets/topics/events.jpg","label":"Events","cat":"Explore More"},{"href":"/towns","img":"/assets/topics/towns.jpg","label":"Towns","cat":"Explore More"},{"href":"/living","img":"/assets/topics/living.jpg","label":"Living","cat":"Explore More"},{"href":"/movies","img":"/assets/topics/movies.jpg","label":"Movies","cat":"Explore More"},{"href":"/gaming","img":"/assets/topics/gaming.jpg","label":"Gaming","cat":"Explore More"},{"href":"/media","img":"/assets/topics/media.jpg","label":"Media","cat":"Explore More"},{"href":"/speeches","img":"/assets/topics/speeches.jpg","label":"Speeches","cat":"Explore More"},{"href":"/sports","img":"/assets/topics/sports.jpg","label":"Sports & NIL","cat":"Explore More"},{"href":"/highschool-football-recruiting","img":"/assets/topics/highschool-football-recruiting.jpg","label":"HS Football","cat":"Explore More"}];var stack=document.getElementById("bandStack");if(!stack)return;var VIS=6,i=0,paused=false;function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}function render(){var f="";for(var k=0;k<T.length;k++){var t=T[k];f+="<a class=\"band\" href=\""+esc(t.href)+"\" style=\"background-image:url('"+esc(t.img)+"')\"><span class=\"band__cat\">"+esc(t.cat)+"</span><span class=\"band__t\">"+esc(t.label)+"</span></a>";}stack.innerHTML=f;}render();})();</script>
+  <div class="crohdr">
+    <a class="cro-card" href="/revenue-checkup" target="_blank" rel="noopener" data-pulse-click="hire-cro" aria-label="Get a free 30-minute revenue checkup with Kory White, Fractional CRO">
+      <div class="cro-card__img" style="background-image:url('/assets/kory-white.jpg')"></div>
+      <div class="cro-card__body">
+        <span class="cro-card__eyebrow">FRACTIONAL CRO · MARYLAND-BASED, NATIONWIDE · $0→$200M</span>
+        <h2 class="cro-card__title">Kory White</h2>
+        <p class="cro-card__role">RevOps &amp; Revenue Leadership</p>
+        <p class="cro-card__sub">Get a <strong>free 30-minute revenue checkup</strong> &mdash; Kory reviews your pipeline and forecast, then names the 1&ndash;2 fixes that move revenue fastest. 25 yrs scaling teams $0&rarr;$200M.</p>
+        <span class="cro-card__cta" style="display:inline-block;align-self:flex-start;margin-top:10px;white-space:normal;text-align:center;">Free 30-min revenue checkup &rarr;</span>
+      </div>
+      <span id="pulseSearchSq" role="link" tabindex="0" data-href="/search" aria-label="Search all Q&amp;As" title="Search">SEARCH</span>
+    </a>
+    <div class="cro-bar">
+      <a href="/fractional-cro" data-pulse-click="fractional-cro-hub">Hire a Fractional CRO</a>
+      <a href="/revenue-checkup" data-pulse-click="hire-cro">How We Help</a>
+      <a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="hire-cro">📅 Book a Call</a>
+      <a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">LinkedIn</a>
+      <a href="/assets/kory-white-cro-resume.pdf" target="_blank" rel="noopener">Résumé</a>
+      <a href="https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate</a>
+    </div>
+  </div>
+  <script>(function(){var s=document.getElementById('pulseSearchSq');if(!s)return;function go(e){e.preventDefault();e.stopPropagation();location.href=s.getAttribute('data-href')||'/search';}s.addEventListener('click',go);s.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')go(e);});})();</script>
 
+  <!-- UNIFIED SQUARE ROWS (owner 2026-07-11): every row identical size/format — only title + square content changes -->
+  <link rel="stylesheet" href="/css/pulse-squares.css?v=20260712bg14">
+  <style>
+  /* Force identical row chrome — Recent + every topic row */
+  #recentRow.recentrow,.recentrow.psq-row{padding:16px clamp(12px,4vw,40px) 8px!important}
+  #recentRow h3,.recentrow h3,.psq-head{font-family:Georgia,serif!important;color:#F6C445!important;font-size:1.2rem!important;margin:0 0 10px!important;font-weight:800!important;letter-spacing:.02em!important;line-height:1.2!important}
+  .recentscroll,.psq-scroll{gap:16px!important;padding:2px 2px 12px!important;min-height:0!important}
+  .rcard{width:220px!important;height:340px!important;flex:0 0 220px!important;border:7px solid var(--tc,#EAC15C)!important;border-radius:0!important;box-sizing:border-box!important}
+  .rcard-imgwrap{display:block!important;width:100%!important;height:198px!important;flex:0 0 198px!important;overflow:hidden!important;background:#1a1014!important}
+  .rcard-imgwrap img{width:100%!important;height:100%!important;flex:none!important;aspect-ratio:auto!important;object-fit:cover!important;object-position:center center!important;transform:none!important;max-width:none!important;object-view-box:unset!important;opacity:0;transition:opacity .38s ease}
+  .rcard-imgwrap img.is-on{opacity:1!important}
+  .rcard .rc{padding:8px 10px 0!important;color:#EAC15C!important;font-size:.58rem!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-weight:800!important;min-height:1.1em;text-align:center!important}
+  .rcard .rt{padding:8px 12px 16px!important;color:#F6C445!important;font-family:Georgia,serif!important;font-size:1.42rem!important;line-height:1.16!important;font-weight:800!important;text-align:center!important;display:flex!important;align-items:center!important;justify-content:center!important;min-height:0!important;max-height:none!important;-webkit-line-clamp:unset!important}
+  .rcard .rt>span{display:-webkit-box!important;-webkit-line-clamp:3!important;-webkit-box-orient:vertical!important;overflow:hidden!important;text-align:center!important;width:100%!important;max-height:calc(1.16em * 3)!important;line-height:1.16!important}
+  @media(max-width:600px){
+    .recentscroll,.psq-scroll{gap:10px!important}
+    .rcard{width:168px!important;height:278px!important;flex-basis:168px!important;border-width:5px!important}
+    .rcard-imgwrap{height:148px!important;flex-basis:148px!important}
+    .rcard-imgwrap img{height:100%!important;flex:none!important;object-position:center center!important;transform:none!important;object-view-box:unset!important}
+    .rcard .rt{font-size:1.08rem!important;padding:4px 8px 10px!important;line-height:1.16!important;text-align:center!important;min-height:calc(1.16em * 3)!important;max-height:calc(1.16em * 3)!important}
+  }
+    /* Section grouping labels */
+  .psq-group{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:14px clamp(12px,4vw,40px) 2px;box-sizing:border-box}
+  .psq-group__label{display:inline-flex;align-items:center;gap:10px;font:800 .72rem/1 Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gc,#EAC15C)}
+  .psq-group__label::before,.psq-group__label::after{content:"";display:block;height:2px;width:28px;background:var(--gc,#EAC15C);opacity:.85}
+  .psq-group__rule{height:1px;margin-top:10px;background:linear-gradient(90deg,var(--gc,#EAC15C),transparent 70%);opacity:.45}
+  /* deadspace kill */
+  .cro-ticker,#browse,.news-rail,#triviaTicker,.shelf,.tk,.lead-row,#cnetLead,section.hero{display:none!important;height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
+  .wrap{min-height:0!important}
+  .crohdr{margin-bottom:4px!important}#psqStack{margin-top:0!important}.psq-group:first-child{padding-top:10px!important}
+  #recentRow.recentrow{padding-top:6px!important;padding-bottom:4px!important}
+  /* Kill old full-bleed bands + mosaic on homepage — square rows only */
+  #bandStack,#magMosaic,.cnet-lead,.nameplate,.mag-nav,.serp-bug{display:none!important}
+  body.pulse-mosaic-home #magMosaic,body.pulse-mosaic-home #magMosaic.is-ready{display:none!important}
+  </style>
+
+  <script>
+  // Local static preview (:8920) → production library API
+  window.__PULSE_LIB__ = (location.hostname === '127.0.0.1' || location.hostname === 'localhost' || /^192\.168\./.test(location.hostname))
+    ? 'https://pulserevops.com/.netlify/functions/pulse-machine-library-list'
+    : '/.netlify/functions/pulse-machine-library-list';
+  </script>
+
+  <div class="recentrow" id="recentRow" style="display:none"><h3>Recently Added</h3><div class="recentscroll" id="recentScroll" tabindex="0" role="region" aria-label="Recently added"></div></div>
+  <script>(function(){
+    var PN={q:'Knowledge',ce:'Knowledge',tl:'Pulse Tools',ca:'Cars',bt:'Boats',aq:'Aquariums',ik:'Industry KPIs',tk:'Tech Stacks',bs:'Book Summaries',st:'Sales Trainings',fr:'Franchises',co:'Collectibles',ai:'AI Infrastructure',gb:'Graphics',bo:'Buildouts',sy:'Style',gp:'GTM Playbooks',ra:'Revenue Architecture',pt:'Pets',es:'Estates',tv:'Travel',rs:'Resorts',cl:'Clubs',lv:'Living',ev:'Events',ga:'Gatherings',gm:'Gaming',mv:'Movies',wl:'Wellness',dn:'Dining',nl:'Nightlife',tn:'Towns',sc:'Schools',tc:'Telco',er:'Electronics',hf:'HS Football',sw:'Software',sk:'Skills',sp:'Speeches',cg:'Coaching',cd:'Contracts',dr:'Drills',cr:'Crabbing',fs:'Fishing'};
+    var TI={q:'/assets/topics/current-events.jpg',ce:'/assets/topics/current-events.jpg',st:'/assets/topics/sales-trainings.jpg',ik:'/assets/topics/industry-kpis.jpg',tk:'/assets/topics/tech-stacks.jpg',gb:'/assets/topics/graphics.jpg',bs:'/assets/topics/sales-book-summaries.jpg',er:'/assets/topics/electronic-reviews.jpg',ra:'/assets/topics/revenue-architecture.jpg',gp:'/assets/topics/go-to-market-playbooks.jpg',fr:'/assets/topics/franchises.jpg',ca:'/assets/topics/cars.jpg',tn:'/assets/topics/towns.jpg',sc:'/assets/topics/towns.jpg',nl:'/assets/topics/nightlife.jpg',dn:'/assets/topics/dining.jpg',bt:'/assets/topics/boats.jpg',mv:'/assets/topics/movies.jpg',wl:'/assets/topics/wellness.jpg',dr:'/assets/topics/drills.jpg',tv:'/assets/topics/travel.jpg',rs:'/assets/topics/resorts.jpg',es:'/assets/topics/estates.jpg',cl:'/assets/topics/clubs.jpg',lv:'/assets/topics/living.jpg',ev:'/assets/topics/events.jpg',sy:'/assets/topics/style.jpg',ga:'/assets/topics/events.jpg',gm:'/assets/topics/gaming.jpg',sk:'/assets/topics/skills.jpg',sp:'/assets/topics/speeches.jpg',tl:'/assets/topics/tools.jpg',cg:'/assets/topics/coaching.jpg',co:'/assets/topics/collectibles.jpg',aq:'/assets/topics/aquariums.jpg',hf:'/assets/topics/highschool-football-recruiting.jpg',ai:'/assets/topics/ai-infrastructure.jpg',bo:'/assets/topics/buildouts.jpg',cd:'/assets/topics/contracts.jpg',tc:'/assets/topics/telco.jpg',pt:'/assets/topics/pets.jpg',sw:'/assets/topics/software.jpg',cr:'/assets/topics/fish-and-crabs-crab.jpg',fs:'/assets/topics/fish-and-crabs-fish.jpg'};
+    var TC={gp:'#EAC15C',ik:'#EAC15C',ra:'#EAC15C',st:'#EAC15C',bs:'#EAC15C',cg:'#EAC15C',q:'#EAC15C',sk:'#EAC15C',sp:'#E0B84A',cd:'#E0B84A',tk:'#A78BDB',tl:'#A78BDB',sw:'#A78BDB',ai:'#A78BDB',er:'#A78BDB',tc:'#A78BDB',fr:'#C8A878',es:'#C8A878',bo:'#C8A878',ca:'#5AA8D4',bt:'#5AA8D4',tv:'#4AB8A8',rs:'#4AB8A8',tn:'#4AB8A8',sc:'#4AB8A8',gb:'#C090D0',sy:'#C090D0',co:'#C090D0',mv:'#C090D0',dn:'#E090A8',cl:'#E090A8',nl:'#1A1A1E',ev:'#E8E4D8',ga:'#E8E4D8',lv:'#E090A8',wl:'#E090A8',hf:'#5CBC70',dr:'#5CBC70',gm:'#6BC88A',aq:'#6BC88A',pt:'#6BC88A',ce:'#EAC15C',fs:'#6BC88A',cr:'#6BC88A'};
+    function colorOf(id){return TC[pref(id)]||'#E0C05A';}
+    function shortTitle(s,max){
+      max=max||36;
+      var raw=String(s||'').replace(/\s+/g,' ').trim().replace(/[?]+$/g,'');
+      var t=raw, year='', ym=t.match(/\b(20\d{2})\s*$/);
+      if(ym){year=' '+ym[1];t=t.slice(0,-ym[1].length).trim()}
+      var rules=[
+        [/^top\s+(\d+)\s+best\s+(.+?)(?:\s+options)?$/i,function(_,n,r){return 'Top '+n+' '+r}],
+        [/^top\s+(\d+)\s+(.+)$/i,function(_,n,r){return 'Top '+n+' '+r}],
+        [/^what are the most common mistakes (?:in|with|for)\s+(.+)$/i,function(_,r){return 'Common Mistakes in '+r}],
+        [/^what(?:'s| is| are) the best way to approach\s+(.+)$/i,function(_,r){return 'How to Approach '+r}],
+        [/^what is the best way to\s+(.+)$/i,function(_,r){return 'How to '+r}],
+        [/^how do you get started with\s+(.+)$/i,function(_,r){return 'Getting Started with '+r}],
+        [/^how (?:do|can|should) (?:you|i) get started (?:with|in)\s+(.+)$/i,function(_,r){return 'Getting Started with '+r}],
+        [/^what should you know before investing in\s+(.+)$/i,function(_,r){return 'Before Investing in '+r}],
+        [/^how much does\s+(.+?)\s+cost(?:\s+in)?$/i,function(_,r){return r+' Cost'}],
+        [/^is\s+(.+?)\s+worth it(?:\s+in)?$/i,function(_,r){return 'Is '+r+' Worth It'}],
+        [/^how to\s+(.+)$/i,function(_,r){return 'How to '+r}],
+        [/^a guide to\s+(.+)$/i,function(_,r){return r}]
+      ];
+      var hit=false;
+      for(var i=0;i<rules.length;i++){var m=t.match(rules[i][0]);if(m){t=rules[i][1].apply(null,m);hit=true;break}}
+      if(!hit){
+        t=t.replace(/^(what(?:'s| is| are| do| does| did| should| can| will)|how(?: to| do| does| can| should| much| many)|why(?: do| does| is| are)?|which|when|where|who|is there|are there)\s+/i,'');
+        t=t.replace(/^(the|a|an)\s+/i,'');
+        t=t.replace(/^(you|i)\s+(get started with|know before)\s+/i,function(_,p,v){return v.charAt(0).toUpperCase()+v.slice(1)+' '});
+        t=t.replace(/^(does|do|is|are|can|should)\s+/i,'');
+        t=t.replace(/^(most common mistakes in)\s+/i,'Common Mistakes in ');
+        t=t.replace(/^(get started with)\s+/i,'Getting Started with ');
+      }
+      t=t.replace(/\s+/g,' ').trim();
+      if(!t)t=raw.replace(/\b(20\d{2})\s*$/,'').trim();
+      t=t.charAt(0).toUpperCase()+t.slice(1);
+      t=t.replace(/^(you|does|do|is|are|most|how|what)\b/i,function(w){return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()});
+      var limit=Math.max(12,max-year.length);
+      if(t.length<=limit)return(t+year).trim();
+      var cut=t.slice(0,limit),sp=cut.lastIndexOf(' ');
+      if(sp>=8)cut=cut.slice(0,sp);
+      return(cut.replace(/[,:;.\-\u2013\u2014\s]+$/g,'')+year).trim();
+    }
+    var sc=document.getElementById('recentScroll'),row=document.getElementById('recentRow'),paused=false,scrollWired=false,lastSig='',resumeTimer=null,lastEntries=[];
+    function pref(id){var m=String(id||'').match(/^([a-z]+)/i);return m?m[1].toLowerCase():'q';}
+    function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+    function hrefOf(id){
+      var ROUTE={q:'knowledge',ce:'knowledge',st:'sales-trainings',ik:'industry-kpis',tk:'tech-stacks',gb:'graphics',bs:'sales-book-summaries',er:'electronic-reviews',ra:'revenue-architecture',gp:'go-to-market-playbooks',fr:'franchises',ca:'cars',tn:'towns',sc:'schools',nl:'nightlife',dn:'dining',bt:'boats',mv:'movies',wl:'wellness',dr:'drills',tv:'travel',rs:'resorts',es:'estates',cl:'clubs',lv:'living',ev:'events',sy:'style',ga:'gatherings',gm:'gaming',sk:'skills',sp:'speeches',tl:'tools',cg:'coaching',co:'collectibles',aq:'aquariums',hf:'highschool-football-recruiting',ai:'ai-infrastructure',bo:'buildouts',cd:'contracts',tc:'telco',pt:'pets',sw:'software',cr:'crabbing',fs:'fishing'};
+      var seg=ROUTE[pref(id)]||'knowledge';
+      return '/'+seg+'/'+encodeURIComponent(String(id||''));
+    }
+    function topicOf(id){return TI[pref(id)]||'/assets/topics/current-events.jpg';}
+    function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+    function pauseAuto(ms){
+      paused=true;
+      if(resumeTimer)clearTimeout(resumeTimer);
+      if(ms==null)return;
+      resumeTimer=setTimeout(function(){paused=false;},ms);
+    }
+    function wireDrag(){
+      if(scrollWired)return;
+      scrollWired=true;
+      var drag=false,moved=false,startX=0,startLeft=0,pid=null,pressed=null,suppressClick=false,DRAG_PX=12;
+      function onDown(e){
+        if(e.pointerType==='mouse'&&e.button!==0)return;
+        drag=true;moved=false;pid=e.pointerId;suppressClick=false;
+        startX=e.clientX;startLeft=sc.scrollLeft;
+        pressed=e.target&&e.target.closest?e.target.closest('a.rcard'):null;
+        pauseAuto(null);
+        try{sc.setPointerCapture(e.pointerId);}catch(err){}
+      }
+      function onMove(e){
+        if(!drag||(pid!=null&&e.pointerId!==pid))return;
+        var dx=e.clientX-startX;
+        if(Math.abs(dx)>DRAG_PX){
+          if(!moved){moved=true;sc.classList.add('is-dragging');}
+          sc.scrollLeft=startLeft-dx;
+          e.preventDefault();
+        }
+      }
+      function onUp(e){
+        if(!drag||(pid!=null&&e.pointerId!==pid))return;
+        var wasMoved=moved;
+        var go=(!wasMoved&&pressed&&pressed.getAttribute('href'))?pressed.href:'';
+        drag=false;pid=null;pressed=null;moved=false;
+        sc.classList.remove('is-dragging');
+        try{sc.releasePointerCapture(e.pointerId);}catch(err){}
+        pauseAuto(2800);
+        if(go){suppressClick=true;e.preventDefault();location.href=go;return;}
+        if(wasMoved) suppressClick=true;
+      }
+      sc.addEventListener('pointerdown',onDown);
+      sc.addEventListener('pointermove',onMove,{passive:false});
+      sc.addEventListener('pointerup',onUp);
+      sc.addEventListener('pointercancel',onUp);
+      sc.addEventListener('click',function(e){
+        if(!suppressClick)return;
+        suppressClick=false;
+        e.preventDefault();e.stopPropagation();
+      },true);
+      // Wheel: page up/down only. Left/right = click-drag + autoscroll only.
+      sc.addEventListener('wheel',function(e){
+        var dy=e.deltaY;
+        if(e.deltaMode===1)dy*=16;
+        else if(e.deltaMode===2)dy*=window.innerHeight;
+        e.preventDefault();e.stopPropagation();
+        if(dy) window.scrollBy(0,dy);
+      },{passive:false});
+      sc.addEventListener('mouseenter',function(){pauseAuto(null);});
+      sc.addEventListener('mouseleave',function(){if(!drag)pauseAuto(1200);});
+      setInterval(function(){
+        if(paused||drag||document.hidden)return;
+        var max=Math.max(0,sc.scrollWidth-sc.clientWidth);
+        if(max<=0)return;
+        if(sc.scrollLeft>=max-1){sc.scrollLeft=0;return;}
+        sc.scrollLeft+=0.55;
+      },32);
+    }
+    function paint(es, forceShuffle){
+      if(!Array.isArray(es)||!es.length)return;
+      lastEntries=es.slice(0,8);
+      var slice=forceShuffle!==false ? shuffle(lastEntries) : lastEntries.slice();
+      var sig=slice.map(function(e){return e.id;}).join(',')+(forceShuffle?'~':'');
+      if(!forceShuffle && sig===lastSig)return;
+      lastSig=sig;
+      var used=Object.create(null);
+      var cards=[];
+      for(var i=0;i<slice.length;i++){
+        var e=slice[i];
+        var img=e.imgSq||('/assets/qa/'+e.id+'.sq.jpg');
+        // Browse only: untitled .sq.jpg → topic stock. NEVER mosaic face (double-title).
+        var fallback=topicOf(e.id);
+        if(used[img]) continue;
+        used[img]=1;
+        var full=String(e.question||e.title||'');
+        var q=esc(shortTitle(full,36));
+        var tip=esc(full);
+        var label=esc(PN[pref(e.id)]||pref(e.id).toUpperCase());
+        cards.push('<a class="rcard" href="'+hrefOf(e.id)+'" style="--tc:'+colorOf(e.id)+'" title="'+tip+'"><span class="rcard-imgwrap"><img class="psq-img" width="220" height="198" decoding="async" draggable="false" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="'+esc(img)+'" alt="'+tip+'" data-fb="'+esc(fallback)+'" onerror="if(window.PulseSquares&&PulseSquares.imgFail)PulseSquares.imgFail(this);else{this.onerror=null;this.src=\''+esc(fallback)+'\';}"></span><div class="rc">'+label+'</div><div class="rt"><span>'+q+'</span></div></a>');
+      }
+      if(!cards.length)return;
+      sc.innerHTML=cards.join('');
+      row.style.display='block';
+      // Keep same scroll node — wire once (rewiring every paint stacked listeners and broke clicks)
+      wireDrag();
+      if(window.PulseSquares&&PulseSquares.wireLazyImgs) PulseSquares.wireLazyImgs(sc);
+      else {
+        // Fallback hydrate if squares helper not ready
+        var ims=sc.querySelectorAll('img.psq-img[data-src]');
+        for(var hi=0;hi<ims.length;hi++){
+          (function(img){
+            var s=img.getAttribute('data-src'); if(!s)return;
+            img.removeAttribute('data-src');
+            img.addEventListener('load',function(){img.classList.add('is-on');});
+            img.src=s;
+          })(ims[hi]);
+        }
+      }
+    function load(){
+      // STEP 7 placement: fresh ts window + pulse-recent tag (same entry, Recent surface)
+      var LIB=(window.__PULSE_LIB__||'/.netlify/functions/pulse-machine-library-list');
+      var a=fetch(LIB+'?recent=24&newOnly=1&days=14&sort=ts&mini=1').then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});
+      var b=fetch(LIB+'?recent=24&tag=pulse-recent&sort=ts&mini=1').then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});
+      Promise.all([a,b]).then(function(pair){
+        var seen=Object.create(null), merged=[];
+        pair.forEach(function(d){
+          ((d&&(d.entries||d.items||d.results))||[]).forEach(function(e){
+            if(!e||!e.id||seen[e.id])return;
+            seen[e.id]=1; merged.push(e);
+          });
+        });
+        merged.sort(function(x,y){return (y.ts||0)-(x.ts||0);});
+        paint(merged.slice(0,8), true);
+      });
+    }
+    load();
+    setInterval(load, 60000);
+    setInterval(function(){
+      if(document.hidden||!lastEntries.length)return;
+      paint(lastEntries, true);
+    }, 15*60*1000);
+  })();</script>
+
+  <div id="psqStack"></div>
+  <script src="/js/pulse-squares.js?v=20260712bg14" defer></script>
+  <script>
+  (function(){
+    // Same row format as Recently Added — only title + pillar content changes
+    var ROWS=[
+      {group:'Revenue & Leadership',title:'GTM Playbooks',pillar:'gp',href:'/go-to-market-playbooks'},
+      {group:'Revenue & Leadership',title:'Industry KPIs',pillar:'ik',href:'/industry-kpis'},
+      {group:'Revenue & Leadership',title:'Revenue Architecture',pillar:'ra',href:'/revenue-architecture'},
+      {group:'Revenue & Leadership',title:'Sales Trainings',pillar:'st',href:'/sales-trainings'},
+      {group:'Revenue & Leadership',title:'Book Summaries',pillar:'bs',href:'/sales-book-summaries'},
+      {group:'Revenue & Leadership',title:'CRO Coaching',pillar:'cg',href:'/coaching'},
+      {group:'Revenue & Leadership',title:'Knowledge',pillar:'q',href:'/knowledge'},
+      {group:'Revenue & Leadership',title:'Skills',pillar:'sk',href:'/skills'},
+      {group:'Revenue & Leadership',title:'Speeches',pillar:'sp',href:'/speeches'},
+      {group:'Revenue & Leadership',title:'Contracts',pillar:'cd',href:'/contracts'},
+      {group:'Technology',title:'Tech Stacks',pillar:'tk',href:'/tech-stacks'},
+      {group:'Technology',title:'Pulse Tools',pillar:'tl',href:'/tools'},
+      {group:'Technology',title:'Software',pillar:'sw',href:'/software'},
+      {group:'Technology',title:'AI Infrastructure',pillar:'ai',href:'/ai-infrastructure'},
+      {group:'Technology',title:'Electronics',pillar:'er',href:'/electronic-reviews'},
+      {group:'Technology',title:'Telco',pillar:'tc',href:'/telco'},
+      {group:'Business & Property',title:'Franchises',pillar:'fr',href:'/franchises'},
+      {group:'Business & Property',title:'Estates',pillar:'es',href:'/estates'},
+      {group:'Business & Property',title:'Buildouts',pillar:'bo',href:'/buildouts'},
+      {group:'Cars & Boats',title:'Cars',pillar:'ca',href:'/cars'},
+      {group:'Cars & Boats',title:'Boats',pillar:'bt',href:'/boats'},
+      {group:'Places',title:'Travel',pillar:'tv',href:'/travel'},
+      {group:'Places',title:'Resorts',pillar:'rs',href:'/resorts'},
+      {group:'Places',title:'Towns',pillar:'tn',href:'/towns'},
+      {group:'Places',title:'Schools',pillar:'sc',href:'/schools'},
+      {group:'Style & Culture',title:'Graphics',pillar:'gb',href:'/graphics'},
+      {group:'Style & Culture',title:'Style',pillar:'sy',href:'/style'},
+      {group:'Style & Culture',title:'Collectibles',pillar:'co',href:'/collectibles'},
+      {group:'Style & Culture',title:'Movies',pillar:'mv',href:'/movies'},
+      {group:'Out & About',title:'Dining',pillar:'dn',href:'/dining'},
+      {group:'Out & About',title:'Clubs',pillar:'cl',href:'/clubs'},
+      {group:'Out & About',title:'Nightlife',pillar:'nl',href:'/nightlife'},
+      {group:'Out & About',title:'Events',pillar:'ev',href:'/events'},
+      {group:'Out & About',title:'Gatherings',pillar:'ga',href:'/gatherings'},
+      {group:'Out & About',title:'Living',pillar:'lv',href:'/living'},
+      {group:'Out & About',title:'Wellness',pillar:'wl',href:'/wellness'},
+      {group:'Sports',title:'HS Football',pillar:'hf',href:'/highschool-football-recruiting'},
+      {group:'Sports',title:'Drills',pillar:'dr',href:'/drills'},
+      {group:'Play & Pets',title:'Gaming',pillar:'gm',href:'/gaming'},
+      {group:'Play & Pets',title:'Aquariums',pillar:'aq',href:'/aquariums'},
+      {group:'Play & Pets',title:'Fishing',pillar:'fs',href:'/fish-and-crabs'},
+      {group:'Play & Pets',title:'Crabbing',pillar:'cr',href:'/fish-and-crabs'},
+      {group:'Play & Pets',title:'Pets',pillar:'pt',href:'/pets'}
+    ];
+    var GROUP_COLOR={"Revenue & Leadership":"#EAC15C","Technology":"#A78BDB","Business & Property":"#C8A878","Cars & Boats":"#5AA8D4","Places":"#4AB8A8","Style & Culture":"#C090D0","Out & About":"#E090A8","Sports":"#5CBC70","Play & Pets":"#6BC88A"};
+    ROWS.forEach(function(r){if(r.group&&GROUP_COLOR[r.group])r.groupColor=GROUP_COLOR[r.group];if(r.group==='Revenue & Leadership')r.color='#EAC15C';});
+    var stack=document.getElementById('psqStack');
+    if(!stack)return;
+    // FIRST VIEWPORT ONLY (owner 2026-07-12): paint what fits, then slowly drip the rest.
+    var FIRST_ROWS = 1;          // Recent + 1 pillar ≈ first screen
+    var CARDS_FIRST = 8;         // ~what fits horizontally + peek
+    var CARDS_LATER = 12;
+    var FETCH_N = 24;            // tiny library pulls
+    var DRIP_MS = 1800;          // slow: one offscreen row at a time
+    var i = 0, busy = false, phase = 'first', dripLock = false;
+
+    function paint(spec, ents, cardLimit){
+      if(!window.PulseSquares || !ents || !ents.length) return false;
+      var g=spec.group||'';
+      if(g && g!==paint._lastGroup){
+        paint._lastGroup=g;
+        var gh=document.createElement('div');
+        gh.className='psq-group';
+        var gc=spec.groupColor||spec.color||'#EAC15C';
+        gh.style.setProperty('--gc', gc);
+        gh.innerHTML='<div class="psq-group__label">'+String(g).replace(/</g,'&lt;')+'</div><div class="psq-group__rule"></div>';
+        stack.appendChild(gh);
+      }
+      var el=document.createElement('div');
+      stack.appendChild(el);
+      window.PulseSquares.paintRow(el, ents, {
+        title:spec.title,
+        pillar:spec.pillar,
+        moreHref:spec.href,
+        limit: cardLimit || CARDS_LATER,
+        shuffle:true,
+        color:spec.color||(window.PulseSquares&&window.PulseSquares.colorOf?window.PulseSquares.colorOf(spec.pillar):null),
+        usedImages:Object.create(null),
+        allowImageDupes:false,
+        idleMs:15000,
+        reshuffleMs:15*60*1000
+      });
+      if(el.style.display==='none' || !el.querySelector('.rcard')){
+        try{el.remove();}catch(e){}
+        return false;
+      }
+      return true;
+    }
+    function fetchRow(spec){
+      return fetch((window.__PULSE_LIB__||'/.netlify/functions/pulse-machine-library-list')+'?recent='+FETCH_N+'&pillar='+encodeURIComponent(spec.pillar)+'&mini=1&sort=ts')
+        .then(function(r){return r.ok?r.json():null;})
+        .then(function(d){
+          var ents=(d&&(d.entries||d.items))||[];
+          var p=String(spec.pillar||'').toLowerCase().replace(/[^a-z]/g,'');
+          if(!p)return ents;
+          var rx=new RegExp('^'+p+'\\d+$','i');
+          return ents.filter(function(e){ return e&&e.id&&rx.test(String(e.id)); });
+        })
+        .catch(function(){return [];});
+    }
+
+    function loadOne(done){
+      if(busy || i>=ROWS.length){ if(done) done(false); return; }
+      busy=true;
+      var spec=ROWS[i++];
+      var lim = (i <= FIRST_ROWS) ? CARDS_FIRST : CARDS_LATER;
+      function go(){
+        fetchRow(spec).then(function(ents){
+          if(ents && ents.length && window.PulseSquares) paint(spec, ents, lim);
+          busy=false;
+          if(done) done(i < ROWS.length);
+        }).catch(function(){
+          busy=false;
+          if(done) done(i < ROWS.length);
+        });
+      }
+      if(window.PulseSquares) go();
+      else setTimeout(function(){
+        if(window.PulseSquares) go();
+        else { busy=false; i--; if(done) done(true); }
+      }, 80);
+    }
+
+    // Sentinel at bottom — only fetch more when user is near it (or idle drip)
+    var sent = document.createElement('div');
+    sent.id = 'psqSentinel';
+    sent.setAttribute('aria-hidden','true');
+    sent.style.cssText = 'height:1px;width:100%;pointer-events:none';
+    stack.appendChild(sent);
+
+    function dripRest(){
+      if(phase !== 'rest' || i >= ROWS.length || busy || dripLock) return;
+      dripLock = true;
+      loadOne(function(more){
+        try { stack.appendChild(sent); } catch(e) {}
+        setTimeout(function(){ dripLock = false; }, DRIP_MS);
+        if(!more){ phase = 'done'; return; }
+      });
+    }
+
+    function startRest(){
+      if(phase !== 'first') return;
+      phase = 'rest';
+      // Idle drip: one row every ~2s so the rest of the site fills without jamming first paint
+      function idleTick(){
+        if(phase === 'done') return;
+        if(!document.hidden) dripRest();
+        setTimeout(idleTick, DRIP_MS + 200);
+      }
+      var kick = function(){ setTimeout(idleTick, 1500); };
+      if(typeof requestIdleCallback === 'function') requestIdleCallback(kick, { timeout: 3000 });
+      else setTimeout(kick, 1500);
+    }
+
+    if(typeof IntersectionObserver === 'function'){
+      try {
+        var io = new IntersectionObserver(function(ents){
+          for(var k=0;k<ents.length;k++){
+            if(ents[k].isIntersecting && phase === 'rest') dripRest();
+          }
+        }, { root: null, rootMargin: '600px 0px', threshold: 0 });
+        io.observe(sent);
+      } catch(err) {}
+    }
+    // Also drip when user scrolls near end of loaded stack
+    addEventListener('scroll', function(){
+      if(phase !== 'rest' || busy) return;
+      var r = sent.getBoundingClientRect();
+      if(r.top < window.innerHeight + 700) dripRest();
+    }, { passive: true });
+
+    function start(){
+      // First screen: one pillar row only
+      loadOne(function(){
+        startRest();
+      });
+    }
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);
+    else start();
+  })();
+  </script>
 
   <div class="nameplate"><span class="np-tag">The RevOps Authority</span><span class="np-sep">·</span><span class="np-date" id="npDate"></span></div>
 
@@ -396,10 +875,12 @@ header .bar{max-width:1200px;margin:0 auto;}
     <div class="lead-cards" id="leadCards"></div>
   </section>
 
-  <section class="mag-mosaic" id="magMosaic" aria-label="More stories"></section>
-  <button id="toTop" aria-label="Back to top" style="display:none;position:fixed;right:18px;bottom:18px;z-index:75;min-width:72px;height:52px;padding:0 14px;border-radius:6px;border:1.5px solid #EAC15C;background:linear-gradient(135deg,#1a140f 0%,#2a1d12 100%);color:#EAC15C;font:800 1.05rem/1 Fraunces,Georgia,serif;font-style:italic;cursor:pointer;box-shadow:0 0 0 1px rgba(234,193,92,.25),0 8px 22px rgba(0,0,0,.45);letter-spacing:.02em">Top ↑</button>
+  <section class="mag-mosaic" id="magMosaic" aria-label="More stories" style="display:none"></section>
+  <button id="toTop" aria-label="Back to top" style="display:none;position:fixed;right:18px;bottom:18px;z-index:75;min-width:72px;height:52px;padding:0 14px;border-radius:6px;border:1.5px solid #EAC15C;background:linear-gradient(135deg,#1a140f 0%,#2a1d12 100%);color:#EAC15C;font:800 1.05rem/1 Fraunces,Georgia,serif;font-style:italic;cursor:pointer;box-shadow:0 0 0 1px rgba(234,193,92,.25),0 8px 22px rgba(0,0,0,.45);letter-spacing:.02em">Top â†‘</button>
+  <!-- SEARCH moved onto CRO card -->
+  <style>#toTop{right:18px!important;left:auto!important}</style>
   <script>(function(){var LH='local'+'host',PT=8899;window.PULSE_UNICORN_PORT=function(){var h=location.hostname,m=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent),saved=null;try{saved=localStorage.getItem('pulse.unicorn.lan');}catch(e){}var lan=(saved||'192.168.5.68').replace(/^https?:\/\//,'').replace(/\/.*$/,'').replace(/:\d+$/,'');if(h==='pulserevops.com'||h==='www.pulserevops.com'||h.endsWith('.netlify.app'))return m?'http://'+lan+':'+PT+'/':'http://'+LH+':'+PT+'/';if(h===LH||/^127\./.test(h)||/^192\.168\.|^10\./.test(h))return location.protocol+'//'+h+':'+PT+'/';return 'http://'+LH+':'+PT+'/';};window.PULSE_UNICORN_BOOT=function(){if(!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent))return;fetch('http://'+LH+':'+PT+'/portal-url').then(function(r){return r.json();}).then(function(j){if(j&&j.lan){try{var ip=String(j.lan).replace(/^https?:\/\//,'').replace(/\/.*$/,'');localStorage.setItem('pulse.unicorn.lan',ip.replace(/:\d+$/,''));}catch(e){}}}).catch(function(){});};})();</script>
-  <a href="#" onclick="window.open(window.PULSE_UNICORN_PORT(),'_blank');return false;" rel="noopener" title="" aria-label="" style="position:fixed;left:10px;bottom:8px;z-index:80;opacity:.1;font-size:1rem;text-decoration:none;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.1">🦄</a>
+  <a href="#" onclick="window.open(window.PULSE_UNICORN_PORT(),'_blank');return false;" rel="noopener" title="" aria-label="" style="position:fixed;left:10px;bottom:90px;z-index:80;opacity:.1;font-size:1rem;text-decoration:none;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.1">ðŸ¦„</a>
   <script>(function(){var t=document.getElementById('toTop');if(!t)return;addEventListener('scroll',function(){t.style.display=scrollY>700?'block':'none';},{passive:true});t.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'});});})();</script>
   <script>/* AUTO-SCROLL every 15s (owner 2026-07-08): advance a screen, loop at bottom, pause 30s after user scrolls/touches */(function(){var last=0;function bump(){last=Date.now();}addEventListener('wheel',bump,{passive:true});addEventListener('touchmove',bump,{passive:true});addEventListener('keydown',bump);setInterval(function(){if(document.hidden)return;if(Date.now()-last<15000)return;var atEnd=(innerHeight+scrollY)>=document.documentElement.scrollHeight-6;if(atEnd){scrollTo({top:0,behavior:'smooth'});}else{scrollBy({top:Math.round(innerHeight*0.82),behavior:'smooth'});}},15000);})();</script>
 
@@ -409,7 +890,7 @@ header .bar{max-width:1200px;margin:0 auto;}
       <img class="rail-photo" src="/assets/kory-white.jpg" alt="Kory White, Fractional CRO" width="120" height="120" loading="lazy" decoding="async">
       <div class="rail-title">Get Fractional.</div>
       <div class="rail-sub">Kory White — Fractional Chief Revenue Officer. 25 yrs · $0→$200M scaled · nationwide + MD &amp; DC.</div>
-      <a class="rail-cta" href="/coaching">📞 Book a Call →</a>
+      <a class="rail-cta" href="/coaching">ðŸ“ž Book a Call →</a>
       <a class="rail-link" href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener">Kory White on LinkedIn →</a>
     </div>
     <div class="rail-card">
@@ -422,45 +903,32 @@ header .bar{max-width:1200px;margin:0 auto;}
     </div>
   </aside>
 
-  <section class="hero">
-    <h1>What do you want to figure out?</h1>
-    <div class="home-search" id="home-search">
-      <div class="hs-field">
-        <span class="hs-icon">🔍</span>
-        <div class="hs-ghost" id="hs-ghost" aria-hidden="true"><span class="g-typed"></span><span class="g-rest"></span></div>
-        <input id="hs-input" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-               placeholder="Try: best sci-fi movies">
-        <button class="hs-clear" id="hs-clear" aria-label="Clear" type="button">×</button>
-      </div>
-      <div class="hs-suggest" id="hs-suggest" role="listbox"></div>
-    </div>
-    <p class="subline">24,000+ researched answers that add value — free to read.</p>
-  </section>
+  <section class="hero" hidden aria-hidden="true"></section>
 
   <div class="cro-ticker">
     <span class="cro-ticker-lbl"><span class="dot"></span> Latest</span>
     <a class="cro-mq" href="/coaching" aria-label="Hire a fractional Chief Revenue Officer">
     <div class="cro-mq-track">
-      <span class="cro-mq-box hot"><span class="g">💼</span>Get Fractional</span>
-      <span class="cro-mq-box"><span class="g">📈</span>Review Your Revenue</span>
-      <span class="cro-mq-box"><span class="g">🚀</span>$0 → $200M Scaled</span>
-      <span class="cro-mq-box"><span class="g">🎯</span>Hire a Fractional CRO</span>
-      <span class="cro-mq-box"><span class="g">📊</span>AI-Built RevOps</span>
-      <span class="cro-mq-box"><span class="g">💰</span>Pipeline → Profit</span>
-      <span class="cro-mq-box"><span class="g">🧭</span>Interim · Nationwide</span>
-      <span class="cro-mq-box"><span class="g">⏱️</span>25 Yrs Scaling Revenue</span>
-      <span class="cro-mq-box hot"><span class="g">📞</span>Book a Call</span>
-      <span class="cro-mq-box"><span class="g">✅</span>RevOps, Handled</span>
-      <span class="cro-mq-box hot"><span class="g">💼</span>Get Fractional</span>
-      <span class="cro-mq-box"><span class="g">📈</span>Review Your Revenue</span>
-      <span class="cro-mq-box"><span class="g">🚀</span>$0 → $200M Scaled</span>
-      <span class="cro-mq-box"><span class="g">🎯</span>Hire a Fractional CRO</span>
-      <span class="cro-mq-box"><span class="g">📊</span>AI-Built RevOps</span>
-      <span class="cro-mq-box"><span class="g">💰</span>Pipeline → Profit</span>
-      <span class="cro-mq-box"><span class="g">🧭</span>Interim · Nationwide</span>
-      <span class="cro-mq-box"><span class="g">⏱️</span>25 Yrs Scaling Revenue</span>
-      <span class="cro-mq-box hot"><span class="g">📞</span>Book a Call</span>
-      <span class="cro-mq-box"><span class="g">✅</span>RevOps, Handled</span>
+      <span class="cro-mq-box hot"><span class="g">ðŸ’¼</span>Get Fractional</span>
+      <span class="cro-mq-box"><span class="g">ðŸ“ˆ</span>Review Your Revenue</span>
+      <span class="cro-mq-box"><span class="g">ðŸš€</span>$0 → $200M Scaled</span>
+      <span class="cro-mq-box"><span class="g">ðŸŽ¯</span>Hire a Fractional CRO</span>
+      <span class="cro-mq-box"><span class="g">ðŸ“Š</span>AI-Built RevOps</span>
+      <span class="cro-mq-box"><span class="g">ðŸ’°</span>Pipeline → Profit</span>
+      <span class="cro-mq-box"><span class="g">ðŸ§­</span>Interim · Nationwide</span>
+      <span class="cro-mq-box"><span class="g">â±ï¸</span>25 Yrs Scaling Revenue</span>
+      <span class="cro-mq-box hot"><span class="g">ðŸ“ž</span>Book a Call</span>
+      <span class="cro-mq-box"><span class="g">âœ…</span>RevOps, Handled</span>
+      <span class="cro-mq-box hot"><span class="g">ðŸ’¼</span>Get Fractional</span>
+      <span class="cro-mq-box"><span class="g">ðŸ“ˆ</span>Review Your Revenue</span>
+      <span class="cro-mq-box"><span class="g">ðŸš€</span>$0 → $200M Scaled</span>
+      <span class="cro-mq-box"><span class="g">ðŸŽ¯</span>Hire a Fractional CRO</span>
+      <span class="cro-mq-box"><span class="g">ðŸ“Š</span>AI-Built RevOps</span>
+      <span class="cro-mq-box"><span class="g">ðŸ’°</span>Pipeline → Profit</span>
+      <span class="cro-mq-box"><span class="g">ðŸ§­</span>Interim · Nationwide</span>
+      <span class="cro-mq-box"><span class="g">â±ï¸</span>25 Yrs Scaling Revenue</span>
+      <span class="cro-mq-box hot"><span class="g">ðŸ“ž</span>Book a Call</span>
+      <span class="cro-mq-box"><span class="g">âœ…</span>RevOps, Handled</span>
     </div>
     </a>
   </div>
@@ -480,12 +948,12 @@ header .bar{max-width:1200px;margin:0 auto;}
   </section>
 
   <div class="tk" id="triviaTicker" aria-label="This week's Pulse Trivia champions">
-    <span class="tk-label">🏆 Trivia champions</span>
+    <span class="tk-label">ðŸ† Trivia champions</span>
     <div class="tk-win"><div class="tk-track" id="tkTrack"></div></div>
   </div>
 
   <div class="foot">
-    <span>© Pulse — operator-grade answers. <span class="uni-egg" title="🦄 owner portal" style="cursor:pointer;user-select:none;opacity:.9;font-size:1.2rem" onclick="window.PULSE_UNICORN_BOOT&&window.PULSE_UNICORN_BOOT();var p=prompt('🦄 enter code');if(p==='4444'){location.href=window.PULSE_UNICORN_PORT();}else if(p){alert('🦄 says no');}">🦄</span></span>
+    <span>Â© Pulse — operator-grade answers. <span class="uni-egg" title="ðŸ¦„ owner portal" style="cursor:pointer;user-select:none;opacity:.9;font-size:1.2rem" onclick="window.PULSE_UNICORN_BOOT&&window.PULSE_UNICORN_BOOT();var p=prompt('ðŸ¦„ enter code');if(p==='4444'){location.href=window.PULSE_UNICORN_PORT();}else if(p){alert('ðŸ¦„ says no');}">ðŸ¦„</span></span>
     <nav class="footlinks"><a href="/knowledge">Library</a><a href="/tools">Tools</a><a href="/software">Software</a><a href="/coaching">Hire a CRO</a><a href="/blog/">Blog</a><a href="/revenue-checkup">Free Checkup</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
   </div>
 
@@ -498,7 +966,7 @@ header .bar{max-width:1200px;margin:0 auto;}
 const T = window.PULSE_TAX;
 // top-nav pillar dropdowns (pillars live here now)
 (function(){var nav=document.getElementById('magNav');if(!nav||!T)return;
-  nav.innerHTML=T.map(function(c){var drop=c.subs.map(function(s){return '<div class="mn-sub">'+s.name+'</div>'+s.items.map(function(it){return '<a href="'+it[1]+'">'+it[0]+'</a>';}).join('');}).join('');return '<div class="mn-item"><span class="mn-trigger" tabindex="0">'+c.name+' ▾</span><div class="mn-drop">'+drop+'</div></div>';}).join('')+'<div class="mn-item"><span class="mn-trigger" tabindex="0">Hire a CRO ▾</span><div class="mn-drop"><a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="hire-cro">📅 Book a Call</a><a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">Kory White — LinkedIn</a><a href="https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate Website</a><a href="/assets/kory-white-cro-1page.pdf" target="_blank" rel="noopener" data-pulse-click="resume">Resume — 1-Pager (PDF)</a></div></div>';
+  nav.innerHTML=T.map(function(c){var drop=c.subs.map(function(s){return '<div class="mn-sub">'+s.name+'</div>'+s.items.map(function(it){return '<a href="'+it[1]+'">'+it[0]+'</a>';}).join('');}).join('');return '<div class="mn-item"><span class="mn-trigger" tabindex="0">'+c.name+' â–¾</span><div class="mn-drop">'+drop+'</div></div>';}).join('')+'<div class="mn-item"><span class="mn-trigger" tabindex="0">Hire a CRO â–¾</span><div class="mn-drop"><a href="https://calendly.com/korywhiterevops?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="hire-cro">ðŸ“… Book a Call</a><a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">Kory White — LinkedIn</a><a href="https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate Website</a><a href="/assets/kory-white-cro-1page.pdf" target="_blank" rel="noopener" data-pulse-click="resume">Resume — 1-Pager (PDF)</a></div></div>';
   nav.querySelectorAll('.mn-trigger').forEach(function(t){t.addEventListener('click',function(){var it=t.parentNode,was=it.classList.contains('open');nav.querySelectorAll('.mn-item').forEach(function(x){x.classList.remove('open');});if(!was)it.classList.add('open');});});
   document.addEventListener('click',function(e){if(!nav.contains(e.target))nav.querySelectorAll('.mn-item').forEach(function(x){x.classList.remove('open');});});
 })();
@@ -593,9 +1061,28 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
 })();
 </script>
 <script>/* news-vibe dateline */try{var _np=document.getElementById('npDate');if(_np)_np.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});}catch(e){}</script>
-<link rel="stylesheet" href="/css/pulse-mosaic.css">
-<script src="/js/pulse-face-img.js"></script>
+<link rel="stylesheet" href="/css/pulse-mosaic.css?v=20260711f">
+<script>/* Square homepage: do NOT boot old mosaic / face-img pool (owner 2026-07-12). */
+window.__PULSE_SQUARES_HOME__ = true;
+</script>
+<script>/* Main-page pillar color auto-rotate (works with squares home — mosaic skipped). */
+(function(){
+  var CYC=[['#0E8C7A','#042E28'],['#C0392B','#2A0907'],['#7A1FA2','#1C0A28'],['#1565C0','#071E3C'],['#EC2D7C','#141414'],['#D97706','#341B03'],['#2E9E5B','#0C321F'],['#6D28D9','#170A33'],['#0A66C2','#0A0A0A'],['#BE185D','#260512'],['#0E6BA8','#052433'],['#C026D3','#260A2A'],['#2563EB','#0A1A3A'],['#B71C3B','#270710']];
+  var ci=Math.floor(Math.random()*CYC.length), b=document.body;
+  b.style.transition='background 2.5s ease';
+  function tick(){
+    if (document.hidden) return; // skip work when tab not visible
+    var c=CYC[ci++%CYC.length];
+    b.style.background='radial-gradient(1100px 560px at 82% -6%, '+c[0]+'4d, transparent 60%), linear-gradient(165deg, '+c[1]+' 0%, #0a0806 55%, '+c[1]+' 100%)';
+    b.style.backgroundAttachment='fixed';
+  }
+  tick();
+  setInterval(tick, 15*60*1000); // every ~15 min — chill, no lag
+})();
+</script>
+<!-- pulse-face-img.js intentionally omitted on squares homepage (was pulling mosaic work) -->
 <script>/* CNET-style lead — cards TWIST into new pictures at random intervals (owner 2026-07-02) */(function(){
+  if (window.__PULSE_SQUARES_HOME__) return; // squares home — skip mosaic downloads
   function esc(s){return String(s||'').replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});}
   function rnd(a,b){return a+Math.random()*(b-a);}
   function cardHTML(c){return '<a class="lc" href="/knowledge/'+encodeURIComponent(c.id)+'"><div class="lc-img" style="background-image:url(\''+(c.img||'')+'\')"></div><div class="lc-cat">'+esc(c.pillar)+'</div><h3>'+esc(c.title)+'</h3></a>';}
@@ -613,8 +1100,7 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
     ['cnetLead','magNav','tiles','panel'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});
     var np=document.querySelector('.nameplate');if(np)np.style.display='none';
     var bug=document.querySelector('.serp-bug');if(bug)bug.style.display='none';
-    var hero=document.querySelector('.hero');
-    if(hero&&mm.parentNode){hero.style.display='block';mm.parentNode.insertBefore(hero,mm);}
+    /* hero search stays under CRO — do not relocate */
     var st=document.createElement('style');st.textContent='body.pulse-mosaic-home .hero{display:block!important;padding:10px 0 6px!important;margin:0 0 10px!important;text-align:left;}'
       +'body.pulse-mosaic-home .hero h1,body.pulse-mosaic-home .subline{display:none!important;}'
       +'body.pulse-mosaic-home .home-search{margin:0 auto;max-width:1080px;}'
@@ -638,14 +1124,14 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
       +'.mm.mm-hire .mm-hire-t{position:absolute;left:0;right:0;bottom:0;padding:26px 30px;background:linear-gradient(0deg,rgba(6,7,11,.95),rgba(6,7,11,.5) 58%,transparent);color:#fff;font-family:Fraunces,\'Playfair Display\',Georgia,serif;font-style:italic;font-weight:900;font-size:3.7rem;line-height:1.04;letter-spacing:-.01em;text-shadow:0 2px 16px rgba(0,0,0,.97);z-index:3;}'
       +'.mm.mm-hire .mm-hire-cta{display:block;margin-top:10px;font-family:system-ui;font-style:normal;font-weight:800;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;}'
       +'@media(max-width:600px){.mm.mm-hire{min-height:320px;background-position:center 15%;}.mm.mm-hire .mm-hire-t{font-size:2.8rem;padding:18px 20px;}}'
-      /* owner 2026-07-06: single-column homepage — thin Pulse RevOps logo bar (row 1), CRO tile 1.5x, bigger tiles+titles on mobile */
-      +'#magMosaic.mag-mosaic{grid-auto-rows:300px!important;grid-template-rows:52px;grid-auto-flow:row!important;}'
-      +'#magMosaic>.mm{grid-row:span 2;grid-column:1!important;}'
-      +'#magMosaic>.mm.mm-hero{grid-row:1!important;grid-column:1!important;min-height:0;height:52px;display:flex;align-items:center;justify-content:center;background:#0a0c11;border-color:rgba(246,192,73,.22);}'
+      /* owner 2026-07-11: desktop 2-up; mobile 1 tile/row (full-width — titles don't side-crop) */
+      +'#magMosaic.mag-mosaic{display:grid!important;grid-template-columns:repeat(2,1fr)!important;grid-auto-rows:220px!important;gap:0!important;grid-auto-flow:row!important;}'
+      +'#magMosaic>.mm{grid-row:span 1!important;grid-column:span 1!important;}'
+      +'#magMosaic>.mm.mm-hero{grid-column:1/-1!important;grid-row:auto!important;min-height:0;height:52px;display:flex;align-items:center;justify-content:center;background:#0a0c11;border-color:rgba(246,192,73,.22);}'
       +'#magMosaic>.mm.mm-hero .mm-hero-logo{height:26px!important;width:auto;}'
       +'#magMosaic>.mm.mm-hero .mm-hero-k{font-size:.56rem!important;}'
-      +'#magMosaic>.mm.mm-hire{grid-row:span 2!important;grid-column:1!important;}' /* CRO tile same size as all others (owner 2026-07-06) */
-      +'@media(max-width:820px){#magMosaic.mag-mosaic{grid-auto-rows:250px!important;grid-template-rows:52px;}#magMosaic>.mm h4{font-size:4rem!important;}#magMosaic>.mm .mm-cat{font-size:1.2rem!important;}}';
+      +'#magMosaic>.mm.mm-hire{grid-row:span 1!important;grid-column:span 1!important;}'
+      +'@media(max-width:700px){#magMosaic.mag-mosaic{grid-template-columns:1fr!important;grid-auto-rows:148px!important;}#magMosaic>.mm h4{font-size:.82rem!important;line-height:1.18!important;}#magMosaic>.mm .mm-cat{font-size:.5rem!important;}}';
     document.head.appendChild(st);
     var NM={tl:'CRO & Tools',ca:'Cars',bt:'Boats',aq:'Aquariums',ik:'Industry KPIs',tk:'Tech Stacks',bs:'Book Summaries',st:'Sales Trainings',fr:'Franchises',co:'Collectibles',ai:'AI Infrastructure',gb:'Graphics',bo:'Buildouts',sy:'Style',cr:'Crabbing',fs:'Fishing',gp:'GTM Playbooks',ra:'Revenue Architecture',pt:'Pets',es:'Espresso',tv:'TVs',rs:'Resorts',cl:'Cologne',lv:'Luxury Travel',ev:'Events',ga:'Gatherings',gm:'Gaming',mv:'Movies',wl:'Wellness',dr:'Drills',dn:'Dining',nl:'Nightlife',tn:'Towns',sc:'Schools',tc:'Telco',er:'Electronics',ce:'Pulse RevOps',q:'Knowledge',ed:'Advice',sw:'Software',hf:'Home & Family',sp:'Speeches',sk:'Skills',cg:'Coaching',cd:'Contracts',kw:'Projects'};
     function pof(id){return (String(id).match(/^[a-z]+/)||[''])[0];}
@@ -701,8 +1187,8 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
     perfect.sort(byNewestQuality);
     return perfect.length ? perfect : list;
   }
-    function ftile(c,eager){if(!scrubbedPerfect13Ok(c))return '';var z=tileSizeFor(c);var src=mosaicSrc(c);var title=entryTitle(c);var img=FI.mosaicImgTag?FI.mosaicImgTag(src,title,!!eager):'';var lazy=eager?'':' mm-lazy mm-img-pending';var dl=eager?' data-mosaic-loaded="1"':' data-mosaic-lazy="1"';return '<a class="mm'+lazy+' '+z+'" href="/knowledge/'+encodeURIComponent(c.id)+'" data-face-bound="1" data-mosaic-src="'+esc(src)+'"'+dl+'>'+img+'<div class="mm-scrim"></div><div class="mm-txt"><span class="mm-cat">'+esc(NM[pof(c.id)]||'')+'</span><h4>'+esc(title)+'</h4></div></a>';}
-    var html='<a class="mm mm-hero" href="/" aria-label="Pulse RevOps home"><div class="mm-hero-in"><span class="mm-hero-k">● LIVE · The RevOps Authority</span><img class="mm-hero-logo" src="/pulse-news-logo.png" alt="Pulse RevOps — Value Added" width="164" height="46" loading="eager" fetchpriority="high" decoding="async"></div></a>';
+    function ftile(c,eager){if(!scrubbedPerfect13Ok(c))return '';var z=tileSizeFor(c);var src=mosaicSrc(c);var title=entryTitle(c);var img=FI.mosaicImgTag?FI.mosaicImgTag(src,title,!!eager):'';var lazy=eager?'':' mm-lazy mm-img-pending';var dl=eager?' data-mosaic-loaded="1"':' data-mosaic-lazy="1"';return '<a class="mm'+lazy+' '+z+'" href="/knowledge/'+encodeURIComponent(c.id)+'" aria-label="'+esc(title)+'" data-face-bound="1" data-mosaic-src="'+esc(src)+'"'+dl+'>'+img+'<div class="mm-scrim"></div><span class="mm-cat">'+esc(NM[pof(c.id)]||'')+'</span><div class="mm-txt"><h4>'+esc(title)+'</h4></div></a>';}
+    var html='<a class="mm mm-hero" href="/" aria-label="Pulse RevOps home"><div class="mm-hero-in"><span class="mm-hero-k">â— LIVE · The RevOps Authority</span><img class="mm-hero-logo" src="/pulse-news-logo.png" alt="Pulse RevOps — Value Added" width="164" height="46" loading="eager" fetchpriority="high" decoding="async"></div></a>';
     // hub tiles = vintage cover + GOLD ITALIC title (CSS overlay, like the Topics template)
     var _hubt='position:absolute;left:16px;right:16px;bottom:14px;z-index:3;color:#fff;font-family:Fraunces,\'Playfair Display\',Georgia,serif;font-style:italic;font-weight:800;line-height:1.02;text-shadow:0 2px 12px rgba(0,0,0,.95),0 1px 3px rgba(0,0,0,.97);';
     // CRO role tile — 1.5x bigger, first, and repeats every 15 tiles (owner 2026-07-06). Recent removed (recent Q&As auto-surface at top).
@@ -713,7 +1199,7 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
     mm.innerHTML=html;
     var shown={},sent=document.createElement('div');sent.style.cssText='grid-column:1/-1;height:1px';mm.appendChild(sent);
     var buf=[],bi=0,loading=false,fetched=false,seeded=false;
-    var FIRST_BATCH=visibleTiles(),BATCH=scrollBatchSz(FIRST_BATCH),POOL=500,PER_PILLAR=125;
+    var FIRST_BATCH=Math.min(10,visibleTiles()),BATCH=scrollBatchSz(FIRST_BATCH),POOL=240,PER_PILLAR=40;
     var _libCache={};
     function fetchJson(url){
       var hit=_libCache[url];
@@ -812,19 +1298,31 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
     }
     function pump(){requestAnimationFrame(function(){var r=sent.getBoundingClientRect();if(r.top<window.innerHeight+920&&!loading&&fetched)more();});}
     function more(){if(loading)return;loading=true;if(fetched){paint(BATCH,false);loading=false;return;}fetchAll(function(b){if(b&&b.length){buf=b;}if(!seeded)bi=0;fetched=true;window.__PULSE_MOSAIC_BUF=buf.length;try{console.log('[mosaic] pool ready:',buf.length,'13/13 face cards');}catch(e){}paint(seeded?BATCH:FIRST_BATCH,!seeded);loading=false;});}
-    var io=new IntersectionObserver(function(en){if(en[0]&&en[0].isIntersecting)more();},{rootMargin:'600px'});io.observe(sent);
-    setInterval(refreshBuf,300000);
-    if(window.PULSE_DEFAULTS&&window.PULSE_DEFAULTS.length){
-      var seed=buildBuf(window.PULSE_DEFAULTS.slice());
-      buf=seed;
-      bi=0;
-      seeded=true;
-      fetched=false;
-      window.__PULSE_MOSAIC_BUF=buf.length;
-      try{console.log('[mosaic] seeded from defaults:',buf.length);}catch(e){}
-      paint(Math.min(FIRST_BATCH,buf.length||FIRST_BATCH),true);
+    var io=new IntersectionObserver(function(en){if(en[0]&&en[0].isIntersecting)more();},{rootMargin:'600px'});
+    // MAIN FIRST (owner 2026-07-11): paint CRO + Recent; only then gradually boot mosaic pool.
+    // Never fan out 35k entries on first paint — mosaic-pool.json + small batches only.
+    function bootMosaic(){
+      mm.classList.add('is-ready');
+      mm.style.display='grid';
+      io.observe(sent);
+      setInterval(refreshBuf,300000);
+      if(window.PULSE_DEFAULTS&&window.PULSE_DEFAULTS.length){
+        var seed=buildBuf(window.PULSE_DEFAULTS.slice());
+        buf=seed;
+        bi=0;
+        seeded=true;
+        fetched=false;
+        window.__PULSE_MOSAIC_BUF=buf.length;
+        paint(Math.min(FIRST_BATCH,buf.length||FIRST_BATCH),true);
+      }
+      more();
     }
-    more();
+    function afterMain(){
+      if(typeof requestIdleCallback==='function')requestIdleCallback(function(){setTimeout(bootMosaic,400);},{timeout:2500});
+      else setTimeout(bootMosaic,900);
+    }
+    if(document.readyState==='complete')afterMain();
+    else addEventListener('load',afterMain);
     // FLIP (owner 2026-07-02): a few face cards twist to a fresh Q&A every ~10s (newsroom board), not all.
     (function(){
       function twist(el,apply){el.style.transition='transform .5s ease';el.style.transform='perspective(900px) rotateY(90deg)';setTimeout(function(){apply();el.style.transform='perspective(900px) rotateY(0deg)';},260);}
@@ -860,7 +1358,7 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
     // extra rows — irregular mosaic of face cards (title overlaid on the image)
     var rest=pool.slice(5),mz=['big','','tall','','wide','','','tall','wide','','big','','tall','','wide','','','tall','',''];
     var mm=document.getElementById('magMosaic');
-    if(mm){mm.innerHTML=rest.map(function(c,i){return '<a class="mm '+mz[i%mz.length]+'" href="/knowledge/'+encodeURIComponent(c.id)+'" style="background-image:url(\''+(c.img||'')+'\')"><div class="mm-scrim"></div><div class="mm-txt"><span class="mm-cat">'+esc(c.pillar)+'</span><h4>'+esc(c.title)+'</h4></div></a>';}).join('');rest.forEach(function(c){shown[c.id]=1;});}
+    if(mm){mm.innerHTML=rest.map(function(c,i){return '<a class="mm '+mz[i%mz.length]+'" href="/knowledge/'+encodeURIComponent(c.id)+'" aria-label="'+esc(c.title)+'" style="background-image:url(\''+(c.img||'')+'\')"><div class="mm-scrim"></div><div class="mm-txt"><span class="mm-cat">'+esc(c.pillar)+'</span></div></a>';}).join('');rest.forEach(function(c){shown[c.id]=1;});}
     var cardEls=[].slice.call(document.querySelectorAll('#leadCards .lc'));
     var shown={};pool.slice(0,5).forEach(function(x){shown[x.id]=1;});
     var ptr=5;
@@ -871,7 +1369,7 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
     cardEls.forEach(function(el,i){el.setAttribute('data-id',cards[i].id);face(cards[i]);scheduleCard(el,true);});
     function scheduleHero(first){var ms=first?rnd(25,80)*1000:rnd(3,12)*60000;setTimeout(function(){var it=nextItem();twist(imgEl,function(){setHero(imgEl,panEl,it);imgEl.setAttribute('data-id',it.id);shown[it.id]=1;});face(it);scheduleHero(false);},ms);}
     imgEl.setAttribute('data-id',pool[0].id);face(pool[0]);scheduleHero(true);
-    // ── ENDLESS SCROLL (owner 2026-07-02): keep appending library face-cards below the featured pool ──
+    // â”€â”€ ENDLESS SCROLL (owner 2026-07-02): keep appending library face-cards below the featured pool â”€â”€
     (function(){
       var mm2=document.getElementById('magMosaic'); if(!mm2)return;
       var mzA=['big','','tall','','wide','','','tall','wide','','big','','tall','','wide','','','tall','',''];
@@ -880,13 +1378,13 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
       function px(u){if(!u)return '';if(u[0]==='/')u='https://pulserevops.com'+u;if(!/^https?:\/\//.test(u))return '';if(/wsrv\.nl/.test(u))return u;return 'https://wsrv.nl/?url='+encodeURIComponent(u.replace(/^https?:\/\//,''))+'&w=520&output=webp&q=72&we';}
       var buf=[],bi=0,ti=(typeof rest!=='undefined'?rest.length:0),loading=false,fetched=false,done=false;
       var sent=document.createElement('div');sent.style.cssText='grid-column:1/-1;height:1px';mm2.appendChild(sent);
-      function paint(n){var out=[];while(out.length<n&&bi<buf.length){var c=buf[bi++];if(!c||!c.img||shown[c.id])continue;shown[c.id]=1;out.push(c);}if(!out.length)return;sent.insertAdjacentHTML('beforebegin',out.map(function(c){var z=mzA[(ti++)%mzA.length];return '<a class="mm '+z+'" href="/knowledge/'+encodeURIComponent(c.id)+'" style="background-image:url(\''+px(c.img)+'\')"><div class="mm-scrim"></div><div class="mm-txt"><span class="mm-cat">'+esc(NM[pof(c.id)]||pof(c.id).toUpperCase())+'</span><h4>'+esc(c.question||c.title||'')+'</h4></div></a>';}).join(''));}
+      function paint(n){var out=[];while(out.length<n&&bi<buf.length){var c=buf[bi++];if(!c||!c.img||shown[c.id])continue;shown[c.id]=1;out.push(c);}if(!out.length)return;sent.insertAdjacentHTML('beforebegin',out.map(function(c){var z=mzA[(ti++)%mzA.length];var t=c.question||c.title||'';return '<a class="mm '+z+'" href="/knowledge/'+encodeURIComponent(c.id)+'" aria-label="'+esc(t)+'" style="background-image:url(\''+px(c.img)+'\')"><div class="mm-scrim"></div><div class="mm-txt"><span class="mm-cat">'+esc(NM[pof(c.id)]||pof(c.id).toUpperCase())+'</span></div></a>';}).join(''));}
       function more(){if(loading||done)return;loading=true;if(bi<buf.length-30){paint(24);loading=false;return;}if(fetched){done=true;loading=false;return;}
         fetch('/.netlify/functions/pulse-machine-library-list?recent=4000').then(function(r){return r.json();}).then(function(j){var a=Array.isArray(j)?j:(j.entries||j.items||[]);buf=a.filter(function(e){return e&&e.id&&e.img&&!shown[e.id];});bi=0;fetched=true;done=buf.length===0;paint(24);loading=false;}).catch(function(){loading=false;});}
       var io=new IntersectionObserver(function(en){if(en[0]&&en[0].isIntersecting)more();},{rootMargin:'600px'});io.observe(sent);
     })();
-    // ── ALTERNATING PILLAR-COLOR BACKGROUND (owner 2026-07-02): shift the page tint through the pillar
-    // palette every ~14s so the homepage cycles its pillar color options ──
+    // â”€â”€ ALTERNATING PILLAR-COLOR BACKGROUND (owner 2026-07-02): shift the page tint through the pillar
+    // palette every ~14s so the homepage cycles its pillar color options â”€â”€
     (function(){
       var CYC=[['#0E8C7A','#042E28'],['#C0392B','#2A0907'],['#7A1FA2','#1C0A28'],['#1565C0','#071E3C'],['#EC2D7C','#141414'],['#D97706','#341B03'],['#2E9E5B','#0C321F'],['#6D28D9','#170A33'],['#0A66C2','#0A0A0A'],['#BE185D','#260512'],['#0E6BA8','#052433'],['#C026D3','#260A2A'],['#2563EB','#0A1A3A'],['#B71C3B','#270710']];
       var ci=0, b=document.body;
@@ -900,3 +1398,5 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
 <script src="/pulse-ambient.js" defer></script>
 </body>
 </html>
+
+

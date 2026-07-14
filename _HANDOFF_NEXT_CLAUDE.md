@@ -1,6 +1,81 @@
 # ▶ HANDOFF — for the next Claude Code session (saved 2026-06-26)
 
 ---
+## 🚚 CROSSOVER — 2026-07-11 — MIGRATION PLAN + DEPLOY LAW — **READ FIRST**
+- **🔒 DEPLOY LAW (permanent) — `DEPLOY_LAW.md`:** CONTENT/DATA → Blobs only, NEVER deploy; CODE/TEMPLATE/ASSET → queue for a **once-a-day** `--prod` (only if queue non-empty; no queued code = no deploy that day). Drafts free; never misclassify code as content; "deploy now" = operator override; log every deploy. Embedded in `CLAUDE.md` + `SIMILARITY_MACHINE.md` + `HOURLY_GENERATOR.md` + `MIGRATION_MACHINE.md` + `sim/LESSONS.md`. Goal: kill the ~$200/mo Netlify burn.
+- **🚚 Netlify→Cloudflare FULL-STATIC migration = `MIGRATION_MACHINE.md`** (PLAN ONLY; Phase 1 after CC weekly-limit reset). Ground truth: 148 fns · 2,284 `@netlify/blobs` scripts · 35,453 entries · Netlify DNS w/ Google email (**`DNS_INVENTORY.md`** saved: 2 MX→SMTP.GOOGLE.COM + SPF/DMARC) · **CF creds MISSING**. Phase 1 = static generator (reuse real render fns), render all 35K pages LOCALLY, LAW-DOM diff vs live — **nothing live until Phase 4 GO + Phase 5 manual DNS cutover** (email preserved). Prereqs: real CF creds · confirm $200 driver · pick data source. Panel on localhost:7200.
+
+## 🌙 CROSSOVER — 2026-07-11 LATE — FIX MACHINE: SUB-13 PATH WORKS · NEAR-DUPS = PRODUCT DECISION — **READ FIRST**
+- **THE WIN — SUB-13 upgrade path VALIDATED.** Sitewide pile 35,453 → 1,070 PASS · 891 NEAR-DUP · 198 STUB · **33,294 SUB-13 (97% of the problem)**. `fixSub13` upgrades a thin/uncertified entry to 13/13. DRY-proven: `q16721` → content-clean **11/13** (deferred-image signature, same as sw115), ~$0.006 — many SUB-13 just carry a STALE low score and only need **re-gating** (near-free). **Live batch:** `DS_ONLY=1 SIM_BATCH=1 SIM_MAX=10 SIM_PILE=SUB13 node sim_transform.js q` (PowerShell: `$env:DS_ONLY=1;$env:SIM_BATCH=1;$env:SIM_MAX=10;$env:SIM_PILE="SUB13"; node sim_transform.js q`). Whole q pile = drop SIM_MAX (resume-safe, halts at $5 DS cap). **Owner-triggered** (production writes).
+- **🔒 KEY FIX (prompt-content gap, same class as the generator):** `QUALITY_SYS` (fixSub13/fixStub) + `REWRITE_SYS` (fixVariant) now specify the EXACT q11133 golden shape (## Direct Answer 160+ chars first → depth ## sections w/ 2 mermaids → ## Related questions → ## FAQ 6 pairs → ## Sources 5-10 → ## Related on PULSE). Added a **gate-repair loop** to fixVariant (re-adds dropped golden pieces via CHECK_HELP while keeping differentiation). Without it DeepSeek DROPS faq/mermaid/sources/related during rewrite → gate fails.
+- **⛔ NEAR-DUPS (891) = PRODUCT DECISION, NOT CODE.** Almost all Top-10 geo/topic-variant lists ("Top 10 Best X in [State]"). Proven UNWINNABLE by prose rewrite: the shared list STRUCTURE *is* the similarity — can't make two both distinct (<30%) AND keep golden structure (re-adding structure re-adds similarity). tl0508 hit 17% only by DROPPING structure → gate fail; tl0507/tl0509 stuck 56%/73%. **Owner picks:** (1) delete redundant variants (keep canonical), (2) regenerate each with real per-location CONTENT via the generator, or (3) leave flagged (3-strike-skip; nothing bad publishes).
+- **DS_ONLY=1 LAW:** sim_transform calls Claude Code CLI FIRST by default → ALWAYS pass `DS_ONLY=1` so fixes don't spend Claude usage (DeepSeek only).
+- **New sim_transform knobs:** `SIM_DRY=1` (gate-score, never publish — validation), `SIM_PILE=NEAR_DUP|SUB13|STUB`, `SIM_MAX=N` (cap), `SIM_FAMILY=Fxxxx`. Strict serial default (`SIM_BATCH||1`).
+- **Dashboard bar FIXED** — `#barfill` climbs on scan (scanned/total) AND fix (resolved/total); refresh browser to load. ⚠️ RUN REPORT button = SCAN (reads all pillar bodies, slow); the SUB-13 fix is the TERMINAL command above, NOT a dashboard button.
+- **FINAL STATE (end of night):** gate 8899 (GATE_ONLY+GOLD_SKIP_IMG_GATE) + dashboard 8904 UP + fresh; state reset; whole-library `sim/scan_report.json` intact (ALL, 35,453). Night DS spend ~$0.50, nothing bad published; `sw115` live (generator proof). (FIXED.md has a q16721 row from the DRY test — DRY also logs the ledger; harmless.)
+
+## 🧼 CROSSOVER — 2026-07-11 — PULSE CONTROL PANEL (8904) · GENERATOR · FIX-RUNNER — **READ FIRST**
+- **ONE merged dashboard `dashboard_server.js` @ http://localhost:8904** (LAN 192.168.5.68:8904) — Fix Machine + Generator panels, hot-reload `gen/config.json` (fixConcurrency · fixScope · entriesPerHour XOR perTopicPerHour · genTopics · activeHours · paused · deployEveryHours · **maxPerHour hard ceiling**). Rebuilt from the CLEAN twin; **retires** the mojibake `_sim_machine_server_cursor.js`(8904) + `sim_machine_server.js`(8903). Relaunch: `start_dashboard.bat` or `node dashboard_server.js`. `pulse.ico` crimson/gold.
+- **GENERATOR `gen_daemon.js`** — hourly golden-Q&A daemon; real pipeline (DeepSeek `dsChat` → 13/13 `/gate-publish` rubricSignOff → sim-at-birth 0.70 → `publishTextFirst` blob+index+URL, images deferred); surgical fix loop; `maxPerHour` clamp; never self-raises. Modes `--proof[=N]` (dry) · `--live=N` · bare (hourly). VALIDATED: 4 dry rounds → 2/3 content-clean on real pillars; live `sw115` published (owner-run) + VERIFIED rendering (`/software/sw115` 200 full entry — "homepage redirect" claim did NOT reproduce). Hourly arming = OWNER-RUN.
+- **FIX-RUNNER `sim_transform.js` enhanced** — strict serial (`SIM_BATCH=1`) · `sim/FIXED.md` resolved-ledger · true 3-strike-then-skip (`sim/transform_state.json`) · 20%/50 breaker · dashboard `remaining↓/fixed↑` · `SIM_FAMILY=Fxxxx` one-family filter. **`DS_ONLY=1` = DeepSeek-only (sim_transform calls Claude Code CLI FIRST by default → ALWAYS pass DS_ONLY=1 so fixes don't spend Claude usage).**
+- **🔒 RUN LAW:** all production writes (fix/publish live entries) are OWNER-TRIGGERED — the harness BLOCKS autonomous Claude production writes (matches owner-does-deploys law). Claude builds + watches; owner runs the command.
+- **Gate:** `GATE_ONLY=1 GOLD_SKIP_IMG_GATE=1 node _scrub_button_server.js` on 8899 (GATE_ONLY guard added to startup → skips the paused scans/watchers; GOLD_SKIP_IMG_GATE lets text-first pass the ≥3-image outline check).
+- **Sitewide scan 2026-07-11:** 35,453 → 1,070 PASS · 891 NEAR-DUP · 198 STUB · **33,294 SUB-13** · 38 families (biggest aq F0022=187). Fix: family `DS_ONLY=1 SIM_BATCH=1 SIM_FAMILY=F0010 node sim_transform.js lv` · all `DS_ONLY=1 SIM_BATCH=1 node sim_transform.js ALL` (resume-safe, halts at $5 DS cap).
+- **TODO (owner-gated):** cover images for gen'd entries need the image pipeline (shut down) · add `sw` (+new pillars) to `_pillar_seo_registry` (sitemap/SEO, deploy-gated) · Task Scheduler persistence for dashboard+daemon.
+
+## ⛔ CROSSOVER — 2026-07-10-D — ALL AUTOMATIONS STOPPED · FIX-IT-ALL @ 8/BATCH · SOURCE EMAILED — **READ FIRST**
+- **⛔ OWNER SAID "SHUT DOWN ALL AUTOMATIONS" — DONE.** Killed all 12 running node procs: `sim_machine_server.js`, `_sim_machine_server_cursor.js`, `_sim_visible_clicker.js sy`, `sim_transform.js`, `sim_scan.js`, `_pulse_spider_forever.js`, `_pillar_perfect_dashboard.js`, `_scrub_button_server.js`, `_swap_review_server.js`, `_gp_gallery_server.js`, `_car_question_images.js`, `_car_cover_daemon.js`. Verified 0 node procs remain; no Scheduled Task relaunches them. **NOTHING is running** — relaunch what you need (panel: `node sim_machine_server.js` → http://localhost:8903).
+- **🧼 Fix-It-All batch = 8 at a time** (owner bumped 2→8 today). `sim_transform.js:196` `const CONC = parseInt(process.env.SIM_BATCH||'8',10)`. Override at launch with env `SIM_BATCH` (e.g. 10). ⚠️ line 183's log-line default still prints 10 — cosmetic only; real concurrency is 8 (panel + dim text also say "8 at a time").
+- **📧 Emailed complete machine source to owner** (Resend id `a3530002…`): zip `korys-fix-it-all-machine.zip` = `sim_machine_server.js` + `sim_scan.js` + `sim_transform.js` + `SIMILARITY_MACHINE.md` + `validate-golden.mjs` + deps `_claude_chat.js`/`_ds_lib.js`/`_ddg_facecard_lib.js`. **⚠️ Resend REJECTS `.js` attachments (422 unsupported type) → must ZIP them.** Sends from `onboarding@resend.dev` (may land in spam). Also pasted the panel/orchestrator source into chat for copy.
+- **⏱️ Hourly Q&A generator still SPEC ONLY** — `HOURLY_GENERATOR.md` + `PIPELINE_GENERATION_PROMPTS.md` exist; `gen_daemon.js` + `gen/` dir NOT built. Emailed the spec zip (Resend id `0ce27b66…`). Build + proof-batch + owner GO before arming.
+
+---
+## 🧼 CROSSOVER — 2026-07-10-C — KORY'S FIX-IT-ALL MACHINE (self-contained scrubber) — **READ FIRST**
+**One screen, one button, car-wash stages.** Panel: `sim_machine_server.js` → **http://localhost:8903** (LAN http://192.168.5.68:8903). Files: `sim_scan.js` (report), `sim_transform.js` (fix engine), `sim/` state (`run_status.json`=single source of truth, `scan_report.json`, `summary.json`, `fix_progress.json`=live per-entry checklist, `LESSONS.md`=append-only laws read every run, `operator_log.md`, `transform_failures.md`). Spec: `SIMILARITY_MACHINE.md`.
+- **Buttons:** SCOPE (pillar/ALL/prefix) · **① RUN REPORT** (scan-only → PASS/NEAR-DUP/STUB piles) · gold **② GO ▸ FIX IT** (lights up after report with the counts) · **STOP** · **FORCE STOP** (writes `sim/STOP.flag` + SIGKILLs child; sim_transform checks flag each family) · **CLEAR** (wipes transform_state+fix_progress).
+- **FIX engine (`sim_transform.js`, in-house, NO external scrubber):** per near-dup variant, iteratively rewrite ONLY the prose with **Claude Code** (`_claude_chat.js` `claudeChat`; DeepSeek fallback) KEEPING all headings/mermaids/images/FAQ/sources — **no-shrink guard** (reject rewrites <90% length; that was why tl failed words2000) — re-measuring family overlap each pass until **< SIM_FIX_TARGET (0.30)**, writing `fix_progress.json` {id,title,ov%,checks:{similarity,title,image,gate}} for the dashboard checklist. Then `ensureQuality()` (LAW-PUBLISH-1) + gate via **`POST /gate-publish {key,id,body,simMode:true}`** on `_scrub_button_server.js` (rubricSignOff, simMode WAIVES flux-provenance image checks since covers come from approved pool). Publish only on pass. Stubs: full CC write + ensureQuality + gate. Resume-safe (`sim/transform_state.json`).
+- **🔒 LAW-PUBLISH-1 (LOCKED):** no entry publishes without a **face-card image (from `_gp_pool_approval.json` approved library) + a title**. `ensureQuality(id,blob)` enforces (Laplacian-variance blur check → replace from approved). Runs before EVERY gate.
+- **🔒 GENERATION = 2 DeepSeek** (owner corrected: NOT Claude Code). Server env `CONTENT_WRITER_ENGINE=deepseek` (default; `=claude` was the mistake that also broke GTM gen); Claude only audits (`LANE_AUDITOR_MODE=claude`). GTM /urgent "fetch failed" ROOT CAUSE = server restarts dropping in-flight generateOne connections — STOP restarting :8899 once machine edits are loaded.
+- **Face-card images:** owner uses **approved images** (`_facecard_fill_approved.js`, round-robin) + **Pexels business photos matched per industry for gp** (`_gp_facecards_pexels.js`: derive industry from title → relevant photo, generic-business fallback). Pollinator face-card campaign STOPPED. Approved pool = 1571 starwars/218 cars/126 sports (0 business — that's why gp needs Pexels). Both graders de-yellowed→then owner said "get rid of grader" → `applyCineGrade` in `_ddg_facecard_lib.js` = light-brighten passthrough, `_gp_grade.js` neutral.
+- **Car images:** `_car_type_gen.js` (built, maybe not launched) = 200 regular real photos per car type (Pexels first, flux fallback), iterate model×year, into `_gp_pool` + manifest → gallery :8905 approve. `_gp_cartoon_pool_gen.js` GP_LANES for cars band 5601-6600.
+
+---
+## 🧬 CROSSOVER — 2026-07-10-B — SIMILARITY_MACHINE (built Phase 1 + panel; transformer next) — **READ FIRST**
+**Spec:** `SIMILARITY_MACHINE.md` (repo root, owner standing orders). Scan→triage→transform→verify; kills near-dup doorway clones + writes stubs; one-button panel; self-learn (`sim/LESSONS.md`) + self-heal (1 attempt/cause). Ask ZERO questions except scope; HALT if a required asset missing.
+**BUILT + PROVEN this session:**
+- `sim_scan.js` — Phase 1 SCAN (detect only). Reads blob `_index.json` + `answers/<id>.json` (`.answer` body), normalizes (US states+cities→LOCATION, numbers→NUM), sentence-overlap ≥0.70, union-find clone families (canonical=highest score→longest), stub<250w. Resume-safe cache `sim/scan_cache.json`. Writes `sim/scan_report.json`+`sim/summary.json`. **Proven:** gm(63)=all PASS/0fam; tl(250 sample)=0fam (those ids aren't the geo-clones). Blocks comparisons BY PILLAR so ALL-scope is feasible.
+- `sim_machine_server.js` — LAN panel **:8903** (dark, crimson #B91C3F/gold #FFB81C, phone-first). SCOPE(pillar chips+ALL+topic-prefix input)/START/STOP; progress bar, piles, self-heal banner, LESSONS+operator-log feeds. Watcher runs `sim_scan.js` then `sim_transform.js` (if present) then re-scan verify. Cmds via `sim/run_command.json`. Gitignored (`sim/`+server).
+- `sim/LESSONS.md` seeded. `sim/` gitignored.
+**🔒 GATE DECISION (owner: "Scrubber rubric + order check"):** validate-golden.mjs does NOT grade entries — it lints the two golden TEMPLATE docs (13/13); its "14/14" is a DELETED validator (its own header says so). Real per-entry gate = `rubricSignOff(id,body)` (`_scrub_button_server.js` L3374, the 13-pt SCRUBBER_SPEC rubric already running the 36k re-scrub). Transformer gates via THAT + ADD a section-ORDER check (#14), log to LESSONS.md.
+**⏳ NEXT (transformer):** `rubricSignOff`+`persistAnswerBlob`(L4095) NOT extractable (deep deps: gradeEntry, C.* checks, titleOf, image registries). Plan: add `POST /gate-publish {key,id,body}` to `_scrub_button_server.js` → rubricSignOff; on pass persistAnswerBlob+index+pulse-recent; returns {pass,failed,score}. ONE planned scrub-server restart (resume-safe: `_scrub_button_queue.json`+`_scrub_pillar_filter.json`=gp persist; re-`POST /scrub-auto {action:start}`). Then `sim_transform.js`: per family serial — canonical→gate; variants→DeepSeek differentiation (title variety <5%/family, LOC_MIN=5 unique local sentences, own cover unique seed, distinct meta)→/gate-publish+family re-scan<0.70→publish on pass; 3-strike→`sim/transform_failures.md`; stubs last; breaker 20%/50 + self-heal playbook.
+
+---
+## 🖼️ CROSSOVER — 2026-07-10 — TOPIC MOSAIC "ALL ONE IMAGE" ROOT CAUSE + FIX — **READ FIRST**
+**Symptom:** every topic listing (KPI, ra, tk…) showed the SAME image on every card. **NOT** a file/pHash/keying bug
+(covers are unique, proven). **Root cause:** the prebuilt `/mosaic-pool.json` was STALE — 1 entry per pillar (gp had 140).
+The mosaic loops that file → 1 entry = one image. **Fix (all 40 pillars, permanent):**
+1. `_gen_mosaic_pool.js` rebuilds `mosaic-pool.json` + per-pillar `mosaic-pool-<p>.json` (full pillar) from the live index.
+2. `js/pulse-home-mosaic.js` `fetchMixedFluxPool` now loads the **per-pillar file** when `opts.pillar` is set (full variety), mixed pool only for the homepage.
+3. `_do_deploy_draft.sh` **always runs `_gen_mosaic_pool.js` before deploy** — a stale pool can never ship again.
+4. Entry-page hero also fixed: `pickHeroUrl` returned '' for the registry cover; now `registryCover = /^\/assets\/qa\// ? idxEntry.img` wins (`_HERO_RESOLUTION_LAW.md`).
+**🔒 VERIFICATION GATE (no-re-coaching):** verify the **rendered DOM via puppeteer** (`document.querySelectorAll('a.mm[href^="/knowledge/"]')` → distinct hrefs), NOT HTML/data/entry-page — those are different code paths. `node -e` regex `new RegExp('^'+p+'\\d')` silently fails in shell; use `id.indexOf(p)===0`.
+**Face-card image work this session:** topical covers assigned to gp(420)/ik(676)/ra(566)/tk(538)/st(770)/cg(757) via `_ik_topical_assign.js` (TOPICAL_PILLAR env; industry MAP; no sci-fi; adaptive gold title). `_gp_grade.js` de-warmed (sat 1.02, recomb 1.02/0.99, gold 0.015) + now stamps EXIF `PULSE_GRADE=v_final`. Covers deploy-gated. 10k tl rewrite (`_cro_tl_bulk_rewrite.js`) + image writers (`_gp_cartoon_pool_gen.js` GP_LANES flux/ddg/pexels) running. See `_GO_TO_IMAGE_GEN_PLAY.md`, `_FACECARD_IMAGE_JOB_SPEC.md`.
+
+
+---
+## 🎨 CROSSOVER — 2026-07-09-D — GO-TO IMAGE-GEN PLAY (owner media SOP) — **READ FIRST**
+
+**This is how the owner does MEDIA. Standing SOP for every face-card / topic-tile image job. Full spec: `_GO_TO_IMAGE_GEN_PLAY.md` + `_FACECARD_IMAGE_JOB_SPEC.md` (2026-07-09 revision).**
+
+- **THE LINE-UP (in a row, one at a time, 20s apart, staggered starts):** **DuckDuckGo → Pollinator → Hugging Face → Cloudflare.** Owner's philosophy: *keep ADDING clean image sources to the cadence to speed up the bottleneck and get jobs done fast* — every source one-at-a-time, 20s apart, never doubled/parallel. (Owner re-added DDG here on 07-09 — this SUPERSEDES the older "never DDG" note in 07-08-C for face-card jobs; DDG stays but returns watermarked stock, so the approval gate catches those. HF works; **Cloudflare needs `CLOUDFLARE_ACCOUNT_ID`** — current token returns no account, so CF lane idles until fixed. Gemini = 429 depleted. More keys in Netlify if needed: Replicate, Leonardo, AI Horde, Pexels.)
+- **Dimensions 760×760 SQUARE, generated NATIVELY** (never gen-large-then-resize) — matches every live topic cover.
+- **Filter = locked warm cine-grade pushed VERY BRIGHT + VERY SHARP** (`_gp_grade.js` choke point), on every image regardless of source. **Cook-loop** (`_gp_cook_loop.js`) keeps sharpening/brightening from RAW while images await approval.
+- **Approval gallery** `_gp_gallery_server.js` :8905 — only today's new images; ✓/✗ per image; reviewed ones leave the screen; batch-of-10 via `?batch=N`. Owner reviews ~100–200 then trusts the rest.
+- **Style = look like the main-page topic tiles** (warm cinematic, high quality; ref `assets/qa/aq0001.jpg`). Subject flexible.
+- Runner: `GP_POOL_N=450 node _gp_cartoon_pool_gen.js` + `node _gp_cook_loop.js` + `node _gp_gallery_server.js`. First job = GTM (`gp`). After owner says "we're good": assign approved imgs to the APPLICABLE gp entries, bake the entry TITLE in CRO-gold on top (main-page look), dupe-spread, deploy-gated.
+- General ops dashboard (all lanes/logs + sticky gallery link): `_ops_dashboard_server.js` :8910.
+
+---
 ## 🖼️ CROSSOVER — 2026-07-08-C — IMAGE RELEVANCE GATE + gm images + LEAD-GEN SEO — **READ FIRST**
 
 ### 🔒 IMAGE RELEVANCE GATE (owner spec, no-re-coaching) — full spec in `CLAUDE_CODE_PEXELS_IMAGE_RUN.md` › "SPEC PATCH — IMAGE RELEVANCE GATE"
@@ -2213,3 +2288,28 @@ Outdatable titles (tools/pricing/best/rankings/tactics) must end with "in 2027";
 
 ## 9. LAWS QUICK REF
 Owner-does-deploys 🔒 · Anthropic=Max-plan-subagents-only 🔒 · ONE consolidated email 🔒 · text-first then images 🔒 · year-at-end on outdatable titles 🔒 · zero duplicates 🔒 · one-thing-at-a-time (don't sprawl) · acknowledge approvals briefly.
+
+
+---
+
+## 🔄 SESSION HANDOFF 2026-07-09 (evening)
+
+### LIVE on production (deployed this session)
+- **Topic pages** = CRO card at top + ONLY Q&A bands, single-column full-bleed 220px/185px (killed the 4-col grid via pillar-mosaic-instant.js display:block + pulse-mosaic.css .mm band rules). 1-tile swap at 5s then every 20s (pulse-home-mosaic.js n=1, setTimeout(5s)->setInterval(20s)).
+- **Social share fix** (renderer pulse-machine-entry.js): branded 1200x630 OG card /pulse-og.jpg (gold logo + PULSE RevOps wordmark, built by _build_og_card.js from icon-512.png) REPLACING the off-brand dark-TV og-preview.jpg; added og:image:width/height/type/secure_url/alt (THE fix for LinkedIn weird link) + twitter:image:alt/site; professional share buttons (brand SVG icons, pill style, per-platform hover, mobile icon-only).
+- OWNER TODO: run linkedin.com/post-inspector on one /knowledge/<id> URL once to bust LinkedIn cache.
+
+### RUNNING (background, do not disturb)
+- **Phase 1: 346 near-dup rewrite** — _cro_rewrite_queue.js (PID launched this session), situation-anchored, 2000w+ floor, re-uniqueness-checked (30% vs in-batch, Kory-block excluded), SPEC2 on save, publishes to BLOBS (no deploy). Resume-safe: _cro_rewrite_done.json. Progress: _cro_rewrite_progress.txt. 301 exits accumulate in _cro_redirect_manifest.json (SHIP NOTHING - owner approves the full list as ONE batch when 346/346). Deferred (faq!=4 etc): _cro_rewrite_deferred.json (~12% rate, not systemic). ~104/346, 0 fails, ~$0.5 spent when handed off.
+- After 346: **STUBS (416)** auto-queue = same engine with QUEUE=stubs env (id source = stubIds, files _cro_rewrite_stub_*). Launch: QUEUE=stubs node _cro_rewrite_queue.js.
+
+### Mini-cert record (Phase 1 template proof)
+- 12 [X]-situation rewrites: BOTH GATES PASS. After expansion pass (_cro_expand_minicert.js): all 12 >=2000w (min 2268, avg 3283), worst-pair overlap 0%. Approved -> full 346 GO (no further checkpoint). _cro_minicert_approved.flag set.
+
+### Dashboard
+- _run_dashboard_server.js on LAN http://192.168.5.68:8903 (port 8903), polls run_status.json. Panels: phase, SPEC2 transform, mini-cert (AWAITING KORY GO badge), rewrite queues, usage, finish-line, events. Gitignored + .netlifyignore.
+
+### NEXT JOB (documented, NOT started): GTM face-card image campaign
+- Full spec: **_FACECARD_IMAGE_JOB_SPEC.md** (locked). gp pillar, 420 entries.
+- Owner spec: ALL NEW artsy images, alternate DDG->Pollinator (START DDG, switch at halfway), warm cine-grade filter (applyCineGrade) BRIGHTENED+SHARPENED harder, relate to industry in title, 200 images approval-gated via gallery LINK, assign + dupe after #200 spread evenly.
+- Reuse _ddg_facecard_lib.js (buildFluxFaceQuery, gradeFaceCardFromBuffer=choke point, POOL_REUSE_AFTER=200, runPillarPoolBuild). assets/qa DEPLOY-GATED.

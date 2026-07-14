@@ -1,7 +1,10 @@
 {
  "ok": true,
  "prefix": "sk",
- "count": 100,
- "changed": 100,
- "phrases": 200
+ "count": 101,
+ "changed": 101,
+ "pinged": 101,
+ "phrases": 200,
+ "force": true,
+ "dry": false
 }

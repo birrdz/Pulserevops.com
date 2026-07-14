@@ -19,9 +19,9 @@
  "currentStep": "force stopped",
  "phase": "stopped",
  "startedAt": null,
- "finishedAt": 1783533268325,
+ "finishedAt": 1783657493713,
  "error": "",
  "log": [
-  "1:54:28 PM ⏹ force stop — image fill halted"
+  "12:24:53 AM ⏹ force stop — image fill halted"
  ]
 }

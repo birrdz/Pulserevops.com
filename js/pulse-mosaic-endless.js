@@ -199,10 +199,13 @@
       var imgHtml = FI.mosaicImgTag ? FI.mosaicImgTag(src, title, !!eager) : '';
       var lazyCls = eager ? '' : ' mm-lazy mm-img-pending';
       var dataLazy = eager ? ' data-mosaic-loaded="1"' : ' data-mosaic-lazy="1"';
-      return '<a class="mm' + lazyCls + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
+      // Small corner category + readable title (not the old massive overlay).
+      var cat = NM[pof(c.id)] || pof(c.id).toUpperCase() || '';
+      return '<a class="mm' + lazyCls + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" aria-label="' + esc(title) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
         + imgHtml
-        + '<div class="mm-scrim"></div><div class="mm-txt"><span class="mm-cat">' + esc(NM[pof(c.id)] || '') + '</span>'
-        + '<h4>' + esc(title) + '</h4></div></a>';
+        + '<div class="mm-scrim"></div>'
+        + (cat ? '<span class="mm-cat">' + esc(cat) + '</span>' : '')
+        + '<div class="mm-txt"><h4>' + esc(title) + '</h4></div></a>';
     }
 
     var sent = document.createElement('div');

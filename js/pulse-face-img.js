@@ -172,9 +172,10 @@
   }
 
   /** Mosaic tile src — self-hosted direct (fast); proxy only when needed. */
+  var COVER_V = '20260710b';   // bump when covers are re-deployed to bust browser/CDN cache on the listing cards
   function mosaicTileSrc(c) {
     var direct = imgOf(c);
-    if (/^\/assets\/qa\/[^/]+\.jpg$/i.test(direct)) return direct;
+    if (/^\/assets\/qa\/[^/]+\.jpg$/i.test(direct)) return direct + '?v=' + COVER_V;   // cache-bust so updated covers show
     return px(direct, MOSAIC_W);
   }
 

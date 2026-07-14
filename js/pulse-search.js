@@ -34,9 +34,17 @@
 
   var ALL = null, loading = false, loadWait = [], active = -1, rows = [], lastQ = '';
   var HIST_KEY = 'pulse_search_hist';
+  // Progressive library (owner 2026-07-11): never pull 35k+ on first paint.
+  // Boot small → grow in idle steps while user types / browses search.
+  var BOOT_N = 200;
+  var GROW_STEPS = [800, 2500, 6000]; // hard stop — grow only after first paint / typing
+  var growIdx = 0, growing = false, growTimer = null;
+  // Homepage: do not grow the search library until the user focuses the box
+  var HOME_HOLD = (location.pathname === '/' || location.pathname === '/index.html');
 
   function pref(id){ var m = String(id).match(/^([a-z]+)/i); return m ? m[1].toLowerCase() : ''; }
-  function routeOf(id){ var c = PMAP[pref(id)]; return (c ? c[0] : '/knowledge/') + id; }
+  // Always /knowledge/<id> — pretty pillar paths can 404 behind static hub files.
+  function routeOf(id){ return '/knowledge/' + encodeURIComponent(String(id || '')); }
   function emojiOf(id){ var c = PMAP[pref(id)]; return c ? c[1] : '📄'; }
   function pillarOf(id){ var c = PMAP[pref(id)]; return c ? c[2] : 'Answer'; }
   function esc(s){ return String(s).replace(/[<>&"]/g, function(c){ return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]; }); }
@@ -45,25 +53,73 @@
   function getHist(){ try { return JSON.parse(localStorage.getItem(HIST_KEY) || '[]'); } catch(e){ return []; } }
   function pushHist(q){ q = q.trim(); if(!q) return; try { var h = getHist().filter(function(x){ return norm(x) !== norm(q); }); h.unshift(q); localStorage.setItem(HIST_KEY, JSON.stringify(h.slice(0, 8))); } catch(e){} }
 
-  function load(cb){
-    if (ALL){ cb && cb(); return; }
-    if (loading) { if (cb) loadWait.push(cb); return; }
-    loading = true;
-    fetch('/.netlify/functions/pulse-machine-library-list?recent=40000&mini=1', { cache: 'default' })
+  function mapEntries(it){
+    return (it || []).map(function(e){
+      var t = String(e.question || e.title || '');
+      var tags = Array.isArray(e.tags) ? e.tags.join(' ') : '';
+      return { id:String(e.id||''), t:t, n:norm(t + ' ' + tags), ts:(e.polished_at||e.ts||0) };
+    }).filter(function(e){ return e.id && e.t && !/^vq_/i.test(e.id); });
+  }
+
+  function mergeAll(next){
+    if (!ALL || !ALL.length) { ALL = next; return; }
+    var seen = Object.create(null);
+    ALL.forEach(function(e){ seen[e.id] = 1; });
+    next.forEach(function(e){ if (!seen[e.id]) { seen[e.id] = 1; ALL.push(e); } });
+  }
+
+  function idle(fn, ms){
+    ms = ms || 1200;
+    if (typeof requestIdleCallback === 'function') {
+      requestIdleCallback(function(){ fn(); }, { timeout: ms + 2000 });
+    } else {
+      setTimeout(fn, ms);
+    }
+  }
+
+  function scheduleGrow(){
+    if (growing || growIdx >= GROW_STEPS.length) return;
+    if (growTimer) return;
+    growTimer = setTimeout(function(){
+      growTimer = null;
+      idle(growOnce, 800);
+    }, 1800);
+  }
+
+  function growOnce(){
+    if (growing || growIdx >= GROW_STEPS.length) return;
+    if (document.hidden) { scheduleGrow(); return; }
+    growing = true;
+    var n = GROW_STEPS[growIdx];
+    fetch('/.netlify/functions/pulse-machine-library-list?recent=' + n + '&mini=1', { cache: 'default' })
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(d){
-        var it = (d && d.entries) || [];
-        ALL = it.map(function(e){
-          var t = String(e.question || e.title || '');
-          var tags = Array.isArray(e.tags) ? e.tags.join(' ') : '';
-          return { id:String(e.id||''), t:t, n:norm(t + ' ' + tags), ts:(e.polished_at||e.ts||0) };
-        }).filter(function(e){ return e.id && e.t && !/^vq_/i.test(e.id); });
+        mergeAll(mapEntries((d && d.entries) || []));
+        growIdx++;
+        growing = false;
+        // If user is mid-query, refresh results with the bigger set
+        if (lastQ && input && document.activeElement === input) run(input.value);
+        scheduleGrow();
+      })
+      .catch(function(){ growing = false; scheduleGrow(); });
+  }
+
+  function load(cb){
+    if (ALL && ALL.length){ cb && cb(); scheduleGrow(); return; }
+    if (loading) { if (cb) loadWait.push(cb); return; }
+    loading = true;
+    // MAIN PAGE FIRST — tiny boot set so search works without downloading the whole library
+    fetch('/.netlify/functions/pulse-machine-library-list?recent=' + BOOT_N + '&mini=1', { cache: 'default' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        ALL = mapEntries((d && d.entries) || []);
         loading = false;
         var w = loadWait.slice(); loadWait = [];
         cb && cb();
         w.forEach(function(fn){ try { fn(); } catch(_e){} });
+        scheduleGrow(); // gradually expand coverage in the background
       })
-      .catch(function(){ loading = false; loadWait = []; });
+      .catch(function(){ loading = false; loadWait = []; ALL = ALL || []; });
   }
 
   // cheap bounded Levenshtein (early-exit at max+1)

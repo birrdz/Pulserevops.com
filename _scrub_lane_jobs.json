@@ -273,123 +273,15 @@
     "id": "mv0045",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "image_cover",
+    "phase": "gate",
     "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:03.333Z",
-    "lastTick": 1783533638704,
+    "lastTick": 1783656180539,
     "progress": {
-      "rubricPassed": 17,
+      "rubricPassed": 14,
       "rubricTotal": 19,
-      "rubricPct": 89,
-      "rubricPass": false,
-      "ddgDone": 0,
-      "ddgTotal": 10,
-      "overallPct": 38,
-      "stages": [
-        {
-          "key": "content",
-          "label": "1 Content",
-          "status": "active",
-          "detail": "17/19 checks"
-        },
-        {
-          "key": "pollinator",
-          "label": "2 Pollinator",
-          "status": "done",
-          "detail": "flux hero ✓"
-        },
-        {
-          "key": "ddg",
-          "label": "3 Top-10",
-          "status": "pending",
-          "detail": "10/10"
-        },
-        {
-          "key": "verify",
-          "label": "4 Verify",
-          "status": "pending",
-          "detail": "images ok"
-        },
-        {
-          "key": "gate",
-          "label": "5 Gate",
-          "status": "pending",
-          "detail": "89%"
-        }
-      ],
-      "phase": "content",
-      "phaseLabel": "✍️ content",
-      "top10": true
-    }
-  },
-  {
-    "id": "mv0044",
-    "sectionIdx": 0,
-    "contentRounds": 0,
-    "phase": "image_cover",
-    "imagesVerified": true,
-    "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
-    "updatedAt": "2026-07-06T04:09:03.458Z",
-    "lastTick": 1783534047136,
-    "progress": {
-      "rubricPassed": 17,
-      "rubricTotal": 19,
-      "rubricPct": 89,
-      "rubricPass": false,
-      "ddgDone": 0,
-      "ddgTotal": 10,
-      "overallPct": 38,
-      "stages": [
-        {
-          "key": "content",
-          "label": "1 Content",
-          "status": "active",
-          "detail": "17/19 checks"
-        },
-        {
-          "key": "pollinator",
-          "label": "2 Pollinator",
-          "status": "done",
-          "detail": "flux hero ✓"
-        },
-        {
-          "key": "ddg",
-          "label": "3 Top-10",
-          "status": "pending",
-          "detail": "10/10"
-        },
-        {
-          "key": "verify",
-          "label": "4 Verify",
-          "status": "pending",
-          "detail": "images ok"
-        },
-        {
-          "key": "gate",
-          "label": "5 Gate",
-          "status": "pending",
-          "detail": "89%"
-        }
-      ],
-      "phase": "content",
-      "phaseLabel": "✍️ content",
-      "top10": true
-    }
-  },
-  {
-    "id": "mv0043",
-    "sectionIdx": 0,
-    "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
-    "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
-    "updatedAt": "2026-07-06T04:09:03.572Z",
-    "lastTick": 1783531909186,
-    "progress": {
-      "rubricPassed": 16,
-      "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 74,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
@@ -399,13 +291,13 @@
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "14/19 checks"
         },
         {
           "key": "pollinator",
           "label": "2 Pollinator",
           "status": "done",
-          "detail": "flux hero ✓"
+          "detail": "face-card"
         },
         {
           "key": "ddg",
@@ -423,7 +315,115 @@
           "key": "gate",
           "label": "5 Gate",
           "status": "done",
-          "detail": "84%"
+          "detail": "74%"
+        }
+      ],
+      "phase": "gate",
+      "phaseLabel": "✅ rubric gate",
+      "top10": true
+    }
+  },
+  {
+    "id": "mv0044",
+    "sectionIdx": 0,
+    "contentRounds": 0,
+    "phase": "gate",
+    "imagesVerified": true,
+    "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
+    "updatedAt": "2026-07-06T04:09:03.458Z",
+    "lastTick": 1783656188146,
+    "progress": {
+      "rubricPassed": 14,
+      "rubricTotal": 19,
+      "rubricPct": 74,
+      "rubricPass": false,
+      "ddgDone": 10,
+      "ddgTotal": 10,
+      "overallPct": 88,
+      "stages": [
+        {
+          "key": "content",
+          "label": "1 Content",
+          "status": "done",
+          "detail": "14/19 checks"
+        },
+        {
+          "key": "pollinator",
+          "label": "2 Pollinator",
+          "status": "done",
+          "detail": "face-card"
+        },
+        {
+          "key": "ddg",
+          "label": "3 Top-10",
+          "status": "done",
+          "detail": "10/10"
+        },
+        {
+          "key": "verify",
+          "label": "4 Verify",
+          "status": "done",
+          "detail": "images ok"
+        },
+        {
+          "key": "gate",
+          "label": "5 Gate",
+          "status": "done",
+          "detail": "74%"
+        }
+      ],
+      "phase": "gate",
+      "phaseLabel": "✅ rubric gate",
+      "top10": true
+    }
+  },
+  {
+    "id": "mv0043",
+    "sectionIdx": 0,
+    "contentRounds": 0,
+    "phase": "gate",
+    "imagesVerified": true,
+    "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
+    "updatedAt": "2026-07-06T04:09:03.572Z",
+    "lastTick": 1783656680236,
+    "progress": {
+      "rubricPassed": 14,
+      "rubricTotal": 19,
+      "rubricPct": 74,
+      "rubricPass": false,
+      "ddgDone": 10,
+      "ddgTotal": 10,
+      "overallPct": 88,
+      "stages": [
+        {
+          "key": "content",
+          "label": "1 Content",
+          "status": "done",
+          "detail": "14/19 checks"
+        },
+        {
+          "key": "pollinator",
+          "label": "2 Pollinator",
+          "status": "done",
+          "detail": "face-card"
+        },
+        {
+          "key": "ddg",
+          "label": "3 Top-10",
+          "status": "done",
+          "detail": "10/10"
+        },
+        {
+          "key": "verify",
+          "label": "4 Verify",
+          "status": "done",
+          "detail": "images ok"
+        },
+        {
+          "key": "gate",
+          "label": "5 Gate",
+          "status": "done",
+          "detail": "74%"
         }
       ],
       "phase": "gate",
@@ -436,14 +436,14 @@
     "sectionIdx": 0,
     "contentRounds": 0,
     "phase": "gate",
-    "imagesVerified": false,
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:03.702Z",
-    "lastTick": 1783531909885,
+    "lastTick": 1783657040242,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 14,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 74,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
@@ -453,13 +453,13 @@
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "14/19 checks"
         },
         {
           "key": "pollinator",
           "label": "2 Pollinator",
           "status": "done",
-          "detail": "flux hero ✓"
+          "detail": "face-card"
         },
         {
           "key": "ddg",
@@ -477,7 +477,7 @@
           "key": "gate",
           "label": "5 Gate",
           "status": "done",
-          "detail": "84%"
+          "detail": "74%"
         }
       ],
       "phase": "gate",
@@ -490,14 +490,14 @@
     "sectionIdx": 0,
     "contentRounds": 0,
     "phase": "gate",
-    "imagesVerified": false,
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:03.838Z",
-    "lastTick": 1783531910615,
+    "lastTick": 1783657463912,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 14,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 74,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
@@ -507,13 +507,13 @@
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "14/19 checks"
         },
         {
           "key": "pollinator",
           "label": "2 Pollinator",
           "status": "done",
-          "detail": "flux hero ✓"
+          "detail": "face-card"
         },
         {
           "key": "ddg",
@@ -531,7 +531,7 @@
           "key": "gate",
           "label": "5 Gate",
           "status": "done",
-          "detail": "84%"
+          "detail": "74%"
         }
       ],
       "phase": "gate",
@@ -544,14 +544,14 @@
     "sectionIdx": 0,
     "contentRounds": 0,
     "phase": "gate",
-    "imagesVerified": false,
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:03.959Z",
-    "lastTick": 1783531911323,
+    "lastTick": 1783664722120,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 14,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 74,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
@@ -561,13 +561,13 @@
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "14/19 checks"
         },
         {
           "key": "pollinator",
           "label": "2 Pollinator",
           "status": "done",
-          "detail": "flux hero ✓"
+          "detail": "face-card"
         },
         {
           "key": "ddg",
@@ -585,7 +585,7 @@
           "key": "gate",
           "label": "5 Gate",
           "status": "done",
-          "detail": "84%"
+          "detail": "74%"
         }
       ],
       "phase": "gate",
@@ -597,25 +597,25 @@
     "id": "mv0039",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:04.171Z",
-    "lastTick": 1783531912222,
+    "lastTick": 1783664721295,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 15,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 79,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "15/19 checks"
         },
         {
           "key": "pollinator",
@@ -632,18 +632,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
-          "detail": "images ok"
+          "status": "active",
+          "detail": "render/wsrv"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "79%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -651,25 +651,25 @@
     "id": "mv0038",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:04.359Z",
-    "lastTick": 1783531912925,
+    "lastTick": 1783666402417,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -686,18 +686,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -705,25 +705,25 @@
     "id": "mv0037",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:04.538Z",
-    "lastTick": 1783531913705,
+    "lastTick": 1783666400035,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -740,18 +740,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -759,25 +759,25 @@
     "id": "mv0036",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:04.670Z",
-    "lastTick": 1783531914368,
+    "lastTick": 1783666875762,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -794,18 +794,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -813,25 +813,25 @@
     "id": "mv0035",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:04.782Z",
-    "lastTick": 1783531915087,
+    "lastTick": 1783667331202,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 15,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 79,
       "rubricPass": false,
-      "ddgDone": 10,
+      "ddgDone": 0,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 38,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "15/19 checks"
         },
         {
           "key": "pollinator",
@@ -843,23 +843,23 @@
           "key": "ddg",
           "label": "3 Top-10",
           "status": "done",
-          "detail": "10/10"
+          "detail": "0/10"
         },
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
-          "detail": "images ok"
+          "status": "active",
+          "detail": "render/wsrv"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "79%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -867,25 +867,25 @@
     "id": "mv0034",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:04.895Z",
-    "lastTick": 1783531915829,
+    "lastTick": 1783667761313,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -902,18 +902,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -921,25 +921,25 @@
     "id": "mv0033",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:05.045Z",
-    "lastTick": 1783531916722,
+    "lastTick": 1783668483336,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -956,18 +956,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -975,25 +975,25 @@
     "id": "mv0032",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:05.171Z",
-    "lastTick": 1783531917432,
+    "lastTick": 1783669294500,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -1010,18 +1010,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -1029,25 +1029,25 @@
     "id": "mv0031",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:05.297Z",
-    "lastTick": 1783531918189,
+    "lastTick": 1783670234015,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -1064,18 +1064,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -1083,25 +1083,25 @@
     "id": "mv0030",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:05.409Z",
-    "lastTick": 1783531918913,
+    "lastTick": 1783671508496,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -1118,18 +1118,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -1137,25 +1137,25 @@
     "id": "mv0029",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:05.540Z",
-    "lastTick": 1783531919593,
+    "lastTick": 1783673302700,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -1172,18 +1172,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -1191,25 +1191,25 @@
     "id": "mv0028",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:05.665Z",
-    "lastTick": 1783531920413,
+    "lastTick": 1783675564723,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -1226,18 +1226,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -1245,25 +1245,25 @@
     "id": "mv0027",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:05.777Z",
-    "lastTick": 1783531921125,
+    "lastTick": 1783678525184,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -1280,18 +1280,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -1299,25 +1299,25 @@
     "id": "mv0026",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:05.941Z",
-    "lastTick": 1783531921822,
+    "lastTick": 1783681870948,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -1334,18 +1334,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -1353,25 +1353,25 @@
     "id": "mv0025",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:06.102Z",
-    "lastTick": 1783531922560,
+    "lastTick": 1783685522233,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -1388,18 +1388,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -1407,25 +1407,25 @@
     "id": "mv0024",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "top10",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:06.264Z",
-    "lastTick": 1783531923224,
+    "lastTick": 1783687174621,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 17,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 89,
       "rubricPass": false,
       "ddgDone": 10,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 70,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
           "status": "done",
-          "detail": "16/19 checks"
+          "detail": "17/19 checks"
         },
         {
           "key": "pollinator",
@@ -1442,18 +1442,18 @@
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "active",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "89%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "top10",
+      "phaseLabel": "🏆 top10 imgs",
       "top10": true
     }
   },
@@ -1461,53 +1461,53 @@
     "id": "mv0023",
     "sectionIdx": 0,
     "contentRounds": 0,
-    "phase": "gate",
-    "imagesVerified": false,
+    "phase": "content",
+    "imagesVerified": true,
     "ownerNotes": "Redo with tile-safe Pollinator cover + 16:9 DDG sections; hold until all images render.",
     "updatedAt": "2026-07-06T04:09:06.376Z",
-    "lastTick": 1783531923931,
+    "lastTick": 1783687173831,
     "progress": {
-      "rubricPassed": 16,
+      "rubricPassed": 13,
       "rubricTotal": 19,
-      "rubricPct": 84,
+      "rubricPct": 68,
       "rubricPass": false,
-      "ddgDone": 10,
+      "ddgDone": 0,
       "ddgTotal": 10,
-      "overallPct": 88,
+      "overallPct": 5,
       "stages": [
         {
           "key": "content",
           "label": "1 Content",
-          "status": "done",
-          "detail": "16/19 checks"
+          "status": "active",
+          "detail": "13/19 checks"
         },
         {
           "key": "pollinator",
           "label": "2 Pollinator",
-          "status": "done",
-          "detail": "flux hero ✓"
+          "status": "pending",
+          "detail": "face-card"
         },
         {
           "key": "ddg",
           "label": "3 Top-10",
-          "status": "done",
+          "status": "pending",
           "detail": "10/10"
         },
         {
           "key": "verify",
           "label": "4 Verify",
-          "status": "done",
+          "status": "pending",
           "detail": "images ok"
         },
         {
           "key": "gate",
           "label": "5 Gate",
-          "status": "done",
-          "detail": "84%"
+          "status": "pending",
+          "detail": "68%"
         }
       ],
-      "phase": "gate",
-      "phaseLabel": "✅ rubric gate",
+      "phase": "content",
+      "phaseLabel": "✍️ content",
       "top10": true
     }
   },

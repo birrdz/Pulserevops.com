@@ -17,9 +17,10 @@
  "currentStep": "force stopped",
  "phase": "stopped",
  "startedAt": 1783239277059,
- "finishedAt": 1783533268328,
+ "finishedAt": 1783657493715,
  "error": "",
  "log": [
+  "12:24:53 AM ⏹ force stop — format fixer halted",
   "1:54:28 PM ⏹ force stop — format fixer halted",
   "1:31:43 PM ⏹ force stop — format fixer halted",
   "1:25:36 PM ⏹ force stop — format fixer halted",
@@ -66,7 +67,6 @@
   "1:36:45 AM ⏹ force stop — format fixer halted",
   "1:36:45 AM ⏹ force stop — format fixer halted",
   "1:36:25 AM ⏹ force stop — format fixer halted",
-  "1:28:25 AM ⏹ force stop — format fixer halted",
-  "1:28:23 AM ⏹ force stop — format fixer halted"
+  "1:28:25 AM ⏹ force stop — format fixer halted"
  ]
 }
