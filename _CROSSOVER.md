@@ -5,7 +5,7 @@
 | # | Shape | What it is | Answer-page images |
 |---|--------|------------|--------------------|
 | 1 | **Top 10 / ranking** | Listicle goat (`aq1158` gold) | Auto-picks Top 10 layout from the Q&A/URL. Shows **fake/imitation placeholder words** until filled. Owner **searches (or clicks a pixel/tile)** → clicks a photo → fills **#1**; next click fills **#2**; continue rank-by-rank. |
-| 2 | **Q&A essay** | Standard goat (`q11133` gold) | **Top hero = copy of face-card.** Then body rhythm: **2 word blocks → image → 2 word blocks → image** (owner picks images in order: search → click → fills slot 1, then 2, …). |
+| 2 | **Q&A essay** | Standard goat (`q11133` gold) | **Top image auto-fills from the face-card image** (same file / path — no second pick). Then body rhythm: **2 word blocks → image → 2 word blocks → image** (owner searches → clicks → fills slot 1, then 2, …). |
 | 3 | **Styles (`sy`) — style only** | Same Fixer → Square path as Q&A | **3 men + 3 women** outfit images (20s / 40s / 60s) + cover = **7 total** |
 
 **Template auto-select:** based on the question + answer URL/id in play, Square / block builder formats to whichever golden template it is (Top 10 vs Q&A vs Styles). No manual template switch mid-run.
