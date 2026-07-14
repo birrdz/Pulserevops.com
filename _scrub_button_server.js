@@ -7878,8 +7878,16 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   <div id=formatfixPanel${isFormatFix ? '' : ' style="display:none"'}>
   <div class=square-builder-dock style="border-top:0;padding-top:0;margin-top:0">
     <div class=dupe-panel-title style="color:#FFB81C">🌸 Original Fix-It-All Machine · SIM → QUALITY → TITLE → IMAGE → 13/13</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:10px 0 12px;font-size:.7rem;font-weight:950;text-align:center">
+      <div style="padding:8px 3px;border-radius:8px;background:#B91C3F;color:#fff">1 · SIM</div>
+      <div style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">2 · QUALITY</div>
+      <div style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">3 · TITLE</div>
+      <div style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">4 · IMAGE</div>
+      <div style="padding:8px 3px;border-radius:8px;background:#14532d;color:#86efac">5 · 13/13</div>
+    </div>
     <div class=dupe-panel-hint style="margin-bottom:10px">Your original machine, unchanged, with clickable pillar pods and <b>Auto-run 100 on TL Pulse Tools</b>. <a href="http://127.0.0.1:8904/" target=_blank style="color:#FFB81C">Open original full screen →</a></div>
-    <iframe src="http://127.0.0.1:8904/" title="Original Kory Fix-It-All Machine" loading="eager" style="display:block;width:100%;height:880px;border:2px solid #FFB81C;border-radius:14px;background:#0a0a0c"></iframe>
+    <div id=originalSimWaiting style="padding:18px;text-align:center;color:#FFB81C;font-weight:850">Starting Stage 1 · SIM…</div>
+    <iframe id=originalSimFrame title="Original Kory Fix-It-All Machine" loading="eager" style="display:none;width:100%;height:880px;border:2px solid #FFB81C;border-radius:14px;background:#0a0a0c"></iframe>
   </div>
   <div class=dupe-panel style="border-color:#0ea5e9;background:linear-gradient(165deg,#041018 0%,#0e1620 100%);${process.env.FIXER_BUILDER_HOME === '1' ? 'display:none' : ''}">
     <div class=dupe-panel-title style="color:#38bdf8">📝 Format Fixer</div>
@@ -9079,6 +9087,23 @@ pwEl&&pwEl.addEventListener('input',()=>{if(pwEl.value.trim().length>=4)tryGate(
     if(code.length===4&&pwEl){ pwEl.value=code; tryGate(); return; }
     if(q.get('open')==='1') enterGate();
   }catch(e){}
+})();
+(async function mountOriginalSimMachine(){
+  const frame=$('#originalSimFrame'),waiting=$('#originalSimWaiting');
+  if(!frame)return;
+  for(let attempt=0;attempt<40;attempt++){
+    try{
+      const ready=await(await fetch('/original-machine-ready?t='+Date.now(),{cache:'no-store'})).json();
+      if(ready.ok){
+        frame.src='http://127.0.0.1:8904/?t='+Date.now();
+        frame.style.display='block';
+        if(waiting)waiting.style.display='none';
+        return;
+      }
+    }catch(e){}
+    await new Promise(resolve=>setTimeout(resolve,500));
+  }
+  if(waiting)waiting.textContent='Stage 1 · SIM did not start — use Restart Node, then retry.';
 })();
 // Persistent 3s heartbeat: always reflect true server state for both pipelines.
 var heartbeat=null;
@@ -11252,6 +11277,11 @@ const server = http.createServer(async (req, res) => {
       passcode: PASS,
       ts: Date.now(),
     }));
+  }
+  if (u.pathname === '/original-machine-ready') {
+    const ready = await originalSimMachineReady();
+    res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    return res.end(JSON.stringify({ ok: ready, port: 8904 }));
   }
   if (u.pathname === '/server-restart' && req.method === 'POST') {
     let b = ''; req.on('data', c => b += c); req.on('end', () => {
