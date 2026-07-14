@@ -180,7 +180,7 @@ async function main() {
   }
   const nd = work.filter(w => w.kind === 'neardup').length, sb = work.filter(w => w.kind === 'sub13').length, st = work.filter(w => w.kind === 'stub').length;
   const todo = work.filter(w => !cleared.has(w.id));
-  console.log(`[fix-it-all] scope=${scope} worklist=${work.length} todo=${todo.length}  similarity=${nd} sub13=${sb} stubs=${st}  batch=${process.env.SIM_BATCH || 5}`);
+  console.log(`[fix-it-all] scope=${scope} worklist=${work.length} todo=${todo.length}  similarity=${nd} sub13=${sb} stubs=${st}  batch=${process.env.SIM_BATCH || 10}`);
   setStatus({ stage: 'transform', phase: 'starting', scope, total: work.length, todo: todo.length, similarity: nd, sub13: sb, stubs: st, transformed: 0, published: 0, failed: 0, target: TARGET });
 
   // sibling sentence-sets, computed once per family (near-dup fix needs them)
@@ -193,7 +193,7 @@ async function main() {
 
   try { fs.unlinkSync(SIM + '/STOP.flag'); } catch (e) {}   // clear any prior force-stop
   let fixed = 0, failed = 0;
-  const CONC = parseInt(process.env.SIM_BATCH || '5', 10);   // five active entries inside each selected pod
+  const CONC = parseInt(process.env.SIM_BATCH || '10', 10);   // never work more than ~10 at a time
   for (let i = 0; i < todo.length; i += CONC) {
     if (fs.existsSync(SIM + '/STOP.flag')) { setStatus({ stage: 'stopped', phase: 'idle', note: 'Force-stopped.' }); console.log('[fix-it-all] FORCE STOP — halting'); return; }
     for (const k of Object.keys(prog)) if (prog[k].status === 'approved') delete prog[k];   // keep the live checklist to the current batch

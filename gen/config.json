@@ -1,10 +1,8 @@
 {
- "fixConcurrency": 5,
- "fixWorkers": 5,
+ "fixConcurrency": 30,
+ "fixWorkers": 1,
  "fixSoloTriple": false,
- "fixScope": "tl",
- "fixAutoRun": true,
- "fixPodSize": 100,
+ "fixScope": "next30",
  "fixStage": "all",
  "fixWriter": "deepseek",
  "fixRunUntil": "2026-07-14T01:00:00.000Z",
@@ -13,7 +11,7 @@
  "genTopics": "ALL",
  "runHours": 2,
  "runUntil": null,
- "paused": false,
+ "paused": true,
  "deployEveryHours": 0,
  "pillarLap": true
 }

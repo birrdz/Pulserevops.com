@@ -63,12 +63,10 @@ async function main() {
     const s = scope.toLowerCase();
     entries = entries.filter(e => String(e.id).toLowerCase().startsWith(s));
   }
-  const offset = Math.max(0, parseInt(process.env.SIM_OFFSET || '0', 10) || 0);
-  if (process.env.SIM_MAX) entries = entries.slice(offset, offset + parseInt(process.env.SIM_MAX, 10));
-  else if (offset) entries = entries.slice(offset);
+  if (process.env.SIM_MAX) entries = entries.slice(0, parseInt(process.env.SIM_MAX, 10));
   const total = entries.length;
-  console.log(`[sim-scan] scope=${scope}  entries=${total}  offset=${offset}  threshold=${SIM_THRESHOLD}  stub<${STUB_MIN}w`);
-  writeStatus({ stage: 'scan', scope, total, offset, scanned: 0, phase: 'reading bodies' });
+  console.log(`[sim-scan] scope=${scope}  entries=${total}  threshold=${SIM_THRESHOLD}  stub<${STUB_MIN}w`);
+  writeStatus({ stage: 'scan', scope, total, scanned: 0, phase: 'reading bodies' });
   if (!total) { console.error('HALT: scope matched 0 entries — check the scope name against the registry.'); process.exit(2); }
 
   const cache = readJSON(CACHE_F, {});
@@ -160,7 +158,7 @@ async function main() {
   for (const id of Object.keys(report)) piles[report[id].pile]++;
   const largest = Object.values(families).sort((a, b) => b.size - a.size).slice(0, 12)
     .map(f => ({ family: f.id, pillar: f.pillar, size: f.size, canonical: f.canonical }));
-  const summary = { scope, total, offset, piles, familyCount: Object.keys(families).length, nearDupPairs: pairs, largestFamilies: largest, threshold: SIM_THRESHOLD, stubMin: STUB_MIN, at: new Date().toISOString() };
+  const summary = { scope, total, piles, familyCount: Object.keys(families).length, nearDupPairs: pairs, largestFamilies: largest, threshold: SIM_THRESHOLD, stubMin: STUB_MIN, at: new Date().toISOString() };
 
   fs.writeFileSync(REPORT_F, JSON.stringify({ scope, at: summary.at, families, entries: report }, null, 1));
   fs.writeFileSync(SUMMARY_F, JSON.stringify(summary, null, 1));

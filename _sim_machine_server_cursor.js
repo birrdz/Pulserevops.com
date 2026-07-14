@@ -12,17 +12,14 @@ const { getStore } = require('@netlify/blobs');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 
 const PORT = parseInt(process.env.SIM_PORT || '8904', 10);
-const CODE_ROOT = __dirname;
-const SCAN_SCRIPT = CODE_ROOT + '/_sim_scan_cursor.js';
-const TRANSFORM_SCRIPT = CODE_ROOT + '/_sim_transform_cursor.js';
+const SCAN_SCRIPT = WD + '/_sim_scan_cursor.js';
+const TRANSFORM_SCRIPT = WD + '/_sim_transform_cursor.js';
 const SIM = WD + '/sim';
 try { fs.mkdirSync(SIM, { recursive: true }); } catch (e) {}
 const CMD_F = SIM + '/run_command.json', STATUS_F = SIM + '/run_status.json', SUMMARY_F = SIM + '/summary.json';
 const REPORT_F = SIM + '/scan_report.json', OPLOG_F = SIM + '/operator_log.md', LESSONS_F = SIM + '/LESSONS.md', FAILS_F = SIM + '/transform_failures.md';
-const AUTO_F = SIM + '/auto_run.json', CONFIG_F = WD + '/gen/config.json';
 const readJSON = (f, d) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { return d; } };
 const writeJSON = (f, o) => { try { fs.writeFileSync(f, JSON.stringify(o, null, 1)); } catch (e) {} };
-const liveConfig = readJSON(CONFIG_F, {});
 const PNAMES = { tl:'Pulse Tools', ca:'Cars', bt:'Boats', aq:'Aquariums', ik:'Industry KPIs', tk:'Tech Stacks', bs:'Book Summaries', st:'Sales Trainings', fr:'Franchises', co:'Collectibles', ai:'AI Infra', gb:'Graphics', bo:'Buildouts', sy:'Style', gp:'GTM Playbooks', ra:'Rev Architecture', pt:'Pets', es:'Espresso', tv:'TVs', rs:'Resorts', cl:'Cologne', lv:'Lux Vacations', ev:'Events', ga:'Gatherings', gm:'Gaming', mv:'Movies', wl:'Wellness', dn:'Dining', nl:'Nightlife', tn:'Towns', sc:'Schools', tc:'Telco', er:'Electronics', q:'Q&A', hf:'Home & Family', sw:'Software', sk:'Skill Drills', sp:'Sports', cg:'Cologne', dr:'Drills' };
 const pOf = id => (String(id).match(/^([a-z]+)\d/i) || [, ''])[1].toLowerCase();
 const opLog = (line) => { try { fs.appendFileSync(OPLOG_F, `- ${new Date().toISOString()} � ${line}\n`); } catch (e) {} };
@@ -54,14 +51,10 @@ async function scopeList() {
 
 // ?? the run engine (watcher): executes the current command's stages, serial + resume-safe ??
 let child = null, running = false, stopRequested = false;
-let autoRun = Object.assign({ enabled: liveConfig.fixAutoRun === true, scope: 'tl', podSize: 100, cursor: 0, pod: 1, clearedRanges: [], phase: 'idle' }, readJSON(AUTO_F, {}));
-if (!Array.isArray(autoRun.clearedRanges)) autoRun.clearedRanges = [];
-if (process.env.SIM_AUTO_RUN === '1') autoRun.enabled = true;
-const saveAuto = () => writeJSON(AUTO_F, Object.assign({}, autoRun, { updated: new Date().toISOString() }));
 function setStatus(o) { writeJSON(STATUS_F, Object.assign(readJSON(STATUS_F, {}), o, { updated: new Date().toISOString() })); }
-function runStage(script, args, extraEnv) {
+function runStage(script, args) {
   return new Promise((resolve) => {
-    child = spawn(process.execPath, [script].concat(args), { cwd: WD, env: Object.assign({}, process.env, extraEnv || {}) });
+    child = spawn(process.execPath, [script].concat(args), { cwd: WD, env: process.env });
     let buf = '';
     // the sub-script (sim_scan / sim_transform) OWNS run_status.json � the panel must NOT write it here or the
     // two racing writers clobber each other and the dashboard flickers to idle mid-run. Just drain the pipes.
@@ -129,42 +122,6 @@ async function runTransformOnly(scope) {
   setStatus({ stage: 'done', phase: 'idle', piles: v.piles, families: v.familyCount, verified: (v.piles && v.piles.NEAR_DUP === 0 && v.piles.STUB === 0 && (v.piles.SUB13 || 0) === 0) });
   opLog(`FIX done scope=${scope}`); running = false;
 }
-// Minimal addition: run the original scan -> transform -> verify workflow on TL in 100-entry pods.
-async function runAutoTlPods() {
-  if (running || !autoRun.enabled) return;
-  running = true; stopRequested = false;
-  while (autoRun.enabled && !stopRequested) {
-    const offset = Math.max(0, Number(autoRun.cursor) || 0);
-    const pod = Math.max(1, Number(autoRun.pod) || 1);
-    const env = { SIM_OFFSET: String(offset), SIM_MAX: '100', SIM_BATCH: '5' };
-    try { fs.unlinkSync(REPORT_F); } catch (e) {}
-    try { fs.unlinkSync(SUMMARY_F); } catch (e) {}
-    autoRun.phase = 'scan'; saveAuto();
-    setStatus({ stage: 'scan', phase: `TL pod ${pod} scanning ${offset + 1}-${offset + 100}`, scope: 'tl', autoRun: true });
-    const scanCode = await runStage(SCAN_SCRIPT, ['tl'], env);
-    const scanned = readJSON(SUMMARY_F, {});
-    if (stopRequested || !autoRun.enabled) break;
-    if (scanCode !== 0 || !scanned.total) { autoRun.enabled = false; autoRun.phase = 'done'; saveAuto(); break; }
-    autoRun.phase = 'transform'; saveAuto();
-    const transformCode = await runStage(TRANSFORM_SCRIPT, ['tl'], env);
-    if (stopRequested || !autoRun.enabled) break;
-    if (transformCode !== 0) { autoRun.enabled = false; autoRun.phase = 'error'; saveAuto(); break; }
-    autoRun.phase = 'verify'; saveAuto();
-    const verifyCode = await runStage(SCAN_SCRIPT, ['tl'], env);
-    if (verifyCode !== 0) { autoRun.enabled = false; autoRun.phase = 'error'; saveAuto(); break; }
-    const verified = readJSON(SUMMARY_F, {}), piles = verified.piles || {};
-    const remaining = (piles.NEAR_DUP || 0) + (piles.SUB13 || 0) + (piles.STUB || 0);
-    const count = Number(scanned.total) || 0;
-    if (remaining === 0) autoRun.clearedRanges.push({ start: offset + 1, end: offset + count, verifiedAt: new Date().toISOString() });
-    autoRun.cursor = offset + count;
-    autoRun.pod = pod + 1;
-    autoRun.phase = count < 100 ? 'done' : 'next-pod';
-    saveAuto();
-    if (count < 100) { autoRun.enabled = false; saveAuto(); break; }
-  }
-  if (stopRequested) { autoRun.enabled = false; autoRun.phase = 'stopped'; saveAuto(); }
-  running = false;
-}
 // ? STREAM � sweep the whole site smallest-pillar-first: scan a pillar, immediately fix its bad URLs, next pillar.
 // Work starts within seconds on the smallest pillar; a giant pillar never blocks the start.
 async function runStreamAll() {
@@ -196,7 +153,6 @@ async function runStreamAll() {
 // command watcher
 setInterval(() => {
   if (running) return;
-  if (autoRun.enabled) { runAutoTlPods().catch(() => { running = false; autoRun.enabled = false; autoRun.phase = 'error'; saveAuto(); }); return; }
   const cmd = readJSON(CMD_F, null);
   if (!cmd || cmd.consumed) return;
   writeJSON(CMD_F, Object.assign({}, cmd, { consumed: true }));
@@ -226,9 +182,6 @@ h1{font-size:19px;letter-spacing:.5px;margin:2px 0 2px;color:#FFB81C}
 .chip.sel{background:#B91C3F;border-color:#B91C3F;color:#fff}
 .chip.all{background:#2a2130;border-color:#FFB81C;color:#FFB81C}
 .chip.all.sel{background:#FFB81C;color:#1a1a1a}
-.pod-list{display:flex;flex-wrap:wrap;gap:7px;max-height:190px;overflow:auto}
-.pod-chip{border:1px solid #3a3a45;background:#1c1c22;color:#FFB81C;border-radius:9px;padding:8px 10px;font-size:12px;font-weight:800;cursor:pointer}
-.pod-chip.sel{border-color:#86efac;background:#14532d;color:#fff}
 input.topic{width:100%;margin-top:8px;background:#1c1c22;border:1px solid #2c2c34;color:#e8e6e1;border-radius:10px;padding:10px;font-size:14px}
 .btns{display:flex;gap:12px;margin:16px 0}
 button{flex:1;border:0;border-radius:14px;padding:20px;font-size:20px;font-weight:800;letter-spacing:1px;cursor:pointer}
@@ -237,8 +190,6 @@ button{flex:1;border:0;border-radius:14px;padding:20px;font-size:20px;font-weigh
 #clear{background:#20202a;color:#cfc7bd}
 #fix{width:100%;margin-top:8px;background:linear-gradient(180deg,#FFB81C,#e0a015);color:#1a1a1a;display:none;font-size:18px;animation:fixpulse 1.6s ease-in-out infinite}
 @keyframes fixpulse{0%,100%{box-shadow:0 0 18px rgba(255,184,28,.35)}50%{box-shadow:0 0 44px rgba(255,184,28,.8)}}
-#auto{width:100%;margin-top:8px;background:#15803d;color:#fff;border:2px solid #86efac;font-size:18px}
-#auto.off{background:#303039;color:#aaa;border-color:#555}
 #force{width:100%;margin-top:8px;background:#2a1215;color:#ff9aa8;border:1px solid #B91C3F;font-size:15px}
 #fixlist{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto}
 .fitem{background:#141417;border:1px solid #24242a;border-radius:10px;padding:9px 11px}
@@ -267,10 +218,8 @@ a{color:#FFB81C}
 
 <div class=card><div class=lab>1 � Scope</div><div class=scopes id=scopes>loading�</div>
 <input class=topic id=topic placeholder="�or type a topic / id-prefix (e.g. gp0, ca11)"></div>
-<div class=card><div class=lab>TL Pulse Tools - click a 100-entry pod to start</div><div class=pod-list id=podlist>Loading TL pods...</div></div>
 
 <div class=btns><button id=go disabled>? RUN REPORT</button><button id=clear>CLEAR</button><button id=stop>STOP</button></div>
-<button id=auto>AUTO-RUN 100 - TL PULSE TOOLS</button>
 <button id=fix>? GO ? FIX IT</button>
 <button id=force>? FORCE STOP &nbsp;�&nbsp; kill if stuck</button>
 
@@ -285,24 +234,20 @@ a{color:#FFB81C}
 <div class=card><div class=lab>Operator log (last 8)</div><pre id=oplog>�</pre></div>
 
 <script>
-let scope=null, scopes=[],tlCount=0,selectedPod=1,clearedRanges=[];
+let scope=null, scopes=[];
 async function loadScopes(){const d=await(await fetch('/api/scope')).json();scopes=d.pillars;
- const tl=(d.pillars||[]).find(p=>p.p==='tl');tlCount=tl?tl.n:0;renderPods();
  const el=document.getElementById('scopes');el.innerHTML='<span class="chip all" data-s="ALL">ALL <span class=n>'+d.total.toLocaleString()+'</span></span>'+
   d.pillars.map(p=>'<span class=chip data-s="'+p.p+'">'+p.name+' <span class=n>'+p.n+'</span></span>').join('');
  el.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{document.getElementById('topic').value='';select(c.dataset.s,c)});}
-function renderPods(){const el=document.getElementById('podlist'),n=Math.ceil(tlCount/100);el.innerHTML='';const covered=(a,b)=>{for(let id=a;id<=b;id++)if(!clearedRanges.some(r=>id>=r.start&&id<=r.end))return false;return true;};for(let pod=1;pod<=n;pod++){const start=(pod-1)*100+1,end=Math.min(tlCount,pod*100);if(covered(start,end))continue;const b=document.createElement('button');b.className='pod-chip'+(pod===selectedPod?' sel':'');b.textContent='TL '+start+'-'+end;b.onclick=async()=>{selectedPod=pod;renderPods();await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'auto',enabled:true,pod})});};el.appendChild(b);}if(!el.children.length)el.textContent='All TL pods verified complete.';}
 function select(s,c){scope=s;document.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));if(c)c.classList.add('sel');document.getElementById('go').disabled=!scope;}
 document.getElementById('topic').oninput=e=>{const v=e.target.value.trim();document.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));scope=v||null;document.getElementById('go').disabled=!scope;};
 document.getElementById('go').onclick=async()=>{if(!scope)return;await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'scan',scope})});document.getElementById('stage').innerHTML='?? Running report on <b>'+scope+'</b>�';};
 document.getElementById('fix').onclick=async()=>{const s=scope||'ALL';await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'transform',scope:s})});document.getElementById('stage').innerHTML='?? Fixing <b>'+s+'</b> � transforming flagged URLs�';};
-document.getElementById('auto').onclick=async()=>{const on=document.getElementById('auto').classList.contains('off');await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'auto',enabled:on,pod:selectedPod})});};
 document.getElementById('stop').onclick=async()=>{await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'stop'})});};
 document.getElementById('force').onclick=async()=>{if(!confirm('FORCE STOP � kill any stuck process now?'))return;await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'forcestop'})});document.getElementById('stage').innerHTML='? Force-stopped.';};
 document.getElementById('clear').onclick=async()=>{if(!confirm('CLEAR and start over?'))return;await fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'clear'})});location.reload();};
 async function poll(){try{const s=await(await fetch('/api/status')).json();
  const st=s.status||{};const p=st.piles||{};
- const ar=s.auto||{},ab=document.getElementById('auto');clearedRanges=Array.isArray(ar.clearedRanges)?ar.clearedRanges:[];selectedPod=ar.pod||selectedPod;renderPods();ab.classList.toggle('off',!ar.enabled);ab.textContent=ar.enabled?('STOP AUTO-RUN 100 - TL POD '+(ar.pod||1)):('AUTO-RUN 100 - TL PULSE TOOLS');
  document.getElementById('pPass').textContent=p.PASS!=null?p.PASS.toLocaleString():'�';
  document.getElementById('pNear').textContent=p.NEAR_DUP!=null?p.NEAR_DUP.toLocaleString():'�';
  document.getElementById('pStub').textContent=p.STUB!=null?p.STUB.toLocaleString():'�';
@@ -344,18 +289,14 @@ http.createServer(async (req, res) => {
     if (u.pathname === '/api/status') {
       const status = readJSON(STATUS_F, {});
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
-      return res.end(JSON.stringify({ status, running, auto: autoRun, fix: readJSON(SIM + '/fix_progress.json', {}), lessons: tailFile(LESSONS_F, 8), oplog: tailFile(OPLOG_F, 8) }));
+      return res.end(JSON.stringify({ status, running, fix: readJSON(SIM + '/fix_progress.json', {}), lessons: tailFile(LESSONS_F, 8), oplog: tailFile(OPLOG_F, 8) }));
     }
     if (u.pathname === '/api/command' && req.method === 'POST') {
       let b = ''; req.on('data', c => b += c); req.on('end', () => {
         let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
-        if (d.action === 'stop') { stopRequested = true; autoRun.enabled = false; autoRun.phase = 'stopped'; saveAuto(); if (child) { try { child.kill(); } catch (e) {} } opLog('STOP pressed'); }
-        else if (d.action === 'forcestop') { stopRequested = true; autoRun.enabled = false; autoRun.phase = 'stopped'; saveAuto(); try { fs.writeFileSync(SIM + '/STOP.flag', '1'); } catch (e) {} if (child) { try { child.kill('SIGKILL'); } catch (e) {} child = null; } running = false; setStatus({ stage: 'stopped', phase: 'idle', note: 'Force-stopped.' }); opLog('FORCE STOP'); }
+        if (d.action === 'stop') { stopRequested = true; if (child) { try { child.kill(); } catch (e) {} } opLog('STOP pressed'); }
+        else if (d.action === 'forcestop') { stopRequested = true; try { fs.writeFileSync(SIM + '/STOP.flag', '1'); } catch (e) {} if (child) { try { child.kill('SIGKILL'); } catch (e) {} child = null; } running = false; setStatus({ stage: 'stopped', phase: 'idle', note: 'Force-stopped.' }); opLog('FORCE STOP'); }
         else if (d.action === 'clear') { try { fs.unlinkSync(SIM + '/transform_state.json'); } catch (e) {} try { fs.unlinkSync(SIM + '/fix_progress.json'); } catch (e) {} writeJSON(STATUS_F, { stage: 'idle', phase: 'idle', note: 'Cleared � pick a scope and run the report.' }); opLog('CLEAR'); }
-        else if (d.action === 'auto') {
-          if (d.enabled === false) { stopRequested = true; autoRun.enabled = false; autoRun.phase = 'stopped'; saveAuto(); if (child) { try { child.kill(); } catch (e) {} } }
-          else { const pod=Math.max(1,parseInt(d.pod,10)||1),ranges=autoRun.clearedRanges.slice();stopRequested=false;autoRun={enabled:true,scope:'tl',podSize:100,cursor:(pod-1)*100,pod,clearedRanges:ranges,phase:'starting'};saveAuto();setTimeout(()=>runAutoTlPods().catch(()=>{running=false;autoRun.enabled=false;autoRun.phase='error';saveAuto();}),50); }
-        }
         else if (d.action === 'scan' || d.action === 'transform' || d.action === 'start') writeJSON(CMD_F, { action: d.action, scope: d.scope ? String(d.scope) : 'ALL', at: Date.now(), consumed: false });
         res.writeHead(200, { 'Content-Type': 'application/json' }); res.end('{"ok":true}');
       });
