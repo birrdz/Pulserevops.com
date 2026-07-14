@@ -1,3 +1,10 @@
+## ▶▶ CROSSOVER — 2026-07-14 FIXER → SQUARE AUTO HANDOFF — READ FIRST
+
+- **Stop Format Fixer → Square Builder:** force-stop / finish now auto-launches Square Builder on the **same pillar**, **passers only**, **auto-approve ON**.
+- **One-click on Windows:** double-click `_stop_fixer_go_square.bat` (scrub must already be on 8902) · or `node _handoff_fixer_to_square.js --base=http://127.0.0.1:8902`
+- **API:** `POST /fixer-to-square` `{ key: 4444 }`
+- Cloud agent cannot hit your LAN scrub — run the bat on the PC.
+
 ﻿# ▶ HANDOFF — for the next Claude Code session (saved 2026-06-26)
 
 ## ▶▶ CROSSOVER — 2026-07-14 FORMAT FIXER — HOW TO RUN (NOT THE UNICORN TRAP) — READ FIRST

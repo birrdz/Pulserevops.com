@@ -985,11 +985,25 @@ async function runFaceHeroLoop() {
   faceHeroJob.running = true;
   faceHeroJob.phase = 'facehero';
   try {
-    const entries = faceHeroJob._entries || await getImageDuplicatorEntries(faceHeroJob.pillar);
+    let entries = faceHeroJob._entries || await getImageDuplicatorEntries(faceHeroJob.pillar);
+    if (faceHeroJob.passersOnly && entries && entries.length) {
+      faceHeroJob.currentStep = 'filter · Format Fixer passers only';
+      const ready = [];
+      for (const row of entries) {
+        const id = row && row.id;
+        if (!id) continue;
+        try {
+          const e = await store.get('answers/' + id + '.json', { type: 'json' });
+          if (e && e.answer && passedFormatFixerGate(id, e.answer, e)) ready.push(row);
+        } catch (err) {}
+      }
+      faceHeroLog('🔎 passers only · ' + ready.length + '/' + entries.length + ' ready for Square Builder');
+      entries = ready;
+    }
     faceHeroJob._entries = entries;
     faceHeroJob.total = entries.length;
     if (!faceHeroJob.total) {
-      faceHeroLog('⚠️ no entries for pillar');
+      faceHeroLog('⚠️ no Format Fixer–passed entries for pillar (or pillar empty)');
       faceHeroJob.phase = 'done';
       faceHeroJob.running = false;
       faceHeroJob.finishedAt = Date.now();
@@ -1120,7 +1134,7 @@ function faceHeroReviewDecision(action) {
     return { ok: true, kept: true, id: pr.id };
   }).catch(e => ({ ok: false, msg: e.message }));
 }
-function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
+function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart, passersOnly) {
   if (faceHeroJob.running) return { ok: false, msg: 'already running' };
   if (faceHeroJob.phase === 'review' && faceHeroJob.pendingReview && !forceRestart) {
     return { ok: false, msg: 'card waiting for review — ✓ Keep or ✗ Try again first (or Force stop to cancel)', needsReview: true, pendingId: faceHeroJob.pendingReview.id };
@@ -1131,6 +1145,7 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
   if (!pillar) return { ok: false, msg: 'pick a pillar' };
   guideKeywords = String(guideKeywords || '').trim().slice(0, 800);
   autoApproveImages = !!autoApproveImages;
+  passersOnly = !!passersOnly;
   const canResume = !forceRestart && faceHeroJob.pillar === pillar && (faceHeroJob.phase === 'stopped' || faceHeroJob.phase === 'done' || faceHeroJob.phase === 'error') && (faceHeroJob.done || 0) > 0 && (faceHeroJob.done || 0) < (faceHeroJob.total || 1);
   if (canResume) {
     faceHeroJob.stop = false;
@@ -1141,25 +1156,27 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
     faceHeroJob.error = '';
     faceHeroJob.guideKeywords = guideKeywords;
     faceHeroJob.autoApproveImages = autoApproveImages;
+    faceHeroJob.passersOnly = passersOnly;
     faceHeroJob.pendingReview = null;
     faceHeroJob.reviewAttempt = 1;
     faceHeroJob.pillarName = pName(pillar);
     faceHeroLog('▶ Resuming — ' + (faceHeroJob.done || 0) + '/' + (faceHeroJob.total || 0) + ' · ' + faceHeroJob.pillarName);
     runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
-    return { ok: true, started: true, resumed: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, done: faceHeroJob.done, total: faceHeroJob.total };
+    return { ok: true, started: true, resumed: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, passersOnly, done: faceHeroJob.done, total: faceHeroJob.total };
   }
   faceHeroJob = {
     running: false, stop: false, stopAfterReview: false, pillar, pillarName: pName(pillar), guideKeywords, autoApproveImages,
     done: 0, total: 0, pct: 0, entriesDone: 0, coversGenerated: 0, fluxJobs: 0,
     skippedNoBlob: 0, skippedFixerGate: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [],
-    pendingReview: null, reviewAttempt: 1, _entries: null,
+    pendingReview: null, reviewAttempt: 1, _entries: null, passersOnly,
   };
   const kwNote = guideKeywords ? (' · guide: ' + guideKeywords.slice(0, 48) + (guideKeywords.length > 48 ? '…' : '')) : '';
   const modeNote = autoApproveImages ? ' · 🤖 auto-approve ON' : ' · keep/retry each card';
-  faceHeroLog('▶ Square Builder (Face Card) — ' + faceHeroJob.pillarName + kwNote + modeNote + ' · Format Fixer gate ON · serial flux');
+  const passNote = passersOnly ? ' · Format Fixer passers only' : '';
+  faceHeroLog('▶ Square Builder (Face Card) — ' + faceHeroJob.pillarName + kwNote + modeNote + passNote + ' · Format Fixer gate ON · serial flux');
   runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
-  return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages };
+  return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, passersOnly };
 }
 function stopFaceHero() {
   if (faceHeroJob.running) {
@@ -1383,6 +1400,10 @@ async function runFormatFixerLoop() {
   formatFixerJob.currentId = '';
   formatFixerJob.currentStep = '';
   saveFormatFixerState(true);
+  // Owner: stop/finish Fixer → all content passes go straight to Square Builder
+  if ((formatFixerJob.entriesPass || 0) > 0 && formatFixerJob.pillar) {
+    setTimeout(() => handoffFormatFixerToSquareBuilder('loop-end'), 400);
+  }
 }
 function startFormatFixer(pillar) {
   if (formatFixerJob.running) return { ok: false, msg: 'already running' };
@@ -1403,6 +1424,7 @@ function startFormatFixer(pillar) {
 function stopFormatFixer() {
   if (!formatFixerJob.running) return { ok: false, msg: 'not running' };
   formatFixerJob.stop = true;
+  formatFixerLog('⏹ stop requested — finishing current entry, then Square Builder handoff');
   return { ok: true, stopping: true };
 }
 function forceStopFormatFixer() {
@@ -1414,7 +1436,33 @@ function forceStopFormatFixer() {
   formatFixerJob.currentStep = 'force stopped';
   formatFixerLog('⏹ force stop — format fixer halted');
   saveFormatFixerState(true);
-  return { ok: true, forceStopped: true };
+  let squareHandoff = false;
+  if ((formatFixerJob.entriesPass || 0) > 0 && formatFixerJob.pillar) {
+    squareHandoff = true;
+    setTimeout(() => handoffFormatFixerToSquareBuilder('force-stop'), 400);
+  }
+  return { ok: true, forceStopped: true, squareHandoff };
+}
+/** After Format Fixer stop/done — launch Square Builder on same pillar (passers only, auto-approve). */
+function handoffFormatFixerToSquareBuilder(reason) {
+  const pillar = formatFixerJob.pillar;
+  const passes = formatFixerJob.entriesPass || 0;
+  if (!pillar) return { ok: false, msg: 'no pillar' };
+  if (passes < 1) {
+    formatFixerLog('⏭ no Format Fixer passes to hand off to Square Builder');
+    return { ok: false, msg: 'no passes' };
+  }
+  if (formatFixerJob.running) return { ok: false, msg: 'fixer still running' };
+  if (faceHeroJob.running || faceHeroJob.phase === 'review') {
+    formatFixerLog('⏭ Square Builder already busy — handoff skipped (' + (reason || '') + ')');
+    return { ok: false, msg: 'square busy' };
+  }
+  formatFixerLog('➡ handoff → Square Builder · ' + passes + ' pass(es) · pillar ' + pillar + ' · auto-approve · ' + (reason || ''));
+  const r = startFaceHero(pillar, '', true, true, true);
+  if (!(r && r.ok)) {
+    formatFixerLog('⚠️ Square Builder handoff failed · ' + ((r && r.msg) || 'unknown'));
+  }
+  return r || { ok: false, msg: 'start failed' };
 }
 function formatFixerStatusPayload() {
   const snap = Object.assign({}, formatFixerJob, { log: (formatFixerJob.log || []).slice(0, 24) });
