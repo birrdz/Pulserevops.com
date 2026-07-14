@@ -37,3 +37,4 @@ Log entries are **append-only** — never edit or delete a prior row. If a later
 - Assumption: Desk shows FAKE mosaic only (raw photo + CSS gold title). Click stages; does not bake.
 - Assumption: Save queues `_square_apply_queue.json`; Cursor/`_square_manual_apply.js --watch` bakes for real (blank plate + photo + new gold title). Old titled file backed up once as `<id>.oldtitle.jpg`.
 - Assumption: Owner picks photos; agent manually applies after Save (past working path per owner/logs).
+- 2026-07-14T03:06Z — Updated CLAUDE.md TITLE/FACE-CARD LAW to current Square Builder bake (delete old JPG → new goldTitle). Format Fixer never bakes title. Homepage .sq.jpg = CSS title; answer .jpg = baked title. Checkpoint commit for stuck-thread flush.
