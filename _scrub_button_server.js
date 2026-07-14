@@ -935,9 +935,10 @@ async function pickSquareNextEntry() {
     : (String(entry.answer).match(/!\[[^\]]*\]\([^)]+\)/g) || []).length;
   const productTitles = [...String(entry.answer).matchAll(/@@PRODUCT[^\n]*\bname="([^"]+)"/g)].map(match => match[1]);
   const depthTitles = [...String(entry.answer).matchAll(/^##\s+(?!Direct Answer|Related questions|FAQ|Sources|Related on PULSE)(.+)$/gim)].map(match => match[1].replace(/^\d+[.)]\s*/, '').trim());
-  const start = route.template === 'top10' ? 2 : 1;
   const slots = [];
-  for (let n = start; n <= (route.template === 'top10' ? count : count - 1); n++) {
+  const start = 1;
+  const end = route.template === 'top10' ? 10 : 2;
+  for (let n = start; n <= end; n++) {
     slots.push({ kind: 'body', n, label: route.template === 'top10' ? (productTitles[n - 1] || title) : (depthTitles[n] || title) });
   }
   return { ok: true, id: next.id, title, shape: route.template, slots };
@@ -1106,18 +1107,20 @@ async function saveSquareDeskDraft(d) {
     ? (String(entry.answer).match(/@@PRODUCT[^\n]*\bimg="[^"]+"/g) || []).length
     : (String(entry.answer).match(/!\[[^\]]*\]\([^)]+\)/g) || []).length;
   const requiredSlots = [];
-  const firstSlot = route.template === 'top10' ? 2 : 1;
-  const lastSlot = route.template === 'top10' ? imageCount : imageCount - 1;
+  const firstSlot = 1;
+  const lastSlot = route.template === 'top10' ? 10 : 2;
+  if (route.template === 'top10' && imageCount < 10) throw new Error('Top 10 body is missing ranked image slots: ' + imageCount + '/10');
+  if (route.template === 'qa' && imageCount < 3) throw new Error('Q&A body needs face/top plus two answer image slots');
   for (let n = firstSlot; n <= lastSlot; n++) requiredSlots.push(n);
   const suppliedSlots = d.slots || {};
   const missingSlots = requiredSlots.filter(slot => !suppliedSlots[slot]);
   if (missingSlots.length) throw new Error('fill every image slot before save: ' + missingSlots.join(', '));
-  await applyManualPexelsImage(id, d.faceImageUrl, 0, '');
+  await applyManualPexelsImage(id, d.faceImageUrl, 0, '', 'face');
   const slots = Object.entries(suppliedSlots).sort((a, b) => Number(a[0]) - Number(b[0]));
   for (const [slot, url] of slots) {
     const n = Number(slot);
     const clickIndex = route.template === 'top10' ? n - 1 : n;
-    await applyManualPexelsImage(id, url, clickIndex, '');
+    await applyManualPexelsImage(id, url, clickIndex, '', 'body');
   }
   return finishManualPexelsQa(id);
 }
@@ -1149,7 +1152,7 @@ function replaceProductImageAt(body, index, url) {
   });
   return { body: out, changed };
 }
-async function applyManualPexelsImage(id, url, clickIndex, gender) {
+async function applyManualPexelsImage(id, url, clickIndex, gender, targetKind) {
   const entry = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
   const freshIndex = await store.get('_index.json', { type: 'json', consistency: 'strong' });
@@ -1158,6 +1161,7 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   const route = pickGoldTemplate(id, entry.answer, title);
   if (!route.template) throw new Error('Q&A does not match a locked golden template');
   clickIndex = Math.max(0, parseInt(clickIndex, 10) || 0);
+  const isFace = targetKind === 'face' || (!targetKind && clickIndex === 0);
   const pillar = pillarOf(id);
   if (pillar === 'sy') throw new Error('Style pillar is paused');
   const maxClick = route.template === 'top10' ? 9 : 2;
@@ -1170,7 +1174,7 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   fs.mkdirSync(path.join(WD, 'assets', 'qa'), { recursive: true });
   const imageVersion = Date.now().toString(36);
   let body = entry.answer, localUrl, placement;
-  if (clickIndex === 0) {
+  if (isFace) {
     const oldFile = coverPath(id);
     let stalePh = null;
     if (fs.existsSync(oldFile)) {
@@ -1192,10 +1196,6 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
       const swapped = replaceMarkdownImageAt(body, 0, localUrl);
       body = swapped.body;
       if (swapped.changed) placement += ' + existing top image';
-    } else {
-      const swapped = replaceProductImageAt(body, 0, localUrl);
-      body = swapped.body;
-      if (swapped.changed) placement += ' + Top-10 item 1';
     }
   } else {
     const sex = gender === 'men' ? 'men' : gender === 'women' ? 'women' : 'any';
@@ -1215,16 +1215,16 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
   imageHashes.push(imageHash);
   const nextEntry = Object.assign({}, entry, {
     answer: body,
-    cover_src: clickIndex === 0 ? 'pexels' : (entry.cover_src || 'pexels'),
-    face_title_baked: clickIndex === 0 ? false : !!entry.face_title_baked,
+    cover_src: isFace ? 'pexels' : (entry.cover_src || 'pexels'),
+    face_title_baked: isFace ? false : !!entry.face_title_baked,
     image_updated_at: new Date().toISOString(),
     image_version: imageVersion,
     manual_image_sources: sourceUrls,
     manual_image_hashes: imageHashes,
   });
-  if (clickIndex === 0) delete nextEntry.face_title_text;
+  if (isFace) delete nextEntry.face_title_text;
   await store.setJSON('answers/' + id + '.json', nextEntry);
-  if (clickIndex === 0) {
+  if (isFace) {
     if (freshRow) {
       freshRow.img = localUrl;
       freshRow.cover_src = 'pexels';
@@ -1234,7 +1234,7 @@ async function applyManualPexelsImage(id, url, clickIndex, gender) {
       await store.setJSON('_index.json', freshIndex);
     }
   }
-  return { ok: true, id, clickIndex, placement, localUrl, template: route.template, title };
+  return { ok: true, id, clickIndex, targetKind: isFace ? 'face' : 'body', placement, localUrl, template: route.template, title };
 }
 async function finishManualPexelsQa(id) {
   const entry = await store.get('answers/' + id + '.json', { type: 'json' });

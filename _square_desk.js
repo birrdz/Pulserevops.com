@@ -53,7 +53,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .site-square::after{content:'';position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.88))}
 .site-square-title{position:absolute;z-index:2;left:4%;right:4%;bottom:5%;color:#FFD54F;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:900;font-size:clamp(24px,6vw,38px);line-height:1.04;text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000}
 .page-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.page-tab{padding:13px 12px;border:2px solid var(--line);border-radius:11px;background:#0c1018;color:var(--muted);font-weight:900;cursor:pointer}
+.page-tab{padding:16px 12px;border:2px solid var(--line);border-radius:11px;background:#0c1018;color:var(--muted);font-size:1rem;font-weight:950;cursor:pointer}
 .page-tab.on{border-color:#FFD54F;background:rgba(255,213,79,.12);color:#FFD54F}
 .preview-page[hidden]{display:none}
 .answer-page{width:min(680px,100%);margin:12px auto;background:#fff;color:#18202a;border-radius:12px;padding:24px 18px;box-shadow:0 8px 28px rgba(0,0,0,.35)}
@@ -83,14 +83,15 @@ footer a{color:#7a8496;font-size:.75rem}
     <h2 class=ttl id=entryTitle>Loading…</h2>
     <div class=meta id=entryMeta></div>
     <div class=page-tabs>
-      <button type=button class="page-tab on" id=showSquarePage>1 · Square card</button>
-      <button type=button class=page-tab id=showAnswerPage>2 · Answer page</button>
+      <button type=button class="page-tab on" id=showSquarePage>PAGE 1 · SQUARE CARD</button>
+      <button type=button class=page-tab id=showAnswerPage>PAGE 2 · ANSWER PAGE</button>
     </div>
     <div class=preview-page id=squarePreviewPage>
       <div class=site-square id=siteSquare><img id=siteSquareImg alt=""><div class=site-square-title id=siteSquareTitle></div></div>
     </div>
     <div class=preview-page id=answerPreviewPage hidden>
       <article class=answer-page>
+        <div style="font-weight:950;color:#B91C3F;margin-bottom:8px">PAGE 2 · ANSWER PAGE</div>
         <h2 id=answerPreviewTitle></h2>
         <div class=answer-direct>Direct Answer and article copy remain unchanged. This page previews the exact image order only.</div>
         <div id=answerPreviewImages></div>
@@ -134,7 +135,7 @@ function bodySlotNs(){
   return (cur&&cur.slots||[]).filter(s=>s&&s.kind==='body').map(s=>s.n);
 }
 function targetLabel(){
-  return active==='face'?'FACE + TOP':('IMG '+active);
+  return active==='face'?(cur&&cur.shape==='top10'?'FACE CARD':'FACE + TOP'):('IMG '+active);
 }
 function entryComplete(){
   return !!faceUrl && bodySlotNs().every(n=>!!bodyUrls[n]);
@@ -163,7 +164,7 @@ function renderSlotBar(){
     b.onclick=()=>setActive(key);
     bar.appendChild(b);
   };
-  mk('face','FACE + TOP',!!faceUrl);
+  mk('face',cur&&cur.shape==='top10'?'FACE CARD':'FACE + TOP',!!faceUrl);
   bodySlotNs().forEach(n=>mk(n,'Img '+n,!!bodyUrls[n]));
 }
 function renderPicks(){
@@ -184,7 +185,7 @@ function renderPicks(){
     };
     list.appendChild(d);
   };
-  addRow('face','FACE+TOP',faceUrl);
+  addRow('face',cur&&cur.shape==='top10'?'FACE':'FACE+TOP',faceUrl);
   bodySlotNs().forEach(n=>addRow(n,'IMG '+n,bodyUrls[n]));
   const previewImg=$('#siteSquareImg'), previewTitle=$('#siteSquareTitle');
   if(previewImg){if(faceUrl)previewImg.src=proxy(faceUrl);else previewImg.removeAttribute('src');}
@@ -216,7 +217,7 @@ function renderAnswerPreview(){
     cap.className='answer-cap';cap.textContent=label+(url?' ✓':' · empty');figure.appendChild(cap);
     images.appendChild(figure);
   };
-  add('face','Top image · same photo as square card',faceUrl,true);
+  if(cur&&cur.shape!=='top10') add('face','Top image · same photo as square card',faceUrl,true);
   (cur&&cur.slots||[]).filter(slot=>slot&&slot.kind==='body').forEach(slot=>{
     add(slot.n,'Answer image '+slot.n+(slot.label?' · '+slot.label:''),bodyUrls[slot.n],false);
   });
@@ -247,7 +248,9 @@ async function loadNext(){
     cur=j;
     $('#entryTitle').textContent=j.title||j.id;
     $('#shapeBadge').textContent=shapeLabel(j.shape);
-    $('#entryMeta').textContent=j.id+(j.demo?' · demo':'')+' · face-card = top image (one file)';
+    $('#entryMeta').textContent=j.id+(j.demo?' · demo':'')+(j.shape==='top10'
+      ?' · Top 10: separate face card + 10 ranked answer images'
+      :' · Q&A essay: face/top image + 2 answer images');
     $('#kw').value=suggestKeyword(j.title);
     if(j.pending&&j.pending.faceImageUrl){
       faceUrl=j.pending.faceImageUrl;
