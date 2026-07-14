@@ -1440,10 +1440,14 @@ function resumeInterruptedImageJobs() {
 
 // ── Format Fixer — content + structure rubric pass only (no images) ──
 const FORMAT_FIXER_F = WD + '/_format_fixer_run.json';
+const FORMAT_FIXER_POD_SIZE = 100;
+const FORMAT_FIXER_CYCLE_DELAY_MS = Math.max(5000, parseInt(process.env.FORMAT_FIXER_CYCLE_DELAY_MS || '60000', 10));
 let formatFixerJob = {
   running: false, stop: false, pillar: 'tl', pillarName: 'Pulse Tools / CRO',
   done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
-  skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, squareQueued: 0, auto: false, hung: false, currentId: '', currentTitle: '', currentStep: '',
+  skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, squareQueued: 0,
+  auto: false, podSize: FORMAT_FIXER_POD_SIZE, podNumber: 0, cycles: 0, nextRunAt: null,
+  hung: false, currentId: '', currentTitle: '', currentStep: '',
   phase: 'idle', startedAt: null, finishedAt: null, error: '', log: [],
 };
 try {
@@ -1593,6 +1597,8 @@ async function runFormatFixerLoop() {
   formatFixerJob.running = true;
   formatFixerJob.stop = false;
   formatFixerJob.phase = 'fix';
+  formatFixerJob.nextRunAt = null;
+  formatFixerJob.podSize = FORMAT_FIXER_POD_SIZE;
   formatFixerJob.errors = 0;
   formatFixerJob.consecutiveErrors = 0;
   formatFixerJob.entriesDone = 0;
@@ -1646,31 +1652,54 @@ async function runFormatFixerLoop() {
       }
       i++;
       formatFixerJob.done = i;
+      formatFixerJob.podNumber = Math.ceil(i / FORMAT_FIXER_POD_SIZE);
       // Coverage bar = Q&As fully passing the fixer across the entire answer database. Keep the
       // scan cursor separate so 100% scanned can never be mistaken for 100% successfully fixed.
       formatFixerJob.pct = formatFixerJob.total ? Math.min(100, Math.round((formatFixerJob.entriesPass / formatFixerJob.total) * 1000) / 10) : 0;
       saveFormatFixerState();
-      if (i % 30 === 0 && i < entries.length && !formatFixerJob.stop) {
-        formatFixerLog('▶ batch ' + (i / 30) + ' complete · auto-loading next 30 (' + (entries.length - i) + ' remaining)');
-        formatFixerJob.currentStep = 'next 30 · continuing automatically';
+      if (i % FORMAT_FIXER_POD_SIZE === 0 && i < entries.length && !formatFixerJob.stop) {
+        formatFixerLog('▶ pod ' + (i / FORMAT_FIXER_POD_SIZE) + ' complete · auto-loading next ' + FORMAT_FIXER_POD_SIZE + ' (' + (entries.length - i) + ' remaining)');
+        formatFixerJob.currentStep = 'next ' + FORMAT_FIXER_POD_SIZE + ' · continuing automatically';
         saveFormatFixerState(true);
       }
       await new Promise(res => setTimeout(res, 120));
     }
-    formatFixerJob.phase = formatFixerJob.error ? 'error' : (formatFixerJob.stop ? 'stopped' : 'done');
+    formatFixerJob.phase = formatFixerJob.stop ? 'stopped' : 'done';
     formatFixerLog(formatFixerJob.stop
       ? ('⏹ stopped at ' + formatFixerJob.pct + '%')
-      : ('✅ complete — ' + formatFixerJob.entriesFixed + ' fixed · ' + formatFixerJob.entriesPass + ' pass content rubric · no images touched'));
+      : ('✅ cycle complete — ' + formatFixerJob.entriesFixed + ' fixed · ' + formatFixerJob.entriesPass + ' pass content rubric · no images touched'));
   } catch (e) {
     formatFixerJob.error = e.message;
     formatFixerJob.phase = 'error';
     formatFixerLog('❌ ' + e.message);
   }
+  const continueAuto = !!(formatFixerJob.auto && !formatFixerJob.stop);
+  if (continueAuto) {
+    formatFixerJob.cycles = (formatFixerJob.cycles || 0) + 1;
+    formatFixerJob.phase = 'waiting';
+    formatFixerJob.nextRunAt = Date.now() + FORMAT_FIXER_CYCLE_DELAY_MS;
+    formatFixerLog('🔄 cycle ' + formatFixerJob.cycles + ' complete · re-fetching fresh pods of ' + FORMAT_FIXER_POD_SIZE + ' in ' + Math.round(FORMAT_FIXER_CYCLE_DELAY_MS / 1000) + 's');
+  }
   formatFixerJob.running = false;
   formatFixerJob.finishedAt = Date.now();
   formatFixerJob.currentId = '';
-  formatFixerJob.currentStep = '';
+  formatFixerJob.currentStep = continueAuto ? ('waiting for next ' + FORMAT_FIXER_POD_SIZE) : '';
   saveFormatFixerState(true);
+  if (continueAuto) {
+    setTimeout(() => {
+      if (!formatFixerJob.auto || formatFixerJob.stop || formatFixerJob.running) return;
+      formatFixerJob.done = 0;
+      formatFixerJob.podNumber = 0;
+      formatFixerJob.error = '';
+      formatFixerJob._entries = null;
+      runFormatFixerLoop().catch(e => {
+        formatFixerJob.error = e.message;
+        formatFixerJob.running = false;
+        formatFixerJob.phase = 'error';
+        saveFormatFixerState(true);
+      });
+    }, FORMAT_FIXER_CYCLE_DELAY_MS);
+  }
 }
 function startFormatFixer(pillar) {
   if (formatFixerJob.running) return { ok: false, msg: 'already running' };
@@ -1680,16 +1709,25 @@ function startFormatFixer(pillar) {
   formatFixerJob = {
     running: false, stop: false, pillar: pillar || 'all', pillarName: pillar ? pName(pillar) : 'All pillars',
     done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
-    skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: Math.max(1, parseInt(process.env.FORMAT_FIXER_MAX_ERRORS || '3', 10)), squareQueued: 0, auto: true, hung: false, currentId: '', currentTitle: '', currentStep: '',
+    skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: Math.max(1, parseInt(process.env.FORMAT_FIXER_MAX_ERRORS || '3', 10)), squareQueued: 0,
+    auto: true, podSize: FORMAT_FIXER_POD_SIZE, podNumber: 0, cycles: 0, nextRunAt: null,
+    hung: false, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [], _entries: null,
   };
-  formatFixerLog('▶ Format Fixer — ' + formatFixerJob.pillarName + ' · content + structure only · images untouched');
+  formatFixerLog('▶ Format Fixer — ' + formatFixerJob.pillarName + ' · automatic pods of ' + FORMAT_FIXER_POD_SIZE + ' · runs until Stop · images untouched');
   runFormatFixerLoop().catch(e => { formatFixerJob.error = e.message; formatFixerJob.running = false; formatFixerJob.phase = 'error'; saveFormatFixerState(); });
   return { ok: true, started: true, pillar: pillar || 'all', pillarName: formatFixerJob.pillarName, auto: true, maxConsecutiveErrors: formatFixerJob.maxConsecutiveErrors };
 }
 function stopFormatFixer() {
-  if (!formatFixerJob.running) return { ok: false, msg: 'not running' };
+  if (!formatFixerJob.running && !formatFixerJob.auto) return { ok: false, msg: 'not running' };
   formatFixerJob.stop = true;
+  formatFixerJob.auto = false;
+  formatFixerJob.nextRunAt = null;
+  if (!formatFixerJob.running) {
+    formatFixerJob.phase = 'stopped';
+    formatFixerJob.currentStep = 'stopped by owner';
+    saveFormatFixerState(true);
+  }
   return { ok: true, stopping: true };
 }
 function setFormatFixerAuto(enabled) {
@@ -1721,6 +1759,8 @@ function setFormatFixerAuto(enabled) {
 }
 function forceStopFormatFixer() {
   formatFixerJob.stop = true;
+  formatFixerJob.auto = false;
+  formatFixerJob.nextRunAt = null;
   formatFixerJob.running = false;
   formatFixerJob.phase = 'stopped';
   formatFixerJob.finishedAt = Date.now();
@@ -7637,7 +7677,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   <div id=formatfixPanel${isFormatFix ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#0ea5e9;background:linear-gradient(165deg,#041018 0%,#0e1620 100%)">
     <div class=dupe-panel-title style="color:#38bdf8">📝 Format Fixer</div>
-    <div class=dupe-panel-hint><b>Content rubric:</b> ≥2000 words · hero image present · Direct Answer first after hero (2–3 sentences) · <b>no CRO in blob</b> (live page injects Kory card after Direct Answer) · 6 FAQs · 2 clean mermaid · 5 Sources · Related · clean links. DeepSeek fills gaps. <b>Never changes image URLs.</b></div>
+    <div class=dupe-panel-hint><b>Automatic pods of 100:</b> fixes a pod, fetches the next 100, and starts over with a fresh database scan after the full cycle. It runs until you press Stop. <b>Never changes image URLs.</b></div>
     <div class=dupe-panel-row>
       <select id=formatfixPillarFilter title="Which pillar to audit and fix"><option value=tl>Loading pillars…</option></select>
     </div>
@@ -7653,6 +7693,11 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <div class=dupe-stats id=formatfixStats></div>
       <div class=dupe-log id=formatfixLog></div>
     </div>
+  </div>
+  <div class=square-builder-dock>
+    <div class=dupe-panel-title style="color:#e879f9">🟦 Square Builder · attached to Fixer</div>
+    <div class=dupe-panel-hint style="margin-bottom:10px">Same localhost server and image proxy. Pick the face/top image and answer-page images without leaving the Fixer dashboard.</div>
+    <iframe src="/square-builder" title="Square Builder" loading="eager" style="display:block;width:100%;height:900px;border:1px solid #4c1d95;border-radius:14px;background:#0f1115"></iframe>
   </div>
   </div>
   <div id=indexPanel class=index-panel>
@@ -8251,7 +8296,7 @@ function renderFormatFixer(j){
   if(!j) return;
   const prog=$('#formatfixProg'), bar=$('#formatfixProgBar'), lbl=$('#formatfixProgLbl'), stats=$('#formatfixStats'), log=$('#formatfixLog');
   const start=$('#formatfixStart'), stop=$('#formatfixStop'), forceStop=$('#formatfixForceStop'), autoToggle=$('#formatfixAutoToggle'), pf=$('#formatfixPillarFilter');
-  const active=!!(j.running||j.phase==='starting'||j.phase==='fix');
+  const active=!!(j.running||j.phase==='starting'||j.phase==='fix'||(j.auto&&j.phase==='waiting'));
   if(pf) pf.disabled=active;
   if(autoToggle){
     autoToggle.textContent=j.auto?'▶ Auto-run ON':'⏸ Auto-run OFF';
@@ -8277,6 +8322,8 @@ function renderFormatFixer(j){
     lbl.innerHTML='<b>'+pctShow+'%</b> — '+(j.done||0).toLocaleString()+' / '+(j.total||0).toLocaleString()+' Q&amp;As'+cur+(j.currentStep?(' · '+esc(j.currentStep)):'');
   }
   if(stats) stats.innerHTML=
+    '<div>📦 current pod: <span>'+(j.podNumber||0)+' · '+(j.podSize||100)+' each</span></div>'+
+    '<div>🔄 full cycles: <span>'+(j.cycles||0)+'</span></div>'+
     '<div>📝 entries fixed: <span>'+(j.entriesFixed||0)+'</span></div>'+
     '<div>✅ content rubric pass: <span>'+(j.entriesPass||0)+'</span></div>'+
     '<div>⏭ already OK: <span>'+(j.entriesSkipped||0)+'</span></div>'+
@@ -8295,7 +8342,7 @@ function startFormatFixerPoll(){
       window._formatfix=j;
       if(window.activeTab==='formatfix') renderFormatFixer(j);
       updateTabBadges();
-      if(!j.running&&j.phase!=='starting'&&j.phase!=='fix'){ clearInterval(formatfixPoll); formatfixPoll=null; }
+      if(!j.running&&!j.auto&&j.phase!=='starting'&&j.phase!=='fix'){ clearInterval(formatfixPoll); formatfixPoll=null; }
     }catch(e){}finally{ formatfixPollBusy=false; }
   },1500);
 }
@@ -8305,7 +8352,7 @@ async function refreshFormatFixerStatus(){
     const j=await(await fetch('/format-fixer-status?key='+KEY)).json();
     window._formatfix=j;
     renderFormatFixer(j);
-    if(j.running) startFormatFixerPoll();
+    if(j.running||j.auto) startFormatFixerPoll();
     updateTabBadges();
   }catch(e){}
 }
@@ -10965,6 +11012,7 @@ const server = http.createServer(async (req, res) => {
   const u = new URL(req.url, 'http://localhost');
   res.setHeader('Access-Control-Allow-Origin', '*');
   if (u.pathname === '/' && SQUARE_ONLY) { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildSquareDeskPage()); }
+  if (u.pathname === '/' && PORT === 8904) { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('formatfix')); }
   if (u.pathname === '/' || u.pathname === '/scrubber') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('scrub')); }
   if (u.pathname === '/generate') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('generate')); }
   if (u.pathname === '/image-duplicator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('duplicator')); }
@@ -11369,13 +11417,34 @@ const server = http.createServer(async (req, res) => {
     try {
       const parsed = new URL(u.searchParams.get('u') || '');
       if (parsed.protocol !== 'https:' || !/(^|\.)pexels\.com$/i.test(parsed.hostname)) throw new Error('bad image URL');
-      const upstream = await fetch(parsed.href, { signal: AbortSignal.timeout(45000) });
+      const upstream = await fetch(parsed.href, {
+        redirect: 'follow',
+        headers: {
+          Accept: 'image/avif,image/webp,image/apng,image/jpeg,image/*,*/*;q=0.8',
+          Referer: 'https://www.pexels.com/',
+          'User-Agent': 'Mozilla/5.0 PULSE-Square-Builder/1.0',
+        },
+        signal: AbortSignal.timeout(45000),
+      });
       if (!upstream.ok || !String(upstream.headers.get('content-type') || '').startsWith('image/')) throw new Error('image fetch failed');
       const buffer = Buffer.from(await upstream.arrayBuffer());
-      res.writeHead(200, { 'Content-Type': upstream.headers.get('content-type'), 'Cache-Control': 'private, max-age=300' });
+      if (!buffer.length) throw new Error('empty image');
+      res.writeHead(200, {
+        'Content-Type': upstream.headers.get('content-type'),
+        'Content-Length': buffer.length,
+        'Cache-Control': 'private, max-age=900',
+        'X-Content-Type-Options': 'nosniff',
+      });
       return res.end(buffer);
     } catch (e) {
-      res.writeHead(404); return res.end();
+      const svg = Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320"><rect width="480" height="320" fill="#171a21"/><text x="240" y="150" text-anchor="middle" fill="#f87171" font-family="Arial,sans-serif" font-size="18" font-weight="700">Image could not load</text><text x="240" y="180" text-anchor="middle" fill="#9aa3b2" font-family="Arial,sans-serif" font-size="13">Search again or choose another photo</text></svg>');
+      res.writeHead(200, {
+        'Content-Type': 'image/svg+xml',
+        'Content-Length': svg.length,
+        'Cache-Control': 'no-store',
+        'X-Square-Image-Error': '1',
+      });
+      return res.end(svg);
     }
   }
   if (u.pathname === '/square-stage' && req.method === 'POST') {

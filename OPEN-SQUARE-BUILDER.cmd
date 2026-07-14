@@ -1,2 +1,2 @@
 @echo off
-call "%~dp0_start_square_builder_4444.bat"
+call "%~dp0_start_fixer_square_builder_8904.bat"
