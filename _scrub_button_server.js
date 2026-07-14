@@ -1222,7 +1222,7 @@ const FORMAT_FIXER_F = WD + '/_format_fixer_run.json';
 let formatFixerJob = {
   running: false, stop: false, pillar: 'tl', pillarName: 'Pulse Tools / CRO',
   done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
-  skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
+  skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, auto: false, currentId: '', currentTitle: '', currentStep: '',
   phase: 'idle', startedAt: null, finishedAt: null, error: '', log: [],
 };
 try {
@@ -1247,6 +1247,16 @@ function saveFormatFixerState(force) {
 function formatFixerLog(msg) {
   formatFixerJob.log.unshift(new Date().toLocaleTimeString() + ' ' + msg);
   formatFixerJob.log = formatFixerJob.log.slice(0, 48);
+}
+function recordFormatFixerError(id, error) {
+  formatFixerJob.errors++;
+  formatFixerJob.consecutiveErrors = (formatFixerJob.consecutiveErrors || 0) + 1;
+  formatFixerLog('⚠️ ' + id + ' · ' + String(error || 'error').slice(0, 80) + ' · error ' + formatFixerJob.consecutiveErrors + '/' + formatFixerJob.maxConsecutiveErrors);
+  if (formatFixerJob.consecutiveErrors >= formatFixerJob.maxConsecutiveErrors) {
+    formatFixerJob.stop = true;
+    formatFixerJob.error = 'auto-stop after ' + formatFixerJob.consecutiveErrors + ' consecutive errors';
+    formatFixerLog('🛑 ' + formatFixerJob.error);
+  }
 }
 async function processFormatFixerEntry(id) {
   const title = titleOf[id] || id;
@@ -1299,12 +1309,13 @@ async function runFormatFixerLoop() {
   formatFixerJob.stop = false;
   formatFixerJob.phase = 'fix';
   formatFixerJob.errors = 0;
+  formatFixerJob.consecutiveErrors = 0;
   formatFixerJob.entriesDone = 0;
   formatFixerJob.entriesFixed = 0;
   formatFixerJob.entriesPass = 0;
   formatFixerJob.entriesSkipped = 0;
   try {
-    const entries = formatFixerJob._entries || await getImageDuplicatorEntries(formatFixerJob.pillar);
+    const entries = formatFixerJob._entries || await getImageDuplicatorEntries(formatFixerJob.pillar === 'all' ? null : formatFixerJob.pillar);
     formatFixerJob._entries = entries;
     formatFixerJob.total = entries.length;
     if (!formatFixerJob.total) {
@@ -1323,11 +1334,12 @@ async function runFormatFixerLoop() {
       formatFixerJob.currentTitle = String(titleOf[id] || row.question || id).slice(0, 90);
       try {
         const r = await processFormatFixerEntry(id);
-        if (r.noBlob) formatFixerJob.skippedNoBlob++;
+        if (r.noBlob) { formatFixerJob.skippedNoBlob++; formatFixerJob.consecutiveErrors = 0; }
         else if (r.stopped) break;
-        else if (r.skipped) { formatFixerJob.entriesSkipped++; formatFixerJob.entriesPass++; }
-        else if (r.error) { formatFixerJob.errors++; formatFixerLog('⚠️ ' + id + ' · ' + r.error); }
+        else if (r.skipped) { formatFixerJob.entriesSkipped++; formatFixerJob.entriesPass++; formatFixerJob.consecutiveErrors = 0; }
+        else if (r.error) recordFormatFixerError(id, r.error);
         else {
+          formatFixerJob.consecutiveErrors = 0;
           formatFixerJob.entriesDone++;
           if (r.changed) formatFixerJob.entriesFixed++;
           if (r.pass) formatFixerJob.entriesPass++;
@@ -1335,8 +1347,7 @@ async function runFormatFixerLoop() {
           formatFixerLog((r.changed ? '📝' : '✓') + ' ' + id + ' · ' + note + (r.steps && r.steps.length ? (' · ' + r.steps.join('+')) : ''));
         }
       } catch (err) {
-        formatFixerJob.errors++;
-        formatFixerLog('⚠️ ' + id + ' · ' + String(err.message || err).slice(0, 80));
+        recordFormatFixerError(id, err && (err.message || err));
       }
       i++;
       formatFixerJob.done = i;
@@ -1344,7 +1355,7 @@ async function runFormatFixerLoop() {
       saveFormatFixerState();
       await new Promise(res => setTimeout(res, 120));
     }
-    formatFixerJob.phase = formatFixerJob.stop ? 'stopped' : 'done';
+    formatFixerJob.phase = formatFixerJob.error ? 'error' : (formatFixerJob.stop ? 'stopped' : 'done');
     formatFixerLog(formatFixerJob.stop
       ? ('⏹ stopped at ' + formatFixerJob.pct + '%')
       : ('✅ complete — ' + formatFixerJob.entriesFixed + ' fixed · ' + formatFixerJob.entriesPass + ' pass content rubric · no images touched'));
@@ -1364,16 +1375,15 @@ function startFormatFixer(pillar) {
   const busy = imageJobConflict('formatfix');
   if (busy) return { ok: false, msg: busy };
   pillar = pillar && pillar !== 'all' ? String(pillar) : null;
-  if (!pillar) return { ok: false, msg: 'pick a pillar' };
   formatFixerJob = {
-    running: false, stop: false, pillar, pillarName: pName(pillar),
+    running: false, stop: false, pillar: pillar || 'all', pillarName: pillar ? pName(pillar) : 'All pillars',
     done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
-    skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
+    skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: Math.max(1, parseInt(process.env.FORMAT_FIXER_MAX_ERRORS || '3', 10)), auto: true, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [], _entries: null,
   };
   formatFixerLog('▶ Format Fixer — ' + formatFixerJob.pillarName + ' · content + structure only · images untouched');
   runFormatFixerLoop().catch(e => { formatFixerJob.error = e.message; formatFixerJob.running = false; formatFixerJob.phase = 'error'; saveFormatFixerState(); });
-  return { ok: true, started: true, pillar, pillarName: formatFixerJob.pillarName };
+  return { ok: true, started: true, pillar: pillar || 'all', pillarName: formatFixerJob.pillarName, auto: true, maxConsecutiveErrors: formatFixerJob.maxConsecutiveErrors };
 }
 function stopFormatFixer() {
   if (!formatFixerJob.running) return { ok: false, msg: 'not running' };
@@ -11215,4 +11225,15 @@ server.listen(PORT, '0.0.0.0', async () => {
   console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
   if (lanIp) console.log(`[scrub-button] LAN (phone on WiFi): http://${lanIp}:${PORT}/`);
   resumeInterruptedImageJobs();
+  if (formatFixerJob.auto && formatFixerJob.phase !== 'done') {
+    formatFixerJob.stop = false;
+    formatFixerJob.error = '';
+    formatFixerLog('▶ auto-resume · stops after ' + formatFixerJob.maxConsecutiveErrors + ' consecutive errors');
+    runFormatFixerLoop().catch(e => {
+      formatFixerJob.error = e.message;
+      formatFixerJob.running = false;
+      formatFixerJob.phase = 'error';
+      saveFormatFixerState(true);
+    });
+  }
 });
