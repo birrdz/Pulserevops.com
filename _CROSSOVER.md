@@ -1,5 +1,18 @@
 ﻿# ▶ HANDOFF — for the next Claude Code session (saved 2026-06-26)
 
+## ▶▶ CROSSOVER — 2026-07-14 FORMAT FIXER — HOW TO RUN (NOT THE UNICORN TRAP) — READ FIRST
+
+- **Wrong feel:** `http://localhost:8899/` often lands on **SEO dashboard** or only the **🦄 splash**. That splash *is* the scrub door — but port 8899 is contested.
+- **Correct Format Fixer UI:**
+  1. Double-click `_start_format_fixer_portal.bat` **or** PowerShell: `$env:SCRUB_BTN_PORT='8902'; node _scrub_button_server.js`
+  2. Open **http://127.0.0.1:8902/format-fixer** (use `127.0.0.1`, not `localhost`)
+  3. Tap 🦄 → enter **4444** → pick pillar → ▶ Fix
+- **CLI (no clicking):** `node _run_format_fixer_cli.js --base=http://127.0.0.1:8902 --pillar=tl --limit=3`
+- **CLI direct blobs:** `node _run_format_fixer_cli.js --direct --pillar=tl --limit=3` (needs `.env.local`)
+- Intact pre-gate backups still in `_BACKUP_*_20260714.*` / `_BACKUP_FORMAT_FIXER_RESTORE.md`.
+
+---
+
 ## ▶▶ CROSSOVER — 2026-07-14 FORMAT FIXER INTACT BACKUP — READ FIRST
 
 - **Intact pre-gate backups saved** (roll back if Square Builder order is a bad idea):
