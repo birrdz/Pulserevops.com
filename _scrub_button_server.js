@@ -2651,6 +2651,7 @@ const { pushSeoCounts } = require('./_seo_monitor_sync_lib');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 
 const PORT = parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
+const SQUARE_ONLY = String(process.env.SQUARE_ONLY || '') === '1';
 const PASS = '4444';
 const DAILY_MAX = parseInt(process.env.SCRUB_BTN_DAILY || '100000000', 10);   // daily cap removed (owner 2026-07-01) — effectively unlimited
 const MIN_SCORE = 12, WORD_FLOOR = 2000;
@@ -7969,7 +7970,6 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <div class=dupe-log id=formatfixLog></div>
     </div>
   </div>
-  <p class=sub style="margin:10px 0 0;text-align:center"><a href="/square-builder" style="color:#e879f9;font-weight:800">Open Square Builder on its separate page →</a></p>
   </div>
   <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
@@ -11244,6 +11244,7 @@ async function watchNew() {
 const server = http.createServer(async (req, res) => {
   const u = new URL(req.url, 'http://localhost');
   res.setHeader('Access-Control-Allow-Origin', '*');
+  if (u.pathname === '/' && SQUARE_ONLY) { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildSquareDeskPage()); }
   if (u.pathname === '/' || u.pathname === '/scrubber') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('scrub')); }
   if (u.pathname === '/generate') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('generate')); }
   if (u.pathname === '/image-duplicator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('duplicator')); }
@@ -12067,11 +12068,13 @@ server.listen(PORT, '0.0.0.0', async () => {
     lanIp = Object.values(os.networkInterfaces()).flat().find(i => i && i.family === 'IPv4' && !i.internal && /^192\.168\.|^10\./.test(i.address))?.address || '';
     if (lanIp) try { fs.writeFileSync(WD + '/_scrub_lan_ip.txt', lanIp + ':' + PORT); } catch (e) {}
   } catch (e) {}
-  console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
+  console.log(SQUARE_ONLY
+    ? `[square-builder] own site up on http://localhost:${PORT}/`
+    : `[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
   if (lanIp) console.log(`[scrub-button] LAN (phone on WiFi): http://${lanIp}:${PORT}/`);
   resumeInterruptedImageJobs();
   // Format Fixer AUTORUN (owner) — starts on boot unless FORMAT_FIXER_AUTORUN=0
-  setTimeout(() => {
+  if (!SQUARE_ONLY) setTimeout(() => {
     try {
       const r = maybeAutorunFormatFixer('boot');
       console.log('[scrub-button] Format Fixer AUTORUN →', r && (r.started ? ('started ' + r.pillar) : r.msg));

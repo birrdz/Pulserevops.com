@@ -1,6 +1,6 @@
 - **Format Fixer AUTORUN:** ON (pillar from `_current_pillar.txt`, currently `aq`). Boot-starts unless `FORMAT_FIXER_AUTORUN=0`. Full UI: `/format-fixer-full`. Needs real `BLOBS_PAT` (cloud `.env.local` is currently `missing` → 401).
 - **TITLE LAW (sole):** [`CLAUDE.md`](CLAUDE.md) → **TITLE / FACE-CARD LAW** (2026-07-14). Ignore older “CSS overlay, never baked” notes in `_HANDOFF_NEXT_CLAUDE.md` / prior crossovers.
-- **LOCAL PAGES (owner 2026-07-14):** Format Fixer only: `http://127.0.0.1:3229/format-fixer` · Square Builder only: `http://127.0.0.1:3229/square-builder`. Do not embed Square under Fixer.
+- **SEPARATE LOCAL SITES (owner 2026-07-14):** Format Fixer only: `http://127.0.0.1:3229/format-fixer` · Square Builder own site/port: `http://127.0.0.1:9377/` (`_start_square_builder_9377.bat`). Do not render or link Square inside Fixer.
 - **Flow (owner 2026-07-14):** **NO preview box.** Search → click photos (face first, then body). **Done** queues Cursor. Watcher **deletes** old `/assets/qa/<id>.jpg` and writes a brand-new graded face+title.
 
 - **LIVE Square Builder (tunneled):** https://brown-feet-show.loca.lt/face-card-top-image-generator  · also local http://localhost:3229/face-card-top-image-generator
