@@ -21,7 +21,7 @@
 <meta name="twitter:image" content="https://pulserevops.com/pulse-og.png">
 <!-- PWA -->
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#ECE3D2">
+<meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Pulse RevOps">
 <meta name="application-name" content="Pulse RevOps">
@@ -68,7 +68,7 @@
 <link rel="dns-prefetch" href="https://wsrv.nl">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#EAEAEC;--ink:#1d1711;--muted:#7a6b54;--amber:#C8821E;--card:#FFFFFF;--line:rgba(200,130,30,.34);
+:root{--bg:#000000;--ink:#1d1711;--muted:#7a6b54;--amber:#C8821E;--card:#FFFFFF;--line:rgba(200,130,30,.34);
 --good:#3C8C3F;--mid:#C8821E;
 /* aliases so pulse-search.js styling maps onto the palette */
 --orange:#C8821E;--ink2:#7a6b54;--ink3:#9a8a72;--soft:#F3ECDD;--og:rgba(200,130,30,.10);--font:Inter,system-ui,sans-serif;}
@@ -608,7 +608,7 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
   (function(){
     var T=window.PULSE_TAX||[];
     var mm=document.getElementById('magMosaic'); if(!mm)return;
-    document.body.style.background='#0a0806';
+    document.body.style.background='#000000';
     document.body.classList.add('pulse-mosaic-home');
     ['cnetLead','magNav','tiles','panel'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});
     var np=document.querySelector('.nameplate');if(np)np.style.display='none';
