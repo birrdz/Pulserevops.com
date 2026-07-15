@@ -105,6 +105,7 @@ function libraryEntryKind(e) {
   if (/^cr\d+$/i.test(id)) return 'crabbing';
   if (/^fs\d+$/i.test(id)) return 'fishing';
   if (/^sw\d+$/i.test(id)) return 'software';
+  if (/^ed\d+$/i.test(id)) return 'editorial';
   if (/^q\d+$/i.test(id)) return 'knowledge';
   if (/^vq_/i.test(id)) return 'knowledge'; // visitor-asked questions
   return null;
@@ -157,6 +158,7 @@ function libraryEntryPublicUrl(e) {
   if (kind === 'crabbing') return `${SITE}/crabbing/${id}`;
   if (kind === 'fishing') return `${SITE}/fishing/${id}`;
   if (kind === 'software') return `${SITE}/software/${id}`;
+  if (kind === 'editorial') return `${SITE}/knowledge/${id}`;
   return `${SITE}/knowledge/${id}`;
 }
 
