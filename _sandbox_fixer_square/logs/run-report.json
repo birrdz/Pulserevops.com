@@ -1,0 +1,151 @@
+{
+  "startedAt": "2026-07-14T00:41:59.998Z",
+  "law": "Q&As MUST pass Format Fixer, then Square Builder",
+  "ids": [
+    "sb001",
+    "sb002",
+    "sb003"
+  ],
+  "steps": [
+    {
+      "step": "gate-proof-pre-fixer",
+      "id": "sb001",
+      "result": {
+        "skippedFixerGate": true,
+        "msg": "must pass Format Fixer first"
+      }
+    }
+  ],
+  "results": {
+    "sb001": {
+      "fixer": {
+        "beforePass": false,
+        "beforeFailed": [
+          "words2000",
+          "directAnswer",
+          "directAnswerFull",
+          "croPlacementReady",
+          "faq6",
+          "mermaid2",
+          "sources5",
+          "relatedPulse",
+          "score12"
+        ],
+        "ok": true,
+        "pass": true,
+        "changed": true,
+        "steps": [
+          "da-after-hero",
+          "deepseek-r1",
+          "da-after-hero"
+        ],
+        "beforePct": 31,
+        "afterPct": 100,
+        "failed": [],
+        "afterPass": true,
+        "afterFailed": [],
+        "format_fixed_at": "2026-07-14T00:42:00.016Z"
+      },
+      "square": {
+        "ok": true,
+        "facePath": "/assets/qa/sb001.jpg",
+        "bytes": 69035
+      },
+      "finished": {
+        "fixerOk": true,
+        "squareOk": true,
+        "heroOk": true,
+        "done": true,
+        "hero": "/assets/qa/sb001.jpg"
+      }
+    },
+    "sb002": {
+      "fixer": {
+        "beforePass": false,
+        "beforeFailed": [
+          "words2000",
+          "directAnswer",
+          "directAnswerFull",
+          "croPlacementReady",
+          "faq6",
+          "mermaid2",
+          "sources5",
+          "relatedPulse",
+          "score12"
+        ],
+        "ok": true,
+        "pass": true,
+        "changed": true,
+        "steps": [
+          "da-after-hero",
+          "deepseek-r1",
+          "da-after-hero"
+        ],
+        "beforePct": 31,
+        "afterPct": 100,
+        "failed": [],
+        "afterPass": true,
+        "afterFailed": [],
+        "format_fixed_at": "2026-07-14T00:42:00.023Z"
+      },
+      "square": {
+        "ok": true,
+        "facePath": "/assets/qa/sb002.jpg",
+        "bytes": 69035
+      },
+      "finished": {
+        "fixerOk": true,
+        "squareOk": true,
+        "heroOk": true,
+        "done": true,
+        "hero": "/assets/qa/sb002.jpg"
+      }
+    },
+    "sb003": {
+      "fixer": {
+        "beforePass": false,
+        "beforeFailed": [
+          "words2000",
+          "directAnswer",
+          "directAnswerFull",
+          "croPlacementReady",
+          "faq6",
+          "mermaid2",
+          "sources5",
+          "relatedPulse",
+          "score12"
+        ],
+        "ok": true,
+        "pass": true,
+        "changed": true,
+        "steps": [
+          "da-after-hero",
+          "deepseek-r1",
+          "da-after-hero"
+        ],
+        "beforePct": 31,
+        "afterPct": 100,
+        "failed": [],
+        "afterPass": true,
+        "afterFailed": [],
+        "format_fixed_at": "2026-07-14T00:42:00.028Z"
+      },
+      "square": {
+        "ok": true,
+        "facePath": "/assets/qa/sb003.jpg",
+        "bytes": 69035
+      },
+      "finished": {
+        "fixerOk": true,
+        "squareOk": true,
+        "heroOk": true,
+        "done": true,
+        "hero": "/assets/qa/sb003.jpg"
+      }
+    }
+  },
+  "gateProofOk": true,
+  "allFinished": true,
+  "verdict": "WOULD WORK — Format Fixer → Square Builder order + finish path OK in sandbox",
+  "finishedAt": "2026-07-14T00:42:00.039Z"
+}
