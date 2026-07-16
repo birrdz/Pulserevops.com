@@ -1,0 +1,72 @@
+{
+  "campaign": "Chief Women's Network — opinion essays",
+  "pillar": "q",
+  "template": "qa",
+  "goldId": "q11133",
+  "imageProvider": "pexels",
+  "wordRange": [2000, 3000],
+  "reviewGate": "3/3",
+  "publishTarget": ["recent", "knowledge"],
+  "questions": [
+    {
+      "category": "Membership value",
+      "question": "Is Chief membership worth the price for senior leaders?",
+      "angle": "Give a conditional verdict based on career stage, employer sponsorship, peer quality, and actual use—not prestige alone.",
+      "sources": ["https://chief.com/", "https://fortune.com/2023/03/16/chief-womens-network-startup-price-valuation-waitlist-members/"]
+    },
+    {
+      "category": "Employer sponsorship",
+      "question": "Should companies pay for Chief without proof of outcomes?",
+      "angle": "Argue that reimbursement should depend on a written leadership-development goal and a post-membership knowledge-sharing plan.",
+      "sources": ["https://chief.com/", "https://www.catalyst.org/research/women-in-management/"]
+    },
+    {
+      "category": "Admissions",
+      "question": "Is Chief's selectivity a quality filter or a status signal?",
+      "angle": "Evaluate whether selectivity protects peer quality or mainly creates scarcity signaling; distinguish screening from exclusion.",
+      "sources": ["https://chief.com/", "https://hbr.org/topic/subject/diversity-and-inclusion"]
+    },
+    {
+      "category": "Peer groups",
+      "question": "Are Chief Core groups the real reason to join?",
+      "angle": "Take the position that recurring, accountable peer groups usually create more durable value than broad networking events.",
+      "sources": ["https://chief.com/", "https://hbr.org/topic/subject/leadership"]
+    },
+    {
+      "category": "Access",
+      "question": "Does Chief lose value outside major cities?",
+      "angle": "Assess the tradeoff between virtual peer access and the reduced value of physical clubhouses, local introductions, and events.",
+      "sources": ["https://chief.com/", "https://www.pewresearch.org/internet/fact-sheet/internet-broadband/"]
+    },
+    {
+      "category": "Alternatives",
+      "question": "Is Chief or Ellevate better for C-suite women?",
+      "angle": "Compare seniority, structure, accessibility, programming, and likely use cases without declaring one universal winner.",
+      "sources": ["https://chief.com/", "https://www.ellevatenetwork.com/"]
+    },
+    {
+      "category": "Board readiness",
+      "question": "Can Chief actually help a woman win a board seat?",
+      "angle": "Separate peer support from the concrete board-search assets that matter: sponsorship, governance experience, visibility, and introductions.",
+      "sources": ["https://chief.com/", "https://www.catalyst.org/research/women-on-corporate-boards/", "https://www.athenaalliance.com/"]
+    },
+    {
+      "category": "Network design",
+      "question": "Does a women-only network risk becoming an echo chamber?",
+      "angle": "Present the strongest case on both sides, then argue for combining a trusted women-only peer group with broader mixed networks.",
+      "sources": ["https://chief.com/", "https://leanin.org/women-in-the-workplace"]
+    },
+    {
+      "category": "Transparency",
+      "question": "Should Chief disclose promotion and board-seat outcomes?",
+      "angle": "Argue for transparent aggregate reporting on retention, engagement, promotions, board appointments, and member satisfaction while protecting privacy.",
+      "sources": ["https://chief.com/", "https://www.ftc.gov/business-guidance/advertising-marketing"]
+    },
+    {
+      "category": "Renewal",
+      "question": "Is renewing Chief smart—or just executive sunk cost?",
+      "angle": "Build a practical annual decision test based on participation, trusted relationships, measurable career utility, opportunity cost, and alternatives.",
+      "sources": ["https://chief.com/", "https://hbr.org/topic/subject/career-planning"]
+    }
+  ]
+}
