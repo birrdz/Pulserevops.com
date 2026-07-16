@@ -216,6 +216,11 @@
   status = 200
 
 [[redirects]]
+  from = "/pexels-cro-review"
+  to = "/pexels-cro-review.html"
+  status = 200
+
+[[redirects]]
   from = "/hire"
   to = "/hire.html"
   status = 200
