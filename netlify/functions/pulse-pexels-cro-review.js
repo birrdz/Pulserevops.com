@@ -103,6 +103,11 @@ function publicPhoto(photo) {
   };
 }
 
+function isCroRelevant(photo) {
+  const text = String((photo && photo.alt) || '').toLowerCase();
+  return /\b(?:business|executive|meeting|office|team|leadership|leader|board|strategy|sales|professional|presentation|conference|corporate|manager|work|colleague|entrepreneur)\b/.test(text);
+}
+
 function batchRecord(state, batchNumber) {
   const key = String(batchNumber);
   if (!state.batches[key]) {
@@ -140,6 +145,7 @@ function addUniquePhotos(state, batch, photos) {
   let added = 0;
   for (const raw of photos || []) {
     if (batch.candidates.length >= BATCH_SIZE) break;
+    if (!isCroRelevant(raw)) continue;
     const photo = publicPhoto(raw);
     const id = photo.id;
     const urlKey = sourceKey(photo.src);
@@ -211,8 +217,10 @@ exports.handler = async (event) => {
     delete state.rejected[id];
     if (body.approved === true) {
       state.approved[id] = Object.assign({}, photo, { approvedAt: Date.now(), batch: batchNumber });
+      await store.setJSON('approved/' + id + '.json', state.approved[id]);
     } else {
       state.rejected[id] = { id, rejectedAt: Date.now(), batch: batchNumber };
+      await store.delete('approved/' + id + '.json').catch(() => {});
     }
     state.updatedAt = Date.now();
     await store.setJSON(STATE_KEY, state);
@@ -260,6 +268,7 @@ exports._test = {
   normalizeState,
   sourceKey,
   publicPhoto,
+  isCroRelevant,
   batchRecord,
   nextSearch,
   addUniquePhotos,
