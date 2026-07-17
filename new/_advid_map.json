@@ -130,5 +130,59 @@
   "advId": "AD-24879",
   "title": "What sales management metrics actually predict quota attainment in 2027?"
  },
- "id:q19115": "AD-24879"
+ "id:q19115": "AD-24879",
+ "AD-10117": {
+  "id": "q19117",
+  "advId": "AD-10117",
+  "title": "What tactics reduce SaaS logo churn without discounting in 2027?"
+ },
+ "id:q19117": "AD-10117",
+ "AD-85355": {
+  "id": "q19119",
+  "advId": "AD-85355",
+  "title": "How do you scale a startup sales team from 5 to 50 reps without tanking win rates in 2027?"
+ },
+ "id:q19119": "AD-85355",
+ "AD-62824": {
+  "id": "q19121",
+  "advId": "AD-62824",
+  "title": "How do you design sales comp plans that motivate the right behaviors in 2027?"
+ },
+ "id:q19121": "AD-62824",
+ "AD-70919": {
+  "id": "q19124",
+  "advId": "AD-70919",
+  "title": ""
+ },
+ "id:q19124": "AD-70919",
+ "AD-56157": {
+  "id": "q19126",
+  "advId": "AD-56157",
+  "title": "What marketing ops tech stack do high-performing B2B teams run in 2027?"
+ },
+ "id:q19126": "AD-56157",
+ "AD-69491": {
+  "id": "q19128",
+  "advId": "AD-69491",
+  "title": "How do you choose the right CRM for your sales team in 2027?"
+ },
+ "id:q19128": "AD-69491",
+ "AD-60871": {
+  "id": "q19151",
+  "advId": "AD-60871",
+  "title": "What are the best outdoor concerts to see this summer?"
+ },
+ "id:q19151": "AD-60871",
+ "AD-98490": {
+  "id": "q19152",
+  "advId": "AD-98490",
+  "title": "What are the best outdoor concerts to see this summer?"
+ },
+ "id:q19152": "AD-98490",
+ "AD-46109": {
+  "id": "q19153",
+  "advId": "AD-46109",
+  "title": "How do you structure a RevOps team for a Series B SaaS company?"
+ },
+ "id:q19153": "AD-46109"
 }
