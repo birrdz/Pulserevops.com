@@ -59,6 +59,17 @@
     footer a{color:var(--accent);text-decoration:none}
   </style>
   <link rel="stylesheet" href="/css/pulse-jet-sides.css">
+  <script>
+  /* First-touch attribution: record how the visitor arrived (external referrer + UTM + landing URL)
+     on the first page load of this tab, so it's still available when they submit the form. */
+  (function(){try{
+    var K='pulse_attr'; if(sessionStorage.getItem(K)) return;
+    var p=new URLSearchParams(location.search);
+    var keys=['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid'];
+    var utm=keys.map(function(k){var v=p.get(k);return v?(k+'='+encodeURIComponent(v)):'';}).filter(Boolean).join('&');
+    sessionStorage.setItem(K, JSON.stringify({ref:document.referrer||'',landing:location.href,utm:utm}));
+  }catch(_){}})();
+  </script>
 </head>
 <body>
 <nav>
@@ -140,7 +151,13 @@
     var btn=f.querySelector('button'); btn.disabled=true; btn.textContent='Sending…';
     var message=(industry?('Industry: '+industry+'\n'):'')+(size?('Team size: '+size+'\n'):'')+(phone?('Phone: '+phone+'\n'):'')+(issues?('\nWhat is getting in the way of revenue:\n'+issues):'');
     if(!message.trim()) message='(no extra details provided)';
-    var payload=JSON.stringify({name:fname||'(not given)',email:email,phone:phone,company:company,message:message,page:'/revenue-checkup'});
+    // Attribution — how the visitor found us. First-touch referrer + UTM are stashed on first
+    // page load (see head script) and survive internal navigation; fall back to this page's referrer.
+    var attr=(function(){ try{ return JSON.parse(sessionStorage.getItem('pulse_attr')||'{}'); }catch(_){ return {}; } })();
+    var ref=attr.ref||document.referrer||'';
+    var landing=attr.landing||location.href;
+    var utm=attr.utm||'';
+    var payload=JSON.stringify({name:fname||'(not given)',email:email,phone:phone,company:company,message:message,page:'/revenue-checkup',ref:ref,landing:landing,utm:utm});
     var who = fname ? (', '+fname) : '';
     var at  = email ? (' at '+email) : (phone ? (' at '+phone) : ' shortly');
     fetch('/.netlify/functions/pulse-cro-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:payload})

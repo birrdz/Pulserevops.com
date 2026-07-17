@@ -199,9 +199,14 @@
       var imgHtml = FI.mosaicImgTag ? FI.mosaicImgTag(src, title, !!eager) : '';
       var lazyCls = eager ? '' : ' mm-lazy mm-img-pending';
       var dataLazy = eager ? ' data-mosaic-loaded="1"' : ' data-mosaic-lazy="1"';
+      // Recency trim (owner 2026-07-17): border color by how recently the entry was fixed/created.
+      // hot pink <=30 days · neon purple <=180 days · neon green older. ts bumps on every re-fix.
+      var trimCls = '';
+      var _t = Number(c.ts) || 0;
+      if (_t > 1e12) { var _d = (Date.now() - _t) / 86400000; trimCls = _d <= 30 ? ' mm-trim-pink' : (_d <= 180 ? ' mm-trim-purple' : ' mm-trim-green'); }
       // Small corner category + readable title (not the old massive overlay).
       var cat = NM[pof(c.id)] || pof(c.id).toUpperCase() || '';
-      return '<a class="mm' + lazyCls + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" aria-label="' + esc(title) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
+      return '<a class="mm' + lazyCls + trimCls + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" aria-label="' + esc(title) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
         + imgHtml
         + '<div class="mm-scrim"></div>'
         + (cat ? '<span class="mm-cat">' + esc(cat) + '</span>' : '')

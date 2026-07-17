@@ -1,0 +1,33 @@
+{
+ "id": "tl9741",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "scottsdale arizona skyline",
+  "business handshake deal",
+  "executive resume review",
+  "desert office building",
+  "team strategy meeting",
+  "signing employment contract"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/31675650.jpg",
+ "faceLibId": "31675650",
+ "title": "How do I hire a fractional CRO in Scottsdale?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9741",
+ "live": true,
+ "liveAt": "2026-07-16T19:02:36.806Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T19:02:36.806Z",
+ "recent": true
+}

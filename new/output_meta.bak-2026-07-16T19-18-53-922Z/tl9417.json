@@ -1,0 +1,27 @@
+{
+ "id": "tl9417",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business handshake meeting",
+  "california coastline highway",
+  "executive reviewing charts"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/9549376.jpg",
+ "faceLibId": "9549376",
+ "title": "What should I look for in a fractional CRO in California?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9417",
+ "live": true,
+ "liveAt": "2026-07-16T17:37:30.472Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:37:30.472Z",
+ "recent": true
+}

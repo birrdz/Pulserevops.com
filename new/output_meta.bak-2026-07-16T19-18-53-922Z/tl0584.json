@@ -1,0 +1,27 @@
+{
+ "id": "tl0584",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "funnel attribution dashboard",
+  "startup funding pitch deck"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/9034244.jpg",
+ "faceLibId": "9034244",
+ "title": "Should I Hire a Fractional CRO If I Need to Fix Attribution Before Raising?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0584",
+ "live": true,
+ "liveAt": "2026-07-16T08:05:25.309Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:05:25.309Z",
+ "recent": true
+}

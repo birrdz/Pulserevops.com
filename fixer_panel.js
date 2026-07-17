@@ -14,6 +14,12 @@ try { for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)
 const { getStore } = require('@netlify/blobs');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 let dsChat = null; try { ({ dsChat } = require('./_ds_lib')); } catch (e) {}
+let claudeChat = null; try { ({ claudeChat } = require('./_claude_chat')); } catch (e) {}   // for topic suggestions (DeepSeek in timeout)
+const { exec } = require('child_process');
+// The fixer's 13/13 stage POSTs to the gate on this port. If it dies or a wrong process squats
+// the port, EVERY fix "fails the gate" (false positives) — so the panel can restart it (below).
+const GATE_PORT = parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
+const GATE_HEALTH_URL = 'http://127.0.0.1:' + GATE_PORT + '/gate-publish';
 
 const PORT = parseInt(process.env.FIXER_PORT || '8905', 10);
 const SIM = WD + '/sim', GEN = WD + '/gen';
@@ -37,7 +43,9 @@ const typeOf = q => /\btop\s*\d|\btop-\d|\bbest\b|\branked\b|\blist\b/i.test(Str
 let fixerTypeFilter = null;   // null = ALL · 'GENERAL' · 'TOP_LIST' — filters the worklist at run time only
 
 // ── panel-owned run state (NOT the child status files — the child scripts own those) ──
-const fixer = { on: false, stopReq: false, sweep: 0, pillar: null, idx: 0, total: 0, scanned: 0, fixed: 0, failed: 0, note: 'idle', child: null };
+const fixer = { on: false, stopReq: false, sweep: 0, pillar: null, idx: 0, total: 0, scanned: 0, fixed: 0, failed: 0, note: 'idle', child: null, workers: 5 };
+// Worker count = how many URLs the fixer melts in parallel (SIM_BATCH). 5 = Normal, 10 = Double.
+// Takes effect on the NEXT pod (the currently-running sim child keeps its batch).
 const gen = { on: false, note: 'idle', child: null };
 
 // ── scope enumeration from the live registry (cached 60s) ──
@@ -85,6 +93,68 @@ function accrueFixed() {
   } catch (e) {}
 }
 setInterval(accrueFixed, 1500);
+
+// ── SEO INDEXING: Delta (recent new+fixed) + Mass (whole site) → IndexNow (Bing/Yandex/etc.) ──
+let libraryEntryPublicUrl = null;
+try { ({ libraryEntryPublicUrl } = require('./netlify/functions/lib/library-entry-url')); } catch (e) { opLog('index: url mapper load fail ' + e.message); }
+const INDEX_STATE_F = SIM + '/index_button_state.json';
+const INDEXNOW_ENDPOINT = 'https://pulserevops.com/.netlify/functions/indexnow-ping?key=pulsemachine';
+const MASS_COOLDOWN_MS = 48 * 3600 * 1000;   // whole-site sweep — every 48h (relax to weekly once stable)
+const DELTA_COOLDOWN_MS = 12 * 3600 * 1000;  // recent new+fixed — twice a day
+const DELTA_WINDOW_MS = 25 * 3600 * 1000;    // "recent" = ts/last_modified within ~a day (or pulse-recent tag)
+const index = { busy: false, note: 'idle', lastMass: 0, lastDelta: 0 };
+(function () { const s = readJSON(INDEX_STATE_F, {}); index.lastMass = s.massAt || 0; index.lastDelta = s.deltaAt || 0; })();
+function saveIndexState() { writeJSON(INDEX_STATE_F, { massAt: index.lastMass, deltaAt: index.lastDelta }); }
+
+async function collectEntryUrls(recentOnly) {
+  const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+  const cut = Date.now() - DELTA_WINDOW_MS;
+  const out = [];
+  for (const e of ((idx && idx.entries) || [])) {
+    if (!e || !e.id || /^vq_/i.test(String(e.id))) continue;
+    if (recentOnly) {
+      const recentTag = Array.isArray(e.tags) && e.tags.includes('pulse-recent');
+      const ts = e.ts || e.last_modified_ms || 0;
+      if (!recentTag && ts < cut) continue;
+    }
+    let url = null; try { url = libraryEntryPublicUrl ? libraryEntryPublicUrl(e) : null; } catch (_) {}
+    if (url) out.push(url);
+  }
+  return [...new Set(out)];
+}
+
+async function submitIndexNow(urls) {
+  let submitted = 0, batches = 0, ok = true;
+  for (let i = 0; i < urls.length; i += 10000) {   // IndexNow: 10k per call
+    const chunk = urls.slice(i, i + 10000); batches++;
+    try {
+      const r = await fetch(INDEXNOW_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ urls: chunk }) });
+      if (r.ok) submitted += chunk.length; else ok = false;
+    } catch (e) { ok = false; }
+  }
+  return { submitted, batches, ok };
+}
+
+async function runIndex(kind) {
+  if (index.busy) return { ok: false, err: 'busy' };
+  const now = Date.now();
+  const cd = kind === 'mass' ? MASS_COOLDOWN_MS : DELTA_COOLDOWN_MS;
+  const last = kind === 'mass' ? index.lastMass : index.lastDelta;
+  if (now - last < cd) return { ok: false, err: 'cooldown', readyIn: (last + cd) - now };
+  index.busy = true; index.note = kind + ' — enumerating URLs…';
+  try {
+    const urls = await collectEntryUrls(kind === 'delta');
+    if (!urls.length) { index.note = kind + ' — nothing to submit'; return { ok: true, submitted: 0, total: 0 }; }
+    index.note = kind + ' — submitting ' + urls.length + ' URLs to IndexNow…';
+    const res = await submitIndexNow(urls);
+    if (kind === 'mass') index.lastMass = now; else index.lastDelta = now;   // cooldown starts on run
+    saveIndexState();
+    index.note = kind + ' ✓ ' + res.submitted + '/' + urls.length + ' submitted · ' + res.batches + ' batch(es) · ' + new Date().toLocaleTimeString();
+    opLog('INDEX ' + kind + ' → ' + res.submitted + '/' + urls.length + ' URLs');
+    return { ok: true, submitted: res.submitted, total: urls.length, batches: res.batches };
+  } catch (e) { index.note = kind + ' error: ' + (e && e.message); return { ok: false, err: String(e.message || e) }; }
+  finally { index.busy = false; }
+}
 async function buildPods() {
   const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
   const es = ((idx && idx.entries) || []).filter(e => e && e.id && !/^vq_/i.test(String(e.id)));
@@ -113,18 +183,9 @@ async function buildPods() {
   const done = loadDone();
   const open = [], meta = [];
   let n = 0;
-  // ⬛ BLACK SQUARES POD(S) AT THE VERY TOP — imageless entries get an image first
-  const blackSorted = blackIds.slice().sort((a, b) => numOf(a) - numOf(b));
-  for (let i = 0; i < blackSorted.length; i += 100) {
-    const chunk = blackSorted.slice(i, i + 100);
-    const key = 'black:' + (i / 100);
-    if (done.has(key)) continue;
-    n++;
-    const label = '⬛ black squares ' + (i + 1) + '-' + (i + chunk.length);
-    open.push({ p: 'pod' + n, name: label, n: chunk.length, ids: chunk });
-    meta.push({ p: 'pod' + n, key, pillar: '(black)', label, n: chunk.length });
-  }
-  for (const pil of pillars) {
+  // Emit one pillar's 100-blocks as pods (tl 1-100, tl 101-200, …).
+  function emitPillar(pil) {
+    if (!byP[pil]) return;
     const ids = byP[pil].slice().sort((a, b) => numOf(a) - numOf(b));
     const blocks = {};
     for (const id of ids) { const k = Math.floor((numOf(id) - 1) / 100); (blocks[k] = blocks[k] || []).push(id); }
@@ -138,6 +199,22 @@ async function buildPods() {
       meta.push({ p, key, pillar: pil, label, n: blocks[k].length });
     }
   }
+  // ⭐ PRIORITY pillars (Pulse Tools / CRO 'tl') at the VERY TOP of the page — easiest to find,
+  // auto-run starts here (owner 2026-07-14: put tl above the black-squares pods).
+  for (const pil of PRIORITY) emitPillar(pil);
+  // ⬛ BLACK SQUARES POD(S) — imageless entries next (get an image first when the lane opens)
+  const blackSorted = blackIds.slice().sort((a, b) => numOf(a) - numOf(b));
+  for (let i = 0; i < blackSorted.length; i += 100) {
+    const chunk = blackSorted.slice(i, i + 100);
+    const key = 'black:' + (i / 100);
+    if (done.has(key)) continue;
+    n++;
+    const label = '⬛ black squares ' + (i + 1) + '-' + (i + chunk.length);
+    open.push({ p: 'pod' + n, name: label, n: chunk.length, ids: chunk });
+    meta.push({ p: 'pod' + n, key, pillar: '(black)', label, n: chunk.length });
+  }
+  // the rest of the pillars (non-priority), smallest first
+  for (const pil of pillars) { if (PRIORITY.indexOf(pil) !== -1) continue; emitPillar(pil); }
   writeJSON(PODS_F, { at: new Date().toISOString(), open, done: [], locked: {} });
   writeJSON(PANEL_PODS_F, Object.assign(readJSON(PANEL_PODS_F, {}), { at: new Date().toISOString(), pods: meta }));
   return { open, meta, typeCount, type: fixerTypeFilter };
@@ -168,6 +245,39 @@ async function getSubsections(pillar, force) {
   return subs.length ? subs : (cur && cur.subs) || [];
 }
 
+// ── POINTED TOPIC SUGGESTIONS (owner 2026-07-15): the Daily Driver offers SPECIFIC (not broad) topics
+//    to click; persisted to gen/topic_suggestions.json so the daemon can randomly pick one on auto.
+//    Claude Code writer (DeepSeek in timeout), DeepSeek fallback. ──
+const SUGGEST_F = GEN + '/topic_suggestions.json';
+function parseTopicLines(t) {
+  const raw = String(t || '').split('\n')
+    .map(l => l.replace(/^\s*\d+[).\].:]?\s*/, '').replace(/^\s*[-*•]\s*/, '').replace(/^["'`]|["'`]$/g, '').trim())
+    .filter(Boolean);
+  // keep only real titles — drop prompt echoes / preamble; must be a question OR a "Top 10 …"
+  const ok = raw.filter(q => {
+    if (/\bpillar:?\b|these (need|should)|one (per|title per) line|ending in 2027 where|good \(pointed|bad \(broad/i.test(q)) return false;
+    const isTop10 = /^top\s*10\b/i.test(q);
+    const isQ = /\?\s*$/.test(q) || /^(how|what|why|is|are|should|when|where|which|can|do|does|will)\b/i.test(q);
+    return isTop10 || isQ;
+  });
+  return ok.slice(0, 8);
+}
+async function getSuggestions(pillar, force) {
+  pillar = String(pillar || '').toLowerCase();
+  if (!pillar || !PNAMES[pillar]) return [];
+  const name = PNAMES[pillar] || pillar;
+  const all = readJSON(SUGGEST_F, {});
+  const cur = all[pillar];
+  if (!force && cur && Array.isArray(cur.topics) && cur.topics.length && (Date.now() - (cur.at || 0) < 1800 * 1000)) return cur.topics;
+  const sys = 'You propose SPECIFIC, POINTED page titles for a RevOps knowledge library. Each title is EITHER a natural Q&A question OR a "Top 10 <specific thing>" (exactly 10, never another number). Output ONLY a plain list, one title per line — no numbering, no commentary, no quotes.';
+  const user = `Pillar: ${name}. Propose 8 POINTED, NARROW titles a real reader would search — each about ONE concrete scenario / tool / number / role / company-stage, NOT broad. GOOD (pointed): "How do you structure OTE for a 6-person SDR team in 2027?", "Top 10 CRM cleanup steps before a Series A in 2027". BAD (broad, never do this): "What is ${name}?", "How do you get started with ${name} in 2027?". One specific topic per line. End in 2027 where a year applies.`;
+  let lines = [];
+  try { if (claudeChat) { const r = await claudeChat([{ role: 'system', content: sys }, { role: 'user', content: user }], { timeoutMs: 120000 }); lines = parseTopicLines(typeof r === 'string' ? r : (r && (r.content || r.text)) || ''); } } catch (e) {}
+  if (!lines.length && dsChat) { try { const r = await dsChat([{ role: 'system', content: sys }, { role: 'user', content: user }], { max_tokens: 700, temperature: 1.0 }); lines = parseTopicLines((r && r.content) || ''); } catch (e) {} }
+  if (lines.length) { all[pillar] = { at: Date.now(), topics: lines }; writeJSON(SUGGEST_F, all); }
+  return lines.length ? lines : (cur && cur.topics) || [];
+}
+
 // ── run a child script; drain pipes; the child owns its own run_status.json ──
 function runStage(script, args, extraEnv) {
   return new Promise((resolve) => {
@@ -192,7 +302,9 @@ async function runFixer(opts) {
   const onlyKey = opts.onlyKey || null;      // run just this one pod (by stable key pillar:block)
   let startKey = opts.startKey || null;       // start the sweep at this pod, then continue
   opLog('FIXER run START' + (onlyKey ? ' only=' + onlyKey : startKey ? ' from=' + startKey : ' (all)'));
-  const fixEnv = { SIM_BATCH: '5', SIM_FIX_STAGE: 'all', IMAGE_APPLY_PAUSED: '1' }; // Claude Code · 5 at a time. IMAGE_APPLY_PAUSED=1 (Fable): CONTENT melt now, image applies PAUSED until render-path deploy + DOM check.
+  // CLAUDE_ONLY=1 (owner 2026-07-15: "CLAUDE-MAX", DeepSeek in timeout) → 5 Claude Code (Max) agents,
+  // DeepSeek rests entirely (no fallback). SIM_BATCH = N URLs melted in parallel = N Claude agents at once.
+  const fixEnv = { SIM_BATCH: String(fixer.workers || 5), SIM_FIX_STAGE: 'all', IMAGE_APPLY_PAUSED: '1', CLAUDE_ONLY: '1' };
   try {
     for (;;) { // rebuild each sweep so newly-completed pods drop off the list
       let { open, meta } = await buildPods();
@@ -219,13 +331,23 @@ async function runFixer(opts) {
         fixer.scanned++;
         if (bad > 0) {
           fixer.note = `fixing ${m.label} — ${bad} flagged (pod ${fixer.idx}/${open.length})`;
-          await runStage(WD + '/sim_transform.js', [pod.p], fixEnv);
+          await runStage(WD + '/sim_transform.js', [pod.p], Object.assign({}, fixEnv, { SIM_BATCH: String(fixer.workers || 5) }));
           const st = readJSON(FIX_STATUS_F, {});
           fixer.fixed += (st.transformed || 0); fixer.failed += (st.failed || 0);
         }
-        // pod done? all 100 ids resolved in the FIXED ledger → drop it so it's never redone
-        const fixedSet = fixedIdSet();
-        if (pod.ids.every(id => fixedSet.has(String(id).toLowerCase()))) { markPodDone(m.key); }
+        // pod done? Re-scan and drop it when nothing FIXABLE is left — every id is either
+        // certified/PASS or permanently 3-strike-skipped. One stubborn entry no longer pins the
+        // whole pod open forever (old rule required ALL 100 in FIXED.md → pods never dropped).
+        if (bad > 0) { await runStage(WD + '/sim_scan.js', [pod.p]); }   // refresh piles after the fix
+        const rep = (readJSON(SIM + '/scan_report.json', {}).entries) || {};
+        const strikes = (readJSON(SIM + '/transform_state.json', {}).strikes) || {};
+        const stuck = pod.ids.filter(id => {
+          const r = rep[String(id)] || rep[String(id).toLowerCase()];
+          const flagged = r && (r.pile === 'SUB13' || r.pile === 'NEAR_DUP' || r.pile === 'STUB');
+          const burned = (strikes[String(id)] || 0) >= 3 || (strikes[String(id).toLowerCase()] || 0) >= 3;
+          return flagged && !burned;   // still flagged AND still has fix attempts left
+        });
+        if (!stuck.length) { markPodDone(m.key); opLog('pod clean → dropped: ' + m.key + ' (' + pod.ids.length + ' ids)'); }
         // immediately advance to the next pod (no pause)
       }
       opLog(`FIXER sweep ${fixer.sweep} complete — ${fixer.fixed} fixed, ${fixer.failed} failed`);
@@ -352,17 +474,17 @@ textarea{min-height:78px;resize:vertical}
 .pod.sel .pn{color:#f5d5dd}
 .live{margin-top:12px;display:none}
 .live.on{display:block}
-.live .lrow{display:flex;align-items:center;gap:8px;font-size:14px;padding:7px 8px;border-radius:8px;border:1px solid #24242a;background:#101013;margin:4px 0;animation:slidein .45s ease}
+.live .lrow{display:flex;align-items:center;gap:10px;font-size:19px;padding:12px 14px;border-radius:9px;border:1px solid #24242a;background:#101013;margin:6px 0;animation:slidein .45s ease}
 .live .lrow.done{animation:flashdone 1s ease}
 @keyframes slidein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes flashdone{0%{background:#101013}30%{background:#123d21;box-shadow:0 0 0 2px #22c55e}100%{background:#101013}}
-.done-badge{margin-left:auto;color:#22c55e;font-weight:800;font-size:15px;opacity:0}
+.done-badge{margin-left:auto;color:#22c55e;font-weight:800;font-size:20px;opacity:0}
 .lrow.done .done-badge{opacity:1;animation:pop .5s ease}
 @keyframes pop{0%{transform:scale(.4)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
-.live .lid{color:#EAC15C;width:72px;flex:0 0 auto;font-weight:700}
-.live .ltitle{color:#8a8680;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.live .lid{color:#EAC15C;width:92px;flex:0 0 auto;font-weight:700;font-size:18px}
+.live .ltitle{color:#b9b4ad;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:17px}
 .chips{display:flex;gap:3px;flex:0 0 auto}
-.chip{display:inline-block;min-width:26px;text-align:center;padding:2px 4px;border-radius:3px;font-size:11px;font-weight:800;letter-spacing:.02em;color:#fff;background:#B91C3F}
+.chip{display:inline-block;min-width:40px;text-align:center;padding:6px 10px;border-radius:5px;font-size:15px;font-weight:800;letter-spacing:.02em;color:#fff;background:#B91C3F}
 .chip.done{background:#22c55e;color:#062b13}
 .chip.active{background:#F6C445;color:#241c00}
 .chip.failed{background:#7f1020}
@@ -400,6 +522,13 @@ textarea{min-height:78px;resize:vertical}
     <button class=go id=btn-runall onclick=post('/api/fixer/start')>▶ Auto-run ALL</button>
     <button class=stop onclick=post('/api/fixer/stop')>■ Stop</button>
     <button class=kill onclick=post('/api/fixer/forcestop')>✕</button>
+    <button class=kill onclick="if(confirm('Reset the fixer? Restores ALL pods to the list and clears the fixed/failed counters. (Does not touch entries.)')){post('/api/fixer/reset');setTimeout(loadPods,400);}">⟳ Reset</button>
+    <button class=kill onclick="if(confirm('Clear the fixer counters (fixed / failed)? Pods stay as-is.'))post('/api/fixer/clear')">⌫ Clear</button>
+  </div>
+  <div class=row style="align-items:center;gap:8px;flex-wrap:wrap">
+    <label style="margin:0">Workers <b id=wk-cur class=k>5</b> <span class=k style="opacity:.6">parallel/pod</span></label>
+    <button class="go wk" id=wk-5 onclick="setWorkers(5)">Normal · 5</button>
+    <button class="go wk" id=wk-10 onclick="setWorkers(10)">⚡ Double · 10</button>
   </div>
   <div class=stat id=fx-stat>—</div>
   <div id=fx-live class=live></div>
@@ -422,9 +551,12 @@ textarea{min-height:78px;resize:vertical}
   <select id=gn-pillar onchange="loadSubs()"><option value=ALL>ALL — rotate every pillar</option></select>
   <label>Subsection <span class=k>(seeds the topic · rotates hourly)</span></label>
   <div id=gn-subs class=subs><span class=k>pick a pillar to see 10 subsections</span></div>
+  <label>Pointed topic ideas <span class=k>(specific, not broad · click one to load it · on auto it randomly picks one)</span></label>
+  <div class=row><button class=go id=btn-suggest onclick="loadSuggest(1)">💡 Suggest pointed topics</button></div>
+  <div id=gn-suggest class=subs><span class=k>pick ONE pillar, then tap Suggest — click a topic to load it into Notes</span></div>
   <label>Notes — extra steer (optional)</label>
   <textarea id=gn-notes placeholder="e.g. focus on RevOps for early-stage SaaS founders — pricing, first sales hire, CRM setup. It'll start here and branch off."></textarea>
-  <div class=steps>Starts on your notes, then slowly branches off · each entry gated 13/13 before publish · images deferred</div>
+  <div class=steps>Starts on your notes (or a clicked topic), then branches off · each entry gated 13/13 before publish · images deferred</div>
   <div class=row>
     <button class=go id=btn-genstart onclick=startGen()>▶ Start driver</button>
     <button class=stop onclick=post('/api/gen/stop')>■ Stop</button>
@@ -436,9 +568,77 @@ textarea{min-height:78px;resize:vertical}
   <div class=stat id=gn-stat>—</div>
 </div>
 
+<div class=card>
+  <h3>🔎 SEO Index <span class=k>(submit URLs to Bing / Yandex / IndexNow)</span></h3>
+  <div class=row style="margin-top:6px">
+    <button class=go id=btn-delta onclick="doIndex('delta')">⚡ Delta Index <b id=cd-delta></b></button>
+    <button class=go id=btn-mass onclick="doIndex('mass')">🌐 Mass Index <b id=cd-mass></b></button>
+  </div>
+  <div class=k style="margin-top:6px">⚡ Delta = new + fixed URLs only · every 12h &nbsp;|&nbsp; 🌐 Mass = whole site · every 48h</div>
+  <div class=stat id=idx-stat>idle</div>
+</div>
+
+<div class=card id=recover>
+  <label>🛠 Recover — tap these if the fixer stops working (gate down, stuck, or after a reboot). No Claude needed.</label>
+  <div id=hbar style="padding:9px 11px;border-radius:8px;font-weight:600;margin:6px 0">checking gate…</div>
+  <div class=row>
+    <button class=go id=btn-gate onclick="recover('/api/gate/restart','Restart Gate')">🔌 Restart Gate</button>
+    <button class=go id=btn-stack onclick="recover('/api/stack/restart','Restart Everything')">🚀 Restart Everything</button>
+  </div>
+  <div class=row style="margin-top:6px">
+    <button id=btn-reset onclick="post('/api/fixer/reset');document.getElementById('recover-stat').textContent='pods restored + counters cleared'">♻️ Reset Pods</button>
+    <button id=btn-fstop onclick="post('/api/fixer/forcestop');document.getElementById('recover-stat').textContent='force-stopped'">⏹ Force Stop</button>
+  </div>
+  <div class=k style="margin-top:6px">🔴 Gate down = every fix "fails" (the false positives). <b>Restart Gate</b> fixes that. <b>Restart Everything</b> = gate + start the fixer in one tap.</div>
+  <div class=stat id=recover-stat></div>
+</div>
+
 <script>
 async function post(u,body){await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});setTimeout(tick,300);}
 function esc(s){return String(s==null?'':s).replace(/</g,'&lt;');}
+// ── SEO Index buttons (Delta / Mass) ──
+async function doIndex(kind){
+  var b=document.getElementById('btn-'+kind); if(b)b.disabled=true;
+  document.getElementById('idx-stat').textContent=kind+' — starting…';
+  try{
+    var r=await(await fetch('/api/index/'+kind,{method:'POST'})).json();
+    if(!r.ok && r.err==='cooldown'){var h=Math.floor(r.readyIn/3600000),m=Math.floor((r.readyIn%3600000)/60000);document.getElementById('idx-stat').textContent=kind+' on cooldown — ready in '+h+'h '+m+'m';}
+  }catch(e){}
+  loadIndexStatus();
+}
+function fmtCd(kind,ms){
+  var b=document.getElementById('btn-'+kind),cd=document.getElementById('cd-'+kind);
+  if(ms>0){var h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000);if(b)b.disabled=true;if(cd)cd.textContent='('+h+'h '+m+'m)';}
+  else{if(b)b.disabled=false;if(cd)cd.textContent='';}
+}
+async function loadIndexStatus(){
+  try{
+    var d=await(await fetch('/api/index/status')).json();
+    if(d.note)document.getElementById('idx-stat').textContent=d.note;
+    fmtCd('mass',d.massReadyIn);fmtCd('delta',d.deltaReadyIn);
+    if(d.busy){document.getElementById('btn-mass').disabled=true;document.getElementById('btn-delta').disabled=true;}
+  }catch(e){}
+}
+setInterval(loadIndexStatus,30000);loadIndexStatus();
+// ── Recover: live gate health + one-tap restart (so you never get stuck without Claude) ──
+async function loadHealth(){
+  try{
+    var h=await(await fetch('/api/health')).json();
+    var el=document.getElementById('hbar'); if(!el)return;
+    if(h.gate){el.textContent='🟢 Gate UP on '+h.gatePort+' — fixer can certify normally';el.style.background='#0b3d17';el.style.color='#7CFFA0';}
+    else{el.textContent='🔴 Gate DOWN on '+h.gatePort+' — fixes will FALSE-FAIL until you tap Restart Gate';el.style.background='#4a0d0d';el.style.color='#ff9a9a';}
+  }catch(e){}
+}
+setInterval(loadHealth,10000);loadHealth();
+async function recover(url,label){
+  var s=document.getElementById('recover-stat');s.textContent=label+' — working… (can take ~20s)';
+  var g=document.getElementById('btn-gate'),k=document.getElementById('btn-stack');if(g)g.disabled=true;if(k)k.disabled=true;
+  try{var r=await(await fetch(url,{method:'POST'})).json();
+    s.textContent=label+(r.ok?' ✓ done — gate is up'+(r.fixerStarted?' + fixer started':''):' ✗ failed: '+(r.err||'see fixer log'));
+  }catch(e){s.textContent=label+' ✗ error — try again';}
+  if(g)g.disabled=false;if(k)k.disabled=false;
+  loadHealth();
+}
 var selSub=null;
 async function loadSubs(){
   selSub=null;
@@ -455,6 +655,21 @@ function selSubChip(el){
   var was=el.classList.contains('sel');
   document.querySelectorAll('#gn-subs .subchip').forEach(function(x){x.classList.remove('sel');});
   if(was){selSub=null;}else{el.classList.add('sel');selSub=el.textContent;}
+}
+async function loadSuggest(force){
+  var pil=document.getElementById('gn-pillar').value;
+  var box=document.getElementById('gn-suggest');
+  if(!pil||pil==='ALL'){box.innerHTML='<span class=k>pick ONE pillar to get pointed topic ideas (ALL rotates)</span>';return;}
+  box.innerHTML='<span class=k>thinking up pointed topics… (~10s)</span>';
+  try{
+    var d=await(await fetch('/api/gen/suggest?force='+(force?1:0)+'&pillar='+encodeURIComponent(pil))).json();
+    box.innerHTML=(d.topics||[]).map(function(t){return '<span class="subchip" onclick="pickSuggest(this)" title="click to load into Notes">'+esc(t)+'</span>';}).join('')||'<span class=k>none — tap Suggest again</span>';
+  }catch(e){box.innerHTML='<span class=k>could not load — try again</span>';}
+}
+function pickSuggest(el){
+  document.getElementById('gn-notes').value=el.textContent;
+  document.querySelectorAll('#gn-suggest .subchip').forEach(function(x){x.classList.remove('sel');});
+  el.classList.add('sel');
 }
 async function startGen(){
   const hours=+document.getElementById('gn-hours').value;
@@ -501,27 +716,40 @@ async function runPod(mode){
   if(!selKey)return;
   await post('/api/fixer/run-pod', mode==='only'?{onlyKey:selKey}:{startKey:selKey});
 }
+async function setWorkers(n){
+  try{ var r=await(await fetch('/api/fixer/workers',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({n:n})})).json(); syncWorkers(r.workers); }catch(e){}
+}
+function syncWorkers(n){
+  n=n||5; var el=document.getElementById('wk-cur'); if(el)el.textContent=n;
+  var a=document.getElementById('wk-5'),b=document.getElementById('wk-10');
+  if(a)a.classList.toggle('sel',n<=5); if(b)b.classList.toggle('sel',n>=10);
+}
 function liveChip(c,k,lab){var v=(c&&c[k])||'pending';var cls=v==='done'?'done':v==='active'?'active':v==='failed'?'failed':v==='skip'?'skip':'';return '<span class="chip '+cls+'" title="'+k+': '+v+'">'+lab+'</span>';}
-var liveRows={};
+var liveRows={}, doneRemoved={};
 async function tickLive(){
   try{
     var p=await(await fetch('/api/progress')).json();
     var ids=Object.keys(p||{});
     var box=document.getElementById('fx-live');
-    if(!ids.length){ box.classList.remove('on'); box.innerHTML=''; liveRows={}; return; }
+    if(!ids.length){ box.classList.remove('on'); box.innerHTML=''; liveRows={}; doneRemoved={}; return; }
     box.classList.add('on');
-    if(!box.querySelector('.livehead')){ box.innerHTML='<label class=livehead>Fixing now — red → green as each passes</label>'; liveRows={}; }
+    if(!box.querySelector('.livehead')){ box.innerHTML='<label class=livehead>Fixing now — red → green, then drops off the moment it passes</label>'; liveRows={}; }
     var present={};
     ids.forEach(function(id){
       present[id]=1;
+      if(doneRemoved[id]) return;                 // already fixed + dropped — never re-add
       var e=p[id]||{}, c=e.checks||{};
       var complete=(c.gate==='done');
       var row=liveRows[id];
       if(!row){ row=document.createElement('div'); row.className='lrow'; box.appendChild(row); liveRows[id]=row; }  // NEW → slides in
-      if(complete && !row.classList.contains('done')) row.classList.add('done');                                    // COMPLETE → green flash + ✓
       row.innerHTML='<span class="lid">'+esc(id)+'</span><span class="ltitle">'+esc(e.title||'')+'</span>'
         +'<span class="chips">'+liveChip(c,'similarity','SIM')+liveChip(c,'quality','Q10')+liveChip(c,'title','T')+liveChip(c,'image','IMG')+liveChip(c,'gate','13')+'</span>'
         +'<span class="done-badge">✓</span>';
+      // owner 2026-07-15: the instant a URL is fixed (all green), drop it off the list ASAP
+      if(complete && !row.classList.contains('done')){
+        row.classList.add('done'); doneRemoved[id]=1;
+        setTimeout(function(){ if(row.parentNode){ row.style.transition='opacity .4s'; row.style.opacity='0'; setTimeout(function(){ if(row.parentNode) row.parentNode.removeChild(row); },400);} delete liveRows[id]; }, 1800);
+      }
     });
     // entry finished & removed from prog → fade it out, then the next slides in
     Object.keys(liveRows).forEach(function(id){ if(!present[id]){ var r=liveRows[id]; r.style.transition='opacity .4s'; r.style.opacity='0'; setTimeout(function(){ if(r.parentNode) r.parentNode.removeChild(r); },400); delete liveRows[id]; } });
@@ -567,6 +795,43 @@ tick();setInterval(tick,2000);
 </script>
 </div></body></html>`;
 
+// ── SELF-SERVICE RECOVERY: bring the gate (and fixer) back WITHOUT Claude. ──
+// When the gate on GATE_PORT dies or a wrong server squats it, every fix "fails the gate"
+// (false positives) and the fixer looks broken. These let the owner recover from the panel.
+let gateProc = null;
+async function gateUp() {
+  try {
+    const r = await fetch(GATE_HEALTH_URL, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: '4444', id: '_health', body: 'x', simMode: true, dryRun: true }),
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!r.ok) return false;                       // 404 = wrong server squatting the port
+    const j = await r.json().catch(() => null);
+    return !!(j && (typeof j.score === 'number' || 'pass' in j));   // real rubric response
+  } catch (e) { return false; }
+}
+function killPort(port) {
+  return new Promise(resolve => {                  // free a squatter: kill whatever LISTENs on the port
+    exec(`for /f "tokens=5" %a in ('netstat -ano ^| findstr :${port} ^| findstr LISTENING') do taskkill /F /PID %a`,
+      { windowsHide: true }, () => resolve());
+  });
+}
+async function restartGate() {
+  opLog('RECOVER: restart gate requested');
+  if (await gateUp()) { opLog('RECOVER: gate already up'); return { ok: true, gate: true, already: true }; }
+  await killPort(GATE_PORT);
+  await new Promise(r => setTimeout(r, 900));
+  const env = Object.assign({}, process.env, { GATE_ONLY: '1', GOLD_SKIP_IMG_GATE: '1', SCRUB_BTN_PORT: String(GATE_PORT) });
+  try {
+    gateProc = spawn(process.execPath, [WD + '/_scrub_button_server.js'], { cwd: WD, env, detached: true, stdio: 'ignore' });
+    gateProc.unref();
+  } catch (e) { opLog('RECOVER: gate spawn fail ' + (e && e.message)); return { ok: false, err: String(e && e.message) }; }
+  for (let i = 0; i < 25; i++) { await new Promise(r => setTimeout(r, 1000)); if (await gateUp()) { opLog('RECOVER: gate UP on ' + GATE_PORT); return { ok: true, gate: true }; } }
+  opLog('RECOVER: gate did not answer in 25s');
+  return { ok: false, err: 'gate did not answer in 25s — check _gate_8899.out.log' };
+}
+
 // ── server ──
 function readBody(req) {
   return new Promise(resolve => {
@@ -583,18 +848,52 @@ http.createServer(async (req, res) => {
     if (req.method === 'GET' && u === '/api/status') return send(200, JSON.stringify(snapshot()));
     if (req.method === 'GET' && u === '/api/scope') return send(200, JSON.stringify(await scopeList()));
     if (req.method === 'GET' && u === '/api/subsections') { const q = new URLSearchParams(req.url.split('?')[1] || ''); const subs = await getSubsections(q.get('pillar'), q.get('force') === '1'); return send(200, JSON.stringify({ pillar: q.get('pillar'), subs })); }
+    if (req.method === 'GET' && u === '/api/gen/suggest') { const q = new URLSearchParams(req.url.split('?')[1] || ''); const topics = await getSuggestions(q.get('pillar'), q.get('force') === '1'); return send(200, JSON.stringify({ pillar: q.get('pillar'), topics })); }
     if (req.method === 'GET' && u === '/api/pods') { const { meta, typeCount, type } = await buildPods(); return send(200, JSON.stringify({ pods: meta.map(m => ({ key: m.key, label: m.label, n: m.n })), open: meta.length, done: [...loadDone()].length, typeCount, type })); }
     if (req.method === 'POST' && u === '/api/fixer/type') { const b = await readBody(req); const t = String(b.type || '').toUpperCase(); fixerTypeFilter = (t === 'GENERAL' || t === 'TOP_LIST') ? t : null; opLog('type filter → ' + (fixerTypeFilter || 'ALL')); return send(200, '{"ok":true}'); }
     if (req.method === 'GET' && u === '/api/progress') { return send(200, JSON.stringify(readJSON(SIM + '/fix_progress.json', {}))); }
     if (req.method === 'GET' && u === '/api/totals') { const sc = await scopeList(); const total = sc.total || 0; const fixed = sc.certified || 0; const run = readJSON(FIX_STATUS_F, {}); const rate = readJSON(SIM + '/fix_rate.json', {}); const now = Date.now(); const perHr = (Array.isArray(rate.times) ? rate.times : []).filter(t => now - t < 3600000).length; return send(200, JSON.stringify({ total, fixed, pct: total ? +(fixed / total * 100).toFixed(2) : 0, runTransformed: run.transformed || 0, runScope: run.scope || null, perHr })); }
     if (req.method === 'POST' && u === '/api/fixer/start') { runFixer().catch(() => {}); return send(200, '{"ok":true}'); }
     if (req.method === 'POST' && u === '/api/fixer/run-pod') { const b = await readBody(req); runFixer({ onlyKey: b.onlyKey, startKey: b.startKey }).catch(() => {}); return send(200, '{"ok":true}'); }
+    if (req.method === 'POST' && u === '/api/fixer/workers') { const b = await readBody(req); let n = parseInt(b.n, 10); if (!(n >= 1 && n <= 20)) n = 5; fixer.workers = n; opLog('workers → ' + n + (fixer.on ? ' (applies next pod)' : '')); return send(200, JSON.stringify({ ok: true, workers: n })); }
     if (req.method === 'POST' && u === '/api/fixer/stop') { stopFixer(false); return send(200, '{"ok":true}'); }
     if (req.method === 'POST' && u === '/api/fixer/forcestop') { stopFixer(true); return send(200, '{"ok":true}'); }
+    if (req.method === 'POST' && u === '/api/fixer/clear') {
+      _campaignFixed = new Set(); writeJSON(CAMPAIGN_FIXED_F, { ids: [], updated: new Date().toISOString() });
+      fixer.fixed = 0; fixer.failed = 0; fixer.scanned = 0; fixer.note = 'cleared';
+      opLog('FIXER clear — counters reset'); return send(200, '{"ok":true}');
+    }
+    if (req.method === 'GET' && u === '/api/index/status') {
+      const now = Date.now();
+      return send(200, JSON.stringify({
+        busy: index.busy, note: index.note,
+        massReadyIn: Math.max(0, (index.lastMass + MASS_COOLDOWN_MS) - now),
+        deltaReadyIn: Math.max(0, (index.lastDelta + DELTA_COOLDOWN_MS) - now),
+        massCooldownH: MASS_COOLDOWN_MS / 3600000, deltaCooldownH: DELTA_COOLDOWN_MS / 3600000,
+      }));
+    }
+    if (req.method === 'POST' && u === '/api/index/mass') { const r = await runIndex('mass'); return send(200, JSON.stringify(r)); }
+    if (req.method === 'POST' && u === '/api/index/delta') { const r = await runIndex('delta'); return send(200, JSON.stringify(r)); }
+    if (req.method === 'POST' && u === '/api/fixer/reset') {
+      stopFixer(true);
+      const pd = readJSON(PANEL_PODS_F, {}); pd.done = []; writeJSON(PANEL_PODS_F, pd);   // all pods reappear
+      try { const pf = readJSON(PODS_F, {}); pf.done = []; writeJSON(PODS_F, pf); } catch (e) {}
+      _campaignFixed = new Set(); writeJSON(CAMPAIGN_FIXED_F, { ids: [], updated: new Date().toISOString() });
+      fixer.fixed = 0; fixer.failed = 0; fixer.scanned = 0; fixer.sweep = 0; fixer.idx = 0; fixer.total = 0; fixer.pillar = null; fixer.note = 'reset';
+      opLog('FIXER reset — pods restored + counters cleared'); return send(200, '{"ok":true}');
+    }
     if (req.method === 'POST' && u === '/api/gen/start') { const body = await readBody(req); startGen(body); return send(200, '{"ok":true}'); }
     if (req.method === 'POST' && u === '/api/gen/stop') { stopGen(); return send(200, '{"ok":true}'); }
     if (req.method === 'POST' && u === '/api/gen/forcestop') { forceGen(); return send(200, '{"ok":true}'); }
     if (req.method === 'POST' && u === '/api/gen/clear') { clearGen(); return send(200, '{"ok":true}'); }
+    if (req.method === 'GET' && u === '/api/health') { const gate = await gateUp(); return send(200, JSON.stringify({ gate, gatePort: GATE_PORT, fixer: fixer.on, gen: gen.on })); }
+    if (req.method === 'POST' && u === '/api/gate/restart') { const r = await restartGate(); return send(200, JSON.stringify(r)); }
+    if (req.method === 'POST' && u === '/api/stack/restart') {
+      const g = await restartGate();
+      let fixerStarted = false;
+      if (g.ok && !fixer.on) { runFixer().catch(() => {}); fixerStarted = true; }   // gate back → auto-kick the fixer
+      return send(200, JSON.stringify({ ok: g.ok, gate: g.gate || false, err: g.err, fixerStarted }));
+    }
     return send(404, '{"error":"not found"}');
   } catch (e) { return send(500, JSON.stringify({ error: (e && e.message) || 'error' })); }
 }).listen(PORT, () => {

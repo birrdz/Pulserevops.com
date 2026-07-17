@@ -1,0 +1,27 @@
+{
+ "id": "tl9093",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "startup team meeting",
+  "revenue growth chart",
+  "business executive handshake"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/9034279.jpg",
+ "faceLibId": "9034279",
+ "title": "Should a seed-stage startup hire a fractional CRO?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9093",
+ "live": true,
+ "liveAt": "2026-07-16T08:40:23.577Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:40:23.577Z",
+ "recent": true
+}

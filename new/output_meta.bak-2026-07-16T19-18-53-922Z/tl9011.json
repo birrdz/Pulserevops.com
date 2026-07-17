@@ -1,0 +1,27 @@
+{
+ "id": "tl9011",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO executive",
+  "B2B SaaS team meeting",
+  "business contract signing"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/36288084.jpg",
+ "faceLibId": "36288084",
+ "title": "How do I hire a fractional CRO for a B2B SaaS business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9011",
+ "live": true,
+ "liveAt": "2026-07-16T12:36:29.889Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:36:29.889Z",
+ "recent": true
+}

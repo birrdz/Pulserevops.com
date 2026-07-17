@@ -280,3 +280,19 @@ html,body{overflow-x:hidden}
     border-right: none;
   }
 }
+
+/* ── +20% face-card / mosaic-square QUESTION title (owner 2026-07-17) ── */
+.mag-mosaic .mm h4, .mm h4 { font-size: clamp(1.38rem, 2.88vw, 1.86rem) !important; }
+.mag-mosaic .mm.big h4, .mm.big h4 { font-size: clamp(1.44rem, 3.12vw, 2.04rem) !important; }
+.mag-mosaic .mm.mm-long h4, .mm.mm-long h4 { font-size: clamp(1.44rem, 3.12vw, 1.98rem) !important; }
+@media (max-width: 600px) {
+  .mag-mosaic .mm h4, .mm h4 { font-size: clamp(1.26rem, 5.04vw, 1.62rem) !important; }
+  .mag-mosaic .mm.big h4, .mm.big h4, .mm.wide h4, .mm.tall h4 { font-size: clamp(1.30rem, 5.28vw, 1.68rem) !important; }
+  .mag-mosaic .mm.mm-long h4, .mm.mm-long h4 { font-size: clamp(1.26rem, 5.04vw, 1.62rem) !important; }
+}
+
+/* ── RECENCY TRIM (owner 2026-07-17): square border by how recently fixed/created ──
+   hot pink <=30 days · neon purple <=180 days · neon green older. Whole border colored + neon glow. */
+.mm.mm-trim-pink { border: 3px solid #ff2d95 !important; box-shadow: 0 0 0 1px rgba(255,45,149,.35), 0 0 22px rgba(255,45,149,.5) !important; }
+.mm.mm-trim-purple { border: 3px solid #b234ff !important; box-shadow: 0 0 0 1px rgba(178,52,255,.35), 0 0 22px rgba(178,52,255,.48) !important; }
+.mm.mm-trim-green { border: 3px solid #3dff2e !important; box-shadow: 0 0 0 1px rgba(61,255,46,.35), 0 0 22px rgba(61,255,46,.42) !important; }

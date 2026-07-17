@@ -1,0 +1,50 @@
+{
+ "id": "newmrmirkry",
+ "format": "top10",
+ "bodyCount": 10,
+ "items": {
+  "0": "Chief",
+  "1": "Ellevate Network",
+  "2": "Women Presidents Organization",
+  "3": "Athena Alliance",
+  "4": "Watermark",
+  "5": "National Association of Female Executives",
+  "6": "Catalyst",
+  "7": "LeanIn.Orgbuilding ",
+  "8": "Women Business Collaborative",
+  "9": "NAFE"
+ },
+ "faceCard": "facecard.jpg",
+ "title": "Top 10 Women's Leadership Networks for 2028",
+ "titleFont": "system-ui",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg",
+  "7": "body-7.jpg",
+  "8": "body-8.jpg",
+  "9": "body-9.jpg",
+  "10": "body-10.jpg"
+ },
+ "qid": "q19024",
+ "live": true,
+ "liveAt": "2026-07-15T21:19:31.241Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-15T21:19:31.241Z",
+ "recent": true,
+ "itemDesc": {
+  "0": "Chief is 2028's overall best network for senior executives, screening members for VP-and-above seniority, placing them into small facilitated monthly Core Groups, and layering on executive coaching and a national clubhouse-and-digital footprint.",
+  "1": "Ellevate Network is the strongest runner-up, a skills-and-community engine serving a broader cross-career-stage audience with more accessible pricing, a global chapter footprint, curriculum, and mentorship matching.",
+  "2": "The Women Presidents Organization applies the confidential peer-advisory roundtable model to women running companies typically exceeding $2 million in revenue, organizing founders and CEOs into professional-facilitator-led chapter groups worldwide.",
+  "3": "Athena Alliance is an invitation-based community sitting firmly in the curated executive-room archetype, joining Chief and WPO as a senior-only space built around confidentiality and peer altitude.",
+  "4": "Watermark is a skills-and-community engine that is particularly strong in the Bay Area, offering broad membership, low entry barriers, and a high volume of development programming.",
+  "5": "The National Association of Female Executives is a historically massive skills-and-community engine, delivering consistent curriculum-driven development and a wide contact graph spanning many career stages rather than curated executive exclusivity.",
+  "6": "Catalyst anchors the movement-and-research archetype, advancing women's leadership systemically through research, advocacy, and corporate partnership rather than matching members with mentors or running standing peer groups.",
+  "7": "LeanIn.Org belongs to the movement-and-research organizations you join to be part of a broader systemic push, drawing data and language from advocacy rather than one-on-one programming.",
+  "8": "The Women Business Collaborative anchors the movement-and-research group alongside Catalyst and LeanIn.Org, focused on advancing women's leadership systemically through research, advocacy, and corporate partnership over member programming.",
+  "9": "NAFE reappears as one of the field's largest skills-and-community engines, prioritizing volume of programming, curriculum, and broad cross-stage reach over the application-gated altitude of the executive rooms."
+ }
+}

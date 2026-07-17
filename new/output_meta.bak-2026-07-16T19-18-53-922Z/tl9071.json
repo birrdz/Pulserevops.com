@@ -1,0 +1,27 @@
+{
+ "id": "tl9071",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "software developer workstation",
+  "business strategy whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/5717724.jpg",
+ "faceLibId": "5717724",
+ "title": "How do I hire a fractional CRO for a developer-tools business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9071",
+ "live": true,
+ "liveAt": "2026-07-16T09:12:48.645Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T09:12:48.645Z",
+ "recent": true
+}

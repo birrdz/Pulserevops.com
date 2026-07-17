@@ -1,0 +1,25 @@
+{
+ "id": "newmrml85jp",
+ "format": "essay",
+ "bodyCount": 3,
+ "faceCard": "facecard.jpg",
+ "title": "How do you choose an all-inclusive resort that is actually worth the money in 2028?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "slotQueries": [
+  "all-inclusive resort pool",
+  "tropical beach buffet",
+  "swim-up bar cocktails"
+ ],
+ "qid": "q19037",
+ "live": true,
+ "liveAt": "2026-07-15T22:24:52.526Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-15T22:24:52.526Z",
+ "recent": true
+}

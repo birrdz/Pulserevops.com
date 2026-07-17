@@ -1,0 +1,22 @@
+{
+ "id": "newmrnegwlb",
+ "format": "essay",
+ "bodyCount": 3,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/4962532/pexels-photo-4962532.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build a sales leadership bench that survives your top managers getting poached in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19076",
+ "live": true,
+ "liveAt": "2026-07-16T11:09:37.612Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T11:09:37.612Z",
+ "recent": true
+}

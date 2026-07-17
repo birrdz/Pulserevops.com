@@ -1,0 +1,33 @@
+{
+ "id": "tl9737",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "business handshake meeting",
+  "Boulder Colorado skyline",
+  "executive interview office",
+  "sales revenue chart",
+  "video call laptop",
+  "signed contract pen"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/28461545.jpg",
+ "faceLibId": "28461545",
+ "title": "How do I hire a fractional CRO in Boulder?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9737",
+ "live": true,
+ "liveAt": "2026-07-16T18:49:57.658Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T18:49:57.658Z",
+ "recent": true
+}

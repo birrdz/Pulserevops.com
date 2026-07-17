@@ -1,0 +1,27 @@
+{
+ "id": "tl9006",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO executive",
+  "sales pipeline whiteboard",
+  "startup leadership meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/28350381.jpg",
+ "faceLibId": "28350381",
+ "title": "What does a fractional CRO actually do?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9006",
+ "live": true,
+ "liveAt": "2026-07-16T12:37:17.924Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:37:17.924Z",
+ "recent": true
+}

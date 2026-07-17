@@ -1,0 +1,27 @@
+{
+ "id": "tl9377",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "office server rack",
+  "workflow diagram whiteboard",
+  "software dashboard screen"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/5778601.jpg",
+ "faceLibId": "5778601",
+ "title": "How to audit your existing tech stack for gaps before implementing a RevOps tool",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9377",
+ "live": true,
+ "liveAt": "2026-07-16T15:21:37.269Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T15:21:37.269Z",
+ "recent": true
+}

@@ -1,0 +1,41 @@
+{
+ "id": "tl9009",
+ "format": "top10",
+ "bodyCount": 10,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/35764302.jpg",
+ "faceLibId": "35764302",
+ "title": "Best fractional CRO for a B2B SaaS company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg",
+  "7": "body-7.jpg",
+  "8": "body-8.jpg",
+  "9": "body-9.jpg",
+  "10": "body-10.jpg"
+ },
+ "items": {
+  "0": "fractional saas company",
+  "1": "fractional saas company",
+  "2": "fractional saas company",
+  "3": "fractional saas company",
+  "4": "fractional saas company",
+  "5": "fractional saas company",
+  "6": "fractional saas company",
+  "7": "fractional saas company",
+  "8": "fractional saas company",
+  "9": "fractional saas company"
+ },
+ "qid": "tl9009",
+ "live": true,
+ "liveAt": "2026-07-16T12:32:02.816Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:32:02.816Z",
+ "recent": true
+}

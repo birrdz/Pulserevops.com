@@ -1,0 +1,24 @@
+{
+ "id": "q19036",
+ "faceCard": "facecard.jpg",
+ "title": "How do you build a family budget that survives real life in 2028?",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "q19036",
+ "live": false,
+ "liveAt": "2026-07-17T00:54:39.327Z",
+ "status": "done",
+ "publishedAt": "2026-07-17T00:54:39.327Z",
+ "recent": true,
+ "requeuedAt": "2026-07-17T01:02:41.081Z",
+ "requeueReason": "white/black/double re-fix",
+ "doneAt": "2026-07-17T01:40:36.961Z",
+ "doneReason": "purge: 13/13 + published-with-images"
+}

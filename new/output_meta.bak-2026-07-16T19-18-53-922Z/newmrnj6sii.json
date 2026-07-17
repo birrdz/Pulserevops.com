@@ -1,0 +1,27 @@
+{
+ "id": "newmrnj6sii",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales pipeline dashboard",
+  "business team meeting",
+  "wall calendar planner"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7580769/pexels-photo-7580769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build an accurate sales forecast when deal cycles keep shifting in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19134",
+ "live": true,
+ "liveAt": "2026-07-16T14:06:25.039Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T14:06:25.039Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "newmrnejciw",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "product demo laptop",
+  "sales team handshake",
+  "growth funnel whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7580769/pexels-photo-7580769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "What's the difference between product-led and sales-led GTM motion in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19075",
+ "live": true,
+ "liveAt": "2026-07-16T11:08:54.843Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T11:08:54.843Z",
+ "recent": true
+}

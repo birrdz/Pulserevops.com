@@ -1,0 +1,25 @@
+{
+ "id": "tl0400",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "revenue growth chart",
+  "90-day calendar planner"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "Should I Hire a Fractional CRO If I Want a 90-Day Revenue Diagnostic Before Committing?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0400",
+ "live": true,
+ "liveAt": "2026-07-16T00:11:37.113Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T00:11:37.113Z",
+ "recent": true
+}

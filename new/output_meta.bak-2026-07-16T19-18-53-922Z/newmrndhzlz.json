@@ -1,0 +1,22 @@
+{
+ "id": "newmrndhzlz",
+ "format": "essay",
+ "bodyCount": 3,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7594348/pexels-photo-7594348.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you make a high-stakes decision without complete data in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19066",
+ "live": true,
+ "liveAt": "2026-07-16T10:46:22.218Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T10:46:22.218Z",
+ "recent": true
+}

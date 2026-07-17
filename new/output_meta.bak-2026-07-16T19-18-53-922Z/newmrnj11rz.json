@@ -1,0 +1,41 @@
+{
+ "id": "newmrnj11rz",
+ "format": "top10",
+ "bodyCount": 10,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/5625041/pexels-photo-5625041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "What's the best GTM motion — product-led vs. sales-led — for early-stage startups in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg",
+  "7": "body-7.jpg",
+  "8": "body-8.jpg",
+  "9": "body-9.jpg",
+  "10": "body-10.jpg"
+ },
+ "items": {
+  "0": "motion product sales early",
+  "1": "motion product sales early",
+  "2": "motion product sales early",
+  "3": "motion product sales early",
+  "4": "motion product sales early",
+  "5": "motion product sales early",
+  "6": "motion product sales early",
+  "7": "motion product sales early",
+  "8": "motion product sales early",
+  "9": "motion product sales early"
+ },
+ "qid": "q19141",
+ "live": true,
+ "liveAt": "2026-07-16T16:58:34.809Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T16:58:34.809Z",
+ "recent": true
+}

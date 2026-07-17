@@ -1,0 +1,27 @@
+{
+ "id": "newmrnhh8p6",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business handshake meeting",
+  "signed contract closeup",
+  "corporate boardroom table"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/4963350/pexels-photo-4963350.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build leverage in enterprise deal negotiations in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19082",
+ "live": true,
+ "liveAt": "2026-07-16T12:30:03.166Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:30:03.166Z",
+ "recent": true
+}

@@ -1,0 +1,20 @@
+{
+ "id": "newmrmkt0ls",
+ "format": "essay",
+ "bodyCount": 3,
+ "faceCard": "facecard.jpg",
+ "title": "How do you dial in espresso on a brand-new machine in 2028?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19026",
+ "live": true,
+ "liveAt": "2026-07-15T21:34:35.902Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-15T21:34:35.902Z",
+ "recent": true
+}

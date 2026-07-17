@@ -1,0 +1,26 @@
+{
+ "id": "tl0372",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "empty office desk",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "Should I Hire a Fractional CRO If I Have No RevOps Function Yet?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg"
+ },
+ "qid": "tl0372",
+ "live": true,
+ "liveAt": "2026-07-16T01:16:25.749Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T01:16:25.749Z",
+ "recent": true
+}

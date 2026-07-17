@@ -1,0 +1,27 @@
+{
+ "id": "tl9385",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "[object Object]",
+  "[object Object]",
+  "[object Object]"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/38375326.jpg",
+ "faceLibId": "38375326",
+ "title": "What metrics should a fractional CRO track in a RevOps tool like Clari or Gong",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9385",
+ "live": true,
+ "liveAt": "2026-07-16T15:37:31.035Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T15:37:31.035Z",
+ "recent": true
+}

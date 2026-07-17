@@ -1,28 +1,17 @@
 /* Pulse — jet-black left/right canvas (owner 2026-07-13)
    Viewport gutters = pure #000. Center content columns keep cream/paper. */
 html,body{
-  background:#000 !important;
-  background-color:#000 !important;
+  background:#0D0D0F !important;
+  background-color:#0D0D0F !important;
   background-image:none !important;
   background-attachment:fixed !important;
 }
 html{min-height:100%;}
 body{min-height:100%;}
 
-/* Center column keeps editorial cream so L/R letterbox reads black */
-.wrap,
-.page-wrap,
-.library-wrap,
-.main-wrap,
-main.wrap,
-article.entry,
-article.pulse-entry,
-.entry-shell,
-.knowledge-shell,
-.pillar-shell,
-.content-shell{
-  background-color:#ECE3D2;
-}
+/* 2026-07-14: unified dark system — the old cream/tan center-column rules were REMOVED.
+   No page paints a tan middle anymore. Homepage = all near-black; answer pages use their own
+   charcoal content-well theme (in pulse-machine-entry.js). Nothing here should set a light bg. */
 
 /* Full-bleed chrome stays dark — don't paint cream behind them */
 header,

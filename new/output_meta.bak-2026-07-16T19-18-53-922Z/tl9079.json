@@ -1,0 +1,27 @@
+{
+ "id": "tl9079",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business handshake meeting",
+  "mobile app interface",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/32441079.jpg",
+ "faceLibId": "32441079",
+ "title": "How do I hire a fractional CRO for a consumer app business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9079",
+ "live": true,
+ "liveAt": "2026-07-16T11:01:34.895Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T11:01:34.895Z",
+ "recent": true
+}

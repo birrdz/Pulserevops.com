@@ -1,0 +1,27 @@
+{
+ "id": "newmrnet5g7",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "paid advertising dashboard",
+  "content marketing workspace",
+  "corporate conference stage"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/36104/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you structure a B2B demand gen budget across paid, content, and events in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19149",
+ "live": true,
+ "liveAt": "2026-07-16T17:07:48.846Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:07:48.846Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "tl0570",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "[object Object]",
+  "[object Object]",
+  "[object Object]"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/29517644.jpg",
+ "faceLibId": "29517644",
+ "title": "Should I Hire a Fractional CRO If I Need to Build a Partner Channel?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0570",
+ "live": true,
+ "liveAt": "2026-07-16T07:45:16.834Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T07:45:16.834Z",
+ "recent": true
+}

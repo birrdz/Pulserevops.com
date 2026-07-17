@@ -770,7 +770,7 @@ Every Top 10 blob and its rendered page must follow this sequence **in order**. 
 12. **2–3 in-context internal links** — Editorial links to related pulserevops.com pillar/knowledge pages woven in body prose — **not a "related posts" widget**. `/knowledge/{id}` entry routes OK when in-context. Tail `## Related on PULSE` is separate sibling nav. Cross-ref **`CURSOR_GOLDEN_TEMPLATES.md` DEFAULTS: Internal link targets**. §7 gate **9** · checklist **9**.
 13. **`<p class="verdict">`** — ~50 words, #1 pick restated + when the runner-up wins. Inside `## Bottom Line`; fresh wording — not a paste of the Direct Answer opening. §7 gate **18** · gold audit tail.
 14. **Tail sections (blob order)** — [Optional mid-body H2s 0+] → `## How to Choose` (one mermaid) → `## What to Look For` → `## FAQ` (≥5 pairs) → `## Bottom Line` → `## Sources` (≥5 URLs) → `## Related on PULSE`. `TOP10_SECTION_ORDER` · checklist **8**.
-15. **Word count floor** — Word floor: **800**. Ceiling: **none**, but **never pad**; **padding is a gate failure**. **2,000 words is NOT required.** §7 gate **13** · checklist **10**.
+15. **Word count floor** — Word floor: **800**. Ceiling: **none**, but **never pad**; **padding is a gate failure**. **2,500 words is NOT required.** §7 gate **13** · checklist **10**.
 
 ### Live page sequence
 
@@ -1940,7 +1940,7 @@ Audit function: `auditTop10GoldTemplate(body, title, id)` in `_ranking_top10_gol
 | **Image fallbacks** | **§6** — every `<img>` has `onerror` provider swap; **zero broken images** @375px + @1440px (item **16** · gate **G** · Agent B) |
 | **Viewport verified** | Manual §7-G checklist passed at **375px** + **1440px** (item **10**) |
 | **Gold audit clean** | `auditTop10GoldTemplate()` → `compliant: true`, `issues: []` (gate **I** · item **20**) |
-| **Word count** | **≥800 words** substantive prose (item **13** · gate **H-1**) — **2,000 words NOT required** |
+| **Word count** | **≥800 words** substantive prose (item **13** · gate **H-1**) — **2,500 words NOT required** |
 | **No live pollinations** | Blob self-hosted paths only — no `pollinations.ai` URLs (gate **F** · item **18**) |
 | **CRO render-only** | CRO injected at render (`insertCroAd()`) — **not** in blob markdown (gate **K**) |
 | **Schema present** | Live `<head>` has §3 JSON-LD: **`ItemList`** + **`TechArticle`** + **`BreadcrumbList`** — `numberOfItems == N`, positions **1..N** (item **12** · gate **C**) |
@@ -1977,7 +1977,7 @@ Audit function: `auditTop10GoldTemplate(body, title, id)` in `_ranking_top10_gol
 | **Images** | `@@PRODUCT img=` per rank when used — **no** `![…](…)` inside `## N.` ranks |
 | **Shape** | Listicle title with **N** matching rank count; 🏆/💎 badge pills on ranks 1–2 |
 
-> **Not required for §7 Pass condition:** **2,000-word floor** · legacy `WORD_FLOOR=2000` · padding prose to satisfy stale scrubber defaults. **13/13** is enforced via gate **H** / item **20** when that gate is in scope — §7 Pass is **all gates green** (800-word floor + full checklist), not a separate 2,000-word or off-checklist rubric restatement.
+> **Not required for §7 Pass condition:** **2,500-word floor** · legacy `WORD_FLOOR=2000` · padding prose to satisfy stale scrubber defaults. **13/13** is enforced via gate **H** / item **20** when that gate is in scope — §7 Pass is **all gates green** (800-word floor + full checklist), not a separate 2,500-word or off-checklist rubric restatement.
 
 #### Validate before commit — all must pass
 
@@ -2044,7 +2044,7 @@ Run **before commit, certify, or publish.** **All 20 items must pass.**
 - [ ] **2–3 internal links** — editorial in-context pillar links in body prose (§2 item **12** · gate **9**)
 - [ ] **Closing verdict** — ~50-word #1 repeat in `## Bottom Line` (§2 item **13** · gate **18**)
 - [ ] **Tail order** — How We Ranked → ranks → [optional mid-body] → How to Choose → What to Look For → FAQ → Bottom Line → Sources → Related (§2 items **10**, **13**)
-- [ ] **Word floor ≥800** — Word floor: 800; ceiling: none, but never pad; 2,000 words is NOT required (§2 item **15** · gate **13**)
+- [ ] **Word floor ≥800** — Word floor: 800; ceiling: none, but never pad; 2,500 words is NOT required (§2 item **15** · gate **13**)
 
 #### C. Schema (§3)
 
@@ -2194,7 +2194,7 @@ Process: `.cursor/rules/pipeline-template-law.mdc` · rubric detail: `SCRUBBER_S
 
 | Source | Legacy floor | Status |
 |--------|--------------|--------|
-| [`SCRUBBER_SPEC.md`](SCRUBBER_SPEC.md) criterion 1 | ≥2,000 words | **Superseded** for golden-template pages |
+| [`SCRUBBER_SPEC.md`](SCRUBBER_SPEC.md) criterion 1 | ≥2,500 words | **Superseded** for golden-template pages |
 | `netlify/functions/lib/grade-entry.js` | 2,000 (1,800 ER pillar) | **Superseded** for golden-template pages |
 | `_v2_components.js` | `WORD_FLOOR=2000` | **Superseded** for golden-template pages |
 
@@ -2209,9 +2209,9 @@ For **Top 10** (aq1158) and **Q&A** (q11133) golden-template entries, **`GOLDEN_
 | **Floor** | **800 words** minimum substantive prose |
 | **Ceiling** | **None** — no upper limit |
 | **Never pad** | No filler, repetition, or throat-clearing to hit arbitrary counts |
-| **2,000 words is NOT required** | Golden-template pages do **not** require 2,000 words. Explicit override of legacy scrubber default. |
+| **2,500 words is NOT required** | Golden-template pages do **not** require 2,500 words. Explicit override of legacy scrubber default. |
 
-> **Code not yet aligned:** Pipeline scripts may still enforce higher floors until updated. Agents and writers follow **GOLDEN_TEMPLATE law first** — do not pad prose to satisfy stale 2,000-word gates on golden-template entries.
+> **Code not yet aligned:** Pipeline scripts may still enforce higher floors until updated. Agents and writers follow **GOLDEN_TEMPLATE law first** — do not pad prose to satisfy stale 2,500-word gates on golden-template entries.
 
 ### 13/13 content gate
 

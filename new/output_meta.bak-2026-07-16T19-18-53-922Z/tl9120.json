@@ -1,0 +1,27 @@
+{
+ "id": "tl9120",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business networking event",
+  "fractional executive handshake",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7691720.jpg",
+ "faceLibId": "7691720",
+ "title": "Who should I call to talk about hiring a fractional Chief Revenue Officer?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9120",
+ "live": true,
+ "liveAt": "2026-07-16T16:54:02.079Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T16:54:02.079Z",
+ "recent": true
+}

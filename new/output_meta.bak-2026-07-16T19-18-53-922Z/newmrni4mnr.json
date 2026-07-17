@@ -1,0 +1,27 @@
+{
+ "id": "newmrni4mnr",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales analyst reviewing charts",
+  "revenue forecast spreadsheet",
+  "business team planning meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7947714/pexels-photo-7947714.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build a sales forecast you can actually trust in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19100",
+ "live": true,
+ "liveAt": "2026-07-16T12:47:42.125Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:47:42.125Z",
+ "recent": true
+}

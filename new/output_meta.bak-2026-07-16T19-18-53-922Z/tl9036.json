@@ -1,0 +1,27 @@
+{
+ "id": "tl9036",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "cybersecurity data center",
+  "fractional executive meeting",
+  "padlock circuit board"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/20418706.jpg",
+ "faceLibId": "20418706",
+ "title": "How much does a fractional CRO cost for a cybersecurity company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9036",
+ "live": true,
+ "liveAt": "2026-07-16T17:08:19.950Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:08:19.950Z",
+ "recent": true
+}

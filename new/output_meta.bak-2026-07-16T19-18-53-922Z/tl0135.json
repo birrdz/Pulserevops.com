@@ -1,0 +1,26 @@
+{
+ "id": "tl0135",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "commercial roofing crew",
+  "sales pipeline dashboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "Do I Need a Fractional CRO for My Roofing Company?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg"
+ },
+ "qid": "tl0135",
+ "live": true,
+ "liveAt": "2026-07-16T00:14:53.520Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T00:14:53.520Z",
+ "recent": true
+}

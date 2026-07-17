@@ -1,0 +1,27 @@
+{
+ "id": "tl0574",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO executive",
+  "business recapitalization meeting",
+  "financial restructuring documents"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7173673.jpg",
+ "faceLibId": "7173673",
+ "title": "Should I Hire a Fractional CRO If I Am Preparing for a Recapitalization?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0574",
+ "live": true,
+ "liveAt": "2026-07-16T08:06:20.771Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:06:20.771Z",
+ "recent": true
+}

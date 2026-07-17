@@ -1,0 +1,28 @@
+{
+ "id": "tl0351",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business executive handshake",
+  "declining sales chart",
+  "empty office desk"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "Should I Hire a Fractional CRO If I Have Missed Quota Two Quarters in a Row?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg"
+ },
+ "faceSrc": "/lib/7947705.jpg",
+ "faceLibId": "7947705",
+ "qid": "tl0351",
+ "live": true,
+ "liveAt": "2026-07-16T06:08:53.985Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T06:08:53.985Z",
+ "recent": true
+}

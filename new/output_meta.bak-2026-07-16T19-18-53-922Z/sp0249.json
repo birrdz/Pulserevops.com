@@ -1,0 +1,22 @@
+{
+ "id": "sp0249",
+ "format": "essay",
+ "bodyCount": 3,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/10184270/pexels-photo-10184270.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How to End a Speech Memorably",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "sp0249",
+ "live": true,
+ "liveAt": "2026-07-16T08:51:45.367Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:51:45.367Z",
+ "recent": true
+}

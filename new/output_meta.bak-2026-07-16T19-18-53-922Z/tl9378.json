@@ -1,0 +1,27 @@
+{
+ "id": "tl9378",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "HubSpot logo signage",
+  "Salesforce office building",
+  "business strategy meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7876657.jpg",
+ "faceLibId": "7876657",
+ "title": "How to choose between HubSpot and Salesforce for a fractional CRO-led RevOps strategy",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9378",
+ "live": true,
+ "liveAt": "2026-07-16T15:20:09.034Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T15:20:09.034Z",
+ "recent": true
+}

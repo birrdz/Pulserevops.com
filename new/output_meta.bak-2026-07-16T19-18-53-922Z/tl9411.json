@@ -1,0 +1,27 @@
+{
+ "id": "tl9411",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "Arkansas state capitol building",
+  "business executives handshake meeting",
+  "fractional executive contract signing"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/37073624.jpg",
+ "faceLibId": "37073624",
+ "title": "How do I hire a fractional CRO in Arkansas?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9411",
+ "live": true,
+ "liveAt": "2026-07-16T17:38:32.762Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:38:32.762Z",
+ "recent": true
+}

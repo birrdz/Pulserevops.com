@@ -1,0 +1,27 @@
+{
+ "id": "newmrnjwhw6",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business handshake meeting",
+  "chess board strategy",
+  "signed contract closeup"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/5833873/pexels-photo-5833873.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build leverage in a B2B deal without dropping price in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19123",
+ "live": true,
+ "liveAt": "2026-07-16T13:43:22.632Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:43:22.632Z",
+ "recent": true
+}

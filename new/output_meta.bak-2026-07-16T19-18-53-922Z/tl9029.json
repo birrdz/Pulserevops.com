@@ -1,0 +1,27 @@
+{
+ "id": "tl9029",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "revenue growth chart",
+  "professional services team meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/33719774.jpg",
+ "faceLibId": "33719774",
+ "title": "Do I need a fractional CRO for my professional services company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9029",
+ "live": true,
+ "liveAt": "2026-07-16T17:06:15.700Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:06:15.700Z",
+ "recent": true
+}

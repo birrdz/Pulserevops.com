@@ -1,0 +1,27 @@
+{
+ "id": "tl9226",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "professional services office",
+  "business cost calculator"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7652045.jpg",
+ "faceLibId": "7652045",
+ "title": "How much does a fractional CRO cost for a professional services company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9226",
+ "live": true,
+ "liveAt": "2026-07-16T13:44:10.718Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:44:10.718Z",
+ "recent": true
+}

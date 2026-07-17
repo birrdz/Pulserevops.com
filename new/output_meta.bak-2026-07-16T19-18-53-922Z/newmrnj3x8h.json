@@ -1,0 +1,27 @@
+{
+ "id": "newmrnj3x8h",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "customer success handshake",
+  "team laptop meeting",
+  "subscription analytics dashboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/16091228/pexels-photo-16091228.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "What tactics reduce SaaS logo churn without discounting in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19118",
+ "live": true,
+ "liveAt": "2026-07-16T13:33:45.666Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:33:45.666Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "tl9010",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "Maryland state capitol",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/18999469.jpg",
+ "faceLibId": "18999469",
+ "title": "Fractional CRO services near me — Maryland, DC & nationwide?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9010",
+ "live": true,
+ "liveAt": "2026-07-16T12:32:25.852Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:32:25.852Z",
+ "recent": true
+}

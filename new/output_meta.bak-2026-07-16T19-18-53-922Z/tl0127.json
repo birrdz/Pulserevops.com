@@ -1,0 +1,25 @@
+{
+ "id": "tl0127",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "full-time CRO office",
+  "business growth strategy meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "Fractional CRO vs Full-Time CRO: When Do I Make the Switch?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0127",
+ "live": true,
+ "liveAt": "2026-07-15T23:06:38.142Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-15T23:06:38.142Z",
+ "recent": true
+}

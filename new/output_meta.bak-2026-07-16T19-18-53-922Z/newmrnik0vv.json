@@ -1,0 +1,27 @@
+{
+ "id": "newmrnik0vv",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "30-60-90 day calendar planner",
+  "new sales rep laptop training",
+  "business team goal whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/8555605/pexels-photo-8555605.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "What does a 30-60-90 day sales onboarding plan look like in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19110",
+ "live": true,
+ "liveAt": "2026-07-16T13:03:42.112Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:03:42.112Z",
+ "recent": true
+}

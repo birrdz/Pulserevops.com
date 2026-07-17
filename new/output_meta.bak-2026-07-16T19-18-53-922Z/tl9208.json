@@ -1,0 +1,27 @@
+{
+ "id": "tl9208",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business executive handshake",
+  "washington dc skyline",
+  "sales revenue chart meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/33719776.jpg",
+ "faceLibId": "33719776",
+ "title": "Fractional CRO services near me — Maryland, DC & nationwide?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9208",
+ "live": true,
+ "liveAt": "2026-07-16T14:01:41.954Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T14:01:41.954Z",
+ "recent": true
+}

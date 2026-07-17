@@ -60,3 +60,5 @@ _ra_topic_stage/
 *.raw.jpg
 _tmp_*
 gen/_dd_run.log
+.guard/secret.key
+_receipts/

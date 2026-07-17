@@ -42,6 +42,7 @@ const BANK_F = GEN + '/question_bank.json';
 const FAILS_F = GEN + '/gen_failures.md';
 const DAILY_F = GEN + '/daily_log.md';
 const USED_F = GEN + '/used_questions.json';
+const SUGGEST_F = GEN + '/topic_suggestions.json';   // pointed topics from the panel (owner 2026-07-15)
 const LAP_F = GEN + '/lap_state.json';
 const TODAY_F = GEN + '/today_stats.json';
 const GATE_URL = 'http://localhost:8899/gate-publish';   // rubricSignOff 13/13 gate (scrub server)
@@ -237,17 +238,16 @@ async function pickQuestions(pillar, count, opts) {
   const idx = await loadIndex();
   const existing = new Set((idx.entries || []).filter(e => e && pOf(e.id) === pillar).map(e => norm(e.question || e.title)));
   const used = new Set(readJSON(USED_F, {})[pillar] || []);
+  const notDup = q => { const nq = norm(q); if (existing.has(nq) || used.has(nq)) return false; for (const e of existing) { if (jaccard(nq, e) >= 0.85) return false; } return true; };
+  // POINTED suggestions (owner 2026-07-15): if the panel generated specific topics for this pillar,
+  // prefer them so auto-mode randomly picks a POINTED title, not just the broad seed templates.
+  let suggested = [];
+  try { suggested = (((readJSON(SUGGEST_F, {})[pillar]) || {}).topics || []).filter(notDup); } catch (e) {}
   const candidates = [];
-  for (const q of seedQuestions(pillar, PNAMES[pillar])) {
-    const nq = norm(q);
-    if (existing.has(nq) || used.has(nq)) continue;
-    let near = false;
-    for (const e of existing) { if (jaccard(nq, e) >= 0.85) { near = true; break; } }
-    if (near) continue;
-    candidates.push(q);
-  }
-  // Daily Driver + default: randomize among remaining seeds (not always the same first template)
-  const pool = (opts.random !== false) ? shuffle(candidates) : candidates;
+  for (const q of seedQuestions(pillar, PNAMES[pillar])) { if (notDup(q)) candidates.push(q); }
+  // Prefer pointed suggestions when available; else fall back to the broad seeds.
+  const base = suggested.length ? suggested : candidates;
+  const pool = (opts.random !== false) ? shuffle(base) : base;
   return pool.slice(0, Math.max(0, count));
 }
 function jaccard(a, b) { const A = new Set(a.split(' ')), B = new Set(b.split(' ')); let i = 0; for (const x of A) if (B.has(x)) i++; return i / (A.size + B.size - i || 1); }
@@ -350,7 +350,7 @@ const SYS_GENERAL = [
   '- [<a related question>](https://pulserevops.com/knowledge/<id>)',
   '(3 to 5 internal links)',
   '',
-  'HARD RULES: minimum 2000 words. NEVER fabricate specific prices, statistics, vendor names, or numbers — stay general and accurate. Output ONLY the markdown, starting exactly at "## Direct Answer".',
+  'HARD RULES: minimum 2500 words of genuine substance (never pad). NEVER fabricate specific prices, statistics, vendor names, or numbers — stay general and accurate. Output ONLY the markdown, starting exactly at "## Direct Answer".',
 ].join('\n');
 const SYS_TOPLIST = [
   'You are a senior RevOps editor writing a golden Top-10 essay for pulserevops.com. Output COMPLETE markdown ONLY — no preamble, no CRO/"Kory White" markup, no image markdown. Follow this EXACT order:',
@@ -365,8 +365,12 @@ const SYS_TOPLIST = [
   '## FAQ','**<question>?**','<answer>','(AT LEAST 6 pairs)',
   '## Sources','- [name](https://url)','(5 to 10 real sources)',
   '## Related on PULSE','- [related](https://pulserevops.com/knowledge/<id>)','(3 to 5 links)',
-  'HARD RULES: minimum 2000 words. Never fabricate prices/stats/vendors. Output only markdown starting at "## Direct Answer".',
+  'HARD RULES: minimum 2500 words of genuine substance (never pad). Never fabricate prices/stats/vendors. Output only markdown starting at "## Direct Answer".',
 ].join('\n');
+// 🔒 Daily Driver word floor (owner 2026-07-15): new entries kept coming out ~1500; enforce 2500.
+// Gen-side only — the shared 13/13 gate stays at its 2000 floor so existing-content fixing is untouched.
+const WORD_MIN = parseInt(process.env.GEN_WORD_MIN || '2500', 10);
+const wordCount = b => String(b || '').replace(/\s+/g, ' ').trim().split(' ').filter(Boolean).length;
 // map failing gate checks → concrete repair instructions
 const CHECK_HELP = {
   directAnswer: 'Add "## Direct Answer" as the VERY FIRST H2, with 2+ sentences (160+ chars).',
@@ -377,7 +381,7 @@ const CHECK_HELP = {
   sources5: 'The "## Sources" section needs 5-10 real named sources as markdown links.',
   relatedPulse: 'Add a "## Related on PULSE" section with 3-5 links to https://pulserevops.com/knowledge/<id>.',
   qaGoldOutline: 'Order MUST be: ## Direct Answer → 4-6 ## depth sections → ## Related questions → ## FAQ → ## Sources → ## Related on PULSE. No image before Direct Answer; no stacked images/diagrams.',
-  words2000: 'Expand to at least 2000 words of substantive detail — never pad.',
+  words2000: 'Expand to at least ' + WORD_MIN + ' words of substantive detail — never pad.',
   linksClean: 'Internal links must be well-formed https://pulserevops.com/knowledge/<id>.',
 };
 
@@ -467,15 +471,20 @@ async function makeEntry(pillar, title, dryRun) {
   setStatus({ currentId: id, currentTitle: title, currentJob: 'gating · ' + id, phase: 'gating · ' + id + ' · ' + String(title).slice(0, 100) });
   // 13/13 gate (dryRun in proof mode → score only, no publish)
   let g; try { g = await gate(id, body, title, true); } catch (e) { rec.error = 'gate unreachable: ' + String(e.message || e); return rec; }
-  // surgical fix loop — feed the failing checkpoints back to DeepSeek until 13/13 (3 strikes → log & move on)
+  // surgical fix loop — feed failing checkpoints back to DeepSeek until 13/13 AND >= WORD_MIN words
+  // (owner 2026-07-15: entries kept landing ~1500; force expansion toward 2500). 4 strikes → log & move on.
   let attempts = 0;
-  while (!g.pass && attempts < 3) {
+  while ((!g.pass || wordCount(body) < WORD_MIN) && attempts < 4) {
     attempts++;
+    const need = (g.failed || []).slice();
+    if (wordCount(body) < WORD_MIN && !need.includes('words2000')) need.push('words2000');   // force expand toward WORD_MIN
     setStatus({ currentId: id, currentTitle: title, currentJob: 'repair ' + attempts + ' · ' + id, phase: 'repairing · ' + id + ' · ' + String(title).slice(0, 100) });
-    try { const nb = await fixBody(title, kind, body, g.failed || []); if (nb && nb.length > body.length * 0.9) body = nb; } catch (e) { break; }
+    try { const nb = await fixBody(title, kind, body, need); if (nb && nb.length > body.length * 0.9) body = nb; } catch (e) { break; }
     try { g = await gate(id, body, title, true); } catch (e) { break; }
   }
-  rec.attempts = attempts; rec.words = body.replace(/\s+/g, ' ').split(' ').length;
+  rec.attempts = attempts; rec.words = wordCount(body);
+  // 🔒 hard floor: never publish a short entry — better skipped than a 1500-word page.
+  if (rec.words < WORD_MIN) { logFail(id, 'under ' + WORD_MIN + ' words (' + rec.words + ') after ' + attempts + ' expands'); rec.published = false; rec.blocked = 'short'; return rec; }
   rec.score = g.score; rec.pass = !!g.pass; rec.failed = g.failed || [];
   // similarity-at-birth
   setStatus({ currentId: id, currentTitle: title, currentJob: 'sim-check · ' + id, phase: 'sim-check · ' + id });

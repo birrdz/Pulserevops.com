@@ -1,0 +1,25 @@
+{
+ "id": "tl9731",
+ "format": "essay",
+ "bodyCount": 6,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/209218.jpg",
+ "faceLibId": "209218",
+ "title": "How do I hire a fractional CRO in Greenville?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9731",
+ "live": true,
+ "liveAt": "2026-07-16T18:26:53.176Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T18:26:53.176Z",
+ "recent": true
+}

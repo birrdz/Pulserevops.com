@@ -39,7 +39,7 @@
   };
   var SZ = ['big', 'tall', 'wide', '', 'tall', 'wide', 'big', '', 'wide', 'tall', '', 'big', 'wide', 'tall'];
   var TOPIC_SZ = ['big', 'tall', 'wide', '', 'tall', 'wide', 'big', '', 'wide', 'tall', '', 'big', 'wide', 'tall', 'wide', ''];
-  var HUBT = 'position:absolute;left:14px;right:14px;bottom:12px;z-index:3;color:#FFD54F;font-family:Inter,system-ui,Arial,sans-serif;font-style:normal;font-weight:700;line-height:1.15;font-size:clamp(.78rem,1.5vw,.95rem);text-shadow:0 1px 2px #000,0 2px 8px rgba(0,0,0,.85);';
+  var HUBT = 'position:absolute;left:14px;right:14px;bottom:12px;z-index:3;color:#FFD54F;font-family:Inter,system-ui,Arial,sans-serif;font-style:normal;font-weight:700;line-height:1.15;font-size:clamp(.94rem,1.8vw,1.14rem);text-shadow:0 1px 2px #000,0 2px 8px rgba(0,0,0,.85);';
 
   /** FACE-CARD TITLE LAW: baked gold on JPG is the title — do not also paint a CSS h4. */
   function faceTitleBaked(c) {

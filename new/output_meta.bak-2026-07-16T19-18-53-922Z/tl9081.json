@@ -1,0 +1,27 @@
+{
+ "id": "tl9081",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "consumer mobile app",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7845457.jpg",
+ "faceLibId": "7845457",
+ "title": "Do I need a fractional CRO for my consumer app company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9081",
+ "live": true,
+ "liveAt": "2026-07-16T11:02:04.332Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T11:02:04.332Z",
+ "recent": true
+}

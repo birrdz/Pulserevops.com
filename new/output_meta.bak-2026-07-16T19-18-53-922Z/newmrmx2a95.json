@@ -1,0 +1,27 @@
+{
+ "id": "newmrmx2a95",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "tangled cable mess",
+  "software dashboard screen",
+  "team whiteboard planning"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/33692749/pexels-photo-33692749.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build a RevOps tech stack without tool sprawl in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19042",
+ "live": true,
+ "liveAt": "2026-07-16T04:48:33.629Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T04:48:33.629Z",
+ "recent": true
+}

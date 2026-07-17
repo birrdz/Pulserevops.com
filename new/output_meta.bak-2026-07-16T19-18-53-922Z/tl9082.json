@@ -1,0 +1,41 @@
+{
+ "id": "tl9082",
+ "format": "top10",
+ "bodyCount": 10,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7255270.jpg",
+ "faceLibId": "7255270",
+ "title": "Best fractional CRO for a hardware company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg",
+  "7": "body-7.jpg",
+  "8": "body-8.jpg",
+  "9": "body-9.jpg",
+  "10": "body-10.jpg"
+ },
+ "items": {
+  "0": "fractional hardware company",
+  "1": "fractional hardware company",
+  "2": "fractional hardware company",
+  "3": "fractional hardware company",
+  "4": "fractional hardware company",
+  "5": "fractional hardware company",
+  "6": "fractional hardware company",
+  "7": "fractional hardware company",
+  "8": "fractional hardware company",
+  "9": "fractional hardware company"
+ },
+ "qid": "tl9082",
+ "live": true,
+ "liveAt": "2026-07-16T11:03:54.990Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T11:03:54.990Z",
+ "recent": true
+}

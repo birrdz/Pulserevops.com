@@ -1,0 +1,33 @@
+{
+ "id": "tl9736",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "fractional CRO executive",
+  "Boulder Colorado skyline",
+  "startup office meeting",
+  "business handshake deal",
+  "sales revenue dashboard",
+  "laptop video interview"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/8730131.jpg",
+ "faceLibId": "8730131",
+ "title": "Where do I find a fractional CRO in Boulder?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9736",
+ "live": true,
+ "liveAt": "2026-07-16T18:24:11.177Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T18:24:11.177Z",
+ "recent": true
+}

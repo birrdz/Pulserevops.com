@@ -1,0 +1,27 @@
+{
+ "id": "tl9112",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "office building lobby",
+  "business handshake meeting",
+  "executive desk nameplate"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7534215.jpg",
+ "faceLibId": "7534215",
+ "title": "Where do I hire a fractional CRO?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9112",
+ "live": true,
+ "liveAt": "2026-07-16T14:49:28.599Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T14:49:28.599Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "tl0569",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "enterprise sales contract signing",
+  "revenue growth chart whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/15543120.jpg",
+ "faceLibId": "15543120",
+ "title": "Should I Hire a Fractional CRO If I Am Moving Upmarket and Deals Got Complex?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0569",
+ "live": true,
+ "liveAt": "2026-07-16T07:45:56.359Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T07:45:56.359Z",
+ "recent": true
+}

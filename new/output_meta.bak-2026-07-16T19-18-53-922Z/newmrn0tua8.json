@@ -1,0 +1,27 @@
+{
+ "id": "newmrn0tua8",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "tangled server cables",
+  "frustrated technician laptop",
+  "circuit breaker panel"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/18471536/pexels-photo-18471536.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "Why do complex local automation setups work perfectly, then break within hours in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19043",
+ "live": true,
+ "liveAt": "2026-07-16T04:48:51.132Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T04:48:51.132Z",
+ "recent": true
+}

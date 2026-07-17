@@ -1,3 +1,13 @@
+# ⭐ CROSSOVER FOR CURSOR — 2026-07-14 (EVENING UPDATE)
+**Read `_SESSION_LOG_2026-07-14_images.md` first.** Cursor cloud agents can't reach localhost/run the
+machines — your lane is CODE + DEPLOY reasoning. Tonight the image dig hit bottom (layers 5-7): contract
+binding, query relevance, and env-key-in-run-context all fixed; demo 3/3 relevant. **Render-path deploy
+HELD** — a root deploy would expose `.env.local` secrets (`.netlifyignore` doesn't list it) and
+`pulse-deploy-clean` is stale. Safe path in the session log. Finisher daemon spec = `_IMAGE_FINISHER_SPEC.md`
+(build AFTER deploy + eyeball). Image lanes PAUSED until then.
+
+---
+
 # ⭐ CROSSOVER FOR CURSOR — 2026-07-14
 
 **READ THIS FIRST — Cursor ≠ Claude Code environment.** The fixer + daily driver run as **local Node processes on Kory's Windows machine** (`fixer_panel.js` @ http://localhost:8905, gate `_scrub_button_server.js` @ 8899, `sim_transform.js`, `gen_daemon.js`). Cursor's cloud agents **cannot reach localhost, cannot start those servers, cannot run the live panels.** So your lane = **CODE + DEPLOY reasoning + reviewing the render-path fix**, NOT operating the machine. Kory (or Claude Code locally) presses the buttons.

@@ -1,0 +1,27 @@
+{
+ "id": "tl0593",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "marketing dashboard funnel",
+  "empty sales pipeline"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7511755.jpg",
+ "faceLibId": "7511755",
+ "title": "Should I Hire a Fractional CRO If My Marketing Leads Do Not Convert?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0593",
+ "live": true,
+ "liveAt": "2026-07-16T08:22:52.569Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:22:52.569Z",
+ "recent": true
+}

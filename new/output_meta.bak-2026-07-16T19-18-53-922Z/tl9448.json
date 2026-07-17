@@ -1,0 +1,33 @@
+{
+ "id": "tl9448",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "indiana state capitol",
+  "business handshake meeting",
+  "executive job interview",
+  "sales team meeting",
+  "indianapolis city skyline",
+  "signed employment contract"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/24924.jpg",
+ "faceLibId": "24924",
+ "title": "How do I hire a fractional CRO in Indiana?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9448",
+ "live": true,
+ "liveAt": "2026-07-16T17:47:20.732Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:47:20.732Z",
+ "recent": true
+}

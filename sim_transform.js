@@ -157,7 +157,17 @@ async function stampIqPass(id) {
   try {
     const idx = await store.get('_index.json', { type: 'json' });
     const ent = (idx.entries || []).find(x => x && x.id === id);
-    if (ent) { ent.quality_score = score; await store.setJSON('_index.json', idx); }
+    if (ent) {
+      ent.quality_score = score;
+      // SURFACE (owner 2026-07-14): a freshly-fixed Q&A must show on Recents + homepage, not just its
+      // pillar row. The recents feed orders by `ts`, so bump it (+ last_modified_ms) on every pass.
+      // Pillar page is automatic (by id prefix). Runs regardless of the image pause.
+      ent.ts = Date.now();
+      ent.last_modified_ms = Date.now();
+      if (Array.isArray(ent.tags)) { if (!ent.tags.includes('pulse-recent')) ent.tags.push('pulse-recent'); }
+      else ent.tags = ['pulse-recent'];
+      await store.setJSON('_index.json', idx);
+    }
   } catch (e) {}
   // Image step (owner 2026-07-14): the FIXER OVERWRITES images with fresh Pexels — regenerates a
   // CLEAN keyword photo so stale baked-title heroes (e.g. old ai445) are replaced. Pexels-only chain.
@@ -330,11 +340,11 @@ const CHECK_HELP = {
   directAnswer: 'Keep "## Direct Answer" as the first H2 (2+ sentences, 160+ chars).',
   directAnswerFull: 'Make the "## Direct Answer" block 2+ sentences and 160+ chars.',
   qaGoldOutline: 'Order MUST be: ## Direct Answer → depth ## sections → ## Related questions → ## FAQ → ## Sources → ## Related on PULSE.',
-  words2000: 'Keep it 2000+ words — never shorten.',
+  words2000: 'Keep it 2500+ words — never shorten.',
   linksClean: 'Internal links must be well-formed https://pulserevops.com/knowledge/<id>.',
 };
 
-const REWRITE_SYS = 'You are a senior RevOps editor rewriting a page so it stops being a near-duplicate of its siblings. HARD RULES: (1) Keep EVERY markdown ## / ### heading, EXACTLY 2 ```mermaid code blocks, every image ![](), the "## FAQ" section with AT LEAST 6 **bold question?** + answer pairs, the "## Sources" list of 5-10 links, AND the "## Related on PULSE" section — all present, EXACTLY, in the same order. Dropping ANY of these fails the gate and wastes the whole rewrite. (2) Output MUST be the SAME LENGTH OR LONGER — at least 2000 words. NEVER summarize, shorten, or drop sections. (3) Rewrite ONLY the paragraph sentences between the headings — different angle, specifics, examples — so the page reads genuinely distinct; expand rather than cut. (4) Never a mad-libs place-name swap. Return the COMPLETE markdown, top to bottom, nothing else.';
+const REWRITE_SYS = 'You are a senior RevOps editor rewriting a page so it stops being a near-duplicate of its siblings. HARD RULES: (1) Keep EVERY markdown ## / ### heading, EXACTLY 2 ```mermaid code blocks, every image ![](), the "## FAQ" section with AT LEAST 6 **bold question?** + answer pairs, the "## Sources" list of 5-10 links, AND the "## Related on PULSE" section — all present, EXACTLY, in the same order. Dropping ANY of these fails the gate and wastes the whole rewrite. (2) Output MUST be the SAME LENGTH OR LONGER — at least 2500 words. NEVER summarize, shorten, or drop sections. (3) Rewrite ONLY the paragraph sentences between the headings — different angle, specifics, examples — so the page reads genuinely distinct; expand rather than cut. (4) Never a mad-libs place-name swap. Return the COMPLETE markdown, top to bottom, nothing else.';
 const DRY = process.env.SIM_DRY === '1';   // validate the fix loop without publishing anything live
 const QUALITY_SYS = [
   'You are a senior RevOps editor upgrading a thin page to pass a strict 13-point golden gate. Output COMPLETE markdown ONLY — no preamble, no CRO/"Kory White" markup, no image markdown. Keep the original question/topic. Follow this EXACT structure and order:',
@@ -349,7 +359,7 @@ const QUALITY_SYS = [
   '## FAQ', '**<a question>?**', '<answer paragraph>', '(AT LEAST 6 **bold question?** + answer pairs)',
   '## Sources', '- [<real source name>](https://<real-url>)', '(5 to 10 real, credible, named sources)',
   '## Related on PULSE', '- [<a related question>](https://pulserevops.com/knowledge/<id>)', '(3 to 5 internal links)',
-  'HARD RULES: minimum 2000 words. NEVER fabricate specific prices, statistics, vendor names, or numbers. Output ONLY markdown, starting at "## Direct Answer".',
+  'HARD RULES: minimum 2500 words. NEVER fabricate specific prices, statistics, vendor names, or numbers. Output ONLY markdown, starting at "## Direct Answer".',
 ].join('\n');
 
 /**
@@ -1355,15 +1365,15 @@ async function main() {
 
     setStatus({
       stage: 'transform',
-      phase: 'batch ' + batchStart + '–' + batchEnd + ' · ' + batch.length + ' URLs · 1w each · sim→quality→image→title→13/13',
+      phase: 'batch ' + batchStart + '–' + batchEnd + ' · ' + batch.length + ' URL' + (batch.length > 1 ? 's' : '') + ' · ' + liveWorkers() + 'w/stage · sim→quality→image→title→13/13',
       fixConcurrency: CONC,
-      fixWorkers: 1,
+      fixWorkers: liveWorkers(),
       batchSize: batch.length,
       batchHold: true,
       batchIds: [...batchIds],
       scope: LOCKED,
       lockedScope: LOCKED,
-      note: batch.length + ' workers · 1 URL each · finish independently · quality /10',
+      note: liveWorkers() + ' workers on every stage · ' + batch.length + ' URL' + (batch.length > 1 ? 's' : '') + ' at a time · quality /10',
     });
     console.log('[fix-it-all] ▶ PARALLEL ' + batchStart + '–' + batchEnd + ' n=' + batch.length + ' ids=' + [...batchIds].slice(0, 8).join(',') + (batch.length > 8 ? '…' : ''));
 

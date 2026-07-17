@@ -1,0 +1,21 @@
+{
+ "id": "tc251",
+ "faceCard": "facecard.jpg",
+ "title": "Is Telco worth it in 2027?",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "status": "5/5",
+ "skippedAt": "2026-07-17T17:49:56.766Z",
+ "qid": "tc251",
+ "live": true,
+ "liveAt": "2026-07-17T17:49:58.056Z",
+ "publishedAt": "2026-07-17T17:49:58.056Z",
+ "recent": true
+}

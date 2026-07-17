@@ -1,0 +1,25 @@
+{
+ "id": "tl0564",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "outbound sales call center",
+  "business growth strategy whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "Should I Hire a Fractional CRO If I Am Launching Outbound for the First Time?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0564",
+ "live": true,
+ "liveAt": "2026-07-16T01:37:40.046Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T01:37:40.046Z",
+ "recent": true
+}

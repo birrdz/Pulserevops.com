@@ -1,0 +1,27 @@
+{
+ "id": "newmrnkli73",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales rep handshake office",
+  "stacked coins growth chart",
+  "employee exit door silhouette"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/8555772/pexels-photo-8555772.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build a sales compensation plan that actually retains top reps in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19130",
+ "live": true,
+ "liveAt": "2026-07-16T13:58:51.752Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:58:51.752Z",
+ "recent": true
+}

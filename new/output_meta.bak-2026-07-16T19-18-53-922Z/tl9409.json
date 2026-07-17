@@ -1,0 +1,33 @@
+{
+ "id": "tl9409",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "Arizona desert business district",
+  "executive handshake meeting",
+  "revenue growth chart whiteboard",
+  "sales team strategy session",
+  "resume interview across desk",
+  "Phoenix downtown office skyline"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/4614095.jpg",
+ "faceLibId": "4614095",
+ "title": "What should I look for in a fractional CRO in Arizona?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9409",
+ "live": true,
+ "liveAt": "2026-07-16T17:43:12.498Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:43:12.498Z",
+ "recent": true
+}

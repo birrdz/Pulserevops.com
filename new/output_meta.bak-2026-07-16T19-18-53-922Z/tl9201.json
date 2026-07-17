@@ -1,0 +1,27 @@
+{
+ "id": "tl9201",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO executive",
+  "business handshake meeting",
+  "organizational chart whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/6949418.jpg",
+ "faceLibId": "6949418",
+ "title": "Where can I find a fractional CRO?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9201",
+ "live": true,
+ "liveAt": "2026-07-16T16:54:29.768Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T16:54:29.768Z",
+ "recent": true
+}

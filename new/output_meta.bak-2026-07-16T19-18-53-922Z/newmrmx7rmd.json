@@ -1,0 +1,27 @@
+{
+ "id": "newmrmx7rmd",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales team meeting",
+  "forecast spreadsheet screen",
+  "video conference call"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7947758/pexels-photo-7947758.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you run an effective weekly sales forecast call in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19040",
+ "live": true,
+ "liveAt": "2026-07-16T04:47:12.585Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T04:47:12.585Z",
+ "recent": true
+}

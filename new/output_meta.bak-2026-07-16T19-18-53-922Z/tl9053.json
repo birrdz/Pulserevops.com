@@ -1,0 +1,27 @@
+{
+ "id": "tl9053",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "biotech laboratory scientist",
+  "business handshake meeting",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7433874.jpg",
+ "faceLibId": "7433874",
+ "title": "Do I need a fractional CRO for my biotech company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9053",
+ "live": true,
+ "liveAt": "2026-07-16T09:48:49.594Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T09:48:49.594Z",
+ "recent": true
+}

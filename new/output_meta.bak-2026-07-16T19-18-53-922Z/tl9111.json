@@ -1,0 +1,27 @@
+{
+ "id": "tl9111",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "revenue growth chart",
+  "recruiter reviewing resume"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7648226.jpg",
+ "faceLibId": "7648226",
+ "title": "Where do I hire a fractional Chief Revenue Officer?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9111",
+ "live": true,
+ "liveAt": "2026-07-16T14:48:51.952Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T14:48:51.952Z",
+ "recent": true
+}

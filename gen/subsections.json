@@ -13,5 +13,80 @@
    "Japanese tuners",
    "family minivans"
   ]
+ },
+ "gp": {
+  "at": 1784069997670,
+  "subs": [
+   "GTM market entry",
+   "Sales playbook design",
+   "Channel partner quotas",
+   "Buyer persona mapping",
+   "Cold outreach sequences",
+   "CRM automation triggers",
+   "Pricing tier thresholds",
+   "Competitive battle cards",
+   "Win-loss analysis framework",
+   "Demo script templates"
+  ]
+ },
+ "fr": {
+  "at": 1784077468614,
+  "subs": [
+   "Retro gaming revivals",
+   "Fast food secret menus",
+   "Horror movie series",
+   "Budget airline perks",
+   "Action hero legacies",
+   "Anime studio signatures",
+   "Late-night talk shows",
+   "Theme park exclusives",
+   "Coffee chain roasts",
+   "Streaming service originals"
+  ]
+ },
+ "bs": {
+  "at": 1784077490152,
+  "subs": [
+   "Self-help classics",
+   "Business biographies",
+   "Historical war epics",
+   "Dystopian trilogies",
+   "Literary fiction debuts",
+   "Culinary memoirs",
+   "True crime accounts",
+   "Sci-fi space operas",
+   "Fantasy world-building",
+   "Modern relationship studies"
+  ]
+ },
+ "bt": {
+  "at": 1784101786667,
+  "subs": [
+   "Sailboat regattas",
+   "Fishing skiffs",
+   "Pontoon party boats",
+   "Wooden rowboats",
+   "Offshore powerboats",
+   "Inflatable dinghies",
+   "Antique Chris-Craft",
+   "Cabin cruisers",
+   "Kayak touring",
+   "Houseboat living"
+  ]
+ },
+ "gm": {
+  "at": 1784106514177,
+  "subs": [
+   "Indie game hidden gems",
+   "Retro console modding",
+   "Speedrun world records",
+   "Battle royale strategies",
+   "VR headset comparisons",
+   "Game soundtrack analysis",
+   "Esports team rivalries",
+   "Mobile gacha mechanics",
+   "Open world exploration",
+   "Twitch streaming setups"
+  ]
  }
 }

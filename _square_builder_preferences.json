@@ -1,9 +1,9 @@
 {
   "version": 1,
   "face": {
-    "samples": 1,
-    "rankTotal": 0,
-    "aspectTotal": 0.6654505654870485
+    "samples": 4,
+    "rankTotal": 5,
+    "aspectTotal": 4.227950565487049
   },
   "body": {
     "samples": 1,
@@ -11,6 +11,27 @@
     "aspectTotal": 0.6654505654870485
   },
   "recent": [
+    {
+      "slotType": "face",
+      "rank": 4,
+      "aspect": 0.5625,
+      "query": "figure out many people",
+      "selectedAt": "2026-07-15T10:03:51.040Z"
+    },
+    {
+      "slotType": "face",
+      "rank": 1,
+      "aspect": 1.5,
+      "query": "figure out many people",
+      "selectedAt": "2026-07-15T10:03:22.074Z"
+    },
+    {
+      "slotType": "face",
+      "rank": 0,
+      "aspect": 1.5,
+      "query": "figure out many people",
+      "selectedAt": "2026-07-15T10:00:41.641Z"
+    },
     {
       "slotType": "body",
       "rank": 0,
@@ -26,5 +47,5 @@
       "selectedAt": "2026-07-14T12:25:43.225Z"
     }
   ],
-  "updatedAt": "2026-07-14T12:26:46.323Z"
+  "updatedAt": "2026-07-15T10:03:51.040Z"
 }

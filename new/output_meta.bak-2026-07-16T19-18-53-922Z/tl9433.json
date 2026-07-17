@@ -1,0 +1,22 @@
+{
+ "id": "tl9433",
+ "format": "essay",
+ "bodyCount": 3,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7222310.jpg",
+ "faceLibId": "7222310",
+ "title": "Where do I find a fractional CRO in Georgia?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9433",
+ "live": true,
+ "liveAt": "2026-07-16T17:36:39.908Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:36:39.908Z",
+ "recent": true
+}

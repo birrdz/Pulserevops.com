@@ -1,0 +1,27 @@
+{
+ "id": "newmrnhoy4x",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "credit card wallet",
+  "cloud data servers",
+  "business team meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/9227672/pexels-photo-9227672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you choose a CRM that won't be obsolete in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19086",
+ "live": true,
+ "liveAt": "2026-07-16T12:35:41.759Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:35:41.759Z",
+ "recent": true
+}

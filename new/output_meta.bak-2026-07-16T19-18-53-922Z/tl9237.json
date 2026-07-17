@@ -1,0 +1,27 @@
+{
+ "id": "tl9237",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business handshake meeting",
+  "marketing analytics dashboard",
+  "executive candidate interview"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/11522237.jpg",
+ "faceLibId": "11522237",
+ "title": "How do I hire a fractional CRO for a martech business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9237",
+ "live": true,
+ "liveAt": "2026-07-16T13:36:57.883Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:36:57.883Z",
+ "recent": true
+}

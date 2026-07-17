@@ -1,0 +1,27 @@
+{
+ "id": "tl9213",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fintech office building",
+  "business handshake meeting",
+  "financial data dashboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/8154928.jpg",
+ "faceLibId": "8154928",
+ "title": "How do I hire a fractional CRO for a fintech business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9213",
+ "live": true,
+ "liveAt": "2026-07-16T13:57:47.806Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:57:47.806Z",
+ "recent": true
+}

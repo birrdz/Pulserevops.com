@@ -1,0 +1,27 @@
+{
+ "id": "newmrmwwvzh",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales funnel whiteboard",
+  "checklist clipboard desk",
+  "deflating balloon closeup"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/34128961/pexels-photo-34128961.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you set pipeline stage exit criteria that stop deal inflation in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19045",
+ "live": true,
+ "liveAt": "2026-07-16T04:51:30.778Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T04:51:30.778Z",
+ "recent": true
+}

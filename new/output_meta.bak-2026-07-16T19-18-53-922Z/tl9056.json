@@ -1,0 +1,27 @@
+{
+ "id": "tl9056",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO executive",
+  "insurtech office building",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/29218401.jpg",
+ "faceLibId": "29218401",
+ "title": "How much does a fractional CRO cost for a insurtech company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9056",
+ "live": true,
+ "liveAt": "2026-07-16T09:42:20.604Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T09:42:20.604Z",
+ "recent": true
+}

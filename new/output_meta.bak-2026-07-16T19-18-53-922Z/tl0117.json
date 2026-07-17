@@ -1,0 +1,25 @@
+{
+ "id": "tl0117",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO executive",
+  "VP of sales meeting",
+  "sales team hierarchy chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "What Is the Difference Between a Fractional CRO and a Fractional VP of Sales?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0117",
+ "live": true,
+ "liveAt": "2026-07-15T22:52:28.386Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-15T22:52:28.386Z",
+ "recent": true
+}

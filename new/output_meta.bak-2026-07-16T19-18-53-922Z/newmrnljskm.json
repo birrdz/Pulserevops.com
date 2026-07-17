@@ -1,0 +1,27 @@
+{
+ "id": "newmrnljskm",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business contract signing",
+  "stacked coins graph",
+  "handshake conference room"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/2721992/pexels-photo-2721992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you structure multi-year deals to protect margin against buyer discounting in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19137",
+ "live": true,
+ "liveAt": "2026-07-16T16:15:05.427Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T16:15:05.427Z",
+ "recent": true
+}

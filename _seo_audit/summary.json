@@ -1,36 +1,36 @@
 {
-  "crawledAt_utc": "2026-07-14T11:48:16.888Z",
+  "crawledAt_utc": "2026-07-17T15:26:51.418Z",
   "seed": "https://pulserevops.com/",
   "host": "pulserevops.com",
-  "urls_crawled": 404,
-  "html_200": 400,
-  "indexable": 399,
+  "urls_crawled": 403,
+  "html_200": 399,
+  "indexable": 395,
   "blob_enriched": true,
   "issues": {
     "broken_4xx_5xx": 3,
     "redirects_3xx": 1,
     "missing_titles": 0,
-    "duplicate_titles": 19,
-    "short_titles": 19,
+    "duplicate_titles": 34,
+    "short_titles": 3,
     "long_titles": 8,
     "multiple_titles": 0,
     "missing_meta": 0,
-    "duplicate_meta": 0,
+    "duplicate_meta": 14,
     "long_meta": 18,
     "missing_h1": 1,
     "multiple_h1": 0,
-    "duplicate_h1": 19,
+    "duplicate_h1": 34,
     "duplicate_bodies": 0,
     "missing_canonical": 1,
-    "title_equals_h1": 309,
-    "thin_content": 6,
-    "pages_no_image": 141,
+    "title_equals_h1": 266,
+    "thin_content": 1,
+    "pages_no_image": 0,
     "missing_cro_card": 0,
-    "missing_faq": 5,
+    "missing_faq": 3,
     "images_missing_alt": 7,
     "missing_schema": 21,
     "insecure_link_pages": 1,
-    "non_indexable": 1,
+    "non_indexable": 4,
     "low_inlinks": 0,
     "orphan_pages": 0,
     "broken_external": "not-checked"
@@ -38,14 +38,14 @@
   "pillars": [
     {
       "pillar": "knowledge",
-      "urls": 333,
+      "urls": 329,
       "broken": 1,
       "redirects": 0,
       "nonIndexable": 1,
       "missingTitle": 0,
       "dup": 0,
-      "thin": 6,
-      "noImg": 141
+      "thin": 1,
+      "noImg": 0
     },
     {
       "pillar": "tools",
@@ -71,10 +71,10 @@
     },
     {
       "pillar": "pillars",
-      "urls": 3,
+      "urls": 6,
       "broken": 0,
       "redirects": 0,
-      "nonIndexable": 0,
+      "nonIndexable": 3,
       "missingTitle": 0,
       "dup": 0,
       "thin": 0,
@@ -114,7 +114,7 @@
       "noImg": 0
     },
     {
-      "pillar": "knowledge.html",
+      "pillar": "sales-trainings",
       "urls": 1,
       "broken": 0,
       "redirects": 0,
@@ -125,7 +125,7 @@
       "noImg": 0
     },
     {
-      "pillar": "themachine",
+      "pillar": "industry-kpis",
       "urls": 1,
       "broken": 0,
       "redirects": 0,
@@ -147,7 +147,7 @@
       "noImg": 0
     },
     {
-      "pillar": "sales-trainings",
+      "pillar": "themachine",
       "urls": 1,
       "broken": 0,
       "redirects": 0,
@@ -158,7 +158,7 @@
       "noImg": 0
     },
     {
-      "pillar": "industry-kpis",
+      "pillar": "knowledge.html",
       "urls": 1,
       "broken": 0,
       "redirects": 0,
@@ -202,17 +202,6 @@
       "noImg": 0
     },
     {
-      "pillar": "bins.html",
-      "urls": 1,
-      "broken": 0,
-      "redirects": 0,
-      "nonIndexable": 0,
-      "missingTitle": 0,
-      "dup": 0,
-      "thin": 0,
-      "noImg": 0
-    },
-    {
       "pillar": "privacy.html",
       "urls": 1,
       "broken": 0,
@@ -224,7 +213,7 @@
       "noImg": 0
     },
     {
-      "pillar": "kory-white-maryland",
+      "pillar": "bins.html",
       "urls": 1,
       "broken": 0,
       "redirects": 0,
@@ -236,6 +225,17 @@
     },
     {
       "pillar": "fractional-cro",
+      "urls": 1,
+      "broken": 0,
+      "redirects": 0,
+      "nonIndexable": 0,
+      "missingTitle": 0,
+      "dup": 0,
+      "thin": 0,
+      "noImg": 0
+    },
+    {
+      "pillar": "kory-white-maryland",
       "urls": 1,
       "broken": 0,
       "redirects": 0,
@@ -279,7 +279,7 @@
       "noImg": 0
     },
     {
-      "pillar": "319-blue-bay-road-stevensville-md",
+      "pillar": "highschool-football-recruiting",
       "urls": 1,
       "broken": 0,
       "redirects": 0,
@@ -290,7 +290,7 @@
       "noImg": 0
     },
     {
-      "pillar": "highschool-football-recruiting",
+      "pillar": "319-blue-bay-road-stevensville-md",
       "urls": 1,
       "broken": 0,
       "redirects": 0,

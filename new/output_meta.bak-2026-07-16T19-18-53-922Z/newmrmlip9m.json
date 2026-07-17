@@ -1,0 +1,25 @@
+{
+ "id": "newmrmlip9m",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "kitchen table budget worksheet",
+  "family grocery shopping cart",
+  "piggy bank coins jar"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "How do you build a family budget that survives real life in 2028?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19036",
+ "live": true,
+ "liveAt": "2026-07-15T22:23:06.938Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-15T22:23:06.938Z",
+ "recent": true
+}

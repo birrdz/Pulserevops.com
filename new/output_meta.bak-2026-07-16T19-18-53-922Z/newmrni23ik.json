@@ -1,0 +1,22 @@
+{
+ "id": "newmrni23ik",
+ "format": "essay",
+ "bodyCount": 3,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/31353702/pexels-photo-31353702.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you predict customer churn before renewal in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19098",
+ "live": true,
+ "liveAt": "2026-07-16T12:45:42.160Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:45:42.160Z",
+ "recent": true
+}

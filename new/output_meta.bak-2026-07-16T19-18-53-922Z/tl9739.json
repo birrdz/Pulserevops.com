@@ -1,0 +1,33 @@
+{
+ "id": "tl9739",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "fractional CRO handshake",
+  "Ann Arbor skyline",
+  "revenue growth chart",
+  "sales team meeting",
+  "business contract signing",
+  "downtown Ann Arbor storefront"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/34769106.jpg",
+ "faceLibId": "34769106",
+ "title": "How do I hire a fractional CRO in Ann Arbor?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9739",
+ "live": true,
+ "liveAt": "2026-07-16T19:03:23.044Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T19:03:23.044Z",
+ "recent": true
+}

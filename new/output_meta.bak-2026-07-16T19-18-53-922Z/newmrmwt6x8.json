@@ -1,0 +1,27 @@
+{
+ "id": "newmrmwt6x8",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "revops team meeting",
+  "startup office workspace",
+  "organizational chart whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/38514393/pexels-photo-38514393.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you structure a RevOps team at a Series B startup in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19047",
+ "live": true,
+ "liveAt": "2026-07-16T04:52:10.009Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T04:52:10.009Z",
+ "recent": true
+}

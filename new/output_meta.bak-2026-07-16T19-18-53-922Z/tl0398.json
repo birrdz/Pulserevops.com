@@ -1,0 +1,25 @@
+{
+ "id": "tl0398",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "empty corner office",
+  "interview candidate resume"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "Should I Hire a Fractional CRO If I Need Interim Leadership During a CRO Search?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0398",
+ "live": true,
+ "liveAt": "2026-07-16T00:11:56.857Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T00:11:56.857Z",
+ "recent": true
+}

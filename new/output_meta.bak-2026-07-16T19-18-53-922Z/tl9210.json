@@ -1,0 +1,27 @@
+{
+ "id": "tl9210",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "[object Object]",
+  "[object Object]",
+  "[object Object]"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/6794932.jpg",
+ "faceLibId": "6794932",
+ "title": "How much does a fractional CRO cost for a B2B SaaS company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9210",
+ "live": true,
+ "liveAt": "2026-07-16T14:01:00.612Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T14:01:00.612Z",
+ "recent": true
+}

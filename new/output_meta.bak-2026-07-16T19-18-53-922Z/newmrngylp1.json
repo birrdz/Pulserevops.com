@@ -1,0 +1,27 @@
+{
+ "id": "newmrngylp1",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "customer success team meeting",
+  "declining line graph chart",
+  "software dashboard laptop screen"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/9561471/pexels-photo-9561471.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you reduce customer churn in your first year of SaaS in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19144",
+ "live": true,
+ "liveAt": "2026-07-16T17:02:07.203Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:02:07.203Z",
+ "recent": true
+}

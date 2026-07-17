@@ -1,0 +1,33 @@
+{
+ "id": "tl9438",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "fractional executive handshake",
+  "Hawaii beach office",
+  "sales revenue dashboard",
+  "business contract signing",
+  "video call interview",
+  "Honolulu city skyline"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7495289.jpg",
+ "faceLibId": "7495289",
+ "title": "How do I hire a fractional CRO in Hawaii?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9438",
+ "live": true,
+ "liveAt": "2026-07-16T17:41:39.461Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:41:39.461Z",
+ "recent": true
+}

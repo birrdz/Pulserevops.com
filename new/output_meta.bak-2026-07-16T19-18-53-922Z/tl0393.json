@@ -1,0 +1,25 @@
+{
+ "id": "tl0393",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "hospital building exterior",
+  "signed business contract"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "Should I Hire a Fractional CRO If My Healthcare Company Is Entering Payer Contracts?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0393",
+ "live": true,
+ "liveAt": "2026-07-16T00:13:07.826Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T00:13:07.826Z",
+ "recent": true
+}

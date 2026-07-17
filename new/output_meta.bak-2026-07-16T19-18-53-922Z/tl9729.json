@@ -1,0 +1,33 @@
+{
+ "id": "tl9729",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "Knoxville Tennessee skyline",
+  "business handshake meeting",
+  "executive job interview",
+  "sales revenue dashboard",
+  "signed employment contract",
+  "team strategy whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/17070757.jpg",
+ "faceLibId": "17070757",
+ "title": "How do I hire a fractional CRO in Knoxville?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9729",
+ "live": true,
+ "liveAt": "2026-07-16T18:28:15.254Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T18:28:15.254Z",
+ "recent": true
+}

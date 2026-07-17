@@ -1,0 +1,27 @@
+{
+ "id": "newmrmvvrh4",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "broken pipe wrench repair",
+  "engineer inspecting control panel",
+  "industrial gas pipeline valves"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/11948102/pexels-photo-11948102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you fix a broken pipeline review in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19058",
+ "live": true,
+ "liveAt": "2026-07-16T06:37:30.517Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T06:37:30.517Z",
+ "recent": true
+}

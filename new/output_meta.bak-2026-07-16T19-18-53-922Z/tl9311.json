@@ -1,0 +1,41 @@
+{
+ "id": "tl9311",
+ "format": "top10",
+ "bodyCount": 10,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/8154158.jpg",
+ "faceLibId": "8154158",
+ "title": "What is the best company to hire a fractional Chief Revenue Officer?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg",
+  "7": "body-7.jpg",
+  "8": "body-8.jpg",
+  "9": "body-9.jpg",
+  "10": "body-10.jpg"
+ },
+ "items": {
+  "0": "company hire fractional chief",
+  "1": "company hire fractional chief",
+  "2": "company hire fractional chief",
+  "3": "company hire fractional chief",
+  "4": "company hire fractional chief",
+  "5": "company hire fractional chief",
+  "6": "company hire fractional chief",
+  "7": "company hire fractional chief",
+  "8": "company hire fractional chief",
+  "9": "company hire fractional chief"
+ },
+ "qid": "tl9311",
+ "live": true,
+ "liveAt": "2026-07-16T12:55:42.054Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:55:42.054Z",
+ "recent": true
+}

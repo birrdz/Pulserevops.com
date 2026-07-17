@@ -1,0 +1,41 @@
+{
+ "id": "tl9018",
+ "format": "top10",
+ "bodyCount": 10,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/4923352.jpg",
+ "faceLibId": "4923352",
+ "title": "Best fractional CRO for a healthtech company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg",
+  "7": "body-7.jpg",
+  "8": "body-8.jpg",
+  "9": "body-9.jpg",
+  "10": "body-10.jpg"
+ },
+ "items": {
+  "0": "fractional healthtech company",
+  "1": "fractional healthtech company",
+  "2": "fractional healthtech company",
+  "3": "fractional healthtech company",
+  "4": "fractional healthtech company",
+  "5": "fractional healthtech company",
+  "6": "fractional healthtech company",
+  "7": "fractional healthtech company",
+  "8": "fractional healthtech company",
+  "9": "fractional healthtech company"
+ },
+ "qid": "tl9018",
+ "live": true,
+ "liveAt": "2026-07-16T17:01:36.277Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:01:36.277Z",
+ "recent": true
+}

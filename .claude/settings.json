@@ -36,5 +36,15 @@
       "PowerShell($env:NETLIFY_AUTH_TOKEN=\"nfp_JSsTaZjcMASrsrXJRgt6yG4Zipnovvwia6f0\"; npx --yes netlify-cli deploy --prod --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482 --message=\"Hero anim image quality: SVG sharpen filter + GPU translateZ + tighter contrast\" 2>&1 | Select-Object -Last 6)",
       "PowerShell($env:NETLIFY_AUTH_TOKEN=\"nfp_JSsTaZjcMASrsrXJRgt6yG4Zipnovvwia6f0\"; npx --yes netlify-cli deploy --prod --site=a2b74b30-a1ac-40e2-9622-aebfc2feb482 --message=\"REVERT bad SVG sharpen \\(caused ringing\\) — clean CSS filter only\" 2>&1 | Select-Object -Last 6)"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Write|Edit|Read",
+        "hooks": [
+          { "type": "command", "command": "\"C:/Users/koryj/AppData/Local/Programs/Python/Python312/python.exe\" \"C:/Users/koryj/website/.guard/guard.py\"", "timeout": 10, "statusMessage": "baton guard" }
+        ]
+      }
+    ]
   }
 }

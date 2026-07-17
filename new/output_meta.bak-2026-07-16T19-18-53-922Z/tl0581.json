@@ -1,0 +1,27 @@
+{
+ "id": "tl0581",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO executive",
+  "board meeting presentation",
+  "30-60-90 day plan"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/9068367.jpg",
+ "faceLibId": "9068367",
+ "title": "Should I Hire a Fractional CRO If I Need a 30-60-90 Plan Before a Board Meeting?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0581",
+ "live": true,
+ "liveAt": "2026-07-16T08:04:18.773Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:04:18.773Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "tl9043",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO handshake",
+  "logistics warehouse forklift",
+  "freight truck fleet"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/4342497.jpg",
+ "faceLibId": "4342497",
+ "title": "How do I hire a fractional CRO for a logistics business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9043",
+ "live": true,
+ "liveAt": "2026-07-16T11:08:36.431Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T11:08:36.431Z",
+ "recent": true
+}

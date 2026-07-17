@@ -1,0 +1,33 @@
+{
+ "id": "tl9405",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "anchorage alaska skyline",
+  "business executive handshake",
+  "sales revenue chart",
+  "alaska oil pipeline",
+  "laptop video meeting",
+  "office team meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/38189095.jpg",
+ "faceLibId": "38189095",
+ "title": "What should I look for in a fractional CRO in Alaska?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9405",
+ "live": true,
+ "liveAt": "2026-07-16T17:46:18.628Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:46:18.628Z",
+ "recent": true
+}

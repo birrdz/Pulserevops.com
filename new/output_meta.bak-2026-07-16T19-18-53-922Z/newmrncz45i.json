@@ -1,0 +1,27 @@
+{
+ "id": "newmrncz45i",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "customer handshake reunion",
+  "declined line graph",
+  "win-back email envelope"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/8388299/pexels-photo-8388299.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you win back a churned customer in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19070",
+ "live": true,
+ "liveAt": "2026-07-16T10:50:08.255Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T10:50:08.255Z",
+ "recent": true
+}

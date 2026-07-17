@@ -1,0 +1,27 @@
+{
+ "id": "tl9004",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "revenue growth chart",
+  "video interview laptop"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/24245337.jpg",
+ "faceLibId": "24245337",
+ "title": "Where to hire fractional Chief Revenue Officers?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9004",
+ "live": true,
+ "liveAt": "2026-07-16T12:40:53.948Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:40:53.948Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "tl9019",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business handshake meeting",
+  "medical technology laboratory",
+  "executive job interview"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/37266434.jpg",
+ "faceLibId": "37266434",
+ "title": "How do I hire a fractional CRO for a healthtech business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9019",
+ "live": true,
+ "liveAt": "2026-07-16T17:03:09.436Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:03:09.436Z",
+ "recent": true
+}

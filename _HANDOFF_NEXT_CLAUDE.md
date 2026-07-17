@@ -1,3 +1,15 @@
+# ⭐ CROSSOVER — 2026-07-14 (EVENING: image dig hit bottom — layers 5-7)
+**READ `_SESSION_LOG_2026-07-14_images.md` FIRST.** Tonight: fixed the last image bugs — contract
+binding (Q&A filled as top10), query relevance ("200-gallon reef tank"→"gallon"→gas pump), and the
+Pexels key not loading in the run context. Demo now 3/3 relevant (ev109 booth, ca1106 Camry, aq1171
+reef). **Render-path deploy is HELD** — two landmines: (1) root deploy exposes `.env.local` secrets
+(`.netlifyignore` doesn't exclude it — FIX FIRST), (2) `pulse-deploy-clean` is stale. Safe path =
+harden `.netlifyignore` → DRAFT from root → eyeball `/assets/qa/<id>.jpg`=200 → promote via restore
+API. Then: heartbeat `/status.json`, then finisher daemon (`_IMAGE_FINISHER_SPEC.md`) AFTER an eyeball.
+Image lanes PAUSED on both machines until deploy verified. Full detail → the session log.
+
+---
+
 # ⭐ CROSSOVER — 2026-07-14 (fixer/daily-driver + RENDER-PATH GHOST)
 
 ## 🚨 CRITICAL UNFINISHED — RENDER-PATH DEPLOY (the baked-title/old-image ghost)

@@ -1,0 +1,24 @@
+{
+ "id": "q19031",
+ "faceCard": "facecard.jpg",
+ "title": "What does a modern RevOps tech stack look like for a Series A startup in 2028?",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "q19031",
+ "live": false,
+ "liveAt": "2026-07-17T00:26:57.814Z",
+ "status": "done",
+ "publishedAt": "2026-07-17T00:26:57.814Z",
+ "recent": true,
+ "requeuedAt": "2026-07-17T01:02:41.080Z",
+ "requeueReason": "white/black/double re-fix",
+ "doneAt": "2026-07-17T01:40:36.957Z",
+ "doneReason": "purge: 13/13 + published-with-images"
+}

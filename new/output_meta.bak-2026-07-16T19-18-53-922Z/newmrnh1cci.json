@@ -1,0 +1,27 @@
+{
+ "id": "newmrnh1cci",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales pipeline spreadsheet",
+  "empty data dashboard",
+  "team forecast meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/9034997/pexels-photo-9034997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build an accurate sales forecast when your pipeline data is incomplete in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19143",
+ "live": true,
+ "liveAt": "2026-07-16T16:59:31.766Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T16:59:31.766Z",
+ "recent": true
+}

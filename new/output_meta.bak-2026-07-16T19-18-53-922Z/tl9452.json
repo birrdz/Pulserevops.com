@@ -1,0 +1,33 @@
+{
+ "id": "tl9452",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "fractional CRO executive",
+  "Iowa state capitol",
+  "business handshake meeting",
+  "corn field farmland",
+  "financial cost spreadsheet",
+  "Des Moines skyline"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/5668451.jpg",
+ "faceLibId": "5668451",
+ "title": "How much does a fractional CRO cost in Iowa?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9452",
+ "live": true,
+ "liveAt": "2026-07-16T18:31:29.383Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T18:31:29.383Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "tl9436",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO interview handshake",
+  "Georgia state welcome sign",
+  "revenue growth line chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/1181592.jpg",
+ "faceLibId": "1181592",
+ "title": "What should I look for in a fractional CRO in Georgia?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9436",
+ "live": true,
+ "liveAt": "2026-07-16T17:39:35.005Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:39:35.005Z",
+ "recent": true
+}

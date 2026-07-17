@@ -1,0 +1,25 @@
+{
+ "id": "newmrnkoh02",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "[object Object]"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/33137134/pexels-photo-33137134.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "What's the fastest way to validate a go-to-market strategy before a full 2027 product launch?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19131",
+ "live": true,
+ "liveAt": "2026-07-16T13:59:46.998Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:59:46.998Z",
+ "recent": true
+}

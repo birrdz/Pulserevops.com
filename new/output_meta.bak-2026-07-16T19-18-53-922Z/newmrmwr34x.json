@@ -1,0 +1,27 @@
+{
+ "id": "newmrmwr34x",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales training classroom",
+  "employee onboarding checklist",
+  "performance dashboard laptop"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/37588632/pexels-photo-37588632.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you measure and shorten sales rep ramp time in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19048",
+ "live": true,
+ "liveAt": "2026-07-16T04:52:32.806Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T04:52:32.806Z",
+ "recent": true
+}

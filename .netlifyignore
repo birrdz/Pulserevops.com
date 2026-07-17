@@ -63,3 +63,19 @@ _cro_minicert/
 _cro_minicert.log
 _run_dashboard_server.log
 _ops_dashboard_server.js
+
+# 2026-07-14 SECRET + junk exclusions — root deploy must never publish these
+.env
+.env.local
+.env.*
+.git/
+node_modules/
+_tmp_*
+_ra_topic_stage/
+*.raw.jpg
+_SESSION_LOG_*.md
+_HANDOFF_NEXT_*.md
+
+# 2026-07-16 — the NEW local tooling (Block Builder, Image Bank + 2000 imgs, entries, output,
+# daemons, logs) is LOCAL-ONLY and churns constantly (background writers → 422). NEVER deploy it.
+new/

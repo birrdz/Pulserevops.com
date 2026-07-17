@@ -1,0 +1,27 @@
+{
+ "id": "tl9231",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business executive meeting",
+  "ecommerce warehouse packing",
+  "laptop sales dashboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/3912976.jpg",
+ "faceLibId": "3912976",
+ "title": "Do I need a fractional CRO for my e-commerce company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9231",
+ "live": true,
+ "liveAt": "2026-07-16T13:42:34.536Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:42:34.536Z",
+ "recent": true
+}

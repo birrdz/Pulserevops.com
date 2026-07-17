@@ -1,0 +1,27 @@
+{
+ "id": "tl0568",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "disconnected office departments",
+  "customer success team meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/12456842.jpg",
+ "faceLibId": "12456842",
+ "title": "Should I Hire a Fractional CRO If My Sales and Customer Success Teams Do Not Talk?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0568",
+ "live": true,
+ "liveAt": "2026-07-16T07:27:42.458Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T07:27:42.458Z",
+ "recent": true
+}

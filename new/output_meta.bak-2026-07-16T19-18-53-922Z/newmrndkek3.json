@@ -1,0 +1,27 @@
+{
+ "id": "newmrndkek3",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "corporate boardroom table",
+  "presenter pointing chart",
+  "handshake business meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/6949865/pexels-photo-6949865.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you run a board meeting as a first-time revenue leader in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19065",
+ "live": true,
+ "liveAt": "2026-07-16T10:46:03.107Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T10:46:03.107Z",
+ "recent": true
+}

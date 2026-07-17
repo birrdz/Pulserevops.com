@@ -1,0 +1,22 @@
+{
+ "running": false,
+ "mode": "lookahead",
+ "lookahead": 10,
+ "startedAt": "2026-07-17T20:26:03.931Z",
+ "total": 1,
+ "done": 1,
+ "current": null,
+ "ahead": 0,
+ "improved": 0,
+ "failed": 1,
+ "results": [
+  {
+   "id": "lv124",
+   "before": 12,
+   "after": 12,
+   "pass": false,
+   "ok": false
+  }
+ ],
+ "finishedAt": "2026-07-17T20:29:10.221Z"
+}

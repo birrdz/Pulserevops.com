@@ -1,0 +1,27 @@
+{
+ "id": "newmrngt73l",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "remote sales meeting video call",
+  "sales performance dashboard screen",
+  "person working home office desk"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7709129/pexels-photo-7709129.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you keep a remote sales team accountable without micromanaging in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19146",
+ "live": true,
+ "liveAt": "2026-07-16T17:03:40.454Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:03:40.454Z",
+ "recent": true
+}

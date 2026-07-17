@@ -1,0 +1,27 @@
+{
+ "id": "tl9051",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "biotech laboratory researcher",
+  "business handshake meeting",
+  "executive office desk"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/3861951.jpg",
+ "faceLibId": "3861951",
+ "title": "How do I hire a fractional CRO for a biotech business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9051",
+ "live": true,
+ "liveAt": "2026-07-16T10:57:32.675Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T10:57:32.675Z",
+ "recent": true
+}

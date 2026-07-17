@@ -1,0 +1,27 @@
+{
+ "id": "tl0381",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "sales win rate chart",
+  "chess strategy board"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7495648.jpg",
+ "faceLibId": "7495648",
+ "title": "Should I Hire a Fractional CRO If My Win Rates Are Dropping Against a New Competitor?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0381",
+ "live": true,
+ "liveAt": "2026-07-16T06:10:14.855Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T06:10:14.855Z",
+ "recent": true
+}

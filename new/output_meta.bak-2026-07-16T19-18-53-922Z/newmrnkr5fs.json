@@ -1,0 +1,27 @@
+{
+ "id": "newmrnkr5fs",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "customer success manager meeting",
+  "churn rate dashboard",
+  "onboarding checklist clipboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/35764295/pexels-photo-35764295.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build a customer success playbook that actually reduces churn in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19135",
+ "live": true,
+ "liveAt": "2026-07-16T14:43:27.284Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T14:43:27.284Z",
+ "recent": true
+}

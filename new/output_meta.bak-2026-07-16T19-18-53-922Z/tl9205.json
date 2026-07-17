@@ -1,0 +1,27 @@
+{
+ "id": "tl9205",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business handshake meeting",
+  "executive office desk",
+  "team strategy whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7693715.jpg",
+ "faceLibId": "7693715",
+ "title": "Fractional CRO vs full-time CRO — which should I hire?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9205",
+ "live": true,
+ "liveAt": "2026-07-16T14:07:27.380Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T14:07:27.380Z",
+ "recent": true
+}

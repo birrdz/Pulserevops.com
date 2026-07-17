@@ -1,0 +1,27 @@
+{
+ "id": "tl9218",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO handshake",
+  "healthtech data dashboard",
+  "financial cost calculator"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7316671.jpg",
+ "faceLibId": "7316671",
+ "title": "How much does a fractional CRO cost for a healthtech company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9218",
+ "live": true,
+ "liveAt": "2026-07-16T13:50:11.843Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:50:11.843Z",
+ "recent": true
+}

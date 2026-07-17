@@ -1,0 +1,33 @@
+{
+ "id": "tl9730",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "greenville south carolina downtown",
+  "business executive handshake",
+  "sales team meeting",
+  "revenue growth chart",
+  "office building skyline",
+  "professional headshot woman"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7534216.jpg",
+ "faceLibId": "7534216",
+ "title": "Where do I find a fractional CRO in Greenville?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9730",
+ "live": true,
+ "liveAt": "2026-07-16T18:30:01.003Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T18:30:01.003Z",
+ "recent": true
+}

@@ -1,0 +1,25 @@
+{
+ "id": "tl0129",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "executive reviewing sales charts",
+  "sales funnel whiteboard diagram",
+  "business team pipeline meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "How Does a Fractional CRO Help With Pipeline Management?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0129",
+ "live": true,
+ "liveAt": "2026-07-15T23:10:03.636Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-15T23:10:03.636Z",
+ "recent": true
+}

@@ -1,0 +1,25 @@
+{
+ "id": "tl0377",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "bootstrapped startup workspace",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "Should I Hire a Fractional CRO If I Am Bootstrapped and Cannot Afford a Full-Time CRO?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0377",
+ "live": true,
+ "liveAt": "2026-07-16T00:11:16.032Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T00:11:16.032Z",
+ "recent": true
+}

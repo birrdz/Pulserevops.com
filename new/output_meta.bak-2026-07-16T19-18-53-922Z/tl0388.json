@@ -1,0 +1,27 @@
+{
+ "id": "tl0388",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO handshake",
+  "nonprofit gala event",
+  "earned revenue chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7964468.jpg",
+ "faceLibId": "7964468",
+ "title": "Should I Hire a Fractional CRO If My Nonprofit Is Building an Earned-Revenue Arm?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0388",
+ "live": true,
+ "liveAt": "2026-07-16T06:11:01.060Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T06:11:01.060Z",
+ "recent": true
+}

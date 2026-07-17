@@ -1,0 +1,27 @@
+{
+ "id": "newmrnl1cbq",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "forecasting spreadsheet chart",
+  "tangled cable knot",
+  "sales team whiteboard meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7054368/pexels-photo-7054368.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build an accurate sales forecast when your pipeline data is messy in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19140",
+ "live": true,
+ "liveAt": "2026-07-16T16:57:40.129Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T16:57:40.129Z",
+ "recent": true
+}

@@ -36,7 +36,7 @@ Owner MANDATORY supersession law:
 | **Pre-2026-07 Q&A hero law** | Older rules (`pulse-template-selection.mdc`, `SCRUBBER_SPEC.md` criterion 10) that **mandated a top hero before Direct Answer** — **corrected 2026-07-06**: Q&A (q11133) has **no top hero** before the gold Direct Answer box; first content figure follows prose. |
 | **`ItemList` / product-card schema on essays** | Q&A pages emit **`QAPage`** + **`TechArticle`** — not ranked-product `ItemList`. See **§3**. |
 | **Baked CRO in blobs** | Any `<aside class="cro-ad">`, markdown CRO cards, or `/assets/kory-white.jpg` portrait in answer bodies — render-time inject only (**§0.1**). |
-| **Stale crossover / batch notes** | Session logs describing Q&A with top heroes, Top 10 CRO placement on essays, or 2,000-word floors on golden-template pages — **this spec + code win**. |
+| **Stale crossover / batch notes** | Session logs describing Q&A with top heroes, Top 10 CRO placement on essays, or 2,500-word floors on golden-template pages — **this spec + code win**. |
 
 **Immutable gold reference:** [q11133 — Q&A essay](https://pulserevops.com/knowledge/q11133) (`q11133`). Do **not** edit the live q11133 blob.
 
@@ -1773,7 +1773,7 @@ Audit function: `auditQaGoldTemplate(body, title, id)` in `_qa_gold_template.js`
 | **Image fallbacks** | Every `<img>` has `entryImgAttrs()` onerror provider swap; zero broken images @375px + @1440px (item **16** · gate **G** · Agent B) |
 | **Viewport verified** | Manual §6-G checklist passed at **375px** + **1440px** (item **15**) |
 | **Gold audit clean** | `auditQaGoldTemplate()` → `compliant: true`, `issues: []` (gate **I**) |
-| **Word count** | **≥600 words** substantive prose (item **10** · gate **H-1**) — **2,000 words NOT required** |
+| **Word count** | **≥600 words** substantive prose (item **10** · gate **H-1**) — **2,500 words NOT required** |
 | **No live pollinations** | Blob self-hosted paths only — no `pollinations.ai` URLs (gate **F**) |
 | **CRO render-only** | CRO injected at render (`insertCroAd()` → `afterQaEssayCroPos()`) — **not** in blob markdown (gate **K**) |
 | **Schema present** | Live `<head>` has §3 JSON-LD: **`QAPage`** + **`TechArticle`** + **`BreadcrumbList`** — `mainEntity` Question + acceptedAnswer; **no `ItemList`** (item **8** · gate **C**) |
@@ -1810,7 +1810,7 @@ Audit function: `auditQaGoldTemplate(body, title, id)` in `_qa_gold_template.js`
 | **Images** | Section `![alt](url)` only — min 3; text between each; optional hero after DA + intro prose (§2 item **6**); **no** top hero before `## Direct Answer` |
 | **Shape** | Question-form title/H1; essay sections — not listicle ranks or Best Overall pills |
 
-> **Not required for §6 Pass condition:** **2,000-word floor** · legacy `WORD_FLOOR=2000` · padding prose to satisfy stale scrubber defaults. **13/13** is enforced via gate **H** when that gate is in scope — §6 Pass is **all gates green** (600-word floor + full checklist), not a separate 2,000-word or off-checklist rubric restatement.
+> **Not required for §6 Pass condition:** **2,500-word floor** · legacy `WORD_FLOOR=2000` · padding prose to satisfy stale scrubber defaults. **13/13** is enforced via gate **H** when that gate is in scope — §6 Pass is **all gates green** (600-word floor + full checklist), not a separate 2,500-word or off-checklist rubric restatement.
 
 #### Validate before commit — all must pass
 
@@ -2025,7 +2025,7 @@ Process details: `.cursor/rules/pipeline-template-law.mdc` · rubric detail: `SC
 
 | Source | Legacy floor | Status |
 |--------|--------------|--------|
-| [`SCRUBBER_SPEC.md`](SCRUBBER_SPEC.md) criterion 1 | ≥2,000 words | **Superseded** for golden-template pages |
+| [`SCRUBBER_SPEC.md`](SCRUBBER_SPEC.md) criterion 1 | ≥2,500 words | **Superseded** for golden-template pages |
 | `netlify/functions/lib/grade-entry.js` | 2,000 (1,100+ general Q&A) | **Superseded** for golden-template pages |
 | `_v2_components.js` | `WORD_FLOOR=2000` | **Superseded** for golden-template pages |
 
@@ -2040,9 +2040,9 @@ For **Q&A** (q11133) and **Top 10** (aq1158) golden-template entries, **`GOLDEN_
 | **Floor** | **800 words** minimum substantive prose |
 | **Ceiling** | **None** — no upper limit |
 | **Never pad** | No filler, repetition, or throat-clearing to hit arbitrary counts |
-| **2,000 words is NOT required** | Golden-template pages do **not** require 2,000 words. Explicit override of legacy scrubber default. |
+| **2,500 words is NOT required** | Golden-template pages do **not** require 2,500 words. Explicit override of legacy scrubber default. |
 
-> **Code not yet aligned:** Pipeline scripts may still enforce higher floors until updated. Agents and writers follow **GOLDEN_TEMPLATE law first** — do not pad prose to satisfy stale 2,000-word gates on golden-template entries.
+> **Code not yet aligned:** Pipeline scripts may still enforce higher floors until updated. Agents and writers follow **GOLDEN_TEMPLATE law first** — do not pad prose to satisfy stale 2,500-word gates on golden-template entries.
 
 ### 13/13 content gate
 

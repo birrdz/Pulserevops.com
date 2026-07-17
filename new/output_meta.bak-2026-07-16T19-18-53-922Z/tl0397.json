@@ -1,0 +1,25 @@
+{
+ "id": "tl0397",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "compliance regulation documents",
+  "corporate boardroom meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "Should I Hire a Fractional CRO If I Am Entering a Regulated Market?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0397",
+ "live": true,
+ "liveAt": "2026-07-16T00:12:33.776Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T00:12:33.776Z",
+ "recent": true
+}

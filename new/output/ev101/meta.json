@@ -1,0 +1,12 @@
+{
+ "id": "ev101",
+ "faceCard": "facecard.jpg",
+ "title": "Top 10 Events strategies for 2027",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "3": "body-3.jpg"
+ },
+ "status": "skipped",
+ "skippedAt": "2026-07-17T13:10:31.223Z"
+}

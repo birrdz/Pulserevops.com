@@ -1,0 +1,27 @@
+{
+ "id": "newmrney4y0",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "signed paycheck stack",
+  "sales team handshake",
+  "commission structure whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7580769/pexels-photo-7580769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you design sales compensation plans that retain top reps without overpaying in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19148",
+ "live": true,
+ "liveAt": "2026-07-16T17:06:46.816Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:06:46.816Z",
+ "recent": true
+}

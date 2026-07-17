@@ -1,0 +1,27 @@
+{
+ "id": "newmrnietaz",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "startup sales team meeting",
+  "handshake closing deal",
+  "sales performance dashboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7688335/pexels-photo-7688335.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you scale a startup sales team without losing your close rate in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19106",
+ "live": true,
+ "liveAt": "2026-07-16T12:56:30.077Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:56:30.077Z",
+ "recent": true
+}

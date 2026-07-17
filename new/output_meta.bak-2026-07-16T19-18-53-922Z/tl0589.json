@@ -1,0 +1,27 @@
+{
+ "id": "tl0589",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO executive",
+  "RevOps team whiteboard",
+  "business handshake meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/5789881.jpg",
+ "faceLibId": "5789881",
+ "title": "Should I Hire a Fractional CRO If I Need to Stand Up RevOps From Scratch?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0589",
+ "live": true,
+ "liveAt": "2026-07-16T06:28:59.572Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T06:28:59.572Z",
+ "recent": true
+}

@@ -1,0 +1,25 @@
+{
+ "id": "tl0552",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "[object Object]"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7693689.jpg",
+ "faceLibId": "7693689",
+ "title": "Should I Hire a Fractional CRO If I Have Great Marketing but Weak Sales?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0552",
+ "live": true,
+ "liveAt": "2026-07-16T06:05:17.171Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T06:05:17.171Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "tl9273",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "online marketplace warehouse",
+  "business contract signing"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/8124180.jpg",
+ "faceLibId": "8124180",
+ "title": "How do I hire a fractional CRO for a marketplace business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9273",
+ "live": true,
+ "liveAt": "2026-07-16T13:11:52.712Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:11:52.712Z",
+ "recent": true
+}

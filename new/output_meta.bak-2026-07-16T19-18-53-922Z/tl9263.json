@@ -1,0 +1,27 @@
+{
+ "id": "tl9263",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "media company newsroom",
+  "business handshake meeting",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7255270.jpg",
+ "faceLibId": "7255270",
+ "title": "Do I need a fractional CRO for my media company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9263",
+ "live": true,
+ "liveAt": "2026-07-16T13:15:42.059Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:15:42.059Z",
+ "recent": true
+}

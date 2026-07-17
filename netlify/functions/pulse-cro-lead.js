@@ -1,7 +1,7 @@
 // pulse-cro-lead — "Reach out for fractional CRO help" form. Emails Kory the
 // prospect's info (name/email/company/message) and stores the lead in a blob.
 let getStore=null; try{ getStore=require('@netlify/blobs').getStore; }catch(e){}
-const RECIPIENT='kory.white@crosyndicate.com';
+const RECIPIENT='koryjordanwhite@gmail.com';
 const CORS={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'POST, OPTIONS','Access-Control-Allow-Headers':'Content-Type'};
 const json=(sc,o)=>({statusCode:sc,headers:{...CORS,'Content-Type':'application/json'},body:JSON.stringify(o)});
 const esc=s=>String(s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
@@ -17,12 +17,19 @@ exports.handler=async(event)=>{
   const company=String(b.company||'').slice(0,160).trim();
   const message=String(b.message||'').slice(0,2000).trim();
   const page=String(b.page||'').slice(0,300);
+  // Attribution — how the lead found us. From the form payload (first-touch referrer/UTM/landing)
+  // plus the request's own Referer header as a fallback.
+  const ref=String(b.ref||'').slice(0,500).trim();
+  const landing=String(b.landing||'').slice(0,500).trim();
+  const utm=String(b.utm||'').slice(0,500).trim();
+  const hdrRef=String((event.headers&&(event.headers.referer||event.headers.referrer))||'').slice(0,500).trim();
+  const foundVia=ref||hdrRef||'(direct / unknown)';
   // Low-friction: accept the lead as long as there's a way to reach them (email OR phone). Name optional.
   const emailOk = email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
   if(!emailOk && !phone) return json(400,{ok:false,reason:'email or phone required'});
 
   // store the lead (best-effort)
-  try{ const s=store(); if(s){ await s.setJSON('cro-leads/'+Date.now()+'.json',{name,email,phone,company,message,page,ts:Date.now()}); } }catch(e){}
+  try{ const s=store(); if(s){ await s.setJSON('cro-leads/'+Date.now()+'.json',{name,email,phone,company,message,page,ref,landing,utm,hdrRef,ts:Date.now()}); } }catch(e){}
   try{ await require('./_stats').bump({leads:1}); }catch(e){}
 
   const subject=`🟢 Fractional CRO lead: ${name}${company?(' ('+company+')'):''}`;
@@ -33,6 +40,9 @@ exports.handler=async(event)=>{
     <strong>Phone:</strong> ${esc(phone)||'(not given)'}<br>
     <strong>Company:</strong> ${esc(company)||'(not given)'}<br>
     <strong>From page:</strong> ${esc(page)||'(n/a)'}<br>
+    <strong>How they found us:</strong> ${foundVia&&/^https?:\/\//i.test(foundVia)?('<a href="'+esc(foundVia)+'">'+esc(foundVia)+'</a>'):esc(foundVia)}<br>
+    ${landing?('<strong>Landing page:</strong> '+(/^https?:\/\//i.test(landing)?('<a href="'+esc(landing)+'">'+esc(landing)+'</a>'):esc(landing))+'<br>'):''}
+    ${utm?('<strong>Campaign (UTM):</strong> '+esc(utm)+'<br>'):''}
     <strong>Time:</strong> ${new Date().toUTCString()}</p>
     <p><strong>Message:</strong><br>${esc(message)||'(none)'}</p>
     <p style="color:#8a8ba0;font-size:12px">Submitted via the "Reach out for fractional CRO help" box on pulserevops.com.</p></div>`;

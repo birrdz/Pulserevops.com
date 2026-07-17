@@ -1,0 +1,27 @@
+{
+ "id": "newmrnjgas7",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales commission agreement",
+  "office team meeting",
+  "financial performance dashboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7580769/pexels-photo-7580769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you design sales comp plans that motivate the right behaviors in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19122",
+ "live": true,
+ "liveAt": "2026-07-16T13:37:45.941Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:37:45.941Z",
+ "recent": true
+}

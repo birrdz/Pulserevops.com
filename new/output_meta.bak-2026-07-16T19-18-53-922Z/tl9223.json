@@ -1,0 +1,27 @@
+{
+ "id": "tl9223",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO executive",
+  "manufacturing factory floor",
+  "sales revenue chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/8127694.jpg",
+ "faceLibId": "8127694",
+ "title": "Do I need a fractional CRO for my manufacturing company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9223",
+ "live": true,
+ "liveAt": "2026-07-16T13:46:34.830Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:46:34.830Z",
+ "recent": true
+}

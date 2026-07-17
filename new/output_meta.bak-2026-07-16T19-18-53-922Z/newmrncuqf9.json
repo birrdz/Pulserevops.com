@@ -1,0 +1,27 @@
+{
+ "id": "newmrncuqf9",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "price negotiation handshake",
+  "signed contract pen",
+  "calculator financial documents"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/5926442/pexels-photo-5926442.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you handle a price objection late in a deal in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19071",
+ "live": true,
+ "liveAt": "2026-07-16T10:50:30.330Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T10:50:30.330Z",
+ "recent": true
+}

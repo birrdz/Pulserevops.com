@@ -11,7 +11,7 @@ passes: content first (no network), images second (network, throttled) — only 
 
 Score each page, list failed criteria numbers, fix them, rescore until 13/13.
 
-1. **WORD COUNT** — ≥ 2,000 words of real content. "Real" = no repeated sentences/paragraphs, no restating the question across sections, no generic sentences that could appear on any page unchanged. If removing a sentence loses no information, it is filler — cut it and replace with substance.
+1. **WORD COUNT** — ≥ 2,500 words of real content. "Real" = no repeated sentences/paragraphs, no restating the question across sections, no generic sentences that could appear on any page unchanged. If removing a sentence loses no information, it is filler — cut it and replace with substance.
 2. **DIRECT ANSWER** — a direct answer to the question appears at the top, before anything else.
 3. **DIRECT ANSWER COMPLETE** — full and self-contained, not a one-line stub. A reader who stops there has their question answered.
 4. **FAQ** — at least 5 relevant FAQ question/answer pairs.

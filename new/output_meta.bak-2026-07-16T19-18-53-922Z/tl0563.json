@@ -1,0 +1,25 @@
+{
+ "id": "tl0563",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "revenue retention dashboard",
+  "customer churn meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "title": "Should I Hire a Fractional CRO If My Net Revenue Retention Is Below 100 Percent?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0563",
+ "live": true,
+ "liveAt": "2026-07-16T01:38:47.809Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T01:38:47.809Z",
+ "recent": true
+}

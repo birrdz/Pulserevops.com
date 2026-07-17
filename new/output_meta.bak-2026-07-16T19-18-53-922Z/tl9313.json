@@ -1,0 +1,27 @@
+{
+ "id": "tl9313",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business executive handshake",
+  "downtown office skyline",
+  "sales team meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/17713789.jpg",
+ "faceLibId": "17713789",
+ "title": "Where can I hire a fractional Chief Revenue Officer near me?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9313",
+ "live": true,
+ "liveAt": "2026-07-16T12:51:18.229Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:51:18.229Z",
+ "recent": true
+}

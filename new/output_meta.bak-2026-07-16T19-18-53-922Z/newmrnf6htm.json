@@ -1,0 +1,27 @@
+{
+ "id": "newmrnf6htm",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "multi-year contract signing",
+  "boardroom negotiation handshake",
+  "profit margin chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/439416/pexels-photo-439416.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you structure a multi-year enterprise deal without leaving margin on the table in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19080",
+ "live": true,
+ "liveAt": "2026-07-16T12:06:19.778Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:06:19.778Z",
+ "recent": true
+}

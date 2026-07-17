@@ -1,0 +1,27 @@
+{
+ "id": "tl9099",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "revenue growth chart",
+  "startup team meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/33137148.jpg",
+ "faceLibId": "33137148",
+ "title": "Should a Series B company hire a fractional CRO?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9099",
+ "live": true,
+ "liveAt": "2026-07-16T08:41:18.131Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:41:18.131Z",
+ "recent": true
+}

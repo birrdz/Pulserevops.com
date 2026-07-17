@@ -1,0 +1,27 @@
+{
+ "id": "tl9069",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business executive handshake",
+  "startup team meeting",
+  "sales revenue chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/8052212.jpg",
+ "faceLibId": "8052212",
+ "title": "Do I need a fractional CRO for my AI startup company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9069",
+ "live": true,
+ "liveAt": "2026-07-16T09:13:09.750Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T09:13:09.750Z",
+ "recent": true
+}

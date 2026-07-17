@@ -54,7 +54,8 @@ function balanceMixedMosaicEntries(entries, cap) {
   const maxDefault = Math.max(6, Math.ceil(cap / Math.max(pills.length, 8)));
   const maxFor = (p) => (p === 'tl' ? Math.min(3, Math.max(2, Math.floor(cap / 120))) : maxDefault);
   for (const p of pills) {
-    byp[p].sort((a, b) => entryTs(b) - entryTs(a));
+    // NEW pink/block-builder entries (bb:1) showcase FIRST within their pillar; old ones backfill by recency.
+    byp[p].sort((a, b) => ((b && b.bb ? 1 : 0) - (a && a.bb ? 1 : 0)) || (entryTs(b) - entryTs(a)));
     const m = maxFor(p);
     if (byp[p].length > m) byp[p] = byp[p].slice(0, m);
   }
@@ -209,6 +210,8 @@ function mapListEntry(e) {
     tags: (e.tags || []).slice(0, 12),
     img: e.img || null,   // face-card hero URL (stamped into the index) — powers the mosaic tile boxes
     imgSq: e.imgSq || null, // untitled browse square for homepage Recents + pillar rows
+    trim: e.trim || null,   // 'hotpink' = new build · 'green' = fixed in place — drives the Recents card outline
+    bb: e.bb || 0,          // block-builder entry (new-format, high-value)
     cover_src: e.cover_src || null,
     face_title_baked: !!e.face_title_baked,
     ts: e.ts,

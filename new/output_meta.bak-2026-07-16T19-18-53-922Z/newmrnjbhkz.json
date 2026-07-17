@@ -1,0 +1,27 @@
+{
+ "id": "newmrnjbhkz",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "marketing operations dashboard",
+  "data analytics team meeting",
+  "CRM software interface"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/27381980/pexels-photo-27381980.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "What marketing ops tech stack do high-performing B2B teams run in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19127",
+ "live": true,
+ "liveAt": "2026-07-16T13:48:35.730Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:48:35.730Z",
+ "recent": true
+}

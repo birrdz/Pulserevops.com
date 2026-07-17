@@ -1,0 +1,27 @@
+{
+ "id": "tl0562",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "rising cost bar chart",
+  "sales team whiteboard meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7580844.jpg",
+ "faceLibId": "7580844",
+ "title": "Should I Hire a Fractional CRO If My CAC Is Rising Every Quarter?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0562",
+ "live": true,
+ "liveAt": "2026-07-16T06:08:29.262Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T06:08:29.262Z",
+ "recent": true
+}

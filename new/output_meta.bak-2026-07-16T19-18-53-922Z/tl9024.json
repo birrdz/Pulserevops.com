@@ -1,0 +1,27 @@
+{
+ "id": "tl9024",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO handshake",
+  "factory production line",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7947744.jpg",
+ "faceLibId": "7947744",
+ "title": "How much does a fractional CRO cost for a manufacturing company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9024",
+ "live": true,
+ "liveAt": "2026-07-16T12:02:56.918Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:02:56.918Z",
+ "recent": true
+}

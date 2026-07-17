@@ -297,18 +297,23 @@
       if (!src) return;
       img.__psqHydrated = true;
       img.removeAttribute('data-src');
-      function onReady() {
-        img.classList.add('is-on');
-        img.removeEventListener('load', onReady);
+      // Fade in ONLY after the render trick's pixels are fully decoded & paint-ready — never
+      // mid-swap. `load` fires when bytes arrive but BEFORE decode, so fading there flashes a
+      // blank/half-decoded frame (the mobile+desktop flicker). decode() resolves post-decode.
+      var lit = false;
+      function light() {
+        if (lit) return; lit = true;
+        img.removeEventListener('load', onLoad);
+        // one frame so the opacity:0 baseline is committed before transitioning to 1
+        requestAnimationFrame(function () { img.classList.add('is-on'); });
       }
-      img.addEventListener('load', onReady);
-      // If cached, load may have already fired
-      if (img.complete && img.naturalWidth) onReady();
-      // First paints: ask browser to prioritize decode/network
-      if (!img.__psqPri && sc && sc.querySelectorAll('img.psq-img.is-on, img.psq-img[data-src]').length) {
-        /* set below per index */
+      function onLoad() {
+        if (typeof img.decode === 'function') { img.decode().then(light, light); }
+        else light();
       }
-      img.src = src;
+      img.addEventListener('load', onLoad);
+      img.src = src;                                   // <-- render trick fires here
+      if (img.complete && img.naturalWidth) onLoad();  // cached: still decode-gate for a clean paint
     }
 
     // First screenful: hydrate now with high priority (phone or monitor width).
@@ -558,13 +563,20 @@
       if (!src) return;
       img.__psqHydrated = true;
       img.removeAttribute('data-src');
-      function onReady() {
-        img.classList.add('is-on');
-        img.removeEventListener('load', onReady);
+      // Decode-gated fade: wait for the render trick to finish decoding before revealing.
+      var lit = false;
+      function light() {
+        if (lit) return; lit = true;
+        img.removeEventListener('load', onLoad);
+        requestAnimationFrame(function () { img.classList.add('is-on'); });
       }
-      img.addEventListener('load', onReady);
-      if (img.complete && img.naturalWidth) onReady();
+      function onLoad() {
+        if (typeof img.decode === 'function') { img.decode().then(light, light); }
+        else light();
+      }
+      img.addEventListener('load', onLoad);
       img.src = src;
+      if (img.complete && img.naturalWidth) onLoad();
     }
 
     function fillCards(done) {
@@ -783,9 +795,20 @@
           if (img) {
             var s = img.getAttribute('data-src');
             img.removeAttribute('data-src');
-            img.addEventListener('load', function () { img.classList.add('is-on'); });
-            if (img.complete && img.naturalWidth) img.classList.add('is-on');
+            // Decode-gate the rising card so it never fades in a blank/half-decoded frame.
+            var swapLit = false;
+            var swapLight = function () {
+              if (swapLit) return; swapLit = true;
+              img.removeEventListener('load', swapReady);
+              requestAnimationFrame(function () { img.classList.add('is-on'); });
+            };
+            var swapReady = function () {
+              if (typeof img.decode === 'function') { img.decode().then(swapLight, swapLight); }
+              else swapLight();
+            };
+            img.addEventListener('load', swapReady);
             img.src = s;
+            if (img.complete && img.naturalWidth) swapReady();
           } else {
             var on = neu.querySelector('img.psq-img');
             if (on) on.classList.add('is-on');

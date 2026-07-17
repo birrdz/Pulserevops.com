@@ -1,0 +1,27 @@
+{
+ "id": "tl9368",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "Connecticut state welcome sign",
+  "business handshake meeting",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/5520301.jpg",
+ "faceLibId": "5520301",
+ "title": "Where do I find a fractional CRO in Connecticut?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9368",
+ "live": true,
+ "liveAt": "2026-07-16T14:48:31.882Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T14:48:31.882Z",
+ "recent": true
+}

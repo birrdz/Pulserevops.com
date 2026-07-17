@@ -11,6 +11,21 @@ const STOPWORDS = new Set([
   'your', 'you', 'our', 'we', 'my', 'i', 'me', 'their', 'they', 'them',
   'should', 'can', 'could', 'would', 'will', 'just', 'only', 'also', 'very',
   'near', 'me', 'local', 'nearby', 'area', 'areas', 'city', 'town', 'county',
+  // 2026-07-14 relevance fix: price/quantity/filler words are NOT subjects. They were
+  // surviving to the front of the token window and shoving the real subject noun out of the
+  // 4-word slice ("...trade show booth cost" → "much custom trade show"; "200-gallon reef
+  // tank" → "true cost 200 gallon" → gas pump). Strip them so only concrete nouns remain.
+  'much', 'many', 'more', 'most', 'cost', 'costs', 'price', 'priced', 'prices', 'pricing',
+  'fee', 'fees', 'worth', 'budget', 'total', 'average', 'expensive', 'cheap', 'afford',
+  'affordable', 'spend', 'true', 'real', 'actual', 'need', 'needs', 'needed', 'get', 'buy',
+  'make', 'start', 'use', 'custom', 'setup', 'size', 'sized', 'full', 'per', 'each',
+  'know', 'tell', 'find', 'choose', 'decide', 'keep', 'take', 'schedule',
+  'after', 'before', 'during', 'month', 'monthly', 'year', 'yearly', 'day', 'daily',
+  'week', 'weekly', 'hour', 'hours', 'destination',
+  // units of measure — never the subject, always a false-match magnet
+  'gallon', 'gallons', 'pound', 'pounds', 'lb', 'lbs', 'inch', 'inches', 'foot', 'feet',
+  'ft', 'mile', 'miles', 'oz', 'ounce', 'ounces', 'kg', 'gram', 'grams', 'liter', 'liters',
+  'ml', 'sqft', 'square',
 ]);
 
 const US_STATE_ABBRS = new Set([
@@ -41,7 +56,8 @@ function stripYearTokens(tokens) {
 }
 
 function stripStopwords(tokens) {
-  return tokens.filter(t => !STOPWORDS.has(t) && t.length > 1);
+  // Drop stopwords, 1-char tokens, and bare numbers ("200", "1000") — measurements, not subjects.
+  return tokens.filter(t => !STOPWORDS.has(t) && t.length > 1 && !/^\d+$/.test(t));
 }
 
 /** Strip trailing city + US state abbrev (clone-family location suffix). */

@@ -1,0 +1,27 @@
+{
+ "id": "newmrnfozen",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales technology dashboard",
+  "software integration diagram",
+  "team workflow whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/12951264/pexels-photo-12951264.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you consolidate an overlapping CRM and sales tech stack without losing critical workflows in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19079",
+ "live": true,
+ "liveAt": "2026-07-16T12:02:22.695Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:02:22.695Z",
+ "recent": true
+}

@@ -1969,7 +1969,7 @@ const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-4
 const PORT = parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
 const PASS = '4444';
 const DAILY_MAX = parseInt(process.env.SCRUB_BTN_DAILY || '100000000', 10);   // daily cap removed (owner 2026-07-01) — effectively unlimited
-const MIN_SCORE = 12, WORD_FLOOR = 2000;
+const MIN_SCORE = 12, WORD_FLOOR = 2500;   // owner 2026-07-15: 2500 on everything (was 2000)
 const NR = WD + '/_v2_needs_review.json', AP = WD + '/_v2_approved.json', CC = WD + '/_v2_cc_approved.json';
 const QUEUE = WD + '/_scrub_button_queue.json';      // remaining under-12 ids to work
 const COOKQ = WD + '/_scrub_cook_queue.json';        // legacy — merged into QUEUE on scrub start (fast pass removed)

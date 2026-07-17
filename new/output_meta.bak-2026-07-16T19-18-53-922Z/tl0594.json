@@ -1,0 +1,27 @@
+{
+ "id": "tl0594",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "product roadmap whiteboard",
+  "warehouse shipping boxes"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7433856.jpg",
+ "faceLibId": "7433856",
+ "title": "Should I Hire a Fractional CRO If I Am Scaling a Services Firm Into Products?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0594",
+ "live": true,
+ "liveAt": "2026-07-16T08:21:24.128Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:21:24.128Z",
+ "recent": true
+}

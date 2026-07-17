@@ -1,0 +1,55 @@
+{
+ "done": true,
+ "results": [
+  {
+   "q": "What should you inspect before buying a certified pre-owned luxury car in 2028?",
+   "id": "newmrmkhqg2",
+   "status": "text-fail"
+  },
+  {
+   "q": "How do you cycle a new saltwater reef aquarium the right way in 2028?",
+   "id": "newmrmkql2y",
+   "status": "3/3"
+  },
+  {
+   "q": "How do you dial in espresso on a brand-new machine in 2028?",
+   "id": "newmrmkt0ls",
+   "status": "3/3"
+  },
+  {
+   "q": "How do you introduce a second dog into a one-dog household in 2028?",
+   "id": "newmrmkxeqe",
+   "status": "3/3"
+  },
+  {
+   "q": "What does a modern RevOps tech stack look like for a Series A startup in 2028?",
+   "id": "newmrmkzqkr",
+   "status": "text-fail"
+  },
+  {
+   "q": "How do you choose an all-inclusive resort that is actually worth the money in 2028?",
+   "id": "newmrml85jp",
+   "status": "text-fail"
+  },
+  {
+   "q": "How do you build a family budget that survives real life in 2028?",
+   "id": "newmrmlip9m",
+   "status": "text-fail"
+  },
+  {
+   "q": "How do you build a budget gaming PC that still lasts in 2028?",
+   "id": "newmrmlrvk5",
+   "status": "text-fail"
+  },
+  {
+   "q": "How do you build a morning routine that actually sticks in 2028?",
+   "id": "newmrmm1cmx",
+   "status": "text-fail"
+  },
+  {
+   "q": "How do you winterize a wakeboard boat the right way in 2028?",
+   "id": "newmrmmagur",
+   "status": "3/3"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "id": "newmrmwv3z5",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales team meeting",
+  "quarterly business review dashboard",
+  "office team handshake"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7793095/pexels-photo-7793095.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you run a QBR the sales team does not dread in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg"
+ },
+ "qid": "q19046",
+ "live": true,
+ "liveAt": "2026-07-16T04:51:50.603Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T04:51:50.603Z",
+ "recent": true
+}

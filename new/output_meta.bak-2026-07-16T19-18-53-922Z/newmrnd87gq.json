@@ -1,0 +1,27 @@
+{
+ "id": "newmrnd87gq",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business handshake meeting",
+  "word of mouth network",
+  "sales pipeline dashboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7648043/pexels-photo-7648043.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build a referral program that generates real pipeline in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19069",
+ "live": true,
+ "liveAt": "2026-07-16T10:49:31.514Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T10:49:31.514Z",
+ "recent": true
+}

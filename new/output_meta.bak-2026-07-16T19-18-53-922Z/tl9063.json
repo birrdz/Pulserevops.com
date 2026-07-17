@@ -1,0 +1,27 @@
+{
+ "id": "tl9063",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "media company newsroom",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7887819.jpg",
+ "faceLibId": "7887819",
+ "title": "How do I hire a fractional CRO for a media business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9063",
+ "live": true,
+ "liveAt": "2026-07-16T09:47:37.052Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T09:47:37.052Z",
+ "recent": true
+}

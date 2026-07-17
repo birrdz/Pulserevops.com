@@ -1,0 +1,27 @@
+{
+ "id": "newmrnckvjl",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "30-60-90 day planner notebook",
+  "sales team meeting handshake",
+  "business strategy roadmap whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7688375/pexels-photo-7688375.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build a 30-60-90 day plan as a new sales leader in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19073",
+ "live": true,
+ "liveAt": "2026-07-16T10:56:45.010Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T10:56:45.010Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "tl9102",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "private equity office building",
+  "revenue growth chart whiteboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7580652.jpg",
+ "faceLibId": "7580652",
+ "title": "Should a PE-backed company hire a fractional CRO?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9102",
+ "live": true,
+ "liveAt": "2026-07-16T08:41:33.526Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:41:33.526Z",
+ "recent": true
+}

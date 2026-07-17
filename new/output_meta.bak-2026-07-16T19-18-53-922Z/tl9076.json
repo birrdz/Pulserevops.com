@@ -1,0 +1,27 @@
+{
+ "id": "tl9076",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business executive handshake",
+  "online marketplace warehouse",
+  "financial cost calculator"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/4963448.jpg",
+ "faceLibId": "4963448",
+ "title": "How much does a fractional CRO cost for a marketplace company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9076",
+ "live": true,
+ "liveAt": "2026-07-16T11:01:17.975Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T11:01:17.975Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "tl9033",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "[object Object]",
+  "[object Object]",
+  "[object Object]"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/8154789.jpg",
+ "faceLibId": "8154789",
+ "title": "Do I need a fractional CRO for my e-commerce company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9033",
+ "live": true,
+ "liveAt": "2026-07-16T17:07:17.824Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:07:17.824Z",
+ "recent": true
+}

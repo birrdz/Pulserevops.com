@@ -1,0 +1,22 @@
+{
+ "id": "sp0246",
+ "format": "essay",
+ "bodyCount": 3,
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/32158263/pexels-photo-32158263.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How to Land a Joke in a Toast",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "sp0246",
+ "live": true,
+ "liveAt": "2026-07-16T08:51:27.031Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:51:27.031Z",
+ "recent": true
+}

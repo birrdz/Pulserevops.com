@@ -1,0 +1,33 @@
+{
+ "id": "tl9740",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "Scottsdale Arizona skyline",
+  "business executive handshake",
+  "sales strategy whiteboard",
+  "downtown office building",
+  "desert golf resort",
+  "team meeting conference room"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/19862212.jpg",
+ "faceLibId": "19862212",
+ "title": "Where do I find a fractional CRO in Scottsdale?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9740",
+ "live": true,
+ "liveAt": "2026-07-16T19:03:03.354Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T19:03:03.354Z",
+ "recent": true
+}

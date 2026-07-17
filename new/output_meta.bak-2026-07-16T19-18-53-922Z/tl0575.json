@@ -1,0 +1,27 @@
+{
+ "id": "tl0575",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "seasonal business owner reviewing charts",
+  "empty desk chair boardroom",
+  "revenue growth line graph"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/5717022.jpg",
+ "faceLibId": "5717022",
+ "title": "Should I Hire a Fractional CRO If My Revenue Is Seasonal and Unpredictable?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0575",
+ "live": true,
+ "liveAt": "2026-07-16T08:04:39.679Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:04:39.679Z",
+ "recent": true
+}

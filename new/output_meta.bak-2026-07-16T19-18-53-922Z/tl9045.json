@@ -1,0 +1,27 @@
+{
+ "id": "tl9045",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "logistics warehouse trucks",
+  "executive boardroom meeting",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/5439428.jpg",
+ "faceLibId": "5439428",
+ "title": "Do I need a fractional CRO for my logistics company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9045",
+ "live": true,
+ "liveAt": "2026-07-16T11:00:36.532Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T11:00:36.532Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "tl9107",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business handshake meeting",
+  "empty corner office",
+  "small startup team"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7433865.jpg",
+ "faceLibId": "7433865",
+ "title": "Fractional CRO vs full-time CRO for a bootstrapped business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9107",
+ "live": true,
+ "liveAt": "2026-07-16T08:26:46.459Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:26:46.459Z",
+ "recent": true
+}

@@ -80,7 +80,9 @@ function safeDeploy(files) {
   }
   logline('synced ' + files.length + ' files into pulse-deploy-clean');
   // 2. DRAFT deploy (no --prod)
-  const draftOut = execSync('npx --yes netlify-cli deploy --dir=. --no-build --site=' + SITE + ' --json', { cwd: CLEAN, encoding: 'utf8', env: Object.assign({}, process.env, { NETLIFY_AUTH_TOKEN: TOK }), timeout: 900000 });
+  // --functions is REQUIRED: netlify-cli v26+ stopped shipping functions under --no-build without it,
+  // which made drafts 404 every function-rendered entry page and blocked all promotes (2026-07-17 fix).
+  const draftOut = execSync('npx --yes netlify-cli deploy --dir=. --no-build --functions=netlify/functions --site=' + SITE + ' --json', { cwd: CLEAN, encoding: 'utf8', env: Object.assign({}, process.env, { NETLIFY_AUTH_TOKEN: TOK }), timeout: 900000 });
   let draft; try { draft = JSON.parse(draftOut.slice(draftOut.indexOf('{'))); } catch (e) { throw new Error('could not parse draft deploy output'); }
   const draftUrl = draft.deploy_url || draft.url; const deployId = draft.deploy_id || draft.deployId || (draft.deploy && draft.deploy.id);
   if (!draftUrl || !deployId) throw new Error('no draft url/deploy id in output');

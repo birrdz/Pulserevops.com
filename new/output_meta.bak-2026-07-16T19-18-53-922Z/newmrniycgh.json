@@ -1,0 +1,27 @@
+{
+ "id": "newmrniycgh",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales dashboard screen",
+  "team performance meeting",
+  "signed contract handshake"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7948099/pexels-photo-7948099.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "What sales management metrics actually predict quota attainment in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19116",
+ "live": true,
+ "liveAt": "2026-07-16T13:12:59.435Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:12:59.435Z",
+ "recent": true
+}

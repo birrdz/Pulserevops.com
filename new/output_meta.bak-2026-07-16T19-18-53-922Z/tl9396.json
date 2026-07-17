@@ -1,0 +1,33 @@
+{
+ "id": "tl9396",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "fractional executive handshake",
+  "commission dashboard screen",
+  "sales compensation spreadsheet",
+  "revenue team meeting",
+  "signed contract closeup",
+  "financial calculator desk"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/5380618.jpg",
+ "faceLibId": "5380618",
+ "title": "How to align fractional CRO compensation tracking with RevOps commission tools",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9396",
+ "live": true,
+ "liveAt": "2026-07-16T17:50:26.987Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:50:26.987Z",
+ "recent": true
+}

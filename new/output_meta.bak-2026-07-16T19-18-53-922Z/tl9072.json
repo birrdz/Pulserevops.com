@@ -1,0 +1,27 @@
+{
+ "id": "tl9072",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "software developer workstation",
+  "invoice cost breakdown"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7433912.jpg",
+ "faceLibId": "7433912",
+ "title": "How much does a fractional CRO cost for a developer-tools company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9072",
+ "live": true,
+ "liveAt": "2026-07-16T10:07:00.147Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T10:07:00.147Z",
+ "recent": true
+}

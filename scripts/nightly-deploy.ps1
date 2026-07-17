@@ -68,10 +68,30 @@ try {
     }
     Write-Log "DEPLOY: $changedCount file(s) changed since $lastTs (latest mod $latestMod)"
 
-    # Run the deploy — --no-build keeps it local-built (no build minutes consumed)
+    # Park secrets before the root deploy (belt-and-suspenders on top of .netlifyignore) — owner/Fable 2026-07-15
+    $park = 'C:\Users\koryj\_DEPLOY_PARK'
+    New-Item -ItemType Directory -Force -Path $park | Out-Null
+    $parked = @()
+    foreach ($f in @('.env', '.env.local')) {
+        $src = Join-Path $projectDir $f
+        if (Test-Path $src) { Move-Item $src (Join-Path $park $f) -Force; $parked += $f }
+    }
+    Write-Log ("parked secrets: " + ($parked -join ', '))
+
+    # Run the deploy — --build BUNDLES the serverless functions (was --no-build → functions never
+    # bundled → all pages 404; root-caused + fixed 2026-07-15). Restore secrets no matter what.
     $deployStart = Get-Date
     $npx = (Get-Command npx.cmd -ErrorAction Stop).Source
-    $proc = Start-Process -FilePath $npx -ArgumentList @('netlify-cli','deploy','--prod','--no-build','--functions','netlify/functions','--dir','.','--skip-functions-cache') -NoNewWindow -Wait -PassThru -RedirectStandardOutput "$logFile.out" -RedirectStandardError "$logFile.err"
+    try {
+        $proc = Start-Process -FilePath $npx -ArgumentList @('netlify-cli','deploy','--prod','--build','--functions','netlify/functions','--dir','.','--skip-functions-cache') -NoNewWindow -Wait -PassThru -RedirectStandardOutput "$logFile.out" -RedirectStandardError "$logFile.err"
+    }
+    finally {
+        foreach ($f in $parked) {
+            $dst = Join-Path $park $f
+            if (Test-Path $dst) { Move-Item $dst (Join-Path $projectDir $f) -Force }
+        }
+        Write-Log ("restored secrets: " + ($parked -join ', '))
+    }
 
     $stdout = ''; $stderr = ''
     if (Test-Path "$logFile.out") { $stdout = Get-Content "$logFile.out" -Raw; Remove-Item "$logFile.out" -Force }

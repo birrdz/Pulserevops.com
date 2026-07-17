@@ -1,0 +1,27 @@
+{
+ "id": "newmrnf0sti",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "startup sales team meeting",
+  "office pipeline whiteboard",
+  "new hire handshake"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/7876722/pexels-photo-7876722.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you scale a startup sales team from 5 to 50 reps without breaking pipeline in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19147",
+ "live": true,
+ "liveAt": "2026-07-16T17:05:44.603Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:05:44.603Z",
+ "recent": true
+}

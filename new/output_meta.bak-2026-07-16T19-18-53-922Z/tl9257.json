@@ -1,0 +1,27 @@
+{
+ "id": "tl9257",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "business handshake meeting",
+  "modern apartment building",
+  "executive reviewing charts"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7413936.jpg",
+ "faceLibId": "7413936",
+ "title": "How do I hire a fractional CRO for a proptech business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9257",
+ "live": true,
+ "liveAt": "2026-07-16T13:44:58.647Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:44:58.647Z",
+ "recent": true
+}

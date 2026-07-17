@@ -1,0 +1,27 @@
+{
+ "id": "tl9379",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "person using laptop crm dashboard",
+  "colorful sticky notes workflow board",
+  "funnel diagram whiteboard sketch"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/4175026.jpg",
+ "faceLibId": "4175026",
+ "title": "How to set up automated lead scoring rules in a CRM without a dedicated RevOps team",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9379",
+ "live": true,
+ "liveAt": "2026-07-16T15:35:46.178Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T15:35:46.178Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "newmrnip0gy",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "sales team dashboard",
+  "server racks datacenter",
+  "robot arm keyboard"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/373892/pexels-photo-373892.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build a CRM and sales tech stack that AI agents can actually operate in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19112",
+ "live": true,
+ "liveAt": "2026-07-16T13:05:50.257Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:05:50.257Z",
+ "recent": true
+}

@@ -1,0 +1,27 @@
+{
+ "id": "newmrnee3tb",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "cash flow dashboard",
+  "marketing team meeting",
+  "customer support headset"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/5912588/pexels-photo-5912588.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you standardize your lead-to-cash process across sales, marketing, and CS in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19074",
+ "live": true,
+ "liveAt": "2026-07-16T11:04:14.955Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T11:04:14.955Z",
+ "recent": true
+}

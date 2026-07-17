@@ -1,0 +1,20 @@
+{
+ "id": "dn412",
+ "faceCard": "facecard.jpg",
+ "title": "How do you get started with Dining in 2027?",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "dn412",
+ "live": true,
+ "liveAt": "2026-07-17T12:23:04.403Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-17T12:23:04.403Z",
+ "recent": true
+}

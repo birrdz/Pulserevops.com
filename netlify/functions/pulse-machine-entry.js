@@ -138,7 +138,7 @@ function entryCoverFigureHtml(alt, url) {
     + '<img' + attrs + ' style="width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;display:block;background:#ECE3D2;object-fit:cover;max-height:520px;"></figure>';
 }
 
-function entryCoverFigureHtmlWithFallback(alt, url, fallback, catLabel) {
+function entryCoverFigureHtmlWithFallback(alt, url, fallback, catLabel, ours) {
   /* TOP HERO renders even with ANSWER_CONTENT_IMAGES_OFF — hero is 1 of the 2 allowed images (owner 2026-07-08) */
   const raw = String(url || '').trim();
   const direct = /^https?:\/\//i.test(raw) ? raw.replace(/^http:\/\//i, 'https://') : '';
@@ -147,7 +147,10 @@ function entryCoverFigureHtmlWithFallback(alt, url, fallback, catLabel) {
   const cat = catLabel
     ? '<span class="entry-face-cat">' + escHtml(catLabel) + '</span>'
     : '';
-  return '<figure class="entry-cover" style="position:relative;margin:0 0 18px;background:#ECE3D2;border-radius:14px;overflow:hidden;border:1px solid rgba(29,23,17,.10);">'
+  // OURS = block-builder entry → bold HOT-PINK border on the whole card box (all 4 exterior sides,
+  // cannot crop, shows even when the cover image itself is still the old one). Owner 2026-07-16.
+  const border = ours ? 'border:8px solid #FF1493;' : 'border:1px solid rgba(29,23,17,.10);';
+  return '<figure class="entry-cover" style="position:relative;margin:0 0 18px;background:#ECE3D2;border-radius:14px;overflow:hidden;' + border + '">'
     + cat
     + '<img' + attrs + ' style="width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;display:block;background:#ECE3D2;object-fit:cover;max-height:520px;"></figure>';
 }
@@ -206,7 +209,8 @@ function wrapDirectAnswerGold(html) {
   return html.slice(0, h2m.index) + DIRECT_ANSWER_BOX_OPEN + content + '</div>' + html.slice(contentEnd);
 }
 
-function renderMd(text, styleIncl, skipFirstCover) {
+function renderMd(text, styleIncl, skipFirstCover, allowImages) {
+  const IMAGES_OFF = ANSWER_CONTENT_IMAGES_OFF && !allowImages;   // Block Builder entries opt IN to body images
   text = String(text || '').replace(/\r\n/g, '\n').trim();
   const lines = text.split('\n'); const out = []; let i = 0; let paraBuf = []; let coverImgDone = false; let directAnswerOpen = false;
   const flush = () => { if (paraBuf.length) { const j = paraBuf.join(' ').trim(); if (j) out.push('<p>' + renderInline(escHtml(j)) + '</p>'); paraBuf = []; } };
@@ -345,7 +349,7 @@ function renderMd(text, styleIncl, skipFirstCover) {
       const imgM = t.match(/^!\[([^\]]*)\]\((.+)\)\s*$/);
       if (imgM) {
         flush();
-        if (ANSWER_CONTENT_IMAGES_OFF) {
+        if (IMAGES_OFF) {
           if (!coverImgDone) coverImgDone = true;
           i++; continue;
         }
@@ -399,7 +403,7 @@ function renderMd(text, styleIncl, skipFirstCover) {
       const li = t.match(/^\[!\[([^\]]*)\]\(([^)]+)\)\]\((.+)\)\s*$/);
       if (li) {
         flush();
-        if (!ANSWER_CONTENT_IMAGES_OFF) {
+        if (!IMAGES_OFF) {
           out.push('<figure class="entry-graphic" style="margin:0 0 18px;"><a href="' + escAttr(li[3].trim()) + '" target="_blank" rel="noopener"><img' + entryImgAttrs(li[2].trim(), li[1], { width: 760, height: 428 }) + ' style="width:100%;height:auto;border-radius:14px;display:block;"></a></figure>');
         }
         i++; continue;
@@ -694,8 +698,8 @@ function stripRenderedCro(html) {
 /** Strip stray content images from rendered article HTML (CRO header is outside .body).
  *  preserveProducts=true (ranking lists / Top-10): KEEP the @@PRODUCT + v2-pick poster images —
  *  those ARE the ranking content — and only remove stray section/graphic/cover figures. */
-function stripAnswerContentImages(html, preserveProducts) {
-  if (!html || !ANSWER_CONTENT_IMAGES_OFF) return html;
+function stripAnswerContentImages(html, preserveProducts, allowImages) {
+  if (!html || !ANSWER_CONTENT_IMAGES_OFF || allowImages) return html;
   let h = String(html);
   if (preserveProducts) {
     // Protect Top-10 product-card + v2-pick blocks, strip the rest, then restore them.
@@ -1068,17 +1072,26 @@ exports.handler = async (event) => {
   // written by one function (putQaAsset → blob qa-bin/), read by everyone. No registryCover / pickHeroUrl /
   // pillar-dupe legacy sources: a miss must show the VISIBLE placeholder (img-missing.svg), never a
   // silent revert to an old cover or the pulse-og logo.
-  const heroUrl = faceCard || '';
+  // 🔒 VERSIONED FACE (owner 2026-07-17): a sealed advertising card writes a NEW filename each time
+  // (/assets/qa/<id>-v<ts>.jpg) and records it on idxEntry.img. A new URL is never shadowed by an old
+  // baked static and is never cache-stale. ONLY a versioned qa path overrides the constructed faceCard;
+  // everything unversioned keeps the exact old single-source behavior (miss → visible placeholder).
+  const versionedFace = (rawIdxImg && /\/assets\/qa\/[^\/]+-v\d+\.(?:jpe?g|png|webp)(?:\?|$)/i.test(rawIdxImg)) ? rawIdxImg : '';
+  const heroUrl = versionedFace || faceCard || '';
   const heroFallback = '';
   const heroAlt = entry.question || (coverLead && coverLead.alt) || id;
   // Small corner category on face-card heroes (matches mosaic mm-cat, e.g. Speeches).
   const FACE_CAT = { tl:'Pulse Tools', ca:'Cars', bt:'Boats', aq:'Aquariums', ik:'Industry KPIs', tk:'Tech Stacks', bs:'Book Summaries', st:'Sales Trainings', fr:'Franchises', co:'Collectibles', ai:'AI Infra', gb:'Graphics', bo:'Buildouts', sy:'Style', gp:'GTM Playbooks', ra:'Rev Architecture', pt:'Pets', es:'Espresso', tv:'TVs', rs:'Resorts', cl:'Cologne', lv:'Lux Vacations', ev:'Events', ga:'Gatherings', gm:'Gaming', mv:'Movies', wl:'Wellness', dn:'Dining', nl:'Nightlife', tn:'Towns', sc:'Schools', tc:'Telco', er:'Electronics', q:'Knowledge', hf:'Home & Family', sw:'Software', sk:'Skills', sp:'Speeches', dr:'Drills', ce:'Pulse News', ed:'Advice' };
   const faceCat = FACE_CAT[String(id).replace(/\d.*$/, '').toLowerCase()] || '';
-  const heroHtml = (heroUrl ? entryCoverFigureHtmlWithFallback(heroAlt, heroUrl, heroFallback && heroFallback !== heroUrl ? heroFallback : '', faceCat) : '');
-  let bodyForMd = noTopHero ? stripLeadingCoverMarkdown(croStripped) : croStripped;
+  const isOurs = !!(entry && entry.built_by === 'block-builder');   // our new-format entries → hot-pink card border
+  const heroHtml = (heroUrl ? entryCoverFigureHtmlWithFallback(heroAlt, heroUrl, heroFallback && heroFallback !== heroUrl ? heroFallback : '', faceCat, isOurs) : '');
+  const bbImages = !!(entry && (entry.built_by === 'block-builder' || entry.bb_images === true));   // owner-controlled body images (Block Builder)
+  // Block Builder bodies have NO leading cover (owner places images by hand) — skip the legacy
+  // leading-cover strip, whose /m regex otherwise eats the first 1-2 body images anywhere in the text.
+  let bodyForMd = (noTopHero && !bbImages) ? stripLeadingCoverMarkdown(croStripped) : croStripped;
   bodyForMd = bodyForMd.replace(/<!--pillar-weave-->|<!--cro-weave-->/g, '');
-  if (heroHtml) bodyForMd = stripLeadingCoverMarkdown(bodyForMd);
-  let renderedAnswer = stripAnswerContentImages(wrapDirectAnswerGold(renderMd(bodyForMd, /^sy\d+$/i.test(id), noTopHero || !!heroHtml)), rankingList);
+  if (heroHtml && !bbImages) bodyForMd = stripLeadingCoverMarkdown(bodyForMd);
+  let renderedAnswer = stripAnswerContentImages(wrapDirectAnswerGold(renderMd(bodyForMd, /^sy\d+$/i.test(id), noTopHero || !!heroHtml, bbImages)), rankingList, bbImages);
 
   // Word count for the meta row — strip markdown noise (code fences, URLs,
   // table pipes, heading hashes) so the count reflects readable prose.
@@ -1242,7 +1255,7 @@ exports.handler = async (event) => {
     *{box-sizing:border-box;}
     /* site-wide brightness bump (owner 2026-07-06): brighten all in-body + cover images */
     article img, .body img, .entry-hero img, figure img { filter: brightness(1.22) saturate(1.04); }
-    ${ANSWER_CONTENT_IMAGES_OFF ? '.body img,.body figure.entry-section,.body figure.entry-graphic{display:none!important;}.body figure.entry-cover,.entry-cover,figure.entry-cover{display:block!important;}.body .product-card>a,.body .product-card>a img,.body .product-card img,.body .v2-pick>div>a,.body .v2-pick>div>a img,.body .v2-pick img{display:block!important;}' : ''}
+    ${(ANSWER_CONTENT_IMAGES_OFF && !bbImages) ? '.body img,.body figure.entry-section,.body figure.entry-graphic{display:none!important;}.body figure.entry-cover,.entry-cover,figure.entry-cover{display:block!important;}.body .product-card>a,.body .product-card>a img,.body .product-card img,.body .v2-pick>div>a,.body .v2-pick>div>a img,.body .v2-pick img{display:block!important;}' : ''}
     /* TOP HERO always visible — face card / promoted square (owner 2026-07-12) */
     figure.entry-cover{display:block!important;visibility:visible!important;}
     figure.entry-cover img{display:block!important;width:100%;height:auto;}
@@ -1265,7 +1278,7 @@ exports.handler = async (event) => {
     article{max-width:880px;margin:0 auto;padding:36px clamp(20px,5vw,40px) 64px;}
     .crumb{font-size:0.66rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
     .crumb a{color:var(--muted);}
-    h1.q{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.35rem,3.2vw,1.85rem);font-weight:800;letter-spacing:-0.01em;line-height:1.22;margin:0 0 16px;color:#F6C445;}
+    h1.q{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.62rem,3.84vw,2.22rem);font-weight:800;letter-spacing:-0.01em;line-height:1.22;margin:0 0 16px;color:#F6C445;}
     .entry-face-cat{position:absolute;top:12px;left:12px;z-index:2;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#F6C445;background:rgba(0,0,0,.55);border:1px solid rgba(234,193,92,.45);padding:4px 8px;border-radius:6px;text-shadow:0 1px 2px #000;}
     .meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:0.66rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,229,216,0.45);margin-bottom:28px;}
     .entry-tag{display:inline-block;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(237,229,216,0.7);padding:3px 9px;border-radius:99px;font-size:0.6rem;text-decoration:none;transition:all 0.12s;}
@@ -1375,7 +1388,13 @@ exports.handler = async (event) => {
     .share-row,.entry-share{display:flex !important;visibility:visible !important;opacity:1 !important;align-items:center;flex-wrap:wrap;gap:10px;margin:32px 0 8px;padding:20px 0 6px;border-top:1px solid rgba(234,193,92,0.2);}
     .share-label{font-size:0.6rem;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(234,193,92,0.7);margin-right:4px;}
     .share-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,0.035);border:1px solid rgba(234,193,92,0.3);color:#e9ddcb;font-family:inherit;font-size:0.78rem;font-weight:600;letter-spacing:0.01em;cursor:pointer;text-decoration:none;transition:transform 0.16s ease,background 0.16s ease,border-color 0.16s ease,color 0.16s ease;}
-    .share-btn svg{width:16px;height:16px;fill:currentColor;flex:0 0 auto;}
+    .share-btn svg{width:17px;height:17px;fill:currentColor;flex:0 0 auto;}
+/* brighter — brand colors show by DEFAULT (owner 2026-07-16), full fill on hover */
+.share-btn.sb-linkedin{color:#4a9fe8;border-color:rgba(10,102,194,0.6);background:rgba(10,102,194,0.12);}
+.share-btn.sb-x{color:#f2f2f2;border-color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.07);}
+.share-btn.sb-facebook{color:#5a9bf5;border-color:rgba(24,119,242,0.6);background:rgba(24,119,242,0.12);}
+.share-btn.sb-email{color:#F2CB6E;border-color:rgba(234,193,92,0.6);background:rgba(234,193,92,0.12);}
+.share-btn.share-copy{color:#F2CB6E;border-color:rgba(234,193,92,0.55);background:rgba(234,193,92,0.10);}
     .share-copy-lbl{font-size:0.78rem;font-weight:600;}
     .share-btn:hover{transform:translateY(-1px);text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,0.35);}
     .share-btn.sb-linkedin:hover{background:#0A66C2;border-color:#0A66C2;color:#fff;}
@@ -1430,7 +1449,26 @@ exports.handler = async (event) => {
   </style>
   <link rel="stylesheet" href="/assets/pulse-tan.css">
   <link rel="stylesheet" href="/css/pulse-jet-sides.css">
-  <style>html,body{background:#000!important;background-image:none!important;}</style></head>
+  <style>
+  /* ANSWER-PAGE THEME: dark chrome + charcoal content well (owner 2026-07-14, option B).
+     Page/chrome = near-black #0D0D0F; the article sits on a lifted #1A1A1C panel for comfortable
+     long-form reading; soft off-white ink; gold Fraunces headings. On-brand, eye-friendly.
+     Loads last in <head> so it wins over pulse-tan / pulse-jet-sides !important rules. */
+  html,body{background:#0D0D0F!important;background-color:#0D0D0F!important;background-image:none!important;color:#E8E4DA!important;}
+  /* The content well — the article is a centered, slightly-lifted charcoal card */
+  body > article{background:#24242B!important;max-width:920px;margin:24px auto 44px;padding:6px clamp(16px,4.5vw,44px) 44px;border:1px solid rgba(234,193,92,.22);border-radius:16px;box-shadow:0 14px 50px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.5);}
+  body,.body,.body p,.body li,.body td,.body span,p,li{color:#E8E4DA!important;}
+  .body p,.body li{font-size:17px!important;line-height:1.78!important;}
+  h1,h2,h3,h4,.q,.hero h1,.body h2,.body h3,.body h4,.entry-sources-label{color:#EAC15C!important;font-family:'Fraunces',Georgia,serif!important;}
+  a,.body a,.entry-source,.top a{color:#EAC15C!important;}
+  a:hover,.body a:hover{color:#f6d98a!important;}
+  .body strong,.body b{color:#ffffff!important;}
+  .top{background:rgba(13,13,15,.94)!important;border-bottom:1px solid rgba(234,193,92,.28)!important;}
+  /* Secondary / muted text — lifted for contrast on dark (owner contrast note) */
+  .top a,.meta-row,.meta-row span,figcaption,.entry-face-cat,.entry-sources,.entry-source,small,.k,.muted,.dl-label{color:#c2b9a8!important;}
+  blockquote,.body blockquote{border-left:3px solid #EAC15C!important;color:#E8E4DA!important;}
+  hr{border-color:rgba(234,193,92,.22)!important;}
+  </style></head>
 <body>
   <style>.crohdr{max-width:1000px;margin:10px auto 6px;padding:0 14px}.cro-card{display:flex;align-items:stretch;text-decoration:none;border:3px solid #EAC15C;border-radius:14px;overflow:hidden;background:linear-gradient(100deg,#180a10,#0f0a0c 60%);box-shadow:0 6px 26px rgba(0,0,0,.5),0 0 0 1px rgba(234,193,92,.35)}.cro-card__img{flex:0 0 32%;background-size:cover;background-position:center 30%;min-height:210px;border-right:1px solid rgba(234,193,92,.28)}.cro-card__body{flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center;gap:5px}.cro-card__eyebrow{font:800 .6rem/1.3 system-ui;letter-spacing:.13em;color:#FFB81C}.cro-card__title{margin:0;font-family:Georgia,serif;font-weight:800;font-size:clamp(1.7rem,3.7vw,2.6rem);line-height:1.05;color:#F6C445!important;text-shadow:0 1px 6px rgba(0,0,0,.5)}.cro-card__eyebrow{color:#FFB81C!important}.cro-card__role{color:#EAC15C!important}.cro-card__role{margin:0;color:#EAC15C;font-weight:700;font-size:.9rem}.cro-card__sub{margin:2px 0 0;color:#b9b1a6;font-size:.88rem;max-width:52ch}.cro-card__rail{flex:0 0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;gap:12px;padding:16px 20px;background:linear-gradient(180deg,rgba(234,193,92,.06),transparent);border-left:1px solid rgba(234,193,92,.16);min-width:190px}.cro-card__badge{display:inline-flex;align-items:center;gap:7px;font:800 .58rem/1 system-ui;letter-spacing:.1em;text-transform:uppercase;color:#cfe8c6;background:rgba(40,90,50,.28);border:1px solid rgba(120,200,130,.35);padding:5px 10px;border-radius:999px;white-space:nowrap}.cro-card__badge i{width:8px;height:8px;border-radius:50%;background:#48d16a;box-shadow:0 0 8px #48d16a}.cro-card__railcta{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.cro-card__cta{background:linear-gradient(180deg,#EAC15C,#cf9f2e);color:#1a0a00;font-weight:900;font-size:.95rem;padding:11px 20px;border-radius:10px;white-space:nowrap}.cro-card__resume{color:#EAC15C;font-weight:700;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}.cro-card:hover{border-color:#EAC15C}.cro-bar{display:grid;grid-template-columns:repeat(5,1fr);margin:-2px 0 4px;border:1px solid rgba(234,193,92,.4);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}.cro-bar a{text-align:center;padding:11px 8px;color:#EAC15C;font-weight:800;font-size:.9rem;text-decoration:none;background:#130a10;border-right:1px solid rgba(234,193,92,.22)}.cro-bar a:last-child{border-right:none}.cro-bar a:hover{background:#1d1017;color:#fff}@media(max-width:640px){.crohdr{margin:8px auto 6px;padding:0 12px}.cro-card{flex-direction:column!important;align-items:center!important;text-align:center;height:auto!important;min-height:0!important;overflow:visible!important}.cro-card__img{flex:0 0 auto!important;width:180px!important;height:180px!important;min-width:180px!important;min-height:180px!important;max-width:180px!important;aspect-ratio:1/1!important;border-radius:50%!important;margin:18px auto 6px!important;border:2px solid rgba(234,193,92,.55)!important;border-right:none!important;border-bottom:none!important;background-size:cover!important;background-position:center 20%!important;filter:brightness(1.1)}.cro-card__body{flex:none!important;width:100%;padding:2px 16px 18px!important;align-items:center!important;text-align:center!important;gap:7px!important}.cro-card__eyebrow{font-size:.52rem!important;letter-spacing:.08em;line-height:1.4;max-width:34ch;margin:0 auto}.cro-card__title{font-size:clamp(1.85rem,9vw,2.35rem)!important;line-height:1.05!important;text-align:center}.cro-card__role{font-size:.88rem!important}.cro-card__sub{font-size:.86rem!important;line-height:1.45;max-width:34ch;margin:0 auto!important}.cro-card__cta{display:inline-block!important;align-self:center!important;margin:10px auto 0!important;font-size:.92rem!important;padding:11px 18px!important;border-radius:10px}.cro-bar{grid-template-columns:repeat(2,1fr)!important;width:100%;margin:0}.cro-bar a{padding:11px 6px!important;font-size:.86rem!important;line-height:1.2}.cro-bar a:nth-child(2){border-right:none}.cro-bar a:nth-child(n+5){grid-column:span 1}}</style>
   <div class="crohdr"><a class="cro-card" href="/revenue-checkup" target="_blank" rel="noopener" data-pulse-click="hire-cro" aria-label="Get a free 30-minute revenue checkup with Kory White, Fractional CRO"><div class="cro-card__img" style="background-image:url('/assets/kory-white.jpg')"></div><div class="cro-card__body"><span class="cro-card__eyebrow">FRACTIONAL CRO · MARYLAND-BASED, NATIONWIDE · $0→$200M</span><h2 class="cro-card__title">Kory White</h2><p class="cro-card__role">RevOps &amp; Revenue Leadership</p><p class="cro-card__sub">Get a <strong>free 30-minute revenue checkup</strong> &mdash; Kory reviews your pipeline and forecast, then names the 1&ndash;2 fixes that move revenue fastest. 25 yrs scaling teams $0&rarr;$200M.</p><span class="cro-card__cta" style="display:inline-block;align-self:flex-start;margin-top:10px;white-space:normal;text-align:center;">Free 30-min revenue checkup &rarr;</span></div></a>
@@ -1924,17 +1962,17 @@ exports.handler = async (event) => {
           if (!voices.length) return null;
           var en = voices.filter(function(v){ return /^en(-|_|$)/i.test(v.lang) || /english/i.test(v.name); });
           var pool = en.length ? en : voices;
-          // Ranked preference — warmest, most NATURAL (neural) human voices first.
-          // Edge/Chrome ship "…Online (Natural)" neural voices that sound real; Apple
-          // ships Samantha/Ava (Enhanced). Fall back gracefully to any English voice.
+          // Ranked preference — a NATURAL (neural) "regular guy" MALE voice first (owner 2026-07-16).
+          // Edge/Chrome ship "…Online (Natural)" neural male voices that sound real; Apple ships
+          // Alex/Daniel/Aaron. Fall back gracefully to any natural, then any English voice.
           var PREF = [
-            /Aria.*Natural|Aria.*Online/i, /Jenny.*Natural|Jenny.*Online/i,
-            /Ava.*Natural|Ava.*Online|Ava \((?:Premium|Enhanced)\)/i, /Emma.*Natural/i,
-            /Michelle.*Natural/i, /Sonia.*Natural/i, /Libby.*Natural/i, /Aria/i, /Jenny/i,
+            /Guy.*Natural|Guy.*Online/i, /Davis.*Natural|Davis.*Online/i, /Andrew.*Natural|Andrew.*Online/i,
+            /Brian.*Natural|Brian.*Online/i, /Tony.*Natural/i, /Jason.*Natural/i, /Christopher.*Natural/i,
+            /Eric.*Natural/i, /Roger.*Natural/i, /Steffan.*Natural/i, /Ryan.*Natural|Ryan.*Online/i,
+            /Aaron/i, /\bAlex\b/i, /Daniel/i, /Arthur/i, /\bTom\b/i, /Fred/i,
             /\(Natural\)/i, /Online \(Natural\)/i, /Neural/i,
-            /Samantha/i, /Allison/i, /Ava\b/i, /Zoe/i, /Serena/i, /Nicky/i,
-            /Google US English/i, /Google UK English Female/i,
-            /Microsoft .*Online/i, /\bfemale\b/i
+            /Google US English/i, /Google UK English Male/i,
+            /Microsoft .*Online/i, /\bmale\b/i
           ];
           for (var i = 0; i < PREF.length; i++) {
             var hit = pool.find(function(v){ return PREF[i].test(v.name); });
@@ -1972,8 +2010,8 @@ exports.handler = async (event) => {
             if (idx >= chunks.length){ setIdle(); return; }
             var u = new SpeechSynthesisUtterance(chunks[idx]);
             if (v) u.voice = v;
-            u.rate = 0.95;   // a touch slower = calmer, more natural, easier to listen to
-            u.pitch = 1.02;  // very slightly lifted = warmer, less flat/robotic
+            u.rate = 1.0;    // natural conversational pace — a regular guy talking
+            u.pitch = 0.97;  // very slightly lower = natural masculine, not robotic
             u.volume = 1.0;
             u.onend = function(){ idx++; speakNext(); };
             u.onerror = function(){ setIdle(); };

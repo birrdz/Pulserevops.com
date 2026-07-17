@@ -1,0 +1,27 @@
+{
+ "id": "newmrngvwo0",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "go-to-market strategy whiteboard",
+  "business team meeting",
+  "new product launch"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/6913189/pexels-photo-6913189.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build a go-to-market strategy for a new product in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19145",
+ "live": true,
+ "liveAt": "2026-07-16T17:02:38.332Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T17:02:38.332Z",
+ "recent": true
+}

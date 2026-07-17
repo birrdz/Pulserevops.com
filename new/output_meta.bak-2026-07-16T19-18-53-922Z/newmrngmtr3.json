@@ -1,0 +1,27 @@
+{
+ "id": "newmrngmtr3",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "cfo reviewing documents",
+  "boardroom presentation screen",
+  "financial charts spreadsheet"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/6632162/pexels-photo-6632162.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you build a board deck that survives CFO scrutiny in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19081",
+ "live": true,
+ "liveAt": "2026-07-16T12:07:59.131Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T12:07:59.131Z",
+ "recent": true
+}

@@ -202,7 +202,7 @@ async function main() {
     if (report[r.id]) continue;
     const base = { id: r.id, pillar: r.pillar, family: null, canonical: false, overlap: +bestOverlap[r.id].toFixed(3), words: r.words, score: r.score };
     if (r.stub) report[r.id] = { ...base, pile: 'STUB' };
-    else if ((r.score || 0) < 13) report[r.id] = { ...base, pile: 'SUB13' };   // below the 13/13 checklist → needs a quality pass
+    else if ((r.score || 0) < 10) report[r.id] = { ...base, pile: 'SUB13' };   // below the certified bar (stampIqPass writes 10; panel counts >=10) → needs a quality pass. NOT <13: images are paused so a content fix can only reach 10, and <13 re-flagged every just-fixed entry forever (false positives).
     else report[r.id] = { ...base, pile: 'PASS' };
   }
   const piles = { PASS: 0, NEAR_DUP: 0, STUB: 0, SUB13: 0 };

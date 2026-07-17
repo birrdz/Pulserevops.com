@@ -1,0 +1,27 @@
+{
+ "id": "tl9255",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional CRO executive",
+  "insurtech office team",
+  "revenue growth chart"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/8052223.jpg",
+ "faceLibId": "8052223",
+ "title": "Do I need a fractional CRO for my insurtech company?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9255",
+ "live": true,
+ "liveAt": "2026-07-16T13:47:47.672Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T13:47:47.672Z",
+ "recent": true
+}

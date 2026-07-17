@@ -1,0 +1,27 @@
+{
+ "id": "tl9087",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "telecom cell tower",
+  "business contract signing"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/8556222.jpg",
+ "faceLibId": "8556222",
+ "title": "How do I hire a fractional CRO for a telecom business?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl9087",
+ "live": true,
+ "liveAt": "2026-07-16T08:55:19.324Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T08:55:19.324Z",
+ "recent": true
+}

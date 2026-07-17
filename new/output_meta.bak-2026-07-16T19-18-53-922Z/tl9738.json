@@ -1,0 +1,33 @@
+{
+ "id": "tl9738",
+ "format": "essay",
+ "bodyCount": 6,
+ "slotQueries": [
+  "ann arbor downtown",
+  "business executive handshake",
+  "university michigan campus",
+  "office strategy meeting",
+  "laptop revenue charts",
+  "contract signing pen"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7793162.jpg",
+ "faceLibId": "7793162",
+ "title": "Where do I find a fractional CRO in Ann Arbor?",
+ "titleFont": "system-ui",
+ "trim": "fixed",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg",
+  "4": "body-4.jpg",
+  "5": "body-5.jpg",
+  "6": "body-6.jpg"
+ },
+ "qid": "tl9738",
+ "live": true,
+ "liveAt": "2026-07-16T18:50:12.580Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T18:50:12.580Z",
+ "recent": true
+}

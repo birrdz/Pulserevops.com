@@ -1,0 +1,27 @@
+{
+ "id": "newmrmw70ac",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "office desk calculator",
+  "business handshake meeting",
+  "laptop financial spreadsheet"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "https://images.pexels.com/photos/5942528/pexels-photo-5942528.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+ "faceLibId": null,
+ "title": "How do you calculate and shorten CAC payback in 2027?",
+ "titleFont": "system-ui",
+ "trim": "hotpink",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19051",
+ "live": true,
+ "liveAt": "2026-07-16T04:53:43.651Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T04:53:43.651Z",
+ "recent": true
+}

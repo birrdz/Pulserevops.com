@@ -1,0 +1,27 @@
+{
+ "id": "tl0380",
+ "format": "essay",
+ "bodyCount": 3,
+ "slotQueries": [
+  "fractional executive handshake",
+  "product usage dashboard",
+  "sales team meeting"
+ ],
+ "faceCard": "facecard.jpg",
+ "faceSrc": "/lib/7948004.jpg",
+ "faceLibId": "7948004",
+ "title": "Should I Hire a Fractional CRO If My PLG Motion Stalls at the Sales Handoff?",
+ "titleFont": "system-ui",
+ "trim": "green",
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "tl0380",
+ "live": true,
+ "liveAt": "2026-07-16T06:33:54.334Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-16T06:33:54.334Z",
+ "recent": true
+}

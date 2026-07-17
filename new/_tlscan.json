@@ -1,0 +1,162 @@
+{
+ "running": false,
+ "total": 6728,
+ "done": 6728,
+ "pass": 53,
+ "fail": 6675,
+ "failsBy": {
+  "SOURCES": 6491,
+  "WORD_COUNT": 6616,
+  "DIRECT_ANSWER": 6423,
+  "FAQ": 6423,
+  "MERMAID": 6428,
+  "RELATED": 6438,
+  "DIRECT_ANSWER_COMPLETE": 1
+ },
+ "examples": [
+  {
+   "id": "tl9114",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9116",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9115",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9017",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9118",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9013",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9016",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9042",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9041",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9058",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9061",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9064",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9062",
+   "score": 11,
+   "missing": [
+    "WORD_COUNT",
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9070",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9074",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9077",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9075",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9078",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9091",
+   "score": 11,
+   "missing": [
+    "WORD_COUNT",
+    "SOURCES"
+   ]
+  },
+  {
+   "id": "tl9083",
+   "score": 12,
+   "missing": [
+    "SOURCES"
+   ]
+  }
+ ],
+ "startedAt": "2026-07-17T03:42:58.035Z",
+ "finishedAt": "2026-07-17T03:50:44.808Z"
+}

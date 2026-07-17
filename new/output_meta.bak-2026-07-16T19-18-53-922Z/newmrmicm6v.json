@@ -1,0 +1,19 @@
+{
+ "id": "newmrmicm6v",
+ "faceCard": "facecard.jpg",
+ "title": "How do you get the most out of your first year as a Chief member in 2028?",
+ "titleFont": "system-ui",
+ "format": "essay",
+ "bodyCount": 3,
+ "body": {
+  "1": "body-1.jpg",
+  "2": "body-2.jpg",
+  "3": "body-3.jpg"
+ },
+ "qid": "q19021",
+ "live": true,
+ "liveAt": "2026-07-15T20:09:43.163Z",
+ "status": "5/5",
+ "publishedAt": "2026-07-15T20:09:43.163Z",
+ "recent": true
+}
