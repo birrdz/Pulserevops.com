@@ -22,6 +22,9 @@ function advId(id) { let h = 2166136261; const s = String(id); for (let i = 0; i
 function doneList() { try { return JSON.parse(fs.readFileSync(WD + '/new/_internal_done.json', 'utf8')); } catch (e) { return []; } }
 function markDone(id) { const d = doneList(); if (d.indexOf(id) < 0) { d.push(id); try { fs.writeFileSync(WD + '/new/_internal_done.json', JSON.stringify(d)); } catch (e) {} } }
 function saveAdvMap(id, adv, q) { const p = WD + '/new/_advid_map.json'; let m = {}; try { m = JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) {} m[adv] = { id, advId: adv, title: q || '' }; m['id:' + id] = adv; try { fs.writeFileSync(p, JSON.stringify(m, null, 1)); } catch (e) {} }
+function usedSrc() { try { return JSON.parse(fs.readFileSync(WD + '/new/_ad_used_src.json', 'utf8')); } catch (e) { return []; } }
+function markUsed(src) { const a = usedSrc(); if (a.indexOf(src) < 0) { a.push(src); try { fs.writeFileSync(WD + '/new/_ad_used_src.json', JSON.stringify(a)); } catch (e) {} } }
+function deleteLibFile(src) { if (String(src).indexOf('/lib/') === 0) { try { fs.rmSync(libResolve(String(src).slice(5)), { force: true }); } catch (e) {} } }   // used library image = deleted from library (single-use)
 
 const QA = /^q\d+$/;
 let _inv = { at: 0, list: [] };
@@ -96,7 +99,7 @@ function drawSet(){var r=document.getElementById('setrow');var h='';for(var i=0;
 document.getElementById('cands').addEventListener('click',function(e){var c=e.target.closest('.cand');if(!c)return;var i=+c.getAttribute('data-i');var p=CANDS[i];if(!p)return;var at=SET.findIndex(function(x){return x.full===p.full});if(at>=0)SET.splice(at,1);else if(SET.length<6)SET.push(p);drawSet();});
 async function load(id){SET=[];E=await j('/api/card'+(id?('?id='+encodeURIComponent(id)):''));if(!E||!E.id){document.getElementById('sub').innerHTML=(E&&E.stats?invLine(E.stats)+' · ':'')+'🎉 none ready (words must be 1h old + 13/13)';document.getElementById('q').textContent='';document.getElementById('cands').innerHTML='';drawSet();hide();return;}
   document.getElementById('sub').innerHTML=invLine(E.stats);
-  document.getElementById('qid').innerHTML='<span style="color:#9aa2ad;font-size:11px;letter-spacing:.08em">ADVERTISE ID</span> &nbsp;<b style="font-size:17px;color:#eafff0">'+E.advId+'</b><span style="color:#5f6570;font-size:11px;margin-left:8px">ref '+E.id+'</span>';
+  document.getElementById('qid').innerHTML='<span style="color:#9aa2ad;font-size:11px;letter-spacing:.08em">ADVERTISE ID</span> &nbsp;<a href="https://pulserevops.com/knowledge/'+E.id+'?cb='+Date.now()+'" target=_blank style="font-size:17px;color:#8affb0;text-decoration:underline">'+E.advId+'</a><span style="color:#5f6570;font-size:11px;margin-left:8px">ref '+E.id+'</span>';
   document.getElementById('q').textContent=E.q||'';document.getElementById('msg').textContent='';
   document.getElementById('q1').value=E.kw||'';drawSet();search(E.kw||'');
 }
@@ -148,7 +151,7 @@ http.createServer(async (req, res) => {
       const adv = advId(e.id); saveAdvMap(e.id, adv, e.q);
       return send(200, JSON.stringify({ id: e.id, advId: adv, q: e.q, kw: kwOf(e.q), stats }));
     }
-    if (u.pathname === '/api/candidates') { const qq = u.query.q; let photos = []; if (qq) { const r = await pexSearch(qq); photos = ((r && r.photos) || []).map(p => ({ thumb: p.src.medium, full: p.src.large2x || p.src.original || p.src.large })); } if (!photos.length) photos = sample(libFiles(), 40).map(f => ({ thumb: '/lib/' + f, full: '/lib/' + f })); return send(200, JSON.stringify({ photos })); }
+    if (u.pathname === '/api/candidates') { const qq = u.query.q; let photos = []; if (qq) { const r = await pexSearch(qq); photos = ((r && r.photos) || []).map(p => ({ thumb: p.src.medium, full: p.src.large2x || p.src.original || p.src.large })); } photos = photos.concat(sample(libFiles(), 12).map(f => ({ thumb: '/lib/' + f, full: '/lib/' + f }))); const used = new Set(usedSrc()); photos = photos.filter(p => !used.has(p.full)); return send(200, JSON.stringify({ photos })); }
     if (u.pathname === '/api/autopick') {
       // Preselect internal images FROM THE ANSWER PAGE: one topic-matched photo per body section (## / ### headings).
       const id = String(u.query.id || '').replace(/[^a-zA-Z0-9_-]/g, ''); const n = Math.min(10, Math.max(1, parseInt(u.query.n || '6', 10)));
@@ -165,10 +168,10 @@ http.createServer(async (req, res) => {
       const b = await body(); const id = String(b.id || '').replace(/[^a-zA-Z0-9_-]/g, ''); const srcs = Array.isArray(b.srcs) ? b.srcs.slice(0, 6) : [];
       if (!id || !srcs.length) return send(200, '{"ok":false,"err":"missing id/images"}');
       if (!publishInternalImages) return send(200, '{"ok":false,"err":"publish_core not loaded"}');
-      const bufs = [];
-      for (const src of srcs) { let buf = null; if (String(src).indexOf('/lib/') === 0) { try { buf = fs.readFileSync(libResolve(String(src).slice(5))); } catch (e) {} } else { buf = await dl(src); } if (buf && buf.length > 2500) bufs.push(await cover(buf)); }
+      const bufs = []; const usedSrcs = [];
+      for (const src of srcs) { let buf = null; if (String(src).indexOf('/lib/') === 0) { try { buf = fs.readFileSync(libResolve(String(src).slice(5))); } catch (e) {} } else { buf = await dl(src); } if (buf && buf.length > 2500) { bufs.push(await cover(buf)); usedSrcs.push(src); } }
       if (!bufs.length) return send(200, '{"ok":false,"err":"images did not load"}');
-      try { const r = await publishInternalImages(id, bufs); markDone(id); return send(200, JSON.stringify({ ok: true, url: r.url, count: r.count })); }
+      try { const r = await publishInternalImages(id, bufs); usedSrcs.forEach(s => { markUsed(s); deleteLibFile(s); }); markDone(id); return send(200, JSON.stringify({ ok: true, url: r.url, count: r.count })); }
       catch (e) { return send(200, JSON.stringify({ ok: false, err: String((e && e.message) || 'set failed') })); }
     }
     if (u.pathname === '/api/find') { const q = String(u.query.q || '').trim(); if (!q) return send(200, '{}'); const p = WD + '/new/_advid_map.json'; let m = {}; try { m = JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) {} let out = null; if (/^AD-/i.test(q)) { const up = q.toUpperCase(); const rec = m[up]; if (rec) out = { advId: up, id: rec.id, title: rec.title }; } else { const id = q.replace(/[^a-zA-Z0-9_-]/g, ''); out = { advId: advId(id), id }; } return send(200, JSON.stringify(out || {})); }

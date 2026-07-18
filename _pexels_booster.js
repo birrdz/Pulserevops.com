@@ -43,6 +43,7 @@ button.load{font-size:15px;padding:10px 18px;border-radius:8px;border:1px solid 
   <button class=load onclick=more() style="margin-top:0;background:#0d2b3b;border-color:#5ac8fa">🔎 Search</button>
   <input id=count type=number value=200 min=1 max=5000 style="width:80px;padding:8px;border-radius:8px;border:1px solid #333;background:#1a1d24;color:#e8e8ea"> images
   <button class=load id=autobtn onclick=autoRun() style="margin-top:0;background:#3a1d55;border-color:#c88bf0">▶ AUTO approve til done</button>
+  <button class=load onclick="document.getElementById('theme').value='';more().then(autoRun)" style="margin-top:0;background:#241d3a;border-color:#a88bf0">🎲 Random categories → bank all</button>
   <button class=load onclick=more() style="margin-top:0">↻ 40 more</button>
   <span id=autostat style="font-size:12px;color:#c88bf0"></span>
 </div>

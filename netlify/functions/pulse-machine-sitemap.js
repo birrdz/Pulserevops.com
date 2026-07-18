@@ -110,6 +110,8 @@ exports.handler = async (event) => {
   let pillarKey = (qs.pillar || '').toLowerCase().trim();
   if (!pillarKey && event && event.path) {
     const PATH_TO_KEY = {
+      'sitemap-knowledge':              'q',    // was falling through to the omnibus → 502 (35,906 entries > 6MB)
+      'sitemap-tools':                  'tl',   // was falling through to the omnibus → 502
       'sitemap-knowledge-live':         'q',
       'sitemap-sales-trainings':        'st',
       'sitemap-industry-kpis':          'ik',

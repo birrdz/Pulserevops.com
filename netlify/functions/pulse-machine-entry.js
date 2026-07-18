@@ -1278,7 +1278,7 @@ exports.handler = async (event) => {
     article{max-width:880px;margin:0 auto;padding:36px clamp(20px,5vw,40px) 64px;}
     .crumb{font-size:0.66rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
     .crumb a{color:var(--muted);}
-    h1.q{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.62rem,3.84vw,2.22rem);font-weight:800;letter-spacing:-0.01em;line-height:1.22;margin:0 0 16px;color:#F6C445;}
+    h1.q{font-family:Georgia,'Times New Roman',serif;font-size:clamp(3.24rem,7.68vw,4.44rem);font-weight:800;letter-spacing:-0.01em;line-height:1.15;margin:0 0 16px;color:#F6C445;}
     .entry-face-cat{position:absolute;top:12px;left:12px;z-index:2;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#F6C445;background:rgba(0,0,0,.55);border:1px solid rgba(234,193,92,.45);padding:4px 8px;border-radius:6px;text-shadow:0 1px 2px #000;}
     .meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:0.66rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,229,216,0.45);margin-bottom:28px;}
     .entry-tag{display:inline-block;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(237,229,216,0.7);padding:3px 9px;border-radius:99px;font-size:0.6rem;text-decoration:none;transition:all 0.12s;}

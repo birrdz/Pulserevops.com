@@ -32,9 +32,10 @@ exports.handler=async(event)=>{
   try{ const s=store(); if(s){ await s.setJSON('cro-leads/'+Date.now()+'.json',{name,email,phone,company,message,page,ref,landing,utm,hdrRef,ts:Date.now()}); } }catch(e){}
   try{ await require('./_stats').bump({leads:1}); }catch(e){}
 
-  const subject=`🟢 Fractional CRO lead: ${name}${company?(' ('+company+')'):''}`;
+  const subject=`🔥🟢 NEW FRACTIONAL CRO LEAD!!!! ${name}${company?(' — '+company):''} 🟢🔥`;
   const html=`<div style="font-family:system-ui,sans-serif;font-size:15px;line-height:1.6;color:#171E14">
-    <h2 style="color:#8E1B1B;margin:0 0 10px">New fractional CRO lead</h2>
+    <h2 style="color:#8E1B1B;margin:0 0 6px">🔥🔥 NEW FRACTIONAL CRO LEAD!!!! 🔥🔥</h2>
+    <p style="font-size:16px;font-weight:800;color:#0a7a2a;margin:0 0 10px">🎯 How they found you: ${foundVia&&/^https?:\/\//i.test(foundVia)?('<a href="'+esc(foundVia)+'">'+esc(foundVia)+'</a>'):esc(foundVia)}</p>
     <p><strong>Name:</strong> ${esc(name)||'(not given)'}<br>
     <strong>Email:</strong> ${email?('<a href="mailto:'+esc(email)+'">'+esc(email)+'</a>'):'(not given)'}<br>
     <strong>Phone:</strong> ${esc(phone)||'(not given)'}<br>

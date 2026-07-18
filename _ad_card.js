@@ -37,7 +37,7 @@ async function loadInventory(force) {
     try {
       const idx = await s.get('_index.json', { type: 'json' });
       const es = (idx && idx.entries) || [];
-      list = es.filter(e => e && e.id).map(e => ({ id: e.id, q: e.title || e.question || '', ts: e.ts || 0, blackbox: !!e.bb }));
+      list = es.filter(e => e && e.id).map(e => ({ id: e.id, q: e.title || e.question || '', ts: e.ts || 0, blackbox: !!e.bb, img: e.img || '' }));
     } catch (e) {}
   }
   if (!list.length) { // fallback: local disk (only ~400)
@@ -67,12 +67,14 @@ async function scan() {
   const list = await loadInventory(false);
   const doneSet = new Set(doneList());
   const byId = new Map(list.map(o => [o.id, o]));
-  let doneCount = 0; for (const o of list) if (doneSet.has(o.id)) doneCount++;
+  // done = in the done-list OR already has a versioned face image (placed by ANY tool) — remove those from the queue.
+  const isDone = o => !!o && (doneSet.has(o.id) || /-v\d+\.(?:jpe?g|png|webp)/i.test(o.img || ''));
+  let doneCount = 0; for (const o of list) if (isDone(o)) doneCount++;
   const q = queueList();
   let card = null;
-  if (q.length) { for (const id of q) { if (doneSet.has(id)) continue; const o = byId.get(id); if (o) { card = o; break; } } }
-  if (!card) { const bb = [], rest = []; for (const o of list) { if (doneSet.has(o.id)) continue; (o.blackbox ? bb : rest).push(o); } bb.sort((a, b) => (a.ts || 0) - (b.ts || 0)); rest.sort((a, b) => (a.ts || 0) - (b.ts || 0)); card = bb.concat(rest)[0] || null; }
-  const queueLeft = q.filter(id => !doneSet.has(id) && byId.has(id)).length;
+  if (q.length) { for (const id of q) { const o = byId.get(id); if (!o || isDone(o)) continue; card = o; break; } }
+  if (!card) { const bb = [], rest = []; for (const o of list) { if (isDone(o)) continue; (o.blackbox ? bb : rest).push(o); } bb.sort((a, b) => (a.ts || 0) - (b.ts || 0)); rest.sort((a, b) => (a.ts || 0) - (b.ts || 0)); card = bb.concat(rest)[0] || null; }
+  const queueLeft = q.filter(id => { const o = byId.get(id); return o && !isDone(o); }).length;
   return { card, total: list.length, done: doneCount, remaining: list.length - doneCount, queue: q.length, queueLeft };
 }
 
@@ -125,6 +127,7 @@ const SEALED = {}; // id -> { sha, at }
 const sha256 = b => crypto.createHash('sha256').update(b).digest('hex');
 function usedSrc() { try { return JSON.parse(fs.readFileSync(WD + '/new/_ad_used_src.json', 'utf8')); } catch (e) { return []; } }
 function markUsed(src) { const a = usedSrc(); if (a.indexOf(src) < 0) { a.push(src); try { fs.writeFileSync(WD + '/new/_ad_used_src.json', JSON.stringify(a)); } catch (e) {} } }
+function deleteLibFile(src) { if (String(src).indexOf('/lib/') === 0) { try { fs.rmSync(libResolve(String(src).slice(5)), { force: true }); } catch (e) {} } }   // used library image = deleted from library (single-use)
 
 // Suggest 3 stronger dressings (titles) for the current card — same Max-plan writer as the Dressing Maker.
 function suggestTitles(question, body) {
@@ -180,12 +183,7 @@ a{color:#e8b84a}
     <div id=q style="font-size:16px;color:#e8c874;font-weight:700;margin-bottom:4px;line-height:1.35"></div>
     <div id=dressbox style="margin:0 0 8px"></div>
     <div id=curwrap><div class=bb>⬛ current advertising card</div></div>
-    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-      <button onclick=skip()>⏭ Skip</button>
-      <button id=adautobtn onclick=adAuto() style="background:#3a1d55;border-color:#c88bf0;color:#fff;font-weight:800">▶ AUTO RUN</button>
-      <span style="font-size:12px;color:#9aa2ad">veto window <input id=vetosecs type=number value=7 min=3 max=30 style="width:52px;padding:4px;font-size:13px"> s</span>
-    </div>
-    <div id=adlog style="margin-top:8px;max-height:200px;overflow:auto;font-family:ui-monospace,monospace;font-size:12px;color:#8affb0"></div>
+    <div style="margin-top:10px;display:flex;gap:8px"><button onclick=skip()>⏭ Skip</button></div>
     <div id=msg style="margin-top:8px;font-size:13px;color:#9aa2ad"></div>
   </div>
   <div style="flex:1;min-width:300px">
@@ -203,7 +201,7 @@ function hide(){document.getElementById('stage').classList.remove('on')}
 function invLine(st){if(!st)return '';var q=(st.queue?('🎯 <b style="color:#ff9a3a">Worst-first 100: '+(st.queue-st.queueLeft)+'/'+st.queue+' done</b> &nbsp;·&nbsp; '):'');return q+'📦 <b style="color:#6bbf3a">'+st.done.toLocaleString()+'</b> sealed · <b style="color:#e8c874">'+st.remaining.toLocaleString()+'</b> to go · '+st.total.toLocaleString()+' total';}
 async function load(){E=await j('/api/card');if(!E||!E.id){document.getElementById('sub').innerHTML=(E&&E.stats?invLine(E.stats)+' · ':'')+'🎉 no cards left — whole inventory done';document.getElementById('curwrap').innerHTML='';document.getElementById('cands').innerHTML='';document.getElementById('qid').textContent='';document.getElementById('q').textContent='';hide();return;}
   document.getElementById('sub').innerHTML=invLine(E.stats);
-  document.getElementById('qid').innerHTML='<span style="color:#9aa2ad;font-size:11px;letter-spacing:.08em">ADVERTISE ID</span> &nbsp;<b style="font-size:19px;color:#eafff0">'+E.advId+'</b>'+(E.blackbox?' &nbsp;<span style="background:#000;color:#fff;border:1px solid #6bbf3a;padding:1px 8px;border-radius:6px;font-size:12px">⬛ BLACK BOX</span>':'')+'<div style="color:#5f6570;font-size:11px;margin-top:3px">searchable in system · ref '+E.id+'</div>';
+  document.getElementById('qid').innerHTML='<span style="color:#9aa2ad;font-size:11px;letter-spacing:.08em">ADVERTISE ID</span> &nbsp;<a href="https://pulserevops.com/knowledge/'+E.id+'?cb='+Date.now()+'" target=_blank style="font-size:19px;color:#8affb0;text-decoration:underline">'+E.advId+'</a>'+(E.blackbox?' &nbsp;<span style="background:#000;color:#fff;border:1px solid #6bbf3a;padding:1px 8px;border-radius:6px;font-size:12px">⬛ BLACK BOX</span>':'')+'<div style="color:#5f6570;font-size:11px;margin-top:3px">searchable in system · ref '+E.id+'</div>';
   document.getElementById('q').innerHTML='<span style="color:#9aa2ad;font-size:11px;font-weight:400;letter-spacing:.08em">DRESSING</span><br>'+(E.q||'').replace(/[<>&]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;'}[c]});
   DRESSOPTS=[];document.getElementById('dressbox').innerHTML='<button onclick=loadDressings() style="font-size:12px;padding:4px 10px;background:#241d10;border:1px solid #e8c874;color:#ffe;border-radius:8px;cursor:pointer">✨ Better dressing? (3 options)</button>';
   document.getElementById('curwrap').innerHTML='<div class=bb>⬛ current advertising card</div>';
@@ -315,7 +313,7 @@ http.createServer(async (req, res) => {
       else { const id = q.replace(/[^a-zA-Z0-9_-]/g, ''); out = { advId: advId(id), id, title: (m['id:' + id] && m[m['id:' + id]] && m[m['id:' + id]].title) || '' }; }
       return send(200, JSON.stringify(out || {}));
     }
-    if (u.pathname === '/api/candidates') { const qq = u.query.q; let photos = []; if (qq) { const r = await pexSearch(qq); photos = ((r && r.photos) || []).map(p => ({ thumb: p.src.medium, full: p.src.large2x || p.src.original || p.src.large })); } if (!photos.length) photos = sample(libFiles(), 40).map(f => ({ thumb: '/lib/' + f, full: '/lib/' + f })); const used = new Set(usedSrc()); photos = photos.filter(p => !used.has(p.full)); return send(200, JSON.stringify({ photos })); }
+    if (u.pathname === '/api/candidates') { const qq = u.query.q; let photos = []; if (qq) { const r = await pexSearch(qq); photos = ((r && r.photos) || []).map(p => ({ thumb: p.src.medium, full: p.src.large2x || p.src.original || p.src.large })); } photos = photos.concat(sample(libFiles(), 12).map(f => ({ thumb: '/lib/' + f, full: '/lib/' + f }))); const used = new Set(usedSrc()); photos = photos.filter(p => !used.has(p.full)); return send(200, JSON.stringify({ photos })); }
     if (u.pathname.indexOf('/lib/') === 0) { try { return send(200, fs.readFileSync(libResolve(u.pathname.slice(5))), 'image/jpeg'); } catch (e) { return send(404, 'x'); } }
     if (req.method === 'POST' && u.pathname === '/api/deletecard') {
       const b = await body(); const id = String(b.id || '').replace(/[^a-zA-Z0-9_-]/g, ''); if (!id) return send(200, '{"ok":false}');
@@ -367,7 +365,7 @@ http.createServer(async (req, res) => {
       fs.writeFileSync(dest, fin);
       const m = readMeta(id); m.faceCard = 'facecard.jpg'; if (!m.title) { try { m.title = JSON.parse(fs.readFileSync(ENTRIES + '/' + id + '.json', 'utf8')).question; } catch (e) {} } writeMeta(id, m);
       if (!publishFaceImageOnly) return send(200, '{"ok":false,"err":"publish_core not loaded"}');
-      try { const r = await publishFaceImageOnly(id); saveAdvMap(id, advId(id), (m && m.title) || ''); markUsed(src); markDone(id); delete POA[id]; return send(200, JSON.stringify({ ok: true, qid: r.qid, advId: advId(id), ref: id, url: r.url })); } catch (e) { return send(200, JSON.stringify({ ok: false, err: String((e && e.message) || 'set failed') })); }
+      try { const r = await publishFaceImageOnly(id); saveAdvMap(id, advId(id), (m && m.title) || ''); markUsed(src); deleteLibFile(src); markDone(id); delete POA[id]; return send(200, JSON.stringify({ ok: true, qid: r.qid, advId: advId(id), ref: id, url: r.url })); } catch (e) { return send(200, JSON.stringify({ ok: false, err: String((e && e.message) || 'set failed') })); }
     }
     if (req.method === 'POST' && u.pathname === '/api/skip') { const b = await body(); const id = String(b.id || '').replace(/[^a-zA-Z0-9_-]/g, ''); if (id) markDone(id); return send(200, '{"ok":true}'); }
     return send(404, '{"err":"not found"}');
