@@ -10,7 +10,6 @@ Sitemap: https://pulserevops.com/sitemap-recent.xml
 Sitemap: https://pulserevops.com/sitemap-pillars.xml
 Sitemap: https://pulserevops.com/sitemap-fish-crabs.xml
 Sitemap: https://pulserevops.com/sitemap-telco.xml
-Sitemap: https://pulserevops.com/sitemap-reviews.xml
 Sitemap: https://pulserevops.com/sitemap-franchises.xml
 Sitemap: https://pulserevops.com/sitemap-cars.xml
 Sitemap: https://pulserevops.com/sitemap-towns.xml

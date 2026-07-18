@@ -6,7 +6,6 @@
   <sitemap><loc>https://pulserevops.com/sitemap-knowledge.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-recent.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-pillars.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
-  <sitemap><loc>https://pulserevops.com/sitemap-reviews.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
   <!-- Stale legacy sub-sitemaps REMOVED 2026-06-14: sitemap-press / -news /
        -machine / -images listed only URLs that 301-redirect
        (press→home/knowledge) or 410 (/fresh), generating Google Search
