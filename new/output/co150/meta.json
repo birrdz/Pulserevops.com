@@ -1,6 +1,5 @@
 {
  "id": "co150",
- "faceCard": "facecard.jpg",
  "title": "What is the best way to approach Collectibles in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T12:14:03.340Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T12:14:03.340Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

@@ -8,7 +8,6 @@
   "5": "body-5.jpg",
   "6": "body-6.jpg"
  },
- "faceCard": "facecard.jpg",
  "title": "Top 10 Cologne strategies for 2027",
  "trim": "hotpink",
  "qid": "cl154",
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T05:54:42.000Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T05:54:42.000Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

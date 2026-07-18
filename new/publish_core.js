@@ -278,6 +278,10 @@ async function publishFaceOnly(id) {
   return { qid, url: 'https://pulserevops.com/knowledge/' + qid };
 }
 
+// markRecent — bump an entry into the site RECENTS feed (sorted by ts + the pulse-recent tag) on ANY fix,
+// while it stays in its pillar (id/URL unchanged). Called by every publisher below.
+function markRecent(o, now) { if (!o) return; o.ts = now; if (!Array.isArray(o.tags)) o.tags = o.tags ? [o.tags] : []; if (o.tags.indexOf('pulse-recent') < 0) o.tags.push('pulse-recent'); }
+
 // publishFaceImageOnly(id) — ADVERTISING CARD ship (owner 2026-07-17): writes ONLY the face image,
 // versioned (cache-proof), and repoints img. Works for BLOB-ONLY entries (no local new/entries file needed)
 // and NEVER touches the answer body — image only, per the advertising-card law.
@@ -298,18 +302,84 @@ async function publishFaceImageOnly(id) {
   const img = '/assets/qa/' + id + ver + '.jpg';
   // repoint the answers blob img ONLY — preserve the entire body/answer untouched.
   let blob = null; try { blob = await store.get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
-  if (blob) { blob.img = img; blob.updated_at = new Date(now).toISOString(); await store.setJSON('answers/' + id + '.json', blob); }
+  if (blob) { blob.img = img; blob.updated_at = new Date(now).toISOString(); markRecent(blob, now); await store.setJSON('answers/' + id + '.json', blob); }
   // update the index entry img (create-or-update) so the renderer + homepage tile read the versioned URL.
   try {
     const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] };
     idx.entries = idx.entries || [];
     const ex = idx.entries.find(e => e && e.id === id);
     const question = (blob && (blob.question || blob.h1)) || meta.title || (ex && ex.title) || id;
-    if (ex) { ex.img = img; ex.polished_at = now; if (!ex.ts) ex.ts = now; if (!ex.title) ex.title = question; }
+    if (ex) { ex.img = img; ex.polished_at = now; markRecent(ex, now); if (!ex.title) ex.title = question; }
     else { idx.entries.unshift({ id, question, img, ts: now, polished_at: now, title: question, pending: false }); }
     await store.setJSON('_index.json', idx);
   } catch (e) {}
   return { qid: id, url: 'https://pulserevops.com/knowledge/' + id };
 }
 
-module.exports = { publishLive, embedImages, nextQid, previewHtml, imageSlotIndices, proveLive, publishContentOnly, publishFaceOnly, publishFaceImageOnly };
+// publishDressingOnly(id, newTitle) — DRESSING MAKER (owner 2026-07-17): update ONLY the title/H1 ("dressing").
+// The renderer reads entry.question for H1, <title>, and all JSON-LD/SEO, so we set question/h1/title on the
+// answers blob AND the _index.json entry. KEEPS the id/URL, the body (.answer), and the image (.img) untouched.
+// Saves the previous title in .dressing_prev for easy revert.
+async function publishDressingOnly(id, newTitle) {
+  const store = theStore();
+  const t = String(newTitle || '').replace(/\s+/g, ' ').trim();
+  if (t.length < 8) throw new Error('dressing too short (min 8 chars)');
+  const now = Date.now();
+  let blob = null; try { blob = await store.get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
+  if (!blob) throw new Error('entry not found in blob (' + id + ')');
+  const prev = blob.question || blob.h1 || '';
+  blob.dressing_prev = prev; blob.question = t; blob.h1 = t; if ('title' in blob) blob.title = t; blob.updated_at = new Date(now).toISOString(); markRecent(blob, now);
+  await store.setJSON('answers/' + id + '.json', blob);
+  try {
+    const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] };
+    const ex = (idx.entries || []).find(e => e && e.id === id);
+    if (ex) { ex.question = t; ex.title = t; ex.polished_at = now; markRecent(ex, now); await store.setJSON('_index.json', idx); }
+  } catch (e) {}
+  return { qid: id, url: 'https://pulserevops.com/knowledge/' + id, prev, title: t };
+}
+
+// publishContentBody(id, body) — CONTENT BUILDER (owner 2026-07-17): replace ONLY the answer body with a
+// human-approved 13/13 rebuild passed as an ARG. Blob-based (no local file). KEEPS title (question/h1) + image
+// (img) + re-embeds existing body images. Saves the previous body in .content_prev for revert.
+async function publishContentBody(id, body) {
+  const store = theStore();
+  const t = String(body || '');
+  if (t.trim().length < 500) throw new Error('rebuilt body too short');
+  const now = Date.now();
+  let blob = null; try { blob = await store.get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
+  if (!blob) throw new Error('entry not found in blob (' + id + ')');
+  const question = blob.question || blob.h1 || '';
+  let bodyN = 0; try { const lst = await store.list({ prefix: 'qa-bin/' + id + '-b' }); bodyN = (lst.blobs || []).filter(x => /-b\d\.jpg$/i.test(x.key)).length; } catch (e) {}
+  const imgs = []; for (let i = 1; i <= Math.min(6, bodyN); i++) imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + i });
+  const answer = embedImages(t, id, imgs);   // re-embed existing body images; keeps title + face image untouched
+  blob.content_prev = blob.answer || ''; blob.answer = answer;
+  blob.polished_at = now; blob.gate_score = 13; blob.quality_score = 10; blob.pending = false; blob.updated_at = new Date(now).toISOString(); blob.gk_verified = true; markRecent(blob, now);
+  await store.setJSON('answers/' + id + '.json', blob);
+  try { const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] }; const ex = (idx.entries || []).find(e => e && e.id === id); if (ex) { ex.gate_score = 13; ex.quality_score = 10; ex.polished_at = now; ex.pending = false; markRecent(ex, now); await store.setJSON('_index.json', idx); } } catch (e) {}
+  return { qid: id, url: 'https://pulserevops.com/knowledge/' + id };
+}
+
+// publishInternalImages(id, buffers) — INTERNAL CARD tool (owner 2026-07-17): place the BODY/figure images
+// inside an answer. Writes qa-bin/<id>-b1..bN.jpg, re-embeds them into the body markdown, and sets
+// entry.bb_images=true so the renderer shows them (per-entry, no deploy, no block-builder border).
+// KEEPS the face image + title + text. Requires the entry already exist (13/13 content).
+async function publishInternalImages(id, buffers) {
+  const store = theStore();
+  if (!buffers || !buffers.length) throw new Error('no images');
+  const now = Date.now();
+  let blob = null; try { blob = await store.get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
+  if (!blob) throw new Error('entry not found in blob (' + id + ')');
+  const question = blob.question || blob.h1 || '';
+  const imgs = [];
+  for (let i = 0; i < buffers.length && i < 6; i++) {
+    await store.set('qa-bin/' + id + '-b' + (i + 1) + '.jpg', buffers[i], { metadata: { src: 'internal' } });
+    imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + (i + 1) });
+  }
+  const answer = embedImages(blob.answer || '', id, imgs);   // embedImages strips old body-image lines then re-inserts
+  blob.answer = answer; blob.bb_images = true; blob.updated_at = new Date(now).toISOString(); markRecent(blob, now);
+  await store.setJSON('answers/' + id + '.json', blob);
+  try { const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] }; const ex = (idx.entries || []).find(e => e && e.id === id); if (ex) { ex.polished_at = now; markRecent(ex, now); await store.setJSON('_index.json', idx); } } catch (e) {}
+  return { qid: id, url: 'https://pulserevops.com/knowledge/' + id, count: imgs.length };
+}
+
+module.exports = { publishLive, embedImages, nextQid, previewHtml, imageSlotIndices, proveLive, publishContentOnly, publishFaceOnly, publishFaceImageOnly, publishDressingOnly, publishContentBody, publishInternalImages };

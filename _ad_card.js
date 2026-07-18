@@ -11,8 +11,8 @@ const PORT = parseInt(process.env.AD_PORT || '9500', 10);
 const ENTRIES = WD + '/new/entries', OUT = WD + '/new/output', PEXLIB = WD + '/assets/qa/_pexels_stored', LIB = WD + '/new/imagebank/cro';
 const PEXELS = process.env.PEXELS_API_KEY;
 let sharp = null; try { sharp = require('sharp'); } catch (e) {}
-let publishFaceImageOnly = null; try { ({ publishFaceImageOnly } = require('./new/publish_core')); } catch (e) {}
-let claudeBin = null; try { ({ claudeBin } = require('./new/improve_content')); } catch (e) {}
+let publishFaceImageOnly = null, publishDressingOnly = null; try { ({ publishFaceImageOnly, publishDressingOnly } = require('./new/publish_core')); } catch (e) {}
+let claudeBin = null, gateScore = null, rebuildToGate = null; try { ({ claudeBin, gateScore, rebuildToGate } = require('./new/improve_content')); } catch (e) {}
 const { spawnSync } = require('child_process');
 let getStore = null; try { ({ getStore } = require('@netlify/blobs')); } catch (e) {}
 function blobStore() { if (!getStore) return null; try { return getStore({ name: 'pulse-machine-library', siteID: process.env.NETLIFY_SITE_ID || 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_AUTH_TOKEN }); } catch (e) { return null; } }
@@ -125,6 +125,32 @@ const SEALED = {}; // id -> { sha, at }
 const sha256 = b => crypto.createHash('sha256').update(b).digest('hex');
 function usedSrc() { try { return JSON.parse(fs.readFileSync(WD + '/new/_ad_used_src.json', 'utf8')); } catch (e) { return []; } }
 function markUsed(src) { const a = usedSrc(); if (a.indexOf(src) < 0) { a.push(src); try { fs.writeFileSync(WD + '/new/_ad_used_src.json', JSON.stringify(a)); } catch (e) {} } }
+
+// Suggest 3 stronger dressings (titles) for the current card — same Max-plan writer as the Dressing Maker.
+function suggestTitles(question, body) {
+  if (!claudeBin) return { ok: false, err: 'Claude CLI not found' };
+  const bin = claudeBin(); if (!bin) return { ok: false, err: 'Claude CLI not found' };
+  const env = Object.assign({}, process.env); delete env.ANTHROPIC_API_KEY; delete env.ANTHROPIC_AUTH_TOKEN; delete env.CLAUDE_API_KEY;
+  const prompt = [
+    'You are a title editor for a RevOps knowledge site. Rewrite this page title ("dressing") into 3 stronger options.',
+    'RULES: keep the SAME meaning/intent (the body already answers it). Clean, specific, compelling. Proper',
+    'capitalization, fix typos, keep real acronyms uppercase (RevOps, SDR, OTE, CRO, B2B, KPI, GTM, CRM, SaaS).',
+    'If time-sensitive (best/top/cost/pricing/trends/guide), END with "in 2027". 40-90 chars. No fabrication, no quotes.',
+    '',
+    'CURRENT TITLE: ' + String(question || ''),
+    'BODY EXCERPT (context only): ' + String(body || '').replace(/\s+/g, ' ').slice(0, 600),
+    '',
+    'Output EXACTLY three lines, each starting "1) ", "2) ", "3) " and nothing else.',
+  ].join('\n');
+  const r = spawnSync(bin, ['-p', '--output-format', 'text'], { input: prompt, encoding: 'utf8', timeout: 90000, maxBuffer: 1024 * 1024 * 8, windowsHide: true, env });
+  if (r.error) return { ok: false, err: String(r.error.message || r.error) };
+  if (r.status && r.status !== 0) return { ok: false, err: 'LLM call failed (exit ' + r.status + ')' };
+  const out = String(r.stdout || ''); const opts = [];
+  out.split(/\r?\n/).forEach(line => { const m = line.match(/^\s*[1-3][).\]]\s*(.+?)\s*$/); if (m && m[1]) opts.push(m[1].replace(/^["']|["']$/g, '').trim()); });
+  if (!opts.length) out.split(/\r?\n/).map(x => x.trim()).filter(x => x.length > 15 && x.length < 120).slice(0, 3).forEach(x => opts.push(x));
+  if (!opts.length) return { ok: false, err: 'no usable titles' };
+  return { ok: true, options: opts.slice(0, 3) };
+}
 const pexSearch = q => new Promise(res => { if (!PEXELS) return res(null); https.get('https://api.pexels.com/v1/search?per_page=40&orientation=landscape&query=' + encodeURIComponent(q || 'business'), { headers: { Authorization: PEXELS } }, r => { let s = ''; r.on('data', d => s += d); r.on('end', () => { try { res(JSON.parse(s)); } catch (e) { res(null); } }); }).on('error', () => res(null)); });
 const dl = u => new Promise(res => { https.get(u, r => { if (r.statusCode !== 200) { r.resume(); return res(null); } const c = []; r.on('data', d => c.push(d)); r.on('end', () => res(Buffer.concat(c))); }).on('error', () => res(null)); });
 function libFiles() { let a = []; try { a = a.concat(fs.readdirSync(PEXLIB).filter(f => /\.(jpe?g|png)$/i.test(f)).map(f => 'pex/' + f)); } catch (e) {} try { a = a.concat(fs.readdirSync(LIB).filter(f => /\.(jpe?g|png)$/i.test(f)).map(f => 'cro/' + f)); } catch (e) {} return a; }
@@ -151,9 +177,15 @@ a{color:#e8b84a}
 <div class=card>
   <div class=cur>
     <div id=qid style="color:#e8c874;font-weight:800;margin-bottom:6px">—</div>
-    <div id=q style="font-size:16px;color:#e8c874;font-weight:700;margin-bottom:8px;line-height:1.35"></div>
+    <div id=q style="font-size:16px;color:#e8c874;font-weight:700;margin-bottom:4px;line-height:1.35"></div>
+    <div id=dressbox style="margin:0 0 8px"></div>
     <div id=curwrap><div class=bb>⬛ current advertising card</div></div>
-    <div style="margin-top:10px;display:flex;gap:8px"><button onclick=skip()>⏭ Skip</button></div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button onclick=skip()>⏭ Skip</button>
+      <button id=adautobtn onclick=adAuto() style="background:#3a1d55;border-color:#c88bf0;color:#fff;font-weight:800">▶ AUTO RUN</button>
+      <span style="font-size:12px;color:#9aa2ad">veto window <input id=vetosecs type=number value=7 min=3 max=30 style="width:52px;padding:4px;font-size:13px"> s</span>
+    </div>
+    <div id=adlog style="margin-top:8px;max-height:200px;overflow:auto;font-family:ui-monospace,monospace;font-size:12px;color:#8affb0"></div>
     <div id=msg style="margin-top:8px;font-size:13px;color:#9aa2ad"></div>
   </div>
   <div style="flex:1;min-width:300px">
@@ -163,7 +195,7 @@ a{color:#e8b84a}
 </div>
 <div id=stage></div>
 <script>
-var E=null,cardDeleted=false,pendingSrc=null,CANDS=[],LAST=null,approvals={user:false,ide:false,llm:false},stmts={},busy={},errs={};
+var E=null,cardDeleted=false,pendingSrc=null,CANDS=[],LAST=null,approvals={user:false,ide:false,llm:false},stmts={},busy={},errs={},DRESSOPTS=[];
 function escH(s){return String(s==null?'':s).replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]})}
 function j(u,o){return fetch(u,o).then(function(r){return r.json()})}
 function stage(t){var s=document.getElementById('stage');s.innerHTML='<div style="max-width:760px">'+t+'</div>';s.classList.add('on')}
@@ -173,6 +205,7 @@ async function load(){E=await j('/api/card');if(!E||!E.id){document.getElementBy
   document.getElementById('sub').innerHTML=invLine(E.stats);
   document.getElementById('qid').innerHTML='<span style="color:#9aa2ad;font-size:11px;letter-spacing:.08em">ADVERTISE ID</span> &nbsp;<b style="font-size:19px;color:#eafff0">'+E.advId+'</b>'+(E.blackbox?' &nbsp;<span style="background:#000;color:#fff;border:1px solid #6bbf3a;padding:1px 8px;border-radius:6px;font-size:12px">⬛ BLACK BOX</span>':'')+'<div style="color:#5f6570;font-size:11px;margin-top:3px">searchable in system · ref '+E.id+'</div>';
   document.getElementById('q').innerHTML='<span style="color:#9aa2ad;font-size:11px;font-weight:400;letter-spacing:.08em">DRESSING</span><br>'+(E.q||'').replace(/[<>&]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;'}[c]});
+  DRESSOPTS=[];document.getElementById('dressbox').innerHTML='<button onclick=loadDressings() style="font-size:12px;padding:4px 10px;background:#241d10;border:1px solid #e8c874;color:#ffe;border-radius:8px;cursor:pointer">✨ Better dressing? (3 options)</button>';
   document.getElementById('curwrap').innerHTML='<div class=bb>⬛ current advertising card</div>';
   var img=new Image();img.onload=function(){document.getElementById('curwrap').innerHTML='<div style="font-size:12px;color:#9aa2ad;margin-bottom:4px">current advertising card (live):</div><img src="'+E.current+'?cb='+Date.now()+'">'};img.src=E.current+'?cb='+Date.now();
   document.getElementById('q1').value=E.kw||'';search(E.kw||'');
@@ -205,7 +238,45 @@ function holdAdvance(){if(_advTimer){clearInterval(_advTimer);_advTimer=null}adv
 function nextNow(){if(_advTimer){clearInterval(_advTimer);_advTimer=null}hide();load()}
 async function reCheck(){var v=null;try{v=await j('/api/verify?id='+encodeURIComponent(LAST.ref))}catch(e){}advPanel((v&&v.liveOk)?'🎉 LIVE ON THE PAGE!':((v&&v.blobOk)?'✅ SEALED &amp; LIVE — image serving':'⏳ still propagating (give it a moment)'),'<div style="margin-top:10px"><button onclick="nextNow()" style="font-size:1.7vw;padding:9px 22px;background:#243b0d;border:1px solid #6bbf3a;color:#eafff0">Next card →</button> &nbsp;<button onclick="reCheck()" style="font-size:1.7vw;padding:9px 18px">↻ Re-check</button></div>')}
 async function skip(){await j('/api/skip',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:E.id})});load()}
+var AUTO=false;
+function adLog(m){var el=document.getElementById('adlog');if(!el)return;var d=document.createElement('div');d.textContent=new Date().toLocaleTimeString()+'  '+m;el.insertBefore(d,el.firstChild)}
+function setAdAutoBtn(){var b=document.getElementById('adautobtn');if(!b)return;b.textContent=AUTO?'⏹ STOP auto run':'▶ AUTO RUN';b.style.background=AUTO?'#5a0d0d':'#3a1d55';b.style.borderColor=AUTO?'#ff6a6a':'#c88bf0'}
+function previewCountdown(c,src,secs){return new Promise(function(resolve){var left=secs,done=false;var iv;
+  function fin(v){if(done)return;done=true;if(iv)clearInterval(iv);resolve(v)}
+  window.__veto=function(){fin('veto')};window.__sealnow=function(){fin('seal')};window.__stopauto=function(){AUTO=false;fin('veto')};
+  function draw(){stage('▶ AUTO — sealing in <b style="color:#e8c874">'+left+'</b>s<br><div style="position:relative;max-width:520px;margin:10px auto;border:2px solid #6bbf3a;border-radius:12px;overflow:hidden;background:#000"><img src="'+escH(src)+'" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block"><div style="position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff;padding:12px;font-weight:800;font-size:14px;text-align:left">'+escH(c.q||'')+'</div></div><div style="margin-top:6px"><button onclick="__veto()" style="font-size:1.4vw;padding:9px 18px;background:#5a0d0d;border:1px solid #ff6a6a;color:#fff">⏭ Skip this one</button> &nbsp;<button onclick="__sealnow()" style="font-size:1.4vw;padding:9px 18px;background:#243b0d;border:1px solid #6bbf3a;color:#eafff0">Seal now</button> &nbsp;<button onclick="__stopauto()" style="font-size:1.4vw;padding:9px 16px">⏹ Stop auto</button></div>')}
+  draw();iv=setInterval(function(){left--;if(left<=0){fin('seal')}else draw()},1000)})}
+async function adAutoOne(){
+  var c=await j('/api/card');if(!c||!c.id)return{done:true};
+  var d=await j('/api/candidates?q='+encodeURIComponent(c.kw||''));var cands=(d.photos||[]);
+  if(!cands.length){await j('/api/skip',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:c.id})});return{id:c.id,skipped:'no photos'}}
+  var top=cands[0].full;
+  await j('/api/deletecard',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:c.id})});
+  var gp=Promise.all([j('/api/poa',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:c.id,party:'ide',src:top})}),j('/api/poa',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:c.id,party:'llm',dressing:c.q})})]);
+  var secs=Math.max(3,Math.min(30,parseInt((document.getElementById('vetosecs')||{}).value||'7',10)));
+  var act=await previewCountdown(c,top,secs);
+  if(act==='veto'){await j('/api/skip',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:c.id})});return{id:c.id,skipped:'vetoed'}}
+  await gp;
+  var r=await j('/api/set',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:c.id,src:top})});
+  return{id:c.id,sealed:r&&r.ok,err:r&&r.err}
+}
+async function adAuto(){
+  if(AUTO){AUTO=false;setAdAutoBtn();adLog('⏹ stopping…');return}
+  if(!confirm('IMAGE AUTO-RUN: for each card it auto-picks the BEST keyword-matched photo and shows it with a countdown. It SEALS the image (permanent) unless you hit Skip during the countdown. Log shows every one; STOP anytime. Start?'))return;
+  AUTO=true;setAdAutoBtn();adLog('▶ image auto-run started');
+  while(AUTO){
+    var res=await adAutoOne();
+    if(res.done){adLog('🎉 nothing left');break}
+    if(res.sealed)adLog('✅ '+res.id+' sealed');
+    else if(res.skipped)adLog('⏭ '+res.id+' '+res.skipped);
+    else adLog('⚠ '+res.id+' '+(res.err||'failed'));
+    if(!AUTO)break;
+  }
+  AUTO=false;setAdAutoBtn();hide();load();
+}
 document.getElementById('cands').addEventListener('click',function(e){var c=e.target.closest('.cand');if(!c)return;var i=+c.getAttribute('data-i');if(CANDS[i])pick(CANDS[i].full)});
+async function loadDressings(){var el=document.getElementById('dressbox');el.innerHTML='<span style="color:#9aa2ad;font-size:12px">✨ generating 3 dressing options…</span>';var d=await j('/api/dressings?id='+encodeURIComponent(E.id));if(!(d&&d.ok)){el.innerHTML='<span style="color:#ff8a8a;font-size:12px">⚠ '+((d&&d.err)||'unavailable')+'</span> <button onclick=loadDressings() style="font-size:11px">retry</button>';return}DRESSOPTS=d.options||[];el.innerHTML='<div style="color:#9aa2ad;font-size:11px;letter-spacing:.06em;margin:2px 0 4px">✨ PICK A PERMANENT DRESSING</div>'+DRESSOPTS.map(function(o,i){return '<button class=dopt data-i="'+i+'" style="display:block;width:100%;text-align:left;margin:3px 0;padding:8px 10px;border:1px solid #333;border-radius:8px;background:#1a1d24;color:#eafff0;font-size:13px;cursor:pointer;line-height:1.3">'+escH(o)+'</button>'}).join('')+'<div id=dressmsg style="font-size:12px;color:#9aa2ad;margin-top:3px"></div>'}
+document.getElementById('dressbox').addEventListener('click',function(e){var b=e.target.closest('.dopt');if(!b)return;var i=+b.getAttribute('data-i');var t=DRESSOPTS[i];if(t==null)return;if(!confirm('Make this the PERMANENT dressing? (updates the real title/SEO)\\n\\n'+t))return;var dm=document.getElementById('dressmsg');if(dm)dm.textContent='sealing dressing…';j('/api/setdressing',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:E.id,dressing:t})}).then(function(r){var dm=document.getElementById('dressmsg');if(r&&r.ok){E.q=t;document.getElementById('q').innerHTML='<span style="color:#9aa2ad;font-size:11px;font-weight:400;letter-spacing:.08em">DRESSING</span><br>'+escH(t);if(dm)dm.innerHTML='<b style="color:#6bbf3a">✓ dressing is now permanent</b>'}else{if(dm)dm.textContent='⚠ '+((r&&r.err)||'failed')}})});
 load();
 </script>`;
 
@@ -222,6 +293,19 @@ http.createServer(async (req, res) => {
       const adv = advId(e.id); saveAdvMap(e.id, adv, e.q);
       const kw = String(e.q || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w.length > 3 && !/^(the|and|for|you|your|what|how|when|why|best|top|most|common|should|know|before|about|with|from|2024|2025|2026|2027|2028)$/.test(w)).slice(0, 2).join(' ');
       return send(200, JSON.stringify({ id: e.id, advId: adv, q: e.q, kw, blackbox: !!e.blackbox, current: 'https://pulserevops.com/assets/qa/' + e.id + '.jpg', stats }));
+    }
+    if (u.pathname === '/api/dressings') {
+      const id = String(u.query.id || '').replace(/[^a-zA-Z0-9_-]/g, ''); if (!id) return send(200, '{"ok":false,"err":"no id"}');
+      const s = blobStore(); let blob = null; if (s) { try { blob = await s.get('answers/' + id + '.json', { type: 'json' }); } catch (e) {} }
+      const q = (blob && (blob.question || blob.h1)) || ''; const bodyTxt = (blob && blob.answer) || '';
+      return send(200, JSON.stringify(suggestTitles(q, bodyTxt)));
+    }
+    if (req.method === 'POST' && u.pathname === '/api/setdressing') {
+      const b = await body(); const id = String(b.id || '').replace(/[^a-zA-Z0-9_-]/g, ''); const dressing = b.dressing;
+      if (!id || !dressing) return send(200, '{"ok":false,"err":"missing id/dressing"}');
+      if (!publishDressingOnly) return send(200, '{"ok":false,"err":"publish_core not loaded"}');
+      try { const r = await publishDressingOnly(id, dressing); saveAdvMap(id, advId(id), r.title); return send(200, JSON.stringify({ ok: true, url: r.url, title: r.title })); }
+      catch (e) { return send(200, JSON.stringify({ ok: false, err: String((e && e.message) || 'set failed') })); }
     }
     if (u.pathname === '/api/find') {
       const q = String(u.query.q || '').trim(); if (!q) return send(200, '{}');

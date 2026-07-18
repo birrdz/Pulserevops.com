@@ -1,6 +1,5 @@
 {
  "id": "rs283",
- "faceCard": "facecard.jpg",
  "title": "How do you get started with Resorts in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T16:48:09.262Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T16:48:09.262Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

@@ -1,6 +1,5 @@
 {
  "id": "q19054",
- "faceCard": "facecard.jpg",
  "title": "How do you set SDR quotas that are actually attainable in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T02:32:58.544Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T02:32:58.544Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

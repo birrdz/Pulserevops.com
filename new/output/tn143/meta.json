@@ -1,6 +1,5 @@
 {
  "id": "tn143",
- "faceCard": "facecard.jpg",
  "title": "Top 10 best Towns options in 2027",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T18:11:01.593Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T18:11:01.593Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

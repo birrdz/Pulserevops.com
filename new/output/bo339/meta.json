@@ -8,7 +8,6 @@
   "5": "body-5.jpg",
   "6": "body-6.jpg"
  },
- "faceCard": "facecard.jpg",
  "title": "What is the best way to approach Buildouts in 2027?",
  "trim": "hotpink",
  "qid": "bo339",
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T04:55:54.718Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T04:55:54.718Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

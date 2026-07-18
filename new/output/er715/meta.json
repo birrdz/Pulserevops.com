@@ -1,6 +1,5 @@
 {
  "id": "er715",
- "faceCard": "facecard.jpg",
  "title": "How much does Electronics cost in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T12:32:45.764Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T12:32:45.764Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

@@ -1,6 +1,5 @@
 {
  "id": "bs0005",
- "faceCard": "facecard.jpg",
  "title": "How to Win Friends and Influence People by Dale Carnegie — Cliff Notes & Chapter-by-Chapter Summary",
  "trim": "hotpink",
  "body": {
@@ -18,5 +17,6 @@
  "publishedAt": "2026-07-17T01:14:45.793Z",
  "recent": true,
  "doneAt": "2026-07-17T01:40:36.752Z",
- "doneReason": "purge: 13/13 + published-with-images"
+ "doneReason": "purge: 13/13 + published-with-images",
+ "faceCard": "facecard.jpg"
 }

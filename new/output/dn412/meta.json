@@ -1,6 +1,5 @@
 {
  "id": "dn412",
- "faceCard": "facecard.jpg",
  "title": "How do you get started with Dining in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T12:23:04.403Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T12:23:04.403Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

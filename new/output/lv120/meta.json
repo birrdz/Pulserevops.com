@@ -1,6 +1,5 @@
 {
  "id": "lv120",
- "faceCard": "facecard.jpg",
  "title": "What should you know before investing in Lux Vacations in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T14:04:05.778Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T14:04:05.778Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

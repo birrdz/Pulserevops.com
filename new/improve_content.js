@@ -39,8 +39,10 @@ function buildPrompt(question, body) {
     'HARD REQUIREMENTS (all must be met — this is scored 13/13 and rejected below 13):',
     '1. Open with a line "## Direct Answer" then a COMPLETE, self-contained answer (a reader who',
     '   stops there is fully answered). Not a stub.',
-    '2. >= 2500 words of REAL content. No filler, no repeated sentences, no restating the question.',
-    '3. Multiple "## " H2 sections with genuine substance and specifics.',
+    '2. >= 3800 words of REAL, substantive content — GO COMPREHENSIVE AND DEEP. Longer and more genuinely',
+    '   useful is better. Absolutely NO filler, padding, repeated sentences, or restating the question.',
+    '3. 7 to 9 "## " H2 sections, each with genuine substance: concrete specifics, real numbers/ranges,',
+    '   step-by-steps, examples, and trade-offs a practitioner could act on.',
     '4. EXACTLY 2 mermaid diagrams, each in a ```mermaid fenced block, valid renderable syntax',
     '   (flowchart TD or similar; no stray characters; every node/edge well-formed).',
     '5. A "## FAQ" section with AT LEAST 5 question/answer pairs (each question a "### " heading).',
@@ -52,7 +54,8 @@ function buildPrompt(question, body) {
     '9. Do NOT include ANY image markdown (no ![...](...)). Images are placed separately by a human.',
     '',
     'Rewrite/expand the draft below to meet EVERY requirement. Keep what is good, fix what is weak,',
-    'add real substance to reach the word count. Return ONLY the markdown body.',
+    'add real, specific substance (examples, numbers, step-by-steps, trade-offs) to comfortably EXCEED the',
+    'word count — aim well past the minimum. Longer and more useful is better; never pad. Return ONLY the markdown body.',
     '',
     '--- CURRENT DRAFT ---',
     String(body || '').slice(0, 60000),
@@ -164,7 +167,31 @@ async function improveEntry(id, opts) {
   };
 }
 
-module.exports = { improveEntry, claudeBin };
+// rebuildToGate(question, body) — BLOB-SAFE writer loop for the Content Builder (owner 2026-07-17).
+// Takes question + body as ARGS (no local file), rebuilds toward 13/13 on the Max-plan CLI, returns the
+// best body + score. Does NOT persist — the tool shows it for human review, then publishes on approval.
+function rebuildToGate(question, body, opts) {
+  opts = opts || {};
+  const junkBody = !body || String(body).trim().length < 300
+    || /credit balance is too low|insufficient (?:credit|balance)|invalid api key/i.test(String(body));
+  let cur = junkBody ? skeleton(question) : body;
+  const before = gateScore({ body: cur, question });
+  let bestBody = cur, bestScore = junkBody ? -1 : before.score, last = before, attempts = 0, writerErr = '';
+  const maxAttempts = opts.maxAttempts || 3;
+  while (attempts < maxAttempts) {
+    attempts++;
+    const r = runClaude(buildPrompt(question, cur), opts.timeoutMs);
+    if (!r.ok) { writerErr = r.err; break; }
+    const cand = unfence(r.text);
+    const g = gateScore({ body: cand, question });
+    if (g.score > bestScore) { bestBody = cand; bestScore = g.score; last = g; cur = cand; }
+    if (g.pass) break;
+  }
+  return { ok: !writerErr && bestScore >= 0, body: bestBody, before: before.score, after: Math.max(bestScore, 0),
+           pass: !!last.pass, fails: last.fails || [], words: last.wordCount || 0, attempts, err: writerErr };
+}
+
+module.exports = { improveEntry, claudeBin, runClaude, buildPrompt, unfence, skeleton, gateScore, rebuildToGate };
 
 // CLI: node improve_content.js <id>
 if (require.main === module) {

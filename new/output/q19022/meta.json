@@ -1,6 +1,5 @@
 {
  "id": "q19022",
- "faceCard": "facecard.jpg",
  "title": "What should you do in your first 90 days after joining Chief in 2028?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T01:54:52.312Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T01:54:52.312Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

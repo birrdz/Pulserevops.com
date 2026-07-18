@@ -1,6 +1,5 @@
 {
  "id": "wl118",
- "faceCard": "facecard.jpg",
  "title": "Top 10 best Wellness options in 2027",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T20:39:39.507Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T20:39:39.507Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

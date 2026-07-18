@@ -182,7 +182,2834 @@
  "AD-46109": {
   "id": "q19153",
   "advId": "AD-46109",
-  "title": "How do you structure a RevOps team for a Series B SaaS company?"
+  "title": ""
  },
- "id:q19153": "AD-46109"
+ "id:q19153": "AD-46109",
+ "AD-52776": {
+  "id": "q19154",
+  "advId": "AD-52776",
+  "title": "How do you screen sales reps for AI-tool fluency during hiring in 2027?"
+ },
+ "id:q19154": "AD-52776",
+ "AD-20211": {
+  "id": "q19025",
+  "advId": "AD-20211",
+  "title": "How do you cycle a new saltwater reef aquarium the right way in 2028?"
+ },
+ "id:q19025": "AD-20211",
+ "AD-43068": {
+  "id": "q19020",
+  "advId": "AD-43068",
+  "title": "How do you structure OTE for a 6-person SDR team in 2027?"
+ },
+ "id:q19020": "AD-43068",
+ "AD-55877": {
+  "id": "q19030",
+  "advId": "AD-55877",
+  "title": "What should you inspect before buying a certified pre-owned luxury car in 2028?"
+ },
+ "id:q19030": "AD-55877",
+ "AD-18258": {
+  "id": "q19031",
+  "advId": "AD-18258",
+  "title": "What does a modern RevOps tech stack look like for a Series A startup in 2028?"
+ },
+ "id:q19031": "AD-18258",
+ "AD-57830": {
+  "id": "q19026",
+  "advId": "AD-57830",
+  "title": "How do you dial in espresso on a brand-new machine in 2028?"
+ },
+ "id:q19026": "AD-57830",
+ "AD-95449": {
+  "id": "q19027",
+  "advId": "AD-95449",
+  "title": "How do you introduce a second dog into a one-dog household in 2028?"
+ },
+ "id:q19027": "AD-95449",
+ "AD-47782": {
+  "id": "q19035",
+  "advId": "AD-47782",
+  "title": "How do you build a budget gaming PC that still lasts in 2028?"
+ },
+ "id:q19035": "AD-47782",
+ "AD-10163": {
+  "id": "q19036",
+  "advId": "AD-10163",
+  "title": "How do you build a family budget that survives real life in 2028?"
+ },
+ "id:q19036": "AD-10163",
+ "AD-62544": {
+  "id": "q19037",
+  "advId": "AD-62544",
+  "title": "How do you choose an all-inclusive resort that is actually worth the money in 2028?"
+ },
+ "id:q19037": "AD-62544",
+ "AD-80687": {
+  "id": "q19021",
+  "advId": "AD-80687",
+  "title": "How do you get the most out of your first year as a Chief member in 2028?"
+ },
+ "id:q19021": "AD-80687",
+ "AD-28306": {
+  "id": "q19022",
+  "advId": "AD-28306",
+  "title": "What should you do in your first 90 days after joining Chief in 2028?"
+ },
+ "id:q19022": "AD-28306",
+ "AD-70639": {
+  "id": "q19032",
+  "advId": "AD-70639",
+  "title": "How do you winterize a wakeboard boat the right way in 2028?"
+ },
+ "id:q19032": "AD-70639",
+ "AD-33020": {
+  "id": "q19033",
+  "advId": "AD-33020",
+  "title": "How do you build a morning routine that actually sticks in 2028?"
+ },
+ "id:q19033": "AD-33020",
+ "AD-90735": {
+  "id": "q19054",
+  "advId": "AD-90735",
+  "title": "How do you set SDR quotas that are actually attainable in 2027?"
+ },
+ "id:q19054": "AD-90735",
+ "AD-95323": {
+  "id": "q19061",
+  "advId": "AD-95323",
+  "title": "How do you build a revenue forecast a CFO will actually trust in 2027?"
+ },
+ "id:q19061": "AD-95323",
+ "AD-89989": {
+  "id": "q19049",
+  "advId": "AD-89989",
+  "title": "How do you clean up messy Salesforce data without stopping the team in 2027?"
+ },
+ "id:q19049": "AD-89989",
+ "AD-30259": {
+  "id": "q19050",
+  "advId": "AD-30259",
+  "title": "How do you run a deal desk that speeds up approvals in 2027?"
+ },
+ "id:q19050": "AD-30259",
+ "AD-82640": {
+  "id": "q19051",
+  "advId": "AD-82640",
+  "title": "How do you calculate and shorten CAC payback in 2027?"
+ },
+ "id:q19051": "AD-82640",
+ "AD-53116": {
+  "id": "q19055",
+  "advId": "AD-53116",
+  "title": "What do the first 90 days of a new RevOps leader look like in 2027?"
+ },
+ "id:q19055": "AD-53116",
+ "AD-54026": {
+  "id": "tl9738",
+  "advId": "AD-54026",
+  "title": "Where do I find a fractional CRO in Ann Arbor?"
+ },
+ "id:tl9738": "AD-54026",
+ "AD-37836": {
+  "id": "tl9732",
+  "advId": "AD-37836",
+  "title": "Where do I find a fractional CRO in Charleston?"
+ },
+ "id:tl9732": "AD-37836",
+ "AD-67360": {
+  "id": "tl9736",
+  "advId": "AD-67360",
+  "title": "Where do I find a fractional CRO in Boulder?"
+ },
+ "id:tl9736": "AD-67360",
+ "AD-50163": {
+  "id": "tl9728",
+  "advId": "AD-50163",
+  "title": "Where do I find a fractional CRO in Knoxville?"
+ },
+ "id:tl9728": "AD-50163",
+ "AD-23074": {
+  "id": "tl9730",
+  "advId": "AD-23074",
+  "title": "Where do I find a fractional CRO in Greenville?"
+ },
+ "id:tl9730": "AD-23074",
+ "AD-52598": {
+  "id": "tl9734",
+  "advId": "AD-52598",
+  "title": "Where do I find a fractional CRO in Savannah?"
+ },
+ "id:tl9734": "AD-52598",
+ "AD-60693": {
+  "id": "tl9731",
+  "advId": "AD-60693",
+  "title": "How do I hire a fractional CRO in Greenville?"
+ },
+ "id:tl9731": "AD-60693",
+ "AD-75455": {
+  "id": "tl9733",
+  "advId": "AD-75455",
+  "title": "How do I hire a fractional CRO in Charleston?"
+ },
+ "id:tl9733": "AD-75455",
+ "AD-90217": {
+  "id": "tl9735",
+  "advId": "AD-90217",
+  "title": "How do I hire a fractional CRO in Savannah?"
+ },
+ "id:tl9735": "AD-90217",
+ "AD-28396": {
+  "id": "tl9453",
+  "advId": "AD-28396",
+  "title": "What should I look for in a fractional CRO in Iowa?"
+ },
+ "id:tl9453": "AD-28396",
+ "AD-10025": {
+  "id": "bs0005",
+  "advId": "AD-10025",
+  "title": "How to Win Friends and Influence People by Dale Carnegie — Cliff Notes & Chapter-by-Chapter Summary"
+ },
+ "id:bs0005": "AD-10025",
+ "AD-71498": {
+  "id": "aq1163",
+  "advId": "AD-71498",
+  "title": "Is Aquariums worth it in 2027?"
+ },
+ "id:aq1163": "AD-71498",
+ "AD-62623": {
+  "id": "bo339",
+  "advId": "AD-62623",
+  "title": "What is the best way to approach Buildouts in 2027?"
+ },
+ "id:bo339": "AD-62623",
+ "AD-21657": {
+  "id": "bs423",
+  "advId": "AD-21657",
+  "title": "Top 10 best Book Summaries options in 2027"
+ },
+ "id:bs423": "AD-21657",
+ "AD-10701": {
+  "id": "bt413",
+  "advId": "AD-10701",
+  "title": "How much does Boats cost in 2027?"
+ },
+ "id:bt413": "AD-10701",
+ "AD-17368": {
+  "id": "bt414",
+  "advId": "AD-17368",
+  "title": "What should you know before investing in Boats in 2027?"
+ },
+ "id:bt414": "AD-17368",
+ "AD-53960": {
+  "id": "cl154",
+  "advId": "AD-53960",
+  "title": "Top 10 Cologne strategies for 2027"
+ },
+ "id:cl154": "AD-53960",
+ "AD-28703": {
+  "id": "co150",
+  "advId": "AD-28703",
+  "title": "What is the best way to approach Collectibles in 2027?"
+ },
+ "id:co150": "AD-28703",
+ "AD-81084": {
+  "id": "co151",
+  "advId": "AD-81084",
+  "title": "What should you know before investing in Collectibles in 2027?"
+ },
+ "id:co151": "AD-81084",
+ "AD-86206": {
+  "id": "dn412",
+  "advId": "AD-86206",
+  "title": "How do you get started with Dining in 2027?"
+ },
+ "id:dn412": "AD-86206",
+ "AD-34041": {
+  "id": "er715",
+  "advId": "AD-34041",
+  "title": "How much does Electronics cost in 2027?"
+ },
+ "id:er715": "AD-34041",
+ "AD-11184": {
+  "id": "er716",
+  "advId": "AD-11184",
+  "title": "What are the most common mistakes in Electronics in 2027?"
+ },
+ "id:er716": "AD-11184",
+ "AD-28864": {
+  "id": "es351",
+  "advId": "AD-28864",
+  "title": "How much does Espresso cost in 2027?"
+ },
+ "id:es351": "AD-28864",
+ "AD-71803": {
+  "id": "fr1139",
+  "advId": "AD-71803",
+  "title": "What is the best way to approach Franchises in 2027?"
+ },
+ "id:fr1139": "AD-71803",
+ "AD-42977": {
+  "id": "gb546",
+  "advId": "AD-42977",
+  "title": "How do you get started with Graphics in 2027?"
+ },
+ "id:gb546": "AD-42977",
+ "AD-11587": {
+  "id": "lv118",
+  "advId": "AD-11587",
+  "title": "What is the best way to approach Lux Vacations in 2027?"
+ },
+ "id:lv118": "AD-11587",
+ "AD-63968": {
+  "id": "lv119",
+  "advId": "AD-63968",
+  "title": "How do you get started with Lux Vacations in 2027?"
+ },
+ "id:lv119": "AD-63968",
+ "AD-36176": {
+  "id": "lv120",
+  "advId": "AD-36176",
+  "title": "What should you know before investing in Lux Vacations in 2027?"
+ },
+ "id:lv120": "AD-36176",
+ "AD-59033": {
+  "id": "lv123",
+  "advId": "AD-59033",
+  "title": "What are the most common mistakes in Lux Vacations in 2027?"
+ },
+ "id:lv123": "AD-59033",
+ "AD-96652": {
+  "id": "lv124",
+  "advId": "AD-96652",
+  "title": "Is Lux Vacations worth it in 2027?"
+ },
+ "id:lv124": "AD-96652",
+ "AD-22690": {
+  "id": "nl232",
+  "advId": "AD-22690",
+  "title": "What are the most common mistakes in Nightlife in 2027?"
+ },
+ "id:nl232": "AD-22690",
+ "AD-79937": {
+  "id": "rs283",
+  "advId": "AD-79937",
+  "title": "How do you get started with Resorts in 2027?"
+ },
+ "id:rs283": "AD-79937",
+ "AD-99297": {
+  "id": "sc512",
+  "advId": "AD-99297",
+  "title": "What is the best way to approach Schools in 2027?"
+ },
+ "id:sc512": "AD-99297",
+ "AD-86709": {
+  "id": "sw116",
+  "advId": "AD-86709",
+  "title": "What should you know before investing in Software in 2027?"
+ },
+ "id:sw116": "AD-86709",
+ "AD-94312": {
+  "id": "tc251",
+  "advId": "AD-94312",
+  "title": "Is Telco worth it in 2027?"
+ },
+ "id:tc251": "AD-94312",
+ "AD-99520": {
+  "id": "tn142",
+  "advId": "AD-99520",
+  "title": "What should you know before investing in Towns in 2027?"
+ },
+ "id:tn142": "AD-99520",
+ "AD-47139": {
+  "id": "tn143",
+  "advId": "AD-47139",
+  "title": "Top 10 best Towns options in 2027"
+ },
+ "id:tn143": "AD-47139",
+ "AD-55234": {
+  "id": "tn144",
+  "advId": "AD-55234",
+  "title": "Top 10 Towns strategies for 2027"
+ },
+ "id:tn144": "AD-55234",
+ "AD-10195": {
+  "id": "wl115",
+  "advId": "AD-10195",
+  "title": "What is the best way to approach Wellness in 2027?"
+ },
+ "id:wl115": "AD-10195",
+ "AD-85433": {
+  "id": "wl117",
+  "advId": "AD-85433",
+  "title": "What should you know before investing in Wellness in 2027?"
+ },
+ "id:wl117": "AD-85433",
+ "AD-47814": {
+  "id": "wl116",
+  "advId": "AD-47814",
+  "title": "How do you get started with Wellness in 2027?"
+ },
+ "id:wl116": "AD-47814",
+ "AD-64004": {
+  "id": "wl118",
+  "advId": "AD-64004",
+  "title": "Top 10 best Wellness options in 2027"
+ },
+ "id:wl118": "AD-64004",
+ "AD-11623": {
+  "id": "wl119",
+  "advId": "AD-11623",
+  "title": "How much does Wellness cost in 2027?"
+ },
+ "id:wl119": "AD-11623",
+ "AD-96751": {
+  "id": "q214",
+  "advId": "AD-96751",
+  "title": ""
+ },
+ "id:q214": "AD-96751",
+ "AD-32381": {
+  "id": "q1163",
+  "advId": "AD-32381",
+  "title": ""
+ },
+ "id:q1163": "AD-32381",
+ "AD-86577": {
+  "id": "q223",
+  "advId": "AD-86577",
+  "title": ""
+ },
+ "id:q223": "AD-86577",
+ "AD-92154": {
+  "id": "q1108",
+  "advId": "AD-92154",
+  "title": ""
+ },
+ "id:q1108": "AD-92154",
+ "AD-70304": {
+  "id": "q1133",
+  "advId": "AD-70304",
+  "title": ""
+ },
+ "id:q1133": "AD-70304",
+ "AD-23583": {
+  "id": "q1103",
+  "advId": "AD-23583",
+  "title": "Best Discovery Question When a Buyer Says They're \"Just Exploring"
+ },
+ "id:q1103": "AD-23583",
+ "AD-54198": {
+  "id": "q161",
+  "advId": "AD-54198",
+  "title": ""
+ },
+ "id:q161": "AD-54198",
+ "AD-16579": {
+  "id": "q162",
+  "advId": "AD-16579",
+  "title": "How do you transition from founder-led to first VP of Sales?"
+ },
+ "id:q162": "AD-16579",
+ "AD-68960": {
+  "id": "q163",
+  "advId": "AD-68960",
+  "title": ""
+ },
+ "id:q163": "AD-68960",
+ "AD-70347": {
+  "id": "q553",
+  "advId": "AD-70347",
+  "title": ""
+ },
+ "id:q553": "AD-70347",
+ "AD-51719": {
+  "id": "q203",
+  "advId": "AD-51719",
+  "title": ""
+ },
+ "id:q203": "AD-51719",
+ "AD-21513": {
+  "id": "q212",
+  "advId": "AD-21513",
+  "title": ""
+ },
+ "id:q212": "AD-21513",
+ "AD-69924": {
+  "id": "q699",
+  "advId": "AD-69924",
+  "title": ""
+ },
+ "id:q699": "AD-69924",
+ "AD-18169": {
+  "id": "q700",
+  "advId": "AD-18169",
+  "title": ""
+ },
+ "id:q700": "AD-18169",
+ "AD-70550": {
+  "id": "q701",
+  "advId": "AD-70550",
+  "title": ""
+ },
+ "id:q701": "AD-70550",
+ "AD-32931": {
+  "id": "q702",
+  "advId": "AD-32931",
+  "title": ""
+ },
+ "id:q702": "AD-32931",
+ "AD-58923": {
+  "id": "q1129",
+  "advId": "AD-58923",
+  "title": ""
+ },
+ "id:q1129": "AD-58923",
+ "AD-98947": {
+  "id": "q1143",
+  "advId": "AD-98947",
+  "title": ""
+ },
+ "id:q1143": "AD-98947",
+ "AD-17042": {
+  "id": "q1144",
+  "advId": "AD-17042",
+  "title": ""
+ },
+ "id:q1144": "AD-17042",
+ "AD-49201": {
+  "id": "q1167",
+  "advId": "AD-49201",
+  "title": ""
+ },
+ "id:q1167": "AD-49201",
+ "AD-93487": {
+  "id": "q1169",
+  "advId": "AD-93487",
+  "title": ""
+ },
+ "id:q1169": "AD-93487",
+ "AD-53915": {
+  "id": "q1176",
+  "advId": "AD-53915",
+  "title": ""
+ },
+ "id:q1176": "AD-53915",
+ "AD-16296": {
+  "id": "q1177",
+  "advId": "AD-16296",
+  "title": ""
+ },
+ "id:q1177": "AD-16296",
+ "AD-68677": {
+  "id": "q1178",
+  "advId": "AD-68677",
+  "title": ""
+ },
+ "id:q1178": "AD-68677",
+ "AD-31058": {
+  "id": "q1179",
+  "advId": "AD-31058",
+  "title": ""
+ },
+ "id:q1179": "AD-31058",
+ "AD-65738": {
+  "id": "q1180",
+  "advId": "AD-65738",
+  "title": ""
+ },
+ "id:q1180": "AD-65738",
+ "AD-80500": {
+  "id": "q1182",
+  "advId": "AD-80500",
+  "title": ""
+ },
+ "id:q1182": "AD-80500",
+ "AD-28119": {
+  "id": "q1183",
+  "advId": "AD-28119",
+  "title": ""
+ },
+ "id:q1183": "AD-28119",
+ "AD-82558": {
+  "id": "q1184",
+  "advId": "AD-82558",
+  "title": ""
+ },
+ "id:q1184": "AD-82558",
+ "AD-42881": {
+  "id": "q1185",
+  "advId": "AD-42881",
+  "title": ""
+ },
+ "id:q1185": "AD-42881",
+ "AD-97320": {
+  "id": "q1186",
+  "advId": "AD-97320",
+  "title": ""
+ },
+ "id:q1186": "AD-97320",
+ "AD-44939": {
+  "id": "q1187",
+  "advId": "AD-44939",
+  "title": ""
+ },
+ "id:q1187": "AD-44939",
+ "AD-13357": {
+  "id": "q1181",
+  "advId": "AD-13357",
+  "title": ""
+ },
+ "id:q1181": "AD-13357",
+ "AD-22082": {
+  "id": "q1188",
+  "advId": "AD-22082",
+  "title": ""
+ },
+ "id:q1188": "AD-22082",
+ "AD-59701": {
+  "id": "q1189",
+  "advId": "AD-59701",
+  "title": ""
+ },
+ "id:q1189": "AD-59701",
+ "AD-32035": {
+  "id": "q1190",
+  "advId": "AD-32035",
+  "title": ""
+ },
+ "id:q1190": "AD-32035",
+ "AD-84416": {
+  "id": "q1191",
+  "advId": "AD-84416",
+  "title": ""
+ },
+ "id:q1191": "AD-84416",
+ "AD-69654": {
+  "id": "q1193",
+  "advId": "AD-69654",
+  "title": ""
+ },
+ "id:q1193": "AD-69654",
+ "AD-40130": {
+  "id": "q1197",
+  "advId": "AD-40130",
+  "title": ""
+ },
+ "id:q1197": "AD-40130",
+ "AD-62987": {
+  "id": "q1198",
+  "advId": "AD-62987",
+  "title": ""
+ },
+ "id:q1198": "AD-62987",
+ "AD-98237": {
+  "id": "q1202",
+  "advId": "AD-98237",
+  "title": ""
+ },
+ "id:q1202": "AD-98237",
+ "AD-14904": {
+  "id": "q1205",
+  "advId": "AD-14904",
+  "title": ""
+ },
+ "id:q1205": "AD-14904",
+ "AD-90142": {
+  "id": "q1207",
+  "advId": "AD-90142",
+  "title": ""
+ },
+ "id:q1207": "AD-90142",
+ "AD-17273": {
+  "id": "q1192",
+  "advId": "AD-17273",
+  "title": ""
+ },
+ "id:q1192": "AD-17273",
+ "AD-60618": {
+  "id": "q1203",
+  "advId": "AD-60618",
+  "title": ""
+ },
+ "id:q1203": "AD-60618",
+ "AD-25368": {
+  "id": "q1199",
+  "advId": "AD-25368",
+  "title": ""
+ },
+ "id:q1199": "AD-25368",
+ "AD-54892": {
+  "id": "q1195",
+  "advId": "AD-54892",
+  "title": ""
+ },
+ "id:q1195": "AD-54892",
+ "AD-37761": {
+  "id": "q1206",
+  "advId": "AD-37761",
+  "title": ""
+ },
+ "id:q1206": "AD-37761",
+ "AD-52523": {
+  "id": "q1204",
+  "advId": "AD-52523",
+  "title": ""
+ },
+ "id:q1204": "AD-52523",
+ "AD-75380": {
+  "id": "q1201",
+  "advId": "AD-75380",
+  "title": ""
+ },
+ "id:q1201": "AD-75380",
+ "AD-22999": {
+  "id": "q1200",
+  "advId": "AD-22999",
+  "title": ""
+ },
+ "id:q1200": "AD-22999",
+ "AD-77749": {
+  "id": "q1196",
+  "advId": "AD-77749",
+  "title": ""
+ },
+ "id:q1196": "AD-77749",
+ "AD-92511": {
+  "id": "q1194",
+  "advId": "AD-92511",
+  "title": ""
+ },
+ "id:q1194": "AD-92511",
+ "AD-82047": {
+  "id": "q1208",
+  "advId": "AD-82047",
+  "title": ""
+ },
+ "id:q1208": "AD-82047",
+ "AD-10190": {
+  "id": "q1210",
+  "advId": "AD-10190",
+  "title": ""
+ },
+ "id:q1210": "AD-10190",
+ "AD-44428": {
+  "id": "q1209",
+  "advId": "AD-44428",
+  "title": ""
+ },
+ "id:q1209": "AD-44428",
+ "AD-47809": {
+  "id": "q1211",
+  "advId": "AD-47809",
+  "title": ""
+ },
+ "id:q1211": "AD-47809",
+ "AD-24952": {
+  "id": "q1212",
+  "advId": "AD-24952",
+  "title": ""
+ },
+ "id:q1212": "AD-24952",
+ "AD-62571": {
+  "id": "q1213",
+  "advId": "AD-62571",
+  "title": ""
+ },
+ "id:q1213": "AD-62571",
+ "AD-70666": {
+  "id": "q1214",
+  "advId": "AD-70666",
+  "title": ""
+ },
+ "id:q1214": "AD-70666",
+ "AD-18285": {
+  "id": "q1215",
+  "advId": "AD-18285",
+  "title": ""
+ },
+ "id:q1215": "AD-18285",
+ "AD-85428": {
+  "id": "q1216",
+  "advId": "AD-85428",
+  "title": ""
+ },
+ "id:q1216": "AD-85428",
+ "AD-33047": {
+  "id": "q1217",
+  "advId": "AD-33047",
+  "title": ""
+ },
+ "id:q1217": "AD-33047",
+ "AD-16857": {
+  "id": "q1219",
+  "advId": "AD-16857",
+  "title": ""
+ },
+ "id:q1219": "AD-16857",
+ "AD-29445": {
+  "id": "q1220",
+  "advId": "AD-29445",
+  "title": ""
+ },
+ "id:q1220": "AD-29445",
+ "AD-81826": {
+  "id": "q1221",
+  "advId": "AD-81826",
+  "title": ""
+ },
+ "id:q1221": "AD-81826",
+ "AD-44207": {
+  "id": "q1222",
+  "advId": "AD-44207",
+  "title": ""
+ },
+ "id:q1222": "AD-44207",
+ "AD-96588": {
+  "id": "q1223",
+  "advId": "AD-96588",
+  "title": ""
+ },
+ "id:q1223": "AD-96588",
+ "AD-21350": {
+  "id": "q1225",
+  "advId": "AD-21350",
+  "title": ""
+ },
+ "id:q1225": "AD-21350",
+ "AD-73731": {
+  "id": "q1226",
+  "advId": "AD-73731",
+  "title": ""
+ },
+ "id:q1226": "AD-73731",
+ "AD-36112": {
+  "id": "q1227",
+  "advId": "AD-36112",
+  "title": ""
+ },
+ "id:q1227": "AD-36112",
+ "AD-60397": {
+  "id": "q1228",
+  "advId": "AD-60397",
+  "title": ""
+ },
+ "id:q1228": "AD-60397",
+ "AD-22778": {
+  "id": "q1229",
+  "advId": "AD-22778",
+  "title": ""
+ },
+ "id:q1229": "AD-22778",
+ "AD-16636": {
+  "id": "q1230",
+  "advId": "AD-16636",
+  "title": ""
+ },
+ "id:q1230": "AD-16636",
+ "AD-54255": {
+  "id": "q1231",
+  "advId": "AD-54255",
+  "title": ""
+ },
+ "id:q1231": "AD-54255",
+ "AD-91874": {
+  "id": "q1232",
+  "advId": "AD-91874",
+  "title": ""
+ },
+ "id:q1232": "AD-91874",
+ "AD-39493": {
+  "id": "q1233",
+  "advId": "AD-39493",
+  "title": ""
+ },
+ "id:q1233": "AD-39493",
+ "AD-46160": {
+  "id": "q1234",
+  "advId": "AD-46160",
+  "title": ""
+ },
+ "id:q1234": "AD-46160",
+ "AD-83779": {
+  "id": "q1235",
+  "advId": "AD-83779",
+  "title": ""
+ },
+ "id:q1235": "AD-83779",
+ "AD-31398": {
+  "id": "q1236",
+  "advId": "AD-31398",
+  "title": ""
+ },
+ "id:q1236": "AD-31398",
+ "AD-69017": {
+  "id": "q1237",
+  "advId": "AD-69017",
+  "title": ""
+ },
+ "id:q1237": "AD-69017",
+ "AD-47588": {
+  "id": "q1238",
+  "advId": "AD-47588",
+  "title": ""
+ },
+ "id:q1238": "AD-47588",
+ "AD-85207": {
+  "id": "q1239",
+  "advId": "AD-85207",
+  "title": ""
+ },
+ "id:q1239": "AD-85207",
+ "AD-93827": {
+  "id": "q1240",
+  "advId": "AD-93827",
+  "title": ""
+ },
+ "id:q1240": "AD-93827",
+ "AD-56208": {
+  "id": "q1241",
+  "advId": "AD-56208",
+  "title": ""
+ },
+ "id:q1241": "AD-56208",
+ "AD-79065": {
+  "id": "q1242",
+  "advId": "AD-79065",
+  "title": ""
+ },
+ "id:q1242": "AD-79065",
+ "AD-41446": {
+  "id": "q1243",
+  "advId": "AD-41446",
+  "title": ""
+ },
+ "id:q1243": "AD-41446",
+ "AD-69238": {
+  "id": "q1218",
+  "advId": "AD-69238",
+  "title": ""
+ },
+ "id:q1218": "AD-69238",
+ "AD-58969": {
+  "id": "q1224",
+  "advId": "AD-58969",
+  "title": ""
+ },
+ "id:q1224": "AD-58969",
+ "AD-64303": {
+  "id": "q1244",
+  "advId": "AD-64303",
+  "title": ""
+ },
+ "id:q1244": "AD-64303",
+ "AD-26684": {
+  "id": "q1245",
+  "advId": "AD-26684",
+  "title": ""
+ },
+ "id:q1245": "AD-26684",
+ "AD-49541": {
+  "id": "q1246",
+  "advId": "AD-49541",
+  "title": ""
+ },
+ "id:q1246": "AD-49541",
+ "AD-11922": {
+  "id": "q1247",
+  "advId": "AD-11922",
+  "title": ""
+ },
+ "id:q1247": "AD-11922",
+ "AD-34779": {
+  "id": "q1248",
+  "advId": "AD-34779",
+  "title": ""
+ },
+ "id:q1248": "AD-34779",
+ "AD-87160": {
+  "id": "q1249",
+  "advId": "AD-87160",
+  "title": ""
+ },
+ "id:q1249": "AD-87160",
+ "AD-69594": {
+  "id": "q1250",
+  "advId": "AD-69594",
+  "title": ""
+ },
+ "id:q1250": "AD-69594",
+ "AD-17213": {
+  "id": "q1251",
+  "advId": "AD-17213",
+  "title": ""
+ },
+ "id:q1251": "AD-17213",
+ "AD-84356": {
+  "id": "q1252",
+  "advId": "AD-84356",
+  "title": ""
+ },
+ "id:q1252": "AD-84356",
+ "AD-31975": {
+  "id": "q1253",
+  "advId": "AD-31975",
+  "title": ""
+ },
+ "id:q1253": "AD-31975",
+ "AD-99118": {
+  "id": "q1254",
+  "advId": "AD-99118",
+  "title": ""
+ },
+ "id:q1254": "AD-99118",
+ "AD-46737": {
+  "id": "q1255",
+  "advId": "AD-46737",
+  "title": ""
+ },
+ "id:q1255": "AD-46737",
+ "AD-23880": {
+  "id": "q1256",
+  "advId": "AD-23880",
+  "title": ""
+ },
+ "id:q1256": "AD-23880",
+ "AD-61499": {
+  "id": "q1257",
+  "advId": "AD-61499",
+  "title": ""
+ },
+ "id:q1257": "AD-61499",
+ "AD-38642": {
+  "id": "q1258",
+  "advId": "AD-38642",
+  "title": ""
+ },
+ "id:q1258": "AD-38642",
+ "AD-76261": {
+  "id": "q1259",
+  "advId": "AD-76261",
+  "title": ""
+ },
+ "id:q1259": "AD-76261",
+ "AD-56785": {
+  "id": "q1260",
+  "advId": "AD-56785",
+  "title": ""
+ },
+ "id:q1260": "AD-56785",
+ "AD-19166": {
+  "id": "q1261",
+  "advId": "AD-19166",
+  "title": ""
+ },
+ "id:q1261": "AD-19166",
+ "AD-71547": {
+  "id": "q1262",
+  "advId": "AD-71547",
+  "title": ""
+ },
+ "id:q1262": "AD-71547",
+ "AD-33928": {
+  "id": "q1263",
+  "advId": "AD-33928",
+  "title": ""
+ },
+ "id:q1263": "AD-33928",
+ "AD-62293": {
+  "id": "q164",
+  "advId": "AD-62293",
+  "title": ""
+ },
+ "id:q164": "AD-62293",
+ "AD-44679": {
+  "id": "q27",
+  "advId": "AD-44679",
+  "title": ""
+ },
+ "id:q27": "AD-44679",
+ "AD-19869": {
+  "id": "q32",
+  "advId": "AD-19869",
+  "title": ""
+ },
+ "id:q32": "AD-19869",
+ "AD-72250": {
+  "id": "q33",
+  "advId": "AD-72250",
+  "title": ""
+ },
+ "id:q33": "AD-72250",
+ "AD-26536": {
+  "id": "q35",
+  "advId": "AD-26536",
+  "title": ""
+ },
+ "id:q35": "AD-26536",
+ "AD-64155": {
+  "id": "q34",
+  "advId": "AD-64155",
+  "title": ""
+ },
+ "id:q34": "AD-64155",
+ "AD-11774": {
+  "id": "q37",
+  "advId": "AD-11774",
+  "title": ""
+ },
+ "id:q37": "AD-11774",
+ "AD-93679": {
+  "id": "q38",
+  "advId": "AD-93679",
+  "title": ""
+ },
+ "id:q38": "AD-93679",
+ "AD-56060": {
+  "id": "q39",
+  "advId": "AD-56060",
+  "title": ""
+ },
+ "id:q39": "AD-56060",
+ "AD-55608": {
+  "id": "q40",
+  "advId": "AD-55608",
+  "title": ""
+ },
+ "id:q40": "AD-55608",
+ "AD-36957": {
+  "id": "q201",
+  "advId": "AD-36957",
+  "title": ""
+ },
+ "id:q201": "AD-36957",
+ "AD-81989": {
+  "id": "q216",
+  "advId": "AD-81989",
+  "title": ""
+ },
+ "id:q216": "AD-81989",
+ "AD-17966": {
+  "id": "q550",
+  "advId": "AD-17966",
+  "title": ""
+ },
+ "id:q550": "AD-17966",
+ "AD-52204": {
+  "id": "q549",
+  "advId": "AD-52204",
+  "title": ""
+ },
+ "id:q549": "AD-52204",
+ "AD-55585": {
+  "id": "q551",
+  "advId": "AD-55585",
+  "title": ""
+ },
+ "id:q551": "AD-55585",
+ "AD-32728": {
+  "id": "q552",
+  "advId": "AD-32728",
+  "title": ""
+ },
+ "id:q552": "AD-32728",
+ "AD-26061": {
+  "id": "q555",
+  "advId": "AD-26061",
+  "title": ""
+ },
+ "id:q555": "AD-26061",
+ "AD-78442": {
+  "id": "q554",
+  "advId": "AD-78442",
+  "title": ""
+ },
+ "id:q554": "AD-78442",
+ "AD-93204": {
+  "id": "q556",
+  "advId": "AD-93204",
+  "title": ""
+ },
+ "id:q556": "AD-93204",
+ "AD-58386": {
+  "id": "q208",
+  "advId": "AD-58386",
+  "title": ""
+ },
+ "id:q208": "AD-58386",
+ "AD-96005": {
+  "id": "q209",
+  "advId": "AD-96005",
+  "title": ""
+ },
+ "id:q209": "AD-96005",
+ "AD-27261": {
+  "id": "q1264",
+  "advId": "AD-27261",
+  "title": ""
+ },
+ "id:q1264": "AD-27261",
+ "AD-79642": {
+  "id": "q1265",
+  "advId": "AD-79642",
+  "title": ""
+ },
+ "id:q1265": "AD-79642",
+ "AD-42023": {
+  "id": "q1266",
+  "advId": "AD-42023",
+  "title": ""
+ },
+ "id:q1266": "AD-42023",
+ "AD-94404": {
+  "id": "q1267",
+  "advId": "AD-94404",
+  "title": ""
+ },
+ "id:q1267": "AD-94404",
+ "AD-25833": {
+  "id": "q1268",
+  "advId": "AD-25833",
+  "title": ""
+ },
+ "id:q1268": "AD-25833",
+ "AD-78214": {
+  "id": "q1269",
+  "advId": "AD-78214",
+  "title": ""
+ },
+ "id:q1269": "AD-78214",
+ "AD-43976": {
+  "id": "q1270",
+  "advId": "AD-43976",
+  "title": ""
+ },
+ "id:q1270": "AD-43976",
+ "AD-81595": {
+  "id": "q1271",
+  "advId": "AD-81595",
+  "title": ""
+ },
+ "id:q1271": "AD-81595",
+ "AD-29214": {
+  "id": "q1272",
+  "advId": "AD-29214",
+  "title": ""
+ },
+ "id:q1272": "AD-29214",
+ "AD-66833": {
+  "id": "q1273",
+  "advId": "AD-66833",
+  "title": ""
+ },
+ "id:q1273": "AD-66833",
+ "AD-14452": {
+  "id": "q1274",
+  "advId": "AD-14452",
+  "title": "How'd you fix Knotch's revenue issues in 2026?"
+ },
+ "id:q1274": "AD-14452",
+ "AD-52071": {
+  "id": "q1275",
+  "advId": "AD-52071",
+  "title": ""
+ },
+ "id:q1275": "AD-52071",
+ "AD-89690": {
+  "id": "q1276",
+  "advId": "AD-89690",
+  "title": ""
+ },
+ "id:q1276": "AD-89690",
+ "AD-37309": {
+  "id": "q1277",
+  "advId": "AD-37309",
+  "title": ""
+ },
+ "id:q1277": "AD-37309",
+ "AD-13024": {
+  "id": "q1278",
+  "advId": "AD-13024",
+  "title": ""
+ },
+ "id:q1278": "AD-13024",
+ "AD-50643": {
+  "id": "q1279",
+  "advId": "AD-50643",
+  "title": ""
+ },
+ "id:q1279": "AD-50643",
+ "AD-31167": {
+  "id": "q1280",
+  "advId": "AD-31167",
+  "title": ""
+ },
+ "id:q1280": "AD-31167",
+ "AD-83548": {
+  "id": "q1281",
+  "advId": "AD-83548",
+  "title": ""
+ },
+ "id:q1281": "AD-83548",
+ "AD-16405": {
+  "id": "q1282",
+  "advId": "AD-16405",
+  "title": ""
+ },
+ "id:q1282": "AD-16405",
+ "AD-68786": {
+  "id": "q1283",
+  "advId": "AD-68786",
+  "title": ""
+ },
+ "id:q1283": "AD-68786",
+ "AD-47987": {
+  "id": "q1284",
+  "advId": "AD-47987",
+  "title": "How'd you fix Frank's revenue issues in 2026?"
+ },
+ "id:q1284": "AD-47987",
+ "AD-10368": {
+  "id": "q1285",
+  "advId": "AD-10368",
+  "title": ""
+ },
+ "id:q1285": "AD-10368",
+ "AD-45929": {
+  "id": "q1286",
+  "advId": "AD-45929",
+  "title": ""
+ },
+ "id:q1286": "AD-45929",
+ "AD-98310": {
+  "id": "q1287",
+  "advId": "AD-98310",
+  "title": "How'd you fix Veev's revenue issues in 2026?"
+ },
+ "id:q1287": "AD-98310",
+ "AD-62119": {
+  "id": "q1288",
+  "advId": "AD-62119",
+  "title": ""
+ },
+ "id:q1288": "AD-62119",
+ "AD-24500": {
+  "id": "q1289",
+  "advId": "AD-24500",
+  "title": ""
+ },
+ "id:q1289": "AD-24500",
+ "AD-50422": {
+  "id": "q1290",
+  "advId": "AD-50422",
+  "title": ""
+ },
+ "id:q1290": "AD-50422",
+ "AD-88041": {
+  "id": "q1291",
+  "advId": "AD-88041",
+  "title": ""
+ },
+ "id:q1291": "AD-88041",
+ "AD-65184": {
+  "id": "q1292",
+  "advId": "AD-65184",
+  "title": "How'd you fix Wish.com's revenue issues in 2026?"
+ },
+ "id:q1292": "AD-65184",
+ "AD-12803": {
+  "id": "q1293",
+  "advId": "AD-12803",
+  "title": ""
+ },
+ "id:q1293": "AD-12803",
+ "AD-20898": {
+  "id": "q1294",
+  "advId": "AD-20898",
+  "title": ""
+ },
+ "id:q1294": "AD-20898",
+ "AD-58517": {
+  "id": "q1295",
+  "advId": "AD-58517",
+  "title": ""
+ },
+ "id:q1295": "AD-58517",
+ "AD-35660": {
+  "id": "q1296",
+  "advId": "AD-35660",
+  "title": ""
+ },
+ "id:q1296": "AD-35660",
+ "AD-73279": {
+  "id": "q1297",
+  "advId": "AD-73279",
+  "title": ""
+ },
+ "id:q1297": "AD-73279",
+ "AD-81374": {
+  "id": "q1298",
+  "advId": "AD-81374",
+  "title": ""
+ },
+ "id:q1298": "AD-81374",
+ "AD-28993": {
+  "id": "q1299",
+  "advId": "AD-28993",
+  "title": ""
+ },
+ "id:q1299": "AD-28993",
+ "AD-68988": {
+  "id": "q1300",
+  "advId": "AD-68988",
+  "title": ""
+ },
+ "id:q1300": "AD-68988",
+ "AD-16607": {
+  "id": "q1301",
+  "advId": "AD-16607",
+  "title": ""
+ },
+ "id:q1301": "AD-16607",
+ "AD-54226": {
+  "id": "q1302",
+  "advId": "AD-54226",
+  "title": ""
+ },
+ "id:q1302": "AD-54226",
+ "AD-91845": {
+  "id": "q1303",
+  "advId": "AD-91845",
+  "title": ""
+ },
+ "id:q1303": "AD-91845",
+ "AD-98512": {
+  "id": "q1304",
+  "advId": "AD-98512",
+  "title": ""
+ },
+ "id:q1304": "AD-98512",
+ "AD-46131": {
+  "id": "q1305",
+  "advId": "AD-46131",
+  "title": ""
+ },
+ "id:q1305": "AD-46131",
+ "AD-83750": {
+  "id": "q1306",
+  "advId": "AD-83750",
+  "title": ""
+ },
+ "id:q1306": "AD-83750",
+ "AD-31369": {
+  "id": "q1307",
+  "advId": "AD-31369",
+  "title": ""
+ },
+ "id:q1307": "AD-31369",
+ "AD-99940": {
+  "id": "q1308",
+  "advId": "AD-99940",
+  "title": ""
+ },
+ "id:q1308": "AD-99940",
+ "AD-47559": {
+  "id": "q1309",
+  "advId": "AD-47559",
+  "title": ""
+ },
+ "id:q1309": "AD-47559",
+ "AD-81797": {
+  "id": "q1310",
+  "advId": "AD-81797",
+  "title": "How'd you fix Hopper's revenue issues in 2026?"
+ },
+ "id:q1310": "AD-81797",
+ "AD-44178": {
+  "id": "q1311",
+  "advId": "AD-44178",
+  "title": ""
+ },
+ "id:q1311": "AD-44178",
+ "AD-96559": {
+  "id": "q1312",
+  "advId": "AD-96559",
+  "title": ""
+ },
+ "id:q1312": "AD-96559",
+ "AD-58940": {
+  "id": "q1313",
+  "advId": "AD-58940",
+  "title": ""
+ },
+ "id:q1313": "AD-58940",
+ "AD-21321": {
+  "id": "q1314",
+  "advId": "AD-21321",
+  "title": "How'd you fix Better.com's revenue issues in 2026?"
+ },
+ "id:q1314": "AD-21321",
+ "AD-73702": {
+  "id": "q1315",
+  "advId": "AD-73702",
+  "title": ""
+ },
+ "id:q1315": "AD-73702",
+ "AD-36083": {
+  "id": "q1316",
+  "advId": "AD-36083",
+  "title": ""
+ },
+ "id:q1316": "AD-36083",
+ "AD-88464": {
+  "id": "q1317",
+  "advId": "AD-88464",
+  "title": ""
+ },
+ "id:q1317": "AD-88464",
+ "AD-22749": {
+  "id": "q1318",
+  "advId": "AD-22749",
+  "title": ""
+ },
+ "id:q1318": "AD-22749",
+ "AD-75130": {
+  "id": "q1319",
+  "advId": "AD-75130",
+  "title": ""
+ },
+ "id:q1319": "AD-75130",
+ "AD-94606": {
+  "id": "q1320",
+  "advId": "AD-94606",
+  "title": ""
+ },
+ "id:q1320": "AD-94606",
+ "AD-42225": {
+  "id": "q1321",
+  "advId": "AD-42225",
+  "title": "How'd you fix Doma's revenue issues in 2026?"
+ },
+ "id:q1321": "AD-42225",
+ "AD-19368": {
+  "id": "q1322",
+  "advId": "AD-19368",
+  "title": ""
+ },
+ "id:q1322": "AD-19368",
+ "AD-56987": {
+  "id": "q1323",
+  "advId": "AD-56987",
+  "title": ""
+ },
+ "id:q1323": "AD-56987",
+ "AD-65082": {
+  "id": "q1324",
+  "advId": "AD-65082",
+  "title": "How'd you fix Trōv's revenue issues in 2026?"
+ },
+ "id:q1324": "AD-65082",
+ "AD-12701": {
+  "id": "q1325",
+  "advId": "AD-12701",
+  "title": "How'd you fix Veev's revenue issues in 2026?"
+ },
+ "id:q1325": "AD-12701",
+ "AD-79844": {
+  "id": "q1326",
+  "advId": "AD-79844",
+  "title": "How'd you fix Knotch's revenue issues in 2026?"
+ },
+ "id:q1326": "AD-79844",
+ "AD-27463": {
+  "id": "q1327",
+  "advId": "AD-27463",
+  "title": "How'd you fix Brandless's revenue issues in 2026?"
+ },
+ "id:q1327": "AD-27463",
+ "AD-63654": {
+  "id": "q1328",
+  "advId": "AD-63654",
+  "title": ""
+ },
+ "id:q1328": "AD-63654",
+ "AD-11273": {
+  "id": "q1329",
+  "advId": "AD-11273",
+  "title": ""
+ },
+ "id:q1329": "AD-11273",
+ "AD-75351": {
+  "id": "q1330",
+  "advId": "AD-75351",
+  "title": "How'd you fix Washio's revenue issues in 2026?"
+ },
+ "id:q1330": "AD-75351",
+ "AD-37732": {
+  "id": "q1331",
+  "advId": "AD-37732",
+  "title": ""
+ },
+ "id:q1331": "AD-37732",
+ "AD-60589": {
+  "id": "q1332",
+  "advId": "AD-60589",
+  "title": ""
+ },
+ "id:q1332": "AD-60589",
+ "AD-22970": {
+  "id": "q1333",
+  "advId": "AD-22970",
+  "title": "How'd you fix Beepi's revenue issues in 2026?"
+ },
+ "id:q1333": "AD-22970",
+ "AD-14875": {
+  "id": "q1334",
+  "advId": "AD-14875",
+  "title": "How'd you fix Anki's revenue issues in 2026?"
+ },
+ "id:q1334": "AD-14875",
+ "AD-67256": {
+  "id": "q1335",
+  "advId": "AD-67256",
+  "title": ""
+ },
+ "id:q1335": "AD-67256",
+ "AD-90113": {
+  "id": "q1336",
+  "advId": "AD-90113",
+  "title": "How'd you fix Theranos's revenue issues in 2026?"
+ },
+ "id:q1336": "AD-90113",
+ "AD-52494": {
+  "id": "q1337",
+  "advId": "AD-52494",
+  "title": ""
+ },
+ "id:q1337": "AD-52494",
+ "AD-44399": {
+  "id": "q364",
+  "advId": "AD-44399",
+  "title": ""
+ },
+ "id:q1338": "AD-44399",
+ "AD-96780": {
+  "id": "q1339",
+  "advId": "AD-96780",
+  "title": "How'd you fix Frank's revenue issues in 2026?"
+ },
+ "id:q1339": "AD-96780",
+ "AD-96328": {
+  "id": "q1340",
+  "advId": "AD-96328",
+  "title": ""
+ },
+ "id:q1340": "AD-96328",
+ "AD-43947": {
+  "id": "q1341",
+  "advId": "AD-43947",
+  "title": ""
+ },
+ "id:q1341": "AD-43947",
+ "AD-81566": {
+  "id": "q1342",
+  "advId": "AD-81566",
+  "title": ""
+ },
+ "id:q1342": "AD-81566",
+ "AD-29185": {
+  "id": "q1343",
+  "advId": "AD-29185",
+  "title": "How'd you fix Houzz's revenue issues in 2026?"
+ },
+ "id:q1343": "AD-29185",
+ "AD-77055": {
+  "id": "q166",
+  "advId": "AD-77055",
+  "title": ""
+ },
+ "id:q166": "AD-77055",
+ "AD-24674": {
+  "id": "q165",
+  "advId": "AD-24674",
+  "title": ""
+ },
+ "id:q165": "AD-24674",
+ "AD-89476": {
+  "id": "q1173",
+  "advId": "AD-89476",
+  "title": ""
+ },
+ "id:q1173": "AD-89476",
+ "AD-72267": {
+  "id": "q254",
+  "advId": "AD-72267",
+  "title": ""
+ },
+ "id:q254": "AD-72267",
+ "AD-39824": {
+  "id": "q596",
+  "advId": "AD-39824",
+  "title": ""
+ },
+ "id:q596": "AD-39824",
+ "AD-62681": {
+  "id": "q595",
+  "advId": "AD-62681",
+  "title": ""
+ },
+ "id:q595": "AD-62681",
+ "AD-14238": {
+  "id": "q1175",
+  "advId": "AD-14238",
+  "title": ""
+ },
+ "id:q1175": "AD-14238",
+ "AD-36729": {
+  "id": "q490",
+  "advId": "AD-36729",
+  "title": ""
+ },
+ "id:q490": "AD-36729",
+ "AD-51491": {
+  "id": "q492",
+  "advId": "AD-51491",
+  "title": ""
+ },
+ "id:q492": "AD-51491",
+ "AD-92491": {
+  "id": "q489",
+  "advId": "AD-92491",
+  "title": ""
+ },
+ "id:q489": "AD-92491",
+ "AD-51857": {
+  "id": "q1174",
+  "advId": "AD-51857",
+  "title": ""
+ },
+ "id:q1174": "AD-51857",
+ "AD-78608": {
+  "id": "q264",
+  "advId": "AD-78608",
+  "title": ""
+ },
+ "id:q264": "AD-78608",
+ "AD-26227": {
+  "id": "q265",
+  "advId": "AD-26227",
+  "title": ""
+ },
+ "id:q265": "AD-26227",
+ "AD-11465": {
+  "id": "q267",
+  "advId": "AD-11465",
+  "title": ""
+ },
+ "id:q267": "AD-11465",
+ "AD-80036": {
+  "id": "q268",
+  "advId": "AD-80036",
+  "title": ""
+ },
+ "id:q268": "AD-80036",
+ "AD-27655": {
+  "id": "q269",
+  "advId": "AD-27655",
+  "title": ""
+ },
+ "id:q269": "AD-27655",
+ "AD-61893": {
+  "id": "q270",
+  "advId": "AD-61893",
+  "title": ""
+ },
+ "id:q270": "AD-61893",
+ "AD-24274": {
+  "id": "q271",
+  "advId": "AD-24274",
+  "title": ""
+ },
+ "id:q271": "AD-24274",
+ "AD-76655": {
+  "id": "q272",
+  "advId": "AD-76655",
+  "title": ""
+ },
+ "id:q272": "AD-76655",
+ "AD-39036": {
+  "id": "q273",
+  "advId": "AD-39036",
+  "title": ""
+ },
+ "id:q273": "AD-39036",
+ "AD-91417": {
+  "id": "q274",
+  "advId": "AD-91417",
+  "title": ""
+ },
+ "id:q274": "AD-91417",
+ "AD-53798": {
+  "id": "q275",
+  "advId": "AD-53798",
+  "title": ""
+ },
+ "id:q275": "AD-53798",
+ "AD-16179": {
+  "id": "q276",
+  "advId": "AD-16179",
+  "title": ""
+ },
+ "id:q276": "AD-16179",
+ "AD-68560": {
+  "id": "q277",
+  "advId": "AD-68560",
+  "title": ""
+ },
+ "id:q277": "AD-68560",
+ "AD-92845": {
+  "id": "q278",
+  "advId": "AD-92845",
+  "title": ""
+ },
+ "id:q278": "AD-92845",
+ "AD-63637": {
+  "id": "q1134",
+  "advId": "AD-63637",
+  "title": ""
+ },
+ "id:q1134": "AD-63637",
+ "AD-46566": {
+  "id": "q1140",
+  "advId": "AD-46566",
+  "title": ""
+ },
+ "id:q1140": "AD-46566",
+ "AD-28862": {
+  "id": "q204",
+  "advId": "AD-28862",
+  "title": ""
+ },
+ "id:q204": "AD-28862",
+ "AD-51973": {
+  "id": "q519",
+  "advId": "AD-51973",
+  "title": ""
+ },
+ "id:q519": "AD-51973",
+ "AD-59847": {
+  "id": "q535",
+  "advId": "AD-59847",
+  "title": ""
+ },
+ "id:q535": "AD-59847",
+ "AD-22228": {
+  "id": "q534",
+  "advId": "AD-22228",
+  "title": ""
+ },
+ "id:q534": "AD-22228",
+ "AD-20800": {
+  "id": "q538",
+  "advId": "AD-20800",
+  "title": ""
+ },
+ "id:q538": "AD-20800",
+ "AD-45085": {
+  "id": "q537",
+  "advId": "AD-45085",
+  "title": ""
+ },
+ "id:q537": "AD-45085",
+ "AD-30775": {
+  "id": "q540",
+  "advId": "AD-30775",
+  "title": ""
+ },
+ "id:q540": "AD-30775",
+ "AD-58419": {
+  "id": "q539",
+  "advId": "AD-58419",
+  "title": ""
+ },
+ "id:q539": "AD-58419",
+ "AD-97466": {
+  "id": "q536",
+  "advId": "AD-97466",
+  "title": ""
+ },
+ "id:q536": "AD-97466",
+ "AD-64561": {
+  "id": "q520",
+  "advId": "AD-64561",
+  "title": ""
+ },
+ "id:q520": "AD-64561",
+ "AD-26942": {
+  "id": "q521",
+  "advId": "AD-26942",
+  "title": ""
+ },
+ "id:q521": "AD-26942",
+ "AD-79323": {
+  "id": "q522",
+  "advId": "AD-79323",
+  "title": ""
+ },
+ "id:q522": "AD-79323",
+ "AD-41704": {
+  "id": "q523",
+  "advId": "AD-41704",
+  "title": ""
+ },
+ "id:q523": "AD-41704",
+ "AD-35037": {
+  "id": "q524",
+  "advId": "AD-35037",
+  "title": ""
+ },
+ "id:q524": "AD-35037",
+ "AD-87418": {
+  "id": "q525",
+  "advId": "AD-87418",
+  "title": ""
+ },
+ "id:q525": "AD-87418",
+ "AD-49799": {
+  "id": "q526",
+  "advId": "AD-49799",
+  "title": ""
+ },
+ "id:q526": "AD-49799",
+ "AD-12180": {
+  "id": "q527",
+  "advId": "AD-12180",
+  "title": ""
+ },
+ "id:q527": "AD-12180",
+ "AD-33609": {
+  "id": "q528",
+  "advId": "AD-33609",
+  "title": ""
+ },
+ "id:q528": "AD-33609",
+ "AD-11582": {
+  "id": "q1166",
+  "advId": "AD-11582",
+  "title": ""
+ },
+ "id:q1166": "AD-11582",
+ "AD-70387": {
+  "id": "q229",
+  "advId": "AD-70387",
+  "title": ""
+ },
+ "id:q229": "AD-70387",
+ "AD-45577": {
+  "id": "q238",
+  "advId": "AD-45577",
+  "title": ""
+ },
+ "id:q238": "AD-45577",
+ "AD-45178": {
+  "id": "q244",
+  "advId": "AD-45178",
+  "title": ""
+ },
+ "id:q244": "AD-45178",
+ "AD-81369": {
+  "id": "q249",
+  "advId": "AD-81369",
+  "title": ""
+ },
+ "id:q249": "AD-81369",
+ "AD-14100": {
+  "id": "q202",
+  "advId": "AD-14100",
+  "title": ""
+ },
+ "id:q202": "AD-14100",
+ "AD-44370": {
+  "id": "q217",
+  "advId": "AD-44370",
+  "title": ""
+ },
+ "id:q217": "AD-44370",
+ "AD-74011": {
+  "id": "q1110",
+  "advId": "AD-74011",
+  "title": ""
+ },
+ "id:q1110": "AD-74011",
+ "AD-43059": {
+  "id": "q1118",
+  "advId": "AD-43059",
+  "title": ""
+ },
+ "id:q1118": "AD-43059",
+ "AD-80352": {
+  "id": "q1120",
+  "advId": "AD-80352",
+  "title": ""
+ },
+ "id:q1120": "AD-80352",
+ "AD-21304": {
+  "id": "q1128",
+  "advId": "AD-21304",
+  "title": ""
+ },
+ "id:q1128": "AD-21304",
+ "AD-84762": {
+  "id": "q1162",
+  "advId": "AD-84762",
+  "title": ""
+ },
+ "id:q1162": "AD-84762",
+ "AD-38910": {
+  "id": "q231",
+  "advId": "AD-38910",
+  "title": ""
+ },
+ "id:q231": "AD-38910",
+ "AD-32768": {
+  "id": "q228",
+  "advId": "AD-32768",
+  "title": ""
+ },
+ "id:q228": "AD-32768",
+ "AD-53672": {
+  "id": "q233",
+  "advId": "AD-53672",
+  "title": ""
+ },
+ "id:q233": "AD-53672",
+ "AD-76529": {
+  "id": "q230",
+  "advId": "AD-76529",
+  "title": ""
+ },
+ "id:q230": "AD-76529",
+ "AD-99386": {
+  "id": "q235",
+  "advId": "AD-99386",
+  "title": ""
+ },
+ "id:q235": "AD-99386",
+ "AD-82797": {
+  "id": "q245",
+  "advId": "AD-82797",
+  "title": ""
+ },
+ "id:q245": "AD-82797",
+ "AD-95124": {
+  "id": "q251",
+  "advId": "AD-95124",
+  "title": ""
+ },
+ "id:q251": "AD-95124",
+ "AD-13514": {
+  "id": "q158",
+  "advId": "AD-13514",
+  "title": ""
+ },
+ "id:q158": "AD-13514",
+ "AD-43624": {
+  "id": "q206",
+  "advId": "AD-43624",
+  "title": ""
+ },
+ "id:q206": "AD-43624",
+ "AD-19463": {
+  "id": "q355",
+  "advId": "AD-19463",
+  "title": ""
+ },
+ "id:q355": "AD-19463",
+ "AD-71844": {
+  "id": "q354",
+  "advId": "AD-71844",
+  "title": ""
+ },
+ "id:q354": "AD-71844",
+ "AD-74249": {
+  "id": "q339",
+  "advId": "AD-74249",
+  "title": ""
+ },
+ "id:q339": "AD-74249",
+ "AD-57082": {
+  "id": "q356",
+  "advId": "AD-57082",
+  "title": ""
+ },
+ "id:q356": "AD-57082",
+ "AD-36304": {
+  "id": "q361",
+  "advId": "AD-36304",
+  "title": ""
+ },
+ "id:q361": "AD-36304",
+ "AD-59161": {
+  "id": "q362",
+  "advId": "AD-59161",
+  "title": ""
+ },
+ "id:q362": "AD-59161",
+ "AD-53823": {
+  "id": "q478",
+  "advId": "AD-53823",
+  "title": ""
+ },
+ "id:q478": "AD-53823",
+ "AD-61918": {
+  "id": "q477",
+  "advId": "AD-61918",
+  "title": ""
+ },
+ "id:q477": "AD-61918",
+ "AD-99158": {
+  "id": "q482",
+  "advId": "AD-99158",
+  "title": ""
+ },
+ "id:q482": "AD-99158",
+ "AD-69634": {
+  "id": "q486",
+  "advId": "AD-69634",
+  "title": ""
+ },
+ "id:q486": "AD-69634",
+ "AD-32015": {
+  "id": "q485",
+  "advId": "AD-32015",
+  "title": ""
+ },
+ "id:q485": "AD-32015",
+ "AD-46777": {
+  "id": "q483",
+  "advId": "AD-46777",
+  "title": ""
+ },
+ "id:q483": "AD-46777",
+ "AD-54872": {
+  "id": "q488",
+  "advId": "AD-54872",
+  "title": ""
+ },
+ "id:q488": "AD-54872",
+ "AD-84396": {
+  "id": "q484",
+  "advId": "AD-84396",
+  "title": ""
+ },
+ "id:q484": "AD-84396",
+ "AD-17253": {
+  "id": "q487",
+  "advId": "AD-17253",
+  "title": ""
+ },
+ "id:q487": "AD-17253",
+ "AD-66283": {
+  "id": "q580",
+  "advId": "AD-66283",
+  "title": ""
+ },
+ "id:q580": "AD-66283",
+ "AD-89140": {
+  "id": "q585",
+  "advId": "AD-89140",
+  "title": ""
+ },
+ "id:q585": "AD-89140",
+ "AD-15687": {
+  "id": "q579",
+  "advId": "AD-15687",
+  "title": ""
+ },
+ "id:q579": "AD-15687",
+ "AD-36759": {
+  "id": "q584",
+  "advId": "AD-36759",
+  "title": ""
+ },
+ "id:q584": "AD-36759",
+ "AD-51521": {
+  "id": "q582",
+  "advId": "AD-51521",
+  "title": ""
+ },
+ "id:q582": "AD-51521",
+ "AD-28664": {
+  "id": "q581",
+  "advId": "AD-28664",
+  "title": ""
+ },
+ "id:q581": "AD-28664",
+ "AD-21997": {
+  "id": "q586",
+  "advId": "AD-21997",
+  "title": ""
+ },
+ "id:q586": "AD-21997",
+ "AD-13902": {
+  "id": "q583",
+  "advId": "AD-13902",
+  "title": ""
+ },
+ "id:q583": "AD-13902",
+ "AD-74378": {
+  "id": "q587",
+  "advId": "AD-74378",
+  "title": ""
+ },
+ "id:q587": "AD-74378",
+ "AD-65836": {
+  "id": "q714",
+  "advId": "AD-65836",
+  "title": ""
+ },
+ "id:q714": "AD-65836",
+ "AD-51074": {
+  "id": "q716",
+  "advId": "AD-51074",
+  "title": ""
+ },
+ "id:q716": "AD-51074",
+ "AD-13455": {
+  "id": "q715",
+  "advId": "AD-13455",
+  "title": ""
+ },
+ "id:q715": "AD-13455",
+ "AD-88693": {
+  "id": "q717",
+  "advId": "AD-88693",
+  "title": ""
+ },
+ "id:q717": "AD-88693",
+ "AD-65216": {
+  "id": "q729",
+  "advId": "AD-65216",
+  "title": ""
+ },
+ "id:q729": "AD-65216",
+ "AD-68597": {
+  "id": "q731",
+  "advId": "AD-68597",
+  "title": ""
+ },
+ "id:q731": "AD-68597",
+ "AD-11552": {
+  "id": "q804",
+  "advId": "AD-11552",
+  "title": ""
+ },
+ "id:q804": "AD-11552",
+ "AD-30978": {
+  "id": "q730",
+  "advId": "AD-30978",
+  "title": ""
+ },
+ "id:q730": "AD-30978",
+ "AD-16035": {
+  "id": "q849",
+  "advId": "AD-16035",
+  "title": ""
+ },
+ "id:q849": "AD-16035",
+ "AD-17915": {
+  "id": "q834",
+  "advId": "AD-17915",
+  "title": ""
+ },
+ "id:q834": "AD-17915",
+ "AD-31804": {
+  "id": "q1146",
+  "advId": "AD-31804",
+  "title": ""
+ },
+ "id:q1146": "AD-31804",
+ "AD-55542": {
+  "id": "q1131",
+  "advId": "AD-55542",
+  "title": ""
+ },
+ "id:q1131": "AD-55542",
+ "AD-85150": {
+  "id": "q169",
+  "advId": "AD-85150",
+  "title": ""
+ },
+ "id:q169": "AD-85150",
+ "AD-66510": {
+  "id": "q374",
+  "advId": "AD-66510",
+  "title": ""
+ },
+ "id:q374": "AD-66510",
+ "AD-89367": {
+  "id": "q373",
+  "advId": "AD-89367",
+  "title": ""
+ },
+ "id:q373": "AD-89367",
+ "AD-13898": {
+  "id": "q381",
+  "advId": "AD-13898",
+  "title": ""
+ },
+ "id:q381": "AD-13898",
+ "AD-74605": {
+  "id": "q371",
+  "advId": "AD-74605",
+  "title": ""
+ },
+ "id:q371": "AD-74605",
+ "AD-61767": {
+  "id": "q236",
+  "advId": "AD-61767",
+  "title": ""
+ },
+ "id:q236": "AD-61767",
+ "AD-29725": {
+  "id": "q1116",
+  "advId": "AD-29725",
+  "title": ""
+ },
+ "id:q1116": "AD-29725",
+ "AD-88447": {
+  "id": "q1125",
+  "advId": "AD-88447",
+  "title": ""
+ },
+ "id:q1125": "AD-88447",
+ "AD-93161": {
+  "id": "q1130",
+  "advId": "AD-93161",
+  "title": ""
+ },
+ "id:q1130": "AD-93161",
+ "AD-73685": {
+  "id": "q1127",
+  "advId": "AD-73685",
+  "title": ""
+ },
+ "id:q1127": "AD-73685",
+ "AD-25137": {
+  "id": "q1149",
+  "advId": "AD-25137",
+  "title": ""
+ },
+ "id:q1149": "AD-25137",
+ "AD-59375": {
+  "id": "q1150",
+  "advId": "AD-59375",
+  "title": ""
+ },
+ "id:q1150": "AD-59375",
+ "AD-35048": {
+  "id": "q141",
+  "advId": "AD-35048",
+  "title": ""
+ },
+ "id:q141": "AD-35048",
+ "AD-70609": {
+  "id": "q142",
+  "advId": "AD-70609",
+  "title": ""
+ },
+ "id:q142": "AD-70609",
+ "AD-20286": {
+  "id": "q143",
+  "advId": "AD-20286",
+  "title": ""
+ },
+ "id:q143": "AD-20286",
+ "AD-55847": {
+  "id": "q144",
+  "advId": "AD-55847",
+  "title": ""
+ },
+ "id:q144": "AD-55847",
+ "AD-41085": {
+  "id": "q146",
+  "advId": "AD-41085",
+  "title": ""
+ },
+ "id:q146": "AD-41085",
+ "AD-41715": {
+  "id": "q148",
+  "advId": "AD-41715",
+  "title": ""
+ },
+ "id:q148": "AD-41715",
+ "AD-93466": {
+  "id": "q147",
+  "advId": "AD-93466",
+  "title": ""
+ },
+ "id:q147": "AD-93466",
+ "AD-59858": {
+  "id": "q150",
+  "advId": "AD-59858",
+  "title": ""
+ },
+ "id:q150": "AD-59858",
+ "AD-94096": {
+  "id": "q149",
+  "advId": "AD-94096",
+  "title": ""
+ },
+ "id:q149": "AD-94096",
+ "AD-18228": {
+  "id": "q145",
+  "advId": "AD-18228",
+  "title": ""
+ },
+ "id:q145": "AD-18228",
+ "AD-97477": {
+  "id": "q151",
+  "advId": "AD-97477",
+  "title": ""
+ },
+ "id:q151": "AD-97477",
+ "AD-74620": {
+  "id": "q152",
+  "advId": "AD-74620",
+  "title": ""
+ },
+ "id:q152": "AD-74620",
+ "AD-22239": {
+  "id": "q153",
+  "advId": "AD-22239",
+  "title": ""
+ },
+ "id:q153": "AD-22239",
+ "AD-89382": {
+  "id": "q154",
+  "advId": "AD-89382",
+  "title": ""
+ },
+ "id:q154": "AD-89382",
+ "AD-37001": {
+  "id": "q155",
+  "advId": "AD-37001",
+  "title": ""
+ },
+ "id:q155": "AD-37001",
+ "AD-51763": {
+  "id": "q157",
+  "advId": "AD-51763",
+  "title": ""
+ },
+ "id:q157": "AD-51763",
+ "AD-14144": {
+  "id": "q156",
+  "advId": "AD-14144",
+  "title": ""
+ },
+ "id:q156": "AD-14144",
+ "AD-51133": {
+  "id": "q159",
+  "advId": "AD-51133",
+  "title": ""
+ },
+ "id:q159": "AD-51133",
+ "AD-91817": {
+  "id": "q160",
+  "advId": "AD-91817",
+  "title": ""
+ },
+ "id:q160": "AD-91817",
+ "AD-11339": {
+  "id": "q221",
+  "advId": "AD-11339",
+  "title": ""
+ },
+ "id:q221": "AD-11339",
+ "AD-89464": {
+  "id": "q242",
+  "advId": "AD-89464",
+  "title": ""
+ },
+ "id:q242": "AD-89464",
+ "AD-97559": {
+  "id": "q247",
+  "advId": "AD-97559",
+  "title": ""
+ },
+ "id:q247": "AD-97559",
+ "AD-80362": {
+  "id": "q253",
+  "advId": "AD-80362",
+  "title": ""
+ },
+ "id:q253": "AD-80362",
+ "AD-57505": {
+  "id": "q256",
+  "advId": "AD-57505",
+  "title": ""
+ },
+ "id:q256": "AD-57505",
+ "AD-94701": {
+  "id": "q357",
+  "advId": "AD-94701",
+  "title": ""
+ },
+ "id:q357": "AD-94701",
+ "AD-70416": {
+  "id": "q358",
+  "advId": "AD-70416",
+  "title": ""
+ },
+ "id:q358": "AD-70416",
+ "AD-18035": {
+  "id": "q359",
+  "advId": "AD-18035",
+  "title": ""
+ },
+ "id:q359": "AD-18035",
+ "AD-21542": {
+  "id": "q363",
+  "advId": "AD-21542",
+  "title": ""
+ },
+ "id:q363": "AD-21542",
+ "AD-73923": {
+  "id": "q360",
+  "advId": "AD-73923",
+  "title": ""
+ },
+ "id:q360": "AD-73923",
+ "id:q364": "AD-44399",
+ "AD-23920": {
+  "id": "q480",
+  "advId": "AD-23920",
+  "title": ""
+ },
+ "id:q480": "AD-23920",
+ "AD-76680": {
+  "id": "q475",
+  "advId": "AD-76680",
+  "title": ""
+ },
+ "id:q475": "AD-76680",
+ "AD-61539": {
+  "id": "q481",
+  "advId": "AD-61539",
+  "title": ""
+ },
+ "id:q481": "AD-61539",
+ "AD-61672": {
+  "id": "q1465",
+  "advId": "AD-61672",
+  "title": "Indiana's 2026 NIL Playbook: Monetization, Retention, and In-State Recruiting"
+ },
+ "id:q1465": "AD-61672",
+ "AD-59441": {
+  "id": "q21",
+  "advId": "AD-59441",
+  "title": ""
+ },
+ "id:q21": "AD-59441",
+ "AD-75323": {
+  "id": "q135",
+  "advId": "AD-75323",
+  "title": "Pricing Enterprise Deals When the User Count Is Unknown"
+ },
+ "id:q135": "AD-75323",
+ "AD-40739": {
+  "id": "q11003",
+  "advId": "AD-40739",
+  "title": "Chief's Confusing 2026-27 Pricing: VP, C-Suite, Premium Tiers, and Grants"
+ },
+ "id:q11003": "AD-40739",
+ "AD-15488": {
+  "id": "q1106",
+  "advId": "AD-15488",
+  "title": "Publish SaaS Pricing Publicly or Gate It Behind \"Contact Sales\"?"
+ },
+ "id:q1106": "AD-15488",
+ "AD-36584": {
+  "id": "q22",
+  "advId": "AD-36584",
+  "title": "What red flags should I look for in a CRO candidate's track record?"
+ },
+ "id:q22": "AD-36584",
+ "AD-74203": {
+  "id": "q23",
+  "advId": "AD-74203",
+  "title": ""
+ },
+ "id:q23": "AD-74203",
+ "AD-82298": {
+  "id": "q24",
+  "advId": "AD-82298",
+  "title": ""
+ },
+ "id:q24": "AD-82298",
+ "AD-29917": {
+  "id": "q25",
+  "advId": "AD-29917",
+  "title": ""
+ },
+ "id:q25": "AD-29917",
+ "AD-97060": {
+  "id": "q26",
+  "advId": "AD-97060",
+  "title": ""
+ },
+ "id:q26": "AD-97060",
+ "AD-80870": {
+  "id": "q28",
+  "advId": "AD-80870",
+  "title": ""
+ },
+ "id:q28": "AD-80870",
+ "AD-28489": {
+  "id": "q29",
+  "advId": "AD-28489",
+  "title": ""
+ },
+ "id:q29": "AD-28489",
+ "AD-34631": {
+  "id": "q30",
+  "advId": "AD-34631",
+  "title": ""
+ },
+ "id:q30": "AD-34631",
+ "AD-87012": {
+  "id": "q31",
+  "advId": "AD-87012",
+  "title": ""
+ },
+ "id:q31": "AD-87012",
+ "AD-49393": {
+  "id": "q36",
+  "advId": "AD-49393",
+  "title": ""
+ },
+ "id:q36": "AD-49393",
+ "AD-66804": {
+  "id": "q1344",
+  "advId": "AD-66804",
+  "title": ""
+ },
+ "id:q1344": "AD-66804",
+ "AD-47143": {
+  "id": "q1161",
+  "advId": "AD-47143",
+  "title": "What's the right per-event price for a 4-hour photo booth rental, and what add-ons drive the highest margin?"
+ },
+ "id:q1161": "AD-47143",
+ "AD-72341": {
+  "id": "q177",
+  "advId": "AD-72341",
+  "title": ""
+ },
+ "id:q177": "AD-72341",
+ "AD-49863": {
+  "id": "q180",
+  "advId": "AD-49863",
+  "title": ""
+ },
+ "id:q180": "AD-49863",
+ "AD-71941": {
+  "id": "q263",
+  "advId": "AD-71941",
+  "title": ""
+ },
+ "id:q263": "AD-71941",
+ "AD-40846": {
+  "id": "q42",
+  "advId": "AD-40846",
+  "title": ""
+ },
+ "id:q42": "AD-40846",
+ "AD-26084": {
+  "id": "q44",
+  "advId": "AD-26084",
+  "title": ""
+ },
+ "id:q44": "AD-26084",
+ "AD-11322": {
+  "id": "q46",
+  "advId": "AD-11322",
+  "title": ""
+ },
+ "id:q46": "AD-11322",
+ "AD-63703": {
+  "id": "q45",
+  "advId": "AD-63703",
+  "title": ""
+ },
+ "id:q45": "AD-63703",
+ "AD-48941": {
+  "id": "q47",
+  "advId": "AD-48941",
+  "title": ""
+ },
+ "id:q47": "AD-48941",
+ "AD-24656": {
+  "id": "q48",
+  "advId": "AD-24656",
+  "title": ""
+ },
+ "id:q48": "AD-24656",
+ "AD-62275": {
+  "id": "q49",
+  "advId": "AD-62275",
+  "title": ""
+ },
+ "id:q49": "AD-62275",
+ "AD-36353": {
+  "id": "q50",
+  "advId": "AD-36353",
+  "title": ""
+ },
+ "id:q50": "AD-36353",
+ "AD-88734": {
+  "id": "q51",
+  "advId": "AD-88734",
+  "title": ""
+ },
+ "id:q51": "AD-88734",
+ "AD-13496": {
+  "id": "q53",
+  "advId": "AD-13496",
+  "title": ""
+ },
+ "id:q53": "AD-13496",
+ "AD-96829": {
+  "id": "q54",
+  "advId": "AD-96829",
+  "title": ""
+ },
+ "id:q54": "AD-96829",
+ "AD-21591": {
+  "id": "q56",
+  "advId": "AD-21591",
+  "title": ""
+ },
+ "id:q56": "AD-21591",
+ "AD-95401": {
+  "id": "q58",
+  "advId": "AD-95401",
+  "title": ""
+ },
+ "id:q58": "AD-95401",
+ "AD-57782": {
+  "id": "q59",
+  "advId": "AD-57782",
+  "title": ""
+ },
+ "id:q59": "AD-57782",
+ "AD-73972": {
+  "id": "q57",
+  "advId": "AD-73972",
+  "title": ""
+ },
+ "id:q57": "AD-73972",
+ "AD-49162": {
+  "id": "q60",
+  "advId": "AD-49162",
+  "title": ""
+ },
+ "id:q60": "AD-49162",
+ "AD-59210": {
+  "id": "q55",
+  "advId": "AD-59210",
+  "title": ""
+ },
+ "id:q55": "AD-59210",
+ "AD-82841": {
+  "id": "q111",
+  "advId": "AD-82841",
+  "title": ""
+ },
+ "id:q111": "AD-82841",
+ "AD-15698": {
+  "id": "q114",
+  "advId": "AD-15698",
+  "title": ""
+ },
+ "id:q114": "AD-15698",
+ "AD-53317": {
+  "id": "q115",
+  "advId": "AD-53317",
+  "title": ""
+ },
+ "id:q115": "AD-53317",
+ "AD-30460": {
+  "id": "q116",
+  "advId": "AD-30460",
+  "title": "What's the right territory design for a 30-rep mid-market team?"
+ },
+ "id:q116": "AD-30460",
+ "AD-14423": {
+  "id": "q1345",
+  "advId": "AD-14423",
+  "title": ""
+ },
+ "id:q1345": "AD-14423",
+ "AD-52042": {
+  "id": "q1346",
+  "advId": "AD-52042",
+  "title": "How'd you fix The Honest Company's revenue issues in 2026?"
+ },
+ "id:q1346": "AD-52042",
+ "AD-89661": {
+  "id": "q1347",
+  "advId": "AD-89661",
+  "title": ""
+ },
+ "id:q1347": "AD-89661",
+ "AD-65376": {
+  "id": "q1348",
+  "advId": "AD-65376",
+  "title": "How'd you fix Chime's revenue issues in 2026?"
+ },
+ "id:q1348": "AD-65376",
+ "AD-12995": {
+  "id": "q1349",
+  "advId": "AD-12995",
+  "title": ""
+ },
+ "id:q1349": "AD-12995",
+ "AD-19137": {
+  "id": "q1350",
+  "advId": "AD-19137",
+  "title": ""
+ },
+ "id:q1350": "AD-19137",
+ "AD-71518": {
+  "id": "q1351",
+  "advId": "AD-71518",
+  "title": "How'd you fix SoFi's revenue issues in 2026?"
+ },
+ "id:q1351": "AD-71518",
+ "AD-33899": {
+  "id": "q1352",
+  "advId": "AD-33899",
+  "title": ""
+ },
+ "id:q1352": "AD-33899",
+ "AD-86280": {
+  "id": "q1353",
+  "advId": "AD-86280",
+  "title": "How'd you fix Toast's revenue issues in 2026?"
+ },
+ "id:q1353": "AD-86280",
+ "AD-79613": {
+  "id": "q1354",
+  "advId": "AD-79613",
+  "title": ""
+ },
+ "id:q1354": "AD-79613",
+ "AD-41994": {
+  "id": "q1355",
+  "advId": "AD-41994",
+  "title": "How'd you fix Bill.com's revenue issues in 2026?"
+ },
+ "id:q1355": "AD-41994"
 }

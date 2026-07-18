@@ -1,6 +1,5 @@
 {
  "id": "sw116",
- "faceCard": "facecard.jpg",
  "title": "What should you know before investing in Software in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T17:36:50.659Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T17:36:50.659Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

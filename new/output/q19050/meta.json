@@ -1,6 +1,5 @@
 {
  "id": "q19050",
- "faceCard": "facecard.jpg",
  "title": "How do you run a deal desk that speeds up approvals in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T02:45:37.881Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T02:45:37.881Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

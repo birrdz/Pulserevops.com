@@ -1,6 +1,5 @@
 {
  "id": "q19027",
- "faceCard": "facecard.jpg",
  "title": "How do you introduce a second dog into a one-dog household in 2028?",
  "trim": "hotpink",
  "body": {
@@ -20,5 +19,6 @@
  "requeuedAt": "2026-07-17T01:02:41.080Z",
  "requeueReason": "white/black/double re-fix",
  "doneAt": "2026-07-17T01:40:36.955Z",
- "doneReason": "purge: 13/13 + published-with-images"
+ "doneReason": "purge: 13/13 + published-with-images",
+ "faceCard": "facecard.jpg"
 }

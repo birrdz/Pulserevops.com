@@ -1,6 +1,5 @@
 {
  "id": "wl115",
- "faceCard": "facecard.jpg",
  "title": "What is the best way to approach Wellness in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T18:23:56.468Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T18:23:56.468Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

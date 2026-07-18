@@ -1,6 +1,5 @@
 {
  "id": "q19055",
- "faceCard": "facecard.jpg",
  "title": "What do the first 90 days of a new RevOps leader look like in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T02:55:29.100Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T02:55:29.100Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

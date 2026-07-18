@@ -1,6 +1,5 @@
 {
  "id": "wl117",
- "faceCard": "facecard.jpg",
  "title": "What should you know before investing in Wellness in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T19:38:05.434Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T19:38:05.434Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

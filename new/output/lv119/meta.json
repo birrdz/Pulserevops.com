@@ -1,6 +1,5 @@
 {
  "id": "lv119",
- "faceCard": "facecard.jpg",
  "title": "How do you get started with Lux Vacations in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T13:59:24.355Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T13:59:24.355Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

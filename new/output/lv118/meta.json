@@ -1,6 +1,5 @@
 {
  "id": "lv118",
- "faceCard": "facecard.jpg",
  "title": "What is the best way to approach Lux Vacations in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T13:49:15.806Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T13:49:15.806Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

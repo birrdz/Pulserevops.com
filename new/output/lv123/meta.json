@@ -1,6 +1,5 @@
 {
  "id": "lv123",
- "faceCard": "facecard.jpg",
  "title": "What are the most common mistakes in Lux Vacations in 2027?",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T15:59:32.005Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T15:59:32.005Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }

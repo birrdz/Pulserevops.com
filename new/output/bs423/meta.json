@@ -1,6 +1,5 @@
 {
  "id": "bs423",
- "faceCard": "facecard.jpg",
  "title": "Top 10 best Book Summaries options in 2027",
  "trim": "hotpink",
  "body": {
@@ -16,5 +15,6 @@
  "liveAt": "2026-07-17T05:11:31.307Z",
  "status": "5/5",
  "publishedAt": "2026-07-17T05:11:31.307Z",
- "recent": true
+ "recent": true,
+ "faceCard": "facecard.jpg"
 }
