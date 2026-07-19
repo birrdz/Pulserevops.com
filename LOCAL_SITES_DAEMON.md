@@ -45,3 +45,11 @@ node .\_local_sites_daemon.js --reset
 ```
 
 Runtime logs are written to `_local-sites-state\logs\`.
+
+## Prefer DeepSeek in the 7950 Content Booster
+
+To persist DeepSeek as the primary Content Booster writer and restart the 7950 hub with that policy:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\SET-CONTENT-BOOSTER-DEEPSEEK.ps1
+```

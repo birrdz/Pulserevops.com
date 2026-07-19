@@ -57,7 +57,22 @@ function releaseLock() {
 }
 
 const DEFAULTS = [
-  { id: 'machines-manager', name: 'PULSE Machines', port: 7950, required: true, discover: true },
+  {
+    id: 'machines-manager',
+    name: 'PULSE Machines',
+    port: 7950,
+    required: true,
+    discover: true,
+    env: {
+      CONTENT_BOOSTER_WRITER: 'deepseek',
+      BOOSTER_WRITER_ENGINE: 'deepseek',
+      CONTENT_WRITER_ENGINE: 'deepseek',
+      WRITER_ENGINE: 'deepseek',
+      DS_ONLY: '1',
+      CLAUDE_ONLY: '0',
+      NO_DS: '0',
+    },
+  },
   { id: 'machine-7900', name: 'Machine worker 7900', port: 7900, discover: true },
   { id: 'machine-7901', name: 'Machine worker 7901', port: 7901, discover: true },
   { id: 'machine-7902', name: 'Machine worker 7902', port: 7902, discover: true },
