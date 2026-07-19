@@ -5,15 +5,21 @@ const fs = require('fs');
 const http = require('http');
 const os = require('os');
 const path = require('path');
-const { spawn } = require('child_process');
+const { spawn, spawnSync } = require('child_process');
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pulse-local-sites-'));
 const daemon = path.join(__dirname, '_local_sites_daemon.js');
 const manager = path.join(root, 'pulse_machines_manager.js');
+const failFlag = path.join(root, 'fail.flag');
 fs.writeFileSync(manager, `
   const http = require('http');
+  const fs = require('fs');
+  const path = require('path');
   const PORT = 7950;
-  http.createServer((req, res) => { res.writeHead(200); res.end('PULSE Machines'); })
+  http.createServer((req, res) => {
+    if (fs.existsSync(path.join(__dirname, 'fail.flag'))) { res.writeHead(500); return res.end('stuck'); }
+    res.writeHead(200); res.end('PULSE Machines');
+  })
     .listen(PORT, '127.0.0.1');
 `);
 fs.writeFileSync(path.join(root, 'local-sites.json'), JSON.stringify([
@@ -66,8 +72,49 @@ async function waitFor(fn, timeout = 10000) {
     const managerResponse = await get(7950);
     assert.strictEqual(managerResponse.code, 200);
     assert.strictEqual(managerResponse.body, 'PULSE Machines');
+
+    fs.writeFileSync(failFlag, 'simulate hung service');
+    const failedResponse = await get(7950);
+    assert.strictEqual(failedResponse.code, 500);
+    await waitFor(async () => {
+      const status = JSON.parse((await get(17959, '/api/status')).body).services[0];
+      const stopped = !status.pid && status.failures >= 3;
+      if (status.status !== 'restarting' && !stopped) throw new Error(`manager is ${status.status}`);
+      return status;
+    }, 18000);
+    fs.unlinkSync(failFlag);
+    const recovered = await waitFor(async () => {
+      const status = JSON.parse((await get(17959, '/api/status')).body).services[0];
+      if (status.status !== 'up' || status.pid === managerPid) throw new Error(`manager has not recovered (${status.status})`);
+      return status;
+    }, 18000);
+    managerPid = recovered.pid;
+
+    const reset = spawnSync(process.execPath, [daemon, '--reset'], {
+      cwd: root,
+      env: {
+        ...process.env,
+        LOCAL_SITES_ROOT: root,
+        LOCAL_SITES_DAEMON_PORT: '17959',
+        LOCAL_SITES_INTERVAL_MS: '3000',
+      },
+      encoding: 'utf8',
+      timeout: 10000,
+    });
+    assert.strictEqual(reset.status, 0, reset.stderr);
+    const resetRecovered = await waitFor(async () => {
+      const status = JSON.parse((await get(17959, '/api/status')).body).services[0];
+      if (status.status !== 'up' || status.pid === managerPid) throw new Error(`CLI reset has not recovered (${status.status})`);
+      return status;
+    }, 10000);
+    managerPid = resetRecovered.pid;
     console.log('local-sites daemon integration test passed');
   } finally {
+    try {
+      const status = JSON.parse((await get(17959, '/api/status')).body);
+      const currentPid = status.services && status.services[0] && status.services[0].pid;
+      if (currentPid) managerPid = currentPid;
+    } catch (_) {}
     child.kill('SIGTERM');
     if (managerPid) {
       try { process.kill(managerPid, 'SIGTERM'); } catch (_) {}

@@ -15,6 +15,7 @@ const INTERVAL_MS = Math.max(3000, Number(process.env.LOCAL_SITES_INTERVAL_MS ||
 const RESET_KEY = process.env.LOCAL_SITES_KEY || '4444';
 const STATE_DIR = path.join(ROOT, '_local-sites-state');
 const LOG_DIR = path.join(STATE_DIR, 'logs');
+const LOCK_FILE = path.join(STATE_DIR, 'daemon.lock');
 const USER_CONFIG = path.join(ROOT, 'local-sites.user.json');
 const DEFAULT_CONFIG = path.join(ROOT, 'local-sites.json');
 const args = new Set(process.argv.slice(2));
@@ -24,11 +25,43 @@ const resetAtStart = args.has('--reset');
 
 fs.mkdirSync(LOG_DIR, { recursive: true });
 
+function acquireLock() {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      fs.writeFileSync(LOCK_FILE, String(process.pid), { flag: 'wx' });
+      return true;
+    } catch (e) {
+      if (e.code !== 'EEXIST') throw e;
+      const pid = Number(String(readFileSafe(LOCK_FILE)).trim());
+      if (pid) {
+        try {
+          process.kill(pid, 0);
+          const daemonPath = path.resolve(__filename).replace(/\\/g, '/').toLowerCase();
+          const owner = processRows().find(row => Number(row.pid) === pid);
+          if (owner && String(owner.command || '').replace(/\\/g, '/').toLowerCase().includes(daemonPath)) return false;
+        } catch (_) {}
+      }
+      try { fs.unlinkSync(LOCK_FILE); } catch (_) {}
+    }
+  }
+  return false;
+}
+
+function readFileSafe(file) {
+  try { return fs.readFileSync(file, 'utf8'); } catch (_) { return ''; }
+}
+
+function releaseLock() {
+  if (String(readFileSafe(LOCK_FILE)).trim() !== String(process.pid)) return;
+  try { fs.unlinkSync(LOCK_FILE); } catch (_) {}
+}
+
 const DEFAULTS = [
   { id: 'machines-manager', name: 'PULSE Machines', port: 7950, required: true, discover: true },
   { id: 'machine-7900', name: 'Machine worker 7900', port: 7900, discover: true },
   { id: 'machine-7901', name: 'Machine worker 7901', port: 7901, discover: true },
   { id: 'machine-7902', name: 'Machine worker 7902', port: 7902, discover: true },
+  { id: 'local-app-7931', name: 'Local app 7931', port: 7931, discover: true },
   { id: 'pulse-control', name: "Kory's Pulse Control Panel", port: 8904, script: 'dashboard_server.js' },
   { id: 'baton-picker', name: 'Baton Picker', port: 7802, script: 'baton_picker.js' },
   { id: 'fixer', name: "Kory's Fixer", port: 8905, script: 'fixer_panel.js' },
@@ -46,11 +79,18 @@ function readJson(file, fallback) {
 function loadServices() {
   const base = readJson(DEFAULT_CONFIG, DEFAULTS);
   const custom = readJson(USER_CONFIG, []);
-  const list = Array.isArray(custom) ? base.concat(custom) : base;
+  const customList = Array.isArray(custom) ? custom : [];
+  const disabledIds = new Set(customList.filter(s => s && s.enabled === false).map(s => s.id).filter(Boolean));
+  const disabledPorts = new Set(customList.filter(s => s && s.enabled === false).map(s => Number(s.port)).filter(Number.isInteger));
+  const list = customList.filter(s => s && s.enabled !== false)
+    .concat(base.filter(s => !disabledIds.has(s.id) && !disabledPorts.has(Number(s.port))));
   const seen = new Set();
+  const seenPorts = new Set();
   return list.filter(s => {
-    if (!s || !s.id || !Number.isInteger(Number(s.port)) || seen.has(s.id) || s.enabled === false) return false;
+    const port = s && Number(s.port);
+    if (!s || !s.id || !Number.isInteger(port) || port < 1 || port > 65535 || seen.has(s.id) || seenPorts.has(port)) return false;
     seen.add(s.id);
+    seenPorts.add(port);
     return true;
   }).map(s => ({
     healthPath: '/',
@@ -97,6 +137,7 @@ function discoverScript(port) {
   const scored = [];
   for (const file of files) {
     if (path.resolve(file) === path.resolve(__filename)) continue;
+    if (/(?:^|[._-])test(?:[._-]|$)|(?:^|[._-])spec(?:[._-]|$)/i.test(path.basename(file))) continue;
     let text = '';
     try { text = fs.readFileSync(file, 'utf8'); } catch (_) { continue; }
     if (!portRe.test(text) || !serverRe.test(text)) continue;
@@ -205,7 +246,28 @@ async function inspect(service, allowStart = true) {
   state.failures += 1;
   state.status = 'down';
   state.detail = result.detail;
-  if (allowStart && !state.child) start(service, state);
+  if (state.child && state.failures >= 3) {
+    const pid = state.child.pid;
+    try {
+      state.child.kill('SIGTERM');
+      state.status = 'restarting';
+      state.detail = `unhealthy ${state.failures} checks; stopped PID ${pid}`;
+      log(service, state.detail);
+    } catch (_) {}
+    return state;
+  }
+  if (allowStart && !state.child) {
+    const stale = servicePids(service);
+    if (stale.length) {
+      for (const pid of stale) {
+        try { process.kill(pid, 'SIGTERM'); log(service, `stopped unresponsive PID ${pid}`); } catch (_) {}
+      }
+      state.status = 'restarting';
+      state.detail = `stopped ${stale.length} unresponsive process${stale.length === 1 ? '' : 'es'}`;
+    } else {
+      start(service, state);
+    }
+  }
   return state;
 }
 
@@ -220,7 +282,7 @@ async function scan(allowStart = true) {
 function processRows() {
   if (process.platform === 'win32') {
     const ps = spawnSync('powershell.exe', ['-NoProfile', '-Command',
-      'Get-CimInstance Win32_Process | Where-Object {$_.Name -match "^(node|python|python3)"} | Select-Object ProcessId,CommandLine | ConvertTo-Json -Compress'
+      'Get-CimInstance Win32_Process | Where-Object {$_.Name -match "^(node|python|python3|powershell|pwsh)"} | Select-Object ProcessId,CommandLine | ConvertTo-Json -Compress'
     ], { encoding: 'utf8', windowsHide: true });
     const parsed = (() => { try { return JSON.parse(ps.stdout || '[]'); } catch (_) { return []; } })();
     return (Array.isArray(parsed) ? parsed : [parsed]).map(x => ({ pid: x.ProcessId, command: x.CommandLine || '' }));
@@ -232,15 +294,22 @@ function processRows() {
   }).filter(Boolean);
 }
 
+function servicePids(service, rows = processRows()) {
+  const spec = resolveCommand(service);
+  const needle = spec && path.resolve(ROOT, spec.script).replace(/\\/g, '/').toLowerCase();
+  if (!needle) return [];
+  return rows.filter(row => {
+    const command = String(row.command || '').replace(/\\/g, '/').toLowerCase();
+    return row.pid !== process.pid && command.includes(needle);
+  }).map(row => Number(row.pid)).filter(Boolean);
+}
+
 async function resetAll() {
   const rows = processRows();
   for (const service of services) {
     const state = runtime.get(service.id);
-    const spec = resolveCommand(service);
-    const needle = spec && path.basename(spec.script);
-    const pids = new Set();
+    const pids = new Set(servicePids(service, rows));
     if (state && state.pid) pids.add(Number(state.pid));
-    if (needle) for (const row of rows) if (row.pid !== process.pid && row.command.includes(needle)) pids.add(row.pid);
     for (const pid of pids) {
       try { process.kill(pid, 'SIGTERM'); log(service, `reset stopped PID ${pid}`); } catch (_) {}
     }
@@ -258,12 +327,22 @@ function lanAddresses() {
   return found;
 }
 
-function snapshot() {
-  return {
-    ok: true, root: ROOT, daemonPort: DASH_PORT, intervalMs: INTERVAL_MS,
+function snapshot(publicView = false) {
+  const result = {
+    ok: true, daemonPort: DASH_PORT, intervalMs: INTERVAL_MS,
     at: new Date().toISOString(), lan: lanAddresses(),
-    services: services.map(s => ({ ...s, ...runtime.get(s.id), child: undefined })),
+    services: services.map(s => {
+      const row = { ...s, ...runtime.get(s.id), child: undefined };
+      if (publicView) {
+        delete row.env;
+        delete row.args;
+        delete row.healthPath;
+      }
+      return row;
+    }),
   };
+  if (!publicView) result.root = ROOT;
+  return result;
 }
 
 function esc(value) {
@@ -271,7 +350,7 @@ function esc(value) {
 }
 
 function dashboard() {
-  const data = snapshot();
+  const data = snapshot(true);
   const rows = data.services.map(s => {
     const cls = s.status === 'up' ? 'up' : (s.status === 'not-installed' ? 'skip' : 'down');
     const href = `http://localhost:${s.port}${s.healthPath || '/'}`;
@@ -293,12 +372,35 @@ function readBody(req) {
   });
 }
 
+function callRunningDaemon(method, pathname, body) {
+  return new Promise((resolve, reject) => {
+    const payload = body == null ? '' : JSON.stringify(body);
+    const req = http.request({
+      host: '127.0.0.1', port: DASH_PORT, path: pathname, method, timeout: 5000,
+      headers: payload ? { 'content-type': 'application/json', 'content-length': Buffer.byteLength(payload) } : {},
+    }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        try {
+          const parsed = JSON.parse(data || '{}');
+          if (res.statusCode >= 400) return reject(new Error(parsed.error || `HTTP ${res.statusCode}`));
+          resolve(parsed);
+        } catch (e) { reject(e); }
+      });
+    });
+    req.on('timeout', () => req.destroy(new Error('timeout')));
+    req.on('error', reject);
+    req.end(payload);
+  });
+}
+
 function startDashboard() {
   return http.createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     if (req.method === 'GET' && url.pathname === '/api/status') {
       res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' });
-      return res.end(JSON.stringify(snapshot(), null, 2));
+      return res.end(JSON.stringify(snapshot(true), null, 2));
     }
     if (req.method === 'POST' && url.pathname === '/api/reset') {
       const body = await readBody(req);
@@ -308,7 +410,7 @@ function startDashboard() {
       }
       await resetAll();
       res.writeHead(200, { 'content-type': 'application/json' });
-      return res.end(JSON.stringify({ ok: true, status: snapshot() }));
+      return res.end(JSON.stringify({ ok: true, status: snapshot(true) }));
     }
     if (req.method === 'GET' && url.pathname === '/') {
       res.writeHead(200, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' });
@@ -323,6 +425,19 @@ function startDashboard() {
 }
 
 async function main() {
+  if (!acquireLock()) {
+    if (resetAtStart) {
+      const result = await callRunningDaemon('POST', '/api/reset', { key: RESET_KEY });
+      console.log(JSON.stringify(result, null, 2));
+    } else if (once) {
+      const result = await callRunningDaemon('GET', '/api/status');
+      console.log(JSON.stringify(result, null, 2));
+      process.exitCode = (result.services || []).some(s => s.required && s.status !== 'up' && s.status !== 'starting' && s.status !== 'would-start') ? 1 : 0;
+    } else {
+      console.log(`Local Sites daemon is already running (lock: ${LOCK_FILE}).`);
+    }
+    return;
+  }
   await scan(true);
   if (resetAtStart) await resetAll();
   if (once) {
@@ -334,6 +449,7 @@ async function main() {
   setInterval(() => scan(true).catch(e => console.error(e)), INTERVAL_MS).unref();
 }
 
-process.on('SIGINT', () => process.exit(0));
-process.on('SIGTERM', () => process.exit(0));
+process.on('exit', releaseLock);
+process.on('SIGINT', () => { releaseLock(); process.exit(0); });
+process.on('SIGTERM', () => { releaseLock(); process.exit(0); });
 main().catch(e => { console.error(e); process.exitCode = 1; });

@@ -20,7 +20,7 @@ This starts the daemon at Windows logon and checks it every two minutes. The dae
 
 ## Discovery
 
-Port 7950 and its 7900–7902 workers are auto-discovered by scanning local server entrypoints. This supports the locally generated machine manager even when its filename changes.
+Port 7950, its 7900–7902 workers, and the 7931 local app are auto-discovered by scanning local server entrypoints. This supports locally generated machine services even when their filenames change.
 
 Known sites are listed in `local-sites.json`. Put machine-specific additions in the ignored `local-sites.user.json`:
 
@@ -29,13 +29,13 @@ Known sites are listed in `local-sites.json`. Put machine-specific additions in 
   {
     "id": "another-panel",
     "name": "Another panel",
-    "port": 7931,
+    "port": 7940,
     "script": "another_panel.js"
   }
 ]
 ```
 
-Missing optional scripts are reported as `not-installed`; they do not prevent other sites from running. Port 7950 is required and is reported as `missing` if no matching manager entrypoint exists.
+User entries take precedence over defaults with the same ID or port. Missing optional scripts are reported as `not-installed`; they do not prevent other sites from running. Port 7950 is required and is reported as `missing` if no matching manager entrypoint exists.
 
 ## Command line
 

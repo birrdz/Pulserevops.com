@@ -25,6 +25,12 @@
     "discover": true
   },
   {
+    "id": "local-app-7931",
+    "name": "Local app 7931",
+    "port": 7931,
+    "discover": true
+  },
+  {
     "id": "pulse-control",
     "name": "Kory's Pulse Control Panel",
     "port": 8904,

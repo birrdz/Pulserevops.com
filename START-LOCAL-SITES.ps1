@@ -20,9 +20,15 @@ try {
 } catch {}
 
 if ($Reset -and $alive) {
+  $key = if ($env:LOCAL_SITES_KEY) { $env:LOCAL_SITES_KEY } else { '4444' }
+  $payload = @{ key = $key } | ConvertTo-Json -Compress
   try {
-    Invoke-RestMethod -Method Post -ContentType 'application/json' -Body '{"key":"4444"}' -Uri 'http://127.0.0.1:7959/api/reset' | Out-Null
-  } catch {}
+    $resetResult = Invoke-RestMethod -Method Post -ContentType 'application/json' -Body $payload -Uri 'http://127.0.0.1:7959/api/reset'
+    if (-not $resetResult.ok) { throw 'Daemon rejected reset.' }
+  } catch {
+    Write-Error "Local Sites daemon is alive, but reset failed: $($_.Exception.Message)"
+    exit 1
+  }
 }
 
 if (-not $alive) {
