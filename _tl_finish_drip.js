@@ -370,10 +370,95 @@ b: ${b}
 function normalizeDirectAnswerHeading(body) {
   return body
     .replace(/^###\s+Direct\s+Answer/im, '## Direct Answer')
+    .replace(/^##\s+Quick\s+Answer/im, '## Direct Answer')
+    .replace(/^###\s+Quick\s+Answer/im, '## Direct Answer')
     .replace(/^#\s+(?!#)/m, (m, off, s) => {
       // keep H1 title if present; Direct Answer must be H2
       return m;
     });
+}
+
+/** Split prose into sentences without mangling decimals / URLs. */
+function splitSentences(text) {
+  const t = String(text || '').replace(/\s+/g, ' ').trim();
+  if (!t) return [];
+  const parts = [];
+  let buf = '';
+  for (let i = 0; i < t.length; i++) {
+    const ch = t[i];
+    buf += ch;
+    if (/[.!?]/.test(ch)) {
+      const next = t[i + 1];
+      const prev = t[i - 1];
+      // skip decimals like 2.5 and abbreviations like U.S.
+      if (ch === '.' && prev && /\d/.test(prev) && next && /\d/.test(next)) continue;
+      if (ch === '.' && prev && /[A-Z]/.test(prev) && next && /[A-Z]/.test(next)) continue;
+      if (next == null || /\s/.test(next) || /["')\]]/.test(next)) {
+        const s = buf.trim();
+        if (s) parts.push(s);
+        buf = '';
+        while (i + 1 < t.length && /\s/.test(t[i + 1])) i++;
+      }
+    }
+  }
+  if (buf.trim()) parts.push(buf.trim());
+  return parts;
+}
+
+/**
+ * Owner: Direct Answer / Quick Answer should be 2–3 sentences, not a paragraph stack.
+ * Keeps images / code fences that sit after the prose. Rubric still needs ≥2 sentences + ~140 chars.
+ */
+function shortenLeadAnswers(body) {
+  const heads = ['Direct Answer', 'Quick Answer'];
+  let out = String(body || '');
+  for (const head of heads) {
+    const re = new RegExp('^(##\\s+' + head + '\\n+)([\\s\\S]*?)(?=\\n##\\s|$)', 'im');
+    out = out.replace(re, (full, h, block) => {
+      // split trailing media / fences from lead prose
+      const mediaRe = /(\n(?:!\[[^\]]*\]\([^)]+\)|```[\s\S]*?```)\s*)/g;
+      let firstMediaAt = -1;
+      let m;
+      while ((m = mediaRe.exec(block))) {
+        // only treat as media split if it's after some prose
+        if (m.index > 0) {
+          firstMediaAt = m.index;
+          break;
+        }
+      }
+      const proseRaw = firstMediaAt >= 0 ? block.slice(0, firstMediaAt) : block;
+      const tail = firstMediaAt >= 0 ? block.slice(firstMediaAt) : '';
+      const plain = proseRaw
+        .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
+        .replace(/```[\s\S]*?```/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+      const sents = splitSentences(plain);
+      if (sents.length <= 3 && plain.length <= 420) return full; // already tight enough
+      let keep = sents.slice(0, 3);
+      let joined = keep.join(' ');
+      // if still a wall of text, drop to 2 sentences
+      if (joined.length > 480 && keep.length > 2) {
+        keep = sents.slice(0, 2);
+        joined = keep.join(' ');
+      }
+      // floor: keep at least 2 sentences when available (grader)
+      if (keep.length < 2 && sents.length >= 2) {
+        keep = sents.slice(0, 2);
+        joined = keep.join(' ');
+      }
+      if (!joined) return full;
+      // preserve a little bold signal if we stripped all bold
+      if (!/\*\*[^*]+\*\*/.test(joined) && /\*\*[^*]+\*\*/.test(plain)) {
+        const bold = plain.match(/\*\*([^*]+)\*\*/);
+        if (bold && !joined.includes(bold[1])) {
+          joined = joined.replace(bold[1], '**' + bold[1] + '**');
+        }
+      }
+      return h + joined + '\n' + (tail.startsWith('\n') ? tail : '\n' + tail);
+    });
+  }
+  return out;
 }
 
 function transform(id, body, question) {
@@ -396,6 +481,8 @@ function transform(id, body, question) {
   next = ensureCompareBlock(next, question);
   next = ensureSources(next);
   next = ensureRelated(next, id);
+  // Owner: Direct/Quick Answer = 2–3 sentences max
+  next = shortenLeadAnswers(next);
   const g = grade(id, next, question);
   if (!g.criteria.heavy_bold_formatting) next = boostBoldSafe(next, 12);
   const vs = auditComparisonEntry(id, question, next);
