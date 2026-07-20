@@ -9,6 +9,7 @@
 
 let getStore = null;
 try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
+const { libraryEntryPublicUrl } = require('./lib/library-entry-url');
 
 const SITE = 'https://pulserevops.com';
 
@@ -25,6 +26,15 @@ function isoDate(ms) {
 }
 function escXml(s) {
   return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function canonicalEntryUrl(entry) {
+  return libraryEntryPublicUrl(entry) || (SITE + '/knowledge/' + encodeURIComponent(String(entry && entry.id || '')));
+}
+function entryMatchesPillar(entry, pillarKey) {
+  const id = String(entry && entry.id || '');
+  if (!id) return false;
+  if (pillarKey === 'q') return /^q\d+$/i.test(id) || /^vq_/i.test(id) || /^ed\d+$/i.test(id);
+  return new RegExp('^' + pillarKey + '\\d+$', 'i').test(id);
 }
 
 // Per-pillar filter mode — when ?pillar=<key> is set, emit ONLY that pillar's
@@ -75,30 +85,6 @@ const PILLAR_HUB = {
   ai: { path: '/ai-infrastructure',              name: 'AI Infrastructure' },
   tc: { path: '/telco',                          name: 'Telco' },
 };
-const PILLAR_ENTRY_PREFIX = {
-  q:  '/knowledge/',  st: '/sales-trainings/',  ik: '/industry-kpis/',  tk: '/tech-stacks/',
-  gb: '/graphics/',   bs: '/sales-book-summaries/',  er: '/electronic-reviews/',
-  ra: '/revenue-architecture/',  gp: '/go-to-market-playbooks/',
-  fr: '/franchises/',  ca: '/cars/',
-  tn: '/towns/', sc: '/schools/', nl: '/nightlife/', dn: '/dining/', bt: '/boats/',
-  cg: '/coaching/',
-  mv: '/movies/', wl: '/wellness/', dr: '/drills/',
-  tv: '/travel/', rs: '/resorts/', es: '/estates/', cl: '/clubs/',
-  lv: '/living/', ev: '/events/', sy: '/style/', ga: '/gatherings/',
-  gm: '/gaming/', tl: '/tools/',
-  sk: '/skills/',
-  sp: '/speeches/',
-  co: '/collectibles/',
-  aq: '/aquariums/',
-  hf: '/highschool-football-recruiting/',
-  ai: '/ai-infrastructure/',
-  tc: '/telco/',
-  bo: '/buildouts/',
-  cd: '/contracts/',
-  pt: '/pets/',
-  sw: '/software/',
-};
-
 exports.handler = async (event) => {
   // Pillar can come from EITHER:
   //  (a) ?pillar=<key> query param (direct function URL hit), OR
@@ -110,7 +96,9 @@ exports.handler = async (event) => {
   let pillarKey = (qs.pillar || '').toLowerCase().trim();
   if (!pillarKey && event && event.path) {
     const PATH_TO_KEY = {
+      'sitemap-knowledge':              'q',
       'sitemap-knowledge-live':         'q',
+      'sitemap-tools':                  'tl',
       'sitemap-sales-trainings':        'st',
       'sitemap-industry-kpis':          'ik',
       'sitemap-tech-stacks':            'tk',
@@ -175,19 +163,7 @@ exports.handler = async (event) => {
     // (hub URL + every entry whose id matches the pillar prefix). Returns early.
     if (filterPillar) {
       const hub = PILLAR_HUB[filterPillar];
-      const entryPrefix = PILLAR_ENTRY_PREFIX[filterPillar];
-      const isMatch = e => {
-        if (!e || !e.id) return false;
-        if (filterPillar === 'q') {
-          // Knowledge = anything NOT in the other 8 pillars (plus vq_* visitor)
-          if (/^vq_/i.test(e.id)) return true;
-          if (/^(st|ik|tk|gb|bs|er|ra|gp|fr|ca|co|aq|hf|tc)\d+$/i.test(e.id)) return false;
-          return true;
-        }
-        const re = new RegExp('^' + filterPillar + '\\d+$', 'i');
-        return re.test(e.id);
-      };
-      const pillarEntries = entries.filter(isMatch);
+      const pillarEntries = entries.filter(e => entryMatchesPillar(e, filterPillar));
       const pillarLatestTs = pillarEntries.length && pillarEntries[0].ts ? pillarEntries[0].ts : latestTs;
       let pBody = '<?xml version="1.0" encoding="UTF-8"?>\n'
         + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -196,7 +172,7 @@ exports.handler = async (event) => {
         + '<changefreq>hourly</changefreq><priority>0.95</priority></url>\n';
       pillarEntries.forEach(e => {
         if (!e || !e.id) return;
-        pBody += '<url><loc>' + SITE + entryPrefix + escXml(e.id) + '</loc>'
+        pBody += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
           + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
           + '<changefreq>weekly</changefreq><priority>0.78</priority></url>\n';
         // NOTE: the /reviews mirror URL was dropped here — emitting 2 URLs/entry
@@ -213,12 +189,8 @@ exports.handler = async (event) => {
     }
   }
 
-  // Route-aware: sales-training entries (tag "sales-training" or id /^st\d+$/)
-  // live at /sales-trainings/<id> and the hub is /sales-trainings; industry-KPI
-  // entries (tag "industry-kpi" or id /^ik\d+$/) live at /industry-kpis/<id> and
-  // the hub is /industry-kpis; all other entries live at /knowledge/<id>. Each
-  // URL space is first-class in the sitemap so Google indexes them as distinct
-  // sub-libraries.
+  // Keep entries grouped by pillar for sitemap reporting, but emit the single
+  // canonical /knowledge/<id> URL used by the renderer for every answer.
   const isTrainingEntry = e => (Array.isArray(e.tags) && e.tags.includes('sales-training')) || /^st\d+$/i.test(e.id || '');
   const isKpiEntry      = e => (Array.isArray(e.tags) && e.tags.includes('industry-kpi')) || /^ik\d+$/i.test(e.id || '');
   const isTechstackEntry = e => /^tk\d+$/i.test(e.id || '');
@@ -241,7 +213,6 @@ exports.handler = async (event) => {
   const carEntries = entries.filter(isCarEntry);
   const isNewPillarEntry = e => e && e.id && /^(tn|sc|nl|dn|bt|mv|wl|dr|tv|rs|es|cl|lv|ev|sy|ga|gm|sk|sp|tl|cg|co|ai|bo|aq|hf|pt|sw|tc)\d+$/i.test(e.id);
   const newPillarEntries = entries.filter(isNewPillarEntry);
-  const NEW_PILLAR_PATH = { tn:'/towns/', sc:'/schools/', nl:'/nightlife/', dn:'/dining/', bt:'/boats/', mv:'/movies/', wl:'/wellness/', dr:'/drills/', tv:'/travel/', rs:'/resorts/', es:'/estates/', cl:'/clubs/', lv:'/living/', ev:'/events/', sy:'/style/', ga:'/gatherings/', gm:'/gaming/', sk:'/skills/', sp:'/speeches/', tl:'/tools/', cg:'/coaching/', co:'/collectibles/', ai:'/ai-infrastructure/', bo:'/buildouts/', aq:'/aquariums/', hf:'/highschool-football-recruiting/', pt:'/pets/', sw:'/software/', tc:'/telco/' };
   const libraryEntries  = entries.filter(e => !isTrainingEntry(e) && !isKpiEntry(e) && !isTechstackEntry(e) && !isGraphicEntry(e) && !isBookSummaryEntry(e) && !isElectronicReviewEntry(e) && !isRevenueArchitectureEntry(e) && !isGTMPlaybookEntry(e) && !isFranchiseEntry(e) && !isCarEntry(e) && !isNewPillarEntry(e));
   const latestTrainingTs = trainingEntries.length && trainingEntries[0].ts ? trainingEntries[0].ts : latestTs;
   const latestKpiTs      = kpiEntries.length && kpiEntries[0].ts ? kpiEntries[0].ts : latestTs;
@@ -301,12 +272,11 @@ exports.handler = async (event) => {
     + '<lastmod>' + isoDate(latestTs) + '</lastmod>'
     + '<changefreq>weekly</changefreq><priority>0.92</priority></url>\n';
 
-  // Per-entry indexable URLs — each library entry has its own server-rendered
-  // page with full content, JSON-LD, and OG cards. Knowledge entries live at
-  // /knowledge/<id>; sales trainings at /sales-trainings/<id>.
+  // Per-entry indexable URLs — each entry has one canonical /knowledge/<id>
+  // page with full content, JSON-LD, and OG cards.
   libraryEntries.forEach(e => {
     if (!e || !e.id) return;
-    body += '<url><loc>' + SITE + '/knowledge/' + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>weekly</changefreq>'
       + '<priority>0.75</priority></url>\n';
@@ -315,7 +285,7 @@ exports.handler = async (event) => {
     if (!e || !e.id) return;
     // Trainings get a slightly higher priority — fewer entries, longer-form,
     // direct revenue tie-in (sales-leader audience).
-    body += '<url><loc>' + SITE + '/sales-trainings/' + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>weekly</changefreq>'
       + '<priority>0.85</priority></url>\n';
@@ -323,7 +293,7 @@ exports.handler = async (event) => {
   kpiEntries.forEach(e => {
     if (!e || !e.id) return;
     // Industry-KPI guides — benchmark-heavy, evergreen reference content.
-    body += '<url><loc>' + SITE + '/industry-kpis/' + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>weekly</changefreq>'
       + '<priority>0.80</priority></url>\n';
@@ -331,7 +301,7 @@ exports.handler = async (event) => {
   techstackEntries.forEach(e => {
     if (!e || !e.id) return;
     // Tech-stack guides — recommended software stack per industry.
-    body += '<url><loc>' + SITE + '/tech-stacks/' + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>weekly</changefreq>'
       + '<priority>0.80</priority></url>\n';
@@ -339,7 +309,7 @@ exports.handler = async (event) => {
   graphicEntries.forEach(e => {
     if (!e || !e.id) return;
     // Graphics — downloadable banners, slides, printables, clip art.
-    body += '<url><loc>' + SITE + '/graphics/' + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>monthly</changefreq>'
       + '<priority>0.70</priority></url>\n';
@@ -348,7 +318,7 @@ exports.handler = async (event) => {
     if (!e || !e.id) return;
     // Sales Book Summaries (Cliff Notes) — top 25 sales books chapter-by-chapter.
     // Higher priority because the SEO opportunity (book-summary queries) is huge.
-    body += '<url><loc>' + SITE + '/sales-book-summaries/' + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>weekly</changefreq>'
       + '<priority>0.85</priority></url>\n';
@@ -357,7 +327,7 @@ exports.handler = async (event) => {
     if (!e || !e.id) return;
     // Electronic Reviews — top-10 consumer electronics rankings with Best
     // Overall + Best Value highlights. Commercial-intent queries — high priority.
-    body += '<url><loc>' + SITE + '/electronic-reviews/' + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>weekly</changefreq>'
       + '<priority>0.88</priority></url>\n';
@@ -366,7 +336,7 @@ exports.handler = async (event) => {
     if (!e || !e.id) return;
     // Revenue Architecture — 8th pillar. Operator-grade essays on GTM design,
     // pipeline math, comp + org architecture. High strategic-search intent.
-    body += '<url><loc>' + SITE + '/revenue-architecture/' + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>weekly</changefreq>'
       + '<priority>0.90</priority></url>\n';
@@ -375,7 +345,7 @@ exports.handler = async (event) => {
     if (!e || !e.id) return;
     // Go-To-Market Playbooks — 9th pillar. Step-by-step playbooks for GTM
     // launches, scaling motions, and pivots. High strategic-search intent.
-    body += '<url><loc>' + SITE + '/go-to-market-playbooks/' + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>weekly</changefreq>'
       + '<priority>0.90</priority></url>\n';
@@ -383,9 +353,7 @@ exports.handler = async (event) => {
   franchiseEntries.forEach(e => {
     if (!e || !e.id) return;
     // Franchises — "Should I open/buy <brand> in 2027?" buyer-intent guides.
-    // These live at /franchises/<id>; emitting them under /knowledge/ caused
-    // ~1,000 Google Search Console "Page with redirect" errors (301 to /franchises/).
-    body += '<url><loc>' + SITE + '/franchises/' + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>weekly</changefreq>'
       + '<priority>0.80</priority></url>\n';
@@ -393,18 +361,16 @@ exports.handler = async (event) => {
   carEntries.forEach(e => {
     if (!e || !e.id) return;
     // Cars — "Top 10 <vehicle class> <year>" ranked buying guides at /cars/<id>.
-    body += '<url><loc>' + SITE + '/cars/' + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>weekly</changefreq>'
       + '<priority>0.80</priority></url>\n';
   });
-  // New Top-10 pillars (Towns/Schools/Nightlife/Dining/Boats) — emit each at its
-  // OWN path so Google never sees a /knowledge/<id> 301 (the redirect-error bug).
+  // New Top-10 pillars retain their category grouping while sharing the same
+  // canonical entry URL model.
   newPillarEntries.forEach(e => {
     if (!e || !e.id) return;
-    const path = NEW_PILLAR_PATH[e.id.slice(0, 2).toLowerCase()];
-    if (!path) return;
-    body += '<url><loc>' + SITE + path + escXml(e.id) + '</loc>'
+    body += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
       + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
       + '<changefreq>weekly</changefreq>'
       + '<priority>0.80</priority></url>\n';
@@ -433,21 +399,6 @@ exports.handler = async (event) => {
         + '<priority>' + priority + '</priority></url>\n';
     });
 
-  // ── Reviews-mirror URLs (whole-site SEO index mirror) ─────────────────
-  // Every per-entry page has a `/<id>/reviews` mirror route (see netlify.toml)
-  // that ranks for "<topic> reviews / rating / review 2027" queries. Emit each
-  // mirror into the index so search engines discover them — derived generically
-  // from the canonical entry locs already in `body`, so it auto-covers every
-  // current and future pillar. Lower priority than the canonical entry.
-  const entryLocs = body.match(/<loc>(https:\/\/pulserevops\.com\/[a-z0-9-]+\/[a-z]{1,3}\d+)<\/loc>/g) || [];
-  entryLocs.forEach(m => {
-    const u = m.replace(/^<loc>/, '').replace(/<\/loc>$/, '');
-    body += '<url><loc>' + u + '/reviews</loc>'
-      + '<lastmod>' + isoDate(latestTs) + '</lastmod>'
-      + '<changefreq>weekly</changefreq>'
-      + '<priority>0.40</priority></url>\n';
-  });
-
   body += '</urlset>\n';
 
   // Slim every <url> to <loc>+<lastmod> only — drop <changefreq>/<priority>
@@ -464,4 +415,9 @@ exports.handler = async (event) => {
     },
     body,
   };
+};
+
+exports._test = {
+  canonicalEntryUrl,
+  entryMatchesPillar,
 };
