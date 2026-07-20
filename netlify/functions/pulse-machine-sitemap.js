@@ -149,12 +149,8 @@ exports.handler = async (event) => {
   if (store) {
     try {
       const idx = (await store.get('_index.json', { type: 'json' })) || { entries: [] };
-      // Cap was 5,000 → only the newest 5k of ~22.8k entries reached Google (the
-      // other ~17k were invisible). Raised to 50,000 to emit EVERY entry (owner
-      // 2026-06-27). Current sizes: omnibus ~22.8k URLs/3.3MB, q-branch (2 URLs/
-      // entry) ~30k URLs/4.3MB — under Google's 50k-URL & Netlify's 6MB limits.
-      // ⚠️ When the library passes ~30k entries the q-branch (2×) nears 6MB — at
-      // that point split into a <sitemapindex> of per-pillar child sitemaps.
+      // Load the full catalog; advertised sitemap endpoints filter it by exact
+      // pillar, keeping each response below Google and Netlify response limits.
       entries = (idx.entries || []).slice(0, 50000);
       if (entries.length && entries[0].ts) latestTs = entries[0].ts;
     } catch (e) {}
@@ -175,10 +171,8 @@ exports.handler = async (event) => {
         pBody += '<url><loc>' + escXml(canonicalEntryUrl(e)) + '</loc>'
           + '<lastmod>' + isoDate(e.ts) + '</lastmod>'
           + '<changefreq>weekly</changefreq><priority>0.78</priority></url>\n';
-        // NOTE: the /reviews mirror URL was dropped here — emitting 2 URLs/entry
-        // pushed this q-branch past Netlify's 6MB function-response limit at ~30k
-        // URLs (502 ResponseSizeTooLarge). The /reviews URLs are already covered by
-        // the dedicated pulse-machine-reviews-sitemap. 1 URL/entry keeps this ~2.7MB.
+        // Review-mirror URLs are intentionally excluded: they redirect to this
+        // canonical page and must not be submitted for indexing.
       });
       pBody += '</urlset>';
       return {
