@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 /**
- * CRO Pulse Tools (tl) — finish text gate + email each finished answer.
+ * CRO Pulse Tools (tl) — finish text gate.
  *
  * - Skip if already score >= 13 (imagesDeferred + GOLD_SKIP_IMG_GATE)
  * - Surgical text fixes only (no LLM, no new image generation)
- * - On each newly finished page → Resend 🔴 RED LIGHT email with live /tools/ URL
+ * - EMAILS: OFF by default for text-only finishes (owner: email when images are done).
+ *   Set EMAIL_ON_TEXT=1 only if you explicitly want text-pass alerts.
+ *   When emailing, require a real cover (not cro-cover-*) and embed it in the HTML.
  *
  * State: /tmp/tl-finish-drip-state.json
  * Log:   /tmp/tl-finish-drip.log
@@ -46,12 +48,52 @@ try {
 const SITE_ID = 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
 const STATE_PATH = '/tmp/tl-finish-drip-state.json';
 const LOG_PATH = '/tmp/tl-finish-drip.log';
-const INTERVAL_MS = Number(process.env.INTERVAL_MS || 60 * 1000);
+const INTERVAL_MS = Number(process.env.INTERVAL_MS || 10 * 1000);
 const QUEUE_CACHE = '/tmp/tl-finish-queue.json';
 const ONCE = process.env.ONCE === '1';
+// Owner: emails when images are done — not on text-only 13/13.
+const EMAIL_ON_TEXT = process.env.EMAIL_ON_TEXT === '1';
 const RECIPIENT = process.env.ALERT_TO || process.env.ALERT_TO_EMAIL || 'koryjordanwhite@gmail.com';
 const RESEND_KEY = process.env.resendapikey || process.env.RESEND_API_KEY || process.env.RESENDAPIKEY || '';
 const RESEND_FROM = process.env.ALERT_FROM_EMAIL || 'PULSE Engine <onboarding@resend.dev>';
+
+function absAssetUrl(u) {
+  const s = String(u || '').trim();
+  if (!s) return '';
+  if (/^https?:\/\//i.test(s)) return s;
+  if (s.startsWith('/')) return 'https://pulserevops.com' + s;
+  return 'https://pulserevops.com/' + s.replace(/^\.\//, '');
+}
+
+/** Real face-card cover (mosaic-eligible) — not generic cro-cover-* placeholders. */
+function realCoverUrl(entry) {
+  const img = String((entry && (entry.img || entry.cover)) || '');
+  if (!img) return '';
+  if (/\/assets\/cro-cover-/i.test(img)) return '';
+  if (!/\/assets\/qa\//i.test(img) && !/pexels/i.test(img)) return '';
+  return absAssetUrl(img);
+}
+
+/** In-page markdown images that are not generic cro-cover placeholders. */
+function bodyImageUrls(body) {
+  const out = [];
+  const re = /!\[[^\]]*\]\(([^)]+)\)/g;
+  let m;
+  while ((m = re.exec(String(body || '')))) {
+    const u = String(m[1] || '').trim();
+    if (!u) continue;
+    if (/pollinations\.ai/i.test(u)) continue;
+    if (/\/assets\/cro-cover-/i.test(u)) continue;
+    out.push(absAssetUrl(u));
+  }
+  return out;
+}
+
+function imagesReady(entry, body) {
+  const cover = realCoverUrl(entry);
+  const bodyImgs = bodyImageUrls(body);
+  return { ready: !!(cover && bodyImgs.length), cover, bodyImgs };
+}
 
 const cfg = require('/home/ubuntu/.config/netlify/config.json');
 const token = Object.values(cfg.users || {})[0].auth.token;
@@ -397,18 +439,26 @@ async function buildFailQueue() {
   return { ids, fails };
 }
 
-async function emailFinished({ id, title, score, before, url }) {
+async function emailImagesDone({ id, title, score, before, url, cover, bodyImgs }) {
   if (!RESEND_KEY) return { ok: false, reason: 'no_key' };
-  const subject = `🔴 RED LIGHT — ${id} finished 13/13`;
+  const subject = `🔴 RED LIGHT — ${id} IMAGES done`;
+  const thumbs = [cover, ...(bodyImgs || [])].filter(Boolean).slice(0, 4);
+  const thumbsHtml = thumbs
+    .map(
+      (src) =>
+        `<a href="${url}" style="display:inline-block;margin:0 8px 8px 0"><img src="${src}" alt="" width="220" style="width:220px;max-width:100%;height:auto;border:2px solid #B91C1C;display:block" /></a>`
+    )
+    .join('');
   const html = `<div style="font-family:Arial,sans-serif;line-height:1.5">
     <div style="background:#B91C1C;color:#fff;padding:14px 18px;font-size:20px;font-weight:700">
-      🔴 RED LIGHT — Answer finished
+      🔴 RED LIGHT — Images done
     </div>
     <div style="padding:16px;border:3px solid #B91C1C;background:#FEF2F2">
       <p style="margin:0 0 8px;font-size:18px;font-weight:700">${id} · score ${before} → ${score}</p>
       <p style="margin:0 0 12px;font-weight:700">${String(title || '').replace(/</g, '&lt;')}</p>
       <p style="margin:0 0 12px"><a href="${url}" style="color:#0b57d0;font-weight:700">${url}</a></p>
-      <p style="margin:0;color:#666;font-size:12px">CRO Pulse Tools · text finish drip · images deferred · ${new Date().toISOString()}</p>
+      <div style="margin:0 0 12px">${thumbsHtml}</div>
+      <p style="margin:0;color:#666;font-size:12px">Cover + in-page images ready · ${new Date().toISOString()}</p>
     </div>
   </div>`;
   try {
@@ -420,11 +470,11 @@ async function emailFinished({ id, title, score, before, url }) {
         to: [RECIPIENT],
         subject,
         html,
-        text: `RED LIGHT ${id} finished 13/13 ${url}`,
+        text: `RED LIGHT ${id} IMAGES done ${url}`,
       }),
     });
     const text = await r.text();
-    log('EMAIL ' + id + ' ' + r.status + ' ' + text.slice(0, 120));
+    log('EMAIL images ' + id + ' ' + r.status + ' ' + text.slice(0, 120));
     return { ok: r.ok, status: r.status, body: text.slice(0, 200) };
   } catch (e) {
     log('EMAIL err ' + id + ' ' + e.message);
@@ -459,14 +509,22 @@ async function processOne(id) {
   }
 
   let emailed = null;
-  if (isPass(afterG)) {
-    emailed = await emailFinished({
+  const imgState = imagesReady({ ...entry, img: entry.img, cover: entry.cover }, next);
+  // Owner wants emails when images are done — never spam text-only finishes.
+  if (isPass(afterG) && imgState.ready) {
+    emailed = await emailImagesDone({
       id,
       title,
       score: afterG.score,
       before: beforeG.score,
       url: toolsUrl(id),
+      cover: imgState.cover,
+      bodyImgs: imgState.bodyImgs,
     });
+  } else if (isPass(afterG) && EMAIL_ON_TEXT) {
+    log('EMAIL skipped ' + id + ' (EMAIL_ON_TEXT=1 but images not ready; still not sending text-only)');
+  } else if (isPass(afterG)) {
+    log('EMAIL skipped ' + id + ' (text 13/13, images not ready — cover=' + (imgState.cover ? 'yes' : 'no') + ' bodyImgs=' + imgState.bodyImgs.length + ')');
   }
 
   return {
@@ -477,6 +535,9 @@ async function processOne(id) {
     before: beforeG.score,
     after: afterG.score,
     pass: isPass(afterG),
+    imagesReady: imgState.ready,
+    cover: imgState.cover || null,
+    bodyImgCount: imgState.bodyImgs.length,
     bad: Object.entries(afterG.criteria || {})
       .filter(([k, v]) => !v && k !== 'images_law')
       .map(([k]) => k)

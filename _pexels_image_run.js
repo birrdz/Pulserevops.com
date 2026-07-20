@@ -13,6 +13,7 @@ const { deriveImageSearchQuery, queryCacheKey } = require('./netlify/functions/l
 const { shouldSkipMv, skipMvLog } = require('./netlify/functions/lib/mv-pillar-guard');
 const { shouldSkipHf, skipHfLog } = require('./netlify/functions/lib/hf-pillar-guard');
 const { storeGradedImage } = require('./_ddg_facecard_lib');
+const { emailImagesDone } = require('./_image_done_email');
 
 // ── HARD LAW: Pexels throttle. 18000ms floor, NOT overridable by any env var. ──
 const PEXELS_MIN_MS = 18000;
@@ -150,6 +151,19 @@ async function main() {
       writeJson(RUN_CACHE, runCache);
       stored++; recordOutcome(false);
       if (stored % 10 === 0) { await store.setJSON('_index.json', idx); idxDirty = false; }
+      // Owner: RED LIGHT email when images are done (with cover thumb in HTML).
+      try {
+        const mailed = await emailImagesDone({
+          id,
+          title,
+          cover: '/assets/qa/' + id + '.jpg',
+          provider: poolEntry.provider,
+          query,
+        });
+        log('  email ' + id + ' ' + (mailed.ok ? mailed.status : mailed.reason || 'fail'));
+      } catch (mailErr) {
+        log('  email ' + id + ' err ' + (mailErr && mailErr.message));
+      }
       log('  ✓ ' + id + ' [' + poolEntry.provider + '] "' + query + '"');
     } catch (err) {
       if (String(err.message).includes('CIRCUIT BREAKER')) {
