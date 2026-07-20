@@ -23,6 +23,7 @@ const { sanitizeMermaid } = require('/workspace/_mermaid_sanitize');
 const { isComparisonEntry, auditComparisonEntry } = require('/workspace/netlify/functions/lib/vs-expert-verify');
 const { reshapeQaGoldBody, appliesQaGold } = require('/workspace/_qa_gold_template');
 const { pickGoldTemplate } = require('/workspace/_pulse_gold_template_router');
+const { stripCostImages } = require('/workspace/_tl_cost_image_strip_lib');
 
 try {
   const envPath = process.env.AQ_DRIP_ENV || '/tmp/aq-drip.env';
@@ -378,6 +379,8 @@ function transform(id, body, question) {
     } catch (_e) {}
   }
   next = stripLivePollinations(next);
+  // Owner: strip leftover cost/money graph images (cro-cover-4/5, ROI, cost pollinations).
+  next = stripCostImages(next).next;
   next = fixBanned(next);
   next = stripCompareIfTitleNotVs(next, question);
   next = fixFalseVsHeads(next, question);
