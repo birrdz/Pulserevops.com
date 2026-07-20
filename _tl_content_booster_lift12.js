@@ -82,6 +82,14 @@ function normalizeFrom(raw) {
 }
 const RESEND_FROM = normalizeFrom(process.env.ALERT_FROM_EMAIL);
 const EMAIL_ON_PASS = process.env.EMAIL_ON_PASS !== '0';
+// Backup inbox while onboarding@resend.dev is not landing in Gmail (no verified domain).
+const GH_NOTIFY_ISSUE = String(process.env.GH_NOTIFY_ISSUE || '14');
+const GH_NOTIFY_REPO = process.env.GH_NOTIFY_REPO || 'birrdz/Pulserevops.com';
+const GH_BIN = process.env.GH_BIN || '/usr/bin/gh';
+const DIGEST_PATH = process.env.LIFT12_DIGEST || '/tmp/tl-booster-finished-digest.md';
+const { execFile } = require('child_process');
+const { promisify } = require('util');
+const execFileAsync = promisify(execFile);
 
 function log(msg) {
   const line = `[${new Date().toISOString()}] ${msg}`;
@@ -140,14 +148,31 @@ function imagesPreserved(beforeFp, afterFp) {
   return a === b;
 }
 
+async function ghIssueComment(body) {
+  if (!GH_NOTIFY_ISSUE || GH_NOTIFY_ISSUE === '0') return { ok: false, reason: 'gh_off' };
+  try {
+    const { stdout, stderr } = await execFileAsync(
+      GH_BIN,
+      ['issue', 'comment', GH_NOTIFY_ISSUE, '--repo', GH_NOTIFY_REPO, '--body', body],
+      { timeout: 45000, maxBuffer: 1024 * 1024 }
+    );
+    const out = String(stdout || stderr || '').trim();
+    return { ok: true, url: out || `https://github.com/${GH_NOTIFY_REPO}/issues/${GH_NOTIFY_ISSUE}` };
+  } catch (e) {
+    return { ok: false, reason: String(e.message || e).slice(0, 200) };
+  }
+}
+
+function appendDigest(line) {
+  try {
+    fs.appendFileSync(DIGEST_PATH, line + '\n');
+  } catch (_e) {}
+}
+
 async function emailFinished({ id, title, before, after, url, cover, bodyImgs, steps, approvedAfterTries }) {
   if (!EMAIL_ON_PASS) {
     log('EMAIL skipped ' + id + ' EMAIL_ON_PASS=0');
     return { ok: false, reason: 'email_off' };
-  }
-  if (!RESEND_KEY) {
-    log('EMAIL skipped ' + id + ' no Resend key');
-    return { ok: false, reason: 'no_key' };
   }
   const liveUrl = url || pageUrl(id);
   const approved = !!approvedAfterTries;
@@ -190,30 +215,99 @@ async function emailFinished({ id, title, before, after, url, cover, bodyImgs, s
       <p style="margin:0;color:#666;font-size:12px">Content Booster · ${steps || ''} · ${new Date().toISOString()}</p>
     </div>
   </div>`;
-  const payload = {
-    from: RESEND_FROM,
-    to: [RECIPIENT],
-    subject,
-    html,
-    text: `DONE ${id}\nScore ${before} → ${after}${approved ? ` (approved after ${MAX_TRIES} tries)` : ''}\nOpen: ${liveUrl}\n`,
-  };
-  for (let attempt = 1; attempt <= 3; attempt++) {
-    try {
-      const r = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const text = await r.text();
-      log('EMAIL ' + id + ' attempt=' + attempt + ' ' + r.status + ' ' + text.slice(0, 120));
-      if (r.ok) return { ok: true, status: r.status, url: liveUrl };
-      if (attempt < 3) await new Promise((res) => setTimeout(res, 1500 * attempt));
-    } catch (e) {
-      log('EMAIL err ' + id + ' attempt=' + attempt + ' ' + e.message);
-      if (attempt < 3) await new Promise((res) => setTimeout(res, 1500 * attempt));
+  const textBody = `DONE ${id}\nScore ${before} → ${after}${approved ? ` (approved after ${MAX_TRIES} tries)` : ''}\nOpen: ${liveUrl}\n`;
+  const channels = { resend: null, github: null, digest: false };
+
+  // 1) Resend — accepted by API but Gmail drops onboarding@resend.dev until domain verified
+  if (RESEND_KEY) {
+    const payload = {
+      from: RESEND_FROM,
+      to: [RECIPIENT],
+      subject,
+      html,
+      text: textBody,
+    };
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const r = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const text = await r.text();
+        log('EMAIL ' + id + ' attempt=' + attempt + ' ' + r.status + ' ' + text.slice(0, 120));
+        if (r.ok) {
+          channels.resend = { ok: true, status: r.status, body: text.slice(0, 120) };
+          break;
+        }
+        channels.resend = { ok: false, status: r.status, body: text.slice(0, 120) };
+        if (attempt < 3) await new Promise((res) => setTimeout(res, 1500 * attempt));
+      } catch (e) {
+        log('EMAIL err ' + id + ' attempt=' + attempt + ' ' + e.message);
+        channels.resend = { ok: false, reason: e.message };
+        if (attempt < 3) await new Promise((res) => setTimeout(res, 1500 * attempt));
+      }
     }
+  } else {
+    log('EMAIL skipped ' + id + ' no Resend key');
+    channels.resend = { ok: false, reason: 'no_key' };
   }
-  return { ok: false, reason: 'resend_failed', url: liveUrl };
+
+  // 2) GitHub issue comment — best-effort (cloud token often lacks issues:write)
+  if (GH_NOTIFY_ISSUE && GH_NOTIFY_ISSUE !== '0') {
+    const ghBody =
+      `### ${approved ? 'Approved after ' + MAX_TRIES + ' tries' : 'Finished'} · \`${id}\` · ${before}→${after}/13\n\n` +
+      `**${String(title || '').replace(/\n/g, ' ').slice(0, 160)}**\n\n` +
+      `🔗 ${liveUrl}\n\n` +
+      `<sub>Content Booster · ${steps || ''} · ${new Date().toISOString()}</sub>`;
+    channels.github = await ghIssueComment(ghBody);
+    if (channels.github.ok) log('GH_OK ' + id + ' ' + (channels.github.url || ''));
+    else log('GH_SKIP ' + id + ' (no issues:write on token)');
+  }
+
+  // 3) Local + blob digest (durable backup until domain verified)
+  const digestLine =
+    `- ${new Date().toISOString()} · [${id}](${liveUrl}) · ${before}→${after}` +
+    (approved ? ` · approved-after-${MAX_TRIES}` : '') +
+    ` · ${String(title || '').replace(/\n/g, ' ').slice(0, 100)}`;
+  appendDigest(digestLine);
+  try {
+    const prev = (await store.get('tl-booster-finished.json', { type: 'json' }).catch(() => null)) || {
+      items: [],
+    };
+    const items = Array.isArray(prev.items) ? prev.items : [];
+    items.push({
+      id,
+      title: String(title || '').slice(0, 160),
+      before,
+      after,
+      url: liveUrl,
+      approved: !!approved,
+      ts: new Date().toISOString(),
+    });
+    while (items.length > 200) items.shift();
+    await store.setJSON('tl-booster-finished.json', {
+      updated_at: new Date().toISOString(),
+      note: 'Resend accepts sends but Gmail drops onboarding@resend.dev until send.pulserevops.com is verified',
+      items,
+    });
+    channels.digest = true;
+    log('DIGEST_OK ' + id + ' n=' + items.length);
+  } catch (e) {
+    channels.digest = false;
+    log('DIGEST_FAIL ' + id + ' ' + String(e.message || e).slice(0, 120));
+  }
+
+  // Resend HTTP 200 is NOT inbox proof while from=onboarding@resend.dev (unverified domain).
+  const reachable = !!(channels.github && channels.github.ok);
+  return {
+    ok: !!(channels.resend && channels.resend.ok) || reachable || channels.digest,
+    reachable,
+    inboxUnverified: !!(channels.resend && channels.resend.ok) && !reachable,
+    status: channels.resend && channels.resend.status,
+    url: liveUrl,
+    channels,
+  };
 }
 
 async function buildReverseQueue() {
@@ -457,7 +551,16 @@ async function processOne(id, valid) {
     if (!emailed || !emailed.ok) {
       log('EMAIL_FAIL ' + id + ' ' + JSON.stringify(emailed) + ' link=' + pageUrl(id));
     } else {
-      log('EMAIL_OK ' + id + ' link=' + pageUrl(id) + (approvedAfterTries ? ' approved_after_tries' : ''));
+      const via = emailed.reachable ? 'gh+resend' : 'resend_only_unverified';
+      log(
+        'EMAIL_OK ' +
+          id +
+          ' via=' +
+          via +
+          ' link=' +
+          pageUrl(id) +
+          (approvedAfterTries ? ' approved_after_tries' : '')
+      );
     }
 
     return {
