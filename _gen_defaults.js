@@ -14,6 +14,6 @@ const AQ_CAP = parseInt(process.env.DEF_AQ_CAP || '24', 10), LIMIT = parseInt(pr
   pills.forEach(p => { byP[p].sort((a, b) => (b.ts || 0) - (a.ts || 0)); if (p === 'aq') byP[p].splice(AQ_CAP); });
   const out = []; for (let lap = 0; lap < 40 && out.length < LIMIT; lap++) { let added = false; for (const p of pills) { if (byP[p][lap]) { out.push(byP[p][lap]); added = true; } } if (!added) break; }
   const arr = out.slice(0, LIMIT).map(e => ({ id: e.id, img: e.img, question: String(e.question).replace(/"/g, '”').slice(0, 110) }));
-  fs.writeFileSync('C:/Users/koryj/website/_defaults.json', JSON.stringify(arr));
+  fs.writeFileSync('/workspace/_defaults.json', JSON.stringify(arr));
   console.log('flux covers:', es.length, '| defaults:', arr.length, '| pillars:', pills.length, '| aq:', arr.filter(x => /^aq/.test(x.id)).length);
 })().catch(e => { console.log('ERR', e.message); process.exit(1); });
