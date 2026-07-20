@@ -6,19 +6,15 @@ Fix / rewrite low-value URL content until it clears ALL three gates:
   2) Quality     = 10/10
   3) Rubric      ≥ 12/13
 
-Primary LLM: DeepSeek (OpenAI-compatible)
-Fallback LLM: OpenAI gpt-4o
+LLM: DeepSeek ONLY (api.deepseek.com). OpenAI is off on this machine.
+  Optional emergency fallback: OPENAI_FALLBACK=1 + OPENAI_API_KEY
 
 CSV columns expected (extras ignored):
   url, title, question, answer
 
 Usage:
-  export DEEPSEEK_API_KEY=...          # or ds1
-  export OPENAI_API_KEY=...            # optional fallback
-  python3 _fix_urls_quality.py low_value_urls.csv -o high_value_urls.csv
-
-  # load keys from drip env file:
-  python3 _fix_urls_quality.py low_value_urls.csv --env /tmp/aq-drip.env
+  export DEEPSEEK_API_KEY=...          # or ds1 from /tmp/aq-drip.env
+  python3 _fix_urls_quality.py low_value_urls.csv -o high_value_urls.csv --env /tmp/aq-drip.env
 """
 
 from __future__ import annotations
