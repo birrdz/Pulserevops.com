@@ -80,7 +80,7 @@ const DEFAULTS = [
   {
     id: 'deepseek-content-booster',
     name: 'DeepSeek Content Booster',
-    port: 7970,
+    port: 7988,
     script: '_deepseek_content_booster_server.js',
     env: { CONTENT_WRITER_ENGINE: 'deepseek', DS_ONLY: '1', CLAUDE_ONLY: '0', NO_DS: '0' },
   },

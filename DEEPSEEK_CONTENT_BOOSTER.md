@@ -1,6 +1,6 @@
 # DeepSeek Content Booster
 
-Standalone localhost duplicate on `http://localhost:7970/`. It does not modify the 7950 manager, its worker files, or image pipelines.
+Standalone localhost duplicate on `http://localhost:7988/`. It does not modify the 7950 manager, its worker files, or image pipelines.
 
 ## Quality-ladder behavior
 

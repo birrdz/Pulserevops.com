@@ -2,7 +2,7 @@ param([switch]$NoBrowser)
 
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
-$Port = 7970
+$Port = 7988
 
 $existing = Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue |
   Select-Object -ExpandProperty OwningProcess -First 1
@@ -23,9 +23,9 @@ if (-not $existing) {
 
 try {
   $status = Invoke-RestMethod -TimeoutSec 3 -Uri "http://127.0.0.1:$Port/api/status"
-  if (-not $status.ok) { throw 'Port 7970 is not the DeepSeek Content Booster.' }
+  if (-not $status.ok) { throw 'Port 7988 is not the DeepSeek Content Booster.' }
 } catch {
-  throw "DeepSeek Content Booster failed to start on port 7970. Check _local-sites-state\deepseek-booster.err.log. $($_.Exception.Message)"
+  throw "DeepSeek Content Booster failed to start on port 7988. Check _local-sites-state\deepseek-booster.err.log. $($_.Exception.Message)"
 }
 
 if (-not $NoBrowser) {

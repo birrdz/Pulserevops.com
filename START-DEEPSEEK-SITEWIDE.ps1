@@ -14,7 +14,7 @@ if (-not $key) {
 }
 if (-not $key) { $key = '4444' }
 
-$uri = 'http://127.0.0.1:7970/api/start'
+$uri = 'http://127.0.0.1:7988/api/start'
 $payload = @{
   key = $key
   pillar = 'ALL'
@@ -35,4 +35,4 @@ try {
   }
 }
 
-Start-Process 'http://localhost:7970/'
+Start-Process 'http://localhost:7988/'
