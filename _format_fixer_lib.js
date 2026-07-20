@@ -50,6 +50,8 @@ function directAnswerNeedsSlim(body) {
     const inner = directAnswerInner(b);
     if (inner && /##\s+\S/.test(inner)) return true;
   }
+  // "## What is X? Body continues…" — whole section stuck in the heading line
+  if (/^##\s+.{12,180}\?\s+[A-Z“"*\d]/m.test(b)) return true;
   const para = directAnswerTextOnly(b);
   if (!para) return /^##\s+Direct\s+Answer/im.test(b);
   const sentences = (para.match(/[.!?](?:\s|$)/g) || []).length;
@@ -85,10 +87,63 @@ function splitSentences(text) {
 }
 
 /**
+ * Split "## Question title? Body starts here…" onto separate lines.
+ * Without this, the renderer emits one giant <h2> and CSS uppercases the essay in gold.
+ */
+function splitH2TitleFromBody(body) {
+  const lines = String(body || '').split('\n');
+  const out = [];
+  for (const line of lines) {
+    if (!/^##\s+/.test(line) || line.startsWith('```')) {
+      out.push(line);
+      continue;
+    }
+    const rest = line.replace(/^##\s+/, '');
+    // Keep canonical short heads intact
+    if (/^(Direct Answer|FAQ|Sources|Related on PULSE)\s*$/i.test(rest.trim())) {
+      out.push(line);
+      continue;
+    }
+    // "## Direct Answer **Yes**…" handled earlier; if still present, split after the head
+    const daM = rest.match(/^(Direct Answer)\s+(.+)$/i);
+    if (daM) {
+      out.push('## ' + daM[1]);
+      out.push('');
+      out.push(daM[2].trim());
+      continue;
+    }
+    // Question-style depth heads (most tl Q&A sections)
+    const qm = rest.match(/^(.{12,180}\?)\s+([A-Z“"*\d].+)$/);
+    if (qm) {
+      let title = qm[1].trim();
+      let prose = qm[2].trim();
+      // Don't leave a dangling fence opener on the prose line
+      const fenceM = prose.match(/^(.*?)(\s*```(?:mermaid)?\s*)$/);
+      if (fenceM && fenceM[1].trim()) {
+        prose = fenceM[1].trim();
+        out.push('## ' + title);
+        out.push('');
+        out.push(prose);
+        out.push('');
+        out.push(fenceM[2].trim());
+        continue;
+      }
+      out.push('## ' + title);
+      out.push('');
+      out.push(prose);
+      continue;
+    }
+    out.push(line);
+  }
+  return out.join('\n');
+}
+
+/**
  * Repair mashed Direct Answer walls:
  * 1) Ensure newline after ## Direct Answer
  * 2) Explode inline ## depth headings that were swallowed into the DA paragraph
- * 3) Slim DA prose to 2–3 sentences (~40–80 words; keep ≥140 chars / ≥2 sents for rubric)
+ * 3) Split "## Title? Body…" so H2 CSS doesn't uppercase the essay
+ * 4) Slim DA prose to 2–3 sentences (~40–80 words; keep ≥140 chars / ≥2 sents for rubric)
  */
 function repairSlimDirectAnswer(body) {
   let b = String(body || '').replace(/\r\n/g, '\n');
@@ -114,6 +169,10 @@ function repairSlimDirectAnswer(body) {
     });
   }
   b = parts.join('');
+
+  // "## What is X? Body continues on same line…" → real H2 + paragraph
+  // (otherwise .body h2 { text-transform:uppercase } paints the whole essay gold)
+  b = splitH2TitleFromBody(b);
 
   // Slim only the Direct Answer block prose
   b = b.replace(/^(##\s+Direct\s+Answer\n+)([\s\S]*?)(?=\n##\s|$)/im, (full, h, block) => {
@@ -438,6 +497,7 @@ module.exports = {
   directAnswerTextOnly,
   directAnswerNeedsSlim,
   splitSentences,
+  splitH2TitleFromBody,
   repairSlimDirectAnswer,
   repairBrokenDirectAnswer,
   ensureDirectAnswerText,
