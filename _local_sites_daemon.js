@@ -77,6 +77,13 @@ const DEFAULTS = [
   { id: 'machine-7901', name: 'Machine worker 7901', port: 7901, discover: true },
   { id: 'machine-7902', name: 'Machine worker 7902', port: 7902, discover: true },
   { id: 'local-app-7931', name: 'Local app 7931', port: 7931, discover: true },
+  {
+    id: 'deepseek-content-booster',
+    name: 'DeepSeek Content Booster',
+    port: 3333,
+    script: '_deepseek_content_booster_server.js',
+    env: { CONTENT_WRITER_ENGINE: 'deepseek', DS_ONLY: '1', CLAUDE_ONLY: '0', NO_DS: '0' },
+  },
   { id: 'pulse-control', name: "Kory's Pulse Control Panel", port: 8904, script: 'dashboard_server.js' },
   { id: 'baton-picker', name: 'Baton Picker', port: 7802, script: 'baton_picker.js' },
   { id: 'fixer', name: "Kory's Fixer", port: 8905, script: 'fixer_panel.js' },

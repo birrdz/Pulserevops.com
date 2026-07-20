@@ -17,7 +17,7 @@ const { makeDeepSeekCandidate, candidateInvariantIssues } = require('./_deepseek
 const { enforceWriterVisualLock } = require('./_visual_lock_law');
 
 const WD = __dirname;
-const PORT = Number(process.env.DEEPSEEK_BOOSTER_PORT || 333);
+const PORT = Number(process.env.DEEPSEEK_BOOSTER_PORT || 3333);
 const PASS = process.env.DEEPSEEK_BOOSTER_KEY || '4444';
 const STATE_FILE = path.join(WD, '_deepseek_booster_state.json');
 const LOG_FILE = path.join(WD, '_deepseek_booster_log.jsonl');
@@ -53,6 +53,7 @@ function freshState() {
     autoWaves: false,
     pods: 0,
     perPod: 0,
+    allUrls: false,
     total: 0,
     processed: 0,
     passed: 0,
@@ -67,8 +68,19 @@ function freshState() {
 }
 
 let state = freshState();
+let recoveredRun = null;
 try {
   const prior = JSON.parse(fs.readFileSync(STATE_FILE, 'utf8'));
+  if (prior.running && prior.pillar) {
+    recoveredRun = {
+      pillar: prior.pillar,
+      pods: prior.pods || 1,
+      perPod: prior.allUrls ? 0 : (prior.perPod || 250),
+      wave: prior.wave || 1,
+      stagedOnly: Number(prior.wave || 1) > 1,
+      autoWaves: prior.autoWaves !== false,
+    };
+  }
   state = { ...freshState(), ...prior, running: false, active: [], note: prior.running ? 'recovered after interrupted run' : (prior.note || 'idle') };
 } catch (_) {}
 let stopRequested = false;
@@ -617,6 +629,7 @@ async function launch({ pillar, pods, perPod, stagedOnly = false, wave = 1, auto
     autoWaves,
     pods,
     perPod,
+    allUrls: requestedPerPod === 0,
     total: entries.length,
     startedAt: new Date().toISOString(),
     note: `Wave ${wave} · one level per URL · sub-13 stays staged locally`,
@@ -716,4 +729,13 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, '127.0.0.1', () => {
   console.log(`DeepSeek Content Booster: http://localhost:${PORT}/`);
+  if (recoveredRun) {
+    setTimeout(() => {
+      launch(recoveredRun).catch(error => {
+        state.note = 'Automatic resume failed: ' + error.message;
+        saveState();
+        log('resume-error', { message: error.message });
+      });
+    }, 2000);
+  }
 });

@@ -2,7 +2,7 @@ param([switch]$NoBrowser)
 
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
-$Port = 333
+$Port = 3333
 
 function Test-BoosterPort([int]$Candidate) {
   try {
@@ -15,7 +15,7 @@ function Test-BoosterPort([int]$Candidate) {
 
 if (-not (Test-BoosterPort $Port)) {
   $listener = Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue
-  if ($listener) { throw 'Port 333 is already used by another program.' }
+  if ($listener) { throw 'Port 3333 is already used by another program.' }
   $stateDir = Join-Path $Root '_local-sites-state'
   New-Item -ItemType Directory -Force -Path $stateDir | Out-Null
   $env:DEEPSEEK_BOOSTER_PORT = [string]$Port
