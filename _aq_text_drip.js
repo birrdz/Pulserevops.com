@@ -18,11 +18,33 @@ const { gradeEntry } = require('/workspace/netlify/functions/lib/grade-entry');
 const { sanitizeMermaid } = require('/workspace/_mermaid_sanitize');
 const { isComparisonEntry } = require('/workspace/netlify/functions/lib/vs-expert-verify');
 
+// Optional local env file (never commit). Written by cloud agent from Netlify env.
+try {
+  const envPath = process.env.AQ_DRIP_ENV || '/tmp/aq-drip.env';
+  if (fs.existsSync(envPath)) {
+    for (const line of fs.readFileSync(envPath, 'utf8').split(/\n/)) {
+      const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/);
+      if (!m) continue;
+      let v = m[2].trim();
+      if (v.startsWith('"') && v.endsWith('"')) {
+        try { v = JSON.parse(v); } catch { v = v.slice(1, -1); }
+      } else if (v.startsWith("'") && v.endsWith("'")) {
+        // shell/shlex single-quoted values
+        v = v.slice(1, -1).replace(/'\\''/g, "'");
+      }
+      if (!process.env[m[1]]) process.env[m[1]] = v;
+    }
+  }
+} catch (_e) {}
+
 const SITE_ID = 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
 const STATE_PATH = '/tmp/aq-text-drip-state.json';
 const LOG_PATH = '/tmp/aq-text-drip.log';
 const INTERVAL_MS = Number(process.env.INTERVAL_MS || 2 * 60 * 1000);
 const ONCE = process.env.ONCE === '1';
+const RECIPIENT = process.env.ALERT_TO || 'koryjordanwhite@gmail.com';
+const RESEND_KEY = process.env.resendapikey || process.env.RESEND_API_KEY || process.env.RESENDAPIKEY || '';
+const RESEND_FROM = process.env.ALERT_FROM_EMAIL || 'PULSE Engine <onboarding@resend.dev>';
 
 const cfg = require('/home/ubuntu/.config/netlify/config.json');
 const token = Object.values(cfg.users || {})[0].auth.token;
@@ -405,6 +427,55 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
+async function emailOwner(subject, html) {
+  if (!RESEND_KEY) {
+    log('EMAIL skip — no Resend key in env');
+    return { ok: false, reason: 'no_key' };
+  }
+  try {
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from: RESEND_FROM, to: [RECIPIENT], subject, html }),
+    });
+    const text = await r.text();
+    log('EMAIL resend ' + r.status + ' ' + text.slice(0, 160));
+    return { ok: r.ok, status: r.status, body: text.slice(0, 300) };
+  } catch (e) {
+    log('EMAIL error ' + String(e.message || e));
+    return { ok: false, reason: String(e.message || e) };
+  }
+}
+
+function completionEmailHtml(st, fails) {
+  const fixed = (st.fixed || []).length;
+  const done = (st.done || []).length;
+  const errs = (st.errors || []).length;
+  const failList = (fails || [])
+    .slice(0, 25)
+    .map((f) => `<li><code>${f.id}</code> — ${(f.failed || []).join(', ')} (score ${f.score})</li>`)
+    .join('');
+  return `
+  <div style="font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.5;color:#111">
+    <h2 style="margin:0 0 12px">Aquariums text drip complete</h2>
+    <p>Book Summaries text pass was already done. Aquariums drip finished its queue.</p>
+    <ul>
+      <li><b>Pillar:</b> Aquariums (<code>aq</code>)</li>
+      <li><b>Queue processed:</b> ${done} / ${st.queue ? st.queue.length : '?'}</li>
+      <li><b>Text fixes written:</b> ${fixed}</li>
+      <li><b>Errors:</b> ${errs}</li>
+      <li><b>Final remaining fails:</b> ${(fails || []).length}</li>
+      <li><b>Images:</b> untouched (owner pass)</li>
+    </ul>
+    ${
+      (fails || []).length
+        ? `<p><b>Still failing text gate:</b></p><ul>${failList}</ul>`
+        : `<p><b>Text gate: clean.</b> All audited aquarium fails in this drip queue now pass.</p>`
+    }
+    <p style="color:#666;font-size:12px">Sent by <code>_aq_text_drip.js</code> via Resend · ${new Date().toISOString()}</p>
+  </div>`;
+}
+
 async function main() {
   let st = loadState();
   if (!st.queue) {
@@ -456,17 +527,33 @@ async function main() {
     log('Queue drained — final audit…');
     const { fails } = await buildFailQueue();
     st.final_fails = fails;
-    st.status = fails.length ? 'needs_retry' : 'complete';
-    if (fails.length) {
+    if (fails.length && !st.retried_once) {
       // re-queue stubborn fails once
-      const retry = fails.map((f) => f.id).filter((id) => !st.errors.some((e) => e.id === id && e.error.includes('image')));
+      const retry = fails.map((f) => f.id).filter((id) => !st.errors.some((e) => e.id === id && String(e.error || '').includes('image')));
       st.queue = st.queue.concat(retry);
+      st.retried_once = true;
       st.status = 'dripping';
-      log(`Re-queued ${retry.length} remaining fails`);
+      saveState(st);
+      log(`Re-queued ${retry.length} remaining fails for one retry pass`);
+      if (!ONCE && retry.length) {
+        log(`Sleeping ${INTERVAL_MS}ms before retry pass…`);
+        await sleep(INTERVAL_MS);
+        return main(); // continue drip on extended queue
+      }
     } else {
-      log('AQUARIUMS TEXT PASS COMPLETE');
+      st.status = fails.length ? 'needs_retry' : 'complete';
+      saveState(st);
+      log(fails.length ? 'AQUARIUMS DRIP DONE with remaining fails' : 'AQUARIUMS TEXT PASS COMPLETE');
+      if (!st.emailed_at) {
+        const subject = fails.length
+          ? `Aquariums drip done — ${fails.length} text fails remain`
+          : 'Aquariums text drip complete — clean';
+        const mailed = await emailOwner(subject, completionEmailHtml(st, fails));
+        st.emailed_at = Date.now();
+        st.email_result = mailed;
+        saveState(st);
+      }
     }
-    saveState(st);
   }
 }
 
