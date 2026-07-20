@@ -166,10 +166,20 @@ function firstProductImg(body) {
 
 function pickHeroUrl(body, idxImg, id, skipHero) {
   if (skipHero) return '';
-  // Owner: tl never uses title-baked /assets/qa/tl*.jpg — curated cro-cover only.
+  // Owner: tl never uses title-baked /assets/qa/<id>.jpg flux faces.
+  // Face card === hero OK; rotate curated pool (cro-cover + pool-tl + kit faces).
   if (/^tl\d+$/i.test(String(id || ''))) {
-    const idx = idxImg && String(idxImg).trim();
-    if (idx && /^\/assets\/cro-cover-[1-6]\.jpg(?:\?|$)/i.test(idx)) return idx.split('?')[0];
+    const idx = idxImg && String(idxImg).trim().split('?')[0];
+    const legacyFace = id && idx && idx.toLowerCase() === ('/assets/qa/' + String(id).toLowerCase() + '.jpg');
+    const versionedFlux = id && idx && new RegExp('^/assets/qa/' + String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '-v\\d+\\.jpg$', 'i').test(idx);
+    if (idx && !legacyFace && !versionedFlux && (
+      /^\/assets\/cro-cover-[1-6]\.jpg$/i.test(idx) ||
+      /^\/assets\/qa\/pool-tl-\d+\.jpg$/i.test(idx) ||
+      /^\/assets\/qa\/tl\d+-b\d+\.jpg$/i.test(idx) ||
+      /^\/assets\/qa\//i.test(idx)
+    )) {
+      return idx;
+    }
     const n = Math.abs(parseInt(String(id).replace(/\D/g, ''), 10) || 0);
     return '/assets/cro-cover-' + ((n % 6) + 1) + '.jpg';
   }

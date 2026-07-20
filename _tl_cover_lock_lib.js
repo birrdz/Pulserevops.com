@@ -1,30 +1,67 @@
 /**
- * CRO/tl cover lock — owner hate title-baked flux faces.
- * Always use curated /assets/cro-cover-1..6.jpg (live). Never re-bake.
+ * CRO/tl cover lock — curated face/hero pool (50), rotate by id.
+ * Face card and hero MAY match / dupe (owner 2026-07-20).
+ * Never re-bake title-flux /assets/qa/tlNNNN.jpg faces.
  */
 'use strict';
 
-const SAFE_COVERS = 6; // cro-cover-7..10 are 404 on prod
+const fs = require('fs');
+const path = require('path');
 
+const SAFE_COVERS = 6; // cro-cover-1..6 fallback
+const FACES_FILE = process.env.TL_CRO_FACES || path.join(__dirname, '_tl_cro_faces50.json');
+
+let _faces = null;
+function loadFaces() {
+  if (_faces) return _faces;
+  try {
+    const raw = JSON.parse(fs.readFileSync(FACES_FILE, 'utf8'));
+    const list = (raw.faces || raw.available || raw.pool || [])
+      .map((x) => (typeof x === 'string' ? x : x && x.img))
+      .filter((u) => u && /^\/assets\//i.test(u));
+    if (list.length >= 10) {
+      _faces = list;
+      return _faces;
+    }
+  } catch (_e) {}
+  _faces = [];
+  for (let i = 1; i <= SAFE_COVERS; i++) _faces.push('/assets/cro-cover-' + i + '.jpg');
+  return _faces;
+}
+
+function idNum(id) {
+  return Math.abs(parseInt(String(id).replace(/\D/g, ''), 10) || 0);
+}
+
+/** Rotating face/hero for tl — same URL OK for both slots. */
 function croCoverForId(id) {
-  const n = Math.abs(parseInt(String(id).replace(/\D/g, ''), 10) || 0);
-  return '/assets/cro-cover-' + ((n % SAFE_COVERS) + 1) + '.jpg';
+  const faces = loadFaces();
+  const n = idNum(id);
+  return faces[n % faces.length];
+}
+
+/** Face + hero are the same image (explicit dupe allowed). */
+function faceAndHeroForId(id) {
+  const cover = croCoverForId(id);
+  return { face: cover, hero: cover, img: cover };
 }
 
 function stripPollinationsMd(body) {
   return String(body || '').replace(/!\[[^\]]*\]\(https?:\/\/image\.pollinations\.ai\/[^)]+\)\s*/gi, '');
 }
 
-/** Absolute or site-relative cro-cover URL → relative path. */
+/** Accept cro-cover OR any /assets/qa/ pool face from the 50 list. */
 function normalizeCroCover(url) {
-  const s = String(url || '');
+  const s = String(url || '').split('?')[0];
   const m = s.match(/\/assets\/cro-cover-([1-6])\.jpg/i);
-  return m ? '/assets/cro-cover-' + m[1] + '.jpg' : '';
+  if (m) return '/assets/cro-cover-' + m[1] + '.jpg';
+  const faces = loadFaces();
+  if (faces.includes(s)) return s;
+  return '';
 }
 
 /**
- * Patch answer blob fields to locked curated cover.
- * Does not rewrite prose except stripping live pollinations md images.
+ * Patch answer blob fields to locked curated face/hero (may be identical).
  */
 function lockTlAnswerEntry(entry, id) {
   const cover = croCoverForId(id);
@@ -33,7 +70,8 @@ function lockTlAnswerEntry(entry, id) {
   const out = Object.assign({}, entry, {
     img: cover,
     cover,
-    cover_src: 'cro-cover-locked',
+    face: cover, // face card == hero (dupe OK)
+    cover_src: 'cro-face-pool',
     face_title_baked: false,
     face_locked: true,
     face_lock_at: Date.now(),
@@ -43,13 +81,12 @@ function lockTlAnswerEntry(entry, id) {
   return { entry: out, cover, bodyChanged: nextBody !== prev };
 }
 
-/** Patch one index row in place. */
 function lockTlIndexRow(row, id) {
   if (!row) return null;
   const cover = croCoverForId(id || row.id);
   return Object.assign({}, row, {
     img: cover,
-    cover_src: 'cro-cover-locked',
+    cover_src: 'cro-face-pool',
     face_title_baked: false,
   });
 }
@@ -58,9 +95,17 @@ function isTlId(id) {
   return /^tl\d+$/i.test(String(id || ''));
 }
 
+function facePoolSize() {
+  return loadFaces().length;
+}
+
 module.exports = {
   SAFE_COVERS,
+  FACES_FILE,
+  loadFaces,
+  facePoolSize,
   croCoverForId,
+  faceAndHeroForId,
   stripPollinationsMd,
   normalizeCroCover,
   lockTlAnswerEntry,

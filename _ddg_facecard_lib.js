@@ -239,7 +239,9 @@ const _bo = ms => new Promise(r => setTimeout(r, ms));
 // Hard-block ONLY within the same Q&A page (same URL or near-identical pHash on one page).
 // Mosaic/list pages dedupe at render time so the same image never shows twice on one load.
 const REG_F = WD + '/_img_registry.json';
-const REG_HAMMING = 8;
+// Owner 2026-07-20: CRO/tl may cross-dupe pool images. Set ALLOW_IMAGE_DUPES=0 to restore strict pHash rejects.
+const ALLOW_IMAGE_DUPES = process.env.ALLOW_IMAGE_DUPES !== '0';
+const REG_HAMMING = ALLOW_IMAGE_DUPES ? 0 : 8;
 let _reg = null, _regDirty = 0, _backfilled = false;
 function loadReg() { if (_reg) return _reg; try { _reg = JSON.parse(fs.readFileSync(REG_F, 'utf8')); } catch (e) { _reg = { entries: [] }; } if (!Array.isArray(_reg.entries)) _reg.entries = []; return _reg; }
 function flushReg() { if (!_reg) return; _regDirty = 0; try { fs.writeFileSync(REG_F, JSON.stringify(_reg)); } catch (e) {} }
