@@ -39,6 +39,129 @@ function directAnswerFull(body) {
   return para.length >= 140 && sentences >= 2;
 }
 
+/** Owner: DA must be short (2–3 sentences). Fat / mashed DA counts as broken. */
+function directAnswerNeedsSlim(body) {
+  const b = String(body || '');
+  // "## Direct Answer **Yes**…" — heading not on its own line (renderer shows raw ##)
+  // Only horizontal whitespace — \s would also match a correct blank line after the heading.
+  if (/^##\s+Direct\s+Answer[ \t]+\S/im.test(b)) return true;
+  // Depth H2s mashed into the DA paragraph
+  if (/##\s+Direct\s+Answer[\s\S]{0,12000}?##\s+(?!Direct\s+Answer|FAQ|Sources|Related)/i.test(b)) {
+    const inner = directAnswerInner(b);
+    if (inner && /##\s+\S/.test(inner)) return true;
+  }
+  const para = directAnswerTextOnly(b);
+  if (!para) return /^##\s+Direct\s+Answer/im.test(b);
+  const sentences = (para.match(/[.!?](?:\s|$)/g) || []).length;
+  if (para.length > 420 || sentences > 3) return true;
+  const words = para.split(/\s+/).filter(Boolean).length;
+  return words > 70;
+}
+
+/** Split prose into sentences without mangling decimals / URLs. */
+function splitSentences(text) {
+  const t = String(text || '').replace(/\s+/g, ' ').trim();
+  if (!t) return [];
+  const parts = [];
+  let buf = '';
+  for (let i = 0; i < t.length; i++) {
+    const ch = t[i];
+    buf += ch;
+    if (/[.!?]/.test(ch)) {
+      const next = t[i + 1];
+      const prev = t[i - 1];
+      if (ch === '.' && prev && /\d/.test(prev) && next && /\d/.test(next)) continue;
+      if (ch === '.' && prev && /[A-Z]/.test(prev) && next && /[A-Z]/.test(next)) continue;
+      if (next == null || /\s/.test(next) || /["')\]]/.test(next)) {
+        const s = buf.trim();
+        if (s) parts.push(s);
+        buf = '';
+        while (i + 1 < t.length && /\s/.test(t[i + 1])) i++;
+      }
+    }
+  }
+  if (buf.trim()) parts.push(buf.trim());
+  return parts;
+}
+
+/**
+ * Repair mashed Direct Answer walls:
+ * 1) Ensure newline after ## Direct Answer
+ * 2) Explode inline ## depth headings that were swallowed into the DA paragraph
+ * 3) Slim DA prose to 2–3 sentences (~40–80 words; keep ≥140 chars / ≥2 sents for rubric)
+ */
+function repairSlimDirectAnswer(body) {
+  let b = String(body || '').replace(/\r\n/g, '\n');
+  if (!/^##\s+Direct\s+Answer/im.test(b)) return b;
+
+  // Normalize heading variants
+  b = b
+    .replace(/^###\s+Direct\s+Answer/im, '## Direct Answer')
+    .replace(/^##\s+Quick\s+Answer/im, '## Direct Answer')
+    .replace(/^###\s+Quick\s+Answer/im, '## Direct Answer');
+
+  // "## Direct Answer **Yes**…" → "## Direct Answer\n\n**Yes**…"
+  b = b.replace(/^##\s+Direct\s+Answer[ \t]+(?=\S)/im, '## Direct Answer\n\n');
+
+  // Explode inline H2s (not inside fences): "…text. ## What is…" → proper section breaks
+  const parts = b.split(/(```[\s\S]*?```)/g);
+  for (let i = 0; i < parts.length; i++) {
+    if (parts[i].startsWith('```')) continue;
+    parts[i] = parts[i].replace(/([^\n])[ \t]*(##\s+[^\n#]+)/g, (m, prev, h2) => {
+      const title = h2.replace(/^##\s+/, '').trim();
+      if (!title) return m;
+      return prev + '\n\n## ' + title + '\n\n';
+    });
+  }
+  b = parts.join('');
+
+  // Slim only the Direct Answer block prose
+  b = b.replace(/^(##\s+Direct\s+Answer\n+)([\s\S]*?)(?=\n##\s|$)/im, (full, h, block) => {
+    const mediaRe = /(\n(?:!\[[^\]]*\]\([^)]+\)|```[\s\S]*?```)\s*)/;
+    const mediaM = block.match(mediaRe);
+    const firstMediaAt = mediaM && mediaM.index > 0 ? mediaM.index : -1;
+    const proseRaw = firstMediaAt >= 0 ? block.slice(0, firstMediaAt) : block;
+    const tail = firstMediaAt >= 0 ? block.slice(firstMediaAt) : '';
+    const plain = proseRaw
+      .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
+      .replace(/```[\s\S]*?```/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const sents = splitSentences(plain);
+    const wordN = (t) => String(t || '').split(/\s+/).filter(Boolean).length;
+    // Already tight enough (gold: ~40–60 words, 2–3 sentences)
+    if (sents.length <= 3 && plain.length <= 420 && wordN(plain) <= 70) {
+      return h.replace(/\n+$/, '\n\n') + plain + '\n' + (tail ? (tail.startsWith('\n') ? tail : '\n' + tail) : '');
+    }
+    let keep = sents.slice(0, Math.min(3, sents.length));
+    let joined = keep.join(' ');
+    // Prefer 2 sentences when still bloated
+    while ((wordN(joined) > 65 || joined.length > 420) && keep.length > 2) {
+      keep = keep.slice(0, keep.length - 1);
+      joined = keep.join(' ');
+    }
+    if (keep.length < 2 && sents.length >= 2) {
+      keep = sents.slice(0, 2);
+      joined = keep.join(' ');
+    }
+    // Rubric floor: ≥140 chars / ≥2 sentences when available
+    while (joined.length < 140 && keep.length < sents.length) {
+      keep = sents.slice(0, keep.length + 1);
+      joined = keep.join(' ');
+    }
+    if (!joined) return full;
+    if (!/\*\*[^*]+\*\*/.test(joined) && /\*\*[^*]+\*\*/.test(plain)) {
+      const bold = plain.match(/\*\*([^*]+)\*\*/);
+      if (bold && !joined.includes(bold[1])) {
+        joined = joined.replace(bold[1], '**' + bold[1] + '**');
+      }
+    }
+    return h.replace(/\n+$/, '\n\n') + joined + '\n' + (tail ? (tail.startsWith('\n') ? tail : '\n' + tail) : '');
+  });
+
+  return b.replace(/\n{3,}/g, '\n\n').trim() + '\n';
+}
+
 /** Old broken passes put mermaid/code inside ## Direct Answer — strip and relocate orphans. */
 function repairBrokenDirectAnswer(body) {
   let b = String(body || '');
@@ -229,10 +352,20 @@ async function formatFixEntry(id, title, body, opts) {
   const original = String(body || '');
   const steps = [];
   let b = original;
+  // Owner 2026-07-20: always repair mashed / obese Direct Answers before anything else
+  if (directAnswerNeedsSlim(b) || !directAnswerFull(b)) {
+    const slimmed = repairSlimDirectAnswer(b);
+    if (slimmed !== b) {
+      b = slimmed;
+      steps.push('da-slim');
+    }
+  }
   const auditOpts = { valid, sliceKeys: opts.sliceKeys, title, qaGoldOutline: opts.qaGoldOutline !== false && appliesQaGold(id, b, { title }) };
-  const before = auditForFix(id, b, auditOpts);
-  if (before.pass) {
-    return { body: b, steps: ['already-pass'], before, after: before, pass: true, skipped: true };
+  const before = auditForFix(id, original, auditOpts);
+  let afterPre = auditForFix(id, b, auditOpts);
+  if (afterPre.pass && !directAnswerNeedsSlim(b)) {
+    b = preserveImages(original, b, { id, title, qaGold: auditOpts.qaGoldOutline });
+    return { body: b, steps: steps.length ? steps : ['already-pass'], before, after: afterPre, pass: true, skipped: !steps.length };
   }
 
   const target = (opts.pillarOf && opts.pillarOf(id) === 'q') ? 8 : 25;
@@ -283,6 +416,16 @@ async function formatFixEntry(id, title, body, opts) {
     after = auditForFix(id, b, auditOpts);
   }
 
+  // Final DA slim — DeepSeek often re-bloats the lead
+  if (directAnswerNeedsSlim(b) || !directAnswerFull(b)) {
+    const slimmed = repairSlimDirectAnswer(b);
+    if (slimmed !== b) {
+      b = preserveImages(original, slimmed, { id, title, qaGold: auditOpts.qaGoldOutline });
+      steps.push('da-slim-final');
+      after = auditForFix(id, b, auditOpts);
+    }
+  }
+
   return { body: b, steps, before, after, pass: after.pass };
 }
 
@@ -293,6 +436,9 @@ module.exports = {
   directAnswerEmpty,
   directAnswerFull,
   directAnswerTextOnly,
+  directAnswerNeedsSlim,
+  splitSentences,
+  repairSlimDirectAnswer,
   repairBrokenDirectAnswer,
   ensureDirectAnswerText,
   croBlobClean,

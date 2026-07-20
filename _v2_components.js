@@ -51,10 +51,14 @@ const MIN_SCORE = parseInt(process.env.V2C_MIN_SCORE || '12', 10);
 // ── GENERATORS (DeepSeek or Claude Code per worker) ──────────────────
 async function genDirectAnswer(title, chat = dsChat) {
   const { content } = await chat([
-    { role:'system', content:'You write a crisp "Direct Answer" for an authority page: 2-4 sentences that directly answer the page title up front. CRITICAL — NEVER invent specifics: do not state any number, percentage, price, stat, or date unless it is extremely well-known and certainly correct. Otherwise give QUALITATIVE guidance instead (better general+true than specific+fabricated). Never attribute a figure to a named report/study (Gong Labs, Forrester, Gartner, Bessemer, SaaStr, etc.). Output ONLY the answer prose, no heading, no preamble. ' + VISUAL_LOCK_DS_SYSTEM_SNIPPET },
-    { role:'user', content:`Page title: "${title}"\n\nWrite the direct answer now (2-4 sentences).` },
-  ], { temperature:0.5, max_tokens:300 });
-  return '## Direct Answer\n\n' + String(content || '').replace(/^#+\s*Direct Answer\s*/i, '').trim() + '\n';
+    { role:'system', content:'You write a crisp "Direct Answer" for an authority page: EXACTLY 2-3 sentences, about 40-60 words total. Answer the page title up front — no essay, no section headings, no bullet lists. CRITICAL — NEVER invent specifics: do not state any number, percentage, price, stat, or date unless it is extremely well-known and certainly correct. Otherwise give QUALITATIVE guidance instead (better general+true than specific+fabricated). Never attribute a figure to a named report/study (Gong Labs, Forrester, Gartner, Bessemer, SaaStr, etc.). Output ONLY the answer prose, no heading, no preamble. ' + VISUAL_LOCK_DS_SYSTEM_SNIPPET },
+    { role:'user', content:`Page title: "${title}"\n\nWrite the direct answer now (EXACTLY 2-3 sentences, ~40-60 words).` },
+  ], { temperature:0.4, max_tokens:160 });
+  let prose = String(content || '').replace(/^#+\s*Direct Answer\s*/i, '').replace(/\n+/g, ' ').trim();
+  // Hard cap: never let a generated DA become another wall of text
+  const sents = prose.split(/(?<=[.!?])\s+/).filter(Boolean);
+  if (sents.length > 3) prose = sents.slice(0, 3).join(' ');
+  return '## Direct Answer\n\n' + prose + '\n';
 }
 async function genMermaid(title, chat = dsChat) {
   const { content } = await chat([

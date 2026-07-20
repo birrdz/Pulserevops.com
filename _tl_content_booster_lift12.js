@@ -26,7 +26,14 @@ const fs = require('fs');
 const { getStore } = require('/workspace/node_modules/@netlify/blobs');
 const { dsChat: _dsChatRaw, todaySpend, DAILY_CAP } = require('/workspace/_ds_lib');
 const { gradeEntry } = require('/workspace/netlify/functions/lib/grade-entry');
-const { formatFixEntry, contentFormatPass, preserveImages } = require('/workspace/_format_fixer_lib');
+const {
+  formatFixEntry,
+  contentFormatPass,
+  preserveImages,
+  repairSlimDirectAnswer,
+  directAnswerNeedsSlim,
+  directAnswerFull,
+} = require('/workspace/_format_fixer_lib');
 const { fixEntry } = require('/workspace/_v2_components');
 const { stampIndexFromAnswers } = require('/workspace/_finish_index_stamp_lib');
 
@@ -344,7 +351,9 @@ function structOk(body) {
   return (
     /^##\s*Direct Answer\b/m.test(body) &&
     /^##\s*FAQ\b/m.test(body) &&
-    /^##\s*Sources\b/m.test(body)
+    /^##\s*Sources\b/m.test(body) &&
+    directAnswerFull(body) &&
+    !directAnswerNeedsSlim(body)
   );
 }
 
@@ -367,6 +376,7 @@ async function boosterPass(id, valid, entry) {
   });
 
   let nextBody = r.body || entry.answer;
+  nextBody = repairSlimDirectAnswer(nextBody);
   nextBody = preserveImages(entry.answer, nextBody, { id, title, qaGold: true });
   const afterG = gradeEntry(id, nextBody, { imagesDeferred: true, title });
   const afterFp = imageFingerprint(entry, nextBody);
@@ -412,6 +422,12 @@ async function processOne(id, valid) {
   const title = entry.question || entry.h1 || id;
   const startScore = gradeEntry(id, entry.answer, { imagesDeferred: true, title }).score;
   const startFp = imageFingerprint(entry, entry.answer);
+
+  // Previously rubber-stamped with a mashed/obese Direct Answer — force repair path
+  if (entry.tl_booster_approved && directAnswerNeedsSlim(entry.answer)) {
+    log('REOPEN_FAT_DA ' + id);
+    delete entry.tl_booster_approved;
+  }
 
   // Already good enough — skip (no re-email unless never emailed; keep moving)
   if (entry.tl_booster_approved || (startScore >= TARGET && structOk(entry.answer))) {
@@ -508,7 +524,15 @@ async function processOne(id, valid) {
 
   if (pass) {
     const latest = await store.get(`answers/${id}.json`, { type: 'json', consistency: 'strong' });
-    const finalBody = best.body || (latest && latest.answer) || entry.answer;
+    // Never publish a mashed/obese Direct Answer — even on approve-after-3
+    let finalBody = repairSlimDirectAnswer(best.body || (latest && latest.answer) || entry.answer);
+    finalBody = preserveImages((latest || entry).answer || entry.answer, finalBody, {
+      id,
+      title,
+      qaGold: true,
+    });
+    best.body = finalBody;
+    best.score = gradeEntry(id, finalBody, { imagesDeferred: true, title }).score;
     await store.setJSON(`answers/${id}.json`, {
       ...(latest || entry),
       answer: finalBody,
