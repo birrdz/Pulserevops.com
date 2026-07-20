@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 /**
- * CRO Pulse Tools (tl) — finish text gate.
+ * CRO Pulse Tools (tl) — finish drip (text + images together).
  *
- * - Skip if already score >= 13 (imagesDeferred + GOLD_SKIP_IMG_GATE)
- * - Surgical text fixes only (no LLM, no new image generation)
- * - EMAILS: ON for every pass (>=13). Set EMAIL_ON_PASS=0 to silence.
- *   Optional EMAIL_REQUIRE_IMAGES=1 to only mail when cover+body images exist.
- *   Embeds cover thumb in HTML when available.
+ * - Surgical text fixes, then face/hero + body kit on the SAME unit
+ * - No separate mass image blast (owner: images come with the drip)
+ * - Certify only after final body grades ≥13 + gold + real H2/FAQ/Sources
+ * - EMAILS only on true certify. EMAIL_ON_PASS=0 to silence.
  *
  * State: /tmp/tl-finish-drip-state.json
  * Log:   /tmp/tl-finish-drip.log
  *
  *   INTERVAL_MS=120000 node _tl_finish_drip.js
  *   ONCE=1 node _tl_finish_drip.js
+ *   WITH_IMAGES=0 to skip kit assign (text only)
  */
 process.env.GOLD_SKIP_IMG_GATE = process.env.GOLD_SKIP_IMG_GATE || '1';
 
@@ -25,6 +25,8 @@ const { reshapeQaGoldBody, appliesQaGold } = require('/workspace/_qa_gold_templa
 const { pickGoldTemplate } = require('/workspace/_pulse_gold_template_router');
 const { stripCostImages } = require('/workspace/_tl_cost_image_strip_lib');
 const { lockTlAnswerEntry, isTlId } = require('/workspace/_tl_cover_lock_lib');
+const { assignCroKitToEntry } = require('/workspace/_tl_cro_kit_lib');
+const WITH_IMAGES = process.env.WITH_IMAGES !== '0';
 
 try {
   const envPath = process.env.AQ_DRIP_ENV || '/tmp/aq-drip.env';
@@ -147,8 +149,39 @@ function grade(id, body, title) {
   return gradeEntry(id, body, { imagesDeferred: true, title: title || '' });
 }
 
+/** Soft score only — NOT enough to certify / email. */
 function isPass(g) {
   return (g.score || 0) >= 13;
+}
+
+/**
+ * Owner 2026-07-20: drip was emailing "14" while live bodies were ~5–8.
+ * Require grade>=13 AND gold audit AND real structure (line-start headings).
+ */
+function trulyCertify(id, body, title, g) {
+  if (!isPass(g)) return { ok: false, why: 'score:' + (g && g.score) };
+  const a = String(body || '');
+  const h2 = (a.match(/^##\s+/gm) || []).length;
+  if (h2 < 6) return { ok: false, why: 'h2_line_start:' + h2 };
+  if (!/^##\s*Direct Answer\b/m.test(a) && !/\n##\s*Direct Answer\b/.test(a)) {
+    return { ok: false, why: 'no_direct_answer_heading' };
+  }
+  if (!/^##\s*FAQ\b/m.test(a) && !/\n##\s*FAQ\b/.test(a)) return { ok: false, why: 'no_faq_heading' };
+  if (!/^##\s*Sources\b/m.test(a) && !/\n##\s*Sources\b/.test(a)) return { ok: false, why: 'no_sources_heading' };
+  try {
+    const route = pickGoldTemplate(id, a, title || '');
+    if (route.template === 'top10') {
+      const { auditTop10GoldTemplate } = require('/workspace/_ranking_top10_gold_template');
+      const gold = auditTop10GoldTemplate(a, { id, title: title || '' });
+      if (!gold || gold.ok === false) return { ok: false, why: 'gold_top10:' + ((gold && gold.fails) || []).slice(0, 3).join('|') };
+    } else {
+      const gold = require('/workspace/_qa_gold_template').auditQaGoldTemplate(a, { id, title: title || '' });
+      if (!gold || gold.ok === false) return { ok: false, why: 'gold_qa:' + ((gold && (gold.fails || gold.missing)) || []).slice(0, 3).join('|') };
+    }
+  } catch (e) {
+    return { ok: false, why: 'gold_err:' + (e.message || e) };
+  }
+  return { ok: true, why: 'ok' };
 }
 
 function fixBanned(body) {
@@ -591,27 +624,62 @@ async function processOne(id) {
   if (!entry || !entry.answer) return { id, error: 'missing' };
   const title = entry.question || id;
   const beforeG = grade(id, entry.answer, title);
-  if (isPass(beforeG)) return { id, skipped: true, score: beforeG.score, title };
+  // Only skip when TRULY certified — soft score≥13 alone was lying (owner 2026-07-20).
+  const beforeCert = trulyCertify(id, entry.answer, title, beforeG);
+  if (beforeCert.ok) return { id, skipped: true, score: beforeG.score, title, certified: true };
 
   const route = pickGoldTemplate(id, entry.answer, title);
   let next = transform(id, entry.answer, title);
-  const afterG = grade(id, next, title);
-  const changed = next !== entry.answer;
+  let changed = next !== entry.answer;
 
   // Owner: never reintroduce title-baked flux faces on tl during 13/13 text sprint.
   let saveEntry = {
     ...entry,
     answer: next,
   };
+
+  // Images WITH the drip (not a separate mass job): face===hero + body kit.
+  let kitMeta = null;
+  if (isTlId(id) && WITH_IMAGES) {
+    try {
+      const assigned = assignCroKitToEntry(saveEntry, id);
+      saveEntry = Object.assign({}, saveEntry, assigned);
+      next = saveEntry.answer;
+      changed = true;
+      kitMeta = { kit: assigned.cro_kit, bodyN: (assigned.cro_kit_body || []).length, hero: assigned.img };
+    } catch (e) {
+      log('KIT_ASSIGN_ERR ' + id + ' ' + (e.message || e));
+    }
+  }
+
   if (isTlId(id)) {
     const locked = lockTlAnswerEntry(saveEntry, id);
     saveEntry = locked.entry;
+    // keep kit face/hero if lock rotated to same pool
+    if (kitMeta && kitMeta.hero) {
+      saveEntry.img = kitMeta.hero;
+      saveEntry.cover = kitMeta.hero;
+      saveEntry.face = kitMeta.hero;
+      saveEntry.cover_src = 'cro-face-pool';
+    }
     next = saveEntry.answer;
   }
 
-  if (changed || (isTlId(id) && (entry.cover_src !== 'cro-cover-locked' || entry.face_title_baked))) {
+  // CRITICAL: grade the FINAL body after text+images — never certify pre-mutation score.
+  const afterG = grade(id, next, title);
+  const cert = trulyCertify(id, next, title, afterG);
+  const pass = !!cert.ok;
+
+  if (
+    changed ||
+    (isTlId(id) &&
+      ((entry.cover_src !== 'cro-cover-locked' && entry.cover_src !== 'cro-face-pool') || entry.face_title_baked))
+  ) {
     const polished_at = Date.now();
-    const quality_score = Math.max(Number(entry.quality_score) || 0, afterG.score);
+    // Never stamp a fake 13+ quality_score when certify failed
+    const quality_score = pass
+      ? Math.max(Number(entry.quality_score) || 0, afterG.score)
+      : Math.min(Number(entry.quality_score) || 0, afterG.score, 11);
     const images_deferred_at = entry.images_deferred_at || Date.now();
     const tl_finish_drip_at = Date.now();
     await store.setJSON(`answers/${id}.json`, {
@@ -624,25 +692,31 @@ async function processOne(id) {
       tl_finish_template: route.template,
       tl_finish_before: beforeG.score,
       tl_finish_after: afterG.score,
+      tl_finish_certified: pass,
+      tl_finish_cert_why: cert.why,
+      cro_kit: kitMeta ? kitMeta.kit : saveEntry.cro_kit,
+      cro_kit_body: saveEntry.cro_kit_body,
+      cro_kit_assigned_at: saveEntry.cro_kit_assigned_at,
     });
-    // index stamp — also force cro-cover lock on tl so flux faces cannot stick
     await stampIndexFromAnswers(store, [id], { log, lockTlCover: isTlId(id) });
   }
 
   let emailed = null;
-  const imgState = imagesReady({ ...entry, img: entry.img, cover: entry.cover }, next);
-  if (isPass(afterG) && EMAIL_ON_PASS && (!EMAIL_REQUIRE_IMAGES || imgState.ready)) {
+  const imgState = imagesReady({ ...entry, img: saveEntry.img || entry.img, cover: saveEntry.cover || entry.cover }, next);
+  if (pass && EMAIL_ON_PASS && (!EMAIL_REQUIRE_IMAGES || imgState.ready)) {
     emailed = await emailFinished({
       id,
       title,
       score: afterG.score,
       before: beforeG.score,
       url: pageUrl(id),
-      cover: imgState.cover || realCoverUrl(entry),
+      cover: imgState.cover || realCoverUrl(saveEntry),
       bodyImgs: imgState.bodyImgs,
       imagesReady: imgState.ready,
     });
-  } else if (isPass(afterG)) {
+  } else if (isPass(afterG) && !pass) {
+    log('CERT_BLOCK ' + id + ' score=' + afterG.score + ' why=' + cert.why);
+  } else if (pass) {
     log(
       'EMAIL skipped ' +
         id +
@@ -663,10 +737,13 @@ async function processOne(id) {
     changed,
     before: beforeG.score,
     after: afterG.score,
-    pass: isPass(afterG),
+    pass,
+    certified: pass,
+    certWhy: cert.why,
+    kit: kitMeta,
     imagesReady: imgState.ready,
-    cover: imgState.cover || null,
-    bodyImgCount: imgState.bodyImgs.length,
+    cover: imgState.cover || saveEntry.img || null,
+    bodyImgCount: (saveEntry.cro_kit_body || imgState.bodyImgs || []).length,
     bad: Object.entries(afterG.criteria || {})
       .filter(([k, v]) => !v && k !== 'images_law')
       .map(([k]) => k)
