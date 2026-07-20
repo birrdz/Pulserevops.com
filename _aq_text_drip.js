@@ -9,7 +9,7 @@
  *
  * Usage:
  *   node _aq_text_drip.js            # run forever (sleep between units)
- *   INTERVAL_MS=300000 node _aq_text_drip.js
+ *   INTERVAL_MS=120000 node _aq_text_drip.js
  *   ONCE=1 node _aq_text_drip.js     # process one unit then exit
  */
 const fs = require('fs');
@@ -21,7 +21,7 @@ const { isComparisonEntry } = require('/workspace/netlify/functions/lib/vs-exper
 const SITE_ID = 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
 const STATE_PATH = '/tmp/aq-text-drip-state.json';
 const LOG_PATH = '/tmp/aq-text-drip.log';
-const INTERVAL_MS = Number(process.env.INTERVAL_MS || 5 * 60 * 1000);
+const INTERVAL_MS = Number(process.env.INTERVAL_MS || 2 * 60 * 1000);
 const ONCE = process.env.ONCE === '1';
 
 const cfg = require('/home/ubuntu/.config/netlify/config.json');
