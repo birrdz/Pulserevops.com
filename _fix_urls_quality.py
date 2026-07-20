@@ -67,26 +67,31 @@ def load_env_file(path: str) -> None:
             os.environ[k] = v
 
 
-def make_clients() -> tuple[OpenAI | None, OpenAI | None]:
+def make_clients() -> tuple[OpenAI, OpenAI | None]:
+    """DeepSeek is required. OpenAI only if OPENAI_FALLBACK=1."""
     deepseek_key = (
         os.environ.get("DEEPSEEK_API_KEY")
         or os.environ.get("ds1")
         or os.environ.get("DEEPSEEK_KEY")
         or ""
     ).strip()
-    openai_key = (os.environ.get("OPENAI_API_KEY") or os.environ.get("OPENAI_KEY") or "").strip()
-
-    primary = None
-    fallback = None
-    if deepseek_key:
-        primary = OpenAI(api_key=deepseek_key, base_url="https://api.deepseek.com")
-    if openai_key:
-        fallback = OpenAI(api_key=openai_key)
-    if not primary and not fallback:
+    if not deepseek_key:
         raise SystemExit(
-            "No LLM key found. Set DEEPSEEK_API_KEY (or ds1) and/or OPENAI_API_KEY, "
-            "or pass --env /tmp/aq-drip.env"
+            "DEEPSEEK_API_KEY / ds1 not set. This machine runs DeepSeek only. "
+            "Pass --env /tmp/aq-drip.env"
         )
+
+    primary = OpenAI(api_key=deepseek_key, base_url="https://api.deepseek.com")
+    fallback = None
+    allow_openai = os.environ.get("OPENAI_FALLBACK", "0") == "1"
+    openai_key = (os.environ.get("OPENAI_API_KEY") or os.environ.get("OPENAI_KEY") or "").strip()
+    if allow_openai and openai_key:
+        fallback = OpenAI(api_key=openai_key)
+        print("WARN: OPENAI_FALLBACK=1 — OpenAI enabled as emergency only")
+    else:
+        # Explicitly ignore any OpenAI key present in the environment
+        if openai_key:
+            print("OpenAI key present but ignored (DeepSeek-only machine)")
     return primary, fallback
 
 
@@ -97,7 +102,7 @@ def call_llm_with_fallback(
     response_format: dict[str, str] | None = None,
     max_tokens: int = 4000,
 ) -> str:
-    """DeepSeek first; fall back to OpenAI on rate limit / API errors."""
+    """DeepSeek only (unless OPENAI_FALLBACK=1)."""
     errors: list[str] = []
 
     if primary is not None:
@@ -114,7 +119,9 @@ def call_llm_with_fallback(
             return (response.choices[0].message.content or "").strip()
         except (RateLimitError, APIError, Exception) as e:
             errors.append(f"DeepSeek: {e}")
-            print(f"  DeepSeek failed ({e}). Trying OpenAI fallback...")
+            if fallback is None:
+                raise RuntimeError(f"DeepSeek failed and OpenAI fallback is OFF: {e}") from e
+            print(f"  DeepSeek failed ({e}). OPENAI_FALLBACK=1 — trying OpenAI...")
 
     if fallback is not None:
         try:
@@ -131,7 +138,7 @@ def call_llm_with_fallback(
         except Exception as e:
             errors.append(f"OpenAI: {e}")
 
-    raise RuntimeError("All LLM providers failed: " + " | ".join(errors))
+    raise RuntimeError("LLM failed: " + " | ".join(errors))
 
 
 def extract_json(raw: str) -> dict[str, Any]:
@@ -239,6 +246,7 @@ def process_dataset(
     if "url" not in df.columns:
         raise SystemExit("CSV must include a 'url' column")
 
+    print("LLM: DeepSeek (deepseek-chat) — OpenAI off")
     print(
         f"GATES locked: similarity < {pct(SIM_MAX)} · "
         f"quality {QUALITY_MIN}/10 · rubric ≥ {RUBRIC_MIN}/13"
