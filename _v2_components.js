@@ -10,8 +10,10 @@ const { sanitizeMermaid } = require('./_mermaid_sanitize');
 const { gradeEntry } = require('./netlify/functions/lib/grade-entry');
 const { VISUAL_LOCK_DS_SYSTEM_SNIPPET, enforceWriterVisualLock } = require('./_visual_lock_law');
 // IndexNow fires ONLY on Stage-2 final sign-off (_v2_final_gate.js) — never at stage-1
-const WD = 'C:/Users/koryj/website';
-for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+const WD = fs.existsSync('C:/Users/koryj/website') ? 'C:/Users/koryj/website' : __dirname;
+try {
+  for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+} catch (_e) {}
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 const STOP = WD + '/_v2_components_stop.flag';
 const BATCH = parseInt(process.argv[2] || process.env.V2C_BATCH || '40', 10);
