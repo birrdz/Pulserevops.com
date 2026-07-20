@@ -137,7 +137,7 @@
   });
 
   function loadSiteScripts() {
-    ['/js/pulse-face-img.js', '/js/pulse-home-mosaic.js', '/js/pulse-idle-scroll.js', '/js/pulse-endless-loop.js', '/js/pulse-mosaic-endless.js'].forEach(function (src) {
+    ['/js/pulse-face-img.js', '/js/pulse-home-mosaic.js?v=neon-trim-20260720', '/js/pulse-idle-scroll.js', '/js/pulse-endless-loop.js', '/js/pulse-mosaic-endless.js'].forEach(function (src) {
       if (document.querySelector('script[src="' + src + '"]')) return;
       var s = document.createElement('script');
       s.src = src;
