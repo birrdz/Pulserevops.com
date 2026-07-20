@@ -24,6 +24,7 @@ const { isComparisonEntry, auditComparisonEntry } = require('/workspace/netlify/
 const { reshapeQaGoldBody, appliesQaGold } = require('/workspace/_qa_gold_template');
 const { pickGoldTemplate } = require('/workspace/_pulse_gold_template_router');
 const { stripCostImages } = require('/workspace/_tl_cost_image_strip_lib');
+const { lockTlAnswerEntry, isTlId } = require('/workspace/_tl_cover_lock_lib');
 
 try {
   const envPath = process.env.AQ_DRIP_ENV || '/tmp/aq-drip.env';
@@ -597,14 +598,24 @@ async function processOne(id) {
   const afterG = grade(id, next, title);
   const changed = next !== entry.answer;
 
-  if (changed) {
+  // Owner: never reintroduce title-baked flux faces on tl during 13/13 text sprint.
+  let saveEntry = {
+    ...entry,
+    answer: next,
+  };
+  if (isTlId(id)) {
+    const locked = lockTlAnswerEntry(saveEntry, id);
+    saveEntry = locked.entry;
+    next = saveEntry.answer;
+  }
+
+  if (changed || (isTlId(id) && (entry.cover_src !== 'cro-cover-locked' || entry.face_title_baked))) {
     const polished_at = Date.now();
     const quality_score = Math.max(Number(entry.quality_score) || 0, afterG.score);
     const images_deferred_at = entry.images_deferred_at || Date.now();
     const tl_finish_drip_at = Date.now();
     await store.setJSON(`answers/${id}.json`, {
-      ...entry,
-      answer: next,
+      ...saveEntry,
       polished_at,
       quality_score,
       images_deferred_at,
@@ -614,8 +625,8 @@ async function processOne(id) {
       tl_finish_before: beforeG.score,
       tl_finish_after: afterG.score,
     });
-    // index stamp (locked + verified) — inventory / img / cover untouched
-    await stampIndexFromAnswers(store, [id], { log });
+    // index stamp — also force cro-cover lock on tl so flux faces cannot stick
+    await stampIndexFromAnswers(store, [id], { log, lockTlCover: isTlId(id) });
   }
 
   let emailed = null;

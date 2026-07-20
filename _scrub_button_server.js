@@ -718,6 +718,24 @@ async function buildImageRewriteDraft(id, attempt) {
 async function commitImageRewriteDraft(id, outBody) {
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e) return { ok: false, msg: 'no blob' };
+  // Owner: tl must NEVER go back to title-baked flux faces — curated cro-cover only.
+  if (/^tl\d+$/i.test(id)) {
+    try {
+      const { lockTlAnswerEntry, lockTlIndexRow } = require('/workspace/_tl_cover_lock_lib');
+      const locked = lockTlAnswerEntry(Object.assign({}, e, { answer: outBody }), id);
+      await store.setJSON('answers/' + id + '.json', locked.entry);
+      coverSrcOf[id] = 'cro-cover-locked';
+      const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+      const ent = (idx.entries || []).find(x => x && x.id === id);
+      if (ent) {
+        Object.assign(ent, lockTlIndexRow(ent, id));
+        await store.setJSON('_index.json', idx);
+      }
+      return { ok: true, lockedCroCover: true };
+    } catch (err) {
+      return { ok: false, msg: String(err.message || err) };
+    }
+  }
   await store.setJSON('answers/' + id + '.json', Object.assign({}, e, { answer: outBody, updated_at: new Date().toISOString(), cover_src: 'flux', face_title_baked: true }));
   try { await stampFluxProvenance(id, store, 'flux'); coverSrcOf[id] = 'flux'; } catch (err) {}
   try {
@@ -955,6 +973,24 @@ async function buildFaceHeroDraft(id, attempt) {
 async function commitFaceHeroDraft(id, outBody) {
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e) return { ok: false, msg: 'no blob' };
+  // Owner: tl 13/13 / face-hero must NOT bake terrible title-flux covers back in.
+  if (/^tl\d+$/i.test(id)) {
+    try {
+      const { lockTlAnswerEntry, lockTlIndexRow, croCoverForId } = require('/workspace/_tl_cover_lock_lib');
+      const locked = lockTlAnswerEntry(Object.assign({}, e, { answer: outBody }), id);
+      await store.setJSON('answers/' + id + '.json', locked.entry);
+      coverSrcOf[id] = 'cro-cover-locked';
+      const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+      const ent = (idx.entries || []).find(x => x && x.id === id);
+      if (ent) {
+        Object.assign(ent, lockTlIndexRow(ent, id));
+        await store.setJSON('_index.json', idx);
+      }
+      return { ok: true, lockedCroCover: true, previewUrl: croCoverForId(id) };
+    } catch (err) {
+      return { ok: false, msg: String(err.message || err) };
+    }
+  }
   const facePath = '/assets/qa/' + id + '.jpg';
   await store.setJSON('answers/' + id + '.json', Object.assign({}, e, { answer: outBody, updated_at: new Date().toISOString(), cover_src: 'flux', face_title_baked: true }));
   try { await stampFluxProvenance(id, store, 'flux'); coverSrcOf[id] = 'flux'; } catch (err) {}

@@ -18,7 +18,8 @@ try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
 const SITE = 'https://pulserevops.com';
 // Owner 2026-07-08: article body is text-only — no hero, product, section, or inline
 // images on answer pages. CRO header card (crohdr / background-image) is unchanged.
-const ANSWER_CONTENT_IMAGES_OFF = true;
+// Owner 2026-07-20: pages looked empty/"no images" with this on — show content images again.
+const ANSWER_CONTENT_IMAGES_OFF = false;
 const { isRankingListBody, RANKING_LIST_NO_TOP_HERO } = require('../../_ranking_list_master_law');
 const { appliesQaGold } = require('../../_qa_gold_template');
 const { pulseOrgLogoImageObject, PULSE_SITE, PULSE_SHARE_ICON, PULSE_OG_IMAGE, PULSE_FAVICON_ICO, PULSE_ICON_192, PULSE_ICON_512, PULSE_APPLE_TOUCH } = require('./lib/pulse-brand');
@@ -165,6 +166,13 @@ function firstProductImg(body) {
 
 function pickHeroUrl(body, idxImg, id, skipHero) {
   if (skipHero) return '';
+  // Owner: tl never uses title-baked /assets/qa/tl*.jpg — curated cro-cover only.
+  if (/^tl\d+$/i.test(String(id || ''))) {
+    const idx = idxImg && String(idxImg).trim();
+    if (idx && /^\/assets\/cro-cover-[1-6]\.jpg(?:\?|$)/i.test(idx)) return idx.split('?')[0];
+    const n = Math.abs(parseInt(String(id).replace(/\D/g, ''), 10) || 0);
+    return '/assets/cro-cover-' + ((n % 6) + 1) + '.jpg';
+  }
   const lead = leadingCoverFromBody(body);
   const leadUrl = lead && lead.url ? String(lead.url).trim() : '';
   const idx = idxImg && String(idxImg).trim();
@@ -1241,13 +1249,13 @@ exports.handler = async (event) => {
     .meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:0.66rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,229,216,0.45);margin-bottom:28px;}
     .entry-tag{display:inline-block;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(237,229,216,0.7);padding:3px 9px;border-radius:99px;font-size:0.6rem;text-decoration:none;transition:all 0.12s;}
     a.entry-tag:hover{background:rgba(232,113,10,0.12);border-color:rgba(232,113,10,0.4);color:rgba(255,180,90,0.9);text-decoration:none;}
-    .body p{margin:0 0 16px;color:rgba(237,229,216,0.94);font-size:1.15rem;}
+    .body p{margin:0 0 16px;color:rgba(237,229,216,0.94);font-size:1.28rem;line-height:1.75;}
     .body .direct-answer-box{margin:0 0 22px !important;padding:18px 20px !important;border:2px solid #C8821E !important;border-radius:14px !important;background:#FBF3E4 !important;box-shadow:0 0 0 1px rgba(200,130,30,.18), inset 0 0 0 1px rgba(200,130,30,.08) !important;}
     .body .direct-answer-box p,.body .direct-answer-box li{color:#1d1711 !important;}
     .body .direct-answer-box strong,.body .direct-answer-box b{color:#1d1711 !important;}
     @media(max-width:640px){
-      .body,.body p,.body li{font-size:1.2rem !important;line-height:1.72 !important;}
-      .body .direct-answer-box p{font-size:1.18rem !important;}
+      .body,.body p,.body li{font-size:1.32rem !important;line-height:1.78 !important;}
+      .body .direct-answer-box p{font-size:1.28rem !important;}
     }
     /* CRO hanging widget — a little sign that hangs top-right from a cord+peg, sways, stays on scroll */
     .cro-ad-root{position:fixed;top:0;right:28px;width:322px;z-index:2147483000;font-family:'Plus Jakarta Sans',-apple-system,'Segoe UI',system-ui,sans-serif;pointer-events:none;text-align:left;}

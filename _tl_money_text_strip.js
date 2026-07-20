@@ -161,6 +161,12 @@ async function main() {
       entry.answer = next;
       entry.updated_at = new Date().toISOString();
       entry.money_text_stripped_at = entry.updated_at;
+      // Never revive title-baked flux covers while stripping money text.
+      try {
+        const { lockTlAnswerEntry } = require('/workspace/_tl_cover_lock_lib');
+        const locked = lockTlAnswerEntry(entry, id);
+        Object.assign(entry, locked.entry);
+      } catch (_e) {}
       await store.setJSON('answers/' + id + '.json', entry);
 
       st.fixed.push({ id, before, after, removed });

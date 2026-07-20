@@ -4,6 +4,7 @@
  * so scrubber / parallel writers cannot silently drop finish scores.
  */
 const fs = require('fs');
+const { lockTlIndexRow, isTlId } = require('/workspace/_tl_cover_lock_lib');
 
 const LOCK = process.env.INDEX_STAMP_LOCK || '/tmp/pulse-index-stamp.lock';
 const MAX_WAIT_MS = 20000;
@@ -45,6 +46,7 @@ async function withIndexLock(fn) {
  */
 async function stampIndexFromAnswers(store, ids, opts) {
   const log = (opts && opts.log) || (() => {});
+  const lockTlCover = !!(opts && opts.lockTlCover);
   const uniq = Array.from(new Set((ids || []).filter(Boolean)));
   if (!uniq.length) return { updated: 0, ok: 0, missing: 0 };
 
@@ -93,11 +95,20 @@ async function stampIndexFromAnswers(store, ids, opts) {
         }
         const e = entries[i];
         const score = Math.max(Number(e.quality_score) || 0, Number(patch.quality_score) || 0);
-        if ((Number(e.quality_score) || 0) === score && e.tl_finish_drip_at === patch.tl_finish_drip_at) {
+        const wantLock = lockTlCover && isTlId(id);
+        const locked = wantLock ? lockTlIndexRow(e, id) : e;
+        const coverSame =
+          !wantLock ||
+          (e.img === locked.img && e.cover_src === 'cro-cover-locked' && !e.face_title_baked);
+        if (
+          (Number(e.quality_score) || 0) === score &&
+          e.tl_finish_drip_at === patch.tl_finish_drip_at &&
+          coverSame
+        ) {
           ok++;
           continue;
         }
-        entries[i] = Object.assign({}, e, {
+        entries[i] = Object.assign({}, locked, {
           quality_score: score,
           polished_at: patch.polished_at || e.polished_at,
           tl_finish_drip_at: patch.tl_finish_drip_at || e.tl_finish_drip_at,
