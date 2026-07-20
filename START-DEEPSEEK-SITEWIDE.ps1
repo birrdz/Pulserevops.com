@@ -2,6 +2,7 @@ $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 & (Join-Path $Root 'START-DEEPSEEK-CONTENT-BOOSTER.ps1') -NoBrowser
+$port = [int](Get-Content (Join-Path $Root '_deepseek_booster_port.txt') -Raw)
 
 $key = $env:DEEPSEEK_BOOSTER_KEY
 if (-not $key) {
@@ -14,7 +15,7 @@ if (-not $key) {
 }
 if (-not $key) { $key = '4444' }
 
-$uri = 'http://127.0.0.1:7988/api/start'
+$uri = "http://127.0.0.1:$port/api/start"
 $payload = @{
   key = $key
   pillar = 'ALL'
@@ -35,4 +36,4 @@ try {
   }
 }
 
-Start-Process 'http://localhost:7988/'
+Start-Process "http://localhost:$port/"
