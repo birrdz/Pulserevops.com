@@ -4,9 +4,9 @@
  *
  * - Skip if already score >= 13 (imagesDeferred + GOLD_SKIP_IMG_GATE)
  * - Surgical text fixes only (no LLM, no new image generation)
- * - EMAILS: OFF by default for text-only finishes (owner: email when images are done).
- *   Set EMAIL_ON_TEXT=1 only if you explicitly want text-pass alerts.
- *   When emailing, require a real cover (not cro-cover-*) and embed it in the HTML.
+ * - EMAILS: ON for every pass (>=13). Set EMAIL_ON_PASS=0 to silence.
+ *   Optional EMAIL_REQUIRE_IMAGES=1 to only mail when cover+body images exist.
+ *   Embeds cover thumb in HTML when available.
  *
  * State: /tmp/tl-finish-drip-state.json
  * Log:   /tmp/tl-finish-drip.log
@@ -51,8 +51,10 @@ const LOG_PATH = '/tmp/tl-finish-drip.log';
 const INTERVAL_MS = Number(process.env.INTERVAL_MS || 10 * 1000);
 const QUEUE_CACHE = '/tmp/tl-finish-queue.json';
 const ONCE = process.env.ONCE === '1';
-// Owner: emails when images are done — not on text-only 13/13.
-const EMAIL_ON_TEXT = process.env.EMAIL_ON_TEXT === '1';
+// Owner wants RED LIGHT finish emails as pages complete.
+// Default ON. Set EMAIL_ON_PASS=0 to silence. Images-only gate: EMAIL_REQUIRE_IMAGES=1.
+const EMAIL_ON_PASS = process.env.EMAIL_ON_PASS !== '0';
+const EMAIL_REQUIRE_IMAGES = process.env.EMAIL_REQUIRE_IMAGES === '1';
 const RECIPIENT = process.env.ALERT_TO || process.env.ALERT_TO_EMAIL || 'koryjordanwhite@gmail.com';
 const RESEND_KEY = process.env.resendapikey || process.env.RESEND_API_KEY || process.env.RESENDAPIKEY || '';
 const RESEND_FROM = process.env.ALERT_FROM_EMAIL || 'PULSE Engine <onboarding@resend.dev>';
@@ -439,26 +441,30 @@ async function buildFailQueue() {
   return { ids, fails };
 }
 
-async function emailImagesDone({ id, title, score, before, url, cover, bodyImgs }) {
+async function emailFinished({ id, title, score, before, url, cover, bodyImgs, imagesReady }) {
   if (!RESEND_KEY) return { ok: false, reason: 'no_key' };
-  const subject = `🔴 RED LIGHT — ${id} IMAGES done`;
-  const thumbs = [cover, ...(bodyImgs || [])].filter(Boolean).slice(0, 4);
-  const thumbsHtml = thumbs
-    .map(
-      (src) =>
-        `<a href="${url}" style="display:inline-block;margin:0 8px 8px 0"><img src="${src}" alt="" width="220" style="width:220px;max-width:100%;height:auto;border:2px solid #B91C1C;display:block" /></a>`
-    )
-    .join('');
+  const subject = imagesReady
+    ? `🔴 RED LIGHT — ${id} finished 13/13 + images`
+    : `🔴 RED LIGHT — ${id} finished 13/13`;
+  const thumbs = [cover, ...((bodyImgs || []).filter((u) => u !== cover))].filter(Boolean).slice(0, 3);
+  const thumbsHtml = thumbs.length
+    ? thumbs
+        .map(
+          (src) =>
+            `<a href="${url}" style="display:inline-block;margin:0 8px 8px 0"><img src="${src}" alt="" width="220" style="width:220px;max-width:100%;height:auto;border:2px solid #B91C1C;display:block" /></a>`
+        )
+        .join('')
+    : `<p style="margin:0 0 12px;color:#7f1d1d;font-size:13px">No in-page body images yet (mosaic cover may still exist).</p>`;
   const html = `<div style="font-family:Arial,sans-serif;line-height:1.5">
     <div style="background:#B91C1C;color:#fff;padding:14px 18px;font-size:20px;font-weight:700">
-      🔴 RED LIGHT — Images done
+      🔴 RED LIGHT — Answer finished
     </div>
     <div style="padding:16px;border:3px solid #B91C1C;background:#FEF2F2">
       <p style="margin:0 0 8px;font-size:18px;font-weight:700">${id} · score ${before} → ${score}</p>
       <p style="margin:0 0 12px;font-weight:700">${String(title || '').replace(/</g, '&lt;')}</p>
       <p style="margin:0 0 12px"><a href="${url}" style="color:#0b57d0;font-weight:700">${url}</a></p>
       <div style="margin:0 0 12px">${thumbsHtml}</div>
-      <p style="margin:0;color:#666;font-size:12px">Cover + in-page images ready · ${new Date().toISOString()}</p>
+      <p style="margin:0;color:#666;font-size:12px">CRO finish drip · ${new Date().toISOString()}</p>
     </div>
   </div>`;
   try {
@@ -470,11 +476,11 @@ async function emailImagesDone({ id, title, score, before, url, cover, bodyImgs 
         to: [RECIPIENT],
         subject,
         html,
-        text: `RED LIGHT ${id} IMAGES done ${url}`,
+        text: `RED LIGHT ${id} finished 13/13 ${url}`,
       }),
     });
     const text = await r.text();
-    log('EMAIL images ' + id + ' ' + r.status + ' ' + text.slice(0, 120));
+    log('EMAIL ' + id + ' ' + r.status + ' ' + text.slice(0, 120));
     return { ok: r.ok, status: r.status, body: text.slice(0, 200) };
   } catch (e) {
     log('EMAIL err ' + id + ' ' + e.message);
@@ -510,21 +516,29 @@ async function processOne(id) {
 
   let emailed = null;
   const imgState = imagesReady({ ...entry, img: entry.img, cover: entry.cover }, next);
-  // Owner wants emails when images are done — never spam text-only finishes.
-  if (isPass(afterG) && imgState.ready) {
-    emailed = await emailImagesDone({
+  if (isPass(afterG) && EMAIL_ON_PASS && (!EMAIL_REQUIRE_IMAGES || imgState.ready)) {
+    emailed = await emailFinished({
       id,
       title,
       score: afterG.score,
       before: beforeG.score,
       url: toolsUrl(id),
-      cover: imgState.cover,
+      cover: imgState.cover || realCoverUrl(entry),
       bodyImgs: imgState.bodyImgs,
+      imagesReady: imgState.ready,
     });
-  } else if (isPass(afterG) && EMAIL_ON_TEXT) {
-    log('EMAIL skipped ' + id + ' (EMAIL_ON_TEXT=1 but images not ready; still not sending text-only)');
   } else if (isPass(afterG)) {
-    log('EMAIL skipped ' + id + ' (text 13/13, images not ready — cover=' + (imgState.cover ? 'yes' : 'no') + ' bodyImgs=' + imgState.bodyImgs.length + ')');
+    log(
+      'EMAIL skipped ' +
+        id +
+        ' (EMAIL_ON_PASS=' +
+        EMAIL_ON_PASS +
+        ' requireImages=' +
+        EMAIL_REQUIRE_IMAGES +
+        ' ready=' +
+        imgState.ready +
+        ')'
+    );
   }
 
   return {
