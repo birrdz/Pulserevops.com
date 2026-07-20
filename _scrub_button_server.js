@@ -990,22 +990,27 @@ async function runFaceHeroLoop() {
   faceHeroJob.phase = 'facehero';
   try {
     let entries = faceHeroJob._entries || await getImageDuplicatorEntries(faceHeroJob.pillar);
-    // CRO Pulse Tools: process in groups of 250 from _tl_media_batches.json (inventory = full pillar).
+    // CRO Pulse Tools: process in groups of 250 from _tl_media_batches.json.
+    // UI inventory (total) stays full pillar ~11k; each Start runs one 250-group.
     const batchPlan = (faceHeroJob.pillar === 'tl') ? loadTlMediaBatchPlan() : null;
     if (batchPlan) {
       const bi = Math.max(0, Math.min(batchPlan.batchIndex || 0, batchPlan.groups.length - 1));
       const group = batchPlan.groups[bi] || batchPlan.groups[0];
-      const idSet = new Set((group.ids || []).map(x => String(x).toLowerCase()));
+      const batchSize = batchPlan.batchSize || 250;
+      const inventory = batchPlan.inventory || entries.length;
       const byId = new Map(entries.map(e => [String(e.id).toLowerCase(), e]));
       entries = (group.ids || []).map(id => byId.get(String(id).toLowerCase()) || { id }).filter(e => e && e.id);
       faceHeroJob._entries = entries;
-      faceHeroJob.inventory = batchPlan.inventory || entries.length;
-      faceHeroJob.batchSize = batchPlan.batchSize || 250;
+      faceHeroJob.inventory = inventory;
+      faceHeroJob.total = inventory; // face-card UI "X / total Q&As" = full 11k inv
+      faceHeroJob.batchSize = batchSize;
       faceHeroJob.batchIndex = bi;
       faceHeroJob.batchCount = batchPlan.batchCount || batchPlan.groups.length;
       faceHeroJob.batchLabel = 'batch ' + (bi + 1) + '/' + faceHeroJob.batchCount;
-      faceHeroJob.total = entries.length;
-      faceHeroLog('📦 tl inventory ' + faceHeroJob.inventory + ' · ' + faceHeroJob.batchLabel + ' (' + entries.length + ' cards)');
+      faceHeroJob.batchLen = entries.length;
+      // Absolute progress across inventory (completed prior batches + within this group)
+      if (!faceHeroJob.done || faceHeroJob.done < bi * batchSize) faceHeroJob.done = bi * batchSize;
+      faceHeroLog('📦 tl inventory ' + inventory.toLocaleString() + ' · ' + faceHeroJob.batchLabel + ' (' + entries.length + ' cards this group)');
     } else {
       faceHeroJob._entries = entries;
       faceHeroJob.total = entries.length;
@@ -1019,7 +1024,11 @@ async function runFaceHeroLoop() {
       saveFaceHeroState(true);
       return;
     }
-    let i = faceHeroJob.done || 0;
+    const batchBase = (faceHeroJob.pillar === 'tl' && faceHeroJob.batchSize)
+      ? (Math.max(0, faceHeroJob.batchIndex || 0) * (faceHeroJob.batchSize || 250))
+      : 0;
+    // i = index within current entries list (batch or full pillar)
+    let i = batchBase ? 0 : (faceHeroJob.done || 0);
     while (i < entries.length && !faceHeroJob.stop) {
       const row = entries[i];
       const id = row.id;
@@ -1028,7 +1037,7 @@ async function runFaceHeroLoop() {
       faceHeroJob.reviewAttempt = faceHeroJob.reviewAttempt || 1;
       try {
         const r = await buildFaceHeroDraft(id, faceHeroJob.reviewAttempt);
-        if (r.noBlob) { faceHeroJob.skippedNoBlob++; i++; faceHeroJob.done = i; faceHeroJob.reviewAttempt = 1; }
+        if (r.noBlob) { faceHeroJob.skippedNoBlob++; i++; faceHeroJob.done = batchBase + i; faceHeroJob.reviewAttempt = 1; }
         else if (r.stopped) break;
         else if (r.error) {
           faceHeroJob.errors++;
@@ -1041,7 +1050,7 @@ async function runFaceHeroLoop() {
           }
           faceHeroLog('⚠️ ' + id + ' · skipped after retries');
           i++;
-          faceHeroJob.done = i;
+          faceHeroJob.done = batchBase + i;
           faceHeroJob.reviewAttempt = 1;
         }
         else if (faceHeroJob.autoApproveImages) {
@@ -1051,7 +1060,7 @@ async function runFaceHeroLoop() {
           faceHeroJob.fluxJobs += r.fluxDone || 0;
           faceHeroLog('🤖 ' + id + ' auto-kept · same file → mosaic + top hero' + (r.top10 ? ' (Top-10 cover prompt)' : ''));
           i++;
-          faceHeroJob.done = i;
+          faceHeroJob.done = batchBase + i;
           faceHeroJob.reviewAttempt = 1;
         }
         else {
@@ -1063,7 +1072,8 @@ async function runFaceHeroLoop() {
           faceHeroJob.phase = 'review';
           faceHeroJob.running = false;
           faceHeroJob.currentStep = faceHeroJob.stopAfterReview ? 'review · keep to save then stop · or try again' : 'review · keep or try again';
-          faceHeroJob.pct = faceHeroJob.total ? Math.min(100, Math.round((i / faceHeroJob.total) * 1000) / 10) : 0;
+          faceHeroJob.done = batchBase + i;
+          faceHeroJob.pct = faceHeroJob.total ? Math.min(100, Math.round(((batchBase + i) / faceHeroJob.total) * 1000) / 10) : 0;
           saveFaceHeroState(true);
           faceHeroLog('👀 ' + id + ' ready — ✓ keep or ✗ try again');
           return;
@@ -1072,10 +1082,10 @@ async function runFaceHeroLoop() {
         faceHeroJob.errors++;
         faceHeroLog('⚠️ ' + id + ' · ' + String(err.message || err).slice(0, 80));
         i++;
-        faceHeroJob.done = i;
+        faceHeroJob.done = batchBase + i;
         faceHeroJob.reviewAttempt = 1;
       }
-      faceHeroJob.pct = faceHeroJob.total ? Math.min(100, Math.round((i / faceHeroJob.total) * 1000) / 10) : 0;
+      faceHeroJob.pct = faceHeroJob.total ? Math.min(100, Math.round(((batchBase + i) / faceHeroJob.total) * 1000) / 10) : 0;
       saveFaceHeroState();
       await new Promise(res => setTimeout(res, 200));
     }
@@ -1176,16 +1186,22 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
     runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
     return { ok: true, started: true, resumed: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, done: faceHeroJob.done, total: faceHeroJob.total };
   }
+  const tlPlan0 = (pillar === 'tl') ? loadTlMediaBatchPlan() : null;
+  const inv0 = tlPlan0 ? (tlPlan0.inventory || 0) : 0;
   faceHeroJob = {
     running: false, stop: false, stopAfterReview: false, pillar, pillarName: pName(pillar), guideKeywords, autoApproveImages,
-    done: 0, total: 0, pct: 0, entriesDone: 0, coversGenerated: 0, fluxJobs: 0,
+    done: 0, total: inv0 || 0, inventory: inv0 || 0, pct: 0, entriesDone: 0, coversGenerated: 0, fluxJobs: 0,
     skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [],
     pendingReview: null, reviewAttempt: 1, _entries: null,
+    batchSize: tlPlan0 ? (tlPlan0.batchSize || 250) : undefined,
+    batchIndex: tlPlan0 ? (tlPlan0.batchIndex || 0) : undefined,
+    batchCount: tlPlan0 ? (tlPlan0.batchCount || (tlPlan0.groups && tlPlan0.groups.length) || 0) : undefined,
   };
   const kwNote = guideKeywords ? (' · guide: ' + guideKeywords.slice(0, 48) + (guideKeywords.length > 48 ? '…' : '')) : '';
   const modeNote = autoApproveImages ? ' · 🤖 auto-approve ON' : ' · keep/retry each card';
-  faceHeroLog('▶ Face Card & Top Image — ' + faceHeroJob.pillarName + kwNote + modeNote + ' · serial flux');
+  const invNote = inv0 ? (' · inventory ' + inv0.toLocaleString() + ' · groups of ' + (tlPlan0.batchSize || 250)) : '';
+  faceHeroLog('▶ Face Card & Top Image — ' + faceHeroJob.pillarName + kwNote + modeNote + invNote + ' · serial flux');
   runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
   return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages };
 }
@@ -7913,6 +7929,8 @@ function renderFaceHero(j){
     bar.style.width=Math.max(pct>0?0.5:0,pct)+'%';
   }
   if(stats) stats.innerHTML=
+    '<div>📦 inventory: <span>'+(j.inventory||j.total||0).toLocaleString()+'</span></div>'+
+    (j.batchCount?('<div>📦 group: <span>'+((j.batchIndex||0)+1)+' / '+j.batchCount+' × '+(j.batchSize||250)+'</span></div>'):'')+
     '<div>🦄 face-card+hero flux: <span>'+(j.coversGenerated||0)+'</span></div>'+
     '<div>📋 entries done: <span>'+(j.entriesDone||0)+'</span></div>'+
     '<div>⏭ no blob: <span>'+(j.skippedNoBlob||0)+'</span></div>'+
