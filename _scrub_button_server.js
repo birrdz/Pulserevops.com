@@ -669,7 +669,7 @@ function imageJobConflict(except) {
   if (except !== 'duplicator' && except !== 'facehero' && imageDuplicatorJob.running) return 'image fill running';
   if (except !== 'imgen' && imageGeneratorJob.running) return 'image generator running';
   if (except !== 'rewrite' && (imageRewriteJob.running || imageRewriteJob.phase === 'review')) return 'Pollinator image overwrite running';
-  if (except !== 'facehero' && except !== 'duplicator' && (faceHeroJob.running || faceHeroJob.phase === 'review')) return 'Face Card & Top Image Generator running';
+  if (except !== 'facehero' && except !== 'duplicator' && (faceHeroJob.running || faceHeroJob.phase === 'review')) return 'Multibox Manager running';
   if (except !== 'formatfix' && formatFixerJob.running) return 'Format Fixer running';
   if (except !== 'internalimages' && internalImagesJob.running) return 'Internal Images running';
   if (except !== 'rubricstation' && rubricStationJob.running) return 'Rubric Station running';
@@ -883,7 +883,7 @@ function imageRewriteStatusPayload() {
   return snap;
 }
 
-// ── Face Card & Top Image Generator — Pollinator face-card + hero only (whole pillar) ──
+// ── Multibox Manager (Face Card & Top Image) — Pollinator face-card + hero only (whole pillar) ──
 const FACE_HERO_F = WD + '/_face_hero_run.json';
 let faceHeroJob = {
   running: false, stop: false, stopAfterReview: false, pillar: 'tl', pillarName: 'Pulse Tools / CRO',
@@ -1201,7 +1201,7 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
   const kwNote = guideKeywords ? (' · guide: ' + guideKeywords.slice(0, 48) + (guideKeywords.length > 48 ? '…' : '')) : '';
   const modeNote = autoApproveImages ? ' · 🤖 auto-approve ON' : ' · keep/retry each card';
   const invNote = inv0 ? (' · inventory ' + inv0.toLocaleString() + ' · groups of ' + (tlPlan0.batchSize || 250)) : '';
-  faceHeroLog('▶ Face Card & Top Image — ' + faceHeroJob.pillarName + kwNote + modeNote + invNote + ' · serial flux');
+  faceHeroLog('▶ Multibox Manager — ' + faceHeroJob.pillarName + kwNote + modeNote + invNote + ' · serial flux');
   runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
   return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages };
 }
@@ -6537,7 +6537,7 @@ function buildPage(mode) {
     : 'Tap any entry for <b>fullscreen review</b> — <b>Cursor auto-auditors</b> gate publish. Only exceptions land here — <b style=color:#2ecc71>✓</b> publish · <b style=color:#ff8a76>✗</b> retarget.';
   const fsBatchExplain = 'Use <b>Rubric Stations</b> — one slice at a time (Writing · Structure · Face · Internal images · Top-10 · Publish gate). Each station has its own fix + auditor. Standard full scrub is disabled.';
   const batchIdleHint = 'Open a station tab — pick pillar — ▶ Start. Finished entries land in the audit pile below.';
-  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Face Card & Top Image Generator' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
+  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Multibox Manager' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
   return `<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><title>PULSE · ${pageTitle}</title><style>
 *{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:18px}
 #gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:92%;max-width:560px}
@@ -7241,7 +7241,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   </div>
   <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
-    <div class=dupe-panel-title style="color:#e879f9">🦄 Face Card &amp; Top Image Generator</div>
+    <div class=dupe-panel-title style="color:#e879f9">📦 Multibox Manager</div>
     <div class=dupe-panel-hint><b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
     <div class=dupe-panel-row>
       <select id=faceheroPillarFilter title="Which pillar to regenerate face-cards + heroes for"><option value=tl>Loading pillars…</option></select>
@@ -7677,7 +7677,7 @@ const RUBRIC_PICK=${JSON.stringify(Object.entries(RUBRIC_LABELS).filter(function
 const $=s=>document.querySelector(s);
 // ── Scrub vs Generate — one page, client-side tab toggle (owner) ──
 window.activeTab='${mode}';
-const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'🦄 Face Card & Top Image',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
+const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'📦 Multibox Manager',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
 const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'Audits ≥2000 words, Direct Answer, CRO placement, FAQs, mermaid, Sources, Related. <b>Does not touch images.</b>'};
 function switchPipelineTab(mode){
   if(!mode||mode===window.activeTab) return;
@@ -7705,7 +7705,7 @@ function switchPipelineTab(mode){
   const at=$('#appTitle'); if(at) at.textContent=TAB_TITLE[mode];
   const as=$('#appSub'); if(as) as.innerHTML=TAB_COPY[mode];
   if(window._sa&&window._sa.state&&window._sa.state.cap){ const cap=$('#cap'); if(cap) cap.textContent=window._sa.state.cap; }
-  try{ history.replaceState({tab:mode},'',mode==='generate'?'/generate':mode==='duplicator'?'/image-duplicator':mode==='imgen'?'/image-generator':mode==='facehero'?'/face-card-top-image-generator':mode==='internalimages'?'/internal-images':mode==='rubricstation'?'/rubric-stations':mode==='rewrite'?'/pollinator-image-overwrite':mode==='formatfix'?'/format-fixer':'/scrubber'); }catch(e){}
+  try{ history.replaceState({tab:mode},'',mode==='generate'?'/generate':mode==='duplicator'?'/image-duplicator':mode==='imgen'?'/image-generator':mode==='facehero'?'/multibox-manager':mode==='internalimages'?'/internal-images':mode==='rubricstation'?'/rubric-stations':mode==='rewrite'?'/pollinator-image-overwrite':mode==='formatfix'?'/format-fixer':'/scrubber'); }catch(e){}
   updateFullscreenForTab();
   updateTabBadges();
   if(mode==='scrub'){ if(window._sa) renderAuto(window._sa); loadPillars(); }
@@ -7731,7 +7731,7 @@ function bindPipelineTabs(){
   if(nf) nf.addEventListener('click',()=>switchPipelineTab('formatfix'));
   window.addEventListener('popstate',()=>{
     const path=(location.pathname||'/scrubber').toLowerCase();
-    const m=path.includes('format-fixer')||path.includes('formatfix')?'formatfix':path.includes('rubric-stations')||path.includes('rubricstation')?'rubricstation':path.includes('internal-images')||path.includes('internalimages')?'internalimages':path.includes('pollinator-image-overwrite')||path.includes('image-rewrite')?'rewrite':path.includes('face-card-top-image')||path.includes('face-hero')?'facehero':path.includes('image-generator')?'imgen':path.includes('image-duplicator')?'duplicator':path.includes('generate')?'generate':'scrub';
+    const m=path.includes('format-fixer')||path.includes('formatfix')?'formatfix':path.includes('rubric-stations')||path.includes('rubricstation')?'rubricstation':path.includes('internal-images')||path.includes('internalimages')?'internalimages':path.includes('pollinator-image-overwrite')||path.includes('image-rewrite')?'rewrite':path.includes('multibox-manager')||path.includes('face-card-top-image')||path.includes('face-hero')?'facehero':path.includes('image-generator')?'imgen':path.includes('image-duplicator')?'duplicator':path.includes('generate')?'generate':'scrub';
     if(m!==window.activeTab) switchPipelineTab(m);
   });
 }
@@ -7931,7 +7931,7 @@ function renderFaceHero(j){
   if(stats) stats.innerHTML=
     '<div>📦 inventory: <span>'+(j.inventory||j.total||0).toLocaleString()+'</span></div>'+
     (j.batchCount?('<div>📦 group: <span>'+((j.batchIndex||0)+1)+' / '+j.batchCount+' × '+(j.batchSize||250)+'</span></div>'):'')+
-    '<div>🦄 face-card+hero flux: <span>'+(j.coversGenerated||0)+'</span></div>'+
+    '<div>📦 face-card+hero flux: <span>'+(j.coversGenerated||0)+'</span></div>'+
     '<div>📋 entries done: <span>'+(j.entriesDone||0)+'</span></div>'+
     '<div>⏭ no blob: <span>'+(j.skippedNoBlob||0)+'</span></div>'+
     '<div>⚠️ errors: <span>'+(j.errors||0)+'</span></div>'+
@@ -10604,7 +10604,7 @@ const server = http.createServer(async (req, res) => {
   if (u.pathname === '/image-duplicator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('duplicator')); }
   if (u.pathname === '/image-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('imgen')); }
   if (u.pathname === '/pollinator-image-overwrite' || u.pathname === '/image-rewrite') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rewrite')); }
-  if (u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('facehero')); }
+  if (u.pathname === '/multibox-manager' || u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('facehero')); }
   if (u.pathname === '/format-fixer' || u.pathname === '/formatfix') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('formatfix')); }
   if (u.pathname === '/internal-images' || u.pathname === '/internalimages') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('internalimages')); }
   if (u.pathname === '/rubric-stations' || u.pathname === '/rubricstation') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rubricstation')); }
@@ -11275,7 +11275,7 @@ server.listen(PORT, '0.0.0.0', async () => {
     lanIp = Object.values(os.networkInterfaces()).flat().find(i => i && i.family === 'IPv4' && !i.internal && /^192\.168\.|^10\./.test(i.address))?.address || '';
     if (lanIp) try { fs.writeFileSync(WD + '/_scrub_lan_ip.txt', lanIp + ':' + PORT); } catch (e) {}
   } catch (e) {}
-  console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
+  console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /multibox-manager + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
   if (lanIp) console.log(`[scrub-button] LAN (phone on WiFi): http://${lanIp}:${PORT}/`);
   resumeInterruptedImageJobs();
 });
