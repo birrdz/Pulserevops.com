@@ -42,7 +42,7 @@ test('sitemap index excludes obsolete duplicate and review sitemaps', () => {
   const index = fs.readFileSync(path.join(ROOT, 'sitemap-index.xml'), 'utf8');
   assert.doesNotMatch(index, /sitemap-reviews\.xml/);
   assert.doesNotMatch(index, /sitemap-knowledge-live\.xml/);
-  assert.match(index, /sitemap-trending\.xml/);
+  assert.doesNotMatch(index, /sitemap-trending\.xml/);
   assert.match(index, /sitemap-drills\.xml/);
   assert.match(index, /sitemap-highschool-football-recruiting\.xml/);
 });
