@@ -47,10 +47,11 @@ try {
 } catch (_e) {}
 
 const SITE_ID = 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
-const STATE_PATH = '/tmp/tl-finish-drip-state.json';
-const LOG_PATH = '/tmp/tl-finish-drip.log';
+const PILLAR = String(process.env.PILLAR || 'tl').toLowerCase();
+const STATE_PATH = process.env.FINISH_STATE || `/tmp/${PILLAR}-finish-drip-state.json`;
+const LOG_PATH = process.env.FINISH_LOG || `/tmp/${PILLAR}-finish-drip.log`;
 const INTERVAL_MS = Number(process.env.INTERVAL_MS || 10 * 1000);
-const QUEUE_CACHE = '/tmp/tl-finish-queue.json';
+const QUEUE_CACHE = process.env.FINISH_QUEUE || `/tmp/${PILLAR}-finish-queue.json`;
 const ONCE = process.env.ONCE === '1';
 // Owner wants RED LIGHT finish emails as pages complete.
 // Default ON. Set EMAIL_ON_PASS=0 to silence. Images-only gate: EMAIL_REQUIRE_IMAGES=1.
@@ -59,6 +60,8 @@ const EMAIL_REQUIRE_IMAGES = process.env.EMAIL_REQUIRE_IMAGES === '1';
 const RECIPIENT = process.env.ALERT_TO || process.env.ALERT_TO_EMAIL || 'koryjordanwhite@gmail.com';
 const RESEND_KEY = process.env.resendapikey || process.env.RESEND_API_KEY || process.env.RESENDAPIKEY || '';
 const RESEND_FROM = process.env.ALERT_FROM_EMAIL || 'PULSE Engine <onboarding@resend.dev>';
+const { stampIndexFromAnswers } = require('/workspace/_finish_index_stamp_lib');
+const STAMP_EVERY = Math.max(1, Number(process.env.INDEX_STAMP_EVERY || 5));
 
 function absAssetUrl(u) {
   const s = String(u || '').trim();
@@ -113,7 +116,7 @@ function loadState() {
     return JSON.parse(fs.readFileSync(STATE_PATH, 'utf8'));
   } catch {
     return {
-      pillar: 'tl',
+      pillar: PILLAR,
       created_at: Date.now(),
       cursor: 0,
       queue: null,
@@ -129,11 +132,14 @@ function loadState() {
 
 function saveState(st) {
   st.updated_at = Date.now();
+  st.pillar = PILLAR;
   fs.writeFileSync(STATE_PATH, JSON.stringify(st, null, 2));
 }
 
-function toolsUrl(id) {
-  return 'https://pulserevops.com/tools/' + String(id).toLowerCase();
+function pageUrl(id) {
+  const clean = String(id).toLowerCase();
+  if (clean.startsWith('tl')) return 'https://pulserevops.com/tools/' + clean;
+  return 'https://pulserevops.com/knowledge/' + clean;
 }
 
 function grade(id, body, title) {
@@ -414,11 +420,12 @@ async function buildFailQueue() {
       }
     } catch (_e) {}
   }
-  log('Building tl finish queue (score < 13, images deferred)…');
+  log(`Building ${PILLAR} finish queue (score < 13, images deferred)…`);
   const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+  const re = new RegExp('^' + PILLAR + '\\d+$', 'i');
   const ids = (idx.entries || [])
-    .filter((e) => e && /^tl\d+$/i.test(e.id))
-    .sort((a, b) => Number(a.id.slice(2)) - Number(b.id.slice(2)))
+    .filter((e) => e && re.test(e.id))
+    .sort((a, b) => Number(String(a.id).replace(/^[a-z]+/i, '')) - Number(String(b.id).replace(/^[a-z]+/i, '')))
     .map((e) => e.id);
   const fails = [];
   for (let i = 0; i < ids.length; i += 30) {
@@ -491,30 +498,6 @@ async function emailFinished({ id, title, score, before, url, cover, bodyImgs, i
   }
 }
 
-/** Keep mosaic/_index.json quality_score in sync with answer blob (index inventory untouched). */
-async function syncIndexScore(id, patch) {
-  try {
-    const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
-    const entries = (idx && idx.entries) || [];
-    const i = entries.findIndex((e) => e && e.id === id);
-    if (i < 0) return false;
-    const e = entries[i];
-    const score = Math.max(Number(e.quality_score) || 0, Number(patch.quality_score) || 0);
-    entries[i] = Object.assign({}, e, {
-      quality_score: score,
-      polished_at: patch.polished_at || e.polished_at,
-      tl_finish_drip_at: patch.tl_finish_drip_at || e.tl_finish_drip_at,
-      images_deferred_at: e.images_deferred_at || patch.images_deferred_at || undefined,
-    });
-    idx.entries = entries;
-    await store.setJSON('_index.json', idx);
-    return true;
-  } catch (e) {
-    log('INDEX sync warn ' + id + ' ' + (e.message || e));
-    return false;
-  }
-}
-
 async function processOne(id) {
   const entry = await store.get(`answers/${id}.json`, { type: 'json', consistency: 'strong' });
   if (!entry || !entry.answer) return { id, error: 'missing' };
@@ -539,12 +522,13 @@ async function processOne(id) {
       quality_score,
       images_deferred_at,
       tl_finish_drip_at,
+      finish_drip_at: tl_finish_drip_at,
       tl_finish_template: route.template,
       tl_finish_before: beforeG.score,
       tl_finish_after: afterG.score,
     });
-    // index quality_score sync — do not alter tl inventory / img / cover
-    await syncIndexScore(id, { quality_score, polished_at, tl_finish_drip_at, images_deferred_at });
+    // index stamp (locked + verified) — inventory / img / cover untouched
+    await stampIndexFromAnswers(store, [id], { log });
   }
 
   let emailed = null;
@@ -555,7 +539,7 @@ async function processOne(id) {
       title,
       score: afterG.score,
       before: beforeG.score,
-      url: toolsUrl(id),
+      url: pageUrl(id),
       cover: imgState.cover || realCoverUrl(entry),
       bodyImgs: imgState.bodyImgs,
       imagesReady: imgState.ready,
@@ -599,6 +583,7 @@ function sleep(ms) {
 
 async function main() {
   let st = loadState();
+  st.pillar = PILLAR;
   if (!st.queue) {
     const { ids, fails } = await buildFailQueue();
     st.total = ids.length;
@@ -607,9 +592,9 @@ async function main() {
     st.cursor = 0;
     st.status = fails.length ? 'dripping' : 'complete';
     saveState(st);
-    log(`Queue ready: ${fails.length} fails / ${ids.length} total`);
+    log(`Queue ready: ${fails.length} fails / ${ids.length} total · pillar=${PILLAR}`);
     if (!fails.length) {
-      log('All tl already >=13 with images deferred');
+      log(`All ${PILLAR} already >=13 with images deferred`);
       return;
     }
   }
@@ -640,6 +625,17 @@ async function main() {
     st.cursor += 1;
     saveState(st);
 
+    // batch re-stamp recent finishes so scrubber overwrites cannot stick
+    if ((st.finished || []).length && st.finished.length % STAMP_EVERY === 0) {
+      const batch = st.finished.slice(-Math.max(STAMP_EVERY * 4, 20));
+      try {
+        const r = await stampIndexFromAnswers(store, batch, { log });
+        log('INDEX batch stamp ' + JSON.stringify(r));
+      } catch (e) {
+        log('INDEX batch stamp err ' + (e.message || e));
+      }
+    }
+
     if (ONCE) break;
     if (st.cursor >= st.queue.length) break;
     log(`Sleeping ${INTERVAL_MS}ms…`);
@@ -647,10 +643,17 @@ async function main() {
   }
 
   if (st.cursor >= st.queue.length) {
+    // final full stamp of finished set
+    try {
+      const r = await stampIndexFromAnswers(store, st.finished || [], { log });
+      log('INDEX final stamp ' + JSON.stringify(r));
+    } catch (e) {
+      log('INDEX final stamp err ' + (e.message || e));
+    }
     st.status = 'complete';
     saveState(st);
     log(
-      `TL FINISH DRIP COMPLETE finished=${(st.finished || []).length} emailed=${(st.emailed || []).length}`
+      `${PILLAR.toUpperCase()} FINISH DRIP COMPLETE finished=${(st.finished || []).length} emailed=${(st.emailed || []).length}`
     );
   }
 }
