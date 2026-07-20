@@ -15,8 +15,10 @@ const fs = require('fs');
 const path = require('path');
 const { execFile, spawn } = require('child_process');
 let imageScrubChild = null;   // legacy image-only child (_image_scrub.js) — NOT started by Begin Scrub; run manually if needed
-const WD = 'C:/Users/koryj/website';
-for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+const WD = fs.existsSync('C:/Users/koryj/website') ? 'C:/Users/koryj/website' : __dirname;
+try {
+  for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+} catch (_e) {}
 const { buildScrubCrewManifest, resolveAuditorCounts, crewOneLiner, isHumanAuditorMode, LANE_AUDITOR_MODE, LANE_CONTENT_WRITERS, GEN_WRITERS } = require('./_scrub_crew_manifest');
 const adaptiveThrottle = require('./_adaptive_throttle_learner');
 const { getStore } = require('@netlify/blobs');
