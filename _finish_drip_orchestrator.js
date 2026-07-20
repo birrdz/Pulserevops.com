@@ -193,7 +193,8 @@ async function main() {
         let done = false;
         try {
           const st = JSON.parse(fs.readFileSync(stPath, 'utf8'));
-          done = st.status === 'complete' || (st.cursor || 0) >= (st.queue || []).length;
+          const qlen = Array.isArray(st.queue) ? st.queue.length : 0;
+          done = st.status === 'complete' || (qlen > 0 && (st.cursor || 0) >= qlen);
         } catch (_e) {}
         if (done) {
           if (!(orch.completed || []).includes('tl')) {
@@ -205,32 +206,40 @@ async function main() {
         }
       }
 
-      orch.current = pillar;
-      orch.status = 'dripping:' + pillar;
-      saveOrch(orch);
-      const code = await runPillar(pillar);
-      const stPath = `/tmp/${pillar}-finish-drip-state.json`;
-      let st = {};
-      try {
-        st = JSON.parse(fs.readFileSync(stPath, 'utf8'));
-      } catch (_e) {}
-      const complete = st.status === 'complete' || (st.cursor || 0) >= (st.queue || []).length;
-      if (complete) {
-        orch.completed = Array.from(new Set([...(orch.completed || []), pillar]));
-        orch.current = null;
+      // stay on this pillar until truly complete (do not skip ahead on crash)
+      for (;;) {
+        orch.current = pillar;
+        orch.status = 'dripping:' + pillar;
         saveOrch(orch);
-        if (pillar === 'tl') {
-          fs.writeFileSync(
-            TL_DONE_FLAG,
-            JSON.stringify({ at: new Date().toISOString(), finished: (st.finished || []).length }, null, 2)
-          );
-          await emailTlDone(st);
-          log('✅✅ TL COMPLETE — advancing to next pillar');
-        } else {
-          log(`✅ pillar ${pillar} complete — next`);
+        const code = await runPillar(pillar);
+        const stPath = `/tmp/${pillar}-finish-drip-state.json`;
+        let st = null;
+        try {
+          st = JSON.parse(fs.readFileSync(stPath, 'utf8'));
+        } catch (_e) {
+          st = null;
         }
-      } else {
-        log(`pillar ${pillar} exited incomplete code=${code} — will retry`);
+        const qlen = st && Array.isArray(st.queue) ? st.queue.length : -1;
+        const complete =
+          !!st &&
+          ((st.status === 'complete' && qlen >= 0) || (qlen > 0 && (st.cursor || 0) >= qlen));
+        if (complete) {
+          orch.completed = Array.from(new Set([...(orch.completed || []), pillar]));
+          orch.current = null;
+          saveOrch(orch);
+          if (pillar === 'tl') {
+            fs.writeFileSync(
+              TL_DONE_FLAG,
+              JSON.stringify({ at: new Date().toISOString(), finished: (st.finished || []).length }, null, 2)
+            );
+            await emailTlDone(st);
+            log('✅✅ TL COMPLETE — advancing to next pillar');
+          } else {
+            log(`✅ pillar ${pillar} complete — next`);
+          }
+          break;
+        }
+        log(`pillar ${pillar} exited incomplete code=${code} — retry same pillar`);
         await new Promise((r) => setTimeout(r, 5000));
       }
     }
