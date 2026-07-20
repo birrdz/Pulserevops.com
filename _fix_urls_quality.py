@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-Fix / rewrite low-value URL content until it clears:
-  - cosine similarity < 0.30 vs already-approved pages
-  - rubric_score >= 12/13
-  - quality_score >= 10/10
+Fix / rewrite low-value URL content until it clears ALL three gates:
+
+  1) Similarity  < 30%   (cosine vs already-approved pages)
+  2) Quality     = 10/10
+  3) Rubric      ≥ 12/13
 
 Primary LLM: DeepSeek (OpenAI-compatible)
 Fallback LLM: OpenAI gpt-4o
@@ -35,6 +36,11 @@ import pandas as pd
 from openai import APIError, OpenAI, RateLimitError
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+
+# ── HARD GATES (owner) ──────────────────────────────────────────────
+SIM_MAX = 0.30          # similarity must be STRICTLY under 30%
+QUALITY_MIN = 10        # quality must be 10/10
+RUBRIC_MIN = 12         # rubric must be at least 12/13
 
 RUBRIC_PROMPT = """
 Evaluate the following SEO content based on a 13-point Helpful Content Rubric.
@@ -148,7 +154,7 @@ def extract_json(raw: str) -> dict[str, Any]:
 
 
 def get_max_similarity(new_text: str, existing_corpus: list[str]) -> float:
-    """Cosine similarity vs already-approved pages. Target: < 0.30."""
+    """Cosine similarity vs already-approved pages. Pass only if < SIM_MAX (30%)."""
     if not existing_corpus:
         return 0.0
     corpus = [t for t in existing_corpus if str(t).strip()]
@@ -158,6 +164,10 @@ def get_max_similarity(new_text: str, existing_corpus: list[str]) -> float:
     matrix = vectorizer.fit_transform([new_text] + corpus)
     sims = cosine_similarity(matrix[0:1], matrix[1:])
     return float(sims.max()) if sims.size else 0.0
+
+
+def pct(x: float) -> str:
+    return f"{100.0 * float(x):.1f}%"
 
 
 def evaluate_content(
@@ -225,21 +235,25 @@ def process_dataset(
     input_csv: str,
     output_csv: str,
     max_retries: int = 3,
-    sim_threshold: float = 0.30,
-    min_rubric: int = 12,
-    min_quality: int = 10,
     sleep_s: float = 0.5,
 ) -> None:
+    """Pass only when: similarity < 30% AND quality 10/10 AND rubric ≥ 12/13."""
     primary, fallback = make_clients()
     df = pd.read_csv(input_csv)
     if "url" not in df.columns:
         raise SystemExit("CSV must include a 'url' column")
+
+    print(
+        f"GATES locked: similarity < {pct(SIM_MAX)} · "
+        f"quality {QUALITY_MIN}/10 · rubric ≥ {RUBRIC_MIN}/13"
+    )
 
     for col in (
         "optimized_content",
         "rubric_score",
         "quality_score",
         "max_similarity",
+        "similarity_pct",
         "pass",
         "attempts",
         "feedback",
@@ -265,7 +279,7 @@ def process_dataset(
 
         while attempts < max_retries and not passed:
             max_sim = get_max_similarity(current_text, approved_corpus)
-            sim_passed = max_sim < sim_threshold
+            sim_passed = max_sim < SIM_MAX  # strictly under 30%
 
             try:
                 last_eval = evaluate_content(primary, fallback, current_text)
@@ -275,20 +289,22 @@ def process_dataset(
                 time.sleep(sleep_s)
                 continue
 
-            rubric_passed = last_eval["rubric_score"] >= min_rubric
-            quality_passed = last_eval["quality_score"] >= min_quality
+            # quality must be exactly/at least 10/10; rubric at least 12/13
+            rubric_passed = last_eval["rubric_score"] >= RUBRIC_MIN
+            quality_passed = last_eval["quality_score"] >= QUALITY_MIN
 
             if sim_passed and rubric_passed and quality_passed:
                 print(
-                    f"  -> Passed! (Sim: {max_sim:.2f}, "
-                    f"Rubric: {last_eval['rubric_score']}/13, "
-                    f"Quality: {last_eval['quality_score']}/10)"
+                    f"  -> PASSED · sim {pct(max_sim)} < 30% · "
+                    f"quality {last_eval['quality_score']}/10 · "
+                    f"rubric {last_eval['rubric_score']}/13"
                 )
                 approved_corpus.append(current_text)
                 df.at[index, "optimized_content"] = current_text
                 df.at[index, "rubric_score"] = last_eval["rubric_score"]
                 df.at[index, "quality_score"] = last_eval["quality_score"]
                 df.at[index, "max_similarity"] = round(max_sim, 4)
+                df.at[index, "similarity_pct"] = round(100.0 * max_sim, 2)
                 df.at[index, "pass"] = True
                 df.at[index, "attempts"] = attempts
                 df.at[index, "feedback"] = last_eval.get("feedback", "")
@@ -296,12 +312,14 @@ def process_dataset(
                 break
 
             attempts += 1
-            print(
-                f"  -> Failed. Sim: {max_sim:.2f}, "
-                f"Rubric: {last_eval['rubric_score']}/13, "
-                f"Quality: {last_eval['quality_score']}/10. "
-                f"Retrying ({attempts}/{max_retries})..."
-            )
+            fail_bits = []
+            if not sim_passed:
+                fail_bits.append(f"sim {pct(max_sim)} ≥ 30%")
+            if not quality_passed:
+                fail_bits.append(f"quality {last_eval['quality_score']}/10 (need 10)")
+            if not rubric_passed:
+                fail_bits.append(f"rubric {last_eval['rubric_score']}/13 (need ≥12)")
+            print(f"  -> FAILED · {' · '.join(fail_bits)} · retry {attempts}/{max_retries}")
             try:
                 current_text = rewrite_content(
                     primary,
@@ -316,12 +334,13 @@ def process_dataset(
             time.sleep(sleep_s)
 
         if not passed:
-            print(f"  -> Max retries hit for {url}. Saving best attempt.")
+            print(f"  -> Max retries hit for {url}. Saving best attempt (NOT a pass).")
             approved_corpus.append(current_text)
             df.at[index, "optimized_content"] = current_text
             df.at[index, "rubric_score"] = last_eval.get("rubric_score", 0)
             df.at[index, "quality_score"] = last_eval.get("quality_score", 0)
             df.at[index, "max_similarity"] = round(max_sim, 4)
+            df.at[index, "similarity_pct"] = round(100.0 * max_sim, 2)
             df.at[index, "pass"] = False
             df.at[index, "attempts"] = attempts
             df.at[index, "feedback"] = last_eval.get("feedback", "")
@@ -330,18 +349,20 @@ def process_dataset(
     out.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(out, index=False)
     passed_n = int(df["pass"].fillna(False).astype(bool).sum()) if "pass" in df.columns else 0
-    print(f"\nOptimization complete → {out} ({passed_n}/{len(df)} passed)")
+    print(
+        f"\nDone → {out} · {passed_n}/{len(df)} passed "
+        f"(sim < 30% · quality 10/10 · rubric ≥ 12/13)"
+    )
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Rewrite low-value URL content to 12/13 + 10/10")
+    ap = argparse.ArgumentParser(
+        description="Rewrite URL content until sim < 30%, quality 10/10, rubric ≥ 12/13"
+    )
     ap.add_argument("input_csv", help="CSV with url,title,question,answer")
     ap.add_argument("-o", "--output", default="high_value_urls.csv", help="Output CSV path")
     ap.add_argument("--env", default="/tmp/aq-drip.env", help="Optional KEY=VAL env file")
     ap.add_argument("--max-retries", type=int, default=3)
-    ap.add_argument("--sim-threshold", type=float, default=0.30)
-    ap.add_argument("--min-rubric", type=int, default=12)
-    ap.add_argument("--min-quality", type=int, default=10)
     args = ap.parse_args()
 
     if args.env:
@@ -353,14 +374,7 @@ def main() -> None:
     if not Path(args.input_csv).exists():
         raise SystemExit(f"Input CSV not found: {args.input_csv}")
 
-    process_dataset(
-        args.input_csv,
-        args.output,
-        max_retries=args.max_retries,
-        sim_threshold=args.sim_threshold,
-        min_rubric=args.min_rubric,
-        min_quality=args.min_quality,
-    )
+    process_dataset(args.input_csv, args.output, max_retries=args.max_retries)
 
 
 if __name__ == "__main__":
