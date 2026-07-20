@@ -4,8 +4,9 @@ const { pillarOf } = require('./grade-entry');
 
 const VS_TITLE_RE = /\bvs\.?\b|\bversus\b/i;
 // A numbered rank heading ("## 9. Plants vs. Zombies") is NOT a comparison section — a ranked item can
-// legitimately be named "X vs. Y". Only a compare block or a NON-ranked "A vs B" heading signals a versus entry.
-const VS_BODY_RE = /```compare\b|^#{2,3}\s+(?!\d+\.\s)[^\n]*\bvs\.?\b/im;
+// legitimately be named "X vs. Y". Subsection chapter heads ("### 1.1 … vs …") are also not compare
+// entries (book summaries). Only a compare block or a NON-ranked "A vs B" heading signals versus.
+const VS_BODY_RE = /```compare\b|^#{2,3}\s+(?!\d+\.\s)(?!\d+\.\d+)[^\n]*\bvs\.?\b/im;
 
 /** Topic → expert panel (different team per pillar, not one generic grader). */
 const EXPERT_PANELS = {
