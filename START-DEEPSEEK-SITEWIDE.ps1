@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 & (Join-Path $Root 'START-DEEPSEEK-CONTENT-BOOSTER.ps1') -NoBrowser
-$port = [int](Get-Content (Join-Path $Root '_deepseek_booster_port.txt') -Raw)
+$port = 333
 
 $key = $env:DEEPSEEK_BOOSTER_KEY
 if (-not $key) {

@@ -17,7 +17,7 @@ const { makeDeepSeekCandidate, candidateInvariantIssues } = require('./_deepseek
 const { enforceWriterVisualLock } = require('./_visual_lock_law');
 
 const WD = __dirname;
-const PORT = Number(process.env.DEEPSEEK_BOOSTER_PORT || 7988);
+const PORT = Number(process.env.DEEPSEEK_BOOSTER_PORT || 333);
 const PASS = process.env.DEEPSEEK_BOOSTER_KEY || '4444';
 const STATE_FILE = path.join(WD, '_deepseek_booster_state.json');
 const LOG_FILE = path.join(WD, '_deepseek_booster_log.jsonl');

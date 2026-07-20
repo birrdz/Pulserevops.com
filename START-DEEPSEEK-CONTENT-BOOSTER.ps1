@@ -2,8 +2,7 @@ param([switch]$NoBrowser)
 
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
-$PortFile = Join-Path $Root '_deepseek_booster_port.txt'
-$Port = 0
+$Port = 333
 
 function Test-BoosterPort([int]$Candidate) {
   try {
@@ -14,23 +13,9 @@ function Test-BoosterPort([int]$Candidate) {
   }
 }
 
-if (Test-Path $PortFile) {
-  try {
-    $remembered = [int](Get-Content $PortFile -Raw)
-    if (Test-BoosterPort $remembered) { $Port = $remembered }
-  } catch {}
-}
-
-if (-not $Port) {
-  foreach ($candidate in (@(7988..7999) + @(8998..9009))) {
-    $listener = Get-NetTCPConnection -LocalPort $candidate -State Listen -ErrorAction SilentlyContinue
-    if (-not $listener) { $Port = $candidate; break }
-    if (Test-BoosterPort $candidate) { $Port = $candidate; break }
-  }
-}
-if (-not $Port) { throw 'No free localhost port was found for the DeepSeek Content Booster.' }
-
 if (-not (Test-BoosterPort $Port)) {
+  $listener = Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue
+  if ($listener) { throw 'Port 333 is already used by another program.' }
   $stateDir = Join-Path $Root '_local-sites-state'
   New-Item -ItemType Directory -Force -Path $stateDir | Out-Null
   $env:DEEPSEEK_BOOSTER_PORT = [string]$Port
@@ -53,7 +38,6 @@ try {
   throw "DeepSeek Content Booster failed to start on port $Port. Check _local-sites-state\deepseek-booster.err.log. $($_.Exception.Message)"
 }
 
-Set-Content -Path $PortFile -Value $Port -Encoding Ascii
 Write-Host "DeepSeek Content Booster: http://localhost:$Port/"
 if (-not $NoBrowser) {
   Start-Process "http://localhost:$Port/"

@@ -1,6 +1,6 @@
 # DeepSeek Content Booster
 
-Standalone localhost duplicate. Its launcher selects a free port from 7988–7999 or 8998–9009, remembers it in `_deepseek_booster_port.txt`, and opens the correct URL automatically. It does not modify the 7950 manager, its worker files, or image pipelines.
+Standalone localhost duplicate on `http://localhost:333/`. It does not modify the 7950 manager, its worker files, or image pipelines.
 
 ## Quality-ladder behavior
 
