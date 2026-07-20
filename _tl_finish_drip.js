@@ -46,7 +46,8 @@ try {
 const SITE_ID = 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
 const STATE_PATH = '/tmp/tl-finish-drip-state.json';
 const LOG_PATH = '/tmp/tl-finish-drip.log';
-const INTERVAL_MS = Number(process.env.INTERVAL_MS || 2 * 60 * 1000);
+const INTERVAL_MS = Number(process.env.INTERVAL_MS || 60 * 1000);
+const QUEUE_CACHE = '/tmp/tl-finish-queue.json';
 const ONCE = process.env.ONCE === '1';
 const RECIPIENT = process.env.ALERT_TO || process.env.ALERT_TO_EMAIL || 'koryjordanwhite@gmail.com';
 const RESEND_KEY = process.env.resendapikey || process.env.RESEND_API_KEY || process.env.RESENDAPIKEY || '';
@@ -353,6 +354,19 @@ function transform(id, body, question) {
 }
 
 async function buildFailQueue() {
+  // Prefer saved queue so restarts don't burn 2+ minutes re-auditing 11k blobs.
+  if (fs.existsSync(QUEUE_CACHE)) {
+    try {
+      const cached = JSON.parse(fs.readFileSync(QUEUE_CACHE, 'utf8'));
+      if (Array.isArray(cached.ids) && cached.ids.length) {
+        log(`Using saved finish queue: ${cached.ids.length}`);
+        return {
+          ids: cached.ids,
+          fails: cached.ids.map((id) => ({ id, score: 0 })),
+        };
+      }
+    } catch (_e) {}
+  }
   log('Building tl finish queue (score < 13, images deferred)…');
   const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
   const ids = (idx.entries || [])
@@ -360,8 +374,8 @@ async function buildFailQueue() {
     .sort((a, b) => Number(a.id.slice(2)) - Number(b.id.slice(2)))
     .map((e) => e.id);
   const fails = [];
-  for (let i = 0; i < ids.length; i += 20) {
-    const chunk = ids.slice(i, i + 20);
+  for (let i = 0; i < ids.length; i += 30) {
+    const chunk = ids.slice(i, i + 30);
     await Promise.all(
       chunk.map(async (id) => {
         const e = await store.get(`answers/${id}.json`, { type: 'json' });
@@ -370,10 +384,16 @@ async function buildFailQueue() {
         if (!isPass(g)) fails.push({ id, score: g.score });
       })
     );
-    if (i % 500 === 0 || i + 20 >= ids.length) {
-      log(`audit ${Math.min(i + 20, ids.length)}/${ids.length} fails=${fails.length}`);
+    if (i % 600 === 0 || i + 30 >= ids.length) {
+      log(`audit ${Math.min(i + 30, ids.length)}/${ids.length} fails=${fails.length}`);
     }
   }
+  try {
+    fs.writeFileSync(
+      QUEUE_CACHE,
+      JSON.stringify({ at: new Date().toISOString(), total: ids.length, ids: fails.map((f) => f.id) }, null, 2)
+    );
+  } catch (_e) {}
   return { ids, fails };
 }
 
