@@ -4,6 +4,11 @@ const { fixEntry, C } = require('./_v2_components');
 const { countCroInBody } = require('./_cro_strip_lib');
 const { auditQaGoldTemplate, appliesQaGold, needsQaGoldFix } = require('./_qa_gold_template');
 const { enforceWriterVisualLock } = require('./_visual_lock_law');
+const {
+  isTlId,
+  preserveTlImages,
+  stripBannedTlBodyImages,
+} = require('./_tl_image_freeze_lib');
 
 const MIN_SCORE = 12;
 const WORD_FLOOR = 2000;
@@ -400,7 +405,12 @@ function collectImageLines(body) {
 
 /** Restore original image / @@PRODUCT lines — content fixes must not add or swap images. */
 function preserveImages(originalBody, newBody, opts) {
-  return enforceWriterVisualLock(originalBody, newBody, opts || {});
+  opts = opts || {};
+  // tl*: never restore pollinations / superseded /assets/qa/tl* faces / cost graphs
+  if (isTlId(opts.id)) {
+    return preserveTlImages(originalBody, newBody, opts.entryMeta || opts);
+  }
+  return enforceWriterVisualLock(originalBody, newBody, opts);
 }
 
 async function formatFixEntry(id, title, body, opts) {
@@ -408,7 +418,12 @@ async function formatFixEntry(id, title, body, opts) {
   const valid = opts.valid || new Set();
   const siblings = opts.siblings || [];
   const store = opts.store;
-  const original = String(body || '');
+  // tl*: freeze the preserve-source FIRST so banned images cannot resurrect
+  let original = String(body || '');
+  if (isTlId(id)) {
+    const frozen = stripBannedTlBodyImages(original);
+    if (frozen.removed.length) original = frozen.body;
+  }
   const steps = [];
   let b = original;
   // Owner 2026-07-20: always repair mashed / obese Direct Answers before anything else
@@ -423,7 +438,7 @@ async function formatFixEntry(id, title, body, opts) {
   const before = auditForFix(id, original, auditOpts);
   let afterPre = auditForFix(id, b, auditOpts);
   if (afterPre.pass && !directAnswerNeedsSlim(b)) {
-    b = preserveImages(original, b, { id, title, qaGold: auditOpts.qaGoldOutline });
+    b = preserveImages(original, b, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
     return { body: b, steps: steps.length ? steps : ['already-pass'], before, after: afterPre, pass: true, skipped: !steps.length };
   }
 
@@ -442,7 +457,7 @@ async function formatFixEntry(id, title, body, opts) {
   }
   const ordered = ensureDirectAnswerAfterHero(b);
   if (ordered !== b) { b = ordered; steps.push('da-after-hero'); }
-  b = preserveImages(original, b, { id, title, qaGold: auditOpts.qaGoldOutline });
+  b = preserveImages(original, b, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
 
   let after = auditForFix(id, b, auditOpts);
   const maxRounds = opts.maxRounds != null ? opts.maxRounds : 2;
@@ -457,18 +472,18 @@ async function formatFixEntry(id, title, body, opts) {
     }));
     await opts.fixEntry(id, title, siblings, valid, opts.dsChat).catch(() => null);
     const e = await store.get('answers/' + id + '.json', { type: 'json' }).catch(() => null);
-    if (e && e.answer) b = preserveImages(original, e.answer, { id, title, qaGold: auditOpts.qaGoldOutline });
+    if (e && e.answer) b = preserveImages(original, e.answer, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
     steps.push('deepseek-r' + (round + 1));
-    if (opts.enforceCroCardLaw) b = preserveImages(original, opts.enforceCroCardLaw(b, id), { id, title, qaGold: auditOpts.qaGoldOutline });
+    if (opts.enforceCroCardLaw) b = preserveImages(original, opts.enforceCroCardLaw(b, id), { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
     const ord = ensureDirectAnswerAfterHero(b);
-    if (ord !== b) { b = preserveImages(original, ord, { id, title, qaGold: auditOpts.qaGoldOutline }); steps.push('da-after-hero'); }
-    if (opts.ensureErFormat) b = preserveImages(original, opts.ensureErFormat(id, b), { id, title, qaGold: auditOpts.qaGoldOutline });
+    if (ord !== b) { b = preserveImages(original, ord, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta }); steps.push('da-after-hero'); }
+    if (opts.ensureErFormat) b = preserveImages(original, opts.ensureErFormat(id, b), { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
     if (opts.sliceKeys && opts.sliceKeys.includes('relatedPulse') && siblings.length) {
       const rel = '## Related on PULSE\n\n' + siblings.slice(0, 5).map(s => '- [' + String(s.title || s.id).replace(/[\[\]]/g, '') + '](/knowledge/' + (s.id || s) + ')').join('\n');
-      if (!/## Related on PULSE/i.test(b)) b = preserveImages(original, b.trimEnd() + '\n\n' + rel + '\n', { id, title, qaGold: auditOpts.qaGoldOutline });
+      if (!/## Related on PULSE/i.test(b)) b = preserveImages(original, b.trimEnd() + '\n\n' + rel + '\n', { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
       else {
         const nb = b.replace(/#{2,3}\s*Related on PULSE[\s\S]*?(?=\n#{2,3}\s|$)/i, rel + '\n\n');
-        if (nb !== b) b = preserveImages(original, nb, { id, title, qaGold: auditOpts.qaGoldOutline });
+        if (nb !== b) b = preserveImages(original, nb, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
       }
       if (!steps.includes('related-pulse')) steps.push('related-pulse');
     }
@@ -479,7 +494,7 @@ async function formatFixEntry(id, title, body, opts) {
   if (directAnswerNeedsSlim(b) || !directAnswerFull(b)) {
     const slimmed = repairSlimDirectAnswer(b);
     if (slimmed !== b) {
-      b = preserveImages(original, slimmed, { id, title, qaGold: auditOpts.qaGoldOutline });
+      b = preserveImages(original, slimmed, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
       steps.push('da-slim-final');
       after = auditForFix(id, b, auditOpts);
     }

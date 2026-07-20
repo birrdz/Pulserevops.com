@@ -36,6 +36,7 @@ const {
 } = require('/workspace/_format_fixer_lib');
 const { fixEntry } = require('/workspace/_v2_components');
 const { stampIndexFromAnswers } = require('/workspace/_finish_index_stamp_lib');
+const { freezeTlEntryImages } = require('/workspace/_tl_image_freeze_lib');
 
 // Owner: only 1 DeepSeek call at a time — no parallel station/page calls.
 let _dsLock = Promise.resolve();
@@ -359,6 +360,12 @@ function structOk(body) {
 
 /** One Content Booster pass. Does not email. */
 async function boosterPass(id, valid, entry) {
+  // Freeze BEFORE fingerprint — banned imgs must not be in the "preserve" baseline
+  const frozen = freezeTlEntryImages(entry, id);
+  entry = frozen.entry;
+  if (frozen.removed.length) {
+    log('IMG_FREEZE ' + id + ' removed=' + frozen.removed.length + ' allowed=' + (frozen.allowed || []).length);
+  }
   const title = entry.question || entry.h1 || id;
   const beforeFp = imageFingerprint(entry, entry.answer);
   const beforeG = gradeEntry(id, entry.answer, { imagesDeferred: true, title });
@@ -377,7 +384,12 @@ async function boosterPass(id, valid, entry) {
 
   let nextBody = r.body || entry.answer;
   nextBody = repairSlimDirectAnswer(nextBody);
-  nextBody = preserveImages(entry.answer, nextBody, { id, title, qaGold: true });
+  nextBody = preserveImages(entry.answer, nextBody, {
+    id,
+    title,
+    qaGold: true,
+    entryMeta: entry,
+  });
   const afterG = gradeEntry(id, nextBody, { imagesDeferred: true, title });
   const afterFp = imageFingerprint(entry, nextBody);
   const imagesOk = imagesPreserved(beforeFp, afterFp);
@@ -418,6 +430,28 @@ async function boosterPass(id, valid, entry) {
 async function processOne(id, valid) {
   let entry = await store.get(`answers/${id}.json`, { type: 'json', consistency: 'strong' });
   if (!entry || !entry.answer) return { id, error: 'missing' };
+
+  // Strip banned/old images from blob up front so they never come back
+  {
+    const fr = freezeTlEntryImages(entry, id);
+    if (fr.changed) {
+      entry = fr.entry;
+      await store.setJSON(`answers/${id}.json`, {
+        ...entry,
+        updated_at: new Date().toISOString(),
+      });
+      log(
+        'IMG_FREEZE_SAVE ' +
+          id +
+          ' removed=' +
+          fr.removed.length +
+          ' cover=' +
+          (fr.cover || '')
+      );
+    } else {
+      entry = fr.entry;
+    }
+  }
 
   const title = entry.question || entry.h1 || id;
   const startScore = gradeEntry(id, entry.answer, { imagesDeferred: true, title }).score;
@@ -526,23 +560,24 @@ async function processOne(id, valid) {
     const latest = await store.get(`answers/${id}.json`, { type: 'json', consistency: 'strong' });
     // Never publish a mashed/obese Direct Answer — even on approve-after-3
     let finalBody = repairSlimDirectAnswer(best.body || (latest && latest.answer) || entry.answer);
-    finalBody = preserveImages((latest || entry).answer || entry.answer, finalBody, {
+    const base = { ...(latest || entry), answer: finalBody };
+    const frSave = freezeTlEntryImages(base, id);
+    finalBody = preserveImages(frSave.entry.answer, finalBody, {
       id,
       title,
       qaGold: true,
+      entryMeta: frSave.entry,
     });
+    const fr2 = freezeTlEntryImages({ ...frSave.entry, answer: finalBody }, id);
+    finalBody = fr2.entry.answer;
     best.body = finalBody;
     best.score = gradeEntry(id, finalBody, { imagesDeferred: true, title }).score;
     await store.setJSON(`answers/${id}.json`, {
-      ...(latest || entry),
+      ...fr2.entry,
       answer: finalBody,
-      img: (latest || entry).img,
-      cover: (latest || entry).cover,
-      face: (latest || entry).face,
-      cover_src: (latest || entry).cover_src,
-      cro_kit: (latest || entry).cro_kit,
-      cro_kit_body: (latest || entry).cro_kit_body,
-      h1: (latest || entry).h1 || title,
+      cro_kit: fr2.entry.cro_kit || (latest || entry).cro_kit,
+      cro_kit_body: fr2.entry.cro_kit_body || (latest || entry).cro_kit_body,
+      h1: fr2.entry.h1 || title,
       polished_at: Date.now(),
       quality_score: best.score,
       tl_content_booster_at: Date.now(),

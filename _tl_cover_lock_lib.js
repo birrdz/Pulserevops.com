@@ -2,6 +2,9 @@
  * CRO/tl cover lock — curated face/hero pool (50), rotate by id.
  * Face card and hero MAY match / dupe (owner 2026-07-20).
  * Never re-bake title-flux /assets/qa/tlNNNN.jpg faces.
+ *
+ * Pool order + length are LOCKED — do not filter slots at runtime
+ * (changes id→face mapping). Body image bans live in _tl_image_freeze_lib.
  */
 'use strict';
 
@@ -60,6 +63,20 @@ function normalizeCroCover(url) {
   return '';
 }
 
+/** True if cover/img is already a valid locked face (pool or cro-cover). */
+function isLockedFaceUrl(url) {
+  const s = String(url || '').split('?')[0];
+  if (!s) return false;
+  if (/pollinations\.ai/i.test(s)) return false;
+  // Superseded per-page flux faces — not the curated pool
+  if (/\/assets\/qa\/tl\d+(?:-v\d+)?\.(?:jpg|jpeg|png|webp)$/i.test(s)) return false;
+  if (normalizeCroCover(s)) return true;
+  if (loadFaces().includes(s)) return true;
+  if (/\/assets\/qa\/pool-tl-\d+\.jpg/i.test(s)) return true;
+  if (/\/assets\/qa\/tl\d+-b\d+\.jpg/i.test(s)) return true;
+  return false;
+}
+
 /**
  * Patch answer blob fields to locked curated face/hero (may be identical).
  */
@@ -108,6 +125,7 @@ module.exports = {
   faceAndHeroForId,
   stripPollinationsMd,
   normalizeCroCover,
+  isLockedFaceUrl,
   lockTlAnswerEntry,
   lockTlIndexRow,
   isTlId,
