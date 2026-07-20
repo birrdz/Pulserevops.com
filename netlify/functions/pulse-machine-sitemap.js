@@ -24,6 +24,15 @@ function initStore() {
 function isoDate(ms) {
   return new Date(ms || Date.now()).toISOString().slice(0, 10);
 }
+function entryModifiedMs(entry) {
+  const timestamps = [
+    entry && entry.ts,
+    entry && entry.polished_at,
+    entry && entry.updated_at,
+    entry && entry.last_modified_ms,
+  ].map(Number).filter(Number.isFinite);
+  return timestamps.length ? Math.max(...timestamps) : Date.now();
+}
 function escXml(s) {
   return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -151,7 +160,10 @@ exports.handler = async (event) => {
       const idx = (await store.get('_index.json', { type: 'json' })) || { entries: [] };
       // Load the full catalog; advertised sitemap endpoints filter it by exact
       // pillar, keeping each response below Google and Netlify response limits.
-      entries = (idx.entries || []).slice(0, 50000);
+      entries = (idx.entries || []).slice(0, 50000).map(entry => ({
+        ...entry,
+        ts: entryModifiedMs(entry),
+      }));
       if (entries.length && entries[0].ts) latestTs = entries[0].ts;
     } catch (e) {}
 
@@ -413,5 +425,6 @@ exports.handler = async (event) => {
 
 exports._test = {
   canonicalEntryUrl,
+  entryModifiedMs,
   entryMatchesPillar,
 };

@@ -23,6 +23,15 @@ test('pillar sitemaps contain only their own entry IDs', () => {
   assert.equal(sitemap.entryMatchesPillar({ id: 'tl21749' }, 'q'), false);
 });
 
+test('sitemap lastmod uses the newest quality update timestamp', () => {
+  assert.equal(sitemap.entryModifiedMs({
+    ts: 100,
+    polished_at: 400,
+    updated_at: 300,
+    last_modified_ms: 200,
+  }), 400);
+});
+
 test('robots advertises only the sitemap index', () => {
   const robots = fs.readFileSync(path.join(ROOT, 'robots.txt'), 'utf8');
   const sitemapLines = robots.match(/^Sitemap:\s+\S+/gm) || [];
