@@ -73,7 +73,14 @@ const MAX_TRIES = Math.max(1, Number(process.env.MAX_TRIES || 3));
 const RETRY_PAUSE_MS = Number(process.env.RETRY_PAUSE_MS || 5000);
 const RECIPIENT = process.env.ALERT_TO || process.env.ALERT_TO_EMAIL || 'koryjordanwhite@gmail.com';
 const RESEND_KEY = process.env.resendapikey || process.env.RESEND_API_KEY || process.env.RESENDAPIKEY || '';
-const RESEND_FROM = process.env.ALERT_FROM_EMAIL || 'PULSE Engine <onboarding@resend.dev>';
+function normalizeFrom(raw) {
+  let f = String(raw || '').trim().replace(/^['"]|['"]$/g, '');
+  if (!f) f = 'PULSE Engine <onboarding@resend.dev>';
+  // bare address → add display name
+  if (/^onboarding@resend\.dev$/i.test(f)) f = 'PULSE Engine <onboarding@resend.dev>';
+  return f;
+}
+const RESEND_FROM = normalizeFrom(process.env.ALERT_FROM_EMAIL);
 const EMAIL_ON_PASS = process.env.EMAIL_ON_PASS !== '0';
 
 function log(msg) {
@@ -490,7 +497,7 @@ async function processOne(id, valid) {
 
 async function main() {
   log(
-    `BOOT content-booster lift12 TARGET=${TARGET} MAX_TRIES=${MAX_TRIES} INTERVAL_MS=${INTERVAL_MS} ONCE=${ONCE} DS_CAP=$${DAILY_CAP} spend=${JSON.stringify(todaySpend())} serial=1 approve_after_tries=1`
+    `BOOT content-booster lift12 TARGET=${TARGET} MAX_TRIES=${MAX_TRIES} INTERVAL_MS=${INTERVAL_MS} ONCE=${ONCE} DS_CAP=$${DAILY_CAP} to=${RECIPIENT} from=${RESEND_FROM} spend=${JSON.stringify(todaySpend())} serial=1 approve_after_tries=1`
   );
 
   let st = loadState();
