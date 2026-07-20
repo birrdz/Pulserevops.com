@@ -965,6 +965,18 @@ async function commitFaceHeroDraft(id, outBody) {
   } catch (err) {}
   return { ok: true };
 }
+function loadTlMediaBatchPlan() {
+  try {
+    const p = WD + '/_tl_media_batches.json';
+    if (!fs.existsSync(p)) return null;
+    const plan = JSON.parse(fs.readFileSync(p, 'utf8'));
+    if (!plan || plan.pillar !== 'tl' || !Array.isArray(plan.groups) || !plan.groups.length) return null;
+    return plan;
+  } catch (e) { return null; }
+}
+function saveTlMediaBatchPlan(plan) {
+  try { fs.writeFileSync(WD + '/_tl_media_batches.json', JSON.stringify(plan, null, 2)); } catch (e) {}
+}
 async function runFaceHeroLoop() {
   if (faceHeroJob.running) return;
   if (faceHeroJob.stop) {
@@ -977,9 +989,28 @@ async function runFaceHeroLoop() {
   faceHeroJob.running = true;
   faceHeroJob.phase = 'facehero';
   try {
-    const entries = faceHeroJob._entries || await getImageDuplicatorEntries(faceHeroJob.pillar);
-    faceHeroJob._entries = entries;
-    faceHeroJob.total = entries.length;
+    let entries = faceHeroJob._entries || await getImageDuplicatorEntries(faceHeroJob.pillar);
+    // CRO Pulse Tools: process in groups of 250 from _tl_media_batches.json (inventory = full pillar).
+    const batchPlan = (faceHeroJob.pillar === 'tl') ? loadTlMediaBatchPlan() : null;
+    if (batchPlan) {
+      const bi = Math.max(0, Math.min(batchPlan.batchIndex || 0, batchPlan.groups.length - 1));
+      const group = batchPlan.groups[bi] || batchPlan.groups[0];
+      const idSet = new Set((group.ids || []).map(x => String(x).toLowerCase()));
+      const byId = new Map(entries.map(e => [String(e.id).toLowerCase(), e]));
+      entries = (group.ids || []).map(id => byId.get(String(id).toLowerCase()) || { id }).filter(e => e && e.id);
+      faceHeroJob._entries = entries;
+      faceHeroJob.inventory = batchPlan.inventory || entries.length;
+      faceHeroJob.batchSize = batchPlan.batchSize || 250;
+      faceHeroJob.batchIndex = bi;
+      faceHeroJob.batchCount = batchPlan.batchCount || batchPlan.groups.length;
+      faceHeroJob.batchLabel = 'batch ' + (bi + 1) + '/' + faceHeroJob.batchCount;
+      faceHeroJob.total = entries.length;
+      faceHeroLog('📦 tl inventory ' + faceHeroJob.inventory + ' · ' + faceHeroJob.batchLabel + ' (' + entries.length + ' cards)');
+    } else {
+      faceHeroJob._entries = entries;
+      faceHeroJob.total = entries.length;
+      faceHeroJob.inventory = entries.length;
+    }
     if (!faceHeroJob.total) {
       faceHeroLog('⚠️ no entries for pillar');
       faceHeroJob.phase = 'done';
@@ -1051,6 +1082,16 @@ async function runFaceHeroLoop() {
     if (faceHeroJob.phase !== 'review') {
       faceHeroJob.phase = faceHeroJob.stop ? 'stopped' : 'done';
       faceHeroLog(faceHeroJob.stop ? ('⏹ stopped at ' + faceHeroJob.pct + '%') : ('✅ complete — ' + faceHeroJob.entriesDone + ' entries · ' + faceHeroJob.coversGenerated + ' face-card+hero flux jobs'));
+      // Advance tl 250-group cursor so next Start picks the next batch.
+      if (!faceHeroJob.stop && faceHeroJob.pillar === 'tl') {
+        const plan = loadTlMediaBatchPlan();
+        if (plan && (plan.batchIndex || 0) < (plan.groups.length - 1)) {
+          plan.batchIndex = (plan.batchIndex || 0) + 1;
+          saveTlMediaBatchPlan(plan);
+          faceHeroJob.batchIndex = plan.batchIndex;
+          faceHeroLog('📦 next tl group ready · batch ' + (plan.batchIndex + 1) + '/' + plan.groups.length);
+        }
+      }
       faceHeroJob.running = false;
       faceHeroJob.finishedAt = Date.now();
       faceHeroJob.currentId = '';
@@ -1116,7 +1157,9 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
   if (!pillar) return { ok: false, msg: 'pick a pillar' };
   guideKeywords = String(guideKeywords || '').trim().slice(0, 800);
   autoApproveImages = !!autoApproveImages;
-  const canResume = !forceRestart && faceHeroJob.pillar === pillar && (faceHeroJob.phase === 'stopped' || faceHeroJob.phase === 'done' || faceHeroJob.phase === 'error') && (faceHeroJob.done || 0) > 0 && (faceHeroJob.done || 0) < (faceHeroJob.total || 1);
+  // tl batch plan: after a 250-group finishes (phase=done), Start = next group (not resume mid-group).
+  const tlPlan = (pillar === 'tl') ? loadTlMediaBatchPlan() : null;
+  const canResume = !forceRestart && !tlPlan && faceHeroJob.pillar === pillar && (faceHeroJob.phase === 'stopped' || faceHeroJob.phase === 'done' || faceHeroJob.phase === 'error') && (faceHeroJob.done || 0) > 0 && (faceHeroJob.done || 0) < (faceHeroJob.total || 1);
   if (canResume) {
     faceHeroJob.stop = false;
     faceHeroJob.stopAfterReview = false;
