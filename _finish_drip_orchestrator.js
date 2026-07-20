@@ -32,6 +32,15 @@ const ORCH_STATE = '/tmp/finish-drip-orchestrator.json';
 const ORCH_LOG = '/tmp/finish-drip-orchestrator.log';
 const TL_DONE_FLAG = '/tmp/tl-finish-COMPLETE.flag';
 const INTERVAL_MS = process.env.INTERVAL_MS || '10000';
+/** Owner pivot: put this pillar first (e.g. START_PILLAR=fr). */
+const START_PILLAR = String(process.env.START_PILLAR || '').toLowerCase().trim();
+/** Comma-separated pillars to skip for now (e.g. DEFER_PILLARS=tl). */
+const DEFER_PILLARS = new Set(
+  String(process.env.DEFER_PILLARS || '')
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean)
+);
 const RECIPIENT = process.env.ALERT_TO || process.env.ALERT_TO_EMAIL || 'koryjordanwhite@gmail.com';
 const RESEND_KEY = process.env.resendapikey || process.env.RESEND_API_KEY || process.env.RESENDAPIKEY || '';
 const RESEND_FROM = process.env.ALERT_FROM_EMAIL || 'PULSE Engine <onboarding@resend.dev>';
@@ -72,12 +81,18 @@ async function pillarOrder() {
     if ((Number(e.quality_score) || 0) < 13) map[p].under++;
   }
   const rest = Object.entries(map)
-    .filter(([p, v]) => p !== 'tl' && v.under > 0)
+    .filter(([p, v]) => p !== 'tl' && v.under > 0 && !DEFER_PILLARS.has(p))
     .sort((a, b) => b[1].under - a[1].under)
     .map(([p]) => p);
-  const order = [];
-  if (map.tl && (map.tl.under > 0 || !fs.existsSync(TL_DONE_FLAG))) order.push('tl');
+  let order = [];
+  if (!DEFER_PILLARS.has('tl') && map.tl && (map.tl.under > 0 || !fs.existsSync(TL_DONE_FLAG))) {
+    order.push('tl');
+  }
   order.push(...rest);
+  if (START_PILLAR && map[START_PILLAR] && map[START_PILLAR].under > 0) {
+    order = [START_PILLAR, ...order.filter((p) => p !== START_PILLAR)];
+  }
+  order = order.filter((p) => !DEFER_PILLARS.has(p));
   return { order, map };
 }
 
@@ -95,6 +110,8 @@ function runPillar(pillar) {
           EMAIL_ON_PASS: process.env.EMAIL_ON_PASS || '1',
           EMAIL_REQUIRE_IMAGES: process.env.EMAIL_REQUIRE_IMAGES || '0',
           INDEX_STAMP_EVERY: process.env.INDEX_STAMP_EVERY || '3',
+          // Default OFF — text quality first; set WITH_IMAGES=1 only when owner wants kits
+          WITH_IMAGES: process.env.WITH_IMAGES != null ? process.env.WITH_IMAGES : '0',
         }),
         stdio: ['ignore', 'pipe', 'pipe'],
       }

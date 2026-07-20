@@ -3,16 +3,29 @@
 // Key: DEEPSEEK_API_KEY or ds1 (Netlify env + .env.local). Model: deepseek-chat.
 const fs = require('fs');
 
-// Load .env.local so the key is available to plain `node` scripts.
+// Load env so the key is available to plain `node` scripts (Linux cloud + Windows).
 try {
-  const env = fs.readFileSync('C:/Users/koryj/website/.env.local', 'utf8');
-  for (const line of env.split(/\r?\n/)) {
-    const m = line.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/);
-    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
+  const envPaths = [
+    process.env.AQ_DRIP_ENV || '/tmp/aq-drip.env',
+    '/workspace/.env.local',
+    '/workspace/.env',
+    'C:/Users/koryj/website/.env.local',
+  ];
+  for (const ep of envPaths) {
+    try {
+      if (!fs.existsSync(ep)) continue;
+      const env = fs.readFileSync(ep, 'utf8');
+      for (const line of env.split(/\r?\n/)) {
+        const m = line.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/);
+        if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
+      }
+    } catch (_e) {}
   }
 } catch (e) {}
 
-const DS_KEY = process.env.DEEPSEEK_API_KEY || process.env.ds1;
+function dsKey() {
+  return process.env.DEEPSEEK_API_KEY || process.env.ds1 || '';
+}
 const DS_URL = 'https://api.deepseek.com/chat/completions';
 const DS_MODEL = process.env.DEEPSEEK_MODEL || 'deepseek-chat';
 
@@ -22,7 +35,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // DeepSeek pricing (conservative, USD per 1M tokens): input ~$0.27, output ~$1.10.
 const DS_IN_PER_M = 0.27, DS_OUT_PER_M = 1.10;
 const DAILY_CAP = parseFloat(process.env.DS_DAILY_CAP || '5');   // hard stop ($/day)
-const SPEND_FILE = 'C:/Users/koryj/website/_ds_spend.json';
+const SPEND_FILE =
+  process.env.DS_SPEND_FILE ||
+  (fs.existsSync('/workspace') ? '/workspace/_ds_spend.json' : 'C:/Users/koryj/website/_ds_spend.json');
 const today = () => new Date().toISOString().slice(0, 10);
 
 function loadSpend() {
@@ -48,6 +63,7 @@ function recordUsage(usage) {
  * @param {{temperature?:number, max_tokens?:number, retries?:number, model?:string}} opts
  */
 async function dsChat(messages, opts = {}) {
+  const DS_KEY = dsKey();
   if (!DS_KEY) throw new Error('DEEPSEEK_API_KEY/ds1 not set');
   // Hard daily cap — stop runaway spend. Engines catch this and halt.
   const sp = loadSpend();
@@ -93,4 +109,12 @@ async function dsChat(messages, opts = {}) {
   throw lastErr || new Error('DeepSeek: unknown failure');
 }
 
-module.exports = { dsChat, DS_MODEL, hasKey: !!DS_KEY, todaySpend, DAILY_CAP };
+module.exports = {
+  dsChat,
+  DS_MODEL,
+  get hasKey() {
+    return !!dsKey();
+  },
+  todaySpend,
+  DAILY_CAP,
+};

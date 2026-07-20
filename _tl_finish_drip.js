@@ -26,7 +26,8 @@ const { pickGoldTemplate } = require('/workspace/_pulse_gold_template_router');
 const { stripCostImages } = require('/workspace/_tl_cost_image_strip_lib');
 const { lockTlAnswerEntry, isTlId } = require('/workspace/_tl_cover_lock_lib');
 const { assignCroKitToEntry } = require('/workspace/_tl_cro_kit_lib');
-const WITH_IMAGES = process.env.WITH_IMAGES !== '0';
+// Default OFF (text quality first). Opt in with WITH_IMAGES=1.
+const WITH_IMAGES = process.env.WITH_IMAGES === '1';
 
 try {
   const envPath = process.env.AQ_DRIP_ENV || '/tmp/aq-drip.env';
