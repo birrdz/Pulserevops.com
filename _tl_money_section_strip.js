@@ -3,8 +3,11 @@
  * Remove WHOLE money/pricing SECTIONS from tl answers — owner screenshots.
  * Targets heading blocks + tables + key cost sentences (not just $ glyphs).
  *
- *   LIMIT=1200 node _tl_money_section_strip.js
- *   PILOT=tl10740,tl9495,tl15711 node _tl_money_section_strip.js
+ * SAFETY: refuse to run unless ALLOW_MONEY_SECTION_STRIP=1 (paused while tl finish drip runs).
+ * Never strip Direct Answer / CRO Businesses / FAQ / Sources / Related.
+ *
+ *   ALLOW_MONEY_SECTION_STRIP=1 LIMIT=1200 node _tl_money_section_strip.js
+ *   ALLOW_MONEY_SECTION_STRIP=1 PILOT=tl10740,tl9495,tl15711 node _tl_money_section_strip.js
  */
 const fs = require('fs');
 const { getStore } = require('/workspace/node_modules/@netlify/blobs');
@@ -38,26 +41,43 @@ function log(s) {
   fs.appendFileSync(LOG, line + '\n');
 }
 
-/** Headings that mean "nuke this whole section" (from owner screenshots). */
+/** Protected structural headings — never enter section-skip on these. */
+const PROTECTED_HEAD_RE =
+  /^(?:Direct Answer|CRO Businesses Near You|FAQ|Sources|Related(?: on PULSE)?|How to Vet|Why .+|What to Look For|The Remote vs\.? Local|How to Structure)\b/i;
+
+/** Headings that mean "nuke this whole section" (exact money titles only). */
 const SECTION_HEAD_RE =
-  /^(#{2,4}\s+)?(?:Cost Structure(?:\s*:\s*What You['’]?ll Actually Pay)?|What You['’]?ll Actually Pay|The cost breakdown you need to see|How to evaluate fractional CRO pricing(?: for your company)?|Fractional CRO pricing(?: in \d{4})?|Pricing(?: breakdown| guide| comparison)?|Compensation(?: breakdown)?|Salary(?: vs\.? retainer)?|Cost comparison|Monthly cost|What does (?:a )?fractional CRO cost|Cost of a fractional CRO|Budget(?:ing)? for a fractional CRO)\b/i;
+  /^(?:Cost Structure(?:\s*:\s*What You['’]?ll Actually Pay)?|What You['’]?ll Actually Pay|What You Actually Get for the Money|The cost breakdown you need to see|How to evaluate fractional CRO pricing(?: for your company)?|Fractional CRO pricing(?: in \d{4})?|Pricing(?: breakdown| guide| comparison)\b|Compensation(?: breakdown)?\b|Salary(?: vs\.? retainer)?\b|Cost comparison\b|Monthly cost\b|What does (?:a )?fractional CRO cost\b|Cost of a fractional CRO\b|Budget(?:ing)? for a fractional CRO\b|What is the typical monthly (?:cost|price) range\b)/i;
 
 /** Fence/step blocks whose title is a money section. */
 const FENCE_TITLE_RE =
-  /(?:title|heading)\s*:\s*(?:How to evaluate fractional CRO pricing|Cost Structure|What You['’]?ll Actually Pay|cost breakdown|Monthly cost|Compensation)/i;
+  /(?:title|heading)\s*:\s*(?:How to evaluate fractional CRO pricing|Cost Structure|What You['’]?ll Actually Pay|cost breakdown|Monthly cost)\b/i;
 
 /** Standalone paragraphs / table rows that are pure money talk. */
 const KILL_LINE_RE =
   /(?:\$\s?\d|\b\d+\s*[kK]\s*[–—\-]\s*\d+\s*[kK]\b|\b\d{1,3}(?:,\d{3})+\s*[–—\-]\s*\d{1,3}(?:,\d{3})+\b).{0,40}(?:annualized|\/\s*mo(?:nth)?|per\s+month|per\s+year|base\s+salary|total\s+compensation)|^\s*[-*]\s*Monthly cost\b|^\s*\|\s*Monthly cost\b|Expect costs?\s+between\b|typically costs?\b|expect to pay\b|half the cost of a full-time|runs?\s+\$?\d|pay\s+\$?\d|budget\s+\$?\d/i;
 
+function headingText(line) {
+  return String(line || '')
+    .trim()
+    .replace(/^#{1,6}\s+/, '')
+    .trim();
+}
+
+function isProtectedHead(line) {
+  const t = String(line || '').trim();
+  if (!/^#{1,4}\s+/.test(t)) return false;
+  return PROTECTED_HEAD_RE.test(headingText(t));
+}
+
 function isSectionHead(line) {
   const t = String(line || '').trim();
-  if (/^#{2,4}\s+/.test(t) && SECTION_HEAD_RE.test(t.replace(/^#{2,4}\s+/, ''))) return true;
-  if (/^#{2,4}\s+/.test(t) && /cost|pric(?:e|ing)|salary|compensat|retainer|what you.?ll (?:actually )?pay|budget/i.test(t)) {
-    // avoid killing unrelated "low-cost franchise" style — require CRO/revenue money context
-    if (/CRO|fractional|interim|revenue leader|compensat|salary|retainer|\/month|annualized|pricing/i.test(t)) return true;
-  }
-  return false;
+  if (!/^#{2,4}\s+/.test(t)) return false;
+  if (isProtectedHead(t)) return false;
+  // Only pure heading lines (no body glued on) — max ~120 chars after hashes
+  const ht = headingText(t);
+  if (ht.length > 120) return false;
+  return SECTION_HEAD_RE.test(ht);
 }
 
 function stripMoneySections(answer) {
@@ -97,7 +117,13 @@ function stripMoneySections(answer) {
         j++;
       }
       if (j < lines.length) fence.push(lines[j]);
-      if (titleHit) {
+      // Only drop fences that are clearly money-eval blocks (title/heading), not related-link lists
+      const fenceText = fence.join('\n');
+      const isMoneyFence =
+        titleHit &&
+        FENCE_TITLE_RE.test(fenceText) &&
+        !/Related|FAQ|Sources|CRO Businesses/i.test(fence[0] || '');
+      if (isMoneyFence) {
         removed.push('fence:' + (fence.find((l) => /title:|Cost Structure|pricing/i.test(l)) || 'money-fence').trim().slice(0, 80));
         i = j + 1;
         continue;
@@ -106,7 +132,7 @@ function stripMoneySections(answer) {
 
     if (skipping) {
       // stop at next same-or-higher heading, or thematic break, or new fence
-      if (/^#{1,3}\s+/.test(trimmed) && !isSectionHead(line)) {
+      if ((/^#{1,3}\s+/.test(trimmed) && !isSectionHead(line)) || isProtectedHead(line)) {
         skipping = false;
         // fall through to keep this new heading
       } else if (/^---+$/.test(trimmed) || /^```/.test(trimmed)) {
@@ -172,6 +198,12 @@ function saveState(st) {
 }
 
 async function main() {
+  if (process.env.ALLOW_MONEY_SECTION_STRIP !== '1') {
+    console.error(
+      'REFUSED: money section strip paused (owner pivot → CRO Pulse Tools tl finish). Set ALLOW_MONEY_SECTION_STRIP=1 to run.'
+    );
+    process.exit(2);
+  }
   const pilot = String(process.env.PILOT || '')
     .split(',')
     .map((s) => s.trim())
@@ -224,12 +256,30 @@ async function main() {
         // still try strip — cheap — but only count if removed
       }
 
+      const beforeLen = String(entry.answer || '').length;
       const { next, removed } = stripMoneySections(entry.answer);
       if (!removed.length || next === entry.answer) {
         st.skipped.push(id);
         st.done.push(id);
         stats.skipped++;
         if (stats.scanned % 500 === 0) log(`scan ${stats.scanned} fixed=${stats.fixed}`);
+        saveState(st);
+        continue;
+      }
+      // Never write a gutted body
+      if (next.length < Math.min(800, Math.floor(beforeLen * 0.35))) {
+        log(`SKIP_GUT ${id} before=${beforeLen} after=${next.length} removed=${removed.length}`);
+        st.skipped.push(id);
+        st.done.push(id);
+        stats.skipped++;
+        saveState(st);
+        continue;
+      }
+      if (!/##\s*Direct Answer\b/i.test(next) && /##\s*Direct Answer\b/i.test(entry.answer)) {
+        log(`SKIP_LOST_DA ${id}`);
+        st.skipped.push(id);
+        st.done.push(id);
+        stats.skipped++;
         saveState(st);
         continue;
       }
