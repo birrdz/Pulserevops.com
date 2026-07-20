@@ -491,6 +491,30 @@ async function emailFinished({ id, title, score, before, url, cover, bodyImgs, i
   }
 }
 
+/** Keep mosaic/_index.json quality_score in sync with answer blob (index inventory untouched). */
+async function syncIndexScore(id, patch) {
+  try {
+    const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+    const entries = (idx && idx.entries) || [];
+    const i = entries.findIndex((e) => e && e.id === id);
+    if (i < 0) return false;
+    const e = entries[i];
+    const score = Math.max(Number(e.quality_score) || 0, Number(patch.quality_score) || 0);
+    entries[i] = Object.assign({}, e, {
+      quality_score: score,
+      polished_at: patch.polished_at || e.polished_at,
+      tl_finish_drip_at: patch.tl_finish_drip_at || e.tl_finish_drip_at,
+      images_deferred_at: e.images_deferred_at || patch.images_deferred_at || undefined,
+    });
+    idx.entries = entries;
+    await store.setJSON('_index.json', idx);
+    return true;
+  } catch (e) {
+    log('INDEX sync warn ' + id + ' ' + (e.message || e));
+    return false;
+  }
+}
+
 async function processOne(id) {
   const entry = await store.get(`answers/${id}.json`, { type: 'json', consistency: 'strong' });
   if (!entry || !entry.answer) return { id, error: 'missing' };
@@ -504,17 +528,23 @@ async function processOne(id) {
   const changed = next !== entry.answer;
 
   if (changed) {
+    const polished_at = Date.now();
+    const quality_score = Math.max(Number(entry.quality_score) || 0, afterG.score);
+    const images_deferred_at = entry.images_deferred_at || Date.now();
+    const tl_finish_drip_at = Date.now();
     await store.setJSON(`answers/${id}.json`, {
       ...entry,
       answer: next,
-      polished_at: Date.now(),
-      quality_score: Math.max(Number(entry.quality_score) || 0, afterG.score),
-      images_deferred_at: entry.images_deferred_at || Date.now(),
-      tl_finish_drip_at: Date.now(),
+      polished_at,
+      quality_score,
+      images_deferred_at,
+      tl_finish_drip_at,
       tl_finish_template: route.template,
       tl_finish_before: beforeG.score,
       tl_finish_after: afterG.score,
     });
+    // index quality_score sync — do not alter tl inventory / img / cover
+    await syncIndexScore(id, { quality_score, polished_at, tl_finish_drip_at, images_deferred_at });
   }
 
   let emailed = null;
