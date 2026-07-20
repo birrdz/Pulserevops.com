@@ -68,6 +68,9 @@ const INTERVAL_MS = Number(process.env.INTERVAL_MS || 90 * 1000); // slow at fir
 // Only stop after one unit when ONCE is exactly "1" (never treat "0" as truthy)
 const ONCE = String(process.env.ONCE || '') === '1';
 const TARGET = Number(process.env.TARGET_SCORE || 12);
+// Owner 2026-07-20: after 3 tries if score won't climb, approve + email + move on.
+const MAX_TRIES = Math.max(1, Number(process.env.MAX_TRIES || 3));
+const RETRY_PAUSE_MS = Number(process.env.RETRY_PAUSE_MS || 5000);
 const RECIPIENT = process.env.ALERT_TO || process.env.ALERT_TO_EMAIL || 'koryjordanwhite@gmail.com';
 const RESEND_KEY = process.env.resendapikey || process.env.RESEND_API_KEY || process.env.RESENDAPIKEY || '';
 const RESEND_FROM = process.env.ALERT_FROM_EMAIL || 'PULSE Engine <onboarding@resend.dev>';
@@ -130,8 +133,23 @@ function imagesPreserved(beforeFp, afterFp) {
   return a === b;
 }
 
-async function emailFinished({ id, title, before, after, url, cover, bodyImgs, steps }) {
-  if (!RESEND_KEY || !EMAIL_ON_PASS) return { ok: false, reason: 'no_email' };
+async function emailFinished({ id, title, before, after, url, cover, bodyImgs, steps, approvedAfterTries }) {
+  if (!EMAIL_ON_PASS) {
+    log('EMAIL skipped ' + id + ' EMAIL_ON_PASS=0');
+    return { ok: false, reason: 'email_off' };
+  }
+  if (!RESEND_KEY) {
+    log('EMAIL skipped ' + id + ' no Resend key');
+    return { ok: false, reason: 'no_key' };
+  }
+  const liveUrl = url || pageUrl(id);
+  const approved = !!approvedAfterTries;
+  const banner = approved
+    ? `✅ CRO Pulse Tools — approved after ${MAX_TRIES} tries · ${after}/13`
+    : `✅ CRO Pulse Tools — finished ${after}/${TARGET}`;
+  const subject = approved
+    ? `✅ ${id} approved after ${MAX_TRIES} tries (${after}/13) — ${liveUrl}`
+    : `✅ ${id} finished ${after}/${TARGET} — ${liveUrl}`;
   const thumbs = [cover, ...((bodyImgs || []).filter((u) => u && u !== cover))]
     .filter(Boolean)
     .slice(0, 3)
@@ -140,41 +158,55 @@ async function emailFinished({ id, title, before, after, url, cover, bodyImgs, s
     ? thumbs
         .map(
           (src) =>
-            `<a href="${url}" style="display:inline-block;margin:0 8px 8px 0"><img src="${src}" alt="" width="220" style="width:220px;max-width:100%;height:auto;border:2px solid #15803d;display:block" /></a>`
+            `<a href="${liveUrl}" style="display:inline-block;margin:0 8px 8px 0"><img src="${src}" alt="" width="220" style="width:220px;max-width:100%;height:auto;border:2px solid #15803d;display:block" /></a>`
         )
         .join('')
     : '';
+  const note = approved
+    ? `<p style="margin:0 0 12px;color:#854d0e;font-weight:700">Hit a snag at ${after}/13 after ${MAX_TRIES} Content Booster tries — approved to keep the queue moving.</p>`
+    : '';
   const html = `<div style="font-family:Arial,sans-serif;line-height:1.5">
     <div style="background:#15803d;color:#fff;padding:14px 18px;font-size:20px;font-weight:700">
-      ✅ CRO Pulse Tools — finished ${TARGET}/13
+      ${banner}
     </div>
     <div style="padding:16px;border:3px solid #15803d;background:#F0FDF4">
-      <p style="margin:0 0 8px;font-size:18px;font-weight:700">${id} · ${before} → ${after}</p>
+      <p style="margin:0 0 8px;font-size:18px;font-weight:700">${id} · score ${before} → ${after}</p>
       <p style="margin:0 0 12px;font-weight:700">${String(title || '').replace(/</g, '&lt;')}</p>
-      <p style="margin:0 0 12px"><a href="${url}" style="color:#0b57d0;font-weight:700">${url}</a></p>
+      ${note}
+      <p style="margin:0 0 16px">
+        <a href="${liveUrl}" style="display:inline-block;background:#15803d;color:#fff;padding:12px 18px;border-radius:6px;font-weight:700;text-decoration:none">
+          Open live page →
+        </a>
+      </p>
+      <p style="margin:0 0 12px;font-size:14px">Link: <a href="${liveUrl}" style="color:#0b57d0;font-weight:700">${liveUrl}</a></p>
       <div style="margin:0 0 12px">${thumbsHtml}</div>
-      <p style="margin:0;color:#666;font-size:12px">Content Booster (formatFixEntry) · ${steps || ''} · ${new Date().toISOString()}</p>
+      <p style="margin:0;color:#666;font-size:12px">Content Booster · ${steps || ''} · ${new Date().toISOString()}</p>
     </div>
   </div>`;
-  try {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        from: RESEND_FROM,
-        to: [RECIPIENT],
-        subject: `✅ ${id} finished ${after}/${TARGET} — CRO Content Booster`,
-        html,
-        text: `${id} finished ${before}→${after} ${url}`,
-      }),
-    });
-    const text = await r.text();
-    log('EMAIL ' + id + ' ' + r.status + ' ' + text.slice(0, 120));
-    return { ok: r.ok, status: r.status };
-  } catch (e) {
-    log('EMAIL err ' + id + ' ' + e.message);
-    return { ok: false, reason: String(e.message || e) };
+  const payload = {
+    from: RESEND_FROM,
+    to: [RECIPIENT],
+    subject,
+    html,
+    text: `DONE ${id}\nScore ${before} → ${after}${approved ? ` (approved after ${MAX_TRIES} tries)` : ''}\nOpen: ${liveUrl}\n`,
+  };
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const r = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const text = await r.text();
+      log('EMAIL ' + id + ' attempt=' + attempt + ' ' + r.status + ' ' + text.slice(0, 120));
+      if (r.ok) return { ok: true, status: r.status, url: liveUrl };
+      if (attempt < 3) await new Promise((res) => setTimeout(res, 1500 * attempt));
+    } catch (e) {
+      log('EMAIL err ' + id + ' attempt=' + attempt + ' ' + e.message);
+      if (attempt < 3) await new Promise((res) => setTimeout(res, 1500 * attempt));
+    }
   }
+  return { ok: false, reason: 'resend_failed', url: liveUrl };
 }
 
 async function buildReverseQueue() {
@@ -207,28 +239,19 @@ async function loadSiblings(id) {
   }
 }
 
-async function processOne(id, valid) {
-  const entry = await store.get(`answers/${id}.json`, { type: 'json', consistency: 'strong' });
-  if (!entry || !entry.answer) return { id, error: 'missing' };
+function structOk(body) {
+  return (
+    /^##\s*Direct Answer\b/m.test(body) &&
+    /^##\s*FAQ\b/m.test(body) &&
+    /^##\s*Sources\b/m.test(body)
+  );
+}
 
+/** One Content Booster pass. Does not email. */
+async function boosterPass(id, valid, entry) {
   const title = entry.question || entry.h1 || id;
-  const beforeG = gradeEntry(id, entry.answer, { imagesDeferred: true, title });
   const beforeFp = imageFingerprint(entry, entry.answer);
-
-  // Already at target via content booster pass — skip (optionally email once)
-  if (contentFormatPass(id, entry.answer, valid) && beforeG.score >= TARGET) {
-    return {
-      id,
-      title: String(title).slice(0, 80),
-      skipped: true,
-      before: beforeG.score,
-      after: beforeG.score,
-      pass: true,
-      imagesOk: true,
-      bodyImgCount: beforeFp.bodyN,
-    };
-  }
-
+  const beforeG = gradeEntry(id, entry.answer, { imagesDeferred: true, title });
   const sib = await loadSiblings(id);
   const r = await formatFixEntry(id, title, entry.answer, {
     valid,
@@ -243,97 +266,231 @@ async function processOne(id, valid) {
   });
 
   let nextBody = r.body || entry.answer;
-  // Hard image restore — belt + suspenders on top of preserveImages inside formatFixEntry
   nextBody = preserveImages(entry.answer, nextBody, { id, title, qaGold: true });
-
   const afterG = gradeEntry(id, nextBody, { imagesDeferred: true, title });
-
-  // Never persist a body that dropped images
-  const afterFpProbe = imageFingerprint(entry, nextBody);
-  const imagesOk = imagesPreserved(beforeFp, afterFpProbe);
+  const afterFp = imageFingerprint(entry, nextBody);
+  const imagesOk = imagesPreserved(beforeFp, afterFp);
   if (!imagesOk) {
-    log('IMAGE_LOCK_ABORT ' + id + ' before=' + beforeFp.bodyN + ' after=' + afterFpProbe.bodyN);
+    log('IMAGE_LOCK_ABORT ' + id + ' before=' + beforeFp.bodyN + ' after=' + afterFp.bodyN);
+    return {
+      ok: false,
+      aborted: 'images',
+      before: beforeG.score,
+      after: beforeG.score,
+      body: entry.answer,
+      imagesOk: false,
+      bodyImgCount: beforeFp.bodyN,
+      steps: r.steps || [],
+      failed: (r.after && r.after.failed) || [],
+      hitTarget: beforeG.score >= TARGET && structOk(entry.answer),
+    };
+  }
+  const hitTarget = afterG.score >= TARGET && structOk(nextBody);
+  return {
+    ok: true,
+    before: beforeG.score,
+    after: afterG.score,
+    body: nextBody,
+    imagesOk: true,
+    bodyImgCount: afterFp.bodyN,
+    steps: r.steps || [],
+    failed: (r.after && r.after.failed) || [],
+    hitTarget,
+    changed: nextBody !== entry.answer,
+  };
+}
+
+/**
+ * Up to MAX_TRIES Content Booster passes.
+ * If still under target after 3 tries → APPROVE + email + move on (owner 2026-07-20).
+ */
+async function processOne(id, valid) {
+  let entry = await store.get(`answers/${id}.json`, { type: 'json', consistency: 'strong' });
+  if (!entry || !entry.answer) return { id, error: 'missing' };
+
+  const title = entry.question || entry.h1 || id;
+  const startScore = gradeEntry(id, entry.answer, { imagesDeferred: true, title }).score;
+  const startFp = imageFingerprint(entry, entry.answer);
+
+  // Already good enough — skip (no re-email unless never emailed; keep moving)
+  if (entry.tl_booster_approved || (startScore >= TARGET && structOk(entry.answer))) {
     return {
       id,
       title: String(title).slice(0, 80),
-      before: beforeG.score,
-      after: beforeG.score,
-      pass: false,
-      aborted: 'images',
-      imagesOk: false,
-      bodyImgCount: beforeFp.bodyN,
-      emailed: null,
+      skipped: true,
+      before: startScore,
+      after: startScore,
+      pass: true,
+      imagesOk: true,
+      bodyImgCount: startFp.bodyN,
+      tries: 0,
     };
   }
 
-  // Owner target: 12/13 grade + images locked + real DA/FAQ/Sources.
-  // Do NOT require full contentFormatPass (hero-before-DA fights QA gold).
-  const structOk =
-    /^##\s*Direct Answer\b/m.test(nextBody) &&
-    /^##\s*FAQ\b/m.test(nextBody) &&
-    /^##\s*Sources\b/m.test(nextBody);
-  const pass = afterG.score >= TARGET && imagesOk && structOk;
+  let best = {
+    score: startScore,
+    body: entry.answer,
+    steps: [],
+    failed: [],
+    bodyImgCount: startFp.bodyN,
+  };
+  let tries = 0;
+  let hitTarget = false;
+  const scoreHistory = [startScore];
 
-  const changed = nextBody !== entry.answer;
-  if (changed) {
-    const saveEntry = {
-      ...entry,
-      answer: nextBody,
-      // LOCK cover/face/img — never let booster overwrite
-      img: entry.img,
-      cover: entry.cover,
-      face: entry.face,
-      cover_src: entry.cover_src,
-      cro_kit: entry.cro_kit,
-      cro_kit_body: entry.cro_kit_body,
-      h1: entry.h1 || title,
+  for (let attempt = 1; attempt <= MAX_TRIES; attempt++) {
+    tries = attempt;
+    log(`TRY ${attempt}/${MAX_TRIES} → ${id} (score=${best.score})`);
+    // Reload entry so each try starts from latest saved body
+    entry = await store.get(`answers/${id}.json`, { type: 'json', consistency: 'strong' });
+    if (!entry || !entry.answer) break;
+
+    let passResult;
+    try {
+      passResult = await boosterPass(id, valid, entry);
+    } catch (e) {
+      log('TRY_ERR ' + id + ' attempt=' + attempt + ' ' + (e.message || e));
+      passResult = null;
+    }
+
+    if (passResult && passResult.ok && passResult.after >= best.score) {
+      best = {
+        score: passResult.after,
+        body: passResult.body,
+        steps: passResult.steps,
+        failed: passResult.failed,
+        bodyImgCount: passResult.bodyImgCount,
+      };
+      // Persist improving body (images locked inside boosterPass)
+      if (passResult.changed) {
+        await store.setJSON(`answers/${id}.json`, {
+          ...entry,
+          answer: passResult.body,
+          img: entry.img,
+          cover: entry.cover,
+          face: entry.face,
+          cover_src: entry.cover_src,
+          cro_kit: entry.cro_kit,
+          cro_kit_body: entry.cro_kit_body,
+          h1: entry.h1 || title,
+          polished_at: Date.now(),
+          quality_score: passResult.after,
+          tl_content_booster_at: Date.now(),
+          tl_booster_before: startScore,
+          tl_booster_after: passResult.after,
+          updated_at: new Date().toISOString(),
+        });
+        try {
+          await stampIndexFromAnswers(store, [id], { log, lockTlCover: true });
+        } catch (_e) {}
+      }
+    }
+
+    scoreHistory.push(best.score);
+    if (passResult && passResult.hitTarget) {
+      hitTarget = true;
+      break;
+    }
+
+    // Stuck: no score gain this try and already tried once — still use remaining tries
+    const gained = best.score > (scoreHistory[scoreHistory.length - 2] || startScore);
+    log(
+      `TRY_RESULT ${id} attempt=${attempt} best=${best.score} gained=${gained} hit=${hitTarget}`
+    );
+    if (attempt < MAX_TRIES) {
+      await new Promise((r) => setTimeout(r, RETRY_PAUSE_MS));
+    }
+  }
+
+  const approvedAfterTries = !hitTarget && tries >= MAX_TRIES;
+  const pass = hitTarget || approvedAfterTries;
+
+  if (pass) {
+    const latest = await store.get(`answers/${id}.json`, { type: 'json', consistency: 'strong' });
+    const finalBody = best.body || (latest && latest.answer) || entry.answer;
+    await store.setJSON(`answers/${id}.json`, {
+      ...(latest || entry),
+      answer: finalBody,
+      img: (latest || entry).img,
+      cover: (latest || entry).cover,
+      face: (latest || entry).face,
+      cover_src: (latest || entry).cover_src,
+      cro_kit: (latest || entry).cro_kit,
+      cro_kit_body: (latest || entry).cro_kit_body,
+      h1: (latest || entry).h1 || title,
       polished_at: Date.now(),
-      quality_score: pass ? Math.max(Number(entry.quality_score) || 0, afterG.score, TARGET) : Math.min(Number(entry.quality_score) || 0, afterG.score),
+      quality_score: best.score,
       tl_content_booster_at: Date.now(),
-      tl_booster_before: beforeG.score,
-      tl_booster_after: afterG.score,
-      tl_booster_pass: pass,
+      tl_booster_before: startScore,
+      tl_booster_after: best.score,
+      tl_booster_pass: hitTarget,
+      tl_booster_approved: approvedAfterTries,
+      tl_booster_tries: tries,
       updated_at: new Date().toISOString(),
-    };
-    await store.setJSON(`answers/${id}.json`, saveEntry);
+    });
     try {
       await stampIndexFromAnswers(store, [id], { log, lockTlCover: true });
     } catch (_e) {}
-  }
 
-  let emailed = null;
-  if (pass) {
-    emailed = await emailFinished({
+    if (approvedAfterTries) {
+      log(`APPROVE_AFTER_${MAX_TRIES} ${id} score=${best.score} history=${scoreHistory.join('→')}`);
+    }
+
+    const emailed = await emailFinished({
       id,
       title,
-      before: beforeG.score,
-      after: afterG.score,
+      before: startScore,
+      after: best.score,
       url: pageUrl(id),
-      cover: entry.cover || entry.img || entry.face,
-      bodyImgs: bodyImages(nextBody),
-      steps: (r.steps || []).join('+'),
+      cover: (latest || entry).cover || (latest || entry).img || (latest || entry).face,
+      bodyImgs: bodyImages(finalBody),
+      steps: (best.steps || []).join('+') + (approvedAfterTries ? '+approve-after-' + MAX_TRIES : ''),
+      approvedAfterTries,
     });
+    if (!emailed || !emailed.ok) {
+      log('EMAIL_FAIL ' + id + ' ' + JSON.stringify(emailed) + ' link=' + pageUrl(id));
+    } else {
+      log('EMAIL_OK ' + id + ' link=' + pageUrl(id) + (approvedAfterTries ? ' approved_after_tries' : ''));
+    }
+
+    return {
+      id,
+      title: String(title).slice(0, 80),
+      changed: true,
+      before: startScore,
+      after: best.score,
+      pass: true,
+      approvedAfterTries,
+      tries,
+      scoreHistory,
+      imagesOk: true,
+      bodyImgCount: best.bodyImgCount,
+      steps: best.steps,
+      failed: best.failed,
+      emailed: emailed && emailed.ok ? emailed.status : emailed,
+      spend: todaySpend(),
+    };
   }
 
+  log('NO_EMAIL ' + id + ' score=' + best.score + ' tries=' + tries + ' (unexpected)');
   return {
     id,
     title: String(title).slice(0, 80),
-    changed,
-    before: beforeG.score,
-    after: afterG.score,
-    pass,
-    imagesOk,
-    bodyImgCount: afterFpProbe.bodyN,
-    steps: r.steps || [],
-    failed: (r.after && r.after.failed) || [],
-    emailed: emailed && emailed.ok ? emailed.status : emailed,
+    before: startScore,
+    after: best.score,
+    pass: false,
+    tries,
+    scoreHistory,
+    imagesOk: true,
+    bodyImgCount: best.bodyImgCount,
+    emailed: null,
     spend: todaySpend(),
   };
 }
 
 async function main() {
   log(
-    `BOOT content-booster lift12 TARGET=${TARGET} INTERVAL_MS=${INTERVAL_MS} ONCE=${ONCE} DS_CAP=$${DAILY_CAP} spend=${JSON.stringify(todaySpend())} serial=1`
+    `BOOT content-booster lift12 TARGET=${TARGET} MAX_TRIES=${MAX_TRIES} INTERVAL_MS=${INTERVAL_MS} ONCE=${ONCE} DS_CAP=$${DAILY_CAP} spend=${JSON.stringify(todaySpend())} serial=1 approve_after_tries=1`
   );
 
   let st = loadState();
