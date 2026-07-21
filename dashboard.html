@@ -1790,6 +1790,12 @@
       touch-action: none;
       cursor: grabbing !important;
     }
+    /* Lock page scroll while dragging/resizing so the canvas does not jump under the pointer */
+    body.ws-pointer-lock {
+      overflow: hidden !important;
+      overscroll-behavior: none;
+      touch-action: none;
+    }
     body.dashboard-mode .matrix-section-wrap.ws-dragging * {
       pointer-events: none; /* avoid chart/input hit-tests while dragging */
     }
@@ -4321,14 +4327,22 @@ body.hs-skin #geo-ticker-bar .gtb-city { color: rgba(255,255,255,0.75) !importan
       position: fixed; background: var(--bg); border: 1px solid var(--border);
       border-radius: 14px; overflow: hidden; box-shadow: 0 12px 48px rgba(0,0,0,0.6);
       min-width: 340px; min-height: 220px; display: flex; flex-direction: column;
-      z-index: 500;
+      z-index: 500; backface-visibility: hidden;
     }
+    .ws-panel.ws-dragging {
+      transition: none !important; will-change: transform; touch-action: none;
+      box-shadow: 0 20px 56px rgba(0,0,0,0.7), 0 0 20px rgba(232,113,10,0.15);
+    }
+    .ws-panel.ws-dragging * { pointer-events: none; }
+    .ws-panel.ws-dragging .ws-panel-header { pointer-events: auto; }
     .ws-panel-header {
       display: flex; align-items: center; gap: 8px; padding: 8px 14px;
       background: rgba(232,113,10,0.06); border-bottom: 1px solid var(--border);
-      cursor: grab; user-select: none; flex-shrink: 0;
+      cursor: grab; user-select: none; -webkit-user-select: none; flex-shrink: 0;
+      touch-action: none;
     }
     .ws-panel-header:active { cursor: grabbing; }
+    body.ws-drag-lock { overflow: hidden !important; touch-action: none; }
     .ws-panel-title {
       flex: 1; font-size: 0.68rem; font-weight: 800; color: var(--text);
       text-transform: uppercase; letter-spacing: 0.08em;
@@ -20742,12 +20756,21 @@ body.hs-skin #geo-ticker-bar .gtb-city { color: rgba(255,255,255,0.75) !importan
           card.style.height = '';
         }
 
-        card.addEventListener('mousedown', () => _wsBringFront(card), { capture: true });
+        if (!card.dataset.wsFrontBound) {
+          card.dataset.wsFrontBound = '1';
+          card.addEventListener('pointerdown', () => _wsBringFront(card), { capture: true });
+        }
 
         const handle = card.querySelector('.ws-drag-handle');
-        if (handle) _wsAttachDrag(card, handle);
+        if (handle && !handle.dataset.wsDragBound) {
+          handle.dataset.wsDragBound = '1';
+          _wsAttachDrag(card, handle);
+        }
         const resizeEl = card.querySelector('.ws-resize-handle');
-        if (resizeEl) _wsAttachResize(card, resizeEl);
+        if (resizeEl && !resizeEl.dataset.wsResizeBound) {
+          resizeEl.dataset.wsResizeBound = '1';
+          _wsAttachResize(card, resizeEl);
+        }
 
         const t = parseInt(card.style.top) || 0;
         maxBottom = Math.max(maxBottom, t + 480 + GAP);
@@ -20813,6 +20836,7 @@ body.hs-skin #geo-ticker-bar .gtb-city { color: rgba(255,255,255,0.75) !importan
         card.style.transform = '';
         card.style.willChange = '';
         card.classList.remove('ws-dragging');
+        document.body.classList.remove('ws-drag-lock');
         dx = 0; dy = 0;
         try {
           if (pointerId != null && handle.releasePointerCapture) {
@@ -20845,6 +20869,7 @@ body.hs-skin #geo-ticker-bar .gtb-city { color: rgba(255,255,255,0.75) !importan
         card.style.willChange = 'transform';
         card.style.transform = 'translate3d(0,0,0)';
         card.classList.add('ws-dragging');
+        document.body.classList.add('ws-drag-lock');
         active = true;
         if (e.pointerId != null && handle.setPointerCapture) {
           pointerId = e.pointerId;
@@ -29025,44 +29050,82 @@ body.hs-skin #geo-ticker-bar .gtb-city { color: rgba(255,255,255,0.75) !importan
 
     function _initDrag(panel) {
       const header = panel.querySelector('.ws-panel-header');
-      let dragging = false, startX, startY, origX, origY;
+      if (!header || header.dataset.wsDragBound) return;
+      header.dataset.wsDragBound = '1';
+      let active = false, raf = 0, sx = 0, sy = 0, ox = 0, oy = 0, dx = 0, dy = 0, pid = null;
 
-      header.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.ws-panel-close')) return;
-        dragging = true;
-        startX = e.clientX; startY = e.clientY;
-        const rect = panel.getBoundingClientRect();
-        origX = rect.left; origY = rect.top;
-        document.addEventListener('mousemove', onMove);
-        document.addEventListener('mouseup', onUp);
-        e.preventDefault();
-      });
-      function onMove(e) {
-        if (!dragging) return;
-        panel.style.left = (origX + e.clientX - startX) + 'px';
-        panel.style.top = (origY + e.clientY - startY) + 'px';
+      function paint() {
+        raf = 0;
+        panel.style.transform = 'translate3d(' + dx + 'px,' + dy + 'px,0)';
       }
-      function onUp() {
-        dragging = false;
+      function onMove(e) {
+        if (!active) return;
+        if (pid != null && e.pointerId != null && e.pointerId !== pid) return;
+        const p = e.touches ? e.touches[0] : e;
+        dx = p.clientX - sx;
+        dy = p.clientY - sy;
+        if (ox + dx < 0) dx = -ox;
+        if (oy + dy < 0) dy = -oy;
+        if (!raf) raf = requestAnimationFrame(paint);
+        if (e.cancelable) e.preventDefault();
+      }
+      function onUp(e) {
+        if (!active) return;
+        active = false;
+        if (raf) { cancelAnimationFrame(raf); raf = 0; }
+        panel.style.left = Math.max(0, ox + dx) + 'px';
+        panel.style.top = Math.max(0, oy + dy) + 'px';
+        panel.style.transform = '';
+        panel.style.willChange = '';
+        panel.classList.remove('ws-dragging');
+        document.body.classList.remove('ws-drag-lock');
+        dx = 0; dy = 0;
+        try { if (pid != null && header.releasePointerCapture) header.releasePointerCapture(pid); } catch (_e) {}
+        pid = null;
+        document.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerup', onUp);
+        document.removeEventListener('pointercancel', onUp);
         document.removeEventListener('mousemove', onMove);
         document.removeEventListener('mouseup', onUp);
+        document.removeEventListener('touchmove', onMove);
+        document.removeEventListener('touchend', onUp);
+        if (e && e.cancelable) e.preventDefault();
       }
-
-      // Touch
-      header.addEventListener('touchstart', (e) => {
+      function onDown(e) {
         if (e.target.closest('.ws-panel-close')) return;
-        const t = e.touches[0];
-        dragging = true; startX = t.clientX; startY = t.clientY;
+        if (e.button != null && e.button !== 0) return;
+        e.preventDefault();
+        const p = e.touches ? e.touches[0] : e;
+        sx = p.clientX; sy = p.clientY;
         const rect = panel.getBoundingClientRect();
-        origX = rect.left; origY = rect.top;
-      }, { passive: true });
-      header.addEventListener('touchmove', (e) => {
-        if (!dragging) return;
-        const t = e.touches[0];
-        panel.style.left = (origX + t.clientX - startX) + 'px';
-        panel.style.top = (origY + t.clientY - startY) + 'px';
-      }, { passive: true });
-      header.addEventListener('touchend', () => { dragging = false; });
+        ox = rect.left; oy = rect.top;
+        // Normalize left/top to current visual position before GPU drag
+        panel.style.left = ox + 'px';
+        panel.style.top = oy + 'px';
+        panel.style.right = 'auto';
+        panel.style.bottom = 'auto';
+        dx = 0; dy = 0;
+        panel.style.willChange = 'transform';
+        panel.style.transform = 'translate3d(0,0,0)';
+        panel.classList.add('ws-dragging');
+        document.body.classList.add('ws-drag-lock');
+        active = true;
+        if (e.pointerId != null && header.setPointerCapture) {
+          pid = e.pointerId;
+          try { header.setPointerCapture(pid); } catch (_e) {}
+          document.addEventListener('pointermove', onMove, { passive: false });
+          document.addEventListener('pointerup', onUp);
+          document.addEventListener('pointercancel', onUp);
+        } else {
+          document.addEventListener('mousemove', onMove);
+          document.addEventListener('mouseup', onUp);
+          document.addEventListener('touchmove', onMove, { passive: false });
+          document.addEventListener('touchend', onUp);
+        }
+      }
+      header.addEventListener('pointerdown', onDown);
+      header.addEventListener('mousedown', function (e) { if (window.PointerEvent) return; onDown(e); });
+      header.addEventListener('touchstart', function (e) { if (window.PointerEvent) return; onDown(e); }, { passive: false });
     }
 
     function _initResize(panel) {
@@ -31016,6 +31079,6 @@ body.hs-skin #geo-ticker-bar .gtb-city { color: rgba(255,255,255,0.75) !importan
 
   <script src="/assets/nav-loader.js" defer></script>
 <script src="/js/pulse-lead-track.js" defer></script>
-<script src="/pulse-ambient.js" defer></script>
+<script src="/pulse-ambient.js?v=no-music-20260721" defer></script>
 </body>
 </html>

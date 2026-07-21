@@ -401,7 +401,7 @@ header .bar{max-width:1200px;margin:0 auto;}
   <script>(function(){var LH='local'+'host',PT=8899;window.PULSE_UNICORN_PORT=function(){var h=location.hostname,m=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent),saved=null;try{saved=localStorage.getItem('pulse.unicorn.lan');}catch(e){}var lan=(saved||'192.168.5.68').replace(/^https?:\/\//,'').replace(/\/.*$/,'').replace(/:\d+$/,'');if(h==='pulserevops.com'||h==='www.pulserevops.com'||h.endsWith('.netlify.app'))return m?'http://'+lan+':'+PT+'/':'http://'+LH+':'+PT+'/';if(h===LH||/^127\./.test(h)||/^192\.168\.|^10\./.test(h))return location.protocol+'//'+h+':'+PT+'/';return 'http://'+LH+':'+PT+'/';};window.PULSE_UNICORN_BOOT=function(){if(!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent))return;fetch('http://'+LH+':'+PT+'/portal-url').then(function(r){return r.json();}).then(function(j){if(j&&j.lan){try{var ip=String(j.lan).replace(/^https?:\/\//,'').replace(/\/.*$/,'');localStorage.setItem('pulse.unicorn.lan',ip.replace(/:\d+$/,''));}catch(e){}}}).catch(function(){});};})();</script>
   <a href="#" onclick="window.open(window.PULSE_UNICORN_PORT(),'_blank');return false;" rel="noopener" title="" aria-label="" style="position:fixed;left:10px;bottom:8px;z-index:80;opacity:.1;font-size:1rem;text-decoration:none;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.1">🦄</a>
   <script>(function(){var t=document.getElementById('toTop');if(!t)return;addEventListener('scroll',function(){t.style.display=scrollY>700?'block':'none';},{passive:true});t.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'});});})();</script>
-  <script>/* AUTO-SCROLL every 15s (owner 2026-07-08): advance a screen, loop at bottom, pause 30s after user scrolls/touches */(function(){var last=0;function bump(){last=Date.now();}addEventListener('wheel',bump,{passive:true});addEventListener('touchmove',bump,{passive:true});addEventListener('keydown',bump);setInterval(function(){if(document.hidden)return;if(Date.now()-last<15000)return;var atEnd=(innerHeight+scrollY)>=document.documentElement.scrollHeight-6;if(atEnd){scrollTo({top:0,behavior:'smooth'});}else{scrollBy({top:Math.round(innerHeight*0.82),behavior:'smooth'});}},15000);})();</script>
+  <!-- Hard page-jump auto-scroll removed 2026-07-21 — fought pulse-idle-scroll drift and made the screen jump. Gentle idle drift lives in /js/pulse-idle-scroll.js -->
 
   <aside class="news-rail" aria-label="Fractional CRO — Kory White">
     <div class="rail-card rail-ad">
@@ -593,8 +593,8 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
 })();
 </script>
 <script>/* news-vibe dateline */try{var _np=document.getElementById('npDate');if(_np)_np.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});}catch(e){}</script>
-<link rel="stylesheet" href="/css/pulse-mosaic.css?v=neon-trim-20260720b">
-<script src="/js/pulse-face-img.js"></script>
+<link rel="stylesheet" href="/css/pulse-mosaic.css?v=tile-fix-20260721b">
+<script src="/js/pulse-face-img.js?v=tile-fix-20260721b"></script>
 <script>/* CNET-style lead — cards TWIST into new pictures at random intervals (owner 2026-07-02) */(function(){
   function esc(s){return String(s||'').replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});}
   function rnd(a,b){return a+Math.random()*(b-a);}
@@ -801,18 +801,18 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
         if(ik&&batchImgs[ik])continue;
         if(ik&&paintedRecent.indexOf(ik)>=0)continue;   // same cover appeared within last IMG_GAP tiles → skip, use later
         if(ik)batchImgs[ik]=1;
-        var t=ftile(c,!!eagerAll||k<6);if(!t)continue;
+        var t=ftile(c,!!eagerAll||k<10);if(!t)continue;
         if(ik){paintedRecent.push(ik);if(paintedRecent.length>IMG_GAP)paintedRecent.shift();}
         painted.push(c);out+=t;k++;
         if((++croEvery)%15===0)out+=croTile(); /* CRO role tile pops back up every 15 tiles (owner 2026-07-06) */
       }
-      preloadAhead(buf.slice(bi,bi+BATCH+4),8);
+      preloadAhead(painted.concat(buf.slice(bi,bi+BATCH+6)), eagerAll?18:12);
       if(out){sent.insertAdjacentHTML('beforebegin',out);observeLazy(sent.parentElement||mm);}
       pump();
     }
-    function pump(){requestAnimationFrame(function(){var r=sent.getBoundingClientRect();if(r.top<window.innerHeight+920&&!loading&&fetched)more();});}
+    function pump(){requestAnimationFrame(function(){var r=sent.getBoundingClientRect();if(r.top<window.innerHeight+1200&&!loading&&fetched)more();});}
     function more(){if(loading)return;loading=true;if(fetched){paint(BATCH,false);loading=false;return;}fetchAll(function(b){if(b&&b.length){buf=b;}if(!seeded)bi=0;fetched=true;window.__PULSE_MOSAIC_BUF=buf.length;try{console.log('[mosaic] pool ready:',buf.length,'13/13 face cards');}catch(e){}paint(seeded?BATCH:FIRST_BATCH,!seeded);loading=false;});}
-    var io=new IntersectionObserver(function(en){if(en[0]&&en[0].isIntersecting)more();},{rootMargin:'600px'});io.observe(sent);
+    var io=new IntersectionObserver(function(en){if(en[0]&&en[0].isIntersecting)more();},{rootMargin:'1100px'});io.observe(sent);
     setInterval(refreshBuf,300000);
     if(window.PULSE_DEFAULTS&&window.PULSE_DEFAULTS.length){
       var seed=buildBuf(window.PULSE_DEFAULTS.slice());
@@ -896,7 +896,7 @@ document.getElementById('seolinks').innerHTML = T.map(c=>c.subs.map(s=>s.items.m
     })();
   }).catch(function(){});
 })();</script>
-<!-- IDLE AUTO-SCROLL (owner 2026-07-03): shared site-wide via pulse-ambient.js + pulse-idle-scroll.js -->
-<script src="/pulse-ambient.js" defer></script>
+<!-- Site scripts bootstrap (music removed 2026-07-21) + idle auto-scroll -->
+<script src="/pulse-ambient.js?v=no-music-20260721" defer></script>
 </body>
 </html>

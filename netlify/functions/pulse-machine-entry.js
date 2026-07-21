@@ -1500,7 +1500,7 @@ exports.handler = async (event) => {
     <button class="viz-lightbox-close" id="viz-lightbox-close" aria-label="Close">×</button>
     <div class="viz-lightbox-inner" id="viz-lightbox-inner"></div>
   </div>
-  <link rel="stylesheet" href="/css/pulse-mosaic.css">
+  <link rel="stylesheet" href="/css/pulse-mosaic.css?v=tile-fix-20260721b">
   <section class="mag-mosaic" data-pulse-mosaic data-pillar="${escAttr(entryPillar)}" aria-label="More stories in this topic" style="max-width:1080px;margin:0 auto;padding:0 clamp(10px,2vw,24px) 40px;"></section>
   <div class="footer-note">
     Researched autonomously by <a href="/themachine" style="color:rgba(255,140,26,0.7);">The Machine</a> · Claude Sonnet 4.6 + live web search · Cited &amp; dated
@@ -1511,14 +1511,14 @@ exports.handler = async (event) => {
   <!-- Visit-email: Human-Interaction Gate -> /visitor-alert -> emails owner on every
        verified visitor (1/IP/day) via Resend. Replaces the old disabled visit-alert stub
        so ENTRY pages (the bulk of traffic) also report visits. Owner 2026-06-29. -->
-  <script src="/js/pulse-face-img.js" defer></script>
+  <script src="/js/pulse-face-img.js?v=tile-fix-20260721b" defer></script>
   <script src="/js/pulse-home-mosaic.js" defer></script>
   <script src="/js/human-gate.js" defer></script>
   <!-- Click-email tracker: emails owner on any CRO-ad click (Calendly / LinkedIn /
        CRO Syndicate / resume / hire-cro / tools) via pulse-click-notify. Owner 2026-06-27. -->
   <script src="/js/pulse-lead-track.js" defer></script>
   <!-- site-wide low-volume 80s synthwave ambience (The Midnight vibe), owner 2026-07-03 -->
-  <script src="/pulse-ambient.js" defer></script>
+  <script src="/pulse-ambient.js?v=no-music-20260721" defer></script>
   <!-- trivia game popup removed per owner 2026-07-03 -->
   <script>
     // Reading progress bar + scroll-to-top button
