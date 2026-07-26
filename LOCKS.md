@@ -3,7 +3,8 @@
 ## CURSOR DRIP — PER URL ORDER (2026-07-26 — FINAL)
 
 **Find one → run all steps → find next.** No timetable. No cooldown.  
-Prefer URLs that still need white/mangled image purge.
+White/mangled **strip** across inventory: `scripts/white-image-purge-local.js` (no Cursor rewrite).  
+Drip prefers fact-check/content first (`DRIP_DEFER_IMAGE_PURGE=1`); still runs step 1/4 if a claimed URL still has bad images.
 
 | Step | What |
 |------|------|

@@ -171,8 +171,12 @@ const DROP_FILE = path.join(process.cwd(), 'logs', 'drip-audit-drop.jsonl');
 const LOCAL_QUEUE = path.join(process.cwd(), 'logs', 'cursor-write-queue.json');
 const ASSET_DIR = path.join(process.cwd(), 'assets', 'qa');
 const WORK_DIR = '/tmp/cursor-drip';
+const BUSY_FILE = '/tmp/cursor-drip-busy.id';
 const IDLE_MS = Math.max(0, parseInt(process.env.DRIP_IDLE_MS || '5000', 10));
 const FULL_INVENTORY = String(process.env.DRIP_FULL_INVENTORY || '1') !== '0';
+// When white-purge service is clearing inventory, prefer fact-check/content first.
+// Image-only pages still get picked if nothing else is due (or DRIP_DEFER_IMAGE_PURGE=0).
+const DEFER_IMAGE_PURGE = String(process.env.DRIP_DEFER_IMAGE_PURGE || '1') !== '0';
 const PEXELS_KEY = process.env.PEXELS_API_KEY || process.env.Pexels_Api_Key;
 
 const MANGLED_RX =
@@ -768,9 +772,39 @@ async function ensureInventory(s, state) {
   return dropSet;
 }
 
+async function findImagePurgeCandidate(s, state, dropSet, inventory, queue) {
+  let cursor = state.imgCursor != null ? state.imgCursor : 0;
+  let scanned = 0;
+  const maxScan = Math.min(inventory.length, 400);
+  while (scanned < maxScan) {
+    if (cursor >= inventory.length) cursor = 0;
+    const id = inventory[cursor];
+    cursor += 1;
+    scanned += 1;
+    let blob;
+    try {
+      blob = await s.get('answers/' + id + '.json', { type: 'json' });
+    } catch (e) {
+      continue;
+    }
+    if (!blob || !blob.answer) continue;
+    if (!quickNeedsImagePurge(blob) && !dropSet.has(id)) continue;
+    const imgAudit = await auditImagesOnPage(blob, id);
+    if (!imgAudit.hasBad && !dropSet.has(id) && !isMangled(blob.answer || '')) {
+      continue;
+    }
+    state.imgCursor = cursor;
+    return { id, blob, queue, priority: 'image-purge', imgAudit };
+  }
+  state.imgCursor = cursor;
+  return null;
+}
+
 /**
- * Find one URL. Prefer pages that need white/mangled image purge first,
- * then queue pending, then general due pages.
+ * Find one URL.
+ * Default (DRIP_DEFER_IMAGE_PURGE=1): queue → content first; image-only purge last
+ * so the white-purge service can clear inventory ahead of the drip.
+ * On any claimed URL, fixOne still runs step1/4 if bad images remain.
  */
 async function findOne(s, state) {
   let queue = { items: [] };
@@ -788,34 +822,12 @@ async function findOne(s, state) {
   const inventory = state.inventoryIds || [];
   if (!inventory.length) return null;
 
-  // PASS A — prioritize white/mangled/broken image candidates (quick local signal)
-  let cursor = state.imgCursor != null ? state.imgCursor : 0;
-  let scanned = 0;
-  const maxScan = Math.min(inventory.length, 400);
-  while (scanned < maxScan) {
-    if (cursor >= inventory.length) cursor = 0;
-    const id = inventory[cursor];
-    cursor += 1;
-    scanned += 1;
-    let blob;
-    try {
-      blob = await s.get('answers/' + id + '.json', { type: 'json' });
-    } catch (e) {
-      continue;
-    }
-    if (!blob || !blob.answer) continue;
-    if (!quickNeedsImagePurge(blob) && !dropSet.has(id)) continue;
-    // Confirm with classify (cover + body) — only claim if truly bad
-    const imgAudit = await auditImagesOnPage(blob, id);
-    if (!imgAudit.hasBad && !dropSet.has(id) && !isMangled(blob.answer || '')) {
-      continue;
-    }
-    state.imgCursor = cursor;
-    return { id, blob, queue, priority: 'image-purge', imgAudit };
+  if (!DEFER_IMAGE_PURGE) {
+    const imgFirst = await findImagePurgeCandidate(s, state, dropSet, inventory, queue);
+    if (imgFirst) return imgFirst;
   }
-  state.imgCursor = cursor;
 
-  // PASS B — existing Cursor queue pending
+  // PASS A — existing Cursor queue pending (fact-check / content work)
   const pending = (queue.items || []).filter((x) => x && x.status === 'pending');
   if (pending.length) {
     const it = pending[0];
@@ -823,9 +835,9 @@ async function findOne(s, state) {
     return { id: it.id, blob, queue, fromQueue: true, critique: it, priority: 'queue' };
   }
 
-  // PASS C — general content due
-  cursor = state.invCursor || 0;
-  scanned = 0;
+  // PASS B — general content due
+  let cursor = state.invCursor || 0;
+  let scanned = 0;
   while (scanned < inventory.length) {
     if (cursor >= inventory.length) cursor = 0;
     const id = inventory[cursor];
@@ -842,6 +854,12 @@ async function findOne(s, state) {
     return { id, blob, queue, priority: 'content', critique: null };
   }
   state.invCursor = cursor;
+
+  // PASS C — image-only leftovers (white-purge service usually clears these first)
+  if (DEFER_IMAGE_PURGE) {
+    const imgLast = await findImagePurgeCandidate(s, state, dropSet, inventory, queue);
+    if (imgLast) return imgLast;
+  }
   return null;
 }
 
@@ -1010,6 +1028,21 @@ async function markQueueDone(s, queue, id, ts) {
  */
 async function fixOne(s, state, found) {
   const { id, blob, queue } = found;
+  try {
+    fs.writeFileSync(BUSY_FILE, String(id));
+  } catch (e) {}
+  try {
+    return await fixOneInner(s, state, found, id, blob, queue);
+  } finally {
+    try {
+      if (fs.existsSync(BUSY_FILE) && String(fs.readFileSync(BUSY_FILE, 'utf8')).trim() === String(id)) {
+        fs.unlinkSync(BUSY_FILE);
+      }
+    } catch (e) {}
+  }
+}
+
+async function fixOneInner(s, state, found, id, blob, queue) {
   const question = (blob && blob.question) || (found.critique && found.critique.question) || id;
   const url = knowledgeUrl(id);
   let body = String(blob.answer || '');
@@ -1579,6 +1612,7 @@ async function main() {
       idleMsWhenEmpty: IDLE_MS,
       forceId: process.env.DRIP_FORCE_ID || null,
       once,
+      deferImagePurge: DEFER_IMAGE_PURGE,
       emailEvery: EMAIL_EVERY,
       emailMaxGapMin: Math.round(EMAIL_MAX_GAP_MS / 60000),
     })
