@@ -1,6 +1,7 @@
-// pulse-white-image-audit-background — scan newest→oldest for blank/white and
-// mangled/defunct images, strip them from answer blobs + bad covers, email EACH
-// fixed knowledge URL so the owner can spot-check.
+// pulse-white-image-audit-background — scan newest→oldest for MANGLED/BROKEN
+// image slots (Flux-junk hotlinks, defunct assets). Strip from answer blobs +
+// bad covers; email EACH fixed knowledge URL. Does NOT purge ordinary photos
+// that happen to be bright/white — only broken/mangled slots.
 //
 // LAW: do NOT weaken visual-lock / preserveImages. Purged answer becomes the
 // new original so white/mangled URLs cannot be restored by preserveImages.
