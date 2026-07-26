@@ -121,6 +121,29 @@
   function entryTs(e) {
     return Number(e && e.ts) || parseInt(String(e && e.id || '').replace(/\D/g, ''), 10) || 0;
   }
+  var CARD_FRESH_MS = 24 * 60 * 60 * 1000;
+  function timestampMs(value) {
+    var numeric = Number(value);
+    if (Number.isFinite(numeric) && numeric > 0) return numeric;
+    var parsed = Date.parse(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+  function cardTrimClass(entry) {
+    var created = timestampMs(entry && entry.ts);
+    var fixed = Math.max(
+      timestampMs(entry && entry.polished_at),
+      timestampMs(entry && entry.last_modified_ms),
+      timestampMs(entry && entry.format_fixed_at),
+      timestampMs(entry && entry.cover_upgraded_at),
+      timestampMs(entry && entry.image_reuse_at)
+    );
+    var now = Date.now();
+    var createdAge = created ? now - created : Infinity;
+    var fixedAge = fixed ? now - fixed : Infinity;
+    var isNew = createdAge >= -300000 && createdAge <= CARD_FRESH_MS;
+    var isRecentlyFixed = fixed > created + 300000 && fixedAge >= -300000 && fixedAge <= CARD_FRESH_MS;
+    return (isNew || isRecentlyFixed) ? 'mm-trim-pink' : 'mm-trim-green';
+  }
   /** Scrubbed-perfect: face card + quality_score >= 13 (owner 2026-07-04). */
   function scrubbedPerfect13Ok(e) {
     if (!e || !e.id) return false;
@@ -511,7 +534,7 @@
       var scrim = '<div class="mm-scrim"></div>';
       var lazyCls = lazy ? ' mm-lazy mm-img-pending' : '';
       var dataLazy = lazy ? ' data-mosaic-lazy="1"' : ' data-mosaic-loaded="1"';
-      return '<a class="mm' + lazyCls + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
+      return '<a class="mm ' + cardTrimClass(c) + lazyCls + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
         + imgHtml
         + scrim + '<div class="mm-txt"><span class="mm-cat">' + esc(NM[pof(c.id)] || pof(c.id).toUpperCase()) + '</span>'
         + titleHtml + '</div></a>';
@@ -555,6 +578,19 @@
           }
           return null;
         });
+    }
+
+    function withRecentTrimMetadata(entries) {
+      return fetchLibrary('/.netlify/functions/pulse-machine-library-list?trimRecent=1&days=1')
+        .then(function (j) {
+          var recent = Array.isArray(j) ? j : ((j && (j.entries || j.items)) || []);
+          var byId = {};
+          recent.forEach(function (e) { if (e && e.id) byId[e.id] = e; });
+          return (entries || []).map(function (e) {
+            return byId[e.id] ? Object.assign({}, e, byId[e.id]) : e;
+          });
+        })
+        .catch(function () { return entries || []; });
     }
 
     mosaicWarmUrls(opts).forEach(function (u) {
@@ -618,7 +654,13 @@
       // FAST PATH (owner 2026-07-06): one prebuilt pool file instead of 43 per-pillar calls (~20s → ~0.1s).
       fetchLibrary('/mosaic-pool.json?v=' + Math.floor(Date.now() / 3600000)).then(function (pj) {
         var parr = Array.isArray(pj) ? pj : ((pj && (pj.entries || pj.items)) || null);
-        if (parr && parr.length > 40) { var b = buildBuf(parr, opts); if (b && b.length) { done(b); return; } }
+        if (parr && parr.length > 40) {
+          var b = buildBuf(parr, opts);
+          if (b && b.length) {
+            withRecentTrimMetadata(b).then(done);
+            return;
+          }
+        }
         fetchMixedFluxPoolFanout(done);
       }).catch(function () { fetchMixedFluxPoolFanout(done); });
     }
@@ -682,7 +724,13 @@
         fetchLibrary('/mosaic-pool-' + encodeURIComponent(opts.pillar) + '.json?v=' + Math.floor(Date.now() / 3600000))
           .then(function (pj) {
             var parr = Array.isArray(pj) ? pj : ((pj && (pj.entries || pj.items)) || null);
-            if (parr && parr.length) { var b = buildBuf(sortFlux(parr.slice()), opts); if (b && b.length) { done(b); return; } }
+            if (parr && parr.length) {
+              var b = buildBuf(sortFlux(parr.slice()), opts);
+              if (b && b.length) {
+                withRecentTrimMetadata(b).then(done);
+                return;
+              }
+            }
             pillarFanout();
           })
           .catch(pillarFanout);
@@ -877,6 +925,8 @@
             tile.style.transform = 'perspective(1000px) rotateY(90deg) scale(.94)';
             setTimeout(function () {
               tile.setAttribute('href', '/knowledge/' + encodeURIComponent(card.id));
+              tile.classList.remove('mm-trim-pink', 'mm-trim-green');
+              tile.classList.add(cardTrimClass(card));
               tile.removeAttribute('data-face-bound');
               tile.removeAttribute('data-mosaic-loaded');
               tile.removeAttribute('data-img-retried');

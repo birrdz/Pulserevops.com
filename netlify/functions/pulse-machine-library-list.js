@@ -25,6 +25,24 @@ function entryTs(e) {
   return 0;
 }
 
+function timestampMs(value) {
+  const numeric = Number(value);
+  if (Number.isFinite(numeric) && numeric > 0) return numeric;
+  const parsed = Date.parse(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function entryFixedTs(e) {
+  if (!e) return 0;
+  return Math.max(
+    timestampMs(e.polished_at),
+    timestampMs(e.last_modified_ms),
+    timestampMs(e.format_fixed_at),
+    timestampMs(e.cover_upgraded_at),
+    timestampMs(e.image_reuse_at)
+  );
+}
+
 function pillarOfEntryId(id) {
   const m = String(id || '').match(/^([a-z]+)/);
   return m ? m[1] : '';
@@ -212,6 +230,10 @@ function mapListEntry(e) {
     face_title_baked: !!e.face_title_baked,
     ts: e.ts,
     polished_at: e.polished_at || null,
+    last_modified_ms: e.last_modified_ms || null,
+    format_fixed_at: e.format_fixed_at || null,
+    cover_upgraded_at: e.cover_upgraded_at || null,
+    image_reuse_at: e.image_reuse_at || null,
     quality_score: typeof e.quality_score === 'number' ? e.quality_score : 5,
     was_indexed_at: e.was_indexed_at || null,
     pending: !!e.pending,
@@ -736,6 +758,28 @@ exports.handler = async (event) => {
   try {
     const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] };
     let entries = (idx.entries || []).slice();
+    if (params.trimRecent === '1' || params.trimrecent === '1') {
+      const days = Math.max(1, Math.min(7, parseInt(params.days, 10) || 1));
+      const now = Date.now();
+      const windowMs = days * 86400000;
+      const trimEntries = entries
+        .filter(e => {
+          const created = timestampMs(e && e.ts);
+          const fixed = entryFixedTs(e);
+          const createdAge = created ? now - created : Infinity;
+          const fixedAge = fixed ? now - fixed : Infinity;
+          return (createdAge >= -300000 && createdAge <= windowMs)
+            || (fixed > created + 300000 && fixedAge >= -300000 && fixedAge <= windowMs);
+        })
+        .sort((a, b) => Math.max(entryTs(b), entryFixedTs(b)) - Math.max(entryTs(a), entryFixedTs(a)))
+        .slice(0, 2000)
+        .map(mapListEntry);
+      return {
+        statusCode: 200,
+        headers: { ...CORS, 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=60' },
+        body: JSON.stringify({ ok: true, returned: trimEntries.length, entries: trimEntries }),
+      };
+    }
     const sortTsEarly = params.sort === 'ts';
     const newOnlyEarly = params.newOnly === '1' || params.newonly === '1';
     entries = await mergeOrphanBlobs(store, entries, {
