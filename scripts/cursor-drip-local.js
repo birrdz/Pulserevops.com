@@ -1673,39 +1673,10 @@ async function main() {
         })
         .filter((j) => j && j.id && Date.parse(j.doneAt || 0) >= hourAgo)
         .sort((a, b) => Date.parse(b.doneAt) - Date.parse(a.doneAt));
-      await emailOne(
-        ('PULSE cursor drip EMAIL FIX · digest mode · ' + recent.length + ' done last hour').slice(0, 180),
-        '<p><b>Email fix:</b> drip was sending ~25–30 emails/hr; Resend accepted them (<code>email:ok</code>) but Gmail only showed you 1–2 (collapse/spam).</p>' +
-          '<p>Now: <b>one digest every ' +
-          EMAIL_EVERY +
-          ' URLs</b> or every <b>' +
-          Math.round(EMAIL_MAX_GAP_MS / 60000) +
-          ' min</b>.</p>' +
-          '<p><b>' +
-          recent.length +
-          ' URLs finished in the last hour</b> (catch-up list):</p><ol>' +
-          recent
-            .slice(0, 40)
-            .map(
-              (j) =>
-                '<li><a href="' +
-                esc(SITE + '/knowledge/' + j.id) +
-                '">' +
-                esc(j.id) +
-                '</a>' +
-                (j.filled != null ? ' · replaced ' + (j.filled || j.repaired || 0) + ' imgs' : '') +
-                '</li>'
-            )
-            .join('') +
-          '</ol>' +
-          '<p>Check Promotions/Spam for older <code>PULSE ca####: cursor drip</code> subjects if you want them.</p>'
-      );
+      // No startup spam — owner wants per-URL emails only when a drip finishes work.
       lastDigestAt = Date.now();
+      console.log(JSON.stringify({ phase: 'startup-catchup-skipped', recentHour: recent.length, emailEvery: EMAIL_EVERY }));
     } catch (e) {
-      await emailOne(
-        'PULSE cursor drip ON — digest emails (not per-URL)',
-        '<p>Drip running. Emails are now digests so Gmail does not bury them.</p>'
-      );
       lastDigestAt = Date.now();
     }
   }
@@ -1713,7 +1684,9 @@ async function main() {
   console.log(
     JSON.stringify({
       phase: 'cursor-drip-start',
-      mode: 'find-bad→factcheck→content→replace-all-bad',
+      mode: CONTENT_ONLY ? 'content-behind: factcheck→rewrite' : 'find-bad→factcheck→content→replace-all-bad',
+      contentOnly: CONTENT_ONLY,
+      behindImageLead: BEHIND_IMAGE_LEAD,
       idleMsWhenEmpty: IDLE_MS,
       forceId: process.env.DRIP_FORCE_ID || null,
       once,
