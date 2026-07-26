@@ -135,7 +135,7 @@ function stripUrlFromBody(body, urls) {
   if (!ban.size) return b;
   const lines = b.split('\n');
   const out = [];
-  for (const line of lines) {
+  for (let line of lines) {
     const m = line.match(/!\[[^\]]*\]\(([^)\s]+)\)/);
     if (m) {
       const u = m[1].replace(/\?.*$/, '');
@@ -144,17 +144,14 @@ function stripUrlFromBody(body, urls) {
         continue; // drop white/defunct image line — body becomes new original
       }
     }
-    // also @@PRODUCT img="..."
+    // also @@PRODUCT img="..." — strip bad img attr only, keep product card
     if (/@@PRODUCT/i.test(line) && /img="/i.test(line)) {
-      let drop = false;
       for (const bad of ban) {
         if (line.includes(bad)) {
-          // strip img attr only, keep product card
           line = line.replace(/\s*img="[^"]*"/i, '');
-          drop = false;
+          break;
         }
       }
-      void drop;
     }
     out.push(line);
   }
