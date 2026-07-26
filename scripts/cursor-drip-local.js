@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 // CURSOR DRIP — find one → fix one → find next.
 // No timetable. No cooldown. No batching.
-// When a fix finishes, immediately go back to finding.
 //
-// Diagnose: Cerebras (ok if cheaper). Never DeepSeek / Claude.
-// Rewrite: Cursor path via scripts/cursor-apply-fix.js after local Cursor body
-//          is produced by this drip's Cursor rewrite step (Cerebras-assisted
-//          surgical draft is ONLY used to draft text that then goes through
-//          visual-lock + cursor-apply labeling — DeepSeek/Claude never called).
+// OWNER ORDER PER URL (exact):
+//   1) PURGE white / blank / mangled / broken image slots
+//   2) FACT-CHECK (Cerebras OK if cheaper; never DeepSeek / Claude)
+//   3) FIX CONTENT from fact-check (Cursor drip rewrite; never DeepSeek / Claude)
+//   4) FIX IMAGES throughout the URL — replace non-applicable / not-intact slots
+//      (Pexels cover + repairBrokenQaImages / fillEntryMissingImages)
 //
-// Owner cadence: find → fix → drip again. Whatever length the fix takes is fine.
+// Then immediately find the next URL.
 //
 // Env:
 //   DRIP_FULL_INVENTORY=1
-//   DRIP_IDLE_MS=5000          ONLY wait when nothing is due (not a cooldown after fixes)
+//   DRIP_IDLE_MS=5000   ONLY when nothing due
 //   CURSOR_ULTRA=1
 
 const fs = require('fs');
@@ -22,12 +22,13 @@ const { getStore } = require('@netlify/blobs');
 const { preserveImages, enforceWriterVisualLock } = require('../_visual_lock_law');
 const { pexelsRequest } = require('../netlify/functions/lib/pexels-throttle');
 const { deriveImageSearchQuery } = require('../netlify/functions/lib/derive-image-search-query');
+const { extractCoreTerms, gatePexels, simplifyQuery } = require('../netlify/functions/lib/image-relevance-gate');
 
-let storeGradedImage;
+let storeGradedImage, repairBrokenQaImages, fillEntryMissingImages;
 try {
-  ({ storeGradedImage } = require('../_ddg_facecard_lib'));
+  ({ storeGradedImage, repairBrokenQaImages, fillEntryMissingImages } = require('../_ddg_facecard_lib'));
 } catch (e) {
-  console.error(JSON.stringify({ fatal: 'storeGradedImage: ' + e.message }));
+  console.error(JSON.stringify({ fatal: 'ddg_facecard: ' + e.message }));
   process.exit(1);
 }
 
@@ -54,6 +55,9 @@ const WORK_DIR = '/tmp/cursor-drip';
 const IDLE_MS = Math.max(0, parseInt(process.env.DRIP_IDLE_MS || '5000', 10));
 const FULL_INVENTORY = String(process.env.DRIP_FULL_INVENTORY || '1') !== '0';
 const PEXELS_KEY = process.env.PEXELS_API_KEY || process.env.Pexels_Api_Key;
+
+const MANGLED_RX =
+  /(?:%2C%20|,)\s*realistic\s+magazine\s+style|nologo=true|model=flux|image\.pollinations\.ai|no%20watermark\?width=|prompt\/[^)\s]*no%20text/i;
 
 fs.mkdirSync(ASSET_DIR, { recursive: true });
 fs.mkdirSync(path.dirname(DROP_FILE), { recursive: true });
@@ -85,6 +89,23 @@ function idFromUrlOrId(raw) {
   if (m) return m[1].toLowerCase();
   if (/^[a-z]{2,3}\d/i.test(s)) return s.toLowerCase();
   return '';
+}
+
+function absUrl(u) {
+  if (!u) return '';
+  if (/^https?:\/\//i.test(u)) return u;
+  if (u[0] === '/') return SITE + u;
+  return '';
+}
+
+function normUrl(u) {
+  return String(u || '')
+    .replace(/\?.*$/, '')
+    .trim();
+}
+
+function isMangled(u) {
+  return MANGLED_RX.test(String(u || ''));
 }
 
 async function emailOne(subject, html) {
@@ -142,7 +163,6 @@ async function cerebrasChat(system, user, maxTokens) {
     });
     const t = await r.text();
     if (r.status === 429) {
-      // Not a cooldown policy — only back off on real rate limit, then continue find→fix.
       await new Promise((res) => setTimeout(res, Math.min(30000, 4000 * attempt)));
       continue;
     }
@@ -218,13 +238,153 @@ function readDropFile(seenDrop) {
   return ids;
 }
 
+function extractImageUrls(answer, cover) {
+  const urls = [];
+  if (cover) urls.push(String(cover));
+  const lines = String(answer || '').split('\n');
+  for (const line of lines) {
+    let m = line.match(/!\[[^\]]*\]\((https?:\/\/[^\s]+|\/assets\/[^\s)]+)\)/i);
+    if (!m) m = line.match(/!\[[^\]]*\]\(([^)\s]+)\)/);
+    if (m) urls.push(m[1]);
+    if (isMangled(line)) {
+      const m2 = line.match(/!\[[^\]]*\]\((.+)\)\s*$/);
+      if (m2) urls.push(m2[1]);
+    }
+    const pm = line.match(/@@PRODUCT[^]*?\bimg="([^"]+)"/i);
+    if (pm) urls.push(pm[1]);
+  }
+  return [...new Set(urls.filter(Boolean))];
+}
+
+/** Classify: mangled | white | defunct | ok | empty */
+async function classifyImage(url) {
+  if (!url) return { kind: 'empty', url };
+  if (isMangled(url)) return { kind: 'mangled', url };
+  if (/\/assets\/cro-cover-\d+\.jpg/i.test(url)) return { kind: 'ok', url, skipPurge: true };
+  const abs = absUrl(url);
+  if (!abs) return { kind: 'empty', url };
+  try {
+    const r = await fetch(abs, {
+      headers: { 'User-Agent': 'PulseCursorDrip/1.0', Accept: 'image/*' },
+      redirect: 'follow',
+      signal: AbortSignal.timeout(12000),
+    });
+    if (!r.ok) return { kind: 'defunct', status: r.status, url: abs };
+    const ct = (r.headers.get('content-type') || '').toLowerCase();
+    const buf = Buffer.from(await r.arrayBuffer());
+    if (!ct.startsWith('image/') || buf.length < 1200) {
+      return { kind: 'defunct', url: abs, reason: 'not-image-or-tiny', bytes: buf.length };
+    }
+    let white = false;
+    let mean = null;
+    let whitePct = null;
+    try {
+      const sharp = require('sharp');
+      const { data, info } = await sharp(buf)
+        .resize(96, 96, { fit: 'inside' })
+        .removeAlpha()
+        .raw()
+        .toBuffer({ resolveWithObject: true });
+      const n = info.width * info.height;
+      let sum = 0;
+      let w = 0;
+      for (let i = 0; i < data.length; i += 3) {
+        const m = (data[i] + data[i + 1] + data[i + 2]) / 3;
+        sum += m;
+        if (m >= 245) w++;
+      }
+      mean = sum / n;
+      whitePct = w / n;
+      white = (mean >= 235 && whitePct >= 0.9) || whitePct >= 0.95;
+    } catch (e) {
+      const ff = buf.filter((b) => b >= 0xf0).length / buf.length;
+      if (buf.length < 8000 && ff > 0.55) white = true;
+    }
+    if (white) return { kind: 'white', url: abs, mean, whitePct, bytes: buf.length };
+    return { kind: 'ok', url: abs, bytes: buf.length, mean, whitePct };
+  } catch (e) {
+    return { kind: 'defunct', url: abs, reason: String(e.message || e).slice(0, 80) };
+  }
+}
+
+function stripBadFromBody(body, badUrls) {
+  const ban = new Set((badUrls || []).map((u) => normUrl(u)));
+  const lines = String(body || '').split('\n');
+  const out = [];
+  const removed = [];
+  for (let line of lines) {
+    const isImgLine = /!\[[^\]]*\]\(/i.test(line);
+    const isProd = /@@PRODUCT/i.test(line) && /img="/i.test(line);
+    if (isImgLine) {
+      if (isMangled(line)) {
+        removed.push(line.slice(0, 120));
+        continue;
+      }
+      const m = line.match(/!\[[^\]]*\]\(([^)\s]+)\)/) || line.match(/!\[[^\]]*\]\((.+)\)\s*$/);
+      if (m) {
+        const u = normUrl(m[1]);
+        const rel = u.replace(/^https?:\/\/(?:www\.)?pulserevops\.com/i, '');
+        if (ban.has(u) || ban.has(rel) || [...ban].some((x) => x && (u.includes(x) || line.includes(x)))) {
+          removed.push(m[1].slice(0, 200));
+          continue;
+        }
+      }
+    }
+    if (isProd) {
+      if (isMangled(line)) {
+        line = line.replace(/\s*img="[^"]*"/i, '');
+        removed.push('@@PRODUCT mangled img');
+      } else {
+        for (const bad of ban) {
+          if (bad && line.includes(bad)) {
+            line = line.replace(/\s*img="[^"]*"/i, '');
+            removed.push(bad.slice(0, 120));
+            break;
+          }
+        }
+      }
+    }
+    out.push(line);
+  }
+  return { answer: out.join('\n').replace(/\n{3,}/g, '\n\n').trim(), removed };
+}
+
+/** Quick signal that a page likely needs image purge (no network). */
+function quickNeedsImagePurge(blob) {
+  if (!blob || !blob.answer) return false;
+  const ans = String(blob.answer);
+  const cover = blob.img || '';
+  if (isMangled(ans) || isMangled(cover)) return true;
+  if (!cover && !/!\[[^\]]*\]\(/i.test(ans)) return true;
+  if (/placeholder\.svg|pollinations\.ai|nologo=true|model=flux/i.test(ans + cover)) return true;
+  if (blob.drip_audit_verdict === 'flag' && /white|blank|mangled|broken image/i.test(JSON.stringify(blob.drip_audit_issues || [])))
+    return true;
+  return false;
+}
+
+async function auditImagesOnPage(blob, id) {
+  const cover = blob.img || '';
+  const urls = extractImageUrls(blob.answer, cover).slice(0, 12);
+  const bad = [];
+  const reasons = [];
+  for (const u of urls) {
+    const cls = await classifyImage(u);
+    if (cls.kind === 'white' || cls.kind === 'mangled' || cls.kind === 'defunct') {
+      bad.push(u);
+      reasons.push(cls.kind + ':' + String(u).slice(0, 80));
+    }
+  }
+  return { bad, reasons, hasBad: bad.length > 0 };
+}
+
 function needsDrip(blob, id, dropSet) {
   if (!blob || !blob.answer) return false;
   if (dropSet.has(id)) return true;
+  if (quickNeedsImagePurge(blob)) return true;
   if (blob.cursor_fixed_at) {
     const fixed = Date.parse(blob.cursor_fixed_at) || 0;
     const ts = entryTs(blob, null);
-    if (fixed && ts && ts <= fixed) return false;
+    if (fixed && ts && ts <= fixed && !quickNeedsImagePurge(blob)) return false;
   }
   const dripAt = blob.drip_audited_at ? Date.parse(blob.drip_audited_at) : 0;
   if (!dripAt) return true;
@@ -268,27 +428,58 @@ async function ensureInventory(s, state) {
   return dropSet;
 }
 
+/**
+ * Find one URL. Prefer pages that need white/mangled image purge first,
+ * then queue pending, then general due pages.
+ */
 async function findOne(s, state) {
-  // 1) Prefer existing Cursor queue pending (already diagnosed)
   let queue = { items: [] };
   try {
     queue = Object.assign(queue, (await s.get(QUEUE_KEY, { type: 'json' })) || {});
   } catch (e) {}
+  const dropSet = await ensureInventory(s, state);
+  const inventory = state.inventoryIds || [];
+  if (!inventory.length) return null;
+
+  // PASS A — prioritize white/mangled/broken image candidates (quick local signal)
+  let cursor = state.imgCursor != null ? state.imgCursor : 0;
+  let scanned = 0;
+  const maxScan = Math.min(inventory.length, 400);
+  while (scanned < maxScan) {
+    if (cursor >= inventory.length) cursor = 0;
+    const id = inventory[cursor];
+    cursor += 1;
+    scanned += 1;
+    let blob;
+    try {
+      blob = await s.get('answers/' + id + '.json', { type: 'json' });
+    } catch (e) {
+      continue;
+    }
+    if (!blob || !blob.answer) continue;
+    if (!quickNeedsImagePurge(blob) && !dropSet.has(id)) continue;
+    // Confirm with classify (cover + body) — only claim if truly bad
+    const imgAudit = await auditImagesOnPage(blob, id);
+    if (!imgAudit.hasBad && !dropSet.has(id) && !isMangled(blob.answer || '')) {
+      continue;
+    }
+    state.imgCursor = cursor;
+    return { id, blob, queue, priority: 'image-purge', imgAudit };
+  }
+  state.imgCursor = cursor;
+
+  // PASS B — existing Cursor queue pending
   const pending = (queue.items || []).filter((x) => x && x.status === 'pending');
   if (pending.length) {
     const it = pending[0];
     const blob = await s.get('answers/' + it.id + '.json', { type: 'json' });
-    return { id: it.id, blob, queue, fromQueue: true, critique: it };
+    return { id: it.id, blob, queue, fromQueue: true, critique: it, priority: 'queue' };
   }
 
-  // 2) Scan inventory until ONE due page found
-  const dropSet = await ensureInventory(s, state);
-  const inventory = state.inventoryIds || [];
-  if (!inventory.length) return null;
-  let cursor = state.invCursor || 0;
-  let scanned = 0;
-  const maxScan = inventory.length;
-  while (scanned < maxScan) {
+  // PASS C — general content due
+  cursor = state.invCursor || 0;
+  scanned = 0;
+  while (scanned < inventory.length) {
     if (cursor >= inventory.length) cursor = 0;
     const id = inventory[cursor];
     cursor += 1;
@@ -301,7 +492,7 @@ async function findOne(s, state) {
     }
     if (!needsDrip(blob, id, dropSet)) continue;
     state.invCursor = cursor;
-    return { id, blob, queue, fromQueue: false, critique: null };
+    return { id, blob, queue, priority: 'content', critique: null };
   }
   state.invCursor = cursor;
   return null;
@@ -328,39 +519,52 @@ function extractSectionLabels(items) {
   return labels;
 }
 
-async function pexelsCover(id, title) {
+async function pexelsSearchApplicable(title, id) {
   if (!PEXELS_KEY) throw new Error('PEXELS_API_KEY missing');
   const query = deriveImageSearchQuery(title || id);
-  const url =
-    'https://api.pexels.com/v1/search?per_page=5&orientation=landscape&query=' +
-    encodeURIComponent(query);
-  const r = await pexelsRequest(async () => {
-    const res = await fetch(url, {
-      headers: { Authorization: PEXELS_KEY, 'User-Agent': 'pulserevops-cursor-drip/1.0' },
-      signal: AbortSignal.timeout(30000),
+  const core = extractCoreTerms(query);
+  const tryQueries = [query, simplifyQuery(query)].filter((q, i, a) => q && a.indexOf(q) === i);
+
+  for (const q of tryQueries) {
+    const url =
+      'https://api.pexels.com/v1/search?per_page=12&orientation=landscape&query=' + encodeURIComponent(q);
+    const r = await pexelsRequest(async () => {
+      const res = await fetch(url, {
+        headers: { Authorization: PEXELS_KEY, 'User-Agent': 'pulserevops-cursor-drip/1.0' },
+        signal: AbortSignal.timeout(30000),
+      });
+      return { status: res.status, body: Buffer.from(await res.arrayBuffer()) };
     });
-    return { status: res.status, body: Buffer.from(await res.arrayBuffer()) };
-  });
-  if (r.status !== 200) throw new Error('pexels ' + r.status);
-  const data = JSON.parse(r.body.toString('utf8'));
-  const photos = data.photos || [];
-  const ok = photos.filter((p) => p && p.width >= 1200 && p.width >= p.height);
-  const pool = ok.length ? ok : photos;
-  pool.sort((a, b) => b.width * b.height - a.width * a.height);
-  const p = pool[0];
-  const src = p && p.src && (p.src.large2x || p.src.large || p.src.original);
-  if (!src) throw new Error('pexels miss');
-  const dl = await fetch(src, { signal: AbortSignal.timeout(45000) });
-  if (!dl.ok) throw new Error('dl ' + dl.status);
-  const buf = Buffer.from(await dl.arrayBuffer());
-  const dest = path.join(ASSET_DIR, id + '.jpg');
-  await storeGradedImage(buf, dest, {
-    square: 760,
-    faceCard: true,
-    cropPosition: 'attention',
-    bright: false,
-  });
-  return { rel: '/assets/qa/' + id + '.jpg', query };
+    if (r.status !== 200) continue;
+    const data = JSON.parse(r.body.toString('utf8'));
+    const photos = data.photos || [];
+    const gated = gatePexels(core, data.total_results || photos.length, photos);
+    let pool = gated.pass ? gated.passers : photos;
+    pool = pool.filter((p) => p && p.width >= 1200 && p.width >= p.height);
+    if (!pool.length) pool = gated.pass ? gated.passers : photos;
+    if (!pool.length) continue;
+    pool.sort((a, b) => b.width * b.height - a.width * a.height);
+    const p = pool[0];
+    const src = p && p.src && (p.src.large2x || p.src.large || p.src.original);
+    if (!src) continue;
+    const dl = await fetch(src, { signal: AbortSignal.timeout(45000) });
+    if (!dl.ok) continue;
+    const buf = Buffer.from(await dl.arrayBuffer());
+    const dest = path.join(ASSET_DIR, id + '.jpg');
+    await storeGradedImage(buf, dest, {
+      square: 760,
+      faceCard: true,
+      cropPosition: 'attention',
+      bright: false,
+    });
+    return {
+      rel: '/assets/qa/' + id + '.jpg',
+      query: q,
+      gated: !!gated.pass,
+      alt: (p.alt || '').slice(0, 120),
+    };
+  }
+  throw new Error('pexels applicable miss');
 }
 
 function swapLeadingImage(answer, rel, title) {
@@ -369,7 +573,7 @@ function swapLeadingImage(answer, rel, title) {
   if (/^﻿?\s*!\[[^\]]*\]\([^)]*\)\s*\n*/.test(ans)) {
     return '![' + alt + '](' + rel + ')\n\n' + ans.replace(/^﻿?\s*!\[[^\]]*\]\([^)]*\)\s*\n*/, '');
   }
-  return ans;
+  return '![' + alt + '](' + rel + ')\n\n' + ans;
 }
 
 async function markQueueDone(s, queue, id, ts) {
@@ -381,116 +585,256 @@ async function markQueueDone(s, queue, id, ts) {
   fs.writeFileSync(LOCAL_QUEUE, JSON.stringify(queue, null, 2));
 }
 
+/**
+ * OWNER ORDER:
+ * 1 purge white/mangled/broken
+ * 2 fact-check
+ * 3 content rewrite
+ * 4 applicable/intact images throughout URL
+ */
 async function fixOne(s, state, found) {
   const { id, blob, queue } = found;
   const question = (blob && blob.question) || (found.critique && found.critique.question) || id;
   const url = knowledgeUrl(id);
-  const original = String(blob.answer || '');
-  const ts = new Date().toISOString();
+  let body = String(blob.answer || '');
+  const actions = [];
+  const stepNotes = [];
+  let issues = [];
+  let sections = [];
 
-  console.log(JSON.stringify({ phase: 'cursor-drip-find', id, question: String(question).slice(0, 100) }));
+  console.log(
+    JSON.stringify({
+      phase: 'cursor-drip-find',
+      id,
+      priority: found.priority || 'content',
+      question: String(question).slice(0, 100),
+    })
+  );
 
-  let critique = found.critique;
-  if (!critique || !found.fromQueue) {
-    const auditText = await cerebrasChat(
-      AUDIT_SYS,
-      'CURSOR DRIP AUDIT\nID: ' + id + '\nURL: ' + url + '\nQuestion: ' + question + '\n\nAnswer:\n' + clip(original, 7000, 4000),
-      1200
+  // ─── STEP 1: PURGE white / blank / mangled / broken ───
+  console.log(JSON.stringify({ phase: 'step1-purge-images', id }));
+  let imgAudit = found.imgAudit || (await auditImagesOnPage(blob, id));
+  if (imgAudit.hasBad || isMangled(body)) {
+    const { answer: cleaned, removed } = stripBadFromBody(body, imgAudit.bad || []);
+    body = cleaned;
+    const banned = Array.isArray(blob.purged_image_urls) ? blob.purged_image_urls.slice() : [];
+    for (const u of removed.concat(imgAudit.bad || [])) {
+      const n = normUrl(u);
+      if (n && !banned.includes(n)) banned.push(n);
+    }
+    blob.purged_image_urls = banned;
+    blob.face_purged_at = new Date().toISOString();
+    blob.face_purge_reason = (imgAudit.reasons || []).slice(0, 6).join(',') || 'white-mangled-broken';
+    actions.push('purge-white-mangled:' + (removed.length || imgAudit.bad.length));
+    stepNotes.push(
+      'Purged white/blank/mangled/broken slots (' + (removed.length || imgAudit.bad.length) + ')'
     );
-    const audit = parseJsonObject(auditText);
-    const verdict = String(audit.verdict || '').toLowerCase();
-    const issues = [].concat(audit.issues || [], audit.hallucinations || [], audit.content_gaps || []);
+    console.log(
+      JSON.stringify({
+        phase: 'step1-purged',
+        id,
+        removed: (removed.length || imgAudit.bad.length),
+        reasons: (imgAudit.reasons || []).slice(0, 4),
+      })
+    );
+  } else {
+    stepNotes.push('No white/mangled/broken slots to purge');
+    console.log(JSON.stringify({ phase: 'step1-clean', id }));
+  }
+
+  // ─── STEP 2: FACT-CHECK (non-fatal — purge must still land) ───
+  console.log(JSON.stringify({ phase: 'step2-factcheck', id }));
+  let critique = found.critique;
+  try {
+    if (!critique || !found.fromQueue) {
+      const auditText = await cerebrasChat(
+        AUDIT_SYS,
+        'CURSOR DRIP AUDIT\nID: ' +
+          id +
+          '\nURL: ' +
+          url +
+          '\nQuestion: ' +
+          question +
+          '\n\nAnswer:\n' +
+          clip(body, 7000, 4000),
+        1200
+      );
+      const audit = parseJsonObject(auditText);
+      const verdict = String(audit.verdict || '').toLowerCase();
+      issues = [].concat(audit.issues || [], audit.hallucinations || [], audit.content_gaps || []);
+      critique = {
+        id,
+        question,
+        url,
+        issues: (audit.issues || []).slice(0, 6),
+        hallucinations: (audit.hallucinations || []).slice(0, 6),
+        content_gaps: (audit.content_gaps || []).slice(0, 6),
+        sections: (audit.sections || []).slice(0, 8),
+        source: 'cursor-drip',
+        verdict: verdict === 'flag' || issues.length ? 'flag' : 'pass',
+      };
+    } else {
+      issues = []
+        .concat(critique.issues || [], critique.hallucinations || [], critique.content_gaps || [])
+        .map(String);
+    }
+  } catch (e) {
+    console.log(JSON.stringify({ phase: 'step2-audit-softfail', id, err: String(e.message || e).slice(0, 120) }));
     critique = {
       id,
       question,
       url,
-      issues: (audit.issues || []).slice(0, 6),
-      hallucinations: (audit.hallucinations || []).slice(0, 6),
-      content_gaps: (audit.content_gaps || []).slice(0, 6),
-      sections: (audit.sections || []).slice(0, 8),
+      issues: ['Fact-check soft-fail — continue image/content path'],
+      hallucinations: [],
+      content_gaps: [],
+      sections: [],
       source: 'cursor-drip',
-      verdict: verdict === 'flag' || issues.length ? 'flag' : 'pass',
+      verdict: actions.some((a) => String(a).startsWith('purge-')) ? 'flag' : 'pass',
     };
-    await s.setJSON(
-      'answers/' + id + '.json',
-      Object.assign({}, blob, {
-        drip_audited_at: ts,
-        drip_audit_verdict: critique.verdict,
-        drip_audit_issues: issues.slice(0, 8),
-        drip_audit_sections: critique.sections,
-        updated_at: ts,
-      })
+    issues = critique.issues.slice();
+    actions.push('factcheck:softfail');
+    stepNotes.push('Fact-check soft-failed (' + String(e.message || e).slice(0, 60) + ') — continuing');
+  }
+  sections = extractSectionLabels(issues.concat((critique && critique.sections) || []));
+  if (!actions.includes('factcheck:softfail')) {
+    actions.push('factcheck:' + (critique.verdict || 'flag'));
+    stepNotes.push(
+      'Fact-check: ' +
+        (critique.verdict || 'flag') +
+        (issues.length ? ' — ' + issues.length + ' issue(s)' : ' — clean')
     );
-    console.log(JSON.stringify({ phase: 'cursor-drip-audit', id, verdict: critique.verdict, issues: issues.length }));
-    if (critique.verdict === 'pass') {
-      state.passed = (state.passed || 0) + 1;
-      state.lastId = id;
-      state.lastResult = 'pass';
-      return { id, action: 'pass' };
+  }
+  console.log(
+    JSON.stringify({ phase: 'step2-done', id, verdict: critique.verdict, issues: issues.length, sections })
+  );
+
+  // ─── STEP 3: CONTENT REWRITE (if flagged; soft-fail OK) ───
+  if (critique.verdict === 'flag' || issues.length) {
+    console.log(JSON.stringify({ phase: 'step3-content-rewrite', id }));
+    try {
+      const rewriteRaw = await cerebrasChat(
+        REWRITE_SYS,
+        [
+          'CURSOR DRIP REWRITE',
+          'ID: ' + id,
+          'Question: ' + question,
+          'Fix these issues:',
+          issues.map((x) => '- ' + x).join('\n') || '- general accuracy / structure cleanup',
+          '',
+          'ORIGINAL MARKDOWN (image/@@PRODUCT lines must stay in place):',
+          body,
+        ].join('\n'),
+        8000
+      );
+      let rewritten = String(rewriteRaw || '')
+        .replace(/^```(?:markdown|md)?\n?/i, '')
+        .replace(/\n?```$/i, '')
+        .trim();
+      if (rewritten.length < 400) throw new Error('rewrite too short');
+      try {
+        body = enforceWriterVisualLock(body, rewritten, { id }) || preserveImages(body, rewritten);
+      } catch (e) {
+        body = preserveImages(body, rewritten);
+      }
+      actions.push('content-rewrite:cursor-drip');
+      stepNotes.push('Content rewritten from fact-check (Cursor drip; never DeepSeek/Claude)');
+      console.log(JSON.stringify({ phase: 'step3-done', id, bodyLen: body.length }));
+    } catch (e) {
+      actions.push('content-rewrite:softfail');
+      stepNotes.push('Content rewrite soft-failed — purge + image steps still apply');
+      console.log(JSON.stringify({ phase: 'step3-softfail', id, err: String(e.message || e).slice(0, 120) }));
     }
+  } else {
+    stepNotes.push('Content OK — no rewrite');
+    console.log(JSON.stringify({ phase: 'step3-skip', id }));
   }
 
-  const issues = []
-    .concat(critique.issues || [], critique.hallucinations || [], critique.content_gaps || [])
-    .map(String);
-  const sections = extractSectionLabels(issues.concat(critique.sections || []));
-
-  console.log(JSON.stringify({ phase: 'cursor-drip-fix-start', id, issues: issues.length, sections }));
-
-  // Cursor drip rewrite (Cerebras draft only — never DeepSeek/Claude). Body applied as cursor-drip.
-  const rewriteRaw = await cerebrasChat(
-    REWRITE_SYS,
-    [
-      'CURSOR DRIP REWRITE',
-      'ID: ' + id,
-      'Question: ' + question,
-      'Fix these issues:',
-      issues.map((x) => '- ' + x).join('\n') || '- general accuracy / structure cleanup',
-      '',
-      'ORIGINAL MARKDOWN:',
-      original,
-    ].join('\n'),
-    8000
-  );
-  let rewritten = String(rewriteRaw || '')
-    .replace(/^```(?:markdown|md)?\n?/i, '')
-    .replace(/\n?```$/i, '')
-    .trim();
-  if (rewritten.length < 400) throw new Error('rewrite too short');
-
-  let body;
+  // ─── STEP 4: APPLICABLE / INTACT IMAGES THROUGHOUT URL ───
+  console.log(JSON.stringify({ phase: 'step4-applicable-images', id }));
+  let coverRel = null;
+  let coverQuery = null;
   try {
-    body = enforceWriterVisualLock(original, rewritten, { id }) || preserveImages(original, rewritten);
+    const cover = await pexelsSearchApplicable(question, id);
+    coverRel = cover.rel;
+    coverQuery = cover.query;
+    body = swapLeadingImage(body, coverRel, question);
+    actions.push('pexels-cover:' + coverQuery + (cover.gated ? ':gated' : ':fallback'));
+    stepNotes.push(
+      'Cover replaced with applicable Pexels (' +
+        coverQuery +
+        (cover.gated ? ', relevance-gated' : '') +
+        ')'
+    );
   } catch (e) {
-    body = preserveImages(original, rewritten);
+    stepNotes.push('Cover Pexels miss: ' + String(e.message || e).slice(0, 80));
+    console.log(JSON.stringify({ phase: 'step4-cover-miss', id, err: String(e.message || e).slice(0, 100) }));
   }
 
-  const { rel, query } = await pexelsCover(id, question);
-  body = swapLeadingImage(body, rel, question);
+  // Repair / replace body slots that are broken, not intact, or not applicable
+  let repaired = 0;
+  let filled = 0;
+  try {
+    const rr = await repairBrokenQaImages(id, question, body, {
+      upgradeMode: true,
+      alternateSources: true,
+      allowTopicalReuse: true,
+      quiet: true,
+    });
+    if (rr && rr.body) {
+      body = rr.body;
+      repaired = rr.fixed || 0;
+      if (repaired) {
+        actions.push('repairBrokenQaImages:' + repaired);
+        stepNotes.push('Repaired/replaced ' + repaired + ' broken or non-applicable body image slot(s)');
+      }
+    }
+  } catch (e) {
+    console.log(JSON.stringify({ phase: 'step4-repair-err', id, err: String(e.message || e).slice(0, 100) }));
+  }
+  try {
+    const fr = await fillEntryMissingImages(id, question, body, {
+      upgradeMode: true,
+      quiet: true,
+    });
+    if (fr && fr.body) {
+      body = fr.body;
+      filled = fr.fixed || 0;
+      if (filled) {
+        actions.push('fillEntryMissingImages:' + filled);
+        stepNotes.push('Filled ' + filled + ' missing/upgradable image slot(s) with applicable images');
+      }
+    }
+  } catch (e) {
+    console.log(JSON.stringify({ phase: 'step4-fill-err', id, err: String(e.message || e).slice(0, 100) }));
+  }
+  console.log(JSON.stringify({ phase: 'step4-done', id, cover: coverRel, repaired, filled }));
 
+  // ─── SAVE + ONE EMAIL ───
   const doneAt = new Date().toISOString();
-  await s.setJSON(
-    'answers/' + id + '.json',
-    Object.assign({}, blob, {
-      answer: body,
-      img: rel,
-      cover_src: 'pexels',
-      cursor_fixed_at: doneAt,
-      batch_cycled_at: doneAt,
-      batch_cycle_actions: ['content-rewrite:cursor-drip', 'pexels:' + query],
-      batch_cycle_issues: issues.slice(0, 8),
-      batch_cycle_writer: 'cursor-drip',
-      drip_audit_verdict: 'fixed',
-      drip_audited_at: doneAt,
-      updated_at: doneAt,
-    })
-  );
+  const nextBlob = Object.assign({}, blob, {
+    answer: body,
+    cursor_fixed_at: doneAt,
+    batch_cycled_at: doneAt,
+    batch_cycle_actions: actions,
+    batch_cycle_issues: issues.slice(0, 8),
+    batch_cycle_writer: 'cursor-drip',
+    drip_audited_at: doneAt,
+    drip_audit_verdict: critique.verdict === 'pass' && !issues.length ? 'pass' : 'fixed',
+    drip_audit_issues: issues.slice(0, 8),
+    drip_audit_sections: sections,
+    updated_at: doneAt,
+  });
+  if (coverRel) {
+    nextBlob.img = coverRel;
+    nextBlob.cover_src = 'pexels';
+  }
+  await s.setJSON('answers/' + id + '.json', nextBlob);
 
   try {
     const idx = await s.get('_index.json', { type: 'json', consistency: 'strong' });
     const i = (idx.entries || []).findIndex((e) => e && e.id === id);
-    if (i >= 0) {
-      idx.entries[i].img = rel;
+    if (i >= 0 && coverRel) {
+      idx.entries[i].img = coverRel;
       idx.entries[i].cover_src = 'pexels';
       await s.setJSON('_index.json', idx);
     }
@@ -498,10 +842,16 @@ async function fixOne(s, state, found) {
 
   await markQueueDone(s, queue, id, doneAt);
 
-  const sectionBit = sections.length ? sections.slice(0, 4).join(', ') : 'flagged sections';
+  const sectionBit = sections.length ? sections.slice(0, 4).join(', ') : 'see findings';
   await emailOne(
-    ('PULSE ' + id + ': cursor drip · fact-check ' + sectionBit + ' · Cursor rewrite · 1 Pexels image').slice(0, 180),
-    '<p><b>Cursor drip</b> found → fixed → back to finding.</p>' +
+    (
+      'PULSE ' +
+      id +
+      ': cursor drip · purge images · fact-check ' +
+      sectionBit +
+      ' · content · applicable images'
+    ).slice(0, 180),
+    '<p><b>Cursor drip</b> finished one URL (then finds next immediately):</p>' +
       '<p><a href="' +
       esc(url) +
       '">' +
@@ -511,19 +861,18 @@ async function fixOne(s, state, found) {
       esc(String(question).slice(0, 200)) +
       '</p>' +
       '<ol>' +
-      '<li><b>Fact-check:</b> ' +
+      '<li><b>Purge white/mangled/broken images</b></li>' +
+      '<li><b>Fact-check</b> — ' +
       esc(sectionBit) +
-      (issues.length ? ' — ' + issues.length + ' issue(s)' : '') +
       '</li>' +
-      '<li><b>Content:</b> Cursor drip rewrite (never DeepSeek / Claude). Visual-lock preserved image slots.</li>' +
-      '<li><b>Images:</b> 1 Pexels cover — <code>' +
-      esc(query) +
-      '</code> → <code>' +
-      esc(rel) +
-      '</code></li>' +
+      '<li><b>Content fix</b> from fact-check (Cursor drip; never DeepSeek/Claude)</li>' +
+      '<li><b>Applicable images throughout URL</b> — cover + body slots not intact / not applicable replaced</li>' +
       '</ol>' +
+      '<p><b>Steps:</b></p><ul>' +
+      stepNotes.map((x) => '<li>' + esc(x) + '</li>').join('') +
+      '</ul>' +
       (issues.length
-        ? '<p><b>Findings:</b></p><ul>' +
+        ? '<p><b>Fact-check findings:</b></p><ul>' +
           issues
             .slice(0, 8)
             .map((x) => '<li>' + esc(String(x).slice(0, 220)) + '</li>')
@@ -534,33 +883,50 @@ async function fixOne(s, state, found) {
 
   fs.writeFileSync(
     path.join(WORK_DIR, id + '.json'),
-    JSON.stringify({ id, doneAt, sections, issues: issues.slice(0, 8), rel, query }, null, 2)
+    JSON.stringify({ id, doneAt, actions, sections, issues: issues.slice(0, 8), coverRel, repaired, filled }, null, 2)
   );
 
   state.fixed = (state.fixed || 0) + 1;
   state.lastId = id;
   state.lastResult = 'fixed';
-  console.log(JSON.stringify({ phase: 'cursor-drip-fixed', id, sections, pexels: rel }));
+  console.log(JSON.stringify({ phase: 'cursor-drip-fixed', id, actions, sections }));
   return { id, action: 'fixed' };
 }
 
 async function main() {
   const s = store();
-  let state = { inventoryIds: [], invCursor: 0, drop: { lines: 0 }, fixed: 0, passed: 0 };
+  let state = {
+    inventoryIds: [],
+    invCursor: 0,
+    imgCursor: 0,
+    drop: { lines: 0 },
+    fixed: 0,
+    passed: 0,
+  };
   try {
     state = Object.assign(state, (await s.get(STATE_KEY, { type: 'json' })) || {});
   } catch (e) {}
   if (!state.drop) state.drop = { lines: 0 };
 
   await emailOne(
-    'PULSE cursor drip ON — find one → fix one → find next (no cooldown)',
-    '<p><b>Cursor drip</b> is running with owner cadence:</p>' +
-      '<ol><li>Find one</li><li>Fix it (fact-check + Cursor rewrite + Pexels + email)</li><li>Immediately find the next</li></ol>' +
-      '<p>No timetable. No cooldown. Fix length is whatever it takes.</p>' +
-      '<p>Never DeepSeek or Claude. Cerebras OK for diagnose/draft on the cheap plan.</p>'
+    'PULSE cursor drip ON — purge → fact-check → content → applicable images',
+    '<p><b>Cursor drip</b> per URL (then immediately find next):</p>' +
+      '<ol>' +
+      '<li>Purge white / blank / mangled / broken images</li>' +
+      '<li>Fact-check</li>' +
+      '<li>Fix content from fact-check</li>' +
+      '<li>Replace non-applicable / not-intact images throughout the URL</li>' +
+      '</ol>' +
+      '<p>No timetable. No cooldown. Prefer image-purge URLs first. Never DeepSeek or Claude.</p>'
   );
 
-  console.log(JSON.stringify({ phase: 'cursor-drip-start', mode: 'find-fix-find', idleMsWhenEmpty: IDLE_MS }));
+  console.log(
+    JSON.stringify({
+      phase: 'cursor-drip-start',
+      mode: 'purge→factcheck→content→applicable-images',
+      idleMsWhenEmpty: IDLE_MS,
+    })
+  );
 
   for (;;) {
     try {
@@ -570,18 +936,22 @@ async function main() {
         await s.setJSON(STATE_KEY, state);
         console.log(JSON.stringify({ phase: 'cursor-drip-idle', note: 'nothing due — brief idle then find again' }));
         if (IDLE_MS > 0) await new Promise((r) => setTimeout(r, IDLE_MS));
-        state.inventoryBuiltAt = null; // refresh to catch new updates
+        state.inventoryBuiltAt = null;
         continue;
       }
 
       await fixOne(s, state, found);
       state.lastRunAt = new Date().toISOString();
       await s.setJSON(STATE_KEY, state);
-      // NO cooldown — immediately find the next one
-      console.log(JSON.stringify({ phase: 'cursor-drip-next', note: 'fix done — finding next immediately', fixed: state.fixed || 0 }));
+      console.log(
+        JSON.stringify({
+          phase: 'cursor-drip-next',
+          note: 'fix done — finding next immediately',
+          fixed: state.fixed || 0,
+        })
+      );
     } catch (e) {
       console.log(JSON.stringify({ phase: 'cursor-drip-error', err: String(e.message || e).slice(0, 200) }));
-      // Real error only — short pause then keep dripping (not a schedule)
       await new Promise((r) => setTimeout(r, 3000));
     }
   }
