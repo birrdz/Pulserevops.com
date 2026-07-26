@@ -413,6 +413,7 @@ async function tick(s, state) {
       continue;
     }
     const row = byId.get(id) || { id };
+    const t0 = Date.now();
     const r = await processOne(s, idx, row);
     scanned++;
     if (r.action === 'purge') {
@@ -428,20 +429,20 @@ async function tick(s, state) {
     } else {
       done.add(id);
     }
-    if (scanned % 20 === 0) {
-      console.log(
-        JSON.stringify({
-          progress: true,
-          scanned,
-          purged,
-          ok: okN,
-          skipped,
-          cursor: state.cursor,
-          id,
-          action: r.action,
-        })
-      );
-    }
+    console.log(
+      JSON.stringify({
+        progress: true,
+        scanned,
+        purged,
+        ok: okN,
+        skipped,
+        cursor: state.cursor,
+        id,
+        action: r.action,
+        bad: r.bad || 0,
+        ms: Date.now() - t0,
+      })
+    );
   }
 
   if (indexDirty) await s.setJSON('_index.json', idx);
