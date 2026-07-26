@@ -49,6 +49,37 @@
     });
   }
   function entryTitle(c) { return String((c && (c.question || c.title)) || (c && c.id) || ''); }
+  var HOT_TRIMS = ['mm-hot-pink', 'mm-hot-purple', 'mm-hot-yellow', 'mm-hot-green'];
+  function hotHash(id) {
+    var h = 0, s = String(id || '');
+    for (var i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+    return Math.abs(h);
+  }
+  function isNewOrEdited(c, opts) {
+    if (!c || !c.id) return false;
+    if (opts && opts.newOnly) return true;
+    var tags = Array.isArray(c.tags) ? c.tags : [];
+    if (tags.indexOf('pulse-recent') >= 0 || tags.indexOf('recent') >= 0) return true;
+    if (Number(c.pinned_until || 0) > Date.now()) return true;
+    var created = Number(c.ts || c.created_at || c.generated_at || 0);
+    var edited = Math.max(
+      Number(c.polished_at || 0),
+      Number(c.updated_at || 0),
+      Number(c.revised_at || 0),
+      Number(c.last_modified_ms || 0),
+      Number(c.deepseek_booster_at || 0)
+    );
+    if (edited && (!created || edited > created + 1000)) return true;
+    return created > 0 && Date.now() - created <= 30 * 86400000;
+  }
+  function hotTrimClass(c, opts) {
+    return isNewOrEdited(c, opts) ? HOT_TRIMS[hotHash(c.id) % HOT_TRIMS.length] : '';
+  }
+  function applyHotTrim(tile, c, opts) {
+    HOT_TRIMS.forEach(function (name) { tile.classList.remove(name); });
+    var cls = hotTrimClass(c, opts);
+    if (cls) tile.classList.add(cls);
+  }
   // tile size tracks TITLE LENGTH (owner 2026-07-06): short → small, long → larger so the baked gold title has room.
   function longTitleSize(c) {
     var n = entryTitle(c).length;
@@ -510,8 +541,9 @@
       var titleHtml = '<h4>' + esc(title) + '</h4>';
       var scrim = '<div class="mm-scrim"></div>';
       var lazyCls = lazy ? ' mm-lazy mm-img-pending' : '';
+      var trimCls = hotTrimClass(c, opts);
       var dataLazy = lazy ? ' data-mosaic-lazy="1"' : ' data-mosaic-loaded="1"';
-      return '<a class="mm' + lazyCls + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
+      return '<a class="mm' + lazyCls + (trimCls ? ' ' + trimCls : '') + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
         + imgHtml
         + scrim + '<div class="mm-txt"><span class="mm-cat">' + esc(NM[pof(c.id)] || pof(c.id).toUpperCase()) + '</span>'
         + titleHtml + '</div></a>';
@@ -909,6 +941,7 @@
               if (h4) h4.textContent = card.question || card.title || card.id;
               var cat = tile.querySelector('.mm-cat');
               if (cat) cat.textContent = NM[pof(card.id)] || pof(card.id).toUpperCase();
+              applyHotTrim(tile, card, opts);
               tile.style.transform = 'perspective(1000px) rotateY(0deg) scale(1)';
             }, 260);
           })(elTile, c);
