@@ -10,7 +10,7 @@ Fix:
 - Resolve `WD` via `process.cwd()` on non-Windows (or `PULSE_WD`).
 - After step 4, deploy local qa assets with Netlify file digest + promote (`BLOBS_PAT` works as `NETLIFY_AUTH_TOKEN`).
 - Strip any `/assets/qa` refs with no local file before save.
-- Owner priority per URL: purge white/defunct → fact-check → rewrite; applicable-image pass is best-effort and must not leave 404s.
+- Owner image rule: purge whites/404s always; **replace only if that section’s last good image was purged** (extras stay gone).
 
 ## 2026-07-26 — Models
 

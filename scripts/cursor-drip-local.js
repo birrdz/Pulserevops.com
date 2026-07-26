@@ -3,14 +3,13 @@
 // No timetable. No cooldown. No batching.
 //
 // OWNER ORDER PER URL (exact):
-//   1) PURGE white / blank / mangled / broken / defunct image slots
+//   1) PURGE white / blank / mangled / broken / 404 / defunct image slots (remove them)
 //   2) FACT-CHECK (Cerebras OK if cheaper; never DeepSeek / Claude)
-//   3) FIX CONTENT from fact-check (Cursor drip rewrite; never DeepSeek / Claude)
+//   3) FIX CONTENT from fact-check (Cursor rewrite; never DeepSeek / Claude)
 //   3b) FIX mangled / broken mermaid diagrams anywhere in the body
-//   4) BEST-EFFORT: fix non-applicable / missing images on THIS URL against the
-//      FINAL (post-rewrite) topic — cover + body slots. Never leave 404 paths:
-//      write to real assets/qa/, deploy to Netlify, drop refs without a local file.
-//      If image work fails, purge + rewrite still ship.
+//   4) REPLACE an image ONLY when that topic/section has no good image left
+//      after purge (e.g. it was the only one). Extra purged duplicates → leave gone.
+//      New image must match the rewritten topic. Host + deploy /assets/qa — no 404s.
 //
 // Then immediately find the next URL.
 //
@@ -427,43 +426,48 @@ async function classifyImage(url) {
   }
 }
 
-/** Placeholder keeps the slot so step 4 can replace it with a NEW applicable image. */
-const PURGED_SLOT = '/assets/qa/_purged-pending.jpg';
-
+/** Remove bad image lines entirely. Extras that were purged stay gone unless step 4
+ *  finds the section now has zero good images (then one replacement is required). */
 function stripBadFromBody(body, badUrls) {
   const ban = new Set((badUrls || []).map((u) => normUrl(u)));
   const lines = String(body || '').split('\n');
   const out = [];
   const removed = [];
+  let purgedHero = false;
+  let lineIdx = 0;
   for (let line of lines) {
     const isImgLine = /!\[[^\]]*\]\(/i.test(line);
     const isProd = /@@PRODUCT/i.test(line) && /img="/i.test(line);
     if (isImgLine) {
-      const alt = ((line.match(/!\[([^\]]*)\]/) || [])[1] || 'image').replace(/[\[\]]/g, '').slice(0, 80);
+      let drop = false;
       if (isMangled(line)) {
         removed.push(line.slice(0, 120));
-        out.push('![' + alt + '](' + PURGED_SLOT + ')');
-        continue;
-      }
-      const m = line.match(/!\[[^\]]*\]\(([^)\s]+)\)/) || line.match(/!\[[^\]]*\]\((.+)\)\s*$/);
-      if (m) {
-        const u = normUrl(m[1]);
-        const rel = u.replace(/^https?:\/\/(?:www\.)?pulserevops\.com/i, '');
-        if (ban.has(u) || ban.has(rel) || [...ban].some((x) => x && (u.includes(x) || line.includes(x)))) {
-          removed.push(m[1].slice(0, 200));
-          out.push('![' + alt + '](' + PURGED_SLOT + ')');
-          continue;
+        drop = true;
+      } else {
+        const m = line.match(/!\[[^\]]*\]\(([^)\s]+)\)/) || line.match(/!\[[^\]]*\]\((.+)\)\s*$/);
+        if (m) {
+          const u = normUrl(m[1]);
+          const rel = u.replace(/^https?:\/\/(?:www\.)?pulserevops\.com/i, '');
+          if (ban.has(u) || ban.has(rel) || [...ban].some((x) => x && (u.includes(x) || line.includes(x)))) {
+            removed.push(m[1].slice(0, 200));
+            drop = true;
+          }
         }
+      }
+      if (drop) {
+        // First content image ≈ hero/cover for this page
+        if (lineIdx < 12 && !purgedHero && out.every((l) => !/!\[[^\]]*\]\(/i.test(l))) purgedHero = true;
+        continue;
       }
     }
     if (isProd) {
       if (isMangled(line)) {
-        line = line.replace(/\s*img="[^"]*"/i, ' img="' + PURGED_SLOT + '"');
+        line = line.replace(/\s*img="[^"]*"/i, '');
         removed.push('@@PRODUCT mangled img');
       } else {
         for (const bad of ban) {
           if (bad && line.includes(bad)) {
-            line = line.replace(/\s*img="[^"]*"/i, ' img="' + PURGED_SLOT + '"');
+            line = line.replace(/\s*img="[^"]*"/i, '');
             removed.push(bad.slice(0, 120));
             break;
           }
@@ -471,8 +475,66 @@ function stripBadFromBody(body, badUrls) {
       }
     }
     out.push(line);
+    lineIdx++;
   }
-  return { answer: out.join('\n').replace(/\n{3,}/g, '\n\n').trim(), removed };
+  return { answer: out.join('\n').replace(/\n{3,}/g, '\n\n').trim(), removed, purgedHero };
+}
+
+/** Per-## section image counts (markdown + @@PRODUCT img). */
+function sectionImageStats(body) {
+  const lines = String(body || '').split('\n');
+  const sections = [];
+  let cur = { title: '(intro)', images: 0, hasProse: false };
+  const flush = () => {
+    sections.push(cur);
+  };
+  for (const line of lines) {
+    const hm = line.match(/^##\s+(.+)/);
+    if (hm) {
+      flush();
+      cur = { title: hm[1].replace(/[\[\]#]/g, '').trim().slice(0, 120), images: 0, hasProse: false };
+      continue;
+    }
+    if (/!\[[^\]]*\]\([^)]+\)/.test(line) || (/@@PRODUCT/i.test(line) && /img="[^"]+"/i.test(line))) {
+      cur.images += 1;
+    } else if (line.trim().length > 40 && !/^```/.test(line) && !/^[-*]\s/.test(line)) {
+      cur.hasProse = true;
+    }
+  }
+  flush();
+  return sections;
+}
+
+/** Sections that had ≥1 image before purge and 0 after → need exactly one replacement. */
+function sectionsNeedingReplacement(beforeStats, afterStats) {
+  const need = [];
+  const afterByTitle = new Map(afterStats.map((s) => [s.title.toLowerCase(), s]));
+  for (const b of beforeStats) {
+    if (!b.images) continue;
+    const a = afterByTitle.get(b.title.toLowerCase());
+    if (a && a.images === 0 && (a.hasProse || b.images > 0)) {
+      need.push(a.title);
+    }
+  }
+  // Intro/hero: if intro lost all images, flag as needing cover
+  const introB = beforeStats.find((s) => s.title === '(intro)');
+  const introA = afterStats.find((s) => s.title === '(intro)');
+  const needCover = !!(introB && introB.images > 0 && introA && introA.images === 0);
+  return { sectionTitles: need.filter((t) => t !== '(intro)'), needCover };
+}
+
+function hasLeadingImage(body) {
+  return /^﻿?\s*!\[[^\]]*\]\([^)]+\)/m.test(String(body || '').trim());
+}
+
+function insertImageAfterSectionHeading(body, sectionTitle, rel, alt) {
+  const title = String(sectionTitle || '').trim();
+  if (!title || !rel) return body;
+  const esc = title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp('(##\\s+' + esc + '[^\\n]*\\n)', 'i');
+  if (!re.test(body)) return body;
+  const imgLine = '![' + String(alt || title).replace(/[\[\]]/g, '').slice(0, 80) + '](' + rel + ')\n\n';
+  return body.replace(re, '$1\n' + imgLine);
 }
 
 /** Quick signal that a page likely needs image purge (no network). */
@@ -807,14 +869,23 @@ async function fixOne(s, state, found) {
   );
 
   // ─── STEP 1: PURGE white / blank / mangled / broken / 404 ───
-  // Keep the slot (pending placeholder) so step 4 MUST put a NEW applicable image there.
+  // Remove them. Step 4 only replaces when a section is left with zero good images.
   console.log(JSON.stringify({ phase: 'step1-purge-images', id }));
   let purgedCount = 0;
+  let purgedHero = false;
+  let sectionsToReplace = [];
+  let needCoverReplace = false;
+  const beforeImgStats = sectionImageStats(body);
   let imgAudit = found.imgAudit || (await auditImagesOnPage(blob, id));
   if (imgAudit.hasBad || isMangled(body)) {
-    const { answer: cleaned, removed } = stripBadFromBody(body, imgAudit.bad || []);
+    const { answer: cleaned, removed, purgedHero: ph } = stripBadFromBody(body, imgAudit.bad || []);
     body = cleaned;
+    purgedHero = !!ph;
     purgedCount = removed.length || imgAudit.bad.length || 0;
+    const afterImgStats = sectionImageStats(body);
+    const need = sectionsNeedingReplacement(beforeImgStats, afterImgStats);
+    sectionsToReplace = need.sectionTitles;
+    needCoverReplace = need.needCover || purgedHero || !hasLeadingImage(body);
     const banned = Array.isArray(blob.purged_image_urls) ? blob.purged_image_urls.slice() : [];
     for (const u of removed.concat(imgAudit.bad || [])) {
       const n = normUrl(u);
@@ -825,19 +896,25 @@ async function fixOne(s, state, found) {
     blob.face_purge_reason = (imgAudit.reasons || []).slice(0, 6).join(',') || 'white-mangled-broken';
     actions.push('purge-white-mangled:' + purgedCount);
     stepNotes.push(
-      'Purged white/blank/mangled/404 slots (' +
+      'Purged white/blank/mangled/404 (' +
         purgedCount +
-        ') — left placeholders for NEW applicable replacements after rewrite'
+        ')' +
+        (sectionsToReplace.length
+          ? ' — ' + sectionsToReplace.length + ' section(s) now have zero images (will replace)'
+          : ' — remaining section images still present (no forced extras)')
     );
     console.log(
       JSON.stringify({
         phase: 'step1-purged',
         id,
         removed: purgedCount,
+        replaceSections: sectionsToReplace.slice(0, 8),
+        needCoverReplace,
         reasons: (imgAudit.reasons || []).slice(0, 4),
       })
     );
   } else {
+    needCoverReplace = !hasLeadingImage(body);
     stepNotes.push('No white/mangled/broken slots to purge');
     console.log(JSON.stringify({ phase: 'step1-clean', id }));
   }
@@ -1009,14 +1086,26 @@ async function fixOne(s, state, found) {
     stepNotes.push('Mermaid fix soft-failed — continuing to images');
   }
 
-  // ─── STEP 4: REPLACE PURGED / BROKEN SLOTS FOR FINAL (POST-REWRITE) TOPIC ───
-  // Minimum: every purged white/404 slot gets a NEW applicable image matching the
-  // Cursor rewrite. Also upgrade other broken/non-applicable slots on this URL.
+  // ─── STEP 4: REPLACE ONLY WHEN A TOPIC/SECTION HAS ZERO GOOD IMAGES LEFT ───
+  // Extra purged whites stay gone. If one of two was purged and the other is fine → skip.
+  // If it was the only image for that section → one NEW applicable image for the rewrite.
+  // Recompute after rewrite (visual-lock may have kept/moved slots).
+  {
+    const postRewriteStats = sectionImageStats(body);
+    const need = sectionsNeedingReplacement(beforeImgStats, postRewriteStats);
+    // Union: sections empty after purge, or still empty after rewrite vs pre-purge
+    const set = new Set(sectionsToReplace.concat(need.sectionTitles));
+    sectionsToReplace = [...set];
+    needCoverReplace = needCoverReplace || need.needCover || !hasLeadingImage(body);
+  }
+
   console.log(
     JSON.stringify({
-      phase: 'step4-replace-images',
+      phase: 'step4-replace-if-needed',
       id,
       purgedCount,
+      replaceSections: sectionsToReplace.slice(0, 8),
+      needCoverReplace,
       against: contentRewrote ? 'post-rewrite-topic' : 'current-topic',
     })
   );
@@ -1024,128 +1113,88 @@ async function fixOne(s, state, found) {
   const titleLookup = buildSectionTitleLookup(body);
   let coverRel = null;
   let coverQuery = null;
-  const needsImageReplace =
-    purgedCount > 0 || contentRewrote || body.includes(PURGED_SLOT) || /_purged-pending/i.test(body);
-
-  // Cover: required when we purged a hero / left a pending slot / rewrote content.
-  try {
-    const cover = await pexelsSearchApplicable(finalTopic, id);
-    coverRel = cover.rel;
-    coverQuery = cover.query;
-    body = swapLeadingImage(body, coverRel, finalTopic);
-    // Leading pending slot is gone once cover is swapped in
-    body = body.replace(
-      new RegExp('!\\[[^\\]]*\\]\\(' + PURGED_SLOT.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\)', 'g'),
-      (m, offset, full) => {
-        // keep non-leading pending slots for repair/fill
-        if (offset < 80) return '![' + String(finalTopic).slice(0, 80) + '](' + coverRel + ')';
-        return m;
-      }
-    );
-    actions.push('pexels-cover:' + coverQuery + (cover.gated ? ':gated' : ':fallback'));
-    stepNotes.push(
-      'Cover image for ' +
-        (contentRewrote ? 'NEW rewritten topic' : 'page topic') +
-        ' via Pexels (' +
-        coverQuery +
-        (cover.gated ? ', relevance-gated' : '') +
-        ')'
-    );
-  } catch (e) {
-    stepNotes.push('Cover Pexels miss: ' + String(e.message || e).slice(0, 80));
-    console.log(JSON.stringify({ phase: 'step4-cover-miss', id, err: String(e.message || e).slice(0, 100) }));
-  }
-
   let repaired = 0;
   let filled = 0;
-  async function runRepairFill() {
-    let r = 0;
-    let f = 0;
+
+  // Cover only when hero was purged / missing — not on every drip pass.
+  if (needCoverReplace) {
     try {
-      const rr = await repairBrokenQaImages(id, finalTopic, body, {
-        upgradeMode: true,
-        alternateSources: true,
-        allowTopicalReuse: false, // prefer fresh files for this id so deploy hosts them
-        titleLookup,
-        quiet: true,
-      });
-      if (rr && rr.body) {
-        body = rr.body;
-        r = rr.fixed || 0;
-      }
+      const cover = await pexelsSearchApplicable(finalTopic, id);
+      coverRel = cover.rel;
+      coverQuery = cover.query;
+      body = swapLeadingImage(body, coverRel, finalTopic);
+      actions.push('pexels-cover:' + coverQuery + (cover.gated ? ':gated' : ':fallback'));
+      stepNotes.push(
+        'Replaced missing/purged cover with NEW applicable image for ' +
+          (contentRewrote ? 'rewritten' : 'current') +
+          ' topic (' +
+          coverQuery +
+          ')'
+      );
     } catch (e) {
-      console.log(JSON.stringify({ phase: 'step4-repair-err', id, err: String(e.message || e).slice(0, 100) }));
+      stepNotes.push('Cover Pexels miss: ' + String(e.message || e).slice(0, 80));
+      console.log(JSON.stringify({ phase: 'step4-cover-miss', id, err: String(e.message || e).slice(0, 100) }));
     }
-    try {
-      const fr = await fillEntryMissingImages(id, finalTopic, body, {
-        upgradeMode: true,
-        allowTopicalReuse: false,
-        titleLookup,
-        quiet: true,
-      });
-      if (fr && fr.body) {
-        body = fr.body;
-        f = fr.fixed || 0;
-      }
-    } catch (e) {
-      console.log(JSON.stringify({ phase: 'step4-fill-err', id, err: String(e.message || e).slice(0, 100) }));
-    }
-    return { r, f };
+  } else {
+    stepNotes.push('Cover kept — page still has a leading image after purge');
+    console.log(JSON.stringify({ phase: 'step4-cover-keep', id }));
   }
 
-  {
-    const first = await runRepairFill();
-    repaired = first.r;
-    filled = first.f;
-    // If we purged slots, a replacement is mandatory — retry once if nothing landed.
-    if (needsImageReplace && repaired + filled === 0 && !coverRel) {
-      console.log(JSON.stringify({ phase: 'step4-retry-replace', id, reason: 'purged-or-rewrite-with-no-new-images' }));
-      const second = await runRepairFill();
-      repaired += second.r;
-      filled += second.f;
-    }
-    if (repaired) {
-      actions.push('repairBrokenQaImages:' + repaired);
-      stepNotes.push(
-        'Replaced ' +
-          repaired +
-          ' purged/broken body image(s) with NEW images for ' +
-          (contentRewrote ? 'rewritten' : 'current') +
-          ' topic'
-      );
-    }
-    if (filled) {
-      actions.push('fillEntryMissingImages:' + filled);
-      stepNotes.push(
-        'Filled ' +
-          filled +
-          ' empty/pending slot(s) with images applicable to ' +
-          (contentRewrote ? 'rewritten' : 'existing') +
-          ' sections'
-      );
-    }
-    // Never leave pending placeholders in the published body
-    if (body.includes(PURGED_SLOT)) {
-      if (coverRel) {
-        body = body.split(PURGED_SLOT).join(coverRel);
-        actions.push('pending-slots:mapped-to-cover');
-        stepNotes.push('Mapped remaining purged placeholders to new cover (last resort)');
-      } else {
-        const scrubPending = stripUnhostedQaRefs(body.split(PURGED_SLOT).join('/assets/qa/__missing__.jpg'), ASSET_DIR);
-        // stripUnhosted will drop __missing__ — but prefer explicit drop of pending lines
-        body = body
-          .split('\n')
-          .filter((ln) => !ln.includes(PURGED_SLOT))
-          .join('\n')
-          .replace(/\n{3,}/g, '\n\n')
-          .trim();
-        body = body.replace(new RegExp('\\s*img="' + PURGED_SLOT.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '"', 'gi'), '');
-        actions.push('pending-slots:dropped');
-        stepNotes.push('Dropped unresolved purged placeholders (no hosted replacement yet)');
-        void scrubPending;
+  // Repair only truly broken remaining URLs (not a full upgrade of fine images).
+  try {
+    const rr = await repairBrokenQaImages(id, finalTopic, body, {
+      upgradeMode: false,
+      alternateSources: true,
+      allowTopicalReuse: false,
+      titleLookup,
+      quiet: true,
+    });
+    if (rr && rr.body) {
+      body = rr.body;
+      repaired = rr.fixed || 0;
+      if (repaired) {
+        actions.push('repairBrokenQaImages:' + repaired);
+        stepNotes.push('Repaired ' + repaired + ' still-broken body image(s)');
       }
     }
+  } catch (e) {
+    console.log(JSON.stringify({ phase: 'step4-repair-err', id, err: String(e.message || e).slice(0, 100) }));
   }
+
+  // One new image per section that lost its last good image (extras stay gone).
+  let slotN = 0;
+  for (const secTitle of sectionsToReplace.slice(0, 8)) {
+    const statsNow = sectionImageStats(body).find((s) => s.title.toLowerCase() === secTitle.toLowerCase());
+    if (statsNow && statsNow.images > 0) {
+      console.log(JSON.stringify({ phase: 'step4-section-skip', id, section: secTitle, reason: 'still-has-image' }));
+      continue;
+    }
+    try {
+      slotN += 1;
+      const slotId = id + '-' + slotN;
+      const q = (secTitle + ' ' + finalTopic).slice(0, 120);
+      const got = await pexelsSearchApplicable(q, slotId);
+      const rel = (got && got.rel) || '/assets/qa/' + slotId + '.jpg';
+      const abs = path.join(ASSET_DIR, path.basename(rel));
+      if (!fs.existsSync(abs) || fs.statSync(abs).size < 8000) {
+        throw new Error('section image not on disk: ' + rel);
+      }
+      body = insertImageAfterSectionHeading(body, secTitle, rel, secTitle);
+      filled += 1;
+      stepNotes.push('Replaced sole purged image in "' + secTitle.slice(0, 60) + '" with NEW applicable art');
+      console.log(JSON.stringify({ phase: 'step4-section-replaced', id, section: secTitle, rel }));
+    } catch (e) {
+      console.log(
+        JSON.stringify({
+          phase: 'step4-section-miss',
+          id,
+          section: String(secTitle).slice(0, 60),
+          err: String(e.message || e).slice(0, 100),
+        })
+      );
+    }
+  }
+  if (filled) actions.push('section-sole-replace:' + filled);
   // Deploy newly written local assets for this id, then drop any /assets/qa refs
   // that still have no local file (never publish phantom 404 slots).
   let deployed = 0;
