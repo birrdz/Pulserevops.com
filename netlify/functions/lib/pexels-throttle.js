@@ -1,5 +1,6 @@
-// pexels-throttle.js — HARD LAW: serial Pexels API, one request in flight, ≥18s between calls.
-// 200/hr limit is per API key (shared with Cursor). No env var may lower the 18s floor.
+// pexels-throttle.js — serial Pexels API, one request in flight.
+// Default floor: ≥18s between calls. Owner ultra override:
+//   CURSOR_ULTRA=1 | ULTRA_PLAN=1 | PEXELS_ALLOW_FAST=1  → may lower via PEXELS_PACE_MS (default 1s)
 'use strict';
 
 const PEXELS_MIN_GAP_MS = 18000;
@@ -9,8 +10,20 @@ let inFlight = false;
 let lastPexelsAt = 0;
 let turn = Promise.resolve();
 
+function ultraFast() {
+  return (
+    process.env.CURSOR_ULTRA === '1' ||
+    process.env.ULTRA_PLAN === '1' ||
+    process.env.PEXELS_ALLOW_FAST === '1'
+  );
+}
+
 function pexelsMinGapMs() {
   const env = parseInt(process.env.PEXELS_PACE_MS || '0', 10);
+  if (ultraFast()) {
+    const pace = Number.isFinite(env) && env > 0 ? env : 1000;
+    return Math.max(500, pace);
+  }
   return Math.max(PEXELS_MIN_GAP_MS, Number.isFinite(env) ? env : 0);
 }
 

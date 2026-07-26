@@ -491,20 +491,10 @@ async function runFactFixBatch() {
           content_gaps: audit.content_gaps || [],
         }).slice(0, 2500);
 
-        let rewritten = await dsChat(
-          FIX_SYS,
-          'ID: ' + id + '\nQuestion: ' + question + '\n\nCritique:\n' + critique + '\n\nMarkdown:\n' + original,
-          10000
+        // OWNER LAW: never rewrite with DeepSeek — Cursor writes content fixes.
+        throw new Error(
+          'cursor-rewrite-required (DeepSeek content rewrite disabled). Use scripts/cursor-apply-fix.js'
         );
-        rewritten = rewritten.replace(/^```(?:markdown|md)?\n?/i, '').replace(/\n?```$/i, '').trim();
-        if (rewritten.length > 400) {
-          try {
-            body = enforceWriterVisualLock(original, rewritten, { id }) || preserveImages(original, rewritten);
-          } catch (e) {
-            body = preserveImages(original, rewritten);
-          }
-          actions.push('content-rewrite');
-        }
       }
 
       // Owner rule: any content issue → rewrite AND redo Pexels image
@@ -640,6 +630,17 @@ async function maybeResetCycleDone() {
 }
 
 async function main() {
+  // OWNER HARD STOP: this script must not rewrite with DeepSeek.
+  // Use: factcheck-audit-queue-local.js (Cerebras audit) + cursor-apply-fix.js (Cursor write).
+  if (process.env.ALLOW_DEEPSEEK_REWRITE !== '1') {
+    console.error(
+      JSON.stringify({
+        fatal:
+          'batch-cycle-local.js disabled for content rewrites (DeepSeek forbidden). Use Cerebras audit + Cursor apply-fix.',
+      })
+    );
+    process.exit(2);
+  }
   console.log(JSON.stringify({ phase: 'boot', mode: CYCLE_MODE, batchSize: BATCH_SIZE, stopAt: STOP_AT }));
   await maybeResetCycleDone();
 
