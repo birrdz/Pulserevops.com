@@ -235,9 +235,79 @@ async function emailOne(subject, html) {
       body: JSON.stringify({ subject, html }),
       signal: AbortSignal.timeout(20000),
     });
-    console.log(JSON.stringify({ email: r.ok ? 'ok' : 'fail', subject: String(subject).slice(0, 100) }));
+    const bodyText = await r.text().catch(() => '');
+    console.log(
+      JSON.stringify({
+        email: r.ok ? 'ok' : 'fail',
+        status: r.status,
+        subject: String(subject).slice(0, 100),
+        detail: bodyText.slice(0, 160),
+      })
+    );
+    return r.ok;
   } catch (e) {
     console.log(JSON.stringify({ email: 'fail', err: String(e.message || e).slice(0, 120) }));
+    return false;
+  }
+}
+
+// Gmail was burying per-URL drip mail (27 sent/hr, inbox showed 0–1). Digest instead.
+const EMAIL_EVERY = Math.max(1, parseInt(process.env.DRIP_EMAIL_EVERY || '10', 10));
+const EMAIL_MAX_GAP_MS = Math.max(
+  60 * 1000,
+  parseInt(process.env.DRIP_EMAIL_MAX_GAP_MS || String(15 * 60 * 1000), 10)
+);
+const emailBuf = [];
+let lastDigestAt = 0;
+
+async function flushDripDigest(reason) {
+  if (!emailBuf.length) return false;
+  const items = emailBuf.splice(0, emailBuf.length);
+  lastDigestAt = Date.now();
+  const ids = items.map((x) => x.id);
+  const subject = (
+    'PULSE cursor drip · ' +
+    items.length +
+    ' URLs fixed · ' +
+    new Date().toISOString().slice(11, 16) +
+    'Z · ' +
+    ids.slice(0, 3).join(', ')
+  ).slice(0, 180);
+  const html =
+    '<p><b>Cursor drip digest</b> (' +
+    esc(reason || 'batch') +
+    ') — Resend accepted every per-URL send before; Gmail was collapsing them. Now one email every ' +
+    EMAIL_EVERY +
+    ' fixes or ' +
+    Math.round(EMAIL_MAX_GAP_MS / 60000) +
+    ' min.</p>' +
+    '<p><b>' +
+    items.length +
+    ' URLs</b> since last digest:</p><ol>' +
+    items
+      .map(
+        (x) =>
+          '<li><a href="' +
+          esc(x.url) +
+          '">' +
+          esc(x.id) +
+          '</a> — ' +
+          esc(String(x.question || '').slice(0, 120)) +
+          (x.replaced != null ? ' · images replaced: ' + x.replaced : '') +
+          '</li>'
+      )
+      .join('') +
+    '</ol>';
+  return emailOne(subject, html);
+}
+
+async function queueDripEmail(item, opts) {
+  opts = opts || {};
+  emailBuf.push(item);
+  const gapDue = lastDigestAt && Date.now() - lastDigestAt >= EMAIL_MAX_GAP_MS;
+  const countDue = emailBuf.length >= EMAIL_EVERY;
+  if (opts.force || countDue || gapDue || !lastDigestAt) {
+    await flushDripDigest(opts.force ? 'forced' : countDue ? 'every-' + EMAIL_EVERY : 'max-gap');
   }
 }
 
@@ -1413,46 +1483,6 @@ async function fixOne(s, state, found) {
 
   await markQueueDone(s, queue, id, doneAt);
 
-  const sectionBit = sections.length ? sections.slice(0, 4).join(', ') : 'see findings';
-  await emailOne(
-    (
-      'PULSE ' +
-      id +
-      ': cursor drip · purge images · fact-check ' +
-      sectionBit +
-      ' · content · applicable images'
-    ).slice(0, 180),
-    '<p><b>Cursor drip</b> finished one URL (then finds next immediately):</p>' +
-      '<p><a href="' +
-      esc(url) +
-      '">' +
-      esc(url) +
-      '</a></p>' +
-      '<p><b>Question:</b> ' +
-      esc(String(question).slice(0, 200)) +
-      '</p>' +
-      '<ol>' +
-      '<li><b>Find</b> white / mangled / 404 image slots (all on URL)</li>' +
-      '<li><b>Fact-check</b> — ' +
-      esc(sectionBit) +
-      '</li>' +
-      '<li><b>Content rewrite</b> from fact-check (Cursor; never DeepSeek/Claude)</li>' +
-      '<li><b>Mermaid</b> — mangled/errored diagrams fixed for the final topic</li>' +
-      '<li><b>Replace all bad images</b> with NEW applicable hosted art (empty sections get one)</li>' +
-      '</ol>' +
-      '<p><b>Steps:</b></p><ul>' +
-      stepNotes.map((x) => '<li>' + esc(x) + '</li>').join('') +
-      '</ul>' +
-      (issues.length
-        ? '<p><b>Fact-check findings:</b></p><ul>' +
-          issues
-            .slice(0, 8)
-            .map((x) => '<li>' + esc(String(x).slice(0, 220)) + '</li>')
-            .join('') +
-          '</ul>'
-        : '')
-  );
-
   fs.writeFileSync(
     path.join(WORK_DIR, id + '.json'),
     JSON.stringify({ id, doneAt, actions, sections, issues: issues.slice(0, 8), coverRel, repaired, filled }, null, 2)
@@ -1461,7 +1491,15 @@ async function fixOne(s, state, found) {
   state.fixed = (state.fixed || 0) + 1;
   state.lastId = id;
   state.lastResult = 'fixed';
-  console.log(JSON.stringify({ phase: 'cursor-drip-fixed', id, actions, sections }));
+  await queueDripEmail({
+    id,
+    url,
+    question: String(question || '').slice(0, 160),
+    replaced: filled || repaired || 0,
+    actions: actions.slice(0, 6),
+    at: doneAt,
+  });
+  console.log(JSON.stringify({ phase: 'cursor-drip-fixed', id, actions, sections, emailBuf: emailBuf.length }));
   return { id, action: 'fixed' };
 }
 
@@ -1482,17 +1520,56 @@ async function main() {
 
   const once = String(process.env.DRIP_ONCE || '') === '1';
   if (!once) {
-    await emailOne(
-      'PULSE cursor drip ON — find bad images → fact-check → content → replace all bad',
-      '<p><b>Cursor drip</b> per URL (then immediately find next):</p>' +
-        '<ol>' +
-        '<li>Find white / blank / mangled / 404 images (all slots)</li>' +
-        '<li>Fact-check</li>' +
-        '<li>Fix content from fact-check</li>' +
-        '<li>Replace every bad image with NEW applicable hosted art</li>' +
-        '</ol>' +
-        '<p>No timetable. No cooldown. Prefer image-purge URLs first. Never DeepSeek or Claude.</p>'
-    );
+    // Catch-up: last hour of local done files so inbox gets visibility immediately
+    try {
+      const hourAgo = Date.now() - 60 * 60 * 1000;
+      const recent = fs
+        .readdirSync(WORK_DIR)
+        .filter((f) => f.endsWith('.json'))
+        .map((f) => {
+          try {
+            return JSON.parse(fs.readFileSync(path.join(WORK_DIR, f), 'utf8'));
+          } catch (e) {
+            return null;
+          }
+        })
+        .filter((j) => j && j.id && Date.parse(j.doneAt || 0) >= hourAgo)
+        .sort((a, b) => Date.parse(b.doneAt) - Date.parse(a.doneAt));
+      await emailOne(
+        ('PULSE cursor drip EMAIL FIX · digest mode · ' + recent.length + ' done last hour').slice(0, 180),
+        '<p><b>Email fix:</b> drip was sending ~25–30 emails/hr; Resend accepted them (<code>email:ok</code>) but Gmail only showed you 1–2 (collapse/spam).</p>' +
+          '<p>Now: <b>one digest every ' +
+          EMAIL_EVERY +
+          ' URLs</b> or every <b>' +
+          Math.round(EMAIL_MAX_GAP_MS / 60000) +
+          ' min</b>.</p>' +
+          '<p><b>' +
+          recent.length +
+          ' URLs finished in the last hour</b> (catch-up list):</p><ol>' +
+          recent
+            .slice(0, 40)
+            .map(
+              (j) =>
+                '<li><a href="' +
+                esc(SITE + '/knowledge/' + j.id) +
+                '">' +
+                esc(j.id) +
+                '</a>' +
+                (j.filled != null ? ' · replaced ' + (j.filled || j.repaired || 0) + ' imgs' : '') +
+                '</li>'
+            )
+            .join('') +
+          '</ol>' +
+          '<p>Check Promotions/Spam for older <code>PULSE ca####: cursor drip</code> subjects if you want them.</p>'
+      );
+      lastDigestAt = Date.now();
+    } catch (e) {
+      await emailOne(
+        'PULSE cursor drip ON — digest emails (not per-URL)',
+        '<p>Drip running. Emails are now digests so Gmail does not bury them.</p>'
+      );
+      lastDigestAt = Date.now();
+    }
   }
 
   console.log(
@@ -1502,6 +1579,8 @@ async function main() {
       idleMsWhenEmpty: IDLE_MS,
       forceId: process.env.DRIP_FORCE_ID || null,
       once,
+      emailEvery: EMAIL_EVERY,
+      emailMaxGapMin: Math.round(EMAIL_MAX_GAP_MS / 60000),
     })
   );
 
