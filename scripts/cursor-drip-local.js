@@ -17,7 +17,7 @@
 //   DRIP_FULL_INVENTORY=1
 //   DRIP_IDLE_MS=5000   ONLY when nothing due
 //   CURSOR_ULTRA=1 ULTRA_PLAN=1 PEXELS_ALLOW_FAST=1
-//   PEXELS_PACE_MS=0    zero artificial wait; still one Pexels call at a time
+//   PEXELS_PACE_MS=2000  (~1–5s between calls; one Pexels image at a time)
 
 const fs = require('fs');
 const path = require('path');
