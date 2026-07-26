@@ -3,13 +3,13 @@
 // No timetable. No cooldown. No batching.
 //
 // OWNER ORDER PER URL (exact):
-//   1) PURGE white / blank / mangled / broken / 404 / defunct image slots (remove them)
+//   1) FIND white / blank / mangled / broken / 404 images (scan ALL slots on the URL)
 //   2) FACT-CHECK (Cerebras OK if cheaper; never DeepSeek / Claude)
 //   3) FIX CONTENT from fact-check (Cursor rewrite; never DeepSeek / Claude)
 //   3b) FIX mangled / broken mermaid diagrams anywhere in the body
-//   4) REPLACE an image ONLY when that topic/section has no good image left
-//      after purge (e.g. it was the only one). Extra purged duplicates → leave gone.
-//      New image must match the rewritten topic. Host + deploy /assets/qa — no 404s.
+//   4) REPLACE every bad image in place with a NEW applicable hosted /assets/qa
+//      image for that section/topic. If a section would end up with zero images,
+//      put one back. Deploy so nothing 404s / shows white.
 //
 // Then immediately find the next URL.
 //
@@ -375,20 +375,65 @@ function extractImageUrls(answer, cover) {
   return [...new Set(urls.filter(Boolean))];
 }
 
+/** Same proxy the renderer uses for hotlinked imgs — if wsrv 404s, the page shows white/missing. */
+function wsrvUrl(abs) {
+  const u = String(abs || '');
+  if (!/^https?:\/\//i.test(u)) return null;
+  if (/pulserevops\.com\/assets\//i.test(u) || /wsrv\.nl\//i.test(u)) return null;
+  const bare = u.replace(/^https?:\/\//i, '');
+  return 'https://wsrv.nl/?url=' + encodeURIComponent(bare) + '&w=760&output=webp&q=80&we&n=-1';
+}
+
+function nextQaSlotId(entryId) {
+  let max = 0;
+  try {
+    const re = new RegExp('^' + String(entryId).replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '-(\\d+)\\.jpe?g$', 'i');
+    for (const f of fs.readdirSync(ASSET_DIR)) {
+      const m = f.match(re);
+      if (m) max = Math.max(max, parseInt(m[1], 10) || 0);
+    }
+  } catch (e) {}
+  return entryId + '-' + (max + 1);
+}
+
 /** Classify: mangled | white | defunct | ok | empty */
 async function classifyImage(url) {
   if (!url) return { kind: 'empty', url };
   if (isMangled(url)) return { kind: 'mangled', url };
   if (/\/assets\/cro-cover-\d+\.jpg/i.test(url)) return { kind: 'ok', url, skipPurge: true };
+  if (/img-missing|placeholder\.svg|\/img\/auto\//i.test(url)) return { kind: 'defunct', url };
+  // Paint chips / color swatches read as white rectangles on the page
+  if (/\/colors\/|chalk\+?white|color.?swatch|paint.?chip|colou?r.?chip/i.test(url)) {
+    return { kind: 'white', url, reason: 'color-swatch' };
+  }
   const abs = absUrl(url);
   if (!abs) return { kind: 'empty', url };
+  // Hotlinks: prefer the live proxy path — that's what readers hit
+  const via = wsrvUrl(abs) || abs;
   try {
-    const r = await fetch(abs, {
+    const r = await fetch(via, {
       headers: { 'User-Agent': 'PulseCursorDrip/1.0', Accept: 'image/*' },
       redirect: 'follow',
       signal: AbortSignal.timeout(12000),
     });
-    if (!r.ok) return { kind: 'defunct', status: r.status, url: abs };
+    if (!r.ok) {
+      // Fallback: try origin once (self-hosted /assets never use wsrv)
+      if (via !== abs) {
+        try {
+          const r2 = await fetch(abs, {
+            headers: { 'User-Agent': 'PulseCursorDrip/1.0', Accept: 'image/*' },
+            redirect: 'follow',
+            signal: AbortSignal.timeout(12000),
+          });
+          if (!r2.ok) return { kind: 'defunct', status: r2.status, url: abs, via: 'wsrv+' + r.status };
+          // origin works but wsrv fails → still broken on live page
+          return { kind: 'defunct', status: r.status, url: abs, reason: 'wsrv-fail-origin-ok' };
+        } catch (e2) {
+          return { kind: 'defunct', url: abs, reason: 'wsrv+origin-fail' };
+        }
+      }
+      return { kind: 'defunct', status: r.status, url: abs };
+    }
     const ct = (r.headers.get('content-type') || '').toLowerCase();
     const buf = Buffer.from(await r.arrayBuffer());
     if (!ct.startsWith('image/') || buf.length < 1200) {
@@ -414,7 +459,8 @@ async function classifyImage(url) {
       }
       mean = sum / n;
       whitePct = w / n;
-      white = (mean >= 235 && whitePct >= 0.9) || whitePct >= 0.95;
+      // Broader white/blank catch — near-white blanks still read as white on page
+      white = (mean >= 235 && whitePct >= 0.85) || whitePct >= 0.92 || (mean >= 225 && whitePct >= 0.8);
     } catch (e) {
       const ff = buf.filter((b) => b >= 0xf0).length / buf.length;
       if (buf.length < 8000 && ff > 0.55) white = true;
@@ -424,6 +470,37 @@ async function classifyImage(url) {
   } catch (e) {
     return { kind: 'defunct', url: abs, reason: String(e.message || e).slice(0, 80) };
   }
+}
+
+/** Nearest ## heading above a URL occurrence (for applicable replacement query). */
+function sectionTitleForUrl(body, url) {
+  const lines = String(body || '').split('\n');
+  let title = '';
+  const needle = String(url || '');
+  const short = needle.replace(/^https?:\/\/(?:www\.)?pulserevops\.com/i, '');
+  for (const line of lines) {
+    const hm = line.match(/^##\s+(.+)/);
+    if (hm) title = hm[1].replace(/[\[\]#]/g, '').trim().slice(0, 100);
+    if (needle && (line.includes(needle) || (short && line.includes(short)))) {
+      return title || '(intro)';
+    }
+  }
+  return title || '(intro)';
+}
+
+function replaceImageUrlInBody(body, oldUrl, newRel) {
+  let out = String(body || '');
+  const variants = new Set([oldUrl, normUrl(oldUrl)]);
+  const rel = String(oldUrl || '').replace(/^https?:\/\/(?:www\.)?pulserevops\.com/i, '');
+  if (rel && rel !== oldUrl) variants.add(rel);
+  for (const v of variants) {
+    if (!v) continue;
+    // markdown
+    out = out.split('](' + v + ')').join('](' + newRel + ')');
+    // @@PRODUCT img=
+    out = out.split('img="' + v + '"').join('img="' + newRel + '"');
+  }
+  return out;
 }
 
 /** Remove bad image lines entirely. Extras that were purged stay gone unless step 4
@@ -550,19 +627,24 @@ function quickNeedsImagePurge(blob) {
   return false;
 }
 
-async function auditImagesOnPage(blob, id) {
-  const cover = blob.img || '';
-  const urls = extractImageUrls(blob.answer, cover).slice(0, 12);
+async function auditImagesOnPage(blobOrBody, id, coverOpt) {
+  const isBlob = blobOrBody && typeof blobOrBody === 'object' && blobOrBody.answer != null;
+  const answer = isBlob ? blobOrBody.answer : blobOrBody;
+  const cover = coverOpt != null ? coverOpt : isBlob ? blobOrBody.img || '' : '';
+  // Scan ALL slots on the URL (cap high — product cards + section figures)
+  const urls = extractImageUrls(answer, cover).slice(0, 40);
   const bad = [];
   const reasons = [];
+  const details = [];
   for (const u of urls) {
     const cls = await classifyImage(u);
     if (cls.kind === 'white' || cls.kind === 'mangled' || cls.kind === 'defunct') {
       bad.push(u);
       reasons.push(cls.kind + ':' + String(u).slice(0, 80));
+      details.push({ url: u, kind: cls.kind, section: sectionTitleForUrl(answer, u) });
     }
   }
-  return { bad, reasons, hasBad: bad.length > 0 };
+  return { bad, reasons, details, hasBad: bad.length > 0, scanned: urls.length };
 }
 
 function needsDrip(blob, id, dropSet) {
@@ -625,6 +707,13 @@ async function findOne(s, state) {
   try {
     queue = Object.assign(queue, (await s.get(QUEUE_KEY, { type: 'json' })) || {});
   } catch (e) {}
+  const forceId = String(process.env.DRIP_FORCE_ID || '').trim();
+  if (forceId) {
+    const blob = await s.get('answers/' + forceId + '.json', { type: 'json' });
+    if (!blob || !blob.answer) throw new Error('DRIP_FORCE_ID missing blob: ' + forceId);
+    const imgAudit = await auditImagesOnPage(blob, forceId);
+    return { id: forceId, blob, queue, priority: 'force', imgAudit };
+  }
   const dropSet = await ensureInventory(s, state);
   const inventory = state.inventoryIds || [];
   if (!inventory.length) return null;
@@ -868,56 +957,59 @@ async function fixOne(s, state, found) {
     })
   );
 
-  // ─── STEP 1: PURGE white / blank / mangled / broken / 404 ───
-  // Remove them. Step 4 only replaces when a section is left with zero good images.
-  console.log(JSON.stringify({ phase: 'step1-purge-images', id }));
+  // ─── STEP 1: FIND white / blank / mangled / broken / 404 (all slots) ───
+  // Do not leave holes yet — step 4 replaces each bad URL in place with a new applicable image.
+  // Mangled markdown lines that break parsing are stripped; empty sections get filled in step 4.
+  console.log(JSON.stringify({ phase: 'step1-find-bad-images', id }));
   let purgedCount = 0;
-  let purgedHero = false;
-  let sectionsToReplace = [];
-  let needCoverReplace = false;
+  let badImageDetails = [];
   const beforeImgStats = sectionImageStats(body);
   let imgAudit = found.imgAudit || (await auditImagesOnPage(blob, id));
+  // Always rescan fully (found.imgAudit may be stale / capped)
+  if (!imgAudit.details || imgAudit.scanned < 15) {
+    imgAudit = await auditImagesOnPage(body, id, blob.img || '');
+  }
+  badImageDetails = imgAudit.details || [];
   if (imgAudit.hasBad || isMangled(body)) {
-    const { answer: cleaned, removed, purgedHero: ph } = stripBadFromBody(body, imgAudit.bad || []);
-    body = cleaned;
-    purgedHero = !!ph;
-    purgedCount = removed.length || imgAudit.bad.length || 0;
-    const afterImgStats = sectionImageStats(body);
-    const need = sectionsNeedingReplacement(beforeImgStats, afterImgStats);
-    sectionsToReplace = need.sectionTitles;
-    needCoverReplace = need.needCover || purgedHero || !hasLeadingImage(body);
+    // Strip only mangled lines (broken markdown). Keep other bad URLs for in-place replace.
+    const mangledOnly = (imgAudit.bad || []).filter((u) => isMangled(u) || /pollinations\.ai/i.test(u));
+    if (mangledOnly.length || isMangled(body)) {
+      const { answer: cleaned, removed } = stripBadFromBody(body, mangledOnly);
+      body = cleaned;
+      purgedCount = removed.length;
+    }
+    purgedCount = Math.max(purgedCount, (imgAudit.bad || []).length);
     const banned = Array.isArray(blob.purged_image_urls) ? blob.purged_image_urls.slice() : [];
-    for (const u of removed.concat(imgAudit.bad || [])) {
+    for (const u of imgAudit.bad || []) {
       const n = normUrl(u);
       if (n && !banned.includes(n)) banned.push(n);
     }
     blob.purged_image_urls = banned;
     blob.face_purged_at = new Date().toISOString();
-    blob.face_purge_reason = (imgAudit.reasons || []).slice(0, 6).join(',') || 'white-mangled-broken';
-    actions.push('purge-white-mangled:' + purgedCount);
+    blob.face_purge_reason = (imgAudit.reasons || []).slice(0, 8).join(',') || 'white-mangled-broken';
+    actions.push('find-bad-images:' + (imgAudit.bad || []).length);
     stepNotes.push(
-      'Purged white/blank/mangled/404 (' +
-        purgedCount +
-        ')' +
-        (sectionsToReplace.length
-          ? ' — ' + sectionsToReplace.length + ' section(s) now have zero images (will replace)'
-          : ' — remaining section images still present (no forced extras)')
+      'Found ' +
+        (imgAudit.bad || []).length +
+        ' white/broken/404 image(s) across ' +
+        (imgAudit.scanned || 0) +
+        ' slots — will replace each with applicable art after rewrite'
     );
     console.log(
       JSON.stringify({
-        phase: 'step1-purged',
+        phase: 'step1-found-bad',
         id,
-        removed: purgedCount,
-        replaceSections: sectionsToReplace.slice(0, 8),
-        needCoverReplace,
-        reasons: (imgAudit.reasons || []).slice(0, 4),
+        bad: (imgAudit.bad || []).length,
+        scanned: imgAudit.scanned,
+        reasons: (imgAudit.reasons || []).slice(0, 8),
+        sections: (badImageDetails || []).map((d) => d.section).filter(Boolean).slice(0, 10),
       })
     );
   } else {
-    needCoverReplace = !hasLeadingImage(body);
-    stepNotes.push('No white/mangled/broken slots to purge');
-    console.log(JSON.stringify({ phase: 'step1-clean', id }));
+    stepNotes.push('No white/mangled/broken image slots found');
+    console.log(JSON.stringify({ phase: 'step1-clean', id, scanned: imgAudit.scanned || 0 }));
   }
+  void beforeImgStats;
 
   // ─── STEP 2: FACT-CHECK (non-fatal — purge must still land) ───
   console.log(JSON.stringify({ phase: 'step2-factcheck', id }));
@@ -966,7 +1058,7 @@ async function fixOne(s, state, found) {
       content_gaps: [],
       sections: [],
       source: 'cursor-drip',
-      verdict: actions.some((a) => String(a).startsWith('purge-')) ? 'flag' : 'pass',
+      verdict: actions.some((a) => /find-bad-images|purge-/i.test(String(a))) ? 'flag' : 'pass',
     };
     issues = critique.issues.slice();
     actions.push('factcheck:softfail');
@@ -1086,115 +1178,141 @@ async function fixOne(s, state, found) {
     stepNotes.push('Mermaid fix soft-failed — continuing to images');
   }
 
-  // ─── STEP 4: REPLACE ONLY WHEN A TOPIC/SECTION HAS ZERO GOOD IMAGES LEFT ───
-  // Extra purged whites stay gone. If one of two was purged and the other is fine → skip.
-  // If it was the only image for that section → one NEW applicable image for the rewrite.
-  // Recompute after rewrite (visual-lock may have kept/moved slots).
-  {
-    const postRewriteStats = sectionImageStats(body);
-    const need = sectionsNeedingReplacement(beforeImgStats, postRewriteStats);
-    // Union: sections empty after purge, or still empty after rewrite vs pre-purge
-    const set = new Set(sectionsToReplace.concat(need.sectionTitles));
-    sectionsToReplace = [...set];
-    needCoverReplace = needCoverReplace || need.needCover || !hasLeadingImage(body);
-  }
-
-  console.log(
-    JSON.stringify({
-      phase: 'step4-replace-if-needed',
-      id,
-      purgedCount,
-      replaceSections: sectionsToReplace.slice(0, 8),
-      needCoverReplace,
-      against: contentRewrote ? 'post-rewrite-topic' : 'current-topic',
-    })
-  );
+  // ─── STEP 4: REPLACE EVERY WHITE/BROKEN IMAGE WITH APPLICABLE HOSTED ART ───
+  // Easier + safer: fix all bad slots on the URL in place. If a section still has
+  // zero images after that, put one back.
   const finalTopic = question;
   const titleLookup = buildSectionTitleLookup(body);
   let coverRel = null;
-  let coverQuery = null;
   let repaired = 0;
   let filled = 0;
 
-  // Cover only when hero was purged / missing — not on every drip pass.
-  if (needCoverReplace) {
+  // Re-audit AFTER rewrite (visual-lock may have kept bad URLs).
+  // Also queue every remaining external hotlink — easier to self-host all than chase whites.
+  const postAudit = await auditImagesOnPage(body, id, blob.img || '');
+  const toReplace = [];
+  const seenReplace = new Set();
+  const pushReplace = (url, kind, section) => {
+    const k = normUrl(url) || url;
+    if (!url || seenReplace.has(k)) return;
+    seenReplace.add(k);
+    toReplace.push({ url, kind, section: section || sectionTitleForUrl(body, url) });
+  };
+  for (const d of postAudit.details || []) pushReplace(d.url, d.kind, d.section);
+  for (const u of postAudit.bad || []) pushReplace(u, 'bad', sectionTitleForUrl(body, u));
+  for (const u of extractImageUrls(body, '')) {
+    if (/^https?:\/\//i.test(u) && !/pulserevops\.com\/assets\//i.test(u)) {
+      pushReplace(u, 'external-hotlink', sectionTitleForUrl(body, u));
+    }
+  }
+  // Cap so one URL cannot burn the whole Pexels day — still "several"/all typical page slots
+  const replaceList = toReplace.slice(0, 20);
+
+  console.log(
+    JSON.stringify({
+      phase: 'step4-replace-all-bad',
+      id,
+      bad: replaceList.length,
+      scanned: postAudit.scanned,
+      against: contentRewrote ? 'post-rewrite-topic' : 'current-topic',
+      needCover: !hasLeadingImage(body),
+    })
+  );
+
+  if (!hasLeadingImage(body)) {
     try {
       const cover = await pexelsSearchApplicable(finalTopic, id);
       coverRel = cover.rel;
-      coverQuery = cover.query;
       body = swapLeadingImage(body, coverRel, finalTopic);
-      actions.push('pexels-cover:' + coverQuery + (cover.gated ? ':gated' : ':fallback'));
-      stepNotes.push(
-        'Replaced missing/purged cover with NEW applicable image for ' +
-          (contentRewrote ? 'rewritten' : 'current') +
-          ' topic (' +
-          coverQuery +
-          ')'
-      );
+      actions.push('pexels-cover:' + (cover.query || 'topic') + (cover.gated ? ':gated' : ':fallback'));
+      stepNotes.push('Added cover for page topic via Pexels');
     } catch (e) {
-      stepNotes.push('Cover Pexels miss: ' + String(e.message || e).slice(0, 80));
       console.log(JSON.stringify({ phase: 'step4-cover-miss', id, err: String(e.message || e).slice(0, 100) }));
     }
-  } else {
-    stepNotes.push('Cover kept — page still has a leading image after purge');
-    console.log(JSON.stringify({ phase: 'step4-cover-keep', id }));
   }
 
-  // Repair only truly broken remaining URLs (not a full upgrade of fine images).
-  try {
-    const rr = await repairBrokenQaImages(id, finalTopic, body, {
-      upgradeMode: false,
-      alternateSources: true,
-      allowTopicalReuse: false,
-      titleLookup,
-      quiet: true,
-    });
-    if (rr && rr.body) {
-      body = rr.body;
-      repaired = rr.fixed || 0;
-      if (repaired) {
-        actions.push('repairBrokenQaImages:' + repaired);
-        stepNotes.push('Repaired ' + repaired + ' still-broken body image(s)');
-      }
+  const replacedUrls = new Set();
+  for (const item of replaceList) {
+    const oldUrl = item.url;
+    if (!oldUrl || replacedUrls.has(oldUrl)) continue;
+    // Skip if already a good local asset
+    if (/^\/assets\/qa\//i.test(oldUrl) && !/pollinations|_purged|img-missing/i.test(oldUrl)) {
+      const absCheck = path.join(ASSET_DIR, path.basename(oldUrl.split('?')[0]));
+      try {
+        if (fs.existsSync(absCheck) && fs.statSync(absCheck).size > 8000) {
+          const cls = await classifyImage(oldUrl);
+          if (cls.kind === 'ok') continue;
+        }
+      } catch (e) {}
     }
-  } catch (e) {
-    console.log(JSON.stringify({ phase: 'step4-repair-err', id, err: String(e.message || e).slice(0, 100) }));
-  }
-
-  // One new image per section that lost its last good image (extras stay gone).
-  let slotN = 0;
-  for (const secTitle of sectionsToReplace.slice(0, 8)) {
-    const statsNow = sectionImageStats(body).find((s) => s.title.toLowerCase() === secTitle.toLowerCase());
-    if (statsNow && statsNow.images > 0) {
-      console.log(JSON.stringify({ phase: 'step4-section-skip', id, section: secTitle, reason: 'still-has-image' }));
-      continue;
-    }
+    const sec = item.section && item.section !== '(intro)' ? item.section : finalTopic;
     try {
-      slotN += 1;
-      const slotId = id + '-' + slotN;
-      const q = (secTitle + ' ' + finalTopic).slice(0, 120);
+      const slotId = nextQaSlotId(id);
+      const q = String(sec + ' ' + finalTopic).slice(0, 120);
       const got = await pexelsSearchApplicable(q, slotId);
       const rel = (got && got.rel) || '/assets/qa/' + slotId + '.jpg';
       const abs = path.join(ASSET_DIR, path.basename(rel));
-      if (!fs.existsSync(abs) || fs.statSync(abs).size < 8000) {
-        throw new Error('section image not on disk: ' + rel);
+      if (!fs.existsSync(abs) || fs.statSync(abs).size < 8000) throw new Error('not on disk ' + rel);
+      const before = body;
+      body = replaceImageUrlInBody(body, oldUrl, rel);
+      if (body === before) {
+        // URL not present as exact string — insert at section if empty
+        body = insertImageAfterSectionHeading(body, sec, rel, sec);
       }
-      body = insertImageAfterSectionHeading(body, secTitle, rel, secTitle);
+      replacedUrls.add(oldUrl);
       filled += 1;
-      stepNotes.push('Replaced sole purged image in "' + secTitle.slice(0, 60) + '" with NEW applicable art');
-      console.log(JSON.stringify({ phase: 'step4-section-replaced', id, section: secTitle, rel }));
+      repaired += 1;
+      console.log(
+        JSON.stringify({
+          phase: 'step4-replaced',
+          id,
+          kind: item.kind,
+          section: String(sec).slice(0, 60),
+          from: String(oldUrl).slice(0, 80),
+          to: rel,
+        })
+      );
     } catch (e) {
       console.log(
         JSON.stringify({
-          phase: 'step4-section-miss',
+          phase: 'step4-replace-miss',
           id,
-          section: String(secTitle).slice(0, 60),
+          section: String(sec).slice(0, 60),
           err: String(e.message || e).slice(0, 100),
         })
       );
     }
   }
-  if (filled) actions.push('section-sole-replace:' + filled);
+  if (filled) {
+    actions.push('replace-bad-images:' + filled);
+    stepNotes.push('Replaced ' + filled + ' white/broken image(s) with NEW applicable hosted art');
+  }
+
+  // Safety: ranking/content sections with zero images → one applicable image
+  const emptySecs = sectionImageStats(body).filter(
+    (s) =>
+      s.images === 0 &&
+      s.hasProse &&
+      s.title !== '(intro)' &&
+      !/^(FAQ|Sources|Related|Diagram|Bottom Line|How to Choose|What to Look For|Direct Answer)/i.test(s.title)
+  );
+  for (const s of emptySecs.slice(0, 8)) {
+    try {
+      const slotId = nextQaSlotId(id);
+      const got = await pexelsSearchApplicable((s.title + ' ' + finalTopic).slice(0, 120), slotId);
+      const rel = (got && got.rel) || '/assets/qa/' + slotId + '.jpg';
+      body = insertImageAfterSectionHeading(body, s.title, rel, s.title);
+      filled += 1;
+      actions.push('empty-section-fill:' + s.title.slice(0, 40));
+      stepNotes.push('Section "' + s.title.slice(0, 50) + '" had no image after purge — added one');
+      console.log(JSON.stringify({ phase: 'step4-empty-section-fill', id, section: s.title, rel }));
+    } catch (e) {
+      console.log(JSON.stringify({ phase: 'step4-empty-miss', id, section: s.title, err: String(e.message || e).slice(0, 80) }));
+    }
+  }
+  void titleLookup;
+  void purgedCount;
+  void badImageDetails;
   // Deploy newly written local assets for this id, then drop any /assets/qa refs
   // that still have no local file (never publish phantom 404 slots).
   let deployed = 0;
@@ -1314,15 +1432,13 @@ async function fixOne(s, state, found) {
       esc(String(question).slice(0, 200)) +
       '</p>' +
       '<ol>' +
-      '<li><b>Purge</b> white / mangled / 404 / defunct image slots</li>' +
+      '<li><b>Find</b> white / mangled / 404 image slots (all on URL)</li>' +
       '<li><b>Fact-check</b> — ' +
       esc(sectionBit) +
       '</li>' +
       '<li><b>Content rewrite</b> from fact-check (Cursor; never DeepSeek/Claude)</li>' +
       '<li><b>Mermaid</b> — mangled/errored diagrams fixed for the final topic</li>' +
-      '<li><b>Replace purged image(s)</b> with NEW applicable art for the <b>' +
-      (contentRewrote ? 'rewritten' : 'current') +
-      ' topic</b> (hosted on /assets/qa)</li>' +
+      '<li><b>Replace all bad images</b> with NEW applicable hosted art (empty sections get one)</li>' +
       '</ol>' +
       '<p><b>Steps:</b></p><ul>' +
       stepNotes.map((x) => '<li>' + esc(x) + '</li>').join('') +
@@ -1364,23 +1480,28 @@ async function main() {
   } catch (e) {}
   if (!state.drop) state.drop = { lines: 0 };
 
-  await emailOne(
-    'PULSE cursor drip ON — purge → fact-check → content → applicable images',
-    '<p><b>Cursor drip</b> per URL (then immediately find next):</p>' +
-      '<ol>' +
-      '<li>Purge white / blank / mangled / broken images</li>' +
-      '<li>Fact-check</li>' +
-      '<li>Fix content from fact-check</li>' +
-      '<li>Replace non-applicable / not-intact images throughout the URL</li>' +
-      '</ol>' +
-      '<p>No timetable. No cooldown. Prefer image-purge URLs first. Never DeepSeek or Claude.</p>'
-  );
+  const once = String(process.env.DRIP_ONCE || '') === '1';
+  if (!once) {
+    await emailOne(
+      'PULSE cursor drip ON — find bad images → fact-check → content → replace all bad',
+      '<p><b>Cursor drip</b> per URL (then immediately find next):</p>' +
+        '<ol>' +
+        '<li>Find white / blank / mangled / 404 images (all slots)</li>' +
+        '<li>Fact-check</li>' +
+        '<li>Fix content from fact-check</li>' +
+        '<li>Replace every bad image with NEW applicable hosted art</li>' +
+        '</ol>' +
+        '<p>No timetable. No cooldown. Prefer image-purge URLs first. Never DeepSeek or Claude.</p>'
+    );
+  }
 
   console.log(
     JSON.stringify({
       phase: 'cursor-drip-start',
-      mode: 'purge→factcheck→content→applicable-images',
+      mode: 'find-bad→factcheck→content→replace-all-bad',
       idleMsWhenEmpty: IDLE_MS,
+      forceId: process.env.DRIP_FORCE_ID || null,
+      once,
     })
   );
 
@@ -1391,6 +1512,7 @@ async function main() {
         state.lastRunAt = new Date().toISOString();
         await s.setJSON(STATE_KEY, state);
         console.log(JSON.stringify({ phase: 'cursor-drip-idle', note: 'nothing due — brief idle then find again' }));
+        if (once) break;
         if (IDLE_MS > 0) await new Promise((r) => setTimeout(r, IDLE_MS));
         state.inventoryBuiltAt = null;
         continue;
@@ -1402,12 +1524,14 @@ async function main() {
       console.log(
         JSON.stringify({
           phase: 'cursor-drip-next',
-          note: 'fix done — finding next immediately',
+          note: once ? 'fix done — DRIP_ONCE exit' : 'fix done — finding next immediately',
           fixed: state.fixed || 0,
         })
       );
+      if (once) break;
     } catch (e) {
       console.log(JSON.stringify({ phase: 'cursor-drip-error', err: String(e.message || e).slice(0, 200) }));
+      if (once) throw e;
       await new Promise((r) => setTimeout(r, 3000));
     }
   }

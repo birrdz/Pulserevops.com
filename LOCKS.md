@@ -7,11 +7,11 @@ Prefer URLs that still need white/mangled image purge.
 
 | Step | What |
 |------|------|
-| 1 | **Purge** white / blank / mangled / broken / **404** slots (remove them — do not leave white/404 URLs live) |
+| 1 | **Find** white / blank / mangled / broken / **404** slots (scan all images on the URL) |
 | 2 | **Fact-check** (Cerebras OK if cheaper) |
 | 3 | **Content fix** from fact-check (**Cursor** rewrite — new writing) |
 | 3b | **Mermaid** — fix mangled / errored diagrams anywhere (incl. bottom) |
-| 4 | **Replace an image only if that topic/section has no good image left** after purge (it was the only one). If one of two was purged and the other is fine → leave it. New image must match rewritten topic; host + deploy `/assets/qa`. Never publish phantom 404s. |
+| 4 | **Replace every bad image** in place with a NEW applicable hosted `/assets/qa` image for that section/topic. If a section would have zero images, put one back. Deploy — never leave white/404. |
 
 **Hard bans:** DeepSeek · Claude / Anthropic API.
 
