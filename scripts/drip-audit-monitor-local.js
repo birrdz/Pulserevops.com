@@ -14,9 +14,12 @@
 // Emails include "drip audit" labeling.
 //
 // Env:
-//   DRIP_POLL_MS=30000
-//   DRIP_FULL_INVENTORY=1     (default 1 — when in doubt, full ~35k inventory)
-//   DRIP_LOOKBACK_MS=…        (only used if DRIP_FULL_INVENTORY=0)
+//   DRIP_POLL_MS=120000          gap between ticks (~2 min default — find+drive cadence)
+//   DRIP_SCAN_PER_TICK=120       index rows to probe per tick
+//   DRIP_AUDIT_PER_TICK=6        max Cerebras audits per tick (keeps cadence ~few mins)
+//   DRIP_FULL_INVENTORY=1        (default 1 — when in doubt, full ~35k inventory)
+//   DRIP_LOOKBACK_MS=…           (only used if DRIP_FULL_INVENTORY=0)
+//   DRIP_EMAIL_PASS=0            (default off — avoid inbox flood; FLAG + Cursor completion emails)
 //   CURSOR_ULTRA=1
 
 const fs = require('fs');
@@ -41,10 +44,14 @@ const STATE_KEY = '_drip_audit_monitor_state.json';
 const QUEUE_KEY = '_cursor_write_queue.json';
 const DROP_FILE = path.join(process.cwd(), 'logs', 'drip-audit-drop.jsonl');
 const LOCAL_QUEUE = path.join(process.cwd(), 'logs', 'cursor-write-queue.json');
-const POLL_MS = parseInt(process.env.DRIP_POLL_MS || '30000', 10);
+// Owner: find + drive every few minutes — not a multi-hour pre-scan.
+const POLL_MS = parseInt(process.env.DRIP_POLL_MS || '120000', 10);
+const SCAN_PER_TICK = Math.max(20, parseInt(process.env.DRIP_SCAN_PER_TICK || '120', 10));
+const AUDIT_PER_TICK = Math.max(1, parseInt(process.env.DRIP_AUDIT_PER_TICK || '6', 10));
 const LOOKBACK_MS = parseInt(process.env.DRIP_LOOKBACK_MS || String(24 * 3600 * 1000), 10);
 // Owner: when in doubt, sweep the full inventory (~35k), not a short lookback.
 const FULL_INVENTORY = String(process.env.DRIP_FULL_INVENTORY || '1') !== '0';
+const EMAIL_PASS = String(process.env.DRIP_EMAIL_PASS || '0') === '1';
 
 fs.mkdirSync(path.dirname(DROP_FILE), { recursive: true });
 if (!fs.existsSync(DROP_FILE)) fs.writeFileSync(DROP_FILE, '');
@@ -275,16 +282,18 @@ async function auditOne(s, id, state, queue) {
     return { id, verdict: 'flag', issues: issues.length };
   }
 
-  await emailOne(
-    'PULSE drip audit PASS — ' + id,
-    '<p><b>Drip audit</b> (always-on monitor) passed a newly fixed URL.</p>' +
-      '<p><a href="' +
-      url +
-      '">' +
-      url +
-      '</a></p>' +
-      '<p>No Cursor rewrite queued.</p>'
-  );
+  if (EMAIL_PASS) {
+    await emailOne(
+      'PULSE drip audit PASS — ' + id,
+      '<p><b>Drip audit</b> (always-on monitor) passed a newly fixed URL.</p>' +
+        '<p><a href="' +
+        url +
+        '">' +
+        url +
+        '</a></p>' +
+        '<p>No Cursor rewrite queued.</p>'
+    );
+  }
   return { id, verdict: 'pass' };
 }
 
@@ -303,67 +312,79 @@ function needsDripAudit(blob, id, dropSet) {
 }
 
 /**
- * Build sweep list.
- * Default (when in doubt): FULL inventory (~28k–35k ids) that still need drip audit.
- * Optional lookback-only mode: DRIP_FULL_INVENTORY=0.
+ * Load / refresh the rolling inventory (ids only — no per-blob pre-scan).
+ * Prefer recently touched first; still covers full inventory as the cursor wraps.
  */
-async function buildSweepList(s, state) {
-  const since = Date.now() - LOOKBACK_MS;
+async function ensureInventory(s, state) {
   const dropIds = readDropFile(state.drop || (state.drop = { lines: 0 }));
   const dropSet = new Set(dropIds);
-  const idx = await s.get('_index.json', { type: 'json' });
-  const rows = ((idx && idx.entries) || []).filter((e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)));
+  const needRefresh =
+    !Array.isArray(state.inventoryIds) ||
+    !state.inventoryIds.length ||
+    !state.inventoryBuiltAt ||
+    Date.now() - Date.parse(state.inventoryBuiltAt) > 6 * 3600 * 1000;
 
-  const scored = [];
-  for (const row of rows) {
-    const its = entryTs({}, row);
-    // Full inventory mode: consider every page. Else: lookback window only.
-    if (!FULL_INVENTORY && !dropSet.has(row.id) && its && its < since) continue;
-    scored.push({ id: row.id, ts: its || 0 });
-  }
-  for (const id of dropIds) {
-    if (!scored.some((x) => x.id === id)) scored.push({ id, ts: Date.now() });
-  }
-  // Prefer recently touched first, but still cover the full inventory over the sweep
-  scored.sort((a, b) => b.ts - a.ts);
-
-  const list = [];
-  const seen = new Set();
-  let checked = 0;
-  for (const { id } of scored) {
-    if (seen.has(id)) continue;
-    seen.add(id);
-    checked++;
-    let blob;
-    try {
-      blob = await s.get('answers/' + id + '.json', { type: 'json' });
-    } catch (e) {
-      continue;
+  if (needRefresh) {
+    const since = Date.now() - LOOKBACK_MS;
+    const idx = await s.get('_index.json', { type: 'json' });
+    const rows = ((idx && idx.entries) || []).filter((e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)));
+    const scored = [];
+    for (const row of rows) {
+      const its = entryTs({}, row);
+      if (!FULL_INVENTORY && !dropSet.has(row.id) && its && its < since) continue;
+      scored.push({ id: String(row.id).toLowerCase(), ts: its || 0 });
     }
-    if (!needsDripAudit(blob, id, dropSet)) continue;
-    list.push(id);
-    if (checked % 500 === 0) {
-      console.log(
-        JSON.stringify({
-          phase: 'drip-sweep-build',
-          checked,
-          inventory: scored.length,
-          due: list.length,
-          fullInventory: FULL_INVENTORY,
-        })
-      );
+    scored.sort((a, b) => b.ts - a.ts);
+    const seen = new Set();
+    const ids = [];
+    for (const x of scored) {
+      if (seen.has(x.id)) continue;
+      seen.add(x.id);
+      ids.push(x.id);
     }
+    // Drop-file ids jump the queue (prepend if missing)
+    for (let i = dropIds.length - 1; i >= 0; i--) {
+      const id = dropIds[i];
+      if (!seen.has(id)) {
+        ids.unshift(id);
+        seen.add(id);
+      } else {
+        const at = ids.indexOf(id);
+        if (at > 0) {
+          ids.splice(at, 1);
+          ids.unshift(id);
+        }
+      }
+    }
+    state.inventoryIds = ids;
+    state.inventoryBuiltAt = new Date().toISOString();
+    state.invCursor = 0;
+    state.sweepNo = (state.sweepNo || 0) + 1;
+    state.sweepStartedAt = state.inventoryBuiltAt;
+    // Clear legacy pre-build fields so we never resume a stuck multi-hour build
+    state.sweepList = [];
+    state.sweepIndex = 0;
+    console.log(
+      JSON.stringify({
+        phase: 'drip-inventory-ready',
+        sweepNo: state.sweepNo,
+        inventory: ids.length,
+        fullInventory: FULL_INVENTORY,
+        note: 'rolling cursor — audit every few minutes; no multi-hour pre-scan',
+      })
+    );
+  } else if (dropIds.length) {
+    // Hot-insert new drop ids at front without full rebuild
+    const ids = state.inventoryIds.slice();
+    for (let i = dropIds.length - 1; i >= 0; i--) {
+      const id = dropIds[i];
+      const at = ids.indexOf(id);
+      if (at >= 0) ids.splice(at, 1);
+      ids.unshift(id);
+    }
+    state.inventoryIds = ids;
   }
-  console.log(
-    JSON.stringify({
-      phase: 'drip-sweep-built',
-      inventory: scored.length,
-      due: list.length,
-      fullInventory: FULL_INVENTORY,
-      target: '~35000',
-    })
-  );
-  return list;
+  return dropSet;
 }
 
 async function tick(s, state) {
@@ -373,56 +394,94 @@ async function tick(s, state) {
   } catch (e) {}
   if (!Array.isArray(queue.items)) queue.items = [];
 
-  // Start or continue a full sweep of updated URLs
-  if (!Array.isArray(state.sweepList) || !state.sweepList.length) {
-    state.sweepList = await buildSweepList(s, state);
-    state.sweepIndex = 0;
-    state.sweepNo = (state.sweepNo || 0) + 1;
-    state.sweepStartedAt = new Date().toISOString();
-    console.log(
-      JSON.stringify({
-        phase: 'drip-sweep-start',
-        sweepNo: state.sweepNo,
-        total: state.sweepList.length,
-        fullInventory: FULL_INVENTORY,
-        note: FULL_INVENTORY
-          ? 'FULL inventory sweep (~35k when in doubt); then loop back for missed/new'
-          : 'lookback sweep; then loop back for missed/new',
-      })
-    );
-    if (!state.sweepList.length) {
-      // nothing due — short idle, then rebuild (catch brand-new updates)
-      state.lastRunAt = new Date().toISOString();
-      await s.setJSON(STATE_KEY, state);
-      return { idle: true };
-    }
+  const dropSet = await ensureInventory(s, state);
+  const inventory = state.inventoryIds || [];
+  if (!inventory.length) {
+    state.lastRunAt = new Date().toISOString();
+    await s.setJSON(STATE_KEY, state);
+    return { idle: true, audited: 0, flagged: 0 };
   }
 
-  const batch = state.sweepList.slice(state.sweepIndex || 0, (state.sweepIndex || 0) + 25);
+  let cursor = state.invCursor || 0;
+  if (cursor >= inventory.length) cursor = 0;
+
+  const due = [];
+  let scanned = 0;
+  let wrapped = false;
+  const startCursor = cursor;
+  while (scanned < SCAN_PER_TICK && due.length < AUDIT_PER_TICK) {
+    if (cursor >= inventory.length) {
+      cursor = 0;
+      wrapped = true;
+      console.log(
+        JSON.stringify({
+          phase: 'drip-inventory-wrap',
+          sweepNo: state.sweepNo,
+          audited: state.audited || 0,
+          flagged: state.flagged || 0,
+          note: 'full pass complete — looping for missed/new',
+        })
+      );
+      state.sweepNo = (state.sweepNo || 0) + 1;
+      state.lastSweepCompletedAt = new Date().toISOString();
+      // Refresh inventory on wrap so newly updated URLs surface
+      state.inventoryBuiltAt = null;
+      await s.setJSON(STATE_KEY, state);
+      await ensureInventory(s, state);
+      break;
+    }
+    const id = inventory[cursor];
+    cursor += 1;
+    scanned += 1;
+    let blob;
+    try {
+      blob = await s.get('answers/' + id + '.json', { type: 'json' });
+    } catch (e) {
+      continue;
+    }
+    if (!needsDripAudit(blob, id, dropSet)) continue;
+    due.push(id);
+  }
+  state.invCursor = cursor;
+
   console.log(
     JSON.stringify({
       phase: 'drip-tick',
       sweepNo: state.sweepNo,
-      left: Math.max(0, state.sweepList.length - (state.sweepIndex || 0)),
-      batch: batch.length,
-      total: state.sweepList.length,
+      scanned,
+      due: due.length,
+      auditCap: AUDIT_PER_TICK,
+      cursor: state.invCursor,
+      inventory: inventory.length,
+      pendingCursorWrites: (queue.items || []).filter((x) => x && x.status === 'pending').length,
+      wrapped,
+      startCursor,
     })
   );
 
-  for (const id of batch) {
+  let auditedThis = 0;
+  let flaggedThis = 0;
+  for (const id of due) {
     try {
       const r = await auditOne(s, id, state, queue);
-      state.sweepIndex = (state.sweepIndex || 0) + 1;
       state.lastId = id;
       state.lastResult = r;
       state.lastRunAt = new Date().toISOString();
+      if (r.skip) {
+        console.log(JSON.stringify(Object.assign({ sweepNo: state.sweepNo }, r)));
+        continue;
+      }
       state.audited = (state.audited || 0) + 1;
-      if (r.verdict === 'flag') state.flagged = (state.flagged || 0) + 1;
-      else if (r.verdict === 'pass') state.passed = (state.passed || 0) + 1;
+      auditedThis += 1;
+      if (r.verdict === 'flag') {
+        state.flagged = (state.flagged || 0) + 1;
+        flaggedThis += 1;
+      } else if (r.verdict === 'pass') {
+        state.passed = (state.passed || 0) + 1;
+      }
       await s.setJSON(STATE_KEY, state);
       console.log(JSON.stringify(Object.assign({ sweepNo: state.sweepNo }, r)));
     } catch (e) {
-      // leave id for a later sweep (mark error so needsDripAudit retries)
       try {
         const blob = await s.get('answers/' + id + '.json', { type: 'json' });
         if (blob) {
@@ -436,48 +495,46 @@ async function tick(s, state) {
           );
         }
       } catch (e2) {}
-      state.sweepIndex = (state.sweepIndex || 0) + 1;
       console.log(JSON.stringify({ id, err: String(e.message || e).slice(0, 140) }));
       await new Promise((r) => setTimeout(r, 2000));
     }
   }
 
-  // Finished this full list → clear and loop back for missed / newly updated URLs
-  if ((state.sweepIndex || 0) >= state.sweepList.length) {
-    console.log(
-      JSON.stringify({
-        phase: 'drip-sweep-complete',
-        sweepNo: state.sweepNo,
-        audited: state.audited,
-        flagged: state.flagged,
-        note: 'looping back for missed or newly updated URLs',
-      })
-    );
+  // Heartbeat so inbox shows drip is alive even when a tick finds only passes
+  if (auditedThis > 0) {
+    const pending = (queue.items || []).filter((x) => x && x.status === 'pending').length;
     await emailOne(
-      'PULSE drip audit sweep #' + state.sweepNo + ' complete — looping for missed/new URLs',
-      '<p>Finished drip-audit sweep <b>#' +
-        state.sweepNo +
-        '</b> over the updated URL list.</p>' +
-        '<p>audited≈' +
-        (state.audited || 0) +
-        ' flagged≈' +
-        (state.flagged || 0) +
-        '</p>' +
-        '<p>Now looping back to catch <b>missed</b> or <b>newly updated</b> URLs. Drip never stops (even after batch STOP_AT=8000).</p>'
+      ('PULSE drip audit tick — audited ' + auditedThis + ' · flagged ' + flaggedThis + ' · queue ' + pending).slice(0, 180),
+      '<p><b>Drip audit</b> rolling tick (every few minutes).</p>' +
+        '<ul>' +
+        '<li>audited this tick: <b>' +
+        auditedThis +
+        '</b></li>' +
+        '<li>flagged this tick: <b>' +
+        flaggedThis +
+        '</b> → Cursor rewrite queue</li>' +
+        '<li>pending Cursor writes: <b>' +
+        pending +
+        '</b></li>' +
+        '<li>inventory cursor: ' +
+        (state.invCursor || 0) +
+        ' / ' +
+        inventory.length +
+        '</li>' +
+        '</ul>' +
+        '<p>Full inventory keeps rolling; drip never stops after batch STOP_AT=8000.</p>'
     );
-    state.sweepList = [];
-    state.sweepIndex = 0;
-    state.lastSweepCompletedAt = new Date().toISOString();
-    await s.setJSON(STATE_KEY, state);
   }
-  return { idle: false };
+
+  await s.setJSON(STATE_KEY, state);
+  return { idle: auditedThis === 0 && due.length === 0, audited: auditedThis, flagged: flaggedThis };
 }
 
 async function main() {
   const s = store();
   let state = {
-    sweepList: [],
-    sweepIndex: 0,
+    inventoryIds: [],
+    invCursor: 0,
     sweepNo: 0,
     drop: { lines: 0 },
     audited: 0,
@@ -488,33 +545,46 @@ async function main() {
     state = Object.assign(state, (await s.get(STATE_KEY, { type: 'json' })) || {});
   } catch (e) {}
   if (!state.drop) state.drop = { lines: 0 };
+  // Force rolling mode — abandon any legacy multi-hour sweepList build
+  state.sweepList = [];
+  state.sweepIndex = 0;
+  state.inventoryBuiltAt = null;
 
   await emailOne(
-    'PULSE drip audit monitor ON — full ~35k inventory sweeps forever',
-    '<p>Always-on <b>drip audit</b>:</p>' +
+    'PULSE drip audit monitor ON — find+drive every few minutes',
+    '<p>Always-on <b>drip audit</b> (rolling cadence):</p>' +
       '<ol>' +
-      '<li><b>When in doubt:</b> sweeps the <b>full inventory</b> (~28k–35k pages)</li>' +
-      '<li>When that sweep finishes, <b>loops back</b> for missed or newly updated URLs</li>' +
-      '<li>Flags → Cursor rewrite queue; emails include <b>drip audit</b></li>' +
+      '<li>Every few minutes: scan a chunk of inventory + audit due pages</li>' +
+      '<li>Flags → <b>Cursor rewrite</b> queue → Pexels → one completion email</li>' +
+      '<li>Walks the <b>full inventory</b> (~28k–35k), then loops for missed/new</li>' +
       '<li>Stays running after batch STOP_AT=8000</li>' +
       '</ol>' +
-      '<p>Drop file: <code>logs/drip-audit-drop.jsonl</code></p>'
+      '<p>pollMs=' +
+      POLL_MS +
+      ' scan/tick=' +
+      SCAN_PER_TICK +
+      ' audit/tick=' +
+      AUDIT_PER_TICK +
+      '</p>'
   );
 
   console.log(
     JSON.stringify({
       phase: 'drip-start',
       pollMs: POLL_MS,
+      scanPerTick: SCAN_PER_TICK,
+      auditPerTick: AUDIT_PER_TICK,
       dropFile: DROP_FILE,
-      mode: 'full-inventory-sweep-loop',
+      mode: 'rolling-full-inventory',
       fullInventory: FULL_INVENTORY,
     })
   );
   for (;;) {
     try {
       const r = await tick(s, state);
-      // if idle (nothing due), wait then rebuild; if busy, shorter gap between batches
-      await new Promise((res) => setTimeout(res, r && r.idle ? POLL_MS : Math.min(POLL_MS, 5000)));
+      // Busy ticks: short gap so we keep driving; idle: full poll interval
+      const wait = r && r.idle ? POLL_MS : Math.min(POLL_MS, 45000);
+      await new Promise((res) => setTimeout(res, wait));
     } catch (e) {
       console.log(JSON.stringify({ tickError: String(e.message || e).slice(0, 160) }));
       await new Promise((r) => setTimeout(r, POLL_MS));
