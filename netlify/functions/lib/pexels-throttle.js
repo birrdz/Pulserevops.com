@@ -33,9 +33,18 @@ function pexelsMinGapMs() {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-/** Queue: exactly one Pexels HTTP call at a time, with mandatory gap after each. */
+/**
+ * Queue: exactly ONE Pexels operation at a time (never parallel).
+ * Callers should put search + download of a single image inside fn when acquiring an asset.
+ */
 function runPexelsSerial(fn) {
   const job = turn.then(async () => {
+    // Wait if a prior op is somehow still marked in-flight (should not happen with the queue)
+    let spins = 0;
+    while (inFlight && spins < 600) {
+      await sleep(100);
+      spins++;
+    }
     if (inFlight) throw new Error('pexels-throttle: request already in flight');
     const gap = Math.max(0, pexelsMinGapMs() - (Date.now() - lastPexelsAt));
     if (gap > 0) await sleep(gap);
@@ -47,7 +56,10 @@ function runPexelsSerial(fn) {
       lastPexelsAt = Date.now();
     }
   });
-  turn = job.catch(() => {});
+  turn = job.then(
+    () => {},
+    () => {}
+  );
   return job;
 }
 

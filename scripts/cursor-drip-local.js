@@ -633,50 +633,81 @@ function extractSectionLabels(items) {
   return labels;
 }
 
+/**
+ * ONE Pexels image at a time: per_page=1, serial queue, search+download under the same lock.
+ * Tries page 1..N sequentially (still one request at a time) until relevance gate passes.
+ */
 async function pexelsSearchApplicable(title, id) {
   if (!PEXELS_KEY) throw new Error('PEXELS_API_KEY missing');
   const query = deriveImageSearchQuery(title || id);
   const core = extractCoreTerms(query);
   const tryQueries = [query, simplifyQuery(query)].filter((q, i, a) => q && a.indexOf(q) === i);
+  const maxPages = 8;
 
   for (const q of tryQueries) {
-    const url =
-      'https://api.pexels.com/v1/search?per_page=12&orientation=landscape&query=' + encodeURIComponent(q);
-    const r = await pexelsRequest(async () => {
-      const res = await fetch(url, {
-        headers: { Authorization: PEXELS_KEY, 'User-Agent': 'pulserevops-cursor-drip/1.0' },
-        signal: AbortSignal.timeout(30000),
+    for (let page = 1; page <= maxPages; page++) {
+      // Entire acquire (search + download + grade) holds the serial Pexels lock —
+      // never two Pexels asks or downloads overlapping.
+      const got = await pexelsRequest(async () => {
+        const url =
+          'https://api.pexels.com/v1/search?per_page=1&page=' +
+          page +
+          '&orientation=landscape&query=' +
+          encodeURIComponent(q);
+        const res = await fetch(url, {
+          headers: { Authorization: PEXELS_KEY, 'User-Agent': 'pulserevops-cursor-drip/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (res.status !== 200) {
+          return { status: res.status, body: Buffer.from(await res.arrayBuffer()), miss: true };
+        }
+        const data = JSON.parse(Buffer.from(await res.arrayBuffer()).toString('utf8'));
+        const photos = data.photos || [];
+        const p = photos[0];
+        if (!p) return { status: 200, body: Buffer.alloc(0), miss: true, exhausted: true };
+
+        // Gate on this single photo (total_results still available for thin-results check)
+        const gated = gatePexels(core, data.total_results || 0, photos);
+        const landscapeOk = p.width >= 1200 && p.width >= p.height;
+        const accept = gated.pass || (landscapeOk && page >= maxPages);
+        if (!accept && !gated.pass) {
+          return { status: 200, body: Buffer.alloc(0), miss: true, tryNextPage: true, total: data.total_results };
+        }
+        if (!landscapeOk && page < maxPages) {
+          return { status: 200, body: Buffer.alloc(0), miss: true, tryNextPage: true };
+        }
+
+        const src = p.src && (p.src.large2x || p.src.large || p.src.original);
+        if (!src) return { status: 200, body: Buffer.alloc(0), miss: true, tryNextPage: true };
+
+        const dl = await fetch(src, { signal: AbortSignal.timeout(45000) });
+        if (!dl.ok) return { status: dl.status, body: Buffer.alloc(0), miss: true, tryNextPage: true };
+        const buf = Buffer.from(await dl.arrayBuffer());
+        const dest = path.join(ASSET_DIR, id + '.jpg');
+        await storeGradedImage(buf, dest, {
+          square: 760,
+          faceCard: true,
+          cropPosition: 'attention',
+          bright: false,
+        });
+        return {
+          status: 200,
+          body: Buffer.alloc(0),
+          ok: true,
+          rel: '/assets/qa/' + id + '.jpg',
+          query: q,
+          gated: !!gated.pass,
+          alt: (p.alt || '').slice(0, 120),
+          page,
+        };
       });
-      return { status: res.status, body: Buffer.from(await res.arrayBuffer()) };
-    });
-    if (r.status !== 200) continue;
-    const data = JSON.parse(r.body.toString('utf8'));
-    const photos = data.photos || [];
-    const gated = gatePexels(core, data.total_results || photos.length, photos);
-    let pool = gated.pass ? gated.passers : photos;
-    pool = pool.filter((p) => p && p.width >= 1200 && p.width >= p.height);
-    if (!pool.length) pool = gated.pass ? gated.passers : photos;
-    if (!pool.length) continue;
-    pool.sort((a, b) => b.width * b.height - a.width * a.height);
-    const p = pool[0];
-    const src = p && p.src && (p.src.large2x || p.src.large || p.src.original);
-    if (!src) continue;
-    const dl = await fetch(src, { signal: AbortSignal.timeout(45000) });
-    if (!dl.ok) continue;
-    const buf = Buffer.from(await dl.arrayBuffer());
-    const dest = path.join(ASSET_DIR, id + '.jpg');
-    await storeGradedImage(buf, dest, {
-      square: 760,
-      faceCard: true,
-      cropPosition: 'attention',
-      bright: false,
-    });
-    return {
-      rel: '/assets/qa/' + id + '.jpg',
-      query: q,
-      gated: !!gated.pass,
-      alt: (p.alt || '').slice(0, 120),
-    };
+
+      if (got && got.ok) {
+        return { rel: got.rel, query: got.query, gated: got.gated, alt: got.alt, page: got.page };
+      }
+      if (got && got.exhausted) break;
+      // tryNextPage / miss → continue sequential page (still one-at-a-time)
+    }
   }
   throw new Error('pexels applicable miss');
 }
