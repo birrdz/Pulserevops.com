@@ -2,8 +2,12 @@
 // Always-on DROP/DRIP: ALWAYS auditing newly updated knowledge URLs.
 // INDEPENDENT of the 2750-wave pipeline STOP_AT=8000 — when the batch wave
 // takes a break at 8000, THIS DRIP KEEPS RUNNING and keeps auditing new/updated URLs.
+//
+// WHEN IN DOUBT: sweep the FULL inventory (~28k–35k pages), not just a lookback window.
+// After each full pass, loop back for missed / newly updated URLs.
+//
 // Sources:
-//   - any blob with recent updated_at / face_purged_at / batch_cycled_at / polished_at
+//   - FULL index inventory (default) + recent updates + drop file
 //   - local drop file: logs/drip-audit-drop.jsonl  (paste URL or id per line)
 //
 // Independent audit = Cerebras (never DeepSeek). Cursor rewrites via _cursor_write_queue.json.
@@ -11,7 +15,8 @@
 //
 // Env:
 //   DRIP_POLL_MS=30000
-//   DRIP_LOOKBACK_MS=86400000   (default 24h)
+//   DRIP_FULL_INVENTORY=1     (default 1 — when in doubt, full ~35k inventory)
+//   DRIP_LOOKBACK_MS=…        (only used if DRIP_FULL_INVENTORY=0)
 //   CURSOR_ULTRA=1
 
 const fs = require('fs');
@@ -38,6 +43,8 @@ const DROP_FILE = path.join(process.cwd(), 'logs', 'drip-audit-drop.jsonl');
 const LOCAL_QUEUE = path.join(process.cwd(), 'logs', 'cursor-write-queue.json');
 const POLL_MS = parseInt(process.env.DRIP_POLL_MS || '30000', 10);
 const LOOKBACK_MS = parseInt(process.env.DRIP_LOOKBACK_MS || String(24 * 3600 * 1000), 10);
+// Owner: when in doubt, sweep the full inventory (~35k), not a short lookback.
+const FULL_INVENTORY = String(process.env.DRIP_FULL_INVENTORY || '1') !== '0';
 
 fs.mkdirSync(path.dirname(DROP_FILE), { recursive: true });
 if (!fs.existsSync(DROP_FILE)) fs.writeFileSync(DROP_FILE, '');
@@ -295,7 +302,11 @@ function needsDripAudit(blob, id, dropSet) {
   return false;
 }
 
-/** Build FULL sweep list of updated URLs that still need drip audit. */
+/**
+ * Build sweep list.
+ * Default (when in doubt): FULL inventory (~28k–35k ids) that still need drip audit.
+ * Optional lookback-only mode: DRIP_FULL_INVENTORY=0.
+ */
 async function buildSweepList(s, state) {
   const since = Date.now() - LOOKBACK_MS;
   const dropIds = readDropFile(state.drop || (state.drop = { lines: 0 }));
@@ -303,23 +314,26 @@ async function buildSweepList(s, state) {
   const idx = await s.get('_index.json', { type: 'json' });
   const rows = ((idx && idx.entries) || []).filter((e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)));
 
-  // newest-updated first within lookback, plus explicit drops
   const scored = [];
   for (const row of rows) {
     const its = entryTs({}, row);
-    if (!dropSet.has(row.id) && its && its < since) continue;
+    // Full inventory mode: consider every page. Else: lookback window only.
+    if (!FULL_INVENTORY && !dropSet.has(row.id) && its && its < since) continue;
     scored.push({ id: row.id, ts: its || 0 });
   }
   for (const id of dropIds) {
     if (!scored.some((x) => x.id === id)) scored.push({ id, ts: Date.now() });
   }
+  // Prefer recently touched first, but still cover the full inventory over the sweep
   scored.sort((a, b) => b.ts - a.ts);
 
   const list = [];
   const seen = new Set();
+  let checked = 0;
   for (const { id } of scored) {
     if (seen.has(id)) continue;
     seen.add(id);
+    checked++;
     let blob;
     try {
       blob = await s.get('answers/' + id + '.json', { type: 'json' });
@@ -328,7 +342,27 @@ async function buildSweepList(s, state) {
     }
     if (!needsDripAudit(blob, id, dropSet)) continue;
     list.push(id);
+    if (checked % 500 === 0) {
+      console.log(
+        JSON.stringify({
+          phase: 'drip-sweep-build',
+          checked,
+          inventory: scored.length,
+          due: list.length,
+          fullInventory: FULL_INVENTORY,
+        })
+      );
+    }
   }
+  console.log(
+    JSON.stringify({
+      phase: 'drip-sweep-built',
+      inventory: scored.length,
+      due: list.length,
+      fullInventory: FULL_INVENTORY,
+      target: '~35000',
+    })
+  );
   return list;
 }
 
@@ -350,7 +384,10 @@ async function tick(s, state) {
         phase: 'drip-sweep-start',
         sweepNo: state.sweepNo,
         total: state.sweepList.length,
-        note: 'full list of updated URLs needing audit; after this pass, loop back for missed/new',
+        fullInventory: FULL_INVENTORY,
+        note: FULL_INVENTORY
+          ? 'FULL inventory sweep (~35k when in doubt); then loop back for missed/new'
+          : 'lookback sweep; then loop back for missed/new',
       })
     );
     if (!state.sweepList.length) {
@@ -453,10 +490,10 @@ async function main() {
   if (!state.drop) state.drop = { lines: 0 };
 
   await emailOne(
-    'PULSE drip audit monitor ON — full updated-URL sweeps forever',
+    'PULSE drip audit monitor ON — full ~35k inventory sweeps forever',
     '<p>Always-on <b>drip audit</b>:</p>' +
       '<ol>' +
-      '<li>Audits the <b>full list</b> of updated URLs</li>' +
+      '<li><b>When in doubt:</b> sweeps the <b>full inventory</b> (~28k–35k pages)</li>' +
       '<li>When that sweep finishes, <b>loops back</b> for missed or newly updated URLs</li>' +
       '<li>Flags → Cursor rewrite queue; emails include <b>drip audit</b></li>' +
       '<li>Stays running after batch STOP_AT=8000</li>' +
@@ -464,7 +501,15 @@ async function main() {
       '<p>Drop file: <code>logs/drip-audit-drop.jsonl</code></p>'
   );
 
-  console.log(JSON.stringify({ phase: 'drip-start', pollMs: POLL_MS, dropFile: DROP_FILE, mode: 'full-sweep-loop' }));
+  console.log(
+    JSON.stringify({
+      phase: 'drip-start',
+      pollMs: POLL_MS,
+      dropFile: DROP_FILE,
+      mode: 'full-inventory-sweep-loop',
+      fullInventory: FULL_INVENTORY,
+    })
+  );
   for (;;) {
     try {
       const r = await tick(s, state);
