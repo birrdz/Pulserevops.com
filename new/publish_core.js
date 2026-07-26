@@ -5,6 +5,20 @@
 'use strict';
 const fs = require('fs');
 const WD = 'C:/Users/koryj/website';
+// ── per-entry blob lock (owner 2026-07-21): only ONE image machine writes a given page's blob at a time,
+// so parallel machines (face/hero/body all on one entry) never clobber each other's update. mkdir is atomic;
+// a lock older than 30s (crashed holder) is broken. Local-host only (all machines run on this box).
+const _LOCKDIR = WD + '/new/imagebank/_locks';
+try { require('fs').mkdirSync(_LOCKDIR, { recursive: true }); } catch (e) {}
+async function withEntryLock(id, fn) {
+  const lp = _LOCKDIR + '/' + String(id).replace(/[^a-zA-Z0-9_-]/g, '') + '.lock';
+  let held = false;
+  for (let i = 0; i < 300; i++) {
+    try { require('fs').mkdirSync(lp); held = true; break; }
+    catch (e) { try { const st = require('fs').statSync(lp); if (Date.now() - st.mtimeMs > 30000) { require('fs').rmdirSync(lp); continue; } } catch (e2) {} await new Promise(r => setTimeout(r, 50)); }
+  }
+  try { return await fn(); } finally { if (held) { try { require('fs').rmdirSync(lp); } catch (e) {} } }
+}
 try { for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); } } catch (e) {}
 const { getStore } = require('@netlify/blobs');
 function theStore() {
@@ -58,9 +72,9 @@ function embedImages(body, qid, imgs) {
   // THIS qid on a prior publish, so a second pass REPLACES the set instead of
   // appending a duplicate of every slot. This was the root cause of the stacked /
   // "mirrored" images (b1/b2/b3 rendered twice while b4-b6 rendered once).
-  const qesc = String(qid).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const dupRe = new RegExp('^!\\[[^\\]]*\\]\\(/assets/qa/' + qesc + '-b\\d+\\.jpg\\)\\s*$');
-  body = String(body || '').split('\n').filter(l => !dupRe.test(l.trim())).join('\n');
+  // strip EVERY image-only line (ANY url) so a re-pass REPLACES the whole image set — never stacks old + new.
+  // (Was: only stripped /assets/qa/<qid>-bN.jpg, so old embeds with other urls survived and images piled up.)
+  body = String(body || '').split('\n').filter(l => !/^!\[[^\]]*\]\([^)]*\)$/.test(l.trim())).join('\n');
   if (!imgs.length) return body;
   const lines = body.split('\n');
   const picks = imageSlotIndices(lines, imgs.length);
@@ -300,9 +314,12 @@ async function publishFaceImageOnly(id) {
   await store.set('qa-bin/' + id + ver + '.jpg', face, { metadata: { src: 'adcard' } });
   await store.set('qa-bin/' + id + ver + '.sq.jpg', sqBuf, { metadata: { src: 'adcard' } });
   const img = '/assets/qa/' + id + ver + '.jpg';
-  // repoint the answers blob img ONLY — preserve the entire body/answer untouched.
-  let blob = null; try { blob = await store.get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
-  if (blob) { blob.img = img; blob.updated_at = new Date(now).toISOString(); markRecent(blob, now); await store.setJSON('answers/' + id + '.json', blob); }
+  // repoint the answers blob img ONLY — preserve the entire body/answer untouched. Under the per-page lock
+  // so a concurrent body-image write on the same entry can't clobber it (one machine per page at a time).
+  await withEntryLock(id, async () => {
+    let blob = null; try { blob = await store.get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
+    if (blob) { blob.img = img; blob.updated_at = new Date(now).toISOString(); markRecent(blob, now); await store.setJSON('answers/' + id + '.json', blob); }
+  });
   // update the index entry img (create-or-update) so the renderer + homepage tile read the versioned URL.
   try {
     const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] };
@@ -353,10 +370,13 @@ async function publishContentBody(id, body) {
   const imgs = []; for (let i = 1; i <= Math.min(6, bodyN); i++) imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + i });
   const answer = embedImages(t, id, imgs);   // re-embed existing body images; keeps title + face image untouched
   blob.content_prev = blob.answer || ''; blob.answer = answer;
-  blob.polished_at = now; blob.gate_score = 13; blob.quality_score = 10; blob.pending = false; blob.updated_at = new Date(now).toISOString(); blob.gk_verified = true; markRecent(blob, now);
+  // Honest scores (owner 2026-07-26): health LOW-VALUE uses quality_score — must rise with real gate (≥12 leaves the pile).
+  let gate = 13;
+  try { const { gateScore } = require('./content_gate.js'); gate = (gateScore({ body: answer, question }).score) || 13; } catch (e) {}
+  blob.polished_at = now; blob.gate_score = gate; blob.quality_score = gate; blob.pending = false; blob.updated_at = new Date(now).toISOString(); blob.gk_verified = gate >= 12; markRecent(blob, now);
   await store.setJSON('answers/' + id + '.json', blob);
-  try { const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] }; const ex = (idx.entries || []).find(e => e && e.id === id); if (ex) { ex.gate_score = 13; ex.quality_score = 10; ex.polished_at = now; ex.pending = false; markRecent(ex, now); await store.setJSON('_index.json', idx); } } catch (e) {}
-  return { qid: id, url: 'https://pulserevops.com/knowledge/' + id };
+  try { const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] }; const ex = (idx.entries || []).find(e => e && e.id === id); if (ex) { ex.gate_score = gate; ex.quality_score = gate; ex.polished_at = now; ex.pending = false; markRecent(ex, now); await store.setJSON('_index.json', idx); } } catch (e) {}
+  return { qid: id, url: 'https://pulserevops.com/knowledge/' + id, gate };
 }
 
 // publishInternalImages(id, buffers) — INTERNAL CARD tool (owner 2026-07-17): place the BODY/figure images
@@ -370,11 +390,20 @@ async function publishInternalImages(id, buffers) {
   let blob = null; try { blob = await store.get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
   if (!blob) throw new Error('entry not found in blob (' + id + ')');
   const question = blob.question || blob.h1 || '';
+  // MIRROR-BLOCK: drop near-identical images (same photoshoot / different frame) via an 8x8 average-hash,
+  // so no visual doubles ever land on a page — even when the byte contents differ.
+  let sharpL = null; try { sharpL = require('sharp'); } catch (e) {}
+  async function aHash(buf) { if (!sharpL) return null; try { const px = await sharpL(buf).resize(8, 8, { fit: 'fill' }).grayscale().raw().toBuffer(); let sum = 0; for (const v of px) sum += v; const avg = sum / px.length; let h = 0n; for (let i = 0; i < px.length; i++) h = (h << 1n) | (px[i] >= avg ? 1n : 0n); return h; } catch (e) { return null; } }
+  const ham = (a, b) => { if (a == null || b == null) return 64; let x = a ^ b, c = 0; while (x) { c += Number(x & 1n); x >>= 1n; } return c; };
+  const accepted = []; const hashes = [];
+  for (const buf of buffers) { if (accepted.length >= 10) break; const h = await aHash(buf); if (h != null && hashes.some(hh => ham(h, hh) <= 6)) continue; hashes.push(h); accepted.push(buf); }
   const imgs = [];
-  for (let i = 0; i < buffers.length && i < 6; i++) {
-    await store.set('qa-bin/' + id + '-b' + (i + 1) + '.jpg', buffers[i], { metadata: { src: 'internal' } });
+  for (let i = 0; i < accepted.length; i++) {
+    await store.set('qa-bin/' + id + '-b' + (i + 1) + '.jpg', accepted[i], { metadata: { src: 'internal' } });
     imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + (i + 1) });
+    if (i < accepted.length - 1) await new Promise(r => setTimeout(r, 800));   // small spacing between blob writes; doubles are prevented by the mirror-block above, not by waiting
   }
+  for (let i = accepted.length + 1; i <= 10; i++) { try { await store.delete('qa-bin/' + id + '-b' + i + '.jpg'); } catch (e) {} }   // clear stale slots → no leftover dupes
   const answer = embedImages(blob.answer || '', id, imgs);   // embedImages strips old body-image lines then re-inserts
   blob.answer = answer; blob.bb_images = true; blob.updated_at = new Date(now).toISOString(); markRecent(blob, now);
   await store.setJSON('answers/' + id + '.json', blob);
@@ -382,4 +411,139 @@ async function publishInternalImages(id, buffers) {
   return { qid: id, url: 'https://pulserevops.com/knowledge/' + id, count: imgs.length };
 }
 
-module.exports = { publishLive, embedImages, nextQid, previewHtml, imageSlotIndices, proveLive, publishContentOnly, publishFaceOnly, publishFaceImageOnly, publishDressingOnly, publishContentBody, publishInternalImages };
+// ── KEEP-THE-BEST GUARDED BODY PUBLISH (owner 2026-07-22, post-tl21741) ──────────────────────────
+// publishContentBodyIfBetter(id, body) — the ONLY body publisher a fix QUEUE is allowed to call.
+// Root cause of the tl21741 damage: publishContentBody publishes every attempt directly, so a worse
+// escalated rewrite permanently replaces good content, AND it overwrites .content_prev each call, so
+// attempt 2 destroys the only backup of the pre-damage body. This guard fixes both:
+//   1. SNAPSHOT-ONCE: the FIRST time this fixer ever touches an entry, the live body + its real score
+//      are saved to .content_prev0 — and NEVER overwritten after that. Revert is always possible.
+//   2. KEEP-THE-BEST: the candidate is scored against the LIVE body (images stripped, same gate).
+//      It publishes ONLY if candidate >= 12/13 AND golden shape AND strictly better than live
+//      (score + shape bonus). Worse-or-equal → { published:false }, live page untouched.
+//   3. HONEST STAMP: writes the candidate's REAL gate score, never a hard-coded 13.
+// opts (all optional): { createIfMissing, question, tags } — createIfMissing is the NEW PIPELINE Q&A
+// lane (owner 2026-07-22): a seed with no answers/ blob yet may be CREATED here, but ONLY with a
+// candidate that already clears >= 12/13 + golden shape (same gate as everything else). question is
+// required to create; tags default to the standard set (pass pillar tags so it lands in its pillar).
+async function publishContentBodyIfBetter(id, body, opts) {
+  opts = opts || {};
+  const { gateScore } = require('./content_gate.js');
+  let goldShapeOK = null; try { goldShapeOK = require('./improve_content.js').goldShapeOK; } catch (e) {}
+  const store = theStore();
+  const t = String(body || '');
+  if (t.trim().length < 500) throw new Error('rebuilt body too short');
+  const now = Date.now();
+  // 🔁 READ RETRY + MISS/ERROR SPLIT (owner 2026-07-22). A single un-retried read threw away a verified 13/13
+  // rebuild on tl21741: a transient blip returned nothing, the catch swallowed it, and it was reported as
+  // "entry not found". Every other reader here retries 5x, and this is the most consequential read we make —
+  // it guards a full ladder run worth ~20 minutes of writer time.
+  // Critically we now separate a READ ERROR from a CONFIRMED MISS. createIfMissing must NEVER fire on a blip:
+  // doing so would write a fresh blob over a live entry and destroy both the real body AND its content_prev0
+  // snapshot — precisely the data loss that guard exists to prevent.
+  let blob = null, readErr = null;
+  for (let a = 0; a < 5; a++) {
+    try {
+      blob = await store.get('answers/' + id + '.json', { type: 'json', consistency: 'strong' });
+      readErr = null;                    // a clean call: null here means genuinely absent
+      if (blob) break;
+    } catch (e) { readErr = e; }         // threw → transient/transport problem, NOT proof of absence
+    if (a < 4) await new Promise(r => setTimeout(r, 400 * (a + 1)));
+  }
+  if (!blob && readErr) {
+    throw new Error('blob read FAILED for ' + id + ' after 5 attempts (' +
+      String((readErr && readErr.message) || readErr).slice(0, 120) +
+      ') — refusing to treat a read error as a missing entry');
+  }
+  if (!blob && !opts.createIfMissing) throw new Error('entry not found in blob (' + id + ')');
+  if (!blob) {
+    // NEW-ENTRY CREATE (pipeline seeds): nothing live to protect, so keep-the-best is trivially met —
+    // but the candidate still faces the full >= 12 + shape gate below before anything is written.
+    const q = String(opts.question || '').trim();
+    if (q.length < 8) throw new Error('createIfMissing needs a question (>= 8 chars)');
+    const candG0 = gateScore({ body: t, question: q });
+    const cand0 = candG0.score || 0;
+    if (cand0 < 12 || (goldShapeOK && !goldShapeOK(t))) {
+      return { qid: id, published: false, reason: 'new-entry candidate under gate (' + cand0 + '/13' + ((goldShapeOK && !goldShapeOK(t)) ? ', shape fail' : '') + ')', live: 0, cand: cand0 };
+    }
+    const tags = (Array.isArray(opts.tags) && opts.tags.length) ? opts.tags.slice() : ['revops', 'revops-500', slugify(q), 'pulse-recent'];
+    if (tags.indexOf('pulse-recent') < 0) tags.push('pulse-recent');
+    const nb = { id, question: q, answer: t, tags, sources: [], ts: now, model: 'claude-opus-4-8', polished_at: now,
+      quality_score: cand0 >= 13 ? 10 : 9, gate_score: cand0, was_indexed_at: now, format_v: '2026-07', pending: false,
+      img: '/assets/qa/' + id + '.jpg', cover_src: 'flux', h1: q, updated_at: new Date(now).toISOString(),
+      gold_format: true, gk_verified: cand0 >= 13, built_by: 'lowvalue-guard' };
+    await store.setJSON('answers/' + id + '.json', nb);
+    try {
+      const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] };
+      idx.entries = (idx.entries || []).filter(e => e && e.id !== id);
+      idx.entries.unshift({ id, question: q, tags, quality_score: nb.quality_score, gate_score: cand0, format_v: '2026-07', pending: false, ts: now, polished_at: now, img: nb.img, was_indexed_at: now, title: q });
+      await store.setJSON('_index.json', idx);
+    } catch (e) {}
+    return { qid: id, published: true, created: true, url: 'https://pulserevops.com/knowledge/' + id, live: 0, cand: cand0 };
+  }
+  const question = blob.question || blob.h1 || '';
+  const stripImgLines = s => String(s || '').split('\n').filter(l => !/^!\[[^\]]*\]\([^)]*\)$/.test(l.trim())).join('\n');
+  const liveBody = stripImgLines(blob.answer || '');
+  const liveG = gateScore({ body: liveBody, question });
+  const candG = gateScore({ body: t, question });
+  const shapeBonus = b => (goldShapeOK && goldShapeOK(b)) ? 0.5 : 0;
+  const liveRank = (liveG.score || 0) + shapeBonus(liveBody);
+  const candRank = (candG.score || 0) + shapeBonus(t);
+  const candScore = candG.score || 0;
+  // BELOW-GATE IMPROVEMENT (owner 2026-07-22): the ladder still FIGHTS for 12 — every rung, the plateau escalation
+  // and the drift latch are spent before we ever reach here. But when it tops out at, say, 11 on a page that is LIVE
+  // at 8, discarding that work leaves the WORSE body public. So an EXISTING entry now publishes on strict improvement
+  // alone, and the keep-the-best rank check immediately below is the real guard.
+  // NEW entries (createIfMissing, above) still require >=12 + golden shape — we never CREATE sub-gate content; we
+  // only ever IMPROVE what is already published. Stamps stay honest: gate_score = the real score, quality_score 9,
+  // gk_verified false under 13 — a published 11 is never dressed up as a 13.
+  if (candRank <= liveRank) {   // KEEP-THE-BEST: never replace a live body with a worse-or-equal one
+    return { qid: id, published: false, reason: 'live body already as good or better (live ' + (liveG.score || 0) + ' vs cand ' + candScore + ')', live: liveG.score || 0, cand: candScore };
+  }
+  // SNAPSHOT-ONCE — first touch only; later attempts must NEVER clobber the original backup
+  if (!blob.content_prev0) blob.content_prev0 = { body: blob.answer || '', gate: liveG.score || 0, savedAt: new Date(now).toISOString() };
+  let bodyN = 0; try { const lst = await store.list({ prefix: 'qa-bin/' + id + '-b' }); bodyN = (lst.blobs || []).filter(x => /-b\d\.jpg$/i.test(x.key)).length; } catch (e) {}
+  const imgs = []; for (let i = 1; i <= Math.min(6, bodyN); i++) imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + i });
+  const answer = embedImages(t, id, imgs);
+  blob.content_prev = blob.answer || ''; blob.answer = answer;
+  blob.polished_at = now; blob.gate_score = candScore; blob.quality_score = candScore >= 13 ? 10 : 9; blob.pending = false; blob.updated_at = new Date(now).toISOString(); blob.gk_verified = candScore >= 13; markRecent(blob, now);
+  await store.setJSON('answers/' + id + '.json', blob);
+  try { const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] }; const ex = (idx.entries || []).find(e => e && e.id === id); if (ex) { ex.gate_score = candScore; ex.quality_score = blob.quality_score; ex.polished_at = now; ex.pending = false; markRecent(ex, now); await store.setJSON('_index.json', idx); } } catch (e) {}
+  return { qid: id, published: true, url: 'https://pulserevops.com/knowledge/' + id, live: liveG.score || 0, cand: candScore, snapshot: 'content_prev0' };
+}
+
+// ── TURN-SLOT body image writer (owner 2026-07-21) — multi-pass Last Leg ──────────────────────────
+// Writes ONE body image to slot `turn` (qa-bin/<id>-b<turn>.jpg), stamped { turn }. It NEVER writes or
+// deletes any other slot, so images from earlier turns are untouchable (turn N owns slot N only). Then
+// it re-embeds refs for all filled slots 1..turn into the body (embedImages needs the count, and turns
+// are sequential 1,2,3… so slots have no gaps). Unlike publishInternalImages this does NOT overwrite or
+// clear the whole set — that is exactly what lets "fill 1 square, come back next turn" accumulate to 6.
+async function publishBodySlot(id, buffer, turn) {
+ return withEntryLock(id, async () => {   // one machine per page at a time
+  const store = theStore();
+  if (!buffer || !buffer.length) throw new Error('no image');
+  turn = Math.max(1, Math.min(6, parseInt(turn, 10) || 1));
+  const now = Date.now();
+  let blob = null; try { blob = await store.get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
+  if (!blob) throw new Error('entry not found in blob (' + id + ')');
+  const question = blob.question || blob.h1 || '';
+  // write ONLY this slot, stamped — prior/other slots are never touched
+  await store.set('qa-bin/' + id + '-b' + turn + '.jpg', buffer, { metadata: { src: 'internal', turn } });
+  // SLOT-ACCURATE re-embed: scan which slots ACTUALLY exist (1-6) and reference them by their real number,
+  // so slot machines can fill out of order / in parallel (b1,b3,b5) without dangling refs. Never sequential-assumes.
+  const present = [];
+  for (let i = 1; i <= 6; i++) { if (i === turn) { present.push(i); continue; } let ex = false; try { const b = await store.get('qa-bin/' + id + '-b' + i + '.jpg', { type: 'arrayBuffer' }); ex = !!(b && b.byteLength > 500); } catch (e) {} if (ex) present.push(i); }
+  let stripped = String(blob.answer || '').split('\n').filter(l => !/^!\[[^\]]*\]\([^)]*\)$/.test(l.trim())).join('\n');
+  const lines = stripped.split('\n');
+  const picks = imageSlotIndices(lines, present.length);
+  const ins = present.map((slot, i) => ({ at: picks[i], md: '\n![' + question.replace(/\?+$/, '') + ' — figure ' + (i + 1) + '](/assets/qa/' + id + '-b' + slot + '.jpg)\n' })).filter(x => x.at != null).sort((a, b) => b.at - a.at);
+  for (const x of ins) lines.splice(x.at + 1, 0, x.md);
+  blob.answer = lines.join('\n');
+  blob.bb_images = true; blob.updated_at = new Date(now).toISOString(); markRecent(blob, now);
+  await store.setJSON('answers/' + id + '.json', blob);
+  try { const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] }; const ex = (idx.entries || []).find(e => e && e.id === id); if (ex) { ex.polished_at = now; markRecent(ex, now); await store.setJSON('_index.json', idx); } } catch (e) {}
+  return { qid: id, url: 'https://pulserevops.com/knowledge/' + id, turn, count: turn };
+ });
+}
+
+module.exports = { publishLive, embedImages, nextQid, previewHtml, imageSlotIndices, proveLive, publishContentOnly, publishFaceOnly, publishFaceImageOnly, publishDressingOnly, publishContentBody, publishContentBodyIfBetter, publishInternalImages, publishBodySlot };

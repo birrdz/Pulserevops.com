@@ -1,3 +1,35 @@
+# ▶ CROSSOVER — 2026-07-26 — CREW GATE-12 / CC TAKEOVER — READ FIRST
+
+**Canonical crew handoff:** [`CC_CREW_HANDOFF.md`](CC_CREW_HANDOFF.md) (full detail). This block = short baton.
+
+## Owner plan NOW
+- **2 crews · DeepSeek · 📉 Less than 12/13 · roam** (image lock makes 4 mostly wait)
+- Grind ~33.5k low-value to ≥12 via **surgicalGateFix** (mermaid×2 / FAQ / sources / related / DA) → early exit at 12 — most 11s need **$0 writer**
+- Cursor **Ultra $200** = chat/Composer. Crew **Cursor Agent** needs `CURSOR_API_KEY` in `.env.local` (placeholder added)
+- **Claude Code benched until Tue 2026-07-28** — `new/_claude_bench.js` auto-unbenches (`CLAUDE_OK=1` override)
+- Facts / live image DOM proof / IndexNow = **later**
+- Prefer **crew-only** — don't relaunch drips/boosters/picture-machines unless asked
+
+## Code that must stay
+| File | What |
+|------|------|
+| `new/improve_content.js` | `surgicalGateFix` + `rebuildToGate` TARGET≥12, engine-agnostic |
+| `new/content_gate.js` | mechanical gate (NOT fact-check) |
+| `new/publish_core.js` | `publishContentBody` stamps **real** gate → `gate_score` + `quality_score` (LOW-VALUE can decline) |
+| `_page_finisher.js` | Whole Crew; win=hit12+ / loss=miss; emails show `12/13`; miss email; mermaid×2 |
+| `_hub.js` | defaults Less than 12/13 + DeepSeek; live W/L on crewmsg; prefer gate_score in health |
+| `new/_claude_bench.js` | CC unbench date |
+| `new/_cursor_run_once.js` | Cursor SDK writer helper |
+| `new/_smoke_surgical_gate.js` | smoke test |
+
+## Hub
+http://localhost:7950/ · passcode `4444` · Force Stop then Send Crew after code pulls
+
+## Do not
+- Bulk face/tops · Pollinations · deploy prod without owner · weaken visual lock without `4444`
+
+---
+
 ﻿# â–¶ HANDOFF â€” for the next Claude Code session (saved 2026-06-26)
 
 ## 📌 CROSSOVER — 2026-07-12 — PULSE / KORY HANDOFF — READ FIRST
