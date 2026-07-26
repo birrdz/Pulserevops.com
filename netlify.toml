@@ -103,6 +103,13 @@
 [functions."pulse-deep-queue-tick-background"]
   schedule = "*/10 * * * *"
 
+# White/defunct cover purge — every 15 min, newest→oldest, ~500/batch.
+# Clears white/404 covers from index + answer blob (purged body = new original
+# so visual-lock/preserveImages cannot revive them). Emails each fixed URL.
+# External tickers may also POST with {key, batch:500}.
+[functions."pulse-white-image-audit-background"]
+  schedule = "*/15 * * * *"
+
 # [functions."pulse-machine-research-background"]
 #   schedule = "*/30 * * * *"
 # [functions."pulse-machine-publish-prep-background"]
