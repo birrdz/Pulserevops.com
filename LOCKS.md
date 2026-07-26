@@ -5,7 +5,10 @@
 **Find one → run all steps → find next.** No timetable. No cooldown.  
 White/mangled **strip**: `scripts/white-image-purge-local.js` (no Cursor rewrite).  
 Drip prefers fact-check/content first (`DRIP_DEFER_IMAGE_PURGE=1`); still runs step 1/4 if a claimed URL still has bad images.  
-**Pillar lock:** both drips = **`tl` only** (CRO Pulse Tools / postal). `DRIP_PILLAR=tl` · `WHITE_PURGE_PILLAR=tl`.
+**Pillar order:** both drips = **all pillars, smallest → largest** (`DRIP_ORDER=smallest`). Optional lock via `DRIP_PILLAR` / `WHITE_PURGE_PILLAR`.  
+White purge must **replace** white/404 covers (never leave a blank/404 face → white page).  
+**Live verify before claiming fixed:** after purge, probe the hero URL live; if still 404/white, do **not** email “fixed” / mark done — pin a live `/assets/cro-cover-N.jpg` fallback and clear `face_title_baked`.  
+`ensureAlternateFaceCover` → `stampCoverProvenance` can re-point index at `/assets/qa/{id}.jpg` before CDN deploy; purge must force-repatch index after. QA asset deploys are lock-serialized (`/tmp/pulse-qa-deploy.lock`).
 
 | Step | What |
 |------|------|

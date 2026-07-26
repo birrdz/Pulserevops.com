@@ -1,5 +1,14 @@
 # LESSONS
 
+## 2026-07-26 — White purge “fixed” emails while pages still white
+
+Root causes:
+1. `stampCoverProvenance` wrote `img=/assets/qa/{id}.jpg` + `face_title_baked` **before** the file was on CDN.
+2. Concurrent Netlify digest deploys (drip + purge) — last restore drops the other’s new files → 404 again.
+3. Digest emailed on strip/attempt, not on **live** cover OK.
+
+Fix: live-verify hero before digest; cro-cover fallback + clear `face_title_baked`; `forceIndexCover` after save; deploy lock in `deploy-qa-assets.js`.
+
 ## 2026-07-26 — Drip images must land on CDN
 
 Bug: drip “fixed” pages by rewriting `/assets/qa/<id>-N.jpg` into the blob, but

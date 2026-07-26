@@ -17,6 +17,14 @@ const SYNONYM_MAP = {
   quota: ['business', 'meeting', 'handshake', 'office', 'chart'],
   training: ['presentation', 'whiteboard', 'meeting', 'classroom'],
   coaching: ['presentation', 'whiteboard', 'meeting', 'classroom'],
+  // Hotel / franchise brands — never accept spa/massage "comfort"
+  hotel: ['hotel', 'motel', 'inn', 'resort', 'hospitality', 'lobby', 'building', 'exterior'],
+  motel: ['hotel', 'motel', 'inn', 'hospitality', 'building'],
+  inn: ['hotel', 'motel', 'inn', 'hospitality', 'building', 'exterior'],
+  franchise: ['hotel', 'business', 'storefront', 'building', 'sign'],
+  hospitality: ['hotel', 'motel', 'inn', 'lobby'],
+  cro: ['business', 'meeting', 'office', 'handshake', 'executive'],
+  fractional: ['business', 'meeting', 'office', 'executive'],
 };
 
 // Modifiers/adjectives that are never "core" nouns — stripped when isolating core terms.
@@ -24,7 +32,17 @@ const MODIFIERS = new Set([
   'best', 'top', 'good', 'great', 'cheap', 'affordable', 'premium', 'pro', 'mini', 'max', 'plus', 'ultra',
   'wireless', 'wired', 'portable', 'noise', 'cancelling', 'canceling', 'smart', 'new', 'small', 'large',
   'for', 'and', 'the', 'with', 'in', 'on', 'of', 'to', 'a', 'an', 'your', 'my',
+  // Ambiguous adjectives that alone pull spa/lifestyle junk
+  'comfort', 'comfortable', 'luxury', 'quality', 'value', 'easy', 'simple', 'modern', 'classic',
+  'buy', 'own', 'much', 'find',
 ]);
+
+// Off-topic reject: spa "comfort" on hotel pages; tribal "chief" on CRO pages
+const HOTEL_CORE = new Set(['hotel', 'motel', 'inn', 'hospitality', 'franchise']);
+const SPA_NOISE = /\b(massage|spa|aromatherapy|facial|manicure|wellness.?center|hot.?stone|essential.?oil)\b/i;
+const CRO_CORE = new Set(['cro', 'revenue', 'officer', 'fractional', 'executive', 'sales', 'pipeline']);
+const TRIBAL_CHIEF_NOISE =
+  /\b(native american|american indian|tribal|tribe|headdress|war chief|indigenous chief|plains indian|pow.?wow)\b/i;
 
 /** CORE TERMS: the 1–3 most specific nouns in the derived query (head nouns preferred). */
 function extractCoreTerms(query) {
@@ -68,7 +86,19 @@ function textMatchesCore(text, acceptSet) {
 function gatePexels(coreTerms, totalResults, photos) {
   if (!(totalResults >= 3)) return { pass: false, reason: 'thin_results:' + totalResults };
   const accept = acceptTermsFor(coreTerms);
-  const passers = (photos || []).filter((p) => p && textMatchesCore(p.alt, accept));
+  const hotelish = (coreTerms || []).some((t) => HOTEL_CORE.has(String(t).toLowerCase()));
+  const croish = (coreTerms || []).some((t) => CRO_CORE.has(String(t).toLowerCase()));
+  const passers = (photos || []).filter((p) => {
+    if (!p || !textMatchesCore(p.alt, accept)) return false;
+    const alt = p.alt || '';
+    if (hotelish && SPA_NOISE.test(alt)) return false;
+    if (croish && TRIBAL_CHIEF_NOISE.test(alt)) return false;
+    // Bare "chief" in alt with no business framing → reject for CRO pages
+    if (croish && /\bchief\b/i.test(alt) && !/\b(revenue|executive|officer|sales|business|ceo|cfo)\b/i.test(alt)) {
+      return false;
+    }
+    return true;
+  });
   return passers.length ? { pass: true, passers } : { pass: false, reason: 'no_alt_match' };
 }
 

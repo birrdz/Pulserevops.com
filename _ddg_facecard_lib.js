@@ -478,6 +478,9 @@ async function stampCoverProvenance(id, store, src, opts) {
   opts = opts || {};
   if (!VALID_FACE_COVER_SRC.has(src)) return;
   try {
+    // Do not point the index at /assets/qa/{id}.jpg unless the local file exists —
+    // otherwise purge/drip can claim a face while CDN still 404s (white page).
+    if (!coverFileOk(id)) return;
     const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
     const ent = (idx.entries || []).find(x => x && x.id === id);
     if (ent) {

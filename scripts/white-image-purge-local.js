@@ -1,19 +1,27 @@
 #!/usr/bin/env node
 // WHITE / MANGLED / DEFUNCT image purge — local full-inventory service.
-// Strips bad slots from answer blobs (visual-lock safe). No Cursor rewrite.
-// Digests emails (not per-URL). Skips the URL the Cursor drip is mid-fixing.
+// Strips bad slots + REPLACES broken/white covers (never leave 404 → white page).
+// Inventory: smallest pillars first. Digests every 10. Skips drip-busy URL.
 //
 // Env:
-//   WHITE_PURGE_BATCH=80          pages per tick
-//   WHITE_PURGE_IDLE_MS=3000      pause when caught up / between ticks
-//   WHITE_PURGE_EMAIL_EVERY=10    digest every N purged pages (default 10)
-//   WHITE_PURGE_ONCE=1            one tick then exit
-//
-// State blob: _white_image_purge_local_state.json
+//   WHITE_PURGE_BATCH=80
+//   WHITE_PURGE_IDLE_MS=3000
+//   WHITE_PURGE_EMAIL_EVERY=10
+//   WHITE_PURGE_PILLAR=          (optional lock; default = all pillars)
+//   WHITE_PURGE_ONCE=1
 
 const fs = require('fs');
 const path = require('path');
 const { getStore } = require('@netlify/blobs');
+const { sortSmallestPillarFirst, pillarOrderSummary } = require('./lib/pillar-inventory-order');
+const { deployQaAssetFiles } = require('./lib/deploy-qa-assets');
+let ensureAlternateFaceCover;
+try {
+  ({ ensureAlternateFaceCover } = require('../_ddg_facecard_lib'));
+} catch (e) {
+  console.error(JSON.stringify({ fatal: 'ddg_facecard: ' + e.message }));
+  process.exit(1);
+}
 
 function loadEnv(p) {
   try {
@@ -25,6 +33,9 @@ function loadEnv(p) {
 }
 loadEnv('/tmp/pulse-runtime.env');
 loadEnv(path.join(process.cwd(), '.env.local'));
+if (!process.env.NETLIFY_AUTH_TOKEN && process.env.BLOBS_PAT) {
+  process.env.NETLIFY_AUTH_TOKEN = process.env.BLOBS_PAT;
+}
 
 const SITE_ID = process.env.NETLIFY_SITE_ID || 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
 const KEY = 'pulsemachine-writer-2026';
@@ -45,11 +56,14 @@ function idInPillar(id) {
   const s = String(id || '').toLowerCase();
   return PILLAR_PREFIXES.some((p) => s.startsWith(p));
 }
-const pillarKey = PILLAR_PREFIXES.join(',') || 'all';
+const ORDER_MODE = String(process.env.WHITE_PURGE_ORDER || 'smallest').toLowerCase(); // smallest | newest
+const pillarKey = (PILLAR_PREFIXES.join(',') || 'all') + ':' + ORDER_MODE;
 const STATE_KEY =
-  pillarKey === 'all'
-    ? '_white_image_purge_local_state.json'
-    : '_white_image_purge_local_state_' + pillarKey + '.json';
+  PILLAR_PREFIXES.length
+    ? '_white_image_purge_local_state_' + PILLAR_PREFIXES.join('-') + '_' + ORDER_MODE + '.json'
+    : '_white_image_purge_local_state_' + ORDER_MODE + '.json';
+const ASSET_DIR = path.join(process.cwd(), 'assets', 'qa');
+fs.mkdirSync(ASSET_DIR, { recursive: true });
 
 const MANGLED_RX =
   /(?:%2C%20|,)\s*realistic\s+magazine\s+style|nologo=true|model=flux|image\.pollinations\.ai|no%20watermark\?width=|prompt\/[^)\s]*no%20text/i;
@@ -191,7 +205,13 @@ async function classifyImage(url) {
       }
       mean = sum / n;
       whitePct = w / n;
-      white = (mean >= 235 && whitePct >= 0.85) || whitePct >= 0.92 || (mean >= 225 && whitePct >= 0.8);
+      // Broader blank catch — near-white / washed pages still read as white on site
+      white =
+        (mean >= 235 && whitePct >= 0.85) ||
+        whitePct >= 0.9 ||
+        (mean >= 225 && whitePct >= 0.75) ||
+        (mean >= 210 && whitePct >= 0.7) ||
+        (mean >= 245 && buf.length < 25000);
     } catch (e) {
       const ff = buf.filter((b) => b >= 0xf0).length / buf.length;
       if (buf.length < 8000 && ff > 0.55) white = true;
@@ -238,14 +258,145 @@ function stripBadFromBody(body, badUrls) {
   return out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
-async function savePurged(s, idx, entryRow, blob, badUrls, reason, coverBad) {
-  const id = entryRow.id;
+function croCoverFallback(id) {
+  let h = 0;
+  const s = String(id || '');
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return '/assets/cro-cover-' + ((h % 10) + 1) + '.jpg';
+}
+
+async function liveCoverOk(url) {
+  if (!url) return false;
+  if (/\/assets\/cro-cover-\d+\.jpg/i.test(url)) {
+    const abs = absUrl(url);
+    try {
+      const r = await fetch(abs, {
+        method: 'HEAD',
+        redirect: 'follow',
+        signal: AbortSignal.timeout(10000),
+      });
+      return r.ok;
+    } catch (e) {
+      return false;
+    }
+  }
+  const bust = String(url).includes('?') ? url : url + '?purgev=' + Date.now();
+  const cls = await classifyImage(bust);
+  return cls.kind === 'ok';
+}
+
+/**
+ * Re-read index (strong) and force cover fields — beats stampCoverProvenance races
+ * that re-point img at a not-yet-deployed /assets/qa/{id}.jpg (white page).
+ */
+async function forceIndexCover(s, id, coverUrl, coverSrc, meta) {
+  meta = meta || {};
+  const canonId = String(id).toLowerCase();
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const idx = await s.get('_index.json', { type: 'json', consistency: 'strong' });
+    if (!idx || !Array.isArray(idx.entries)) return null;
+    const i = idx.entries.findIndex((e) => e && String(e.id).toLowerCase() === canonId);
+    if (i < 0) return null;
+    const ent = Object.assign({}, idx.entries[i]);
+    if (coverUrl) {
+      ent.img = coverUrl;
+      ent.cover_src = coverSrc || ent.cover_src || 'white-purge-replace';
+    } else {
+      delete ent.img;
+      delete ent.cover_src;
+    }
+    ent.face_title_baked = false;
+    if (meta.face_purged_at) ent.face_purged_at = meta.face_purged_at;
+    if (meta.face_purge_reason) ent.face_purge_reason = meta.face_purge_reason;
+    if (meta.white_purge_local_at) ent.white_purge_local_at = meta.white_purge_local_at;
+    if (meta.purged_image_urls) ent.purged_image_urls = meta.purged_image_urls;
+    idx.entries[i] = ent;
+    await s.setJSON('_index.json', idx);
+    // verify read-back
+    const again = await s.get('_index.json', { type: 'json', consistency: 'strong' });
+    const check = (again.entries || []).find((e) => e && String(e.id).toLowerCase() === canonId);
+    const got = check && check.img ? normUrl(check.img) : '';
+    const want = coverUrl ? normUrl(coverUrl) : '';
+    if (got === want && check && check.face_title_baked !== true) return again;
+    await new Promise((r) => setTimeout(r, 400));
+  }
+  return null;
+}
+
+async function deployLocalCanon(id, local) {
+  let dep = null;
+  try {
+    dep = await deployQaAssetFiles([local], { title: 'white-purge cover · ' + id });
+  } catch (e) {
+    console.log(JSON.stringify({ phase: 'cover-deploy-err', id, err: String(e.message || e).slice(0, 100) }));
+    return null;
+  }
+  if (!dep || dep.ok === false) {
+    console.log(JSON.stringify({ phase: 'cover-deploy-fail', id, err: dep && dep.error }));
+    return null;
+  }
+  const canon = '/assets/qa/' + id + '.jpg';
+  if (!(await liveCoverOk(canon))) {
+    console.log(JSON.stringify({ phase: 'cover-replace-still-bad', id, kind: 'live-fail' }));
+    return null;
+  }
+  return canon;
+}
+
+/** Production face cards always request /assets/qa/{id}.jpg — cro-cover index alone is not enough. */
+async function copyCroCoverToCanon(id) {
+  const fbRel = croCoverFallback(id);
+  const src = path.join(process.cwd(), fbRel.replace(/^\//, ''));
+  const local = path.join(ASSET_DIR, id + '.jpg');
+  if (!fs.existsSync(src) || fs.statSync(src).size < 8000) return null;
+  fs.copyFileSync(src, local);
+  return deployLocalCanon(id, local);
+}
+
+async function replaceCover(s, id, question) {
+  const local = path.join(ASSET_DIR, id + '.jpg');
+  try {
+    if (fs.existsSync(local)) fs.unlinkSync(local);
+  } catch (e) {}
+  const q = String(question || id).slice(0, 160);
+  let ok = false;
+  try {
+    ok = !!(await ensureAlternateFaceCover(id, q, s, null, {
+      qaUpgradeAlternate: true,
+      forceNew: true,
+      alternateSources: true,
+    }));
+  } catch (e) {
+    console.log(JSON.stringify({ phase: 'cover-replace-err', id, err: String(e.message || e).slice(0, 120) }));
+  }
+  if (ok && fs.existsSync(local) && fs.statSync(local).size >= 8000) {
+    const canon = await deployLocalCanon(id, local);
+    if (canon) return canon;
+  } else {
+    console.log(JSON.stringify({ phase: 'cover-replace-miss-local', id, ok: !!ok }));
+  }
+  // Fallback: host cro-cover BYTES at the canonical face path (what live HTML actually loads)
+  const fb = await copyCroCoverToCanon(id);
+  if (fb) {
+    console.log(JSON.stringify({ phase: 'cover-fallback-canon', id, from: croCoverFallback(id) }));
+    return fb;
+  }
+  return null;
+}
+
+async function savePurged(s, idx, entryRow, blob, badUrls, reason, coverBad, newCover) {
+  const id = String(entryRow.id).toLowerCase();
   const purgedList = Array.isArray(entryRow.purged_image_urls) ? entryRow.purged_image_urls.slice() : [];
   for (const u of badUrls) {
     const n = normUrl(u);
     if (n && !purgedList.includes(n)) purgedList.push(n);
   }
   const ts = new Date().toISOString();
+  const coverSrc = newCover
+    ? /\/assets\/cro-cover-\d+\.jpg/i.test(newCover)
+      ? 'white-purge-fallback'
+      : 'white-purge-replace'
+    : null;
   if (blob) {
     const prevBanned = Array.isArray(blob.purged_image_urls) ? blob.purged_image_urls : [];
     const banned = [...new Set(prevBanned.concat(purgedList))];
@@ -257,28 +408,46 @@ async function savePurged(s, idx, entryRow, blob, badUrls, reason, coverBad) {
       white_purge_local_at: ts,
       updated_at: ts,
     });
-    if (coverBad) {
-      next.cover_src = null;
+    if (coverBad || newCover) {
+      next.cover_src = coverSrc;
       next.face_title_baked = false;
-      if (next.img && banned.some((b) => next.img.includes(normUrl(b)) || normUrl(b).includes(normUrl(next.img)))) {
-        delete next.img;
-      }
+      // Always set a working cover URL — never leave 404 /assets/qa/{id}.jpg
+      delete next.img;
+      if (newCover) next.img = newCover;
     }
     await s.setJSON('answers/' + id + '.json', next);
   }
-  const i = (idx.entries || []).findIndex((e) => e && e.id === id);
+  const i = (idx.entries || []).findIndex((e) => e && String(e.id).toLowerCase() === id);
   if (i >= 0) {
     const ent = Object.assign({}, idx.entries[i]);
-    if (coverBad) {
+    if (coverBad || newCover) {
       delete ent.img;
       delete ent.cover_src;
-      delete ent.face_title_baked;
+      ent.face_title_baked = false;
+      if (newCover) {
+        ent.img = newCover;
+        ent.cover_src = coverSrc;
+      }
     }
     ent.face_purged_at = ts;
     ent.face_purge_reason = reason;
     ent.purged_image_urls = purgedList;
     ent.white_purge_local_at = ts;
     idx.entries[i] = ent;
+  }
+  // Strong re-patch — facecard stampCoverProvenance often re-writes broken canon mid-flight
+  if (coverBad || newCover) {
+    const patched = await forceIndexCover(s, id, newCover || null, coverSrc, {
+      face_purged_at: ts,
+      face_purge_reason: reason,
+      white_purge_local_at: ts,
+      purged_image_urls: purgedList,
+    });
+    if (patched && Array.isArray(idx.entries)) {
+      const pi = patched.entries.findIndex((e) => e && String(e.id).toLowerCase() === id);
+      const mi = idx.entries.findIndex((e) => e && String(e.id).toLowerCase() === id);
+      if (pi >= 0 && mi >= 0) idx.entries[mi] = patched.entries[pi];
+    }
   }
   return knowledgeUrl(id);
 }
@@ -308,7 +477,7 @@ async function flushDigest(reason, itemsOpt) {
     EMAIL_EVERY +
     '</b> purged pages (' +
     esc(reason) +
-    '). Strip-only; Cursor drip still replaces leftovers.</p><ol>' +
+    '). Strips bad slots; replaces white/404 covers so pages are not left blank.</p><ol>' +
     items
       .map(
         (x) =>
@@ -320,7 +489,9 @@ async function flushDigest(reason, itemsOpt) {
           esc(x.reason) +
           ' · ' +
           (x.bad || 0) +
-          ' slot(s)</li>'
+          ' slot(s)' +
+          (x.cover ? ' · cover ' + esc(x.cover) : '') +
+          '</li>'
       )
       .join('') +
     '</ol>';
@@ -350,11 +521,15 @@ async function processOne(s, idx, row) {
     return { id, action: 'missing' };
   }
   const cover = (row && (row.img || row.cover)) || (blob && blob.img) || '';
+  const canon = '/assets/qa/' + id + '.jpg';
   const bodyUrls = blob && blob.answer ? extractMdImageUrls(blob.answer) : [];
-  const candidates = [...new Set([cover, ...bodyUrls].filter(Boolean))].slice(0, 40);
+  // Always probe cover + canonical face (versioned covers can hide a 404 canon)
+  const candidates = [...new Set([cover, canon, ...bodyUrls].filter(Boolean))].slice(0, 40);
   const bad = [];
   const reasons = [];
   let coverBad = false;
+
+  const coverLive = cover ? await liveCoverOk(cover) : false;
 
   for (const u of candidates) {
     if (/\/assets\/cro-cover-\d+\.jpg/i.test(u)) continue;
@@ -362,6 +537,9 @@ async function processOne(s, idx, row) {
       bad.push(u);
       reasons.push('mangled');
       if (cover && (u === cover || normUrl(u) === normUrl(cover))) coverBad = true;
+      if (/\/assets\/qa\/[^/]+-v\d+\.jpg/i.test(u)) coverBad = true;
+      // Canon mangled only matters when it is the active hero
+      if (normUrl(u) === normUrl(canon) && (!cover || !coverLive)) coverBad = true;
       continue;
     }
     const cls = await classifyImage(u);
@@ -369,16 +547,97 @@ async function processOne(s, idx, row) {
     if (cls.kind === 'white' || cls.kind === 'defunct' || cls.kind === 'mangled') {
       bad.push(u);
       reasons.push(cls.kind + (cls.reason ? ':' + cls.reason : ''));
-      if (cover && (u === cover || normUrl(u) === normUrl(cover) || absUrl(u) === absUrl(cover))) coverBad = true;
+      const isActiveCover =
+        cover && (u === cover || normUrl(u) === normUrl(cover) || absUrl(u) === absUrl(cover));
+      const isVersioned = /\/assets\/qa\/[^/]+-v\d+\.jpg/i.test(u);
+      const isCanon = normUrl(u) === normUrl(canon);
+      if (isActiveCover || isVersioned) coverBad = true;
+      // Canon 404/white is coverBad only when index has no working cover
+      // (render + face_title_baked still use /assets/qa/{id}.jpg)
+      if (isCanon && (!cover || !coverLive)) coverBad = true;
     }
   }
 
-  if (!bad.length) return { id, action: 'ok' };
+  // No body/cover image at all → still a white page
+  if (!cover && !bodyUrls.length) {
+    coverBad = true;
+    reasons.push('no-images');
+  }
+
+  // Index points at a cover that is still 404/white live — treat as coverBad even if body ok
+  if (cover && !coverLive) {
+    coverBad = true;
+    if (!bad.includes(cover)) bad.push(cover);
+    reasons.push('live-cover-bad');
+  } else if (!cover && !(await liveCoverOk(canon))) {
+    // Render often falls back to /assets/qa/{id}.jpg when face_title_baked
+    coverBad = true;
+    reasons.push('live-canon-bad');
+  }
+
+  if (!bad.length && !coverBad) return { id, action: 'ok' };
+
+  let newCover = null;
+  let coverMode = 'kept';
+  if (coverBad) {
+    const question = (blob && (blob.question || blob.title)) || (row && (row.question || row.title)) || id;
+    newCover = await replaceCover(s, id, question);
+    if (newCover) {
+      reasons.push('cover-replaced');
+      coverMode = 'replaced';
+    } else {
+      reasons.push('cover-replace-miss');
+      coverMode = 'miss';
+    }
+  }
 
   const reason = [...new Set(reasons)].join(',') || 'white-or-defunct';
-  const url = await savePurged(s, idx, row, blob, bad, reason, coverBad);
-  await queueDigest({ id, url, reason, bad: bad.length });
-  return { id, action: 'purge', reason, bad: bad.length, url };
+  const url = await savePurged(s, idx, row, blob, bad, reason, coverBad, newCover);
+
+  // Final live gate — do NOT email "fixed" if the hero cover is still 404/white
+  let liveOk = true;
+  if (coverBad) {
+    const finalCover = newCover || cover || canon;
+    liveOk = await liveCoverOk(finalCover);
+    if (!liveOk && newCover && newCover !== canon) liveOk = await liveCoverOk(newCover);
+    if (!liveOk) {
+      console.log(
+        JSON.stringify({
+          phase: 'purge-live-fail',
+          id,
+          cover: finalCover,
+          reason,
+        })
+      );
+      return {
+        id,
+        action: 'purge-incomplete',
+        reason: reason + ',live-verify-fail',
+        bad: bad.length,
+        url,
+        coverReplaced: coverMode === 'replaced',
+        coverMode,
+      };
+    }
+  }
+
+  await queueDigest({
+    id,
+    url,
+    reason,
+    bad: bad.length,
+    cover: coverMode === 'kept' ? 'kept' : newCover || 'cleared',
+  });
+  return {
+    id,
+    action: 'purge',
+    reason,
+    bad: bad.length,
+    url,
+    coverReplaced: coverMode === 'replaced',
+    coverMode,
+    liveOk,
+  };
 }
 
 async function ensureInventory(s, state) {
@@ -391,17 +650,33 @@ async function ensureInventory(s, state) {
   if (!need) return;
   const idx = await s.get('_index.json', { type: 'json', consistency: 'strong' });
   if (!idx || !Array.isArray(idx.entries)) throw new Error('no index');
-  const rows = idx.entries
-    .filter((e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)) && idInPillar(e.id))
-    .slice()
-    .sort((a, b) => entryTs(b) - entryTs(a));
-  state.inventoryIds = rows.map((e) => String(e.id).toLowerCase());
+  const rows = idx.entries.filter(
+    (e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)) && idInPillar(e.id)
+  );
+  let ids = rows.map((e) => String(e.id).toLowerCase());
+  if (ORDER_MODE === 'newest') {
+    ids = rows
+      .slice()
+      .sort((a, b) => entryTs(b) - entryTs(a))
+      .map((e) => String(e.id).toLowerCase());
+  } else {
+    ids = sortSmallestPillarFirst(ids);
+  }
+  state.inventoryIds = ids;
   state.inventoryBuiltAt = new Date().toISOString();
   state.pillarLock = pillarKey;
   state.cursor = 0;
   state.doneIds = [];
+  const order = pillarOrderSummary(ids);
   console.log(
-    JSON.stringify({ phase: 'inventory', inventory: state.inventoryIds.length, pillar: pillarKey })
+    JSON.stringify({
+      phase: 'inventory',
+      inventory: ids.length,
+      pillar: pillarKey,
+      order: ORDER_MODE,
+      firstPillars: order.slice(0, 8),
+      lastPillars: order.slice(-4),
+    })
   );
 }
 
@@ -447,6 +722,10 @@ async function tick(s, state) {
       purged++;
       indexDirty = true;
       done.add(id);
+    } else if (r.action === 'purge-incomplete') {
+      // Stripped/attempted but live cover still bad — retry later, do not claim fixed
+      indexDirty = true;
+      skipped++;
     } else if (r.action === 'ok' || r.action === 'missing') {
       okN++;
       done.add(id);
@@ -467,6 +746,7 @@ async function tick(s, state) {
         id,
         action: r.action,
         bad: r.bad || 0,
+        coverMode: r.coverMode || null,
         ms: Date.now() - t0,
       })
     );

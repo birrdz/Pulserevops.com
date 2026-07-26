@@ -36,6 +36,7 @@ try {
   process.exit(1);
 }
 const { deployQaAssetFiles, listLocalQaFilesForId } = require('./lib/deploy-qa-assets');
+const { sortSmallestPillarFirst, pillarOrderSummary } = require('./lib/pillar-inventory-order');
 
 const MERMAID_DIRECTIVES = [
   'graph',
@@ -186,11 +187,12 @@ const FULL_INVENTORY = String(process.env.DRIP_FULL_INVENTORY || '1') !== '0';
 // When white-purge service is clearing inventory, prefer fact-check/content first.
 // Image-only pages still get picked if nothing else is due (or DRIP_DEFER_IMAGE_PURGE=0).
 const DEFER_IMAGE_PURGE = String(process.env.DRIP_DEFER_IMAGE_PURGE || '1') !== '0';
-// Pillar lock — e.g. DRIP_PILLAR=tl (CRO Pulse Tools). Comma-separated prefixes OK.
+// Pillar lock — optional. Default = all pillars, smallest first.
 const PILLAR_PREFIXES = String(process.env.DRIP_PILLAR || '')
   .split(/[,\s]+/)
   .map((x) => x.trim().toLowerCase())
   .filter(Boolean);
+const ORDER_MODE = String(process.env.DRIP_ORDER || 'smallest').toLowerCase(); // smallest | newest
 function idInPillar(id) {
   if (!PILLAR_PREFIXES.length) return true;
   const s = String(id || '').toLowerCase();
@@ -535,7 +537,12 @@ async function classifyImage(url) {
       mean = sum / n;
       whitePct = w / n;
       // Broader white/blank catch — near-white blanks still read as white on page
-      white = (mean >= 235 && whitePct >= 0.85) || whitePct >= 0.92 || (mean >= 225 && whitePct >= 0.8);
+      white =
+        (mean >= 235 && whitePct >= 0.85) ||
+        whitePct >= 0.9 ||
+        (mean >= 225 && whitePct >= 0.75) ||
+        (mean >= 210 && whitePct >= 0.7) ||
+        (mean >= 245 && buf.length < 25000);
     } catch (e) {
       const ff = buf.filter((b) => b >= 0xf0).length / buf.length;
       if (buf.length < 8000 && ff > 0.55) white = true;
@@ -742,7 +749,7 @@ function needsDrip(blob, id, dropSet) {
 async function ensureInventory(s, state) {
   const dropIds = readDropFile(state.drop || (state.drop = { lines: 0 }));
   const dropSet = new Set(dropIds);
-  const pillarKey = PILLAR_PREFIXES.join(',') || '*';
+  const pillarKey = (PILLAR_PREFIXES.join(',') || '*') + ':' + ORDER_MODE;
   const needRefresh =
     !Array.isArray(state.inventoryIds) ||
     !state.inventoryIds.length ||
@@ -754,15 +761,28 @@ async function ensureInventory(s, state) {
     const rows = ((idx && idx.entries) || []).filter(
       (e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)) && idInPillar(e.id)
     );
-    const scored = rows.map((row) => ({ id: String(row.id).toLowerCase(), ts: entryTs({}, row) || 0 }));
-    scored.sort((a, b) => b.ts - a.ts);
     const seen = new Set();
-    const ids = [];
-    for (const x of scored) {
-      if (seen.has(x.id)) continue;
-      seen.add(x.id);
-      ids.push(x.id);
+    let ids = [];
+    for (const row of rows) {
+      const id = String(row.id).toLowerCase();
+      if (seen.has(id)) continue;
+      seen.add(id);
+      ids.push(id);
     }
+    if (ORDER_MODE === 'newest') {
+      const scored = rows.map((row) => ({ id: String(row.id).toLowerCase(), ts: entryTs({}, row) || 0 }));
+      scored.sort((a, b) => b.ts - a.ts);
+      ids = [];
+      const seen2 = new Set();
+      for (const x of scored) {
+        if (seen2.has(x.id)) continue;
+        seen2.add(x.id);
+        ids.push(x.id);
+      }
+    } else {
+      ids = sortSmallestPillarFirst(ids);
+    }
+    // Drop-file priority still jumps to front
     for (let i = dropIds.length - 1; i >= 0; i--) {
       const id = dropIds[i];
       if (!idInPillar(id)) continue;
@@ -775,12 +795,16 @@ async function ensureInventory(s, state) {
     state.pillarLock = pillarKey;
     state.invCursor = 0;
     state.imgCursor = 0;
+    const order = pillarOrderSummary(ids);
     console.log(
       JSON.stringify({
         phase: 'cursor-drip-inventory',
         inventory: ids.length,
         fullInventory: FULL_INVENTORY,
         pillar: pillarKey,
+        order: ORDER_MODE,
+        firstPillars: order.slice(0, 8),
+        lastPillars: order.slice(-4),
       })
     );
   }
@@ -844,9 +868,12 @@ async function findOne(s, state) {
   }
 
   // PASS A — existing Cursor queue pending (fact-check / content work)
-  const pending = (queue.items || []).filter(
-    (x) => x && x.status === 'pending' && idInPillar(x.id)
-  );
+  // Prefer smallest pillars first so queue work doesn't jump to tl/giants.
+  let pending = (queue.items || []).filter((x) => x && x.status === 'pending' && idInPillar(x.id));
+  if (pending.length && ORDER_MODE === 'smallest') {
+    const ordered = sortSmallestPillarFirst(pending.map((x) => x.id));
+    pending = ordered.map((id) => pending.find((x) => String(x.id).toLowerCase() === id)).filter(Boolean);
+  }
   if (pending.length) {
     const it = pending[0];
     const blob = await s.get('answers/' + it.id + '.json', { type: 'json' });
@@ -1632,6 +1659,7 @@ async function main() {
       once,
       deferImagePurge: DEFER_IMAGE_PURGE,
       pillar: PILLAR_PREFIXES.join(',') || '*',
+      order: ORDER_MODE,
       emailEvery: EMAIL_EVERY,
       emailMaxGapMin: Math.round(EMAIL_MAX_GAP_MS / 60000),
     })
