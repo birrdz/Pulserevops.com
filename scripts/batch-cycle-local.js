@@ -63,14 +63,32 @@ function knowledgeUrl(id) {
 }
 
 async function emailOne(subject, html) {
-  try {
-    await fetch(SITE + '/.netlify/functions/pulse-progress-notify?key=' + KEY, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ subject, html }),
-      signal: AbortSignal.timeout(15000),
-    });
-  } catch (e) {}
+  // Owner: email AFTER EVERY individual entry — not a batch summary.
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const r = await fetch(SITE + '/.netlify/functions/pulse-progress-notify?key=' + KEY, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ subject, html }),
+        signal: AbortSignal.timeout(20000),
+      });
+      const t = await r.text();
+      if (!r.ok) throw new Error('http ' + r.status + ':' + t.slice(0, 120));
+      console.log(JSON.stringify({ email: 'ok', subject: String(subject).slice(0, 80), attempt }));
+      return true;
+    } catch (e) {
+      console.log(
+        JSON.stringify({
+          email: 'fail',
+          subject: String(subject).slice(0, 80),
+          attempt,
+          err: String(e.message || e).slice(0, 120),
+        })
+      );
+      if (attempt < 3) await new Promise((r) => setTimeout(r, 1500 * attempt));
+    }
+  }
+  return false;
 }
 
 async function dsChat(system, user, maxTokens = 1200) {
@@ -232,17 +250,6 @@ async function runFactFixBatch() {
     console.log(JSON.stringify({ phase: 'fix-empty' }));
     return { fixed: 0, passed: 0, imaged: 0, errors: 0, processed: 0 };
   }
-
-  await emailOne(
-    'PULSE batch cycle started — ' + todo.length + ' entries',
-    '<p>Cadence: image purge ' +
-      BATCH_SIZE +
-      ' → audit the <b>same</b> ' +
-      BATCH_SIZE +
-      '.</p>' +
-      '<p>Per entry: fact-check → if issue: <b>rewrite content + redo Pexels image</b>.</p>' +
-      '<p>Email after <b>every</b> entry (fix / pass / error).</p>'
-  );
 
   const idx = await s.get('_index.json', { type: 'json', consistency: 'strong' });
   const baseFixed = state.fixed || 0;
@@ -420,20 +427,7 @@ async function runFactFixBatch() {
   state.complete = true;
   await s.setJSON(STATE_KEY, state);
 
-  await emailOne(
-    'PULSE batch cycle finished — fixed ' + fixed + ' / passed ' + passed,
-    '<p>fixed=' +
-      fixed +
-      ' passed=' +
-      passed +
-      ' pexels=' +
-      imaged +
-      ' errors=' +
-      errors +
-      ' batch=' +
-      BATCH_SIZE +
-      '</p>'
-  );
+  // No batch-summary email — owner wants one email per individual entry only.
   console.log(JSON.stringify({ phase: 'fix-done', fixed, passed, imaged, errors, processed: fixed + passed }));
   return { fixed, passed, imaged, errors, processed: fixed + passed };
 }
@@ -480,11 +474,7 @@ async function main() {
       const added = after - before;
       console.log(JSON.stringify({ phase: 'loop-purge', before, after, added }));
       if (added <= 0) {
-        await emailOne(
-          'PULSE loop complete — no more mangled images',
-          '<p>Purge found 0 new mangled entries. Fact-check queue empty.</p>'
-        );
-        console.log(JSON.stringify({ phase: 'loop-complete' }));
+        console.log(JSON.stringify({ phase: 'loop-complete', note: 'no batch summary email' }));
         return;
       }
       await runFactFixBatch();
