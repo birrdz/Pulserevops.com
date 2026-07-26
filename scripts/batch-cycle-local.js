@@ -1,14 +1,15 @@
 #!/usr/bin/env node
-// Cadence (owner): 2725 at a time.
-//   1) mangled-image purge for BATCH_SIZE new ids
-//   2) same BATCH_SIZE: audit/fact-check each entry
+// Cadence (owner): 2750 at a time — ALWAYS purge first, then fact-check.
+//   1) REMOVE mangled/broken images for BATCH_SIZE new ids (full wave)
+//   2) ONLY AFTER that wave is purged: fact-check the SAME ids
 //      → if issue: rewrite content AND redo Pexels image
-//   3) email after EVERY entry (fix, pass, or error)
-//   4) repeat (CYCLE_MODE=loop) until purge finds nothing new
+//   3) ONE email per entry only when fact-check + content rewrite + image redo
+//      all landed (single combined email)
+//   4) when that 2750 finishes → next 2750 starting again at step 1 (purge first)
 //
 // Env:
 //   CYCLE_MODE=fix|purge-then-fix|loop   (default: fix)
-//   BATCH_SIZE / PURGE_MAX_NEW=2725
+//   BATCH_SIZE / PURGE_MAX_NEW=2750
 //   CYCLE_LIMIT=0               (0 = all not-yet-cycled purge ids)
 //   DEEPSEEK_MODEL=deepseek-v4-flash
 
@@ -47,7 +48,7 @@ const IMAGE_STATE_KEY = '_mangled_image_purge_state.json';
 const ASSET_DIR = path.join(process.cwd(), 'assets', 'qa');
 const DS_MODEL = process.env.DEEPSEEK_MODEL || 'deepseek-v4-flash';
 const PEXELS_KEY = process.env.PEXELS_API_KEY || process.env.Pexels_Api_Key;
-const BATCH_SIZE = parseInt(process.env.BATCH_SIZE || process.env.PURGE_MAX_NEW || '2725', 10);
+const BATCH_SIZE = parseInt(process.env.BATCH_SIZE || process.env.PURGE_MAX_NEW || '2750', 10);
 const CYCLE_MODE = String(process.env.CYCLE_MODE || 'fix').toLowerCase();
 
 fs.mkdirSync(ASSET_DIR, { recursive: true });
@@ -63,7 +64,7 @@ function knowledgeUrl(id) {
 }
 
 async function emailOne(subject, html) {
-  // Owner: email AFTER EVERY individual entry — not a batch summary.
+  // Owner: ONE email per id only after fact-check + content rewrite + image redo.
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
       const r = await fetch(SITE + '/.netlify/functions/pulse-progress-notify?key=' + KEY, {
@@ -354,16 +355,18 @@ async function runFactFixBatch() {
         }
       }
 
+      const pexelsAct = actions.find((a) => String(a).startsWith('pexels:'));
+      const fullFix =
+        (actions.includes('content-rewrite') || actions.includes('pexels-backfill')) && !!pexelsAct;
+
       if (body !== original || actions.some((a) => a.startsWith('pexels:') || a === 'content-rewrite' || a === 'pexels-backfill')) {
         const ts = new Date().toISOString();
         await s.setJSON(
           'answers/' + id + '.json',
           Object.assign({}, blob, {
             answer: body,
-            img: actions.find((a) => a.startsWith('pexels:'))
-              ? '/assets/qa/' + id + '.jpg'
-              : blob.img,
-            cover_src: actions.find((a) => a.startsWith('pexels:')) ? 'pexels' : blob.cover_src,
+            img: pexelsAct ? '/assets/qa/' + id + '.jpg' : blob.img,
+            cover_src: pexelsAct ? 'pexels' : blob.cover_src,
             batch_cycled_at: ts,
             batch_cycle_actions: actions,
             batch_cycle_issues: issues.slice(0, 8),
@@ -371,51 +374,42 @@ async function runFactFixBatch() {
           })
         );
         fixed++;
-        await emailOne(
-          'PULSE fixed — ' + id,
-          '<p><b>Check:</b> <a href="' +
-            url +
-            '">' +
-            url +
-            '</a></p>' +
-            '<p>actions: <code>' +
-            actions.join(', ') +
-            '</code></p>' +
-            '<ul>' +
-            issues
-              .slice(0, 6)
-              .map((x) => '<li>' + String(x).replace(/</g, '').slice(0, 200) + '</li>')
-              .join('') +
-            '</ul>'
-        );
+
+        // Owner: ONE email only when fact-check → content changed → image changed
+        if (fullFix) {
+          const imgQuery = String(pexelsAct).replace(/^pexels:/, '');
+          await emailOne(
+            'PULSE updated — ' + id,
+            '<p><b>Fact-checked + content rewritten + image redone</b></p>' +
+              '<p><a href="' +
+              url +
+              '">' +
+              url +
+              '</a></p>' +
+              '<p>New image: <code>/assets/qa/' +
+              id +
+              '.jpg</code> (Pexels: ' +
+              String(imgQuery).replace(/</g, '').slice(0, 120) +
+              ')</p>' +
+              '<ul>' +
+              issues
+                .slice(0, 6)
+                .map((x) => '<li>' + String(x).replace(/</g, '').slice(0, 200) + '</li>')
+                .join('') +
+              '</ul>'
+          );
+        }
       } else {
         passed++;
-        await emailOne(
-          'PULSE checked OK — ' + id,
-          '<p>Fact-check pass (no content rewrite; no new Pexels image).</p>' +
-            '<p><a href="' +
-            url +
-            '">' +
-            url +
-            '</a></p>'
-        );
+        // No email on clean pass — owner only wants the full update email
       }
 
       done.add(id);
-      console.log(JSON.stringify({ id, actions, hasIssue, fixed, passed, imaged }));
+      console.log(JSON.stringify({ id, actions, hasIssue, fullFix, emailed: fullFix, fixed, passed, imaged }));
     } catch (e) {
       errors++;
       console.log(JSON.stringify({ id, err: String(e.message || e).slice(0, 160) }));
-      await emailOne(
-        'PULSE cycle error — ' + id,
-        '<p><a href="' +
-          url +
-          '">' +
-          url +
-          '</a></p><p><code>' +
-          String(e.message || e).replace(/</g, '').slice(0, 300) +
-          '</code></p>'
-      );
+      // No error email — owner only wants one email when full update lands
       await new Promise((r) => setTimeout(r, 2000));
       continue;
     }
@@ -453,8 +447,11 @@ async function main() {
   }
 
   if (CYCLE_MODE === 'loop') {
-    // Finish any already-purged-but-not-fact-checked ids first (e.g. first 2750),
-    // then purge→fix in BATCH_SIZE waves until purge adds nothing.
+    // Hard order every wave:
+    //   A) if a purge wave is already complete but not fact-checked → finish fact-check
+    //   B) else purge next BATCH_SIZE mangled images ALL THE WAY THROUGH
+    //   C) then fact-check that same BATCH_SIZE
+    // Never start fact-check on a wave before its purge finishes.
     for (;;) {
       const s = store();
       const img = (await s.get(IMAGE_STATE_KEY, { type: 'json' })) || {};
@@ -464,19 +461,39 @@ async function main() {
       const pending = [...purgeDone].filter((id) => !cycleDone.has(id)).length;
 
       if (pending > 0) {
-        console.log(JSON.stringify({ phase: 'loop-drain-pending', pending }));
+        console.log(
+          JSON.stringify({
+            phase: 'loop-factcheck-after-purge',
+            pending,
+            note: 'purge wave already complete — fact-check same ids only',
+          })
+        );
         await runFactFixBatch();
         continue;
       }
 
+      console.log(
+        JSON.stringify({
+          phase: 'loop-purge-first',
+          batchSize: BATCH_SIZE,
+          note: 'always remove mangled images for full wave before fact-check',
+        })
+      );
       const before = purgeDone.size;
       const after = await runPurgeBatch(BATCH_SIZE);
       const added = after - before;
-      console.log(JSON.stringify({ phase: 'loop-purge', before, after, added }));
+      console.log(JSON.stringify({ phase: 'loop-purge-done', before, after, added }));
       if (added <= 0) {
-        console.log(JSON.stringify({ phase: 'loop-complete', note: 'no batch summary email' }));
+        console.log(JSON.stringify({ phase: 'loop-complete', note: 'no more mangled images' }));
         return;
       }
+      console.log(
+        JSON.stringify({
+          phase: 'loop-factcheck-start',
+          waveSize: added,
+          note: 'purge finished — now fact-check / rewrite / image this wave',
+        })
+      );
       await runFactFixBatch();
     }
   }

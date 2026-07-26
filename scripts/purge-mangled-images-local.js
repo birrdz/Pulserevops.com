@@ -11,7 +11,7 @@ const KEY = 'pulsemachine-writer-2026';
 const SITE = 'https://pulserevops.com';
 const STATE_KEY = '_mangled_image_purge_state.json';
 const LIMIT = parseInt(process.env.PURGE_LIMIT || '5000', 10);
-// Owner cadence: process PURGE_MAX_NEW=2725, then fact-check that same batch.
+// Owner cadence: process PURGE_MAX_NEW=2750 (full wave), THEN fact-check that same batch.
 const MAX_NEW = parseInt(process.env.PURGE_MAX_NEW || '0', 10); // if >0, only process this many not-yet-done
 const BATCH_LOG = parseInt(process.env.PURGE_BATCH_LOG || '25', 10);
 
