@@ -11,6 +11,8 @@ const KEY = 'pulsemachine-writer-2026';
 const SITE = 'https://pulserevops.com';
 const STATE_KEY = '_mangled_image_purge_state.json';
 const LIMIT = parseInt(process.env.PURGE_LIMIT || '5000', 10);
+// Owner cadence: process PURGE_MAX_NEW=2725, then fact-check that same batch.
+const MAX_NEW = parseInt(process.env.PURGE_MAX_NEW || '0', 10); // if >0, only process this many not-yet-done
 const BATCH_LOG = parseInt(process.env.PURGE_BATCH_LOG || '25', 10);
 
 const MANGLED_RX =
@@ -117,8 +119,9 @@ async function main() {
     .slice(0, LIMIT);
 
   const done = new Set(state.doneIds || []);
-  const todo = rows.filter((e) => !done.has(e.id));
-  console.log(JSON.stringify({ phase: 'start', limit: LIMIT, todo: todo.length, alreadyDone: done.size }));
+  let todo = rows.filter((e) => !done.has(e.id));
+  if (MAX_NEW > 0) todo = todo.slice(0, MAX_NEW);
+  console.log(JSON.stringify({ phase: 'start', limit: LIMIT, maxNew: MAX_NEW || null, todo: todo.length, alreadyDone: done.size }));
 
   await emailOne(
     'PULSE mangled/broken image purge started',

@@ -71,108 +71,118 @@ async function emailOne(subject, html) {
   } catch (e) {}
 }
 
-async function geminiJson(system, user, maxTokens = 800) {
-  const key = process.env.GEMINI_API_KEY;
-  if (!key) throw new Error('GEMINI_API_KEY missing');
-  const models = ['gemini-2.0-flash-lite', 'gemini-2.5-flash-lite', 'gemini-2.0-flash'];
-  let lastErr = '';
-  for (const model of models) {
-    const url =
-      'https://generativelanguage.googleapis.com/v1beta/models/' +
-      model +
-      ':generateContent?key=' +
-      encodeURIComponent(key);
-    try {
-      const r = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: system }] },
-          contents: [{ role: 'user', parts: [{ text: user }] }],
-          generationConfig: { temperature: 0.15, maxOutputTokens: maxTokens },
-        }),
-        signal: AbortSignal.timeout(90000),
-      });
-      const t = await r.text();
-      if (!r.ok) {
-        lastErr = model + ':' + r.status + ':' + t.slice(0, 120);
-        if (r.status === 429 || r.status === 404) continue;
-        continue;
-      }
-      const j = JSON.parse(t);
-      const text = (((j.candidates || [])[0] || {}).content || {}).parts
-        ? j.candidates[0].content.parts.map((p) => p.text || '').join('')
-        : '';
-      const m = text.match(/\{[\s\S]*\}/);
-      if (!m) {
-        lastErr = 'no-json';
-        continue;
-      }
-      return JSON.parse(m[0]);
-    } catch (e) {
-      lastErr = String(e.message || e);
-    }
-  }
-  throw new Error('gemini failed: ' + lastErr);
+async function openAiCompatJson(url, key, model, system, user, maxTokens) {
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + key },
+    body: JSON.stringify({
+      model,
+      temperature: 0.15,
+      max_tokens: maxTokens,
+      messages: [
+        { role: 'system', content: system },
+        { role: 'user', content: user },
+      ],
+    }),
+    signal: AbortSignal.timeout(120000),
+  });
+  const t = await r.text();
+  if (!r.ok) throw new Error(model + ':' + r.status + ':' + t.slice(0, 140));
+  const j = JSON.parse(t);
+  const text = (((j.choices || [])[0] || {}).message || {}).content || '';
+  const m = String(text).match(/\{[\s\S]*\}/);
+  if (!m) throw new Error(model + ':no-json');
+  return JSON.parse(m[0]);
 }
 
-async function geminiText(system, user, maxTokens = 8000) {
-  const key = process.env.GEMINI_API_KEY;
-  const models = ['gemini-2.0-flash', 'gemini-2.5-flash-lite', 'gemini-2.0-flash-lite'];
-  for (const model of models) {
-    const url =
-      'https://generativelanguage.googleapis.com/v1beta/models/' +
-      model +
-      ':generateContent?key=' +
-      encodeURIComponent(key);
-    try {
-      const r = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: system }] },
-          contents: [{ role: 'user', parts: [{ text: user }] }],
-          generationConfig: { temperature: 0.35, maxOutputTokens: maxTokens },
-        }),
-        signal: AbortSignal.timeout(180000),
-      });
-      if (!r.ok) continue;
-      const j = await r.json();
-      const text = (((j.candidates || [])[0] || {}).content || {}).parts
-        ? j.candidates[0].content.parts.map((p) => p.text || '').join('')
-        : '';
-      if (text && text.length > 400) return text.trim();
-    } catch (e) {}
-  }
-  return null;
+async function openAiCompatText(url, key, model, system, user, maxTokens) {
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + key },
+    body: JSON.stringify({
+      model,
+      temperature: 0.35,
+      max_tokens: maxTokens,
+      messages: [
+        { role: 'system', content: system },
+        { role: 'user', content: user },
+      ],
+    }),
+    signal: AbortSignal.timeout(180000),
+  });
+  if (!r.ok) return null;
+  const j = await r.json();
+  const text = ((((j.choices || [])[0] || {}).message || {}).content || '').trim();
+  return text.length > 400 ? text : null;
 }
 
-async function anthropicText(system, user, maxTokens = 8000) {
-  const key = process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY2;
-  if (!key) return null;
+async function auditJson(system, user, maxTokens = 800) {
+  const errors = [];
+  // DeepSeek first (paid key available)
   try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
-        max_tokens: maxTokens,
+    const key = process.env.DEEPSEEK_API_KEY || process.env.ds1;
+    if (key) {
+      return await openAiCompatJson(
+        'https://api.deepseek.com/chat/completions',
+        key,
+        process.env.DEEPSEEK_MODEL || 'deepseek-v4-flash',
         system,
-        messages: [{ role: 'user', content: user }],
-      }),
-      signal: AbortSignal.timeout(180000),
-    });
-    if (!r.ok) return null;
-    const j = await r.json();
-    const text = (j.content || []).map((c) => c.text || '').join('').trim();
-    return text.length > 400 ? text : null;
+        user,
+        maxTokens
+      );
+    }
   } catch (e) {
-    return null;
+    errors.push(String(e.message || e));
   }
+  // Cerebras fallback
+  try {
+    const key = process.env.CEREBRAS_API_KEY;
+    if (key) {
+      return await openAiCompatJson(
+        'https://api.cerebras.ai/v1/chat/completions',
+        key,
+        process.env.CEREBRAS_MODEL || 'gpt-oss-120b',
+        system,
+        user,
+        maxTokens
+      );
+    }
+  } catch (e) {
+    errors.push(String(e.message || e));
+  }
+  throw new Error('audit failed: ' + errors.join(' | ').slice(0, 300));
+}
+
+async function rewriteText(system, user, maxTokens = 8000) {
+  try {
+    const key = process.env.DEEPSEEK_API_KEY || process.env.ds1;
+    if (key) {
+      const t = await openAiCompatText(
+        'https://api.deepseek.com/chat/completions',
+        key,
+        process.env.DEEPSEEK_MODEL || 'deepseek-v4-flash',
+        system,
+        user,
+        maxTokens
+      );
+      if (t) return t;
+    }
+  } catch (e) {}
+  try {
+    const key = process.env.CEREBRAS_API_KEY;
+    if (key) {
+      const t = await openAiCompatText(
+        'https://api.cerebras.ai/v1/chat/completions',
+        key,
+        process.env.CEREBRAS_MODEL || 'gpt-oss-120b',
+        system,
+        user,
+        maxTokens
+      );
+      if (t) return t;
+    }
+  } catch (e) {}
+  return null;
 }
 
 const AUDIT_SYS = `You are a strict fact-checker for a published knowledge article.
@@ -278,7 +288,7 @@ async function main() {
 
     let audit;
     try {
-      audit = await geminiJson(
+      audit = await auditJson(
         AUDIT_SYS,
         'ID: ' +
           id +
@@ -291,13 +301,13 @@ async function main() {
       );
     } catch (e) {
       errors++;
-      console.log(JSON.stringify({ id, auditError: String(e.message || e).slice(0, 120) }));
+      console.log(JSON.stringify({ id, auditError: String(e.message || e).slice(0, 160) }));
       // don't mark done — retry later
       if (errors > 40 && fixed === 0 && passed < 5) {
         console.log(JSON.stringify({ fatal: 'too many audit errors early', errors }));
         process.exit(2);
       }
-      await new Promise((r) => setTimeout(r, 4000));
+      await new Promise((r) => setTimeout(r, 2500));
       continue;
     }
 
@@ -334,16 +344,11 @@ async function main() {
         content_gaps: audit.content_gaps || [],
       }).slice(0, 2500);
 
-      let rewritten =
-        (await anthropicText(
-          FIX_SYS,
-          'ID: ' + id + '\nQuestion: ' + question + '\n\nCritique JSON:\n' + critique + '\n\nCurrent markdown:\n' + original
-        )) ||
-        (await geminiText(
-          FIX_SYS,
-          'ID: ' + id + '\nQuestion: ' + question + '\n\nCritique JSON:\n' + critique + '\n\nCurrent markdown:\n' + original,
-          10000
-        ));
+      let rewritten = await rewriteText(
+        FIX_SYS,
+        'ID: ' + id + '\nQuestion: ' + question + '\n\nCritique JSON:\n' + critique + '\n\nCurrent markdown:\n' + original,
+        10000
+      );
 
       if (rewritten) {
         rewritten = rewritten.replace(/^```(?:markdown|md)?\n?/i, '').replace(/\n?```$/i, '').trim();
