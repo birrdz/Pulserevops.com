@@ -6,8 +6,10 @@
 //   1) PURGE white / blank / mangled / broken image slots
 //   2) FACT-CHECK (Cerebras OK if cheaper; never DeepSeek / Claude)
 //   3) FIX CONTENT from fact-check (Cursor drip rewrite; never DeepSeek / Claude)
-//   4) FIX IMAGES throughout the URL — replace non-applicable / not-intact slots
-//      (Pexels cover + repairBrokenQaImages / fillEntryMissingImages)
+//   3b) FIX mangled / broken mermaid diagrams anywhere in the body
+//   4) FIX IMAGES throughout the URL against the FINAL (post-rewrite) topic:
+//      if fact-check replaced content, new images MUST match the NEW topic/sections
+//      (Pexels cover + repairBrokenQaImages / fillEntryMissingImages, relevance-gated)
 //
 // Then immediately find the next URL.
 //
@@ -23,6 +25,7 @@ const { preserveImages, enforceWriterVisualLock } = require('../_visual_lock_law
 const { pexelsRequest } = require('../netlify/functions/lib/pexels-throttle');
 const { deriveImageSearchQuery } = require('../netlify/functions/lib/derive-image-search-query');
 const { extractCoreTerms, gatePexels, simplifyQuery } = require('../netlify/functions/lib/image-relevance-gate');
+const { sanitizeMermaid } = require('../_mermaid_sanitize');
 
 let storeGradedImage, repairBrokenQaImages, fillEntryMissingImages;
 try {
@@ -30,6 +33,116 @@ try {
 } catch (e) {
   console.error(JSON.stringify({ fatal: 'ddg_facecard: ' + e.message }));
   process.exit(1);
+}
+
+const MERMAID_DIRECTIVES = [
+  'graph',
+  'flowchart',
+  'sequenceDiagram',
+  'classDiagram',
+  'stateDiagram',
+  'erDiagram',
+  'gantt',
+  'pie',
+  'journey',
+  'mindmap',
+  'timeline',
+  'gitGraph',
+  'quadrantChart',
+];
+
+/** Deterministic mermaid fence fixes (]] bugs, BOM, sanitize <>, etc.). */
+function fixMermaidDeterministic(answer) {
+  if (typeof answer !== 'string' || answer.indexOf('```mermaid') < 0) {
+    return { answer, changed: false, issues: [] };
+  }
+  const issues = [];
+  let s = answer;
+  // Unclosed fence at EOF — close it
+  const opens = (s.match(/```mermaid/gi) || []).length;
+  const closes = (s.match(/```/g) || []).length;
+  if (opens > 0 && closes < opens * 2) {
+    // rough: if last mermaid open has no closing fence after it
+    const lastOpen = s.toLowerCase().lastIndexOf('```mermaid');
+    const after = s.slice(lastOpen + 10);
+    if (!/```/.test(after)) {
+      s = s.replace(/\s*$/, '\n```\n');
+      issues.push('unclosed-fence');
+    }
+  }
+  s = s.replace(/```mermaid([\s\S]*?)```/g, (whole, inner) => {
+    let body = inner;
+    const before = body;
+    body = body.replace(/\]\](\s*(?:-->|---|--|==>|==|\||$))/gm, ']$1');
+    body = body.replace(/\]\](\s*\n)/g, ']$1');
+    body = body.replace(/\["\s+/g, '["').replace(/\s+"\]/g, '"]');
+    body = body.replace(/[​-‏﻿­]/g, '');
+    body = body.replace(/-->\|([^|\n]+)\|>/g, '-->|$1|');
+    if (body !== before) issues.push('syntax-normalize');
+    const first = (body.trim().split('\n')[0] || '').trim();
+    if (!MERMAID_DIRECTIVES.some((d) => first.toLowerCase().startsWith(d.toLowerCase()))) {
+      issues.push('bad-directive:' + first.slice(0, 40));
+    }
+    const counts = { '[': 0, ']': 0, '(': 0, ')': 0, '{': 0, '}': 0 };
+    for (const c of body) if (c in counts) counts[c]++;
+    if (counts['['] !== counts[']']) issues.push('unbalanced-brackets');
+    if (counts['('] !== counts[')']) issues.push('unbalanced-parens');
+    return '```mermaid' + body + '```';
+  });
+  s = sanitizeMermaid(s);
+  return { answer: s, changed: s !== answer, issues: [...new Set(issues)] };
+}
+
+function looksValidMermaidInner(inner) {
+  if (!inner || String(inner).trim().length < 8) return false;
+  const first = String(inner).trim().split('\n')[0].trim();
+  if (!MERMAID_DIRECTIVES.some((d) => first.toLowerCase().startsWith(d.toLowerCase()))) return false;
+  const counts = { '[': 0, ']': 0 };
+  for (const c of inner) if (c in counts) counts[c]++;
+  if (counts['['] !== counts[']']) return false;
+  if (!/-->|---|->>/.test(inner) && !/^pie\b/i.test(first)) return false;
+  return true;
+}
+
+/** Rebuild a broken mermaid from the FINAL question/topic (Cerebras — never Claude). */
+async function regenerateMermaid(question, id, brokenInner, why) {
+  const text = await cerebrasChat(
+    `Return ONLY one valid fenced mermaid block for a knowledge article.
+Rules: start with flowchart TD (or LR); 4-10 nodes; quoted labels A["Label"]; balanced brackets; no < > in labels; no explanation.`,
+    [
+      'Rebuild mangled/broken mermaid for Cursor drip.',
+      'ID: ' + id,
+      'Topic/question: ' + question,
+      'Why broken: ' + (why || []).join(', '),
+      'Broken inner (may be junk):',
+      String(brokenInner || '').slice(0, 1200),
+      '',
+      'Return ONLY:',
+      '```mermaid',
+      'flowchart TD',
+      '  ...',
+      '```',
+    ].join('\n'),
+    800
+  );
+  const m = String(text || '').match(/```mermaid\s*([\s\S]*?)```/i);
+  if (!m) return null;
+  let inner = m[1].trim();
+  inner = sanitizeMermaid('```mermaid\n' + inner + '\n```').replace(/^```mermaid\s*/i, '').replace(/```$/, '').trim();
+  if (!looksValidMermaidInner(inner)) return null;
+  return inner;
+}
+
+function buildSectionTitleLookup(body) {
+  const lookup = {};
+  const lines = String(body || '').split('\n');
+  for (const line of lines) {
+    const m = line.match(/^#{2,3}\s+(.+)/);
+    if (!m) continue;
+    const title = m[1].replace(/[\[\]"#]/g, '').trim().slice(0, 120);
+    if (title) lookup[title.toLowerCase()] = title;
+  }
+  return lookup;
 }
 
 function loadEnv(p) {
@@ -709,6 +822,8 @@ async function fixOne(s, state, found) {
   );
 
   // ─── STEP 3: CONTENT REWRITE (if flagged; soft-fail OK) ───
+  // If content is replaced, Step 4 MUST image the NEW topic — not the old copy.
+  let contentRewrote = false;
   if (critique.verdict === 'flag' || issues.length) {
     console.log(JSON.stringify({ phase: 'step3-content-rewrite', id }));
     try {
@@ -736,6 +851,7 @@ async function fixOne(s, state, found) {
       } catch (e) {
         body = preserveImages(body, rewritten);
       }
+      contentRewrote = true;
       actions.push('content-rewrite:cursor-drip');
       stepNotes.push('Content rewritten from fact-check (Cursor drip; never DeepSeek/Claude)');
       console.log(JSON.stringify({ phase: 'step3-done', id, bodyLen: body.length }));
@@ -749,18 +865,87 @@ async function fixOne(s, state, found) {
     console.log(JSON.stringify({ phase: 'step3-skip', id }));
   }
 
-  // ─── STEP 4: APPLICABLE / INTACT IMAGES THROUGHOUT URL ───
-  console.log(JSON.stringify({ phase: 'step4-applicable-images', id }));
+  // ─── STEP 3b: MANGLED / BROKEN MERMAIDS (anywhere, including bottom) ───
+  console.log(JSON.stringify({ phase: 'step3b-mermaid', id }));
+  try {
+    const det = fixMermaidDeterministic(body);
+    body = det.answer;
+    let mermaidFixed = det.changed ? 1 : 0;
+    // Validate / regenerate each block against FINAL topic
+    const blocks = [...String(body).matchAll(/```mermaid\s*([\s\S]*?)```/gi)];
+    if (!blocks.length) {
+      // Missing mermaid — add one for the final topic
+      const inner = await regenerateMermaid(question, id, '', ['missing']);
+      if (inner) {
+        // Insert after Direct Answer or near top of body
+        if (/##\s*Direct Answer/i.test(body)) {
+          body = body.replace(
+            /(##\s*Direct Answer[\s\S]*?\n)(?=\n##\s|\n@@PRODUCT|\n!\[[^\]]*\]\()/i,
+            '$1\n```mermaid\n' + inner + '\n```\n\n'
+          );
+        } else {
+          body = body + '\n\n```mermaid\n' + inner + '\n```\n';
+        }
+        mermaidFixed += 1;
+        actions.push('mermaid:added');
+        stepNotes.push('Added missing mermaid for final topic');
+      }
+    } else {
+      for (let bi = 0; bi < blocks.length; bi++) {
+        const inner = blocks[bi][1];
+        if (looksValidMermaidInner(inner) && !(det.issues || []).some((x) => String(x).startsWith('bad-directive') || x === 'unbalanced-brackets')) {
+          continue;
+        }
+        const why = (det.issues || []).concat(['lint-fail']);
+        const rebuilt = await regenerateMermaid(question, id, inner, why);
+        if (rebuilt) {
+          // Replace only this occurrence (nth)
+          let n = 0;
+          body = body.replace(/```mermaid\s*[\s\S]*?```/gi, (full) => {
+            const cur = n++;
+            if (cur === bi) return '```mermaid\n' + rebuilt + '\n```';
+            return full;
+          });
+          mermaidFixed += 1;
+          actions.push('mermaid:regenerated');
+          stepNotes.push('Rebuilt mangled/errored mermaid #' + (bi + 1) + ' for final topic');
+        }
+      }
+    }
+    if (det.changed && !actions.some((a) => String(a).startsWith('mermaid:'))) {
+      actions.push('mermaid:sanitize');
+      stepNotes.push('Sanitized mermaid syntax (mangled/errored fences)');
+    }
+    console.log(JSON.stringify({ phase: 'step3b-done', id, mermaidFixed, issues: (det.issues || []).slice(0, 4) }));
+  } catch (e) {
+    console.log(JSON.stringify({ phase: 'step3b-softfail', id, err: String(e.message || e).slice(0, 120) }));
+    stepNotes.push('Mermaid fix soft-failed — continuing to images');
+  }
+
+  // ─── STEP 4: APPLICABLE IMAGES FOR THE FINAL (POST-REWRITE) TOPIC ───
+  // If Step 3 replaced content, images are chosen against the NEW body/sections —
+  // never leave an old off-topic image on newly written content.
+  console.log(
+    JSON.stringify({
+      phase: 'step4-applicable-images',
+      id,
+      against: contentRewrote ? 'post-rewrite-topic' : 'current-topic',
+    })
+  );
+  const finalTopic = question;
+  const titleLookup = buildSectionTitleLookup(body);
   let coverRel = null;
   let coverQuery = null;
   try {
-    const cover = await pexelsSearchApplicable(question, id);
+    const cover = await pexelsSearchApplicable(finalTopic, id);
     coverRel = cover.rel;
     coverQuery = cover.query;
-    body = swapLeadingImage(body, coverRel, question);
+    body = swapLeadingImage(body, coverRel, finalTopic);
     actions.push('pexels-cover:' + coverQuery + (cover.gated ? ':gated' : ':fallback'));
     stepNotes.push(
-      'Cover replaced with applicable Pexels (' +
+      'Cover applicable to ' +
+        (contentRewrote ? 'NEW post-fact-check topic' : 'page topic') +
+        ' via Pexels (' +
         coverQuery +
         (cover.gated ? ', relevance-gated' : '') +
         ')'
@@ -770,14 +955,16 @@ async function fixOne(s, state, found) {
     console.log(JSON.stringify({ phase: 'step4-cover-miss', id, err: String(e.message || e).slice(0, 100) }));
   }
 
-  // Repair / replace body slots that are broken, not intact, or not applicable
+  // After content rewrite: force-upgrade body slots so new/changed sections get
+  // applicable images for THEIR headings (not leftover old-topic art).
   let repaired = 0;
   let filled = 0;
   try {
-    const rr = await repairBrokenQaImages(id, question, body, {
+    const rr = await repairBrokenQaImages(id, finalTopic, body, {
       upgradeMode: true,
       alternateSources: true,
       allowTopicalReuse: true,
+      titleLookup,
       quiet: true,
     });
     if (rr && rr.body) {
@@ -785,15 +972,22 @@ async function fixOne(s, state, found) {
       repaired = rr.fixed || 0;
       if (repaired) {
         actions.push('repairBrokenQaImages:' + repaired);
-        stepNotes.push('Repaired/replaced ' + repaired + ' broken or non-applicable body image slot(s)');
+        stepNotes.push(
+          'Replaced ' +
+            repaired +
+            ' broken/non-applicable body image(s) for ' +
+            (contentRewrote ? 'NEW' : 'current') +
+            ' section topics'
+        );
       }
     }
   } catch (e) {
     console.log(JSON.stringify({ phase: 'step4-repair-err', id, err: String(e.message || e).slice(0, 100) }));
   }
   try {
-    const fr = await fillEntryMissingImages(id, question, body, {
+    const fr = await fillEntryMissingImages(id, finalTopic, body, {
       upgradeMode: true,
+      titleLookup,
       quiet: true,
     });
     if (fr && fr.body) {
@@ -801,13 +995,29 @@ async function fixOne(s, state, found) {
       filled = fr.fixed || 0;
       if (filled) {
         actions.push('fillEntryMissingImages:' + filled);
-        stepNotes.push('Filled ' + filled + ' missing/upgradable image slot(s) with applicable images');
+        stepNotes.push(
+          'Filled ' +
+            filled +
+            ' missing/upgradable slot(s) with images applicable to ' +
+            (contentRewrote ? 'rewritten' : 'existing') +
+            ' sections'
+        );
       }
     }
   } catch (e) {
     console.log(JSON.stringify({ phase: 'step4-fill-err', id, err: String(e.message || e).slice(0, 100) }));
   }
-  console.log(JSON.stringify({ phase: 'step4-done', id, cover: coverRel, repaired, filled }));
+  console.log(
+    JSON.stringify({
+      phase: 'step4-done',
+      id,
+      cover: coverRel,
+      repaired,
+      filled,
+      contentRewrote,
+      sectionTopics: Object.keys(titleLookup).length,
+    })
+  );
 
   // ─── SAVE + ONE EMAIL ───
   const doneAt = new Date().toISOString();
@@ -861,12 +1071,15 @@ async function fixOne(s, state, found) {
       esc(String(question).slice(0, 200)) +
       '</p>' +
       '<ol>' +
-      '<li><b>Purge white/mangled/broken images</b></li>' +
+      '<li><b>Purge</b> white/mangled/broken images</li>' +
       '<li><b>Fact-check</b> — ' +
       esc(sectionBit) +
       '</li>' +
       '<li><b>Content fix</b> from fact-check (Cursor drip; never DeepSeek/Claude)</li>' +
-      '<li><b>Applicable images throughout URL</b> — cover + body slots not intact / not applicable replaced</li>' +
+      '<li><b>Mermaid</b> — mangled/errored diagrams fixed for the final topic</li>' +
+      '<li><b>Applicable images</b> chosen against the <b>' +
+      (contentRewrote ? 'NEW post-rewrite' : 'current') +
+      ' topic</b> — cover + body slots throughout the URL</li>' +
       '</ol>' +
       '<p><b>Steps:</b></p><ul>' +
       stepNotes.map((x) => '<li>' + esc(x) + '</li>').join('') +
