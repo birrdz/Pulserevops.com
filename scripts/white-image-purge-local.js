@@ -33,7 +33,7 @@ const STATE_KEY = '_white_image_purge_local_state.json';
 const BUSY_FILE = '/tmp/cursor-drip-busy.id';
 const BATCH = Math.max(10, parseInt(process.env.WHITE_PURGE_BATCH || '80', 10));
 const IDLE_MS = Math.max(500, parseInt(process.env.WHITE_PURGE_IDLE_MS || '3000', 10));
-const EMAIL_EVERY = Math.max(5, parseInt(process.env.WHITE_PURGE_EMAIL_EVERY || '40', 10));
+const EMAIL_EVERY = Math.max(5, parseInt(process.env.WHITE_PURGE_EMAIL_EVERY || '10', 10));
 const ONCE = String(process.env.WHITE_PURGE_ONCE || '') === '1';
 
 const MANGLED_RX =
@@ -465,8 +465,11 @@ async function tick(s, state) {
       inventory: inventory.length,
       done: done.size,
       totals: { scanned: state.scanned, purged: state.purged, ok: state.ok },
+      emailBuf: emailBuf.length,
     })
   );
+  // Don't leave digests sitting — flush after each tick if anything pending
+  if (emailBuf.length) await flushDigest('tick');
   return { scanned, purged, remaining: Math.max(0, inventory.length - done.size) };
 }
 
