@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Always-on DROP/DRIP: ALWAYS auditing newly updated knowledge URLs.
-// Watches continuously for new/updated pages and drip-audits them (Cerebras).
+// INDEPENDENT of the 2750-wave pipeline STOP_AT=8000 — when the batch wave
+// takes a break at 8000, THIS DRIP KEEPS RUNNING and keeps auditing new/updated URLs.
 // Sources:
 //   - any blob with recent updated_at / face_purged_at / batch_cycled_at / polished_at
 //   - local drop file: logs/drip-audit-drop.jsonl  (paste URL or id per line)
@@ -280,55 +281,55 @@ async function auditOne(s, id, state, queue) {
   return { id, verdict: 'pass' };
 }
 
-async function collectCandidates(s, state) {
-  const seen = new Set(state.seenIds || []);
+function needsDripAudit(blob, id, dropSet) {
+  if (!blob || !blob.answer) return false;
+  if (dropSet.has(id)) return true;
+  const ts = entryTs(blob, null);
+  const dripAt = blob.drip_audited_at ? Date.parse(blob.drip_audited_at) : 0;
+  // never audited
+  if (!dripAt) return true;
+  // updated after last drip audit (missed refresh / new fix)
+  if (ts && ts > dripAt) return true;
+  // prior drip error / incomplete
+  if (blob.drip_audit_verdict === 'error') return true;
+  return false;
+}
+
+/** Build FULL sweep list of updated URLs that still need drip audit. */
+async function buildSweepList(s, state) {
   const since = Date.now() - LOOKBACK_MS;
-  const ids = new Set();
-
-  // 1) file drop
   const dropIds = readDropFile(state.drop || (state.drop = { lines: 0 }));
-  for (const id of dropIds) ids.add(id);
-
-  // 2) index scan for recently touched entries
+  const dropSet = new Set(dropIds);
   const idx = await s.get('_index.json', { type: 'json' });
-  const rows = (idx && idx.entries) || [];
-  for (const row of rows) {
-    if (!row || !row.id || !/^[a-z]{2,3}\d/i.test(String(row.id))) continue;
-    if (seen.has(row.id) && !dropIds.includes(row.id)) continue;
-    // cheap prefilter from index timestamps when present
-    const its = entryTs({}, row);
-    if (its && its < since && !dropIds.includes(row.id)) continue;
-    ids.add(row.id);
-  }
+  const rows = ((idx && idx.entries) || []).filter((e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)));
 
-  // Prefer drop ids + recently purged/cycled blobs; limit per tick
-  const out = [];
-  for (const id of ids) {
-    if (seen.has(id) && !dropIds.includes(id)) continue;
+  // newest-updated first within lookback, plus explicit drops
+  const scored = [];
+  for (const row of rows) {
+    const its = entryTs({}, row);
+    if (!dropSet.has(row.id) && its && its < since) continue;
+    scored.push({ id: row.id, ts: its || 0 });
+  }
+  for (const id of dropIds) {
+    if (!scored.some((x) => x.id === id)) scored.push({ id, ts: Date.now() });
+  }
+  scored.sort((a, b) => b.ts - a.ts);
+
+  const list = [];
+  const seen = new Set();
+  for (const { id } of scored) {
+    if (seen.has(id)) continue;
+    seen.add(id);
     let blob;
     try {
       blob = await s.get('answers/' + id + '.json', { type: 'json' });
     } catch (e) {
       continue;
     }
-    if (!blob) continue;
-    const ts = entryTs(blob, null);
-    // Always audit newly updated URLs (any recent update counts)
-    const isUpdated =
-      dropIds.includes(id) ||
-      !!(ts && ts >= since) ||
-      !!blob.face_purged_at ||
-      !!blob.batch_cycled_at ||
-      blob.batch_cycle_writer === 'cursor';
-    if (!isUpdated) continue;
-    if (ts && ts < since && !dropIds.includes(id)) continue;
-    // skip if drip-audited after last update
-    const dripAt = blob.drip_audited_at ? Date.parse(blob.drip_audited_at) : 0;
-    if (dripAt && ts && dripAt >= ts && !dropIds.includes(id)) continue;
-    out.push(id);
-    if (out.length >= 40) break;
+    if (!needsDripAudit(blob, id, dropSet)) continue;
+    list.push(id);
   }
-  return out;
+  return list;
 }
 
 async function tick(s, state) {
@@ -338,15 +339,43 @@ async function tick(s, state) {
   } catch (e) {}
   if (!Array.isArray(queue.items)) queue.items = [];
 
-  const candidates = await collectCandidates(s, state);
-  console.log(JSON.stringify({ phase: 'drip-tick', candidates: candidates.length, seen: (state.seenIds || []).length }));
+  // Start or continue a full sweep of updated URLs
+  if (!Array.isArray(state.sweepList) || !state.sweepList.length) {
+    state.sweepList = await buildSweepList(s, state);
+    state.sweepIndex = 0;
+    state.sweepNo = (state.sweepNo || 0) + 1;
+    state.sweepStartedAt = new Date().toISOString();
+    console.log(
+      JSON.stringify({
+        phase: 'drip-sweep-start',
+        sweepNo: state.sweepNo,
+        total: state.sweepList.length,
+        note: 'full list of updated URLs needing audit; after this pass, loop back for missed/new',
+      })
+    );
+    if (!state.sweepList.length) {
+      // nothing due — short idle, then rebuild (catch brand-new updates)
+      state.lastRunAt = new Date().toISOString();
+      await s.setJSON(STATE_KEY, state);
+      return { idle: true };
+    }
+  }
 
-  for (const id of candidates) {
+  const batch = state.sweepList.slice(state.sweepIndex || 0, (state.sweepIndex || 0) + 25);
+  console.log(
+    JSON.stringify({
+      phase: 'drip-tick',
+      sweepNo: state.sweepNo,
+      left: Math.max(0, state.sweepList.length - (state.sweepIndex || 0)),
+      batch: batch.length,
+      total: state.sweepList.length,
+    })
+  );
+
+  for (const id of batch) {
     try {
       const r = await auditOne(s, id, state, queue);
-      state.seenIds = state.seenIds || [];
-      if (!state.seenIds.includes(id)) state.seenIds.push(id);
-      if (state.seenIds.length > 50000) state.seenIds = state.seenIds.slice(-40000);
+      state.sweepIndex = (state.sweepIndex || 0) + 1;
       state.lastId = id;
       state.lastResult = r;
       state.lastRunAt = new Date().toISOString();
@@ -354,41 +383,97 @@ async function tick(s, state) {
       if (r.verdict === 'flag') state.flagged = (state.flagged || 0) + 1;
       else if (r.verdict === 'pass') state.passed = (state.passed || 0) + 1;
       await s.setJSON(STATE_KEY, state);
-      console.log(JSON.stringify(r));
+      console.log(JSON.stringify(Object.assign({ sweepNo: state.sweepNo }, r)));
     } catch (e) {
+      // leave id for a later sweep (mark error so needsDripAudit retries)
+      try {
+        const blob = await s.get('answers/' + id + '.json', { type: 'json' });
+        if (blob) {
+          await s.setJSON(
+            'answers/' + id + '.json',
+            Object.assign({}, blob, {
+              drip_audit_verdict: 'error',
+              drip_audit_error: String(e.message || e).slice(0, 160),
+              updated_at: new Date().toISOString(),
+            })
+          );
+        }
+      } catch (e2) {}
+      state.sweepIndex = (state.sweepIndex || 0) + 1;
       console.log(JSON.stringify({ id, err: String(e.message || e).slice(0, 140) }));
       await new Promise((r) => setTimeout(r, 2000));
     }
   }
+
+  // Finished this full list → clear and loop back for missed / newly updated URLs
+  if ((state.sweepIndex || 0) >= state.sweepList.length) {
+    console.log(
+      JSON.stringify({
+        phase: 'drip-sweep-complete',
+        sweepNo: state.sweepNo,
+        audited: state.audited,
+        flagged: state.flagged,
+        note: 'looping back for missed or newly updated URLs',
+      })
+    );
+    await emailOne(
+      'PULSE drip audit sweep #' + state.sweepNo + ' complete — looping for missed/new URLs',
+      '<p>Finished drip-audit sweep <b>#' +
+        state.sweepNo +
+        '</b> over the updated URL list.</p>' +
+        '<p>audited≈' +
+        (state.audited || 0) +
+        ' flagged≈' +
+        (state.flagged || 0) +
+        '</p>' +
+        '<p>Now looping back to catch <b>missed</b> or <b>newly updated</b> URLs. Drip never stops (even after batch STOP_AT=8000).</p>'
+    );
+    state.sweepList = [];
+    state.sweepIndex = 0;
+    state.lastSweepCompletedAt = new Date().toISOString();
+    await s.setJSON(STATE_KEY, state);
+  }
+  return { idle: false };
 }
 
 async function main() {
   const s = store();
-  let state = { seenIds: [], drop: { lines: 0 }, audited: 0, flagged: 0, passed: 0 };
+  let state = {
+    sweepList: [],
+    sweepIndex: 0,
+    sweepNo: 0,
+    drop: { lines: 0 },
+    audited: 0,
+    flagged: 0,
+    passed: 0,
+  };
   try {
     state = Object.assign(state, (await s.get(STATE_KEY, { type: 'json' })) || {});
   } catch (e) {}
   if (!state.drop) state.drop = { lines: 0 };
 
   await emailOne(
-    'PULSE drip audit monitor ON — watching newly fixed URLs',
-    '<p>Always-on <b>drip audit</b> drop is running.</p>' +
-      '<ul>' +
-      '<li>Watches newly purged / Cursor-fixed pages</li>' +
-      '<li>Also reads drop file <code>logs/drip-audit-drop.jsonl</code> (paste URL or id per line)</li>' +
-      '<li>Audits with <b>Cerebras</b> (not DeepSeek)</li>' +
+    'PULSE drip audit monitor ON — full updated-URL sweeps forever',
+    '<p>Always-on <b>drip audit</b>:</p>' +
+      '<ol>' +
+      '<li>Audits the <b>full list</b> of updated URLs</li>' +
+      '<li>When that sweep finishes, <b>loops back</b> for missed or newly updated URLs</li>' +
       '<li>Flags → Cursor rewrite queue; emails include <b>drip audit</b></li>' +
-      '</ul>'
+      '<li>Stays running after batch STOP_AT=8000</li>' +
+      '</ol>' +
+      '<p>Drop file: <code>logs/drip-audit-drop.jsonl</code></p>'
   );
 
-  console.log(JSON.stringify({ phase: 'drip-start', pollMs: POLL_MS, dropFile: DROP_FILE }));
+  console.log(JSON.stringify({ phase: 'drip-start', pollMs: POLL_MS, dropFile: DROP_FILE, mode: 'full-sweep-loop' }));
   for (;;) {
     try {
-      await tick(s, state);
+      const r = await tick(s, state);
+      // if idle (nothing due), wait then rebuild; if busy, shorter gap between batches
+      await new Promise((res) => setTimeout(res, r && r.idle ? POLL_MS : Math.min(POLL_MS, 5000)));
     } catch (e) {
       console.log(JSON.stringify({ tickError: String(e.message || e).slice(0, 160) }));
+      await new Promise((r) => setTimeout(r, POLL_MS));
     }
-    await new Promise((r) => setTimeout(r, POLL_MS));
   }
 }
 

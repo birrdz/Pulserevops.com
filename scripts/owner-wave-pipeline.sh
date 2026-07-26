@@ -6,8 +6,10 @@
 # 4) Pexels image redo when content was rewritten
 # 5) ONE email per page only when fact-check + Cursor rewrite + Pexels all landed
 #    Subject/body must name fact-check sections (e.g. Section 2, Section 3)
-# 6) Next 2750 starts again at purge-first; STOP_AT=8000
+# 6) Next 2750 starts again at purge-first; STOP_AT=8000 (batch wave only)
 # 7) Ultra: CURSOR_ULTRA=1 — no artificial brakes (still respect real provider 429s)
+# 8) DRIP AUDIT (scripts/drip-audit-monitor-local.js) is SEPARATE and ALWAYS stays on
+#    even after STOP_AT=8000 — keeps auditing newly updated URLs forever
 set -euo pipefail
 cd /workspace
 set -a
