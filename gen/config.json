@@ -1,0 +1,17 @@
+{
+ "fixConcurrency": 30,
+ "fixWorkers": 1,
+ "fixSoloTriple": false,
+ "fixScope": "next30",
+ "fixStage": "all",
+ "fixWriter": "deepseek",
+ "fixRunUntil": "2026-07-14T01:00:00.000Z",
+ "entriesPerHour": 10,
+ "perTopicPerHour": null,
+ "genTopics": "ALL",
+ "runHours": 2,
+ "runUntil": null,
+ "paused": true,
+ "deployEveryHours": 0,
+ "pillarLap": true
+}

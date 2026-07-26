@@ -5,8 +5,8 @@
 const FACE_TITLE_ORANGE = process.env.FACE_TITLE_COLOR || '#FFD54F';
 const FACE_TITLE_STROKE = process.env.FACE_TITLE_STROKE || '#000000';
 // Every cover/section image passes storeGradedImage (grade + EXIF PULSE_GRADE=v_final + self-host).
-const fs = require('fs'), sharp = require('sharp');
-const WD = 'C:/Users/koryj/website', DIR = WD + '/assets/qa', S = 760;
+const fs = require('fs'), path = require('path'), sharp = require('sharp');
+const WD = process.env.PULSE_ROOT || __dirname, DIR = path.join(WD, 'assets', 'qa'), S = 760;
 // Mosaic tile display ratio (pulse-mosaic.css — 1080×360 row). Bake face-cards at this aspect so
 // object-fit:cover on the tile shows the subject, not random square-crop edges.
 const FACE_CARD_TILE_W = parseInt(process.env.FACE_CARD_TILE_W || '1200', 10);
@@ -53,21 +53,43 @@ function datedSVG(w, h) {
     '<rect width="' + w + '" height="' + h + '" filter="url(#grain)" opacity="0.045"/>' + // visible grain texture ~4.5%
     '</svg>');
 }
-function goldTitleOverlaySVG(w, h, text) {
-  const xesc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+function goldTitleLayout(w, h, text) {
+  w = Math.max(1, Number(w) || S);
+  h = Math.max(1, Number(h) || S);
   const clean = String(text || '').replace(/[#*_`>|]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 220);
+  // Keep the title visually identical on legacy 760px squares and wide face cards. The previous
+  // max(width,height) formula made a 1200x400 card's font 86px tall and every rebake restored it.
+  const lengthScale = clean.length >= 90 ? 0.82 : (clean.length >= 60 ? 0.9 : 1);
+  const fontSize = Math.max(24, Math.round(Math.min(w * 0.05, h * 0.095) * lengthScale));
+  const maxChars = Math.max(18, Math.floor((w * 0.92) / (fontSize * 0.56)));
   const words = clean.split(/\s+/).filter(Boolean);
   const lines = [];
   let cur = '';
-  const maxChars = Math.max(w, h) >= 700 ? 24 : 18;
-  words.forEach(w => {
-    if ((cur + ' ' + w).trim().length > maxChars && cur) { lines.push(cur.trim()); cur = w; }
-    else cur = (cur + ' ' + w).trim();
-  });
-  if (cur) lines.push(cur);
-  const L = lines.slice(-3);
-  const S = Math.max(w, h);
-  const F = Math.round(S * 0.072);
+  for (const word of words) {
+    const next = (cur + ' ' + word).trim();
+    if (next.length <= maxChars || !cur) {
+      cur = next;
+      continue;
+    }
+    lines.push(cur);
+    cur = word;
+    if (lines.length === 2) break;
+  }
+  if (cur && lines.length < 3) lines.push(cur);
+  const consumed = lines.join(' ').split(/\s+/).filter(Boolean).length;
+  if (consumed < words.length && lines.length) {
+    const last = lines.length - 1;
+    let clipped = lines[last];
+    while (clipped.length > maxChars - 1) clipped = clipped.slice(0, -1);
+    lines[last] = clipped.replace(/[\s,;:.-]+$/, '') + '…';
+  }
+  return { clean, lines, fontSize, maxChars };
+}
+function goldTitleOverlaySVG(w, h, text) {
+  const xesc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const layout = goldTitleLayout(w, h, text);
+  const L = layout.lines;
+  const F = layout.fontSize;
   const lh = Math.round(F * 1.04);
   const y0 = h - Math.round(h * 0.05) - (L.length - 1) * lh;
   const pad = Math.round(w * 0.04);
@@ -88,12 +110,55 @@ function applyCineGrade(pipe, bright) {
 // ALWAYS grades from RAW + stamps EXIF PULSE_GRADE=v_final. Returns {hash,size,w,h,path}.
 // opts: {faceCardTile} wide mosaic tile | {square:S} legacy square | {sectionTile} 16:9 | {faceCard:bool}
 const GRADE_STAMP = 'PULSE_GRADE=v_final';
+const FORCE_REGEN_F = path.join(WD, '_facecard_force_regen.json');
+function readFaceCardForceRegen() {
+  try {
+    const value = JSON.parse(fs.readFileSync(FORCE_REGEN_F, 'utf8'));
+    return value && typeof value === 'object' ? value : {};
+  } catch (e) {
+    return {};
+  }
+}
+function faceCardIdFromPath(pathOrBuf) {
+  if (typeof pathOrBuf !== 'string') return '';
+  const match = path.basename(pathOrBuf).match(/^([a-z0-9_]+)\.jpg$/i);
+  return match ? match[1] : '';
+}
+function markFaceCardForceRegen(id, reason) {
+  id = String(id || '').trim();
+  if (!id) return false;
+  const value = readFaceCardForceRegen();
+  value[id] = { reason: String(reason || 'stale baked title'), at: new Date().toISOString() };
+  fs.writeFileSync(FORCE_REGEN_F, JSON.stringify(value, null, 2));
+  return true;
+}
+function clearFaceCardForceRegen(id) {
+  const value = readFaceCardForceRegen();
+  if (!Object.prototype.hasOwnProperty.call(value, id)) return false;
+  delete value[id];
+  fs.writeFileSync(FORCE_REGEN_F, JSON.stringify(value, null, 2));
+  return true;
+}
+function faceCardForceRegenPending(idOrPath) {
+  const id = String(idOrPath || '').includes('/') || String(idOrPath || '').includes('\\')
+    ? faceCardIdFromPath(String(idOrPath))
+    : String(idOrPath || '').trim();
+  return !!(id && readFaceCardForceRegen()[id]);
+}
 function faceCardTileGradeOpts(question, qual, overrides) {
   return Object.assign({
     faceCardTile: true,
     faceCard: true,
     width: FACE_CARD_TILE_W,
     height: FACE_CARD_TILE_H,
+    bright: !!(qual && qual.meanB > 175),
+    goldTitle: question,
+  }, overrides || {});
+}
+function faceCardSquareGradeOpts(question, qual, overrides) {
+  return Object.assign({
+    square: S,
+    faceCard: true,
     bright: !!(qual && qual.meanB > 175),
     goldTitle: question,
   }, overrides || {});
@@ -119,7 +184,9 @@ async function gradeFaceCardFromBuffer(rawBuf, destPath, opts) {
   const qual = await qualifyPhoto(rawBuf, destPath);
   const cropPosition = opts.cropPosition || await resolveFaceCardCropPosition(rawBuf);
   const title = opts.goldTitle || opts.question || '';
-  return storeGradedImage(rawBuf, destPath, faceCardTileGradeOpts(title, qual, {
+  const variant = String(opts.variant || process.env.FACE_CARD_VARIANT || 'tile').toLowerCase();
+  const gradeOpts = variant === 'square' ? faceCardSquareGradeOpts : faceCardTileGradeOpts;
+  return storeGradedImage(rawBuf, destPath, gradeOpts(title, qual, {
     cropPosition,
     bright: opts.bright != null ? opts.bright : !!(qual && qual.meanB > 175),
     goldTitle: title || undefined,
@@ -167,6 +234,7 @@ async function storeGradedImage(rawBuf, destPath, opts = {}) {
 }
 // VERIFY GATE — true only if the file carries the grade stamp in EXIF.
 async function verifyGradeStamp(pathOrBuf) {
+  if (faceCardForceRegenPending(pathOrBuf)) return false;
   try { const meta = await sharp(pathOrBuf).metadata(); return !!(meta.exif && Buffer.from(meta.exif).includes(Buffer.from(GRADE_STAMP))); } catch (e) { return false; }
 }
 async function grab(u) {
@@ -286,6 +354,27 @@ function regAdd(ph, url, w, h, pillar, id, extra) {
     r.entries.push(row);
   }
   if (++_regDirty >= 15) flushReg();
+}
+function purgeFaceCardRegistry(id, stalePh) {
+  id = String(id || '').trim();
+  if (!id) return { removed: 0, detached: 0 };
+  const url = '/assets/qa/' + id + '.jpg';
+  const r = loadReg();
+  let removed = 0, detached = 0;
+  r.entries = r.entries.filter(entry => {
+    const exactUrl = entry && entry.url === url;
+    const exactHash = !!(stalePh && entry && entry.ph === stalePh);
+    if (exactUrl || exactHash) { removed++; return false; }
+    if (entry && Array.isArray(entry.pages) && entry.pages.includes(id)) {
+      entry.pages = entry.pages.filter(pageId => pageId !== id);
+      detached++;
+      if (!entry.pages.length && !entry.pool) { removed++; return false; }
+    }
+    return true;
+  });
+  _regDirty++;
+  flushReg();
+  return { removed, detached };
 }
 // BACKFILL (idempotent): hash every existing self-hosted cover into the registry once, skipping files
 // already registered by same path (mtime/size not needed — path is the key and files are immutable once made).
@@ -2674,6 +2763,7 @@ async function runPillarPoolBuild(pillar, target, opts) {
 async function verifyQaAssetRenders(url, id) {
   const u = String(url || '').replace(/\?.*$/, '').trim();
   if (!u.startsWith('/assets/qa/')) return null;
+  if (u === '/assets/qa/' + id + '.jpg' && faceCardForceRegenPending(id)) return false;
   const fp = WD + u;
   try {
     const st = fs.statSync(fp);
@@ -2687,4 +2777,4 @@ async function verifyQaAssetRenders(url, id) {
     return !!(await verifyGradeStamp(buf));
   } catch (e) { return false; }
 }
-module.exports = { tryPosterLibrary, faceCardCoverOk, coverFileOk, ensureDdgFaceCover, ensureAlternateFaceCover, makeDdgFaceCover, makeFluxFaceCover, rebakeFaceCardTitle, ensureFaceCardOrangeTitle, gatherCoverCandidates, ensureDdgSectionImage, ensureAlternateSectionImage, repairBrokenQaImages, pickReusableLibraryImage, pickMatchingLibraryImage, isFillableImageUrl, isUpgradableImageUrl, isBrokenQaImageUrl, isPortraitPoolEntry, isFaceCardCoverUrl, isSectionImageUrl, isPoolImageUrl, isPollinatorImageUrl, pollinatorImageLooksGood, pollinatorImageLooksGoodSync, bodyPageImageUrls, fillEntryMissingImages, sweepPageDuplicateImages, sweepTop10DuplicateImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, auditImage, backfillRegistry, stampDdgProvenance, stampCoverProvenance, coverPath, coverFileOk2: coverFileOk, STOCK_BLOCK, storeGradedImage, gradeFaceCardFromBuffer, resolveFaceCardCropPosition, faceCardTileGradeOpts, FACE_CARD_TILE_W, FACE_CARD_TILE_H, verifyGradeStamp, verifyQaAssetRenders, applyCineGrade, GRADE_STAMP, FACE_TITLE_ORANGE, FACE_TITLE_STROKE, FACE_CARD_FRAMING, PILLAR_SUBJECT, POLLINATOR_IMAGES_ONLY, POOL_REUSE_AFTER, FILL_REUSE_PCT, poolReuseUnlocked, countPillarPoolSlots, pillarPoolInventory, maxPoolSlot, nextPoolSlot, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, poolImageRel, flushReg, buildPoolQuery, buildFluxFaceQuery, buildFluxSectionQuery, parseGuideKeywords, titleFluxSearchQueries, pickTitleSearchQuery, isClichePoolQuery, purgeClichePoolImages, autoCuratePoolBatch, runPillarPoolBuild, collectPillarPoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, faceCoverQualityOk, poolStagingQualityOk, allowDdgForCall, slotPrefersFlux, coverAltFirst, imageProviderAlt, pollinatorBreakLabel, pollinatorBreakSec };
+module.exports = { tryPosterLibrary, faceCardCoverOk, coverFileOk, ensureDdgFaceCover, ensureAlternateFaceCover, makeDdgFaceCover, makeFluxFaceCover, rebakeFaceCardTitle, ensureFaceCardOrangeTitle, gatherCoverCandidates, ensureDdgSectionImage, ensureAlternateSectionImage, repairBrokenQaImages, pickReusableLibraryImage, pickMatchingLibraryImage, isFillableImageUrl, isUpgradableImageUrl, isBrokenQaImageUrl, isPortraitPoolEntry, isFaceCardCoverUrl, isSectionImageUrl, isPoolImageUrl, isPollinatorImageUrl, pollinatorImageLooksGood, pollinatorImageLooksGoodSync, bodyPageImageUrls, fillEntryMissingImages, sweepPageDuplicateImages, sweepTop10DuplicateImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, auditImage, backfillRegistry, stampDdgProvenance, stampCoverProvenance, coverPath, coverFileOk2: coverFileOk, STOCK_BLOCK, storeGradedImage, gradeFaceCardFromBuffer, resolveFaceCardCropPosition, faceCardTileGradeOpts, faceCardSquareGradeOpts, goldTitleLayout, goldTitleOverlaySVG, FACE_CARD_TILE_W, FACE_CARD_TILE_H, verifyGradeStamp, verifyQaAssetRenders, applyCineGrade, GRADE_STAMP, FORCE_REGEN_F, markFaceCardForceRegen, clearFaceCardForceRegen, faceCardForceRegenPending, purgeFaceCardRegistry, pHash, FACE_TITLE_ORANGE, FACE_TITLE_STROKE, FACE_CARD_FRAMING, PILLAR_SUBJECT, POLLINATOR_IMAGES_ONLY, POOL_REUSE_AFTER, FILL_REUSE_PCT, poolReuseUnlocked, countPillarPoolSlots, pillarPoolInventory, maxPoolSlot, nextPoolSlot, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, poolImageRel, flushReg, buildPoolQuery, buildFluxFaceQuery, buildFluxSectionQuery, parseGuideKeywords, titleFluxSearchQueries, pickTitleSearchQuery, isClichePoolQuery, purgeClichePoolImages, autoCuratePoolBatch, runPillarPoolBuild, collectPillarPoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, faceCoverQualityOk, poolStagingQualityOk, allowDdgForCall, slotPrefersFlux, coverAltFirst, imageProviderAlt, pollinatorBreakLabel, pollinatorBreakSec };

@@ -1,0 +1,15 @@
+'use strict';
+const assert = require('assert'), fs = require('fs'), os = require('os'), path = require('path');
+const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'pulse-square-prefs-'));
+process.env.SQUARE_BUILDER_PREFERENCES = path.join(dir, 'preferences.json');
+const prefs = require('./_square_builder_preferences');
+prefs.recordPreference({ slotType: 'face', rank: 2, width: 800, height: 800, query: 'executive office' });
+prefs.recordPreference({ slotType: 'face', rank: 4, width: 900, height: 900, query: 'sales meeting' });
+prefs.recordPreference({ slotType: 'body', rank: 1, width: 1600, height: 900, query: 'business team' });
+assert.deepStrictEqual(prefs.preferenceProfile(null, 'face'), { slotType: 'face', samples: 2, preferredRank: 3, preferredAspect: 1 });
+const results = [{ image: 'a', width: 1600, height: 900 }, { image: 'b', width: 800, height: 800 }, { image: 'c', width: 900, height: 900 }, { image: 'd', width: 1000, height: 1000 }];
+assert.strictEqual(prefs.choosePreferredResult(results, 'face', new Set()).item.image, 'd');
+assert.strictEqual(prefs.choosePreferredResult(results, 'face', new Set(['d'])).item.image, 'c');
+assert.strictEqual(prefs.choosePreferredResult(results, 'body', new Set()).item.image, 'a');
+fs.rmSync(dir, { recursive: true, force: true });
+console.log('square builder preferences: ok');

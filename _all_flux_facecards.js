@@ -10,13 +10,16 @@
 //   Progress log lives OUTSIDE the publish root (scratchpad) so deploys don't 422.
 process.env.POLLINATOR_FREQ_MS = process.env.POLLINATOR_FREQ_MS || '20000'; // 20s pollinator cooldown (owner 2026-07-06)
 const fs = require('fs');
-const WD = 'C:/Users/koryj/website';
-for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+const path = require('path');
+const os = require('os');
+const WD = process.env.PULSE_ROOT || __dirname;
+const envFile = path.join(WD, '.env.local');
+if (fs.existsSync(envFile)) for (const l of fs.readFileSync(envFile, 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
 const { getStore } = require('@netlify/blobs');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 const lib = require('./_ddg_facecard_lib');
 const { fluxPromptUrl, runFluxJob } = require('./_pollinator_flux_throttle');
-const { storeGradedImage, coverPath, buildFluxFaceQuery, stampCoverProvenance, gradeFaceCardFromBuffer } = lib;
+const { storeGradedImage, coverPath, buildFluxFaceQuery, stampCoverProvenance, clearFaceCardForceRegen, FACE_CARD_TILE_W, FACE_CARD_TILE_H } = lib;
 const { sendFaceCardEmail } = require('./_facecard_resend_email');
 const {
   poolPath,
@@ -26,9 +29,10 @@ const {
   loadPoolMeta,
 } = require('./_facecard_pool_lib');
 const { pickSmartPoolSlot, describeForMeta } = require('./_facecard_pool_match');
+const { readSquareQueue, completeSquareBuild, failSquareBuild } = require('./_square_builder_queue');
 const S = 760, DIR = WD + '/assets/qa';
 const STOP = WD + '/_all_flux_facecards_stop.flag';
-const PROG = process.env.PROG_LOG || 'C:/Users/koryj/AppData/Local/Temp/claude/C--Users-koryj/13770b56-5042-4718-9ba0-6cd6a9b9e409/scratchpad/_all_flux_progress.json';
+const PROG = process.env.PROG_LOG || path.join(os.tmpdir(), 'pulse-all-flux-progress.json');
 // ── PERSISTENT RUN CONFIG (owner 2026-07-07): _all_flux_config.json survives watchdog relaunches (the
 // watchdog spawns this script with NO env), so the mv→tl scope + 200-inventory-then-dupe plan sticks. ──
 let CFG = {};
@@ -41,6 +45,7 @@ const PREFIXES = Array.isArray(CFG.prefixes) && CFG.prefixes.length ? CFG.prefix
   : (process.env.ONLY_PREFIX ? [process.env.ONLY_PREFIX] : []);
 const ONLY_PREFIX = PREFIXES.length === 1 ? PREFIXES[0] : ''; // POOL_BUILD_ONLY path stays single-prefix
 const LIMIT = parseInt(process.env.LIMIT || '9999999', 10);
+const PURGE_REGEN_IDS = [...new Set(String(process.env.PURGE_REGEN_IDS || '').split(',').map(id => id.trim()).filter(Boolean))];
 // Parallel sharding (owner 2026-07-07 "try 2 in parallel"): SHARD_COUNT instances split the todo list by
 // index (i % SHARD_COUNT === SHARD_INDEX) so they NEVER touch the same entry. Only shard 0 stashes to the
 // pool to avoid a _meta.json write race. Launch the shards staggered ~20s apart.
@@ -176,6 +181,10 @@ const ORIG_PER_PILLAR = parseInt(process.env.ORIG_PER_PILLAR || '299', 10);
 const POOL_INVENTORY = parseInt(process.env.POOL_INVENTORY || (CFG.poolInventory != null ? String(CFG.poolInventory) : '0'), 10); // 200 flux originals/pillar, then duplicate the remainder
 const SMART_DUP = process.env.SMART_DUP === '1' || CFG.smartDup === true;
 const POOL_BUILD_ONLY = process.env.POOL_BUILD_ONLY === '1'; // build pool inventory even if cover_src already flux
+const QUEUE_MODE = !PURGE_REGEN_IDS.length && (process.env.SQUARE_BUILDER_QUEUE_MODE === '1' || CFG.queueMode === true);
+// Persisted so watchdog relaunches keep the owner's selected cover shape. "square" is the legacy 760x760
+// footprint with the corrected title layout; unset/"tile" retains the 1200x400 mosaic crop.
+const FACE_CARD_VARIANT = String(process.env.FACE_CARD_VARIANT || CFG.faceCardVariant || 'tile').toLowerCase() === 'square' ? 'square' : 'tile';
 const POOL_DIR = WD + '/_facecard_pool';
 
 async function makeDuplicateCover(id, question, p, nPool, slotIndex) {
@@ -194,7 +203,10 @@ async function makeFluxOriginal(id, question, addToPool) {
   const prompt = anchoredPrompt(id, question);
   const img = await fetchAdaptiveFlux(prompt, seed);
   if (!img) return 0;
-  await gradeFaceCardFromBuffer(img, coverPath(id), { question });
+  const gradeOpts = FACE_CARD_VARIANT === 'square'
+    ? { square: S, faceCard: true, cropPosition: 'attention', bright: false }
+    : { faceCardTile: true, faceCard: true, width: FACE_CARD_TILE_W, height: FACE_CARD_TILE_H, cropPosition: 'attention', bright: false };
+  await storeGradedImage(img, coverPath(id), gradeOpts);
   if (addToPool) {
     const nPool = poolCount(p);
     const cap = POOL_INVENTORY > 0 ? POOL_INVENTORY : ORIG_PER_PILLAR;
@@ -245,6 +257,10 @@ async function makeFluxOverwrite(id, question) {
 (async () => {
   let idx = await store.get('_index.json', { type: 'json', consistency: 'strong' }); // reassigned on merge-flush (adopt orchestrator fixes)
   let ents = (idx.entries || []).filter(e => e && e.id && /^[a-z]+\d+$/.test(e.id) && e.question);
+  if (PURGE_REGEN_IDS.length) {
+    const wanted = new Set(PURGE_REGEN_IDS);
+    ents = ents.filter(entry => wanted.has(String(entry.id)));
+  }
   if (PREFIXES.length) ents = ents.filter(e => PREFIXES.some(px => e.id.startsWith(px)));
   // group by pillar; honor config.prefixes ORDER when set (mv → tl), else SMALLEST pillar first, then by id within pillar
   const groups = {};
@@ -259,7 +275,26 @@ async function makeFluxOverwrite(id, question) {
   const ordered = [];
   for (const [p, arr] of pillars) { arr.sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true })); ordered.push(...arr); }
   let todo;
-  if (POOL_BUILD_ONLY && POOL_INVENTORY > 0 && ONLY_PREFIX) {
+  if (PURGE_REGEN_IDS.length) {
+    todo = ordered;
+    console.log('[all-flux] CLEAN REGEN · exact IDs · ' + todo.map(entry => entry.id).join(', '));
+  } else if (QUEUE_MODE) {
+    const queued = readSquareQueue().pending;
+    if (CFG.manualReview === true) {
+      console.log('[all-flux] WAITING · ' + queued.length + ' Q&As reserved for manual review at /square-builder');
+      return;
+    }
+    const byId = new Map((idx.entries || []).filter(Boolean).map(e => [String(e.id), e]));
+    todo = queued.map(item => Object.assign({}, byId.get(String(item.id)) || {}, item, {
+      id: String(item.id),
+      question: item.question || (byId.get(String(item.id)) && byId.get(String(item.id)).question) || String(item.id),
+    })).slice(0, LIMIT);
+    if (!todo.length) {
+      console.log('[all-flux] WAITING · fixer-to-square queue is empty');
+      return;
+    }
+    console.log('[all-flux] FIXER → SQUARE · ' + todo.length + ' Q&As waiting');
+  } else if (POOL_BUILD_ONLY && POOL_INVENTORY > 0 && ONLY_PREFIX) {
     const have = poolCount(ONLY_PREFIX);
     const need = Math.max(0, POOL_INVENTORY - have);
     const scoped = ordered.filter((e) => e.id.startsWith(ONLY_PREFIX));
@@ -288,7 +323,7 @@ async function makeFluxOverwrite(id, question) {
     if (!stampIds.length) return;
     try {
       const fresh = await store.get('_index.json', { type: 'json', consistency: 'strong' });
-      for (const id of stampIds) { const e = (fresh.entries || []).find(x => x && x.id === id); if (e) { e.img = '/assets/qa/' + id + '.jpg'; e.cover_src = 'flux'; e.face_title_baked = true; } }
+      for (const id of stampIds) { const e = (fresh.entries || []).find(x => x && x.id === id); if (e) { e.img = '/assets/qa/' + id + '.jpg?v=' + Date.now().toString(36); e.cover_src = 'flux'; e.face_title_baked = false; delete e.face_title_text; } }
       await store.setJSON('_index.json', fresh);
       idx = fresh; stampIds = [];
     } catch (z) { console.log('    idx flush err ' + (z && z.message)); }
@@ -312,15 +347,32 @@ async function makeFluxOverwrite(id, question) {
     }
     let sz = 0;
     try { sz = await makeFluxOverwrite(e.id, e.question); } catch (x) { if (x && x.code === 'SCRUB_STOP') { console.log('[all-flux] SCRUB_STOP'); break; } console.log('  ✗ ' + e.id + ' err ' + (x && x.message)); }
-    if (!sz) { fail++; console.log('  ✗ ' + e.id + ' flux FAILED — left as-is, retry next run'); continue; }
+    if (!sz) {
+      fail++;
+      if (QUEUE_MODE) failSquareBuild(e.id, 'flux build failed');
+      console.log('  ✗ ' + e.id + ' flux FAILED — left as-is, retry next run');
+      continue;
+    }
     try {
       // mutate in-memory index (no per-entry strong read); write the small answer blob per-entry; flush index every STAMP_BATCH
       { // record id for the merged index flush; write the small answer blob per-entry (fresh read → no clobber)
         stampIds.push(e.id);
-        try { const cur = await store.get('answers/' + e.id + '.json', { type: 'json' }); if (cur) await store.setJSON('answers/' + e.id + '.json', Object.assign({}, cur, { cover_src: 'flux', face_title_baked: true })); } catch (z) {}
+        try {
+          const cur = await store.get('answers/' + e.id + '.json', { type: 'json' });
+          if (cur) {
+            const next = Object.assign({}, cur, { cover_src: 'flux', face_title_baked: false, image_version: Date.now().toString(36) });
+            delete next.face_title_text;
+            await store.setJSON('answers/' + e.id + '.json', next);
+          }
+        } catch (z) {}
         if (stampIds.length >= STAMP_BATCH) await flushIndex();
+        if (QUEUE_MODE) {
+          await flushIndex();
+          completeSquareBuild(e.id);
+        }
       }
       done++;
+      clearFaceCardForceRegen(e.id);
       const rate = done / Math.max(1, (Date.now() - startedAt) / 3600000);
       console.log('  ✓ ' + done + '/' + todo.length + ' ' + e.id + ' [flux] ' + Math.round(sz / 1024) + 'KB  (' + Math.round(rate) + '/hr · cd ' + Math.round(cool.ms / 1000) + 's · 429s ' + cool.r429 + ')  <-  ' + String(e.question).slice(0, 55));
       if (CFG.emailPerImage !== false) { // owner 2026-07-07: per-image email OFF in dup cleanup (flood). Set emailPerImage:true to re-enable.
@@ -331,7 +383,12 @@ async function makeFluxOverwrite(id, question) {
           console.log('    📧 email fail ' + e.id + ' · ' + (em && em.message));
         }
       }
-    } catch (x) { fail++; console.log('  ✗ ' + e.id + ' stamp-fail ' + (x && x.message)); continue; }
+    } catch (x) {
+      fail++;
+      if (QUEUE_MODE) failSquareBuild(e.id, x && x.message);
+      console.log('  ✗ ' + e.id + ' stamp-fail ' + (x && x.message));
+      continue;
+    }
     if (done % 5 === 0) { try { fs.writeFileSync(PROG, JSON.stringify({ at: nowIso(), done, fail, total: todo.length, remaining: todo.length - i - 1, lastId: e.id, alreadyFlux: totalFlux }, null, 2)); } catch (z) {} }
   }
   await flushIndex(); // write any remaining stamps

@@ -15,8 +15,10 @@ const fs = require('fs');
 const path = require('path');
 const { execFile, spawn } = require('child_process');
 let imageScrubChild = null;   // legacy image-only child (_image_scrub.js) — NOT started by Begin Scrub; run manually if needed
-const WD = 'C:/Users/koryj/website';
-for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+let originalSimMachineChild = null;
+const WD = process.env.PULSE_ROOT || __dirname;
+const ENV_FILE = path.join(WD, '.env.local');
+if (fs.existsSync(ENV_FILE)) for (const l of fs.readFileSync(ENV_FILE, 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
 const { buildScrubCrewManifest, resolveAuditorCounts, crewOneLiner, isHumanAuditorMode, LANE_AUDITOR_MODE, LANE_CONTENT_WRITERS, GEN_WRITERS } = require('./_scrub_crew_manifest');
 const adaptiveThrottle = require('./_adaptive_throttle_learner');
 const { getStore } = require('@netlify/blobs');
@@ -65,10 +67,56 @@ const { fixCover, pickImage, queryFrom } = require('./_v2_nr_ddg');
 // 🔒🔒 POLLINATOR FACE-CARD COVER LAW (owner 2026-07-03) — covers are Pollinations flux ONLY (DDG banned).
 // 🔒 OWNER 2026-07-04: Pollinator REMOVED from writing + scrubbing. Covers now = DDG face-cards with
 // the dated Pollinator look (people/places/things, photo-refined, no watermarked stock). Same signatures.
-const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
+const { faceCardCoverOk, ensureAlternateFaceCover: ensureFaceCardCover, ensureDdgSectionImage, pickReusableLibraryImage, bodyPageImageUrls, fillEntryMissingImages, sweepAllDuplicateImages, countBodyImageDupes, harvestRegistryDupeIds, harvestPillarFilledUrls, backfillRegistry, coverFileOk, verifyQaAssetRenders, stampCoverProvenance: stampFluxProvenance, countPillarPoolSlots, pillarPoolInventory, isPoolImageUrl, ensurePillarPoolSlot, harvestPillarPoolFromLibrary, runPillarPoolBuild, collectPillarPoolBatch, autoCuratePoolBatch, commitPillarPoolBatch, discardPillarPoolBatch, flushReg, storeGradedImage, coverPath, pHash, purgeFaceCardRegistry, markFaceCardForceRegen, clearFaceCardForceRegen, FILL_REUSE_PCT } = require('./_ddg_facecard_lib');
+const { readSquareQueue, enqueueSquareBuild, completeSquareBuild, removeSquareBuildsByPrefix } = require('./_square_builder_queue');
+const { deriveImageSearchQuery } = require('./netlify/functions/lib/derive-image-search-query');
+const { sendSquareQueueEmail, sendSquareBacklogEmail, sendCompletedQaImagesEmail } = require('./_facecard_resend_email');
+const { buildSquareDeskPage } = require('./_square_desk');
+const { recordPreference: recordSquarePreference, choosePreferredResult, readPreferences: readSquarePreferences } = require('./_square_builder_preferences');
 const POOL_AUTO_CURATE = process.env.POOL_MANUAL_REVIEW !== '1';
 const IMG_GEN_BATCH_DEFAULT = parseInt(process.env.IMG_GEN_BATCH_DEFAULT || '209', 10);
 const IMG_GEN_BATCH_MAX = parseInt(process.env.IMG_GEN_BATCH_MAX || '250', 10);
+function originalSimMachineReady() {
+  return new Promise(resolve => {
+    const req = http.get({ hostname: '127.0.0.1', port: 8904, path: '/api/status', timeout: 1200 }, response => {
+      response.resume();
+      resolve(response.statusCode === 200);
+    });
+    req.on('timeout', () => { req.destroy(); resolve(false); });
+    req.on('error', () => resolve(false));
+  });
+}
+function originalSimMachineStatus() {
+  return new Promise(resolve => {
+    const req = http.get({ hostname: '127.0.0.1', port: 8904, path: '/api/status', timeout: 1500 }, response => {
+      let body = '';
+      response.on('data', chunk => { body += chunk; });
+      response.on('end', () => {
+        try { resolve(JSON.parse(body || '{}')); } catch (e) { resolve(null); }
+      });
+    });
+    req.on('timeout', () => { req.destroy(); resolve(null); });
+    req.on('error', () => resolve(null));
+  });
+}
+async function ensureOriginalSimMachine() {
+  if (await originalSimMachineReady()) return true;
+  const script = path.join(__dirname, '_sim_machine_server_cursor.js');
+  if (!fs.existsSync(script)) return false;
+  originalSimMachineChild = spawn(process.execPath, [script], {
+    cwd: WD,
+    env: Object.assign({}, process.env, { SIM_PORT: '8904' }),
+    stdio: 'inherit',
+    windowsHide: false,
+  });
+  originalSimMachineChild.on('exit', () => { originalSimMachineChild = null; });
+  for (let attempt = 0; attempt < 30; attempt++) {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    if (await originalSimMachineReady()) return true;
+    if (!originalSimMachineChild) break;
+  }
+  return false;
+}
 // 🔒 IMAGE LAW (owner 2026-07-05): internal ## sections = DDG self-host · face-card + top hero = Pollinator flux.
 const INTERNAL_IMAGES_DDG = true;
 // IMAGE_ALTERNATE (owner 2026-07-08): let BOTH providers (DDG + Pollinator) handle section/top10/verify
@@ -87,6 +135,7 @@ const DDG_GAP_MS = parseInt(process.env.DDG_GAP_MS || process.env.DDG_PACE_MS ||
 const REQUIRE_FLUX_IMAGES = true;
 const REQUIRE_FLUX_COVER = process.env.REQUIRE_FLUX_COVER !== '0';
 const { fluxifyBody, fluxifyCoverOnly, bodyImagesAllFlux, countFluxJobs, countCoverFluxJobs, makeContent, KORY_CRO_IMG, isKoryCroImg } = require('./_img_flux_lib');
+const { fluxRewriteEntry, countRewriteJobs, fluxFaceHeroOnlyEntry, countFaceHeroJobs, syncHeroDupesFaceCard } = require('./_img_flux_rewrite_lib');
 const { coverSrcIsValid } = require('./_entry_image_reuse_lib');
 const { formatFixEntry, contentFormatPass, contentRubricAudit, ensureDirectAnswerAfterHero } = require('./_format_fixer_lib');
 const { internalImagesFixEntry, internalImagesPass, internalImagesRubricAudit } = require('./_internal_images_lib');
@@ -675,7 +724,7 @@ function imageJobConflict(except) {
 }
 function slimImageReview(pr) {
   if (!pr) return null;
-  return { id: pr.id, title: pr.title, previewUrl: pr.previewUrl, previewNonce: pr.previewNonce, attempt: pr.attempt || 1, fluxDone: pr.fluxDone, top10: !!pr.top10, searchQuery: pr.searchQuery || '', searchIdx: pr.searchIdx };
+  return { id: pr.id, title: pr.title, previewUrl: pr.previewUrl, previewNonce: pr.previewNonce, attempt: pr.attempt || 1, fluxDone: pr.fluxDone, top10: !!pr.top10, template: pr.template || '', heroPlaced: !!pr.heroPlaced, searchQuery: pr.searchQuery || '', searchIdx: pr.searchIdx };
 }
 async function buildImageRewriteDraft(id, attempt) {
   const title = titleOf[id] || id;
@@ -882,6 +931,379 @@ function imageRewriteStatusPayload() {
 }
 
 // ── Face Card & Top Image Generator — Pollinator face-card + hero only (whole pillar) ──
+let lastPexelsPickerAt = 0;
+async function searchPexelsForTitle(id, requestedTitle, gender, clickIndex) {
+  const key = process.env.PEXELS_API_KEY || '';
+  if (!key) throw new Error('PEXELS_API_KEY missing');
+  const entry = await store.get('answers/' + id + '.json', { type: 'json' });
+  if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
+  if (pillarOf(id) === 'sy') throw new Error('Style pillar is paused');
+  const pageTitle = String(requestedTitle || titleOf[id] || entry.question || entry.title || id).trim();
+  const route = pickGoldTemplate(id, entry.answer, pageTitle);
+  clickIndex = Math.max(0, parseInt(clickIndex, 10) || 0);
+  const productTitles = [...String(entry.answer).matchAll(/@@PRODUCT[^\n]*\bname="([^"]+)"/g)].map(match => match[1]);
+  const title = route.template === 'top10' && productTitles[clickIndex] ? productTitles[clickIndex] : pageTitle;
+  const baseQuery = deriveImageSearchQuery(title);
+  const query = (baseQuery + (gender === 'men' ? ' man male' : gender === 'women' ? ' woman female' : '')).trim();
+  const wait = lastPexelsPickerAt + 18000 - Date.now();
+  if (wait > 0) await new Promise(resolve => setTimeout(resolve, wait));
+  lastPexelsPickerAt = Date.now();
+  const response = await fetch('https://api.pexels.com/v1/search?per_page=12&query=' + encodeURIComponent(query), {
+    headers: { Authorization: key, 'User-Agent': 'pulse-manual-square-picker/1.0' },
+    signal: AbortSignal.timeout(45000),
+  });
+  if (!response.ok) throw new Error('Pexels HTTP ' + response.status);
+  const data = await response.json();
+  const photos = (data.photos || []).filter(p => p && p.src && p.width >= 900 && p.height >= 600).map(p => ({
+    id: p.id,
+    thumb: p.src.medium || p.src.small,
+    url: p.src.large2x || p.src.large || p.src.original,
+    photographer: p.photographer || '',
+  }));
+  return { id, title: pageTitle, targetTitle: title, targetIndex: clickIndex, query, photos, template: route.template, targetCount: route.template === 'top10' ? Math.min(10, productTitles.length) : 3 };
+}
+async function pickSquareNextEntry() {
+  const next = readSquareQueue().pending.find(item => pillarOf(item.id) !== 'sy');
+  if (!next) return { ok: false, msg: 'No graduated Q&A waiting for images' };
+  const entry = await store.get('answers/' + next.id + '.json', { type: 'json' });
+  if (!entry || !entry.answer) return { ok: false, msg: 'Missing answer blob for ' + next.id };
+  const freshIndex = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+  const freshRow = (freshIndex.entries || []).find(item => item && item.id === next.id);
+  const title = (freshRow && (freshRow.question || freshRow.title)) || entry.question || entry.title || titleOf[next.id] || next.question || next.id;
+  const route = pickGoldTemplate(next.id, entry.answer, title);
+  if (!route.template) return { ok: false, msg: 'No locked template for ' + next.id };
+  const count = route.template === 'top10'
+    ? (String(entry.answer).match(/@@PRODUCT[^\n]*\bimg="[^"]+"/g) || []).length
+    : (String(entry.answer).match(/!\[[^\]]*\]\([^)]+\)/g) || []).length;
+  const productTitles = [...String(entry.answer).matchAll(/@@PRODUCT[^\n]*\bname="([^"]+)"/g)].map(match => match[1]);
+  const depthTitles = [...String(entry.answer).matchAll(/^##\s+(?!Direct Answer|Related questions|FAQ|Sources|Related on PULSE)(.+)$/gim)].map(match => match[1].replace(/^\d+[.)]\s*/, '').trim());
+  const slots = [];
+  const start = 1;
+  const end = route.template === 'top10' ? 10 : 2;
+  for (let n = start; n <= end; n++) {
+    slots.push({ kind: 'body', n, label: route.template === 'top10' ? (productTitles[n - 1] || title) : (depthTitles[n] || title) });
+  }
+  return { ok: true, id: next.id, title, shape: route.template, slots };
+}
+async function searchSquareDeskImages(query) {
+  const key = process.env.PEXELS_API_KEY || '';
+  if (!key) throw new Error('PEXELS_API_KEY missing');
+  query = deriveImageSearchQuery(String(query || '').trim());
+  if (!query) throw new Error('Enter title keywords');
+  const wait = lastPexelsPickerAt + 18000 - Date.now();
+  if (wait > 0) await new Promise(resolve => setTimeout(resolve, wait));
+  lastPexelsPickerAt = Date.now();
+  const response = await fetch('https://api.pexels.com/v1/search?per_page=12&query=' + encodeURIComponent(query), {
+    headers: { Authorization: key, 'User-Agent': 'pulse-square-desk/1.0' },
+    signal: AbortSignal.timeout(45000),
+  });
+  if (!response.ok) throw new Error('Pexels HTTP ' + response.status);
+  const data = await response.json();
+  return {
+    ok: true,
+    query,
+    results: (data.photos || []).filter(p => p && p.src).map(p => ({
+      id: p.id,
+      thumb: p.src.medium || p.src.small,
+      image: p.src.large2x || p.src.large || p.src.original,
+      width: p.width || 0,
+      height: p.height || 0,
+      color: p.avg_color || '',
+    })),
+  };
+}
+const SQUARE_AUTO_F = path.join(WD, '_square_builder_auto_run.json');
+let squareAutoJob = {
+  running: false, enabled: false, stop: false, target: 100, done: 0, failed: 0,
+  pod: 1, podsCompleted: 0, totalDone: 0,
+  currentId: '', phase: 'idle', preview: null, startedAt: null, finishedAt: null, error: '', log: [],
+};
+try {
+  const saved = JSON.parse(fs.readFileSync(SQUARE_AUTO_F, 'utf8'));
+  squareAutoJob = Object.assign(squareAutoJob, saved, { running: false });
+} catch (e) {}
+function squareAutoLog(message) {
+  squareAutoJob.log.unshift(new Date().toLocaleTimeString() + ' ' + message);
+  squareAutoJob.log = squareAutoJob.log.slice(0, 40);
+}
+function saveSquareAutoJob() {
+  try {
+    const tmp = SQUARE_AUTO_F + '.tmp-' + process.pid;
+    fs.writeFileSync(tmp, JSON.stringify(squareAutoJob, null, 2));
+    try { fs.renameSync(tmp, SQUARE_AUTO_F); }
+    catch (error) { fs.rmSync(SQUARE_AUTO_F, { force: true }); fs.renameSync(tmp, SQUARE_AUTO_F); }
+  } catch (e) {}
+}
+function squareAutoStatus() {
+  return Object.assign({}, squareAutoJob, {
+    preferences: {
+      face: readSquarePreferences().face.samples || 0,
+      body: readSquarePreferences().body.samples || 0,
+    },
+    log: (squareAutoJob.log || []).slice(0, 20),
+  });
+}
+async function autoFillSquareEntry() {
+  const current = await pickSquareNextEntry();
+  if (!current.ok) return { empty: true, msg: current.msg };
+  squareAutoJob.currentId = current.id;
+  squareAutoJob.phase = 'search';
+  squareAutoJob.preview = { id: current.id, title: current.title, shape: current.shape, faceImageUrl: '', slots: {} };
+  saveSquareAutoJob();
+  const used = new Set();
+  const faceSearch = await searchSquareDeskImages(current.title);
+  const facePick = choosePreferredResult(faceSearch.results, 'face', used);
+  if (!facePick) throw new Error('no face image candidate');
+  const faceUrl = facePick.item.image || facePick.item.thumb;
+  used.add(faceUrl);
+  squareAutoJob.preview.faceImageUrl = faceUrl;
+  saveSquareAutoJob();
+  const slots = {};
+  for (const slot of (current.slots || [])) {
+    if (squareAutoJob.stop) return { stopped: true };
+    squareAutoJob.phase = 'fill · image ' + slot.n;
+    saveSquareAutoJob();
+    const search = await searchSquareDeskImages(slot.label || current.title);
+    const picked = choosePreferredResult(search.results, 'body', used);
+    if (!picked) throw new Error('no unique candidate for image ' + slot.n);
+    const url = picked.item.image || picked.item.thumb;
+    used.add(url);
+    slots[slot.n] = url;
+    squareAutoJob.preview.slots[slot.n] = { url, label: slot.label || ('Image ' + slot.n) };
+    saveSquareAutoJob();
+  }
+  squareAutoJob.phase = 'save';
+  saveSquareAutoJob();
+  const saved = await saveSquareDeskDraft({
+    id: current.id, title: current.title, shape: current.shape,
+    faceImageUrl: faceUrl, slots,
+  });
+  return { ok: true, id: current.id, saved };
+}
+async function runSquareAutoLoop() {
+  if (squareAutoJob.running) return;
+  squareAutoJob.running = true;
+  squareAutoJob.stop = false;
+  squareAutoJob.phase = 'starting';
+  saveSquareAutoJob();
+  while (squareAutoJob.enabled && !squareAutoJob.stop) {
+    if (squareAutoJob.done >= squareAutoJob.target) {
+      squareAutoJob.totalDone = (squareAutoJob.totalDone || 0) + squareAutoJob.done;
+      squareAutoJob.podsCompleted = (squareAutoJob.podsCompleted || 0) + 1;
+      squareAutoJob.pod = (squareAutoJob.pod || 1) + 1;
+      squareAutoJob.done = 0;
+      squareAutoJob.failed = 0;
+      squareAutoJob.phase = 'next pod';
+      squareAutoLog('📦 pod ' + squareAutoJob.podsCompleted + ' complete · auto-loading next 100');
+      saveSquareAutoJob();
+    }
+    try {
+      const result = await autoFillSquareEntry();
+      if (result.empty) { squareAutoLog('✅ queue empty'); break; }
+      if (result.stopped) break;
+      squareAutoJob.done++;
+      squareAutoLog('✅ ' + result.id + ' saved · removed from row · next');
+    } catch (error) {
+      squareAutoJob.failed++;
+      squareAutoJob.error = error.message;
+      squareAutoLog('⚠️ ' + (squareAutoJob.currentId || 'entry') + ' · ' + error.message);
+      // Prevent a permanently bad first row from spinning forever.
+      if (squareAutoJob.failed >= 10 && squareAutoJob.done === 0) break;
+    }
+    saveSquareAutoJob();
+  }
+  squareAutoJob.running = false;
+  squareAutoJob.enabled = false;
+  squareAutoJob.phase = squareAutoJob.stop ? 'stopped' : 'done';
+  squareAutoJob.currentId = '';
+  squareAutoJob.finishedAt = Date.now();
+  saveSquareAutoJob();
+}
+function setSquareAutoRun(enabled) {
+  enabled = !!enabled;
+  if (!enabled) {
+    squareAutoJob.enabled = false;
+    squareAutoJob.stop = true;
+    squareAutoLog('⏹ Auto-run stopping');
+    saveSquareAutoJob();
+    return { ok: true, enabled: false, stopping: squareAutoJob.running };
+  }
+  if (squareAutoJob.running) return { ok: true, enabled: true, running: true };
+  squareAutoJob = {
+    running: false, enabled: true, stop: false, target: 100, done: 0, failed: 0,
+    pod: 1, podsCompleted: 0, totalDone: 0,
+    currentId: '', phase: 'starting', preview: null, startedAt: Date.now(), finishedAt: null, error: '', log: [],
+  };
+  squareAutoLog('▶ Auto-run · continuous pods of 100 · learned face/body preferences');
+  saveSquareAutoJob();
+  runSquareAutoLoop().catch(error => {
+    squareAutoJob.running = false; squareAutoJob.enabled = false; squareAutoJob.phase = 'error';
+    squareAutoJob.error = error.message; saveSquareAutoJob();
+  });
+  return { ok: true, enabled: true, running: true, target: 100 };
+}
+async function saveSquareDeskDraft(d) {
+  const id = String(d.id || '').trim();
+  if (!id || !d.faceImageUrl) throw new Error('Face image is required');
+  const entry = await store.get('answers/' + id + '.json', { type: 'json' });
+  if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
+  const title = titleOf[id] || d.title || entry.question || entry.title || id;
+  const route = pickGoldTemplate(id, entry.answer, title);
+  if (route.template !== d.shape) throw new Error('locked template changed');
+  const imageCount = route.template === 'top10'
+    ? (String(entry.answer).match(/@@PRODUCT[^\n]*\bimg="[^"]+"/g) || []).length
+    : (String(entry.answer).match(/!\[[^\]]*\]\([^)]+\)/g) || []).length;
+  const requiredSlots = [];
+  const firstSlot = 1;
+  const lastSlot = route.template === 'top10' ? 10 : 2;
+  if (route.template === 'top10' && imageCount < 10) throw new Error('Top 10 body is missing ranked image slots: ' + imageCount + '/10');
+  if (route.template === 'qa' && imageCount < 3) throw new Error('Q&A body needs face/top plus two answer image slots');
+  for (let n = firstSlot; n <= lastSlot; n++) requiredSlots.push(n);
+  const suppliedSlots = d.slots || {};
+  const missingSlots = requiredSlots.filter(slot => !suppliedSlots[slot]);
+  if (missingSlots.length) throw new Error('fill every image slot before save: ' + missingSlots.join(', '));
+  await applyManualPexelsImage(id, d.faceImageUrl, 0, '', 'face');
+  const slots = Object.entries(suppliedSlots).sort((a, b) => Number(a[0]) - Number(b[0]));
+  for (const [slot, url] of slots) {
+    const n = Number(slot);
+    const clickIndex = route.template === 'top10' ? n - 1 : n;
+    await applyManualPexelsImage(id, url, clickIndex, '', 'body');
+  }
+  return finishManualPexelsQa(id);
+}
+async function downloadPexelsPickerImage(url) {
+  const parsed = new URL(String(url || ''));
+  if (parsed.protocol !== 'https:' || !/(^|\.)pexels\.com$/i.test(parsed.hostname)) throw new Error('invalid Pexels image URL');
+  const response = await fetch(parsed.href, { signal: AbortSignal.timeout(45000) });
+  if (!response.ok || !String(response.headers.get('content-type') || '').startsWith('image/')) throw new Error('Pexels image download failed');
+  return Buffer.from(await response.arrayBuffer());
+}
+function replaceMarkdownImageAt(body, index, url) {
+  let seen = -1, changed = false;
+  const out = String(body || '').replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (all, alt) => {
+    seen++;
+    if (seen !== index) return all;
+    changed = true;
+    return '![' + alt + '](' + url + ')';
+  });
+  return { body: out, changed };
+}
+function replaceProductImageAt(body, index, url) {
+  let seen = -1, changed = false;
+  const out = String(body || '').replace(/@@PRODUCT[^\n]*/g, line => {
+    if (!/\bimg="[^"]+"/.test(line)) return line;
+    seen++;
+    if (seen !== index) return line;
+    changed = true;
+    return line.replace(/\bimg="[^"]+"/, 'img="' + url + '"');
+  });
+  return { body: out, changed };
+}
+async function applyManualPexelsImage(id, url, clickIndex, gender, targetKind) {
+  const entry = await store.get('answers/' + id + '.json', { type: 'json' });
+  if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
+  const freshIndex = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+  const freshRow = (freshIndex.entries || []).find(item => item && item.id === id);
+  const title = (freshRow && (freshRow.question || freshRow.title)) || entry.question || entry.title || titleOf[id] || id;
+  const route = pickGoldTemplate(id, entry.answer, title);
+  if (!route.template) throw new Error('Q&A does not match a locked golden template');
+  clickIndex = Math.max(0, parseInt(clickIndex, 10) || 0);
+  const isFace = targetKind === 'face' || (!targetKind && clickIndex === 0);
+  const pillar = pillarOf(id);
+  if (pillar === 'sy') throw new Error('Style pillar is paused');
+  const maxClick = route.template === 'top10' ? 9 : 2;
+  if (clickIndex > maxClick) throw new Error('all allowed manual image slots are filled');
+  const buffer = await downloadPexelsPickerImage(url);
+  const sourceUrls = Array.isArray(entry.manual_image_sources) ? entry.manual_image_sources.slice() : [];
+  const imageHashes = Array.isArray(entry.manual_image_hashes) ? entry.manual_image_hashes.slice() : [];
+  const imageHash = require('crypto').createHash('sha256').update(buffer).digest('hex');
+  if (sourceUrls.includes(url) || imageHashes.includes(imageHash)) throw new Error('duplicate image rejected — choose a different photo');
+  fs.mkdirSync(path.join(WD, 'assets', 'qa'), { recursive: true });
+  const imageVersion = Date.now().toString(36);
+  let body = entry.answer, localUrl, placement;
+  if (isFace) {
+    const oldFile = coverPath(id);
+    let stalePh = null;
+    if (fs.existsSync(oldFile)) {
+      try { stalePh = await pHash(fs.readFileSync(oldFile)); } catch (e) {}
+    }
+    markFaceCardForceRegen(id, 'Square Builder replacing stale baked-title pixels');
+    purgeFaceCardRegistry(id, stalePh);
+    fs.rmSync(oldFile, { force: true });
+    await storeGradedImage(buffer, oldFile, {
+      square: 760,
+      faceCard: true,
+      cropPosition: 'attention',
+      bright: false,
+    });
+    clearFaceCardForceRegen(id);
+    localUrl = '/assets/qa/' + id + '.jpg?v=' + imageVersion;
+    placement = 'face card · photo-only · current title rendered by template';
+    if (route.template === 'qa') {
+      const swapped = replaceMarkdownImageAt(body, 0, localUrl);
+      body = swapped.body;
+      if (swapped.changed) placement += ' + existing top image';
+    }
+  } else {
+    const sex = gender === 'men' ? 'men' : gender === 'women' ? 'women' : 'any';
+    const localPath = '/assets/qa/' + id + '-manual-' + sex + '-' + clickIndex + '.jpg';
+    await storeGradedImage(buffer, path.join(WD, localPath.replace(/^\/+/, '')), { sectionTile: true, width: 1200, height: 675, cropPosition: 'attention', bright: false });
+    localUrl = localPath + '?v=' + imageVersion;
+    const swapped = route.template === 'top10'
+      ? replaceProductImageAt(body, clickIndex, localUrl)
+      : replaceMarkdownImageAt(body, clickIndex, localUrl);
+    if (!swapped.changed) throw new Error('that existing image slot is not present in this Q&A');
+    body = swapped.body;
+    placement = route.template === 'top10' ? 'Top-10 item ' + (clickIndex + 1) : (clickIndex === 1 ? 'middle image' : clickIndex === 2 ? 'bottom image' : 'style image ' + (clickIndex + 1));
+  }
+  const afterRoute = pickGoldTemplate(id, body, title);
+  if (afterRoute.template !== route.template) throw new Error('image change would alter the locked template');
+  sourceUrls.push(url);
+  imageHashes.push(imageHash);
+  const nextEntry = Object.assign({}, entry, {
+    answer: body,
+    cover_src: isFace ? 'pexels' : (entry.cover_src || 'pexels'),
+    face_title_baked: isFace ? false : !!entry.face_title_baked,
+    image_updated_at: new Date().toISOString(),
+    image_version: imageVersion,
+    manual_image_sources: sourceUrls,
+    manual_image_hashes: imageHashes,
+  });
+  if (isFace) delete nextEntry.face_title_text;
+  await store.setJSON('answers/' + id + '.json', nextEntry);
+  if (isFace) {
+    if (freshRow) {
+      freshRow.img = localUrl;
+      freshRow.cover_src = 'pexels';
+      freshRow.face_title_baked = false;
+      freshRow.image_version = imageVersion;
+      delete freshRow.face_title_text;
+      await store.setJSON('_index.json', freshIndex);
+    }
+  }
+  return { ok: true, id, clickIndex, targetKind: isFace ? 'face' : 'body', placement, localUrl, template: route.template, title };
+}
+async function finishManualPexelsQa(id) {
+  const entry = await store.get('answers/' + id + '.json', { type: 'json' });
+  if (!entry || !entry.answer) throw new Error('Q&A not found: ' + id);
+  const now = Date.now();
+  const fullyFixed = !!entry.fixer_passed_at;
+  const tags = [...new Set([...(entry.tags || []), 'pulse-recent'])];
+  await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, { tags, polished_at: now, image_completed_at: new Date(now).toISOString(), fully_fixed_visual: fullyFixed }));
+  const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+  const row = (idx.entries || []).find(item => item && item.id === id);
+  if (row) {
+    row.tags = [...new Set([...(row.tags || []), 'pulse-recent'])];
+    row.polished_at = now;
+    row.image_completed_at = new Date(now).toISOString();
+    row.fully_fixed_visual = fullyFixed;
+    await store.setJSON('_index.json', idx);
+  }
+  const pageUrl = row ? libraryEntryPublicUrl(row) : 'https://pulserevops.com/knowledge/' + id;
+  const emailed = await sendCompletedQaImagesEmail({ id, question: titleOf[id] || entry.question || entry.title || id, pageUrl });
+  completeSquareBuild(id);
+  return { ok: true, id, recent: true, pillar: pillarOf(id), fullyFixed, emailed: emailed.attachments };
+}
 const FACE_HERO_F = WD + '/_face_hero_run.json';
 let faceHeroJob = {
   running: false, stop: false, stopAfterReview: false, pillar: 'tl', pillarName: 'Pulse Tools / CRO',
@@ -920,10 +1342,13 @@ async function buildFaceHeroDraft(id, attempt) {
   const title = titleOf[id] || id;
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e || !e.answer) return { noBlob: true };
+  const route = pickGoldTemplate(id, e.answer, title);
   const plan = countFaceHeroJobs();
   faceHeroJob.currentStep = 'flux 0/' + plan.total;
   const r = await fluxFaceHeroOnlyEntry(id, title, e.answer, {
     guideKeywords: faceHeroJob.guideKeywords || '',
+    variant: 'square',
+    coverOnly: true,
     attempt: attempt || faceHeroJob.reviewAttempt || 1,
     shouldStop: () => faceHeroJob.stop,
     onProgress: p => {
@@ -939,16 +1364,21 @@ async function buildFaceHeroDraft(id, attempt) {
   if (r.stopped) return { stopped: true };
   if (r.error) return { error: r.error, fluxDone: r.fluxDone || 0 };
   const facePath = '/assets/qa/' + id + '.jpg';
-  let outBody = syncHeroDupesFaceCard(id, title, r.body || e.answer);
-  outBody = enforceCroCardLaw(outBody, id);
-  outBody = ensureKoryAfterHero(outBody);
-  outBody = syncHeroDupesFaceCard(id, title, outBody);
-  faceHeroJob.currentStep = 'verify · same file renders (face-card = hero)';
+  let outBody = e.answer;
+  let heroPlaced = false;
+  // Preserve the locked golden-template shape and visual rhythm. Top 10 has no top hero. Q&A may
+  // swap the first existing image slot to the selected square, but this image pass never adds/moves slots.
+  if (route.template === 'qa') {
+    outBody = outBody.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/, (all, alt) => {
+      heroPlaced = true;
+      return '![' + alt + '](' + facePath + ')';
+    });
+  }
+  faceHeroJob.currentStep = 'verify · 760×760 square + locked ' + (route.template || 'Q&A') + ' template';
   await waitFluxIdle();
-  const heroUrl = heroOf(outBody);
-  if (heroUrl !== facePath) return { error: 'hero must dupe face-card path ' + facePath + ' (got ' + (heroUrl || 'none') + ')', fluxDone: r.fluxDone || 0 };
+  if (heroPlaced && !outBody.includes('](' + facePath + ')')) return { error: 'selected square did not replace the existing top image slot', fluxDone: r.fluxDone || 0 };
   if (!(await verifyQaAssetRenders(facePath, id))) return { error: 'face-card/hero file failed render verify', fluxDone: r.fluxDone || 0 };
-  return { ok: true, body: outBody, fluxDone: r.fluxDone || 0, fluxTotal: r.fluxTotal || 0, top10: !!r.top10, previewUrl: facePath, searchQuery: r.searchQuery || '', searchIdx: r.searchIdx };
+  return { ok: true, body: outBody, fluxDone: r.fluxDone || 0, fluxTotal: r.fluxTotal || 0, top10: route.template === 'top10', template: route.template, heroPlaced, previewUrl: facePath, searchQuery: r.searchQuery || '', searchIdx: r.searchIdx };
 }
 async function commitFaceHeroDraft(id, outBody) {
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
@@ -961,6 +1391,7 @@ async function commitFaceHeroDraft(id, outBody) {
     const ent = (idx.entries || []).find(x => x && x.id === id);
     if (ent) { ent.img = facePath; ent.cover_src = 'flux'; ent.face_title_baked = true; await store.setJSON('_index.json', idx); }
   } catch (err) {}
+  completeSquareBuild(id);
   return { ok: true };
 }
 async function runFaceHeroLoop() {
@@ -975,7 +1406,9 @@ async function runFaceHeroLoop() {
   faceHeroJob.running = true;
   faceHeroJob.phase = 'facehero';
   try {
-    const entries = faceHeroJob._entries || await getImageDuplicatorEntries(faceHeroJob.pillar);
+    const entries = faceHeroJob._entries || readSquareQueue().pending
+      .filter(row => !faceHeroJob.pillar || pillarOf(row.id) === faceHeroJob.pillar)
+      .slice(0, faceHeroJob.batchSize || 200);
     faceHeroJob._entries = entries;
     faceHeroJob.total = entries.length;
     if (!faceHeroJob.total) {
@@ -1026,7 +1459,7 @@ async function runFaceHeroLoop() {
             faceHeroJob.stopAfterReview = true;
             faceHeroJob.stop = false;
           }
-          faceHeroJob.pendingReview = { id, title: faceHeroJob.currentTitle, previewUrl: r.previewUrl || ('/assets/qa/' + id + '.jpg'), previewNonce: id + '-a' + faceHeroJob.reviewAttempt + '-' + Date.now(), draftBody: r.body, attempt: faceHeroJob.reviewAttempt, fluxDone: r.fluxDone || 0, top10: !!r.top10, searchQuery: r.searchQuery || '', searchIdx: r.searchIdx };
+          faceHeroJob.pendingReview = { id, title: faceHeroJob.currentTitle, previewUrl: r.previewUrl || ('/assets/qa/' + id + '.jpg'), previewNonce: id + '-a' + faceHeroJob.reviewAttempt + '-' + Date.now(), draftBody: r.body, attempt: faceHeroJob.reviewAttempt, fluxDone: r.fluxDone || 0, top10: !!r.top10, template: r.template, heroPlaced: !!r.heroPlaced, searchQuery: r.searchQuery || '', searchIdx: r.searchIdx };
           faceHeroJob.phase = 'review';
           faceHeroJob.running = false;
           faceHeroJob.currentStep = faceHeroJob.stopAfterReview ? 'review · keep to save then stop · or try again' : 'review · keep or try again';
@@ -1103,7 +1536,7 @@ function faceHeroReviewDecision(action) {
     return { ok: true, kept: true, id: pr.id };
   }).catch(e => ({ ok: false, msg: e.message }));
 }
-function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
+function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart, batchSize) {
   if (faceHeroJob.running) return { ok: false, msg: 'already running' };
   if (faceHeroJob.phase === 'review' && faceHeroJob.pendingReview && !forceRestart) {
     return { ok: false, msg: 'card waiting for review — ✓ Keep or ✗ Try again first (or Force stop to cancel)', needsReview: true, pendingId: faceHeroJob.pendingReview.id };
@@ -1111,9 +1544,9 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
   const busy = imageJobConflict('facehero');
   if (busy) return { ok: false, msg: busy };
   pillar = pillar && pillar !== 'all' ? String(pillar) : null;
-  if (!pillar) return { ok: false, msg: 'pick a pillar' };
   guideKeywords = String(guideKeywords || '').trim().slice(0, 800);
   autoApproveImages = !!autoApproveImages;
+  batchSize = Math.max(1, Math.min(200, parseInt(batchSize, 10) || 200));
   const canResume = !forceRestart && faceHeroJob.pillar === pillar && (faceHeroJob.phase === 'stopped' || faceHeroJob.phase === 'done' || faceHeroJob.phase === 'error') && (faceHeroJob.done || 0) > 0 && (faceHeroJob.done || 0) < (faceHeroJob.total || 1);
   if (canResume) {
     faceHeroJob.stop = false;
@@ -1124,15 +1557,16 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
     faceHeroJob.error = '';
     faceHeroJob.guideKeywords = guideKeywords;
     faceHeroJob.autoApproveImages = autoApproveImages;
+    faceHeroJob.batchSize = batchSize;
     faceHeroJob.pendingReview = null;
     faceHeroJob.reviewAttempt = 1;
-    faceHeroJob.pillarName = pName(pillar);
+    faceHeroJob.pillarName = pillar ? pName(pillar) : 'All queued Q&As';
     faceHeroLog('▶ Resuming — ' + (faceHeroJob.done || 0) + '/' + (faceHeroJob.total || 0) + ' · ' + faceHeroJob.pillarName);
     runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
     return { ok: true, started: true, resumed: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, done: faceHeroJob.done, total: faceHeroJob.total };
   }
   faceHeroJob = {
-    running: false, stop: false, stopAfterReview: false, pillar, pillarName: pName(pillar), guideKeywords, autoApproveImages,
+    running: false, stop: false, stopAfterReview: false, pillar, pillarName: pillar ? pName(pillar) : 'All queued Q&As', guideKeywords, autoApproveImages, batchSize,
     done: 0, total: 0, pct: 0, entriesDone: 0, coversGenerated: 0, fluxJobs: 0,
     skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [],
@@ -1140,9 +1574,9 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
   };
   const kwNote = guideKeywords ? (' · guide: ' + guideKeywords.slice(0, 48) + (guideKeywords.length > 48 ? '…' : '')) : '';
   const modeNote = autoApproveImages ? ' · 🤖 auto-approve ON' : ' · keep/retry each card';
-  faceHeroLog('▶ Face Card & Top Image — ' + faceHeroJob.pillarName + kwNote + modeNote + ' · serial flux');
+  faceHeroLog('▶ Square Builder — ' + faceHeroJob.pillarName + ' · up to ' + batchSize + ' today' + kwNote + modeNote + ' · serial flux');
   runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
-  return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages };
+  return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, batchSize };
 }
 function stopFaceHero() {
   if (faceHeroJob.running) {
@@ -1219,10 +1653,14 @@ function resumeInterruptedImageJobs() {
 
 // ── Format Fixer — content + structure rubric pass only (no images) ──
 const FORMAT_FIXER_F = WD + '/_format_fixer_run.json';
+const FORMAT_FIXER_POD_SIZE = 100;
+const FORMAT_FIXER_CYCLE_DELAY_MS = Math.max(5000, parseInt(process.env.FORMAT_FIXER_CYCLE_DELAY_MS || '60000', 10));
 let formatFixerJob = {
   running: false, stop: false, pillar: 'tl', pillarName: 'Pulse Tools / CRO',
   done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
-  skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
+  skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, squareQueued: 0,
+  auto: false, podSize: FORMAT_FIXER_POD_SIZE, podNumber: 0, cycles: 0, nextRunAt: null,
+  hung: false, currentId: '', currentTitle: '', currentStep: '',
   phase: 'idle', startedAt: null, finishedAt: null, error: '', log: [],
 };
 try {
@@ -1248,11 +1686,16 @@ function formatFixerLog(msg) {
   formatFixerJob.log.unshift(new Date().toLocaleTimeString() + ' ' + msg);
   formatFixerJob.log = formatFixerJob.log.slice(0, 48);
 }
+function recordFormatFixerError(id, error) {
+  formatFixerJob.errors++;
+  formatFixerJob.consecutiveErrors = (formatFixerJob.consecutiveErrors || 0) + 1;
+  formatFixerLog('⚠️ ' + id + ' · ' + String(error || 'error').slice(0, 80) + ' · continuing automatically');
+}
 async function processFormatFixerEntry(id) {
-  const title = titleOf[id] || id;
   const pillar = pillarOf(id);
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e || !e.answer) return { noBlob: true };
+  const title = titleOf[id] || e.question || e.title || id;
   if (contentFormatPass(id, e.answer, valid)) return { skipped: true, pass: true };
   formatFixerJob.currentStep = 'audit · ' + id;
   const sib = (byPillar[pillar] || []).filter(x => x && x.id !== id).slice(0, 8);
@@ -1293,18 +1736,90 @@ async function processFormatFixerEntry(id) {
     words: r.after && r.after.words,
   };
 }
+async function stampFormatFixerPassed(id) {
+  try {
+    const entry = await store.get('answers/' + id + '.json', { type: 'json' });
+    if (!entry || !entry.answer || entry.fixer_passed_at) return;
+    await store.setJSON('answers/' + id + '.json', Object.assign({}, entry, { fixer_passed_at: new Date().toISOString() }));
+  } catch (e) {
+    formatFixerLog('⚠️ ' + id + ' · could not stamp fixer pass');
+  }
+}
+function squarePickerLinks(id) {
+  const suffix = '?qa=' + encodeURIComponent(id);
+  let lanUrl = '';
+  try {
+    const saved = fs.readFileSync(path.join(WD, '_scrub_lan_ip.txt'), 'utf8').trim();
+    const host = saved.replace(/^https?:\/\//, '').replace(/:\d+.*$/, '');
+    if (host) lanUrl = 'http://' + host + ':8900/' + suffix;
+  } catch (e) {}
+  return { localUrl: 'http://localhost:8900/' + suffix, lanUrl };
+}
+async function queueGraduatedForManualImages(id, question, log) {
+  if (pillarOf(id) === 'sy' || !enqueueSquareBuild(id, question || id)) return false;
+  const links = squarePickerLinks(id);
+  sendSquareQueueEmail({ id, question: question || id, localUrl: links.localUrl, lanUrl: links.lanUrl })
+    .catch(error => { if (log) log('⚠️ ' + id + ' · image-ready email failed: ' + error.message); });
+  return true;
+}
+async function emailSquareBacklogOnce() {
+  const pending = readSquareQueue().pending.filter(item => pillarOf(item.id) !== 'sy');
+  if (!pending.length) return;
+  const signature = require('crypto').createHash('sha1').update(pending.map(item => item.id).join('|')).digest('hex');
+  const stateFile = path.join(WD, '_square_backlog_email_state.json');
+  try {
+    const previous = JSON.parse(fs.readFileSync(stateFile, 'utf8'));
+    if (previous.signature === signature) return;
+  } catch (e) {}
+  const sample = squarePickerLinks(pending[0].id);
+  const localBase = 'http://localhost:8900/';
+  const lanBase = sample.lanUrl ? sample.lanUrl.replace(/\?qa=.*$/, '') : '';
+  await sendSquareBacklogEmail({ items: pending, localBase, lanBase });
+  fs.writeFileSync(stateFile, JSON.stringify({ signature, count: pending.length, sentAt: new Date().toISOString() }, null, 2));
+}
+async function getFormatFixerEntries(pillar) {
+  const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+  const seen = new Set();
+  const entries = (idx.entries || []).filter(e => {
+    if (!e || !e.id || seen.has(String(e.id))) return false;
+    // The format fixer owns every database Q&A URL, including one-letter q IDs and visitor IDs
+    // (vq_*). The old image-job regex silently excluded both. Missing answer blobs are counted
+    // by processFormatFixerEntry and skipped without stopping the automatic run.
+    if (e.has_answer === false || e.pending === true) return false;
+    seen.add(String(e.id));
+    return true;
+  });
+  // Reconcile against the actual answer-blob database, not only _index.json. This catches orphaned
+  // but publicly addressable Q&A blobs and keeps the automatic fixer queue complete.
+  let cursor;
+  do {
+    const page = await store.list({ prefix: 'answers/', cursor });
+    for (const blob of (page.blobs || [])) {
+      const match = String(blob.key || '').match(/^answers\/([^/]+)\.json$/i);
+      if (!match || seen.has(match[1])) continue;
+      seen.add(match[1]);
+      entries.push({ id: match[1], question: titleOf[match[1]] || match[1], has_answer: true });
+    }
+    cursor = page.cursor;
+  } while (cursor);
+  const scoped = pillar && pillar !== 'all' ? entries.filter(e => pillarOf(e.id) === pillar) : entries;
+  return scoped.sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true }));
+}
 async function runFormatFixerLoop() {
   if (formatFixerJob.running) return;
   formatFixerJob.running = true;
   formatFixerJob.stop = false;
   formatFixerJob.phase = 'fix';
+  formatFixerJob.nextRunAt = null;
+  formatFixerJob.podSize = FORMAT_FIXER_POD_SIZE;
   formatFixerJob.errors = 0;
+  formatFixerJob.consecutiveErrors = 0;
   formatFixerJob.entriesDone = 0;
   formatFixerJob.entriesFixed = 0;
   formatFixerJob.entriesPass = 0;
   formatFixerJob.entriesSkipped = 0;
   try {
-    const entries = formatFixerJob._entries || await getImageDuplicatorEntries(formatFixerJob.pillar);
+    const entries = formatFixerJob._entries || await getFormatFixerEntries(formatFixerJob.pillar);
     formatFixerJob._entries = entries;
     formatFixerJob.total = entries.length;
     if (!formatFixerJob.total) {
@@ -1323,65 +1838,142 @@ async function runFormatFixerLoop() {
       formatFixerJob.currentTitle = String(titleOf[id] || row.question || id).slice(0, 90);
       try {
         const r = await processFormatFixerEntry(id);
-        if (r.noBlob) formatFixerJob.skippedNoBlob++;
+        if (r.noBlob) { formatFixerJob.skippedNoBlob++; formatFixerJob.consecutiveErrors = 0; }
         else if (r.stopped) break;
-        else if (r.skipped) { formatFixerJob.entriesSkipped++; formatFixerJob.entriesPass++; }
-        else if (r.error) { formatFixerJob.errors++; formatFixerLog('⚠️ ' + id + ' · ' + r.error); }
+        else if (r.skipped) {
+          formatFixerJob.entriesSkipped++;
+          formatFixerJob.entriesPass++;
+          formatFixerJob.consecutiveErrors = 0;
+          await stampFormatFixerPassed(id);
+          if (await queueGraduatedForManualImages(id, titleOf[id] || row.question || id, formatFixerLog)) formatFixerJob.squareQueued++;
+        }
+        else if (r.error) recordFormatFixerError(id, r.error);
         else {
+          formatFixerJob.consecutiveErrors = 0;
           formatFixerJob.entriesDone++;
           if (r.changed) formatFixerJob.entriesFixed++;
-          if (r.pass) formatFixerJob.entriesPass++;
+          if (r.pass) {
+            formatFixerJob.entriesPass++;
+            await stampFormatFixerPassed(id);
+            if (await queueGraduatedForManualImages(id, titleOf[id] || row.question || id, formatFixerLog)) formatFixerJob.squareQueued++;
+          }
           const note = r.pass ? 'rubric ✓' : ('rubric ' + (r.afterPct != null ? r.afterPct : '?') + '% · ' + (r.words != null ? r.words + 'w' : '') + (r.failed && r.failed.length ? ' · ' + r.failed.slice(0, 4).join(', ') : ''));
           formatFixerLog((r.changed ? '📝' : '✓') + ' ' + id + ' · ' + note + (r.steps && r.steps.length ? (' · ' + r.steps.join('+')) : ''));
         }
       } catch (err) {
-        formatFixerJob.errors++;
-        formatFixerLog('⚠️ ' + id + ' · ' + String(err.message || err).slice(0, 80));
+        recordFormatFixerError(id, err && (err.message || err));
       }
       i++;
       formatFixerJob.done = i;
-      formatFixerJob.pct = formatFixerJob.total ? Math.min(100, Math.round((i / formatFixerJob.total) * 1000) / 10) : 0;
+      formatFixerJob.podNumber = Math.ceil(i / FORMAT_FIXER_POD_SIZE);
+      // Coverage bar = Q&As fully passing the fixer across the entire answer database. Keep the
+      // scan cursor separate so 100% scanned can never be mistaken for 100% successfully fixed.
+      formatFixerJob.pct = formatFixerJob.total ? Math.min(100, Math.round((formatFixerJob.entriesPass / formatFixerJob.total) * 1000) / 10) : 0;
       saveFormatFixerState();
+      if (i % FORMAT_FIXER_POD_SIZE === 0 && i < entries.length && !formatFixerJob.stop) {
+        formatFixerLog('▶ pod ' + (i / FORMAT_FIXER_POD_SIZE) + ' complete · auto-loading next ' + FORMAT_FIXER_POD_SIZE + ' (' + (entries.length - i) + ' remaining)');
+        formatFixerJob.currentStep = 'next ' + FORMAT_FIXER_POD_SIZE + ' · continuing automatically';
+        saveFormatFixerState(true);
+      }
       await new Promise(res => setTimeout(res, 120));
     }
     formatFixerJob.phase = formatFixerJob.stop ? 'stopped' : 'done';
     formatFixerLog(formatFixerJob.stop
       ? ('⏹ stopped at ' + formatFixerJob.pct + '%')
-      : ('✅ complete — ' + formatFixerJob.entriesFixed + ' fixed · ' + formatFixerJob.entriesPass + ' pass content rubric · no images touched'));
+      : ('✅ cycle complete — ' + formatFixerJob.entriesFixed + ' fixed · ' + formatFixerJob.entriesPass + ' pass content rubric · no images touched'));
   } catch (e) {
     formatFixerJob.error = e.message;
     formatFixerJob.phase = 'error';
     formatFixerLog('❌ ' + e.message);
   }
+  const continueAuto = !!(formatFixerJob.auto && !formatFixerJob.stop);
+  if (continueAuto) {
+    formatFixerJob.cycles = (formatFixerJob.cycles || 0) + 1;
+    formatFixerJob.phase = 'waiting';
+    formatFixerJob.nextRunAt = Date.now() + FORMAT_FIXER_CYCLE_DELAY_MS;
+    formatFixerLog('🔄 cycle ' + formatFixerJob.cycles + ' complete · re-fetching fresh pods of ' + FORMAT_FIXER_POD_SIZE + ' in ' + Math.round(FORMAT_FIXER_CYCLE_DELAY_MS / 1000) + 's');
+  }
   formatFixerJob.running = false;
   formatFixerJob.finishedAt = Date.now();
   formatFixerJob.currentId = '';
-  formatFixerJob.currentStep = '';
+  formatFixerJob.currentStep = continueAuto ? ('waiting for next ' + FORMAT_FIXER_POD_SIZE) : '';
   saveFormatFixerState(true);
+  if (continueAuto) {
+    setTimeout(() => {
+      if (!formatFixerJob.auto || formatFixerJob.stop || formatFixerJob.running) return;
+      formatFixerJob.done = 0;
+      formatFixerJob.podNumber = 0;
+      formatFixerJob.error = '';
+      formatFixerJob._entries = null;
+      runFormatFixerLoop().catch(e => {
+        formatFixerJob.error = e.message;
+        formatFixerJob.running = false;
+        formatFixerJob.phase = 'error';
+        saveFormatFixerState(true);
+      });
+    }, FORMAT_FIXER_CYCLE_DELAY_MS);
+  }
 }
 function startFormatFixer(pillar) {
   if (formatFixerJob.running) return { ok: false, msg: 'already running' };
   const busy = imageJobConflict('formatfix');
   if (busy) return { ok: false, msg: busy };
   pillar = pillar && pillar !== 'all' ? String(pillar) : null;
-  if (!pillar) return { ok: false, msg: 'pick a pillar' };
   formatFixerJob = {
-    running: false, stop: false, pillar, pillarName: pName(pillar),
+    running: false, stop: false, pillar: pillar || 'all', pillarName: pillar ? pName(pillar) : 'All pillars',
     done: 0, total: 0, pct: 0, entriesDone: 0, entriesFixed: 0, entriesPass: 0, entriesSkipped: 0,
-    skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
+    skippedNoBlob: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: Math.max(1, parseInt(process.env.FORMAT_FIXER_MAX_ERRORS || '3', 10)), squareQueued: 0,
+    auto: true, podSize: FORMAT_FIXER_POD_SIZE, podNumber: 0, cycles: 0, nextRunAt: null,
+    hung: false, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [], _entries: null,
   };
-  formatFixerLog('▶ Format Fixer — ' + formatFixerJob.pillarName + ' · content + structure only · images untouched');
+  formatFixerLog('▶ Format Fixer — ' + formatFixerJob.pillarName + ' · automatic pods of ' + FORMAT_FIXER_POD_SIZE + ' · runs until Stop · images untouched');
   runFormatFixerLoop().catch(e => { formatFixerJob.error = e.message; formatFixerJob.running = false; formatFixerJob.phase = 'error'; saveFormatFixerState(); });
-  return { ok: true, started: true, pillar, pillarName: formatFixerJob.pillarName };
+  return { ok: true, started: true, pillar: pillar || 'all', pillarName: formatFixerJob.pillarName, auto: true, maxConsecutiveErrors: formatFixerJob.maxConsecutiveErrors };
 }
 function stopFormatFixer() {
-  if (!formatFixerJob.running) return { ok: false, msg: 'not running' };
+  if (!formatFixerJob.running && !formatFixerJob.auto) return { ok: false, msg: 'not running' };
   formatFixerJob.stop = true;
+  formatFixerJob.auto = false;
+  formatFixerJob.nextRunAt = null;
+  if (!formatFixerJob.running) {
+    formatFixerJob.phase = 'stopped';
+    formatFixerJob.currentStep = 'stopped by owner';
+    saveFormatFixerState(true);
+  }
   return { ok: true, stopping: true };
+}
+function setFormatFixerAuto(enabled) {
+  enabled = !!enabled;
+  formatFixerJob.auto = enabled;
+  if (!enabled) {
+    formatFixerLog('⏸ auto-run OFF · current entry continues until Stop');
+    saveFormatFixerState(true);
+    return { ok: true, auto: false, running: formatFixerJob.running };
+  }
+  formatFixerLog('▶ auto-run ON · continues until owner Stop');
+  saveFormatFixerState(true);
+  if (!formatFixerJob.running) {
+    if (formatFixerJob.phase === 'done' || formatFixerJob.phase === 'idle' || (formatFixerJob.done || 0) >= (formatFixerJob.total || 1)) {
+      const pillar = formatFixerJob.pillar && formatFixerJob.pillar !== 'all' ? formatFixerJob.pillar : 'all';
+      const started = startFormatFixer(pillar);
+      return Object.assign({ auto: true }, started);
+    }
+    formatFixerJob.stop = false;
+    formatFixerJob.error = '';
+    runFormatFixerLoop().catch(e => {
+      formatFixerJob.error = e.message;
+      formatFixerJob.running = false;
+      formatFixerJob.phase = 'error';
+      saveFormatFixerState(true);
+    });
+  }
+  return { ok: true, auto: true, running: true };
 }
 function forceStopFormatFixer() {
   formatFixerJob.stop = true;
+  formatFixerJob.auto = false;
+  formatFixerJob.nextRunAt = null;
   formatFixerJob.running = false;
   formatFixerJob.phase = 'stopped';
   formatFixerJob.finishedAt = Date.now();
@@ -1392,7 +1984,12 @@ function forceStopFormatFixer() {
   return { ok: true, forceStopped: true };
 }
 function formatFixerStatusPayload() {
-  const snap = Object.assign({}, formatFixerJob, { log: (formatFixerJob.log || []).slice(0, 24) });
+  const square = readSquareQueue();
+  const snap = Object.assign({}, formatFixerJob, {
+    squarePending: square.pending.length,
+    squareCompleted: square.completed || 0,
+    log: (formatFixerJob.log || []).slice(0, 24),
+  });
   delete snap._entries;
   return snap;
 }
@@ -1851,6 +2448,11 @@ function recordScrubAutoResult(r) {
   if (!r) return;
   if (r.status === 'certified') {
     const st = stateObj();
+    queueGraduatedForManualImages(r.id, titleOf[r.id] || r.id, autoLog).then(queued => {
+      if (!queued) return;
+      autoJob.squareQueued = (autoJob.squareQueued || 0) + 1;
+      autoLog('◻️ ' + r.id + ' passed all Daily Driver gates → manual images email sent');
+    });
     if (!autoJob.lastCertify || autoJob.lastCertify.id !== r.id || Date.now() - (autoJob.lastCertify.at || 0) > 8000) {
       autoJob.lastCertify = { id: r.id, score: r.score, before: r.before, at: Date.now(), green: st.green, under: st.under };
       autoJob.lastFinish = { type: 'certified', id: r.id, score: r.score, contentScore: r.score, before: r.before, at: Date.now(), green: st.green, under: st.under };
@@ -1964,9 +2566,12 @@ const { libraryEntryPublicUrl, libraryEntryKind, SITE: PULSE_SITE } = require('.
 const { pushSeoCounts } = require('./_seo_monitor_sync_lib');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 
-const PORT = parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
+const SQUARE_ONLY = process.argv.includes('--square-only') || process.env.SQUARE_ONLY === '1';
+const PORT = SQUARE_ONLY
+  ? parseInt(process.env.SQUARE_PORT || '4444', 10)
+  : parseInt(process.env.SCRUB_BTN_PORT || '8899', 10);
 const PASS = '4444';
-const DAILY_MAX = parseInt(process.env.SCRUB_BTN_DAILY || '100000000', 10);   // daily cap removed (owner 2026-07-01) — effectively unlimited
+const DAILY_MAX = parseInt(process.env.SCRUB_BTN_DAILY || '200', 10);
 const MIN_SCORE = 12, WORD_FLOOR = 2000;
 const NR = WD + '/_v2_needs_review.json', AP = WD + '/_v2_approved.json', CC = WD + '/_v2_cc_approved.json';
 const QUEUE = WD + '/_scrub_button_queue.json';      // remaining under-12 ids to work
@@ -6476,7 +7081,7 @@ function buildPage(mode) {
     : 'Tap any entry for <b>fullscreen review</b> — <b>Cursor auto-auditors</b> gate publish. Only exceptions land here — <b style=color:#2ecc71>✓</b> publish · <b style=color:#ff8a76>✗</b> retarget.';
   const fsBatchExplain = 'Use <b>Rubric Stations</b> — one slice at a time (Writing · Structure · Face · Internal images · Top-10 · Publish gate). Each station has its own fix + auditor. Standard full scrub is disabled.';
   const batchIdleHint = 'Open a station tab — pick pillar — ▶ Start. Finished entries land in the audit pile below.';
-  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Face Card & Top Image Generator' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
+  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Square Builder' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
   return `<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><title>PULSE · ${pageTitle}</title><style>
 *{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:18px}
 #gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:92%;max-width:560px}
@@ -6763,6 +7368,11 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
 .dupe-log{margin-top:12px;font-size:.72rem;color:#8aa;max-height:160px;overflow:auto;font-family:ui-monospace,monospace;line-height:1.5;border:1px solid #334;border-radius:10px;padding:8px 10px;background:#0a0f16}
 .dupe-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px}
 .dupe-btns button{border:none;border-radius:28px;padding:14px 22px;font-weight:900;font-size:.92rem;cursor:pointer}
+.square-builder-dock{clear:both;width:100%;margin:28px auto 4px;padding-top:20px;border-top:1px solid rgba(168,85,247,.35)}
+.square-builder-dock:empty{display:none}
+#formatfixAutoToggle{flex-basis:100%;padding:17px 22px!important;border:3px solid #86efac!important;border-radius:14px!important;background:linear-gradient(135deg,#15803d,#22c55e)!important;color:#fff!important;font-size:1.05rem!important;font-weight:950!important;box-shadow:0 0 24px rgba(34,197,94,.38)}
+.square-pexels-option{position:relative;aspect-ratio:1/1;padding:0;border:1.5px solid #EAC15C!important;border-radius:6px;overflow:hidden;background:#1a1a1a;box-shadow:0 0 0 1px rgba(234,193,92,.25);cursor:pointer}
+.square-pexels-option img{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(1.14) saturate(1.05)}
 #dupeStart{color:#1a1206;background:linear-gradient(135deg,#f59e0b,#fcd34d);box-shadow:0 6px 20px rgba(245,158,11,.35)}
 #rewriteStart{color:#1a1206;background:linear-gradient(135deg,#f59e0b,#fbbf24);box-shadow:0 6px 20px rgba(245,158,11,.35)}
 #faceheroStart{color:#1a1206;background:linear-gradient(135deg,#c084fc,#e879f9);box-shadow:0 6px 20px rgba(192,132,252,.35)}
@@ -7178,43 +7788,20 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
     </div>
   </div>
   </div>
+  <div id=faceheroHome></div>
   <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
-    <div class=dupe-panel-title style="color:#e879f9">🦄 Face Card &amp; Top Image Generator</div>
-    <div class=dupe-panel-hint><b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
-    <div class=dupe-panel-row>
-      <select id=faceheroPillarFilter title="Which pillar to regenerate face-cards + heroes for"><option value=tl>Loading pillars…</option></select>
-    </div>
+    <div class=dupe-panel-title style="color:#e879f9">◻️ Square Builder</div>
+    <div class=dupe-panel-hint><b>Manual only:</b> enter a graduated Q&amp;A ID. Its title keywords search Pexels. First click sets face card + existing Q&amp;A top-image slot; later clicks fill existing middle/bottom or Top-10 product slots. No slots are added or moved.</div>
     <div class=imgen-keywords-row>
-      <label class=imgen-keywords-label style="color:#e879f9" for=faceheroKeywords>🎯 Guide keywords (optional)</label>
-      <input type=text id=faceheroKeywords class=imgen-keywords maxlength=800 placeholder="e.g. headroom portrait, warm cinematic grade — comma separated" title="Optional — steers each Pollinator face-card flux try">
-      <div class=imgen-keywords-hint>Leave blank for automatic title-based searches. Same search/guide for every card until you ✗ Try again — then it rotates to the next title search (and next comma guide keyword if set).</div>
+      <label class=imgen-keywords-label style="color:#e879f9" for=squareQaId>Q&amp;A ID</label>
+      <input type=text id=squareQaId class=imgen-keywords maxlength=80 placeholder="e.g. q11133">
+      <label class=imgen-keywords-label style="color:#e879f9" for=squareTitleQuery>Title keywords</label>
+      <input type=text id=squareTitleQuery class=imgen-keywords maxlength=220 placeholder="Leave blank to read the Q&amp;A title automatically">
     </div>
-    <div class="dupe-auto-opts facehero">
-      <label title="Skip manual review — each generated face-card is saved automatically and the run continues"><input type=checkbox id=faceheroAutoApprove> 🤖 Auto-approve images</label>
-    </div>
-    <div class=dupe-btns>
-      <button type=button id=faceheroStart>▶ Generate face-card + top hero for pillar</button>
-      <button type=button id=faceheroStop disabled>⏹ Stop</button>
-      <button type=button id=faceheroForceStop disabled title="Force stop — clears review and will not resume on server restart">⏹ Force stop</button>
-    </div>
-    <div id=faceheroReview class=imgen-review style="display:none">
-      <div class=imgen-review-head><h4 id=faceheroReviewTitle>Review face-card</h4></div>
-      <div class=card-review>
-        <a id=faceheroReviewLink href="#" target=_blank rel=noopener><img id=faceheroReviewImg src="" alt="face-card preview"></a>
-        <div class=card-review-meta id=faceheroReviewMeta></div>
-        <div class=card-review-btns>
-          <button type=button id=faceheroKeep>✓ Keep</button>
-          <button type=button id=faceheroRetry>✗ Try again</button>
-        </div>
-      </div>
-    </div>
-    <div id=faceheroProg class=dupe-prog style="display:none">
-      <div class=dupe-prog-bar><i id=faceheroProgBar style="width:0%;background:linear-gradient(90deg,#a855f7,#e879f9)"></i></div>
-      <div class=dupe-prog-lbl id=faceheroProgLbl style="color:#e879f9">0% — waiting…</div>
-      <div class=dupe-stats id=faceheroStats></div>
-      <div class=dupe-log id=faceheroLog></div>
-    </div>
+    <div class=dupe-btns><button type=button id=squarePexelsSearch>🔎 Search title on Pexels</button><button type=button id=squareFinishQa>✅ Finish Q&amp;A</button></div>
+    <div id=squarePickerStatus class=dupe-panel-hint style="margin-top:10px">Graduated Q&amp;As wait here for manual images.</div>
+    <div id=squarePexelsGrid style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px"></div>
   </div>
   </div>
   <div id=rewritePanel${isRewrite ? '' : ' style="display:none"'}>
@@ -7302,13 +7889,27 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   </div>
   </div>
   <div id=formatfixPanel${isFormatFix ? '' : ' style="display:none"'}>
-  <div class=dupe-panel style="border-color:#0ea5e9;background:linear-gradient(165deg,#041018 0%,#0e1620 100%)">
+  <div class=square-builder-dock style="border-top:0;padding-top:0;margin-top:0">
+    <div class=dupe-panel-title style="color:#FFB81C">🌸 Original Fix-It-All Machine · SIM → QUALITY → TITLE → IMAGE → 13/13</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:10px 0 12px;font-size:.7rem;font-weight:950;text-align:center">
+      <div id=simStage1 style="padding:8px 3px;border-radius:8px;background:#B91C3F;color:#fff">1 · SIM</div>
+      <div id=simStage2 style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">2 · QUALITY</div>
+      <div id=simStage3 style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">3 · TITLE</div>
+      <div id=simStage4 style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">4 · IMAGE</div>
+      <div id=simStage5 style="padding:8px 3px;border-radius:8px;background:#33230b;color:#FFB81C">5 · 13/13</div>
+    </div>
+    <div class=dupe-panel-hint style="margin-bottom:10px">Your original machine, unchanged, with clickable pillar pods and <b>Auto-run 100 on TL Pulse Tools</b>. <a href="http://127.0.0.1:8904/" target=_blank style="color:#FFB81C">Open original full screen →</a></div>
+    <div id=originalSimWaiting style="padding:18px;text-align:center;color:#FFB81C;font-weight:850">Starting Stage 1 · SIM…</div>
+    <iframe id=originalSimFrame title="Original Kory Fix-It-All Machine" loading="eager" style="display:none;width:100%;height:880px;border:2px solid #FFB81C;border-radius:14px;background:#0a0a0c"></iframe>
+  </div>
+  <div class=dupe-panel style="border-color:#0ea5e9;background:linear-gradient(165deg,#041018 0%,#0e1620 100%);${process.env.FIXER_BUILDER_HOME === '1' ? 'display:none' : ''}">
     <div class=dupe-panel-title style="color:#38bdf8">📝 Format Fixer</div>
-    <div class=dupe-panel-hint><b>Content rubric:</b> ≥2000 words · hero image present · Direct Answer first after hero (2–3 sentences) · <b>no CRO in blob</b> (live page injects Kory card after Direct Answer) · 6 FAQs · 2 clean mermaid · 5 Sources · Related · clean links. DeepSeek fills gaps. <b>Never changes image URLs.</b></div>
+    <div class=dupe-panel-hint><b>Automatic pods of 100:</b> fixes a pod, fetches the next 100, and starts over with a fresh database scan after the full cycle. It runs until you press Stop. <b>Never changes image URLs.</b></div>
     <div class=dupe-panel-row>
       <select id=formatfixPillarFilter title="Which pillar to audit and fix"><option value=tl>Loading pillars…</option></select>
     </div>
     <div class=dupe-btns>
+      <button type=button id=formatfixAutoToggle aria-pressed=true>▶ FIXER AUTO-RUN 100 · ON</button>
       <button type=button id=formatfixStart>▶ Fix content &amp; structure in pillar</button>
       <button type=button id=formatfixStop disabled>⏹ Stop</button>
       <button type=button id=formatfixForceStop class=dupe-force-stop disabled title="Force stop immediately">⏹ Force stop</button>
@@ -7319,6 +7920,11 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
       <div class=dupe-stats id=formatfixStats></div>
       <div class=dupe-log id=formatfixLog></div>
     </div>
+  </div>
+  <div class=square-builder-dock>
+    <div class=dupe-panel-title style="color:#e879f9">🟦 Square Builder · attached to Fixer</div>
+    <div class=dupe-panel-hint style="margin-bottom:10px">Same localhost server and image proxy. Pick the face/top image and answer-page images without leaving the Fixer dashboard.</div>
+    <iframe src="/square-builder" title="Square Builder" loading="eager" style="display:block;width:100%;height:900px;border:1px solid #4c1d95;border-radius:14px;background:#0f1115"></iframe>
   </div>
   </div>
   <div id=indexPanel class=index-panel>
@@ -7616,8 +8222,8 @@ const RUBRIC_PICK=${JSON.stringify(Object.entries(RUBRIC_LABELS).filter(function
 const $=s=>document.querySelector(s);
 // ── Scrub vs Generate — one page, client-side tab toggle (owner) ──
 window.activeTab='${mode}';
-const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'🦄 Face Card & Top Image',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
-const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'Audits ≥2000 words, Direct Answer, CRO placement, FAQs, mermaid, Sources, Related. <b>Does not touch images.</b>'};
+const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'◻️ Square Builder',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
+const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'Your local 760×760 square workflow: describe the image, review it, then click the square to apply the baked title and template-safe cover/top-image swap. Up to 200 per batch.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every image renders before moving on. Face-card + top image never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'Audits ≥2000 words, Direct Answer, CRO placement, FAQs, mermaid, Sources, Related. <b>Does not touch images.</b>'};
 function switchPipelineTab(mode){
   if(!mode||mode===window.activeTab) return;
   window.activeTab=mode;
@@ -7630,7 +8236,6 @@ function switchPipelineTab(mode){
   if(iip) iip.style.display=mode==='internalimages'?'':'none';
   if(rsp) rsp.style.display=mode==='rubricstation'?'':'none';
   if(rp) rp.style.display=mode==='rewrite'?'':'none';
-  if(fp) fp.style.display=mode==='formatfix'?'':'none';
   const ns=$('#navScrub'), ng=$('#navGenerate'), nd=$('#navDuplicator'), ni=$('#navImgGen'), nfh=$('#navFaceHero'), nii=$('#navInternalImages'), nrs=$('#navRubricStation'), nr=$('#navRewrite'), nf=$('#navFormatFix');
   if(ns) ns.classList.toggle('on',mode==='scrub');
   if(ng) ng.classList.toggle('on',mode==='generate');
@@ -7644,7 +8249,7 @@ function switchPipelineTab(mode){
   const at=$('#appTitle'); if(at) at.textContent=TAB_TITLE[mode];
   const as=$('#appSub'); if(as) as.innerHTML=TAB_COPY[mode];
   if(window._sa&&window._sa.state&&window._sa.state.cap){ const cap=$('#cap'); if(cap) cap.textContent=window._sa.state.cap; }
-  try{ history.replaceState({tab:mode},'',mode==='generate'?'/generate':mode==='duplicator'?'/image-duplicator':mode==='imgen'?'/image-generator':mode==='facehero'?'/face-card-top-image-generator':mode==='internalimages'?'/internal-images':mode==='rubricstation'?'/rubric-stations':mode==='rewrite'?'/pollinator-image-overwrite':mode==='formatfix'?'/format-fixer':'/scrubber'); }catch(e){}
+  try{ history.replaceState({tab:mode},'',mode==='generate'?'/generate':mode==='duplicator'?'/image-duplicator':mode==='imgen'?'/image-generator':mode==='facehero'?'/square-builder':mode==='internalimages'?'/internal-images':mode==='rubricstation'?'/rubric-stations':mode==='rewrite'?'/pollinator-image-overwrite':mode==='formatfix'?'/format-fixer':'/scrubber'); }catch(e){}
   updateFullscreenForTab();
   updateTabBadges();
   if(mode==='scrub'){ if(window._sa) renderAuto(window._sa); loadPillars(); }
@@ -7670,7 +8275,7 @@ function bindPipelineTabs(){
   if(nf) nf.addEventListener('click',()=>switchPipelineTab('formatfix'));
   window.addEventListener('popstate',()=>{
     const path=(location.pathname||'/scrubber').toLowerCase();
-    const m=path.includes('format-fixer')||path.includes('formatfix')?'formatfix':path.includes('rubric-stations')||path.includes('rubricstation')?'rubricstation':path.includes('internal-images')||path.includes('internalimages')?'internalimages':path.includes('pollinator-image-overwrite')||path.includes('image-rewrite')?'rewrite':path.includes('face-card-top-image')||path.includes('face-hero')?'facehero':path.includes('image-generator')?'imgen':path.includes('image-duplicator')?'duplicator':path.includes('generate')?'generate':'scrub';
+    const m=path.includes('format-fixer')||path.includes('formatfix')?'formatfix':path.includes('rubric-stations')||path.includes('rubricstation')?'rubricstation':path.includes('internal-images')||path.includes('internalimages')?'internalimages':path.includes('pollinator-image-overwrite')||path.includes('image-rewrite')?'rewrite':path.includes('square-builder')||path.includes('face-card-top-image')||path.includes('face-hero')?'facehero':path.includes('image-generator')?'imgen':path.includes('image-duplicator')?'duplicator':path.includes('generate')?'generate':'scrub';
     if(m!==window.activeTab) switchPipelineTab(m);
   });
 }
@@ -7723,7 +8328,7 @@ function renderDuplicator(j){
   if(bar) bar.style.width=Math.max(pct>0?0.5:0,pct)+'%';
   if(lbl){
     const cur=j.currentId?(' · now: '+esc(j.currentId)+' — '+esc(String(j.currentTitle||'').slice(0,48))):'';
-    lbl.innerHTML='<b>'+pctShow+'%</b> — '+(j.done||0).toLocaleString()+' / '+(j.total||0).toLocaleString()+' Q&amp;As'+cur+(j.currentStep?(' · '+esc(j.currentStep)):'');
+    lbl.innerHTML='<b>'+pctShow+'% fully fixed</b> — '+(j.entriesPass||0).toLocaleString()+' / '+(j.total||0).toLocaleString()+' database Q&amp;As · scanned '+(j.done||0).toLocaleString()+' / '+(j.total||0).toLocaleString()+cur+(j.currentStep?(' · '+esc(j.currentStep)):'');
   }
   if(stats) stats.innerHTML=
     '<div>🖼 slots filled: <span>'+(j.imagesFilled||0)+'</span></div>'+
@@ -7798,6 +8403,8 @@ function renderRewrite(j){
     '<div>🌸 flux images: <span>'+(j.imagesRewritten||0)+'</span></div>'+
     '<div>📋 entries done: <span>'+(j.entriesDone||0)+'</span></div>'+
     '<div>⏭ no blob: <span>'+(j.skippedNoBlob||0)+'</span></div>'+
+    '<div>◻️ waiting for square: <span>'+(j.squarePending||0)+'</span></div>'+
+    '<div>✅ squares built: <span>'+(j.squareCompleted||0)+'</span></div>'+
     '<div>⚠️ errors: <span>'+(j.errors||0)+'</span></div>'+
     '<div>📁 pillar: <span>'+esc(j.pillarName||j.pillar||'—')+'</span></div>'+
     (j.autoApproveImages?('<div>🤖 auto-approve: <span>ON</span></div>'):'')+
@@ -7836,13 +8443,14 @@ let faceheroPoll=null, faceheroPollBusy=false;
 function renderFaceHero(j){
   if(!j) return;
   const prog=$('#faceheroProg'), bar=$('#faceheroProgBar'), lbl=$('#faceheroProgLbl'), stats=$('#faceheroStats'), log=$('#faceheroLog');
-  const start=$('#faceheroStart'), stop=$('#faceheroStop'), forceStop=$('#faceheroForceStop'), pf=$('#faceheroPillarFilter'), kw=$('#faceheroKeywords'), aa=$('#faceheroAutoApprove');
+  const start=$('#faceheroStart'), stop=$('#faceheroStop'), forceStop=$('#faceheroForceStop'), pf=$('#faceheroPillarFilter'), kw=$('#faceheroKeywords'), aa=$('#faceheroAutoApprove'), batch=$('#faceheroBatch');
   const showReview=j.phase==='review'&&j.pendingReview;
   const active=!!(j.running||j.phase==='starting'||j.phase==='facehero');
   const busy=active||showReview;
   if(pf) pf.disabled=busy;
   if(kw) kw.disabled=busy;
   if(aa) aa.disabled=busy;
+  if(batch) batch.disabled=busy;
   if(start) start.disabled=busy;
   if(busy){
     if(prog) prog.style.display='block';
@@ -7857,7 +8465,7 @@ function renderFaceHero(j){
   }
   if(lbl){
     const cur=j.currentId?(' · now: '+esc(j.currentId)+' — '+esc(String(j.currentTitle||'').slice(0,48))):'';
-    if(showReview) lbl.innerHTML='<b>Review</b> — '+esc(j.pendingReview.id)+' · try #'+(j.pendingReview.attempt||1)+(j.stopAfterReview?' · <span style="color:#fbbf24">Keep saves then stops run</span>':'')+' — ✓ keep or ✗ try again';
+    if(showReview) lbl.innerHTML='<b>Click the square to use it</b> — '+esc(j.pendingReview.id)+' · '+esc(j.pendingReview.template==='top10'?'Top 10':'Q&A essay')+' · try #'+(j.pendingReview.attempt||1)+(j.pendingReview.heroPlaced?' · cover + existing top image':' · cover only')+(j.stopAfterReview?' · <span style="color:#fbbf24">selection saves then stops</span>':'')+' — or ✗ try again';
     else{
       const pctShow=(Number(j.pct)>0&&Number(j.pct)<1)?Number(j.pct).toFixed(1):String(Math.round(Number(j.pct)||0));
       lbl.innerHTML='<b>'+pctShow+'%</b> — '+(j.done||0).toLocaleString()+' / '+(j.total||0).toLocaleString()+' Q&amp;As'+cur+(j.currentStep?(' · '+esc(j.currentStep)):'');
@@ -7873,6 +8481,7 @@ function renderFaceHero(j){
     '<div>⏭ no blob: <span>'+(j.skippedNoBlob||0)+'</span></div>'+
     '<div>⚠️ errors: <span>'+(j.errors||0)+'</span></div>'+
     '<div>📁 pillar: <span>'+esc(j.pillarName||j.pillar||'—')+'</span></div>'+
+    '<div>📦 daily batch: <span>'+(j.batchSize||200)+'</span></div>'+
     (j.autoApproveImages?('<div>🤖 auto-approve: <span>ON</span></div>'):'')+
     (j.guideKeywords?('<div>🎯 guide: <span>'+esc(String(j.guideKeywords).slice(0,80))+(String(j.guideKeywords).length>80?'…':'')+'</span></div>'):'');
   if(j.autoApproveImages != null){ const el=$('#faceheroAutoApprove'); if(el&&document.activeElement!==el) el.checked=!!j.autoApproveImages; }
@@ -7913,9 +8522,14 @@ let formatfixPoll=null, formatfixPollBusy=false;
 function renderFormatFixer(j){
   if(!j) return;
   const prog=$('#formatfixProg'), bar=$('#formatfixProgBar'), lbl=$('#formatfixProgLbl'), stats=$('#formatfixStats'), log=$('#formatfixLog');
-  const start=$('#formatfixStart'), stop=$('#formatfixStop'), forceStop=$('#formatfixForceStop'), pf=$('#formatfixPillarFilter');
-  const active=!!(j.running||j.phase==='starting'||j.phase==='fix');
+  const start=$('#formatfixStart'), stop=$('#formatfixStop'), forceStop=$('#formatfixForceStop'), autoToggle=$('#formatfixAutoToggle'), pf=$('#formatfixPillarFilter');
+  const active=!!(j.running||j.phase==='starting'||j.phase==='fix'||(j.auto&&j.phase==='waiting'));
   if(pf) pf.disabled=active;
+  if(autoToggle){
+    autoToggle.textContent=j.auto?'▶ FIXER AUTO-RUN 100 · ON':'⏸ FIXER AUTO-RUN 100 · OFF';
+    autoToggle.setAttribute('aria-pressed',j.auto?'true':'false');
+    autoToggle.style.setProperty('background',j.auto?'linear-gradient(135deg,#15803d,#22c55e)':'#374151','important');
+  }
   if(active){
     if(prog) prog.style.display='block';
     if(start) start.style.display='none';
@@ -7935,6 +8549,8 @@ function renderFormatFixer(j){
     lbl.innerHTML='<b>'+pctShow+'%</b> — '+(j.done||0).toLocaleString()+' / '+(j.total||0).toLocaleString()+' Q&amp;As'+cur+(j.currentStep?(' · '+esc(j.currentStep)):'');
   }
   if(stats) stats.innerHTML=
+    '<div>📦 current pod: <span>'+(j.podNumber||0)+' · '+(j.podSize||100)+' each</span></div>'+
+    '<div>🔄 full cycles: <span>'+(j.cycles||0)+'</span></div>'+
     '<div>📝 entries fixed: <span>'+(j.entriesFixed||0)+'</span></div>'+
     '<div>✅ content rubric pass: <span>'+(j.entriesPass||0)+'</span></div>'+
     '<div>⏭ already OK: <span>'+(j.entriesSkipped||0)+'</span></div>'+
@@ -7953,7 +8569,7 @@ function startFormatFixerPoll(){
       window._formatfix=j;
       if(window.activeTab==='formatfix') renderFormatFixer(j);
       updateTabBadges();
-      if(!j.running&&j.phase!=='starting'&&j.phase!=='fix'){ clearInterval(formatfixPoll); formatfixPoll=null; }
+      if(!j.running&&!j.auto&&j.phase!=='starting'&&j.phase!=='fix'){ clearInterval(formatfixPoll); formatfixPoll=null; }
     }catch(e){}finally{ formatfixPollBusy=false; }
   },1500);
 }
@@ -7963,7 +8579,7 @@ async function refreshFormatFixerStatus(){
     const j=await(await fetch('/format-fixer-status?key='+KEY)).json();
     window._formatfix=j;
     renderFormatFixer(j);
-    if(j.running) startFormatFixerPoll();
+    if(j.running||j.auto) startFormatFixerPoll();
     updateTabBadges();
   }catch(e){}
 }
@@ -8193,6 +8809,12 @@ function initPage(){
   bindGenCountUi();
   initImgGenKeywords();
   initGuideKeywordsUi();
+}
+function openSquareQaFromLink(){
+  let id='';try{id=new URLSearchParams(location.search).get('qa')||'';}catch(e){}
+  if(!id)return;
+  const input=$('#squareQaId');if(input)input.value=id;
+  setTimeout(()=>{const button=$('#squarePexelsSearch');if(button&&!button.disabled)button.click();},250);
 }
 function showFsGenerate(on){
   const fs=$('#fsGenerate');
@@ -8430,14 +9052,6 @@ function paintLaneMini(board, d){
     hot.map(r=>'<div style="padding:3px 0">'+queueIco(r.queueColor)+' <b>'+esc(r.id)+'</b> '+esc(lanePhaseKid(r.phase,r.sectionIdx,r.stages,r.phaseLabel))+' · '+r.overallPct+'%</div>').join('');
 }
 setTimeout(initPage,50);
-(function autoFromUrl(){
-  try{
-    const q=new URLSearchParams(location.search);
-    const code=String(q.get('code')||q.get('key')||'').trim();
-    if(code.length===4&&pwEl){ pwEl.value=code; tryGate(); return; }
-    if(q.get('open')==='1') enterGate();
-  }catch(e){}
-})();
 // live visual for the scrub tab — progress bar + current URL + rolling log
 let scrubLog=[];
 function scrubRender(d){
@@ -8467,6 +9081,7 @@ window.enterUnicornGate=enterGate;
 function tryGate(){if(gateUnlocked)return;const code=pwEl?pwEl.value.trim():'';if(code.length!==4)return;KEY=code;fetch('/state?key='+KEY).then(r=>r.json()).then(d=>{if(d.ok){gateUnlocked=true;$('#gerr').textContent='';if(gateEl)gateEl.style.display='none';hideIntro();if(appEl)appEl.style.display='flex';shownGreen=d.green;shownUnder=d.under;paint(d,true);
   loadPillars();
   initPage();
+  openSquareQaFromLink();
   fetch('/scrub-status').then(r=>r.json()).then(a=>{ window._sa=a; setScrubPillarFilterUi(a.scrubPillarFilter||'all'); renderAuto(a); if(a.state)paint(a.state); if(a.running||a.imageScrubRunning){ startAutoPoll(); } refreshSignoffQueue(); maybeOpenApprovalDeepLink(); updateTabBadges(); refreshDuplicatorStatus(); }).catch(()=>{ paintCrewManifest(null); maybeOpenApprovalDeepLink(); });
   fetch('/gen-status?key='+KEY).then(r=>r.json()).then(g=>{ if(g&&g.running){ window._gen=g; window.genRunning=true; genRender(g); genStartPoll(); } updateTabBadges(); }).catch(()=>{});
   if(window.activeTab==='imgen') refreshImgGenStatus();
@@ -8478,6 +9093,65 @@ function tryGate(){if(gateUnlocked)return;const code=pwEl?pwEl.value.trim():'';i
 }else{$('#gerr').textContent='Wrong code'}}).catch(()=>$('#gerr').textContent='server?')}
 pwEl&&pwEl.addEventListener('keydown',e=>{if(e.key==='Enter')tryGate()});
 pwEl&&pwEl.addEventListener('input',()=>{if(pwEl.value.trim().length>=4)tryGate()});
+(function autoFromUrl(){
+  try{
+    const q=new URLSearchParams(location.search);
+    const code=String(q.get('code')||q.get('key')||'').trim();
+    if(code.length===4&&pwEl){ pwEl.value=code; tryGate(); return; }
+    if(q.get('open')==='1') enterGate();
+  }catch(e){}
+})();
+(async function mountOriginalSimMachine(){
+  const frame=$('#originalSimFrame'),waiting=$('#originalSimWaiting');
+  if(!frame)return;
+  for(let attempt=0;attempt<40;attempt++){
+    try{
+      const ready=await(await fetch('/original-machine-ready?t='+Date.now(),{cache:'no-store'})).json();
+      if(ready.ok){
+        frame.src='http://127.0.0.1:8904/?t='+Date.now();
+        frame.style.display='block';
+        if(waiting)waiting.style.display='none';
+        return;
+      }
+    }catch(e){}
+    await new Promise(resolve=>setTimeout(resolve,500));
+  }
+  if(waiting)waiting.textContent='Stage 1 · SIM did not start — use Restart Node, then retry.';
+})();
+function paintSimStage(el,state){
+  if(!el)return;
+  const colors={
+    done:['#14532d','#86efac'],
+    active:['#92400e','#fde68a'],
+    failed:['#B91C3F','#fff'],
+    pending:['#33230b','#FFB81C']
+  };
+  const c=colors[state]||colors.pending;
+  el.style.background=c[0];el.style.color=c[1];
+  el.style.boxShadow=state==='active'?'0 0 16px rgba(251,191,36,.55)':'none';
+}
+async function refreshOriginalStageStrip(){
+  try{
+    const payload=await(await fetch('/original-machine-status?t='+Date.now(),{cache:'no-store'})).json();
+    const st=payload.status||{},stage=String(st.stage||'idle').toLowerCase(),rows=Object.values(payload.fix||{});
+    const allDone=key=>rows.length>0&&rows.every(row=>{const v=row&&row.checks&&row.checks[key];return v==='done'||v==='fixed';});
+    let states=['pending','pending','pending','pending','pending'];
+    if(stage==='scan')states[0]='active';
+    else if(stage==='error'||stage==='stopped')states[0]='failed';
+    else if(stage==='scan-done'||stage==='triage'){states[0]='done';states[1]='active';}
+    else if(stage==='transform'){
+      states[0]=allDone('similarity')||!rows.length?'done':'active';states[1]=states[0]==='done'?'active':'pending';
+      if(allDone('quality')){states[1]='done';states[2]='active';}
+      if(allDone('title')){states[2]='done';states[3]='active';}
+      if(allDone('image')){states[3]='done';states[4]='active';}
+      if(allDone('gate'))states[4]='done';
+    }else if(stage==='verify'){states=['done','done','done','done','active'];}
+    else if(stage==='done'&&st.verified){states=['done','done','done','done','done'];}
+    states.forEach((state,index)=>paintSimStage($('#simStage'+(index+1)),state));
+  }catch(e){}
+}
+setInterval(refreshOriginalStageStrip,2000);
+refreshOriginalStageStrip();
 // Persistent 3s heartbeat: always reflect true server state for both pipelines.
 var heartbeat=null;
 function startHeartbeat(){ if(heartbeat)return; heartbeat=setInterval(async()=>{ try{ const d=await(await fetch('/scrub-status')).json(); window._sa=d; if(window.activeTab==='scrub') renderAuto(d); else if(window.activeTab!=='duplicator'&&window.activeTab!=='imgen'&&window.activeTab!=='facehero'&&window.activeTab!=='rewrite'&&window.activeTab!=='formatfix') { paintRunStats(d); if(d.state)paint(d.state); } if((d.pendingList&&d.pendingList.length)||(d.state&&d.state.pending)) refreshSignoffQueue(); if(isScrubActive(d)&&!autoPoll) startAutoPoll(); }catch(e){} if(KEY){ try{ const g=await(await fetch('/gen-status?key='+KEY)).json(); window._gen=g; window.genRunning=!!g.running; if(window.activeTab==='generate') genRender(g); if(g.running&&!genPoll) genStartPoll(); else if(g.running) renderFsGenerate(g); }catch(e){} if(!dupePoll&&(window.activeTab==='duplicator'||(window._dupe&&window._dupe.running))){ try{ const j=await(await fetch('/image-duplicator-status?key='+KEY)).json(); window._dupe=j; if(window.activeTab==='duplicator') renderDuplicator(j); if(j.running) startDupePoll(); }catch(e){} } if(!imgenPoll&&(window.activeTab==='imgen'||(window._imgen&&window._imgen.running))){ try{ const j=await(await fetch('/image-generator-status?key='+KEY)).json(); window._imgen=j; if(window.activeTab==='imgen') renderImgGen(j); if(j.running) startImgGenPoll(); }catch(e){} } if(!rewritePoll&&(window.activeTab==='rewrite'||(window._rewrite&&window._rewrite.running))){ try{ const j=await(await fetch('/image-rewrite-status?key='+KEY)).json(); window._rewrite=j; if(window.activeTab==='rewrite') renderRewrite(j); if(j.running) startRewritePoll(); }catch(e){} } if(!faceheroPoll&&(window.activeTab==='facehero'||(window._facehero&&window._facehero.running))){ try{ const j=await(await fetch('/face-hero-status?key='+KEY)).json(); window._facehero=j; if(window.activeTab==='facehero') renderFaceHero(j); if(j.running) startFaceHeroPoll(); }catch(e){} } if(!formatfixPoll&&(window.activeTab==='formatfix'||(window._formatfix&&window._formatfix.running))){ try{ const j=await(await fetch('/format-fixer-status?key='+KEY)).json(); window._formatfix=j; if(window.activeTab==='formatfix') renderFormatFixer(j); if(j.running) startFormatFixerPoll(); }catch(e){} } } updateTabBadges(); },3000); }
@@ -9418,7 +10092,7 @@ async function forceStopScrubUI(){
   showFsScrub(false);
 }
 async function forceStopAllUI(){
-  if(!confirm('Force stop EVERYTHING immediately?\n\nScrubber · Generate · Face hero · Image fill · DDG · Rubric · Format fixer\n\nCurrent entry abandoned — will not auto-resume.')) return;
+  if(!confirm('Force stop EVERYTHING immediately?\\n\\nScrubber · Generate · Face hero · Image fill · DDG · Rubric · Format fixer\\n\\nCurrent entry abandoned — will not auto-resume.')) return;
   const sp=$('#stop'), fs=$('#fsStop'), sf=$('#scrubForceStop'), fsf=$('#fsScrubForceStop'), fsa=$('#forceStopAll'), bg=$('#begin'), gr=$('#gear');
   [sp,fs,sf,fsf,fsa].forEach(el=>{ if(el) el.disabled=true; });
   await fetch('/force-stop-all',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY})}).catch(()=>{});
@@ -9643,18 +10317,72 @@ bindForceStop('#internalForceStop','/internal-images-force-stop','Force stop int
 bindForceStop('#formatfixForceStop','/format-fixer-force-stop','Force stop format fixer immediately?', refreshFormatFixerStatus);
 bindForceStop('#rubricForceStop','/rubric-station-force-stop','Force stop rubric station immediately?', refreshRubricStationStatus);
 var _genForceStop=$('#genForceStop'); _genForceStop&&_genForceStop.addEventListener('click',()=>forceStopGenUI());
+function squareClickKey(id){return 'pulse.square.clicks.'+String(id||'').trim();}
+function squareClickCount(id){try{return parseInt(sessionStorage.getItem(squareClickKey(id))||'0',10)||0;}catch(e){return 0;}}
+function setSquareClickCount(id,n){try{sessionStorage.setItem(squareClickKey(id),String(n));}catch(e){}}
+var _squarePexelsSearch=$('#squarePexelsSearch');
+_squarePexelsSearch&&_squarePexelsSearch.addEventListener('click',async()=>{
+  if(!KEY)return;
+  const id=String(($('#squareQaId')&&$('#squareQaId').value)||'').trim();
+  const title=String(($('#squareTitleQuery')&&$('#squareTitleQuery').value)||'').trim();
+  const gender='';
+  const currentClick=squareClickCount(id);
+  const status=$('#squarePickerStatus'),grid=$('#squarePexelsGrid');
+  if(!id){if(status)status.textContent='Enter a graduated Q&A ID.';return;}
+  _squarePexelsSearch.disabled=true;if(status)status.textContent='Searching Pexels from title keywords…';if(grid)grid.innerHTML='';
+  try{
+    const u='/square-pexels-search?key='+encodeURIComponent(KEY)+'&id='+encodeURIComponent(id)+'&title='+encodeURIComponent(title)+'&gender='+encodeURIComponent(gender)+'&clickIndex='+currentClick;
+    const r=await(await fetch(u)).json();
+    if(!r.ok)throw new Error(r.msg||'search failed');
+    if($('#squareTitleQuery')&&!title)$('#squareTitleQuery').value=r.title||'';
+    if(status)status.textContent=(r.template==='top10'?'Top 10 manual mode':'Q&A essay manual mode')+' · '+(r.targetTitle||r.title)+' · click '+(currentClick+1)+'/'+(r.targetCount||'?')+' · query: '+r.query;
+    (r.photos||[]).forEach(photo=>{
+      const btn=document.createElement('button');btn.type='button';btn.className='square-pexels-option';
+      const img=document.createElement('img');img.src=photo.thumb;img.alt='Pexels option by '+(photo.photographer||'photographer');
+      btn.appendChild(img);
+      btn.addEventListener('click',async()=>{
+        const clickIndex=squareClickCount(id);btn.disabled=true;if(status)status.textContent='Applying selected image…';
+        try{
+          const applied=await(await fetch('/square-pexels-apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,id,url:photo.url,clickIndex,gender})})).json();
+          if(!applied.ok)throw new Error(applied.msg||'apply failed');
+          setSquareClickCount(id,clickIndex+1);
+          if(status)status.textContent='✓ '+applied.placement+' · click another image for the next existing slot, or Finish Q&A.';
+          btn.style.borderColor='#22c55e';btn.style.opacity='.55';
+          if(clickIndex+1<(r.targetCount||0)){setTimeout(()=>_squarePexelsSearch.click(),350);}
+        }catch(e){btn.disabled=false;if(status)status.textContent='⚠ '+e.message;}
+      });
+      if(grid)grid.appendChild(btn);
+    });
+  }catch(e){if(status)status.textContent='⚠ '+e.message;}
+  finally{_squarePexelsSearch.disabled=false;}
+});
+var _squareFinishQa=$('#squareFinishQa');
+_squareFinishQa&&_squareFinishQa.addEventListener('click',async()=>{
+  if(!KEY)return;
+  const id=String(($('#squareQaId')&&$('#squareQaId').value)||'').trim(),status=$('#squarePickerStatus');
+  if(!id){if(status)status.textContent='Enter a Q&A ID.';return;}
+  _squareFinishQa.disabled=true;
+  try{
+    const r=await(await fetch('/square-pexels-finish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,id})})).json();
+    if(!r.ok)throw new Error(r.msg||'finish failed');
+    setSquareClickCount(id,0);
+    if(status)status.textContent='✅ Finished · '+(r.emailed||0)+' images emailed · added to Recent and '+(r.pillar||'its')+' topic pillar.';
+    const grid=$('#squarePexelsGrid');if(grid)grid.innerHTML='';
+  }catch(e){if(status)status.textContent='⚠ '+e.message;}
+  finally{_squareFinishQa.disabled=false;}
+});
 var _faceheroStart=$('#faceheroStart');
 _faceheroStart&&_faceheroStart.addEventListener('click',async()=>{
   if(!KEY) return;
   const pillar=($('#faceheroPillarFilter')&&$('#faceheroPillarFilter').value)||'tl';
   const guideKeywords=readGuideKeywords('faceheroKeywords');
   const autoApprove=readAutoApprove('faceheroAutoApprove');
-  if(!pillar||pillar==='all'){ alert('Pick a specific pillar (not All)'); return; }
+  const batchSize=Math.max(1,Math.min(200,parseInt(($('#faceheroBatch')&&$('#faceheroBatch').value)||'200',10)||200));
   const modeNote=autoApprove?' Auto-approve is ON — each card saves without manual review.':' After each card: ✓ Keep saves it · ✗ Try again regenerates with the next search.';
-  if(!confirm('Generate face-cards for every Q&A in '+pillar+'?'+modeNote)) return;
+  if(!confirm('Build up to '+batchSize+' titled squares for '+(pillar==='all'?'all queued Q&As':pillar)+'?'+modeNote)) return;
   _faceheroStart.disabled=true;
   try{
-    const r=await(await fetch('/face-hero-start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,pillar,guideKeywords,autoApprove})})).json();
+    const r=await(await fetch('/face-hero-start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,pillar,guideKeywords,autoApprove,batchSize})})).json();
     if(!r.started){
       if(r.needsReview){
         alert(r.msg||('Review pending: '+(r.pendingId||'')));
@@ -9666,7 +10394,7 @@ _faceheroStart&&_faceheroStart.addEventListener('click',async()=>{
     $('#faceheroProg')&&($('#faceheroProg').style.display='block');
     $('#faceheroReview')&&($('#faceheroReview').style.display='none');
     startFaceHeroPoll();
-    renderFaceHero({running:true,pct:0,done:0,total:0,log:['▶ Starting…'],pillarName:r.pillarName,pillar,guideKeywords,autoApproveImages:autoApprove});
+    renderFaceHero({running:true,pct:0,done:0,total:0,log:['▶ Starting square batch…'],pillarName:r.pillarName,pillar,guideKeywords,autoApproveImages:autoApprove,batchSize});
   }catch(e){ alert('start failed'); }
   finally{ _faceheroStart.disabled=false; }
 });
@@ -9681,6 +10409,11 @@ _faceheroKeep&&_faceheroKeep.addEventListener('click',async()=>{
     await refreshFaceHeroStatus();
   }catch(e){ alert('keep failed'); }
   finally{ _faceheroKeep.disabled=false; }
+});
+var _faceheroReviewImg=$('#faceheroReviewImg');
+_faceheroReviewImg&&_faceheroReviewImg.addEventListener('click',function(e){
+  e.preventDefault();
+  if(_faceheroKeep&&!_faceheroKeep.disabled)_faceheroKeep.click();
 });
 var _faceheroRetry=$('#faceheroRetry');
 _faceheroRetry&&_faceheroRetry.addEventListener('click',async()=>{
@@ -9761,6 +10494,19 @@ var _rewriteStop=$('#rewriteStop');
 _rewriteStop&&_rewriteStop.addEventListener('click',async()=>{
   if(!KEY) return;
   try{ await fetch('/image-rewrite-stop',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY})}); }catch(e){}
+});
+var _formatfixAutoToggle=$('#formatfixAutoToggle');
+_formatfixAutoToggle&&_formatfixAutoToggle.addEventListener('click',async()=>{
+  if(!KEY)return;
+  const enabled=_formatfixAutoToggle.getAttribute('aria-pressed')!=='true';
+  _formatfixAutoToggle.disabled=true;
+  try{
+    const r=await(await fetch('/format-fixer-auto',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,enabled})})).json();
+    if(!r.ok)throw new Error(r.msg||'toggle failed');
+    await refreshFormatFixerStatus();
+    if(r.auto)startFormatFixerPoll();
+  }catch(e){alert(e.message||'toggle failed');}
+  finally{_formatfixAutoToggle.disabled=false;}
 });
 var _formatfixStart=$('#formatfixStart');
 _formatfixStart&&_formatfixStart.addEventListener('click',async()=>{
@@ -10461,7 +11207,7 @@ function startPillarFixTo13(pillar) {
   return { ok: true, started: true, pillar, pillarName: pName(pillar) };
 }
 
-let autoJob = { running: false, certified: 0, ready: 0, parked: 0, tried: 0, phase: 'idle', current: null, currentSince: null, stage: 'idle', startedAt: null, stop: false, log: [], lastCertify: null, lastFinish: null };
+let autoJob = { running: false, auto: true, halted: false, certified: 0, ready: 0, parked: 0, tried: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, squareQueued: 0, phase: 'idle', current: null, currentSince: null, stage: 'idle', startedAt: null, stop: false, log: [], lastCertify: null, lastFinish: null };
 function autoLog(s) { autoJob.log.unshift(new Date().toLocaleTimeString() + ' ' + s); autoJob.log = autoJob.log.slice(0, 28); }
 async function scrubAutoLoop() {
   if (autoJob.running) return;
@@ -10470,7 +11216,7 @@ async function scrubAutoLoop() {
     pipelineAlt.next = 'scrub';
     touchPipelineAlt({});
   }
-  autoJob = { running: true, certified: 0, ready: 0, parked: 0, tried: 0, phase: 'scrub', current: null, currentSince: null, stage: genJob.running ? '🔁 alt scrub — waiting for turn' : '🍳 full scrub — one ID at a time', startedAt: new Date().toISOString(), stop: false, log: [], lastCertify: null, lastFinish: null };
+  autoJob = { running: true, auto: true, halted: false, certified: 0, ready: 0, parked: 0, tried: 0, errors: 0, consecutiveErrors: 0, maxConsecutiveErrors: 3, squareQueued: 0, phase: 'scrub', current: null, currentSince: null, stage: genJob.running ? '🔁 alt scrub — waiting for turn' : '🍳 full scrub — one ID at a time', startedAt: new Date().toISOString(), stop: false, log: [], lastCertify: null, lastFinish: null };
   if (merged) autoLog('↪ merged ' + merged + ' legacy ids into pool');
   autoLog(genJob.running ? '▶ scrubber joined generate ↔ scrub alternation' : '▶ started (full scrub — one at a time, no fast pass)');
   while (!autoJob.stop) {
@@ -10501,6 +11247,13 @@ async function scrubAutoLoop() {
     autoJob.currentSince = null;
     autoJob.tried++;
     recordScrubAutoResult(r);
+    if (r && r.status === 'error') {
+      autoJob.errors++;
+      autoJob.consecutiveErrors++;
+      autoLog('⚠️ daily driver error ' + autoJob.consecutiveErrors + '/' + autoJob.maxConsecutiveErrors);
+    } else {
+      autoJob.consecutiveErrors = 0;
+    }
     releasePipelineAltTurn('scrub', r && r.id);
   }
   autoJob.running = false;
@@ -10533,15 +11286,18 @@ async function watchNew() {
     cur.forEach(id => knownIds.add(id)); fs.writeFileSync(KNOWN, JSON.stringify([...knownIds]));
   } catch (e) {}
 }
+let nodeRestartScheduled = false;
 const server = http.createServer(async (req, res) => {
   const u = new URL(req.url, 'http://localhost');
   res.setHeader('Access-Control-Allow-Origin', '*');
+  if (u.pathname === '/' && SQUARE_ONLY) { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildSquareDeskPage()); }
+  if (u.pathname === '/' && (PORT === 8904 || process.env.FIXER_BUILDER_HOME === '1')) { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('formatfix')); }
   if (u.pathname === '/' || u.pathname === '/scrubber') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('scrub')); }
   if (u.pathname === '/generate') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('generate')); }
   if (u.pathname === '/image-duplicator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('duplicator')); }
   if (u.pathname === '/image-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('imgen')); }
   if (u.pathname === '/pollinator-image-overwrite' || u.pathname === '/image-rewrite') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rewrite')); }
-  if (u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('facehero')); }
+  if (u.pathname === '/square' || u.pathname === '/square-builder' || u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildSquareDeskPage()); }
   if (u.pathname === '/format-fixer' || u.pathname === '/formatfix') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('formatfix')); }
   if (u.pathname === '/internal-images' || u.pathname === '/internalimages') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('internalimages')); }
   if (u.pathname === '/rubric-stations' || u.pathname === '/rubricstation') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rubricstation')); }
@@ -10560,7 +11316,53 @@ const server = http.createServer(async (req, res) => {
   if (u.pathname === '/pillar-progress-data') { res.writeHead(200, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify(buildPillarProgressPayload())); }
   if (u.pathname === '/health' || u.pathname === '/ping') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    return res.end(JSON.stringify({ ok: true, port: PORT, passcode: PASS, ts: Date.now() }));
+    return res.end(JSON.stringify({
+      ok: true,
+      app: 'pulse-fixer-square-builder',
+      build: 'pods-100-image-proxy-v1',
+      port: PORT,
+      passcode: PASS,
+      ts: Date.now(),
+    }));
+  }
+  if (u.pathname === '/original-machine-ready') {
+    const ready = await originalSimMachineReady();
+    res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    return res.end(JSON.stringify({ ok: ready, port: 8904 }));
+  }
+  if (u.pathname === '/original-machine-status') {
+    const payload = await originalSimMachineStatus();
+    res.writeHead(payload ? 200 : 503, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    return res.end(JSON.stringify(payload || { ok: false }));
+  }
+  if (u.pathname === '/server-restart' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ ok: false, msg: 'bad code' }));
+      }
+      if (nodeRestartScheduled) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ ok: true, restarting: true }));
+      }
+      nodeRestartScheduled = true;
+      saveFormatFixerState(true);
+      saveSquareAutoJob();
+      res.writeHead(202, { 'Content-Type': 'application/json', 'Connection': 'close' });
+      res.end(JSON.stringify({ ok: true, restarting: true }));
+      setTimeout(() => {
+        server.close(() => {
+          const child = spawn(process.execPath, process.argv.slice(1), {
+            cwd: WD, env: Object.assign({}, process.env), detached: true, stdio: 'ignore', windowsHide: true,
+          });
+          child.unref();
+          process.exit(0);
+        });
+        setTimeout(() => { if (typeof server.closeAllConnections === 'function') server.closeAllConnections(); }, 750);
+      }, 350);
+    });
+    return;
   }
   if (u.pathname === '/portal-url') {
     let lan = '';
@@ -10914,11 +11716,144 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     return res.end(JSON.stringify(faceHeroStatusPayload()));
   }
+  if (u.pathname === '/square-auto-status') {
+    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify(squareAutoStatus()));
+  }
+  if (u.pathname === '/square-auto-toggle' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      const result = setSquareAutoRun(d.enabled);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    });
+    return;
+  }
+  if (u.pathname === '/square-preference' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      const profile = recordSquarePreference(d);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, profile }));
+    });
+    return;
+  }
+  if (u.pathname === '/square-next') {
+    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
+    try {
+      const result = await pickSquareNextEntry();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify(result));
+    } catch (e) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ ok: false, msg: e.message }));
+    }
+  }
+  if (u.pathname === '/square-search') {
+    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
+    try {
+      const result = await searchSquareDeskImages(u.searchParams.get('q') || '');
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify(result));
+    } catch (e) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ ok: false, msg: e.message }));
+    }
+  }
+  if (u.pathname === '/square-proxy') {
+    try {
+      const parsed = new URL(u.searchParams.get('u') || '');
+      if (parsed.protocol !== 'https:' || !/(^|\.)pexels\.com$/i.test(parsed.hostname)) throw new Error('bad image URL');
+      const upstream = await fetch(parsed.href, {
+        redirect: 'follow',
+        headers: {
+          Accept: 'image/avif,image/webp,image/apng,image/jpeg,image/*,*/*;q=0.8',
+          Referer: 'https://www.pexels.com/',
+          'User-Agent': 'Mozilla/5.0 PULSE-Square-Builder/1.0',
+        },
+        signal: AbortSignal.timeout(45000),
+      });
+      if (!upstream.ok || !String(upstream.headers.get('content-type') || '').startsWith('image/')) throw new Error('image fetch failed');
+      const buffer = Buffer.from(await upstream.arrayBuffer());
+      if (!buffer.length) throw new Error('empty image');
+      res.writeHead(200, {
+        'Content-Type': upstream.headers.get('content-type'),
+        'Content-Length': buffer.length,
+        'Cache-Control': 'private, max-age=900',
+        'X-Content-Type-Options': 'nosniff',
+      });
+      return res.end(buffer);
+    } catch (e) {
+      const svg = Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320"><rect width="480" height="320" fill="#171a21"/><text x="240" y="150" text-anchor="middle" fill="#f87171" font-family="Arial,sans-serif" font-size="18" font-weight="700">Image could not load</text><text x="240" y="180" text-anchor="middle" fill="#9aa3b2" font-family="Arial,sans-serif" font-size="13">Search again or choose another photo</text></svg>');
+      res.writeHead(200, {
+        'Content-Type': 'image/svg+xml',
+        'Content-Length': svg.length,
+        'Cache-Control': 'no-store',
+        'X-Square-Image-Error': '1',
+      });
+      return res.end(svg);
+    }
+  }
+  if (u.pathname === '/square-stage' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true }));
+    });
+    return;
+  }
+  if (u.pathname === '/square-save-draft' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', async () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      try {
+        const result = await saveSquareDeskDraft(d);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(result));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, msg: e.message }));
+      }
+    });
+    return;
+  }
+  if (u.pathname === '/square-pexels-search') {
+    if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
+    try {
+      const result = await searchPexelsForTitle(String(u.searchParams.get('id') || '').trim(), u.searchParams.get('title') || '', u.searchParams.get('gender') || '', u.searchParams.get('clickIndex') || 0);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify(Object.assign({ ok: true }, result)));
+    } catch (e) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ ok: false, msg: e.message }));
+    }
+  }
+  if ((u.pathname === '/square-pexels-apply' || u.pathname === '/square-pexels-finish') && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', async () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      try {
+        const result = u.pathname === '/square-pexels-finish'
+          ? await finishManualPexelsQa(String(d.id || '').trim())
+          : await applyManualPexelsImage(String(d.id || '').trim(), d.url || '', d.clickIndex, d.gender || '');
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(result));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, msg: e.message }));
+      }
+    });
+    return;
+  }
   if (u.pathname === '/face-hero-start' && req.method === 'POST') {
     let b = ''; req.on('data', c => b += c); req.on('end', () => {
       let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
       if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
-      const r = startFaceHero(d.pillar || '', d.guideKeywords || '', d.autoApprove);
+      const r = startFaceHero(d.pillar || '', d.guideKeywords || '', d.autoApprove, false, d.batchSize);
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(r));
     });
@@ -10962,6 +11897,16 @@ const server = http.createServer(async (req, res) => {
     if (u.searchParams.get('key') !== PASS) { res.writeHead(401); return res.end('{}'); }
     res.writeHead(200, { 'Content-Type': 'application/json' });
     return res.end(JSON.stringify(formatFixerStatusPayload()));
+  }
+  if (u.pathname === '/format-fixer-auto' && req.method === 'POST') {
+    let b = ''; req.on('data', c => b += c); req.on('end', () => {
+      let d = {}; try { d = JSON.parse(b || '{}'); } catch (e) {}
+      if (d.key !== PASS) { res.writeHead(401); return res.end('{}'); }
+      const result = setFormatFixerAuto(d.enabled);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    });
+    return;
   }
   if (u.pathname === '/format-fixer-start' && req.method === 'POST') {
     let b = ''; req.on('data', c => b += c); req.on('end', () => {
@@ -11194,9 +12139,18 @@ server.on('error', (e) => {
   else console.error('[scrub-button] FATAL', e && e.message);
   process.exit(1);
 });
-server.listen(PORT, '0.0.0.0', async () => {
+if (require.main === module) server.listen(PORT, '0.0.0.0', async () => {
+  if (process.env.FIXER_BUILDER_HOME === '1') {
+    ensureOriginalSimMachine().then(ok => console.log('[scrub-button] original Fix-It-All Machine ' + (ok ? 'attached on 8904' : 'failed to start'))).catch(() => {});
+  }
+  removeSquareBuildsByPrefix('sy');
+  emailSquareBacklogOnce().catch(error => console.log('[square-email] backlog email failed:', error.message));
   loadScrubPillarFilter();
   await loadIndex();
+  if (SQUARE_ONLY) {
+    console.log('[square-builder] restored working site at http://127.0.0.1:' + PORT + '/');
+    return;
+  }
   mergeCookIntoQueue();
   try { await backfillRegistry(); loadImageDupePriority(); autoLog('🔄 image-dupe priority loaded — ' + imageDupePriority.size + ' entries flagged'); } catch (e) {}
   // seed the queue from the under-12 survey if empty
@@ -11215,4 +12169,54 @@ server.listen(PORT, '0.0.0.0', async () => {
   console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
   if (lanIp) console.log(`[scrub-button] LAN (phone on WiFi): http://${lanIp}:${PORT}/`);
   resumeInterruptedImageJobs();
+  const bootFixerAuto = process.env.FORMAT_FIXER_AUTORUN === '1';
+  const bootFixerDisabled = process.env.FORMAT_FIXER_AUTORUN === '0';
+  const bootFixerPillar = String(process.env.FORMAT_FIXER_BOOT_PILLAR || 'tl').trim() || 'tl';
+  if (bootFixerDisabled) {
+    formatFixerJob.auto = false;
+    formatFixerJob.stop = true;
+    if (!formatFixerJob.running) formatFixerJob.phase = 'stopped';
+    saveFormatFixerState(true);
+  } else if (bootFixerAuto && (!formatFixerJob.auto || formatFixerJob.phase === 'done' || formatFixerJob.pillar !== bootFixerPillar)) {
+    const bootStart = () => {
+      if (formatFixerJob.running) return;
+      const result = startFormatFixer(bootFixerPillar);
+      if (!result.ok && /running/i.test(result.msg || '')) setTimeout(bootStart, 5000);
+    };
+    setTimeout(bootStart, 1200);
+  } else if (formatFixerJob.auto && formatFixerJob.phase !== 'done') {
+    formatFixerJob.stop = false;
+    formatFixerJob.error = '';
+    formatFixerLog('▶ auto-resume · errors continue · runs until owner stops it');
+    runFormatFixerLoop().catch(e => {
+      formatFixerJob.error = e.message;
+      formatFixerJob.running = false;
+      formatFixerJob.phase = 'error';
+      saveFormatFixerState(true);
+    });
+  }
+  if (squareAutoJob.enabled) {
+    squareAutoJob.stop = false;
+    runSquareAutoLoop().catch(error => {
+      squareAutoJob.running = false; squareAutoJob.enabled = false; squareAutoJob.phase = 'error';
+      squareAutoJob.error = error.message; saveSquareAutoJob();
+    });
+  }
+  // Daily Driver mirrors Fixer automation: keep draining its queue, cap at 200/day, and halt only
+  // after three consecutive errors. It waits while Format Fixer is writing so the same Q&A is never
+  // mutated by both pipelines at once.
+  const keepDailyDriverRunning = () => {
+    if (!autoJob.auto || autoJob.running || formatFixerJob.running) return;
+    if (dayCount() >= DAILY_MAX || !readArr(QUEUE).length) return;
+    scrubAutoLoop().catch(e => {
+      autoJob.errors++;
+      autoJob.consecutiveErrors++;
+      autoJob.stage = '⚠️ daily driver · ' + e.message;
+      autoLog('⚠️ daily driver loop error · continuing automatically');
+    });
+  };
+  setTimeout(keepDailyDriverRunning, 3000);
+  setInterval(keepDailyDriverRunning, 10000);
 });
+
+module.exports = { buildPage, buildSquareDeskPage };

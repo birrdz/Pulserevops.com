@@ -2,6 +2,7 @@
 // Per-component fixer: 2 DeepSeek workers perfect entries 400-at-a-time; 1 DDG lane (LANE=2).
 // Needs-review backlog = _v2_needs_review.js (1 DeepSeek) + _v2_nr_ddg.js×2 (DDG cover images on review ids).
 const fs = require('fs');
+const path = require('path');
 const { execSync } = require('child_process');
 const { getStore } = require('@netlify/blobs');
 const { dsChat } = require('./_ds_lib');
@@ -10,8 +11,9 @@ const { sanitizeMermaid } = require('./_mermaid_sanitize');
 const { gradeEntry } = require('./netlify/functions/lib/grade-entry');
 const { VISUAL_LOCK_DS_SYSTEM_SNIPPET, enforceWriterVisualLock } = require('./_visual_lock_law');
 // IndexNow fires ONLY on Stage-2 final sign-off (_v2_final_gate.js) — never at stage-1
-const WD = 'C:/Users/koryj/website';
-for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+const WD = process.env.PULSE_ROOT || __dirname;
+const ENV_FILE = path.join(WD, '.env.local');
+if (fs.existsSync(ENV_FILE)) for (const l of fs.readFileSync(ENV_FILE, 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 const STOP = WD + '/_v2_components_stop.flag';
 const BATCH = parseInt(process.argv[2] || process.env.V2C_BATCH || '40', 10);

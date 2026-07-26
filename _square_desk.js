@@ -1,0 +1,412 @@
+// Square Builder — no mosaic box. Click photos; switch freely between slots. Cursor bakes on Done.
+
+function buildSquareDeskPage() {
+  return `<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Square Builder — pick photos</title>
+<style>
+:root{--bg:#0f1115;--panel:#171a21;--line:#2a3040;--text:#eef2f7;--muted:#9aa3b2;--ok:#22c55e;--accent:#a855f7}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#0f1115;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+body{display:flex;flex-direction:column;align-items:center;padding:24px 14px 48px}
+.wrap{width:min(780px,100%);display:flex;flex-direction:column;gap:14px}
+h1{margin:0;font-size:1.4rem;font-weight:850}
+.sub{margin:0;color:var(--muted);font-size:.9rem;line-height:1.45}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.ttl{margin:0 0 6px;font-size:1.15rem;font-weight:800;line-height:1.3}
+.meta{color:var(--muted);font-size:.8rem;margin-bottom:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input[type=text]{flex:1;min-width:160px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:#0c1018;color:var(--text);font-size:1rem}
+button.act{border:none;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff}
+button.save{background:linear-gradient(135deg,#15803d,#22c55e)}
+button.ghost{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:12px 14px;font-weight:700;cursor:pointer}
+#restartNode{width:100%;flex-basis:100%;padding:18px 22px;border:3px solid #FFD54F;border-radius:14px;background:linear-gradient(135deg,#dc2626,#f97316);color:#fff;font-size:1.15rem;font-weight:950;letter-spacing:.04em;box-shadow:0 0 0 3px rgba(255,213,79,.2),0 0 28px rgba(249,115,22,.5);animation:restartPulse 1.8s ease-in-out infinite}
+#restartNode:hover{filter:brightness(1.12);transform:translateY(-1px)}
+@keyframes restartPulse{0%,100%{box-shadow:0 0 0 3px rgba(255,213,79,.18),0 0 20px rgba(249,115,22,.35)}50%{box-shadow:0 0 0 6px rgba(255,213,79,.32),0 0 38px rgba(249,115,22,.7)}}
+.restart-help{width:100%;text-align:center;color:#fcd34d;font-size:.78rem;font-weight:800}
+button:disabled{opacity:.4;cursor:not-allowed}
+.slots{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.slotbtn{border:1px solid var(--line);background:#0c1018;color:var(--muted);border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer;font-size:.8rem}
+.slotbtn.on{border-color:var(--accent);color:#e9d5ff;background:rgba(168,85,247,.18)}
+.slotbtn.filled{border-color:rgba(34,197,94,.5);color:#86efac}
+.slotbtn.on.filled{box-shadow:0 0 0 2px rgba(168,85,247,.35)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-top:12px}
+.grid button{appearance:none;border:3px solid #2a3040;padding:0;border-radius:10px;overflow:hidden;cursor:pointer;background:#0c1018;aspect-ratio:1;position:relative}
+.grid button:hover{border-color:var(--accent)}
+.grid button.on{border-color:var(--ok);box-shadow:0 0 0 2px rgba(34,197,94,.45)}
+.grid button.on::after{content:'✓';position:absolute;top:6px;right:8px;color:#86efac;font-weight:900;text-shadow:0 1px 2px #000}
+.grid img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.status{font-size:.84rem;color:var(--muted);min-height:1.2em;margin:8px 0 0}
+.picks{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.pick{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:10px;background:#0c1018;cursor:pointer}
+.pick.on{border-color:var(--accent);background:rgba(168,85,247,.1)}
+.pick img{width:72px;height:48px;object-fit:cover;border-radius:6px;pointer-events:none}
+.pick .lab{font-weight:800;width:4.5rem;color:var(--accent)}
+.pick .u{flex:1;font-size:.75rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pick .x{border:none;background:transparent;color:#f87171;font-weight:900;cursor:pointer;font-size:1rem;padding:4px 8px}
+.badge{display:inline-block;font-size:.7rem;font-weight:800;padding:3px 8px;border-radius:999px;background:rgba(168,85,247,.18);color:#e9d5ff;margin-bottom:8px}
+.site-square{position:relative;width:min(420px,100%);aspect-ratio:1;margin:12px auto;border-radius:12px;overflow:hidden;background:#090b10;border:1px solid var(--line)}
+.site-square img{width:100%;height:100%;object-fit:cover;display:block}
+.site-square::after{content:'';position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.88))}
+.site-square-title{position:absolute;z-index:2;left:4%;right:4%;bottom:5%;color:#FFD54F;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:900;font-size:clamp(24px,6vw,38px);line-height:1.04;text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000}
+.page-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.page-tab{padding:16px 12px;border:2px solid var(--line);border-radius:11px;background:#0c1018;color:var(--muted);font-size:1rem;font-weight:950;cursor:pointer}
+.page-tab.on{border-color:#FFD54F;background:rgba(255,213,79,.12);color:#FFD54F}
+.preview-page[hidden]{display:none}
+.answer-page{width:min(680px,100%);margin:12px auto;background:#fff;color:#18202a;border-radius:12px;padding:24px 18px;box-shadow:0 8px 28px rgba(0,0,0,.35)}
+.answer-page h2{font-family:Georgia,serif;font-size:1.55rem;line-height:1.18;margin:0 0 14px}
+.answer-direct{padding:12px 14px;border-left:5px solid #FFB81C;background:#fff6d9;border-radius:8px;font-size:.82rem;font-weight:700;margin-bottom:18px}
+.answer-figure{margin:16px 0;border:1px solid #e5e7eb;border-radius:9px;overflow:hidden;background:#f3f4f6;cursor:pointer}
+.answer-figure img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.answer-figure.top img{aspect-ratio:1;max-height:520px}
+.answer-placeholder{display:flex;align-items:center;justify-content:center;min-height:150px;color:#6b7280;font-weight:800}
+.answer-cap{padding:8px 10px;color:#4b5563;font-size:.76rem;font-weight:800}
+.auto-live{display:none;width:100%;padding-top:10px;border-top:1px solid var(--line)}
+.auto-live.on{display:block}
+.auto-live-title{font-size:.84rem;font-weight:900;color:#86efac;margin-bottom:8px}
+.auto-live-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:7px}
+.auto-live-pick{border:1px solid #374151;border-radius:8px;overflow:hidden;background:#0c1018}
+.auto-live-pick img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+.auto-live-pick span{display:block;padding:5px 6px;color:#cbd5e1;font-size:.65rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+footer a{color:#7a8496;font-size:.75rem}
+</style>
+</head>
+<body>
+<div class=wrap>
+  <h1>🟦 Pick photos</h1>
+  <p class=sub>The square preview mirrors the live card: same crop, gradient, current template title, and title placement. Face-card <b>auto = top image</b> (same file).</p>
+  <div class="card row">
+    <button type=button id=restartNode>♻ RESET / RESTART NODE SERVER</button>
+    <div class=restart-help>Use this after code changes or if Builder is stuck. Active Fixer and Builder progress resumes automatically.</div>
+    <button type=button class=act id=autoToggle>▶ Auto-run 100 OFF</button>
+    <span class=status id=autoStatus>Manual mode · your picks train auto-run.</span>
+    <div class=auto-live id=autoLive>
+      <div class=auto-live-title id=autoLiveTitle>Auto Builder selections</div>
+      <div class=auto-live-grid id=autoLiveGrid></div>
+    </div>
+  </div>
+
+  <div class=card>
+    <div class=badge id=shapeBadge>Q&amp;A</div>
+    <h2 class=ttl id=entryTitle>Loading…</h2>
+    <div class=meta id=entryMeta></div>
+    <div class=page-tabs>
+      <button type=button class="page-tab on" id=showSquarePage>PAGE 1 · SQUARE CARD</button>
+      <button type=button class=page-tab id=showAnswerPage>PAGE 2 · ANSWER PAGE</button>
+    </div>
+    <div class=preview-page id=squarePreviewPage>
+      <div class=site-square id=siteSquare><img id=siteSquareImg alt=""><div class=site-square-title id=siteSquareTitle></div></div>
+    </div>
+    <div class=preview-page id=answerPreviewPage hidden>
+      <article class=answer-page>
+        <div style="font-weight:950;color:#B91C3F;margin-bottom:8px">PAGE 2 · ANSWER PAGE</div>
+        <h2 id=answerPreviewTitle></h2>
+        <div class=answer-direct>Direct Answer and article copy remain unchanged. This page previews the exact image order only.</div>
+        <div id=answerPreviewImages></div>
+      </article>
+    </div>
+    <div class=slots id=slotBar></div>
+    <div class=row>
+      <input type=text id=kw placeholder="keyword" autocomplete=off>
+      <button type=button class=act id=searchBtn>Search</button>
+      <button type=button class=ghost id=nextBtn>Next entry →</button>
+    </div>
+    <p class=status id=status>Loading entry…</p>
+    <div class=grid id=grid></div>
+    <div class=picks id=pickList></div>
+    <div class=row id=doneRow style="margin-top:14px;display:none">
+      <button type=button class="act save" id=doneBtn disabled>Done — Cursor puts them on</button>
+    </div>
+  </div>
+
+  <footer style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+    <a href="/format-fixer-full">← Format Fixer (content only)</a>
+  </footer>
+</div>
+<script>
+const KEY='4444';
+let cur=null;
+let faceUrl=null;
+let bodyUrls={};
+let active='face'; // 'face' or body slot number
+let searchItems=[];
+let searchQuery='';
+let autoPoll=null;
+let currentPreviewPage='square';
+const $=s=>document.querySelector(s);
+function shapeLabel(s){return s==='top10'?'TOP 10':s==='styles'?'STYLES':'Q&A ESSAY';}
+function proxy(u){return '/square-proxy?u='+encodeURIComponent(u);}
+function suggestKeyword(title){
+  const stop=new Set(['the','a','an','to','of','for','in','on','and','or','how','what','why','with','from','does','do','is','are','best','top']);
+  return String(title||'').replace(/[^\\w\\s-]/g,' ').split(/\\s+/).filter(w=>w&&w.length>2&&!stop.has(w.toLowerCase())).slice(0,3).join(' ');
+}
+function bodySlotNs(){
+  return (cur&&cur.slots||[]).filter(s=>s&&s.kind==='body').map(s=>s.n);
+}
+function targetLabel(){
+  return active==='face'?(cur&&cur.shape==='top10'?'FACE CARD':'FACE + TOP'):('IMG '+active);
+}
+function activeSlotQuery(){
+  if(!cur)return '';
+  if(active==='face')return cur.title||'';
+  const slot=(cur.slots||[]).find(item=>item&&Number(item.n)===Number(active));
+  return (slot&&slot.label)||cur.title||'';
+}
+function entryComplete(){
+  return !!faceUrl && bodySlotNs().every(n=>!!bodyUrls[n]);
+}
+function syncDoneButton(){
+  const button=$('#doneBtn');
+  if(!button) return;
+  const row=$('#doneRow');
+  if(row)row.style.display=currentPreviewPage==='answer'?'flex':'none';
+  button.disabled=!entryComplete();
+  button.textContent=entryComplete()?'Done — save & next':'Fill every slot to continue';
+}
+function whatNext(){
+  return currentPreviewPage==='square'
+    ?'PAGE 1 · Active: <b>'+targetLabel()+'</b> — choose the square face-card image only.'
+    :'PAGE 2 · Active: <b>'+targetLabel()+'</b> — choose the answer-page image for this slot.';
+}
+function setActive(t){
+  active=t;
+  const kw=$('#kw');if(kw)kw.value=activeSlotQuery();
+  renderSlotBar();
+  renderPicks();
+  $('#status').innerHTML=whatNext();
+}
+function renderSlotBar(){
+  const bar=$('#slotBar'); bar.innerHTML='';
+  const mk=(key,label,filled)=>{
+    const b=document.createElement('button');
+    b.type='button'; b.className='slotbtn'+(active===key?' on':'')+(filled?' filled':'');
+    b.textContent=label+(filled?' ✓':'');
+    b.onclick=()=>setActive(key);
+    bar.appendChild(b);
+  };
+  if(currentPreviewPage==='square')mk('face',cur&&cur.shape==='top10'?'FACE CARD':'FACE + TOP',!!faceUrl);
+  else bodySlotNs().forEach(n=>mk(n,'Img '+n,!!bodyUrls[n]));
+}
+function renderPicks(){
+  const list=$('#pickList'); list.innerHTML='';
+  const addRow=(key,label,url)=>{
+    if(!url) return;
+    const d=document.createElement('div');
+    d.className='pick'+(active===key?' on':'');
+    d.innerHTML='<span class=lab>'+label+'</span><img src="'+proxy(url)+'" alt=""><span class=u>'+url+'</span><button type=button class=x aria-label=remove>×</button>';
+    d.onclick=(e)=>{ if(e.target.closest('.x')) return; setActive(key); };
+    d.querySelector('.x').onclick=(e)=>{
+      e.stopPropagation();
+      if(key==='face') faceUrl=null; else delete bodyUrls[key];
+      stageSilent();
+      renderSlotBar(); renderPicks(); markGrid();
+      syncDoneButton();
+      $('#status').innerHTML=whatNext();
+    };
+    list.appendChild(d);
+  };
+  if(currentPreviewPage==='square')addRow('face',cur&&cur.shape==='top10'?'FACE':'FACE+TOP',faceUrl);
+  else bodySlotNs().forEach(n=>addRow(n,'IMG '+n,bodyUrls[n]));
+  const previewImg=$('#siteSquareImg'), previewTitle=$('#siteSquareTitle');
+  if(previewImg){if(faceUrl)previewImg.src=proxy(faceUrl);else previewImg.removeAttribute('src');}
+  if(previewTitle){
+    const title=(cur&&cur.title)||'';
+    previewTitle.textContent=title;
+    previewTitle.style.fontSize=(title.length>=90?'31px':title.length>=60?'34px':'38px');
+  }
+  renderAnswerPreview();
+  syncDoneButton();
+}
+function renderAnswerPreview(){
+  const title=$('#answerPreviewTitle'), images=$('#answerPreviewImages');
+  if(title)title.textContent=(cur&&cur.title)||'';
+  if(!images)return;
+  images.innerHTML='';
+  const add=(key,label,url,top,editable)=>{
+    const figure=document.createElement('div');
+    figure.className='answer-figure'+(top?' top':'');
+    if(editable!==false)figure.onclick=()=>setActive(key);
+    else figure.style.cursor='default';
+    if(url){
+      const img=document.createElement('img');
+      img.alt=label;img.src=proxy(url);figure.appendChild(img);
+    }else{
+      const blank=document.createElement('div');
+      blank.className='answer-placeholder';blank.textContent='Choose '+label;figure.appendChild(blank);
+    }
+    const cap=document.createElement('div');
+    cap.className='answer-cap';cap.textContent=label+(url?' ✓':' · empty');figure.appendChild(cap);
+    images.appendChild(figure);
+  };
+  if(cur&&cur.shape!=='top10') add('face','Top image from Page 1 · view only',faceUrl,true,false);
+  (cur&&cur.slots||[]).filter(slot=>slot&&slot.kind==='body').forEach(slot=>{
+    add(slot.n,'Answer image '+slot.n+(slot.label?' · '+slot.label:''),bodyUrls[slot.n],false,true);
+  });
+}
+function markGrid(){
+  const chosen=new Set([faceUrl,...Object.values(bodyUrls)].filter(Boolean));
+  $('#grid').querySelectorAll('button').forEach(b=>{
+    b.classList.toggle('on', chosen.has(b.dataset.url));
+  });
+}
+async function stageSilent(){
+  if(!cur) return;
+  try{
+    await fetch('/square-stage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      key:KEY,id:cur.id,title:cur.title,shape:cur.shape,faceImageUrl:faceUrl,slots:bodyUrls
+    })});
+  }catch(e){}
+}
+async function loadNext(){
+  faceUrl=null; bodyUrls={}; active='face';
+  $('#grid').innerHTML='';
+  $('#pickList').innerHTML='';
+  $('#doneBtn').disabled=true;
+  $('#status').textContent='Loading…';
+  try{
+    const j=await(await fetch('/square-next?key='+KEY)).json();
+    if(!j||!j.ok){ $('#entryTitle').textContent='No entry'; $('#status').textContent=(j&&j.msg)||'empty'; cur=null; return; }
+    cur=j;
+    $('#entryTitle').textContent=j.title||j.id;
+    $('#shapeBadge').textContent=shapeLabel(j.shape);
+    $('#entryMeta').textContent=j.id+(j.demo?' · demo':'')+(j.shape==='top10'
+      ?' · Top 10: separate face card + 10 ranked answer images'
+      :' · Q&A essay: face/top image + 2 answer images');
+    $('#kw').value=suggestKeyword(j.title);
+    if(j.pending&&j.pending.faceImageUrl){
+      faceUrl=j.pending.faceImageUrl;
+      bodyUrls=Object.assign({}, j.pending.slots||{});
+    }
+    showPreviewPage('square',false);
+    renderSlotBar();
+    renderPicks();
+    $('#status').innerHTML=whatNext();
+  }catch(e){ $('#status').textContent='Load failed'; cur=null; }
+}
+async function runSearch(){
+  if(!cur) return;
+  const q=($('#kw').value||'').trim()||suggestKeyword(cur.title);
+  $('#status').textContent='Searching…';
+  $('#grid').innerHTML='';
+  try{
+    const j=await(await fetch('/square-search?key='+KEY+'&q='+encodeURIComponent(q))).json();
+    if(!j.ok){ $('#status').textContent=j.msg||'Search failed'; return; }
+    const items=j.results||[];
+    searchItems=items;
+    searchQuery=j.query||q;
+    if(!items.length){ $('#status').textContent='No photos'; return; }
+    $('#status').innerHTML=items.length+' photos — '+whatNext();
+    items.forEach(item=>{
+      const url=item.image||item.thumb;
+      if(!url) return;
+      const b=document.createElement('button'); b.type='button'; b.dataset.url=url;
+      const img=document.createElement('img'); img.loading='lazy'; img.alt='';
+      img.src=proxy(item.thumb||url);
+      b.appendChild(img);
+      b.addEventListener('click',(e)=>{ e.preventDefault(); pick(url); });
+      $('#grid').appendChild(b);
+    });
+    markGrid();
+  }catch(e){ $('#status').textContent='Search error'; }
+}
+async function pick(url){
+  if(!cur||!url) return;
+  // Always set/REPLACE the active slot — switch freely
+  if(active==='face'){
+    faceUrl=url;
+  }else{
+    const n=Number(active);
+    if(!n){ active='face'; faceUrl=url; }
+    else bodyUrls[n]=url;
+  }
+  await stageSilent();
+  renderSlotBar();
+  renderPicks();
+  markGrid();
+  syncDoneButton();
+  const selected=searchItems.find(item=>(item.image||item.thumb)===url);
+  const rank=Math.max(0,searchItems.findIndex(item=>(item.image||item.thumb)===url));
+  if(selected){
+    fetch('/square-preference',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      key:KEY,slotType:active==='face'?'face':'body',rank,query:searchQuery,width:selected.width||0,height:selected.height||0
+    })}).catch(()=>{});
+  }
+  $('#status').innerHTML='Set <b>'+targetLabel()+'</b>. Click another photo to switch, or tap a different slot.';
+}
+async function done(){
+  if(!cur||!entryComplete()) return;
+  $('#doneBtn').disabled=true;
+  $('#status').textContent='Saving every slot and removing this entry from the row…';
+  try{
+    const j=await(await fetch('/square-save-draft',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      key:KEY,id:cur.id,title:cur.title,shape:cur.shape,faceImageUrl:faceUrl,slots:bodyUrls
+    })})).json();
+    if(!j.ok){ $('#status').textContent=j.msg||'Queue failed'; $('#doneBtn').disabled=false; return; }
+    $('#status').textContent='Saved — loading next entry…';
+    await loadNext();
+  }catch(e){ $('#status').textContent='Queue error'; $('#doneBtn').disabled=false; }
+}
+$('#searchBtn').onclick=runSearch;
+$('#kw').addEventListener('keydown',e=>{ if(e.key==='Enter') runSearch(); });
+$('#doneBtn').onclick=done;
+$('#nextBtn').onclick=loadNext;
+function showPreviewPage(page,autoSearch){
+  const answer=page==='answer';
+  currentPreviewPage=answer?'answer':'square';
+  $('#squarePreviewPage').hidden=answer;
+  $('#answerPreviewPage').hidden=!answer;
+  $('#showSquarePage').classList.toggle('on',!answer);
+  $('#showAnswerPage').classList.toggle('on',answer);
+  active=answer?(bodySlotNs()[0]||'face'):'face';
+  const kw=$('#kw');if(kw)kw.value=activeSlotQuery();
+  renderSlotBar();renderPicks();syncDoneButton();
+  $('#grid').innerHTML='';
+  $('#status').innerHTML=whatNext();
+  if(answer)renderAnswerPreview();
+  if(autoSearch!==false&&cur)setTimeout(runSearch,0);
+}
+$('#showSquarePage').onclick=()=>showPreviewPage('square');
+$('#showAnswerPage').onclick=()=>showPreviewPage('answer');
+async function refreshAuto(){
+  try{
+    const j=await(await fetch('/square-auto-status?key='+KEY+'&t='+Date.now(),{cache:'no-store'})).json();
+    const on=!!(j.enabled||j.running);
+    $('#autoToggle').textContent=on?'⏹ Auto-run 100 ON':'▶ Auto-run 100 OFF';
+    $('#autoToggle').className=on?'act save':'act';
+    $('#autoStatus').textContent=on
+      ?('Auto pod '+(j.pod||1)+' · '+(j.done||0)+' / '+(j.target||100)+' · '+((j.totalDone||0)+(j.done||0))+' total'+(j.currentId?' · '+j.currentId:'')+' · '+(j.phase||'working'))
+      :('Manual mode · learned '+((j.preferences&&j.preferences.face)||0)+' face + '+((j.preferences&&j.preferences.body)||0)+' body picks');
+    if(on&&!autoPoll)autoPoll=setInterval(refreshAuto,2000);
+    if(!on&&autoPoll){clearInterval(autoPoll);autoPoll=null;}
+  }catch(e){}
+}
+$('#autoToggle').onclick=async()=>{
+  const status=await(await fetch('/square-auto-status?key='+KEY)).json();
+  await fetch('/square-auto-toggle',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,enabled:!(status.enabled||status.running)})});
+  await refreshAuto();
+};
+$('#restartNode').onclick=async()=>{
+  if(!confirm('Restart this localhost Node server? Active Fixer and Builder state will resume.'))return;
+  $('#restartNode').disabled=true;
+  $('#restartNode').textContent='♻ Restarting…';
+  try{
+    const result=await(await fetch('/server-restart',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY})})).json();
+    if(!result.ok)throw new Error(result.msg||'restart failed');
+    for(let i=0;i<90;i++){
+      await new Promise(resolve=>setTimeout(resolve,1000));
+      try{const h=await(await fetch('/health?t='+Date.now(),{cache:'no-store'})).json();if(h.ok){location.reload();return;}}catch(e){}
+    }
+    throw new Error('server did not return');
+  }catch(e){alert(e.message);$('#restartNode').disabled=false;$('#restartNode').textContent='♻ RESET / RESTART NODE SERVER';}
+};
+refreshAuto();
+loadNext();
+</script>
+</body>
+</html>`;
+}
+
+module.exports = { buildSquareDeskPage };
