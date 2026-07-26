@@ -184,9 +184,14 @@ const WORK_DIR = '/tmp/cursor-drip';
 const BUSY_FILE = '/tmp/cursor-drip-busy.id';
 const IDLE_MS = Math.max(0, parseInt(process.env.DRIP_IDLE_MS || '5000', 10));
 const FULL_INVENTORY = String(process.env.DRIP_FULL_INVENTORY || '1') !== '0';
+// Content drip stays BEHIND image-lead (white-purge): fact-check → rewrite only.
+// Default ON so image-lead owns white/off-topic image work.
+const CONTENT_ONLY = String(process.env.DRIP_CONTENT_ONLY || '1') !== '0';
+const BEHIND_IMAGE_LEAD = String(process.env.DRIP_BEHIND_IMAGE_LEAD || '1') !== '0';
 // When white-purge service is clearing inventory, prefer fact-check/content first.
 // Image-only pages still get picked if nothing else is due (or DRIP_DEFER_IMAGE_PURGE=0).
-const DEFER_IMAGE_PURGE = String(process.env.DRIP_DEFER_IMAGE_PURGE || '1') !== '0';
+const DEFER_IMAGE_PURGE =
+  CONTENT_ONLY || String(process.env.DRIP_DEFER_IMAGE_PURGE || '1') !== '0';
 // Pillar lock — optional. Default = all pillars, smallest first.
 const PILLAR_PREFIXES = String(process.env.DRIP_PILLAR || '')
   .split(/[,\s]+/)
@@ -197,6 +202,30 @@ function idInPillar(id) {
   if (!PILLAR_PREFIXES.length) return true;
   const s = String(id || '').toLowerCase();
   return PILLAR_PREFIXES.some((p) => s.startsWith(p));
+}
+const WHITE_PURGE_STATE_KEY =
+  PILLAR_PREFIXES.length
+    ? '_white_image_purge_local_state_' + PILLAR_PREFIXES.join('-') + '_' + ORDER_MODE + '.json'
+    : '_white_image_purge_local_state_' + ORDER_MODE + '.json';
+
+/** Image-lead already cleared this URL (or scanned past it) — content drip may claim it. */
+async function imageLeadCleared(s, id, inventory) {
+  if (!BEHIND_IMAGE_LEAD) return true;
+  try {
+    const blob = await s.get('answers/' + id + '.json', { type: 'json' });
+    if (blob && blob.image_lead_done_at) return true;
+  } catch (e) {}
+  try {
+    const wp = await s.get(WHITE_PURGE_STATE_KEY, { type: 'json' });
+    if (!wp) return false;
+    const done = new Set(wp.doneIds || []);
+    if (done.has(id)) return true;
+    const inv = Array.isArray(wp.inventoryIds) && wp.inventoryIds.length ? wp.inventoryIds : inventory || [];
+    const i = inv.indexOf(id);
+    return i >= 0 && i < (wp.cursor || 0);
+  } catch (e) {
+    return false;
+  }
 }
 const PEXELS_KEY = process.env.PEXELS_API_KEY || process.env.Pexels_Api_Key;
 
@@ -258,8 +287,8 @@ async function emailOne(subject, html) {
   return !!(r && r.ok);
 }
 
-// Gmail was burying per-URL drip mail (27 sent/hr, inbox showed 0–1). Digest instead.
-const EMAIL_EVERY = Math.max(1, parseInt(process.env.DRIP_EMAIL_EVERY || '10', 10));
+// Owner: email IMMEDIATELY on each finished URL (no digest wait).
+const EMAIL_EVERY = Math.max(1, parseInt(process.env.DRIP_EMAIL_EVERY || '1', 10));
 const EMAIL_MAX_GAP_MS = Math.max(
   60 * 1000,
   parseInt(process.env.DRIP_EMAIL_MAX_GAP_MS || String(15 * 60 * 1000), 10)
@@ -272,45 +301,50 @@ async function flushDripDigest(reason) {
   const items = emailBuf.splice(0, emailBuf.length);
   lastDigestAt = Date.now();
   const ids = items.map((x) => x.id);
+  const one = items.length === 1 ? items[0] : null;
   const subject = (
-    'PULSE cursor drip · ' +
-    items.length +
-    ' URLs fixed · ' +
-    new Date().toISOString().slice(11, 16) +
-    'Z · ' +
-    ids.slice(0, 3).join(', ')
+    one
+      ? 'PULSE content drip · ' + one.id + ' · fact-check/rewrite · ' + new Date().toISOString().slice(11, 16) + 'Z'
+      : 'PULSE content drip · ' + items.length + ' URLs · ' + new Date().toISOString().slice(11, 16) + 'Z · ' + ids.slice(0, 3).join(', ')
   ).slice(0, 180);
-  const html =
-    '<p><b>Cursor drip digest</b> (' +
-    esc(reason || 'batch') +
-    ') — Resend accepted every per-URL send before; Gmail was collapsing them. Now one email every ' +
-    EMAIL_EVERY +
-    ' fixes or ' +
-    Math.round(EMAIL_MAX_GAP_MS / 60000) +
-    ' min.</p>' +
-    '<p><b>' +
-    items.length +
-    ' URLs</b> since last digest:</p><ol>' +
-    items
-      .map(
-        (x) =>
-          '<li><a href="' +
-          esc(x.url) +
-          '">' +
-          esc(x.id) +
-          '</a> — ' +
-          esc(String(x.question || '').slice(0, 120)) +
-          (x.replaced != null ? ' · images replaced: ' + x.replaced : '') +
-          '</li>'
-      )
-      .join('') +
-    '</ol>';
+  const html = one
+    ? '<p><b>Content drip finished</b> (fact-check → rewrite lies/misspeaks).</p>' +
+      '<p><a href="' +
+      esc(one.url) +
+      '">' +
+      esc(one.id) +
+      '</a> — ' +
+      esc(String(one.question || '').slice(0, 160)) +
+      '</p>' +
+      (one.notes
+        ? '<p>' + esc(String(one.notes).slice(0, 400)) + '</p>'
+        : '')
+    : '<p><b>Content drip</b> (' +
+      esc(reason || 'batch') +
+      ') — <b>' +
+      items.length +
+      ' URLs</b>:</p><ol>' +
+      items
+        .map(
+          (x) =>
+            '<li><a href="' +
+            esc(x.url) +
+            '">' +
+            esc(x.id) +
+            '</a> — ' +
+            esc(String(x.question || '').slice(0, 120)) +
+            '</li>'
+        )
+        .join('') +
+      '</ol>';
+  console.log(JSON.stringify({ phase: 'email', reason, count: items.length, ids }));
   return emailOne(subject, html);
 }
 
 async function queueDripEmail(item, opts) {
   opts = opts || {};
   emailBuf.push(item);
+  // Immediate when EMAIL_EVERY=1 (owner default)
   const gapDue = lastDigestAt && Date.now() - lastDigestAt >= EMAIL_MAX_GAP_MS;
   const countDue = emailBuf.length >= EMAIL_EVERY;
   if (opts.force || countDue || gapDue || !lastDigestAt) {
@@ -732,17 +766,31 @@ async function auditImagesOnPage(blobOrBody, id, coverOpt) {
 function needsDrip(blob, id, dropSet) {
   if (!blob || !blob.answer) return false;
   if (dropSet.has(id)) return true;
-  if (quickNeedsImagePurge(blob)) return true;
+  // Content-only drip: skip image-only triggers (image-lead owns those)
+  if (!CONTENT_ONLY && quickNeedsImagePurge(blob)) return true;
   if (blob.cursor_fixed_at) {
     const fixed = Date.parse(blob.cursor_fixed_at) || 0;
     const ts = entryTs(blob, null);
-    if (fixed && ts && ts <= fixed && !quickNeedsImagePurge(blob)) return false;
+    if (fixed && ts && ts <= fixed) {
+      if (CONTENT_ONLY) {
+        // Still re-audit if never fact-checked after image-lead, or last audit flagged
+        if (blob.drip_audit_verdict === 'flag' || blob.drip_audit_verdict === 'error') return true;
+        const dripAt = blob.drip_audited_at ? Date.parse(blob.drip_audited_at) : 0;
+        const leadAt = blob.image_lead_done_at ? Date.parse(blob.image_lead_done_at) : 0;
+        if (leadAt && (!dripAt || dripAt < leadAt)) return true;
+        return false;
+      }
+      if (!quickNeedsImagePurge(blob)) return false;
+    }
   }
   const dripAt = blob.drip_audited_at ? Date.parse(blob.drip_audited_at) : 0;
   if (!dripAt) return true;
   const ts = entryTs(blob, null);
   if (ts && ts > dripAt) return true;
   if (blob.drip_audit_verdict === 'flag' || blob.drip_audit_verdict === 'error') return true;
+  // After image-lead finishes, content drip should fact-check even if prior audit was clean
+  const leadAt = blob.image_lead_done_at ? Date.parse(blob.image_lead_done_at) : 0;
+  if (CONTENT_ONLY && leadAt && dripAt && dripAt < leadAt) return true;
   return false;
 }
 
@@ -862,7 +910,7 @@ async function findOne(s, state) {
   const inventory = state.inventoryIds || [];
   if (!inventory.length) return null;
 
-  if (!DEFER_IMAGE_PURGE) {
+  if (!CONTENT_ONLY && !DEFER_IMAGE_PURGE) {
     const imgFirst = await findImagePurgeCandidate(s, state, dropSet, inventory, queue);
     if (imgFirst) return imgFirst;
   }
@@ -874,13 +922,14 @@ async function findOne(s, state) {
     const ordered = sortSmallestPillarFirst(pending.map((x) => x.id));
     pending = ordered.map((id) => pending.find((x) => String(x.id).toLowerCase() === id)).filter(Boolean);
   }
-  if (pending.length) {
-    const it = pending[0];
-    const blob = await s.get('answers/' + it.id + '.json', { type: 'json' });
-    return { id: it.id, blob, queue, fromQueue: true, critique: it, priority: 'queue' };
+  for (const it of pending) {
+    const id = String(it.id).toLowerCase();
+    if (!(await imageLeadCleared(s, id, inventory))) continue;
+    const blob = await s.get('answers/' + id + '.json', { type: 'json' });
+    return { id, blob, queue, fromQueue: true, critique: it, priority: 'queue' };
   }
 
-  // PASS B — general content due
+  // PASS B — general content due (fact-check + rewrite) — stay behind image-lead
   let cursor = state.invCursor || 0;
   let scanned = 0;
   while (scanned < inventory.length) {
@@ -888,6 +937,7 @@ async function findOne(s, state) {
     const id = inventory[cursor];
     cursor += 1;
     scanned += 1;
+    if (!(await imageLeadCleared(s, id, inventory))) continue;
     let blob;
     try {
       blob = await s.get('answers/' + id + '.json', { type: 'json' });
@@ -900,8 +950,8 @@ async function findOne(s, state) {
   }
   state.invCursor = cursor;
 
-  // PASS C — image-only leftovers (white-purge service usually clears these first)
-  if (DEFER_IMAGE_PURGE) {
+  // PASS C — image-only leftovers (disabled in content-only mode; image-lead owns this)
+  if (!CONTENT_ONLY && DEFER_IMAGE_PURGE) {
     const imgLast = await findImagePurgeCandidate(s, state, dropSet, inventory, queue);
     if (imgLast) return imgLast;
   }
@@ -1106,13 +1156,14 @@ async function fixOneInner(s, state, found, id, blob, queue) {
   );
 
   // ─── STEP 1: FIND white / blank / mangled / broken / 404 (all slots) ───
-  // Do not leave holes yet — step 4 replaces each bad URL in place with a new applicable image.
-  // Mangled markdown lines that break parsing are stripped; empty sections get filled in step 4.
-  console.log(JSON.stringify({ phase: 'step1-find-bad-images', id }));
+  // Skipped in CONTENT_ONLY — image-lead drip owns white/off-topic images.
   let purgedCount = 0;
   let badImageDetails = [];
-  const beforeImgStats = sectionImageStats(body);
-  let imgAudit = found.imgAudit || (await auditImagesOnPage(blob, id));
+  const beforeImgStats = CONTENT_ONLY ? [] : sectionImageStats(body);
+  let imgAudit = { bad: [], reasons: [], details: [], hasBad: false, scanned: 0 };
+  if (!CONTENT_ONLY) {
+  console.log(JSON.stringify({ phase: 'step1-find-bad-images', id }));
+  imgAudit = found.imgAudit || (await auditImagesOnPage(blob, id));
   // Always rescan fully (found.imgAudit may be stale / capped)
   if (!imgAudit.details || imgAudit.scanned < 15) {
     imgAudit = await auditImagesOnPage(body, id, blob.img || '');
@@ -1157,9 +1208,13 @@ async function fixOneInner(s, state, found, id, blob, queue) {
     stepNotes.push('No white/mangled/broken image slots found');
     console.log(JSON.stringify({ phase: 'step1-clean', id, scanned: imgAudit.scanned || 0 }));
   }
+  } else {
+    stepNotes.push('Image steps skipped — image-lead drip owns white/off-topic images');
+    console.log(JSON.stringify({ phase: 'step1-skipped-content-only', id }));
+  }
   void beforeImgStats;
 
-  // ─── STEP 2: FACT-CHECK (non-fatal — purge must still land) ───
+  // ─── STEP 2: FACT-CHECK (find lies / misspeaks) ───
   console.log(JSON.stringify({ phase: 'step2-factcheck', id }));
   let critique = found.critique;
   try {
@@ -1327,14 +1382,18 @@ async function fixOneInner(s, state, found, id, blob, queue) {
   }
 
   // ─── STEP 4: REPLACE EVERY WHITE/BROKEN IMAGE WITH APPLICABLE HOSTED ART ───
-  // Easier + safer: fix all bad slots on the URL in place. If a section still has
-  // zero images after that, put one back.
+  // Skipped in CONTENT_ONLY — image-lead owns this.
   const finalTopic = question;
   const titleLookup = buildSectionTitleLookup(body);
   let coverRel = null;
   let repaired = 0;
   let filled = 0;
 
+  let deployed = 0;
+  if (CONTENT_ONLY) {
+    console.log(JSON.stringify({ phase: 'step4-skipped-content-only', id }));
+    stepNotes.push('Image replace skipped — image-lead drip owns applicable images');
+  } else {
   // Re-audit AFTER rewrite (visual-lock may have kept bad URLs).
   // Also queue every remaining external hotlink — easier to self-host all than chase whites.
   const postAudit = await auditImagesOnPage(body, id, blob.img || '');
@@ -1463,7 +1522,6 @@ async function fixOneInner(s, state, found, id, blob, queue) {
   void badImageDetails;
   // Deploy newly written local assets for this id, then drop any /assets/qa refs
   // that still have no local file (never publish phantom 404 slots).
-  let deployed = 0;
   try {
     const localFiles = listLocalQaFilesForId(ASSET_DIR, id);
     // Also include any /assets/qa basename referenced in body that exists locally
@@ -1513,6 +1571,7 @@ async function fixOneInner(s, state, found, id, blob, queue) {
       }
     }
   }
+  } // end !CONTENT_ONLY step4
 
   console.log(
     JSON.stringify({
@@ -1524,6 +1583,7 @@ async function fixOneInner(s, state, found, id, blob, queue) {
       deployed,
       contentRewrote,
       sectionTopics: Object.keys(titleLookup).length,
+      contentOnly: CONTENT_ONLY,
     })
   );
 

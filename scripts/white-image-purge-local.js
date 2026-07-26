@@ -1,20 +1,29 @@
 #!/usr/bin/env node
-// WHITE / MANGLED / DEFUNCT image purge — local full-inventory service.
-// Strips bad slots + REPLACES broken/white covers (never leave 404 → white page).
-// Inventory: smallest pillars first. Digests every 10. Skips drip-busy URL.
+// IMAGE LEAD drip — runs AHEAD of content drip.
+// 1) White / blank / mangled / 404 covers + body slots
+// 2) Off-topic images (spa-on-hotel, tribal-chief-on-CRO, alt misses topic)
+// Replaces bad slots with relevant hosted /assets/qa art. Stamps image_lead_done_at
+// so the content drip can follow behind.
 //
 // Env:
 //   WHITE_PURGE_BATCH=80
 //   WHITE_PURGE_IDLE_MS=3000
-//   WHITE_PURGE_EMAIL_EVERY=10
+//   WHITE_PURGE_EMAIL_EVERY=1   (immediate per-URL; owner default)
 //   WHITE_PURGE_PILLAR=          (optional lock; default = all pillars)
 //   WHITE_PURGE_ONCE=1
+//   WHITE_PURGE_ORDER=smallest
 
 const fs = require('fs');
 const path = require('path');
 const { getStore } = require('@netlify/blobs');
 const { sortSmallestPillarFirst, pillarOrderSummary } = require('./lib/pillar-inventory-order');
 const { deployQaAssetFiles } = require('./lib/deploy-qa-assets');
+const { checkImageContext } = require('./lib/image-context-check');
+const {
+  pexelsSearchApplicable,
+  nextQaSlotId,
+  replaceImageUrlInBody,
+} = require('./lib/pexels-applicable');
 let ensureAlternateFaceCover;
 try {
   ({ ensureAlternateFaceCover } = require('../_ddg_facecard_lib'));
@@ -43,8 +52,8 @@ const SITE = 'https://pulserevops.com';
 const BUSY_FILE = '/tmp/cursor-drip-busy.id';
 const BATCH = Math.max(10, parseInt(process.env.WHITE_PURGE_BATCH || '80', 10));
 const IDLE_MS = Math.max(500, parseInt(process.env.WHITE_PURGE_IDLE_MS || '3000', 10));
-// Owner: digest every 10 purged pages (not 40). Clamp 1–10 so we never silently go higher.
-const EMAIL_EVERY = Math.min(10, Math.max(1, parseInt(process.env.WHITE_PURGE_EMAIL_EVERY || '10', 10) || 10));
+// Owner: email IMMEDIATELY on each finished URL (default 1).
+const EMAIL_EVERY = Math.max(1, parseInt(process.env.WHITE_PURGE_EMAIL_EVERY || '1', 10) || 1);
 const ONCE = String(process.env.WHITE_PURGE_ONCE || '') === '1';
 // Pillar lock — e.g. WHITE_PURGE_PILLAR=tl (CRO Pulse Tools). Same as DRIP_PILLAR if unset.
 const PILLAR_PREFIXES = String(process.env.WHITE_PURGE_PILLAR || process.env.DRIP_PILLAR || '')
@@ -459,54 +468,144 @@ async function flushDigest(reason, itemsOpt) {
   const items = itemsOpt || emailBuf.splice(0, emailBuf.length);
   if (!items.length) return false;
   lastDigestAt = Date.now();
+  const one = items.length === 1 ? items[0] : null;
   const subject = (
-    'PULSE white purge · ' +
-    items.length +
-    ' URLs fixed · every-' +
-    EMAIL_EVERY +
-    ' · ' +
-    new Date().toISOString().slice(11, 16) +
-    'Z · ' +
-    items
-      .slice(0, 3)
-      .map((x) => x.id)
-      .join(', ')
+    one
+      ? 'PULSE image lead · ' +
+        one.id +
+        ' · ' +
+        String(one.reason || 'images').slice(0, 60) +
+        ' · ' +
+        new Date().toISOString().slice(11, 16) +
+        'Z'
+      : 'PULSE image lead · ' +
+        items.length +
+        ' URLs · ' +
+        new Date().toISOString().slice(11, 16) +
+        'Z · ' +
+        items
+          .slice(0, 3)
+          .map((x) => x.id)
+          .join(', ')
   ).slice(0, 180);
-  const html =
-    '<p><b>White/mangled/defunct purge</b> — digest every <b>' +
-    EMAIL_EVERY +
-    '</b> purged pages (' +
-    esc(reason) +
-    '). Strips bad slots; replaces white/404 covers so pages are not left blank.</p><ol>' +
-    items
-      .map(
-        (x) =>
-          '<li><a href="' +
-          esc(x.url) +
-          '">' +
-          esc(x.id) +
-          '</a> · ' +
-          esc(x.reason) +
-          ' · ' +
-          (x.bad || 0) +
-          ' slot(s)' +
-          (x.cover ? ' · cover ' + esc(x.cover) : '') +
-          '</li>'
-      )
-      .join('') +
-    '</ol>';
-  console.log(JSON.stringify({ phase: 'email-digest', reason, count: items.length, ids: items.map((x) => x.id) }));
+  const html = one
+    ? '<p><b>Image lead finished</b> — white/404 purge + context-applicable replace.</p>' +
+      '<p><a href="' +
+      esc(one.url) +
+      '">' +
+      esc(one.id) +
+      '</a> · ' +
+      esc(one.reason) +
+      ' · ' +
+      (one.bad || 0) +
+      ' slot(s)' +
+      (one.cover ? ' · cover ' + esc(one.cover) : '') +
+      '</p>'
+    : '<p><b>Image lead</b> (' +
+      esc(reason) +
+      ') — white/404 + off-topic context replace.</p><ol>' +
+      items
+        .map(
+          (x) =>
+            '<li><a href="' +
+            esc(x.url) +
+            '">' +
+            esc(x.id) +
+            '</a> · ' +
+            esc(x.reason) +
+            ' · ' +
+            (x.bad || 0) +
+            ' slot(s)' +
+            (x.cover ? ' · cover ' + esc(x.cover) : '') +
+            '</li>'
+        )
+        .join('') +
+      '</ol>';
+  console.log(JSON.stringify({ phase: 'email', reason, count: items.length, ids: items.map((x) => x.id) }));
   await emailOne(subject, html);
   return true;
 }
 
 async function queueDigest(item) {
   emailBuf.push(item);
-  // Fire the moment we hit 10 — do not wait for end of batch
+  // Immediate when EMAIL_EVERY=1 (owner default)
   while (emailBuf.length >= EMAIL_EVERY) {
     const batch = emailBuf.splice(0, EMAIL_EVERY);
     await flushDigest('every-' + EMAIL_EVERY, batch);
   }
+}
+
+async function stampImageLeadDone(s, id, extra) {
+  const ts = new Date().toISOString();
+  try {
+    const blob = await s.get('answers/' + id + '.json', { type: 'json' });
+    if (!blob) return;
+    await s.setJSON(
+      'answers/' + id + '.json',
+      Object.assign({}, blob, extra || {}, {
+        image_lead_done_at: ts,
+        updated_at: ts,
+      })
+    );
+  } catch (e) {}
+}
+
+async function replaceOffTopicSlots(s, id, blob, pageTitle) {
+  const body0 = String(blob.answer || '');
+  const urls = extractMdImageUrls(body0).slice(0, 24);
+  const off = [];
+  for (const u of urls) {
+    if (/\/assets\/cro-cover-\d+\.jpg/i.test(u)) continue;
+    const ctx = checkImageContext(u, body0, pageTitle);
+    if (ctx.offTopic) off.push({ url: u, ...ctx });
+  }
+  if (!off.length) return { body: body0, replaced: 0, reasons: [] };
+
+  let body = body0;
+  const reasons = [];
+  const deployed = [];
+  let replaced = 0;
+  for (const item of off.slice(0, 8)) {
+    try {
+      const slotId = nextQaSlotId(id, ASSET_DIR);
+      const q = String((item.section !== '(intro)' ? item.section + ' ' : '') + pageTitle).slice(0, 120);
+      const got = await pexelsSearchApplicable(q, slotId, ASSET_DIR);
+      const rel = got.rel;
+      const abs = path.join(ASSET_DIR, path.basename(rel));
+      if (!fs.existsSync(abs) || fs.statSync(abs).size < 8000) continue;
+      body = replaceImageUrlInBody(body, item.url, rel);
+      deployed.push(abs);
+      replaced++;
+      reasons.push('offtopic:' + (item.reason || 'context'));
+      console.log(
+        JSON.stringify({
+          phase: 'offtopic-replaced',
+          id,
+          reason: item.reason,
+          section: String(item.section || '').slice(0, 60),
+          from: String(item.url).slice(0, 80),
+          to: rel,
+        })
+      );
+    } catch (e) {
+      console.log(
+        JSON.stringify({
+          phase: 'offtopic-miss',
+          id,
+          reason: item.reason,
+          err: String(e.message || e).slice(0, 100),
+        })
+      );
+    }
+  }
+  if (deployed.length) {
+    try {
+      await deployQaAssetFiles(deployed, { title: 'image-lead offtopic · ' + id });
+    } catch (e) {
+      console.log(JSON.stringify({ phase: 'offtopic-deploy-err', id, err: String(e.message || e).slice(0, 100) }));
+    }
+  }
+  return { body, replaced, reasons };
 }
 
 async function processOne(s, idx, row) {
@@ -520,9 +619,10 @@ async function processOne(s, idx, row) {
   } catch (e) {
     return { id, action: 'missing' };
   }
+  const question = (blob && (blob.question || blob.title)) || (row && (row.question || row.title)) || id;
   const cover = (row && (row.img || row.cover)) || (blob && blob.img) || '';
   const canon = '/assets/qa/' + id + '.jpg';
-  const bodyUrls = blob && blob.answer ? extractMdImageUrls(blob.answer) : [];
+  let bodyUrls = blob && blob.answer ? extractMdImageUrls(blob.answer) : [];
   // Always probe cover + canonical face (versioned covers can hide a 404 canon)
   const candidates = [...new Set([cover, canon, ...bodyUrls].filter(Boolean))].slice(0, 40);
   const bad = [];
@@ -575,12 +675,26 @@ async function processOne(s, idx, row) {
     reasons.push('live-canon-bad');
   }
 
-  if (!bad.length && !coverBad) return { id, action: 'ok' };
+  // Off-topic / wrong-context images (even if they load fine)
+  let offtopicReplaced = 0;
+  if (blob && blob.answer) {
+    const ot = await replaceOffTopicSlots(s, id, blob, question);
+    if (ot.replaced) {
+      blob.answer = ot.body;
+      offtopicReplaced = ot.replaced;
+      reasons.push(...ot.reasons);
+      bodyUrls = extractMdImageUrls(blob.answer);
+    }
+  }
+
+  if (!bad.length && !coverBad && !offtopicReplaced) {
+    await stampImageLeadDone(s, id, { image_lead_status: 'ok' });
+    return { id, action: 'ok' };
+  }
 
   let newCover = null;
   let coverMode = 'kept';
   if (coverBad) {
-    const question = (blob && (blob.question || blob.title)) || (row && (row.question || row.title)) || id;
     newCover = await replaceCover(s, id, question);
     if (newCover) {
       reasons.push('cover-replaced');
@@ -593,6 +707,11 @@ async function processOne(s, idx, row) {
 
   const reason = [...new Set(reasons)].join(',') || 'white-or-defunct';
   const url = await savePurged(s, idx, row, blob, bad, reason, coverBad, newCover);
+  await stampImageLeadDone(s, id, {
+    image_lead_status: 'fixed',
+    image_lead_reason: reason,
+    white_purge_local_at: new Date().toISOString(),
+  });
 
   // Final live gate — do NOT email "fixed" if the hero cover is still 404/white
   let liveOk = true;
@@ -613,7 +732,7 @@ async function processOne(s, idx, row) {
         id,
         action: 'purge-incomplete',
         reason: reason + ',live-verify-fail',
-        bad: bad.length,
+        bad: bad.length + offtopicReplaced,
         url,
         coverReplaced: coverMode === 'replaced',
         coverMode,
@@ -625,18 +744,19 @@ async function processOne(s, idx, row) {
     id,
     url,
     reason,
-    bad: bad.length,
+    bad: bad.length + offtopicReplaced,
     cover: coverMode === 'kept' ? 'kept' : newCover || 'cleared',
   });
   return {
     id,
     action: 'purge',
     reason,
-    bad: bad.length,
+    bad: bad.length + offtopicReplaced,
     url,
     coverReplaced: coverMode === 'replaced',
     coverMode,
     liveOk,
+    offtopic: offtopicReplaced,
   };
 }
 
