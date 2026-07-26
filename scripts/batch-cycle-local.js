@@ -53,6 +53,8 @@ const PEXELS_KEY = process.env.PEXELS_API_KEY || process.env.Pexels_Api_Key;
 const BATCH_SIZE = parseInt(process.env.BATCH_SIZE || process.env.PURGE_MAX_NEW || '2750', 10);
 const STOP_AT = parseInt(process.env.STOP_AT || '8000', 10);
 const CYCLE_MODE = String(process.env.CYCLE_MODE || 'fix').toLowerCase();
+const CYCLE_IDS_JSON = process.env.CYCLE_IDS_JSON || ''; // lock fact-check to an explicit id list
+const RESET_CYCLE_DONE = String(process.env.RESET_CYCLE_DONE || '') === '1';
 
 fs.mkdirSync(ASSET_DIR, { recursive: true });
 
@@ -377,6 +379,10 @@ async function runFactFixBatch() {
 
   const imgState = (await s.get(IMAGE_STATE_KEY, { type: 'json' })) || {};
   let ids = Array.isArray(imgState.doneIds) ? imgState.doneIds.slice() : [];
+  if (CYCLE_IDS_JSON) {
+    const locked = JSON.parse(fs.readFileSync(CYCLE_IDS_JSON, 'utf8'));
+    ids = Array.isArray(locked) ? locked : locked.ids || [];
+  }
   if (!ids.length) throw new Error('no mangled-purge doneIds — run image purge first');
 
   const limit = parseInt(process.env.CYCLE_LIMIT || '0', 10);
@@ -598,8 +604,28 @@ async function cycleDoneCount() {
   return (cycle.doneIds || []).length;
 }
 
+async function maybeResetCycleDone() {
+  if (!RESET_CYCLE_DONE) return;
+  const s = store();
+  const state = {
+    doneIds: [],
+    fixed: 0,
+    passed: 0,
+    imaged: 0,
+    errors: 0,
+    restartedAt: new Date().toISOString(),
+    restartReason: 'RESET_CYCLE_DONE=1',
+    stopAt: STOP_AT,
+    batchSize: BATCH_SIZE,
+    complete: false,
+  };
+  await s.setJSON(STATE_KEY, state);
+  console.log(JSON.stringify({ phase: 'cycle-reset', note: 'cleared fact-check doneIds for full restart' }));
+}
+
 async function main() {
   console.log(JSON.stringify({ phase: 'boot', mode: CYCLE_MODE, batchSize: BATCH_SIZE, stopAt: STOP_AT }));
+  await maybeResetCycleDone();
 
   if (CYCLE_MODE === 'fix') {
     await runFactFixBatch();
