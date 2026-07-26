@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 // Cadence (owner): 2725 at a time.
 //   1) mangled-image purge for BATCH_SIZE new ids
-//   2) same BATCH_SIZE: fact-check → content rewrite if flagged
-//      → Pexels ONLY if rewrite needs a new image depiction
-//   3) email after EVERY entry
+//   2) same BATCH_SIZE: audit/fact-check each entry
+//      → if issue: rewrite content AND redo Pexels image
+//   3) email after EVERY entry (fix, pass, or error)
 //   4) repeat (CYCLE_MODE=loop) until purge finds nothing new
 //
 // Env:
@@ -237,11 +237,11 @@ async function runFactFixBatch() {
     'PULSE batch cycle started — ' + todo.length + ' entries',
     '<p>Cadence: image purge ' +
       BATCH_SIZE +
-      ' → fact-check / content / conditional Pexels on the <b>same</b> ' +
+      ' → audit the <b>same</b> ' +
       BATCH_SIZE +
       '.</p>' +
-      '<p>Per entry: fact-check → content rewrite if needed → <b>Pexels only if rewrite needs a new image</b>.</p>' +
-      '<p>Email after <b>every</b> entry.</p>'
+      '<p>Per entry: fact-check → if issue: <b>rewrite content + redo Pexels image</b>.</p>' +
+      '<p>Email after <b>every</b> entry (fix / pass / error).</p>'
   );
 
   const idx = await s.get('_index.json', { type: 'json', consistency: 'strong' });
@@ -291,8 +291,10 @@ async function runFactFixBatch() {
     let actions = [];
     let issues = [];
     let body = original;
-    let needsImg = false;
-    let imgReason = '';
+    const prior = Array.isArray(blob.batch_cycle_actions) ? blob.batch_cycle_actions : [];
+    // Backfill: earlier rewrites that skipped Pexels still need an image redo
+    const needsImgBackfill =
+      prior.includes('content-rewrite') && !prior.some((a) => String(a).startsWith('pexels:'));
 
     try {
       const audit = await dsJson(
@@ -301,10 +303,9 @@ async function runFactFixBatch() {
       );
       const verdict = String(audit.verdict || '').toLowerCase();
       issues = [].concat(audit.issues || [], audit.hallucinations || [], audit.content_gaps || []);
-      needsImg = !!audit.needs_new_image;
-      imgReason = String(audit.image_reason || '');
+      const hasIssue = verdict === 'flag' || issues.length > 0;
 
-      if (verdict === 'flag' || issues.length) {
+      if (hasIssue) {
         const critique = JSON.stringify({
           issues: audit.issues || [],
           hallucinations: audit.hallucinations || [],
@@ -324,11 +325,11 @@ async function runFactFixBatch() {
             body = preserveImages(original, rewritten);
           }
           actions.push('content-rewrite');
-          if (needsImg) actions.push('needs-pexels:' + (imgReason || 'topic-change'));
         }
       }
 
-      if (actions.includes('content-rewrite') && needsImg) {
+      // Owner rule: any content issue → rewrite AND redo Pexels image
+      if (actions.includes('content-rewrite') || needsImgBackfill) {
         try {
           const { rel, query } = await pexelsCover(id, question);
           body = swapLeadingImage(body, rel, question);
@@ -339,13 +340,14 @@ async function runFactFixBatch() {
             dirty = true;
           }
           actions.push('pexels:' + query);
+          if (needsImgBackfill && !actions.includes('content-rewrite')) actions.push('pexels-backfill');
           imaged++;
         } catch (e) {
           actions.push('pexels-fail:' + String(e.message || e).slice(0, 80));
         }
       }
 
-      if (body !== original || actions.some((a) => a.startsWith('pexels:') || a === 'content-rewrite')) {
+      if (body !== original || actions.some((a) => a.startsWith('pexels:') || a === 'content-rewrite' || a === 'pexels-backfill')) {
         const ts = new Date().toISOString();
         await s.setJSON(
           'answers/' + id + '.json',
@@ -393,7 +395,7 @@ async function runFactFixBatch() {
       }
 
       done.add(id);
-      console.log(JSON.stringify({ id, actions, needsImg, fixed, passed, imaged }));
+      console.log(JSON.stringify({ id, actions, hasIssue, fixed, passed, imaged }));
     } catch (e) {
       errors++;
       console.log(JSON.stringify({ id, err: String(e.message || e).slice(0, 160) }));
