@@ -1,14 +1,13 @@
-// pulse-white-image-audit-background — scan newest→oldest covers for white/defunct
-// images, clear them from index + answer blob, email each fixed knowledge URL.
+// pulse-white-image-audit-background — scan newest→oldest for blank/white and
+// mangled/defunct images, strip them from answer blobs + bad covers, email EACH
+// fixed knowledge URL so the owner can spot-check.
 //
-// LAW: do NOT weaken visual-lock / preserveImages. We only UPDATE the stored
-// answer so the purged body becomes the new original (old white URLs cannot
-// be restored by preserveImages). Stamp face_purged + purged_image_urls ban.
+// LAW: do NOT weaken visual-lock / preserveImages. Purged answer becomes the
+// new original so white/mangled URLs cannot be restored by preserveImages.
 //
 // Trigger: POST /.netlify/functions/pulse-white-image-audit-background
-//   body: { key:'pulsemachine-writer-2026', batch:500 }
-// Or scheduled every 15 min via netlify.toml.
-// Uses Netlify site env: BLOBS_PAT, RESEND_API_KEY.
+//   body: { key:'pulsemachine-writer-2026', batch:500, force?:true }
+// Cron: every 15 min via netlify.toml
 
 const { getStore } = require('@netlify/blobs');
 
@@ -22,6 +21,10 @@ const DEFAULT_BATCH = 500;
 const SITE = 'https://pulserevops.com';
 const UA = 'PulseWhiteImageAudit/1.0';
 
+// Mangled Flux/hotlink leftovers (ca0432 class): real URL + prompt junk.
+const MANGLED_RX =
+  /(?:%2C%20|,)\s*realistic\s+magazine\s+style|nologo=true|model=flux|image\.pollinations\.ai|prompt\/[^)\s]*no%20text|no%20watermark\?width=/i;
+
 function initStore() {
   const tok = process.env.BLOBS_PAT || process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
   try {
@@ -32,8 +35,9 @@ function initStore() {
 }
 
 function entryTs(e) {
-  const vals = [e.ts, e.polished_at, e.was_indexed_at, e.last_modified_ms]
-    .map((v) => (typeof v === 'number' ? v : typeof v === 'string' && /^\d+$/.test(v) ? +v : 0));
+  const vals = [e.ts, e.polished_at, e.was_indexed_at, e.last_modified_ms].map((v) =>
+    typeof v === 'number' ? v : typeof v === 'string' && /^\d+$/.test(v) ? +v : 0
+  );
   return Math.max(0, ...vals);
 }
 
@@ -52,21 +56,24 @@ function knowledgeUrl(id) {
   return SITE + '/knowledge/' + encodeURIComponent(id);
 }
 
+function normUrl(u) {
+  return String(u || '').replace(/\?.*$/, '').trim();
+}
+
 async function emailOne(subject, html) {
   const rs = process.env.RESEND_API_KEY || process.env.resendapikey || process.env.RESENDAPIKEY;
   const from = process.env.ALERT_FROM_EMAIL || process.env.alert_from_email || 'onboarding@resend.dev';
-  if (!rs) {
-    // Fallback to live notify (also Resend on site)
-    try {
-      await fetch(SITE + '/.netlify/functions/pulse-progress-notify?key=' + KEY, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ subject, html }),
-        signal: AbortSignal.timeout(12000),
-      });
-    } catch (e) {}
+  // Prefer live notify (works from this site); Resend direct as backup.
+  try {
+    await fetch(SITE + '/.netlify/functions/pulse-progress-notify?key=' + KEY, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subject, html, to: RECIPIENT }),
+      signal: AbortSignal.timeout(12000),
+    });
     return;
-  }
+  } catch (e) {}
+  if (!rs) return;
   try {
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -77,10 +84,39 @@ async function emailOne(subject, html) {
   } catch (e) {}
 }
 
-/** Fetch image bytes; classify ok / defunct / white. */
+function isMangled(u) {
+  return MANGLED_RX.test(String(u || ''));
+}
+
+/** Extract markdown image URLs — allow junk past first ')' for mangled lines. */
+function extractMdImageUrls(answer) {
+  const urls = [];
+  const lines = String(answer || '').split('\n');
+  for (const line of lines) {
+    // Full mangled form: ![alt](url)junk) OR normal ![alt](url)
+    let m = line.match(/!\[[^\]]*\]\((https?:\/\/[^\s]+|\/assets\/[^\s)]+)\)/i);
+    if (!m) m = line.match(/!\[[^\]]*\]\(([^)\s]+)\)/);
+    if (m) urls.push(m[1]);
+    // If line has mangled flux junk, capture the whole paren payload
+    if (isMangled(line)) {
+      const m2 = line.match(/!\[[^\]]*\]\((.+)\)\s*$/);
+      if (m2) urls.push(m2[1]);
+    }
+    const pm = line.match(/@@PRODUCT[^]*?\bimg="([^"]+)"/i);
+    if (pm) urls.push(pm[1]);
+  }
+  return [...new Set(urls.filter(Boolean))];
+}
+
+/** Fetch image bytes; classify ok / defunct / white / mangled. */
 async function classifyImage(url) {
+  if (isMangled(url)) return { kind: 'mangled', url };
   const abs = absUrl(url);
   if (!abs) return { kind: 'empty' };
+  // Skip classifying shared CRO pool assets as purge targets
+  if (/\/assets\/cro-cover-\d+\.jpg/i.test(url) || /\/assets\/cro-cover-\d+\.jpg/i.test(abs)) {
+    return { kind: 'ok', url: abs, skipPurge: true };
+  }
   try {
     const r = await fetch(abs, {
       headers: { 'User-Agent': UA, Accept: 'image/*' },
@@ -93,9 +129,6 @@ async function classifyImage(url) {
     if (!ct.startsWith('image/') || buf.length < 1200) {
       return { kind: 'defunct', status: r.status, url: abs, reason: 'not-image-or-tiny', bytes: buf.length };
     }
-    // JPEG/PNG near-white heuristic without sharp: sample luminance from raw-ish decode via createImageBitmap not available in Node.
-    // Use simple JPEG scan: if file is tiny AND mostly 0xFF bytes → white page.
-    // Prefer pixel decode when sharp is available.
     let white = false;
     let mean = null;
     let whitePct = null;
@@ -116,9 +149,9 @@ async function classifyImage(url) {
       }
       mean = sum / n;
       whitePct = w / n;
+      // Blank page = nearly all white pixels
       white = (mean >= 235 && whitePct >= 0.9) || whitePct >= 0.95;
     } catch (e) {
-      // Fallback: very small bright JPEG often = blank
       const ff = buf.filter((b) => b >= 0xf0).length / buf.length;
       if (buf.length < 8000 && ff > 0.55) white = true;
     }
@@ -129,41 +162,52 @@ async function classifyImage(url) {
   }
 }
 
-function stripUrlFromBody(body, urls) {
+function stripBadFromBody(body, badUrls) {
   let b = String(body || '');
-  const ban = new Set((urls || []).map((u) => String(u).replace(/\?.*$/, '')));
-  if (!ban.size) return b;
+  const ban = new Set((badUrls || []).map((u) => normUrl(u)));
+  // Also ban by distinctive mangled substrings
   const lines = b.split('\n');
   const out = [];
   for (let line of lines) {
-    const m = line.match(/!\[[^\]]*\]\(([^)\s]+)\)/);
-    if (m) {
-      const u = m[1].replace(/\?.*$/, '');
-      const rel = u.replace(/^https?:\/\/(?:www\.)?pulserevops\.com/i, '');
-      if (ban.has(u) || ban.has(rel) || [...ban].some((x) => u.endsWith(x) || rel.endsWith(x))) {
-        continue; // drop white/defunct image line — body becomes new original
+    const isImgLine = /!\[[^\]]*\]\(/i.test(line);
+    const isProd = /@@PRODUCT/i.test(line) && /img="/i.test(line);
+
+    if (isImgLine) {
+      if (isMangled(line)) continue; // drop whole mangled image line
+      const m = line.match(/!\[[^\]]*\]\(([^)\s]+)\)/) || line.match(/!\[[^\]]*\]\((.+)\)\s*$/);
+      if (m) {
+        const u = normUrl(m[1]);
+        const rel = u.replace(/^https?:\/\/(?:www\.)?pulserevops\.com/i, '');
+        if (
+          ban.has(u) ||
+          ban.has(rel) ||
+          [...ban].some((x) => x && (u.includes(x) || rel.includes(x) || line.includes(x)))
+        ) {
+          continue;
+        }
       }
     }
-    // also @@PRODUCT img="..." — strip bad img attr only, keep product card
-    if (/@@PRODUCT/i.test(line) && /img="/i.test(line)) {
+
+    if (isProd) {
       for (const bad of ban) {
-        if (line.includes(bad)) {
+        if (bad && line.includes(bad)) {
           line = line.replace(/\s*img="[^"]*"/i, '');
           break;
         }
       }
+      if (isMangled(line)) line = line.replace(/\s*img="[^"]*"/i, '');
     }
+
     out.push(line);
   }
   return out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
-async function purgeEntry(store, idx, entryRow, badUrls, reason) {
+async function savePurged(store, idx, entryRow, blob, badUrls, reason, coverBad) {
   const id = entryRow.id;
-  const blob = await store.get('answers/' + id + '.json', { type: 'json' });
   const purgedList = Array.isArray(entryRow.purged_image_urls) ? entryRow.purged_image_urls.slice() : [];
   for (const u of badUrls) {
-    const n = String(u).replace(/\?.*$/, '');
+    const n = normUrl(u);
     if (n && !purgedList.includes(n)) purgedList.push(n);
   }
   const ts = new Date().toISOString();
@@ -171,26 +215,29 @@ async function purgeEntry(store, idx, entryRow, badUrls, reason) {
   if (blob) {
     const prevBanned = Array.isArray(blob.purged_image_urls) ? blob.purged_image_urls : [];
     const banned = [...new Set(prevBanned.concat(purgedList))];
-    const newAnswer = stripUrlFromBody(blob.answer || '', banned);
-    await store.setJSON('answers/' + id + '.json', Object.assign({}, blob, {
+    const newAnswer = stripBadFromBody(blob.answer || '', banned);
+    const next = Object.assign({}, blob, {
       answer: newAnswer,
-      cover_src: null,
-      face_title_baked: false,
       face_purged_at: ts,
       face_purge_reason: reason,
       purged_image_urls: banned,
-      // CRITICAL: store purged answer as canonical — preserveImages will use THIS
-      // as original on later writer passes, so white URLs cannot revive.
       updated_at: ts,
-    }));
+    });
+    if (coverBad) {
+      next.cover_src = null;
+      next.face_title_baked = false;
+    }
+    await store.setJSON('answers/' + id + '.json', next);
   }
 
   const i = (idx.entries || []).findIndex((e) => e && e.id === id);
   if (i >= 0) {
     const ent = Object.assign({}, idx.entries[i]);
-    delete ent.img;
-    delete ent.cover_src;
-    delete ent.face_title_baked;
+    if (coverBad) {
+      delete ent.img;
+      delete ent.cover_src;
+      delete ent.face_title_baked;
+    }
     ent.face_purged_at = ts;
     ent.face_purge_reason = reason;
     ent.purged_image_urls = purgedList;
@@ -209,7 +256,10 @@ exports.handler = async (event) => {
     return { statusCode: 401, body: JSON.stringify({ ok: false, reason: 'bad key' }) };
   }
 
-  const batch = Math.min(800, Math.max(50, parseInt(body.batch || process.env.WHITE_AUDIT_BATCH || DEFAULT_BATCH, 10) || DEFAULT_BATCH));
+  const batch = Math.min(
+    800,
+    Math.max(50, parseInt(body.batch || process.env.WHITE_AUDIT_BATCH || DEFAULT_BATCH, 10) || DEFAULT_BATCH)
+  );
   const store = initStore();
 
   let lock = null;
@@ -232,7 +282,6 @@ exports.handler = async (event) => {
       return { statusCode: 200, body: JSON.stringify({ ok: false, reason: 'no index' }) };
     }
 
-    // Newest → oldest. Skip already face_purged in this campaign unless recheck.
     const rows = idx.entries
       .filter((e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)))
       .slice()
@@ -249,36 +298,37 @@ exports.handler = async (event) => {
 
     for (const row of slice) {
       const id = row.id;
-      const img = row.img || row.cover || '';
-      const candidates = [];
-      if (img) candidates.push(img);
-      // Also check body hero if cover empty
       let blob = null;
       try {
         blob = await store.get('answers/' + id + '.json', { type: 'json' });
       } catch (e) {}
-      if (blob && blob.answer) {
-        const m = String(blob.answer).slice(0, 2000).match(/!\[[^\]]*\]\(([^)\s]+)\)/);
-        if (m) candidates.push(m[1]);
-      }
+
+      const cover = row.img || row.cover || '';
+      const bodyUrls = blob && blob.answer ? extractMdImageUrls(blob.answer) : [];
+      const candidates = [...new Set([cover, ...bodyUrls].filter(Boolean))];
 
       const bad = [];
-      let reason = '';
-      let anyOk = false;
+      const reasons = [];
+      let coverBad = false;
+      let coverRemapped = false;
 
-      for (const u of [...new Set(candidates)]) {
-        // Never treat cro-cover pool as "white page" purge targets for deletion of shared assets
-        if (/\/assets\/cro-cover-\d+\.jpg/i.test(u)) {
-          anyOk = true;
+      for (const u of candidates) {
+        if (/\/assets\/cro-cover-\d+\.jpg/i.test(u)) continue;
+
+        // Fast path: mangled markdown / flux junk — no fetch needed
+        if (isMangled(u)) {
+          bad.push(u);
+          reasons.push('mangled');
+          if (cover && (u === cover || normUrl(u) === normUrl(cover))) coverBad = true;
           continue;
         }
+
         let cls = await classifyImage(u);
-        if (cls.kind === 'ok') {
-          anyOk = true;
-          continue;
-        }
-        // Versioned / defunct pointer → try canonical face before purge
-        if (cls.kind === 'defunct' || /\/assets\/qa\/[^/]+-v\d+\.jpg/i.test(u)) {
+        if (cls.kind === 'ok') continue;
+
+        // Versioned / defunct cover → try canonical face before purge
+        const isCover = cover && (u === cover || normUrl(u) === normUrl(cover) || absUrl(u) === absUrl(cover));
+        if ((cls.kind === 'defunct' || /\/assets\/qa\/[^/]+-v\d+\.jpg/i.test(u)) && isCover) {
           const canon = canonFace(id);
           const c2 = await classifyImage(canon);
           if (c2.kind === 'ok') {
@@ -288,52 +338,74 @@ exports.handler = async (event) => {
               idx.entries[i].cover_src = idx.entries[i].cover_src || 'flux';
             }
             if (blob) {
-              // swap URL in body only at matching slots — keep slot count (visual lock)
-              const banned = [String(u).replace(/\?.*$/, '')];
               let ans = String(blob.answer || '');
-              for (const b of banned) {
-                ans = ans.split(b).join(canon);
-                ans = ans.split(SITE + b).join(SITE + canon);
-              }
-              await store.setJSON('answers/' + id + '.json', Object.assign({}, blob, {
-                answer: ans,
-                img: canon,
-                updated_at: new Date().toISOString(),
-                white_audit_remapped_at: new Date().toISOString(),
-              }));
-              blob = null; // refreshed
+              const from = String(u);
+              ans = ans.split(from).join(canon);
+              ans = ans.split(SITE + from).join(SITE + canon);
+              ans = ans.split(normUrl(from)).join(canon);
+              await store.setJSON(
+                'answers/' + id + '.json',
+                Object.assign({}, blob, {
+                  answer: ans,
+                  img: canon,
+                  updated_at: new Date().toISOString(),
+                  white_audit_remapped_at: new Date().toISOString(),
+                })
+              );
+              blob = await store.get('answers/' + id + '.json', { type: 'json' });
             }
             remapped++;
+            coverRemapped = true;
             const url = knowledgeUrl(id);
             fixed.push({ id, action: 'remap', url, from: u, to: canon });
             await emailOne(
-              'PULSE white/defunct image fixed — ' + id,
-              '<p>Remapped defunct/versioned cover → canonical (did <b>not</b> revive old images).</p>' +
-                '<p><a href="' + url + '">' + url + '</a></p>' +
-                '<p>from: <code>' + String(u).replace(/</g, '') + '</code><br>to: <code>' + canon + '</code></p>'
+              'PULSE image remapped — ' + id,
+              '<p>Remapped defunct/versioned cover → canonical. Visual-lock intact (no old-image revive).</p>' +
+                '<p><a href="' +
+                url +
+                '">' +
+                url +
+                '</a></p>' +
+                '<p>from: <code>' +
+                String(u).replace(/</g, '') +
+                '</code><br>to: <code>' +
+                canon +
+                '</code></p>'
             );
-            anyOk = true;
             continue;
           }
         }
-        if (cls.kind === 'white' || cls.kind === 'defunct') {
+
+        if (cls.kind === 'white' || cls.kind === 'defunct' || cls.kind === 'mangled') {
           bad.push(u);
-          reason = cls.kind + (cls.reason ? ':' + cls.reason : '');
+          reasons.push(cls.kind + (cls.reason ? ':' + cls.reason : ''));
+          if (isCover) coverBad = true;
         }
       }
 
-      if (bad.length && !anyOk) {
-        const url = await purgeEntry(store, idx, row, bad, reason || 'white-or-defunct');
+      if (bad.length) {
+        const reason = [...new Set(reasons)].join(',') || 'white-or-defunct';
+        const url = await savePurged(store, idx, row, blob, bad, reason, coverBad);
         purgedN++;
-        fixed.push({ id, action: 'purge', url, reason, bad });
+        fixed.push({ id, action: 'purge', url, reason, bad, coverBad });
         await emailOne(
-          'PULSE white/defunct image removed — ' + id,
-          '<p>Removed white/defunct image(s). Blob answer updated so visual-lock cannot restore them.</p>' +
-            '<p><a href="' + url + '">' + url + '</a></p>' +
-            '<p>reason: <code>' + String(reason).replace(/</g, '') + '</code></p>' +
-            '<ul>' + bad.map((u) => '<li><code>' + String(u).replace(/</g, '') + '</code></li>').join('') + '</ul>'
+          'PULSE blank/mangled image removed — ' + id,
+          '<p>Removed blank/white or mangled/defunct image slot(s). Stored answer updated so visual-lock cannot restore them.</p>' +
+            '<p><b>Check this page:</b> <a href="' +
+            url +
+            '">' +
+            url +
+            '</a></p>' +
+            '<p>reason: <code>' +
+            String(reason).replace(/</g, '') +
+            '</code> · coverCleared=' +
+            coverBad +
+            '</p>' +
+            '<ul>' +
+            bad.map((u) => '<li><code>' + String(u).replace(/</g, '').slice(0, 220) + '</code></li>').join('') +
+            '</ul>'
         );
-      } else if (!bad.length) {
+      } else if (!coverRemapped) {
         okN++;
       }
 
@@ -342,7 +414,6 @@ exports.handler = async (event) => {
 
     await store.setJSON('_index.json', idx);
     state.doneIds = [...doneSet];
-    // Bound state growth — keep last 20k ids
     if (state.doneIds.length > 20000) state.doneIds = state.doneIds.slice(-20000);
     state.scanned = (state.scanned || 0) + slice.length;
     state.purged = (state.purged || 0) + purgedN;
@@ -354,15 +425,22 @@ exports.handler = async (event) => {
     await store.setJSON(STATE_KEY, state);
     await store.setJSON(LOCK_KEY, { ts: 0 });
 
-    // Batch summary email
     if (fixed.length) {
       await emailOne(
-        'PULSE white-image audit batch — ' + fixed.length + ' fixed / ' + slice.length + ' scanned',
-        '<p>Newest→oldest batch. Visual-lock / preserveImages left intact; purged bodies are the new originals.</p>' +
-          '<p>scanned=' + slice.length + ' purged=' + purgedN + ' remapped=' + remapped + ' ok=' + okN + '</p>' +
+        'PULSE white-image batch — ' + fixed.length + ' fixed / ' + slice.length + ' scanned',
+        '<p>Newest→oldest. Each fixed URL was emailed individually above for spot-check.</p>' +
+          '<p>scanned=' +
+          slice.length +
+          ' purged=' +
+          purgedN +
+          ' remapped=' +
+          remapped +
+          ' ok=' +
+          okN +
+          '</p>' +
           '<ul>' +
           fixed
-            .slice(0, 40)
+            .slice(0, 50)
             .map((f) => '<li><a href="' + f.url + '">' + f.id + '</a> · ' + f.action + '</li>')
             .join('') +
           '</ul>'
