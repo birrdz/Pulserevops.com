@@ -6,10 +6,12 @@
 //   3) ONE email per entry only when fact-check + content rewrite + image redo
 //      all landed (single combined email)
 //   4) when that 2750 finishes → next 2750 starting again at step 1 (purge first)
+//   5) STOP / take a break when fact-check doneIds reach STOP_AT (default 8000)
 //
 // Env:
 //   CYCLE_MODE=fix|purge-then-fix|loop   (default: fix)
 //   BATCH_SIZE / PURGE_MAX_NEW=2750
+//   STOP_AT=8000                (pause loop when cycle doneIds >= this)
 //   CYCLE_LIMIT=0               (0 = all not-yet-cycled purge ids)
 //   DEEPSEEK_MODEL=deepseek-v4-flash
 
@@ -49,6 +51,7 @@ const ASSET_DIR = path.join(process.cwd(), 'assets', 'qa');
 const DS_MODEL = process.env.DEEPSEEK_MODEL || 'deepseek-v4-flash';
 const PEXELS_KEY = process.env.PEXELS_API_KEY || process.env.Pexels_Api_Key;
 const BATCH_SIZE = parseInt(process.env.BATCH_SIZE || process.env.PURGE_MAX_NEW || '2750', 10);
+const STOP_AT = parseInt(process.env.STOP_AT || '8000', 10);
 const CYCLE_MODE = String(process.env.CYCLE_MODE || 'fix').toLowerCase();
 
 fs.mkdirSync(ASSET_DIR, { recursive: true });
@@ -540,7 +543,20 @@ async function runFactFixBatch() {
       }
 
       done.add(id);
-      console.log(JSON.stringify({ id, actions, hasIssue, fullFix, emailed: fullFix, fixed, passed, imaged }));
+      console.log(
+        JSON.stringify({
+          id,
+          actions,
+          hasIssue,
+          fullFix,
+          emailed: fullFix,
+          fixed,
+          passed,
+          imaged,
+          doneTotal: done.size,
+          stopAt: STOP_AT,
+        })
+      );
     } catch (e) {
       errors++;
       console.log(JSON.stringify({ id, err: String(e.message || e).slice(0, 160) }));
@@ -549,7 +565,22 @@ async function runFactFixBatch() {
       continue;
     }
 
-    if ((fixed + passed) % 15 === 0) await checkpoint(id);
+    // Checkpoint often so a restart/pause doesn't lose progress
+    if ((fixed + passed) % 5 === 0) await checkpoint(id);
+
+    if (STOP_AT > 0 && done.size >= STOP_AT) {
+      await checkpoint(id);
+      console.log(JSON.stringify({ phase: 'stop-at-reached', done: done.size, stopAt: STOP_AT }));
+      return {
+        fixed,
+        passed,
+        imaged,
+        errors,
+        processed: fixed + passed,
+        stoppedAt: done.size,
+        break: true,
+      };
+    }
   }
 
   await checkpoint(todo[todo.length - 1]);
@@ -561,8 +592,14 @@ async function runFactFixBatch() {
   return { fixed, passed, imaged, errors, processed: fixed + passed };
 }
 
+async function cycleDoneCount() {
+  const s = store();
+  const cycle = (await s.get(STATE_KEY, { type: 'json' })) || {};
+  return (cycle.doneIds || []).length;
+}
+
 async function main() {
-  console.log(JSON.stringify({ phase: 'boot', mode: CYCLE_MODE, batchSize: BATCH_SIZE }));
+  console.log(JSON.stringify({ phase: 'boot', mode: CYCLE_MODE, batchSize: BATCH_SIZE, stopAt: STOP_AT }));
 
   if (CYCLE_MODE === 'fix') {
     await runFactFixBatch();
@@ -587,7 +624,23 @@ async function main() {
     //   B) else purge next BATCH_SIZE mangled images ALL THE WAY THROUGH
     //   C) then fact-check that same BATCH_SIZE
     // Never start fact-check on a wave before its purge finishes.
+    // Owner: take a break once fact-check doneIds hit STOP_AT (8000).
     for (;;) {
+      const already = await cycleDoneCount();
+      if (STOP_AT > 0 && already >= STOP_AT) {
+        console.log(JSON.stringify({ phase: 'break', done: already, stopAt: STOP_AT }));
+        await emailOne(
+          'PULSE break — reached ' + already + ' / ' + STOP_AT,
+          '<p>Stopping as requested once we hit <b>' +
+            STOP_AT +
+            '</b> fact-checked entries.</p>' +
+            '<p>doneIds=' +
+            already +
+            '. Resume later with the same loop when you want the next waves.</p>'
+        );
+        return;
+      }
+
       const s = store();
       const img = (await s.get(IMAGE_STATE_KEY, { type: 'json' })) || {};
       const cycle = (await s.get(STATE_KEY, { type: 'json' })) || {};
@@ -600,17 +653,50 @@ async function main() {
           JSON.stringify({
             phase: 'loop-factcheck-after-purge',
             pending,
+            already,
+            stopAt: STOP_AT,
             note: 'purge wave already complete — fact-check same ids only',
           })
         );
-        await runFactFixBatch();
+        const r = await runFactFixBatch();
+        if (r && r.break) {
+          console.log(JSON.stringify({ phase: 'break', done: r.stoppedAt, stopAt: STOP_AT }));
+          await emailOne(
+            'PULSE break — reached ' + r.stoppedAt + ' / ' + STOP_AT,
+            '<p>Stopping as requested once we hit <b>' +
+              STOP_AT +
+              '</b> fact-checked entries.</p>' +
+              '<p>doneIds=' +
+              r.stoppedAt +
+              '. Resume later with the same loop when you want the next waves.</p>'
+          );
+          return;
+        }
         continue;
+      }
+
+      // Don't start a new purge wave if we're already at/over the break point
+      const again = await cycleDoneCount();
+      if (STOP_AT > 0 && again >= STOP_AT) {
+        console.log(JSON.stringify({ phase: 'break', done: again, stopAt: STOP_AT }));
+        await emailOne(
+          'PULSE break — reached ' + again + ' / ' + STOP_AT,
+          '<p>Stopping as requested once we hit <b>' +
+            STOP_AT +
+            '</b> fact-checked entries.</p>' +
+            '<p>doneIds=' +
+            again +
+            '.</p>'
+        );
+        return;
       }
 
       console.log(
         JSON.stringify({
           phase: 'loop-purge-first',
           batchSize: BATCH_SIZE,
+          already: again,
+          stopAt: STOP_AT,
           note: 'always remove mangled images for full wave before fact-check',
         })
       );
@@ -629,7 +715,20 @@ async function main() {
           note: 'purge finished — now fact-check / rewrite / image this wave',
         })
       );
-      await runFactFixBatch();
+      const r = await runFactFixBatch();
+      if (r && r.break) {
+        console.log(JSON.stringify({ phase: 'break', done: r.stoppedAt, stopAt: STOP_AT }));
+        await emailOne(
+          'PULSE break — reached ' + r.stoppedAt + ' / ' + STOP_AT,
+          '<p>Stopping as requested once we hit <b>' +
+            STOP_AT +
+            '</b> fact-checked entries.</p>' +
+            '<p>doneIds=' +
+            r.stoppedAt +
+            '.</p>'
+        );
+        return;
+      }
     }
   }
 
