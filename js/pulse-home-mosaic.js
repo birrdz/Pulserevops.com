@@ -121,6 +121,29 @@
   function entryTs(e) {
     return Number(e && e.ts) || parseInt(String(e && e.id || '').replace(/\D/g, ''), 10) || 0;
   }
+  /**
+   * Neon trim on ANY mosaic row (homepage, Recent, GTM, Tools, every pillar).
+   * Same entry in two places (e.g. Recent + Go-to-Market) gets neon in both.
+   * Window: revised (polished_at) or newly created (ts) in about the last week.
+   * Colors: green / purple / blue / pink (owner 2026-07-20).
+   */
+  var NEON_TRIMS = ['mm-neon-green', 'mm-neon-purple', 'mm-neon-blue', 'mm-neon-pink'];
+  var NEON_WINDOW_MS = 7 * 24 * 60 * 60 * 1000; // ~1 week
+  function neonTrimClass(e) {
+    if (!e || !e.id) return '';
+    var now = Date.now();
+    var polished = Number(e.polished_at) || 0;
+    var created = Number(e.ts) || 0;
+    var pinned = Number(e.pinned_until) || 0;
+    var isFreshPin = pinned > now; // short-lived FRESH pin also counts
+    var isRecentPolish = polished > 0 && (now - polished) <= NEON_WINDOW_MS;
+    var isRecentCreate = created > 0 && (now - created) <= NEON_WINDOW_MS;
+    if (!(isFreshPin || isRecentPolish || isRecentCreate)) return '';
+    var h = 0;
+    var s = String(e.id);
+    for (var i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+    return NEON_TRIMS[Math.abs(h) % NEON_TRIMS.length];
+  }
   /** Scrubbed-perfect: face card + quality_score >= 13 (owner 2026-07-04). */
   function scrubbedPerfect13Ok(e) {
     if (!e || !e.id) return false;
@@ -510,8 +533,11 @@
       var titleHtml = '<h4>' + esc(title) + '</h4>';
       var scrim = '<div class="mm-scrim"></div>';
       var lazyCls = lazy ? ' mm-lazy mm-img-pending' : '';
+      var neon = neonTrimClass(c);
+      var neonCls = neon ? ' ' + neon : '';
       var dataLazy = lazy ? ' data-mosaic-lazy="1"' : ' data-mosaic-loaded="1"';
-      return '<a class="mm' + lazyCls + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + '>'
+      var dataNeon = neon ? ' data-neon-trim="1"' : '';
+      return '<a class="mm' + lazyCls + neonCls + ' ' + z + '" href="/knowledge/' + encodeURIComponent(c.id) + '" data-face-bound="1" data-mosaic-src="' + esc(src) + '"' + dataLazy + dataNeon + '>'
         + imgHtml
         + scrim + '<div class="mm-txt"><span class="mm-cat">' + esc(NM[pof(c.id)] || pof(c.id).toUpperCase()) + '</span>'
         + titleHtml + '</div></a>';

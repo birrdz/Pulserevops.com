@@ -4,8 +4,8 @@
 // newest+best first, capped POOL total / PER_PILLAR each so no pillar dominates. Regenerate on each deploy.
 // Writes: mosaic-pool.json  (fields the mosaic tile needs: id, question, img, cover_src, quality_score, ts)
 const fs = require('fs');
-const WD = 'C:/Users/koryj/website';
-for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+const WD = '/workspace';
+for (const l of fs.readFileSync('/workspace/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
 const { getStore } = require('@netlify/blobs');
 const store = getStore({ name: 'pulse-machine-library', siteID: 'a2b74b30-a1ac-40e2-9622-aebfc2feb482', token: process.env.BLOBS_PAT || process.env.NETLIFY_AUTH_TOKEN });
 const POOL = parseInt(process.env.MOSAIC_POOL || '1500', 10);

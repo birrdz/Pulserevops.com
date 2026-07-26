@@ -1,0 +1,11 @@
+{
+  "pillar": "tl",
+  "inventory": 11042,
+  "batchSize": 250,
+  "batchCount": 45,
+  "batchIndex": 0,
+  "remaining": 11042,
+  "source": "live _index.json",
+  "at": "2026-07-20T10:30:37.477Z",
+  "mediaMachine": "http://localhost:7900/face-card-top-image-generator"
+}

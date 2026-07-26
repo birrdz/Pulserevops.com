@@ -113,7 +113,10 @@ function gradeEntry(idOrEntry, maybeBody, opts = {}) {
                   : pillar === 'style' ? 1100
                   : 1100;
 
-  const plain = body.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
+  // Strip real HTML tags only — bare comparisons like "<7.0" / "<$15" must NOT
+  // be treated as tags (that previously swallowed most of the body and false-failed
+  // word_count_floor on otherwise long book summaries).
+  const plain = body.replace(/<\/?[a-zA-Z][a-zA-Z0-9:-]*(?:\s[^>]*)?>/g, ' ').replace(/\s+/g, ' ');
   const wordCount = plain.split(/\s+/).filter(Boolean).length;
 
   const h2HtmlCount = (body.match(/<h2[^>]*>/gi) || []).length;

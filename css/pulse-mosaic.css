@@ -139,6 +139,37 @@ html,body{overflow-x:hidden}
 .mag-mosaic .mm .mm-cat{color:#EAC15C!important;font-size:.72rem!important;letter-spacing:.16em!important;}
 .mag-mosaic .mm h4{color:#F6C445!important;font-family:Georgia,serif!important;font-style:normal!important;font-weight:800!important;font-size:clamp(1.6rem,4.4vw,2.8rem)!important;line-height:1.03!important;-webkit-line-clamp:2!important;margin:2px 0 0!important;}
 @media(max-width:560px){.mag-mosaic .mm,.mag-mosaic .mm.big,.mag-mosaic .mm.wide,.mag-mosaic .mm.tall,.mag-mosaic .mm.mm-long,.mag-mosaic .mm.mm-hero{height:185px!important;min-height:185px!important}.mag-mosaic .mm h4{font-size:1.45rem!important}}
+
+/* Neon trims — edited / new / revised answer bands (owner 2026-07-20).
+   Cycles green / purple / blue / pink so fixed volume is obvious at a glance. */
+.mm.mm-neon-green,
+.mm.mm-neon-purple,
+.mm.mm-neon-blue,
+.mm.mm-neon-pink,
+.mag-mosaic .mm.mm-neon-green,
+.mag-mosaic .mm.mm-neon-purple,
+.mag-mosaic .mm.mm-neon-blue,
+.mag-mosaic .mm.mm-neon-pink{
+  border-style:solid!important;
+  border-width:3px!important;
+  box-sizing:border-box!important;
+}
+.mm.mm-neon-green,.mag-mosaic .mm.mm-neon-green{
+  border-color:#39FF14!important;
+  box-shadow:0 0 0 1px rgba(57,255,20,.55),0 0 22px rgba(57,255,20,.55),inset 0 0 18px rgba(57,255,20,.12)!important;
+}
+.mm.mm-neon-purple,.mag-mosaic .mm.mm-neon-purple{
+  border-color:#BF5FFF!important;
+  box-shadow:0 0 0 1px rgba(191,95,255,.55),0 0 22px rgba(191,95,255,.55),inset 0 0 18px rgba(191,95,255,.12)!important;
+}
+.mm.mm-neon-blue,.mag-mosaic .mm.mm-neon-blue{
+  border-color:#1DE9FF!important;
+  box-shadow:0 0 0 1px rgba(29,233,255,.55),0 0 22px rgba(29,233,255,.55),inset 0 0 18px rgba(29,233,255,.12)!important;
+}
+.mm.mm-neon-pink,.mag-mosaic .mm.mm-neon-pink{
+  border-color:#FF2BD6!important;
+  box-shadow:0 0 0 1px rgba(255,43,214,.55),0 0 22px rgba(255,43,214,.55),inset 0 0 18px rgba(255,43,214,.14)!important;
+}
 /* gold-outlined search (keep on all pages, easy to see) */
 .search-input,input[type="search"]{border:2px solid #EAC15C!important;border-radius:10px!important;box-shadow:0 0 0 1px rgba(234,193,92,.28),0 2px 10px rgba(0,0,0,.3)!important;outline:none!important;}
 .search-input:focus,input[type="search"]:focus{border-color:#F6C445!important;box-shadow:0 0 0 2px rgba(246,196,69,.5)!important;}

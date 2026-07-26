@@ -4,6 +4,11 @@ const { fixEntry, C } = require('./_v2_components');
 const { countCroInBody } = require('./_cro_strip_lib');
 const { auditQaGoldTemplate, appliesQaGold, needsQaGoldFix } = require('./_qa_gold_template');
 const { enforceWriterVisualLock } = require('./_visual_lock_law');
+const {
+  isTlId,
+  preserveTlImages,
+  stripBannedTlBodyImages,
+} = require('./_tl_image_freeze_lib');
 
 const MIN_SCORE = 12;
 const WORD_FLOOR = 2000;
@@ -37,6 +42,188 @@ function directAnswerFull(body) {
   const para = directAnswerTextOnly(body);
   const sentences = (para.match(/[.!?](?:\s|$)/g) || []).length;
   return para.length >= 140 && sentences >= 2;
+}
+
+/** Owner: DA must be short (2–3 sentences). Fat / mashed DA counts as broken. */
+function directAnswerNeedsSlim(body) {
+  const b = String(body || '');
+  // "## Direct Answer **Yes**…" — heading not on its own line (renderer shows raw ##)
+  // Only horizontal whitespace — \s would also match a correct blank line after the heading.
+  if (/^##\s+Direct\s+Answer[ \t]+\S/im.test(b)) return true;
+  // Depth H2s mashed into the DA paragraph
+  if (/##\s+Direct\s+Answer[\s\S]{0,12000}?##\s+(?!Direct\s+Answer|FAQ|Sources|Related)/i.test(b)) {
+    const inner = directAnswerInner(b);
+    if (inner && /##\s+\S/.test(inner)) return true;
+  }
+  // "## What is X? Body continues…" — whole section stuck in the heading line
+  if (/^##\s+.{12,180}\?\s+[A-Z“"*\d]/m.test(b)) return true;
+  const para = directAnswerTextOnly(b);
+  if (!para) return /^##\s+Direct\s+Answer/im.test(b);
+  const sentences = (para.match(/[.!?](?:\s|$)/g) || []).length;
+  if (para.length > 420 || sentences > 3) return true;
+  const words = para.split(/\s+/).filter(Boolean).length;
+  return words > 70;
+}
+
+/** Split prose into sentences without mangling decimals / URLs. */
+function splitSentences(text) {
+  const t = String(text || '').replace(/\s+/g, ' ').trim();
+  if (!t) return [];
+  const parts = [];
+  let buf = '';
+  for (let i = 0; i < t.length; i++) {
+    const ch = t[i];
+    buf += ch;
+    if (/[.!?]/.test(ch)) {
+      const next = t[i + 1];
+      const prev = t[i - 1];
+      if (ch === '.' && prev && /\d/.test(prev) && next && /\d/.test(next)) continue;
+      if (ch === '.' && prev && /[A-Z]/.test(prev) && next && /[A-Z]/.test(next)) continue;
+      if (next == null || /\s/.test(next) || /["')\]]/.test(next)) {
+        const s = buf.trim();
+        if (s) parts.push(s);
+        buf = '';
+        while (i + 1 < t.length && /\s/.test(t[i + 1])) i++;
+      }
+    }
+  }
+  if (buf.trim()) parts.push(buf.trim());
+  return parts;
+}
+
+/**
+ * Split "## Question title? Body starts here…" onto separate lines.
+ * Without this, the renderer emits one giant <h2> and CSS uppercases the essay in gold.
+ */
+function splitH2TitleFromBody(body) {
+  const lines = String(body || '').split('\n');
+  const out = [];
+  for (const line of lines) {
+    if (!/^##\s+/.test(line) || line.startsWith('```')) {
+      out.push(line);
+      continue;
+    }
+    const rest = line.replace(/^##\s+/, '');
+    // Keep canonical short heads intact
+    if (/^(Direct Answer|FAQ|Sources|Related on PULSE)\s*$/i.test(rest.trim())) {
+      out.push(line);
+      continue;
+    }
+    // "## Direct Answer **Yes**…" handled earlier; if still present, split after the head
+    const daM = rest.match(/^(Direct Answer)\s+(.+)$/i);
+    if (daM) {
+      out.push('## ' + daM[1]);
+      out.push('');
+      out.push(daM[2].trim());
+      continue;
+    }
+    // Question-style depth heads (most tl Q&A sections)
+    const qm = rest.match(/^(.{12,180}\?)\s+([A-Z“"*\d].+)$/);
+    if (qm) {
+      let title = qm[1].trim();
+      let prose = qm[2].trim();
+      // Don't leave a dangling fence opener on the prose line
+      const fenceM = prose.match(/^(.*?)(\s*```(?:mermaid)?\s*)$/);
+      if (fenceM && fenceM[1].trim()) {
+        prose = fenceM[1].trim();
+        out.push('## ' + title);
+        out.push('');
+        out.push(prose);
+        out.push('');
+        out.push(fenceM[2].trim());
+        continue;
+      }
+      out.push('## ' + title);
+      out.push('');
+      out.push(prose);
+      continue;
+    }
+    out.push(line);
+  }
+  return out.join('\n');
+}
+
+/**
+ * Repair mashed Direct Answer walls:
+ * 1) Ensure newline after ## Direct Answer
+ * 2) Explode inline ## depth headings that were swallowed into the DA paragraph
+ * 3) Split "## Title? Body…" so H2 CSS doesn't uppercase the essay
+ * 4) Slim DA prose to 2–3 sentences (~40–80 words; keep ≥140 chars / ≥2 sents for rubric)
+ */
+function repairSlimDirectAnswer(body) {
+  let b = String(body || '').replace(/\r\n/g, '\n');
+  if (!/^##\s+Direct\s+Answer/im.test(b)) return b;
+
+  // Normalize heading variants
+  b = b
+    .replace(/^###\s+Direct\s+Answer/im, '## Direct Answer')
+    .replace(/^##\s+Quick\s+Answer/im, '## Direct Answer')
+    .replace(/^###\s+Quick\s+Answer/im, '## Direct Answer');
+
+  // "## Direct Answer **Yes**…" → "## Direct Answer\n\n**Yes**…"
+  b = b.replace(/^##\s+Direct\s+Answer[ \t]+(?=\S)/im, '## Direct Answer\n\n');
+
+  // Explode inline H2s (not inside fences): "…text. ## What is…" → proper section breaks
+  const parts = b.split(/(```[\s\S]*?```)/g);
+  for (let i = 0; i < parts.length; i++) {
+    if (parts[i].startsWith('```')) continue;
+    parts[i] = parts[i].replace(/([^\n])[ \t]*(##\s+[^\n#]+)/g, (m, prev, h2) => {
+      const title = h2.replace(/^##\s+/, '').trim();
+      if (!title) return m;
+      return prev + '\n\n## ' + title + '\n\n';
+    });
+  }
+  b = parts.join('');
+
+  // "## What is X? Body continues on same line…" → real H2 + paragraph
+  // (otherwise .body h2 { text-transform:uppercase } paints the whole essay gold)
+  b = splitH2TitleFromBody(b);
+
+  // Slim only the Direct Answer block prose
+  b = b.replace(/^(##\s+Direct\s+Answer\n+)([\s\S]*?)(?=\n##\s|$)/im, (full, h, block) => {
+    const mediaRe = /(\n(?:!\[[^\]]*\]\([^)]+\)|```[\s\S]*?```)\s*)/;
+    const mediaM = block.match(mediaRe);
+    const firstMediaAt = mediaM && mediaM.index > 0 ? mediaM.index : -1;
+    const proseRaw = firstMediaAt >= 0 ? block.slice(0, firstMediaAt) : block;
+    const tail = firstMediaAt >= 0 ? block.slice(firstMediaAt) : '';
+    const plain = proseRaw
+      .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
+      .replace(/```[\s\S]*?```/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const sents = splitSentences(plain);
+    const wordN = (t) => String(t || '').split(/\s+/).filter(Boolean).length;
+    // Already tight enough (gold: ~40–60 words, 2–3 sentences)
+    if (sents.length <= 3 && plain.length <= 420 && wordN(plain) <= 70) {
+      return h.replace(/\n+$/, '\n\n') + plain + '\n' + (tail ? (tail.startsWith('\n') ? tail : '\n' + tail) : '');
+    }
+    let keep = sents.slice(0, Math.min(3, sents.length));
+    let joined = keep.join(' ');
+    // Prefer 2 sentences when still bloated
+    while ((wordN(joined) > 65 || joined.length > 420) && keep.length > 2) {
+      keep = keep.slice(0, keep.length - 1);
+      joined = keep.join(' ');
+    }
+    if (keep.length < 2 && sents.length >= 2) {
+      keep = sents.slice(0, 2);
+      joined = keep.join(' ');
+    }
+    // Rubric floor: ≥140 chars / ≥2 sentences when available
+    while (joined.length < 140 && keep.length < sents.length) {
+      keep = sents.slice(0, keep.length + 1);
+      joined = keep.join(' ');
+    }
+    if (!joined) return full;
+    if (!/\*\*[^*]+\*\*/.test(joined) && /\*\*[^*]+\*\*/.test(plain)) {
+      const bold = plain.match(/\*\*([^*]+)\*\*/);
+      if (bold && !joined.includes(bold[1])) {
+        joined = joined.replace(bold[1], '**' + bold[1] + '**');
+      }
+    }
+    return h.replace(/\n+$/, '\n\n') + joined + '\n' + (tail ? (tail.startsWith('\n') ? tail : '\n' + tail) : '');
+  });
+
+  return b.replace(/\n{3,}/g, '\n\n').trim() + '\n';
 }
 
 /** Old broken passes put mermaid/code inside ## Direct Answer — strip and relocate orphans. */
@@ -218,7 +405,12 @@ function collectImageLines(body) {
 
 /** Restore original image / @@PRODUCT lines — content fixes must not add or swap images. */
 function preserveImages(originalBody, newBody, opts) {
-  return enforceWriterVisualLock(originalBody, newBody, opts || {});
+  opts = opts || {};
+  // tl*: never restore pollinations / superseded /assets/qa/tl* faces / cost graphs
+  if (isTlId(opts.id)) {
+    return preserveTlImages(originalBody, newBody, opts.entryMeta || opts);
+  }
+  return enforceWriterVisualLock(originalBody, newBody, opts);
 }
 
 async function formatFixEntry(id, title, body, opts) {
@@ -226,13 +418,28 @@ async function formatFixEntry(id, title, body, opts) {
   const valid = opts.valid || new Set();
   const siblings = opts.siblings || [];
   const store = opts.store;
-  const original = String(body || '');
+  // tl*: freeze the preserve-source FIRST so banned images cannot resurrect
+  let original = String(body || '');
+  if (isTlId(id)) {
+    const frozen = stripBannedTlBodyImages(original);
+    if (frozen.removed.length) original = frozen.body;
+  }
   const steps = [];
   let b = original;
+  // Owner 2026-07-20: always repair mashed / obese Direct Answers before anything else
+  if (directAnswerNeedsSlim(b) || !directAnswerFull(b)) {
+    const slimmed = repairSlimDirectAnswer(b);
+    if (slimmed !== b) {
+      b = slimmed;
+      steps.push('da-slim');
+    }
+  }
   const auditOpts = { valid, sliceKeys: opts.sliceKeys, title, qaGoldOutline: opts.qaGoldOutline !== false && appliesQaGold(id, b, { title }) };
-  const before = auditForFix(id, b, auditOpts);
-  if (before.pass) {
-    return { body: b, steps: ['already-pass'], before, after: before, pass: true, skipped: true };
+  const before = auditForFix(id, original, auditOpts);
+  let afterPre = auditForFix(id, b, auditOpts);
+  if (afterPre.pass && !directAnswerNeedsSlim(b)) {
+    b = preserveImages(original, b, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
+    return { body: b, steps: steps.length ? steps : ['already-pass'], before, after: afterPre, pass: true, skipped: !steps.length };
   }
 
   const target = (opts.pillarOf && opts.pillarOf(id) === 'q') ? 8 : 25;
@@ -250,7 +457,7 @@ async function formatFixEntry(id, title, body, opts) {
   }
   const ordered = ensureDirectAnswerAfterHero(b);
   if (ordered !== b) { b = ordered; steps.push('da-after-hero'); }
-  b = preserveImages(original, b, { id, title, qaGold: auditOpts.qaGoldOutline });
+  b = preserveImages(original, b, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
 
   let after = auditForFix(id, b, auditOpts);
   const maxRounds = opts.maxRounds != null ? opts.maxRounds : 2;
@@ -265,22 +472,32 @@ async function formatFixEntry(id, title, body, opts) {
     }));
     await opts.fixEntry(id, title, siblings, valid, opts.dsChat).catch(() => null);
     const e = await store.get('answers/' + id + '.json', { type: 'json' }).catch(() => null);
-    if (e && e.answer) b = preserveImages(original, e.answer, { id, title, qaGold: auditOpts.qaGoldOutline });
+    if (e && e.answer) b = preserveImages(original, e.answer, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
     steps.push('deepseek-r' + (round + 1));
-    if (opts.enforceCroCardLaw) b = preserveImages(original, opts.enforceCroCardLaw(b, id), { id, title, qaGold: auditOpts.qaGoldOutline });
+    if (opts.enforceCroCardLaw) b = preserveImages(original, opts.enforceCroCardLaw(b, id), { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
     const ord = ensureDirectAnswerAfterHero(b);
-    if (ord !== b) { b = preserveImages(original, ord, { id, title, qaGold: auditOpts.qaGoldOutline }); steps.push('da-after-hero'); }
-    if (opts.ensureErFormat) b = preserveImages(original, opts.ensureErFormat(id, b), { id, title, qaGold: auditOpts.qaGoldOutline });
+    if (ord !== b) { b = preserveImages(original, ord, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta }); steps.push('da-after-hero'); }
+    if (opts.ensureErFormat) b = preserveImages(original, opts.ensureErFormat(id, b), { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
     if (opts.sliceKeys && opts.sliceKeys.includes('relatedPulse') && siblings.length) {
       const rel = '## Related on PULSE\n\n' + siblings.slice(0, 5).map(s => '- [' + String(s.title || s.id).replace(/[\[\]]/g, '') + '](/knowledge/' + (s.id || s) + ')').join('\n');
-      if (!/## Related on PULSE/i.test(b)) b = preserveImages(original, b.trimEnd() + '\n\n' + rel + '\n', { id, title, qaGold: auditOpts.qaGoldOutline });
+      if (!/## Related on PULSE/i.test(b)) b = preserveImages(original, b.trimEnd() + '\n\n' + rel + '\n', { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
       else {
         const nb = b.replace(/#{2,3}\s*Related on PULSE[\s\S]*?(?=\n#{2,3}\s|$)/i, rel + '\n\n');
-        if (nb !== b) b = preserveImages(original, nb, { id, title, qaGold: auditOpts.qaGoldOutline });
+        if (nb !== b) b = preserveImages(original, nb, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
       }
       if (!steps.includes('related-pulse')) steps.push('related-pulse');
     }
     after = auditForFix(id, b, auditOpts);
+  }
+
+  // Final DA slim — DeepSeek often re-bloats the lead
+  if (directAnswerNeedsSlim(b) || !directAnswerFull(b)) {
+    const slimmed = repairSlimDirectAnswer(b);
+    if (slimmed !== b) {
+      b = preserveImages(original, slimmed, { id, title, qaGold: auditOpts.qaGoldOutline, entryMeta: opts.entryMeta });
+      steps.push('da-slim-final');
+      after = auditForFix(id, b, auditOpts);
+    }
   }
 
   return { body: b, steps, before, after, pass: after.pass };
@@ -293,6 +510,10 @@ module.exports = {
   directAnswerEmpty,
   directAnswerFull,
   directAnswerTextOnly,
+  directAnswerNeedsSlim,
+  splitSentences,
+  splitH2TitleFromBody,
+  repairSlimDirectAnswer,
   repairBrokenDirectAnswer,
   ensureDirectAnswerText,
   croBlobClean,
