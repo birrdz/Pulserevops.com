@@ -118,9 +118,9 @@ function clip(answer) {
 }
 
 const AUDIT_SYS = `Strict fact-checker. Return ONLY JSON:
-{"verdict":"pass"|"flag","issues":["..."],"hallucinations":["exact false claim"],"content_gaps":["thin/missing section"],"needs_new_image":false,"image_reason":""}
-Set needs_new_image=true ONLY if a content rewrite would change what the section image should depict (topic/subject change). Do NOT request images for blank/white photos or style tweaks.
-FLAG invented facts/vendors/stats/years, contradictions, wrong Direct Answer, missing required sections.`;
+{"verdict":"pass"|"flag","issues":["..."],"hallucinations":["exact false claim"],"content_gaps":["thin/missing section"]}
+FLAG invented facts/vendors/stats/years, contradictions, wrong Direct Answer, missing required sections.
+(Pipeline always redoes the Pexels image whenever content is rewritten for a flag.)`;
 
 const FIX_SYS = `Rewrite the article to remove hallucinations and fill content gaps.
 RULES:
