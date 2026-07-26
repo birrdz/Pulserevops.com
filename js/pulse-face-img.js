@@ -4,13 +4,15 @@
   if (window.PulseFaceImg) return;
 
   var MOSAIC_W = 400;
-  var PRELOAD_MAX = 24;
-  var MOSAIC_FIRST_BATCH = 20;
-  var MOSAIC_SCROLL_BATCH = 25;
-  var MOSAIC_MOBILE_FIRST = 18;
+  var PRELOAD_MAX = 36;
+  var MOSAIC_FIRST_BATCH = 24;
+  var MOSAIC_SCROLL_BATCH = 28;
+  var MOSAIC_MOBILE_FIRST = 16;
   var MOSAIC_MOBILE_SCROLL = 20;
+  var LAZY_ROOT_MARGIN = '240px 0px 1100px 0px';
   var preloadSeen = {};
   var lazyIO = null;
+  var linkPreloaded = {};
 
   function isMobileMosaic() {
     return (window.innerWidth || 1200) <= 820;
@@ -40,24 +42,49 @@
     var load = eager ? 'eager' : 'lazy';
     var prio = eager ? ' fetchpriority="high"' : '';
     var err = "var p=this.closest('a.mm');if(!p||p.getAttribute('data-img-retried')){if(p)p.classList.add('mm-noimg');this.style.display='none';return;}p.setAttribute('data-img-retried','1');var m=(p.getAttribute('href')||'').match(/\\/knowledge\\/([^/?#]+)/);if(m&&window.PulseFaceImg){PulseFaceImg.bindTile(p,{id:decodeURIComponent(m[1])});}else{if(p)p.classList.add('mm-noimg');this.style.display='none';}";
-    return '<img class="mm-img img-cover" src="' + escAttr(src) + '" alt="' + escAttr(alt || '') + '" width="1200" height="400" loading="' + load + '"' + prio + ' decoding="async" onload="var p=this.closest(\'.mm\');if(p)p.classList.remove(\'mm-img-pending\')" onerror="' + err + '">';
+    var onload = "this.classList.add('mm-img-ready');var p=this.closest('.mm');if(p){p.classList.remove('mm-img-pending','mm-lazy');p.setAttribute('data-mosaic-loaded','1');}";
+    return '<img class="mm-img img-cover" src="' + escAttr(src) + '" alt="' + escAttr(alt || '') + '" width="1200" height="400" loading="' + load + '"' + prio + ' decoding="async" onload="' + onload + '" onerror="' + err + '">';
   }
 
   function tileImgEl(el) {
     return el && el.querySelector ? el.querySelector('img.mm-img') : null;
   }
 
+  function markTileReady(el, img) {
+    if (!el) return;
+    el.setAttribute('data-mosaic-loaded', '1');
+    el.classList.remove('mm-lazy', 'mm-img-pending', 'mm-noimg');
+    if (img) img.classList.add('mm-img-ready');
+  }
+
   function loadLazyTile(el) {
     if (!el || el.getAttribute('data-mosaic-loaded')) return;
-    el.setAttribute('data-mosaic-loaded', '1');
-    el.classList.remove('mm-lazy', 'mm-img-pending');
     var src = el.getAttribute('data-mosaic-src') || '';
     var img = tileImgEl(el);
     if (img) {
-      if (src && (!img.getAttribute('src') || img.getAttribute('src') === '')) img.src = src;
       el.setAttribute('data-face-bound', '1');
+      if (src && (!img.getAttribute('src') || img.getAttribute('src') === '')) img.src = src;
+      if (img.complete && img.naturalWidth) {
+        markTileReady(el, img);
+        return;
+      }
+      img.addEventListener('load', function () { markTileReady(el, img); }, { once: true });
+      img.addEventListener(
+        'error',
+        function () {
+          var m = (el.getAttribute('href') || '').match(/\/knowledge\/([^/?#]+)/);
+          if (m) bindTile(el, { id: decodeURIComponent(m[1]) });
+          else {
+            el.classList.add('mm-noimg');
+            el.setAttribute('data-mosaic-loaded', '1');
+          }
+        },
+        { once: true }
+      );
       return;
     }
+    el.setAttribute('data-mosaic-loaded', '1');
+    el.classList.remove('mm-lazy', 'mm-img-pending');
     var m = (el.getAttribute('href') || '').match(/\/knowledge\/([^/?#]+)/);
     el.setAttribute('data-face-bound', '1');
     if (src) {
@@ -87,8 +114,22 @@
         lazyIO.unobserve(en.target);
         loadLazyTile(en.target);
       });
-    }, { rootMargin: rootMargin || '120px 0px 720px 0px', threshold: 0.01 });
+    }, { rootMargin: rootMargin || LAZY_ROOT_MARGIN, threshold: 0.01 });
     return lazyIO;
+  }
+
+  /** <link rel=preload> for the first viewport tiles — starts download before paint settles. */
+  function preloadLink(url) {
+    if (!url || linkPreloaded[url] || typeof document === 'undefined') return;
+    linkPreloaded[url] = 1;
+    try {
+      var l = document.createElement('link');
+      l.rel = 'preload';
+      l.as = 'image';
+      l.href = url;
+      l.setAttribute('data-mosaic-preload', '1');
+      document.head.appendChild(l);
+    } catch (e) {}
   }
 
   /** Observe legacy bg-only tiles; img tiles use native loading="lazy" and need no IO. */
@@ -96,13 +137,32 @@
     opts = opts || {};
     var scope = root || document;
     var sel = opts.selector || 'a.mm[data-mosaic-lazy]:not([data-mosaic-loaded])';
-    var margin = opts.rootMargin || '120px 0px 720px 0px';
+    var margin = opts.rootMargin || LAZY_ROOT_MARGIN;
     var io = getLazyIO(margin);
     [].slice.call(scope.querySelectorAll(sel)).forEach(function (el) {
       var img = tileImgEl(el);
       if (img && img.getAttribute('src')) {
-        el.setAttribute('data-mosaic-loaded', '1');
-        el.classList.remove('mm-lazy', 'mm-img-pending');
+        // Already has src (native lazy) — mark ready when decoded; retry if broken versioned URL
+        if (img.complete && img.naturalWidth) {
+          markTileReady(el, img);
+          return;
+        }
+        if (img.complete && !img.naturalWidth) {
+          var m0 = (el.getAttribute('href') || '').match(/\/knowledge\/([^/?#]+)/);
+          if (m0) bindTile(el, { id: decodeURIComponent(m0[1]) });
+          else el.classList.add('mm-noimg');
+          return;
+        }
+        img.addEventListener('load', function () { markTileReady(el, img); }, { once: true });
+        img.addEventListener(
+          'error',
+          function () {
+            var m = (el.getAttribute('href') || '').match(/\/knowledge\/([^/?#]+)/);
+            if (m) bindTile(el, { id: decodeURIComponent(m[1]) });
+            else el.classList.add('mm-noimg');
+          },
+          { once: true }
+        );
         return;
       }
       io.observe(el);
@@ -141,7 +201,9 @@
     if (!u) return true;
     var s = String(u);
     if (/pollinations|lightbulb|pulse-logo|pulse-news|pulse-icon|pravatar|growleads|placeholder|unsplash\.com\/photo/i.test(s)) return true;
+    // Slot images (…-1.jpg) and missing versioned stamps (…-v123.jpg) are not stable face cards.
     if (/\/assets\/qa\/[^/?#]+-\d+\.jpg/i.test(s)) return true;
+    if (/\/assets\/qa\/[^/?#]+-v\d+\.jpg/i.test(s)) return true;
     if (pof(id) === 'tl' && /\/assets\/cro-cover-/.test(s)) return true;
     return false;
   }
@@ -149,12 +211,15 @@
   function imgOf(c) {
     if (!c || !c.id) return '';
     var id = c.id;
+    var canon = facePath(id);
     var u = c.img || c.cover || '';
-    if (badFace(u, id)) return facePath(id);
+    if (badFace(u, id)) return canon;
     u = String(u).replace(/^https?:\/\/(?:www\.)?pulserevops\.com/i, '');
+    // Versioned face stamps often 404 on static deploy — always prefer canonical /assets/qa/<id>.jpg
+    if (/^\/assets\/qa\/[^/]+-v\d+\.jpg$/i.test(u)) return canon;
     if (/^\/assets\/qa\/[^/]+\.jpg$/i.test(u)) return u;
-    if (/^[a-z]{2,3}\d/i.test(String(id))) return facePath(id);
-    return u || facePath(id);
+    if (/^[a-z]{2,3}\d/i.test(String(id))) return canon;
+    return u || canon;
   }
 
   function px(u, w) {
@@ -208,14 +273,15 @@
       function nextImg() {
         if (idx >= urls.length) {
           el.classList.add('mm-noimg');
+          el.setAttribute('data-mosaic-loaded', '1');
           img.removeAttribute('src');
           return;
         }
         var u = urls[idx++];
         img.onload = function () {
-          el.classList.remove('mm-noimg', 'mm-img-pending');
           el.removeAttribute('data-img-retried');
           el.setAttribute('data-mosaic-src', u);
+          markTileReady(el, img);
         };
         img.onerror = nextImg;
         img.src = u;
@@ -259,11 +325,16 @@
   }
 
   /** Preload upcoming tile images (parallel, deduped). */
-  function preloadUrls(urls) {
+  function preloadUrls(urls, opts) {
+    opts = opts || {};
+    var linkN = opts.linkPreload == null ? 8 : opts.linkPreload;
+    var i = 0;
     (urls || []).forEach(function (u) {
       if (!u || preloadSeen[u]) return;
       preloadSeen[u] = 1;
       if (Object.keys(preloadSeen).length > 600) preloadSeen = {};
+      if (i < linkN) preloadLink(u);
+      i++;
       var im = new Image();
       im.decoding = 'async';
       im.src = u;
@@ -278,12 +349,12 @@
       var u = mosaicTileSrc(c);
       if (u) urls.push(u);
     });
-    preloadUrls(urls);
+    preloadUrls(urls, { linkPreload: Math.min(10, n) });
   }
 
   /** Preload only the next few cards after the current scroll position. */
   function preloadAhead(cards, limit) {
-    preloadCards(cards, limit || 8);
+    preloadCards(cards, limit || 12);
   }
 
   function hasFluxFace(e) {
@@ -373,6 +444,7 @@
     preloadUrls: preloadUrls,
     preloadCards: preloadCards,
     preloadAhead: preloadAhead,
+    preloadLink: preloadLink,
     normEntry: normEntry,
     badFace: badFace,
     hasFluxFace: hasFluxFace,

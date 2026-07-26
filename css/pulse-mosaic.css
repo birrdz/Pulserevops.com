@@ -53,10 +53,15 @@ body.pulse-mosaic-page .grid-wrap {
 
 .mag-mosaic.mosaic-compact{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));grid-auto-rows:138px;gap:10px;}
 .mag-mosaic.mosaic-compact .mm h4{font-size:1.14rem;}
-.mm{position:relative;display:block;overflow:hidden;border-radius:6px;background:#1a1a1a center 24%/cover no-repeat;background-size:cover;text-decoration:none;border:1.5px solid #EAC15C;box-shadow:0 0 0 1px rgba(234,193,92,.25);content-visibility:visible;min-height:var(--pulse-mosaic-row,150px);}
+.mm{position:relative;display:block;overflow:hidden;border-radius:6px;background:#1a1a1a center 24%/cover no-repeat;background-size:cover;text-decoration:none;border:1.5px solid #EAC15C;box-shadow:0 0 0 1px rgba(234,193,92,.25);content-visibility:visible;contain-intrinsic-size:auto 220px;min-height:var(--pulse-mosaic-row,150px);overflow-anchor:none;}
 .mm[href^="/knowledge/"]{background-position:center center;}
 /* Face-card tiles are baked 3:1 with attention crop — center on subject (owner 2026-07-08). */
-.mm-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;min-width:0;min-height:0;display:block;filter:brightness(1.22) saturate(1.04);} /* site-wide brightness bump (owner 2026-07-06) */
+.mm-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;min-width:0;min-height:0;display:block;filter:brightness(1.22) saturate(1.04);opacity:1;transition:opacity .28s ease;} /* site-wide brightness bump (owner 2026-07-06) */
+/* Only fade while pending — never leave loaded tiles stuck at opacity 0 (2026-07-21). */
+.mm.mm-img-pending .mm-img:not(.mm-img-ready){opacity:0;}
+.mm-img.mm-img-ready,.mm[data-mosaic-loaded="1"] .mm-img{opacity:1;}
+/* Keep content-visibility:visible — auto + wrong intrinsic sizes caused scroll jumps when tiles painted (2026-07-21). */
+.mm.mm-hero,.mm.mm-hire,.mm.mm-menu,.mm.mm-searchbox{content-visibility:visible;}
 /* HOMEPAGE (owner 2026-07-07): original full-color tile format, but LARGE WHITE titles instead of gold.
    Scoped to #magMosaic entry tiles. Strong shadow + stroke so white reads over any photo. Revert = delete. */
 #magMosaic a.mm[href^="/knowledge/"] h4{color:#fff;text-shadow:0 2px 4px #000,0 2px 16px rgba(0,0,0,.95);-webkit-text-stroke:.7px rgba(0,0,0,.6);paint-order:stroke fill;}
@@ -67,8 +72,8 @@ body.pulse-mosaic-page .grid-wrap {
 .mm .mm-scrim{position:absolute;}
 .mm .mm-txt{position:absolute;}
 .mm.mm-lazy{background:#14120e linear-gradient(145deg,#14120e 0%,#1e1a12 42%,#14120e 100%);background-size:cover;}
-.mm.mm-lazy.mm-img-pending{animation:mm-lazy-pulse 1.8s ease-in-out infinite;}
-@keyframes mm-lazy-pulse{0%,100%{opacity:1}50%{opacity:.82}}
+.mm.mm-lazy.mm-img-pending{animation:mm-lazy-pulse 1.4s ease-in-out infinite;}
+@keyframes mm-lazy-pulse{0%,100%{opacity:1}50%{opacity:.88}}
 .mm-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.03) 42%,rgba(0,0,0,.82) 100%);pointer-events:none;}
 .mm-txt{position:absolute;left:0;right:0;bottom:0;padding:11px 13px;pointer-events:none;}
 .mm-hire-t,.mm-menu-t,.mm-hero-in{pointer-events:none;}
@@ -93,7 +98,7 @@ body.pulse-mosaic-page .grid-wrap {
   }
   .grid.mag-mosaic,.grid.pulse-home-mosaic{grid-auto-rows:360px!important;gap:14px!important;}
   .mag-mosaic.mosaic-compact{grid-auto-rows:225px;}
-  .mm{contain-intrinsic-size:285px 368px;min-height:285px;content-visibility:visible;}
+  .mm{contain-intrinsic-size:auto 220px;min-height:220px;content-visibility:visible;}
   .mm-txt{padding:16px 18px 17px;}
   .mm-scrim{background:linear-gradient(180deg,rgba(0,0,0,.05) 28%,rgba(0,0,0,.7) 60%,rgba(0,0,0,.94) 100%);}
   .mm-cat{font-size:1.2rem;letter-spacing:.12em;color:#FFE9A6;text-shadow:0 1px 2px #000;-webkit-text-stroke:0.4px rgba(0,0,0,.88);paint-order:stroke fill;}
@@ -112,7 +117,7 @@ body.pulse-mosaic-page .grid-wrap {
   .grid.mag-mosaic,.grid.pulse-home-mosaic{grid-template-columns:1fr!important;grid-auto-rows:360px!important;gap:18px!important;}
   .mag-mosaic.mosaic-compact{grid-template-columns:1fr!important;grid-auto-rows:299px;}
   .mag-mosaic.mosaic-compact .mm h4{font-size:1.82rem;}
-  .mm{contain-intrinsic-size:368px 100%;min-height:368px;content-visibility:visible;}
+  .mm{contain-intrinsic-size:auto 185px;min-height:185px;content-visibility:visible;}
   .mm-txt{padding:18px 20px 20px;}
   .mm-scrim{background:linear-gradient(180deg,rgba(0,0,0,.06) 26%,rgba(0,0,0,.72) 58%,rgba(0,0,0,.95) 100%);}
   .mm-cat{font-size:1.25rem;letter-spacing:.13em;color:#FFE9A6;text-shadow:0 1px 2px #000;-webkit-text-stroke:0.45px rgba(0,0,0,.9);paint-order:stroke fill;}
@@ -132,13 +137,45 @@ html,body{overflow-x:hidden}
    already covered by the CRO card at the top of every page (owner 2026-07-09). */
 .mag-mosaic .mm.mm-hire,.mag-mosaic .mm.mm-hero,.mag-mosaic .mm.mm-menu,.mag-mosaic .mm.mm-searchbox,.mag-mosaic .mm.mm-topic,.mag-mosaic .mm.mm-ce-topic,.mag-mosaic .mm.mm-recent-topic{display:none!important;}
 /* every Q&A tile = ONE full-width band at the EXACT homepage size: 220px desktop / 185px mobile */
-.mag-mosaic .mm{display:block!important;width:100%!important;height:220px!important;min-height:220px!important;margin:0 0 8px!important;border-radius:0!important;border:none!important;border-top:1px solid rgba(234,193,92,.18)!important;filter:brightness(1.14) saturate(1.05);}
-.mag-mosaic .mm.big,.mag-mosaic .mm.wide,.mag-mosaic .mm.tall,.mag-mosaic .mm.mm-long{width:100%!important;height:220px!important;min-height:220px!important;}
+.mag-mosaic .mm{display:block!important;width:100%!important;height:220px!important;min-height:220px!important;margin:0 0 8px!important;border-radius:0!important;border:none!important;border-top:1px solid rgba(234,193,92,.18)!important;filter:brightness(1.14) saturate(1.05);content-visibility:visible!important;contain-intrinsic-size:auto 220px!important;overflow-anchor:none;}
+.mag-mosaic .mm.big,.mag-mosaic .mm.wide,.mag-mosaic .mm.tall,.mag-mosaic .mm.mm-long{width:100%!important;height:220px!important;min-height:220px!important;contain-intrinsic-size:auto 220px!important;}
+.mag-mosaic,.bandStack,#bandStack{overflow-anchor:auto;}
 .mm-img{filter:brightness(1.3) saturate(1.06)!important;}
 .mag-mosaic .mm .mm-txt{padding:0 clamp(16px,4vw,48px) 16px!important;}
 .mag-mosaic .mm .mm-cat{color:#EAC15C!important;font-size:.72rem!important;letter-spacing:.16em!important;}
 .mag-mosaic .mm h4{color:#F6C445!important;font-family:Georgia,serif!important;font-style:normal!important;font-weight:800!important;font-size:clamp(1.6rem,4.4vw,2.8rem)!important;line-height:1.03!important;-webkit-line-clamp:2!important;margin:2px 0 0!important;}
 @media(max-width:560px){.mag-mosaic .mm,.mag-mosaic .mm.big,.mag-mosaic .mm.wide,.mag-mosaic .mm.tall,.mag-mosaic .mm.mm-long,.mag-mosaic .mm.mm-hero{height:185px!important;min-height:185px!important}.mag-mosaic .mm h4{font-size:1.45rem!important}}
+
+/* Neon trims — edited / new / revised answer bands (owner 2026-07-20).
+   Cycles green / purple / blue / pink so fixed volume is obvious at a glance. */
+.mm.mm-neon-green,
+.mm.mm-neon-purple,
+.mm.mm-neon-blue,
+.mm.mm-neon-pink,
+.mag-mosaic .mm.mm-neon-green,
+.mag-mosaic .mm.mm-neon-purple,
+.mag-mosaic .mm.mm-neon-blue,
+.mag-mosaic .mm.mm-neon-pink{
+  border-style:solid!important;
+  border-width:3px!important;
+  box-sizing:border-box!important;
+}
+.mm.mm-neon-green,.mag-mosaic .mm.mm-neon-green{
+  border-color:#39FF14!important;
+  box-shadow:0 0 0 1px rgba(57,255,20,.55),0 0 22px rgba(57,255,20,.55),inset 0 0 18px rgba(57,255,20,.12)!important;
+}
+.mm.mm-neon-purple,.mag-mosaic .mm.mm-neon-purple{
+  border-color:#BF5FFF!important;
+  box-shadow:0 0 0 1px rgba(191,95,255,.55),0 0 22px rgba(191,95,255,.55),inset 0 0 18px rgba(191,95,255,.12)!important;
+}
+.mm.mm-neon-blue,.mag-mosaic .mm.mm-neon-blue{
+  border-color:#1DE9FF!important;
+  box-shadow:0 0 0 1px rgba(29,233,255,.55),0 0 22px rgba(29,233,255,.55),inset 0 0 18px rgba(29,233,255,.12)!important;
+}
+.mm.mm-neon-pink,.mag-mosaic .mm.mm-neon-pink{
+  border-color:#FF2BD6!important;
+  box-shadow:0 0 0 1px rgba(255,43,214,.55),0 0 22px rgba(255,43,214,.55),inset 0 0 18px rgba(255,43,214,.14)!important;
+}
 /* gold-outlined search (keep on all pages, easy to see) */
 .search-input,input[type="search"]{border:2px solid #EAC15C!important;border-radius:10px!important;box-shadow:0 0 0 1px rgba(234,193,92,.28),0 2px 10px rgba(0,0,0,.3)!important;outline:none!important;}
 .search-input:focus,input[type="search"]:focus{border-color:#F6C445!important;box-shadow:0 0 0 2px rgba(246,196,69,.5)!important;}

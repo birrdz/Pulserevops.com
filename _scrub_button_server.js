@@ -15,8 +15,10 @@ const fs = require('fs');
 const path = require('path');
 const { execFile, spawn } = require('child_process');
 let imageScrubChild = null;   // legacy image-only child (_image_scrub.js) — NOT started by Begin Scrub; run manually if needed
-const WD = 'C:/Users/koryj/website';
-for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+const WD = fs.existsSync('C:/Users/koryj/website') ? 'C:/Users/koryj/website' : __dirname;
+try {
+  for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+} catch (_e) {}
 const { buildScrubCrewManifest, resolveAuditorCounts, crewOneLiner, isHumanAuditorMode, LANE_AUDITOR_MODE, LANE_CONTENT_WRITERS, GEN_WRITERS } = require('./_scrub_crew_manifest');
 const adaptiveThrottle = require('./_adaptive_throttle_learner');
 const { getStore } = require('@netlify/blobs');
@@ -667,7 +669,7 @@ function imageJobConflict(except) {
   if (except !== 'duplicator' && except !== 'facehero' && imageDuplicatorJob.running) return 'image fill running';
   if (except !== 'imgen' && imageGeneratorJob.running) return 'image generator running';
   if (except !== 'rewrite' && (imageRewriteJob.running || imageRewriteJob.phase === 'review')) return 'Pollinator image overwrite running';
-  if (except !== 'facehero' && except !== 'duplicator' && (faceHeroJob.running || faceHeroJob.phase === 'review')) return 'Face Card & Top Image Generator running';
+  if (except !== 'facehero' && except !== 'duplicator' && (faceHeroJob.running || faceHeroJob.phase === 'review')) return 'Multibox Manager running';
   if (except !== 'formatfix' && formatFixerJob.running) return 'Format Fixer running';
   if (except !== 'internalimages' && internalImagesJob.running) return 'Internal Images running';
   if (except !== 'rubricstation' && rubricStationJob.running) return 'Rubric Station running';
@@ -716,6 +718,24 @@ async function buildImageRewriteDraft(id, attempt) {
 async function commitImageRewriteDraft(id, outBody) {
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e) return { ok: false, msg: 'no blob' };
+  // Owner: tl must NEVER go back to title-baked flux faces — curated cro-cover only.
+  if (/^tl\d+$/i.test(id)) {
+    try {
+      const { lockTlAnswerEntry, lockTlIndexRow } = require('/workspace/_tl_cover_lock_lib');
+      const locked = lockTlAnswerEntry(Object.assign({}, e, { answer: outBody }), id);
+      await store.setJSON('answers/' + id + '.json', locked.entry);
+      coverSrcOf[id] = 'cro-cover-locked';
+      const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+      const ent = (idx.entries || []).find(x => x && x.id === id);
+      if (ent) {
+        Object.assign(ent, lockTlIndexRow(ent, id));
+        await store.setJSON('_index.json', idx);
+      }
+      return { ok: true, lockedCroCover: true };
+    } catch (err) {
+      return { ok: false, msg: String(err.message || err) };
+    }
+  }
   await store.setJSON('answers/' + id + '.json', Object.assign({}, e, { answer: outBody, updated_at: new Date().toISOString(), cover_src: 'flux', face_title_baked: true }));
   try { await stampFluxProvenance(id, store, 'flux'); coverSrcOf[id] = 'flux'; } catch (err) {}
   try {
@@ -881,7 +901,7 @@ function imageRewriteStatusPayload() {
   return snap;
 }
 
-// ── Face Card & Top Image Generator — Pollinator face-card + hero only (whole pillar) ──
+// ── Multibox Manager (Face Card & Top Image) — Pollinator face-card + hero only (whole pillar) ──
 const FACE_HERO_F = WD + '/_face_hero_run.json';
 let faceHeroJob = {
   running: false, stop: false, stopAfterReview: false, pillar: 'tl', pillarName: 'Pulse Tools / CRO',
@@ -953,6 +973,24 @@ async function buildFaceHeroDraft(id, attempt) {
 async function commitFaceHeroDraft(id, outBody) {
   const e = await store.get('answers/' + id + '.json', { type: 'json' });
   if (!e) return { ok: false, msg: 'no blob' };
+  // Owner: tl 13/13 / face-hero must NOT bake terrible title-flux covers back in.
+  if (/^tl\d+$/i.test(id)) {
+    try {
+      const { lockTlAnswerEntry, lockTlIndexRow, croCoverForId } = require('/workspace/_tl_cover_lock_lib');
+      const locked = lockTlAnswerEntry(Object.assign({}, e, { answer: outBody }), id);
+      await store.setJSON('answers/' + id + '.json', locked.entry);
+      coverSrcOf[id] = 'cro-cover-locked';
+      const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
+      const ent = (idx.entries || []).find(x => x && x.id === id);
+      if (ent) {
+        Object.assign(ent, lockTlIndexRow(ent, id));
+        await store.setJSON('_index.json', idx);
+      }
+      return { ok: true, lockedCroCover: true, previewUrl: croCoverForId(id) };
+    } catch (err) {
+      return { ok: false, msg: String(err.message || err) };
+    }
+  }
   const facePath = '/assets/qa/' + id + '.jpg';
   await store.setJSON('answers/' + id + '.json', Object.assign({}, e, { answer: outBody, updated_at: new Date().toISOString(), cover_src: 'flux', face_title_baked: true }));
   try { await stampFluxProvenance(id, store, 'flux'); coverSrcOf[id] = 'flux'; } catch (err) {}
@@ -962,6 +1000,18 @@ async function commitFaceHeroDraft(id, outBody) {
     if (ent) { ent.img = facePath; ent.cover_src = 'flux'; ent.face_title_baked = true; await store.setJSON('_index.json', idx); }
   } catch (err) {}
   return { ok: true };
+}
+function loadTlMediaBatchPlan() {
+  try {
+    const p = WD + '/_tl_media_batches.json';
+    if (!fs.existsSync(p)) return null;
+    const plan = JSON.parse(fs.readFileSync(p, 'utf8'));
+    if (!plan || plan.pillar !== 'tl' || !Array.isArray(plan.groups) || !plan.groups.length) return null;
+    return plan;
+  } catch (e) { return null; }
+}
+function saveTlMediaBatchPlan(plan) {
+  try { fs.writeFileSync(WD + '/_tl_media_batches.json', JSON.stringify(plan, null, 2)); } catch (e) {}
 }
 async function runFaceHeroLoop() {
   if (faceHeroJob.running) return;
@@ -975,9 +1025,33 @@ async function runFaceHeroLoop() {
   faceHeroJob.running = true;
   faceHeroJob.phase = 'facehero';
   try {
-    const entries = faceHeroJob._entries || await getImageDuplicatorEntries(faceHeroJob.pillar);
-    faceHeroJob._entries = entries;
-    faceHeroJob.total = entries.length;
+    let entries = faceHeroJob._entries || await getImageDuplicatorEntries(faceHeroJob.pillar);
+    // CRO Pulse Tools: process in groups of 250 from _tl_media_batches.json.
+    // UI inventory (total) stays full pillar ~11k; each Start runs one 250-group.
+    const batchPlan = (faceHeroJob.pillar === 'tl') ? loadTlMediaBatchPlan() : null;
+    if (batchPlan) {
+      const bi = Math.max(0, Math.min(batchPlan.batchIndex || 0, batchPlan.groups.length - 1));
+      const group = batchPlan.groups[bi] || batchPlan.groups[0];
+      const batchSize = batchPlan.batchSize || 250;
+      const inventory = batchPlan.inventory || entries.length;
+      const byId = new Map(entries.map(e => [String(e.id).toLowerCase(), e]));
+      entries = (group.ids || []).map(id => byId.get(String(id).toLowerCase()) || { id }).filter(e => e && e.id);
+      faceHeroJob._entries = entries;
+      faceHeroJob.inventory = inventory;
+      faceHeroJob.total = inventory; // face-card UI "X / total Q&As" = full 11k inv
+      faceHeroJob.batchSize = batchSize;
+      faceHeroJob.batchIndex = bi;
+      faceHeroJob.batchCount = batchPlan.batchCount || batchPlan.groups.length;
+      faceHeroJob.batchLabel = 'batch ' + (bi + 1) + '/' + faceHeroJob.batchCount;
+      faceHeroJob.batchLen = entries.length;
+      // Absolute progress across inventory (completed prior batches + within this group)
+      if (!faceHeroJob.done || faceHeroJob.done < bi * batchSize) faceHeroJob.done = bi * batchSize;
+      faceHeroLog('📦 tl inventory ' + inventory.toLocaleString() + ' · ' + faceHeroJob.batchLabel + ' (' + entries.length + ' cards this group)');
+    } else {
+      faceHeroJob._entries = entries;
+      faceHeroJob.total = entries.length;
+      faceHeroJob.inventory = entries.length;
+    }
     if (!faceHeroJob.total) {
       faceHeroLog('⚠️ no entries for pillar');
       faceHeroJob.phase = 'done';
@@ -986,7 +1060,11 @@ async function runFaceHeroLoop() {
       saveFaceHeroState(true);
       return;
     }
-    let i = faceHeroJob.done || 0;
+    const batchBase = (faceHeroJob.pillar === 'tl' && faceHeroJob.batchSize)
+      ? (Math.max(0, faceHeroJob.batchIndex || 0) * (faceHeroJob.batchSize || 250))
+      : 0;
+    // i = index within current entries list (batch or full pillar)
+    let i = batchBase ? 0 : (faceHeroJob.done || 0);
     while (i < entries.length && !faceHeroJob.stop) {
       const row = entries[i];
       const id = row.id;
@@ -995,7 +1073,7 @@ async function runFaceHeroLoop() {
       faceHeroJob.reviewAttempt = faceHeroJob.reviewAttempt || 1;
       try {
         const r = await buildFaceHeroDraft(id, faceHeroJob.reviewAttempt);
-        if (r.noBlob) { faceHeroJob.skippedNoBlob++; i++; faceHeroJob.done = i; faceHeroJob.reviewAttempt = 1; }
+        if (r.noBlob) { faceHeroJob.skippedNoBlob++; i++; faceHeroJob.done = batchBase + i; faceHeroJob.reviewAttempt = 1; }
         else if (r.stopped) break;
         else if (r.error) {
           faceHeroJob.errors++;
@@ -1008,7 +1086,7 @@ async function runFaceHeroLoop() {
           }
           faceHeroLog('⚠️ ' + id + ' · skipped after retries');
           i++;
-          faceHeroJob.done = i;
+          faceHeroJob.done = batchBase + i;
           faceHeroJob.reviewAttempt = 1;
         }
         else if (faceHeroJob.autoApproveImages) {
@@ -1018,7 +1096,7 @@ async function runFaceHeroLoop() {
           faceHeroJob.fluxJobs += r.fluxDone || 0;
           faceHeroLog('🤖 ' + id + ' auto-kept · same file → mosaic + top hero' + (r.top10 ? ' (Top-10 cover prompt)' : ''));
           i++;
-          faceHeroJob.done = i;
+          faceHeroJob.done = batchBase + i;
           faceHeroJob.reviewAttempt = 1;
         }
         else {
@@ -1030,7 +1108,8 @@ async function runFaceHeroLoop() {
           faceHeroJob.phase = 'review';
           faceHeroJob.running = false;
           faceHeroJob.currentStep = faceHeroJob.stopAfterReview ? 'review · keep to save then stop · or try again' : 'review · keep or try again';
-          faceHeroJob.pct = faceHeroJob.total ? Math.min(100, Math.round((i / faceHeroJob.total) * 1000) / 10) : 0;
+          faceHeroJob.done = batchBase + i;
+          faceHeroJob.pct = faceHeroJob.total ? Math.min(100, Math.round(((batchBase + i) / faceHeroJob.total) * 1000) / 10) : 0;
           saveFaceHeroState(true);
           faceHeroLog('👀 ' + id + ' ready — ✓ keep or ✗ try again');
           return;
@@ -1039,16 +1118,26 @@ async function runFaceHeroLoop() {
         faceHeroJob.errors++;
         faceHeroLog('⚠️ ' + id + ' · ' + String(err.message || err).slice(0, 80));
         i++;
-        faceHeroJob.done = i;
+        faceHeroJob.done = batchBase + i;
         faceHeroJob.reviewAttempt = 1;
       }
-      faceHeroJob.pct = faceHeroJob.total ? Math.min(100, Math.round((i / faceHeroJob.total) * 1000) / 10) : 0;
+      faceHeroJob.pct = faceHeroJob.total ? Math.min(100, Math.round(((batchBase + i) / faceHeroJob.total) * 1000) / 10) : 0;
       saveFaceHeroState();
       await new Promise(res => setTimeout(res, 200));
     }
     if (faceHeroJob.phase !== 'review') {
       faceHeroJob.phase = faceHeroJob.stop ? 'stopped' : 'done';
       faceHeroLog(faceHeroJob.stop ? ('⏹ stopped at ' + faceHeroJob.pct + '%') : ('✅ complete — ' + faceHeroJob.entriesDone + ' entries · ' + faceHeroJob.coversGenerated + ' face-card+hero flux jobs'));
+      // Advance tl 250-group cursor so next Start picks the next batch.
+      if (!faceHeroJob.stop && faceHeroJob.pillar === 'tl') {
+        const plan = loadTlMediaBatchPlan();
+        if (plan && (plan.batchIndex || 0) < (plan.groups.length - 1)) {
+          plan.batchIndex = (plan.batchIndex || 0) + 1;
+          saveTlMediaBatchPlan(plan);
+          faceHeroJob.batchIndex = plan.batchIndex;
+          faceHeroLog('📦 next tl group ready · batch ' + (plan.batchIndex + 1) + '/' + plan.groups.length);
+        }
+      }
       faceHeroJob.running = false;
       faceHeroJob.finishedAt = Date.now();
       faceHeroJob.currentId = '';
@@ -1114,7 +1203,9 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
   if (!pillar) return { ok: false, msg: 'pick a pillar' };
   guideKeywords = String(guideKeywords || '').trim().slice(0, 800);
   autoApproveImages = !!autoApproveImages;
-  const canResume = !forceRestart && faceHeroJob.pillar === pillar && (faceHeroJob.phase === 'stopped' || faceHeroJob.phase === 'done' || faceHeroJob.phase === 'error') && (faceHeroJob.done || 0) > 0 && (faceHeroJob.done || 0) < (faceHeroJob.total || 1);
+  // tl batch plan: after a 250-group finishes (phase=done), Start = next group (not resume mid-group).
+  const tlPlan = (pillar === 'tl') ? loadTlMediaBatchPlan() : null;
+  const canResume = !forceRestart && !tlPlan && faceHeroJob.pillar === pillar && (faceHeroJob.phase === 'stopped' || faceHeroJob.phase === 'done' || faceHeroJob.phase === 'error') && (faceHeroJob.done || 0) > 0 && (faceHeroJob.done || 0) < (faceHeroJob.total || 1);
   if (canResume) {
     faceHeroJob.stop = false;
     faceHeroJob.stopAfterReview = false;
@@ -1131,16 +1222,22 @@ function startFaceHero(pillar, guideKeywords, autoApproveImages, forceRestart) {
     runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
     return { ok: true, started: true, resumed: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages, done: faceHeroJob.done, total: faceHeroJob.total };
   }
+  const tlPlan0 = (pillar === 'tl') ? loadTlMediaBatchPlan() : null;
+  const inv0 = tlPlan0 ? (tlPlan0.inventory || 0) : 0;
   faceHeroJob = {
     running: false, stop: false, stopAfterReview: false, pillar, pillarName: pName(pillar), guideKeywords, autoApproveImages,
-    done: 0, total: 0, pct: 0, entriesDone: 0, coversGenerated: 0, fluxJobs: 0,
+    done: 0, total: inv0 || 0, inventory: inv0 || 0, pct: 0, entriesDone: 0, coversGenerated: 0, fluxJobs: 0,
     skippedNoBlob: 0, errors: 0, currentId: '', currentTitle: '', currentStep: '',
     phase: 'starting', startedAt: Date.now(), finishedAt: null, error: '', log: [],
     pendingReview: null, reviewAttempt: 1, _entries: null,
+    batchSize: tlPlan0 ? (tlPlan0.batchSize || 250) : undefined,
+    batchIndex: tlPlan0 ? (tlPlan0.batchIndex || 0) : undefined,
+    batchCount: tlPlan0 ? (tlPlan0.batchCount || (tlPlan0.groups && tlPlan0.groups.length) || 0) : undefined,
   };
   const kwNote = guideKeywords ? (' · guide: ' + guideKeywords.slice(0, 48) + (guideKeywords.length > 48 ? '…' : '')) : '';
   const modeNote = autoApproveImages ? ' · 🤖 auto-approve ON' : ' · keep/retry each card';
-  faceHeroLog('▶ Face Card & Top Image — ' + faceHeroJob.pillarName + kwNote + modeNote + ' · serial flux');
+  const invNote = inv0 ? (' · inventory ' + inv0.toLocaleString() + ' · groups of ' + (tlPlan0.batchSize || 250)) : '';
+  faceHeroLog('▶ Multibox Manager — ' + faceHeroJob.pillarName + kwNote + modeNote + invNote + ' · serial flux');
   runFaceHeroLoop().catch(e => { faceHeroJob.error = e.message; faceHeroJob.running = false; faceHeroJob.phase = 'error'; saveFaceHeroState(); });
   return { ok: true, started: true, pillar, pillarName: faceHeroJob.pillarName, guideKeywords, autoApproveImages };
 }
@@ -6476,7 +6573,7 @@ function buildPage(mode) {
     : 'Tap any entry for <b>fullscreen review</b> — <b>Cursor auto-auditors</b> gate publish. Only exceptions land here — <b style=color:#2ecc71>✓</b> publish · <b style=color:#ff8a76>✗</b> retarget.';
   const fsBatchExplain = 'Use <b>Rubric Stations</b> — one slice at a time (Writing · Structure · Face · Internal images · Top-10 · Publish gate). Each station has its own fix + auditor. Standard full scrub is disabled.';
   const batchIdleHint = 'Open a station tab — pick pillar — ▶ Start. Finished entries land in the audit pile below.';
-  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Face Card & Top Image Generator' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
+  const pageTitle = isRubricStation ? 'Rubric Stations' : (isInternalImages ? 'Internal Images' : (isFormatFix ? 'Format Fixer' : (isFaceHero ? 'Multibox Manager' : (isRewrite ? 'Pollinator Image Overwrite' : (isImgGen ? 'Image Generator' : (isDuplicator ? 'Image Fill' : (isGenerate ? 'Generate' : 'Audit Hub')))))));
   return `<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><title>PULSE · ${pageTitle}</title><style>
 *{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}body{margin:0;background:#0b0f14;color:#e8eef2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:18px}
 #gate,#app{display:flex;flex-direction:column;align-items:center;gap:16px;width:92%;max-width:560px}
@@ -7180,7 +7277,7 @@ a.mode-tab,button.mode-tab{color:inherit;font:inherit;font-family:inherit}
   </div>
   <div id=faceheroPanel${isFaceHero ? '' : ' style="display:none"'}>
   <div class=dupe-panel style="border-color:#a855f7;background:linear-gradient(165deg,#120818 0%,#0e1620 100%)">
-    <div class=dupe-panel-title style="color:#e879f9">🦄 Face Card &amp; Top Image Generator</div>
+    <div class=dupe-panel-title style="color:#e879f9">📦 Multibox Manager</div>
     <div class=dupe-panel-hint><b>One image, two places:</b> Pollinator AI flux only — <b>no DuckDuckGo</b>. Overwrites every legacy/DDG face-card with fresh flux. Real documentary photos · ✓ Keep / ✗ Try again · serial queue.</div>
     <div class=dupe-panel-row>
       <select id=faceheroPillarFilter title="Which pillar to regenerate face-cards + heroes for"><option value=tl>Loading pillars…</option></select>
@@ -7616,7 +7713,7 @@ const RUBRIC_PICK=${JSON.stringify(Object.entries(RUBRIC_LABELS).filter(function
 const $=s=>document.querySelector(s);
 // ── Scrub vs Generate — one page, client-side tab toggle (owner) ──
 window.activeTab='${mode}';
-const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'🦄 Face Card & Top Image',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
+const TAB_TITLE={scrub:'📋 Audit Hub',generate:'✍️ Generate',duplicator:'🖼 Image Fill',imgen:'🎨 Image Generator',facehero:'📦 Multibox Manager',internalimages:'📷 Internal Images',rubricstation:'🔬 Rubric Stations',rewrite:'🌸 Full Image Overwrite',formatfix:'📝 Format Fixer'};
 const TAB_COPY={scrub:'Approval pile + population stats. Use <b>Rubric Stations</b> or dedicated tabs — standard full scrub is off.',generate:${JSON.stringify(IMAGE_LAW_UI.gen)},duplicator:'Pollinator pool only — replaces DDG heroes/sections + fills empty slots. Never cross-pillar.',imgen:'Pollinator-only — serial flux queue, auto keep/reject, saves to pool.',facehero:'Pollinator by pillar — <b>one</b> flux image per Q&amp;A (<code>/assets/qa/&lt;id&gt;.jpg</code>) → mosaic face-card + top hero markdown <b>same file</b>. Sections untouched.',internalimages:'DDG section images only — <b>one image per ## section</b>, self-hosted, no stacks. Holds each Q&amp;A until every section image renders before moving on. Face-card + hero never touched.',rubricstation:'Pick station + pillar — targeted fix then dedicated auditor for that rubric slice only.',rewrite:'Pollinator overwrites face-card + hero + all sections. Use Internal Images tab for sections only.',formatfix:'Audits ≥2000 words, Direct Answer, CRO placement, FAQs, mermaid, Sources, Related. <b>Does not touch images.</b>'};
 function switchPipelineTab(mode){
   if(!mode||mode===window.activeTab) return;
@@ -7644,7 +7741,7 @@ function switchPipelineTab(mode){
   const at=$('#appTitle'); if(at) at.textContent=TAB_TITLE[mode];
   const as=$('#appSub'); if(as) as.innerHTML=TAB_COPY[mode];
   if(window._sa&&window._sa.state&&window._sa.state.cap){ const cap=$('#cap'); if(cap) cap.textContent=window._sa.state.cap; }
-  try{ history.replaceState({tab:mode},'',mode==='generate'?'/generate':mode==='duplicator'?'/image-duplicator':mode==='imgen'?'/image-generator':mode==='facehero'?'/face-card-top-image-generator':mode==='internalimages'?'/internal-images':mode==='rubricstation'?'/rubric-stations':mode==='rewrite'?'/pollinator-image-overwrite':mode==='formatfix'?'/format-fixer':'/scrubber'); }catch(e){}
+  try{ history.replaceState({tab:mode},'',mode==='generate'?'/generate':mode==='duplicator'?'/image-duplicator':mode==='imgen'?'/image-generator':mode==='facehero'?'/multibox-manager':mode==='internalimages'?'/internal-images':mode==='rubricstation'?'/rubric-stations':mode==='rewrite'?'/pollinator-image-overwrite':mode==='formatfix'?'/format-fixer':'/scrubber'); }catch(e){}
   updateFullscreenForTab();
   updateTabBadges();
   if(mode==='scrub'){ if(window._sa) renderAuto(window._sa); loadPillars(); }
@@ -7670,7 +7767,7 @@ function bindPipelineTabs(){
   if(nf) nf.addEventListener('click',()=>switchPipelineTab('formatfix'));
   window.addEventListener('popstate',()=>{
     const path=(location.pathname||'/scrubber').toLowerCase();
-    const m=path.includes('format-fixer')||path.includes('formatfix')?'formatfix':path.includes('rubric-stations')||path.includes('rubricstation')?'rubricstation':path.includes('internal-images')||path.includes('internalimages')?'internalimages':path.includes('pollinator-image-overwrite')||path.includes('image-rewrite')?'rewrite':path.includes('face-card-top-image')||path.includes('face-hero')?'facehero':path.includes('image-generator')?'imgen':path.includes('image-duplicator')?'duplicator':path.includes('generate')?'generate':'scrub';
+    const m=path.includes('format-fixer')||path.includes('formatfix')?'formatfix':path.includes('rubric-stations')||path.includes('rubricstation')?'rubricstation':path.includes('internal-images')||path.includes('internalimages')?'internalimages':path.includes('pollinator-image-overwrite')||path.includes('image-rewrite')?'rewrite':path.includes('multibox-manager')||path.includes('face-card-top-image')||path.includes('face-hero')?'facehero':path.includes('image-generator')?'imgen':path.includes('image-duplicator')?'duplicator':path.includes('generate')?'generate':'scrub';
     if(m!==window.activeTab) switchPipelineTab(m);
   });
 }
@@ -7868,7 +7965,9 @@ function renderFaceHero(j){
     bar.style.width=Math.max(pct>0?0.5:0,pct)+'%';
   }
   if(stats) stats.innerHTML=
-    '<div>🦄 face-card+hero flux: <span>'+(j.coversGenerated||0)+'</span></div>'+
+    '<div>📦 inventory: <span>'+(j.inventory||j.total||0).toLocaleString()+'</span></div>'+
+    (j.batchCount?('<div>📦 group: <span>'+((j.batchIndex||0)+1)+' / '+j.batchCount+' × '+(j.batchSize||250)+'</span></div>'):'')+
+    '<div>📦 face-card+hero flux: <span>'+(j.coversGenerated||0)+'</span></div>'+
     '<div>📋 entries done: <span>'+(j.entriesDone||0)+'</span></div>'+
     '<div>⏭ no blob: <span>'+(j.skippedNoBlob||0)+'</span></div>'+
     '<div>⚠️ errors: <span>'+(j.errors||0)+'</span></div>'+
@@ -10541,7 +10640,7 @@ const server = http.createServer(async (req, res) => {
   if (u.pathname === '/image-duplicator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('duplicator')); }
   if (u.pathname === '/image-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('imgen')); }
   if (u.pathname === '/pollinator-image-overwrite' || u.pathname === '/image-rewrite') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rewrite')); }
-  if (u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('facehero')); }
+  if (u.pathname === '/multibox-manager' || u.pathname === '/face-card-top-image-generator' || u.pathname === '/face-hero-generator') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('facehero')); }
   if (u.pathname === '/format-fixer' || u.pathname === '/formatfix') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('formatfix')); }
   if (u.pathname === '/internal-images' || u.pathname === '/internalimages') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('internalimages')); }
   if (u.pathname === '/rubric-stations' || u.pathname === '/rubricstation') { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end(buildPage('rubricstation')); }
@@ -11212,7 +11311,7 @@ server.listen(PORT, '0.0.0.0', async () => {
     lanIp = Object.values(os.networkInterfaces()).flat().find(i => i && i.family === 'IPv4' && !i.internal && /^192\.168\.|^10\./.test(i.address))?.address || '';
     if (lanIp) try { fs.writeFileSync(WD + '/_scrub_lan_ip.txt', lanIp + ':' + PORT); } catch (e) {}
   } catch (e) {}
-  console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /face-card-top-image-generator + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
+  console.log(`[scrub-button] up on http://localhost:${PORT}/scrubber + /generate + /image-duplicator + /image-generator + /multibox-manager + /pollinator-image-overwrite  (4444)  queue=${readArr(QUEUE).length}  cap=${DAILY_MAX}/day · lane=${SCRUB_LANE_MODE ? 'ON chained' : 'OFF'} · entry-gap=${Math.round(PIPELINE_ENTRY_GAP_MS / 60000)}m · image-dupe-priority=${imageDupePriority.size} · new-content watcher ON`);
   if (lanIp) console.log(`[scrub-button] LAN (phone on WiFi): http://${lanIp}:${PORT}/`);
   resumeInterruptedImageJobs();
 });

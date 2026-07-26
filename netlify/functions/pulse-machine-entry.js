@@ -18,7 +18,8 @@ try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
 const SITE = 'https://pulserevops.com';
 // Owner 2026-07-08: article body is text-only — no hero, product, section, or inline
 // images on answer pages. CRO header card (crohdr / background-image) is unchanged.
-const ANSWER_CONTENT_IMAGES_OFF = true;
+// Owner 2026-07-20: pages looked empty/"no images" with this on — show content images again.
+const ANSWER_CONTENT_IMAGES_OFF = false;
 const { isRankingListBody, RANKING_LIST_NO_TOP_HERO } = require('../../_ranking_list_master_law');
 const { appliesQaGold } = require('../../_qa_gold_template');
 const { pulseOrgLogoImageObject, PULSE_SITE, PULSE_SHARE_ICON, PULSE_OG_IMAGE, PULSE_FAVICON_ICO, PULSE_ICON_192, PULSE_ICON_512, PULSE_APPLE_TOUCH } = require('./lib/pulse-brand');
@@ -165,6 +166,23 @@ function firstProductImg(body) {
 
 function pickHeroUrl(body, idxImg, id, skipHero) {
   if (skipHero) return '';
+  // Owner: tl never uses title-baked /assets/qa/<id>.jpg flux faces.
+  // Face card === hero OK; rotate curated pool (cro-cover + pool-tl + kit faces).
+  if (/^tl\d+$/i.test(String(id || ''))) {
+    const idx = idxImg && String(idxImg).trim().split('?')[0];
+    const legacyFace = id && idx && idx.toLowerCase() === ('/assets/qa/' + String(id).toLowerCase() + '.jpg');
+    const versionedFlux = id && idx && new RegExp('^/assets/qa/' + String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '-v\\d+\\.jpg$', 'i').test(idx);
+    if (idx && !legacyFace && !versionedFlux && (
+      /^\/assets\/cro-cover-[1-6]\.jpg$/i.test(idx) ||
+      /^\/assets\/qa\/pool-tl-\d+\.jpg$/i.test(idx) ||
+      /^\/assets\/qa\/tl\d+-b\d+\.jpg$/i.test(idx) ||
+      /^\/assets\/qa\//i.test(idx)
+    )) {
+      return idx;
+    }
+    const n = Math.abs(parseInt(String(id).replace(/\D/g, ''), 10) || 0);
+    return '/assets/cro-cover-' + ((n % 6) + 1) + '.jpg';
+  }
   const lead = leadingCoverFromBody(body);
   const leadUrl = lead && lead.url ? String(lead.url).trim() : '';
   const idx = idxImg && String(idxImg).trim();
@@ -1241,13 +1259,13 @@ exports.handler = async (event) => {
     .meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:0.66rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,229,216,0.45);margin-bottom:28px;}
     .entry-tag{display:inline-block;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(237,229,216,0.7);padding:3px 9px;border-radius:99px;font-size:0.6rem;text-decoration:none;transition:all 0.12s;}
     a.entry-tag:hover{background:rgba(232,113,10,0.12);border-color:rgba(232,113,10,0.4);color:rgba(255,180,90,0.9);text-decoration:none;}
-    .body p{margin:0 0 16px;color:rgba(237,229,216,0.94);font-size:1.15rem;}
+    .body p{margin:0 0 16px;color:rgba(237,229,216,0.94);font-size:1.28rem;line-height:1.75;}
     .body .direct-answer-box{margin:0 0 22px !important;padding:18px 20px !important;border:2px solid #C8821E !important;border-radius:14px !important;background:#FBF3E4 !important;box-shadow:0 0 0 1px rgba(200,130,30,.18), inset 0 0 0 1px rgba(200,130,30,.08) !important;}
     .body .direct-answer-box p,.body .direct-answer-box li{color:#1d1711 !important;}
     .body .direct-answer-box strong,.body .direct-answer-box b{color:#1d1711 !important;}
     @media(max-width:640px){
-      .body,.body p,.body li{font-size:1.2rem !important;line-height:1.72 !important;}
-      .body .direct-answer-box p{font-size:1.18rem !important;}
+      .body,.body p,.body li{font-size:1.32rem !important;line-height:1.78 !important;}
+      .body .direct-answer-box p{font-size:1.28rem !important;}
     }
     /* CRO hanging widget — a little sign that hangs top-right from a cord+peg, sways, stays on scroll */
     .cro-ad-root{position:fixed;top:0;right:28px;width:322px;z-index:2147483000;font-family:'Plus Jakarta Sans',-apple-system,'Segoe UI',system-ui,sans-serif;pointer-events:none;text-align:left;}
@@ -1390,6 +1408,8 @@ exports.handler = async (event) => {
   @media print{article.cc-gold::after{display:none}}
   </style>
   <link rel="stylesheet" href="/assets/pulse-tan.css">
+  <!-- Jet gutters must load with tan — cream-only tan washes the whole page (2026-07-20 incident). -->
+  <link rel="stylesheet" href="/css/pulse-jet-sides.css">
 </head>
 <body>
   <style>.crohdr{max-width:1000px;margin:10px auto 6px;padding:0 14px}.cro-card{display:flex;align-items:stretch;text-decoration:none;border:3px solid #EAC15C;border-radius:14px;overflow:hidden;background:linear-gradient(100deg,#180a10,#0f0a0c 60%);box-shadow:0 6px 26px rgba(0,0,0,.5),0 0 0 1px rgba(234,193,92,.35)}.cro-card__img{flex:0 0 32%;background-size:cover;background-position:center 30%;min-height:210px;border-right:1px solid rgba(234,193,92,.28)}.cro-card__body{flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center;gap:5px}.cro-card__eyebrow{font:800 .6rem/1.3 system-ui;letter-spacing:.13em;color:#FFB81C}.cro-card__title{margin:0;font-family:Georgia,serif;font-weight:800;font-size:clamp(1.7rem,3.7vw,2.6rem);line-height:1.05;color:#F6C445!important;text-shadow:0 1px 6px rgba(0,0,0,.5)}.cro-card__eyebrow{color:#FFB81C!important}.cro-card__role{color:#EAC15C!important}.cro-card__role{margin:0;color:#EAC15C;font-weight:700;font-size:.9rem}.cro-card__sub{margin:2px 0 0;color:#b9b1a6;font-size:.88rem;max-width:52ch}.cro-card__rail{flex:0 0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;gap:12px;padding:16px 20px;background:linear-gradient(180deg,rgba(234,193,92,.06),transparent);border-left:1px solid rgba(234,193,92,.16);min-width:190px}.cro-card__badge{display:inline-flex;align-items:center;gap:7px;font:800 .58rem/1 system-ui;letter-spacing:.1em;text-transform:uppercase;color:#cfe8c6;background:rgba(40,90,50,.28);border:1px solid rgba(120,200,130,.35);padding:5px 10px;border-radius:999px;white-space:nowrap}.cro-card__badge i{width:8px;height:8px;border-radius:50%;background:#48d16a;box-shadow:0 0 8px #48d16a}.cro-card__railcta{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.cro-card__cta{background:linear-gradient(180deg,#EAC15C,#cf9f2e);color:#1a0a00;font-weight:900;font-size:.95rem;padding:11px 20px;border-radius:10px;white-space:nowrap}.cro-card__resume{color:#EAC15C;font-weight:700;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}.cro-card:hover{border-color:#EAC15C}.cro-bar{display:grid;grid-template-columns:repeat(5,1fr);margin:-2px 0 4px;border:1px solid rgba(234,193,92,.4);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}.cro-bar a{text-align:center;padding:11px 8px;color:#EAC15C;font-weight:800;font-size:.9rem;text-decoration:none;background:#130a10;border-right:1px solid rgba(234,193,92,.22)}.cro-bar a:last-child{border-right:none}.cro-bar a:hover{background:#1d1017;color:#fff}@media(max-width:640px){.cro-bar{grid-template-columns:repeat(2,1fr)}.cro-bar a:nth-child(2){border-right:none}.cro-card{flex-direction:column}.cro-card__img{flex:none;width:100%;min-height:120px;border-right:none;border-bottom:1px solid rgba(234,193,92,.28)}.cro-card__rail{flex-direction:row;align-items:center;justify-content:space-between;width:100%;min-width:0;border-left:none;border-top:1px solid rgba(234,193,92,.16);padding:11px 14px}.cro-card__railcta{flex-direction:row;align-items:center;gap:12px}}</style>
@@ -1480,7 +1500,7 @@ exports.handler = async (event) => {
     <button class="viz-lightbox-close" id="viz-lightbox-close" aria-label="Close">×</button>
     <div class="viz-lightbox-inner" id="viz-lightbox-inner"></div>
   </div>
-  <link rel="stylesheet" href="/css/pulse-mosaic.css">
+  <link rel="stylesheet" href="/css/pulse-mosaic.css?v=tile-fix-20260721b">
   <section class="mag-mosaic" data-pulse-mosaic data-pillar="${escAttr(entryPillar)}" aria-label="More stories in this topic" style="max-width:1080px;margin:0 auto;padding:0 clamp(10px,2vw,24px) 40px;"></section>
   <div class="footer-note">
     Researched autonomously by <a href="/themachine" style="color:rgba(255,140,26,0.7);">The Machine</a> · Claude Sonnet 4.6 + live web search · Cited &amp; dated
@@ -1491,14 +1511,14 @@ exports.handler = async (event) => {
   <!-- Visit-email: Human-Interaction Gate -> /visitor-alert -> emails owner on every
        verified visitor (1/IP/day) via Resend. Replaces the old disabled visit-alert stub
        so ENTRY pages (the bulk of traffic) also report visits. Owner 2026-06-29. -->
-  <script src="/js/pulse-face-img.js" defer></script>
+  <script src="/js/pulse-face-img.js?v=tile-fix-20260721b" defer></script>
   <script src="/js/pulse-home-mosaic.js" defer></script>
   <script src="/js/human-gate.js" defer></script>
   <!-- Click-email tracker: emails owner on any CRO-ad click (Calendly / LinkedIn /
        CRO Syndicate / resume / hire-cro / tools) via pulse-click-notify. Owner 2026-06-27. -->
   <script src="/js/pulse-lead-track.js" defer></script>
   <!-- site-wide low-volume 80s synthwave ambience (The Midnight vibe), owner 2026-07-03 -->
-  <script src="/pulse-ambient.js" defer></script>
+  <script src="/pulse-ambient.js?v=no-music-20260721" defer></script>
   <!-- trivia game popup removed per owner 2026-07-03 -->
   <script>
     // Reading progress bar + scroll-to-top button
