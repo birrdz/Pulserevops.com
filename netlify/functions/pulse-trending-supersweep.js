@@ -15,6 +15,7 @@
 const https = require('https');
 let getStore = null;
 try { getStore = require('@netlify/blobs').getStore; } catch (e) {}
+const { libraryEntryPublicUrl } = require('./lib/library-entry-url');
 
 const INDEXNOW_KEY = '7f3e9a2c8b1d4e5f6a7b8c9d0e1f2a3b';
 const SITE = 'https://pulserevops.com';
@@ -25,19 +26,6 @@ const ENGINES = [
   'https://search.seznam.cz/indexnow',
   'https://indexnow.yep.com/indexnow',
 ];
-
-const ROUTE = {
-  q:'/knowledge/', st:'/sales-trainings/', ik:'/industry-kpis/',
-  tk:'/tech-stacks/', gb:'/graphics/', bs:'/sales-book-summaries/',
-  er:'/electronic-reviews/', ra:'/revenue-architecture/', gp:'/go-to-market-playbooks/',
-};
-function routeOf(id) {
-  if (!id) return '/knowledge/';
-  if (/^vq_/i.test(id)) return '/knowledge/';
-  const m = id.match(/^([a-z]+)/i);
-  const p = m ? m[1].toLowerCase() : 'q';
-  return ROUTE[p] || '/knowledge/';
-}
 
 function initLibStore() {
   if (!getStore) return null;
@@ -105,7 +93,7 @@ async function getTrending12() {
 function buildSitemap(trending) {
   const now = new Date().toISOString();
   const urls = trending.map(t => {
-    const u = SITE + routeOf(t.id) + t.id;
+    const u = libraryEntryPublicUrl({ id: t.id }) || (SITE + '/knowledge/' + encodeURIComponent(t.id));
     return `  <url><loc>${u}</loc><lastmod>${now}</lastmod><changefreq>hourly</changefreq><priority>1.0</priority></url>`;
   }).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>

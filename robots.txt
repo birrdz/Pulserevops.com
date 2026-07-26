@@ -1,53 +1,6 @@
 User-agent: *
 Allow: /
 Sitemap: https://pulserevops.com/sitemap-index.xml
-Sitemap: https://pulserevops.com/sitemap.xml
-Sitemap: https://pulserevops.com/sitemap-howtos.xml
-Sitemap: https://pulserevops.com/sitemap-blog.xml
-Sitemap: https://pulserevops.com/sitemap-tools.xml
-Sitemap: https://pulserevops.com/sitemap-knowledge.xml
-Sitemap: https://pulserevops.com/sitemap-recent.xml
-Sitemap: https://pulserevops.com/sitemap-pillars.xml
-Sitemap: https://pulserevops.com/sitemap-fish-crabs.xml
-Sitemap: https://pulserevops.com/sitemap-telco.xml
-Sitemap: https://pulserevops.com/sitemap-reviews.xml
-Sitemap: https://pulserevops.com/sitemap-franchises.xml
-Sitemap: https://pulserevops.com/sitemap-cars.xml
-Sitemap: https://pulserevops.com/sitemap-towns.xml
-Sitemap: https://pulserevops.com/sitemap-schools.xml
-Sitemap: https://pulserevops.com/sitemap-nightlife.xml
-Sitemap: https://pulserevops.com/sitemap-dining.xml
-Sitemap: https://pulserevops.com/sitemap-boats.xml
-Sitemap: https://pulserevops.com/sitemap-movies.xml
-Sitemap: https://pulserevops.com/sitemap-wellness.xml
-Sitemap: https://pulserevops.com/sitemap-drills.xml
-Sitemap: https://pulserevops.com/sitemap-travel.xml
-Sitemap: https://pulserevops.com/sitemap-resorts.xml
-Sitemap: https://pulserevops.com/sitemap-estates.xml
-Sitemap: https://pulserevops.com/sitemap-collectibles.xml
-Sitemap: https://pulserevops.com/sitemap-aquariums.xml
-Sitemap: https://pulserevops.com/sitemap-coaching.xml
-Sitemap: https://pulserevops.com/sitemap-buildouts.xml
-Sitemap: https://pulserevops.com/sitemap-highschool-football-recruiting.xml
-Sitemap: https://pulserevops.com/sitemap-ai-infrastructure.xml
-Sitemap: https://pulserevops.com/sitemap-clubs.xml
-Sitemap: https://pulserevops.com/sitemap-living.xml
-Sitemap: https://pulserevops.com/sitemap-events.xml
-Sitemap: https://pulserevops.com/sitemap-style.xml
-Sitemap: https://pulserevops.com/sitemap-gatherings.xml
-Sitemap: https://pulserevops.com/sitemap-gaming.xml
-Sitemap: https://pulserevops.com/sitemap-skills.xml
-Sitemap: https://pulserevops.com/sitemap-knowledge-live.xml
-Sitemap: https://pulserevops.com/sitemap-sales-trainings.xml
-Sitemap: https://pulserevops.com/sitemap-industry-kpis.xml
-Sitemap: https://pulserevops.com/sitemap-tech-stacks.xml
-Sitemap: https://pulserevops.com/sitemap-graphics.xml
-Sitemap: https://pulserevops.com/sitemap-book-summaries.xml
-Sitemap: https://pulserevops.com/sitemap-electronic-reviews.xml
-Sitemap: https://pulserevops.com/sitemap-revenue-architecture.xml
-Sitemap: https://pulserevops.com/sitemap-go-to-market-playbooks.xml
-Sitemap: https://pulserevops.com/sitemap-misc.xml
-Sitemap: https://pulserevops.com/.netlify/functions/pulse-machine-sitemap
 
 # Disallow dashboard query param from being indexed as a separate URL
 Disallow: /?dashboard
@@ -56,7 +9,6 @@ Disallow: /kory-white-projects
 
 # Netlify Functions are APIs — not public pages (prevents GSC "401 unauthorized" on admin API)
 Disallow: /.netlify/functions/
-Allow: /.netlify/functions/pulse-machine-sitemap
 
 # Raw JSON endpoints — internal data, not pages. Google was crawling these
 # as pages and reporting them as 404/soft-404 noise. Block by path.

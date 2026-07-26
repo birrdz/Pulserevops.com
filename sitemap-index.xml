@@ -6,7 +6,6 @@
   <sitemap><loc>https://pulserevops.com/sitemap-knowledge.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-recent.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-pillars.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
-  <sitemap><loc>https://pulserevops.com/sitemap-reviews.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
   <!-- Stale legacy sub-sitemaps REMOVED 2026-06-14: sitemap-press / -news /
        -machine / -images listed only URLs that 301-redirect
        (press→home/knowledge) or 410 (/fresh), generating Google Search
@@ -21,7 +20,6 @@
        pulse-machine-sitemap?pillar=<key> via netlify.toml redirects.
        Each pillar gets its own focused sitemap so Google can crawl them
        independently and report per-pillar coverage in GSC. -->
-  <sitemap><loc>https://pulserevops.com/sitemap-knowledge-live.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-sales-trainings.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-industry-kpis.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-tech-stacks.xml</loc><lastmod>2026-05-31</lastmod></sitemap>
@@ -40,6 +38,7 @@
   <sitemap><loc>https://pulserevops.com/sitemap-boats.xml</loc><lastmod>2026-06-19</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-movies.xml</loc><lastmod>2026-06-19</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-wellness.xml</loc><lastmod>2026-06-19</lastmod></sitemap>
+  <sitemap><loc>https://pulserevops.com/sitemap-drills.xml</loc><lastmod>2026-07-20</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-travel.xml</loc><lastmod>2026-06-19</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-resorts.xml</loc><lastmod>2026-06-19</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-estates.xml</loc><lastmod>2026-06-19</lastmod></sitemap>
@@ -61,12 +60,10 @@
   <sitemap><loc>https://pulserevops.com/sitemap-buildouts.xml</loc><lastmod>2026-06-23</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-pets.xml</loc><lastmod>2026-06-23</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-software.xml</loc><lastmod>2026-06-23</lastmod></sitemap>
+  <sitemap><loc>https://pulserevops.com/sitemap-highschool-football-recruiting.xml</loc><lastmod>2026-07-20</lastmod></sitemap>
   <!-- Added 2026-06-28: Telco library pillar (dynamic) + Fish & Crabs static hot-spot maps. -->
   <sitemap><loc>https://pulserevops.com/sitemap-telco.xml</loc><lastmod>2026-06-28</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-fish-crabs.xml</loc><lastmod>2026-06-28</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-leaderboards.xml</loc><lastmod>2026-06-07</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-misc.xml</loc><lastmod>2026-06-02</lastmod></sitemap>
-  <!-- Trending super-index — top-12 most-viewed entries in last 7 days. Hourly
-       priority=1.0 refresh signal for Google/Bing. Added 2026-06-03. -->
-  <sitemap><loc>https://pulserevops.com/sitemap-trending.xml</loc><lastmod>2026-06-03</lastmod></sitemap>
 </sitemapindex>
