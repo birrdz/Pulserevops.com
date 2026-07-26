@@ -128,11 +128,30 @@ async function dsChat(system, user, maxTokens = 1200) {
   return '';
 }
 
-async function dsJson(system, user) {
-  const text = await dsChat(system, user, 1200);
-  const m = text.match(/\{[\s\S]*\}/);
+function parseJsonObject(text) {
+  const raw = String(text || '').trim();
+  const m = raw.match(/\{[\s\S]*\}/);
   if (!m) throw new Error('no-json');
-  return JSON.parse(m[0]);
+  try {
+    return JSON.parse(m[0]);
+  } catch (e) {
+    // Truncated model output — close open strings/arrays/braces best-effort
+    let s = m[0].replace(/,\s*$/, '');
+    const q = (s.match(/"/g) || []).length;
+    if (q % 2 === 1) s += '"';
+    const opens = (s.match(/\[/g) || []).length - (s.match(/\]/g) || []).length;
+    const braces = (s.match(/\{/g) || []).length - (s.match(/\}/g) || []).length;
+    s += ']'.repeat(Math.max(0, opens));
+    s += '}'.repeat(Math.max(0, braces));
+    s = s.replace(/,\s*([\]}])/g, '$1');
+    return JSON.parse(s);
+  }
+}
+
+async function dsJson(system, user) {
+  // Keep budget high — short audits still truncate at 1200 on long pages
+  const text = await dsChat(system, user, 2500);
+  return parseJsonObject(text);
 }
 
 function clip(answer) {
@@ -141,15 +160,12 @@ function clip(answer) {
   return s.slice(0, 7000) + '\n\n…\n\n' + s.slice(-4000);
 }
 
-const AUDIT_SYS = `Strict fact-checker. Return ONLY JSON:
-{"verdict":"pass"|"flag","issues":["..."],"hallucinations":["..."],"content_gaps":["..."],"sections":["Direct Answer","## 2. ...","FAQ"]}
-RULES for each string in issues/hallucinations/content_gaps:
-- Start with the section name or number when possible, e.g. "Section 2:", "Section 3:", "Direct Answer:", "FAQ:", "Bottom Line:", "How We Ranked:".
-- Then name the bad number/claim, e.g. "Section 2: price \$12k contradicts Section 3 \$18k".
-- Prefer concrete wrong numbers/years/stats over vague wording.
-FLAG invented facts/vendors/stats/years, contradictions, wrong Direct Answer, missing required sections.
-"sections" = list of section headings/numbers you actually checked that had problems.
-(Pipeline always redoes the Pexels image whenever content is rewritten for a flag.)`;
+const AUDIT_SYS = `Strict fact-checker. Return ONLY compact JSON (no markdown, no prose outside JSON):
+{"verdict":"pass"|"flag","issues":["Section 2: …"],"hallucinations":["Section 3: …"],"content_gaps":["FAQ: …"],"sections":["Section 2","Section 3"]}
+HARD LIMITS: max 5 issues, max 5 hallucinations, max 5 content_gaps; each string ≤140 chars.
+Each string MUST start with a section label (Direct Answer / Section N / FAQ / Bottom Line / How We Ranked).
+Flag invented facts/vendors/stats/years, contradictions, wrong Direct Answer, missing required sections.
+"sections" = problem section labels only.`;
 
 const FIX_SYS = `Rewrite the article to remove hallucinations and fill content gaps.
 RULES:
