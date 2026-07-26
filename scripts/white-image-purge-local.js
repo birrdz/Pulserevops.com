@@ -6,7 +6,7 @@
 // Env:
 //   WHITE_PURGE_BATCH=80          pages per tick
 //   WHITE_PURGE_IDLE_MS=3000      pause when caught up / between ticks
-//   WHITE_PURGE_EMAIL_EVERY=40    digest every N purged pages
+//   WHITE_PURGE_EMAIL_EVERY=10    digest every N purged pages (default 10)
 //   WHITE_PURGE_ONCE=1            one tick then exit
 //
 // State blob: _white_image_purge_local_state.json
@@ -33,7 +33,8 @@ const STATE_KEY = '_white_image_purge_local_state.json';
 const BUSY_FILE = '/tmp/cursor-drip-busy.id';
 const BATCH = Math.max(10, parseInt(process.env.WHITE_PURGE_BATCH || '80', 10));
 const IDLE_MS = Math.max(500, parseInt(process.env.WHITE_PURGE_IDLE_MS || '3000', 10));
-const EMAIL_EVERY = Math.max(5, parseInt(process.env.WHITE_PURGE_EMAIL_EVERY || '10', 10));
+// Owner: digest every 10 purged pages (not 40). Clamp 1–10 so we never silently go higher.
+const EMAIL_EVERY = Math.min(10, Math.max(1, parseInt(process.env.WHITE_PURGE_EMAIL_EVERY || '10', 10) || 10));
 const ONCE = String(process.env.WHITE_PURGE_ONCE || '') === '1';
 
 const MANGLED_RX =
@@ -280,17 +281,29 @@ async function savePurged(s, idx, entryRow, blob, badUrls, reason, coverBad) {
 const emailBuf = [];
 let lastDigestAt = 0;
 
-async function flushDigest(reason) {
-  if (!emailBuf.length) return;
-  const items = emailBuf.splice(0, emailBuf.length);
+async function flushDigest(reason, itemsOpt) {
+  const items = itemsOpt || emailBuf.splice(0, emailBuf.length);
+  if (!items.length) return false;
   lastDigestAt = Date.now();
   const subject = (
-    'PULSE white purge · ' + items.length + ' pages · ' + new Date().toISOString().slice(11, 16) + 'Z'
+    'PULSE white purge · ' +
+    items.length +
+    ' URLs fixed · every-' +
+    EMAIL_EVERY +
+    ' · ' +
+    new Date().toISOString().slice(11, 16) +
+    'Z · ' +
+    items
+      .slice(0, 3)
+      .map((x) => x.id)
+      .join(', ')
   ).slice(0, 180);
   const html =
-    '<p><b>White/mangled/defunct purge</b> (' +
+    '<p><b>White/mangled/defunct purge</b> — digest every <b>' +
+    EMAIL_EVERY +
+    '</b> purged pages (' +
     esc(reason) +
-    ') — strip-only service (no Cursor rewrite). Drip still replaces if it hits leftovers.</p><ol>' +
+    '). Strip-only; Cursor drip still replaces leftovers.</p><ol>' +
     items
       .map(
         (x) =>
@@ -306,13 +319,17 @@ async function flushDigest(reason) {
       )
       .join('') +
     '</ol>';
+  console.log(JSON.stringify({ phase: 'email-digest', reason, count: items.length, ids: items.map((x) => x.id) }));
   await emailOne(subject, html);
+  return true;
 }
 
 async function queueDigest(item) {
   emailBuf.push(item);
-  if (emailBuf.length >= EMAIL_EVERY || (!lastDigestAt && emailBuf.length >= 5)) {
-    await flushDigest(emailBuf.length >= EMAIL_EVERY ? 'every-' + EMAIL_EVERY : 'startup');
+  // Fire the moment we hit 10 — do not wait for end of batch
+  while (emailBuf.length >= EMAIL_EVERY) {
+    const batch = emailBuf.splice(0, EMAIL_EVERY);
+    await flushDigest('every-' + EMAIL_EVERY, batch);
   }
 }
 
@@ -480,14 +497,7 @@ async function main() {
     state = Object.assign(state, (await s.get(STATE_KEY, { type: 'json' })) || {});
   } catch (e) {}
 
-  await emailOne(
-    'PULSE white purge ON — full inventory (strip-only)',
-    '<p>Local white/mangled/defunct purge walking the full inventory.</p>' +
-      '<p>No Cursor rewrite. Digest every <b>' +
-      EMAIL_EVERY +
-      '</b> purged pages. Cursor drip keeps fact-check/content; still replaces if it hits a leftover purge.</p>'
-  );
-  lastDigestAt = Date.now();
+  // No startup spam — first digest fires at 10 purged pages
   console.log(JSON.stringify({ phase: 'start', batch: BATCH, idleMs: IDLE_MS, emailEvery: EMAIL_EVERY }));
 
   for (;;) {
