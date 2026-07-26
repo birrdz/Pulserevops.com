@@ -23,8 +23,8 @@ const { entryTopicKey, sectionImageSearchQuery, topicKeyMatchesPoolQuery } = req
 const STOCK_BLOCK = /dreamstime|shutterstock|istockphoto|\bistock\b|alamy|123rf|depositphotos|gettyimages|stock\.adobe|adobestock|vecteezy|freepik|canstock|bigstock|pond5|watermark|preview\.|\.stock/i;
 function coverPath(id) { return DIR + '/' + id + '.jpg'; }
 function coverFileOk(id) { try { return fs.statSync(coverPath(id)).size > 40000; } catch (e) { return false; } }
-// Rubric gate: valid face-card cover = graded self-hosted file (>40KB) from flux OR entry reuse.
-const VALID_FACE_COVER_SRC = new Set(['flux', 'ddg-facecard', 'internal-reuse', 'product-reuse']);
+// Rubric gate: valid face-card cover = graded self-hosted file (>40KB) from an approved provider or entry reuse.
+const VALID_FACE_COVER_SRC = new Set(['flux', 'pexels', 'ddg-facecard', 'internal-reuse', 'product-reuse']);
 function faceCardCoverOk(id, coverSrc) { return VALID_FACE_COVER_SRC.has(coverSrc) && coverFileOk(id); }
 function hasGradeStampInBuf(buf) {
   try { return !!(buf && buf.length && buf.includes(Buffer.from(GRADE_STAMP))); } catch (e) { return false; }

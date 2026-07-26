@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>PULSE · CRO Pexels Review</title>
+<style>
+:root{--bg:#05070b;--panel:#0d121a;--ink:#f6f1e8;--muted:#8f9aaa;--gold:#eac15c;--green:#39ff14;--red:#ff3155;--blue:#57c8ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -20%,#172032,var(--bg) 48%);color:var(--ink);font-family:Inter,system-ui,sans-serif;min-height:100vh}
+button,input{font:inherit}.wrap{max-width:1500px;margin:auto;padding:18px 16px 60px}
+.top{position:sticky;top:0;z-index:20;background:rgba(5,7,11,.94);backdrop-filter:blur(12px);border:1px solid #263142;border-radius:18px;padding:15px 17px;margin-bottom:16px;box-shadow:0 14px 40px rgba(0,0,0,.42)}
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.head h1{font-size:1.25rem;margin:0;color:var(--gold)}.head p{margin:3px 0 0;color:var(--muted);font-size:.8rem}
+.counts{display:flex;gap:7px;flex-wrap:wrap}.chip{border:1px solid #334155;background:#111927;border-radius:999px;padding:7px 10px;font-size:.76rem;font-weight:800}.chip b{color:var(--green)}
+.bar{height:10px;border-radius:8px;background:#111927;overflow:hidden;margin:12px 0 10px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--gold));width:0;transition:width .25s}
+.controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.controls button{border:1px solid #334155;background:#111927;color:var(--ink);border-radius:10px;padding:8px 11px;font-weight:800;cursor:pointer}.controls button:hover{border-color:var(--gold)}.controls button:disabled{opacity:.4;cursor:wait}
+#status{margin-left:auto;color:var(--blue);font-size:.78rem;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}.card{background:var(--panel);border:2px solid #263142;border-radius:13px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.32)}.card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#111}.meta{padding:9px 10px 8px;min-height:72px}.alt{font-size:.72rem;line-height:1.35;font-weight:700}.credit{font-size:.62rem;color:var(--muted);margin-top:5px}.credit a{color:var(--blue)}
+.decide{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #263142}.decide button{border:0;padding:12px;cursor:pointer;font-size:1.15rem;font-weight:950}.yes{background:#123b18;color:var(--green)}.no{background:#40101a;color:var(--red)}.yes:hover{background:#185223}.no:hover{background:#5a1424}
+.empty{grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--muted);font-weight:800}.gate{position:fixed;inset:0;z-index:50;background:#05070b;display:flex;align-items:center;justify-content:center}.gatebox{width:min(390px,90vw);padding:28px;background:var(--panel);border:2px solid var(--gold);border-radius:18px;text-align:center}.gatebox h2{margin:0 0 8px;color:var(--gold)}.gatebox input{width:150px;padding:13px;text-align:center;letter-spacing:.35em;background:#070b11;color:#fff;border:1px solid #334155;border-radius:10px;font-size:1.2rem}.gatebox button{display:block;margin:13px auto 0;padding:11px 24px;border:0;border-radius:10px;background:var(--gold);font-weight:900;cursor:pointer}
+@media(max-width:560px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.card{border-radius:9px}.meta{padding:7px;min-height:60px}.alt{font-size:.65rem}.decide button{padding:10px}.head h1{font-size:1.05rem}#status{width:100%;margin:0}}
+</style>
+</head>
+<body>
+<div id="gate" class="gate"><div class="gatebox"><h2>🦄 CRO Image Review</h2><p>Enter the owner code</p><input id="code" type="password" maxlength="4" inputmode="numeric"><button id="enter">Open first 100</button><p id="gateErr"></p></div></div>
+<main class="wrap">
+  <section class="top">
+    <div class="head">
+      <div><h1>Chief Revenue Officer · Pexels Library</h1><p>100 at a time · ✓ saves forever · ✕ permanently rejects · duplicate Pexels IDs blocked</p></div>
+      <div class="counts"><span class="chip">Batch <b id="batchNo">1</b>/20</span><span class="chip">Pending <b id="pending">0</b></span><span class="chip">Approved <b id="approved">0</b></span><span class="chip">Rejected <b id="rejected">0</b></span><span class="chip">Unique <b id="unique">0</b>/2,000</span></div>
+    </div>
+    <div class="bar"><i id="progress"></i></div>
+    <div class="controls">
+      <button id="prev">← Previous 100</button>
+      <button id="next">Next 100 →</button>
+      <button id="reload">Refresh</button>
+      <button id="library">Approved library</button>
+      <span id="status">Waiting…</span>
+    </div>
+  </section>
+  <section id="grid" class="grid"><div class="empty">Enter the owner code to load images.</div></section>
+</main>
+<script>
+(function(){
+  var API='/.netlify/functions/pulse-pexels-cro-review',key='',batch=1,data=null,fillTimer=null,showLibrary=false;
+  var $=function(id){return document.getElementById(id);};
+  function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function api(action,opts){
+    opts=opts||{};
+    if(opts.method==='POST')return fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({key:key,action:action,batch:batch},opts.body||{}))}).then(function(r){return r.json();});
+    return fetch(API+'?key='+encodeURIComponent(key)+'&action='+encodeURIComponent(action)+'&batch='+batch,{cache:'no-store'}).then(function(r){return r.json();});
+  }
+  function counts(d){
+    var c=(d&&d.counts)||{},b=(d&&d.batch)||{candidates:[],decisions:{}};
+    var reviewed=Object.keys(b.decisions||{}).length,pending=Math.max(0,(b.count||0)-reviewed);
+    $('batchNo').textContent=batch;$('pending').textContent=pending;$('approved').textContent=c.approved||0;$('rejected').textContent=c.rejected||0;$('unique').textContent=c.uniqueServed||0;
+    $('progress').style.width=Math.min(100,((c.reviewed||0)/2000)*100)+'%';
+    $('prev').disabled=batch<=1;$('next').disabled=batch>=20;
+  }
+  function card(p){
+    return '<article class="card" data-id="'+esc(p.id)+'"><img src="'+esc(p.src)+'" alt="'+esc(p.alt||'Chief Revenue Officer image candidate')+'" loading="lazy" decoding="async"><div class="meta"><div class="alt">'+esc(p.alt||'Executive leadership image')+'</div><div class="credit">Photo by <a href="'+esc(p.photographerUrl||p.pexelsUrl)+'" target="_blank" rel="noopener">'+esc(p.photographer||'Pexels contributor')+'</a> on Pexels · #'+esc(p.id)+'</div></div><div class="decide"><button class="yes" title="Approve and save to library">✓</button><button class="no" title="Reject and remove">✕</button></div></article>';
+  }
+  function render(d){
+    data=d;counts(d);
+    var b=d&&d.batch,dec=(b&&b.decisions)||{};
+    var items=((b&&b.candidates)||[]).filter(function(p){return !dec[p.id];});
+    $('grid').innerHTML=items.length?items.map(card).join(''):'<div class="empty">'+((b&&b.complete)?'This batch is fully reviewed. Move to the next 100.':'Finding unique Pexels images…')+'</div>';
+    $('status').textContent=(b&&b.complete)?('Batch '+batch+' ready · '+b.count+'/100 unique'):('Loading '+((b&&b.count)||0)+'/100 unique…');
+    if(b&&!b.complete)scheduleFill(d.retryAfterMs||0);
+  }
+  function scheduleFill(ms){
+    clearTimeout(fillTimer);$('status').textContent='Pexels pace · next unique set in '+Math.ceil(Math.max(0,ms)/1000)+'s';
+    fillTimer=setTimeout(function(){api('fill').then(render).catch(function(e){$('status').textContent='Retrying…';scheduleFill(18000);});},Math.max(250,ms||250));
+  }
+  function load(){clearTimeout(fillTimer);showLibrary=false;api('status').then(function(d){if(!d.ok)throw new Error(d.error||'load failed');render(d);}).catch(function(e){$('status').textContent=e.message;});}
+  function decide(card,approved){
+    var id=card.getAttribute('data-id');card.style.opacity='.35';card.style.pointerEvents='none';
+    api('decision',{method:'POST',body:{id:id,approved:approved}}).then(function(d){card.remove();render(d);}).catch(function(){card.style.opacity='1';card.style.pointerEvents='';});
+  }
+  $('grid').addEventListener('click',function(e){var b=e.target.closest('button'),c=e.target.closest('.card');if(!b||!c)return;decide(c,b.classList.contains('yes'));});
+  $('enter').onclick=function(){key=$('code').value.trim();sessionStorage.setItem('pulsePexelsKey',key);api('status').then(function(d){if(!d.ok)throw new Error(d.error||'bad code');$('gate').style.display='none';render(d);}).catch(function(e){$('gateErr').textContent=e.message;});};
+  $('code').addEventListener('keydown',function(e){if(e.key==='Enter')$('enter').click();});
+  $('prev').onclick=function(){if(batch>1){batch--;load();}};$('next').onclick=function(){if(batch<20){batch++;load();}};$('reload').onclick=load;
+  $('library').onclick=function(){showLibrary=!showLibrary;if(!showLibrary){load();return;}clearTimeout(fillTimer);api('library').then(function(d){counts({counts:d.counts,batch:{count:0,decisions:{}}});$('status').textContent='Approved future-use library';$('grid').innerHTML=(d.approved||[]).map(card).join('')||'<div class="empty">No approved images yet.</div>';[].forEach.call(document.querySelectorAll('.decide'),function(x){x.remove();});});};
+  key=sessionStorage.getItem('pulsePexelsKey')||'';if(key){$('code').value=key;$('enter').click();}
+})();
+</script>
+</body>
+</html>

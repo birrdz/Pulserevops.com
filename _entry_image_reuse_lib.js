@@ -21,7 +21,7 @@ const { shouldSkipMv } = require('./netlify/functions/lib/mv-pillar-guard');
 const WD = path.join(__dirname);
 
 const FACE_GENERIC = /\/assets\/cro-cover-\d|placeholder|og-preview|pulse-og|no-?image|pollinations\.ai/i;
-const VALID_COVER_SRC = new Set(['flux', 'ddg-facecard', 'internal-reuse', 'product-reuse']);
+const VALID_COVER_SRC = new Set(['flux', 'pexels', 'ddg-facecard', 'internal-reuse', 'product-reuse']);
 
 function localAssetPath(url) {
   const u = String(url || '').trim().split('?')[0];

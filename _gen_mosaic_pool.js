@@ -2,7 +2,7 @@
 // Replaces the 43× pulse-machine-library-list fan-out (~2.7s each = ~20s) with a single ~0.1s CDN fetch.
 // Pool = entries with a live flux cover (cover_src:'flux') OR quality_score>=13, round-robin by pillar,
 // newest+best first, capped POOL total / PER_PILLAR each so no pillar dominates. Regenerate on each deploy.
-// Writes: mosaic-pool.json  (fields the mosaic tile needs: id, question, img, cover_src, quality_score, ts)
+// Writes: mosaic-pool.json (tile fields plus timestamps/provenance for homepage trim colors)
 const fs = require('fs');
 const WD = 'C:/Users/koryj/website';
 for (const l of fs.readFileSync(WD + '/.env.local', 'utf8').split(/\r?\n/)) { const m = l.match(/^\s*([A-Za-z0-9_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
@@ -38,7 +38,19 @@ const TL_CAP = parseInt(process.env.MOSAIC_TL_CAP || '40', 10); // tools pillar 
     added = false;
     for (const p of pills) { if (out.length >= POOL) break; if (cur[p] < byP[p].length) { out.push(byP[p][cur[p]++]); added = true; } }
   }
-  const leanOf = e => ({ id: e.id, question: String(e.question).replace(/\s+/g, ' ').trim().slice(0, 130), img: e.img, cover_src: e.cover_src || '', quality_score: (typeof e.quality_score === 'number' ? e.quality_score : null), ts: e.ts || 0 });
+  const leanOf = e => ({
+    id: e.id,
+    question: String(e.question).replace(/\s+/g, ' ').trim().slice(0, 130),
+    img: e.img,
+    cover_src: e.cover_src || '',
+    quality_score: (typeof e.quality_score === 'number' ? e.quality_score : null),
+    ts: e.ts || 0,
+    polished_at: e.polished_at || null,
+    cover_upgraded: !!e.cover_upgraded,
+    cover_upgraded_at: e.cover_upgraded_at || null,
+    face_verified: !!e.face_verified,
+    image_reuse_at: e.image_reuse_at || null,
+  });
   const lean = out.map(leanOf);
   fs.writeFileSync(WD + '/mosaic-pool.json', JSON.stringify(lean));
   const fluxN = lean.filter(x => x.cover_src === 'flux').length;
