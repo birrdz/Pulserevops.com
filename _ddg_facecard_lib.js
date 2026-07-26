@@ -5,8 +5,23 @@
 const FACE_TITLE_ORANGE = process.env.FACE_TITLE_COLOR || '#FFD54F';
 const FACE_TITLE_STROKE = process.env.FACE_TITLE_STROKE || '#000000';
 // Every cover/section image passes storeGradedImage (grade + EXIF PULSE_GRADE=v_final + self-host).
-const fs = require('fs'), sharp = require('sharp');
-const WD = 'C:/Users/koryj/website', DIR = WD + '/assets/qa', S = 760;
+const fs = require('fs'), path = require('path'), sharp = require('sharp');
+// Workspace root for /assets/qa writes. Owner Windows keeps the legacy path;
+// cloud/Linux agents MUST use process.cwd() — never invent a C:/ tree under cwd
+// (that stranded drip images and left live /assets/qa/* as 404s).
+const LEGACY_WIN_WD = 'C:/Users/koryj/website';
+function resolvePulseWd() {
+  if (process.env.PULSE_WD) return path.resolve(process.env.PULSE_WD);
+  if (process.platform === 'win32') {
+    try {
+      if (fs.existsSync(LEGACY_WIN_WD)) return LEGACY_WIN_WD;
+    } catch (e) {}
+  }
+  return process.cwd();
+}
+const WD = resolvePulseWd();
+const DIR = path.join(WD, 'assets', 'qa');
+const S = 760;
 // Mosaic tile display ratio (pulse-mosaic.css — 1080×360 row). Bake face-cards at this aspect so
 // object-fit:cover on the tile shows the subject, not random square-crop edges.
 const FACE_CARD_TILE_W = parseInt(process.env.FACE_CARD_TILE_W || '1200', 10);
@@ -162,6 +177,7 @@ async function storeGradedImage(rawBuf, destPath, opts = {}) {
     .jpeg({ quality: 82, mozjpeg: true })
     .withMetadata({ exif: { IFD0: { ImageDescription: gradeDesc } } })   // PROOF-OF-GRADE + optional PULSE_MOVIE stamp
     .toBuffer();
+  try { fs.mkdirSync(path.dirname(destPath), { recursive: true }); } catch (e) {}
   fs.writeFileSync(destPath, graded);
   return { hash: crypto.createHash('sha256').update(graded).digest('hex'), size: graded.length, w: m.width, h: m.height, path: destPath };
 }
@@ -238,7 +254,7 @@ const _bo = ms => new Promise(r => setTimeout(r, ms));
 // Pass allowTopicalReuse: true on Q&A fill paths; new Flux/DDG still preferred when no good match.
 // Hard-block ONLY within the same Q&A page (same URL or near-identical pHash on one page).
 // Mosaic/list pages dedupe at render time so the same image never shows twice on one load.
-const REG_F = WD + '/_img_registry.json';
+const REG_F = path.join(WD, '_img_registry.json');
 const REG_HAMMING = 8;
 let _reg = null, _regDirty = 0, _backfilled = false;
 function loadReg() { if (_reg) return _reg; try { _reg = JSON.parse(fs.readFileSync(REG_F, 'utf8')); } catch (e) { _reg = { entries: [] }; } if (!Array.isArray(_reg.entries)) _reg.entries = []; return _reg; }
@@ -462,6 +478,9 @@ async function stampCoverProvenance(id, store, src, opts) {
   opts = opts || {};
   if (!VALID_FACE_COVER_SRC.has(src)) return;
   try {
+    // Do not point the index at /assets/qa/{id}.jpg unless the local file exists —
+    // otherwise purge/drip can claim a face while CDN still 404s (white page).
+    if (!coverFileOk(id)) return;
     const idx = await store.get('_index.json', { type: 'json', consistency: 'strong' });
     const ent = (idx.entries || []).find(x => x && x.id === id);
     if (ent) {

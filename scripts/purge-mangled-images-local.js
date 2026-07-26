@@ -11,7 +11,12 @@ const KEY = 'pulsemachine-writer-2026';
 const SITE = 'https://pulserevops.com';
 const STATE_KEY = '_mangled_image_purge_state.json';
 const LIMIT = parseInt(process.env.PURGE_LIMIT || '5000', 10);
+// Owner cadence: process PURGE_MAX_NEW=2750 (full wave), THEN fact-check that same batch.
+const MAX_NEW = parseInt(process.env.PURGE_MAX_NEW || '0', 10); // if >0, only process this many not-yet-done
 const BATCH_LOG = parseInt(process.env.PURGE_BATCH_LOG || '25', 10);
+// PURGE_REPROCESS=1 → re-run purge on existing doneIds (or PURGE_IDS_JSON list), do not scan "new" ids
+const REPROCESS = String(process.env.PURGE_REPROCESS || '') === '1';
+const IDS_JSON = process.env.PURGE_IDS_JSON || ''; // optional path/blob key override via local file path
 
 const MANGLED_RX =
   /(?:%2C%20|,)\s*realistic\s+magazine\s+style|nologo=true|model=flux|image\.pollinations\.ai|no%20watermark\?width=|prompt\/[^)\s]*no%20text/i;
@@ -117,18 +122,56 @@ async function main() {
     .slice(0, LIMIT);
 
   const done = new Set(state.doneIds || []);
-  const todo = rows.filter((e) => !done.has(e.id));
-  console.log(JSON.stringify({ phase: 'start', limit: LIMIT, todo: todo.length, alreadyDone: done.size }));
+  let todo;
+  if (REPROCESS || IDS_JSON) {
+    let ids = [];
+    if (IDS_JSON) {
+      const fs = require('fs');
+      ids = JSON.parse(fs.readFileSync(IDS_JSON, 'utf8'));
+      if (ids && ids.ids) ids = ids.ids;
+    } else {
+      ids = (state.doneIds || []).slice();
+    }
+    if (!Array.isArray(ids) || !ids.length) throw new Error('reprocess: no ids');
+    if (MAX_NEW > 0) ids = ids.slice(0, MAX_NEW);
+    const byId = new Map(rows.map((e) => [e.id, e]));
+    todo = ids.map((id) => byId.get(id) || { id });
+    // allow re-processing these ids
+    for (const id of ids) done.delete(id);
+    console.log(
+      JSON.stringify({
+        phase: 'reprocess-start',
+        todo: todo.length,
+        maxNew: MAX_NEW || null,
+        note: 'full restart on locked wave — mangled purge first',
+      })
+    );
+  } else {
+    todo = rows.filter((e) => !done.has(e.id));
+    if (MAX_NEW > 0) todo = todo.slice(0, MAX_NEW);
+    console.log(
+      JSON.stringify({
+        phase: 'start',
+        limit: LIMIT,
+        maxNew: MAX_NEW || null,
+        todo: todo.length,
+        alreadyDone: done.size,
+      })
+    );
+  }
 
-  await emailOne(
-    'PULSE mangled/broken image purge started',
-    '<p>Purging mangled/broken image slots (not white photos) newest→oldest.</p>' +
-      '<p>Queue: <b>' +
-      todo.length +
-      '</b> of newest ' +
-      LIMIT +
-      '. One email per purged page.</p>'
-  );
+  // No batch-start email on reprocess (owner wants per-page only when something changes)
+  if (!REPROCESS && !IDS_JSON) {
+    await emailOne(
+      'PULSE mangled/broken image purge started',
+      '<p>Purging mangled/broken image slots (not white photos) newest→oldest.</p>' +
+        '<p>Queue: <b>' +
+        todo.length +
+        '</b> of newest ' +
+        LIMIT +
+        '. One email per purged page.</p>'
+    );
+  }
 
   let purged = 0;
   let scanned = 0;
@@ -276,19 +319,21 @@ async function main() {
   state.complete = true;
   await s.setJSON(STATE_KEY, state);
 
-  await emailOne(
-    'PULSE mangled/broken purge finished — ' + purged + ' fixed',
-    '<p>Finished newest ' +
-      LIMIT +
-      '.</p><p>scanned=' +
-      scanned +
-      ' purged=' +
-      purged +
-      ' clean/skipped=' +
-      skipped +
-      '</p>'
-  );
-  console.log(JSON.stringify({ done: true, scanned, purged, skipped }));
+  if (!REPROCESS && !IDS_JSON) {
+    await emailOne(
+      'PULSE mangled/broken purge finished — ' + purged + ' fixed',
+      '<p>Finished newest ' +
+        LIMIT +
+        '.</p><p>scanned=' +
+        scanned +
+        ' purged=' +
+        purged +
+        ' clean/skipped=' +
+        skipped +
+        '</p>'
+    );
+  }
+  console.log(JSON.stringify({ done: true, reprocess: !!(REPROCESS || IDS_JSON), scanned, purged, skipped }));
 }
 
 main().catch((e) => {
