@@ -1,6 +1,9 @@
-// pexels-throttle.js — serial Pexels API, one request in flight.
-// Default floor: ≥18s between calls. Owner ultra override:
-//   CURSOR_ULTRA=1 | ULTRA_PLAN=1 | PEXELS_ALLOW_FAST=1  → may lower via PEXELS_PACE_MS (default 1s)
+// pexels-throttle.js — serial Pexels API, ONE request in flight (never parallel).
+// Default floor: ≥18s between calls.
+// Owner ultra / Cursor drip:
+//   CURSOR_ULTRA=1 | ULTRA_PLAN=1 | PEXELS_ALLOW_FAST=1
+//   → artificial wait = PEXELS_PACE_MS (default 0 — zero wait; still one-at-a-time)
+// Real 429s still sleep and retry (not an artificial pace).
 'use strict';
 
 const PEXELS_MIN_GAP_MS = 18000;
@@ -21,8 +24,9 @@ function ultraFast() {
 function pexelsMinGapMs() {
   const env = parseInt(process.env.PEXELS_PACE_MS || '0', 10);
   if (ultraFast()) {
-    const pace = Number.isFinite(env) && env > 0 ? env : 1000;
-    return Math.max(500, pace);
+    // Zero artificial wait by default — serial queue alone enforces one-at-a-time.
+    if (!Number.isFinite(env) || env <= 0) return 0;
+    return env;
   }
   return Math.max(PEXELS_MIN_GAP_MS, Number.isFinite(env) ? env : 0);
 }
