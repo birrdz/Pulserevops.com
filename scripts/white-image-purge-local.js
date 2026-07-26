@@ -29,13 +29,27 @@ loadEnv(path.join(process.cwd(), '.env.local'));
 const SITE_ID = process.env.NETLIFY_SITE_ID || 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
 const KEY = 'pulsemachine-writer-2026';
 const SITE = 'https://pulserevops.com';
-const STATE_KEY = '_white_image_purge_local_state.json';
 const BUSY_FILE = '/tmp/cursor-drip-busy.id';
 const BATCH = Math.max(10, parseInt(process.env.WHITE_PURGE_BATCH || '80', 10));
 const IDLE_MS = Math.max(500, parseInt(process.env.WHITE_PURGE_IDLE_MS || '3000', 10));
 // Owner: digest every 10 purged pages (not 40). Clamp 1–10 so we never silently go higher.
 const EMAIL_EVERY = Math.min(10, Math.max(1, parseInt(process.env.WHITE_PURGE_EMAIL_EVERY || '10', 10) || 10));
 const ONCE = String(process.env.WHITE_PURGE_ONCE || '') === '1';
+// Pillar lock — e.g. WHITE_PURGE_PILLAR=tl (CRO Pulse Tools). Same as DRIP_PILLAR if unset.
+const PILLAR_PREFIXES = String(process.env.WHITE_PURGE_PILLAR || process.env.DRIP_PILLAR || '')
+  .split(/[,\s]+/)
+  .map((x) => x.trim().toLowerCase())
+  .filter(Boolean);
+function idInPillar(id) {
+  if (!PILLAR_PREFIXES.length) return true;
+  const s = String(id || '').toLowerCase();
+  return PILLAR_PREFIXES.some((p) => s.startsWith(p));
+}
+const pillarKey = PILLAR_PREFIXES.join(',') || 'all';
+const STATE_KEY =
+  pillarKey === 'all'
+    ? '_white_image_purge_local_state.json'
+    : '_white_image_purge_local_state_' + pillarKey + '.json';
 
 const MANGLED_RX =
   /(?:%2C%20|,)\s*realistic\s+magazine\s+style|nologo=true|model=flux|image\.pollinations\.ai|no%20watermark\?width=|prompt\/[^)\s]*no%20text/i;
@@ -381,18 +395,23 @@ async function ensureInventory(s, state) {
     !Array.isArray(state.inventoryIds) ||
     !state.inventoryIds.length ||
     !state.inventoryBuiltAt ||
+    state.pillarLock !== pillarKey ||
     Date.now() - Date.parse(state.inventoryBuiltAt) > 6 * 3600 * 1000;
   if (!need) return;
   const idx = await s.get('_index.json', { type: 'json', consistency: 'strong' });
   if (!idx || !Array.isArray(idx.entries)) throw new Error('no index');
   const rows = idx.entries
-    .filter((e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)))
+    .filter((e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)) && idInPillar(e.id))
     .slice()
     .sort((a, b) => entryTs(b) - entryTs(a));
   state.inventoryIds = rows.map((e) => String(e.id).toLowerCase());
   state.inventoryBuiltAt = new Date().toISOString();
-  if (state.cursor == null) state.cursor = 0;
-  console.log(JSON.stringify({ phase: 'inventory', inventory: state.inventoryIds.length }));
+  state.pillarLock = pillarKey;
+  state.cursor = 0;
+  state.doneIds = [];
+  console.log(
+    JSON.stringify({ phase: 'inventory', inventory: state.inventoryIds.length, pillar: pillarKey })
+  );
 }
 
 async function tick(s, state) {
@@ -498,7 +517,16 @@ async function main() {
   } catch (e) {}
 
   // No startup spam — first digest fires at 10 purged pages
-  console.log(JSON.stringify({ phase: 'start', batch: BATCH, idleMs: IDLE_MS, emailEvery: EMAIL_EVERY }));
+  console.log(
+    JSON.stringify({
+      phase: 'start',
+      batch: BATCH,
+      idleMs: IDLE_MS,
+      emailEvery: EMAIL_EVERY,
+      pillar: pillarKey,
+      stateKey: STATE_KEY,
+    })
+  );
 
   for (;;) {
     try {

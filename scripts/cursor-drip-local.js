@@ -165,8 +165,17 @@ if (!process.env.NETLIFY_AUTH_TOKEN && process.env.BLOBS_PAT) {
 const SITE_ID = process.env.NETLIFY_SITE_ID || 'a2b74b30-a1ac-40e2-9622-aebfc2feb482';
 const KEY = 'pulsemachine-writer-2026';
 const SITE = 'https://pulserevops.com';
-const STATE_KEY = '_cursor_drip_state.json';
 const QUEUE_KEY = '_cursor_write_queue.json';
+// Pillar-scoped state so switching locks doesn't corrupt sitewide cursors.
+function dripStateKey() {
+  const p = String(process.env.DRIP_PILLAR || '')
+    .split(/[,\s]+/)
+    .map((x) => x.trim().toLowerCase())
+    .filter(Boolean)
+    .join(',');
+  return p ? '_cursor_drip_state_' + p + '.json' : '_cursor_drip_state.json';
+}
+const STATE_KEY = dripStateKey();
 const DROP_FILE = path.join(process.cwd(), 'logs', 'drip-audit-drop.jsonl');
 const LOCAL_QUEUE = path.join(process.cwd(), 'logs', 'cursor-write-queue.json');
 const ASSET_DIR = path.join(process.cwd(), 'assets', 'qa');
@@ -177,6 +186,16 @@ const FULL_INVENTORY = String(process.env.DRIP_FULL_INVENTORY || '1') !== '0';
 // When white-purge service is clearing inventory, prefer fact-check/content first.
 // Image-only pages still get picked if nothing else is due (or DRIP_DEFER_IMAGE_PURGE=0).
 const DEFER_IMAGE_PURGE = String(process.env.DRIP_DEFER_IMAGE_PURGE || '1') !== '0';
+// Pillar lock — e.g. DRIP_PILLAR=tl (CRO Pulse Tools). Comma-separated prefixes OK.
+const PILLAR_PREFIXES = String(process.env.DRIP_PILLAR || '')
+  .split(/[,\s]+/)
+  .map((x) => x.trim().toLowerCase())
+  .filter(Boolean);
+function idInPillar(id) {
+  if (!PILLAR_PREFIXES.length) return true;
+  const s = String(id || '').toLowerCase();
+  return PILLAR_PREFIXES.some((p) => s.startsWith(p));
+}
 const PEXELS_KEY = process.env.PEXELS_API_KEY || process.env.Pexels_Api_Key;
 
 const MANGLED_RX =
@@ -741,14 +760,18 @@ function needsDrip(blob, id, dropSet) {
 async function ensureInventory(s, state) {
   const dropIds = readDropFile(state.drop || (state.drop = { lines: 0 }));
   const dropSet = new Set(dropIds);
+  const pillarKey = PILLAR_PREFIXES.join(',') || '*';
   const needRefresh =
     !Array.isArray(state.inventoryIds) ||
     !state.inventoryIds.length ||
     !state.inventoryBuiltAt ||
+    state.pillarLock !== pillarKey ||
     Date.now() - Date.parse(state.inventoryBuiltAt) > 6 * 3600 * 1000;
   if (needRefresh) {
     const idx = await s.get('_index.json', { type: 'json' });
-    const rows = ((idx && idx.entries) || []).filter((e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)));
+    const rows = ((idx && idx.entries) || []).filter(
+      (e) => e && e.id && /^[a-z]{2,3}\d/i.test(String(e.id)) && idInPillar(e.id)
+    );
     const scored = rows.map((row) => ({ id: String(row.id).toLowerCase(), ts: entryTs({}, row) || 0 }));
     scored.sort((a, b) => b.ts - a.ts);
     const seen = new Set();
@@ -760,14 +783,24 @@ async function ensureInventory(s, state) {
     }
     for (let i = dropIds.length - 1; i >= 0; i--) {
       const id = dropIds[i];
+      if (!idInPillar(id)) continue;
       const at = ids.indexOf(id);
       if (at >= 0) ids.splice(at, 1);
       ids.unshift(id);
     }
     state.inventoryIds = ids;
     state.inventoryBuiltAt = new Date().toISOString();
-    if (state.invCursor == null) state.invCursor = 0;
-    console.log(JSON.stringify({ phase: 'cursor-drip-inventory', inventory: ids.length, fullInventory: FULL_INVENTORY }));
+    state.pillarLock = pillarKey;
+    state.invCursor = 0;
+    state.imgCursor = 0;
+    console.log(
+      JSON.stringify({
+        phase: 'cursor-drip-inventory',
+        inventory: ids.length,
+        fullInventory: FULL_INVENTORY,
+        pillar: pillarKey,
+      })
+    );
   }
   return dropSet;
 }
@@ -813,6 +846,7 @@ async function findOne(s, state) {
   } catch (e) {}
   const forceId = String(process.env.DRIP_FORCE_ID || '').trim();
   if (forceId) {
+    if (!idInPillar(forceId)) throw new Error('DRIP_FORCE_ID outside pillar lock: ' + forceId);
     const blob = await s.get('answers/' + forceId + '.json', { type: 'json' });
     if (!blob || !blob.answer) throw new Error('DRIP_FORCE_ID missing blob: ' + forceId);
     const imgAudit = await auditImagesOnPage(blob, forceId);
@@ -828,7 +862,9 @@ async function findOne(s, state) {
   }
 
   // PASS A — existing Cursor queue pending (fact-check / content work)
-  const pending = (queue.items || []).filter((x) => x && x.status === 'pending');
+  const pending = (queue.items || []).filter(
+    (x) => x && x.status === 'pending' && idInPillar(x.id)
+  );
   if (pending.length) {
     const it = pending[0];
     const blob = await s.get('answers/' + it.id + '.json', { type: 'json' });
@@ -1613,6 +1649,7 @@ async function main() {
       forceId: process.env.DRIP_FORCE_ID || null,
       once,
       deferImagePurge: DEFER_IMAGE_PURGE,
+      pillar: PILLAR_PREFIXES.join(',') || '*',
       emailEvery: EMAIL_EVERY,
       emailMaxGapMin: Math.round(EMAIL_MAX_GAP_MS / 60000),
     })
