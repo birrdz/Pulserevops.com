@@ -246,10 +246,13 @@ async function main() {
   await s.setJSON(CYCLE_KEY, cycle);
 
   const sectionBit = sections.length ? sections.slice(0, 4).join(', ') : 'flagged sections';
+  const fromDrip = String((critique && critique.source) || '') === 'drip-audit';
   const subject = (
     'PULSE ' +
     id +
-    ': fact-check ' +
+    ': ' +
+    (fromDrip ? 'drip audit · ' : '') +
+    'fact-check ' +
     sectionBit +
     ' · rewrote body with Cursor · 1 Pexels image replaced'
   ).slice(0, 180);
@@ -258,6 +261,9 @@ async function main() {
     '<p><b>What Cursor did on <code>' +
     esc(id) +
     '</code></b></p>' +
+    (fromDrip
+      ? '<p><b>Drip audit:</b> this URL came from the always-on newly-fixed monitor.</p>'
+      : '<p><b>Drip audit:</b> included in the continuous fixed-URL audit drop.</p>') +
     '<p><a href="' +
     esc(url) +
     '">' +
@@ -267,7 +273,7 @@ async function main() {
     esc(String(question).slice(0, 200)) +
     '</p>' +
     '<ol>' +
-    '<li><b>Fact-check:</b> ' +
+    '<li><b>Fact-check / drip audit:</b> ' +
     esc(sectionBit) +
     (issues.length ? ' — ' + issues.length + ' issue(s)' : '') +
     '.</li>' +
@@ -279,7 +285,7 @@ async function main() {
     '</code>.</li>' +
     '</ol>' +
     (issues.length
-      ? '<p><b>Fact-check findings:</b></p><ul>' +
+      ? '<p><b>Drip audit / fact-check findings:</b></p><ul>' +
         issues
           .slice(0, 8)
           .map((x) => '<li>' + esc(String(x).slice(0, 220)) + '</li>')
