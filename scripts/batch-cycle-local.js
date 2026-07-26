@@ -137,8 +137,13 @@ function clip(answer) {
 }
 
 const AUDIT_SYS = `Strict fact-checker. Return ONLY JSON:
-{"verdict":"pass"|"flag","issues":["..."],"hallucinations":["exact false claim"],"content_gaps":["thin/missing section"]}
+{"verdict":"pass"|"flag","issues":["..."],"hallucinations":["..."],"content_gaps":["..."],"sections":["Direct Answer","## 2. ...","FAQ"]}
+RULES for each string in issues/hallucinations/content_gaps:
+- Start with the section name or number when possible, e.g. "Section 2:", "Section 3:", "Direct Answer:", "FAQ:", "Bottom Line:", "How We Ranked:".
+- Then name the bad number/claim, e.g. "Section 2: price \$12k contradicts Section 3 \$18k".
+- Prefer concrete wrong numbers/years/stats over vague wording.
 FLAG invented facts/vendors/stats/years, contradictions, wrong Direct Answer, missing required sections.
+"sections" = list of section headings/numbers you actually checked that had problems.
 (Pipeline always redoes the Pexels image whenever content is rewritten for a flag.)`;
 
 const FIX_SYS = `Rewrite the article to remove hallucinations and fill content gaps.
@@ -193,6 +198,147 @@ function swapLeadingImage(answer, rel, title) {
   }
   // no leading image slot — do not add (visual lock / slot count)
   return ans;
+}
+
+function esc(s) {
+  return String(s || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/** Pull section labels like "Section 2", "FAQ", "Direct Answer" from issue text. */
+function extractSectionLabels(items) {
+  const labels = [];
+  const seen = new Set();
+  for (const raw of items || []) {
+    const s = String(raw || '');
+    const m =
+      s.match(/^(Direct Answer|Bottom Line|How We Ranked|FAQ|Sources|What to Look For)\b/i) ||
+      s.match(/^Section\s+(\d+)\b/i) ||
+      s.match(/^##\s*(\d+)[.:]\s*([^\n—:-]{0,40})/i) ||
+      s.match(/\b(?:in|for)\s+Section\s+(\d+)\b/i);
+    let label = '';
+    if (m) {
+      if (/^\d+$/.test(m[1] || '')) label = 'Section ' + m[1];
+      else if (m[0].toLowerCase().startsWith('section')) label = 'Section ' + (m[1] || '').trim();
+      else label = m[1] || m[0];
+      label = String(label).replace(/\s+/g, ' ').trim();
+      // normalize casing for named sections
+      if (/^direct answer$/i.test(label)) label = 'Direct Answer';
+      if (/^bottom line$/i.test(label)) label = 'Bottom Line';
+      if (/^faq$/i.test(label)) label = 'FAQ';
+      if (/^how we ranked$/i.test(label)) label = 'How We Ranked';
+      if (/^sources$/i.test(label)) label = 'Sources';
+    }
+    if (label && !seen.has(label.toLowerCase())) {
+      seen.add(label.toLowerCase());
+      labels.push(label);
+    }
+  }
+  return labels;
+}
+
+/** Build subject + HTML that states exactly what was done, including fact-check sections. */
+function describeUpdateEmail({ id, question, url, audit, actions, issues, writer }) {
+  const halls = [].concat((audit && audit.hallucinations) || []);
+  const gaps = [].concat((audit && audit.content_gaps) || []);
+  const other = [].concat((audit && audit.issues) || []);
+  const auditSections = [].concat((audit && audit.sections) || []);
+  const pexelsActs = actions.filter((a) => String(a).startsWith('pexels:'));
+  const imgQueries = pexelsActs.map((a) => String(a).replace(/^pexels:/, '').trim()).filter(Boolean);
+  const imgCount = pexelsActs.length;
+  const didRewrite = actions.includes('content-rewrite') || actions.includes('pexels-backfill');
+
+  const fromText = extractSectionLabels([].concat(halls, gaps, other, issues));
+  const sectionLabels = [];
+  const seenSec = new Set();
+  for (const s of [].concat(auditSections, fromText)) {
+    const t = String(s || '').replace(/\s+/g, ' ').trim();
+    if (!t || seenSec.has(t.toLowerCase())) continue;
+    seenSec.add(t.toLowerCase());
+    sectionLabels.push(t);
+  }
+
+  const factBits = [];
+  if (sectionLabels.length) {
+    factBits.push('fact-check ' + sectionLabels.slice(0, 4).join(', '));
+  } else {
+    factBits.push('fact-check');
+  }
+  if (halls.length) factBits.push(halls.length + ' incorrect number/claim' + (halls.length === 1 ? '' : 's'));
+  if (gaps.length) factBits.push(gaps.length + ' gap' + (gaps.length === 1 ? '' : 's') + ' filled');
+  if (!halls.length && !gaps.length && other.length) {
+    factBits.push(other.length + ' issue' + (other.length === 1 ? '' : 's') + ' fixed');
+  }
+
+  const bits = [];
+  bits.push(factBits.join(' — '));
+  if (didRewrite) bits.push('rewrote body with ' + (writer || 'DeepSeek'));
+  if (imgCount) bits.push(imgCount + ' Pexels image' + (imgCount === 1 ? '' : 's') + ' replaced');
+
+  const subject = ('PULSE ' + id + ': ' + bits.join(' · ')).slice(0, 180);
+
+  const issueLines = issues
+    .slice(0, 8)
+    .map((x) => '<li>' + esc(String(x).slice(0, 220)) + '</li>')
+    .join('');
+
+  const sectionLine = sectionLabels.length
+    ? sectionLabels.map((s) => '<code>' + esc(s) + '</code>').join(', ')
+    : '<i>see issues below</i>';
+
+  const html =
+    '<p><b>What I did on <code>' +
+    esc(id) +
+    '</code></b></p>' +
+    '<p><a href="' +
+    esc(url) +
+    '">' +
+    esc(url) +
+    '</a></p>' +
+    '<p><b>Question:</b> ' +
+    esc(String(question || '').slice(0, 200)) +
+    '</p>' +
+    '<ol>' +
+    '<li><b>Fact-check:</b> checked/corrected <b>' +
+    sectionLine +
+    '</b>' +
+    (halls.length ? ' — ' + halls.length + ' incorrect number/claim(s)' : '') +
+    (gaps.length ? ' — ' + gaps.length + ' content gap(s)' : '') +
+    (other.length ? ' — ' + other.length + ' other issue(s)' : '') +
+    '.</li>' +
+    '<li><b>Content:</b> ' +
+    (didRewrite
+      ? 'rewrote/corrected those sections with <b>' +
+        esc(writer || 'DeepSeek') +
+        '</b> (visual-lock: existing image markdown slots preserved, then cover swapped).'
+      : 'no body rewrite') +
+    '</li>' +
+    '<li><b>Images:</b> ' +
+    (imgCount
+      ? 'replaced <b>' +
+        imgCount +
+        '</b> image' +
+        (imgCount === 1 ? '' : 's') +
+        ' via <b>Pexels</b>' +
+        (imgQueries.length
+          ? ' — search: <code>' + esc(imgQueries.join('; ').slice(0, 160)) + '</code>'
+          : '') +
+        ' → <code>/assets/qa/' +
+        esc(id) +
+        '.jpg</code>.'
+      : 'no image change') +
+    '</li>' +
+    '</ol>' +
+    (issueLines
+      ? '<p><b>Fact-check findings (by section):</b></p><ul>' + issueLines + '</ul>'
+      : '') +
+    '<p><b>Summary:</b> ' +
+    esc(bits.join('; ')) +
+    '.</p>';
+
+  return { subject, html };
 }
 
 async function runPurgeBatch(batchSize) {
@@ -375,29 +521,18 @@ async function runFactFixBatch() {
         );
         fixed++;
 
-        // Owner: ONE email only when fact-check → content changed → image changed
+        // Owner: ONE email — subject/body spell out exactly what was done
         if (fullFix) {
-          const imgQuery = String(pexelsAct).replace(/^pexels:/, '');
-          await emailOne(
-            'PULSE updated — ' + id,
-            '<p><b>Fact-checked + content rewritten + image redone</b></p>' +
-              '<p><a href="' +
-              url +
-              '">' +
-              url +
-              '</a></p>' +
-              '<p>New image: <code>/assets/qa/' +
-              id +
-              '.jpg</code> (Pexels: ' +
-              String(imgQuery).replace(/</g, '').slice(0, 120) +
-              ')</p>' +
-              '<ul>' +
-              issues
-                .slice(0, 6)
-                .map((x) => '<li>' + String(x).replace(/</g, '').slice(0, 200) + '</li>')
-                .join('') +
-              '</ul>'
-          );
+          const mail = describeUpdateEmail({
+            id,
+            question,
+            url,
+            audit,
+            actions,
+            issues,
+            writer: 'DeepSeek',
+          });
+          await emailOne(mail.subject, mail.html);
         }
       } else {
         passed++;
