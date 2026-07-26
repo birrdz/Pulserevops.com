@@ -250,28 +250,10 @@ function isMangled(u) {
   return MANGLED_RX.test(String(u || ''));
 }
 
+const { sendOwnerEmail } = require('./lib/pulse-email');
 async function emailOne(subject, html) {
-  try {
-    const r = await fetch(SITE + '/.netlify/functions/pulse-progress-notify?key=' + KEY, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ subject, html }),
-      signal: AbortSignal.timeout(20000),
-    });
-    const bodyText = await r.text().catch(() => '');
-    console.log(
-      JSON.stringify({
-        email: r.ok ? 'ok' : 'fail',
-        status: r.status,
-        subject: String(subject).slice(0, 100),
-        detail: bodyText.slice(0, 160),
-      })
-    );
-    return r.ok;
-  } catch (e) {
-    console.log(JSON.stringify({ email: 'fail', err: String(e.message || e).slice(0, 120) }));
-    return false;
-  }
+  const r = await sendOwnerEmail(subject, html);
+  return !!(r && r.ok);
 }
 
 // Gmail was burying per-URL drip mail (27 sent/hr, inbox showed 0–1). Digest instead.

@@ -111,19 +111,10 @@ function dripBusyId() {
   }
 }
 
+const { sendOwnerEmail } = require('./lib/pulse-email');
 async function emailOne(subject, html) {
-  try {
-    const r = await fetch(SITE + '/.netlify/functions/pulse-progress-notify?key=' + KEY, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ subject, html }),
-      signal: AbortSignal.timeout(15000),
-    });
-    const detail = await r.text();
-    console.log(JSON.stringify({ email: r.ok ? 'ok' : 'fail', status: r.status, subject, detail: detail.slice(0, 120) }));
-  } catch (e) {
-    console.log(JSON.stringify({ email: 'err', subject, err: String(e.message || e).slice(0, 80) }));
-  }
+  const r = await sendOwnerEmail(subject, html);
+  return !!(r && r.ok);
 }
 
 function extractMdImageUrls(answer) {

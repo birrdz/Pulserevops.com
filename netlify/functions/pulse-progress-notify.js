@@ -63,13 +63,35 @@ exports.handler = async (event) => {
     const r = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: 'Bearer ' + resendKey, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from: fromEmail, to: [RECIPIENT], subject, html }),
+      body: JSON.stringify({ from: fromEmail, to: [RECIPIENT], subject, html, reply_to: RECIPIENT }),
     });
+    const t = await r.text();
+    let id = null;
+    try {
+      id = JSON.parse(t).id || null;
+    } catch (e) {}
     if (!r.ok) {
-      const t = await r.text();
-      return { statusCode: 502, body: JSON.stringify({ error: 'resend', status: r.status, detail: t.slice(0, 400) }) };
+      return {
+        statusCode: 502,
+        body: JSON.stringify({ error: 'resend', status: r.status, detail: t.slice(0, 400), from: fromEmail }),
+      };
     }
-    return { statusCode: 200, body: JSON.stringify({ ok: true, provider: 'resend' }) };
+    // Warn when still on Resend sandbox from-address (often never hits Gmail)
+    const sandbox = /onboarding@resend\.dev/i.test(fromEmail);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        ok: true,
+        provider: 'resend',
+        id,
+        from: fromEmail,
+        to: RECIPIENT,
+        sandbox,
+        hint: sandbox
+          ? 'ALERT_FROM_EMAIL is onboarding@resend.dev — verify pulserevops.com on Resend or Gmail may never show mail'
+          : undefined,
+      }),
+    };
   } catch (e) {
     return { statusCode: 502, body: JSON.stringify({ error: 'resend exception', detail: String(e.message || e) }) };
   }

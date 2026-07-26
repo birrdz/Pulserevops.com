@@ -20,3 +20,13 @@ Owner:
 - **Never** DeepSeek or Claude.
 
 Do not “helpfully” fall back to Claude when Anthropic has credits issues, or DeepSeek when Cerebras 429s. Rewrite path stays Cursor (`scripts/cursor-apply-fix.js` + Cursor-written body).
+
+## 2026-07-26 — Email “ok” but inbox empty
+
+Resend returns `ok:true` / message ids while Gmail shows nothing when:
+1. `ALERT_FROM_EMAIL=onboarding@resend.dev` (sandbox), and/or
+2. `pulserevops.com` is **not verified** on https://resend.com/domains
+
+**Fix:** verify domain DNS on Resend → set Netlify env  
+`ALERT_FROM_EMAIL=Pulse Alerts <alerts@pulserevops.com>`.  
+Local drips send via `scripts/lib/pulse-email.js` (Resend direct first).
