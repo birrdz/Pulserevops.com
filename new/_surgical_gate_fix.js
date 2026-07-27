@@ -1,6 +1,10 @@
 'use strict';
 // STRUCTURAL surgical only (owner 2026-07-26). No invented DA / FAQ / generic source URLs.
+// Owner 2026-07-27: when donors (other on-site pages) are provided, borrow FAQ / Sources /
+// mermaids / Related from them before falling back to synthetic mermaid/related stubs.
 const { wordCount } = require('./content_gate.js');
+let borrow = null;
+try { borrow = require('./_site_section_borrow.js'); } catch (e) {}
 
 function headingsOfGate(body) {
   const hs = [];
@@ -26,15 +30,27 @@ function genMermaidGate(title, steps, variant) {
   return out;
 }
 
-function surgicalGateFix(body, question) {
+function surgicalGateFix(body, question, opts) {
+  opts = opts || {};
   let src = String(body || '');
   const title = String(question || 'Overview');
   const fixed = [];
-  if (!src.trim()) return { body: src, fixed };
+  const borrowedFrom = [];
+  if (!src.trim()) return { body: src, fixed, borrowedFrom };
 
   if (/\]\(\s*(#|TODO|)\s*\)/i.test(src)) {
     src = src.replace(/\[([^\]]+)\]\(\s*(?:#|TODO|)\s*\)/gi, '$1');
     fixed.push('CLEAN_LINKS');
+  }
+
+  // Borrow structural pieces from other on-site URLs/pages when provided (stuck → ≥12 path).
+  if (borrow && opts.donors && opts.donors.length) {
+    const br = borrow.borrowSections(src, title, opts.donors, { id: opts.id || '' });
+    if (br.fixed && br.fixed.length) {
+      src = br.body;
+      fixed.push.apply(fixed, br.fixed);
+      if (br.from && br.from.length) borrowedFrom.push.apply(borrowedFrom, br.from);
+    }
   }
 
   const mer = (src.match(/```mermaid/gi) || []).length;
@@ -72,7 +88,7 @@ function surgicalGateFix(body, question) {
     fixed.push('RELATED');
   }
 
-  return { body: src, fixed };
+  return { body: src, fixed, borrowedFrom: [...new Set(borrowedFrom)] };
 }
 
 module.exports = { surgicalGateFix, wordCount };

@@ -393,96 +393,102 @@ async function finishPage(id, blob) {
   let contentFail = false;   // true ONLY when the writer produced a page that failed the gate/topic/dup (a real
                              // content problem). Network/writer-down failures are NOT content fails → never skipped.
   if (DO_WRITE && rebuildToGate && !writeOk) {
-    // 🔓 GUARDRAIL OVERRIDE (owner 2026-07-22): publish any page that reaches the gate score AND is on-topic — even if
-    // rebuildToGate returned ok:false because the anti-drift dup-gate flagged the DeepSeek rewrite.
-    // 💸 CHEAP (default): surgical $0 → if ≥12 publish; else ONE DeepSeek attempt; miss stays on under12 pile.
-    // 🔁 FULL (cheap off): TEAM Cursor+DS + FULL Cursor redo before under12 pile.
+    // HARD RULE (owner 2026-07-27): do NOT process face/body/mermaid until gate ≥12 (12 or higher).
+    // Ladder per round: surgical → DS×3 → Cursor×3 → DS×2 → Cursor×4.
+    // If still short → START OVER (full ladder again) up to GATE_RESTARTS times.
+    const RESTARTS = Math.max(1, parseInt(process.env.GATE_RESTARTS || '4', 10));
     const primeEng = (process.env.WRITER_ENGINE || 'deepseek').toLowerCase();
-    const engName = e => (e === 'claude' ? 'Claude Code' : (e === 'cursor' ? 'Cursor Agent' : 'DeepSeek'));
     const setEng = e => { process.env.WRITER_ENGINE = e; ENGINE = engLabel(e); };
     const better = (a, b) => (a && a.body && (a.after || 0) >= ((b && b.after) || -1));
     const srcBody = blob.answer || '';
+    const hit12 = (r, topic) => !!(r && r.body && (r.after >= GATE_MIN) && topic);
     try {
-      let r, topic, rescued = false, stuckAt = 0;
+      let r = null, topic = false, rescued = false, stuckAt = 0;
 
-      if (CHEAP_WRITE) {
-        // (0) surgical only — $0
-        FLIP = '💸 cheap · surgical $0';
+      for (let round = 1; round <= RESTARTS && !hit12(r, topic); round++) {
+        if (round > 1) {
+          log(id + ' 🔄 START OVER round ' + round + '/' + RESTARTS + ' · last best ' + ((r && r.after) || 0) + '/13 (need ≥' + GATE_MIN + ')');
+          FLIP = '🔄 restart ' + round + '/' + RESTARTS;
+          setStage('write');
+          await sleep(800);
+        }
+
+        // (0) surgical $0
+        FLIP = '💸 surgical $0 · r' + round;
         setStage('write');
-        r = rebuildToGate(title, srcBody, { maxAttempts: 0, id });
-        topic = r && r.body && onTopic(title, r.body);
-        if (r && r.after >= GATE_MIN && topic) {
-          // free hit
-        } else {
-          // (1) up to 3 DeepSeek passes (still no Cursor) — 1× was landing ~9/13 too often
-          setEng('deepseek');
-          FLIP = '💸 cheap · DeepSeek×3';
-          setStage('write');
-          const d1 = rebuildToGate(title, srcBody, { maxAttempts: 3, id });
-          const t1 = d1 && d1.body && onTopic(title, d1.body);
-          if (better(d1, r)) { r = d1; topic = t1; }
-        }
-      } else {
-        r = rebuildToGate(title, srcBody, { maxAttempts: 3, id });
-        topic = r && r.body && onTopic(title, r.body);
+        const sx = rebuildToGate(title, srcBody, { maxAttempts: 0, id });
+        const stx = sx && sx.body && onTopic(title, sx.body);
+        if (better(sx, r)) { r = sx; topic = stx; }
+        if (hit12(r, topic)) break;
 
-        if (r && !(r.after >= GATE_MIN && topic)) {
-          rescued = true;
-          stuckAt = (r && r.after) || 0;
-          log(id + ' stuck ' + stuckAt + '/13 on ' + engName(primeEng) + ' — TEAM Cursor + DeepSeek');
-          FLIP = '🤝 TEAM Cursor + DeepSeek · stuck @' + stuckAt + '/13';
-          setStage('write');
+        // First DS pass stays tight-scope; restart rounds already know we're stuck → broaden early.
+        const firstOpts = round > 1 ? { maxAttempts: 3, id, stuck: true, broaden: true } : { maxAttempts: 3, id };
+        setEng('deepseek');
+        FLIP = (round > 1 ? '💸 DeepSeek×3 broaden · r' : '💸 DeepSeek×3 · r') + round;
+        setStage('write');
+        const d1 = rebuildToGate(title, srcBody, firstOpts);
+        const t1 = d1 && d1.body && onTopic(title, d1.body);
+        if (better(d1, r)) { r = d1; topic = t1; }
+        if (hit12(r, topic)) break;
 
-          setEng('cursor');
-          FLIP = '🤝 TEAM · Cursor Agent';
-          setStage('write');
-          const cTry = rebuildToGate(title, srcBody, { maxAttempts: 3, id });
-          const cTopic = cTry && cTry.body && onTopic(title, cTry.body);
-          if (better(cTry, r)) { r = cTry; topic = cTopic; }
+        rescued = true;
+        stuckAt = (r && r.after) || 0;
+        const stuckOpts = { id, stuck: true, broaden: true }; // owner: broaden adjacent scope/style when stuck
+        log(id + ' stuck ' + stuckAt + '/13 — Cursor rescue + broaden (round ' + round + ')');
+        setEng('cursor');
+        FLIP = '🛟 Cursor rescue · broaden · @' + stuckAt + '/13 · r' + round;
+        setStage('write');
+        const c1 = rebuildToGate(title, srcBody, Object.assign({ maxAttempts: 3 }, stuckOpts));
+        const ct1 = c1 && c1.body && onTopic(title, c1.body);
+        if (better(c1, r)) { r = c1; topic = ct1; }
+        if (hit12(r, topic)) break;
 
-          setEng('deepseek');
-          FLIP = '🤝 TEAM · DeepSeek';
-          setStage('write');
-          const dTry = rebuildToGate(title, srcBody, { maxAttempts: 3, id });
-          const dTopic = dTry && dTry.body && onTopic(title, dTry.body);
-          if (better(dTry, r)) { r = dTry; topic = dTopic; }
-        }
+        setEng('deepseek');
+        FLIP = '🛟 DeepSeek retry · broaden · r' + round;
+        setStage('write');
+        const d2 = rebuildToGate(title, srcBody, Object.assign({ maxAttempts: 2 }, stuckOpts));
+        const t2 = d2 && d2.body && onTopic(title, d2.body);
+        if (better(d2, r)) { r = d2; topic = t2; }
+        if (hit12(r, topic)) break;
 
-        if (r && !(r.after >= GATE_MIN && topic)) {
-          if (!rescued) { rescued = true; stuckAt = (r && r.after) || 0; }
-          log(id + ' still short ' + ((r && r.after) || 0) + '/13 — FULL Cursor redo');
-          setEng('cursor');
-          FLIP = '♻️ FULL Cursor redo · last @' + ((r && r.after) || 0) + '/13';
-          setStage('write');
-          const c2 = rebuildToGate(title, srcBody, { maxAttempts: 4, id });
-          const t2 = c2 && c2.body && onTopic(title, c2.body);
-          if (better(c2, r)) { r = c2; topic = t2; }
-        }
+        log(id + ' still short ' + ((r && r.after) || 0) + '/13 — FULL Cursor + broaden (round ' + round + ')');
+        setEng('cursor');
+        FLIP = '♻️ FULL Cursor · broaden · r' + round;
+        setStage('write');
+        const c2 = rebuildToGate(title, srcBody, Object.assign({ maxAttempts: 4 }, stuckOpts));
+        const t3 = c2 && c2.body && onTopic(title, c2.body);
+        if (better(c2, r)) { r = c2; topic = t3; }
       }
 
       setEng(primeEng); FLIP = '';
-      if (r && r.body && (r.after >= GATE_MIN) && topic) {
+      if (hit12(r, topic)) {
         SAVE_WIN++;
         LAST_GATE = id + ' ' + r.after + '/13 ✓';
-        const how = rescued ? ('rescue ' + stuckAt + '→' + r.after) : (r.surgicalOnly ? 'surgical' : (CHEAP_WRITE ? 'cheap-write' : 'write'));
-        log(id + ' 🏁 HIT 12+ — ' + how + ' · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L');
+        const how = rescued ? ('rescue ' + stuckAt + '→' + r.after) : (r.surgicalOnly ? 'surgical' : 'write');
+        log(id + ' 🏁 HIT ≥' + GATE_MIN + ' — ' + how + ' · ' + r.after + '/13 · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L');
         setStage('write');
-        await retryNet(() => publishContentBody(id, r.body)); WROTE++; writeOk = true; pageGateScore = r.after; log(id + ' WROTE ' + r.after + '/13 ✓' + (r.surgicalOnly ? ' (surgical-only · $0)' : (CHEAP_WRITE ? ' (cheap)' : (r.ok ? '' : ' (drift-override)')))); try { blob = await theStore().get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {} }
-      else if (r && r.body) {
+        await retryNet(() => publishContentBody(id, r.body));
+        WROTE++; writeOk = true; pageGateScore = r.after;
+        log(id + ' WROTE ' + r.after + '/13 ✓' + (r.surgicalOnly ? ' (surgical-only · $0)' : (rescued ? ' (cursor-helped)' : '')));
+        try { blob = await theStore().get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
+      } else if (r && r.body) {
+        // HARD STOP — never process images / mermaid / DONE below 12
         SAVE_LOSS++;
         LAST_GATE = id + ' ' + ((r && r.after) || 0) + '/13 ✗';
         addUnder12Failed(id, r.after);
-        // Do NOT addDone on a <12 miss — keep it on the Less-than-12 pile for rerun (owner 2026-07-27).
-        // Defer so we don't immediately re-spin the same hard miss (lets inventory advance).
         deferUntil.set(id, Date.now() + 45 * 60 * 1000);
-        log(id + ' 📉 MISS <12 — best ' + r.after + '/13 · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L' + (CHEAP_WRITE ? ' · cheap' : '') + ' · deferred 45m');
-        await emailCrewMiss(id, title, r.after);   // 📧 every finished attempt (hit or miss)
+        log(id + ' ⛔ BLOCKED process — best ' + r.after + '/13 after ' + RESTARTS + ' full restarts (need ≥' + GATE_MIN + ') · no images · deferred 45m · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L');
+        await emailCrewMiss(id, title, r.after);
         CUR = ''; setStage('idle'); return;
       }
     } catch (e) { log(id + ' write err ' + ((e && e.message) || e)); }
   }
-  if (!writeOk) {   // reached only on network/writer-down (no usable body) → defer + retry, never the Not-Finished pile
-    deferUntil.set(id, Date.now() + 90000); failCount.delete(id); log(id + ' ⏸ DEFERRED — network/writer down, will retry'); CUR = ''; setStage('idle'); return;
+  // Absolute gate: never place images until write cleared ≥12
+  if (!writeOk) {
+    deferUntil.set(id, Date.now() + 90000);
+    failCount.delete(id);
+    log(id + ' ⛔ SKIP process — not ≥' + GATE_MIN + ' yet (network/writer)');
+    CUR = ''; setStage('idle'); return;
   }
   const words = String((blob && blob.answer) || '').replace(/[#>*`~\[\]()>-]/g, ' ').split(/\s+/).filter(Boolean).length;
   const bodyN = Math.max(2, Math.min(6, Math.round(words / 450)));   // how many body images this length holds

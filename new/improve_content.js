@@ -309,6 +309,19 @@ function isPlateaued(st) {
   return a.score === b.score &&
     JSON.stringify([...a.failed].sort()) === JSON.stringify([...b.failed].sort());
 }
+function buildStuckBroadenDirective() {
+  // Owner 2026-07-27: only when stuck below gate — not on first-pass writes.
+  return [
+    '# STUCK — BROADEN SCOPE + STYLE',
+    'You are stuck below the publish gate. Do NOT write thinner or more generic.',
+    '1. Keep answering the CORE question in Direct Answer and the main H2s.',
+    '2. BROADEN: weave in closely adjacent angles just outside the narrow topic — related workflows,',
+    '   neighboring use-cases, upstream/downstream effects, comparable industries, adjacent tools,',
+    '   or side scenarios that still illuminate the answer.',
+    '3. Broaden writing STYLE: vary sentence rhythm, section angles, and examples so it stops sounding templated.',
+    '4. Do NOT wander into unrelated domains. Anchors + golden template shape still mandatory.',
+  ].join('\n');
+}
 function buildEscalatedDirective(id, attempt, failed, details) {
   return [
     `# ESCALATED FIX — ${id} (attempt ${attempt})`,
@@ -319,6 +332,7 @@ function buildEscalatedDirective(id, attempt, failed, details) {
     `2. Re-read each failed point's rubric definition verbatim before writing.`,
     `3. Passing sections are LOCKED — do not touch (no-re-coaching law).`,
     `4. Self-verify each failed point against its rubric definition before returning.`,
+    `5. Because you are stuck: ` + buildStuckBroadenDirective().replace(/^# STUCK[^\n]*\n/, '').replace(/\n/g, ' '),
   ]).join("\n");
 }
 
@@ -361,8 +375,14 @@ function rebuildToGate(question, body, opts) {
   // ON by default; opts.antidrift===false disables (used by the safe internal test harness if needed).
   const id = opts.id || '';
   const AD = (opts.antidrift !== false) && antidrift;
+  const stuckMode = !!(opts.stuck || opts.broaden); // owner: broaden adjacent scope/style only when stuck
   let aug = null, anchors = [];
-  if (AD) { try { aug = antidrift.buildAugment(question, id); anchors = aug.anchors || []; } catch (e) { aug = null; } }
+  if (AD) {
+    try {
+      aug = antidrift.buildAugment(question, id, { broaden: stuckMode });
+      anchors = aug.anchors || [];
+    } catch (e) { aug = null; }
+  }
   const DS_BASE_TEMP = 0.6, DS_BUMP = 0.15;      // matches _ds_lib default; retry nudges diversity up
   let acceptedBody = null;                       // best anti-drift-clean DeepSeek body → recorded to the dup store
   let driftSkip = null;                          // set when anti-drift skips the entry (2nd failure, no clean body)
@@ -370,13 +390,15 @@ function rebuildToGate(question, body, opts) {
   while (attempts < maxAttempts) {
     attempts++;
     let prompt = aug ? (buildPrompt(question, cur) + '\n' + aug.block) : buildPrompt(question, cur);
+    if (stuckMode) prompt += '\n\n' + buildStuckBroadenDirective();
     // 🧗 PLATEAU → ESCALATE: same score + same failed points twice running. Stop nibbling; order a from-scratch
     // rewrite of only the failing sections and buy one extra attempt to land it.
     if (!escalated && isPlateaued(st)) {
       escalated = true; maxAttempts++;
       const lastFails = st.history[st.history.length - 1];
       prompt += '\n\n' + buildEscalatedDirective(id || question.slice(0, 48), attempts, lastFails.failed, lastFails.details);
-      try { console.error('[escalate] ' + (id || question.slice(0, 40)) + ' plateaued at ' + lastFails.score + '/13 on [' + lastFails.failed.join(', ') + '] → full-section rewrite (+1 attempt)'); } catch (e) {}
+      if (!stuckMode) prompt += '\n\n' + buildStuckBroadenDirective();
+      try { console.error('[escalate] ' + (id || question.slice(0, 40)) + ' plateaued at ' + lastFails.score + '/13 on [' + lastFails.failed.join(', ') + '] → full-section rewrite + broaden (+1 attempt)'); } catch (e) {}
     }
     let r = runWriter(prompt, opts.timeoutMs);
     if (!r.ok) { writerErr = r.err; break; }

@@ -263,7 +263,7 @@ function spawnBox(box) {
   const env = Object.assign({}, process.env, {
     [t.portEnv]: String(box.port), SLOT: t.slot || '', SLOT_PILLAR: box.pillar, DEFAULT_PILLAR: box.pillar,
     POD_INDEX: String(box.podIndex || 0), BOX_I: String(strideI), BOX_N: String(strideN), BOX_SIZE: '250',
-    GATE_MIN: '12', AUTO_ARM: '1', EMBEDDED: '1',
+    GATE_MIN: '12', GATE_RESTARTS: '4', AUTO_ARM: '1', EMBEDDED: '1',
     // single source of truth: a roaming crew may visit EVERY pillar in the dropdown. Without this the worker fell
     // back to its own 10-pillar default and silently never roamed to Cars/Boats/Pets/Travel/Gaming/etc.
     ROAM_PILLARS: Object.keys(PILLARS).join(',')
@@ -515,14 +515,14 @@ hr{border:0;border-top:1px solid #2a1c22;margin:7px 0}
       <label>Stag<input id=crewstagger type=number value=0 min=0 style="width:48px;text-align:center"></label>
       <label>Cool<input id=crewcool type=number value=0 min=0 style="width:48px;text-align:center"></label>
       <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer" title="Hop to a fresh unclaimed pillar each page"><input type=checkbox id=crewroam checked>roam</label>
-      <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;color:#8affb0" title="Surgical ($0) first → publish at ≥12; else one DeepSeek try. No Cursor team/rescue."><input type=checkbox id=crewcheap checked>cheap</label>
+      <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;color:#8affb0" title="Surgical then DeepSeek x3 then Cursor when stuck. No images until gate 12+"><input type=checkbox id=crewcheap checked>cheap</label>
     </div>
     <div class=row>
       <input id=crewcode placeholder=4444 inputmode=numeric style="width:56px;text-align:center">
       <button class=gold onclick=sendCrew()>👷 Send the Crew</button>
       <button class=sm onclick=forceClear() style="margin-left:auto">🧨 Force Stop + Clear</button>
     </div>
-    <div class=mut style="margin:2px 0;font-size:11px;color:#8affb0">PLAN: cheap ON · surgical  → ≥12 · else 1× DeepSeek · Less than 12/13 · roam · uncheck cheap only for Cursor rescue</div>
+    <div class=mut style="margin:2px 0;font-size:11px;color:#8affb0">PLAN: write-until-12 · surgical → DS×3 → Cursor rescue → no images until ≥12 · Less than 12/13 · roam</div>
     <div id=crewmsg class=mut style="margin:2px 0"></div>
     <div id=winloss style="margin:4px 0 6px;padding:5px 8px;border-radius:6px;background:#141118;border:1px solid #2a2430;font-size:11px"></div>
     <div id=boxgrid><div class=mut>No crews running — hit 👷 Send the Crew.</div></div>
