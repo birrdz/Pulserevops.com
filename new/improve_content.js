@@ -12,6 +12,7 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 const { gateScore, wordCount } = require('./content_gate.js');
 const { claudeUnbenched } = require('./_claude_bench.js');
+const { surgicalGateFix: surgicalGateFixExt } = require('./_surgical_gate_fix.js');
 // 🔒 DEEPSEEK ANTI-DRIFT / ANTI-DUPLICATE LAW (owner 2026-07-21) — canonical: ../_DEEPSEEK_ANTIDRIFT_LAW.md.
 let antidrift = null; try { antidrift = require('./_ds_antidrift.js'); } catch (e) {}
 
@@ -168,25 +169,23 @@ function runCursor(prompt, timeoutMs) {
 // WRITER_ENGINE=deepseek → DeepSeek only, no fallback;
 // WRITER_ENGINE=cursor → Cursor Agent only (hub option, owner 2026-07-26).
 function runWriter(prompt, timeoutMs, temperature) {
-  // Claude auto-unbenches Tue 2026-07-28 (or CLAUDE_OK=1). See new/_claude_bench.js + CC_CREW_HANDOFF.md.
+  // Claude BENCHED until Tue 2026-07-28 — not in DS fallback chain. Hub option stays disabled until then.
+  // Override only with CLAUDE_OK=1 (owner). See new/_claude_bench.js.
   const forced = String(process.env.WRITER_ENGINE || '').toLowerCase();
-  const ccOk = claudeUnbenched();
   if (forced === 'claude') {
-    if (ccOk) return runClaude(prompt, timeoutMs);
-    const ds = runDeepSeek(prompt, timeoutMs, temperature);
-    if (ds.ok) return ds;
+    if (claudeUnbenched()) return runClaude(prompt, timeoutMs);
+    // Still benched → DeepSeek, then Cursor (never call CC)
+    const ds0 = runDeepSeek(prompt, timeoutMs, temperature);
+    if (ds0.ok) return ds0;
     return runCursor(prompt, timeoutMs);
   }
   if (forced === 'cursor') return runCursor(prompt, timeoutMs);
   const ds = runDeepSeek(prompt, timeoutMs, temperature);
   if (ds.ok || forced === 'deepseek') return ds;
-  if (ccOk) {
-    const cc = runClaude(prompt, timeoutMs);
-    if (cc.ok) return cc;
-  }
+  // DeepSeek down → Cursor only (CC stays on the bench)
   const cu = runCursor(prompt, timeoutMs);
   if (cu.ok) return cu;
-  return { ok: false, err: 'writers failed — ds/cursor' + (ccOk ? '/cc' : ' (cc benched)') };
+  return { ok: false, err: 'both writers failed — ds:[' + ds.err + '] cursor:[' + cu.err + '] (cc benched til Tue)' };
 }
 
 // Strip an accidental outer ```markdown fence if the model wrapped the whole body.
@@ -265,199 +264,8 @@ async function improveEntry(id, opts) {
   };
 }
 
-// surgicalGateFix — mechanical patches for content_gate fails writers keep missing (owner 2026-07-26).
-// Fixes MERMAID(=2), FAQ(≥5), SOURCES(≥5), RELATED, CLEAN_LINKS WITHOUT a model call. Word count / Direct
-// Answer still need a real rewrite. Safe to run before/after every rebuildToGate attempt.
-const GATE_SAFE_SOURCES = [
-  'https://hbr.org/',
-  'https://www.mckinsey.com/',
-  'https://www.gartner.com/',
-  'https://www.forrester.com/',
-  'https://www.salesforce.com/resources/',
-  'https://blog.hubspot.com/',
-  'https://www.forbes.com/',
-  'https://hbr.org/topic/sales',
-];
-function _headingsOfGate(body) {
-  const hs = [];
-  for (const m of String(body).matchAll(/^##\s+(.+?)\s*$/gm)) {
-    const h = m[1].replace(/[#*`"]/g, '').trim();
-    if (h && !/^direct answer/i.test(h) && !/^(sources|related|faq|frequently|people also|references)/i.test(h)) hs.push(h);
-  }
-  return hs;
-}
-function _genMermaidGate(title, steps, variant) {
-  const clean = x => String(x || '').replace(/["\n#`*\[\]{}()<>|]/g, '').replace(/\s+/g, ' ').trim().slice(0, 38);
-  const t = clean(title) || 'Overview';
-  let s = (steps && steps.length ? steps : ['Assess', 'Plan', 'Build', 'Measure', 'Improve']).map(clean).filter(Boolean).slice(0, 5);
-  if (s.length < 2) s = ['Assess', 'Plan', 'Execute', 'Measure'];
-  if (variant === 'hub') {
-    let out = 'flowchart LR\n  C["' + t + '"]';
-    s.forEach((x, i) => { out += '\n  C --> H' + i + '["' + x + '"]'; });
-    return out;
-  }
-  let out = 'flowchart TD\n  S["' + t + '"]', prev = 'S';
-  s.forEach((x, i) => { out += '\n  ' + prev + ' --> N' + i + '["' + x + '"]'; prev = 'N' + i; });
-  return out;
-}
-function surgicalGateFix(body, question) {
-  let src = String(body || '');
-  const title = String(question || 'Overview');
-  const fixed = [];
-  if (!src.trim()) return { body: src, fixed };
-
-  // DIRECT_ANSWER — ensure section exists + ≥40 words (gate point 2/3)
-  {
-    const lines = src.split('\n');
-    let start = lines.findIndex(l => /^##\s*Direct Answer\b/i.test(l.trim()));
-    if (start < 0) {
-      const para = 'In short: ' + title.replace(/\?+$/, '') +
-        ' hinges on a clear operating definition, an owner, a review cadence, and one measurable outcome the team can track each week without debate.';
-      src = '## Direct Answer\n\n' + para + '\n\n' + src.replace(/^\s+/, '');
-      fixed.push('DIRECT_ANSWER');
-    } else {
-      let end = start + 1;
-      while (end < lines.length && !/^##\s/.test(lines[end].trim())) end++;
-      const daBlock = lines.slice(start, end).join('\n');
-      const daWords = wordCount(daBlock);
-      if (daWords < 40) {
-        const pad = ' Practically, define the metric, name an owner, set the review cadence, and confirm the next action before the cycle ends.';
-        const head = lines[start];
-        const rest = lines.slice(start + 1, end);
-        let i = 0;
-        while (i < rest.length && !rest[i].trim()) i++;
-        if (i < rest.length) rest[i] = rest[i].replace(/\s*$/, '') + pad;
-        else rest.push(pad.trim());
-        const rebuilt = [head].concat(rest).join('\n');
-        src = lines.slice(0, start).join('\n') + (start ? '\n' : '') + rebuilt + (end < lines.length ? '\n' + lines.slice(end).join('\n') : '');
-        fixed.push('DIRECT_ANSWER_COMPLETE');
-      }
-    }
-  }
-
-  // CLEAN_LINKS — drop empty/placeholder targets
-  if (/\]\(\s*(#|TODO|)\s*\)/i.test(src)) {
-    src = src.replace(/\[([^\]]+)\]\(\s*(?:#|TODO|)\s*\)/gi, '$1');
-    fixed.push('CLEAN_LINKS');
-  }
-
-  // MERMAID — exactly 2 guaranteed-valid diagrams
-  const mer = (src.match(/```mermaid/gi) || []).length;
-  if (mer !== 2) {
-    src = src.replace(/```mermaid[ \t]*\r?\n[\s\S]*?```/g, '').replace(/\n{3,}/g, '\n\n');
-    let added = 0;
-    const heads = _headingsOfGate(src);
-    for (let guard = 0; added < 2 && guard < 6; guard++) {
-      const contentH2 = [...src.matchAll(/^##\s+.+$/gm)].filter(x => !/direct answer/i.test(x[0]));
-      let target = null;
-      for (const h of contentH2) {
-        const start = h.index + h[0].length;
-        const nx = src.indexOf('\n## ', start);
-        if (!/```mermaid/.test(src.slice(start, nx < 0 ? src.length : nx))) { target = h; break; }
-      }
-      if (!target) target = contentH2[contentH2.length - 1] || null;
-      const steps = added === 0 ? heads.slice(0, 4) : heads.slice(Math.max(0, heads.length - 4));
-      const gen = '\n\n```mermaid\n' + _genMermaidGate(title, steps.length ? steps : heads, added === 0 ? 'linear' : 'hub') + '\n```\n';
-      if (target && target.index != null) {
-        const pos = target.index + target[0].length;
-        src = src.slice(0, pos) + gen + src.slice(pos);
-      } else {
-        src = src.replace(/\s*$/, '') + gen;
-      }
-      added++;
-    }
-    fixed.push('MERMAID');
-  }
-
-  // FAQ — pad to ≥5 **Question?** pairs
-  {
-    let faq = null;
-    const lines = src.split('\n');
-    const start = lines.findIndex(l => /^##\s*(FAQ|Frequently Asked)/i.test(l.trim()));
-    if (start >= 0) {
-      let end = start + 1;
-      while (end < lines.length && !/^##\s/.test(lines[end].trim())) end++;
-      faq = lines.slice(start, end).join('\n');
-    }
-    if (!faq) {
-      const pad = [];
-      for (let i = 1; i <= 5; i++) {
-        pad.push('**What is a practical takeaway #' + i + ' for ' + title.replace(/\?+$/, '') + '?**');
-        pad.push('Focus on one measurable action, assign an owner, and review results within one operating cycle.');
-        pad.push('');
-      }
-      src = src.replace(/\s*$/, '') + '\n\n## FAQ\n\n' + pad.join('\n');
-      fixed.push('FAQ');
-    } else {
-      const pairs = (faq.match(/^\*\*[^*]+\?\*\*|^\s*[-*]?\s*\*\*Q|^###?\s+\S/gmi) || []).length
-                 || (faq.match(/\?\s*$/gm) || []).length;
-      if (pairs < 5) {
-        const need = 5 - pairs;
-        const pad = [];
-        for (let i = 1; i <= need; i++) {
-          pad.push('**What else should teams check for ' + title.replace(/\?+$/, '') + ' (#' + i + ')?**');
-          pad.push('Confirm the metric, the owner, and the review cadence before scaling the play.');
-          pad.push('');
-        }
-        const insertAt = src.search(/^##\s*(Sources|Related on PULSE)\b/im);
-        if (insertAt >= 0) src = src.slice(0, insertAt) + pad.join('\n') + '\n' + src.slice(insertAt);
-        else src = src.replace(/\s*$/, '') + '\n\n' + pad.join('\n');
-        fixed.push('FAQ');
-      }
-    }
-  }
-
-  // SOURCES — ensure ≥5 external URLs
-  {
-    const lines = src.split('\n');
-    const start = lines.findIndex(l => /^##\s*Sources\b/i.test(l.trim()));
-    let urls = [];
-    if (start >= 0) {
-      let end = start + 1;
-      while (end < lines.length && !/^##\s/.test(lines[end].trim())) end++;
-      urls = (lines.slice(start, end).join('\n').match(/https?:\/\/[^\s)]+/gi) || []).filter(u => !/pulserevops\.com/i.test(u));
-    }
-    if (start < 0 || urls.length < 5) {
-      const have = new Set(urls.map(u => u.replace(/\/$/, '').toLowerCase()));
-      const add = [];
-      for (const u of GATE_SAFE_SOURCES) {
-        if (have.has(u.replace(/\/$/, '').toLowerCase())) continue;
-        add.push('- ' + u);
-        if (urls.length + add.length >= 5) break;
-      }
-      if (start < 0) {
-        const block = '\n\n## Sources\n\n' + GATE_SAFE_SOURCES.slice(0, 5).map(u => '- ' + u).join('\n') + '\n';
-        const rel = src.search(/^##\s*Related on PULSE\b/im);
-        if (rel >= 0) src = src.slice(0, rel) + block + src.slice(rel);
-        else src = src.replace(/\s*$/, '') + block;
-      } else if (add.length) {
-        let end = start + 1;
-        while (end < lines.length && !/^##\s/.test(lines[end].trim())) end++;
-        // recompute from current src (may have shifted)
-        const m = src.match(/^##\s*Sources\b.*$/im);
-        if (m && m.index != null) {
-          const afterHead = m.index + m[0].length;
-          const next = src.indexOf('\n## ', afterHead);
-          const endPos = next < 0 ? src.length : next;
-          src = src.slice(0, endPos).replace(/\s*$/, '') + '\n' + add.join('\n') + '\n' + src.slice(endPos);
-        }
-      }
-      fixed.push('SOURCES');
-    }
-  }
-
-  // RELATED on PULSE
-  if (!/Related on PULSE/i.test(src)) {
-    const topic = title.replace(/\?+$/, '').trim() || 'this topic';
-    src = src.replace(/\s*$/, '') + '\n\n## Related on PULSE\n\n'
-      + '- More on ' + topic + '\n'
-      + '- Related operating metrics\n'
-      + '- Adjacent playbooks\n';
-    fixed.push('RELATED');
-  }
-
-  return { body: src, fixed };
-}
+// surgicalGateFix — delegated to _surgical_gate_fix.js (structural only; no fake DA/FAQ/sources)
+function surgicalGateFix(body, question) { return surgicalGateFixExt(body, question); }
 
 // goldShapeOK(body) — enforces the LOCKED q11133 essay SHAPE (beyond the 13/13 gate): short Direct Answer,
 // no mermaid inside it, plain (non-numbered) H2s, no TL;DR. The gate is blind to these; this catches them.

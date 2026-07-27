@@ -34,7 +34,7 @@ Purpose: kill the ~$200/mo Netlify burn by deploying rarely ??? content is deplo
 ## CODE DEPLOY QUEUE (things waiting for the next daily deploy)
 _Add a line when you make a CODE/TEMPLATE/ASSET change; clear it when it ships._
 
-- **2026-07-27 SITEMAP 502 leftover** — `robots.txt` (drop direct `/.netlify/functions/pulse-machine-sitemap` Sitemap line that 502s), `sitemap-index.xml` (relist trending w/ note), `netlify/functions/pulse-machine-sitemap.js` (no-pillar → child sitemapindex; trending → newest 200 urlset; never build 6MB+ omnibus). Verified live today: knowledge 27,892 OK; function URL + trending still 502 until this ships.
+- (empty)
 
 ---
 
@@ -42,6 +42,7 @@ _Add a line when you make a CODE/TEMPLATE/ASSET change; clear it when it ships._
 
 | Date | Type | What shipped |
 |------|------|--------------|
+| 2026-07-27 | prod | **SITEMAP 502 leftover fix** — robots.txt drop direct function Sitemap; pulse-machine-sitemap.js: no-pillar→child sitemapindex + trending newest-200; sitemap-index relist trending. Deploy 6a67624d072b587647e90d94 via clean-mirror draft→verify→restore. |
 | 2026-07-17 | prod | **SITEMAP 502 FIX + CRO email** — pulse-machine-sitemap.js: PATH_TO_KEY was missing `sitemap-tools`→tl and `sitemap-knowledge`→q, so those 2 fell through to the 6MB-busting omnibus → 502 (the 2 biggest pillars had NO working sitemap). Added both mappings → focused per-pillar sitemaps now serve: tools 10,958 URLs, knowledge 27,668 URLs (both 200, verified live). + pulse-cro-lead.js: lead email now 🔥!!!! subject + prominent "🎯 How they found you" (referrer/landing/UTM). Clean-mirror draft→verify(home+entries+both sitemaps 200 w/URLs+cars no-regress)→restore promote (deploy 6a5b49d6). |
 | 2026-07-17 | prod | **DOUBLE TITLE FONT** netlify/functions/pulse-machine-entry.js — h1.q font-size clamp(1.62–2.22rem) → clamp(3.24–4.44rem), line-height 1.22→1.15. Renderer-only via clean-mirror draft→verify(home+q11133+sw115+wl119+qa img all 200)→restore promote (deploy 6a5b417a). |
 | 2026-07-17 | prod | **OWNER INLINE TITLE EDIT** netlify/functions/pulse-title-edit.js (NEW, secret-gated title/dressing save) + js/pulse-edit.js (NEW, long-press-5s edit on homepage tiles, unlock via `?edit=SECRET`) + index.html (loads pulse-edit.js). Secret in private blob `config/edit_secret`. Clean-mirror draft→verify(home+q11133+sw115 200 · wrong-secret 403 · right-secret+fake-id 404)→restore promote (deploy 6a5b23bf). Owner edits real Q&A titles from the live homepage; visitors rejected server-side. |
