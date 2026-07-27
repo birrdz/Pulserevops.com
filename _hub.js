@@ -506,8 +506,8 @@ hr{border:0;border-top:1px solid #2a1c22;margin:7px 0}
     <div class=head><h2 style="color:#FFB81C">👷 Kory's Crew</h2><span class=mut>write → face → hero → body 1-6 → mermaid, per page</span></div>
     <div class=row>
       <select id=crewpillar title=Pillar style="max-width:180px"><option value=__smallest__>🎯 Smallest inventory (finish it off)</option><option value=__largest__>🎯 Largest inventory (biggest pile)</option><option value=__worst__>🎯 Worst scores (most bad)</option><option value=__notfinished__>📋 Not-Finished pile</option><option value=__under12__ selected>📉 Less than 12/13</option><option disabled>──── or a pillar ────</option>${PILLAR_OPTS}</select>
-      <select id=crewcount title="Crews" style="width:48px"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
-      <select id=crewengine title=Writer style="width:148px"><option value=deepseek selected>DeepSeek</option><option value=cursor>Cursor Agent</option><option value=alternate>Alternate (DS↔Cursor)</option>' + (claudeUnbenched() ? '<option value=claude>Claude Code</option>' : '<option value=claude disabled>Claude Code — cooldown til Tue</option>') + '</select>
+      <select id=crewcount title="Crews" style="width:48px"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
+      <select id=crewengine title=Writer style="width:148px"><option value=deepseek>DeepSeek</option><option value=cursor>Cursor Agent</option><option value=alternate selected>Alternate (DS↔Cursor)</option>' + (claudeUnbenched() ? '<option value=claude>Claude Code</option>' : '<option value=claude disabled>Claude Code — cooldown til Tue</option>') + '</select>
       <label>Stag<input id=crewstagger type=number value=0 min=0 style="width:48px;text-align:center"></label>
       <label>Cool<input id=crewcool type=number value=0 min=0 style="width:48px;text-align:center"></label>
       <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer" title="Hop to a fresh unclaimed pillar each page"><input type=checkbox id=crewroam checked>roam</label>
@@ -517,7 +517,7 @@ hr{border:0;border-top:1px solid #2a1c22;margin:7px 0}
       <button class=gold onclick=sendCrew()>👷 Send the Crew</button>
       <button class=sm onclick=forceClear() style="margin-left:auto">🧨 Force Stop + Clear</button>
     </div>
-    <div class=mut style="margin:2px 0;font-size:11px;color:#8affb0">PLAN: DeepSeek + surgical → Less than 12/13 pile · roam on · Cursor Agent only after CURSOR_API_KEY in .env.local</div>
+    <div class=mut style="margin:2px 0;font-size:11px;color:#8affb0">PLAN: Alternate DS↔Cursor + surgical → ≥12/13 · Less than 12/13 pile · roam on · Cursor rescue on stuck 11s (needs CURSOR_API_KEY)</div>
     <div id=crewmsg class=mut style="margin:2px 0"></div>
     <div id=winloss style="margin:4px 0 6px;padding:5px 8px;border-radius:6px;background:#141118;border:1px solid #2a2430;font-size:11px"></div>
     <div id=boxgrid><div class=mut>No crews running — hit 👷 Send the Crew.</div></div>
@@ -599,7 +599,8 @@ async function sendCrew(){
   if(pillar==='__under12__'){
     var tp=await j('/api/targetpillar?mode=under12');
     if(!tp||!tp.pillar){alert('nothing left under 12/13');return;}
-    pillar=tp.pillar; roam=false; under12=true;
+    // keep roam if checked — hop pillars that still have gate < 12 (owner 2026-07-27)
+    pillar=tp.pillar; under12=true;
   } else if(pillar.indexOf('__')===0){
     var tp2=await j('/api/targetpillar?mode='+pillar.replace(/_/g,''));
     if(!tp2||!tp2.pillar){alert('nothing left to target for that mode');return;}

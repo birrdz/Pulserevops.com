@@ -555,7 +555,8 @@ async function loop() {
       try { for (const x of JSON.parse(fs.readFileSync(UNDER12_FAIL, 'utf8'))) if (x && x.id) failIds.add(String(x.id)); } catch (e) {}
       const failed = pages.filter(e => failIds.has(e.id));
       const low = pages.filter(e => {
-        const q = (e.quality_score == null ? 10 : e.quality_score);
+        // Prefer gate_score (what crews stamp); quality_score alone was stuck at 10 and mis-targeted.
+        const q = (e.gate_score != null ? e.gate_score : (e.quality_score == null ? 10 : e.quality_score));
         return q < GATE_MIN;
       });
       pages = failed.length ? failed : low;
