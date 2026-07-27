@@ -23,8 +23,9 @@ const { getStore } = require('@netlify/blobs');
 const FLAGGED = path.join(WD, '_fact_flagged.json');
 const QUEUEF = path.join(WD, '_fact_drip_queue.json');
 const LOGF = path.join(WD, '_fact_flag_scan.out.log');
-const MAX = parseInt(process.env.FACT_SCAN_MAX || '400', 10);
+const MAX = parseInt(process.env.FACT_SCAN_MAX || '0', 10); // 0 = no cap (whole matching inventory)
 const LIVE = process.argv.includes('--live');
+const FOREVER = process.argv.includes('--forever') || process.env.FACT_SCAN_FOREVER === '1';
 
 function log(m) {
   const line = new Date().toISOString() + ' ' + m;
@@ -76,14 +77,14 @@ async function main() {
     if (/glasgow|fractional/i.test(q) && /hinges|operating definition/i.test(q)) pri += 5;
     pri += Math.min(10, Math.floor(((e.polished_at || 0) / 1e12)));
     return { e, pri, q };
-  }).filter(x => x.pri >= 20 || /vegas/i.test(x.q))
-    .sort((a, b) => b.pri - a.pri || (b.e.polished_at || 0) - (a.e.polished_at || 0))
-    .slice(0, MAX);
+  }).filter(x => x.pri >= 15 || /vegas|nightlife|resort|hotel|top\s*10/i.test(x.q))
+    .sort((a, b) => b.pri - a.pri || (b.e.polished_at || 0) - (a.e.polished_at || 0));
+  const capped = MAX > 0 ? scored.slice(0, MAX) : scored;
 
-  log('scan candidates ' + scored.length + ' (max ' + MAX + ')');
+  log('scan candidates ' + capped.length + ' (max ' + (MAX || 'ALL') + ' of ' + scored.length + ' matched)');
   const flagged = [];
   let checked = 0;
-  for (const { e, q } of scored) {
+  for (const { e, q } of capped) {
     checked++;
     let body = '';
     try {
@@ -139,21 +140,21 @@ async function main() {
 
   console.log(JSON.stringify({ checked, flagged: flagged.length, queue: qlist.length, live: LIVE, top: flagged.slice(0, 8).map(f => f.id + ':' + f.reasons[0]) }, null, 2));
 
-  if (LIVE && flagged.length) {
-    // clear dry env; spawn fact drip
+  if (LIVE) {
+    // clear dry env; spawn fact drip FOREVER
     try { fs.unlinkSync(path.join(WD, '_fact_drip_stop.flag')); } catch (e) {}
-    const child = spawn(process.execPath, [path.join(WD, '_fact_drip.js')], {
+    const child = spawn(process.execPath, [path.join(WD, '_fact_drip.js'), '--forever'], {
       cwd: WD,
-      env: Object.assign({}, process.env, { WRITER_ENGINE: 'deepseek', FACT_DRY: '0' }),
+      env: Object.assign({}, process.env, { WRITER_ENGINE: 'deepseek', FACT_DRY: '0', FACT_FOREVER: '1' }),
       detached: true,
       stdio: 'ignore',
       windowsHide: true,
     });
     child.unref();
-    log('spawned fact drip pid=' + child.pid + ' (live publish)');
-    console.log('FACT DRIP LIVE pid', child.pid);
+    log('spawned fact drip pid=' + child.pid + ' (live publish FOREVER)');
+    console.log('FACT DRIP LIVE FOREVER pid', child.pid);
   } else {
-    console.log('Next: Force Stop crews in hub, then: node _fact_drip.js');
+    console.log('Next: node _fact_drip.js --forever');
     console.log('Or: node _fact_flag_scan.js --live');
   }
 }

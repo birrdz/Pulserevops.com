@@ -274,6 +274,10 @@ function spawnBox(box) {
   if (o.stagger != null) env.STAGGER_MS = String(Math.max(0, o.stagger | 0) * 1000);
   if (o.roam) env.ROAM = '1';
   if (o.under12) env.UNDER12 = '1';   // 📉 Less than 12/13 mode — prefer failed-rewrite pile + score < 12
+  // 💸 CHEAP WRITE (owner 2026-07-27): surgical-first ($0) → publish at ≥12; else ONE DeepSeek try.
+  // No Cursor TEAM / FULL redo. Default ON so crews can stay running cheaply toward 12/13.
+  if (o.cheap !== false) env.CHEAP_WRITE = '1';
+  else env.CHEAP_WRITE = '0';
   // 🔗 DETACHED (owner 2026-07-23): spawn each crew in its OWN process group and unref() it, so a hub restart (or
   // crash) does NOT drag the crew down with it. Combined with the ping-based re-adoption in the listen() handler,
   // this makes restarting the hub non-destructive — live crews keep writing their in-flight page uninterrupted and
@@ -507,17 +511,18 @@ hr{border:0;border-top:1px solid #2a1c22;margin:7px 0}
     <div class=row>
       <select id=crewpillar title=Pillar style="max-width:180px"><option value=__smallest__>🎯 Smallest inventory (finish it off)</option><option value=__largest__>🎯 Largest inventory (biggest pile)</option><option value=__worst__>🎯 Worst scores (most bad)</option><option value=__notfinished__>📋 Not-Finished pile</option><option value=__under12__ selected>📉 Less than 12/13</option><option disabled>──── or a pillar ────</option>${PILLAR_OPTS}</select>
       <select id=crewcount title="Crews" style="width:48px"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
-      <select id=crewengine title=Writer style="width:148px"><option value=deepseek>DeepSeek</option><option value=cursor>Cursor Agent</option><option value=alternate selected>Alternate (DS↔Cursor)</option>' + (claudeUnbenched() ? '<option value=claude>Claude Code</option>' : '<option value=claude disabled>Claude Code — cooldown til Tue</option>') + '</select>
+      <select id=crewengine title=Writer style="width:148px"><option value=deepseek selected>DeepSeek</option><option value=cursor>Cursor Agent</option><option value=alternate>Alternate (DS↔Cursor)</option>' + (claudeUnbenched() ? '<option value=claude>Claude Code</option>' : '<option value=claude disabled>Claude Code — cooldown til Tue</option>') + '</select>
       <label>Stag<input id=crewstagger type=number value=0 min=0 style="width:48px;text-align:center"></label>
       <label>Cool<input id=crewcool type=number value=0 min=0 style="width:48px;text-align:center"></label>
       <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer" title="Hop to a fresh unclaimed pillar each page"><input type=checkbox id=crewroam checked>roam</label>
+      <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;color:#8affb0" title="Surgical ($0) first → publish at ≥12; else one DeepSeek try. No Cursor team/rescue."><input type=checkbox id=crewcheap checked>cheap</label>
     </div>
     <div class=row>
       <input id=crewcode placeholder=4444 inputmode=numeric style="width:56px;text-align:center">
       <button class=gold onclick=sendCrew()>👷 Send the Crew</button>
       <button class=sm onclick=forceClear() style="margin-left:auto">🧨 Force Stop + Clear</button>
     </div>
-    <div class=mut style="margin:2px 0;font-size:11px;color:#8affb0">PLAN: Alternate DS↔Cursor + surgical → ≥12/13 · Less than 12/13 pile · roam on · Cursor rescue on stuck 11s (needs CURSOR_API_KEY)</div>
+    <div class=mut style="margin:2px 0;font-size:11px;color:#8affb0">PLAN: cheap ON · surgical  → ≥12 · else 1× DeepSeek · Less than 12/13 · roam · uncheck cheap only for Cursor rescue</div>
     <div id=crewmsg class=mut style="margin:2px 0"></div>
     <div id=winloss style="margin:4px 0 6px;padding:5px 8px;border-radius:6px;background:#141118;border:1px solid #2a2430;font-size:11px"></div>
     <div id=boxgrid><div class=mut>No crews running — hit 👷 Send the Crew.</div></div>
@@ -610,12 +615,15 @@ async function sendCrew(){
   var opts={engine:document.getElementById('crewengine').value,
     stagger:Math.max(0,parseInt(document.getElementById('crewstagger').value,10)||0),
     cooldown:Math.max(0,parseInt(document.getElementById('crewcool').value,10)||0),
-    roam:roam, under12:under12};
+    roam:roam, under12:under12,
+    cheap: !!(document.getElementById('crewcheap') && document.getElementById('crewcheap').checked)};
+  // cheap mode: force DeepSeek for the paid pass (Cursor rescue is the expensive path)
+  if(opts.cheap && opts.engine==='alternate') opts.engine='deepseek';
   var pillars=[]; for(var i=0;i<n;i++)pillars.push(pillar);
   var r=await j('/api/launch',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({code:'4444',type:'wholecrew',pillars:pillars,opts:opts})});
   var m=document.getElementById('crewmsg');
   if(!r||!r.ok){m.innerHTML='<span style=color:#ff6a6a>'+((r&&r.err)||'failed')+'</span>';return;}
-  var launchHtml='<span style=color:#8affb0>👷 '+((r.created||[]).length)+' crew(s) sent · '+(under12?'📉 <12/13 · ':'')+(opts.roam?'JUMP pillars':(PILLARS[pillar]||pillar))+' · '+opts.engine+' · stagger '+opts.stagger+'s · cooldown '+opts.cooldown+'s'+(r.capped?' ('+r.capped+')':'')+'</span>';
+  var launchHtml='<span style=color:#8affb0>👷 '+((r.created||[]).length)+' crew(s) sent · '+(under12?'📉 <12/13 · ':'')+(opts.cheap?'💸 cheap · ':'')+(opts.roam?'JUMP pillars':(PILLARS[pillar]||pillar))+' · '+opts.engine+' · stagger '+opts.stagger+'s · cooldown '+opts.cooldown+'s'+(r.capped?' ('+r.capped+')':'')+'</span>';
   m.setAttribute('data-launch', launchHtml); m.innerHTML=launchHtml+' <span style="color:#FFB81C;font-weight:800">· 0W / 0L</span>';
   renderCrews();
 }

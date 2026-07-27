@@ -24,6 +24,8 @@ const SMALL_ROTATION = (process.env.ROTATION_PILLARS || 'gp,bo,ra,cg,sw,sk').spl
 // are never from the same cluster (breaks up near-dupes; the dup-gate catches any that slip through).
 const ROAM = process.env.ROAM === '1';
 const UNDER12 = process.env.UNDER12 === '1';   // 📉 Less than 12/13 — work score < 12 / failed-rewrite pile
+// 💸 CHEAP WRITE (hub default ON): surgical $0 first → ≥12 publish; else ONE DeepSeek try. No Cursor team/redo.
+const CHEAP_WRITE = process.env.CHEAP_WRITE !== '0';
 // ROAM list. The hub passes the FULL pillar set via env (single source of truth = _hub.js PILLARS), so adding a
 // pillar to the dropdown actually reaches the crews. The fallback below is every real pillar in the library —
 // the old default was only 10 (tl,gp,bo,ra,cg,sw,sk,ik,ai,q), which is why roaming crews never touched Cars,
@@ -393,70 +395,88 @@ async function finishPage(id, blob) {
   if (DO_WRITE && rebuildToGate && !writeOk) {
     // 🔓 GUARDRAIL OVERRIDE (owner 2026-07-22): publish any page that reaches the gate score AND is on-topic — even if
     // rebuildToGate returned ok:false because the anti-drift dup-gate flagged the DeepSeek rewrite.
-    // 🔁 HUMP RESCUE (owner 2026-07-26):
-    //   (1) normal write on this page's engine
-    //   (2) if stuck → TEAM Cursor + DeepSeek (both full restarts from ORIGINAL source; keep best)
-    //   (3) if still stuck → FULL REDO entire content with Cursor alone
-    //   (4) if still stuck → 📉 Less than 12/13 pile
+    // 💸 CHEAP (default): surgical $0 → if ≥12 publish; else ONE DeepSeek attempt; miss stays on under12 pile.
+    // 🔁 FULL (cheap off): TEAM Cursor+DS + FULL Cursor redo before under12 pile.
     const primeEng = (process.env.WRITER_ENGINE || 'deepseek').toLowerCase();
     const engName = e => (e === 'claude' ? 'Claude Code' : (e === 'cursor' ? 'Cursor Agent' : 'DeepSeek'));
     const setEng = e => { process.env.WRITER_ENGINE = e; ENGINE = engLabel(e); };
     const better = (a, b) => (a && a.body && (a.after || 0) >= ((b && b.after) || -1));
     const srcBody = blob.answer || '';
     try {
-      let r = rebuildToGate(title, srcBody, { maxAttempts: 3, id });
-      let topic = r && r.body && onTopic(title, r.body);
-      let rescued = false, stuckAt = 0;
+      let r, topic, rescued = false, stuckAt = 0;
 
-      if (r && !(r.after >= GATE_MIN && topic)) {
-        // (2) TEAM: Cursor + DeepSeek
-        rescued = true;
-        stuckAt = (r && r.after) || 0;
-        log(id + ' stuck ' + stuckAt + '/13 on ' + engName(primeEng) + ' — TEAM Cursor + DeepSeek');
-        FLIP = '🤝 TEAM Cursor + DeepSeek · stuck @' + stuckAt + '/13';
+      if (CHEAP_WRITE) {
+        // (0) surgical only — $0
+        FLIP = '💸 cheap · surgical $0';
         setStage('write');
+        r = rebuildToGate(title, srcBody, { maxAttempts: 0, id });
+        topic = r && r.body && onTopic(title, r.body);
+        if (r && r.after >= GATE_MIN && topic) {
+          // free hit
+        } else {
+          // (1) up to 3 DeepSeek passes (still no Cursor) — 1× was landing ~9/13 too often
+          setEng('deepseek');
+          FLIP = '💸 cheap · DeepSeek×3';
+          setStage('write');
+          const d1 = rebuildToGate(title, srcBody, { maxAttempts: 3, id });
+          const t1 = d1 && d1.body && onTopic(title, d1.body);
+          if (better(d1, r)) { r = d1; topic = t1; }
+        }
+      } else {
+        r = rebuildToGate(title, srcBody, { maxAttempts: 3, id });
+        topic = r && r.body && onTopic(title, r.body);
 
-        setEng('cursor');
-        FLIP = '🤝 TEAM · Cursor Agent';
-        setStage('write');
-        const cTry = rebuildToGate(title, srcBody, { maxAttempts: 3, id });
-        const cTopic = cTry && cTry.body && onTopic(title, cTry.body);
-        if (better(cTry, r)) { r = cTry; topic = cTopic; }
+        if (r && !(r.after >= GATE_MIN && topic)) {
+          rescued = true;
+          stuckAt = (r && r.after) || 0;
+          log(id + ' stuck ' + stuckAt + '/13 on ' + engName(primeEng) + ' — TEAM Cursor + DeepSeek');
+          FLIP = '🤝 TEAM Cursor + DeepSeek · stuck @' + stuckAt + '/13';
+          setStage('write');
 
-        setEng('deepseek');
-        FLIP = '🤝 TEAM · DeepSeek';
-        setStage('write');
-        const dTry = rebuildToGate(title, srcBody, { maxAttempts: 3, id });
-        const dTopic = dTry && dTry.body && onTopic(title, dTry.body);
-        if (better(dTry, r)) { r = dTry; topic = dTopic; }
-      }
+          setEng('cursor');
+          FLIP = '🤝 TEAM · Cursor Agent';
+          setStage('write');
+          const cTry = rebuildToGate(title, srcBody, { maxAttempts: 3, id });
+          const cTopic = cTry && cTry.body && onTopic(title, cTry.body);
+          if (better(cTry, r)) { r = cTry; topic = cTopic; }
 
-      if (r && !(r.after >= GATE_MIN && topic)) {
-        // (3) FULL REDO with Cursor alone
-        if (!rescued) { rescued = true; stuckAt = (r && r.after) || 0; }
-        log(id + ' still short ' + ((r && r.after) || 0) + '/13 — FULL Cursor redo');
-        setEng('cursor');
-        FLIP = '♻️ FULL Cursor redo · last @' + ((r && r.after) || 0) + '/13';
-        setStage('write');
-        const c2 = rebuildToGate(title, srcBody, { maxAttempts: 4, id });
-        const t2 = c2 && c2.body && onTopic(title, c2.body);
-        if (better(c2, r)) { r = c2; topic = t2; }
+          setEng('deepseek');
+          FLIP = '🤝 TEAM · DeepSeek';
+          setStage('write');
+          const dTry = rebuildToGate(title, srcBody, { maxAttempts: 3, id });
+          const dTopic = dTry && dTry.body && onTopic(title, dTry.body);
+          if (better(dTry, r)) { r = dTry; topic = dTopic; }
+        }
+
+        if (r && !(r.after >= GATE_MIN && topic)) {
+          if (!rescued) { rescued = true; stuckAt = (r && r.after) || 0; }
+          log(id + ' still short ' + ((r && r.after) || 0) + '/13 — FULL Cursor redo');
+          setEng('cursor');
+          FLIP = '♻️ FULL Cursor redo · last @' + ((r && r.after) || 0) + '/13';
+          setStage('write');
+          const c2 = rebuildToGate(title, srcBody, { maxAttempts: 4, id });
+          const t2 = c2 && c2.body && onTopic(title, c2.body);
+          if (better(c2, r)) { r = c2; topic = t2; }
+        }
       }
 
       setEng(primeEng); FLIP = '';
       if (r && r.body && (r.after >= GATE_MIN) && topic) {
         SAVE_WIN++;
         LAST_GATE = id + ' ' + r.after + '/13 ✓';
-        log(id + ' 🏁 HIT 12+ — ' + (rescued ? ('rescue ' + stuckAt + '→' + r.after) : (r.surgicalOnly ? 'surgical' : 'write')) + ' · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L');
+        const how = rescued ? ('rescue ' + stuckAt + '→' + r.after) : (r.surgicalOnly ? 'surgical' : (CHEAP_WRITE ? 'cheap-write' : 'write'));
+        log(id + ' 🏁 HIT 12+ — ' + how + ' · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L');
         setStage('write');
-        await retryNet(() => publishContentBody(id, r.body)); WROTE++; writeOk = true; pageGateScore = r.after; log(id + ' WROTE ' + r.after + '/13 ✓' + (r.surgicalOnly ? ' (surgical-only · any engine)' : (r.ok ? '' : ' (drift-override)'))); try { blob = await theStore().get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {} }
+        await retryNet(() => publishContentBody(id, r.body)); WROTE++; writeOk = true; pageGateScore = r.after; log(id + ' WROTE ' + r.after + '/13 ✓' + (r.surgicalOnly ? ' (surgical-only · $0)' : (CHEAP_WRITE ? ' (cheap)' : (r.ok ? '' : ' (drift-override)')))); try { blob = await theStore().get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {} }
       else if (r && r.body) {
         SAVE_LOSS++;
         LAST_GATE = id + ' ' + ((r && r.after) || 0) + '/13 ✗';
         addUnder12Failed(id, r.after);
-        addDone(id);
-        log(id + ' 📉 MISS <12 — best ' + r.after + '/13 · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L');
-        emailCrewMiss(id, title, r.after);
+        // Do NOT addDone on a <12 miss — keep it on the Less-than-12 pile for rerun (owner 2026-07-27).
+        // Defer so we don't immediately re-spin the same hard miss (lets inventory advance).
+        deferUntil.set(id, Date.now() + 45 * 60 * 1000);
+        log(id + ' 📉 MISS <12 — best ' + r.after + '/13 · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L' + (CHEAP_WRITE ? ' · cheap' : '') + ' · deferred 45m');
+        await emailCrewMiss(id, title, r.after);   // 📧 every finished attempt (hit or miss)
         CUR = ''; setStage('idle'); return;
       }
     } catch (e) { log(id + ' write err ' + ((e && e.message) || e)); }
@@ -505,7 +525,7 @@ async function finishPage(id, blob) {
     addDone(id); DONE++;
     if (gateAlreadyOk && DO_WRITE) { SAVE_WIN++; LAST_GATE = id + ' ' + (blob.gate_score || GATE_MIN) + '/13 ✓'; log(id + ' 🏁 HIT 12+ — already ≥12 · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L'); /* HIT counted at DONE */ }
     log(id + ' ✅ DONE — cover + ' + bodyOk + '/' + bodyN + ' body + ' + mermN + ' mermaid' + (DO_WRITE ? ' (+write)' : ''));
-    emailCrewDone(id, title, 1, bodyOk, mermN, isNewPipeline, pageGateScore != null ? pageGateScore : ((blob && blob.gate_score) != null ? blob.gate_score : GATE_MIN));   // 📧 includes rating e.g. 12/13
+    await emailCrewDone(id, title, 1, bodyOk, mermN, isNewPipeline, pageGateScore != null ? pageGateScore : ((blob && blob.gate_score) != null ? blob.gate_score : GATE_MIN));   // 📧 every finished entry
   } else {
     deferUntil.set(id, Date.now() + 90000);   // retry once things settle — never publish a page that failed write or lost network
     log(id + ' ⏸ DEFERRED — ' + (!writeOk ? 'FAILED PRESSURE TEST (gate<12)' : 'network errors') + ' (cover ' + (coverOk ? 'ok' : 'FAIL') + ', body ' + bodyOk + '/' + bodyN + ') — NOT published');
@@ -549,7 +569,7 @@ async function loop() {
     TOTAL = all.length;
     const nowTs = Date.now();
     let pages = all.filter(e => !done.has(e.id) && !((deferUntil.get(e.id) || 0) > nowTs)).sort((a, b) => (a.ts || 0) - (b.ts || 0));
-    // 📉 Less than 12/13 mode: prefer failed-rewrite pile, else only score < 12
+    // 📉 Less than 12/13 mode: failed-rewrite pile + score < 12 (merge; don't ONLY spin recent misses)
     if (UNDER12) {
       let failIds = new Set();
       try { for (const x of JSON.parse(fs.readFileSync(UNDER12_FAIL, 'utf8'))) if (x && x.id) failIds.add(String(x.id)); } catch (e) {}
@@ -559,7 +579,21 @@ async function loop() {
         const q = (e.gate_score != null ? e.gate_score : (e.quality_score == null ? 10 : e.quality_score));
         return q < GATE_MIN;
       });
-      pages = failed.length ? failed : low;
+      const seen = new Set();
+      const merged = [];
+      for (const e of low.concat(failed)) {
+        if (!e || !e.id || seen.has(e.id)) continue;
+        seen.add(e.id);
+        merged.push(e);
+      }
+      // Prefer never-tried / not-in-failed first (easier wins), then failed pile
+      merged.sort((a, b) => {
+        const af = failIds.has(a.id) ? 1 : 0;
+        const bf = failIds.has(b.id) ? 1 : 0;
+        if (af !== bf) return af - bf;
+        return (a.ts || 0) - (b.ts || 0);
+      });
+      pages = merged;
       REMAIN = pages.length;
       log('📉 under12 mode — ' + pages.length + ' left (failed-pile ' + failed.length + ', score<12 ' + low.length + ')');
     } else {

@@ -31,7 +31,9 @@ const DONEF = path.join(WD, '_fact_drip_done.json');
 const LOGF = path.join(WD, '_fact_drip.out.log');
 const STOPF = path.join(WD, '_fact_drip_stop.flag');
 const DRY = process.env.FACT_DRY === '1';
+const FOREVER = process.argv.includes('--forever') || process.env.FACT_FOREVER === '1';
 const SEED = ['nl0137']; // proven fabricated Vegas nightlife
+const RESCAN_MS = parseInt(process.env.FACT_RESCAN_MS || String(20 * 60 * 1000), 10);
 
 function log(m) {
   const line = new Date().toISOString() + ' ' + m;
@@ -129,38 +131,72 @@ async function processOne(id) {
   return { ok: true, after: g1.score };
 }
 
+async function refillQueueFromScan() {
+  // Pull flagged ledger + under12 nightlife/travel/toplists not yet done
+  const done = loadDone();
+  let q = loadQ();
+  const have = new Set(q);
+  try {
+    const rep = JSON.parse(fs.readFileSync(path.join(WD, '_fact_flagged.json'), 'utf8'));
+    for (const it of (rep.items || [])) {
+      if (it && it.id && !done.has(it.id) && !have.has(it.id)) { q.push(it.id); have.add(it.id); }
+    }
+  } catch (e) {}
+  try {
+    const inv = JSON.parse(fs.readFileSync(path.join(WD, '_under12_inventory.json'), 'utf8'));
+    for (const id of (inv.ids || [])) {
+      if (!id || done.has(id) || have.has(id)) continue;
+      // prioritize high-risk pillars for fact rewrite
+      if (/^(nl|tv|rs|dn|tn|sc|cl|lv|ev|ca|fr|aq|sy)/i.test(id)) { q.push(id); have.add(id); }
+    }
+  } catch (e) {}
+  try {
+    const idx = await theStore().get('_index.json', { type: 'json', consistency: 'strong' });
+    for (const e of (idx.entries || [])) {
+      if (!e || !e.id || done.has(e.id) || have.has(e.id)) continue;
+      const t = String(e.question || e.title || '');
+      if (/vegas/i.test(t) && /nightlife|nightclub|bar|resort|hotel/i.test(t)) {
+        q.push(e.id); have.add(e.id);
+      }
+    }
+  } catch (e) {}
+  saveQ(q);
+  return q.length;
+}
+
 async function main() {
+  try { fs.unlinkSync(STOPF); } catch (e) {}
   const argvIds = process.argv.slice(2).filter(x => /^[a-z]+\d+/i.test(x));
   let q = loadQ();
   for (const id of SEED.concat(argvIds)) if (!q.includes(id)) q.push(id);
-  // auto-add recent Vegas nightlife-ish from index if empty-ish
-  if (q.length < 3) {
-    try {
-      const idx = await theStore().get('_index.json', { type: 'json', consistency: 'strong' });
-      const extra = (idx.entries || [])
-        .filter(e => /vegas/i.test(String(e.question || '')) && /nightlife|nightclub|bar|resort|hotel/i.test(String(e.question || '')))
-        .slice(0, 15)
-        .map(e => e.id);
-      for (const id of extra) if (!q.includes(id)) q.push(id);
-    } catch (e) {}
-  }
+  if (q.length < 20) await refillQueueFromScan();
   saveQ(q);
   const done = loadDone();
-  log('FACT DRIP start · queue=' + q.length + ' dry=' + DRY + ' engine=deepseek');
-  log('>>> Force Stop Whole Crew in hub first so you do not keep shipping fakes while this runs.');
+  log('FACT DRIP start · queue=' + q.length + ' dry=' + DRY + ' forever=' + FOREVER + ' engine=deepseek');
 
-  while (q.length) {
-    if (fs.existsSync(STOPF)) { log('STOP flag — exiting'); break; }
-    const id = q.shift();
-    saveQ(q);
-    if (done.has(id)) { log(id + ' skip done'); continue; }
-    try {
-      await processOne(id);
-    } catch (e) {
-      log(id + ' ERR ' + ((e && e.message) || e));
+  do {
+    q = loadQ();
+    while (q.length) {
+      if (fs.existsSync(STOPF)) { log('STOP flag — exiting'); return; }
+      const id = q.shift();
+      saveQ(q);
+      if (done.has(id)) { log(id + ' skip done'); continue; }
+      try {
+        await processOne(id);
+        done.add(id);
+      } catch (e) {
+        log(id + ' ERR ' + ((e && e.message) || e));
+      }
+      await new Promise(r => setTimeout(r, 1500));
     }
-    await new Promise(r => setTimeout(r, 1500));
-  }
+    if (!FOREVER) break;
+    log('FACT DRIP queue empty — rescanning inventory in ' + Math.round(RESCAN_MS / 1000) + 's');
+    await new Promise(r => setTimeout(r, RESCAN_MS));
+    if (fs.existsSync(STOPF)) break;
+    const n = await refillQueueFromScan();
+    log('FACT DRIP refilled queue=' + n);
+  } while (FOREVER && !fs.existsSync(STOPF));
+
   log('FACT DRIP idle');
 }
 
