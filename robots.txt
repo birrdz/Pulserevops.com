@@ -46,7 +46,8 @@ Sitemap: https://pulserevops.com/sitemap-electronic-reviews.xml
 Sitemap: https://pulserevops.com/sitemap-revenue-architecture.xml
 Sitemap: https://pulserevops.com/sitemap-go-to-market-playbooks.xml
 Sitemap: https://pulserevops.com/sitemap-misc.xml
-Sitemap: https://pulserevops.com/.netlify/functions/pulse-machine-sitemap
+# REMOVED 2026-07-27: direct function URL 502s (omnibus >6MB). Use /sitemap-index.xml
+# + /sitemap-knowledge.xml (pillar-scoped) instead of /.netlify/functions/pulse-machine-sitemap
 
 # Disallow dashboard query param from being indexed as a separate URL
 Disallow: /?dashboard

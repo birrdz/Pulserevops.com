@@ -34,7 +34,7 @@ Purpose: kill the ~$200/mo Netlify burn by deploying rarely ??? content is deplo
 ## CODE DEPLOY QUEUE (things waiting for the next daily deploy)
 _Add a line when you make a CODE/TEMPLATE/ASSET change; clear it when it ships._
 
-- (empty)
+- **2026-07-27 SITEMAP 502 leftover** — `robots.txt` (drop direct `/.netlify/functions/pulse-machine-sitemap` Sitemap line that 502s), `sitemap-index.xml` (relist trending w/ note), `netlify/functions/pulse-machine-sitemap.js` (no-pillar → child sitemapindex; trending → newest 200 urlset; never build 6MB+ omnibus). Verified live today: knowledge 27,892 OK; function URL + trending still 502 until this ships.
 
 ---
 
@@ -65,3 +65,5 @@ _Add a line when you make a CODE/TEMPLATE/ASSET change; clear it when it ships._
 - ???? FIX BEFORE RE-ENABLING: daily_deploy must deploy **STATIC ASSETS ONLY** (assets/ js/ *.html *.css) and NEVER ship `netlify/functions/` unless the local functions are confirmed = or newer than live (pull live functions into pulse-deploy-clean first). The ~40 topic-image changes are NOT live (rolled back with the bad deploy) ??? re-ship them assets-only once the machine is fixed.
 
 - 2026-07-15T18:01:41Z · PROD PROMOTE (owner typed GO prod) · deploy 6a57c47e1ba93e28c14e32f5 via restore-API · 110 baked static face cards · 14/14 verified real photos on rendered DOM · fixes render-path 404s
+
+- 2026-07-22 · renderer SEO safety: noindex empty/pending pages + 301 dedup-removed dups → survivor · clean-mirror draft→restore promote (deploy 6a6030e1bc84ce6a8a9dbe00)

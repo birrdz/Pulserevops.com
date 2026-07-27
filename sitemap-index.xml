@@ -65,7 +65,7 @@
   <sitemap><loc>https://pulserevops.com/sitemap-fish-crabs.xml</loc><lastmod>2026-06-28</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-leaderboards.xml</loc><lastmod>2026-06-07</lastmod></sitemap>
   <sitemap><loc>https://pulserevops.com/sitemap-misc.xml</loc><lastmod>2026-06-02</lastmod></sitemap>
-  <!-- Trending super-index — top-12 most-viewed entries in last 7 days. Hourly
-       priority=1.0 refresh signal for Google/Bing. Added 2026-06-03. -->
-  <sitemap><loc>https://pulserevops.com/sitemap-trending.xml</loc><lastmod>2026-06-03</lastmod></sitemap>
+  <!-- Trending = newest 200 (pulse-machine-sitemap trending mode). Was 502 when
+       it fell through to omnibus; fixed 2026-07-27 to emit a small urlset. -->
+  <sitemap><loc>https://pulserevops.com/sitemap-trending.xml</loc><lastmod>2026-07-27</lastmod></sitemap>
 </sitemapindex>

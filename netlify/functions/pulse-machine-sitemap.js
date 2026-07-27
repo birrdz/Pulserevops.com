@@ -74,6 +74,9 @@ const PILLAR_HUB = {
   hf: { path: '/highschool-football-recruiting', name: 'HS Football Recruiting' },
   ai: { path: '/ai-infrastructure',              name: 'AI Infrastructure' },
   tc: { path: '/telco',                          name: 'Telco' },
+  et: { path: '/edtech',                         name: 'EdTech' },
+  se: { path: '/sales-enablement',               name: 'Sales Enablement' },
+  tr: { path: '/teacher-resources',              name: 'Teacher Resources' },
 };
 const PILLAR_ENTRY_PREFIX = {
   q:  '/knowledge/',  st: '/sales-trainings/',  ik: '/industry-kpis/',  tk: '/tech-stacks/',
@@ -93,6 +96,7 @@ const PILLAR_ENTRY_PREFIX = {
   hf: '/highschool-football-recruiting/',
   ai: '/ai-infrastructure/',
   tc: '/telco/',
+  et: '/edtech/',  se: '/sales-enablement/',  tr: '/teacher-resources/',
   bo: '/buildouts/',
   cd: '/contracts/',
   pt: '/pets/',
@@ -151,11 +155,46 @@ exports.handler = async (event) => {
       'sitemap-gaming':                 'gm',
       'sitemap-skills':                 'sk',
       'sitemap-speeches':               'sp',
+      'sitemap-edtech':                 'et',
+      'sitemap-sales-enablement':       'se',
+      'sitemap-teacher-resources':      'tr',
     };
     const m = event.path.match(/\/(sitemap-[a-z-]+)\.xml$/i);
     if (m && PATH_TO_KEY[m[1].toLowerCase()]) pillarKey = PATH_TO_KEY[m[1].toLowerCase()];
   }
   const filterPillar = PILLAR_HUB[pillarKey] ? pillarKey : null;
+  const reqPath = String((event && event.path) || '');
+  const wantsTrending = /\/sitemap-trending\.xml$/i.test(reqPath) || qs.mode === 'trending';
+  // Direct function URL / unknown slug used to build the full omnibus (+ /reviews
+  // mirrors) and 502 ResponseSizeTooLarge once the library grew past ~6MB.
+  // Prefer a sitemapindex of the live pillar children instead of a giant urlset.
+  const OMNIBUS_CHILD_SITEMAPS = [
+    'sitemap-knowledge.xml', 'sitemap-tools.xml', 'sitemap-sales-trainings.xml',
+    'sitemap-industry-kpis.xml', 'sitemap-tech-stacks.xml', 'sitemap-graphics.xml',
+    'sitemap-book-summaries.xml', 'sitemap-electronic-reviews.xml',
+    'sitemap-revenue-architecture.xml', 'sitemap-go-to-market-playbooks.xml',
+    'sitemap-franchises.xml', 'sitemap-cars.xml', 'sitemap-towns.xml',
+    'sitemap-schools.xml', 'sitemap-nightlife.xml', 'sitemap-dining.xml',
+    'sitemap-boats.xml', 'sitemap-movies.xml', 'sitemap-wellness.xml',
+    'sitemap-travel.xml', 'sitemap-resorts.xml', 'sitemap-estates.xml',
+    'sitemap-collectibles.xml', 'sitemap-aquariums.xml',
+    'sitemap-highschool-football-recruiting.xml', 'sitemap-ai-infrastructure.xml',
+    'sitemap-telco.xml', 'sitemap-coaching.xml', 'sitemap-buildouts.xml',
+    'sitemap-pets.xml', 'sitemap-software.xml', 'sitemap-clubs.xml',
+    'sitemap-living.xml', 'sitemap-events.xml', 'sitemap-style.xml',
+    'sitemap-gatherings.xml', 'sitemap-gaming.xml', 'sitemap-skills.xml',
+    'sitemap-speeches.xml', 'sitemap-recent.xml',
+  ];
+  function sitemapIndexBody(lastmod) {
+    let b = '<?xml version="1.0" encoding="UTF-8"?>\n'
+      + '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+    for (const name of OMNIBUS_CHILD_SITEMAPS) {
+      b += '<sitemap><loc>' + SITE + '/' + name + '</loc>'
+        + '<lastmod>' + isoDate(lastmod) + '</lastmod></sitemap>\n';
+    }
+    b += '</sitemapindex>';
+    return b;
+  }
 
   const store = initStore();
   let entries = [];
@@ -173,6 +212,37 @@ exports.handler = async (event) => {
       if (entries.length && entries[0].ts) latestTs = entries[0].ts;
     } catch (e) {}
 
+    // Trending = newest 200 polished entries (never the full omnibus).
+    if (wantsTrending) {
+      const top = entries
+        .filter(e => e && e.id && !e.pending)
+        .sort((a, b) => (b.polished_at || b.ts || 0) - (a.polished_at || a.ts || 0))
+        .slice(0, 200);
+      let tBody = '<?xml version="1.0" encoding="UTF-8"?>\n'
+        + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+      for (const e of top) {
+        const pre = (e.id.match(/^([a-z]{1,3})\d+$/i) || [])[1];
+        const path = (pre && PILLAR_ENTRY_PREFIX[pre.toLowerCase()]) || '/knowledge/';
+        tBody += '<url><loc>' + SITE + path + escXml(e.id) + '</loc>'
+          + '<lastmod>' + isoDate(e.polished_at || e.ts) + '</lastmod></url>\n';
+      }
+      tBody += '</urlset>';
+      return {
+        statusCode: 200,
+        headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600, s-maxage=3600' },
+        body: tBody,
+      };
+    }
+
+    // No pillar → do NOT build the oversized omnibus (502). Hand Google the index.
+    if (!filterPillar) {
+      return {
+        statusCode: 200,
+        headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600, s-maxage=3600' },
+        body: sitemapIndexBody(latestTs),
+      };
+    }
+
     // If a pillar filter is set, emit a focused single-pillar sitemap
     // (hub URL + every entry whose id matches the pillar prefix). Returns early.
     if (filterPillar) {
@@ -183,7 +253,7 @@ exports.handler = async (event) => {
         if (filterPillar === 'q') {
           // Knowledge = anything NOT in the other 8 pillars (plus vq_* visitor)
           if (/^vq_/i.test(e.id)) return true;
-          if (/^(st|ik|tk|gb|bs|er|ra|gp|fr|ca|co|aq|hf|tc)\d+$/i.test(e.id)) return false;
+          if (/^(st|ik|tk|gb|bs|er|ra|gp|fr|ca|co|aq|hf|tc|et|se|tr)\d+$/i.test(e.id)) return false;
           return true;
         }
         const re = new RegExp('^' + filterPillar + '\\d+$', 'i');
@@ -241,9 +311,9 @@ exports.handler = async (event) => {
   const gtmPlaybookEntries = entries.filter(e => !isTrainingEntry(e) && !isKpiEntry(e) && !isTechstackEntry(e) && !isGraphicEntry(e) && !isBookSummaryEntry(e) && !isElectronicReviewEntry(e) && !isRevenueArchitectureEntry(e) && isGTMPlaybookEntry(e));
   const franchiseEntries = entries.filter(isFranchiseEntry);
   const carEntries = entries.filter(isCarEntry);
-  const isNewPillarEntry = e => e && e.id && /^(tn|sc|nl|dn|bt|mv|wl|dr|tv|rs|es|cl|lv|ev|sy|ga|gm|sk|sp|tl|cg|co|ai|bo|aq|hf|pt|sw|tc)\d+$/i.test(e.id);
+  const isNewPillarEntry = e => e && e.id && /^(tn|sc|nl|dn|bt|mv|wl|dr|tv|rs|es|cl|lv|ev|sy|ga|gm|sk|sp|tl|cg|co|ai|bo|aq|hf|pt|sw|tc|et|se|tr)\d+$/i.test(e.id);
   const newPillarEntries = entries.filter(isNewPillarEntry);
-  const NEW_PILLAR_PATH = { tn:'/towns/', sc:'/schools/', nl:'/nightlife/', dn:'/dining/', bt:'/boats/', mv:'/movies/', wl:'/wellness/', dr:'/drills/', tv:'/travel/', rs:'/resorts/', es:'/estates/', cl:'/clubs/', lv:'/living/', ev:'/events/', sy:'/style/', ga:'/gatherings/', gm:'/gaming/', sk:'/skills/', sp:'/speeches/', tl:'/tools/', cg:'/coaching/', co:'/collectibles/', ai:'/ai-infrastructure/', bo:'/buildouts/', aq:'/aquariums/', hf:'/highschool-football-recruiting/', pt:'/pets/', sw:'/software/', tc:'/telco/' };
+  const NEW_PILLAR_PATH = { tn:'/towns/', sc:'/schools/', nl:'/nightlife/', dn:'/dining/', bt:'/boats/', mv:'/movies/', wl:'/wellness/', dr:'/drills/', tv:'/travel/', rs:'/resorts/', es:'/estates/', cl:'/clubs/', lv:'/living/', ev:'/events/', sy:'/style/', ga:'/gatherings/', gm:'/gaming/', sk:'/skills/', sp:'/speeches/', tl:'/tools/', cg:'/coaching/', co:'/collectibles/', ai:'/ai-infrastructure/', bo:'/buildouts/', aq:'/aquariums/', hf:'/highschool-football-recruiting/', pt:'/pets/', sw:'/software/', tc:'/telco/', et:'/edtech/', se:'/sales-enablement/', tr:'/teacher-resources/' };
   const libraryEntries  = entries.filter(e => !isTrainingEntry(e) && !isKpiEntry(e) && !isTechstackEntry(e) && !isGraphicEntry(e) && !isBookSummaryEntry(e) && !isElectronicReviewEntry(e) && !isRevenueArchitectureEntry(e) && !isGTMPlaybookEntry(e) && !isFranchiseEntry(e) && !isCarEntry(e) && !isNewPillarEntry(e));
   const latestTrainingTs = trainingEntries.length && trainingEntries[0].ts ? trainingEntries[0].ts : latestTs;
   const latestKpiTs      = kpiEntries.length && kpiEntries[0].ts ? kpiEntries[0].ts : latestTs;
