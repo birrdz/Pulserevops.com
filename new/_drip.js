@@ -34,6 +34,7 @@
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
+const STD = require('./_image_standards');   // 🔒 SHARED IMAGE STANDARDS — same module the crew uses
 
 const WD = path.join(__dirname, '..');
 try {
@@ -954,62 +955,7 @@ const STOP_WORDS = new Set(('what which where when how why who is are the a an o
 //  2. widens what counts as relevant, because stock captions describe the SUBJECT rather than the
 //     proper noun — a Land Cruiser is captioned "white suv parked", which shares nothing with
 //     "toyota land cruiser" and was being rejected, dropping the slot back to the generic pool.
-const PILLAR_CONTEXT = {
-  ca: ['car', 'vehicle', 'automobile', 'suv', 'truck', 'driving', 'road'],
-  bt: ['boat', 'yacht', 'vessel', 'marina', 'sailing', 'water', 'harbor'],
-  nl: ['nightlife', 'bar', 'club', 'cocktail', 'night', 'lounge', 'party'],
-  dn: ['restaurant', 'dining', 'food', 'meal', 'chef', 'cuisine', 'table'],
-  rs: ['resort', 'hotel', 'pool', 'beach', 'vacation', 'lounge'],
-  tv: ['travel', 'destination', 'landscape', 'city', 'tourism'],
-  es: ['house', 'home', 'estate', 'property', 'architecture', 'interior'],
-  bo: ['building', 'construction', 'interior', 'office', 'architecture'],
-  pt: ['pet', 'dog', 'cat', 'animal'],
-  aq: ['aquarium', 'fish', 'tank', 'coral', 'water'],
-  sy: ['fashion', 'outfit', 'clothing', 'style', 'wardrobe'],
-  gm: ['gaming', 'game', 'console', 'computer', 'screen'],
-  mv: ['cinema', 'movie', 'film', 'theater'],
-  wl: ['wellness', 'fitness', 'health', 'yoga', 'spa'],
-  sc: ['school', 'campus', 'classroom', 'student', 'education'],
-  co: ['collection', 'vintage', 'antique', 'collectible'],
-  ev: ['event', 'venue', 'celebration', 'gathering'],
-  cl: ['club', 'venue', 'lounge'],
-  lv: ['living', 'home', 'lifestyle', 'interior'],
-  ga: ['gathering', 'party', 'celebration'],
-  fr: ['franchise', 'storefront', 'business', 'retail'],
-  tc: ['telecom', 'network', 'antenna', 'infrastructure'],
-  ai: ['server', 'datacenter', 'technology', 'computer', 'network'],
-  sw: ['software', 'computer', 'screen', 'code', 'office'],
-  tk: ['technology', 'computer', 'software', 'office'],
-  // revenue / business pillars share an office-and-meetings visual language
-  tl: ['business', 'office', 'meeting', 'team', 'strategy'],
-  gp: ['business', 'office', 'meeting', 'team', 'strategy'],
-  ra: ['business', 'office', 'meeting', 'team', 'strategy'],
-  st: ['sales', 'business', 'meeting', 'team', 'presentation'],
-  ik: ['business', 'chart', 'analytics', 'office', 'data'],
-  // ⚠️ was ['coaching','meeting','mentor','team'] — "coaching" and "team" lead a stock search straight to
-  // sports, the same trap that put soccer photos on sk. Anchored to the business sense instead.
-  cg: ['business coaching', 'manager employee', 'office meeting', 'mentor professional', 'workplace'],
-  bs: ['book', 'reading', 'library', 'study'],
-  er: ['electronics', 'device', 'gadget', 'technology'],
-  // Added 2026-07-28 — these 10 pillars had NO context, which is why the hero ladder ran out of
-  // rungs and left ~10,200 pages (including all 8,004 of `q`) with no hero at all.
-  q:  ['business', 'office', 'meeting', 'team', 'strategy', 'work'],
-  ed: ['energy', 'efficiency', 'power', 'building', 'industrial'],
-  gb: ['chart', 'diagram', 'graphic', 'design', 'data'],
-  sp: ['speech', 'presentation', 'stage', 'microphone', 'audience'],
-  tn: ['town', 'street', 'downtown', 'neighborhood', 'main street'],
-  // 🔧 FIXED 2026-07-29 — this context put soccer photos on sales pages. "training / practice / drill /
-  // skill" is the vocabulary of ATHLETIC training, so "Skill Drill: Giving Feedback for Plumbing Supply"
-  // searched as "skill drill training" and returned footballers doing sprints — which then passed the
-  // alt-text overlap check on the word "drill" and got placed as "matched page topic".
-  // Skill Drills are SALES coaching. The context now says so in words a stock library understands.
-  sk: ['business meeting', 'sales team', 'office coaching', 'manager employee', 'professional'],
-  hf: ['football', 'stadium', 'athlete', 'team', 'field'],
-  tr: ['teacher', 'classroom', 'school', 'education', 'student', 'lesson'],
-  et: ['education', 'technology', 'classroom', 'student', 'laptop'],
-  se: ['sales', 'business', 'meeting', 'presentation', 'team'],
-  nil: ['athlete', 'college', 'sports', 'stadium'],
-};
+const PILLAR_CONTEXT = STD.PILLAR_CONTEXT;   // 🔒 shared — see new/_image_standards.js
 
 function imageQuery(topic, id) {
   const words = String(topic || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/)
@@ -1220,49 +1166,15 @@ function poolPick(id, n) {
 // and nothing could overrule it; now `avoid: ["soccer","football",…]` kills it outright.
 const NOTES_F = path.join(IB, '_pillar_image_notes.json');
 let NOTES_CACHE = null, NOTES_AT = 0;
-function pillarNotes(pillar) {
-  if (!NOTES_CACHE || Date.now() - NOTES_AT > 60000) {
-    try { NOTES_CACHE = JSON.parse(fs.readFileSync(NOTES_F, 'utf8')) || {}; } catch (e) { NOTES_CACHE = {}; }
-    NOTES_AT = Date.now();
-  }
-  const n = NOTES_CACHE[pillar];
-  if (n && typeof n === 'object') return n;
-  // 🌐 STANDING RULE (owner 2026-07-29: "use the same logic for the rest of them going forward"). A pillar with
-  // no entry of its own inherits _DEFAULT, so every pillar — including ones added later — gets the universal
-  // junk filter (watermarked stock, clipart, toys) without needing to be listed by hand.
-  const d = NOTES_CACHE._DEFAULT;
-  return (d && typeof d === 'object') ? d : null;
-}
-// true when this candidate is explicitly vetoed for its pillar
-function vetoed(text, pillar) {
-  const n = pillarNotes(pillar);
-  if (!n || !Array.isArray(n.avoid) || !n.avoid.length) return false;
-  const t = ' ' + String(text || '').toLowerCase() + ' ';
-  for (const bad of n.avoid) {
-    const b = String(bad || '').toLowerCase().trim();
-    if (b && t.includes(b)) return b;
-  }
-  return false;
-}
+const pillarNotes = STD.pillarNotes;   // 🔒 shared — see new/_image_standards.js
+const vetoed = STD.vetoed;             // 🔒 shared
 
 // 🚫 AMBIGUOUS MATCH WORDS (owner incident 2026-07-29 — soccer photos on a sales page).
 // Each of these means something different in a stock-photo library than it does on a business page:
 // a "drill" is a power tool or a sports exercise, "training" and "practice" are athletic, a "pitch" is
 // a field, a "coach" is a bus. Matching on one of them alone is not evidence the photo belongs.
-const AMBIGUOUS_MATCH = new Set(['drill', 'drills', 'training', 'train', 'practice', 'practise', 'skill', 'skills',
-  'coach', 'coaching', 'pitch', 'field', 'team', 'play', 'player', 'game', 'exercise', 'workout', 'session',
-  'bank', 'court', 'net', 'club', 'run', 'running', 'lead', 'leads', 'target', 'goal', 'goals', 'score']);
-// A candidate is acceptable only if its alt text shares at least one SPECIFIC (non-ambiguous) word with the
-// topic. Ambiguous words may add to the score afterwards, but they can never be the sole reason for a match.
-function altOverlapOk(alt, nouns) {
-  const words = String(alt || '').toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
-  let specific = 0, ambiguous = 0;
-  for (const w of words) {
-    if (!nouns.has(w)) continue;
-    if (AMBIGUOUS_MATCH.has(w)) ambiguous++; else specific++;
-  }
-  return specific > 0;                 // ambiguous-only matches are rejected
-}
+const AMBIGUOUS_MATCH = STD.AMBIGUOUS_MATCH;   // 🔒 shared — see new/_image_standards.js
+const altOverlapOk = STD.altOverlapOk;         // 🔒 shared
 
 async function candidateImages(id, topic, want) {
   const key = process.env.PEXELS_API_KEY;
@@ -1492,105 +1404,7 @@ const IMG_QUALITY = parseInt(process.env.DRIP_IMG_QUALITY || '82', 10);
 // HTML error page saved as .jpg, a truncated download, or a blank/near-white stock frame — all of
 // which render as a white box on the page. Every candidate is now decoded and inspected before it
 // can be written.
-async function fetchImage(url) {
-  let sharp = null;
-  try { sharp = require('sharp'); } catch (e) {}
-  try {
-    let buf;
-    if (typeof url === 'object' && url && url.local) {
-      // banked pool image straight off disk — no network, no quota
-      try { buf = fs.readFileSync(url.file); } catch (e) { return null; }
-    } else {
-      const r = await fetch(url, { signal: AbortSignal.timeout(30000) });
-      if (!r.ok) return null;
-      const ct = String(r.headers.get('content-type') || '');
-      if (ct && !/^image\//i.test(ct)) return null;        // an HTML error body is not an image
-      buf = Buffer.from(await r.arrayBuffer());
-    }
-    if (buf.length <= MIN_IMG_BYTES) return null;
-    if (!sharp) return buf;                                 // no sharp → cannot validate, ship as-is
-
-    // 1. MUST DECODE. sharp throws on anything that is not a real image.
-    let md;
-    try { md = await sharp(buf).metadata(); } catch (e) { return null; }
-    if (!md || !md.width || !md.height) return null;
-    if (md.width < 600 || md.height < 400) return null;     // thumbnails render as mush
-
-    // 2. MUST NOT BE BLANK. A flat frame — all white, all black, a solid backdrop — has almost no
-    //    variation. stdev near zero across channels is exactly the "white screen" symptom.
-    try {
-      const st = await sharp(buf).stats();
-      const chans = (st.channels || []).slice(0, 3);
-      if (chans.length) {
-        const meanStdev = chans.reduce((n, c) => n + (c.stdev || 0), 0) / chans.length;
-        const meanLevel = chans.reduce((n, c) => n + (c.mean || 0), 0) / chans.length;
-        // 🔧 TIGHTENED 2026-07-29 — white images were still reaching pages. The old bar (stdev 12, mean 244)
-        // only caught a totally blank frame; a product-on-white or a washed-out sky sits around mean 235 with
-        // enough stdev to pass, then renders as a white box in a dark layout.
-        // 🔧 TIGHTENED AGAIN 2026-07-29 — white images were still reaching pages at stdev 18 / mean 232.
-        if (meanStdev < 22) return null;                     // featureless / near-flat
-        if (meanLevel > 226 || meanLevel < 16) return null;  // blown-out white / crushed black
-      }
-      // 3. EDGE TEST — the real "white image" tell. A photo has content at its edges; a product-on-white,
-      //    a scanned page or a padded frame has a uniform pale border. Sample a thin frame around the
-      //    outside and reject when it is both very bright and very flat.
-      try {
-        const w = md.width, h = md.height;
-        const band = Math.max(8, Math.round(Math.min(w, h) * 0.06));
-        const edges = await Promise.all([
-          sharp(buf).extract({ left: 0, top: 0, width: w, height: band }).stats(),                     // top
-          sharp(buf).extract({ left: 0, top: h - band, width: w, height: band }).stats(),              // bottom
-          sharp(buf).extract({ left: 0, top: 0, width: band, height: h }).stats(),                     // left
-          sharp(buf).extract({ left: w - band, top: 0, width: band, height: h }).stats(),              // right
-        ]);
-        let bright = 0;
-        for (const e of edges) {
-          const c = (e.channels || []).slice(0, 3);
-          if (!c.length) continue;
-          const m = c.reduce((n, x) => n + (x.mean || 0), 0) / c.length;
-          const s = c.reduce((n, x) => n + (x.stdev || 0), 0) / c.length;
-          if (m > 228 && s < 26) bright++;                   // this edge is a pale, flat margin
-        }
-        // 2+ pale edges is enough. Product-on-white shots — which is what Top-10 ranking pages pull, since
-        // every candidate is a product photo on a white studio background — typically have a clean left/right
-        // or top/bottom pair rather than all four, so the old 3-edge bar let most of them through.
-        if (bright >= 2) return null;
-      } catch (e) {}
-    } catch (e) {}
-
-    // 4. AUTO-FOCUS / AUTO-ZOOM (owner 2026-07-29: "tell drip to auto focus or auto zoom first").
-    // sharp's `attention` strategy finds the highest-saliency region and crops to it, so the subject fills the
-    // frame instead of sitting small inside dead space. Two wins beyond framing: it crops AWAY the pale margins
-    // that made product-on-white shots read as white boxes, and it stops the layout slicing images at arbitrary
-    // points — the crop is deliberate rather than whatever the container happened to cut.
-    // Only applied to images wider than 4:3; already-tight or portrait images are left alone rather than
-    // zoomed into something unrecognisable.
-    const ratio = md.width / Math.max(1, md.height);
-    if (ratio > 1.55) {                                        // wider than 3:2 — the banner/thumbnail shape
-      try {
-        // Crop the WIDTH down to reach 3:2, not the height. Targeting height on a 16:9 source asks for a frame
-        // TALLER than the original, which sharp satisfies by padding/upscaling — the opposite of a zoom, and
-        // the bug in the first version of this block.
-        const targetW = Math.round(md.height * 1.5);
-        if (targetW < md.width) {
-          const out = await sharp(buf)
-            .resize({ width: targetW, height: md.height, fit: 'cover', position: sharp.strategy.attention })
-            .jpeg({ quality: IMG_QUALITY, mozjpeg: true }).toBuffer();
-          if (out.length > MIN_IMG_BYTES) buf = out;
-        }
-      } catch (e) {}
-    }
-    // 5. Only ever shrink. Below IMG_MAX_W the original is kept — never upscale to fake HD.
-    if (md.width > IMG_MAX_W) {
-      try {
-        const out = await sharp(buf).resize({ width: IMG_MAX_W, withoutEnlargement: true })
-          .jpeg({ quality: IMG_QUALITY, mozjpeg: true }).toBuffer();
-        if (out.length > MIN_IMG_BYTES) buf = out;
-      } catch (e) {}
-    }
-    return buf;
-  } catch (e) { return null; }
-}
+const fetchImage = STD.fetchImage;   // 🔒 shared — white/blank rejection, edge test, auto-focus crop
 
 function writeReceipt(row) {
   try {

@@ -608,11 +608,22 @@ async function publishBodySlot(id, buffer, turn) {
   const present = [];
   for (let i = 1; i <= MAX_BODY_IMAGES; i++) { if (i === turn) { present.push(i); continue; } let ex = false; try { const b = await store.get('qa-bin/' + id + '-b' + i + '.jpg', { type: 'arrayBuffer' }); ex = !!(b && b.byteLength > 500); } catch (e) {} if (ex) present.push(i); }
   let stripped = String(blob.answer || '').split('\n').filter(l => !/^!\[[^\]]*\]\([^)]*\)$/.test(l.trim())).join('\n');
+  // 🔒 RANKED PAGES: ONE IMAGE PER RANK, AND NO SECOND COPY (owner 2026-07-29 — gm0063 shipped
+  // 10 ranks with 16 images). A Top-10 body already references every slot through its own
+  // `@@PRODUCT ... img="/assets/qa/<id>-bN.jpg"` line, anchored to the rank it belongs to.
+  // Splicing markdown images on top of that duplicates every image AND spreads the copies by
+  // PARAGRAPH, so they drift off the item they illustrate. On a ranked page we write the slot
+  // file and stop — the @@PRODUCT directive is the placement.
+  const isRanked = /^@@PRODUCT\b/m.test(stripped) || (stripped.match(/^##\s+\d+\.\s/gm) || []).length >= 3;
+  if (isRanked) {
+    blob.answer = stripped;
+  } else {
   const lines = stripped.split('\n');
   const picks = imageSlotIndices(lines, present.length);
   const ins = present.map((slot, i) => ({ at: picks[i], md: '\n![' + question.replace(/\?+$/, '') + ' — figure ' + (i + 1) + '](/assets/qa/' + id + '-b' + slot + '.jpg)\n' })).filter(x => x.at != null).sort((a, b) => b.at - a.at);
   for (const x of ins) lines.splice(x.at + 1, 0, x.md);
   blob.answer = lines.join('\n');
+  }
   blob.bb_images = true; blob.updated_at = new Date(now).toISOString(); markRecent(blob, now);
   await store.setJSON('answers/' + id + '.json', blob);
   try { const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] }; const ex = (idx.entries || []).find(e => e && e.id === id); if (ex) { ex.polished_at = now; markRecent(ex, now); await store.setJSON('_index.json', idx); } } catch (e) {}

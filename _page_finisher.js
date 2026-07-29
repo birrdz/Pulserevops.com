@@ -15,6 +15,12 @@ let claudeUnbenched = () => false; try { ({ claudeUnbenched } = require('./new/_
 const { publishContentBody, publishFaceImageOnly, publishBodySlot } = require('./new/publish_core');
 let emailEntryDone = () => {}; try { ({ emailEntryDone } = require('./_entry_done_email')); } catch (e) {}
 let sharp = null; try { sharp = require('sharp'); } catch (e) {}
+// 🔒 SHARED IMAGE STANDARDS (new/_image_standards.js) — ONE source of truth for image quality,
+// required by BOTH this crew and new/_drip.js so the two can never drift apart.
+const STD = require('./new/_image_standards');
+// 🏆 title-only Top-10 classifier — the trigger for the ranked golden template
+let titleSuggestsRankingList = () => false;
+try { ({ titleSuggestsRankingList } = require('./_ranking_list_master_law')); } catch (e) {}
 let PILLAR = (process.env.SLOT_PILLAR || process.env.DEFAULT_PILLAR || 'tl').toLowerCase().replace(/[^a-z]/g, '');
 // ROTATION (owner 2026-07-21): a small-pillar crew (ROTATE=1) that FINISHES its pillar jumps to the next
 // un-taken small Q&A pillar — never the same one twice. The tl crew launches WITHOUT ROTATE and stays on tl.
@@ -292,7 +298,23 @@ async function pickImage(query, seen, title) {
   // 1. TOPIC MATCH — score each Pexels result by keyword overlap of its alt-text with the title, best first
   const topic = [];
   const r = await pexels(query);
-  ((r && r.photos) || []).forEach(p => { const src = psrc(p); const alt = String(p.alt || '').toLowerCase(); const score = kw.reduce((s, w) => s + (alt.indexOf(w) >= 0 ? 1 : 0), 0); topic.push({ src, isPack: false, pid: pidOf(src), score }); });
+  // 🔒 RELEVANCE GATE — same rules as the drip (owner 2026-07-29: "same image standards ... front end").
+  // nouns = the title's own words PLUS the pillar's visual vocabulary, so "does this photo belong on
+  // THIS page" is judged the same way on both machines.
+  const nouns = new Set(kw);
+  for (const w of (STD.PILLAR_CONTEXT[PILLAR] || [])) String(w).split(/\s+/).forEach(x => nouns.add(x.toLowerCase()));
+  let vetoDrop = 0, ambigDrop = 0;
+  ((r && r.photos) || []).forEach(p => {
+    const src = psrc(p); const alt = String(p.alt || '').toLowerCase();
+    // per-pillar veto list (_pillar_image_notes.json, live-editable) — hard reject
+    if (STD.vetoed(alt, PILLAR)) { vetoDrop++; return; }
+    // an ambiguous-only match ("drill", "training", "team") is NOT evidence the photo belongs —
+    // this is the check that stops soccer photos landing on a sales page.
+    if (alt && !STD.altOverlapOk(alt, nouns)) { ambigDrop++; return; }
+    const score = kw.reduce((s, w) => s + (alt.indexOf(w) >= 0 ? 1 : 0), 0);
+    topic.push({ src, isPack: false, pid: pidOf(src), score });
+  });
+  if (vetoDrop || ambigDrop) log('   🔒 image filter — ' + vetoDrop + ' vetoed · ' + ambigDrop + ' ambiguous-only · ' + topic.length + ' kept');
   topic.sort((a, b) => b.score - a.score);   // strongest keyword match leads
   // 2. FALLBACK — buildings / architecture / artwork (goes with everything) when the topic match is thin
   const fbList = [];
@@ -306,9 +328,19 @@ async function pickImage(query, seen, title) {
   for (let pass = 0; pass < 2; pass++) {
     for (const c of order) {
       if (pass === 0 && c.pid && used.has(c.pid)) continue;
-      const raw = c.isPack ? readPack(c.src) : await dl(c.src);
-      if (!raw || raw.length < 2500) continue;
-      const buf = await fmt(raw);
+      // 🔒 SHARED IMAGE STANDARDS — the drip's quality gates, now applied on the FRONT END so a page
+      // is right the first time instead of waiting for the drip to come back and redo it:
+      //   · rejects blank / white / blown-out frames (the "white box on a dark layout" bug)
+      //   · edge test kills product-on-white shots with pale flat margins
+      //   · auto-focus crop (sharp attention) so the subject fills the frame
+      //   · never upscales — HD comes from a bigger source, not from stretching
+      // Runs BEFORE fmt() so a rejected candidate never reaches the page; fmt() then standardises
+      // the final frame so the site's existing look is unchanged.
+      const graded = c.isPack
+        ? await STD.fetchImage({ local: true, file: c.src })
+        : await STD.fetchImage(c.src);
+      if (!graded) continue;                    // failed a standard → next candidate
+      const buf = await fmt(graded);
       const h = crypto.createHash('md5').update(buf).digest('hex');
       if (seen.has(h)) continue;   // never the same image twice on one page
       seen.add(h);
@@ -454,7 +486,30 @@ async function finishPage(id, blob) {
   // actually gets redone"). Normally a page already at the gate skips the writer entirely, which is how a run
   // can "finish" hundreds of pages without rewriting a single one. FORCE_REWRITE=1 removes that shortcut: the
   // ladder runs on every page regardless of its stored score.
+  // 🏆 TOP-10 CLASSIFY BY TITLE ONLY (owner 2026-07-29: "if it says in the title top 10 blah blah blah you
+  // know it's a top 10 — just write the f*** over it the way it needs to be").
+  //
+  // This crew NEVER passed a template, so buildPromptFor() defaulted to 'qa' on EVERY page — including every
+  // Top-10. That is why ranked pages came out as essays ("Benchmarks across the ten cards" as one heading
+  // instead of ten ranked items). The top10 branch of the writer existed and was simply never reached.
+  //
+  // Classification is on the TITLE ALONE, deliberately. The old router required
+  // titleSuggestsRankingList(title) && isRankingListBody(body) — so a Top-10 already written as an essay
+  // could never be identified, because the malformed body was the evidence used to decide whether to fix
+  // the malformed body. Self-perpetuating. The title states the intent; the body is what we are replacing.
+  const IS_TOP10 = titleSuggestsRankingList(title);
+  if (IS_TOP10) log(id + ' 🏆 TOP-10 by title — writing the ranked golden template (#1..#10), overwriting whatever is there');
+
   let writeOk = FORCE_REWRITE ? false : ((blob.gate_score || 0) >= GATE_MIN);
+  // A ranked page whose body has no ranks is BROKEN no matter what its stored score says — the score comes
+  // from the general 13-point gate, which a well-written essay passes. Re-open it and write it as a Top-10.
+  if (writeOk && IS_TOP10) {
+    const ranks = (String(blob.answer || '').match(/^##\s+\d+\.\s/gm) || []).length;
+    if (ranks < 3) {
+      writeOk = false;
+      log(id + ' 🏆 stored ' + (blob.gate_score || 0) + '/13 but ' + ranks + ' ranked sections — a Top-10 written as an essay. Rewriting as ranked.');
+    }
+  }
   if (FORCE_REWRITE) log(id + ' 🔁 FORCE REWRITE — stored ' + (blob.gate_score || 0) + '/13 ignored, running the full writer ladder');
   // 🆕 THIN NEW PAGE = NOT DONE. A pipeline seed that only ever got the cheap pass carries gate_score 12 with a
   // stub body, so this crew used to skip the writer entirely and go straight to images. The one point it dropped
@@ -497,7 +552,7 @@ async function finishPage(id, blob) {
         // (0) surgical $0
         FLIP = '💸 surgical $0 · r' + round;
         setStage('write');
-        const sx = rebuildToGate(title, srcBody, { maxAttempts: 0, id });
+        const sx = rebuildToGate(title, srcBody, { maxAttempts: 0, id, template: IS_TOP10 ? 'top10' : 'qa' });
         const stx = sx && sx.body && onTopic(title, sx.body);
         if (better(sx, r)) { r = sx; topic = stx; }
         // 🔁 Under FORCE_REWRITE the $0 surgical rung may NOT end the page. Mechanical patching is exactly the
@@ -538,7 +593,7 @@ async function finishPage(id, blob) {
           if (!available(rung.eng)) { log(id + ' ⏭ skip ' + rung.tag + ' — ' + (rung.eng === 'cursor' ? 'no CURSOR_API_KEY' : 'Claude benched')); continue; }
           // broaden on this rung, or on ANY rung once we're in a restart round
           const wide = rung.broaden || round > 1;
-          const opts = Object.assign({ maxAttempts: rung.tries, id }, wide ? { stuck: true, broaden: true } : {},
+          const opts = Object.assign({ maxAttempts: rung.tries, id, template: IS_TOP10 ? 'top10' : 'qa' }, wide ? { stuck: true, broaden: true } : {},
             FORCE_REWRITE ? { force: true } : {});   // 🔁 force = never return "already at bar, no writer needed"
           if (wide && !rescued) { rescued = true; stuckAt = (r && r.after) || 0; log(id + ' stuck ' + stuckAt + '/13 — broadening scope + rotating writers (round ' + round + ')'); }
           setEng(rung.eng);
@@ -587,7 +642,23 @@ async function finishPage(id, blob) {
     CUR = ''; setStage('idle'); return;
   }
   const words = String((blob && blob.answer) || '').replace(/[#>*`~\[\]()>-]/g, ' ').split(/\s+/).filter(Boolean).length;
-  const bodyN = Math.max(2, Math.min(6, Math.round(words / 450)));   // how many body images this length holds
+  // 🏆 RANKED PAGE: ONE IMAGE PER RANKED ITEM, AND IT MUST BE *THAT* ITEM (owner 2026-07-29:
+  // "1 through 10 have to be the exact image of the number that it's associated with").
+  // Slot N is item N — so slot N's search query comes from ITEM N'S OWN NAME, never from the page
+  // title. Using the page title for all ten slots is why a Top-10 got ten generic photos that had
+  // nothing to do with the individual picks. Matches the IMAGE ACQUISITION CONTRACT in CLAUDE.md:
+  // "TOP_LIST item images derive their query from each item's own text."
+  const rankNames = (String((blob && blob.answer) || '').match(/^##\s+\d+\.\s+(.+)$/gm) || [])
+    .map(h => h.replace(/^##\s+\d+\.\s+/, '')
+               .replace(/[🏆💎]/g, '')
+               .replace(/\bBEST\s+(?:OVERALL|VALUE)\b/gi, '')
+               .replace(/[—–|]/g, ' ')
+               .replace(/\s{2,}/g, ' ').trim())
+    .filter(Boolean);
+  const bodyN = rankNames.length >= 3
+    ? Math.min(10, rankNames.length)                                 // one per rank, cover is separate
+    : Math.max(2, Math.min(6, Math.round(words / 450)));             // essay: images by length
+  if (rankNames.length >= 3) log(id + ' 🏆 ' + rankNames.length + ' ranked items → ' + bodyN + ' images, one per rank, each searched by its OWN name');
   const q = deriveQuery(title);
   const seen = new Set();
   claim(id);   // heartbeat: refresh our claim now that writing (the slow step) is done
@@ -603,7 +674,12 @@ async function finishPage(id, blob) {
   // 3. BODY 1..N
   for (let n = 1; n <= bodyN; n++) {
     setStage('body' + n);
-    const img = await pickImage(q, seen, title);
+    // Slot n illustrates ranked item n → search for that item by name, and score relevance against
+    // the item, not the page. Falls back to the page query only on non-ranked pages.
+    const itemName = rankNames[n - 1] || '';
+    const slotQuery = itemName ? deriveQuery(itemName + ' ' + title) : q;
+    const slotTitle = itemName ? (itemName + ' ' + title) : title;
+    const img = await pickImage(slotQuery, seen, slotTitle);
     if (!img) { netFail = true; break; }
     try { await retryNet(() => publishBodySlot(id, img.buf, n)); addUsedPex([img.pid]); bodyOk++; log(id + ' body ' + n); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' body ' + n + ' err ' + ((e && e.message) || e)); }
     touchImgLock();   // keep my turn alive during the image burst
