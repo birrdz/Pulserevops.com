@@ -655,10 +655,21 @@ async function finishPage(id, blob) {
                .replace(/[—–|]/g, ' ')
                .replace(/\s{2,}/g, ' ').trim())
     .filter(Boolean);
+  // 📐 IMAGE COUNT IS STRUCTURAL, NOT LENGTH-DERIVED (owner 2026-07-29: "it's always going to be like
+  // three paragraphs before an image"). It used to be round(words/450), so a 2,300-word page got 5
+  // images and a 2,700-word page got 6 — the layout changed on every page for no reason. Now one image
+  // follows each 3-paragraph content block, so the rhythm is identical on every Q&A page:
+  //   Top-10 → one image per ranked item (10)
+  //   Q&A    → one image per content section (the template emits 5), floor 5, ceiling 8
+  const contentH2 = (String((blob && blob.answer) || '').match(/^##\s+(.+)$/gm) || [])
+    .map(h => h.replace(/^##\s+/, '').trim())
+    .filter(h => !/^(Direct Answer|Related questions|FAQ|Sources|Related on PULSE|How We Ranked|How to Choose|What to Look For|Bottom Line)/i.test(h))
+    .length;
   const bodyN = rankNames.length >= 3
     ? Math.min(10, rankNames.length)                                 // one per rank, cover is separate
-    : Math.max(2, Math.min(6, Math.round(words / 450)));             // essay: images by length
+    : Math.max(5, Math.min(8, contentH2 || 5));                      // one per content section
   if (rankNames.length >= 3) log(id + ' 🏆 ' + rankNames.length + ' ranked items → ' + bodyN + ' images, one per rank, each searched by its OWN name');
+  else log(id + ' 📐 ' + contentH2 + ' content sections → ' + bodyN + ' body images (one per section) + 1 face/hero');
   const q = deriveQuery(title);
   const seen = new Set();
   claim(id);   // heartbeat: refresh our claim now that writing (the slow step) is done
