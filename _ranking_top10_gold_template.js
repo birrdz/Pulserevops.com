@@ -140,6 +140,9 @@ function tailKeyForHeading(text) {
   if (/^FAQ$/i.test(bare)) return 'faq';
   if (/^Bottom\s+Line$/i.test(bare)) return 'bottomLine';
   if (/^(?:Sources|References)$/i.test(bare)) return 'sources';
+  // '## Related on PULSE' is REQUIRED by content_gate point 8 and sits after Sources. The audit used to
+  // stop at Sources and then report it as 'extra_sections_after_sources' on every single page.
+  if (/^Related\s+on\s+PULSE/i.test(bare)) return 'relatedPulse';
   return null;
 }
 
@@ -252,7 +255,7 @@ function auditTop10GoldTemplate(body, title) {
     idx++;
   }
 
-  const tailOrder = ['howToChoose', 'whatToLookFor', 'faq', 'bottomLine', 'sources'];
+  const tailOrder = ['howToChoose', 'whatToLookFor', 'faq', 'bottomLine', 'sources', 'relatedPulse'];
   for (let ti = 0; ti < tailOrder.length; ti++) {
     const expected = tailOrder[ti];
     const key = tailKeyForHeading(headings[idx]);

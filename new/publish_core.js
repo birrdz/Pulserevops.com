@@ -141,7 +141,24 @@ function embedImages(body, qid, imgs) {
   const picks = (rankAt.length >= 2 && rankAt.length >= imgs.length)
     ? rankAt.slice(0, imgs.length)
     : imageSlotIndices(lines, imgs.length);
-  const ins = imgs.map((n, i) => ({ at: picks[i], md: '\n![' + n.alt + '](/assets/qa/' + qid + '-b' + (i + 1) + '.jpg)\n' })).filter(x => x.at != null).sort((a, b) => b.at - a.at);
+  // 🏆 ALT TEXT COMES FROM THE RANK IT SITS UNDER, not from the page title. Callers build their alt
+  // list as "<page title> — figure N", which on a Top-10 labels all ten images with the same page name
+  // — so image 4 says "Top 10 Wireless Mice" instead of "Razer DeathAdder V3 Pro". The crew's mermaid
+  // cleanup calls publishContentBody() AFTER images are placed, which re-embedded them and wiped the
+  // per-item names off every slot. Deriving the alt here fixes every caller at once.
+  const rankName = (idx) => {
+    const at = rankAt[idx];
+    if (at == null) return '';
+    return String(lines[at] || '')
+      .replace(/^#{2,3}\s*/, '').replace(/^(?:\d+[.)]|#\d+)\s*/, '')
+      .replace(/[🏆💎]/g, '').replace(/\bBEST\s+(?:OVERALL|VALUE)\b/gi, '')
+      .replace(/[—–|]/g, ' ').replace(/\s{2,}/g, ' ').replace(/[\[\]]/g, '').trim();
+  };
+  const useRankAlts = rankAt.length >= 2 && rankAt.length >= imgs.length;
+  const ins = imgs.map((n, i) => ({
+    at: picks[i],
+    md: '\n![' + ((useRankAlts && rankName(i)) || n.alt) + '](/assets/qa/' + qid + '-b' + (i + 1) + '.jpg)\n',
+  })).filter(x => x.at != null).sort((a, b) => b.at - a.at);
   for (const x of ins) lines.splice(x.at + 1, 0, x.md);
   return lines.join('\n');
 }
@@ -636,8 +653,20 @@ async function publishBodySlot(id, buffer, turn) {
     for (const slot of present) {
       const at = rankAt[slot - 1];                 // slot N belongs to the Nth ranked heading
       if (at == null) continue;
-      const nm = String(lines[at] || '').replace(/^##\s+\d+\.\s*/, '').replace(/[🏆💎]/g, '').replace(/\bBEST\s+(?:OVERALL|VALUE)\b/gi, '').trim();
-      ins.push({ at, md: '\n![' + (nm || question.replace(/\?+$/, '')) + '](/assets/qa/' + id + '-b' + slot + '.jpg)\n' });
+      const nm = String(lines[at] || '').replace(/^##\s+\d+\.\s*/, '').replace(/[🏆💎]/g, '').replace(/\bBEST\s+(?:OVERALL|VALUE)\b/gi, '').replace(/"/g, '').trim();
+      // Emit an @@PRODUCT directive, not plain markdown. It is the same image in the same place, but it
+      // also carries the product NAME and its official link — which is the Top-10 standard (every item
+      // gets an image AND a link). A bare ![](…) gives the reader a picture with nothing to click, and
+      // the renderer treats @@PRODUCT posters as curated Top-10 art, exempt from the Q&A image purge.
+      // `site` is taken from a real link already in this rank's own text; never invented. Omitted if
+      // the writer did not cite one — a missing link is a gap, a fabricated URL is a defect.
+      let end = at + 1; while (end < lines.length && !/^##\s/.test(String(lines[end]).trim())) end++;
+      const block = lines.slice(at + 1, end).join('\n');
+      const site = (block.match(/\]\((https?:\/\/[^)\s]+)\)/) || block.match(/(https?:\/\/[^\s)\]"'<]+)/) || [])[1] || '';
+      const attrs = 'name="' + slot + '. ' + (nm || question.replace(/\?+$/, '')) + '"'
+                  + ' img="/assets/qa/' + id + '-b' + slot + '.jpg"'
+                  + (site && !/pulserevops\.com/i.test(site) ? ' site="' + site + '"' : '');
+      ins.push({ at, md: '\n@@PRODUCT ' + attrs + '\n' });
     }
     ins.sort((a, b) => b.at - a.at);
     for (const x of ins) lines.splice(x.at + 1, 0, x.md);   // image sits directly under its rank heading

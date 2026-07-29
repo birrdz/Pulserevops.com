@@ -290,7 +290,7 @@ function addFP(id, fp) { loadFP().push({ id, fp }); try { fs.appendFileSync(FPF,
 
 // pick ONE image: best keyword match first, then buildings/architecture/art fallback, then local packs — never
 // a globally-used dupe (unless everything fresh is exhausted) and never the same image twice on a page.
-async function pickImage(query, seen, title) {
+async function pickImage(query, seen, title, pageQuery) {
   const used = usedPex();
   const kw = titleKeywords(title || query);
   const psrc = p => p.src.large2x || p.src.original || p.src.large;
@@ -316,8 +316,22 @@ async function pickImage(query, seen, title) {
   });
   if (vetoDrop || ambigDrop) log('   🔒 image filter — ' + vetoDrop + ' vetoed · ' + ambigDrop + ' ambiguous-only · ' + topic.length + ' kept');
   topic.sort((a, b) => b.score - a.score);   // strongest keyword match leads
-  // 2. FALLBACK — buildings / architecture / artwork (goes with everything) when the topic match is thin
+  // 2a. CATEGORY FALLBACK — the PAGE's own subject before anything generic (owner 2026-07-29: the images
+  // have to be the thing that's listed). A stock library has no photo of a "Logitech MX Master 4", so an
+  // exact-model search returns nothing usable and the relevance gate correctly rejects it. Falling
+  // straight to buildings/architecture from there puts a skyscraper under rank 4 of a mouse review.
+  // Searching the page's category instead yields a wireless mouse — not that exact model, but the right
+  // KIND of object, which is what a reader needs to see next to the item.
   const fbList = [];
+  if (pageQuery && pageQuery !== query) {
+    const rc = await pexels(pageQuery);
+    ((rc && rc.photos) || []).forEach(p => {
+      const src = psrc(p); const alt = String(p.alt || '').toLowerCase();
+      if (STD.vetoed(alt, PILLAR)) return;
+      fbList.push({ src, isPack: false, pid: pidOf(src), score: 0 });
+    });
+  }
+  // 2b. LAST-RESORT FALLBACK — buildings / architecture / artwork (goes with everything)
   const r2 = await pexels(FALLBACK[Math.floor(Math.random() * FALLBACK.length)]);
   ((r2 && r2.photos) || []).forEach(p => { const src = psrc(p); fbList.push({ src, isPack: false, pid: pidOf(src), score: 0 }); });
   // 3. LOCAL PACKS — 7900+ pool, random FRESH window (network-free catch-all, no repeats)
@@ -720,7 +734,7 @@ async function finishPage(id, blob) {
     const itemName = rankNames[n - 1] || '';
     const slotQuery = itemName ? deriveQuery(itemName + ' ' + title) : q;
     const slotTitle = itemName ? (itemName + ' ' + title) : title;
-    const img = await pickImage(slotQuery, seen, slotTitle);
+    const img = await pickImage(slotQuery, seen, slotTitle, q);
     if (!img) { netFail = true; break; }
     try { await retryNet(() => publishBodySlot(id, img.buf, n)); addUsedPex([img.pid]); bodyOk++; log(id + ' body ' + n); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' body ' + n + ' err ' + ((e && e.message) || e)); }
     touchImgLock();   // keep my turn alive during the image burst
