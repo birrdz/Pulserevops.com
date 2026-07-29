@@ -661,15 +661,22 @@ async function finishPage(id, blob) {
   // follows each 3-paragraph content block, so the rhythm is identical on every Q&A page:
   //   Top-10 → one image per ranked item (10)
   //   Q&A    → one image per content section (the template emits 5), floor 5, ceiling 8
+  // 🖼 ELEVEN IMAGES ON EVERY PAGE (owner 2026-07-29: "make sure top 10 has 11 — hero plus the 10").
+  // 1 face/hero card + 10 body images, both templates, no exceptions:
+  //   Top-10 → body image N belongs to ranked item N, searched by that item's own name
+  //   Q&A    → body image N sits under content section N (the template emits 10 sections)
+  // Never derived from word count. round(words/450) is why a 2,300-word page got 5 images and a
+  // 2,700-word page got 6, so no two pages ever looked alike.
   const contentH2 = (String((blob && blob.answer) || '').match(/^##\s+(.+)$/gm) || [])
     .map(h => h.replace(/^##\s+/, '').trim())
     .filter(h => !/^(Direct Answer|Related questions|FAQ|Sources|Related on PULSE|How We Ranked|How to Choose|What to Look For|Bottom Line)/i.test(h))
     .length;
+  const BODY_IMAGES = 10;
   const bodyN = rankNames.length >= 3
-    ? Math.min(10, rankNames.length)                                 // one per rank, cover is separate
-    : Math.max(5, Math.min(8, contentH2 || 5));                      // one per content section
-  if (rankNames.length >= 3) log(id + ' 🏆 ' + rankNames.length + ' ranked items → ' + bodyN + ' images, one per rank, each searched by its OWN name');
-  else log(id + ' 📐 ' + contentH2 + ' content sections → ' + bodyN + ' body images (one per section) + 1 face/hero');
+    ? Math.min(BODY_IMAGES, rankNames.length)                        // one per rank; cover is the 11th
+    : Math.min(BODY_IMAGES, Math.max(5, contentH2 || BODY_IMAGES));  // one per content section
+  if (rankNames.length >= 3) log(id + ' 🏆 ' + rankNames.length + ' ranked items → ' + bodyN + ' body images (one per rank, each searched by its OWN name) + 1 hero = ' + (bodyN + 1));
+  else log(id + ' 📐 ' + contentH2 + ' content sections → ' + bodyN + ' body images (one per section) + 1 hero = ' + (bodyN + 1));
   const q = deriveQuery(title);
   const seen = new Set();
   claim(id);   // heartbeat: refresh our claim now that writing (the slow step) is done
