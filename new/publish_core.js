@@ -614,15 +614,39 @@ async function publishBodySlot(id, buffer, turn) {
   // Splicing markdown images on top of that duplicates every image AND spreads the copies by
   // PARAGRAPH, so they drift off the item they illustrate. On a ranked page we write the slot
   // file and stop — the @@PRODUCT directive is the placement.
-  const isRanked = /^@@PRODUCT\b/m.test(stripped) || (stripped.match(/^##\s+\d+\.\s/gm) || []).length >= 3;
-  if (isRanked) {
-    blob.answer = stripped;
-  } else {
+  const hasProduct = /^@@PRODUCT\b/m.test(stripped);
+  const rankHeads = (stripped.match(/^##\s+\d+\.\s/gm) || []).length;
   const lines = stripped.split('\n');
-  const picks = imageSlotIndices(lines, present.length);
-  const ins = present.map((slot, i) => ({ at: picks[i], md: '\n![' + question.replace(/\?+$/, '') + ' — figure ' + (i + 1) + '](/assets/qa/' + id + '-b' + slot + '.jpg)\n' })).filter(x => x.at != null).sort((a, b) => b.at - a.at);
-  for (const x of ins) lines.splice(x.at + 1, 0, x.md);
-  blob.answer = lines.join('\n');
+
+  if (hasProduct) {
+    // Pages built by publishLive() already carry `@@PRODUCT ... img="/assets/qa/<id>-bN.jpg"` on the
+    // line under each rank heading. That directive IS the placement. Adding markdown on top is what
+    // shipped gm0063 with 10 ranks and 16 images, the extras spread by paragraph so they drifted off
+    // the item they illustrate. Write the slot file and leave the body alone.
+    blob.answer = stripped;
+  } else if (rankHeads >= 3) {
+    // 🏆 CREW-WRITTEN RANKED PAGE. The crew never calls publishLive(), so no @@PRODUCT line exists —
+    // if we skipped placement here the ranks would end up with NO images at all. Anchor slot N to
+    // rank N's heading directly: "## 1." gets -b1, "## 2." gets -b2. Anchoring by heading rather than
+    // by paragraph is what guarantees "the exact image of the number it's associated with", however
+    // many paragraphs sit under each rank.
+    const rankAt = [];
+    for (let i = 0; i < lines.length; i++) if (/^##\s+\d+\.\s/.test(lines[i].trim())) rankAt.push(i);
+    const ins = [];
+    for (const slot of present) {
+      const at = rankAt[slot - 1];                 // slot N belongs to the Nth ranked heading
+      if (at == null) continue;
+      const nm = String(lines[at] || '').replace(/^##\s+\d+\.\s*/, '').replace(/[🏆💎]/g, '').replace(/\bBEST\s+(?:OVERALL|VALUE)\b/gi, '').trim();
+      ins.push({ at, md: '\n![' + (nm || question.replace(/\?+$/, '')) + '](/assets/qa/' + id + '-b' + slot + '.jpg)\n' });
+    }
+    ins.sort((a, b) => b.at - a.at);
+    for (const x of ins) lines.splice(x.at + 1, 0, x.md);   // image sits directly under its rank heading
+    blob.answer = lines.join('\n');
+  } else {
+    const picks = imageSlotIndices(lines, present.length);
+    const ins = present.map((slot, i) => ({ at: picks[i], md: '\n![' + question.replace(/\?+$/, '') + ' — figure ' + (i + 1) + '](/assets/qa/' + id + '-b' + slot + '.jpg)\n' })).filter(x => x.at != null).sort((a, b) => b.at - a.at);
+    for (const x of ins) lines.splice(x.at + 1, 0, x.md);
+    blob.answer = lines.join('\n');
   }
   blob.bb_images = true; blob.updated_at = new Date(now).toISOString(); markRecent(blob, now);
   await store.setJSON('answers/' + id + '.json', blob);
