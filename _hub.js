@@ -1148,7 +1148,7 @@ async function pollDrip(){
     // recency window. Those are different measures and the card never said so, which reads as a bug.
     if(e=document.getElementById('dripscope')){
       e.innerHTML=(s.total!=null)
-        ? ('<b>'+s.total.toLocaleString()+'</b> eligible for images <span style="color:#9c8188">— pages at 12/13+ finished recently. The pillar dropdown shows the pillar\'s FULL page count, so a smaller number here is expected.</span>')
+        ? ('<b>'+s.total.toLocaleString()+'</b> eligible for images <span style="color:#9c8188">— pages at 12/13+ finished recently. The pillar dropdown shows the FULL page count for that pillar, so a smaller number here is expected.</span>')
         : '';
     }
     if(e=document.getElementById('drippct'))e.textContent=(s.total?(((s.done/s.total)*100).toFixed(1)+'% of '+s.total.toLocaleString()):'—');
