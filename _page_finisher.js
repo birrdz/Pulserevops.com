@@ -530,13 +530,29 @@ async function finishPage(id, blob) {
     const RESTARTS = Math.max(1, parseInt(process.env.GATE_RESTARTS || '4', 10));
     const primeEng = (process.env.WRITER_ENGINE || 'deepseek').toLowerCase();
     const setEng = e => { process.env.WRITER_ENGINE = e; ENGINE = engLabel(e); };
-    const better = (a, b) => (a && a.body && (a.after || 0) >= ((b && b.after) || -1));
+    // 🏆 On a Top-10, a RANKED result always beats an unranked one regardless of score — otherwise the
+    // surgical rung's 13/13 essay wins the comparison and a properly ranked 12/13 rewrite is discarded.
+    const ranked = (x) => (String((x && x.body) || '').match(/^##\s+\d+\.\s/gm) || []).length >= 10;
+    const better = (a, b) => {
+      if (!(a && a.body)) return false;
+      if (IS_TOP10) {
+        const ra = ranked(a), rb = ranked(b);
+        if (ra !== rb) return ra;                       // ranked wins outright
+      }
+      return (a.after || 0) >= ((b && b.after) || -1);
+    };
     const srcBody = blob.answer || '';
     // 🆕 A brand-new question (pipeline seed, or simply no body yet) must clear the word floor TOO — otherwise
     // the ladder's first rung (surgical $0 on an empty body = a padded skeleton) can satisfy `r.after >= 12`
     // and the crew publishes a stub. Revisions keep the plain gate bar exactly as before.
     const needWords = (isNewPipeline || wcount(srcBody) < 300) ? NEW_MIN_WORDS : 0;
-    const hit12 = (r, topic) => !!(r && r.body && (r.after >= GATE_MIN) && topic && wcount(r.body) >= needWords);
+    // 🏆 SHAPE IS PART OF THE BAR. A Top-10 must actually BE ranked — 13/13 on the general gate is not
+    // enough, because the 13 points say nothing about ranked structure, so a well-written essay scores
+    // full marks. gm0059 was stored 13/13 with 0 ranks, the surgical $0 rung patched it back to 13/13,
+    // and the page "passed" while still being an essay. Mechanical patching can never turn prose into
+    // ten ranked sections, so a ranked page cannot be satisfied until the ranks exist.
+    const shapeOk = (body) => !IS_TOP10 || (String(body || '').match(/^##\s+\d+\.\s/gm) || []).length >= 10;
+    const hit12 = (r, topic) => !!(r && r.body && (r.after >= GATE_MIN) && topic && wcount(r.body) >= needWords && shapeOk(r.body));
     if (needWords) log(id + ' 🆕 NEW Q&A — publish bar is ≥' + GATE_MIN + '/13 AND ≥' + needWords + ' words');
     try {
       let r = null, topic = false, rescued = false, stuckAt = 0;
@@ -549,12 +565,19 @@ async function finishPage(id, blob) {
           await sleep(800);
         }
 
-        // (0) surgical $0
+        // (0) surgical $0 — SKIPPED on a Top-10 that isn't ranked yet. Surgical patches mechanically
+        // (adds a FAQ pair, pads a section, fixes links); it cannot restructure prose into ten ranked
+        // items. Running it there only burns a pass and produces a 13/13 essay that then has to be
+        // beaten. Straight to a real writer instead.
+        if (!(IS_TOP10 && !shapeOk(srcBody))) {
         FLIP = '💸 surgical $0 · r' + round;
         setStage('write');
         const sx = rebuildToGate(title, srcBody, { maxAttempts: 0, id, template: IS_TOP10 ? 'top10' : 'qa' });
         const stx = sx && sx.body && onTopic(title, sx.body);
         if (better(sx, r)) { r = sx; topic = stx; }
+        } else if (round === 1) {
+          log(id + ' 🏆 skipping surgical $0 — an essay cannot be patched into ten ranks; going straight to the writer ladder');
+        }
         // 🔁 Under FORCE_REWRITE the $0 surgical rung may NOT end the page. Mechanical patching is exactly the
         // "pushed through without being redone" path the owner is trying to eliminate — so keep its result as a
         // floor to beat, but always continue on to a real writer.
