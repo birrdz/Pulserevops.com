@@ -140,9 +140,6 @@ function tailKeyForHeading(text) {
   if (/^FAQ$/i.test(bare)) return 'faq';
   if (/^Bottom\s+Line$/i.test(bare)) return 'bottomLine';
   if (/^(?:Sources|References)$/i.test(bare)) return 'sources';
-  // '## Related on PULSE' is REQUIRED by content_gate point 8 and sits after Sources. The audit used to
-  // stop at Sources and then report it as 'extra_sections_after_sources' on every single page.
-  if (/^Related\s+on\s+PULSE/i.test(bare)) return 'relatedPulse';
   return null;
 }
 
@@ -255,7 +252,7 @@ function auditTop10GoldTemplate(body, title) {
     idx++;
   }
 
-  const tailOrder = ['howToChoose', 'whatToLookFor', 'faq', 'bottomLine', 'sources', 'relatedPulse'];
+  const tailOrder = ['howToChoose', 'whatToLookFor', 'faq', 'bottomLine', 'sources'];
   for (let ti = 0; ti < tailOrder.length; ti++) {
     const expected = tailOrder[ti];
     const key = tailKeyForHeading(headings[idx]);
@@ -282,11 +279,7 @@ function auditTop10GoldTemplate(body, title) {
   }
 
   const mermaidCount = (b.match(/```mermaid/gi) || []).length;
-  // 🔧 1 → 2 (owner 2026-07-29: "do a mermaid at the top and a mermaid at the bottom"). This audit
-  // demanded exactly ONE while new/content_gate.js — the actual 12/13 publish bar — demands exactly
-  // TWO, so every Top-10 was guaranteed to fail one of the two rulebooks no matter what it did.
-  // One diagram near the top in "How We Ranked These", one near the bottom in "How to Choose".
-  if (mermaidCount !== 2) issues.push('mermaid_count_' + mermaidCount + '_expected_2');
+  if (mermaidCount !== 1) issues.push('mermaid_count_' + mermaidCount + '_expected_1');
 
   if (rankingListHasTopHero(b)) issues.push('unexpected_top_hero');
 

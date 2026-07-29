@@ -799,7 +799,6 @@ hr{border:0;border-top:1px solid #2a1c22;margin:7px 0}
       <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer" title="Hop to a fresh unclaimed pillar each page"><input type=checkbox id=crewroam checked>roam</label>
       <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;color:#ffd08a" title="Stop the whole fleet once this many URLs have been finished across ALL crews (not per crew). Uncheck for no limit."><input type=checkbox id=crewpauseon>⏸ pause after<input id=crewpauseafter type=number value=100 min=1 style="width:56px;text-align:center;margin-left:3px"></label>
       <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;color:#8affb0" title="Surgical then DeepSeek x3 then Cursor when stuck. No images until gate 12+"><input type=checkbox id=crewcheap checked>cheap</label>
-      <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;color:#FFB81C" title="Rewrite EVERY page through the full writer ladder, even one already stored at 12/13 or 13/13 - and re-pull its images under the shared standards. Without this a crew trusts the stored score and skips the page without touching it."><input type=checkbox id=crewforce>🔁 redo all</label>
     </div>
     <div class=row>
       <input id=crewcode placeholder=4444 inputmode=numeric style="width:56px;text-align:center">
@@ -947,14 +946,11 @@ async function sendCrew(){
     // ⏸ fleet-wide finish limit — 0/absent means run forever
     pauseAfter: (document.getElementById('crewpauseon') && document.getElementById('crewpauseon').checked)
       ? Math.max(1, parseInt(document.getElementById('crewpauseafter').value,10)||100) : 0,
-    cheap: !!(document.getElementById('crewcheap') && document.getElementById('crewcheap').checked),
-    // 🔁 redo-all: ignore the stored gate score and run the full ladder + fresh images on every page
-    force: !!(document.getElementById('crewforce') && document.getElementById('crewforce').checked)};
+    cheap: !!(document.getElementById('crewcheap') && document.getElementById('crewcheap').checked)};
   // cheap mode: force DeepSeek for the paid pass (Cursor rescue is the expensive path)
   if(opts.cheap && opts.engine==='alternate') opts.engine='deepseek';
   // ⭐ PREMIUM is the whole ladder by definition — cheap mode would contradict it, so premium turns cheap off.
   if(opts.engine==='premium') opts.cheap=false;
-  if(opts.force) opts.cheap=false;   // 🔁 redo-all always takes the full ladder, never the surgical shortcut
   // 🆕 a NEW Q&A crew never runs cheap — a brand-new page has no prose to top up, so the surgical
   // rung would just publish a padded skeleton at 12/13. Full write every time.
   if(newqa) opts.cheap=false;

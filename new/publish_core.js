@@ -141,24 +141,7 @@ function embedImages(body, qid, imgs) {
   const picks = (rankAt.length >= 2 && rankAt.length >= imgs.length)
     ? rankAt.slice(0, imgs.length)
     : imageSlotIndices(lines, imgs.length);
-  // 🏆 ALT TEXT COMES FROM THE RANK IT SITS UNDER, not from the page title. Callers build their alt
-  // list as "<page title> — figure N", which on a Top-10 labels all ten images with the same page name
-  // — so image 4 says "Top 10 Wireless Mice" instead of "Razer DeathAdder V3 Pro". The crew's mermaid
-  // cleanup calls publishContentBody() AFTER images are placed, which re-embedded them and wiped the
-  // per-item names off every slot. Deriving the alt here fixes every caller at once.
-  const rankName = (idx) => {
-    const at = rankAt[idx];
-    if (at == null) return '';
-    return String(lines[at] || '')
-      .replace(/^#{2,3}\s*/, '').replace(/^(?:\d+[.)]|#\d+)\s*/, '')
-      .replace(/[🏆💎]/g, '').replace(/\bBEST\s+(?:OVERALL|VALUE)\b/gi, '')
-      .replace(/[—–|]/g, ' ').replace(/\s{2,}/g, ' ').replace(/[\[\]]/g, '').trim();
-  };
-  const useRankAlts = rankAt.length >= 2 && rankAt.length >= imgs.length;
-  const ins = imgs.map((n, i) => ({
-    at: picks[i],
-    md: '\n![' + ((useRankAlts && rankName(i)) || n.alt) + '](/assets/qa/' + qid + '-b' + (i + 1) + '.jpg)\n',
-  })).filter(x => x.at != null).sort((a, b) => b.at - a.at);
+  const ins = imgs.map((n, i) => ({ at: picks[i], md: '\n![' + n.alt + '](/assets/qa/' + qid + '-b' + (i + 1) + '.jpg)\n' })).filter(x => x.at != null).sort((a, b) => b.at - a.at);
   for (const x of ins) lines.splice(x.at + 1, 0, x.md);
   return lines.join('\n');
 }
@@ -625,58 +608,11 @@ async function publishBodySlot(id, buffer, turn) {
   const present = [];
   for (let i = 1; i <= MAX_BODY_IMAGES; i++) { if (i === turn) { present.push(i); continue; } let ex = false; try { const b = await store.get('qa-bin/' + id + '-b' + i + '.jpg', { type: 'arrayBuffer' }); ex = !!(b && b.byteLength > 500); } catch (e) {} if (ex) present.push(i); }
   let stripped = String(blob.answer || '').split('\n').filter(l => !/^!\[[^\]]*\]\([^)]*\)$/.test(l.trim())).join('\n');
-  // 🔒 RANKED PAGES: ONE IMAGE PER RANK, AND NO SECOND COPY (owner 2026-07-29 — gm0063 shipped
-  // 10 ranks with 16 images). A Top-10 body already references every slot through its own
-  // `@@PRODUCT ... img="/assets/qa/<id>-bN.jpg"` line, anchored to the rank it belongs to.
-  // Splicing markdown images on top of that duplicates every image AND spreads the copies by
-  // PARAGRAPH, so they drift off the item they illustrate. On a ranked page we write the slot
-  // file and stop — the @@PRODUCT directive is the placement.
-  const hasProduct = /^@@PRODUCT\b/m.test(stripped);
-  const rankHeads = (stripped.match(/^##\s+\d+\.\s/gm) || []).length;
   const lines = stripped.split('\n');
-
-  if (hasProduct) {
-    // Pages built by publishLive() already carry `@@PRODUCT ... img="/assets/qa/<id>-bN.jpg"` on the
-    // line under each rank heading. That directive IS the placement. Adding markdown on top is what
-    // shipped gm0063 with 10 ranks and 16 images, the extras spread by paragraph so they drifted off
-    // the item they illustrate. Write the slot file and leave the body alone.
-    blob.answer = stripped;
-  } else if (rankHeads >= 3) {
-    // 🏆 CREW-WRITTEN RANKED PAGE. The crew never calls publishLive(), so no @@PRODUCT line exists —
-    // if we skipped placement here the ranks would end up with NO images at all. Anchor slot N to
-    // rank N's heading directly: "## 1." gets -b1, "## 2." gets -b2. Anchoring by heading rather than
-    // by paragraph is what guarantees "the exact image of the number it's associated with", however
-    // many paragraphs sit under each rank.
-    const rankAt = [];
-    for (let i = 0; i < lines.length; i++) if (/^##\s+\d+\.\s/.test(lines[i].trim())) rankAt.push(i);
-    const ins = [];
-    for (const slot of present) {
-      const at = rankAt[slot - 1];                 // slot N belongs to the Nth ranked heading
-      if (at == null) continue;
-      const nm = String(lines[at] || '').replace(/^##\s+\d+\.\s*/, '').replace(/[🏆💎]/g, '').replace(/\bBEST\s+(?:OVERALL|VALUE)\b/gi, '').replace(/"/g, '').trim();
-      // Emit an @@PRODUCT directive, not plain markdown. It is the same image in the same place, but it
-      // also carries the product NAME and its official link — which is the Top-10 standard (every item
-      // gets an image AND a link). A bare ![](…) gives the reader a picture with nothing to click, and
-      // the renderer treats @@PRODUCT posters as curated Top-10 art, exempt from the Q&A image purge.
-      // `site` is taken from a real link already in this rank's own text; never invented. Omitted if
-      // the writer did not cite one — a missing link is a gap, a fabricated URL is a defect.
-      let end = at + 1; while (end < lines.length && !/^##\s/.test(String(lines[end]).trim())) end++;
-      const block = lines.slice(at + 1, end).join('\n');
-      const site = (block.match(/\]\((https?:\/\/[^)\s]+)\)/) || block.match(/(https?:\/\/[^\s)\]"'<]+)/) || [])[1] || '';
-      const attrs = 'name="' + slot + '. ' + (nm || question.replace(/\?+$/, '')) + '"'
-                  + ' img="/assets/qa/' + id + '-b' + slot + '.jpg"'
-                  + (site && !/pulserevops\.com/i.test(site) ? ' site="' + site + '"' : '');
-      ins.push({ at, md: '\n@@PRODUCT ' + attrs + '\n' });
-    }
-    ins.sort((a, b) => b.at - a.at);
-    for (const x of ins) lines.splice(x.at + 1, 0, x.md);   // image sits directly under its rank heading
-    blob.answer = lines.join('\n');
-  } else {
-    const picks = imageSlotIndices(lines, present.length);
-    const ins = present.map((slot, i) => ({ at: picks[i], md: '\n![' + question.replace(/\?+$/, '') + ' — figure ' + (i + 1) + '](/assets/qa/' + id + '-b' + slot + '.jpg)\n' })).filter(x => x.at != null).sort((a, b) => b.at - a.at);
-    for (const x of ins) lines.splice(x.at + 1, 0, x.md);
-    blob.answer = lines.join('\n');
-  }
+  const picks = imageSlotIndices(lines, present.length);
+  const ins = present.map((slot, i) => ({ at: picks[i], md: '\n![' + question.replace(/\?+$/, '') + ' — figure ' + (i + 1) + '](/assets/qa/' + id + '-b' + slot + '.jpg)\n' })).filter(x => x.at != null).sort((a, b) => b.at - a.at);
+  for (const x of ins) lines.splice(x.at + 1, 0, x.md);
+  blob.answer = lines.join('\n');
   blob.bb_images = true; blob.updated_at = new Date(now).toISOString(); markRecent(blob, now);
   await store.setJSON('answers/' + id + '.json', blob);
   try { const idx = (await store.get('_index.json', { type: 'json', consistency: 'strong' })) || { entries: [] }; const ex = (idx.entries || []).find(e => e && e.id === id); if (ex) { ex.polished_at = now; markRecent(ex, now); await store.setJSON('_index.json', idx); } } catch (e) {}

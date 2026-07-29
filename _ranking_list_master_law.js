@@ -17,16 +17,7 @@ const TITLE_RANKING_PATTERNS = [
   /\bbest\s*(?:five|5)\b/i,
   /\bbest\s+\d+\b/i,
   /\btop\s+\d+\b/i,
-  // 🔧 ADDED 2026-07-29 — "The 10 Best Nashville Wedding Venues in 2027" matched NOTHING. The digit
-  // sits BETWEEN "the" and "best", so /\bthe\s+best\b/ never fired and neither did /\bbest\s+\d+\b/
-  // (which needs the number AFTER "best"). Thousands of pages are titled this way.
-  /\b\d+\s+best\b/i,
-  /\b(?:ten|twenty|thirty|fifty)\s+best\b/i,
-  // 🔧 TIGHTENED 2026-07-29 — bare /\bthe\s+best\b/ swept in ordinary Q&A: "What is the best WAY to
-  // approach Gaming", "the best first phone PLAN for a child". Those are single-answer questions, and
-  // writing them as ranked lists of ten is wrong. A ranking title names a PLURAL set of things —
-  // "the best gaming chairs", "the best wedding venues" — so require the plural noun.
-  /\bthe\s+best\s+(?:[a-z-]+\s+){0,3}[a-z-]+s\b/i,
+  /\bthe\s+best\b/i,
   /\bbest\s+of\b/i,
 ];
 

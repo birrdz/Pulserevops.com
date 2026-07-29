@@ -15,12 +15,6 @@ let claudeUnbenched = () => false; try { ({ claudeUnbenched } = require('./new/_
 const { publishContentBody, publishFaceImageOnly, publishBodySlot } = require('./new/publish_core');
 let emailEntryDone = () => {}; try { ({ emailEntryDone } = require('./_entry_done_email')); } catch (e) {}
 let sharp = null; try { sharp = require('sharp'); } catch (e) {}
-// 🔒 SHARED IMAGE STANDARDS (new/_image_standards.js) — ONE source of truth for image quality,
-// required by BOTH this crew and new/_drip.js so the two can never drift apart.
-const STD = require('./new/_image_standards');
-// 🏆 title-only Top-10 classifier — the trigger for the ranked golden template
-let titleSuggestsRankingList = () => false;
-try { ({ titleSuggestsRankingList } = require('./_ranking_list_master_law')); } catch (e) {}
 let PILLAR = (process.env.SLOT_PILLAR || process.env.DEFAULT_PILLAR || 'tl').toLowerCase().replace(/[^a-z]/g, '');
 // ROTATION (owner 2026-07-21): a small-pillar crew (ROTATE=1) that FINISHES its pillar jumps to the next
 // un-taken small Q&A pillar — never the same one twice. The tl crew launches WITHOUT ROTATE and stays on tl.
@@ -290,108 +284,31 @@ function addFP(id, fp) { loadFP().push({ id, fp }); try { fs.appendFileSync(FPF,
 
 // pick ONE image: best keyword match first, then buildings/architecture/art fallback, then local packs — never
 // a globally-used dupe (unless everything fresh is exhausted) and never the same image twice on a page.
-async function pickImage(query, seen, title, pageQuery) {
+async function pickImage(query, seen, title) {
   const used = usedPex();
   const kw = titleKeywords(title || query);
   const psrc = p => p.src.large2x || p.src.original || p.src.large;
   const pidOf = src => (String(src).match(/\/photos\/(\d+)\//) || [])[1] || '';
-  // Relevance vocabulary: the item's/page's own words PLUS the pillar's visual vocabulary. Computed
-  // here so EVERY provider below — DDG included — is judged by the same bar, exactly as the drip does.
-  const nouns = new Set(kw);
-  for (const w of (STD.PILLAR_CONTEXT[PILLAR] || [])) String(w).split(/\s+/).forEach(x => nouns.add(x.toLowerCase()));
-
-  // 🦆 0. DDG FIRST — the only provider that can find a NAMED product. Pexels is a stock library
-  // and has no photo of a "Logitech MX Master 4"; DDG is a web image search, so a named model
-  // returns the actual product. This is the drip's ladder (DDG → Pexels → pool → generic), now on
-  // the front end too. Keyless and unmetered, and held to the SAME relevance bar as everything else.
-  const ddgList = [];
-  try {
-    const dd = await STD.ddgSearch(query);
-    for (const p of (dd || [])) {
-      if (!p.url) continue;
-      const alt = String(p.alt || '').toLowerCase();
-      if (STD.vetoed(alt, PILLAR)) continue;
-      // Same ambiguity guard as every other provider: an ambiguous-only match is not evidence.
-      if (alt && !STD.altOverlapOk(alt, nouns)) continue;
-      ddgList.push({ src: p.url, isPack: false, pid: p.url, score: 99 });   // DDG leads the order
-    }
-    if (ddgList.length) log('   🦆 DDG "' + String(query).slice(0, 40) + '" → ' + ddgList.length + ' candidate(s)');
-  } catch (e) {}
-
   // 1. TOPIC MATCH — score each Pexels result by keyword overlap of its alt-text with the title, best first
   const topic = [];
   const r = await pexels(query);
-  // 🔒 RELEVANCE GATE — same rules as the drip (owner 2026-07-29: "same image standards ... front end").
-  // nouns = the title's own words PLUS the pillar's visual vocabulary, so "does this photo belong on
-  // THIS page" is judged the same way on both machines.
-  let vetoDrop = 0, ambigDrop = 0;
-  ((r && r.photos) || []).forEach(p => {
-    const src = psrc(p); const alt = String(p.alt || '').toLowerCase();
-    // per-pillar veto list (_pillar_image_notes.json, live-editable) — hard reject
-    if (STD.vetoed(alt, PILLAR)) { vetoDrop++; return; }
-    // an ambiguous-only match ("drill", "training", "team") is NOT evidence the photo belongs —
-    // this is the check that stops soccer photos landing on a sales page.
-    if (alt && !STD.altOverlapOk(alt, nouns)) { ambigDrop++; return; }
-    const score = kw.reduce((s, w) => s + (alt.indexOf(w) >= 0 ? 1 : 0), 0);
-    topic.push({ src, isPack: false, pid: pidOf(src), score });
-  });
-  if (vetoDrop || ambigDrop) log('   🔒 image filter — ' + vetoDrop + ' vetoed · ' + ambigDrop + ' ambiguous-only · ' + topic.length + ' kept');
+  ((r && r.photos) || []).forEach(p => { const src = psrc(p); const alt = String(p.alt || '').toLowerCase(); const score = kw.reduce((s, w) => s + (alt.indexOf(w) >= 0 ? 1 : 0), 0); topic.push({ src, isPack: false, pid: pidOf(src), score }); });
   topic.sort((a, b) => b.score - a.score);   // strongest keyword match leads
-  // 2a. CATEGORY FALLBACK — the PAGE's own subject before anything generic (owner 2026-07-29: the images
-  // have to be the thing that's listed). A stock library has no photo of a "Logitech MX Master 4", so an
-  // exact-model search returns nothing usable and the relevance gate correctly rejects it. Falling
-  // straight to buildings/architecture from there puts a skyscraper under rank 4 of a mouse review.
-  // Searching the page's category instead yields a wireless mouse — not that exact model, but the right
-  // KIND of object, which is what a reader needs to see next to the item.
+  // 2. FALLBACK — buildings / architecture / artwork (goes with everything) when the topic match is thin
   const fbList = [];
-  if (pageQuery && pageQuery !== query) {
-    const rc = await pexels(pageQuery);
-    ((rc && rc.photos) || []).forEach(p => {
-      const src = psrc(p); const alt = String(p.alt || '').toLowerCase();
-      if (STD.vetoed(alt, PILLAR)) return;
-      fbList.push({ src, isPack: false, pid: pidOf(src), score: 0 });
-    });
-  }
-  // 2b. LAST-RESORT FALLBACK — buildings / architecture / artwork (goes with everything)
   const r2 = await pexels(FALLBACK[Math.floor(Math.random() * FALLBACK.length)]);
   ((r2 && r2.photos) || []).forEach(p => { const src = psrc(p); fbList.push({ src, isPack: false, pid: pidOf(src), score: 0 }); });
   // 3. LOCAL PACKS — 7900+ pool, random FRESH window (network-free catch-all, no repeats)
   const packs = []; const packPool = packRefs().filter(f => !used.has(f));
   for (let i = 0; i < 80 && packPool.length; i++) { const f = packPool.splice(Math.floor(Math.random() * packPool.length), 1)[0]; packs.push({ src: f, isPack: true, pid: f, score: 0 }); }
-  // 🌸 POLLINATOR — second rung (owner 2026-07-29: "first option needs to be DDG and then pollinator").
-  // Generative, so it is ON TOPIC by construction — the prompt IS the item's own name, which is why the
-  // alt-overlap test does not apply: there is no third-party alt text to test. One at a time, never
-  // parallel. ⚠️ Body slots only; face cards never reach this rung (that path produced the fake logo).
-  const pollen = [];
-  if (String(process.env.CREW_POLLINATE || '1') === '1') {
-    for (let i = 0; i < 2; i++) {
-      const prompt = String(title || query).slice(0, 120);
-      pollen.push({ src: 'https://image.pollinations.ai/prompt/' + encodeURIComponent(prompt)
-        + '?width=1600&height=1067&nologo=true&seed=' + (i + 1), isPack: false, pid: 'pollen:' + prompt + ':' + i, score: 50 });
-    }
-  }
-  // 🪜 LADDER ORDER (owner 2026-07-29): DDG → Pollinator → local library → Pexels last.
-  // Pexels is deprioritised deliberately — the account is on a quota cooldown, so leading with it
-  // meant every page opened with a 429 and a back-off before anything useful happened. The local
-  // banked pool costs no API call at all, which is why it outranks Pexels while the quota is out.
-  const order = [...ddgList, ...pollen, ...packs, ...topic, ...fbList];
+  const order = [...topic, ...fbList, ...packs];
   // PASS 0: fresh (never-used) only. PASS 1: allow reuse ONLY when everything fresh is gone.
   for (let pass = 0; pass < 2; pass++) {
     for (const c of order) {
       if (pass === 0 && c.pid && used.has(c.pid)) continue;
-      // 🔒 SHARED IMAGE STANDARDS — the drip's quality gates, now applied on the FRONT END so a page
-      // is right the first time instead of waiting for the drip to come back and redo it:
-      //   · rejects blank / white / blown-out frames (the "white box on a dark layout" bug)
-      //   · edge test kills product-on-white shots with pale flat margins
-      //   · auto-focus crop (sharp attention) so the subject fills the frame
-      //   · never upscales — HD comes from a bigger source, not from stretching
-      // Runs BEFORE fmt() so a rejected candidate never reaches the page; fmt() then standardises
-      // the final frame so the site's existing look is unchanged.
-      const graded = c.isPack
-        ? await STD.fetchImage({ local: true, file: c.src })
-        : await STD.fetchImage(c.src);
-      if (!graded) continue;                    // failed a standard → next candidate
-      const buf = await fmt(graded);
+      const raw = c.isPack ? readPack(c.src) : await dl(c.src);
+      if (!raw || raw.length < 2500) continue;
+      const buf = await fmt(raw);
       const h = crypto.createHash('md5').update(buf).digest('hex');
       if (seen.has(h)) continue;   // never the same image twice on one page
       seen.add(h);
@@ -537,30 +454,7 @@ async function finishPage(id, blob) {
   // actually gets redone"). Normally a page already at the gate skips the writer entirely, which is how a run
   // can "finish" hundreds of pages without rewriting a single one. FORCE_REWRITE=1 removes that shortcut: the
   // ladder runs on every page regardless of its stored score.
-  // 🏆 TOP-10 CLASSIFY BY TITLE ONLY (owner 2026-07-29: "if it says in the title top 10 blah blah blah you
-  // know it's a top 10 — just write the f*** over it the way it needs to be").
-  //
-  // This crew NEVER passed a template, so buildPromptFor() defaulted to 'qa' on EVERY page — including every
-  // Top-10. That is why ranked pages came out as essays ("Benchmarks across the ten cards" as one heading
-  // instead of ten ranked items). The top10 branch of the writer existed and was simply never reached.
-  //
-  // Classification is on the TITLE ALONE, deliberately. The old router required
-  // titleSuggestsRankingList(title) && isRankingListBody(body) — so a Top-10 already written as an essay
-  // could never be identified, because the malformed body was the evidence used to decide whether to fix
-  // the malformed body. Self-perpetuating. The title states the intent; the body is what we are replacing.
-  const IS_TOP10 = titleSuggestsRankingList(title);
-  if (IS_TOP10) log(id + ' 🏆 TOP-10 by title — writing the ranked golden template (#1..#10), overwriting whatever is there');
-
   let writeOk = FORCE_REWRITE ? false : ((blob.gate_score || 0) >= GATE_MIN);
-  // A ranked page whose body has no ranks is BROKEN no matter what its stored score says — the score comes
-  // from the general 13-point gate, which a well-written essay passes. Re-open it and write it as a Top-10.
-  if (writeOk && IS_TOP10) {
-    const ranks = (String(blob.answer || '').match(/^##\s+\d+\.\s/gm) || []).length;
-    if (ranks < 3) {
-      writeOk = false;
-      log(id + ' 🏆 stored ' + (blob.gate_score || 0) + '/13 but ' + ranks + ' ranked sections — a Top-10 written as an essay. Rewriting as ranked.');
-    }
-  }
   if (FORCE_REWRITE) log(id + ' 🔁 FORCE REWRITE — stored ' + (blob.gate_score || 0) + '/13 ignored, running the full writer ladder');
   // 🆕 THIN NEW PAGE = NOT DONE. A pipeline seed that only ever got the cheap pass carries gate_score 12 with a
   // stub body, so this crew used to skip the writer entirely and go straight to images. The one point it dropped
@@ -581,29 +475,13 @@ async function finishPage(id, blob) {
     const RESTARTS = Math.max(1, parseInt(process.env.GATE_RESTARTS || '4', 10));
     const primeEng = (process.env.WRITER_ENGINE || 'deepseek').toLowerCase();
     const setEng = e => { process.env.WRITER_ENGINE = e; ENGINE = engLabel(e); };
-    // 🏆 On a Top-10, a RANKED result always beats an unranked one regardless of score — otherwise the
-    // surgical rung's 13/13 essay wins the comparison and a properly ranked 12/13 rewrite is discarded.
-    const ranked = (x) => (String((x && x.body) || '').match(/^##\s+\d+\.\s/gm) || []).length >= 10;
-    const better = (a, b) => {
-      if (!(a && a.body)) return false;
-      if (IS_TOP10) {
-        const ra = ranked(a), rb = ranked(b);
-        if (ra !== rb) return ra;                       // ranked wins outright
-      }
-      return (a.after || 0) >= ((b && b.after) || -1);
-    };
+    const better = (a, b) => (a && a.body && (a.after || 0) >= ((b && b.after) || -1));
     const srcBody = blob.answer || '';
     // 🆕 A brand-new question (pipeline seed, or simply no body yet) must clear the word floor TOO — otherwise
     // the ladder's first rung (surgical $0 on an empty body = a padded skeleton) can satisfy `r.after >= 12`
     // and the crew publishes a stub. Revisions keep the plain gate bar exactly as before.
     const needWords = (isNewPipeline || wcount(srcBody) < 300) ? NEW_MIN_WORDS : 0;
-    // 🏆 SHAPE IS PART OF THE BAR. A Top-10 must actually BE ranked — 13/13 on the general gate is not
-    // enough, because the 13 points say nothing about ranked structure, so a well-written essay scores
-    // full marks. gm0059 was stored 13/13 with 0 ranks, the surgical $0 rung patched it back to 13/13,
-    // and the page "passed" while still being an essay. Mechanical patching can never turn prose into
-    // ten ranked sections, so a ranked page cannot be satisfied until the ranks exist.
-    const shapeOk = (body) => !IS_TOP10 || (String(body || '').match(/^##\s+\d+\.\s/gm) || []).length >= 10;
-    const hit12 = (r, topic) => !!(r && r.body && (r.after >= GATE_MIN) && topic && wcount(r.body) >= needWords && shapeOk(r.body));
+    const hit12 = (r, topic) => !!(r && r.body && (r.after >= GATE_MIN) && topic && wcount(r.body) >= needWords);
     if (needWords) log(id + ' 🆕 NEW Q&A — publish bar is ≥' + GATE_MIN + '/13 AND ≥' + needWords + ' words');
     try {
       let r = null, topic = false, rescued = false, stuckAt = 0;
@@ -616,19 +494,12 @@ async function finishPage(id, blob) {
           await sleep(800);
         }
 
-        // (0) surgical $0 — SKIPPED on a Top-10 that isn't ranked yet. Surgical patches mechanically
-        // (adds a FAQ pair, pads a section, fixes links); it cannot restructure prose into ten ranked
-        // items. Running it there only burns a pass and produces a 13/13 essay that then has to be
-        // beaten. Straight to a real writer instead.
-        if (!(IS_TOP10 && !shapeOk(srcBody))) {
+        // (0) surgical $0
         FLIP = '💸 surgical $0 · r' + round;
         setStage('write');
-        const sx = rebuildToGate(title, srcBody, { maxAttempts: 0, id, template: IS_TOP10 ? 'top10' : 'qa' });
+        const sx = rebuildToGate(title, srcBody, { maxAttempts: 0, id });
         const stx = sx && sx.body && onTopic(title, sx.body);
         if (better(sx, r)) { r = sx; topic = stx; }
-        } else if (round === 1) {
-          log(id + ' 🏆 skipping surgical $0 — an essay cannot be patched into ten ranks; going straight to the writer ladder');
-        }
         // 🔁 Under FORCE_REWRITE the $0 surgical rung may NOT end the page. Mechanical patching is exactly the
         // "pushed through without being redone" path the owner is trying to eliminate — so keep its result as a
         // floor to beat, but always continue on to a real writer.
@@ -667,7 +538,7 @@ async function finishPage(id, blob) {
           if (!available(rung.eng)) { log(id + ' ⏭ skip ' + rung.tag + ' — ' + (rung.eng === 'cursor' ? 'no CURSOR_API_KEY' : 'Claude benched')); continue; }
           // broaden on this rung, or on ANY rung once we're in a restart round
           const wide = rung.broaden || round > 1;
-          const opts = Object.assign({ maxAttempts: rung.tries, id, template: IS_TOP10 ? 'top10' : 'qa' }, wide ? { stuck: true, broaden: true } : {},
+          const opts = Object.assign({ maxAttempts: rung.tries, id }, wide ? { stuck: true, broaden: true } : {},
             FORCE_REWRITE ? { force: true } : {});   // 🔁 force = never return "already at bar, no writer needed"
           if (wide && !rescued) { rescued = true; stuckAt = (r && r.after) || 0; log(id + ' stuck ' + stuckAt + '/13 — broadening scope + rotating writers (round ' + round + ')'); }
           setEng(rung.eng);
@@ -716,41 +587,7 @@ async function finishPage(id, blob) {
     CUR = ''; setStage('idle'); return;
   }
   const words = String((blob && blob.answer) || '').replace(/[#>*`~\[\]()>-]/g, ' ').split(/\s+/).filter(Boolean).length;
-  // 🏆 RANKED PAGE: ONE IMAGE PER RANKED ITEM, AND IT MUST BE *THAT* ITEM (owner 2026-07-29:
-  // "1 through 10 have to be the exact image of the number that it's associated with").
-  // Slot N is item N — so slot N's search query comes from ITEM N'S OWN NAME, never from the page
-  // title. Using the page title for all ten slots is why a Top-10 got ten generic photos that had
-  // nothing to do with the individual picks. Matches the IMAGE ACQUISITION CONTRACT in CLAUDE.md:
-  // "TOP_LIST item images derive their query from each item's own text."
-  const rankNames = (String((blob && blob.answer) || '').match(/^##\s+\d+\.\s+(.+)$/gm) || [])
-    .map(h => h.replace(/^##\s+\d+\.\s+/, '')
-               .replace(/[🏆💎]/g, '')
-               .replace(/\bBEST\s+(?:OVERALL|VALUE)\b/gi, '')
-               .replace(/[—–|]/g, ' ')
-               .replace(/\s{2,}/g, ' ').trim())
-    .filter(Boolean);
-  // 📐 IMAGE COUNT IS STRUCTURAL, NOT LENGTH-DERIVED (owner 2026-07-29: "it's always going to be like
-  // three paragraphs before an image"). It used to be round(words/450), so a 2,300-word page got 5
-  // images and a 2,700-word page got 6 — the layout changed on every page for no reason. Now one image
-  // follows each 3-paragraph content block, so the rhythm is identical on every Q&A page:
-  //   Top-10 → one image per ranked item (10)
-  //   Q&A    → one image per content section (the template emits 5), floor 5, ceiling 8
-  // 🖼 ELEVEN IMAGES ON EVERY PAGE (owner 2026-07-29: "make sure top 10 has 11 — hero plus the 10").
-  // 1 face/hero card + 10 body images, both templates, no exceptions:
-  //   Top-10 → body image N belongs to ranked item N, searched by that item's own name
-  //   Q&A    → body image N sits under content section N (the template emits 10 sections)
-  // Never derived from word count. round(words/450) is why a 2,300-word page got 5 images and a
-  // 2,700-word page got 6, so no two pages ever looked alike.
-  const contentH2 = (String((blob && blob.answer) || '').match(/^##\s+(.+)$/gm) || [])
-    .map(h => h.replace(/^##\s+/, '').trim())
-    .filter(h => !/^(Direct Answer|Related questions|FAQ|Sources|Related on PULSE|How We Ranked|How to Choose|What to Look For|Bottom Line)/i.test(h))
-    .length;
-  const BODY_IMAGES = 10;
-  const bodyN = rankNames.length >= 3
-    ? Math.min(BODY_IMAGES, rankNames.length)                        // one per rank; cover is the 11th
-    : Math.min(BODY_IMAGES, Math.max(5, contentH2 || BODY_IMAGES));  // one per content section
-  if (rankNames.length >= 3) log(id + ' 🏆 ' + rankNames.length + ' ranked items → ' + bodyN + ' body images (one per rank, each searched by its OWN name) + 1 hero = ' + (bodyN + 1));
-  else log(id + ' 📐 ' + contentH2 + ' content sections → ' + bodyN + ' body images (one per section) + 1 hero = ' + (bodyN + 1));
+  const bodyN = Math.max(2, Math.min(6, Math.round(words / 450)));   // how many body images this length holds
   const q = deriveQuery(title);
   const seen = new Set();
   claim(id);   // heartbeat: refresh our claim now that writing (the slow step) is done
@@ -766,12 +603,7 @@ async function finishPage(id, blob) {
   // 3. BODY 1..N
   for (let n = 1; n <= bodyN; n++) {
     setStage('body' + n);
-    // Slot n illustrates ranked item n → search for that item by name, and score relevance against
-    // the item, not the page. Falls back to the page query only on non-ranked pages.
-    const itemName = rankNames[n - 1] || '';
-    const slotQuery = itemName ? deriveQuery(itemName + ' ' + title) : q;
-    const slotTitle = itemName ? (itemName + ' ' + title) : title;
-    const img = await pickImage(slotQuery, seen, slotTitle, q);
+    const img = await pickImage(q, seen, title);
     if (!img) { netFail = true; break; }
     try { await retryNet(() => publishBodySlot(id, img.buf, n)); addUsedPex([img.pid]); bodyOk++; log(id + ' body ' + n); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' body ' + n + ' err ' + ((e && e.message) || e)); }
     touchImgLock();   // keep my turn alive during the image burst
@@ -1025,10 +857,6 @@ setInterval(tick,1200);tick();
 </script></body></html>`);
 }).listen(PORT, () => {
   if (ROTATE) { const r = loadRot(); r.taken = r.taken || {}; r.taken['box' + BOX_I] = { p: PILLAR, ts: Date.now() }; saveRot(r); }   // claim starting pillar so peers don't jump onto it
-  // 🕐 CODE STAMP — a running crew is frozen at the code it started with; editing this file does
-  // NOT change a live crew. Logging the file's mtime makes a stale crew obvious at a glance instead
-  // of it silently writing pages with yesterday's rules.
-  try { log('🕐 code build ' + fs.statSync(__filename).mtime.toISOString() + ' · template=' + (fs.statSync(WD + '/new/improve_content.js').mtime.toISOString())); } catch (e) {}
   log('👷 whole crew up on :' + PORT + ' pillar=' + PILLAR + ' crew=' + (BOX_I + 1) + '/' + BOX_N + ' write=' + DO_WRITE + (ROTATE ? ' [ROTATE]' : ' [pinned]')
     + (NEWQA ? ' 🆕 [NEW Q&A CREW — seeds only, ≥' + GATE_MIN + '/13 AND ≥' + NEW_MIN_WORDS + 'w]' : '')
     + (FORCE_REWRITE ? ' 🔁 [FORCE REWRITE — every page goes through the writer]' : ''));
