@@ -33,6 +33,90 @@ function claudeBin() {
 }
 
 // Compact golden Q&A template + 13-point rubric — the LOCKED shape (GOLDEN_TEMPLATE_QA.md / q11133).
+// 🥇 TOP-10 GOLD PROMPT (aq1158). The Q&A prompt below explicitly FORBIDS numbered headings — but
+// a ranking page REQUIRES "## 1." … "## 10.". Routing every page through the Q&A shape is why
+// Top-10 entries kept failing auditTop10GoldTemplate no matter how many times they were rewritten.
+// Structure mirrors TOP10_SECTION_ORDER / TOP10_TEMPLATE_OUTLINE in _ranking_top10_gold_template.js.
+function buildTop10Prompt(question, body) {
+  return [
+    'You are REWRITING a ranked "Top 10" page to its LOCKED golden template (gold reference: aq1158).',
+    'The existing draft is MALFORMED — mine it for FACTS only, discard its structure, and rebuild the',
+    'golden shape fresh. Output ONLY the finished markdown body — no preamble, no outer code fence.',
+    '',
+    'PAGE TITLE / QUESTION: ' + question,
+    '',
+    'THE SHAPE IS FIXED. Copy this skeleton exactly and change ONLY the content. Every ranked item is',
+    'built the SAME WAY — three paragraphs and one image slot — so the page reads identically from #1 to #10.',
+    '',
+    '## Direct Answer',
+    '<EXACTLY 3 paragraphs, 60-90 words each, answering the general question the title asks. Paragraph 1',
+    ' names the Best Overall and Best Value picks. Paragraph 2 says what separates the top of the field',
+    ' from the bottom. Paragraph 3 says who each end of the list is for. No bullets, no list, no diagram.>',
+    '',
+    '## How We Ranked These',
+    '<weighted criteria as bullets, then ONE ```mermaid flowchart TD``` block showing how the criteria',
+    ' combine into the ranking. NEVER number this heading as "## 1.".>',
+    '',
+    '## 1. <Name of the #1 pick> 🏆 BEST OVERALL',
+    '<EXACTLY 3 paragraphs, 70-110 words each, about THIS pick and nothing else. Paragraph 1: what it is',
+    ' and why it takes the top spot. Paragraph 2: how it performs in real use, with the concrete numbers',
+    ' that justify the rank. Paragraph 3: its limits and who should skip it.>',
+    '- **Price:** <real price or honest range>',
+    '- **Pros:** <2-3 specifics>',
+    '- **Cons:** <1-2 specifics>',
+    '',
+    '**Verdict:** <one sentence, and it MUST contain a number — the stat that earns this rank.>',
+    '',
+    '## 2. <Name of the #2 pick> 💎 BEST VALUE',
+    '<same structure as #1: EXACTLY 3 paragraphs, then Price / Pros / Cons, then **Verdict:**>',
+    '',
+    '## 3. through ## 10.',
+    '<REPEAT THE IDENTICAL BLOCK for ranks 3,4,5,6,7,8,9,10 — heading "## N. <Name>", then EXACTLY 3',
+    ' paragraphs, then Price / Pros / Cons bullets, then a **Verdict:** line. Ten ranked sections total,',
+    ' numbered 1 to 10 with no gaps and no reordering. Each one names a DIFFERENT real product/place.>',
+    '',
+    '## How to Choose',
+    '<a short lead-in, then ONE ```mermaid flowchart TD``` block that walks a buyer to a pick.>',
+    '',
+    '## What to Look For',
+    '<bullet checklist>',
+    '',
+    '## FAQ',
+    '<5-6 pairs, each a bold "**Question?**" line then an answer paragraph of 40-80 words>',
+    '',
+    '## Bottom Line',
+    '<recap of Best Overall + Best Value>',
+    '',
+    '## Sources',
+    '<5-10 real, verifiable external URLs as bullets. NEVER cite pulserevops.com.>',
+    '',
+    '## Related on PULSE',
+    '<3-6 sibling-topic bullet links>',
+    '',
+    'HARD RULES (violating any = rejected):',
+    '- TEN ranked sections, headed "## 1." … "## 10.", in order, no gaps. This is the Top-10 template.',
+    '- EXACTLY 3 paragraphs under every ranked heading. Not 1, not 5. The same everywhere.',
+    '- EXACTLY 2 ```mermaid``` blocks on the page: one in "How We Ranked These", one in "How to Choose".',
+    '  They must be DIFFERENT diagrams. Two is the requirement — not one, not three.',
+    '- 2,600-3,400 words total. 2,600 is a hard FLOOR.',
+    '- NO "## TL;DR". NO image markdown ![...](...) anywhere — each rank gets its image from its',
+    '  @@PRODUCT slot, placed by the machine. Writing image markdown DUPLICATES every image.',
+    '- ZERO fabrication: no invented vendors, prices, specs or quotes. If unsure, stay general.',
+    '',
+    'Return ONLY the finished markdown body in the exact shape above.',
+    '',
+    '--- RAW SOURCE DRAFT (mine for facts only; discard its structure) ---',
+    String(body || '').slice(0, 60000),
+  ].join('\n');
+}
+
+// Routes to the correct golden template. opts.template: 'top10' | 'qa' | 'style'.
+function buildPromptFor(question, body, opts) {
+  const t = String((opts && opts.template) || 'qa').toLowerCase();
+  if (t === 'top10') return buildTop10Prompt(question, body);
+  return buildPrompt(question, body);
+}
+
 function buildPrompt(question, body) {
   return [
     'You are REWRITING a RevOps knowledge Q&A page to a LOCKED golden template. The existing draft is',
@@ -50,8 +134,8 @@ function buildPrompt(question, body) {
     '2. THREE to SIX "## " content sections with PLAIN topical headings (e.g. "## How the incentive changes',
     '   behavior"). NEVER numbered ("## 1." / "## 2.") — numbered headings are the Top-10 template and are',
     '   FORBIDDEN here. Each section >= 40 words of real, specific substance: concrete numbers/ranges,',
-    '   step-by-steps, examples, trade-offs a practitioner could act on. Aim ~2600-3200 words total across these',
-    '   (this is a HARD gate: the page is REJECTED under 2500 words — be thorough and specific, never padded).',
+    '   step-by-steps, examples, trade-offs a practitioner could act on. Aim 2,000-3,000 words total across',
+    '   these — 2,000 is the floor and 3,000 is a hard CEILING. Be thorough and specific, never padded.',
     '3. EXACTLY 2 mermaid diagrams, each in a ```mermaid fenced block with valid renderable syntax (flowchart TD',
     '   or similar; well-formed nodes/edges; no stray characters). Place each mermaid INSIDE one of the content',
     '   "## " sections above (NEVER inside the Direct Answer, NEVER before the first content section). The site',
@@ -66,7 +150,8 @@ function buildPrompt(question, body) {
     '- NO "## TL;DR" section, ever. NO image markdown at all (no ![...](...)) — a human places every image.',
     '- Direct Answer stays 40-60 words, one paragraph, no diagram. Mermaids ONLY inside content sections.',
     '- ZERO fabrication: no invented vendors, prices, stats, studies, or quotes. If unsure, stay general.',
-    '- >= 2500 words of REAL content (hard gate); target ~2600-3200 — comprehensive and useful, but NEVER padded or repetitive.',
+    '- 2,000-3,000 words of REAL content. 2,000 is the hard floor and 3,000 is a hard CEILING —',
+    '  do not exceed it. Comprehensive and useful, never padded, never repetitive.',
     '- Plain topical H2s only (never numbered). Keep every entry structurally identical to this shape.',
     '',
     'Return ONLY the finished markdown body in the exact section order above.',
@@ -76,7 +161,13 @@ function buildPrompt(question, body) {
   ].join('\n');
 }
 
-function runClaude(prompt, timeoutMs) {
+// opts.raw — accept a NON-article response (a bare paragraph, a single section) instead of
+// requiring a full "## …" markdown body. The drip's shape-repair rung asks for one 45-60 word
+// paragraph; without this the router rejected every such reply as "no usable markdown" and the
+// repair could never run. The error-signature guard below still applies in raw mode, so an
+// auth/billing line can never be mistaken for content.
+function runClaude(prompt, timeoutMs, opts) {
+  opts = opts || {};
   const bin = claudeBin();
   if (!bin) return { ok: false, err: 'Claude Code CLI not found (VSCode extension missing?)' };
   // LAW: writers ALWAYS run on the owner's Max ($200) plan — NEVER pay-as-you-go API billing.
@@ -103,6 +194,7 @@ function runClaude(prompt, timeoutMs) {
   // NEVER let an auth/billing/error line become the body — these are short plain-text lines, not answers.
   const ERR_SIG = /credit balance is too low|insufficient (?:credit|balance|funds)|invalid api key|not authenticated|authentication_error|please run .*login|usage limit reached|rate limit|quota|overloaded|too many requests/i;
   if (ERR_SIG.test(out) && out.length < 500) return { ok: false, err: 'writer unavailable: "' + out.slice(0, 140) + '"' };
+  if (opts.raw) return { ok: true, text: out, engine: 'claude-code-cli' };
   if (!/\n?##\s/.test(out) || out.length < 400) return { ok: false, err: 'writer returned no usable markdown (' + out.length + ' chars) — body left unchanged' };
   return { ok: true, text: out, engine: 'claude-code-cli' };
 }
@@ -112,7 +204,8 @@ function runClaude(prompt, timeoutMs) {
 // stays synchronous like runClaude(). Returns the same { ok, text } shape.
 // On failure it sets ranOut=true when DeepSeek has genuinely RUN OUT (daily cap
 // hit, 402 balance depleted, or no key) so the router falls back to Claude Code.
-function runDeepSeek(prompt, timeoutMs, temperature) {
+function runDeepSeek(prompt, timeoutMs, temperature, opts) {
+  opts = opts || {};
   const helper = path.join(__dirname, '_ds_run_once.js');
   if (!fs.existsSync(helper)) return { ok: false, err: 'deepseek helper missing', ranOut: false };
   // Anti-drift retry bumps temperature (+0.15) to break out of a near-duplicate — pass it to the child.
@@ -133,6 +226,10 @@ function runDeepSeek(prompt, timeoutMs, temperature) {
   if (r.status && r.status !== 0) {
     const ranOut = OUT_SIG.test(errText);
     return { ok: false, err: 'deepseek ' + (ranOut ? 'RAN OUT' : 'failed') + ': ' + errText.slice(0, 200), ranOut };
+  }
+  if (opts.raw) {
+    if (!out) return { ok: false, err: 'deepseek returned nothing', ranOut: false };
+    return { ok: true, text: out, engine: 'deepseek' };
   }
   if (!out || !/\n?##\s/.test(out) || out.length < 400) {
     return { ok: false, err: 'deepseek returned no usable markdown (' + out.length + ' chars)', ranOut: false };
@@ -168,24 +265,64 @@ function runCursor(prompt, timeoutMs) {
 // (owner 2026-07-21). Overrides: WRITER_ENGINE=claude → Claude only (old behavior);
 // WRITER_ENGINE=deepseek → DeepSeek only, no fallback;
 // WRITER_ENGINE=cursor → Cursor Agent only (hub option, owner 2026-07-26).
-function runWriter(prompt, timeoutMs, temperature) {
-  // Claude BENCHED until Tue 2026-07-28 — not in DS fallback chain. Hub option stays disabled until then.
-  // Override only with CLAUDE_OK=1 (owner). See new/_claude_bench.js.
+// WRITER_ENGINE values:
+//   ccds     → CC + DS: Claude Code writes, DeepSeek picks up when CC fails (owner 2026-07-28)
+//   claude   → Claude Code only, DS as safety net if CC is down
+//   deepseek → DeepSeek only, no fallback
+//   cursor   → Cursor Agent only
+//   (unset)  → DeepSeek first, then CC, then Cursor
+function runWriter(prompt, timeoutMs, temperature, opts) {
+  opts = opts || {};
   const forced = String(process.env.WRITER_ENGINE || '').toLowerCase();
+  // raw mode → the caller wants a fragment (e.g. one paragraph), not a full article. Route it
+  // to the requested engine only; the full-article fallback chain does not apply.
+  if (opts.raw) {
+    if (forced === 'deepseek') return runDeepSeek(prompt, timeoutMs, temperature, opts);
+    if (claudeUnbenched()) {
+      const cc = runClaude(prompt, timeoutMs, opts);
+      if (cc.ok) return cc;
+    }
+    return runDeepSeek(prompt, timeoutMs, temperature, opts);
+  }
+
+  // 🤖 CC + DS (owner 2026-07-28: "use cc and ds as writers" · "bring in ds when cannot reach 12/13").
+  // CC leads. DS is the reinforcement — it runs whenever CC returns nothing usable. The score-based
+  // half of the rule (CC produced a body but it graded under the bar) is enforced one level up by
+  // the drip's supervisor ladder and the finisher's rescue rung, which re-call with WRITER_ENGINE
+  // pinned to deepseek. Here we only handle "CC could not produce".
+  if (forced === 'ccds') {
+    if (claudeUnbenched()) {
+      const cc = runClaude(prompt, timeoutMs);
+      if (cc.ok) return cc;
+      const ds1 = runDeepSeek(prompt, timeoutMs, temperature);
+      if (ds1.ok) return ds1;
+      return { ok: false, err: 'CC+DS both failed — cc:[' + cc.err + '] ds:[' + ds1.err + ']' };
+    }
+    return runDeepSeek(prompt, timeoutMs, temperature);
+  }
+
   if (forced === 'claude') {
-    if (claudeUnbenched()) return runClaude(prompt, timeoutMs);
-    // Still benched → DeepSeek, then Cursor (never call CC)
+    if (claudeUnbenched()) {
+      const cc = runClaude(prompt, timeoutMs);
+      if (cc.ok) return cc;
+      return runDeepSeek(prompt, timeoutMs, temperature);   // CC down → DS keeps the line moving
+    }
     const ds0 = runDeepSeek(prompt, timeoutMs, temperature);
     if (ds0.ok) return ds0;
     return runCursor(prompt, timeoutMs);
   }
   if (forced === 'cursor') return runCursor(prompt, timeoutMs);
+
   const ds = runDeepSeek(prompt, timeoutMs, temperature);
   if (ds.ok || forced === 'deepseek') return ds;
-  // DeepSeek down → Cursor only (CC stays on the bench)
+  // DeepSeek down → Claude Code (unbenched 2026-07-28), then Cursor.
+  if (claudeUnbenched()) {
+    const cc = runClaude(prompt, timeoutMs);
+    if (cc.ok) return cc;
+  }
   const cu = runCursor(prompt, timeoutMs);
   if (cu.ok) return cu;
-  return { ok: false, err: 'both writers failed — ds:[' + ds.err + '] cursor:[' + cu.err + '] (cc benched til Tue)' };
+  return { ok: false, err: 'all writers failed — ds:[' + ds.err + '] cursor:[' + cu.err + ']' };
 }
 
 // Strip an accidental outer ```markdown fence if the model wrapped the whole body.
@@ -360,7 +497,9 @@ function rebuildToGate(question, body, opts) {
   let surgicalOnly = false;
 
   // Already at publish bar after surgical → skip writer entirely (works offline / any engine).
-  if (!junkBody && before.score >= TARGET) {
+  // opts.force (owner 2026-07-28) disables this shortcut: the caller wants the page genuinely REWRITTEN, not
+  // waved through because a mechanical patch happened to reach the bar. Used by FORCE_REWRITE crews.
+  if (!junkBody && before.score >= TARGET && !opts.force) {
     surgicalOnly = true;
     return {
       ok: true, body: cur, before: before.score, after: before.score,
@@ -389,7 +528,11 @@ function rebuildToGate(question, body, opts) {
 
   while (attempts < maxAttempts) {
     attempts++;
-    let prompt = aug ? (buildPrompt(question, cur) + '\n' + aug.block) : buildPrompt(question, cur);
+    // Use the golden template that matches THIS page (opts.template, set by the caller from
+    // pickGoldTemplate). Without it every page — including ranked Top-10s — was rewritten into the
+    // Q&A shape, whose rules explicitly forbid the numbered headings a Top-10 page must have.
+    const base = buildPromptFor(question, cur, { template: opts.template });
+    let prompt = aug ? (base + '\n' + aug.block) : base;
     if (stuckMode) prompt += '\n\n' + buildStuckBroadenDirective();
     // 🧗 PLATEAU → ESCALATE: same score + same failed points twice running. Stop nibbling; order a from-scratch
     // rewrite of only the failing sections and buy one extra attempt to land it.
@@ -464,7 +607,7 @@ function rebuildToGate(question, body, opts) {
            anchors, driftSkip: driftSkip || undefined, surgicalOnly: surgicalOnly || undefined };
 }
 
-module.exports = { improveEntry, claudeBin, runClaude, runDeepSeek, runCursor, runWriter, buildPrompt, unfence, skeleton, gateScore, goldShapeOK, rebuildToGate, surgicalGateFix };
+module.exports = { improveEntry, claudeBin, runClaude, runDeepSeek, runCursor, runWriter, buildPrompt, buildTop10Prompt, buildPromptFor, unfence, skeleton, gateScore, goldShapeOK, rebuildToGate, surgicalGateFix };
 
 // CLI: node improve_content.js <id>
 if (require.main === module) {

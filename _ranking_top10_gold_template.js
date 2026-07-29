@@ -279,7 +279,11 @@ function auditTop10GoldTemplate(body, title) {
   }
 
   const mermaidCount = (b.match(/```mermaid/gi) || []).length;
-  if (mermaidCount !== 1) issues.push('mermaid_count_' + mermaidCount + '_expected_1');
+  // 🔧 1 → 2 (owner 2026-07-29: "do a mermaid at the top and a mermaid at the bottom"). This audit
+  // demanded exactly ONE while new/content_gate.js — the actual 12/13 publish bar — demands exactly
+  // TWO, so every Top-10 was guaranteed to fail one of the two rulebooks no matter what it did.
+  // One diagram near the top in "How We Ranked These", one near the bottom in "How to Choose".
+  if (mermaidCount !== 2) issues.push('mermaid_count_' + mermaidCount + '_expected_2');
 
   if (rankingListHasTopHero(b)) issues.push('unexpected_top_hero');
 
