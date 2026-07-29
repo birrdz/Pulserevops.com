@@ -1,0 +1,183 @@
+<!-- GOLDEN_TEMPLATE_TOP10_SKELETON.html - TOP_LIST v2.2 - structure is law, copy verbatim, fill slots -->
+<article class="golden top10" data-template="TOP_LIST" data-version="v2">
+
+  <header class="g-head">
+    <figure class="g-facecard">
+      <img src="{{FACECARD_URL}}" alt="{{FACECARD_ALT}}" loading="eager">
+      <figcaption class="g-facecard-title">{{TITLE}}</figcaption>
+    </figure>
+    <h1>{{TITLE}}</h1>
+    <p class="g-byline">PULSE - {{READ_MIN}} min read - Updated <time datetime="{{UPDATED_ISO}}">{{UPDATED_HUMAN}}</time></p>
+  </header>
+
+  <section class="g-direct" id="direct-answer">
+    {{DIRECT_ANSWER}}
+  </section>
+
+  <figure class="g-img g-hero">
+    <img src="{{IMG_1_URL}}" alt="{{IMG_1_ALT}}" loading="eager">
+  </figure>
+
+  <section class="g-quicktable" id="at-a-glance">
+    <h2>At a Glance</h2>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Name</th><th>Why It Ranks</th><th>Key Stat</th></tr>
+      </thead>
+      <tbody>
+        {{QUICK_TABLE_ROWS}}
+      </tbody>
+    </table>
+    {{MERMAID_1}}
+  </section>
+
+  <section class="g-item" id="item-1">
+    <h2>#1: {{ITEM_1_NAME}}</h2>
+    <figure class="g-img"><img src="{{IMG_2_URL}}" alt="{{IMG_2_ALT}}" loading="lazy"></figure>
+    {{ITEM_1_BODY}}
+    <p class="g-stat">{{ITEM_1_STAT}}</p>
+  </section>
+
+  <section class="g-item" id="item-2">
+    <h2>#2: {{ITEM_2_NAME}}</h2>
+    <figure class="g-img"><img src="{{IMG_3_URL}}" alt="{{IMG_3_ALT}}" loading="lazy"></figure>
+    {{ITEM_2_BODY}}
+    <p class="g-stat">{{ITEM_2_STAT}}</p>
+  </section>
+
+  <section class="g-item" id="item-3">
+    <h2>#3: {{ITEM_3_NAME}}</h2>
+    <figure class="g-img"><img src="{{IMG_4_URL}}" alt="{{IMG_4_ALT}}" loading="lazy"></figure>
+    {{ITEM_3_BODY}}
+    <p class="g-stat">{{ITEM_3_STAT}}</p>
+  </section>
+
+  <section class="g-item" id="item-4">
+    <h2>#4: {{ITEM_4_NAME}}</h2>
+    <figure class="g-img"><img src="{{IMG_5_URL}}" alt="{{IMG_5_ALT}}" loading="lazy"></figure>
+    {{ITEM_4_BODY}}
+    <p class="g-stat">{{ITEM_4_STAT}}</p>
+  </section>
+
+  <section class="g-item" id="item-5">
+    <h2>#5: {{ITEM_5_NAME}}</h2>
+    <figure class="g-img"><img src="{{IMG_6_URL}}" alt="{{IMG_6_ALT}}" loading="lazy"></figure>
+    {{ITEM_5_BODY}}
+    <p class="g-stat">{{ITEM_5_STAT}}</p>
+  </section>
+  <!-- RENDERER injects mobile CRO card here; never store card markup in the blob. -->
+
+  <section class="g-item" id="item-6">
+    <h2>#6: {{ITEM_6_NAME}}</h2>
+    <figure class="g-img"><img src="{{IMG_7_URL}}" alt="{{IMG_7_ALT}}" loading="lazy"></figure>
+    {{ITEM_6_BODY}}
+    <p class="g-stat">{{ITEM_6_STAT}}</p>
+  </section>
+
+  <section class="g-item" id="item-7">
+    <h2>#7: {{ITEM_7_NAME}}</h2>
+    <figure class="g-img"><img src="{{IMG_8_URL}}" alt="{{IMG_8_ALT}}" loading="lazy"></figure>
+    {{ITEM_7_BODY}}
+    <p class="g-stat">{{ITEM_7_STAT}}</p>
+  </section>
+
+  <section class="g-item" id="item-8">
+    <h2>#8: {{ITEM_8_NAME}}</h2>
+    <figure class="g-img"><img src="{{IMG_9_URL}}" alt="{{IMG_9_ALT}}" loading="lazy"></figure>
+    {{ITEM_8_BODY}}
+    <p class="g-stat">{{ITEM_8_STAT}}</p>
+  </section>
+
+  <section class="g-item" id="item-9">
+    <h2>#9: {{ITEM_9_NAME}}</h2>
+    <figure class="g-img"><img src="{{IMG_10_URL}}" alt="{{IMG_10_ALT}}" loading="lazy"></figure>
+    {{ITEM_9_BODY}}
+    <p class="g-stat">{{ITEM_9_STAT}}</p>
+  </section>
+
+  <section class="g-item" id="item-10">
+    <h2>#10: {{ITEM_10_NAME}}</h2>
+    <figure class="g-img"><img src="{{IMG_11_URL}}" alt="{{IMG_11_ALT}}" loading="lazy"></figure>
+    {{ITEM_10_BODY}}
+    <p class="g-stat">{{ITEM_10_STAT}}</p>
+  </section>
+
+  <section class="g-method" id="how-we-ranked">
+    <h2>How We Ranked These</h2>
+    {{HOW_WE_RANKED}}
+    {{MERMAID_2}}
+  </section>
+
+  <section class="g-faq" id="related-questions">
+    <h2>Frequently Asked Questions</h2>
+    <h3>{{FAQ_Q1}}</h3>
+    <p>{{FAQ_A1}}</p>
+    <h3>{{FAQ_Q2}}</h3>
+    <p>{{FAQ_A2}}</p>
+    <h3>{{FAQ_Q3}}</h3>
+    <p>{{FAQ_A3}}</p>
+    <h3>{{FAQ_Q4}}</h3>
+    <p>{{FAQ_A4}}</p>
+    <h3>{{FAQ_Q5}}</h3>
+    <p>{{FAQ_A5}}</p>
+  </section>
+
+  <section class="g-sources" id="sources">
+    <h2>Sources</h2>
+    <ul>{{SOURCES_LIST}}</ul>
+  </section>
+
+  <nav class="g-related" id="related-links">
+    <h2>Keep Reading</h2>
+    {{RELATED_LINKS}}
+  </nav>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{TITLE}}",
+    "description": "{{META_DESC}}",
+    "image": "{{FACECARD_URL}}",
+    "dateModified": "{{UPDATED_ISO}}",
+    "author": { "@type": "Person", "name": "Kory White" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListOrder": "https://schema.org/ItemListOrderDescending",
+    "numberOfItems": 10,
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "{{ITEM_1_NAME}}" },
+      { "@type": "ListItem", "position": 2, "name": "{{ITEM_2_NAME}}" },
+      { "@type": "ListItem", "position": 3, "name": "{{ITEM_3_NAME}}" },
+      { "@type": "ListItem", "position": 4, "name": "{{ITEM_4_NAME}}" },
+      { "@type": "ListItem", "position": 5, "name": "{{ITEM_5_NAME}}" },
+      { "@type": "ListItem", "position": 6, "name": "{{ITEM_6_NAME}}" },
+      { "@type": "ListItem", "position": 7, "name": "{{ITEM_7_NAME}}" },
+      { "@type": "ListItem", "position": 8, "name": "{{ITEM_8_NAME}}" },
+      { "@type": "ListItem", "position": 9, "name": "{{ITEM_9_NAME}}" },
+      { "@type": "ListItem", "position": 10, "name": "{{ITEM_10_NAME}}" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "{{FAQ_Q1}}", "acceptedAnswer": { "@type": "Answer", "text": "{{FAQ_A1}}" } },
+      { "@type": "Question", "name": "{{FAQ_Q2}}", "acceptedAnswer": { "@type": "Answer", "text": "{{FAQ_A2}}" } },
+      { "@type": "Question", "name": "{{FAQ_Q3}}", "acceptedAnswer": { "@type": "Answer", "text": "{{FAQ_A3}}" } },
+      { "@type": "Question", "name": "{{FAQ_Q4}}", "acceptedAnswer": { "@type": "Answer", "text": "{{FAQ_A4}}" } },
+      { "@type": "Question", "name": "{{FAQ_Q5}}", "acceptedAnswer": { "@type": "Answer", "text": "{{FAQ_A5}}" } }
+    ]
+  }
+  </script>
+
+</article>
+<!-- END OF FILE -->

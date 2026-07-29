@@ -72,7 +72,14 @@ exports.handler = async (event) => {
       isBase64Encoded: true,
       headers: {
         'Content-Type': ct,
-        'Cache-Control': 'public, max-age=31536000, immutable',
+        // 🔁 REVALIDATE, DON'T FREEZE (owner 2026-07-29: "make sure old images don't pop back up").
+        // These blob keys are OVERWRITTEN IN PLACE — applyImages writes a replacement to the same
+        // `<id>-b<n>.jpg` key rather than deleting and re-creating, so the URL never changes. Paired with
+        // `immutable, max-age=1yr` that meant a swapped image kept serving the OLD photo from browser and CDN
+        // cache for up to a year: the image drip would report a successful swap that no reader could see.
+        // The face card already used must-revalidate for exactly this reason; body slots now match it.
+        // ETag still does the heavy lifting — unchanged images come back 304, so this costs almost no bandwidth.
+        'Cache-Control': 'public, max-age=0, must-revalidate',
         'X-Pulse-Asset': 'blob',
       },
       body: Buffer.from(raw).toString('base64'),

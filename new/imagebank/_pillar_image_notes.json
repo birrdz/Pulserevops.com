@@ -1,0 +1,340 @@
+{
+  "_README": [
+    "Per-pillar image guidance for the image drip (owner 2026-07-29).",
+    "EDIT THIS FILE FREELY — it is plain data, read fresh on every page, no restart needed.",
+    "",
+    "  look_for : extra search terms. Added to the query so a pillar searches in its own vocabulary.",
+    "  avoid    : REJECT any candidate whose alt text / filename contains one of these words.",
+    "             This is the half PILLAR_CONTEXT never had, and it is what stops the failure that",
+    "             put soccer photos on 'Skill Drill: Giving Feedback for Plumbing Supply' — the word",
+    "             'drill' matched, nothing could veto the sports sense.",
+    "",
+    "Pillars not listed here fall back to PILLAR_CONTEXT in _drip.js. Add one whenever a pillar starts",
+    "collecting the wrong kind of picture — cheaper and safer than changing code."
+  ],
+
+  "sk": {
+    "note": "Sales skills (owner 2026-07-29): generic office setting, presentation, corporate training. The word WORKSHOP is dropped from the search entirely — the owner's call — because its garage/woodworking sense is a coin-flip in any stock library and 'seminar' or 'training room' says the same thing with no ambiguity. Drills are sales coaching exercises, never athletic ones.",
+    "look_for": ["office setting", "business presentation", "corporate training seminar", "training room", "conference room meeting", "team presentation"],
+    "avoid": [
+      "soccer", "football", "athlete", "sport", "sports", "gym", "workout", "stadium", "track", "player",
+      "whistle", "jersey", "fitness", "basketball", "baseball", "running",
+      "garage", "workbench", "woodworking", "carpentry", "mechanic", "power tool", "toolbox", "sawdust",
+      "welding", "repair shop", "auto shop", "lathe", "hammer", "wrench"
+    ]
+  },
+  "st": {
+    "note": "Sales trainings (owner 2026-07-29: 'same as the last one') — identical treatment to sk. Generic office setting, presentation, corporate training. No 'workshop' in the search; no sports, no garage, and no school/children imagery, which 'training' and 'lesson' otherwise drag in.",
+    "look_for": ["office setting", "business presentation", "corporate training seminar", "training room", "conference room meeting", "team presentation"],
+    "avoid": [
+      "soccer", "football", "athlete", "sport", "sports", "gym", "workout", "stadium", "track", "player",
+      "whistle", "jersey", "fitness", "basketball", "baseball", "running",
+      "garage", "workbench", "woodworking", "carpentry", "mechanic", "power tool", "toolbox", "sawdust",
+      "welding", "repair shop", "auto shop", "lathe", "hammer", "wrench",
+      "child", "children", "kids", "playground", "school bus", "classroom kids", "toddler"
+    ]
+  },
+  "cg": {
+    "note": "Coaching (owner 2026-07-29: 'same as the last two') — identical treatment to sk and st. Generic office setting, presentation, corporate training. This pillar was the highest-risk one left: its context led with the bare word 'coaching', which sends any stock search straight to sports. Same veto list as st.",
+    "look_for": ["office setting", "business presentation", "corporate training seminar", "training room", "conference room meeting", "team presentation"],
+    "avoid": [
+      "soccer", "football", "athlete", "sport", "sports", "gym", "workout", "stadium", "track", "player",
+      "whistle", "jersey", "fitness", "basketball", "baseball", "running", "team huddle", "referee",
+      "garage", "workbench", "woodworking", "carpentry", "mechanic", "power tool", "toolbox", "sawdust",
+      "welding", "repair shop", "auto shop", "lathe", "hammer", "wrench",
+      "child", "children", "kids", "playground", "school bus", "classroom kids", "toddler"
+    ]
+  },
+  "se": {
+    "note": "Sales enablement (owner 2026-07-29): same family as sk/st/cg, but leaning toward NEW REP onboarding, training and training MANUALS/documentation rather than a room watching a presenter. Enablement is programs and materials, so printed guides, handbooks and a new hire at a desk fit here in a way they do not on the other three.",
+    "look_for": [
+      "new employee onboarding", "training manual documentation", "employee handbook desk",
+      "office setting", "business presentation", "training room"
+    ],
+    "avoid": [
+      "soccer", "football", "athlete", "sport", "sports", "gym", "workout", "stadium", "track", "player",
+      "whistle", "jersey", "fitness", "basketball", "baseball", "running",
+      "garage", "workbench", "woodworking", "carpentry", "mechanic", "power tool", "toolbox", "sawdust",
+      "welding", "repair shop", "auto shop", "lathe", "hammer", "wrench",
+      "child", "children", "kids", "playground", "school bus", "classroom kids", "toddler"
+    ]
+  },
+  "_DEFAULT": {
+    "note": "THE STANDING RULE (owner 2026-07-29), applied to every pillar that has no entry of its own — including any pillar added later. Two cases:  (1) TOP-10 / ranked pages — slot N must show the SPECIFIC thing at ranking position N: the actual place, product, vehicle, venue or its logo, matched to that item's own name, never a generic photo of the category.  (2) PLAIN Q&A pages — the image matches the title and the vibe of the answer.  The avoid list below is the universal junk filter that applies everywhere: watermarked stock previews, clipart, cartoons, toys and miniatures are never right on any page in this library.",
+    "look_for": [],
+    "avoid": [
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark",
+      "cartoon", "illustration vector", "clipart", "3d render icon",
+      "toy", "miniature", "lego", "diecast", "model kit",
+      "lorem ipsum", "placeholder", "sample image", "no image available",
+      "youtube", "thumbnail", "video thumbnail", "banner", "poster text", "collage", "montage",
+      "top 10", "best of", "vs", "review title", "subscribe", "watch now", "click here"
+    ]
+  },
+  "fr": {
+    "note": "Franchises (owner 2026-07-29: 'try to find the actual logo of the business') — the named brand's own logo or a photo of a real storefront, matched to the franchise being discussed. Rank-matched on Top-10 pages, and on single-brand pages the brand name drives the search. DDG is the source that can actually find these; a stock library has no franchise logos. If the specific brand finds nothing, a real storefront or the business category is the next step down — never a generic handshake.",
+    "look_for": ["brand logo", "franchise storefront", "restaurant exterior sign", "retail storefront"],
+    "avoid": [
+      "handshake", "smiling business people", "generic contract signing",
+      "cartoon", "illustration vector", "clipart", "3d render icon",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark",
+      "toy", "miniature", "lego"
+    ]
+  },
+  "aq": {
+    "note": "Aquariums (owner 2026-07-29): match the image to EXACTLY what is at that rank — the specific fish species or the specific piece of equipment named at position N. A page ranking tetras and a page ranking canister filters need very different pictures, and slot 3 should show item 3, not a generic tank. Species names are precise search terms, so this pillar rank-matches well; the vetoes keep the fallback off cartoon fish and clipart, which aquarium searches return constantly.",
+    "look_for": ["aquarium fish species", "planted aquarium tank", "aquarium equipment product", "fish closeup"],
+    "avoid": [
+      "cartoon fish", "clipart", "illustration vector", "animated", "nemo", "goldfish bowl cartoon",
+      "toy", "miniature", "plastic fish", "aquarium sticker",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark"
+    ]
+  },
+  "pt": {
+    "note": "Pets (owner 2026-07-29: 'same thing') — match the image to EXACTLY what is at that rank: the specific breed, or the specific product named at position N. A page ranking dog breeds needs that breed at slot N; a page ranking harnesses or feeders needs that product. Breed names search precisely, so rank matching carries this pillar. Cartoon and illustrated animals are the main failure mode.",
+    "look_for": ["dog breed portrait", "cat breed portrait", "pet product photo", "pet closeup"],
+    "avoid": [
+      "cartoon animal", "clipart", "illustration vector", "animated", "plush toy", "stuffed animal",
+      "toy", "miniature", "figurine",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark"
+    ]
+  },
+  "ga": {
+    "note": "Gatherings (owner 2026-07-29: 'whatever you think') — private chefs, wedding and party venues, catering costs for groups. Rank-matched: slot N shows the ACTUAL venue at position N on a 'Best Nashville Wedding Venues' page. Real rooms and real table settings; the failure mode is stock 'happy people toasting' filler with no venue in it.",
+    "look_for": ["event venue interior", "wedding venue", "private dining room", "catered table setting"],
+    "avoid": [
+      "stock photo celebration", "generic party people", "confetti isolated", "champagne toast isolated",
+      "cartoon", "illustration vector", "clipart", "miniature",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark"
+    ]
+  },
+  "cl": {
+    "note": "Clubs (owner delegated) — MIXED pillar: nightclubs and private members' clubs, but also grooming products like colognes. Rank matching handles both, since slot N searches item N's own name: a club name returns an interior, a cologne name returns the bottle. 'Club' is the trap word — untreated it pulls golf clubs and sandwich clubs.",
+    "look_for": ["nightclub interior", "private club lounge", "bar interior", "product bottle"],
+    "avoid": [
+      "golf club", "golf course", "club sandwich", "clubhouse golf", "baseball bat",
+      "cartoon", "illustration vector", "clipart",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark",
+      "child", "children", "kids", "toddler"
+    ]
+  },
+  "wl": {
+    "note": "Wellness (owner delegated) — product Top-10s: posture correctors, meditation apps, sauna blankets. Rank-matched, so slot N shows the ACTUAL product at position N. Clean product shots, not lifestyle yoga stock. 'Supplement' and 'app' pages want the actual item or a screenshot, not a smiling person on a beach.",
+    "look_for": ["product shot white background", "device product photo", "app screenshot", "supplement bottle"],
+    "avoid": [
+      "yoga beach sunset", "meditation silhouette", "spa stones", "generic wellness lifestyle",
+      "cartoon", "illustration vector", "clipart",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark"
+    ]
+  },
+  "ev": {
+    "note": "Events (owner 2026-07-29: 'any image that matches the title, and if there's a ranking then it matches the titles of the rankings') — this is the drip's default behaviour plus rank matching: a plain page searches its own title, a Top-10 page searches each ranked item for its own slot. So slot 4 on 'Top 10 Music Festivals' shows festival #4, not a generic crowd. The vetoes keep the fallback from landing on stock 'people celebrating' filler, which is what generic event searches return.",
+    "look_for": ["event venue", "festival crowd", "conference hall", "concert stage"],
+    "avoid": [
+      "stock photo celebration", "generic party people", "confetti isolated", "champagne toast isolated",
+      "cartoon", "illustration vector", "clipart", "miniature",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark"
+    ]
+  },
+  "tn": {
+    "note": "Towns (owner 2026-07-29: 'same for towns except images of the towns') — rank-matched: slot N shows the ACTUAL town at ranking position N. Pages are 'Top 10 Best Towns in Minnesota', 'Best Suburbs of Phoenix', so slot 3 wants a real photograph of that specific place — its main street, downtown or skyline — not a generic pretty landscape. The vetoes matter here because place names pull maps, flags and road signs before they pull the place itself.",
+    "look_for": ["town main street", "downtown aerial", "city skyline", "neighborhood street"],
+    "avoid": [
+      "map", "atlas", "globe", "road sign", "welcome sign", "flag", "pin marker", "gps",
+      "cartoon", "illustration vector", "clipart", "miniature", "model village", "lego",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark"
+    ]
+  },
+  "sc": {
+    "note": "Schools (owner 2026-07-29: 'same for schools except images of the school or school logo') — rank-matched: slot N shows the ACTUAL school at ranking position N, either the campus/building itself or the school's own logo or crest. A generic classroom is the failure mode here, unlike tr where a generic classroom is exactly right — these pages are about SPECIFIC named schools, so the image has to identify that school.",
+    "look_for": ["school campus building", "university campus exterior", "school logo crest", "high school building"],
+    "avoid": [
+      "generic classroom", "students at desks", "chalkboard", "abstract education",
+      "map", "globe", "cartoon", "illustration vector", "clipart", "miniature",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark",
+      "boardroom", "corporate meeting", "office setting"
+    ]
+  },
+  "bt": {
+    "note": "Boats (owner 2026-07-29: 'same with boats but for boats') — same rank-matched rule as ca: slot N shows the EXACT boat at ranking position N, matched to the title, falling back to the next applicable image only when that specific model finds nothing. Real vessels on real water.",
+    "look_for": ["boat on water", "yacht exterior", "boat side profile", "vessel marina"],
+    "avoid": [
+      "toy boat", "model boat", "rc boat", "paper boat", "lego", "cartoon", "illustration vector",
+      "clipart", "video game screenshot", "miniature", "bathtub",
+      "shipwreck", "sinking", "capsized", "junkyard", "rusted hull",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark",
+      "child", "children", "kids", "toddler"
+    ]
+  },
+  "gm": {
+    "note": "Gaming (owner 2026-07-29: 'same for gaming but for gaming') — same rank-matched rule: slot N shows the EXACT game or hardware at ranking position N. Note this pillar INVERTS a veto the others use — 'video game screenshot' is wrong on a cars or boats page but is exactly right here, along with box art and console hardware. What to keep out is generic stock photography of people vaguely holding controllers.",
+    "look_for": ["video game screenshot", "game box art", "gaming console hardware", "gameplay screenshot"],
+    "avoid": [
+      "smiling family gaming", "stock photo gamer", "handshake", "office meeting", "boardroom",
+      "cartoon clipart", "illustration vector",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark",
+      "soccer", "football", "athlete", "gym", "workout", "stadium"
+    ]
+  },
+  "ca": {
+    "note": "Cars (owner 2026-07-29): each slot should show the EXACT vehicle from its position in the ranking — slot 3 shows whatever #3 actually is, matched to the title. The drip already sources ranked pages this way (slot N is searched from rank N's own name); if that specific model finds nothing, it falls back down the ladder to the next applicable image rather than leaving the slot empty. Vetoes below keep the fallback honest: toys, models and cartoons match car names constantly in image search and look absurd on a buying guide.",
+    "look_for": ["car exterior", "vehicle side profile", "car on road", "automobile"],
+    "avoid": [
+      "toy car", "model car", "diecast", "hot wheels", "lego", "cartoon", "illustration vector",
+      "clipart", "video game screenshot", "racing game", "miniature", "keychain",
+      "car wreck", "junkyard", "rusted", "car crash", "salvage",
+      "stock photo watermark", "shutterstock", "getty", "istock", "alamy", "dreamstime", "watermark",
+      "child", "children", "kids", "playground", "toddler"
+    ]
+  },
+  "et": {
+    "note": "EdTech (owner 2026-07-29: 'et as well') — education technology: LMS and SIS selection, 1:1 device programs, classroom software, district procurement, student data privacy. Same school world as tr, but with the TECH visible — a laptop or tablet in a student's or teacher's hands, a smartboard, a device cart. Corporate/office imagery is vetoed as it is on tr: this is a school, not a SaaS company.",
+    "look_for": [
+      "student using laptop classroom", "tablet in classroom", "teacher smartboard",
+      "school computer lab", "students with devices", "teacher laptop desk"
+    ],
+    "avoid": [
+      "boardroom", "conference room", "corporate meeting", "business presentation", "office setting",
+      "sales", "stock trader", "handshake suit", "server room", "data center",
+      "soccer", "football", "athlete", "sport", "gym", "workout", "stadium",
+      "garage", "workbench", "power tool", "toolbox"
+    ]
+  },
+  "tr": {
+    "note": "Teacher Resources (owner 2026-07-29: 'the teacher one') — ACTUAL teachers in actual schools. Real K-12 classrooms: a teacher at the front of a room, students at desks, marking work, parent evenings. This is the mirror image of ed: everything the business pillars want (boardrooms, presentations, corporate training rooms) is wrong here, and gets vetoed, because 'training' and 'lesson' otherwise pull corporate seminar stock.",
+    "look_for": [
+      "teacher in classroom", "students at desks", "elementary school lesson",
+      "teacher whiteboard teaching", "school hallway lockers", "grading papers desk"
+    ],
+    "avoid": [
+      "boardroom", "conference room", "corporate meeting", "business presentation", "office setting",
+      "sales", "stock trader", "handshake suit", "laptop dashboard", "spreadsheet",
+      "soccer", "football", "athlete", "sport", "gym", "workout", "stadium",
+      "garage", "workbench", "power tool", "toolbox"
+    ]
+  },
+  "bo": {
+    "note": "Buildouts (owner 2026-07-29): two sides to this pillar — the physical work (construction crews, remodeling, contractors on site) AND the deal side (people going over contracts, lease negotiations, signing paperwork). Both belong. Commercial, not residential: 'renovation' and 'remodel' otherwise pull home-improvement and kitchen-makeover stock all day.",
+    "look_for": [
+      "commercial construction workers", "contractor site hard hat", "office interior renovation",
+      "reviewing contract documents", "lease negotiation meeting", "signing business paperwork",
+      "blueprints table meeting"
+    ],
+    "avoid": [
+      "residential kitchen", "family home", "house exterior", "bedroom", "bathroom remodel",
+      "home improvement", "diy", "backyard", "lawn", "toy", "cartoon", "miniature",
+      "soccer", "football", "sport", "gym", "child", "children", "kids", "playground"
+    ]
+  },
+  "ed": {
+    "note": "Small Business Ops (owner 2026-07-29: 'just do sales training for ed'). NOT education — the prefix reads that way and the pillar was mislabeled 'Energy & Efficiency' until 2026-07-29, but only 1% of its 1,036 pages mention teaching. The real content is franchise buy-vs-build, sales hiring, shift staffing and service pricing for small businesses. Same office/training treatment as st. Teacher and classroom imagery is explicitly vetoed here precisely because the prefix invites it.",
+    "look_for": [
+      "office setting", "business presentation", "corporate training seminar", "training room",
+      "conference room meeting", "small business owner"
+    ],
+    "avoid": [
+      "classroom", "teacher", "students desks", "school bus", "chalkboard", "school hallway",
+      "graduation", "university campus", "textbook", "child", "children", "kids", "playground", "toddler",
+      "soccer", "football", "athlete", "sport", "sports", "gym", "workout", "stadium", "track", "player",
+      "whistle", "jersey", "fitness", "basketball", "baseball",
+      "garage", "workbench", "woodworking", "mechanic", "power tool", "toolbox", "hammer", "wrench"
+    ]
+  },
+  "sy": {
+    "note": "Style (owner 2026-07-29): the image must SHOW the recommendation — the actual outfit or look the answer is telling the reader to wear. This is the one pillar where a generic office photo is the failure, not the fallback: a page recommending a navy suit needs a navy suit on a person, not a boardroom. Pages follow the locked sy format (cover + 3 men + 3 women across ages), so slot-level rank matching matters here — each look in the body should drive its own slot. Full-length or upper-body shots of a person wearing the garment; not flat-lay product shots of clothing on a table, which show the item but not the LOOK.",
+    "look_for": [
+      "man wearing outfit full length", "woman wearing outfit full length",
+      "menswear style portrait", "womenswear style portrait",
+      "street style fashion", "outfit of the day"
+    ],
+    "avoid": [
+      "office meeting", "conference room", "boardroom", "presentation", "laptop", "handshake",
+      "whiteboard", "dashboard", "spreadsheet",
+      "mannequin", "clothing rack", "flat lay", "folded clothes", "empty hanger", "sewing machine",
+      "fabric swatch", "clothing store shelves",
+      "cartoon", "illustration vector", "clipart",
+      "soccer", "football", "sport", "gym", "workout", "child", "children", "kids", "toddler"
+    ]
+  },
+  "q": {
+    "note": "Knowledge Q&A (owner 2026-07-29: 'same as sales trainings') — RevOps essay questions: forecasting, comp, territory, ops process. The library's largest pillar at ~8,000 pages. Same office/training treatment as st. These pages describe abstract business concepts with nothing concrete to photograph, which is exactly when a search latches onto whatever the title words literally mean — hence the veto list below covering the RevOps vocabulary that has a physical double: pipeline (oil), territory (maps), forecast (weather), quota/comp (sports stats), churn (butter), funnel (kitchen), attrition (war).",
+    "look_for": [
+      "office setting", "business presentation", "corporate training seminar", "training room",
+      "conference room meeting", "team presentation"
+    ],
+    "avoid": [
+      "oil pipeline", "gas pipeline", "plumbing pipe", "pipe fitting",
+      "weather forecast", "storm", "map", "globe", "atlas", "territory map",
+      "butter", "churn butter", "funnel kitchen", "traffic cone",
+      "soldier", "war", "military", "battlefield",
+      "soccer", "football", "athlete", "sport", "sports", "gym", "workout", "stadium", "track",
+      "player", "whistle", "jersey", "fitness", "basketball", "baseball", "scoreboard",
+      "garage", "workbench", "woodworking", "mechanic", "power tool", "toolbox", "hammer", "wrench",
+      "child", "children", "kids", "playground", "school bus", "toddler"
+    ]
+  },
+  "tk": {
+    "note": "Tech Stacks (owner 2026-07-29): ideally each slot shows the ACTUAL software being discussed at that point in the body — the vendor logo or a shot of the product UI — matched to that item's position in the sequence. The drip already sources ranked pages per item (slot N is searched from rank N's own name), so this pillar mainly needs the query biased toward logos and product screenshots instead of stock photography. DDG is the right source here: a stock library has no vendor logos, the open web does. Generic office photos are the failure mode to avoid — they are what gets used when the vendor name finds nothing.",
+    "look_for": ["logo", "software interface screenshot", "app dashboard ui", "product screenshot"],
+    "avoid": [
+      "handshake", "smiling business people", "stock photo watermark", "shutterstock", "getty", "istock",
+      "alamy", "dreamstime", "watermark", "clipart", "cartoon", "illustration vector",
+      "hammer", "wrench", "screwdriver", "toolbox", "hardware store", "workbench", "garage",
+      "soccer", "football", "sport", "gym", "child", "children", "kids"
+    ]
+  },
+  "ra": {
+    "note": "Revenue Architecture (owner 2026-07-29: 'same thing') — same office/training treatment as gp and the sales pillars. Note the deliberate trade-off: 'architecture' would otherwise pull buildings and skylines, which look handsome but say nothing about revenue operations. Buildings stay available as the global last-resort fallback when nothing else can be found, but they are no longer what this pillar actively searches for.",
+    "look_for": [
+      "training manual binder", "corporate training seminar", "office setting",
+      "business presentation", "conference room meeting", "team presentation"
+    ],
+    "avoid": [
+      "skyline", "skyscraper exterior", "cathedral", "monument", "bridge", "ruins", "blueprint house",
+      "football", "soccer", "athlete", "sport", "sports", "gym", "workout", "stadium", "player", "jersey",
+      "garage", "workbench", "woodworking", "mechanic", "power tool", "toolbox",
+      "child", "children", "kids", "playground", "toddler"
+    ]
+  },
+  "gp": {
+    "note": "GTM Playbook (owner 2026-07-29): same family as the sales pillars, with emphasis on training MANUALS, BINDERS and training sessions — the physical artifacts of a playbook. 'Playbook' is a literal American-football term, so without the veto this pillar pulls coaches drawing X's and O's on a clipboard.",
+    "look_for": [
+      "training manual binder", "business documents binder", "corporate training seminar",
+      "office setting", "business presentation", "conference room meeting"
+    ],
+    "avoid": [
+      "football", "soccer", "playbook clipboard", "coach clipboard", "quarterback", "helmet",
+      "athlete", "sport", "sports", "gym", "workout", "stadium", "track", "player", "whistle", "jersey",
+      "garage", "workbench", "woodworking", "mechanic", "power tool", "toolbox",
+      "child", "children", "kids", "playground", "toddler"
+    ]
+  },
+  "tl": {
+    "note": "Pulse Tools (owner 2026-07-29: 'do the same sales training ones') — RevOps software, calculators and fractional-CRO how-tos. Same office/presentation set as sk/st/cg. This is the single most dangerous pillar for literal matching and the second largest at ~3,300 pages: the word 'tool' means a hammer or a wrench in every stock library on earth, so the hardware veto list matters more here than anywhere else.",
+    "look_for": [
+      "office setting", "business presentation", "laptop software dashboard",
+      "conference room meeting", "team presentation", "corporate training seminar"
+    ],
+    "avoid": [
+      "hammer", "wrench", "screwdriver", "pliers", "drill bit", "power tool", "toolbox", "tool belt",
+      "hardware store", "workbench", "woodworking", "carpentry", "mechanic", "garage", "welding",
+      "saw", "nails", "screws", "socket set", "repair shop", "auto shop", "lathe", "construction site",
+      "soccer", "football", "athlete", "sport", "sports", "gym", "workout", "stadium", "player",
+      "child", "children", "kids", "playground", "toddler"
+    ]
+  },
+  "ik": {
+    "note": "Industry KPIs (owner 2026-07-29): these are the targets and goals companies search for — same sales/business treatment as sk/st/cg/se. Keeps a couple of dashboard/metrics terms since the pages are about numbers, but the base look is the same office setting. 'Target', 'goal' and 'score' are the trap words here: untreated they pull dartboards, football goalposts and scoreboards.",
+    "look_for": [
+      "office setting", "business presentation", "business dashboard analytics", "financial report meeting",
+      "conference room meeting", "team presentation"
+    ],
+    "avoid": [
+      "scoreboard", "stadium", "referee", "soccer", "football", "athlete", "sport", "sports", "gym",
+      "workout", "track", "player", "whistle", "jersey", "fitness", "basketball", "baseball", "running",
+      "dartboard", "archery", "bullseye", "target practice", "goalpost", "trophy",
+      "garage", "workbench", "woodworking", "mechanic", "power tool", "toolbox",
+      "child", "children", "kids", "playground", "school bus", "toddler"
+    ]
+  }
+}

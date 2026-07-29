@@ -24,6 +24,20 @@ const SMALL_ROTATION = (process.env.ROTATION_PILLARS || 'gp,bo,ra,cg,sw,sk').spl
 // are never from the same cluster (breaks up near-dupes; the dup-gate catches any that slip through).
 const ROAM = process.env.ROAM === '1';
 const UNDER12 = process.env.UNDER12 === '1';   // 📉 Less than 12/13 — work score < 12 / failed-rewrite pile
+// 🆕 NEW Q&A CREW (owner 2026-07-28: "fix new pipeline q and a — give them a dedicated crew to write new q and as").
+// NEWQA=1 makes this crew work ONE pile only: the brand-new questions `_pipeline_gen.js` seeded (index row
+// `pending:true`, blob `pipeline_new:true`) — never the 36k-page revision backlog. It writes them FULL.
+const NEWQA = process.env.NEWQA === '1';
+// 🔒 WHY A WORD FLOOR (the bug this fixes): WORD_COUNT (≥2500) is point 1 OF 13 in content_gate.js, so a
+// ~650-word stub scores exactly 12/13 — it fails ONLY the word count. With GATE_MIN=12 that publishes. On a
+// REVISION that's fine (real prose already exists, we're topping it up). On a BRAND-NEW page it is the whole
+// problem: the seeds generated 2026-07-27/28 (tk561-570, st816-825) all published at 12/13 with 637-1241
+// words — thin pages, permanently marked done. A new page therefore has to clear a real word floor as WELL
+// as the gate before the crew will publish it. 0 disables.
+const NEW_MIN_WORDS = Math.max(0, parseInt(process.env.NEWQA_MIN_WORDS || '2000', 10));
+const wcount = b => String(b || '').replace(/```[\s\S]*?```/g, ' ').split(/\s+/).filter(Boolean).length;
+// 🔁 FORCE REWRITE — never trust the stored gate score; run the writer on every page. See finishPage.
+const FORCE_REWRITE = process.env.FORCE_REWRITE === '1';
 // 💸 CHEAP WRITE (hub default ON): surgical $0 first → ≥12 publish; else ONE DeepSeek try. No Cursor team/redo.
 const CHEAP_WRITE = process.env.CHEAP_WRITE !== '0';
 // ROAM list. The hub passes the FULL pillar set via env (single source of truth = _hub.js PILLARS), so adding a
@@ -51,6 +65,24 @@ function pickIsolatedPillar() {
   if (!pool.length) pool = ROAM_PILLARS.filter(p => !taken.has(p));      // else any isolated pillar
   if (!pool.length) pool = ROAM_PILLARS;                                  // else (more crews than pillars) any
   const p = pool[Math.floor(Math.random() * pool.length)];
+  a[mine] = { p, ts: Date.now() }; saveAssign(a);
+  return p;
+}
+// 🆕 Where are the unwritten seeds? Counts `pending` index rows per pillar and returns the pillar with the most,
+// preferring one no other crew is sitting on. Used by roaming NEW-Q&A crews so every hop lands on real work.
+function pickSeededPillar(idx) {
+  const cnt = {};
+  for (const e of ((idx && idx.entries) || [])) {
+    if (!e || e.pending !== true) continue;
+    const m = String(e.id || '').match(/^([a-z]+)\d/);
+    if (!m || ROAM_PILLARS.indexOf(m[1]) < 0) continue;
+    cnt[m[1]] = (cnt[m[1]] || 0) + 1;
+  }
+  const ranked = Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a]);
+  if (!ranked.length) return null;
+  const a = loadAssign(), mine = 'box' + BOX_I;
+  const taken = new Set(Object.keys(a).filter(k => k !== mine).map(k => a[k].p));
+  const p = ranked.find(x => !taken.has(x)) || ranked[0];
   a[mine] = { p, ts: Date.now() }; saveAssign(a);
   return p;
 }
@@ -103,6 +135,17 @@ function addUnder12Failed(id, score) {
   } catch (e) {}
 }
 // LEAPFROG claim registry — crews share this file; a page claimed by another crew makes this crew jump ahead 5.
+// 🔁 BACK OF THE LINE (owner 2026-07-28: "when a url doesnt hit 12 put it back in inv in that same pillar to be
+// run again at the back"). A page that misses the gate is NOT dropped and NOT retried immediately — it stays in
+// its own pillar's inventory but sorts to the very end, so the crew spends its next hours on pages it has never
+// tried instead of grinding the same stubborn URL. It comes back around naturally once the fresh work runs out.
+// Map of id → the moment it was sent back, so repeat offenders queue behind first-time misses.
+let BACKF = WD + '/new/imagebank/_finisher_' + PILLAR + '_back.json';
+function backMap() { try { return JSON.parse(fs.readFileSync(BACKF, 'utf8')) || {}; } catch (e) { return {}; } }
+function sendToBack(id, score) {
+  try { const m = backMap(); m[id] = { ts: Date.now(), score: score || 0, tries: ((m[id] && m[id].tries) || 0) + 1 }; fs.writeFileSync(BACKF, JSON.stringify(m)); return m[id].tries; } catch (e) { return 0; }
+}
+function clearBack(id) { try { const m = backMap(); if (m[id]) { delete m[id]; fs.writeFileSync(BACKF, JSON.stringify(m)); } } catch (e) {} }
 let CLAIMS = WD + '/new/imagebank/_wholecrew_' + PILLAR + '_claims.json';
 function loadClaims() { try { const o = JSON.parse(fs.readFileSync(CLAIMS, 'utf8')); const now = Date.now(); for (const k of Object.keys(o)) if (now - (o[k].ts || 0) > 600000) delete o[k]; return o; } catch (e) { return {}; } }
 function claim(id) { try { const o = loadClaims(); o[id] = { box: BOX_I, ts: Date.now() }; fs.writeFileSync(CLAIMS, JSON.stringify(o)); } catch (e) {} }
@@ -350,21 +393,40 @@ let FLIP = '';            // non-empty while an over-the-hump engine switch is h
 // Pages that passed on the first write are neither (they never needed rescuing). Surfaced live in the hub.
 let SAVE_WIN = 0, SAVE_LOSS = 0;
 let LAST_GATE = '';   // e.g. tl1234 12/13 ✓ — hub top bar
-function setStage(s) { STAGE = s; const _sp = liveStride(); try { fs.writeFileSync(STATUSF, JSON.stringify({ port: PORT, box: BOX_I, pillar: PILLAR, engine: (typeof ENGINE !== 'undefined' ? ENGINE : ''), stage: STAGE, current: CUR, done: DONE, wrote: WROTE, remaining: (typeof REMAIN !== 'undefined' ? REMAIN : 0), total: (typeof TOTAL !== 'undefined' ? TOTAL : 0), cooldownUntil: COOLDOWN_UNTIL, flip: FLIP, win: SAVE_WIN, loss: SAVE_LOSS, lastGate: LAST_GATE, splitI: _sp.i, splitN: _sp.n, ts: Date.now() })); } catch (e) {} }
-// engine: 'deepseek' | 'cursor' | 'alternate' (flip DS↔Cursor). Claude BENCHED until Tue (owner 2026-07-26).
-const ENGINE_MODE = (process.env.ENGINE_MODE || process.env.WRITER_ENGINE || 'deepseek').toLowerCase();
+// 🏁 PAUSE-ON-COMPLETE (owner 2026-07-28: "once the pillar is complete pause"). A pinned crew that has finished
+// its pillar stops picking work instead of re-scanning the index forever. Declared here (above setStage) because
+// the status file carries the paused flag to the hub. It keeps a slow watch so a fresh seed / requeue / reset
+// wakes it back up on its own — paused is not dead.
+var PAUSED = false, PAUSE_WHY = '';
+const PAUSE_RECHECK_MS = Math.max(15000, parseInt(process.env.PAUSE_RECHECK_MS || '120000', 10));
+function setStage(s) { STAGE = s; const _sp = liveStride(); try { fs.writeFileSync(STATUSF, JSON.stringify({ port: PORT, box: BOX_I, pillar: PILLAR, engine: (typeof ENGINE !== 'undefined' ? ENGINE : ''), stage: STAGE, current: CUR, done: DONE, wrote: WROTE, remaining: (typeof REMAIN !== 'undefined' ? REMAIN : 0), total: (typeof TOTAL !== 'undefined' ? TOTAL : 0), cooldownUntil: COOLDOWN_UNTIL, flip: FLIP, win: SAVE_WIN, loss: SAVE_LOSS, lastGate: LAST_GATE, paused: PAUSED, pauseWhy: PAUSE_WHY, newqa: NEWQA, splitI: _sp.i, splitN: _sp.n, ts: Date.now() })); } catch (e) {} }
+// engine: 'ccds' (CC first, DS when CC can't reach the bar) | 'claude' | 'deepseek' | 'cursor'
+// | 'alternate' (flip DS↔CC per page). Claude unbenched 2026-07-28 → CC + DS are the writers.
+const ENGINE_MODE = (process.env.ENGINE_MODE || process.env.WRITER_ENGINE || 'ccds').toLowerCase();
 function engLabel(e) {
   e = String(e || '').toLowerCase();
+  if (e === 'ccds') return claudeUnbenched() ? 'CC+DS' : 'DeepSeek';
   if (e === 'claude') return claudeUnbenched() ? 'Claude Code' : 'CC(benched)';
   if (e === 'cursor') return 'Cursor';
   if (e === 'alternate') return 'Alternate';
   return 'DeepSeek';
 }
-let ENGINE = engLabel(ENGINE_MODE === 'claude' ? 'deepseek' : ENGINE_MODE);
+let ENGINE = engLabel((ENGINE_MODE === 'claude' && !claudeUnbenched()) ? 'deepseek' : ENGINE_MODE);
 function pickEngine() {   // set the forced writer for THIS page (per-page flip when alternating)
-  // Claude on the bench until Tuesday — any 'claude' request routes to DeepSeek.
-  if (ENGINE_MODE === 'alternate') {
-    const e = (DONE % 2 === 0) ? 'deepseek' : 'cursor';
+  // ⭐ PREMIUM (owner 2026-07-28) — auto-select the writer and go through ALL of them to reach 12/13. The page
+  // opens on the cheapest engine that can do the job; the ladder below then escalates through Claude Code and
+  // Cursor, broadening scope, until the gate clears. Nothing to choose per page — the ladder decides.
+  if (ENGINE_MODE === 'premium') {
+    process.env.WRITER_ENGINE = claudeUnbenched() ? 'ccds' : 'deepseek';
+    ENGINE = '⭐ Premium (all writers)';
+  } else if (ENGINE_MODE === 'ccds') {
+    // 🤖 CC + DS: Claude Code writes, DeepSeek is the fallback inside runWriter when CC fails
+    // or cannot reach the bar. One env value drives both (see improve_content.runWriter).
+    process.env.WRITER_ENGINE = claudeUnbenched() ? 'ccds' : 'deepseek';
+    ENGINE = engLabel('ccds');
+  } else if (ENGINE_MODE === 'alternate') {
+    // owner 2026-07-28: alternate now flips DS ↔ CC (was DS ↔ Cursor).
+    const e = (DONE % 2 === 0) ? 'deepseek' : (claudeUnbenched() ? 'claude' : 'cursor');
     process.env.WRITER_ENGINE = e;
     ENGINE = engLabel(e);
   } else if (ENGINE_MODE === 'cursor') {
@@ -387,7 +449,21 @@ async function finishPage(id, blob) {
   if (DRY) { const w = String((blob && blob.answer) || '').split(/\s+/).filter(Boolean).length; const bn = Math.max(2, Math.min(6, Math.round(w / 450))); const mc = mermaidCleanup(String((blob && blob.answer) || ''), title); log(id + ' [DRY] would: write(' + (blob.gate_score || 0) + '/13) → cover → body 1-' + bn + ' → 🧜 mermaid(fix ' + mc.fixed + '/add ' + mc.added + '→' + mc.count + ')  · ' + REMAIN + ' left in ' + PILLAR); console.log('[DRY] picked ' + id + ' — ' + w + 'w → cover + ' + bn + ' body → mermaid: fix ' + mc.fixed + ' add ' + mc.added + ' = ' + mc.count + ' · ' + REMAIN + ' left'); releaseClaim(id); process.exit(0); }
   // 1. WRITE to 12-13/13 (only if not already there). Owner: 12 OR 13 both publish.
   // PRESSURE TEST: a page that isn't already at 12+ must be WRITTEN to 12+ or it does NOT publish (deferred below).
-  let writeOk = (blob.gate_score || 0) >= GATE_MIN;
+  // 🔁 FORCE REWRITE (owner 2026-07-28: "even if they are approved based on their 12 out of 13, every single
+  // URL answer has to go through the actual rewriting and fixing — it doesn't just get pushed through, it
+  // actually gets redone"). Normally a page already at the gate skips the writer entirely, which is how a run
+  // can "finish" hundreds of pages without rewriting a single one. FORCE_REWRITE=1 removes that shortcut: the
+  // ladder runs on every page regardless of its stored score.
+  let writeOk = FORCE_REWRITE ? false : ((blob.gate_score || 0) >= GATE_MIN);
+  if (FORCE_REWRITE) log(id + ' 🔁 FORCE REWRITE — stored ' + (blob.gate_score || 0) + '/13 ignored, running the full writer ladder');
+  // 🆕 THIN NEW PAGE = NOT DONE. A pipeline seed that only ever got the cheap pass carries gate_score 12 with a
+  // stub body, so this crew used to skip the writer entirely and go straight to images. The one point it dropped
+  // IS the word count — so re-open it and write it properly.
+  const newWords = wcount(blob.answer);
+  if (writeOk && isNewPipeline && NEW_MIN_WORDS && newWords < NEW_MIN_WORDS) {
+    writeOk = false;
+    log(id + ' 🆕 thin new page — ' + newWords + 'w at ' + (blob.gate_score || 0) + '/13 (need ≥' + NEW_MIN_WORDS + 'w) → rewriting in full');
+  }
   let gateAlreadyOk = writeOk;
   let pageGateScore = writeOk ? (blob.gate_score || GATE_MIN) : null;
   let contentFail = false;   // true ONLY when the writer produced a page that failed the gate/topic/dup (a real
@@ -401,7 +477,12 @@ async function finishPage(id, blob) {
     const setEng = e => { process.env.WRITER_ENGINE = e; ENGINE = engLabel(e); };
     const better = (a, b) => (a && a.body && (a.after || 0) >= ((b && b.after) || -1));
     const srcBody = blob.answer || '';
-    const hit12 = (r, topic) => !!(r && r.body && (r.after >= GATE_MIN) && topic);
+    // 🆕 A brand-new question (pipeline seed, or simply no body yet) must clear the word floor TOO — otherwise
+    // the ladder's first rung (surgical $0 on an empty body = a padded skeleton) can satisfy `r.after >= 12`
+    // and the crew publishes a stub. Revisions keep the plain gate bar exactly as before.
+    const needWords = (isNewPipeline || wcount(srcBody) < 300) ? NEW_MIN_WORDS : 0;
+    const hit12 = (r, topic) => !!(r && r.body && (r.after >= GATE_MIN) && topic && wcount(r.body) >= needWords);
+    if (needWords) log(id + ' 🆕 NEW Q&A — publish bar is ≥' + GATE_MIN + '/13 AND ≥' + needWords + ' words');
     try {
       let r = null, topic = false, rescued = false, stuckAt = 0;
 
@@ -419,45 +500,57 @@ async function finishPage(id, blob) {
         const sx = rebuildToGate(title, srcBody, { maxAttempts: 0, id });
         const stx = sx && sx.body && onTopic(title, sx.body);
         if (better(sx, r)) { r = sx; topic = stx; }
-        if (hit12(r, topic)) break;
+        // 🔁 Under FORCE_REWRITE the $0 surgical rung may NOT end the page. Mechanical patching is exactly the
+        // "pushed through without being redone" path the owner is trying to eliminate — so keep its result as a
+        // floor to beat, but always continue on to a real writer.
+        if (!FORCE_REWRITE && hit12(r, topic)) break;
 
-        // First DS pass stays tight-scope; restart rounds already know we're stuck → broaden early.
-        const firstOpts = round > 1 ? { maxAttempts: 3, id, stuck: true, broaden: true } : { maxAttempts: 3, id };
-        setEng('deepseek');
-        FLIP = (round > 1 ? '💸 DeepSeek×3 broaden · r' : '💸 DeepSeek×3 · r') + round;
-        setStage('write');
-        const d1 = rebuildToGate(title, srcBody, firstOpts);
-        const t1 = d1 && d1.body && onTopic(title, d1.body);
-        if (better(d1, r)) { r = d1; topic = t1; }
-        if (hit12(r, topic)) break;
-
-        rescued = true;
-        stuckAt = (r && r.after) || 0;
-        const stuckOpts = { id, stuck: true, broaden: true }; // owner: broaden adjacent scope/style when stuck
-        log(id + ' stuck ' + stuckAt + '/13 — Cursor rescue + broaden (round ' + round + ')');
-        setEng('cursor');
-        FLIP = '🛟 Cursor rescue · broaden · @' + stuckAt + '/13 · r' + round;
-        setStage('write');
-        const c1 = rebuildToGate(title, srcBody, Object.assign({ maxAttempts: 3 }, stuckOpts));
-        const ct1 = c1 && c1.body && onTopic(title, c1.body);
-        if (better(c1, r)) { r = c1; topic = ct1; }
-        if (hit12(r, topic)) break;
-
-        setEng('deepseek');
-        FLIP = '🛟 DeepSeek retry · broaden · r' + round;
-        setStage('write');
-        const d2 = rebuildToGate(title, srcBody, Object.assign({ maxAttempts: 2 }, stuckOpts));
-        const t2 = d2 && d2.body && onTopic(title, d2.body);
-        if (better(d2, r)) { r = d2; topic = t2; }
-        if (hit12(r, topic)) break;
-
-        log(id + ' still short ' + ((r && r.after) || 0) + '/13 — FULL Cursor + broaden (round ' + round + ')');
-        setEng('cursor');
-        FLIP = '♻️ FULL Cursor · broaden · r' + round;
-        setStage('write');
-        const c2 = rebuildToGate(title, srcBody, Object.assign({ maxAttempts: 4 }, stuckOpts));
-        const t3 = c2 && c2.body && onTopic(title, c2.body);
-        if (better(c2, r)) { r = c2; topic = t3; }
+        // 🧗 FULL LADDER — EVERY writer, broadening as it climbs (owner 2026-07-28: "broaden scope plus bring in
+        // cc cursor ds etc to push to 12/13"). It used to be DS → Cursor → DS → Cursor, which meant Claude Code
+        // never touched a stuck page even now that it's unbenched, and every Cursor rung was a guaranteed no-op
+        // because CURSOR_API_KEY has never been set — two of the four rescue rungs did literally nothing.
+        //
+        // Now: cheap engine first, then alternate models so a page that one writer can't shape gets a genuinely
+        // different attempt rather than the same one again. Scope broadens from rung 2 on (and from rung 1 on a
+        // restart round, since a restart already proves tight scope isn't working).
+        //
+        // Unavailable engines are SKIPPED, not attempted: Claude only when unbenched (Max-plan CLI, never metered
+        // API — see runClaude), Cursor only when CURSOR_API_KEY exists. A skipped rung is logged so a missing key
+        // shows up as a line in the log instead of a silent gap in the ladder.
+        const RUNGS = [
+          { eng: 'deepseek', tries: 3, broaden: false, tag: '💸 DeepSeek×3' },
+          { eng: 'claude',   tries: 2, broaden: true,  tag: '🛟 Claude Code×2 · broaden' },
+          { eng: 'cursor',   tries: 3, broaden: true,  tag: '🛟 Cursor×3 · broaden' },
+          { eng: 'deepseek', tries: 2, broaden: true,  tag: '🛟 DeepSeek×2 · broaden' },
+          { eng: 'claude',   tries: 3, broaden: true,  tag: '♻️ FULL Claude Code×3 · broaden' },
+          { eng: 'cursor',   tries: 4, broaden: true,  tag: '♻️ FULL Cursor×4 · broaden' },
+        ];
+        const available = e => e === 'claude' ? claudeUnbenched()
+                             : e === 'cursor' ? !!(process.env.CURSOR_API_KEY || '').trim()
+                             : true;
+        // ⭐ PREMIUM vs the single-engine modes. Premium is the whole ladder — every writer, broadening as it
+        // climbs. The other modes keep the ladder inside the engine family the operator picked, so choosing
+        // "DeepSeek only" still means DeepSeek only; it just gets its retries in the same broadening shape.
+        const ALLOW = { premium: ['deepseek', 'claude', 'cursor'], ccds: ['deepseek', 'claude'], alternate: ['deepseek', 'claude'],
+                        deepseek: ['deepseek'], claude: ['claude'], cursor: ['cursor'] }[ENGINE_MODE] || ['deepseek', 'claude'];
+        for (const rung of RUNGS) {
+          if (ALLOW.indexOf(rung.eng) < 0) continue;   // outside the selected engine family
+          if (!available(rung.eng)) { log(id + ' ⏭ skip ' + rung.tag + ' — ' + (rung.eng === 'cursor' ? 'no CURSOR_API_KEY' : 'Claude benched')); continue; }
+          // broaden on this rung, or on ANY rung once we're in a restart round
+          const wide = rung.broaden || round > 1;
+          const opts = Object.assign({ maxAttempts: rung.tries, id }, wide ? { stuck: true, broaden: true } : {},
+            FORCE_REWRITE ? { force: true } : {});   // 🔁 force = never return "already at bar, no writer needed"
+          if (wide && !rescued) { rescued = true; stuckAt = (r && r.after) || 0; log(id + ' stuck ' + stuckAt + '/13 — broadening scope + rotating writers (round ' + round + ')'); }
+          setEng(rung.eng);
+          FLIP = rung.tag + ' · r' + round;
+          setStage('write');
+          const out = rebuildToGate(title, srcBody, opts);
+          const ok = out && out.body && onTopic(title, out.body);
+          if (better(out, r)) { r = out; topic = ok; }
+          log(id + ' ' + rung.tag + ' → ' + ((out && out.after) || 0) + '/13 · ' + wcount(out && out.body) + 'w'
+            + ' (best ' + ((r && r.after) || 0) + '/13)' + ((out && out.err) ? ' · ' + String(out.err).slice(0, 60) : ''));
+          if (hit12(r, topic)) break;
+        }
       }
 
       setEng(primeEng); FLIP = '';
@@ -468,6 +561,7 @@ async function finishPage(id, blob) {
         log(id + ' 🏁 HIT ≥' + GATE_MIN + ' — ' + how + ' · ' + r.after + '/13 · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L');
         setStage('write');
         await retryNet(() => publishContentBody(id, r.body));
+        clearBack(id);   // 🔁 it cleared the bar — off the back-of-the-line list
         WROTE++; writeOk = true; pageGateScore = r.after;
         log(id + ' WROTE ' + r.after + '/13 ✓' + (r.surgicalOnly ? ' (surgical-only · $0)' : (rescued ? ' (cursor-helped)' : '')));
         try { blob = await theStore().get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
@@ -477,7 +571,9 @@ async function finishPage(id, blob) {
         LAST_GATE = id + ' ' + ((r && r.after) || 0) + '/13 ✗';
         addUnder12Failed(id, r.after);
         deferUntil.set(id, Date.now() + 45 * 60 * 1000);
-        log(id + ' ⛔ BLOCKED process — best ' + r.after + '/13 after ' + RESTARTS + ' full restarts (need ≥' + GATE_MIN + ') · no images · deferred 45m · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L');
+        // 🔁 back of THIS pillar's line — still in inventory, just last. Never marked done, never dropped.
+        const tries = sendToBack(id, r.after);
+        log(id + ' ⛔ BLOCKED process — best ' + r.after + '/13 · ' + wcount(r.body) + 'w after ' + RESTARTS + ' full restarts (need ≥' + GATE_MIN + (needWords ? ' and ≥' + needWords + 'w' : '') + ') · no images · 🔁 sent to the back of ' + PILLAR + ' (miss #' + tries + ') · run ' + SAVE_WIN + 'W-' + SAVE_LOSS + 'L');
         await emailCrewMiss(id, title, r.after);
         CUR = ''; setStage('idle'); return;
       }
@@ -542,7 +638,7 @@ async function finishPage(id, blob) {
 
 let rx = new RegExp('^' + PILLAR + '\\d');
 // switch this crew to a new pillar at runtime (rotation) — recompute every pillar-derived path + reset caches
-function setPillar(p) { PILLAR = p; DONEF = WD + '/new/imagebank/_finisher_' + p + '_done.json'; CLAIMS = WD + '/new/imagebank/_wholecrew_' + p + '_claims.json'; FPF = WD + '/new/imagebank/_finisher_' + p + '_fp.jsonl'; rx = new RegExp('^' + p + '\\d'); FP_CACHE = null; }   // DONE is a run-total — do NOT reset on pillar switch (roam calls this every page)
+function setPillar(p) { PILLAR = p; DONEF = WD + '/new/imagebank/_finisher_' + p + '_done.json'; BACKF = WD + '/new/imagebank/_finisher_' + p + '_back.json'; CLAIMS = WD + '/new/imagebank/_wholecrew_' + p + '_claims.json'; FPF = WD + '/new/imagebank/_finisher_' + p + '_fp.jsonl'; rx = new RegExp('^' + p + '\\d'); FP_CACHE = null; }   // DONE is a run-total — do NOT reset on pillar switch (roam calls this every page)
 // a ROTATE crew that finished its pillar claims the next un-taken small pillar (never repeats a done/taken one)
 function advancePillar() {
   const r = loadRot(); r.done = r.done || []; r.taken = r.taken || {};
@@ -568,15 +664,58 @@ async function loop() {
     // look like "pillar complete"). The real index is ~36k entries — reject anything under 1000 and retry.
     let idx = null; for (let i = 0; i < 6; i++) { try { const r = await theStore().get('_index.json', { type: 'json', consistency: 'strong' }); if (r && r.entries && r.entries.length > 1000) { idx = r; break; } } catch (e) {} await sleep(700); }
     if (!idx) { log('index read thin/failed — waiting (network)'); running = false; return setTimeout(loop, 8000); }
-    if (ROAM) setPillar(pickIsolatedPillar());   // 🎲 hop to an UNCLAIMED pillar (crews stay isolated, never share)
+    // 🆕 A roaming NEW-Q&A crew must hop to a pillar that actually HAS unwritten seeds — a plain random hop lands
+    // on an empty pillar ~40 times out of 44 and the crew looks stuck doing nothing.
+    // 🆕 SEED PREEMPTION — unwritten new questions outrank a crew's assigned pillar (owner 2026-07-29:
+    // "anytime the multihub is running, automatically prioritize those first").
+    //
+    // Roam-only prioritisation was not enough: crews pinned to `bt` cleared bt's seeds and then had no way to
+    // reach the 44 seeds sitting across 24 OTHER pillars — the oldest had waited 165 hours. A brand-new question
+    // with no body is the highest-value page in the library and the cheapest to move, so it now preempts the
+    // pillar assignment for as long as any seed exists anywhere. When the seeds run dry every crew returns to
+    // its normal pillar automatically, so this costs nothing once the backlog is clear.
+    // 🔒 PINNED MEANS PINNED (owner 2026-07-29: "i want to be able to do 1 pillar at a time if i want").
+    // Preemption used to run unconditionally, so unchecking roam appeared to do nothing — crews still hopped
+    // to seeded pillars. That was the right default while 44 seeds were rotting, but it took away the ability
+    // to work a single pillar deliberately, which is a normal thing to want.
+    //
+    // Now: a ROAMING crew still chases seeds first (they are the highest-value pages and roamers have nowhere
+    // particular to be). A PINNED crew stays on its pillar — it will still do that pillar's own seeds first,
+    // because the seeds-to-the-front ordering below is per-pillar and applies either way.
+    const seedPillar = ROAM ? pickSeededPillar(idx) : null;
+    if (seedPillar) {
+      if (seedPillar !== PILLAR) log('🆕 PREEMPT — leaving ' + PILLAR + ' for ' + seedPillar + ' (unwritten new questions)');
+      setPillar(seedPillar);
+    }
+    // 🎲 ROAM HOP — seeded pillars FIRST (owner 2026-07-29: "when on roam the hub prioritize fixing those").
+    // The hourly generator drops one brand-new question an hour into a random pillar. A purely random hop would
+    // only land on that pillar ~1 time in 44, so fresh questions could sit unwritten for days. Now a roaming crew
+    // looks for a pillar holding unwritten seeds and goes there; only when none are left does it fall back to the
+    // normal isolated-random hop. pickSeededPillar already avoids pillars another crew has claimed.
+    // seeds already preempted above and win regardless of pillar or roam setting; only hop randomly when the
+    // seed backlog is empty and this crew is a roamer.
+    if (ROAM && !seedPillar) setPillar(pickIsolatedPillar());
     const done = new Set(doneList());
     let all = ((idx && idx.entries) || []).filter(e => e && rx.test(String(e.id || '')));
     if (DO_WRITE === false) { const w = new Set((() => { try { return JSON.parse(fs.readFileSync(WD + '/new/imagebank/_content_done.json', 'utf8')); } catch (e) { return []; } })()); all = all.filter(e => w.has(e.id)); }  // image-only mode: only writer-finished
     TOTAL = all.length;
     const nowTs = Date.now();
     let pages = all.filter(e => !done.has(e.id) && !((deferUntil.get(e.id) || 0) > nowTs)).sort((a, b) => (a.ts || 0) - (b.ts || 0));
+    // 🆕 NEW-Q&A mode: ONLY the brand-new pipeline seeds for this pillar. Two sources, merged:
+    //   • index rows still flagged `pending` — set by _pipeline_gen.js, cleared by publishContentBody
+    //   • this pillar's fix-queue file — where the generator drops every fresh id
+    // Nothing else is eligible, so a dedicated crew can never wander off into the revision backlog.
+    if (NEWQA) {
+      let fq = new Set();
+      try { fq = new Set(JSON.parse(fs.readFileSync(WD + '/new/imagebank/_fix_queue_' + PILLAR + '.json', 'utf8'))); } catch (e) {}
+      const seeds = pages.filter(e => e && (e.pending === true || fq.has(e.id)));
+      pages = seeds;
+      REMAIN = pages.length;
+      // "candidates" not "seeds": the fix-queue half of this pile is unverified until the blob is read at pick time
+      log('🆕 new-Q&A mode — ' + pages.length + ' candidate(s) in ' + PILLAR + ' (pending rows + fix-queue; verified against the blob at pick)');
+    }
     // 📉 Less than 12/13 mode: failed-rewrite pile + score < 12 (merge; don't ONLY spin recent misses)
-    if (UNDER12) {
+    else if (UNDER12) {
       let failIds = new Set();
       try { for (const x of JSON.parse(fs.readFileSync(UNDER12_FAIL, 'utf8'))) if (x && x.id) failIds.add(String(x.id)); } catch (e) {}
       const failed = pages.filter(e => failIds.has(e.id));
@@ -605,6 +744,33 @@ async function loop() {
     } else {
       REMAIN = pages.length;   // ← countdown: 250 → 249 → … as pages finish
     }
+    // 🆕 NEW QUESTIONS FIRST — a pillar's unwritten seeds sort to the very front, ahead of the whole backlog.
+    // Hopping to the right pillar is only half of it: `fr` alone has ~1,000 ids on its fix-queue, so without this
+    // a crew would land on the seeded pillar and still spend hours on old pages before reaching the new question.
+    // Applies to every crew, not just NEWQA ones — a brand-new question with no body is the most valuable page in
+    // the pillar and the cheapest to move (it starts at 0, so any real write is progress).
+    {
+      const fresh = pages.filter(e => e && e.pending === true);
+      if (fresh.length && fresh.length < pages.length) {
+        pages = fresh.concat(pages.filter(e => !(e && e.pending === true)));
+        log('🆕 ' + fresh.length + ' unwritten new question(s) moved to the front of ' + PILLAR);
+      }
+    }
+    // 🔁 BACK OF THE LINE — applied LAST, after every mode has chosen its pile, so nothing re-sorts past it.
+    // Pages that already missed the gate stay in this pillar's inventory but sort behind everything never tried,
+    // and behind each other in the order they were sent back. A crew always works fresh pages first and only
+    // comes back to a stubborn URL once the new work is exhausted.
+    {
+      const bk = backMap();
+      if (Object.keys(bk).length) {
+        const back = pages.filter(e => bk[e.id]);
+        if (back.length && back.length < pages.length) {
+          back.sort((a, b) => ((bk[a.id].ts || 0) - (bk[b.id].ts || 0)));
+          pages = pages.filter(e => !bk[e.id]).concat(back);
+          log('🔁 ' + back.length + ' previously-missed page(s) held at the back of ' + PILLAR);
+        }
+      }
+    }
     // ANTI-COLLISION + EVEN SPLIT: deterministic partition by crew index, recomputed live each loop (liveStride).
     // With N crews on this pillar, crew k only ever sees pages where (position % N === k) → no two crews touch the
     // same page (no "same page, different images" dupes) AND the pillar is shared evenly N ways.
@@ -618,8 +784,21 @@ async function loop() {
         if (advancePillar()) { running = false; return setTimeout(loop, 500); }   // jumped to next small pillar → go
         log('🔁 all rotation pillars done — nothing left to jump to'); running = false; return setTimeout(loop, 60000);
       }
-      log('partition complete — 0 left, waiting'); running = false; return setTimeout(loop, 30000);
+      // 🏁 PILLAR COMPLETE → PAUSE (owner 2026-07-28: "once the pillar is complete pause").
+      // A pinned crew with nothing left used to keep re-reading the index every 30s forever, which reads as
+      // "still running" in the hub and quietly burns connection on a finished pillar. Now it PAUSES: goes idle,
+      // says so in its status file so the hub row shows ⏸ PILLAR COMPLETE, and stops picking work. It re-checks
+      // slowly and un-pauses by itself if work appears (a generator seed, a requeue, a reset) — so a paused crew
+      // is not a dead crew, it just stops spinning.
+      if (!PAUSED) {
+        PAUSED = true;
+        PAUSE_WHY = (NEWQA ? 'no unwritten seeds left in ' : 'pillar complete — 0 left in ') + PILLAR;
+        CUR = ''; setStage('paused');
+        log('🏁 PILLAR COMPLETE — ⏸ PAUSED (' + PAUSE_WHY + ', ' + all.length + ' total, ' + trulyLeft + ' undone). Watching for new work.');
+      }
+      running = false; return setTimeout(loop, PAUSE_RECHECK_MS);
     }
+    if (PAUSED) { PAUSED = false; PAUSE_WHY = ''; log('▶️ new work in ' + PILLAR + ' (' + pages.length + ') — un-pausing'); }
     // ♻️ FIX PILE priority (owner 2026-07-22): if the manager re-queued pages for THIS pillar, rewrite them FIRST.
     let onFixPile = false;
     try { const fq = new Set(JSON.parse(fs.readFileSync(WD + '/new/imagebank/_fix_queue_' + PILLAR + '.json', 'utf8'))); if (fq.size) { const fp = pages.filter(e => fq.has(e.id)); if (fp.length) { pages = fp; onFixPile = true; } } } catch (e) {}
@@ -631,6 +810,17 @@ async function loop() {
     claim(pick.id); await sleep(70);
     const c2 = loadClaims(); if (c2[pick.id] && c2[pick.id].box !== BOX_I) { running = false; return setTimeout(loop, 300); }  // lost the race → re-pick (leapfrog)
     let blob = null; try { blob = await theStore().get('answers/' + pick.id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
+    // 🆕 VERIFY the pick is really a brand-new pipeline question. The pillar fix-queue is a SHARED file — the
+    // dedupe "dissolve" and the manual requeue both write into it — so it is not on its own proof of newness
+    // (a co smoke test pulled 114 "seeds", 96 of which were finished 13/13 pages that had been requeued). The
+    // blob is the authority: `pipeline_new` is stamped by _pipeline_gen.js and by nothing else. An empty body
+    // also qualifies — it has never been written, whatever put it in the queue.
+    if (NEWQA && blob && !blob.pipeline_new && wcount(blob.answer) >= 300) {
+      log(pick.id + ' 🆕 not a pipeline seed (already written, no pipeline_new) — skipping in new-Q&A mode');
+      deferUntil.set(pick.id, Date.now() + 24 * 3600 * 1000);
+      try { const f = WD + '/new/imagebank/_fix_queue_' + PILLAR + '.json'; const a = JSON.parse(fs.readFileSync(f, 'utf8')); const b = a.filter(x => x !== pick.id); if (b.length !== a.length) fs.writeFileSync(f, JSON.stringify(b)); } catch (e) {}
+      releaseClaim(pick.id); running = false; return setTimeout(loop, 200);
+    }
     if (blob) { await finishPage(pick.id, blob); } else { log(pick.id + ' no blob — skip'); addDone(pick.id); }
     if (onFixPile) { try { const f = WD + '/new/imagebank/_fix_queue_' + PILLAR + '.json'; const a = JSON.parse(fs.readFileSync(f, 'utf8')); const b = a.filter(x => x !== pick.id); if (b.length !== a.length) fs.writeFileSync(f, JSON.stringify(b)); } catch (e) {} }   // ♻️ done → off the fix pile
     releaseClaim(pick.id);
@@ -644,7 +834,7 @@ async function loop() {
 }
 
 http.createServer((req, res) => {
-  if (req.url === '/api/status') { res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' }); return res.end(JSON.stringify({ pillar: PILLAR, box: BOX_I, engine: ENGINE, stage: STAGE, current: CUR, done: DONE, wrote: WROTE, remaining: REMAIN, total: TOTAL })); }
+  if (req.url === '/api/status') { res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' }); return res.end(JSON.stringify({ pillar: PILLAR, box: BOX_I, engine: ENGINE, stage: STAGE, current: CUR, done: DONE, wrote: WROTE, remaining: REMAIN, total: TOTAL, paused: PAUSED, pauseWhy: PAUSE_WHY, newqa: NEWQA })); }
   res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
   res.end(`<!doctype html><html><head><meta charset="utf-8"><title>Kory's Crew</title></head>
 <body style="margin:0;background:#0b0b0b;color:#eee;font-family:system-ui,Arial;padding:16px">
@@ -667,7 +857,9 @@ setInterval(tick,1200);tick();
 </script></body></html>`);
 }).listen(PORT, () => {
   if (ROTATE) { const r = loadRot(); r.taken = r.taken || {}; r.taken['box' + BOX_I] = { p: PILLAR, ts: Date.now() }; saveRot(r); }   // claim starting pillar so peers don't jump onto it
-  log('👷 whole crew up on :' + PORT + ' pillar=' + PILLAR + ' crew=' + (BOX_I + 1) + '/' + BOX_N + ' write=' + DO_WRITE + (ROTATE ? ' [ROTATE]' : ' [pinned]'));
+  log('👷 whole crew up on :' + PORT + ' pillar=' + PILLAR + ' crew=' + (BOX_I + 1) + '/' + BOX_N + ' write=' + DO_WRITE + (ROTATE ? ' [ROTATE]' : ' [pinned]')
+    + (NEWQA ? ' 🆕 [NEW Q&A CREW — seeds only, ≥' + GATE_MIN + '/13 AND ≥' + NEW_MIN_WORDS + 'w]' : '')
+    + (FORCE_REWRITE ? ' 🔁 [FORCE REWRITE — every page goes through the writer]' : ''));
   setInterval(flushPendingEmails, 20000); flushPendingEmails();
   const stagger = BOX_I * STAGGER_MS;   // 🕒 offset crews so only ~one works at a time
   if (stagger > 0) log('⏳ staggered start — first page in ' + Math.round(stagger / 1000) + 's');

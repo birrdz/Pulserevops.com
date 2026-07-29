@@ -37,6 +37,37 @@ function escHtml(s) {
 function escAttr(s) { return escHtml(s); }
 function hostOf(u) { try { return new URL(u).hostname.replace(/^www\./,''); } catch(e) { return u; } }
 
+// FRONT-END MERMAID FIXER (owner 2026-07-19): stray '<' / '>' in mermaid node/edge labels break
+// Mermaid → red "Syntax error in graph". Repair at RENDER time so existing broken diagrams display
+// correctly without republishing, WITHOUT touching arrow tokens (-->, <--, ==>, -.->, ---, etc.).
+// Mirrors _mermaid_sanitize.js; inlined so the bundled function needs no repo require.
+function fixMermaidSrc(src) {
+  if (!src) return src;
+  const DIRE = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(-v2)?|erDiagram|gantt|pie|journey|mindmap|timeline|quadrantChart|gitGraph|xychart-beta|C4Context)\b/;
+  const ARROWS = [/<-\.->/g,/<-->/g,/<==>/g,/<--/g,/<==/g,/-\.->/g,/-->/g,/==>/g,/---/g,/-\.-/g,/===/g];
+  const SO = 'ZZARROWZZ', SC = 'ZZ';
+  let lines = String(src).replace(/\r/g, '').split('\n').map(l => l.replace(/[ \t]+$/, ''));
+  while (lines.length && !lines[0].trim()) lines.shift();
+  while (lines.length && !lines[lines.length - 1].trim()) lines.pop();
+  if (!lines.length) return src;
+  lines = lines.map(l => l.replace(/\*\*/g, '').replace(/`/g, '').replace(/^(\s*)[-*]\s+/, '$1'));  // strip md that breaks the parser
+  if (!DIRE.test(lines[0].trim())) lines.unshift('flowchart TD');                                    // no directive → default
+  lines[0] = lines[0].replace(/^(\s*)graph\b/, '$1flowchart');                                        // graph → flowchart
+  return lines.map(line => {
+    let s = line; const saved = [];
+    ARROWS.forEach(rx => { s = s.replace(rx, m => { saved.push(m); return SO + (saved.length - 1) + SC; }); });
+    // neutralize stray < > (comparisons in labels) without touching arrow tokens (which are stashed above)
+    s = s.replace(/<=\s*/g, 'at most ').replace(/>=\s*/g, 'at least ')
+         .replace(/<\s*(?=[$\d])/g, 'under ').replace(/>\s*(?=[$\d])/g, 'over ')
+         .replace(/</g, 'under ').replace(/>/g, 'over ')
+         .replace(/under\s+under /g, 'under ').replace(/over\s+over /g, 'over ');
+    // quote risky square-bracket node labels: A[Cost (2027): grow] -> A["Cost (2027): grow"] (parens/colons/&/% break Mermaid)
+    s = s.replace(/\[([^\]\n|]*)\]/g, (m, txt) => { const t = txt.trim(); if (!t || /^".*"$/.test(t)) return m; return /[()#:;&%\/]/.test(t) ? '["' + t.replace(/"/g, '') + '"]' : '[' + t + ']'; });
+    s = s.replace(new RegExp(SO + '(\\d+)' + SC, 'g'), (_, n) => saved[+n]);
+    return s;
+  }).join('\n');
+}
+
 // ── Markdown → HTML (server-side, no deps). Same dialect as /knowledge.html
 const URL_RE = /\bhttps?:\/\/[^\s<>"'\)\]]+/g;
 function renderInline(text) {
@@ -221,7 +252,7 @@ function renderMd(text, styleIncl, skipFirstCover, allowImages) {
       flush(); i++; const mer = [];
       while (i < lines.length && !/^```/.test(lines[i].trim())) { mer.push(lines[i]); i++; }
       i++;
-      const src = mer.join('\n').trim();
+      const src = fixMermaidSrc(mer.join('\n').trim());
       if (src) out.push('<div class="mermaid-wrap"><div class="mermaid">' + escHtml(src) + '</div></div>');
       continue;
     }
@@ -902,6 +933,18 @@ exports.handler = async (event) => {
     }
   }
   if (!entry) {
+    // 🔒 SEO: a duplicate removed by the dedup tool 301s to its surviving canonical, so link equity consolidates
+    // instead of dead-ending in a 404. Map is written by the manager's dedup "remove" apply. Warm-cached 5 min.
+    try {
+      if (!globalThis.__PULSE_REDIR_CACHE || (Date.now() - globalThis.__PULSE_REDIR_AT) > 300000) {
+        globalThis.__PULSE_REDIR_CACHE = (await store.get('_dedup_redirects.json', { type: 'json' })) || {};
+        globalThis.__PULSE_REDIR_AT = Date.now();
+      }
+      const to = globalThis.__PULSE_REDIR_CACHE[id];
+      if (to && /^[A-Za-z]{1,5}\d[\w-]*$/.test(to)) {
+        return { statusCode: 301, headers: { Location: SITE + '/knowledge/' + to, 'Cache-Control': 'public, max-age=86400' }, body: '' };
+      }
+    } catch (e) {}
     return {
       statusCode: 404,
       headers: { 'Content-Type': 'text/html' },
@@ -909,6 +952,12 @@ exports.handler = async (event) => {
     };
   }
 
+  // 🔒 SEO SAFETY (owner 2026-07-22): never let a thin/empty/pending page get indexed. A freshly-seeded generator
+  // entry (empty answer, pending:true) or any page with no real body → noindex,follow until a crew writes it to gate.
+  // Existing scored pages keep index,follow — this does NOT deindex live content, only genuinely-empty pages.
+  const _ansLen = String((entry && (entry.answer || entry.body)) || '').replace(/\s+/g, ' ').trim().length;
+  const _thin = (entry && entry.pending === true) || _ansLen < 200;   // 200 chars ≈ 35 words: only true empties/stubs, never real pages
+  const robotsMeta = _thin ? 'noindex, follow, max-image-preview:large' : 'index, follow, max-snippet:-1, max-image-preview:large';
   const url       = SITE + '/knowledge/' + id;
   const title     = (entry.question || '').slice(0, 70);
   const desc      = descExcerpt(entry.answer);
@@ -1053,7 +1102,12 @@ exports.handler = async (event) => {
   // Browse .sq.jpg must NEVER become the hero (that stamp was wiping face-card tops).
   // Dupes across pages are fine — prefer own face, else any non-sq /assets/qa cover from same pillar.
   const faceCard = id ? ('/assets/qa/' + String(id) + '.jpg') : '';
-  const rawIdxImg = (idxEntry && idxEntry.img) ? String(idxEntry.img).trim() : '';
+  // 🔒 VERSIONED-FACE FRESHNESS FIX (owner 2026-07-18): the per-page entry blob (entry.img) is written by the
+  // face publisher and reads fresh; the _index.json is warm-cached in Lambda memory for 5 min AND read
+  // eventually-consistent, so idxEntry.img can be a stale (pre-versioned) URL. Prefer entry.img so the
+  // versioned hero shows immediately and the immutable versioned file busts the CDN cache. Falls back to
+  // the index only if the entry blob has no img.
+  const rawIdxImg = ((entry && entry.img) ? String(entry.img).trim() : '') || ((idxEntry && idxEntry.img) ? String(idxEntry.img).trim() : '');
   const registryCover = (rawIdxImg && /^\/assets\/qa\//i.test(rawIdxImg) && !/\.sq\.jpg(\?|$)/i.test(rawIdxImg))
     ? rawIdxImg : '';
   const pillarPref = String(id || '').replace(/\d.*$/, '').toLowerCase();
@@ -1063,7 +1117,7 @@ exports.handler = async (event) => {
     tk:'tk1', tl:'tl1', sw:'sw1', ai:'ai1', er:'er1', tc:'tc1', fr:'fr1', es:'es1', bo:'bo1',
     ca:'ca1', bt:'bt1', tv:'tv1', rs:'rs1', tn:'tn1', sc:'sc1', gb:'gb1', sy:'sy1', co:'co1', mv:'mv1',
     dn:'dn1', cl:'cl1', nl:'nl1', ev:'ev1', ga:'ga1', lv:'lv1', wl:'wl1', hf:'hf1', dr:'dr1',
-    gm:'gm1', aq:'aq1', fs:'fs1', cr:'cr1', pt:'pt1'
+    gm:'gm1', aq:'aq1', fs:'fs1', cr:'cr1', pt:'pt1', et:'et1', se:'se1', tr:'tr1'
   };
   const pillarDupe = pillarPref
     ? ('/assets/qa/' + (PILLAR_FACE_SEED[pillarPref] || (pillarPref + '1')) + '.jpg')
@@ -1081,7 +1135,7 @@ exports.handler = async (event) => {
   const heroFallback = '';
   const heroAlt = entry.question || (coverLead && coverLead.alt) || id;
   // Small corner category on face-card heroes (matches mosaic mm-cat, e.g. Speeches).
-  const FACE_CAT = { tl:'Pulse Tools', ca:'Cars', bt:'Boats', aq:'Aquariums', ik:'Industry KPIs', tk:'Tech Stacks', bs:'Book Summaries', st:'Sales Trainings', fr:'Franchises', co:'Collectibles', ai:'AI Infra', gb:'Graphics', bo:'Buildouts', sy:'Style', gp:'GTM Playbooks', ra:'Rev Architecture', pt:'Pets', es:'Espresso', tv:'TVs', rs:'Resorts', cl:'Cologne', lv:'Lux Vacations', ev:'Events', ga:'Gatherings', gm:'Gaming', mv:'Movies', wl:'Wellness', dn:'Dining', nl:'Nightlife', tn:'Towns', sc:'Schools', tc:'Telco', er:'Electronics', q:'Knowledge', hf:'Home & Family', sw:'Software', sk:'Skills', sp:'Speeches', dr:'Drills', ce:'Pulse News', ed:'Advice' };
+  const FACE_CAT = { tl:'Pulse Tools', ca:'Cars', bt:'Boats', aq:'Aquariums', ik:'Industry KPIs', tk:'Tech Stacks', bs:'Book Summaries', st:'Sales Trainings', fr:'Franchises', co:'Collectibles', ai:'AI Infra', gb:'Graphics', bo:'Buildouts', sy:'Style', gp:'GTM Playbooks', ra:'Rev Architecture', pt:'Pets', es:'Espresso', tv:'TVs', rs:'Resorts', cl:'Cologne', lv:'Lux Vacations', ev:'Events', ga:'Gatherings', gm:'Gaming', mv:'Movies', wl:'Wellness', dn:'Dining', nl:'Nightlife', tn:'Towns', sc:'Schools', tc:'Telco', er:'Electronics', q:'Knowledge', hf:'Home & Family', sw:'Software', sk:'Skills', sp:'Speeches', dr:'Drills', ce:'Pulse News', ed:'Advice', et:'EdTech', se:'Sales Enablement', tr:'Teacher Resources' };
   const faceCat = FACE_CAT[String(id).replace(/\d.*$/, '').toLowerCase()] || '';
   const isOurs = !!(entry && entry.built_by === 'block-builder');   // our new-format entries → hot-pink card border
   const heroHtml = (heroUrl ? entryCoverFigureHtmlWithFallback(heroAlt, heroUrl, heroFallback && heroFallback !== heroUrl ? heroFallback : '', faceCat, isOurs) : '');
@@ -1180,7 +1234,7 @@ exports.handler = async (event) => {
   const xUrl        = 'https://twitter.com/intent/tweet?text=' + shareText + '&url=' + shareUrl + '&via=coachkorywhite';
   const facebookUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + shareUrl;
   const emailUrl    = 'mailto:?subject=' + shareText + '&body=' + encodeURIComponent('From the Pulse Knowledge Library:\n\n' + entry.question + '\n\n' + url);
-  const shareImg    = SITE + '/pulse-og.jpg?v=value-added';
+  const shareImg    = SITE + '/pulse-og.jpg?v=goldcheck';
   // brand icons (inherit currentColor via fill)
   const IC_LI = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>';
   const IC_X  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.24 2.25h6.83l4.71 6.23 5.46-6.23zm-1.16 17.52h1.83L7.01 4.13H5.05l12.03 15.64z"/></svg>';
@@ -1202,10 +1256,12 @@ exports.handler = async (event) => {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Google AdSense (Auto Ads) — re-added 2026-07-21 (owner approved). ca-pub-9400030516632657 -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9400030516632657" crossorigin="anonymous"></script>
   <title>${escHtml(shortTitle)}</title>
   <meta name="description" content="${escAttr(desc)}">
   <meta name="keywords" content="${escAttr(metaKeywords(entry).join(', '))}">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="robots" content="${robotsMeta}">
   <link rel="canonical" href="${url}">
   ${seqNavLinks}
   <meta property="og:type" content="article">
@@ -1225,10 +1281,10 @@ exports.handler = async (event) => {
   <meta name="twitter:description" content="${escAttr(desc)}">
   <meta name="twitter:image" content="${shareImg}">
   <meta name="twitter:image:alt" content="Pulse - Value Added">
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico?v=goldcheck" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=goldcheck">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=goldcheck">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=goldcheck">
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
   <script>
     /* LAZY mermaid (owner 2026-07-06 speed): never render-blocking. Skip the ~1MB lib entirely on pages
@@ -1288,8 +1344,10 @@ exports.handler = async (event) => {
     .body .direct-answer-box p,.body .direct-answer-box li{color:#1d1711 !important;}
     .body .direct-answer-box strong,.body .direct-answer-box b{color:#1d1711 !important;}
     @media(max-width:640px){
-      .body,.body p,.body li{font-size:1.2rem !important;line-height:1.72 !important;}
-      .body .direct-answer-box p{font-size:1.18rem !important;}
+      .body,.body p,.body li{font-size:21px !important;line-height:1.85 !important;}
+      .body .direct-answer-box p{font-size:21px !important;}
+      .body h2{font-size:2.15rem !important;}
+      .body h3{font-size:1.75rem !important;}
     }
     /* CRO hanging widget — a little sign that hangs top-right from a cord+peg, sways, stays on scroll */
     .cro-ad-root{position:fixed;top:0;right:28px;width:322px;z-index:2147483000;font-family:'Plus Jakarta Sans',-apple-system,'Segoe UI',system-ui,sans-serif;pointer-events:none;text-align:left;}
@@ -1347,7 +1405,8 @@ exports.handler = async (event) => {
       .cro-mob-card .cro-swing{width:min(322px,88vw);}
     }
     .body strong{color:#fff;}
-    .body h2,.body h3{font-size:0.82rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--orange-bright);margin:22px 0 10px;}
+    .body h2{font-size:clamp(1.95rem,6.8vw,2.55rem);font-weight:800;letter-spacing:0;text-transform:none;color:var(--orange-bright);line-height:1.18;margin:34px 0 14px;}
+    .body h3{font-size:clamp(1.55rem,5.4vw,2.05rem);font-weight:800;letter-spacing:0;text-transform:none;color:var(--orange-bright);line-height:1.24;margin:26px 0 11px;}
     .body ul,.body ol{margin:8px 0 16px;padding-left:24px;}
     .body li{margin-bottom:7px;font-size:1.1rem;}
     .body table{width:100%;border-collapse:collapse;margin:14px 0 18px;font-size:0.92rem;}
@@ -1457,8 +1516,36 @@ exports.handler = async (event) => {
   html,body{background:#0D0D0F!important;background-color:#0D0D0F!important;background-image:none!important;color:#E8E4DA!important;}
   /* The content well — the article is a centered, slightly-lifted charcoal card */
   body > article{background:#24242B!important;max-width:920px;margin:24px auto 44px;padding:6px clamp(16px,4.5vw,44px) 44px;border:1px solid rgba(234,193,92,.22);border-radius:16px;box-shadow:0 14px 50px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.5);}
+  /* 🖥 DESKTOP = NORMAL SCREEN, NOT A MIDDLE COLUMN (owner 2026-07-28: "make desktop urls be normal screen not
+     middle screen"). The reading well was capped at 920px, so a 1920px monitor showed a narrow card marooned in
+     black. It now fills the window with a proportional gutter, the way a normal desktop site does.
+     Three earlier rules cap this article (880px twice + the 920px above); this block is last in the last
+     stylesheet, so it is the one that wins. Nothing below 1200px changes — phones and tablets were already
+     full-width, and the CRO card's own 1199px breakpoints are untouched.
+     Line length is held back with a padding that grows with the viewport rather than a hard column cap, so the
+     text stays readable at 2560px instead of running edge to edge. */
+  @media(min-width:1200px){
+    body > article{max-width:min(1600px,94vw);padding-left:clamp(44px,7vw,140px);padding-right:clamp(44px,7vw,140px);}
+    /* the CRO header card is capped at 1000px of its own — left alone it would sit visibly narrower than the
+       article beneath it, which reads as a layout bug rather than a wider page. Same cap, same alignment. */
+    .crohdr{max-width:min(1600px,94vw)!important;}
+    /* 🔠 DESKTOP TYPE SCALE (owner 2026-07-28: "i want on desktop for the format to look normal on answer pages").
+       Every size on this page is a clamp() tuned for phones, and on desktop the clamp resolves to its MAXIMUM —
+       so a 1920px monitor got 21px body text at 1.85 line-height under a 71px headline. That is phone formatting
+       blown up, which is what reads as "not normal". These are ordinary desktop editorial sizes; the mobile end
+       of every clamp is untouched, so phones keep the large, thumb-friendly type they were tuned for. */
+    h1.q{font-size:2.9rem!important;line-height:1.12!important;}
+    .body h2{font-size:1.85rem!important;line-height:1.25!important;margin:38px 0 14px!important;}
+    .body h3{font-size:1.35rem!important;line-height:1.3!important;margin:28px 0 10px!important;}
+    /* specificity, not source order: the phone rule .body p / .body li (21px !important) is declared LATER in
+       this same stylesheet and also uses !important, so an equally-specific override would lose to it. Anchoring
+       on "body > article" outweighs it outright and keeps the win independent of where this block sits.
+       NOTE: no backticks in this comment — the whole stylesheet lives inside a JS template literal. */
+    body > article .body p,body > article .body li{font-size:17.5px!important;line-height:1.7!important;}
+    body > article .body .direct-answer-box p{font-size:17.5px!important;line-height:1.7!important;}
+  }
   body,.body,.body p,.body li,.body td,.body span,p,li{color:#E8E4DA!important;}
-  .body p,.body li{font-size:17px!important;line-height:1.78!important;}
+  .body p,.body li{font-size:clamp(19px,5.3vw,21px)!important;line-height:1.85!important;}
   h1,h2,h3,h4,.q,.hero h1,.body h2,.body h3,.body h4,.entry-sources-label{color:#EAC15C!important;font-family:'Fraunces',Georgia,serif!important;}
   a,.body a,.entry-source,.top a{color:#EAC15C!important;}
   a:hover,.body a:hover{color:#f6d98a!important;}
@@ -1470,12 +1557,20 @@ exports.handler = async (event) => {
   hr{border-color:rgba(234,193,92,.22)!important;}
   </style></head>
 <body>
-  <style>.crohdr{max-width:1000px;margin:10px auto 6px;padding:0 14px}.cro-card{display:flex;align-items:stretch;text-decoration:none;border:3px solid #EAC15C;border-radius:14px;overflow:hidden;background:linear-gradient(100deg,#180a10,#0f0a0c 60%);box-shadow:0 6px 26px rgba(0,0,0,.5),0 0 0 1px rgba(234,193,92,.35)}.cro-card__img{flex:0 0 32%;background-size:cover;background-position:center 30%;min-height:210px;border-right:1px solid rgba(234,193,92,.28)}.cro-card__body{flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center;gap:5px}.cro-card__eyebrow{font:800 .6rem/1.3 system-ui;letter-spacing:.13em;color:#FFB81C}.cro-card__title{margin:0;font-family:Georgia,serif;font-weight:800;font-size:clamp(1.7rem,3.7vw,2.6rem);line-height:1.05;color:#F6C445!important;text-shadow:0 1px 6px rgba(0,0,0,.5)}.cro-card__eyebrow{color:#FFB81C!important}.cro-card__role{color:#EAC15C!important}.cro-card__role{margin:0;color:#EAC15C;font-weight:700;font-size:.9rem}.cro-card__sub{margin:2px 0 0;color:#b9b1a6;font-size:.88rem;max-width:52ch}.cro-card__rail{flex:0 0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;gap:12px;padding:16px 20px;background:linear-gradient(180deg,rgba(234,193,92,.06),transparent);border-left:1px solid rgba(234,193,92,.16);min-width:190px}.cro-card__badge{display:inline-flex;align-items:center;gap:7px;font:800 .58rem/1 system-ui;letter-spacing:.1em;text-transform:uppercase;color:#cfe8c6;background:rgba(40,90,50,.28);border:1px solid rgba(120,200,130,.35);padding:5px 10px;border-radius:999px;white-space:nowrap}.cro-card__badge i{width:8px;height:8px;border-radius:50%;background:#48d16a;box-shadow:0 0 8px #48d16a}.cro-card__railcta{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.cro-card__cta{background:linear-gradient(180deg,#EAC15C,#cf9f2e);color:#1a0a00;font-weight:900;font-size:.95rem;padding:11px 20px;border-radius:10px;white-space:nowrap}.cro-card__resume{color:#EAC15C;font-weight:700;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}.cro-card:hover{border-color:#EAC15C}.cro-bar{display:grid;grid-template-columns:repeat(5,1fr);margin:-2px 0 4px;border:1px solid rgba(234,193,92,.4);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}.cro-bar a{text-align:center;padding:11px 8px;color:#EAC15C;font-weight:800;font-size:.9rem;text-decoration:none;background:#130a10;border-right:1px solid rgba(234,193,92,.22)}.cro-bar a:last-child{border-right:none}.cro-bar a:hover{background:#1d1017;color:#fff}@media(max-width:640px){.crohdr{margin:8px auto 6px;padding:0 12px}.cro-card{flex-direction:column!important;align-items:center!important;text-align:center;height:auto!important;min-height:0!important;overflow:visible!important}.cro-card__img{flex:0 0 auto!important;width:180px!important;height:180px!important;min-width:180px!important;min-height:180px!important;max-width:180px!important;aspect-ratio:1/1!important;border-radius:50%!important;margin:18px auto 6px!important;border:2px solid rgba(234,193,92,.55)!important;border-right:none!important;border-bottom:none!important;background-size:cover!important;background-position:center 20%!important;filter:brightness(1.1)}.cro-card__body{flex:none!important;width:100%;padding:2px 16px 18px!important;align-items:center!important;text-align:center!important;gap:7px!important}.cro-card__eyebrow{font-size:.52rem!important;letter-spacing:.08em;line-height:1.4;max-width:34ch;margin:0 auto}.cro-card__title{font-size:clamp(1.85rem,9vw,2.35rem)!important;line-height:1.05!important;text-align:center}.cro-card__role{font-size:.88rem!important}.cro-card__sub{font-size:.86rem!important;line-height:1.45;max-width:34ch;margin:0 auto!important}.cro-card__cta{display:inline-block!important;align-self:center!important;margin:10px auto 0!important;font-size:.92rem!important;padding:11px 18px!important;border-radius:10px}.cro-bar{grid-template-columns:repeat(2,1fr)!important;width:100%;margin:0}.cro-bar a{padding:11px 6px!important;font-size:.86rem!important;line-height:1.2}.cro-bar a:nth-child(2){border-right:none}.cro-bar a:nth-child(n+5){grid-column:span 1}}</style>
+  <img class="pulse-mark" src="/assets/images/logo-master.png?v=goldcheck" alt="Pulse - Value Added" width="72" height="72" loading="eager" decoding="async">
+  <style>/* 🔖 BRAND MARK, TOP-LEFT — identical rule to index.html so answer pages and the homepage carry the
+     same badge in the same spot. ABSOLUTE OVERLAY on purpose: out of normal flow, so it adds no row and no
+     width and the CRO card below keeps its exact centred position. */
+  .pulse-mark{position:absolute;left:20px;top:16px;width:72px;height:72px;border-radius:50%;z-index:40;
+    pointer-events:none;filter:drop-shadow(0 3px 10px rgba(0,0,0,.65))}
+  @media(max-width:900px){.pulse-mark{width:52px;height:52px;left:12px;top:10px}}
+  @media(max-width:640px){.pulse-mark{width:40px;height:40px;left:8px;top:8px}}
+  .crohdr{max-width:1000px;margin:10px auto 6px;padding:0 14px}.cro-card{display:flex;align-items:stretch;text-decoration:none;border:3px solid #EAC15C;border-radius:14px;overflow:hidden;background:linear-gradient(100deg,#180a10,#0f0a0c 60%);box-shadow:0 6px 26px rgba(0,0,0,.5),0 0 0 1px rgba(234,193,92,.35)}.cro-card__img{flex:0 0 auto;width:230px;height:230px;align-self:center;margin:20px 14px 20px 28px;border-radius:50%;background-size:cover;background-position:center;filter:brightness(1.1);border:2px solid rgba(234,193,92,.5);box-shadow:0 4px 18px rgba(0,0,0,.4)}.cro-card__body{flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center;gap:5px}.cro-card__eyebrow{font:800 .6rem/1.3 system-ui;letter-spacing:.13em;color:#FFB81C}.cro-card__title{margin:0;font-family:Georgia,serif;font-weight:800;font-size:clamp(1.7rem,3.7vw,2.6rem);line-height:1.05;color:#F6C445!important;text-shadow:0 1px 6px rgba(0,0,0,.5)}.cro-card__eyebrow{color:#FFB81C!important}.cro-card__role{color:#EAC15C!important}.cro-card__role{margin:0;color:#EAC15C;font-weight:700;font-size:.9rem}.cro-card__sub{margin:2px 0 0;color:#b9b1a6;font-size:.88rem;max-width:52ch}.cro-card__rail{flex:0 0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;gap:12px;padding:16px 20px;background:linear-gradient(180deg,rgba(234,193,92,.06),transparent);border-left:1px solid rgba(234,193,92,.16);min-width:190px}.cro-card__badge{display:inline-flex;align-items:center;gap:7px;font:800 .58rem/1 system-ui;letter-spacing:.1em;text-transform:uppercase;color:#cfe8c6;background:rgba(40,90,50,.28);border:1px solid rgba(120,200,130,.35);padding:5px 10px;border-radius:999px;white-space:nowrap}.cro-card__badge i{width:8px;height:8px;border-radius:50%;background:#48d16a;box-shadow:0 0 8px #48d16a}.cro-card__railcta{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.cro-card__cta{background:linear-gradient(180deg,#EAC15C,#cf9f2e);color:#1a0a00;font-weight:900;font-size:.95rem;padding:11px 20px;border-radius:10px;white-space:nowrap}.cro-card__resume{color:#EAC15C;font-weight:700;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}.cro-card:hover{border-color:#EAC15C}.cro-bar{display:grid;grid-template-columns:repeat(5,1fr);margin:-2px 0 4px;border:1px solid rgba(234,193,92,.4);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}.cro-bar a{text-align:center;padding:11px 8px;color:#EAC15C;font-weight:800;font-size:.9rem;text-decoration:none;background:#130a10;border-right:1px solid rgba(234,193,92,.22)}.cro-bar a:last-child{border-right:none}.cro-bar a:hover{background:#1d1017;color:#fff}@media(max-width:640px){.crohdr{margin:8px auto 6px;padding:0 12px}.cro-card{flex-direction:column!important;align-items:center!important;text-align:center;height:auto!important;min-height:0!important;overflow:visible!important}.cro-card__img{flex:0 0 auto!important;width:180px!important;height:180px!important;min-width:180px!important;min-height:180px!important;max-width:180px!important;aspect-ratio:1/1!important;border-radius:50%!important;margin:18px auto 6px!important;border:2px solid rgba(234,193,92,.55)!important;border-right:none!important;border-bottom:none!important;background-size:cover!important;background-position:center 20%!important;filter:brightness(1.1)}.cro-card__body{flex:none!important;width:100%;padding:2px 16px 18px!important;align-items:center!important;text-align:center!important;gap:7px!important}.cro-card__eyebrow{font-size:.52rem!important;letter-spacing:.08em;line-height:1.4;max-width:34ch;margin:0 auto}.cro-card__title{font-size:clamp(1.85rem,9vw,2.35rem)!important;line-height:1.05!important;text-align:center}.cro-card__role{font-size:.88rem!important}.cro-card__sub{font-size:.86rem!important;line-height:1.45;max-width:34ch;margin:0 auto!important}.cro-card__cta{display:inline-block!important;align-self:center!important;margin:10px auto 0!important;font-size:.92rem!important;padding:11px 18px!important;border-radius:10px}.cro-bar{grid-template-columns:repeat(2,1fr)!important;width:100%;margin:0}.cro-bar a{padding:11px 6px!important;font-size:.86rem!important;line-height:1.2}.cro-bar a:nth-child(2){border-right:none}.cro-bar a:nth-child(n+5){grid-column:span 1}}</style>
   <div class="crohdr"><a class="cro-card" href="/revenue-checkup" target="_blank" rel="noopener" data-pulse-click="hire-cro" aria-label="Get a free 30-minute revenue checkup with Kory White, Fractional CRO"><div class="cro-card__img" style="background-image:url('/assets/kory-white.jpg')"></div><div class="cro-card__body"><span class="cro-card__eyebrow">FRACTIONAL CRO · MARYLAND-BASED, NATIONWIDE · $0→$200M</span><h2 class="cro-card__title">Kory White</h2><p class="cro-card__role">RevOps &amp; Revenue Leadership</p><p class="cro-card__sub">Get a <strong>free 30-minute revenue checkup</strong> &mdash; Kory reviews your pipeline and forecast, then names the 1&ndash;2 fixes that move revenue fastest. 25 yrs scaling teams $0&rarr;$200M.</p><span class="cro-card__cta" style="display:inline-block;align-self:flex-start;margin-top:10px;white-space:normal;text-align:center;">Free 30-min revenue checkup &rarr;</span></div></a>
   <div class="cro-bar"><a href="/fractional-cro" data-pulse-click="fractional-cro-hub">Hire a Fractional CRO</a><a href="/revenue-checkup" data-pulse-click="hire-cro">How We Help?</a><a href="https://www.linkedin.com/in/korywhite" target="_blank" rel="noopener" data-pulse-click="curator">LinkedIn</a><a href="/assets/kory-white-cro-resume.pdf" target="_blank" rel="noopener">Résumé</a><a href="https://crosyndicate.com/?utm_source=pulserevops.com&utm_medium=referral&utm_campaign=cro-widget" target="_blank" rel="noopener" data-pulse-click="cro-syndicate">CRO Syndicate</a></div></div>
   <button id="scroll-top" type="button" aria-label="Scroll to top" style="position:fixed;bottom:24px;right:24px;width:42px;height:42px;border-radius:50%;background:rgba(232,113,10,0.92);border:1px solid rgba(255,255,255,0.18);color:#fff;font-size:1.1rem;font-weight:900;cursor:pointer;z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.2s, transform 0.15s;box-shadow:0 6px 20px rgba(232,113,10,0.4);font-family:inherit;">↑</button>
   <div class="top">
-    <a href="/" class="brand" aria-label="Pulse - Value Added"><img class="brandlogo" src="/pulse-news-logo.png?v=value-added" alt="Pulse - Value Added" width="164" height="46"></a>
+    <a href="/" class="brand" aria-label="Pulse - Value Added"><img class="brandlogo" src="/pulse-news-logo.png?v=goldcheck" alt="Pulse - Value Added" width="164" height="46"></a>
     <span><a href="/knowledge.html">← Library</a></span>
   </div>
   <article${entry.cc_signed ? ' class="cc-gold"' : ''}>

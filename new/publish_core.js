@@ -3,8 +3,15 @@
 // Writes face + body images to qa-bin/, embeds body images in block-block-image rhythm,
 // writes answers/<qid>.json, upserts _index.json (pulse-recent + pillar tag, fresh ts).
 'use strict';
+require('../_index_guard'); // INDEXING LOCK LAW 4444 — see INDEXING_LOCK_LAW.md
 const fs = require('fs');
 const WD = 'C:/Users/koryj/website';
+// 🖼 Body-image slot cap (owner 2026-07-28: "1 image for every paragraph"). Was hard-coded 6 in
+// five places, which capped every entry at six images no matter how long the article was.
+// imageSlotIndices() already distributes N images across the body's PARAGRAPHS, so it scales —
+// only these ceilings were in the way. Raising it is backward-compatible: existing entries have
+// six or fewer and are unaffected. Override with PULSE_MAX_BODY_IMAGES.
+const MAX_BODY_IMAGES = Math.max(1, parseInt(process.env.PULSE_MAX_BODY_IMAGES || '10', 10));
 // ── per-entry blob lock (owner 2026-07-21): only ONE image machine writes a given page's blob at a time,
 // so parallel machines (face/hero/body all on one entry) never clobber each other's update. mkdir is atomic;
 // a lock older than 30s (crashed holder) is broken. Local-host only (all machines run on this box).
@@ -67,7 +74,46 @@ function imageSlotIndices(lines, n) {
 }
 
 // Golden essay rhythm: block, block, IMAGE ×3, then Related/FAQ/Sources underneath image-free.
+// 🔒 TOP_LIST v2.2 IMAGE FILL (2026-07-29). A v2.2 body is HTML and ALREADY CARRIES its
+// image slots: one <img> in figure.g-hero, then one inside each figure.g-img under
+// <h2>#N: …>. So the drip must FILL those slots, never splice markdown in.
+//
+// This matters: the markdown rank regex below (/^#{2,3}\s*\d+[.)]/) cannot match an HTML
+// <h2>, so a v2.2 page would fall through to paragraph-spreading — the exact drift that
+// put the Corvette photo under the Mustang. Here slot N is structurally item N; the
+// anchoring cannot drift because it isn't computed, it's the DOM position.
+function embedImagesV2(body, qid, imgs) {
+  const b = String(body || '');
+  let heroDone = false;
+  let item = 0;
+  return b.replace(/<figure[^>]*class=["']([^"']*)["'][^>]*>\s*<img\b([^>]*)>/gi, (whole, cls, attrs) => {
+    // The FACE CARD is not one of the 11 body images — skip it, or it steals item slot 1
+    // and shifts every ranked image down one (heading #1 would show item #2's photo).
+    if (/\bg-facecard\b/.test(cls)) return whole;
+    const isHero = /\bg-hero\b/.test(cls);
+    let slot;                       // 1 = hero, 2..11 = ranked items in document order
+    if (isHero && !heroDone) { heroDone = true; slot = 1; }
+    else if (!isHero) { item++; slot = item + 1; }
+    else return whole;
+    const meta = imgs[slot - 1];
+    if (!meta) return whole;        // no image supplied for this slot → leave it alone
+    const url = '/assets/qa/' + qid + '-b' + slot + '.jpg';
+    const alt = String((meta && meta.alt) || '').replace(/"/g, '&quot;');
+    const kept = attrs
+      .replace(/\s*\bsrc=["'][^"']*["']/i, '')
+      .replace(/\s*\balt=["'][^"']*["']/i, '')
+      .trim();
+    return whole.slice(0, whole.indexOf('<img')) +
+      '<img src="' + url + '" alt="' + alt + '"' + (kept ? ' ' + kept : '') + '>';
+  });
+}
+
 function embedImages(body, qid, imgs) {
+  // v2.2 TOP_LIST bodies fill existing slots instead of splicing markdown.
+  if (/data-template=["']TOP_LIST["']/.test(String(body || '')) &&
+      /data-version=["']v2["']/.test(String(body || ''))) {
+    return embedImagesV2(body, qid, imgs || []);
+  }
   // 🔒 RE-PUBLISH DEDUP (2026-07-16): strip any body images already embedded for
   // THIS qid on a prior publish, so a second pass REPLACES the set instead of
   // appending a duplicate of every slot. This was the root cause of the stacked /
@@ -77,7 +123,24 @@ function embedImages(body, qid, imgs) {
   body = String(body || '').split('\n').filter(l => !/^!\[[^\]]*\]\([^)]*\)$/.test(l.trim())).join('\n');
   if (!imgs.length) return body;
   const lines = body.split('\n');
-  const picks = imageSlotIndices(lines, imgs.length);
+  // 🏆 RANKED PAGES: ONE IMAGE PER RANKED ITEM, ANCHORED TO ITS HEADING (owner 2026-07-29:
+  // "it needs to attach the image to the # ranking … if it's talking about this model this year, it needs to
+  // have one image for all of that text").
+  //
+  // The generic slot picker spreads images by PARAGRAPH COUNT, so a long write-up receives two images and every
+  // later one shifts down a slot. On ca0487 that put the Corvette photo under the Mustang: rank 1 got b1 AND
+  // b2, then rank 2 got b3, and so on all the way down. The image content was sourced per-rank correctly — it
+  // was the placement that drifted.
+  //
+  // On a ranked page each numbered heading now takes exactly one image, however many paragraphs sit under it,
+  // so slot N is always the item the reader is looking at.
+  const rankAt = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (/^#{2,3}\s*(?:\d+[.)]|#\d+)\s*\S/.test(lines[i])) rankAt.push(i);
+  }
+  const picks = (rankAt.length >= 2 && rankAt.length >= imgs.length)
+    ? rankAt.slice(0, imgs.length)
+    : imageSlotIndices(lines, imgs.length);
   const ins = imgs.map((n, i) => ({ at: picks[i], md: '\n![' + n.alt + '](/assets/qa/' + qid + '-b' + (i + 1) + '.jpg)\n' })).filter(x => x.at != null).sort((a, b) => b.at - a.at);
   for (const x of ins) lines.splice(x.at + 1, 0, x.md);
   return lines.join('\n');
@@ -216,6 +279,9 @@ async function publishLive(opts) {
   meta.qid = qid; meta.live = true; meta.liveAt = new Date(now).toISOString(); meta.status = '5/5'; meta.publishedAt = meta.liveAt; meta.recent = true;
   fs.writeFileSync(OUT + '/meta.json', JSON.stringify(meta, null, 1));
 
+  // Fact-drip main fixer: brand-new Q&A jumps the priority line
+  try { require('../_fact_priority_push').pushFactPriority(qid); } catch (e) {}
+
   return { qid, url: 'https://pulserevops.com/knowledge/' + qid, words: entry.words };
 }
 
@@ -243,8 +309,8 @@ async function publishContentOnly(id) {
   const now = Date.now();
   const question = entry.question || '';
   let bodyN = 0;
-  try { const lst = await store.list({ prefix: 'qa-bin/' + qid + '-b' }); bodyN = (lst.blobs || []).filter(x => /-b\d\.jpg$/i.test(x.key)).length; } catch (e) {}
-  const imgs = []; for (let i = 1; i <= Math.min(6, bodyN); i++) imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + i });
+  try { const lst = await store.list({ prefix: 'qa-bin/' + qid + '-b' }); bodyN = (lst.blobs || []).filter(x => /-b\d+\.jpg$/i.test(x.key)).length; } catch (e) {}
+  const imgs = []; for (let i = 1; i <= Math.min(MAX_BODY_IMAGES, bodyN); i++) imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + i });
   const answer = (entry.format === 'top10') ? entry.body : embedImages(entry.body, qid, imgs);
   let blob = null; try { blob = await store.get('answers/' + qid + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
   if (!blob) {
@@ -280,8 +346,8 @@ async function publishFaceOnly(id) {
   const ver = '-v' + now;
   await store.set('qa-bin/' + qid + ver + '.jpg', face, { metadata: { src: 'blockbuilder' } });
   await store.set('qa-bin/' + qid + ver + '.sq.jpg', sqBuf, { metadata: { src: 'blockbuilder' } });
-  let bodyN = 0; try { const lst = await store.list({ prefix: 'qa-bin/' + qid + '-b' }); bodyN = (lst.blobs || []).filter(x => /-b\d\.jpg$/i.test(x.key)).length; } catch (e) {}
-  const imgs = []; for (let i = 1; i <= Math.min(6, bodyN); i++) imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + i });
+  let bodyN = 0; try { const lst = await store.list({ prefix: 'qa-bin/' + qid + '-b' }); bodyN = (lst.blobs || []).filter(x => /-b\d+\.jpg$/i.test(x.key)).length; } catch (e) {}
+  const imgs = []; for (let i = 1; i <= Math.min(MAX_BODY_IMAGES, bodyN); i++) imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + i });
   const answer = (entry.format === 'top10') ? entry.body : embedImages(entry.body, qid, imgs);
   let blob = null; try { blob = await store.get('answers/' + qid + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
   if (!blob) blob = { id: qid, tags: ['revops', 'revops-500', 'pulse-recent'], sources: [], ts: now, model: 'claude-opus-4-8', format_v: '2026-07', cover_src: 'blockbuilder', gold_format: true, gk_verified: true, built_by: 'block-builder', built_from: id };
@@ -292,9 +358,17 @@ async function publishFaceOnly(id) {
   return { qid, url: 'https://pulserevops.com/knowledge/' + qid };
 }
 
-// markRecent — bump an entry into the site RECENTS feed (sorted by ts + the pulse-recent tag) on ANY fix,
+// markRecent — bump into RECENTS (ts + pulse-recent + hotpink trim) on ANY new/edit.
 // while it stays in its pillar (id/URL unchanged). Called by every publisher below.
-function markRecent(o, now) { if (!o) return; o.ts = now; if (!Array.isArray(o.tags)) o.tags = o.tags ? [o.tags] : []; if (o.tags.indexOf('pulse-recent') < 0) o.tags.push('pulse-recent'); }
+function markRecent(o, now) {
+  if (!o) return;
+  const t = now != null ? now : Date.now();
+  o.ts = t;
+  if (!o.polished_at || o.polished_at < t) o.polished_at = t;
+  o.trim = 'hotpink';
+  if (!Array.isArray(o.tags)) o.tags = o.tags ? [o.tags] : [];
+  if (o.tags.indexOf('pulse-recent') < 0) o.tags.push('pulse-recent');
+}
 
 // publishFaceImageOnly(id) — ADVERTISING CARD ship (owner 2026-07-17): writes ONLY the face image,
 // versioned (cache-proof), and repoints img. Works for BLOB-ONLY entries (no local new/entries file needed)
@@ -366,8 +440,8 @@ async function publishContentBody(id, body) {
   let blob = null; try { blob = await store.get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
   if (!blob) throw new Error('entry not found in blob (' + id + ')');
   const question = blob.question || blob.h1 || '';
-  let bodyN = 0; try { const lst = await store.list({ prefix: 'qa-bin/' + id + '-b' }); bodyN = (lst.blobs || []).filter(x => /-b\d\.jpg$/i.test(x.key)).length; } catch (e) {}
-  const imgs = []; for (let i = 1; i <= Math.min(6, bodyN); i++) imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + i });
+  let bodyN = 0; try { const lst = await store.list({ prefix: 'qa-bin/' + id + '-b' }); bodyN = (lst.blobs || []).filter(x => /-b\d+\.jpg$/i.test(x.key)).length; } catch (e) {}
+  const imgs = []; for (let i = 1; i <= Math.min(MAX_BODY_IMAGES, bodyN); i++) imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + i });
   const answer = embedImages(t, id, imgs);   // re-embed existing body images; keeps title + face image untouched
   blob.content_prev = blob.answer || ''; blob.answer = answer;
   // Honest scores (owner 2026-07-26): health LOW-VALUE uses quality_score — must rise with real gate (≥12 leaves the pile).
@@ -502,8 +576,8 @@ async function publishContentBodyIfBetter(id, body, opts) {
   }
   // SNAPSHOT-ONCE — first touch only; later attempts must NEVER clobber the original backup
   if (!blob.content_prev0) blob.content_prev0 = { body: blob.answer || '', gate: liveG.score || 0, savedAt: new Date(now).toISOString() };
-  let bodyN = 0; try { const lst = await store.list({ prefix: 'qa-bin/' + id + '-b' }); bodyN = (lst.blobs || []).filter(x => /-b\d\.jpg$/i.test(x.key)).length; } catch (e) {}
-  const imgs = []; for (let i = 1; i <= Math.min(6, bodyN); i++) imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + i });
+  let bodyN = 0; try { const lst = await store.list({ prefix: 'qa-bin/' + id + '-b' }); bodyN = (lst.blobs || []).filter(x => /-b\d+\.jpg$/i.test(x.key)).length; } catch (e) {}
+  const imgs = []; for (let i = 1; i <= Math.min(MAX_BODY_IMAGES, bodyN); i++) imgs.push({ alt: question.replace(/\?+$/, '') + ' — figure ' + i });
   const answer = embedImages(t, id, imgs);
   blob.content_prev = blob.answer || ''; blob.answer = answer;
   blob.polished_at = now; blob.gate_score = candScore; blob.quality_score = candScore >= 13 ? 10 : 9; blob.pending = false; blob.updated_at = new Date(now).toISOString(); blob.gk_verified = candScore >= 13; markRecent(blob, now);
@@ -522,7 +596,7 @@ async function publishBodySlot(id, buffer, turn) {
  return withEntryLock(id, async () => {   // one machine per page at a time
   const store = theStore();
   if (!buffer || !buffer.length) throw new Error('no image');
-  turn = Math.max(1, Math.min(6, parseInt(turn, 10) || 1));
+  turn = Math.max(1, Math.min(MAX_BODY_IMAGES, parseInt(turn, 10) || 1));
   const now = Date.now();
   let blob = null; try { blob = await store.get('answers/' + id + '.json', { type: 'json', consistency: 'strong' }); } catch (e) {}
   if (!blob) throw new Error('entry not found in blob (' + id + ')');
@@ -532,7 +606,7 @@ async function publishBodySlot(id, buffer, turn) {
   // SLOT-ACCURATE re-embed: scan which slots ACTUALLY exist (1-6) and reference them by their real number,
   // so slot machines can fill out of order / in parallel (b1,b3,b5) without dangling refs. Never sequential-assumes.
   const present = [];
-  for (let i = 1; i <= 6; i++) { if (i === turn) { present.push(i); continue; } let ex = false; try { const b = await store.get('qa-bin/' + id + '-b' + i + '.jpg', { type: 'arrayBuffer' }); ex = !!(b && b.byteLength > 500); } catch (e) {} if (ex) present.push(i); }
+  for (let i = 1; i <= MAX_BODY_IMAGES; i++) { if (i === turn) { present.push(i); continue; } let ex = false; try { const b = await store.get('qa-bin/' + id + '-b' + i + '.jpg', { type: 'arrayBuffer' }); ex = !!(b && b.byteLength > 500); } catch (e) {} if (ex) present.push(i); }
   let stripped = String(blob.answer || '').split('\n').filter(l => !/^!\[[^\]]*\]\([^)]*\)$/.test(l.trim())).join('\n');
   const lines = stripped.split('\n');
   const picks = imageSlotIndices(lines, present.length);
@@ -547,3 +621,4 @@ async function publishBodySlot(id, buffer, turn) {
 }
 
 module.exports = { publishLive, embedImages, nextQid, previewHtml, imageSlotIndices, proveLive, publishContentOnly, publishFaceOnly, publishFaceImageOnly, publishDressingOnly, publishContentBody, publishContentBodyIfBetter, publishInternalImages, publishBodySlot };
+

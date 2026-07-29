@@ -12,6 +12,11 @@ const {
   auditDirectAnswerNotBlank,
 } = require('./_image_provider_alternate');
 
+// v2.2 TOP_LIST lane (parallel template). Soft-required so a missing/broken v2 module
+// can never take down the v1 audit that 25 files depend on.
+let V2 = null;
+try { V2 = require('./_top10_v2_template'); } catch (e) { V2 = null; }
+
 const TOP10_GOLD_ID = 'aq1158';
 const TOP10_GOLD_URL = 'https://pulserevops.com/aquariums/aq1158';
 
@@ -191,6 +196,32 @@ function appliesTop10Gold(body, title) {
 function auditTop10GoldTemplate(body, title) {
   const b = String(body || '');
   const t = title != null ? String(title) : entryTitle(b);
+
+  // ── v2.2 DISPATCH (additive, 2026-07-29) ──────────────────────────────────
+  // Bodies stamped data-template="TOP_LIST" data-version="v2" are judged by the
+  // v2.2 skeleton instead of the aq1158 v1 gold. The two are contradictory by
+  // design (v1: 1 mermaid, no hero, @@PRODUCT · v2.2: 2 mermaids, hero, 11 imgs),
+  // so they must never be audited by each other's rules. Every existing v1 body
+  // falls straight through to the unchanged path below — this is the ONLY hook,
+  // which is why new/_drip.js and new/improve_content.js inherit v2.2 untouched.
+  if (V2 && V2.isTop10V2(b)) {
+    const r = V2.auditTop10V2(b);
+    return {
+      compliant: r.compliant,
+      issues: r.issues,
+      applies: true,
+      version: 'v2.2',
+      waivable: r.waivable,
+      nonWaivable: r.nonWaivable,
+      wordCount: r.wordCount,
+      mermaids: r.mermaids,
+      bodyImages: r.bodyImages,
+      goldId: 'TOP_LIST_v2',
+      goldUrl: 'GOLDEN_TEMPLATE_TOP10_SKELETON.html',
+    };
+  }
+  // ──────────────────────────────────────────────────────────────────────────
+
   if (!appliesTop10Gold(b, t)) {
     return { compliant: true, issues: [], applies: false, goldId: TOP10_GOLD_ID, goldUrl: TOP10_GOLD_URL };
   }
@@ -277,4 +308,10 @@ module.exports = {
   appliesTop10Gold,
   auditTop10GoldTemplate,
   extractH2Headings,
+  // v2.2 TOP_LIST lane — re-exported so callers reach it through this one module.
+  isTop10V2: (b) => !!(V2 && V2.isTop10V2(b)),
+  renderTop10V2: (slots) => (V2 ? V2.renderTop10V2(slots) : null),
+  auditTop10V2: (b) => (V2 ? V2.auditTop10V2(b) : null),
+  TOP10_V2_SLOTS: V2 ? V2.V2_SLOTS : null,
+  TOP10_V2_LAW: V2 ? V2.V2_LAW : null,
 };

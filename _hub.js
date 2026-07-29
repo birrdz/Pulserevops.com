@@ -8,6 +8,7 @@
 // poll the worker. Every crew writes a status FILE (new/imagebank/_crew_<port>.json) synchronously on every
 // stage change; the hub (always responsive) reads those files → boxes + stage bars always render.
 'use strict';
+require('./_index_guard'); // INDEXING LOCK LAW 4444 — see INDEXING_LOCK_LAW.md
 const http = require('http');
 const fs = require('fs');
 const net = require('net');
@@ -35,11 +36,11 @@ process.on('uncaughtException', e => log('UNCAUGHT ' + ((e && e.stack) || e)));
 // their pages could never be targeted by a crew. Malformed test ids (qmpx*, 1-5 rows each) are deliberately
 // excluded — they are not real pillars.
 const PILLARS = { tl: 'CRO Pulse Tools', gp: 'GTM Playbooks', ra: 'Revenue Architecture', cg: 'CRO Coaching', st: 'Sales Trainings', sk: 'Skill Drills', ik: 'Industry KPIs', tk: 'Tech Stacks', sw: 'Software', bo: 'Buildouts', fr: 'Franchises', bs: 'Book Summaries', ai: 'AI Infra', q: 'General Q&A', mv: 'Movies', aq: 'Aquariums', ca: 'Cars', bt: 'Boats', co: 'Collectibles', sy: 'Style', gb: 'Graphics', nil: 'NIL',
-  ed: 'Energy & Efficiency', er: 'Electronics Reviews', pt: 'Pets', sc: 'Schools', dn: 'Dining', es: 'Estates',
+  ed: 'Small Business Ops', er: 'Electronics Reviews', pt: 'Pets', sc: 'Schools', dn: 'Dining', es: 'Estates',
   tv: 'Travel', sp: 'Speeches', tc: 'Telco', rs: 'Resorts', nl: 'Nightlife', cl: 'Clubs', tn: 'Towns',
   lv: 'Living', wl: 'Wellness', ev: 'Events', ga: 'Gatherings', gm: 'Gaming', hf: 'HS Football Recruiting',
   // 🆕 2026-07-23 — three new Q&A pillars. Prefixes checked free against all 40 already in use.
-  // "ed" was NOT available (Energy & Efficiency, 1,036 entries), so EdTech is "et".
+  // "ed" was NOT available (Small Business Ops, 1,036 entries), so EdTech is "et".
   et: 'EdTech', se: 'Sales Enablement', tr: 'Teacher Resources' };
 
 // Machine types the hub can spawn. wholecrew is the primary; the per-slot image machines are kept for
@@ -278,6 +279,14 @@ function spawnBox(box) {
   // No Cursor TEAM / FULL redo. Default ON so crews can stay running cheaply toward 12/13.
   if (o.cheap !== false) env.CHEAP_WRITE = '1';
   else env.CHEAP_WRITE = '0';
+  // 🆕 NEW Q&A CREW (owner 2026-07-28) — dedicated crew for the pipeline generator's brand-new questions.
+  // Works pending seeds ONLY and holds them to ≥12/13 AND a real word floor, so a fresh page can never
+  // publish as the ~650-word surgical stub that 12/13 alone allows (WORD_COUNT is the point it drops).
+  // Set LAST so the full-write intent always beats the cheap default.
+  if (o.newqa) { env.NEWQA = '1'; env.CHEAP_WRITE = '0'; }
+  // 🔁 FORCE REWRITE (owner 2026-07-28) — every page goes through the real writer, even one already stamped
+  // 12/13. Without this a crew "finishes" pages by trusting the stored score and never rewrites anything.
+  if (o.force) env.FORCE_REWRITE = '1';
   // 🔗 DETACHED (owner 2026-07-23): spawn each crew in its OWN process group and unref() it, so a hub restart (or
   // crash) does NOT drag the crew down with it. Combined with the ping-based re-adoption in the listen() handler,
   // this makes restarting the hub non-destructive — live crews keep writing their in-flight page uninterrupted and
@@ -293,6 +302,74 @@ function spawnBox(box) {
 // child handle — box.child is null — so box.child.kill() silently does nothing and stopBox/stopAll/forceClear could
 // not actually stop it. This finds whatever is LISTENING on the port and taskkills it, so an adopted crew is still
 // stoppable. Windows: netstat → taskkill /T (kills the child tree too).
+// ── 🩸 THE DRIP (owner 2026-07-28) ──────────────────────────────────────────────────────────
+// A single slow worker (`new/_drip.js`) that walks the ENTIRE library oldest-first, lifting every
+// page to 12/13+, then wraps around and does it again — forever. CC-dominant writer with DeepSeek
+// brought in only when CC cannot reach the bar. Spawned detached like the crews, so a hub restart
+// never drags it down; the hub re-adopts it by port on the next status poll.
+const DRIP_PORT = parseInt(process.env.DRIP_PORT || '7951', 10);
+let DRIP_CHILD = null;
+let DRIP_PILLAR = '';        // '' = whole library; else a pillar prefix like 'tl'
+function dripAlive() {
+  if (DRIP_CHILD && DRIP_CHILD.exitCode == null) return true;
+  try {                                        // adopted after a hub restart → detect by listening port
+    const out = execSync('netstat -ano -p tcp', { encoding: 'utf8', windowsHide: true });
+    return out.split('\n').some(l => /LISTENING/i.test(l) && new RegExp('[:.]' + DRIP_PORT + '\\s').test(l));
+  } catch (e) { return false; }
+}
+function spawnDrip(paceSec, pillar) {
+  const env = Object.assign({}, process.env, {
+    // 🔒 MAX-PLAN ONLY — never hand the drip a metered Anthropic credential (owner law).
+    ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', CLAUDE_API_KEY: '',
+    DRIP_PILLARS: String(pillar || ''),   // '' = whole library
+    DRIP_MIN_WORDS: process.env.DRIP_MIN_WORDS || '2000',
+    DRIP_PORT: String(DRIP_PORT),
+    DRIP_PACE_MS: String(Math.max(0, paceSec | 0) * 1000),
+    GATE_MIN: '12',
+    // ✍️ CC ONLY (owner 2026-07-28). This line used to force DRIP_DS_TRIES=2, which overrode the
+    // drip's own CC-only default and kept DeepSeek in the ladder after it was removed.
+    // ── QUALITY TUNING (owner 2026-07-28: "best possible quality", get pages to 12+) ──
+    // Measured over 84 pages: 31 published, 53 missed. The single biggest miss cause was QA pages
+    // failing DIRECT_ANSWER / FAQ / SOURCES (25 of 53). surgicalGateFix deliberately will NOT
+    // invent sources or FAQ entries, so those can ONLY be fixed by a writer — and the writer was
+    // being skipped because the hourly cap kept tripping while the WEEK sat at ~30/350.
+    // So: give CC more room per hour, and one more attempt per page. Weekly total and the
+    // even-pacing guard are unchanged — they remain the real spend protection.
+    DRIP_CC_TRIES: process.env.DRIP_CC_TRIES || '4',
+    DRIP_DS_TRIES: process.env.DRIP_DS_TRIES || '0',   // no DeepSeek, no Cursor
+    DRIP_CC_PER_HOUR: process.env.DRIP_CC_PER_HOUR || '60',
+    DRIP_CC_PER_DAY:  process.env.DRIP_CC_PER_DAY  || '150',
+    DRIP_CC_PER_WEEK: process.env.DRIP_CC_PER_WEEK || '350',
+    DRIP_EMAIL: '1',
+    CLAUDE_OK: '1',                                    // the drip's primary writer is Claude Code
+  });
+  const child = spawn(process.execPath, [WD + '/new/_drip.js'], { cwd: WD, env, windowsHide: true, detached: true, stdio: 'ignore' });
+  DRIP_CHILD = child;
+  try { child.unref(); } catch (e) {}
+  log('DRIP spawn :' + DRIP_PORT + ' pace=' + paceSec + 's pid=' + child.pid);
+  return child;
+}
+
+// ── 🛡 SEO GUARD (owner 2026-07-28: "lock it down 4444 … cant be changed, on purpose or accidental")
+// Keeps `new/_seo_lock.js guard` alive: it watches index.html SEO, robots.txt, the sitemaps and the
+// netlify.toml sitemap redirects, and reverts ANY edit back to the 4444-locked bytes. Detached +
+// respawned by the heal loop, so neither a hub restart nor a crash leaves the SEO surface unguarded.
+// The guard can only ever write the LOCKED content back, so supervising it can never cause a change.
+let SEO_GUARD = null;
+function seoGuardAlive() { return !!(SEO_GUARD && SEO_GUARD.exitCode == null); }
+function spawnSeoGuard() {
+  if (seoGuardAlive()) return SEO_GUARD;
+  try {
+    const out = fs.openSync(WD + '/_seo_guard.out.log', 'a');
+    SEO_GUARD = spawn(process.execPath, [WD + '/new/_seo_lock.js', 'guard'],
+      { cwd: WD, env: process.env, windowsHide: true, detached: true, stdio: ['ignore', out, out] });
+    try { SEO_GUARD.unref(); } catch (e) {}
+    SEO_GUARD.on('exit', () => { SEO_GUARD = null; });
+    log('SEO GUARD spawn pid=' + SEO_GUARD.pid);
+  } catch (e) { log('SEO GUARD spawn failed — ' + ((e && e.message) || e)); }
+  return SEO_GUARD;
+}
+
 function killByPort(port) {
   try {
     const out = execSync('netstat -ano -p tcp', { encoding: 'utf8', windowsHide: true });
@@ -337,6 +414,122 @@ async function healLoop() {
   }
   healing = false;
 }
+// ── ⏰ HOURLY NEW Q&A GENERATOR (owner 2026-07-28) ───────────────────────────────────────────────────────────
+// "once per hour pick a random pillar so that's 24 new a day. random pillars but try to spread it evenly so you
+// get to everything."
+//
+// SHUFFLED ROUND-ROBIN, not plain random. Picking uniformly at random every hour would hammer some pillars and
+// leave others untouched for weeks (the coupon-collector problem — with 44 pillars you'd wait ~190 draws to see
+// them all). Instead: shuffle the whole pillar list, walk it one per hour, and only reshuffle once every pillar
+// has had its turn. Random order, guaranteed even coverage, every pillar inside ~44 hours.
+//
+// Each tick spawns the SAME `_pipeline_gen.js` the 4444 hub button spawns — so it inherits the near-duplicate
+// gate (rejects a question scoring >= GEN_SIM Jaccard against any existing question in that pillar), the
+// on-topic fence, and now GEN_YEAR, which forces every title to end "in 2027".
+const HOURLY_GEN_MS = Math.max(60000, parseInt(process.env.HOURLY_GEN_MS || String(3600000), 10));
+const HOURLY_GEN_ON = process.env.HOURLY_GEN !== '0';
+const HGEN_F = WD + '/_hourly_gen_rotation.json';
+// 🚦 Backlog guard. The build-backlog law pauses generation once unbuilt entries pile up, because writing is the
+// bottleneck, not generating. Default is deliberately generous so the hourly cadence actually runs as asked;
+// set HOURLY_GEN_MAX_PENDING=10 to enforce the stricter law.
+const HGEN_MAX_PENDING = Math.max(0, parseInt(process.env.HOURLY_GEN_MAX_PENDING || '250', 10));
+function hgenState() { try { return JSON.parse(fs.readFileSync(HGEN_F, 'utf8')) || {}; } catch (e) { return {}; } }
+function hgenSave(s) { try { fs.writeFileSync(HGEN_F, JSON.stringify(s, null, 1)); } catch (e) {} }
+function nextHourlyPillar() {
+  const s = hgenState();
+  let q = Array.isArray(s.queue) ? s.queue.filter(p => PILLARS[p]) : [];
+  if (!q.length) {
+    q = Object.keys(PILLARS);
+    for (let i = q.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = q[i]; q[i] = q[j]; q[j] = t; }
+    s.round = (s.round || 0) + 1;
+    log('HOURLY GEN — new round ' + s.round + ', reshuffled ' + q.length + ' pillars');
+  }
+  const p = q.shift();
+  s.queue = q; s.last = p; s.lastAt = Date.now();
+  hgenSave(s);
+  return p;
+}
+let hgenBusy = false;
+async function hourlyGenTick() {
+  if (!HOURLY_GEN_ON || hgenBusy) return;
+  hgenBusy = true;
+  try {
+    // don't stack seeds forever if nothing is writing them
+    if (HGEN_MAX_PENDING) {
+      let pending = 0;
+      try { const idx = await progressIndex(); for (const e of ((idx && idx.entries) || [])) if (e && e.pending === true) pending++; } catch (e) {}
+      if (pending >= HGEN_MAX_PENDING) { log('HOURLY GEN skipped — ' + pending + ' unwritten seeds already queued (cap ' + HGEN_MAX_PENDING + ')'); return; }
+    }
+    const p = nextHourlyPillar();
+    if (!p) return;
+    const env = Object.assign({}, process.env, { GEN_PILLAR: p, GEN_COUNT: '1', GEN_NOTES: '', GEN_YEAR: '2027' });
+    const st = hgenState();
+    log('HOURLY GEN — ' + p + ' (' + (PILLARS[p] || p) + ') · 1 new Q&A · ends "in 2027" · ' + (st.queue || []).length + ' pillars left this round');
+    // 📧 Capture stdout so the email reports the question that was ACTUALLY seeded, plus how many
+    // near-duplicates were rejected on the way. Piping (rather than writing straight to the log file)
+    // is what makes that possible; the output is still appended to the same detail log afterwards.
+    const child = spawn(process.execPath, [WD + '/_pipeline_gen.js'], { cwd: WD, env, windowsHide: true });
+    let buf = '';
+    const grab = d => { buf += String(d); };
+    child.stdout.on('data', grab); child.stderr.on('data', grab);
+    child.on('error', e => log('HOURLY GEN spawn err ' + ((e && e.message) || e)));
+    child.on('exit', () => {
+      try { fs.appendFileSync(WD + '/_pipeline_gen.detail.log', buf); } catch (e) {}
+      const m = buf.match(/^SEEDED\s+([a-z]+\d+)\s+::\s*(.*)$/m);
+      if (!m) { log('HOURLY GEN ' + p + ' — nothing seeded (no unique question accepted); no email'); return; }
+      const rejects = parseInt((buf.match(/near-dup rejects (\d+)/) || [, '0'])[1], 10) || 0;
+      log('HOURLY GEN ' + p + ' → ' + m[1] + ' :: ' + m[2].slice(0, 90));
+      try {
+        const { emailNewQuestion } = require(WD + '/_entry_done_email.js');
+        emailNewQuestion(p, PILLARS[p] || p, m[1], m[2], { rejects, left: (st.queue || []).length });
+      } catch (e) { log('HOURLY GEN email err ' + ((e && e.message) || e)); }
+    });
+  } catch (e) {
+    log('HOURLY GEN err ' + ((e && e.message) || e));
+  } finally { hgenBusy = false; }
+}
+
+// ── ⏸ PAUSE AFTER N FINISHES (owner 2026-07-29) ─────────────────────────────────────────────────────────────
+// "create a toggle that pauses after 100 url finishes."
+//
+// Counted FLEET-WIDE, not per crew. With 3 crews a per-crew limit of 100 would really mean 300 URLs, which is
+// not what "pause after 100 finishes" means — you'd blow through your intended batch by 3x. So the hub sums the
+// `done` counter every crew writes into its own status file and stops the whole fleet the moment the total
+// reaches the limit.
+//
+// Lives in the hub rather than in the crews because no single crew can see the fleet total, and because
+// stopping is the hub's job anyway. Survives a hub restart via the state file.
+const PAUSE_STATE_F = WD + '/_hub_pause_after.json';
+function pauseState() { try { return JSON.parse(fs.readFileSync(PAUSE_STATE_F, 'utf8')) || {}; } catch (e) { return {}; } }
+function savePauseState(s) { try { fs.writeFileSync(PAUSE_STATE_F, JSON.stringify(s, null, 1)); } catch (e) {} }
+// Sum of finished pages across every live crew's status file. Each crew's `done` is a RUN total that resets when
+// it is relaunched, which is exactly right: the limit applies to the batch you just sent out.
+function fleetFinished() {
+  let total = 0;
+  for (const b of FLEET) {
+    try {
+      const s = JSON.parse(fs.readFileSync(WD + '/new/imagebank/_crew_' + b.port + '.json', 'utf8'));
+      total += Number(s && s.done) || 0;
+    } catch (e) {}
+  }
+  return total;
+}
+function pauseAfterTick() {
+  const st = pauseState();
+  if (!st.limit || st.tripped) return;
+  if (!FLEET.length) return;                       // nothing running yet
+  const done = fleetFinished();
+  st.done = done; savePauseState(st);
+  if (done < st.limit) return;
+  st.tripped = true; st.trippedAt = Date.now(); savePauseState(st);
+  log('⏸ PAUSE-AFTER reached — ' + done + '/' + st.limit + ' URLs finished across the fleet. Stopping all crews.');
+  try { stopAll(); } catch (e) { log('pause-after stopAll err ' + ((e && e.message) || e)); }
+  try {
+    const { emailEntryDone } = require(WD + '/_entry_done_email.js');
+    emailEntryDone('⏸ Fleet paused', done + ' URLs', { q: 'Hit the ' + st.limit + '-URL limit — all crews stopped.', note: 'Send the Crew again to continue.' });
+  } catch (e) {}
+}
+
 // LAUNCH — port-based ids ('W7700') are always unique, so they never collide across restarts or re-adopts.
 const ZONE_MAX = 4;   // 👷 pipeline zone crews are EXTRA (the 11th+) — counted/capped separately from the 10 manual crews.
 function launch(type, assignments, opts) {
@@ -385,6 +578,79 @@ function forceClear() {
 }
 
 // ── UI ──────────────────────────────────────────────────────────────────────────────────────────────────────
+// 📊 INVENTORY COUNTS IN THE DROPDOWNS (owner 2026-07-28: "put inv levels next to pillar names").
+// Live entry count + how many are already at 12/13+, read from the index and cached for 5 minutes
+// so building a dropdown never costs a blob read. Falls back to the bare name if the index is
+// unreachable, so a flaky connection can never blank the pillar list.
+let PILLAR_COUNTS = { at: 0, data: {} };
+// Everything finished BEFORE this moment doesn't count toward this pass — that is what makes a
+// reset actually show full inventory again (22 of 22) instead of "already done".
+function resetTs() {
+  try { return JSON.parse(fs.readFileSync(WD + '/new/imagebank/_reset_marker.json', 'utf8')).ts || 0; } catch (e) { return 0; }
+}
+let RESET_TS = resetTs();
+// per-pillar reset markers, so one pillar can be put back without disturbing the others
+function resetMarks() {
+  try { return JSON.parse(fs.readFileSync(WD + '/new/imagebank/_reset_marks.json', 'utf8')) || {}; } catch (e) { return {}; }
+}
+let RESET_MARKS = resetMarks();
+async function refreshPillarCounts() {
+  RESET_TS = resetTs();          // pick up a reset that happened while the hub was running
+  RESET_MARKS = resetMarks();
+  try {
+    const idx = await theStore().get('_index.json', { type: 'json', consistency: 'strong' });
+    if (!idx || !idx.entries || idx.entries.length < 1000) return PILLAR_COUNTS.data;
+    const d = {};
+    for (const e of idx.entries) {
+      if (!e || !e.id) continue;
+      const p = (String(e.id).match(/^([a-z]+)/) || [, ''])[1];
+      if (!p) continue;
+      if (!d[p]) d[p] = { n: 0, ok: 0, low: 0 };
+      d[p].n++;
+      // "done" = finished SINCE THE LAST RESET, not "has a good score from some earlier run".
+      // Judging by gate_score alone made a freshly-reset pillar read DONE immediately.
+      // a per-pillar reset overrides the global one for that pillar
+      const mark = Math.max(RESET_TS, (RESET_MARKS[p] || 0));
+      if ((e.polished_at || 0) > mark) d[p].ok++;
+      // "11 or less" pile: scored by a crew and still under the bar. Distinct from never-scored —
+      // these have been tried and came up short, so they are the ones worth a second look.
+      else if (e.gate_score != null && e.gate_score <= 11) d[p].low++;
+    }
+    PILLAR_COUNTS = { at: Date.now(), data: d };
+    // 📉 THE "11 OR LESS" PILE — scored and still under the bar, kept as its own worklist so it
+    // can be picked up later without hunting through the whole library.
+    try {
+      const low = idx.entries
+        .filter(e => e && e.id && e.gate_score != null && e.gate_score <= 11)
+        .map(e => ({ id: e.id, score: e.gate_score, q: String(e.question || '').slice(0, 120) }))
+        .sort((a, b) => a.score - b.score);
+      fs.writeFileSync(WD + '/_ELEVEN_OR_LESS.json', JSON.stringify({ ts: Date.now(), count: low.length, entries: low }, null, 1));
+      const md = ['# 11 OR LESS — scored below the bar, worth a second pass', '',
+        'Regenerated whenever the hub refreshes pillar counts. ' + low.length + ' entries.', '',
+        '| id | score | question |', '|---|---|---|'];
+      for (const e of low.slice(0, 2000)) md.push('| `' + e.id + '` | ' + e.score + '/13 | ' + e.q.replace(/\|/g, '/') + ' |');
+      fs.writeFileSync(WD + '/_ELEVEN_OR_LESS.md', md.join('\n') + '\n');
+    } catch (e) {}
+  } catch (e) {}
+  return PILLAR_COUNTS.data;
+}
+// Label shows what is LEFT, not the total — the number ticks DOWN as pages reach 12/13+, which is
+// what "22 → 21 → 20" means in practice. A pillar with nothing left is marked ✅ DONE; anything
+// still sitting at 11 or lower is called out separately so it can be worked later.
+function pillarLabel(k) {
+  const c = PILLAR_COUNTS.data[k];
+  if (!c || !c.n) return PILLARS[k];
+  const left = c.n - c.ok;
+  if (left <= 0) return '✅ ' + PILLARS[k] + ' — DONE (' + c.n.toLocaleString() + ')';
+  const low = c.low ? ' · ' + c.low + ' at ≤11' : '';
+  return PILLARS[k] + ' — ' + left.toLocaleString() + ' left of ' + c.n.toLocaleString() + low;
+}
+function pillarOpts(sel) {
+  return Object.keys(PILLARS)
+    .map(k => `<option value="${k}"${k === sel ? ' selected' : ''}>${pillarLabel(k)}</option>`)
+    .join('');
+}
+// kept for any older reference; the live dropdowns call pillarOpts() so counts stay current
 const PILLAR_OPTS = Object.keys(PILLARS).map(k => `<option value="${k}"${k === 'tl' ? ' selected' : ''}>${PILLARS[k]}</option>`).join('');
 
 // ✅ PILLAR COMPLETION (owner 2026-07-23): when every page in a pillar is finished, email ONCE and gray the pillar
@@ -415,14 +681,23 @@ async function emailPillarComplete(code, label, total) {
   } catch (e) { log('pillar-complete email ERR ' + code + ' ' + ((e && e.message) || e)); return false; }
 }
 // per-pillar totals vs the crew done-list → { total, done, remaining, complete }
+// 🔢 ONE SOURCE OF TRUTH FOR EVERY PILLAR NUMBER (owner 2026-07-28: "less than 12 pillar needs to talk to other
+// pillars so the numbers line up"). "📉 Less than 12/13" used to be counted somewhere else entirely — a stale
+// `_under12_inventory.json` snapshot — while the pillar rows were counted live off the index, so the two labels
+// in the SAME dropdown disagreed and neither one could be trusted. Now every number in the dropdown (total,
+// remaining, under-12, pending seeds) comes out of this one index pass, so they add up by construction.
 async function pillarStatus() {
   const idx = await progressIndex();
-  const counts = {};
+  const counts = {}, low = {}, pend = {};
   for (const e of ((idx && idx.entries) || [])) {
     if (!e || !e.id) continue;
     const m = String(e.id).match(/^([a-z]+)\d+$/i); if (!m) continue;
     const p = m[1].toLowerCase(); if (!PILLARS[p]) continue;
     counts[p] = (counts[p] || 0) + 1;
+    // same scoring rule the crews use to decide "under 12" (gate_score first, quality_score as the fallback)
+    const q = (e.gate_score != null ? e.gate_score : (e.quality_score == null ? 10 : e.quality_score));
+    if (q < 12) low[p] = (low[p] || 0) + 1;
+    if (e.pending === true) pend[p] = (pend[p] || 0) + 1;
   }
   const out = {};
   const emailed = loadEmailed(); let changed = false;
@@ -432,7 +707,7 @@ async function pillarStatus() {
     try { done = (JSON.parse(fs.readFileSync(WD + '/new/imagebank/_finisher_' + p + '_done.json', 'utf8')) || []).length; } catch (e) {}
     const remaining = Math.max(0, total - done);
     const complete = total > 0 && remaining === 0;
-    out[p] = { label: PILLARS[p], total, done, remaining, complete };
+    out[p] = { label: PILLARS[p], total, done, remaining, complete, under12: low[p] || 0, pending: pend[p] || 0 };
     if (complete && !emailed.has(p)) { emailed.add(p); changed = true; emailPillarComplete(p, PILLARS[p], total); }
     if (!complete && emailed.has(p)) { emailed.delete(p); changed = true; }   // re-opened (new entries) → can alert again
   }
@@ -454,6 +729,11 @@ h1{font-size:17px;margin:0;color:#B91C3F;letter-spacing:.2px}
 label,.mut{color:#9c8188;font-size:11px}
 select,input,textarea,button{font-size:12px;padding:5px 7px;border-radius:6px;border:1px solid #3a2730;background:#1b171b;color:#ece7ea}
 button{background:#B91C3F;color:#fff;font-weight:800;cursor:pointer;border-color:#B91C3F;padding:6px 9px}
+/* 🟢 animated RUNNING badge for the drip */
+.dripLive{display:inline-flex;align-items:center;gap:5px;color:#2ecc71;font-weight:800;letter-spacing:.06em;animation:dripGlow 1.6s ease-in-out infinite}
+.dripDot{width:8px;height:8px;border-radius:50%;background:#2ecc71;box-shadow:0 0 0 0 rgba(46,204,113,.7);animation:dripPulse 1.4s infinite}
+@keyframes dripPulse{0%{box-shadow:0 0 0 0 rgba(46,204,113,.7)}70%{box-shadow:0 0 0 9px rgba(46,204,113,0)}100%{box-shadow:0 0 0 0 rgba(46,204,113,0)}}
+@keyframes dripGlow{0%,100%{opacity:1}50%{opacity:.55}}
 button:hover{filter:brightness(1.12)}
 .sm{padding:4px 7px;font-size:11px}
 .gold{background:#FFB81C;color:#231a05;border-color:#FFB81C}
@@ -509,12 +789,15 @@ hr{border:0;border-top:1px solid #2a1c22;margin:7px 0}
   <div class=card style="border-left-color:#FFB81C">
     <div class=head><h2 style="color:#FFB81C">👷 Kory's Crew</h2><span class=mut>write → face → hero → body 1-6 → mermaid, per page</span></div>
     <div class=row>
-      <select id=crewpillar title=Pillar style="max-width:180px"><option value=__smallest__>🎯 Smallest inventory (finish it off)</option><option value=__largest__>🎯 Largest inventory (biggest pile)</option><option value=__worst__>🎯 Worst scores (most bad)</option><option value=__notfinished__>📋 Not-Finished pile</option><option value=__under12__ selected>📉 Less than 12/13</option><option disabled>──── or a pillar ────</option>${PILLAR_OPTS}</select>
+      <select id=crewpillar title=Pillar style="max-width:180px"><option value=__smallest__>🎯 Smallest inventory (finish it off)</option><option value=__largest__>🎯 Largest inventory (biggest pile)</option><option value=__worst__>🎯 Worst scores (most bad)</option><option value=__notfinished__>📋 Not-Finished pile</option><option value=__under12__ selected>📉 Less than 12/13</option><option value=__newqa__>🆕 New pipeline Q&amp;As (unwritten seeds)</option><option disabled>──── or a pillar ────</option>${PILLAR_OPTS}</select>
       <select id=crewcount title="Crews" style="width:48px"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
-      <select id=crewengine title=Writer style="width:148px"><option value=deepseek selected>DeepSeek</option><option value=cursor>Cursor Agent</option><option value=alternate>Alternate (DS↔Cursor)</option>' + (claudeUnbenched() ? '<option value=claude>Claude Code</option>' : '<option value=claude disabled>Claude Code — cooldown til Tue</option>') + '</select>
+      <select id=crewengine title="Writer — ⭐ Premium auto-selects and climbs through every writer until the page clears 12/13" style="width:230px">' + (claudeUnbenched()
+        ? '<option value=premium selected>⭐ PREMIUM — all writers → 12/13</option><option value=ccds>CC + DS (CC first)</option><option value=claude>Claude Code only</option><option value=deepseek>DeepSeek only</option><option value=alternate>Alternate (DS↔CC)</option><option value=cursor>Cursor Agent</option>'
+        : '<option value=premium selected>⭐ PREMIUM — all writers → 12/13</option><option value=deepseek>DeepSeek</option><option value=cursor>Cursor Agent</option><option value=alternate>Alternate (DS↔Cursor)</option><option value=claude disabled>Claude Code — cooldown til Tue</option>') + '</select>
       <label>Stag<input id=crewstagger type=number value=0 min=0 style="width:48px;text-align:center"></label>
       <label>Cool<input id=crewcool type=number value=0 min=0 style="width:48px;text-align:center"></label>
       <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer" title="Hop to a fresh unclaimed pillar each page"><input type=checkbox id=crewroam checked>roam</label>
+      <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;color:#ffd08a" title="Stop the whole fleet once this many URLs have been finished across ALL crews (not per crew). Uncheck for no limit."><input type=checkbox id=crewpauseon>⏸ pause after<input id=crewpauseafter type=number value=100 min=1 style="width:56px;text-align:center;margin-left:3px"></label>
       <label style="display:inline-flex;align-items:center;gap:3px;cursor:pointer;color:#8affb0" title="Surgical then DeepSeek x3 then Cursor when stuck. No images until gate 12+"><input type=checkbox id=crewcheap checked>cheap</label>
     </div>
     <div class=row>
@@ -530,6 +813,45 @@ hr{border:0;border-top:1px solid #2a1c22;margin:7px 0}
 
   <!-- ════ RIGHT: B/C/D compact stack ════ -->
   <div class=col>
+    <!-- A2. 🩸 THE DRIP — slow forever-pass over the WHOLE library (owner 2026-07-28) -->
+    <div class=card style="border-left-color:#B91C3F">
+      <div class=head>
+        <h2 style="color:#ff8fa8">🩸 The Drip</h2>
+        <span id=dripbadge class=mut style="font-size:11px">○ stopped</span>
+        <button id=dripbtn class=sm onclick=toggleDrip() style="margin-left:auto;background:#2ecc71;border-color:#2ecc71;color:#06210f;font-weight:800">▶ START</button>
+      </div>
+      <div class=mut style="font-size:11px;color:#ff8fa8;margin:2px 0">
+        CC-only writer · auditor + supervisor · 2000-3000 words · places hero + face card + up to 10 body images (validated, deduped, DOM-verified)
+</div>
+      <div class=row style="margin:4px 0">
+        <label class=mut style="font-size:11px">pillar</label>
+        <select id=drippillar style="max-width:170px" title="Restrict the drip to one pillar (default: the whole library)"><option value="">🌍 Whole library</option>${PILLAR_OPTS}</select>
+      </div>
+      <div id=dripscope class=mut style="font-size:10.5px;margin:2px 0 6px"></div>
+      <div class="grid2">
+        <div class=stat style="background:#0c130e"><div class=mut style="font-size:10px">✅ FINISHED</div><div id=dripdone class=big style="color:#8affb0">—</div><div id=driplap class=mut>—</div></div>
+        <div class=stat style="background:#170f0c"><div class=mut style="font-size:10px">⏳ LEFT TO COMPLETE</div><div id=dripleft class=big style="color:#FFB81C">—</div><div id=drippct class=mut>—</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px">
+        <div class=stat style="background:#0c1013"><div class=mut style="font-size:10px">🤖 CC wins</div><div id=dripcc class=big style="color:#8ab4ff;font-size:19px">—</div></div>
+        <div class=stat style="background:#0c1013"><div class=mut style="font-size:10px">🆘 DS rescues</div><div id=dripds class=big style="color:#8ab4ff;font-size:19px">—</div></div>
+        <div class=stat style="background:#0c1013"><div class=mut style="font-size:10px">🔧 surgical</div><div id=dripsx class=big style="color:#8ab4ff;font-size:19px">—</div></div>
+      </div>
+      <div class=row style="margin-top:6px">
+        <button class=sm onclick=resetPillar() title="Put the selected pillar back to be re-run (count returns to full)" style="background:#7a5b12;border-color:#7a5b12">♻️ Reset pillar</button>
+        <button class=sm onclick=resetPillar(true) title="Put the WHOLE library back to be re-run" style="background:#5b2a2a;border-color:#5b2a2a">♻️ Reset all</button>
+      </div>
+      <div class=row style="margin-top:6px">
+        <label class=mut style="font-size:11px">pace<input id=drippace type=number value=0 min=0 max=3600 style="width:56px;text-align:center" title="seconds between pages"></label>
+        <input id=dripcode placeholder=4444 inputmode=numeric style="width:56px;text-align:center">
+        <a href="http://localhost:7951/" target=_blank class=mut style="margin-left:auto;font-size:11px">open :7951 ↗</a>
+      </div>
+      <div id=dripnow style="margin-top:6px;padding:7px 9px;border-radius:6px;background:#141118;border:1px solid #2a2430;font-size:11px"></div>
+      <div id=dripfeed style="margin-top:5px;max-height:150px;overflow:auto;font-size:11px"></div>
+      <div id=dripmode style="margin-top:5px;font-size:11.5px">🖼 IMAGES ONLY</div>
+      <div id=dripmsg class=mut style="margin-top:4px;font-size:11px"></div>
+    </div>
+
     <!-- B. LIBRARY HEALTH -->
     <div class=card style="border-left-color:#2ecc71">
       <div class=head><h2 style="color:#8affb0">📊 Library Health</h2><span class=mut id=healthupd style="font-size:10px">auto every 60s</span><button class=sm onclick=scanHealth() style="background:#2ecc71;border-color:#2ecc71;color:#06210f">↻ Scan</button></div>
@@ -600,12 +922,17 @@ async function sendCrew(){
   if(code('crewcode')!=='4444'){alert('type 4444 in the box');return;}
   var pillar=document.getElementById('crewpillar').value;
   var roam=document.getElementById('crewroam').checked;
-  var under12=false;
+  var under12=false, newqa=false;
   if(pillar==='__under12__'){
     var tp=await j('/api/targetpillar?mode=under12');
     if(!tp||!tp.pillar){alert('nothing left under 12/13');return;}
     // keep roam if checked — hop pillars that still have gate < 12 (owner 2026-07-27)
     pillar=tp.pillar; under12=true;
+  } else if(pillar==='__newqa__'){
+    // 🆕 dedicated NEW Q&A crew — writes the pipeline generator's fresh seeds, full length, nothing else.
+    var tn=await j('/api/targetpillar?mode=newqa');
+    if(!tn||!tn.pillar){alert('no unwritten pipeline seeds — generate some in "new pipeline Q&A" first');return;}
+    pillar=tn.pillar; newqa=true;
   } else if(pillar.indexOf('__')===0){
     var tp2=await j('/api/targetpillar?mode='+pillar.replace(/_/g,''));
     if(!tp2||!tp2.pillar){alert('nothing left to target for that mode');return;}
@@ -615,15 +942,23 @@ async function sendCrew(){
   var opts={engine:document.getElementById('crewengine').value,
     stagger:Math.max(0,parseInt(document.getElementById('crewstagger').value,10)||0),
     cooldown:Math.max(0,parseInt(document.getElementById('crewcool').value,10)||0),
-    roam:roam, under12:under12,
+    roam:roam, under12:under12, newqa:newqa,
+    // ⏸ fleet-wide finish limit — 0/absent means run forever
+    pauseAfter: (document.getElementById('crewpauseon') && document.getElementById('crewpauseon').checked)
+      ? Math.max(1, parseInt(document.getElementById('crewpauseafter').value,10)||100) : 0,
     cheap: !!(document.getElementById('crewcheap') && document.getElementById('crewcheap').checked)};
   // cheap mode: force DeepSeek for the paid pass (Cursor rescue is the expensive path)
   if(opts.cheap && opts.engine==='alternate') opts.engine='deepseek';
+  // ⭐ PREMIUM is the whole ladder by definition — cheap mode would contradict it, so premium turns cheap off.
+  if(opts.engine==='premium') opts.cheap=false;
+  // 🆕 a NEW Q&A crew never runs cheap — a brand-new page has no prose to top up, so the surgical
+  // rung would just publish a padded skeleton at 12/13. Full write every time.
+  if(newqa) opts.cheap=false;
   var pillars=[]; for(var i=0;i<n;i++)pillars.push(pillar);
   var r=await j('/api/launch',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({code:'4444',type:'wholecrew',pillars:pillars,opts:opts})});
   var m=document.getElementById('crewmsg');
   if(!r||!r.ok){m.innerHTML='<span style=color:#ff6a6a>'+((r&&r.err)||'failed')+'</span>';return;}
-  var launchHtml='<span style=color:#8affb0>👷 '+((r.created||[]).length)+' crew(s) sent · '+(under12?'📉 <12/13 · ':'')+(opts.cheap?'💸 cheap · ':'')+(opts.roam?'JUMP pillars':(PILLARS[pillar]||pillar))+' · '+opts.engine+' · stagger '+opts.stagger+'s · cooldown '+opts.cooldown+'s'+(r.capped?' ('+r.capped+')':'')+'</span>';
+  var launchHtml='<span style=color:#8affb0>👷 '+((r.created||[]).length)+' crew(s) sent · '+(newqa?'🆕 new Q&As · ':'')+(under12?'📉 <12/13 · ':'')+(opts.cheap?'💸 cheap · ':'')+(opts.roam?'JUMP pillars':(PILLARS[pillar]||pillar))+' · '+opts.engine+' · stagger '+opts.stagger+'s · cooldown '+opts.cooldown+'s'+(r.capped?' ('+r.capped+')':'')+'</span>';
   m.setAttribute('data-launch', launchHtml); m.innerHTML=launchHtml+' <span style="color:#FFB81C;font-weight:800">· 0W / 0L</span>';
   renderCrews();
 }
@@ -651,6 +986,16 @@ function cstate(cell,cur){
 async function renderCrews(){
   try{
     var d=await j('/api/crews'); var g=document.getElementById('boxgrid'); if(!g)return;
+    // ⏸ progress toward the fleet-wide finish limit, above the crew rows
+    var pab=document.getElementById('pausebar');
+    if(!pab){pab=document.createElement('div');pab.id='pausebar';pab.style.cssText='margin:4px 0 8px;font-size:12px';g.parentNode.insertBefore(pab,g);}
+    if(d.pauseAfter){
+      var pct=Math.min(100,Math.round(d.pauseAfter.done/d.pauseAfter.limit*100));
+      pab.innerHTML=d.pauseAfter.tripped
+        ? '<span style="color:#ffd08a;font-weight:800">⏸ PAUSED — hit the '+d.pauseAfter.limit+'-URL limit. Send the Crew again to continue.</span>'
+        : '<span style="color:#ffd08a">⏸ pause at '+d.pauseAfter.limit+' — <b>'+d.pauseAfter.done+'</b> finished ('+pct+'%)</span>'
+          +'<div style="height:5px;background:#241016;border-radius:3px;overflow:hidden;margin-top:3px"><div style="height:100%;width:'+pct+'%;background:#FFB81C"></div></div>';
+    } else pab.innerHTML='';
     if(!d.crews||!d.crews.length){
       g.innerHTML='<div class=mut style="padding:8px">No crews running — hit 👷 Send the Crew.</div>';
       var wl0=document.getElementById('winloss');   // keep the 🏁 box visible even with 0 crews (it used to vanish)
@@ -664,8 +1009,13 @@ async function renderCrews(){
       var cdLeft=(cur==='cooldown'&&st.cooldownUntil)?Math.max(0,Math.ceil((st.cooldownUntil-Date.now())/1000)):0;
       var cooling=cur==='cooldown'&&cdLeft>0;                        // resting between pages → red countdown
       var flipping=!stale&&st.flip;                                 // over-the-hump engine switch in progress
-      var live=!stale&&cur!=='idle'&&!cooling;
-      var bars=cooling
+      // 🏁 PAUSED — crew finished its pillar and stopped on purpose (owner 2026-07-28). Not idle, not dead:
+      // it is watching for new work and will start again by itself if any lands.
+      var paused=!stale&&!!st.paused;
+      var live=!stale&&cur!=='idle'&&!cooling&&!paused;
+      var bars=paused
+        ? '<div class="cell" style="flex:1;min-width:0;background:#1c2a1f;color:#8affb0;border-color:#2f5c3a">🏁 PILLAR COMPLETE — ⏸ PAUSED'+(st.pauseWhy?' ('+String(st.pauseWhy).replace(/</g,'&lt;')+')':'')+'</div>'
+        : cooling
         ? '<div class="cell cooldown" style="flex:1;min-width:0">🧊 COOLDOWN — next page in '+cdLeft+'s</div>'
         : CBOX.map(function(b){return '<div class="cell '+cstate(b[0],cur)+'">'+b[1]+'</div>';}).join('')
           +(flipping?'<span class="flipbadge'+(/RESTART/i.test(st.flip)?' restart':'')+'">'+st.flip+'</span>':'');
@@ -680,7 +1030,8 @@ async function renderCrews(){
       var sN=Number(st.splitN||1), sI=Number(st.splitI||0);
       var split=sN>1?'<span class="splitchip" title="'+sN+' crews sharing '+(PILLARS[pil]||pil)+' evenly — this crew works every '+sN+'th page (slice '+(sI+1)+' of '+sN+')">🔗 '+(sI+1)+'/'+sN+' split</span>':'';
       return '<div class="crewrow'+(live?' live':'')+(cooling?' cooling':'')+(flipping?' flipping':'')+'">'
-        +'<div class=crewid>'+(cooling?'<span style=color:#ff6a6a>● COOLDOWN</span>':live?'<span class=updot>●</span> UP':'<span style=color:#777>○ idle</span>')+' '+c.id
+        +'<div class=crewid>'+(paused?'<span style=color:#8affb0>⏸ PAUSED</span>':cooling?'<span style=color:#ff6a6a>● COOLDOWN</span>':live?'<span class=updot>●</span> UP':'<span style=color:#777>○ idle</span>')+' '+c.id
+          +(st.newqa?'<span style="color:#FFB81C;font-weight:800"> 🆕</span>':'')
           +'<div class=p>'+String((PILLARS[pil]||pil)).slice(0,18)+'</div></div>'
         +'<div class=stagewrap>'+inv+split+'<div class=stagebar>'+bars+'</div></div>'
         +'<div class=crewmeta><b style="color:#8ab4ff">'+(st.engine||'')+'</b> :'+c.port+(c.restarts?' ↻'+c.restarts:'')
@@ -719,13 +1070,25 @@ async function paintPillarStatus(){
   try{
     var st=await (await fetch('/api/pillarstatus')).json();
     var u12=null; try{u12=await j('/api/targetpillar?mode=under12');}catch(e){}
+    var nqa=null; try{nqa=await j('/api/targetpillar?mode=newqa');}catch(e){}
     ['crewpillar','genpillar','ddpillar','fqpillar'].forEach(function(selId){
       var sel=document.getElementById(selId); if(!sel)return;
       Array.prototype.forEach.call(sel.options,function(o){
         if(o.value==='__under12__'){
-          var n=(u12&&u12.inventory!=null)?u12.inventory:null;
-          var fail=0; try{/* filled below via health */}catch(e){}
-          o.textContent='📉 Less than 12/13'+(n!=null?' — '+Number(n).toLocaleString()+' left':'');
+          // 🔢 sum the SAME per-pillar numbers the rows below show, so the totals reconcile on screen
+          var n=0,have=false;
+          for(var k in st){ if(st[k]&&st[k].under12!=null){ n+=st[k].under12; have=true; } }
+          if(!have&&u12&&u12.inventory!=null){ n=u12.inventory; have=true; }
+          o.textContent='📉 Less than 12/13'+(have?' — '+Number(n).toLocaleString()+' left':'');
+          return;
+        }
+        if(o.value==='__newqa__'){
+          // 🆕 unwritten pipeline seeds — same index pass again, so this reconciles with the rows too
+          var sn=0,shave=false;
+          for(var k2 in st){ if(st[k2]&&st[k2].pending!=null){ sn+=st[k2].pending; shave=true; } }
+          if(!shave&&nqa&&nqa.inventory!=null){ sn=nqa.inventory; shave=true; }
+          o.textContent='🆕 New pipeline Q&As'+(shave?' — '+Number(sn).toLocaleString()+' unwritten':'');
+          o.disabled=(shave&&sn===0);
           return;
         }
         var s=st[o.value]; if(!s)return;
@@ -737,7 +1100,10 @@ async function paintPillarStatus(){
           o.textContent=base+' — DONE ('+s.total.toLocaleString()+')';
         }else{
           o.disabled=false; o.style.color=''; o.style.textDecoration=''; o.style.textDecorationColor=''; o.style.textDecorationThickness='';
-          o.textContent=base+' — '+s.remaining.toLocaleString()+' left / '+s.total.toLocaleString();
+          // 📉/🆕 the pillar's own share of the two aggregate rows above it — the per-pillar numbers add up to
+          // the "Less than 12/13" and "New pipeline Q&As" totals exactly, because all three come from one pass.
+          var extra=(s.under12?' · 📉'+Number(s.under12).toLocaleString():'')+(s.pending?' · 🆕'+Number(s.pending).toLocaleString():'');
+          o.textContent=base+' — '+s.remaining.toLocaleString()+' left / '+s.total.toLocaleString()+extra;
         }
       });
     });
@@ -748,6 +1114,102 @@ setInterval(renderCrews,1000); renderCrews();
 scanHealth(true); setInterval(function(){scanHealth(true);},60000);   // 📊 library health auto-refreshes every 60s (silent)
 async function pollRate(){try{var r=await j('/api/rate');var e;if(e=document.getElementById('rsec'))e.textContent=r.perSec;if(e=document.getElementById('rmin'))e.textContent=r.perMin;if(e=document.getElementById('rhour'))e.textContent=r.perHour;}catch(err){}}
 setInterval(pollRate,3000); pollRate();   // ⚡ fix-speed boxes refresh every 3s
+
+// ── 🩸 THE DRIP — status poll + ON/OFF button ────────────────────────────────────────────
+function dripAgo(t){var s=Math.round((Date.now()-t)/1000);return s<60?s+'s':Math.round(s/60)+'m';}
+async function pollDrip(){
+  try{
+    var d=await j('/api/drip');
+    var e,btn=document.getElementById('dripbtn'),live=(d.running&&d.on);
+    if(btn){
+      if(live){btn.textContent='⏹ STOP';btn.style.background='#B91C3F';btn.style.borderColor='#B91C3F';btn.style.color='#fff';}
+      else{btn.textContent='▶ START';btn.style.background='#2ecc71';btn.style.borderColor='#2ecc71';btn.style.color='#06210f';}
+    }
+    // 🖼 show the drip's MODE on the hub card. Images-only is hardwired now, but it was invisible from here —
+    // the owner had to open :7951 to see it, which is why it kept seeming like it had reverted.
+    if(e=document.getElementById('dripmode')){
+      // the drip's own status is nested under d.status — d.imagesOnly is always undefined
+      e.innerHTML=((d.status&&d.status.imagesOnly)===false)
+        ?'<span style="color:#ff9a9a;font-weight:800">⚠ TEXT MODE — will rewrite pages</span>'
+        :'<span style="color:#8affb0;font-weight:800">🖼 IMAGES ONLY</span> <span style="color:#9c8188">· only pages at 12/13+ · text never touched</span>';
+    }
+    // 🟢 animated green RUNNING badge while the drip is live
+    if(e=document.getElementById('dripbadge')){
+      e.innerHTML=live
+        ?'<span class=dripLive><span class=dripDot></span>RUNNING</span>'
+        :'<span style="color:#888">○ stopped</span>';
+    }
+    var s=d.status||{};
+    if(e=document.getElementById('dripdone'))e.textContent=(s.done==null?'—':s.done.toLocaleString());
+    if(e=document.getElementById('dripleft'))e.textContent=(s.left==null?'—':s.left.toLocaleString());
+    if(e=document.getElementById('driplap'))e.textContent=(s.lap?('lap '+s.lap+' · '+(s.fixed||0)+' fixed'):'—');
+    // 🔢 SAY WHY THE TWO NUMBERS DIFFER (owner 2026-07-29: "gaming sys 73 and 59"). The pillar dropdown shows
+    // EVERY page in the pillar; the drip's queue shows only what it may touch — 12/13+ and finished inside the
+    // recency window. Those are different measures and the card never said so, which reads as a bug.
+    if(e=document.getElementById('dripscope')){
+      e.innerHTML=(s.total!=null)
+        ? ('<b>'+s.total.toLocaleString()+'</b> eligible for images <span style="color:#9c8188">— pages at 12/13+ finished recently. The pillar dropdown shows the pillar\'s FULL page count, so a smaller number here is expected.</span>')
+        : '';
+    }
+    if(e=document.getElementById('drippct'))e.textContent=(s.total?(((s.done/s.total)*100).toFixed(1)+'% of '+s.total.toLocaleString()):'—');
+    if(e=document.getElementById('dripcc'))e.textContent=(s.ccWins==null?'—':s.ccWins);
+    if(e=document.getElementById('dripds'))e.textContent=(s.dsRescues==null?'—':s.dsRescues);
+    if(e=document.getElementById('dripsx'))e.textContent=(s.surgicalWins==null?'—':s.surgicalWins);
+    // 👁 real-time: what it is working on RIGHT NOW
+    if(e=document.getElementById('dripnow')){
+      e.innerHTML=s.current
+        ?('<div style="color:#9a8a72;font-size:10px">WORKING ON NOW · '+dripAgo(s.since)+'</div>'
+          +'<div style="font-weight:800;color:#EAC15C">'+s.current+'</div>'
+          +'<div style="color:#ece7ea">'+(s.currentQ||'').slice(0,110)+'</div>'
+          +'<div style="color:#8ab4ff">stage: <b>'+(s.stage||'')+'</b> · from '+(s.currentBefore==null?'?':s.currentBefore)+'/13</div>')
+        :'<span style="color:#9a8a72">idle — waiting for the next page</span>';
+    }
+    if(e=document.getElementById('dripfeed')){
+      e.innerHTML=(s.feed||[]).map(function(f){
+        var c=f.skipped?'#9a8a72':(f.ok?'#8affb0':'#ff8fa8'),t=f.skipped?'✓':(f.ok?'✅':'📉');
+        return '<div style="padding:2px 0;border-bottom:1px solid #201c26"><span style="color:'+c+'">'+t+'</span> <b>'+f.id+'</b> '+f.before+'→'+f.score+'/13 <span style="color:#8ab4ff">'+f.engine+'</span> <span style="color:#9a8a72">'+dripAgo(f.at)+'</span></div>';
+      }).join('')||'<span style="color:#9a8a72">no pages finished yet</span>';
+    }
+    if(e=document.getElementById('dripmsg')){
+      if(!d.running)e.innerHTML='<span style=color:#888>○ not running — press ▶ START</span>';
+      else if(!d.on)e.innerHTML='<span style=color:#FFB81C>⏹ stopping after the current page</span>';
+      else e.innerHTML='<span style=color:#8affb0>● running</span>'+(s.pillars&&s.pillars.length?(' · pillar <b>'+s.pillars.join(',')+'</b>'):' · whole library');
+    }
+  }catch(err){}
+}
+setInterval(pollDrip,4000); pollDrip();
+
+async function resetPillar(all){
+  var code=document.getElementById('dripcode').value.trim();
+  var p=all?'all':document.getElementById('drippillar').value;
+  var msg=document.getElementById('dripmsg');
+  if(!all&&!p){msg.innerHTML='<span style=color:#FFB81C>pick a pillar first (or use Reset all)</span>';return;}
+  msg.innerHTML='<span style=color:#FFB81C>resetting…</span>';
+  try{
+    var r=await j('/api/resetpillar',{method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({code:code,pillar:all?'all':p})});
+    if(r.err){msg.innerHTML='<span style=color:#ff8fa8>'+r.err+'</span>';return;}
+    msg.innerHTML='<span style=color:#8affb0>♻️ '+(all?'whole library':p)+' back in inventory — count is full again</span>';
+    setTimeout(function(){location.reload();},1200);
+  }catch(err){msg.innerHTML='<span style=color:#ff8fa8>'+err+'</span>';}
+}
+
+async function toggleDrip(){
+  var code=document.getElementById('dripcode').value.trim();
+  var pace=parseInt(document.getElementById('drippace').value||'45',10);
+  var pillar=document.getElementById('drippillar').value;
+  var msg=document.getElementById('dripmsg');
+  msg.innerHTML='<span style=color:#FFB81C>…</span>';
+  try{
+    var r=await j('/api/drip',{method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({code:code,pace:pace,pillar:pillar})});
+    if(r.err){msg.innerHTML='<span style=color:#ff8fa8>'+r.err+'</span>';return;}
+    msg.innerHTML='<span style=color:#8affb0>'+(r.on
+      ?('🩸 STARTED — '+(pillar?('pillar '+pillar):'whole library')+' at 1 page / '+pace+'s')
+      :'⏹ STOPPING after the current page')+'</span>';
+    pollDrip();
+  }catch(err){msg.innerHTML='<span style=color:#ff8fa8>'+err+'</span>';}
+}
 
 // ── B. library health ────────────────────────────────────────────────────────────────────────────────────────
 async function scanHealth(silent){
@@ -888,7 +1350,22 @@ http.createServer(async (req, res) => {
   const gate = b => String(b.code || '') === '4444';
   try {
     // pages
-    if (u === '/') return send(200, PAGE, 'text/html; charset=utf-8');
+    if (u === '/') {
+      // PAGE is built once at startup, so the pillar dropdowns were frozen with no counts.
+      // Refresh at most every 5 minutes, then swap the live labels in per request.
+      // 45s, not 5 minutes — the counts are meant to visibly tick down as pages finish.
+      if (Date.now() - PILLAR_COUNTS.at > 45000) { try { await refreshPillarCounts(); } catch (e) {} }
+      let html = PAGE;
+      if (Object.keys(PILLAR_COUNTS.data).length) {
+        for (const k of Object.keys(PILLARS)) {
+          const lbl = pillarLabel(k);
+          if (lbl !== PILLARS[k]) {
+            html = html.split('>' + PILLARS[k] + '</option>').join('>' + lbl + '</option>');
+          }
+        }
+      }
+      return send(200, html, 'text/html; charset=utf-8');
+    }
     if (u === '/map' || u === '/viz') return send(200, MAP_PAGE, 'text/html; charset=utf-8');
 
     // fleet + crew monitor (read-only)
@@ -902,7 +1379,126 @@ http.createServer(async (req, res) => {
         let st = null; try { st = JSON.parse(fs.readFileSync(WD + '/new/imagebank/_crew_' + b.port + '.json', 'utf8')); } catch (e) {}
         out.push({ id: b.id, port: b.port, pillar: b.pillar, alive: !!b.alive, restarts: b.restarts || 0, status: st });
       }
-      return send(200, JSON.stringify({ crews: out }));
+      // ⏸ report the fleet-wide finish limit alongside the crews so the UI can show progress toward it
+      const ps = pauseState();
+      return send(200, JSON.stringify({ crews: out, pauseAfter: ps.limit ? { limit: ps.limit, done: fleetFinished(), tripped: !!ps.tripped } : null }));
+    }
+
+    // ── 🩸 THE DRIP (owner 2026-07-28) ────────────────────────────────────────────────────
+    // One slow worker walking the WHOLE library to 12/13+, forever. GET = status for the card,
+    // POST {code:4444, pace} = toggle. OFF is a flag file so the drip always finishes the page
+    // it is on before stopping (never leaves a half-rewritten entry).
+    if (u === '/api/drip') {
+      const OFF = WD + '/new/imagebank/_drip_off.flag';
+      const readStatus = async () => {
+        try {
+          const r = await fetch('http://127.0.0.1:' + DRIP_PORT + '/api/status', { signal: AbortSignal.timeout(2500) });
+          if (r.ok) return await r.json();
+        } catch (e) {}
+        try { return JSON.parse(fs.readFileSync(WD + '/new/imagebank/_drip_state.json', 'utf8')); } catch (e) {}
+        return {};
+      };
+      if (req.method !== 'POST') {
+        const st = await readStatus();
+        return send(200, JSON.stringify({ running: dripAlive(), on: !fs.existsSync(OFF), status: st }));
+      }
+      const b = await body();
+      if (String(b.code || '').trim() !== '4444') return send(200, JSON.stringify({ err: 'code 4444 required' }));
+      const wasOn = dripAlive() && !fs.existsSync(OFF);
+      if (wasOn) {
+        try { fs.writeFileSync(OFF, new Date().toISOString()); } catch (e) {}
+        log('DRIP OFF (flag set — stops after the current page)');
+        return send(200, JSON.stringify({ ok: true, on: false }));
+      }
+      try { fs.unlinkSync(OFF); } catch (e) {}
+      const pillar = String(b.pillar || '').trim().toLowerCase();
+      // A pillar change needs a fresh worker (the filter is read at boot) and a fresh cursor,
+      // otherwise the new scope would resume at the old scope's position.
+      if (dripAlive() && pillar !== String(DRIP_PILLAR || '')) { killByPort(DRIP_PORT); DRIP_CHILD = null; }
+      if (pillar !== String(DRIP_PILLAR || '')) {
+        DRIP_PILLAR = pillar;
+        try { fs.unlinkSync(WD + '/new/imagebank/_drip_state.json'); } catch (e) {}
+        try { fs.unlinkSync(WD + '/new/imagebank/_drip_queue.json'); } catch (e) {}
+      }
+      if (!dripAlive()) spawnDrip(Math.max(0, parseInt(b.pace, 10) || 0), pillar);
+      log('DRIP START' + (pillar ? ' pillar=' + pillar : ' whole-library'));
+      return send(200, JSON.stringify({ ok: true, on: true, pillar }));
+    }
+
+    // ── ♻️ RESET A PILLAR (or everything) BACK TO "TO BE RE-RUN" ──────────────────────────
+    // Owner 2026-07-28: "add a reset by pillar to drip … so I can manually put them all or by
+    // pillar back in status to be reran". Clears that pillar's done bookkeeping and stamps a
+    // per-pillar marker, so the dropdown count returns to full and ticks down again from there.
+    if (req.method === 'POST' && u === '/api/resetpillar') {
+      const b = await body();
+      if (String(b.code || '').trim() !== '4444') return send(200, JSON.stringify({ err: 'code 4444 required' }));
+      const p = String(b.pillar || '').toLowerCase().replace(/[^a-z]/g, '');
+      const IBD = WD + '/new/imagebank';
+      try {
+        if (!p || p === 'all') {
+          const { execSync } = require('child_process');
+          execSync('node new/_reset_inventory.js --apply', { cwd: WD, encoding: 'utf8', timeout: 120000 });
+          RESET_TS = resetTs();
+          PILLAR_COUNTS.at = 0;
+          // clear every pillar's back-of-the-line demotions, and reset the drip, same as the per-pillar path
+          try {
+            for (const f of fs.readdirSync(IBD)) if (/^_finisher_[a-z]+_back\.json$/.test(f)) fs.writeFileSync(IBD + '/' + f, '{}');
+          } catch (e) {}
+          try { fs.unlinkSync(IBD + '/_drip_queue.json'); } catch (e) {}
+          try {
+            const sf = IBD + '/_drip_state.json';
+            const st = JSON.parse(fs.readFileSync(sf, 'utf8'));
+            st.cursor = 0; st.fixed = 0; st.alreadyOk = 0; st.missed = 0; st.errors = 0;
+            fs.writeFileSync(sf, JSON.stringify(st, null, 1));
+          } catch (e) {}
+          log('RESET ALL pillars → back in inventory (+ back-lists cleared, drip queue/cursor reset)');
+          return send(200, JSON.stringify({ ok: true, pillar: 'all', dripReset: true }));
+        }
+        if (!PILLARS[p]) return send(200, JSON.stringify({ err: 'unknown pillar ' + p }));
+        // that pillar's crew done-list + claims + BACK-OF-THE-LINE demotions.
+        // 🔧 2026-07-29 — the back-list was being missed. A page that once failed the gate is held at the back
+        // of its pillar forever via _finisher_<p>_back.json; clearing only the done-list meant "reset" put the
+        // pillar back but silently left those pages demoted, so the count said N to do while some of them
+        // stayed at the end of the queue. A reset now genuinely means every page starts equal again.
+        for (const f of ['_finisher_' + p + '_done.json', '_wholecrew_' + p + '_claims.json']) {
+          try { if (fs.existsSync(IBD + '/' + f)) fs.writeFileSync(IBD + '/' + f, '[]'); } catch (e) {}
+        }
+        for (const f of ['_finisher_' + p + '_back.json']) {
+          try { if (fs.existsSync(IBD + '/' + f)) fs.writeFileSync(IBD + '/' + f, '{}'); } catch (e) {}
+        }
+        // per-pillar marker: anything polished before now no longer counts as done for this pillar
+        let marks = {};
+        try { marks = JSON.parse(fs.readFileSync(IBD + '/_reset_marks.json', 'utf8')) || {}; } catch (e) {}
+        marks[p] = Date.now();
+        try { fs.writeFileSync(IBD + '/_reset_marks.json', JSON.stringify(marks)); } catch (e) {}
+        PILLAR_COUNTS.at = 0;                       // force a recount on the next page load
+        // 🩸 RESET THE DRIP TOO (owner 2026-07-29: "need to be the same when I hit reset pillar").
+        // Reset only ever cleared the CREW's bookkeeping, so the drip carried on with the queue and cursor it
+        // built before the reset — its counters stayed stale and disagreed with the hub. Deleting the queue
+        // file and zeroing the cursor makes the drip rebuild from scratch on its next loop, so both machines
+        // are counting the same pillar from the same starting point.
+        try { fs.unlinkSync(IBD + '/_drip_queue.json'); } catch (e) {}
+        try {
+          const sf = IBD + '/_drip_state.json';
+          const st = JSON.parse(fs.readFileSync(sf, 'utf8'));
+          st.cursor = 0; st.fixed = 0; st.alreadyOk = 0; st.missed = 0; st.errors = 0;
+          fs.writeFileSync(sf, JSON.stringify(st, null, 1));
+        } catch (e) {}
+        // 🔄 RESET MEANS THE WHOLE PILLAR (owner 2026-07-29: "when I hit reset pillar it should move them all
+        // back"). Clearing the done-list only frees pages for the CREWS. The drip has a second gate — a 24h
+        // recency window — so after a reset it still saw only the recently-finished subset (73 in the pillar,
+        // 59 eligible). This marker tells the drip to ignore that window for this pillar, so reset genuinely
+        // means every finished page in it goes back on the list. The drip clears the marker once it has
+        // rebuilt, so it is a one-shot instruction rather than a permanent setting.
+        try {
+          let full = {};
+          try { full = JSON.parse(fs.readFileSync(IBD + '/_drip_full_pillar.json', 'utf8')) || {}; } catch (e) {}
+          full[p] = Date.now();
+          fs.writeFileSync(IBD + '/_drip_full_pillar.json', JSON.stringify(full));
+        } catch (e) {}
+        log('RESET pillar ' + p + ' → back in inventory (crew done-list, back-list, claims + drip queue/cursor)');
+        return send(200, JSON.stringify({ ok: true, pillar: p, dripReset: true }));
+      } catch (e) { return send(200, JSON.stringify({ err: String((e && e.message) || e) })); }
     }
 
     // progress + health (read-only)
@@ -913,7 +1509,33 @@ http.createServer(async (req, res) => {
     // 🎯 TARGET PILLAR (owner 2026-07-22): resolve smallest/largest/worst/notfinished → the pillar to gang up on.
     if (u === '/api/targetpillar') { const qp = new URLSearchParams(req.url.split('?')[1] || ''); const mode = qp.get('mode') || 'smallest'; try {
         if (mode === 'notfinished') { let nf = []; try { nf = JSON.parse(fs.readFileSync(WD + '/_not_finished.json', 'utf8')); } catch (e) {} const cnt = {}; for (const x of nf) { const m = String((x && x.id) || '').match(/^([a-z]+)/); if (m) cnt[m[1]] = (cnt[m[1]] || 0) + 1; } const top = Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a])[0]; return send(200, JSON.stringify({ mode, pillar: top || null, left: top ? cnt[top] : 0, label: PILLARS[top] || top || '' })); }
-        if (mode === 'under12') { let inv = null; try { inv = JSON.parse(fs.readFileSync(WD + '/_under12_inventory.json', 'utf8')); } catch (e) {} const by = (inv && inv.byPillar) || {}; let top = Object.keys(by).sort((a, b) => by[b] - by[a])[0]; if (!top) { const idx = await progressIndex(); const cnt = {}; for (const e of (idx.entries || [])) { const id = String((e && e.id) || ''); const m = id.match(/^([a-z]+)/); if (!m) continue; const q = (e.gate_score != null ? e.gate_score : (e.quality_score == null ? 10 : e.quality_score)); if (q < 12) cnt[m[1]] = (cnt[m[1]] || 0) + 1; } top = Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a])[0]; return send(200, JSON.stringify({ mode, pillar: top || null, left: top ? cnt[top] : 0, label: (top ? ((PILLARS[top] || top) + ' · <12/13') : ''), inventory: Object.values(cnt).reduce((a,b)=>a+b,0) })); } return send(200, JSON.stringify({ mode, pillar: top || null, left: top ? by[top] : 0, label: (top ? ((PILLARS[top] || top) + ' · <12/13') : ''), inventory: inv.total || 0 })); }
+        // 🆕 NEW Q&A: the pillar holding the most UNWRITTEN pipeline seeds. A seed is an index row the
+        // generator left `pending:true`; publishContentBody clears the flag, so this count IS the backlog
+        // of brand-new questions with no body yet.
+        if (mode === 'newqa') {
+          const idx = await progressIndex(); const cnt = {};
+          for (const e of (idx.entries || [])) {
+            if (!e || e.pending !== true) continue;
+            const m = String(e.id || '').match(/^([a-z]+)\d/);
+            if (!m || !PILLARS[m[1]]) continue;
+            cnt[m[1]] = (cnt[m[1]] || 0) + 1;
+          }
+          const top = Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a])[0];
+          const tot = Object.values(cnt).reduce((a, b) => a + b, 0);
+          return send(200, JSON.stringify({ mode, pillar: top || null, left: top ? cnt[top] : 0, label: (top ? ((PILLARS[top] || top) + ' · 🆕 new Q&As') : ''), inventory: tot, byPillar: cnt }));
+        }
+        // 📉 UNDER 12 — counted from pillarStatus(), the SAME index pass that produces every pillar row's numbers
+        // (owner 2026-07-28: "less than 12 pillar needs to talk to other pillars so the numbers line up"). The old
+        // path read a stale `_under12_inventory.json` snapshot, which is why this label and the pillar labels
+        // beneath it in the same dropdown never agreed. byPillar is returned so the UI can show the split.
+        if (mode === 'under12') {
+          const st = await pillarStatus();
+          const cnt = {};
+          for (const p of Object.keys(st)) if (st[p].under12) cnt[p] = st[p].under12;
+          const top = Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a])[0];
+          const tot = Object.values(cnt).reduce((a, b) => a + b, 0);
+          return send(200, JSON.stringify({ mode, pillar: top || null, left: top ? cnt[top] : 0, label: (top ? ((PILLARS[top] || top) + ' · <12/13') : ''), inventory: tot, byPillar: cnt }));
+        }
         const idx = await progressIndex(); const by = {};
         for (const e of (idx.entries || [])) { const id = String((e && e.id) || ''); const m = id.match(/^([a-z]+)/); if (!m) continue; const p = m[1]; if (p.length > 3 && !PILLARS[p]) continue; const q = (e.gate_score != null ? e.gate_score : (e.quality_score == null ? 10 : e.quality_score)); if (!by[p]) by[p] = { total: 0, low: 0, bad: 0, sum: 0 }; by[p].total++; by[p].sum += q; if (q < 12) by[p].low++; if (q <= 9) by[p].bad++; }
         const ps = Object.keys(by).filter(p => by[p].low > 0); let pick;
@@ -967,8 +1589,15 @@ http.createServer(async (req, res) => {
         child.on('exit', code => {
           log('GENERATE ' + p + ' finished (exit ' + code + ') — now spawning the zone crew');
           if (pinned) return log('GENERATE zone-crew ' + p + ' → reusing existing');
-          const lr = launch('wholecrew', [p], { engine: 'alternate', stagger: 0, cooldown: 0, roam: false, zone: true });
-          log('GENERATE zone-crew ' + p + ' → ' + JSON.stringify((lr && lr.ok && lr.created && lr.created[0]) || (lr && lr.err)));
+          // Writer for fresh seeds = CC + DS (owner 2026-07-28). Was 'alternate' (DS↔Cursor), which
+          // needed a CURSOR_API_KEY that has never been set — half of every generated batch went to a
+          // writer that could not run.
+          // 🆕 2026-07-28: was `under12`, which pointed the crew at the WHOLE <12 backlog for the pillar
+          // (thousands of old pages) — the fresh seeds were just somewhere in that pile, and the ones it did
+          // reach published as ~650-word stubs because 12/13 is achievable without the word-count point.
+          // `newqa` pins it to pending seeds ONLY and holds each one to ≥12/13 AND the word floor.
+          const lr = launch('wholecrew', [p], { engine: 'ccds', newqa: true, cheap: false, stagger: 0, cooldown: 0, roam: false, zone: true });
+          log('GENERATE zone-crew ' + p + ' → engine ccds · 🆕 newqa (seeds only, full write) · ' + JSON.stringify((lr && lr.ok && lr.created && lr.created[0]) || (lr && lr.err)));
         });
         return send(200, JSON.stringify({ ok: true, pillar: p, count: n, spawned: true, crew: pinned ? { reused: true } : { queued: true } }));
       } catch (e) { return send(200, JSON.stringify({ ok: false, err: String(e.message || e) })); }
@@ -979,7 +1608,13 @@ http.createServer(async (req, res) => {
     if (req.method === 'POST' && u === '/api/requeue') { const b = await body(); if (!gate(b)) return send(200, JSON.stringify({ ok: false, err: 'type 4444' })); try { return send(200, JSON.stringify(requeueFixPile(b.pillar, b.count))); } catch (e) { return send(200, JSON.stringify({ ok: false, err: String(e.message || e) })); } }
 
     // fleet control (all 4444-gated)
-    if (req.method === 'POST' && u === '/api/launch') { const b = await body(); if (!gate(b)) return send(200, JSON.stringify({ ok: false, err: 'type 4444' })); const pillars = Array.isArray(b.pillars) ? b.pillars.filter(p => PILLARS[String(p).split(':')[0]]) : []; if (!pillars.length) return send(200, JSON.stringify({ ok: false, err: 'no pillars' })); return send(200, JSON.stringify(launch(b.type, pillars, b.opts || {}))); }
+    if (req.method === 'POST' && u === '/api/launch') { const b = await body(); if (!gate(b)) return send(200, JSON.stringify({ ok: false, err: 'type 4444' })); const pillars = Array.isArray(b.pillars) ? b.pillars.filter(p => PILLARS[String(p).split(':')[0]]) : []; if (!pillars.length) return send(200, JSON.stringify({ ok: false, err: 'no pillars' }));
+      // ⏸ arm (or clear) the fleet-wide finish limit for THIS batch. Counting restarts with every send, so
+      // "pause after 100" always means 100 from now — not 100 since the hub booted.
+      const lim = Math.max(0, parseInt((b.opts && b.opts.pauseAfter) || 0, 10) || 0);
+      savePauseState(lim ? { limit: lim, done: 0, tripped: false, armedAt: Date.now() } : {});
+      if (lim) log('⏸ pause-after armed — fleet stops at ' + lim + ' finished URLs');
+      return send(200, JSON.stringify(launch(b.type, pillars, b.opts || {}))); }
     if (req.method === 'POST' && u === '/api/stopbox') { const b = await body(); if (!gate(b)) return send(200, JSON.stringify({ ok: false })); return send(200, JSON.stringify(stopBox(b.id))); }
     if (req.method === 'POST' && u === '/api/stopall') { const b = await body(); if (!gate(b)) return send(200, JSON.stringify({ ok: false })); return send(200, JSON.stringify(stopAll())); }
     if (req.method === 'POST' && u === '/api/forceclear') { const b = await body(); if (!gate(b)) return send(200, JSON.stringify({ ok: false, err: 'type 4444' })); return send(200, JSON.stringify(forceClear())); }
@@ -1007,6 +1642,13 @@ http.createServer(async (req, res) => {
     })();
   }
   setInterval(healLoop, 15000);
+  setInterval(pauseAfterTick, 4000);   // ⏸ fleet-wide finish limit — checked often so it stops close to the mark
+  // ⏰ HOURLY NEW Q&A — one brand-new question an hour, 24 a day (owner 2026-07-28).
+  setTimeout(hourlyGenTick, 90000);           // first run 90s after boot, not during startup churn
+  setInterval(hourlyGenTick, HOURLY_GEN_MS);
+  // 🛡 SEO GUARD — armed at boot and kept alive forever (owner 4444 lock).
+  spawnSeoGuard();
+  setInterval(() => { if (!seoGuardAlive()) spawnSeoGuard(); }, 30000);
   // 🔔 PILLAR-COMPLETE WATCHER (owner 2026-07-23): pillarStatus() is what detects a finished pillar and fires the
   // completion email — but it used to run ONLY when a browser had the hub open and polling. With no tab open, a
   // pillar could finish and sit silent forever (Skill Drills finished and the email only went out when the endpoint
