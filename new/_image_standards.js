@@ -232,6 +232,60 @@ async function fetchImage(url) {
   } catch (e) { return null; }
 }
 
+// ── 🦆 DDG IMAGE SEARCH — the provider that can actually find a named product ─────────────
+// Owner 2026-07-29: "you're supposed to be using DDG pollinator ... look at what we did with
+// the drip. use that." This is the drip's ladder, moved here so the CREW leads with it too.
+//
+// Why it matters for Top-10s: Pexels is a stock library and has no photo of a "Logitech MX
+// Master 4" — it never will. DDG is a web image search, so a named model returns the actual
+// product. That is the difference between "a gaming mouse" and "THAT gaming mouse".
+// Keyless, unmetered, throttled, and held to the SAME relevance bar as everything else.
+let _ddgToken = { t: '', at: 0 };
+let _ddgLast = 0;
+let _ddgChain = Promise.resolve();
+const DDG_GAP_MS = parseInt(process.env.DDG_GAP_MS || '5000', 10);
+const _ddgCache = new Map();
+const _DDG_TTL = 6 * 3600 * 1000;
+const _sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+async function ddgOne(query) {
+  const k = String(query).toLowerCase().trim();
+  const hit = _ddgCache.get(k);
+  if (hit && (Date.now() - hit.at) < _DDG_TTL) return hit.p;
+  const gap = DDG_GAP_MS - (Date.now() - _ddgLast);
+  if (gap > 0) await _sleep(gap);
+  _ddgLast = Date.now();
+  try {
+    // DDG needs a short-lived vqd token from the HTML endpoint before the image API will answer.
+    if (!_ddgToken.t || Date.now() - _ddgToken.at > 900000) {
+      const h = await fetch('https://duckduckgo.com/?q=' + encodeURIComponent(query),
+        { headers: { 'user-agent': 'Mozilla/5.0' }, signal: AbortSignal.timeout(20000) });
+      const txt = await h.text();
+      const m = txt.match(/vqd=["']?([-\d]+)["']?/) || txt.match(/vqd=([^&"']+)/);
+      if (!m) return [];
+      _ddgToken = { t: m[1], at: Date.now() };
+      await _sleep(1200);
+    }
+    const u = 'https://duckduckgo.com/i.js?l=us-en&o=json&q=' + encodeURIComponent(query)
+      + '&vqd=' + encodeURIComponent(_ddgToken.t) + '&f=,,,size:Large,,&p=1';
+    const r = await fetch(u, { headers: { 'user-agent': 'Mozilla/5.0', referer: 'https://duckduckgo.com/' }, signal: AbortSignal.timeout(20000) });
+    if (!r.ok) { if (r.status === 403) _ddgToken = { t: '', at: 0 }; return []; }
+    const j = await r.json();
+    const out = (j.results || []).map(x => ({
+      url: x.image, alt: x.title || '', w: x.width || 0, h: x.height || 0,
+      by: x.source || 'ddg', page: x.url || '',
+    })).filter(x => x.url && x.w >= 1200);
+    _ddgCache.set(k, { at: Date.now(), p: out });
+    return out;
+  } catch (e) { return []; }
+}
+
+/** Serialised DDG search — one request at a time, throttled by DDG_GAP_MS. */
+function ddgSearch(query) {
+  _ddgChain = _ddgChain.then(() => ddgOne(query)).catch(() => []);
+  return _ddgChain;
+}
+
 module.exports = {
   PILLAR_CONTEXT,
   AMBIGUOUS_MATCH,
@@ -239,6 +293,8 @@ module.exports = {
   pillarNotes,
   vetoed,
   fetchImage,
+  ddgSearch,
+  DDG_GAP_MS,
   MIN_IMG_BYTES,
   IMG_MAX_W,
   IMG_QUALITY,

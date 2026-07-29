@@ -295,14 +295,35 @@ async function pickImage(query, seen, title, pageQuery) {
   const kw = titleKeywords(title || query);
   const psrc = p => p.src.large2x || p.src.original || p.src.large;
   const pidOf = src => (String(src).match(/\/photos\/(\d+)\//) || [])[1] || '';
+  // Relevance vocabulary: the item's/page's own words PLUS the pillar's visual vocabulary. Computed
+  // here so EVERY provider below — DDG included — is judged by the same bar, exactly as the drip does.
+  const nouns = new Set(kw);
+  for (const w of (STD.PILLAR_CONTEXT[PILLAR] || [])) String(w).split(/\s+/).forEach(x => nouns.add(x.toLowerCase()));
+
+  // 🦆 0. DDG FIRST — the only provider that can find a NAMED product. Pexels is a stock library
+  // and has no photo of a "Logitech MX Master 4"; DDG is a web image search, so a named model
+  // returns the actual product. This is the drip's ladder (DDG → Pexels → pool → generic), now on
+  // the front end too. Keyless and unmetered, and held to the SAME relevance bar as everything else.
+  const ddgList = [];
+  try {
+    const dd = await STD.ddgSearch(query);
+    for (const p of (dd || [])) {
+      if (!p.url) continue;
+      const alt = String(p.alt || '').toLowerCase();
+      if (STD.vetoed(alt, PILLAR)) continue;
+      // Same ambiguity guard as every other provider: an ambiguous-only match is not evidence.
+      if (alt && !STD.altOverlapOk(alt, nouns)) continue;
+      ddgList.push({ src: p.url, isPack: false, pid: p.url, score: 99 });   // DDG leads the order
+    }
+    if (ddgList.length) log('   🦆 DDG "' + String(query).slice(0, 40) + '" → ' + ddgList.length + ' candidate(s)');
+  } catch (e) {}
+
   // 1. TOPIC MATCH — score each Pexels result by keyword overlap of its alt-text with the title, best first
   const topic = [];
   const r = await pexels(query);
   // 🔒 RELEVANCE GATE — same rules as the drip (owner 2026-07-29: "same image standards ... front end").
   // nouns = the title's own words PLUS the pillar's visual vocabulary, so "does this photo belong on
   // THIS page" is judged the same way on both machines.
-  const nouns = new Set(kw);
-  for (const w of (STD.PILLAR_CONTEXT[PILLAR] || [])) String(w).split(/\s+/).forEach(x => nouns.add(x.toLowerCase()));
   let vetoDrop = 0, ambigDrop = 0;
   ((r && r.photos) || []).forEach(p => {
     const src = psrc(p); const alt = String(p.alt || '').toLowerCase();
@@ -337,7 +358,23 @@ async function pickImage(query, seen, title, pageQuery) {
   // 3. LOCAL PACKS — 7900+ pool, random FRESH window (network-free catch-all, no repeats)
   const packs = []; const packPool = packRefs().filter(f => !used.has(f));
   for (let i = 0; i < 80 && packPool.length; i++) { const f = packPool.splice(Math.floor(Math.random() * packPool.length), 1)[0]; packs.push({ src: f, isPack: true, pid: f, score: 0 }); }
-  const order = [...topic, ...fbList, ...packs];
+  // 🌸 POLLINATOR — second rung (owner 2026-07-29: "first option needs to be DDG and then pollinator").
+  // Generative, so it is ON TOPIC by construction — the prompt IS the item's own name, which is why the
+  // alt-overlap test does not apply: there is no third-party alt text to test. One at a time, never
+  // parallel. ⚠️ Body slots only; face cards never reach this rung (that path produced the fake logo).
+  const pollen = [];
+  if (String(process.env.CREW_POLLINATE || '1') === '1') {
+    for (let i = 0; i < 2; i++) {
+      const prompt = String(title || query).slice(0, 120);
+      pollen.push({ src: 'https://image.pollinations.ai/prompt/' + encodeURIComponent(prompt)
+        + '?width=1600&height=1067&nologo=true&seed=' + (i + 1), isPack: false, pid: 'pollen:' + prompt + ':' + i, score: 50 });
+    }
+  }
+  // 🪜 LADDER ORDER (owner 2026-07-29): DDG → Pollinator → local library → Pexels last.
+  // Pexels is deprioritised deliberately — the account is on a quota cooldown, so leading with it
+  // meant every page opened with a 429 and a back-off before anything useful happened. The local
+  // banked pool costs no API call at all, which is why it outranks Pexels while the quota is out.
+  const order = [...ddgList, ...pollen, ...packs, ...topic, ...fbList];
   // PASS 0: fresh (never-used) only. PASS 1: allow reuse ONLY when everything fresh is gone.
   for (let pass = 0; pass < 2; pass++) {
     for (const c of order) {
