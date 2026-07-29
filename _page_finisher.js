@@ -974,6 +974,10 @@ setInterval(tick,1200);tick();
 </script></body></html>`);
 }).listen(PORT, () => {
   if (ROTATE) { const r = loadRot(); r.taken = r.taken || {}; r.taken['box' + BOX_I] = { p: PILLAR, ts: Date.now() }; saveRot(r); }   // claim starting pillar so peers don't jump onto it
+  // 🕐 CODE STAMP — a running crew is frozen at the code it started with; editing this file does
+  // NOT change a live crew. Logging the file's mtime makes a stale crew obvious at a glance instead
+  // of it silently writing pages with yesterday's rules.
+  try { log('🕐 code build ' + fs.statSync(__filename).mtime.toISOString() + ' · template=' + (fs.statSync(WD + '/new/improve_content.js').mtime.toISOString())); } catch (e) {}
   log('👷 whole crew up on :' + PORT + ' pillar=' + PILLAR + ' crew=' + (BOX_I + 1) + '/' + BOX_N + ' write=' + DO_WRITE + (ROTATE ? ' [ROTATE]' : ' [pinned]')
     + (NEWQA ? ' 🆕 [NEW Q&A CREW — seeds only, ≥' + GATE_MIN + '/13 AND ≥' + NEW_MIN_WORDS + 'w]' : '')
     + (FORCE_REWRITE ? ' 🔁 [FORCE REWRITE — every page goes through the writer]' : ''));
