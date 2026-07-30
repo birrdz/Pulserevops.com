@@ -305,7 +305,7 @@ function addFP(id, fp) { loadFP().push({ id, fp }); try { fs.appendFileSync(FPF,
 
 // pick ONE image: best keyword match first, then buildings/architecture/art fallback, then local packs — never
 // a globally-used dupe (unless everything fresh is exhausted) and never the same image twice on a page.
-async function pickImage(query, seen, title) {
+async function pickImage(query, seen, title, slotIdx) {
   const used = usedPex();
   const kw = titleKeywords(title || query);
   const psrc = p => p.src.large2x || p.src.original || p.src.large;
@@ -342,6 +342,8 @@ async function pickImage(query, seen, title) {
       .replace(/\b(open or buy|open|buy|start|own)\b/gi, ' ')
       .replace(/\bin \d{4}\b/g, '').replace(/[?"]/g, '')
       .replace(/\s{2,}/g, ' ').trim();
+    // 11 distinct scenes — one per slot (face card + 10 body), so EVERY image on the page is
+    // generated and no two are the same shot. Owner 2026-07-30: "pollinator for all images".
     const scenes = [
       'professional photograph of a ' + subject + ' storefront exterior, daylight, clean signage',
       'photograph of the interior of a ' + subject + ' location, customers, natural light',
@@ -349,8 +351,33 @@ async function pickImage(query, seen, title) {
       'photograph of a ' + subject + ' owner reviewing paperwork at a counter',
       'wide photograph of a busy ' + subject + ' business during opening hours',
       'photograph of staff preparing a ' + subject + ' location for the day',
+      'photograph of a ' + subject + ' team meeting around a table, documents and laptop',
+      'photograph of equipment and tools used in a ' + subject + ' business, organised on a bench',
+      'photograph of a customer being served at a ' + subject + ' counter, warm light',
+      'photograph of a ' + subject + ' location at dusk, lights on, exterior view',
+      'overhead photograph of a ' + subject + ' workspace, paperwork, calculator and coffee',
+      // extra variety so a whole pillar does not read as the same eleven shots repeated
+      'photograph of a ' + subject + ' training session for new staff, classroom setting',
+      'photograph of a ' + subject + ' delivery or supply drop-off at the back entrance',
+      'photograph of two people shaking hands over a ' + subject + ' franchise agreement',
+      'photograph of a ' + subject + ' shop window display from the pavement',
+      'photograph of a ' + subject + ' manager checking inventory on a tablet',
+      'photograph of a queue of customers outside a popular ' + subject + ' location',
+      'photograph of a newly fitted-out ' + subject + ' unit before opening, empty and clean',
+      'photograph of a ' + subject + ' business owner on the phone in a small back office',
+      'photograph of signage and branding installation at a ' + subject + ' location',
+      'aerial photograph of a retail plaza containing a ' + subject + ' unit',
+      'photograph of a ' + subject + ' point-of-sale terminal and payment being taken',
+      'photograph of a ' + subject + ' crew loading a van early in the morning',
+      'photograph of a family visiting a ' + subject + ' location together',
+      'photograph of a ' + subject + ' back-of-house prep area, clean and organised',
     ];
-    for (let i = 0; i < scenes.length; i++) {
+    // Slot N generates ITS OWN scene first. Without this, slot 5 walks scenes 1-4 (already in
+    // `seen` from earlier slots) before reaching its own — 4 wasted generations at 15s apiece.
+    // Its own scene leads; the rest follow only as fallback if that one fails to download.
+    const base = Number.isFinite(slotIdx) ? (slotIdx % scenes.length) : 0;
+    const orderIdx = [base, ...scenes.map((_, k) => k).filter(k => k !== base)];
+    for (const i of orderIdx) {
       const prompt = scenes[i].slice(0, 200);
       pollen.push({
         src: 'https://image.pollinations.ai/prompt/' + encodeURIComponent(prompt)
@@ -658,14 +685,14 @@ async function finishPage(id, blob) {
   await acquireImgLock();   // 🚦 wait my turn — only one crew places images at a time (no connection hammering)
   setStage('face');
   // 2. FACE CARD / HERO cover
-  const cov = await pickImage(q, seen, title);
+  const cov = await pickImage(q, seen, title, 0);            // face card / hero = scene 0
   if (!cov) netFail = true;   // couldn't even fetch an image → network is down
   else { const OUT = WD + '/new/output/' + id; try { fs.mkdirSync(OUT, { recursive: true }); fs.writeFileSync(OUT + '/facecard.jpg', cov.buf); fs.writeFileSync(OUT + '/meta.json', JSON.stringify({ id, faceCard: 'facecard.jpg' })); await retryNet(() => publishFaceImageOnly(id)); addUsedPex([cov.pid]); coverOk = true; log(id + ' cover'); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' cover err ' + ((e && e.message) || e)); } }
   setStage('hero');   // face image doubles as the hero → mark hero done so its cell greens right after Face
   // 3. BODY 1..N
   for (let n = 1; n <= bodyN; n++) {
     setStage('body' + n);
-    const img = await pickImage(q, seen, title);
+    const img = await pickImage(q, seen, title, n);         // body slot n = scene n
     if (!img) { netFail = true; break; }
     try { await retryNet(() => publishBodySlot(id, img.buf, n)); addUsedPex([img.pid]); bodyOk++; log(id + ' body ' + n); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' body ' + n + ' err ' + ((e && e.message) || e)); }
     touchImgLock();   // keep my turn alive during the image burst
