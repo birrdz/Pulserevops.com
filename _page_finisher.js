@@ -15,6 +15,11 @@ let claudeUnbenched = () => false; try { ({ claudeUnbenched } = require('./new/_
 const { publishContentBody, publishFaceImageOnly, publishBodySlot } = require('./new/publish_core');
 let emailEntryDone = () => {}; try { ({ emailEntryDone } = require('./_entry_done_email')); } catch (e) {}
 let sharp = null; try { sharp = require('sharp'); } catch (e) {}
+// 🦆 real photos of real named businesses + the per-pillar source map (one place, both machines)
+let DDGIMG = { franchiseBrand: () => '', brandPhotos: async () => [] };
+let IMGSRC = { usesBrandPhotos: () => false };
+try { DDGIMG = require('./new/_ddg_images'); } catch (e) {}
+try { IMGSRC = require('./new/_pillar_image_sources'); } catch (e) {}
 let PILLAR = (process.env.SLOT_PILLAR || process.env.DEFAULT_PILLAR || 'tl').toLowerCase().replace(/[^a-z]/g, '');
 // ROTATION (owner 2026-07-21): a small-pillar crew (ROTATE=1) that FINISHES its pillar jumps to the next
 // un-taken small Q&A pillar — never the same one twice. The tl crew launches WITHOUT ROTATE and stays on tl.
@@ -284,7 +289,7 @@ function addFP(id, fp) { loadFP().push({ id, fp }); try { fs.appendFileSync(FPF,
 
 // pick ONE image: best keyword match first, then buildings/architecture/art fallback, then local packs — never
 // a globally-used dupe (unless everything fresh is exhausted) and never the same image twice on a page.
-async function pickImage(query, seen, title) {
+async function pickImage(query, seen, title, pool) {
   const used = usedPex();
   const kw = titleKeywords(title || query);
   const psrc = p => p.src.large2x || p.src.original || p.src.large;
@@ -301,7 +306,9 @@ async function pickImage(query, seen, title) {
   // 3. LOCAL PACKS — 7900+ pool, random FRESH window (network-free catch-all, no repeats)
   const packs = []; const packPool = packRefs().filter(f => !used.has(f));
   for (let i = 0; i < 80 && packPool.length; i++) { const f = packPool.splice(Math.floor(Math.random() * packPool.length), 1)[0]; packs.push({ src: f, isPack: true, pid: f, score: 0 }); }
-  const order = [...topic, ...fbList, ...packs];
+  // Verified real photos of the named business lead, then topical stock, then generic, then packs.
+  const brandCands = (pool || []).map(p => ({ src: p.url, isPack: false, pid: p.url, score: 100 }));
+  const order = [...brandCands, ...topic, ...fbList, ...packs];
   // PASS 0: fresh (never-used) only. PASS 1: allow reuse ONLY when everything fresh is gone.
   for (let pass = 0; pass < 2; pass++) {
     for (const c of order) {
@@ -590,20 +597,38 @@ async function finishPage(id, blob) {
   const bodyN = Math.max(2, Math.min(6, Math.round(words / 450)));   // how many body images this length holds
   const q = deriveQuery(title);
   const seen = new Set();
+  // 🦆 BRAND PHOTO POOL — pillars whose titles name a REAL business get real photos of that
+  // business (owner 2026-07-30: franchises need "a picture of the store"). Fetched ONCE per page,
+  // not per slot: brandPhotos() walks several DDG queries at a 5s serialised gap, so doing it 11
+  // times would add minutes per page for no benefit. Every candidate is verified to actually be
+  // this business (contiguous brand phrase + premises evidence, off-topic subjects rejected).
+  // Which pillars use this lives in new/_pillar_image_sources.js — one place, both machines.
+  let brandPool = [];
+  if (IMGSRC.usesBrandPhotos(PILLAR)) {
+    const brand = DDGIMG.franchiseBrand(title);
+    if (brand) {
+      try {
+        brandPool = await DDGIMG.brandPhotos(brand, bodyN + 1);
+        log(id + ' 🦆 "' + brand + '" → ' + brandPool.length + ' verified real photo(s) of the business');
+      } catch (e) { log(id + ' 🦆 brand photo lookup failed — ' + ((e && e.message) || e)); }
+    } else {
+      log(id + ' 🦆 no single brand in title — generic imagery (correct for a multi-company page)');
+    }
+  }
   claim(id);   // heartbeat: refresh our claim now that writing (the slow step) is done
   let netFail = false, coverOk = false, bodyOk = 0;
   setStage('lock');
   await acquireImgLock();   // 🚦 wait my turn — only one crew places images at a time (no connection hammering)
   setStage('face');
   // 2. FACE CARD / HERO cover
-  const cov = await pickImage(q, seen, title);
+  const cov = await pickImage(q, seen, title, brandPool);
   if (!cov) netFail = true;   // couldn't even fetch an image → network is down
   else { const OUT = WD + '/new/output/' + id; try { fs.mkdirSync(OUT, { recursive: true }); fs.writeFileSync(OUT + '/facecard.jpg', cov.buf); fs.writeFileSync(OUT + '/meta.json', JSON.stringify({ id, faceCard: 'facecard.jpg' })); await retryNet(() => publishFaceImageOnly(id)); addUsedPex([cov.pid]); coverOk = true; log(id + ' cover'); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' cover err ' + ((e && e.message) || e)); } }
   setStage('hero');   // face image doubles as the hero → mark hero done so its cell greens right after Face
   // 3. BODY 1..N
   for (let n = 1; n <= bodyN; n++) {
     setStage('body' + n);
-    const img = await pickImage(q, seen, title);
+    const img = await pickImage(q, seen, title, brandPool);
     if (!img) { netFail = true; break; }
     try { await retryNet(() => publishBodySlot(id, img.buf, n)); addUsedPex([img.pid]); bodyOk++; log(id + ' body ' + n); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' body ' + n + ' err ' + ((e && e.message) || e)); }
     touchImgLock();   // keep my turn alive during the image burst
