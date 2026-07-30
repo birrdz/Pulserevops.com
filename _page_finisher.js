@@ -258,7 +258,11 @@ async function flushPendingEmails() {
 }
 
 function pexels(q) { return new Promise(res => { if (!PEXELS) return res(null); const req = https.get('https://api.pexels.com/v1/search?per_page=80&orientation=landscape&query=' + encodeURIComponent(q || 'business'), { headers: { Authorization: PEXELS }, timeout: 7000 }, r => { let s = ''; r.on('data', d => s += d); r.on('end', () => { try { res(JSON.parse(s)); } catch (e) { res(null); } }); }); req.on('error', () => res(null)); req.on('timeout', () => { try { req.destroy(); } catch (e) {} res(null); }); }); }
-function dl(url) { return new Promise(res => { const req = https.get(url, { timeout: 12000 }, r => { if (r.statusCode !== 200) { r.resume(); return res(null); } const c = []; r.on('data', d => c.push(d)); r.on('end', () => res(Buffer.concat(c))); }); req.on('error', () => res(null)); req.on('timeout', () => { try { req.destroy(); } catch (e) {} res(null); }); }); }
+function dl(url) { return new Promise(res => {
+  // Protocol-agnostic: an http:// candidate used to throw 'Protocol "http:" not supported' out of
+  // https.get() and take the whole image loop down with it (fr0247 stopped after 2 of 11 images).
+  let mod = https; try { mod = /^http:\/\//i.test(String(url)) ? require('http') : https; } catch (e) {}
+  const req = mod.get(url, { timeout: 12000, headers: { 'user-agent': 'Mozilla/5.0' } }, r => { if (r.statusCode !== 200) { r.resume(); return res(null); } const c = []; r.on('data', d => c.push(d)); r.on('end', () => res(Buffer.concat(c))); }); req.on('error', () => res(null)); req.on('timeout', () => { try { req.destroy(); } catch (e) {} res(null); }); }); }
 async function fmt(buf) { if (!sharp) return buf; const W = 1200, H = 675; try { const bg = await sharp(buf).resize(W, H, { fit: 'cover', position: sharp.strategy.attention }).blur(26).modulate({ brightness: 0.55 }).toBuffer(); const fg = await sharp(buf).resize(W, H, { fit: 'inside' }).toBuffer(); return await sharp(bg).composite([{ input: fg, gravity: 'center' }]).jpeg({ quality: 86 }).toBuffer(); } catch (e) { return buf; } }
 const STOP = new Set('the a an and or for you your what how when why who are can does did best top key guide list most common know before about with from that this into of to in on is it revops business company 2024 2025 2026 2027 2028'.split(' '));
 function deriveQuery(t) { return String(t || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w.length > 3 && !STOP.has(w)).slice(0, 3).join(' ') || 'business office'; }

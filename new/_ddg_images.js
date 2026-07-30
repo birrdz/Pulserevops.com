@@ -50,7 +50,9 @@ async function one(query) {
     const j = await r.json();
     const out = (j.results || [])
       .map(x => ({ url: x.image, alt: x.title || '', w: x.width || 0, h: x.height || 0, by: x.source || 'ddg', page: x.url || '' }))
-      .filter(x => x.url && x.w >= MIN_W);
+      // https ONLY: the crew's downloader is https.get(), which throws
+      // 'Protocol "http:" not supported' on a plain-http URL and kills the page's image loop.
+      .filter(x => x.url && /^https:\/\//i.test(x.url) && x.w >= MIN_W);
     _cache.set(key, { at: Date.now(), p: out });
     return out;
   } catch (e) { return []; }
