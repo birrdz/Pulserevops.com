@@ -258,27 +258,6 @@ async function fmt(buf) { if (!sharp) return buf; const W = 1200, H = 675; try {
 const STOP = new Set('the a an and or for you your what how when why who are can does did best top key guide list most common know before about with from that this into of to in on is it revops business company 2024 2025 2026 2027 2028'.split(' '));
 function deriveQuery(t) { return String(t || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w.length > 3 && !STOP.has(w)).slice(0, 3).join(' ') || 'business office'; }
 // fallback that "goes with everything" (owner rule 2026-07-21): buildings / architecture / artwork / art
-// 🌸 Pollinator toggle + a stable per-title seed so the SAME page always regenerates the SAME
-// image (idempotent re-runs) while DIFFERENT pages never collide. Default ON: Pexels is on quota
-// cooldown and generated images cannot recycle the way the banked pool does.
-const POLLINATE = String(process.env.CREW_POLLINATE || '1') === '1';
-// 🌸 ONE AT A TIME, NEVER PARALLEL (owner 2026-07-30: "1 image at a time", "non-parallel").
-// Every generated image is serialised through this chain with a fixed gap, so however many crews
-// are running there is only ever ONE Pollinations request in flight across the whole process.
-const POLLEN_GAP_MS = parseInt(process.env.CREW_POLLEN_GAP_MS || '15000', 10);
-let _pollenChain = Promise.resolve();
-let _pollenLast = 0;
-function pollenFetch(url) {
-  _pollenChain = _pollenChain.then(async () => {
-    const gap = POLLEN_GAP_MS - (Date.now() - _pollenLast);
-    if (gap > 0) await sleep(gap);
-    _pollenLast = Date.now();
-    return dl(url);
-  }).catch(() => null);
-  return _pollenChain;
-}
-function hashStr(s) { let h = 0; const t = String(s || ''); for (let i = 0; i < t.length; i++) { h = ((h << 5) - h + t.charCodeAt(i)) | 0; } return h; }
-
 const FALLBACK = ['buildings', 'architecture', 'modern architecture', 'artwork', 'abstract art', 'fine art', 'city skyline'];
 const KWSTOP = new Set('the a an and or for you your what how when why who are can could would should will hire hiring fractional in of to on is it at with from best top 2024 2025 2026 2027 2028 2029 revops company business'.split(' '));
 function titleKeywords(t) { return String(t || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w.length > 3 && !KWSTOP.has(w)); }
@@ -305,7 +284,7 @@ function addFP(id, fp) { loadFP().push({ id, fp }); try { fs.appendFileSync(FPF,
 
 // pick ONE image: best keyword match first, then buildings/architecture/art fallback, then local packs — never
 // a globally-used dupe (unless everything fresh is exhausted) and never the same image twice on a page.
-async function pickImage(query, seen, title, slotIdx) {
+async function pickImage(query, seen, title) {
   const used = usedPex();
   const kw = titleKeywords(title || query);
   const psrc = p => p.src.large2x || p.src.original || p.src.large;
@@ -322,80 +301,12 @@ async function pickImage(query, seen, title, slotIdx) {
   // 3. LOCAL PACKS — 7900+ pool, random FRESH window (network-free catch-all, no repeats)
   const packs = []; const packPool = packRefs().filter(f => !used.has(f));
   for (let i = 0; i < 80 && packPool.length; i++) { const f = packPool.splice(Math.floor(Math.random() * packPool.length), 1)[0]; packs.push({ src: f, isPack: true, pid: f, score: 0 }); }
-  // 🌸 POLLINATOR — GENERATE the image instead of searching for one (owner 2026-07-30: "do
-  // pollinator ... create the images needed"). Pexels is on quota cooldown, and with several crews
-  // on one pillar the fresh-candidate pool empties fast and PASS 1 starts recycling: three franchise
-  // pages were verified sharing the same photos byte-for-byte. Generated images can never recycle —
-  // every page gets its own, seeded from its own topic — and there is no quota to exhaust.
-  //
-  // Prompt is the page's own subject, so it is on-topic by construction (no third-party alt text to
-  // test, which is why the relevance gate does not apply to this rung).
-  //
-  // ⚠️ NEVER PROMPTED FOR A LOGO OR BRAND MARK. A generated "Five Guys logo" is a fabricated
-  // trademark, not that company's logo — that is the fake-logo incident, and it is worse than a
-  // generic photo because it misrepresents a real business. Prompts describe the BUSINESS SCENE
-  // (storefront, service van, crew at work) which is honest imagery for a franchise page.
-  const pollen = [];
-  if (POLLINATE) {
-    const subject = String(title || query)
-      .replace(/^\s*(?:should i|how do i|what|which|is|are|can|does|do)\b/i, '')
-      .replace(/\b(open or buy|open|buy|start|own)\b/gi, ' ')
-      .replace(/\bin \d{4}\b/g, '').replace(/[?"]/g, '')
-      .replace(/\s{2,}/g, ' ').trim();
-    // 11 distinct scenes — one per slot (face card + 10 body), so EVERY image on the page is
-    // generated and no two are the same shot. Owner 2026-07-30: "pollinator for all images".
-    const scenes = [
-      'professional photograph of a ' + subject + ' storefront exterior, daylight, clean signage',
-      'photograph of the interior of a ' + subject + ' location, customers, natural light',
-      'photograph of a ' + subject + ' service vehicle and uniformed crew at work',
-      'photograph of a ' + subject + ' owner reviewing paperwork at a counter',
-      'wide photograph of a busy ' + subject + ' business during opening hours',
-      'photograph of staff preparing a ' + subject + ' location for the day',
-      'photograph of a ' + subject + ' team meeting around a table, documents and laptop',
-      'photograph of equipment and tools used in a ' + subject + ' business, organised on a bench',
-      'photograph of a customer being served at a ' + subject + ' counter, warm light',
-      'photograph of a ' + subject + ' location at dusk, lights on, exterior view',
-      'overhead photograph of a ' + subject + ' workspace, paperwork, calculator and coffee',
-      // extra variety so a whole pillar does not read as the same eleven shots repeated
-      'photograph of a ' + subject + ' training session for new staff, classroom setting',
-      'photograph of a ' + subject + ' delivery or supply drop-off at the back entrance',
-      'photograph of two people shaking hands over a ' + subject + ' franchise agreement',
-      'photograph of a ' + subject + ' shop window display from the pavement',
-      'photograph of a ' + subject + ' manager checking inventory on a tablet',
-      'photograph of a queue of customers outside a popular ' + subject + ' location',
-      'photograph of a newly fitted-out ' + subject + ' unit before opening, empty and clean',
-      'photograph of a ' + subject + ' business owner on the phone in a small back office',
-      'photograph of signage and branding installation at a ' + subject + ' location',
-      'aerial photograph of a retail plaza containing a ' + subject + ' unit',
-      'photograph of a ' + subject + ' point-of-sale terminal and payment being taken',
-      'photograph of a ' + subject + ' crew loading a van early in the morning',
-      'photograph of a family visiting a ' + subject + ' location together',
-      'photograph of a ' + subject + ' back-of-house prep area, clean and organised',
-    ];
-    // Slot N generates ITS OWN scene first. Without this, slot 5 walks scenes 1-4 (already in
-    // `seen` from earlier slots) before reaching its own — 4 wasted generations at 15s apiece.
-    // Its own scene leads; the rest follow only as fallback if that one fails to download.
-    const base = Number.isFinite(slotIdx) ? (slotIdx % scenes.length) : 0;
-    const orderIdx = [base, ...scenes.map((_, k) => k).filter(k => k !== base)];
-    for (const i of orderIdx) {
-      const prompt = scenes[i].slice(0, 200);
-      pollen.push({
-        src: 'https://image.pollinations.ai/prompt/' + encodeURIComponent(prompt)
-             + '?width=1600&height=1067&nologo=true&seed=' + (Math.abs(hashStr(title + ':' + i)) % 100000),
-        isPack: false, pid: 'pollen:' + i + ':' + prompt.slice(0, 40), score: 60,
-      });
-    }
-  }
-  // Generated first while Pexels is cooling; real photos still get a look after.
-  const order = POLLINATE ? [...pollen, ...topic, ...fbList, ...packs] : [...topic, ...fbList, ...packs];
+  const order = [...topic, ...fbList, ...packs];
   // PASS 0: fresh (never-used) only. PASS 1: allow reuse ONLY when everything fresh is gone.
   for (let pass = 0; pass < 2; pass++) {
     for (const c of order) {
       if (pass === 0 && c.pid && used.has(c.pid)) continue;
-      const isPollen = !c.isPack && /image\.pollinations\.ai/.test(String(c.src));
-      const raw = c.isPack ? readPack(c.src)
-                : isPollen ? await pollenFetch(c.src)      // 🌸 serial, throttled, one at a time
-                : await dl(c.src);
+      const raw = c.isPack ? readPack(c.src) : await dl(c.src);
       if (!raw || raw.length < 2500) continue;
       const buf = await fmt(raw);
       const h = crypto.createHash('md5').update(buf).digest('hex');
@@ -676,10 +587,7 @@ async function finishPage(id, blob) {
     CUR = ''; setStage('idle'); return;
   }
   const words = String((blob && blob.answer) || '').replace(/[#>*`~\[\]()>-]/g, ' ').split(/\s+/).filter(Boolean).length;
-  // 🖼 ELEVEN IMAGES, FIXED (owner 2026-07-30: "do the 11"). 1 face/hero + 10 body on every page.
-  // Never derived from word count: round(words/450) gave a 2,300-word page 5 images and a
-  // 2,700-word page 6, so the layout changed page to page for no reason anybody chose.
-  const bodyN = Math.max(1, Math.min(10, parseInt(process.env.CREW_BODY_IMAGES || '10', 10)));
+  const bodyN = Math.max(2, Math.min(6, Math.round(words / 450)));   // how many body images this length holds
   const q = deriveQuery(title);
   const seen = new Set();
   claim(id);   // heartbeat: refresh our claim now that writing (the slow step) is done
@@ -688,14 +596,14 @@ async function finishPage(id, blob) {
   await acquireImgLock();   // 🚦 wait my turn — only one crew places images at a time (no connection hammering)
   setStage('face');
   // 2. FACE CARD / HERO cover
-  const cov = await pickImage(q, seen, title, 0);            // face card / hero = scene 0
+  const cov = await pickImage(q, seen, title);
   if (!cov) netFail = true;   // couldn't even fetch an image → network is down
   else { const OUT = WD + '/new/output/' + id; try { fs.mkdirSync(OUT, { recursive: true }); fs.writeFileSync(OUT + '/facecard.jpg', cov.buf); fs.writeFileSync(OUT + '/meta.json', JSON.stringify({ id, faceCard: 'facecard.jpg' })); await retryNet(() => publishFaceImageOnly(id)); addUsedPex([cov.pid]); coverOk = true; log(id + ' cover'); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' cover err ' + ((e && e.message) || e)); } }
   setStage('hero');   // face image doubles as the hero → mark hero done so its cell greens right after Face
   // 3. BODY 1..N
   for (let n = 1; n <= bodyN; n++) {
     setStage('body' + n);
-    const img = await pickImage(q, seen, title, n);         // body slot n = scene n
+    const img = await pickImage(q, seen, title);
     if (!img) { netFail = true; break; }
     try { await retryNet(() => publishBodySlot(id, img.buf, n)); addUsedPex([img.pid]); bodyOk++; log(id + ' body ' + n); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' body ' + n + ' err ' + ((e && e.message) || e)); }
     touchImgLock();   // keep my turn alive during the image burst
