@@ -676,7 +676,10 @@ async function finishPage(id, blob) {
     CUR = ''; setStage('idle'); return;
   }
   const words = String((blob && blob.answer) || '').replace(/[#>*`~\[\]()>-]/g, ' ').split(/\s+/).filter(Boolean).length;
-  const bodyN = Math.max(2, Math.min(6, Math.round(words / 450)));   // how many body images this length holds
+  // 🖼 ELEVEN IMAGES, FIXED (owner 2026-07-30: "do the 11"). 1 face/hero + 10 body on every page.
+  // Never derived from word count: round(words/450) gave a 2,300-word page 5 images and a
+  // 2,700-word page 6, so the layout changed page to page for no reason anybody chose.
+  const bodyN = Math.max(1, Math.min(10, parseInt(process.env.CREW_BODY_IMAGES || '10', 10)));
   const q = deriveQuery(title);
   const seen = new Set();
   claim(id);   // heartbeat: refresh our claim now that writing (the slow step) is done
