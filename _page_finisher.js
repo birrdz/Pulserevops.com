@@ -263,6 +263,8 @@ async function fmt(buf) { if (!sharp) return buf; const W = 1200, H = 675; try {
 const STOP = new Set('the a an and or for you your what how when why who are can does did best top key guide list most common know before about with from that this into of to in on is it revops business company 2024 2025 2026 2027 2028'.split(' '));
 function deriveQuery(t) { return String(t || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w.length > 3 && !STOP.has(w)).slice(0, 3).join(' ') || 'business office'; }
 // fallback that "goes with everything" (owner rule 2026-07-21): buildings / architecture / artwork / art
+function hashPid(x){let h=0;const t=String(x||'');for(let i=0;i<t.length;i++){h=((h<<5)-h+t.charCodeAt(i))|0;}return h;}
+
 const FALLBACK = ['buildings', 'architecture', 'modern architecture', 'artwork', 'abstract art', 'fine art', 'city skyline'];
 const KWSTOP = new Set('the a an and or for you your what how when why who are can could would should will hire hiring fractional in of to on is it at with from best top 2024 2025 2026 2027 2028 2029 revops company business'.split(' '));
 function titleKeywords(t) { return String(t || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w.length > 3 && !KWSTOP.has(w)); }
@@ -306,9 +308,33 @@ async function pickImage(query, seen, title, pool) {
   // 3. LOCAL PACKS — 7900+ pool, random FRESH window (network-free catch-all, no repeats)
   const packs = []; const packPool = packRefs().filter(f => !used.has(f));
   for (let i = 0; i < 80 && packPool.length; i++) { const f = packPool.splice(Math.floor(Math.random() * packPool.length), 1)[0]; packs.push({ src: f, isPack: true, pid: f, score: 0 }); }
-  // Verified real photos of the named business lead, then topical stock, then generic, then packs.
-  const brandCands = (pool || []).map(p => ({ src: p.url, isPack: false, pid: p.url, score: 100 }));
-  const order = [...brandCands, ...topic, ...fbList, ...packs];
+  // 🪜 THE LADDER (owner 2026-07-30: "every image thing has a chance until we get it right").
+  // Each slot walks these rungs IN ORDER and takes the first candidate that downloads, decodes,
+  // isn't blank/white and isn't already on this page. The next slot starts over at rung 1, so the
+  // best source always gets first refusal — it just can't hand out the same photo twice.
+  //
+  //   1. ddg-brand   real photos of the named business (fr) — verified brand phrase + premises
+  //   2. pexels      topical stock scored on alt-text overlap
+  //   3. pexels      generic fallback (buildings / architecture / art)
+  //   4. local pool  7,953 banked images on disk, zero API calls
+  //   5. pollinator  generated, last resort — a slot is never left empty
+  const brandCands = (pool || []).map(p => ({ src: p.url, isPack: false, pid: p.url, score: 100, rung: 'ddg-brand' }));
+  const lastResort = [];
+  if (String(process.env.CREW_POLLINATE_LAST || '1') === '1') {
+    const subj = String(title || query).replace(/[?"]/g, '').slice(0, 120);
+    lastResort.push({
+      src: 'https://image.pollinations.ai/prompt/' + encodeURIComponent('professional photograph, ' + subj)
+           + '?width=1280&height=853&nologo=true&seed=' + (Math.abs(hashPid(subj)) % 100000),
+      isPack: false, pid: 'pollen:' + subj.slice(0, 40), score: 0, rung: 'pollinator',
+    });
+  }
+  const order = [
+    ...brandCands,
+    ...topic.map(c => Object.assign({ rung: 'pexels-topic' }, c)),
+    ...fbList.map(c => Object.assign({ rung: 'pexels-generic' }, c)),
+    ...packs.map(c => Object.assign({ rung: 'local-pool' }, c)),
+    ...lastResort,
+  ];
   // PASS 0: fresh (never-used) only. PASS 1: allow reuse ONLY when everything fresh is gone.
   for (let pass = 0; pass < 2; pass++) {
     for (const c of order) {
@@ -319,7 +345,7 @@ async function pickImage(query, seen, title, pool) {
       const h = crypto.createHash('md5').update(buf).digest('hex');
       if (seen.has(h)) continue;   // never the same image twice on one page
       seen.add(h);
-      return { buf, pid: c.pid };
+      return { buf, pid: c.pid, rung: c.rung || 'unknown' };
     }
   }
   return null;
@@ -623,14 +649,14 @@ async function finishPage(id, blob) {
   // 2. FACE CARD / HERO cover
   const cov = await pickImage(q, seen, title, brandPool);
   if (!cov) netFail = true;   // couldn't even fetch an image → network is down
-  else { const OUT = WD + '/new/output/' + id; try { fs.mkdirSync(OUT, { recursive: true }); fs.writeFileSync(OUT + '/facecard.jpg', cov.buf); fs.writeFileSync(OUT + '/meta.json', JSON.stringify({ id, faceCard: 'facecard.jpg' })); await retryNet(() => publishFaceImageOnly(id)); addUsedPex([cov.pid]); coverOk = true; log(id + ' cover'); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' cover err ' + ((e && e.message) || e)); } }
+  else { const OUT = WD + '/new/output/' + id; try { fs.mkdirSync(OUT, { recursive: true }); fs.writeFileSync(OUT + '/facecard.jpg', cov.buf); fs.writeFileSync(OUT + '/meta.json', JSON.stringify({ id, faceCard: 'facecard.jpg' })); await retryNet(() => publishFaceImageOnly(id)); addUsedPex([cov.pid]); coverOk = true; log(id + ' cover · ' + (cov.rung || '?')); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' cover err ' + ((e && e.message) || e)); } }
   setStage('hero');   // face image doubles as the hero → mark hero done so its cell greens right after Face
   // 3. BODY 1..N
   for (let n = 1; n <= bodyN; n++) {
     setStage('body' + n);
     const img = await pickImage(q, seen, title, brandPool);
     if (!img) { netFail = true; break; }
-    try { await retryNet(() => publishBodySlot(id, img.buf, n)); addUsedPex([img.pid]); bodyOk++; log(id + ' body ' + n); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' body ' + n + ' err ' + ((e && e.message) || e)); }
+    try { await retryNet(() => publishBodySlot(id, img.buf, n)); addUsedPex([img.pid]); bodyOk++; log(id + ' body ' + n + ' · ' + (img.rung || '?')); } catch (e) { if (isNetErr(e)) netFail = true; log(id + ' body ' + n + ' err ' + ((e && e.message) || e)); }
     touchImgLock();   // keep my turn alive during the image burst
     await sleep(200);
   }
