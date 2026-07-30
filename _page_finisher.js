@@ -258,6 +258,27 @@ async function fmt(buf) { if (!sharp) return buf; const W = 1200, H = 675; try {
 const STOP = new Set('the a an and or for you your what how when why who are can does did best top key guide list most common know before about with from that this into of to in on is it revops business company 2024 2025 2026 2027 2028'.split(' '));
 function deriveQuery(t) { return String(t || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w.length > 3 && !STOP.has(w)).slice(0, 3).join(' ') || 'business office'; }
 // fallback that "goes with everything" (owner rule 2026-07-21): buildings / architecture / artwork / art
+// 🌸 Pollinator toggle + a stable per-title seed so the SAME page always regenerates the SAME
+// image (idempotent re-runs) while DIFFERENT pages never collide. Default ON: Pexels is on quota
+// cooldown and generated images cannot recycle the way the banked pool does.
+const POLLINATE = String(process.env.CREW_POLLINATE || '1') === '1';
+// 🌸 ONE AT A TIME, NEVER PARALLEL (owner 2026-07-30: "1 image at a time", "non-parallel").
+// Every generated image is serialised through this chain with a fixed gap, so however many crews
+// are running there is only ever ONE Pollinations request in flight across the whole process.
+const POLLEN_GAP_MS = parseInt(process.env.CREW_POLLEN_GAP_MS || '15000', 10);
+let _pollenChain = Promise.resolve();
+let _pollenLast = 0;
+function pollenFetch(url) {
+  _pollenChain = _pollenChain.then(async () => {
+    const gap = POLLEN_GAP_MS - (Date.now() - _pollenLast);
+    if (gap > 0) await sleep(gap);
+    _pollenLast = Date.now();
+    return dl(url);
+  }).catch(() => null);
+  return _pollenChain;
+}
+function hashStr(s) { let h = 0; const t = String(s || ''); for (let i = 0; i < t.length; i++) { h = ((h << 5) - h + t.charCodeAt(i)) | 0; } return h; }
+
 const FALLBACK = ['buildings', 'architecture', 'modern architecture', 'artwork', 'abstract art', 'fine art', 'city skyline'];
 const KWSTOP = new Set('the a an and or for you your what how when why who are can could would should will hire hiring fractional in of to on is it at with from best top 2024 2025 2026 2027 2028 2029 revops company business'.split(' '));
 function titleKeywords(t) { return String(t || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w.length > 3 && !KWSTOP.has(w)); }
@@ -301,12 +322,53 @@ async function pickImage(query, seen, title) {
   // 3. LOCAL PACKS — 7900+ pool, random FRESH window (network-free catch-all, no repeats)
   const packs = []; const packPool = packRefs().filter(f => !used.has(f));
   for (let i = 0; i < 80 && packPool.length; i++) { const f = packPool.splice(Math.floor(Math.random() * packPool.length), 1)[0]; packs.push({ src: f, isPack: true, pid: f, score: 0 }); }
-  const order = [...topic, ...fbList, ...packs];
+  // 🌸 POLLINATOR — GENERATE the image instead of searching for one (owner 2026-07-30: "do
+  // pollinator ... create the images needed"). Pexels is on quota cooldown, and with several crews
+  // on one pillar the fresh-candidate pool empties fast and PASS 1 starts recycling: three franchise
+  // pages were verified sharing the same photos byte-for-byte. Generated images can never recycle —
+  // every page gets its own, seeded from its own topic — and there is no quota to exhaust.
+  //
+  // Prompt is the page's own subject, so it is on-topic by construction (no third-party alt text to
+  // test, which is why the relevance gate does not apply to this rung).
+  //
+  // ⚠️ NEVER PROMPTED FOR A LOGO OR BRAND MARK. A generated "Five Guys logo" is a fabricated
+  // trademark, not that company's logo — that is the fake-logo incident, and it is worse than a
+  // generic photo because it misrepresents a real business. Prompts describe the BUSINESS SCENE
+  // (storefront, service van, crew at work) which is honest imagery for a franchise page.
+  const pollen = [];
+  if (POLLINATE) {
+    const subject = String(title || query)
+      .replace(/^\s*(?:should i|how do i|what|which|is|are|can|does|do)\b/i, '')
+      .replace(/\b(open or buy|open|buy|start|own)\b/gi, ' ')
+      .replace(/\bin \d{4}\b/g, '').replace(/[?"]/g, '')
+      .replace(/\s{2,}/g, ' ').trim();
+    const scenes = [
+      'professional photograph of a ' + subject + ' storefront exterior, daylight, clean signage',
+      'photograph of the interior of a ' + subject + ' location, customers, natural light',
+      'photograph of a ' + subject + ' service vehicle and uniformed crew at work',
+      'photograph of a ' + subject + ' owner reviewing paperwork at a counter',
+      'wide photograph of a busy ' + subject + ' business during opening hours',
+      'photograph of staff preparing a ' + subject + ' location for the day',
+    ];
+    for (let i = 0; i < scenes.length; i++) {
+      const prompt = scenes[i].slice(0, 200);
+      pollen.push({
+        src: 'https://image.pollinations.ai/prompt/' + encodeURIComponent(prompt)
+             + '?width=1600&height=1067&nologo=true&seed=' + (Math.abs(hashStr(title + ':' + i)) % 100000),
+        isPack: false, pid: 'pollen:' + i + ':' + prompt.slice(0, 40), score: 60,
+      });
+    }
+  }
+  // Generated first while Pexels is cooling; real photos still get a look after.
+  const order = POLLINATE ? [...pollen, ...topic, ...fbList, ...packs] : [...topic, ...fbList, ...packs];
   // PASS 0: fresh (never-used) only. PASS 1: allow reuse ONLY when everything fresh is gone.
   for (let pass = 0; pass < 2; pass++) {
     for (const c of order) {
       if (pass === 0 && c.pid && used.has(c.pid)) continue;
-      const raw = c.isPack ? readPack(c.src) : await dl(c.src);
+      const isPollen = !c.isPack && /image\.pollinations\.ai/.test(String(c.src));
+      const raw = c.isPack ? readPack(c.src)
+                : isPollen ? await pollenFetch(c.src)      // 🌸 serial, throttled, one at a time
+                : await dl(c.src);
       if (!raw || raw.length < 2500) continue;
       const buf = await fmt(raw);
       const h = crypto.createHash('md5').update(buf).digest('hex');
