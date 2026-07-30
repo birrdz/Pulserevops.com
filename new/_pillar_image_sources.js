@@ -21,7 +21,7 @@
 //               Keyless, unmetered, 5s serialised gap. Verified: 56 hits for a Five Guys
 //               storefront, 35 for a Mr. Rooter van, 33 for a Blink Fitness interior, all ≥1200px.
 //   tmdb        themoviedb.org. Real posters/backdrops per film, `tmdb_api_key` already in
-//               Netlify env, free, high-res. Verified working. NOT wired into either machine yet.
+//               Netlify env AND now in .env.local so the crew can read it. Verified working, LIVE.
 //   stock       Pexels + the 7,953-image local banked pool. Fine for generic business imagery.
 //               ⚠️ Pexels is on a quota cooldown — the local pool carries most of the load.
 //
@@ -37,7 +37,7 @@
 //
 // ── STATUS ──────────────────────────────────────────────────────────────────
 //   fr  ✅ ddg-brand — LIVE (this is the pillar being worked)
-//   mv  📋 tmdb — mapped, not wired. See _MOVIES_IMAGE_SOURCE_NOTE.md
+//   mv  ✅ tmdb — LIVE. TMDB_API_KEY added to .env.local (the crew reads that, not Netlify env)
 //   everything else → stock (unchanged behaviour)
 //
 // Next pillars that WANT ddg-brand when their turn comes, because their titles name real things:
@@ -49,7 +49,7 @@
 
 const SOURCES = {
   fr: { source: 'ddg-brand', extract: 'franchiseBrand', note: 'real store/premises photos of the named franchise' },
-  mv: { source: 'stock', planned: 'tmdb', note: 'TMDB posters — key present, not wired yet' },
+  mv: { source: 'tmdb', note: 'real posters/backdrops per film from themoviedb.org' },
   _DEFAULT: { source: 'stock', note: 'Pexels + local banked pool' },
 };
 
@@ -59,9 +59,14 @@ function imageSourceFor(pillar) {
   return SOURCES[p] || SOURCES._DEFAULT;
 }
 
+/** true when this pillar's images come from the movie database. */
+function usesMovieDb(pillar) {
+  return imageSourceFor(pillar).source === 'tmdb';
+}
+
 /** true when this pillar should try real branded photos before anything generic. */
 function usesBrandPhotos(pillar) {
   return imageSourceFor(pillar).source === 'ddg-brand';
 }
 
-module.exports = { SOURCES, imageSourceFor, usesBrandPhotos };
+module.exports = { SOURCES, imageSourceFor, usesBrandPhotos, usesMovieDb };

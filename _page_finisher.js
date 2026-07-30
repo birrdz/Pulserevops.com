@@ -20,6 +20,8 @@ let DDGIMG = { franchiseBrand: () => '', brandPhotos: async () => [] };
 let IMGSRC = { usesBrandPhotos: () => false };
 try { DDGIMG = require('./new/_ddg_images'); } catch (e) {}
 try { IMGSRC = require('./new/_pillar_image_sources'); } catch (e) {}
+let TMDB = { movieImages: async () => [], cleanTitle: (x) => x };
+try { TMDB = require('./new/_tmdb_images'); } catch (e) {}
 let PILLAR = (process.env.SLOT_PILLAR || process.env.DEFAULT_PILLAR || 'tl').toLowerCase().replace(/[^a-z]/g, '');
 // ROTATION (owner 2026-07-21): a small-pillar crew (ROTATE=1) that FINISHES its pillar jumps to the next
 // un-taken small Q&A pillar — never the same one twice. The tl crew launches WITHOUT ROTATE and stays on tl.
@@ -322,7 +324,7 @@ async function pickImage(query, seen, title, pool) {
   //   3. pexels      generic fallback (buildings / architecture / art)
   //   4. local pool  7,953 banked images on disk, zero API calls
   //   5. pollinator  generated, last resort — a slot is never left empty
-  const brandCands = (pool || []).map(p => ({ src: p.url, isPack: false, pid: p.url, score: 100, rung: 'ddg-brand' }));
+  const brandCands = (pool || []).map(p => ({ src: p.url, isPack: false, pid: p.url, score: 100, rung: (p.via || '').indexOf('tmdb') === 0 ? 'tmdb' : 'ddg-brand' }));
   const lastResort = [];
   if (String(process.env.CREW_POLLINATE_LAST || '1') === '1') {
     const subj = String(title || query).replace(/[?"]/g, '').slice(0, 120);
@@ -634,6 +636,17 @@ async function finishPage(id, blob) {
   // this business (contiguous brand phrase + premises evidence, off-topic subjects rejected).
   // Which pillars use this lives in new/_pillar_image_sources.js — one place, both machines.
   let brandPool = [];
+  // 🎬 MOVIE DATABASE — a ranked movie page names ten films, so each slot gets THAT film's real
+  // poster. Ranked headings give the titles; a non-ranked page falls back to its own title.
+  if (IMGSRC.usesMovieDb(PILLAR)) {
+    const films = (String((blob && blob.answer) || '').match(/^##\s+\d+\.\s+(.+)$/gm) || [])
+      .map(h => TMDB.cleanTitle(h)).filter(Boolean);
+    const wanted = films.length ? films : [TMDB.cleanTitle(title)];
+    try {
+      brandPool = await TMDB.movieImages(wanted, bodyN + 1);
+      log(id + ' 🎬 TMDB → ' + brandPool.length + ' real poster(s) for ' + wanted.length + ' film title(s)');
+    } catch (e) { log(id + ' 🎬 TMDB lookup failed — ' + ((e && e.message) || e)); }
+  }
   if (IMGSRC.usesBrandPhotos(PILLAR)) {
     const brand = DDGIMG.franchiseBrand(title);
     if (brand) {
