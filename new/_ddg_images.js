@@ -154,4 +154,77 @@ async function brandPhotos(brand, want) {
   return out.slice(0, target);
 }
 
-module.exports = { ddgSearch, franchiseBrand, storeQueries, brandMatch, brandScore, brandPhotos, DDG_GAP_MS, MIN_W };
+// ── NAMED-ITEM PHOTOS (ranked pages) ────────────────────────────────────────
+// Owner 2026-07-30, gaming next. A ranked page names its real things INSIDE the items
+// ("## 3. Persona 5 Royal"), not in the page title the way a franchise does. So slot N is
+// searched for item N by name, and verified the same way: the item name must appear as a
+// contiguous phrase, and off-topic subjects are rejected.
+//
+// CATEGORY HINT disambiguates a bare name. "Persona 5 Royal" alone is fine, but "Control" or
+// "Journey" as a game name would return anything; "Control game cover" does not.
+
+/** Strip ranking furniture off a "## N. Name 🏆 BEST OVERALL" heading. */
+function itemName(heading) {
+  return String(heading || '')
+    .replace(/^#{2,3}\s*/, '').replace(/^\d+[.)]\s*/, '')
+    .replace(/[🏆💎]/g, '').replace(/\bBEST\s+(?:OVERALL|VALUE)\b/gi, '')
+    .replace(/[—–|]/g, ' ').replace(/\s{2,}/g, ' ').trim();
+}
+
+/** Every ranked item name on a page, in rank order. */
+function rankedItems(body) {
+  return (String(body || '').match(/^##\s+\d+\.\s+(.+)$/gm) || []).map(itemName).filter(Boolean);
+}
+
+/** The subject noun of a ranked page: "Top 10 Gaming TVs in 2027" -> "gaming tvs".
+ *  This is the disambiguator, and it MUST come from the page rather than the pillar: gm holds
+ *  "Gaming TVs", "Capture Cards", "VR Headsets" AND "Battle Royale Games", so a fixed
+ *  "game cover art" hint would search "LG C4 OLED game cover art" and return nonsense. */
+function pageSubject(title) {
+  return String(title || '')
+    .replace(/^\s*(?:the\s+)?(?:top|best)\s*\d*\s*/i, '')
+    .replace(/\bin\s+(?:19|20)\d{2}\b.*$/i, '')
+    .replace(/[—–|].*$/, '')
+    .replace(/\bfor\s+\d{4}\b.*$/i, '')
+    .replace(/[?"]/g, '').replace(/\s{2,}/g, ' ').trim().toLowerCase();
+}
+
+/** Real photos of ONE named item, verified to actually be it. */
+async function itemPhotos(name, pageTitle, want) {
+  const subj = pageSubject(pageTitle);
+  // Bare name first — a model name like "Sony PlayStation 5" or "Persona 5 Royal" is already
+  // unambiguous. The page subject is the fallback for short/generic names ("Control", "Journey").
+  const queries = [name, subj ? name + ' ' + subj : ''].filter(Boolean);
+  const target = Math.max(1, want || 1);
+  const seen = new Set();
+  const out = [];
+  for (const q of queries) {
+    if (out.length >= target) break;
+    const rows = await ddgSearch(q);
+    for (const r of rows) {
+      if (out.length >= target) break;
+      if (!r.url || seen.has(r.url)) continue;
+      if (!brandMatch(r.alt, name)) continue;      // must actually be this item
+      if (OFF_TOPIC.test(String(r.alt || ''))) continue;
+      seen.add(r.url);
+      out.push(Object.assign({ via: 'ddg-item', item: name }, r));
+    }
+  }
+  return out;
+}
+
+/**
+ * One verified photo per ranked item, in rank order, so slot N illustrates item N.
+ * An item DDG cannot verify simply yields nothing and the ladder covers that slot instead.
+ */
+async function rankedItemPhotos(body, pageTitle, want) {
+  const items = rankedItems(body).slice(0, Math.max(1, want || 11));
+  const out = [];
+  for (const name of items) {
+    const p = await itemPhotos(name, pageTitle, 1);
+    if (p.length) out.push(p[0]);
+  }
+  return out;
+}
+
+module.exports = { ddgSearch, itemName, rankedItems, itemPhotos, rankedItemPhotos, pageSubject, franchiseBrand, storeQueries, brandMatch, brandScore, brandPhotos, DDG_GAP_MS, MIN_W };

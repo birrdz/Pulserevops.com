@@ -48,7 +48,16 @@
 'use strict';
 
 const SOURCES = {
-  fr: { source: 'ddg-brand', extract: 'franchiseBrand', note: 'real store/premises photos of the named franchise' },
+  // fr: reverted to stock 2026-07-30 — owner: "some are good but it's using a lot of the same
+  // pictures over and over ... with the exception of the occasional picture of a store, the old
+  // format was better." Measured: 17% of images on recent fr pages were byte-identical to one on
+  // an earlier page. The repeats were NOT DDG's — DDG verifies only ~3-5 real photos per brand,
+  // then the ladder falls through to the local banked pool for the remaining slots, and that pool
+  // is shared by every page. Two genuine storefronts followed by recycled stock reads worse than
+  // consistent stock, because the good ones make the repeats obvious.
+  // To re-enable: set source back to 'ddg-brand'. Better first: cap a page's image count to what
+  // DDG can actually verify (fewer images, all real) instead of padding from the pool.
+  fr: { source: 'stock', tried: 'ddg-brand', note: 'reverted — pool padding caused visible repeats' },
   mv: { source: 'tmdb', note: 'real posters/backdrops per film from themoviedb.org' },
   _DEFAULT: { source: 'stock', note: 'Pexels + local banked pool' },
 };
